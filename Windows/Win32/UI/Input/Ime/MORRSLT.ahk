@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WDD.ahk" { WDD }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WDD.ahk" { WDD }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DSCAPS.ahk" { DSCAPS }
+#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
-#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
@@ -84,7 +84,7 @@ export default struct IDirectSound extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCooperativeLevel(_hwnd, dwLevel) {
-        result := ComCall(6, this, HWND, _hwnd, "uint", dwLevel, "HRESULT")
+        result := ComCall(6, this, HWND, _hwnd, UInt32, dwLevel, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IDirectSound extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSpeakerConfig(dwSpeakerConfig) {
-        result := ComCall(9, this, "uint", dwSpeakerConfig, "HRESULT")
+        result := ComCall(9, this, UInt32, dwSpeakerConfig, "HRESULT")
         return result
     }
 

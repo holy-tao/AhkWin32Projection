@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * Implements methods that get information from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT). A CDT contains data, such as company logos, that is needed for receivers and stored in nonvolatile memory.
@@ -61,7 +61,7 @@ export default struct IISDB_CDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-initialize
      */
     Initialize(pSectionList, pMPEGData, bSectionNumber) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "char", bSectionNumber, "HRESULT")
+        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, Int8, bSectionNumber, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IISDB_CDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
-        result := ComCall(10, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -153,7 +153,7 @@ export default struct IISDB_CDT extends IUnknown {
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(11, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

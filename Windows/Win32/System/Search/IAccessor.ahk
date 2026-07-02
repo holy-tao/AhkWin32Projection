@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import ".\DBBINDING.ahk" { DBBINDING }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -63,7 +63,7 @@ export default struct IAccessor extends IUnknown {
     CreateAccessor(dwAccessorFlags, cBindings, rgBindings, cbRowSize, phAccessor, rgStatus) {
         rgStatusMarshal := rgStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwAccessorFlags, "ptr", cBindings, DBBINDING.Ptr, rgBindings, "ptr", cbRowSize, HACCESSOR.Ptr, phAccessor, rgStatusMarshal, rgStatus, "HRESULT")
+        result := ComCall(4, this, UInt32, dwAccessorFlags, IntPtr, cBindings, DBBINDING.Ptr, rgBindings, IntPtr, cbRowSize, HACCESSOR.Ptr, phAccessor, rgStatusMarshal, rgStatus, "HRESULT")
         return result
     }
 

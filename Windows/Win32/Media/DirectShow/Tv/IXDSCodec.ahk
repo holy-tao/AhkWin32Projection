@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ProtType.ahk" { ProtType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IXDSCodec interface is exposed by the XDS Codec filter. Most applications will not have to use this interface.
@@ -114,7 +114,7 @@ export default struct IXDSCodec extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-put_ccsubstreamservice
      */
     put_CCSubstreamService(SubstreamMask) {
-        result := ComCall(4, this, "int", SubstreamMask, "HRESULT")
+        result := ComCall(4, this, Int32, SubstreamMask, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
 #Import ".\ITTerminal.ahk" { ITTerminal }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumTerminal.ahk" { IEnumTerminal }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITStream interfaces expose methods that allow an application to retrieve information on a stream; to start, pause, or stop the stream; to select or unselect terminals on a stream; and to obtain a list of terminals selected on the stream.

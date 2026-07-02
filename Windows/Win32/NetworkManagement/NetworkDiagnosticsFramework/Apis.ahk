@@ -1,16 +1,16 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Security\SID.ahk" { SID }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\RootCauseInfo.ahk" { RootCauseInfo }
-#Import ".\RepairInfoEx.ahk" { RepairInfoEx }
-#Import "..\..\Networking\WinSock\SOCKET_ADDRESS_LIST.ahk" { SOCKET_ADDRESS_LIST }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Networking\WinSock\SOCKET.ahk" { SOCKET }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Security\SID.ahk" { SID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
+#Import ".\RepairInfoEx.ahk" { RepairInfoEx }
+#Import ".\RootCauseInfo.ahk" { RootCauseInfo }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS_LIST.ahk" { SOCKET_ADDRESS_LIST }
+#Import "..\..\Networking\WinSock\SOCKET.ahk" { SOCKET }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
@@ -38,7 +38,7 @@
 export NdfCreateIncident(helperClassName, celt, attributes) {
     helperClassName := helperClassName is String ? StrPtr(helperClassName) : helperClassName
 
-    result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, HELPER_ATTRIBUTE.Ptr, attributes, "ptr*", &_handle := 0, "HRESULT")
+    result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, UInt32, celt, HELPER_ATTRIBUTE.Ptr, attributes, "ptr*", &_handle := 0, "HRESULT")
     return _handle
 }
 
@@ -70,7 +70,7 @@ export NdfCreateWinSockIncident(sock, host, port, appId, userId) {
     host := host is String ? StrPtr(host) : host
     appId := appId is String ? StrPtr(appId) : appId
 
-    result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", SOCKET, sock, "ptr", host, "ushort", port, "ptr", appId, SID.Ptr, userId, "ptr*", &_handle := 0, "HRESULT")
+    result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", SOCKET, sock, "ptr", host, UInt16, port, "ptr", appId, SID.Ptr, userId, "ptr*", &_handle := 0, "HRESULT")
     return _handle
 }
 
@@ -158,7 +158,7 @@ export NdfCreateSharingIncident(UNCPath) {
 export NdfCreateDNSIncident(hostname, queryType) {
     hostname := hostname is String ? StrPtr(hostname) : hostname
 
-    result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, "ptr*", &_handle := 0, "HRESULT")
+    result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, UInt16, queryType, "ptr*", &_handle := 0, "HRESULT")
     return _handle
 }
 
@@ -498,7 +498,7 @@ export NdfDiagnoseIncident(_Handle, RootCauseCount, RootCauses, dwWait, dwFlags)
     RootCauseCountMarshal := RootCauseCount is VarRef ? "uint*" : "ptr"
     RootCausesMarshal := RootCauses is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", _HandleMarshal, _Handle, RootCauseCountMarshal, RootCauseCount, RootCausesMarshal, RootCauses, "uint", dwWait, "uint", dwFlags, "HRESULT")
+    result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", _HandleMarshal, _Handle, RootCauseCountMarshal, RootCauseCount, RootCausesMarshal, RootCauses, UInt32, dwWait, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -581,7 +581,7 @@ export NdfDiagnoseIncident(_Handle, RootCauseCount, RootCauses, dwWait, dwFlags)
 export NdfRepairIncident(_Handle, RepairEx, dwWait) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NDFAPI.dll\NdfRepairIncident", _HandleMarshal, _Handle, RepairInfoEx.Ptr, RepairEx, "uint", dwWait, "HRESULT")
+    result := DllCall("NDFAPI.dll\NdfRepairIncident", _HandleMarshal, _Handle, RepairInfoEx.Ptr, RepairEx, UInt32, dwWait, "HRESULT")
     return result
 }
 

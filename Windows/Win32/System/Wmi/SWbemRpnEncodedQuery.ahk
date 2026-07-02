@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\SWbemQueryQualifiedName.ahk" { SWbemQueryQualifiedName }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SWbemRpnQueryToken.ahk" { SWbemRpnQueryToken }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The SWbemRpnEncodedQuery structure contains information from the IWbemQuery::GetAnalysis method when you use the WMIQ_ANALYSIS_RPN_SEQUENCE analysis type. Not all the fields in the structure are used actively, because some are reserved for future use.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPDDHALSURFCB_SETOVERLAYPOSITION.ahk" { LPDDHALSURFCB_SETOVERLAYPOSITION }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
@@ -21,6 +22,6 @@ export default struct DDHAL_SETOVERLAYPOSITIONDATA {
 
     ddRVal : HRESULT
 
-    SetOverlayPosition : IntPtr
+    SetOverlayPosition : LPDDHALSURFCB_SETOVERLAYPOSITION
 
 }

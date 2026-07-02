@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\ITaskbarList2.ahk" { ITaskbarList2 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Controls\HIMAGELIST.ahk" { HIMAGELIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\THUMBBUTTON.ahk" { THUMBBUTTON }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 #Import ".\TBPFLAG.ahk" { TBPFLAG }
+#Import ".\ITaskbarList2.ahk" { ITaskbarList2 }
+#Import ".\THUMBBUTTON.ahk" { THUMBBUTTON }
 
 /**
  * Extends ITaskbarList2 by exposing methods that support the unified launching and switching taskbar button functionality added in Windows 7.
@@ -149,7 +149,7 @@ export default struct ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-setprogressvalue
      */
     SetProgressValue(_hwnd, ullCompleted, ullTotal) {
-        result := ComCall(9, this, HWND, _hwnd, "uint", ullCompleted, "uint", ullTotal, "HRESULT")
+        result := ComCall(9, this, HWND, _hwnd, Int64, ullCompleted, Int64, ullTotal, "HRESULT")
         return result
     }
 
@@ -309,7 +309,7 @@ export default struct ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-settabactive
      */
     SetTabActive(hwndTab, hwndMDI, dwReserved) {
-        result := ComCall(14, this, HWND, hwndTab, HWND, hwndMDI, "uint", dwReserved, "HRESULT")
+        result := ComCall(14, this, HWND, hwndTab, HWND, hwndMDI, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -360,7 +360,7 @@ export default struct ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-thumbbaraddbuttons
      */
     ThumbBarAddButtons(_hwnd, cButtons, pButton) {
-        result := ComCall(15, this, HWND, _hwnd, "uint", cButtons, THUMBBUTTON.Ptr, pButton, "HRESULT")
+        result := ComCall(15, this, HWND, _hwnd, UInt32, cButtons, THUMBBUTTON.Ptr, pButton, "HRESULT")
         return result
     }
 
@@ -385,7 +385,7 @@ export default struct ITaskbarList3 extends ITaskbarList2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itaskbarlist3-thumbbarupdatebuttons
      */
     ThumbBarUpdateButtons(_hwnd, cButtons, pButton) {
-        result := ComCall(16, this, HWND, _hwnd, "uint", cButtons, THUMBBUTTON.Ptr, pButton, "HRESULT")
+        result := ComCall(16, this, HWND, _hwnd, UInt32, cButtons, THUMBBUTTON.Ptr, pButton, "HRESULT")
         return result
     }
 

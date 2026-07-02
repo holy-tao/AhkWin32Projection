@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TsGravity.ahk" { TsGravity }
-#Import ".\ANCHOR_CHANGE_HISTORY_FLAGS.ahk" { ANCHOR_CHANGE_HISTORY_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TsGravity.ahk" { TsGravity }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TsShiftDir.ahk" { TsShiftDir }
+#Import ".\ANCHOR_CHANGE_HISTORY_FLAGS.ahk" { ANCHOR_CHANGE_HISTORY_FLAGS }
 
 /**
  * The IAnchor interface is implemented by the TSF manager. Clients of Microsoft Active Accessibility use IAnchor anchor objects to delimit a range of text within a text stream.
@@ -191,7 +191,7 @@ export default struct IAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-shift
      */
     Shift(dwFlags, cchReq, paHaltAnchor) {
-        result := ComCall(7, this, "uint", dwFlags, "int", cchReq, "int*", &pcch := 0, "ptr", paHaltAnchor, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, Int32, cchReq, "int*", &pcch := 0, "ptr", paHaltAnchor, "HRESULT")
         return pcch
     }
 
@@ -337,7 +337,7 @@ export default struct IAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-shiftregion
      */
     ShiftRegion(dwFlags, dir) {
-        result := ComCall(9, this, "uint", dwFlags, TsShiftDir, dir, BOOL.Ptr, &pfNoRegion := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwFlags, TsShiftDir, dir, BOOL.Ptr, &pfNoRegion := 0, "HRESULT")
         return pfNoRegion
     }
 
@@ -366,7 +366,7 @@ export default struct IAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-setchangehistorymask
      */
     SetChangeHistoryMask(dwMask) {
-        result := ComCall(10, this, "uint", dwMask, "HRESULT")
+        result := ComCall(10, this, UInt32, dwMask, "HRESULT")
         return result
     }
 

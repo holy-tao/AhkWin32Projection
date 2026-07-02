@@ -4,9 +4,9 @@
 #Import ".\WDSTRANSPORT_NETWORK_PROFILE_TYPE.ahk" { WDSTRANSPORT_NETWORK_PROFILE_TYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWdsTransportCacheable.ahk" { IWdsTransportCacheable }
-#Import ".\WDSTRANSPORT_IP_ADDRESS_TYPE.ahk" { WDSTRANSPORT_IP_ADDRESS_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE.ahk" { WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE }
+#Import ".\WDSTRANSPORT_IP_ADDRESS_TYPE.ahk" { WDSTRANSPORT_IP_ADDRESS_TYPE }
 
 /**
  * Represents the service policy part of the WDS transport server's configuration.
@@ -186,7 +186,7 @@ export default struct IWdsTransportServicePolicy extends IWdsTransportCacheable 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startport
      */
     put_StartPort(ulStartPort) {
-        result := ComCall(18, this, "uint", ulStartPort, "HRESULT")
+        result := ComCall(18, this, UInt32, ulStartPort, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IWdsTransportServicePolicy extends IWdsTransportCacheable 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endport
      */
     put_EndPort(ulEndPort) {
-        result := ComCall(20, this, "uint", ulEndPort, "HRESULT")
+        result := ComCall(20, this, UInt32, ulEndPort, "HRESULT")
         return result
     }
 

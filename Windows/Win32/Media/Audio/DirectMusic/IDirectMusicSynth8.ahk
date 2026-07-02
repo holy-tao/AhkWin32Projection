@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DMUS_VOICE_STATE.ahk" { DMUS_VOICE_STATE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDirectMusicSynth.ahk" { IDirectMusicSynth }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IDirectMusicSynth8is unsupported and may be altered or unavailable in the future.
@@ -58,7 +58,7 @@ export default struct IDirectMusicSynth8 extends IDirectMusicSynth {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-playvoice
      */
     PlayVoice(rt, dwVoiceId, dwChannelGroup, dwChannel, dwDLId, prPitch, vrVolume, stVoiceStart, stLoopStart, stLoopEnd) {
-        result := ComCall(20, this, "int64", rt, "uint", dwVoiceId, "uint", dwChannelGroup, "uint", dwChannel, "uint", dwDLId, "int", prPitch, "int", vrVolume, "uint", stVoiceStart, "uint", stLoopStart, "uint", stLoopEnd, "HRESULT")
+        result := ComCall(20, this, Int64, rt, UInt32, dwVoiceId, UInt32, dwChannelGroup, UInt32, dwChannel, UInt32, dwDLId, Int32, prPitch, Int32, vrVolume, Int64, stVoiceStart, Int64, stLoopStart, Int64, stLoopEnd, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IDirectMusicSynth8 extends IDirectMusicSynth {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-stopvoice
      */
     StopVoice(rt, dwVoiceId) {
-        result := ComCall(21, this, "int64", rt, "uint", dwVoiceId, "HRESULT")
+        result := ComCall(21, this, Int64, rt, UInt32, dwVoiceId, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IDirectMusicSynth8 extends IDirectMusicSynth {
     GetVoiceState(dwVoice, cbVoice, dwVoiceState) {
         dwVoiceMarshal := dwVoice is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, dwVoiceMarshal, dwVoice, "uint", cbVoice, DMUS_VOICE_STATE.Ptr, dwVoiceState, "HRESULT")
+        result := ComCall(22, this, dwVoiceMarshal, dwVoice, UInt32, cbVoice, DMUS_VOICE_STATE.Ptr, dwVoiceState, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IDirectMusicSynth8 extends IDirectMusicSynth {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-refresh
      */
     Refresh(dwDownloadID, dwFlags) {
-        result := ComCall(23, this, "uint", dwDownloadID, "uint", dwFlags, "HRESULT")
+        result := ComCall(23, this, UInt32, dwDownloadID, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IDirectMusicSynth8 extends IDirectMusicSynth {
     AssignChannelToBuses(dwChannelGroup, dwChannel, pdwBuses, cBuses) {
         pdwBusesMarshal := pdwBuses is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, "uint", dwChannelGroup, "uint", dwChannel, pdwBusesMarshal, pdwBuses, "uint", cBuses, "HRESULT")
+        result := ComCall(24, this, UInt32, dwChannelGroup, UInt32, dwChannel, pdwBusesMarshal, pdwBuses, UInt32, cBuses, "HRESULT")
         return result
     }
 

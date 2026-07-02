@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISearchRoot.ahk" { ISearchRoot }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IEnumSearchScopeRules.ahk" { IEnumSearchScopeRules }
-#Import ".\CLUSION_REASON.ahk" { CLUSION_REASON }
+#Import ".\ISearchRoot.ahk" { ISearchRoot }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IEnumSearchScopeRules.ahk" { IEnumSearchScopeRules }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumSearchRoots.ahk" { IEnumSearchRoots }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CLUSION_REASON.ahk" { CLUSION_REASON }
 
 /**
  * Provides methods that notify the search engine of containers to crawl and/or watch, and items under those containers to include or exclude when crawling or watching.
@@ -85,7 +85,7 @@ export default struct ISearchCrawlScopeManager extends IUnknown {
     AddDefaultScopeRule(pszURL, fInclude, fFollowFlags) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(3, this, "ptr", pszURL, BOOL, fInclude, "uint", fFollowFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszURL, BOOL, fInclude, UInt32, fFollowFlags, "HRESULT")
         return result
     }
 
@@ -205,7 +205,7 @@ export default struct ISearchCrawlScopeManager extends IUnknown {
     AddUserScopeRule(pszURL, fInclude, fOverrideChildren, fFollowFlags) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(8, this, "ptr", pszURL, BOOL, fInclude, BOOL, fOverrideChildren, "uint", fFollowFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", pszURL, BOOL, fInclude, BOOL, fOverrideChildren, UInt32, fFollowFlags, "HRESULT")
         return result
     }
 

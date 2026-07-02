@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a collection of Windows Deployment Services (WDS) transport management objects.
@@ -77,7 +77,7 @@ export default struct IWdsTransportCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_item
      */
     get_Item(ulIndex) {
-        result := ComCall(8, this, "uint", ulIndex, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, ulIndex, "ptr*", &ppVal := 0, "HRESULT")
         return IDispatch(ppVal)
     }
 

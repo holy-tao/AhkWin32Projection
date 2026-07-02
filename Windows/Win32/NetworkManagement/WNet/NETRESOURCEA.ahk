@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
 #Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
 
 /**
  * The following structure contains information about a network resource. It is used by several of the network provider functions, including NPOpenEnum and NPAddConnection. (ANSI)

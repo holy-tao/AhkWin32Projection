@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WICBitmapPaletteType.ahk" { WICBitmapPaletteType }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IWICPalette.ahk" { IWICPalette }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WICBitmapDitherType.ahk" { WICBitmapDitherType }
 
 /**
@@ -71,7 +71,7 @@ export default struct IWICPlanarFormatConverter extends IWICBitmapSource {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarformatconverter-initialize
      */
     Initialize(ppPlanes, cPlanes, dstFormat, dither, pIPalette, alphaThresholdPercent, paletteTranslate) {
-        result := ComCall(8, this, IWICBitmapSource.Ptr, ppPlanes, "uint", cPlanes, Guid.Ptr, dstFormat, WICBitmapDitherType, dither, "ptr", pIPalette, "double", alphaThresholdPercent, WICBitmapPaletteType, paletteTranslate, "HRESULT")
+        result := ComCall(8, this, IWICBitmapSource.Ptr, ppPlanes, UInt32, cPlanes, Guid.Ptr, dstFormat, WICBitmapDitherType, dither, "ptr", pIPalette, Float64, alphaThresholdPercent, WICBitmapPaletteType, paletteTranslate, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct IWICPlanarFormatConverter extends IWICBitmapSource {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarformatconverter-canconvert
      */
     CanConvert(pSrcPixelFormats, cSrcPlanes, dstPixelFormat) {
-        result := ComCall(9, this, Guid.Ptr, pSrcPixelFormats, "uint", cSrcPlanes, Guid.Ptr, dstPixelFormat, BOOL.Ptr, &pfCanConvert := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pSrcPixelFormats, UInt32, cSrcPlanes, Guid.Ptr, dstPixelFormat, BOOL.Ptr, &pfCanConvert := 0, "HRESULT")
         return pfCanConvert
     }
 

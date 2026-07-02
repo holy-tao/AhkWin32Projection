@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_BLEND_OP.ahk" { D3D11_BLEND_OP }
-#Import ".\D3D11_BLEND.ahk" { D3D11_BLEND }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D11_LOGIC_OP.ahk" { D3D11_LOGIC_OP }
+#Import ".\D3D11_BLEND.ahk" { D3D11_BLEND }
 #Import ".\D3D11_RENDER_TARGET_BLEND_DESC1.ahk" { D3D11_RENDER_TARGET_BLEND_DESC1 }
+#Import ".\D3D11_LOGIC_OP.ahk" { D3D11_LOGIC_OP }
+#Import ".\D3D11_BLEND_OP.ahk" { D3D11_BLEND_OP }
 
 /**
  * Describes the blend state that you use in a call to ID3D11Device1::CreateBlendState1 to create a blend-state object. (D3D11_BLEND_DESC1)

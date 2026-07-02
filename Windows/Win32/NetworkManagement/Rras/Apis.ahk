@@ -1,59 +1,61 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\RASSUBENTRYW.ahk" { RASSUBENTRYW }
-#Import ".\RASENTRYDLGA.ahk" { RASENTRYDLGA as RASENTRYDLGA_type }
-#Import ".\RASEAPUSERIDENTITYW.ahk" { RASEAPUSERIDENTITYW }
-#Import ".\MPR_SERVER_SET_CONFIG_EX1.ahk" { MPR_SERVER_SET_CONFIG_EX1 }
-#Import ".\RAS_PROJECTION_INFO.ahk" { RAS_PROJECTION_INFO }
-#Import ".\RTM_ENTITY_METHOD_INPUT.ahk" { RTM_ENTITY_METHOD_INPUT }
-#Import ".\RAS_UPDATE_CONNECTION.ahk" { RAS_UPDATE_CONNECTION }
-#Import ".\RASCREDENTIALSA.ahk" { RASCREDENTIALSA }
-#Import ".\RASENTRYW.ahk" { RASENTRYW }
-#Import ".\HRASCONN.ahk" { HRASCONN }
-#Import ".\RTM_NEXTHOP_INFO.ahk" { RTM_NEXTHOP_INFO }
-#Import ".\RTM_ENTITY_EXPORT_METHODS.ahk" { RTM_ENTITY_EXPORT_METHODS }
-#Import ".\RASDIALPARAMSW.ahk" { RASDIALPARAMSW }
-#Import ".\RASENTRYDLGW.ahk" { RASENTRYDLGW as RASENTRYDLGW_type }
-#Import ".\RASDIALPARAMSA.ahk" { RASDIALPARAMSA }
-#Import ".\RTM_NET_ADDRESS.ahk" { RTM_NET_ADDRESS }
-#Import ".\RASDEVINFOW.ahk" { RASDEVINFOW }
-#Import ".\RAS_CONNECTION_EX.ahk" { RAS_CONNECTION_EX }
-#Import ".\RASDIALEXTENSIONS.ahk" { RASDIALEXTENSIONS }
-#Import ".\RASDEVINFOA.ahk" { RASDEVINFOA }
-#Import ".\RASUPDATECONN.ahk" { RASUPDATECONN }
-#Import ".\RASCONNSTATUSW.ahk" { RASCONNSTATUSW }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\RASENTRYNAMEW.ahk" { RASENTRYNAMEW }
-#Import "..\IpHelper\MIB_IPMCAST_MFE.ahk" { MIB_IPMCAST_MFE }
-#Import ".\RASCONNSTATUSA.ahk" { RASCONNSTATUSA }
-#Import ".\RTM_DEST_INFO.ahk" { RTM_DEST_INFO }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
-#Import ".\RTM_ENTITY_METHOD_OUTPUT.ahk" { RTM_ENTITY_METHOD_OUTPUT }
-#Import ".\MPR_SERVER_EX1.ahk" { MPR_SERVER_EX1 }
-#Import ".\RASPBDLGA.ahk" { RASPBDLGA }
-#Import ".\RASAUTODIALENTRYA.ahk" { RASAUTODIALENTRYA }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MPRAPI_OBJECT_HEADER.ahk" { MPRAPI_OBJECT_HEADER }
-#Import ".\RTM_ROUTE_INFO.ahk" { RTM_ROUTE_INFO }
-#Import ".\RASAUTODIALENTRYW.ahk" { RASAUTODIALENTRYW }
-#Import ".\ROUTING_PROTOCOL_CONFIG.ahk" { ROUTING_PROTOCOL_CONFIG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MGM_ENUM_TYPES.ahk" { MGM_ENUM_TYPES }
 #Import ".\RASCTRYINFO.ahk" { RASCTRYINFO }
-#Import ".\RASDIALDLG.ahk" { RASDIALDLG }
-#Import ".\RTM_ENTITY_INFO.ahk" { RTM_ENTITY_INFO }
-#Import ".\RASEAPUSERIDENTITYA.ahk" { RASEAPUSERIDENTITYA }
-#Import ".\RASENTRYNAMEA.ahk" { RASENTRYNAMEA }
-#Import ".\RAS_STATS.ahk" { RAS_STATS }
-#Import ".\RTM_REGN_PROFILE.ahk" { RTM_REGN_PROFILE }
-#Import ".\RASCREDENTIALSW.ahk" { RASCREDENTIALSW }
-#Import ".\RASPROJECTION.ahk" { RASPROJECTION }
-#Import ".\RASPBDLGW.ahk" { RASPBDLGW }
+#Import ".\RASDEVINFOA.ahk" { RASDEVINFOA }
+#Import ".\RASDEVINFOW.ahk" { RASDEVINFOW }
+#Import ".\RASEAPUSERIDENTITYW.ahk" { RASEAPUSERIDENTITYW }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\RTM_ENTITY_EXPORT_METHOD.ahk" { RTM_ENTITY_EXPORT_METHOD }
+#Import ".\RASENTRYW.ahk" { RASENTRYW }
+#Import ".\RASDIALPARAMSA.ahk" { RASDIALPARAMSA }
+#Import ".\RTM_EVENT_CALLBACK.ahk" { RTM_EVENT_CALLBACK }
 #Import ".\RASSUBENTRYA.ahk" { RASSUBENTRYA }
-#Import ".\MPR_IF_CUSTOMINFOEX2.ahk" { MPR_IF_CUSTOMINFOEX2 }
-#Import ".\RASENTRYA.ahk" { RASENTRYA }
+#Import ".\RASAUTODIALENTRYW.ahk" { RASAUTODIALENTRYW }
+#Import ".\RASAUTODIALENTRYA.ahk" { RASAUTODIALENTRYA }
+#Import ".\RAS_CONNECTION_EX.ahk" { RAS_CONNECTION_EX }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\RASPBDLGA.ahk" { RASPBDLGA }
+#Import ".\RAS_PROJECTION_INFO.ahk" { RAS_PROJECTION_INFO }
+#Import ".\RASPBDLGW.ahk" { RASPBDLGW }
+#Import ".\RTM_ENTITY_EXPORT_METHODS.ahk" { RTM_ENTITY_EXPORT_METHODS }
+#Import ".\RAS_UPDATE_CONNECTION.ahk" { RAS_UPDATE_CONNECTION }
+#Import ".\RTM_ENTITY_INFO.ahk" { RTM_ENTITY_INFO }
+#Import ".\RTM_DEST_INFO.ahk" { RTM_DEST_INFO }
+#Import ".\RASEAPUSERIDENTITYA.ahk" { RASEAPUSERIDENTITYA }
+#Import ".\MGM_ENUM_TYPES.ahk" { MGM_ENUM_TYPES }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\MPR_IF_CUSTOMINFOEX2.ahk" { MPR_IF_CUSTOMINFOEX2 }
+#Import ".\RASENTRYDLGA.ahk" { RASENTRYDLGA as RASENTRYDLGA_type }
+#Import ".\MPR_SERVER_SET_CONFIG_EX1.ahk" { MPR_SERVER_SET_CONFIG_EX1 }
+#Import ".\RTM_NEXTHOP_INFO.ahk" { RTM_NEXTHOP_INFO }
+#Import ".\RASUPDATECONN.ahk" { RASUPDATECONN }
+#Import "..\IpHelper\MIB_IPMCAST_MFE.ahk" { MIB_IPMCAST_MFE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RASDIALPARAMSW.ahk" { RASDIALPARAMSW }
+#Import ".\MPRAPI_OBJECT_HEADER.ahk" { MPRAPI_OBJECT_HEADER }
+#Import ".\RTM_ENTITY_METHOD_OUTPUT.ahk" { RTM_ENTITY_METHOD_OUTPUT }
+#Import ".\RTM_ENTITY_METHOD_INPUT.ahk" { RTM_ENTITY_METHOD_INPUT }
+#Import ".\RASSUBENTRYW.ahk" { RASSUBENTRYW }
+#Import ".\RASENTRYNAMEW.ahk" { RASENTRYNAMEW }
+#Import ".\RASENTRYA.ahk" { RASENTRYA }
+#Import ".\RASCREDENTIALSW.ahk" { RASCREDENTIALSW }
+#Import ".\RASENTRYDLGW.ahk" { RASENTRYDLGW as RASENTRYDLGW_type }
+#Import ".\RASPROJECTION.ahk" { RASPROJECTION }
+#Import ".\RASCREDENTIALSA.ahk" { RASCREDENTIALSA }
+#Import ".\ROUTING_PROTOCOL_CONFIG.ahk" { ROUTING_PROTOCOL_CONFIG }
+#Import ".\HRASCONN.ahk" { HRASCONN }
+#Import ".\RTM_ROUTE_INFO.ahk" { RTM_ROUTE_INFO }
+#Import ".\RTM_NET_ADDRESS.ahk" { RTM_NET_ADDRESS }
+#Import ".\RASDIALDLG.ahk" { RASDIALDLG }
+#Import ".\MPR_SERVER_EX1.ahk" { MPR_SERVER_EX1 }
+#Import ".\RASENTRYNAMEA.ahk" { RASENTRYNAMEA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\RASDIALEXTENSIONS.ahk" { RASDIALEXTENSIONS }
+#Import ".\RTM_REGN_PROFILE.ahk" { RTM_REGN_PROFILE }
+#Import ".\RASCONNSTATUSW.ahk" { RASCONNSTATUSW }
+#Import ".\RASCONNSTATUSA.ahk" { RASCONNSTATUSA }
+#Import ".\RAS_STATS.ahk" { RAS_STATS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -128,12 +130,57 @@
  * 
  * > [!NOTE]
  * > The ras.h header defines RasDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<RASDIALEXTENSIONS>} param0 
- * @param {PSTR} param1 
- * @param {Pointer<RASDIALPARAMSA>} param2 
+ * @param {Pointer<RASDIALEXTENSIONS>} param0 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structure that specifies a set of 
+ * <b>RasDial</b> extended features to enable. Set this parameter to <b>NULL</b> if there is not a need to enable these features.
+ * @param {PSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * @param {Pointer<RASDIALPARAMSA>} param2 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure that specifies calling parameters for the RAS connection. Use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a> function to retrieve a copy of this structure for a particular phone-book entry. 
+ * 
+ * 
+ * 
+ * 
+ * The caller must set the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure's <b>dwSize</b> member to sizeof(<b>RASDIALPARAMS</b>) to identify the version of the structure being passed.
+ * 
+ * If the <b>szPhoneNumber</b> member of the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure is an empty string, 
+ * <b>RasDial</b> uses the phone number stored in the phone-book entry.
  * @param {Integer} param3 
- * @param {Pointer<Void>} param4 
- * @param {Pointer<HRASCONN>} param5 
+ * @param {Pointer<Void>} param4 Specifies a window handle or a 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc">RasDialFunc</a>, 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc1">RasDialFunc1</a>, or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc2">RasDialFunc2</a> callback function to receive 
+ * <b>RasDial</b> event notifications. The <i>dwNotifierType</i> parameter specifies the nature of <i>lpvNotifier</i>. Please refer to its description preceding for further detail. 
+ * 
+ * 
+ * 
+ * 
+ * If this parameter is not <b>NULL</b>, 
+ * <b>RasDial</b> sends the window a message, or calls the callback function, for each 
+ * <b>RasDial</b> event. Additionally, the 
+ * <b>RasDial</b> call operates asynchronously: 
+ * <b>RasDial</b> returns immediately, before the connection is established, and communicates its progress via the window or callback function.
+ * 
+ * If <i>lpvNotifier</i> is <b>NULL</b>, the 
+ * <b>RasDial</b> call operates synchronously: 
+ * <b>RasDial</b> does not return until the connection attempt has completed successfully or failed.
+ * 
+ * If <i>lpvNotifier</i> is not <b>NULL</b>, notifications to the window or callback function can occur at any time after the initial call to 
+ * <b>RasDial</b>. Notifications end when one of the following events occurs:
+ * 
+ * <ul>
+ * <li>The connection is established. In other words, the RAS connection state is RASCS_Connected.</li>
+ * <li>The connection fails. In other words, <i>dwError</i> is nonzero.</li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> is called on the connection.</li>
+ * </ul>
+ * The callback notifications are made in the context of a thread captured during the initial call to 
+ * <b>RasDial</b>.
+ * @param {Pointer<HRASCONN>} param5 Pointer to a variable of type <b>HRASCONN</b>. Set the <b>HRASCONN</b> variable to <b>NULL</b> before calling 
+ * <b>RasDial</b>. If 
+ * <b>RasDial</b> succeeds, it stores a handle to the RAS connection into <i>*lphRasConn</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
  * 
  * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -145,7 +192,7 @@ export RasDialA(param0, param1, param2, param3, param4, param5) {
 
     param4Marshal := param4 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasDialA", RASDIALEXTENSIONS.Ptr, param0, "ptr", param1, RASDIALPARAMSA.Ptr, param2, "uint", param3, param4Marshal, param4, HRASCONN.Ptr, param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasDialA", RASDIALEXTENSIONS.Ptr, param0, "ptr", param1, RASDIALPARAMSA.Ptr, param2, UInt32, param3, param4Marshal, param4, HRASCONN.Ptr, param5, UInt32)
     return result
 }
 
@@ -217,12 +264,57 @@ export RasDialA(param0, param1, param2, param3, param4, param5) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<RASDIALEXTENSIONS>} param0 
- * @param {PWSTR} param1 
- * @param {Pointer<RASDIALPARAMSW>} param2 
+ * @param {Pointer<RASDIALEXTENSIONS>} param0 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structure that specifies a set of 
+ * <b>RasDial</b> extended features to enable. Set this parameter to <b>NULL</b> if there is not a need to enable these features.
+ * @param {PWSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * @param {Pointer<RASDIALPARAMSW>} param2 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure that specifies calling parameters for the RAS connection. Use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a> function to retrieve a copy of this structure for a particular phone-book entry. 
+ * 
+ * 
+ * 
+ * 
+ * The caller must set the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure's <b>dwSize</b> member to sizeof(<b>RASDIALPARAMS</b>) to identify the version of the structure being passed.
+ * 
+ * If the <b>szPhoneNumber</b> member of the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure is an empty string, 
+ * <b>RasDial</b> uses the phone number stored in the phone-book entry.
  * @param {Integer} param3 
- * @param {Pointer<Void>} param4 
- * @param {Pointer<HRASCONN>} param5 
+ * @param {Pointer<Void>} param4 Specifies a window handle or a 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc">RasDialFunc</a>, 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc1">RasDialFunc1</a>, or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc2">RasDialFunc2</a> callback function to receive 
+ * <b>RasDial</b> event notifications. The <i>dwNotifierType</i> parameter specifies the nature of <i>lpvNotifier</i>. Please refer to its description preceding for further detail. 
+ * 
+ * 
+ * 
+ * 
+ * If this parameter is not <b>NULL</b>, 
+ * <b>RasDial</b> sends the window a message, or calls the callback function, for each 
+ * <b>RasDial</b> event. Additionally, the 
+ * <b>RasDial</b> call operates asynchronously: 
+ * <b>RasDial</b> returns immediately, before the connection is established, and communicates its progress via the window or callback function.
+ * 
+ * If <i>lpvNotifier</i> is <b>NULL</b>, the 
+ * <b>RasDial</b> call operates synchronously: 
+ * <b>RasDial</b> does not return until the connection attempt has completed successfully or failed.
+ * 
+ * If <i>lpvNotifier</i> is not <b>NULL</b>, notifications to the window or callback function can occur at any time after the initial call to 
+ * <b>RasDial</b>. Notifications end when one of the following events occurs:
+ * 
+ * <ul>
+ * <li>The connection is established. In other words, the RAS connection state is RASCS_Connected.</li>
+ * <li>The connection fails. In other words, <i>dwError</i> is nonzero.</li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> is called on the connection.</li>
+ * </ul>
+ * The callback notifications are made in the context of a thread captured during the initial call to 
+ * <b>RasDial</b>.
+ * @param {Pointer<HRASCONN>} param5 Pointer to a variable of type <b>HRASCONN</b>. Set the <b>HRASCONN</b> variable to <b>NULL</b> before calling 
+ * <b>RasDial</b>. If 
+ * <b>RasDial</b> succeeds, it stores a handle to the RAS connection into <i>*lphRasConn</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
  * 
  * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -234,7 +326,7 @@ export RasDialW(param0, param1, param2, param3, param4, param5) {
 
     param4Marshal := param4 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasDialW", RASDIALEXTENSIONS.Ptr, param0, "ptr", param1, RASDIALPARAMSW.Ptr, param2, "uint", param3, param4Marshal, param4, HRASCONN.Ptr, param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasDialW", RASDIALEXTENSIONS.Ptr, param0, "ptr", param1, RASDIALPARAMSW.Ptr, param2, UInt32, param3, param4Marshal, param4, HRASCONN.Ptr, param5, UInt32)
     return result
 }
 
@@ -247,9 +339,28 @@ export RasDialW(param0, param1, param2, param3, param4, param5) {
  * 
  * 
  * ```cpp
- * @param {Integer} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<Integer>} param2 
+ * @param {Integer} param0 Pointer to a buffer that receives, on output, an array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structures, one for each RAS connection. 
+ * 
+ * 
+ * 
+ * 
+ * On input, an application must set the <b>dwSize</b> member of the first 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structure in the buffer to sizeof(<b>RASCONN</b>) in order to identify the version of the structure being passed.
+ * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by <i>lprasconn</i>. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the function sets this variable to the number of bytes required to enumerate the RAS connections.
+ * 
+ * <div class="alert"><b>Note</b>  <p class="note">To determine the required buffer size, call 
+ * <b>RasEnumConnections</b> with <i>lprasconn</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+ * 
+ * </div>
+ * <div> </div>
+ * @param {Pointer<Integer>} param2 Pointer to a variable that receives the number of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structures written to the buffer specified by <i>lprasconn</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -278,7 +389,7 @@ export RasEnumConnectionsA(param0, param1, param2) {
     param1Marshal := param1 is VarRef ? "uint*" : "ptr"
     param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasEnumConnectionsA", "ptr", param0, param1Marshal, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumConnectionsA", IntPtr, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -291,9 +402,28 @@ export RasEnumConnectionsA(param0, param1, param2) {
  * 
  * 
  * ```cpp
- * @param {Integer} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<Integer>} param2 
+ * @param {Integer} param0 Pointer to a buffer that receives, on output, an array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structures, one for each RAS connection. 
+ * 
+ * 
+ * 
+ * 
+ * On input, an application must set the <b>dwSize</b> member of the first 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structure in the buffer to sizeof(<b>RASCONN</b>) in order to identify the version of the structure being passed.
+ * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by <i>lprasconn</i>. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the function sets this variable to the number of bytes required to enumerate the RAS connections.
+ * 
+ * <div class="alert"><b>Note</b>  <p class="note">To determine the required buffer size, call 
+ * <b>RasEnumConnections</b> with <i>lprasconn</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+ * 
+ * </div>
+ * <div> </div>
+ * @param {Pointer<Integer>} param2 Pointer to a variable that receives the number of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376725(v=vs.85)">RASCONN</a> structures written to the buffer specified by <i>lprasconn</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -322,7 +452,7 @@ export RasEnumConnectionsW(param0, param1, param2) {
     param1Marshal := param1 is VarRef ? "uint*" : "ptr"
     param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasEnumConnectionsW", "ptr", param0, param1Marshal, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumConnectionsW", IntPtr, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -336,11 +466,29 @@ export RasEnumConnectionsW(param0, param1, param2) {
  * 
  * 
  * ```cpp
- * @param {PSTR} param0 
- * @param {PSTR} param1 
- * @param {Pointer<RASENTRYNAMEA>} param2 
- * @param {Pointer<Integer>} param3 
- * @param {Pointer<Integer>} param4 
+ * @param {PSTR} param0 Reserved; must be <b>NULL</b>.
+ * @param {PSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * 
+ * If this parameter is <b>NULL</b>, the entries are enumerated from all the remote access phone-book files in the AllUsers profile and the user's profile.
+ * @param {Pointer<RASENTRYNAMEA>} param2 Pointer to a buffer that, on output, receives an array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structures, one for each phone-book entry. 
+ * 
+ * 
+ * 
+ * 
+ * On input, an application must set the <b>dwSize</b> member of the first 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure in the buffer to sizeof(<b>RASENTRYNAME</b>) in order to identify the version of the structure being passed.
+ * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by <i>lprasentryname</i>. 
+ * 
+ * 
+ * 
+ * 
+ * Pointer to a variable that, on output, contains the size, in bytes, of the array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structures required for the phone-book entries.
+ * 
+ * <b>Windows Vista or later:  </b>To determine the required buffer size, call 
+ * <b>RasEnumEntries</b> with <i>lprasentryname</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+ * @param {Pointer<Integer>} param4 Pointer to a variable that receives to the number of phone-book entries written to the buffer specified by <i>lprasentryname</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -413,11 +561,29 @@ export RasEnumEntriesA(param0, param1, param2, param3, param4) {
  * 
  * 
  * ```cpp
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
- * @param {Pointer<RASENTRYNAMEW>} param2 
- * @param {Pointer<Integer>} param3 
- * @param {Pointer<Integer>} param4 
+ * @param {PWSTR} param0 Reserved; must be <b>NULL</b>.
+ * @param {PWSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * 
+ * If this parameter is <b>NULL</b>, the entries are enumerated from all the remote access phone-book files in the AllUsers profile and the user's profile.
+ * @param {Pointer<RASENTRYNAMEW>} param2 Pointer to a buffer that, on output, receives an array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structures, one for each phone-book entry. 
+ * 
+ * 
+ * 
+ * 
+ * On input, an application must set the <b>dwSize</b> member of the first 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure in the buffer to sizeof(<b>RASENTRYNAME</b>) in order to identify the version of the structure being passed.
+ * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, contains the size, in bytes, of the buffer specified by <i>lprasentryname</i>. 
+ * 
+ * 
+ * 
+ * 
+ * Pointer to a variable that, on output, contains the size, in bytes, of the array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structures required for the phone-book entries.
+ * 
+ * <b>Windows Vista or later:  </b>To determine the required buffer size, call 
+ * <b>RasEnumEntries</b> with <i>lprasentryname</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+ * @param {Pointer<Integer>} param4 Pointer to a variable that receives to the number of phone-book entries written to the buffer specified by <i>lprasentryname</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -496,8 +662,16 @@ export RasEnumEntriesW(param0, param1, param2, param3, param4) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetConnectStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
- * @param {Pointer<RASCONNSTATUSA>} param1 
+ * @param {HRASCONN} param0 Specifies the remote access connection for which to retrieve the status. This handle must have been obtained from 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>.
+ * @param {Pointer<RASCONNSTATUSA>} param1 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a> structure that, on output, receives the status information. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a>) in order to identify the version of the structure being passed.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -543,8 +717,16 @@ export RasGetConnectStatusA(param0, param1) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetConnectStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
- * @param {Pointer<RASCONNSTATUSW>} param1 
+ * @param {HRASCONN} param0 Specifies the remote access connection for which to retrieve the status. This handle must have been obtained from 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>.
+ * @param {Pointer<RASCONNSTATUSW>} param1 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a> structure that, on output, receives the status information. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a>) in order to identify the version of the structure being passed.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -611,7 +793,7 @@ export RasGetConnectStatusW(param0, param1) {
 export RasGetErrorStringA(ResourceId, lpszString, InBufSize) {
     lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
 
-    result := DllCall("RASAPI32.dll\RasGetErrorStringA", "uint", ResourceId, "ptr", lpszString, "uint", InBufSize, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetErrorStringA", UInt32, ResourceId, "ptr", lpszString, UInt32, InBufSize, UInt32)
     return result
 }
 
@@ -652,7 +834,7 @@ export RasGetErrorStringA(ResourceId, lpszString, InBufSize) {
 export RasGetErrorStringW(ResourceId, lpszString, InBufSize) {
     lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
 
-    result := DllCall("RASAPI32.dll\RasGetErrorStringW", "uint", ResourceId, "ptr", lpszString, "uint", InBufSize, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetErrorStringW", UInt32, ResourceId, "ptr", lpszString, UInt32, InBufSize, UInt32)
     return result
 }
 
@@ -684,7 +866,9 @@ export RasGetErrorStringW(ResourceId, lpszString, InBufSize) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasHangUp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
+ * @param {HRASCONN} param0 Specifies the remote access connection to terminate. This is a handle returned from a previous call to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -742,7 +926,9 @@ export RasHangUpA(param0) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasHangUp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
+ * @param {HRASCONN} param0 Specifies the remote access connection to terminate. This is a handle returned from a previous call to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -790,10 +976,137 @@ export RasHangUpW(param0) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetProjectionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
- * @param {RASPROJECTION} param1 
- * @param {Pointer<Void>} param2 
- * @param {Pointer<Integer>} param3 
+ * @param {HRASCONN} param0 Handle to the remote access connection of interest. An application obtains a RAS connection handle from the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
+ * @param {RASPROJECTION} param1 Specifies the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377648(v=vs.85)">RASPROJECTION</a> enumerated type value that identifies the protocol of interest.
+ * @param {Pointer<Void>} param2 Pointer to a buffer that receives the information specified by the <i>rasprojection</i> parameter. The information is in a structure appropriate to the <i>rasprojection</i> value. 
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>rasprojection value</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_Amb"></a><a id="rasp_amb"></a><a id="RASP_AMB"></a><dl>
+ * <dt><b>RASP_Amb</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376720(v=vs.85)">RASAMB</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows 2000 or earlier.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppCcp"></a><a id="rasp_pppccp"></a><a id="RASP_PPPCCP"></a><dl>
+ * <dt><b>RASP_PppCcp</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377620(v=vs.85)">RASPPPCCP</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows 2000 or later.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppIp"></a><a id="rasp_pppip"></a><a id="RASP_PPPIP"></a><dl>
+ * <dt><b>RASP_PppIp</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377634(v=vs.85)">RASPPPIP</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppIpv6"></a><a id="rasp_pppipv6"></a><a id="RASP_PPPIPV6"></a><dl>
+ * <dt><b>RASP_PppIpv6</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa816540(v=vs.85)">RASPPPIPV6</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows Vista or later.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppIpx"></a><a id="rasp_pppipx"></a><a id="RASP_PPPIPX"></a><dl>
+ * <dt><b>RASP_PppIpx</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377623(v=vs.85)">RASPPPIPX</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Not supported on 64-bit Microsoft Windows.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppLcp"></a><a id="rasp_ppplcp"></a><a id="RASP_PPPLCP"></a><dl>
+ * <dt><b>RASP_PppLcp</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377638(v=vs.85)">RASPPPLCP</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows 2000 or later.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppNbf"></a><a id="rasp_pppnbf"></a><a id="RASP_PPPNBF"></a><dl>
+ * <dt><b>RASP_PppNbf</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377642(v=vs.85)">RASPPPNBF</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows 2000 or earlier.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_Slip"></a><a id="rasp_slip"></a><a id="RASP_SLIP"></a><dl>
+ * <dt><b>RASP_Slip</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377836(v=vs.85)">RASPSLIP</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows Server 2003 or earlier.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * </table>
+ * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpprojection</i>. 
+ * 
+ * 
+ * 
+ * 
+ * On output, this variable receives the size, in bytes, of the <i>lpprojection</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -888,10 +1201,137 @@ export RasGetProjectionInfoA(param0, param1, param2, param3) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetProjectionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
- * @param {RASPROJECTION} param1 
- * @param {Pointer<Void>} param2 
- * @param {Pointer<Integer>} param3 
+ * @param {HRASCONN} param0 Handle to the remote access connection of interest. An application obtains a RAS connection handle from the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
+ * @param {RASPROJECTION} param1 Specifies the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377648(v=vs.85)">RASPROJECTION</a> enumerated type value that identifies the protocol of interest.
+ * @param {Pointer<Void>} param2 Pointer to a buffer that receives the information specified by the <i>rasprojection</i> parameter. The information is in a structure appropriate to the <i>rasprojection</i> value. 
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>rasprojection value</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_Amb"></a><a id="rasp_amb"></a><a id="RASP_AMB"></a><dl>
+ * <dt><b>RASP_Amb</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376720(v=vs.85)">RASAMB</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows 2000 or earlier.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppCcp"></a><a id="rasp_pppccp"></a><a id="RASP_PPPCCP"></a><dl>
+ * <dt><b>RASP_PppCcp</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377620(v=vs.85)">RASPPPCCP</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows 2000 or later.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppIp"></a><a id="rasp_pppip"></a><a id="RASP_PPPIP"></a><dl>
+ * <dt><b>RASP_PppIp</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377634(v=vs.85)">RASPPPIP</a>
+ * 
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppIpv6"></a><a id="rasp_pppipv6"></a><a id="RASP_PPPIPV6"></a><dl>
+ * <dt><b>RASP_PppIpv6</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa816540(v=vs.85)">RASPPPIPV6</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows Vista or later.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppIpx"></a><a id="rasp_pppipx"></a><a id="RASP_PPPIPX"></a><dl>
+ * <dt><b>RASP_PppIpx</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377623(v=vs.85)">RASPPPIPX</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Not supported on 64-bit Microsoft Windows.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppLcp"></a><a id="rasp_ppplcp"></a><a id="RASP_PPPLCP"></a><dl>
+ * <dt><b>RASP_PppLcp</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377638(v=vs.85)">RASPPPLCP</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows 2000 or later.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_PppNbf"></a><a id="rasp_pppnbf"></a><a id="RASP_PPPNBF"></a><dl>
+ * <dt><b>RASP_PppNbf</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377642(v=vs.85)">RASPPPNBF</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows 2000 or earlier.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="RASP_Slip"></a><a id="rasp_slip"></a><a id="RASP_SLIP"></a><dl>
+ * <dt><b>RASP_Slip</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377836(v=vs.85)">RASPSLIP</a>
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  Supported on Windows Server 2003 or earlier.</div>
+ * <div> </div>
+ * </td>
+ * </tr>
+ * </table>
+ * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpprojection</i>. 
+ * 
+ * 
+ * 
+ * 
+ * On output, this variable receives the size, in bytes, of the <i>lpprojection</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -984,8 +1424,8 @@ export RasGetProjectionInfoW(param0, param1, param2, param3) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasCreatePhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HWND} param0 
- * @param {PSTR} param1 
+ * @param {HWND} param0 Handle to the parent window of the dialog box.
+ * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1033,8 +1473,8 @@ export RasCreatePhonebookEntryA(param0, param1) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasCreatePhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HWND} param0 
- * @param {PWSTR} param1 
+ * @param {HWND} param0 Handle to the parent window of the dialog box.
+ * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1081,9 +1521,9 @@ export RasCreatePhonebookEntryW(param0, param1) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasEditPhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HWND} param0 
- * @param {PSTR} param1 
- * @param {PSTR} param2 
+ * @param {HWND} param0 Handle to the parent window of the dialog box.
+ * @param {PSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the<b> Dial-Up Networking</b> dialog box.
+ * @param {PSTR} param2 Pointer to a null-terminated string that specifies the name of an existing entry in the phone-book file.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1153,9 +1593,9 @@ export RasEditPhonebookEntryA(param0, param1, param2) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasEditPhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HWND} param0 
- * @param {PWSTR} param1 
- * @param {PWSTR} param2 
+ * @param {HWND} param0 Handle to the parent window of the dialog box.
+ * @param {PWSTR} param1 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the<b> Dial-Up Networking</b> dialog box.
+ * @param {PWSTR} param2 Pointer to a null-terminated string that specifies the name of an existing entry in the phone-book file.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1229,9 +1669,127 @@ export RasEditPhonebookEntryW(param0, param1, param2) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
- * @param {Pointer<RASDIALPARAMSA>} param1 
- * @param {BOOL} param2 
+ * @param {PSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 						
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {Pointer<RASDIALPARAMSA>} param1 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure that specifies the connection parameters to be associated with the phone-book entry. 
+ * <b>RasSetEntryDialParams</b> uses the structure's members as follows. 
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Member</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="dwSize"></a><a id="dwsize"></a><a id="DWSIZE"></a><dl>
+ * <dt><b><b>dwSize</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Must specify the size of (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a>) to identify the version of the structure.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szEntryName"></a><a id="szentryname"></a><a id="SZENTRYNAME"></a><dl>
+ * <dt><b><b>szEntryName</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that identifies the phone-book entry to set parameters for.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szPhoneNumber"></a><a id="szphonenumber"></a><a id="SZPHONENUMBER"></a><dl>
+ * <dt><b><b>szPhoneNumber</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Not used. Set to <b>NULL</b>.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szCallbackNumber"></a><a id="szcallbacknumber"></a><a id="SZCALLBACKNUMBER"></a><dl>
+ * <dt><b><b>szCallbackNumber</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that contains the callback phone number. If <b>szCallbackNumber</b> is an empty string ( "" ), the callback number is not changed.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szUserName"></a><a id="szusername"></a><a id="SZUSERNAME"></a><dl>
+ * <dt><b><b>szUserName</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that contains the logon name of the user associated with this entry. If <b>szUserName</b> is an empty string, the user name is not changed.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szPassword"></a><a id="szpassword"></a><a id="SZPASSWORD"></a><dl>
+ * <dt><b><b>szPassword</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that contains the password for the user specified by <b>szUserName</b>. If <b>szUserName</b> is an empty string, the password is not changed. If <b>szPassword</b> is an empty string and <i>fRemovePassword</i> is <b>FALSE</b>, the password is set to the empty string. If <i>fRemovePassword</i> is <b>TRUE</b>, the password stored in this phone-book entry for the user specified by <b>szUserName</b> is removed regardless of the contents of the <b>szPassword</b> string. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows NT 4.0:  </b>The password is changed to the string specified by <b>szPassword</b> regardless of whether <b>szUserName</b> is an empty string.
+ * 
+ * <b>Windows XP/2000:  </b>If <b>szPassword</b> contains the password handle returned by 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetcredentialsa">RasGetCredentials</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a>, 
+ * <b>RasSetEntryDialParams</b> returns successfully without changing any currently saved password.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szDomain"></a><a id="szdomain"></a><a id="SZDOMAIN"></a><dl>
+ * <dt><b><b>szDomain</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that contains the name of the domain on which to log on. If <b>szDomain</b> is an empty string, the domain name is not changed.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="dwSubEntry"></a><a id="dwsubentry"></a><a id="DWSUBENTRY"></a><dl>
+ * <dt><b><b>dwSubEntry</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Specifies the (one-based) index of the initial subentry to dial when establishing the connection.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="dwCallbackId"></a><a id="dwcallbackid"></a><a id="DWCALLBACKID"></a><dl>
+ * <dt><b><b>dwCallbackId</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Specifies an application-defined value that RAS passes to the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc2">RasDialFunc2</a> callback function.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @param {BOOL} param2 Specifies whether to remove the phone-book entry's stored password for the user indicated by <i>lprasdialparams</i>-&gt;<b>szUserName</b>. If <i>fRemovePassword</i> is <b>TRUE</b>, the password is removed. Setting fRemovePassword to <b>TRUE</b> is equivalent to checking the "Unsave Password" check box in Dial-Up Networking. When setting the password or other properties of a phone book entry, set <i>fRemovePassword</i> to <b>FALSE</b>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1304,9 +1862,127 @@ export RasSetEntryDialParamsA(param0, param1, param2) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
- * @param {Pointer<RASDIALPARAMSW>} param1 
- * @param {BOOL} param2 
+ * @param {PWSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 						
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {Pointer<RASDIALPARAMSW>} param1 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure that specifies the connection parameters to be associated with the phone-book entry. 
+ * <b>RasSetEntryDialParams</b> uses the structure's members as follows. 
+ * 
+ * 
+ * 
+ * <table>
+ * <tr>
+ * <th>Member</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="dwSize"></a><a id="dwsize"></a><a id="DWSIZE"></a><dl>
+ * <dt><b><b>dwSize</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Must specify the size of (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a>) to identify the version of the structure.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szEntryName"></a><a id="szentryname"></a><a id="SZENTRYNAME"></a><dl>
+ * <dt><b><b>szEntryName</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that identifies the phone-book entry to set parameters for.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szPhoneNumber"></a><a id="szphonenumber"></a><a id="SZPHONENUMBER"></a><dl>
+ * <dt><b><b>szPhoneNumber</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Not used. Set to <b>NULL</b>.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szCallbackNumber"></a><a id="szcallbacknumber"></a><a id="SZCALLBACKNUMBER"></a><dl>
+ * <dt><b><b>szCallbackNumber</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that contains the callback phone number. If <b>szCallbackNumber</b> is an empty string ( "" ), the callback number is not changed.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szUserName"></a><a id="szusername"></a><a id="SZUSERNAME"></a><dl>
+ * <dt><b><b>szUserName</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that contains the logon name of the user associated with this entry. If <b>szUserName</b> is an empty string, the user name is not changed.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szPassword"></a><a id="szpassword"></a><a id="SZPASSWORD"></a><dl>
+ * <dt><b><b>szPassword</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that contains the password for the user specified by <b>szUserName</b>. If <b>szUserName</b> is an empty string, the password is not changed. If <b>szPassword</b> is an empty string and <i>fRemovePassword</i> is <b>FALSE</b>, the password is set to the empty string. If <i>fRemovePassword</i> is <b>TRUE</b>, the password stored in this phone-book entry for the user specified by <b>szUserName</b> is removed regardless of the contents of the <b>szPassword</b> string. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows NT 4.0:  </b>The password is changed to the string specified by <b>szPassword</b> regardless of whether <b>szUserName</b> is an empty string.
+ * 
+ * <b>Windows XP/2000:  </b>If <b>szPassword</b> contains the password handle returned by 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetcredentialsa">RasGetCredentials</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a>, 
+ * <b>RasSetEntryDialParams</b> returns successfully without changing any currently saved password.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="szDomain"></a><a id="szdomain"></a><a id="SZDOMAIN"></a><dl>
+ * <dt><b><b>szDomain</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * A null-terminated string that contains the name of the domain on which to log on. If <b>szDomain</b> is an empty string, the domain name is not changed.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="dwSubEntry"></a><a id="dwsubentry"></a><a id="DWSUBENTRY"></a><dl>
+ * <dt><b><b>dwSubEntry</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Specifies the (one-based) index of the initial subentry to dial when establishing the connection.
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="dwCallbackId"></a><a id="dwcallbackid"></a><a id="DWCALLBACKID"></a><dl>
+ * <dt><b><b>dwCallbackId</b></b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Specifies an application-defined value that RAS passes to the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc2">RasDialFunc2</a> callback function.
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ * @param {BOOL} param2 Specifies whether to remove the phone-book entry's stored password for the user indicated by <i>lprasdialparams</i>-&gt;<b>szUserName</b>. If <i>fRemovePassword</i> is <b>TRUE</b>, the password is removed. Setting fRemovePassword to <b>TRUE</b> is equivalent to checking the "Unsave Password" check box in Dial-Up Networking. When setting the password or other properties of a phone book entry, set <i>fRemovePassword</i> to <b>FALSE</b>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1365,9 +2041,42 @@ export RasSetEntryDialParamsW(param0, param1, param2) {
  * @remarks
  * > [!NOTE]
  * > The ras.h header defines RasGetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
- * @param {Pointer<RASDIALPARAMSA>} param1 
- * @param {Pointer<BOOL>} param2 
+ * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <i>Dial-Up Networking</i> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {Pointer<RASDIALPARAMSA>} param1 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure. 
+ * 
+ * 
+ * 
+ * 
+ * On input, the <b>dwSize</b> member specifies the size of the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure, and the <b>szEntryName</b> member specifies a valid phone-book entry.
+ * 
+ * On output, the structure receives the connection parameters associated with the specified phone-book entry.
+ * 
+ * Note that the <b>szPhoneNumber</b> member of the structure does not receive the phone number associated with the phone-book entry. To get the phone number associated with a phone-book entry, call the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> function. If <b>szPhoneNumber</b> is an empty string in the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure passed to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>, 
+ * <b>RasDial</b> uses the phone number stored in the phone-book entry.
+ * 
+ * The <b>szPassword</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure does not return the actual password. Instead,  <b>szPassword</b>  contains a handle to the saved password. Substitute this handle for the saved password in subsequent calls to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrydialparamsa">RasSetEntryDialParams</a> and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>. When presented with this handle, 
+ * <b>RasDial</b>  retrieves and uses the saved password. The value of this handle may change in future versions of the operating system; do not develop code that depends on the contents or format of this value.
+ * 
+ * <b>Windows NT and Windows Me/98/95:  </b>Secure password feature not supported.
+ * @param {Pointer<BOOL>} param2 Pointer to a flag that indicates whether the function retrieved the password associated with the user name for the phone-book entry. The <i>lpfPassword</i> parameter is <b>TRUE</b> if the system has saved a password for the specified entry. If the system has no password saved for this entry, <i>lpfPassword</i> is <b>FALSE</b>. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows NT and Windows Me/98/95:  </b>The function sets this flag to <b>TRUE</b> if the user's password was returned in the <b>szPassword</b> member of the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure pointed to by <i>lprasdialparams</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1428,9 +2137,42 @@ export RasGetEntryDialParamsA(param0, param1, param2) {
  * @remarks
  * > [!NOTE]
  * > The ras.h header defines RasGetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
- * @param {Pointer<RASDIALPARAMSW>} param1 
- * @param {Pointer<BOOL>} param2 
+ * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <i>Dial-Up Networking</i> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {Pointer<RASDIALPARAMSW>} param1 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure. 
+ * 
+ * 
+ * 
+ * 
+ * On input, the <b>dwSize</b> member specifies the size of the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure, and the <b>szEntryName</b> member specifies a valid phone-book entry.
+ * 
+ * On output, the structure receives the connection parameters associated with the specified phone-book entry.
+ * 
+ * Note that the <b>szPhoneNumber</b> member of the structure does not receive the phone number associated with the phone-book entry. To get the phone number associated with a phone-book entry, call the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> function. If <b>szPhoneNumber</b> is an empty string in the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure passed to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>, 
+ * <b>RasDial</b> uses the phone number stored in the phone-book entry.
+ * 
+ * The <b>szPassword</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure does not return the actual password. Instead,  <b>szPassword</b>  contains a handle to the saved password. Substitute this handle for the saved password in subsequent calls to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrydialparamsa">RasSetEntryDialParams</a> and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>. When presented with this handle, 
+ * <b>RasDial</b>  retrieves and uses the saved password. The value of this handle may change in future versions of the operating system; do not develop code that depends on the contents or format of this value.
+ * 
+ * <b>Windows NT and Windows Me/98/95:  </b>Secure password feature not supported.
+ * @param {Pointer<BOOL>} param2 Pointer to a flag that indicates whether the function retrieved the password associated with the user name for the phone-book entry. The <i>lpfPassword</i> parameter is <b>TRUE</b> if the system has saved a password for the specified entry. If the system has no password saved for this entry, <i>lpfPassword</i> is <b>FALSE</b>. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows NT and Windows Me/98/95:  </b>The function sets this flag to <b>TRUE</b> if the user's password was returned in the <b>szPassword</b> member of the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> structure pointed to by <i>lprasdialparams</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1495,9 +2237,23 @@ export RasGetEntryDialParamsW(param0, param1, param2) {
  * 
  * 
  * ```cpp
- * @param {Pointer<RASDEVINFOA>} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<Integer>} param2 
+ * @param {Pointer<RASDEVINFOA>} param0 Pointer to a buffer that receives an array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structures, one for each RAS-capable device. Before calling the function, set the <b>dwSize</b> member of the first 
+ * <b>RASDEVINFO</b> structure in the buffer to sizeof(<b>RASDEVINFO</b>) to identify the version of the structure.
+ * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, contains the size, in bytes, of the <i>lpRasDevInfo</i> buffer. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the function sets this variable to the number of bytes required to enumerate the devices.
+ * 
+ * <div class="alert"><b>Note</b>  <p class="note">To determine the required buffer size, call 
+ * <b>RasEnumDevices</b> with <i>lpRasDevInfo</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+ * 
+ * </div>
+ * <div> </div>
+ * @param {Pointer<Integer>} param2 Pointer to a variable that receives the number of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structures written to the <i>lpRasDevInfo</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1573,9 +2329,23 @@ export RasEnumDevicesA(param0, param1, param2) {
  * 
  * 
  * ```cpp
- * @param {Pointer<RASDEVINFOW>} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<Integer>} param2 
+ * @param {Pointer<RASDEVINFOW>} param0 Pointer to a buffer that receives an array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structures, one for each RAS-capable device. Before calling the function, set the <b>dwSize</b> member of the first 
+ * <b>RASDEVINFO</b> structure in the buffer to sizeof(<b>RASDEVINFO</b>) to identify the version of the structure.
+ * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, contains the size, in bytes, of the <i>lpRasDevInfo</i> buffer. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the function sets this variable to the number of bytes required to enumerate the devices.
+ * 
+ * <div class="alert"><b>Note</b>  <p class="note">To determine the required buffer size, call 
+ * <b>RasEnumDevices</b> with <i>lpRasDevInfo</i> set to <b>NULL</b>. The variable pointed to by <i>lpcb</i> should be set to zero. The function will return the required buffer size in <i>lpcb</i> and an error code of <b>ERROR_BUFFER_TOO_SMALL</b>.
+ * 
+ * </div>
+ * <div> </div>
+ * @param {Pointer<Integer>} param2 Pointer to a variable that receives the number of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structures written to the <i>lpRasDevInfo</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1656,8 +2426,21 @@ export RasEnumDevicesW(param0, param1, param2) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetCountryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<RASCTRYINFO>} param0 
- * @param {Pointer<Integer>} param1 
+ * @param {Pointer<RASCTRYINFO>} param0 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a> structure that, on output, receives the country/region-specific dialing information followed by additional bytes for a country/region description string. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a>) to identify the version of the structure. Also, set the <b>dwCountryId</b> member to the TAPI country/region identifier of the country/region for which to get information.
+ * 
+ * Allocate at least 256 bytes for the buffer.
+ * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by the <i>lpRasCtryInfo</i> parameter. 
+ * 
+ * 
+ * 
+ * 
+ * On output, this variable receives the number of bytes required.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1736,8 +2519,21 @@ export RasGetCountryInfoA(param0, param1) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetCountryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<RASCTRYINFO>} param0 
- * @param {Pointer<Integer>} param1 
+ * @param {Pointer<RASCTRYINFO>} param0 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a> structure that, on output, receives the country/region-specific dialing information followed by additional bytes for a country/region description string. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a>) to identify the version of the structure. Also, set the <b>dwCountryId</b> member to the TAPI country/region identifier of the country/region for which to get information.
+ * 
+ * Allocate at least 256 bytes for the buffer.
+ * @param {Pointer<Integer>} param1 Pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by the <i>lpRasCtryInfo</i> parameter. 
+ * 
+ * 
+ * 
+ * 
+ * On output, this variable receives the number of bytes required.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1807,12 +2603,58 @@ export RasGetCountryInfoW(param0, param1) {
  * @remarks
  * > [!NOTE]
  * > The ras.h header defines RasGetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
- * @param {PSTR} param1 
- * @param {Pointer<RASENTRYA>} param2 
- * @param {Pointer<Integer>} param3 
- * @param {Pointer<Integer>} param4 
- * @param {Pointer<Integer>} param5 
+ * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies an existing entry name. If an empty string is specified, the function returns default values in the buffers pointed to by the <i>lpRasEntry</i> and <i>lpbDeviceInfo</i> parameters.
+ * @param {Pointer<RASENTRYA>} param2 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure followed by additional bytes for the alternate phone number list, if there is one. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the structure receives the connection data associated with the phone-book entry specified by the <i>lpszEntry</i> parameter.
+ * 
+ * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a>) to identify the version of the structure.
+ * 
+ * This parameter can be <b>NULL</b>.
+ * 
+ * <b>Windows Me/98 and Windows 95 OSR2:  </b>The 
+ * Microsoft Layer for Unicode does not support <b>dwAlternateOffset</b> in 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a>.
+ * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the <i>lpRasEntry</i> buffer. 
+ * 
+ * 
+ * 
+ * 
+ * On output, this variable receives the number of bytes required.
+ * 
+ * This parameter can be <b>NULL</b> if the <i>lpRasEntry</i> parameter is <b>NULL</b>.
+ * 
+ * To determine the required buffer size, call 
+ * <b>RasGetEntryProperties</b> with <i>lpRasEntry</i> set to <b>NULL</b> and <i>*lpdwEntryInfoSize</i> set to zero. The function returns the required buffer size in <i>*lpdwEntryInfoSize</i>.
+ * @param {Pointer<Integer>} param4 This parameter is no longer used. The calling function should set this parameter to <b>NULL</b>.
+ * 
+ * <b>Windows Me/98/95:  </b>Pointer to a buffer that receives device-specific configuration information. Do not directly manipulate this opaque TAPI device information. For more information about TAPI device configuration, see the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> function in the TAPI Programmer's Reference in the Platform SDK. 
+ * 
+ * 
+ * This parameter can be <b>NULL</b>.
+ * @param {Pointer<Integer>} param5 This parameter is unused. The calling function should set this parameter to <b>NULL</b>.
+ * 						
+ * 
+ * <b>Windows Me/98/95:  </b>Pointer to a variable that, on input, specifies the size, in bytes, of the buffer specified by the <i>lpbDeviceInfo</i> parameter. 
+ * 
+ * 
+ * On output, this variable receives the number of bytes required.
+ * 
+ * This parameter can be <b>NULL</b> if the <i>lpbDeviceInfo</i> parameter s <b>NULL</b>.
+ * 
+ * To determine the required buffer size, call 
+ * <b>RasGetEntryProperties</b> with <i>lpbDeviceInfo</i> set to <b>NULL</b> and <i>*lpdwDeviceInfoSize</i> set to zero. The function returns the required buffer size in <i>*lpdwDeviceInfoSize</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -1898,12 +2740,58 @@ export RasGetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
  * @remarks
  * > [!NOTE]
  * > The ras.h header defines RasGetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
- * @param {Pointer<RASENTRYW>} param2 
- * @param {Pointer<Integer>} param3 
- * @param {Pointer<Integer>} param4 
- * @param {Pointer<Integer>} param5 
+ * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies an existing entry name. If an empty string is specified, the function returns default values in the buffers pointed to by the <i>lpRasEntry</i> and <i>lpbDeviceInfo</i> parameters.
+ * @param {Pointer<RASENTRYW>} param2 Pointer to a 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure followed by additional bytes for the alternate phone number list, if there is one. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the structure receives the connection data associated with the phone-book entry specified by the <i>lpszEntry</i> parameter.
+ * 
+ * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a>) to identify the version of the structure.
+ * 
+ * This parameter can be <b>NULL</b>.
+ * 
+ * <b>Windows Me/98 and Windows 95 OSR2:  </b>The 
+ * Microsoft Layer for Unicode does not support <b>dwAlternateOffset</b> in 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a>.
+ * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the <i>lpRasEntry</i> buffer. 
+ * 
+ * 
+ * 
+ * 
+ * On output, this variable receives the number of bytes required.
+ * 
+ * This parameter can be <b>NULL</b> if the <i>lpRasEntry</i> parameter is <b>NULL</b>.
+ * 
+ * To determine the required buffer size, call 
+ * <b>RasGetEntryProperties</b> with <i>lpRasEntry</i> set to <b>NULL</b> and <i>*lpdwEntryInfoSize</i> set to zero. The function returns the required buffer size in <i>*lpdwEntryInfoSize</i>.
+ * @param {Pointer<Integer>} param4 This parameter is no longer used. The calling function should set this parameter to <b>NULL</b>.
+ * 
+ * <b>Windows Me/98/95:  </b>Pointer to a buffer that receives device-specific configuration information. Do not directly manipulate this opaque TAPI device information. For more information about TAPI device configuration, see the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> function in the TAPI Programmer's Reference in the Platform SDK. 
+ * 
+ * 
+ * This parameter can be <b>NULL</b>.
+ * @param {Pointer<Integer>} param5 This parameter is unused. The calling function should set this parameter to <b>NULL</b>.
+ * 						
+ * 
+ * <b>Windows Me/98/95:  </b>Pointer to a variable that, on input, specifies the size, in bytes, of the buffer specified by the <i>lpbDeviceInfo</i> parameter. 
+ * 
+ * 
+ * On output, this variable receives the number of bytes required.
+ * 
+ * This parameter can be <b>NULL</b> if the <i>lpbDeviceInfo</i> parameter s <b>NULL</b>.
+ * 
+ * To determine the required buffer size, call 
+ * <b>RasGetEntryProperties</b> with <i>lpbDeviceInfo</i> set to <b>NULL</b> and <i>*lpdwDeviceInfoSize</i> set to zero. The function returns the required buffer size in <i>*lpdwDeviceInfoSize</i>.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2009,12 +2897,63 @@ export RasGetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
- * @param {PSTR} param1 
- * @param {Pointer<RASENTRYA>} param2 
- * @param {Integer} param3 
- * @param {Pointer<Integer>} param4 
- * @param {Integer} param5 
+ * @param {PSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. 
+ *       If this parameter is <b>NULL</b>, the function uses the current default phone-book file. 
+ *       The default phone-book file is the one selected by the user in the <b>User Preferences</b> 
+ *       property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * @param {PSTR} param1 Pointer to a null-terminated string that specifies an entry name.
+ * 
+ * If the entry name matches an existing entry, 
+ *        <b>RasSetEntryProperties</b> modifies the properties 
+ *        of that entry.
+ * 
+ * If the entry name does not match an existing entry, 
+ *        <b>RasSetEntryProperties</b> creates a new 
+ *        phone-book entry. For new entries, call the 
+ *        <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasvalidateentrynamea">RasValidateEntryName</a> function to validate the 
+ *        entry name before calling 
+ *        <b>RasSetEntryProperties</b>.
+ * @param {Pointer<RASENTRYA>} param2 Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure that specifies the 
+ *        new connection data to be associated with the phone-book entry indicated by the 
+ *        <i>lpszEntry</i> parameter.
+ * 
+ * The caller must provide values for the following members in the 
+ *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure.
+ * 
+ * <ul>
+ * <li><b>dwSize</b></li>
+ * <li><b>szLocalPhoneNumber</b></li>
+ * <li><b>szDeviceName</b></li>
+ * <li><b>szDeviceType</b></li>
+ * <li><b>dwFramingProtocol</b></li>
+ * <li><b>dwfOptions</b></li>
+ * <li><b>dwType</b></li>
+ * </ul>
+ * <b>Windows XP or later:  </b><b>dwType</b> is supported.
+ * 
+ * If values are not provided for these members, 
+ *        <b>RasSetEntryProperties</b> fails with 
+ *        <b>ERROR_INVALID_PARAMETER</b>.
+ * 
+ * The structure might be followed by an array of null-terminated alternate phone number strings. The last 
+ *        string is terminated by two consecutive null characters. The <b>dwAlternateOffset</b> 
+ *        member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure contains the offset to 
+ *        the first string.
+ * @param {Integer} param3 Specifies the size, in bytes, of the buffer identified by the <i>lpRasEntry</i> 
+ *       parameter.
+ * @param {Pointer<Integer>} param4 Pointer to a buffer that specifies device-specific configuration information. This is opaque TAPI device 
+ *       configuration information. For more information about TAPI device configuration, see the 
+ *       <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> function in 
+ *       <a href="https://docs.microsoft.com/windows/desktop/Tapi/telephony-application-programming-interfaces">Telephony Application Programming Interfaces (TAPI)</a> 
+ *       in the Platform SDK.
+ *       
+ * 
+ * <b>Windows XP:  </b>This parameter is unused. The calling function should set this parameter to 
+ *         <b>NULL</b>.
+ * @param {Integer} param5 Specifies the size, in bytes, of the <i>lpbDeviceInfo</i> buffer.
+ *       
+ * 
+ * <b>Windows XP:  </b>This parameter is unused. The calling function should set this parameter to zero.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from 
@@ -2083,7 +3022,7 @@ export RasSetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
 
     param4Marshal := param4 is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasSetEntryPropertiesA", "ptr", param0, "ptr", param1, RASENTRYA.Ptr, param2, "uint", param3, param4Marshal, param4, "uint", param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetEntryPropertiesA", "ptr", param0, "ptr", param1, RASENTRYA.Ptr, param2, UInt32, param3, param4Marshal, param4, UInt32, param5, UInt32)
     return result
 }
 
@@ -2112,12 +3051,63 @@ export RasSetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
- * @param {Pointer<RASENTRYW>} param2 
- * @param {Integer} param3 
- * @param {Pointer<Integer>} param4 
- * @param {Integer} param5 
+ * @param {PWSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. 
+ *       If this parameter is <b>NULL</b>, the function uses the current default phone-book file. 
+ *       The default phone-book file is the one selected by the user in the <b>User Preferences</b> 
+ *       property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * @param {PWSTR} param1 Pointer to a null-terminated string that specifies an entry name.
+ * 
+ * If the entry name matches an existing entry, 
+ *        <b>RasSetEntryProperties</b> modifies the properties 
+ *        of that entry.
+ * 
+ * If the entry name does not match an existing entry, 
+ *        <b>RasSetEntryProperties</b> creates a new 
+ *        phone-book entry. For new entries, call the 
+ *        <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasvalidateentrynamea">RasValidateEntryName</a> function to validate the 
+ *        entry name before calling 
+ *        <b>RasSetEntryProperties</b>.
+ * @param {Pointer<RASENTRYW>} param2 Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure that specifies the 
+ *        new connection data to be associated with the phone-book entry indicated by the 
+ *        <i>lpszEntry</i> parameter.
+ * 
+ * The caller must provide values for the following members in the 
+ *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure.
+ * 
+ * <ul>
+ * <li><b>dwSize</b></li>
+ * <li><b>szLocalPhoneNumber</b></li>
+ * <li><b>szDeviceName</b></li>
+ * <li><b>szDeviceType</b></li>
+ * <li><b>dwFramingProtocol</b></li>
+ * <li><b>dwfOptions</b></li>
+ * <li><b>dwType</b></li>
+ * </ul>
+ * <b>Windows XP or later:  </b><b>dwType</b> is supported.
+ * 
+ * If values are not provided for these members, 
+ *        <b>RasSetEntryProperties</b> fails with 
+ *        <b>ERROR_INVALID_PARAMETER</b>.
+ * 
+ * The structure might be followed by an array of null-terminated alternate phone number strings. The last 
+ *        string is terminated by two consecutive null characters. The <b>dwAlternateOffset</b> 
+ *        member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure contains the offset to 
+ *        the first string.
+ * @param {Integer} param3 Specifies the size, in bytes, of the buffer identified by the <i>lpRasEntry</i> 
+ *       parameter.
+ * @param {Pointer<Integer>} param4 Pointer to a buffer that specifies device-specific configuration information. This is opaque TAPI device 
+ *       configuration information. For more information about TAPI device configuration, see the 
+ *       <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> function in 
+ *       <a href="https://docs.microsoft.com/windows/desktop/Tapi/telephony-application-programming-interfaces">Telephony Application Programming Interfaces (TAPI)</a> 
+ *       in the Platform SDK.
+ *       
+ * 
+ * <b>Windows XP:  </b>This parameter is unused. The calling function should set this parameter to 
+ *         <b>NULL</b>.
+ * @param {Integer} param5 Specifies the size, in bytes, of the <i>lpbDeviceInfo</i> buffer.
+ *       
+ * 
+ * <b>Windows XP:  </b>This parameter is unused. The calling function should set this parameter to zero.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from 
@@ -2186,7 +3176,7 @@ export RasSetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
 
     param4Marshal := param4 is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasSetEntryPropertiesW", "ptr", param0, "ptr", param1, RASENTRYW.Ptr, param2, "uint", param3, param4Marshal, param4, "uint", param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetEntryPropertiesW", "ptr", param0, "ptr", param1, RASENTRYW.Ptr, param2, UInt32, param3, param4Marshal, param4, UInt32, param5, UInt32)
     return result
 }
 
@@ -2206,9 +3196,14 @@ export RasSetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
  * 
  * 
  * ```cpp
- * @param {PSTR} param0 
- * @param {PSTR} param1 
- * @param {PSTR} param2 
+ * @param {PSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * 						
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PSTR} param1 Pointer to a null-terminated string that specifies an existing entry name.
+ * @param {PSTR} param2 Pointer to a null-terminated string that specifies the new entry name. Before calling 
+ * <b>RasRenameEntry</b>, call the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasvalidateentrynamea">RasValidateEntryName</a> function to validate the new entry name.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2291,9 +3286,14 @@ export RasRenameEntryA(param0, param1, param2) {
  * 
  * 
  * ```cpp
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
- * @param {PWSTR} param2 
+ * @param {PWSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * 						
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PWSTR} param1 Pointer to a null-terminated string that specifies an existing entry name.
+ * @param {PWSTR} param2 Pointer to a null-terminated string that specifies the new entry name. Before calling 
+ * <b>RasRenameEntry</b>, call the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasvalidateentrynamea">RasValidateEntryName</a> function to validate the new entry name.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2367,8 +3367,13 @@ export RasRenameEntryW(param0, param1, param2) {
  * 
  * 
  * ```cpp
- * @param {PSTR} param0 
- * @param {PSTR} param1 
+ * @param {PSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PSTR} param1 Pointer to a null-terminated string that specifies the name of an existing entry to be deleted.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2420,8 +3425,13 @@ export RasDeleteEntryA(param0, param1) {
  * 
  * 
  * ```cpp
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
+ * @param {PWSTR} param0 Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PWSTR} param1 Pointer to a null-terminated string that specifies the name of an existing entry to be deleted.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2473,8 +3483,108 @@ export RasDeleteEntryW(param0, param1) {
  * 
  * 
  * ```cpp
- * @param {PSTR} param0 
- * @param {PSTR} param1 
+ * @param {PSTR} param0 A pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PSTR} param1 Pointer to a null-terminated string that specifies an entry name. 
+ * 
+ * 
+ * 
+ * 
+ * The following characters are not allowed in an entry name.
+ * 
+ * <table>
+ * <tr>
+ * <th>Character</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>|</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * vertical bar
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>&gt;</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * greater than symbol
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>&lt;</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * less than symbol
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="__"></a><dl>
+ * <dt><b>? </b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * question mark
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>*</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * asterisk
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>\</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * backward slash
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>/</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * forward slash
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="__"></a><dl>
+ * <dt><b>: </b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * colon
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <b>Windows 2000 or later:  </b>The entry name cannot begin with a period (".").
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2536,8 +3646,108 @@ export RasValidateEntryNameA(param0, param1) {
  * 
  * 
  * ```cpp
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
+ * @param {PWSTR} param0 A pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PWSTR} param1 Pointer to a null-terminated string that specifies an entry name. 
+ * 
+ * 
+ * 
+ * 
+ * The following characters are not allowed in an entry name.
+ * 
+ * <table>
+ * <tr>
+ * <th>Character</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>|</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * vertical bar
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>&gt;</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * greater than symbol
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>&lt;</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * less than symbol
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="__"></a><dl>
+ * <dt><b>? </b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * question mark
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>*</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * asterisk
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>\</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * backward slash
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="_"></a><dl>
+ * <dt><b>/</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * forward slash
+ * 
+ * </td>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="__"></a><dl>
+ * <dt><b>: </b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * colon
+ * 
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * <b>Windows 2000 or later:  </b>The entry name cannot begin with a period (".").
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2607,8 +3817,11 @@ export RasValidateEntryNameW(param0, param1) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasConnectionNotification as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
- * @param {HANDLE} param1 
+ * @param {HRASCONN} param0 A handle to the RAS connection that receives the notifications. This can be a handle returned by the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function. If this parameter is <b>INVALID_HANDLE_VALUE</b>, notifications are received for all RAS connections on the local client.
+ * @param {HANDLE} param1 Specifies the handle of an event object. Use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function to create an event object.
  * @param {Integer} param2 
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
@@ -2617,7 +3830,7 @@ export RasValidateEntryNameW(param0, param1) {
  * @since windows5.0
  */
 export RasConnectionNotificationA(param0, param1, param2) {
-    result := DllCall("RASAPI32.dll\RasConnectionNotificationA", HRASCONN, param0, HANDLE, param1, "uint", param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasConnectionNotificationA", HRASCONN, param0, HANDLE, param1, UInt32, param2, UInt32)
     return result
 }
 
@@ -2636,8 +3849,11 @@ export RasConnectionNotificationA(param0, param1, param2) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasConnectionNotification as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
- * @param {HANDLE} param1 
+ * @param {HRASCONN} param0 A handle to the RAS connection that receives the notifications. This can be a handle returned by the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function. If this parameter is <b>INVALID_HANDLE_VALUE</b>, notifications are received for all RAS connections on the local client.
+ * @param {HANDLE} param1 Specifies the handle of an event object. Use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function to create an event object.
  * @param {Integer} param2 
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
@@ -2646,7 +3862,7 @@ export RasConnectionNotificationA(param0, param1, param2) {
  * @since windows5.0
  */
 export RasConnectionNotificationW(param0, param1, param2) {
-    result := DllCall("RASAPI32.dll\RasConnectionNotificationW", HRASCONN, param0, HANDLE, param1, "uint", param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasConnectionNotificationW", HRASCONN, param0, HANDLE, param1, UInt32, param2, UInt32)
     return result
 }
 
@@ -2671,9 +3887,10 @@ export RasConnectionNotificationW(param0, param1, param2) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetSubEntryHandle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
- * @param {Integer} param1 
- * @param {Pointer<HRASCONN>} param2 
+ * @param {HRASCONN} param0 Specifies the <b>HRASCONN</b> connection handle returned by the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> function for a multilink phone-book entry.
+ * @param {Integer} param1 Specifies a valid subentry index for the phone-book entry.
+ * @param {Pointer<HRASCONN>} param2 Pointer to the <b>HRASCONN</b> variable that receives a connection handle that represents the subentry connection.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2721,7 +3938,7 @@ export RasConnectionNotificationW(param0, param1, param2) {
  * @since windows5.0
  */
 export RasGetSubEntryHandleA(param0, param1, param2) {
-    result := DllCall("RASAPI32.dll\RasGetSubEntryHandleA", HRASCONN, param0, "uint", param1, HRASCONN.Ptr, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetSubEntryHandleA", HRASCONN, param0, UInt32, param1, HRASCONN.Ptr, param2, UInt32)
     return result
 }
 
@@ -2746,9 +3963,10 @@ export RasGetSubEntryHandleA(param0, param1, param2) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetSubEntryHandle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HRASCONN} param0 
- * @param {Integer} param1 
- * @param {Pointer<HRASCONN>} param2 
+ * @param {HRASCONN} param0 Specifies the <b>HRASCONN</b> connection handle returned by the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> function for a multilink phone-book entry.
+ * @param {Integer} param1 Specifies a valid subentry index for the phone-book entry.
+ * @param {Pointer<HRASCONN>} param2 Pointer to the <b>HRASCONN</b> variable that receives a connection handle that represents the subentry connection.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2796,7 +4014,7 @@ export RasGetSubEntryHandleA(param0, param1, param2) {
  * @since windows5.0
  */
 export RasGetSubEntryHandleW(param0, param1, param2) {
-    result := DllCall("RASAPI32.dll\RasGetSubEntryHandleW", HRASCONN, param0, "uint", param1, HRASCONN.Ptr, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetSubEntryHandleW", HRASCONN, param0, UInt32, param1, HRASCONN.Ptr, param2, UInt32)
     return result
 }
 
@@ -2833,9 +4051,15 @@ export RasGetSubEntryHandleW(param0, param1, param2) {
  * 
  * 
  * ```cpp
- * @param {PSTR} param0 
- * @param {PSTR} param1 
- * @param {Pointer<RASCREDENTIALSA>} param2 
+ * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of a phone-book entry.
+ * @param {Pointer<RASCREDENTIALSA>} param2 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure that, on output, receives the user credentials associated with the specified phone-book entry. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a>), and set the <b>dwMask</b> member to indicate the credential information to retrieve. When the function returns, <b>dwMask</b> indicates the members that were successfully retrieved.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -2935,9 +4159,15 @@ export RasGetCredentialsA(param0, param1, param2) {
  * 
  * 
  * ```cpp
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
- * @param {Pointer<RASCREDENTIALSW>} param2 
+ * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+ * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of a phone-book entry.
+ * @param {Pointer<RASCREDENTIALSW>} param2 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure that, on output, receives the user credentials associated with the specified phone-book entry. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set the <b>dwSize</b> member of the structure to sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a>), and set the <b>dwMask</b> member to indicate the credential information to retrieve. When the function returns, <b>dwMask</b> indicates the members that were successfully retrieved.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3064,10 +4294,26 @@ export RasGetCredentialsW(param0, param1, param2) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
- * @param {PSTR} param1 
- * @param {Pointer<RASCREDENTIALSA>} param2 
- * @param {BOOL} param3 
+ * @param {PSTR} param0 A pointer to a null-terminated string that specifies the full path and file name of a phone-book 
+ *       (PBK) file. If this parameter is <b>NULL</b>, the function uses the current 
+ *       default phone-book file. The default phone-book file is the one selected by the user in the 
+ *       <b>User Preferences</b> property sheet of the 
+ *       <b>Dial-Up Networking</b> dialog box.
+ * @param {PSTR} param1 A pointer to a null-terminated string that specifies the name of a phone-book entry.
+ * @param {Pointer<RASCREDENTIALSA>} param2 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure that 
+ *       specifies the user credentials to set for the specified phone-book entry. Before calling 
+ *       <b>RasSetCredentials</b>, set the 
+ *       <b>dwSize</b> member of the structure to 
+ *       <c>sizeof(RASCREDENTIALS)</c> and set the <b>dwMask</b> 
+ *       member to indicate the credential information to be set.
+ * @param {BOOL} param3 A value that specifies whether 
+ *       <b>RasSetCredentials</b> clears existing credentials by 
+ *       setting them to the empty string, "". If this flag is <b>TRUE</b>, the 
+ *       <b>dwMask</b> member of the 
+ *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure indicates which 
+ *       credentials that the function sets to the empty string. If this flag is <b>FALSE</b>, the 
+ *       function sets the indicated credentials according to the contents of their corresponding 
+ *       <b>RASCREDENTIALS</b> members.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from 
@@ -3192,10 +4438,26 @@ export RasSetCredentialsA(param0, param1, param2, param3) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
- * @param {Pointer<RASCREDENTIALSW>} param2 
- * @param {BOOL} param3 
+ * @param {PWSTR} param0 A pointer to a null-terminated string that specifies the full path and file name of a phone-book 
+ *       (PBK) file. If this parameter is <b>NULL</b>, the function uses the current 
+ *       default phone-book file. The default phone-book file is the one selected by the user in the 
+ *       <b>User Preferences</b> property sheet of the 
+ *       <b>Dial-Up Networking</b> dialog box.
+ * @param {PWSTR} param1 A pointer to a null-terminated string that specifies the name of a phone-book entry.
+ * @param {Pointer<RASCREDENTIALSW>} param2 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure that 
+ *       specifies the user credentials to set for the specified phone-book entry. Before calling 
+ *       <b>RasSetCredentials</b>, set the 
+ *       <b>dwSize</b> member of the structure to 
+ *       <c>sizeof(RASCREDENTIALS)</c> and set the <b>dwMask</b> 
+ *       member to indicate the credential information to be set.
+ * @param {BOOL} param3 A value that specifies whether 
+ *       <b>RasSetCredentials</b> clears existing credentials by 
+ *       setting them to the empty string, "". If this flag is <b>TRUE</b>, the 
+ *       <b>dwMask</b> member of the 
+ *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure indicates which 
+ *       credentials that the function sets to the empty string. If this flag is <b>FALSE</b>, the 
+ *       function sets the indicated credentials according to the contents of their corresponding 
+ *       <b>RASCREDENTIALS</b> members.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from 
@@ -3275,13 +4537,36 @@ export RasSetCredentialsW(param0, param1, param2, param3) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
- * @param {PSTR} param1 
- * @param {Integer} param2 
- * @param {Pointer<RASSUBENTRYA>} param3 
- * @param {Pointer<Integer>} param4 
- * @param {Pointer<Integer>} param5 
- * @param {Pointer<Integer>} param6 
+ * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of an existing entry in the phone book.
+ * @param {Integer} param2 Specifies the one-based index of the subentry.
+ * @param {Pointer<RASSUBENTRYA>} param3 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure followed by additional bytes for the alternate phone number list, if there is one. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the structure receives information about the specified subentry.
+ * 
+ * On input, the <b>dwSize</b> member specifies the size of the structure. The size identifies the version of the structure. Obtain this size using sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a>).
+ * 
+ * This parameter can be <b>NULL</b>.
+ * @param {Pointer<Integer>} param4 Pointer to a variable that specifies, on input, the size, in bytes, of the <i>lpRasSubEntry</i> buffer. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the variable receives the number of bytes returned, or the number of bytes required if the buffer is too small.
+ * 
+ * This parameter can be <b>NULL</b> if <i>lpRasSubEntry</i> is <b>NULL</b>.
+ * @param {Pointer<Integer>} param5 Pointer to a TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter. For more information about TAPI device configuration blocks, see the function 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
+ * @param {Pointer<Integer>} param6 Pointer to a <b>DWORD</b> that specifies the size of the TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3358,7 +4643,7 @@ export RasGetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5,
     param5Marshal := param5 is VarRef ? "char*" : "ptr"
     param6Marshal := param6 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesA", "ptr", param0, "ptr", param1, "uint", param2, RASSUBENTRYA.Ptr, param3, param4Marshal, param4, param5Marshal, param5, param6Marshal, param6, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesA", "ptr", param0, "ptr", param1, UInt32, param2, RASSUBENTRYA.Ptr, param3, param4Marshal, param4, param5Marshal, param5, param6Marshal, param6, UInt32)
     return result
 }
 
@@ -3377,13 +4662,36 @@ export RasGetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5,
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
- * @param {Integer} param2 
- * @param {Pointer<RASSUBENTRYW>} param3 
- * @param {Pointer<Integer>} param4 
- * @param {Pointer<Integer>} param5 
- * @param {Pointer<Integer>} param6 
+ * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of an existing entry in the phone book.
+ * @param {Integer} param2 Specifies the one-based index of the subentry.
+ * @param {Pointer<RASSUBENTRYW>} param3 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure followed by additional bytes for the alternate phone number list, if there is one. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the structure receives information about the specified subentry.
+ * 
+ * On input, the <b>dwSize</b> member specifies the size of the structure. The size identifies the version of the structure. Obtain this size using sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a>).
+ * 
+ * This parameter can be <b>NULL</b>.
+ * @param {Pointer<Integer>} param4 Pointer to a variable that specifies, on input, the size, in bytes, of the <i>lpRasSubEntry</i> buffer. 
+ * 
+ * 
+ * 
+ * 
+ * On output, the variable receives the number of bytes returned, or the number of bytes required if the buffer is too small.
+ * 
+ * This parameter can be <b>NULL</b> if <i>lpRasSubEntry</i> is <b>NULL</b>.
+ * @param {Pointer<Integer>} param5 Pointer to a TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter. For more information about TAPI device configuration blocks, see the function 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
+ * @param {Pointer<Integer>} param6 Pointer to a <b>DWORD</b> that specifies the size of the TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3460,7 +4768,7 @@ export RasGetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5,
     param5Marshal := param5 is VarRef ? "char*" : "ptr"
     param6Marshal := param6 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesW", "ptr", param0, "ptr", param1, "uint", param2, RASSUBENTRYW.Ptr, param3, param4Marshal, param4, param5Marshal, param5, param6Marshal, param6, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesW", "ptr", param0, "ptr", param1, UInt32, param2, RASSUBENTRYW.Ptr, param3, param4Marshal, param4, param5Marshal, param5, param6Marshal, param6, UInt32)
     return result
 }
 
@@ -3479,13 +4787,26 @@ export RasGetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5,
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
- * @param {PSTR} param1 
- * @param {Integer} param2 
- * @param {Pointer<RASSUBENTRYA>} param3 
- * @param {Integer} param4 
- * @param {Pointer<Integer>} param5 
- * @param {Integer} param6 
+ * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of an existing entry in the phone book.
+ * @param {Integer} param2 Specifies the one-based index of the subentry. If the index matches an existing subentry index, the function changes the properties of that subentry. If the index does not match an existing index, the function creates a new subentry.
+ * @param {Pointer<RASSUBENTRYA>} param3 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure that specifies the data for the subentry. 
+ * 
+ * 
+ * 
+ * 
+ * The structure might be followed by an array of <b>null</b>-terminated alternate phone number strings. The last string is terminated by two consecutive <b>null</b> characters. The <b>dwAlternateOffset</b> member of the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure contains the offset to the first string.
+ * @param {Integer} param4 Specifies the size, in bytes, of the <i>lpRasSubEntry</i> buffer.
+ * @param {Pointer<Integer>} param5 Pointer to a TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter. For more information about TAPI device configuration blocks, see the function 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
+ * @param {Integer} param6 Specifies the size of the TAPI device configuration block. This parameter is currently unused. The caller should pass zero for this parameter.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3549,7 +4870,7 @@ export RasSetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5,
 
     param5Marshal := param5 is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesA", "ptr", param0, "ptr", param1, "uint", param2, RASSUBENTRYA.Ptr, param3, "uint", param4, param5Marshal, param5, "uint", param6, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesA", "ptr", param0, "ptr", param1, UInt32, param2, RASSUBENTRYA.Ptr, param3, UInt32, param4, param5Marshal, param5, UInt32, param6, UInt32)
     return result
 }
 
@@ -3568,13 +4889,26 @@ export RasSetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5,
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
- * @param {PWSTR} param1 
- * @param {Integer} param2 
- * @param {Pointer<RASSUBENTRYW>} param3 
- * @param {Integer} param4 
- * @param {Pointer<Integer>} param5 
- * @param {Integer} param6 
+ * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box. 
+ * 
+ * 
+ * 
+ * 
+ * <b>Windows Me/98/95:  </b>This parameter should always be <b>NULL</b>. Dial-up networking stores phone-book entries in the registry rather than in a phone-book file.
+ * @param {PWSTR} param1 Pointer to a <b>null</b>-terminated string that specifies the name of an existing entry in the phone book.
+ * @param {Integer} param2 Specifies the one-based index of the subentry. If the index matches an existing subentry index, the function changes the properties of that subentry. If the index does not match an existing index, the function creates a new subentry.
+ * @param {Pointer<RASSUBENTRYW>} param3 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure that specifies the data for the subentry. 
+ * 
+ * 
+ * 
+ * 
+ * The structure might be followed by an array of <b>null</b>-terminated alternate phone number strings. The last string is terminated by two consecutive <b>null</b> characters. The <b>dwAlternateOffset</b> member of the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377839(v=vs.85)">RASSUBENTRY</a> structure contains the offset to the first string.
+ * @param {Integer} param4 Specifies the size, in bytes, of the <i>lpRasSubEntry</i> buffer.
+ * @param {Pointer<Integer>} param5 Pointer to a TAPI device configuration block. This parameter is currently unused. The caller should pass <b>NULL</b> for this parameter. For more information about TAPI device configuration blocks, see the function 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
+ * @param {Integer} param6 Specifies the size of the TAPI device configuration block. This parameter is currently unused. The caller should pass zero for this parameter.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3638,7 +4972,7 @@ export RasSetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5,
 
     param5Marshal := param5 is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesW", "ptr", param0, "ptr", param1, "uint", param2, RASSUBENTRYW.Ptr, param3, "uint", param4, param5Marshal, param5, "uint", param6, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesW", "ptr", param0, "ptr", param1, UInt32, param2, RASSUBENTRYW.Ptr, param3, UInt32, param4, param5Marshal, param5, UInt32, param6, UInt32)
     return result
 }
 
@@ -3687,11 +5021,28 @@ export RasSetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5,
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<RASAUTODIALENTRYA>} param2 
- * @param {Pointer<Integer>} param3 
- * @param {Pointer<Integer>} param4 
+ * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the address for which information is requested. This can be an IP address, Internet host name ("www.microsoft.com"), or NetBIOS name ("products1").
+ * 
+ * If this parameter is <b>NULL</b>, the function retrieves the default Internet connection. The function returns the per-user default Internet connection if one is configured. Otherwise, the function returns the global default Internet connection. If no default Internet connections are configured, the function returns zero for the <i>lpdwcbAutoDialEntries</i> and <i>lpdwcAutoDialEntries</i> parameters.
+ * @param {Pointer<Integer>} param1 Reserved; must be <b>NULL</b>.
+ * @param {Pointer<RASAUTODIALENTRYA>} param2 Pointer to a buffer that, on output, receives an array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures, one for each AutoDial entry associated with the address specified by the <i>lpszAddress</i> parameter. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set the <b>dwSize</b> member of the first 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure in the buffer to sizeof(RASAUTODIALENTRY) to identify the version of the structure.
+ * 
+ * If <i>lpAutoDialEntries</i> is <b>NULL</b>, 
+ * <b>RasGetAutodialAddress</b> sets the <i>lpdwcbAutoDialEntries</i> and <i>lpdwcAutoDialEntries</i> parameters to indicate the required buffer size, in bytes, and the number of AutoDial entries.
+ * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the <i>lpAutoDialEntries</i> buffer. 
+ * 
+ * 
+ * 
+ * 
+ * On output, this variable receives the number of bytes returned, or the number of bytes required if the buffer is too small.
+ * @param {Pointer<Integer>} param4 Pointer to a variable that receives the number of structure elements returned in the <i>lpAutoDialEntries</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3784,11 +5135,28 @@ export RasGetAutodialAddressA(param0, param1, param2, param3, param4) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasGetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<RASAUTODIALENTRYW>} param2 
- * @param {Pointer<Integer>} param3 
- * @param {Pointer<Integer>} param4 
+ * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the address for which information is requested. This can be an IP address, Internet host name ("www.microsoft.com"), or NetBIOS name ("products1").
+ * 
+ * If this parameter is <b>NULL</b>, the function retrieves the default Internet connection. The function returns the per-user default Internet connection if one is configured. Otherwise, the function returns the global default Internet connection. If no default Internet connections are configured, the function returns zero for the <i>lpdwcbAutoDialEntries</i> and <i>lpdwcAutoDialEntries</i> parameters.
+ * @param {Pointer<Integer>} param1 Reserved; must be <b>NULL</b>.
+ * @param {Pointer<RASAUTODIALENTRYW>} param2 Pointer to a buffer that, on output, receives an array of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures, one for each AutoDial entry associated with the address specified by the <i>lpszAddress</i> parameter. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set the <b>dwSize</b> member of the first 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure in the buffer to sizeof(RASAUTODIALENTRY) to identify the version of the structure.
+ * 
+ * If <i>lpAutoDialEntries</i> is <b>NULL</b>, 
+ * <b>RasGetAutodialAddress</b> sets the <i>lpdwcbAutoDialEntries</i> and <i>lpdwcAutoDialEntries</i> parameters to indicate the required buffer size, in bytes, and the number of AutoDial entries.
+ * @param {Pointer<Integer>} param3 Pointer to a variable that, on input, specifies the size, in bytes, of the <i>lpAutoDialEntries</i> buffer. 
+ * 
+ * 
+ * 
+ * 
+ * On output, this variable receives the number of bytes returned, or the number of bytes required if the buffer is too small.
+ * @param {Pointer<Integer>} param4 Pointer to a variable that receives the number of structure elements returned in the <i>lpAutoDialEntries</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3867,11 +5235,19 @@ export RasGetAutodialAddressW(param0, param1, param2, param3, param4) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
- * @param {Integer} param1 
- * @param {Pointer<RASAUTODIALENTRYA>} param2 
- * @param {Integer} param3 
- * @param {Integer} param4 
+ * @param {PSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the address to add, delete, or modify. This address can be an IP address, Internet host name ("www.microsoft.com"), or NetBIOS name ("products1"). 
+ * 
+ * 
+ * 
+ * 
+ * If this parameter is <b>NULL</b>, the function sets the default Internet connection (see Remarks). If this parameter points to a zero-length string, the function deletes the default Internet connection.
+ * @param {Integer} param1 Reserved; must be zero.
+ * @param {Pointer<RASAUTODIALENTRYA>} param2 Pointer to an array of one or more 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures to be associated with the <i>lpszAddress</i> address. If <i>lpAutoDialEntries</i> is <b>NULL</b> and <i>dwcbAutoDialEntries</i> is zero, 
+ * <b>RasSetAutodialAddress</b> deletes all structures associated with <i>lpszAddress</i> from the mapping database.
+ * @param {Integer} param3 Specifies the size, in bytes, of the <i>lpAutoDialEntries</i> buffer.
+ * @param {Integer} param4 Specifies the number of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures in the <i>lpAutoDialEntries</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3922,7 +5298,7 @@ export RasGetAutodialAddressW(param0, param1, param2, param3, param4) {
 export RasSetAutodialAddressA(param0, param1, param2, param3, param4) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    result := DllCall("RASAPI32.dll\RasSetAutodialAddressA", "ptr", param0, "uint", param1, RASAUTODIALENTRYA.Ptr, param2, "uint", param3, "uint", param4, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetAutodialAddressA", "ptr", param0, UInt32, param1, RASAUTODIALENTRYA.Ptr, param2, UInt32, param3, UInt32, param4, UInt32)
     return result
 }
 
@@ -3957,11 +5333,19 @@ export RasSetAutodialAddressA(param0, param1, param2, param3, param4) {
  * 
  * > [!NOTE]
  * > The ras.h header defines RasSetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
- * @param {Integer} param1 
- * @param {Pointer<RASAUTODIALENTRYW>} param2 
- * @param {Integer} param3 
- * @param {Integer} param4 
+ * @param {PWSTR} param0 Pointer to a <b>null</b>-terminated string that specifies the address to add, delete, or modify. This address can be an IP address, Internet host name ("www.microsoft.com"), or NetBIOS name ("products1"). 
+ * 
+ * 
+ * 
+ * 
+ * If this parameter is <b>NULL</b>, the function sets the default Internet connection (see Remarks). If this parameter points to a zero-length string, the function deletes the default Internet connection.
+ * @param {Integer} param1 Reserved; must be zero.
+ * @param {Pointer<RASAUTODIALENTRYW>} param2 Pointer to an array of one or more 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures to be associated with the <i>lpszAddress</i> address. If <i>lpAutoDialEntries</i> is <b>NULL</b> and <i>dwcbAutoDialEntries</i> is zero, 
+ * <b>RasSetAutodialAddress</b> deletes all structures associated with <i>lpszAddress</i> from the mapping database.
+ * @param {Integer} param3 Specifies the size, in bytes, of the <i>lpAutoDialEntries</i> buffer.
+ * @param {Integer} param4 Specifies the number of 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structures in the <i>lpAutoDialEntries</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4012,7 +5396,7 @@ export RasSetAutodialAddressA(param0, param1, param2, param3, param4) {
 export RasSetAutodialAddressW(param0, param1, param2, param3, param4) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    result := DllCall("RASAPI32.dll\RasSetAutodialAddressW", "ptr", param0, "uint", param1, RASAUTODIALENTRYW.Ptr, param2, "uint", param3, "uint", param4, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetAutodialAddressW", "ptr", param0, UInt32, param1, RASAUTODIALENTRYW.Ptr, param2, UInt32, param3, UInt32, param4, UInt32)
     return result
 }
 
@@ -4082,7 +5466,7 @@ export RasEnumAutodialAddressesA(lppRasAutodialAddresses, lpdwcbRasAutodialAddre
     lpdwcbRasAutodialAddressesMarshal := lpdwcbRasAutodialAddresses is VarRef ? "uint*" : "ptr"
     lpdwcRasAutodialAddressesMarshal := lpdwcRasAutodialAddresses is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesA", "ptr", lppRasAutodialAddresses, lpdwcbRasAutodialAddressesMarshal, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddressesMarshal, lpdwcRasAutodialAddresses, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesA", IntPtr, lppRasAutodialAddresses, lpdwcbRasAutodialAddressesMarshal, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddressesMarshal, lpdwcRasAutodialAddresses, UInt32)
     return result
 }
 
@@ -4152,7 +5536,7 @@ export RasEnumAutodialAddressesW(lppRasAutodialAddresses, lpdwcbRasAutodialAddre
     lpdwcbRasAutodialAddressesMarshal := lpdwcbRasAutodialAddresses is VarRef ? "uint*" : "ptr"
     lpdwcRasAutodialAddressesMarshal := lpdwcRasAutodialAddresses is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesW", "ptr", lppRasAutodialAddresses, lpdwcbRasAutodialAddressesMarshal, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddressesMarshal, lpdwcRasAutodialAddresses, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesW", IntPtr, lppRasAutodialAddresses, lpdwcbRasAutodialAddressesMarshal, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddressesMarshal, lpdwcRasAutodialAddresses, UInt32)
     return result
 }
 
@@ -4161,8 +5545,8 @@ export RasEnumAutodialAddressesW(lppRasAutodialAddresses, lpdwcbRasAutodialAddre
  * @remarks
  * > [!NOTE]
  * > The ras.h header defines RasGetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Integer} param0 
- * @param {Pointer<BOOL>} param1 
+ * @param {Integer} param0 Specifies the identifier of a TAPI dialing location.
+ * @param {Pointer<BOOL>} param1 Pointer to a BOOL variable that receives a nonzero value if AutoDial is enabled for the specified dialing location, or zero if it is not enabled.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4172,7 +5556,7 @@ export RasEnumAutodialAddressesW(lppRasAutodialAddresses, lpdwcbRasAutodialAddre
 export RasGetAutodialEnableA(param0, param1) {
     param1Marshal := param1 is VarRef ? "int*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetAutodialEnableA", "uint", param0, param1Marshal, param1, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetAutodialEnableA", UInt32, param0, param1Marshal, param1, UInt32)
     return result
 }
 
@@ -4181,8 +5565,8 @@ export RasGetAutodialEnableA(param0, param1) {
  * @remarks
  * > [!NOTE]
  * > The ras.h header defines RasGetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Integer} param0 
- * @param {Pointer<BOOL>} param1 
+ * @param {Integer} param0 Specifies the identifier of a TAPI dialing location.
+ * @param {Pointer<BOOL>} param1 Pointer to a BOOL variable that receives a nonzero value if AutoDial is enabled for the specified dialing location, or zero if it is not enabled.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4192,7 +5576,7 @@ export RasGetAutodialEnableA(param0, param1) {
 export RasGetAutodialEnableW(param0, param1) {
     param1Marshal := param1 is VarRef ? "int*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetAutodialEnableW", "uint", param0, param1Marshal, param1, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetAutodialEnableW", UInt32, param0, param1Marshal, param1, UInt32)
     return result
 }
 
@@ -4201,8 +5585,8 @@ export RasGetAutodialEnableW(param0, param1) {
  * @remarks
  * > [!NOTE]
  * > The ras.h header defines RasSetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Integer} param0 
- * @param {BOOL} param1 
+ * @param {Integer} param0 Specifies the identifier of a TAPI dialing location.
+ * @param {BOOL} param1 Specifies <b>TRUE</b> to enable AutoDial for the dialing location indicated by the <i>dwDialingLocation</i> parameter. Specifies <b>FALSE</b> to disable it.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4210,7 +5594,7 @@ export RasGetAutodialEnableW(param0, param1) {
  * @since windows5.0
  */
 export RasSetAutodialEnableA(param0, param1) {
-    result := DllCall("RASAPI32.dll\RasSetAutodialEnableA", "uint", param0, BOOL, param1, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetAutodialEnableA", UInt32, param0, BOOL, param1, UInt32)
     return result
 }
 
@@ -4219,8 +5603,8 @@ export RasSetAutodialEnableA(param0, param1) {
  * @remarks
  * > [!NOTE]
  * > The ras.h header defines RasSetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Integer} param0 
- * @param {BOOL} param1 
+ * @param {Integer} param0 Specifies the identifier of a TAPI dialing location.
+ * @param {BOOL} param1 Specifies <b>TRUE</b> to enable AutoDial for the dialing location indicated by the <i>dwDialingLocation</i> parameter. Specifies <b>FALSE</b> to disable it.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4228,7 +5612,7 @@ export RasSetAutodialEnableA(param0, param1) {
  * @since windows5.0
  */
 export RasSetAutodialEnableW(param0, param1) {
-    result := DllCall("RASAPI32.dll\RasSetAutodialEnableW", "uint", param0, BOOL, param1, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetAutodialEnableW", UInt32, param0, BOOL, param1, UInt32)
     return result
 }
 
@@ -4238,8 +5622,15 @@ export RasSetAutodialEnableW(param0, param1) {
  * > [!NOTE]
  * > The ras.h header defines RasGetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @param {Integer} param0 
- * @param {Pointer<Void>} param1 
- * @param {Pointer<Integer>} param2 
+ * @param {Pointer<Void>} param1 Pointer to a buffer that receives the value for the specified parameter.
+ * @param {Pointer<Integer>} param2 Pointer to a <b>DWORD</b> value. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set this value to indicate the size, in bytes, of the <i>lpvValue</i> buffer.
+ * 
+ * On output, this value indicates the actual size of the value written to the buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4279,7 +5670,7 @@ export RasGetAutodialParamA(param0, param1, param2) {
     param1Marshal := param1 is VarRef ? "ptr" : "ptr"
     param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetAutodialParamA", "uint", param0, param1Marshal, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetAutodialParamA", UInt32, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -4289,8 +5680,15 @@ export RasGetAutodialParamA(param0, param1, param2) {
  * > [!NOTE]
  * > The ras.h header defines RasGetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @param {Integer} param0 
- * @param {Pointer<Void>} param1 
- * @param {Pointer<Integer>} param2 
+ * @param {Pointer<Void>} param1 Pointer to a buffer that receives the value for the specified parameter.
+ * @param {Pointer<Integer>} param2 Pointer to a <b>DWORD</b> value. 
+ * 
+ * 
+ * 
+ * 
+ * On input, set this value to indicate the size, in bytes, of the <i>lpvValue</i> buffer.
+ * 
+ * On output, this value indicates the actual size of the value written to the buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4330,7 +5728,7 @@ export RasGetAutodialParamW(param0, param1, param2) {
     param1Marshal := param1 is VarRef ? "ptr" : "ptr"
     param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetAutodialParamW", "uint", param0, param1Marshal, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetAutodialParamW", UInt32, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -4340,8 +5738,8 @@ export RasGetAutodialParamW(param0, param1, param2) {
  * > [!NOTE]
  * > The ras.h header defines RasSetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @param {Integer} param0 
- * @param {Pointer<Void>} param1 
- * @param {Integer} param2 
+ * @param {Pointer<Void>} param1 Pointer to a buffer that contains the new value for the specified parameter.
+ * @param {Integer} param2 Specifies the size, in bytes, of the value in the <i>lpvValue</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4380,7 +5778,7 @@ export RasGetAutodialParamW(param0, param1, param2) {
 export RasSetAutodialParamA(param0, param1, param2) {
     param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasSetAutodialParamA", "uint", param0, param1Marshal, param1, "uint", param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetAutodialParamA", UInt32, param0, param1Marshal, param1, UInt32, param2, UInt32)
     return result
 }
 
@@ -4390,8 +5788,8 @@ export RasSetAutodialParamA(param0, param1, param2) {
  * > [!NOTE]
  * > The ras.h header defines RasSetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @param {Integer} param0 
- * @param {Pointer<Void>} param1 
- * @param {Integer} param2 
+ * @param {Pointer<Void>} param1 Pointer to a buffer that contains the new value for the specified parameter.
+ * @param {Integer} param2 Specifies the size, in bytes, of the value in the <i>lpvValue</i> buffer.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4430,7 +5828,7 @@ export RasSetAutodialParamA(param0, param1, param2) {
 export RasSetAutodialParamW(param0, param1, param2) {
     param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasSetAutodialParamW", "uint", param0, param1Marshal, param1, "uint", param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetAutodialParamW", UInt32, param0, param1Marshal, param1, UInt32, param2, UInt32)
     return result
 }
 
@@ -4448,10 +5846,14 @@ export RasGetPCscf(lpszPCscf) {
 
 /**
  * The RasInvokeEapUI function displays a custom user interface to obtain Extensible Authentication Protocol (EAP) information from the user.
- * @param {HRASCONN} param0 
- * @param {Integer} param1 
- * @param {Pointer<RASDIALEXTENSIONS>} param2 
- * @param {HWND} param3 
+ * @param {HRASCONN} param0 Handle to the connection returned by 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>.
+ * @param {Integer} param1 Specifies the subentry returned in the callback.
+ * @param {Pointer<RASDIALEXTENSIONS>} param2 Pointer to the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structure. This structure should be the same as that passed to 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> when restarting from a paused state. Ensure that the <b>dwSize</b> member of the 
+ * <b>RASDIALEXTENSIONS</b> structure specifies the size of the structure. Obtain the size using sizeof(<b>RASDIALEXTENSIONS</b>). This parameter cannot be <b>NULL</b>.
+ * @param {HWND} param3 Handle to the parent window to use when displaying the EAP user interface.
  * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
  * 
  * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4501,7 +5903,7 @@ export RasGetPCscf(lpszPCscf) {
  * @since windows5.0
  */
 export RasInvokeEapUI(param0, param1, param2, param3) {
-    result := DllCall("RASAPI32.dll\RasInvokeEapUI", HRASCONN, param0, "uint", param1, RASDIALEXTENSIONS.Ptr, param2, HWND, param3, UInt32)
+    result := DllCall("RASAPI32.dll\RasInvokeEapUI", HRASCONN, param0, UInt32, param1, RASDIALEXTENSIONS.Ptr, param2, HWND, param3, UInt32)
     return result
 }
 
@@ -4570,7 +5972,7 @@ export RasInvokeEapUI(param0, param1, param2, param3) {
  * @since windows5.0
  */
 export RasGetLinkStatistics(_hRasConn, dwSubEntry, lpStatistics) {
-    result := DllCall("RASAPI32.dll\RasGetLinkStatistics", HRASCONN, _hRasConn, "uint", dwSubEntry, RAS_STATS.Ptr, lpStatistics, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetLinkStatistics", HRASCONN, _hRasConn, UInt32, dwSubEntry, RAS_STATS.Ptr, lpStatistics, UInt32)
     return result
 }
 
@@ -4715,7 +6117,7 @@ export RasGetConnectionStatistics(_hRasConn, lpStatistics) {
  * @since windows5.0
  */
 export RasClearLinkStatistics(_hRasConn, dwSubEntry) {
-    result := DllCall("RASAPI32.dll\RasClearLinkStatistics", HRASCONN, _hRasConn, "uint", dwSubEntry, UInt32)
+    result := DllCall("RASAPI32.dll\RasClearLinkStatistics", HRASCONN, _hRasConn, UInt32, dwSubEntry, UInt32)
     return result
 }
 
@@ -5046,7 +6448,7 @@ export RasSetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEap
 
     pbEapDataMarshal := pbEapData is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasSetEapUserDataA", HANDLE, hToken, "ptr", pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, "uint", dwSizeofEapData, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetEapUserDataA", HANDLE, hToken, "ptr", pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, UInt32, dwSizeofEapData, UInt32)
     return result
 }
 
@@ -5124,7 +6526,7 @@ export RasSetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEap
 
     pbEapDataMarshal := pbEapData is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasSetEapUserDataW", HANDLE, hToken, "ptr", pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, "uint", dwSizeofEapData, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetEapUserDataW", HANDLE, hToken, "ptr", pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, UInt32, dwSizeofEapData, UInt32)
     return result
 }
 
@@ -5220,7 +6622,7 @@ export RasGetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeof
 
     pdwSizeofCustomAuthDataMarshal := pdwSizeofCustomAuthData is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, pdwSizeofCustomAuthDataMarshal, pdwSizeofCustomAuthData, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, pdwSizeofCustomAuthDataMarshal, pdwSizeofCustomAuthData, UInt32)
     return result
 }
 
@@ -5316,7 +6718,7 @@ export RasGetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeof
 
     pdwSizeofCustomAuthDataMarshal := pdwSizeofCustomAuthData is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, pdwSizeofCustomAuthDataMarshal, pdwSizeofCustomAuthData, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, pdwSizeofCustomAuthDataMarshal, pdwSizeofCustomAuthData, UInt32)
     return result
 }
 
@@ -5393,7 +6795,7 @@ export RasSetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofC
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    result := DllCall("RASAPI32.dll\RasSetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "uint", dwSizeofCustomAuthData, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, UInt32, dwSizeofCustomAuthData, UInt32)
     return result
 }
 
@@ -5470,7 +6872,7 @@ export RasSetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofC
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    result := DllCall("RASAPI32.dll\RasSetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "uint", dwSizeofCustomAuthData, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, UInt32, dwSizeofCustomAuthData, UInt32)
     return result
 }
 
@@ -5618,7 +7020,7 @@ export RasGetEapUserIdentityW(pszPhonebook, pszEntry, dwFlags, _hwnd, ppRasEapUs
 
     ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, HWND, _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, UInt32, dwFlags, HWND, _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, UInt32)
     return result
 }
 
@@ -5766,7 +7168,7 @@ export RasGetEapUserIdentityA(pszPhonebook, pszEntry, dwFlags, _hwnd, ppRasEapUs
 
     ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, HWND, _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, UInt32, dwFlags, HWND, _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, UInt32)
     return result
 }
 
@@ -5834,7 +7236,7 @@ export RasDeleteSubEntryA(pszPhonebook, pszEntry, dwSubentryId) {
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    result := DllCall("RASAPI32.dll\RasDeleteSubEntryA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwSubentryId, UInt32)
+    result := DllCall("RASAPI32.dll\RasDeleteSubEntryA", "ptr", pszPhonebook, "ptr", pszEntry, UInt32, dwSubentryId, UInt32)
     return result
 }
 
@@ -5856,7 +7258,7 @@ export RasDeleteSubEntryW(pszPhonebook, pszEntry, dwSubEntryId) {
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    result := DllCall("RASAPI32.dll\RasDeleteSubEntryW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwSubEntryId, UInt32)
+    result := DllCall("RASAPI32.dll\RasDeleteSubEntryW", "ptr", pszPhonebook, "ptr", pszEntry, UInt32, dwSubEntryId, UInt32)
     return result
 }
 
@@ -6293,7 +7695,7 @@ export MprAdminConnectionEnumEx(hRasServer, pObjectHeader, dwPreferedMaxLen, lpd
     ppRasConnMarshal := ppRasConn is VarRef ? "ptr*" : "ptr"
     lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminConnectionEnumEx", "ptr", hRasServer, MPRAPI_OBJECT_HEADER.Ptr, pObjectHeader, "uint", dwPreferedMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, ppRasConnMarshal, ppRasConn, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminConnectionEnumEx", IntPtr, hRasServer, MPRAPI_OBJECT_HEADER.Ptr, pObjectHeader, UInt32, dwPreferedMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, ppRasConnMarshal, ppRasConn, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
 }
 
@@ -6364,7 +7766,7 @@ export MprAdminConnectionEnumEx(hRasServer, pObjectHeader, dwPreferedMaxLen, lpd
  * @since windows6.1
  */
 export MprAdminConnectionGetInfoEx(hRasServer, hRasConnection, pRasConnection) {
-    result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfoEx", "ptr", hRasServer, HANDLE, hRasConnection, RAS_CONNECTION_EX.Ptr, pRasConnection, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfoEx", IntPtr, hRasServer, HANDLE, hRasConnection, RAS_CONNECTION_EX.Ptr, pRasConnection, UInt32)
     return result
 }
 
@@ -6421,7 +7823,7 @@ export MprAdminConnectionGetInfoEx(hRasServer, hRasConnection, pRasConnection) {
  * @since windowsserver2008
  */
 export MprAdminServerGetInfoEx(hMprServer, pServerInfo) {
-    result := DllCall("MPRAPI.dll\MprAdminServerGetInfoEx", "ptr", hMprServer, MPR_SERVER_EX1.Ptr, pServerInfo, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminServerGetInfoEx", IntPtr, hMprServer, MPR_SERVER_EX1.Ptr, pServerInfo, UInt32)
     return result
 }
 
@@ -6477,7 +7879,7 @@ export MprAdminServerGetInfoEx(hMprServer, pServerInfo) {
  * @since windowsserver2008
  */
 export MprAdminServerSetInfoEx(hMprServer, pServerInfo) {
-    result := DllCall("MPRAPI.dll\MprAdminServerSetInfoEx", "ptr", hMprServer, MPR_SERVER_SET_CONFIG_EX1.Ptr, pServerInfo, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminServerSetInfoEx", IntPtr, hMprServer, MPR_SERVER_SET_CONFIG_EX1.Ptr, pServerInfo, UInt32)
     return result
 }
 
@@ -6629,7 +8031,7 @@ export MprConfigServerSetInfoEx(hMprConfig, pSetServerConfig) {
  * @returns {Integer} 
  */
 export MprAdminUpdateConnection(hRasServer, hRasConnection, pRasUpdateConnection) {
-    result := DllCall("MPRAPI.dll\MprAdminUpdateConnection", "ptr", hRasServer, HANDLE, hRasConnection, RAS_UPDATE_CONNECTION.Ptr, pRasUpdateConnection, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminUpdateConnection", IntPtr, hRasServer, HANDLE, hRasConnection, RAS_UPDATE_CONNECTION.Ptr, pRasUpdateConnection, UInt32)
     return result
 }
 
@@ -6786,7 +8188,7 @@ export MprAdminIsServiceInitialized(lpwsServerName, fIsServiceInitialized) {
  * @since windowsserver2012
  */
 export MprAdminInterfaceSetCustomInfoEx(hMprServer, hInterface, pCustomInfo) {
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCustomInfoEx", "ptr", hMprServer, HANDLE, hInterface, MPR_IF_CUSTOMINFOEX2.Ptr, pCustomInfo, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCustomInfoEx", IntPtr, hMprServer, HANDLE, hInterface, MPR_IF_CUSTOMINFOEX2.Ptr, pCustomInfo, UInt32)
     return result
 }
 
@@ -6851,7 +8253,7 @@ export MprAdminInterfaceSetCustomInfoEx(hMprServer, hInterface, pCustomInfo) {
  * @since windowsserver2012
  */
 export MprAdminInterfaceGetCustomInfoEx(hMprServer, hInterface, pCustomInfo) {
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCustomInfoEx", "ptr", hMprServer, HANDLE, hInterface, MPR_IF_CUSTOMINFOEX2.Ptr, pCustomInfo, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCustomInfoEx", IntPtr, hMprServer, HANDLE, hInterface, MPR_IF_CUSTOMINFOEX2.Ptr, pCustomInfo, UInt32)
     return result
 }
 
@@ -7095,7 +8497,7 @@ export MprAdminConnectionEnum(hRasServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lp
     lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
     lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminConnectionEnum", "ptr", hRasServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminConnectionEnum", IntPtr, hRasServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
 }
 
@@ -7213,7 +8615,7 @@ export MprAdminPortEnum(hRasServer, dwLevel, hRasConnection, lplpbBuffer, dwPref
     lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
     lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminPortEnum", "ptr", hRasServer, "uint", dwLevel, HANDLE, hRasConnection, lplpbBufferMarshal, lplpbBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminPortEnum", IntPtr, hRasServer, UInt32, dwLevel, HANDLE, hRasConnection, lplpbBufferMarshal, lplpbBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
 }
 
@@ -7331,7 +8733,7 @@ export MprAdminPortEnum(hRasServer, dwLevel, hRasConnection, lplpbBuffer, dwPref
 export MprAdminConnectionGetInfo(hRasServer, dwLevel, hRasConnection, lplpbBuffer) {
     lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfo", "ptr", hRasServer, "uint", dwLevel, HANDLE, hRasConnection, lplpbBufferMarshal, lplpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfo", IntPtr, hRasServer, UInt32, dwLevel, HANDLE, hRasConnection, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
 }
 
@@ -7455,7 +8857,7 @@ export MprAdminConnectionGetInfo(hRasServer, dwLevel, hRasConnection, lplpbBuffe
 export MprAdminPortGetInfo(hRasServer, dwLevel, hPort, lplpbBuffer) {
     lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminPortGetInfo", "ptr", hRasServer, "uint", dwLevel, HANDLE, hPort, lplpbBufferMarshal, lplpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminPortGetInfo", IntPtr, hRasServer, UInt32, dwLevel, HANDLE, hPort, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
 }
 
@@ -7544,7 +8946,7 @@ export MprAdminPortGetInfo(hRasServer, dwLevel, hPort, lplpbBuffer) {
  * @since windows5.0
  */
 export MprAdminConnectionClearStats(hRasServer, hRasConnection) {
-    result := DllCall("MPRAPI.dll\MprAdminConnectionClearStats", "ptr", hRasServer, HANDLE, hRasConnection, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminConnectionClearStats", IntPtr, hRasServer, HANDLE, hRasConnection, UInt32)
     return result
 }
 
@@ -7621,7 +9023,7 @@ export MprAdminConnectionClearStats(hRasServer, hRasConnection) {
  * @since windows5.0
  */
 export MprAdminPortClearStats(hRasServer, hPort) {
-    result := DllCall("MPRAPI.dll\MprAdminPortClearStats", "ptr", hRasServer, HANDLE, hPort, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminPortClearStats", IntPtr, hRasServer, HANDLE, hPort, UInt32)
     return result
 }
 
@@ -7698,7 +9100,7 @@ export MprAdminPortClearStats(hRasServer, hPort) {
  * @since windows5.0
  */
 export MprAdminPortReset(hRasServer, hPort) {
-    result := DllCall("MPRAPI.dll\MprAdminPortReset", "ptr", hRasServer, HANDLE, hPort, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminPortReset", IntPtr, hRasServer, HANDLE, hPort, UInt32)
     return result
 }
 
@@ -7776,7 +9178,7 @@ export MprAdminPortReset(hRasServer, hPort) {
  * @since windows5.0
  */
 export MprAdminPortDisconnect(hRasServer, hPort) {
-    result := DllCall("MPRAPI.dll\MprAdminPortDisconnect", "ptr", hRasServer, HANDLE, hPort, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminPortDisconnect", IntPtr, hRasServer, HANDLE, hPort, UInt32)
     return result
 }
 
@@ -7937,7 +9339,7 @@ export MprAdminUserGetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
 
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminUserGetInfo", "ptr", lpszServer, "ptr", lpszUser, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminUserGetInfo", "ptr", lpszServer, "ptr", lpszUser, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
 }
 
@@ -8031,7 +9433,7 @@ export MprAdminUserSetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
 
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminUserSetInfo", "ptr", lpszServer, "ptr", lpszUser, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminUserSetInfo", "ptr", lpszServer, "ptr", lpszUser, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
 }
 
@@ -8102,7 +9504,7 @@ export MprAdminUserSetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
 export MprAdminSendUserMessage(hMprServer, hConnection, lpwszMessage) {
     lpwszMessage := lpwszMessage is String ? StrPtr(lpwszMessage) : lpwszMessage
 
-    result := DllCall("MPRAPI.dll\MprAdminSendUserMessage", "ptr", hMprServer, HANDLE, hConnection, "ptr", lpwszMessage, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminSendUserMessage", IntPtr, hMprServer, HANDLE, hConnection, "ptr", lpwszMessage, UInt32)
     return result
 }
 
@@ -8288,7 +9690,7 @@ export MprAdminServerConnect(lpwsServerName, phMprServer) {
  * @since windowsserver2000
  */
 export MprAdminServerDisconnect(hMprServer) {
-    DllCall("MPRAPI.dll\MprAdminServerDisconnect", "ptr", hMprServer)
+    DllCall("MPRAPI.dll\MprAdminServerDisconnect", IntPtr, hMprServer)
 }
 
 /**
@@ -8361,7 +9763,7 @@ export MprAdminServerDisconnect(hMprServer) {
 export MprAdminServerGetCredentials(hMprServer, dwLevel, lplpbBuffer) {
     lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminServerGetCredentials", "ptr", hMprServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminServerGetCredentials", IntPtr, hMprServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
 }
 
@@ -8437,7 +9839,7 @@ export MprAdminServerGetCredentials(hMprServer, dwLevel, lplpbBuffer) {
 export MprAdminServerSetCredentials(hMprServer, dwLevel, lpbBuffer) {
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminServerSetCredentials", "ptr", hMprServer, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminServerSetCredentials", IntPtr, hMprServer, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
 }
 
@@ -8522,7 +9924,7 @@ export MprAdminBufferFree(pBuffer) {
 export MprAdminGetErrorString(dwError, lplpwsErrorString) {
     lplpwsErrorStringMarshal := lplpwsErrorString is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminGetErrorString", "uint", dwError, lplpwsErrorStringMarshal, lplpwsErrorString, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminGetErrorString", UInt32, dwError, lplpwsErrorStringMarshal, lplpwsErrorString, UInt32)
     return result
 }
 
@@ -8607,7 +10009,7 @@ export MprAdminGetErrorString(dwError, lplpwsErrorString) {
 export MprAdminServerGetInfo(hMprServer, dwLevel, lplpbBuffer) {
     lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminServerGetInfo", "ptr", hMprServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminServerGetInfo", IntPtr, hMprServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
 }
 
@@ -8736,7 +10138,7 @@ export MprAdminServerGetInfo(hMprServer, dwLevel, lplpbBuffer) {
 export MprAdminServerSetInfo(hMprServer, dwLevel, lpbBuffer) {
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminServerSetInfo", "ptr", hMprServer, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminServerSetInfo", IntPtr, hMprServer, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
 }
 
@@ -9003,7 +10405,7 @@ export MprAdminTransportCreate(hMprServer, dwTransportId, lpwsTransportName, pGl
     pGlobalInfoMarshal := pGlobalInfo is VarRef ? "char*" : "ptr"
     pClientInterfaceInfoMarshal := pClientInterfaceInfo is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminTransportCreate", "ptr", hMprServer, "uint", dwTransportId, "ptr", lpwsTransportName, pGlobalInfoMarshal, pGlobalInfo, "uint", dwGlobalInfoSize, pClientInterfaceInfoMarshal, pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminTransportCreate", IntPtr, hMprServer, UInt32, dwTransportId, "ptr", lpwsTransportName, pGlobalInfoMarshal, pGlobalInfo, UInt32, dwGlobalInfoSize, pClientInterfaceInfoMarshal, pClientInterfaceInfo, UInt32, dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, UInt32)
     return result
 }
 
@@ -9115,7 +10517,7 @@ export MprAdminTransportSetInfo(hMprServer, dwTransportId, pGlobalInfo, dwGlobal
     pGlobalInfoMarshal := pGlobalInfo is VarRef ? "char*" : "ptr"
     pClientInterfaceInfoMarshal := pClientInterfaceInfo is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminTransportSetInfo", "ptr", hMprServer, "uint", dwTransportId, pGlobalInfoMarshal, pGlobalInfo, "uint", dwGlobalInfoSize, pClientInterfaceInfoMarshal, pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminTransportSetInfo", IntPtr, hMprServer, UInt32, dwTransportId, pGlobalInfoMarshal, pGlobalInfo, UInt32, dwGlobalInfoSize, pClientInterfaceInfoMarshal, pClientInterfaceInfo, UInt32, dwClientInterfaceInfoSize, UInt32)
     return result
 }
 
@@ -9243,7 +10645,7 @@ export MprAdminTransportGetInfo(hMprServer, dwTransportId, ppGlobalInfo, lpdwGlo
     ppClientInterfaceInfoMarshal := ppClientInterfaceInfo is VarRef ? "ptr*" : "ptr"
     lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminTransportGetInfo", "ptr", hMprServer, "uint", dwTransportId, ppGlobalInfoMarshal, ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, ppClientInterfaceInfoMarshal, ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminTransportGetInfo", IntPtr, hMprServer, UInt32, dwTransportId, ppGlobalInfoMarshal, ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, ppClientInterfaceInfoMarshal, ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, UInt32)
     return result
 }
 
@@ -9294,7 +10696,7 @@ export MprAdminDeviceEnum(hMprServer, dwLevel, lplpbBuffer, lpdwTotalEntries) {
     lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
     lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminDeviceEnum", "ptr", hMprServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, lpdwTotalEntriesMarshal, lpdwTotalEntries, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminDeviceEnum", IntPtr, hMprServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, lpdwTotalEntriesMarshal, lpdwTotalEntries, UInt32)
     return result
 }
 
@@ -9370,7 +10772,7 @@ export MprAdminDeviceEnum(hMprServer, dwLevel, lplpbBuffer, lpdwTotalEntries) {
 export MprAdminInterfaceGetHandle(hMprServer, lpwsInterfaceName, phInterface, fIncludeClientInterfaces) {
     lpwsInterfaceName := lpwsInterfaceName is String ? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetHandle", "ptr", hMprServer, "ptr", lpwsInterfaceName, HANDLE.Ptr, phInterface, BOOL, fIncludeClientInterfaces, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetHandle", IntPtr, hMprServer, "ptr", lpwsInterfaceName, HANDLE.Ptr, phInterface, BOOL, fIncludeClientInterfaces, UInt32)
     return result
 }
 
@@ -9495,7 +10897,7 @@ export MprAdminInterfaceGetHandle(hMprServer, lpwsInterfaceName, phInterface, fI
 export MprAdminInterfaceCreate(hMprServer, dwLevel, lpbBuffer, phInterface) {
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceCreate", "ptr", hMprServer, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, HANDLE.Ptr, phInterface, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceCreate", IntPtr, hMprServer, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, HANDLE.Ptr, phInterface, UInt32)
     return result
 }
 
@@ -9627,7 +11029,7 @@ export MprAdminInterfaceCreate(hMprServer, dwLevel, lpbBuffer, phInterface) {
 export MprAdminInterfaceGetInfo(hMprServer, hInterface, dwLevel, lplpbBuffer) {
     lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetInfo", "ptr", hMprServer, HANDLE, hInterface, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
 }
 
@@ -9753,7 +11155,7 @@ export MprAdminInterfaceGetInfo(hMprServer, hInterface, dwLevel, lplpbBuffer) {
 export MprAdminInterfaceSetInfo(hMprServer, hInterface, dwLevel, lpbBuffer) {
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceSetInfo", "ptr", hMprServer, HANDLE, hInterface, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceSetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
 }
 
@@ -9814,7 +11216,7 @@ export MprAdminInterfaceSetInfo(hMprServer, hInterface, dwLevel, lpbBuffer) {
  * @since windowsserver2000
  */
 export MprAdminInterfaceDelete(hMprServer, hInterface) {
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceDelete", "ptr", hMprServer, HANDLE, hInterface, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceDelete", IntPtr, hMprServer, HANDLE, hInterface, UInt32)
     return result
 }
 
@@ -9924,7 +11326,7 @@ export MprAdminInterfaceDelete(hMprServer, hInterface) {
 export MprAdminInterfaceDeviceGetInfo(hMprServer, hInterface, dwIndex, dwLevel, lplpBuffer) {
     lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceGetInfo", "ptr", hMprServer, HANDLE, hInterface, "uint", dwIndex, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceGetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwIndex, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, UInt32)
     return result
 }
 
@@ -10028,7 +11430,7 @@ export MprAdminInterfaceDeviceGetInfo(hMprServer, hInterface, dwIndex, dwLevel, 
 export MprAdminInterfaceDeviceSetInfo(hMprServer, hInterface, dwIndex, dwLevel, lpbBuffer) {
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceSetInfo", "ptr", hMprServer, HANDLE, hInterface, "uint", dwIndex, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceSetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwIndex, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
 }
 
@@ -10135,7 +11537,7 @@ export MprAdminInterfaceDeviceSetInfo(hMprServer, hInterface, dwIndex, dwLevel, 
  * @since windowsserver2000
  */
 export MprAdminInterfaceTransportRemove(hMprServer, hInterface, dwTransportId) {
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportRemove", "ptr", hMprServer, HANDLE, hInterface, "uint", dwTransportId, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportRemove", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwTransportId, UInt32)
     return result
 }
 
@@ -10238,7 +11640,7 @@ export MprAdminInterfaceTransportRemove(hMprServer, hInterface, dwTransportId) {
 export MprAdminInterfaceTransportAdd(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
     pInterfaceInfoMarshal := pInterfaceInfo is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportAdd", "ptr", hMprServer, HANDLE, hInterface, "uint", dwTransportId, pInterfaceInfoMarshal, pInterfaceInfo, "uint", dwInterfaceInfoSize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportAdd", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwTransportId, pInterfaceInfoMarshal, pInterfaceInfo, UInt32, dwInterfaceInfoSize, UInt32)
     return result
 }
 
@@ -10357,7 +11759,7 @@ export MprAdminInterfaceTransportGetInfo(hMprServer, hInterface, dwTransportId, 
     ppInterfaceInfoMarshal := ppInterfaceInfo is VarRef ? "ptr*" : "ptr"
     lpdwInterfaceInfoSizeMarshal := lpdwInterfaceInfoSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportGetInfo", "ptr", hMprServer, HANDLE, hInterface, "uint", dwTransportId, ppInterfaceInfoMarshal, ppInterfaceInfo, lpdwInterfaceInfoSizeMarshal, lpdwInterfaceInfoSize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportGetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwTransportId, ppInterfaceInfoMarshal, ppInterfaceInfo, lpdwInterfaceInfoSizeMarshal, lpdwInterfaceInfoSize, UInt32)
     return result
 }
 
@@ -10469,7 +11871,7 @@ export MprAdminInterfaceTransportGetInfo(hMprServer, hInterface, dwTransportId, 
 export MprAdminInterfaceTransportSetInfo(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
     pInterfaceInfoMarshal := pInterfaceInfo is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportSetInfo", "ptr", hMprServer, HANDLE, hInterface, "uint", dwTransportId, pInterfaceInfoMarshal, pInterfaceInfo, "uint", dwInterfaceInfoSize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportSetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwTransportId, pInterfaceInfoMarshal, pInterfaceInfo, UInt32, dwInterfaceInfoSize, UInt32)
     return result
 }
 
@@ -10552,7 +11954,7 @@ export MprAdminInterfaceEnum(hMprServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpd
     lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
     lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceEnum", "ptr", hMprServer, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceEnum", IntPtr, hMprServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
 }
 
@@ -10869,7 +12271,7 @@ export MprAdminInterfaceGetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserNa
 export MprAdminInterfaceSetCredentialsEx(hMprServer, hInterface, dwLevel, lpbBuffer) {
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCredentialsEx", "ptr", hMprServer, HANDLE, hInterface, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCredentialsEx", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
 }
 
@@ -10975,7 +12377,7 @@ export MprAdminInterfaceSetCredentialsEx(hMprServer, hInterface, dwLevel, lpbBuf
 export MprAdminInterfaceGetCredentialsEx(hMprServer, hInterface, dwLevel, lplpbBuffer) {
     lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentialsEx", "ptr", hMprServer, HANDLE, hInterface, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentialsEx", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
 }
 
@@ -11139,7 +12541,7 @@ export MprAdminInterfaceGetCredentialsEx(hMprServer, hInterface, dwLevel, lplpbB
  * @since windowsserver2000
  */
 export MprAdminInterfaceConnect(hMprServer, hInterface, hEvent, fSynchronous) {
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceConnect", "ptr", hMprServer, HANDLE, hInterface, HANDLE, hEvent, BOOL, fSynchronous, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceConnect", IntPtr, hMprServer, HANDLE, hInterface, HANDLE, hEvent, BOOL, fSynchronous, UInt32)
     return result
 }
 
@@ -11219,7 +12621,7 @@ export MprAdminInterfaceConnect(hMprServer, hInterface, hEvent, fSynchronous) {
  * @since windowsserver2000
  */
 export MprAdminInterfaceDisconnect(hMprServer, hInterface) {
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceDisconnect", "ptr", hMprServer, HANDLE, hInterface, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceDisconnect", IntPtr, hMprServer, HANDLE, hInterface, UInt32)
     return result
 }
 
@@ -11352,7 +12754,7 @@ export MprAdminInterfaceDisconnect(hMprServer, hInterface) {
  * @since windowsserver2000
  */
 export MprAdminInterfaceUpdateRoutes(hMprServer, hInterface, dwProtocolId, hEvent) {
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceUpdateRoutes", "ptr", hMprServer, HANDLE, hInterface, "uint", dwProtocolId, HANDLE, hEvent, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceUpdateRoutes", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwProtocolId, HANDLE, hEvent, UInt32)
     return result
 }
 
@@ -11476,7 +12878,7 @@ export MprAdminInterfaceUpdateRoutes(hMprServer, hInterface, dwProtocolId, hEven
 export MprAdminInterfaceQueryUpdateResult(hMprServer, hInterface, dwProtocolId, lpdwUpdateResult) {
     lpdwUpdateResultMarshal := lpdwUpdateResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceQueryUpdateResult", "ptr", hMprServer, HANDLE, hInterface, "uint", dwProtocolId, lpdwUpdateResultMarshal, lpdwUpdateResult, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceQueryUpdateResult", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwProtocolId, lpdwUpdateResultMarshal, lpdwUpdateResult, UInt32)
     return result
 }
 
@@ -11593,7 +12995,7 @@ export MprAdminInterfaceQueryUpdateResult(hMprServer, hInterface, dwProtocolId, 
  * @since windowsserver2000
  */
 export MprAdminInterfaceUpdatePhonebookInfo(hMprServer, hInterface) {
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceUpdatePhonebookInfo", "ptr", hMprServer, HANDLE, hInterface, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceUpdatePhonebookInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32)
     return result
 }
 
@@ -11669,7 +13071,7 @@ export MprAdminInterfaceUpdatePhonebookInfo(hMprServer, hInterface) {
  * @since windowsserver2000
  */
 export MprAdminRegisterConnectionNotification(hMprServer, hEventNotification) {
-    result := DllCall("MPRAPI.dll\MprAdminRegisterConnectionNotification", "ptr", hMprServer, HANDLE, hEventNotification, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminRegisterConnectionNotification", IntPtr, hMprServer, HANDLE, hEventNotification, UInt32)
     return result
 }
 
@@ -11741,7 +13143,7 @@ export MprAdminRegisterConnectionNotification(hMprServer, hEventNotification) {
  * @since windowsserver2000
  */
 export MprAdminDeregisterConnectionNotification(hMprServer, hEventNotification) {
-    result := DllCall("MPRAPI.dll\MprAdminDeregisterConnectionNotification", "ptr", hMprServer, HANDLE, hEventNotification, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminDeregisterConnectionNotification", IntPtr, hMprServer, HANDLE, hEventNotification, UInt32)
     return result
 }
 
@@ -11771,7 +13173,7 @@ export MprAdminMIBServerConnect(lpwsServerName, phMibServer) {
  * @since windowsserver2000
  */
 export MprAdminMIBServerDisconnect(hMibServer) {
-    DllCall("MPRAPI.dll\MprAdminMIBServerDisconnect", "ptr", hMibServer)
+    DllCall("MPRAPI.dll\MprAdminMIBServerDisconnect", IntPtr, hMibServer)
 }
 
 /**
@@ -11845,7 +13247,7 @@ export MprAdminMIBServerDisconnect(hMibServer) {
 export MprAdminMIBEntryCreate(hMibServer, dwPid, dwRoutingPid, lpEntry, dwEntrySize) {
     lpEntryMarshal := lpEntry is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminMIBEntryCreate", "ptr", hMibServer, "uint", dwPid, "uint", dwRoutingPid, lpEntryMarshal, lpEntry, "uint", dwEntrySize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminMIBEntryCreate", IntPtr, hMibServer, UInt32, dwPid, UInt32, dwRoutingPid, lpEntryMarshal, lpEntry, UInt32, dwEntrySize, UInt32)
     return result
 }
 
@@ -11909,7 +13311,7 @@ export MprAdminMIBEntryCreate(hMibServer, dwPid, dwRoutingPid, lpEntry, dwEntryS
 export MprAdminMIBEntryDelete(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, dwEntrySize) {
     lpEntryMarshal := lpEntry is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminMIBEntryDelete", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpEntryMarshal, lpEntry, "uint", dwEntrySize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminMIBEntryDelete", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpEntryMarshal, lpEntry, UInt32, dwEntrySize, UInt32)
     return result
 }
 
@@ -11975,7 +13377,7 @@ export MprAdminMIBEntryDelete(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, d
 export MprAdminMIBEntrySet(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, dwEntrySize) {
     lpEntryMarshal := lpEntry is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminMIBEntrySet", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpEntryMarshal, lpEntry, "uint", dwEntrySize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminMIBEntrySet", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpEntryMarshal, lpEntry, UInt32, dwEntrySize, UInt32)
     return result
 }
 
@@ -12058,7 +13460,7 @@ export MprAdminMIBEntryGet(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dw
     lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : "ptr"
     lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminMIBEntryGet", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpInEntryMarshal, lpInEntry, "uint", dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminMIBEntryGet", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpInEntryMarshal, lpInEntry, UInt32, dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, UInt32)
     return result
 }
 
@@ -12141,7 +13543,7 @@ export MprAdminMIBEntryGetFirst(hMibServer, dwProtocolId, dwRoutingPid, lpInEntr
     lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : "ptr"
     lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetFirst", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpInEntryMarshal, lpInEntry, "uint", dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetFirst", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpInEntryMarshal, lpInEntry, UInt32, dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, UInt32)
     return result
 }
 
@@ -12224,7 +13626,7 @@ export MprAdminMIBEntryGetNext(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry
     lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : "ptr"
     lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetNext", "ptr", hMibServer, "uint", dwProtocolId, "uint", dwRoutingPid, lpInEntryMarshal, lpInEntry, "uint", dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetNext", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpInEntryMarshal, lpInEntry, UInt32, dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, UInt32)
     return result
 }
 
@@ -12330,7 +13732,7 @@ export MprAdminMIBBufferFree(pBuffer) {
 export MprConfigServerInstall(dwLevel, pBuffer) {
     pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigServerInstall", "uint", dwLevel, pBufferMarshal, pBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigServerInstall", UInt32, dwLevel, pBufferMarshal, pBuffer, UInt32)
     return result
 }
 
@@ -12535,7 +13937,7 @@ export MprConfigBufferFree(pBuffer) {
 export MprConfigServerGetInfo(hMprConfig, dwLevel, lplpbBuffer) {
     lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigServerGetInfo", HANDLE, hMprConfig, "uint", dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigServerGetInfo", HANDLE, hMprConfig, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
 }
 
@@ -12653,7 +14055,7 @@ export MprConfigServerGetInfo(hMprConfig, dwLevel, lplpbBuffer) {
 export MprConfigServerSetInfo(hMprServer, dwLevel, lpbBuffer) {
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigServerSetInfo", "ptr", hMprServer, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigServerSetInfo", IntPtr, hMprServer, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
 }
 
@@ -12890,7 +14292,7 @@ export MprConfigTransportCreate(hMprConfig, dwTransportId, lpwsTransportName, pG
     lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
     lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
 
-    result := DllCall("MPRAPI.dll\MprConfigTransportCreate", HANDLE, hMprConfig, "uint", dwTransportId, "ptr", lpwsTransportName, "ptr", pGlobalInfo, "uint", dwGlobalInfoSize, "ptr", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, HANDLE.Ptr, phRouterTransport, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigTransportCreate", HANDLE, hMprConfig, UInt32, dwTransportId, "ptr", lpwsTransportName, IntPtr, pGlobalInfo, UInt32, dwGlobalInfoSize, IntPtr, pClientInterfaceInfo, UInt32, dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, HANDLE.Ptr, phRouterTransport, UInt32)
     return result
 }
 
@@ -13050,7 +14452,7 @@ export MprConfigTransportDelete(hMprConfig, hRouterTransport) {
  * @since windowsserver2000
  */
 export MprConfigTransportGetHandle(hMprConfig, dwTransportId, phRouterTransport) {
-    result := DllCall("MPRAPI.dll\MprConfigTransportGetHandle", HANDLE, hMprConfig, "uint", dwTransportId, HANDLE.Ptr, phRouterTransport, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigTransportGetHandle", HANDLE, hMprConfig, UInt32, dwTransportId, HANDLE.Ptr, phRouterTransport, UInt32)
     return result
 }
 
@@ -13153,7 +14555,7 @@ export MprConfigTransportGetHandle(hMprConfig, dwTransportId, phRouterTransport)
 export MprConfigTransportSetInfo(hMprConfig, hRouterTransport, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
     lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
 
-    result := DllCall("MPRAPI.dll\MprConfigTransportSetInfo", HANDLE, hMprConfig, HANDLE, hRouterTransport, "ptr", pGlobalInfo, "uint", dwGlobalInfoSize, "ptr", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigTransportSetInfo", HANDLE, hMprConfig, HANDLE, hRouterTransport, IntPtr, pGlobalInfo, UInt32, dwGlobalInfoSize, IntPtr, pClientInterfaceInfo, UInt32, dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, UInt32)
     return result
 }
 
@@ -13389,7 +14791,7 @@ export MprConfigTransportEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpd
     lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
     lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigTransportEnum", HANDLE, hMprConfig, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigTransportEnum", HANDLE, hMprConfig, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
 }
 
@@ -13502,7 +14904,7 @@ export MprConfigTransportEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpd
 export MprConfigInterfaceCreate(hMprConfig, dwLevel, lpbBuffer, phRouterInterface) {
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceCreate", HANDLE, hMprConfig, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, HANDLE.Ptr, phRouterInterface, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceCreate", HANDLE, hMprConfig, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, HANDLE.Ptr, phRouterInterface, UInt32)
     return result
 }
 
@@ -13753,7 +15155,7 @@ export MprConfigInterfaceGetInfo(hMprConfig, hRouterInterface, dwLevel, lplpBuff
     lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
     lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceGetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceGetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, UInt32)
     return result
 }
 
@@ -13869,7 +15271,7 @@ export MprConfigInterfaceGetInfo(hMprConfig, hRouterInterface, dwLevel, lplpBuff
 export MprConfigInterfaceSetInfo(hMprConfig, hRouterInterface, dwLevel, lpbBuffer) {
     lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceSetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, "uint", dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceSetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
 }
 
@@ -13976,7 +15378,7 @@ export MprConfigInterfaceEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpd
     lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
     lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceEnum", HANDLE, hMprConfig, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceEnum", HANDLE, hMprConfig, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
 }
 
@@ -14088,7 +15490,7 @@ export MprConfigInterfaceEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpd
 export MprConfigInterfaceTransportAdd(hMprConfig, hRouterInterface, dwTransportId, lpwsTransportName, pInterfaceInfo, dwInterfaceInfoSize, phRouterIfTransport) {
     lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
 
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportAdd", HANDLE, hMprConfig, HANDLE, hRouterInterface, "uint", dwTransportId, "ptr", lpwsTransportName, "ptr", pInterfaceInfo, "uint", dwInterfaceInfoSize, HANDLE.Ptr, phRouterIfTransport, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportAdd", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwTransportId, "ptr", lpwsTransportName, IntPtr, pInterfaceInfo, UInt32, dwInterfaceInfoSize, HANDLE.Ptr, phRouterIfTransport, UInt32)
     return result
 }
 
@@ -14262,7 +15664,7 @@ export MprConfigInterfaceTransportRemove(hMprConfig, hRouterInterface, hRouterIf
  * @since windowsserver2000
  */
 export MprConfigInterfaceTransportGetHandle(hMprConfig, hRouterInterface, dwTransportId, phRouterIfTransport) {
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetHandle", HANDLE, hMprConfig, HANDLE, hRouterInterface, "uint", dwTransportId, HANDLE.Ptr, phRouterIfTransport, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetHandle", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwTransportId, HANDLE.Ptr, phRouterIfTransport, UInt32)
     return result
 }
 
@@ -14459,7 +15861,7 @@ export MprConfigInterfaceTransportGetInfo(hMprConfig, hRouterInterface, hRouterI
  * @since windowsserver2000
  */
 export MprConfigInterfaceTransportSetInfo(hMprConfig, hRouterInterface, hRouterIfTransport, pInterfaceInfo, dwInterfaceInfoSize) {
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportSetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, HANDLE, hRouterIfTransport, "ptr", pInterfaceInfo, "uint", dwInterfaceInfoSize, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportSetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, HANDLE, hRouterIfTransport, IntPtr, pInterfaceInfo, UInt32, dwInterfaceInfoSize, UInt32)
     return result
 }
 
@@ -14570,7 +15972,7 @@ export MprConfigInterfaceTransportEnum(hMprConfig, hRouterInterface, dwLevel, lp
     lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
     lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportEnum", HANDLE, hMprConfig, HANDLE, hRouterInterface, "uint", dwLevel, lplpBufferMarshal, lplpBuffer, "uint", dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportEnum", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
 }
 
@@ -14637,7 +16039,7 @@ export MprConfigInterfaceTransportEnum(hMprConfig, hRouterInterface, dwLevel, lp
 export MprConfigGetFriendlyName(hMprConfig, pszGuidName, pszBuffer, dwBufferSize) {
     pszGuidName := pszGuidName is String ? StrPtr(pszGuidName) : pszGuidName
 
-    result := DllCall("MPRAPI.dll\MprConfigGetFriendlyName", HANDLE, hMprConfig, "ptr", pszGuidName, "ptr", pszBuffer, "uint", dwBufferSize, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigGetFriendlyName", HANDLE, hMprConfig, "ptr", pszGuidName, IntPtr, pszBuffer, UInt32, dwBufferSize, UInt32)
     return result
 }
 
@@ -14701,7 +16103,7 @@ export MprConfigGetFriendlyName(hMprConfig, pszGuidName, pszBuffer, dwBufferSize
 export MprConfigGetGuidName(hMprConfig, pszFriendlyName, pszBuffer, dwBufferSize) {
     pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
 
-    result := DllCall("MPRAPI.dll\MprConfigGetGuidName", HANDLE, hMprConfig, "ptr", pszFriendlyName, "ptr", pszBuffer, "uint", dwBufferSize, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigGetGuidName", HANDLE, hMprConfig, "ptr", pszFriendlyName, IntPtr, pszBuffer, UInt32, dwBufferSize, UInt32)
     return result
 }
 
@@ -14767,7 +16169,7 @@ export MprConfigGetGuidName(hMprConfig, pszFriendlyName, pszBuffer, dwBufferSize
 export MprConfigFilterGetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
     lpBufferMarshal := lpBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigFilterGetInfo", HANDLE, hMprConfig, "uint", dwLevel, "uint", dwTransportId, lpBufferMarshal, lpBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigFilterGetInfo", HANDLE, hMprConfig, UInt32, dwLevel, UInt32, dwTransportId, lpBufferMarshal, lpBuffer, UInt32)
     return result
 }
 
@@ -14832,7 +16234,7 @@ export MprConfigFilterGetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
 export MprConfigFilterSetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
     lpBufferMarshal := lpBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprConfigFilterSetInfo", HANDLE, hMprConfig, "uint", dwLevel, "uint", dwTransportId, lpBufferMarshal, lpBuffer, UInt32)
+    result := DllCall("MPRAPI.dll\MprConfigFilterSetInfo", HANDLE, hMprConfig, UInt32, dwLevel, UInt32, dwTransportId, lpBufferMarshal, lpBuffer, UInt32)
     return result
 }
 
@@ -14894,7 +16296,7 @@ export MprConfigFilterSetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
 export MprInfoCreate(dwVersion, lplpNewHeader) {
     lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprInfoCreate", "uint", dwVersion, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
+    result := DllCall("MPRAPI.dll\MprInfoCreate", UInt32, dwVersion, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
 }
 
@@ -15118,7 +16520,7 @@ export MprInfoBlockAdd(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData
     lpItemDataMarshal := lpItemData is VarRef ? "char*" : "ptr"
     lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprInfoBlockAdd", lpHeaderMarshal, lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, lpItemDataMarshal, lpItemData, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
+    result := DllCall("MPRAPI.dll\MprInfoBlockAdd", lpHeaderMarshal, lpHeader, UInt32, dwInfoType, UInt32, dwItemSize, UInt32, dwItemCount, lpItemDataMarshal, lpItemData, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
 }
 
@@ -15184,7 +16586,7 @@ export MprInfoBlockRemove(lpHeader, dwInfoType, lplpNewHeader) {
     lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
     lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprInfoBlockRemove", lpHeaderMarshal, lpHeader, "uint", dwInfoType, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
+    result := DllCall("MPRAPI.dll\MprInfoBlockRemove", lpHeaderMarshal, lpHeader, UInt32, dwInfoType, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
 }
 
@@ -15239,7 +16641,7 @@ export MprInfoBlockSet(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData
     lpItemDataMarshal := lpItemData is VarRef ? "char*" : "ptr"
     lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprInfoBlockSet", lpHeaderMarshal, lpHeader, "uint", dwInfoType, "uint", dwItemSize, "uint", dwItemCount, lpItemDataMarshal, lpItemData, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
+    result := DllCall("MPRAPI.dll\MprInfoBlockSet", lpHeaderMarshal, lpHeader, UInt32, dwInfoType, UInt32, dwItemSize, UInt32, dwItemCount, lpItemDataMarshal, lpItemData, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
 }
 
@@ -15305,7 +16707,7 @@ export MprInfoBlockFind(lpHeader, dwInfoType, lpdwItemSize, lpdwItemCount, lplpI
     lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : "ptr"
     lplpItemDataMarshal := lplpItemData is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPRAPI.dll\MprInfoBlockFind", lpHeaderMarshal, lpHeader, "uint", dwInfoType, lpdwItemSizeMarshal, lpdwItemSize, lpdwItemCountMarshal, lpdwItemCount, lplpItemDataMarshal, lplpItemData, UInt32)
+    result := DllCall("MPRAPI.dll\MprInfoBlockFind", lpHeaderMarshal, lpHeader, UInt32, dwInfoType, lpdwItemSizeMarshal, lpdwItemSize, lpdwItemCountMarshal, lpdwItemCount, lplpItemDataMarshal, lplpItemData, UInt32)
     return result
 }
 
@@ -15390,7 +16792,7 @@ export MprInfoBlockQuerySize(lpHeader) {
  * @since windowsserver2000
  */
 export MgmRegisterMProtocol(prpiInfo, dwProtocolId, dwComponentId, phProtocol) {
-    result := DllCall("rtm.dll\MgmRegisterMProtocol", ROUTING_PROTOCOL_CONFIG.Ptr, prpiInfo, "uint", dwProtocolId, "uint", dwComponentId, HANDLE.Ptr, phProtocol, UInt32)
+    result := DllCall("rtm.dll\MgmRegisterMProtocol", ROUTING_PROTOCOL_CONFIG.Ptr, prpiInfo, UInt32, dwProtocolId, UInt32, dwComponentId, HANDLE.Ptr, phProtocol, UInt32)
     return result
 }
 
@@ -15520,7 +16922,7 @@ export MgmDeRegisterMProtocol(hProtocol) {
  * @since windowsserver2000
  */
 export MgmTakeInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
-    result := DllCall("rtm.dll\MgmTakeInterfaceOwnership", HANDLE, hProtocol, "uint", dwIfIndex, "uint", dwIfNextHopAddr, UInt32)
+    result := DllCall("rtm.dll\MgmTakeInterfaceOwnership", HANDLE, hProtocol, UInt32, dwIfIndex, UInt32, dwIfNextHopAddr, UInt32)
     return result
 }
 
@@ -15578,7 +16980,7 @@ export MgmTakeInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
  * @since windowsserver2000
  */
 export MgmReleaseInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
-    result := DllCall("rtm.dll\MgmReleaseInterfaceOwnership", HANDLE, hProtocol, "uint", dwIfIndex, "uint", dwIfNextHopAddr, UInt32)
+    result := DllCall("rtm.dll\MgmReleaseInterfaceOwnership", HANDLE, hProtocol, UInt32, dwIfIndex, UInt32, dwIfNextHopAddr, UInt32)
     return result
 }
 
@@ -15646,7 +17048,7 @@ export MgmGetProtocolOnInterface(dwIfIndex, dwIfNextHopAddr, pdwIfProtocolId, pd
     pdwIfProtocolIdMarshal := pdwIfProtocolId is VarRef ? "uint*" : "ptr"
     pdwIfComponentIdMarshal := pdwIfComponentId is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\MgmGetProtocolOnInterface", "uint", dwIfIndex, "uint", dwIfNextHopAddr, pdwIfProtocolIdMarshal, pdwIfProtocolId, pdwIfComponentIdMarshal, pdwIfComponentId, UInt32)
+    result := DllCall("rtm.dll\MgmGetProtocolOnInterface", UInt32, dwIfIndex, UInt32, dwIfNextHopAddr, pdwIfProtocolIdMarshal, pdwIfProtocolId, pdwIfComponentIdMarshal, pdwIfComponentId, UInt32)
     return result
 }
 
@@ -15771,7 +17173,7 @@ export MgmGetProtocolOnInterface(dwIfIndex, dwIfNextHopAddr, pdwIfProtocolId, pd
  * @since windowsserver2000
  */
 export MgmAddGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, dwIfIndex, dwIfNextHopIPAddr, dwFlags) {
-    result := DllCall("rtm.dll\MgmAddGroupMembershipEntry", HANDLE, hProtocol, "uint", dwSourceAddr, "uint", dwSourceMask, "uint", dwGroupAddr, "uint", dwGroupMask, "uint", dwIfIndex, "uint", dwIfNextHopIPAddr, "uint", dwFlags, UInt32)
+    result := DllCall("rtm.dll\MgmAddGroupMembershipEntry", HANDLE, hProtocol, UInt32, dwSourceAddr, UInt32, dwSourceMask, UInt32, dwGroupAddr, UInt32, dwGroupMask, UInt32, dwIfIndex, UInt32, dwIfNextHopIPAddr, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -15896,7 +17298,7 @@ export MgmAddGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGroup
  * @since windowsserver2000
  */
 export MgmDeleteGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, dwIfIndex, dwIfNextHopIPAddr, dwFlags) {
-    result := DllCall("rtm.dll\MgmDeleteGroupMembershipEntry", HANDLE, hProtocol, "uint", dwSourceAddr, "uint", dwSourceMask, "uint", dwGroupAddr, "uint", dwGroupMask, "uint", dwIfIndex, "uint", dwIfNextHopIPAddr, "uint", dwFlags, UInt32)
+    result := DllCall("rtm.dll\MgmDeleteGroupMembershipEntry", HANDLE, hProtocol, UInt32, dwSourceAddr, UInt32, dwSourceMask, UInt32, dwGroupAddr, UInt32, dwGroupMask, UInt32, dwIfIndex, UInt32, dwIfNextHopIPAddr, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -16280,7 +17682,7 @@ export MgmGetMfeStats(pimm, pdwBufferSize, pbBuffer, dwFlags) {
     pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
     pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("rtm.dll\MgmGetMfeStats", MIB_IPMCAST_MFE.Ptr, pimm, pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, "uint", dwFlags, UInt32)
+    result := DllCall("rtm.dll\MgmGetMfeStats", MIB_IPMCAST_MFE.Ptr, pimm, pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -16411,7 +17813,7 @@ export MgmGetFirstMfeStats(pdwBufferSize, pbBuffer, pdwNumEntries, dwFlags) {
     pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
     pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\MgmGetFirstMfeStats", pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, pdwNumEntriesMarshal, pdwNumEntries, "uint", dwFlags, UInt32)
+    result := DllCall("rtm.dll\MgmGetFirstMfeStats", pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, pdwNumEntriesMarshal, pdwNumEntries, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -16547,7 +17949,7 @@ export MgmGetNextMfeStats(pimmStart, pdwBufferSize, pbBuffer, pdwNumEntries, dwF
     pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
     pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\MgmGetNextMfeStats", MIB_IPMCAST_MFE.Ptr, pimmStart, pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, pdwNumEntriesMarshal, pdwNumEntries, "uint", dwFlags, UInt32)
+    result := DllCall("rtm.dll\MgmGetNextMfeStats", MIB_IPMCAST_MFE.Ptr, pimmStart, pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, pdwNumEntriesMarshal, pdwNumEntries, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -16816,7 +18218,7 @@ export MgmGroupEnumerationEnd(hEnum) {
 export RtmConvertNetAddressToIpv6AddressAndLength(pNetAddress, pAddress, pLength, dwAddressSize) {
     pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmConvertNetAddressToIpv6AddressAndLength", RTM_NET_ADDRESS.Ptr, pNetAddress, IN6_ADDR.Ptr, pAddress, pLengthMarshal, pLength, "uint", dwAddressSize, UInt32)
+    result := DllCall("rtm.dll\RtmConvertNetAddressToIpv6AddressAndLength", RTM_NET_ADDRESS.Ptr, pNetAddress, IN6_ADDR.Ptr, pAddress, pLengthMarshal, pLength, UInt32, dwAddressSize, UInt32)
     return result
 }
 
@@ -16829,7 +18231,7 @@ export RtmConvertNetAddressToIpv6AddressAndLength(pNetAddress, pAddress, pLength
  * @returns {Integer} 
  */
 export RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress, _Address, dwLength, dwAddressSize) {
-    result := DllCall("rtm.dll\RtmConvertIpv6AddressAndLengthToNetAddress", RTM_NET_ADDRESS.Ptr, pNetAddress, IN6_ADDR, _Address, "uint", dwLength, "uint", dwAddressSize, UInt32)
+    result := DllCall("rtm.dll\RtmConvertIpv6AddressAndLengthToNetAddress", RTM_NET_ADDRESS.Ptr, pNetAddress, IN6_ADDR, _Address, UInt32, dwLength, UInt32, dwAddressSize, UInt32)
     return result
 }
 
@@ -16945,7 +18347,7 @@ export RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress, _Address, dwLengt
 export RtmRegisterEntity(RtmEntityInfo, ExportMethods, EventCallback, ReserveOpaquePointer, RtmRegProfile, RtmRegHandle) {
     RtmRegHandleMarshal := RtmRegHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmRegisterEntity", RTM_ENTITY_INFO.Ptr, RtmEntityInfo, RTM_ENTITY_EXPORT_METHODS.Ptr, ExportMethods, "ptr", EventCallback, BOOL, ReserveOpaquePointer, RTM_REGN_PROFILE.Ptr, RtmRegProfile, RtmRegHandleMarshal, RtmRegHandle, UInt32)
+    result := DllCall("rtm.dll\RtmRegisterEntity", RTM_ENTITY_INFO.Ptr, RtmEntityInfo, RTM_ENTITY_EXPORT_METHODS.Ptr, ExportMethods, RTM_EVENT_CALLBACK, EventCallback, BOOL, ReserveOpaquePointer, RTM_REGN_PROFILE.Ptr, RtmRegProfile, RtmRegHandleMarshal, RtmRegHandle, UInt32)
     return result
 }
 
@@ -16990,7 +18392,7 @@ export RtmRegisterEntity(RtmEntityInfo, ExportMethods, EventCallback, ReserveOpa
  * @since windowsserver2000
  */
 export RtmDeregisterEntity(RtmRegHandle) {
-    result := DllCall("rtm.dll\RtmDeregisterEntity", "ptr", RtmRegHandle, UInt32)
+    result := DllCall("rtm.dll\RtmDeregisterEntity", IntPtr, RtmRegHandle, UInt32)
     return result
 }
 
@@ -17053,7 +18455,7 @@ export RtmGetRegisteredEntities(RtmRegHandle, NumEntities, EntityHandles, Entity
     NumEntitiesMarshal := NumEntities is VarRef ? "uint*" : "ptr"
     EntityHandlesMarshal := EntityHandles is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetRegisteredEntities", "ptr", RtmRegHandle, NumEntitiesMarshal, NumEntities, EntityHandlesMarshal, EntityHandles, RTM_ENTITY_INFO.Ptr, EntityInfos, UInt32)
+    result := DllCall("rtm.dll\RtmGetRegisteredEntities", IntPtr, RtmRegHandle, NumEntitiesMarshal, NumEntities, EntityHandlesMarshal, EntityHandles, RTM_ENTITY_INFO.Ptr, EntityInfos, UInt32)
     return result
 }
 
@@ -17095,7 +18497,7 @@ export RtmGetRegisteredEntities(RtmRegHandle, NumEntities, EntityHandles, Entity
 export RtmReleaseEntities(RtmRegHandle, NumEntities, EntityHandles) {
     EntityHandlesMarshal := EntityHandles is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmReleaseEntities", "ptr", RtmRegHandle, "uint", NumEntities, EntityHandlesMarshal, EntityHandles, UInt32)
+    result := DllCall("rtm.dll\RtmReleaseEntities", IntPtr, RtmRegHandle, UInt32, NumEntities, EntityHandlesMarshal, EntityHandles, UInt32)
     return result
 }
 
@@ -17154,7 +18556,7 @@ export RtmReleaseEntities(RtmRegHandle, NumEntities, EntityHandles) {
  * @since windowsserver2000
  */
 export RtmLockDestination(RtmRegHandle, DestHandle, Exclusive, LockDest) {
-    result := DllCall("rtm.dll\RtmLockDestination", "ptr", RtmRegHandle, "ptr", DestHandle, BOOL, Exclusive, BOOL, LockDest, UInt32)
+    result := DllCall("rtm.dll\RtmLockDestination", IntPtr, RtmRegHandle, IntPtr, DestHandle, BOOL, Exclusive, BOOL, LockDest, UInt32)
     return result
 }
 
@@ -17214,7 +18616,7 @@ export RtmLockDestination(RtmRegHandle, DestHandle, Exclusive, LockDest) {
 export RtmGetOpaqueInformationPointer(RtmRegHandle, DestHandle, OpaqueInfoPointer) {
     OpaqueInfoPointerMarshal := OpaqueInfoPointer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetOpaqueInformationPointer", "ptr", RtmRegHandle, "ptr", DestHandle, OpaqueInfoPointerMarshal, OpaqueInfoPointer, UInt32)
+    result := DllCall("rtm.dll\RtmGetOpaqueInformationPointer", IntPtr, RtmRegHandle, IntPtr, DestHandle, OpaqueInfoPointerMarshal, OpaqueInfoPointer, UInt32)
     return result
 }
 
@@ -17271,7 +18673,7 @@ export RtmGetEntityMethods(RtmRegHandle, EntityHandle, NumMethods, ExptMethods) 
     NumMethodsMarshal := NumMethods is VarRef ? "uint*" : "ptr"
     ExptMethodsMarshal := ExptMethods is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetEntityMethods", "ptr", RtmRegHandle, "ptr", EntityHandle, NumMethodsMarshal, NumMethods, ExptMethodsMarshal, ExptMethods, UInt32)
+    result := DllCall("rtm.dll\RtmGetEntityMethods", IntPtr, RtmRegHandle, IntPtr, EntityHandle, NumMethodsMarshal, NumMethods, ExptMethodsMarshal, ExptMethods, UInt32)
     return result
 }
 
@@ -17324,7 +18726,7 @@ export RtmGetEntityMethods(RtmRegHandle, EntityHandle, NumMethods, ExptMethods) 
 export RtmInvokeMethod(RtmRegHandle, EntityHandle, _Input, OutputSize, Output) {
     OutputSizeMarshal := OutputSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmInvokeMethod", "ptr", RtmRegHandle, "ptr", EntityHandle, RTM_ENTITY_METHOD_INPUT.Ptr, _Input, OutputSizeMarshal, OutputSize, RTM_ENTITY_METHOD_OUTPUT.Ptr, Output, UInt32)
+    result := DllCall("rtm.dll\RtmInvokeMethod", IntPtr, RtmRegHandle, IntPtr, EntityHandle, RTM_ENTITY_METHOD_INPUT.Ptr, _Input, OutputSizeMarshal, OutputSize, RTM_ENTITY_METHOD_OUTPUT.Ptr, Output, UInt32)
     return result
 }
 
@@ -17440,7 +18842,7 @@ export RtmInvokeMethod(RtmRegHandle, EntityHandle, _Input, OutputSize, Output) {
  * @since windowsserver2000
  */
 export RtmBlockMethods(RtmRegHandle, TargetHandle, TargetType, BlockingFlag) {
-    result := DllCall("rtm.dll\RtmBlockMethods", "ptr", RtmRegHandle, HANDLE, TargetHandle, "char", TargetType, "uint", BlockingFlag, UInt32)
+    result := DllCall("rtm.dll\RtmBlockMethods", IntPtr, RtmRegHandle, HANDLE, TargetHandle, Int8, TargetType, UInt32, BlockingFlag, UInt32)
     return result
 }
 
@@ -17485,7 +18887,7 @@ export RtmBlockMethods(RtmRegHandle, TargetHandle, TargetType, BlockingFlag) {
  * @since windowsserver2000
  */
 export RtmGetEntityInfo(RtmRegHandle, EntityHandle, EntityInfo) {
-    result := DllCall("rtm.dll\RtmGetEntityInfo", "ptr", RtmRegHandle, "ptr", EntityHandle, RTM_ENTITY_INFO.Ptr, EntityInfo, UInt32)
+    result := DllCall("rtm.dll\RtmGetEntityInfo", IntPtr, RtmRegHandle, IntPtr, EntityHandle, RTM_ENTITY_INFO.Ptr, EntityInfo, UInt32)
     return result
 }
 
@@ -17544,7 +18946,7 @@ export RtmGetEntityInfo(RtmRegHandle, EntityHandle, EntityInfo) {
  * @since windowsserver2000
  */
 export RtmGetDestInfo(RtmRegHandle, DestHandle, ProtocolId, TargetViews, DestInfo) {
-    result := DllCall("rtm.dll\RtmGetDestInfo", "ptr", RtmRegHandle, "ptr", DestHandle, "uint", ProtocolId, "uint", TargetViews, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
+    result := DllCall("rtm.dll\RtmGetDestInfo", IntPtr, RtmRegHandle, IntPtr, DestHandle, UInt32, ProtocolId, UInt32, TargetViews, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
     return result
 }
 
@@ -17598,7 +19000,7 @@ export RtmGetDestInfo(RtmRegHandle, DestHandle, ProtocolId, TargetViews, DestInf
  * @since windowsserver2000
  */
 export RtmGetRouteInfo(RtmRegHandle, RouteHandle, RouteInfo, DestAddress) {
-    result := DllCall("rtm.dll\RtmGetRouteInfo", "ptr", RtmRegHandle, "ptr", RouteHandle, RTM_ROUTE_INFO.Ptr, RouteInfo, RTM_NET_ADDRESS.Ptr, DestAddress, UInt32)
+    result := DllCall("rtm.dll\RtmGetRouteInfo", IntPtr, RtmRegHandle, IntPtr, RouteHandle, RTM_ROUTE_INFO.Ptr, RouteInfo, RTM_NET_ADDRESS.Ptr, DestAddress, UInt32)
     return result
 }
 
@@ -17646,7 +19048,7 @@ export RtmGetRouteInfo(RtmRegHandle, RouteHandle, RouteInfo, DestAddress) {
  * @since windowsserver2000
  */
 export RtmGetNextHopInfo(RtmRegHandle, NextHopHandle, NextHopInfo) {
-    result := DllCall("rtm.dll\RtmGetNextHopInfo", "ptr", RtmRegHandle, "ptr", NextHopHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, UInt32)
+    result := DllCall("rtm.dll\RtmGetNextHopInfo", IntPtr, RtmRegHandle, IntPtr, NextHopHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, UInt32)
     return result
 }
 
@@ -17685,7 +19087,7 @@ export RtmGetNextHopInfo(RtmRegHandle, NextHopHandle, NextHopInfo) {
  * @since windowsserver2000
  */
 export RtmReleaseEntityInfo(RtmRegHandle, EntityInfo) {
-    result := DllCall("rtm.dll\RtmReleaseEntityInfo", "ptr", RtmRegHandle, RTM_ENTITY_INFO.Ptr, EntityInfo, UInt32)
+    result := DllCall("rtm.dll\RtmReleaseEntityInfo", IntPtr, RtmRegHandle, RTM_ENTITY_INFO.Ptr, EntityInfo, UInt32)
     return result
 }
 
@@ -17724,7 +19126,7 @@ export RtmReleaseEntityInfo(RtmRegHandle, EntityInfo) {
  * @since windowsserver2000
  */
 export RtmReleaseDestInfo(RtmRegHandle, DestInfo) {
-    result := DllCall("rtm.dll\RtmReleaseDestInfo", "ptr", RtmRegHandle, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
+    result := DllCall("rtm.dll\RtmReleaseDestInfo", IntPtr, RtmRegHandle, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
     return result
 }
 
@@ -17764,7 +19166,7 @@ export RtmReleaseDestInfo(RtmRegHandle, DestInfo) {
  * @since windowsserver2000
  */
 export RtmReleaseRouteInfo(RtmRegHandle, RouteInfo) {
-    result := DllCall("rtm.dll\RtmReleaseRouteInfo", "ptr", RtmRegHandle, RTM_ROUTE_INFO.Ptr, RouteInfo, UInt32)
+    result := DllCall("rtm.dll\RtmReleaseRouteInfo", IntPtr, RtmRegHandle, RTM_ROUTE_INFO.Ptr, RouteInfo, UInt32)
     return result
 }
 
@@ -17804,7 +19206,7 @@ export RtmReleaseRouteInfo(RtmRegHandle, RouteInfo) {
  * @since windowsserver2000
  */
 export RtmReleaseNextHopInfo(RtmRegHandle, NextHopInfo) {
-    result := DllCall("rtm.dll\RtmReleaseNextHopInfo", "ptr", RtmRegHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, UInt32)
+    result := DllCall("rtm.dll\RtmReleaseNextHopInfo", IntPtr, RtmRegHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, UInt32)
     return result
 }
 
@@ -17949,7 +19351,7 @@ export RtmAddRouteToDest(RtmRegHandle, RouteHandle, DestAddress, RouteInfo, Time
     RouteHandleMarshal := RouteHandle is VarRef ? "ptr*" : "ptr"
     ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmAddRouteToDest", "ptr", RtmRegHandle, RouteHandleMarshal, RouteHandle, RTM_NET_ADDRESS.Ptr, DestAddress, RTM_ROUTE_INFO.Ptr, RouteInfo, "uint", TimeToLive, "ptr", RouteListHandle, "uint", NotifyType, "ptr", NotifyHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
+    result := DllCall("rtm.dll\RtmAddRouteToDest", IntPtr, RtmRegHandle, RouteHandleMarshal, RouteHandle, RTM_NET_ADDRESS.Ptr, DestAddress, RTM_ROUTE_INFO.Ptr, RouteInfo, UInt32, TimeToLive, IntPtr, RouteListHandle, UInt32, NotifyType, IntPtr, NotifyHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
     return result
 }
 
@@ -18021,7 +19423,7 @@ export RtmAddRouteToDest(RtmRegHandle, RouteHandle, DestAddress, RouteInfo, Time
 export RtmDeleteRouteToDest(RtmRegHandle, RouteHandle, ChangeFlags) {
     ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmDeleteRouteToDest", "ptr", RtmRegHandle, "ptr", RouteHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
+    result := DllCall("rtm.dll\RtmDeleteRouteToDest", IntPtr, RtmRegHandle, IntPtr, RouteHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
     return result
 }
 
@@ -18077,7 +19479,7 @@ export RtmDeleteRouteToDest(RtmRegHandle, RouteHandle, ChangeFlags) {
  * @since windowsserver2000
  */
 export RtmHoldDestination(RtmRegHandle, DestHandle, TargetViews, HoldTime) {
-    result := DllCall("rtm.dll\RtmHoldDestination", "ptr", RtmRegHandle, "ptr", DestHandle, "uint", TargetViews, "uint", HoldTime, UInt32)
+    result := DllCall("rtm.dll\RtmHoldDestination", IntPtr, RtmRegHandle, IntPtr, DestHandle, UInt32, TargetViews, UInt32, HoldTime, UInt32)
     return result
 }
 
@@ -18136,7 +19538,7 @@ export RtmHoldDestination(RtmRegHandle, DestHandle, TargetViews, HoldTime) {
 export RtmGetRoutePointer(RtmRegHandle, RouteHandle, RoutePointer) {
     RoutePointerMarshal := RoutePointer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetRoutePointer", "ptr", RtmRegHandle, "ptr", RouteHandle, RoutePointerMarshal, RoutePointer, UInt32)
+    result := DllCall("rtm.dll\RtmGetRoutePointer", IntPtr, RtmRegHandle, IntPtr, RouteHandle, RoutePointerMarshal, RoutePointer, UInt32)
     return result
 }
 
@@ -18207,7 +19609,7 @@ export RtmGetRoutePointer(RtmRegHandle, RouteHandle, RoutePointer) {
 export RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointer) {
     RoutePointerMarshal := RoutePointer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmLockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, BOOL, Exclusive, BOOL, LockRoute, RoutePointerMarshal, RoutePointer, UInt32)
+    result := DllCall("rtm.dll\RtmLockRoute", IntPtr, RtmRegHandle, IntPtr, RouteHandle, BOOL, Exclusive, BOOL, LockRoute, RoutePointerMarshal, RoutePointer, UInt32)
     return result
 }
 
@@ -18256,7 +19658,7 @@ export RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointe
 export RtmUpdateAndUnlockRoute(RtmRegHandle, RouteHandle, TimeToLive, RouteListHandle, NotifyType, NotifyHandle, ChangeFlags) {
     ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmUpdateAndUnlockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, "uint", TimeToLive, "ptr", RouteListHandle, "uint", NotifyType, "ptr", NotifyHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
+    result := DllCall("rtm.dll\RtmUpdateAndUnlockRoute", IntPtr, RtmRegHandle, IntPtr, RouteHandle, UInt32, TimeToLive, IntPtr, RouteListHandle, UInt32, NotifyType, IntPtr, NotifyHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
     return result
 }
 
@@ -18312,7 +19714,7 @@ export RtmUpdateAndUnlockRoute(RtmRegHandle, RouteHandle, TimeToLive, RouteListH
  * @since windowsserver2000
  */
 export RtmGetExactMatchDestination(RtmRegHandle, DestAddress, ProtocolId, TargetViews, DestInfo) {
-    result := DllCall("rtm.dll\RtmGetExactMatchDestination", "ptr", RtmRegHandle, RTM_NET_ADDRESS.Ptr, DestAddress, "uint", ProtocolId, "uint", TargetViews, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
+    result := DllCall("rtm.dll\RtmGetExactMatchDestination", IntPtr, RtmRegHandle, RTM_NET_ADDRESS.Ptr, DestAddress, UInt32, ProtocolId, UInt32, TargetViews, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
     return result
 }
 
@@ -18382,7 +19784,7 @@ export RtmGetExactMatchDestination(RtmRegHandle, DestAddress, ProtocolId, Target
  * @since windowsserver2000
  */
 export RtmGetMostSpecificDestination(RtmRegHandle, DestAddress, ProtocolId, TargetViews, DestInfo) {
-    result := DllCall("rtm.dll\RtmGetMostSpecificDestination", "ptr", RtmRegHandle, RTM_NET_ADDRESS.Ptr, DestAddress, "uint", ProtocolId, "uint", TargetViews, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
+    result := DllCall("rtm.dll\RtmGetMostSpecificDestination", IntPtr, RtmRegHandle, RTM_NET_ADDRESS.Ptr, DestAddress, UInt32, ProtocolId, UInt32, TargetViews, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
     return result
 }
 
@@ -18471,7 +19873,7 @@ export RtmGetMostSpecificDestination(RtmRegHandle, DestAddress, ProtocolId, Targ
  * @since windowsserver2000
  */
 export RtmGetLessSpecificDestination(RtmRegHandle, DestHandle, ProtocolId, TargetViews, DestInfo) {
-    result := DllCall("rtm.dll\RtmGetLessSpecificDestination", "ptr", RtmRegHandle, "ptr", DestHandle, "uint", ProtocolId, "uint", TargetViews, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
+    result := DllCall("rtm.dll\RtmGetLessSpecificDestination", IntPtr, RtmRegHandle, IntPtr, DestHandle, UInt32, ProtocolId, UInt32, TargetViews, RTM_DEST_INFO.Ptr, DestInfo, UInt32)
     return result
 }
 
@@ -18621,7 +20023,7 @@ export RtmGetLessSpecificDestination(RtmRegHandle, DestHandle, ProtocolId, Targe
 export RtmGetExactMatchRoute(RtmRegHandle, DestAddress, MatchingFlags, RouteInfo, InterfaceIndex, TargetViews, RouteHandle) {
     RouteHandleMarshal := RouteHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetExactMatchRoute", "ptr", RtmRegHandle, RTM_NET_ADDRESS.Ptr, DestAddress, "uint", MatchingFlags, RTM_ROUTE_INFO.Ptr, RouteInfo, "uint", InterfaceIndex, "uint", TargetViews, RouteHandleMarshal, RouteHandle, UInt32)
+    result := DllCall("rtm.dll\RtmGetExactMatchRoute", IntPtr, RtmRegHandle, RTM_NET_ADDRESS.Ptr, DestAddress, UInt32, MatchingFlags, RTM_ROUTE_INFO.Ptr, RouteInfo, UInt32, InterfaceIndex, UInt32, TargetViews, RouteHandleMarshal, RouteHandle, UInt32)
     return result
 }
 
@@ -18662,7 +20064,7 @@ export RtmGetExactMatchRoute(RtmRegHandle, DestAddress, MatchingFlags, RouteInfo
 export RtmIsBestRoute(RtmRegHandle, RouteHandle, BestInViews) {
     BestInViewsMarshal := BestInViews is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmIsBestRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, BestInViewsMarshal, BestInViews, UInt32)
+    result := DllCall("rtm.dll\RtmIsBestRoute", IntPtr, RtmRegHandle, IntPtr, RouteHandle, BestInViewsMarshal, BestInViews, UInt32)
     return result
 }
 
@@ -18733,7 +20135,7 @@ export RtmAddNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, ChangeFlags) {
     NextHopHandleMarshal := NextHopHandle is VarRef ? "ptr*" : "ptr"
     ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmAddNextHop", "ptr", RtmRegHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, NextHopHandleMarshal, NextHopHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
+    result := DllCall("rtm.dll\RtmAddNextHop", IntPtr, RtmRegHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, NextHopHandleMarshal, NextHopHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
     return result
 }
 
@@ -18800,7 +20202,7 @@ export RtmFindNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, NextHopPointer) 
     NextHopHandleMarshal := NextHopHandle is VarRef ? "ptr*" : "ptr"
     NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmFindNextHop", "ptr", RtmRegHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, NextHopHandleMarshal, NextHopHandle, NextHopPointerMarshal, NextHopPointer, UInt32)
+    result := DllCall("rtm.dll\RtmFindNextHop", IntPtr, RtmRegHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, NextHopHandleMarshal, NextHopHandle, NextHopPointerMarshal, NextHopPointer, UInt32)
     return result
 }
 
@@ -18864,7 +20266,7 @@ export RtmFindNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, NextHopPointer) 
  * @since windowsserver2000
  */
 export RtmDeleteNextHop(RtmRegHandle, NextHopHandle, NextHopInfo) {
-    result := DllCall("rtm.dll\RtmDeleteNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, UInt32)
+    result := DllCall("rtm.dll\RtmDeleteNextHop", IntPtr, RtmRegHandle, IntPtr, NextHopHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, UInt32)
     return result
 }
 
@@ -18921,7 +20323,7 @@ export RtmDeleteNextHop(RtmRegHandle, NextHopHandle, NextHopInfo) {
 export RtmGetNextHopPointer(RtmRegHandle, NextHopHandle, NextHopPointer) {
     NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetNextHopPointer", "ptr", RtmRegHandle, "ptr", NextHopHandle, NextHopPointerMarshal, NextHopPointer, UInt32)
+    result := DllCall("rtm.dll\RtmGetNextHopPointer", IntPtr, RtmRegHandle, IntPtr, NextHopHandle, NextHopPointerMarshal, NextHopPointer, UInt32)
     return result
 }
 
@@ -18982,7 +20384,7 @@ export RtmGetNextHopPointer(RtmRegHandle, NextHopHandle, NextHopPointer) {
 export RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextHopPointer) {
     NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmLockNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, BOOL, Exclusive, BOOL, LockNextHop, NextHopPointerMarshal, NextHopPointer, UInt32)
+    result := DllCall("rtm.dll\RtmLockNextHop", IntPtr, RtmRegHandle, IntPtr, NextHopHandle, BOOL, Exclusive, BOOL, LockNextHop, NextHopPointerMarshal, NextHopPointer, UInt32)
     return result
 }
 
@@ -19173,7 +20575,7 @@ export RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextH
 export RtmCreateDestEnum(RtmRegHandle, TargetViews, EnumFlags, _NetAddress, ProtocolId, RtmEnumHandle) {
     RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmCreateDestEnum", "ptr", RtmRegHandle, "uint", TargetViews, "uint", EnumFlags, RTM_NET_ADDRESS.Ptr, _NetAddress, "uint", ProtocolId, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
+    result := DllCall("rtm.dll\RtmCreateDestEnum", IntPtr, RtmRegHandle, UInt32, TargetViews, UInt32, EnumFlags, RTM_NET_ADDRESS.Ptr, _NetAddress, UInt32, ProtocolId, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
     return result
 }
 
@@ -19243,7 +20645,7 @@ export RtmCreateDestEnum(RtmRegHandle, TargetViews, EnumFlags, _NetAddress, Prot
 export RtmGetEnumDests(RtmRegHandle, EnumHandle, NumDests, DestInfos) {
     NumDestsMarshal := NumDests is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetEnumDests", "ptr", RtmRegHandle, "ptr", EnumHandle, NumDestsMarshal, NumDests, RTM_DEST_INFO.Ptr, DestInfos, UInt32)
+    result := DllCall("rtm.dll\RtmGetEnumDests", IntPtr, RtmRegHandle, IntPtr, EnumHandle, NumDestsMarshal, NumDests, RTM_DEST_INFO.Ptr, DestInfos, UInt32)
     return result
 }
 
@@ -19290,7 +20692,7 @@ export RtmGetEnumDests(RtmRegHandle, EnumHandle, NumDests, DestInfos) {
  * @since windowsserver2000
  */
 export RtmReleaseDests(RtmRegHandle, NumDests, DestInfos) {
-    result := DllCall("rtm.dll\RtmReleaseDests", "ptr", RtmRegHandle, "uint", NumDests, RTM_DEST_INFO.Ptr, DestInfos, UInt32)
+    result := DllCall("rtm.dll\RtmReleaseDests", IntPtr, RtmRegHandle, UInt32, NumDests, RTM_DEST_INFO.Ptr, DestInfos, UInt32)
     return result
 }
 
@@ -19563,7 +20965,7 @@ export RtmReleaseDests(RtmRegHandle, NumDests, DestInfos) {
 export RtmCreateRouteEnum(RtmRegHandle, DestHandle, TargetViews, EnumFlags, StartDest, MatchingFlags, CriteriaRoute, CriteriaInterface, RtmEnumHandle) {
     RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmCreateRouteEnum", "ptr", RtmRegHandle, "ptr", DestHandle, "uint", TargetViews, "uint", EnumFlags, RTM_NET_ADDRESS.Ptr, StartDest, "uint", MatchingFlags, RTM_ROUTE_INFO.Ptr, CriteriaRoute, "uint", CriteriaInterface, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
+    result := DllCall("rtm.dll\RtmCreateRouteEnum", IntPtr, RtmRegHandle, IntPtr, DestHandle, UInt32, TargetViews, UInt32, EnumFlags, RTM_NET_ADDRESS.Ptr, StartDest, UInt32, MatchingFlags, RTM_ROUTE_INFO.Ptr, CriteriaRoute, UInt32, CriteriaInterface, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
     return result
 }
 
@@ -19646,7 +21048,7 @@ export RtmGetEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
     NumRoutesMarshal := NumRoutes is VarRef ? "uint*" : "ptr"
     RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetEnumRoutes", "ptr", RtmRegHandle, "ptr", EnumHandle, NumRoutesMarshal, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
+    result := DllCall("rtm.dll\RtmGetEnumRoutes", IntPtr, RtmRegHandle, IntPtr, EnumHandle, NumRoutesMarshal, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
     return result
 }
 
@@ -19688,7 +21090,7 @@ export RtmGetEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
 export RtmReleaseRoutes(RtmRegHandle, NumRoutes, RouteHandles) {
     RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmReleaseRoutes", "ptr", RtmRegHandle, "uint", NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
+    result := DllCall("rtm.dll\RtmReleaseRoutes", IntPtr, RtmRegHandle, UInt32, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
     return result
 }
 
@@ -19794,7 +21196,7 @@ export RtmReleaseRoutes(RtmRegHandle, NumRoutes, RouteHandles) {
 export RtmCreateNextHopEnum(RtmRegHandle, EnumFlags, _NetAddress, RtmEnumHandle) {
     RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmCreateNextHopEnum", "ptr", RtmRegHandle, "uint", EnumFlags, RTM_NET_ADDRESS.Ptr, _NetAddress, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
+    result := DllCall("rtm.dll\RtmCreateNextHopEnum", IntPtr, RtmRegHandle, UInt32, EnumFlags, RTM_NET_ADDRESS.Ptr, _NetAddress, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
     return result
 }
 
@@ -19863,7 +21265,7 @@ export RtmGetEnumNextHops(RtmRegHandle, EnumHandle, NumNextHops, NextHopHandles)
     NumNextHopsMarshal := NumNextHops is VarRef ? "uint*" : "ptr"
     NextHopHandlesMarshal := NextHopHandles is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetEnumNextHops", "ptr", RtmRegHandle, "ptr", EnumHandle, NumNextHopsMarshal, NumNextHops, NextHopHandlesMarshal, NextHopHandles, UInt32)
+    result := DllCall("rtm.dll\RtmGetEnumNextHops", IntPtr, RtmRegHandle, IntPtr, EnumHandle, NumNextHopsMarshal, NumNextHops, NextHopHandlesMarshal, NextHopHandles, UInt32)
     return result
 }
 
@@ -19905,7 +21307,7 @@ export RtmGetEnumNextHops(RtmRegHandle, EnumHandle, NumNextHops, NextHopHandles)
 export RtmReleaseNextHops(RtmRegHandle, NumNextHops, NextHopHandles) {
     NextHopHandlesMarshal := NextHopHandles is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmReleaseNextHops", "ptr", RtmRegHandle, "uint", NumNextHops, NextHopHandlesMarshal, NextHopHandles, UInt32)
+    result := DllCall("rtm.dll\RtmReleaseNextHops", IntPtr, RtmRegHandle, UInt32, NumNextHops, NextHopHandlesMarshal, NextHopHandles, UInt32)
     return result
 }
 
@@ -19943,7 +21345,7 @@ export RtmReleaseNextHops(RtmRegHandle, NumNextHops, NextHopHandles) {
  * @since windowsserver2000
  */
 export RtmDeleteEnumHandle(RtmRegHandle, EnumHandle) {
-    result := DllCall("rtm.dll\RtmDeleteEnumHandle", "ptr", RtmRegHandle, "ptr", EnumHandle, UInt32)
+    result := DllCall("rtm.dll\RtmDeleteEnumHandle", IntPtr, RtmRegHandle, IntPtr, EnumHandle, UInt32)
     return result
 }
 
@@ -20083,7 +21485,7 @@ export RtmRegisterForChangeNotification(RtmRegHandle, TargetViews, NotifyFlags, 
     NotifyContextMarshal := NotifyContext is VarRef ? "ptr" : "ptr"
     NotifyHandleMarshal := NotifyHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmRegisterForChangeNotification", "ptr", RtmRegHandle, "uint", TargetViews, "uint", NotifyFlags, NotifyContextMarshal, NotifyContext, NotifyHandleMarshal, NotifyHandle, UInt32)
+    result := DllCall("rtm.dll\RtmRegisterForChangeNotification", IntPtr, RtmRegHandle, UInt32, TargetViews, UInt32, NotifyFlags, NotifyContextMarshal, NotifyContext, NotifyHandleMarshal, NotifyHandle, UInt32)
     return result
 }
 
@@ -20161,7 +21563,7 @@ export RtmRegisterForChangeNotification(RtmRegHandle, TargetViews, NotifyFlags, 
 export RtmGetChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
     NumDestsMarshal := NumDests is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetChangedDests", "ptr", RtmRegHandle, "ptr", NotifyHandle, NumDestsMarshal, NumDests, RTM_DEST_INFO.Ptr, ChangedDests, UInt32)
+    result := DllCall("rtm.dll\RtmGetChangedDests", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, NumDestsMarshal, NumDests, RTM_DEST_INFO.Ptr, ChangedDests, UInt32)
     return result
 }
 
@@ -20213,7 +21615,7 @@ export RtmGetChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
  * @since windowsserver2000
  */
 export RtmReleaseChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
-    result := DllCall("rtm.dll\RtmReleaseChangedDests", "ptr", RtmRegHandle, "ptr", NotifyHandle, "uint", NumDests, RTM_DEST_INFO.Ptr, ChangedDests, UInt32)
+    result := DllCall("rtm.dll\RtmReleaseChangedDests", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, UInt32, NumDests, RTM_DEST_INFO.Ptr, ChangedDests, UInt32)
     return result
 }
 
@@ -20254,7 +21656,7 @@ export RtmReleaseChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests
 export RtmIgnoreChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
     ChangedDestsMarshal := ChangedDests is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmIgnoreChangedDests", "ptr", RtmRegHandle, "ptr", NotifyHandle, "uint", NumDests, ChangedDestsMarshal, ChangedDests, UInt32)
+    result := DllCall("rtm.dll\RtmIgnoreChangedDests", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, UInt32, NumDests, ChangedDestsMarshal, ChangedDests, UInt32)
     return result
 }
 
@@ -20305,7 +21707,7 @@ export RtmIgnoreChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests)
 export RtmGetChangeStatus(RtmRegHandle, NotifyHandle, DestHandle, ChangeStatus) {
     ChangeStatusMarshal := ChangeStatus is VarRef ? "int*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetChangeStatus", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, ChangeStatusMarshal, ChangeStatus, UInt32)
+    result := DllCall("rtm.dll\RtmGetChangeStatus", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, IntPtr, DestHandle, ChangeStatusMarshal, ChangeStatus, UInt32)
     return result
 }
 
@@ -20346,7 +21748,7 @@ export RtmGetChangeStatus(RtmRegHandle, NotifyHandle, DestHandle, ChangeStatus) 
  * @since windowsserver2000
  */
 export RtmMarkDestForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, MarkDest) {
-    result := DllCall("rtm.dll\RtmMarkDestForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, BOOL, MarkDest, UInt32)
+    result := DllCall("rtm.dll\RtmMarkDestForChangeNotification", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, IntPtr, DestHandle, BOOL, MarkDest, UInt32)
     return result
 }
 
@@ -20385,7 +21787,7 @@ export RtmMarkDestForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, 
 export RtmIsMarkedForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, DestMarked) {
     DestMarkedMarshal := DestMarked is VarRef ? "int*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmIsMarkedForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, DestMarkedMarshal, DestMarked, UInt32)
+    result := DllCall("rtm.dll\RtmIsMarkedForChangeNotification", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, IntPtr, DestHandle, DestMarkedMarshal, DestMarked, UInt32)
     return result
 }
 
@@ -20424,7 +21826,7 @@ export RtmIsMarkedForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, 
  * @since windowsserver2000
  */
 export RtmDeregisterFromChangeNotification(RtmRegHandle, NotifyHandle) {
-    result := DllCall("rtm.dll\RtmDeregisterFromChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, UInt32)
+    result := DllCall("rtm.dll\RtmDeregisterFromChangeNotification", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, UInt32)
     return result
 }
 
@@ -20472,7 +21874,7 @@ export RtmDeregisterFromChangeNotification(RtmRegHandle, NotifyHandle) {
 export RtmCreateRouteList(RtmRegHandle, RouteListHandle) {
     RouteListHandleMarshal := RouteListHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmCreateRouteList", "ptr", RtmRegHandle, RouteListHandleMarshal, RouteListHandle, UInt32)
+    result := DllCall("rtm.dll\RtmCreateRouteList", IntPtr, RtmRegHandle, RouteListHandleMarshal, RouteListHandle, UInt32)
     return result
 }
 
@@ -20516,7 +21918,7 @@ export RtmCreateRouteList(RtmRegHandle, RouteListHandle) {
 export RtmInsertInRouteList(RtmRegHandle, RouteListHandle, NumRoutes, RouteHandles) {
     RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmInsertInRouteList", "ptr", RtmRegHandle, "ptr", RouteListHandle, "uint", NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
+    result := DllCall("rtm.dll\RtmInsertInRouteList", IntPtr, RtmRegHandle, IntPtr, RouteListHandle, UInt32, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
     return result
 }
 
@@ -20569,7 +21971,7 @@ export RtmInsertInRouteList(RtmRegHandle, RouteListHandle, NumRoutes, RouteHandl
 export RtmCreateRouteListEnum(RtmRegHandle, RouteListHandle, RtmEnumHandle) {
     RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmCreateRouteListEnum", "ptr", RtmRegHandle, "ptr", RouteListHandle, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
+    result := DllCall("rtm.dll\RtmCreateRouteListEnum", IntPtr, RtmRegHandle, IntPtr, RouteListHandle, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
     return result
 }
 
@@ -20631,7 +22033,7 @@ export RtmGetListEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
     NumRoutesMarshal := NumRoutes is VarRef ? "uint*" : "ptr"
     RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rtm.dll\RtmGetListEnumRoutes", "ptr", RtmRegHandle, "ptr", EnumHandle, NumRoutesMarshal, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
+    result := DllCall("rtm.dll\RtmGetListEnumRoutes", IntPtr, RtmRegHandle, IntPtr, EnumHandle, NumRoutesMarshal, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
     return result
 }
 
@@ -20671,7 +22073,7 @@ export RtmGetListEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
  * @since windowsserver2000
  */
 export RtmDeleteRouteList(RtmRegHandle, RouteListHandle) {
-    result := DllCall("rtm.dll\RtmDeleteRouteList", "ptr", RtmRegHandle, "ptr", RouteListHandle, UInt32)
+    result := DllCall("rtm.dll\RtmDeleteRouteList", IntPtr, RtmRegHandle, IntPtr, RouteListHandle, UInt32)
     return result
 }
 
@@ -20715,7 +22117,7 @@ export RtmDeleteRouteList(RtmRegHandle, RouteListHandle) {
  * @since windowsserver2000
  */
 export RtmReferenceHandles(RtmRegHandle, NumHandles, RtmHandles) {
-    result := DllCall("rtm.dll\RtmReferenceHandles", "ptr", RtmRegHandle, "uint", NumHandles, HANDLE.Ptr, RtmHandles, UInt32)
+    result := DllCall("rtm.dll\RtmReferenceHandles", IntPtr, RtmRegHandle, UInt32, NumHandles, HANDLE.Ptr, RtmHandles, UInt32)
     return result
 }
 

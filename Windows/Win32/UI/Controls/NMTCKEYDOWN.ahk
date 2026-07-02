@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about a key press in a tab control. It is used with the TCN_KEYDOWN notification code. This structure supersedes the TC_KEYDOWN structure.

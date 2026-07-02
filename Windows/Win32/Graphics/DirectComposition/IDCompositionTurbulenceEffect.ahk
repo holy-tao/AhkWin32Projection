@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
-#Import "..\Direct2D\Common\D2D1_TURBULENCE_NOISE.ahk" { D2D1_TURBULENCE_NOISE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Direct2D\Common\D2D_VECTOR_2F.ahk" { D2D_VECTOR_2F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct2D\Common\D2D1_TURBULENCE_NOISE.ahk" { D2D1_TURBULENCE_NOISE }
 
 /**
  * The turbulence effect is used to generate a bitmap based on the Perlin noise function. The turbulence effect has no input image.
@@ -110,7 +110,7 @@ export default struct IDCompositionTurbulenceEffect extends IDCompositionFilterE
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionturbulenceeffect-setnumoctaves
      */
     SetNumOctaves(numOctaves) {
-        result := ComCall(7, this, "uint", numOctaves, "HRESULT")
+        result := ComCall(7, this, UInt32, numOctaves, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IDCompositionTurbulenceEffect extends IDCompositionFilterE
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionturbulenceeffect-setseed
      */
     SetSeed(seed) {
-        result := ComCall(8, this, "uint", seed, "HRESULT")
+        result := ComCall(8, this, UInt32, seed, "HRESULT")
         return result
     }
 

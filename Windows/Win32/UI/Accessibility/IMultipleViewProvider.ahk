@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to controls that provide, and are able to switch between, multiple representations of the same set of information or child controls.
@@ -73,7 +73,7 @@ export default struct IMultipleViewProvider extends IUnknown {
      */
     GetViewName(viewId) {
         pRetVal := BSTR.Owned()
-        result := ComCall(3, this, "int", viewId, BSTR.Ptr, pRetVal, "HRESULT")
+        result := ComCall(3, this, Int32, viewId, BSTR.Ptr, pRetVal, "HRESULT")
         return pRetVal
     }
 
@@ -93,7 +93,7 @@ export default struct IMultipleViewProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-setcurrentview
      */
     SetCurrentView(viewId) {
-        result := ComCall(4, this, "int", viewId, "HRESULT")
+        result := ComCall(4, this, Int32, viewId, "HRESULT")
         return result
     }
 

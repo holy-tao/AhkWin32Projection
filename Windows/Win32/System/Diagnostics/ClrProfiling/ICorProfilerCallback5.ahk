@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICorProfilerCallback4.ahk" { ICorProfilerCallback4 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerCallback4.ahk" { ICorProfilerCallback4 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -48,7 +48,7 @@ export default struct ICorProfilerCallback5 extends ICorProfilerCallback4 {
         valueRefIdsMarshal := valueRefIds is VarRef ? "ptr*" : "ptr"
         rootIdsMarshal := rootIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(89, this, "uint", cRootRefs, keyRefIdsMarshal, keyRefIds, valueRefIdsMarshal, valueRefIds, rootIdsMarshal, rootIds, "HRESULT")
+        result := ComCall(89, this, UInt32, cRootRefs, keyRefIdsMarshal, keyRefIds, valueRefIdsMarshal, valueRefIds, rootIdsMarshal, rootIds, "HRESULT")
         return result
     }
 

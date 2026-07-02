@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 #Import ".\DML_IS_INFINITY_MODE.ahk" { DML_IS_INFINITY_MODE }
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**
  * Checks each element of *InputTensor* for IEEE-754 -inf, inf, or both, depending on the given *InfinityMode*, and places the result (1 for true, 0 for false) into the corresponding element of *OutputTensor*.

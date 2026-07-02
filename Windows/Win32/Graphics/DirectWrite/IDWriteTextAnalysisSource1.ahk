@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DWRITE_VERTICAL_GLYPH_ORIENTATION.ahk" { DWRITE_VERTICAL_GLYPH_ORIENTATION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The interface you implement to provide needed information to the text analyzer, like the text and associated text properties.
@@ -69,7 +69,7 @@ export default struct IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSour
         glyphOrientationMarshal := glyphOrientation is VarRef ? "int*" : "ptr"
         bidiLevelMarshal := bidiLevel is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "uint", textPosition, textLengthMarshal, textLength, glyphOrientationMarshal, glyphOrientation, bidiLevelMarshal, bidiLevel, "HRESULT")
+        result := ComCall(8, this, UInt32, textPosition, textLengthMarshal, textLength, glyphOrientationMarshal, glyphOrientation, bidiLevelMarshal, bidiLevel, "HRESULT")
         return result
     }
 

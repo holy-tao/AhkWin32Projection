@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 
 /**
  * Provides methods to support volume shrinking.
@@ -87,7 +87,7 @@ export default struct IVdsVolumeShrink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeshrink-shrink
      */
     Shrink(ullDesiredNumberOfReclaimableBytes, ullMinNumberOfReclaimableBytes) {
-        result := ComCall(4, this, "uint", ullDesiredNumberOfReclaimableBytes, "uint", ullMinNumberOfReclaimableBytes, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(4, this, Int64, ullDesiredNumberOfReclaimableBytes, Int64, ullMinNumberOfReclaimableBytes, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

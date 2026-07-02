@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\NSTCFOLDERCAPABILITIES.ahk" { NSTCFOLDERCAPABILITIES }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a single method that retrieves the status of a folder's System.IsPinnedToNameSpaceTree filtering support.

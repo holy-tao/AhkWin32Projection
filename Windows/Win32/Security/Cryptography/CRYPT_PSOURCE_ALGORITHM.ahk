@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Identifies the algorithm and (optionally) the value of the label for an RSAES-OAEP key encryption.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DBCOLUMNINFO.ahk" { DBCOLUMNINFO }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBCOLUMNINFO.ahk" { DBCOLUMNINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -61,7 +61,7 @@ export default struct IColumnsInfo extends IUnknown {
      * @returns {Pointer} 
      */
     MapColumnIDs(cColumnIDs, rgColumnIDs) {
-        result := ComCall(4, this, "ptr", cColumnIDs, DBID.Ptr, rgColumnIDs, "ptr*", &rgColumns := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, cColumnIDs, DBID.Ptr, rgColumnIDs, "ptr*", &rgColumns := 0, "HRESULT")
         return rgColumns
     }
 

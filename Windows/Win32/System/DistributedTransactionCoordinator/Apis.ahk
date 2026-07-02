@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -27,7 +27,7 @@ export DtcGetTransactionManager(i_pszHost, i_pszTmName, i_riid, i_dwReserved1, i
 
     o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("XOLEHLP.dll\DtcGetTransactionManager", "ptr", i_pszHost, "ptr", i_pszTmName, Guid.Ptr, i_riid, "uint", i_dwReserved1, "ushort", i_wcbReserved2, "ptr", i_pvReserved2, o_ppvObjectMarshal, o_ppvObject, "HRESULT")
+    result := DllCall("XOLEHLP.dll\DtcGetTransactionManager", "ptr", i_pszHost, "ptr", i_pszTmName, Guid.Ptr, i_riid, UInt32, i_dwReserved1, UInt16, i_wcbReserved2, IntPtr, i_pvReserved2, o_ppvObjectMarshal, o_ppvObject, "HRESULT")
     return result
 }
 
@@ -48,7 +48,7 @@ export DtcGetTransactionManagerC(i_pszHost, i_pszTmName, i_riid, i_dwReserved1, 
 
     o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerC", "ptr", i_pszHost, "ptr", i_pszTmName, Guid.Ptr, i_riid, "uint", i_dwReserved1, "ushort", i_wcbReserved2, "ptr", i_pvReserved2, o_ppvObjectMarshal, o_ppvObject, "HRESULT")
+    result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerC", "ptr", i_pszHost, "ptr", i_pszTmName, Guid.Ptr, i_riid, UInt32, i_dwReserved1, UInt16, i_wcbReserved2, IntPtr, i_pvReserved2, o_ppvObjectMarshal, o_ppvObject, "HRESULT")
     return result
 }
 
@@ -69,7 +69,7 @@ export DtcGetTransactionManagerExA(i_pszHost, i_pszTmName, i_riid, i_grfOptions,
     i_pvConfigParamsMarshal := i_pvConfigParams is VarRef ? "ptr" : "ptr"
     o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExA", "ptr", i_pszHost, "ptr", i_pszTmName, Guid.Ptr, i_riid, "uint", i_grfOptions, i_pvConfigParamsMarshal, i_pvConfigParams, o_ppvObjectMarshal, o_ppvObject, "HRESULT")
+    result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExA", "ptr", i_pszHost, "ptr", i_pszTmName, Guid.Ptr, i_riid, UInt32, i_grfOptions, i_pvConfigParamsMarshal, i_pvConfigParams, o_ppvObjectMarshal, o_ppvObject, "HRESULT")
     return result
 }
 
@@ -90,7 +90,7 @@ export DtcGetTransactionManagerExW(i_pwszHost, i_pwszTmName, i_riid, i_grfOption
     i_pvConfigParamsMarshal := i_pvConfigParams is VarRef ? "ptr" : "ptr"
     o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExW", "ptr", i_pwszHost, "ptr", i_pwszTmName, Guid.Ptr, i_riid, "uint", i_grfOptions, i_pvConfigParamsMarshal, i_pvConfigParams, o_ppvObjectMarshal, o_ppvObject, "HRESULT")
+    result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExW", "ptr", i_pwszHost, "ptr", i_pwszTmName, Guid.Ptr, i_riid, UInt32, i_grfOptions, i_pvConfigParamsMarshal, i_pvConfigParams, o_ppvObjectMarshal, o_ppvObject, "HRESULT")
     return result
 }
 

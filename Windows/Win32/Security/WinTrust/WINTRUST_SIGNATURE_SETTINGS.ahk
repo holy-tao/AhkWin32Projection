@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
 #Import ".\WINTRUST_SIGNATURE_SETTINGS_FLAGS.ahk" { WINTRUST_SIGNATURE_SETTINGS_FLAGS }
+#Import "..\Cryptography\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
 
 /**
  * Can be used to specify the signatures on a file.

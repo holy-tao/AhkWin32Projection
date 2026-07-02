@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_TEXTURE_BARRIER.ahk" { D3D12_TEXTURE_BARRIER }
+#Import ".\D3D12_GLOBAL_BARRIER.ahk" { D3D12_GLOBAL_BARRIER }
 #Import ".\D3D12_BUFFER_BARRIER.ahk" { D3D12_BUFFER_BARRIER }
 #Import ".\D3D12_BARRIER_TYPE.ahk" { D3D12_BARRIER_TYPE }
-#Import ".\D3D12_GLOBAL_BARRIER.ahk" { D3D12_GLOBAL_BARRIER }
+#Import ".\D3D12_TEXTURE_BARRIER.ahk" { D3D12_TEXTURE_BARRIER }
 
 /**
  * Describes a group of barriers of a given type.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPLEXICONTYPE.ahk" { SPLEXICONTYPE }
 #Import ".\SPPARTOFSPEECH.ahk" { SPPARTOFSPEECH }
+#Import ".\SPLEXICONTYPE.ahk" { SPLEXICONTYPE }
 
 /**
  * @namespace Windows.Win32.Media.Speech

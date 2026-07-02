@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Sets properties on the color converter DSP.
@@ -67,7 +67,7 @@ export default struct IWMColorConvProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcolorconvprops-setmode
      */
     SetMode(lMode) {
-        result := ComCall(3, this, "int", lMode, "HRESULT")
+        result := ComCall(3, this, Int32, lMode, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct IWMColorConvProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcolorconvprops-setfullcroppingparam
      */
     SetFullCroppingParam(lSrcCropLeft, lSrcCropTop, lDstCropLeft, lDstCropTop, lCropWidth, lCropHeight) {
-        result := ComCall(4, this, "int", lSrcCropLeft, "int", lSrcCropTop, "int", lDstCropLeft, "int", lDstCropTop, "int", lCropWidth, "int", lCropHeight, "HRESULT")
+        result := ComCall(4, this, Int32, lSrcCropLeft, Int32, lSrcCropTop, Int32, lDstCropLeft, Int32, lDstCropTop, Int32, lCropWidth, Int32, lCropHeight, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables apps to obtain the window handle of the window (CoreWindow) associated with this interface.
@@ -73,7 +73,7 @@ export default struct ICoreWindowInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icorewindowinterop-put_messagehandled
      */
     put_MessageHandled(value) {
-        result := ComCall(4, this, "char", value, "HRESULT")
+        result := ComCall(4, this, Int8, value, "HRESULT")
         return result
     }
 

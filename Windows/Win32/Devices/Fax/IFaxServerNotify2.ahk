@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFaxServer2.ahk" { IFaxServer2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IFaxJobStatus.ahk" { IFaxJobStatus }
-#Import ".\IFaxServer2.ahk" { IFaxServer2 }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxServerNotify2 interface is used for fax notifications. (IIFaxServerNotify2)
@@ -328,7 +328,7 @@ export default struct IFaxServerNotify2 extends IDispatch {
      * @returns {HRESULT} 
      */
     OnServerActivityChange(pFaxServer, lIncomingMessages, lRoutingMessages, lOutgoingMessages, lQueuedMessages) {
-        result := ComCall(27, this, "ptr", pFaxServer, "int", lIncomingMessages, "int", lRoutingMessages, "int", lOutgoingMessages, "int", lQueuedMessages, "HRESULT")
+        result := ComCall(27, this, "ptr", pFaxServer, Int32, lIncomingMessages, Int32, lRoutingMessages, Int32, lOutgoingMessages, Int32, lQueuedMessages, "HRESULT")
         return result
     }
 
@@ -356,7 +356,7 @@ export default struct IFaxServerNotify2 extends IDispatch {
     OnNewCall(pFaxServer, lCallId, lDeviceId, bstrCallerId) {
         bstrCallerId := bstrCallerId is String ? BSTR.Alloc(bstrCallerId).Value : bstrCallerId
 
-        result := ComCall(29, this, "ptr", pFaxServer, "int", lCallId, "int", lDeviceId, BSTR, bstrCallerId, "HRESULT")
+        result := ComCall(29, this, "ptr", pFaxServer, Int32, lCallId, Int32, lDeviceId, BSTR, bstrCallerId, "HRESULT")
         return result
     }
 
@@ -381,7 +381,7 @@ export default struct IFaxServerNotify2 extends IDispatch {
      * @returns {HRESULT} 
      */
     OnDeviceStatusChange(pFaxServer, lDeviceId, bPoweredOff, bSending, bReceiving, bRinging) {
-        result := ComCall(31, this, "ptr", pFaxServer, "int", lDeviceId, VARIANT_BOOL, bPoweredOff, VARIANT_BOOL, bSending, VARIANT_BOOL, bReceiving, VARIANT_BOOL, bRinging, "HRESULT")
+        result := ComCall(31, this, "ptr", pFaxServer, Int32, lDeviceId, VARIANT_BOOL, bPoweredOff, VARIANT_BOOL, bSending, VARIANT_BOOL, bReceiving, VARIANT_BOOL, bRinging, "HRESULT")
         return result
     }
 

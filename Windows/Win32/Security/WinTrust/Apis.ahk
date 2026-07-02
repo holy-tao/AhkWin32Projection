@@ -1,23 +1,23 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
-#Import ".\CRYPT_PROVIDER_FUNCTIONS.ahk" { CRYPT_PROVIDER_FUNCTIONS }
-#Import ".\WINTRUST_DATA.ahk" { WINTRUST_DATA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CRYPT_REGISTER_ACTIONID.ahk" { CRYPT_REGISTER_ACTIONID }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CRYPT_PROVIDER_CERT.ahk" { CRYPT_PROVIDER_CERT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CRYPT_PROVIDER_SGNR.ahk" { CRYPT_PROVIDER_SGNR }
 #Import ".\CRYPT_PROVIDER_REGDEFUSAGE.ahk" { CRYPT_PROVIDER_REGDEFUSAGE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\CRYPT_PROVIDER_DEFUSAGE.ahk" { CRYPT_PROVIDER_DEFUSAGE }
-#Import ".\WINTRUST_POLICY_FLAGS.ahk" { WINTRUST_POLICY_FLAGS }
-#Import ".\CRYPT_PROVIDER_PRIVDATA.ahk" { CRYPT_PROVIDER_PRIVDATA }
-#Import ".\CRYPT_PROVIDER_SGNR.ahk" { CRYPT_PROVIDER_SGNR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINTRUST_DATA.ahk" { WINTRUST_DATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Cryptography\CERT_INFO.ahk" { CERT_INFO }
+#Import ".\CRYPT_PROVIDER_DEFUSAGE.ahk" { CRYPT_PROVIDER_DEFUSAGE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CRYPT_PROVIDER_CERT.ahk" { CRYPT_PROVIDER_CERT }
+#Import ".\WINTRUST_POLICY_FLAGS.ahk" { WINTRUST_POLICY_FLAGS }
 #Import ".\WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION.ahk" { WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CRYPT_PROVIDER_FUNCTIONS.ahk" { CRYPT_PROVIDER_FUNCTIONS }
+#Import ".\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
+#Import ".\CRYPT_PROVIDER_PRIVDATA.ahk" { CRYPT_PROVIDER_PRIVDATA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\CRYPT_REGISTER_ACTIONID.ahk" { CRYPT_REGISTER_ACTIONID }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -446,7 +446,7 @@ export WintrustSetRegPolicyFlags(dwPolicyFlags) {
 export WintrustAddActionID(pgActionID, fdwFlags, psProvInfo) {
     A_LastError := 0
 
-    result := DllCall("WINTRUST.dll\WintrustAddActionID", Guid.Ptr, pgActionID, "uint", fdwFlags, CRYPT_REGISTER_ACTIONID.Ptr, psProvInfo, BOOL)
+    result := DllCall("WINTRUST.dll\WintrustAddActionID", Guid.Ptr, pgActionID, UInt32, fdwFlags, CRYPT_REGISTER_ACTIONID.Ptr, psProvInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -625,7 +625,7 @@ export WintrustGetDefaultForUsage(dwAction, pszUsageOID, psUsage) {
  * @since windows5.1.2600
  */
 export WTHelperGetProvSignerFromChain(pProvData, idxSigner, fCounterSigner, idxCounterSigner) {
-    result := DllCall("WINTRUST.dll\WTHelperGetProvSignerFromChain", CRYPT_PROVIDER_DATA.Ptr, pProvData, "uint", idxSigner, BOOL, fCounterSigner, "uint", idxCounterSigner, CRYPT_PROVIDER_SGNR.Ptr)
+    result := DllCall("WINTRUST.dll\WTHelperGetProvSignerFromChain", CRYPT_PROVIDER_DATA.Ptr, pProvData, UInt32, idxSigner, BOOL, fCounterSigner, UInt32, idxCounterSigner, CRYPT_PROVIDER_SGNR.Ptr)
     return result
 }
 
@@ -640,7 +640,7 @@ export WTHelperGetProvSignerFromChain(pProvData, idxSigner, fCounterSigner, idxC
  * @since windows5.1.2600
  */
 export WTHelperGetProvCertFromChain(pSgnr, idxCert) {
-    result := DllCall("WINTRUST.dll\WTHelperGetProvCertFromChain", CRYPT_PROVIDER_SGNR.Ptr, pSgnr, "uint", idxCert, CRYPT_PROVIDER_CERT.Ptr)
+    result := DllCall("WINTRUST.dll\WTHelperGetProvCertFromChain", CRYPT_PROVIDER_SGNR.Ptr, pSgnr, UInt32, idxCert, CRYPT_PROVIDER_CERT.Ptr)
     return result
 }
 
@@ -684,7 +684,7 @@ export WTHelperGetProvPrivateDataFromChain(pProvData, pgProviderID) {
  * @since windows5.1.2600
  */
 export WTHelperCertIsSelfSigned(dwEncoding, pCert) {
-    result := DllCall("WINTRUST.dll\WTHelperCertIsSelfSigned", "uint", dwEncoding, CERT_INFO.Ptr, pCert, BOOL)
+    result := DllCall("WINTRUST.dll\WTHelperCertIsSelfSigned", UInt32, dwEncoding, CERT_INFO.Ptr, pCert, BOOL)
     return result
 }
 
@@ -732,7 +732,7 @@ export WTHelperCertCheckValidSignature(pProvData) {
 export OpenPersonalTrustDBDialogEx(hwndParent, dwFlags, pvReserved) {
     pvReservedMarshal := pvReserved is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", HWND, hwndParent, "uint", dwFlags, pvReservedMarshal, pvReserved, BOOL)
+    result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", HWND, hwndParent, UInt32, dwFlags, pvReservedMarshal, pvReserved, BOOL)
     return result
 }
 

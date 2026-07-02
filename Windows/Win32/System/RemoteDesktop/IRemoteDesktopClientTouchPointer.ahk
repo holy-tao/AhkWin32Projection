@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides the properties needed to control the touch pointer feature of the Remote Desktop Protocol (RDP) app container client control.
@@ -115,7 +115,7 @@ export default struct IRemoteDesktopClientTouchPointer extends IDispatch {
      * @returns {HRESULT} 
      */
     put_PointerSpeed(pointerSpeed) {
-        result := ComCall(11, this, "uint", pointerSpeed, "HRESULT")
+        result := ComCall(11, this, UInt32, pointerSpeed, "HRESULT")
         return result
     }
 

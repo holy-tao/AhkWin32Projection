@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\HCS_EVENT_OPTIONS.ahk" { HCS_EVENT_OPTIONS }
+#Import ".\HCS_EVENT_CALLBACK.ahk" { HCS_EVENT_CALLBACK }
 #Import "..\..\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
 #Import ".\HCS_CREATE_OPTIONS.ahk" { HCS_CREATE_OPTIONS }
-#Import ".\HCS_EVENT_OPTIONS.ahk" { HCS_EVENT_OPTIONS }
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
@@ -20,6 +21,6 @@ export default struct HCS_CREATE_OPTIONS_1 {
 
     CallbackContext : IntPtr
 
-    Callback : IntPtr
+    Callback : HCS_EVENT_CALLBACK
 
 }

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpCFGInterpreterSite.ahk" { ISpCFGInterpreterSite }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpPhraseBuilder.ahk" { ISpPhraseBuilder }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpPhraseBuilder.ahk" { ISpPhraseBuilder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -63,7 +63,7 @@ export default struct ISpCFGInterpreter extends IUnknown {
      * @returns {HRESULT} 
      */
     Interpret(pPhrase, ulFirstElement, ulCountOfElements, pSite) {
-        result := ComCall(4, this, "ptr", pPhrase, "uint", ulFirstElement, "uint", ulCountOfElements, "ptr", pSite, "HRESULT")
+        result := ComCall(4, this, "ptr", pPhrase, UInt32, ulFirstElement, UInt32, ulCountOfElements, "ptr", pSite, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\NMHDR.ahk" { NMHDR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about a keyboard or mouse event. A rich edit control sends this structure to its parent window as part of an EN_MSGFILTER notification code, enabling the parent to change the message or prevent it from being processed.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that manage the border space for one or more IDockingWindow objects. This interface is implemented by the browser and is similar to the IOleInPlaceUIWindow interface.

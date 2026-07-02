@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DS_REPL_CURSOR.ahk" { DS_REPL_CURSOR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The DS_REPL_CURSORS structure is used with the DsReplicaGetInfo and DsReplicaGetInfo2 function to provide replication state data with respect to all replicas of a given naming context.

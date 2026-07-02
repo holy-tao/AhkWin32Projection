@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDataModelNameBinder.ahk" { IDataModelNameBinder }
+#Import ".\IDataModelScriptProvider.ahk" { IDataModelScriptProvider }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDataModelScriptProviderEnumerator.ahk" { IDataModelScriptProviderEnumerator }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDataModelScriptProvider.ahk" { IDataModelScriptProvider }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDataModelNameBinder.ahk" { IDataModelNameBinder }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextHost.ahk" { ITextHost }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
+#Import ".\ITextHost.ahk" { ITextHost }
+#Import "..\..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITextHost2 interface extends the ITextHost interface.
@@ -207,7 +207,7 @@ export default struct ITextHost2 extends ITextHost {
     TxGetEditStyle(dwItem, pdwData) {
         pdwDataMarshal := pdwData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(49, this, "uint", dwItem, pdwDataMarshal, pdwData, "HRESULT")
+        result := ComCall(49, this, UInt32, dwItem, pdwDataMarshal, pdwData, "HRESULT")
         return result
     }
 

@@ -80,7 +80,7 @@ export default struct IAMMediaContent2 extends IDispatch {
     get_MediaParameter(EntryNum, bstrName, pbstrValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(7, this, "int", EntryNum, BSTR, bstrName, BSTR.Ptr, pbstrValue, "HRESULT")
+        result := ComCall(7, this, Int32, EntryNum, BSTR, bstrName, BSTR.Ptr, pbstrValue, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IAMMediaContent2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iammediacontent2-get_mediaparametername
      */
     get_MediaParameterName(EntryNum, Index, pbstrName) {
-        result := ComCall(8, this, "int", EntryNum, "int", Index, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(8, this, Int32, EntryNum, Int32, Index, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 

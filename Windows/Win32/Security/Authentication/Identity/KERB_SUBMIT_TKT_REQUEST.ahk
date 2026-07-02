@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 #Import ".\KERB_CRYPTO_KEY32.ahk" { KERB_CRYPTO_KEY32 }
 #Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
-#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

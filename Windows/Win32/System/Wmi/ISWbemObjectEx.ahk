@@ -3,10 +3,10 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WbemObjectTextFormatEnum.ahk" { WbemObjectTextFormatEnum }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISWbemPropertySet.ahk" { ISWbemPropertySet }
 #Import ".\ISWbemObject.ahk" { ISWbemObject }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISWbemPropertySet.ahk" { ISWbemPropertySet }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -62,7 +62,7 @@ export default struct ISWbemObjectEx extends ISWbemObject {
      * @returns {HRESULT} 
      */
     Refresh_(iFlags, objWbemNamedValueSet) {
-        result := ComCall(32, this, "int", iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
+        result := ComCall(32, this, Int32, iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct ISWbemObjectEx extends ISWbemObject {
      */
     GetText_(iObjectTextFormat, iFlags, objWbemNamedValueSet) {
         bsText := BSTR.Owned()
-        result := ComCall(34, this, WbemObjectTextFormatEnum, iObjectTextFormat, "int", iFlags, "ptr", objWbemNamedValueSet, BSTR.Ptr, bsText, "HRESULT")
+        result := ComCall(34, this, WbemObjectTextFormatEnum, iObjectTextFormat, Int32, iFlags, "ptr", objWbemNamedValueSet, BSTR.Ptr, bsText, "HRESULT")
         return bsText
     }
 
@@ -99,7 +99,7 @@ export default struct ISWbemObjectEx extends ISWbemObject {
     SetFromText_(bsText, iObjectTextFormat, iFlags, objWbemNamedValueSet) {
         bsText := bsText is String ? BSTR.Alloc(bsText).Value : bsText
 
-        result := ComCall(35, this, BSTR, bsText, WbemObjectTextFormatEnum, iObjectTextFormat, "int", iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
+        result := ComCall(35, this, BSTR, bsText, WbemObjectTextFormatEnum, iObjectTextFormat, Int32, iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
         return result
     }
 

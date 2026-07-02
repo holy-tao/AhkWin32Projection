@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WTS_CACHE_STATS_UN.ahk" { WTS_CACHE_STATS_UN }
 #Import ".\WTS_PROTOCOL_CACHE.ahk" { WTS_PROTOCOL_CACHE }
+#Import ".\WTS_CACHE_STATS_UN.ahk" { WTS_CACHE_STATS_UN }
 
 /**
  * Contains protocol cache statistics.

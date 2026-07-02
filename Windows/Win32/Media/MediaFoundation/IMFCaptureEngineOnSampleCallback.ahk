@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFSample.ahk" { IMFSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Callback interface to receive data from the capture engine.

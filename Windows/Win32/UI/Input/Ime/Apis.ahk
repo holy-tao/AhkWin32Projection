@@ -1,35 +1,38 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import ".\STYLEBUFW.ahk" { STYLEBUFW }
-#Import ".\INPUTCONTEXT.ahk" { INPUTCONTEXT }
 #Import ".\IME_SENTENCE_MODE.ahk" { IME_SENTENCE_MODE }
-#Import ".\IMEMENUITEMINFOW.ahk" { IMEMENUITEMINFOW }
-#Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\HIMCC.ahk" { HIMCC }
-#Import ".\IME_HOTKEY_IDENTIFIER.ahk" { IME_HOTKEY_IDENTIFIER }
-#Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\GET_GUIDE_LINE_TYPE.ahk" { GET_GUIDE_LINE_TYPE }
-#Import ".\COMPOSITIONFORM.ahk" { COMPOSITIONFORM }
-#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
-#Import ".\HIMC.ahk" { HIMC }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
-#Import ".\SET_COMPOSITION_STRING_TYPE.ahk" { SET_COMPOSITION_STRING_TYPE }
-#Import ".\CANDIDATEFORM.ahk" { CANDIDATEFORM }
-#Import ".\NOTIFY_IME_INDEX.ahk" { NOTIFY_IME_INDEX }
-#Import ".\IMEMENUITEMINFOA.ahk" { IMEMENUITEMINFOA }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\GET_CONVERSION_LIST_FLAG.ahk" { GET_CONVERSION_LIST_FLAG }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\COMPOSITIONFORM.ahk" { COMPOSITIONFORM }
 #Import ".\IME_ESCAPE.ahk" { IME_ESCAPE }
+#Import ".\IME_HOTKEY_IDENTIFIER.ahk" { IME_HOTKEY_IDENTIFIER }
+#Import ".\HIMC.ahk" { HIMC }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SET_COMPOSITION_STRING_TYPE.ahk" { SET_COMPOSITION_STRING_TYPE }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import ".\IMEMENUITEMINFOA.ahk" { IMEMENUITEMINFOA }
+#Import ".\IME_CONVERSION_MODE.ahk" { IME_CONVERSION_MODE }
+#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
+#Import ".\STYLEBUFW.ahk" { STYLEBUFW }
+#Import ".\REGISTERWORDENUMPROCW.ahk" { REGISTERWORDENUMPROCW }
+#Import ".\IMCENUMPROC.ahk" { IMCENUMPROC }
+#Import ".\INPUTCONTEXT.ahk" { INPUTCONTEXT }
+#Import ".\HIMCC.ahk" { HIMCC }
+#Import ".\NOTIFY_IME_INDEX.ahk" { NOTIFY_IME_INDEX }
 #Import ".\STYLEBUFA.ahk" { STYLEBUFA }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\GET_CONVERSION_LIST_FLAG.ahk" { GET_CONVERSION_LIST_FLAG }
 #Import ".\NOTIFY_IME_ACTION.ahk" { NOTIFY_IME_ACTION }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IME_CONVERSION_MODE.ahk" { IME_CONVERSION_MODE }
+#Import ".\IMEMENUITEMINFOW.ahk" { IMEMENUITEMINFOW }
+#Import ".\GET_GUIDE_LINE_TYPE.ahk" { GET_GUIDE_LINE_TYPE }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\IME_COMPOSITION_STRING.ahk" { IME_COMPOSITION_STRING }
+#Import ".\REGISTERWORDENUMPROCA.ahk" { REGISTERWORDENUMPROCA }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\CANDIDATEFORM.ahk" { CANDIDATEFORM }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -117,7 +120,7 @@ export ImmGetDefaultIMEWnd(param0) {
 export ImmGetDescriptionA(param0, lpszDescription, uBufLen) {
     lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
 
-    result := DllCall("IMM32.dll\ImmGetDescriptionA", HKL, param0, "ptr", lpszDescription, "uint", uBufLen, UInt32)
+    result := DllCall("IMM32.dll\ImmGetDescriptionA", HKL, param0, "ptr", lpszDescription, UInt32, uBufLen, UInt32)
     return result
 }
 
@@ -138,7 +141,7 @@ export ImmGetDescriptionA(param0, lpszDescription, uBufLen) {
 export ImmGetDescriptionW(param0, lpszDescription, uBufLen) {
     lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
 
-    result := DllCall("IMM32.dll\ImmGetDescriptionW", HKL, param0, "ptr", lpszDescription, "uint", uBufLen, UInt32)
+    result := DllCall("IMM32.dll\ImmGetDescriptionW", HKL, param0, "ptr", lpszDescription, UInt32, uBufLen, UInt32)
     return result
 }
 
@@ -166,7 +169,7 @@ export ImmGetDescriptionW(param0, lpszDescription, uBufLen) {
 export ImmGetIMEFileNameA(param0, lpszFileName, uBufLen) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("IMM32.dll\ImmGetIMEFileNameA", HKL, param0, "ptr", lpszFileName, "uint", uBufLen, UInt32)
+    result := DllCall("IMM32.dll\ImmGetIMEFileNameA", HKL, param0, "ptr", lpszFileName, UInt32, uBufLen, UInt32)
     return result
 }
 
@@ -194,7 +197,7 @@ export ImmGetIMEFileNameA(param0, lpszFileName, uBufLen) {
 export ImmGetIMEFileNameW(param0, lpszFileName, uBufLen) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("IMM32.dll\ImmGetIMEFileNameW", HKL, param0, "ptr", lpszFileName, "uint", uBufLen, UInt32)
+    result := DllCall("IMM32.dll\ImmGetIMEFileNameW", HKL, param0, "ptr", lpszFileName, UInt32, uBufLen, UInt32)
     return result
 }
 
@@ -318,7 +321,7 @@ export ImmGetIMEFileNameW(param0, lpszFileName, uBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetProperty(param0, param1) {
-    result := DllCall("IMM32.dll\ImmGetProperty", HKL, param0, "uint", param1, UInt32)
+    result := DllCall("IMM32.dll\ImmGetProperty", HKL, param0, UInt32, param1, UInt32)
     return result
 }
 
@@ -422,15 +425,15 @@ export ImmAssociateContext(param0, param1) {
  * If the application calls this function with IACE_CHILDREN, the operating system associates the specified input method context with child windows of the window indicated by <i>hWnd</i>. It associates the input method context only with child windows of the thread that creates <i>hWnd</i>. Any child window that is created after this function has been called will not be affected. Instead, the default input method context will be associated with it.
  * 
  * If the application calls this function with IACE_DEFAULT, the operating system restores the default input method context for the window. In this case, the <i>hIMC</i> parameter is ignored.
- * @param {HWND} param0 
- * @param {HIMC} param1 
+ * @param {HWND} param0 Handle to the window to associate with the input context.
+ * @param {HIMC} param1 Handle to the input method context.
  * @param {Integer} param2 
  * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
  * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immassociatecontextex
  * @since windows5.1.2600
  */
 export ImmAssociateContextEx(param0, param1, param2) {
-    result := DllCall("IMM32.dll\ImmAssociateContextEx", HWND, param0, HIMC, param1, "uint", param2, BOOL)
+    result := DllCall("IMM32.dll\ImmAssociateContextEx", HWND, param0, HIMC, param1, UInt32, param2, BOOL)
     return result
 }
 
@@ -464,7 +467,7 @@ export ImmAssociateContextEx(param0, param1, param2) {
  * @since windows5.1.2600
  */
 export ImmGetCompositionStringA(param0, param1, lpBuf, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetCompositionStringA", HIMC, param0, IME_COMPOSITION_STRING, param1, "ptr", lpBuf, "uint", dwBufLen, Int32)
+    result := DllCall("IMM32.dll\ImmGetCompositionStringA", HIMC, param0, IME_COMPOSITION_STRING, param1, IntPtr, lpBuf, UInt32, dwBufLen, Int32)
     return result
 }
 
@@ -498,7 +501,7 @@ export ImmGetCompositionStringA(param0, param1, lpBuf, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetCompositionStringW(param0, param1, lpBuf, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetCompositionStringW", HIMC, param0, IME_COMPOSITION_STRING, param1, "ptr", lpBuf, "uint", dwBufLen, Int32)
+    result := DllCall("IMM32.dll\ImmGetCompositionStringW", HIMC, param0, IME_COMPOSITION_STRING, param1, IntPtr, lpBuf, UInt32, dwBufLen, Int32)
     return result
 }
 
@@ -538,7 +541,7 @@ export ImmGetCompositionStringW(param0, param1, lpBuf, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmSetCompositionStringA(param0, dwIndex, lpComp, dwCompLen, lpRead, dwReadLen) {
-    result := DllCall("IMM32.dll\ImmSetCompositionStringA", HIMC, param0, SET_COMPOSITION_STRING_TYPE, dwIndex, "ptr", lpComp, "uint", dwCompLen, "ptr", lpRead, "uint", dwReadLen, BOOL)
+    result := DllCall("IMM32.dll\ImmSetCompositionStringA", HIMC, param0, SET_COMPOSITION_STRING_TYPE, dwIndex, IntPtr, lpComp, UInt32, dwCompLen, IntPtr, lpRead, UInt32, dwReadLen, BOOL)
     return result
 }
 
@@ -578,7 +581,7 @@ export ImmSetCompositionStringA(param0, dwIndex, lpComp, dwCompLen, lpRead, dwRe
  * @since windows5.1.2600
  */
 export ImmSetCompositionStringW(param0, dwIndex, lpComp, dwCompLen, lpRead, dwReadLen) {
-    result := DllCall("IMM32.dll\ImmSetCompositionStringW", HIMC, param0, SET_COMPOSITION_STRING_TYPE, dwIndex, "ptr", lpComp, "uint", dwCompLen, "ptr", lpRead, "uint", dwReadLen, BOOL)
+    result := DllCall("IMM32.dll\ImmSetCompositionStringW", HIMC, param0, SET_COMPOSITION_STRING_TYPE, dwIndex, IntPtr, lpComp, UInt32, dwCompLen, IntPtr, lpRead, UInt32, dwReadLen, BOOL)
     return result
 }
 
@@ -646,7 +649,7 @@ export ImmGetCandidateListCountW(param0, lpdwListCount) {
  * @since windows5.1.2600
  */
 export ImmGetCandidateListA(param0, deIndex, lpCandList, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetCandidateListA", HIMC, param0, "uint", deIndex, "ptr", lpCandList, "uint", dwBufLen, UInt32)
+    result := DllCall("IMM32.dll\ImmGetCandidateListA", HIMC, param0, UInt32, deIndex, IntPtr, lpCandList, UInt32, dwBufLen, UInt32)
     return result
 }
 
@@ -666,7 +669,7 @@ export ImmGetCandidateListA(param0, deIndex, lpCandList, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetCandidateListW(param0, deIndex, lpCandList, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetCandidateListW", HIMC, param0, "uint", deIndex, "ptr", lpCandList, "uint", dwBufLen, UInt32)
+    result := DllCall("IMM32.dll\ImmGetCandidateListW", HIMC, param0, UInt32, deIndex, IntPtr, lpCandList, UInt32, dwBufLen, UInt32)
     return result
 }
 
@@ -681,7 +684,7 @@ export ImmGetCandidateListW(param0, deIndex, lpCandList, dwBufLen) {
  * 
  * > [!NOTE]
  * > The immdev.h header defines ImmGetGuideLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HIMC} param0 
+ * @param {HIMC} param0 Handle to the input context.
  * @param {GET_GUIDE_LINE_TYPE} dwIndex 
  * @param {Integer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
  * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed to receive the error message string, not including the terminating null character.
@@ -784,7 +787,7 @@ export ImmGetCandidateListW(param0, deIndex, lpCandList, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetGuideLineA(param0, dwIndex, lpBuf, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetGuideLineA", HIMC, param0, GET_GUIDE_LINE_TYPE, dwIndex, "ptr", lpBuf, "uint", dwBufLen, UInt32)
+    result := DllCall("IMM32.dll\ImmGetGuideLineA", HIMC, param0, GET_GUIDE_LINE_TYPE, dwIndex, IntPtr, lpBuf, UInt32, dwBufLen, UInt32)
     return result
 }
 
@@ -799,7 +802,7 @@ export ImmGetGuideLineA(param0, dwIndex, lpBuf, dwBufLen) {
  * 
  * > [!NOTE]
  * > The immdev.h header defines ImmGetGuideLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HIMC} param0 
+ * @param {HIMC} param0 Handle to the input context.
  * @param {GET_GUIDE_LINE_TYPE} dwIndex 
  * @param {Integer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
  * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed to receive the error message string, not including the terminating null character.
@@ -902,7 +905,7 @@ export ImmGetGuideLineA(param0, dwIndex, lpBuf, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetGuideLineW(param0, dwIndex, lpBuf, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetGuideLineW", HIMC, param0, GET_GUIDE_LINE_TYPE, dwIndex, "ptr", lpBuf, "uint", dwBufLen, UInt32)
+    result := DllCall("IMM32.dll\ImmGetGuideLineW", HIMC, param0, GET_GUIDE_LINE_TYPE, dwIndex, IntPtr, lpBuf, UInt32, dwBufLen, UInt32)
     return result
 }
 
@@ -933,9 +936,9 @@ export ImmGetConversionStatus(param0, lpfdwConversion, lpfdwSentence) {
  * <div class="alert"><b>Note</b>  <b>Beginning with Windows 8:</b> By default, the input switch is set per user instead of per thread. 
  * The Microsoft IME (Japanese) respects the mode globally, and therefore  <b>ImmSetConversionStatus</b> fails when getting focus.</div>
  * <div> </div>
- * @param {HIMC} param0 
- * @param {IME_CONVERSION_MODE} param1 
- * @param {IME_SENTENCE_MODE} param2 
+ * @param {HIMC} param0 Handle to the input context.
+ * @param {IME_CONVERSION_MODE} param1 Conversion mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-conversion-mode-values">IME Conversion Mode Values</a>.
+ * @param {IME_SENTENCE_MODE} param2 Sentence mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-sentence-mode-values">IME Sentence Mode Values</a>.
  * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
  * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetconversionstatus
  * @since windows5.1.2600
@@ -1064,7 +1067,7 @@ export ImmSetCompositionFontW(param0, lplf) {
 export ImmConfigureIMEA(param0, param1, param2, param3) {
     param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IMM32.dll\ImmConfigureIMEA", HKL, param0, HWND, param1, "uint", param2, param3Marshal, param3, BOOL)
+    result := DllCall("IMM32.dll\ImmConfigureIMEA", HKL, param0, HWND, param1, UInt32, param2, param3Marshal, param3, BOOL)
     return result
 }
 
@@ -1084,7 +1087,7 @@ export ImmConfigureIMEA(param0, param1, param2, param3) {
 export ImmConfigureIMEW(param0, param1, param2, param3) {
     param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IMM32.dll\ImmConfigureIMEW", HKL, param0, HWND, param1, "uint", param2, param3Marshal, param3, BOOL)
+    result := DllCall("IMM32.dll\ImmConfigureIMEW", HKL, param0, HWND, param1, UInt32, param2, param3Marshal, param3, BOOL)
     return result
 }
 
@@ -1180,7 +1183,7 @@ export ImmEscapeW(param0, param1, param2, param3) {
 export ImmGetConversionListA(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
     lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
 
-    result := DllCall("IMM32.dll\ImmGetConversionListA", HKL, param0, HIMC, param1, "ptr", lpSrc, "ptr", lpDst, "uint", dwBufLen, GET_CONVERSION_LIST_FLAG, uFlag, UInt32)
+    result := DllCall("IMM32.dll\ImmGetConversionListA", HKL, param0, HIMC, param1, "ptr", lpSrc, IntPtr, lpDst, UInt32, dwBufLen, GET_CONVERSION_LIST_FLAG, uFlag, UInt32)
     return result
 }
 
@@ -1202,7 +1205,7 @@ export ImmGetConversionListA(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
 export ImmGetConversionListW(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
     lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
 
-    result := DllCall("IMM32.dll\ImmGetConversionListW", HKL, param0, HIMC, param1, "ptr", lpSrc, "ptr", lpDst, "uint", dwBufLen, GET_CONVERSION_LIST_FLAG, uFlag, UInt32)
+    result := DllCall("IMM32.dll\ImmGetConversionListW", HKL, param0, HIMC, param1, "ptr", lpSrc, IntPtr, lpDst, UInt32, dwBufLen, GET_CONVERSION_LIST_FLAG, uFlag, UInt32)
     return result
 }
 
@@ -1217,7 +1220,7 @@ export ImmGetConversionListW(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
  * @since windows5.1.2600
  */
 export ImmNotifyIME(param0, dwAction, dwIndex, dwValue) {
-    result := DllCall("IMM32.dll\ImmNotifyIME", HIMC, param0, NOTIFY_IME_ACTION, dwAction, NOTIFY_IME_INDEX, dwIndex, "uint", dwValue, BOOL)
+    result := DllCall("IMM32.dll\ImmNotifyIME", HIMC, param0, NOTIFY_IME_ACTION, dwAction, NOTIFY_IME_INDEX, dwIndex, UInt32, dwValue, BOOL)
     return result
 }
 
@@ -1287,7 +1290,7 @@ export ImmSetCompositionWindow(param0, lpCompForm) {
  * @since windows5.1.2600
  */
 export ImmGetCandidateWindow(param0, param1, lpCandidate) {
-    result := DllCall("IMM32.dll\ImmGetCandidateWindow", HIMC, param0, "uint", param1, CANDIDATEFORM.Ptr, lpCandidate, BOOL)
+    result := DllCall("IMM32.dll\ImmGetCandidateWindow", HIMC, param0, UInt32, param1, CANDIDATEFORM.Ptr, lpCandidate, BOOL)
     return result
 }
 
@@ -1328,7 +1331,7 @@ export ImmSetCandidateWindow(param0, lpCandidate) {
  * @since windows5.1.2600
  */
 export ImmIsUIMessageA(param0, param1, param2, param3) {
-    result := DllCall("IMM32.dll\ImmIsUIMessageA", HWND, param0, "uint", param1, WPARAM, param2, LPARAM, param3, BOOL)
+    result := DllCall("IMM32.dll\ImmIsUIMessageA", HWND, param0, UInt32, param1, WPARAM, param2, LPARAM, param3, BOOL)
     return result
 }
 
@@ -1354,7 +1357,7 @@ export ImmIsUIMessageA(param0, param1, param2, param3) {
  * @since windows5.1.2600
  */
 export ImmIsUIMessageW(param0, param1, param2, param3) {
-    result := DllCall("IMM32.dll\ImmIsUIMessageW", HWND, param0, "uint", param1, WPARAM, param2, LPARAM, param3, BOOL)
+    result := DllCall("IMM32.dll\ImmIsUIMessageW", HWND, param0, UInt32, param1, WPARAM, param2, LPARAM, param3, BOOL)
     return result
 }
 
@@ -1395,7 +1398,7 @@ export ImmRegisterWordA(param0, lpszReading, param2, lpszRegister) {
     lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
     lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
 
-    result := DllCall("IMM32.dll\ImmRegisterWordA", HKL, param0, "ptr", lpszReading, "uint", param2, "ptr", lpszRegister, BOOL)
+    result := DllCall("IMM32.dll\ImmRegisterWordA", HKL, param0, "ptr", lpszReading, UInt32, param2, "ptr", lpszRegister, BOOL)
     return result
 }
 
@@ -1418,7 +1421,7 @@ export ImmRegisterWordW(param0, lpszReading, param2, lpszRegister) {
     lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
     lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
 
-    result := DllCall("IMM32.dll\ImmRegisterWordW", HKL, param0, "ptr", lpszReading, "uint", param2, "ptr", lpszRegister, BOOL)
+    result := DllCall("IMM32.dll\ImmRegisterWordW", HKL, param0, "ptr", lpszReading, UInt32, param2, "ptr", lpszRegister, BOOL)
     return result
 }
 
@@ -1439,7 +1442,7 @@ export ImmUnregisterWordA(param0, lpszReading, param2, lpszUnregister) {
     lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
     lpszUnregister := lpszUnregister is String ? StrPtr(lpszUnregister) : lpszUnregister
 
-    result := DllCall("IMM32.dll\ImmUnregisterWordA", HKL, param0, "ptr", lpszReading, "uint", param2, "ptr", lpszUnregister, BOOL)
+    result := DllCall("IMM32.dll\ImmUnregisterWordA", HKL, param0, "ptr", lpszReading, UInt32, param2, "ptr", lpszUnregister, BOOL)
     return result
 }
 
@@ -1460,7 +1463,7 @@ export ImmUnregisterWordW(param0, lpszReading, param2, lpszUnregister) {
     lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
     lpszUnregister := lpszUnregister is String ? StrPtr(lpszUnregister) : lpszUnregister
 
-    result := DllCall("IMM32.dll\ImmUnregisterWordW", HKL, param0, "ptr", lpszReading, "uint", param2, "ptr", lpszUnregister, BOOL)
+    result := DllCall("IMM32.dll\ImmUnregisterWordW", HKL, param0, "ptr", lpszReading, UInt32, param2, "ptr", lpszUnregister, BOOL)
     return result
 }
 
@@ -1477,7 +1480,7 @@ export ImmUnregisterWordW(param0, lpszReading, param2, lpszUnregister) {
  * @since windows5.1.2600
  */
 export ImmGetRegisterWordStyleA(param0, nItem, lpStyleBuf) {
-    result := DllCall("IMM32.dll\ImmGetRegisterWordStyleA", HKL, param0, "uint", nItem, STYLEBUFA.Ptr, lpStyleBuf, UInt32)
+    result := DllCall("IMM32.dll\ImmGetRegisterWordStyleA", HKL, param0, UInt32, nItem, STYLEBUFA.Ptr, lpStyleBuf, UInt32)
     return result
 }
 
@@ -1494,7 +1497,7 @@ export ImmGetRegisterWordStyleA(param0, nItem, lpStyleBuf) {
  * @since windows5.1.2600
  */
 export ImmGetRegisterWordStyleW(param0, nItem, lpStyleBuf) {
-    result := DllCall("IMM32.dll\ImmGetRegisterWordStyleW", HKL, param0, "uint", nItem, STYLEBUFW.Ptr, lpStyleBuf, UInt32)
+    result := DllCall("IMM32.dll\ImmGetRegisterWordStyleW", HKL, param0, UInt32, nItem, STYLEBUFW.Ptr, lpStyleBuf, UInt32)
     return result
 }
 
@@ -1505,12 +1508,12 @@ export ImmGetRegisterWordStyleW(param0, nItem, lpStyleBuf) {
  * 
  * > [!NOTE]
  * > The immdev.h header defines ImmEnumRegisterWord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HKL} param0 
- * @param {Pointer<REGISTERWORDENUMPROCA>} param1 
+ * @param {HKL} param0 Input locale identifier.
+ * @param {Pointer<REGISTERWORDENUMPROCA>} param1 Pointer to the callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/imm/nc-imm-registerwordenumproca">EnumRegisterWordProc</a>.
  * @param {PSTR} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
- * @param {Integer} param3 
+ * @param {Integer} param3 Style to enumerate. The application specifies 0 if the function is to enumerate all available styles that match the <i>lpszReading</i> and <i>lpszRegister</i> settings.
  * @param {PSTR} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
- * @param {Pointer<Void>} param5 
+ * @param {Pointer<Void>} param5 Pointer to application-supplied data. The function passes this data to the callback function.
  * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
  * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenumregisterworda
  * @since windows5.1.2600
@@ -1521,7 +1524,7 @@ export ImmEnumRegisterWordA(param0, param1, lpszReading, param3, lpszRegister, p
 
     param5Marshal := param5 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IMM32.dll\ImmEnumRegisterWordA", HKL, param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
+    result := DllCall("IMM32.dll\ImmEnumRegisterWordA", HKL, param0, REGISTERWORDENUMPROCA, param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -1532,12 +1535,12 @@ export ImmEnumRegisterWordA(param0, param1, lpszReading, param3, lpszRegister, p
  * 
  * > [!NOTE]
  * > The immdev.h header defines ImmEnumRegisterWord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HKL} param0 
- * @param {Pointer<REGISTERWORDENUMPROCW>} param1 
+ * @param {HKL} param0 Input locale identifier.
+ * @param {Pointer<REGISTERWORDENUMPROCW>} param1 Pointer to the callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/imm/nc-imm-registerwordenumproca">EnumRegisterWordProc</a>.
  * @param {PWSTR} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
- * @param {Integer} param3 
+ * @param {Integer} param3 Style to enumerate. The application specifies 0 if the function is to enumerate all available styles that match the <i>lpszReading</i> and <i>lpszRegister</i> settings.
  * @param {PWSTR} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
- * @param {Pointer<Void>} param5 
+ * @param {Pointer<Void>} param5 Pointer to application-supplied data. The function passes this data to the callback function.
  * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
  * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenumregisterwordw
  * @since windows5.1.2600
@@ -1548,7 +1551,7 @@ export ImmEnumRegisterWordW(param0, param1, lpszReading, param3, lpszRegister, p
 
     param5Marshal := param5 is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IMM32.dll\ImmEnumRegisterWordW", HKL, param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
+    result := DllCall("IMM32.dll\ImmEnumRegisterWordW", HKL, param0, REGISTERWORDENUMPROCW, param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -1567,7 +1570,7 @@ export ImmEnumRegisterWordW(param0, param1, lpszReading, param3, lpszRegister, p
  * @since windows5.1.2600
  */
 export ImmDisableIME(param0) {
-    result := DllCall("IMM32.dll\ImmDisableIME", "uint", param0, BOOL)
+    result := DllCall("IMM32.dll\ImmDisableIME", UInt32, param0, BOOL)
     return result
 }
 
@@ -1583,7 +1586,7 @@ export ImmDisableIME(param0) {
  * @since windows5.1.2600
  */
 export ImmEnumInputContext(idThread, lpfn, _lParam) {
-    result := DllCall("IMM32.dll\ImmEnumInputContext", "uint", idThread, "ptr", lpfn, LPARAM, _lParam, BOOL)
+    result := DllCall("IMM32.dll\ImmEnumInputContext", UInt32, idThread, IMCENUMPROC, lpfn, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -1592,8 +1595,25 @@ export ImmEnumInputContext(idThread, lpfn, _lParam) {
  * @remarks
  * > [!NOTE]
  * > The immdev.h header defines ImmGetImeMenuItems as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HIMC} param0 
- * @param {Integer} param1 
+ * @param {HIMC} param0 Handle to the input context for the specified menu items.
+ * @param {Integer} param1 Flag specifying menu information options. The following value is defined.
+ * 
+ * <table>
+ * <tr>
+ * <th>Value</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="IGIMIF_RIGHTMENU"></a><a id="igimif_rightmenu"></a><dl>
+ * <dt><b>IGIMIF_RIGHTMENU</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Retrieve the menu items for the context menu, obtained by a right mouse click.
+ * 
+ * </td>
+ * </tr>
+ * </table>
  * @param {Integer} param2 
  * @param {Pointer<IMEMENUITEMINFOA>} lpImeParentMenu Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure in which the function retrieves parent menu information. To retrieve information about the submenu items of this parent menu, the application sets the <b>fType</b> member to MFT_SUBMENU. This parameter contains <b>NULL</b> if the function retrieves only top-level menu items.
  * @param {Integer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.
@@ -1603,7 +1623,7 @@ export ImmEnumInputContext(idThread, lpfn, _lParam) {
  * @since windows5.1.2600
  */
 export ImmGetImeMenuItemsA(param0, param1, param2, lpImeParentMenu, lpImeMenu, dwSize) {
-    result := DllCall("IMM32.dll\ImmGetImeMenuItemsA", HIMC, param0, "uint", param1, "uint", param2, IMEMENUITEMINFOA.Ptr, lpImeParentMenu, "ptr", lpImeMenu, "uint", dwSize, UInt32)
+    result := DllCall("IMM32.dll\ImmGetImeMenuItemsA", HIMC, param0, UInt32, param1, UInt32, param2, IMEMENUITEMINFOA.Ptr, lpImeParentMenu, IntPtr, lpImeMenu, UInt32, dwSize, UInt32)
     return result
 }
 
@@ -1612,8 +1632,25 @@ export ImmGetImeMenuItemsA(param0, param1, param2, lpImeParentMenu, lpImeMenu, d
  * @remarks
  * > [!NOTE]
  * > The immdev.h header defines ImmGetImeMenuItems as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {HIMC} param0 
- * @param {Integer} param1 
+ * @param {HIMC} param0 Handle to the input context for the specified menu items.
+ * @param {Integer} param1 Flag specifying menu information options. The following value is defined.
+ * 
+ * <table>
+ * <tr>
+ * <th>Value</th>
+ * <th>Meaning</th>
+ * </tr>
+ * <tr>
+ * <td width="40%"><a id="IGIMIF_RIGHTMENU"></a><a id="igimif_rightmenu"></a><dl>
+ * <dt><b>IGIMIF_RIGHTMENU</b></dt>
+ * </dl>
+ * </td>
+ * <td width="60%">
+ * Retrieve the menu items for the context menu, obtained by a right mouse click.
+ * 
+ * </td>
+ * </tr>
+ * </table>
  * @param {Integer} param2 
  * @param {Pointer<IMEMENUITEMINFOW>} lpImeParentMenu Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure in which the function retrieves parent menu information. To retrieve information about the submenu items of this parent menu, the application sets the <b>fType</b> member to MFT_SUBMENU. This parameter contains <b>NULL</b> if the function retrieves only top-level menu items.
  * @param {Integer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.
@@ -1623,7 +1660,7 @@ export ImmGetImeMenuItemsA(param0, param1, param2, lpImeParentMenu, lpImeMenu, d
  * @since windows5.1.2600
  */
 export ImmGetImeMenuItemsW(param0, param1, param2, lpImeParentMenu, lpImeMenu, dwSize) {
-    result := DllCall("IMM32.dll\ImmGetImeMenuItemsW", HIMC, param0, "uint", param1, "uint", param2, IMEMENUITEMINFOW.Ptr, lpImeParentMenu, "ptr", lpImeMenu, "uint", dwSize, UInt32)
+    result := DllCall("IMM32.dll\ImmGetImeMenuItemsW", HIMC, param0, UInt32, param1, UInt32, param2, IMEMENUITEMINFOW.Ptr, lpImeParentMenu, IntPtr, lpImeMenu, UInt32, dwSize, UInt32)
     return result
 }
 
@@ -1639,7 +1676,7 @@ export ImmGetImeMenuItemsW(param0, param1, param2, lpImeParentMenu, lpImeMenu, d
  * @since windows5.1.2600
  */
 export ImmDisableTextFrameService(idThread) {
-    result := DllCall("IMM32.dll\ImmDisableTextFrameService", "uint", idThread, BOOL)
+    result := DllCall("IMM32.dll\ImmDisableTextFrameService", UInt32, idThread, BOOL)
     return result
 }
 
@@ -1675,7 +1712,7 @@ export ImmGetHotKey(param0, lpuModifiers, lpuVKey, phKL) {
     lpuModifiersMarshal := lpuModifiers is VarRef ? "uint*" : "ptr"
     lpuVKeyMarshal := lpuVKey is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IMM32.dll\ImmGetHotKey", "uint", param0, lpuModifiersMarshal, lpuModifiers, lpuVKeyMarshal, lpuVKey, HKL.Ptr, phKL, BOOL)
+    result := DllCall("IMM32.dll\ImmGetHotKey", UInt32, param0, lpuModifiersMarshal, lpuModifiers, lpuVKeyMarshal, lpuVKey, HKL.Ptr, phKL, BOOL)
     return result
 }
 
@@ -1688,7 +1725,7 @@ export ImmGetHotKey(param0, lpuModifiers, lpuVKey, phKL) {
  * @returns {BOOL} 
  */
 export ImmSetHotKey(param0, param1, param2, param3) {
-    result := DllCall("IMM32.dll\ImmSetHotKey", "uint", param0, "uint", param1, "uint", param2, HKL, param3, BOOL)
+    result := DllCall("IMM32.dll\ImmSetHotKey", UInt32, param0, UInt32, param1, UInt32, param2, HKL, param3, BOOL)
     return result
 }
 
@@ -1757,7 +1794,7 @@ export ImmRequestMessageW(param0, param1, param2) {
  * @returns {HWND} 
  */
 export ImmCreateSoftKeyboard(param0, param1, param2, param3) {
-    result := DllCall("IMM32.dll\ImmCreateSoftKeyboard", "uint", param0, HWND, param1, "int", param2, "int", param3, HWND)
+    result := DllCall("IMM32.dll\ImmCreateSoftKeyboard", UInt32, param0, HWND, param1, Int32, param2, Int32, param3, HWND)
     return result
 }
 
@@ -1778,7 +1815,7 @@ export ImmDestroySoftKeyboard(param0) {
  * @returns {BOOL} 
  */
 export ImmShowSoftKeyboard(param0, param1) {
-    result := DllCall("IMM32.dll\ImmShowSoftKeyboard", HWND, param0, "int", param1, BOOL)
+    result := DllCall("IMM32.dll\ImmShowSoftKeyboard", HWND, param0, Int32, param1, BOOL)
     return result
 }
 
@@ -1818,7 +1855,7 @@ export ImmGetIMCLockCount(param0) {
  * @returns {HIMCC} 
  */
 export ImmCreateIMCC(param0) {
-    result := DllCall("IMM32.dll\ImmCreateIMCC", "uint", param0, HIMCC)
+    result := DllCall("IMM32.dll\ImmCreateIMCC", UInt32, param0, HIMCC)
     return result
 }
 
@@ -1869,7 +1906,7 @@ export ImmGetIMCCLockCount(param0) {
  * @returns {HIMCC} 
  */
 export ImmReSizeIMCC(param0, param1) {
-    result := DllCall("IMM32.dll\ImmReSizeIMCC", HIMCC, param0, "uint", param1, HIMCC)
+    result := DllCall("IMM32.dll\ImmReSizeIMCC", HIMCC, param0, UInt32, param1, HIMCC)
     return result
 }
 

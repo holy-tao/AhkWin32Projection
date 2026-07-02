@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MP_PARAMINFO.ahk" { MP_PARAMINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaParamInfo interface retrieves information about the parameters that an object supports. The set of parameters that an object supports will not change over the lifetime of an application. To set parameter values, use the IMediaParams interface.
@@ -63,7 +63,7 @@ export default struct IMediaParamInfo extends IUnknown {
      */
     GetParamInfo(dwParamIndex) {
         pInfo := MP_PARAMINFO()
-        result := ComCall(4, this, "uint", dwParamIndex, MP_PARAMINFO.Ptr, pInfo, "HRESULT")
+        result := ComCall(4, this, UInt32, dwParamIndex, MP_PARAMINFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -90,7 +90,7 @@ export default struct IMediaParamInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getparamtext
      */
     GetParamText(dwParamIndex) {
-        result := ComCall(5, this, "uint", dwParamIndex, "ptr*", &ppwchText := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwParamIndex, "ptr*", &ppwchText := 0, "HRESULT")
         return ppwchText
     }
 
@@ -114,7 +114,7 @@ export default struct IMediaParamInfo extends IUnknown {
      */
     GetSupportedTimeFormat(dwFormatIndex) {
         pguidTimeFormat := Guid()
-        result := ComCall(7, this, "uint", dwFormatIndex, Guid.Ptr, pguidTimeFormat, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFormatIndex, Guid.Ptr, pguidTimeFormat, "HRESULT")
         return pguidTimeFormat
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSATTRIBUTE.ahk" { KSATTRIBUTE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KSATTRIBUTE.ahk" { KSATTRIBUTE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

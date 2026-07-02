@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BOID.ahk" { BOID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\BOID.ahk" { BOID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -73,7 +73,7 @@ export default struct ITransactionOutcomeEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     HeuristicDecision(dwDecision, pboidReason, hr) {
-        result := ComCall(5, this, "uint", dwDecision, BOID.Ptr, pboidReason, "int", hr, "HRESULT")
+        result := ComCall(5, this, UInt32, dwDecision, BOID.Ptr, pboidReason, "int", hr, "HRESULT")
         return result
     }
 

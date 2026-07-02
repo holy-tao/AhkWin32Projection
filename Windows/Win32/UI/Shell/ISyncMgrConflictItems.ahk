@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CONFIRM_CONFLICT_ITEM.ahk" { CONFIRM_CONFLICT_ITEM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that get conflict item data and item count.
@@ -63,7 +63,7 @@ export default struct ISyncMgrConflictItems extends IUnknown {
      */
     GetItem(iIndex) {
         pItemInfo := CONFIRM_CONFLICT_ITEM()
-        result := ComCall(4, this, "uint", iIndex, CONFIRM_CONFLICT_ITEM.Ptr, pItemInfo, "HRESULT")
+        result := ComCall(4, this, UInt32, iIndex, CONFIRM_CONFLICT_ITEM.Ptr, pItemInfo, "HRESULT")
         return pItemInfo
     }
 

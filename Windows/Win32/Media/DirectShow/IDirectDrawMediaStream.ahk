@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectDrawStreamSample.ahk" { IDirectDrawStreamSample }
 #Import "..\..\Graphics\DirectDraw\IDirectDrawPalette.ahk" { IDirectDrawPalette }
-#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
-#Import "..\..\Graphics\DirectDraw\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
 #Import ".\IMediaStream.ahk" { IMediaStream }
-#Import ".\IDirectDrawStreamSample.ahk" { IDirectDrawStreamSample }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\DirectDraw\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 
 /**
  * Note  This interface is deprecated.
@@ -250,7 +250,7 @@ export default struct IDirectDrawMediaStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawmediastream-createsample
      */
     CreateSample(pSurface, pRect, dwFlags) {
-        result := ComCall(13, this, "ptr", pSurface, RECT.Ptr, pRect, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pSurface, RECT.Ptr, pRect, UInt32, dwFlags, "ptr*", &ppSample := 0, "HRESULT")
         return IDirectDrawStreamSample(ppSample)
     }
 

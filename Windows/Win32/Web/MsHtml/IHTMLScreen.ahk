@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -124,7 +124,7 @@ export default struct IHTMLScreen extends IDispatch {
      * @returns {HRESULT} 
      */
     put_bufferDepth(v) {
-        result := ComCall(8, this, "int", v, "HRESULT")
+        result := ComCall(8, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -161,7 +161,7 @@ export default struct IHTMLScreen extends IDispatch {
      * @returns {HRESULT} 
      */
     put_updateInterval(v) {
-        result := ComCall(12, this, "int", v, "HRESULT")
+        result := ComCall(12, this, Int32, v, "HRESULT")
         return result
     }
 

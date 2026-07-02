@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a generic collection of IUnknown pointers.
@@ -63,7 +63,7 @@ export default struct IMFCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfcollection-getelement
      */
     GetElement(dwElementIndex) {
-        result := ComCall(4, this, "uint", dwElementIndex, "ptr*", &ppUnkElement := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwElementIndex, "ptr*", &ppUnkElement := 0, "HRESULT")
         return IUnknown(ppUnkElement)
     }
 
@@ -105,7 +105,7 @@ export default struct IMFCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfcollection-removeelement
      */
     RemoveElement(dwElementIndex) {
-        result := ComCall(6, this, "uint", dwElementIndex, "ptr*", &ppUnkElement := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwElementIndex, "ptr*", &ppUnkElement := 0, "HRESULT")
         return IUnknown(ppUnkElement)
     }
 
@@ -135,7 +135,7 @@ export default struct IMFCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfcollection-insertelementat
      */
     InsertElementAt(dwIndex, pUnknown) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr", pUnknown, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "ptr", pUnknown, "HRESULT")
         return result
     }
 

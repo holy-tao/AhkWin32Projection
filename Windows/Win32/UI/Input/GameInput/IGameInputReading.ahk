@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
-#Import ".\GameInputSwitchPosition.ahk" { GameInputSwitchPosition }
-#Import ".\GameInputArcadeStickState.ahk" { GameInputArcadeStickState }
-#Import ".\GameInputUiNavigationState.ahk" { GameInputUiNavigationState }
 #Import ".\GameInputTouchState.ahk" { GameInputTouchState }
-#Import ".\GameInputRacingWheelState.ahk" { GameInputRacingWheelState }
-#Import ".\GameInputMouseState.ahk" { GameInputMouseState }
+#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
 #Import ".\GameInputKind.ahk" { GameInputKind }
-#Import ".\GameInputMotionState.ahk" { GameInputMotionState }
 #Import ".\GameInputKeyState.ahk" { GameInputKeyState }
-#Import ".\GameInputGamepadState.ahk" { GameInputGamepadState }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\GameInputFlightStickState.ahk" { GameInputFlightStickState }
-#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
+#Import ".\GameInputRacingWheelState.ahk" { GameInputRacingWheelState }
+#Import ".\GameInputUiNavigationState.ahk" { GameInputUiNavigationState }
+#Import ".\GameInputGamepadState.ahk" { GameInputGamepadState }
+#Import ".\GameInputMotionState.ahk" { GameInputMotionState }
+#Import ".\GameInputMouseState.ahk" { GameInputMouseState }
+#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
+#Import ".\GameInputArcadeStickState.ahk" { GameInputArcadeStickState }
+#Import ".\GameInputSwitchPosition.ahk" { GameInputSwitchPosition }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
@@ -133,7 +133,7 @@ export default struct IGameInputReading extends IUnknown {
     GetControllerAxisState(stateArrayCount, stateArray) {
         stateArrayMarshal := stateArray is VarRef ? "float*" : "ptr"
 
-        result := ComCall(9, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, UInt32)
+        result := ComCall(9, this, UInt32, stateArrayCount, stateArrayMarshal, stateArray, UInt32)
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct IGameInputReading extends IUnknown {
     GetControllerButtonState(stateArrayCount, stateArray) {
         stateArrayMarshal := stateArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, UInt32)
+        result := ComCall(11, this, UInt32, stateArrayCount, stateArrayMarshal, stateArray, UInt32)
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IGameInputReading extends IUnknown {
     GetControllerSwitchState(stateArrayCount, stateArray) {
         stateArrayMarshal := stateArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, "uint", stateArrayCount, stateArrayMarshal, stateArray, UInt32)
+        result := ComCall(13, this, UInt32, stateArrayCount, stateArrayMarshal, stateArray, UInt32)
         return result
     }
 
@@ -223,7 +223,7 @@ export default struct IGameInputReading extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeystate
      */
     GetKeyState(stateArrayCount, stateArray) {
-        result := ComCall(15, this, "uint", stateArrayCount, GameInputKeyState.Ptr, stateArray, UInt32)
+        result := ComCall(15, this, UInt32, stateArrayCount, GameInputKeyState.Ptr, stateArray, UInt32)
         return result
     }
 
@@ -253,7 +253,7 @@ export default struct IGameInputReading extends IUnknown {
      * @returns {Integer} 
      */
     GetTouchState(stateArrayCount, stateArray) {
-        result := ComCall(18, this, "uint", stateArrayCount, GameInputTouchState.Ptr, stateArray, UInt32)
+        result := ComCall(18, this, UInt32, stateArrayCount, GameInputTouchState.Ptr, stateArray, UInt32)
         return result
     }
 

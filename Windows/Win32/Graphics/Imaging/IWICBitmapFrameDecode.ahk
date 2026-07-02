@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import ".\IWICColorContext.ahk" { IWICColorContext }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
@@ -77,7 +77,7 @@ export default struct IWICBitmapFrameDecode extends IWICBitmapSource {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframedecode-getcolorcontexts
      */
     GetColorContexts(cCount, ppIColorContexts) {
-        result := ComCall(9, this, "uint", cCount, IWICColorContext.Ptr, ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, cCount, IWICColorContext.Ptr, ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
         return pcActualCount
     }
 

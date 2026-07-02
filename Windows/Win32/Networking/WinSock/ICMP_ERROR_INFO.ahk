@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IN_ADDR.ahk" { IN_ADDR }
-#Import ".\SOCKADDR_INET.ahk" { SOCKADDR_INET }
-#Import ".\SOCKADDR_IN.ahk" { SOCKADDR_IN }
 #Import ".\IPPROTO.ahk" { IPPROTO }
-#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
 #Import ".\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 #Import ".\SCOPE_ID.ahk" { SCOPE_ID }
+#Import ".\SOCKADDR_IN.ahk" { SOCKADDR_IN }
 #Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 

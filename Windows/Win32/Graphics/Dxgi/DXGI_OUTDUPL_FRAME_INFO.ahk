@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\DXGI_OUTDUPL_POINTER_POSITION.ahk" { DXGI_OUTDUPL_POINTER_POSITION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The DXGI_OUTDUPL_FRAME_INFO structure describes the current desktop image.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WTS_SYSTEMTIME.ahk" { WTS_SYSTEMTIME }
-#Import ".\WTS_SOCKADDR.ahk" { WTS_SOCKADDR }
 #Import ".\WTS_TIME_ZONE_INFORMATION.ahk" { WTS_TIME_ZONE_INFORMATION }
+#Import ".\WTS_SYSTEMTIME.ahk" { WTS_SYSTEMTIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WTS_SOCKADDR.ahk" { WTS_SOCKADDR }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

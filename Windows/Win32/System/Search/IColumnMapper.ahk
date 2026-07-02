@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 
 /**
  * Retrieves property information for file based queries.
@@ -96,7 +96,7 @@ export default struct IColumnMapper extends IUnknown {
         pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", iEntry, pwcsNameMarshal, pwcsName, ppPropIdMarshal, ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
+        result := ComCall(5, this, UInt32, iEntry, pwcsNameMarshal, pwcsName, ppPropIdMarshal, ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
     }
 

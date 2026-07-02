@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a method that determines whether the Shell will be allowed to move, copy, delete, or rename a folder in a cloud provider's sync root.
@@ -74,7 +74,7 @@ export default struct IStorageProviderCopyHook extends IUnknown {
         srcFile := srcFile is String ? StrPtr(srcFile) : srcFile
         destFile := destFile is String ? StrPtr(destFile) : destFile
 
-        result := ComCall(3, this, HWND, _hwnd, "uint", operation, "uint", flags, "ptr", srcFile, "uint", srcAttribs, "ptr", destFile, "uint", destAttribs, "uint*", &result := 0, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, UInt32, operation, UInt32, flags, "ptr", srcFile, UInt32, srcAttribs, "ptr", destFile, UInt32, destAttribs, "uint*", &result := 0, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PlatformId.ahk" { PlatformId }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EmulationType.ahk" { EmulationType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\PlatformId.ahk" { PlatformId }
 
 /**
  * Use this interface to specify the boot image to add to the optical disc. A boot image contains one or more sectors of code used to start the computer.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IProxyProviderWinEventSink.ahk" { IProxyProviderWinEventSink }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that is implemented by proxy providers to handle WinEvents.
@@ -64,7 +64,7 @@ export default struct IProxyProviderWinEventHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iproxyproviderwineventhandler-respondtowinevent
      */
     RespondToWinEvent(idWinEvent, _hwnd, idObject, idChild, pSink) {
-        result := ComCall(3, this, "uint", idWinEvent, HWND, _hwnd, "int", idObject, "int", idChild, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, UInt32, idWinEvent, HWND, _hwnd, Int32, idObject, Int32, idChild, "ptr", pSink, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import ".\MFBYTESTREAM_SEEK_ORIGIN.ahk" { MFBYTESTREAM_SEEK_ORIGIN }
-#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFBYTESTREAM_SEEK_ORIGIN.ahk" { MFBYTESTREAM_SEEK_ORIGIN }
 
 /**
  * Represents a byte stream from some data source, which might be a local file, a network file, or some other source.
@@ -271,7 +271,7 @@ export default struct IMFByteStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-setlength
      */
     SetLength(qwLength) {
-        result := ComCall(5, this, "uint", qwLength, "HRESULT")
+        result := ComCall(5, this, Int64, qwLength, "HRESULT")
         return result
     }
 
@@ -346,7 +346,7 @@ export default struct IMFByteStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-setcurrentposition
      */
     SetCurrentPosition(qwPosition) {
-        result := ComCall(7, this, "uint", qwPosition, "HRESULT")
+        result := ComCall(7, this, Int64, qwPosition, "HRESULT")
         return result
     }
 
@@ -395,7 +395,7 @@ export default struct IMFByteStream extends IUnknown {
         pbMarshal := pb is VarRef ? "char*" : "ptr"
         pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pbMarshal, pb, "uint", cb, pcbReadMarshal, pcbRead, "HRESULT")
+        result := ComCall(9, this, pbMarshal, pb, UInt32, cb, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 
@@ -425,7 +425,7 @@ export default struct IMFByteStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-beginread
      */
     BeginRead(pb, cb, pCallback, punkState) {
-        result := ComCall(10, this, "ptr", pb, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(10, this, IntPtr, pb, UInt32, cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return result
     }
 
@@ -478,7 +478,7 @@ export default struct IMFByteStream extends IUnknown {
     Write(pb, cb) {
         pbMarshal := pb is VarRef ? "char*" : "ptr"
 
-        result := ComCall(12, this, pbMarshal, pb, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(12, this, pbMarshal, pb, UInt32, cb, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 
@@ -508,7 +508,7 @@ export default struct IMFByteStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-beginwrite
      */
     BeginWrite(pb, cb, pCallback, punkState) {
-        result := ComCall(13, this, "ptr", pb, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(13, this, IntPtr, pb, UInt32, cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return result
     }
 
@@ -570,7 +570,7 @@ export default struct IMFByteStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-seek
      */
     Seek(SeekOrigin, llSeekOffset, dwSeekFlags) {
-        result := ComCall(15, this, MFBYTESTREAM_SEEK_ORIGIN, SeekOrigin, "int64", llSeekOffset, "uint", dwSeekFlags, "uint*", &pqwCurrentPosition := 0, "HRESULT")
+        result := ComCall(15, this, MFBYTESTREAM_SEEK_ORIGIN, SeekOrigin, Int64, llSeekOffset, UInt32, dwSeekFlags, "uint*", &pqwCurrentPosition := 0, "HRESULT")
         return pqwCurrentPosition
     }
 

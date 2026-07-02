@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
+#Import ".\IBackgroundCopyJob2.ahk" { IBackgroundCopyJob2 }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IBackgroundCopyJob2.ahk" { IBackgroundCopyJob2 }
-#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
 
 /**
  * Use the IBackgroundCopyJob3 interface to download ranges of a file and change the prefix of a remote file name.
@@ -285,7 +285,7 @@ export default struct IBackgroundCopyJob3 extends IBackgroundCopyJob2 {
         RemoteUrl := RemoteUrl is String ? StrPtr(RemoteUrl) : RemoteUrl
         LocalName := LocalName is String ? StrPtr(LocalName) : LocalName
 
-        result := ComCall(44, this, "ptr", RemoteUrl, "ptr", LocalName, "uint", RangeCount, BG_FILE_RANGE.Ptr, Ranges, "HRESULT")
+        result := ComCall(44, this, "ptr", RemoteUrl, "ptr", LocalName, UInt32, RangeCount, BG_FILE_RANGE.Ptr, Ranges, "HRESULT")
         return result
     }
 
@@ -415,7 +415,7 @@ export default struct IBackgroundCopyJob3 extends IBackgroundCopyJob2 {
      * @see https://learn.microsoft.com/windows/win32/api/bits2_0/nf-bits2_0-ibackgroundcopyjob3-setfileaclflags
      */
     SetFileACLFlags(Flags) {
-        result := ComCall(45, this, "uint", Flags, "HRESULT")
+        result := ComCall(45, this, UInt32, Flags, "HRESULT")
         return result
     }
 

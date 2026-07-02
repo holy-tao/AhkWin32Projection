@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access a text-based control (or an object embedded in text) that is a child or descendant of another text-based control.

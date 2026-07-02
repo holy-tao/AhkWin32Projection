@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDot11AdHocSecuritySettings.ahk" { IDot11AdHocSecuritySettings }
-#Import ".\IEnumDot11AdHocInterfaces.ahk" { IEnumDot11AdHocInterfaces }
-#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDot11AdHocInterface.ahk" { IDot11AdHocInterface }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumDot11AdHocNetworks.ahk" { IEnumDot11AdHocNetworks }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\IEnumDot11AdHocInterfaces.ahk" { IEnumDot11AdHocInterfaces }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Creates and manages 802.11 ad hoc networks.
@@ -101,7 +101,7 @@ export default struct IDot11AdHocManager extends IUnknown {
         Name := Name is String ? StrPtr(Name) : Name
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := ComCall(3, this, "ptr", Name, "ptr", Password, "int", GeographicalId, "ptr", pInterface, "ptr", pSecurity, Guid.Ptr, pContextGuid, "ptr*", &pIAdHoc := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", Name, "ptr", Password, Int32, GeographicalId, "ptr", pInterface, "ptr", pSecurity, Guid.Ptr, pContextGuid, "ptr*", &pIAdHoc := 0, "HRESULT")
         return IDot11AdHocNetwork(pIAdHoc)
     }
 

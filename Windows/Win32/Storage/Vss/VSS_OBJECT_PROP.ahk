@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VSS_OBJECT_UNION.ahk" { VSS_OBJECT_UNION }
-#Import ".\VSS_SNAPSHOT_STATE.ahk" { VSS_SNAPSHOT_STATE }
-#Import ".\VSS_PROVIDER_TYPE.ahk" { VSS_PROVIDER_TYPE }
-#Import ".\VSS_PROVIDER_PROP.ahk" { VSS_PROVIDER_PROP }
-#Import ".\VSS_SNAPSHOT_PROP.ahk" { VSS_SNAPSHOT_PROP }
 #Import ".\VSS_OBJECT_TYPE.ahk" { VSS_OBJECT_TYPE }
+#Import ".\VSS_PROVIDER_PROP.ahk" { VSS_PROVIDER_PROP }
+#Import ".\VSS_PROVIDER_TYPE.ahk" { VSS_PROVIDER_TYPE }
+#Import ".\VSS_SNAPSHOT_STATE.ahk" { VSS_SNAPSHOT_STATE }
+#Import ".\VSS_OBJECT_UNION.ahk" { VSS_OBJECT_UNION }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VSS_SNAPSHOT_PROP.ahk" { VSS_SNAPSHOT_PROP }
 
 /**
  * Defines the properties of a provider, volume, shadow copy, or shadow copy set.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfLangBarEventSink.ahk" { ITfLangBarEventSink }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\ITfInputProcessorProfiles.ahk" { ITfInputProcessorProfiles }
-#Import ".\ITfLangBarItemMgr.ahk" { ITfLangBarItemMgr }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITfLangBarEventSink.ahk" { ITfLangBarEventSink }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ITfLangBarItemMgr.ahk" { ITfLangBarItemMgr }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfLangBarMgr interface is implemented by the TSF manager and used by text services to manage event sink notification and configure floating language bar display settings. The interface ID is IID_ITfLangBarMgr.
@@ -104,7 +104,7 @@ export default struct ITfLangBarMgr extends IUnknown {
     AdviseEventSink(pSink, _hwnd, dwFlags, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSink, HWND, _hwnd, "uint", dwFlags, pdwCookieMarshal, pdwCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", pSink, HWND, _hwnd, UInt32, dwFlags, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-unadviseeventsink
      */
     UnadviseEventSink(dwCookie) {
-        result := ComCall(4, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-getthreadmarshalinterface
      */
     GetThreadMarshalInterface(dwThreadId, dwType, riid) {
-        result := ComCall(5, this, "uint", dwThreadId, "uint", dwType, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwThreadId, UInt32, dwType, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -172,7 +172,7 @@ export default struct ITfLangBarMgr extends IUnknown {
     GetThreadLangBarItemMgr(dwThreadId, pplbi, pdwThreadid) {
         pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwThreadId, ITfLangBarItemMgr.Ptr, pplbi, pdwThreadidMarshal, pdwThreadid, "HRESULT")
+        result := ComCall(6, this, UInt32, dwThreadId, ITfLangBarItemMgr.Ptr, pplbi, pdwThreadidMarshal, pdwThreadid, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct ITfLangBarMgr extends IUnknown {
     GetInputProcessorProfiles(dwThreadId, ppaip, pdwThreadid) {
         pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwThreadId, ITfInputProcessorProfiles.Ptr, ppaip, pdwThreadidMarshal, pdwThreadid, "HRESULT")
+        result := ComCall(7, this, UInt32, dwThreadId, ITfInputProcessorProfiles.Ptr, ppaip, pdwThreadidMarshal, pdwThreadid, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-setmodalinput
      */
     SetModalInput(pSink, dwThreadId, dwFlags) {
-        result := ComCall(9, this, "ptr", pSink, "uint", dwThreadId, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", pSink, UInt32, dwThreadId, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -389,7 +389,7 @@ export default struct ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-showfloating
      */
     ShowFloating(dwFlags) {
-        result := ComCall(10, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

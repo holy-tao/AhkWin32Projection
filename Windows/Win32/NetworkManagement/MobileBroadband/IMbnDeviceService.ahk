@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows for communicating with a device service on a particular Mobile Broadband device.
@@ -137,7 +137,7 @@ export default struct IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-setcommand
      */
     SetCommand(commandID, deviceServiceData) {
-        result := ComCall(6, this, "uint", commandID, SAFEARRAY.Ptr, deviceServiceData, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, commandID, SAFEARRAY.Ptr, deviceServiceData, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -155,7 +155,7 @@ export default struct IMbnDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-querycommand
      */
     QueryCommand(commandID, deviceServiceData) {
-        result := ComCall(7, this, "uint", commandID, SAFEARRAY.Ptr, deviceServiceData, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, commandID, SAFEARRAY.Ptr, deviceServiceData, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 

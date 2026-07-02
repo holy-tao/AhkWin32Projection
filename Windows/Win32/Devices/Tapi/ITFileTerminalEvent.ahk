@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\TERMINAL_MEDIA_STATE.ahk" { TERMINAL_MEDIA_STATE }
-#Import ".\ITFileTrack.ahk" { ITFileTrack }
 #Import ".\ITTerminal.ahk" { ITTerminal }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
+#Import ".\ITFileTrack.ahk" { ITFileTrack }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FT_STATE_EVENT_CAUSE.ahk" { FT_STATE_EVENT_CAUSE }
-#Import ".\ITCallInfo.ahk" { ITCallInfo }
 
 /**
  * The ITFileTerminalEvent interface contains methods that retrieve the description of file terminal events that have occurred.

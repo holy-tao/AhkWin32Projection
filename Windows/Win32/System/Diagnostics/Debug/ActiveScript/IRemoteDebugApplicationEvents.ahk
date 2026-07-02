@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IApplicationDebugger.ahk" { IApplicationDebugger }
-#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
+#Import ".\IApplicationDebugger.ahk" { IApplicationDebugger }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -146,7 +146,7 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     OnBreakFlagChange(abf, prdatSteppingThread) {
-        result := ComCall(12, this, "uint", abf, "ptr", prdatSteppingThread, "HRESULT")
+        result := ComCall(12, this, UInt32, abf, "ptr", prdatSteppingThread, "HRESULT")
         return result
     }
 

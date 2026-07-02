@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IReferenceClock.ahk" { IReferenceClock }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IPersist.ahk" { IPersist }
+#Import "..\IReferenceClock.ahk" { IReferenceClock }
 #Import ".\FILTER_STATE.ahk" { FILTER_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaFilter interface controls the streaming state of a filter.All DirectShow filters implement this interface.
@@ -180,7 +180,7 @@ export default struct IMediaFilter extends IPersist {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediafilter-run
      */
     Run(tStart) {
-        result := ComCall(6, this, "int64", tStart, "HRESULT")
+        result := ComCall(6, this, Int64, tStart, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct IMediaFilter extends IPersist {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediafilter-getstate
      */
     GetState(dwMilliSecsTimeout) {
-        result := ComCall(7, this, "uint", dwMilliSecsTimeout, "int*", &State := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwMilliSecsTimeout, "int*", &State := 0, "HRESULT")
         return State
     }
 

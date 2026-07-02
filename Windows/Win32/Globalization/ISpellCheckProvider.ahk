@@ -2,11 +2,11 @@
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\System\Com\IEnumString.ahk" { IEnumString }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumSpellingError.ahk" { IEnumSpellingError }
-#Import ".\WORDLIST_TYPE.ahk" { WORDLIST_TYPE }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WORDLIST_TYPE.ahk" { WORDLIST_TYPE }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOptionDescription.ahk" { IOptionDescription }
 
 /**
@@ -182,7 +182,7 @@ export default struct ISpellCheckProvider extends IUnknown {
     SetOptionValue(optionId, value) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
 
-        result := ComCall(7, this, "ptr", optionId, "char", value, "HRESULT")
+        result := ComCall(7, this, "ptr", optionId, Int8, value, "HRESULT")
         return result
     }
 

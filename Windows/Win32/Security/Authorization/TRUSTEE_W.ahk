@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\MULTIPLE_TRUSTEE_OPERATION.ahk" { MULTIPLE_TRUSTEE_OPERATION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\TRUSTEE_FORM.ahk" { TRUSTEE_FORM }
 #Import ".\TRUSTEE_TYPE.ahk" { TRUSTEE_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Identifies the user account, group account, or logon session to which an access control entry (ACE) applies. (Unicode)

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SP_CLASSINSTALL_HEADER.ahk" { SP_CLASSINSTALL_HEADER }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DI_FUNCTION.ahk" { DI_FUNCTION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SP_CLASSINSTALL_HEADER.ahk" { SP_CLASSINSTALL_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation

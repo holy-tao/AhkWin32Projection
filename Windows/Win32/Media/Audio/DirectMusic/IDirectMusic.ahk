@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
-#Import ".\IDirectMusicPort.ahk" { IDirectMusicPort }
-#Import ".\IDirectMusicBuffer.ahk" { IDirectMusicBuffer }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DMUS_BUFFERDESC.ahk" { DMUS_BUFFERDESC }
 #Import ".\DMUS_CLOCKINFO8.ahk" { DMUS_CLOCKINFO8 }
 #Import ".\DMUS_PORTPARAMS8.ahk" { DMUS_PORTPARAMS8 }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
-#Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
-#Import ".\DMUS_BUFFERDESC.ahk" { DMUS_BUFFERDESC }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
+#Import ".\IDirectMusicBuffer.ahk" { IDirectMusicBuffer }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
+#Import ".\IDirectMusicPort.ahk" { IDirectMusicPort }
+#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -60,7 +60,7 @@ export default struct IDirectMusic extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumPort(dwIndex, pPortCaps) {
-        result := ComCall(3, this, "uint", dwIndex, DMUS_PORTCAPS.Ptr, pPortCaps, "HRESULT")
+        result := ComCall(3, this, UInt32, dwIndex, DMUS_PORTCAPS.Ptr, pPortCaps, "HRESULT")
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IDirectMusic extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumMasterClock(dwIndex, lpClockInfo) {
-        result := ComCall(6, this, "uint", dwIndex, DMUS_CLOCKINFO8.Ptr, lpClockInfo, "HRESULT")
+        result := ComCall(6, this, UInt32, dwIndex, DMUS_CLOCKINFO8.Ptr, lpClockInfo, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER.ahk" { D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER.ahk" { D3D12_PROGRAMMABLE_SAMPLE_POSITIONS_TIER }
 
 /**
  * Indicates the level of support that the adapter provides for depth-bounds tests and programmable sample positions.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAudioSessionControl.ahk" { IAudioSessionControl }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IAudioSessionControl2 interface can be used by a client to get information about the audio session.

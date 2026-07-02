@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFaxDevice.ahk" { IFaxDevice }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IFaxDevice.ahk" { IFaxDevice }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxDevices interface defines a collection used by a fax client application to manage fax devices, where each device is represented by a FaxDevice object.
@@ -119,7 +119,7 @@ export default struct IFaxDevices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevices-get_itembyid
      */
     get_ItemById(lId) {
-        result := ComCall(10, this, "int", lId, "ptr*", &ppFaxDevice := 0, "HRESULT")
+        result := ComCall(10, this, Int32, lId, "ptr*", &ppFaxDevice := 0, "HRESULT")
         return IFaxDevice(ppFaxDevice)
     }
 

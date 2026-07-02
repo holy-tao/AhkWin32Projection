@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RECO_LATTICE_COLUMN.ahk" { RECO_LATTICE_COLUMN }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RECO_LATTICE_COLUMN.ahk" { RECO_LATTICE_COLUMN }
 
 /**
  * Serves as the entry point into a lattice.

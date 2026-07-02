@@ -1,4 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCryptGenerateSymmetricKeyFn.ahk" { BCryptGenerateSymmetricKeyFn }
+#Import ".\BCryptCloseAlgorithmProviderFn.ahk" { BCryptCloseAlgorithmProviderFn }
+#Import ".\BCryptExportKeyFn.ahk" { BCryptExportKeyFn }
+#Import ".\BCryptImportKeyFn.ahk" { BCryptImportKeyFn }
+#Import ".\BCryptSetPropertyFn.ahk" { BCryptSetPropertyFn }
+#Import ".\BCryptKeyDerivationFn.ahk" { BCryptKeyDerivationFn }
+#Import ".\BCryptGetPropertyFn.ahk" { BCryptGetPropertyFn }
+#Import ".\BCryptDuplicateKeyFn.ahk" { BCryptDuplicateKeyFn }
+#Import ".\BCryptOpenAlgorithmProviderFn.ahk" { BCryptOpenAlgorithmProviderFn }
+#Import ".\BCryptDestroyKeyFn.ahk" { BCryptDestroyKeyFn }
 #Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
 
 /**
@@ -9,24 +19,24 @@ export default struct BCRYPT_KEY_DERIVATION_FUNCTION_TABLE {
 
     Version : BCRYPT_INTERFACE_VERSION
 
-    OpenAlgorithmProvider : IntPtr
+    OpenAlgorithmProvider : BCryptOpenAlgorithmProviderFn
 
-    GetProperty : IntPtr
+    GetProperty : BCryptGetPropertyFn
 
-    SetProperty : IntPtr
+    SetProperty : BCryptSetPropertyFn
 
-    CloseAlgorithmProvider : IntPtr
+    CloseAlgorithmProvider : BCryptCloseAlgorithmProviderFn
 
-    GenerateKey : IntPtr
+    GenerateKey : BCryptGenerateSymmetricKeyFn
 
-    DestroyKey : IntPtr
+    DestroyKey : BCryptDestroyKeyFn
 
-    KeyDerivation : IntPtr
+    KeyDerivation : BCryptKeyDerivationFn
 
-    ExportKey : IntPtr
+    ExportKey : BCryptExportKeyFn
 
-    ImportKey : IntPtr
+    ImportKey : BCryptImportKeyFn
 
-    DuplicateKey : IntPtr
+    DuplicateKey : BCryptDuplicateKeyFn
 
 }

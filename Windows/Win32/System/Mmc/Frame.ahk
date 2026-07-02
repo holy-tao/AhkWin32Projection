@@ -132,7 +132,7 @@ export default struct Frame extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Top(top) {
-        result := ComCall(11, this, "int", top, "HRESULT")
+        result := ComCall(11, this, Int32, top, "HRESULT")
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct Frame extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Bottom(bottom) {
-        result := ComCall(13, this, "int", bottom, "HRESULT")
+        result := ComCall(13, this, Int32, bottom, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct Frame extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Left(left) {
-        result := ComCall(15, this, "int", left, "HRESULT")
+        result := ComCall(15, this, Int32, left, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct Frame extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Right(right) {
-        result := ComCall(17, this, "int", right, "HRESULT")
+        result := ComCall(17, this, Int32, right, "HRESULT")
         return result
     }
 

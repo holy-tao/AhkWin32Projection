@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DXVAHD_BLT_STATE.ahk" { DXVAHD_BLT_STATE }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import ".\DXVAHD_STREAM_STATE.ahk" { DXVAHD_STREAM_STATE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DXVAHD_STREAM_DATA.ahk" { DXVAHD_STREAM_DATA }
+#Import ".\DXVAHD_STREAM_STATE.ahk" { DXVAHD_STREAM_STATE }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
@@ -54,7 +54,7 @@ export default struct IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessbltstate
      */
     SetVideoProcessBltState(State, DataSize, pData) {
-        result := ComCall(3, this, DXVAHD_BLT_STATE, State, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(3, this, DXVAHD_BLT_STATE, State, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-getvideoprocessbltstate
      */
     GetVideoProcessBltState(State, DataSize, pData) {
-        result := ComCall(4, this, DXVAHD_BLT_STATE, State, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(4, this, DXVAHD_BLT_STATE, State, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessstreamstate
      */
     SetVideoProcessStreamState(StreamNumber, State, DataSize, pData) {
-        result := ComCall(5, this, "uint", StreamNumber, DXVAHD_STREAM_STATE, State, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(5, this, UInt32, StreamNumber, DXVAHD_STREAM_STATE, State, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-getvideoprocessstreamstate
      */
     GetVideoProcessStreamState(StreamNumber, State, DataSize, pData) {
-        result := ComCall(6, this, "uint", StreamNumber, DXVAHD_STREAM_STATE, State, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(6, this, UInt32, StreamNumber, DXVAHD_STREAM_STATE, State, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 
@@ -120,7 +120,7 @@ export default struct IDXVAHD_VideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-videoprocessblthd
      */
     VideoProcessBltHD(pOutputSurface, OutputFrame, StreamCount, pStreams) {
-        result := ComCall(7, this, "ptr", pOutputSurface, "uint", OutputFrame, "uint", StreamCount, DXVAHD_STREAM_DATA.Ptr, pStreams, "HRESULT")
+        result := ComCall(7, this, "ptr", pOutputSurface, UInt32, OutputFrame, UInt32, StreamCount, DXVAHD_STREAM_DATA.Ptr, pStreams, "HRESULT")
         return result
     }
 

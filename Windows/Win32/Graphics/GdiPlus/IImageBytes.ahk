@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
@@ -59,7 +59,7 @@ export default struct IImageBytes extends IUnknown {
     LockBytes(cb, ulOffset, ppvBytes) {
         ppvBytesMarshal := ppvBytes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", cb, "uint", ulOffset, ppvBytesMarshal, ppvBytes, "HRESULT")
+        result := ComCall(4, this, UInt32, cb, UInt32, ulOffset, ppvBytesMarshal, ppvBytes, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct IImageBytes extends IUnknown {
     UnlockBytes(pvBytes, cb, ulOffset) {
         pvBytesMarshal := pvBytes is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pvBytesMarshal, pvBytes, "uint", cb, "uint", ulOffset, "HRESULT")
+        result := ComCall(5, this, pvBytesMarshal, pvBytes, UInt32, cb, UInt32, ulOffset, "HRESULT")
         return result
     }
 

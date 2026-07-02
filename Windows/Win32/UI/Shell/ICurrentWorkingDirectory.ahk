@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that enable a client to retrieve or set an object's current working directory.
@@ -59,7 +59,7 @@ export default struct ICurrentWorkingDirectory extends IUnknown {
     GetDirectory(pwzPath, cchSize) {
         pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
 
-        result := ComCall(3, this, "ptr", pwzPath, "uint", cchSize, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzPath, UInt32, cchSize, "HRESULT")
         return result
     }
 

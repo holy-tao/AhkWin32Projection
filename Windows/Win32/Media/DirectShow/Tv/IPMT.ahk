@@ -2,13 +2,13 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\MPE_ELEMENT.ahk" { MPE_ELEMENT }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DSMCC_ELEMENT.ahk" { DSMCC_ELEMENT }
-#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import ".\DSMCC_ELEMENT.ahk" { DSMCC_ELEMENT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MPE_ELEMENT.ahk" { MPE_ELEMENT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * The IPMT interface enables the client to get information from a program map table (PMT).
@@ -160,7 +160,7 @@ export default struct IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
-        result := ComCall(8, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -176,7 +176,7 @@ export default struct IPMT extends IUnknown {
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(9, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -197,7 +197,7 @@ export default struct IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordstreamtype
      */
     GetRecordStreamType(dwRecordIndex) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -208,7 +208,7 @@ export default struct IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordelementarypid
      */
     GetRecordElementaryPid(dwRecordIndex) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "ushort*", &pPidVal := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwRecordIndex, "ushort*", &pPidVal := 0, "HRESULT")
         return pPidVal
     }
 
@@ -219,7 +219,7 @@ export default struct IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -231,7 +231,7 @@ export default struct IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwDescIndex) {
-        result := ComCall(14, this, "uint", dwRecordIndex, "uint", dwDescIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwRecordIndex, UInt32, dwDescIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -248,7 +248,7 @@ export default struct IPMT extends IUnknown {
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

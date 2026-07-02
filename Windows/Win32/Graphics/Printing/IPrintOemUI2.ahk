@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
-#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
 #Import ".\IPrintOemUI.ahk" { IPrintOemUI }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Gdi\HDC.ahk" { HDC }
+#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -51,7 +51,7 @@ export default struct IPrintOemUI2 extends IPrintOemUI {
     QueryJobAttributes(hPrinter, pDevmode, dwLevel, lpAttributeInfo) {
         lpAttributeInfoMarshal := lpAttributeInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(17, this, PRINTER_HANDLE, hPrinter, DEVMODEA.Ptr, pDevmode, "uint", dwLevel, lpAttributeInfoMarshal, lpAttributeInfo, "HRESULT")
+        result := ComCall(17, this, PRINTER_HANDLE, hPrinter, DEVMODEA.Ptr, pDevmode, UInt32, dwLevel, lpAttributeInfoMarshal, lpAttributeInfo, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct IPrintOemUI2 extends IPrintOemUI {
      * @returns {HRESULT} 
      */
     HideStandardUI(dwMode) {
-        result := ComCall(18, this, "uint", dwMode, "HRESULT")
+        result := ComCall(18, this, UInt32, dwMode, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct IPrintOemUI2 extends IPrintOemUI {
         pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
         piResultMarshal := piResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, PRINTER_HANDLE, hPrinter, HDC, _hdc, "int", iEsc, "uint", cbIn, pvInMarshal, pvIn, "uint", cbOut, pvOutMarshal, pvOut, piResultMarshal, piResult, "HRESULT")
+        result := ComCall(19, this, PRINTER_HANDLE, hPrinter, HDC, _hdc, Int32, iEsc, UInt32, cbIn, pvInMarshal, pvIn, UInt32, cbOut, pvOutMarshal, pvOut, piResultMarshal, piResult, "HRESULT")
         return result
     }
 

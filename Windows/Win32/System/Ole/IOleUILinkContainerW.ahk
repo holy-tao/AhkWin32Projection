@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by containers and used by OLE common dialog boxes. It supports these dialog boxes by providing the methods needed to manage a container's links. (Unicode)
@@ -55,7 +55,7 @@ export default struct IOleUILinkContainerW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-getnextlink
      */
     GetNextLink(dwLink) {
-        result := ComCall(3, this, "uint", dwLink, UInt32)
+        result := ComCall(3, this, UInt32, dwLink, UInt32)
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct IOleUILinkContainerW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-setlinkupdateoptions
      */
     SetLinkUpdateOptions(dwLink, dwUpdateOpt) {
-        result := ComCall(4, this, "uint", dwLink, "uint", dwUpdateOpt, "HRESULT")
+        result := ComCall(4, this, UInt32, dwLink, UInt32, dwUpdateOpt, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IOleUILinkContainerW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-getlinkupdateoptions
      */
     GetLinkUpdateOptions(dwLink) {
-        result := ComCall(5, this, "uint", dwLink, "uint*", &lpdwUpdateOpt := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwLink, "uint*", &lpdwUpdateOpt := 0, "HRESULT")
         return lpdwUpdateOpt
     }
 
@@ -154,7 +154,7 @@ export default struct IOleUILinkContainerW extends IUnknown {
     SetLinkSource(dwLink, lpszDisplayName, lenFileName, fValidateSource) {
         lpszDisplayName := lpszDisplayName is String ? StrPtr(lpszDisplayName) : lpszDisplayName
 
-        result := ComCall(6, this, "uint", dwLink, "ptr", lpszDisplayName, "uint", lenFileName, "uint*", &pchEaten := 0, BOOL, fValidateSource, "HRESULT")
+        result := ComCall(6, this, UInt32, dwLink, "ptr", lpszDisplayName, UInt32, lenFileName, "uint*", &pchEaten := 0, BOOL, fValidateSource, "HRESULT")
         return pchEaten
     }
 
@@ -232,7 +232,7 @@ export default struct IOleUILinkContainerW extends IUnknown {
         lpfSourceAvailableMarshal := lpfSourceAvailable is VarRef ? "int*" : "ptr"
         lpfIsSelectedMarshal := lpfIsSelected is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwLink, lplpszDisplayNameMarshal, lplpszDisplayName, lplenFileNameMarshal, lplenFileName, lplpszFullLinkTypeMarshal, lplpszFullLinkType, lplpszShortLinkTypeMarshal, lplpszShortLinkType, lpfSourceAvailableMarshal, lpfSourceAvailable, lpfIsSelectedMarshal, lpfIsSelected, "HRESULT")
+        result := ComCall(7, this, UInt32, dwLink, lplpszDisplayNameMarshal, lplpszDisplayName, lplenFileNameMarshal, lplenFileName, lplpszFullLinkTypeMarshal, lplpszFullLinkType, lplpszShortLinkTypeMarshal, lplpszShortLinkType, lpfSourceAvailableMarshal, lpfSourceAvailable, lpfIsSelectedMarshal, lpfIsSelected, "HRESULT")
         return result
     }
 
@@ -297,7 +297,7 @@ export default struct IOleUILinkContainerW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-openlinksource
      */
     OpenLinkSource(dwLink) {
-        result := ComCall(8, this, "uint", dwLink, "HRESULT")
+        result := ComCall(8, this, UInt32, dwLink, "HRESULT")
         return result
     }
 
@@ -367,7 +367,7 @@ export default struct IOleUILinkContainerW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-updatelink
      */
     UpdateLink(dwLink, fErrorMessage, fReserved) {
-        result := ComCall(9, this, "uint", dwLink, BOOL, fErrorMessage, BOOL, fReserved, "HRESULT")
+        result := ComCall(9, this, UInt32, dwLink, BOOL, fErrorMessage, BOOL, fReserved, "HRESULT")
         return result
     }
 
@@ -435,7 +435,7 @@ export default struct IOleUILinkContainerW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-cancellink
      */
     CancelLink(dwLink) {
-        result := ComCall(10, this, "uint", dwLink, "HRESULT")
+        result := ComCall(10, this, UInt32, dwLink, "HRESULT")
         return result
     }
 

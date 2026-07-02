@@ -1,29 +1,29 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\FOLDERSETDATA.ahk" { FOLDERSETDATA }
-#Import "..\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\WindowsAndMessaging\CREATESTRUCTW.ahk" { CREATESTRUCTW }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\BASEBROWSERDATALH.ahk" { BASEBROWSERDATALH }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\IBrowserService.ahk" { IBrowserService }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IShellView.ahk" { IShellView }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ITravelLog.ahk" { ITravelLog }
-#Import "..\Controls\NMHDR.ahk" { NMHDR }
-#Import ".\BASEBROWSERDATALH.ahk" { BASEBROWSERDATALH }
-#Import ".\TOOLBARITEM.ahk" { TOOLBARITEM }
-#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\TOOLBARITEM.ahk" { TOOLBARITEM }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Controls\NMHDR.ahk" { NMHDR }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import ".\FOLDERSETDATA.ahk" { FOLDERSETDATA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\WindowsAndMessaging\CREATESTRUCTW.ahk" { CREATESTRUCTW }
+#Import "..\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * Deprecated. (IBrowserService2)
@@ -141,7 +141,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-wndprocbs
      */
     WndProcBS(_hwnd, uMsg, _wParam, _lParam) {
-        result := ComCall(33, this, HWND, _hwnd, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+        result := ComCall(33, this, HWND, _hwnd, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
         return result
     }
 
@@ -391,7 +391,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-initializetravellog
      */
     InitializeTravelLog(ptl, dw) {
-        result := ComCall(50, this, "ptr", ptl, "uint", dw, "HRESULT")
+        result := ComCall(50, this, "ptr", ptl, UInt32, dw, "HRESULT")
         return result
     }
 
@@ -418,7 +418,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-offline
      */
     Offline(iCmd) {
-        result := ComCall(52, this, "int", iCmd, "HRESULT")
+        result := ComCall(52, this, Int32, iCmd, "HRESULT")
         return result
     }
 
@@ -448,7 +448,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-setactivatestate
      */
     SetActivateState(u) {
-        result := ComCall(54, this, "uint", u, "HRESULT")
+        result := ComCall(54, this, UInt32, u, "HRESULT")
         return result
     }
 
@@ -463,7 +463,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-updatesecurelockicon
      */
     UpdateSecureLockIcon(eSecureLock) {
-        result := ComCall(55, this, "int", eSecureLock, "HRESULT")
+        result := ComCall(55, this, Int32, eSecureLock, "HRESULT")
         return result
     }
 
@@ -580,7 +580,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @returns {HRESULT} 
      */
     _NavigateToPidl2(pidl, grfHLNF, dwFlags) {
-        result := ComCall(64, this, ITEMIDLIST.Ptr, pidl, "uint", grfHLNF, "uint", dwFlags, "HRESULT")
+        result := ComCall(64, this, ITEMIDLIST.Ptr, pidl, UInt32, grfHLNF, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -649,7 +649,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_execchildren
      */
     _ExecChildren(punkBar, fBroadcast, pguidCmdGroup, nCmdID, nCmdexecopt, pvarargIn, pvarargOut) {
-        result := ComCall(67, this, "ptr", punkBar, BOOL, fBroadcast, Guid.Ptr, pguidCmdGroup, "uint", nCmdID, "uint", nCmdexecopt, VARIANT.Ptr, pvarargIn, VARIANT.Ptr, pvarargOut, "HRESULT")
+        result := ComCall(67, this, "ptr", punkBar, BOOL, fBroadcast, Guid.Ptr, pguidCmdGroup, UInt32, nCmdID, UInt32, nCmdexecopt, VARIANT.Ptr, pvarargIn, VARIANT.Ptr, pvarargOut, "HRESULT")
         return result
     }
 
@@ -676,7 +676,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_sendchildren
      */
     _SendChildren(hwndBar, fBroadcast, uMsg, _wParam, _lParam) {
-        result := ComCall(68, this, HWND, hwndBar, BOOL, fBroadcast, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(68, this, HWND, hwndBar, BOOL, fBroadcast, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -708,7 +708,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_onfocuschange
      */
     _OnFocusChange(itb) {
-        result := ComCall(70, this, "uint", itb, "HRESULT")
+        result := ComCall(70, this, UInt32, itb, "HRESULT")
         return result
     }
 
@@ -750,7 +750,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_put_itblastfocus
      */
     _put_itbLastFocus(itbLastFocus) {
-        result := ComCall(73, this, "uint", itbLastFocus, "HRESULT")
+        result := ComCall(73, this, UInt32, itbLastFocus, "HRESULT")
         return result
     }
 
@@ -765,7 +765,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_uiactivateview
      */
     _UIActivateView(uState) {
-        result := ComCall(74, this, "uint", uState, "HRESULT")
+        result := ComCall(74, this, UInt32, uState, "HRESULT")
         return result
     }
 
@@ -811,7 +811,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_resizenextborder
      */
     _ResizeNextBorder(itb) {
-        result := ComCall(77, this, "uint", itb, "HRESULT")
+        result := ComCall(77, this, UInt32, itb, "HRESULT")
         return result
     }
 
@@ -862,7 +862,7 @@ export default struct IBrowserService2 extends IBrowserService {
     v_GetViewStream(pidl, grfMode, pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(80, this, ITEMIDLIST.Ptr, pidl, "uint", grfMode, "ptr", pwszName, IStream)
+        result := ComCall(80, this, ITEMIDLIST.Ptr, pidl, UInt32, grfMode, "ptr", pwszName, IStream)
         return result
     }
 
@@ -883,7 +883,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-forwardviewmsg
      */
     ForwardViewMsg(uMsg, _wParam, _lParam) {
-        result := ComCall(81, this, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+        result := ComCall(81, this, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
         return result
     }
 
@@ -929,7 +929,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_gettoolbaritem
      */
     _GetToolbarItem(itb) {
-        result := ComCall(84, this, "int", itb, TOOLBARITEM.Ptr)
+        result := ComCall(84, this, Int32, itb, TOOLBARITEM.Ptr)
         return result
     }
 
@@ -1007,7 +1007,7 @@ export default struct IBrowserService2 extends IBrowserService {
     v_MayGetNextToolbarFocus(lpMsg, itbNext, citb, pptbi, phwnd) {
         pptbiMarshal := pptbi is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(88, this, MSG.Ptr, lpMsg, "uint", itbNext, "int", citb, pptbiMarshal, pptbi, HWND.Ptr, phwnd, "HRESULT")
+        result := ComCall(88, this, MSG.Ptr, lpMsg, UInt32, itbNext, Int32, citb, pptbiMarshal, pptbi, HWND.Ptr, phwnd, "HRESULT")
         return result
     }
 
@@ -1025,7 +1025,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_resizenextborderhelper
      */
     _ResizeNextBorderHelper(itb, bUseHmonitor) {
-        result := ComCall(89, this, "uint", itb, BOOL, bUseHmonitor, "HRESULT")
+        result := ComCall(89, this, UInt32, itb, BOOL, bUseHmonitor, "HRESULT")
         return result
     }
 

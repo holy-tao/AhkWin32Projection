@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IControlbar.ahk" { IControlbar }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MMC_NOTIFY_TYPE.ahk" { MMC_NOTIFY_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IExtendControlbar interface enables an extension to add control bars to the console. This provides a way to improve the functionality and appearance of your snap-in by adding toolbars or other user interface enhancements.

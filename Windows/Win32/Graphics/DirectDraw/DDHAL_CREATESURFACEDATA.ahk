@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHAL_CREATESURFACE.ahk" { LPDDHAL_CREATESURFACE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
@@ -20,6 +21,6 @@ export default struct DDHAL_CREATESURFACEDATA {
 
     ddRVal : HRESULT
 
-    CreateSurface : IntPtr
+    CreateSurface : LPDDHAL_CREATESURFACE
 
 }

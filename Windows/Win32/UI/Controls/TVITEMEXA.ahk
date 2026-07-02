@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\HTREEITEM.ahk" { HTREEITEM }
-#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
+#Import ".\HTREEITEM.ahk" { HTREEITEM }
 
 /**
  * Specifies or receives attributes of a tree-view item. This structure is an enhancement to the TVITEM structure. New applications should use this structure where appropriate. (ANSI)

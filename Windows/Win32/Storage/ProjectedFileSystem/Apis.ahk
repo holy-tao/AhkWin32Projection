@@ -1,21 +1,21 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\PRJ_VIRTUALIZATION_INSTANCE_INFO.ahk" { PRJ_VIRTUALIZATION_INSTANCE_INFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PRJ_PLACEHOLDER_VERSION_INFO.ahk" { PRJ_PLACEHOLDER_VERSION_INFO }
+#Import ".\PRJ_UPDATE_TYPES.ahk" { PRJ_UPDATE_TYPES }
+#Import ".\PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS.ahk" { PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS }
 #Import ".\PRJ_CALLBACKS.ahk" { PRJ_CALLBACKS }
-#Import ".\PRJ_UPDATE_FAILURE_CAUSES.ahk" { PRJ_UPDATE_FAILURE_CAUSES }
-#Import ".\PRJ_FILE_BASIC_INFO.ahk" { PRJ_FILE_BASIC_INFO }
 #Import ".\PRJ_FILE_STATE.ahk" { PRJ_FILE_STATE }
+#Import ".\PRJ_FILE_BASIC_INFO.ahk" { PRJ_FILE_BASIC_INFO }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\PRJ_EXTENDED_INFO.ahk" { PRJ_EXTENDED_INFO }
 #Import ".\PRJ_STARTVIRTUALIZING_OPTIONS.ahk" { PRJ_STARTVIRTUALIZING_OPTIONS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PRJ_UPDATE_TYPES.ahk" { PRJ_UPDATE_TYPES }
-#Import ".\PRJ_EXTENDED_INFO.ahk" { PRJ_EXTENDED_INFO }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\PRJ_VIRTUALIZATION_INSTANCE_INFO.ahk" { PRJ_VIRTUALIZATION_INSTANCE_INFO }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk" { PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT }
+#Import ".\PRJ_UPDATE_FAILURE_CAUSES.ahk" { PRJ_UPDATE_FAILURE_CAUSES }
 #Import ".\PRJ_DIR_ENTRY_BUFFER_HANDLE.ahk" { PRJ_DIR_ENTRY_BUFFER_HANDLE }
-#Import ".\PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS.ahk" { PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS }
+#Import ".\PRJ_PLACEHOLDER_VERSION_INFO.ahk" { PRJ_PLACEHOLDER_VERSION_INFO }
 
 /**
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
@@ -138,7 +138,7 @@ export PrjMarkDirectoryAsPlaceholder(rootPathName, targetPathName, versionInfo, 
 export PrjWritePlaceholderInfo(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize) {
     destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-    result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, "HRESULT")
+    result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, IntPtr, placeholderInfo, UInt32, placeholderInfoSize, "HRESULT")
     return result
 }
 
@@ -165,7 +165,7 @@ export PrjWritePlaceholderInfo(namespaceVirtualizationContext, destinationFileNa
 export PrjWritePlaceholderInfo2(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize, ExtendedInfo) {
     destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-    result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo2", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, PRJ_EXTENDED_INFO.Ptr, ExtendedInfo, "HRESULT")
+    result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo2", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, IntPtr, placeholderInfo, UInt32, placeholderInfoSize, PRJ_EXTENDED_INFO.Ptr, ExtendedInfo, "HRESULT")
     return result
 }
 
@@ -234,7 +234,7 @@ export PrjWritePlaceholderInfo2(namespaceVirtualizationContext, destinationFileN
 export PrjUpdateFileIfNeeded(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize, updateFlags) {
     destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-    result := DllCall("PROJECTEDFSLIB.dll\PrjUpdateFileIfNeeded", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, PRJ_UPDATE_TYPES, updateFlags, "int*", &failureReason := 0, "HRESULT")
+    result := DllCall("PROJECTEDFSLIB.dll\PrjUpdateFileIfNeeded", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, IntPtr, placeholderInfo, UInt32, placeholderInfoSize, PRJ_UPDATE_TYPES, updateFlags, "int*", &failureReason := 0, "HRESULT")
     return failureReason
 }
 
@@ -294,7 +294,7 @@ export PrjDeleteFile(namespaceVirtualizationContext, destinationFileName, update
  * @since windows10.0.17763
  */
 export PrjWriteFileData(namespaceVirtualizationContext, dataStreamId, _buffer, byteOffset, length) {
-    result := DllCall("PROJECTEDFSLIB.dll\PrjWriteFileData", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, Guid.Ptr, dataStreamId, "ptr", _buffer, "uint", byteOffset, "uint", length, "HRESULT")
+    result := DllCall("PROJECTEDFSLIB.dll\PrjWriteFileData", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, Guid.Ptr, dataStreamId, IntPtr, _buffer, Int64, byteOffset, UInt32, length, "HRESULT")
     return result
 }
 
@@ -326,7 +326,7 @@ export PrjGetOnDiskFileState(destinationFileName) {
  * @since windows10.0.17763
  */
 export PrjAllocateAlignedBuffer(namespaceVirtualizationContext, _size) {
-    result := DllCall("PROJECTEDFSLIB.dll\PrjAllocateAlignedBuffer", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", _size, IntPtr)
+    result := DllCall("PROJECTEDFSLIB.dll\PrjAllocateAlignedBuffer", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, IntPtr, _size, IntPtr)
     return result
 }
 
@@ -354,7 +354,7 @@ export PrjFreeAlignedBuffer(_buffer) {
  * @since windows10.0.17763
  */
 export PrjCompleteCommand(namespaceVirtualizationContext, commandId, completionResult, extendedParameters) {
-    result := DllCall("PROJECTEDFSLIB.dll\PrjCompleteCommand", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "int", commandId, "int", completionResult, PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS.Ptr, extendedParameters, "HRESULT")
+    result := DllCall("PROJECTEDFSLIB.dll\PrjCompleteCommand", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, Int32, commandId, "int", completionResult, PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS.Ptr, extendedParameters, "HRESULT")
     return result
 }
 

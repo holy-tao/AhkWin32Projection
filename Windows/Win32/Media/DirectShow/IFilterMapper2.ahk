@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\REGPINMEDIUM.ahk" { REGPINMEDIUM }
-#Import "..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
+#Import ".\REGFILTER2.ahk" { REGFILTER2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\REGFILTER2.ahk" { REGFILTER2 }
+#Import "..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
+#Import ".\REGPINMEDIUM.ahk" { REGPINMEDIUM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Registers and unregisters filters, and locates filters in the registry.
@@ -61,7 +61,7 @@ export default struct IFilterMapper2 extends IUnknown {
     CreateCategory(clsidCategory, dwCategoryMerit, Description) {
         Description := Description is String ? StrPtr(Description) : Description
 
-        result := ComCall(3, this, Guid.Ptr, clsidCategory, "uint", dwCategoryMerit, "ptr", Description, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, clsidCategory, UInt32, dwCategoryMerit, "ptr", Description, "HRESULT")
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct IFilterMapper2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper2-enummatchingfilters
      */
     EnumMatchingFilters(dwFlags, bExactMatch, dwMerit, bInputNeeded, cInputTypes, pInputTypes, pMedIn, pPinCategoryIn, bRender, bOutputNeeded, cOutputTypes, pOutputTypes, pMedOut, pPinCategoryOut) {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "uint", dwFlags, BOOL, bExactMatch, "uint", dwMerit, BOOL, bInputNeeded, "uint", cInputTypes, Guid.Ptr, pInputTypes, REGPINMEDIUM.Ptr, pMedIn, Guid.Ptr, pPinCategoryIn, BOOL, bRender, BOOL, bOutputNeeded, "uint", cOutputTypes, Guid.Ptr, pOutputTypes, REGPINMEDIUM.Ptr, pMedOut, Guid.Ptr, pPinCategoryOut, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, UInt32, dwFlags, BOOL, bExactMatch, UInt32, dwMerit, BOOL, bInputNeeded, UInt32, cInputTypes, Guid.Ptr, pInputTypes, REGPINMEDIUM.Ptr, pMedIn, Guid.Ptr, pPinCategoryIn, BOOL, bRender, BOOL, bOutputNeeded, UInt32, cOutputTypes, Guid.Ptr, pOutputTypes, REGPINMEDIUM.Ptr, pMedOut, Guid.Ptr, pPinCategoryOut, "HRESULT")
         return IEnumMoniker(ppEnum)
     }
 

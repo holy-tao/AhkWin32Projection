@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMemAllocator.ahk" { IMemAllocator }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMediaSample.ahk" { IMediaSample }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
+#Import ".\IMediaSample.ahk" { IMediaSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAsyncReader interface performs an asynchronous data request on a filter.This interface is exposed by output pins that perform asynchronous read operations.
@@ -154,7 +154,7 @@ export default struct IAsyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iasyncreader-request
      */
     Request(pSample, dwUser) {
-        result := ComCall(4, this, "ptr", pSample, "ptr", dwUser, "HRESULT")
+        result := ComCall(4, this, "ptr", pSample, IntPtr, dwUser, "HRESULT")
         return result
     }
 
@@ -237,7 +237,7 @@ export default struct IAsyncReader extends IUnknown {
     WaitForNext(dwTimeout, ppSample, pdwUser) {
         pdwUserMarshal := pdwUser is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwTimeout, IMediaSample.Ptr, ppSample, pdwUserMarshal, pdwUser, "HRESULT")
+        result := ComCall(5, this, UInt32, dwTimeout, IMediaSample.Ptr, ppSample, pdwUserMarshal, pdwUser, "HRESULT")
         return result
     }
 
@@ -338,7 +338,7 @@ export default struct IAsyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iasyncreader-syncread
      */
     SyncRead(llPosition, lLength, pBuffer) {
-        result := ComCall(7, this, "int64", llPosition, "int", lLength, "ptr", pBuffer, "HRESULT")
+        result := ComCall(7, this, Int64, llPosition, Int32, lLength, IntPtr, pBuffer, "HRESULT")
         return result
     }
 

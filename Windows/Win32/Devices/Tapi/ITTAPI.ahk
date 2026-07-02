@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import ".\ITAddress.ahk" { ITAddress }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IEnumAddress.ahk" { IEnumAddress }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IEnumCallHub.ahk" { IEnumCallHub }
+#Import ".\IEnumAddress.ahk" { IEnumAddress }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEnumCallHub.ahk" { IEnumCallHub }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITTAPI interface is the base interface for the TAPI object. The TAPI object is created by CoCreateInstance. For information on CoCreateInstance, see documentation on COM. All other TAPI 3 objects are created by TAPI 3 itself.
@@ -253,7 +253,7 @@ export default struct ITTAPI extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications
      */
     RegisterCallNotifications(pAddress, fMonitor, fOwner, lMediaTypes, lCallbackInstance) {
-        result := ComCall(11, this, "ptr", pAddress, VARIANT_BOOL, fMonitor, VARIANT_BOOL, fOwner, "int", lMediaTypes, "int", lCallbackInstance, "int*", &plRegister := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pAddress, VARIANT_BOOL, fMonitor, VARIANT_BOOL, fOwner, Int32, lMediaTypes, Int32, lCallbackInstance, "int*", &plRegister := 0, "HRESULT")
         return plRegister
     }
 
@@ -305,7 +305,7 @@ export default struct ITTAPI extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-unregisternotifications
      */
     UnregisterNotifications(lRegister) {
-        result := ComCall(12, this, "int", lRegister, "HRESULT")
+        result := ComCall(12, this, Int32, lRegister, "HRESULT")
         return result
     }
 
@@ -464,7 +464,7 @@ export default struct ITTAPI extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-registerrequestrecipient
      */
     RegisterRequestRecipient(lRegistrationInstance, lRequestMode, fEnable) {
-        result := ComCall(18, this, "int", lRegistrationInstance, "int", lRequestMode, VARIANT_BOOL, fEnable, "HRESULT")
+        result := ComCall(18, this, Int32, lRegistrationInstance, Int32, lRequestMode, VARIANT_BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -561,7 +561,7 @@ export default struct ITTAPI extends IDispatch {
     SetApplicationPriority(pAppFilename, lMediaType, fPriority) {
         pAppFilename := pAppFilename is String ? BSTR.Alloc(pAppFilename).Value : pAppFilename
 
-        result := ComCall(20, this, BSTR, pAppFilename, "int", lMediaType, VARIANT_BOOL, fPriority, "HRESULT")
+        result := ComCall(20, this, BSTR, pAppFilename, Int32, lMediaType, VARIANT_BOOL, fPriority, "HRESULT")
         return result
     }
 
@@ -601,7 +601,7 @@ export default struct ITTAPI extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-put_eventfilter
      */
     put_EventFilter(lFilterMask) {
-        result := ComCall(21, this, "int", lFilterMask, "HRESULT")
+        result := ComCall(21, this, Int32, lFilterMask, "HRESULT")
         return result
     }
 

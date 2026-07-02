@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IRDPSRAPIAttendee.ahk" { IRDPSRAPIAttendee }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages attendee objects.
@@ -74,7 +74,7 @@ export default struct IRDPSRAPIAttendeeManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get_item
      */
     get_Item(id) {
-        result := ComCall(8, this, "int", id, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(8, this, Int32, id, "ptr*", &ppItem := 0, "HRESULT")
         return IRDPSRAPIAttendee(ppItem)
     }
 

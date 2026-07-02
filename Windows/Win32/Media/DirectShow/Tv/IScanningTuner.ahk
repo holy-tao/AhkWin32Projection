@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITuner.ahk" { ITuner }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IScanningTuner interface is implemented on the BDA Network Provider filter.
@@ -86,7 +86,7 @@ export default struct IScanningTuner extends ITuner {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtuner-scanup
      */
     ScanUp(MillisecondsPause) {
-        result := ComCall(15, this, "int", MillisecondsPause, "HRESULT")
+        result := ComCall(15, this, Int32, MillisecondsPause, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct IScanningTuner extends ITuner {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtuner-scandown
      */
     ScanDown(MillisecondsPause) {
-        result := ComCall(16, this, "int", MillisecondsPause, "HRESULT")
+        result := ComCall(16, this, Int32, MillisecondsPause, "HRESULT")
         return result
     }
 

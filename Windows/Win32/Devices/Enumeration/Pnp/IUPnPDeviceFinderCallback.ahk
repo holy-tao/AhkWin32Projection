@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IUPnPDevice.ahk" { IUPnPDevice }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPDeviceFinderCallback interface allows the UPnP framework to communicate the results of an asynchronous search to an application.
@@ -55,7 +55,7 @@ export default struct IUPnPDeviceFinderCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefindercallback-deviceadded
      */
     DeviceAdded(lFindData, pDevice) {
-        result := ComCall(3, this, "int", lFindData, "ptr", pDevice, "HRESULT")
+        result := ComCall(3, this, Int32, lFindData, "ptr", pDevice, "HRESULT")
         return result
     }
 
@@ -72,7 +72,7 @@ export default struct IUPnPDeviceFinderCallback extends IUnknown {
     DeviceRemoved(lFindData, bstrUDN) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
 
-        result := ComCall(4, this, "int", lFindData, BSTR, bstrUDN, "HRESULT")
+        result := ComCall(4, this, Int32, lFindData, BSTR, bstrUDN, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IUPnPDeviceFinderCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefindercallback-searchcomplete
      */
     SearchComplete(lFindData) {
-        result := ComCall(5, this, "int", lFindData, "HRESULT")
+        result := ComCall(5, this, Int32, lFindData, "HRESULT")
         return result
     }
 

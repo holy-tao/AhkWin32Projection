@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMDMDeviceControl interface provides methods for controlling playback on a device.
@@ -571,7 +571,7 @@ export default struct IWMDMDeviceControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicecontrol-seek
      */
     Seek(fuMode, nOffset) {
-        result := ComCall(10, this, "uint", fuMode, "int", nOffset, "HRESULT")
+        result := ComCall(10, this, UInt32, fuMode, Int32, nOffset, "HRESULT")
         return result
     }
 

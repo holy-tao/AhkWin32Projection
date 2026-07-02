@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
 
 /**
  * The DWRITE_FONT_METRICS1 structure specifies the metrics that are applicable to all glyphs within the font face.

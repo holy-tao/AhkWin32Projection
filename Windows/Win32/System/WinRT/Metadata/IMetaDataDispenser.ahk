@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to create a new metadata scope, or open an existing one.
@@ -53,7 +53,7 @@ export default struct IMetaDataDispenser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenser-definescope
      */
     DefineScope(rclsid, dwCreateFlags, riid) {
-        result := ComCall(3, this, Guid.Ptr, rclsid, "uint", dwCreateFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, UInt32, dwCreateFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return IUnknown(ppIUnk)
     }
 
@@ -72,7 +72,7 @@ export default struct IMetaDataDispenser extends IUnknown {
     OpenScope(szScope, dwOpenFlags, riid) {
         szScope := szScope is String ? StrPtr(szScope) : szScope
 
-        result := ComCall(4, this, "ptr", szScope, "uint", dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", szScope, UInt32, dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return IUnknown(ppIUnk)
     }
 
@@ -96,7 +96,7 @@ export default struct IMetaDataDispenser extends IUnknown {
     OpenScopeOnMemory(pData, cbData, dwOpenFlags, riid) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pDataMarshal, pData, "uint", cbData, "uint", dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        result := ComCall(5, this, pDataMarshal, pData, UInt32, cbData, UInt32, dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return IUnknown(ppIUnk)
     }
 

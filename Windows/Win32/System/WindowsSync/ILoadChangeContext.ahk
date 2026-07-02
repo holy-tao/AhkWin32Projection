@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncChange.ahk" { ISyncChange }
 #Import ".\IRecoverableErrorData.ahk" { IRecoverableErrorData }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
 
 /**
  * Represents information about a change to be loaded from the item store.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\IMEAPPLETCFG.ahk" { IMEAPPLETCFG }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMEAPPLETUI.ahk" { IMEAPPLETUI }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMEAPPLETCFG.ahk" { IMEAPPLETCFG }
 
 /**
  * The IImePadApplet interface inputs strings into apps through the IImePad interface.
@@ -142,7 +142,7 @@ export default struct IImePadApplet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepadapplet-notify
      */
     Notify(lpImePad, notify, _wParam, _lParam) {
-        result := ComCall(7, this, "ptr", lpImePad, "int", notify, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(7, this, "ptr", lpImePad, Int32, notify, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 

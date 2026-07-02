@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DEDUP_CHUNK_INFO_HASH32.ahk" { DEDUP_CHUNK_INFO_HASH32 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
@@ -48,7 +48,7 @@ export default struct IDedupIterateChunksHash32 extends IUnknown {
     PushBuffer(pBuffer, ulBufferLength) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", ulBufferLength, "HRESULT")
+        result := ComCall(3, this, pBufferMarshal, pBuffer, UInt32, ulBufferLength, "HRESULT")
         return result
     }
 
@@ -62,7 +62,7 @@ export default struct IDedupIterateChunksHash32 extends IUnknown {
     Next(ulMaxChunks, pArrChunks, pulFetched) {
         pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulMaxChunks, DEDUP_CHUNK_INFO_HASH32.Ptr, pArrChunks, pulFetchedMarshal, pulFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulMaxChunks, DEDUP_CHUNK_INFO_HASH32.Ptr, pArrChunks, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
     }
 

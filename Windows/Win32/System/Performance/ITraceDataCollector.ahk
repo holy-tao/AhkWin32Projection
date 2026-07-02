@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ClockType.ahk" { ClockType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITraceDataProviderCollection.ahk" { ITraceDataProviderCollection }
 #Import ".\StreamMode.ahk" { StreamMode }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ClockType.ahk" { ClockType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IDataCollector.ahk" { IDataCollector }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITraceDataProviderCollection.ahk" { ITraceDataProviderCollection }
 
 /**
  * Collects trace events from registered providers.This interface defines the trace session.
@@ -319,7 +319,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_buffersize
      */
     put_BufferSize(_size) {
-        result := ComCall(33, this, "uint", _size, "HRESULT")
+        result := ComCall(33, this, UInt32, _size, "HRESULT")
         return result
     }
 
@@ -339,7 +339,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @returns {HRESULT} 
      */
     put_BuffersLost(buffers) {
-        result := ComCall(35, this, "uint", buffers, "HRESULT")
+        result := ComCall(35, this, UInt32, buffers, "HRESULT")
         return result
     }
 
@@ -359,7 +359,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @returns {HRESULT} 
      */
     put_BuffersWritten(buffers) {
-        result := ComCall(37, this, "uint", buffers, "HRESULT")
+        result := ComCall(37, this, UInt32, buffers, "HRESULT")
         return result
     }
 
@@ -400,7 +400,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @returns {HRESULT} 
      */
     put_EventsLost(events) {
-        result := ComCall(41, this, "uint", events, "HRESULT")
+        result := ComCall(41, this, UInt32, events, "HRESULT")
         return result
     }
 
@@ -535,7 +535,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_extendedmodes
      */
     put_ExtendedModes(_mode) {
-        result := ComCall(43, this, "uint", _mode, "HRESULT")
+        result := ComCall(43, this, UInt32, _mode, "HRESULT")
         return result
     }
 
@@ -556,7 +556,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_flushtimer
      */
     put_FlushTimer(seconds) {
-        result := ComCall(45, this, "uint", seconds, "HRESULT")
+        result := ComCall(45, this, UInt32, seconds, "HRESULT")
         return result
     }
 
@@ -576,7 +576,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @returns {HRESULT} 
      */
     put_FreeBuffers(buffers) {
-        result := ComCall(47, this, "uint", buffers, "HRESULT")
+        result := ComCall(47, this, UInt32, buffers, "HRESULT")
         return result
     }
 
@@ -629,7 +629,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_maximumbuffers
      */
     put_MaximumBuffers(buffers) {
-        result := ComCall(52, this, "uint", buffers, "HRESULT")
+        result := ComCall(52, this, UInt32, buffers, "HRESULT")
         return result
     }
 
@@ -650,7 +650,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_minimumbuffers
      */
     put_MinimumBuffers(buffers) {
-        result := ComCall(54, this, "uint", buffers, "HRESULT")
+        result := ComCall(54, this, UInt32, buffers, "HRESULT")
         return result
     }
 
@@ -671,7 +671,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_numberofbuffers
      */
     put_NumberOfBuffers(buffers) {
-        result := ComCall(56, this, "uint", buffers, "HRESULT")
+        result := ComCall(56, this, UInt32, buffers, "HRESULT")
         return result
     }
 
@@ -737,7 +737,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @returns {HRESULT} 
      */
     put_RealTimeBuffersLost(buffers) {
-        result := ComCall(62, this, "uint", buffers, "HRESULT")
+        result := ComCall(62, this, UInt32, buffers, "HRESULT")
         return result
     }
 
@@ -757,7 +757,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @returns {HRESULT} 
      */
     put_SessionId(id) {
-        result := ComCall(64, this, "uint", id, "HRESULT")
+        result := ComCall(64, this, Int64, id, "HRESULT")
         return result
     }
 
@@ -801,7 +801,7 @@ export default struct ITraceDataCollector extends IDataCollector {
      * @returns {HRESULT} 
      */
     put_SessionThreadId(tid) {
-        result := ComCall(68, this, "uint", tid, "HRESULT")
+        result := ComCall(68, this, UInt32, tid, "HRESULT")
         return result
     }
 

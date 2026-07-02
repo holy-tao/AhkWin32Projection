@@ -1,33 +1,33 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import "..\..\..\System\SystemServices\CM_RESOURCE_LIST.ahk" { CM_RESOURCE_LIST }
-#Import "..\..\..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk" { DEVICE_USAGE_NOTIFICATION_TYPE }
-#Import "..\FS_FILTER_SECTION_SYNC_TYPE.ahk" { FS_FILTER_SECTION_SYNC_TYPE }
-#Import "..\..\..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk" { BUS_QUERY_ID_TYPE }
+#Import "..\..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 #Import "..\..\..\Foundation\MDL.ahk" { MDL }
-#Import "..\..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\System\SystemServices\DEVICE_TEXT_TYPE.ahk" { DEVICE_TEXT_TYPE }
-#Import "..\FS_INFORMATION_CLASS.ahk" { FS_INFORMATION_CLASS }
-#Import "..\FS_FILTER_SECTION_SYNC_OUTPUT.ahk" { FS_FILTER_SECTION_SYNC_OUTPUT }
 #Import "..\..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\IO_SECURITY_CONTEXT.ahk" { IO_SECURITY_CONTEXT }
-#Import "..\..\..\Foundation\ERESOURCE.ahk" { ERESOURCE }
-#Import "..\..\..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk" { DIRECTORY_NOTIFY_INFORMATION_CLASS }
-#Import "..\..\..\Foundation\VPB.ahk" { VPB }
-#Import "..\..\..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk" { IO_RESOURCE_REQUIREMENTS_LIST }
-#Import "..\FILE_NETWORK_OPEN_INFORMATION.ahk" { FILE_NETWORK_OPEN_INFORMATION }
-#Import "..\..\..\..\Win32\Security\PSID.ahk" { PSID }
-#Import "..\..\..\System\SystemServices\DEVICE_CAPABILITIES.ahk" { DEVICE_CAPABILITIES }
 #Import "..\..\..\System\SystemServices\DEVICE_RELATION_TYPE.ahk" { DEVICE_RELATION_TYPE }
-#Import "..\FILE_GET_QUOTA_INFORMATION.ahk" { FILE_GET_QUOTA_INFORMATION }
-#Import "..\..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
+#Import "..\..\..\System\SystemServices\DEVICE_CAPABILITIES.ahk" { DEVICE_CAPABILITIES }
+#Import "..\..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk" { DEVICE_USAGE_NOTIFICATION_TYPE }
+#Import "..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\..\Foundation\PEPROCESS.ahk" { PEPROCESS }
+#Import "..\FS_FILTER_SECTION_SYNC_TYPE.ahk" { FS_FILTER_SECTION_SYNC_TYPE }
+#Import "..\..\..\System\SystemServices\INTERFACE.ahk" { INTERFACE }
+#Import "..\FS_INFORMATION_CLASS.ahk" { FS_INFORMATION_CLASS }
+#Import "..\..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\..\System\SystemServices\DEVICE_TEXT_TYPE.ahk" { DEVICE_TEXT_TYPE }
+#Import "..\..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk" { DIRECTORY_NOTIFY_INFORMATION_CLASS }
+#Import "..\..\..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk" { BUS_QUERY_ID_TYPE }
+#Import "..\FILE_NETWORK_OPEN_INFORMATION.ahk" { FILE_NETWORK_OPEN_INFORMATION }
+#Import "..\..\..\System\SystemServices\CM_RESOURCE_LIST.ahk" { CM_RESOURCE_LIST }
+#Import "..\FILE_GET_QUOTA_INFORMATION.ahk" { FILE_GET_QUOTA_INFORMATION }
+#Import "..\FS_FILTER_SECTION_SYNC_OUTPUT.ahk" { FS_FILTER_SECTION_SYNC_OUTPUT }
 #Import "..\FILE_INFORMATION_CLASS.ahk" { FILE_INFORMATION_CLASS }
 #Import "..\..\..\Foundation\IRP.ahk" { IRP }
-#Import "..\..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import "..\..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
-#Import "..\..\..\System\SystemServices\INTERFACE.ahk" { INTERFACE }
+#Import "..\..\..\Foundation\VPB.ahk" { VPB }
+#Import "..\..\..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk" { IO_RESOURCE_REQUIREMENTS_LIST }
+#Import "..\..\..\..\Win32\Security\PSID.ahk" { PSID }
+#Import "..\..\..\Foundation\ERESOURCE.ahk" { ERESOURCE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters

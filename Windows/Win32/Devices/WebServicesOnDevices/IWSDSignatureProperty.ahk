@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides properties of signed messages.
@@ -77,7 +77,7 @@ export default struct IWSDSignatureProperty extends IUnknown {
     GetKeyInfo(pbKeyInfo, pdwKeyInfoSize) {
         pdwKeyInfoSizeMarshal := pdwKeyInfoSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pbKeyInfo, pdwKeyInfoSizeMarshal, pdwKeyInfoSize, "HRESULT")
+        result := ComCall(5, this, IntPtr, pbKeyInfo, pdwKeyInfoSizeMarshal, pdwKeyInfoSize, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IWSDSignatureProperty extends IUnknown {
     GetSignature(pbSignature, pdwSignatureSize) {
         pdwSignatureSizeMarshal := pdwSignatureSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pbSignature, pdwSignatureSizeMarshal, pdwSignatureSize, "HRESULT")
+        result := ComCall(6, this, IntPtr, pbSignature, pdwSignatureSizeMarshal, pdwSignatureSize, "HRESULT")
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct IWSDSignatureProperty extends IUnknown {
     GetSignedInfoHash(pbSignedInfoHash, pdwHashSize) {
         pdwHashSizeMarshal := pdwHashSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pbSignedInfoHash, pdwHashSizeMarshal, pdwHashSize, "HRESULT")
+        result := ComCall(7, this, IntPtr, pbSignedInfoHash, pdwHashSizeMarshal, pdwHashSize, "HRESULT")
         return result
     }
 

@@ -1,4 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPCI_MSIX_SET_ENTRY.ahk" { PPCI_MSIX_SET_ENTRY }
+#Import ".\PPCI_MSIX_GET_ENTRY.ahk" { PPCI_MSIX_GET_ENTRY }
+#Import ".\PPCI_MSIX_GET_TABLE_SIZE.ahk" { PPCI_MSIX_GET_TABLE_SIZE }
+#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
+#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
+#Import ".\PPCI_MSIX_MASKUNMASK_ENTRY.ahk" { PPCI_MSIX_MASKUNMASK_ENTRY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -12,18 +18,18 @@ export default struct PCI_MSIX_TABLE_CONFIG_INTERFACE {
 
     Context : IntPtr
 
-    InterfaceReference : IntPtr
+    InterfaceReference : PINTERFACE_REFERENCE
 
-    InterfaceDereference : IntPtr
+    InterfaceDereference : PINTERFACE_DEREFERENCE
 
-    SetTableEntry : IntPtr
+    SetTableEntry : PPCI_MSIX_SET_ENTRY
 
-    MaskTableEntry : IntPtr
+    MaskTableEntry : PPCI_MSIX_MASKUNMASK_ENTRY
 
-    UnmaskTableEntry : IntPtr
+    UnmaskTableEntry : PPCI_MSIX_MASKUNMASK_ENTRY
 
-    GetTableEntry : IntPtr
+    GetTableEntry : PPCI_MSIX_GET_ENTRY
 
-    GetTableSize : IntPtr
+    GetTableSize : PPCI_MSIX_GET_TABLE_SIZE
 
 }

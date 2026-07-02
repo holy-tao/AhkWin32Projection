@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FsrmRuleType.ahk" { FsrmRuleType }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
 
 /**
  * Defines a rule.
@@ -230,7 +230,7 @@ export default struct IFsrmRule extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-put_ruleflags
      */
     put_RuleFlags(ruleFlags) {
-        result := ComCall(20, this, "int", ruleFlags, "HRESULT")
+        result := ComCall(20, this, Int32, ruleFlags, "HRESULT")
         return result
     }
 

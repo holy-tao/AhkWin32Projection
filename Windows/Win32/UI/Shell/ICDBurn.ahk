@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that determine whether a system has hardware for writing to CD, the drive letter of a CD writer device, and programmatically initiate a CD writing session.
@@ -69,7 +69,7 @@ export default struct ICDBurn extends IUnknown {
     GetRecorderDriveLetter(pszDrive, cch) {
         pszDrive := pszDrive is String ? StrPtr(pszDrive) : pszDrive
 
-        result := ComCall(3, this, "ptr", pszDrive, "uint", cch, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDrive, UInt32, cch, "HRESULT")
         return result
     }
 

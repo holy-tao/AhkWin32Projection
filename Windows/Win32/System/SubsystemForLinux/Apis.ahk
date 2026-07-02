@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WSL_DISTRIBUTION_FLAGS.ahk" { WSL_DISTRIBUTION_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WSL_DISTRIBUTION_FLAGS.ahk" { WSL_DISTRIBUTION_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.SubsystemForLinux
@@ -79,7 +79,7 @@ export WslUnregisterDistribution(distributionName) {
 export WslConfigureDistribution(distributionName, defaultUID, wslDistributionFlags) {
     distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
 
-    result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslConfigureDistribution", "ptr", distributionName, "uint", defaultUID, WSL_DISTRIBUTION_FLAGS, wslDistributionFlags, "HRESULT")
+    result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslConfigureDistribution", "ptr", distributionName, UInt32, defaultUID, WSL_DISTRIBUTION_FLAGS, wslDistributionFlags, "HRESULT")
     return result
 }
 

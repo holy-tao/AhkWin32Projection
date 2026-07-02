@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSD_SOAP_FAULT.ahk" { WSD_SOAP_FAULT }
-#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
-#Import ".\WSD_SOAP_HEADER.ahk" { WSD_SOAP_HEADER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSD_SOAP_HEADER.ahk" { WSD_SOAP_HEADER }
+#Import ".\WSD_SOAP_FAULT.ahk" { WSD_SOAP_FAULT }
 
 /**
  * Is used by generated stub code to send faults or responses to incoming messages.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to a device's Forward Data Channel (FDC) Service. The FDC is an out-of-band channel that carries configuration and control messages.
@@ -154,7 +154,7 @@ export default struct IBDA_FDC extends IUnknown {
         ActualSizeMarshal := ActualSize is VarRef ? "uint*" : "ptr"
         _SecBufferMarshal := _SecBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, PidMarshal, Pid, "uint", MaxBufferSize, ActualSizeMarshal, ActualSize, _SecBufferMarshal, _SecBuffer, "HRESULT")
+        result := ComCall(9, this, PidMarshal, Pid, UInt32, MaxBufferSize, ActualSizeMarshal, ActualSize, _SecBufferMarshal, _SecBuffer, "HRESULT")
         return result
     }
 

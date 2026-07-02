@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FDE_SHAREVIOLATION_RESPONSE.ahk" { FDE_SHAREVIOLATION_RESPONSE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FDE_OVERWRITE_RESPONSE.ahk" { FDE_OVERWRITE_RESPONSE }
-#Import ".\IShellItem.ahk" { IShellItem }
 #Import ".\IFileDialog.ahk" { IFileDialog }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FDE_OVERWRITE_RESPONSE.ahk" { FDE_OVERWRITE_RESPONSE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FDE_SHAREVIOLATION_RESPONSE.ahk" { FDE_SHAREVIOLATION_RESPONSE }
+#Import ".\IShellItem.ahk" { IShellItem }
 
 /**
  * Exposes methods that allow notification of events within a common file dialog.

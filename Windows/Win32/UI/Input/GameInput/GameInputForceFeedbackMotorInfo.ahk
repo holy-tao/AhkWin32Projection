@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GameInputLocation.ahk" { GameInputLocation }
 #Import ".\GameInputFeedbackAxes.ahk" { GameInputFeedbackAxes }
+#Import ".\GameInputLocation.ahk" { GameInputLocation }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

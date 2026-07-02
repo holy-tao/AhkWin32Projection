@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUIAutomationClientConnectionCallback.ahk" { IUIAutomationClientConnectionCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
@@ -55,7 +55,7 @@ export default struct IUIAutomationClientInfoSource extends IUnknown {
      * @returns {HRESULT} 
      */
     UnregisterClientConnectionCallback(_handle) {
-        result := ComCall(4, this, "uint", _handle, "HRESULT")
+        result := ComCall(4, this, Int64, _handle, "HRESULT")
         return result
     }
 

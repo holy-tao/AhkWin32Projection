@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWPM_FILTER_CONDITION0.ahk" { FWPM_FILTER_CONDITION0 }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\FWPM_FILTER_CONDITION0.ahk" { FWPM_FILTER_CONDITION0 }
 
 /**
  * Used for enumerating net events.

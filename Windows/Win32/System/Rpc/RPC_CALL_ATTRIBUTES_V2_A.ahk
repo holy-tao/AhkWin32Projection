@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\RpcCallType.ahk" { RpcCallType }
-#Import ".\RPC_CALL_LOCAL_ADDRESS_V1.ahk" { RPC_CALL_LOCAL_ADDRESS_V1 }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RPC_CALL_LOCAL_ADDRESS_V1.ahk" { RPC_CALL_LOCAL_ADDRESS_V1 }
+#Import ".\RpcCallType.ahk" { RpcCallType }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The RPC_CALL_ATTRIBUTES_V2 structure provides parameters to the RpcServerInqCallAttributes function. Version 2 specifies support for local addresses and client process IDs. (ANSI)

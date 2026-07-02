@@ -232,7 +232,7 @@ export default struct IWMReaderAdvanced3 extends IWMReaderAdvanced2 {
         pvDurationMarshal := pvDuration is VarRef ? "ptr" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(39, this, "ushort", wStreamNum, pvOffsetStartMarshal, pvOffsetStart, pvDurationMarshal, pvDuration, WMT_OFFSET_FORMAT, dwOffsetFormat, "float", fRate, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(39, this, UInt16, wStreamNum, pvOffsetStartMarshal, pvOffsetStart, pvDurationMarshal, pvDuration, WMT_OFFSET_FORMAT, dwOffsetFormat, Float32, fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 

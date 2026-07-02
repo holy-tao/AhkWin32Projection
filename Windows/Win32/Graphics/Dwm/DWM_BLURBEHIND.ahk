@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Gdi\HRGN.ahk" { HRGN }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Gdi\HRGN.ahk" { HRGN }
 
 /**
  * Specifies Desktop Window Manager (DWM) blur-behind properties. Used by the DwmEnableBlurBehindWindow function.

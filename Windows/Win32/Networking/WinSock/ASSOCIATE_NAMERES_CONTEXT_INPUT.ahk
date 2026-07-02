@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\TRANSPORT_SETTING_ID.ahk" { TRANSPORT_SETTING_ID }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains the transport setting ID and handle to a fully qualified domain name.

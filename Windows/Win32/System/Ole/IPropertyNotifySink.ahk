@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by a sink object to receive notifications about property changes from an object that supports IPropertyNotifySink as an outgoing interface.
@@ -51,7 +51,7 @@ export default struct IPropertyNotifySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertynotifysink-onchanged
      */
     OnChanged(dispID) {
-        result := ComCall(3, this, "int", dispID, "HRESULT")
+        result := ComCall(3, this, Int32, dispID, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IPropertyNotifySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertynotifysink-onrequestedit
      */
     OnRequestEdit(dispID) {
-        result := ComCall(4, this, "int", dispID, "HRESULT")
+        result := ComCall(4, this, Int32, dispID, "HRESULT")
         return result
     }
 

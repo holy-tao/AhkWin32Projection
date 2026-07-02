@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWiaItem.ahk" { IWiaItem }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumWiaItem interface is used by applications to enumerate IWiaItem objects in the tree's current folder.
@@ -97,7 +97,7 @@ export default struct IEnumWiaItem extends IUnknown {
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", &ppIWiaItem := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, "ptr*", &ppIWiaItem := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return IWiaItem(ppIWiaItem)
     }
 
@@ -112,7 +112,7 @@ export default struct IEnumWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-ienumwiaitem-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

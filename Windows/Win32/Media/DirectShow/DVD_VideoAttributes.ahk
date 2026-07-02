@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DVD_VIDEO_COMPRESSION.ahk" { DVD_VIDEO_COMPRESSION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DVD_VIDEO_COMPRESSION.ahk" { DVD_VIDEO_COMPRESSION }
 
 /**
  * The DVD_VideoAttributes structure describes the attributes of the video stream for the current title or menu.

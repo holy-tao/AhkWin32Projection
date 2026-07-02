@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\MMC_TASK_DISPLAY_SYMBOL.ahk" { MMC_TASK_DISPLAY_SYMBOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MMC_TASK_DISPLAY_OBJECT.ahk" { MMC_TASK_DISPLAY_OBJECT }
 #Import ".\MMC_ACTION_TYPE.ahk" { MMC_ACTION_TYPE }
-#Import ".\MMC_TASK_DISPLAY_TYPE.ahk" { MMC_TASK_DISPLAY_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MMC_TASK_DISPLAY_BITMAP.ahk" { MMC_TASK_DISPLAY_BITMAP }
+#Import ".\MMC_TASK_DISPLAY_OBJECT.ahk" { MMC_TASK_DISPLAY_OBJECT }
+#Import ".\MMC_TASK_DISPLAY_TYPE.ahk" { MMC_TASK_DISPLAY_TYPE }
 
 /**
  * The MMC_TASK structure is introduced in MMC 1.1.

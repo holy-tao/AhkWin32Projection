@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITransactionEnlistmentAsync.ahk" { ITransactionEnlistmentAsync }
 #Import ".\ITransactionResourceAsync.ahk" { ITransactionResourceAsync }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XID.ahk" { XID }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ITransactionEnlistmentAsync.ahk" { ITransactionEnlistmentAsync }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITransaction.ahk" { ITransaction }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XID.ahk" { XID }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -71,7 +71,7 @@ export default struct IDtcToXaHelperSinglePipe extends IUnknown {
     ConvertTridToXID(pdwITrans, dwRMCookie, pxid) {
         pdwITransMarshal := pdwITrans is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwITransMarshal, pdwITrans, "uint", dwRMCookie, XID.Ptr, pxid, "HRESULT")
+        result := ComCall(4, this, pdwITransMarshal, pdwITrans, UInt32, dwRMCookie, XID.Ptr, pxid, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IDtcToXaHelperSinglePipe extends IUnknown {
      * @returns {ITransactionEnlistmentAsync} 
      */
     EnlistWithRM(dwRMCookie, i_pITransaction, i_pITransRes) {
-        result := ComCall(5, this, "uint", dwRMCookie, "ptr", i_pITransaction, "ptr", i_pITransRes, "ptr*", &o_ppITransEnslitment := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwRMCookie, "ptr", i_pITransaction, "ptr", i_pITransRes, "ptr*", &o_ppITransEnslitment := 0, "HRESULT")
         return ITransactionEnlistmentAsync(o_ppITransEnslitment)
     }
 
@@ -94,7 +94,7 @@ export default struct IDtcToXaHelperSinglePipe extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     ReleaseRMCookie(i_dwRMCookie, i_fNormal) {
-        ComCall(6, this, "uint", i_dwRMCookie, BOOL, i_fNormal)
+        ComCall(6, this, UInt32, i_dwRMCookie, BOOL, i_fNormal)
     }
 
     Query(iid) {

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get information from a Digital Video Broadcast (DVB) content descriptor.
@@ -89,7 +89,7 @@ export default struct IDvbContentDescriptor extends IUnknown {
         pbValLevel1Marshal := pbValLevel1 is VarRef ? "char*" : "ptr"
         pbValLevel2Marshal := pbValLevel2 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "char", bRecordIndex, pbValLevel1Marshal, pbValLevel1, pbValLevel2Marshal, pbValLevel2, "HRESULT")
+        result := ComCall(6, this, Int8, bRecordIndex, pbValLevel1Marshal, pbValLevel1, pbValLevel2Marshal, pbValLevel2, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct IDvbContentDescriptor extends IUnknown {
         pbVal1Marshal := pbVal1 is VarRef ? "char*" : "ptr"
         pbVal2Marshal := pbVal2 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "char", bRecordIndex, pbVal1Marshal, pbVal1, pbVal2Marshal, pbVal2, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, pbVal1Marshal, pbVal1, pbVal2Marshal, pbVal2, "HRESULT")
         return result
     }
 

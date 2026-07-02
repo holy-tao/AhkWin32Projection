@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfContextView interface is implemented by the TSF manager and used by a client (application or text service) to obtain information about a context view.
@@ -86,7 +86,7 @@ export default struct ITfContextView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-getrangefrompoint
      */
     GetRangeFromPoint(ec, ppt, dwFlags) {
-        result := ComCall(3, this, "uint", ec, POINT.Ptr, ppt, "uint", dwFlags, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, ec, POINT.Ptr, ppt, UInt32, dwFlags, "ptr*", &ppRange := 0, "HRESULT")
         return ITfRange(ppRange)
     }
 
@@ -144,7 +144,7 @@ export default struct ITfContextView extends IUnknown {
     GetTextExt(ec, pRange, prc, pfClipped) {
         pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", ec, "ptr", pRange, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
+        result := ComCall(4, this, UInt32, ec, "ptr", pRange, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
     }
 

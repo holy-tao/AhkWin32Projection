@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
-#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
-#Import ".\IDWriteFontFace1.ahk" { IDWriteFontFace1 }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
-#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
 #Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
 #Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
 #Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontFace1.ahk" { IDWriteFontFace1 }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace2)
@@ -93,7 +93,7 @@ export default struct IDWriteFontFace2 extends IDWriteFontFace1 {
      */
     GetPaletteEntries(colorPaletteIndex, firstEntryIndex, entryCount) {
         paletteEntries := DWRITE_COLOR_F()
-        result := ComCall(33, this, "uint", colorPaletteIndex, "uint", firstEntryIndex, "uint", entryCount, DWRITE_COLOR_F.Ptr, paletteEntries, "HRESULT")
+        result := ComCall(33, this, UInt32, colorPaletteIndex, UInt32, firstEntryIndex, UInt32, entryCount, DWRITE_COLOR_F.Ptr, paletteEntries, "HRESULT")
         return paletteEntries
     }
 
@@ -138,7 +138,7 @@ export default struct IDWriteFontFace2 extends IDWriteFontFace1 {
         renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
         gridFitModeMarshal := gridFitMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, "float", fontEmSize, "float", dpiX, "float", dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
+        result := ComCall(34, this, Float32, fontEmSize, Float32, dpiX, Float32, dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
         return result
     }
 

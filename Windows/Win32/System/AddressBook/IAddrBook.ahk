@@ -1,17 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ENTRYID.ahk" { ENTRYID }
-#Import ".\ADRENTRY.ahk" { ADRENTRY }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
-#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
 #Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
 #Import ".\ADRPARM.ahk" { ADRPARM }
-#Import ".\SPropTagArray.ahk" { SPropTagArray }
-#Import ".\ADRLIST.ahk" { ADRLIST }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\LPFNDISMISS.ahk" { LPFNDISMISS }
 #Import ".\SRowSet.ahk" { SRowSet }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\LPFNBUTTON.ahk" { LPFNBUTTON }
+#Import ".\ENTRYID.ahk" { ENTRYID }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\ADRENTRY.ahk" { ADRENTRY }
+#Import ".\ADRLIST.ahk" { ADRLIST }
 
 /**
  * Do not use. (IAddrBook)
@@ -103,7 +105,7 @@ export default struct IAddrBook extends IMAPIProp {
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType) {
         lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, Guid.Ptr, lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", &lppUnk := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, Guid.Ptr, lpInterface, UInt32, ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", &lppUnk := 0, "HRESULT")
         return IUnknown(lppUnk)
     }
 
@@ -133,7 +135,7 @@ export default struct IAddrBook extends IMAPIProp {
     CompareEntryIDs(cbEntryID1, lpEntryID1, cbEntryID2, lpEntryID2, ulFlags, lpulResult) {
         lpulResultMarshal := lpulResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", cbEntryID1, ENTRYID.Ptr, lpEntryID1, "uint", cbEntryID2, ENTRYID.Ptr, lpEntryID2, "uint", ulFlags, lpulResultMarshal, lpulResult, "HRESULT")
+        result := ComCall(15, this, UInt32, cbEntryID1, ENTRYID.Ptr, lpEntryID1, UInt32, cbEntryID2, ENTRYID.Ptr, lpEntryID2, UInt32, ulFlags, lpulResultMarshal, lpulResult, "HRESULT")
         return result
     }
 
@@ -186,7 +188,7 @@ export default struct IAddrBook extends IMAPIProp {
     Advise(cbEntryID, lpEntryID, ulEventMask, lpAdviseSink, lpulConnection) {
         lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
+        result := ComCall(16, this, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, UInt32, ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
         return result
     }
 
@@ -201,7 +203,7 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-unadvise
      */
     Unadvise(ulConnection) {
-        result := ComCall(17, this, "uint", ulConnection, "HRESULT")
+        result := ComCall(17, this, UInt32, ulConnection, "HRESULT")
         return result
     }
 
@@ -241,7 +243,7 @@ export default struct IAddrBook extends IMAPIProp {
         lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
         lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, lpszNameMarshal, lpszName, lpszAdrTypeMarshal, lpszAdrType, lpszAddressMarshal, lpszAddress, "uint", ulFlags, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, "HRESULT")
+        result := ComCall(18, this, lpszNameMarshal, lpszName, lpszAdrTypeMarshal, lpszAdrType, lpszAddressMarshal, lpszAddress, UInt32, ulFlags, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, "HRESULT")
         return result
     }
 
@@ -270,7 +272,7 @@ export default struct IAddrBook extends IMAPIProp {
         lpcbEIDNewEntryMarshal := lpcbEIDNewEntry is VarRef ? "uint*" : "ptr"
         lppEIDNewEntryMarshal := lppEIDNewEntry is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, "uint", ulUIParam, "uint", ulFlags, "uint", cbEIDContainer, ENTRYID.Ptr, lpEIDContainer, "uint", cbEIDNewEntryTpl, ENTRYID.Ptr, lpEIDNewEntryTpl, lpcbEIDNewEntryMarshal, lpcbEIDNewEntry, lppEIDNewEntryMarshal, lppEIDNewEntry, "HRESULT")
+        result := ComCall(19, this, UInt32, ulUIParam, UInt32, ulFlags, UInt32, cbEIDContainer, ENTRYID.Ptr, lpEIDContainer, UInt32, cbEIDNewEntryTpl, ENTRYID.Ptr, lpEIDNewEntryTpl, lpcbEIDNewEntryMarshal, lpcbEIDNewEntry, lppEIDNewEntryMarshal, lppEIDNewEntry, "HRESULT")
         return result
     }
 
@@ -342,7 +344,7 @@ export default struct IAddrBook extends IMAPIProp {
     ResolveName(ulUIParam, ulFlags, lpszNewEntryTitle, lpAdrList) {
         lpszNewEntryTitleMarshal := lpszNewEntryTitle is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, "ptr", ulUIParam, "uint", ulFlags, lpszNewEntryTitleMarshal, lpszNewEntryTitle, ADRLIST.Ptr, lpAdrList, "HRESULT")
+        result := ComCall(20, this, IntPtr, ulUIParam, UInt32, ulFlags, lpszNewEntryTitleMarshal, lpszNewEntryTitle, ADRLIST.Ptr, lpAdrList, "HRESULT")
         return result
     }
 
@@ -428,7 +430,7 @@ export default struct IAddrBook extends IMAPIProp {
         lpvButtonContextMarshal := lpvButtonContext is VarRef ? "ptr" : "ptr"
         lpszButtonTextMarshal := lpszButtonText is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, "ptr", _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, "ptr", lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, "uint", ulFlags, "HRESULT")
+        result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, LPFNDISMISS, _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, LPFNBUTTON, lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -441,7 +443,7 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/windows/win32/api/wabiab/nf-wabiab-iaddrbook-recipoptions
      */
     RecipOptions(ulUIParam, ulFlags, lpRecip) {
-        result := ComCall(23, this, "uint", ulUIParam, "uint", ulFlags, ADRENTRY.Ptr, lpRecip, "HRESULT")
+        result := ComCall(23, this, UInt32, ulUIParam, UInt32, ulFlags, ADRENTRY.Ptr, lpRecip, "HRESULT")
         return result
     }
 
@@ -459,7 +461,7 @@ export default struct IAddrBook extends IMAPIProp {
         lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
         lppOptionsMarshal := lppOptions is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, lpszAdrTypeMarshal, lpszAdrType, "uint", ulFlags, lpcValuesMarshal, lpcValues, lppOptionsMarshal, lppOptions, "HRESULT")
+        result := ComCall(24, this, lpszAdrTypeMarshal, lpszAdrType, UInt32, ulFlags, lpcValuesMarshal, lpcValues, lppOptionsMarshal, lppOptions, "HRESULT")
         return result
     }
 
@@ -498,7 +500,7 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-setpab
      */
     SetPAB(cbEntryID, lpEntryID) {
-        result := ComCall(26, this, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, "HRESULT")
+        result := ComCall(26, this, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, "HRESULT")
         return result
     }
 
@@ -538,7 +540,7 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-setdefaultdir
      */
     SetDefaultDir(cbEntryID, lpEntryID) {
-        result := ComCall(28, this, "uint", cbEntryID, ENTRYID.Ptr, lpEntryID, "HRESULT")
+        result := ComCall(28, this, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, "HRESULT")
         return result
     }
 
@@ -572,7 +574,7 @@ export default struct IAddrBook extends IMAPIProp {
     GetSearchPath(ulFlags, lppSearchPath) {
         lppSearchPathMarshal := lppSearchPath is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(29, this, "uint", ulFlags, lppSearchPathMarshal, lppSearchPath, "HRESULT")
+        result := ComCall(29, this, UInt32, ulFlags, lppSearchPathMarshal, lppSearchPath, "HRESULT")
         return result
     }
 
@@ -594,7 +596,7 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-setsearchpath
      */
     SetSearchPath(ulFlags, lpSearchPath) {
-        result := ComCall(30, this, "uint", ulFlags, SRowSet.Ptr, lpSearchPath, "HRESULT")
+        result := ComCall(30, this, UInt32, ulFlags, SRowSet.Ptr, lpSearchPath, "HRESULT")
         return result
     }
 
@@ -625,7 +627,7 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-preparerecips
      */
     PrepareRecips(ulFlags, lpPropTagArray, lpRecipList) {
-        result := ComCall(31, this, "uint", ulFlags, SPropTagArray.Ptr, lpPropTagArray, ADRLIST.Ptr, lpRecipList, "HRESULT")
+        result := ComCall(31, this, UInt32, ulFlags, SPropTagArray.Ptr, lpPropTagArray, ADRLIST.Ptr, lpRecipList, "HRESULT")
         return result
     }
 

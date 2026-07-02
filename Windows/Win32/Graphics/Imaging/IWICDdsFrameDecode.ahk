@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICRect.ahk" { WICRect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WICDdsFormatInfo.ahk" { WICDdsFormatInfo }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WICRect.ahk" { WICRect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to a single frame of DDS image data in its native DXGI_FORMAT form, as well as information about the image data.
@@ -108,7 +108,7 @@ export default struct IWICDdsFrameDecode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsframedecode-copyblocks
      */
     CopyBlocks(prcBoundsInBlocks, cbStride, cbBufferSize) {
-        result := ComCall(5, this, WICRect.Ptr, prcBoundsInBlocks, "uint", cbStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
+        result := ComCall(5, this, WICRect.Ptr, prcBoundsInBlocks, UInt32, cbStride, UInt32, cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
     }
 

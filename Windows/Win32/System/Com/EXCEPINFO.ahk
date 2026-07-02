@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\LPEXCEPFINO_DEFERRED_FILLIN.ahk" { LPEXCEPFINO_DEFERRED_FILLIN }
 
 /**
  * Describes an exception that occurred during IDispatch::Invoke.
@@ -51,7 +52,7 @@ export default struct EXCEPINFO {
     /**
      * Provides deferred fill-in. If deferred fill-in is not desired, this field should be set to null.
      */
-    pfnDeferredFillIn : IntPtr
+    pfnDeferredFillIn : LPEXCEPFINO_DEFERRED_FILLIN
 
     /**
      * A return value that describes the error. Either this field or wCode (but not both) must be filled in; the other must be set to 0. (16-bit Windows versions only.)

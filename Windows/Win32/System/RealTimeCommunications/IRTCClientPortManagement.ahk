@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\RTC_PORT_TYPE.ahk" { RTC_PORT_TYPE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -48,7 +48,7 @@ export default struct IRTCClientPortManagement extends IUnknown {
     StartListenAddressAndPort(bstrInternalLocalAddress, lInternalLocalPort) {
         bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
 
-        result := ComCall(3, this, BSTR, bstrInternalLocalAddress, "int", lInternalLocalPort, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrInternalLocalAddress, Int32, lInternalLocalPort, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct IRTCClientPortManagement extends IUnknown {
     StopListenAddressAndPort(bstrInternalLocalAddress, lInternalLocalPort) {
         bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
 
-        result := ComCall(4, this, BSTR, bstrInternalLocalAddress, "int", lInternalLocalPort, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrInternalLocalAddress, Int32, lInternalLocalPort, "HRESULT")
         return result
     }
 

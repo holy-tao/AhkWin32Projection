@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ALG_ID.ahk" { ALG_ID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\ALG_ID.ahk" { ALG_ID }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about an object identifier (OID).

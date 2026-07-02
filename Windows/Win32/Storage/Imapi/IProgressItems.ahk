@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IProgressItem.ahk" { IProgressItem }
 #Import ".\IEnumProgressItems.ahk" { IEnumProgressItems }
+#Import ".\IProgressItem.ahk" { IProgressItem }
 
 /**
  * Use this interface to enumerate the progress items in a result image.
@@ -98,7 +98,7 @@ export default struct IProgressItems extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get_item
      */
     get_Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &item := 0, "HRESULT")
+        result := ComCall(8, this, Int32, Index, "ptr*", &item := 0, "HRESULT")
         return IProgressItem(item)
     }
 
@@ -119,7 +119,7 @@ export default struct IProgressItems extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-progressitemfromblock
      */
     ProgressItemFromBlock(block) {
-        result := ComCall(10, this, "uint", block, "ptr*", &item := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, block, "ptr*", &item := 0, "HRESULT")
         return IProgressItem(item)
     }
 

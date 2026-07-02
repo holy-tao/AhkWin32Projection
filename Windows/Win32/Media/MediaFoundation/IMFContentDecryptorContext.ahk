@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows a decryptor to manage hardware keys and decrypt hardware samples.
@@ -49,7 +49,7 @@ export default struct IMFContentDecryptorContext extends IUnknown {
     InitializeHardwareKey(InputPrivateDataByteCount, InputPrivateData) {
         InputPrivateDataMarshal := InputPrivateData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", InputPrivateDataByteCount, InputPrivateDataMarshal, InputPrivateData, "uint*", &OutputPrivateData := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, InputPrivateDataByteCount, InputPrivateDataMarshal, InputPrivateData, "uint*", &OutputPrivateData := 0, "HRESULT")
         return OutputPrivateData
     }
 

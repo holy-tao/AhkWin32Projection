@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ADS_ATTR_DEF.ahk" { ADS_ATTR_DEF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ADS_CLASS_DEF.ahk" { ADS_CLASS_DEF }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ADS_ATTR_DEF.ahk" { ADS_ATTR_DEF }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Not currently implemented and should not be used.
@@ -65,7 +65,7 @@ export default struct IDirectorySchemaMgmt extends IUnknown {
         ppAttrDefinitionMarshal := ppAttrDefinition is VarRef ? "ptr*" : "ptr"
         pdwNumAttributesMarshal := pdwNumAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, ppszAttrNamesMarshal, ppszAttrNames, "uint", dwNumAttributes, ppAttrDefinitionMarshal, ppAttrDefinition, pdwNumAttributesMarshal, pdwNumAttributes, "HRESULT")
+        result := ComCall(3, this, ppszAttrNamesMarshal, ppszAttrNames, UInt32, dwNumAttributes, ppAttrDefinitionMarshal, ppAttrDefinition, pdwNumAttributesMarshal, pdwNumAttributes, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IDirectorySchemaMgmt extends IUnknown {
         ppClassDefinitionMarshal := ppClassDefinition is VarRef ? "ptr*" : "ptr"
         pdwNumClassesMarshal := pdwNumClasses is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, ppszClassNamesMarshal, ppszClassNames, "uint", dwNumClasses, ppClassDefinitionMarshal, ppClassDefinition, pdwNumClassesMarshal, pdwNumClasses, "HRESULT")
+        result := ComCall(7, this, ppszClassNamesMarshal, ppszClassNames, UInt32, dwNumClasses, ppClassDefinitionMarshal, ppClassDefinition, pdwNumClassesMarshal, pdwNumClasses, "HRESULT")
         return result
     }
 

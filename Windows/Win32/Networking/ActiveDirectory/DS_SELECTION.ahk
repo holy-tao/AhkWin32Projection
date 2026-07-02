@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The DS_SELECTION structure contains data about an object the user selected from an object picker dialog box. The DS_SELECTION_LIST structure contains an array of DS_SELECTION structures.

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PERF_DETAIL.ahk" { PERF_DETAIL }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\CounterPathCallBack.ahk" { CounterPathCallBack }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\PERF_DETAIL.ahk" { PERF_DETAIL }
 
 /**
  * The PDH_BROWSE_DLG_CONFIG structure is used by the PdhBrowseCounters function to configure the Browse Performance Counters dialog box. (ANSI)
@@ -146,7 +147,7 @@ export default struct PDH_BROWSE_DLG_CONFIG_A {
      * Pointer to the callback function that processes the user's selection. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nc-pdh-counterpathcallback">CounterPathCallBack</a>.
      */
-    pCallBack : IntPtr
+    pCallBack : CounterPathCallBack
 
     /**
      * Caller-defined value that is passed to the callback function.

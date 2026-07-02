@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The INSSBuffer2 interface inherits from INSSBuffer and defines two additional methods. Currently, neither of these methods is implemented.
@@ -45,7 +45,7 @@ export default struct INSSBuffer2 extends INSSBuffer {
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
      */
     GetSampleProperties(cbProperties) {
-        result := ComCall(8, this, "uint", cbProperties, "char*", &pbProperties := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, cbProperties, "char*", &pbProperties := 0, "HRESULT")
         return pbProperties
     }
 
@@ -59,7 +59,7 @@ export default struct INSSBuffer2 extends INSSBuffer {
     SetSampleProperties(cbProperties, pbProperties) {
         pbPropertiesMarshal := pbProperties is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", cbProperties, pbPropertiesMarshal, pbProperties, "HRESULT")
+        result := ComCall(9, this, UInt32, cbProperties, pbPropertiesMarshal, pbProperties, "HRESULT")
         return result
     }
 

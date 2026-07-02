@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IObjectId.ahk" { IObjectId }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IObjectId.ahk" { IObjectId }
 
 /**
  * The IX509CertificateTemplates interface defines the following methods and properties that manage a collection of IX509CertificateTemplate objects.
@@ -69,7 +69,7 @@ export default struct IX509CertificateTemplates extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-get_itembyindex
      */
     get_ItemByIndex(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Index, "ptr*", &pVal := 0, "HRESULT")
         return IX509CertificateTemplate(pVal)
     }
 
@@ -115,7 +115,7 @@ export default struct IX509CertificateTemplates extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplates-remove
      */
     Remove(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, Int32, Index, "HRESULT")
         return result
     }
 

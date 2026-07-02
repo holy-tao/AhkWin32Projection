@@ -1,4 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\alljoyn_keystorelistener_loadrequest_ptr.ahk" { alljoyn_keystorelistener_loadrequest_ptr }
+#Import ".\alljoyn_keystorelistener_storerequest_ptr.ahk" { alljoyn_keystorelistener_storerequest_ptr }
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -6,8 +8,8 @@
 export default struct alljoyn_keystorelistener_callbacks {
     #StructPack 8
 
-    load_request : IntPtr
+    load_request : alljoyn_keystorelistener_loadrequest_ptr
 
-    store_request : IntPtr
+    store_request : alljoyn_keystorelistener_storerequest_ptr
 
 }

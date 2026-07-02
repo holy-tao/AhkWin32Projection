@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods used to retrieve certain properties of an individual user included in a logon or credential UI.

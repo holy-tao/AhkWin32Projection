@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -48,7 +48,7 @@ export default struct IRegisterProvider extends IUnknown {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
         pclsidProvider := Guid()
-        result := ComCall(3, this, "ptr", pwszURL, "ptr", dwReserved, Guid.Ptr, pclsidProvider, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszURL, IntPtr, dwReserved, Guid.Ptr, pclsidProvider, "HRESULT")
         return pclsidProvider
     }
 
@@ -62,7 +62,7 @@ export default struct IRegisterProvider extends IUnknown {
     SetURLMapping(pwszURL, dwReserved, rclsidProvider) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(4, this, "ptr", pwszURL, "ptr", dwReserved, Guid.Ptr, rclsidProvider, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszURL, IntPtr, dwReserved, Guid.Ptr, rclsidProvider, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IRegisterProvider extends IUnknown {
     UnregisterProvider(pwszURL, dwReserved, rclsidProvider) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(5, this, "ptr", pwszURL, "ptr", dwReserved, Guid.Ptr, rclsidProvider, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszURL, IntPtr, dwReserved, Guid.Ptr, rclsidProvider, "HRESULT")
         return result
     }
 

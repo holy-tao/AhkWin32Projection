@@ -44,7 +44,7 @@ export default struct IMFMediaEngineNeedKeyNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineneedkeynotify-needkey
      */
     NeedKey(initData, cb) {
-        ComCall(3, this, "ptr", initData, "uint", cb)
+        ComCall(3, this, IntPtr, initData, UInt32, cb)
     }
 
     Query(iid) {

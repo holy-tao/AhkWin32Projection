@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface represents a physical device. You use this interface to retrieve information about a CD and DVD device installed on the computer and to perform operations such as closing the tray or eject the media.

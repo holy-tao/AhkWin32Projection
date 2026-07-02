@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAppxBundleReader.ahk" { IAppxBundleReader }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Creates objects for reading and writing bundle packages, with the ability to specify the expected digest for the bundle file.

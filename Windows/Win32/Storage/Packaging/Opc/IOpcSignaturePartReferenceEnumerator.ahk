@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOpcSignaturePartReference.ahk" { IOpcSignaturePartReference }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcSignaturePartReference.ahk" { IOpcSignaturePartReference }
 
 /**
  * A read-only enumerator of IOpcSignaturePartReference interface pointers.

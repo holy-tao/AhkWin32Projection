@@ -1,16 +1,17 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Graphics\Gdi\DEVMODEA.ahk" { DEVMODEA }
-#Import ".\DOCINFOA.ahk" { DOCINFOA }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import ".\PRINT_WINDOW_FLAGS.ahk" { PRINT_WINDOW_FLAGS }
-#Import ".\DOCINFOW.ahk" { DOCINFOW }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Graphics\Gdi\DEVMODEW.ahk" { DEVMODEW }
-#Import ".\PRINTER_DEVICE_CAPABILITIES.ahk" { PRINTER_DEVICE_CAPABILITIES }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOCINFOW.ahk" { DOCINFOW }
+#Import "..\..\Graphics\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Gdi\DEVMODEW.ahk" { DEVMODEW }
+#Import ".\ABORTPROC.ahk" { ABORTPROC }
+#Import ".\DOCINFOA.ahk" { DOCINFOA }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\PRINTER_DEVICE_CAPABILITIES.ahk" { PRINTER_DEVICE_CAPABILITIES }
 
 /**
  * @namespace Windows.Win32.Storage.Xps
@@ -159,7 +160,7 @@ export DeviceCapabilitiesW(pDevice, pPort, fwCapability, pOutput, pDevMode) {
 export Escape(_hdc, iEscape, cjIn, pvIn, pvOut) {
     pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("GDI32.dll\Escape", HDC, _hdc, "int", iEscape, "int", cjIn, "ptr", pvIn, pvOutMarshal, pvOut, Int32)
+    result := DllCall("GDI32.dll\Escape", HDC, _hdc, Int32, iEscape, Int32, cjIn, IntPtr, pvIn, pvOutMarshal, pvOut, Int32)
     return result
 }
 
@@ -408,7 +409,7 @@ export Escape(_hdc, iEscape, cjIn, pvIn, pvOut) {
  * @since windows5.0
  */
 export ExtEscape(_hdc, iEscape, cjInput, lpInData, cjOutput, lpOutData) {
-    result := DllCall("GDI32.dll\ExtEscape", HDC, _hdc, "int", iEscape, "int", cjInput, "ptr", lpInData, "int", cjOutput, "ptr", lpOutData, Int32)
+    result := DllCall("GDI32.dll\ExtEscape", HDC, _hdc, Int32, iEscape, Int32, cjInput, IntPtr, lpInData, Int32, cjOutput, IntPtr, lpOutData, Int32)
     return result
 }
 
@@ -546,7 +547,7 @@ export AbortDoc(_hdc) {
  * @since windows5.0
  */
 export SetAbortProc(_hdc, _proc) {
-    result := DllCall("GDI32.dll\SetAbortProc", HDC, _hdc, "ptr", _proc, Int32)
+    result := DllCall("GDI32.dll\SetAbortProc", HDC, _hdc, ABORTPROC, _proc, Int32)
     return result
 }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMT_STATUS.ahk" { WMT_STATUS }
-#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
 
 /**
  * The IWMStatusCallback interface is implemented by the application to receive status information from various objects.

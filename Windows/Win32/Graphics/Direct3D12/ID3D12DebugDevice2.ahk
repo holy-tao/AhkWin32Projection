@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_DEBUG_DEVICE_PARAMETER_TYPE.ahk" { D3D12_DEBUG_DEVICE_PARAMETER_TYPE }
 #Import ".\ID3D12DebugDevice.ahk" { ID3D12DebugDevice }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_DEBUG_DEVICE_PARAMETER_TYPE.ahk" { D3D12_DEBUG_DEVICE_PARAMETER_TYPE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -45,7 +45,7 @@ export default struct ID3D12DebugDevice2 extends ID3D12DebugDevice {
      * @returns {HRESULT} 
      */
     SetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(6, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(6, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, IntPtr, pData, UInt32, DataSize, "HRESULT")
         return result
     }
 
@@ -57,7 +57,7 @@ export default struct ID3D12DebugDevice2 extends ID3D12DebugDevice {
      * @returns {HRESULT} 
      */
     GetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(7, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(7, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, IntPtr, pData, UInt32, DataSize, "HRESULT")
         return result
     }
 

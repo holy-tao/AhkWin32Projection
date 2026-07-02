@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FH_DEVICE_VALIDATION_RESULT.ahk" { FH_DEVICE_VALIDATION_RESULT }
 
 /**
@@ -103,7 +103,7 @@ export default struct IFhReassociation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhreassociation-getconfigurationdetails
      */
     GetConfigurationDetails(Index, UserName, PcName, BackupTime) {
-        result := ComCall(5, this, "uint", Index, BSTR.Ptr, UserName, BSTR.Ptr, PcName, FILETIME.Ptr, BackupTime, "HRESULT")
+        result := ComCall(5, this, UInt32, Index, BSTR.Ptr, UserName, BSTR.Ptr, PcName, FILETIME.Ptr, BackupTime, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IFhReassociation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhreassociation-selectconfiguration
      */
     SelectConfiguration(Index) {
-        result := ComCall(6, this, "uint", Index, "HRESULT")
+        result := ComCall(6, this, UInt32, Index, "HRESULT")
         return result
     }
 

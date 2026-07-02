@@ -179,7 +179,7 @@ export default struct IADsFileShare extends IADs {
      * @returns {HRESULT} 
      */
     put_MaxUserCount(lnMaxUserCount) {
-        result := ComCall(28, this, "int", lnMaxUserCount, "HRESULT")
+        result := ComCall(28, this, Int32, lnMaxUserCount, "HRESULT")
         return result
     }
 

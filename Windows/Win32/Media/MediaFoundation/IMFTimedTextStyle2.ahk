@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFTimedTextBouten.ahk" { IMFTimedTextBouten }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFTimedTextRuby.ahk" { IMFTimedTextRuby }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFTimedTextRuby.ahk" { IMFTimedTextRuby }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

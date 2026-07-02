@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMDMStorageControl2.ahk" { IWMDMStorageControl2 }
 #Import ".\IWMDMOperation.ahk" { IWMDMOperation }
 #Import ".\IWMDMProgress.ahk" { IWMDMProgress }
-#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
+#Import ".\IWMDMStorageControl2.ahk" { IWMDMStorageControl2 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
 
 /**
  * The IWMDMStorageControl3 interface extends IWMDMStorageControl2 by providing an Insert method that accepts an IWMDMMetaData interface pointer.
@@ -186,7 +186,7 @@ export default struct IWMDMStorageControl3 extends IWMDMStorageControl2 {
         pwszFileSource := pwszFileSource is String ? StrPtr(pwszFileSource) : pwszFileSource
         pwszFileDest := pwszFileDest is String ? StrPtr(pwszFileDest) : pwszFileDest
 
-        result := ComCall(9, this, "uint", fuMode, "uint", fuType, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pMetaData, "ptr", pUnknown, IWMDMStorage.Ptr, ppNewObject, "HRESULT")
+        result := ComCall(9, this, UInt32, fuMode, UInt32, fuType, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pMetaData, "ptr", pUnknown, IWMDMStorage.Ptr, ppNewObject, "HRESULT")
         return result
     }
 

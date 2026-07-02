@@ -1,5 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCryptCloseAlgorithmProviderFn.ahk" { BCryptCloseAlgorithmProviderFn }
+#Import ".\BCryptDestroyKeyFn.ahk" { BCryptDestroyKeyFn }
+#Import ".\BCryptSetPropertyFn.ahk" { BCryptSetPropertyFn }
+#Import ".\BCryptEncryptFn.ahk" { BCryptEncryptFn }
+#Import ".\BCryptGetPropertyFn.ahk" { BCryptGetPropertyFn }
+#Import ".\BCryptSignHashFn.ahk" { BCryptSignHashFn }
+#Import ".\BCryptImportKeyPairFn.ahk" { BCryptImportKeyPairFn }
+#Import ".\BCryptDecryptFn.ahk" { BCryptDecryptFn }
+#Import ".\BCryptOpenAlgorithmProviderFn.ahk" { BCryptOpenAlgorithmProviderFn }
 #Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
+#Import ".\BCryptGenerateKeyPairFn.ahk" { BCryptGenerateKeyPairFn }
+#Import ".\BCryptFinalizeKeyPairFn.ahk" { BCryptFinalizeKeyPairFn }
+#Import ".\BCryptVerifySignatureFn.ahk" { BCryptVerifySignatureFn }
+#Import ".\BCryptExportKeyFn.ahk" { BCryptExportKeyFn }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -9,30 +22,30 @@ export default struct BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE {
 
     Version : BCRYPT_INTERFACE_VERSION
 
-    OpenAlgorithmProvider : IntPtr
+    OpenAlgorithmProvider : BCryptOpenAlgorithmProviderFn
 
-    GetProperty : IntPtr
+    GetProperty : BCryptGetPropertyFn
 
-    SetProperty : IntPtr
+    SetProperty : BCryptSetPropertyFn
 
-    CloseAlgorithmProvider : IntPtr
+    CloseAlgorithmProvider : BCryptCloseAlgorithmProviderFn
 
-    GenerateKeyPair : IntPtr
+    GenerateKeyPair : BCryptGenerateKeyPairFn
 
-    FinalizeKeyPair : IntPtr
+    FinalizeKeyPair : BCryptFinalizeKeyPairFn
 
-    Encrypt : IntPtr
+    Encrypt : BCryptEncryptFn
 
-    Decrypt : IntPtr
+    Decrypt : BCryptDecryptFn
 
-    ImportKeyPair : IntPtr
+    ImportKeyPair : BCryptImportKeyPairFn
 
-    ExportKey : IntPtr
+    ExportKey : BCryptExportKeyFn
 
-    DestroyKey : IntPtr
+    DestroyKey : BCryptDestroyKeyFn
 
-    SignHash : IntPtr
+    SignHash : BCryptSignHashFn
 
-    VerifySignature : IntPtr
+    VerifySignature : BCryptVerifySignatureFn
 
 }

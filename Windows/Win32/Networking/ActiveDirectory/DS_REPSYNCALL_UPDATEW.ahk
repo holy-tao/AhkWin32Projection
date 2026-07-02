@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DS_REPSYNCALL_EVENT.ahk" { DS_REPSYNCALL_EVENT }
-#Import ".\DS_REPSYNCALL_SYNCW.ahk" { DS_REPSYNCALL_SYNCW }
 #Import ".\DS_REPSYNCALL_ERRINFOW.ahk" { DS_REPSYNCALL_ERRINFOW }
+#Import ".\DS_REPSYNCALL_SYNCW.ahk" { DS_REPSYNCALL_SYNCW }
 
 /**
  * The DS_REPSYNCALL_UPDATE structure contains status data about the replication performed by the DsReplicaSyncAll function. (Unicode)

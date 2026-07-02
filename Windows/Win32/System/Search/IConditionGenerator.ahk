@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICondition.ahk" { ICondition }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IConditionFactory.ahk" { IConditionFactory }
 #Import ".\IRichChunk.ahk" { IRichChunk }
-#Import ".\INamedEntityCollector.ahk" { INamedEntityCollector }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISchemaProvider.ahk" { ISchemaProvider }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ITokenCollection.ahk" { ITokenCollection }
+#Import ".\ICondition.ahk" { ICondition }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\INamedEntityCollector.ahk" { INamedEntityCollector }
+#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITokenCollection.ahk" { ITokenCollection }
 
 /**
  * Provides methods for handling named entities and generating special conditions.
@@ -93,7 +93,7 @@ export default struct IConditionGenerator extends IUnknown {
     RecognizeNamedEntities(pszInputString, lcidUserLocale, pTokenCollection, pNamedEntities) {
         pszInputString := pszInputString is String ? StrPtr(pszInputString) : pszInputString
 
-        result := ComCall(4, this, "ptr", pszInputString, "uint", lcidUserLocale, "ptr", pTokenCollection, "ptr", pNamedEntities, "HRESULT")
+        result := ComCall(4, this, "ptr", pszInputString, UInt32, lcidUserLocale, "ptr", pTokenCollection, "ptr", pNamedEntities, "HRESULT")
         return result
     }
 

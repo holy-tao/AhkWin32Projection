@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -212,7 +212,7 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     set_IntervalDuration(ulIntervalDuration) {
-        result := ComCall(10, this, "uint", ulIntervalDuration, "HRESULT")
+        result := ComCall(10, this, UInt32, ulIntervalDuration, "HRESULT")
         return result
     }
 
@@ -250,7 +250,7 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     set_MaxRunCount(ulMaxRunCount) {
-        result := ComCall(14, this, "uint", ulMaxRunCount, "HRESULT")
+        result := ComCall(14, this, UInt32, ulMaxRunCount, "HRESULT")
         return result
     }
 
@@ -269,7 +269,7 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     set_RunCount(ulRunCount) {
-        result := ComCall(16, this, "uint", ulRunCount, "HRESULT")
+        result := ComCall(16, this, UInt32, ulRunCount, "HRESULT")
         return result
     }
 
@@ -288,7 +288,7 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     set_RecurrenceType(ulRecurrenceType) {
-        result := ComCall(18, this, "uint", ulRecurrenceType, "HRESULT")
+        result := ComCall(18, this, UInt32, ulRecurrenceType, "HRESULT")
         return result
     }
 
@@ -315,7 +315,7 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     set_TileXML(pTileXml, cbTileXml) {
         pTileXmlMarshal := pTileXml is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, pTileXmlMarshal, pTileXml, "uint", cbTileXml, "HRESULT")
+        result := ComCall(20, this, pTileXmlMarshal, pTileXml, UInt32, cbTileXml, "HRESULT")
         return result
     }
 
@@ -342,7 +342,7 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     set_UrlXML(pUrlXML, cbUrlXML) {
         pUrlXMLMarshal := pUrlXML is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, pUrlXMLMarshal, pUrlXML, "uint", cbUrlXML, "HRESULT")
+        result := ComCall(22, this, pUrlXMLMarshal, pUrlXML, UInt32, cbUrlXML, "HRESULT")
         return result
     }
 
@@ -361,7 +361,7 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     set_AttemptCount(ulAttemptCount) {
-        result := ComCall(24, this, "uint", ulAttemptCount, "HRESULT")
+        result := ComCall(24, this, UInt32, ulAttemptCount, "HRESULT")
         return result
     }
 
@@ -380,7 +380,7 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     set_DownloadState(ulDownloadState) {
-        result := ComCall(26, this, "uint", ulDownloadState, "HRESULT")
+        result := ComCall(26, this, UInt32, ulDownloadState, "HRESULT")
         return result
     }
 

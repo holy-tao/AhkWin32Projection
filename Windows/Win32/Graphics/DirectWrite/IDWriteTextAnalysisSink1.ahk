@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IDWriteTextAnalysisSink.ahk" { IDWriteTextAnalysisSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
 
 /**
  * The interface you implement to receive the output of the text analyzers.
@@ -75,7 +75,7 @@ export default struct IDWriteTextAnalysisSink1 extends IDWriteTextAnalysisSink {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalysissink1-setglyphorientation
      */
     SetGlyphOrientation(textPosition, textLength, glyphOrientationAngle, adjustedBidiLevel, isSideways, isRightToLeft) {
-        result := ComCall(7, this, "uint", textPosition, "uint", textLength, DWRITE_GLYPH_ORIENTATION_ANGLE, glyphOrientationAngle, "char", adjustedBidiLevel, BOOL, isSideways, BOOL, isRightToLeft, "HRESULT")
+        result := ComCall(7, this, UInt32, textPosition, UInt32, textLength, DWRITE_GLYPH_ORIENTATION_ANGLE, glyphOrientationAngle, Int8, adjustedBidiLevel, BOOL, isSideways, BOOL, isRightToLeft, "HRESULT")
         return result
     }
 

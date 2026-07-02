@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DBPROPINFOSET.ahk" { DBPROPINFOSET }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBPROPINFOSET.ahk" { DBPROPINFOSET }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DBPROPIDSET.ahk" { DBPROPIDSET }
 
 /**
@@ -50,7 +50,7 @@ export default struct IDBDataSourceAdmin extends IUnknown {
      * @returns {IUnknown} 
      */
     CreateDataSource(cPropertySets, rgPropertySets, pUnkOuter, riid) {
-        result := ComCall(3, this, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppDBSession := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppDBSession := 0, "HRESULT")
         return IUnknown(ppDBSession)
     }
 
@@ -77,7 +77,7 @@ export default struct IDBDataSourceAdmin extends IUnknown {
         prgPropertyInfoSetsMarshal := prgPropertyInfoSets is VarRef ? "ptr*" : "ptr"
         ppDescBufferMarshal := ppDescBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "HRESULT")
+        result := ComCall(5, this, UInt32, cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IDBDataSourceAdmin extends IUnknown {
      * @returns {HRESULT} 
      */
     ModifyDataSource(cPropertySets, rgPropertySets) {
-        result := ComCall(6, this, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
+        result := ComCall(6, this, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
         return result
     }
 

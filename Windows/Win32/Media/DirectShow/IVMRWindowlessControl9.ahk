@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRWindowlessControl9 interface controls how the Video Mixing Renderer Filter 9 (VMR-9) renders a video stream within a container window.
@@ -339,7 +339,7 @@ export default struct IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-setaspectratiomode
      */
     SetAspectRatioMode(AspectRatioMode) {
-        result := ComCall(9, this, "uint", AspectRatioMode, "HRESULT")
+        result := ComCall(9, this, UInt32, AspectRatioMode, "HRESULT")
         return result
     }
 

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\LPOCNCONNPROCW.ahk" { LPOCNCONNPROCW }
 #Import ".\OPENCARD_SEARCH_CRITERIAW.ahk" { OPENCARD_SEARCH_CRITERIAW }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * The OPENCARDNAME_EX structure contains the information that the SCardUIDlgSelectCard function uses to initialize a smart card Select Card dialog box. (Unicode)
@@ -116,7 +117,7 @@ export default struct OPENCARDNAME_EXW {
      * 
      * ```
      */
-    lpfnConnect : IntPtr
+    lpfnConnect : LPOCNCONNPROCW
 
     /**
      * A void pointer to user data. This pointer is passed back to the caller on the Connect routine.

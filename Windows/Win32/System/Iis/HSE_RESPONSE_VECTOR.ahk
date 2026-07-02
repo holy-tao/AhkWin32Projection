@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HSE_VECTOR_ELEMENT.ahk" { HSE_VECTOR_ELEMENT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HSE_VECTOR_ELEMENT.ahk" { HSE_VECTOR_ELEMENT }
 
 /**
  * @namespace Windows.Win32.System.Iis

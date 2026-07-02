@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IPersistTuneXmlUtility.ahk" { IPersistTuneXmlUtility }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
 
 /**
  * Defines utility methods for serializing tuning requests (objects that implement the ITuneRequest interface) to XML tuning request strings.

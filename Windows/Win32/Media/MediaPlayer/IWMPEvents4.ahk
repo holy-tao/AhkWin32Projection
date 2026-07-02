@@ -47,7 +47,7 @@ export default struct IWMPEvents4 extends IWMPEvents3 {
      * @returns {String} Nothing - always returns an empty string
      */
     DeviceEstimation(pDevice, hrResult, qwEstimatedUsedSpace, qwEstimatedSpace) {
-        ComCall(65, this, "ptr", pDevice, "int", hrResult, "int64", qwEstimatedUsedSpace, "int64", qwEstimatedSpace)
+        ComCall(65, this, "ptr", pDevice, "int", hrResult, Int64, qwEstimatedUsedSpace, Int64, qwEstimatedSpace)
     }
 
     Query(iid) {

@@ -81,7 +81,7 @@ export default struct IGetClusterNetworkInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusternetworkinfo-getnetworkhandle
      */
     GetNetworkHandle(lObjIndex) {
-        result := ComCall(3, this, "int", lObjIndex, HNETWORK)
+        result := ComCall(3, this, Int32, lObjIndex, HNETWORK)
         return result
     }
 

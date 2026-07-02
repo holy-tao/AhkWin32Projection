@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DHCP_RESERVED_SCOPE.ahk" { DHCP_RESERVED_SCOPE }
 #Import ".\DHCP_OPTION_SCOPE_TYPE.ahk" { DHCP_OPTION_SCOPE_TYPE }
+#Import ".\DHCP_RESERVED_SCOPE.ahk" { DHCP_RESERVED_SCOPE }
 
 /**
  * The DHCP_OPTION_SCOPE_INFO structure defines information about the options provided for a certain DHCP scope.

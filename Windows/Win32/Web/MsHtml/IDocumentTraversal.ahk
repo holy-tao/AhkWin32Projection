@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDOMNodeIterator.ahk" { IDOMNodeIterator }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IDOMTreeWalker.ahk" { IDOMTreeWalker }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -49,7 +49,7 @@ export default struct IDocumentTraversal extends IDispatch {
      * @returns {IDOMNodeIterator} 
      */
     createNodeIterator(pRootNode, ulWhatToShow, pFilter, fEntityReferenceExpansion) {
-        result := ComCall(7, this, "ptr", pRootNode, "int", ulWhatToShow, VARIANT.Ptr, pFilter, VARIANT_BOOL, fEntityReferenceExpansion, "ptr*", &ppNodeIterator := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pRootNode, Int32, ulWhatToShow, VARIANT.Ptr, pFilter, VARIANT_BOOL, fEntityReferenceExpansion, "ptr*", &ppNodeIterator := 0, "HRESULT")
         return IDOMNodeIterator(ppNodeIterator)
     }
 
@@ -62,7 +62,7 @@ export default struct IDocumentTraversal extends IDispatch {
      * @returns {IDOMTreeWalker} 
      */
     createTreeWalker(pRootNode, ulWhatToShow, pFilter, fEntityReferenceExpansion) {
-        result := ComCall(8, this, "ptr", pRootNode, "int", ulWhatToShow, VARIANT.Ptr, pFilter, VARIANT_BOOL, fEntityReferenceExpansion, "ptr*", &ppTreeWalker := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pRootNode, Int32, ulWhatToShow, VARIANT.Ptr, pFilter, VARIANT_BOOL, fEntityReferenceExpansion, "ptr*", &ppTreeWalker := 0, "HRESULT")
         return IDOMTreeWalker(ppTreeWalker)
     }
 

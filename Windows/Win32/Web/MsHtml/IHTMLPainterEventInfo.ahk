@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -78,7 +78,7 @@ export default struct IHTMLPainterEventInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setcursor
      */
     SetCursor(lPartID) {
-        result := ComCall(5, this, "int", lPartID, "HRESULT")
+        result := ComCall(5, this, Int32, lPartID, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IHTMLPainterEventInfo extends IUnknown {
      */
     StringFromPartID(lPartID) {
         pbstrPart := BSTR.Owned()
-        result := ComCall(6, this, "int", lPartID, BSTR.Ptr, pbstrPart, "HRESULT")
+        result := ComCall(6, this, Int32, lPartID, BSTR.Ptr, pbstrPart, "HRESULT")
         return pbstrPart
     }
 

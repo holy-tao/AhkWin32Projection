@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\AUTH_TYPE.ahk" { AUTH_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\AUTH_TYPE.ahk" { AUTH_TYPE }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for manipulating a search root. Changes to property members are applied to any URL that falls under the search root. A URL falls under a search root if it matches the search root URL or is a hierarchical child of that URL.
@@ -338,7 +338,7 @@ export default struct ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-put_enumerationdepth
      */
     put_EnumerationDepth(dwDepth) {
-        result := ComCall(13, this, "uint", dwDepth, "HRESULT")
+        result := ComCall(13, this, UInt32, dwDepth, "HRESULT")
         return result
     }
 
@@ -371,7 +371,7 @@ export default struct ISearchRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchroot-put_hostdepth
      */
     put_HostDepth(dwDepth) {
-        result := ComCall(15, this, "uint", dwDepth, "HRESULT")
+        result := ComCall(15, this, UInt32, dwDepth, "HRESULT")
         return result
     }
 

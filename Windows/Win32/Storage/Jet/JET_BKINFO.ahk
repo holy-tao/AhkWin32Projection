@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\JET_LGPOS.ahk" { JET_LGPOS }
-#Import ".\JET_LOGTIME.ahk" { JET_LOGTIME }
 #Import ".\JET_BKLOGTIME.ahk" { JET_BKLOGTIME }
+#Import ".\JET_LOGTIME.ahk" { JET_LOGTIME }
+#Import ".\JET_LGPOS.ahk" { JET_LGPOS }
 
 /**
  * Learn more about: JET_BKINFO structure

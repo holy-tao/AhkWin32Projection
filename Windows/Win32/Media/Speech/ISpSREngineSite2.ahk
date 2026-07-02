@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPRECOCONTEXTHANDLE.ahk" { SPRECOCONTEXTHANDLE }
 #Import ".\ISpSREngineSite.ahk" { ISpSREngineSite }
-#Import ".\SPRECORESULTINFOEX.ahk" { SPRECORESULTINFOEX }
-#Import ".\SPEVENTEX.ahk" { SPEVENTEX }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPEVENTEX.ahk" { SPEVENTEX }
+#Import ".\SPRECOCONTEXTHANDLE.ahk" { SPRECOCONTEXTHANDLE }
+#Import ".\SPRECORESULTINFOEX.ahk" { SPRECORESULTINFOEX }
 #Import ".\SPTRANSITIONENTRY.ahk" { SPTRANSITIONENTRY }
 
 /**
@@ -60,7 +60,7 @@ export default struct ISpSREngineSite2 extends ISpSREngineSite {
      * @returns {HRESULT} 
      */
     UpdateRecoPosEx(ullCurrentRecoPos, ullCurrentRecoTime) {
-        result := ComCall(22, this, "uint", ullCurrentRecoPos, "uint", ullCurrentRecoTime, "HRESULT")
+        result := ComCall(22, this, Int64, ullCurrentRecoPos, Int64, ullCurrentRecoTime, "HRESULT")
         return result
     }
 
@@ -72,7 +72,7 @@ export default struct ISpSREngineSite2 extends ISpSREngineSite {
      */
     GetRuleTransition(ulGrammarID, RuleIndex) {
         pTrans := SPTRANSITIONENTRY()
-        result := ComCall(23, this, "uint", ulGrammarID, "uint", RuleIndex, SPTRANSITIONENTRY.Ptr, pTrans, "HRESULT")
+        result := ComCall(23, this, UInt32, ulGrammarID, UInt32, RuleIndex, SPTRANSITIONENTRY.Ptr, pTrans, "HRESULT")
         return pTrans
     }
 

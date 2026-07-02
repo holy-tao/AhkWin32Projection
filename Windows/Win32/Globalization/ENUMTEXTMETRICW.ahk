@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Graphics\Gdi\NEWTEXTMETRICW.ahk" { NEWTEXTMETRICW }
-#Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
-#Import "..\Graphics\Gdi\AXESLISTW.ahk" { AXESLISTW }
-#Import ".\NEWTEXTMETRICEXW.ahk" { NEWTEXTMETRICEXW }
 #Import "..\Graphics\Gdi\AXISINFOW.ahk" { AXISINFOW }
+#Import "..\Graphics\Gdi\AXESLISTW.ahk" { AXESLISTW }
+#Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
+#Import "..\Graphics\Gdi\NEWTEXTMETRICW.ahk" { NEWTEXTMETRICW }
 #Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
+#Import ".\NEWTEXTMETRICEXW.ahk" { NEWTEXTMETRICEXW }
 #Import "..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

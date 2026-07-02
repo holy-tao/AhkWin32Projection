@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MD_CHANGE_OBJECT_W.ahk" { MD_CHANGE_OBJECT_W }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -44,7 +44,7 @@ export default struct IMSAdminBaseSinkW extends IUnknown {
      * @returns {HRESULT} 
      */
     SinkNotify(dwMDNumElements, pcoChangeList) {
-        result := ComCall(3, this, "uint", dwMDNumElements, MD_CHANGE_OBJECT_W.Ptr, pcoChangeList, "HRESULT")
+        result := ComCall(3, this, UInt32, dwMDNumElements, MD_CHANGE_OBJECT_W.Ptr, pcoChangeList, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOpcRelationshipSelectorEnumerator.ahk" { IOpcRelationshipSelectorEnumerator }
 #Import ".\OPC_RELATIONSHIPS_SIGNING_OPTION.ahk" { OPC_RELATIONSHIPS_SIGNING_OPTION }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcRelationshipSelectorEnumerator.ahk" { IOpcRelationshipSelectorEnumerator }
 #Import ".\IOpcUri.ahk" { IOpcUri }
 
 /**

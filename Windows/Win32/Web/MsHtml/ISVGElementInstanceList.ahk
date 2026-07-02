@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISVGElementInstance.ahk" { ISVGElementInstance }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISVGElementInstance.ahk" { ISVGElementInstance }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -65,7 +65,7 @@ export default struct ISVGElementInstanceList extends IDispatch {
      * @returns {ISVGElementInstance} 
      */
     item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGElementInstance(ppResult)
     }
 

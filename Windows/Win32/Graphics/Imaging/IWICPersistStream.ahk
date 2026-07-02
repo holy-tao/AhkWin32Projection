@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IPersistStream.ahk" { IPersistStream }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods that provide additional load and save methods that take WICPersistOptions.
@@ -59,7 +59,7 @@ export default struct IWICPersistStream extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicpersiststream-loadex
      */
     LoadEx(pIStream, pguidPreferredVendor, dwPersistOptions) {
-        result := ComCall(8, this, "ptr", pIStream, Guid.Ptr, pguidPreferredVendor, "uint", dwPersistOptions, "HRESULT")
+        result := ComCall(8, this, "ptr", pIStream, Guid.Ptr, pguidPreferredVendor, UInt32, dwPersistOptions, "HRESULT")
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct IWICPersistStream extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicpersiststream-saveex
      */
     SaveEx(pIStream, dwPersistOptions, fClearDirty) {
-        result := ComCall(9, this, "ptr", pIStream, "uint", dwPersistOptions, BOOL, fClearDirty, "HRESULT")
+        result := ComCall(9, this, "ptr", pIStream, UInt32, dwPersistOptions, BOOL, fClearDirty, "HRESULT")
         return result
     }
 

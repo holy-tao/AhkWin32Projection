@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -43,7 +43,7 @@ export default struct IPrintWriteStream extends IUnknown {
      * @returns {Integer} 
      */
     WriteBytes(pvBuffer, cbBuffer) {
-        result := ComCall(3, this, "ptr", pvBuffer, "uint", cbBuffer, "uint*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, pvBuffer, UInt32, cbBuffer, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 

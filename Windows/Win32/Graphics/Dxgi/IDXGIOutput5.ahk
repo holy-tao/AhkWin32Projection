@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDXGIOutput4.ahk" { IDXGIOutput4 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDXGIOutputDuplication.ahk" { IDXGIOutputDuplication }
 #Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput5 interface exposes a single method to specify a list of supported formats for fullscreen surfaces.
@@ -68,7 +68,7 @@ export default struct IDXGIOutput5 extends IDXGIOutput4 {
     DuplicateOutput1(pDevice, Flags, SupportedFormatsCount, pSupportedFormats) {
         pSupportedFormatsMarshal := pSupportedFormats is VarRef ? "int*" : "ptr"
 
-        result := ComCall(26, this, "ptr", pDevice, "uint", Flags, "uint", SupportedFormatsCount, pSupportedFormatsMarshal, pSupportedFormats, "ptr*", &ppOutputDuplication := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", pDevice, UInt32, Flags, UInt32, SupportedFormatsCount, pSupportedFormatsMarshal, pSupportedFormats, "ptr*", &ppOutputDuplication := 0, "HRESULT")
         return IDXGIOutputDuplication(ppOutputDuplication)
     }
 

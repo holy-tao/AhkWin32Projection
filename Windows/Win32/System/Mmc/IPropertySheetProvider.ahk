@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDataObject.ahk" { IDataObject }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IComponent.ahk" { IComponent }
 
 /**
@@ -74,7 +74,7 @@ export default struct IPropertySheetProvider extends IUnknown {
     CreatePropertySheet(title, type, cookie, pIDataObjectm, dwOptions) {
         title := title is String ? StrPtr(title) : title
 
-        result := ComCall(3, this, "ptr", title, "char", type, "ptr", cookie, "ptr", pIDataObjectm, "uint", dwOptions, "HRESULT")
+        result := ComCall(3, this, "ptr", title, Int8, type, IntPtr, cookie, "ptr", pIDataObjectm, UInt32, dwOptions, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IPropertySheetProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ipropertysheetprovider-findpropertysheet
      */
     FindPropertySheet(hItem, lpComponent, lpDataObject) {
-        result := ComCall(4, this, "ptr", hItem, "ptr", lpComponent, "ptr", lpDataObject, "HRESULT")
+        result := ComCall(4, this, IntPtr, hItem, "ptr", lpComponent, "ptr", lpDataObject, "HRESULT")
         return result
     }
 
@@ -156,7 +156,7 @@ export default struct IPropertySheetProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ipropertysheetprovider-show
      */
     Show(window, page) {
-        result := ComCall(7, this, "ptr", window, "int", page, "HRESULT")
+        result := ComCall(7, this, IntPtr, window, Int32, page, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CMINVOKECOMMANDINFO.ahk" { CMINVOKECOMMANDINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CMINVOKECOMMANDINFO.ahk" { CMINVOKECOMMANDINFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
@@ -93,7 +93,7 @@ export default struct IContextMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu-querycontextmenu
      */
     QueryContextMenu(_hmenu, indexMenu, idCmdFirst, idCmdLast, uFlags) {
-        result := ComCall(3, this, HMENU, _hmenu, "uint", indexMenu, "uint", idCmdFirst, "uint", idCmdLast, "uint", uFlags, Int32)
+        result := ComCall(3, this, HMENU, _hmenu, UInt32, indexMenu, UInt32, idCmdFirst, UInt32, idCmdLast, UInt32, uFlags, Int32)
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IContextMenu extends IUnknown {
 
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(5, this, "ptr", idCmd, "uint", uType, "uint*", pReserved, "ptr", pszName, "uint", cchMax, "HRESULT")
+        result := ComCall(5, this, IntPtr, idCmd, UInt32, uType, "uint*", pReserved, "ptr", pszName, UInt32, cchMax, "HRESULT")
         return result
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWPM_CLASSIFY_OPTIONS0.ahk" { FWPM_CLASSIFY_OPTIONS0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWPM_PROVIDER_CONTEXT_TYPE.ahk" { FWPM_PROVIDER_CONTEXT_TYPE }
 #Import ".\IPSEC_TUNNEL_POLICY0.ahk" { IPSEC_TUNNEL_POLICY0 }
 #Import ".\IKEEXT_POLICY0.ahk" { IKEEXT_POLICY0 }
-#Import ".\FWPM_CLASSIFY_OPTIONS0.ahk" { FWPM_CLASSIFY_OPTIONS0 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPSEC_KEYING_POLICY0.ahk" { IPSEC_KEYING_POLICY0 }
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
-#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
-#Import ".\FWPM_PROVIDER_CONTEXT_TYPE.ahk" { FWPM_PROVIDER_CONTEXT_TYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IPSEC_TRANSPORT_POLICY0.ahk" { IPSEC_TRANSPORT_POLICY0 }
+#Import ".\IPSEC_KEYING_POLICY0.ahk" { IPSEC_KEYING_POLICY0 }
+#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 
 /**
  * Stores the state associated with a provider context. (FWPM_PROVIDER_CONTEXT0)

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAdviseSink.ahk" { IAdviseSink }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\STGMEDIUM.ahk" { STGMEDIUM }
-#Import ".\FORMATETC.ahk" { FORMATETC }
-#Import ".\IEnumSTATDATA.ahk" { IEnumSTATDATA }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumFORMATETC.ahk" { IEnumFORMATETC }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\STGMEDIUM.ahk" { STGMEDIUM }
+#Import ".\IEnumSTATDATA.ahk" { IEnumSTATDATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAdviseSink.ahk" { IAdviseSink }
+#Import ".\FORMATETC.ahk" { FORMATETC }
 
 /**
  * Enables data transfer and notification of changes in data.
@@ -489,7 +489,7 @@ export default struct IDataObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-enumformatetc
      */
     EnumFormatEtc(dwDirection) {
-        result := ComCall(8, this, "uint", dwDirection, "ptr*", &ppenumFormatEtc := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwDirection, "ptr*", &ppenumFormatEtc := 0, "HRESULT")
         return IEnumFORMATETC(ppenumFormatEtc)
     }
 
@@ -574,7 +574,7 @@ export default struct IDataObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-dadvise
      */
     DAdvise(pformatetc, _advf, pAdvSink) {
-        result := ComCall(9, this, FORMATETC.Ptr, pformatetc, "uint", _advf, "ptr", pAdvSink, "uint*", &pdwConnection := 0, "HRESULT")
+        result := ComCall(9, this, FORMATETC.Ptr, pformatetc, UInt32, _advf, "ptr", pAdvSink, "uint*", &pdwConnection := 0, "HRESULT")
         return pdwConnection
     }
 
@@ -618,7 +618,7 @@ export default struct IDataObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-dunadvise
      */
     DUnadvise(dwConnection) {
-        result := ComCall(10, this, "uint", dwConnection, "HRESULT")
+        result := ComCall(10, this, UInt32, dwConnection, "HRESULT")
         return result
     }
 

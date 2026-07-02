@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICorProfilerInfo9.ahk" { ICorProfilerInfo9 }
+#Import ".\ObjectReferenceCallback.ahk" { ObjectReferenceCallback }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ICorProfilerInfo9.ahk" { ICorProfilerInfo9 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -51,7 +52,7 @@ export default struct ICorProfilerInfo10 extends ICorProfilerInfo9 {
     EnumerateObjectReferences(_objectId, callback, clientData) {
         clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(93, this, "ptr", _objectId, "ptr", callback, clientDataMarshal, clientData, "HRESULT")
+        result := ComCall(93, this, IntPtr, _objectId, ObjectReferenceCallback, callback, clientDataMarshal, clientData, "HRESULT")
         return result
     }
 
@@ -64,7 +65,7 @@ export default struct ICorProfilerInfo10 extends ICorProfilerInfo9 {
     IsFrozenObject(_objectId, pbFrozen) {
         pbFrozenMarshal := pbFrozen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(94, this, "ptr", _objectId, pbFrozenMarshal, pbFrozen, "HRESULT")
+        result := ComCall(94, this, IntPtr, _objectId, pbFrozenMarshal, pbFrozen, "HRESULT")
         return result
     }
 
@@ -92,7 +93,7 @@ export default struct ICorProfilerInfo10 extends ICorProfilerInfo9 {
         moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
         methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(96, this, "uint", dwRejitFlags, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
+        result := ComCall(96, this, UInt32, dwRejitFlags, UInt32, cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
         return result
     }
 

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IScriptEntry.ahk" { IScriptEntry }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

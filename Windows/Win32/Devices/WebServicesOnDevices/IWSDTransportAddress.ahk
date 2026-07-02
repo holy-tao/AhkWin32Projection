@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWSDAddress.ahk" { IWSDAddress }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents an IP-based transport address.
@@ -78,7 +78,7 @@ export default struct IWSDTransportAddress extends IWSDAddress {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-setport
      */
     SetPort(wPort) {
-        result := ComCall(6, this, "ushort", wPort, "HRESULT")
+        result := ComCall(6, this, UInt16, wPort, "HRESULT")
         return result
     }
 

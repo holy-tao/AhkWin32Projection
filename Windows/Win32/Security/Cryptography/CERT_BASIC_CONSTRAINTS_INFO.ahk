@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
 
 /**

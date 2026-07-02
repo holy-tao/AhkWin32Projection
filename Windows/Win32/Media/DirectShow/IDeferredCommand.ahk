@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDeferredCommand interface cancels or modify graph-control commands that were queued using the IQueueCommand interface.When an application calls an IQueueCommand method on the Filter Graph Manager, it receives a pointer to the IDeferredCommand interface. The application can use the interface to cancel or postpone the command, or retrieve the return value from the command.
@@ -125,7 +125,7 @@ export default struct IDeferredCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-postpone
      */
     Postpone(newtime) {
-        result := ComCall(5, this, "double", newtime, "HRESULT")
+        result := ComCall(5, this, Float64, newtime, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IControlChangeNotify interface provides notifications when the status of a part (connector or subunit) changes.
@@ -47,7 +47,7 @@ export default struct IControlChangeNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-icontrolchangenotify-onnotify
      */
     OnNotify(dwSenderProcessId, pguidEventContext) {
-        result := ComCall(3, this, "uint", dwSenderProcessId, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSenderProcessId, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 

@@ -1,21 +1,21 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION.ahk" { USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION }
+#Import ".\WINUSB_POWER_POLICY.ahk" { WINUSB_POWER_POLICY }
+#Import ".\USBD_ISO_PACKET_DESCRIPTOR.ahk" { USBD_ISO_PACKET_DESCRIPTOR }
+#Import ".\WINUSB_PIPE_INFORMATION.ahk" { WINUSB_PIPE_INFORMATION }
+#Import ".\USB_INTERFACE_DESCRIPTOR.ahk" { USB_INTERFACE_DESCRIPTOR }
+#Import ".\USB_COMMON_DESCRIPTOR.ahk" { USB_COMMON_DESCRIPTOR }
 #Import ".\USB_CONFIGURATION_DESCRIPTOR.ahk" { USB_CONFIGURATION_DESCRIPTOR }
+#Import ".\USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION.ahk" { USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION }
+#Import ".\WINUSB_INTERFACE_HANDLE.ahk" { WINUSB_INTERFACE_HANDLE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION.ahk" { USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION }
-#Import ".\USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION.ahk" { USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION }
-#Import ".\WINUSB_PIPE_POLICY.ahk" { WINUSB_PIPE_POLICY }
-#Import ".\USBD_ISO_PACKET_DESCRIPTOR.ahk" { USBD_ISO_PACKET_DESCRIPTOR }
-#Import ".\USB_INTERFACE_DESCRIPTOR.ahk" { USB_INTERFACE_DESCRIPTOR }
-#Import ".\WINUSB_PIPE_INFORMATION.ahk" { WINUSB_PIPE_INFORMATION }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\WINUSB_PIPE_INFORMATION_EX.ahk" { WINUSB_PIPE_INFORMATION_EX }
-#Import ".\USB_COMMON_DESCRIPTOR.ahk" { USB_COMMON_DESCRIPTOR }
+#Import ".\WINUSB_PIPE_POLICY.ahk" { WINUSB_PIPE_POLICY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WINUSB_INTERFACE_HANDLE.ahk" { WINUSB_INTERFACE_HANDLE }
-#Import ".\WINUSB_POWER_POLICY.ahk" { WINUSB_POWER_POLICY }
 #Import ".\WINUSB_SETUP_PACKET.ahk" { WINUSB_SETUP_PACKET }
+#Import ".\USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION.ahk" { USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -189,7 +189,7 @@ export WinUsb_Free(InterfaceHandle) {
 export WinUsb_GetAssociatedInterface(InterfaceHandle, AssociatedInterfaceIndex, AssociatedInterfaceHandle) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_GetAssociatedInterface", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", AssociatedInterfaceIndex, WINUSB_INTERFACE_HANDLE.Ptr, AssociatedInterfaceHandle, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_GetAssociatedInterface", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, AssociatedInterfaceIndex, WINUSB_INTERFACE_HANDLE.Ptr, AssociatedInterfaceHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -247,7 +247,7 @@ export WinUsb_GetDescriptor(InterfaceHandle, DescriptorType, Index, LanguageID, 
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", DescriptorType, "char", Index, "ushort", LanguageID, "ptr", _Buffer, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, DescriptorType, Int8, Index, UInt16, LanguageID, IntPtr, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -306,7 +306,7 @@ export WinUsb_GetDescriptor(InterfaceHandle, DescriptorType, Index, LanguageID, 
 export WinUsb_QueryInterfaceSettings(InterfaceHandle, AlternateInterfaceNumber, UsbAltInterfaceDescriptor) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_QueryInterfaceSettings", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", AlternateInterfaceNumber, USB_INTERFACE_DESCRIPTOR.Ptr, UsbAltInterfaceDescriptor, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_QueryInterfaceSettings", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, AlternateInterfaceNumber, USB_INTERFACE_DESCRIPTOR.Ptr, UsbAltInterfaceDescriptor, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -355,7 +355,7 @@ export WinUsb_QueryDeviceInformation(InterfaceHandle, InformationType, BufferLen
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_QueryDeviceInformation", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "uint", InformationType, BufferLengthMarshal, BufferLength, "ptr", _Buffer, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_QueryDeviceInformation", WINUSB_INTERFACE_HANDLE, InterfaceHandle, UInt32, InformationType, BufferLengthMarshal, BufferLength, IntPtr, _Buffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -400,7 +400,7 @@ export WinUsb_QueryDeviceInformation(InterfaceHandle, InformationType, BufferLen
 export WinUsb_SetCurrentAlternateSetting(InterfaceHandle, SettingNumber) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_SetCurrentAlternateSetting", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", SettingNumber, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_SetCurrentAlternateSetting", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, SettingNumber, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -514,7 +514,7 @@ export WinUsb_GetCurrentAlternateSetting(InterfaceHandle, SettingNumber) {
 export WinUsb_QueryPipe(InterfaceHandle, AlternateInterfaceNumber, PipeIndex, PipeInformation) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_QueryPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", AlternateInterfaceNumber, "char", PipeIndex, WINUSB_PIPE_INFORMATION.Ptr, PipeInformation, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_QueryPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, AlternateInterfaceNumber, Int8, PipeIndex, WINUSB_PIPE_INFORMATION.Ptr, PipeInformation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -583,7 +583,7 @@ export WinUsb_QueryPipe(InterfaceHandle, AlternateInterfaceNumber, PipeIndex, Pi
 export WinUsb_QueryPipeEx(InterfaceHandle, AlternateSettingNumber, PipeIndex, PipeInformationEx) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_QueryPipeEx", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", AlternateSettingNumber, "char", PipeIndex, WINUSB_PIPE_INFORMATION_EX.Ptr, PipeInformationEx, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_QueryPipeEx", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, AlternateSettingNumber, Int8, PipeIndex, WINUSB_PIPE_INFORMATION_EX.Ptr, PipeInformationEx, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -651,7 +651,7 @@ export WinUsb_QueryPipeEx(InterfaceHandle, AlternateSettingNumber, PipeIndex, Pi
 export WinUsb_SetPipePolicy(InterfaceHandle, PipeID, PolicyType, ValueLength, Value) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_SetPipePolicy", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", PipeID, WINUSB_PIPE_POLICY, PolicyType, "uint", ValueLength, "ptr", Value, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_SetPipePolicy", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, WINUSB_PIPE_POLICY, PolicyType, UInt32, ValueLength, IntPtr, Value, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -699,7 +699,7 @@ export WinUsb_GetPipePolicy(InterfaceHandle, PipeID, PolicyType, ValueLength, Va
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_GetPipePolicy", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", PipeID, WINUSB_PIPE_POLICY, PolicyType, ValueLengthMarshal, ValueLength, "ptr", Value, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_GetPipePolicy", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, WINUSB_PIPE_POLICY, PolicyType, ValueLengthMarshal, ValueLength, IntPtr, Value, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -794,7 +794,7 @@ export WinUsb_ReadPipe(InterfaceHandle, PipeID, _Buffer, BufferLength, LengthTra
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ReadPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", PipeID, "ptr", _Buffer, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_ReadPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, IntPtr, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, OVERLAPPED.Ptr, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -892,7 +892,7 @@ export WinUsb_WritePipe(InterfaceHandle, PipeID, _Buffer, BufferLength, LengthTr
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_WritePipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", PipeID, "ptr", _Buffer, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_WritePipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, IntPtr, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, OVERLAPPED.Ptr, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -969,7 +969,7 @@ export WinUsb_ControlTransfer(InterfaceHandle, SetupPacket, _Buffer, BufferLengt
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", WINUSB_INTERFACE_HANDLE, InterfaceHandle, WINUSB_SETUP_PACKET, SetupPacket, "ptr", _Buffer, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", WINUSB_INTERFACE_HANDLE, InterfaceHandle, WINUSB_SETUP_PACKET, SetupPacket, IntPtr, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, OVERLAPPED.Ptr, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1012,7 +1012,7 @@ export WinUsb_ControlTransfer(InterfaceHandle, SetupPacket, _Buffer, BufferLengt
 export WinUsb_ResetPipe(InterfaceHandle, PipeID) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ResetPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", PipeID, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_ResetPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1055,7 +1055,7 @@ export WinUsb_ResetPipe(InterfaceHandle, PipeID) {
 export WinUsb_AbortPipe(InterfaceHandle, PipeID) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_AbortPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", PipeID, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_AbortPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1096,7 +1096,7 @@ export WinUsb_AbortPipe(InterfaceHandle, PipeID) {
 export WinUsb_FlushPipe(InterfaceHandle, PipeID) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_FlushPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", PipeID, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_FlushPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1225,7 +1225,7 @@ export WinUsb_FlushPipe(InterfaceHandle, PipeID) {
 export WinUsb_SetPowerPolicy(InterfaceHandle, PolicyType, ValueLength, Value) {
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_SetPowerPolicy", WINUSB_INTERFACE_HANDLE, InterfaceHandle, WINUSB_POWER_POLICY, PolicyType, "uint", ValueLength, "ptr", Value, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_SetPowerPolicy", WINUSB_INTERFACE_HANDLE, InterfaceHandle, WINUSB_POWER_POLICY, PolicyType, UInt32, ValueLength, IntPtr, Value, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1311,7 +1311,7 @@ export WinUsb_GetPowerPolicy(InterfaceHandle, PolicyType, ValueLength, Value) {
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_GetPowerPolicy", WINUSB_INTERFACE_HANDLE, InterfaceHandle, WINUSB_POWER_POLICY, PolicyType, ValueLengthMarshal, ValueLength, "ptr", Value, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_GetPowerPolicy", WINUSB_INTERFACE_HANDLE, InterfaceHandle, WINUSB_POWER_POLICY, PolicyType, ValueLengthMarshal, ValueLength, IntPtr, Value, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1367,7 +1367,7 @@ export WinUsb_ParseConfigurationDescriptor(ConfigurationDescriptor, StartPositio
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ParseConfigurationDescriptor", USB_CONFIGURATION_DESCRIPTOR.Ptr, ConfigurationDescriptor, StartPositionMarshal, StartPosition, "int", InterfaceNumber, "int", AlternateSetting, "int", InterfaceClass, "int", InterfaceSubClass, "int", InterfaceProtocol, USB_INTERFACE_DESCRIPTOR.Ptr)
+    result := DllCall("WINUSB.dll\WinUsb_ParseConfigurationDescriptor", USB_CONFIGURATION_DESCRIPTOR.Ptr, ConfigurationDescriptor, StartPositionMarshal, StartPosition, Int32, InterfaceNumber, Int32, AlternateSetting, Int32, InterfaceClass, Int32, InterfaceSubClass, Int32, InterfaceProtocol, USB_INTERFACE_DESCRIPTOR.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1388,7 +1388,7 @@ export WinUsb_ParseDescriptors(DescriptorBuffer, TotalLength, StartPosition, Des
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ParseDescriptors", "ptr", DescriptorBuffer, "uint", TotalLength, StartPositionMarshal, StartPosition, "int", DescriptorType, USB_COMMON_DESCRIPTOR.Ptr)
+    result := DllCall("WINUSB.dll\WinUsb_ParseDescriptors", IntPtr, DescriptorBuffer, UInt32, TotalLength, StartPositionMarshal, StartPosition, Int32, DescriptorType, USB_COMMON_DESCRIPTOR.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1434,7 +1434,7 @@ export WinUsb_GetAdjustedFrameNumber(CurrentFrameNumber, _TimeStamp) {
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_GetAdjustedFrameNumber", CurrentFrameNumberMarshal, CurrentFrameNumber, "int64", _TimeStamp, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_GetAdjustedFrameNumber", CurrentFrameNumberMarshal, CurrentFrameNumber, Int64, _TimeStamp, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1462,7 +1462,7 @@ export WinUsb_RegisterIsochBuffer(InterfaceHandle, PipeID, _Buffer, BufferLength
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_RegisterIsochBuffer", WINUSB_INTERFACE_HANDLE, InterfaceHandle, "char", PipeID, "ptr", _Buffer, "uint", BufferLength, IsochBufferHandleMarshal, IsochBufferHandle, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_RegisterIsochBuffer", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, IntPtr, _Buffer, UInt32, BufferLength, IsochBufferHandleMarshal, IsochBufferHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1515,7 +1515,7 @@ export WinUsb_WriteIsochPipe(BufferHandle, Offset, Length, FrameNumber, _Overlap
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, FrameNumberMarshal, FrameNumber, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, FrameNumberMarshal, FrameNumber, OVERLAPPED.Ptr, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1548,7 +1548,7 @@ export WinUsb_ReadIsochPipe(BufferHandle, Offset, Length, FrameNumber, NumberOfP
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, FrameNumberMarshal, FrameNumber, "uint", NumberOfPackets, USBD_ISO_PACKET_DESCRIPTOR.Ptr, IsoPacketDescriptors, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, FrameNumberMarshal, FrameNumber, UInt32, NumberOfPackets, USBD_ISO_PACKET_DESCRIPTOR.Ptr, IsoPacketDescriptors, OVERLAPPED.Ptr, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1583,7 +1583,7 @@ export WinUsb_WriteIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, _
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipeAsap", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, BOOL, ContinueStream, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipeAsap", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, BOOL, ContinueStream, OVERLAPPED.Ptr, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1621,7 +1621,7 @@ export WinUsb_ReadIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, Nu
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipeAsap", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, BOOL, ContinueStream, "uint", NumberOfPackets, USBD_ISO_PACKET_DESCRIPTOR.Ptr, IsoPacketDescriptors, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipeAsap", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, BOOL, ContinueStream, UInt32, NumberOfPackets, USBD_ISO_PACKET_DESCRIPTOR.Ptr, IsoPacketDescriptors, OVERLAPPED.Ptr, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

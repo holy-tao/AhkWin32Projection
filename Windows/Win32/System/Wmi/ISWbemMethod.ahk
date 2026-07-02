@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISWbemObject.ahk" { ISWbemObject }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISWbemObject.ahk" { ISWbemObject }
+#Import ".\ISWbemQualifierSet.ahk" { ISWbemQualifierSet }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISWbemQualifierSet.ahk" { ISWbemQualifierSet }
 
 /**
  * @namespace Windows.Win32.System.Wmi

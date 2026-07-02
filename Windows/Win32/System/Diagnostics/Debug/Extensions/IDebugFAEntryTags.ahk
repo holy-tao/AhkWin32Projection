@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\FA_ENTRY_TYPE.ahk" { FA_ENTRY_TYPE }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -72,7 +72,7 @@ export default struct IDebugFAEntryTags extends Win32ComInterface {
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
         DescSizeMarshal := DescSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(2, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Name, NameSizeMarshal, NameSize, "ptr", Description, DescSizeMarshal, DescSize, "uint*", &Flags := 0, "HRESULT")
+        result := ComCall(2, this, DEBUG_FLR_PARAM_TYPE, Tag, IntPtr, Name, NameSizeMarshal, NameSize, IntPtr, Description, DescSizeMarshal, DescSize, "uint*", &Flags := 0, "HRESULT")
         return Flags
     }
 
@@ -88,7 +88,7 @@ export default struct IDebugFAEntryTags extends Win32ComInterface {
         Name := Name is String ? StrPtr(Name) : Name
         Description := Description is String ? StrPtr(Description) : Description
 
-        result := ComCall(3, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Name, "ptr", Description, "uint", Flags, "HRESULT")
+        result := ComCall(3, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Name, "ptr", Description, UInt32, Flags, "HRESULT")
         return result
     }
 

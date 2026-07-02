@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\IOleInPlaceActiveObject.ahk" { IOleInPlaceActiveObject }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOleWindow.ahk" { IOleWindow }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Implemented by container applications and used by object applications to negotiate border space on the document or frame window.

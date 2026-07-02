@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDxcCompiler3.ahk" { IDxcCompiler3 }
-#Import ".\IDxcVersionInfo.ahk" { IDxcVersionInfo }
-#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDxcBlob.ahk" { IDxcBlob }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DxcArgPair.ahk" { DxcArgPair }
+#Import ".\IDxcVersionInfo.ahk" { IDxcVersionInfo }
 #Import ".\IDxcResult.ahk" { IDxcResult }
+#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDxcCompiler3.ahk" { IDxcCompiler3 }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DxcArgPair.ahk" { DxcArgPair }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -158,7 +158,7 @@ export default struct IDxcPdbUtils extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     GetSource(uIndex) {
-        result := ComCall(5, this, "uint", uIndex, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, uIndex, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcBlobEncoding(ppResult)
     }
 
@@ -169,7 +169,7 @@ export default struct IDxcPdbUtils extends IUnknown {
      */
     GetSourceName(uIndex) {
         pResult := BSTR.Owned()
-        result := ComCall(6, this, "uint", uIndex, BSTR.Ptr, pResult, "HRESULT")
+        result := ComCall(6, this, UInt32, uIndex, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -189,7 +189,7 @@ export default struct IDxcPdbUtils extends IUnknown {
      */
     GetFlag(uIndex) {
         pResult := BSTR.Owned()
-        result := ComCall(8, this, "uint", uIndex, BSTR.Ptr, pResult, "HRESULT")
+        result := ComCall(8, this, UInt32, uIndex, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -209,7 +209,7 @@ export default struct IDxcPdbUtils extends IUnknown {
      */
     GetArg(uIndex) {
         pResult := BSTR.Owned()
-        result := ComCall(10, this, "uint", uIndex, BSTR.Ptr, pResult, "HRESULT")
+        result := ComCall(10, this, UInt32, uIndex, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -230,7 +230,7 @@ export default struct IDxcPdbUtils extends IUnknown {
      * @returns {HRESULT} 
      */
     GetArgPair(uIndex, pName, pValue) {
-        result := ComCall(12, this, "uint", uIndex, BSTR.Ptr, pName, BSTR.Ptr, pValue, "HRESULT")
+        result := ComCall(12, this, UInt32, uIndex, BSTR.Ptr, pName, BSTR.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -250,7 +250,7 @@ export default struct IDxcPdbUtils extends IUnknown {
      */
     GetDefine(uIndex) {
         pResult := BSTR.Owned()
-        result := ComCall(14, this, "uint", uIndex, BSTR.Ptr, pResult, "HRESULT")
+        result := ComCall(14, this, UInt32, uIndex, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -357,7 +357,7 @@ export default struct IDxcPdbUtils extends IUnknown {
      * @returns {HRESULT} 
      */
     OverrideArgs(pArgPairs, uNumArgPairs) {
-        result := ComCall(25, this, DxcArgPair.Ptr, pArgPairs, "uint", uNumArgPairs, "HRESULT")
+        result := ComCall(25, this, DxcArgPair.Ptr, pArgPairs, UInt32, uNumArgPairs, "HRESULT")
         return result
     }
 

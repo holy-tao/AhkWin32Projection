@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WTSSBX_SESSION_STATE.ahk" { WTSSBX_SESSION_STATE }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\WTSSBX_SESSION_STATE.ahk" { WTSSBX_SESSION_STATE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

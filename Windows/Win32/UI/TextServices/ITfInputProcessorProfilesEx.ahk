@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfInputProcessorProfiles.ahk" { ITfInputProcessorProfiles }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfInputProcessorProfiles.ahk" { ITfInputProcessorProfiles }
 
 /**
  * This interface is implemented by the TSF manager and used by a text service or application to set the display description of the language profile.
@@ -52,7 +52,7 @@ export default struct ITfInputProcessorProfilesEx extends ITfInputProcessorProfi
     SetLanguageProfileDisplayName(rclsid, langid, guidProfile, pchFile, cchFile, uResId) {
         pchFile := pchFile is String ? StrPtr(pchFile) : pchFile
 
-        result := ComCall(21, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, "ptr", pchFile, "uint", cchFile, "uint", uResId, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, "ptr", pchFile, UInt32, cchFile, UInt32, uResId, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * The LOGPEN structure defines the style, width, and color of a pen. The CreatePenIndirect function uses the LOGPEN structure.

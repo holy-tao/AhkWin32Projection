@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITravelLogEntry.ahk" { ITravelLogEntry }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITravelLogEntry.ahk" { ITravelLogEntry }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -49,7 +49,7 @@ export default struct IEnumTravelLogEntry extends IUnknown {
     Next(cElt, rgElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cElt, ITravelLogEntry.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cElt, ITravelLogEntry.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
         return result
     }
 
@@ -59,7 +59,7 @@ export default struct IEnumTravelLogEntry extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(cElt) {
-        result := ComCall(4, this, "uint", cElt, "HRESULT")
+        result := ComCall(4, this, UInt32, cElt, "HRESULT")
         return result
     }
 

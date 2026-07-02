@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLStyleSheetPage.ahk" { IHTMLStyleSheetPage }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLStyleSheetPage.ahk" { IHTMLStyleSheetPage }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -65,7 +65,7 @@ export default struct IHTMLStyleSheetPagesCollection extends IDispatch {
      * @returns {IHTMLStyleSheetPage} 
      */
     item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &ppHTMLStyleSheetPage := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "ptr*", &ppHTMLStyleSheetPage := 0, "HRESULT")
         return IHTMLStyleSheetPage(ppHTMLStyleSheetPage)
     }
 

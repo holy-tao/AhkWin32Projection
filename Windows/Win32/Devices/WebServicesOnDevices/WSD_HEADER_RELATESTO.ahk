@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents a RelatesTo SOAP envelope header block, as specified by the WS-Addressing specification.

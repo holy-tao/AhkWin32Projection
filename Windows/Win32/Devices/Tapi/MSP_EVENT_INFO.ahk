@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITStream.ahk" { ITStream }
-#Import ".\FT_STATE_EVENT_CAUSE.ahk" { FT_STATE_EVENT_CAUSE }
-#Import ".\MSP_CALL_EVENT.ahk" { MSP_CALL_EVENT }
-#Import ".\MSP_CALL_EVENT_CAUSE.ahk" { MSP_CALL_EVENT_CAUSE }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\MSP_ADDRESS_EVENT.ahk" { MSP_ADDRESS_EVENT }
-#Import ".\ITTerminal.ahk" { ITTerminal }
-#Import ".\ITFileTrack.ahk" { ITFileTrack }
-#Import ".\TERMINAL_MEDIA_STATE.ahk" { TERMINAL_MEDIA_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MSP_EVENT.ahk" { MSP_EVENT }
+#Import ".\TERMINAL_MEDIA_STATE.ahk" { TERMINAL_MEDIA_STATE }
+#Import ".\ITFileTrack.ahk" { ITFileTrack }
+#Import ".\MSP_ADDRESS_EVENT.ahk" { MSP_ADDRESS_EVENT }
+#Import ".\FT_STATE_EVENT_CAUSE.ahk" { FT_STATE_EVENT_CAUSE }
+#Import ".\ITTerminal.ahk" { ITTerminal }
+#Import ".\MSP_CALL_EVENT.ahk" { MSP_CALL_EVENT }
+#Import ".\ITStream.ahk" { ITStream }
+#Import ".\MSP_CALL_EVENT_CAUSE.ahk" { MSP_CALL_EVENT_CAUSE }
 
 /**
  * The MSP_EVENT_INFO (msp.h) structure defines the type of event returned by the GetEvent method.

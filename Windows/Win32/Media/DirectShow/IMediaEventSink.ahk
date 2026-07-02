@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the Filter Graph Manager of events that occur within the filter graph.
@@ -48,7 +48,7 @@ export default struct IMediaEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaeventsink-notify
      */
     Notify(EventCode, EventParam1, EventParam2) {
-        result := ComCall(3, this, "int", EventCode, "ptr", EventParam1, "ptr", EventParam2, "HRESULT")
+        result := ComCall(3, this, Int32, EventCode, IntPtr, EventParam1, IntPtr, EventParam2, "HRESULT")
         return result
     }
 

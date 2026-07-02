@@ -58,7 +58,7 @@ export default struct IHTMLStyleSheetRuleApplied extends IDispatch {
      * @returns {Integer} 
      */
     msGetSpecificity(index) {
-        result := ComCall(8, this, "int", index, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "int*", &p := 0, "HRESULT")
         return p
     }
 

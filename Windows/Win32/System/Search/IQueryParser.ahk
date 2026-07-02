@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
-#Import ".\ICondition.ahk" { ICondition }
-#Import ".\STRUCTURED_QUERY_SINGLE_OPTION.ahk" { STRUCTURED_QUERY_SINGLE_OPTION }
-#Import ".\ISchemaProvider.ahk" { ISchemaProvider }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\STRUCTURED_QUERY_MULTIOPTION.ahk" { STRUCTURED_QUERY_MULTIOPTION }
-#Import ".\IQuerySolution.ahk" { IQuerySolution }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IQuerySolution.ahk" { IQuerySolution }
+#Import ".\STRUCTURED_QUERY_MULTIOPTION.ahk" { STRUCTURED_QUERY_MULTIOPTION }
+#Import ".\STRUCTURED_QUERY_SINGLE_OPTION.ahk" { STRUCTURED_QUERY_SINGLE_OPTION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICondition.ahk" { ICondition }
+#Import ".\ISchemaProvider.ahk" { ISchemaProvider }
 
 /**
  * Provides methods to parse an input string into an IQuerySolution object.

@@ -1,6 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
 #Import ".\WSC_SECURITY_PROVIDER_HEALTH.ahk" { WSC_SECURITY_PROVIDER_HEALTH }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
@@ -26,7 +27,7 @@ export WscRegisterForChanges(Reserved, phCallbackRegistration, lpCallbackAddress
     ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WSCAPI.dll\WscRegisterForChanges", ReservedMarshal, Reserved, HANDLE.Ptr, phCallbackRegistration, "ptr", lpCallbackAddress, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("WSCAPI.dll\WscRegisterForChanges", ReservedMarshal, Reserved, HANDLE.Ptr, phCallbackRegistration, LPTHREAD_START_ROUTINE, lpCallbackAddress, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
@@ -65,7 +66,7 @@ export WscRegisterForUserNotifications() {
 export WscGetSecurityProviderHealth(Providers, pHealth) {
     pHealthMarshal := pHealth is VarRef ? "int*" : "ptr"
 
-    result := DllCall("WSCAPI.dll\WscGetSecurityProviderHealth", "uint", Providers, pHealthMarshal, pHealth, "HRESULT")
+    result := DllCall("WSCAPI.dll\WscGetSecurityProviderHealth", UInt32, Providers, pHealthMarshal, pHealth, "HRESULT")
     return result
 }
 

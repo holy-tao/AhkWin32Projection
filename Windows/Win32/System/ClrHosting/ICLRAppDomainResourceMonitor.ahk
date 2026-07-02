@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -46,7 +46,7 @@ export default struct ICLRAppDomainResourceMonitor extends IUnknown {
     GetCurrentAllocated(dwAppDomainId, pBytesAllocated) {
         pBytesAllocatedMarshal := pBytesAllocated is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwAppDomainId, pBytesAllocatedMarshal, pBytesAllocated, "HRESULT")
+        result := ComCall(3, this, UInt32, dwAppDomainId, pBytesAllocatedMarshal, pBytesAllocated, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct ICLRAppDomainResourceMonitor extends IUnknown {
         pAppDomainBytesSurvivedMarshal := pAppDomainBytesSurvived is VarRef ? "uint*" : "ptr"
         pTotalBytesSurvivedMarshal := pTotalBytesSurvived is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwAppDomainId, pAppDomainBytesSurvivedMarshal, pAppDomainBytesSurvived, pTotalBytesSurvivedMarshal, pTotalBytesSurvived, "HRESULT")
+        result := ComCall(4, this, UInt32, dwAppDomainId, pAppDomainBytesSurvivedMarshal, pAppDomainBytesSurvived, pTotalBytesSurvivedMarshal, pTotalBytesSurvived, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct ICLRAppDomainResourceMonitor extends IUnknown {
     GetCurrentCpuTime(dwAppDomainId, pMilliseconds) {
         pMillisecondsMarshal := pMilliseconds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwAppDomainId, pMillisecondsMarshal, pMilliseconds, "HRESULT")
+        result := ComCall(5, this, UInt32, dwAppDomainId, pMillisecondsMarshal, pMilliseconds, "HRESULT")
         return result
     }
 

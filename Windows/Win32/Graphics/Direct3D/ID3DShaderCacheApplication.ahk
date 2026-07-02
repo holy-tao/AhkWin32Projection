@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3DShaderCacheComponent.ahk" { ID3DShaderCacheComponent }
 #Import ".\D3D_SHADER_CACHE_PSDB_PROPERTIES.ahk" { D3D_SHADER_CACHE_PSDB_PROPERTIES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\D3D_SHADER_CACHE_APPLICATION_DESC.ahk" { D3D_SHADER_CACHE_APPLICATION_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3DShaderCacheComponent.ahk" { ID3DShaderCacheComponent }
+#Import ".\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk" { D3D_SHADER_CACHE_COMPILER_PROPERTIES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\D3D_SHADER_CACHE_TARGET_FLAGS.ahk" { D3D_SHADER_CACHE_TARGET_FLAGS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk" { D3D_SHADER_CACHE_COMPILER_PROPERTIES }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
@@ -81,7 +81,7 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
         pName := pName is String ? StrPtr(pName) : pName
         pStateObjectDBPath := pStateObjectDBPath is String ? StrPtr(pStateObjectDBPath) : pStateObjectDBPath
 
-        result := ComCall(5, this, "ptr", pName, "ptr", pStateObjectDBPath, "uint", NumPSDB, D3D_SHADER_CACHE_PSDB_PROPERTIES.Ptr, pPSDBs, Guid.Ptr, riid, "ptr*", &ppvComponent := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pName, "ptr", pStateObjectDBPath, UInt32, NumPSDB, D3D_SHADER_CACHE_PSDB_PROPERTIES.Ptr, pPSDBs, Guid.Ptr, riid, "ptr*", &ppvComponent := 0, "HRESULT")
         return ppvComponent
     }
 
@@ -111,7 +111,7 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     GetComponent(index, riid) {
-        result := ComCall(8, this, "uint", index, Guid.Ptr, riid, "ptr*", &ppvComponent := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, index, Guid.Ptr, riid, "ptr*", &ppvComponent := 0, "HRESULT")
         return ppvComponent
     }
 
@@ -133,7 +133,7 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
      * @returns {HRESULT} 
      */
     GetPrecompileTargets(ArraySize, pArray, flags) {
-        result := ComCall(10, this, "uint", ArraySize, D3D_SHADER_CACHE_COMPILER_PROPERTIES.Ptr, pArray, D3D_SHADER_CACHE_TARGET_FLAGS, flags, "HRESULT")
+        result := ComCall(10, this, UInt32, ArraySize, D3D_SHADER_CACHE_COMPILER_PROPERTIES.Ptr, pArray, D3D_SHADER_CACHE_TARGET_FLAGS, flags, "HRESULT")
         return result
     }
 

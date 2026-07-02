@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFSourceReader.ahk" { IMFSourceReader }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFTransform.ahk" { IMFTransform }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFSourceReader.ahk" { IMFSourceReader }
+#Import ".\IMFTransform.ahk" { IMFTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IMFSourceReader interface.
@@ -86,7 +86,7 @@ export default struct IMFSourceReaderEx extends IMFSourceReader {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereaderex-setnativemediatype
      */
     SetNativeMediaType(dwStreamIndex, pMediaType) {
-        result := ComCall(13, this, "uint", dwStreamIndex, "ptr", pMediaType, "uint*", &pdwStreamFlags := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwStreamIndex, "ptr", pMediaType, "uint*", &pdwStreamFlags := 0, "HRESULT")
         return pdwStreamFlags
     }
 
@@ -212,7 +212,7 @@ export default struct IMFSourceReaderEx extends IMFSourceReader {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereaderex-addtransformforstream
      */
     AddTransformForStream(dwStreamIndex, pTransformOrActivate) {
-        result := ComCall(14, this, "uint", dwStreamIndex, "ptr", pTransformOrActivate, "HRESULT")
+        result := ComCall(14, this, UInt32, dwStreamIndex, "ptr", pTransformOrActivate, "HRESULT")
         return result
     }
 
@@ -307,7 +307,7 @@ export default struct IMFSourceReaderEx extends IMFSourceReader {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereaderex-removealltransformsforstream
      */
     RemoveAllTransformsForStream(dwStreamIndex) {
-        result := ComCall(15, this, "uint", dwStreamIndex, "HRESULT")
+        result := ComCall(15, this, UInt32, dwStreamIndex, "HRESULT")
         return result
     }
 
@@ -433,7 +433,7 @@ export default struct IMFSourceReaderEx extends IMFSourceReader {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereaderex-gettransformforstream
      */
     GetTransformForStream(dwStreamIndex, dwTransformIndex, pGuidCategory, ppTransform) {
-        result := ComCall(16, this, "uint", dwStreamIndex, "uint", dwTransformIndex, Guid.Ptr, pGuidCategory, IMFTransform.Ptr, ppTransform, "HRESULT")
+        result := ComCall(16, this, UInt32, dwStreamIndex, UInt32, dwTransformIndex, Guid.Ptr, pGuidCategory, IMFTransform.Ptr, ppTransform, "HRESULT")
         return result
     }
 

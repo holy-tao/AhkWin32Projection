@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DS_SELECTION.ahk" { DS_SELECTION }
 
 /**

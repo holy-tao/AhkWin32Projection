@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PID_MAP.ahk" { PID_MAP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumPIDMap interface enumerates a collection of Packet ID (PID) maps.
@@ -49,7 +49,7 @@ export default struct IEnumPIDMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ienumpidmap-next
      */
     Next(cRequest, pPIDMap) {
-        result := ComCall(3, this, "uint", cRequest, PID_MAP.Ptr, pPIDMap, "uint*", &pcReceived := 0, Int32)
+        result := ComCall(3, this, UInt32, cRequest, PID_MAP.Ptr, pPIDMap, "uint*", &pcReceived := 0, Int32)
         return pcReceived
     }
 
@@ -89,7 +89,7 @@ export default struct IEnumPIDMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ienumpidmap-skip
      */
     Skip(cRecords) {
-        result := ComCall(4, this, "uint", cRecords, "HRESULT")
+        result := ComCall(4, this, UInt32, cRecords, "HRESULT")
         return result
     }
 

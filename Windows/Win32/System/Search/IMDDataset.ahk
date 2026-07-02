@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MDAXISINFO.ahk" { MDAXISINFO }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import ".\MDAXISINFO.ahk" { MDAXISINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -49,7 +49,7 @@ export default struct IMDDataset extends IUnknown {
      * @returns {HRESULT} 
      */
     FreeAxisInfo(cAxes, rgAxisInfo) {
-        result := ComCall(3, this, "ptr", cAxes, MDAXISINFO.Ptr, rgAxisInfo, "HRESULT")
+        result := ComCall(3, this, IntPtr, cAxes, MDAXISINFO.Ptr, rgAxisInfo, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct IMDDataset extends IUnknown {
      * @returns {IUnknown} 
      */
     GetAxisRowset(pUnkOuter, iAxis, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(5, this, "ptr", pUnkOuter, "ptr", iAxis, Guid.Ptr, riid, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pUnkOuter, IntPtr, iAxis, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
         return IUnknown(ppRowset)
     }
 
@@ -87,7 +87,7 @@ export default struct IMDDataset extends IUnknown {
      * @returns {Void} 
      */
     GetCellData(_hAccessor, ulStartCell, ulEndCell) {
-        result := ComCall(6, this, HACCESSOR, _hAccessor, "ptr", ulStartCell, "ptr", ulEndCell, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(6, this, HACCESSOR, _hAccessor, IntPtr, ulStartCell, IntPtr, ulEndCell, "ptr", &pData := 0, "HRESULT")
         return pData
     }
 

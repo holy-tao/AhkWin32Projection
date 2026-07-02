@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemStatusCodeText interface extracts text string descriptions of error codes or the name of the subsystem where the error occurred.
@@ -59,7 +59,7 @@ export default struct IWbemStatusCodeText extends IUnknown {
      */
     GetErrorCodeText(hRes, LocaleId, lFlags) {
         MessageText := BSTR.Owned()
-        result := ComCall(3, this, "int", hRes, "uint", LocaleId, "int", lFlags, BSTR.Ptr, MessageText, "HRESULT")
+        result := ComCall(3, this, "int", hRes, UInt32, LocaleId, Int32, lFlags, BSTR.Ptr, MessageText, "HRESULT")
         return MessageText
     }
 
@@ -78,7 +78,7 @@ export default struct IWbemStatusCodeText extends IUnknown {
      */
     GetFacilityCodeText(hRes, LocaleId, lFlags) {
         MessageText := BSTR.Owned()
-        result := ComCall(4, this, "int", hRes, "uint", LocaleId, "int", lFlags, BSTR.Ptr, MessageText, "HRESULT")
+        result := ComCall(4, this, "int", hRes, UInt32, LocaleId, Int32, lFlags, BSTR.Ptr, MessageText, "HRESULT")
         return MessageText
     }
 

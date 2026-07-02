@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
 #Import ".\RESULT_VIEW_TYPE_INFO.ahk" { RESULT_VIEW_TYPE_INFO }
+#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IComponent.ahk" { IComponent }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComponent.ahk" { IComponent }
 
 /**
  * The IComponent2 interface, implemented by snap-ins, is introduced in MMC 2.0 and supersedes the IComponent interface.
@@ -51,7 +51,7 @@ export default struct IComponent2 extends IComponent {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent2-querydispatch
      */
     QueryDispatch(cookie, type) {
-        result := ComCall(10, this, "ptr", cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDispatch := 0, "HRESULT")
+        result := ComCall(10, this, IntPtr, cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDispatch := 0, "HRESULT")
         return IDispatch(ppDispatch)
     }
 
@@ -74,7 +74,7 @@ export default struct IComponent2 extends IComponent {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent2-getresultviewtype2
      */
     GetResultViewType2(cookie, pResultViewType) {
-        result := ComCall(11, this, "ptr", cookie, RESULT_VIEW_TYPE_INFO.Ptr, pResultViewType, "HRESULT")
+        result := ComCall(11, this, IntPtr, cookie, RESULT_VIEW_TYPE_INFO.Ptr, pResultViewType, "HRESULT")
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IComponent2 extends IComponent {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent2-restoreresultview
      */
     RestoreResultView(cookie, pResultViewType) {
-        result := ComCall(12, this, "ptr", cookie, RESULT_VIEW_TYPE_INFO.Ptr, pResultViewType, "HRESULT")
+        result := ComCall(12, this, IntPtr, cookie, RESULT_VIEW_TYPE_INFO.Ptr, pResultViewType, "HRESULT")
         return result
     }
 

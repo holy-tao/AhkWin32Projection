@@ -45,7 +45,7 @@ export default struct ID3D12GraphicsCommandList7 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist7-barrier
      */
     Barrier(NumBarrierGroups, pBarrierGroups) {
-        ComCall(80, this, "uint", NumBarrierGroups, D3D12_BARRIER_GROUP.Ptr, pBarrierGroups)
+        ComCall(80, this, UInt32, NumBarrierGroups, D3D12_BARRIER_GROUP.Ptr, pBarrierGroups)
     }
 
     Query(iid) {

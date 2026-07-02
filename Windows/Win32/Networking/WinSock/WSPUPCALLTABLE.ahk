@@ -1,4 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPWPUFDISSET.ahk" { LPWPUFDISSET }
+#Import ".\LPWPUQUEUEAPC.ahk" { LPWPUQUEUEAPC }
+#Import ".\LPWPUCREATESOCKETHANDLE.ahk" { LPWPUCREATESOCKETHANDLE }
+#Import ".\LPWPUCLOSEEVENT.ahk" { LPWPUCLOSEEVENT }
+#Import ".\LPWPUGETPROVIDERPATH.ahk" { LPWPUGETPROVIDERPATH }
+#Import ".\LPWPUQUERYSOCKETHANDLECONTEXT.ahk" { LPWPUQUERYSOCKETHANDLECONTEXT }
+#Import ".\LPWPUCREATEEVENT.ahk" { LPWPUCREATEEVENT }
+#Import ".\LPWPUMODIFYIFSHANDLE.ahk" { LPWPUMODIFYIFSHANDLE }
+#Import ".\LPWPUCLOSETHREAD.ahk" { LPWPUCLOSETHREAD }
+#Import ".\LPWPURESETEVENT.ahk" { LPWPURESETEVENT }
+#Import ".\LPWPUOPENCURRENTTHREAD.ahk" { LPWPUOPENCURRENTTHREAD }
+#Import ".\LPWPUPOSTMESSAGE.ahk" { LPWPUPOSTMESSAGE }
+#Import ".\LPWPUSETEVENT.ahk" { LPWPUSETEVENT }
+#Import ".\LPWPUCLOSESOCKETHANDLE.ahk" { LPWPUCLOSESOCKETHANDLE }
+#Import ".\LPWPUQUERYBLOCKINGCALLBACK.ahk" { LPWPUQUERYBLOCKINGCALLBACK }
 
 /**
  * Contains a table of pointers to service provider upcall functions.
@@ -15,104 +30,104 @@ export default struct WSPUPCALLTABLE {
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpucloseevent">WPUCloseEvent</a> function.
      */
-    lpWPUCloseEvent : IntPtr
+    lpWPUCloseEvent : LPWPUCLOSEEVENT
 
     /**
      * Type: **LPWPUCLOSESOCKETHANDLE**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuclosesockethandle">WPUCloseSocketHandle</a> function.
      */
-    lpWPUCloseSocketHandle : IntPtr
+    lpWPUCloseSocketHandle : LPWPUCLOSESOCKETHANDLE
 
     /**
      * Type: **LPWPUCREATEEVENT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpucreateevent">WPUCreateEvent</a> function.
      */
-    lpWPUCreateEvent : IntPtr
+    lpWPUCreateEvent : LPWPUCREATEEVENT
 
     /**
      * Type: **LPWPUCREATESOCKETHANDLE**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wpucreatesockethandle">WPUCreateSocketHandle</a> function.
      */
-    lpWPUCreateSocketHandle : IntPtr
+    lpWPUCreateSocketHandle : LPWPUCREATESOCKETHANDLE
 
     /**
      * Type: **LPWPUFDISSET**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpufdisset">WPUFDIsSet</a> function.
      */
-    lpWPUFDIsSet : IntPtr
+    lpWPUFDIsSet : LPWPUFDISSET
 
     /**
      * Type: **LPWPUGETPROVIDERPATH**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpugetproviderpath">WPUGetProviderPath</a> function.
      */
-    lpWPUGetProviderPath : IntPtr
+    lpWPUGetProviderPath : LPWPUGETPROVIDERPATH
 
     /**
      * Type: **LPWPUMODIFYIFSHANDLE**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpumodifyifshandle">WPUModifyIFSHandle</a> function.
      */
-    lpWPUModifyIFSHandle : IntPtr
+    lpWPUModifyIFSHandle : LPWPUMODIFYIFSHANDLE
 
     /**
      * Type: **LPWPUPOSTMESSAGE**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpupostmessage">WPUPostMessage</a> function.
      */
-    lpWPUPostMessage : IntPtr
+    lpWPUPostMessage : LPWPUPOSTMESSAGE
 
     /**
      * Type: **LPWPUQUERYBLOCKINGCALLBACK**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuqueryblockingcallback">WPUQueryBlockingCallback</a> function.
      */
-    lpWPUQueryBlockingCallback : IntPtr
+    lpWPUQueryBlockingCallback : LPWPUQUERYBLOCKINGCALLBACK
 
     /**
      * Type: **LPWPUQUERYSOCKETHANDLECONTEXT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuquerysockethandlecontext">WPUQuerySocketHandleContext</a> function.
      */
-    lpWPUQuerySocketHandleContext : IntPtr
+    lpWPUQuerySocketHandleContext : LPWPUQUERYSOCKETHANDLECONTEXT
 
     /**
      * Type: **LPWPUQUEUEAPC**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuqueueapc">WPUQueueApc</a> function.
      */
-    lpWPUQueueApc : IntPtr
+    lpWPUQueueApc : LPWPUQUEUEAPC
 
     /**
      * Type: **LPWPURESETEVENT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuresetevent">WPUResetEvent</a> function.
      */
-    lpWPUResetEvent : IntPtr
+    lpWPUResetEvent : LPWPURESETEVENT
 
     /**
      * Type: **LPWPUSETEVENT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpusetevent">WPUSetEvent</a> function.
      */
-    lpWPUSetEvent : IntPtr
+    lpWPUSetEvent : LPWPUSETEVENT
 
     /**
      * Type: **LPWPUOPENCURRENTTHREAD**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuopencurrentthread">WPUOpenCurrentThread</a> function.
      */
-    lpWPUOpenCurrentThread : IntPtr
+    lpWPUOpenCurrentThread : LPWPUOPENCURRENTTHREAD
 
     /**
      * Type: **LPWPUCLOSETHREAD**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuclosethread">WPUCloseThread</a> function.
      */
-    lpWPUCloseThread : IntPtr
+    lpWPUCloseThread : LPWPUCLOSETHREAD
 
 }

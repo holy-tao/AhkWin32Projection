@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RGNDATAHEADER.ahk" { RGNDATAHEADER }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\RGNDATAHEADER.ahk" { RGNDATAHEADER }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOleDocumentView.ahk" { IOleDocumentView }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleDocumentView.ahk" { IOleDocumentView }
 
 /**
  * Enumerates the views supported by a document object.
@@ -58,7 +58,7 @@ export default struct IEnumOleDocumentViews extends IUnknown {
     Next(cViews, rgpView, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cViews, IOleDocumentView.Ptr, rgpView, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cViews, IOleDocumentView.Ptr, rgpView, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct IEnumOleDocumentViews extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ienumoledocumentviews-skip
      */
     Skip(cViews) {
-        result := ComCall(4, this, "uint", cViews, "HRESULT")
+        result := ComCall(4, this, UInt32, cViews, "HRESULT")
         return result
     }
 

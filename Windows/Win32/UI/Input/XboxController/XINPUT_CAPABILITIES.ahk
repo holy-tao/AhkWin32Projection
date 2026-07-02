@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\XINPUT_DEVTYPE.ahk" { XINPUT_DEVTYPE }
-#Import ".\XINPUT_VIBRATION.ahk" { XINPUT_VIBRATION }
 #Import ".\XINPUT_DEVSUBTYPE.ahk" { XINPUT_DEVSUBTYPE }
+#Import ".\XINPUT_VIBRATION.ahk" { XINPUT_VIBRATION }
+#Import ".\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk" { XINPUT_GAMEPAD_BUTTON_FLAGS }
+#Import ".\XINPUT_DEVTYPE.ahk" { XINPUT_DEVTYPE }
 #Import ".\XINPUT_CAPABILITIES_FLAGS.ahk" { XINPUT_CAPABILITIES_FLAGS }
 #Import ".\XINPUT_GAMEPAD.ahk" { XINPUT_GAMEPAD }
-#Import ".\XINPUT_GAMEPAD_BUTTON_FLAGS.ahk" { XINPUT_GAMEPAD_BUTTON_FLAGS }
 
 /**
  * Describes the capabilities of a connected controller. The XInputGetCapabilities function returns XINPUT_CAPABILITIES.

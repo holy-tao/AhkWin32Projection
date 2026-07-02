@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_FENCE_FLAGS.ahk" { D3D12_FENCE_FLAGS }
 #Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\D3D12_FENCE_FLAGS.ahk" { D3D12_FENCE_FLAGS }
 
 /**
  * Represents a fence. This interface extends ID3D12Fence, and supports the retrieval of the flags used to create the original fence.

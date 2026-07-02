@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DVDMenuIDConstants.ahk" { DVDMenuIDConstants }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IMSVidPlaybackEvent.ahk" { IMSVidPlaybackEvent }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\DVDMenuIDConstants.ahk" { DVDMenuIDConstants }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidPlaybackEvent.ahk" { IMSVidPlaybackEvent }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -87,7 +87,7 @@ export default struct IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/dvdnotify
      */
     DVDNotify(lEventCode, lParam1, lParam2) {
-        result := ComCall(8, this, "int", lEventCode, VARIANT, lParam1, VARIANT, lParam2, "HRESULT")
+        result := ComCall(8, this, Int32, lEventCode, VARIANT, lParam1, VARIANT, lParam2, "HRESULT")
         return result
     }
 

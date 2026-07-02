@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VMR9VideoStreamInfo.ahk" { VMR9VideoStreamInfo }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRImageCompositor9 interface is implemented by the default compositor for the Video Mixing Renderer Filter 9 (VMR-9).
@@ -137,7 +137,7 @@ export default struct IVMRImageCompositor9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrimagecompositor9-setstreammediatype
      */
     SetStreamMediaType(dwStrmID, pmt, fTexture) {
-        result := ComCall(5, this, "uint", dwStrmID, AM_MEDIA_TYPE.Ptr, pmt, BOOL, fTexture, "HRESULT")
+        result := ComCall(5, this, UInt32, dwStrmID, AM_MEDIA_TYPE.Ptr, pmt, BOOL, fTexture, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IVMRImageCompositor9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrimagecompositor9-compositeimage
      */
     CompositeImage(pD3DDevice, pddsRenderTarget, pmtRenderTarget, rtStart, rtEnd, dwClrBkGnd, pVideoStreamInfo, cStreams) {
-        result := ComCall(6, this, "ptr", pD3DDevice, "ptr", pddsRenderTarget, AM_MEDIA_TYPE.Ptr, pmtRenderTarget, "int64", rtStart, "int64", rtEnd, "uint", dwClrBkGnd, VMR9VideoStreamInfo.Ptr, pVideoStreamInfo, "uint", cStreams, "HRESULT")
+        result := ComCall(6, this, "ptr", pD3DDevice, "ptr", pddsRenderTarget, AM_MEDIA_TYPE.Ptr, pmtRenderTarget, Int64, rtStart, Int64, rtEnd, UInt32, dwClrBkGnd, VMR9VideoStreamInfo.Ptr, pVideoStreamInfo, UInt32, cStreams, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -47,7 +47,7 @@ export default struct IMDFind extends IUnknown {
     FindCell(ulStartingOrdinal, cMembers, rgpwszMember) {
         rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ulStartingOrdinal, "ptr", cMembers, rgpwszMemberMarshal, rgpwszMember, "ptr*", &pulCellOrdinal := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, ulStartingOrdinal, IntPtr, cMembers, rgpwszMemberMarshal, rgpwszMember, "ptr*", &pulCellOrdinal := 0, "HRESULT")
         return pulCellOrdinal
     }
 
@@ -62,7 +62,7 @@ export default struct IMDFind extends IUnknown {
     FindTuple(ulAxisIdentifier, ulStartingOrdinal, cMembers, rgpwszMember) {
         rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulAxisIdentifier, "ptr", ulStartingOrdinal, "ptr", cMembers, rgpwszMemberMarshal, rgpwszMember, "uint*", &pulTupleOrdinal := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, ulAxisIdentifier, IntPtr, ulStartingOrdinal, IntPtr, cMembers, rgpwszMemberMarshal, rgpwszMember, "uint*", &pulTupleOrdinal := 0, "HRESULT")
         return pulTupleOrdinal
     }
 

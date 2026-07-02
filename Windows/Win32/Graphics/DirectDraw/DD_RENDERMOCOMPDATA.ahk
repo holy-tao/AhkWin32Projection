@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DD_MOTIONCOMP_LOCAL.ahk" { DD_MOTIONCOMP_LOCAL }
 #Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
 #Import ".\DDMOCOMPBUFFERINFO.ahk" { DDMOCOMPBUFFERINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DD_MOTIONCOMP_LOCAL.ahk" { DD_MOTIONCOMP_LOCAL }
 
 /**
  * The DD_RENDERMOCOMPDATA structure contains the information required to render a frame.

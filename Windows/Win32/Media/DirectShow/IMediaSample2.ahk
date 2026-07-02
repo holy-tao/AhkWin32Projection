@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMediaSample.ahk" { IMediaSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaSample2 interface sets and retrieves properties on media samples.This interface inherits the IMediaSample interface.
@@ -79,7 +79,7 @@ export default struct IMediaSample2 extends IMediaSample {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample2-getproperties
      */
     GetProperties(cbProperties, pbProperties) {
-        result := ComCall(19, this, "uint", cbProperties, "ptr", pbProperties, "HRESULT")
+        result := ComCall(19, this, UInt32, cbProperties, IntPtr, pbProperties, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IMediaSample2 extends IMediaSample {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample2-setproperties
      */
     SetProperties(cbProperties, pbProperties) {
-        result := ComCall(20, this, "uint", cbProperties, "ptr", pbProperties, "HRESULT")
+        result := ComCall(20, this, UInt32, cbProperties, IntPtr, pbProperties, "HRESULT")
         return result
     }
 

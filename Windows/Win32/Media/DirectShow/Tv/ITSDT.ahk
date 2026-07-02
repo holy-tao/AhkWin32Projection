@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -128,7 +128,7 @@ export default struct ITSDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-itsdt-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
-        result := ComCall(6, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -144,7 +144,7 @@ export default struct ITSDT extends IUnknown {
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

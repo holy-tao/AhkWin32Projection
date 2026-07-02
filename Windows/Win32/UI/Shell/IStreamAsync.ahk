@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Exposes methods to manage input/output (I/O) to an asynchronous stream.
@@ -63,7 +63,7 @@ export default struct IStreamAsync extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamasync-readasync
      */
     ReadAsync(pv, cb, lpOverlapped) {
-        result := ComCall(14, this, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(14, this, IntPtr, pv, UInt32, cb, "uint*", &pcbRead := 0, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return pcbRead
     }
 
@@ -86,7 +86,7 @@ export default struct IStreamAsync extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamasync-writeasync
      */
     WriteAsync(lpBuffer, cb, lpOverlapped) {
-        result := ComCall(15, this, "ptr", lpBuffer, "uint", cb, "uint*", &pcbWritten := 0, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(15, this, IntPtr, lpBuffer, UInt32, cb, "uint*", &pcbWritten := 0, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return pcbWritten
     }
 

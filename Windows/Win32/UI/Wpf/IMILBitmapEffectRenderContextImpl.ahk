@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MILMatrixF.ahk" { MILMatrixF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MilRectD.ahk" { MilRectD }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that define a IMILBitmapEffectRenderContext.

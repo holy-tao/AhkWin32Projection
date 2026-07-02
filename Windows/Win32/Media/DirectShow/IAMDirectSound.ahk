@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\Audio\DirectSound\IDirectSound.ahk" { IDirectSound }
-#Import "..\Audio\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\DirectSound\IDirectSound.ahk" { IDirectSound }
+#Import "..\Audio\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
 
 /**
  * The IAMDirectSound interface specifies which window has focus for controlling DirectSound audio playback.
@@ -113,8 +113,25 @@ export default struct IAMDirectSound extends IUnknown {
 
     /**
      * The SetFocusWindow method specifies a window to handle sound playback.
-     * @param {HWND} param0 
-     * @param {BOOL} param1 
+     * @param {HWND} param0 Specifies a handle to the window. If this value is <b>NULL</b>, the sound will not be associated with any window.
+     * @param {BOOL} param1 Specifies whether to mix the sound when the window loses focus.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td><b>TRUE</b></td>
+     * <td>The sound is audible when the window loses focus.</td>
+     * </tr>
+     * <tr>
+     * <td><b>FALSE</b></td>
+     * <td>The sound is not audible when the window loses focus.</td>
+     * </tr>
+     * </table>
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-setfocuswindow
      */
@@ -125,7 +142,7 @@ export default struct IAMDirectSound extends IUnknown {
 
     /**
      * The GetFocusWindow method retrieves the window that is handling sound playback.
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<HWND>} param0 Pointer to a variable that receives a handle to the window. If sound playback is not associated with a window, the returned value is <b>NULL</b>.
      * @param {Pointer<BOOL>} param1 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 

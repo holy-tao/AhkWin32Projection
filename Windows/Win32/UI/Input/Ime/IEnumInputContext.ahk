@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\HIMC.ahk" { HIMC }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HIMC.ahk" { HIMC }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -58,7 +58,7 @@ export default struct IEnumInputContext extends IUnknown {
     Next(ulCount, rgInputContext, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, HIMC.Ptr, rgInputContext, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, HIMC.Ptr, rgInputContext, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IEnumInputContext extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

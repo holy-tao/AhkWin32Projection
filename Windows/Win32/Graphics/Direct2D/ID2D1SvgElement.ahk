@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
-#Import ".\ID2D1SvgDocument.ahk" { ID2D1SvgDocument }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\D2D1_SVG_ATTRIBUTE_STRING_TYPE.ahk" { D2D1_SVG_ATTRIBUTE_STRING_TYPE }
-#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 #Import ".\D2D1_SVG_ATTRIBUTE_POD_TYPE.ahk" { D2D1_SVG_ATTRIBUTE_POD_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1SvgDocument.ahk" { ID2D1SvgDocument }
+#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Interface for all SVG elements.
@@ -100,7 +100,7 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
     GetTagName(name, nameCount) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(5, this, "ptr", name, "uint", nameCount, "HRESULT")
+        result := ComCall(5, this, "ptr", name, UInt32, nameCount, "HRESULT")
         return result
     }
 
@@ -351,7 +351,7 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
     GetSpecifiedAttributeName(index, name, nameCount) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(21, this, "uint", index, "ptr", name, "uint", nameCount, BOOL.Ptr, &inherited := 0, "HRESULT")
+        result := ComCall(21, this, UInt32, index, "ptr", name, UInt32, nameCount, BOOL.Ptr, &inherited := 0, "HRESULT")
         return inherited
     }
 
@@ -375,7 +375,7 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
         nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
         inheritedMarshal := inherited is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, "uint", index, nameLengthMarshal, nameLength, inheritedMarshal, inherited, "HRESULT")
+        result := ComCall(22, this, UInt32, index, nameLengthMarshal, nameLength, inheritedMarshal, inherited, "HRESULT")
         return result
     }
 
@@ -411,7 +411,7 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
     SetTextValue(name, nameCount) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(24, this, "ptr", name, "uint", nameCount, "HRESULT")
+        result := ComCall(24, this, "ptr", name, UInt32, nameCount, "HRESULT")
         return result
     }
 
@@ -431,7 +431,7 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
     GetTextValue(name, nameCount) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(25, this, "ptr", name, "uint", nameCount, "HRESULT")
+        result := ComCall(25, this, "ptr", name, UInt32, nameCount, "HRESULT")
         return result
     }
 
@@ -473,7 +473,7 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
     SetAttributeValue1(name, type, value, valueSizeInBytes) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(28, this, "ptr", name, D2D1_SVG_ATTRIBUTE_POD_TYPE, type, "ptr", value, "uint", valueSizeInBytes, "HRESULT")
+        result := ComCall(28, this, "ptr", name, D2D1_SVG_ATTRIBUTE_POD_TYPE, type, IntPtr, value, UInt32, valueSizeInBytes, "HRESULT")
         return result
     }
 
@@ -519,7 +519,7 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
     GetAttributeValue1(name, type, value, valueSizeInBytes) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(31, this, "ptr", name, D2D1_SVG_ATTRIBUTE_POD_TYPE, type, "ptr", value, "uint", valueSizeInBytes, "HRESULT")
+        result := ComCall(31, this, "ptr", name, D2D1_SVG_ATTRIBUTE_POD_TYPE, type, IntPtr, value, UInt32, valueSizeInBytes, "HRESULT")
         return result
     }
 
@@ -536,7 +536,7 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
         name := name is String ? StrPtr(name) : name
         value := value is String ? StrPtr(value) : value
 
-        result := ComCall(32, this, "ptr", name, D2D1_SVG_ATTRIBUTE_STRING_TYPE, type, "ptr", value, "uint", valueCount, "HRESULT")
+        result := ComCall(32, this, "ptr", name, D2D1_SVG_ATTRIBUTE_STRING_TYPE, type, "ptr", value, UInt32, valueCount, "HRESULT")
         return result
     }
 

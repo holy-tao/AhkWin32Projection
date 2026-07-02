@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\STREAM_SEEK.ahk" { STREAM_SEEK }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPrinterScriptableSequentialStream.ahk" { IPrinterScriptableSequentialStream }
-#Import "..\..\System\Com\STREAM_SEEK.ahk" { STREAM_SEEK }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -54,7 +54,7 @@ export default struct IPrinterScriptableStream extends IPrinterScriptableSequent
      * @returns {Integer} 
      */
     Seek(lOffset, streamSeek) {
-        result := ComCall(10, this, "int", lOffset, STREAM_SEEK, streamSeek, "int*", &plPosition := 0, "HRESULT")
+        result := ComCall(10, this, Int32, lOffset, STREAM_SEEK, streamSeek, "int*", &plPosition := 0, "HRESULT")
         return plPosition
     }
 
@@ -64,7 +64,7 @@ export default struct IPrinterScriptableStream extends IPrinterScriptableSequent
      * @returns {HRESULT} 
      */
     SetSize(lSize) {
-        result := ComCall(11, this, "int", lSize, "HRESULT")
+        result := ComCall(11, this, Int32, lSize, "HRESULT")
         return result
     }
 

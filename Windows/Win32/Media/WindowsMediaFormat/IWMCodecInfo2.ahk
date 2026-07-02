@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMCodecInfo.ahk" { IWMCodecInfo }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
 
 /**
  * The IWMCodecInfo2 interface manages the retrieval of information about codecs. To access it, call QueryInterface on a profile manager object.
@@ -102,7 +102,7 @@ export default struct IWMCodecInfo2 extends IWMCodecInfo {
 
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "ptr", wszName, pcchNameMarshal, pcchName, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, "ptr", wszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct IWMCodecInfo2 extends IWMCodecInfo {
 
         pcchDescMarshal := pcchDesc is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "ptr", wszDesc, pcchDescMarshal, pcchDesc, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, UInt32, dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "ptr", wszDesc, pcchDescMarshal, pcchDesc, "HRESULT")
         return IWMStreamConfig(ppIStreamConfig)
     }
 

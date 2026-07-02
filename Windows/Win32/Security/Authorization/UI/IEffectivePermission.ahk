@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\OBJECT_TYPE_LIST.ahk" { OBJECT_TYPE_LIST }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\OBJECT_TYPE_LIST.ahk" { OBJECT_TYPE_LIST }
 #Import "..\..\PSID.ahk" { PSID }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a means to determine effective permission for a security principal on an object.

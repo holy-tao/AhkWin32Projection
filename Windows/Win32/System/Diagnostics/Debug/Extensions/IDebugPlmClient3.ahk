@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDebugOutputStream.ahk" { IDebugOutputStream }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -66,7 +66,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
         ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
         ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
+        result := ComCall(3, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
         ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
         ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", BackgroundTaskId, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
+        result := ComCall(4, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", BackgroundTaskId, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
     QueryPlmPackageWide(Server, PackageFullName, Stream) {
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
 
-        result := ComCall(5, this, "uint", Server, "ptr", PackageFullName, "ptr", Stream, "HRESULT")
+        result := ComCall(5, this, Int64, Server, "ptr", PackageFullName, "ptr", Stream, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
      * @returns {HRESULT} 
      */
     QueryPlmPackageList(Server, Stream) {
-        result := ComCall(6, this, "uint", Server, "ptr", Stream, "HRESULT")
+        result := ComCall(6, this, Int64, Server, "ptr", Stream, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
     EnablePlmPackageDebugWide(Server, PackageFullName) {
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
 
-        result := ComCall(7, this, "uint", Server, "ptr", PackageFullName, "HRESULT")
+        result := ComCall(7, this, Int64, Server, "ptr", PackageFullName, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
     DisablePlmPackageDebugWide(Server, PackageFullName) {
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
 
-        result := ComCall(8, this, "uint", Server, "ptr", PackageFullName, "HRESULT")
+        result := ComCall(8, this, Int64, Server, "ptr", PackageFullName, "HRESULT")
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
     SuspendPlmPackageWide(Server, PackageFullName) {
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
 
-        result := ComCall(9, this, "uint", Server, "ptr", PackageFullName, "HRESULT")
+        result := ComCall(9, this, Int64, Server, "ptr", PackageFullName, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
     ResumePlmPackageWide(Server, PackageFullName) {
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
 
-        result := ComCall(10, this, "uint", Server, "ptr", PackageFullName, "HRESULT")
+        result := ComCall(10, this, Int64, Server, "ptr", PackageFullName, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
     TerminatePlmPackageWide(Server, PackageFullName) {
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
 
-        result := ComCall(11, this, "uint", Server, "ptr", PackageFullName, "HRESULT")
+        result := ComCall(11, this, Int64, Server, "ptr", PackageFullName, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
         AppName := AppName is String ? StrPtr(AppName) : AppName
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        result := ComCall(12, this, "uint", Server, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, "HRESULT")
+        result := ComCall(12, this, Int64, Server, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, "HRESULT")
         return result
     }
 
@@ -209,7 +209,7 @@ export default struct IDebugPlmClient3 extends IUnknown {
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
         BackgroundTaskId := BackgroundTaskId is String ? StrPtr(BackgroundTaskId) : BackgroundTaskId
 
-        result := ComCall(13, this, "uint", Server, "ptr", PackageFullName, "ptr", BackgroundTaskId, "HRESULT")
+        result := ComCall(13, this, Int64, Server, "ptr", PackageFullName, "ptr", BackgroundTaskId, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\TAPI_GATHERTERM.ahk" { TAPI_GATHERTERM }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITCallInfo.ahk" { ITCallInfo }
+#Import ".\TAPI_GATHERTERM.ahk" { TAPI_GATHERTERM }
 
 /**
  * The ITDigitsGatheredEvent interface exposes methods that allow an application to retrieve data when the TAPI Server sends an event indicating that the Server has gathered digits required by the application.

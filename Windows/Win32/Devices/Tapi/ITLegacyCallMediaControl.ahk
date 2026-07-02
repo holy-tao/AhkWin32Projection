@@ -90,7 +90,7 @@ export default struct ITLegacyCallMediaControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol-detectdigits
      */
     DetectDigits(DigitMode) {
-        result := ComCall(7, this, "int", DigitMode, "HRESULT")
+        result := ComCall(7, this, Int32, DigitMode, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct ITLegacyCallMediaControl extends IDispatch {
     GenerateDigits(pDigits, DigitMode) {
         pDigits := pDigits is String ? BSTR.Alloc(pDigits).Value : pDigits
 
-        result := ComCall(8, this, BSTR, pDigits, "int", DigitMode, "HRESULT")
+        result := ComCall(8, this, BSTR, pDigits, Int32, DigitMode, "HRESULT")
         return result
     }
 
@@ -281,7 +281,7 @@ export default struct ITLegacyCallMediaControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol-setmediatype
      */
     SetMediaType(lMediaType) {
-        result := ComCall(10, this, "int", lMediaType, "HRESULT")
+        result := ComCall(10, this, Int32, lMediaType, "HRESULT")
         return result
     }
 
@@ -344,7 +344,7 @@ export default struct ITLegacyCallMediaControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol-monitormedia
      */
     MonitorMedia(lMediaType) {
-        result := ComCall(11, this, "int", lMediaType, "HRESULT")
+        result := ComCall(11, this, Int32, lMediaType, "HRESULT")
         return result
     }
 

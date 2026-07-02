@@ -3,10 +3,10 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkTransform.ahk" { IInkTransform }
-#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\InkDivisionType.ahk" { InkDivisionType }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
 
 /**
  * Represents a single structural element within an IInkDivisionResult object.

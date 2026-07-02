@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_SINK_WRITER_STATISTICS.ahk" { MF_SINK_WRITER_STATISTICS }
-#Import ".\IMFSample.ahk" { IMFSample }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\MF_SINK_WRITER_STATISTICS.ahk" { MF_SINK_WRITER_STATISTICS }
 
 /**
  * Implemented by the Microsoft Media Foundation sink writer object.
@@ -146,7 +146,7 @@ export default struct IMFSinkWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-setinputmediatype
      */
     SetInputMediaType(dwStreamIndex, pInputMediaType, pEncodingParameters) {
-        result := ComCall(4, this, "uint", dwStreamIndex, "ptr", pInputMediaType, "ptr", pEncodingParameters, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamIndex, "ptr", pInputMediaType, "ptr", pEncodingParameters, "HRESULT")
         return result
     }
 
@@ -262,7 +262,7 @@ export default struct IMFSinkWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-writesample
      */
     WriteSample(dwStreamIndex, pSample) {
-        result := ComCall(6, this, "uint", dwStreamIndex, "ptr", pSample, "HRESULT")
+        result := ComCall(6, this, UInt32, dwStreamIndex, "ptr", pSample, "HRESULT")
         return result
     }
 
@@ -280,7 +280,7 @@ export default struct IMFSinkWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-sendstreamtick
      */
     SendStreamTick(dwStreamIndex, llTimestamp) {
-        result := ComCall(7, this, "uint", dwStreamIndex, "int64", llTimestamp, "HRESULT")
+        result := ComCall(7, this, UInt32, dwStreamIndex, Int64, llTimestamp, "HRESULT")
         return result
     }
 
@@ -338,7 +338,7 @@ export default struct IMFSinkWriter extends IUnknown {
     PlaceMarker(dwStreamIndex, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", dwStreamIndex, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(8, this, UInt32, dwStreamIndex, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -384,7 +384,7 @@ export default struct IMFSinkWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-notifyendofsegment
      */
     NotifyEndOfSegment(dwStreamIndex) {
-        result := ComCall(9, this, "uint", dwStreamIndex, "HRESULT")
+        result := ComCall(9, this, UInt32, dwStreamIndex, "HRESULT")
         return result
     }
 
@@ -430,7 +430,7 @@ export default struct IMFSinkWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-flush
      */
     Flush(dwStreamIndex) {
-        result := ComCall(10, this, "uint", dwStreamIndex, "HRESULT")
+        result := ComCall(10, this, UInt32, dwStreamIndex, "HRESULT")
         return result
     }
 
@@ -485,7 +485,7 @@ export default struct IMFSinkWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-getserviceforstream
      */
     GetServiceForStream(dwStreamIndex, guidService, riid) {
-        result := ComCall(12, this, "uint", dwStreamIndex, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwStreamIndex, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -499,7 +499,7 @@ export default struct IMFSinkWriter extends IUnknown {
      */
     GetStatistics(dwStreamIndex) {
         pStats := MF_SINK_WRITER_STATISTICS()
-        result := ComCall(13, this, "uint", dwStreamIndex, MF_SINK_WRITER_STATISTICS.Ptr, pStats, "HRESULT")
+        result := ComCall(13, this, UInt32, dwStreamIndex, MF_SINK_WRITER_STATISTICS.Ptr, pStats, "HRESULT")
         return pStats
     }
 

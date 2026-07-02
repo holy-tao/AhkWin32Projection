@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\IShellFolderViewCB.ahk" { IShellFolderViewCB }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\ITEMSPACING.ahk" { ITEMSPACING }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import ".\ITEMSPACING.ahk" { ITEMSPACING }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that manipulate Shell folder views.
@@ -198,7 +198,7 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getobject
      */
     GetObject(uItem) {
-        result := ComCall(9, this, "ptr*", &ppidl := 0, "uint", uItem, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppidl := 0, UInt32, uItem, "HRESULT")
         return ppidl
     }
 
@@ -247,7 +247,7 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setobjectcount
      */
     SetObjectCount(uCount, dwFlags) {
-        result := ComCall(12, this, "uint", uCount, "uint", dwFlags, "HRESULT")
+        result := ComCall(12, this, UInt32, uCount, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -504,7 +504,7 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-select
      */
     Select(dwFlags) {
-        result := ComCall(28, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(28, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

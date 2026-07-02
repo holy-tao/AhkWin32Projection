@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\HNODE.ahk" { HNODE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HNODE.ahk" { HNODE }
 
 /**
  * The IGetClusterNodeInfo interface is called by a Failover Cluster Administrator extension to retrieve information about a node.
@@ -80,7 +80,7 @@ export default struct IGetClusterNodeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusternodeinfo-getnodehandle
      */
     GetNodeHandle(lObjIndex) {
-        result := ComCall(3, this, "int", lObjIndex, HNODE)
+        result := ComCall(3, this, Int32, lObjIndex, HNODE)
         return result
     }
 

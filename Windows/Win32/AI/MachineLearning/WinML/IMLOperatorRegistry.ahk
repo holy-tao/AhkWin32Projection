@@ -2,13 +2,13 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MLOperatorSchemaDescription.ahk" { MLOperatorSchemaDescription }
+#Import ".\IMLOperatorKernelFactory.ahk" { IMLOperatorKernelFactory }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMLOperatorTypeInferrer.ahk" { IMLOperatorTypeInferrer }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMLOperatorShapeInferrer.ahk" { IMLOperatorShapeInferrer }
 #Import ".\MLOperatorKernelDescription.ahk" { MLOperatorKernelDescription }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MLOperatorSetId.ahk" { MLOperatorSetId }
-#Import ".\IMLOperatorKernelFactory.ahk" { IMLOperatorKernelFactory }
-#Import ".\IMLOperatorTypeInferrer.ahk" { IMLOperatorTypeInferrer }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
@@ -55,7 +55,7 @@ export default struct IMLOperatorRegistry extends IUnknown {
     RegisterOperatorSetSchema(operatorSetId, baselineVersion, schema, schemaCount, typeInferrer, shapeInferrer) {
         schemaMarshal := schema is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, MLOperatorSetId.Ptr, operatorSetId, "int", baselineVersion, schemaMarshal, schema, "uint", schemaCount, "ptr", typeInferrer, "ptr", shapeInferrer, "HRESULT")
+        result := ComCall(3, this, MLOperatorSetId.Ptr, operatorSetId, Int32, baselineVersion, schemaMarshal, schema, UInt32, schemaCount, "ptr", typeInferrer, "ptr", shapeInferrer, "HRESULT")
         return result
     }
 

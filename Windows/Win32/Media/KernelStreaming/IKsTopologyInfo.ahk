@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\KSTOPOLOGY_CONNECTION.ahk" { KSTOPOLOGY_CONNECTION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IKsTopologyInfo interface enumerates the nodes in a stream class driver. The KsProxy filter exposes this interface. Applications can use this interface to examine the internal topology of a kernel-mode filter.
@@ -92,7 +92,7 @@ export default struct IKsTopologyInfo extends IUnknown {
      */
     get_Category(dwIndex) {
         pCategory := Guid()
-        result := ComCall(4, this, "uint", dwIndex, Guid.Ptr, pCategory, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, Guid.Ptr, pCategory, "HRESULT")
         return pCategory
     }
 
@@ -116,7 +116,7 @@ export default struct IKsTopologyInfo extends IUnknown {
      */
     get_ConnectionInfo(dwIndex) {
         pConnectionInfo := KSTOPOLOGY_CONNECTION()
-        result := ComCall(6, this, "uint", dwIndex, KSTOPOLOGY_CONNECTION.Ptr, pConnectionInfo, "HRESULT")
+        result := ComCall(6, this, UInt32, dwIndex, KSTOPOLOGY_CONNECTION.Ptr, pConnectionInfo, "HRESULT")
         return pConnectionInfo
     }
 
@@ -131,7 +131,7 @@ export default struct IKsTopologyInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_nodename
      */
     get_NodeName(dwNodeId, pwchNodeName, dwBufSize) {
-        result := ComCall(7, this, "uint", dwNodeId, "ptr", pwchNodeName, "uint", dwBufSize, "uint*", &pdwNameLen := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwNodeId, IntPtr, pwchNodeName, UInt32, dwBufSize, "uint*", &pdwNameLen := 0, "HRESULT")
         return pdwNameLen
     }
 
@@ -153,7 +153,7 @@ export default struct IKsTopologyInfo extends IUnknown {
      */
     get_NodeType(dwNodeId) {
         pNodeType := Guid()
-        result := ComCall(9, this, "uint", dwNodeId, Guid.Ptr, pNodeType, "HRESULT")
+        result := ComCall(9, this, UInt32, dwNodeId, Guid.Ptr, pNodeType, "HRESULT")
         return pNodeType
     }
 
@@ -167,7 +167,7 @@ export default struct IKsTopologyInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-createnodeinstance
      */
     CreateNodeInstance(dwNodeId, iid) {
-        result := ComCall(10, this, "uint", dwNodeId, Guid.Ptr, iid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwNodeId, Guid.Ptr, iid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDMLCompiledOperator.ahk" { IDMLCompiledOperator }
 #Import ".\IDMLDispatchable.ahk" { IDMLDispatchable }
+#Import ".\IDMLCompiledOperator.ahk" { IDMLCompiledOperator }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -63,7 +63,7 @@ export default struct IDMLOperatorInitializer extends IDMLDispatchable {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmloperatorinitializer-reset
      */
     Reset(operatorCount, operators) {
-        result := ComCall(9, this, "uint", operatorCount, IDMLCompiledOperator.Ptr, operators, "HRESULT")
+        result := ComCall(9, this, UInt32, operatorCount, IDMLCompiledOperator.Ptr, operators, "HRESULT")
         return result
     }
 

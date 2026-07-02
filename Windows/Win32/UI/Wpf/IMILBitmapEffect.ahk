@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Graphics\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMILBitmapEffectGroup.ahk" { IMILBitmapEffectGroup }
 
 /**
@@ -59,7 +59,7 @@ export default struct IMILBitmapEffect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffect-getoutput
      */
     GetOutput(uiIndex, pContext) {
-        result := ComCall(3, this, "uint", uiIndex, "ptr", pContext, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, uiIndex, "ptr", pContext, "ptr*", &ppBitmapSource := 0, "HRESULT")
         return IWICBitmapSource(ppBitmapSource)
     }
 
@@ -89,7 +89,7 @@ export default struct IMILBitmapEffect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffect-setinputsource
      */
     SetInputSource(uiIndex, pBitmapSource) {
-        result := ComCall(5, this, "uint", uiIndex, "ptr", pBitmapSource, "HRESULT")
+        result := ComCall(5, this, UInt32, uiIndex, "ptr", pBitmapSource, "HRESULT")
         return result
     }
 

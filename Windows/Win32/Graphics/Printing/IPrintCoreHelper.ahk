@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\PRINT_FEATURE_OPTION.ahk" { PRINT_FEATURE_OPTION }
 
 /**
@@ -58,7 +58,7 @@ export default struct IPrintCoreHelper extends IUnknown {
     GetOption(pDevmode, cbSize, pszFeatureRequested) {
         pszFeatureRequested := pszFeatureRequested is String ? StrPtr(pszFeatureRequested) : pszFeatureRequested
 
-        result := ComCall(3, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureRequested, PSTR.Ptr, &ppszOption := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, pDevmode, UInt32, cbSize, "ptr", pszFeatureRequested, PSTR.Ptr, &ppszOption := 0, "HRESULT")
         return ppszOption
     }
 
@@ -77,7 +77,7 @@ export default struct IPrintCoreHelper extends IUnknown {
         pcPairsWrittenMarshal := pcPairsWritten is VarRef ? "uint*" : "ptr"
         pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, DEVMODEA.Ptr, pDevmode, "uint", cbSize, BOOL, bResolveConflicts, PRINT_FEATURE_OPTION.Ptr, pFOPairs, "uint", cPairs, pcPairsWrittenMarshal, pcPairsWritten, pdwResultMarshal, pdwResult, "HRESULT")
+        result := ComCall(4, this, DEVMODEA.Ptr, pDevmode, UInt32, cbSize, BOOL, bResolveConflicts, PRINT_FEATURE_OPTION.Ptr, pFOPairs, UInt32, cPairs, pcPairsWrittenMarshal, pcPairsWritten, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IPrintCoreHelper extends IUnknown {
         pConstrainedOptionListMarshal := pConstrainedOptionList is VarRef ? "ptr*" : "ptr"
         pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, DEVMODEA.Ptr, pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, pConstrainedOptionListMarshal, pConstrainedOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
+        result := ComCall(5, this, DEVMODEA.Ptr, pDevmode, UInt32, cbSize, "ptr", pszFeatureKeyword, pConstrainedOptionListMarshal, pConstrainedOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IPrintCoreHelper extends IUnknown {
         ppFOConstraintsMarshal := ppFOConstraints is VarRef ? "ptr*" : "ptr"
         pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, ppFOConstraintsMarshal, ppFOConstraints, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
+        result := ComCall(6, this, IntPtr, pDevmode, UInt32, cbSize, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, ppFOConstraintsMarshal, ppFOConstraints, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
         return result
     }
 
@@ -193,7 +193,7 @@ export default struct IPrintCoreHelper extends IUnknown {
     CreateInstanceOfMSXMLObject(rclsid, pUnkOuter, dwClsContext, riid, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, Guid.Ptr, rclsid, "ptr", pUnkOuter, "uint", dwClsContext, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, rclsid, "ptr", pUnkOuter, UInt32, dwClsContext, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

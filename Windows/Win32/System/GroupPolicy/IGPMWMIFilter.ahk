@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IGPMWMIFilter interface contains methods that allow you to set and retrieve security attributes and various properties for a WMI filter. WMI filter queries are specified using WMI Query Language (WQL).

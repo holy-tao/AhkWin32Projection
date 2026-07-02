@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) event group descriptor.
@@ -95,7 +95,7 @@ export default struct IIsdbEventGroupDescriptor extends IUnknown {
         pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
         pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "char", bRecordIndex, pwServiceIdMarshal, pwServiceId, pwEventIdMarshal, pwEventId, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, pwServiceIdMarshal, pwServiceId, pwEventIdMarshal, pwEventId, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IIsdbEventGroupDescriptor extends IUnknown {
         pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
         pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(9, this, "char", bRecordIndex, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, pwTransportStreamIdMarshal, pwTransportStreamId, pwServiceIdMarshal, pwServiceId, pwEventIdMarshal, pwEventId, "HRESULT")
+        result := ComCall(9, this, Int8, bRecordIndex, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, pwTransportStreamIdMarshal, pwTransportStreamId, pwServiceIdMarshal, pwServiceId, pwEventIdMarshal, pwEventId, "HRESULT")
         return result
     }
 

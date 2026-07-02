@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WM_WRITER_STATISTICS.ahk" { WM_WRITER_STATISTICS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
-#Import ".\IWMWriterSink.ahk" { IWMWriterSink }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WM_WRITER_STATISTICS.ahk" { WM_WRITER_STATISTICS }
+#Import ".\IWMWriterSink.ahk" { IWMWriterSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMWriterAdvanced interface provides advanced writing functionality.This interface exists for every instance of the writer object. To obtain a pointer to this interface, call QueryInterface on the writer object.
@@ -72,7 +72,7 @@ export default struct IWMWriterAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-getsink
      */
     GetSink(dwSinkNum) {
-        result := ComCall(4, this, "uint", dwSinkNum, "ptr*", &ppSink := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSinkNum, "ptr*", &ppSink := 0, "HRESULT")
         return IWMWriterSink(ppSink)
     }
 
@@ -267,7 +267,7 @@ export default struct IWMWriterAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-writestreamsample
      */
     WriteStreamSample(wStreamNum, cnsSampleTime, msSampleSendTime, cnsSampleDuration, dwFlags, pSample) {
-        result := ComCall(7, this, "ushort", wStreamNum, "uint", cnsSampleTime, "uint", msSampleSendTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, "HRESULT")
+        result := ComCall(7, this, UInt16, wStreamNum, Int64, cnsSampleTime, UInt32, msSampleSendTime, Int64, cnsSampleDuration, UInt32, dwFlags, "ptr", pSample, "HRESULT")
         return result
     }
 
@@ -322,7 +322,7 @@ export default struct IWMWriterAdvanced extends IUnknown {
      */
     GetStatistics(wStreamNum) {
         pStats := WM_WRITER_STATISTICS()
-        result := ComCall(11, this, "ushort", wStreamNum, WM_WRITER_STATISTICS.Ptr, pStats, "HRESULT")
+        result := ComCall(11, this, UInt16, wStreamNum, WM_WRITER_STATISTICS.Ptr, pStats, "HRESULT")
         return pStats
     }
 
@@ -337,7 +337,7 @@ export default struct IWMWriterAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-setsynctolerance
      */
     SetSyncTolerance(msWindow) {
-        result := ComCall(12, this, "uint", msWindow, "HRESULT")
+        result := ComCall(12, this, UInt32, msWindow, "HRESULT")
         return result
     }
 

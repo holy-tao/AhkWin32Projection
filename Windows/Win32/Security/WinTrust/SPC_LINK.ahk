@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SPC_SERIALIZED_OBJECT.ahk" { SPC_SERIALIZED_OBJECT }
 #Import "..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\SPC_SERIALIZED_OBJECT.ahk" { SPC_SERIALIZED_OBJECT }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

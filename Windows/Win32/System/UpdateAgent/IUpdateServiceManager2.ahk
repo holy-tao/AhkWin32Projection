@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUpdateServiceManager.ahk" { IUpdateServiceManager }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUpdateServiceRegistration.ahk" { IUpdateServiceRegistration }
+#Import ".\IUpdateServiceManager.ahk" { IUpdateServiceManager }
 
 /**
  * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates. (IUpdateServiceManager2)
@@ -124,7 +124,7 @@ export default struct IUpdateServiceManager2 extends IUpdateServiceManager {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
         authorizationCabPath := authorizationCabPath is String ? BSTR.Alloc(authorizationCabPath).Value : authorizationCabPath
 
-        result := ComCall(17, this, BSTR, serviceID, "int", flags, BSTR, authorizationCabPath, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, serviceID, Int32, flags, BSTR, authorizationCabPath, "ptr*", &retval := 0, "HRESULT")
         return IUpdateServiceRegistration(retval)
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to certificates.
@@ -56,7 +56,7 @@ export default struct IWMAuthorizer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getcert
      */
     GetCert(dwIndex) {
-        result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppbCertData := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, "ptr*", &ppbCertData := 0, "HRESULT")
         return ppbCertData
     }
 
@@ -72,7 +72,7 @@ export default struct IWMAuthorizer extends IUnknown {
         pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
         pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, "ptr*", &ppbSharedData := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, "ptr*", &ppbSharedData := 0, "HRESULT")
         return ppbSharedData
     }
 

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\VMRALPHABITMAP.ahk" { VMRALPHABITMAP }
-#Import "..\..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
-#Import "..\IVMRImageCompositor.ahk" { IVMRImageCompositor }
-#Import "..\IVMRMixerBitmap.ahk" { IVMRMixerBitmap }
-#Import ".\IMSVidRect.ahk" { IMSVidRect }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SourceSizeList.ahk" { SourceSizeList }
 #Import ".\IMSVidOutputDevice.ahk" { IMSVidOutputDevice }
+#Import "..\..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
+#Import "..\VMRALPHABITMAP.ahk" { VMRALPHABITMAP }
+#Import ".\SourceSizeList.ahk" { SourceSizeList }
+#Import "..\IVMRMixerBitmap.ahk" { IVMRMixerBitmap }
+#Import "..\IVMRImageCompositor.ahk" { IVMRImageCompositor }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMSVidRect.ahk" { IMSVidRect }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMSVidVideoRenderer interface represents a video renderer device. The MSVidVideoRenderer object exposes this interface.This interface provides access to the Video Mixing Renderer (VMR) filter.
@@ -385,7 +385,7 @@ export default struct IMSVidVideoRenderer extends IMSVidOutputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_mixerbitmapopacity
      */
     put_MixerBitmapOpacity(opacity) {
-        result := ComCall(29, this, "int", opacity, "HRESULT")
+        result := ComCall(29, this, Int32, opacity, "HRESULT")
         return result
     }
 
@@ -398,7 +398,7 @@ export default struct IMSVidVideoRenderer extends IMSVidOutputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-setupmixerbitmap
      */
     SetupMixerBitmap(MixerPictureDisp, Opacity, rDest) {
-        result := ComCall(30, this, "ptr", MixerPictureDisp, "int", Opacity, "ptr", rDest, "HRESULT")
+        result := ComCall(30, this, "ptr", MixerPictureDisp, Int32, Opacity, "ptr", rDest, "HRESULT")
         return result
     }
 
@@ -444,7 +444,7 @@ export default struct IMSVidVideoRenderer extends IMSVidOutputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-put_overscan
      */
     put_OverScan(lPercent) {
-        result := ComCall(34, this, "int", lPercent, "HRESULT")
+        result := ComCall(34, this, Int32, lPercent, "HRESULT")
         return result
     }
 

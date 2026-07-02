@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDataModelScriptDebugStackFrame.ahk" { IDataModelScriptDebugStackFrame }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -52,7 +52,7 @@ export default struct IDataModelScriptDebugStack extends IUnknown {
      * @returns {IDataModelScriptDebugStackFrame} 
      */
     GetStackFrame(frameNumber) {
-        result := ComCall(4, this, "uint", frameNumber, "ptr*", &_stackFrame := 0, "HRESULT")
+        result := ComCall(4, this, Int64, frameNumber, "ptr*", &_stackFrame := 0, "HRESULT")
         return IDataModelScriptDebugStackFrame(_stackFrame)
     }
 

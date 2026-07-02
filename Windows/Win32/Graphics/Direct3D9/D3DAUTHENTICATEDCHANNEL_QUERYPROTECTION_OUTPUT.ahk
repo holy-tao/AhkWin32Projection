@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk" { D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT }
 #Import ".\D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS.ahk" { D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D_OMAC.ahk" { D3D_OMAC }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk" { D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3D_OMAC.ahk" { D3D_OMAC }
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_PROTECTION query.

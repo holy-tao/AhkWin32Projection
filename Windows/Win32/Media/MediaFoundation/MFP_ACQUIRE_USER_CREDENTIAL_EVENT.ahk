@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
-#Import ".\IMFNetCredential.ahk" { IMFNetCredential }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MFP_EVENT_TYPE.ahk" { MFP_EVENT_TYPE }
-#Import ".\MFP_EVENT_HEADER.ahk" { MFP_EVENT_HEADER }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 #Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFNetCredential.ahk" { IMFNetCredential }
+#Import ".\MFP_EVENT_TYPE.ahk" { MFP_EVENT_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MFP_EVENT_HEADER.ahk" { MFP_EVENT_HEADER }
 
 /**
  * Event structure for the MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL event.

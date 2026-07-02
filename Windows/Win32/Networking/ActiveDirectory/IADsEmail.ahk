@@ -72,7 +72,7 @@ export default struct IADsEmail extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Type(lnType) {
-        result := ComCall(8, this, "int", lnType, "HRESULT")
+        result := ComCall(8, this, Int32, lnType, "HRESULT")
         return result
     }
 

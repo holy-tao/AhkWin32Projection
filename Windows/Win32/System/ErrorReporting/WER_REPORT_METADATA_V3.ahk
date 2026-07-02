@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WER_REPORT_PARAMETER.ahk" { WER_REPORT_PARAMETER }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\WER_REPORT_SIGNATURE.ahk" { WER_REPORT_SIGNATURE }
+#Import ".\WER_REPORT_PARAMETER.ahk" { WER_REPORT_PARAMETER }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 

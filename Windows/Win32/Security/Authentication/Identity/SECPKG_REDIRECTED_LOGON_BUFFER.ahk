@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS.ahk" { PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS }
+#Import ".\PLSA_REDIRECTED_LOGON_GET_SID.ahk" { PLSA_REDIRECTED_LOGON_GET_SID }
+#Import ".\PLSA_REDIRECTED_LOGON_CALLBACK.ahk" { PLSA_REDIRECTED_LOGON_CALLBACK }
+#Import ".\PLSA_REDIRECTED_LOGON_INIT.ahk" { PLSA_REDIRECTED_LOGON_INIT }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK.ahk" { PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK }
+#Import ".\PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS.ahk" { PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -12,16 +18,16 @@ export default struct SECPKG_REDIRECTED_LOGON_BUFFER {
 
     RedirectedLogonHandle : HANDLE
 
-    Init : IntPtr
+    Init : PLSA_REDIRECTED_LOGON_INIT
 
-    Callback : IntPtr
+    Callback : PLSA_REDIRECTED_LOGON_CALLBACK
 
-    CleanupCallback : IntPtr
+    CleanupCallback : PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK
 
-    GetLogonCreds : IntPtr
+    GetLogonCreds : PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS
 
-    GetSupplementalCreds : IntPtr
+    GetSupplementalCreds : PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS
 
-    GetRedirectedLogonSid : IntPtr
+    GetRedirectedLogonSid : PLSA_REDIRECTED_LOGON_GET_SID
 
 }

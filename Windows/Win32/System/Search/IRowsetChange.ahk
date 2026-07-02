@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -48,7 +48,7 @@ export default struct IRowsetChange extends IUnknown {
     DeleteRows(hReserved, cRows, rghRows) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint*", &rgRowStatus := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, "uint*", &rgRowStatus := 0, "HRESULT")
         return rgRowStatus
     }
 
@@ -62,7 +62,7 @@ export default struct IRowsetChange extends IUnknown {
     SetData(hRow, _hAccessor, pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", hRow, HACCESSOR, _hAccessor, pDataMarshal, pData, "HRESULT")
+        result := ComCall(4, this, IntPtr, hRow, HACCESSOR, _hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IRowsetChange extends IUnknown {
     InsertRow(hReserved, _hAccessor, pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", hReserved, HACCESSOR, _hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
+        result := ComCall(5, this, IntPtr, hReserved, HACCESSOR, _hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
         return phRow
     }
 

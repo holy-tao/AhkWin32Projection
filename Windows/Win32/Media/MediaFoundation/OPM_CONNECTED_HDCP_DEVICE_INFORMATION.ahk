@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OPM_HDCP_KEY_SELECTION_VECTOR.ahk" { OPM_HDCP_KEY_SELECTION_VECTOR }
 #Import ".\OPM_RANDOM_NUMBER.ahk" { OPM_RANDOM_NUMBER }
+#Import ".\OPM_HDCP_KEY_SELECTION_VECTOR.ahk" { OPM_HDCP_KEY_SELECTION_VECTOR }
 
 /**
  * Contains the result from an OPM_GET_CONNECTED_HDCP_DEVICE_INFORMATION query.

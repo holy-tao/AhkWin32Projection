@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
 
 /**
  * Allows you to create Unicode font fallback mappings and create a font fall back object from those mappings.
@@ -80,7 +80,7 @@ export default struct IDWriteFontFallbackBuilder extends IUnknown {
 
         targetFamilyNamesMarshal := targetFamilyNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, DWRITE_UNICODE_RANGE.Ptr, ranges, "uint", rangesCount, targetFamilyNamesMarshal, targetFamilyNames, "uint", targetFamilyNamesCount, "ptr", _fontCollection, "ptr", localeName, "ptr", baseFamilyName, "float", scale, "HRESULT")
+        result := ComCall(3, this, DWRITE_UNICODE_RANGE.Ptr, ranges, UInt32, rangesCount, targetFamilyNamesMarshal, targetFamilyNames, UInt32, targetFamilyNamesCount, "ptr", _fontCollection, "ptr", localeName, "ptr", baseFamilyName, Float32, scale, "HRESULT")
         return result
     }
 

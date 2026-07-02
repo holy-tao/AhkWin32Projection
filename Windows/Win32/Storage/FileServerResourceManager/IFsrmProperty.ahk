@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines an instance of a property.

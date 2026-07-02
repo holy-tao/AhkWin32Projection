@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEVRFilterConfig.ahk" { IEVRFilterConfig }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Configures the DirectShow Enhanced Video Renderer (EVR) filter.
@@ -74,7 +74,7 @@ export default struct IEVRFilterConfigEx extends IEVRFilterConfig {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrfilterconfigex-setconfigprefs
      */
     SetConfigPrefs(dwConfigFlags) {
-        result := ComCall(5, this, "uint", dwConfigFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, dwConfigFlags, "HRESULT")
         return result
     }
 

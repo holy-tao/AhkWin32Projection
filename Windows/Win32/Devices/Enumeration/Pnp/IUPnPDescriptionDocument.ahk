@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IUPnPDevice.ahk" { IUPnPDevice }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUPnPDevice.ahk" { IUPnPDevice }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUPnPDescriptionDocument interface enables an application to load a device description.

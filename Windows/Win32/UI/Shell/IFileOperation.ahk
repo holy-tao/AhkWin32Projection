@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFileOperationProgressSink.ahk" { IFileOperationProgressSink }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FILEOPERATION_FLAGS.ahk" { FILEOPERATION_FLAGS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IShellItem.ahk" { IShellItem }
 #Import ".\IOperationsProgressDialog.ahk" { IOperationsProgressDialog }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "PropertiesSystem\IPropertyChangeArray.ahk" { IPropertyChangeArray }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IFileOperationProgressSink.ahk" { IFileOperationProgressSink }
+#Import ".\FILEOPERATION_FLAGS.ahk" { FILEOPERATION_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
 
 /**
  * Exposes methods to copy, move, rename, create, and delete Shell items as well as methods to provide progress and error dialogs. This interface replaces the SHFileOperation function.
@@ -213,7 +213,7 @@ export default struct IFileOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-unadvise
      */
     Unadvise(dwCookie) {
-        result := ComCall(4, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -635,7 +635,7 @@ export default struct IFileOperation extends IUnknown {
         pszName := pszName is String ? StrPtr(pszName) : pszName
         pszTemplateName := pszTemplateName is String ? StrPtr(pszTemplateName) : pszTemplateName
 
-        result := ComCall(20, this, "ptr", psiDestinationFolder, "uint", dwFileAttributes, "ptr", pszName, "ptr", pszTemplateName, "ptr", pfopsItem, "HRESULT")
+        result := ComCall(20, this, "ptr", psiDestinationFolder, UInt32, dwFileAttributes, "ptr", pszName, "ptr", pszTemplateName, "ptr", pfopsItem, "HRESULT")
         return result
     }
 

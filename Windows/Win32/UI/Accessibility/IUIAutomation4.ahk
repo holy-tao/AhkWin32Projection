@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
 #Import ".\IUIAutomationChangesEventHandler.ahk" { IUIAutomationChangesEventHandler }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUIAutomation3.ahk" { IUIAutomation3 }
-#Import ".\TreeScope.ahk" { TreeScope }
 #Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomation3.ahk" { IUIAutomation3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IUIAutomation3 interface to expose additional methods for controlling Microsoft UI Automation functionality.
@@ -49,7 +49,9 @@ export default struct IUIAutomation4 extends IUIAutomation3 {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {Pointer<Integer>} changeTypes Type: <b>int*</b>
      * 
      * A pointer to a list of integers that indicate the change types the event represents.
@@ -70,7 +72,7 @@ export default struct IUIAutomation4 extends IUIAutomation3 {
     AddChangesEventHandler(element, scope, changeTypes, changesCount, pCacheRequest, handler) {
         changeTypesMarshal := changeTypes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(66, this, "ptr", element, TreeScope, scope, changeTypesMarshal, changeTypes, "int", changesCount, "ptr", pCacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(66, this, "ptr", element, TreeScope, scope, changeTypesMarshal, changeTypes, Int32, changesCount, "ptr", pCacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 

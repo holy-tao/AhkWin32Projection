@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3DRESOURCETYPE.ahk" { D3DRESOURCETYPE }
 #Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3DRESOURCETYPE.ahk" { D3DRESOURCETYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirect3DResource9 (d3d9.h) interface is used by applications to query and prepare resources.
@@ -153,7 +153,7 @@ export default struct IDirect3DResource9 extends IUnknown {
     SetPrivateData(refguid, pData, SizeOfData, Flags) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, Guid.Ptr, refguid, pDataMarshal, pData, "uint", SizeOfData, "uint", Flags, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, refguid, pDataMarshal, pData, UInt32, SizeOfData, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct IDirect3DResource9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-setpriority
      */
     SetPriority(PriorityNew) {
-        result := ComCall(7, this, "uint", PriorityNew, UInt32)
+        result := ComCall(7, this, UInt32, PriorityNew, UInt32)
         return result
     }
 

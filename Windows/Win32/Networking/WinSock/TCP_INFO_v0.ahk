@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TCPSTATE.ahk" { TCPSTATE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\TCPSTATE.ahk" { TCPSTATE }
 
 /**
  * Contains the Transmission Control Protocol (TCP) statistics that were collected for a socket.

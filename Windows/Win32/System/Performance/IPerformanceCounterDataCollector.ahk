@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FileFormat.ahk" { FileFormat }
 #Import ".\IDataCollector.ahk" { IDataCollector }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FileFormat.ahk" { FileFormat }
 
 /**
  * Specifies the performance counters to query and the log file to which the counter data is written.To create this data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method.
@@ -196,7 +196,7 @@ export default struct IPerformanceCounterDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_sampleinterval
      */
     put_SampleInterval(_interval) {
-        result := ComCall(39, this, "uint", _interval, "HRESULT")
+        result := ComCall(39, this, UInt32, _interval, "HRESULT")
         return result
     }
 
@@ -221,7 +221,7 @@ export default struct IPerformanceCounterDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_segmentmaxrecords
      */
     put_SegmentMaxRecords(records) {
-        result := ComCall(41, this, "uint", records, "HRESULT")
+        result := ComCall(41, this, UInt32, records, "HRESULT")
         return result
     }
 

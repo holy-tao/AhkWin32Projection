@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IHTMLTimeRanges.ahk" { IHTMLTimeRanges }
 #Import ".\IHTMLMediaError.ahk" { IHTMLMediaError }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLTimeRanges.ahk" { IHTMLTimeRanges }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -383,7 +383,7 @@ export default struct IHTMLMediaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_currentTime(v) {
-        result := ComCall(18, this, "float", v, "HRESULT")
+        result := ComCall(18, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -429,7 +429,7 @@ export default struct IHTMLMediaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_defaultPlaybackRate(v) {
-        result := ComCall(23, this, "float", v, "HRESULT")
+        result := ComCall(23, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -448,7 +448,7 @@ export default struct IHTMLMediaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_playbackRate(v) {
-        result := ComCall(25, this, "float", v, "HRESULT")
+        result := ComCall(25, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -639,7 +639,7 @@ export default struct IHTMLMediaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_volume(v) {
-        result := ComCall(38, this, "float", v, "HRESULT")
+        result := ComCall(38, this, Float32, v, "HRESULT")
         return result
     }
 

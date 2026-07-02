@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
-#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
 
 /**
  * Implement the IBackgroundCopyCallback interface to receive notification that a job is complete, has been modified, or is in error. Clients use this interface instead of polling for the status of the job.
@@ -168,7 +168,7 @@ export default struct IBackgroundCopyCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopycallback-jobmodification
      */
     JobModification(pJob, dwReserved) {
-        result := ComCall(5, this, "ptr", pJob, "uint", dwReserved, "HRESULT")
+        result := ComCall(5, this, "ptr", pJob, UInt32, dwReserved, "HRESULT")
         return result
     }
 

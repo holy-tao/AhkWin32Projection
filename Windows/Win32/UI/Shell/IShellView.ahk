@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\Controls\LPFNSVADDPROPSHEETPAGE.ahk" { LPFNSVADDPROPSHEETPAGE }
 #Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
-#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\IShellBrowser.ahk" { IShellBrowser }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
 
 /**
  * Exposes methods that present a view in the Windows Explorer or folder windows.
@@ -122,7 +123,7 @@ export default struct IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-uiactivate
      */
     UIActivate(uState) {
-        result := ComCall(7, this, "uint", uState, "HRESULT")
+        result := ComCall(7, this, UInt32, uState, "HRESULT")
         return result
     }
 
@@ -235,7 +236,7 @@ export default struct IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-addpropertysheetpages
      */
     AddPropertySheetPages(dwReserved, _pfn, _lparam) {
-        result := ComCall(12, this, "uint", dwReserved, "ptr", _pfn, LPARAM, _lparam, "HRESULT")
+        result := ComCall(12, this, UInt32, dwReserved, LPFNSVADDPROPSHEETPAGE, _pfn, LPARAM, _lparam, "HRESULT")
         return result
     }
 
@@ -276,7 +277,7 @@ export default struct IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-selectitem
      */
     SelectItem(pidlItem, uFlags) {
-        result := ComCall(14, this, ITEMIDLIST.Ptr, pidlItem, "uint", uFlags, "HRESULT")
+        result := ComCall(14, this, ITEMIDLIST.Ptr, pidlItem, UInt32, uFlags, "HRESULT")
         return result
     }
 
@@ -296,7 +297,7 @@ export default struct IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-getitemobject
      */
     GetItemObject(uItem, riid) {
-        result := ComCall(15, this, "uint", uItem, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, uItem, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

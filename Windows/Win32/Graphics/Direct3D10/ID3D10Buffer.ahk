@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10Resource.ahk" { ID3D10Resource }
-#Import ".\D3D10_BUFFER_DESC.ahk" { D3D10_BUFFER_DESC }
 #Import ".\D3D10_MAP.ahk" { D3D10_MAP }
+#Import ".\D3D10_BUFFER_DESC.ahk" { D3D10_BUFFER_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10Resource.ahk" { ID3D10Resource }
 
 /**
  * A buffer interface accesses a buffer resource, which is unstructured memory. Buffers typically store vertex or index data. (ID3D10Buffer)
@@ -86,7 +86,7 @@ export default struct ID3D10Buffer extends ID3D10Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10buffer-map
      */
     Map(MapType, MapFlags) {
-        result := ComCall(10, this, D3D10_MAP, MapType, "uint", MapFlags, "ptr*", &ppData := 0, "HRESULT")
+        result := ComCall(10, this, D3D10_MAP, MapType, UInt32, MapFlags, "ptr*", &ppData := 0, "HRESULT")
         return ppData
     }
 

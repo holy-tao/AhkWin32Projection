@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IMSMQQueue2.ahk" { IMSMQQueue2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -330,7 +330,7 @@ export default struct IMSMQQueueInfo2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_PrivLevel(lPrivLevel) {
-        result := ComCall(18, this, "int", lPrivLevel, "HRESULT")
+        result := ComCall(18, this, Int32, lPrivLevel, "HRESULT")
         return result
     }
 
@@ -349,7 +349,7 @@ export default struct IMSMQQueueInfo2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Journal(lJournal) {
-        result := ComCall(20, this, "int", lJournal, "HRESULT")
+        result := ComCall(20, this, Int32, lJournal, "HRESULT")
         return result
     }
 
@@ -368,7 +368,7 @@ export default struct IMSMQQueueInfo2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Quota(lQuota) {
-        result := ComCall(22, this, "int", lQuota, "HRESULT")
+        result := ComCall(22, this, Int32, lQuota, "HRESULT")
         return result
     }
 
@@ -387,7 +387,7 @@ export default struct IMSMQQueueInfo2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_BasePriority(lBasePriority) {
-        result := ComCall(24, this, "int", lBasePriority, "HRESULT")
+        result := ComCall(24, this, Int32, lBasePriority, "HRESULT")
         return result
     }
 
@@ -426,7 +426,7 @@ export default struct IMSMQQueueInfo2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Authenticate(lAuthenticate) {
-        result := ComCall(28, this, "int", lAuthenticate, "HRESULT")
+        result := ComCall(28, this, Int32, lAuthenticate, "HRESULT")
         return result
     }
 
@@ -445,7 +445,7 @@ export default struct IMSMQQueueInfo2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_JournalQuota(lJournalQuota) {
-        result := ComCall(30, this, "int", lJournalQuota, "HRESULT")
+        result := ComCall(30, this, Int32, lJournalQuota, "HRESULT")
         return result
     }
 
@@ -486,7 +486,7 @@ export default struct IMSMQQueueInfo2 extends IDispatch {
      * @returns {IMSMQQueue2} 
      */
     Open(Access, ShareMode) {
-        result := ComCall(34, this, "int", Access, "int", ShareMode, "ptr*", &ppq := 0, "HRESULT")
+        result := ComCall(34, this, Int32, Access, Int32, ShareMode, "ptr*", &ppq := 0, "HRESULT")
         return IMSMQQueue2(ppq)
     }
 

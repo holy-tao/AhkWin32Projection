@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInternetZoneManager.ahk" { IInternetZoneManager }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\URLZONEREG.ahk" { URLZONEREG }
 
 /**
@@ -47,7 +47,7 @@ export default struct IInternetZoneManagerEx extends IInternetZoneManager {
      * @returns {Integer} 
      */
     GetZoneActionPolicyEx(dwZone, dwAction, cbPolicy, _urlZoneReg, dwFlags) {
-        result := ComCall(15, this, "uint", dwZone, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, URLZONEREG, _urlZoneReg, "uint", dwFlags, "HRESULT")
+        result := ComCall(15, this, UInt32, dwZone, UInt32, dwAction, "char*", &pPolicy := 0, UInt32, cbPolicy, URLZONEREG, _urlZoneReg, UInt32, dwFlags, "HRESULT")
         return pPolicy
     }
 
@@ -64,7 +64,7 @@ export default struct IInternetZoneManagerEx extends IInternetZoneManager {
     SetZoneActionPolicyEx(dwZone, dwAction, pPolicy, cbPolicy, _urlZoneReg, dwFlags) {
         pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, "uint", dwZone, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, URLZONEREG, _urlZoneReg, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, UInt32, dwZone, UInt32, dwAction, pPolicyMarshal, pPolicy, UInt32, cbPolicy, URLZONEREG, _urlZoneReg, UInt32, dwFlags, "HRESULT")
         return result
     }
 

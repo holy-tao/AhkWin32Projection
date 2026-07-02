@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\SourceInfo.ahk" { SourceInfo }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\BaseValueSource.ahk" { BaseValueSource }
 
 /**

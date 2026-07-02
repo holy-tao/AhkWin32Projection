@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFExtendedCameraIntrinsicModel.ahk" { IMFExtendedCameraIntrinsicModel }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFExtendedCameraIntrinsicModel.ahk" { IMFExtendedCameraIntrinsicModel }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -48,7 +48,7 @@ export default struct IMFExtendedCameraIntrinsics extends IUnknown {
      * @returns {HRESULT} 
      */
     InitializeFromBuffer(pbBuffer, dwBufferSize) {
-        result := ComCall(3, this, "ptr", pbBuffer, "uint", dwBufferSize, "HRESULT")
+        result := ComCall(3, this, IntPtr, pbBuffer, UInt32, dwBufferSize, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IMFExtendedCameraIntrinsics extends IUnknown {
     SerializeToBuffer(pbBuffer, pdwBufferSize) {
         pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pbBuffer, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
+        result := ComCall(5, this, IntPtr, pbBuffer, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IMFExtendedCameraIntrinsics extends IUnknown {
      * @returns {IMFExtendedCameraIntrinsicModel} 
      */
     GetIntrinsicModelByIndex(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppIntrinsicModel := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "ptr*", &ppIntrinsicModel := 0, "HRESULT")
         return IMFExtendedCameraIntrinsicModel(ppIntrinsicModel)
     }
 

@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TS_SELECTION_ACP.ahk" { TS_SELECTION_ACP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\TS_RUNINFO.ahk" { TS_RUNINFO }
+#Import ".\TS_STATUS.ahk" { TS_STATUS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
 #Import ".\TS_ATTRVAL.ahk" { TS_ATTRVAL }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\FORMATETC.ahk" { FORMATETC }
-#Import ".\TS_STATUS.ahk" { TS_STATUS }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\TS_SELECTION_ACP.ahk" { TS_SELECTION_ACP }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TS_TEXTCHANGE.ahk" { TS_TEXTCHANGE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TS_RUNINFO.ahk" { TS_RUNINFO }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\FORMATETC.ahk" { FORMATETC }
 
 /**
  * The ITextStoreACP2 interface is implemented by the application and is used by the TSF manager to manipulate text streams or text stores in TSF.
@@ -132,7 +132,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-advisesink
      */
     AdviseSink(riid, punk, dwMask) {
-        result := ComCall(3, this, Guid.Ptr, riid, "ptr", punk, "uint", dwMask, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr", punk, UInt32, dwMask, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-requestlock
      */
     RequestLock(dwLockFlags) {
-        result := ComCall(5, this, "uint", dwLockFlags, "int*", &phrSession := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwLockFlags, "int*", &phrSession := 0, "HRESULT")
         return phrSession
     }
 
@@ -311,7 +311,7 @@ export default struct ITextStoreACP2 extends IUnknown {
         pacpResultStartMarshal := pacpResultStart is VarRef ? "int*" : "ptr"
         pacpResultEndMarshal := pacpResultEnd is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "int", acpTestStart, "int", acpTestEnd, "uint", cch, pacpResultStartMarshal, pacpResultStart, pacpResultEndMarshal, pacpResultEnd, "HRESULT")
+        result := ComCall(7, this, Int32, acpTestStart, Int32, acpTestEnd, UInt32, cch, pacpResultStartMarshal, pacpResultStart, pacpResultEndMarshal, pacpResultEnd, "HRESULT")
         return result
     }
 
@@ -367,7 +367,7 @@ export default struct ITextStoreACP2 extends IUnknown {
     GetSelection(ulIndex, ulCount, pSelection, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, TS_SELECTION_ACP.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(8, this, UInt32, ulIndex, UInt32, ulCount, TS_SELECTION_ACP.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -432,7 +432,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-setselection
      */
     SetSelection(ulCount, pSelection) {
-        result := ComCall(9, this, "uint", ulCount, TS_SELECTION_ACP.Ptr, pSelection, "HRESULT")
+        result := ComCall(9, this, UInt32, ulCount, TS_SELECTION_ACP.Ptr, pSelection, "HRESULT")
         return result
     }
 
@@ -507,7 +507,7 @@ export default struct ITextStoreACP2 extends IUnknown {
         pcRunInfoRetMarshal := pcRunInfoRet is VarRef ? "uint*" : "ptr"
         pacpNextMarshal := pacpNext is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "int", acpStart, "int", acpEnd, "ptr", pchPlain, "uint", cchPlainReq, pcchPlainRetMarshal, pcchPlainRet, TS_RUNINFO.Ptr, prgRunInfo, "uint", cRunInfoReq, pcRunInfoRetMarshal, pcRunInfoRet, pacpNextMarshal, pacpNext, "HRESULT")
+        result := ComCall(10, this, Int32, acpStart, Int32, acpEnd, "ptr", pchPlain, UInt32, cchPlainReq, pcchPlainRetMarshal, pcchPlainRet, TS_RUNINFO.Ptr, prgRunInfo, UInt32, cRunInfoReq, pcRunInfoRetMarshal, pcRunInfoRet, pacpNextMarshal, pacpNext, "HRESULT")
         return result
     }
 
@@ -570,7 +570,7 @@ export default struct ITextStoreACP2 extends IUnknown {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
         pChange := TS_TEXTCHANGE()
-        result := ComCall(11, this, "uint", dwFlags, "int", acpStart, "int", acpEnd, "ptr", pchText, "uint", cch, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
+        result := ComCall(11, this, UInt32, dwFlags, Int32, acpStart, Int32, acpEnd, "ptr", pchText, UInt32, cch, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
         return pChange
     }
 
@@ -582,7 +582,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-getformattedtext
      */
     GetFormattedText(acpStart, acpEnd) {
-        result := ComCall(12, this, "int", acpStart, "int", acpEnd, "ptr*", &ppDataObject := 0, "HRESULT")
+        result := ComCall(12, this, Int32, acpStart, Int32, acpEnd, "ptr*", &ppDataObject := 0, "HRESULT")
         return IDataObject(ppDataObject)
     }
 
@@ -597,7 +597,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-getembedded
      */
     GetEmbedded(acpPos, rguidService, riid) {
-        result := ComCall(13, this, "int", acpPos, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(13, this, Int32, acpPos, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -626,7 +626,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      */
     InsertEmbedded(dwFlags, acpStart, acpEnd, pDataObject) {
         pChange := TS_TEXTCHANGE()
-        result := ComCall(15, this, "uint", dwFlags, "int", acpStart, "int", acpEnd, "ptr", pDataObject, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
+        result := ComCall(15, this, UInt32, dwFlags, Int32, acpStart, Int32, acpEnd, "ptr", pDataObject, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
         return pChange
     }
 
@@ -651,7 +651,7 @@ export default struct ITextStoreACP2 extends IUnknown {
         pacpStartMarshal := pacpStart is VarRef ? "int*" : "ptr"
         pacpEndMarshal := pacpEnd is VarRef ? "int*" : "ptr"
 
-        result := ComCall(16, this, "uint", dwFlags, "ptr", pchText, "uint", cch, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
+        result := ComCall(16, this, UInt32, dwFlags, "ptr", pchText, UInt32, cch, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
         return result
     }
 
@@ -789,7 +789,7 @@ export default struct ITextStoreACP2 extends IUnknown {
         pacpStartMarshal := pacpStart is VarRef ? "int*" : "ptr"
         pacpEndMarshal := pacpEnd is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwFlags, "ptr", pDataObject, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
+        result := ComCall(17, this, UInt32, dwFlags, "ptr", pDataObject, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
         return result
     }
 
@@ -842,7 +842,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-requestsupportedattrs
      */
     RequestSupportedAttrs(dwFlags, cFilterAttrs, paFilterAttrs) {
-        result := ComCall(18, this, "uint", dwFlags, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "HRESULT")
+        result := ComCall(18, this, UInt32, dwFlags, UInt32, cFilterAttrs, Guid.Ptr, paFilterAttrs, "HRESULT")
         return result
     }
 
@@ -905,7 +905,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-requestattrsatposition
      */
     RequestAttrsAtPosition(acpPos, cFilterAttrs, paFilterAttrs, dwFlags) {
-        result := ComCall(19, this, "int", acpPos, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "uint", dwFlags, "HRESULT")
+        result := ComCall(19, this, Int32, acpPos, UInt32, cFilterAttrs, Guid.Ptr, paFilterAttrs, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -968,7 +968,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-requestattrstransitioningatposition
      */
     RequestAttrsTransitioningAtPosition(acpPos, cFilterAttrs, paFilterAttrs, dwFlags) {
-        result := ComCall(20, this, "int", acpPos, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "uint", dwFlags, "HRESULT")
+        result := ComCall(20, this, Int32, acpPos, UInt32, cFilterAttrs, Guid.Ptr, paFilterAttrs, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -1049,7 +1049,7 @@ export default struct ITextStoreACP2 extends IUnknown {
         pfFoundMarshal := pfFound is VarRef ? "int*" : "ptr"
         plFoundOffsetMarshal := plFoundOffset is VarRef ? "int*" : "ptr"
 
-        result := ComCall(21, this, "int", acpStart, "int", acpHalt, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "uint", dwFlags, pacpNextMarshal, pacpNext, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
+        result := ComCall(21, this, Int32, acpStart, Int32, acpHalt, UInt32, cFilterAttrs, Guid.Ptr, paFilterAttrs, UInt32, dwFlags, pacpNextMarshal, pacpNext, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
         return result
     }
 
@@ -1082,7 +1082,7 @@ export default struct ITextStoreACP2 extends IUnknown {
     RetrieveRequestedAttrs(ulCount, paAttrVals, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "uint", ulCount, TS_ATTRVAL.Ptr, paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(22, this, UInt32, ulCount, TS_ATTRVAL.Ptr, paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -1144,7 +1144,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-getacpfrompoint
      */
     GetACPFromPoint(vcView, ptScreen, dwFlags) {
-        result := ComCall(25, this, "uint", vcView, POINT.Ptr, ptScreen, "uint", dwFlags, "int*", &pacp := 0, "HRESULT")
+        result := ComCall(25, this, UInt32, vcView, POINT.Ptr, ptScreen, UInt32, dwFlags, "int*", &pacp := 0, "HRESULT")
         return pacp
     }
 
@@ -1225,7 +1225,7 @@ export default struct ITextStoreACP2 extends IUnknown {
     GetTextExt(vcView, acpStart, acpEnd, prc, pfClipped) {
         pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
 
-        result := ComCall(26, this, "uint", vcView, "int", acpStart, "int", acpEnd, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
+        result := ComCall(26, this, UInt32, vcView, Int32, acpStart, Int32, acpEnd, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
     }
 
@@ -1239,7 +1239,7 @@ export default struct ITextStoreACP2 extends IUnknown {
      */
     GetScreenExt(vcView) {
         prc := RECT()
-        result := ComCall(27, this, "uint", vcView, RECT.Ptr, prc, "HRESULT")
+        result := ComCall(27, this, UInt32, vcView, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 

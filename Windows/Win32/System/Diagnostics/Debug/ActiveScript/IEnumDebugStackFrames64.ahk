@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumDebugStackFrames.ahk" { IEnumDebugStackFrames }
 #Import ".\DebugStackFrameDescriptor64.ahk" { DebugStackFrameDescriptor64 }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumDebugStackFrames.ahk" { IEnumDebugStackFrames }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -46,7 +46,7 @@ export default struct IEnumDebugStackFrames64 extends IEnumDebugStackFrames {
     Next64(celt, prgdsfd, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", celt, DebugStackFrameDescriptor64.Ptr, prgdsfd, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(7, this, UInt32, celt, DebugStackFrameDescriptor64.Ptr, prgdsfd, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

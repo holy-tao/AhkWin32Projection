@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
-#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\..\System\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\..\System\Com\DVASPECT.ahk" { DVASPECT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\..\System\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * Extends the Text Object Model (TOM) to provide extra functionality for windowless operation.
@@ -146,7 +146,7 @@ export default struct ITextServices extends IUnknown {
     TxSendMessage(_msg, _wparam, _lparam, plresult) {
         plresultMarshal := plresult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", _msg, WPARAM, _wparam, LPARAM, _lparam, plresultMarshal, plresult, "HRESULT")
+        result := ComCall(3, this, UInt32, _msg, WPARAM, _wparam, LPARAM, _lparam, plresultMarshal, plresult, "HRESULT")
         return result
     }
 
@@ -237,7 +237,7 @@ export default struct ITextServices extends IUnknown {
     TxDraw(dwDrawAspect, lindex, pvAspect, ptd, hdcDraw, hicTargetDev, lprcBounds, lprcWBounds, lprcUpdate, pfnContinue, dwContinue, lViewId) {
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECTL.Ptr, lprcBounds, RECTL.Ptr, lprcWBounds, RECT.Ptr, lprcUpdate, "ptr", pfnContinue, "uint", dwContinue, "int", lViewId, "HRESULT")
+        result := ComCall(4, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECTL.Ptr, lprcBounds, RECTL.Ptr, lprcWBounds, RECT.Ptr, lprcUpdate, IntPtr, pfnContinue, UInt32, dwContinue, Int32, lViewId, "HRESULT")
         return result
     }
 
@@ -401,7 +401,7 @@ export default struct ITextServices extends IUnknown {
     OnTxSetCursor(dwDrawAspect, lindex, pvAspect, ptd, hdcDraw, hicTargetDev, lprcClient, x, y) {
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECT.Ptr, lprcClient, "int", x, "int", y, "HRESULT")
+        result := ComCall(7, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECT.Ptr, lprcClient, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -495,7 +495,7 @@ export default struct ITextServices extends IUnknown {
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
         pHitResultMarshal := pHitResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECT.Ptr, lprcClient, "int", x, "int", y, pHitResultMarshal, pHitResult, "HRESULT")
+        result := ComCall(8, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECT.Ptr, lprcClient, Int32, x, Int32, y, pHitResultMarshal, pHitResult, "HRESULT")
         return result
     }
 
@@ -920,7 +920,7 @@ export default struct ITextServices extends IUnknown {
         pwidthMarshal := pwidth is VarRef ? "int*" : "ptr"
         pheightMarshal := pheight is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwAspect, HDC, hdcDraw, HDC, hicTargetDev, DVTARGETDEVICE.Ptr, ptd, "uint", dwMode, SIZE.Ptr, psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, "HRESULT")
+        result := ComCall(17, this, UInt32, dwAspect, HDC, hdcDraw, HDC, hicTargetDev, DVTARGETDEVICE.Ptr, ptd, UInt32, dwMode, SIZE.Ptr, psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, "HRESULT")
         return result
     }
 
@@ -1284,7 +1284,7 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-ontxpropertybitschange
      */
     OnTxPropertyBitsChange(dwMask, dwBits) {
-        result := ComCall(19, this, "uint", dwMask, "uint", dwBits, "HRESULT")
+        result := ComCall(19, this, UInt32, dwMask, UInt32, dwBits, "HRESULT")
         return result
     }
 

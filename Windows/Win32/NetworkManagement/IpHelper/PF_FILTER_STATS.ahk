@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PF_FILTER_DESCRIPTOR.ahk" { PF_FILTER_DESCRIPTOR }
 #Import ".\PFADDRESSTYPE.ahk" { PFADDRESSTYPE }
+#Import ".\PF_FILTER_DESCRIPTOR.ahk" { PF_FILTER_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper

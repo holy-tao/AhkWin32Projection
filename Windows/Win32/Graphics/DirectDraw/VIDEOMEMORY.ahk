@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDSCAPS.ahk" { DDSCAPS }
 #Import ".\VMEMHEAP.ahk" { VMEMHEAP }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
 
 /**
  * The VIDEOMEMORY structure allows the driver to manage its display memory into heaps.

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID3D11VideoContext2.ahk" { ID3D11VideoContext2 }
+#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
+#Import ".\D3D11_VIDEO_DECODER_BUFFER_DESC2.ahk" { D3D11_VIDEO_DECODER_BUFFER_DESC2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D11VideoDecoderOutputView.ahk" { ID3D11VideoDecoderOutputView }
 #Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
-#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
-#Import ".\D3D11_VIDEO_DECODER_BUFFER_DESC2.ahk" { D3D11_VIDEO_DECODER_BUFFER_DESC2 }
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext3)
@@ -71,7 +71,7 @@ export default struct ID3D11VideoContext3 extends ID3D11VideoContext2 {
     DecoderBeginFrame1(pDecoder, pView, ContentKeySize, pContentKey, NumComponentHistograms, pHistogramOffsets, ppHistogramBuffers) {
         pHistogramOffsetsMarshal := pHistogramOffsets is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(83, this, "ptr", pDecoder, "ptr", pView, "uint", ContentKeySize, "ptr", pContentKey, "uint", NumComponentHistograms, pHistogramOffsetsMarshal, pHistogramOffsets, ID3D11Buffer.Ptr, ppHistogramBuffers, "HRESULT")
+        result := ComCall(83, this, "ptr", pDecoder, "ptr", pView, UInt32, ContentKeySize, IntPtr, pContentKey, UInt32, NumComponentHistograms, pHistogramOffsetsMarshal, pHistogramOffsets, ID3D11Buffer.Ptr, ppHistogramBuffers, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct ID3D11VideoContext3 extends ID3D11VideoContext2 {
      * @returns {HRESULT} 
      */
     SubmitDecoderBuffers2(pDecoder, NumBuffers, pBufferDesc) {
-        result := ComCall(84, this, "ptr", pDecoder, "uint", NumBuffers, D3D11_VIDEO_DECODER_BUFFER_DESC2.Ptr, pBufferDesc, "HRESULT")
+        result := ComCall(84, this, "ptr", pDecoder, UInt32, NumBuffers, D3D11_VIDEO_DECODER_BUFFER_DESC2.Ptr, pBufferDesc, "HRESULT")
         return result
     }
 

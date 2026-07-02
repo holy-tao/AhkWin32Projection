@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TfLBBalloonStyle.ahk" { TfLBBalloonStyle }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TfLBBalloonStyle.ahk" { TfLBBalloonStyle }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfFnBalloon interface is implemented by a text service and is used by an application or other text service to update the balloon item that the text service adds to the language bar.
@@ -81,7 +81,7 @@ export default struct ITfFnBalloon extends IUnknown {
     UpdateBalloon(style, pch, cch) {
         pch := pch is String ? StrPtr(pch) : pch
 
-        result := ComCall(3, this, TfLBBalloonStyle, style, "ptr", pch, "uint", cch, "HRESULT")
+        result := ComCall(3, this, TfLBBalloonStyle, style, "ptr", pch, UInt32, cch, "HRESULT")
         return result
     }
 

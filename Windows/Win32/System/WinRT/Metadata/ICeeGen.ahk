@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CeeSectionRelocType.ahk" { CeeSectionRelocType }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\CeeSectionRelocType.ahk" { CeeSectionRelocType }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -73,7 +73,7 @@ export default struct ICeeGen extends IUnknown {
      * @returns {PWSTR} 
      */
     GetString(RVA) {
-        result := ComCall(4, this, "uint", RVA, PWSTR.Ptr, &lpString := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, RVA, PWSTR.Ptr, &lpString := 0, "HRESULT")
         return lpString
     }
 
@@ -88,7 +88,7 @@ export default struct ICeeGen extends IUnknown {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
         RVAMarshal := RVA is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", cchBuffer, lpBufferMarshal, lpBuffer, RVAMarshal, RVA, "HRESULT")
+        result := ComCall(5, this, UInt32, cchBuffer, lpBufferMarshal, lpBuffer, RVAMarshal, RVA, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct ICeeGen extends IUnknown {
     GetMethodBuffer(RVA, lpBuffer) {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", RVA, lpBufferMarshal, lpBuffer, "HRESULT")
+        result := ComCall(6, this, UInt32, RVA, lpBufferMarshal, lpBuffer, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct ICeeGen extends IUnknown {
         _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
         relativeToMarshal := relativeTo is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, _sectionMarshal, _section, "uint", offset, relativeToMarshal, relativeTo, CeeSectionRelocType, relocType, "HRESULT")
+        result := ComCall(11, this, _sectionMarshal, _section, UInt32, offset, relativeToMarshal, relativeTo, CeeSectionRelocType, relocType, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct ICeeGen extends IUnknown {
 
         _sectionMarshal := _section is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", name, "uint", flags, _sectionMarshal, _section, "HRESULT")
+        result := ComCall(12, this, "ptr", name, UInt32, flags, _sectionMarshal, _section, "HRESULT")
         return result
     }
 
@@ -205,7 +205,7 @@ export default struct ICeeGen extends IUnknown {
         _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
         ppBytesMarshal := ppBytes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, _sectionMarshal, _section, "uint", len, "uint", align, ppBytesMarshal, ppBytes, "HRESULT")
+        result := ComCall(14, this, _sectionMarshal, _section, UInt32, len, UInt32, align, ppBytesMarshal, ppBytes, "HRESULT")
         return result
     }
 
@@ -218,7 +218,7 @@ export default struct ICeeGen extends IUnknown {
     TruncateSection(_section, len) {
         _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(15, this, _sectionMarshal, _section, "uint", len, "HRESULT")
+        result := ComCall(15, this, _sectionMarshal, _section, UInt32, len, "HRESULT")
         return result
     }
 
@@ -245,7 +245,7 @@ export default struct ICeeGen extends IUnknown {
         _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
         lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, _sectionMarshal, _section, "uint", RVA, lpBufferMarshal, lpBuffer, "HRESULT")
+        result := ComCall(17, this, _sectionMarshal, _section, UInt32, RVA, lpBufferMarshal, lpBuffer, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -237,7 +237,7 @@ export default struct IDOMKeyboardEvent extends IDispatch {
         modifiersListArg := modifiersListArg is String ? BSTR.Alloc(modifiersListArg).Value : modifiersListArg
         locale := locale is String ? BSTR.Alloc(locale).Value : locale
 
-        result := ComCall(15, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, BSTR, keyArg, "uint", locationArg, BSTR, modifiersListArg, VARIANT_BOOL, repeat, BSTR, locale, "HRESULT")
+        result := ComCall(15, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, BSTR, keyArg, UInt32, locationArg, BSTR, modifiersListArg, VARIANT_BOOL, repeat, BSTR, locale, "HRESULT")
         return result
     }
 

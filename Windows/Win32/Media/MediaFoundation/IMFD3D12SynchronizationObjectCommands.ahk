@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Graphics\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides commands that allow a producer or a consumer of D3D12 resource to signal down-stream components when the resource is ready for use or can be released.

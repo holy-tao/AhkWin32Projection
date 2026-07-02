@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IJsDebugProcess.ahk" { IJsDebugProcess }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IJsDebugDataTarget.ahk" { IJsDebugDataTarget }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -45,7 +45,7 @@ export default struct IJsDebug extends IUnknown {
      * @returns {IJsDebugProcess} 
      */
     OpenVirtualProcess(processId, runtimeJsBaseAddress, pDataTarget) {
-        result := ComCall(3, this, "uint", processId, "uint", runtimeJsBaseAddress, "ptr", pDataTarget, "ptr*", &ppProcess := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, processId, Int64, runtimeJsBaseAddress, "ptr", pDataTarget, "ptr*", &ppProcess := 0, "HRESULT")
         return IJsDebugProcess(ppProcess)
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMediaStream.ahk" { IMediaStream }
 #Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMediaStream.ahk" { IMediaStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAMMediaStream.ahk" { IAMMediaStream }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Note  This interface is deprecated. New applications should not use it. The IMediaStreamFilter interface is supported by the Media Stream filter, which is used internally by the multimedia stream object. Applications should not use this interface.
@@ -121,7 +121,7 @@ export default struct IMediaStreamFilter extends IBaseFilter {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-enummediastreams
      */
     EnumMediaStreams(Index) {
-        result := ComCall(17, this, "int", Index, "ptr*", &ppMediaStream := 0, "HRESULT")
+        result := ComCall(17, this, Int32, Index, "ptr*", &ppMediaStream := 0, "HRESULT")
         return IMediaStream(ppMediaStream)
     }
 
@@ -270,7 +270,7 @@ export default struct IMediaStreamFilter extends IBaseFilter {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-waituntil
      */
     WaitUntil(WaitStreamTime) {
-        result := ComCall(21, this, "int64", WaitStreamTime, "HRESULT")
+        result := ComCall(21, this, Int64, WaitStreamTime, "HRESULT")
         return result
     }
 

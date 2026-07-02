@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements a media type profile.
@@ -60,7 +60,7 @@ export default struct ISBE2MediaTypeProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2mediatypeprofile-getstream
      */
     GetStream(Index) {
-        result := ComCall(4, this, "uint", Index, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, Index, "ptr*", &ppMediaType := 0, "HRESULT")
         return ppMediaType
     }
 
@@ -138,7 +138,7 @@ export default struct ISBE2MediaTypeProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2mediatypeprofile-deletestream
      */
     DeleteStream(Index) {
-        result := ComCall(6, this, "uint", Index, "HRESULT")
+        result := ComCall(6, this, UInt32, Index, "HRESULT")
         return result
     }
 

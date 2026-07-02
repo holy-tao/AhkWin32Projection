@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITpmVirtualSmartCardManager.ahk" { ITpmVirtualSmartCardManager }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITpmVirtualSmartCardManagerStatusCallback.ahk" { ITpmVirtualSmartCardManagerStatusCallback }
 
 /**
@@ -69,7 +69,7 @@ export default struct ITpmVirtualSmartCardManager2 extends ITpmVirtualSmartCardM
         ppszInstanceIdMarshal := ppszInstanceId is VarRef ? "ptr*" : "ptr"
         pfNeedRebootMarshal := pfNeedReboot is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, pbPinPolicyMarshal, pbPinPolicy, "uint", cbPinPolicy, BOOL, fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
+        result := ComCall(5, this, "ptr", pszFriendlyName, Int8, bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, UInt32, cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, UInt32, cbAdminKcv, pbPukMarshal, pbPuk, UInt32, cbPuk, pbPinMarshal, pbPin, UInt32, cbPin, pbPinPolicyMarshal, pbPinPolicy, UInt32, cbPinPolicy, BOOL, fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
         return result
     }
 

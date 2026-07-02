@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SP_CLASSINSTALL_HEADER.ahk" { SP_CLASSINSTALL_HEADER }
+#Import ".\PDETECT_PROGRESS_NOTIFY.ahk" { PDETECT_PROGRESS_NOTIFY }
 #Import ".\DI_FUNCTION.ahk" { DI_FUNCTION }
+#Import ".\SP_CLASSINSTALL_HEADER.ahk" { SP_CLASSINSTALL_HEADER }
 
 /**
  * An SP_DETECTDEVICE_PARAMS structure corresponds to a DIF_DETECT installation request.
@@ -32,7 +33,7 @@ export default struct SP_DETECTDEVICE_PARAMS {
      * 
      * <i>DetectComplete</i> is a value between 0 and 100 that indicates the percent completion. The class installer increments this value at various stages of its detection activities, to notify the user of its progress.
      */
-    DetectProgressNotify : IntPtr
+    DetectProgressNotify : PDETECT_PROGRESS_NOTIFY
 
     /**
      * The opaque <b>ProgressNotifyParam</b> "handle" that the class installer passes to the progress callback routine.

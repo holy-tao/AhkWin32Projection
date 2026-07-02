@@ -70,7 +70,7 @@ export default struct IVBSAXAttributes extends IDispatch {
      */
     getURI(nIndex) {
         strURI := BSTR.Owned()
-        result := ComCall(8, this, "int", nIndex, BSTR.Ptr, strURI, "HRESULT")
+        result := ComCall(8, this, Int32, nIndex, BSTR.Ptr, strURI, "HRESULT")
         return strURI
     }
 
@@ -81,7 +81,7 @@ export default struct IVBSAXAttributes extends IDispatch {
      */
     getLocalName(nIndex) {
         strLocalName := BSTR.Owned()
-        result := ComCall(9, this, "int", nIndex, BSTR.Ptr, strLocalName, "HRESULT")
+        result := ComCall(9, this, Int32, nIndex, BSTR.Ptr, strLocalName, "HRESULT")
         return strLocalName
     }
 
@@ -92,7 +92,7 @@ export default struct IVBSAXAttributes extends IDispatch {
      */
     getQName(nIndex) {
         strQName := BSTR.Owned()
-        result := ComCall(10, this, "int", nIndex, BSTR.Ptr, strQName, "HRESULT")
+        result := ComCall(10, this, Int32, nIndex, BSTR.Ptr, strQName, "HRESULT")
         return strQName
     }
 
@@ -129,7 +129,7 @@ export default struct IVBSAXAttributes extends IDispatch {
      */
     getType(nIndex) {
         strType := BSTR.Owned()
-        result := ComCall(13, this, "int", nIndex, BSTR.Ptr, strType, "HRESULT")
+        result := ComCall(13, this, Int32, nIndex, BSTR.Ptr, strType, "HRESULT")
         return strType
     }
 
@@ -168,7 +168,7 @@ export default struct IVBSAXAttributes extends IDispatch {
      */
     getValue(nIndex) {
         strValue := BSTR.Owned()
-        result := ComCall(16, this, "int", nIndex, BSTR.Ptr, strValue, "HRESULT")
+        result := ComCall(16, this, Int32, nIndex, BSTR.Ptr, strValue, "HRESULT")
         return strValue
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_TRAFFIC_TYPE.ahk" { IPSEC_TRAFFIC_TYPE }
 #Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\IPSEC_TRAFFIC_TYPE.ahk" { IPSEC_TRAFFIC_TYPE }
 
 /**
  * Specifies parameters to describe IPsec traffic. (IPSEC_TRAFFIC0)

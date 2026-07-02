@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -46,7 +46,7 @@ export default struct IRowsetChangeExtInfo extends IUnknown {
     GetOriginalRow(hReserved, hRow, phRowOriginal) {
         phRowOriginalMarshal := phRowOriginal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hReserved, "ptr", hRow, phRowOriginalMarshal, phRowOriginal, "HRESULT")
+        result := ComCall(3, this, IntPtr, hReserved, IntPtr, hRow, phRowOriginalMarshal, phRowOriginal, "HRESULT")
         return result
     }
 
@@ -63,7 +63,7 @@ export default struct IRowsetChangeExtInfo extends IUnknown {
         rgiOrdinalsMarshal := rgiOrdinals is VarRef ? "uint*" : "ptr"
         rgColumnStatusMarshal := rgColumnStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hReserved, "ptr", hRow, "uint", cColumnOrdinals, rgiOrdinalsMarshal, rgiOrdinals, rgColumnStatusMarshal, rgColumnStatus, "HRESULT")
+        result := ComCall(4, this, IntPtr, hReserved, IntPtr, hRow, UInt32, cColumnOrdinals, rgiOrdinalsMarshal, rgiOrdinals, rgColumnStatusMarshal, rgColumnStatus, "HRESULT")
         return result
     }
 

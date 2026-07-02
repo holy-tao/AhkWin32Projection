@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IStream.ahk" { IStream }
 
 /**
  * The IMarshal (objidlbase.h) interface enables a COM object to define and manage the marshaling of its interface pointers.
@@ -253,7 +253,7 @@ export default struct IMarshal extends IUnknown {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
         pCid := Guid()
-        result := ComCall(3, this, Guid.Ptr, riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", _mshlflags, Guid.Ptr, pCid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, pvMarshal, pv, UInt32, dwDestContext, "ptr", pvDestContext, UInt32, _mshlflags, Guid.Ptr, pCid, "HRESULT")
         return pCid
     }
 
@@ -293,7 +293,7 @@ export default struct IMarshal extends IUnknown {
 
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, Guid.Ptr, riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", _mshlflags, "uint*", &pSize := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, riid, pvMarshal, pv, UInt32, dwDestContext, "ptr", pvDestContext, UInt32, _mshlflags, "uint*", &pSize := 0, "HRESULT")
         return pSize
     }
 
@@ -382,7 +382,7 @@ export default struct IMarshal extends IUnknown {
 
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", pStm, Guid.Ptr, riid, pvMarshal, pv, "uint", dwDestContext, "ptr", pvDestContext, "uint", _mshlflags, "HRESULT")
+        result := ComCall(5, this, "ptr", pStm, Guid.Ptr, riid, pvMarshal, pv, UInt32, dwDestContext, "ptr", pvDestContext, UInt32, _mshlflags, "HRESULT")
         return result
     }
 
@@ -450,7 +450,7 @@ export default struct IMarshal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshal-disconnectobject
      */
     DisconnectObject(dwReserved) {
-        result := ComCall(8, this, "uint", dwReserved, "HRESULT")
+        result := ComCall(8, this, UInt32, dwReserved, "HRESULT")
         return result
     }
 

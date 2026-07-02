@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ProviderOptions.ahk" { ProviderOptions }
-#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import ".\ProviderOptions.ahk" { ProviderOptions }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
 
 /**
  * Defines methods and properties that expose simple UI elements.

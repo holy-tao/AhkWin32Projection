@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\BINDINFO.ahk" { BINDINFO }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -58,7 +58,7 @@ export default struct IInternetBindInfo extends IUnknown {
     GetBindString(ulStringType, cEl, pcElFetched) {
         pcElFetchedMarshal := pcElFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulStringType, PWSTR.Ptr, &ppwzStr := 0, "uint", cEl, pcElFetchedMarshal, pcElFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulStringType, PWSTR.Ptr, &ppwzStr := 0, UInt32, cEl, pcElFetchedMarshal, pcElFetched, "HRESULT")
         return ppwzStr
     }
 

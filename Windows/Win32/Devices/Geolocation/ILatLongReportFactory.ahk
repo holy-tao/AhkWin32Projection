@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDispLatLongReport.ahk" { IDispLatLongReport }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ILocationReportFactory.ahk" { ILocationReportFactory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation

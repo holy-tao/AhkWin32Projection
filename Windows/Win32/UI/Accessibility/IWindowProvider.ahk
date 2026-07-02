@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WindowInteractionState.ahk" { WindowInteractionState }
+#Import ".\WindowVisualState.ahk" { WindowVisualState }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WindowVisualState.ahk" { WindowVisualState }
+#Import ".\WindowInteractionState.ahk" { WindowInteractionState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to the fundamental window-based functionality of a control.
@@ -151,7 +151,7 @@ export default struct IWindowProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iwindowprovider-waitforinputidle
      */
     WaitForInputIdle(milliseconds) {
-        result := ComCall(5, this, "int", milliseconds, BOOL.Ptr, &pRetVal := 0, "HRESULT")
+        result := ComCall(5, this, Int32, milliseconds, BOOL.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 

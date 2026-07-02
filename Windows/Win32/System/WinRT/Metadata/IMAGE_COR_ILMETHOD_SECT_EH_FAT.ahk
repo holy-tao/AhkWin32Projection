@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT.ahk" { IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT }
 #Import ".\CorExceptionFlag.ahk" { CorExceptionFlag }
 #Import ".\IMAGE_COR_ILMETHOD_SECT_FAT.ahk" { IMAGE_COR_ILMETHOD_SECT_FAT }
-#Import ".\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT.ahk" { IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata

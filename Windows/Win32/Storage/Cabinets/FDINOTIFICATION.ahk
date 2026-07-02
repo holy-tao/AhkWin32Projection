@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FDIERROR.ahk" { FDIERROR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\FDIERROR.ahk" { FDIERROR }
 
 /**
  * The FDINOTIFICATION structure to provide information to FNFDINOTIFY.

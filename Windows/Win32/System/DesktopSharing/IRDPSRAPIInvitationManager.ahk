@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRDPSRAPIInvitation.ahk" { IRDPSRAPIInvitation }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Manages invitation objects.
@@ -119,7 +119,7 @@ export default struct IRDPSRAPIInvitationManager extends IDispatch {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(10, this, BSTR, bstrAuthString, BSTR, bstrGroupName, BSTR, bstrPassword, "int", AttendeeLimit, "ptr*", &ppInvitation := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrAuthString, BSTR, bstrGroupName, BSTR, bstrPassword, Int32, AttendeeLimit, "ptr*", &ppInvitation := 0, "HRESULT")
         return IRDPSRAPIInvitation(ppInvitation)
     }
 

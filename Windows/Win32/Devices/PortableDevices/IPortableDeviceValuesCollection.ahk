@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 
 /**
  * The IPortableDeviceValuesCollection interface holds a collection of zero-based indexed IPortableDeviceValues interfaces.
@@ -77,7 +77,7 @@ export default struct IPortableDeviceValuesCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevaluescollection-getat
      */
     GetAt(dwIndex) {
-        result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppValues := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, "ptr*", &ppValues := 0, "HRESULT")
         return IPortableDeviceValues(ppValues)
     }
 
@@ -136,7 +136,7 @@ export default struct IPortableDeviceValuesCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevaluescollection-removeat
      */
     RemoveAt(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "HRESULT")
         return result
     }
 

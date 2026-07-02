@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IJsDebugStackWalker.ahk" { IJsDebugStackWalker }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IJsDebugBreakPoint.ahk" { IJsDebugBreakPoint }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IJsDebugStackWalker.ahk" { IJsDebugStackWalker }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -47,7 +47,7 @@ export default struct IJsDebugProcess extends IUnknown {
      * @returns {IJsDebugStackWalker} 
      */
     CreateStackWalker(threadId) {
-        result := ComCall(3, this, "uint", threadId, "ptr*", &ppStackWalker := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, threadId, "ptr*", &ppStackWalker := 0, "HRESULT")
         return IJsDebugStackWalker(ppStackWalker)
     }
 
@@ -60,7 +60,7 @@ export default struct IJsDebugProcess extends IUnknown {
      * @returns {IJsDebugBreakPoint} 
      */
     CreateBreakPoint(documentId, characterOffset, characterCount, isEnabled) {
-        result := ComCall(4, this, "uint", documentId, "uint", characterOffset, "uint", characterCount, BOOL, isEnabled, "ptr*", &ppDebugBreakPoint := 0, "HRESULT")
+        result := ComCall(4, this, Int64, documentId, UInt32, characterOffset, UInt32, characterCount, BOOL, isEnabled, "ptr*", &ppDebugBreakPoint := 0, "HRESULT")
         return IJsDebugBreakPoint(ppDebugBreakPoint)
     }
 
@@ -70,7 +70,7 @@ export default struct IJsDebugProcess extends IUnknown {
      * @returns {HRESULT} 
      */
     PerformAsyncBreak(threadId) {
-        result := ComCall(5, this, "uint", threadId, "HRESULT")
+        result := ComCall(5, this, UInt32, threadId, "HRESULT")
         return result
     }
 

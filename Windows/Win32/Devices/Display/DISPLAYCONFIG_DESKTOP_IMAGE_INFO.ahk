@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * The DISPLAYCONFIG_DESKTOP_IMAGE_INFO structure contains information about the image displayed on the desktop.

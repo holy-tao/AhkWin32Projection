@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SP_DEVINFO_DATA.ahk" { SP_DEVINFO_DATA }
 #Import ".\HDEVINFO.ahk" { HDEVINFO }
+#Import ".\SP_DEVINFO_DATA.ahk" { SP_DEVINFO_DATA }
 
 /**
  * An SP_PROPSHEETPAGE_REQUEST structure can be passed as the first parameter (lpv) to the ExtensionPropSheetPageProc entry point in the SetupAPI DLL.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
 
 /**
  * Exposes methods that create, modify, and resolve Shell links. (Unicode)
@@ -90,7 +90,7 @@ export default struct IShellLinkW extends IUnknown {
     GetPath(pszFile, cch, pfd, fFlags) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(3, this, "ptr", pszFile, "int", cch, WIN32_FIND_DATAW.Ptr, pfd, "uint", fFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFile, Int32, cch, WIN32_FIND_DATAW.Ptr, pfd, UInt32, fFlags, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct IShellLinkW extends IUnknown {
     GetDescription(pszName, cch) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(6, this, "ptr", pszName, "int", cch, "HRESULT")
+        result := ComCall(6, this, "ptr", pszName, Int32, cch, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct IShellLinkW extends IUnknown {
     GetWorkingDirectory(pszDir, cch) {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
 
-        result := ComCall(8, this, "ptr", pszDir, "int", cch, "HRESULT")
+        result := ComCall(8, this, "ptr", pszDir, Int32, cch, "HRESULT")
         return result
     }
 
@@ -221,7 +221,7 @@ export default struct IShellLinkW extends IUnknown {
     GetArguments(pszArgs, cch) {
         pszArgs := pszArgs is String ? StrPtr(pszArgs) : pszArgs
 
-        result := ComCall(10, this, "ptr", pszArgs, "int", cch, "HRESULT")
+        result := ComCall(10, this, "ptr", pszArgs, Int32, cch, "HRESULT")
         return result
     }
 
@@ -267,7 +267,7 @@ export default struct IShellLinkW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkw-sethotkey
      */
     SetHotkey(wHotkey) {
-        result := ComCall(13, this, "ushort", wHotkey, "HRESULT")
+        result := ComCall(13, this, UInt16, wHotkey, "HRESULT")
         return result
     }
 
@@ -316,7 +316,7 @@ export default struct IShellLinkW extends IUnknown {
     GetIconLocation(pszIconPath, cch) {
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-        result := ComCall(16, this, "ptr", pszIconPath, "int", cch, "int*", &piIcon := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pszIconPath, Int32, cch, "int*", &piIcon := 0, "HRESULT")
         return piIcon
     }
 
@@ -336,7 +336,7 @@ export default struct IShellLinkW extends IUnknown {
     SetIconLocation(pszIconPath, iIcon) {
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-        result := ComCall(17, this, "ptr", pszIconPath, "int", iIcon, "HRESULT")
+        result := ComCall(17, this, "ptr", pszIconPath, Int32, iIcon, "HRESULT")
         return result
     }
 
@@ -358,7 +358,7 @@ export default struct IShellLinkW extends IUnknown {
     SetRelativePath(pszPathRel, dwReserved) {
         pszPathRel := pszPathRel is String ? StrPtr(pszPathRel) : pszPathRel
 
-        result := ComCall(18, this, "ptr", pszPathRel, "uint", dwReserved, "HRESULT")
+        result := ComCall(18, this, "ptr", pszPathRel, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -389,7 +389,7 @@ export default struct IShellLinkW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkw-resolve
      */
     Resolve(_hwnd, fFlags) {
-        result := ComCall(19, this, HWND, _hwnd, "uint", fFlags, "HRESULT")
+        result := ComCall(19, this, HWND, _hwnd, UInt32, fFlags, "HRESULT")
         return result
     }
 

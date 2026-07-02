@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables any apartment in a process to get access to an interface implemented on an object in any other apartment in the process.
@@ -103,7 +103,7 @@ export default struct IGlobalInterfaceTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-revokeinterfacefromglobal
      */
     RevokeInterfaceFromGlobal(dwCookie) {
-        result := ComCall(4, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct IGlobalInterfaceTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-getinterfacefromglobal
      */
     GetInterfaceFromGlobal(dwCookie, riid) {
-        result := ComCall(5, this, "uint", dwCookie, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwCookie, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CLUADMEX_OBJECT_TYPE.ahk" { CLUADMEX_OBJECT_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CLUADMEX_OBJECT_TYPE.ahk" { CLUADMEX_OBJECT_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about a cluster object.
@@ -145,7 +145,7 @@ export default struct IGetClusterObjectInfo extends IUnknown {
 
         pcchNameMarshal := pcchName is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", lObjIndex, BSTR, lpszName, pcchNameMarshal, pcchName, "HRESULT")
+        result := ComCall(3, this, Int32, lObjIndex, BSTR, lpszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IGetClusterObjectInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjecttype
      */
     GetObjectType(lObjIndex) {
-        result := ComCall(4, this, "int", lObjIndex, CLUADMEX_OBJECT_TYPE)
+        result := ComCall(4, this, Int32, lObjIndex, CLUADMEX_OBJECT_TYPE)
         return result
     }
 

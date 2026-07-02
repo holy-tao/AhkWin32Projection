@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TERMINAL_STATE.ahk" { TERMINAL_STATE }
 #Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
+#Import ".\TERMINAL_STATE.ahk" { TERMINAL_STATE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }

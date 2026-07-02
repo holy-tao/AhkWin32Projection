@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -46,7 +46,7 @@ export default struct IElementBehaviorSiteCategory extends IUnknown {
     GetRelatedBehaviors(lDirection, pchCategory) {
         pchCategory := pchCategory is String ? StrPtr(pchCategory) : pchCategory
 
-        result := ComCall(3, this, "int", lDirection, "ptr", pchCategory, "ptr*", &ppEnumerator := 0, "HRESULT")
+        result := ComCall(3, this, Int32, lDirection, "ptr", pchCategory, "ptr*", &ppEnumerator := 0, "HRESULT")
         return IEnumUnknown(ppEnumerator)
     }
 

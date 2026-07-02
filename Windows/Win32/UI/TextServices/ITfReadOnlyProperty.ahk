@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContext.ahk" { ITfContext }
-#Import ".\IEnumTfRanges.ahk" { IEnumTfRanges }
-#Import ".\ITfRange.ahk" { ITfRange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumTfRanges.ahk" { IEnumTfRanges }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\ITfContext.ahk" { ITfContext }
 
 /**
  * The ITfReadOnlyProperty interface is implemented by the TSF manager and used by an application or text service to obtain property data.
@@ -141,7 +141,7 @@ export default struct ITfReadOnlyProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadonlyproperty-enumranges
      */
     EnumRanges(ec, pTargetRange) {
-        result := ComCall(4, this, "uint", ec, "ptr*", &ppEnum := 0, "ptr", pTargetRange, "HRESULT")
+        result := ComCall(4, this, UInt32, ec, "ptr*", &ppEnum := 0, "ptr", pTargetRange, "HRESULT")
         return IEnumTfRanges(ppEnum)
     }
 
@@ -183,7 +183,7 @@ export default struct ITfReadOnlyProperty extends IUnknown {
      */
     GetValue(ec, pRange) {
         pvarValue := VARIANT()
-        result := ComCall(5, this, "uint", ec, "ptr", pRange, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(5, this, UInt32, ec, "ptr", pRange, VARIANT.Ptr, pvarValue, "HRESULT")
         return pvarValue
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IResourceConsumer interface provides a callback mechanism for objects using the IResourceManager interface.An object must implement IResourceConsumer if it uses the IResourceManager interface to request resources from the filter graph manager.
@@ -88,7 +88,7 @@ export default struct IResourceConsumer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourceconsumer-acquireresource
      */
     AcquireResource(idResource) {
-        result := ComCall(3, this, "int", idResource, "HRESULT")
+        result := ComCall(3, this, Int32, idResource, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IResourceConsumer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourceconsumer-releaseresource
      */
     ReleaseResource(idResource) {
-        result := ComCall(4, this, "int", idResource, "HRESULT")
+        result := ComCall(4, this, Int32, idResource, "HRESULT")
         return result
     }
 

@@ -158,7 +158,7 @@ export default struct IAMExtendedSeeking extends IDispatch {
     GetMarkerTime(MarkerNum, pMarkerTime) {
         pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : "ptr"
 
-        result := ComCall(10, this, "int", MarkerNum, pMarkerTimeMarshal, pMarkerTime, "HRESULT")
+        result := ComCall(10, this, Int32, MarkerNum, pMarkerTimeMarshal, pMarkerTime, "HRESULT")
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IAMExtendedSeeking extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-getmarkername
      */
     GetMarkerName(MarkerNum, pbstrMarkerName) {
-        result := ComCall(11, this, "int", MarkerNum, BSTR.Ptr, pbstrMarkerName, "HRESULT")
+        result := ComCall(11, this, Int32, MarkerNum, BSTR.Ptr, pbstrMarkerName, "HRESULT")
         return result
     }
 
@@ -183,7 +183,7 @@ export default struct IAMExtendedSeeking extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-put_playbackspeed
      */
     put_PlaybackSpeed(Speed) {
-        result := ComCall(12, this, "double", Speed, "HRESULT")
+        result := ComCall(12, this, Float64, Speed, "HRESULT")
         return result
     }
 

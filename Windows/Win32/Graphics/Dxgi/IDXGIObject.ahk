@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * An IDXGIObject interface is a base interface for all DXGI objects; IDXGIObject supports associating caller-defined (private data) with an object and retrieval of an interface to the parent object.
@@ -94,7 +94,7 @@ export default struct IDXGIObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-setprivatedata
      */
     SetPrivateData(Name, DataSize, pData) {
-        result := ComCall(3, this, Guid.Ptr, Name, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, Name, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IDXGIObject extends IUnknown {
     GetPrivateData(Name, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, Guid.Ptr, Name, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, Name, pDataSizeMarshal, pDataSize, IntPtr, pData, "HRESULT")
         return result
     }
 

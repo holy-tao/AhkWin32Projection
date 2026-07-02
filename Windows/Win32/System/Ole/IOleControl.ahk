@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CONTROLINFO.ahk" { CONTROLINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CONTROLINFO.ahk" { CONTROLINFO }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
@@ -153,7 +153,7 @@ export default struct IOleControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrol-onambientpropertychange
      */
     OnAmbientPropertyChange(dispID) {
-        result := ComCall(5, this, "int", dispID, "HRESULT")
+        result := ComCall(5, this, Int32, dispID, "HRESULT")
         return result
     }
 

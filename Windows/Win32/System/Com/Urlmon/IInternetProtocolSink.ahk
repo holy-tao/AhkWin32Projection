@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PROTOCOLDATA.ahk" { PROTOCOLDATA }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -59,7 +59,7 @@ export default struct IInternetProtocolSink extends IUnknown {
     ReportProgress(ulStatusCode, szStatusText) {
         szStatusText := szStatusText is String ? StrPtr(szStatusText) : szStatusText
 
-        result := ComCall(4, this, "uint", ulStatusCode, "ptr", szStatusText, "HRESULT")
+        result := ComCall(4, this, UInt32, ulStatusCode, "ptr", szStatusText, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IInternetProtocolSink extends IUnknown {
      * @returns {HRESULT} 
      */
     ReportData(grfBSCF, ulProgress, ulProgressMax) {
-        result := ComCall(5, this, "uint", grfBSCF, "uint", ulProgress, "uint", ulProgressMax, "HRESULT")
+        result := ComCall(5, this, UInt32, grfBSCF, UInt32, ulProgress, UInt32, ulProgressMax, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IInternetProtocolSink extends IUnknown {
     ReportResult(hrResult, dwError, szResult) {
         szResult := szResult is String ? StrPtr(szResult) : szResult
 
-        result := ComCall(6, this, "int", hrResult, "uint", dwError, "ptr", szResult, "HRESULT")
+        result := ComCall(6, this, "int", hrResult, UInt32, dwError, "ptr", szResult, "HRESULT")
         return result
     }
 

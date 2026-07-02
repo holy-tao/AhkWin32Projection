@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IMAGEHLP_SYMBOL_TYPE_INFO.ahk" { IMAGEHLP_SYMBOL_TYPE_INFO }
 #Import ".\IMAGEHLP_GET_TYPE_INFO_FLAGS.ahk" { IMAGEHLP_GET_TYPE_INFO_FLAGS }
+#Import ".\IMAGEHLP_SYMBOL_TYPE_INFO.ahk" { IMAGEHLP_SYMBOL_TYPE_INFO }
 
 /**
  * Contains type information for a module.

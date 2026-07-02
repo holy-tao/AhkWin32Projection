@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WICBitmapPaletteType.ahk" { WICBitmapPaletteType }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IWICPalette.ahk" { IWICPalette }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WICBitmapDitherType.ahk" { WICBitmapDitherType }
 
 /**
@@ -91,7 +91,7 @@ export default struct IWICFormatConverter extends IWICBitmapSource {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverter-initialize
      */
     Initialize(pISource, dstFormat, dither, pIPalette, alphaThresholdPercent, paletteTranslate) {
-        result := ComCall(8, this, "ptr", pISource, Guid.Ptr, dstFormat, WICBitmapDitherType, dither, "ptr", pIPalette, "double", alphaThresholdPercent, WICBitmapPaletteType, paletteTranslate, "HRESULT")
+        result := ComCall(8, this, "ptr", pISource, Guid.Ptr, dstFormat, WICBitmapDitherType, dither, "ptr", pIPalette, Float64, alphaThresholdPercent, WICBitmapPaletteType, paletteTranslate, "HRESULT")
         return result
     }
 

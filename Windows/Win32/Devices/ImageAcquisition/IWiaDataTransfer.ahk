@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WIA_FORMAT_INFO.ahk" { WIA_FORMAT_INFO }
-#Import "..\..\System\Com\STGMEDIUM.ahk" { STGMEDIUM }
-#Import ".\WIA_EXTENDED_TRANSFER_INFO.ahk" { WIA_EXTENDED_TRANSFER_INFO }
 #Import ".\WIA_DATA_TRANSFER_INFO.ahk" { WIA_DATA_TRANSFER_INFO }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WIA_FORMAT_INFO.ahk" { WIA_FORMAT_INFO }
 #Import ".\IWiaDataCallback.ahk" { IWiaDataCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\STGMEDIUM.ahk" { STGMEDIUM }
 #Import ".\IEnumWIA_FORMAT_INFO.ahk" { IEnumWIA_FORMAT_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WIA_EXTENDED_TRANSFER_INFO.ahk" { WIA_EXTENDED_TRANSFER_INFO }
 
 /**
  * The IWiaDataTransfer interface is a high performance data transfer interface.

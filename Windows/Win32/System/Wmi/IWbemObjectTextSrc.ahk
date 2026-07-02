@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWbemContext.ahk" { IWbemContext }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemObjectTextSrc interface is used to translate IWbemClassObject instances to and from differing text formats.
@@ -61,7 +61,7 @@ export default struct IWbemObjectTextSrc extends IUnknown {
      */
     GetText(lFlags, pObj, uObjTextFormat, pCtx) {
         strText := BSTR.Owned()
-        result := ComCall(3, this, "int", lFlags, "ptr", pObj, "uint", uObjTextFormat, "ptr", pCtx, BSTR.Ptr, strText, "HRESULT")
+        result := ComCall(3, this, Int32, lFlags, "ptr", pObj, UInt32, uObjTextFormat, "ptr", pCtx, BSTR.Ptr, strText, "HRESULT")
         return strText
     }
 
@@ -77,7 +77,7 @@ export default struct IWbemObjectTextSrc extends IUnknown {
     CreateFromText(lFlags, strText, uObjTextFormat, pCtx) {
         strText := strText is String ? BSTR.Alloc(strText).Value : strText
 
-        result := ComCall(4, this, "int", lFlags, BSTR, strText, "uint", uObjTextFormat, "ptr", pCtx, "ptr*", &pNewObj := 0, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, BSTR, strText, UInt32, uObjTextFormat, "ptr", pCtx, "ptr*", &pNewObj := 0, "HRESULT")
         return IWbemClassObject(pNewObj)
     }
 

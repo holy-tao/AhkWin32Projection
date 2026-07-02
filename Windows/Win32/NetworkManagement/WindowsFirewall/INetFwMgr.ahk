@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NET_FW_IP_VERSION.ahk" { NET_FW_IP_VERSION }
+#Import ".\INetFwPolicy.ahk" { INetFwPolicy }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\NET_FW_IP_PROTOCOL.ahk" { NET_FW_IP_PROTOCOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\NET_FW_IP_VERSION.ahk" { NET_FW_IP_VERSION }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\NET_FW_PROFILE_TYPE.ahk" { NET_FW_PROFILE_TYPE }
-#Import ".\INetFwPolicy.ahk" { INetFwPolicy }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NET_FW_PROFILE_TYPE.ahk" { NET_FW_PROFILE_TYPE }
 
 /**
  * The INetFwMgr interface provides access to the firewall settings for a computer.
@@ -326,7 +326,7 @@ export default struct INetFwMgr extends IDispatch {
         imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
         localAddress := localAddress is String ? BSTR.Alloc(localAddress).Value : localAddress
 
-        result := ComCall(10, this, BSTR, imageFileName, NET_FW_IP_VERSION, ipVersion, "int", portNumber, BSTR, localAddress, NET_FW_IP_PROTOCOL, ipProtocol, VARIANT.Ptr, allowed, VARIANT.Ptr, restricted, "HRESULT")
+        result := ComCall(10, this, BSTR, imageFileName, NET_FW_IP_VERSION, ipVersion, Int32, portNumber, BSTR, localAddress, NET_FW_IP_PROTOCOL, ipProtocol, VARIANT.Ptr, allowed, VARIANT.Ptr, restricted, "HRESULT")
         return result
     }
 
@@ -475,7 +475,7 @@ export default struct INetFwMgr extends IDispatch {
     IsIcmpTypeAllowed(ipVersion, localAddress, type, allowed, restricted) {
         localAddress := localAddress is String ? BSTR.Alloc(localAddress).Value : localAddress
 
-        result := ComCall(11, this, NET_FW_IP_VERSION, ipVersion, BSTR, localAddress, "char", type, VARIANT.Ptr, allowed, VARIANT.Ptr, restricted, "HRESULT")
+        result := ComCall(11, this, NET_FW_IP_VERSION, ipVersion, BSTR, localAddress, Int8, type, VARIANT.Ptr, allowed, VARIANT.Ptr, restricted, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ROUTER_CUSTOM_IKEv2_POLICY0.ahk" { ROUTER_CUSTOM_IKEv2_POLICY0 }
 #Import ".\L2TP_TUNNEL_CONFIG_PARAMS2.ahk" { L2TP_TUNNEL_CONFIG_PARAMS2 }
+#Import ".\ROUTER_CUSTOM_IKEv2_POLICY0.ahk" { ROUTER_CUSTOM_IKEv2_POLICY0 }
 
 /**
  * Used to get and set the device configuration for Layer 2 Tunneling Protocol (L2TP) on a RAS Server. (L2TP_CONFIG_PARAMS1)

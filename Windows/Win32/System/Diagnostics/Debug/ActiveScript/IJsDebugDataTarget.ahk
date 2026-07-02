@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumJsStackFrames.ahk" { IEnumJsStackFrames }
-#Import ".\JsDebugReadMemoryFlags.ahk" { JsDebugReadMemoryFlags }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\JsDebugReadMemoryFlags.ahk" { JsDebugReadMemoryFlags }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -59,7 +59,7 @@ export default struct IJsDebugDataTarget extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
         pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", _address, JsDebugReadMemoryFlags, flags, pBufferMarshal, pBuffer, "uint", _size, pBytesReadMarshal, pBytesRead, "HRESULT")
+        result := ComCall(3, this, Int64, _address, JsDebugReadMemoryFlags, flags, pBufferMarshal, pBuffer, UInt32, _size, pBytesReadMarshal, pBytesRead, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct IJsDebugDataTarget extends IUnknown {
     WriteMemory(_address, pMemory, _size) {
         pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", _address, pMemoryMarshal, pMemory, "uint", _size, "HRESULT")
+        result := ComCall(4, this, Int64, _address, pMemoryMarshal, pMemory, UInt32, _size, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct IJsDebugDataTarget extends IUnknown {
      * @returns {Integer} 
      */
     AllocateVirtualMemory(_address, _size, allocationType, pageProtection) {
-        result := ComCall(5, this, "uint", _address, "uint", _size, "uint", allocationType, "uint", pageProtection, "uint*", &pAllocatedAddress := 0, "HRESULT")
+        result := ComCall(5, this, Int64, _address, UInt32, _size, UInt32, allocationType, UInt32, pageProtection, "uint*", &pAllocatedAddress := 0, "HRESULT")
         return pAllocatedAddress
     }
 
@@ -98,7 +98,7 @@ export default struct IJsDebugDataTarget extends IUnknown {
      * @returns {HRESULT} 
      */
     FreeVirtualMemory(_address, _size, freeType) {
-        result := ComCall(6, this, "uint", _address, "uint", _size, "uint", freeType, "HRESULT")
+        result := ComCall(6, this, Int64, _address, UInt32, _size, UInt32, freeType, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct IJsDebugDataTarget extends IUnknown {
      * @returns {Integer} 
      */
     GetTlsValue(threadId, tlsIndex) {
-        result := ComCall(7, this, "uint", threadId, "uint", tlsIndex, "uint*", &pValue := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, threadId, UInt32, tlsIndex, "uint*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -120,7 +120,7 @@ export default struct IJsDebugDataTarget extends IUnknown {
      */
     ReadBSTR(_address) {
         pString := BSTR.Owned()
-        result := ComCall(8, this, "uint", _address, BSTR.Ptr, pString, "HRESULT")
+        result := ComCall(8, this, Int64, _address, BSTR.Ptr, pString, "HRESULT")
         return pString
     }
 
@@ -133,7 +133,7 @@ export default struct IJsDebugDataTarget extends IUnknown {
      */
     ReadNullTerminatedString(_address, characterSize, maxCharacters) {
         pString := BSTR.Owned()
-        result := ComCall(9, this, "uint", _address, "ushort", characterSize, "uint", maxCharacters, BSTR.Ptr, pString, "HRESULT")
+        result := ComCall(9, this, Int64, _address, UInt16, characterSize, UInt32, maxCharacters, BSTR.Ptr, pString, "HRESULT")
         return pString
     }
 
@@ -143,7 +143,7 @@ export default struct IJsDebugDataTarget extends IUnknown {
      * @returns {IEnumJsStackFrames} 
      */
     CreateStackFrameEnumerator(threadId) {
-        result := ComCall(10, this, "uint", threadId, "ptr*", &ppEnumerator := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, threadId, "ptr*", &ppEnumerator := 0, "HRESULT")
         return IEnumJsStackFrames(ppEnumerator)
     }
 
@@ -162,7 +162,7 @@ export default struct IJsDebugDataTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(threadId, contextFlags, contextSize) {
-        result := ComCall(11, this, "uint", threadId, "uint", contextFlags, "uint", contextSize, "ptr", &pContext := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, threadId, UInt32, contextFlags, UInt32, contextSize, "ptr", &pContext := 0, "HRESULT")
         return pContext
     }
 

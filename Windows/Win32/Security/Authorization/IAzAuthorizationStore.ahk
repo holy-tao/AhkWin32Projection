@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzApplications.ahk" { IAzApplications }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
 #Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\AZ_PROP_CONSTANTS.ahk" { AZ_PROP_CONSTANTS }
 #Import ".\IAzApplication.ahk" { IAzApplication }
-#Import ".\IAzApplications.ahk" { IAzApplications }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Defines the container that is the root of the authorization policy store.
@@ -313,7 +313,7 @@ export default struct IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-put_domaintimeout
      */
     put_DomainTimeout(lProp) {
-        result := ComCall(12, this, "int", lProp, "HRESULT")
+        result := ComCall(12, this, Int32, lProp, "HRESULT")
         return result
     }
 
@@ -334,7 +334,7 @@ export default struct IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-put_scriptenginetimeout
      */
     put_ScriptEngineTimeout(lProp) {
-        result := ComCall(14, this, "int", lProp, "HRESULT")
+        result := ComCall(14, this, Int32, lProp, "HRESULT")
         return result
     }
 
@@ -355,7 +355,7 @@ export default struct IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-put_maxscriptengines
      */
     put_MaxScriptEngines(lProp) {
-        result := ComCall(16, this, "int", lProp, "HRESULT")
+        result := ComCall(16, this, Int32, lProp, "HRESULT")
         return result
     }
 
@@ -510,7 +510,7 @@ export default struct IAzAuthorizationStore extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(20, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
+        result := ComCall(20, this, Int32, lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -688,7 +688,7 @@ export default struct IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(21, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(21, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -797,7 +797,7 @@ export default struct IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(23, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(23, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1140,7 +1140,7 @@ export default struct IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(41, this, "int", lFlags, VARIANT, varReserved, "HRESULT")
+        result := ComCall(41, this, Int32, lFlags, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1466,7 +1466,7 @@ export default struct IAzAuthorizationStore extends IDispatch {
     CloseApplication(bstrApplicationName, lFlag) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
 
-        result := ComCall(57, this, BSTR, bstrApplicationName, "int", lFlag, "HRESULT")
+        result := ComCall(57, this, BSTR, bstrApplicationName, Int32, lFlag, "HRESULT")
         return result
     }
 

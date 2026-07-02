@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOT11_POWER_MODE.ahk" { DOT11_POWER_MODE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DOT11_POWER_MODE.ahk" { DOT11_POWER_MODE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

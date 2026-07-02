@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
 #Import ".\DOT11_DIRECTION.ahk" { DOT11_DIRECTION }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

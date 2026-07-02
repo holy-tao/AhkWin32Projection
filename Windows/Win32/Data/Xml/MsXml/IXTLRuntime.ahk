@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -108,7 +108,7 @@ export default struct IXTLRuntime extends IXMLDOMNode {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
         pbstrFormattedString := BSTR.Owned()
-        result := ComCall(48, this, "int", lIndex, BSTR, bstrFormat, BSTR.Ptr, pbstrFormattedString, "HRESULT")
+        result := ComCall(48, this, Int32, lIndex, BSTR, bstrFormat, BSTR.Ptr, pbstrFormattedString, "HRESULT")
         return pbstrFormattedString
     }
 
@@ -122,7 +122,7 @@ export default struct IXTLRuntime extends IXMLDOMNode {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
         pbstrFormattedString := BSTR.Owned()
-        result := ComCall(49, this, "double", dblNumber, BSTR, bstrFormat, BSTR.Ptr, pbstrFormattedString, "HRESULT")
+        result := ComCall(49, this, Float64, dblNumber, BSTR, bstrFormat, BSTR.Ptr, pbstrFormattedString, "HRESULT")
         return pbstrFormattedString
     }
 

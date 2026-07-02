@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Ndis\NETWORK_ADDRESS.ahk" { NETWORK_ADDRESS }
 #Import "..\Ndis\NETWORK_ADDRESS_LIST.ahk" { NETWORK_ADDRESS_LIST }
+#Import "..\Ndis\NETWORK_ADDRESS.ahk" { NETWORK_ADDRESS }
 
 /**
  * The ADDRESS_LIST_DESCRIPTOR structure provides network address descriptor information for a given interface.

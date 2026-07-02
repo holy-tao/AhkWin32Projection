@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUIContextualUI interface is implemented by the Ribbon framework and provides the core functionality for the Context Popup View.
@@ -74,7 +74,7 @@ export default struct IUIContextualUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicontextualui-showatlocation
      */
     ShowAtLocation(x, y) {
-        result := ComCall(3, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(3, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 

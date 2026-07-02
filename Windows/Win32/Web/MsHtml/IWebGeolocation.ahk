@@ -73,7 +73,7 @@ export default struct IWebGeolocation extends IDispatch {
      * @returns {HRESULT} 
      */
     clearWatch(watchId) {
-        result := ComCall(9, this, "int", watchId, "HRESULT")
+        result := ComCall(9, this, Int32, watchId, "HRESULT")
         return result
     }
 

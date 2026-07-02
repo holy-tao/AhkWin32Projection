@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import ".\WS_XML_NODE_TYPE.ahk" { WS_XML_NODE_TYPE }
-#Import ".\WS_XML_ATTRIBUTE.ahk" { WS_XML_ATTRIBUTE }
-#Import ".\WS_XML_NODE.ahk" { WS_XML_NODE }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WS_XML_NODE.ahk" { WS_XML_NODE }
+#Import ".\WS_XML_ATTRIBUTE.ahk" { WS_XML_ATTRIBUTE }
 
 /**
  * Represents a start element in xml (e.g.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IComponentType.ahk" { IComponentType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComponentType.ahk" { IComponentType }
 
 /**
  * The IEnumComponentTypes interface is implemented on a standard COM collection of ComponentType objects associated with a given broadcast stream, and returned through a call to IComponentTypes::EnumComponentTypes.
@@ -54,7 +54,7 @@ export default struct IEnumComponentTypes extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, IComponentType.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, IComponentType.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -65,7 +65,7 @@ export default struct IEnumComponentTypes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ienumcomponenttypes-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

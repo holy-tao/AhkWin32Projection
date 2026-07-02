@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Provides additional functionality on the sink writer for dynamically changing the media type and encoder configuration.
@@ -54,7 +54,7 @@ export default struct IMFSinkWriterEncoderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriterencoderconfig-settargetmediatype
      */
     SetTargetMediaType(dwStreamIndex, pTargetMediaType, pEncodingParameters) {
-        result := ComCall(3, this, "uint", dwStreamIndex, "ptr", pTargetMediaType, "ptr", pEncodingParameters, "HRESULT")
+        result := ComCall(3, this, UInt32, dwStreamIndex, "ptr", pTargetMediaType, "ptr", pEncodingParameters, "HRESULT")
         return result
     }
 
@@ -68,7 +68,7 @@ export default struct IMFSinkWriterEncoderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriterencoderconfig-placeencodingparameters
      */
     PlaceEncodingParameters(dwStreamIndex, pEncodingParameters) {
-        result := ComCall(4, this, "uint", dwStreamIndex, "ptr", pEncodingParameters, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamIndex, "ptr", pEncodingParameters, "HRESULT")
         return result
     }
 

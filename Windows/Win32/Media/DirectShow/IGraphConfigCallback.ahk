@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IGraphConfigCallback interface contains the callback method passed to IGraphConfig::Reconfigure. The caller (an application or filter) implements this interface. For more information, see IGraphConfig.
@@ -53,7 +53,7 @@ export default struct IGraphConfigCallback extends IUnknown {
     Reconfigure(pvContext, dwFlags) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pvContextMarshal, pvContext, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, pvContextMarshal, pvContext, UInt32, dwFlags, "HRESULT")
         return result
     }
 

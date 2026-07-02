@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IX509CertificateRequestPkcs10.ahk" { IX509CertificateRequestPkcs10 }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import ".\X509SCEPDisposition.ahk" { X509SCEPDisposition }
 #Import ".\IX509EnrollmentStatus.ahk" { IX509EnrollmentStatus }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\X509SCEPFailInfo.ahk" { X509SCEPFailInfo }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\X509SCEPFailInfo.ahk" { X509SCEPFailInfo }
+#Import ".\X509SCEPDisposition.ahk" { X509SCEPDisposition }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * X.509 Simple Computer Enrollment Protocol Interface

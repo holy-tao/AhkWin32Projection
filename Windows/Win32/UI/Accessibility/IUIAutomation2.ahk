@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomation.ahk" { IUIAutomation }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomation.ahk" { IUIAutomation }
 
 /**
  * Extends the IUIAutomation interface to expose additional methods for controlling Microsoft UI Automation functionality.
@@ -117,7 +117,7 @@ export default struct IUIAutomation2 extends IUIAutomation {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-put_connectiontimeout
      */
     put_ConnectionTimeout(timeout) {
-        result := ComCall(61, this, "uint", timeout, "HRESULT")
+        result := ComCall(61, this, UInt32, timeout, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IUIAutomation2 extends IUIAutomation {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-put_transactiontimeout
      */
     put_TransactionTimeout(timeout) {
-        result := ComCall(63, this, "uint", timeout, "HRESULT")
+        result := ComCall(63, this, UInt32, timeout, "HRESULT")
         return result
     }
 

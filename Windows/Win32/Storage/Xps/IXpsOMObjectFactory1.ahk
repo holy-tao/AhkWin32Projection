@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
-#Import ".\IXpsOMObjectFactory.ahk" { IXpsOMObjectFactory }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
-#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
-#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
-#Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
-#Import ".\XPS_INTERLEAVING.ahk" { XPS_INTERLEAVING }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IXpsOMPackage1.ahk" { IXpsOMPackage1 }
-#Import ".\IXpsOMPage1.ahk" { IXpsOMPage1 }
-#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
-#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
-#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
 #Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
+#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
+#Import ".\XPS_INTERLEAVING.ahk" { XPS_INTERLEAVING }
+#Import ".\IXpsOMPackage1.ahk" { IXpsOMPackage1 }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
+#Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
+#Import ".\IXpsOMObjectFactory.ahk" { IXpsOMObjectFactory }
+#Import ".\IXpsOMPage1.ahk" { IXpsOMPage1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
 
 /**
  * Inherits from IXpsOMObjectFactory.
@@ -201,7 +201,7 @@ export default struct IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     CreatePackageWriterOnFile1(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, documentType) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(44, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, BOOL, optimizeMarkupSize, XPS_INTERLEAVING, interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, XPS_DOCUMENT_TYPE, documentType, "ptr*", &packageWriter := 0, "HRESULT")
+        result := ComCall(44, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, UInt32, flagsAndAttributes, BOOL, optimizeMarkupSize, XPS_INTERLEAVING, interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, XPS_DOCUMENT_TYPE, documentType, "ptr*", &packageWriter := 0, "HRESULT")
         return IXpsOMPackageWriter(packageWriter)
     }
 

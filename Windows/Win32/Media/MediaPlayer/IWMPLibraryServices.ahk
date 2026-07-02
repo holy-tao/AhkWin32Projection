@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMPLibraryType.ahk" { WMPLibraryType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWMPLibrary.ahk" { IWMPLibrary }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMPLibraryType.ahk" { WMPLibraryType }
 
 /**
  * The IWMPLibraryServices interface provides methods to enumerate libraries.
@@ -90,7 +90,7 @@ export default struct IWMPLibraryServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibraryservices-getlibrarybytype
      */
     getLibraryByType(wmplt, lIndex) {
-        result := ComCall(4, this, WMPLibraryType, wmplt, "int", lIndex, "ptr*", &ppIWMPLibrary := 0, "HRESULT")
+        result := ComCall(4, this, WMPLibraryType, wmplt, Int32, lIndex, "ptr*", &ppIWMPLibrary := 0, "HRESULT")
         return IWMPLibrary(ppIWMPLibrary)
     }
 

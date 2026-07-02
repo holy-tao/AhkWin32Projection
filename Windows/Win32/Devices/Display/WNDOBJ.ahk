@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import ".\CLIPOBJ.ahk" { CLIPOBJ }
 #Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * The WNDOBJ structure allows the driver to keep track of the position, size, and visible client region changes of a window.

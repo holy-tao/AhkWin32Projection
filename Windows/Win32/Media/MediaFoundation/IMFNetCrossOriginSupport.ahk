@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MF_CROSS_ORIGIN_POLICY.ahk" { MF_CROSS_ORIGIN_POLICY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by clients that want to enforce a cross origin policy for HTML5 media downloads.

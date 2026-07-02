@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a context for handling the response to a two-way request.

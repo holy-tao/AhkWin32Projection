@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DML_OPERATOR_DESC.ahk" { DML_OPERATOR_DESC }
 #Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 #Import ".\DML_RECURRENT_NETWORK_DIRECTION.ahk" { DML_RECURRENT_NETWORK_DIRECTION }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Performs a one-layer long short term memory (LSTM) function on the input. This operator uses multiple gates to perform this layer. These gates are performed multiple times in a loop, dictated by the sequence length dimension and the *SequenceLengthsTensor*.

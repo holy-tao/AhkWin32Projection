@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains parameters used to create a font object through the OleCreateFontIndirect function.

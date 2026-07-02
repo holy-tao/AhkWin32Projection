@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DBPROP.ahk" { DBPROP }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DBPROP.ahk" { DBPROP }
 
 /**
  * @namespace Windows.Win32.System.Search

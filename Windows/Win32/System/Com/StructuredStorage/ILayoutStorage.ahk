@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ILockBytes.ahk" { ILockBytes }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\StorageLayout.ahk" { StorageLayout }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\StorageLayout.ahk" { StorageLayout }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ILayoutStorage interface enables an application to optimize the layout of its compound files for efficient downloading across a slow link.
@@ -74,7 +74,7 @@ export default struct ILayoutStorage extends IUnknown {
     LayoutScript(pStorageLayout, nEntries) {
         static glfInterleavedFlag := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(3, this, StorageLayout.Ptr, pStorageLayout, "uint", nEntries, "uint", glfInterleavedFlag, "HRESULT")
+        result := ComCall(3, this, StorageLayout.Ptr, pStorageLayout, UInt32, nEntries, UInt32, glfInterleavedFlag, "HRESULT")
         return result
     }
 

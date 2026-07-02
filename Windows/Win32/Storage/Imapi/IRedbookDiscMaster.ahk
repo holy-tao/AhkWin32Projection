@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IRedbookDiscMaster interface enables the staging of an audio CD image. It represents one of the formats supported by MSDiscMasterObj, and it allows the creation of multi-track audio discs in Track-at-Once mode (fixed-size audio gaps).
@@ -113,7 +113,7 @@ export default struct IRedbookDiscMaster extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-createaudiotrack
      */
     CreateAudioTrack(nBlocks) {
-        result := ComCall(8, this, "int", nBlocks, "HRESULT")
+        result := ComCall(8, this, Int32, nBlocks, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IRedbookDiscMaster extends IUnknown {
     AddAudioTrackBlocks(pby, cb) {
         pbyMarshal := pby is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, pbyMarshal, pby, "int", cb, "HRESULT")
+        result := ComCall(9, this, pbyMarshal, pby, Int32, cb, "HRESULT")
         return result
     }
 

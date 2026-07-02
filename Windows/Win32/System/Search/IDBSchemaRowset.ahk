@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -50,7 +50,7 @@ export default struct IDBSchemaRowset extends IUnknown {
      * @returns {IUnknown} 
      */
     GetRowset(pUnkOuter, rguidSchema, cRestrictions, rgRestrictions, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, rguidSchema, "uint", cRestrictions, VARIANT.Ptr, rgRestrictions, Guid.Ptr, riid, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, rguidSchema, UInt32, cRestrictions, VARIANT.Ptr, rgRestrictions, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
         return IUnknown(ppRowset)
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ShellWindowTypeConstants.ahk" { ShellWindowTypeConstants }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ShellWindowFindWindowOptions.ahk" { ShellWindowFindWindowOptions }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ShellWindowTypeConstants.ahk" { ShellWindowTypeConstants }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to the collection of open Shell windows.
@@ -149,7 +149,7 @@ export default struct IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-register
      */
     Register(pid, _hwnd, swClass) {
-        result := ComCall(10, this, "ptr", pid, "int", _hwnd, ShellWindowTypeConstants, swClass, "int*", &plCookie := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pid, Int32, _hwnd, ShellWindowTypeConstants, swClass, "int*", &plCookie := 0, "HRESULT")
         return plCookie
     }
 
@@ -175,7 +175,7 @@ export default struct IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-registerpending
      */
     RegisterPending(lThreadId, pvarloc, pvarlocRoot, swClass) {
-        result := ComCall(11, this, "int", lThreadId, VARIANT.Ptr, pvarloc, VARIANT.Ptr, pvarlocRoot, ShellWindowTypeConstants, swClass, "int*", &plCookie := 0, "HRESULT")
+        result := ComCall(11, this, Int32, lThreadId, VARIANT.Ptr, pvarloc, VARIANT.Ptr, pvarlocRoot, ShellWindowTypeConstants, swClass, "int*", &plCookie := 0, "HRESULT")
         return plCookie
     }
 
@@ -194,7 +194,7 @@ export default struct IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-revoke
      */
     Revoke(lCookie) {
-        result := ComCall(12, this, "int", lCookie, "HRESULT")
+        result := ComCall(12, this, Int32, lCookie, "HRESULT")
         return result
     }
 
@@ -214,7 +214,7 @@ export default struct IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-onnavigate
      */
     OnNavigate(lCookie, pvarLoc) {
-        result := ComCall(13, this, "int", lCookie, VARIANT.Ptr, pvarLoc, "HRESULT")
+        result := ComCall(13, this, Int32, lCookie, VARIANT.Ptr, pvarLoc, "HRESULT")
         return result
     }
 
@@ -234,7 +234,7 @@ export default struct IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-onactivated
      */
     OnActivated(lCookie, fActive) {
-        result := ComCall(14, this, "int", lCookie, VARIANT_BOOL, fActive, "HRESULT")
+        result := ComCall(14, this, Int32, lCookie, VARIANT_BOOL, fActive, "HRESULT")
         return result
     }
 
@@ -285,7 +285,7 @@ export default struct IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-oncreated
      */
     OnCreated(lCookie, punk) {
-        result := ComCall(16, this, "int", lCookie, "ptr", punk, "HRESULT")
+        result := ComCall(16, this, Int32, lCookie, "ptr", punk, "HRESULT")
         return result
     }
 

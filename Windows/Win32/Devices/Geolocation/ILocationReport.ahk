@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The parent interface for location reports.

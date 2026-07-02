@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import ".\MCAST_LEASE_RESPONSE.ahk" { MCAST_LEASE_RESPONSE }
-#Import ".\MCAST_SCOPE_ENTRY.ahk" { MCAST_SCOPE_ENTRY }
-#Import ".\MCAST_LEASE_REQUEST.ahk" { MCAST_LEASE_REQUEST }
-#Import ".\MCAST_CLIENT_UID.ahk" { MCAST_CLIENT_UID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MCAST_CLIENT_UID.ahk" { MCAST_CLIENT_UID }
+#Import ".\MCAST_LEASE_REQUEST.ahk" { MCAST_LEASE_REQUEST }
 #Import ".\MCAST_SCOPE_CTX.ahk" { MCAST_SCOPE_CTX }
+#Import ".\MCAST_SCOPE_ENTRY.ahk" { MCAST_SCOPE_ENTRY }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Multicast
@@ -112,7 +112,7 @@ export McastEnumerateScopes(AddrFamily, ReQuery, pScopeList, pScopeLen, pScopeCo
     pScopeLenMarshal := pScopeLen is VarRef ? "uint*" : "ptr"
     pScopeCountMarshal := pScopeCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", "ushort", AddrFamily, BOOL, ReQuery, MCAST_SCOPE_ENTRY.Ptr, pScopeList, pScopeLenMarshal, pScopeLen, pScopeCountMarshal, pScopeCount, UInt32)
+    result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", UInt16, AddrFamily, BOOL, ReQuery, MCAST_SCOPE_ENTRY.Ptr, pScopeList, pScopeLenMarshal, pScopeLen, pScopeCountMarshal, pScopeCount, UInt32)
     return result
 }
 
@@ -142,7 +142,7 @@ export McastEnumerateScopes(AddrFamily, ReQuery, pScopeList, pScopeLen, pScopeCo
  * @since windows5.0
  */
 export McastRequestAddress(AddrFamily, pRequestID, pScopeCtx, pAddrRequest, pAddrResponse) {
-    result := DllCall("dhcpcsvc.dll\McastRequestAddress", "ushort", AddrFamily, MCAST_CLIENT_UID.Ptr, pRequestID, MCAST_SCOPE_CTX.Ptr, pScopeCtx, MCAST_LEASE_REQUEST.Ptr, pAddrRequest, MCAST_LEASE_RESPONSE.Ptr, pAddrResponse, UInt32)
+    result := DllCall("dhcpcsvc.dll\McastRequestAddress", UInt16, AddrFamily, MCAST_CLIENT_UID.Ptr, pRequestID, MCAST_SCOPE_CTX.Ptr, pScopeCtx, MCAST_LEASE_REQUEST.Ptr, pAddrRequest, MCAST_LEASE_RESPONSE.Ptr, pAddrResponse, UInt32)
     return result
 }
 
@@ -161,7 +161,7 @@ export McastRequestAddress(AddrFamily, pRequestID, pScopeCtx, pAddrRequest, pAdd
  * @since windows5.0
  */
 export McastRenewAddress(AddrFamily, pRequestID, pRenewRequest, pRenewResponse) {
-    result := DllCall("dhcpcsvc.dll\McastRenewAddress", "ushort", AddrFamily, MCAST_CLIENT_UID.Ptr, pRequestID, MCAST_LEASE_REQUEST.Ptr, pRenewRequest, MCAST_LEASE_RESPONSE.Ptr, pRenewResponse, UInt32)
+    result := DllCall("dhcpcsvc.dll\McastRenewAddress", UInt16, AddrFamily, MCAST_CLIENT_UID.Ptr, pRequestID, MCAST_LEASE_REQUEST.Ptr, pRenewRequest, MCAST_LEASE_RESPONSE.Ptr, pRenewResponse, UInt32)
     return result
 }
 
@@ -177,7 +177,7 @@ export McastRenewAddress(AddrFamily, pRequestID, pRenewRequest, pRenewResponse) 
  * @since windows5.0
  */
 export McastReleaseAddress(AddrFamily, pRequestID, pReleaseRequest) {
-    result := DllCall("dhcpcsvc.dll\McastReleaseAddress", "ushort", AddrFamily, MCAST_CLIENT_UID.Ptr, pRequestID, MCAST_LEASE_REQUEST.Ptr, pReleaseRequest, UInt32)
+    result := DllCall("dhcpcsvc.dll\McastReleaseAddress", UInt16, AddrFamily, MCAST_CLIENT_UID.Ptr, pRequestID, MCAST_LEASE_REQUEST.Ptr, pReleaseRequest, UInt32)
     return result
 }
 

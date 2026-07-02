@@ -45,7 +45,7 @@ export default struct IProvideClassInfo2 extends IProvideClassInfo {
      */
     GetGUID(dwGuidKind) {
         pGUID := Guid()
-        result := ComCall(4, this, "uint", dwGuidKind, Guid.Ptr, pGUID, "HRESULT")
+        result := ComCall(4, this, UInt32, dwGuidKind, Guid.Ptr, pGUID, "HRESULT")
         return pGUID
     }
 

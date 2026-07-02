@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CERT_IMPORT_FLAGS.ahk" { CERT_IMPORT_FLAGS }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides administration functionality for properly authorized clients.
@@ -115,7 +115,7 @@ export default struct ICertAdmin extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        result := ComCall(9, this, BSTR, strConfig, BSTR, strSerialNumber, "int", Reason, "double", Date, "HRESULT")
+        result := ComCall(9, this, BSTR, strConfig, BSTR, strSerialNumber, Int32, Reason, Float64, Date, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct ICertAdmin extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strAttributes := strAttributes is String ? BSTR.Alloc(strAttributes).Value : strAttributes
 
-        result := ComCall(10, this, BSTR, strConfig, "int", RequestId, BSTR, strAttributes, "HRESULT")
+        result := ComCall(10, this, BSTR, strConfig, Int32, RequestId, BSTR, strAttributes, "HRESULT")
         return result
     }
 
@@ -242,7 +242,7 @@ export default struct ICertAdmin extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
 
-        result := ComCall(11, this, BSTR, strConfig, "int", RequestId, BSTR, strExtensionName, CERT_PROPERTY_TYPE, Type, "int", Flags, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(11, this, BSTR, strConfig, Int32, RequestId, BSTR, strExtensionName, CERT_PROPERTY_TYPE, Type, Int32, Flags, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -261,7 +261,7 @@ export default struct ICertAdmin extends IDispatch {
     DenyRequest(strConfig, RequestId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(12, this, BSTR, strConfig, "int", RequestId, "HRESULT")
+        result := ComCall(12, this, BSTR, strConfig, Int32, RequestId, "HRESULT")
         return result
     }
 
@@ -281,7 +281,7 @@ export default struct ICertAdmin extends IDispatch {
     ResubmitRequest(strConfig, RequestId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(13, this, BSTR, strConfig, "int", RequestId, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, strConfig, Int32, RequestId, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -302,7 +302,7 @@ export default struct ICertAdmin extends IDispatch {
     PublishCRL(strConfig, Date) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(14, this, BSTR, strConfig, "double", Date, "HRESULT")
+        result := ComCall(14, this, BSTR, strConfig, Float64, Date, "HRESULT")
         return result
     }
 
@@ -361,7 +361,7 @@ export default struct ICertAdmin extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
         pstrCRL := BSTR.Owned()
-        result := ComCall(15, this, BSTR, strConfig, "int", Flags, BSTR.Ptr, pstrCRL, "HRESULT")
+        result := ComCall(15, this, BSTR, strConfig, Int32, Flags, BSTR.Ptr, pstrCRL, "HRESULT")
         return pstrCRL
     }
 

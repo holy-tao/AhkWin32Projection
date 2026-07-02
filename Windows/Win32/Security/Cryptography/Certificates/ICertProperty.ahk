@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\CERTENROLL_PROPERTYID.ahk" { CERTENROLL_PROPERTYID }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Can be used to associate an external property with a certificate.

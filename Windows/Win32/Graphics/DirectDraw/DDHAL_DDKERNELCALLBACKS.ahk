@@ -1,4 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPDDHALKERNELCB_SYNCVIDEOPORT.ahk" { LPDDHALKERNELCB_SYNCVIDEOPORT }
+#Import ".\LPDDHALKERNELCB_SYNCSURFACE.ahk" { LPDDHALKERNELCB_SYNCSURFACE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -10,8 +12,8 @@ export default struct DDHAL_DDKERNELCALLBACKS {
 
     dwFlags : UInt32
 
-    SyncSurfaceData : IntPtr
+    SyncSurfaceData : LPDDHALKERNELCB_SYNCSURFACE
 
-    SyncVideoPortData : IntPtr
+    SyncVideoPortData : LPDDHALKERNELCB_SYNCVIDEOPORT
 
 }

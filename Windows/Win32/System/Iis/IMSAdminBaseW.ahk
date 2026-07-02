@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\METADATA_RECORD.ahk" { METADATA_RECORD }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\METADATA_HANDLE_INFO.ahk" { METADATA_HANDLE_INFO }
+#Import ".\METADATA_RECORD.ahk" { METADATA_RECORD }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\METADATA_HANDLE_INFO.ahk" { METADATA_HANDLE_INFO }
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -79,7 +79,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     AddKey(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(3, this, "uint", hMDHandle, "ptr", pszMDPath, "HRESULT")
+        result := ComCall(3, this, UInt32, hMDHandle, "ptr", pszMDPath, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteKey(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(4, this, "uint", hMDHandle, "ptr", pszMDPath, "HRESULT")
+        result := ComCall(4, this, UInt32, hMDHandle, "ptr", pszMDPath, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteChildKeys(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(5, this, "uint", hMDHandle, "ptr", pszMDPath, "HRESULT")
+        result := ComCall(5, this, UInt32, hMDHandle, "ptr", pszMDPath, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszMDName := pszMDName is String ? StrPtr(pszMDName) : pszMDName
 
-        result := ComCall(6, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pszMDName, "uint", dwMDEnumObjectIndex, "HRESULT")
+        result := ComCall(6, this, UInt32, hMDHandle, "ptr", pszMDPath, "ptr", pszMDName, UInt32, dwMDEnumObjectIndex, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDSourcePath := pszMDSourcePath is String ? StrPtr(pszMDSourcePath) : pszMDSourcePath
         pszMDDestPath := pszMDDestPath is String ? StrPtr(pszMDDestPath) : pszMDDestPath
 
-        result := ComCall(7, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, BOOL, bMDOverwriteFlag, BOOL, bMDCopyFlag, "HRESULT")
+        result := ComCall(7, this, UInt32, hMDSourceHandle, "ptr", pszMDSourcePath, UInt32, hMDDestHandle, "ptr", pszMDDestPath, BOOL, bMDOverwriteFlag, BOOL, bMDCopyFlag, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszMDNewName := pszMDNewName is String ? StrPtr(pszMDNewName) : pszMDNewName
 
-        result := ComCall(8, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pszMDNewName, "HRESULT")
+        result := ComCall(8, this, UInt32, hMDHandle, "ptr", pszMDPath, "ptr", pszMDNewName, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     SetData(hMDHandle, pszMDPath, pmdrMDData) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(9, this, "uint", hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, "HRESULT")
+        result := ComCall(9, this, UInt32, hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct IMSAdminBaseW extends IUnknown {
 
         pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
+        result := ComCall(10, this, UInt32, hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
         return result
     }
 
@@ -200,7 +200,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteData(hMDHandle, pszMDPath, dwMDIdentifier, dwMDDataType) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(11, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "HRESULT")
+        result := ComCall(11, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDIdentifier, UInt32, dwMDDataType, "HRESULT")
         return result
     }
 
@@ -218,7 +218,7 @@ export default struct IMSAdminBaseW extends IUnknown {
 
         pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, "uint", dwMDEnumDataIndex, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
+        result := ComCall(12, this, UInt32, hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, UInt32, dwMDEnumDataIndex, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct IMSAdminBaseW extends IUnknown {
         pbMDBufferMarshal := pbMDBuffer is VarRef ? "char*" : "ptr"
         pdwMDRequiredBufferSizeMarshal := pdwMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, pdwMDNumDataEntriesMarshal, pdwMDNumDataEntries, pdwMDDataSetNumberMarshal, pdwMDDataSetNumber, "uint", dwMDBufferSize, pbMDBufferMarshal, pbMDBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "HRESULT")
+        result := ComCall(13, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDAttributes, UInt32, dwMDUserType, UInt32, dwMDDataType, pdwMDNumDataEntriesMarshal, pdwMDNumDataEntries, pdwMDDataSetNumberMarshal, pdwMDDataSetNumber, UInt32, dwMDBufferSize, pbMDBufferMarshal, pbMDBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "HRESULT")
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteAllData(hMDHandle, pszMDPath, dwMDUserType, dwMDDataType) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(14, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDUserType, "uint", dwMDDataType, "HRESULT")
+        result := ComCall(14, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDUserType, UInt32, dwMDDataType, "HRESULT")
         return result
     }
 
@@ -279,7 +279,7 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDSourcePath := pszMDSourcePath is String ? StrPtr(pszMDSourcePath) : pszMDSourcePath
         pszMDDestPath := pszMDDestPath is String ? StrPtr(pszMDDestPath) : pszMDDestPath
 
-        result := ComCall(15, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, BOOL, bMDCopyFlag, "HRESULT")
+        result := ComCall(15, this, UInt32, hMDSourceHandle, "ptr", pszMDSourcePath, UInt32, hMDDestHandle, "ptr", pszMDDestPath, UInt32, dwMDAttributes, UInt32, dwMDUserType, UInt32, dwMDDataType, BOOL, bMDCopyFlag, "HRESULT")
         return result
     }
 
@@ -297,7 +297,7 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(16, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "uint", dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDIdentifier, UInt32, dwMDDataType, UInt32, dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
         return pdwMDRequiredBufferSize
     }
 
@@ -312,7 +312,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     OpenKey(hMDHandle, pszMDPath, dwMDAccessRequested, dwMDTimeOut) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(17, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAccessRequested, "uint", dwMDTimeOut, "uint*", &phMDNewHandle := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDAccessRequested, UInt32, dwMDTimeOut, "uint*", &phMDNewHandle := 0, "HRESULT")
         return phMDNewHandle
     }
 
@@ -322,7 +322,7 @@ export default struct IMSAdminBaseW extends IUnknown {
      * @returns {HRESULT} 
      */
     CloseKey(hMDHandle) {
-        result := ComCall(18, this, "uint", hMDHandle, "HRESULT")
+        result := ComCall(18, this, UInt32, hMDHandle, "HRESULT")
         return result
     }
 
@@ -334,7 +334,7 @@ export default struct IMSAdminBaseW extends IUnknown {
      * @returns {HRESULT} 
      */
     ChangePermissions(hMDHandle, dwMDTimeOut, dwMDAccessRequested) {
-        result := ComCall(19, this, "uint", hMDHandle, "uint", dwMDTimeOut, "uint", dwMDAccessRequested, "HRESULT")
+        result := ComCall(19, this, UInt32, hMDHandle, UInt32, dwMDTimeOut, UInt32, dwMDAccessRequested, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct IMSAdminBaseW extends IUnknown {
      */
     GetHandleInfo(hMDHandle) {
         pmdhiInfo := METADATA_HANDLE_INFO()
-        result := ComCall(21, this, "uint", hMDHandle, METADATA_HANDLE_INFO.Ptr, pmdhiInfo, "HRESULT")
+        result := ComCall(21, this, UInt32, hMDHandle, METADATA_HANDLE_INFO.Ptr, pmdhiInfo, "HRESULT")
         return pmdhiInfo
     }
 
@@ -376,7 +376,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     GetDataSetNumber(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(23, this, "uint", hMDHandle, "ptr", pszMDPath, "uint*", &pdwMDDataSetNumber := 0, "HRESULT")
+        result := ComCall(23, this, UInt32, hMDHandle, "ptr", pszMDPath, "uint*", &pdwMDDataSetNumber := 0, "HRESULT")
         return pdwMDDataSetNumber
     }
 
@@ -391,7 +391,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     SetLastChangeTime(hMDHandle, pszMDPath, pftMDLastChangeTime, bLocalTime) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(24, this, "uint", hMDHandle, "ptr", pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
+        result := ComCall(24, this, UInt32, hMDHandle, "ptr", pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
         return result
     }
 
@@ -406,7 +406,7 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
         pftMDLastChangeTime := FILETIME()
-        result := ComCall(25, this, "uint", hMDHandle, "ptr", pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
+        result := ComCall(25, this, UInt32, hMDHandle, "ptr", pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
         return pftMDLastChangeTime
     }
 
@@ -439,7 +439,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     Backup(pszMDBackupLocation, dwMDVersion, dwMDFlags) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(28, this, "ptr", pszMDBackupLocation, "uint", dwMDVersion, "uint", dwMDFlags, "HRESULT")
+        result := ComCall(28, this, "ptr", pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, "HRESULT")
         return result
     }
 
@@ -454,7 +454,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     Restore(pszMDBackupLocation, dwMDVersion, dwMDFlags) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(29, this, "ptr", pszMDBackupLocation, "uint", dwMDVersion, "uint", dwMDFlags, "HRESULT")
+        result := ComCall(29, this, "ptr", pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, "HRESULT")
         return result
     }
 
@@ -471,7 +471,7 @@ export default struct IMSAdminBaseW extends IUnknown {
 
         pdwMDVersionMarshal := pdwMDVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "ptr", pszMDBackupLocation, pdwMDVersionMarshal, pdwMDVersion, FILETIME.Ptr, pftMDBackupTime, "uint", dwMDEnumIndex, "HRESULT")
+        result := ComCall(30, this, "ptr", pszMDBackupLocation, pdwMDVersionMarshal, pdwMDVersion, FILETIME.Ptr, pftMDBackupTime, UInt32, dwMDEnumIndex, "HRESULT")
         return result
     }
 
@@ -484,7 +484,7 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteBackup(pszMDBackupLocation, dwMDVersion) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(31, this, "ptr", pszMDBackupLocation, "uint", dwMDVersion, "HRESULT")
+        result := ComCall(31, this, "ptr", pszMDBackupLocation, UInt32, dwMDVersion, "HRESULT")
         return result
     }
 

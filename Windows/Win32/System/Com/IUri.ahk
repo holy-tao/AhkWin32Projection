@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\Uri_PROPERTY.ahk" { Uri_PROPERTY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -70,7 +70,7 @@ export default struct IUri extends IUnknown {
      */
     GetPropertyBSTR(uriProp, dwFlags) {
         pbstrProperty := BSTR.Owned()
-        result := ComCall(3, this, Uri_PROPERTY, uriProp, BSTR.Ptr, pbstrProperty, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, Uri_PROPERTY, uriProp, BSTR.Ptr, pbstrProperty, UInt32, dwFlags, "HRESULT")
         return pbstrProperty
     }
 
@@ -81,7 +81,7 @@ export default struct IUri extends IUnknown {
      * @returns {Integer} 
      */
     GetPropertyLength(uriProp, dwFlags) {
-        result := ComCall(4, this, Uri_PROPERTY, uriProp, "uint*", &pcchProperty := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, Uri_PROPERTY, uriProp, "uint*", &pcchProperty := 0, UInt32, dwFlags, "HRESULT")
         return pcchProperty
     }
 
@@ -92,7 +92,7 @@ export default struct IUri extends IUnknown {
      * @returns {Integer} 
      */
     GetPropertyDWORD(uriProp, dwFlags) {
-        result := ComCall(5, this, Uri_PROPERTY, uriProp, "uint*", &pdwProperty := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, Uri_PROPERTY, uriProp, "uint*", &pdwProperty := 0, UInt32, dwFlags, "HRESULT")
         return pdwProperty
     }
 

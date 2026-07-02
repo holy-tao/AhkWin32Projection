@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMbnPinManager.ahk" { IMbnPinManager }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MBN_PIN_INFO.ahk" { MBN_PIN_INFO }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMbnPinManager.ahk" { IMbnPinManager }
+#Import ".\MBN_PIN_INFO.ahk" { MBN_PIN_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notification interface used to indicate when PIN Manager events have occurred.
@@ -86,7 +86,7 @@ export default struct IMbnPinManagerEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanagerevents-ongetpinstatecomplete
      */
     OnGetPinStateComplete(pinManager, pinInfo, requestID, _status) {
-        result := ComCall(4, this, "ptr", pinManager, MBN_PIN_INFO, pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(4, this, "ptr", pinManager, MBN_PIN_INFO, pinInfo, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 

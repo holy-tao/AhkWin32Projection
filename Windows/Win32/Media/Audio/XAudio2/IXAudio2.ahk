@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXAudio2VoiceCallback.ahk" { IXAudio2VoiceCallback }
-#Import ".\IXAudio2SourceVoice.ahk" { IXAudio2SourceVoice }
-#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
-#Import ".\XAUDIO2_VOICE_SENDS.ahk" { XAUDIO2_VOICE_SENDS }
-#Import ".\IXAudio2EngineCallback.ahk" { IXAudio2EngineCallback }
-#Import ".\XAUDIO2_EFFECT_CHAIN.ahk" { XAUDIO2_EFFECT_CHAIN }
-#Import ".\IXAudio2SubmixVoice.ahk" { IXAudio2SubmixVoice }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\XAUDIO2_PERFORMANCE_DATA.ahk" { XAUDIO2_PERFORMANCE_DATA }
+#Import ".\IXAudio2VoiceCallback.ahk" { IXAudio2VoiceCallback }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\XAUDIO2_DEBUG_CONFIGURATION.ahk" { XAUDIO2_DEBUG_CONFIGURATION }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\XAUDIO2_PERFORMANCE_DATA.ahk" { XAUDIO2_PERFORMANCE_DATA }
+#Import ".\IXAudio2SubmixVoice.ahk" { IXAudio2SubmixVoice }
+#Import ".\XAUDIO2_EFFECT_CHAIN.ahk" { XAUDIO2_EFFECT_CHAIN }
 #Import ".\IXAudio2MasteringVoice.ahk" { IXAudio2MasteringVoice }
+#Import ".\IXAudio2EngineCallback.ahk" { IXAudio2EngineCallback }
+#Import ".\IXAudio2SourceVoice.ahk" { IXAudio2SourceVoice }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\XAUDIO2_VOICE_SENDS.ahk" { XAUDIO2_VOICE_SENDS }
 
 /**
  * IXAudio2 is the interface for the XAudio2 object that manages all audio engine states, the audio processing thread, the voice graph, and so forth.
@@ -268,7 +268,7 @@ export default struct IXAudio2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createsourcevoice
      */
     CreateSourceVoice(pSourceFormat, Flags, MaxFrequencyRatio, pCallback, pSendList, pEffectChain) {
-        result := ComCall(5, this, "ptr*", &ppSourceVoice := 0, WAVEFORMATEX.Ptr, pSourceFormat, "uint", Flags, "float", MaxFrequencyRatio, "ptr", pCallback, XAUDIO2_VOICE_SENDS.Ptr, pSendList, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppSourceVoice := 0, WAVEFORMATEX.Ptr, pSourceFormat, UInt32, Flags, Float32, MaxFrequencyRatio, "ptr", pCallback, XAUDIO2_VOICE_SENDS.Ptr, pSendList, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, "HRESULT")
         return IXAudio2SourceVoice(ppSourceVoice)
     }
 
@@ -325,7 +325,7 @@ export default struct IXAudio2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createsubmixvoice
      */
     CreateSubmixVoice(InputChannels, InputSampleRate, Flags, ProcessingStage, pSendList, pEffectChain) {
-        result := ComCall(6, this, "ptr*", &ppSubmixVoice := 0, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "uint", ProcessingStage, XAUDIO2_VOICE_SENDS.Ptr, pSendList, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppSubmixVoice := 0, UInt32, InputChannels, UInt32, InputSampleRate, UInt32, Flags, UInt32, ProcessingStage, XAUDIO2_VOICE_SENDS.Ptr, pSendList, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, "HRESULT")
         return IXAudio2SubmixVoice(ppSubmixVoice)
     }
 
@@ -401,7 +401,7 @@ export default struct IXAudio2 extends IUnknown {
     CreateMasteringVoice(InputChannels, InputSampleRate, Flags, szDeviceId, pEffectChain, StreamCategory) {
         szDeviceId := szDeviceId is String ? StrPtr(szDeviceId) : szDeviceId
 
-        result := ComCall(7, this, "ptr*", &ppMasteringVoice := 0, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "ptr", szDeviceId, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, AUDIO_STREAM_CATEGORY, StreamCategory, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppMasteringVoice := 0, UInt32, InputChannels, UInt32, InputSampleRate, UInt32, Flags, "ptr", szDeviceId, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, AUDIO_STREAM_CATEGORY, StreamCategory, "HRESULT")
         return IXAudio2MasteringVoice(ppMasteringVoice)
     }
 
@@ -462,7 +462,7 @@ export default struct IXAudio2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-commitchanges
      */
     CommitChanges(OperationSet) {
-        result := ComCall(10, this, "uint", OperationSet, "HRESULT")
+        result := ComCall(10, this, UInt32, OperationSet, "HRESULT")
         return result
     }
 

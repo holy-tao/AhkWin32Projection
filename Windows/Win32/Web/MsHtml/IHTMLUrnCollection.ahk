@@ -66,7 +66,7 @@ export default struct IHTMLUrnCollection extends IDispatch {
      */
     item(index) {
         ppUrn := BSTR.Owned()
-        result := ComCall(8, this, "int", index, BSTR.Ptr, ppUrn, "HRESULT")
+        result := ComCall(8, this, Int32, index, BSTR.Ptr, ppUrn, "HRESULT")
         return ppUrn
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechAudioBufferInfo.ahk" { ISpeechAudioBufferInfo }
-#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
-#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpeechAudioStatus.ahk" { ISpeechAudioStatus }
 #Import ".\SpeechAudioState.ahk" { SpeechAudioState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
+#Import ".\ISpeechAudioBufferInfo.ahk" { ISpeechAudioBufferInfo }
+#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -133,7 +133,7 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
      * @returns {HRESULT} 
      */
     put_Volume(Volume) {
-        result := ComCall(16, this, "int", Volume, "HRESULT")
+        result := ComCall(16, this, Int32, Volume, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
      * @returns {HRESULT} 
      */
     put_BufferNotifySize(BufferNotifySize) {
-        result := ComCall(18, this, "int", BufferNotifySize, "HRESULT")
+        result := ComCall(18, this, Int32, BufferNotifySize, "HRESULT")
         return result
     }
 

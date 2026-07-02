@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWiaItem2.ahk" { IWiaItem2 }
 
 /**
@@ -77,7 +77,7 @@ export default struct IWiaErrorHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaerrorhandler-reportstatus
      */
     ReportStatus(lFlags, hwndParent, pWiaItem2, hrStatus, lPercentComplete) {
-        result := ComCall(3, this, "int", lFlags, HWND, hwndParent, "ptr", pWiaItem2, "int", hrStatus, "int", lPercentComplete, "HRESULT")
+        result := ComCall(3, this, Int32, lFlags, HWND, hwndParent, "ptr", pWiaItem2, "int", hrStatus, Int32, lPercentComplete, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct IWiaErrorHandler extends IUnknown {
      */
     GetStatusDescription(lFlags, pWiaItem2, hrStatus) {
         pbstrDescription := BSTR.Owned()
-        result := ComCall(4, this, "int", lFlags, "ptr", pWiaItem2, "int", hrStatus, BSTR.Ptr, pbstrDescription, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, "ptr", pWiaItem2, "int", hrStatus, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 

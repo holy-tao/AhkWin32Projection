@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaObjectInPlace interface provides methods for processing data in place. A Microsoft DirectX Media Object (DMO) can expose this interface if it meets the following conditions:\_
@@ -97,7 +97,7 @@ export default struct IMediaObjectInPlace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobjectinplace-process
      */
     Process(ulSize, pData, refTimeStart, dwFlags) {
-        result := ComCall(3, this, "uint", ulSize, "ptr", pData, "int64", refTimeStart, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, ulSize, IntPtr, pData, Int64, refTimeStart, UInt32, dwFlags, "HRESULT")
         return result
     }
 

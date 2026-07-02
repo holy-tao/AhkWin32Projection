@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIFactory.ahk" { IDXGIFactory }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDXGIAdapter1.ahk" { IDXGIAdapter1 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIFactory.ahk" { IDXGIFactory }
 
 /**
  * The IDXGIFactory1 interface implements methods for generating DXGI objects.
@@ -89,7 +89,7 @@ export default struct IDXGIFactory1 extends IDXGIFactory {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory1-enumadapters1
      */
     EnumAdapters1(_Adapter, ppAdapter) {
-        result := ComCall(12, this, "uint", _Adapter, IDXGIAdapter1.Ptr, ppAdapter, Int32)
+        result := ComCall(12, this, UInt32, _Adapter, IDXGIAdapter1.Ptr, ppAdapter, Int32)
         return result
     }
 

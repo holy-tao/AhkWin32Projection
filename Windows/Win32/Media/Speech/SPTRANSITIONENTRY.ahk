@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
-#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
-#Import ".\SPWORDHANDLE.ahk" { SPWORDHANDLE }
 #Import ".\SPSTATEHANDLE.ahk" { SPSTATEHANDLE }
+#Import ".\SPWORDHANDLE.ahk" { SPWORDHANDLE }
+#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
+#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CountedString.ahk" { CountedString }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines a registered NAP component such as a SHA, SHV, or enforcement client.

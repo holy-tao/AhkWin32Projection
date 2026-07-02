@@ -41,7 +41,7 @@ export default struct ITimerEx extends ITimer {
      * @returns {HRESULT} 
      */
     SetMode(dwMode) {
-        result := ComCall(7, this, "uint", dwMode, "HRESULT")
+        result := ComCall(7, this, UInt32, dwMode, "HRESULT")
         return result
     }
 

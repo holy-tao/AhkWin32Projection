@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IX509Extensions.ahk" { IX509Extensions }
-#Import ".\IX509CertificateRevocationListEntries.ahk" { IX509CertificateRevocationListEntries }
-#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IObjectId.ahk" { IObjectId }
 #Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
 #Import ".\IObjectIds.ahk" { IObjectIds }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
-#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509CertificateRevocationListEntries.ahk" { IX509CertificateRevocationListEntries }
+#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -291,7 +291,7 @@ export default struct IX509CertificateRevocationList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ThisUpdate(Value) {
-        result := ComCall(16, this, "double", Value, "HRESULT")
+        result := ComCall(16, this, Float64, Value, "HRESULT")
         return result
     }
 
@@ -310,7 +310,7 @@ export default struct IX509CertificateRevocationList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_NextUpdate(Value) {
-        result := ComCall(18, this, "double", Value, "HRESULT")
+        result := ComCall(18, this, Float64, Value, "HRESULT")
         return result
     }
 
@@ -399,7 +399,7 @@ export default struct IX509CertificateRevocationList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_CAVersion(pValue) {
-        result := ComCall(27, this, "int", pValue, "HRESULT")
+        result := ComCall(27, this, Int32, pValue, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\APO_CONNECTION_DESCRIPTOR.ahk" { APO_CONNECTION_DESCRIPTOR }
 #Import ".\IAudioMediaType.ahk" { IAudioMediaType }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\APO_CONNECTION_DESCRIPTOR.ahk" { APO_CONNECTION_DESCRIPTOR }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods that APOs can implement so that the audio engine can add and remove auxiliary input streams.
@@ -69,7 +69,7 @@ export default struct IApoAuxiliaryInputConfiguration extends IUnknown {
     AddAuxiliaryInput(dwInputId, cbDataSize, pbyData, pInputConnection) {
         pbyDataMarshal := pbyData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwInputId, "uint", cbDataSize, pbyDataMarshal, pbyData, APO_CONNECTION_DESCRIPTOR.Ptr, pInputConnection, "HRESULT")
+        result := ComCall(3, this, UInt32, dwInputId, UInt32, cbDataSize, pbyDataMarshal, pbyData, APO_CONNECTION_DESCRIPTOR.Ptr, pInputConnection, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct IApoAuxiliaryInputConfiguration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iapoauxiliaryinputconfiguration-removeauxiliaryinput
      */
     RemoveAuxiliaryInput(dwInputId) {
-        result := ComCall(4, this, "uint", dwInputId, "HRESULT")
+        result := ComCall(4, this, UInt32, dwInputId, "HRESULT")
         return result
     }
 

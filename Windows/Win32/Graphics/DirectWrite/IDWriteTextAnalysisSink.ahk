@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
+#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DWRITE_LINE_BREAKPOINT.ahk" { DWRITE_LINE_BREAKPOINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
 
 /**
  * This interface is implemented by the text analyzer's client to receive the output of a given text analysis.
@@ -63,7 +63,7 @@ export default struct IDWriteTextAnalysisSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setscriptanalysis
      */
     SetScriptAnalysis(textPosition, textLength, scriptAnalysis) {
-        result := ComCall(3, this, "uint", textPosition, "uint", textLength, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "HRESULT")
+        result := ComCall(3, this, UInt32, textPosition, UInt32, textLength, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IDWriteTextAnalysisSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setlinebreakpoints
      */
     SetLineBreakpoints(textPosition, textLength, lineBreakpoints) {
-        result := ComCall(4, this, "uint", textPosition, "uint", textLength, DWRITE_LINE_BREAKPOINT.Ptr, lineBreakpoints, "HRESULT")
+        result := ComCall(4, this, UInt32, textPosition, UInt32, textLength, DWRITE_LINE_BREAKPOINT.Ptr, lineBreakpoints, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct IDWriteTextAnalysisSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setbidilevel
      */
     SetBidiLevel(textPosition, textLength, explicitLevel, resolvedLevel) {
-        result := ComCall(5, this, "uint", textPosition, "uint", textLength, "char", explicitLevel, "char", resolvedLevel, "HRESULT")
+        result := ComCall(5, this, UInt32, textPosition, UInt32, textLength, Int8, explicitLevel, Int8, resolvedLevel, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IDWriteTextAnalysisSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setnumbersubstitution
      */
     SetNumberSubstitution(textPosition, textLength, numberSubstitution) {
-        result := ComCall(6, this, "uint", textPosition, "uint", textLength, "ptr", numberSubstitution, "HRESULT")
+        result := ComCall(6, this, UInt32, textPosition, UInt32, textLength, "ptr", numberSubstitution, "HRESULT")
         return result
     }
 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EDITSTREAMCALLBACK.ahk" { EDITSTREAMCALLBACK }
 
 /**
  * Contains information that an application passes to a rich edit control in a EM_STREAMIN or EM_STREAMOUT message. The rich edit control uses the information to transfer a stream of data into or out of the control.
@@ -28,6 +29,6 @@ export default struct EDITSTREAM {
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/richedit/nc-richedit-editstreamcallback">EditStreamCallback</a> function, which is an application-defined function that the control calls to transfer data. The control calls the callback function repeatedly, transferring a portion of the data with each call.
      */
-    pfnCallback : IntPtr
+    pfnCallback : EDITSTREAMCALLBACK
 
 }

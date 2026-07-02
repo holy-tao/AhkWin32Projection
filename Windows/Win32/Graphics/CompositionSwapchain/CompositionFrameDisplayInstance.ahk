@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CompositionFrameInstanceKind.ahk" { CompositionFrameInstanceKind }
 #Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
 #Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\CompositionFrameInstanceKind.ahk" { CompositionFrameInstanceKind }
 #Import ".\PresentationTransform.ahk" { PresentationTransform }
 
 /**

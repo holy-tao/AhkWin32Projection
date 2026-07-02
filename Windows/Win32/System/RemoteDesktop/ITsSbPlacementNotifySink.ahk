@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITsSbBaseNotifySink.ahk" { ITsSbBaseNotifySink }
-#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
 
 /**
  * Exposes methods that return information about environments to Remote Desktop Connection Broker (RD Connection Broker).

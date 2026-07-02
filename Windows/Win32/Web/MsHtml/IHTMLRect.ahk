@@ -80,7 +80,7 @@ export default struct IHTMLRect extends IDispatch {
      * @returns {HRESULT} 
      */
     put_left(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IHTMLRect extends IDispatch {
      * @returns {HRESULT} 
      */
     put_top(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct IHTMLRect extends IDispatch {
      * @returns {HRESULT} 
      */
     put_right(v) {
-        result := ComCall(11, this, "int", v, "HRESULT")
+        result := ComCall(11, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -137,7 +137,7 @@ export default struct IHTMLRect extends IDispatch {
      * @returns {HRESULT} 
      */
     put_bottom(v) {
-        result := ComCall(13, this, "int", v, "HRESULT")
+        result := ComCall(13, this, Int32, v, "HRESULT")
         return result
     }
 

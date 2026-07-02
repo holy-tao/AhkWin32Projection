@@ -103,7 +103,7 @@ export default struct ITBasicAudioTerminal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasicaudioterminal-put_volume
      */
     put_Volume(lVolume) {
-        result := ComCall(7, this, "int", lVolume, "HRESULT")
+        result := ComCall(7, this, Int32, lVolume, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct ITBasicAudioTerminal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasicaudioterminal-put_balance
      */
     put_Balance(lBalance) {
-        result := ComCall(9, this, "int", lBalance, "HRESULT")
+        result := ComCall(9, this, Int32, lBalance, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISVGMatrix.ahk" { ISVGMatrix }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISVGMatrix.ahk" { ISVGMatrix }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -82,7 +82,7 @@ export default struct ISVGTransform extends IDispatch {
      * @returns {HRESULT} 
      */
     put_type(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, Int16, v, "HRESULT")
         return result
     }
 
@@ -120,7 +120,7 @@ export default struct ISVGTransform extends IDispatch {
      * @returns {HRESULT} 
      */
     put_angle(v) {
-        result := ComCall(11, this, "float", v, "HRESULT")
+        result := ComCall(11, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct ISVGTransform extends IDispatch {
      * @returns {HRESULT} 
      */
     setTranslate(tx, ty) {
-        result := ComCall(14, this, "float", tx, "float", ty, "HRESULT")
+        result := ComCall(14, this, Float32, tx, Float32, ty, "HRESULT")
         return result
     }
 
@@ -161,7 +161,7 @@ export default struct ISVGTransform extends IDispatch {
      * @returns {HRESULT} 
      */
     setScale(sx, sy) {
-        result := ComCall(15, this, "float", sx, "float", sy, "HRESULT")
+        result := ComCall(15, this, Float32, sx, Float32, sy, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct ISVGTransform extends IDispatch {
      * @returns {HRESULT} 
      */
     setRotate(angle, cx, _cy) {
-        result := ComCall(16, this, "float", angle, "float", cx, "float", _cy, "HRESULT")
+        result := ComCall(16, this, Float32, angle, Float32, cx, Float32, _cy, "HRESULT")
         return result
     }
 
@@ -183,7 +183,7 @@ export default struct ISVGTransform extends IDispatch {
      * @returns {HRESULT} 
      */
     setSkewX(angle) {
-        result := ComCall(17, this, "float", angle, "HRESULT")
+        result := ComCall(17, this, Float32, angle, "HRESULT")
         return result
     }
 
@@ -193,7 +193,7 @@ export default struct ISVGTransform extends IDispatch {
      * @returns {HRESULT} 
      */
     setSkewY(angle) {
-        result := ComCall(18, this, "float", angle, "HRESULT")
+        result := ComCall(18, this, Float32, angle, "HRESULT")
         return result
     }
 

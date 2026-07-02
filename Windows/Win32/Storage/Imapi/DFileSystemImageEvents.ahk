@@ -89,7 +89,7 @@ export default struct DFileSystemImageEvents extends IDispatch {
     Update(_object, currentFile, copiedSectors, totalSectors) {
         currentFile := currentFile is String ? BSTR.Alloc(currentFile).Value : currentFile
 
-        result := ComCall(7, this, "ptr", _object, BSTR, currentFile, "int", copiedSectors, "int", totalSectors, "HRESULT")
+        result := ComCall(7, this, "ptr", _object, BSTR, currentFile, Int32, copiedSectors, Int32, totalSectors, "HRESULT")
         return result
     }
 

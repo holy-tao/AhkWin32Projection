@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\Node.ahk" { Node }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Mmc
@@ -80,7 +80,7 @@ export default struct Nodes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &_Node := 0, "HRESULT")
+        result := ComCall(8, this, Int32, Index, "ptr*", &_Node := 0, "HRESULT")
         return Node(_Node)
     }
 

@@ -1,35 +1,35 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
-#Import "..\..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
-#Import "..\..\..\Foundation\POINTL.ahk" { POINTL }
-#Import ".\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\PKA_FLAGS.ahk" { PKA_FLAGS }
-#Import "..\..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk" { IPropertySetStorage }
-#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
-#Import ".\PROPDESC_ENUMFILTER.ahk" { PROPDESC_ENUMFILTER }
-#Import ".\IDelayedPropertyStoreFactory.ahk" { IDelayedPropertyStoreFactory }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PROPDESC_FORMAT_FLAGS.ahk" { PROPDESC_FORMAT_FLAGS }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\System\Com\StructuredStorage\IPropertyStorage.ahk" { IPropertyStorage }
-#Import "..\..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\Foundation\POINTS.ahk" { POINTS }
+#Import ".\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\PROPDESC_FORMAT_FLAGS.ahk" { PROPDESC_FORMAT_FLAGS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\PKA_FLAGS.ahk" { PKA_FLAGS }
+#Import "..\..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
 #Import ".\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
+#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\System\Com\StructuredStorage\IPropertyStorage.ahk" { IPropertyStorage }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IDelayedPropertyStoreFactory.ahk" { IDelayedPropertyStoreFactory }
+#Import "..\..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk" { IPropertySetStorage }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROPDESC_ENUMFILTER.ahk" { PROPDESC_ENUMFILTER }
 #Import "..\..\..\System\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\..\Foundation\POINTS.ahk" { POINTS }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 
 /**
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
@@ -276,7 +276,7 @@
 export PSFormatForDisplay(propkey, propvar, pdfFlags, pwszText, cchText) {
     pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-    result := DllCall("PROPSYS.dll\PSFormatForDisplay", PROPERTYKEY.Ptr, propkey, PROPVARIANT.Ptr, propvar, PROPDESC_FORMAT_FLAGS, pdfFlags, "ptr", pwszText, "uint", cchText, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSFormatForDisplay", PROPERTYKEY.Ptr, propkey, PROPVARIANT.Ptr, propvar, PROPDESC_FORMAT_FLAGS, pdfFlags, "ptr", pwszText, UInt32, cchText, "HRESULT")
     return result
 }
 
@@ -685,7 +685,7 @@ export PSGetImageReferenceForValue(propkey, propvar) {
 export PSStringFromPropertyKey(pkey, psz, cch) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("PROPSYS.dll\PSStringFromPropertyKey", PROPERTYKEY.Ptr, pkey, "ptr", psz, "uint", cch, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSStringFromPropertyKey", PROPERTYKEY.Ptr, pkey, "ptr", psz, UInt32, cch, "HRESULT")
     return result
 }
 
@@ -780,7 +780,7 @@ export PSCreateMemoryPropertyStore(riid) {
 export PSCreateDelayedMultiplexPropertyStore(flags, pdpsf, rgStoreIds, cStores, riid) {
     rgStoreIdsMarshal := rgStoreIds is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", GETPROPERTYSTOREFLAGS, flags, "ptr", pdpsf, rgStoreIdsMarshal, rgStoreIds, "uint", cStores, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", GETPROPERTYSTOREFLAGS, flags, "ptr", pdpsf, rgStoreIdsMarshal, rgStoreIds, UInt32, cStores, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -816,7 +816,7 @@ export PSCreateDelayedMultiplexPropertyStore(flags, pdpsf, rgStoreIds, cStores, 
  * @since windows5.1.2600
  */
 export PSCreateMultiplexPropertyStore(prgpunkStores, cStores, riid) {
-    result := DllCall("PROPSYS.dll\PSCreateMultiplexPropertyStore", IUnknown.Ptr, prgpunkStores, "uint", cStores, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSCreateMultiplexPropertyStore", IUnknown.Ptr, prgpunkStores, UInt32, cStores, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -857,7 +857,7 @@ export PSCreateMultiplexPropertyStore(prgpunkStores, cStores, riid) {
 export PSCreatePropertyChangeArray(rgpropkey, rgflags, rgpropvar, cChanges, riid) {
     rgflagsMarshal := rgflags is VarRef ? "int*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", PROPERTYKEY.Ptr, rgpropkey, rgflagsMarshal, rgflags, PROPVARIANT.Ptr, rgpropvar, "uint", cChanges, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", PROPERTYKEY.Ptr, rgpropkey, rgflagsMarshal, rgflags, PROPVARIANT.Ptr, rgpropvar, UInt32, cChanges, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -2096,7 +2096,7 @@ export PSGetPropertyDescriptionListFromString(pszPropList, riid) {
  * @since windows5.1.2600
  */
 export PSCreatePropertyStoreFromPropertySetStorage(ppss, grfMode, riid) {
-    result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromPropertySetStorage", "ptr", ppss, "uint", grfMode, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromPropertySetStorage", "ptr", ppss, UInt32, grfMode, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -2120,7 +2120,7 @@ export PSCreatePropertyStoreFromPropertySetStorage(ppss, grfMode, riid) {
  * @since windows5.1.2600
  */
 export PSCreatePropertyStoreFromObject(punk, grfMode, riid) {
-    result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromObject", "ptr", punk, "uint", grfMode, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromObject", "ptr", punk, UInt32, grfMode, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -2198,7 +2198,7 @@ export PSGetPropertySystem(riid) {
  * @since windows5.1.2600
  */
 export PSGetPropertyFromPropertyStorage(psps, cb, rpkey, ppropvar) {
-    result := DllCall("PROPSYS.dll\PSGetPropertyFromPropertyStorage", "ptr", psps, "uint", cb, PROPERTYKEY.Ptr, rpkey, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSGetPropertyFromPropertyStorage", IntPtr, psps, UInt32, cb, PROPERTYKEY.Ptr, rpkey, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -2231,7 +2231,7 @@ export PSGetPropertyFromPropertyStorage(psps, cb, rpkey, ppropvar) {
 export PSGetNamedPropertyFromPropertyStorage(psps, cb, pszName, ppropvar) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    result := DllCall("PROPSYS.dll\PSGetNamedPropertyFromPropertyStorage", "ptr", psps, "uint", cb, "ptr", pszName, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSGetNamedPropertyFromPropertyStorage", IntPtr, psps, UInt32, cb, "ptr", pszName, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -2290,7 +2290,7 @@ export PSPropertyBag_ReadStr(propBag, propName, value, characterCount) {
     propName := propName is String ? StrPtr(propName) : propName
     value := value is String ? StrPtr(value) : value
 
-    result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStr", "ptr", propBag, "ptr", propName, "ptr", value, "int", characterCount, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStr", "ptr", propBag, "ptr", propName, "ptr", value, Int32, characterCount, "HRESULT")
     return result
 }
 
@@ -2441,7 +2441,7 @@ export PSPropertyBag_ReadInt(propBag, propName) {
 export PSPropertyBag_WriteInt(propBag, propName, value) {
     propName := propName is String ? StrPtr(propName) : propName
 
-    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteInt", "ptr", propBag, "ptr", propName, "int", value, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteInt", "ptr", propBag, "ptr", propName, Int32, value, "HRESULT")
     return result
 }
 
@@ -2490,7 +2490,7 @@ export PSPropertyBag_ReadSHORT(propBag, propName) {
 export PSPropertyBag_WriteSHORT(propBag, propName, value) {
     propName := propName is String ? StrPtr(propName) : propName
 
-    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteSHORT", "ptr", propBag, "ptr", propName, "short", value, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteSHORT", "ptr", propBag, "ptr", propName, Int16, value, "HRESULT")
     return result
 }
 
@@ -2541,7 +2541,7 @@ export PSPropertyBag_ReadLONG(propBag, propName) {
 export PSPropertyBag_WriteLONG(propBag, propName, value) {
     propName := propName is String ? StrPtr(propName) : propName
 
-    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteLONG", "ptr", propBag, "ptr", propName, "int", value, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteLONG", "ptr", propBag, "ptr", propName, Int32, value, "HRESULT")
     return result
 }
 
@@ -2590,7 +2590,7 @@ export PSPropertyBag_ReadDWORD(propBag, propName) {
 export PSPropertyBag_WriteDWORD(propBag, propName, value) {
     propName := propName is String ? StrPtr(propName) : propName
 
-    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteDWORD", "ptr", propBag, "ptr", propName, "uint", value, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteDWORD", "ptr", propBag, "ptr", propName, UInt32, value, "HRESULT")
     return result
 }
 
@@ -2920,7 +2920,7 @@ export PSPropertyBag_ReadULONGLONG(propBag, propName) {
 export PSPropertyBag_WriteULONGLONG(propBag, propName, value) {
     propName := propName is String ? StrPtr(propName) : propName
 
-    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteULONGLONG", "ptr", propBag, "ptr", propName, "uint", value, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSPropertyBag_WriteULONGLONG", "ptr", propBag, "ptr", propName, Int64, value, "HRESULT")
     return result
 }
 
@@ -3207,7 +3207,7 @@ export PifMgr_OpenProperties(pszApp, pszPIF, hInf, flOpt) {
     pszApp := pszApp is String ? StrPtr(pszApp) : pszApp
     pszPIF := pszPIF is String ? StrPtr(pszPIF) : pszPIF
 
-    result := DllCall("SHELL32.dll\PifMgr_OpenProperties", "ptr", pszApp, "ptr", pszPIF, "uint", hInf, "uint", flOpt, HANDLE.Owned)
+    result := DllCall("SHELL32.dll\PifMgr_OpenProperties", "ptr", pszApp, "ptr", pszPIF, UInt32, hInf, UInt32, flOpt, HANDLE.Owned)
     return result
 }
 
@@ -3245,7 +3245,7 @@ export PifMgr_OpenProperties(pszApp, pszPIF, hInf, flOpt) {
 export PifMgr_GetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
     pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-    result := DllCall("SHELL32.dll\PifMgr_GetProperties", HANDLE, hProps, "ptr", pszGroup, "ptr", lpProps, "int", cbProps, "uint", flOpt, Int32)
+    result := DllCall("SHELL32.dll\PifMgr_GetProperties", HANDLE, hProps, "ptr", pszGroup, IntPtr, lpProps, Int32, cbProps, UInt32, flOpt, Int32)
     return result
 }
 
@@ -3275,7 +3275,7 @@ export PifMgr_GetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
 export PifMgr_SetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
     pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-    result := DllCall("SHELL32.dll\PifMgr_SetProperties", HANDLE, hProps, "ptr", pszGroup, "ptr", lpProps, "int", cbProps, "uint", flOpt, Int32)
+    result := DllCall("SHELL32.dll\PifMgr_SetProperties", HANDLE, hProps, "ptr", pszGroup, IntPtr, lpProps, Int32, cbProps, UInt32, flOpt, Int32)
     return result
 }
 
@@ -3294,7 +3294,7 @@ export PifMgr_SetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
  * @since windows5.0
  */
 export PifMgr_CloseProperties(hProps, flOpt) {
-    result := DllCall("SHELL32.dll\PifMgr_CloseProperties", HANDLE, hProps, "uint", flOpt, HANDLE.Owned)
+    result := DllCall("SHELL32.dll\PifMgr_CloseProperties", HANDLE, hProps, UInt32, flOpt, HANDLE.Owned)
     return result
 }
 
@@ -3331,7 +3331,7 @@ export PifMgr_CloseProperties(hProps, flOpt) {
 export SHPropStgCreate(psstg, fmtid, pclsid, grfFlags, grfMode, dwDisposition, ppstg, puCodePage) {
     puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, Guid.Ptr, fmtid, Guid.Ptr, pclsid, "uint", grfFlags, "uint", grfMode, "uint", dwDisposition, IPropertyStorage.Ptr, ppstg, puCodePageMarshal, puCodePage, "HRESULT")
+    result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, Guid.Ptr, fmtid, Guid.Ptr, pclsid, UInt32, grfFlags, UInt32, grfMode, UInt32, dwDisposition, IPropertyStorage.Ptr, ppstg, puCodePageMarshal, puCodePage, "HRESULT")
     return result
 }
 
@@ -3359,7 +3359,7 @@ export SHPropStgCreate(psstg, fmtid, pclsid, grfFlags, grfMode, dwDisposition, p
  * @since windows5.1.2600
  */
 export SHPropStgReadMultiple(pps, uCodePage, cpspec, rgpspec, rgvar) {
-    result := DllCall("SHELL32.dll\SHPropStgReadMultiple", "ptr", pps, "uint", uCodePage, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgvar, "HRESULT")
+    result := DllCall("SHELL32.dll\SHPropStgReadMultiple", "ptr", pps, UInt32, uCodePage, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgvar, "HRESULT")
     return result
 }
 
@@ -3392,7 +3392,7 @@ export SHPropStgReadMultiple(pps, uCodePage, cpspec, rgpspec, rgvar) {
 export SHPropStgWriteMultiple(pps, puCodePage, cpspec, rgpspec, rgvar, propidNameFirst) {
     puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("SHELL32.dll\SHPropStgWriteMultiple", "ptr", pps, puCodePageMarshal, puCodePage, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgvar, "uint", propidNameFirst, "HRESULT")
+    result := DllCall("SHELL32.dll\SHPropStgWriteMultiple", "ptr", pps, puCodePageMarshal, puCodePage, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgvar, UInt32, propidNameFirst, "HRESULT")
     return result
 }
 

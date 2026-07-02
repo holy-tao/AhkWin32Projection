@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DML_BINDING_TABLE_DESC.ahk" { DML_BINDING_TABLE_DESC }
 #Import ".\DML_BINDING_DESC.ahk" { DML_BINDING_DESC }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DML_BINDING_TABLE_DESC.ahk" { DML_BINDING_TABLE_DESC }
 #Import ".\IDMLDeviceChild.ahk" { IDMLDeviceChild }
 
 /**
@@ -55,7 +55,7 @@ export default struct IDMLBindingTable extends IDMLDeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlbindingtable-bindinputs
      */
     BindInputs(bindingCount, bindings) {
-        ComCall(8, this, "uint", bindingCount, DML_BINDING_DESC.Ptr, bindings)
+        ComCall(8, this, UInt32, bindingCount, DML_BINDING_DESC.Ptr, bindings)
     }
 
     /**
@@ -70,7 +70,7 @@ export default struct IDMLBindingTable extends IDMLDeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlbindingtable-bindoutputs
      */
     BindOutputs(bindingCount, bindings) {
-        ComCall(9, this, "uint", bindingCount, DML_BINDING_DESC.Ptr, bindings)
+        ComCall(9, this, UInt32, bindingCount, DML_BINDING_DESC.Ptr, bindings)
     }
 
     /**

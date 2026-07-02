@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
-#Import ".\IAttach.ahk" { IAttach }
-#Import ".\IMAPITable.ahk" { IMAPITable }
 #Import ".\ADRLIST.ahk" { ADRLIST }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAttach.ahk" { IAttach }
 #Import ".\IMAPIProgress.ahk" { IMAPIProgress }
+#Import ".\IMAPITable.ahk" { IMAPITable }
 
 /**
  * Manages messages, attachments, and recipients. Read-only properties are set by the provider when a client calls a message's IMAPIProp::SaveChanges method.
@@ -78,7 +78,7 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-getattachmenttable
      */
     GetAttachmentTable(ulFlags) {
-        result := ComCall(14, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, ulFlags, "ptr*", &lppTable := 0, "HRESULT")
         return IMAPITable(lppTable)
     }
 
@@ -105,7 +105,7 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-openattach
      */
     OpenAttach(ulAttachmentNum, lpInterface, ulFlags) {
-        result := ComCall(15, this, "uint", ulAttachmentNum, Guid.Ptr, lpInterface, "uint", ulFlags, "ptr*", &lppAttach := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, ulAttachmentNum, Guid.Ptr, lpInterface, UInt32, ulFlags, "ptr*", &lppAttach := 0, "HRESULT")
         return IAttach(lppAttach)
     }
 
@@ -131,7 +131,7 @@ export default struct IMessage extends IMAPIProp {
     CreateAttach(lpInterface, ulFlags, lpulAttachmentNum, lppAttach) {
         lpulAttachmentNumMarshal := lpulAttachmentNum is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, Guid.Ptr, lpInterface, "uint", ulFlags, lpulAttachmentNumMarshal, lpulAttachmentNum, IAttach.Ptr, lppAttach, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, lpInterface, UInt32, ulFlags, lpulAttachmentNumMarshal, lpulAttachmentNum, IAttach.Ptr, lppAttach, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-deleteattach
      */
     DeleteAttach(ulAttachmentNum, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(17, this, "uint", ulAttachmentNum, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(17, this, UInt32, ulAttachmentNum, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -190,7 +190,7 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-getrecipienttable
      */
     GetRecipientTable(ulFlags) {
-        result := ComCall(18, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, ulFlags, "ptr*", &lppTable := 0, "HRESULT")
         return IMAPITable(lppTable)
     }
 
@@ -226,7 +226,7 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-modifyrecipients
      */
     ModifyRecipients(ulFlags, lpMods) {
-        result := ComCall(19, this, "uint", ulFlags, ADRLIST.Ptr, lpMods, "HRESULT")
+        result := ComCall(19, this, UInt32, ulFlags, ADRLIST.Ptr, lpMods, "HRESULT")
         return result
     }
 
@@ -249,7 +249,7 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-submitmessage
      */
     SubmitMessage(ulFlags) {
-        result := ComCall(20, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(20, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -302,7 +302,7 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-setreadflag
      */
     SetReadFlag(ulFlags) {
-        result := ComCall(21, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(21, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 

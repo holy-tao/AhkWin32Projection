@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IHostTask.ahk" { IHostTask }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -45,7 +45,7 @@ export default struct ICLRSyncManager extends IUnknown {
      * @returns {IHostTask} 
      */
     GetMonitorOwner(Cookie) {
-        result := ComCall(3, this, "ptr", Cookie, "ptr*", &ppOwnerHostTask := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, Cookie, "ptr*", &ppOwnerHostTask := 0, "HRESULT")
         return IHostTask(ppOwnerHostTask)
     }
 
@@ -55,7 +55,7 @@ export default struct ICLRSyncManager extends IUnknown {
      * @returns {Pointer} 
      */
     CreateRWLockOwnerIterator(Cookie) {
-        result := ComCall(4, this, "ptr", Cookie, "ptr*", &pIterator := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, Cookie, "ptr*", &pIterator := 0, "HRESULT")
         return pIterator
     }
 
@@ -65,7 +65,7 @@ export default struct ICLRSyncManager extends IUnknown {
      * @returns {IHostTask} 
      */
     GetRWLockOwnerNext(Iterator) {
-        result := ComCall(5, this, "ptr", Iterator, "ptr*", &ppOwnerHostTask := 0, "HRESULT")
+        result := ComCall(5, this, IntPtr, Iterator, "ptr*", &ppOwnerHostTask := 0, "HRESULT")
         return IHostTask(ppOwnerHostTask)
     }
 
@@ -75,7 +75,7 @@ export default struct ICLRSyncManager extends IUnknown {
      * @returns {HRESULT} 
      */
     DeleteRWLockOwnerIterator(Iterator) {
-        result := ComCall(6, this, "ptr", Iterator, "HRESULT")
+        result := ComCall(6, this, IntPtr, Iterator, "HRESULT")
         return result
     }
 

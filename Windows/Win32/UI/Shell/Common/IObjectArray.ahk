@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that enable clients to access items in a collection of objects that support IUnknown.
@@ -70,7 +70,7 @@ export default struct IObjectArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectarray-getat
      */
     GetAt(uiIndex, riid) {
-        result := ComCall(4, this, "uint", uiIndex, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, uiIndex, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

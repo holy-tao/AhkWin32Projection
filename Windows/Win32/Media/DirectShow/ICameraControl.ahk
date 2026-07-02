@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ICameraControl interface controls the camera settings on a capture device.This interface may be exposed by one or more nodes in a capture filter.
@@ -110,7 +110,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_exposure
      */
     put_Exposure(Value, Flags) {
-        result := ComCall(4, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(4, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -158,7 +158,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_focus
      */
     put_Focus(Value, Flags) {
-        result := ComCall(7, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(7, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -206,7 +206,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_iris
      */
     put_Iris(Value, Flags) {
-        result := ComCall(10, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(10, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_zoom
      */
     put_Zoom(Value, Flags) {
-        result := ComCall(13, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(13, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -356,7 +356,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_pan
      */
     put_Pan(Value, Flags) {
-        result := ComCall(17, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(17, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -404,7 +404,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_tilt
      */
     put_Tilt(Value, Flags) {
-        result := ComCall(20, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(20, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -455,7 +455,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_pantilt
      */
     put_PanTilt(PanValue, TiltValue, Flags) {
-        result := ComCall(23, this, "int", PanValue, "int", TiltValue, "int", Flags, "HRESULT")
+        result := ComCall(23, this, Int32, PanValue, Int32, TiltValue, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -482,7 +482,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_roll
      */
     put_Roll(Value, Flags) {
-        result := ComCall(25, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(25, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -572,7 +572,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_exposurerelative
      */
     put_ExposureRelative(Value, Flags) {
-        result := ComCall(28, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(28, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -662,7 +662,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_focusrelative
      */
     put_FocusRelative(Value, Flags) {
-        result := ComCall(31, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(31, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -752,7 +752,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_irisrelative
      */
     put_IrisRelative(Value, Flags) {
-        result := ComCall(34, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(34, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -842,7 +842,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_zoomrelative
      */
     put_ZoomRelative(Value, Flags) {
-        result := ComCall(37, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(37, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -932,7 +932,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_panrelative
      */
     put_PanRelative(Value, Flags) {
-        result := ComCall(40, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(40, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -1001,7 +1001,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_tiltrelative
      */
     put_TiltRelative(Value, Flags) {
-        result := ComCall(42, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(42, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -1052,7 +1052,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_pantiltrelative
      */
     put_PanTiltRelative(PanValue, TiltValue, Flags) {
-        result := ComCall(45, this, "int", PanValue, "int", TiltValue, "int", Flags, "HRESULT")
+        result := ComCall(45, this, Int32, PanValue, Int32, TiltValue, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -1142,7 +1142,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_rollrelative
      */
     put_RollRelative(Value, Flags) {
-        result := ComCall(48, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(48, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -1190,7 +1190,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_scanmode
      */
     put_ScanMode(Value, Flags) {
-        result := ComCall(51, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(51, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -1217,7 +1217,7 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-put_privacymode
      */
     put_PrivacyMode(Value, Flags) {
-        result := ComCall(53, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(53, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 

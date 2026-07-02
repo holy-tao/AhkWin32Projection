@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
 #Import ".\WSD_PROTOCOL_TYPE.ahk" { WSD_PROTOCOL_TYPE }
+#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
 
 /**
  * Supplies data about a port type.

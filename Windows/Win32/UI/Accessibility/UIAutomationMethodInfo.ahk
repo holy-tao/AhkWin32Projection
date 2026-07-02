@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\UIAutomationType.ahk" { UIAutomationType }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information about a method that is supported by a custom control pattern.

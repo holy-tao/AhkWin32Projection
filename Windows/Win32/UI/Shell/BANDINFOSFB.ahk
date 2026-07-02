@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**

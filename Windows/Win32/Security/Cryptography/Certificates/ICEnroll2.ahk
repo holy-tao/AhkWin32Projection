@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ICEnroll.ahk" { ICEnroll }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ICEnroll2 interface is one of several interfaces that represent the Certificate Enrollment Control.

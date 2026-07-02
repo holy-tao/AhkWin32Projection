@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFTopology.ahk" { IMFTopology }
-#Import ".\IMFSample.ahk" { IMFSample }
 #Import ".\IMFPresentationClock.ahk" { IMFPresentationClock }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFTopology.ahk" { IMFTopology }
 #Import ".\IMFTopologyNode.ahk" { IMFTopologyNode }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
 
 /**
  * Adjusts playback quality. This interface is exposed by the quality manager.
@@ -154,7 +154,7 @@ export default struct IMFQualityManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualitymanager-notifyprocessinput
      */
     NotifyProcessInput(pNode, lInputIndex, pSample) {
-        result := ComCall(5, this, "ptr", pNode, "int", lInputIndex, "ptr", pSample, "HRESULT")
+        result := ComCall(5, this, "ptr", pNode, Int32, lInputIndex, "ptr", pSample, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IMFQualityManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualitymanager-notifyprocessoutput
      */
     NotifyProcessOutput(pNode, lOutputIndex, pSample) {
-        result := ComCall(6, this, "ptr", pNode, "int", lOutputIndex, "ptr", pSample, "HRESULT")
+        result := ComCall(6, this, "ptr", pNode, Int32, lOutputIndex, "ptr", pSample, "HRESULT")
         return result
     }
 

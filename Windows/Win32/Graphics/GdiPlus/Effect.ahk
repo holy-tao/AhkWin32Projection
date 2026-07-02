@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CGpEffect.ahk" { CGpEffect }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CGpEffect.ahk" { CGpEffect }
 
 /**
  * A function is the building block for a shader created in the high-level language. If you prefer to write shaders in a C-style language instead of in assembly language, you will want to write functions.

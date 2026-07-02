@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HICON.ahk" { HICON }
+#Import ".\WNDPROC.ahk" { WNDPROC }
+#Import ".\WNDCLASS_STYLES.ahk" { WNDCLASS_STYLES }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Graphics\Gdi\HBRUSH.ahk" { HBRUSH }
-#Import ".\WNDCLASS_STYLES.ahk" { WNDCLASS_STYLES }
 #Import ".\HCURSOR.ahk" { HCURSOR }
+#Import "..\..\Graphics\Gdi\HBRUSH.ahk" { HBRUSH }
+#Import ".\HICON.ahk" { HICON }
 
 /**
  * Contains window class information. (Unicode)
@@ -37,7 +38,7 @@ export default struct WNDCLASSEXW {
      * 
      * A pointer to the window procedure. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-callwindowproca">CallWindowProc</a> function to call the window procedure. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633573(v=vs.85)">WindowProc</a>.
      */
-    lpfnWndProc : IntPtr
+    lpfnWndProc : WNDPROC
 
     /**
      * Type: <b>int</b>

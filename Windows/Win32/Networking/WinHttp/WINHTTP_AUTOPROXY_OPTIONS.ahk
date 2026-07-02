@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The WINHTTP_AUTOPROXY_OPTIONS structure is used to indicate to the WinHttpGetProxyForURL function whether to specify the URL of the Proxy Auto-Configuration (PAC) file or to automatically locate the URL with DHCP or DNS queries to the network.

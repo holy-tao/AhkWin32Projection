@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFNetCredential.ahk" { IMFNetCredential }
-#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import ".\MFNetCredentialManagerGetParam.ahk" { MFNetCredentialManagerGetParam }
-#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFNetCredential.ahk" { IMFNetCredential }
+#Import ".\MFNetCredentialManagerGetParam.ahk" { MFNetCredentialManagerGetParam }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by applications to provide user credentials for a network source.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDOMParser.ahk" { IDOMParser }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDOMParser.ahk" { IDOMParser }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DEVICEDIALOGDATA2.ahk" { DEVICEDIALOGDATA2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * The IWiaUIExtension2 interface provides methods that replace the default, system-supplied user interface with a custom user interface, and that provide a custom device icon.
@@ -95,7 +95,7 @@ export default struct IWiaUIExtension2 extends IUnknown {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
         phIcon := HICON.Owned()
-        result := ComCall(4, this, BSTR, bstrDeviceId, HICON.Ptr, phIcon, "uint", nSize, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrDeviceId, HICON.Ptr, phIcon, UInt32, nSize, "HRESULT")
         return phIcon
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ICreateDevEnum interface creates an enumerator for a category of filters, such as video capture devices or audio capture devices.
@@ -94,7 +94,7 @@ export default struct ICreateDevEnum extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icreatedevenum-createclassenumerator
      */
     CreateClassEnumerator(clsidDeviceClass, dwFlags) {
-        result := ComCall(3, this, Guid.Ptr, clsidDeviceClass, "ptr*", &ppEnumMoniker := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, clsidDeviceClass, "ptr*", &ppEnumMoniker := 0, UInt32, dwFlags, "HRESULT")
         return IEnumMoniker(ppEnumMoniker)
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Audio\AudioObjectType.ahk" { AudioObjectType }
 #Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
-#Import "..\Audio\AudioObjectType.ahk" { AudioObjectType }
 
 /**
  * Represents a section of audio data with associated positional and rendering metadata. Spatial audio objects are stored in IMFSpatialAudioSample instances, and allow passing of spatial audio information between Media Foundation components.
@@ -74,7 +74,7 @@ export default struct IMFSpatialAudioObjectBuffer extends IMFMediaBuffer {
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-setid
      */
     SetID(u32ID) {
-        result := ComCall(8, this, "uint", u32ID, "HRESULT")
+        result := ComCall(8, this, UInt32, u32ID, "HRESULT")
         return result
     }
 

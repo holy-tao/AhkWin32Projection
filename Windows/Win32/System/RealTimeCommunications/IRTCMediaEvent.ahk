@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RTC_MEDIA_EVENT_REASON.ahk" { RTC_MEDIA_EVENT_REASON }
 #Import ".\RTC_MEDIA_EVENT_TYPE.ahk" { RTC_MEDIA_EVENT_TYPE }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RTC_MEDIA_EVENT_REASON.ahk" { RTC_MEDIA_EVENT_REASON }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

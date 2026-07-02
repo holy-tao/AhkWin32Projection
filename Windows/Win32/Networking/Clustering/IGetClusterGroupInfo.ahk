@@ -80,7 +80,7 @@ export default struct IGetClusterGroupInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclustergroupinfo-getgrouphandle
      */
     GetGroupHandle(lObjIndex) {
-        result := ComCall(3, this, "int", lObjIndex, HGROUP)
+        result := ComCall(3, this, Int32, lObjIndex, HGROUP)
         return result
     }
 

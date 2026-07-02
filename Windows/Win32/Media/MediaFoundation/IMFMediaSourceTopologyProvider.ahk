@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFTopology.ahk" { IMFTopology }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFTopology.ahk" { IMFTopology }
 
 /**
  * Enables an application to get a topology from the sequencer source.

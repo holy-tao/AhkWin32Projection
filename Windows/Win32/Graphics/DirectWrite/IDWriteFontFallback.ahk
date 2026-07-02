@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
-#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
-#Import ".\IDWriteFont.ahk" { IDWriteFont }
-#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
 
 /**
  * Allows you to access fallback fonts from the font list.
@@ -88,7 +88,7 @@ export default struct IDWriteFontFallback extends IUnknown {
         mappedLengthMarshal := mappedLength is VarRef ? "uint*" : "ptr"
         scaleMarshal := scale is VarRef ? "float*" : "ptr"
 
-        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, DWRITE_FONT_WEIGHT, baseWeight, DWRITE_FONT_STYLE, baseStyle, DWRITE_FONT_STRETCH, baseStretch, mappedLengthMarshal, mappedLength, IDWriteFont.Ptr, mappedFont, scaleMarshal, scale, "HRESULT")
+        result := ComCall(3, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, DWRITE_FONT_WEIGHT, baseWeight, DWRITE_FONT_STYLE, baseStyle, DWRITE_FONT_STRETCH, baseStretch, mappedLengthMarshal, mappedLength, IDWriteFont.Ptr, mappedFont, scaleMarshal, scale, "HRESULT")
         return result
     }
 

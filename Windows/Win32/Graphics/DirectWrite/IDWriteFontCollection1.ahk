@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFamily1.ahk" { IDWriteFontFamily1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
 #Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteFontFamily1.ahk" { IDWriteFontFamily1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. (IDWriteFontCollection1)
@@ -58,7 +58,7 @@ export default struct IDWriteFontCollection1 extends IDWriteFontCollection {
      * @returns {IDWriteFontFamily1} 
      */
     GetFontFamily(index) {
-        result := ComCall(8, this, "uint", index, "ptr*", &_fontFamily := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, index, "ptr*", &_fontFamily := 0, "HRESULT")
         return IDWriteFontFamily1(_fontFamily)
     }
 

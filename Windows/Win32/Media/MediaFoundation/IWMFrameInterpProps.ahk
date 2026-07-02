@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -46,7 +46,7 @@ export default struct IWMFrameInterpProps extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFrameRateIn(lFrameRate, lScale) {
-        result := ComCall(3, this, "int", lFrameRate, "int", lScale, "HRESULT")
+        result := ComCall(3, this, Int32, lFrameRate, Int32, lScale, "HRESULT")
         return result
     }
 
@@ -57,7 +57,7 @@ export default struct IWMFrameInterpProps extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFrameRateOut(lFrameRate, lScale) {
-        result := ComCall(4, this, "int", lFrameRate, "int", lScale, "HRESULT")
+        result := ComCall(4, this, Int32, lFrameRate, Int32, lScale, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IWMFrameInterpProps extends IUnknown {
      * @returns {HRESULT} 
      */
     SetComplexityLevel(iComplexity) {
-        result := ComCall(6, this, "int", iComplexity, "HRESULT")
+        result := ComCall(6, this, Int32, iComplexity, "HRESULT")
         return result
     }
 

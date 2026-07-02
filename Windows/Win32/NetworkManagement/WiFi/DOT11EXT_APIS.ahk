@@ -1,4 +1,26 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11EXT_NIC_SPECIFIC_EXTENSION.ahk" { DOT11EXT_NIC_SPECIFIC_EXTENSION }
+#Import ".\DOT11EXT_SET_AUTH_ALGORITHM.ahk" { DOT11EXT_SET_AUTH_ALGORITHM }
+#Import ".\DOT11EXT_ONEX_STOP.ahk" { DOT11EXT_ONEX_STOP }
+#Import ".\DOT11EXT_SET_DEFAULT_KEY.ahk" { DOT11EXT_SET_DEFAULT_KEY }
+#Import ".\DOT11EXT_SEND_PACKET.ahk" { DOT11EXT_SEND_PACKET }
+#Import ".\DOT11EXT_SET_DEFAULT_KEY_ID.ahk" { DOT11EXT_SET_DEFAULT_KEY_ID }
+#Import ".\DOT11EXT_PRE_ASSOCIATE_COMPLETION.ahk" { DOT11EXT_PRE_ASSOCIATE_COMPLETION }
+#Import ".\DOT11EXT_SEND_NOTIFICATION.ahk" { DOT11EXT_SEND_NOTIFICATION }
+#Import ".\DOT11EXT_ALLOCATE_BUFFER.ahk" { DOT11EXT_ALLOCATE_BUFFER }
+#Import ".\DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM.ahk" { DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM }
+#Import ".\DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA.ahk" { DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA }
+#Import ".\DOT11EXT_SET_EXCLUDE_UNENCRYPTED.ahk" { DOT11EXT_SET_EXCLUDE_UNENCRYPTED }
+#Import ".\DOT11EXT_POST_ASSOCIATE_COMPLETION.ahk" { DOT11EXT_POST_ASSOCIATE_COMPLETION }
+#Import ".\DOT11EXT_SET_KEY_MAPPING_KEY.ahk" { DOT11EXT_SET_KEY_MAPPING_KEY }
+#Import ".\DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM.ahk" { DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM }
+#Import ".\DOT11EXT_PROCESS_ONEX_PACKET.ahk" { DOT11EXT_PROCESS_ONEX_PACKET }
+#Import ".\DOT11EXT_FREE_BUFFER.ahk" { DOT11EXT_FREE_BUFFER }
+#Import ".\DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA.ahk" { DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA }
+#Import ".\DOT11EXT_ONEX_START.ahk" { DOT11EXT_ONEX_START }
+#Import ".\DOT11EXT_SET_CURRENT_PROFILE.ahk" { DOT11EXT_SET_CURRENT_PROFILE }
+#Import ".\DOT11EXT_SET_ETHERTYPE_HANDLING.ahk" { DOT11EXT_SET_ETHERTYPE_HANDLING }
+#Import ".\DOT11EXT_SEND_UI_REQUEST.ahk" { DOT11EXT_SEND_UI_REQUEST }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -6,48 +28,48 @@
 export default struct DOT11EXT_APIS {
     #StructPack 8
 
-    Dot11ExtAllocateBuffer : IntPtr
+    Dot11ExtAllocateBuffer : DOT11EXT_ALLOCATE_BUFFER
 
-    Dot11ExtFreeBuffer : IntPtr
+    Dot11ExtFreeBuffer : DOT11EXT_FREE_BUFFER
 
-    Dot11ExtSetProfileCustomUserData : IntPtr
+    Dot11ExtSetProfileCustomUserData : DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA
 
-    Dot11ExtGetProfileCustomUserData : IntPtr
+    Dot11ExtGetProfileCustomUserData : DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA
 
-    Dot11ExtSetCurrentProfile : IntPtr
+    Dot11ExtSetCurrentProfile : DOT11EXT_SET_CURRENT_PROFILE
 
-    Dot11ExtSendUIRequest : IntPtr
+    Dot11ExtSendUIRequest : DOT11EXT_SEND_UI_REQUEST
 
-    Dot11ExtPreAssociateCompletion : IntPtr
+    Dot11ExtPreAssociateCompletion : DOT11EXT_PRE_ASSOCIATE_COMPLETION
 
-    Dot11ExtPostAssociateCompletion : IntPtr
+    Dot11ExtPostAssociateCompletion : DOT11EXT_POST_ASSOCIATE_COMPLETION
 
-    Dot11ExtSendNotification : IntPtr
+    Dot11ExtSendNotification : DOT11EXT_SEND_NOTIFICATION
 
-    Dot11ExtSendPacket : IntPtr
+    Dot11ExtSendPacket : DOT11EXT_SEND_PACKET
 
-    Dot11ExtSetEtherTypeHandling : IntPtr
+    Dot11ExtSetEtherTypeHandling : DOT11EXT_SET_ETHERTYPE_HANDLING
 
-    Dot11ExtSetAuthAlgorithm : IntPtr
+    Dot11ExtSetAuthAlgorithm : DOT11EXT_SET_AUTH_ALGORITHM
 
-    Dot11ExtSetUnicastCipherAlgorithm : IntPtr
+    Dot11ExtSetUnicastCipherAlgorithm : DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM
 
-    Dot11ExtSetMulticastCipherAlgorithm : IntPtr
+    Dot11ExtSetMulticastCipherAlgorithm : DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM
 
-    Dot11ExtSetDefaultKey : IntPtr
+    Dot11ExtSetDefaultKey : DOT11EXT_SET_DEFAULT_KEY
 
-    Dot11ExtSetKeyMappingKey : IntPtr
+    Dot11ExtSetKeyMappingKey : DOT11EXT_SET_KEY_MAPPING_KEY
 
-    Dot11ExtSetDefaultKeyId : IntPtr
+    Dot11ExtSetDefaultKeyId : DOT11EXT_SET_DEFAULT_KEY_ID
 
-    Dot11ExtNicSpecificExtension : IntPtr
+    Dot11ExtNicSpecificExtension : DOT11EXT_NIC_SPECIFIC_EXTENSION
 
-    Dot11ExtSetExcludeUnencrypted : IntPtr
+    Dot11ExtSetExcludeUnencrypted : DOT11EXT_SET_EXCLUDE_UNENCRYPTED
 
-    Dot11ExtStartOneX : IntPtr
+    Dot11ExtStartOneX : DOT11EXT_ONEX_START
 
-    Dot11ExtStopOneX : IntPtr
+    Dot11ExtStopOneX : DOT11EXT_ONEX_STOP
 
-    Dot11ExtProcessSecurityPacket : IntPtr
+    Dot11ExtProcessSecurityPacket : DOT11EXT_PROCESS_ONEX_PACKET
 
 }

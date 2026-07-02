@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\tomConstants.ahk" { tomConstants }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\tomConstants.ahk" { tomConstants }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -328,7 +328,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-reset
      */
     Reset(Value) {
-        result := ComCall(11, this, "int", Value, "HRESULT")
+        result := ComCall(11, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -694,7 +694,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setstyle
      */
     SetStyle(Value) {
-        result := ComCall(13, this, "int", Value, "HRESULT")
+        result := ComCall(13, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -781,7 +781,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setalignment
      */
     SetAlignment(Value) {
-        result := ComCall(15, this, "int", Value, "HRESULT")
+        result := ComCall(15, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -910,7 +910,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-sethyphenation
      */
     SetHyphenation(Value) {
-        result := ComCall(17, this, "int", Value, "HRESULT")
+        result := ComCall(17, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1058,7 +1058,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setkeeptogether
      */
     SetKeepTogether(Value) {
-        result := ComCall(20, this, "int", Value, "HRESULT")
+        result := ComCall(20, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1189,7 +1189,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setkeepwithnext
      */
     SetKeepWithNext(Value) {
-        result := ComCall(22, this, "int", Value, "HRESULT")
+        result := ComCall(22, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1350,7 +1350,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setlistalignment
      */
     SetListAlignment(Value) {
-        result := ComCall(27, this, "int", Value, "HRESULT")
+        result := ComCall(27, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1472,7 +1472,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setlistlevelindex
      */
     SetListLevelIndex(Value) {
-        result := ComCall(29, this, "int", Value, "HRESULT")
+        result := ComCall(29, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1565,7 +1565,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setliststart
      */
     SetListStart(Value) {
-        result := ComCall(31, this, "int", Value, "HRESULT")
+        result := ComCall(31, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1656,7 +1656,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setlisttab
      */
     SetListTab(Value) {
-        result := ComCall(33, this, "float", Value, "HRESULT")
+        result := ComCall(33, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -1759,7 +1759,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setlisttype
      */
     SetListType(Value) {
-        result := ComCall(35, this, "int", Value, "HRESULT")
+        result := ComCall(35, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1891,7 +1891,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setnolinenumber
      */
     SetNoLineNumber(Value) {
-        result := ComCall(37, this, "int", Value, "HRESULT")
+        result := ComCall(37, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1978,7 +1978,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setpagebreakbefore
      */
     SetPageBreakBefore(Value) {
-        result := ComCall(39, this, "int", Value, "HRESULT")
+        result := ComCall(39, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -2067,7 +2067,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setrightindent
      */
     SetRightIndent(Value) {
-        result := ComCall(41, this, "float", Value, "HRESULT")
+        result := ComCall(41, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -2152,7 +2152,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setindents
      */
     SetIndents(First, Left, Right) {
-        result := ComCall(42, this, "float", First, "float", Left, "float", Right, "HRESULT")
+        result := ComCall(42, this, Float32, First, Float32, Left, Float32, Right, "HRESULT")
         return result
     }
 
@@ -2234,7 +2234,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setlinespacing
      */
     SetLineSpacing(Rule, Spacing) {
-        result := ComCall(43, this, "int", Rule, "float", Spacing, "HRESULT")
+        result := ComCall(43, this, Int32, Rule, Float32, Spacing, "HRESULT")
         return result
     }
 
@@ -2323,7 +2323,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setspaceafter
      */
     SetSpaceAfter(Value) {
-        result := ComCall(45, this, "float", Value, "HRESULT")
+        result := ComCall(45, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -2412,7 +2412,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setspacebefore
      */
     SetSpaceBefore(Value) {
-        result := ComCall(47, this, "float", Value, "HRESULT")
+        result := ComCall(47, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -2556,7 +2556,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setwidowcontrol
      */
     SetWidowControl(Value) {
-        result := ComCall(49, this, "int", Value, "HRESULT")
+        result := ComCall(49, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -2748,7 +2748,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-addtab
      */
     AddTab(tbPos, tbAlign, tbLeader) {
-        result := ComCall(51, this, "float", tbPos, "int", tbAlign, "int", tbLeader, "HRESULT")
+        result := ComCall(51, this, Float32, tbPos, Int32, tbAlign, Int32, tbLeader, "HRESULT")
         return result
     }
 
@@ -2888,7 +2888,7 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-deletetab
      */
     DeleteTab(tbPos) {
-        result := ComCall(53, this, "float", tbPos, "HRESULT")
+        result := ComCall(53, this, Float32, tbPos, "HRESULT")
         return result
     }
 
@@ -2996,7 +2996,7 @@ export default struct ITextPara extends IDispatch {
         ptbAlignMarshal := ptbAlign is VarRef ? "int*" : "ptr"
         ptbLeaderMarshal := ptbLeader is VarRef ? "int*" : "ptr"
 
-        result := ComCall(54, this, "int", iTab, ptbPosMarshal, ptbPos, ptbAlignMarshal, ptbAlign, ptbLeaderMarshal, ptbLeader, "HRESULT")
+        result := ComCall(54, this, Int32, iTab, ptbPosMarshal, ptbPos, ptbAlignMarshal, ptbAlign, ptbLeaderMarshal, ptbLeader, "HRESULT")
         return result
     }
 

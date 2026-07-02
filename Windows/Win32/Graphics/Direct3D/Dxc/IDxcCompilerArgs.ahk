@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DxcDefine.ahk" { DxcDefine }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DxcDefine.ahk" { DxcDefine }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -69,7 +69,7 @@ export default struct IDxcCompilerArgs extends IUnknown {
     AddArguments(pArguments, argCount) {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pArgumentsMarshal, pArguments, "uint", argCount, "HRESULT")
+        result := ComCall(5, this, pArgumentsMarshal, pArguments, UInt32, argCount, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct IDxcCompilerArgs extends IUnknown {
     AddArgumentsUTF8(pArguments, argCount) {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pArgumentsMarshal, pArguments, "uint", argCount, "HRESULT")
+        result := ComCall(6, this, pArgumentsMarshal, pArguments, UInt32, argCount, "HRESULT")
         return result
     }
 
@@ -93,7 +93,7 @@ export default struct IDxcCompilerArgs extends IUnknown {
      * @returns {HRESULT} 
      */
     AddDefines(pDefines, defineCount) {
-        result := ComCall(7, this, DxcDefine.Ptr, pDefines, "uint", defineCount, "HRESULT")
+        result := ComCall(7, this, DxcDefine.Ptr, pDefines, UInt32, defineCount, "HRESULT")
         return result
     }
 

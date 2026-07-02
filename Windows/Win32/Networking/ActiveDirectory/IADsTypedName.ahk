@@ -104,7 +104,7 @@ export default struct IADsTypedName extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Level(lnLevel) {
-        result := ComCall(10, this, "int", lnLevel, "HRESULT")
+        result := ComCall(10, this, Int32, lnLevel, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IADsTypedName extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Interval(lnInterval) {
-        result := ComCall(12, this, "int", lnInterval, "HRESULT")
+        result := ComCall(12, this, Int32, lnInterval, "HRESULT")
         return result
     }
 

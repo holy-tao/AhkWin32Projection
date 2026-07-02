@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DML_GRAPH_DESC.ahk" { DML_GRAPH_DESC }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DML_EXECUTION_FLAGS.ahk" { DML_EXECUTION_FLAGS }
 #Import ".\IDMLDevice.ahk" { IDMLDevice }
+#Import ".\DML_EXECUTION_FLAGS.ahk" { DML_EXECUTION_FLAGS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DML_GRAPH_DESC.ahk" { DML_GRAPH_DESC }
 
 /**
  * Represents a DirectML device, which is used to create operators, binding tables, command recorders, and other objects. (IDMLDevice1)

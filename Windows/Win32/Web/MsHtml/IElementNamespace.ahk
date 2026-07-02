@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -45,7 +45,7 @@ export default struct IElementNamespace extends IUnknown {
     AddTag(bstrTagName, lFlags) {
         bstrTagName := bstrTagName is String ? BSTR.Alloc(bstrTagName).Value : bstrTagName
 
-        result := ComCall(3, this, BSTR, bstrTagName, "int", lFlags, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrTagName, Int32, lFlags, "HRESULT")
         return result
     }
 

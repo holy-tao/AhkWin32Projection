@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ROUTER_INTERFACE_TYPE.ahk" { ROUTER_INTERFACE_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ROUTER_INTERFACE_TYPE.ahk" { ROUTER_INTERFACE_TYPE }
 #Import ".\ROUTER_CONNECTION_STATE.ahk" { ROUTER_CONNECTION_STATE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

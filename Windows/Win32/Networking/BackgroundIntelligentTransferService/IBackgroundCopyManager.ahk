@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IEnumBackgroundCopyJobs.ahk" { IEnumBackgroundCopyJobs }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\BG_JOB_TYPE.ahk" { BG_JOB_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
 #Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
 /**
@@ -172,7 +172,7 @@ export default struct IBackgroundCopyManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-enumjobs
      */
     EnumJobs(dwFlags) {
-        result := ComCall(5, this, "uint", dwFlags, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumBackgroundCopyJobs(ppEnum)
     }
 
@@ -199,7 +199,7 @@ export default struct IBackgroundCopyManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-geterrordescription
      */
     GetErrorDescription(_hResult, LanguageId) {
-        result := ComCall(6, this, "int", _hResult, "uint", LanguageId, PWSTR.Ptr, &pErrorDescription := 0, Int32)
+        result := ComCall(6, this, "int", _hResult, UInt32, LanguageId, PWSTR.Ptr, &pErrorDescription := 0, Int32)
         if(result != 0) {
             CoTaskMemFree(pErrorDescription.value)
             throw OSError()

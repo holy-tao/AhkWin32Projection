@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IServiceProvider.ahk" { IServiceProvider }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a general mechanism for objects to offer services to other objects on the same host.
@@ -62,7 +62,7 @@ export default struct IProfferService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iprofferservice-revokeservice
      */
     RevokeService(cookie) {
-        result := ComCall(4, this, "uint", cookie, "HRESULT")
+        result := ComCall(4, this, UInt32, cookie, "HRESULT")
         return result
     }
 

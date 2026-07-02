@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMLicenseRevocationAgent interface handles messages from a DRM license server that involve license revocation.IWMLicenseRevocationAgent is the primary interface of the license revocation agent object.
@@ -79,7 +79,7 @@ export default struct IWMLicenseRevocationAgent extends IUnknown {
         pChallengeOutputMarshal := pChallengeOutput is VarRef ? "char*" : "ptr"
         pdwChallengeOutputLengthMarshal := pdwChallengeOutputLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pMachineIDMarshal, pMachineID, "uint", dwMachineIDLength, pChallengeMarshal, pChallenge, "uint", dwChallengeLength, pChallengeOutputMarshal, pChallengeOutput, pdwChallengeOutputLengthMarshal, pdwChallengeOutputLength, "HRESULT")
+        result := ComCall(3, this, pMachineIDMarshal, pMachineID, UInt32, dwMachineIDLength, pChallengeMarshal, pChallenge, UInt32, dwChallengeLength, pChallengeOutputMarshal, pChallengeOutput, pdwChallengeOutputLengthMarshal, pdwChallengeOutputLength, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IWMLicenseRevocationAgent extends IUnknown {
         pSignedACKMarshal := pSignedACK is VarRef ? "char*" : "ptr"
         pdwSignedACKLengthMarshal := pdwSignedACKLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pSignedLRBMarshal, pSignedLRB, "uint", dwSignedLRBLength, pSignedACKMarshal, pSignedACK, pdwSignedACKLengthMarshal, pdwSignedACKLength, "HRESULT")
+        result := ComCall(4, this, pSignedLRBMarshal, pSignedLRB, UInt32, dwSignedLRBLength, pSignedACKMarshal, pSignedACK, pdwSignedACKLengthMarshal, pdwSignedACKLength, "HRESULT")
         return result
     }
 

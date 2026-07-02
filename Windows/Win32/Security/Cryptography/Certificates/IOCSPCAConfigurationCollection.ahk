@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IOCSPCAConfiguration.ahk" { IOCSPCAConfiguration }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents a set of certificates for which an Online Certificate Status Protocol (OCSP) service has been configured to provide certificate status responses.
@@ -78,7 +78,7 @@ export default struct IOCSPCAConfigurationCollection extends IDispatch {
      */
     get_Item(Index) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", Index, VARIANT.Ptr, pVal, "HRESULT")
+        result := ComCall(8, this, Int32, Index, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 

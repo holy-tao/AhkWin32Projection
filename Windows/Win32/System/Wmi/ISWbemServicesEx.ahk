@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISWbemObjectPath.ahk" { ISWbemObjectPath }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISWbemObjectEx.ahk" { ISWbemObjectEx }
 #Import ".\ISWbemServices.ahk" { ISWbemServices }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISWbemSink.ahk" { ISWbemSink }
+#Import ".\ISWbemObjectEx.ahk" { ISWbemObjectEx }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISWbemObjectPath.ahk" { ISWbemObjectPath }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -54,7 +54,7 @@ export default struct ISWbemServicesEx extends ISWbemServices {
      * @returns {ISWbemObjectPath} 
      */
     Put(objWbemObject, iFlags, objWbemNamedValueSet) {
-        result := ComCall(26, this, "ptr", objWbemObject, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectPath := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", objWbemObject, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectPath := 0, "HRESULT")
         return ISWbemObjectPath(objWbemObjectPath)
     }
 
@@ -68,7 +68,7 @@ export default struct ISWbemServicesEx extends ISWbemServices {
      * @returns {HRESULT} 
      */
     PutAsync(objWbemSink, objWbemObject, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
-        result := ComCall(27, this, "ptr", objWbemSink, "ptr", objWbemObject, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(27, this, "ptr", objWbemSink, "ptr", objWbemObject, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 

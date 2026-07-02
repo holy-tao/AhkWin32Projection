@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GameInputRawDeviceItemCollectionInfo.ahk" { GameInputRawDeviceItemCollectionInfo }
-#Import ".\GameInputRawDevicePhysicalUnitKind.ahk" { GameInputRawDevicePhysicalUnitKind }
-#Import ".\GameInputString.ahk" { GameInputString }
 #Import ".\GameInputUsage.ahk" { GameInputUsage }
+#Import ".\GameInputRawDevicePhysicalUnitKind.ahk" { GameInputRawDevicePhysicalUnitKind }
+#Import ".\GameInputRawDeviceItemCollectionInfo.ahk" { GameInputRawDeviceItemCollectionInfo }
 #Import ".\GameInputRawDeviceReportItemFlags.ahk" { GameInputRawDeviceReportItemFlags }
+#Import ".\GameInputString.ahk" { GameInputString }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

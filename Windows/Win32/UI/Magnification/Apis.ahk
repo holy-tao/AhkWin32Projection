@@ -1,11 +1,12 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\MAGCOLOREFFECT.ahk" { MAGCOLOREFFECT }
-#Import ".\MW_FILTERMODE.ahk" { MW_FILTERMODE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\MAGTRANSFORM.ahk" { MAGTRANSFORM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MAGCOLOREFFECT.ahk" { MAGCOLOREFFECT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\MagImageScalingCallback.ahk" { MagImageScalingCallback }
+#Import ".\MW_FILTERMODE.ahk" { MW_FILTERMODE }
 
 /**
  * @namespace Windows.Win32.UI.Magnification
@@ -144,7 +145,7 @@ export MagGetWindowTransform(_hwnd, pTransform) {
  * @since windows6.0.6000
  */
 export MagSetWindowFilterList(_hwnd, dwFilterMode, count, pHWND) {
-    result := DllCall("MAGNIFICATION.dll\MagSetWindowFilterList", HWND, _hwnd, MW_FILTERMODE, dwFilterMode, "int", count, HWND.Ptr, pHWND, BOOL)
+    result := DllCall("MAGNIFICATION.dll\MagSetWindowFilterList", HWND, _hwnd, MW_FILTERMODE, dwFilterMode, Int32, count, HWND.Ptr, pHWND, BOOL)
     return result
 }
 
@@ -176,7 +177,7 @@ export MagSetWindowFilterList(_hwnd, dwFilterMode, count, pHWND) {
 export MagGetWindowFilterList(_hwnd, pdwFilterMode, count, pHWND) {
     pdwFilterModeMarshal := pdwFilterMode is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MAGNIFICATION.dll\MagGetWindowFilterList", HWND, _hwnd, pdwFilterModeMarshal, pdwFilterMode, "int", count, HWND.Ptr, pHWND, Int32)
+    result := DllCall("MAGNIFICATION.dll\MagGetWindowFilterList", HWND, _hwnd, pdwFilterModeMarshal, pdwFilterMode, Int32, count, HWND.Ptr, pHWND, Int32)
     return result
 }
 
@@ -222,7 +223,7 @@ export MagGetWindowFilterList(_hwnd, pdwFilterMode, count, pHWND) {
  * @since windows6.0.6000
  */
 export MagSetImageScalingCallback(_hwnd, callback) {
-    result := DllCall("MAGNIFICATION.dll\MagSetImageScalingCallback", HWND, _hwnd, "ptr", callback, BOOL)
+    result := DllCall("MAGNIFICATION.dll\MagSetImageScalingCallback", HWND, _hwnd, MagImageScalingCallback, callback, BOOL)
     return result
 }
 
@@ -242,7 +243,7 @@ export MagSetImageScalingCallback(_hwnd, callback) {
  * @since windows6.0.6000
  */
 export MagGetImageScalingCallback(_hwnd) {
-    result := DllCall("MAGNIFICATION.dll\MagGetImageScalingCallback", HWND, _hwnd, IntPtr)
+    result := DllCall("MAGNIFICATION.dll\MagGetImageScalingCallback", HWND, _hwnd, MagImageScalingCallback)
     return result
 }
 
@@ -318,7 +319,7 @@ export MagGetColorEffect(_hwnd, pEffect) {
  * @since windows8.0
  */
 export MagSetFullscreenTransform(magLevel, xOffset, yOffset) {
-    result := DllCall("MAGNIFICATION.dll\MagSetFullscreenTransform", "float", magLevel, "int", xOffset, "int", yOffset, BOOL)
+    result := DllCall("MAGNIFICATION.dll\MagSetFullscreenTransform", Float32, magLevel, Int32, xOffset, Int32, yOffset, BOOL)
     return result
 }
 

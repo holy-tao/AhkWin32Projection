@@ -1,17 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\DSCBUFFERDESC.ahk" { DSCBUFFERDESC }
 #Import ".\IDirectSoundBuffer8.ahk" { IDirectSoundBuffer8 }
-#Import ".\IDirectSoundCapture.ahk" { IDirectSoundCapture }
-#Import ".\IDirectSound8.ahk" { IDirectSound8 }
-#Import ".\IDirectSoundCaptureBuffer8.ahk" { IDirectSoundCaptureBuffer8 }
+#Import ".\IDirectSoundFullDuplex.ahk" { IDirectSoundFullDuplex }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IDirectSound.ahk" { IDirectSound }
+#Import ".\LPDSENUMCALLBACKW.ahk" { LPDSENUMCALLBACKW }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDirectSoundFullDuplex.ahk" { IDirectSoundFullDuplex }
+#Import ".\IDirectSoundCaptureBuffer8.ahk" { IDirectSoundCaptureBuffer8 }
+#Import ".\LPDSENUMCALLBACKA.ahk" { LPDSENUMCALLBACKA }
+#Import ".\DSCBUFFERDESC.ahk" { DSCBUFFERDESC }
+#Import ".\IDirectSound8.ahk" { IDirectSound8 }
+#Import ".\IDirectSoundCapture.ahk" { IDirectSoundCapture }
+#Import ".\IDirectSound.ahk" { IDirectSound }
+#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
@@ -38,7 +40,7 @@ export DirectSoundCreate(pcGuidDevice, pUnkOuter) {
 export DirectSoundEnumerateA(pDSEnumCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DSOUND.dll\DirectSoundEnumerateA", "ptr", pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("DSOUND.dll\DirectSoundEnumerateA", LPDSENUMCALLBACKA, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
@@ -51,7 +53,7 @@ export DirectSoundEnumerateA(pDSEnumCallback, pContext) {
 export DirectSoundEnumerateW(pDSEnumCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DSOUND.dll\DirectSoundEnumerateW", "ptr", pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("DSOUND.dll\DirectSoundEnumerateW", LPDSENUMCALLBACKW, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
@@ -75,7 +77,7 @@ export DirectSoundCaptureCreate(pcGuidDevice, pUnkOuter) {
 export DirectSoundCaptureEnumerateA(pDSEnumCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateA", "ptr", pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateA", LPDSENUMCALLBACKA, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
@@ -88,7 +90,7 @@ export DirectSoundCaptureEnumerateA(pDSEnumCallback, pContext) {
 export DirectSoundCaptureEnumerateW(pDSEnumCallback, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateW", "ptr", pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
+    result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateW", LPDSENUMCALLBACKW, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
@@ -133,7 +135,7 @@ export DirectSoundCaptureCreate8(pcGuidDevice, pUnkOuter) {
  * @see https://learn.microsoft.com/windows/win32/DevNotes/directsoundfullduplexcreate
  */
 export DirectSoundFullDuplexCreate(pcGuidCaptureDevice, pcGuidRenderDevice, pcDSCBufferDesc, pcDSBufferDesc, _hWnd, dwLevel, ppDSFD, ppDSCBuffer8, ppDSBuffer8, pUnkOuter) {
-    result := DllCall("DSOUND.dll\DirectSoundFullDuplexCreate", Guid.Ptr, pcGuidCaptureDevice, Guid.Ptr, pcGuidRenderDevice, DSCBUFFERDESC.Ptr, pcDSCBufferDesc, DSBUFFERDESC.Ptr, pcDSBufferDesc, HWND, _hWnd, "uint", dwLevel, IDirectSoundFullDuplex.Ptr, ppDSFD, IDirectSoundCaptureBuffer8.Ptr, ppDSCBuffer8, IDirectSoundBuffer8.Ptr, ppDSBuffer8, "ptr", pUnkOuter, "HRESULT")
+    result := DllCall("DSOUND.dll\DirectSoundFullDuplexCreate", Guid.Ptr, pcGuidCaptureDevice, Guid.Ptr, pcGuidRenderDevice, DSCBUFFERDESC.Ptr, pcDSCBufferDesc, DSBUFFERDESC.Ptr, pcDSBufferDesc, HWND, _hWnd, UInt32, dwLevel, IDirectSoundFullDuplex.Ptr, ppDSFD, IDirectSoundCaptureBuffer8.Ptr, ppDSCBuffer8, IDirectSoundBuffer8.Ptr, ppDSBuffer8, "ptr", pUnkOuter, "HRESULT")
     return result
 }
 

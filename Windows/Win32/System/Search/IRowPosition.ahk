@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -116,7 +116,7 @@ export default struct IRowPosition extends IUnknown {
      * @returns {HRESULT} 
      */
     SetRowPosition(hChapter, hRow, dwPositionFlags) {
-        result := ComCall(7, this, "ptr", hChapter, "ptr", hRow, "uint", dwPositionFlags, "HRESULT")
+        result := ComCall(7, this, IntPtr, hChapter, IntPtr, hRow, UInt32, dwPositionFlags, "HRESULT")
         return result
     }
 

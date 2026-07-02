@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\COMPLUS_APPTYPE.ahk" { COMPLUS_APPTYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMPLUS_APPTYPE.ahk" { COMPLUS_APPTYPE }
 
 /**
  * Represents summary information about a process hosting COM+ applications.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_DSA_MAGIC.ahk" { BCRYPT_DSA_MAGIC }
 #Import ".\DSAFIPSVERSION_ENUM.ahk" { DSAFIPSVERSION_ENUM }
 #Import ".\HASHALGORITHM_ENUM.ahk" { HASHALGORITHM_ENUM }
-#Import ".\BCRYPT_DSA_MAGIC.ahk" { BCRYPT_DSA_MAGIC }
 
 /**
  * Used as a header for a Digital Signature Algorithm (DSA) public key or private key BLOB in memory. (BCRYPT_DSA_KEY_BLOB_V2)

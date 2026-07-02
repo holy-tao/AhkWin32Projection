@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CMD_ENTRY.ahk" { CMD_ENTRY }
-#Import ".\CMD_GROUP_ENTRY.ahk" { CMD_GROUP_ENTRY }
+#Import ".\PNS_CONTEXT_DUMP_FN.ahk" { PNS_CONTEXT_DUMP_FN }
+#Import ".\PNS_CONTEXT_CONNECT_FN.ahk" { PNS_CONTEXT_CONNECT_FN }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CMD_GROUP_ENTRY.ahk" { CMD_GROUP_ENTRY }
+#Import ".\PNS_OSVERSIONCHECK.ahk" { PNS_OSVERSIONCHECK }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CMD_ENTRY.ahk" { CMD_ENTRY }
+#Import ".\PNS_CONTEXT_COMMIT_FN.ahk" { PNS_CONTEXT_COMMIT_FN }
 
 /**
  * Defines attributes of a context.
@@ -111,25 +115,25 @@ export default struct NS_CONTEXT_ATTRIBUTES {
      * A function called to commit changes from offline mode. Can be null. For more information about the commit function, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_context_commit_fn">NS_CONTEXT_COMMIT_FN</a>.
      */
-    pfnCommitFn : IntPtr
+    pfnCommitFn : PNS_CONTEXT_COMMIT_FN
 
     /**
      * A function called to dump the current configuration. Can be null. For more information about the dump function, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_context_dump_fn">NS_CONTEXT_DUMP_FN</a>.
      */
-    pfnDumpFn : IntPtr
+    pfnDumpFn : PNS_CONTEXT_DUMP_FN
 
     /**
      * A function called to connect to a remote computer, or to update the set of available commands. Can be null. For more information about the connect function, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_context_connect_fn">NS_CONTEXT_CONNECT_FN</a>.
      */
-    pfnConnectFn : IntPtr
+    pfnConnectFn : PNS_CONTEXT_CONNECT_FN
 
     /**
      * Reserved. Must be null.
      */
     pReserved : IntPtr
 
-    pfnOsVersionCheck : IntPtr
+    pfnOsVersionCheck : PNS_OSVERSIONCHECK
 
     static __New() {
         DefineProp(this.Prototype, '_ullAlign', { type: Int64, offset: 0 })

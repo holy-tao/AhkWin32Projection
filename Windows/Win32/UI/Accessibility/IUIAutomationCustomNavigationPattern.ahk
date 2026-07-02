@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\NavigateDirection.ahk" { NavigateDirection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NavigateDirection.ahk" { NavigateDirection }
 
 /**
  * Exposes a method to support access by a Microsoft UI Automation client to controls that support a custom navigation order.
@@ -41,7 +41,7 @@ export default struct IUIAutomationCustomNavigationPattern extends IUnknown {
 
     /**
      * Gets the next element in the specified direction within the logical UI tree.
-     * @param {NavigateDirection} _direction 
+     * @param {NavigateDirection} _direction The specified direction.
      * @returns {IUIAutomationElement} The next element as specified by the <i>direction</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcustomnavigationpattern-navigate
      */

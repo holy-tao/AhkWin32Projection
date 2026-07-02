@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that allow an application to attach extra data blocks to a Shell link. These methods add, copy, or remove data blocks.
@@ -120,7 +120,7 @@ export default struct IShellLinkDataList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-copydatablock
      */
     CopyDataBlock(dwSig) {
-        result := ComCall(4, this, "uint", dwSig, "ptr*", &ppDataBlock := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSig, "ptr*", &ppDataBlock := 0, "HRESULT")
         return ppDataBlock
     }
 
@@ -135,7 +135,7 @@ export default struct IShellLinkDataList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-removedatablock
      */
     RemoveDataBlock(dwSig) {
-        result := ComCall(5, this, "uint", dwSig, "HRESULT")
+        result := ComCall(5, this, UInt32, dwSig, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IShellLinkDataList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-setflags
      */
     SetFlags(dwFlags) {
-        result := ComCall(7, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

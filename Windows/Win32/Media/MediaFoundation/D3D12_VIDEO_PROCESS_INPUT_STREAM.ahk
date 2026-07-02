@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_VIDEO_PROCESS_REFERENCE_SET.ahk" { D3D12_VIDEO_PROCESS_REFERENCE_SET }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_VIDEO_PROCESS_REFERENCE_SET.ahk" { D3D12_VIDEO_PROCESS_REFERENCE_SET }
 
 /**
  * Contains input information for the video processor blend functionality.

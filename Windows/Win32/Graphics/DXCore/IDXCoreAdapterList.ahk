@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXCoreAdapterPreference.ahk" { DXCoreAdapterPreference }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXCoreAdapterPreference.ahk" { DXCoreAdapterPreference }
 
 /**
  * The **IDXCoreAdapterList** interface implements methods for retrieving adapter items from a generated list, as well as details about the list.
@@ -59,7 +59,7 @@ export default struct IDXCoreAdapterList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-getadapter
      */
     GetAdapter(index, riid) {
-        result := ComCall(3, this, "uint", index, Guid.Ptr, riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, index, Guid.Ptr, riid, "ptr*", &ppvAdapter := 0, "HRESULT")
         return ppvAdapter
     }
 
@@ -134,7 +134,7 @@ export default struct IDXCoreAdapterList extends IUnknown {
     Sort(numPreferences, preferences) {
         preferencesMarshal := preferences is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", numPreferences, preferencesMarshal, preferences, "HRESULT")
+        result := ComCall(7, this, UInt32, numPreferences, preferencesMarshal, preferences, "HRESULT")
         return result
     }
 

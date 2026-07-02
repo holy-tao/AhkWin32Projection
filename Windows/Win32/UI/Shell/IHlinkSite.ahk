@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -48,7 +48,7 @@ export default struct IHlinkSite extends IUnknown {
      * @returns {IUnknown} 
      */
     QueryService(dwSiteData, guidService, riid) {
-        result := ComCall(3, this, "uint", dwSiteData, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppiunk := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSiteData, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppiunk := 0, "HRESULT")
         return IUnknown(ppiunk)
     }
 
@@ -60,7 +60,7 @@ export default struct IHlinkSite extends IUnknown {
      * @returns {IMoniker} 
      */
     GetMoniker(dwSiteData, dwAssign, dwWhich) {
-        result := ComCall(4, this, "uint", dwSiteData, "uint", dwAssign, "uint", dwWhich, "ptr*", &ppimk := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSiteData, UInt32, dwAssign, UInt32, dwWhich, "ptr*", &ppimk := 0, "HRESULT")
         return IMoniker(ppimk)
     }
 
@@ -71,7 +71,7 @@ export default struct IHlinkSite extends IUnknown {
      * @returns {HRESULT} 
      */
     ReadyToNavigate(dwSiteData, dwReserved) {
-        result := ComCall(5, this, "uint", dwSiteData, "uint", dwReserved, "HRESULT")
+        result := ComCall(5, this, UInt32, dwSiteData, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct IHlinkSite extends IUnknown {
     OnNavigationComplete(dwSiteData, dwreserved, hrError, pwzError) {
         pwzError := pwzError is String ? StrPtr(pwzError) : pwzError
 
-        result := ComCall(6, this, "uint", dwSiteData, "uint", dwreserved, "int", hrError, "ptr", pwzError, "HRESULT")
+        result := ComCall(6, this, UInt32, dwSiteData, UInt32, dwreserved, "int", hrError, "ptr", pwzError, "HRESULT")
         return result
     }
 

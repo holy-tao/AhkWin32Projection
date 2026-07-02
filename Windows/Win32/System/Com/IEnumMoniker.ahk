@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMoniker.ahk" { IMoniker }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates the components of a moniker or the monikers in a table of monikers.
@@ -54,7 +54,7 @@ export default struct IEnumMoniker extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, IMoniker.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
+        result := ComCall(3, this, UInt32, celt, IMoniker.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
         return result
     }
 
@@ -65,7 +65,7 @@ export default struct IEnumMoniker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienummoniker-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, Int32)
+        result := ComCall(4, this, UInt32, celt, Int32)
         return result
     }
 

@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\POINTER_DEVICE_PROPERTY.ahk" { POINTER_DEVICE_PROPERTY }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\TOUCH_FEEDBACK_MODE.ahk" { TOUCH_FEEDBACK_MODE }
-#Import ".\POINTER_INFO.ahk" { POINTER_INFO }
-#Import "..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
+#Import ".\POINTER_PEN_INFO.ahk" { POINTER_PEN_INFO }
+#Import ".\POINTER_DEVICE_PROPERTY.ahk" { POINTER_DEVICE_PROPERTY }
+#Import ".\POINTER_DEVICE_INFO.ahk" { POINTER_DEVICE_INFO }
+#Import ".\POINTER_DEVICE_CURSOR_INFO.ahk" { POINTER_DEVICE_CURSOR_INFO }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\POINTER_TOUCH_INFO.ahk" { POINTER_TOUCH_INFO }
 #Import ".\POINTER_TYPE_INFO.ahk" { POINTER_TYPE_INFO }
-#Import ".\POINTER_DEVICE_CURSOR_INFO.ahk" { POINTER_DEVICE_CURSOR_INFO }
-#Import ".\POINTER_DEVICE_INFO.ahk" { POINTER_DEVICE_INFO }
-#Import ".\INPUT_TRANSFORM.ahk" { INPUT_TRANSFORM }
+#Import ".\TOUCH_FEEDBACK_MODE.ahk" { TOUCH_FEEDBACK_MODE }
 #Import ".\HSYNTHETICPOINTERDEVICE.ahk" { HSYNTHETICPOINTERDEVICE }
-#Import ".\POINTER_PEN_INFO.ahk" { POINTER_PEN_INFO }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\POINTER_INFO.ahk" { POINTER_INFO }
+#Import "..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
+#Import ".\INPUT_TRANSFORM.ahk" { INPUT_TRANSFORM }
 
 /**
  * @namespace Windows.Win32.UI.Input.Pointer
@@ -56,7 +56,7 @@ export GetUnpredictedMessagePos() {
 export InitializeTouchInjection(maxCount, dwMode) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\InitializeTouchInjection", "uint", maxCount, TOUCH_FEEDBACK_MODE, dwMode, BOOL)
+    result := DllCall("USER32.dll\InitializeTouchInjection", UInt32, maxCount, TOUCH_FEEDBACK_MODE, dwMode, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -145,7 +145,7 @@ export InitializeTouchInjection(maxCount, dwMode) {
 export InjectTouchInput(count, contacts) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\InjectTouchInput", "uint", count, POINTER_TOUCH_INFO.Ptr, contacts, BOOL)
+    result := DllCall("USER32.dll\InjectTouchInput", UInt32, count, POINTER_TOUCH_INFO.Ptr, contacts, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -173,7 +173,7 @@ export GetPointerType(pointerId, pointerType) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerType", "uint", pointerId, pointerTypeMarshal, pointerType, BOOL)
+    result := DllCall("USER32.dll\GetPointerType", UInt32, pointerId, pointerTypeMarshal, pointerType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -200,7 +200,7 @@ export GetPointerCursorId(pointerId, cursorId) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerCursorId", "uint", pointerId, cursorIdMarshal, cursorId, BOOL)
+    result := DllCall("USER32.dll\GetPointerCursorId", UInt32, pointerId, cursorIdMarshal, cursorId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -233,7 +233,7 @@ export GetPointerCursorId(pointerId, cursorId) {
 export GetPointerInfo(pointerId, pointerInfo) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerInfo", "uint", pointerId, POINTER_INFO.Ptr, pointerInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerInfo", UInt32, pointerId, POINTER_INFO.Ptr, pointerInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -270,7 +270,7 @@ export GetPointerInfoHistory(pointerId, entriesCount, pointerInfo) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, POINTER_INFO.Ptr, pointerInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerInfoHistory", UInt32, pointerId, entriesCountMarshal, entriesCount, POINTER_INFO.Ptr, pointerInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -327,7 +327,7 @@ export GetPointerFrameInfo(pointerId, pointerCount, pointerInfo) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerFrameInfo", "uint", pointerId, pointerCountMarshal, pointerCount, POINTER_INFO.Ptr, pointerInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerFrameInfo", UInt32, pointerId, pointerCountMarshal, pointerCount, POINTER_INFO.Ptr, pointerInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -389,7 +389,7 @@ export GetPointerFrameInfoHistory(pointerId, entriesCount, pointerCount, pointer
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerFrameInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, POINTER_INFO.Ptr, pointerInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerFrameInfoHistory", UInt32, pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, POINTER_INFO.Ptr, pointerInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -424,7 +424,7 @@ export GetPointerFrameInfoHistory(pointerId, entriesCount, pointerCount, pointer
 export GetPointerTouchInfo(pointerId, touchInfo) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerTouchInfo", "uint", pointerId, POINTER_TOUCH_INFO.Ptr, touchInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerTouchInfo", UInt32, pointerId, POINTER_TOUCH_INFO.Ptr, touchInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -463,7 +463,7 @@ export GetPointerTouchInfoHistory(pointerId, entriesCount, touchInfo) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerTouchInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, POINTER_TOUCH_INFO.Ptr, touchInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerTouchInfoHistory", UInt32, pointerId, entriesCountMarshal, entriesCount, POINTER_TOUCH_INFO.Ptr, touchInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -524,7 +524,7 @@ export GetPointerFrameTouchInfo(pointerId, pointerCount, touchInfo) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerFrameTouchInfo", "uint", pointerId, pointerCountMarshal, pointerCount, POINTER_TOUCH_INFO.Ptr, touchInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerFrameTouchInfo", UInt32, pointerId, pointerCountMarshal, pointerCount, POINTER_TOUCH_INFO.Ptr, touchInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -590,7 +590,7 @@ export GetPointerFrameTouchInfoHistory(pointerId, entriesCount, pointerCount, to
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerFrameTouchInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, POINTER_TOUCH_INFO.Ptr, touchInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerFrameTouchInfoHistory", UInt32, pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, POINTER_TOUCH_INFO.Ptr, touchInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -625,7 +625,7 @@ export GetPointerFrameTouchInfoHistory(pointerId, entriesCount, pointerCount, to
 export GetPointerPenInfo(pointerId, penInfo) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerPenInfo", "uint", pointerId, POINTER_PEN_INFO.Ptr, penInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerPenInfo", UInt32, pointerId, POINTER_PEN_INFO.Ptr, penInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -689,7 +689,7 @@ export GetPointerPenInfoHistory(pointerId, entriesCount, penInfo) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerPenInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, POINTER_PEN_INFO.Ptr, penInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerPenInfoHistory", UInt32, pointerId, entriesCountMarshal, entriesCount, POINTER_PEN_INFO.Ptr, penInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -750,7 +750,7 @@ export GetPointerFramePenInfo(pointerId, pointerCount, penInfo) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerFramePenInfo", "uint", pointerId, pointerCountMarshal, pointerCount, POINTER_PEN_INFO.Ptr, penInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerFramePenInfo", UInt32, pointerId, pointerCountMarshal, pointerCount, POINTER_PEN_INFO.Ptr, penInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -816,7 +816,7 @@ export GetPointerFramePenInfoHistory(pointerId, entriesCount, pointerCount, penI
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerFramePenInfoHistory", "uint", pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, POINTER_PEN_INFO.Ptr, penInfo, BOOL)
+    result := DllCall("USER32.dll\GetPointerFramePenInfoHistory", UInt32, pointerId, entriesCountMarshal, entriesCount, pointerCountMarshal, pointerCount, POINTER_PEN_INFO.Ptr, penInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -852,7 +852,7 @@ export GetPointerFramePenInfoHistory(pointerId, entriesCount, pointerCount, penI
 export SkipPointerFrameMessages(pointerId) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SkipPointerFrameMessages", "uint", pointerId, BOOL)
+    result := DllCall("USER32.dll\SkipPointerFrameMessages", UInt32, pointerId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -884,7 +884,7 @@ export SkipPointerFrameMessages(pointerId) {
 export InjectSyntheticPointerInput(device, pointerInfo, count) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\InjectSyntheticPointerInput", HSYNTHETICPOINTERDEVICE, device, POINTER_TYPE_INFO.Ptr, pointerInfo, "uint", count, BOOL)
+    result := DllCall("USER32.dll\InjectSyntheticPointerInput", HSYNTHETICPOINTERDEVICE, device, POINTER_TYPE_INFO.Ptr, pointerInfo, UInt32, count, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -996,7 +996,7 @@ export IsMouseInPointerEnabled() {
 export GetPointerInputTransform(pointerId, historyCount, inputTransform) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPointerInputTransform", "uint", pointerId, "uint", historyCount, INPUT_TRANSFORM.Ptr, inputTransform, BOOL)
+    result := DllCall("USER32.dll\GetPointerInputTransform", UInt32, pointerId, UInt32, historyCount, INPUT_TRANSFORM.Ptr, inputTransform, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1141,7 +1141,7 @@ export GetRawPointerDeviceData(pointerId, historyCount, propertiesCount, pProper
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetRawPointerDeviceData", "uint", pointerId, "uint", historyCount, "uint", propertiesCount, POINTER_DEVICE_PROPERTY.Ptr, pProperties, pValuesMarshal, pValues, BOOL)
+    result := DllCall("USER32.dll\GetRawPointerDeviceData", UInt32, pointerId, UInt32, historyCount, UInt32, propertiesCount, POINTER_DEVICE_PROPERTY.Ptr, pProperties, pValuesMarshal, pValues, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

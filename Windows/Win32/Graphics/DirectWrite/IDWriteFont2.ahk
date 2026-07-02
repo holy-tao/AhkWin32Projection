@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFont1.ahk" { IDWriteFont1 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFont1.ahk" { IDWriteFont1 }
 
 /**
  * Represents a physical font in a font collection.

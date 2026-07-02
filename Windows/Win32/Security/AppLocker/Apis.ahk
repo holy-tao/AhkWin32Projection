@@ -1,14 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SAFER_OBJECT_INFO_CLASS.ahk" { SAFER_OBJECT_INFO_CLASS }
 #Import ".\SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS.ahk" { SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS }
+#Import ".\SAFER_OBJECT_INFO_CLASS.ahk" { SAFER_OBJECT_INFO_CLASS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SAFER_POLICY_INFO_CLASS.ahk" { SAFER_POLICY_INFO_CLASS }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\SAFER_CODE_PROPERTIES_V2.ahk" { SAFER_CODE_PROPERTIES_V2 }
+#Import ".\SAFER_POLICY_INFO_CLASS.ahk" { SAFER_POLICY_INFO_CLASS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\SAFER_LEVEL_HANDLE.ahk" { SAFER_LEVEL_HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Security.AppLocker
@@ -135,7 +135,7 @@ export SaferGetPolicyInformation(dwScopeId, SaferPolicyInfoClass, InfoBufferSize
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SaferGetPolicyInformation", "uint", dwScopeId, SAFER_POLICY_INFO_CLASS, SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, InfoBufferRetSizeMarshal, InfoBufferRetSize, "ptr", lpReserved, BOOL)
+    result := DllCall("ADVAPI32.dll\SaferGetPolicyInformation", UInt32, dwScopeId, SAFER_POLICY_INFO_CLASS, SaferPolicyInfoClass, UInt32, InfoBufferSize, IntPtr, InfoBuffer, InfoBufferRetSizeMarshal, InfoBufferRetSize, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -260,7 +260,7 @@ export SaferSetPolicyInformation(dwScopeId, SaferPolicyInfoClass, InfoBufferSize
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SaferSetPolicyInformation", "uint", dwScopeId, SAFER_POLICY_INFO_CLASS, SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, "ptr", lpReserved, BOOL)
+    result := DllCall("ADVAPI32.dll\SaferSetPolicyInformation", UInt32, dwScopeId, SAFER_POLICY_INFO_CLASS, SaferPolicyInfoClass, UInt32, InfoBufferSize, IntPtr, InfoBuffer, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -395,7 +395,7 @@ export SaferCreateLevel(dwScopeId, dwLevelId, OpenFlags, pLevelHandle) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SaferCreateLevel", "uint", dwScopeId, "uint", dwLevelId, "uint", OpenFlags, SAFER_LEVEL_HANDLE.Ptr, pLevelHandle, "ptr", lpReserved, BOOL)
+    result := DllCall("ADVAPI32.dll\SaferCreateLevel", UInt32, dwScopeId, UInt32, dwLevelId, UInt32, OpenFlags, SAFER_LEVEL_HANDLE.Ptr, pLevelHandle, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -441,7 +441,7 @@ export SaferIdentifyLevel(dwNumProperties, pCodeProperties, pLevelHandle, lpRese
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SaferIdentifyLevel", "uint", dwNumProperties, SAFER_CODE_PROPERTIES_V2.Ptr, pCodeProperties, SAFER_LEVEL_HANDLE.Ptr, pLevelHandle, lpReservedMarshal, lpReserved, BOOL)
+    result := DllCall("ADVAPI32.dll\SaferIdentifyLevel", UInt32, dwNumProperties, SAFER_CODE_PROPERTIES_V2.Ptr, pCodeProperties, SAFER_LEVEL_HANDLE.Ptr, pLevelHandle, lpReservedMarshal, lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -551,7 +551,7 @@ export SaferGetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBuff
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", SAFER_LEVEL_HANDLE, LevelHandle, SAFER_OBJECT_INFO_CLASS, dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, lpdwOutBufferSizeMarshal, lpdwOutBufferSize, BOOL)
+    result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", SAFER_LEVEL_HANDLE, LevelHandle, SAFER_OBJECT_INFO_CLASS, dwInfoType, IntPtr, lpQueryBuffer, UInt32, dwInBufferSize, lpdwOutBufferSizeMarshal, lpdwOutBufferSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -632,7 +632,7 @@ export SaferGetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBuff
 export SaferSetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBufferSize) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SaferSetLevelInformation", SAFER_LEVEL_HANDLE, LevelHandle, SAFER_OBJECT_INFO_CLASS, dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, BOOL)
+    result := DllCall("ADVAPI32.dll\SaferSetLevelInformation", SAFER_LEVEL_HANDLE, LevelHandle, SAFER_OBJECT_INFO_CLASS, dwInfoType, IntPtr, lpQueryBuffer, UInt32, dwInBufferSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -58,7 +58,7 @@ export default struct IRowsetView extends IUnknown {
     GetView(hChapter, riid, phChapterSource, ppView) {
         phChapterSourceMarshal := phChapterSource is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hChapter, Guid.Ptr, riid, phChapterSourceMarshal, phChapterSource, IUnknown.Ptr, ppView, "HRESULT")
+        result := ComCall(4, this, IntPtr, hChapter, Guid.Ptr, riid, phChapterSourceMarshal, phChapterSource, IUnknown.Ptr, ppView, "HRESULT")
         return result
     }
 

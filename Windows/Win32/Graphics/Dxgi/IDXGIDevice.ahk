@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
 #Import ".\DXGI_RESIDENCY.ahk" { DXGI_RESIDENCY }
-#Import ".\IDXGIObject.ahk" { IDXGIObject }
-#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
 #Import ".\IDXGISurface.ahk" { IDXGISurface }
+#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DXGI_SHARED_RESOURCE.ahk" { DXGI_SHARED_RESOURCE }
 #Import ".\DXGI_SURFACE_DESC.ahk" { DXGI_SURFACE_DESC }
-#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An IDXGIDevice interface implements a derived class for DXGI objects that produce image data.
@@ -105,7 +105,7 @@ export default struct IDXGIDevice extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-createsurface
      */
     CreateSurface(pDesc, NumSurfaces, Usage, pSharedResource) {
-        result := ComCall(8, this, DXGI_SURFACE_DESC.Ptr, pDesc, "uint", NumSurfaces, DXGI_USAGE, Usage, DXGI_SHARED_RESOURCE.Ptr, pSharedResource, "ptr*", &ppSurface := 0, "HRESULT")
+        result := ComCall(8, this, DXGI_SURFACE_DESC.Ptr, pDesc, UInt32, NumSurfaces, DXGI_USAGE, Usage, DXGI_SHARED_RESOURCE.Ptr, pSharedResource, "ptr*", &ppSurface := 0, "HRESULT")
         return IDXGISurface(ppSurface)
     }
 
@@ -134,7 +134,7 @@ export default struct IDXGIDevice extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency
      */
     QueryResourceResidency(ppResources, NumResources) {
-        result := ComCall(9, this, IUnknown.Ptr, ppResources, "int*", &pResidencyStatus := 0, "uint", NumResources, "HRESULT")
+        result := ComCall(9, this, IUnknown.Ptr, ppResources, "int*", &pResidencyStatus := 0, UInt32, NumResources, "HRESULT")
         return pResidencyStatus
     }
 
@@ -158,7 +158,7 @@ export default struct IDXGIDevice extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-setgputhreadpriority
      */
     SetGPUThreadPriority(_Priority) {
-        result := ComCall(10, this, "int", _Priority, "HRESULT")
+        result := ComCall(10, this, Int32, _Priority, "HRESULT")
         return result
     }
 

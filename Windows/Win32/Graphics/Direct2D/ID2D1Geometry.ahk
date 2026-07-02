@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
+#Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D2D1_GEOMETRY_SIMPLIFICATION_OPTION.ahk" { D2D1_GEOMETRY_SIMPLIFICATION_OPTION }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D2D1_COMBINE_MODE.ahk" { D2D1_COMBINE_MODE }
 #Import ".\D2D1_GEOMETRY_RELATION.ahk" { D2D1_GEOMETRY_RELATION }
-#Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
+#Import ".\D2D1_COMBINE_MODE.ahk" { D2D1_COMBINE_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ID2D1TessellationSink.ahk" { ID2D1TessellationSink }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
-#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
 
 /**
  * Represents a geometry resource and defines a set of helper methods for manipulating and measuring geometric shapes. Interfaces that inherit from ID2D1Geometry define specific shapes.
@@ -88,7 +88,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      */
     GetWidenedBounds(strokeWidth, strokeStyle, worldTransform, flatteningTolerance) {
         bounds := D2D_RECT_F()
-        result := ComCall(5, this, "float", strokeWidth, "ptr", strokeStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, D2D_RECT_F.Ptr, bounds, "HRESULT")
+        result := ComCall(5, this, Float32, strokeWidth, "ptr", strokeStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, D2D_RECT_F.Ptr, bounds, "HRESULT")
         return bounds
     }
 
@@ -103,7 +103,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-strokecontainspoint
      */
     StrokeContainsPoint(_point, strokeWidth, strokeStyle, worldTransform, flatteningTolerance) {
-        result := ComCall(6, this, D2D_POINT_2F, _point, "float", strokeWidth, "ptr", strokeStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, BOOL.Ptr, &_contains := 0, "HRESULT")
+        result := ComCall(6, this, D2D_POINT_2F, _point, Float32, strokeWidth, "ptr", strokeStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, BOOL.Ptr, &_contains := 0, "HRESULT")
         return _contains
     }
 
@@ -116,7 +116,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-fillcontainspoint
      */
     FillContainsPoint(_point, worldTransform, flatteningTolerance) {
-        result := ComCall(7, this, D2D_POINT_2F, _point, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, BOOL.Ptr, &_contains := 0, "HRESULT")
+        result := ComCall(7, this, D2D_POINT_2F, _point, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, BOOL.Ptr, &_contains := 0, "HRESULT")
         return _contains
     }
 
@@ -133,7 +133,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-comparewithgeometry
      */
     CompareWithGeometry(inputGeometry, inputGeometryTransform, flatteningTolerance) {
-        result := ComCall(8, this, "ptr", inputGeometry, D2D_MATRIX_3X2_F.Ptr, inputGeometryTransform, "float", flatteningTolerance, "int*", &relation := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", inputGeometry, D2D_MATRIX_3X2_F.Ptr, inputGeometryTransform, Float32, flatteningTolerance, "int*", &relation := 0, "HRESULT")
         return relation
     }
 
@@ -147,7 +147,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-simplify
      */
     Simplify(simplificationOption, worldTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(9, this, D2D1_GEOMETRY_SIMPLIFICATION_OPTION, simplificationOption, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        result := ComCall(9, this, D2D1_GEOMETRY_SIMPLIFICATION_OPTION, simplificationOption, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-tessellate
      */
     Tessellate(worldTransform, flatteningTolerance, tessellationSink) {
-        result := ComCall(10, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, "ptr", tessellationSink, "HRESULT")
+        result := ComCall(10, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "ptr", tessellationSink, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-combinewithgeometry
      */
     CombineWithGeometry(inputGeometry, _combineMode, inputGeometryTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(11, this, "ptr", inputGeometry, D2D1_COMBINE_MODE, _combineMode, D2D_MATRIX_3X2_F.Ptr, inputGeometryTransform, "float", flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        result := ComCall(11, this, "ptr", inputGeometry, D2D1_COMBINE_MODE, _combineMode, D2D_MATRIX_3X2_F.Ptr, inputGeometryTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -196,7 +196,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-outline
      */
     Outline(worldTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(12, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        result := ComCall(12, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computearea
      */
     ComputeArea(worldTransform, flatteningTolerance) {
-        result := ComCall(13, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, "float*", &area := 0, "HRESULT")
+        result := ComCall(13, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "float*", &area := 0, "HRESULT")
         return area
     }
 
@@ -220,7 +220,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computelength
      */
     ComputeLength(worldTransform, flatteningTolerance) {
-        result := ComCall(14, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, "float*", &length := 0, "HRESULT")
+        result := ComCall(14, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "float*", &length := 0, "HRESULT")
         return length
     }
 
@@ -235,7 +235,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computepointatlength
      */
     ComputePointAtLength(length, worldTransform, flatteningTolerance, _point, unitTangentVector) {
-        result := ComCall(15, this, "float", length, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, D2D_POINT_2F.Ptr, _point, D2D_POINT_2F.Ptr, unitTangentVector, "HRESULT")
+        result := ComCall(15, this, Float32, length, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, D2D_POINT_2F.Ptr, _point, D2D_POINT_2F.Ptr, unitTangentVector, "HRESULT")
         return result
     }
 
@@ -250,7 +250,7 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-widen
      */
     Widen(strokeWidth, strokeStyle, worldTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(16, this, "float", strokeWidth, "ptr", strokeStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        result := ComCall(16, this, Float32, strokeWidth, "ptr", strokeStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 

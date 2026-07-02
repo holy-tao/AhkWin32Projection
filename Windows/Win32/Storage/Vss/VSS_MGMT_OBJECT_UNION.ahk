@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VSS_DIFF_VOLUME_PROP.ahk" { VSS_DIFF_VOLUME_PROP }
 #Import ".\VSS_DIFF_AREA_PROP.ahk" { VSS_DIFF_AREA_PROP }
+#Import ".\VSS_DIFF_VOLUME_PROP.ahk" { VSS_DIFF_VOLUME_PROP }
 #Import ".\VSS_VOLUME_PROP.ahk" { VSS_VOLUME_PROP }
 
 /**

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IGPM.ahk" { IGPM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\GPMBackupType.ahk" { GPMBackupType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IGPMBackupDirEx.ahk" { IGPMBackupDirEx }
 
 /**
@@ -69,7 +69,7 @@ export default struct IGPM2 extends IGPM {
     InitializeReportingEx(bstrAdmPath, reportingOptions) {
         bstrAdmPath := bstrAdmPath is String ? BSTR.Alloc(bstrAdmPath).Value : bstrAdmPath
 
-        result := ComCall(20, this, BSTR, bstrAdmPath, "int", reportingOptions, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrAdmPath, Int32, reportingOptions, "HRESULT")
         return result
     }
 

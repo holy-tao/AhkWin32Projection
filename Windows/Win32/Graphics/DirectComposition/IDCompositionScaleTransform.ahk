@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
 
 /**
  * Represents a 2D transformation that affects the scale of a visual along the x-axis and y-axis. The coordinate system is scaled from the specified center point.
@@ -87,7 +87,7 @@ export default struct IDCompositionScaleTransform extends IDCompositionTransform
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform-setscalex(float)
      */
     SetScaleX1(scaleX) {
-        result := ComCall(4, this, "float", scaleX, "HRESULT")
+        result := ComCall(4, this, Float32, scaleX, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IDCompositionScaleTransform extends IDCompositionTransform
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform-setscaley(float)
      */
     SetScaleY1(scaleY) {
-        result := ComCall(6, this, "float", scaleY, "HRESULT")
+        result := ComCall(6, this, Float32, scaleY, "HRESULT")
         return result
     }
 
@@ -167,7 +167,7 @@ export default struct IDCompositionScaleTransform extends IDCompositionTransform
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform-setcenterx(idcompositionanimation)
      */
     SetCenterX1(centerX) {
-        result := ComCall(8, this, "float", centerX, "HRESULT")
+        result := ComCall(8, this, Float32, centerX, "HRESULT")
         return result
     }
 
@@ -207,7 +207,7 @@ export default struct IDCompositionScaleTransform extends IDCompositionTransform
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform-setcentery(idcompositionanimation)
      */
     SetCenterY1(centerY) {
-        result := ComCall(10, this, "float", centerY, "HRESULT")
+        result := ComCall(10, this, Float32, centerY, "HRESULT")
         return result
     }
 

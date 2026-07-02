@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXCoreAdapterProperty.ahk" { DXCoreAdapterProperty }
 #Import ".\IDXCoreAdapter.ahk" { IDXCoreAdapter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXCoreAdapterProperty.ahk" { DXCoreAdapterProperty }
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
@@ -46,7 +46,7 @@ export default struct IDXCoreAdapter1 extends IDXCoreAdapter {
      * @returns {HRESULT} 
      */
     GetPropertyWithInput(_property, inputPropertyDetailsSize, inputPropertyDetails, outputBufferSize, outputBuffer) {
-        result := ComCall(13, this, DXCoreAdapterProperty, _property, "ptr", inputPropertyDetailsSize, "ptr", inputPropertyDetails, "ptr", outputBufferSize, "ptr", outputBuffer, "HRESULT")
+        result := ComCall(13, this, DXCoreAdapterProperty, _property, IntPtr, inputPropertyDetailsSize, IntPtr, inputPropertyDetails, IntPtr, outputBufferSize, IntPtr, outputBuffer, "HRESULT")
         return result
     }
 

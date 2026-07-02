@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVA2_ExtendedFormat.ahk" { DXVA2_ExtendedFormat }
 #Import ".\DXVA2_Frequency.ahk" { DXVA2_Frequency }
 #Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\DXVA2_ExtendedFormat.ahk" { DXVA2_ExtendedFormat }
 
 /**
  * Describes a video stream for a DXVA decoder device or video processor device.

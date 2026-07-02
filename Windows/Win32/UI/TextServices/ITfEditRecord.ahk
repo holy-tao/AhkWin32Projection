@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumTfRanges.ahk" { IEnumTfRanges }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\GET_TEXT_AND_PROPERTY_UPDATES_FLAGS.ahk" { GET_TEXT_AND_PROPERTY_UPDATES_FLAGS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfEditRecord interface is implemented by the TSF manager and is used by a text edit sink to determine what was changed during an edit session.
@@ -68,7 +68,7 @@ export default struct ITfEditRecord extends IUnknown {
     GetTextAndPropertyUpdates(dwFlags, prgProperties, cProperties) {
         prgPropertiesMarshal := prgProperties is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, GET_TEXT_AND_PROPERTY_UPDATES_FLAGS, dwFlags, prgPropertiesMarshal, prgProperties, "uint", cProperties, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(4, this, GET_TEXT_AND_PROPERTY_UPDATES_FLAGS, dwFlags, prgPropertiesMarshal, prgProperties, UInt32, cProperties, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumTfRanges(ppEnum)
     }
 

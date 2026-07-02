@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFillLockBytes interface enables downloading code to write data asynchronously to a structured storage byte array.
@@ -53,7 +53,7 @@ export default struct IFillLockBytes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillappend
      */
     FillAppend(pv, cb) {
-        result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, pv, UInt32, cb, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 
@@ -75,7 +75,7 @@ export default struct IFillLockBytes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillat
      */
     FillAt(ulOffset, pv, cb) {
-        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(4, this, Int64, ulOffset, IntPtr, pv, UInt32, cb, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 
@@ -96,7 +96,7 @@ export default struct IFillLockBytes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-setfillsize
      */
     SetFillSize(ulSize) {
-        result := ComCall(5, this, "uint", ulSize, "HRESULT")
+        result := ComCall(5, this, Int64, ulSize, "HRESULT")
         return result
     }
 

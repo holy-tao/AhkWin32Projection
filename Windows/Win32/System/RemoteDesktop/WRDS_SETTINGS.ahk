@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WRDS_SETTING_TYPE.ahk" { WRDS_SETTING_TYPE }
-#Import ".\WRDS_SETTING.ahk" { WRDS_SETTING }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\WRDS_SETTING_STATUS.ahk" { WRDS_SETTING_STATUS }
 #Import ".\WRDS_SETTINGS_1.ahk" { WRDS_SETTINGS_1 }
+#Import ".\WRDS_SETTING_STATUS.ahk" { WRDS_SETTING_STATUS }
+#Import ".\WRDS_SETTING_TYPE.ahk" { WRDS_SETTING_TYPE }
 #Import ".\WRDS_SETTING_LEVEL.ahk" { WRDS_SETTING_LEVEL }
+#Import ".\WRDS_SETTING.ahk" { WRDS_SETTING }
 
 /**
  * Contains policy-related setting information for a remote session.

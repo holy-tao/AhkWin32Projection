@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_ACE_SCOPE.ahk" { RTC_ACE_SCOPE }
-#Import ".\IRTCProfile2.ahk" { IRTCProfile2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRTCWatcher.ahk" { IRTCWatcher }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRTCProfile2.ahk" { IRTCProfile2 }
+#Import ".\RTC_ACE_SCOPE.ahk" { RTC_ACE_SCOPE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

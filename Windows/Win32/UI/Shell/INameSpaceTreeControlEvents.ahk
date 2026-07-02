@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IShellItemArray.ahk" { IShellItemArray }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
 #Import ".\IContextMenu.ahk" { IContextMenu }
 
 /**
@@ -78,7 +78,7 @@ export default struct INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemclick
      */
     OnItemClick(psi, nstceHitTest, nstceClickType) {
-        result := ComCall(3, this, "ptr", psi, "uint", nstceHitTest, "uint", nstceClickType, "HRESULT")
+        result := ComCall(3, this, "ptr", psi, UInt32, nstceHitTest, UInt32, nstceClickType, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemstatechanging
      */
     OnItemStateChanging(psi, nstcisMask, nstcisState) {
-        result := ComCall(5, this, "ptr", psi, "uint", nstcisMask, "uint", nstcisState, "HRESULT")
+        result := ComCall(5, this, "ptr", psi, UInt32, nstcisMask, UInt32, nstcisState, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemstatechanged
      */
     OnItemStateChanged(psi, nstcisMask, nstcisState) {
-        result := ComCall(6, this, "ptr", psi, "uint", nstcisMask, "uint", nstcisState, "HRESULT")
+        result := ComCall(6, this, "ptr", psi, UInt32, nstcisMask, UInt32, nstcisState, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onkeyboardinput
      */
     OnKeyboardInput(uMsg, _wParam, _lParam) {
-        result := ComCall(8, this, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(8, this, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -260,7 +260,7 @@ export default struct INameSpaceTreeControlEvents extends IUnknown {
     OnGetToolTip(psi, pszTip, cchTip) {
         pszTip := pszTip is String ? StrPtr(pszTip) : pszTip
 
-        result := ComCall(13, this, "ptr", psi, "ptr", pszTip, "int", cchTip, "HRESULT")
+        result := ComCall(13, this, "ptr", psi, "ptr", pszTip, Int32, cchTip, "HRESULT")
         return result
     }
 

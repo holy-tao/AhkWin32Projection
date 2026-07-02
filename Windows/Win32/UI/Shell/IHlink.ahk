@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import ".\IHlinkSite.ahk" { IHlinkSite }
 #Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHlinkBrowseContext.ahk" { IHlinkBrowseContext }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import ".\IHlinkSite.ahk" { IHlinkSite }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -61,7 +61,7 @@ export default struct IHlink extends IUnknown {
      * @returns {HRESULT} 
      */
     SetHlinkSite(pihlSite, dwSiteData) {
-        result := ComCall(3, this, "ptr", pihlSite, "uint", dwSiteData, "HRESULT")
+        result := ComCall(3, this, "ptr", pihlSite, UInt32, dwSiteData, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IHlink extends IUnknown {
     SetMonikerReference(grfHLSETF, pimkTarget, pwzLocation) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
 
-        result := ComCall(5, this, "uint", grfHLSETF, "ptr", pimkTarget, "ptr", pwzLocation, "HRESULT")
+        result := ComCall(5, this, UInt32, grfHLSETF, "ptr", pimkTarget, "ptr", pwzLocation, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IHlink extends IUnknown {
     GetMonikerReference(dwWhichRef, ppimkTarget, ppwzLocation) {
         ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwWhichRef, IMoniker.Ptr, ppimkTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
+        result := ComCall(6, this, UInt32, dwWhichRef, IMoniker.Ptr, ppimkTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IHlink extends IUnknown {
         pwzTarget := pwzTarget is String ? StrPtr(pwzTarget) : pwzTarget
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
 
-        result := ComCall(7, this, "uint", grfHLSETF, "ptr", pwzTarget, "ptr", pwzLocation, "HRESULT")
+        result := ComCall(7, this, UInt32, grfHLSETF, "ptr", pwzTarget, "ptr", pwzLocation, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IHlink extends IUnknown {
         ppwzTargetMarshal := ppwzTarget is VarRef ? "ptr*" : "ptr"
         ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwWhichRef, ppwzTargetMarshal, ppwzTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
+        result := ComCall(8, this, UInt32, dwWhichRef, ppwzTargetMarshal, ppwzTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IHlink extends IUnknown {
      * @returns {PWSTR} 
      */
     GetFriendlyName(grfHLFNAMEF) {
-        result := ComCall(10, this, "uint", grfHLFNAMEF, PWSTR.Ptr, &ppwzFriendlyName := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, grfHLFNAMEF, PWSTR.Ptr, &ppwzFriendlyName := 0, "HRESULT")
         return ppwzFriendlyName
     }
 
@@ -198,7 +198,7 @@ export default struct IHlink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/navigate-element
      */
     Navigate(grfHLNF, pibc, pibsc, pihlbc) {
-        result := ComCall(14, this, "uint", grfHLNF, "ptr", pibc, "ptr", pibsc, "ptr", pihlbc, "HRESULT")
+        result := ComCall(14, this, UInt32, grfHLNF, "ptr", pibc, "ptr", pibsc, "ptr", pihlbc, "HRESULT")
         return result
     }
 

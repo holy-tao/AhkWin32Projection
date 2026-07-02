@@ -88,7 +88,7 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
 
         defaultInterfaceNameElementsMarshal := defaultInterfaceNameElements is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", name, "uint", elementCount, defaultInterfaceNameElementsMarshal, defaultInterfaceNameElements, "HRESULT")
+        result := ComCall(3, this, "ptr", name, UInt32, elementCount, defaultInterfaceNameElementsMarshal, defaultInterfaceNameElements, "HRESULT")
         return result
     }
 
@@ -119,7 +119,7 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
 
         defaultInterfaceNameElementsMarshal := defaultInterfaceNameElements is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", name, "uint", elementCount, defaultInterfaceNameElementsMarshal, defaultInterfaceNameElements, "HRESULT")
+        result := ComCall(5, this, "ptr", name, UInt32, elementCount, defaultInterfaceNameElementsMarshal, defaultInterfaceNameElements, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
 
         fieldTypeNamesMarshal := fieldTypeNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", name, "uint", numFields, fieldTypeNamesMarshal, fieldTypeNames, "HRESULT")
+        result := ComCall(6, this, "ptr", name, UInt32, numFields, fieldTypeNamesMarshal, fieldTypeNames, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     SetParameterizedInterface(piid, numArgs) {
-        result := ComCall(8, this, Guid, piid, "uint", numArgs, "HRESULT")
+        result := ComCall(8, this, Guid, piid, UInt32, numArgs, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     SetParameterizedDelegate(piid, numArgs) {
-        result := ComCall(9, this, Guid, piid, "uint", numArgs, "HRESULT")
+        result := ComCall(9, this, Guid, piid, UInt32, numArgs, "HRESULT")
         return result
     }
 

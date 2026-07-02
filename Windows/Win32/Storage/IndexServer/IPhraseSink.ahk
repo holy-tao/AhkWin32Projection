@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Handles phrases that word breakers parse from query text during query time.
@@ -63,7 +63,7 @@ export default struct IPhraseSink extends IUnknown {
         pwcNoun := pwcNoun is String ? StrPtr(pwcNoun) : pwcNoun
         pwcModifier := pwcModifier is String ? StrPtr(pwcModifier) : pwcModifier
 
-        result := ComCall(3, this, "ptr", pwcNoun, "uint", cwcNoun, "ptr", pwcModifier, "uint", cwcModifier, "uint", ulAttachmentType, "HRESULT")
+        result := ComCall(3, this, "ptr", pwcNoun, UInt32, cwcNoun, "ptr", pwcModifier, UInt32, cwcModifier, UInt32, ulAttachmentType, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct IPhraseSink extends IUnknown {
     PutPhrase(pwcPhrase, cwcPhrase) {
         pwcPhrase := pwcPhrase is String ? StrPtr(pwcPhrase) : pwcPhrase
 
-        result := ComCall(4, this, "ptr", pwcPhrase, "uint", cwcPhrase, "HRESULT")
+        result := ComCall(4, this, "ptr", pwcPhrase, UInt32, cwcPhrase, "HRESULT")
         return result
     }
 

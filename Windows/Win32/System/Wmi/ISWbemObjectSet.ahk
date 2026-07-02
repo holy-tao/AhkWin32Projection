@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ISWbemObject.ahk" { ISWbemObject }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -94,7 +94,7 @@ export default struct ISWbemObjectSet extends IDispatch {
     Item(strObjectPath, iFlags) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(8, this, BSTR, strObjectPath, "int", iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, strObjectPath, Int32, iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
         return ISWbemObject(objWbemObject)
     }
 
@@ -122,7 +122,7 @@ export default struct ISWbemObjectSet extends IDispatch {
      * @returns {ISWbemObject} 
      */
     ItemIndex(lIndex) {
-        result := ComCall(11, this, "int", lIndex, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(11, this, Int32, lIndex, "ptr*", &objWbemObject := 0, "HRESULT")
         return ISWbemObject(objWbemObject)
     }
 

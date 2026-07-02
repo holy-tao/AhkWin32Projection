@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDirectMusicPort.ahk" { IDirectMusicPort }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -46,7 +46,7 @@ export default struct IDirectMusicThru extends IUnknown {
      * @returns {HRESULT} 
      */
     ThruChannel(dwSourceChannelGroup, dwSourceChannel, dwDestinationChannelGroup, dwDestinationChannel, pDestinationPort) {
-        result := ComCall(3, this, "uint", dwSourceChannelGroup, "uint", dwSourceChannel, "uint", dwDestinationChannelGroup, "uint", dwDestinationChannel, "ptr", pDestinationPort, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSourceChannelGroup, UInt32, dwSourceChannel, UInt32, dwDestinationChannelGroup, UInt32, dwDestinationChannel, "ptr", pDestinationPort, "HRESULT")
         return result
     }
 

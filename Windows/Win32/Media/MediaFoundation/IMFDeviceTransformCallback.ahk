@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implement this callback to receive notifications when system-allocated frame buffers are sent to the device driver.
@@ -48,7 +48,7 @@ export default struct IMFDeviceTransformCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransformcallback-onbuffersent
      */
     OnBufferSent(pCallbackAttributes, pinId) {
-        result := ComCall(3, this, "ptr", pCallbackAttributes, "uint", pinId, "HRESULT")
+        result := ComCall(3, this, "ptr", pCallbackAttributes, UInt32, pinId, "HRESULT")
         return result
     }
 

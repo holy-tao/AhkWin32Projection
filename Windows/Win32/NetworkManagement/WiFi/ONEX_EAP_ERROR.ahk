@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
 #Import "..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk" { EAP_METHOD_TYPE }
 #Import "..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk" { EAP_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
 
 /**
  * Contains 802.1X EAP error when an error occurs with 802.1X authentication.

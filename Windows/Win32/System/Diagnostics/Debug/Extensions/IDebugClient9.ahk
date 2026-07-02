@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugClient.ahk" { IDebugClient }
-#Import ".\IDebugOutputCallbacks.ahk" { IDebugOutputCallbacks }
-#Import ".\IDebugEventCallbacks.ahk" { IDebugEventCallbacks }
-#Import ".\IDebugEventContextCallbacks.ahk" { IDebugEventContextCallbacks }
-#Import ".\IDebugInputCallbacks.ahk" { IDebugInputCallbacks }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IDebugOutputCallbacksWide.ahk" { IDebugOutputCallbacksWide }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugEventCallbacks.ahk" { IDebugEventCallbacks }
+#Import ".\IDebugOutputCallbacks.ahk" { IDebugOutputCallbacks }
+#Import ".\IDebugInputCallbacks.ahk" { IDebugInputCallbacks }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDebugEventCallbacksWide.ahk" { IDebugEventCallbacksWide }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDebugOutputCallbacksWide.ahk" { IDebugOutputCallbacksWide }
+#Import ".\IDebugEventContextCallbacks.ahk" { IDebugEventContextCallbacks }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugClient.ahk" { IDebugClient }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -149,7 +149,7 @@ export default struct IDebugClient9 extends IUnknown {
     AttachKernel(Flags, ConnectOptions) {
         ConnectOptions := ConnectOptions is String ? StrPtr(ConnectOptions) : ConnectOptions
 
-        result := ComCall(3, this, "uint", Flags, "ptr", ConnectOptions, "HRESULT")
+        result := ComCall(3, this, UInt32, Flags, "ptr", ConnectOptions, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetKernelConnectionOptions(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(4, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
         return OptionsSize
     }
 
@@ -189,7 +189,7 @@ export default struct IDebugClient9 extends IUnknown {
 
         Options := Options is String ? StrPtr(Options) : Options
 
-        result := ComCall(6, this, "uint", Flags, "ptr", Options, "ptr", Reserved, "HRESULT")
+        result := ComCall(6, this, UInt32, Flags, "ptr", Options, "ptr", Reserved, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     DisconnectProcessServer(Server) {
-        result := ComCall(8, this, "uint", Server, "HRESULT")
+        result := ComCall(8, this, Int64, Server, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IDebugClient9 extends IUnknown {
         IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
         ActualCountMarshal := ActualCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", Server, IdsMarshal, Ids, "uint", Count, ActualCountMarshal, ActualCount, "HRESULT")
+        result := ComCall(9, this, Int64, Server, IdsMarshal, Ids, UInt32, Count, ActualCountMarshal, ActualCount, "HRESULT")
         return result
     }
 
@@ -241,7 +241,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetRunningProcessSystemIdByExecutableName(Server, ExeName, Flags) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := ComCall(10, this, "uint", Server, "ptr", ExeName, "uint", Flags, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(10, this, Int64, Server, "ptr", ExeName, UInt32, Flags, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -265,7 +265,7 @@ export default struct IDebugClient9 extends IUnknown {
         ActualExeNameSizeMarshal := ActualExeNameSize is VarRef ? "uint*" : "ptr"
         ActualDescriptionSizeMarshal := ActualDescriptionSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", Server, "uint", SystemId, "uint", Flags, "ptr", ExeName, "uint", ExeNameSize, ActualExeNameSizeMarshal, ActualExeNameSize, "ptr", Description, "uint", DescriptionSize, ActualDescriptionSizeMarshal, ActualDescriptionSize, "HRESULT")
+        result := ComCall(11, this, Int64, Server, UInt32, SystemId, UInt32, Flags, "ptr", ExeName, UInt32, ExeNameSize, ActualExeNameSizeMarshal, ActualExeNameSize, "ptr", Description, UInt32, DescriptionSize, ActualDescriptionSizeMarshal, ActualDescriptionSize, "HRESULT")
         return result
     }
 
@@ -277,7 +277,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     AttachProcess(Server, ProcessId, AttachFlags) {
-        result := ComCall(12, this, "uint", Server, "uint", ProcessId, "uint", AttachFlags, "HRESULT")
+        result := ComCall(12, this, Int64, Server, UInt32, ProcessId, UInt32, AttachFlags, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct IDebugClient9 extends IUnknown {
     CreateProcessA(Server, CommandLine, CreateFlags) {
         CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
-        result := ComCall(13, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "HRESULT")
+        result := ComCall(13, this, Int64, Server, "ptr", CommandLine, UInt32, CreateFlags, "HRESULT")
         return result
     }
 
@@ -370,7 +370,7 @@ export default struct IDebugClient9 extends IUnknown {
     CreateProcessAndAttach(Server, CommandLine, CreateFlags, ProcessId, AttachFlags) {
         CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
-        result := ComCall(14, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "uint", ProcessId, "uint", AttachFlags, "HRESULT")
+        result := ComCall(14, this, Int64, Server, "ptr", CommandLine, UInt32, CreateFlags, UInt32, ProcessId, UInt32, AttachFlags, "HRESULT")
         return result
     }
 
@@ -389,7 +389,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     AddProcessOptions(Options) {
-        result := ComCall(16, this, "uint", Options, "HRESULT")
+        result := ComCall(16, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -399,7 +399,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveProcessOptions(Options) {
-        result := ComCall(17, this, "uint", Options, "HRESULT")
+        result := ComCall(17, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -409,7 +409,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetProcessOptions(Options) {
-        result := ComCall(18, this, "uint", Options, "HRESULT")
+        result := ComCall(18, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -434,7 +434,7 @@ export default struct IDebugClient9 extends IUnknown {
     WriteDumpFile(DumpFile, Qualifier) {
         DumpFile := DumpFile is String ? StrPtr(DumpFile) : DumpFile
 
-        result := ComCall(20, this, "ptr", DumpFile, "uint", Qualifier, "HRESULT")
+        result := ComCall(20, this, "ptr", DumpFile, UInt32, Qualifier, "HRESULT")
         return result
     }
 
@@ -445,7 +445,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     ConnectSession(Flags, HistoryLimit) {
-        result := ComCall(21, this, "uint", Flags, "uint", HistoryLimit, "HRESULT")
+        result := ComCall(21, this, UInt32, Flags, UInt32, HistoryLimit, "HRESULT")
         return result
     }
 
@@ -471,7 +471,7 @@ export default struct IDebugClient9 extends IUnknown {
     OutputServers(OutputControl, Machine, Flags) {
         Machine := Machine is String ? StrPtr(Machine) : Machine
 
-        result := ComCall(23, this, "uint", OutputControl, "ptr", Machine, "uint", Flags, "HRESULT")
+        result := ComCall(23, this, UInt32, OutputControl, "ptr", Machine, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -499,7 +499,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     EndSession(Flags) {
-        result := ComCall(26, this, "uint", Flags, "HRESULT")
+        result := ComCall(26, this, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -518,7 +518,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     DispatchCallbacks(Timeout) {
-        result := ComCall(28, this, "uint", Timeout, "HRESULT")
+        result := ComCall(28, this, UInt32, Timeout, "HRESULT")
         return result
     }
 
@@ -594,7 +594,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetOutputMask(Mask) {
-        result := ComCall(36, this, "uint", Mask, "HRESULT")
+        result := ComCall(36, this, UInt32, Mask, "HRESULT")
         return result
     }
 
@@ -615,7 +615,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetOtherOutputMask(Client, Mask) {
-        result := ComCall(38, this, "ptr", Client, "uint", Mask, "HRESULT")
+        result := ComCall(38, this, "ptr", Client, UInt32, Mask, "HRESULT")
         return result
     }
 
@@ -634,7 +634,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetOutputWidth(_Columns) {
-        result := ComCall(40, this, "uint", _Columns, "HRESULT")
+        result := ComCall(40, this, UInt32, _Columns, "HRESULT")
         return result
     }
 
@@ -647,7 +647,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetOutputLinePrefix(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(41, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
+        result := ComCall(41, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
         return PrefixSize
     }
 
@@ -672,7 +672,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetIdentity(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(43, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
         return IdentitySize
     }
 
@@ -686,7 +686,7 @@ export default struct IDebugClient9 extends IUnknown {
     OutputIdentity(OutputControl, Flags, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(44, this, "uint", OutputControl, "uint", Flags, "ptr", Format, "HRESULT")
+        result := ComCall(44, this, UInt32, OutputControl, UInt32, Flags, "ptr", Format, "HRESULT")
         return result
     }
 
@@ -730,7 +730,7 @@ export default struct IDebugClient9 extends IUnknown {
         DumpFile := DumpFile is String ? StrPtr(DumpFile) : DumpFile
         Comment := Comment is String ? StrPtr(Comment) : Comment
 
-        result := ComCall(48, this, "ptr", DumpFile, "uint", Qualifier, "uint", FormatFlags, "ptr", Comment, "HRESULT")
+        result := ComCall(48, this, "ptr", DumpFile, UInt32, Qualifier, UInt32, FormatFlags, "ptr", Comment, "HRESULT")
         return result
     }
 
@@ -743,7 +743,7 @@ export default struct IDebugClient9 extends IUnknown {
     AddDumpInformationFile(InfoFile, Type) {
         InfoFile := InfoFile is String ? StrPtr(InfoFile) : InfoFile
 
-        result := ComCall(49, this, "ptr", InfoFile, "uint", Type, "HRESULT")
+        result := ComCall(49, this, "ptr", InfoFile, UInt32, Type, "HRESULT")
         return result
     }
 
@@ -753,7 +753,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     EndProcessServer(Server) {
-        result := ComCall(50, this, "uint", Server, "HRESULT")
+        result := ComCall(50, this, Int64, Server, "HRESULT")
         return result
     }
 
@@ -763,7 +763,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     WaitForProcessServerEnd(Timeout) {
-        result := ComCall(51, this, "uint", Timeout, "HRESULT")
+        result := ComCall(51, this, UInt32, Timeout, "HRESULT")
         return result
     }
 
@@ -813,7 +813,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetRunningProcessSystemIdByExecutableNameWide(Server, ExeName, Flags) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := ComCall(56, this, "uint", Server, "ptr", ExeName, "uint", Flags, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(56, this, Int64, Server, "ptr", ExeName, UInt32, Flags, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -837,7 +837,7 @@ export default struct IDebugClient9 extends IUnknown {
         ActualExeNameSizeMarshal := ActualExeNameSize is VarRef ? "uint*" : "ptr"
         ActualDescriptionSizeMarshal := ActualDescriptionSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(57, this, "uint", Server, "uint", SystemId, "uint", Flags, "ptr", ExeName, "uint", ExeNameSize, ActualExeNameSizeMarshal, ActualExeNameSize, "ptr", Description, "uint", DescriptionSize, ActualDescriptionSizeMarshal, ActualDescriptionSize, "HRESULT")
+        result := ComCall(57, this, Int64, Server, UInt32, SystemId, UInt32, Flags, "ptr", ExeName, UInt32, ExeNameSize, ActualExeNameSizeMarshal, ActualExeNameSize, "ptr", Description, UInt32, DescriptionSize, ActualDescriptionSizeMarshal, ActualDescriptionSize, "HRESULT")
         return result
     }
 
@@ -851,7 +851,7 @@ export default struct IDebugClient9 extends IUnknown {
     CreateProcessWide(Server, CommandLine, CreateFlags) {
         CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
-        result := ComCall(58, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "HRESULT")
+        result := ComCall(58, this, Int64, Server, "ptr", CommandLine, UInt32, CreateFlags, "HRESULT")
         return result
     }
 
@@ -867,7 +867,7 @@ export default struct IDebugClient9 extends IUnknown {
     CreateProcessAndAttachWide(Server, CommandLine, CreateFlags, ProcessId, AttachFlags) {
         CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
-        result := ComCall(59, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "uint", ProcessId, "uint", AttachFlags, "HRESULT")
+        result := ComCall(59, this, Int64, Server, "ptr", CommandLine, UInt32, CreateFlags, UInt32, ProcessId, UInt32, AttachFlags, "HRESULT")
         return result
     }
 
@@ -880,7 +880,7 @@ export default struct IDebugClient9 extends IUnknown {
     OpenDumpFileWide(FileName, FileHandle) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := ComCall(60, this, "ptr", FileName, "uint", FileHandle, "HRESULT")
+        result := ComCall(60, this, "ptr", FileName, Int64, FileHandle, "HRESULT")
         return result
     }
 
@@ -897,7 +897,7 @@ export default struct IDebugClient9 extends IUnknown {
         FileName := FileName is String ? StrPtr(FileName) : FileName
         Comment := Comment is String ? StrPtr(Comment) : Comment
 
-        result := ComCall(61, this, "ptr", FileName, "uint", FileHandle, "uint", Qualifier, "uint", FormatFlags, "ptr", Comment, "HRESULT")
+        result := ComCall(61, this, "ptr", FileName, Int64, FileHandle, UInt32, Qualifier, UInt32, FormatFlags, "ptr", Comment, "HRESULT")
         return result
     }
 
@@ -911,7 +911,7 @@ export default struct IDebugClient9 extends IUnknown {
     AddDumpInformationFileWide(FileName, FileHandle, Type) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := ComCall(62, this, "ptr", FileName, "uint", FileHandle, "uint", Type, "HRESULT")
+        result := ComCall(62, this, "ptr", FileName, Int64, FileHandle, UInt32, Type, "HRESULT")
         return result
     }
 
@@ -941,7 +941,7 @@ export default struct IDebugClient9 extends IUnknown {
         _HandleMarshal := _Handle is VarRef ? "uint*" : "ptr"
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(64, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, _HandleMarshal, _Handle, TypeMarshal, Type, "HRESULT")
+        result := ComCall(64, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, NameSizeMarshal, NameSize, _HandleMarshal, _Handle, TypeMarshal, Type, "HRESULT")
         return result
     }
 
@@ -962,7 +962,7 @@ export default struct IDebugClient9 extends IUnknown {
         _HandleMarshal := _Handle is VarRef ? "uint*" : "ptr"
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(65, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, _HandleMarshal, _Handle, TypeMarshal, Type, "HRESULT")
+        result := ComCall(65, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, NameSizeMarshal, NameSize, _HandleMarshal, _Handle, TypeMarshal, Type, "HRESULT")
         return result
     }
 
@@ -975,7 +975,7 @@ export default struct IDebugClient9 extends IUnknown {
     AttachKernelWide(Flags, ConnectOptions) {
         ConnectOptions := ConnectOptions is String ? StrPtr(ConnectOptions) : ConnectOptions
 
-        result := ComCall(66, this, "uint", Flags, "ptr", ConnectOptions, "HRESULT")
+        result := ComCall(66, this, UInt32, Flags, "ptr", ConnectOptions, "HRESULT")
         return result
     }
 
@@ -988,7 +988,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetKernelConnectionOptionsWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(67, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
+        result := ComCall(67, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
         return OptionsSize
     }
 
@@ -1015,7 +1015,7 @@ export default struct IDebugClient9 extends IUnknown {
 
         Options := Options is String ? StrPtr(Options) : Options
 
-        result := ComCall(69, this, "uint", Flags, "ptr", Options, "ptr", Reserved, "HRESULT")
+        result := ComCall(69, this, UInt32, Flags, "ptr", Options, "ptr", Reserved, "HRESULT")
         return result
     }
 
@@ -1053,7 +1053,7 @@ export default struct IDebugClient9 extends IUnknown {
     OutputServersWide(OutputControl, Machine, Flags) {
         Machine := Machine is String ? StrPtr(Machine) : Machine
 
-        result := ComCall(72, this, "uint", OutputControl, "ptr", Machine, "uint", Flags, "HRESULT")
+        result := ComCall(72, this, UInt32, OutputControl, "ptr", Machine, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -1085,7 +1085,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetOutputLinePrefixWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(75, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
+        result := ComCall(75, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
         return PrefixSize
     }
 
@@ -1110,7 +1110,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetIdentityWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(77, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
+        result := ComCall(77, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
         return IdentitySize
     }
 
@@ -1124,7 +1124,7 @@ export default struct IDebugClient9 extends IUnknown {
     OutputIdentityWide(OutputControl, Flags, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(78, this, "uint", OutputControl, "uint", Flags, "ptr", Format, "HRESULT")
+        result := ComCall(78, this, UInt32, OutputControl, UInt32, Flags, "ptr", Format, "HRESULT")
         return result
     }
 
@@ -1162,7 +1162,7 @@ export default struct IDebugClient9 extends IUnknown {
         InitialDirectory := InitialDirectory is String ? StrPtr(InitialDirectory) : InitialDirectory
         Environment := Environment is String ? StrPtr(Environment) : Environment
 
-        result := ComCall(81, this, "uint", Server, "ptr", CommandLine, "ptr", OptionsBuffer, "uint", OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, "HRESULT")
+        result := ComCall(81, this, Int64, Server, "ptr", CommandLine, IntPtr, OptionsBuffer, UInt32, OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, "HRESULT")
         return result
     }
 
@@ -1181,7 +1181,7 @@ export default struct IDebugClient9 extends IUnknown {
         InitialDirectory := InitialDirectory is String ? StrPtr(InitialDirectory) : InitialDirectory
         Environment := Environment is String ? StrPtr(Environment) : Environment
 
-        result := ComCall(82, this, "uint", Server, "ptr", CommandLine, "ptr", OptionsBuffer, "uint", OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, "HRESULT")
+        result := ComCall(82, this, Int64, Server, "ptr", CommandLine, IntPtr, OptionsBuffer, UInt32, OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, "HRESULT")
         return result
     }
 
@@ -1202,7 +1202,7 @@ export default struct IDebugClient9 extends IUnknown {
         InitialDirectory := InitialDirectory is String ? StrPtr(InitialDirectory) : InitialDirectory
         Environment := Environment is String ? StrPtr(Environment) : Environment
 
-        result := ComCall(83, this, "uint", Server, "ptr", CommandLine, "ptr", OptionsBuffer, "uint", OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, "uint", ProcessId, "uint", AttachFlags, "HRESULT")
+        result := ComCall(83, this, Int64, Server, "ptr", CommandLine, IntPtr, OptionsBuffer, UInt32, OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, UInt32, ProcessId, UInt32, AttachFlags, "HRESULT")
         return result
     }
 
@@ -1223,7 +1223,7 @@ export default struct IDebugClient9 extends IUnknown {
         InitialDirectory := InitialDirectory is String ? StrPtr(InitialDirectory) : InitialDirectory
         Environment := Environment is String ? StrPtr(Environment) : Environment
 
-        result := ComCall(84, this, "uint", Server, "ptr", CommandLine, "ptr", OptionsBuffer, "uint", OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, "uint", ProcessId, "uint", AttachFlags, "HRESULT")
+        result := ComCall(84, this, Int64, Server, "ptr", CommandLine, IntPtr, OptionsBuffer, UInt32, OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, UInt32, ProcessId, UInt32, AttachFlags, "HRESULT")
         return result
     }
 
@@ -1257,7 +1257,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     PopOutputLinePrefix(_Handle) {
-        result := ComCall(87, this, "uint", _Handle, "HRESULT")
+        result := ComCall(87, this, Int64, _Handle, "HRESULT")
         return result
     }
 
@@ -1285,7 +1285,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {Integer} 
      */
     GetNumberEventCallbacks(EventFlags) {
-        result := ComCall(90, this, "uint", EventFlags, "uint*", &Count := 0, "HRESULT")
+        result := ComCall(90, this, UInt32, EventFlags, "uint*", &Count := 0, "HRESULT")
         return Count
     }
 
@@ -1298,7 +1298,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetQuitLockString(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(91, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(91, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
@@ -1323,7 +1323,7 @@ export default struct IDebugClient9 extends IUnknown {
     GetQuitLockStringWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(93, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(93, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
@@ -1356,7 +1356,7 @@ export default struct IDebugClient9 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetClientContext(_Context, ContextSize) {
-        result := ComCall(96, this, "ptr", _Context, "uint", ContextSize, "HRESULT")
+        result := ComCall(96, this, IntPtr, _Context, UInt32, ContextSize, "HRESULT")
         return result
     }
 
@@ -1370,7 +1370,7 @@ export default struct IDebugClient9 extends IUnknown {
     OpenDumpFileWide2(FileName, FileHandle, AlternateArch) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := ComCall(97, this, "ptr", FileName, "uint", FileHandle, "uint", AlternateArch, "HRESULT")
+        result := ComCall(97, this, "ptr", FileName, Int64, FileHandle, UInt32, AlternateArch, "HRESULT")
         return result
     }
 
@@ -1383,7 +1383,7 @@ export default struct IDebugClient9 extends IUnknown {
     OpenDumpDirectoryWide(DirName, AlternateArch) {
         DirName := DirName is String ? StrPtr(DirName) : DirName
 
-        result := ComCall(98, this, "ptr", DirName, "uint", AlternateArch, "HRESULT")
+        result := ComCall(98, this, "ptr", DirName, UInt32, AlternateArch, "HRESULT")
         return result
     }
 
@@ -1396,7 +1396,7 @@ export default struct IDebugClient9 extends IUnknown {
     OpenDumpDirectory(DumpDir, AlternativeArch) {
         DumpDir := DumpDir is String ? StrPtr(DumpDir) : DumpDir
 
-        result := ComCall(99, this, "ptr", DumpDir, "uint", AlternativeArch, "HRESULT")
+        result := ComCall(99, this, "ptr", DumpDir, UInt32, AlternativeArch, "HRESULT")
         return result
     }
 

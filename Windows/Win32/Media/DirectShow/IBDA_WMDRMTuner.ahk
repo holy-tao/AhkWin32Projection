@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -58,7 +58,7 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
         pulCaptureTokenLenMarshal := pulCaptureTokenLen is VarRef ? "uint*" : "ptr"
         pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulDialogRequest, BSTR, bstrLanguage, "uint", ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, "uint*", &pulDescrambleStatus := 0, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
+        result := ComCall(3, this, UInt32, ulDialogRequest, BSTR, bstrLanguage, UInt32, ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, "uint*", &pulDescrambleStatus := 0, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return pulDescrambleStatus
     }
 
@@ -71,7 +71,7 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
     CancelCaptureToken(ulCaptureTokenLen, pbCaptureToken) {
         pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPidProtection(ulPid, uuidKey) {
-        result := ComCall(5, this, "uint", ulPid, Guid.Ptr, uuidKey, "HRESULT")
+        result := ComCall(5, this, UInt32, ulPid, Guid.Ptr, uuidKey, "HRESULT")
         return result
     }
 
@@ -93,7 +93,7 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
      */
     GetPidProtection(pulPid) {
         uuidKey := Guid()
-        result := ComCall(6, this, "uint", pulPid, Guid.Ptr, uuidKey, "HRESULT")
+        result := ComCall(6, this, UInt32, pulPid, Guid.Ptr, uuidKey, "HRESULT")
         return uuidKey
     }
 
@@ -103,7 +103,7 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSyncValue(ulSyncValue) {
-        result := ComCall(7, this, "uint", ulSyncValue, "HRESULT")
+        result := ComCall(7, this, UInt32, ulSyncValue, "HRESULT")
         return result
     }
 

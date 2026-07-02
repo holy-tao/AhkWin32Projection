@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
 #Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains the headers sent with an HTTP response.

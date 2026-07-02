@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPrintSchemaCapabilities.ahk" { IPrintSchemaCapabilities }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPrintSchemaParameterDefinition.ahk" { IPrintSchemaParameterDefinition }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IPrintSchemaCapabilities.ahk" { IPrintSchemaCapabilities }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

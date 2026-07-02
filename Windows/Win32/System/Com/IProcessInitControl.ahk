@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IProcessInitControl (objidlbase.h) interface specifies the process initialization time-out interval.
@@ -44,7 +44,7 @@ export default struct IProcessInitControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iprocessinitcontrol-resetinitializertimeout
      */
     ResetInitializerTimeout(dwSecondsRemaining) {
-        result := ComCall(3, this, "uint", dwSecondsRemaining, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSecondsRemaining, "HRESULT")
         return result
     }
 

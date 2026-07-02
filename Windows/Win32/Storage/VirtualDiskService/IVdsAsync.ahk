@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\VDS_ASYNC_OUTPUT.ahk" { VDS_ASYNC_OUTPUT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsAsync (vdshwprv.h) interface manages asynchronous operations. Methods that initiate asynchronous operations return a pointer to an IVdsAsync interface.

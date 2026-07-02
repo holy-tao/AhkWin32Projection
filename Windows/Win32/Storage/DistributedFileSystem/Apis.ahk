@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\DFS_NAMESPACE_VERSION_ORIGIN.ahk" { DFS_NAMESPACE_VERSION_ORIGIN }
-#Import ".\DFS_SUPPORTED_NAMESPACE_VERSION_INFO.ahk" { DFS_SUPPORTED_NAMESPACE_VERSION_INFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import ".\DFS_SUPPORTED_NAMESPACE_VERSION_INFO.ahk" { DFS_SUPPORTED_NAMESPACE_VERSION_INFO }
+#Import ".\DFS_NAMESPACE_VERSION_ORIGIN.ahk" { DFS_NAMESPACE_VERSION_ORIGIN }
 
 /**
  * @namespace Windows.Win32.Storage.DistributedFileSystem
@@ -60,7 +60,7 @@ export NetDfsAdd(DfsEntryPath, ServerName, ShareName, Comment, Flags) {
     ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
     Comment := Comment is String ? StrPtr(Comment) : Comment
 
-    result := DllCall("NETAPI32.dll\NetDfsAdd", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "ptr", Comment, "uint", Flags, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsAdd", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "ptr", Comment, UInt32, Flags, UInt32)
     return result
 }
 
@@ -87,7 +87,7 @@ export NetDfsAddStdRoot(ServerName, RootShare, Comment, Flags) {
     RootShare := RootShare is String ? StrPtr(RootShare) : RootShare
     Comment := Comment is String ? StrPtr(Comment) : Comment
 
-    result := DllCall("NETAPI32.dll\NetDfsAddStdRoot", "ptr", ServerName, "ptr", RootShare, "ptr", Comment, "uint", Flags, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsAddStdRoot", "ptr", ServerName, "ptr", RootShare, "ptr", Comment, UInt32, Flags, UInt32)
     return result
 }
 
@@ -110,7 +110,7 @@ export NetDfsRemoveStdRoot(ServerName, RootShare) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     RootShare := RootShare is String ? StrPtr(RootShare) : RootShare
 
-    result := DllCall("NETAPI32.dll\NetDfsRemoveStdRoot", "ptr", ServerName, "ptr", RootShare, "uint", Flags, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsRemoveStdRoot", "ptr", ServerName, "ptr", RootShare, UInt32, Flags, UInt32)
     return result
 }
 
@@ -138,7 +138,7 @@ export NetDfsAddFtRoot(ServerName, RootShare, FtDfsName, Comment, Flags) {
     FtDfsName := FtDfsName is String ? StrPtr(FtDfsName) : FtDfsName
     Comment := Comment is String ? StrPtr(Comment) : Comment
 
-    result := DllCall("NETAPI32.dll\NetDfsAddFtRoot", "ptr", ServerName, "ptr", RootShare, "ptr", FtDfsName, "ptr", Comment, "uint", Flags, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsAddFtRoot", "ptr", ServerName, "ptr", RootShare, "ptr", FtDfsName, "ptr", Comment, UInt32, Flags, UInt32)
     return result
 }
 
@@ -165,7 +165,7 @@ export NetDfsRemoveFtRoot(ServerName, RootShare, FtDfsName) {
     RootShare := RootShare is String ? StrPtr(RootShare) : RootShare
     FtDfsName := FtDfsName is String ? StrPtr(FtDfsName) : FtDfsName
 
-    result := DllCall("NETAPI32.dll\NetDfsRemoveFtRoot", "ptr", ServerName, "ptr", RootShare, "ptr", FtDfsName, "uint", Flags, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsRemoveFtRoot", "ptr", ServerName, "ptr", RootShare, "ptr", FtDfsName, UInt32, Flags, UInt32)
     return result
 }
 
@@ -197,7 +197,7 @@ export NetDfsRemoveFtRootForced(DomainName, ServerName, RootShare, FtDfsName) {
     RootShare := RootShare is String ? StrPtr(RootShare) : RootShare
     FtDfsName := FtDfsName is String ? StrPtr(FtDfsName) : FtDfsName
 
-    result := DllCall("NETAPI32.dll\NetDfsRemoveFtRootForced", "ptr", DomainName, "ptr", ServerName, "ptr", RootShare, "ptr", FtDfsName, "uint", Flags, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsRemoveFtRootForced", "ptr", DomainName, "ptr", ServerName, "ptr", RootShare, "ptr", FtDfsName, UInt32, Flags, UInt32)
     return result
 }
 
@@ -327,7 +327,7 @@ export NetDfsEnum(DfsName, Level, PrefMaxLen, _Buffer, EntriesRead, ResumeHandle
     EntriesReadMarshal := EntriesRead is VarRef ? "uint*" : "ptr"
     ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, _BufferMarshal, _Buffer, EntriesReadMarshal, EntriesRead, ResumeHandleMarshal, ResumeHandle, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, UInt32, Level, UInt32, PrefMaxLen, _BufferMarshal, _Buffer, EntriesReadMarshal, EntriesRead, ResumeHandleMarshal, ResumeHandle, UInt32)
     return result
 }
 
@@ -403,7 +403,7 @@ export NetDfsGetInfo(DfsEntryPath, ServerName, ShareName, Level, _Buffer) {
 
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, UInt32, Level, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -481,7 +481,7 @@ export NetDfsSetInfo(DfsEntryPath, ServerName, ShareName, Level, _Buffer) {
 
     _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetDfsSetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsSetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, UInt32, Level, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -536,7 +536,7 @@ export NetDfsGetClientInfo(DfsEntryPath, ServerName, ShareName, Level, _Buffer) 
 
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, UInt32, Level, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -594,7 +594,7 @@ export NetDfsSetClientInfo(DfsEntryPath, ServerName, ShareName, Level, _Buffer) 
 
     _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetDfsSetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsSetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, UInt32, Level, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -703,7 +703,7 @@ export NetDfsMove(OldDfsEntryPath, NewDfsEntryPath, Flags) {
     OldDfsEntryPath := OldDfsEntryPath is String ? StrPtr(OldDfsEntryPath) : OldDfsEntryPath
     NewDfsEntryPath := NewDfsEntryPath is String ? StrPtr(NewDfsEntryPath) : NewDfsEntryPath
 
-    result := DllCall("NETAPI32.dll\NetDfsMove", "ptr", OldDfsEntryPath, "ptr", NewDfsEntryPath, "uint", Flags, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsMove", "ptr", OldDfsEntryPath, "ptr", NewDfsEntryPath, UInt32, Flags, UInt32)
     return result
 }
 
@@ -821,7 +821,7 @@ export NetDfsAddRootTarget(pDfsPath, pTargetPath, MajorVersion, pComment, Flags)
     pTargetPath := pTargetPath is String ? StrPtr(pTargetPath) : pTargetPath
     pComment := pComment is String ? StrPtr(pComment) : pComment
 
-    result := DllCall("NETAPI32.dll\NetDfsAddRootTarget", "ptr", pDfsPath, "ptr", pTargetPath, "uint", MajorVersion, "ptr", pComment, "uint", Flags, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsAddRootTarget", "ptr", pDfsPath, "ptr", pTargetPath, UInt32, MajorVersion, "ptr", pComment, UInt32, Flags, UInt32)
     return result
 }
 
@@ -889,7 +889,7 @@ export NetDfsRemoveRootTarget(pDfsPath, pTargetPath, Flags) {
     pDfsPath := pDfsPath is String ? StrPtr(pDfsPath) : pDfsPath
     pTargetPath := pTargetPath is String ? StrPtr(pTargetPath) : pTargetPath
 
-    result := DllCall("NETAPI32.dll\NetDfsRemoveRootTarget", "ptr", pDfsPath, "ptr", pTargetPath, "uint", Flags, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsRemoveRootTarget", "ptr", pDfsPath, "ptr", pTargetPath, UInt32, Flags, UInt32)
     return result
 }
 
@@ -930,7 +930,7 @@ export NetDfsGetSecurity(DfsEntryPath, SecurityInformation, ppSecurityDescriptor
 
     lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetDfsGetSecurity", "ptr", DfsEntryPath, "uint", SecurityInformation, PSECURITY_DESCRIPTOR.Ptr, ppSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsGetSecurity", "ptr", DfsEntryPath, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR.Ptr, ppSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, UInt32)
     return result
 }
 
@@ -965,7 +965,7 @@ export NetDfsGetSecurity(DfsEntryPath, SecurityInformation, ppSecurityDescriptor
 export NetDfsSetSecurity(DfsEntryPath, SecurityInformation, pSecurityDescriptor) {
     DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
 
-    result := DllCall("NETAPI32.dll\NetDfsSetSecurity", "ptr", DfsEntryPath, "uint", SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsSetSecurity", "ptr", DfsEntryPath, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, UInt32)
     return result
 }
 
@@ -992,7 +992,7 @@ export NetDfsGetStdContainerSecurity(MachineName, SecurityInformation, ppSecurit
 
     lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetDfsGetStdContainerSecurity", "ptr", MachineName, "uint", SecurityInformation, PSECURITY_DESCRIPTOR.Ptr, ppSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsGetStdContainerSecurity", "ptr", MachineName, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR.Ptr, ppSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, UInt32)
     return result
 }
 
@@ -1013,7 +1013,7 @@ export NetDfsGetStdContainerSecurity(MachineName, SecurityInformation, ppSecurit
 export NetDfsSetStdContainerSecurity(MachineName, SecurityInformation, pSecurityDescriptor) {
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    result := DllCall("NETAPI32.dll\NetDfsSetStdContainerSecurity", "ptr", MachineName, "uint", SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsSetStdContainerSecurity", "ptr", MachineName, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, UInt32)
     return result
 }
 
@@ -1040,7 +1040,7 @@ export NetDfsGetFtContainerSecurity(DomainName, SecurityInformation, ppSecurityD
 
     lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetDfsGetFtContainerSecurity", "ptr", DomainName, "uint", SecurityInformation, PSECURITY_DESCRIPTOR.Ptr, ppSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsGetFtContainerSecurity", "ptr", DomainName, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR.Ptr, ppSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, UInt32)
     return result
 }
 
@@ -1061,7 +1061,7 @@ export NetDfsGetFtContainerSecurity(DomainName, SecurityInformation, ppSecurityD
 export NetDfsSetFtContainerSecurity(DomainName, SecurityInformation, pSecurityDescriptor) {
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-    result := DllCall("NETAPI32.dll\NetDfsSetFtContainerSecurity", "ptr", DomainName, "uint", SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, UInt32)
+    result := DllCall("NETAPI32.dll\NetDfsSetFtContainerSecurity", "ptr", DomainName, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, UInt32)
     return result
 }
 

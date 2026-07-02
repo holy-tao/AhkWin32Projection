@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The MCI_DGV_CAPTURE_PARMSA (ANSI) structure (digitalv.h) contains parameters for the MCI_CAPTURE command for digital-video devices.

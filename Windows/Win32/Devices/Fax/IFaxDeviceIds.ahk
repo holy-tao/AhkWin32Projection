@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFaxDeviceIds interface defines a configuration collection used by a fax client application to enumerate the ordered fax device IDs associated with a FaxOutboundRoutingGroup object.
@@ -90,7 +90,7 @@ export default struct IFaxDeviceIds extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-get_item
      */
     get_Item(lIndex) {
-        result := ComCall(8, this, "int", lIndex, "int*", &plDeviceId := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, "int*", &plDeviceId := 0, "HRESULT")
         return plDeviceId
     }
 
@@ -121,7 +121,7 @@ export default struct IFaxDeviceIds extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-add
      */
     Add(lDeviceId) {
-        result := ComCall(10, this, "int", lDeviceId, "HRESULT")
+        result := ComCall(10, this, Int32, lDeviceId, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct IFaxDeviceIds extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-remove
      */
     Remove(lIndex) {
-        result := ComCall(11, this, "int", lIndex, "HRESULT")
+        result := ComCall(11, this, Int32, lIndex, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IFaxDeviceIds extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-setorder
      */
     SetOrder(lDeviceId, lNewOrder) {
-        result := ComCall(12, this, "int", lDeviceId, "int", lNewOrder, "HRESULT")
+        result := ComCall(12, this, Int32, lDeviceId, Int32, lNewOrder, "HRESULT")
         return result
     }
 

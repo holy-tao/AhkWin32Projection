@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
+#Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
+#Import ".\DWRITE_SHAPING_TEXT_PROPERTIES.ahk" { DWRITE_SHAPING_TEXT_PROPERTIES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk" { DWRITE_SHAPING_GLYPH_PROPERTIES }
 #Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import ".\IDWriteTextAnalysisSink.ahk" { IDWriteTextAnalysisSink }
-#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
-#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
-#Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import ".\DWRITE_SHAPING_TEXT_PROPERTIES.ahk" { DWRITE_SHAPING_TEXT_PROPERTIES }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DWRITE_TYPOGRAPHIC_FEATURES.ahk" { DWRITE_TYPOGRAPHIC_FEATURES }
+#Import ".\IDWriteTextAnalysisSink.ahk" { IDWriteTextAnalysisSink }
 
 /**
  * Analyzes various text properties for complex script processing such as bidirectional (bidi) support for languages like Arabic, determination of line break opportunities, glyph placement, and number substitution.
@@ -75,7 +75,7 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzescript
      */
     AnalyzeScript(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(3, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, "ptr", analysisSink, "HRESULT")
         return result
     }
 
@@ -104,7 +104,7 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzebidi
      */
     AnalyzeBidi(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(4, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(4, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, "ptr", analysisSink, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzenumbersubstitution
      */
     AnalyzeNumberSubstitution(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(5, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(5, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, "ptr", analysisSink, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzelinebreakpoints
      */
     AnalyzeLineBreakpoints(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(6, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(6, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, "ptr", analysisSink, "HRESULT")
         return result
     }
 
@@ -247,7 +247,7 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
         actualGlyphCountMarshal := actualGlyphCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", textString, "uint", textLength, "ptr", fontFace, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "ptr", localeName, "ptr", numberSubstitution, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, actualGlyphCountMarshal, actualGlyphCount, "HRESULT")
+        result := ComCall(7, this, "ptr", textString, UInt32, textLength, "ptr", fontFace, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "ptr", localeName, "ptr", numberSubstitution, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, UInt32, featureRanges, UInt32, maxGlyphCount, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, actualGlyphCountMarshal, actualGlyphCount, "HRESULT")
         return result
     }
 
@@ -329,7 +329,7 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
         featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(8, this, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, "HRESULT")
+        result := ComCall(8, this, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, UInt32, textLength, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, UInt32, glyphCount, "ptr", fontFace, Float32, fontEmSize, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, UInt32, featureRanges, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, "HRESULT")
         return result
     }
 
@@ -413,7 +413,7 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
         featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(9, this, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, "HRESULT")
+        result := ComCall(9, this, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, UInt32, textLength, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, UInt32, glyphCount, "ptr", fontFace, Float32, fontEmSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, UInt32, featureRanges, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, "HRESULT")
         return result
     }
 

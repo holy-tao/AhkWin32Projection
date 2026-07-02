@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\MBN_CELLULAR_CLASS.ahk" { MBN_CELLULAR_CLASS }
 #Import ".\MBN_VOICE_CLASS.ahk" { MBN_VOICE_CLASS }
+#Import ".\MBN_CELLULAR_CLASS.ahk" { MBN_CELLULAR_CLASS }
 
 /**
  * The MBN_INTERFACE_CAPS structure represents the interface capabilities.

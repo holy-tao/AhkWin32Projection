@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that handle all communication between icon overlay handlers and the Shell.
@@ -106,7 +106,7 @@ export default struct IShellIconOverlayIdentifier extends IUnknown {
     IsMemberOf(pwszPath, dwAttrib) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(3, this, "ptr", pwszPath, "uint", dwAttrib, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszPath, UInt32, dwAttrib, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct IShellIconOverlayIdentifier extends IUnknown {
         pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwszIconFile, "int", cchMax, pIndexMarshal, pIndex, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszIconFile, Int32, cchMax, pIndexMarshal, pIndex, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

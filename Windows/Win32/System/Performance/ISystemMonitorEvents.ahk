@@ -44,7 +44,7 @@ export default struct ISystemMonitorEvents extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     OnCounterSelected(Index) {
-        ComCall(3, this, "int", Index)
+        ComCall(3, this, Int32, Index)
     }
 
     /**
@@ -53,7 +53,7 @@ export default struct ISystemMonitorEvents extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     OnCounterAdded(Index) {
-        ComCall(4, this, "int", Index)
+        ComCall(4, this, Int32, Index)
     }
 
     /**
@@ -62,7 +62,7 @@ export default struct ISystemMonitorEvents extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     OnCounterDeleted(Index) {
-        ComCall(5, this, "int", Index)
+        ComCall(5, this, Int32, Index)
     }
 
     /**
@@ -79,7 +79,7 @@ export default struct ISystemMonitorEvents extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     OnDblClick(Index) {
-        ComCall(7, this, "int", Index)
+        ComCall(7, this, Int32, Index)
     }
 
     Query(iid) {

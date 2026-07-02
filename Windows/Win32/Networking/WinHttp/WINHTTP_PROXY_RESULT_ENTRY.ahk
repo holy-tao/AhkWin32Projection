@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\WINHTTP_INTERNET_SCHEME.ahk" { WINHTTP_INTERNET_SCHEME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The WINHTTP_PROXY_RESULT_ENTRY structure contains a result entry from a call to WinHttpGetProxyResult.

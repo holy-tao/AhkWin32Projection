@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISdo.ahk" { ISdo }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISdo.ahk" { ISdo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -74,7 +74,7 @@ export default struct ITemplateSdo extends ISdo {
      * @returns {HRESULT} 
      */
     AddToSdoAsProperty(pSdoTarget, id) {
-        result := ComCall(16, this, "ptr", pSdoTarget, "int", id, "HRESULT")
+        result := ComCall(16, this, "ptr", pSdoTarget, Int32, id, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SPSERIALIZEDPHRASE.ahk" { SPSERIALIZEDPHRASE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPSERIALIZEDPHRASE.ahk" { SPSERIALIZEDPHRASE }
 #Import ".\SPPHRASE.ahk" { SPPHRASE }
 
 /**
@@ -73,7 +73,7 @@ export default struct ISpPhrase extends IUnknown {
         ppszCoMemTextMarshal := ppszCoMemText is VarRef ? "ptr*" : "ptr"
         pbDisplayAttributesMarshal := pbDisplayAttributes is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", ulStart, "uint", ulCount, BOOL, fUseTextReplacements, ppszCoMemTextMarshal, ppszCoMemText, pbDisplayAttributesMarshal, pbDisplayAttributes, "HRESULT")
+        result := ComCall(5, this, UInt32, ulStart, UInt32, ulCount, BOOL, fUseTextReplacements, ppszCoMemTextMarshal, ppszCoMemText, pbDisplayAttributesMarshal, pbDisplayAttributes, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct ISpPhrase extends IUnknown {
      * @returns {HRESULT} 
      */
     Discard(dwValueTypes) {
-        result := ComCall(6, this, "uint", dwValueTypes, "HRESULT")
+        result := ComCall(6, this, UInt32, dwValueTypes, "HRESULT")
         return result
     }
 

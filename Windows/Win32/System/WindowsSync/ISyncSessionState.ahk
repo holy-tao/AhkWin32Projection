@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNC_PROGRESS_STAGE.ahk" { SYNC_PROGRESS_STAGE }
 #Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNC_RANGE.ahk" { SYNC_RANGE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNC_PROGRESS_STAGE.ahk" { SYNC_PROGRESS_STAGE }
+#Import ".\SYNC_RANGE.ahk" { SYNC_RANGE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents information about the current synchronization session.
@@ -213,7 +213,7 @@ export default struct ISyncSessionState extends IUnknown {
     LoadInfoFromChangeApplication(pbChangeApplierInfo, cbChangeApplierInfo) {
         pbChangeApplierInfoMarshal := pbChangeApplierInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, pbChangeApplierInfoMarshal, pbChangeApplierInfo, "uint", cbChangeApplierInfo, "HRESULT")
+        result := ComCall(5, this, pbChangeApplierInfoMarshal, pbChangeApplierInfo, UInt32, cbChangeApplierInfo, "HRESULT")
         return result
     }
 
@@ -427,7 +427,7 @@ export default struct ISyncSessionState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-onprogress
      */
     OnProgress(provider, syncStage, dwCompletedWork, dwTotalWork) {
-        result := ComCall(9, this, SYNC_PROVIDER_ROLE, provider, SYNC_PROGRESS_STAGE, syncStage, "uint", dwCompletedWork, "uint", dwTotalWork, "HRESULT")
+        result := ComCall(9, this, SYNC_PROVIDER_ROLE, provider, SYNC_PROGRESS_STAGE, syncStage, UInt32, dwCompletedWork, UInt32, dwTotalWork, "HRESULT")
         return result
     }
 

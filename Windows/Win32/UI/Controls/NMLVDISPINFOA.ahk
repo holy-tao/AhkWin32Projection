@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LIST_VIEW_ITEM_STATE_FLAGS.ahk" { LIST_VIEW_ITEM_STATE_FLAGS }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\NMHDR.ahk" { NMHDR }
-#Import ".\LVITEMA.ahk" { LVITEMA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk" { LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS }
 #Import ".\LIST_VIEW_ITEM_FLAGS.ahk" { LIST_VIEW_ITEM_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LVITEMA.ahk" { LVITEMA }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\LIST_VIEW_ITEM_STATE_FLAGS.ahk" { LIST_VIEW_ITEM_STATE_FLAGS }
+#Import ".\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk" { LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about an LVN_GETDISPINFO or LVN_SETDISPINFO notification code. This structure is the same as the LV_DISPINFO structure, but has been renamed to fit standard naming conventions. (ANSI)

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFsrmFileScreen.ahk" { IFsrmFileScreen }
 #Import ".\IFsrmFileScreenException.ahk" { IFsrmFileScreenException }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IFsrmFileScreen.ahk" { IFsrmFileScreen }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**

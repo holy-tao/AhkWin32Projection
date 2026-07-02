@@ -1,18 +1,20 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import ".\HINTERACTIONCONTEXT.ahk" { HINTERACTIONCONTEXT }
+#Import ".\INERTIA_PARAMETER.ahk" { INERTIA_PARAMETER }
+#Import ".\CROSS_SLIDE_PARAMETER.ahk" { CROSS_SLIDE_PARAMETER }
+#Import ".\INTERACTION_CONTEXT_OUTPUT_CALLBACK.ahk" { INTERACTION_CONTEXT_OUTPUT_CALLBACK }
+#Import ".\TRANSLATION_PARAMETER.ahk" { TRANSLATION_PARAMETER }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INTERACTION_CONTEXT_PROPERTY.ahk" { INTERACTION_CONTEXT_PROPERTY }
-#Import "..\Input\Pointer\POINTER_INFO.ahk" { POINTER_INFO }
 #Import ".\CROSS_SLIDE_THRESHOLD.ahk" { CROSS_SLIDE_THRESHOLD }
-#Import ".\TRANSLATION_PARAMETER.ahk" { TRANSLATION_PARAMETER }
-#Import ".\TAP_PARAMETER.ahk" { TAP_PARAMETER }
-#Import ".\INERTIA_PARAMETER.ahk" { INERTIA_PARAMETER }
 #Import ".\MOUSE_WHEEL_PARAMETER.ahk" { MOUSE_WHEEL_PARAMETER }
-#Import ".\HOLD_PARAMETER.ahk" { HOLD_PARAMETER }
-#Import ".\CROSS_SLIDE_PARAMETER.ahk" { CROSS_SLIDE_PARAMETER }
-#Import ".\INTERACTION_CONTEXT_CONFIGURATION.ahk" { INTERACTION_CONTEXT_CONFIGURATION }
+#Import ".\INTERACTION_CONTEXT_OUTPUT_CALLBACK2.ahk" { INTERACTION_CONTEXT_OUTPUT_CALLBACK2 }
 #Import ".\INTERACTION_STATE.ahk" { INTERACTION_STATE }
+#Import ".\HOLD_PARAMETER.ahk" { HOLD_PARAMETER }
+#Import "..\Input\Pointer\POINTER_INFO.ahk" { POINTER_INFO }
+#Import ".\TAP_PARAMETER.ahk" { TAP_PARAMETER }
+#Import ".\INTERACTION_CONTEXT_CONFIGURATION.ahk" { INTERACTION_CONTEXT_CONFIGURATION }
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
@@ -67,7 +69,7 @@ export DestroyInteractionContext(interactionContext) {
 export RegisterOutputCallbackInteractionContext(interactionContext, outputCallback, clientData) {
     clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext", HINTERACTIONCONTEXT, interactionContext, "ptr", outputCallback, clientDataMarshal, clientData, "HRESULT")
+    result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext", HINTERACTIONCONTEXT, interactionContext, INTERACTION_CONTEXT_OUTPUT_CALLBACK, outputCallback, clientDataMarshal, clientData, "HRESULT")
     return result
 }
 
@@ -81,7 +83,7 @@ export RegisterOutputCallbackInteractionContext(interactionContext, outputCallba
 export RegisterOutputCallbackInteractionContext2(interactionContext, outputCallback, clientData) {
     clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext2", HINTERACTIONCONTEXT, interactionContext, "ptr", outputCallback, clientDataMarshal, clientData, "HRESULT")
+    result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext2", HINTERACTIONCONTEXT, interactionContext, INTERACTION_CONTEXT_OUTPUT_CALLBACK2, outputCallback, clientDataMarshal, clientData, "HRESULT")
     return result
 }
 
@@ -101,7 +103,7 @@ export RegisterOutputCallbackInteractionContext2(interactionContext, outputCallb
  * @since windows8.0
  */
 export SetInteractionConfigurationInteractionContext(interactionContext, configurationCount, configuration) {
-    result := DllCall("NInput.dll\SetInteractionConfigurationInteractionContext", HINTERACTIONCONTEXT, interactionContext, "uint", configurationCount, INTERACTION_CONTEXT_CONFIGURATION.Ptr, configuration, "HRESULT")
+    result := DllCall("NInput.dll\SetInteractionConfigurationInteractionContext", HINTERACTIONCONTEXT, interactionContext, UInt32, configurationCount, INTERACTION_CONTEXT_CONFIGURATION.Ptr, configuration, "HRESULT")
     return result
 }
 
@@ -117,7 +119,7 @@ export SetInteractionConfigurationInteractionContext(interactionContext, configu
  * @since windows8.0
  */
 export GetInteractionConfigurationInteractionContext(interactionContext, configurationCount, configuration) {
-    result := DllCall("NInput.dll\GetInteractionConfigurationInteractionContext", HINTERACTIONCONTEXT, interactionContext, "uint", configurationCount, INTERACTION_CONTEXT_CONFIGURATION.Ptr, configuration, "HRESULT")
+    result := DllCall("NInput.dll\GetInteractionConfigurationInteractionContext", HINTERACTIONCONTEXT, interactionContext, UInt32, configurationCount, INTERACTION_CONTEXT_CONFIGURATION.Ptr, configuration, "HRESULT")
     return result
 }
 
@@ -133,7 +135,7 @@ export GetInteractionConfigurationInteractionContext(interactionContext, configu
  * @since windows8.0
  */
 export SetPropertyInteractionContext(interactionContext, _contextProperty, value) {
-    result := DllCall("NInput.dll\SetPropertyInteractionContext", HINTERACTIONCONTEXT, interactionContext, INTERACTION_CONTEXT_PROPERTY, _contextProperty, "uint", value, "HRESULT")
+    result := DllCall("NInput.dll\SetPropertyInteractionContext", HINTERACTIONCONTEXT, interactionContext, INTERACTION_CONTEXT_PROPERTY, _contextProperty, UInt32, value, "HRESULT")
     return result
 }
 
@@ -268,7 +270,7 @@ export GetPropertyInteractionContext(interactionContext, _contextProperty) {
  * @since windows8.0
  */
 export SetInertiaParameterInteractionContext(interactionContext, inertiaParameter, value) {
-    result := DllCall("NInput.dll\SetInertiaParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, INERTIA_PARAMETER, inertiaParameter, "float", value, "HRESULT")
+    result := DllCall("NInput.dll\SetInertiaParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, INERTIA_PARAMETER, inertiaParameter, Float32, value, "HRESULT")
     return result
 }
 
@@ -306,7 +308,7 @@ export GetInertiaParameterInteractionContext(interactionContext, inertiaParamete
  * @since windows8.0
  */
 export SetCrossSlideParametersInteractionContext(interactionContext, parameterCount, crossSlideParameters) {
-    result := DllCall("NInput.dll\SetCrossSlideParametersInteractionContext", HINTERACTIONCONTEXT, interactionContext, "uint", parameterCount, CROSS_SLIDE_PARAMETER.Ptr, crossSlideParameters, "HRESULT")
+    result := DllCall("NInput.dll\SetCrossSlideParametersInteractionContext", HINTERACTIONCONTEXT, interactionContext, UInt32, parameterCount, CROSS_SLIDE_PARAMETER.Ptr, crossSlideParameters, "HRESULT")
     return result
 }
 
@@ -331,7 +333,7 @@ export GetCrossSlideParameterInteractionContext(interactionContext, threshold) {
  * @returns {HRESULT} 
  */
 export SetTapParameterInteractionContext(interactionContext, parameter, value) {
-    result := DllCall("NInput.dll\SetTapParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, TAP_PARAMETER, parameter, "float", value, "HRESULT")
+    result := DllCall("NInput.dll\SetTapParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, TAP_PARAMETER, parameter, Float32, value, "HRESULT")
     return result
 }
 
@@ -354,7 +356,7 @@ export GetTapParameterInteractionContext(interactionContext, parameter) {
  * @returns {HRESULT} 
  */
 export SetHoldParameterInteractionContext(interactionContext, parameter, value) {
-    result := DllCall("NInput.dll\SetHoldParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, HOLD_PARAMETER, parameter, "float", value, "HRESULT")
+    result := DllCall("NInput.dll\SetHoldParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, HOLD_PARAMETER, parameter, Float32, value, "HRESULT")
     return result
 }
 
@@ -377,7 +379,7 @@ export GetHoldParameterInteractionContext(interactionContext, parameter) {
  * @returns {HRESULT} 
  */
 export SetTranslationParameterInteractionContext(interactionContext, parameter, value) {
-    result := DllCall("NInput.dll\SetTranslationParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, TRANSLATION_PARAMETER, parameter, "float", value, "HRESULT")
+    result := DllCall("NInput.dll\SetTranslationParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, TRANSLATION_PARAMETER, parameter, Float32, value, "HRESULT")
     return result
 }
 
@@ -404,7 +406,7 @@ export GetTranslationParameterInteractionContext(interactionContext, parameter) 
  * @since windows8.0
  */
 export SetMouseWheelParameterInteractionContext(interactionContext, parameter, value) {
-    result := DllCall("NInput.dll\SetMouseWheelParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, MOUSE_WHEEL_PARAMETER, parameter, "float", value, "HRESULT")
+    result := DllCall("NInput.dll\SetMouseWheelParameterInteractionContext", HINTERACTIONCONTEXT, interactionContext, MOUSE_WHEEL_PARAMETER, parameter, Float32, value, "HRESULT")
     return result
 }
 
@@ -467,7 +469,7 @@ export GetStateInteractionContext(interactionContext, pointerInfo) {
  * @since windows8.0
  */
 export AddPointerInteractionContext(interactionContext, pointerId) {
-    result := DllCall("NInput.dll\AddPointerInteractionContext", HINTERACTIONCONTEXT, interactionContext, "uint", pointerId, "HRESULT")
+    result := DllCall("NInput.dll\AddPointerInteractionContext", HINTERACTIONCONTEXT, interactionContext, UInt32, pointerId, "HRESULT")
     return result
 }
 
@@ -482,7 +484,7 @@ export AddPointerInteractionContext(interactionContext, pointerId) {
  * @since windows8.0
  */
 export RemovePointerInteractionContext(interactionContext, pointerId) {
-    result := DllCall("NInput.dll\RemovePointerInteractionContext", HINTERACTIONCONTEXT, interactionContext, "uint", pointerId, "HRESULT")
+    result := DllCall("NInput.dll\RemovePointerInteractionContext", HINTERACTIONCONTEXT, interactionContext, UInt32, pointerId, "HRESULT")
     return result
 }
 
@@ -511,7 +513,7 @@ export RemovePointerInteractionContext(interactionContext, pointerId) {
  * @since windows8.0
  */
 export ProcessPointerFramesInteractionContext(interactionContext, entriesCount, pointerCount, pointerInfo) {
-    result := DllCall("NInput.dll\ProcessPointerFramesInteractionContext", HINTERACTIONCONTEXT, interactionContext, "uint", entriesCount, "uint", pointerCount, POINTER_INFO.Ptr, pointerInfo, "HRESULT")
+    result := DllCall("NInput.dll\ProcessPointerFramesInteractionContext", HINTERACTIONCONTEXT, interactionContext, UInt32, entriesCount, UInt32, pointerCount, POINTER_INFO.Ptr, pointerInfo, "HRESULT")
     return result
 }
 
@@ -527,7 +529,7 @@ export ProcessPointerFramesInteractionContext(interactionContext, entriesCount, 
  * @since windows8.0
  */
 export BufferPointerPacketsInteractionContext(interactionContext, entriesCount, pointerInfo) {
-    result := DllCall("NInput.dll\BufferPointerPacketsInteractionContext", HINTERACTIONCONTEXT, interactionContext, "uint", entriesCount, POINTER_INFO.Ptr, pointerInfo, "HRESULT")
+    result := DllCall("NInput.dll\BufferPointerPacketsInteractionContext", HINTERACTIONCONTEXT, interactionContext, UInt32, entriesCount, POINTER_INFO.Ptr, pointerInfo, "HRESULT")
     return result
 }
 
@@ -594,7 +596,7 @@ export StopInteractionContext(interactionContext) {
  * @since windows8.0
  */
 export SetPivotInteractionContext(interactionContext, x, y, radius) {
-    result := DllCall("NInput.dll\SetPivotInteractionContext", HINTERACTIONCONTEXT, interactionContext, "float", x, "float", y, "float", radius, "HRESULT")
+    result := DllCall("NInput.dll\SetPivotInteractionContext", HINTERACTIONCONTEXT, interactionContext, Float32, x, Float32, y, Float32, radius, "HRESULT")
     return result
 }
 

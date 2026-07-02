@@ -84,7 +84,7 @@ export default struct ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaC
         pdwSizeOutMarshal := pdwSizeOut is VarRef ? "uint*" : "ptr"
         ppDeviceConfigOutMarshal := ppDeviceConfigOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, HWND, hwndOwner, BSTR, pDeviceClass, "uint", dwSizeIn, pDeviceConfigInMarshal, pDeviceConfigIn, pdwSizeOutMarshal, pdwSizeOut, ppDeviceConfigOutMarshal, ppDeviceConfigOut, "HRESULT")
+        result := ComCall(7, this, HWND, hwndOwner, BSTR, pDeviceClass, UInt32, dwSizeIn, pDeviceConfigInMarshal, pDeviceConfigIn, pdwSizeOutMarshal, pdwSizeOut, ppDeviceConfigOutMarshal, ppDeviceConfigOut, "HRESULT")
         return result
     }
 

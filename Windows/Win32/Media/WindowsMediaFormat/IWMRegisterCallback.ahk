@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMRegisterCallback interface enables the application to get status messages from a sink object.By default, the writer object does not send the application any status messages from the sink object.

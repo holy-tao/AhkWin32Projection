@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that retrieve information about a specific input or output connector pin.
@@ -89,7 +89,7 @@ export default struct IMILBitmapEffectConnectorInfo extends IUnknown {
      */
     GetFormat(ulIndex) {
         pFormat := Guid()
-        result := ComCall(6, this, "uint", ulIndex, Guid.Ptr, pFormat, "HRESULT")
+        result := ComCall(6, this, UInt32, ulIndex, Guid.Ptr, pFormat, "HRESULT")
         return pFormat
     }
 

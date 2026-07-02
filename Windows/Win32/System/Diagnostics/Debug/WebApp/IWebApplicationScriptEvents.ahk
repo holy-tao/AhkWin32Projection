@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\ActiveScript\IActiveScriptError.ahk" { IActiveScriptError }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\ActiveScript\IActiveScriptError.ahk" { IActiveScriptError }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Web\MsHtml\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**

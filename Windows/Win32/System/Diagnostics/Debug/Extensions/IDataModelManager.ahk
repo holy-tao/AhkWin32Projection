@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IKeyStore.ahk" { IKeyStore }
-#Import ".\Location.ahk" { Location }
-#Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
-#Import ".\IModelObject.ahk" { IModelObject }
-#Import ".\IDataModelConcept.ahk" { IDataModelConcept }
-#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import ".\ModelObjectKind.ahk" { ModelObjectKind }
-#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDebugHostTypeSignature.ahk" { IDebugHostTypeSignature }
+#Import ".\IKeyStore.ahk" { IKeyStore }
 #Import ".\IDebugHostType.ahk" { IDebugHostType }
+#Import ".\Location.ahk" { Location }
+#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ModelObjectKind.ahk" { ModelObjectKind }
+#Import ".\IDataModelConcept.ahk" { IDataModelConcept }
+#Import ".\IDebugHostTypeSignature.ahk" { IDebugHostTypeSignature }
+#Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

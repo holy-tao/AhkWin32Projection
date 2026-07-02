@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMbnMultiCarrier.ahk" { IMbnMultiCarrier }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMbnMultiCarrier.ahk" { IMbnMultiCarrier }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface is a notification interface used to handle asynchronous IMbnMultiCarrier method calls.
@@ -111,7 +111,7 @@ export default struct IMbnMultiCarrierEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrierevents-onsethomeprovidercomplete
      */
     OnSetHomeProviderComplete(mbnInterface, requestID, _status) {
-        result := ComCall(3, this, "ptr", mbnInterface, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(3, this, "ptr", mbnInterface, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -230,7 +230,7 @@ export default struct IMbnMultiCarrierEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrierevents-onscannetworkcomplete
      */
     OnScanNetworkComplete(mbnInterface, requestID, _status) {
-        result := ComCall(6, this, "ptr", mbnInterface, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(6, this, "ptr", mbnInterface, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 

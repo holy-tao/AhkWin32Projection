@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMStorage3.ahk" { IWMDMStorage3 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
-#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
+#Import ".\IWMDMStorage3.ahk" { IWMDMStorage3 }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
 #Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
 
 /**
  * The IWMDMStorage4 interface extends IWMDMStorage3 by providing methods for retrieving a subset of available metadata for a storage, and for setting and retrieving a list of references to other storages.
@@ -69,7 +69,7 @@ export default struct IWMDMStorage4 extends IWMDMStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage4-setreferences
      */
     SetReferences(dwRefs, ppIWMDMStorage) {
-        result := ComCall(19, this, "uint", dwRefs, IWMDMStorage.Ptr, ppIWMDMStorage, "HRESULT")
+        result := ComCall(19, this, UInt32, dwRefs, IWMDMStorage.Ptr, ppIWMDMStorage, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IWMDMStorage4 extends IWMDMStorage3 {
     GetSpecifiedMetadata(cProperties, ppwszPropNames) {
         ppwszPropNamesMarshal := ppwszPropNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(22, this, "uint", cProperties, ppwszPropNamesMarshal, ppwszPropNames, "ptr*", &ppMetadata := 0, "HRESULT")
+        result := ComCall(22, this, UInt32, cProperties, ppwszPropNamesMarshal, ppwszPropNames, "ptr*", &ppMetadata := 0, "HRESULT")
         return IWMDMMetaData(ppMetadata)
     }
 

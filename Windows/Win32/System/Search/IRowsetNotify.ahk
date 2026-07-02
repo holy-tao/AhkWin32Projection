@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRowset.ahk" { IRowset }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IRowset.ahk" { IRowset }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -53,7 +53,7 @@ export default struct IRowsetNotify extends IUnknown {
     OnFieldChange(pRowset, hRow, cColumns, rgColumns, eReason, ePhase, fCantDeny) {
         rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pRowset, "ptr", hRow, "ptr", cColumns, rgColumnsMarshal, rgColumns, "uint", eReason, "uint", ePhase, BOOL, fCantDeny, "HRESULT")
+        result := ComCall(3, this, "ptr", pRowset, IntPtr, hRow, IntPtr, cColumns, rgColumnsMarshal, rgColumns, UInt32, eReason, UInt32, ePhase, BOOL, fCantDeny, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IRowsetNotify extends IUnknown {
     OnRowChange(pRowset, cRows, rghRows, eReason, ePhase, fCantDeny) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pRowset, "ptr", cRows, rghRowsMarshal, rghRows, "uint", eReason, "uint", ePhase, BOOL, fCantDeny, "HRESULT")
+        result := ComCall(4, this, "ptr", pRowset, IntPtr, cRows, rghRowsMarshal, rghRows, UInt32, eReason, UInt32, ePhase, BOOL, fCantDeny, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IRowsetNotify extends IUnknown {
      * @returns {HRESULT} 
      */
     OnRowsetChange(pRowset, eReason, ePhase, fCantDeny) {
-        result := ComCall(5, this, "ptr", pRowset, "uint", eReason, "uint", ePhase, BOOL, fCantDeny, "HRESULT")
+        result := ComCall(5, this, "ptr", pRowset, UInt32, eReason, UInt32, ePhase, BOOL, fCantDeny, "HRESULT")
         return result
     }
 

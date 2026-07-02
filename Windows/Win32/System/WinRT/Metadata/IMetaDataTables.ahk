@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for the storage and retrieval of metadata information in tables.
@@ -132,7 +132,7 @@ export default struct IMetaDataTables extends IUnknown {
     GetTableIndex(token, pixTbl) {
         pixTblMarshal := pixTbl is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", token, pixTblMarshal, pixTbl, "HRESULT")
+        result := ComCall(8, this, UInt32, token, pixTblMarshal, pixTbl, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IMetaDataTables extends IUnknown {
         piKeyMarshal := piKey is VarRef ? "uint*" : "ptr"
         ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "uint", ixTbl, pcbRowMarshal, pcbRow, pcRowsMarshal, pcRows, pcColsMarshal, pcCols, piKeyMarshal, piKey, ppNameMarshal, ppName, "HRESULT")
+        result := ComCall(9, this, UInt32, ixTbl, pcbRowMarshal, pcbRow, pcRowsMarshal, pcRows, pcColsMarshal, pcCols, piKeyMarshal, piKey, ppNameMarshal, ppName, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IMetaDataTables extends IUnknown {
         pTypeMarshal := pType is VarRef ? "uint*" : "ptr"
         ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "uint", ixTbl, "uint", ixCol, poColMarshal, poCol, pcbColMarshal, pcbCol, pTypeMarshal, pType, ppNameMarshal, ppName, "HRESULT")
+        result := ComCall(10, this, UInt32, ixTbl, UInt32, ixCol, poColMarshal, poCol, pcbColMarshal, pcbCol, pTypeMarshal, pType, ppNameMarshal, ppName, "HRESULT")
         return result
     }
 
@@ -193,7 +193,7 @@ export default struct IMetaDataTables extends IUnknown {
         ppTokensMarshal := ppTokens is VarRef ? "ptr*" : "ptr"
         ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "uint", ixCdTkn, pcTokensMarshal, pcTokens, ppTokensMarshal, ppTokens, ppNameMarshal, ppName, "HRESULT")
+        result := ComCall(11, this, UInt32, ixCdTkn, pcTokensMarshal, pcTokens, ppTokensMarshal, ppTokens, ppNameMarshal, ppName, "HRESULT")
         return result
     }
 
@@ -210,7 +210,7 @@ export default struct IMetaDataTables extends IUnknown {
     GetRow(ixTbl, rid, ppRow) {
         ppRowMarshal := ppRow is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "uint", ixTbl, "uint", rid, ppRowMarshal, ppRow, "HRESULT")
+        result := ComCall(12, this, UInt32, ixTbl, UInt32, rid, ppRowMarshal, ppRow, "HRESULT")
         return result
     }
 
@@ -226,7 +226,7 @@ export default struct IMetaDataTables extends IUnknown {
     GetColumn(ixTbl, ixCol, rid, pVal) {
         pValMarshal := pVal is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", ixTbl, "uint", ixCol, "uint", rid, pValMarshal, pVal, "HRESULT")
+        result := ComCall(13, this, UInt32, ixTbl, UInt32, ixCol, UInt32, rid, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct IMetaDataTables extends IUnknown {
     GetString(ixString, ppString) {
         ppStringMarshal := ppString is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "uint", ixString, ppStringMarshal, ppString, "HRESULT")
+        result := ComCall(14, this, UInt32, ixString, ppStringMarshal, ppString, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct IMetaDataTables extends IUnknown {
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(15, this, "uint", ixBlob, pcbDataMarshal, pcbData, ppDataMarshal, ppData, "HRESULT")
+        result := ComCall(15, this, UInt32, ixBlob, pcbDataMarshal, pcbData, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 
@@ -272,7 +272,7 @@ export default struct IMetaDataTables extends IUnknown {
     GetGuid(ixGuid, ppGUID) {
         ppGUIDMarshal := ppGUID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(16, this, "uint", ixGuid, ppGUIDMarshal, ppGUID, "HRESULT")
+        result := ComCall(16, this, UInt32, ixGuid, ppGUIDMarshal, ppGUID, "HRESULT")
         return result
     }
 
@@ -288,7 +288,7 @@ export default struct IMetaDataTables extends IUnknown {
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "uint", ixUserString, pcbDataMarshal, pcbData, ppDataMarshal, ppData, "HRESULT")
+        result := ComCall(17, this, UInt32, ixUserString, pcbDataMarshal, pcbData, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 
@@ -302,7 +302,7 @@ export default struct IMetaDataTables extends IUnknown {
     GetNextString(ixString, pNext) {
         pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "uint", ixString, pNextMarshal, pNext, "HRESULT")
+        result := ComCall(18, this, UInt32, ixString, pNextMarshal, pNext, "HRESULT")
         return result
     }
 
@@ -316,7 +316,7 @@ export default struct IMetaDataTables extends IUnknown {
     GetNextBlob(ixBlob, pNext) {
         pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "uint", ixBlob, pNextMarshal, pNext, "HRESULT")
+        result := ComCall(19, this, UInt32, ixBlob, pNextMarshal, pNext, "HRESULT")
         return result
     }
 
@@ -332,7 +332,7 @@ export default struct IMetaDataTables extends IUnknown {
     GetNextGuid(ixGuid, pNext) {
         pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "uint", ixGuid, pNextMarshal, pNext, "HRESULT")
+        result := ComCall(20, this, UInt32, ixGuid, pNextMarshal, pNext, "HRESULT")
         return result
     }
 
@@ -348,7 +348,7 @@ export default struct IMetaDataTables extends IUnknown {
     GetNextUserString(ixUserString, pNext) {
         pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", ixUserString, pNextMarshal, pNext, "HRESULT")
+        result := ComCall(21, this, UInt32, ixUserString, pNextMarshal, pNext, "HRESULT")
         return result
     }
 

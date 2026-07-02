@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IOmHistory.ahk" { IOmHistory }
-#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
-#Import ".\IOmNavigator.ahk" { IOmNavigator }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLEventObj.ahk" { IHTMLEventObj }
 #Import ".\IHTMLFramesCollection2.ahk" { IHTMLFramesCollection2 }
+#Import ".\IHTMLImageElementFactory.ahk" { IHTMLImageElementFactory }
+#Import ".\IOmHistory.ahk" { IOmHistory }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLLocation.ahk" { IHTMLLocation }
-#Import ".\IHTMLScreen.ahk" { IHTMLScreen }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLScreen.ahk" { IHTMLScreen }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IHTMLEventObj.ahk" { IHTMLEventObj }
-#Import ".\IHTMLImageElementFactory.ahk" { IHTMLImageElementFactory }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IOmNavigator.ahk" { IOmNavigator }
+#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IHTMLOptionElementFactory.ahk" { IHTMLOptionElementFactory }
 
 /**
@@ -415,7 +415,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     setTimeout(expression, msec, language) {
         expression := expression is String ? BSTR.Alloc(expression).Value : expression
 
-        result := ComCall(14, this, BSTR, expression, "int", msec, VARIANT.Ptr, language, "int*", &timerID := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, expression, Int32, msec, VARIANT.Ptr, language, "int*", &timerID := 0, "HRESULT")
         return timerID
     }
 
@@ -425,7 +425,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
      * @returns {HRESULT} 
      */
     clearTimeout(timerID) {
-        result := ComCall(15, this, "int", timerID, "HRESULT")
+        result := ComCall(15, this, Int32, timerID, "HRESULT")
         return result
     }
 
@@ -956,7 +956,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
      * @returns {HRESULT} 
      */
     scroll(x, y) {
-        result := ComCall(62, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(62, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -979,7 +979,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     setInterval(expression, msec, language) {
         expression := expression is String ? BSTR.Alloc(expression).Value : expression
 
-        result := ComCall(64, this, BSTR, expression, "int", msec, VARIANT.Ptr, language, "int*", &timerID := 0, "HRESULT")
+        result := ComCall(64, this, BSTR, expression, Int32, msec, VARIANT.Ptr, language, "int*", &timerID := 0, "HRESULT")
         return timerID
     }
 
@@ -989,7 +989,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
      * @returns {HRESULT} 
      */
     clearInterval(timerID) {
-        result := ComCall(65, this, "int", timerID, "HRESULT")
+        result := ComCall(65, this, Int32, timerID, "HRESULT")
         return result
     }
 
@@ -1045,7 +1045,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
      * @returns {HRESULT} 
      */
     scrollBy(x, y) {
-        result := ComCall(70, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(70, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -1056,7 +1056,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
      * @returns {HRESULT} 
      */
     scrollTo(x, y) {
-        result := ComCall(71, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(71, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -1067,7 +1067,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
      * @returns {HRESULT} 
      */
     moveTo(x, y) {
-        result := ComCall(72, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(72, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -1078,7 +1078,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
      * @returns {HRESULT} 
      */
     moveBy(x, y) {
-        result := ComCall(73, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(73, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -1089,7 +1089,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
      * @returns {HRESULT} 
      */
     resizeTo(x, y) {
-        result := ComCall(74, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(74, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -1100,7 +1100,7 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
      * @returns {HRESULT} 
      */
     resizeBy(x, y) {
-        result := ComCall(75, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(75, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 

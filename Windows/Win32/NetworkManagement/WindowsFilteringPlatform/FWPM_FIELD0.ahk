@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\FWPM_FIELD_TYPE.ahk" { FWPM_FIELD_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
 
 /**
  * Specifies schema information for a field.

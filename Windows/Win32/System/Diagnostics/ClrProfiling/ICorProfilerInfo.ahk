@@ -1,15 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COR_IL_MAP.ahk" { COR_IL_MAP }
-#Import ".\IMethodMalloc.ahk" { IMethodMalloc }
+#Import ".\FunctionTailcall.ahk" { FunctionTailcall }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\WinRT\Metadata\CorElementType.ahk" { CorElementType }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\COR_DEBUG_IL_TO_NATIVE_MAP.ahk" { COR_DEBUG_IL_TO_NATIVE_MAP }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FunctionLeave.ahk" { FunctionLeave }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COR_IL_MAP.ahk" { COR_IL_MAP }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FunctionIDMapper.ahk" { FunctionIDMapper }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\WinRT\Metadata\CorElementType.ahk" { CorElementType }
+#Import ".\IMethodMalloc.ahk" { IMethodMalloc }
+#Import ".\FunctionEnter.ahk" { FunctionEnter }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -80,7 +84,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {Pointer} 
      */
     GetClassFromObject(_objectId) {
-        result := ComCall(3, this, "ptr", _objectId, "ptr*", &pClassId := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, _objectId, "ptr*", &pClassId := 0, "HRESULT")
         return pClassId
     }
 
@@ -91,7 +95,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {Pointer} 
      */
     GetClassFromToken(moduleId, typeDef) {
-        result := ComCall(4, this, "ptr", moduleId, "uint", typeDef, "ptr*", &pClassId := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, moduleId, UInt32, typeDef, "ptr*", &pClassId := 0, "HRESULT")
         return pClassId
     }
 
@@ -106,7 +110,7 @@ export default struct ICorProfilerInfo extends IUnknown {
         pStartMarshal := pStart is VarRef ? "ptr*" : "ptr"
         pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", functionId, pStartMarshal, pStart, pcSizeMarshal, pcSize, "HRESULT")
+        result := ComCall(5, this, IntPtr, functionId, pStartMarshal, pStart, pcSizeMarshal, pcSize, "HRESULT")
         return result
     }
 
@@ -138,7 +142,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {Pointer} 
      */
     GetFunctionFromToken(moduleId, token) {
-        result := ComCall(8, this, "ptr", moduleId, "uint", token, "ptr*", &pFunctionId := 0, "HRESULT")
+        result := ComCall(8, this, IntPtr, moduleId, UInt32, token, "ptr*", &pFunctionId := 0, "HRESULT")
         return pFunctionId
     }
 
@@ -149,7 +153,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      */
     GetHandleFromThread(threadId) {
         phThread := HANDLE.Owned()
-        result := ComCall(9, this, "ptr", threadId, HANDLE.Ptr, phThread, "HRESULT")
+        result := ComCall(9, this, IntPtr, threadId, HANDLE.Ptr, phThread, "HRESULT")
         return phThread
     }
 
@@ -159,7 +163,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {Integer} 
      */
     GetObjectSize(_objectId) {
-        result := ComCall(10, this, "ptr", _objectId, "uint*", &pcSize := 0, "HRESULT")
+        result := ComCall(10, this, IntPtr, _objectId, "uint*", &pcSize := 0, "HRESULT")
         return pcSize
     }
 
@@ -176,7 +180,7 @@ export default struct ICorProfilerInfo extends IUnknown {
         pBaseClassIdMarshal := pBaseClassId is VarRef ? "ptr*" : "ptr"
         pcRankMarshal := pcRank is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", classId, pBaseElemTypeMarshal, pBaseElemType, pBaseClassIdMarshal, pBaseClassId, pcRankMarshal, pcRank, "HRESULT")
+        result := ComCall(11, this, IntPtr, classId, pBaseElemTypeMarshal, pBaseElemType, pBaseClassIdMarshal, pBaseClassId, pcRankMarshal, pcRank, "HRESULT")
         return result
     }
 
@@ -186,7 +190,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {Integer} 
      */
     GetThreadInfo(threadId) {
-        result := ComCall(12, this, "ptr", threadId, "uint*", &pdwWin32ThreadId := 0, "HRESULT")
+        result := ComCall(12, this, IntPtr, threadId, "uint*", &pdwWin32ThreadId := 0, "HRESULT")
         return pdwWin32ThreadId
     }
 
@@ -210,7 +214,7 @@ export default struct ICorProfilerInfo extends IUnknown {
         pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
         pTypeDefTokenMarshal := pTypeDefToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", classId, pModuleIdMarshal, pModuleId, pTypeDefTokenMarshal, pTypeDefToken, "HRESULT")
+        result := ComCall(14, this, IntPtr, classId, pModuleIdMarshal, pModuleId, pTypeDefTokenMarshal, pTypeDefToken, "HRESULT")
         return result
     }
 
@@ -227,7 +231,7 @@ export default struct ICorProfilerInfo extends IUnknown {
         pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
         pTokenMarshal := pToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", functionId, pClassIdMarshal, pClassId, pModuleIdMarshal, pModuleId, pTokenMarshal, pToken, "HRESULT")
+        result := ComCall(15, this, IntPtr, functionId, pClassIdMarshal, pClassId, pModuleIdMarshal, pModuleId, pTokenMarshal, pToken, "HRESULT")
         return result
     }
 
@@ -237,7 +241,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetEventMask(dwEvents) {
-        result := ComCall(16, this, "uint", dwEvents, "HRESULT")
+        result := ComCall(16, this, UInt32, dwEvents, "HRESULT")
         return result
     }
 
@@ -280,7 +284,7 @@ export default struct ICorProfilerInfo extends IUnknown {
     GetTokenAndMetaDataFromFunction(functionId, riid, ppImport, pToken) {
         pTokenMarshal := pToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr", functionId, Guid.Ptr, riid, IUnknown.Ptr, ppImport, pTokenMarshal, pToken, "HRESULT")
+        result := ComCall(19, this, IntPtr, functionId, Guid.Ptr, riid, IUnknown.Ptr, ppImport, pTokenMarshal, pToken, "HRESULT")
         return result
     }
 
@@ -301,7 +305,7 @@ export default struct ICorProfilerInfo extends IUnknown {
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
         pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, "ptr", moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, "HRESULT")
+        result := ComCall(20, this, IntPtr, moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, "HRESULT")
         return result
     }
 
@@ -313,7 +317,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {IUnknown} 
      */
     GetModuleMetaData(moduleId, dwOpenFlags, riid) {
-        result := ComCall(21, this, "ptr", moduleId, "uint", dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppOut := 0, "HRESULT")
+        result := ComCall(21, this, IntPtr, moduleId, UInt32, dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppOut := 0, "HRESULT")
         return IUnknown(ppOut)
     }
 
@@ -329,7 +333,7 @@ export default struct ICorProfilerInfo extends IUnknown {
         ppMethodHeaderMarshal := ppMethodHeader is VarRef ? "ptr*" : "ptr"
         pcbMethodSizeMarshal := pcbMethodSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "ptr", moduleId, "uint", methodId, ppMethodHeaderMarshal, ppMethodHeader, pcbMethodSizeMarshal, pcbMethodSize, "HRESULT")
+        result := ComCall(22, this, IntPtr, moduleId, UInt32, methodId, ppMethodHeaderMarshal, ppMethodHeader, pcbMethodSizeMarshal, pcbMethodSize, "HRESULT")
         return result
     }
 
@@ -339,7 +343,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {IMethodMalloc} 
      */
     GetILFunctionBodyAllocator(moduleId) {
-        result := ComCall(23, this, "ptr", moduleId, "ptr*", &ppMalloc := 0, "HRESULT")
+        result := ComCall(23, this, IntPtr, moduleId, "ptr*", &ppMalloc := 0, "HRESULT")
         return IMethodMalloc(ppMalloc)
     }
 
@@ -353,7 +357,7 @@ export default struct ICorProfilerInfo extends IUnknown {
     SetILFunctionBody(moduleId, methodid, pbNewILMethodHeader) {
         pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : "ptr"
 
-        result := ComCall(24, this, "ptr", moduleId, "uint", methodid, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
+        result := ComCall(24, this, IntPtr, moduleId, UInt32, methodid, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
         return result
     }
 
@@ -372,7 +376,7 @@ export default struct ICorProfilerInfo extends IUnknown {
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
         pProcessIdMarshal := pProcessId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(25, this, "ptr", appDomainId, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pProcessIdMarshal, pProcessId, "HRESULT")
+        result := ComCall(25, this, IntPtr, appDomainId, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", szName, pProcessIdMarshal, pProcessId, "HRESULT")
         return result
     }
 
@@ -393,7 +397,7 @@ export default struct ICorProfilerInfo extends IUnknown {
         pAppDomainIdMarshal := pAppDomainId is VarRef ? "ptr*" : "ptr"
         pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(26, this, "ptr", assemblyId, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAppDomainIdMarshal, pAppDomainId, pModuleIdMarshal, pModuleId, "HRESULT")
+        result := ComCall(26, this, IntPtr, assemblyId, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", szName, pAppDomainIdMarshal, pAppDomainId, pModuleIdMarshal, pModuleId, "HRESULT")
         return result
     }
 
@@ -403,7 +407,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFunctionReJIT(functionId) {
-        result := ComCall(27, this, "ptr", functionId, "HRESULT")
+        result := ComCall(27, this, IntPtr, functionId, "HRESULT")
         return result
     }
 
@@ -425,7 +429,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetILInstrumentedCodeMap(functionId, fStartJit, cILMapEntries, rgILMapEntries) {
-        result := ComCall(29, this, "ptr", functionId, BOOL, fStartJit, "uint", cILMapEntries, COR_IL_MAP.Ptr, rgILMapEntries, "HRESULT")
+        result := ComCall(29, this, IntPtr, functionId, BOOL, fStartJit, UInt32, cILMapEntries, COR_IL_MAP.Ptr, rgILMapEntries, "HRESULT")
         return result
     }
 
@@ -460,7 +464,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(threadId) {
-        result := ComCall(32, this, "ptr", threadId, "ptr*", &pContextId := 0, "HRESULT")
+        result := ComCall(32, this, IntPtr, threadId, "ptr*", &pContextId := 0, "HRESULT")
         return pContextId
     }
 
@@ -480,7 +484,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     EndInprocDebugging(dwProfilerContext) {
-        result := ComCall(34, this, "uint", dwProfilerContext, "HRESULT")
+        result := ComCall(34, this, UInt32, dwProfilerContext, "HRESULT")
         return result
     }
 
@@ -495,7 +499,7 @@ export default struct ICorProfilerInfo extends IUnknown {
     GetILToNativeMapping(functionId, cMap, pcMap, _map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(35, this, "ptr", functionId, "uint", cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
+        result := ComCall(35, this, IntPtr, functionId, UInt32, cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
         return result
     }
 

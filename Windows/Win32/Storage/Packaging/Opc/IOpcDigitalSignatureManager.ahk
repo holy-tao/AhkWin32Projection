@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OPC_SIGNATURE_VALIDATION_RESULT.ahk" { OPC_SIGNATURE_VALIDATION_RESULT }
-#Import ".\IOpcDigitalSignature.ahk" { IOpcDigitalSignature }
 #Import ".\IOpcSigningOptions.ahk" { IOpcSigningOptions }
 #Import ".\IOpcPartUri.ahk" { IOpcPartUri }
 #Import "..\..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcDigitalSignature.ahk" { IOpcDigitalSignature }
+#Import ".\OPC_SIGNATURE_VALIDATION_RESULT.ahk" { OPC_SIGNATURE_VALIDATION_RESULT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOpcDigitalSignatureEnumerator.ahk" { IOpcDigitalSignatureEnumerator }
 
 /**
@@ -284,7 +284,7 @@ export default struct IOpcDigitalSignatureManager extends IUnknown {
     ReplaceSignatureXml(signaturePartName, newSignatureXml, count) {
         newSignatureXmlMarshal := newSignatureXml is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, "ptr", signaturePartName, newSignatureXmlMarshal, newSignatureXml, "uint", count, "ptr*", &digitalSignature := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", signaturePartName, newSignatureXmlMarshal, newSignatureXml, UInt32, count, "ptr*", &digitalSignature := 0, "HRESULT")
         return IOpcDigitalSignature(digitalSignature)
     }
 

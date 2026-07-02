@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXFeedsEnum.ahk" { IXFeedsEnum }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
 #Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer

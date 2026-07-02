@@ -264,7 +264,7 @@ export default struct ID3D10Asynchronous extends ID3D10DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10asynchronous-getdata
      */
     GetData(pData, DataSize, GetDataFlags) {
-        result := ComCall(9, this, "ptr", pData, "uint", DataSize, "uint", GetDataFlags, "HRESULT")
+        result := ComCall(9, this, IntPtr, pData, UInt32, DataSize, UInt32, GetDataFlags, "HRESULT")
         return result
     }
 

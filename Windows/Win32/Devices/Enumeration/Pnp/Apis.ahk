@@ -1,12 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HSWDEVICE.ahk" { HSWDEVICE }
 #Import "..\..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\HSWDEVICE.ahk" { HSWDEVICE }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SW_DEVICE_CREATE_INFO.ahk" { SW_DEVICE_CREATE_INFO }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SW_DEVICE_CREATE_INFO.ahk" { SW_DEVICE_CREATE_INFO }
+#Import ".\SW_DEVICE_CREATE_CALLBACK.ahk" { SW_DEVICE_CREATE_CALLBACK }
 #Import ".\SW_DEVICE_LIFETIME.ahk" { SW_DEVICE_LIFETIME }
 
 /**
@@ -58,7 +59,7 @@ export SwDeviceCreate(pszEnumeratorName, pszParentDeviceInstance, pCreateInfo, c
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
     phSwDevice := HSWDEVICE.Owned()
-    result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, SW_DEVICE_CREATE_INFO.Ptr, pCreateInfo, "uint", cPropertyCount, DEVPROPERTY.Ptr, pProperties, "ptr", pCallback, pContextMarshal, pContext, HSWDEVICE.Ptr, phSwDevice, "HRESULT")
+    result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, SW_DEVICE_CREATE_INFO.Ptr, pCreateInfo, UInt32, cPropertyCount, DEVPROPERTY.Ptr, pProperties, SW_DEVICE_CREATE_CALLBACK, pCallback, pContextMarshal, pContext, HSWDEVICE.Ptr, phSwDevice, "HRESULT")
     return phSwDevice
 }
 
@@ -192,7 +193,7 @@ export SwDeviceGetLifetime(_hSwDevice) {
  * @since windows8.0
  */
 export SwDevicePropertySet(_hSwDevice, cPropertyCount, pProperties) {
-    result := DllCall("CFGMGR32.dll\SwDevicePropertySet", HSWDEVICE, _hSwDevice, "uint", cPropertyCount, DEVPROPERTY.Ptr, pProperties, "HRESULT")
+    result := DllCall("CFGMGR32.dll\SwDevicePropertySet", HSWDEVICE, _hSwDevice, UInt32, cPropertyCount, DEVPROPERTY.Ptr, pProperties, "HRESULT")
     return result
 }
 
@@ -217,7 +218,7 @@ export SwDevicePropertySet(_hSwDevice, cPropertyCount, pProperties) {
 export SwDeviceInterfaceRegister(_hSwDevice, pInterfaceClassGuid, pszReferenceString, cPropertyCount, pProperties, fEnabled) {
     pszReferenceString := pszReferenceString is String ? StrPtr(pszReferenceString) : pszReferenceString
 
-    result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", HSWDEVICE, _hSwDevice, Guid.Ptr, pInterfaceClassGuid, "ptr", pszReferenceString, "uint", cPropertyCount, DEVPROPERTY.Ptr, pProperties, BOOL, fEnabled, PWSTR.Ptr, &ppszDeviceInterfaceId := 0, "HRESULT")
+    result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", HSWDEVICE, _hSwDevice, Guid.Ptr, pInterfaceClassGuid, "ptr", pszReferenceString, UInt32, cPropertyCount, DEVPROPERTY.Ptr, pProperties, BOOL, fEnabled, PWSTR.Ptr, &ppszDeviceInterfaceId := 0, "HRESULT")
     return ppszDeviceInterfaceId
 }
 
@@ -277,7 +278,7 @@ export SwDeviceInterfaceSetState(_hSwDevice, pszDeviceInterfaceId, fEnabled) {
 export SwDeviceInterfacePropertySet(_hSwDevice, pszDeviceInterfaceId, cPropertyCount, pProperties) {
     pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
 
-    result := DllCall("CFGMGR32.dll\SwDeviceInterfacePropertySet", HSWDEVICE, _hSwDevice, "ptr", pszDeviceInterfaceId, "uint", cPropertyCount, DEVPROPERTY.Ptr, pProperties, "HRESULT")
+    result := DllCall("CFGMGR32.dll\SwDeviceInterfacePropertySet", HSWDEVICE, _hSwDevice, "ptr", pszDeviceInterfaceId, UInt32, cPropertyCount, DEVPROPERTY.Ptr, pProperties, "HRESULT")
     return result
 }
 

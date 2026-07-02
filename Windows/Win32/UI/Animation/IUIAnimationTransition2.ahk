@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IUIAnimationTransition interface that defines a transition. An IUIAnimationTransition2 transition determines how an animation variable changes over time in a given dimension.
@@ -62,7 +62,7 @@ export default struct IUIAnimationTransition2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-setinitialvalue
      */
     SetInitialValue(value) {
-        result := ComCall(4, this, "double", value, "HRESULT")
+        result := ComCall(4, this, Float64, value, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct IUIAnimationTransition2 extends IUnknown {
     SetInitialVectorValue(value, cDimension) {
         valueMarshal := value is VarRef ? "double*" : "ptr"
 
-        result := ComCall(5, this, valueMarshal, value, "uint", cDimension, "HRESULT")
+        result := ComCall(5, this, valueMarshal, value, UInt32, cDimension, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IUIAnimationTransition2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-setinitialvelocity
      */
     SetInitialVelocity(velocity) {
-        result := ComCall(6, this, "double", velocity, "HRESULT")
+        result := ComCall(6, this, Float64, velocity, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IUIAnimationTransition2 extends IUnknown {
     SetInitialVectorVelocity(velocity, cDimension) {
         velocityMarshal := velocity is VarRef ? "double*" : "ptr"
 
-        result := ComCall(7, this, velocityMarshal, velocity, "uint", cDimension, "HRESULT")
+        result := ComCall(7, this, velocityMarshal, velocity, UInt32, cDimension, "HRESULT")
         return result
     }
 

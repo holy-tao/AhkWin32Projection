@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFTopology.ahk" { IMFTopology }
 #Import ".\IMFActivate.ahk" { IMFActivate }
 #Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
 #Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFTopology.ahk" { IMFTopology }
 
 /**
  * Enables playback of protected content by providing the application with a pointer to a content enabler object.

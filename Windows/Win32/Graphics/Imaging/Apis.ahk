@@ -1,14 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\IWICBitmap.ahk" { IWICBitmap }
 #Import ".\WICSectionAccessLevel.ahk" { WICSectionAccessLevel }
-#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
@@ -65,7 +65,7 @@ export WICConvertBitmapSource(dstFormat, pISrc) {
  * @since windows5.1.2600
  */
 export WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, offset) {
-    result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, Guid.Ptr, pixelFormat, HANDLE, hSection, "uint", stride, "uint", offset, "ptr*", &ppIBitmap := 0, "HRESULT")
+    result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", UInt32, width, UInt32, height, Guid.Ptr, pixelFormat, HANDLE, hSection, UInt32, stride, UInt32, offset, "ptr*", &ppIBitmap := 0, "HRESULT")
     return IWICBitmap(ppIBitmap)
 }
 
@@ -99,7 +99,7 @@ export WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, 
  * @since windows6.1
  */
 export WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride, offset, desiredAccessLevel) {
-    result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, Guid.Ptr, pixelFormat, HANDLE, hSection, "uint", stride, "uint", offset, WICSectionAccessLevel, desiredAccessLevel, "ptr*", &ppIBitmap := 0, "HRESULT")
+    result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", UInt32, width, UInt32, height, Guid.Ptr, pixelFormat, HANDLE, hSection, UInt32, stride, UInt32, offset, WICSectionAccessLevel, desiredAccessLevel, "ptr*", &ppIBitmap := 0, "HRESULT")
     return IWICBitmap(ppIBitmap)
 }
 
@@ -130,7 +130,7 @@ export WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride
 export WICMapGuidToShortName(guid, cchName, wzName) {
     wzName := wzName is String ? StrPtr(wzName) : wzName
 
-    result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", Guid.Ptr, guid, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "HRESULT")
+    result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", Guid.Ptr, guid, UInt32, cchName, "ptr", wzName, "uint*", &pcchActual := 0, "HRESULT")
     return pcchActual
 }
 
@@ -206,7 +206,7 @@ export WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName) {
     pwzSchema := pwzSchema is String ? StrPtr(pwzSchema) : pwzSchema
     wzName := wzName is String ? StrPtr(wzName) : wzName
 
-    result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", Guid.Ptr, guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "HRESULT")
+    result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", Guid.Ptr, guidMetadataFormat, "ptr", pwzSchema, UInt32, cchName, "ptr", wzName, "uint*", &pcchActual := 0, "HRESULT")
     return pcchActual
 }
 
@@ -256,7 +256,7 @@ export WICMatchMetadataContent(guidContainerFormat, pguidVendor, pIStream, pguid
  * @since windows5.1.2600
  */
 export WICSerializeMetadataContent(guidContainerFormat, pIWriter, dwPersistOptions, pIStream) {
-    result := DllCall("WindowsCodecs.dll\WICSerializeMetadataContent", Guid.Ptr, guidContainerFormat, "ptr", pIWriter, "uint", dwPersistOptions, "ptr", pIStream, "HRESULT")
+    result := DllCall("WindowsCodecs.dll\WICSerializeMetadataContent", Guid.Ptr, guidContainerFormat, "ptr", pIWriter, UInt32, dwPersistOptions, "ptr", pIStream, "HRESULT")
     return result
 }
 

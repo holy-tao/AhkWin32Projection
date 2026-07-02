@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMFHttpDownloadRequest.ahk" { IMFHttpDownloadRequest }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation. (IMFHttpDownloadSession)
@@ -82,7 +82,7 @@ export default struct IMFHttpDownloadSession extends IUnknown {
     SetServer(szServerName, nPort) {
         szServerName := szServerName is String ? StrPtr(szServerName) : szServerName
 
-        result := ComCall(3, this, "ptr", szServerName, "uint", nPort, "HRESULT")
+        result := ComCall(3, this, "ptr", szServerName, UInt32, nPort, "HRESULT")
         return result
     }
 

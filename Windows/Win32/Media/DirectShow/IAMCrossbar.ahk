@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMCrossbar interface routes signals from an analog or digital source to a video capture filter.This interface is implemented by the Analog Video Crossbar Filter.
@@ -127,7 +127,7 @@ export default struct IAMCrossbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcrossbar-canroute
      */
     CanRoute(OutputPinIndex, InputPinIndex) {
-        result := ComCall(4, this, "int", OutputPinIndex, "int", InputPinIndex, "HRESULT")
+        result := ComCall(4, this, Int32, OutputPinIndex, Int32, InputPinIndex, "HRESULT")
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IAMCrossbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcrossbar-route
      */
     Route(OutputPinIndex, InputPinIndex) {
-        result := ComCall(5, this, "int", OutputPinIndex, "int", InputPinIndex, "HRESULT")
+        result := ComCall(5, this, Int32, OutputPinIndex, Int32, InputPinIndex, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct IAMCrossbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcrossbar-get_isroutedto
      */
     get_IsRoutedTo(OutputPinIndex) {
-        result := ComCall(6, this, "int", OutputPinIndex, "int*", &InputPinIndex := 0, "HRESULT")
+        result := ComCall(6, this, Int32, OutputPinIndex, "int*", &InputPinIndex := 0, "HRESULT")
         return InputPinIndex
     }
 
@@ -244,7 +244,7 @@ export default struct IAMCrossbar extends IUnknown {
         PinIndexRelatedMarshal := PinIndexRelated is VarRef ? "int*" : "ptr"
         PhysicalTypeMarshal := PhysicalType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, BOOL, IsInputPin, "int", PinIndex, PinIndexRelatedMarshal, PinIndexRelated, PhysicalTypeMarshal, PhysicalType, "HRESULT")
+        result := ComCall(7, this, BOOL, IsInputPin, Int32, PinIndex, PinIndexRelatedMarshal, PinIndexRelated, PhysicalTypeMarshal, PhysicalType, "HRESULT")
         return result
     }
 

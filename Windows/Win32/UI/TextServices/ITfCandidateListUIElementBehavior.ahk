@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfCandidateListUIElement.ahk" { ITfCandidateListUIElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface is implemented by a text service that has a candidate list UI and its UI can be controlled by the application. The application QI this interface from ITfUIElement and controls the candidate list behavior.
@@ -75,7 +75,7 @@ export default struct ITfCandidateListUIElementBehavior extends ITfCandidateList
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielementbehavior-setselection
      */
     SetSelection(nIndex) {
-        result := ComCall(15, this, "uint", nIndex, "HRESULT")
+        result := ComCall(15, this, UInt32, nIndex, "HRESULT")
         return result
     }
 

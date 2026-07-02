@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -67,7 +68,7 @@ export default struct IHostThreadpoolManager extends IUnknown {
     QueueUserWorkItem(Function, _Context, Flags) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", Function, _ContextMarshal, _Context, "uint", Flags, "HRESULT")
+        result := ComCall(3, this, LPTHREAD_START_ROUTINE, Function, _ContextMarshal, _Context, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -77,7 +78,7 @@ export default struct IHostThreadpoolManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMaxThreads(dwMaxWorkerThreads) {
-        result := ComCall(4, this, "uint", dwMaxWorkerThreads, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMaxWorkerThreads, "HRESULT")
         return result
     }
 
@@ -105,7 +106,7 @@ export default struct IHostThreadpoolManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMinThreads(dwMinIOCompletionThreads) {
-        result := ComCall(7, this, "uint", dwMinIOCompletionThreads, "HRESULT")
+        result := ComCall(7, this, UInt32, dwMinIOCompletionThreads, "HRESULT")
         return result
     }
 

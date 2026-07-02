@@ -46,7 +46,7 @@ export default struct IMSVidStreamBufferSinkEvent3 extends IMSVidStreamBufferSin
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersinkevent3-licensechange
      */
     LicenseChange(dwProt) {
-        result := ComCall(13, this, "int", dwProt, "HRESULT")
+        result := ComCall(13, this, Int32, dwProt, "HRESULT")
         return result
     }
 

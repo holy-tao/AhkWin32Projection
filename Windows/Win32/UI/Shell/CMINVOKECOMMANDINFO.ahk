@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains information needed by IContextMenu::InvokeCommand to invoke a shortcut menu command.

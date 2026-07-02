@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\ICertProperty.ahk" { ICertProperty }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an external certificate property that identifies whether a certificate has been backed up and, if so, the date and time that it was saved.
@@ -152,7 +152,7 @@ export default struct ICertPropertyBackedUp extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertybackedup-initialize
      */
     Initialize(BackedUpValue, Date) {
-        result := ComCall(15, this, VARIANT_BOOL, BackedUpValue, "double", Date, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, BackedUpValue, Float64, Date, "HRESULT")
         return result
     }
 

@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RECO_LATTICE.ahk" { RECO_LATTICE }
-#Import ".\PACKET_DESCRIPTION.ahk" { PACKET_DESCRIPTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RECO_GUIDE.ahk" { RECO_GUIDE }
 #Import ".\HRECOALT.ahk" { HRECOALT }
+#Import ".\CHARACTER_RANGE.ahk" { CHARACTER_RANGE }
+#Import ".\HRECOGNIZER.ahk" { HRECOGNIZER }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\XFORM.ahk" { XFORM }
 #Import ".\RECO_ATTRS.ahk" { RECO_ATTRS }
 #Import ".\HRECOCONTEXT.ahk" { HRECOCONTEXT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RECO_LATTICE.ahk" { RECO_LATTICE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\HRECOWORDLIST.ahk" { HRECOWORDLIST }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RECO_GUIDE.ahk" { RECO_GUIDE }
-#Import ".\CHARACTER_RANGE.ahk" { CHARACTER_RANGE }
-#Import "..\..\Graphics\Gdi\XFORM.ahk" { XFORM }
-#Import ".\HRECOGNIZER.ahk" { HRECOGNIZER }
+#Import ".\PACKET_DESCRIPTION.ahk" { PACKET_DESCRIPTION }
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
@@ -726,7 +726,7 @@ export GetUnicodeRanges(hrec, pcRanges, pcr) {
 export AddStroke(hrc, pPacketDesc, cbPacket, pPacket, pXForm) {
     pPacketMarshal := pPacket is VarRef ? "char*" : "ptr"
 
-    result := DllCall("inkobjcore.dll\AddStroke", HRECOCONTEXT, hrc, PACKET_DESCRIPTION.Ptr, pPacketDesc, "uint", cbPacket, pPacketMarshal, pPacket, XFORM.Ptr, pXForm, "HRESULT")
+    result := DllCall("inkobjcore.dll\AddStroke", HRECOCONTEXT, hrc, PACKET_DESCRIPTION.Ptr, pPacketDesc, UInt32, cbPacket, pPacketMarshal, pPacket, XFORM.Ptr, pXForm, "HRESULT")
     return result
 }
 
@@ -949,7 +949,7 @@ export DestroyAlternate(hrcalt) {
  * @since windows5.1.2600
  */
 export SetGuide(hrc, pGuide, iIndex) {
-    result := DllCall("inkobjcore.dll\SetGuide", HRECOCONTEXT, hrc, RECO_GUIDE.Ptr, pGuide, "uint", iIndex, "HRESULT")
+    result := DllCall("inkobjcore.dll\SetGuide", HRECOCONTEXT, hrc, RECO_GUIDE.Ptr, pGuide, UInt32, iIndex, "HRESULT")
     return result
 }
 
@@ -1222,7 +1222,7 @@ export AdviseInkChange(hrc, bNewStroke) {
  * @since windows5.1.2600
  */
 export SetCACMode(hrc, iMode) {
-    result := DllCall("inkobjcore.dll\SetCACMode", HRECOCONTEXT, hrc, "int", iMode, "HRESULT")
+    result := DllCall("inkobjcore.dll\SetCACMode", HRECOCONTEXT, hrc, Int32, iMode, "HRESULT")
     return result
 }
 
@@ -1627,7 +1627,7 @@ export Process(hrc, pbPartialProcessing) {
 export SetFactoid(hrc, cwcFactoid, pwcFactoid) {
     pwcFactoid := pwcFactoid is String ? StrPtr(pwcFactoid) : pwcFactoid
 
-    result := DllCall("inkobjcore.dll\SetFactoid", HRECOCONTEXT, hrc, "uint", cwcFactoid, "ptr", pwcFactoid, "HRESULT")
+    result := DllCall("inkobjcore.dll\SetFactoid", HRECOCONTEXT, hrc, UInt32, cwcFactoid, "ptr", pwcFactoid, "HRESULT")
     return result
 }
 
@@ -1801,7 +1801,7 @@ export SetFactoid(hrc, cwcFactoid, pwcFactoid) {
  * @since windows5.1.2600
  */
 export SetFlags(hrc, dwFlags) {
-    result := DllCall("inkobjcore.dll\SetFlags", HRECOCONTEXT, hrc, "uint", dwFlags, "HRESULT")
+    result := DllCall("inkobjcore.dll\SetFlags", HRECOCONTEXT, hrc, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -1998,7 +1998,7 @@ export SetTextContext(hrc, cwcBefore, pwcBefore, cwcAfter, pwcAfter) {
     pwcBefore := pwcBefore is String ? StrPtr(pwcBefore) : pwcBefore
     pwcAfter := pwcAfter is String ? StrPtr(pwcAfter) : pwcAfter
 
-    result := DllCall("inkobjcore.dll\SetTextContext", HRECOCONTEXT, hrc, "uint", cwcBefore, "ptr", pwcBefore, "uint", cwcAfter, "ptr", pwcAfter, "HRESULT")
+    result := DllCall("inkobjcore.dll\SetTextContext", HRECOCONTEXT, hrc, UInt32, cwcBefore, "ptr", pwcBefore, UInt32, cwcAfter, "ptr", pwcAfter, "HRESULT")
     return result
 }
 
@@ -2177,7 +2177,7 @@ export GetEnabledUnicodeRanges(hrc, pcRanges, pcr) {
  * @since windows5.1.2600
  */
 export SetEnabledUnicodeRanges(hrc, cRanges, pcr) {
-    result := DllCall("inkobjcore.dll\SetEnabledUnicodeRanges", HRECOCONTEXT, hrc, "uint", cRanges, CHARACTER_RANGE.Ptr, pcr, "HRESULT")
+    result := DllCall("inkobjcore.dll\SetEnabledUnicodeRanges", HRECOCONTEXT, hrc, UInt32, cRanges, CHARACTER_RANGE.Ptr, pcr, "HRESULT")
     return result
 }
 
@@ -2459,7 +2459,7 @@ export GetContextPropertyValue(hrc, pGuid, pcbSize, pProperty) {
 export SetContextPropertyValue(hrc, pGuid, cbSize, pProperty) {
     pPropertyMarshal := pProperty is VarRef ? "char*" : "ptr"
 
-    result := DllCall("inkobjcore.dll\SetContextPropertyValue", HRECOCONTEXT, hrc, Guid.Ptr, pGuid, "uint", cbSize, pPropertyMarshal, pProperty, "HRESULT")
+    result := DllCall("inkobjcore.dll\SetContextPropertyValue", HRECOCONTEXT, hrc, Guid.Ptr, pGuid, UInt32, cbSize, pPropertyMarshal, pProperty, "HRESULT")
     return result
 }
 
@@ -2558,7 +2558,7 @@ export SetContextPropertyValue(hrc, pGuid, cbSize, pProperty) {
 export IsStringSupported(hrc, wcString, pwcString) {
     pwcString := pwcString is String ? StrPtr(pwcString) : pwcString
 
-    result := DllCall("inkobjcore.dll\IsStringSupported", HRECOCONTEXT, hrc, "uint", wcString, "ptr", pwcString, "HRESULT")
+    result := DllCall("inkobjcore.dll\IsStringSupported", HRECOCONTEXT, hrc, UInt32, wcString, "ptr", pwcString, "HRESULT")
     return result
 }
 

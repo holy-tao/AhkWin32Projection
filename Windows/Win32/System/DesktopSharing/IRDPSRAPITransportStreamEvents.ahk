@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRDPSRAPITransportStreamBuffer.ahk" { IRDPSRAPITransportStreamBuffer }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRDPSRAPITransportStreamBuffer.ahk" { IRDPSRAPITransportStreamBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods called by the stream interface (IRDPSRAPITransportStream) to notify the Remote Desktop Protocol (RDP) stack about the completion of events.

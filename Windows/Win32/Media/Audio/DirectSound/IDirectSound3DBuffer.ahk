@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Graphics\Direct3D\D3DVECTOR.ahk" { D3DVECTOR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DS3DBUFFER.ahk" { DS3DBUFFER }
+#Import "..\..\..\Graphics\Direct3D\D3DVECTOR.ahk" { D3DVECTOR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
@@ -151,7 +151,7 @@ export default struct IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDs3dBuffer, dwApply) {
-        result := ComCall(12, this, DS3DBUFFER.Ptr, pcDs3dBuffer, "uint", dwApply, "HRESULT")
+        result := ComCall(12, this, DS3DBUFFER.Ptr, pcDs3dBuffer, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConeAngles(dwInsideConeAngle, dwOutsideConeAngle, dwApply) {
-        result := ComCall(13, this, "uint", dwInsideConeAngle, "uint", dwOutsideConeAngle, "uint", dwApply, "HRESULT")
+        result := ComCall(13, this, UInt32, dwInsideConeAngle, UInt32, dwOutsideConeAngle, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConeOrientation(x, y, z, dwApply) {
-        result := ComCall(14, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(14, this, Float32, x, Float32, y, Float32, z, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConeOutsideVolume(lConeOutsideVolume, dwApply) {
-        result := ComCall(15, this, "int", lConeOutsideVolume, "uint", dwApply, "HRESULT")
+        result := ComCall(15, this, Int32, lConeOutsideVolume, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMaxDistance(flMaxDistance, dwApply) {
-        result := ComCall(16, this, "float", flMaxDistance, "uint", dwApply, "HRESULT")
+        result := ComCall(16, this, Float32, flMaxDistance, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -209,7 +209,7 @@ export default struct IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMinDistance(flMinDistance, dwApply) {
-        result := ComCall(17, this, "float", flMinDistance, "uint", dwApply, "HRESULT")
+        result := ComCall(17, this, Float32, flMinDistance, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -220,7 +220,7 @@ export default struct IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMode(dwMode, dwApply) {
-        result := ComCall(18, this, "uint", dwMode, "uint", dwApply, "HRESULT")
+        result := ComCall(18, this, UInt32, dwMode, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -233,7 +233,7 @@ export default struct IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPosition(x, y, z, dwApply) {
-        result := ComCall(19, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(19, this, Float32, x, Float32, y, Float32, z, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IDirectSound3DBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetVelocity(x, y, z, dwApply) {
-        result := ComCall(20, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(20, this, Float32, x, Float32, y, Float32, z, UInt32, dwApply, "HRESULT")
         return result
     }
 

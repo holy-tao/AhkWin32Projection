@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFCollection.ahk" { IMFCollection }
+#Import ".\IMFTopologyNode.ahk" { IMFTopologyNode }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import ".\IMFTopologyNode.ahk" { IMFTopologyNode }
 
 /**
  * Represents a topology. A topology describes a collection of media sources, sinks, and transforms that are connected in a certain order.
@@ -159,7 +159,7 @@ export default struct IMFTopology extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-getnode
      */
     GetNode(wIndex) {
-        result := ComCall(37, this, "ushort", wIndex, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(37, this, UInt16, wIndex, "ptr*", &ppNode := 0, "HRESULT")
         return IMFTopologyNode(ppNode)
     }
 
@@ -225,7 +225,7 @@ export default struct IMFTopology extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopology-getnodebyid
      */
     GetNodeByID(qwTopoNodeID) {
-        result := ComCall(40, this, "uint", qwTopoNodeID, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(40, this, Int64, qwTopoNodeID, "ptr*", &ppNode := 0, "HRESULT")
         return IMFTopologyNode(ppNode)
     }
 

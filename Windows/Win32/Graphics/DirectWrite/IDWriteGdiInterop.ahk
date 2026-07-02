@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Gdi\HDC.ahk" { HDC }
-#Import "..\Gdi\LOGFONTW.ahk" { LOGFONTW }
 #Import ".\IDWriteFont.ahk" { IDWriteFont }
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDWriteBitmapRenderTarget.ahk" { IDWriteBitmapRenderTarget }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Gdi\HDC.ahk" { HDC }
 
 /**
  * Provides interoperability with GDI, such as methods to convert a font face to a LOGFONT structure, or to convert a GDI font description into a font face. It is also used to create bitmap render target objects. (IDWriteGdiInterop)
@@ -141,7 +141,7 @@ export default struct IDWriteGdiInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createbitmaprendertarget
      */
     CreateBitmapRenderTarget(_hdc, width, height) {
-        result := ComCall(7, this, HDC, _hdc, "uint", width, "uint", height, "ptr*", &renderTarget := 0, "HRESULT")
+        result := ComCall(7, this, HDC, _hdc, UInt32, width, UInt32, height, "ptr*", &renderTarget := 0, "HRESULT")
         return IDWriteBitmapRenderTarget(renderTarget)
     }
 

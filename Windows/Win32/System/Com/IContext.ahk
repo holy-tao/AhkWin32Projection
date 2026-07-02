@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IEnumContextProps.ahk" { IEnumContextProps }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IContext (objidlbase.h) interface supports setting COM+ context properties.
@@ -52,7 +52,7 @@ export default struct IContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icontext-setproperty
      */
     SetProperty(rpolicyId, flags, pUnk) {
-        result := ComCall(3, this, Guid.Ptr, rpolicyId, "uint", flags, "ptr", pUnk, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rpolicyId, UInt32, flags, "ptr", pUnk, "HRESULT")
         return result
     }
 

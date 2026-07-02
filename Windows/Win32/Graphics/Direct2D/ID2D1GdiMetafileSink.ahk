@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A developer implemented interface that allows a metafile to be replayed.
@@ -56,7 +56,7 @@ export default struct ID2D1GdiMetafileSink extends IUnknown {
     ProcessRecord(recordType, recordData, recordDataSize) {
         recordDataMarshal := recordData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", recordType, recordDataMarshal, recordData, "uint", recordDataSize, "HRESULT")
+        result := ComCall(3, this, UInt32, recordType, recordDataMarshal, recordData, UInt32, recordDataSize, "HRESULT")
         return result
     }
 

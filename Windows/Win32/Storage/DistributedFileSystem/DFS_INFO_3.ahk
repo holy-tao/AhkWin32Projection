@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DFS_STORAGE_INFO.ahk" { DFS_STORAGE_INFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DFS_STORAGE_INFO.ahk" { DFS_STORAGE_INFO }
 
 /**
  * Contains information about a Distributed File System (DFS) root or link. This structure contains the name, status, number of DFS targets, and information about each target of the root or link.

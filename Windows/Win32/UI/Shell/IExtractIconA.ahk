@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * Exposes methods that allow a client to retrieve the icon that is associated with one of the objects in a folder. (ANSI)
@@ -95,7 +95,7 @@ export default struct IExtractIconA extends IUnknown {
         piIndexMarshal := piIndex is VarRef ? "int*" : "ptr"
         pwFlagsMarshal := pwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", uFlags, "ptr", pszIconFile, "uint", cchMax, piIndexMarshal, piIndex, pwFlagsMarshal, pwFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, uFlags, "ptr", pszIconFile, UInt32, cchMax, piIndexMarshal, piIndex, pwFlagsMarshal, pwFlags, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct IExtractIconA extends IUnknown {
     Extract(pszFile, nIconIndex, phiconLarge, phiconSmall, nIconSize) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(4, this, "ptr", pszFile, "uint", nIconIndex, HICON.Ptr, phiconLarge, HICON.Ptr, phiconSmall, "uint", nIconSize, "HRESULT")
+        result := ComCall(4, this, "ptr", pszFile, UInt32, nIconIndex, HICON.Ptr, phiconLarge, HICON.Ptr, phiconSmall, UInt32, nIconSize, "HRESULT")
         return result
     }
 

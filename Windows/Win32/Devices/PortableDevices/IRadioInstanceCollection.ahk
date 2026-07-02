@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IRadioInstance.ahk" { IRadioInstance }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
@@ -52,7 +52,7 @@ export default struct IRadioInstanceCollection extends IUnknown {
      * @returns {IRadioInstance} 
      */
     GetAt(uIndex) {
-        result := ComCall(4, this, "uint", uIndex, "ptr*", &ppRadioInstance := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, uIndex, "ptr*", &ppRadioInstance := 0, "HRESULT")
         return IRadioInstance(ppRadioInstance)
     }
 

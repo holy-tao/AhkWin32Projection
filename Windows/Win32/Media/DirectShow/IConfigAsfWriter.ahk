@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\WindowsMediaFormat\IWMProfile.ahk" { IWMProfile }
 
 /**
@@ -95,7 +95,7 @@ export default struct IConfigAsfWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter-configurefilterusingprofileid
      */
     ConfigureFilterUsingProfileId(dwProfileId) {
-        result := ComCall(3, this, "uint", dwProfileId, "HRESULT")
+        result := ComCall(3, this, UInt32, dwProfileId, "HRESULT")
         return result
     }
 

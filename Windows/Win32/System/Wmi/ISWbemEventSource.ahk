@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISWbemObject.ahk" { ISWbemObject }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -57,7 +57,7 @@ export default struct ISWbemEventSource extends IDispatch {
      * @returns {ISWbemObject} 
      */
     NextEvent(iTimeoutMs) {
-        result := ComCall(7, this, "int", iTimeoutMs, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(7, this, Int32, iTimeoutMs, "ptr*", &objWbemObject := 0, "HRESULT")
         return ISWbemObject(objWbemObject)
     }
 

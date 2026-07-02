@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -89,7 +89,7 @@ export default struct IAtscContentAdvisoryDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingregion
      */
     GetRecordRatingRegion(bIndex) {
-        result := ComCall(6, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(6, this, Int8, bIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -100,7 +100,7 @@ export default struct IAtscContentAdvisoryDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordrateddimensions
      */
     GetRecordRatedDimensions(bIndex) {
-        result := ComCall(7, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -112,7 +112,7 @@ export default struct IAtscContentAdvisoryDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingdimension
      */
     GetRecordRatingDimension(bIndexOuter, bIndexInner) {
-        result := ComCall(8, this, "char", bIndexOuter, "char", bIndexInner, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bIndexOuter, Int8, bIndexInner, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -124,7 +124,7 @@ export default struct IAtscContentAdvisoryDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingvalue
      */
     GetRecordRatingValue(bIndexOuter, bIndexInner) {
-        result := ComCall(9, this, "char", bIndexOuter, "char", bIndexInner, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(9, this, Int8, bIndexOuter, Int8, bIndexInner, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -169,7 +169,7 @@ export default struct IAtscContentAdvisoryDescriptor extends IUnknown {
         pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
         ppTextMarshal := ppText is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "char", bIndex, pbLengthMarshal, pbLength, ppTextMarshal, ppText, "HRESULT")
+        result := ComCall(10, this, Int8, bIndex, pbLengthMarshal, pbLength, ppTextMarshal, ppText, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
-#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
 #Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a font file loader that can access in-memory fonts.
@@ -63,7 +63,7 @@ export default struct IDWriteInMemoryFontFileLoader extends IDWriteFontFileLoade
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteinmemoryfontfileloader-createinmemoryfontfilereference
      */
     CreateInMemoryFontFileReference(factory, fontData, fontDataSize, ownerObject) {
-        result := ComCall(4, this, "ptr", factory, "ptr", fontData, "uint", fontDataSize, "ptr", ownerObject, "ptr*", &fontFile := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", factory, IntPtr, fontData, UInt32, fontDataSize, "ptr", ownerObject, "ptr*", &fontFile := 0, "HRESULT")
         return IDWriteFontFile(fontFile)
     }
 

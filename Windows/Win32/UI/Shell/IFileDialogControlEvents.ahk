@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFileDialogCustomize.ahk" { IFileDialogCustomize }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFileDialogCustomize.ahk" { IFileDialogCustomize }
 
 /**
  * Exposes methods that allow an application to be notified of events that are related to controls that the application has added to a common file dialog.
@@ -66,7 +66,7 @@ export default struct IFileDialogControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialogcontrolevents-onitemselected
      */
     OnItemSelected(pfdc, dwIDCtl, dwIDItem) {
-        result := ComCall(3, this, "ptr", pfdc, "uint", dwIDCtl, "uint", dwIDItem, "HRESULT")
+        result := ComCall(3, this, "ptr", pfdc, UInt32, dwIDCtl, UInt32, dwIDItem, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IFileDialogControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialogcontrolevents-onbuttonclicked
      */
     OnButtonClicked(pfdc, dwIDCtl) {
-        result := ComCall(4, this, "ptr", pfdc, "uint", dwIDCtl, "HRESULT")
+        result := ComCall(4, this, "ptr", pfdc, UInt32, dwIDCtl, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct IFileDialogControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialogcontrolevents-oncheckbuttontoggled
      */
     OnCheckButtonToggled(pfdc, dwIDCtl, bChecked) {
-        result := ComCall(5, this, "ptr", pfdc, "uint", dwIDCtl, BOOL, bChecked, "HRESULT")
+        result := ComCall(5, this, "ptr", pfdc, UInt32, dwIDCtl, BOOL, bChecked, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IFileDialogControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialogcontrolevents-oncontrolactivating
      */
     OnControlActivating(pfdc, dwIDCtl) {
-        result := ComCall(6, this, "ptr", pfdc, "uint", dwIDCtl, "HRESULT")
+        result := ComCall(6, this, "ptr", pfdc, UInt32, dwIDCtl, "HRESULT")
         return result
     }
 

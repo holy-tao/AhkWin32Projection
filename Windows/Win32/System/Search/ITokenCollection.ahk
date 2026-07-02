@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets the tokens that result from using a word breaker.
@@ -80,7 +80,7 @@ export default struct ITokenCollection extends IUnknown {
         pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
         ppszMarshal := ppsz is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", i, pBeginMarshal, pBegin, pLengthMarshal, pLength, ppszMarshal, ppsz, "HRESULT")
+        result := ComCall(4, this, UInt32, i, pBeginMarshal, pBegin, pLengthMarshal, pLength, ppszMarshal, ppsz, "HRESULT")
         return result
     }
 

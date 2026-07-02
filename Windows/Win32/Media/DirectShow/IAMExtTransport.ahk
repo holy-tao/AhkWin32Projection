@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMExtTransport interface controls the transport on a video tape recporder (VTR) or camcorder.
@@ -305,7 +305,7 @@ export default struct IAMExtTransport extends IUnknown {
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
         pdblValueMarshal := pdblValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(3, this, "int", Capability, pValueMarshal, pValue, pdblValueMarshal, pdblValue, "HRESULT")
+        result := ComCall(3, this, Int32, Capability, pValueMarshal, pValue, pdblValueMarshal, pdblValue, "HRESULT")
         return result
     }
 
@@ -340,7 +340,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-put_mediastate
      */
     put_MediaState(State) {
-        result := ComCall(4, this, "int", State, "HRESULT")
+        result := ComCall(4, this, Int32, State, "HRESULT")
         return result
     }
 
@@ -378,7 +378,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-put_localcontrol
      */
     put_LocalControl(State) {
-        result := ComCall(6, this, "int", State, "HRESULT")
+        result := ComCall(6, this, Int32, State, "HRESULT")
         return result
     }
 
@@ -593,7 +593,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-getstatus
      */
     GetStatus(StatusItem) {
-        result := ComCall(8, this, "int", StatusItem, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(8, this, Int32, StatusItem, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -738,7 +738,7 @@ export default struct IAMExtTransport extends IUnknown {
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
         ppszDataMarshal := ppszData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "int", Param, pValueMarshal, pValue, ppszDataMarshal, ppszData, "HRESULT")
+        result := ComCall(9, this, Int32, Param, pValueMarshal, pValue, ppszDataMarshal, ppszData, "HRESULT")
         return result
     }
 
@@ -971,7 +971,7 @@ export default struct IAMExtTransport extends IUnknown {
     SetTransportBasicParameters(Param, Value, pszData) {
         pszData := pszData is String ? StrPtr(pszData) : pszData
 
-        result := ComCall(10, this, "int", Param, "int", Value, "ptr", pszData, "HRESULT")
+        result := ComCall(10, this, Int32, Param, Int32, Value, "ptr", pszData, "HRESULT")
         return result
     }
 
@@ -1012,7 +1012,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-gettransportvideoparameters
      */
     GetTransportVideoParameters(Param) {
-        result := ComCall(11, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(11, this, Int32, Param, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1054,7 +1054,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-settransportvideoparameters
      */
     SetTransportVideoParameters(Param, Value) {
-        result := ComCall(12, this, "int", Param, "int", Value, "HRESULT")
+        result := ComCall(12, this, Int32, Param, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1065,7 +1065,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-gettransportaudioparameters
      */
     GetTransportAudioParameters(Param) {
-        result := ComCall(13, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(13, this, Int32, Param, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1112,7 +1112,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-settransportaudioparameters
      */
     SetTransportAudioParameters(Param, Value) {
-        result := ComCall(14, this, "int", Param, "int", Value, "HRESULT")
+        result := ComCall(14, this, Int32, Param, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1152,7 +1152,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-put_mode
      */
     put_Mode(_Mode) {
-        result := ComCall(15, this, "int", _Mode, "HRESULT")
+        result := ComCall(15, this, Int32, _Mode, "HRESULT")
         return result
     }
 
@@ -1173,7 +1173,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-put_rate
      */
     put_Rate(dblRate) {
-        result := ComCall(17, this, "double", dblRate, "HRESULT")
+        result := ComCall(17, this, Float64, dblRate, "HRESULT")
         return result
     }
 
@@ -1238,7 +1238,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-setchase
      */
     SetChase(Enable, Offset, hEvent) {
-        result := ComCall(20, this, "int", Enable, "int", Offset, "ptr", hEvent, "HRESULT")
+        result := ComCall(20, this, Int32, Enable, Int32, Offset, IntPtr, hEvent, "HRESULT")
         return result
     }
 
@@ -1277,7 +1277,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-setbump
      */
     SetBump(Speed, Duration) {
-        result := ComCall(22, this, "int", Speed, "int", Duration, "HRESULT")
+        result := ComCall(22, this, Int32, Speed, Int32, Duration, "HRESULT")
         return result
     }
 
@@ -1321,7 +1321,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-put_anticlogcontrol
      */
     put_AntiClogControl(Enable) {
-        result := ComCall(24, this, "int", Enable, "HRESULT")
+        result := ComCall(24, this, Int32, Enable, "HRESULT")
         return result
     }
 
@@ -1353,7 +1353,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-geteditpropertyset
      */
     GetEditPropertySet(EditID) {
-        result := ComCall(25, this, "int", EditID, "int*", &pState := 0, "HRESULT")
+        result := ComCall(25, this, Int32, EditID, "int*", &pState := 0, "HRESULT")
         return pState
     }
 
@@ -1445,7 +1445,7 @@ export default struct IAMExtTransport extends IUnknown {
     SetEditPropertySet(pEditID, State) {
         pEditIDMarshal := pEditID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(26, this, pEditIDMarshal, pEditID, "int", State, "HRESULT")
+        result := ComCall(26, this, pEditIDMarshal, pEditID, Int32, State, "HRESULT")
         return result
     }
 
@@ -1463,7 +1463,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-geteditproperty
      */
     GetEditProperty(EditID, Param) {
-        result := ComCall(27, this, "int", EditID, "int", Param, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(27, this, Int32, EditID, Int32, Param, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1591,7 +1591,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-seteditproperty
      */
     SetEditProperty(EditID, Param, Value) {
-        result := ComCall(28, this, "int", EditID, "int", Param, "int", Value, "HRESULT")
+        result := ComCall(28, this, Int32, EditID, Int32, Param, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1652,7 +1652,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-put_editstart
      */
     put_EditStart(Value) {
-        result := ComCall(30, this, "int", Value, "HRESULT")
+        result := ComCall(30, this, Int32, Value, "HRESULT")
         return result
     }
 

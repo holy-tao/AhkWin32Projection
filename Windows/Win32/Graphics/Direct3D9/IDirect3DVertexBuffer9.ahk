@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3DVERTEXBUFFER_DESC.ahk" { D3DVERTEXBUFFER_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirect3DVertexBuffer9 (d3d9.h) interface is used by applications to manipulate vertex buffer resources.
@@ -97,7 +97,7 @@ export default struct IDirect3DVertexBuffer9 extends IDirect3DResource9 {
     Lock(OffsetToLock, SizeToLock, ppbData, Flags) {
         ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "uint", OffsetToLock, "uint", SizeToLock, ppbDataMarshal, ppbData, "uint", Flags, "HRESULT")
+        result := ComCall(11, this, UInt32, OffsetToLock, UInt32, SizeToLock, ppbDataMarshal, ppbData, UInt32, Flags, "HRESULT")
         return result
     }
 

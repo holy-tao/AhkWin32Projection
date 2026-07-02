@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PDH_RAW_COUNTER.ahk" { PDH_RAW_COUNTER }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PDH_RAW_COUNTER.ahk" { PDH_RAW_COUNTER }
 
 /**
  * The PDH_RAW_COUNTER_ITEM structure contains the instance name and raw value of a counter. (Unicode)

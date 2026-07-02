@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ASF_STATUSFLAGS.ahk" { ASF_STATUSFLAGS }
 #Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
 #Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ASF_STATUSFLAGS.ahk" { ASF_STATUSFLAGS }
 
 /**
  * Provides methods to read data from an Advanced Systems Format (ASF) file.
@@ -151,7 +151,7 @@ export default struct IMFASFSplitter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-setflags
      */
     SetFlags(dwFlags) {
-        result := ComCall(4, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -221,7 +221,7 @@ export default struct IMFASFSplitter extends IUnknown {
     SelectStreams(pwStreamNumbers, wNumStreams) {
         pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, pwStreamNumbersMarshal, pwStreamNumbers, "ushort", wNumStreams, "HRESULT")
+        result := ComCall(6, this, pwStreamNumbersMarshal, pwStreamNumbers, UInt16, wNumStreams, "HRESULT")
         return result
     }
 
@@ -355,7 +355,7 @@ export default struct IMFASFSplitter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-parsedata
      */
     ParseData(pIBuffer, cbBufferOffset, cbLength) {
-        result := ComCall(8, this, "ptr", pIBuffer, "uint", cbBufferOffset, "uint", cbLength, "HRESULT")
+        result := ComCall(8, this, "ptr", pIBuffer, UInt32, cbBufferOffset, UInt32, cbLength, "HRESULT")
         return result
     }
 

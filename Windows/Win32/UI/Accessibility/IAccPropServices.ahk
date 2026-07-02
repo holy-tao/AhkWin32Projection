@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AnnoScope.ahk" { AnnoScope }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IAccPropServer.ahk" { IAccPropServer }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import ".\AnnoScope.ahk" { AnnoScope }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IAccPropServer.ahk" { IAccPropServer }
 
 /**
  * Exposes methods for annotating accessible elements and for manipulating identity strings.
@@ -85,7 +85,7 @@ export default struct IAccPropServices extends IUnknown {
     SetPropValue(pIDString, dwIDStringLen, idProp, var) {
         pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, Guid, idProp, VARIANT, var, "HRESULT")
+        result := ComCall(3, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, Guid, idProp, VARIANT, var, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IAccPropServices extends IUnknown {
     SetPropServer(pIDString, dwIDStringLen, paProps, cProps, pServer, _annoScope) {
         pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, Guid.Ptr, paProps, "int", cProps, "ptr", pServer, AnnoScope, _annoScope, "HRESULT")
+        result := ComCall(4, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, Guid.Ptr, paProps, Int32, cProps, "ptr", pServer, AnnoScope, _annoScope, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct IAccPropServices extends IUnknown {
     ClearProps(pIDString, dwIDStringLen, paProps, cProps) {
         pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, Guid.Ptr, paProps, "int", cProps, "HRESULT")
+        result := ComCall(5, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, Guid.Ptr, paProps, Int32, cProps, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethwndprop
      */
     SetHwndProp(_hwnd, idObject, idChild, idProp, var) {
-        result := ComCall(6, this, HWND, _hwnd, "uint", idObject, "uint", idChild, Guid, idProp, VARIANT, var, "HRESULT")
+        result := ComCall(6, this, HWND, _hwnd, UInt32, idObject, UInt32, idChild, Guid, idProp, VARIANT, var, "HRESULT")
         return result
     }
 
@@ -225,7 +225,7 @@ export default struct IAccPropServices extends IUnknown {
     SetHwndPropStr(_hwnd, idObject, idChild, idProp, str) {
         str := str is String ? StrPtr(str) : str
 
-        result := ComCall(7, this, HWND, _hwnd, "uint", idObject, "uint", idChild, Guid, idProp, "ptr", str, "HRESULT")
+        result := ComCall(7, this, HWND, _hwnd, UInt32, idObject, UInt32, idChild, Guid, idProp, "ptr", str, "HRESULT")
         return result
     }
 
@@ -264,7 +264,7 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethwndpropserver
      */
     SetHwndPropServer(_hwnd, idObject, idChild, paProps, cProps, pServer, _annoScope) {
-        result := ComCall(8, this, HWND, _hwnd, "uint", idObject, "uint", idChild, Guid.Ptr, paProps, "int", cProps, "ptr", pServer, AnnoScope, _annoScope, "HRESULT")
+        result := ComCall(8, this, HWND, _hwnd, UInt32, idObject, UInt32, idChild, Guid.Ptr, paProps, Int32, cProps, "ptr", pServer, AnnoScope, _annoScope, "HRESULT")
         return result
     }
 
@@ -301,7 +301,7 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-clearhwndprops
      */
     ClearHwndProps(_hwnd, idObject, idChild, paProps, cProps) {
-        result := ComCall(9, this, HWND, _hwnd, "uint", idObject, "uint", idChild, Guid.Ptr, paProps, "int", cProps, "HRESULT")
+        result := ComCall(9, this, HWND, _hwnd, UInt32, idObject, UInt32, idChild, Guid.Ptr, paProps, Int32, cProps, "HRESULT")
         return result
     }
 
@@ -335,7 +335,7 @@ export default struct IAccPropServices extends IUnknown {
         ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
         pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, HWND, _hwnd, "uint", idObject, "uint", idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
+        result := ComCall(10, this, HWND, _hwnd, UInt32, idObject, UInt32, idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
     }
 
@@ -372,7 +372,7 @@ export default struct IAccPropServices extends IUnknown {
         pidObjectMarshal := pidObject is VarRef ? "uint*" : "ptr"
         pidChildMarshal := pidChild is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, HWND.Ptr, phwnd, pidObjectMarshal, pidObject, pidChildMarshal, pidChild, "HRESULT")
+        result := ComCall(11, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, HWND.Ptr, phwnd, pidObjectMarshal, pidObject, pidChildMarshal, pidChild, "HRESULT")
         return result
     }
 
@@ -398,7 +398,7 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethmenuprop
      */
     SetHmenuProp(_hmenu, idChild, idProp, var) {
-        result := ComCall(12, this, HMENU, _hmenu, "uint", idChild, Guid, idProp, VARIANT, var, "HRESULT")
+        result := ComCall(12, this, HMENU, _hmenu, UInt32, idChild, Guid, idProp, VARIANT, var, "HRESULT")
         return result
     }
 
@@ -428,7 +428,7 @@ export default struct IAccPropServices extends IUnknown {
     SetHmenuPropStr(_hmenu, idChild, idProp, str) {
         str := str is String ? StrPtr(str) : str
 
-        result := ComCall(13, this, HMENU, _hmenu, "uint", idChild, Guid, idProp, "ptr", str, "HRESULT")
+        result := ComCall(13, this, HMENU, _hmenu, UInt32, idChild, Guid, idProp, "ptr", str, "HRESULT")
         return result
     }
 
@@ -464,7 +464,7 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-sethmenupropserver
      */
     SetHmenuPropServer(_hmenu, idChild, paProps, cProps, pServer, _annoScope) {
-        result := ComCall(14, this, HMENU, _hmenu, "uint", idChild, Guid.Ptr, paProps, "int", cProps, "ptr", pServer, AnnoScope, _annoScope, "HRESULT")
+        result := ComCall(14, this, HMENU, _hmenu, UInt32, idChild, Guid.Ptr, paProps, Int32, cProps, "ptr", pServer, AnnoScope, _annoScope, "HRESULT")
         return result
     }
 
@@ -496,7 +496,7 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-clearhmenuprops
      */
     ClearHmenuProps(_hmenu, idChild, paProps, cProps) {
-        result := ComCall(15, this, HMENU, _hmenu, "uint", idChild, Guid.Ptr, paProps, "int", cProps, "HRESULT")
+        result := ComCall(15, this, HMENU, _hmenu, UInt32, idChild, Guid.Ptr, paProps, Int32, cProps, "HRESULT")
         return result
     }
 
@@ -527,7 +527,7 @@ export default struct IAccPropServices extends IUnknown {
         ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
         pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, HMENU, _hmenu, "uint", idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
+        result := ComCall(16, this, HMENU, _hmenu, UInt32, idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
     }
 
@@ -560,7 +560,7 @@ export default struct IAccPropServices extends IUnknown {
         pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
         pidChildMarshal := pidChild is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, HMENU.Ptr, phmenu, pidChildMarshal, pidChild, "HRESULT")
+        result := ComCall(17, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, HMENU.Ptr, phmenu, pidChildMarshal, pidChild, "HRESULT")
         return result
     }
 

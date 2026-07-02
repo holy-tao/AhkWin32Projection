@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITrigger.ahk" { ITrigger }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TASK_SESSION_STATE_CHANGE_TYPE.ahk" { TASK_SESSION_STATE_CHANGE_TYPE }
-#Import ".\ITrigger.ahk" { ITrigger }
 
 /**
  * Triggers tasks for console connect or disconnect, remote connect or disconnect, or workstation lock or unlock notifications.

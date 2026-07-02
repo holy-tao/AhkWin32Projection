@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AUTHENTICATION_INFO.ahk" { AUTHENTICATION_INFO }
 #Import "..\Com\BLOB.ahk" { BLOB }
+#Import ".\AUTHENTICATION_INFO.ahk" { AUTHENTICATION_INFO }
 #Import ".\INCREMENTAL_ACCESS_INFO.ahk" { INCREMENTAL_ACCESS_INFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IUrlAccessor.ahk" { IUrlAccessor }
-#Import ".\ISearchProtocol.ahk" { ISearchProtocol }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITEM_INFO.ahk" { ITEM_INFO }
+#Import ".\ISearchProtocol.ahk" { ISearchProtocol }
 
 /**
  * Provides methods for invoking, initializing, and managing IUrlAccessor objects. (ISearchProtocol2)

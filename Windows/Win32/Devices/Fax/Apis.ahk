@@ -1,37 +1,40 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IStillImageW.ahk" { IStillImageW }
-#Import ".\FAX_ROUTING_METHODA.ahk" { FAX_ROUTING_METHODA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\FAX_CONTEXT_INFOW.ahk" { FAX_CONTEXT_INFOW }
-#Import ".\FAX_PORT_INFOA.ahk" { FAX_PORT_INFOA }
-#Import ".\FAX_JOB_PARAMA.ahk" { FAX_JOB_PARAMA }
-#Import ".\FAX_DEVICE_STATUSA.ahk" { FAX_DEVICE_STATUSA }
-#Import ".\SendToMode.ahk" { SendToMode }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\FAX_LOG_CATEGORYW.ahk" { FAX_LOG_CATEGORYW }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\FAX_CONFIGURATIONW.ahk" { FAX_CONFIGURATIONW }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\FAX_LOG_CATEGORYA.ahk" { FAX_LOG_CATEGORYA }
-#Import ".\FAX_JOB_PARAMW.ahk" { FAX_JOB_PARAMW }
-#Import ".\FAX_PRINT_INFOW.ahk" { FAX_PRINT_INFOW }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\SendToMode.ahk" { SendToMode }
+#Import ".\PFAX_ROUTING_INSTALLATION_CALLBACKW.ahk" { PFAX_ROUTING_INSTALLATION_CALLBACKW }
+#Import ".\FAX_CONFIGURATIONW.ahk" { FAX_CONFIGURATIONW }
 #Import ".\FAX_JOB_ENTRYW.ahk" { FAX_JOB_ENTRYW }
-#Import ".\FAX_CONFIGURATIONA.ahk" { FAX_CONFIGURATIONA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FAX_ROUTING_METHODW.ahk" { FAX_ROUTING_METHODW }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\FAX_PRINT_INFOA.ahk" { FAX_PRINT_INFOA }
-#Import ".\FAX_GLOBAL_ROUTING_INFOA.ahk" { FAX_GLOBAL_ROUTING_INFOA }
+#Import ".\FAX_JOB_PARAMW.ahk" { FAX_JOB_PARAMW }
 #Import ".\FAX_COVERPAGE_INFOA.ahk" { FAX_COVERPAGE_INFOA }
-#Import ".\FAX_GLOBAL_ROUTING_INFOW.ahk" { FAX_GLOBAL_ROUTING_INFOW }
-#Import ".\FAX_JOB_ENTRYA.ahk" { FAX_JOB_ENTRYA }
-#Import ".\FAX_COVERPAGE_INFOW.ahk" { FAX_COVERPAGE_INFOW }
 #Import ".\FAX_CONTEXT_INFOA.ahk" { FAX_CONTEXT_INFOA }
-#Import ".\FAX_DEVICE_STATUSW.ahk" { FAX_DEVICE_STATUSW }
+#Import ".\FAX_JOB_PARAMA.ahk" { FAX_JOB_PARAMA }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\FAX_CONTEXT_INFOW.ahk" { FAX_CONTEXT_INFOW }
+#Import ".\FAX_DEVICE_STATUSA.ahk" { FAX_DEVICE_STATUSA }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FAX_PRINT_INFOW.ahk" { FAX_PRINT_INFOW }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IStillImageW.ahk" { IStillImageW }
+#Import ".\FAX_CONFIGURATIONA.ahk" { FAX_CONFIGURATIONA }
+#Import ".\FAX_PORT_INFOA.ahk" { FAX_PORT_INFOA }
 #Import ".\FAX_PORT_INFOW.ahk" { FAX_PORT_INFOW }
+#Import ".\FAX_DEVICE_STATUSW.ahk" { FAX_DEVICE_STATUSW }
+#Import ".\PFAX_RECIPIENT_CALLBACKW.ahk" { PFAX_RECIPIENT_CALLBACKW }
+#Import ".\FAX_PRINT_INFOA.ahk" { FAX_PRINT_INFOA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FAX_GLOBAL_ROUTING_INFOW.ahk" { FAX_GLOBAL_ROUTING_INFOW }
+#Import ".\FAX_COVERPAGE_INFOW.ahk" { FAX_COVERPAGE_INFOW }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\FAX_ROUTING_METHODA.ahk" { FAX_ROUTING_METHODA }
+#Import ".\FAX_GLOBAL_ROUTING_INFOA.ahk" { FAX_GLOBAL_ROUTING_INFOA }
+#Import ".\FAX_LOG_CATEGORYW.ahk" { FAX_LOG_CATEGORYW }
+#Import ".\FAX_JOB_ENTRYA.ahk" { FAX_JOB_ENTRYA }
+#Import ".\PFAX_RECIPIENT_CALLBACKA.ahk" { PFAX_RECIPIENT_CALLBACKA }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -221,7 +224,7 @@ export FaxClose(FaxHandle) {
  * @returns {BOOL} 
  */
 export FaxOpenPort(FaxHandle, DeviceId, Flags, FaxPortHandle) {
-    result := DllCall("WINFAX.dll\FaxOpenPort", HANDLE, FaxHandle, "uint", DeviceId, "uint", Flags, HANDLE.Ptr, FaxPortHandle, BOOL)
+    result := DllCall("WINFAX.dll\FaxOpenPort", HANDLE, FaxHandle, UInt32, DeviceId, UInt32, Flags, HANDLE.Ptr, FaxPortHandle, BOOL)
     return result
 }
 
@@ -676,7 +679,7 @@ export FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientC
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
+    result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, PFAX_RECIPIENT_CALLBACKA, FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -797,7 +800,7 @@ export FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientC
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
+    result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, PFAX_RECIPIENT_CALLBACKW, FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1050,7 +1053,7 @@ export FaxGetJobA(FaxHandle, JobId, JobEntry) {
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxGetJobA", HANDLE, FaxHandle, "uint", JobId, JobEntryMarshal, JobEntry, BOOL)
+    result := DllCall("WINFAX.dll\FaxGetJobA", HANDLE, FaxHandle, UInt32, JobId, JobEntryMarshal, JobEntry, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1135,7 +1138,7 @@ export FaxGetJobW(FaxHandle, JobId, JobEntry) {
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxGetJobW", HANDLE, FaxHandle, "uint", JobId, JobEntryMarshal, JobEntry, BOOL)
+    result := DllCall("WINFAX.dll\FaxGetJobW", HANDLE, FaxHandle, UInt32, JobId, JobEntryMarshal, JobEntry, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1206,7 +1209,7 @@ export FaxGetJobW(FaxHandle, JobId, JobEntry) {
 export FaxSetJobA(FaxHandle, JobId, Command, JobEntry) {
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSetJobA", HANDLE, FaxHandle, "uint", JobId, "uint", Command, FAX_JOB_ENTRYA.Ptr, JobEntry, BOOL)
+    result := DllCall("WINFAX.dll\FaxSetJobA", HANDLE, FaxHandle, UInt32, JobId, UInt32, Command, FAX_JOB_ENTRYA.Ptr, JobEntry, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1277,7 +1280,7 @@ export FaxSetJobA(FaxHandle, JobId, Command, JobEntry) {
 export FaxSetJobW(FaxHandle, JobId, Command, JobEntry) {
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSetJobW", HANDLE, FaxHandle, "uint", JobId, "uint", Command, FAX_JOB_ENTRYW.Ptr, JobEntry, BOOL)
+    result := DllCall("WINFAX.dll\FaxSetJobW", HANDLE, FaxHandle, UInt32, JobId, UInt32, Command, FAX_JOB_ENTRYW.Ptr, JobEntry, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1301,7 +1304,7 @@ export FaxGetPageData(FaxHandle, JobId, _Buffer, BufferSize, ImageWidth, ImageHe
     ImageWidthMarshal := ImageWidth is VarRef ? "uint*" : "ptr"
     ImageHeightMarshal := ImageHeight is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WINFAX.dll\FaxGetPageData", HANDLE, FaxHandle, "uint", JobId, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, ImageWidthMarshal, ImageWidth, ImageHeightMarshal, ImageHeight, BOOL)
+    result := DllCall("WINFAX.dll\FaxGetPageData", HANDLE, FaxHandle, UInt32, JobId, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, ImageWidthMarshal, ImageWidth, ImageHeightMarshal, ImageHeight, BOOL)
     return result
 }
 
@@ -1472,7 +1475,7 @@ export FaxGetDeviceStatusW(FaxPortHandle, DeviceStatus) {
  * @returns {BOOL} 
  */
 export FaxAbort(FaxHandle, JobId) {
-    result := DllCall("WINFAX.dll\FaxAbort", HANDLE, FaxHandle, "uint", JobId, BOOL)
+    result := DllCall("WINFAX.dll\FaxAbort", HANDLE, FaxHandle, UInt32, JobId, BOOL)
     return result
 }
 
@@ -2054,7 +2057,7 @@ export FaxGetLoggingCategoriesW(FaxHandle, Categories, NumberCategories) {
 export FaxSetLoggingCategoriesA(FaxHandle, Categories, NumberCategories) {
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSetLoggingCategoriesA", HANDLE, FaxHandle, FAX_LOG_CATEGORYA.Ptr, Categories, "uint", NumberCategories, BOOL)
+    result := DllCall("WINFAX.dll\FaxSetLoggingCategoriesA", HANDLE, FaxHandle, FAX_LOG_CATEGORYA.Ptr, Categories, UInt32, NumberCategories, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2144,7 +2147,7 @@ export FaxSetLoggingCategoriesA(FaxHandle, Categories, NumberCategories) {
 export FaxSetLoggingCategoriesW(FaxHandle, Categories, NumberCategories) {
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSetLoggingCategoriesW", HANDLE, FaxHandle, FAX_LOG_CATEGORYW.Ptr, Categories, "uint", NumberCategories, BOOL)
+    result := DllCall("WINFAX.dll\FaxSetLoggingCategoriesW", HANDLE, FaxHandle, FAX_LOG_CATEGORYW.Ptr, Categories, UInt32, NumberCategories, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3650,7 +3653,7 @@ export FaxSetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, Routing
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSetRoutingInfoA", HANDLE, FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, "uint", RoutingInfoBufferSize, BOOL)
+    result := DllCall("WINFAX.dll\FaxSetRoutingInfoA", HANDLE, FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, UInt32, RoutingInfoBufferSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3746,7 +3749,7 @@ export FaxSetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, Routing
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxSetRoutingInfoW", HANDLE, FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, "uint", RoutingInfoBufferSize, BOOL)
+    result := DllCall("WINFAX.dll\FaxSetRoutingInfoW", HANDLE, FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, UInt32, RoutingInfoBufferSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3764,7 +3767,7 @@ export FaxSetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, Routing
  * @returns {BOOL} 
  */
 export FaxInitializeEventQueue(FaxHandle, CompletionPort, CompletionKey, _hWnd, MessageStart) {
-    result := DllCall("WINFAX.dll\FaxInitializeEventQueue", HANDLE, FaxHandle, HANDLE, CompletionPort, "ptr", CompletionKey, HWND, _hWnd, "uint", MessageStart, BOOL)
+    result := DllCall("WINFAX.dll\FaxInitializeEventQueue", HANDLE, FaxHandle, HANDLE, CompletionPort, IntPtr, CompletionKey, HWND, _hWnd, UInt32, MessageStart, BOOL)
     return result
 }
 
@@ -4347,7 +4350,7 @@ export FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, Imag
 
     A_LastError := 0
 
-    result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", HANDLE, FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, _ContextMarshal, _Context, BOOL)
+    result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", HANDLE, FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, PFAX_ROUTING_INSTALLATION_CALLBACKW, CallBack, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4362,7 +4365,7 @@ export FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, Imag
  * @returns {BOOL} 
  */
 export FaxAccessCheck(FaxHandle, AccessMask) {
-    result := DllCall("WINFAX.dll\FaxAccessCheck", HANDLE, FaxHandle, "uint", AccessMask, BOOL)
+    result := DllCall("WINFAX.dll\FaxAccessCheck", HANDLE, FaxHandle, UInt32, AccessMask, BOOL)
     return result
 }
 
@@ -4417,7 +4420,7 @@ export SendToFaxRecipient(sndMode, lpFileName) {
  * @returns {IStillImageW} 
  */
 export StiCreateInstanceW(hinst, dwVer, punkOuter) {
-    result := DllCall("STI.dll\StiCreateInstanceW", HINSTANCE, hinst, "uint", dwVer, "ptr*", &ppSti := 0, "ptr", punkOuter, "HRESULT")
+    result := DllCall("STI.dll\StiCreateInstanceW", HINSTANCE, hinst, UInt32, dwVer, "ptr*", &ppSti := 0, "ptr", punkOuter, "HRESULT")
     return IStillImageW(ppSti)
 }
 

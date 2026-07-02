@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ILoadChangeContext.ahk" { ILoadChangeContext }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ILoadChangeContext.ahk" { ILoadChangeContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDataRetrieverCallback.ahk" { IDataRetrieverCallback }
 
 /**

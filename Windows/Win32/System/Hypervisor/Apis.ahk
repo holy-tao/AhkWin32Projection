@@ -1,57 +1,59 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import ".\WHV_REGISTER_VALUE.ahk" { WHV_REGISTER_VALUE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\WHV_TRANSLATE_GVA_RESULT.ahk" { WHV_TRANSLATE_GVA_RESULT }
+#Import ".\WHV_VPCI_DEVICE_PROPERTY_CODE.ahk" { WHV_VPCI_DEVICE_PROPERTY_CODE }
+#Import ".\MODULE_INFO.ahk" { MODULE_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Power\DEVICE_POWER_STATE.ahk" { DEVICE_POWER_STATE }
+#Import ".\WHV_ACCESS_GPA_CONTROLS.ahk" { WHV_ACCESS_GPA_CONTROLS }
+#Import ".\WHV_VIRTUAL_PROCESSOR_STATE_TYPE.ahk" { WHV_VIRTUAL_PROCESSOR_STATE_TYPE }
+#Import "..\HostComputeSystem\HCS_SYSTEM.ahk" { HCS_SYSTEM }
+#Import ".\WHV_MAP_GPA_RANGE_FLAGS.ahk" { WHV_MAP_GPA_RANGE_FLAGS }
 #Import ".\VIRTUAL_PROCESSOR_REGISTER.ahk" { VIRTUAL_PROCESSOR_REGISTER }
 #Import ".\WHV_INTERRUPT_DESTINATION_MODE.ahk" { WHV_INTERRUPT_DESTINATION_MODE }
-#Import ".\WHV_VPCI_DEVICE_REGISTER.ahk" { WHV_VPCI_DEVICE_REGISTER }
-#Import ".\WHV_CREATE_VPCI_DEVICE_FLAGS.ahk" { WHV_CREATE_VPCI_DEVICE_FLAGS }
-#Import ".\WHV_VPCI_DEVICE_PROPERTY_CODE.ahk" { WHV_VPCI_DEVICE_PROPERTY_CODE }
-#Import ".\VIRTUAL_PROCESSOR_ARCH.ahk" { VIRTUAL_PROCESSOR_ARCH }
-#Import ".\WHV_PARTITION_COUNTER_SET.ahk" { WHV_PARTITION_COUNTER_SET }
-#Import ".\HDV_PCI_BAR_SELECTOR.ahk" { HDV_PCI_BAR_SELECTOR }
+#Import ".\WHV_TRIGGER_PARAMETERS.ahk" { WHV_TRIGGER_PARAMETERS }
+#Import ".\WHV_MEMORY_ACCESS_CONTEXT.ahk" { WHV_MEMORY_ACCESS_CONTEXT }
+#Import ".\PAGING_MODE.ahk" { PAGING_MODE }
+#Import ".\WHV_VP_EXIT_CONTEXT.ahk" { WHV_VP_EXIT_CONTEXT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WHV_REGISTER_NAME.ahk" { WHV_REGISTER_NAME }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WHV_VPCI_MMIO_MAPPING.ahk" { WHV_VPCI_MMIO_MAPPING }
 #Import ".\WHV_ALLOCATE_VPCI_RESOURCE_FLAGS.ahk" { WHV_ALLOCATE_VPCI_RESOURCE_FLAGS }
 #Import ".\WHV_ADVISE_GPA_RANGE_CODE.ahk" { WHV_ADVISE_GPA_RANGE_CODE }
-#Import ".\HDV_DEVICE_TYPE.ahk" { HDV_DEVICE_TYPE }
-#Import ".\WHV_TRANSLATE_GVA_FLAGS.ahk" { WHV_TRANSLATE_GVA_FLAGS }
-#Import ".\GPA_MEMORY_CHUNK.ahk" { GPA_MEMORY_CHUNK }
-#Import ".\PAGING_MODE.ahk" { PAGING_MODE }
-#Import ".\WHV_REGISTER_NAME.ahk" { WHV_REGISTER_NAME }
-#Import ".\WHV_TRANSLATE_GVA_RESULT.ahk" { WHV_TRANSLATE_GVA_RESULT }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\WHV_REGISTER_VALUE.ahk" { WHV_REGISTER_VALUE }
-#Import ".\WHV_VIRTUAL_PROCESSOR_STATE_TYPE.ahk" { WHV_VIRTUAL_PROCESSOR_STATE_TYPE }
 #Import ".\WHV_EMULATOR_CALLBACKS.ahk" { WHV_EMULATOR_CALLBACKS }
-#Import ".\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk" { WHV_X64_IO_PORT_ACCESS_CONTEXT }
-#Import ".\WHV_EMULATOR_STATUS.ahk" { WHV_EMULATOR_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WHV_NOTIFICATION_PORT_PARAMETERS.ahk" { WHV_NOTIFICATION_PORT_PARAMETERS }
-#Import ".\WHV_SYNIC_EVENT_PARAMETERS.ahk" { WHV_SYNIC_EVENT_PARAMETERS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MODULE_INFO.ahk" { MODULE_INFO }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\WHV_TRIGGER_PARAMETERS.ahk" { WHV_TRIGGER_PARAMETERS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WHV_MEMORY_ACCESS_CONTEXT.ahk" { WHV_MEMORY_ACCESS_CONTEXT }
-#Import ".\WHV_CPUID_OUTPUT.ahk" { WHV_CPUID_OUTPUT }
-#Import ".\WHV_MAP_GPA_RANGE_FLAGS.ahk" { WHV_MAP_GPA_RANGE_FLAGS }
-#Import ".\HDV_MMIO_MAPPING_FLAGS.ahk" { HDV_MMIO_MAPPING_FLAGS }
-#Import ".\WHV_VPCI_INTERRUPT_TARGET.ahk" { WHV_VPCI_INTERRUPT_TARGET }
-#Import ".\GUEST_OS_INFO.ahk" { GUEST_OS_INFO }
-#Import "..\Power\DEVICE_POWER_STATE.ahk" { DEVICE_POWER_STATE }
-#Import ".\WHV_CAPABILITY_CODE.ahk" { WHV_CAPABILITY_CODE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WHV_VIRTUAL_PROCESSOR_PROPERTY.ahk" { WHV_VIRTUAL_PROCESSOR_PROPERTY }
-#Import ".\WHV_PARTITION_HANDLE.ahk" { WHV_PARTITION_HANDLE }
-#Import ".\HDV_DEVICE_HOST_FLAGS.ahk" { HDV_DEVICE_HOST_FLAGS }
-#Import ".\WHV_MEMORY_RANGE_ENTRY.ahk" { WHV_MEMORY_RANGE_ENTRY }
-#Import ".\WHV_ACCESS_GPA_CONTROLS.ahk" { WHV_ACCESS_GPA_CONTROLS }
-#Import ".\WHV_NOTIFICATION_PORT_PROPERTY_CODE.ahk" { WHV_NOTIFICATION_PORT_PROPERTY_CODE }
-#Import ".\WHV_DOORBELL_MATCH_DATA.ahk" { WHV_DOORBELL_MATCH_DATA }
-#Import ".\WHV_VP_EXIT_CONTEXT.ahk" { WHV_VP_EXIT_CONTEXT }
-#Import ".\WHV_INTERRUPT_CONTROL.ahk" { WHV_INTERRUPT_CONTROL }
-#Import ".\WHV_VPCI_MMIO_MAPPING.ahk" { WHV_VPCI_MMIO_MAPPING }
 #Import ".\WHV_PARTITION_PROPERTY_CODE.ahk" { WHV_PARTITION_PROPERTY_CODE }
-#Import "..\HostComputeSystem\HCS_SYSTEM.ahk" { HCS_SYSTEM }
+#Import ".\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk" { WHV_X64_IO_PORT_ACCESS_CONTEXT }
+#Import ".\WHV_CPUID_OUTPUT.ahk" { WHV_CPUID_OUTPUT }
+#Import ".\WHV_DOORBELL_MATCH_DATA.ahk" { WHV_DOORBELL_MATCH_DATA }
 #Import ".\WHV_PROCESSOR_COUNTER_SET.ahk" { WHV_PROCESSOR_COUNTER_SET }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WHV_INTERRUPT_CONTROL.ahk" { WHV_INTERRUPT_CONTROL }
+#Import ".\WHV_NOTIFICATION_PORT_PARAMETERS.ahk" { WHV_NOTIFICATION_PORT_PARAMETERS }
+#Import ".\GPA_MEMORY_CHUNK.ahk" { GPA_MEMORY_CHUNK }
+#Import ".\WHV_CREATE_VPCI_DEVICE_FLAGS.ahk" { WHV_CREATE_VPCI_DEVICE_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HDV_MMIO_MAPPING_FLAGS.ahk" { HDV_MMIO_MAPPING_FLAGS }
+#Import ".\HDV_DEVICE_HOST_FLAGS.ahk" { HDV_DEVICE_HOST_FLAGS }
+#Import ".\WHV_PARTITION_COUNTER_SET.ahk" { WHV_PARTITION_COUNTER_SET }
+#Import ".\WHV_VPCI_INTERRUPT_TARGET.ahk" { WHV_VPCI_INTERRUPT_TARGET }
+#Import ".\WHV_MEMORY_RANGE_ENTRY.ahk" { WHV_MEMORY_RANGE_ENTRY }
+#Import ".\WHV_PARTITION_HANDLE.ahk" { WHV_PARTITION_HANDLE }
+#Import ".\GUEST_OS_INFO.ahk" { GUEST_OS_INFO }
+#Import ".\HDV_DEVICE_TYPE.ahk" { HDV_DEVICE_TYPE }
+#Import ".\VIRTUAL_PROCESSOR_ARCH.ahk" { VIRTUAL_PROCESSOR_ARCH }
+#Import ".\WHV_TRANSLATE_GVA_FLAGS.ahk" { WHV_TRANSLATE_GVA_FLAGS }
+#Import ".\WHV_EMULATOR_STATUS.ahk" { WHV_EMULATOR_STATUS }
+#Import ".\WHV_NOTIFICATION_PORT_PROPERTY_CODE.ahk" { WHV_NOTIFICATION_PORT_PROPERTY_CODE }
+#Import ".\WHV_VPCI_DEVICE_REGISTER.ahk" { WHV_VPCI_DEVICE_REGISTER }
+#Import ".\FOUND_IMAGE_CALLBACK.ahk" { FOUND_IMAGE_CALLBACK }
+#Import ".\WHV_VIRTUAL_PROCESSOR_PROPERTY.ahk" { WHV_VIRTUAL_PROCESSOR_PROPERTY }
+#Import ".\WHV_CAPABILITY_CODE.ahk" { WHV_CAPABILITY_CODE }
+#Import ".\HDV_PCI_BAR_SELECTOR.ahk" { HDV_PCI_BAR_SELECTOR }
+#Import ".\GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK.ahk" { GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK }
+#Import ".\WHV_SYNIC_EVENT_PARAMETERS.ahk" { WHV_SYNIC_EVENT_PARAMETERS }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
@@ -66,7 +68,7 @@
  * @returns {Integer} 
  */
 export WHvGetCapability(CapabilityCode, CapabilityBuffer, CapabilityBufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvGetCapability", WHV_CAPABILITY_CODE, CapabilityCode, "ptr", CapabilityBuffer, "uint", CapabilityBufferSizeInBytes, "uint*", &WrittenSizeInBytes := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetCapability", WHV_CAPABILITY_CODE, CapabilityCode, IntPtr, CapabilityBuffer, UInt32, CapabilityBufferSizeInBytes, "uint*", &WrittenSizeInBytes := 0, "HRESULT")
     return WrittenSizeInBytes
 }
 
@@ -119,7 +121,7 @@ export WHvDeletePartition(Partition) {
  * @returns {Integer} 
  */
 export WHvGetPartitionProperty(Partition, PropertyCode, PropertyBuffer, PropertyBufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvGetPartitionProperty", WHV_PARTITION_HANDLE, Partition, WHV_PARTITION_PROPERTY_CODE, PropertyCode, "ptr", PropertyBuffer, "uint", PropertyBufferSizeInBytes, "uint*", &WrittenSizeInBytes := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetPartitionProperty", WHV_PARTITION_HANDLE, Partition, WHV_PARTITION_PROPERTY_CODE, PropertyCode, IntPtr, PropertyBuffer, UInt32, PropertyBufferSizeInBytes, "uint*", &WrittenSizeInBytes := 0, "HRESULT")
     return WrittenSizeInBytes
 }
 
@@ -132,7 +134,7 @@ export WHvGetPartitionProperty(Partition, PropertyCode, PropertyBuffer, Property
  * @returns {HRESULT} 
  */
 export WHvSetPartitionProperty(Partition, PropertyCode, PropertyBuffer, PropertyBufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvSetPartitionProperty", WHV_PARTITION_HANDLE, Partition, WHV_PARTITION_PROPERTY_CODE, PropertyCode, "ptr", PropertyBuffer, "uint", PropertyBufferSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvSetPartitionProperty", WHV_PARTITION_HANDLE, Partition, WHV_PARTITION_PROPERTY_CODE, PropertyCode, IntPtr, PropertyBuffer, UInt32, PropertyBufferSizeInBytes, "HRESULT")
     return result
 }
 
@@ -168,7 +170,7 @@ export WHvResumePartitionTime(Partition) {
 export WHvMapGpaRange(Partition, SourceAddress, GuestAddress, SizeInBytes, Flags) {
     SourceAddressMarshal := SourceAddress is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WinHvPlatform.dll\WHvMapGpaRange", WHV_PARTITION_HANDLE, Partition, SourceAddressMarshal, SourceAddress, "uint", GuestAddress, "uint", SizeInBytes, WHV_MAP_GPA_RANGE_FLAGS, Flags, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvMapGpaRange", WHV_PARTITION_HANDLE, Partition, SourceAddressMarshal, SourceAddress, Int64, GuestAddress, Int64, SizeInBytes, WHV_MAP_GPA_RANGE_FLAGS, Flags, "HRESULT")
     return result
 }
 
@@ -185,7 +187,7 @@ export WHvMapGpaRange(Partition, SourceAddress, GuestAddress, SizeInBytes, Flags
 export WHvMapGpaRange2(Partition, Process, SourceAddress, GuestAddress, SizeInBytes, Flags) {
     SourceAddressMarshal := SourceAddress is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WinHvPlatform.dll\WHvMapGpaRange2", WHV_PARTITION_HANDLE, Partition, HANDLE, Process, SourceAddressMarshal, SourceAddress, "uint", GuestAddress, "uint", SizeInBytes, WHV_MAP_GPA_RANGE_FLAGS, Flags, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvMapGpaRange2", WHV_PARTITION_HANDLE, Partition, HANDLE, Process, SourceAddressMarshal, SourceAddress, Int64, GuestAddress, Int64, SizeInBytes, WHV_MAP_GPA_RANGE_FLAGS, Flags, "HRESULT")
     return result
 }
 
@@ -197,7 +199,7 @@ export WHvMapGpaRange2(Partition, Process, SourceAddress, GuestAddress, SizeInBy
  * @returns {HRESULT} 
  */
 export WHvUnmapGpaRange(Partition, GuestAddress, SizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvUnmapGpaRange", WHV_PARTITION_HANDLE, Partition, "uint", GuestAddress, "uint", SizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvUnmapGpaRange", WHV_PARTITION_HANDLE, Partition, Int64, GuestAddress, Int64, SizeInBytes, "HRESULT")
     return result
 }
 
@@ -211,7 +213,7 @@ export WHvUnmapGpaRange(Partition, GuestAddress, SizeInBytes) {
  * @returns {Integer} 
  */
 export WHvTranslateGva(Partition, VpIndex, Gva, TranslateFlags, TranslationResult) {
-    result := DllCall("WinHvPlatform.dll\WHvTranslateGva", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "uint", Gva, WHV_TRANSLATE_GVA_FLAGS, TranslateFlags, WHV_TRANSLATE_GVA_RESULT.Ptr, TranslationResult, "uint*", &Gpa := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvTranslateGva", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, Int64, Gva, WHV_TRANSLATE_GVA_FLAGS, TranslateFlags, WHV_TRANSLATE_GVA_RESULT.Ptr, TranslationResult, "uint*", &Gpa := 0, "HRESULT")
     return Gpa
 }
 
@@ -223,7 +225,7 @@ export WHvTranslateGva(Partition, VpIndex, Gva, TranslateFlags, TranslationResul
  * @returns {HRESULT} 
  */
 export WHvCreateVirtualProcessor(Partition, VpIndex, Flags) {
-    result := DllCall("WinHvPlatform.dll\WHvCreateVirtualProcessor", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "uint", Flags, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvCreateVirtualProcessor", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, UInt32, Flags, "HRESULT")
     return result
 }
 
@@ -236,7 +238,7 @@ export WHvCreateVirtualProcessor(Partition, VpIndex, Flags) {
  * @returns {HRESULT} 
  */
 export WHvCreateVirtualProcessor2(Partition, VpIndex, _Properties, PropertyCount) {
-    result := DllCall("WinHvPlatform.dll\WHvCreateVirtualProcessor2", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, WHV_VIRTUAL_PROCESSOR_PROPERTY.Ptr, _Properties, "uint", PropertyCount, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvCreateVirtualProcessor2", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, WHV_VIRTUAL_PROCESSOR_PROPERTY.Ptr, _Properties, UInt32, PropertyCount, "HRESULT")
     return result
 }
 
@@ -247,7 +249,7 @@ export WHvCreateVirtualProcessor2(Partition, VpIndex, _Properties, PropertyCount
  * @returns {HRESULT} 
  */
 export WHvDeleteVirtualProcessor(Partition, VpIndex) {
-    result := DllCall("WinHvPlatform.dll\WHvDeleteVirtualProcessor", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvDeleteVirtualProcessor", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, "HRESULT")
     return result
 }
 
@@ -260,7 +262,7 @@ export WHvDeleteVirtualProcessor(Partition, VpIndex) {
  * @returns {HRESULT} 
  */
 export WHvRunVirtualProcessor(Partition, VpIndex, ExitContext, ExitContextSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvRunVirtualProcessor", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "ptr", ExitContext, "uint", ExitContextSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvRunVirtualProcessor", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, IntPtr, ExitContext, UInt32, ExitContextSizeInBytes, "HRESULT")
     return result
 }
 
@@ -272,7 +274,7 @@ export WHvRunVirtualProcessor(Partition, VpIndex, ExitContext, ExitContextSizeIn
  * @returns {HRESULT} 
  */
 export WHvCancelRunVirtualProcessor(Partition, VpIndex, Flags) {
-    result := DllCall("WinHvPlatform.dll\WHvCancelRunVirtualProcessor", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "uint", Flags, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvCancelRunVirtualProcessor", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, UInt32, Flags, "HRESULT")
     return result
 }
 
@@ -288,7 +290,7 @@ export WHvCancelRunVirtualProcessor(Partition, VpIndex, Flags) {
 export WHvGetVirtualProcessorRegisters(Partition, VpIndex, RegisterNames, RegisterCount, RegisterValues) {
     RegisterNamesMarshal := RegisterNames is VarRef ? "int*" : "ptr"
 
-    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorRegisters", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, RegisterNamesMarshal, RegisterNames, "uint", RegisterCount, WHV_REGISTER_VALUE.Ptr, RegisterValues, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorRegisters", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, RegisterNamesMarshal, RegisterNames, UInt32, RegisterCount, WHV_REGISTER_VALUE.Ptr, RegisterValues, "HRESULT")
     return result
 }
 
@@ -304,7 +306,7 @@ export WHvGetVirtualProcessorRegisters(Partition, VpIndex, RegisterNames, Regist
 export WHvSetVirtualProcessorRegisters(Partition, VpIndex, RegisterNames, RegisterCount, RegisterValues) {
     RegisterNamesMarshal := RegisterNames is VarRef ? "int*" : "ptr"
 
-    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorRegisters", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, RegisterNamesMarshal, RegisterNames, "uint", RegisterCount, WHV_REGISTER_VALUE.Ptr, RegisterValues, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorRegisters", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, RegisterNamesMarshal, RegisterNames, UInt32, RegisterCount, WHV_REGISTER_VALUE.Ptr, RegisterValues, "HRESULT")
     return result
 }
 
@@ -317,7 +319,7 @@ export WHvSetVirtualProcessorRegisters(Partition, VpIndex, RegisterNames, Regist
  * @returns {Integer} 
  */
 export WHvGetVirtualProcessorInterruptControllerState(Partition, VpIndex, State, StateSize) {
-    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorInterruptControllerState", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "ptr", State, "uint", StateSize, "uint*", &WrittenSize := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorInterruptControllerState", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, IntPtr, State, UInt32, StateSize, "uint*", &WrittenSize := 0, "HRESULT")
     return WrittenSize
 }
 
@@ -330,7 +332,7 @@ export WHvGetVirtualProcessorInterruptControllerState(Partition, VpIndex, State,
  * @returns {HRESULT} 
  */
 export WHvSetVirtualProcessorInterruptControllerState(Partition, VpIndex, State, StateSize) {
-    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorInterruptControllerState", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "ptr", State, "uint", StateSize, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorInterruptControllerState", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, IntPtr, State, UInt32, StateSize, "HRESULT")
     return result
 }
 
@@ -342,7 +344,7 @@ export WHvSetVirtualProcessorInterruptControllerState(Partition, VpIndex, State,
  * @returns {HRESULT} 
  */
 export WHvRequestInterrupt(Partition, Interrupt, InterruptControlSize) {
-    result := DllCall("WinHvPlatform.dll\WHvRequestInterrupt", WHV_PARTITION_HANDLE, Partition, WHV_INTERRUPT_CONTROL.Ptr, Interrupt, "uint", InterruptControlSize, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvRequestInterrupt", WHV_PARTITION_HANDLE, Partition, WHV_INTERRUPT_CONTROL.Ptr, Interrupt, UInt32, InterruptControlSize, "HRESULT")
     return result
 }
 
@@ -355,7 +357,7 @@ export WHvRequestInterrupt(Partition, Interrupt, InterruptControlSize) {
  * @returns {Integer} 
  */
 export WHvGetVirtualProcessorXsaveState(Partition, VpIndex, _Buffer, BufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorXsaveState", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "ptr", _Buffer, "uint", BufferSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorXsaveState", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, IntPtr, _Buffer, UInt32, BufferSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
     return BytesWritten
 }
 
@@ -368,7 +370,7 @@ export WHvGetVirtualProcessorXsaveState(Partition, VpIndex, _Buffer, BufferSizeI
  * @returns {HRESULT} 
  */
 export WHvSetVirtualProcessorXsaveState(Partition, VpIndex, _Buffer, BufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorXsaveState", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "ptr", _Buffer, "uint", BufferSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorXsaveState", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, IntPtr, _Buffer, UInt32, BufferSizeInBytes, "HRESULT")
     return result
 }
 
@@ -382,7 +384,7 @@ export WHvSetVirtualProcessorXsaveState(Partition, VpIndex, _Buffer, BufferSizeI
  * @returns {HRESULT} 
  */
 export WHvQueryGpaRangeDirtyBitmap(Partition, GuestAddress, RangeSizeInBytes, _Bitmap, BitmapSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvQueryGpaRangeDirtyBitmap", WHV_PARTITION_HANDLE, Partition, "uint", GuestAddress, "uint", RangeSizeInBytes, "ptr", _Bitmap, "uint", BitmapSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvQueryGpaRangeDirtyBitmap", WHV_PARTITION_HANDLE, Partition, Int64, GuestAddress, Int64, RangeSizeInBytes, IntPtr, _Bitmap, UInt32, BitmapSizeInBytes, "HRESULT")
     return result
 }
 
@@ -395,7 +397,7 @@ export WHvQueryGpaRangeDirtyBitmap(Partition, GuestAddress, RangeSizeInBytes, _B
  * @returns {Integer} 
  */
 export WHvGetPartitionCounters(Partition, CounterSet, _Buffer, BufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvGetPartitionCounters", WHV_PARTITION_HANDLE, Partition, WHV_PARTITION_COUNTER_SET, CounterSet, "ptr", _Buffer, "uint", BufferSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetPartitionCounters", WHV_PARTITION_HANDLE, Partition, WHV_PARTITION_COUNTER_SET, CounterSet, IntPtr, _Buffer, UInt32, BufferSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
     return BytesWritten
 }
 
@@ -409,7 +411,7 @@ export WHvGetPartitionCounters(Partition, CounterSet, _Buffer, BufferSizeInBytes
  * @returns {Integer} 
  */
 export WHvGetVirtualProcessorCounters(Partition, VpIndex, CounterSet, _Buffer, BufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorCounters", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, WHV_PROCESSOR_COUNTER_SET, CounterSet, "ptr", _Buffer, "uint", BufferSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorCounters", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, WHV_PROCESSOR_COUNTER_SET, CounterSet, IntPtr, _Buffer, UInt32, BufferSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
     return BytesWritten
 }
 
@@ -422,7 +424,7 @@ export WHvGetVirtualProcessorCounters(Partition, VpIndex, CounterSet, _Buffer, B
  * @returns {Integer} 
  */
 export WHvGetVirtualProcessorInterruptControllerState2(Partition, VpIndex, State, StateSize) {
-    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorInterruptControllerState2", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "ptr", State, "uint", StateSize, "uint*", &WrittenSize := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorInterruptControllerState2", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, IntPtr, State, UInt32, StateSize, "uint*", &WrittenSize := 0, "HRESULT")
     return WrittenSize
 }
 
@@ -435,7 +437,7 @@ export WHvGetVirtualProcessorInterruptControllerState2(Partition, VpIndex, State
  * @returns {HRESULT} 
  */
 export WHvSetVirtualProcessorInterruptControllerState2(Partition, VpIndex, State, StateSize) {
-    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorInterruptControllerState2", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "ptr", State, "uint", StateSize, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorInterruptControllerState2", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, IntPtr, State, UInt32, StateSize, "HRESULT")
     return result
 }
 
@@ -473,7 +475,7 @@ export WHvUnregisterPartitionDoorbellEvent(Partition, MatchData) {
  * @returns {HRESULT} 
  */
 export WHvAdviseGpaRange(Partition, GpaRanges, GpaRangesCount, Advice, AdviceBuffer, AdviceBufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvAdviseGpaRange", WHV_PARTITION_HANDLE, Partition, WHV_MEMORY_RANGE_ENTRY.Ptr, GpaRanges, "uint", GpaRangesCount, WHV_ADVISE_GPA_RANGE_CODE, Advice, "ptr", AdviceBuffer, "uint", AdviceBufferSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvAdviseGpaRange", WHV_PARTITION_HANDLE, Partition, WHV_MEMORY_RANGE_ENTRY.Ptr, GpaRanges, UInt32, GpaRangesCount, WHV_ADVISE_GPA_RANGE_CODE, Advice, IntPtr, AdviceBuffer, UInt32, AdviceBufferSizeInBytes, "HRESULT")
     return result
 }
 
@@ -488,7 +490,7 @@ export WHvAdviseGpaRange(Partition, GpaRanges, GpaRangesCount, Advice, AdviceBuf
  * @returns {HRESULT} 
  */
 export WHvReadGpaRange(Partition, VpIndex, GuestAddress, Controls, Data, DataSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvReadGpaRange", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "uint", GuestAddress, WHV_ACCESS_GPA_CONTROLS, Controls, "ptr", Data, "uint", DataSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvReadGpaRange", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, Int64, GuestAddress, WHV_ACCESS_GPA_CONTROLS, Controls, IntPtr, Data, UInt32, DataSizeInBytes, "HRESULT")
     return result
 }
 
@@ -503,7 +505,7 @@ export WHvReadGpaRange(Partition, VpIndex, GuestAddress, Controls, Data, DataSiz
  * @returns {HRESULT} 
  */
 export WHvWriteGpaRange(Partition, VpIndex, GuestAddress, Controls, Data, DataSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvWriteGpaRange", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "uint", GuestAddress, WHV_ACCESS_GPA_CONTROLS, Controls, "ptr", Data, "uint", DataSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvWriteGpaRange", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, Int64, GuestAddress, WHV_ACCESS_GPA_CONTROLS, Controls, IntPtr, Data, UInt32, DataSizeInBytes, "HRESULT")
     return result
 }
 
@@ -528,7 +530,7 @@ export WHvSignalVirtualProcessorSynicEvent(Partition, SynicEvent) {
  * @returns {Integer} 
  */
 export WHvGetVirtualProcessorState(Partition, VpIndex, StateType, _Buffer, BufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorState", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, WHV_VIRTUAL_PROCESSOR_STATE_TYPE, StateType, "ptr", _Buffer, "uint", BufferSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorState", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, WHV_VIRTUAL_PROCESSOR_STATE_TYPE, StateType, IntPtr, _Buffer, UInt32, BufferSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
     return BytesWritten
 }
 
@@ -542,7 +544,7 @@ export WHvGetVirtualProcessorState(Partition, VpIndex, StateType, _Buffer, Buffe
  * @returns {HRESULT} 
  */
 export WHvSetVirtualProcessorState(Partition, VpIndex, StateType, _Buffer, BufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorState", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, WHV_VIRTUAL_PROCESSOR_STATE_TYPE, StateType, "ptr", _Buffer, "uint", BufferSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvSetVirtualProcessorState", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, WHV_VIRTUAL_PROCESSOR_STATE_TYPE, StateType, IntPtr, _Buffer, UInt32, BufferSizeInBytes, "HRESULT")
     return result
 }
 
@@ -558,7 +560,7 @@ export WHvAllocateVpciResource(ProviderId, Flags, ResourceDescriptor, ResourceDe
     ResourceDescriptorMarshal := ResourceDescriptor is VarRef ? "ptr" : "ptr"
 
     VpciResource := HANDLE.Owned()
-    result := DllCall("WinHvPlatform.dll\WHvAllocateVpciResource", Guid.Ptr, ProviderId, WHV_ALLOCATE_VPCI_RESOURCE_FLAGS, Flags, ResourceDescriptorMarshal, ResourceDescriptor, "uint", ResourceDescriptorSizeInBytes, HANDLE.Ptr, VpciResource, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvAllocateVpciResource", Guid.Ptr, ProviderId, WHV_ALLOCATE_VPCI_RESOURCE_FLAGS, Flags, ResourceDescriptorMarshal, ResourceDescriptor, UInt32, ResourceDescriptorSizeInBytes, HANDLE.Ptr, VpciResource, "HRESULT")
     return VpciResource
 }
 
@@ -572,7 +574,7 @@ export WHvAllocateVpciResource(ProviderId, Flags, ResourceDescriptor, ResourceDe
  * @returns {HRESULT} 
  */
 export WHvCreateVpciDevice(Partition, LogicalDeviceId, VpciResource, Flags, NotificationEventHandle) {
-    result := DllCall("WinHvPlatform.dll\WHvCreateVpciDevice", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, HANDLE, VpciResource, WHV_CREATE_VPCI_DEVICE_FLAGS, Flags, HANDLE, NotificationEventHandle, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvCreateVpciDevice", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, HANDLE, VpciResource, WHV_CREATE_VPCI_DEVICE_FLAGS, Flags, HANDLE, NotificationEventHandle, "HRESULT")
     return result
 }
 
@@ -583,7 +585,7 @@ export WHvCreateVpciDevice(Partition, LogicalDeviceId, VpciResource, Flags, Noti
  * @returns {HRESULT} 
  */
 export WHvDeleteVpciDevice(Partition, LogicalDeviceId) {
-    result := DllCall("WinHvPlatform.dll\WHvDeleteVpciDevice", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvDeleteVpciDevice", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, "HRESULT")
     return result
 }
 
@@ -597,7 +599,7 @@ export WHvDeleteVpciDevice(Partition, LogicalDeviceId) {
  * @returns {Integer} 
  */
 export WHvGetVpciDeviceProperty(Partition, LogicalDeviceId, PropertyCode, PropertyBuffer, PropertyBufferSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceProperty", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, WHV_VPCI_DEVICE_PROPERTY_CODE, PropertyCode, "ptr", PropertyBuffer, "uint", PropertyBufferSizeInBytes, "uint*", &WrittenSizeInBytes := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceProperty", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, WHV_VPCI_DEVICE_PROPERTY_CODE, PropertyCode, IntPtr, PropertyBuffer, UInt32, PropertyBufferSizeInBytes, "uint*", &WrittenSizeInBytes := 0, "HRESULT")
     return WrittenSizeInBytes
 }
 
@@ -610,7 +612,7 @@ export WHvGetVpciDeviceProperty(Partition, LogicalDeviceId, PropertyCode, Proper
  * @returns {HRESULT} 
  */
 export WHvGetVpciDeviceNotification(Partition, LogicalDeviceId, _Notification, NotificationSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceNotification", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, "ptr", _Notification, "uint", NotificationSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceNotification", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, IntPtr, _Notification, UInt32, NotificationSizeInBytes, "HRESULT")
     return result
 }
 
@@ -626,7 +628,7 @@ export WHvMapVpciDeviceMmioRanges(Partition, LogicalDeviceId, MappingCount, Mapp
     MappingCountMarshal := MappingCount is VarRef ? "uint*" : "ptr"
     MappingsMarshal := Mappings is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WinHvPlatform.dll\WHvMapVpciDeviceMmioRanges", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, MappingCountMarshal, MappingCount, MappingsMarshal, Mappings, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvMapVpciDeviceMmioRanges", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, MappingCountMarshal, MappingCount, MappingsMarshal, Mappings, "HRESULT")
     return result
 }
 
@@ -637,7 +639,7 @@ export WHvMapVpciDeviceMmioRanges(Partition, LogicalDeviceId, MappingCount, Mapp
  * @returns {HRESULT} 
  */
 export WHvUnmapVpciDeviceMmioRanges(Partition, LogicalDeviceId) {
-    result := DllCall("WinHvPlatform.dll\WHvUnmapVpciDeviceMmioRanges", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvUnmapVpciDeviceMmioRanges", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, "HRESULT")
     return result
 }
 
@@ -649,7 +651,7 @@ export WHvUnmapVpciDeviceMmioRanges(Partition, LogicalDeviceId) {
  * @returns {HRESULT} 
  */
 export WHvSetVpciDevicePowerState(Partition, LogicalDeviceId, PowerState) {
-    result := DllCall("WinHvPlatform.dll\WHvSetVpciDevicePowerState", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, DEVICE_POWER_STATE, PowerState, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvSetVpciDevicePowerState", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, DEVICE_POWER_STATE, PowerState, "HRESULT")
     return result
 }
 
@@ -661,7 +663,7 @@ export WHvSetVpciDevicePowerState(Partition, LogicalDeviceId, PowerState) {
  * @returns {Void} 
  */
 export WHvReadVpciDeviceRegister(Partition, LogicalDeviceId, Register) {
-    result := DllCall("WinHvPlatform.dll\WHvReadVpciDeviceRegister", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, WHV_VPCI_DEVICE_REGISTER.Ptr, Register, "ptr", &Data := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvReadVpciDeviceRegister", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, WHV_VPCI_DEVICE_REGISTER.Ptr, Register, "ptr", &Data := 0, "HRESULT")
     return Data
 }
 
@@ -676,7 +678,7 @@ export WHvReadVpciDeviceRegister(Partition, LogicalDeviceId, Register) {
 export WHvWriteVpciDeviceRegister(Partition, LogicalDeviceId, Register, Data) {
     DataMarshal := Data is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WinHvPlatform.dll\WHvWriteVpciDeviceRegister", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, WHV_VPCI_DEVICE_REGISTER.Ptr, Register, DataMarshal, Data, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvWriteVpciDeviceRegister", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, WHV_VPCI_DEVICE_REGISTER.Ptr, Register, DataMarshal, Data, "HRESULT")
     return result
 }
 
@@ -695,7 +697,7 @@ export WHvMapVpciDeviceInterrupt(Partition, LogicalDeviceId, Index, MessageCount
     MsiAddressMarshal := MsiAddress is VarRef ? "uint*" : "ptr"
     MsiDataMarshal := MsiData is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WinHvPlatform.dll\WHvMapVpciDeviceInterrupt", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, "uint", Index, "uint", MessageCount, WHV_VPCI_INTERRUPT_TARGET.Ptr, Target, MsiAddressMarshal, MsiAddress, MsiDataMarshal, MsiData, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvMapVpciDeviceInterrupt", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, UInt32, Index, UInt32, MessageCount, WHV_VPCI_INTERRUPT_TARGET.Ptr, Target, MsiAddressMarshal, MsiAddress, MsiDataMarshal, MsiData, "HRESULT")
     return result
 }
 
@@ -707,7 +709,7 @@ export WHvMapVpciDeviceInterrupt(Partition, LogicalDeviceId, Index, MessageCount
  * @returns {HRESULT} 
  */
 export WHvUnmapVpciDeviceInterrupt(Partition, LogicalDeviceId, Index) {
-    result := DllCall("WinHvPlatform.dll\WHvUnmapVpciDeviceInterrupt", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, "uint", Index, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvUnmapVpciDeviceInterrupt", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, UInt32, Index, "HRESULT")
     return result
 }
 
@@ -721,7 +723,7 @@ export WHvUnmapVpciDeviceInterrupt(Partition, LogicalDeviceId, Index) {
  * @returns {HRESULT} 
  */
 export WHvRetargetVpciDeviceInterrupt(Partition, LogicalDeviceId, MsiAddress, MsiData, Target) {
-    result := DllCall("WinHvPlatform.dll\WHvRetargetVpciDeviceInterrupt", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, "uint", MsiAddress, "uint", MsiData, WHV_VPCI_INTERRUPT_TARGET.Ptr, Target, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvRetargetVpciDeviceInterrupt", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, Int64, MsiAddress, UInt32, MsiData, WHV_VPCI_INTERRUPT_TARGET.Ptr, Target, "HRESULT")
     return result
 }
 
@@ -734,7 +736,7 @@ export WHvRetargetVpciDeviceInterrupt(Partition, LogicalDeviceId, MsiAddress, Ms
  * @returns {HRESULT} 
  */
 export WHvRequestVpciDeviceInterrupt(Partition, LogicalDeviceId, MsiAddress, MsiData) {
-    result := DllCall("WinHvPlatform.dll\WHvRequestVpciDeviceInterrupt", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, "uint", MsiAddress, "uint", MsiData, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvRequestVpciDeviceInterrupt", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, Int64, MsiAddress, UInt32, MsiData, "HRESULT")
     return result
 }
 
@@ -749,7 +751,7 @@ export WHvRequestVpciDeviceInterrupt(Partition, LogicalDeviceId, MsiAddress, Msi
  * @returns {Integer} 
  */
 export WHvGetVpciDeviceInterruptTarget(Partition, LogicalDeviceId, Index, MultiMessageNumber, Target, TargetSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceInterruptTarget", WHV_PARTITION_HANDLE, Partition, "uint", LogicalDeviceId, "uint", Index, "uint", MultiMessageNumber, "ptr", Target, "uint", TargetSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVpciDeviceInterruptTarget", WHV_PARTITION_HANDLE, Partition, Int64, LogicalDeviceId, UInt32, Index, UInt32, MultiMessageNumber, IntPtr, Target, UInt32, TargetSizeInBytes, "uint*", &BytesWritten := 0, "HRESULT")
     return BytesWritten
 }
 
@@ -818,7 +820,7 @@ export WHvCreateNotificationPort(Partition, Parameters, EventHandle) {
 export WHvSetNotificationPortProperty(Partition, PortHandle, PropertyCode, _PropertyValue) {
     PortHandleMarshal := PortHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WinHvPlatform.dll\WHvSetNotificationPortProperty", WHV_PARTITION_HANDLE, Partition, PortHandleMarshal, PortHandle, WHV_NOTIFICATION_PORT_PROPERTY_CODE, PropertyCode, "uint", _PropertyValue, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvSetNotificationPortProperty", WHV_PARTITION_HANDLE, Partition, PortHandleMarshal, PortHandle, WHV_NOTIFICATION_PORT_PROPERTY_CODE, PropertyCode, Int64, _PropertyValue, "HRESULT")
     return result
 }
 
@@ -845,7 +847,7 @@ export WHvDeleteNotificationPort(Partition, PortHandle) {
  * @returns {HRESULT} 
  */
 export WHvPostVirtualProcessorSynicMessage(Partition, VpIndex, SintIndex, Message, MessageSizeInBytes) {
-    result := DllCall("WinHvPlatform.dll\WHvPostVirtualProcessorSynicMessage", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "uint", SintIndex, "ptr", Message, "uint", MessageSizeInBytes, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvPostVirtualProcessorSynicMessage", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, UInt32, SintIndex, IntPtr, Message, UInt32, MessageSizeInBytes, "HRESULT")
     return result
 }
 
@@ -859,7 +861,7 @@ export WHvPostVirtualProcessorSynicMessage(Partition, VpIndex, SintIndex, Messag
  * @returns {HRESULT} 
  */
 export WHvGetVirtualProcessorCpuidOutput(Partition, VpIndex, Eax, Ecx, CpuidOutput) {
-    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorCpuidOutput", WHV_PARTITION_HANDLE, Partition, "uint", VpIndex, "uint", Eax, "uint", Ecx, WHV_CPUID_OUTPUT.Ptr, CpuidOutput, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetVirtualProcessorCpuidOutput", WHV_PARTITION_HANDLE, Partition, UInt32, VpIndex, UInt32, Eax, UInt32, Ecx, WHV_CPUID_OUTPUT.Ptr, CpuidOutput, "HRESULT")
     return result
 }
 
@@ -877,7 +879,7 @@ export WHvGetInterruptTargetVpSet(Partition, Destination, DestinationMode, Targe
     TargetVpsMarshal := TargetVps is VarRef ? "uint*" : "ptr"
     TargetVpCountMarshal := TargetVpCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WinHvPlatform.dll\WHvGetInterruptTargetVpSet", WHV_PARTITION_HANDLE, Partition, "uint", Destination, WHV_INTERRUPT_DESTINATION_MODE, DestinationMode, TargetVpsMarshal, TargetVps, "uint", VpCount, TargetVpCountMarshal, TargetVpCount, "HRESULT")
+    result := DllCall("WinHvPlatform.dll\WHvGetInterruptTargetVpSet", WHV_PARTITION_HANDLE, Partition, Int64, Destination, WHV_INTERRUPT_DESTINATION_MODE, DestinationMode, TargetVpsMarshal, TargetVps, UInt32, VpCount, TargetVpCountMarshal, TargetVpCount, "HRESULT")
     return result
 }
 
@@ -1055,7 +1057,7 @@ export HdvCreateDeviceInstance(deviceHostHandle, deviceType, deviceClassId, devi
 export HdvReadGuestMemory(requestor, guestPhysicalAddress, byteCount) {
     requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("vmdevicehost.dll\HdvReadGuestMemory", requestorMarshal, requestor, "uint", guestPhysicalAddress, "uint", byteCount, "char*", &_buffer := 0, "HRESULT")
+    result := DllCall("vmdevicehost.dll\HdvReadGuestMemory", requestorMarshal, requestor, Int64, guestPhysicalAddress, UInt32, byteCount, "char*", &_buffer := 0, "HRESULT")
     return _buffer
 }
 
@@ -1084,7 +1086,7 @@ export HdvWriteGuestMemory(requestor, guestPhysicalAddress, byteCount, _buffer) 
     requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
     _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("vmdevicehost.dll\HdvWriteGuestMemory", requestorMarshal, requestor, "uint", guestPhysicalAddress, "uint", byteCount, _bufferMarshal, _buffer, "HRESULT")
+    result := DllCall("vmdevicehost.dll\HdvWriteGuestMemory", requestorMarshal, requestor, Int64, guestPhysicalAddress, UInt32, byteCount, _bufferMarshal, _buffer, "HRESULT")
     return result
 }
 
@@ -1100,7 +1102,7 @@ export HdvWriteGuestMemory(requestor, guestPhysicalAddress, byteCount, _buffer) 
 export HdvCreateGuestMemoryAperture(requestor, guestPhysicalAddress, byteCount, writeProtected) {
     requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("vmdevicehost.dll\HdvCreateGuestMemoryAperture", requestorMarshal, requestor, "uint", guestPhysicalAddress, "uint", byteCount, BOOL, writeProtected, "ptr*", &mappedAddress := 0, "HRESULT")
+    result := DllCall("vmdevicehost.dll\HdvCreateGuestMemoryAperture", requestorMarshal, requestor, Int64, guestPhysicalAddress, UInt32, byteCount, BOOL, writeProtected, "ptr*", &mappedAddress := 0, "HRESULT")
     return mappedAddress
 }
 
@@ -1141,7 +1143,7 @@ export HdvDestroyGuestMemoryAperture(requestor, mappedAddress) {
 export HdvDeliverGuestInterrupt(requestor, msiAddress, msiData) {
     requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("vmdevicehost.dll\HdvDeliverGuestInterrupt", requestorMarshal, requestor, "uint", msiAddress, "uint", msiData, "HRESULT")
+    result := DllCall("vmdevicehost.dll\HdvDeliverGuestInterrupt", requestorMarshal, requestor, Int64, msiAddress, UInt32, msiData, "HRESULT")
     return result
 }
 
@@ -1158,7 +1160,7 @@ export HdvDeliverGuestInterrupt(requestor, msiAddress, msiData) {
 export HdvRegisterDoorbell(requestor, BarIndex, BarOffset, TriggerValue, Flags, DoorbellEvent) {
     requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("vmdevicehost.dll\HdvRegisterDoorbell", requestorMarshal, requestor, HDV_PCI_BAR_SELECTOR, BarIndex, "uint", BarOffset, "uint", TriggerValue, "uint", Flags, HANDLE, DoorbellEvent, "HRESULT")
+    result := DllCall("vmdevicehost.dll\HdvRegisterDoorbell", requestorMarshal, requestor, HDV_PCI_BAR_SELECTOR, BarIndex, Int64, BarOffset, Int64, TriggerValue, Int64, Flags, HANDLE, DoorbellEvent, "HRESULT")
     return result
 }
 
@@ -1174,7 +1176,7 @@ export HdvRegisterDoorbell(requestor, BarIndex, BarOffset, TriggerValue, Flags, 
 export HdvUnregisterDoorbell(requestor, BarIndex, BarOffset, TriggerValue, Flags) {
     requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("vmdevicehost.dll\HdvUnregisterDoorbell", requestorMarshal, requestor, HDV_PCI_BAR_SELECTOR, BarIndex, "uint", BarOffset, "uint", TriggerValue, "uint", Flags, "HRESULT")
+    result := DllCall("vmdevicehost.dll\HdvUnregisterDoorbell", requestorMarshal, requestor, HDV_PCI_BAR_SELECTOR, BarIndex, Int64, BarOffset, Int64, TriggerValue, Int64, Flags, "HRESULT")
     return result
 }
 
@@ -1192,7 +1194,7 @@ export HdvUnregisterDoorbell(requestor, BarIndex, BarOffset, TriggerValue, Flags
 export HdvCreateSectionBackedMmioRange(requestor, barIndex, offsetInPages, lengthInPages, MappingFlags, sectionHandle, sectionOffsetInPages) {
     requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("vmdevicehost.dll\HdvCreateSectionBackedMmioRange", requestorMarshal, requestor, HDV_PCI_BAR_SELECTOR, barIndex, "uint", offsetInPages, "uint", lengthInPages, HDV_MMIO_MAPPING_FLAGS, MappingFlags, HANDLE, sectionHandle, "uint", sectionOffsetInPages, "HRESULT")
+    result := DllCall("vmdevicehost.dll\HdvCreateSectionBackedMmioRange", requestorMarshal, requestor, HDV_PCI_BAR_SELECTOR, barIndex, Int64, offsetInPages, Int64, lengthInPages, HDV_MMIO_MAPPING_FLAGS, MappingFlags, HANDLE, sectionHandle, Int64, sectionOffsetInPages, "HRESULT")
     return result
 }
 
@@ -1206,7 +1208,7 @@ export HdvCreateSectionBackedMmioRange(requestor, barIndex, offsetInPages, lengt
 export HdvDestroySectionBackedMmioRange(requestor, barIndex, offsetInPages) {
     requestorMarshal := requestor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("vmdevicehost.dll\HdvDestroySectionBackedMmioRange", requestorMarshal, requestor, HDV_PCI_BAR_SELECTOR, barIndex, "uint", offsetInPages, "HRESULT")
+    result := DllCall("vmdevicehost.dll\HdvDestroySectionBackedMmioRange", requestorMarshal, requestor, HDV_PCI_BAR_SELECTOR, barIndex, Int64, offsetInPages, "HRESULT")
     return result
 }
 
@@ -1303,7 +1305,7 @@ export GetGuestEnabledVirtualTrustLevels(vmSavedStateDumpHandle) {
 export GetGuestOsInfo(vmSavedStateDumpHandle, virtualTrustLevel, guestOsInfo) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GetGuestOsInfo", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "char", virtualTrustLevel, GUEST_OS_INFO.Ptr, guestOsInfo, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GetGuestOsInfo", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, Int8, virtualTrustLevel, GUEST_OS_INFO.Ptr, guestOsInfo, "HRESULT")
     return result
 }
 
@@ -1328,7 +1330,7 @@ export GetVpCount(vmSavedStateDumpHandle) {
 export GetArchitecture(vmSavedStateDumpHandle, vpId) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GetArchitecture", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "int*", &_architecture := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GetArchitecture", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, "int*", &_architecture := 0, "HRESULT")
     return _architecture
 }
 
@@ -1342,7 +1344,7 @@ export GetArchitecture(vmSavedStateDumpHandle, vpId) {
 export ForceArchitecture(vmSavedStateDumpHandle, vpId, _architecture) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ForceArchitecture", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, VIRTUAL_PROCESSOR_ARCH, _architecture, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ForceArchitecture", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, VIRTUAL_PROCESSOR_ARCH, _architecture, "HRESULT")
     return result
 }
 
@@ -1355,7 +1357,7 @@ export ForceArchitecture(vmSavedStateDumpHandle, vpId, _architecture) {
 export GetActiveVirtualTrustLevel(vmSavedStateDumpHandle, vpId) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GetActiveVirtualTrustLevel", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "char*", &virtualTrustLevel := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GetActiveVirtualTrustLevel", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, "char*", &virtualTrustLevel := 0, "HRESULT")
     return virtualTrustLevel
 }
 
@@ -1370,7 +1372,7 @@ export GetEnabledVirtualTrustLevels(vmSavedStateDumpHandle, vpId, virtualTrustLe
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
     virtualTrustLevelsMarshal := virtualTrustLevels is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GetEnabledVirtualTrustLevels", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, virtualTrustLevelsMarshal, virtualTrustLevels, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GetEnabledVirtualTrustLevels", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, virtualTrustLevelsMarshal, virtualTrustLevels, "HRESULT")
     return result
 }
 
@@ -1384,7 +1386,7 @@ export GetEnabledVirtualTrustLevels(vmSavedStateDumpHandle, vpId, virtualTrustLe
 export ForceActiveVirtualTrustLevel(vmSavedStateDumpHandle, vpId, virtualTrustLevel) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ForceActiveVirtualTrustLevel", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "char", virtualTrustLevel, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ForceActiveVirtualTrustLevel", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, Int8, virtualTrustLevel, "HRESULT")
     return result
 }
 
@@ -1397,7 +1399,7 @@ export ForceActiveVirtualTrustLevel(vmSavedStateDumpHandle, vpId, virtualTrustLe
 export IsActiveVirtualTrustLevelEnabled(vmSavedStateDumpHandle, vpId) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\IsActiveVirtualTrustLevelEnabled", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, BOOL.Ptr, &activeVirtualTrustLevelEnabled := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\IsActiveVirtualTrustLevelEnabled", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, BOOL.Ptr, &activeVirtualTrustLevelEnabled := 0, "HRESULT")
     return activeVirtualTrustLevelEnabled
 }
 
@@ -1422,7 +1424,7 @@ export IsNestedVirtualizationEnabled(vmSavedStateDumpHandle) {
 export GetNestedVirtualizationMode(vmSavedStateDumpHandle, vpId) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GetNestedVirtualizationMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, BOOL.Ptr, &enabled := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GetNestedVirtualizationMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, BOOL.Ptr, &enabled := 0, "HRESULT")
     return enabled
 }
 
@@ -1436,7 +1438,7 @@ export GetNestedVirtualizationMode(vmSavedStateDumpHandle, vpId) {
 export ForceNestedHostMode(vmSavedStateDumpHandle, vpId, hostMode) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ForceNestedHostMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, BOOL, hostMode, BOOL.Ptr, &oldMode := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ForceNestedHostMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, BOOL, hostMode, BOOL.Ptr, &oldMode := 0, "HRESULT")
     return oldMode
 }
 
@@ -1449,7 +1451,7 @@ export ForceNestedHostMode(vmSavedStateDumpHandle, vpId, hostMode) {
 export InKernelSpace(vmSavedStateDumpHandle, vpId) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\InKernelSpace", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, BOOL.Ptr, &inKernelSpace := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\InKernelSpace", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, BOOL.Ptr, &inKernelSpace := 0, "HRESULT")
     return inKernelSpace
 }
 
@@ -1464,7 +1466,7 @@ export InKernelSpace(vmSavedStateDumpHandle, vpId) {
 export GetRegisterValue(vmSavedStateDumpHandle, vpId, registerId, registerValue) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GetRegisterValue", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "uint", registerId, VIRTUAL_PROCESSOR_REGISTER.Ptr, registerValue, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GetRegisterValue", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, UInt32, registerId, VIRTUAL_PROCESSOR_REGISTER.Ptr, registerValue, "HRESULT")
     return result
 }
 
@@ -1477,7 +1479,7 @@ export GetRegisterValue(vmSavedStateDumpHandle, vpId, registerId, registerValue)
 export GetPagingMode(vmSavedStateDumpHandle, vpId) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GetPagingMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "int*", &pagingMode := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GetPagingMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, "int*", &pagingMode := 0, "HRESULT")
     return pagingMode
 }
 
@@ -1491,7 +1493,7 @@ export GetPagingMode(vmSavedStateDumpHandle, vpId) {
 export ForcePagingMode(vmSavedStateDumpHandle, vpId, pagingMode) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ForcePagingMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, PAGING_MODE, pagingMode, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ForcePagingMode", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, PAGING_MODE, pagingMode, "HRESULT")
     return result
 }
 
@@ -1506,7 +1508,7 @@ export ForcePagingMode(vmSavedStateDumpHandle, vpId, pagingMode) {
 export ReadGuestPhysicalAddress(vmSavedStateDumpHandle, physicalAddress, _buffer, bufferSize) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ReadGuestPhysicalAddress", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", physicalAddress, "ptr", _buffer, "uint", bufferSize, "uint*", &bytesRead := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ReadGuestPhysicalAddress", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, Int64, physicalAddress, IntPtr, _buffer, UInt32, bufferSize, "uint*", &bytesRead := 0, "HRESULT")
     return bytesRead
 }
 
@@ -1524,7 +1526,7 @@ export GuestVirtualAddressToPhysicalAddress(vmSavedStateDumpHandle, vpId, virtua
     physicalAddressMarshal := physicalAddress is VarRef ? "uint*" : "ptr"
     unmappedRegionSizeMarshal := unmappedRegionSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GuestVirtualAddressToPhysicalAddress", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "uint", virtualAddress, physicalAddressMarshal, physicalAddress, unmappedRegionSizeMarshal, unmappedRegionSize, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GuestVirtualAddressToPhysicalAddress", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, Int64, virtualAddress, physicalAddressMarshal, physicalAddress, unmappedRegionSizeMarshal, unmappedRegionSize, "HRESULT")
     return result
 }
 
@@ -1552,7 +1554,7 @@ export GetGuestPhysicalMemoryChunks(vmSavedStateDumpHandle, memoryChunks, memory
 export GuestPhysicalAddressToRawSavedMemoryOffset(vmSavedStateDumpHandle, physicalAddress) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GuestPhysicalAddressToRawSavedMemoryOffset", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", physicalAddress, "uint*", &rawSavedMemoryOffset := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GuestPhysicalAddressToRawSavedMemoryOffset", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, Int64, physicalAddress, "uint*", &rawSavedMemoryOffset := 0, "HRESULT")
     return rawSavedMemoryOffset
 }
 
@@ -1567,7 +1569,7 @@ export GuestPhysicalAddressToRawSavedMemoryOffset(vmSavedStateDumpHandle, physic
 export ReadGuestRawSavedMemory(vmSavedStateDumpHandle, rawSavedMemoryOffset, _buffer, bufferSize) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ReadGuestRawSavedMemory", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", rawSavedMemoryOffset, "ptr", _buffer, "uint", bufferSize, "uint*", &bytesRead := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ReadGuestRawSavedMemory", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, Int64, rawSavedMemoryOffset, IntPtr, _buffer, UInt32, bufferSize, "uint*", &bytesRead := 0, "HRESULT")
     return bytesRead
 }
 
@@ -1592,7 +1594,7 @@ export GetGuestRawSavedMemorySize(vmSavedStateDumpHandle) {
 export SetMemoryBlockCacheLimit(vmSavedStateDumpHandle, memoryBlockCacheLimit) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\SetMemoryBlockCacheLimit", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", memoryBlockCacheLimit, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\SetMemoryBlockCacheLimit", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, Int64, memoryBlockCacheLimit, "HRESULT")
     return result
 }
 
@@ -1621,7 +1623,7 @@ export ApplyGuestMemoryFix(vmSavedStateDumpHandle, vpId, virtualAddress, fixBuff
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
     fixBufferMarshal := fixBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ApplyGuestMemoryFix", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "uint", virtualAddress, fixBufferMarshal, fixBuffer, "uint", fixBufferSize, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ApplyGuestMemoryFix", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, Int64, virtualAddress, fixBufferMarshal, fixBuffer, UInt32, fixBufferSize, "HRESULT")
     return result
 }
 
@@ -1674,7 +1676,7 @@ export GetSavedStateSymbolProviderHandle(vmSavedStateDumpHandle) {
 export SetSavedStateSymbolProviderDebugInfoCallback(vmSavedStateDumpHandle, Callback) {
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\SetSavedStateSymbolProviderDebugInfoCallback", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", Callback, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\SetSavedStateSymbolProviderDebugInfoCallback", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK, Callback, "HRESULT")
     return result
 }
 
@@ -1693,7 +1695,7 @@ export LoadSavedStateModuleSymbols(vmSavedStateDumpHandle, imageName, moduleName
 
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbols", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", imageName, "ptr", moduleName, "uint", baseAddress, "uint", sizeOfBase, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbols", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", imageName, "ptr", moduleName, Int64, baseAddress, UInt32, sizeOfBase, "HRESULT")
     return result
 }
 
@@ -1713,7 +1715,7 @@ export LoadSavedStateModuleSymbolsEx(vmSavedStateDumpHandle, imageName, imageTim
 
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbolsEx", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", imageName, "uint", imageTimestamp, "ptr", moduleName, "uint", baseAddress, "uint", sizeOfBase, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateModuleSymbolsEx", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "ptr", imageName, UInt32, imageTimestamp, "ptr", moduleName, Int64, baseAddress, UInt32, sizeOfBase, "HRESULT")
     return result
 }
 
@@ -1731,7 +1733,7 @@ export ResolveSavedStateGlobalVariableAddress(vmSavedStateDumpHandle, vpId, glob
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
     virtualAddressMarshal := virtualAddress is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ResolveSavedStateGlobalVariableAddress", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", globalName, virtualAddressMarshal, virtualAddress, "uint*", &_size := 0, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ResolveSavedStateGlobalVariableAddress", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, "ptr", globalName, virtualAddressMarshal, virtualAddress, "uint*", &_size := 0, "HRESULT")
     return _size
 }
 
@@ -1748,7 +1750,7 @@ export ReadSavedStateGlobalVariable(vmSavedStateDumpHandle, vpId, globalName, bu
 
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ReadSavedStateGlobalVariable", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", globalName, "ptr", &_buffer := 0, "uint", bufferSize, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ReadSavedStateGlobalVariable", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, "ptr", globalName, "ptr", &_buffer := 0, UInt32, bufferSize, "HRESULT")
     return _buffer
 }
 
@@ -1766,7 +1768,7 @@ export GetSavedStateSymbolTypeSize(vmSavedStateDumpHandle, vpId, typeName, _size
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
     _sizeMarshal := _size is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolTypeSize", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, _sizeMarshal, _size, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolTypeSize", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, "ptr", typeName, _sizeMarshal, _size, "HRESULT")
     return result
 }
 
@@ -1788,7 +1790,7 @@ export FindSavedStateSymbolFieldInType(vmSavedStateDumpHandle, vpId, typeName, f
     offsetMarshal := offset is VarRef ? "uint*" : "ptr"
     foundMarshal := found is VarRef ? "int*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\FindSavedStateSymbolFieldInType", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, "ptr", fieldName, offsetMarshal, offset, foundMarshal, found, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\FindSavedStateSymbolFieldInType", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, "ptr", typeName, "ptr", fieldName, offsetMarshal, offset, foundMarshal, found, "HRESULT")
     return result
 }
 
@@ -1806,7 +1808,7 @@ export GetSavedStateSymbolFieldInfo(vmSavedStateDumpHandle, vpId, typeName, type
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
     typeFieldInfoMapMarshal := typeFieldInfoMap is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolFieldInfo", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "ptr", typeName, typeFieldInfoMapMarshal, typeFieldInfoMap, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\GetSavedStateSymbolFieldInfo", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, "ptr", typeName, typeFieldInfoMapMarshal, typeFieldInfoMap, "HRESULT")
     return result
 }
 
@@ -1827,7 +1829,7 @@ export ScanMemoryForDosImages(vmSavedStateDumpHandle, vpId, startAddress, endAdd
     callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
     standaloneAddressMarshal := standaloneAddress is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\ScanMemoryForDosImages", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, "uint", startAddress, "uint", endAddress, callbackContextMarshal, callbackContext, "ptr", foundImageCallback, standaloneAddressMarshal, standaloneAddress, "uint", standaloneAddressCount, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\ScanMemoryForDosImages", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, Int64, startAddress, Int64, endAddress, callbackContextMarshal, callbackContext, FOUND_IMAGE_CALLBACK, foundImageCallback, standaloneAddressMarshal, standaloneAddress, UInt32, standaloneAddressCount, "HRESULT")
     return result
 }
 
@@ -1845,7 +1847,7 @@ export CallStackUnwind(vmSavedStateDumpHandle, vpId, _imageInfo, imageInfoCount,
     vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
     callStackMarshal := callStack is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("VmSavedStateDumpProvider.dll\CallStackUnwind", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, "uint", vpId, MODULE_INFO.Ptr, _imageInfo, "uint", imageInfoCount, "uint", frameCount, callStackMarshal, callStack, "HRESULT")
+    result := DllCall("VmSavedStateDumpProvider.dll\CallStackUnwind", vmSavedStateDumpHandleMarshal, vmSavedStateDumpHandle, UInt32, vpId, MODULE_INFO.Ptr, _imageInfo, UInt32, imageInfoCount, UInt32, frameCount, callStackMarshal, callStack, "HRESULT")
     return result
 }
 

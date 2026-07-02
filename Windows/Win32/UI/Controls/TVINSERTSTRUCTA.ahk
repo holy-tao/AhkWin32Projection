@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\TVITEMEXA.ahk" { TVITEMEXA }
 #Import ".\TVITEMA.ahk" { TVITEMA }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
-#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
-#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
 
 /**
  * Contains information used to add a new item to a tree-view control. This structure is used with the TVM_INSERTITEM message. The structure is identical to the TV_INSERTSTRUCT structure, but it has been renamed to follow current naming conventions. (ANSI)

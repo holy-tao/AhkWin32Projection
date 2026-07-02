@@ -121,7 +121,7 @@ export default struct IWMPClosedCaption2 extends IWMPClosedCaption {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-getsamilangname
      */
     getSAMILangName(nIndex, pbstrName) {
-        result := ComCall(16, this, "int", nIndex, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(16, this, Int32, nIndex, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct IWMPClosedCaption2 extends IWMPClosedCaption {
     getSAMILangID(nIndex, plLangID) {
         plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, "int", nIndex, plLangIDMarshal, plLangID, "HRESULT")
+        result := ComCall(17, this, Int32, nIndex, plLangIDMarshal, plLangID, "HRESULT")
         return result
     }
 
@@ -230,7 +230,7 @@ export default struct IWMPClosedCaption2 extends IWMPClosedCaption {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-getsamistylename
      */
     getSAMIStyleName(nIndex, pbstrName) {
-        result := ComCall(19, this, "int", nIndex, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(19, this, Int32, nIndex, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 

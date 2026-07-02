@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -93,7 +93,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
     WritePropertyValue(lHandle, lNumBytes, aData) {
         aDataMarshal := aData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(28, this, "int", lHandle, "int", lNumBytes, aDataMarshal, aData, "HRESULT")
+        result := ComCall(28, this, Int32, lHandle, Int32, lNumBytes, aDataMarshal, aData, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
         plNumBytesMarshal := plNumBytes is VarRef ? "int*" : "ptr"
         aDataMarshal := aData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(29, this, "int", lHandle, "int", lBufferSize, plNumBytesMarshal, plNumBytes, aDataMarshal, aData, "HRESULT")
+        result := ComCall(29, this, Int32, lHandle, Int32, lBufferSize, plNumBytesMarshal, plNumBytes, aDataMarshal, aData, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-readdword
      */
     ReadDWORD(lHandle) {
-        result := ComCall(30, this, "int", lHandle, "uint*", &pdw := 0, "HRESULT")
+        result := ComCall(30, this, Int32, lHandle, "uint*", &pdw := 0, "HRESULT")
         return pdw
     }
 
@@ -135,7 +135,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-writedword
      */
     WriteDWORD(lHandle, dw) {
-        result := ComCall(31, this, "int", lHandle, "uint", dw, "HRESULT")
+        result := ComCall(31, this, Int32, lHandle, UInt32, dw, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-readqword
      */
     ReadQWORD(lHandle) {
-        result := ComCall(32, this, "int", lHandle, "uint*", &pqw := 0, "HRESULT")
+        result := ComCall(32, this, Int32, lHandle, "uint*", &pqw := 0, "HRESULT")
         return pqw
     }
 
@@ -158,7 +158,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-writeqword
      */
     WriteQWORD(lHandle, pw) {
-        result := ComCall(33, this, "int", lHandle, "uint", pw, "HRESULT")
+        result := ComCall(33, this, Int32, lHandle, Int64, pw, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
     GetPropertyInfoByHandle(lHandle, pstrName, pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, "int", lHandle, BSTR.Ptr, pstrName, pTypeMarshal, pType, "HRESULT")
+        result := ComCall(34, this, Int32, lHandle, BSTR.Ptr, pstrName, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -184,7 +184,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-lock
      */
     Lock(lFlags) {
-        result := ComCall(35, this, "int", lFlags, "HRESULT")
+        result := ComCall(35, this, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-unlock
      */
     Unlock(lFlags) {
-        result := ComCall(36, this, "int", lFlags, "HRESULT")
+        result := ComCall(36, this, Int32, lFlags, "HRESULT")
         return result
     }
 

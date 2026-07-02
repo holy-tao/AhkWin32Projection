@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method to get search results from a custom client-side OpenSearch data source.
@@ -88,7 +88,7 @@ export default struct IOpenSearchSource extends IUnknown {
     GetResults(_hwnd, pszQuery, dwStartIndex, dwCount, riid) {
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        result := ComCall(3, this, HWND, _hwnd, "ptr", pszQuery, "uint", dwStartIndex, "uint", dwCount, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", pszQuery, UInt32, dwStartIndex, UInt32, dwCount, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

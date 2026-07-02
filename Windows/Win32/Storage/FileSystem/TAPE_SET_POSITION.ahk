@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TAPE_POSITION_METHOD.ahk" { TAPE_POSITION_METHOD }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\TAPE_POSITION_METHOD.ahk" { TAPE_POSITION_METHOD }
 
 /**
  * Describes how and where to position the tape.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -548,7 +548,7 @@ export default struct ITemplatePrinter extends IDispatch {
      * @returns {HRESULT} 
      */
     put_copies(v) {
-        result := ComCall(33, this, "ushort", v, "HRESULT")
+        result := ComCall(33, this, UInt16, v, "HRESULT")
         return result
     }
 
@@ -567,7 +567,7 @@ export default struct ITemplatePrinter extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pageFrom(v) {
-        result := ComCall(35, this, "ushort", v, "HRESULT")
+        result := ComCall(35, this, UInt16, v, "HRESULT")
         return result
     }
 
@@ -586,7 +586,7 @@ export default struct ITemplatePrinter extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pageTo(v) {
-        result := ComCall(37, this, "ushort", v, "HRESULT")
+        result := ComCall(37, this, UInt16, v, "HRESULT")
         return result
     }
 
@@ -687,7 +687,7 @@ export default struct ITemplatePrinter extends IDispatch {
      * @returns {HRESULT} 
      */
     put_marginLeft(v) {
-        result := ComCall(47, this, "int", v, "HRESULT")
+        result := ComCall(47, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -706,7 +706,7 @@ export default struct ITemplatePrinter extends IDispatch {
      * @returns {HRESULT} 
      */
     put_marginRight(v) {
-        result := ComCall(49, this, "int", v, "HRESULT")
+        result := ComCall(49, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -725,7 +725,7 @@ export default struct ITemplatePrinter extends IDispatch {
      * @returns {HRESULT} 
      */
     put_marginTop(v) {
-        result := ComCall(51, this, "int", v, "HRESULT")
+        result := ComCall(51, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -744,7 +744,7 @@ export default struct ITemplatePrinter extends IDispatch {
      * @returns {HRESULT} 
      */
     put_marginBottom(v) {
-        result := ComCall(53, this, "int", v, "HRESULT")
+        result := ComCall(53, this, Int32, v, "HRESULT")
         return result
     }
 

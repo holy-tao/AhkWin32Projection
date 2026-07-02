@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\NMHDR.ahk" { NMHDR }
-#Import ".\OPENFILENAMEW.ahk" { OPENFILENAMEW }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\OPENFILENAMEW.ahk" { OPENFILENAMEW }
+#Import "..\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about a CDN_INCLUDEITEM notification message. (Unicode)

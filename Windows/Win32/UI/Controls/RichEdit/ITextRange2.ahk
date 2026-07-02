@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITextPara2.ahk" { ITextPara2 }
 #Import ".\ITextRow.ahk" { ITextRow }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITextFont2.ahk" { ITextFont2 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\ITextPara2.ahk" { ITextPara2 }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ITextSelection.ahk" { ITextSelection }
+#Import ".\ITextFont2.ahk" { ITextFont2 }
 
 /**
  * The ITextRange2 interface is derived from ITextRange, and its objects are powerful editing and data-binding tools that enable a program to select text in a story and then examine or change that text.
@@ -315,7 +315,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-setgravity
      */
     SetGravity(Value) {
-        result := ComCall(78, this, "int", Value, "HRESULT")
+        result := ComCall(78, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -529,7 +529,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-addsubrange
      */
     AddSubrange(cp1, cp2, Activate) {
-        result := ComCall(86, this, "int", cp1, "int", cp2, "int", Activate, "HRESULT")
+        result := ComCall(86, this, Int32, cp1, Int32, cp2, Int32, Activate, "HRESULT")
         return result
     }
 
@@ -570,7 +570,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-buildupmath
      */
     BuildUpMath(Flags) {
-        result := ComCall(87, this, "int", Flags, "HRESULT")
+        result := ComCall(87, this, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -588,7 +588,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-deletesubrange
      */
     DeleteSubrange(cpFirst, cpLim) {
-        result := ComCall(88, this, "int", cpFirst, "int", cpLim, "HRESULT")
+        result := ComCall(88, this, Int32, cpFirst, Int32, cpLim, "HRESULT")
         return result
     }
 
@@ -613,7 +613,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-find
      */
     Find(pRange, Count, Flags) {
-        result := ComCall(89, this, "ptr", pRange, "int", Count, "int", Flags, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(89, this, "ptr", pRange, Int32, Count, Int32, Flags, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -658,7 +658,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getchar2
      */
     GetChar2(Offset) {
-        result := ComCall(90, this, "int*", &pChar := 0, "int", Offset, "HRESULT")
+        result := ComCall(90, this, "int*", &pChar := 0, Int32, Offset, "HRESULT")
         return pChar
     }
 
@@ -1043,7 +1043,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getproperty
      */
     GetProperty(Type) {
-        result := ComCall(93, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(93, this, Int32, Type, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1083,7 +1083,7 @@ export default struct ITextRange2 extends ITextSelection {
         pBottomMarshal := pBottom is VarRef ? "int*" : "ptr"
         pHitMarshal := pHit is VarRef ? "int*" : "ptr"
 
-        result := ComCall(94, this, "int", Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, pHitMarshal, pHit, "HRESULT")
+        result := ComCall(94, this, Int32, Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, pHitMarshal, pHit, "HRESULT")
         return result
     }
 
@@ -1131,7 +1131,7 @@ export default struct ITextRange2 extends ITextSelection {
         pcpFirstMarshal := pcpFirst is VarRef ? "int*" : "ptr"
         pcpLimMarshal := pcpLim is VarRef ? "int*" : "ptr"
 
-        result := ComCall(95, this, "int", iSubrange, pcpFirstMarshal, pcpFirst, pcpLimMarshal, pcpLim, "HRESULT")
+        result := ComCall(95, this, Int32, iSubrange, pcpFirstMarshal, pcpFirst, pcpLimMarshal, pcpLim, "HRESULT")
         return result
     }
 
@@ -1147,7 +1147,7 @@ export default struct ITextRange2 extends ITextSelection {
      */
     GetText2(Flags) {
         pbstr := BSTR.Owned()
-        result := ComCall(96, this, "int", Flags, BSTR.Ptr, pbstr, "HRESULT")
+        result := ComCall(96, this, Int32, Flags, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -1230,7 +1230,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-inserttable
      */
     InsertTable(cCol, cRow, AutoFit) {
-        result := ComCall(98, this, "int", cCol, "int", cRow, "int", AutoFit, "HRESULT")
+        result := ComCall(98, this, Int32, cCol, Int32, cRow, Int32, AutoFit, "HRESULT")
         return result
     }
 
@@ -1282,7 +1282,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-linearize
      */
     Linearize(Flags) {
-        result := ComCall(99, this, "int", Flags, "HRESULT")
+        result := ComCall(99, this, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -1302,7 +1302,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-setactivesubrange
      */
     SetActiveSubrange(cpAnchor, cpActive) {
-        result := ComCall(100, this, "int", cpAnchor, "int", cpActive, "HRESULT")
+        result := ComCall(100, this, Int32, cpAnchor, Int32, cpActive, "HRESULT")
         return result
     }
 
@@ -1344,7 +1344,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-setdropcap
      */
     SetDropCap(cLine, Position) {
-        result := ComCall(101, this, "int", cLine, "int", Position, "HRESULT")
+        result := ComCall(101, this, Int32, cLine, Int32, Position, "HRESULT")
         return result
     }
 
@@ -1362,7 +1362,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-setproperty
      */
     SetProperty(Type, Value) {
-        result := ComCall(102, this, "int", Type, "int", Value, "HRESULT")
+        result := ComCall(102, this, Int32, Type, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1424,7 +1424,7 @@ export default struct ITextRange2 extends ITextSelection {
     SetText2(Flags, _bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(103, this, "int", Flags, BSTR, _bstr, "HRESULT")
+        result := ComCall(103, this, Int32, Flags, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -1489,7 +1489,7 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-setinlineobject
      */
     SetInlineObject(Type, Align, _Char, Char1, Char2, Count, TeXStyle, cCol) {
-        result := ComCall(105, this, "int", Type, "int", Align, "int", _Char, "int", Char1, "int", Char2, "int", Count, "int", TeXStyle, "int", cCol, "HRESULT")
+        result := ComCall(105, this, Int32, Type, Int32, Align, Int32, _Char, Int32, Char1, Int32, Char2, Int32, Count, Int32, TeXStyle, Int32, cCol, "HRESULT")
         return result
     }
 
@@ -1536,7 +1536,7 @@ export default struct ITextRange2 extends ITextSelection {
     InsertImage(width, height, ascent, Type, bstrAltText, pStream) {
         bstrAltText := bstrAltText is String ? BSTR.Alloc(bstrAltText).Value : bstrAltText
 
-        result := ComCall(107, this, "int", width, "int", height, "int", ascent, "int", Type, BSTR, bstrAltText, "ptr", pStream, "HRESULT")
+        result := ComCall(107, this, Int32, width, Int32, height, Int32, ascent, Int32, Type, BSTR, bstrAltText, "ptr", pStream, "HRESULT")
         return result
     }
 

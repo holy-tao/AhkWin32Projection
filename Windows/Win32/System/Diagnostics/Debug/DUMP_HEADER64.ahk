@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PHYSICAL_MEMORY_RUN64.ahk" { PHYSICAL_MEMORY_RUN64 }
-#Import ".\EXCEPTION_RECORD64.ahk" { EXCEPTION_RECORD64 }
 #Import ".\DUMP_FILE_ATTRIBUTES.ahk" { DUMP_FILE_ATTRIBUTES }
+#Import ".\PHYSICAL_MEMORY_RUN64.ahk" { PHYSICAL_MEMORY_RUN64 }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\PHYSICAL_MEMORY_DESCRIPTOR64.ahk" { PHYSICAL_MEMORY_DESCRIPTOR64 }
+#Import ".\EXCEPTION_RECORD64.ahk" { EXCEPTION_RECORD64 }
 #Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

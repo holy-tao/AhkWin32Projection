@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDOMEventRegistrationCallback.ahk" { IDOMEventRegistrationCallback }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDOMEventRegistrationCallback.ahk" { IDOMEventRegistrationCallback }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

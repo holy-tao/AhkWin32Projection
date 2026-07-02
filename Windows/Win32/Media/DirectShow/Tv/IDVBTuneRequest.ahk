@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
 
 /**
  * The IDVBTuneRequest interface is implemented on the DVBTuneRequest object.
@@ -91,7 +91,7 @@ export default struct IDVBTuneRequest extends ITuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-put_onid
      */
     put_ONID(ONID) {
-        result := ComCall(13, this, "int", ONID, "HRESULT")
+        result := ComCall(13, this, Int32, ONID, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IDVBTuneRequest extends ITuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-put_tsid
      */
     put_TSID(TSID) {
-        result := ComCall(15, this, "int", TSID, "HRESULT")
+        result := ComCall(15, this, Int32, TSID, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IDVBTuneRequest extends ITuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-put_sid
      */
     put_SID(_SID) {
-        result := ComCall(17, this, "int", _SID, "HRESULT")
+        result := ComCall(17, this, Int32, _SID, "HRESULT")
         return result
     }
 

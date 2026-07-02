@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_CAPTURE_ENGINE_DEVICE_TYPE.ahk" { MF_CAPTURE_ENGINE_DEVICE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MF_CAPTURE_ENGINE_STREAM_CATEGORY.ahk" { MF_CAPTURE_ENGINE_STREAM_CATEGORY }
-#Import ".\IMFActivate.ahk" { IMFActivate }
-#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\MF_CAPTURE_ENGINE_DEVICE_TYPE.ahk" { MF_CAPTURE_ENGINE_DEVICE_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFActivate.ahk" { IMFActivate }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls the capture source object. The capture source manages the audio and video capture devices.
@@ -202,7 +202,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-addeffect
      */
     AddEffect(dwSourceStreamIndex, pUnknown) {
-        result := ComCall(6, this, "uint", dwSourceStreamIndex, "ptr", pUnknown, "HRESULT")
+        result := ComCall(6, this, UInt32, dwSourceStreamIndex, "ptr", pUnknown, "HRESULT")
         return result
     }
 
@@ -307,7 +307,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-removeeffect
      */
     RemoveEffect(dwSourceStreamIndex, pUnknown) {
-        result := ComCall(7, this, "uint", dwSourceStreamIndex, "ptr", pUnknown, "HRESULT")
+        result := ComCall(7, this, UInt32, dwSourceStreamIndex, "ptr", pUnknown, "HRESULT")
         return result
     }
 
@@ -398,7 +398,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-removealleffects
      */
     RemoveAllEffects(dwSourceStreamIndex) {
-        result := ComCall(8, this, "uint", dwSourceStreamIndex, "HRESULT")
+        result := ComCall(8, this, UInt32, dwSourceStreamIndex, "HRESULT")
         return result
     }
 
@@ -465,7 +465,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getavailabledevicemediatype
      */
     GetAvailableDeviceMediaType(dwSourceStreamIndex, dwMediaTypeIndex) {
-        result := ComCall(9, this, "uint", dwSourceStreamIndex, "uint", dwMediaTypeIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwSourceStreamIndex, UInt32, dwMediaTypeIndex, "ptr*", &ppMediaType := 0, "HRESULT")
         return IMFMediaType(ppMediaType)
     }
 
@@ -559,7 +559,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-setcurrentdevicemediatype
      */
     SetCurrentDeviceMediaType(dwSourceStreamIndex, pMediaType) {
-        result := ComCall(10, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "HRESULT")
+        result := ComCall(10, this, UInt32, dwSourceStreamIndex, "ptr", pMediaType, "HRESULT")
         return result
     }
 
@@ -621,7 +621,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcurrentdevicemediatype
      */
     GetCurrentDeviceMediaType(dwSourceStreamIndex) {
-        result := ComCall(11, this, "uint", dwSourceStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwSourceStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
         return IMFMediaType(ppMediaType)
     }
 
@@ -642,7 +642,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcategory
      */
     GetDeviceStreamCategory(dwSourceStreamIndex) {
-        result := ComCall(13, this, "uint", dwSourceStreamIndex, "int*", &pStreamCategory := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwSourceStreamIndex, "int*", &pStreamCategory := 0, "HRESULT")
         return pStreamCategory
     }
 
@@ -653,7 +653,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getmirrorstate
      */
     GetMirrorState(dwStreamIndex) {
-        result := ComCall(14, this, "uint", dwStreamIndex, BOOL.Ptr, &pfMirrorState := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwStreamIndex, BOOL.Ptr, &pfMirrorState := 0, "HRESULT")
         return pfMirrorState
     }
 
@@ -705,7 +705,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-setmirrorstate
      */
     SetMirrorState(dwStreamIndex, fMirrorState) {
-        result := ComCall(15, this, "uint", dwStreamIndex, BOOL, fMirrorState, "HRESULT")
+        result := ComCall(15, this, UInt32, dwStreamIndex, BOOL, fMirrorState, "HRESULT")
         return result
     }
 
@@ -725,7 +725,7 @@ export default struct IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getstreamindexfromfriendlyname
      */
     GetStreamIndexFromFriendlyName(uifriendlyName) {
-        result := ComCall(16, this, "uint", uifriendlyName, "uint*", &pdwActualStreamIndex := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, uifriendlyName, "uint*", &pdwActualStreamIndex := 0, "HRESULT")
         return pdwActualStreamIndex
     }
 

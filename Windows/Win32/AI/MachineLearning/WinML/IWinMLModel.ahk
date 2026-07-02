@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WINML_MODEL_DESC.ahk" { WINML_MODEL_DESC }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WINML_VARIABLE_DESC.ahk" { WINML_VARIABLE_DESC }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WINML_VARIABLE_DESC.ahk" { WINML_VARIABLE_DESC }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a Windows Machine Learning model with corresponding metadata; includes model descriptions (name, author, versioning, etc.), as well as expected inputs and outputs.
@@ -65,7 +65,7 @@ export default struct IWinMLModel extends IUnknown {
         pKeyMarshal := pKey is VarRef ? "ptr*" : "ptr"
         pValueMarshal := pValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", Index, pKeyMarshal, pKey, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(4, this, UInt32, Index, pKeyMarshal, pKey, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IWinMLModel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-enumeratemodelinputs
      */
     EnumerateModelInputs(Index) {
-        result := ComCall(5, this, "uint", Index, "ptr*", &ppInputDescriptor := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, Index, "ptr*", &ppInputDescriptor := 0, "HRESULT")
         return ppInputDescriptor
     }
 
@@ -87,7 +87,7 @@ export default struct IWinMLModel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-enumeratemodeloutputs
      */
     EnumerateModelOutputs(Index) {
-        result := ComCall(6, this, "uint", Index, "ptr*", &ppOutputDescriptor := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, Index, "ptr*", &ppOutputDescriptor := 0, "HRESULT")
         return ppOutputDescriptor
     }
 

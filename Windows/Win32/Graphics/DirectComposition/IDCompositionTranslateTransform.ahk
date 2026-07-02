@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
 
 /**
  * Represents a 2D transformation that affects only the offset of a visual along the x-axis and y-axis.
@@ -83,7 +83,7 @@ export default struct IDCompositionTranslateTransform extends IDCompositionTrans
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontranslatetransform-setoffsetx(idcompositionanimation)
      */
     SetOffsetX1(offsetX) {
-        result := ComCall(4, this, "float", offsetX, "HRESULT")
+        result := ComCall(4, this, Float32, offsetX, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IDCompositionTranslateTransform extends IDCompositionTrans
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontranslatetransform-setoffsety(float)
      */
     SetOffsetY1(offsetY) {
-        result := ComCall(6, this, "float", offsetY, "HRESULT")
+        result := ComCall(6, this, Float32, offsetY, "HRESULT")
         return result
     }
 

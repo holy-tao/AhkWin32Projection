@@ -1,31 +1,35 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\BLUETOOTH_ADDRESS.ahk" { BLUETOOTH_ADDRESS }
-#Import ".\BLUETOOTH_DEVICE_INFO.ahk" { BLUETOOTH_DEVICE_INFO }
-#Import ".\BLUETOOTH_LOCAL_SERVICE_INFO.ahk" { BLUETOOTH_LOCAL_SERVICE_INFO }
-#Import ".\BTH_LE_GATT_DESCRIPTOR.ahk" { BTH_LE_GATT_DESCRIPTOR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\BTH_LE_GATT_DESCRIPTOR_VALUE.ahk" { BTH_LE_GATT_DESCRIPTOR_VALUE }
-#Import ".\BLUETOOTH_OOB_DATA_INFO.ahk" { BLUETOOTH_OOB_DATA_INFO }
-#Import ".\BLUETOOTH_AUTHENTICATE_RESPONSE.ahk" { BLUETOOTH_AUTHENTICATE_RESPONSE }
-#Import ".\SDP_ELEMENT_DATA.ahk" { SDP_ELEMENT_DATA }
 #Import ".\AUTHENTICATION_REQUIREMENTS.ahk" { AUTHENTICATION_REQUIREMENTS }
-#Import ".\BTH_LE_GATT_CHARACTERISTIC.ahk" { BTH_LE_GATT_CHARACTERISTIC }
-#Import ".\HBLUETOOTH_RADIO_FIND.ahk" { HBLUETOOTH_RADIO_FIND }
-#Import ".\BLUETOOTH_RADIO_INFO.ahk" { BLUETOOTH_RADIO_INFO }
+#Import ".\BLUETOOTH_DEVICE_INFO.ahk" { BLUETOOTH_DEVICE_INFO }
 #Import ".\BLUETOOTH_FIND_RADIO_PARAMS.ahk" { BLUETOOTH_FIND_RADIO_PARAMS }
-#Import ".\HBLUETOOTH_DEVICE_FIND.ahk" { HBLUETOOTH_DEVICE_FIND }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\BTH_LE_GATT_SERVICE.ahk" { BTH_LE_GATT_SERVICE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PFN_AUTHENTICATION_CALLBACK_EX.ahk" { PFN_AUTHENTICATION_CALLBACK_EX }
 #Import ".\BLUETOOTH_DEVICE_SEARCH_PARAMS.ahk" { BLUETOOTH_DEVICE_SEARCH_PARAMS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\BTH_LE_GATT_EVENT_TYPE.ahk" { BTH_LE_GATT_EVENT_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BLUETOOTH_RADIO_INFO.ahk" { BLUETOOTH_RADIO_INFO }
+#Import ".\BLUETOOTH_LOCAL_SERVICE_INFO.ahk" { BLUETOOTH_LOCAL_SERVICE_INFO }
+#Import ".\BTH_LE_GATT_SERVICE.ahk" { BTH_LE_GATT_SERVICE }
+#Import ".\HBLUETOOTH_RADIO_FIND.ahk" { HBLUETOOTH_RADIO_FIND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\BLUETOOTH_OOB_DATA_INFO.ahk" { BLUETOOTH_OOB_DATA_INFO }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\BTH_LE_GATT_CHARACTERISTIC_VALUE.ahk" { BTH_LE_GATT_CHARACTERISTIC_VALUE }
-#Import ".\SDP_STRING_TYPE_DATA.ahk" { SDP_STRING_TYPE_DATA }
+#Import ".\PFNBLUETOOTH_GATT_EVENT_CALLBACK.ahk" { PFNBLUETOOTH_GATT_EVENT_CALLBACK }
+#Import ".\BTH_LE_GATT_CHARACTERISTIC.ahk" { BTH_LE_GATT_CHARACTERISTIC }
+#Import ".\PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK.ahk" { PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK }
+#Import ".\HBLUETOOTH_DEVICE_FIND.ahk" { HBLUETOOTH_DEVICE_FIND }
 #Import ".\BLUETOOTH_SELECT_DEVICE_PARAMS.ahk" { BLUETOOTH_SELECT_DEVICE_PARAMS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SDP_ELEMENT_DATA.ahk" { SDP_ELEMENT_DATA }
+#Import ".\SDP_STRING_TYPE_DATA.ahk" { SDP_STRING_TYPE_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BLUETOOTH_ADDRESS.ahk" { BLUETOOTH_ADDRESS }
+#Import ".\BTH_LE_GATT_EVENT_TYPE.ahk" { BTH_LE_GATT_EVENT_TYPE }
+#Import ".\BLUETOOTH_AUTHENTICATE_RESPONSE.ahk" { BLUETOOTH_AUTHENTICATE_RESPONSE }
+#Import ".\BTH_LE_GATT_DESCRIPTOR.ahk" { BTH_LE_GATT_DESCRIPTOR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\BTH_LE_GATT_DESCRIPTOR_VALUE.ahk" { BTH_LE_GATT_DESCRIPTOR_VALUE }
+#Import ".\BTH_LE_GATT_CHARACTERISTIC_VALUE.ahk" { BTH_LE_GATT_CHARACTERISTIC_VALUE }
+#Import ".\PFN_AUTHENTICATION_CALLBACK.ahk" { PFN_AUTHENTICATION_CALLBACK }
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
@@ -728,7 +732,7 @@ export BluetoothDisplayDeviceProperties(hwndParent, pbtdi) {
 export BluetoothAuthenticateDevice(hwndParent, hRadio, pbtbi, pszPasskey, ulPasskeyLength) {
     pszPasskey := pszPasskey is String ? StrPtr(pszPasskey) : pszPasskey
 
-    result := DllCall("bthprops.cpl\BluetoothAuthenticateDevice", HWND, hwndParent, HANDLE, hRadio, BLUETOOTH_DEVICE_INFO.Ptr, pbtbi, "ptr", pszPasskey, "uint", ulPasskeyLength, UInt32)
+    result := DllCall("bthprops.cpl\BluetoothAuthenticateDevice", HWND, hwndParent, HANDLE, hRadio, BLUETOOTH_DEVICE_INFO.Ptr, pbtbi, "ptr", pszPasskey, UInt32, ulPasskeyLength, UInt32)
     return result
 }
 
@@ -853,7 +857,7 @@ export BluetoothAuthenticateDeviceEx(hwndParentIn, hRadioIn, pbtdiInout, pbtOobD
  * @since windows6.0.6000
  */
 export BluetoothAuthenticateMultipleDevices(hwndParent, hRadio, cDevices, rgbtdi) {
-    result := DllCall("bthprops.cpl\BluetoothAuthenticateMultipleDevices", HWND, hwndParent, HANDLE, hRadio, "uint", cDevices, BLUETOOTH_DEVICE_INFO.Ptr, rgbtdi, UInt32)
+    result := DllCall("bthprops.cpl\BluetoothAuthenticateMultipleDevices", HWND, hwndParent, HANDLE, hRadio, UInt32, cDevices, BLUETOOTH_DEVICE_INFO.Ptr, rgbtdi, UInt32)
     return result
 }
 
@@ -913,7 +917,7 @@ export BluetoothAuthenticateMultipleDevices(hwndParent, hRadio, cDevices, rgbtdi
  * @since windows6.0.6000
  */
 export BluetoothSetServiceState(hRadio, pbtdi, pGuidService, dwServiceFlags) {
-    result := DllCall("BluetoothApis.dll\BluetoothSetServiceState", HANDLE, hRadio, BLUETOOTH_DEVICE_INFO.Ptr, pbtdi, Guid.Ptr, pGuidService, "uint", dwServiceFlags, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothSetServiceState", HANDLE, hRadio, BLUETOOTH_DEVICE_INFO.Ptr, pbtdi, Guid.Ptr, pGuidService, UInt32, dwServiceFlags, UInt32)
     return result
 }
 
@@ -1050,7 +1054,7 @@ export BluetoothRegisterForAuthentication(pbtdi, phRegHandle, _pfnCallback, pvPa
 
     A_LastError := 0
 
-    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", BLUETOOTH_DEVICE_INFO.Ptr, pbtdi, phRegHandleMarshal, phRegHandle, "ptr", _pfnCallback, pvParamMarshal, pvParam, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthentication", BLUETOOTH_DEVICE_INFO.Ptr, pbtdi, phRegHandleMarshal, phRegHandle, PFN_AUTHENTICATION_CALLBACK, _pfnCallback, pvParamMarshal, pvParam, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1106,7 +1110,7 @@ export BluetoothRegisterForAuthenticationEx(pbtdiIn, phRegHandleOut, pfnCallback
     phRegHandleOutMarshal := phRegHandleOut is VarRef ? "ptr*" : "ptr"
     pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthenticationEx", BLUETOOTH_DEVICE_INFO.Ptr, pbtdiIn, phRegHandleOutMarshal, phRegHandleOut, "ptr", pfnCallbackIn, pvParamMarshal, pvParam, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothRegisterForAuthenticationEx", BLUETOOTH_DEVICE_INFO.Ptr, pbtdiIn, phRegHandleOutMarshal, phRegHandleOut, PFN_AUTHENTICATION_CALLBACK_EX, pfnCallbackIn, pvParamMarshal, pvParam, UInt32)
     return result
 }
 
@@ -1140,7 +1144,7 @@ export BluetoothRegisterForAuthenticationEx(pbtdiIn, phRegHandleOut, pfnCallback
 export BluetoothUnregisterAuthentication(hRegHandle) {
     A_LastError := 0
 
-    result := DllCall("BluetoothApis.dll\BluetoothUnregisterAuthentication", "ptr", hRegHandle, BOOL)
+    result := DllCall("BluetoothApis.dll\BluetoothUnregisterAuthentication", IntPtr, hRegHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1250,7 +1254,7 @@ export BluetoothSendAuthenticationResponseEx(hRadioIn, pauthResponse) {
  * @since windows6.0.6000
  */
 export BluetoothSdpGetElementData(pSdpStream, cbSdpStreamLength, pData) {
-    result := DllCall("BluetoothApis.dll\BluetoothSdpGetElementData", "ptr", pSdpStream, "uint", cbSdpStreamLength, SDP_ELEMENT_DATA.Ptr, pData, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothSdpGetElementData", IntPtr, pSdpStream, UInt32, cbSdpStreamLength, SDP_ELEMENT_DATA.Ptr, pData, UInt32)
     return result
 }
 
@@ -1302,7 +1306,7 @@ export BluetoothSdpGetElementData(pSdpStream, cbSdpStreamLength, pData) {
 export BluetoothSdpGetContainerElementData(pContainerStream, cbContainerLength, pElement, pData) {
     pElementMarshal := pElement is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("BluetoothApis.dll\BluetoothSdpGetContainerElementData", "ptr", pContainerStream, "uint", cbContainerLength, pElementMarshal, pElement, SDP_ELEMENT_DATA.Ptr, pData, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothSdpGetContainerElementData", IntPtr, pContainerStream, UInt32, cbContainerLength, pElementMarshal, pElement, SDP_ELEMENT_DATA.Ptr, pData, UInt32)
     return result
 }
 
@@ -1351,7 +1355,7 @@ export BluetoothSdpGetContainerElementData(pContainerStream, cbContainerLength, 
  * @since windows6.0.6000
  */
 export BluetoothSdpGetAttributeValue(pRecordStream, cbRecordLength, usAttributeId, pAttributeData) {
-    result := DllCall("BluetoothApis.dll\BluetoothSdpGetAttributeValue", "ptr", pRecordStream, "uint", cbRecordLength, "ushort", usAttributeId, SDP_ELEMENT_DATA.Ptr, pAttributeData, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothSdpGetAttributeValue", IntPtr, pRecordStream, UInt32, cbRecordLength, UInt16, usAttributeId, SDP_ELEMENT_DATA.Ptr, pAttributeData, UInt32)
     return result
 }
 
@@ -1431,7 +1435,7 @@ export BluetoothSdpGetString(pRecordStream, cbRecordLength, pStringData, usStrin
 
     pcchStringLengthMarshal := pcchStringLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("BluetoothApis.dll\BluetoothSdpGetString", "ptr", pRecordStream, "uint", cbRecordLength, SDP_STRING_TYPE_DATA.Ptr, pStringData, "ushort", usStringOffset, "ptr", pszString, pcchStringLengthMarshal, pcchStringLength, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothSdpGetString", IntPtr, pRecordStream, UInt32, cbRecordLength, SDP_STRING_TYPE_DATA.Ptr, pStringData, UInt16, usStringOffset, "ptr", pszString, pcchStringLengthMarshal, pcchStringLength, UInt32)
     return result
 }
 
@@ -1485,7 +1489,7 @@ export BluetoothSdpEnumAttributes(pSDPStream, cbStreamSize, _pfnCallback, pvPara
 
     A_LastError := 0
 
-    result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", "ptr", pSDPStream, "uint", cbStreamSize, "ptr", _pfnCallback, pvParamMarshal, pvParam, BOOL)
+    result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", IntPtr, pSDPStream, UInt32, cbStreamSize, PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK, _pfnCallback, pvParamMarshal, pvParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1584,7 +1588,7 @@ export BluetoothSdpEnumAttributes(pSDPStream, cbStreamSize, _pfnCallback, pvPara
  * @since windows6.0.6000
  */
 export BluetoothSetLocalServiceInfo(hRadioIn, pClassGuid, ulInstance, pServiceInfoIn) {
-    result := DllCall("BluetoothApis.dll\BluetoothSetLocalServiceInfo", HANDLE, hRadioIn, Guid.Ptr, pClassGuid, "uint", ulInstance, BLUETOOTH_LOCAL_SERVICE_INFO.Ptr, pServiceInfoIn, UInt32)
+    result := DllCall("BluetoothApis.dll\BluetoothSetLocalServiceInfo", HANDLE, hRadioIn, Guid.Ptr, pClassGuid, UInt32, ulInstance, BLUETOOTH_LOCAL_SERVICE_INFO.Ptr, pServiceInfoIn, UInt32)
     return result
 }
 
@@ -1599,7 +1603,7 @@ export BluetoothSetLocalServiceInfo(hRadioIn, pClassGuid, ulInstance, pServiceIn
  * @since windows6.0.6000
  */
 export BluetoothIsVersionAvailable(MajorVersion, MinorVersion) {
-    result := DllCall("BluetoothApis.dll\BluetoothIsVersionAvailable", "char", MajorVersion, "char", MinorVersion, BOOL)
+    result := DllCall("BluetoothApis.dll\BluetoothIsVersionAvailable", Int8, MajorVersion, Int8, MinorVersion, BOOL)
     return result
 }
 
@@ -1690,7 +1694,7 @@ export BluetoothIsVersionAvailable(MajorVersion, MinorVersion) {
  * @since windows8.0
  */
 export BluetoothGATTGetServices(hDevice, ServicesBufferCount, ServicesBuffer, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTGetServices", HANDLE, hDevice, "ushort", ServicesBufferCount, BTH_LE_GATT_SERVICE.Ptr, ServicesBuffer, "ushort*", &ServicesBufferActual := 0, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTGetServices", HANDLE, hDevice, UInt16, ServicesBufferCount, BTH_LE_GATT_SERVICE.Ptr, ServicesBuffer, "ushort*", &ServicesBufferActual := 0, UInt32, Flags, "HRESULT")
     return ServicesBufferActual
 }
 
@@ -1784,7 +1788,7 @@ export BluetoothGATTGetServices(hDevice, ServicesBufferCount, ServicesBuffer, Fl
  * @since windows8.0
  */
 export BluetoothGATTGetIncludedServices(hDevice, ParentService, IncludedServicesBufferCount, IncludedServicesBuffer, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTGetIncludedServices", HANDLE, hDevice, BTH_LE_GATT_SERVICE.Ptr, ParentService, "ushort", IncludedServicesBufferCount, BTH_LE_GATT_SERVICE.Ptr, IncludedServicesBuffer, "ushort*", &IncludedServicesBufferActual := 0, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTGetIncludedServices", HANDLE, hDevice, BTH_LE_GATT_SERVICE.Ptr, ParentService, UInt16, IncludedServicesBufferCount, BTH_LE_GATT_SERVICE.Ptr, IncludedServicesBuffer, "ushort*", &IncludedServicesBufferActual := 0, UInt32, Flags, "HRESULT")
     return IncludedServicesBufferActual
 }
 
@@ -1887,7 +1891,7 @@ export BluetoothGATTGetIncludedServices(hDevice, ParentService, IncludedServices
  * @since windows8.0
  */
 export BluetoothGATTGetCharacteristics(hDevice, Service, CharacteristicsBufferCount, CharacteristicsBuffer, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristics", HANDLE, hDevice, BTH_LE_GATT_SERVICE.Ptr, Service, "ushort", CharacteristicsBufferCount, BTH_LE_GATT_CHARACTERISTIC.Ptr, CharacteristicsBuffer, "ushort*", &CharacteristicsBufferActual := 0, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristics", HANDLE, hDevice, BTH_LE_GATT_SERVICE.Ptr, Service, UInt16, CharacteristicsBufferCount, BTH_LE_GATT_CHARACTERISTIC.Ptr, CharacteristicsBuffer, "ushort*", &CharacteristicsBufferActual := 0, UInt32, Flags, "HRESULT")
     return CharacteristicsBufferActual
 }
 
@@ -1992,7 +1996,7 @@ export BluetoothGATTGetCharacteristics(hDevice, Service, CharacteristicsBufferCo
  * @since windows8.0
  */
 export BluetoothGATTGetDescriptors(hDevice, Characteristic, DescriptorsBufferCount, DescriptorsBuffer, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptors", HANDLE, hDevice, BTH_LE_GATT_CHARACTERISTIC.Ptr, Characteristic, "ushort", DescriptorsBufferCount, BTH_LE_GATT_DESCRIPTOR.Ptr, DescriptorsBuffer, "ushort*", &DescriptorsBufferActual := 0, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptors", HANDLE, hDevice, BTH_LE_GATT_CHARACTERISTIC.Ptr, Characteristic, UInt16, DescriptorsBufferCount, BTH_LE_GATT_DESCRIPTOR.Ptr, DescriptorsBuffer, "ushort*", &DescriptorsBufferActual := 0, UInt32, Flags, "HRESULT")
     return DescriptorsBufferActual
 }
 
@@ -2134,7 +2138,7 @@ export BluetoothGATTGetDescriptors(hDevice, Characteristic, DescriptorsBufferCou
  * @since windows8.0
  */
 export BluetoothGATTGetCharacteristicValue(hDevice, Characteristic, CharacteristicValueDataSize, CharacteristicValue, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristicValue", HANDLE, hDevice, BTH_LE_GATT_CHARACTERISTIC.Ptr, Characteristic, "uint", CharacteristicValueDataSize, BTH_LE_GATT_CHARACTERISTIC_VALUE.Ptr, CharacteristicValue, "ushort*", &CharacteristicValueSizeRequired := 0, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristicValue", HANDLE, hDevice, BTH_LE_GATT_CHARACTERISTIC.Ptr, Characteristic, UInt32, CharacteristicValueDataSize, BTH_LE_GATT_CHARACTERISTIC_VALUE.Ptr, CharacteristicValue, "ushort*", &CharacteristicValueSizeRequired := 0, UInt32, Flags, "HRESULT")
     return CharacteristicValueSizeRequired
 }
 
@@ -2267,7 +2271,7 @@ export BluetoothGATTGetCharacteristicValue(hDevice, Characteristic, Characterist
  * @since windows8.0
  */
 export BluetoothGATTGetDescriptorValue(hDevice, Descriptor, DescriptorValueDataSize, DescriptorValue, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptorValue", HANDLE, hDevice, BTH_LE_GATT_DESCRIPTOR.Ptr, Descriptor, "uint", DescriptorValueDataSize, BTH_LE_GATT_DESCRIPTOR_VALUE.Ptr, DescriptorValue, "ushort*", &DescriptorValueSizeRequired := 0, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptorValue", HANDLE, hDevice, BTH_LE_GATT_DESCRIPTOR.Ptr, Descriptor, UInt32, DescriptorValueDataSize, BTH_LE_GATT_DESCRIPTOR_VALUE.Ptr, DescriptorValue, "ushort*", &DescriptorValueSizeRequired := 0, UInt32, Flags, "HRESULT")
     return DescriptorValueSizeRequired
 }
 
@@ -2311,7 +2315,7 @@ export BluetoothGATTGetDescriptorValue(hDevice, Descriptor, DescriptorValueDataS
  * @since windows8.0
  */
 export BluetoothGATTBeginReliableWrite(hDevice, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTBeginReliableWrite", HANDLE, hDevice, "uint*", &ReliableWriteContext := 0, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTBeginReliableWrite", HANDLE, hDevice, "uint*", &ReliableWriteContext := 0, UInt32, Flags, "HRESULT")
     return ReliableWriteContext
 }
 
@@ -2695,7 +2699,7 @@ export BluetoothGATTBeginReliableWrite(hDevice, Flags) {
  * @since windows8.0
  */
 export BluetoothGATTSetCharacteristicValue(hDevice, Characteristic, CharacteristicValue, ReliableWriteContext, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTSetCharacteristicValue", HANDLE, hDevice, BTH_LE_GATT_CHARACTERISTIC.Ptr, Characteristic, BTH_LE_GATT_CHARACTERISTIC_VALUE.Ptr, CharacteristicValue, "uint", ReliableWriteContext, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTSetCharacteristicValue", HANDLE, hDevice, BTH_LE_GATT_CHARACTERISTIC.Ptr, Characteristic, BTH_LE_GATT_CHARACTERISTIC_VALUE.Ptr, CharacteristicValue, Int64, ReliableWriteContext, UInt32, Flags, "HRESULT")
     return result
 }
 
@@ -2998,7 +3002,7 @@ export BluetoothGATTSetCharacteristicValue(hDevice, Characteristic, Characterist
  * @since windows8.0
  */
 export BluetoothGATTEndReliableWrite(hDevice, ReliableWriteContext, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTEndReliableWrite", HANDLE, hDevice, "uint", ReliableWriteContext, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTEndReliableWrite", HANDLE, hDevice, Int64, ReliableWriteContext, UInt32, Flags, "HRESULT")
     return result
 }
 
@@ -3301,7 +3305,7 @@ export BluetoothGATTEndReliableWrite(hDevice, ReliableWriteContext, Flags) {
  * @since windows8.0
  */
 export BluetoothGATTAbortReliableWrite(hDevice, ReliableWriteContext, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTAbortReliableWrite", HANDLE, hDevice, "uint", ReliableWriteContext, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTAbortReliableWrite", HANDLE, hDevice, Int64, ReliableWriteContext, UInt32, Flags, "HRESULT")
     return result
 }
 
@@ -3648,7 +3652,7 @@ export BluetoothGATTAbortReliableWrite(hDevice, ReliableWriteContext, Flags) {
  * @since windows8.0
  */
 export BluetoothGATTSetDescriptorValue(hDevice, Descriptor, DescriptorValue, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTSetDescriptorValue", HANDLE, hDevice, BTH_LE_GATT_DESCRIPTOR.Ptr, Descriptor, BTH_LE_GATT_DESCRIPTOR_VALUE.Ptr, DescriptorValue, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTSetDescriptorValue", HANDLE, hDevice, BTH_LE_GATT_DESCRIPTOR.Ptr, Descriptor, BTH_LE_GATT_DESCRIPTOR_VALUE.Ptr, DescriptorValue, UInt32, Flags, "HRESULT")
     return result
 }
 
@@ -3685,7 +3689,7 @@ export BluetoothGATTRegisterEvent(hService, EventType, EventParameterIn, Callbac
     EventParameterInMarshal := EventParameterIn is VarRef ? "ptr" : "ptr"
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", HANDLE, hService, BTH_LE_GATT_EVENT_TYPE, EventType, EventParameterInMarshal, EventParameterIn, "ptr", Callback, CallbackContextMarshal, CallbackContext, "ptr*", &pEventHandle := 0, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", HANDLE, hService, BTH_LE_GATT_EVENT_TYPE, EventType, EventParameterInMarshal, EventParameterIn, PFNBLUETOOTH_GATT_EVENT_CALLBACK, Callback, CallbackContextMarshal, CallbackContext, "ptr*", &pEventHandle := 0, UInt32, Flags, "HRESULT")
     return pEventHandle
 }
 
@@ -3755,7 +3759,7 @@ export BluetoothGATTRegisterEvent(hService, EventType, EventParameterIn, Callbac
  * @since windows8.0
  */
 export BluetoothGATTUnregisterEvent(EventHandle, Flags) {
-    result := DllCall("BluetoothApis.dll\BluetoothGATTUnregisterEvent", "ptr", EventHandle, "uint", Flags, "HRESULT")
+    result := DllCall("BluetoothApis.dll\BluetoothGATTUnregisterEvent", IntPtr, EventHandle, UInt32, Flags, "HRESULT")
     return result
 }
 

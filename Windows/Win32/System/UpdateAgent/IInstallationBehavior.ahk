@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\InstallationRebootBehavior.ahk" { InstallationRebootBehavior }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\InstallationImpact.ahk" { InstallationImpact }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InstallationImpact.ahk" { InstallationImpact }
 
 /**
  * Represents the installation and uninstallation options of an update.

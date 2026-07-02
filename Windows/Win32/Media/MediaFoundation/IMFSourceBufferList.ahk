@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFSourceBuffer.ahk" { IMFSourceBuffer }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFSourceBuffer.ahk" { IMFSourceBuffer }
 
 /**
  * Represents a collection of IMFSourceBuffer objects.
@@ -55,7 +55,7 @@ export default struct IMFSourceBufferList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebufferlist-getsourcebuffer
      */
     GetSourceBuffer(index) {
-        result := ComCall(4, this, "uint", index, IMFSourceBuffer)
+        result := ComCall(4, this, UInt32, index, IMFSourceBuffer)
         return result
     }
 

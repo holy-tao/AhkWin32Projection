@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumDebugPropertyInfo.ahk" { IEnumDebugPropertyInfo }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DebugPropertyInfo.ahk" { DebugPropertyInfo }
+#Import ".\IEnumDebugPropertyInfo.ahk" { IEnumDebugPropertyInfo }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Variant\VARIANT.ahk" { VARIANT }
@@ -54,7 +54,7 @@ export default struct IDebugProperty extends IUnknown {
      */
     GetPropertyInfo(dwFieldSpec, nRadix) {
         pPropertyInfo := DebugPropertyInfo()
-        result := ComCall(3, this, "uint", dwFieldSpec, "uint", nRadix, DebugPropertyInfo.Ptr, pPropertyInfo, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFieldSpec, UInt32, nRadix, DebugPropertyInfo.Ptr, pPropertyInfo, "HRESULT")
         return pPropertyInfo
     }
 
@@ -66,7 +66,7 @@ export default struct IDebugProperty extends IUnknown {
      */
     GetExtendedInfo(cInfos, rgguidExtendedInfo) {
         rgvar := VARIANT()
-        result := ComCall(4, this, "uint", cInfos, Guid.Ptr, rgguidExtendedInfo, VARIANT.Ptr, rgvar, "HRESULT")
+        result := ComCall(4, this, UInt32, cInfos, Guid.Ptr, rgguidExtendedInfo, VARIANT.Ptr, rgvar, "HRESULT")
         return rgvar
     }
 
@@ -79,7 +79,7 @@ export default struct IDebugProperty extends IUnknown {
     SetValueAsString(pszValue, nRadix) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(5, this, "ptr", pszValue, "uint", nRadix, "HRESULT")
+        result := ComCall(5, this, "ptr", pszValue, UInt32, nRadix, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct IDebugProperty extends IUnknown {
      * @returns {IEnumDebugPropertyInfo} 
      */
     EnumMembers(dwFieldSpec, nRadix, refiid) {
-        result := ComCall(6, this, "uint", dwFieldSpec, "uint", nRadix, Guid.Ptr, refiid, "ptr*", &ppepi := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFieldSpec, UInt32, nRadix, Guid.Ptr, refiid, "ptr*", &ppepi := 0, "HRESULT")
         return IEnumDebugPropertyInfo(ppepi)
     }
 

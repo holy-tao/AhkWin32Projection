@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\IWMDMOperation.ahk" { IWMDMOperation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
 
 /**
  * The optional, application-implemented IWMDMOperation2 interface extends IWMDMOperation by providing methods to get and set extended attributes.
@@ -90,7 +90,7 @@ export default struct IWMDMOperation2 extends IWMDMOperation {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation2-setobjectattributes2
      */
     SetObjectAttributes2(dwAttributes, dwAttributesEx, pFormat, pVideoFormat) {
-        result := ComCall(13, this, "uint", dwAttributes, "uint", dwAttributesEx, WAVEFORMATEX.Ptr, pFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
+        result := ComCall(13, this, UInt32, dwAttributes, UInt32, dwAttributesEx, WAVEFORMATEX.Ptr, pFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\IMFASFStreamConfig.ahk" { IMFASFStreamConfig }
 #Import ".\IMFASFStreamPrioritization.ahk" { IMFASFStreamPrioritization }
 #Import ".\IMFASFMutualExclusion.ahk" { IMFASFMutualExclusion }
-#Import ".\IMFASFStreamConfig.ahk" { IMFASFStreamConfig }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Manages an Advanced Systems Format (ASF) profile.
@@ -99,7 +99,7 @@ export default struct IMFASFProfile extends IMFAttributes {
     GetStream(dwStreamIndex, pwStreamNumber, ppIStream) {
         pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(34, this, "uint", dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, IMFASFStreamConfig.Ptr, ppIStream, "HRESULT")
+        result := ComCall(34, this, UInt32, dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, IMFASFStreamConfig.Ptr, ppIStream, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IMFASFProfile extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstreambynumber
      */
     GetStreamByNumber(wStreamNumber) {
-        result := ComCall(35, this, "ushort", wStreamNumber, "ptr*", &ppIStream := 0, "HRESULT")
+        result := ComCall(35, this, UInt16, wStreamNumber, "ptr*", &ppIStream := 0, "HRESULT")
         return IMFASFStreamConfig(ppIStream)
     }
 
@@ -176,7 +176,7 @@ export default struct IMFASFProfile extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-removestream
      */
     RemoveStream(wStreamNumber) {
-        result := ComCall(37, this, "ushort", wStreamNumber, "HRESULT")
+        result := ComCall(37, this, UInt16, wStreamNumber, "HRESULT")
         return result
     }
 
@@ -216,7 +216,7 @@ export default struct IMFASFProfile extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getmutualexclusion
      */
     GetMutualExclusion(dwMutexIndex) {
-        result := ComCall(40, this, "uint", dwMutexIndex, "ptr*", &ppIMutex := 0, "HRESULT")
+        result := ComCall(40, this, UInt32, dwMutexIndex, "ptr*", &ppIMutex := 0, "HRESULT")
         return IMFASFMutualExclusion(ppIMutex)
     }
 
@@ -278,7 +278,7 @@ export default struct IMFASFProfile extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-removemutualexclusion
      */
     RemoveMutualExclusion(dwMutexIndex) {
-        result := ComCall(42, this, "uint", dwMutexIndex, "HRESULT")
+        result := ComCall(42, this, UInt32, dwMutexIndex, "HRESULT")
         return result
     }
 

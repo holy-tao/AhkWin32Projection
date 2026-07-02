@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMGlyphsEditor.ahk" { IXpsOMGlyphsEditor }
-#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
-#Import ".\XPS_GLYPH_MAPPING.ahk" { XPS_GLYPH_MAPPING }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
-#Import ".\XPS_POINT.ahk" { XPS_POINT }
 #Import ".\XPS_GLYPH_INDEX.ahk" { XPS_GLYPH_INDEX }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\XPS_STYLE_SIMULATION.ahk" { XPS_STYLE_SIMULATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
+#Import ".\IXpsOMGlyphsEditor.ahk" { IXpsOMGlyphsEditor }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_GLYPH_MAPPING.ahk" { XPS_GLYPH_MAPPING }
+#Import ".\XPS_POINT.ahk" { XPS_POINT }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
 
 /**
  * Describes the text that appears on a page.
@@ -541,7 +541,7 @@ export default struct IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-setfontrenderingemsize
      */
     SetFontRenderingEmSize(fontRenderingEmSize) {
-        result := ComCall(45, this, "float", fontRenderingEmSize, "HRESULT")
+        result := ComCall(45, this, Float32, fontRenderingEmSize, "HRESULT")
         return result
     }
 
@@ -694,7 +694,7 @@ export default struct IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-setfontfaceindex
      */
     SetFontFaceIndex(fontFaceIndex) {
-        result := ComCall(49, this, "short", fontFaceIndex, "HRESULT")
+        result := ComCall(49, this, Int16, fontFaceIndex, "HRESULT")
         return result
     }
 

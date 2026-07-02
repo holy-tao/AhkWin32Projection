@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WiaTransferParams.ahk" { WiaTransferParams }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WiaTransferParams.ahk" { WiaTransferParams }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -50,7 +50,7 @@ export default struct IWiaMiniDrvTransferCallback extends IUnknown {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(3, this, "int", lFlags, BSTR, bstrItemName, BSTR, bstrFullItemName, "ptr*", &ppIStream := 0, "HRESULT")
+        result := ComCall(3, this, Int32, lFlags, BSTR, bstrItemName, BSTR, bstrFullItemName, "ptr*", &ppIStream := 0, "HRESULT")
         return IStream(ppIStream)
     }
 
@@ -74,7 +74,7 @@ export default struct IWiaMiniDrvTransferCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendmessage
      */
     SendMessage(lFlags, pWiaTransferParams) {
-        result := ComCall(4, this, "int", lFlags, WiaTransferParams.Ptr, pWiaTransferParams, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, WiaTransferParams.Ptr, pWiaTransferParams, "HRESULT")
         return result
     }
 

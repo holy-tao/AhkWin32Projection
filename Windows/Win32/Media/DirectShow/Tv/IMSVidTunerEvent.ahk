@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidInputDeviceEvent.ahk" { IMSVidInputDeviceEvent }
-#Import ".\IMSVidTuner.ahk" { IMSVidTuner }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidTuner.ahk" { IMSVidTuner }
+#Import ".\IMSVidInputDeviceEvent.ahk" { IMSVidInputDeviceEvent }
 
 /**
  * This topic applies to Windows XP or later.

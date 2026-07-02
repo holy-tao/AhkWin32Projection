@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IResourceManager.ahk" { IResourceManager }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IResourceManagerSink.ahk" { IResourceManagerSink }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IResourceManager.ahk" { IResourceManager }
+#Import ".\IResourceManagerSink.ahk" { IResourceManagerSink }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

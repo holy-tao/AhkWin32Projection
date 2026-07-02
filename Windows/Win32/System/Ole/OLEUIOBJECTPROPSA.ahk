@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\UI\Controls\PROPSHEETHEADERA_V2.ahk" { PROPSHEETHEADERA_V2 }
 #Import ".\IOleUILinkInfoA.ahk" { IOleUILinkInfoA }
-#Import ".\OLEUIGNRLPROPSA.ahk" { OLEUIGNRLPROPSA }
-#Import ".\OLEUIVIEWPROPSA.ahk" { OLEUIVIEWPROPSA }
 #Import ".\IOleUIObjInfoA.ahk" { IOleUIObjInfoA }
-#Import ".\OLEUILINKPROPSA.ahk" { OLEUILINKPROPSA }
 #Import ".\OBJECT_PROPERTIES_FLAGS.ahk" { OBJECT_PROPERTIES_FLAGS }
+#Import ".\OLEUIGNRLPROPSA.ahk" { OLEUIGNRLPROPSA }
+#Import ".\OLEUILINKPROPSA.ahk" { OLEUILINKPROPSA }
+#Import ".\OLEUIVIEWPROPSA.ahk" { OLEUIVIEWPROPSA }
+#Import "..\..\UI\Controls\PROPSHEETHEADERA_V2.ahk" { PROPSHEETHEADERA_V2 }
 
 /**
  * Contains information that is used to initialize the standard Object Properties dialog box. (ANSI)

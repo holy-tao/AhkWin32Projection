@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_DESC.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Direct3D12\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface maintains context for video motion estimation operations.

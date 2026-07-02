@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
-#Import ".\PENDING_REQUEST_DESIRED_PROPERTY.ahk" { PENDING_REQUEST_DESIRED_PROPERTY }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\XEKL_KEYSIZE.ahk" { XEKL_KEYSIZE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\XEKL_KEYSPEC.ahk" { XEKL_KEYSPEC }
-#Import ".\ICEnroll3.ahk" { ICEnroll3 }
+#Import ".\PENDING_REQUEST_DESIRED_PROPERTY.ahk" { PENDING_REQUEST_DESIRED_PROPERTY }
+#Import ".\XEKL_KEYSIZE.ahk" { XEKL_KEYSIZE }
+#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ADDED_CERT_TYPE.ahk" { ADDED_CERT_TYPE }
+#Import ".\ICEnroll3.ahk" { ICEnroll3 }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ICEnroll4 interface is one of several interfaces that represent the Certificate Enrollment Control.
@@ -180,7 +180,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
 
         pstrEncoded := BSTR.Owned()
-        result := ComCall(87, this, "int", Flags, BSTR, strBinary, BSTR.Ptr, pstrEncoded, "HRESULT")
+        result := ComCall(87, this, Int32, Flags, BSTR, strBinary, BSTR.Ptr, pstrEncoded, "HRESULT")
         return pstrEncoded
     }
 
@@ -196,7 +196,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
         strEncoded := strEncoded is String ? BSTR.Alloc(strEncoded).Value : strEncoded
 
         pstrBinary := BSTR.Owned()
-        result := ComCall(88, this, "int", Flags, BSTR, strEncoded, BSTR.Ptr, pstrBinary, "HRESULT")
+        result := ComCall(88, this, Int32, Flags, BSTR, strEncoded, BSTR.Ptr, pstrBinary, "HRESULT")
         return pstrBinary
     }
 
@@ -216,7 +216,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(89, this, "int", Flags, BSTR, strName, BSTR, strValue, "HRESULT")
+        result := ComCall(89, this, Int32, Flags, BSTR, strName, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -236,7 +236,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(90, this, "int", Flags, BSTR, strName, BSTR, strValue, "HRESULT")
+        result := ComCall(90, this, Int32, Flags, BSTR, strName, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(91, this, "int", Flags, BSTR, strName, BSTR, strValue, "HRESULT")
+        result := ComCall(91, this, Int32, Flags, BSTR, strName, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -470,7 +470,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
         strCAName := strCAName is String ? BSTR.Alloc(strCAName).Value : strCAName
         strFriendlyName := strFriendlyName is String ? BSTR.Alloc(strFriendlyName).Value : strFriendlyName
 
-        result := ComCall(102, this, "int", lRequestID, BSTR, strCADNS, BSTR, strCAName, BSTR, strFriendlyName, "HRESULT")
+        result := ComCall(102, this, Int32, lRequestID, BSTR, strCADNS, BSTR, strCAName, BSTR, strFriendlyName, "HRESULT")
         return result
     }
 
@@ -490,7 +490,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
      */
     enumPendingRequest(lIndex, lDesiredProperty) {
         pvarProperty := VARIANT()
-        result := ComCall(103, this, "int", lIndex, PENDING_REQUEST_DESIRED_PROPERTY, lDesiredProperty, VARIANT.Ptr, pvarProperty, "HRESULT")
+        result := ComCall(103, this, Int32, lIndex, PENDING_REQUEST_DESIRED_PROPERTY, lDesiredProperty, VARIANT.Ptr, pvarProperty, "HRESULT")
         return pvarProperty
     }
 
@@ -563,7 +563,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
     addCertTypeToRequestEx(lType, bstrOIDOrName, lMajorVersion, fMinorVersion, lMinorVersion) {
         bstrOIDOrName := bstrOIDOrName is String ? BSTR.Alloc(bstrOIDOrName).Value : bstrOIDOrName
 
-        result := ComCall(107, this, ADDED_CERT_TYPE, lType, BSTR, bstrOIDOrName, "int", lMajorVersion, BOOL, fMinorVersion, "int", lMinorVersion, "HRESULT")
+        result := ComCall(107, this, ADDED_CERT_TYPE, lType, BSTR, bstrOIDOrName, Int32, lMajorVersion, BOOL, fMinorVersion, Int32, lMinorVersion, "HRESULT")
         return result
     }
 
@@ -600,7 +600,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-put_clientid
      */
     put_ClientId(lClientId) {
-        result := ComCall(110, this, "int", lClientId, "HRESULT")
+        result := ComCall(110, this, Int32, lClientId, "HRESULT")
         return result
     }
 
@@ -625,7 +625,7 @@ export default struct ICEnroll4 extends ICEnroll3 {
     addBlobPropertyToCertificate(lPropertyId, lReserved, bstrProperty) {
         bstrProperty := bstrProperty is String ? BSTR.Alloc(bstrProperty).Value : bstrProperty
 
-        result := ComCall(112, this, "int", lPropertyId, "int", lReserved, BSTR, bstrProperty, "HRESULT")
+        result := ComCall(112, this, Int32, lPropertyId, Int32, lReserved, BSTR, bstrProperty, "HRESULT")
         return result
     }
 

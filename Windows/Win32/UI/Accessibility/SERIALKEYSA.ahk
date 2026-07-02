@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SERIALKEYS_FLAGS.ahk" { SERIALKEYS_FLAGS }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SERIALKEYS_FLAGS.ahk" { SERIALKEYS_FLAGS }
 
 /**
  * Contains information about the SerialKeys accessibility feature, which interprets data from a communication aid attached to a serial port as commands causing the system to simulate keyboard and mouse input. (ANSI)

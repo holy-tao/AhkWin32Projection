@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk" { SYSTEM_AUDIT_OBJECT_ACE_FLAGS }
 #Import ".\ACE_HEADER.ahk" { ACE_HEADER }
 #Import "..\..\..\Guid.ahk" { Guid }
+#Import ".\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk" { SYSTEM_AUDIT_OBJECT_ACE_FLAGS }
 
 /**
  * The ACCESS_DENIED_CALLBACK_OBJECT_ACE structure defines an access control entry that controls denied access to an object, a property set, or property.

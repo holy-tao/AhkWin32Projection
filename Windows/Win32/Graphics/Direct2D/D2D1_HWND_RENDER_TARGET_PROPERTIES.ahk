@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
 #Import ".\D2D1_PRESENT_OPTIONS.ahk" { D2D1_PRESENT_OPTIONS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
 
 /**
  * Contains the HWND, pixel size, and presentation options for an ID2D1HwndRenderTarget.

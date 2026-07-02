@@ -54,7 +54,7 @@ export default struct IApoAuxiliaryInputRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iapoauxiliaryinputrt-acceptinput
      */
     AcceptInput(dwInputId, pInputConnection) {
-        ComCall(3, this, "uint", dwInputId, APO_CONNECTION_PROPERTY.Ptr, pInputConnection)
+        ComCall(3, this, UInt32, dwInputId, APO_CONNECTION_PROPERTY.Ptr, pInputConnection)
     }
 
     Query(iid) {

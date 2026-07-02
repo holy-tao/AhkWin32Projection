@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfUIElementSink interface is implemented by an application to receive notifications when the UI element is changed.
@@ -81,7 +81,7 @@ export default struct ITfUIElementSink extends IUnknown {
     BeginUIElement(dwUIElementId, pbShow) {
         pbShowMarshal := pbShow is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwUIElementId, pbShowMarshal, pbShow, "HRESULT")
+        result := ComCall(3, this, UInt32, dwUIElementId, pbShowMarshal, pbShow, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct ITfUIElementSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementsink-updateuielement
      */
     UpdateUIElement(dwUIElementId) {
-        result := ComCall(4, this, "uint", dwUIElementId, "HRESULT")
+        result := ComCall(4, this, UInt32, dwUIElementId, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct ITfUIElementSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementsink-enduielement
      */
     EndUIElement(dwUIElementId) {
-        result := ComCall(5, this, "uint", dwUIElementId, "HRESULT")
+        result := ComCall(5, this, UInt32, dwUIElementId, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PROPERTYUI_NAME_FLAGS.ahk" { PROPERTYUI_NAME_FLAGS }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PROPERTYUI_FORMAT_FLAGS.ahk" { PROPERTYUI_FORMAT_FLAGS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PROPERTYUI_FLAGS.ahk" { PROPERTYUI_FLAGS }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PROPERTYUI_NAME_FLAGS.ahk" { PROPERTYUI_NAME_FLAGS }
 
 /**
  * Developers should use IPropertyDescription instead. (IPropertyUI)
@@ -89,7 +89,7 @@ export default struct IPropertyUI extends IUnknown {
     GetCannonicalName(fmtid, pid, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(4, this, Guid.Ptr, fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, fmtid, UInt32, pid, "ptr", pwszText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct IPropertyUI extends IUnknown {
     GetDisplayName(fmtid, pid, flags, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(5, this, Guid.Ptr, fmtid, "uint", pid, PROPERTYUI_NAME_FLAGS, flags, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, fmtid, UInt32, pid, PROPERTYUI_NAME_FLAGS, flags, "ptr", pwszText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IPropertyUI extends IUnknown {
     GetPropertyDescription(fmtid, pid, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(6, this, Guid.Ptr, fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, fmtid, UInt32, pid, "ptr", pwszText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IPropertyUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-getdefaultwidth
      */
     GetDefaultWidth(fmtid, pid) {
-        result := ComCall(7, this, Guid.Ptr, fmtid, "uint", pid, "uint*", &pcxChars := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, fmtid, UInt32, pid, "uint*", &pcxChars := 0, "HRESULT")
         return pcxChars
     }
 
@@ -180,7 +180,7 @@ export default struct IPropertyUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-getflags
      */
     GetFlags(fmtid, pid) {
-        result := ComCall(8, this, Guid.Ptr, fmtid, "uint", pid, "int*", &pflags := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, fmtid, UInt32, pid, "int*", &pflags := 0, "HRESULT")
         return pflags
     }
 
@@ -206,7 +206,7 @@ export default struct IPropertyUI extends IUnknown {
     FormatForDisplay(fmtid, pid, ppropvar, puiff, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(9, this, Guid.Ptr, fmtid, "uint", pid, PROPVARIANT.Ptr, ppropvar, PROPERTYUI_FORMAT_FLAGS, puiff, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, fmtid, UInt32, pid, PROPVARIANT.Ptr, ppropvar, PROPERTYUI_FORMAT_FLAGS, puiff, "ptr", pwszText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -230,7 +230,7 @@ export default struct IPropertyUI extends IUnknown {
     GetHelpInfo(fmtid, pid, pwszHelpFile, cch) {
         pwszHelpFile := pwszHelpFile is String ? StrPtr(pwszHelpFile) : pwszHelpFile
 
-        result := ComCall(10, this, Guid.Ptr, fmtid, "uint", pid, "ptr", pwszHelpFile, "uint", cch, "uint*", &puHelpID := 0, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, fmtid, UInt32, pid, "ptr", pwszHelpFile, UInt32, cch, "uint*", &puHelpID := 0, "HRESULT")
         return puHelpID
     }
 

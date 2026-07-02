@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -75,7 +75,7 @@ export default struct IRTCSessionCallControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadshold
      */
     Hold(lCookie) {
-        result := ComCall(3, this, "ptr", lCookie, "HRESULT")
+        result := ComCall(3, this, IntPtr, lCookie, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IRTCSessionCallControl extends IUnknown {
      * @returns {HRESULT} 
      */
     UnHold(lCookie) {
-        result := ComCall(4, this, "ptr", lCookie, "HRESULT")
+        result := ComCall(4, this, IntPtr, lCookie, "HRESULT")
         return result
     }
 

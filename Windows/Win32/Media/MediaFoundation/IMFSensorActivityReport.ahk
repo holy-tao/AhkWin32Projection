@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFSensorProcessActivity.ahk" { IMFSensorProcessActivity }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an activity report for a sensor.
@@ -52,7 +52,7 @@ export default struct IMFSensorActivityReport extends IUnknown {
     GetFriendlyName(FriendlyName, cchFriendlyName) {
         FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
 
-        result := ComCall(3, this, "ptr", FriendlyName, "uint", cchFriendlyName, "uint*", &pcchWritten := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", FriendlyName, UInt32, cchFriendlyName, "uint*", &pcchWritten := 0, "HRESULT")
         return pcchWritten
     }
 
@@ -66,7 +66,7 @@ export default struct IMFSensorActivityReport extends IUnknown {
     GetSymbolicLink(SymbolicLink, cchSymbolicLink) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
 
-        result := ComCall(4, this, "ptr", SymbolicLink, "uint", cchSymbolicLink, "uint*", &pcchWritten := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", SymbolicLink, UInt32, cchSymbolicLink, "uint*", &pcchWritten := 0, "HRESULT")
         return pcchWritten
     }
 
@@ -87,7 +87,7 @@ export default struct IMFSensorActivityReport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensoractivityreport-getprocessactivity
      */
     GetProcessActivity(Index) {
-        result := ComCall(6, this, "uint", Index, "ptr*", &ppProcessActivity := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, Index, "ptr*", &ppProcessActivity := 0, "HRESULT")
         return IMFSensorProcessActivity(ppProcessActivity)
     }
 

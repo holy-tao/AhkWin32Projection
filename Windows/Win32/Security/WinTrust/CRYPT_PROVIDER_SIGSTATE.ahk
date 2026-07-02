@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SEALING_SIGNATURE_ATTRIBUTE.ahk" { SEALING_SIGNATURE_ATTRIBUTE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SEALING_SIGNATURE_ATTRIBUTE.ahk" { SEALING_SIGNATURE_ATTRIBUTE }
 
 /**
  * Is used to communicate between policy providers and Wintrust.

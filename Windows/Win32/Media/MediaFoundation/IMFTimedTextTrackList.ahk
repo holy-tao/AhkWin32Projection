@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFTimedTextTrack.ahk" { IMFTimedTextTrack }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFTimedTextTrack.ahk" { IMFTimedTextTrack }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a list of timed-text tracks.
@@ -63,7 +63,7 @@ export default struct IMFTimedTextTrackList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-gettrack
      */
     GetTrack(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &track := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &track := 0, "HRESULT")
         return IMFTimedTextTrack(track)
     }
 
@@ -78,7 +78,7 @@ export default struct IMFTimedTextTrackList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtexttracklist-gettrackbyid
      */
     GetTrackById(trackId) {
-        result := ComCall(5, this, "uint", trackId, "ptr*", &track := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, trackId, "ptr*", &track := 0, "HRESULT")
         return IMFTimedTextTrack(track)
     }
 

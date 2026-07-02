@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import ".\TBBUTTON.ahk" { TBBUTTON }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information used to process toolbar notification codes. This structure supersedes the TBNOTIFY structure. (Unicode)

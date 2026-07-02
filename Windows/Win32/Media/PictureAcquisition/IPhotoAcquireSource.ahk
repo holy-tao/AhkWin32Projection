@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPhotoAcquireSettings.ahk" { IPhotoAcquireSettings }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPhotoAcquireProgressCB.ahk" { IPhotoAcquireProgressCB }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IPhotoAcquireSource interface is used for acquisition of items from a device.
@@ -99,7 +99,7 @@ export default struct IPhotoAcquireSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceicons
      */
     GetDeviceIcons(nSize, phLargeIcon, phSmallIcon) {
-        result := ComCall(4, this, "uint", nSize, HICON.Ptr, phLargeIcon, HICON.Ptr, phSmallIcon, "HRESULT")
+        result := ComCall(4, this, UInt32, nSize, HICON.Ptr, phLargeIcon, HICON.Ptr, phSmallIcon, "HRESULT")
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IPhotoAcquireSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getitemat
      */
     GetItemAt(nIndex) {
-        result := ComCall(7, this, "uint", nIndex, "ptr*", &ppPhotoAcquireItem := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, nIndex, "ptr*", &ppPhotoAcquireItem := 0, "HRESULT")
         return IPhotoAcquireItem(ppPhotoAcquireItem)
     }
 

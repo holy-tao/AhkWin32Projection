@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\XPF_MC_BANK_FLAGS.ahk" { XPF_MC_BANK_FLAGS }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\XPF_MC_BANK_FLAGS.ahk" { XPF_MC_BANK_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

@@ -80,7 +80,7 @@ export default struct IHTMLTable2 extends IDispatch {
      * @returns {IDispatch} 
      */
     moveRow(indexFrom, indexTo) {
-        result := ComCall(10, this, "int", indexFrom, "int", indexTo, "ptr*", &row := 0, "HRESULT")
+        result := ComCall(10, this, Int32, indexFrom, Int32, indexTo, "ptr*", &row := 0, "HRESULT")
         return IDispatch(row)
     }
 

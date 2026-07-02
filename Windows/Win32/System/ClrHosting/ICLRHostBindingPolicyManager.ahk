@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -54,7 +54,7 @@ export default struct ICLRHostBindingPolicyManager extends IUnknown {
         pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
         pcbNewAppPolicySizeMarshal := pcbNewAppPolicySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwzSourceAssemblyIdentity, "ptr", pwzTargetAssemblyIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "uint", dwPolicyModifyFlags, "char*", &pbNewApplicationPolicy := 0, pcbNewAppPolicySizeMarshal, pcbNewAppPolicySize, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzSourceAssemblyIdentity, "ptr", pwzTargetAssemblyIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, UInt32, cbAppPolicySize, UInt32, dwPolicyModifyFlags, "char*", &pbNewApplicationPolicy := 0, pcbNewAppPolicySizeMarshal, pcbNewAppPolicySize, "HRESULT")
         return pbNewApplicationPolicy
     }
 
@@ -74,7 +74,7 @@ export default struct ICLRHostBindingPolicyManager extends IUnknown {
         pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
         pcchPostPolicyReferenceIdentityMarshal := pcchPostPolicyReferenceIdentity is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwzReferenceIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "ptr", pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentityMarshal, pcchPostPolicyReferenceIdentity, "uint*", &pdwPoliciesApplied := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzReferenceIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, UInt32, cbAppPolicySize, "ptr", pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentityMarshal, pcchPostPolicyReferenceIdentity, "uint*", &pdwPoliciesApplied := 0, "HRESULT")
         return pdwPoliciesApplied
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidGraphSegment.ahk" { IMSVidGraphSegment }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\IMSVidGraphSegment.ahk" { IMSVidGraphSegment }
+#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -137,7 +137,7 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
      * @returns {HRESULT} 
      */
     put__VMRendererMode(dwMode) {
-        result := ComCall(19, this, "int", dwMode, "HRESULT")
+        result := ComCall(19, this, Int32, dwMode, "HRESULT")
         return result
     }
 
@@ -214,7 +214,7 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
      * @returns {HRESULT} 
      */
     put_ColorKey(_ColorKey) {
-        result := ComCall(27, this, "uint", _ColorKey, "HRESULT")
+        result := ComCall(27, this, UInt32, _ColorKey, "HRESULT")
         return result
     }
 
@@ -284,7 +284,7 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
      * @returns {HRESULT} 
      */
     put_BorderColor(_color) {
-        result := ComCall(34, this, "uint", _color, "HRESULT")
+        result := ComCall(34, this, UInt32, _color, "HRESULT")
         return result
     }
 

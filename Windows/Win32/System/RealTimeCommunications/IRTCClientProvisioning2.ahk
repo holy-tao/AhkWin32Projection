@@ -44,7 +44,7 @@ export default struct IRTCClientProvisioning2 extends IRTCClientProvisioning {
      * @returns {HRESULT} 
      */
     EnableProfileEx(pProfile, lRegisterFlags, lRoamingFlags) {
-        result := ComCall(10, this, "ptr", pProfile, "int", lRegisterFlags, "int", lRoamingFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", pProfile, Int32, lRegisterFlags, Int32, lRoamingFlags, "HRESULT")
         return result
     }
 

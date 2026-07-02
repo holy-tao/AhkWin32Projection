@@ -2,9 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PAPCFUNC.ahk" { PAPCFUNC }
 #Import ".\IMediaStream.ahk" { IMediaStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface is deprecated.
@@ -231,7 +232,7 @@ export default struct IStreamSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-istreamsample-update
      */
     Update(dwFlags, hEvent, pfnAPC, dwAPCData) {
-        result := ComCall(6, this, "uint", dwFlags, HANDLE, hEvent, "ptr", pfnAPC, "ptr", dwAPCData, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFlags, HANDLE, hEvent, PAPCFUNC, pfnAPC, IntPtr, dwAPCData, "HRESULT")
         return result
     }
 
@@ -326,7 +327,7 @@ export default struct IStreamSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-istreamsample-completionstatus
      */
     CompletionStatus(dwFlags, dwMilliseconds) {
-        result := ComCall(7, this, "uint", dwFlags, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, UInt32, dwMilliseconds, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWdsTransportNamespaceManager.ahk" { IWdsTransportNamespaceManager }
+#Import ".\IWdsTransportConfigurationManager.ahk" { IWdsTransportConfigurationManager }
+#Import ".\IWdsTransportSetupManager.ahk" { IWdsTransportSetupManager }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\WDSTRANSPORT_DISCONNECT_TYPE.ahk" { WDSTRANSPORT_DISCONNECT_TYPE }
-#Import ".\IWdsTransportConfigurationManager.ahk" { IWdsTransportConfigurationManager }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IWdsTransportSetupManager.ahk" { IWdsTransportSetupManager }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a WDS transport server. A WDS client can use an object of this interface to manage setup, configuration, and namespace tasks on the server.
@@ -129,7 +129,7 @@ export default struct IWdsTransportServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver-disconnectclient
      */
     DisconnectClient(ulClientId, DisconnectionType) {
-        result := ComCall(11, this, "uint", ulClientId, WDSTRANSPORT_DISCONNECT_TYPE, DisconnectionType, "HRESULT")
+        result := ComCall(11, this, UInt32, ulClientId, WDSTRANSPORT_DISCONNECT_TYPE, DisconnectionType, "HRESULT")
         return result
     }
 

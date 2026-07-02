@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\UiInfo.ahk" { UiInfo }
-#Import ".\REPAIR_SCOPE.ahk" { REPAIR_SCOPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\UI_INFO_TYPE.ahk" { UI_INFO_TYPE }
-#Import ".\REPAIR_RISK.ahk" { REPAIR_RISK }
+#Import ".\UiInfo.ahk" { UiInfo }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UI_INFO_TYPE.ahk" { UI_INFO_TYPE }
+#Import ".\REPAIR_SCOPE.ahk" { REPAIR_SCOPE }
+#Import ".\REPAIR_RISK.ahk" { REPAIR_RISK }
 #Import ".\ShellCommandInfo.ahk" { ShellCommandInfo }
 
 /**

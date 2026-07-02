@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FD_XFORM.ahk" { FD_XFORM }
 #Import ".\POINTE.ahk" { POINTE }
+#Import ".\FD_XFORM.ahk" { FD_XFORM }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
 
 /**

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_UNDERLINE.ahk" { DWRITE_UNDERLINE }
-#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_STRIKETHROUGH.ahk" { DWRITE_STRIKETHROUGH }
 #Import ".\IDWriteTextRenderer.ahk" { IDWriteTextRenderer }
+#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
 #Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
 #Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_STRIKETHROUGH.ahk" { DWRITE_STRIKETHROUGH }
+#Import ".\DWRITE_UNDERLINE.ahk" { DWRITE_UNDERLINE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 
 /**
  * Represents a set of application-defined callbacks that perform rendering of text, inline objects, and decorations such as underlines. (IDWriteTextRenderer1)
@@ -87,7 +87,7 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
     DrawGlyphRun(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, measuringMode, _glyphRun, glyphRunDescription, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(10, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
     DrawUnderline(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, underline, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_UNDERLINE.Ptr, underline, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(11, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_UNDERLINE.Ptr, underline, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
     DrawStrikethrough(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, strikethrough, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_STRIKETHROUGH.Ptr, strikethrough, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(12, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_STRIKETHROUGH.Ptr, strikethrough, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
     DrawInlineObject(clientDrawingContext, originX, originY, orientationAngle, inlineObject, isSideways, isRightToLeft, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, clientDrawingContextMarshal, clientDrawingContext, "float", originX, "float", originY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, "ptr", inlineObject, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(13, this, clientDrawingContextMarshal, clientDrawingContext, Float32, originX, Float32, originY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, "ptr", inlineObject, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 

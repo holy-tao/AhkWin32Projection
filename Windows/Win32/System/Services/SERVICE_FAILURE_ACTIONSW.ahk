@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SC_ACTION.ahk" { SC_ACTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents the action the service controller should take on each failure of a service. A service is considered failed when it terminates without reporting a status of SERVICE_STOPPED to the service controller. (Unicode)

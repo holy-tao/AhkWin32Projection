@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncProviderConfigUIInfo.ahk" { ISyncProviderConfigUIInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncProviderConfigUIInfo.ahk" { ISyncProviderConfigUIInfo }
 
 /**
  * Enumerates ISyncProviderConfigUIInfo objects that contain configuration UI information used to build and register a synchronization provider.
@@ -107,7 +107,7 @@ export default struct IEnumSyncProviderConfigUIInfos extends IUnknown {
     Next(cFactories, ppSyncProviderConfigUIInfo, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cFactories, ISyncProviderConfigUIInfo.Ptr, ppSyncProviderConfigUIInfo, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cFactories, ISyncProviderConfigUIInfo.Ptr, ppSyncProviderConfigUIInfo, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IEnumSyncProviderConfigUIInfos extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-ienumsyncproviderconfiguiinfos-skip
      */
     Skip(cFactories) {
-        result := ComCall(4, this, "uint", cFactories, "HRESULT")
+        result := ComCall(4, this, UInt32, cFactories, "HRESULT")
         return result
     }
 

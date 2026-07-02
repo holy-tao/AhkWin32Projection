@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
 
 /**
  * Use the IEnumBackgroundCopyFiles interface to enumerate the files that a job contains. To get an IEnumBackgroundCopyFiles interface pointer, call the IBackgroundCopyJob::EnumFiles method.
@@ -53,7 +53,7 @@ export default struct IEnumBackgroundCopyFiles extends IUnknown {
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return IBackgroundCopyFile(rgelt)
     }
 
@@ -93,7 +93,7 @@ export default struct IEnumBackgroundCopyFiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ienumbackgroundcopyfiles-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

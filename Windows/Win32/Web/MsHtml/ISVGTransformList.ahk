@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISVGMatrix.ahk" { ISVGMatrix }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISVGTransform.ahk" { ISVGTransform }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISVGMatrix.ahk" { ISVGMatrix }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -67,7 +67,7 @@ export default struct ISVGTransformList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_numberOfItems(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct ISVGTransformList extends IDispatch {
      * @returns {ISVGTransform} 
      */
     getItem(index) {
-        result := ComCall(11, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(11, this, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGTransform(ppResult)
     }
 
@@ -116,7 +116,7 @@ export default struct ISVGTransformList extends IDispatch {
      * @returns {ISVGTransform} 
      */
     insertItemBefore(newItem, index) {
-        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", newItem, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGTransform(ppResult)
     }
 
@@ -127,7 +127,7 @@ export default struct ISVGTransformList extends IDispatch {
      * @returns {ISVGTransform} 
      */
     replaceItem(newItem, index) {
-        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", newItem, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGTransform(ppResult)
     }
 
@@ -137,7 +137,7 @@ export default struct ISVGTransformList extends IDispatch {
      * @returns {ISVGTransform} 
      */
     removeItem(index) {
-        result := ComCall(14, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(14, this, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGTransform(ppResult)
     }
 

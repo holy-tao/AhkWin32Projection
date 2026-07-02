@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
 
 /**
@@ -138,7 +138,7 @@ export default struct ISpatialAudioMetadataWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatawriter-writenextitem
      */
     WriteNextItem(frameOffset) {
-        result := ComCall(4, this, "ushort", frameOffset, "HRESULT")
+        result := ComCall(4, this, UInt16, frameOffset, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct ISpatialAudioMetadataWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatawriter-writenextitemcommand
      */
     WriteNextItemCommand(commandID, valueBuffer, valueBufferLength) {
-        result := ComCall(5, this, "char", commandID, "ptr", valueBuffer, "uint", valueBufferLength, "HRESULT")
+        result := ComCall(5, this, Int8, commandID, IntPtr, valueBuffer, UInt32, valueBufferLength, "HRESULT")
         return result
     }
 

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
 #Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
-#Import ".\SPRULESTATE.ahk" { SPRULESTATE }
-#Import ".\SPTEXTSELECTIONINFO.ahk" { SPTEXTSELECTIONINFO }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\SPWORDPRONOUNCEABLE.ahk" { SPWORDPRONOUNCEABLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpGrammarBuilder.ahk" { ISpGrammarBuilder }
+#Import ".\SPTEXTSELECTIONINFO.ahk" { SPTEXTSELECTIONINFO }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\ISpRecoContext.ahk" { ISpRecoContext }
 #Import ".\SPGRAMMARSTATE.ahk" { SPGRAMMARSTATE }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
+#Import ".\SPWORDPRONOUNCEABLE.ahk" { SPWORDPRONOUNCEABLE }
+#Import ".\SPRULESTATE.ahk" { SPRULESTATE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -123,7 +123,7 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
         pszResourceType := pszResourceType is String ? StrPtr(pszResourceType) : pszResourceType
 
-        result := ComCall(15, this, HMODULE, _hModule, "ptr", pszResourceName, "ptr", pszResourceType, "ushort", wLanguage, SPLOADOPTIONS, Options, "HRESULT")
+        result := ComCall(15, this, HMODULE, _hModule, "ptr", pszResourceName, "ptr", pszResourceType, UInt16, wLanguage, SPLOADOPTIONS, Options, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
 
         pvDataPrarmMarshal := pvDataPrarm is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(17, this, Guid.Ptr, rguidParam, "ptr", pszStringParam, pvDataPrarmMarshal, pvDataPrarm, "uint", cbDataSize, SPLOADOPTIONS, Options, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, rguidParam, "ptr", pszStringParam, pvDataPrarmMarshal, pvDataPrarm, UInt32, cbDataSize, SPLOADOPTIONS, Options, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
      * @returns {HRESULT} 
      */
     SetRuleIdState(ulRuleId, NewState) {
-        result := ComCall(19, this, "uint", ulRuleId, SPRULESTATE, NewState, "HRESULT")
+        result := ComCall(19, this, UInt32, ulRuleId, SPRULESTATE, NewState, "HRESULT")
         return result
     }
 
@@ -225,7 +225,7 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     SetWordSequenceData(pText, cchText, pInfo) {
         pText := pText is String ? StrPtr(pText) : pText
 
-        result := ComCall(23, this, "ptr", pText, "uint", cchText, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
+        result := ComCall(23, this, "ptr", pText, UInt32, cchText, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
         return result
     }
 

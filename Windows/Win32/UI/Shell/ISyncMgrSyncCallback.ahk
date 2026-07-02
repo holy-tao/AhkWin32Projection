@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IEnumString.ahk" { IEnumString }
-#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import ".\SYNCMGR_EVENT_LEVEL.ahk" { SYNCMGR_EVENT_LEVEL }
 #Import ".\SYNCMGR_EVENT_FLAGS.ahk" { SYNCMGR_EVENT_FLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SYNCMGR_PROGRESS_STATUS.ahk" { SYNCMGR_PROGRESS_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncMgrSyncItem.ahk" { ISyncMgrSyncItem }
-#Import ".\SYNCMGR_EVENT_LEVEL.ahk" { SYNCMGR_EVENT_LEVEL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SYNCMGR_CANCEL_REQUEST.ahk" { SYNCMGR_CANCEL_REQUEST }
-#Import ".\SYNCMGR_PROGRESS_STATUS.ahk" { SYNCMGR_PROGRESS_STATUS }
 
 /**
  * Exposes methods that allow a synchronization process to report progress and events to Sync Center, or to query whether the process has been canceled.
@@ -101,7 +101,7 @@ export default struct ISyncMgrSyncCallback extends IUnknown {
 
         pnCancelRequestMarshal := pnCancelRequest is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszItemID, "ptr", pszProgressText, SYNCMGR_PROGRESS_STATUS, nStatus, "uint", uCurrentStep, "uint", uMaxStep, pnCancelRequestMarshal, pnCancelRequest, "HRESULT")
+        result := ComCall(3, this, "ptr", pszItemID, "ptr", pszProgressText, SYNCMGR_PROGRESS_STATUS, nStatus, UInt32, uCurrentStep, UInt32, uMaxStep, pnCancelRequestMarshal, pnCancelRequest, "HRESULT")
         return result
     }
 

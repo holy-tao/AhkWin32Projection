@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPPHRASEALTREQUEST.ahk" { SPPHRASEALTREQUEST }
 #Import ".\SPPHRASEALT.ahk" { SPPHRASEALT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPPHRASEALTREQUEST.ahk" { SPPHRASEALTREQUEST }
 
 /**
  * @namespace Windows.Win32.Media.Speech

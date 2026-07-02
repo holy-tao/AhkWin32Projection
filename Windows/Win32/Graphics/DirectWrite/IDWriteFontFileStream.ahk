@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Loads font file data from a custom font file loader.
@@ -69,7 +69,7 @@ export default struct IDWriteFontFileStream extends IUnknown {
         fragmentStartMarshal := fragmentStart is VarRef ? "ptr*" : "ptr"
         fragmentContextMarshal := fragmentContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, fragmentStartMarshal, fragmentStart, "uint", fileOffset, "uint", fragmentSize, fragmentContextMarshal, fragmentContext, "HRESULT")
+        result := ComCall(3, this, fragmentStartMarshal, fragmentStart, Int64, fileOffset, Int64, fragmentSize, fragmentContextMarshal, fragmentContext, "HRESULT")
         return result
     }
 

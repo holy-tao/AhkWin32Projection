@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPin.ahk" { IPin }
 #Import ".\IConfigAsfWriter.ahk" { IConfigAsfWriter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPin.ahk" { IPin }
 
 /**
  * The IConfigAsfWriter2 interface extends the IConfigAsfWriter interface, which configures the WM ASF Writer filter.
@@ -63,7 +63,7 @@ export default struct IConfigAsfWriter2 extends IConfigAsfWriter {
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter2-setparam
      */
     SetParam(dwParam, dwParam1, dwParam2) {
-        result := ComCall(12, this, "uint", dwParam, "uint", dwParam1, "uint", dwParam2, "HRESULT")
+        result := ComCall(12, this, UInt32, dwParam, UInt32, dwParam1, UInt32, dwParam2, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct IConfigAsfWriter2 extends IConfigAsfWriter {
         pdwParam1Marshal := pdwParam1 is VarRef ? "uint*" : "ptr"
         pdwParam2Marshal := pdwParam2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwParam, pdwParam1Marshal, pdwParam1, pdwParam2Marshal, pdwParam2, "HRESULT")
+        result := ComCall(13, this, UInt32, dwParam, pdwParam1Marshal, pdwParam1, pdwParam2Marshal, pdwParam2, "HRESULT")
         return result
     }
 

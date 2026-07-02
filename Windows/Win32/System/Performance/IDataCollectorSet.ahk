@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IScheduleCollection.ahk" { IScheduleCollection }
-#Import ".\IDataCollectorCollection.ahk" { IDataCollectorCollection }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IValueMap.ahk" { IValueMap }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\DataCollectorSetStatus.ahk" { DataCollectorSetStatus }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IDataManager.ahk" { IDataManager }
-#Import ".\CommitMode.ahk" { CommitMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DataCollectorSetStatus.ahk" { DataCollectorSetStatus }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\CommitMode.ahk" { CommitMode }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
+#Import ".\IDataCollectorCollection.ahk" { IDataCollectorCollection }
+#Import ".\IScheduleCollection.ahk" { IScheduleCollection }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Manages the configuration information that is common to all data collector objects in the set; adds and removes data collectors from the set; and starts data collection. This is the primary PLA interface that you use.
@@ -504,7 +504,7 @@ export default struct IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_duration
      */
     put_Duration(seconds) {
-        result := ComCall(9, this, "uint", seconds, "HRESULT")
+        result := ComCall(9, this, UInt32, seconds, "HRESULT")
         return result
     }
 
@@ -771,7 +771,7 @@ export default struct IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_segmentmaxduration
      */
     put_SegmentMaxDuration(seconds) {
-        result := ComCall(27, this, "uint", seconds, "HRESULT")
+        result := ComCall(27, this, UInt32, seconds, "HRESULT")
         return result
     }
 
@@ -800,7 +800,7 @@ export default struct IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_segmentmaxsize
      */
     put_SegmentMaxSize(_size) {
-        result := ComCall(29, this, "uint", _size, "HRESULT")
+        result := ComCall(29, this, UInt32, _size, "HRESULT")
         return result
     }
 
@@ -829,7 +829,7 @@ export default struct IDataCollectorSet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_serialnumber
      */
     put_SerialNumber(index) {
-        result := ComCall(31, this, "uint", index, "HRESULT")
+        result := ComCall(31, this, UInt32, index, "HRESULT")
         return result
     }
 

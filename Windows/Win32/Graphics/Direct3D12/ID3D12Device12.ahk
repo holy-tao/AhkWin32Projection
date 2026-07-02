@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO1.ahk" { D3D12_RESOURCE_ALLOCATION_INFO1 }
 #Import ".\D3D12_RESOURCE_DESC1.ahk" { D3D12_RESOURCE_DESC1 }
 #Import ".\ID3D12Device11.ahk" { ID3D12Device11 }
-#Import ".\D3D12_RESOURCE_ALLOCATION_INFO1.ahk" { D3D12_RESOURCE_ALLOCATION_INFO1 }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
 
 /**
@@ -52,7 +52,7 @@ export default struct ID3D12Device12 extends ID3D12Device11 {
         pNumCastableFormatsMarshal := pNumCastableFormats is VarRef ? "uint*" : "ptr"
         ppCastableFormatsMarshal := ppCastableFormats is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(80, this, "uint", visibleMask, "uint", numResourceDescs, D3D12_RESOURCE_DESC1.Ptr, pResourceDescs, pNumCastableFormatsMarshal, pNumCastableFormats, ppCastableFormatsMarshal, ppCastableFormats, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
+        result := ComCall(80, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC1.Ptr, pResourceDescs, pNumCastableFormatsMarshal, pNumCastableFormats, ppCastableFormatsMarshal, ppCastableFormats, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
         return result
     }
 

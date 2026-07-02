@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMarkupPointer.ahk" { IMarkupPointer }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -59,7 +59,7 @@ export default struct IMarkupTextFrags extends IUnknown {
      */
     GetTextFrag(iFrag, pPointerFrag) {
         pbstrFrag := BSTR.Owned()
-        result := ComCall(4, this, "int", iFrag, BSTR.Ptr, pbstrFrag, "ptr", pPointerFrag, "HRESULT")
+        result := ComCall(4, this, Int32, iFrag, BSTR.Ptr, pbstrFrag, "ptr", pPointerFrag, "HRESULT")
         return pbstrFrag
     }
 
@@ -69,7 +69,7 @@ export default struct IMarkupTextFrags extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveTextFrag(iFrag) {
-        result := ComCall(5, this, "int", iFrag, "HRESULT")
+        result := ComCall(5, this, Int32, iFrag, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IMarkupTextFrags extends IUnknown {
     InsertTextFrag(iFrag, bstrInsert, pPointerInsert) {
         bstrInsert := bstrInsert is String ? BSTR.Alloc(bstrInsert).Value : bstrInsert
 
-        result := ComCall(6, this, "int", iFrag, BSTR, bstrInsert, "ptr", pPointerInsert, "HRESULT")
+        result := ComCall(6, this, Int32, iFrag, BSTR, bstrInsert, "ptr", pPointerInsert, "HRESULT")
         return result
     }
 

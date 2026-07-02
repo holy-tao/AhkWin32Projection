@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\D3D10_DEVICE_STATE_TYPES.ahk" { D3D10_DEVICE_STATE_TYPES }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
-#Import ".\D3D10_DRIVER_TYPE.ahk" { D3D10_DRIVER_TYPE }
-#Import "..\Dxgi\IDXGIAdapter.ahk" { IDXGIAdapter }
-#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
-#Import ".\ID3D10EffectPool.ahk" { ID3D10EffectPool }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID3D10Device.ahk" { ID3D10Device }
-#Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
-#Import ".\ID3D10ShaderReflection.ahk" { ID3D10ShaderReflection }
-#Import ".\ID3D10Effect.ahk" { ID3D10Effect }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
 #Import "..\Direct3D\D3D_SHADER_MACRO.ahk" { D3D_SHADER_MACRO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10Effect.ahk" { ID3D10Effect }
 #Import "..\Dxgi\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
+#Import "..\Dxgi\IDXGIAdapter.ahk" { IDXGIAdapter }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ID3D10Device1.ahk" { ID3D10Device1 }
+#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
 #Import ".\D3D10_FEATURE_LEVEL1.ahk" { D3D10_FEATURE_LEVEL1 }
+#Import ".\D3D10_DRIVER_TYPE.ahk" { D3D10_DRIVER_TYPE }
+#Import ".\ID3D10EffectPool.ahk" { ID3D10EffectPool }
 #Import "..\Direct3D\ID3DInclude.ahk" { ID3DInclude }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import ".\ID3D10StateBlock.ahk" { ID3D10StateBlock }
+#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import ".\ID3D10ShaderReflection.ahk" { ID3D10ShaderReflection }
+#Import ".\D3D10_DEVICE_STATE_TYPES.ahk" { D3D10_DEVICE_STATE_TYPES }
+#Import ".\ID3D10Device.ahk" { ID3D10Device }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D10
@@ -76,7 +76,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10misc/nf-d3d10misc-d3d10createdevice
  */
 export D3D10CreateDevice(pAdapter, DriverType, Software, Flags, SDKVersion) {
-    result := DllCall("d3d10.dll\D3D10CreateDevice", "ptr", pAdapter, D3D10_DRIVER_TYPE, DriverType, HMODULE, Software, "uint", Flags, "uint", SDKVersion, "ptr*", &ppDevice := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10CreateDevice", "ptr", pAdapter, D3D10_DRIVER_TYPE, DriverType, HMODULE, Software, UInt32, Flags, UInt32, SDKVersion, "ptr*", &ppDevice := 0, "HRESULT")
     return ID3D10Device(ppDevice)
 }
 
@@ -117,7 +117,7 @@ export D3D10CreateDevice(pAdapter, DriverType, Software, Flags, SDKVersion) {
  * @see https://learn.microsoft.com/windows/win32/api/d3d10misc/nf-d3d10misc-d3d10createdeviceandswapchain
  */
 export D3D10CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice) {
-    result := DllCall("d3d10.dll\D3D10CreateDeviceAndSwapChain", "ptr", pAdapter, D3D10_DRIVER_TYPE, DriverType, HMODULE, Software, "uint", Flags, "uint", SDKVersion, DXGI_SWAP_CHAIN_DESC.Ptr, pSwapChainDesc, IDXGISwapChain.Ptr, ppSwapChain, ID3D10Device.Ptr, ppDevice, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10CreateDeviceAndSwapChain", "ptr", pAdapter, D3D10_DRIVER_TYPE, DriverType, HMODULE, Software, UInt32, Flags, UInt32, SDKVersion, DXGI_SWAP_CHAIN_DESC.Ptr, pSwapChainDesc, IDXGISwapChain.Ptr, ppSwapChain, ID3D10Device.Ptr, ppDevice, "HRESULT")
     return result
 }
 
@@ -132,7 +132,7 @@ export D3D10CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, SDKV
  * @see https://learn.microsoft.com/windows/win32/api/d3d10misc/nf-d3d10misc-d3d10createblob
  */
 export D3D10CreateBlob(NumBytes) {
-    result := DllCall("d3d10.dll\D3D10CreateBlob", "ptr", NumBytes, "ptr*", &ppBuffer := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10CreateBlob", IntPtr, NumBytes, "ptr*", &ppBuffer := 0, "HRESULT")
     return ID3DBlob(ppBuffer)
 }
 
@@ -188,7 +188,7 @@ export D3D10CompileShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, 
     pFunctionName := pFunctionName is String ? StrPtr(pFunctionName) : pFunctionName
     pProfile := pProfile is String ? StrPtr(pProfile) : pProfile
 
-    result := DllCall("d3d10.dll\D3D10CompileShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pFunctionName, "ptr", pProfile, "uint", Flags, ID3DBlob.Ptr, ppShader, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10CompileShader", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr", pFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pFunctionName, "ptr", pProfile, UInt32, Flags, ID3DBlob.Ptr, ppShader, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -214,7 +214,7 @@ export D3D10CompileShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, 
 export D3D10DisassembleShader(pShader, BytecodeLength, EnableColorCode, pComments) {
     pComments := pComments is String ? StrPtr(pComments) : pComments
 
-    result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, BOOL, EnableColorCode, "ptr", pComments, "ptr*", &ppDisassembly := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10DisassembleShader", IntPtr, pShader, IntPtr, BytecodeLength, BOOL, EnableColorCode, "ptr", pComments, "ptr*", &ppDisassembly := 0, "HRESULT")
     return ID3DBlob(ppDisassembly)
 }
 
@@ -277,7 +277,7 @@ export D3D10GetGeometryShaderProfile(pDevice) {
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10reflectshader
  */
 export D3D10ReflectShader(pShaderBytecode, BytecodeLength) {
-    result := DllCall("d3d10.dll\D3D10ReflectShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppReflector := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10ReflectShader", IntPtr, pShaderBytecode, IntPtr, BytecodeLength, "ptr*", &ppReflector := 0, "HRESULT")
     return ID3D10ShaderReflection(ppReflector)
 }
 
@@ -316,7 +316,7 @@ export D3D10ReflectShader(pShaderBytecode, BytecodeLength) {
 export D3D10PreprocessShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, ppShaderText, ppErrorMsgs) {
     pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-    result := DllCall("d3d10.dll\D3D10PreprocessShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, ID3DBlob.Ptr, ppShaderText, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10PreprocessShader", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr", pFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, ID3DBlob.Ptr, ppShaderText, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -334,7 +334,7 @@ export D3D10PreprocessShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclud
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getinputsignatureblob
  */
 export D3D10GetInputSignatureBlob(pShaderBytecode, BytecodeLength) {
-    result := DllCall("d3d10.dll\D3D10GetInputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10GetInputSignatureBlob", IntPtr, pShaderBytecode, IntPtr, BytecodeLength, "ptr*", &ppSignatureBlob := 0, "HRESULT")
     return ID3DBlob(ppSignatureBlob)
 }
 
@@ -352,7 +352,7 @@ export D3D10GetInputSignatureBlob(pShaderBytecode, BytecodeLength) {
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getoutputsignatureblob
  */
 export D3D10GetOutputSignatureBlob(pShaderBytecode, BytecodeLength) {
-    result := DllCall("d3d10.dll\D3D10GetOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10GetOutputSignatureBlob", IntPtr, pShaderBytecode, IntPtr, BytecodeLength, "ptr*", &ppSignatureBlob := 0, "HRESULT")
     return ID3DBlob(ppSignatureBlob)
 }
 
@@ -370,7 +370,7 @@ export D3D10GetOutputSignatureBlob(pShaderBytecode, BytecodeLength) {
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getinputandoutputsignatureblob
  */
 export D3D10GetInputAndOutputSignatureBlob(pShaderBytecode, BytecodeLength) {
-    result := DllCall("d3d10.dll\D3D10GetInputAndOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10GetInputAndOutputSignatureBlob", IntPtr, pShaderBytecode, IntPtr, BytecodeLength, "ptr*", &ppSignatureBlob := 0, "HRESULT")
     return ID3DBlob(ppSignatureBlob)
 }
 
@@ -388,7 +388,7 @@ export D3D10GetInputAndOutputSignatureBlob(pShaderBytecode, BytecodeLength) {
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getshaderdebuginfo
  */
 export D3D10GetShaderDebugInfo(pShaderBytecode, BytecodeLength) {
-    result := DllCall("d3d10.dll\D3D10GetShaderDebugInfo", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppDebugInfo := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10GetShaderDebugInfo", IntPtr, pShaderBytecode, IntPtr, BytecodeLength, "ptr*", &ppDebugInfo := 0, "HRESULT")
     return ID3DBlob(ppDebugInfo)
 }
 
@@ -487,7 +487,7 @@ export D3D10StateBlockMaskDifference(pA, pB, pResult) {
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskenablecapture
  */
 export D3D10StateBlockMaskEnableCapture(pMask, StateType, RangeStart, RangeLength) {
-    result := DllCall("d3d10.dll\D3D10StateBlockMaskEnableCapture", D3D10_STATE_BLOCK_MASK.Ptr, pMask, D3D10_DEVICE_STATE_TYPES, StateType, "uint", RangeStart, "uint", RangeLength, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10StateBlockMaskEnableCapture", D3D10_STATE_BLOCK_MASK.Ptr, pMask, D3D10_DEVICE_STATE_TYPES, StateType, UInt32, RangeStart, UInt32, RangeLength, "HRESULT")
     return result
 }
 
@@ -523,7 +523,7 @@ export D3D10StateBlockMaskEnableCapture(pMask, StateType, RangeStart, RangeLengt
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskdisablecapture
  */
 export D3D10StateBlockMaskDisableCapture(pMask, StateType, RangeStart, RangeLength) {
-    result := DllCall("d3d10.dll\D3D10StateBlockMaskDisableCapture", D3D10_STATE_BLOCK_MASK.Ptr, pMask, D3D10_DEVICE_STATE_TYPES, StateType, "uint", RangeStart, "uint", RangeLength, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10StateBlockMaskDisableCapture", D3D10_STATE_BLOCK_MASK.Ptr, pMask, D3D10_DEVICE_STATE_TYPES, StateType, UInt32, RangeStart, UInt32, RangeLength, "HRESULT")
     return result
 }
 
@@ -574,7 +574,7 @@ export D3D10StateBlockMaskDisableAll(pMask) {
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskgetsetting
  */
 export D3D10StateBlockMaskGetSetting(pMask, StateType, Entry) {
-    result := DllCall("d3d10.dll\D3D10StateBlockMaskGetSetting", D3D10_STATE_BLOCK_MASK.Ptr, pMask, D3D10_DEVICE_STATE_TYPES, StateType, "uint", Entry, BOOL)
+    result := DllCall("d3d10.dll\D3D10StateBlockMaskGetSetting", D3D10_STATE_BLOCK_MASK.Ptr, pMask, D3D10_DEVICE_STATE_TYPES, StateType, UInt32, Entry, BOOL)
     return result
 }
 
@@ -652,7 +652,7 @@ export D3D10CreateStateBlock(pDevice, pStateBlockMask) {
 export D3D10CompileEffectFromMemory(pData, DataLength, pSrcFileName, pDefines, pInclude, HLSLFlags, FXFlags, ppCompiledEffect, ppErrors) {
     pSrcFileName := pSrcFileName is String ? StrPtr(pSrcFileName) : pSrcFileName
 
-    result := DllCall("d3d10.dll\D3D10CompileEffectFromMemory", "ptr", pData, "ptr", DataLength, "ptr", pSrcFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "uint", HLSLFlags, "uint", FXFlags, ID3DBlob.Ptr, ppCompiledEffect, ID3DBlob.Ptr, ppErrors, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10CompileEffectFromMemory", IntPtr, pData, IntPtr, DataLength, "ptr", pSrcFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, UInt32, HLSLFlags, UInt32, FXFlags, ID3DBlob.Ptr, ppCompiledEffect, ID3DBlob.Ptr, ppErrors, "HRESULT")
     return result
 }
 
@@ -683,7 +683,7 @@ export D3D10CompileEffectFromMemory(pData, DataLength, pSrcFileName, pDefines, p
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10createeffectfrommemory
  */
 export D3D10CreateEffectFromMemory(pData, DataLength, FXFlags, pDevice, pEffectPool) {
-    result := DllCall("d3d10.dll\D3D10CreateEffectFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr", pEffectPool, "ptr*", &ppEffect := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10CreateEffectFromMemory", IntPtr, pData, IntPtr, DataLength, UInt32, FXFlags, "ptr", pDevice, "ptr", pEffectPool, "ptr*", &ppEffect := 0, "HRESULT")
     return ID3D10Effect(ppEffect)
 }
 
@@ -711,7 +711,7 @@ export D3D10CreateEffectFromMemory(pData, DataLength, FXFlags, pDevice, pEffectP
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-d3d10createeffectpoolfrommemory
  */
 export D3D10CreateEffectPoolFromMemory(pData, DataLength, FXFlags, pDevice) {
-    result := DllCall("d3d10.dll\D3D10CreateEffectPoolFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr*", &ppEffectPool := 0, "HRESULT")
+    result := DllCall("d3d10.dll\D3D10CreateEffectPoolFromMemory", IntPtr, pData, IntPtr, DataLength, UInt32, FXFlags, "ptr", pDevice, "ptr*", &ppEffectPool := 0, "HRESULT")
     return ID3D10EffectPool(ppEffectPool)
 }
 
@@ -805,7 +805,7 @@ export D3D10DisassembleEffect(pEffect, EnableColorCode) {
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nf-d3d10_1-d3d10createdevice1
  */
 export D3D10CreateDevice1(pAdapter, DriverType, Software, Flags, HardwareLevel, SDKVersion) {
-    result := DllCall("d3d10_1.dll\D3D10CreateDevice1", "ptr", pAdapter, D3D10_DRIVER_TYPE, DriverType, HMODULE, Software, "uint", Flags, D3D10_FEATURE_LEVEL1, HardwareLevel, "uint", SDKVersion, "ptr*", &ppDevice := 0, "HRESULT")
+    result := DllCall("d3d10_1.dll\D3D10CreateDevice1", "ptr", pAdapter, D3D10_DRIVER_TYPE, DriverType, HMODULE, Software, UInt32, Flags, D3D10_FEATURE_LEVEL1, HardwareLevel, UInt32, SDKVersion, "ptr*", &ppDevice := 0, "HRESULT")
     return ID3D10Device1(ppDevice)
 }
 
@@ -855,7 +855,7 @@ export D3D10CreateDevice1(pAdapter, DriverType, Software, Flags, HardwareLevel, 
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nf-d3d10_1-d3d10createdeviceandswapchain1
  */
 export D3D10CreateDeviceAndSwapChain1(pAdapter, DriverType, Software, Flags, HardwareLevel, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice) {
-    result := DllCall("d3d10_1.dll\D3D10CreateDeviceAndSwapChain1", "ptr", pAdapter, D3D10_DRIVER_TYPE, DriverType, HMODULE, Software, "uint", Flags, D3D10_FEATURE_LEVEL1, HardwareLevel, "uint", SDKVersion, DXGI_SWAP_CHAIN_DESC.Ptr, pSwapChainDesc, IDXGISwapChain.Ptr, ppSwapChain, ID3D10Device1.Ptr, ppDevice, "HRESULT")
+    result := DllCall("d3d10_1.dll\D3D10CreateDeviceAndSwapChain1", "ptr", pAdapter, D3D10_DRIVER_TYPE, DriverType, HMODULE, Software, UInt32, Flags, D3D10_FEATURE_LEVEL1, HardwareLevel, UInt32, SDKVersion, DXGI_SWAP_CHAIN_DESC.Ptr, pSwapChainDesc, IDXGISwapChain.Ptr, ppSwapChain, ID3D10Device1.Ptr, ppDevice, "HRESULT")
     return result
 }
 

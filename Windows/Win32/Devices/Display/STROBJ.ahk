@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GLYPHPOS.ahk" { GLYPHPOS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import ".\GLYPHPOS.ahk" { GLYPHPOS }
 
 /**
  * The STROBJ class, or text string object, contains an enumeration of glyph handles and positions for the device driver.

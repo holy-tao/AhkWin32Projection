@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMPBurnState.ahk" { WMPBurnState }
+#Import ".\WMPFolderScanState.ahk" { WMPFolderScanState }
 #Import ".\WMPRipState.ahk" { WMPRipState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPCdromBurn.ahk" { IWMPCdromBurn }
+#Import ".\WMPStringCollectionChangeEventType.ahk" { WMPStringCollectionChangeEventType }
 #Import ".\IWMPCdromRip.ahk" { IWMPCdromRip }
 #Import ".\IWMPEvents2.ahk" { IWMPEvents2 }
-#Import ".\WMPFolderScanState.ahk" { WMPFolderScanState }
-#Import ".\WMPStringCollectionChangeEventType.ahk" { WMPStringCollectionChangeEventType }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IWMPCdromBurn.ahk" { IWMPCdromBurn }
+#Import ".\WMPBurnState.ahk" { WMPBurnState }
 #Import ".\IWMPLibrary.ahk" { IWMPLibrary }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IWMPEvents3 interface provides access to events originating from the Windows Media Player 11 control so that an application that has this control embedded in it can respond to these events.
@@ -201,7 +201,7 @@ export default struct IWMPEvents3 extends IWMPEvents2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents3-stringcollectionchange
      */
     StringCollectionChange(pdispStringCollection, change, lCollectionIndex) {
-        ComCall(62, this, "ptr", pdispStringCollection, WMPStringCollectionChangeEventType, change, "int", lCollectionIndex)
+        ComCall(62, this, "ptr", pdispStringCollection, WMPStringCollectionChangeEventType, change, Int32, lCollectionIndex)
     }
 
     /**

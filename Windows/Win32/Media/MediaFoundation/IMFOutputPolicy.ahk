@@ -368,7 +368,7 @@ export default struct IMFOutputPolicy extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputpolicy-generaterequiredschemas
      */
     GenerateRequiredSchemas(dwAttributes, guidOutputSubType, rgGuidProtectionSchemasSupported, cProtectionSchemasSupported) {
-        result := ComCall(33, this, "uint", dwAttributes, Guid, guidOutputSubType, Guid.Ptr, rgGuidProtectionSchemasSupported, "uint", cProtectionSchemasSupported, "ptr*", &ppRequiredProtectionSchemas := 0, "HRESULT")
+        result := ComCall(33, this, UInt32, dwAttributes, Guid, guidOutputSubType, Guid.Ptr, rgGuidProtectionSchemasSupported, UInt32, cProtectionSchemasSupported, "ptr*", &ppRequiredProtectionSchemas := 0, "HRESULT")
         return IMFCollection(ppRequiredProtectionSchemas)
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NFC_LLCP_SOCKET_TYPE.ahk" { NFC_LLCP_SOCKET_TYPE }
 #Import ".\NFC_LLCP_SOCKET_OPTION.ahk" { NFC_LLCP_SOCKET_OPTION }
+#Import ".\NFC_LLCP_SOCKET_TYPE.ahk" { NFC_LLCP_SOCKET_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc

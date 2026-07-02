@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\DIJOYCONFIG.ahk" { DIJOYCONFIG }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import ".\LPDIJOYTYPECALLBACK.ahk" { LPDIJOYTYPECALLBACK }
 #Import ".\DIJOYTYPEINFO.ahk" { DIJOYTYPEINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DIJOYUSERVALUES.ahk" { DIJOYUSERVALUES }
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIJOYCONFIG.ahk" { DIJOYCONFIG }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -81,7 +82,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCooperativeLevel(param0, param1) {
-        result := ComCall(5, this, HWND, param0, "uint", param1, "HRESULT")
+        result := ComCall(5, this, HWND, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -103,7 +104,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
     EnumTypes(param0, param1) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", param0, param1Marshal, param1, "HRESULT")
+        result := ComCall(7, this, LPDIJOYTYPECALLBACK, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -117,7 +118,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
     GetTypeInfo(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := ComCall(8, this, "ptr", param0, DIJOYTYPEINFO.Ptr, param1, "uint", param2, "HRESULT")
+        result := ComCall(8, this, "ptr", param0, DIJOYTYPEINFO.Ptr, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -131,7 +132,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
     SetTypeInfo(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := ComCall(9, this, "ptr", param0, DIJOYTYPEINFO.Ptr, param1, "uint", param2, "HRESULT")
+        result := ComCall(9, this, "ptr", param0, DIJOYTYPEINFO.Ptr, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -155,7 +156,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     GetConfig(param0, param1, param2) {
-        result := ComCall(11, this, "uint", param0, DIJOYCONFIG.Ptr, param1, "uint", param2, "HRESULT")
+        result := ComCall(11, this, UInt32, param0, DIJOYCONFIG.Ptr, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -167,7 +168,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConfig(param0, param1, param2) {
-        result := ComCall(12, this, "uint", param0, DIJOYCONFIG.Ptr, param1, "uint", param2, "HRESULT")
+        result := ComCall(12, this, UInt32, param0, DIJOYCONFIG.Ptr, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -177,7 +178,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     DeleteConfig(param0) {
-        result := ComCall(13, this, "uint", param0, "HRESULT")
+        result := ComCall(13, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -188,7 +189,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     GetUserValues(param0, param1) {
-        result := ComCall(14, this, DIJOYUSERVALUES.Ptr, param0, "uint", param1, "HRESULT")
+        result := ComCall(14, this, DIJOYUSERVALUES.Ptr, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -199,7 +200,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     SetUserValues(param0, param1) {
-        result := ComCall(15, this, DIJOYUSERVALUES.Ptr, param0, "uint", param1, "HRESULT")
+        result := ComCall(15, this, DIJOYUSERVALUES.Ptr, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -224,15 +225,15 @@ export default struct IDirectInputJoyConfig extends IUnknown {
     OpenTypeKey(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := ComCall(17, this, "ptr", param0, "uint", param1, HKEY.Ptr, param2, "HRESULT")
+        result := ComCall(17, this, "ptr", param0, UInt32, param1, HKEY.Ptr, param2, "HRESULT")
         return result
     }
 
     /**
      * The IDirectInputJoyConfig8::OpenConfigKey method opens IDirectInputJoyConfig the registry key associated with a joystick configuration.
-     * @param {Integer} param0 
-     * @param {Integer} param1 
-     * @param {Pointer<HKEY>} param2 
+     * @param {Integer} param0 Indicates a zero-based joystick identification number.
+     * @param {Integer} param1 Specifies a registry security access mask. This can be any of the values permitted by the <b>RegOpenKeyEx</b> function. If write access is requested, then joystick configuration must first be acquired. If only read access is requested, then acquisition is not required. At least one access mask must be specified.
+     * @param {Pointer<HKEY>} param2 Points to the opened registry key on success.
      * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values: 
      * 
      * <table>
@@ -288,7 +289,7 @@ export default struct IDirectInputJoyConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig-openconfigkey
      */
     OpenConfigKey(param0, param1, param2) {
-        result := ComCall(18, this, "uint", param0, "uint", param1, HKEY.Ptr, param2, "HRESULT")
+        result := ComCall(18, this, UInt32, param0, UInt32, param1, HKEY.Ptr, param2, "HRESULT")
         return result
     }
 

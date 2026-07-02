@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FolderActionSteps.ahk" { FolderActionSteps }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FolderActionSteps.ahk" { FolderActionSteps }
 
 /**
  * Specifies the actions that the data manager is to take on each folder under the data collector set's root path if both conditions (age and size) are met. To get this interface, call the IFolderActionCollection::CreateFolderAction method.
@@ -103,7 +103,7 @@ export default struct IFolderAction extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-put_age
      */
     put_Age(ulAge) {
-        result := ComCall(8, this, "uint", ulAge, "HRESULT")
+        result := ComCall(8, this, UInt32, ulAge, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct IFolderAction extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-put_size
      */
     put_Size(ulAge) {
-        result := ComCall(10, this, "uint", ulAge, "HRESULT")
+        result := ComCall(10, this, UInt32, ulAge, "HRESULT")
         return result
     }
 

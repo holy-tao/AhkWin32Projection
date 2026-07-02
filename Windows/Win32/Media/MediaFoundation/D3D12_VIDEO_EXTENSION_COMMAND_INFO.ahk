@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Graphics\Direct3D12\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk" { D3D12_COMMAND_LIST_SUPPORT_FLAGS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Direct3D12\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk" { D3D12_COMMAND_LIST_SUPPORT_FLAGS }
 
 /**
  * Describes a video extension command. (D3D12_VIDEO_EXTENSION_COMMAND_INFO)

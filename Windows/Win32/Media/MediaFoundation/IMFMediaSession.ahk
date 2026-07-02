@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFTopology.ahk" { IMFTopology }
+#Import ".\IMFClock.ahk" { IMFClock }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFClock.ahk" { IMFClock }
+#Import ".\IMFTopology.ahk" { IMFTopology }
 
 /**
  * Provides playback controls for protected and unprotected content.
@@ -152,7 +152,7 @@ export default struct IMFMediaSession extends IMFMediaEventGenerator {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-settopology
      */
     SetTopology(dwSetTopologyFlags, pTopology) {
-        result := ComCall(7, this, "uint", dwSetTopologyFlags, "ptr", pTopology, "HRESULT")
+        result := ComCall(7, this, UInt32, dwSetTopologyFlags, "ptr", pTopology, "HRESULT")
         return result
     }
 
@@ -646,7 +646,7 @@ export default struct IMFMediaSession extends IMFMediaEventGenerator {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-getfulltopology
      */
     GetFullTopology(dwGetFullTopologyFlags, TopoId) {
-        result := ComCall(16, this, "uint", dwGetFullTopologyFlags, "uint", TopoId, "ptr*", &ppFullTopology := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, dwGetFullTopologyFlags, Int64, TopoId, "ptr*", &ppFullTopology := 0, "HRESULT")
         return IMFTopology(ppFullTopology)
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MBN_PIN_STATE.ahk" { MBN_PIN_STATE }
 #Import ".\MBN_PIN_TYPE.ahk" { MBN_PIN_TYPE }
+#Import ".\MBN_PIN_STATE.ahk" { MBN_PIN_STATE }
 
 /**
  * The MBN_PIN_INFO structure represents the current PIN state of the device.

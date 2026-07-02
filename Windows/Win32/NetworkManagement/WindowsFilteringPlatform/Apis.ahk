@@ -1,94 +1,109 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IPSEC_SA_CONTEXT_SUBSCRIPTION0.ahk" { IPSEC_SA_CONTEXT_SUBSCRIPTION0 }
-#Import ".\FWPM_ENGINE_OPTION.ahk" { FWPM_ENGINE_OPTION }
-#Import ".\FWPM_PROVIDER_CONTEXT0.ahk" { FWPM_PROVIDER_CONTEXT0 }
-#Import ".\IPSEC_STATISTICS1.ahk" { IPSEC_STATISTICS1 }
-#Import ".\FWPM_SESSION_ENUM_HANDLE.ahk" { FWPM_SESSION_ENUM_HANDLE }
-#Import ".\FWPM_FILTER0.ahk" { FWPM_FILTER0 }
-#Import ".\FWPM_CONNECTION_SUBSCRIPTION0.ahk" { FWPM_CONNECTION_SUBSCRIPTION0 }
-#Import ".\IPSEC_SA_CONTEXT_ENUM_HANDLE.ahk" { IPSEC_SA_CONTEXT_ENUM_HANDLE }
-#Import ".\IPSEC_SA_CONTEXT_ENUM_TEMPLATE0.ahk" { IPSEC_SA_CONTEXT_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_DOSP_STATE0.ahk" { IPSEC_DOSP_STATE0 }
-#Import ".\FWPM_CONNECTION0.ahk" { FWPM_CONNECTION0 }
-#Import ".\FWPM_PROVIDER_SUBSCRIPTION0.ahk" { FWPM_PROVIDER_SUBSCRIPTION0 }
-#Import ".\FWPM_PROVIDER_CONTEXT3.ahk" { FWPM_PROVIDER_CONTEXT3 }
-#Import ".\IPSEC_SA_DETAILS0.ahk" { IPSEC_SA_DETAILS0 }
-#Import ".\IPSEC_SA_CONTEXT1.ahk" { IPSEC_SA_CONTEXT1 }
-#Import ".\IPSEC_KEY_MANAGER0.ahk" { IPSEC_KEY_MANAGER0 }
-#Import ".\IKEEXT_SA_DETAILS2.ahk" { IKEEXT_SA_DETAILS2 }
-#Import ".\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk" { FWPM_SUBLAYER_ENUM_TEMPLATE0 }
-#Import ".\FWPM_LAYER0.ahk" { FWPM_LAYER0 }
-#Import ".\FWPM_PROVIDER_ENUM_HANDLE.ahk" { FWPM_PROVIDER_ENUM_HANDLE }
 #Import ".\FWPM_PROVIDER_CONTEXT2.ahk" { FWPM_PROVIDER_CONTEXT2 }
-#Import ".\IPSEC_SA_DETAILS1.ahk" { IPSEC_SA_DETAILS1 }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\FWPM_CONNECTION_ENUM_HANDLE.ahk" { FWPM_CONNECTION_ENUM_HANDLE }
-#Import ".\FWPM_PROVIDER0.ahk" { FWPM_PROVIDER0 }
-#Import ".\IKEEXT_SA_DETAILS0.ahk" { IKEEXT_SA_DETAILS0 }
+#Import ".\IPSEC_SA_ENUM_TEMPLATE0.ahk" { IPSEC_SA_ENUM_TEMPLATE0 }
+#Import ".\IPSEC_GETSPI0.ahk" { IPSEC_GETSPI0 }
+#Import ".\IPSEC_SA_DETAILS0.ahk" { IPSEC_SA_DETAILS0 }
+#Import ".\IPSEC_DOSP_STATISTICS0.ahk" { IPSEC_DOSP_STATISTICS0 }
+#Import ".\FWPM_CONNECTION_SUBSCRIPTION0.ahk" { FWPM_CONNECTION_SUBSCRIPTION0 }
+#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0 }
+#Import ".\IKEEXT_SA_DETAILS1.ahk" { IKEEXT_SA_DETAILS1 }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import ".\FWPM_SUBLAYER_CHANGE_CALLBACK0.ahk" { FWPM_SUBLAYER_CHANGE_CALLBACK0 }
+#Import ".\FWPM_PROVIDER_CHANGE_CALLBACK0.ahk" { FWPM_PROVIDER_CHANGE_CALLBACK0 }
+#Import ".\FWPM_NET_EVENT_ENUM_HANDLE.ahk" { FWPM_NET_EVENT_ENUM_HANDLE }
+#Import ".\FWPM_FILTER_CHANGE_CALLBACK0.ahk" { FWPM_FILTER_CHANGE_CALLBACK0 }
 #Import ".\IKEEXT_STATISTICS0.ahk" { IKEEXT_STATISTICS0 }
 #Import ".\FWPM_FILTER_ENUM_TEMPLATE0.ahk" { FWPM_FILTER_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_GETSPI0.ahk" { IPSEC_GETSPI0 }
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
-#Import ".\FWPM_NET_EVENT_SUBSCRIPTION0.ahk" { FWPM_NET_EVENT_SUBSCRIPTION0 }
-#Import ".\FWPM_LAYER_ENUM_TEMPLATE0.ahk" { FWPM_LAYER_ENUM_TEMPLATE0 }
-#Import ".\FWPM_VSWITCH_EVENT_SUBSCRIPTION0.ahk" { FWPM_VSWITCH_EVENT_SUBSCRIPTION0 }
-#Import ".\FWPM_CALLOUT0.ahk" { FWPM_CALLOUT0 }
-#Import ".\IKEEXT_SA_ENUM_HANDLE.ahk" { IKEEXT_SA_ENUM_HANDLE }
-#Import ".\IKEEXT_SA_ENUM_TEMPLATE0.ahk" { IKEEXT_SA_ENUM_TEMPLATE0 }
-#Import ".\FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0.ahk" { FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0 }
-#Import ".\IPSEC_DOSP_STATE_ENUM_TEMPLATE0.ahk" { IPSEC_DOSP_STATE_ENUM_TEMPLATE0 }
-#Import ".\FWPM_NET_EVENT4.ahk" { FWPM_NET_EVENT4 }
-#Import ".\FWPM_FILTER_CONDITION0.ahk" { FWPM_FILTER_CONDITION0 }
-#Import ".\FWPM_CONNECTION_ENUM_TEMPLATE0.ahk" { FWPM_CONNECTION_ENUM_TEMPLATE0 }
-#Import "..\..\Security\PSID.ahk" { PSID }
-#Import ".\FWPM_NET_EVENT5.ahk" { FWPM_NET_EVENT5 }
-#Import ".\IKEEXT_SA_DETAILS1.ahk" { IKEEXT_SA_DETAILS1 }
 #Import ".\FWPM_CALLOUT_ENUM_TEMPLATE0.ahk" { FWPM_CALLOUT_ENUM_TEMPLATE0 }
-#Import ".\FWPM_PROVIDER_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_SA_BUNDLE1.ahk" { IPSEC_SA_BUNDLE1 }
-#Import ".\IPSEC_TRAFFIC1.ahk" { IPSEC_TRAFFIC1 }
-#Import ".\FWPM_SESSION0.ahk" { FWPM_SESSION0 }
-#Import ".\FWPM_NET_EVENT0.ahk" { FWPM_NET_EVENT0 }
-#Import ".\FWPM_SESSION_ENUM_TEMPLATE0.ahk" { FWPM_SESSION_ENUM_TEMPLATE0 }
-#Import ".\FWPM_LAYER_ENUM_HANDLE.ahk" { FWPM_LAYER_ENUM_HANDLE }
-#Import ".\IPSEC_GETSPI1.ahk" { IPSEC_GETSPI1 }
-#Import ".\FWPM_PROVIDER_CONTEXT1.ahk" { FWPM_PROVIDER_CONTEXT1 }
-#Import ".\FWPM_SUBLAYER0.ahk" { FWPM_SUBLAYER0 }
-#Import ".\IPSEC_TRAFFIC0.ahk" { IPSEC_TRAFFIC0 }
-#Import ".\FWPM_FILTER_ENUM_HANDLE.ahk" { FWPM_FILTER_ENUM_HANDLE }
-#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
-#Import ".\FWPM_SYSTEM_PORTS0.ahk" { FWPM_SYSTEM_PORTS0 }
-#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_HANDLE.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_HANDLE }
-#Import ".\FWPM_FILTER_SUBSCRIPTION0.ahk" { FWPM_FILTER_SUBSCRIPTION0 }
-#Import ".\IPSEC_SA_BUNDLE0.ahk" { IPSEC_SA_BUNDLE0 }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FWPM_NET_EVENT_ENUM_TEMPLATE0.ahk" { FWPM_NET_EVENT_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_DOSP_STATISTICS0.ahk" { IPSEC_DOSP_STATISTICS0 }
-#Import ".\FWPM_CALLOUT_ENUM_HANDLE.ahk" { FWPM_CALLOUT_ENUM_HANDLE }
-#Import ".\FWPM_NET_EVENT1.ahk" { FWPM_NET_EVENT1 }
-#Import ".\FWPM_CALLOUT_SUBSCRIPTION0.ahk" { FWPM_CALLOUT_SUBSCRIPTION0 }
-#Import ".\FWPM_SUBLAYER_ENUM_HANDLE.ahk" { FWPM_SUBLAYER_ENUM_HANDLE }
-#Import "..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_W.ahk" { SEC_WINNT_AUTH_IDENTITY_W }
+#Import ".\FWPM_NET_EVENT_CALLBACK1.ahk" { FWPM_NET_EVENT_CALLBACK1 }
 #Import ".\FWP_VALUE0.ahk" { FWP_VALUE0 }
-#Import "..\..\Security\SID.ahk" { SID }
-#Import ".\FWPM_ENGINE_HANDLE.ahk" { FWPM_ENGINE_HANDLE }
-#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_SA_CONTEXT0.ahk" { IPSEC_SA_CONTEXT0 }
-#Import ".\FWPM_SUBLAYER_SUBSCRIPTION0.ahk" { FWPM_SUBLAYER_SUBSCRIPTION0 }
-#Import ".\IPSEC_SA_ENUM_TEMPLATE0.ahk" { IPSEC_SA_ENUM_TEMPLATE0 }
-#Import ".\IPSEC_DOSP_STATE_ENUM_HANDLE.ahk" { IPSEC_DOSP_STATE_ENUM_HANDLE }
-#Import ".\FWPM_NET_EVENT_ENUM_HANDLE.ahk" { FWPM_NET_EVENT_ENUM_HANDLE }
-#Import ".\IPSEC_SA_ENUM_HANDLE.ahk" { IPSEC_SA_ENUM_HANDLE }
-#Import ".\FWPM_NET_EVENT3.ahk" { FWPM_NET_EVENT3 }
-#Import ".\IPSEC_STATISTICS0.ahk" { IPSEC_STATISTICS0 }
-#Import ".\IPSEC_VIRTUAL_IF_TUNNEL_INFO0.ahk" { IPSEC_VIRTUAL_IF_TUNNEL_INFO0 }
-#Import ".\IKEEXT_STATISTICS1.ahk" { IKEEXT_STATISTICS1 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPSEC_KEY_MANAGER_CALLBACKS0.ahk" { IPSEC_KEY_MANAGER_CALLBACKS0 }
 #Import "..\..\Security\ACL.ahk" { ACL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\FWPM_CONNECTION0.ahk" { FWPM_CONNECTION0 }
+#Import ".\FWPM_NET_EVENT0.ahk" { FWPM_NET_EVENT0 }
+#Import ".\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk" { FWPM_SUBLAYER_ENUM_TEMPLATE0 }
+#Import ".\FWPM_LAYER_ENUM_TEMPLATE0.ahk" { FWPM_LAYER_ENUM_TEMPLATE0 }
+#Import ".\IPSEC_SA_CONTEXT0.ahk" { IPSEC_SA_CONTEXT0 }
+#Import ".\FWPM_FILTER_ENUM_HANDLE.ahk" { FWPM_FILTER_ENUM_HANDLE }
+#Import ".\FWPM_VSWITCH_EVENT_CALLBACK0.ahk" { FWPM_VSWITCH_EVENT_CALLBACK0 }
+#Import ".\FWPM_SUBLAYER0.ahk" { FWPM_SUBLAYER0 }
+#Import ".\FWPM_PROVIDER_CONTEXT_ENUM_HANDLE.ahk" { FWPM_PROVIDER_CONTEXT_ENUM_HANDLE }
+#Import ".\FWPM_NET_EVENT_SUBSCRIPTION0.ahk" { FWPM_NET_EVENT_SUBSCRIPTION0 }
+#Import ".\FWPM_NET_EVENT_CALLBACK0.ahk" { FWPM_NET_EVENT_CALLBACK0 }
+#Import ".\FWPM_SYSTEM_PORTS0.ahk" { FWPM_SYSTEM_PORTS0 }
+#Import ".\FWPM_FILTER_SUBSCRIPTION0.ahk" { FWPM_FILTER_SUBSCRIPTION0 }
+#Import ".\FWPM_SESSION_ENUM_HANDLE.ahk" { FWPM_SESSION_ENUM_HANDLE }
+#Import ".\FWPM_ENGINE_HANDLE.ahk" { FWPM_ENGINE_HANDLE }
+#Import ".\FWPM_NET_EVENT_CALLBACK4.ahk" { FWPM_NET_EVENT_CALLBACK4 }
+#Import ".\IPSEC_DOSP_STATE_ENUM_TEMPLATE0.ahk" { IPSEC_DOSP_STATE_ENUM_TEMPLATE0 }
 #Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import ".\IKEEXT_SA_ENUM_HANDLE.ahk" { IKEEXT_SA_ENUM_HANDLE }
+#Import ".\FWPM_NET_EVENT3.ahk" { FWPM_NET_EVENT3 }
+#Import ".\IPSEC_SA_CONTEXT_ENUM_TEMPLATE0.ahk" { IPSEC_SA_CONTEXT_ENUM_TEMPLATE0 }
+#Import ".\FWPM_PROVIDER_ENUM_TEMPLATE0.ahk" { FWPM_PROVIDER_ENUM_TEMPLATE0 }
+#Import ".\FWPM_NET_EVENT_CALLBACK2.ahk" { FWPM_NET_EVENT_CALLBACK2 }
+#Import ".\IPSEC_GETSPI1.ahk" { IPSEC_GETSPI1 }
+#Import ".\FWPM_CALLOUT_CHANGE_CALLBACK0.ahk" { FWPM_CALLOUT_CHANGE_CALLBACK0 }
+#Import ".\FWPM_SESSION_ENUM_TEMPLATE0.ahk" { FWPM_SESSION_ENUM_TEMPLATE0 }
+#Import "..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_W.ahk" { SEC_WINNT_AUTH_IDENTITY_W }
+#Import ".\FWPM_LAYER0.ahk" { FWPM_LAYER0 }
+#Import ".\IPSEC_SA_BUNDLE1.ahk" { IPSEC_SA_BUNDLE1 }
+#Import ".\FWPM_LAYER_ENUM_HANDLE.ahk" { FWPM_LAYER_ENUM_HANDLE }
+#Import ".\FWPM_VSWITCH_EVENT_SUBSCRIPTION0.ahk" { FWPM_VSWITCH_EVENT_SUBSCRIPTION0 }
 #Import ".\FWPM_NET_EVENT2.ahk" { FWPM_NET_EVENT2 }
+#Import ".\FWPM_PROVIDER_CONTEXT1.ahk" { FWPM_PROVIDER_CONTEXT1 }
+#Import ".\IPSEC_STATISTICS0.ahk" { IPSEC_STATISTICS0 }
+#Import ".\IPSEC_DOSP_STATE_ENUM_HANDLE.ahk" { IPSEC_DOSP_STATE_ENUM_HANDLE }
+#Import ".\IPSEC_DOSP_STATE0.ahk" { IPSEC_DOSP_STATE0 }
+#Import ".\FWPM_CONNECTION_CALLBACK0.ahk" { FWPM_CONNECTION_CALLBACK0 }
+#Import ".\IPSEC_SA_CONTEXT1.ahk" { IPSEC_SA_CONTEXT1 }
+#Import ".\FWPM_CONNECTION_ENUM_TEMPLATE0.ahk" { FWPM_CONNECTION_ENUM_TEMPLATE0 }
+#Import ".\IPSEC_KEY_MANAGER0.ahk" { IPSEC_KEY_MANAGER0 }
+#Import ".\IKEEXT_STATISTICS1.ahk" { IKEEXT_STATISTICS1 }
+#Import ".\IPSEC_SA_DETAILS1.ahk" { IPSEC_SA_DETAILS1 }
+#Import ".\IPSEC_VIRTUAL_IF_TUNNEL_INFO0.ahk" { IPSEC_VIRTUAL_IF_TUNNEL_INFO0 }
+#Import ".\FWPM_SESSION0.ahk" { FWPM_SESSION0 }
+#Import ".\FWPM_CONNECTION_ENUM_HANDLE.ahk" { FWPM_CONNECTION_ENUM_HANDLE }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\FWPM_NET_EVENT_ENUM_TEMPLATE0.ahk" { FWPM_NET_EVENT_ENUM_TEMPLATE0 }
+#Import ".\IPSEC_TRAFFIC0.ahk" { IPSEC_TRAFFIC0 }
+#Import ".\FWPM_DYNAMIC_KEYWORD_CALLBACK0.ahk" { FWPM_DYNAMIC_KEYWORD_CALLBACK0 }
+#Import ".\FWPM_NET_EVENT4.ahk" { FWPM_NET_EVENT4 }
+#Import ".\FWPM_NET_EVENT1.ahk" { FWPM_NET_EVENT1 }
+#Import ".\FWPM_SUBLAYER_ENUM_HANDLE.ahk" { FWPM_SUBLAYER_ENUM_HANDLE }
+#Import ".\IKEEXT_SA_ENUM_TEMPLATE0.ahk" { IKEEXT_SA_ENUM_TEMPLATE0 }
+#Import ".\IPSEC_STATISTICS1.ahk" { IPSEC_STATISTICS1 }
+#Import ".\FWPM_NET_EVENT_CALLBACK3.ahk" { FWPM_NET_EVENT_CALLBACK3 }
+#Import ".\FWPM_PROVIDER_ENUM_HANDLE.ahk" { FWPM_PROVIDER_ENUM_HANDLE }
+#Import ".\IPSEC_TRAFFIC1.ahk" { IPSEC_TRAFFIC1 }
+#Import ".\FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0.ahk" { FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0 }
+#Import ".\FWPM_CALLOUT0.ahk" { FWPM_CALLOUT0 }
+#Import ".\IKEEXT_SA_DETAILS2.ahk" { IKEEXT_SA_DETAILS2 }
+#Import ".\IPSEC_SA_ENUM_HANDLE.ahk" { IPSEC_SA_ENUM_HANDLE }
+#Import ".\IPSEC_SA_CONTEXT_CALLBACK0.ahk" { IPSEC_SA_CONTEXT_CALLBACK0 }
+#Import ".\IPSEC_KEY_MANAGER_CALLBACKS0.ahk" { IPSEC_KEY_MANAGER_CALLBACKS0 }
+#Import ".\IKEEXT_SA_DETAILS0.ahk" { IKEEXT_SA_DETAILS0 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\IPSEC_SA_CONTEXT_ENUM_HANDLE.ahk" { IPSEC_SA_CONTEXT_ENUM_HANDLE }
+#Import ".\IPSEC_SA_BUNDLE0.ahk" { IPSEC_SA_BUNDLE0 }
+#Import ".\FWPM_PROVIDER0.ahk" { FWPM_PROVIDER0 }
+#Import ".\FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0.ahk" { FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0 }
+#Import ".\FWPM_PROVIDER_SUBSCRIPTION0.ahk" { FWPM_PROVIDER_SUBSCRIPTION0 }
+#Import ".\FWPM_CALLOUT_ENUM_HANDLE.ahk" { FWPM_CALLOUT_ENUM_HANDLE }
+#Import ".\FWPM_PROVIDER_CONTEXT3.ahk" { FWPM_PROVIDER_CONTEXT3 }
+#Import ".\FWPM_ENGINE_OPTION.ahk" { FWPM_ENGINE_OPTION }
+#Import ".\FWPM_PROVIDER_CONTEXT0.ahk" { FWPM_PROVIDER_CONTEXT0 }
+#Import ".\FWPM_CALLOUT_SUBSCRIPTION0.ahk" { FWPM_CALLOUT_SUBSCRIPTION0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWPM_SUBLAYER_SUBSCRIPTION0.ahk" { FWPM_SUBLAYER_SUBSCRIPTION0 }
+#Import "..\..\Security\SID.ahk" { SID }
+#Import ".\FWPM_NET_EVENT5.ahk" { FWPM_NET_EVENT5 }
+#Import ".\FWPM_FILTER0.ahk" { FWPM_FILTER0 }
+#Import ".\FWPM_SYSTEM_PORTS_CALLBACK0.ahk" { FWPM_SYSTEM_PORTS_CALLBACK0 }
+#Import ".\IPSEC_SA_CONTEXT_SUBSCRIPTION0.ahk" { IPSEC_SA_CONTEXT_SUBSCRIPTION0 }
+#Import ".\FWPM_FILTER_CONDITION0.ahk" { FWPM_FILTER_CONDITION0 }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
@@ -207,7 +222,7 @@ export FwpmFreeMemory0(p) {
 export FwpmEngineOpen0(authnService, authIdentity, session, engineHandle) {
     static serverName := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("fwpuclnt.dll\FwpmEngineOpen0", "ptr", serverName, "uint", authnService, SEC_WINNT_AUTH_IDENTITY_W.Ptr, authIdentity, FWPM_SESSION0.Ptr, session, FWPM_ENGINE_HANDLE.Ptr, engineHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmEngineOpen0", "ptr", serverName, UInt32, authnService, SEC_WINNT_AUTH_IDENTITY_W.Ptr, authIdentity, FWPM_SESSION0.Ptr, session, FWPM_ENGINE_HANDLE.Ptr, engineHandle, UInt32)
     return result
 }
 
@@ -591,7 +606,7 @@ export FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -670,7 +685,7 @@ export FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup
  * @since windows6.0.6000
  */
 export FwpmEngineSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmEngineSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmEngineSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -826,7 +841,7 @@ export FwpmSessionEnum0(engineHandle, enumHandle, numEntriesRequested, entries, 
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmSessionEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_SESSION_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmSessionEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_SESSION_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -983,7 +998,7 @@ export FwpmSessionDestroyEnumHandle0(engineHandle, enumHandle) {
  * @since windows6.0.6000
  */
 export FwpmTransactionBegin0(engineHandle, flags) {
-    result := DllCall("fwpuclnt.dll\FwpmTransactionBegin0", FWPM_ENGINE_HANDLE, engineHandle, "uint", flags, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmTransactionBegin0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, flags, UInt32)
     return result
 }
 
@@ -1481,7 +1496,7 @@ export FwpmProviderEnum0(engineHandle, enumHandle, numEntriesRequested, entries,
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -1634,7 +1649,7 @@ export FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -1720,7 +1735,7 @@ export FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
  * @since windows6.0.6000
  */
 export FwpmProviderSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmProviderSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -1802,7 +1817,7 @@ export FwpmProviderSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
 export FwpmProviderSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_SUBSCRIPTION0.Ptr, subscription, FWPM_PROVIDER_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -2297,7 +2312,7 @@ export FwpmProviderContextAdd3(engineHandle, providerContext, sd, id) {
  * @since windows6.0.6000
  */
 export FwpmProviderContextDeleteById0(engineHandle, id) {
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, UInt32)
     return result
 }
 
@@ -2435,7 +2450,7 @@ export FwpmProviderContextDeleteByKey0(engineHandle, key) {
 export FwpmProviderContextGetById0(engineHandle, id, providerContext) {
     providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, providerContextMarshal, providerContext, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, providerContextMarshal, providerContext, UInt32)
     return result
 }
 
@@ -2504,7 +2519,7 @@ export FwpmProviderContextGetById0(engineHandle, id, providerContext) {
 export FwpmProviderContextGetById1(engineHandle, id, providerContext) {
     providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById1", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, providerContextMarshal, providerContext, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById1", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, providerContextMarshal, providerContext, UInt32)
     return result
 }
 
@@ -2573,7 +2588,7 @@ export FwpmProviderContextGetById1(engineHandle, id, providerContext) {
 export FwpmProviderContextGetById2(engineHandle, id, providerContext) {
     providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById2", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, providerContextMarshal, providerContext, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById2", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, providerContextMarshal, providerContext, UInt32)
     return result
 }
 
@@ -2587,7 +2602,7 @@ export FwpmProviderContextGetById2(engineHandle, id, providerContext) {
 export FwpmProviderContextGetById3(engineHandle, id, providerContext) {
     providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById3", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, providerContextMarshal, providerContext, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById3", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, providerContextMarshal, providerContext, UInt32)
     return result
 }
 
@@ -2961,7 +2976,7 @@ export FwpmProviderContextEnum0(engineHandle, enumHandle, numEntriesRequested, e
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -3041,7 +3056,7 @@ export FwpmProviderContextEnum1(engineHandle, enumHandle, numEntriesRequested, e
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum1", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum1", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -3121,7 +3136,7 @@ export FwpmProviderContextEnum2(engineHandle, enumHandle, numEntriesRequested, e
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum2", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum2", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -3138,7 +3153,7 @@ export FwpmProviderContextEnum3(engineHandle, enumHandle, numEntriesRequested, e
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum3", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum3", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -3291,7 +3306,7 @@ export FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo,
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -3377,7 +3392,7 @@ export FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo,
  * @since windows6.0.6000
  */
 export FwpmProviderContextSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -3459,7 +3474,7 @@ export FwpmProviderContextSetSecurityInfoByKey0(engineHandle, key, securityInfo,
 export FwpmProviderContextSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0.Ptr, subscription, FWPM_PROVIDER_CONTEXT_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -3967,7 +3982,7 @@ export FwpmSubLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries,
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmSubLayerEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_SUBLAYER_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmSubLayerEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_SUBLAYER_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -4120,7 +4135,7 @@ export FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -4206,7 +4221,7 @@ export FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
  * @since windows6.0.6000
  */
 export FwpmSubLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmSubLayerSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmSubLayerSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -4288,7 +4303,7 @@ export FwpmSubLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
 export FwpmSubLayerSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_SUBLAYER_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_SUBLAYER_SUBSCRIPTION0.Ptr, subscription, FWPM_SUBLAYER_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -4500,7 +4515,7 @@ export FwpmSubLayerSubscriptionsGet0(engineHandle, entries, numEntries) {
 export FwpmLayerGetById0(engineHandle, id, layer) {
     layerMarshal := layer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmLayerGetById0", FWPM_ENGINE_HANDLE, engineHandle, "ushort", id, layerMarshal, layer, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmLayerGetById0", FWPM_ENGINE_HANDLE, engineHandle, UInt16, id, layerMarshal, layer, UInt32)
     return result
 }
 
@@ -4724,7 +4739,7 @@ export FwpmLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries, nu
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmLayerEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_LAYER_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmLayerEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_LAYER_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -4877,7 +4892,7 @@ export FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner,
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -4961,7 +4976,7 @@ export FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner,
  * @since windows6.0.6000
  */
 export FwpmLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmLayerSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmLayerSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -5134,7 +5149,7 @@ export FwpmCalloutAdd0(engineHandle, callout, sd, id) {
  * @since windows6.0.6000
  */
 export FwpmCalloutDeleteById0(engineHandle, id) {
-    result := DllCall("fwpuclnt.dll\FwpmCalloutDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmCalloutDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, id, UInt32)
     return result
 }
 
@@ -5276,7 +5291,7 @@ export FwpmCalloutDeleteByKey0(engineHandle, key) {
 export FwpmCalloutGetById0(engineHandle, id, callout) {
     calloutMarshal := callout is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmCalloutGetById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, calloutMarshal, callout, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmCalloutGetById0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, id, calloutMarshal, callout, UInt32)
     return result
 }
 
@@ -5502,7 +5517,7 @@ export FwpmCalloutEnum0(engineHandle, enumHandle, numEntriesRequested, entries, 
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmCalloutEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CALLOUT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmCalloutEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CALLOUT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -5655,7 +5670,7 @@ export FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwne
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -5741,7 +5756,7 @@ export FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwne
  * @since windows6.0.6000
  */
 export FwpmCalloutSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmCalloutSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmCalloutSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -5823,7 +5838,7 @@ export FwpmCalloutSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwne
 export FwpmCalloutSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmCalloutSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CALLOUT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmCalloutSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CALLOUT_SUBSCRIPTION0.Ptr, subscription, FWPM_CALLOUT_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -6102,7 +6117,7 @@ export FwpmFilterAdd0(engineHandle, filter, sd, id) {
  * @since windows6.0.6000
  */
 export FwpmFilterDeleteById0(engineHandle, id) {
-    result := DllCall("fwpuclnt.dll\FwpmFilterDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmFilterDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, UInt32)
     return result
 }
 
@@ -6242,7 +6257,7 @@ export FwpmFilterDeleteByKey0(engineHandle, key) {
 export FwpmFilterGetById0(engineHandle, id, filter) {
     filterMarshal := filter is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmFilterGetById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, filterMarshal, filter, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmFilterGetById0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, filterMarshal, filter, UInt32)
     return result
 }
 
@@ -6468,7 +6483,7 @@ export FwpmFilterEnum0(engineHandle, enumHandle, numEntriesRequested, entries, n
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmFilterEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_FILTER_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmFilterEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_FILTER_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -6621,7 +6636,7 @@ export FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -6707,7 +6722,7 @@ export FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner
  * @since windows6.0.6000
  */
 export FwpmFilterSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmFilterSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmFilterSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -6789,7 +6804,7 @@ export FwpmFilterSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner
 export FwpmFilterSubscribeChanges0(engineHandle, subscription, callback, _context, changeHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmFilterSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_FILTER_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmFilterSubscribeChanges0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_FILTER_SUBSCRIPTION0.Ptr, subscription, FWPM_FILTER_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, UInt32)
     return result
 }
 
@@ -7106,7 +7121,7 @@ export FwpmGetAppIdFromFileName0(fileName, appId) {
  * @since windows6.0.6000
  */
 export FwpmIPsecTunnelAdd0(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd0", FWPM_ENGINE_HANDLE, engineHandle, "uint", flags, FWPM_PROVIDER_CONTEXT0.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT0.Ptr, tunnelPolicy, "uint", numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, PSECURITY_DESCRIPTOR, sd, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, flags, FWPM_PROVIDER_CONTEXT0.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT0.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, PSECURITY_DESCRIPTOR, sd, UInt32)
     return result
 }
 
@@ -7229,7 +7244,7 @@ export FwpmIPsecTunnelAdd0(engineHandle, flags, mainModePolicy, tunnelPolicy, nu
  * @since windows6.1
  */
 export FwpmIPsecTunnelAdd1(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd1", FWPM_ENGINE_HANDLE, engineHandle, "uint", flags, FWPM_PROVIDER_CONTEXT1.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT1.Ptr, tunnelPolicy, "uint", numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, Guid.Ptr, keyModKey, PSECURITY_DESCRIPTOR, sd, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd1", FWPM_ENGINE_HANDLE, engineHandle, UInt32, flags, FWPM_PROVIDER_CONTEXT1.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT1.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, Guid.Ptr, keyModKey, PSECURITY_DESCRIPTOR, sd, UInt32)
     return result
 }
 
@@ -7352,7 +7367,7 @@ export FwpmIPsecTunnelAdd1(engineHandle, flags, mainModePolicy, tunnelPolicy, nu
  * @since windows8.0
  */
 export FwpmIPsecTunnelAdd2(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd2", FWPM_ENGINE_HANDLE, engineHandle, "uint", flags, FWPM_PROVIDER_CONTEXT2.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT2.Ptr, tunnelPolicy, "uint", numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, Guid.Ptr, keyModKey, PSECURITY_DESCRIPTOR, sd, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd2", FWPM_ENGINE_HANDLE, engineHandle, UInt32, flags, FWPM_PROVIDER_CONTEXT2.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT2.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, Guid.Ptr, keyModKey, PSECURITY_DESCRIPTOR, sd, UInt32)
     return result
 }
 
@@ -7369,7 +7384,7 @@ export FwpmIPsecTunnelAdd2(engineHandle, flags, mainModePolicy, tunnelPolicy, nu
  * @returns {Integer} 
  */
 export FwpmIPsecTunnelAdd3(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd3", FWPM_ENGINE_HANDLE, engineHandle, "uint", flags, FWPM_PROVIDER_CONTEXT3.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT3.Ptr, tunnelPolicy, "uint", numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, Guid.Ptr, keyModKey, PSECURITY_DESCRIPTOR, sd, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd3", FWPM_ENGINE_HANDLE, engineHandle, UInt32, flags, FWPM_PROVIDER_CONTEXT3.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT3.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, Guid.Ptr, keyModKey, PSECURITY_DESCRIPTOR, sd, UInt32)
     return result
 }
 
@@ -7788,7 +7803,7 @@ export IPsecSaContextCreate1(engineHandle, outboundTraffic, virtualIfTunnelInfo,
  * @since windows6.0.6000
  */
 export IPsecSaContextDeleteById0(engineHandle, id) {
-    result := DllCall("fwpuclnt.dll\IPsecSaContextDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, UInt32)
     return result
 }
 
@@ -7857,7 +7872,7 @@ export IPsecSaContextDeleteById0(engineHandle, id) {
 export IPsecSaContextGetById0(engineHandle, id, saContext) {
     saContextMarshal := saContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaContextGetById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, saContextMarshal, saContext, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextGetById0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, saContextMarshal, saContext, UInt32)
     return result
 }
 
@@ -7926,7 +7941,7 @@ export IPsecSaContextGetById0(engineHandle, id, saContext) {
 export IPsecSaContextGetById1(engineHandle, id, saContext) {
     saContextMarshal := saContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaContextGetById1", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, saContextMarshal, saContext, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextGetById1", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, saContextMarshal, saContext, UInt32)
     return result
 }
 
@@ -7996,7 +8011,7 @@ export IPsecSaContextGetById1(engineHandle, id, saContext) {
 export IPsecSaContextGetSpi0(engineHandle, id, getSpi, inboundSpi) {
     inboundSpiMarshal := inboundSpi is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaContextGetSpi0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, IPSEC_GETSPI0.Ptr, getSpi, inboundSpiMarshal, inboundSpi, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextGetSpi0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, IPSEC_GETSPI0.Ptr, getSpi, inboundSpiMarshal, inboundSpi, UInt32)
     return result
 }
 
@@ -8066,7 +8081,7 @@ export IPsecSaContextGetSpi0(engineHandle, id, getSpi, inboundSpi) {
 export IPsecSaContextGetSpi1(engineHandle, id, getSpi, inboundSpi) {
     inboundSpiMarshal := inboundSpi is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaContextGetSpi1", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, IPSEC_GETSPI1.Ptr, getSpi, inboundSpiMarshal, inboundSpi, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextGetSpi1", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, IPSEC_GETSPI1.Ptr, getSpi, inboundSpiMarshal, inboundSpi, UInt32)
     return result
 }
 
@@ -8136,7 +8151,7 @@ export IPsecSaContextGetSpi1(engineHandle, id, getSpi, inboundSpi) {
  * @since windows6.1
  */
 export IPsecSaContextSetSpi0(engineHandle, id, getSpi, inboundSpi) {
-    result := DllCall("fwpuclnt.dll\IPsecSaContextSetSpi0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, IPSEC_GETSPI1.Ptr, getSpi, "uint", inboundSpi, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextSetSpi0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, IPSEC_GETSPI1.Ptr, getSpi, UInt32, inboundSpi, UInt32)
     return result
 }
 
@@ -8199,7 +8214,7 @@ export IPsecSaContextSetSpi0(engineHandle, id, getSpi, inboundSpi) {
  * @since windows6.0.6000
  */
 export IPsecSaContextAddInbound0(engineHandle, id, inboundBundle) {
-    result := DllCall("fwpuclnt.dll\IPsecSaContextAddInbound0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, IPSEC_SA_BUNDLE0.Ptr, inboundBundle, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextAddInbound0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, IPSEC_SA_BUNDLE0.Ptr, inboundBundle, UInt32)
     return result
 }
 
@@ -8262,7 +8277,7 @@ export IPsecSaContextAddInbound0(engineHandle, id, inboundBundle) {
  * @since windows6.0.6000
  */
 export IPsecSaContextAddOutbound0(engineHandle, id, outboundBundle) {
-    result := DllCall("fwpuclnt.dll\IPsecSaContextAddOutbound0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, IPSEC_SA_BUNDLE0.Ptr, outboundBundle, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextAddOutbound0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, IPSEC_SA_BUNDLE0.Ptr, outboundBundle, UInt32)
     return result
 }
 
@@ -8325,7 +8340,7 @@ export IPsecSaContextAddOutbound0(engineHandle, id, outboundBundle) {
  * @since windows6.1
  */
 export IPsecSaContextAddInbound1(engineHandle, id, inboundBundle) {
-    result := DllCall("fwpuclnt.dll\IPsecSaContextAddInbound1", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, IPSEC_SA_BUNDLE1.Ptr, inboundBundle, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextAddInbound1", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, IPSEC_SA_BUNDLE1.Ptr, inboundBundle, UInt32)
     return result
 }
 
@@ -8388,7 +8403,7 @@ export IPsecSaContextAddInbound1(engineHandle, id, inboundBundle) {
  * @since windows6.1
  */
 export IPsecSaContextAddOutbound1(engineHandle, id, outboundBundle) {
-    result := DllCall("fwpuclnt.dll\IPsecSaContextAddOutbound1", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, IPSEC_SA_BUNDLE1.Ptr, outboundBundle, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextAddOutbound1", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, IPSEC_SA_BUNDLE1.Ptr, outboundBundle, UInt32)
     return result
 }
 
@@ -8454,7 +8469,7 @@ export IPsecSaContextAddOutbound1(engineHandle, id, outboundBundle) {
  * @since windows6.0.6000
  */
 export IPsecSaContextExpire0(engineHandle, id) {
-    result := DllCall("fwpuclnt.dll\IPsecSaContextExpire0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextExpire0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, UInt32)
     return result
 }
 
@@ -8598,7 +8613,7 @@ export IPsecSaContextExpire0(engineHandle, id) {
  * @since windows6.1
  */
 export IPsecSaContextUpdate0(engineHandle, flags, newValues) {
-    result := DllCall("fwpuclnt.dll\IPsecSaContextUpdate0", FWPM_ENGINE_HANDLE, engineHandle, "uint", flags, IPSEC_SA_CONTEXT1.Ptr, newValues, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextUpdate0", FWPM_ENGINE_HANDLE, engineHandle, Int64, flags, IPSEC_SA_CONTEXT1.Ptr, newValues, UInt32)
     return result
 }
 
@@ -8745,7 +8760,7 @@ export IPsecSaContextEnum0(engineHandle, enumHandle, numEntriesRequested, entrie
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaContextEnum0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_CONTEXT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextEnum0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_CONTEXT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -8821,7 +8836,7 @@ export IPsecSaContextEnum1(engineHandle, enumHandle, numEntriesRequested, entrie
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaContextEnum1", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_CONTEXT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextEnum1", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_CONTEXT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -8959,7 +8974,7 @@ export IPsecSaContextDestroyEnumHandle0(engineHandle, enumHandle) {
 export IPsecSaContextSubscribe0(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaContextSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_CONTEXT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_CONTEXT_SUBSCRIPTION0.Ptr, subscription, IPSEC_SA_CONTEXT_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -9247,7 +9262,7 @@ export IPsecSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numE
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaEnum0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaEnum0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -9327,7 +9342,7 @@ export IPsecSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numE
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaEnum1", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaEnum1", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_SA_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -9475,7 +9490,7 @@ export IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup,
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -9551,7 +9566,7 @@ export IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup,
  * @since windows6.0.6000
  */
 export IPsecSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\IPsecSaDbSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecSaDbSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -9769,7 +9784,7 @@ export IPsecDospStateEnum0(engineHandle, enumHandle, numEntriesRequested, entrie
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecDospStateEnum0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_DOSP_STATE_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesMarshal, numEntries, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecDospStateEnum0", FWPM_ENGINE_HANDLE, engineHandle, IPSEC_DOSP_STATE_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesMarshal, numEntries, UInt32)
     return result
 }
 
@@ -9917,7 +9932,7 @@ export IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup,
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -9993,7 +10008,7 @@ export IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup,
  * @since windows6.1
  */
 export IPsecDospSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\IPsecDospSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecDospSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -10310,7 +10325,7 @@ export IPsecKeyManagerGetSecurityInfoByKey0(engineHandle, securityInfo, sidOwner
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IPsecKeyManagerGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, "ptr", reserved, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecKeyManagerGetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, "ptr", reserved, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -10384,7 +10399,7 @@ export IPsecKeyManagerGetSecurityInfoByKey0(engineHandle, securityInfo, sidOwner
 export IPsecKeyManagerSetSecurityInfoByKey0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
     static reserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("fwpuclnt.dll\IPsecKeyManagerSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, "ptr", reserved, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\IPsecKeyManagerSetSecurityInfoByKey0", FWPM_ENGINE_HANDLE, engineHandle, "ptr", reserved, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -10570,7 +10585,7 @@ export IkeextGetStatistics1(engineHandle, ikeextStatistics) {
  * @since windows6.0.6000
  */
 export IkeextSaDeleteById0(engineHandle, id) {
-    result := DllCall("fwpuclnt.dll\IkeextSaDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, UInt32)
+    result := DllCall("fwpuclnt.dll\IkeextSaDeleteById0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, UInt32)
     return result
 }
 
@@ -10639,7 +10654,7 @@ export IkeextSaDeleteById0(engineHandle, id) {
 export IkeextSaGetById0(engineHandle, id, sa) {
     saMarshal := sa is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IkeextSaGetById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, saMarshal, sa, UInt32)
+    result := DllCall("fwpuclnt.dll\IkeextSaGetById0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, saMarshal, sa, UInt32)
     return result
 }
 
@@ -10711,7 +10726,7 @@ export IkeextSaGetById0(engineHandle, id, sa) {
 export IkeextSaGetById1(engineHandle, id, saLookupContext, sa) {
     saMarshal := sa is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IkeextSaGetById1", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, Guid.Ptr, saLookupContext, saMarshal, sa, UInt32)
+    result := DllCall("fwpuclnt.dll\IkeextSaGetById1", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, Guid.Ptr, saLookupContext, saMarshal, sa, UInt32)
     return result
 }
 
@@ -10783,7 +10798,7 @@ export IkeextSaGetById1(engineHandle, id, saLookupContext, sa) {
 export IkeextSaGetById2(engineHandle, id, saLookupContext, sa) {
     saMarshal := sa is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IkeextSaGetById2", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, Guid.Ptr, saLookupContext, saMarshal, sa, UInt32)
+    result := DllCall("fwpuclnt.dll\IkeextSaGetById2", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, Guid.Ptr, saLookupContext, saMarshal, sa, UInt32)
     return result
 }
 
@@ -10934,7 +10949,7 @@ export IkeextSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, num
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IkeextSaEnum0", FWPM_ENGINE_HANDLE, engineHandle, IKEEXT_SA_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\IkeextSaEnum0", FWPM_ENGINE_HANDLE, engineHandle, IKEEXT_SA_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -11014,7 +11029,7 @@ export IkeextSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, num
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IkeextSaEnum1", FWPM_ENGINE_HANDLE, engineHandle, IKEEXT_SA_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\IkeextSaEnum1", FWPM_ENGINE_HANDLE, engineHandle, IKEEXT_SA_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -11094,7 +11109,7 @@ export IkeextSaEnum2(engineHandle, enumHandle, numEntriesRequested, entries, num
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IkeextSaEnum2", FWPM_ENGINE_HANDLE, engineHandle, IKEEXT_SA_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\IkeextSaEnum2", FWPM_ENGINE_HANDLE, engineHandle, IKEEXT_SA_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -11242,7 +11257,7 @@ export IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -11318,7 +11333,7 @@ export IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup
  * @since windows6.0.6000
  */
 export IkeextSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\IkeextSaDbSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\IkeextSaDbSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -11485,7 +11500,7 @@ export FwpmNetEventEnum0(engineHandle, enumHandle, numEntriesRequested, entries,
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -11578,7 +11593,7 @@ export FwpmNetEventEnum1(engineHandle, enumHandle, numEntriesRequested, entries,
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum1", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum1", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -11671,7 +11686,7 @@ export FwpmNetEventEnum2(engineHandle, enumHandle, numEntriesRequested, entries,
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum2", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum2", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -11752,7 +11767,7 @@ export FwpmNetEventEnum3(engineHandle, enumHandle, numEntriesRequested, entries,
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum3", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum3", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -11769,7 +11784,7 @@ export FwpmNetEventEnum4(engineHandle, enumHandle, numEntriesRequested, entries,
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum4", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum4", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -11786,7 +11801,7 @@ export FwpmNetEventEnum5(engineHandle, enumHandle, numEntriesRequested, entries,
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum5", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventEnum5", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -11938,7 +11953,7 @@ export FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGr
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -12020,7 +12035,7 @@ export FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGr
  * @since windows6.0.6000
  */
 export FwpmNetEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmNetEventsSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventsSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -12096,7 +12111,7 @@ export FwpmNetEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGr
 export FwpmNetEventSubscribe0(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12313,7 +12328,7 @@ export FwpmNetEventSubscriptionsGet0(engineHandle, entries, numEntries) {
 export FwpmNetEventSubscribe1(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe1", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe1", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK1, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12377,7 +12392,7 @@ export FwpmNetEventSubscribe1(engineHandle, subscription, callback, _context, ev
 export FwpmNetEventSubscribe2(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe2", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe2", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK2, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12393,7 +12408,7 @@ export FwpmNetEventSubscribe2(engineHandle, subscription, callback, _context, ev
 export FwpmNetEventSubscribe3(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe3", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe3", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK3, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12409,7 +12424,7 @@ export FwpmNetEventSubscribe3(engineHandle, subscription, callback, _context, ev
 export FwpmNetEventSubscribe4(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe4", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe4", FWPM_ENGINE_HANDLE, engineHandle, FWPM_NET_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_NET_EVENT_CALLBACK4, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -12455,7 +12470,7 @@ export FwpmNetEventSubscribe4(engineHandle, subscription, callback, _context, ev
 export FwpmDynamicKeywordSubscribe0(flags, callback, _context, subscriptionHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmDynamicKeywordSubscribe0", "uint", flags, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, subscriptionHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmDynamicKeywordSubscribe0", UInt32, flags, FWPM_DYNAMIC_KEYWORD_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, subscriptionHandle, UInt32)
     return result
 }
 
@@ -12613,7 +12628,7 @@ export FwpmSystemPortsSubscribe0(engineHandle, callback, _context, sysPortsHandl
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmSystemPortsSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, "ptr", reserved, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, sysPortsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmSystemPortsSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, "ptr", reserved, FWPM_SYSTEM_PORTS_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, sysPortsHandle, UInt32)
     return result
 }
 
@@ -12753,7 +12768,7 @@ export FwpmSystemPortsUnsubscribe0(engineHandle, sysPortsHandle) {
 export FwpmConnectionGetById0(engineHandle, id, _connection) {
     _connectionMarshal := _connection is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", FWPM_ENGINE_HANDLE, engineHandle, "uint", id, _connectionMarshal, _connection, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", FWPM_ENGINE_HANDLE, engineHandle, Int64, id, _connectionMarshal, _connection, UInt32)
     return result
 }
 
@@ -12831,7 +12846,7 @@ export FwpmConnectionEnum0(engineHandle, enumHandle, numEntriesRequested, entrie
     entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
     numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmConnectionEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CONNECTION_ENUM_HANDLE, enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmConnectionEnum0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CONNECTION_ENUM_HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, UInt32)
     return result
 }
 
@@ -13044,7 +13059,7 @@ export FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidG
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -13124,7 +13139,7 @@ export FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidG
  * @since windows8.0
  */
 export FwpmConnectionSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmConnectionSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmConnectionSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -13200,7 +13215,7 @@ export FwpmConnectionSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidG
 export FwpmConnectionSubscribe0(engineHandle, subscription, callback, _context, eventsHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmConnectionSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CONNECTION_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmConnectionSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_CONNECTION_SUBSCRIPTION0.Ptr, subscription, FWPM_CONNECTION_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, eventsHandle, UInt32)
     return result
 }
 
@@ -13347,7 +13362,7 @@ export FwpmConnectionUnsubscribe0(engineHandle, eventsHandle) {
 export FwpmvSwitchEventSubscribe0(engineHandle, subscription, callback, _context, subscriptionHandle) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_VSWITCH_EVENT_SUBSCRIPTION0.Ptr, subscription, "ptr", callback, _contextMarshal, _context, HANDLE.Ptr, subscriptionHandle, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventSubscribe0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_VSWITCH_EVENT_SUBSCRIPTION0.Ptr, subscription, FWPM_VSWITCH_EVENT_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, subscriptionHandle, UInt32)
     return result
 }
 
@@ -13504,7 +13519,7 @@ export FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, s
     daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
     saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, UInt32)
     return result
 }
 
@@ -13586,7 +13601,7 @@ export FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, s
  * @since windows8.0
  */
 export FwpmvSwitchEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, "uint", securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsSetSecurityInfo0", FWPM_ENGINE_HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, UInt32)
     return result
 }
 
@@ -13602,7 +13617,7 @@ export FwpmvSwitchEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, s
  * @returns {Integer} 
  */
 export FwpmConnectionPolicyAdd0(engineHandle, connectionPolicy, ipVersion, weight, numFilterConditions, filterConditions, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmConnectionPolicyAdd0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT3.Ptr, connectionPolicy, FWP_IP_VERSION, ipVersion, "uint", weight, "uint", numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, PSECURITY_DESCRIPTOR, sd, UInt32)
+    result := DllCall("fwpuclnt.dll\FwpmConnectionPolicyAdd0", FWPM_ENGINE_HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT3.Ptr, connectionPolicy, FWP_IP_VERSION, ipVersion, Int64, weight, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, PSECURITY_DESCRIPTOR, sd, UInt32)
     return result
 }
 

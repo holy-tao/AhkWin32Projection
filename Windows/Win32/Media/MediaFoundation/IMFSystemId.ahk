@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a method that retrieves system id data.
@@ -85,7 +85,7 @@ export default struct IMFSystemId extends IUnknown {
         pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
         ppbOutMarshal := ppbOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", stage, "uint", cbIn, "ptr", pbIn, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "HRESULT")
+        result := ComCall(4, this, UInt32, stage, UInt32, cbIn, IntPtr, pbIn, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "HRESULT")
         return result
     }
 

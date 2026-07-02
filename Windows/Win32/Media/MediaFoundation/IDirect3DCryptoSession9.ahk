@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Graphics\Direct3D9\D3DENCRYPTED_BLOCK_INFO.ahk" { D3DENCRYPTED_BLOCK_INFO }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a cryptographic session.To get a pointer to this interface, call IDirect3DDevice9Video::CreateCryptoSession.
@@ -76,7 +76,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
     GetCertificate(CertifacteSize, ppCertificate) {
         ppCertificateMarshal := ppCertificate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", CertifacteSize, ppCertificateMarshal, ppCertificate, "HRESULT")
+        result := ComCall(4, this, UInt32, CertifacteSize, ppCertificateMarshal, ppCertificate, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
     NegotiateKeyExchange(DataSize, pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "uint", DataSize, pDataMarshal, pData, "HRESULT")
+        result := ComCall(5, this, UInt32, DataSize, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
     EncryptionBlt(pSrcSurface, pDstSurface, DstSurfaceSize, pIV) {
         pIVMarshal := pIV is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", pSrcSurface, "ptr", pDstSurface, "uint", DstSurfaceSize, pIVMarshal, pIV, "HRESULT")
+        result := ComCall(6, this, "ptr", pSrcSurface, "ptr", pDstSurface, UInt32, DstSurfaceSize, pIVMarshal, pIV, "HRESULT")
         return result
     }
 
@@ -190,7 +190,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
         pContentKeyMarshal := pContentKey is VarRef ? "ptr" : "ptr"
         pIVMarshal := pIV is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pSrcSurface, "ptr", pDstSurface, "uint", SrcSurfaceSize, D3DENCRYPTED_BLOCK_INFO.Ptr, pEncryptedBlockInfo, pContentKeyMarshal, pContentKey, pIVMarshal, pIV, "HRESULT")
+        result := ComCall(7, this, "ptr", pSrcSurface, "ptr", pDstSurface, UInt32, SrcSurfaceSize, D3DENCRYPTED_BLOCK_INFO.Ptr, pEncryptedBlockInfo, pContentKeyMarshal, pContentKey, pIVMarshal, pIV, "HRESULT")
         return result
     }
 
@@ -224,7 +224,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
     StartSessionKeyRefresh(pRandomNumber, RandomNumberSize) {
         pRandomNumberMarshal := pRandomNumber is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, pRandomNumberMarshal, pRandomNumber, "uint", RandomNumberSize, "HRESULT")
+        result := ComCall(9, this, pRandomNumberMarshal, pRandomNumber, UInt32, RandomNumberSize, "HRESULT")
         return result
     }
 
@@ -254,7 +254,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
     GetEncryptionBltKey(pReadbackKey, KeySize) {
         pReadbackKeyMarshal := pReadbackKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, pReadbackKeyMarshal, pReadbackKey, "uint", KeySize, "HRESULT")
+        result := ComCall(11, this, pReadbackKeyMarshal, pReadbackKey, UInt32, KeySize, "HRESULT")
         return result
     }
 

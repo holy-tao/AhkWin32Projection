@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFSample.ahk" { IMFSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Callback interface for the Microsoft Media Foundation source reader.
@@ -70,7 +70,7 @@ export default struct IMFSourceReaderCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback-onreadsample
      */
     OnReadSample(hrStatus, dwStreamIndex, dwStreamFlags, llTimestamp, pSample) {
-        result := ComCall(3, this, "int", hrStatus, "uint", dwStreamIndex, "uint", dwStreamFlags, "int64", llTimestamp, "ptr", pSample, "HRESULT")
+        result := ComCall(3, this, "int", hrStatus, UInt32, dwStreamIndex, UInt32, dwStreamFlags, Int64, llTimestamp, "ptr", pSample, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IMFSourceReaderCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback-onflush
      */
     OnFlush(dwStreamIndex) {
-        result := ComCall(4, this, "uint", dwStreamIndex, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamIndex, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct IMFSourceReaderCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback-onevent
      */
     OnEvent(dwStreamIndex, pEvent) {
-        result := ComCall(5, this, "uint", dwStreamIndex, "ptr", pEvent, "HRESULT")
+        result := ComCall(5, this, UInt32, dwStreamIndex, "ptr", pEvent, "HRESULT")
         return result
     }
 

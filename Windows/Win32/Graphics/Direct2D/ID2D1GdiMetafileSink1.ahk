@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1GdiMetafileSink.ahk" { ID2D1GdiMetafileSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface performs all the same functions as the existing ID2D1GdiMetafileSink interface. It also enables access to metafile records.
@@ -61,7 +61,7 @@ export default struct ID2D1GdiMetafileSink1 extends ID2D1GdiMetafileSink {
     ProcessRecord(recordType, recordData, recordDataSize, flags) {
         recordDataMarshal := recordData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", recordType, recordDataMarshal, recordData, "uint", recordDataSize, "uint", flags, "HRESULT")
+        result := ComCall(4, this, UInt32, recordType, recordDataMarshal, recordData, UInt32, recordDataSize, UInt32, flags, "HRESULT")
         return result
     }
 

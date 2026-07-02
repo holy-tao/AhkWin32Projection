@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfRange.ahk" { ITfRange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfCandidateList.ahk" { ITfCandidateList }
-#Import ".\ITfFunction.ahk" { ITfFunction }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfFunction.ahk" { ITfFunction }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfFnReconversion interface is implemented by a text service and is used by the TSF manager or a client to support reconversion of text provided by the text service.

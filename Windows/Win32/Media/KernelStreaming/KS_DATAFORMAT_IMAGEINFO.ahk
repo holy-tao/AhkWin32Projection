@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
-#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

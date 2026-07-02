@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMbnRegistration.ahk" { IMbnRegistration }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notification interface used to indicate when registration events have occurred.
@@ -199,7 +199,7 @@ export default struct IMbnRegistrationEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistrationevents-onsetregistermodecomplete
      */
     OnSetRegisterModeComplete(newInterface, requestID, _status) {
-        result := ComCall(6, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(6, this, "ptr", newInterface, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 

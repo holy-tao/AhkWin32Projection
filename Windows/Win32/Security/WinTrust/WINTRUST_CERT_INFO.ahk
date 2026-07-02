@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Used when calling WinVerifyTrust to verify a CERT_CONTEXT.

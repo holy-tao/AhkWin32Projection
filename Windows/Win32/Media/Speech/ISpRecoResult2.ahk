@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpPhraseAlt.ahk" { ISpPhraseAlt }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ISpRecoResult.ahk" { ISpRecoResult }
 
 /**
@@ -61,7 +61,7 @@ export default struct ISpRecoResult2 extends ISpRecoResult {
     CommitText(ulStartElement, cElements, pszCorrectedData, eCommitFlags) {
         pszCorrectedData := pszCorrectedData is String ? StrPtr(pszCorrectedData) : pszCorrectedData
 
-        result := ComCall(15, this, "uint", ulStartElement, "uint", cElements, "ptr", pszCorrectedData, "uint", eCommitFlags, "HRESULT")
+        result := ComCall(15, this, UInt32, ulStartElement, UInt32, cElements, "ptr", pszCorrectedData, UInt32, eCommitFlags, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ICancelMethodCalls (objidlbase.h) interface manages cancellation requests on an outbound method call and monitors the current state of that call.
@@ -101,7 +101,7 @@ export default struct ICancelMethodCalls extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icancelmethodcalls-cancel
      */
     Cancel(ulSeconds) {
-        result := ComCall(3, this, "uint", ulSeconds, "HRESULT")
+        result := ComCall(3, this, UInt32, ulSeconds, "HRESULT")
         return result
     }
 

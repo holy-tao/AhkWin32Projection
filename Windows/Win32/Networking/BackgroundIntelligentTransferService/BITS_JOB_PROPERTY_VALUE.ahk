@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BG_AUTH_TARGET.ahk" { BG_AUTH_TARGET }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\BG_AUTH_TARGET.ahk" { BG_AUTH_TARGET }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**

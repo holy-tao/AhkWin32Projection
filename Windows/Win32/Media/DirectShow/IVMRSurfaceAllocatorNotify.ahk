@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\DirectDraw\IDirectDraw7.ahk" { IDirectDraw7 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVMRSurfaceAllocator.ahk" { IVMRSurfaceAllocator }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw7.ahk" { IDirectDraw7 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import ".\IVMRSurfaceAllocator.ahk" { IVMRSurfaceAllocator }
 
 /**
  * The IVMRSurfaceAllocatorNotify interface is implemented by the Video Mixing Renderer Filter 7 (VMR-7).
@@ -58,7 +58,7 @@ export default struct IVMRSurfaceAllocatorNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocatornotify-advisesurfaceallocator
      */
     AdviseSurfaceAllocator(dwUserID, lpIVRMSurfaceAllocator) {
-        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpIVRMSurfaceAllocator, "HRESULT")
+        result := ComCall(3, this, IntPtr, dwUserID, "ptr", lpIVRMSurfaceAllocator, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IVMRSurfaceAllocatorNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocatornotify-notifyevent
      */
     NotifyEvent(EventCode, Param1, Param2) {
-        result := ComCall(7, this, "int", EventCode, "ptr", Param1, "ptr", Param2, "HRESULT")
+        result := ComCall(7, this, Int32, EventCode, IntPtr, Param1, IntPtr, Param2, "HRESULT")
         return result
     }
 

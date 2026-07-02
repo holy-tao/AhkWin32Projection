@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber if a resource is created, allocated, tracked, or destroyed.
@@ -57,7 +57,7 @@ export default struct IComResourceEvents extends IUnknown {
     OnResourceCreate(pInfo, _ObjectID, pszType, resId, enlisted) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, BOOL, enlisted, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, _ObjectID, "ptr", pszType, Int64, resId, BOOL, enlisted, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IComResourceEvents extends IUnknown {
     OnResourceAllocate(pInfo, _ObjectID, pszType, resId, enlisted, NumRated, Rating) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, BOOL, enlisted, "uint", NumRated, "uint", Rating, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, _ObjectID, "ptr", pszType, Int64, resId, BOOL, enlisted, UInt32, NumRated, UInt32, Rating, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IComResourceEvents extends IUnknown {
     OnResourceRecycle(pInfo, _ObjectID, pszType, resId) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, _ObjectID, "ptr", pszType, Int64, resId, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct IComResourceEvents extends IUnknown {
     OnResourceDestroy(pInfo, _ObjectID, hr, pszType, resId) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "int", hr, "ptr", pszType, "uint", resId, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, _ObjectID, "int", hr, "ptr", pszType, Int64, resId, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct IComResourceEvents extends IUnknown {
     OnResourceTrack(pInfo, _ObjectID, pszType, resId, enlisted) {
         pszType := pszType is String ? StrPtr(pszType) : pszType
 
-        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", _ObjectID, "ptr", pszType, "uint", resId, BOOL, enlisted, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, _ObjectID, "ptr", pszType, Int64, resId, BOOL, enlisted, "HRESULT")
         return result
     }
 

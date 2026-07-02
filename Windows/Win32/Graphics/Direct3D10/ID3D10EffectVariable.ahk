@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D10_EFFECT_VARIABLE_DESC.ahk" { D3D10_EFFECT_VARIABLE_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D10EffectType.ahk" { ID3D10EffectType }
-#Import ".\ID3D10EffectShaderResourceVariable.ahk" { ID3D10EffectShaderResourceVariable }
-#Import ".\ID3D10EffectVectorVariable.ahk" { ID3D10EffectVectorVariable }
-#Import ".\ID3D10EffectShaderVariable.ahk" { ID3D10EffectShaderVariable }
-#Import ".\ID3D10EffectSamplerVariable.ahk" { ID3D10EffectSamplerVariable }
-#Import ".\ID3D10EffectRasterizerVariable.ahk" { ID3D10EffectRasterizerVariable }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ID3D10EffectConstantBuffer.ahk" { ID3D10EffectConstantBuffer }
-#Import ".\ID3D10EffectDepthStencilViewVariable.ahk" { ID3D10EffectDepthStencilViewVariable }
-#Import ".\ID3D10EffectRenderTargetViewVariable.ahk" { ID3D10EffectRenderTargetViewVariable }
-#Import ".\ID3D10EffectMatrixVariable.ahk" { ID3D10EffectMatrixVariable }
-#Import ".\ID3D10EffectStringVariable.ahk" { ID3D10EffectStringVariable }
-#Import ".\ID3D10EffectScalarVariable.ahk" { ID3D10EffectScalarVariable }
-#Import ".\ID3D10EffectDepthStencilVariable.ahk" { ID3D10EffectDepthStencilVariable }
 #Import ".\ID3D10EffectBlendVariable.ahk" { ID3D10EffectBlendVariable }
+#Import ".\ID3D10EffectRenderTargetViewVariable.ahk" { ID3D10EffectRenderTargetViewVariable }
+#Import ".\ID3D10EffectScalarVariable.ahk" { ID3D10EffectScalarVariable }
+#Import ".\ID3D10EffectSamplerVariable.ahk" { ID3D10EffectSamplerVariable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10EffectDepthStencilVariable.ahk" { ID3D10EffectDepthStencilVariable }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ID3D10EffectStringVariable.ahk" { ID3D10EffectStringVariable }
+#Import ".\ID3D10EffectVectorVariable.ahk" { ID3D10EffectVectorVariable }
+#Import ".\ID3D10EffectConstantBuffer.ahk" { ID3D10EffectConstantBuffer }
+#Import ".\ID3D10EffectShaderVariable.ahk" { ID3D10EffectShaderVariable }
+#Import ".\ID3D10EffectDepthStencilViewVariable.ahk" { ID3D10EffectDepthStencilViewVariable }
+#Import ".\ID3D10EffectShaderResourceVariable.ahk" { ID3D10EffectShaderResourceVariable }
+#Import ".\ID3D10EffectRasterizerVariable.ahk" { ID3D10EffectRasterizerVariable }
+#Import ".\ID3D10EffectMatrixVariable.ahk" { ID3D10EffectMatrixVariable }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D10_EFFECT_VARIABLE_DESC.ahk" { D3D10_EFFECT_VARIABLE_DESC }
+#Import ".\ID3D10EffectType.ahk" { ID3D10EffectType }
 
 /**
  * The ID3D10EffectVariable interface is the base class for all effect variables.
@@ -129,7 +129,7 @@ export default struct ID3D10EffectVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getannotationbyindex
      */
     GetAnnotationByIndex(Index) {
-        result := ComCall(3, this, "uint", Index, ID3D10EffectVariable)
+        result := ComCall(3, this, UInt32, Index, ID3D10EffectVariable)
         return result
     }
 
@@ -165,7 +165,7 @@ export default struct ID3D10EffectVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getmemberbyindex
      */
     GetMemberByIndex(Index) {
-        result := ComCall(5, this, "uint", Index, ID3D10EffectVariable)
+        result := ComCall(5, this, UInt32, Index, ID3D10EffectVariable)
         return result
     }
 
@@ -220,7 +220,7 @@ export default struct ID3D10EffectVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getelement
      */
     GetElement(Index) {
-        result := ComCall(8, this, "uint", Index, ID3D10EffectVariable)
+        result := ComCall(8, this, UInt32, Index, ID3D10EffectVariable)
         return result
     }
 
@@ -465,7 +465,7 @@ export default struct ID3D10EffectVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-setrawvalue
      */
     SetRawValue(pData, Offset, ByteCount) {
-        result := ComCall(23, this, "ptr", pData, "uint", Offset, "uint", ByteCount, "HRESULT")
+        result := ComCall(23, this, IntPtr, pData, UInt32, Offset, UInt32, ByteCount, "HRESULT")
         return result
     }
 
@@ -488,7 +488,7 @@ export default struct ID3D10EffectVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getrawvalue
      */
     GetRawValue(pData, Offset, ByteCount) {
-        result := ComCall(24, this, "ptr", pData, "uint", Offset, "uint", ByteCount, "HRESULT")
+        result := ComCall(24, this, IntPtr, pData, UInt32, Offset, UInt32, ByteCount, "HRESULT")
         return result
     }
 

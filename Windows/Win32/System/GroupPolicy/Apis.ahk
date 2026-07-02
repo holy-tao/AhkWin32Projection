@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Security\PSID.ahk" { PSID }
-#Import ".\INSTALLDATA.ahk" { INSTALLDATA }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\POLICYSETTINGSTATUSINFO.ahk" { POLICYSETTINGSTATUSINFO }
-#Import "..\..\Security\OBJECT_TYPE_LIST.ahk" { OBJECT_TYPE_LIST }
-#Import ".\GPOBROWSEINFO.ahk" { GPOBROWSEINFO }
-#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import "..\..\Security\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MANAGEDAPPLICATION.ahk" { MANAGEDAPPLICATION }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\GPOBROWSEINFO.ahk" { GPOBROWSEINFO }
+#Import ".\INSTALLDATA.ahk" { INSTALLDATA }
 #Import "..\Wmi\IWbemServices.ahk" { IWbemServices }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 #Import ".\LOCALMANAGEDAPPLICATION.ahk" { LOCALMANAGEDAPPLICATION }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\GROUP_POLICY_OBJECTW.ahk" { GROUP_POLICY_OBJECTW }
-#Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\UI\Shell\APPCATEGORYINFOLIST.ahk" { APPCATEGORYINFOLIST }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
+#Import "..\..\Security\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
+#Import ".\GROUP_POLICY_OBJECTW.ahk" { GROUP_POLICY_OBJECTW }
 #Import "..\Wmi\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MANAGEDAPPLICATION.ahk" { MANAGEDAPPLICATION }
+#Import "..\..\Security\OBJECT_TYPE_LIST.ahk" { OBJECT_TYPE_LIST }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy
@@ -68,7 +68,7 @@ export RefreshPolicy(bMachine) {
 export RefreshPolicyEx(bMachine, dwOptions) {
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\RefreshPolicyEx", BOOL, bMachine, "uint", dwOptions, BOOL)
+    result := DllCall("USERENV.dll\RefreshPolicyEx", BOOL, bMachine, UInt32, dwOptions, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -273,7 +273,7 @@ export GetGPOListA(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetGPOListA", HANDLE, hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, pGPOListMarshal, pGPOList, BOOL)
+    result := DllCall("USERENV.dll\GetGPOListA", HANDLE, hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, UInt32, dwFlags, pGPOListMarshal, pGPOList, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -373,7 +373,7 @@ export GetGPOListW(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetGPOListW", HANDLE, hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, pGPOListMarshal, pGPOList, BOOL)
+    result := DllCall("USERENV.dll\GetGPOListW", HANDLE, hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, UInt32, dwFlags, pGPOListMarshal, pGPOList, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -466,7 +466,7 @@ export GetAppliedGPOListA(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPO
 
     ppGPOListMarshal := ppGPOList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("USERENV.dll\GetAppliedGPOListA", "uint", dwFlags, "ptr", pMachineName, PSID, pSidUser, Guid.Ptr, pGuidExtension, ppGPOListMarshal, ppGPOList, UInt32)
+    result := DllCall("USERENV.dll\GetAppliedGPOListA", UInt32, dwFlags, "ptr", pMachineName, PSID, pSidUser, Guid.Ptr, pGuidExtension, ppGPOListMarshal, ppGPOList, UInt32)
     return result
 }
 
@@ -501,7 +501,7 @@ export GetAppliedGPOListW(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPO
 
     ppGPOListMarshal := ppGPOList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("USERENV.dll\GetAppliedGPOListW", "uint", dwFlags, "ptr", pMachineName, PSID, pSidUser, Guid.Ptr, pGuidExtension, ppGPOListMarshal, ppGPOList, UInt32)
+    result := DllCall("USERENV.dll\GetAppliedGPOListW", UInt32, dwFlags, "ptr", pMachineName, PSID, pSidUser, Guid.Ptr, pGuidExtension, ppGPOListMarshal, ppGPOList, UInt32)
     return result
 }
 
@@ -517,7 +517,7 @@ export GetAppliedGPOListW(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPO
  * @since windows6.0.6000
  */
 export ProcessGroupPolicyCompleted(extensionId, pAsyncHandle, dwStatus) {
-    result := DllCall("USERENV.dll\ProcessGroupPolicyCompleted", Guid.Ptr, extensionId, "ptr", pAsyncHandle, "uint", dwStatus, UInt32)
+    result := DllCall("USERENV.dll\ProcessGroupPolicyCompleted", Guid.Ptr, extensionId, IntPtr, pAsyncHandle, UInt32, dwStatus, UInt32)
     return result
 }
 
@@ -534,7 +534,7 @@ export ProcessGroupPolicyCompleted(extensionId, pAsyncHandle, dwStatus) {
  * @since windows6.0.6000
  */
 export ProcessGroupPolicyCompletedEx(extensionId, pAsyncHandle, dwStatus, RsopStatus) {
-    result := DllCall("USERENV.dll\ProcessGroupPolicyCompletedEx", Guid.Ptr, extensionId, "ptr", pAsyncHandle, "uint", dwStatus, "int", RsopStatus, UInt32)
+    result := DllCall("USERENV.dll\ProcessGroupPolicyCompletedEx", Guid.Ptr, extensionId, IntPtr, pAsyncHandle, UInt32, dwStatus, "int", RsopStatus, UInt32)
     return result
 }
 
@@ -585,7 +585,7 @@ export RsopAccessCheckByType(pSecurityDescriptor, pPrincipalSelfSid, pRsopToken,
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\RsopAccessCheckByType", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, pPrincipalSelfSid, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, OBJECT_TYPE_LIST.Ptr, pObjectTypeList, "uint", ObjectTypeListLength, GENERIC_MAPPING.Ptr, pGenericMapping, "ptr", pPrivilegeSet, pdwPrivilegeSetLengthMarshal, pdwPrivilegeSetLength, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "HRESULT")
+    result := DllCall("USERENV.dll\RsopAccessCheckByType", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, pPrincipalSelfSid, pRsopTokenMarshal, pRsopToken, UInt32, dwDesiredAccessMask, OBJECT_TYPE_LIST.Ptr, pObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, pGenericMapping, IntPtr, pPrivilegeSet, pdwPrivilegeSetLengthMarshal, pdwPrivilegeSetLength, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "HRESULT")
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -621,7 +621,7 @@ export RsopFileAccessCheck(pszFileName, pRsopToken, dwDesiredAccessMask, pdwGran
     pdwGrantedAccessMaskMarshal := pdwGrantedAccessMask is VarRef ? "uint*" : "ptr"
     pbAccessStatusMarshal := pbAccessStatus is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, pRsopTokenMarshal, pRsopToken, "uint", dwDesiredAccessMask, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "HRESULT")
+    result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, pRsopTokenMarshal, pRsopToken, UInt32, dwDesiredAccessMask, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "HRESULT")
     return result
 }
 
@@ -644,7 +644,7 @@ export RsopFileAccessCheck(pszFileName, pRsopToken, dwDesiredAccessMask, pdwGran
  * @since windows6.0.6000
  */
 export RsopSetPolicySettingStatus(dwFlags, pServices, pSettingInstance, nInfo, pStatus) {
-    result := DllCall("USERENV.dll\RsopSetPolicySettingStatus", "uint", dwFlags, "ptr", pServices, "ptr", pSettingInstance, "uint", nInfo, POLICYSETTINGSTATUSINFO.Ptr, pStatus, "HRESULT")
+    result := DllCall("USERENV.dll\RsopSetPolicySettingStatus", UInt32, dwFlags, "ptr", pServices, "ptr", pSettingInstance, UInt32, nInfo, POLICYSETTINGSTATUSINFO.Ptr, pStatus, "HRESULT")
     return result
 }
 
@@ -664,7 +664,7 @@ export RsopSetPolicySettingStatus(dwFlags, pServices, pSettingInstance, nInfo, p
  * @since windows6.0.6000
  */
 export RsopResetPolicySettingStatus(dwFlags, pServices, pSettingInstance) {
-    result := DllCall("USERENV.dll\RsopResetPolicySettingStatus", "uint", dwFlags, "ptr", pServices, "ptr", pSettingInstance, "HRESULT")
+    result := DllCall("USERENV.dll\RsopResetPolicySettingStatus", UInt32, dwFlags, "ptr", pServices, "ptr", pSettingInstance, "HRESULT")
     return result
 }
 
@@ -678,7 +678,7 @@ export RsopResetPolicySettingStatus(dwFlags, pServices, pSettingInstance) {
 export GenerateGPNotification(bMachine, lpwszMgmtProduct, dwMgmtProductOptions) {
     lpwszMgmtProduct := lpwszMgmtProduct is String ? StrPtr(lpwszMgmtProduct) : lpwszMgmtProduct
 
-    result := DllCall("USERENV.dll\GenerateGPNotification", BOOL, bMachine, "ptr", lpwszMgmtProduct, "uint", dwMgmtProductOptions, UInt32)
+    result := DllCall("USERENV.dll\GenerateGPNotification", BOOL, bMachine, "ptr", lpwszMgmtProduct, UInt32, dwMgmtProductOptions, UInt32)
     return result
 }
 
@@ -728,7 +728,7 @@ export InstallApplication(pInstallInfo) {
 export UninstallApplication(ProductCode, dwStatus) {
     ProductCode := ProductCode is String ? StrPtr(ProductCode) : ProductCode
 
-    result := DllCall("ADVAPI32.dll\UninstallApplication", "ptr", ProductCode, "uint", dwStatus, UInt32)
+    result := DllCall("ADVAPI32.dll\UninstallApplication", "ptr", ProductCode, UInt32, dwStatus, UInt32)
     return result
 }
 
@@ -767,7 +767,7 @@ export GetManagedApplications(pCategory, dwQueryFlags, dwInfoLevel, pdwApps, prg
     pdwAppsMarshal := pdwApps is VarRef ? "uint*" : "ptr"
     prgManagedAppsMarshal := prgManagedApps is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\GetManagedApplications", Guid.Ptr, pCategory, "uint", dwQueryFlags, "uint", dwInfoLevel, pdwAppsMarshal, pdwApps, prgManagedAppsMarshal, prgManagedApps, UInt32)
+    result := DllCall("ADVAPI32.dll\GetManagedApplications", Guid.Ptr, pCategory, UInt32, dwQueryFlags, UInt32, dwInfoLevel, pdwAppsMarshal, pdwApps, prgManagedAppsMarshal, prgManagedApps, UInt32)
     return result
 }
 
@@ -818,7 +818,7 @@ export GetLocalManagedApplicationData(ProductCode, DisplayName, SupportUrl) {
 export GetManagedApplicationCategories(pAppCategory) {
     static dwReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("ADVAPI32.dll\GetManagedApplicationCategories", "uint", dwReserved, APPCATEGORYINFOLIST.Ptr, pAppCategory, UInt32)
+    result := DllCall("ADVAPI32.dll\GetManagedApplicationCategories", UInt32, dwReserved, APPCATEGORYINFOLIST.Ptr, pAppCategory, UInt32)
     return result
 }
 

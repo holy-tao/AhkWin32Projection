@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ITpmVirtualSmartCardManagerStatusCallback.ahk" { ITpmVirtualSmartCardManagerStatusCallback }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages the TPM virtual smart cards.
@@ -80,7 +80,7 @@ export default struct ITpmVirtualSmartCardManager extends IUnknown {
         ppszInstanceIdMarshal := ppszInstanceId is VarRef ? "ptr*" : "ptr"
         pfNeedRebootMarshal := pfNeedReboot is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, BOOL, fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFriendlyName, Int8, bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, UInt32, cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, UInt32, cbAdminKcv, pbPukMarshal, pbPuk, UInt32, cbPuk, pbPinMarshal, pbPin, UInt32, cbPin, BOOL, fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
         return result
     }
 

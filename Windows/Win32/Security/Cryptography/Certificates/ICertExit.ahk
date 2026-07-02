@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\CERT_EXIT_EVENT_MASK.ahk" { CERT_EXIT_EVENT_MASK }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
@@ -199,7 +199,7 @@ export default struct ICertExit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certexit/nf-certexit-icertexit-notify
      */
     Notify(ExitEvent, _Context) {
-        result := ComCall(8, this, "int", ExitEvent, "int", _Context, "HRESULT")
+        result := ComCall(8, this, Int32, ExitEvent, Int32, _Context, "HRESULT")
         return result
     }
 

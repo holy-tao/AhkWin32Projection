@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
 #Import ".\IWMDMProgress2.ahk" { IWMDMProgress2 }
+#Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The optional, application-implemented IWMDMProgress3 interface extends IWMDMProgress2 by providing additional input parameters to specify which event is being monitored, and to allow for context-specific information.Applications that implement this callback interface should provide an implementation for methods corresponding to IWMDMProgress and IWMDMProgress2 for backward compatibility, in addition to the new methods.
@@ -118,7 +118,7 @@ export default struct IWMDMProgress3 extends IWMDMProgress2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress3-begin3
      */
     Begin3(EventId, dwEstimatedTicks, pContext) {
-        result := ComCall(7, this, Guid, EventId, "uint", dwEstimatedTicks, OPAQUECOMMAND.Ptr, pContext, "HRESULT")
+        result := ComCall(7, this, Guid, EventId, UInt32, dwEstimatedTicks, OPAQUECOMMAND.Ptr, pContext, "HRESULT")
         return result
     }
 
@@ -202,7 +202,7 @@ export default struct IWMDMProgress3 extends IWMDMProgress2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress3-progress3
      */
     Progress3(EventId, dwTranspiredTicks, pContext) {
-        result := ComCall(8, this, Guid, EventId, "uint", dwTranspiredTicks, OPAQUECOMMAND.Ptr, pContext, "HRESULT")
+        result := ComCall(8, this, Guid, EventId, UInt32, dwTranspiredTicks, OPAQUECOMMAND.Ptr, pContext, "HRESULT")
         return result
     }
 

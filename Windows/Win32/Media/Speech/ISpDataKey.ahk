@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -65,7 +65,7 @@ export default struct ISpDataKey extends IUnknown {
 
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszValueName, "uint", cbData, pDataMarshal, pData, "HRESULT")
+        result := ComCall(3, this, "ptr", pszValueName, UInt32, cbData, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct ISpDataKey extends IUnknown {
     SetDWORD(pszValueName, dwValue) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(7, this, "ptr", pszValueName, "uint", dwValue, "HRESULT")
+        result := ComCall(7, this, "ptr", pszValueName, UInt32, dwValue, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct ISpDataKey extends IUnknown {
      * @returns {PWSTR} 
      */
     EnumKeys(Index) {
-        result := ComCall(13, this, "uint", Index, PWSTR.Ptr, &ppszSubKeyName := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, Index, PWSTR.Ptr, &ppszSubKeyName := 0, "HRESULT")
         return ppszSubKeyName
     }
 
@@ -204,7 +204,7 @@ export default struct ISpDataKey extends IUnknown {
      * @returns {PWSTR} 
      */
     EnumValues(Index) {
-        result := ComCall(14, this, "uint", Index, PWSTR.Ptr, &ppszValueName := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, Index, PWSTR.Ptr, &ppszValueName := 0, "HRESULT")
         return ppszValueName
     }
 

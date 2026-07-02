@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SENS_QOCINFO.ahk" { SENS_QOCINFO }
+#Import ".\SENS_CONNECTION_TYPE.ahk" { SENS_CONNECTION_TYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SENS_CONNECTION_TYPE.ahk" { SENS_CONNECTION_TYPE }
+#Import ".\SENS_QOCINFO.ahk" { SENS_QOCINFO }
 
 /**
  * The ISensNetwork interface handles network events fired by the System Event Notification Service (SENS).
@@ -79,7 +79,7 @@ export default struct ISensNetwork extends IDispatch {
     ConnectionMade(bstrConnection, ulType, lpQOCInfo) {
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
 
-        result := ComCall(7, this, BSTR, bstrConnection, "uint", ulType, SENS_QOCINFO.Ptr, lpQOCInfo, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrConnection, UInt32, ulType, SENS_QOCINFO.Ptr, lpQOCInfo, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct ISensNetwork extends IDispatch {
     ConnectionMadeNoQOCInfo(bstrConnection, ulType) {
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
 
-        result := ComCall(8, this, BSTR, bstrConnection, "uint", ulType, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrConnection, UInt32, ulType, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct ISensNetwork extends IDispatch {
         bstrDestination := bstrDestination is String ? BSTR.Alloc(bstrDestination).Value : bstrDestination
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
 
-        result := ComCall(10, this, BSTR, bstrDestination, BSTR, bstrConnection, "uint", ulType, SENS_QOCINFO.Ptr, lpQOCInfo, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrDestination, BSTR, bstrConnection, UInt32, ulType, SENS_QOCINFO.Ptr, lpQOCInfo, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct ISensNetwork extends IDispatch {
         bstrDestination := bstrDestination is String ? BSTR.Alloc(bstrDestination).Value : bstrDestination
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
 
-        result := ComCall(11, this, BSTR, bstrDestination, BSTR, bstrConnection, "uint", ulType, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrDestination, BSTR, bstrConnection, UInt32, ulType, "HRESULT")
         return result
     }
 

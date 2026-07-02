@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
 #Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EncodingType.ahk" { EncodingType }
 #Import ".\PolicyServerUrlFlags.ahk" { PolicyServerUrlFlags }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\WebEnrollmentFlags.ahk" { WebEnrollmentFlags }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IX509EnrollmentHelper interface defines methods that enable a web application to enroll a certificate, store policy server credentials in the credential cache, and register policy servers and enrollment servers.

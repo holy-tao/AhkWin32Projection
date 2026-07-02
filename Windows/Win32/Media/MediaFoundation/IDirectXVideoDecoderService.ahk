@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
-#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import ".\DXVA2_ConfigPictureDecode.ahk" { DXVA2_ConfigPictureDecode }
-#Import ".\IDirectXVideoAccelerationService.ahk" { IDirectXVideoAccelerationService }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 #Import ".\IDirectXVideoDecoder.ahk" { IDirectXVideoDecoder }
+#Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
+#Import ".\IDirectXVideoAccelerationService.ahk" { IDirectXVideoAccelerationService }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to DirectX Video Acceleration (DXVA) decoder services.
@@ -253,7 +253,7 @@ export default struct IDirectXVideoDecoderService extends IDirectXVideoAccelerat
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoderservice-createvideodecoder
      */
     CreateVideoDecoder(Guid, pVideoDesc, pConfig, ppDecoderRenderTargets, NumRenderTargets) {
-        result := ComCall(7, this, Guid.Ptr, Guid, DXVA2_VideoDesc.Ptr, pVideoDesc, DXVA2_ConfigPictureDecode.Ptr, pConfig, IDirect3DSurface9.Ptr, ppDecoderRenderTargets, "uint", NumRenderTargets, "ptr*", &ppDecode := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, Guid, DXVA2_VideoDesc.Ptr, pVideoDesc, DXVA2_ConfigPictureDecode.Ptr, pConfig, IDirect3DSurface9.Ptr, ppDecoderRenderTargets, UInt32, NumRenderTargets, "ptr*", &ppDecode := 0, "HRESULT")
         return IDirectXVideoDecoder(ppDecode)
     }
 

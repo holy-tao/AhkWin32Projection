@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\AudioObjectType.ahk" { AudioObjectType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Base interface that represents an object that provides audio data to be rendered from a position in 3D space, relative to the user.
@@ -136,7 +136,7 @@ export default struct ISpatialAudioObjectBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectbase-setendofstream
      */
     SetEndOfStream(frameCount) {
-        result := ComCall(4, this, "uint", frameCount, "HRESULT")
+        result := ComCall(4, this, UInt32, frameCount, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\QOS_SERVICE_LEVEL.ahk" { QOS_SERVICE_LEVEL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DISCONNECT_CODE.ahk" { DISCONNECT_CODE }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\FINISH_MODE.ahk" { FINISH_MODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\QOS_SERVICE_LEVEL.ahk" { QOS_SERVICE_LEVEL }
 
 /**
  * The ITBasicCallControl interface is used by the application to connect, answer, and perform basic telephony operations on a call object.
@@ -443,7 +443,7 @@ export default struct ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-handoffindirect
      */
     HandoffIndirect(lMediaType) {
-        result := ComCall(12, this, "int", lMediaType, "HRESULT")
+        result := ComCall(12, this, Int32, lMediaType, "HRESULT")
         return result
     }
 
@@ -1073,7 +1073,7 @@ export default struct ITBasicCallControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-setqos
      */
     SetQOS(lMediaType, ServiceLevel) {
-        result := ComCall(20, this, "int", lMediaType, QOS_SERVICE_LEVEL, ServiceLevel, "HRESULT")
+        result := ComCall(20, this, Int32, lMediaType, QOS_SERVICE_LEVEL, ServiceLevel, "HRESULT")
         return result
     }
 

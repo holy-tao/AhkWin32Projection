@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber when an unhandled exception occurs in the user's code.
@@ -51,7 +51,7 @@ export default struct IComExceptionEvents extends IUnknown {
     OnExceptionUser(pInfo, code, _address, pszStackTrace) {
         pszStackTrace := pszStackTrace is String ? StrPtr(pszStackTrace) : pszStackTrace
 
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", code, "uint", _address, "ptr", pszStackTrace, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, UInt32, code, Int64, _address, "ptr", pszStackTrace, "HRESULT")
         return result
     }
 

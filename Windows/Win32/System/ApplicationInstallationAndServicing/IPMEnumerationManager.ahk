@@ -1,27 +1,27 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPMLiveTileJobInfoEnumerator.ahk" { IPMLiveTileJobInfoEnumerator }
-#Import ".\IPMLiveTileJobInfo.ahk" { IPMLiveTileJobInfo }
-#Import ".\IPMApplicationInfoEnumerator.ahk" { IPMApplicationInfoEnumerator }
-#Import ".\IPMApplicationInfo.ahk" { IPMApplicationInfo }
-#Import ".\IPMBackgroundServiceAgentInfoEnumerator.ahk" { IPMBackgroundServiceAgentInfoEnumerator }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IPMTaskInfoEnumerator.ahk" { IPMTaskInfoEnumerator }
-#Import ".\PM_LOGO_SIZE.ahk" { PM_LOGO_SIZE }
-#Import ".\IPMTileInfoEnumerator.ahk" { IPMTileInfoEnumerator }
-#Import ".\PM_LIVETILE_RECURRENCE_TYPE.ahk" { PM_LIVETILE_RECURRENCE_TYPE }
-#Import ".\PM_STARTAPPBLOB.ahk" { PM_STARTAPPBLOB }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPMBackgroundWorkerInfoEnumerator.ahk" { IPMBackgroundWorkerInfoEnumerator }
+#Import ".\PM_LIVETILE_RECURRENCE_TYPE.ahk" { PM_LIVETILE_RECURRENCE_TYPE }
 #Import ".\IPMTileInfo.ahk" { IPMTileInfo }
-#Import ".\IPMBackgroundServiceAgentInfo.ahk" { IPMBackgroundServiceAgentInfo }
-#Import ".\PM_STARTTILEBLOB.ahk" { PM_STARTTILEBLOB }
+#Import ".\IPMBackgroundServiceAgentInfoEnumerator.ahk" { IPMBackgroundServiceAgentInfoEnumerator }
+#Import ".\PM_STARTAPPBLOB.ahk" { PM_STARTAPPBLOB }
+#Import ".\IPMLiveTileJobInfoEnumerator.ahk" { IPMLiveTileJobInfoEnumerator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PM_ENUM_FILTER.ahk" { PM_ENUM_FILTER }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPMExtensionInfoEnumerator.ahk" { IPMExtensionInfoEnumerator }
 #Import ".\IPMTaskInfo.ahk" { IPMTaskInfo }
+#Import ".\IPMTileInfoEnumerator.ahk" { IPMTileInfoEnumerator }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IPMExtensionInfoEnumerator.ahk" { IPMExtensionInfoEnumerator }
+#Import ".\PM_LOGO_SIZE.ahk" { PM_LOGO_SIZE }
+#Import ".\IPMApplicationInfoEnumerator.ahk" { IPMApplicationInfoEnumerator }
+#Import ".\PM_STARTTILEBLOB.ahk" { PM_STARTTILEBLOB }
+#Import ".\IPMApplicationInfo.ahk" { IPMApplicationInfo }
+#Import ".\IPMTaskInfoEnumerator.ahk" { IPMTaskInfoEnumerator }
+#Import ".\IPMBackgroundWorkerInfoEnumerator.ahk" { IPMBackgroundWorkerInfoEnumerator }
+#Import ".\IPMBackgroundServiceAgentInfo.ahk" { IPMBackgroundServiceAgentInfo }
+#Import ".\IPMLiveTileJobInfo.ahk" { IPMLiveTileJobInfo }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -193,7 +193,7 @@ export default struct IPMEnumerationManager extends IUnknown {
      * @returns {IPMBackgroundServiceAgentInfo} 
      */
     get_BackgroundServiceAgentInfo(BSAID) {
-        result := ComCall(13, this, "uint", BSAID, "ptr*", &ppTaskInfo := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, BSAID, "ptr*", &ppTaskInfo := 0, "HRESULT")
         return IPMBackgroundServiceAgentInfo(ppTaskInfo)
     }
 

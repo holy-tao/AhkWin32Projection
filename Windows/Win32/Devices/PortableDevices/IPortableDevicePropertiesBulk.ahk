@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPortableDeviceValuesCollection.ahk" { IPortableDeviceValuesCollection }
-#Import ".\IPortableDevicePropertiesBulkCallback.ahk" { IPortableDevicePropertiesBulkCallback }
 #Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPortableDevicePropertiesBulkCallback.ahk" { IPortableDevicePropertiesBulkCallback }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPortableDeviceValuesCollection.ahk" { IPortableDeviceValuesCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
 
 /**
@@ -124,7 +124,7 @@ export default struct IPortableDevicePropertiesBulk extends IUnknown {
         pszParentObjectID := pszParentObjectID is String ? StrPtr(pszParentObjectID) : pszParentObjectID
 
         pContext := Guid()
-        result := ComCall(4, this, Guid.Ptr, pguidObjectFormat, "ptr", pszParentObjectID, "uint", dwDepth, "ptr", pKeys, "ptr", pCallback, Guid.Ptr, pContext, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pguidObjectFormat, "ptr", pszParentObjectID, UInt32, dwDepth, "ptr", pKeys, "ptr", pCallback, Guid.Ptr, pContext, "HRESULT")
         return pContext
     }
 

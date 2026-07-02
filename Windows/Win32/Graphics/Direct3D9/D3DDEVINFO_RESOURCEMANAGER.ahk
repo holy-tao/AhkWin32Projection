@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DRESOURCESTATS.ahk" { D3DRESOURCESTATS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DRESOURCESTATS.ahk" { D3DRESOURCESTATS }
 
 /**
  * Resource usage statistics.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaEngineSrcElements.ahk" { IMFMediaEngineSrcElements }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFMediaEngineSrcElements.ahk" { IMFMediaEngineSrcElements }
 
 /**
  * Extends the IMFMediaEngineSrcElements interface to provide additional capabilities.
@@ -66,7 +66,7 @@ export default struct IMFMediaEngineSrcElementsEx extends IMFMediaEngineSrcEleme
      */
     GetKeySystem(index) {
         pType := BSTR.Owned()
-        result := ComCall(10, this, "uint", index, BSTR.Ptr, pType, "HRESULT")
+        result := ComCall(10, this, UInt32, index, BSTR.Ptr, pType, "HRESULT")
         return pType
     }
 

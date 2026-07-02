@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IKE_AUTHENTICATION_METHOD.ahk" { IKE_AUTHENTICATION_METHOD }
 #Import ".\IKE_AUTHENTICATION_PRESHARED_KEY.ahk" { IKE_AUTHENTICATION_PRESHARED_KEY }
+#Import ".\IKE_AUTHENTICATION_METHOD.ahk" { IKE_AUTHENTICATION_METHOD }
 
 /**
  * IKE_AUTHENTICATION_INFORMATION structure contains Internet Key Exchange (IKE) authentication information used to establish a secure channel between two key management daemons.

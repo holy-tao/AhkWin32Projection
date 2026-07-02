@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IHTMLDocument.ahk" { IHTMLDocument }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -72,7 +72,7 @@ export default struct IHTMLPopup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/Http/show-timeout
      */
     show(x, y, w, h, pElement) {
-        result := ComCall(7, this, "int", x, "int", y, "int", w, "int", h, VARIANT.Ptr, pElement, "HRESULT")
+        result := ComCall(7, this, Int32, x, Int32, y, Int32, w, Int32, h, VARIANT.Ptr, pElement, "HRESULT")
         return result
     }
 

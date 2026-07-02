@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ATTACHMENT_ACTION.ahk" { ATTACHMENT_ACTION }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ATTACHMENT_PROMPT.ahk" { ATTACHMENT_PROMPT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ATTACHMENT_PROMPT.ahk" { ATTACHMENT_PROMPT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ATTACHMENT_ACTION.ahk" { ATTACHMENT_ACTION }
 
 /**
  * Exposes methods that work with client applications to present a user environment that provides safe download and exchange of files through email and messaging attachments.

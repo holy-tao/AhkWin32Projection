@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ReportValueTypeConstants.ahk" { ReportValueTypeConstants }
-#Import ".\SysmonFileType.ahk" { SysmonFileType }
-#Import ".\DataSourceTypeConstants.ahk" { DataSourceTypeConstants }
-#Import ".\SysmonBatchReason.ahk" { SysmonBatchReason }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DisplayTypeConstants.ahk" { DisplayTypeConstants }
+#Import ".\ReportValueTypeConstants.ahk" { ReportValueTypeConstants }
 #Import ".\ICounters.ahk" { ICounters }
-#Import ".\ICounterItem.ahk" { ICounterItem }
-#Import "..\Ole\IFontDisp.ahk" { IFontDisp }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ILogFiles.ahk" { ILogFiles }
+#Import ".\SysmonBatchReason.ahk" { SysmonBatchReason }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ICounterItem.ahk" { ICounterItem }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Ole\IFontDisp.ahk" { IFontDisp }
+#Import ".\ILogFiles.ahk" { ILogFiles }
+#Import ".\DataSourceTypeConstants.ahk" { DataSourceTypeConstants }
+#Import ".\SysmonFileType.ahk" { SysmonFileType }
 
 /**
  * @namespace Windows.Win32.System.Performance
@@ -485,7 +485,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Appearance(iAppearance) {
-        result := ComCall(4, this, "int", iAppearance, "HRESULT")
+        result := ComCall(4, this, Int32, iAppearance, "HRESULT")
         return result
     }
 
@@ -504,7 +504,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_BackColor(_Color) {
-        result := ComCall(6, this, "uint", _Color, "HRESULT")
+        result := ComCall(6, this, UInt32, _Color, "HRESULT")
         return result
     }
 
@@ -523,7 +523,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_BorderStyle(iBorderStyle) {
-        result := ComCall(8, this, "int", iBorderStyle, "HRESULT")
+        result := ComCall(8, this, Int32, iBorderStyle, "HRESULT")
         return result
     }
 
@@ -542,7 +542,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ForeColor(_Color) {
-        result := ComCall(10, this, "uint", _Color, "HRESULT")
+        result := ComCall(10, this, UInt32, _Color, "HRESULT")
         return result
     }
 
@@ -675,7 +675,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_MaximumScale(iValue) {
-        result := ComCall(24, this, "int", iValue, "HRESULT")
+        result := ComCall(24, this, Int32, iValue, "HRESULT")
         return result
     }
 
@@ -694,7 +694,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_MinimumScale(iValue) {
-        result := ComCall(26, this, "int", iValue, "HRESULT")
+        result := ComCall(26, this, Int32, iValue, "HRESULT")
         return result
     }
 
@@ -713,7 +713,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_UpdateInterval(fValue) {
-        result := ComCall(28, this, "float", fValue, "HRESULT")
+        result := ComCall(28, this, Float32, fValue, "HRESULT")
         return result
     }
 
@@ -850,7 +850,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {ICounterItem} 
      */
     Counter(iIndex) {
-        result := ComCall(42, this, "int", iIndex, "ptr*", &ppICounter := 0, "HRESULT")
+        result := ComCall(42, this, Int32, iIndex, "ptr*", &ppICounter := 0, "HRESULT")
         return ICounterItem(ppICounter)
     }
 
@@ -891,7 +891,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_BackColorCtl(_Color) {
-        result := ComCall(46, this, "uint", _Color, "HRESULT")
+        result := ComCall(46, this, UInt32, _Color, "HRESULT")
         return result
     }
 
@@ -923,7 +923,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_LogViewStart(StartTime) {
-        result := ComCall(49, this, "double", StartTime, "HRESULT")
+        result := ComCall(49, this, Float64, StartTime, "HRESULT")
         return result
     }
 
@@ -942,7 +942,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_LogViewStop(StopTime) {
-        result := ComCall(51, this, "double", StopTime, "HRESULT")
+        result := ComCall(51, this, Float64, StopTime, "HRESULT")
         return result
     }
 
@@ -970,7 +970,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_GridColor(_Color) {
-        result := ComCall(54, this, "uint", _Color, "HRESULT")
+        result := ComCall(54, this, UInt32, _Color, "HRESULT")
         return result
     }
 
@@ -989,7 +989,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_TimeBarColor(_Color) {
-        result := ComCall(56, this, "uint", _Color, "HRESULT")
+        result := ComCall(56, this, UInt32, _Color, "HRESULT")
         return result
     }
 
@@ -1121,7 +1121,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_DisplayFilter(iValue) {
-        result := ComCall(70, this, "int", iValue, "HRESULT")
+        result := ComCall(70, this, Int32, iValue, "HRESULT")
         return result
     }
 
@@ -1288,7 +1288,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_DataPointCount(iNewCount) {
-        result := ComCall(87, this, "int", iNewCount, "HRESULT")
+        result := ComCall(87, this, Int32, iNewCount, "HRESULT")
         return result
     }
 
@@ -1334,7 +1334,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     Relog(bstrFileName, eSysmonFileType, _iFilter) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
 
-        result := ComCall(91, this, BSTR, bstrFileName, SysmonFileType, eSysmonFileType, "int", _iFilter, "HRESULT")
+        result := ComCall(91, this, BSTR, bstrFileName, SysmonFileType, eSysmonFileType, Int32, _iFilter, "HRESULT")
         return result
     }
 
@@ -1372,7 +1372,7 @@ export default struct _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     SetLogViewRange(StartTime, StopTime) {
-        result := ComCall(95, this, "double", StartTime, "double", StopTime, "HRESULT")
+        result := ComCall(95, this, Float64, StartTime, Float64, StopTime, "HRESULT")
         return result
     }
 

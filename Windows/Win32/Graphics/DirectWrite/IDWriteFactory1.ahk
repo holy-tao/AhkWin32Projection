@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
 #Import ".\IDWriteRenderingParams1.ahk" { IDWriteRenderingParams1 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
+#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
 #Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory1)
@@ -88,7 +88,7 @@ export default struct IDWriteFactory1 extends IDWriteFactory {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, enhancedContrastGrayscale, clearTypeLevel, pixelGeometry, renderingMode) {
-        result := ComCall(25, this, "float", gamma, "float", enhancedContrast, "float", enhancedContrastGrayscale, "float", clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE, renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
+        result := ComCall(25, this, Float32, gamma, Float32, enhancedContrast, Float32, enhancedContrastGrayscale, Float32, clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE, renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
         return IDWriteRenderingParams1(renderingParams)
     }
 

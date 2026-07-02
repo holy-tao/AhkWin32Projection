@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import ".\IOleInPlaceSite.ahk" { IOleInPlaceSite }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IOleInPlaceSite.ahk" { IOleInPlaceSite }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IStream.ahk" { IStream }
 
 /**
  * The IOleDocumentView interface enables a container to communicate with each view supported by a document object.
@@ -476,7 +476,7 @@ export default struct IOleDocumentView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ioledocumentview-closeview
      */
     CloseView(dwReserved) {
-        result := ComCall(12, this, "uint", dwReserved, "HRESULT")
+        result := ComCall(12, this, UInt32, dwReserved, "HRESULT")
         return result
     }
 

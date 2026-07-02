@@ -2,6 +2,7 @@
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import ".\LPDDHAL_CANCREATESURFACE.ahk" { LPDDHAL_CANCREATESURFACE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -17,6 +18,6 @@ export default struct DDHAL_CANCREATESURFACEDATA {
 
     ddRVal : HRESULT
 
-    CanCreateSurface : IntPtr
+    CanCreateSurface : LPDDHAL_CANCREATESURFACE
 
 }

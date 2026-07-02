@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
-#Import "..\..\TOKEN_PRIVILEGES.ahk" { TOKEN_PRIVILEGES }
-#Import "..\..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
-#Import "..\..\TOKEN_PRIMARY_GROUP.ahk" { TOKEN_PRIMARY_GROUP }
-#Import "..\..\TOKEN_OWNER.ahk" { TOKEN_OWNER }
-#Import "..\..\TOKEN_DEFAULT_DACL.ahk" { TOKEN_DEFAULT_DACL }
 #Import "..\..\TOKEN_DEVICE_CLAIMS.ahk" { TOKEN_DEVICE_CLAIMS }
-#Import "..\..\PSID.ahk" { PSID }
+#Import "..\..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
+#Import "..\..\TOKEN_DEFAULT_DACL.ahk" { TOKEN_DEFAULT_DACL }
 #Import "..\..\ACL.ahk" { ACL }
+#Import "..\..\TOKEN_PRIVILEGES.ahk" { TOKEN_PRIVILEGES }
+#Import "..\..\TOKEN_OWNER.ahk" { TOKEN_OWNER }
 #Import "..\..\TOKEN_USER_CLAIMS.ahk" { TOKEN_USER_CLAIMS }
+#Import "..\..\TOKEN_PRIMARY_GROUP.ahk" { TOKEN_PRIMARY_GROUP }
 #Import "..\..\TOKEN_USER.ahk" { TOKEN_USER }
+#Import "..\..\PSID.ahk" { PSID }
 
 /**
  * Adds claim support to the LSA token and contains information an authentication package can place in a Version 3 Windows token object and has superceded LSA_TOKEN_INFORMATION_V1.

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\TunerInputType.ahk" { TunerInputType }
-#Import ".\ITuningSpace.ahk" { ITuningSpace }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
 
 /**
  * The IAnalogTVTuningSpace interface provides methods for getting and setting parameters associated with analog TV tuning spaces. The Video Control uses these methods when building and controlling a WDM Analog TV filter graph.
@@ -104,7 +104,7 @@ export default struct IAnalogTVTuningSpace extends ITuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-put_minchannel
      */
     put_MinChannel(NewMinChannelVal) {
-        result := ComCall(27, this, "int", NewMinChannelVal, "HRESULT")
+        result := ComCall(27, this, Int32, NewMinChannelVal, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IAnalogTVTuningSpace extends ITuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-put_maxchannel
      */
     put_MaxChannel(NewMaxChannelVal) {
-        result := ComCall(29, this, "int", NewMaxChannelVal, "HRESULT")
+        result := ComCall(29, this, Int32, NewMaxChannelVal, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct IAnalogTVTuningSpace extends ITuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-put_countrycode
      */
     put_CountryCode(NewCountryCodeVal) {
-        result := ComCall(33, this, "int", NewCountryCodeVal, "HRESULT")
+        result := ComCall(33, this, Int32, NewCountryCodeVal, "HRESULT")
         return result
     }
 

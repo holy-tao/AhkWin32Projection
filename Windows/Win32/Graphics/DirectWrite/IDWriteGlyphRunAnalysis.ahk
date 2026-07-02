@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DWRITE_TEXTURE_TYPE.ahk" { DWRITE_TEXTURE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains low-level information used to render a glyph run.
@@ -90,7 +90,7 @@ export default struct IDWriteGlyphRunAnalysis extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-createalphatexture
      */
     CreateAlphaTexture(textureType, textureBounds, alphaValues, bufferSize) {
-        result := ComCall(4, this, DWRITE_TEXTURE_TYPE, textureType, RECT.Ptr, textureBounds, "ptr", alphaValues, "uint", bufferSize, "HRESULT")
+        result := ComCall(4, this, DWRITE_TEXTURE_TYPE, textureType, RECT.Ptr, textureBounds, IntPtr, alphaValues, UInt32, bufferSize, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IBrowserService2.ahk" { IBrowserService2 }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Deprecated. (IBrowserService3)
@@ -83,7 +83,7 @@ export default struct IBrowserService3 extends IBrowserService2 {
     IEParseDisplayNameEx(uiCP, pwszPath, dwFlags) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(96, this, "uint", uiCP, "ptr", pwszPath, "uint", dwFlags, "ptr*", &ppidlOut := 0, "HRESULT")
+        result := ComCall(96, this, UInt32, uiCP, "ptr", pwszPath, UInt32, dwFlags, "ptr*", &ppidlOut := 0, "HRESULT")
         return ppidlOut
     }
 

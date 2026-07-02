@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUIAnimationTransition.ahk" { IUIAnimationTransition }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationInterpolator.ahk" { IUIAnimationInterpolator }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines a method for creating transitions from custom interpolators.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MFNETSOURCE_PROTOCOL_TYPE.ahk" { MFNETSOURCE_PROTOCOL_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MFNETSOURCE_PROTOCOL_TYPE.ahk" { MFNETSOURCE_PROTOCOL_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Configures a network scheme plug-in.
@@ -57,7 +57,7 @@ export default struct IMFNetSchemeHandlerConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetschemehandlerconfig-getsupportedprotocoltype
      */
     GetSupportedProtocolType(nProtocolIndex) {
-        result := ComCall(4, this, "uint", nProtocolIndex, "int*", &pnProtocolType := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, nProtocolIndex, "int*", &pnProtocolType := 0, "HRESULT")
         return pnProtocolType
     }
 

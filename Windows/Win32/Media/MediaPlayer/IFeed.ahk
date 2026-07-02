@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FEEDS_XML_SORT_ORDER.ahk" { FEEDS_XML_SORT_ORDER }
 #Import ".\FEEDS_XML_SORT_PROPERTY.ahk" { FEEDS_XML_SORT_PROPERTY }
 #Import ".\FEEDS_XML_FILTER_FLAGS.ahk" { FEEDS_XML_FILTER_FLAGS }
 #Import ".\FEEDS_XML_INCLUDE_FLAGS.ahk" { FEEDS_XML_INCLUDE_FLAGS }
+#Import ".\FEEDS_XML_SORT_ORDER.ahk" { FEEDS_XML_SORT_ORDER }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\FEEDS_SYNC_SETTING.ahk" { FEEDS_SYNC_SETTING }
-#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
-#Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\FEEDS_DOWNLOAD_STATUS.ahk" { FEEDS_DOWNLOAD_STATUS }
+#Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
+#Import ".\FEEDS_SYNC_SETTING.ahk" { FEEDS_SYNC_SETTING }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -301,7 +301,7 @@ export default struct IFeed extends IDispatch {
      */
     Xml(count, sortProperty, sortOrder, filterFlags, includeFlags) {
         xml := BSTR.Owned()
-        result := ComCall(7, this, "int", count, FEEDS_XML_SORT_PROPERTY, sortProperty, FEEDS_XML_SORT_ORDER, sortOrder, FEEDS_XML_FILTER_FLAGS, filterFlags, FEEDS_XML_INCLUDE_FLAGS, includeFlags, BSTR.Ptr, xml, "HRESULT")
+        result := ComCall(7, this, Int32, count, FEEDS_XML_SORT_PROPERTY, sortProperty, FEEDS_XML_SORT_ORDER, sortOrder, FEEDS_XML_FILTER_FLAGS, filterFlags, FEEDS_XML_INCLUDE_FLAGS, includeFlags, BSTR.Ptr, xml, "HRESULT")
         return xml
     }
 
@@ -469,7 +469,7 @@ export default struct IFeed extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Interval(minutes) {
-        result := ComCall(24, this, "int", minutes, "HRESULT")
+        result := ComCall(24, this, Int32, minutes, "HRESULT")
         return result
     }
 
@@ -507,7 +507,7 @@ export default struct IFeed extends IDispatch {
      * @returns {IDispatch} 
      */
     GetItem(itemId) {
-        result := ComCall(28, this, "int", itemId, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(28, this, Int32, itemId, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 
@@ -613,7 +613,7 @@ export default struct IFeed extends IDispatch {
      * @returns {HRESULT} 
      */
     put_MaxItemCount(count) {
-        result := ComCall(39, this, "int", count, "HRESULT")
+        result := ComCall(39, this, Int32, count, "HRESULT")
         return result
     }
 

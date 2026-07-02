@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MBN_REGISTER_MODE.ahk" { MBN_REGISTER_MODE }
+#Import ".\MBN_REGISTER_STATE.ahk" { MBN_REGISTER_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MBN_REGISTER_STATE.ahk" { MBN_REGISTER_STATE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MBN_REGISTER_MODE.ahk" { MBN_REGISTER_MODE }
 
 /**
  * Provides access to network registration data.
@@ -215,7 +215,7 @@ export default struct IMbnRegistration extends IUnknown {
     SetRegisterMode(registerMode, providerID, dataClass) {
         providerID := providerID is String ? StrPtr(providerID) : providerID
 
-        result := ComCall(12, this, MBN_REGISTER_MODE, registerMode, "ptr", providerID, "uint", dataClass, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(12, this, MBN_REGISTER_MODE, registerMode, "ptr", providerID, UInt32, dataClass, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 

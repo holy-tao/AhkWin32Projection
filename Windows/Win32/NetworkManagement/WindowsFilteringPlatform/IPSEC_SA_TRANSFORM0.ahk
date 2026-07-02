@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\IPSEC_AUTH_TRANSFORM0.ahk" { IPSEC_AUTH_TRANSFORM0 }
 #Import ".\IPSEC_AUTH_AND_CIPHER_TRANSFORM0.ahk" { IPSEC_AUTH_AND_CIPHER_TRANSFORM0 }
-#Import ".\IPSEC_TRANSFORM_TYPE.ahk" { IPSEC_TRANSFORM_TYPE }
 #Import ".\IPSEC_CIPHER_TRANSFORM0.ahk" { IPSEC_CIPHER_TRANSFORM0 }
+#Import ".\IPSEC_TRANSFORM_TYPE.ahk" { IPSEC_TRANSFORM_TYPE }
 
 /**
  * Is used to store an IPsec security association (SA) transform in an IPsec quick mode policy.

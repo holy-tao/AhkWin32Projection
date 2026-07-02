@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_DRED_PAGE_FAULT_OUTPUT.ahk" { D3D12_DRED_PAGE_FAULT_OUTPUT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT.ahk" { D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3D12_DRED_PAGE_FAULT_OUTPUT.ahk" { D3D12_DRED_PAGE_FAULT_OUTPUT }
 
 /**
  * Provides runtime access to Device Removed Extended Data (DRED) data.

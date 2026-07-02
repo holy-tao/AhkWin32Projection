@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IAudioSessionEnumerator.ahk" { IAudioSessionEnumerator }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IAudioSessionManager.ahk" { IAudioSessionManager }
-#Import ".\IAudioVolumeDuckNotification.ahk" { IAudioVolumeDuckNotification }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAudioSessionNotification.ahk" { IAudioSessionNotification }
+#Import ".\IAudioVolumeDuckNotification.ahk" { IAudioVolumeDuckNotification }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioSessionManager.ahk" { IAudioSessionManager }
 
 /**
  * The IAudioSessionManager2 interface enables an application to manage submixes for the audio device.

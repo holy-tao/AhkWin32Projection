@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SRestriction.ahk" { SRestriction }
 #Import ".\IMAPIProp.ahk" { IMAPIProp }
-#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMAPITable.ahk" { IMAPITable }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IMAPIContainerIMAPIProp manages high-level operations on container objects such as address books, distribution lists, and folders.
@@ -73,7 +73,7 @@ export default struct IMAPIContainer extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-getcontentstable
      */
     GetContentsTable(ulFlags) {
-        result := ComCall(14, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, ulFlags, "ptr*", &lppTable := 0, "HRESULT")
         return IMAPITable(lppTable)
     }
 
@@ -108,7 +108,7 @@ export default struct IMAPIContainer extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-gethierarchytable
      */
     GetHierarchyTable(ulFlags) {
-        result := ComCall(15, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, ulFlags, "ptr*", &lppTable := 0, "HRESULT")
         return IMAPITable(lppTable)
     }
 
@@ -158,7 +158,7 @@ export default struct IMAPIContainer extends IMAPIProp {
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, lppUnk) {
         lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", cbEntryID, "ptr", lpEntryID, Guid.Ptr, lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, IUnknown.Ptr, lppUnk, "HRESULT")
+        result := ComCall(16, this, UInt32, cbEntryID, IntPtr, lpEntryID, Guid.Ptr, lpInterface, UInt32, ulFlags, lpulObjTypeMarshal, lpulObjType, IUnknown.Ptr, lppUnk, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IMAPIContainer extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-setsearchcriteria
      */
     SetSearchCriteria(lpRestriction, lpContainerList, ulSearchFlags) {
-        result := ComCall(17, this, SRestriction.Ptr, lpRestriction, SBinaryArray.Ptr, lpContainerList, "uint", ulSearchFlags, "HRESULT")
+        result := ComCall(17, this, SRestriction.Ptr, lpRestriction, SBinaryArray.Ptr, lpContainerList, UInt32, ulSearchFlags, "HRESULT")
         return result
     }
 
@@ -261,7 +261,7 @@ export default struct IMAPIContainer extends IMAPIProp {
         lppContainerListMarshal := lppContainerList is VarRef ? "ptr*" : "ptr"
         lpulSearchStateMarshal := lpulSearchState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "uint", ulFlags, lppRestrictionMarshal, lppRestriction, lppContainerListMarshal, lppContainerList, lpulSearchStateMarshal, lpulSearchState, "HRESULT")
+        result := ComCall(18, this, UInt32, ulFlags, lppRestrictionMarshal, lppRestriction, lppContainerListMarshal, lppContainerList, lpulSearchStateMarshal, lpulSearchState, "HRESULT")
         return result
     }
 

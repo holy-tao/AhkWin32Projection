@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISearchManager.ahk" { ISearchManager }
+#Import ".\ISearchCatalogManager.ahk" { ISearchCatalogManager }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISearchCatalogManager.ahk" { ISearchCatalogManager }
-#Import ".\ISearchManager.ahk" { ISearchManager }
 
 /**
  * Enabled applications to create and delete custom catalogs in the Windows Search indexer.

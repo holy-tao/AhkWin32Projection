@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USB_HUB_STATUS.ahk" { USB_HUB_STATUS }
 #Import ".\USB_HUB_CHANGE.ahk" { USB_HUB_CHANGE }
+#Import ".\USB_HUB_STATUS.ahk" { USB_HUB_STATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

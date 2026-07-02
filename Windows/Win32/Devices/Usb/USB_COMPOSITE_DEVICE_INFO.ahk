@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\USB_CONFIGURATION_DESCRIPTOR.ahk" { USB_CONFIGURATION_DESCRIPTOR }
 #Import ".\USB_COMPOSITE_FUNCTION_INFO.ahk" { USB_COMPOSITE_FUNCTION_INFO }
 #Import ".\USB_DEVICE_DESCRIPTOR.ahk" { USB_DEVICE_DESCRIPTOR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USB_CONFIGURATION_DESCRIPTOR.ahk" { USB_CONFIGURATION_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

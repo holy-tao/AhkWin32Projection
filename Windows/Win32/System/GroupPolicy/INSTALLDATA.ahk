@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\INSTALLSPEC.ahk" { INSTALLSPEC }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\INSTALLSPECTYPE.ahk" { INSTALLSPECTYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The INSTALLDATA structure specifies a group-policy application to be installed by InstallApplication.

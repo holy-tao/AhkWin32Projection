@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -51,7 +51,7 @@ export default struct INetCfgSysPrep extends IUnknown {
         pwszSection := pwszSection is String ? StrPtr(pwszSection) : pwszSection
         pwszKey := pwszKey is String ? StrPtr(pwszKey) : pwszKey
 
-        result := ComCall(3, this, "ptr", pwszSection, "ptr", pwszKey, "uint", dwValue, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszSection, "ptr", pwszKey, UInt32, dwValue, "HRESULT")
         return result
     }
 

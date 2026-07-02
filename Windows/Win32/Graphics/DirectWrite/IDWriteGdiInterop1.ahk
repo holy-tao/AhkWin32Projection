@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Globalization\FONTSIGNATURE.ahk" { FONTSIGNATURE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
 #Import ".\IDWriteFont.ahk" { IDWriteFont }
 #Import "..\Gdi\LOGFONTW.ahk" { LOGFONTW }
-#Import ".\IDWriteGdiInterop.ahk" { IDWriteGdiInterop }
+#Import "..\..\Globalization\FONTSIGNATURE.ahk" { FONTSIGNATURE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
 #Import "..\Gdi\LOGFONTA.ahk" { LOGFONTA }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteGdiInterop.ahk" { IDWriteGdiInterop }
+#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
 
 /**
  * Provides interoperability with GDI, such as methods to convert a font face to a LOGFONT structure, or to convert a GDI font description into a font face. It is also used to create bitmap render target objects. (IDWriteGdiInterop1)

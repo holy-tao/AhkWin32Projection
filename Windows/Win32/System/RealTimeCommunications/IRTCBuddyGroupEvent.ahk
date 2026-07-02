@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRTCBuddyGroup.ahk" { IRTCBuddyGroup }
+#Import ".\RTC_GROUP_EVENT_TYPE.ahk" { RTC_GROUP_EVENT_TYPE }
+#Import ".\IRTCBuddy2.ahk" { IRTCBuddy2 }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRTCBuddy2.ahk" { IRTCBuddy2 }
-#Import ".\RTC_GROUP_EVENT_TYPE.ahk" { RTC_GROUP_EVENT_TYPE }
+#Import ".\IRTCBuddyGroup.ahk" { IRTCBuddyGroup }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
 #Import ".\IHTMLTxtRange.ahk" { IHTMLTxtRange }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -556,7 +556,7 @@ export default struct IHTMLTextAreaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_rows(v) {
-        result := ComCall(26, this, "int", v, "HRESULT")
+        result := ComCall(26, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -575,7 +575,7 @@ export default struct IHTMLTextAreaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_cols(v) {
-        result := ComCall(28, this, "int", v, "HRESULT")
+        result := ComCall(28, this, Int32, v, "HRESULT")
         return result
     }
 

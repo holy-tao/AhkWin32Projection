@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DEVICE_RADIO_STATE.ahk" { DEVICE_RADIO_STATE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
@@ -71,7 +71,7 @@ export default struct IRadioInstance extends IUnknown {
      */
     GetFriendlyName(lcid) {
         pbstrName := BSTR.Owned()
-        result := ComCall(5, this, "uint", lcid, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(5, this, UInt32, lcid, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -91,7 +91,7 @@ export default struct IRadioInstance extends IUnknown {
      * @returns {HRESULT} 
      */
     SetRadioState(radioState, uTimeoutSec) {
-        result := ComCall(7, this, DEVICE_RADIO_STATE, radioState, "uint", uTimeoutSec, "HRESULT")
+        result := ComCall(7, this, DEVICE_RADIO_STATE, radioState, UInt32, uTimeoutSec, "HRESULT")
         return result
     }
 

@@ -44,7 +44,7 @@ export default struct IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuff
      * @returns {Pointer<Void>} 
      */
     GetObjectInPath(rguidObject, dwIndex, rguidInterface) {
-        result := ComCall(12, this, Guid.Ptr, rguidObject, "uint", dwIndex, Guid.Ptr, rguidInterface, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, rguidObject, UInt32, dwIndex, Guid.Ptr, rguidInterface, "ptr*", &ppObject := 0, "HRESULT")
         return ppObject
     }
 
@@ -54,7 +54,7 @@ export default struct IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuff
      * @returns {Integer} 
      */
     GetFXStatus(dwEffectsCount) {
-        result := ComCall(13, this, "uint", dwEffectsCount, "uint*", &pdwFXStatus := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwEffectsCount, "uint*", &pdwFXStatus := 0, "HRESULT")
         return pdwFXStatus
     }
 

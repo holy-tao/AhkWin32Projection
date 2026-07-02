@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ISWbemNamedValue.ahk" { ISWbemNamedValue }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -89,7 +89,7 @@ export default struct ISWbemNamedValueSet extends IDispatch {
     Item(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, BSTR, strName, "int", iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, strName, Int32, iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
         return ISWbemNamedValue(objWbemNamedValue)
     }
 
@@ -112,7 +112,7 @@ export default struct ISWbemNamedValueSet extends IDispatch {
     Add(strName, varValue, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(10, this, BSTR, strName, VARIANT.Ptr, varValue, "int", iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, strName, VARIANT.Ptr, varValue, Int32, iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
         return ISWbemNamedValue(objWbemNamedValue)
     }
 
@@ -125,7 +125,7 @@ export default struct ISWbemNamedValueSet extends IDispatch {
     Remove(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(11, this, BSTR, strName, "int", iFlags, "HRESULT")
+        result := ComCall(11, this, BSTR, strName, Int32, iFlags, "HRESULT")
         return result
     }
 

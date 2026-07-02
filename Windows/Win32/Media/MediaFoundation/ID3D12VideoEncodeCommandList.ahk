@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT }
-#Import "..\..\Graphics\Direct3D12\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
-#Import "..\..\Graphics\Direct3D12\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
-#Import ".\ID3D12VideoMotionEstimator.ahk" { ID3D12VideoMotionEstimator }
-#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk" { D3D12_WRITEBUFFERIMMEDIATE_PARAMETER }
-#Import ".\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT.ahk" { D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT }
-#Import "..\..\Graphics\Direct3D12\D3D12_RESOURCE_BARRIER.ahk" { D3D12_RESOURCE_BARRIER }
-#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_INPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_INPUT }
 #Import "..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
-#Import "..\..\Graphics\Direct3D12\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
+#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_INPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_INPUT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT.ahk" { D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT }
 #Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
-#Import "..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
+#Import "..\..\Graphics\Direct3D12\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
+#Import "..\..\Graphics\Direct3D12\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
+#Import ".\ID3D12VideoMotionEstimator.ahk" { ID3D12VideoMotionEstimator }
 #Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk" { D3D12_WRITEBUFFERIMMEDIATE_MODE }
+#Import "..\..\Graphics\Direct3D12\D3D12_RESOURCE_BARRIER.ahk" { D3D12_RESOURCE_BARRIER }
+#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk" { D3D12_WRITEBUFFERIMMEDIATE_PARAMETER }
 #Import ".\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT.ahk" { D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT }
+#Import "..\..\Graphics\Direct3D12\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
 
 /**
  * Encapsulates a list of graphics commands for video encoding, including motion estimation.
@@ -146,7 +146,7 @@ export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-resourcebarrier
      */
     ResourceBarrier(NumBarriers, pBarriers) {
-        ComCall(12, this, "uint", NumBarriers, D3D12_RESOURCE_BARRIER.Ptr, pBarriers)
+        ComCall(12, this, UInt32, NumBarriers, D3D12_RESOURCE_BARRIER.Ptr, pBarriers)
     }
 
     /**
@@ -171,7 +171,7 @@ export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-beginquery
      */
     BeginQuery(pQueryHeap, Type, Index) {
-        ComCall(14, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
+        ComCall(14, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, Index)
     }
 
     /**
@@ -183,7 +183,7 @@ export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-endquery
      */
     EndQuery(pQueryHeap, Type, Index) {
-        ComCall(15, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
+        ComCall(15, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, Index)
     }
 
     /**
@@ -198,7 +198,7 @@ export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-resolvequerydata
      */
     ResolveQueryData(pQueryHeap, Type, StartIndex, NumQueries, pDestinationBuffer, AlignedDestinationBufferOffset) {
-        ComCall(16, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", StartIndex, "uint", NumQueries, "ptr", pDestinationBuffer, "uint", AlignedDestinationBufferOffset)
+        ComCall(16, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, StartIndex, UInt32, NumQueries, "ptr", pDestinationBuffer, Int64, AlignedDestinationBufferOffset)
     }
 
     /**
@@ -210,7 +210,7 @@ export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-setpredication
      */
     SetPredication(pBuffer, AlignedBufferOffset, Operation) {
-        ComCall(17, this, "ptr", pBuffer, "uint", AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
+        ComCall(17, this, "ptr", pBuffer, Int64, AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
     }
 
     /**
@@ -222,7 +222,7 @@ export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-setmarker
      */
     SetMarker(Metadata, pData, _Size) {
-        ComCall(18, this, "uint", Metadata, "ptr", pData, "uint", _Size)
+        ComCall(18, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
     }
 
     /**
@@ -234,7 +234,7 @@ export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-beginevent
      */
     BeginEvent(Metadata, pData, _Size) {
-        ComCall(19, this, "uint", Metadata, "ptr", pData, "uint", _Size)
+        ComCall(19, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
     }
 
     /**
@@ -282,7 +282,7 @@ export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
     WriteBufferImmediate(Count, pParams, pModes) {
         pModesMarshal := pModes is VarRef ? "int*" : "ptr"
 
-        ComCall(23, this, "uint", Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
+        ComCall(23, this, UInt32, Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
     }
 
     /**

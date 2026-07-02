@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IVMRImageCompositor.ahk" { IVMRImageCompositor }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVMRFilterConfig interface is used to configure the operating mode and video rendering mechanisms of the Video Mixing Renderer Filter 7 (VMR-7).
@@ -131,7 +131,7 @@ export default struct IVMRFilterConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrfilterconfig-setnumberofstreams
      */
     SetNumberOfStreams(dwMaxStreams) {
-        result := ComCall(4, this, "uint", dwMaxStreams, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMaxStreams, "HRESULT")
         return result
     }
 
@@ -183,7 +183,7 @@ export default struct IVMRFilterConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrfilterconfig-setrenderingprefs
      */
     SetRenderingPrefs(dwRenderFlags) {
-        result := ComCall(6, this, "uint", dwRenderFlags, "HRESULT")
+        result := ComCall(6, this, UInt32, dwRenderFlags, "HRESULT")
         return result
     }
 
@@ -237,7 +237,7 @@ export default struct IVMRFilterConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrfilterconfig-setrenderingmode
      */
     SetRenderingMode(_Mode) {
-        result := ComCall(8, this, "uint", _Mode, "HRESULT")
+        result := ComCall(8, this, UInt32, _Mode, "HRESULT")
         return result
     }
 

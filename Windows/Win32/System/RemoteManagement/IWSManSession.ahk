@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines operations and session settings.
@@ -91,7 +91,7 @@ export default struct IWSManSession extends IDispatch {
      */
     Get(resourceUri, flags) {
         resource := BSTR.Owned()
-        result := ComCall(7, this, VARIANT, resourceUri, "int", flags, BSTR.Ptr, resource, "HRESULT")
+        result := ComCall(7, this, VARIANT, resourceUri, Int32, flags, BSTR.Ptr, resource, "HRESULT")
         return resource
     }
 
@@ -116,7 +116,7 @@ export default struct IWSManSession extends IDispatch {
         resource := resource is String ? BSTR.Alloc(resource).Value : resource
 
         resultResource := BSTR.Owned()
-        result := ComCall(8, this, VARIANT, resourceUri, BSTR, resource, "int", flags, BSTR.Ptr, resultResource, "HRESULT")
+        result := ComCall(8, this, VARIANT, resourceUri, BSTR, resource, Int32, flags, BSTR.Ptr, resultResource, "HRESULT")
         return resultResource
     }
 
@@ -148,7 +148,7 @@ export default struct IWSManSession extends IDispatch {
         resource := resource is String ? BSTR.Alloc(resource).Value : resource
 
         newUri := BSTR.Owned()
-        result := ComCall(9, this, VARIANT, resourceUri, BSTR, resource, "int", flags, BSTR.Ptr, newUri, "HRESULT")
+        result := ComCall(9, this, VARIANT, resourceUri, BSTR, resource, Int32, flags, BSTR.Ptr, newUri, "HRESULT")
         return newUri
     }
 
@@ -160,7 +160,7 @@ export default struct IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-delete
      */
     Delete(resourceUri, flags) {
-        result := ComCall(10, this, VARIANT, resourceUri, "int", flags, "HRESULT")
+        result := ComCall(10, this, VARIANT, resourceUri, Int32, flags, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IWSManSession extends IDispatch {
         parameters := parameters is String ? BSTR.Alloc(parameters).Value : parameters
 
         result := BSTR.Owned()
-        result := ComCall(11, this, BSTR, actionUri, VARIANT, resourceUri, BSTR, parameters, "int", flags, BSTR.Ptr, result, "HRESULT")
+        result := ComCall(11, this, BSTR, actionUri, VARIANT, resourceUri, BSTR, parameters, Int32, flags, BSTR.Ptr, result, "HRESULT")
         return result
     }
 
@@ -226,7 +226,7 @@ export default struct IWSManSession extends IDispatch {
         filter := filter is String ? BSTR.Alloc(filter).Value : filter
         dialect := dialect is String ? BSTR.Alloc(dialect).Value : dialect
 
-        result := ComCall(12, this, VARIANT, resourceUri, BSTR, filter, BSTR, dialect, "int", flags, "ptr*", &resultSet := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT, resourceUri, BSTR, filter, BSTR, dialect, Int32, flags, "ptr*", &resultSet := 0, "HRESULT")
         return IDispatch(resultSet)
     }
 
@@ -238,7 +238,7 @@ export default struct IWSManSession extends IDispatch {
      */
     Identify(flags) {
         result := BSTR.Owned()
-        result := ComCall(13, this, "int", flags, BSTR.Ptr, result, "HRESULT")
+        result := ComCall(13, this, Int32, flags, BSTR.Ptr, result, "HRESULT")
         return result
     }
 
@@ -274,7 +274,7 @@ export default struct IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-put_batchitems
      */
     put_BatchItems(value) {
-        result := ComCall(16, this, "int", value, "HRESULT")
+        result := ComCall(16, this, Int32, value, "HRESULT")
         return result
     }
 
@@ -295,7 +295,7 @@ export default struct IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-put_timeout
      */
     put_Timeout(value) {
-        result := ComCall(18, this, "int", value, "HRESULT")
+        result := ComCall(18, this, Int32, value, "HRESULT")
         return result
     }
 

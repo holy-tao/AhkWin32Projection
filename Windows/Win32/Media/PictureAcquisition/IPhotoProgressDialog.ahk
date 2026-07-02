@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPhotoProgressActionCB.ahk" { IPhotoProgressActionCB }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PROGRESS_DIALOG_CHECKBOX_ID.ahk" { PROGRESS_DIALOG_CHECKBOX_ID }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPhotoProgressActionCB.ahk" { IPhotoProgressActionCB }
 #Import ".\PROGRESS_DIALOG_IMAGE_TYPE.ahk" { PROGRESS_DIALOG_IMAGE_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\PROGRESS_DIALOG_CHECKBOX_ID.ahk" { PROGRESS_DIALOG_CHECKBOX_ID }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Provides the progress dialog box that may be displayed when enumerating or importing images. The dialog box is modal and runs in its own thread.
@@ -430,7 +430,7 @@ export default struct IPhotoProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setpercentcomplete
      */
     SetPercentComplete(nPercent) {
-        result := ComCall(14, this, "int", nPercent, "HRESULT")
+        result := ComCall(14, this, Int32, nPercent, "HRESULT")
         return result
     }
 

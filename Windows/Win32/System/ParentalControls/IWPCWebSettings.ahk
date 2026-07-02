@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWPCSettings.ahk" { IWPCSettings }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\WPCFLAG_WEB_SETTING.ahk" { WPCFLAG_WEB_SETTING }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Accesses web restrictions settings for the user.
@@ -66,7 +66,7 @@ export default struct IWPCWebSettings extends IWPCSettings {
 
         ppcszSubURLsMarshal := ppcszSubURLs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, HWND, _hWnd, "ptr", pcszURL, "uint", cURLs, ppcszSubURLsMarshal, ppcszSubURLs, BOOL.Ptr, &pfChanged := 0, "HRESULT")
+        result := ComCall(7, this, HWND, _hWnd, "ptr", pcszURL, UInt32, cURLs, ppcszSubURLsMarshal, ppcszSubURLs, BOOL.Ptr, &pfChanged := 0, "HRESULT")
         return pfChanged
     }
 

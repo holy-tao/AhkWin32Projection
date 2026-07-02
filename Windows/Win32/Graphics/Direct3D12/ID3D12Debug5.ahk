@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12Debug4.ahk" { ID3D12Debug4 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID3D12Debug4.ahk" { ID3D12Debug4 }
 
 /**
  * Adds to the debug layer the ability to configure the auto-naming of objects.

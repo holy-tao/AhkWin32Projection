@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MENUGETOBJECTINFO_FLAGS.ahk" { MENUGETOBJECTINFO_FLAGS }
 #Import ".\HMENU.ahk" { HMENU }
+#Import ".\MENUGETOBJECTINFO_FLAGS.ahk" { MENUGETOBJECTINFO_FLAGS }
 
 /**
  * Contains information about the menu that the mouse cursor is on.

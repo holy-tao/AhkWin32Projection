@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_NODE_CPU_INPUT.ahk" { D3D12_NODE_CPU_INPUT }
 #Import ".\D3D12_MULTI_NODE_CPU_INPUT.ahk" { D3D12_MULTI_NODE_CPU_INPUT }
 #Import ".\D3D12_DISPATCH_MODE.ahk" { D3D12_DISPATCH_MODE }
+#Import ".\D3D12_NODE_CPU_INPUT.ahk" { D3D12_NODE_CPU_INPUT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IShellFolderViewDual2.ahk" { IShellFolderViewDual2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellFolderViewDual2.ahk" { IShellFolderViewDual2 }
 
 /**
  * Exposes methods that modify the current folder view.
@@ -133,7 +133,7 @@ export default struct IShellFolderViewDual3 extends IShellFolderViewDual2 {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-put_folderflags
      */
     put_FolderFlags(dwFlags) {
-        result := ComCall(22, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(22, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -178,7 +178,7 @@ export default struct IShellFolderViewDual3 extends IShellFolderViewDual2 {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual3-put_iconsize
      */
     put_IconSize(iIconSize) {
-        result := ComCall(25, this, "int", iIconSize, "HRESULT")
+        result := ComCall(25, this, Int32, iIconSize, "HRESULT")
         return result
     }
 

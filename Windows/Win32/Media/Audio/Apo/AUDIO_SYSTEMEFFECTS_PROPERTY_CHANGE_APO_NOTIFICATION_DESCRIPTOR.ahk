@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\IMMDevice.ahk" { IMMDevice }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IMMDevice.ahk" { IMMDevice }
 
 /**
  * The AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR structure (audioengineextensionapo.h) specifies an system effects property change APO notification.

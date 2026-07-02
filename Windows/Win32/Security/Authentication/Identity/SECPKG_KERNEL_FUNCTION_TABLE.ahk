@@ -1,4 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KspInitPackageFn.ahk" { KspInitPackageFn }
+#Import ".\KspVerifySignatureFn.ahk" { KspVerifySignatureFn }
+#Import ".\KspMakeSignatureFn.ahk" { KspMakeSignatureFn }
+#Import ".\KspMapHandleFn.ahk" { KspMapHandleFn }
+#Import ".\SpImportSecurityContextFn.ahk" { SpImportSecurityContextFn }
+#Import ".\KspSetPagingModeFn.ahk" { KspSetPagingModeFn }
+#Import ".\KspQueryAttributesFn.ahk" { KspQueryAttributesFn }
+#Import ".\SpExportSecurityContextFn.ahk" { SpExportSecurityContextFn }
+#Import ".\KspSealMessageFn.ahk" { KspSealMessageFn }
+#Import ".\KspGetTokenFn.ahk" { KspGetTokenFn }
+#Import ".\KspSerializeAuthDataFn.ahk" { KspSerializeAuthDataFn }
+#Import ".\KspUnsealMessageFn.ahk" { KspUnsealMessageFn }
+#Import ".\KspDeleteContextFn.ahk" { KspDeleteContextFn }
+#Import ".\KspInitContextFn.ahk" { KspInitContextFn }
+#Import ".\KspCompleteTokenFn.ahk" { KspCompleteTokenFn }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -6,34 +21,34 @@
 export default struct SECPKG_KERNEL_FUNCTION_TABLE {
     #StructPack 8
 
-    Initialize : IntPtr
+    Initialize : KspInitPackageFn
 
-    DeleteContext : IntPtr
+    DeleteContext : KspDeleteContextFn
 
-    InitContext : IntPtr
+    InitContext : KspInitContextFn
 
-    MapHandle : IntPtr
+    MapHandle : KspMapHandleFn
 
-    Sign : IntPtr
+    Sign : KspMakeSignatureFn
 
-    Verify : IntPtr
+    Verify : KspVerifySignatureFn
 
-    Seal : IntPtr
+    Seal : KspSealMessageFn
 
-    Unseal : IntPtr
+    Unseal : KspUnsealMessageFn
 
-    GetToken : IntPtr
+    GetToken : KspGetTokenFn
 
-    QueryAttributes : IntPtr
+    QueryAttributes : KspQueryAttributesFn
 
-    CompleteToken : IntPtr
+    CompleteToken : KspCompleteTokenFn
 
-    ExportContext : IntPtr
+    ExportContext : SpExportSecurityContextFn
 
-    ImportContext : IntPtr
+    ImportContext : SpImportSecurityContextFn
 
-    SetPackagePagingMode : IntPtr
+    SetPackagePagingMode : KspSetPagingModeFn
 
-    SerializeAuthData : IntPtr
+    SerializeAuthData : KspSerializeAuthDataFn
 
 }

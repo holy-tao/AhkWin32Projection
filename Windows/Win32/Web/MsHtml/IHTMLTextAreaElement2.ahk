@@ -61,7 +61,7 @@ export default struct IHTMLTextAreaElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_selectionStart(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct IHTMLTextAreaElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_selectionEnd(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IHTMLTextAreaElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     setSelectionRange(start, end) {
-        result := ComCall(11, this, "int", start, "int", end, "HRESULT")
+        result := ComCall(11, this, Int32, start, Int32, end, "HRESULT")
         return result
     }
 

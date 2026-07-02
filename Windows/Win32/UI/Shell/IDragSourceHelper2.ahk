@@ -52,7 +52,7 @@ export default struct IDragSourceHelper2 extends IDragSourceHelper {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-idragsourcehelper2-setflags
      */
     SetFlags(dwFlags) {
-        result := ComCall(5, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

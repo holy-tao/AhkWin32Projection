@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GameInputForceFeedbackMagnitude.ahk" { GameInputForceFeedbackMagnitude }
 #Import ".\GameInputForceFeedbackConditionParams.ahk" { GameInputForceFeedbackConditionParams }
-#Import ".\GameInputForceFeedbackPeriodicParams.ahk" { GameInputForceFeedbackPeriodicParams }
 #Import ".\GameInputForceFeedbackRampParams.ahk" { GameInputForceFeedbackRampParams }
-#Import ".\GameInputForceFeedbackEnvelope.ahk" { GameInputForceFeedbackEnvelope }
+#Import ".\GameInputForceFeedbackMagnitude.ahk" { GameInputForceFeedbackMagnitude }
+#Import ".\GameInputForceFeedbackPeriodicParams.ahk" { GameInputForceFeedbackPeriodicParams }
 #Import ".\GameInputForceFeedbackEffectKind.ahk" { GameInputForceFeedbackEffectKind }
+#Import ".\GameInputForceFeedbackEnvelope.ahk" { GameInputForceFeedbackEnvelope }
 #Import ".\GameInputForceFeedbackConstantParams.ahk" { GameInputForceFeedbackConstantParams }
 
 /**

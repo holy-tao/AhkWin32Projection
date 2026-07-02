@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWSDAsyncCallback.ahk" { IWSDAsyncCallback }
-#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WSD_EVENTING_EXPIRES.ahk" { WSD_EVENTING_EXPIRES }
 #Import ".\IWSDServiceProxy.ahk" { IWSDServiceProxy }
+#Import ".\IWSDAsyncCallback.ahk" { IWSDAsyncCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
 #Import ".\IWSDAsyncResult.ahk" { IWSDAsyncResult }
+#Import ".\WSD_EVENTING_EXPIRES.ahk" { WSD_EVENTING_EXPIRES }
 
 /**
  * Represents a remote WSD service for client applications and middleware. This interface allows for the implementation of multiple asynchronous operations.
@@ -125,7 +125,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
         ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
         ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, "ptr", pUnknown, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
+        result := ComCall(11, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pUnknown, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-beginsubscribetomultipleoperations
      */
     BeginSubscribeToMultipleOperations(pOperations, dwOperationCount, pUnknown, pExpires, pAny, pAsyncState, pAsyncCallback) {
-        result := ComCall(12, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, "ptr", pUnknown, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(12, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pUnknown, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
         return IWSDAsyncResult(ppResult)
     }
 
@@ -168,7 +168,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
         ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
         ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, "ptr", pResult, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
+        result := ComCall(13, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pResult, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 
@@ -223,7 +223,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-unsubscribetomultipleoperations
      */
     UnsubscribeToMultipleOperations(pOperations, dwOperationCount, pAny) {
-        result := ComCall(14, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
+        result := ComCall(14, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
         return result
     }
 
@@ -238,7 +238,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-beginunsubscribetomultipleoperations
      */
     BeginUnsubscribeToMultipleOperations(pOperations, dwOperationCount, pAny, pAsyncState, pAsyncCallback) {
-        result := ComCall(15, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(15, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
         return IWSDAsyncResult(ppResult)
     }
 
@@ -251,7 +251,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-endunsubscribetomultipleoperations
      */
     EndUnsubscribeToMultipleOperations(pOperations, dwOperationCount, pResult) {
-        result := ComCall(16, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, "ptr", pResult, "HRESULT")
+        result := ComCall(16, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -270,7 +270,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
         ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
         ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
+        result := ComCall(17, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 
@@ -286,7 +286,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-beginrenewmultipleoperations
      */
     BeginRenewMultipleOperations(pOperations, dwOperationCount, pExpires, pAny, pAsyncState, pAsyncCallback) {
-        result := ComCall(18, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(18, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
         return IWSDAsyncResult(ppResult)
     }
 
@@ -304,7 +304,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
         ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
         ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, "ptr", pResult, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
+        result := ComCall(19, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pResult, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 
@@ -322,7 +322,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
         ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
         ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
+        result := ComCall(20, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 
@@ -337,7 +337,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-begingetstatusformultipleoperations
      */
     BeginGetStatusForMultipleOperations(pOperations, dwOperationCount, pAny, pAsyncState, pAsyncCallback) {
-        result := ComCall(21, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(21, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
         return IWSDAsyncResult(ppResult)
     }
 
@@ -355,7 +355,7 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
         ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
         ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(22, this, WSD_OPERATION.Ptr, pOperations, "uint", dwOperationCount, "ptr", pResult, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
+        result := ComCall(22, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pResult, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 

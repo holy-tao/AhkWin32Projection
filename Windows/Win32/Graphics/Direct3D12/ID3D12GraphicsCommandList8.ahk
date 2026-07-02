@@ -41,7 +41,7 @@ export default struct ID3D12GraphicsCommandList8 extends ID3D12GraphicsCommandLi
      * @returns {String} Nothing - always returns an empty string
      */
     OMSetFrontAndBackStencilRef(FrontStencilRef, BackStencilRef) {
-        ComCall(81, this, "uint", FrontStencilRef, "uint", BackStencilRef)
+        ComCall(81, this, UInt32, FrontStencilRef, UInt32, BackStencilRef)
     }
 
     Query(iid) {

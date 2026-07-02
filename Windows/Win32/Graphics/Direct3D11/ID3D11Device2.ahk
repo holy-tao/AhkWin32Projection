@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import ".\D3D11_PACKED_MIP_DESC.ahk" { D3D11_PACKED_MIP_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D11Device1.ahk" { ID3D11Device1 }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\D3D11_TILE_SHAPE.ahk" { D3D11_TILE_SHAPE }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\ID3D11DeviceContext2.ahk" { ID3D11DeviceContext2 }
 #Import ".\D3D11_SUBRESOURCE_TILING.ahk" { D3D11_SUBRESOURCE_TILING }
+#Import ".\D3D11_PACKED_MIP_DESC.ahk" { D3D11_PACKED_MIP_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device2 adds new methods to those in ID3D11Device1.
@@ -89,7 +89,7 @@ export default struct ID3D11Device2 extends ID3D11Device1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11device2-createdeferredcontext2
      */
     CreateDeferredContext2(ContextFlags) {
-        result := ComCall(51, this, "uint", ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
+        result := ComCall(51, this, UInt32, ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
         return ID3D11DeviceContext2(ppDeferredContext)
     }
 
@@ -132,7 +132,7 @@ export default struct ID3D11Device2 extends ID3D11Device1 {
         pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : "ptr"
         pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : "ptr"
 
-        ComCall(52, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, D3D11_PACKED_MIP_DESC.Ptr, pPackedMipDesc, D3D11_TILE_SHAPE.Ptr, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, D3D11_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
+        ComCall(52, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, D3D11_PACKED_MIP_DESC.Ptr, pPackedMipDesc, D3D11_TILE_SHAPE.Ptr, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, UInt32, FirstSubresourceTilingToGet, D3D11_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
     }
 
     /**
@@ -163,7 +163,7 @@ export default struct ID3D11Device2 extends ID3D11Device1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11device2-checkmultisamplequalitylevels1
      */
     CheckMultisampleQualityLevels1(Format, SampleCount, Flags) {
-        result := ComCall(53, this, DXGI_FORMAT, Format, "uint", SampleCount, "uint", Flags, "uint*", &pNumQualityLevels := 0, "HRESULT")
+        result := ComCall(53, this, DXGI_FORMAT, Format, UInt32, SampleCount, UInt32, Flags, "uint*", &pNumQualityLevels := 0, "HRESULT")
         return pNumQualityLevels
     }
 

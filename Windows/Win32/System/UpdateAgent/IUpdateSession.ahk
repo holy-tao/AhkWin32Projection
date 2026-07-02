@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IUpdateDownloader.ahk" { IUpdateDownloader }
 #Import ".\IUpdateSearcher.ahk" { IUpdateSearcher }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUpdateInstaller.ahk" { IUpdateInstaller }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IUpdateDownloader.ahk" { IUpdateDownloader }
 #Import ".\IWebProxy.ahk" { IWebProxy }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession)

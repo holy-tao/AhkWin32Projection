@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITSubStream.ahk" { ITSubStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumSubStream interface provides COM-standard enumeration methods for the ITSubStream interface. The ITSubStreamControl::EnumerateSubStreams method returns a pointer to IEnumSubStream.
@@ -56,7 +56,7 @@ export default struct IEnumSubStream extends IUnknown {
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return ITSubStream(ppElements)
     }
 
@@ -146,7 +146,7 @@ export default struct IEnumSubStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumsubstream-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

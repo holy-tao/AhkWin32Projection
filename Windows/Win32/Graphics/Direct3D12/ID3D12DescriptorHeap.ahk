@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
-#Import ".\D3D12_GPU_DESCRIPTOR_HANDLE.ahk" { D3D12_GPU_DESCRIPTOR_HANDLE }
-#Import ".\D3D12_DESCRIPTOR_HEAP_DESC.ahk" { D3D12_DESCRIPTOR_HEAP_DESC }
 #Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
+#Import ".\D3D12_DESCRIPTOR_HEAP_DESC.ahk" { D3D12_DESCRIPTOR_HEAP_DESC }
+#Import ".\D3D12_GPU_DESCRIPTOR_HANDLE.ahk" { D3D12_GPU_DESCRIPTOR_HANDLE }
 
 /**
  * A descriptor heap is a collection of contiguous allocations of descriptors, one allocation for every descriptor.

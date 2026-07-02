@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that provides an object's creator with the means to notify the object that it may be subject to subsequent reconciliation. The briefcase reconciler is responsible for implementing this interface.
@@ -56,7 +56,7 @@ export default struct INotifyReplica extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-inotifyreplica-youareareplica
      */
     YouAreAReplica(ulcOtherReplicas, rgpmkOtherReplicas) {
-        result := ComCall(3, this, "uint", ulcOtherReplicas, IMoniker.Ptr, rgpmkOtherReplicas, "HRESULT")
+        result := ComCall(3, this, UInt32, ulcOtherReplicas, IMoniker.Ptr, rgpmkOtherReplicas, "HRESULT")
         return result
     }
 

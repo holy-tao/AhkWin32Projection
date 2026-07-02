@@ -1,45 +1,45 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CO_MTA_USAGE_COOKIE.ahk" { CO_MTA_USAGE_COOKIE }
-#Import ".\COSERVERINFO.ahk" { COSERVERINFO }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\URI_CREATE_FLAGS.ahk" { URI_CREATE_FLAGS }
-#Import ".\RPC_C_AUTHN_LEVEL.ahk" { RPC_C_AUTHN_LEVEL }
-#Import ".\IUri.ahk" { IUri }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\SOLE_AUTHENTICATION_SERVICE.ahk" { SOLE_AUTHENTICATION_SERVICE }
-#Import ".\COMSD.ahk" { COMSD }
-#Import ".\IUriBuilder.ahk" { IUriBuilder }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\BIND_OPTS.ahk" { BIND_OPTS }
-#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\IBindStatusCallback.ahk" { IBindStatusCallback }
-#Import ".\RPC_C_IMP_LEVEL.ahk" { RPC_C_IMP_LEVEL }
-#Import ".\IActivationFilter.ahk" { IActivationFilter }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\QUERYCONTEXT.ahk" { QUERYCONTEXT }
-#Import ".\IInitializeSpy.ahk" { IInitializeSpy }
-#Import ".\ISurrogate.ahk" { ISurrogate }
-#Import ".\IMalloc.ahk" { IMalloc }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IMallocSpy.ahk" { IMallocSpy }
-#Import ".\MULTI_QI.ahk" { MULTI_QI }
-#Import ".\IBindCtx.ahk" { IBindCtx }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLSCTX.ahk" { CLSCTX }
-#Import ".\IChannelHook.ahk" { IChannelHook }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IInitializeSpy.ahk" { IInitializeSpy }
 #Import ".\CO_DEVICE_CATALOG_COOKIE.ahk" { CO_DEVICE_CATALOG_COOKIE }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IMoniker.ahk" { IMoniker }
-#Import ".\APTTYPE.ahk" { APTTYPE }
-#Import ".\IErrorInfo.ahk" { IErrorInfo }
-#Import ".\APTTYPEQUALIFIER.ahk" { APTTYPEQUALIFIER }
-#Import ".\uCLSSPEC.ahk" { uCLSSPEC }
-#Import ".\IRunningObjectTable.ahk" { IRunningObjectTable }
 #Import ".\IDataAdviseHolder.ahk" { IDataAdviseHolder }
+#Import ".\APTTYPEQUALIFIER.ahk" { APTTYPEQUALIFIER }
+#Import ".\COMSD.ahk" { COMSD }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMallocSpy.ahk" { IMallocSpy }
+#Import ".\IBindCtx.ahk" { IBindCtx }
+#Import ".\IUri.ahk" { IUri }
+#Import ".\IMalloc.ahk" { IMalloc }
+#Import ".\SOLE_AUTHENTICATION_SERVICE.ahk" { SOLE_AUTHENTICATION_SERVICE }
+#Import ".\MULTI_QI.ahk" { MULTI_QI }
+#Import ".\RPC_C_IMP_LEVEL.ahk" { RPC_C_IMP_LEVEL }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CO_MTA_USAGE_COOKIE.ahk" { CO_MTA_USAGE_COOKIE }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\QUERYCONTEXT.ahk" { QUERYCONTEXT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IActivationFilter.ahk" { IActivationFilter }
+#Import ".\IErrorInfo.ahk" { IErrorInfo }
+#Import ".\COSERVERINFO.ahk" { COSERVERINFO }
+#Import ".\IMoniker.ahk" { IMoniker }
+#Import ".\IRunningObjectTable.ahk" { IRunningObjectTable }
+#Import ".\IChannelHook.ahk" { IChannelHook }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\APTTYPE.ahk" { APTTYPE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\IUriBuilder.ahk" { IUriBuilder }
+#Import ".\RPC_C_AUTHN_LEVEL.ahk" { RPC_C_AUTHN_LEVEL }
+#Import ".\uCLSSPEC.ahk" { uCLSSPEC }
+#Import ".\IBindStatusCallback.ahk" { IBindStatusCallback }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\URI_CREATE_FLAGS.ahk" { URI_CREATE_FLAGS }
+#Import ".\ISurrogate.ahk" { ISurrogate }
+#Import ".\BIND_OPTS.ahk" { BIND_OPTS }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -274,7 +274,7 @@ export CoRegisterInitializeSpy(pSpy) {
  * @since windows5.0
  */
 export CoRevokeInitializeSpy(uliCookie) {
-    result := DllCall("OLE32.dll\CoRevokeInitializeSpy", "uint", uliCookie, "HRESULT")
+    result := DllCall("OLE32.dll\CoRevokeInitializeSpy", Int64, uliCookie, "HRESULT")
     return result
 }
 
@@ -656,7 +656,7 @@ export CoFileTimeToDosDateTime(lpFileTime, lpDosDate, lpDosTime) {
  * @since windows5.0
  */
 export CoDosDateTimeToFileTime(nDosDate, nDosTime, lpFileTime) {
-    result := DllCall("OLE32.dll\CoDosDateTimeToFileTime", "ushort", nDosDate, "ushort", nDosTime, FILETIME.Ptr, lpFileTime, BOOL)
+    result := DllCall("OLE32.dll\CoDosDateTimeToFileTime", UInt16, nDosDate, UInt16, nDosTime, FILETIME.Ptr, lpFileTime, BOOL)
     return result
 }
 
@@ -851,7 +851,7 @@ export CreateDataCache(pUnkOuter, rclsid, iid) {
 export CoInstall(pbc, dwFlags, pClassSpec, pQuery, pszCodeBase) {
     pszCodeBase := pszCodeBase is String ? StrPtr(pszCodeBase) : pszCodeBase
 
-    result := DllCall("ole32.dll\CoInstall", "ptr", pbc, "uint", dwFlags, uCLSSPEC.Ptr, pClassSpec, QUERYCONTEXT.Ptr, pQuery, "ptr", pszCodeBase, "HRESULT")
+    result := DllCall("ole32.dll\CoInstall", "ptr", pbc, UInt32, dwFlags, uCLSSPEC.Ptr, pClassSpec, QUERYCONTEXT.Ptr, pQuery, "ptr", pszCodeBase, "HRESULT")
     return result
 }
 
@@ -880,7 +880,7 @@ export CoInstall(pbc, dwFlags, pClassSpec, pQuery, pszCodeBase) {
  * @since windows5.0
  */
 export BindMoniker(pmk, grfOpt, iidResult) {
-    result := DllCall("OLE32.dll\BindMoniker", "ptr", pmk, "uint", grfOpt, Guid.Ptr, iidResult, "ptr*", &ppvResult := 0, "HRESULT")
+    result := DllCall("OLE32.dll\BindMoniker", "ptr", pmk, UInt32, grfOpt, Guid.Ptr, iidResult, "ptr*", &ppvResult := 0, "HRESULT")
     return ppvResult
 }
 
@@ -1077,7 +1077,7 @@ export MonikerCommonPrefixWith(pmkThis, pmkOther) {
  * @since windows5.0
  */
 export CreateBindCtx(reserved) {
-    result := DllCall("OLE32.dll\CreateBindCtx", "uint", reserved, "ptr*", &ppbc := 0, "HRESULT")
+    result := DllCall("OLE32.dll\CreateBindCtx", UInt32, reserved, "ptr*", &ppbc := 0, "HRESULT")
     return IBindCtx(ppbc)
 }
 
@@ -1351,7 +1351,7 @@ export CreateObjrefMoniker(punk) {
  * @since windows5.0
  */
 export GetRunningObjectTable(reserved) {
-    result := DllCall("OLE32.dll\GetRunningObjectTable", "uint", reserved, "ptr*", &pprot := 0, "HRESULT")
+    result := DllCall("OLE32.dll\GetRunningObjectTable", UInt32, reserved, "ptr*", &pprot := 0, "HRESULT")
     return IRunningObjectTable(pprot)
 }
 
@@ -1379,7 +1379,7 @@ export CreateStdProgressIndicator(hwndParent, pszTitle, pIbscCaller) {
  * @since windows5.0
  */
 export CoGetMalloc(dwMemContext) {
-    result := DllCall("OLE32.dll\CoGetMalloc", "uint", dwMemContext, "ptr*", &ppMalloc := 0, "HRESULT")
+    result := DllCall("OLE32.dll\CoGetMalloc", UInt32, dwMemContext, "ptr*", &ppMalloc := 0, "HRESULT")
     return IMalloc(ppMalloc)
 }
 
@@ -1496,7 +1496,7 @@ export CoGetCurrentProcess() {
 export CoInitializeEx(dwCoInit) {
     static pvReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("OLE32.dll\CoInitializeEx", "ptr", pvReserved, "uint", dwCoInit, Int32)
+    result := DllCall("OLE32.dll\CoInitializeEx", "ptr", pvReserved, UInt32, dwCoInit, Int32)
     return result
 }
 
@@ -1785,7 +1785,7 @@ export CoGetObjectContext(riid) {
 export CoGetClassObject(rclsid, dwClsContext, pvReserved, riid) {
     pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("OLE32.dll\CoGetClassObject", Guid.Ptr, rclsid, "uint", dwClsContext, pvReservedMarshal, pvReserved, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    result := DllCall("OLE32.dll\CoGetClassObject", Guid.Ptr, rclsid, UInt32, dwClsContext, pvReservedMarshal, pvReserved, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -1831,7 +1831,7 @@ export CoGetClassObject(rclsid, dwClsContext, pvReserved, riid) {
  * @since windows5.0
  */
 export CoRegisterClassObject(rclsid, pUnk, dwClsContext, flags) {
-    result := DllCall("OLE32.dll\CoRegisterClassObject", Guid.Ptr, rclsid, "ptr", pUnk, CLSCTX, dwClsContext, "uint", flags, "uint*", &lpdwRegister := 0, "HRESULT")
+    result := DllCall("OLE32.dll\CoRegisterClassObject", Guid.Ptr, rclsid, "ptr", pUnk, CLSCTX, dwClsContext, UInt32, flags, "uint*", &lpdwRegister := 0, "HRESULT")
     return lpdwRegister
 }
 
@@ -1868,7 +1868,7 @@ export CoRegisterClassObject(rclsid, pUnk, dwClsContext, flags) {
  * @since windows5.0
  */
 export CoRevokeClassObject(dwRegister) {
-    result := DllCall("OLE32.dll\CoRevokeClassObject", "uint", dwRegister, "HRESULT")
+    result := DllCall("OLE32.dll\CoRevokeClassObject", UInt32, dwRegister, "HRESULT")
     return result
 }
 
@@ -2058,7 +2058,7 @@ export CoRegisterSurrogate(pSurrogate) {
 export CoDisconnectObject(pUnk) {
     static dwReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("OLE32.dll\CoDisconnectObject", "ptr", pUnk, "uint", dwReserved, "HRESULT")
+    result := DllCall("OLE32.dll\CoDisconnectObject", "ptr", pUnk, UInt32, dwReserved, "HRESULT")
     return result
 }
 
@@ -2229,7 +2229,7 @@ export CoFreeUnusedLibraries() {
 export CoFreeUnusedLibrariesEx(dwUnloadDelay) {
     static dwReserved := 0 ;Reserved parameters must always be NULL
 
-    DllCall("OLE32.dll\CoFreeUnusedLibrariesEx", "uint", dwUnloadDelay, "uint", dwReserved)
+    DllCall("OLE32.dll\CoFreeUnusedLibrariesEx", UInt32, dwUnloadDelay, UInt32, dwReserved)
 }
 
 /**
@@ -2322,7 +2322,7 @@ export CoFreeUnusedLibrariesEx(dwUnloadDelay) {
  * @since windows6.0.6000
  */
 export CoDisconnectContext(dwTimeout) {
-    result := DllCall("OLE32.dll\CoDisconnectContext", "uint", dwTimeout, "HRESULT")
+    result := DllCall("OLE32.dll\CoDisconnectContext", UInt32, dwTimeout, "HRESULT")
     return result
 }
 
@@ -2433,7 +2433,7 @@ export CoInitializeSecurity(pSecDesc, cAuthSvc, asAuthSvc, dwAuthnLevel, dwImpLe
 
     pAuthListMarshal := pAuthList is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("OLE32.dll\CoInitializeSecurity", PSECURITY_DESCRIPTOR, pSecDesc, "int", cAuthSvc, SOLE_AUTHENTICATION_SERVICE.Ptr, asAuthSvc, "ptr", pReserved1, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthListMarshal, pAuthList, "uint", dwCapabilities, "ptr", pReserved3, "HRESULT")
+    result := DllCall("OLE32.dll\CoInitializeSecurity", PSECURITY_DESCRIPTOR, pSecDesc, Int32, cAuthSvc, SOLE_AUTHENTICATION_SERVICE.Ptr, asAuthSvc, "ptr", pReserved1, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthListMarshal, pAuthList, UInt32, dwCapabilities, "ptr", pReserved3, "HRESULT")
     return result
 }
 
@@ -2575,7 +2575,7 @@ export CoSetProxyBlanket(pProxy, dwAuthnSvc, dwAuthzSvc, pServerPrincName, dwAut
 
     pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("OLE32.dll\CoSetProxyBlanket", "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthInfoMarshal, pAuthInfo, "uint", dwCapabilities, "HRESULT")
+    result := DllCall("OLE32.dll\CoSetProxyBlanket", "ptr", pProxy, UInt32, dwAuthnSvc, UInt32, dwAuthzSvc, "ptr", pServerPrincName, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthInfoMarshal, pAuthInfo, UInt32, dwCapabilities, "HRESULT")
     return result
 }
 
@@ -2849,7 +2849,7 @@ export CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid) {
  * @since windows5.0
  */
 export CoCreateInstanceEx(Clsid, punkOuter, dwClsCtx, pServerInfo, dwCount, pResults) {
-    result := DllCall("OLE32.dll\CoCreateInstanceEx", Guid.Ptr, Clsid, "ptr", punkOuter, CLSCTX, dwClsCtx, COSERVERINFO.Ptr, pServerInfo, "uint", dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
+    result := DllCall("OLE32.dll\CoCreateInstanceEx", Guid.Ptr, Clsid, "ptr", punkOuter, CLSCTX, dwClsCtx, COSERVERINFO.Ptr, pServerInfo, UInt32, dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
     return result
 }
 
@@ -2939,7 +2939,7 @@ export CoCreateInstanceEx(Clsid, punkOuter, dwClsCtx, pServerInfo, dwCount, pRes
 export CoCreateInstanceFromApp(Clsid, punkOuter, dwClsCtx, reserved, dwCount, pResults) {
     reservedMarshal := reserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("OLE32.dll\CoCreateInstanceFromApp", Guid.Ptr, Clsid, "ptr", punkOuter, CLSCTX, dwClsCtx, reservedMarshal, reserved, "uint", dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
+    result := DllCall("OLE32.dll\CoCreateInstanceFromApp", Guid.Ptr, Clsid, "ptr", punkOuter, CLSCTX, dwClsCtx, reservedMarshal, reserved, UInt32, dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
     return result
 }
 
@@ -2970,7 +2970,7 @@ export CoRegisterActivationFilter(pActivationFilter) {
  * @since windows5.0
  */
 export CoGetCancelObject(dwThreadId, iid) {
-    result := DllCall("OLE32.dll\CoGetCancelObject", "uint", dwThreadId, Guid.Ptr, iid, "ptr*", &ppUnk := 0, "HRESULT")
+    result := DllCall("OLE32.dll\CoGetCancelObject", UInt32, dwThreadId, Guid.Ptr, iid, "ptr*", &ppUnk := 0, "HRESULT")
     return ppUnk
 }
 
@@ -3101,7 +3101,7 @@ export CoSetCancelObject(pUnk) {
  * @since windows5.0
  */
 export CoCancelCall(dwThreadId, ulTimeout) {
-    result := DllCall("OLE32.dll\CoCancelCall", "uint", dwThreadId, "uint", ulTimeout, "HRESULT")
+    result := DllCall("OLE32.dll\CoCancelCall", UInt32, dwThreadId, UInt32, ulTimeout, "HRESULT")
     return result
 }
 
@@ -3419,7 +3419,7 @@ export CLSIDFromProgID(lpszProgID, lpclsid) {
 export StringFromGUID2(rguid, lpsz, cchMax) {
     lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-    result := DllCall("OLE32.dll\StringFromGUID2", Guid.Ptr, rguid, "ptr", lpsz, "int", cchMax, Int32)
+    result := DllCall("OLE32.dll\StringFromGUID2", Guid.Ptr, rguid, "ptr", lpsz, Int32, cchMax, Int32)
     return result
 }
 
@@ -3486,7 +3486,7 @@ export CoCreateGuid(pguid) {
  * @since windows5.0
  */
 export CoWaitForMultipleHandles(dwFlags, dwTimeout, cHandles, pHandles) {
-    result := DllCall("OLE32.dll\CoWaitForMultipleHandles", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, HANDLE.Ptr, pHandles, "uint*", &lpdwindex := 0, "HRESULT")
+    result := DllCall("OLE32.dll\CoWaitForMultipleHandles", UInt32, dwFlags, UInt32, dwTimeout, UInt32, cHandles, HANDLE.Ptr, pHandles, "uint*", &lpdwindex := 0, "HRESULT")
     return lpdwindex
 }
 
@@ -3500,7 +3500,7 @@ export CoWaitForMultipleHandles(dwFlags, dwTimeout, cHandles, pHandles) {
  * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cowaitformultipleobjects
  */
 export CoWaitForMultipleObjects(dwFlags, dwTimeout, cHandles, pHandles) {
-    result := DllCall("OLE32.dll\CoWaitForMultipleObjects", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, HANDLE.Ptr, pHandles, "uint*", &lpdwindex := 0, "HRESULT")
+    result := DllCall("OLE32.dll\CoWaitForMultipleObjects", UInt32, dwFlags, UInt32, dwTimeout, UInt32, cHandles, HANDLE.Ptr, pHandles, "uint*", &lpdwindex := 0, "HRESULT")
     return lpdwindex
 }
 
@@ -3643,7 +3643,7 @@ export CoInvalidateRemoteMachineBindings(pszMachineName) {
  * @since windows5.0
  */
 export CoTaskMemAlloc(cb) {
-    result := DllCall("OLE32.dll\CoTaskMemAlloc", "ptr", cb, IntPtr)
+    result := DllCall("OLE32.dll\CoTaskMemAlloc", IntPtr, cb, IntPtr)
     return result
 }
 
@@ -3668,7 +3668,7 @@ export CoTaskMemAlloc(cb) {
 export CoTaskMemRealloc(pv, cb) {
     pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("OLE32.dll\CoTaskMemRealloc", pvMarshal, pv, "ptr", cb, IntPtr)
+    result := DllCall("OLE32.dll\CoTaskMemRealloc", pvMarshal, pv, IntPtr, cb, IntPtr)
     return result
 }
 
@@ -3731,7 +3731,7 @@ export CreateUri(pwzURI, dwFlags) {
 
     pwzURI := pwzURI is String ? StrPtr(pwzURI) : pwzURI
 
-    result := DllCall("URLMON.dll\CreateUri", "ptr", pwzURI, URI_CREATE_FLAGS, dwFlags, "ptr", dwReserved, "ptr*", &ppURI := 0, "HRESULT")
+    result := DllCall("URLMON.dll\CreateUri", "ptr", pwzURI, URI_CREATE_FLAGS, dwFlags, IntPtr, dwReserved, "ptr*", &ppURI := 0, "HRESULT")
     return IUri(ppURI)
 }
 
@@ -3748,7 +3748,7 @@ export CreateUriWithFragment(pwzURI, pwzFragment, dwFlags) {
     pwzURI := pwzURI is String ? StrPtr(pwzURI) : pwzURI
     pwzFragment := pwzFragment is String ? StrPtr(pwzFragment) : pwzFragment
 
-    result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, "ptr", pwzFragment, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppURI := 0, "HRESULT")
+    result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, "ptr", pwzFragment, UInt32, dwFlags, IntPtr, dwReserved, "ptr*", &ppURI := 0, "HRESULT")
     return IUri(ppURI)
 }
 
@@ -3765,7 +3765,7 @@ export CreateUriFromMultiByteString(pszANSIInputUri, dwEncodingFlags, dwCodePage
 
     pszANSIInputUri := pszANSIInputUri is String ? StrPtr(pszANSIInputUri) : pszANSIInputUri
 
-    result := DllCall("urlmon.dll\CreateUriFromMultiByteString", "ptr", pszANSIInputUri, "uint", dwEncodingFlags, "uint", dwCodePage, "uint", dwCreateFlags, "ptr", dwReserved, "ptr*", &ppUri := 0, "HRESULT")
+    result := DllCall("urlmon.dll\CreateUriFromMultiByteString", "ptr", pszANSIInputUri, UInt32, dwEncodingFlags, UInt32, dwCodePage, UInt32, dwCreateFlags, IntPtr, dwReserved, "ptr*", &ppUri := 0, "HRESULT")
     return IUri(ppUri)
 }
 
@@ -3777,7 +3777,7 @@ export CreateUriFromMultiByteString(pszANSIInputUri, dwEncodingFlags, dwCodePage
  * @returns {IUriBuilder} 
  */
 export CreateIUriBuilder(pIUri, dwFlags, dwReserved) {
-    result := DllCall("URLMON.dll\CreateIUriBuilder", "ptr", pIUri, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
+    result := DllCall("URLMON.dll\CreateIUriBuilder", "ptr", pIUri, UInt32, dwFlags, IntPtr, dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
     return IUriBuilder(ppIUriBuilder)
 }
 
@@ -3807,7 +3807,7 @@ export CreateIUriBuilder(pIUri, dwFlags, dwReserved) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo
  */
 export SetErrorInfo(dwReserved, perrinfo) {
-    result := DllCall("OLEAUT32.dll\SetErrorInfo", "uint", dwReserved, "ptr", perrinfo, "HRESULT")
+    result := DllCall("OLEAUT32.dll\SetErrorInfo", UInt32, dwReserved, "ptr", perrinfo, "HRESULT")
     return result
 }
 
@@ -3822,7 +3822,7 @@ export SetErrorInfo(dwReserved, perrinfo) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-geterrorinfo
  */
 export GetErrorInfo(dwReserved) {
-    result := DllCall("OLEAUT32.dll\GetErrorInfo", "uint", dwReserved, "ptr*", &pperrinfo := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\GetErrorInfo", UInt32, dwReserved, "ptr*", &pperrinfo := 0, "HRESULT")
     return IErrorInfo(pperrinfo)
 }
 

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMDSPEnumStorage.ahk" { IMDSPEnumStorage }
-#Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WMDMDATETIME.ahk" { WMDMDATETIME }
-#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMDSPEnumStorage.ahk" { IMDSPEnumStorage }
 #Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMDSPStorage interface provides an instanced-based association with a storage medium on a device.
@@ -72,7 +72,7 @@ export default struct IMDSPStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-setattributes
      */
     SetAttributes(dwAttributes, pFormat) {
-        result := ComCall(3, this, "uint", dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
+        result := ComCall(3, this, UInt32, dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IMDSPStorage extends IUnknown {
     GetName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(6, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 
@@ -337,7 +337,7 @@ export default struct IMDSPStorage extends IUnknown {
     CreateStorage(dwAttributes, pFormat, pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(10, this, "uint", dwAttributes, WAVEFORMATEX.Ptr, pFormat, "ptr", pwszName, "ptr*", &ppNewStorage := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwAttributes, WAVEFORMATEX.Ptr, pFormat, "ptr", pwszName, "ptr*", &ppNewStorage := 0, "HRESULT")
         return IMDSPStorage(ppNewStorage)
     }
 

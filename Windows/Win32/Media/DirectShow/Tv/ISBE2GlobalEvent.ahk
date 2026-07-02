@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Offers access to global spanning events and their data from the Stream Buffer Source filters. A global spanning event contains state information that applies to all the streams in a pipeline.
@@ -98,7 +98,7 @@ export default struct ISBE2GlobalEvent extends IUnknown {
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
         pbMarshal := pb is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, Guid.Ptr, idEvt, "uint", param1, "uint", param2, "uint", param3, "uint", param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, idEvt, UInt32, param1, UInt32, param2, UInt32, param3, UInt32, param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, "HRESULT")
         return result
     }
 

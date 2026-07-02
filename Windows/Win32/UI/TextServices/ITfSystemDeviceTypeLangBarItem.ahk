@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\LANG_BAR_ITEM_ICON_MODE_FLAGS.ahk" { LANG_BAR_ITEM_ICON_MODE_FLAGS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\LANG_BAR_ITEM_ICON_MODE_FLAGS.ahk" { LANG_BAR_ITEM_ICON_MODE_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfSystemDeviceTypeLangBarItem interface is implemented by a system language bar item and used by an application or text service to control how the system item displays its icon.

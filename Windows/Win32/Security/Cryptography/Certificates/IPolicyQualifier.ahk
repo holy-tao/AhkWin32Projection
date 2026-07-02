@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\EncodingType.ahk" { EncodingType }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\PolicyQualifierType.ahk" { PolicyQualifierType }
-#Import ".\EncodingType.ahk" { EncodingType }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectId.ahk" { IObjectId }
 
 /**
  * Represents a qualifier that can be associated with a certificate policy.

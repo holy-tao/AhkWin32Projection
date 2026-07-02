@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -74,7 +74,7 @@ export default struct IMXAttributes extends IDispatch {
      * @returns {HRESULT} 
      */
     addAttributeFromIndex(varAtts, nIndex) {
-        result := ComCall(8, this, VARIANT, varAtts, "int", nIndex, "HRESULT")
+        result := ComCall(8, this, VARIANT, varAtts, Int32, nIndex, "HRESULT")
         return result
     }
 
@@ -93,7 +93,7 @@ export default struct IMXAttributes extends IDispatch {
      * @returns {HRESULT} 
      */
     removeAttribute(nIndex) {
-        result := ComCall(10, this, "int", nIndex, "HRESULT")
+        result := ComCall(10, this, Int32, nIndex, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IMXAttributes extends IDispatch {
         strType := strType is String ? BSTR.Alloc(strType).Value : strType
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(11, this, "int", nIndex, BSTR, strURI, BSTR, strLocalName, BSTR, strQName, BSTR, strType, BSTR, strValue, "HRESULT")
+        result := ComCall(11, this, Int32, nIndex, BSTR, strURI, BSTR, strLocalName, BSTR, strQName, BSTR, strType, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -137,7 +137,7 @@ export default struct IMXAttributes extends IDispatch {
     setLocalName(nIndex, strLocalName) {
         strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
 
-        result := ComCall(13, this, "int", nIndex, BSTR, strLocalName, "HRESULT")
+        result := ComCall(13, this, Int32, nIndex, BSTR, strLocalName, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct IMXAttributes extends IDispatch {
     setQName(nIndex, strQName) {
         strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
 
-        result := ComCall(14, this, "int", nIndex, BSTR, strQName, "HRESULT")
+        result := ComCall(14, this, Int32, nIndex, BSTR, strQName, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IMXAttributes extends IDispatch {
     setType(nIndex, strType) {
         strType := strType is String ? BSTR.Alloc(strType).Value : strType
 
-        result := ComCall(15, this, "int", nIndex, BSTR, strType, "HRESULT")
+        result := ComCall(15, this, Int32, nIndex, BSTR, strType, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct IMXAttributes extends IDispatch {
     setURI(nIndex, strURI) {
         strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
 
-        result := ComCall(16, this, "int", nIndex, BSTR, strURI, "HRESULT")
+        result := ComCall(16, this, Int32, nIndex, BSTR, strURI, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IMXAttributes extends IDispatch {
     setValue(nIndex, strValue) {
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(17, this, "int", nIndex, BSTR, strValue, "HRESULT")
+        result := ComCall(17, this, Int32, nIndex, BSTR, strValue, "HRESULT")
         return result
     }
 

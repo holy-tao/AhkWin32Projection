@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines various methods that provide configuration options for the fax service.
@@ -337,7 +337,7 @@ export default struct IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_highquotawatermark
      */
     put_HighQuotaWaterMark(lHighQuotaWaterMark) {
-        result := ComCall(14, this, "int", lHighQuotaWaterMark, "HRESULT")
+        result := ComCall(14, this, Int32, lHighQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -358,7 +358,7 @@ export default struct IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_lowquotawatermark
      */
     put_LowQuotaWaterMark(lLowQuotaWaterMark) {
-        result := ComCall(16, this, "int", lLowQuotaWaterMark, "HRESULT")
+        result := ComCall(16, this, Int32, lLowQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -379,7 +379,7 @@ export default struct IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_archiveagelimit
      */
     put_ArchiveAgeLimit(lArchiveAgeLimit) {
-        result := ComCall(18, this, "int", lArchiveAgeLimit, "HRESULT")
+        result := ComCall(18, this, Int32, lArchiveAgeLimit, "HRESULT")
         return result
     }
 
@@ -516,7 +516,7 @@ export default struct IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_retries
      */
     put_Retries(lRetries) {
-        result := ComCall(30, this, "int", lRetries, "HRESULT")
+        result := ComCall(30, this, Int32, lRetries, "HRESULT")
         return result
     }
 
@@ -537,7 +537,7 @@ export default struct IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_retrydelay
      */
     put_RetryDelay(lRetryDelay) {
-        result := ComCall(32, this, "int", lRetryDelay, "HRESULT")
+        result := ComCall(32, this, Int32, lRetryDelay, "HRESULT")
         return result
     }
 
@@ -558,7 +558,7 @@ export default struct IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_discountratestart
      */
     put_DiscountRateStart(dateDiscountRateStart) {
-        result := ComCall(34, this, "double", dateDiscountRateStart, "HRESULT")
+        result := ComCall(34, this, Float64, dateDiscountRateStart, "HRESULT")
         return result
     }
 
@@ -579,7 +579,7 @@ export default struct IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_discountrateend
      */
     put_DiscountRateEnd(dateDiscountRateEnd) {
-        result := ComCall(36, this, "double", dateDiscountRateEnd, "HRESULT")
+        result := ComCall(36, this, Float64, dateDiscountRateEnd, "HRESULT")
         return result
     }
 
@@ -600,7 +600,7 @@ export default struct IFaxConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxconfiguration-put_outgoingqueueagelimit
      */
     put_OutgoingQueueAgeLimit(lOutgoingQueueAgeLimit) {
-        result := ComCall(38, this, "int", lOutgoingQueueAgeLimit, "HRESULT")
+        result := ComCall(38, this, Int32, lOutgoingQueueAgeLimit, "HRESULT")
         return result
     }
 

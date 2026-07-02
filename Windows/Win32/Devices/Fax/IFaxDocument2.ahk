@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IFaxDocument.ahk" { IFaxDocument }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFaxServer.ahk" { IFaxServer }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxServer.ahk" { IFaxServer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.

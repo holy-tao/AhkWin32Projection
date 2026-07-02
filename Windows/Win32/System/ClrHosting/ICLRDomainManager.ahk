@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\EInitializeNewDomainFlags.ahk" { EInitializeNewDomainFlags }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\EInitializeNewDomainFlags.ahk" { EInitializeNewDomainFlags }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -64,7 +64,7 @@ export default struct ICLRDomainManager extends IUnknown {
         pwszPropertyNamesMarshal := pwszPropertyNames is VarRef ? "ptr*" : "ptr"
         pwszPropertyValuesMarshal := pwszPropertyValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", nProperties, pwszPropertyNamesMarshal, pwszPropertyNames, pwszPropertyValuesMarshal, pwszPropertyValues, "HRESULT")
+        result := ComCall(4, this, UInt32, nProperties, pwszPropertyNamesMarshal, pwszPropertyNames, pwszPropertyValuesMarshal, pwszPropertyValues, "HRESULT")
         return result
     }
 

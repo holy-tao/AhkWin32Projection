@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Memory\MEMORY_BASIC_INFORMATION64.ahk" { MEMORY_BASIC_INFORMATION64 }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IMAGE_NT_HEADERS64.ahk" { IMAGE_NT_HEADERS64 }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\IMAGE_NT_HEADERS64.ahk" { IMAGE_NT_HEADERS64 }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -75,7 +75,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadVirtual(Offset, _Buffer, BufferSize) {
-        result := ComCall(3, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+        result := ComCall(3, this, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -87,7 +87,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     WriteVirtual(Offset, _Buffer, BufferSize) {
-        result := ComCall(4, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+        result := ComCall(4, this, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -101,7 +101,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     SearchVirtual(Offset, Length, Pattern, PatternSize, PatternGranularity) {
-        result := ComCall(5, this, "uint", Offset, "uint", Length, "ptr", Pattern, "uint", PatternSize, "uint", PatternGranularity, "uint*", &MatchOffset := 0, "HRESULT")
+        result := ComCall(5, this, Int64, Offset, Int64, Length, IntPtr, Pattern, UInt32, PatternSize, UInt32, PatternGranularity, "uint*", &MatchOffset := 0, "HRESULT")
         return MatchOffset
     }
 
@@ -113,7 +113,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadVirtualUncached(Offset, _Buffer, BufferSize) {
-        result := ComCall(6, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+        result := ComCall(6, this, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -125,7 +125,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     WriteVirtualUncached(Offset, _Buffer, BufferSize) {
-        result := ComCall(7, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+        result := ComCall(7, this, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -136,7 +136,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadPointersVirtual(Count, Offset) {
-        result := ComCall(8, this, "uint", Count, "uint", Offset, "uint*", &Ptrs := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, Count, Int64, Offset, "uint*", &Ptrs := 0, "HRESULT")
         return Ptrs
     }
 
@@ -150,7 +150,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
     WritePointersVirtual(Count, Offset, Ptrs) {
         PtrsMarshal := Ptrs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", Count, "uint", Offset, PtrsMarshal, Ptrs, "HRESULT")
+        result := ComCall(9, this, UInt32, Count, Int64, Offset, PtrsMarshal, Ptrs, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadPhysical(Offset, _Buffer, BufferSize) {
-        result := ComCall(10, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+        result := ComCall(10, this, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -174,7 +174,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     WritePhysical(Offset, _Buffer, BufferSize) {
-        result := ComCall(11, this, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+        result := ComCall(11, this, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -187,7 +187,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadControl(Processor, Offset, _Buffer, BufferSize) {
-        result := ComCall(12, this, "uint", Processor, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, Processor, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -200,7 +200,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     WriteControl(Processor, Offset, _Buffer, BufferSize) {
-        result := ComCall(13, this, "uint", Processor, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, Processor, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -215,7 +215,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadIo(InterfaceType, BusNumber, AddressSpace, Offset, _Buffer, BufferSize) {
-        result := ComCall(14, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, InterfaceType, UInt32, BusNumber, UInt32, AddressSpace, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -230,7 +230,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     WriteIo(InterfaceType, BusNumber, AddressSpace, Offset, _Buffer, BufferSize) {
-        result := ComCall(15, this, "uint", InterfaceType, "uint", BusNumber, "uint", AddressSpace, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, InterfaceType, UInt32, BusNumber, UInt32, AddressSpace, Int64, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -240,7 +240,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadMsr(Msr) {
-        result := ComCall(16, this, "uint", Msr, "uint*", &Value := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, Msr, "uint*", &Value := 0, "HRESULT")
         return Value
     }
 
@@ -251,7 +251,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {HRESULT} 
      */
     WriteMsr(Msr, Value) {
-        result := ComCall(17, this, "uint", Msr, "uint", Value, "HRESULT")
+        result := ComCall(17, this, UInt32, Msr, Int64, Value, "HRESULT")
         return result
     }
 
@@ -266,7 +266,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadBusData(BusDataType, BusNumber, SlotNumber, Offset, _Buffer, BufferSize) {
-        result := ComCall(18, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, BusDataType, UInt32, BusNumber, UInt32, SlotNumber, UInt32, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -281,7 +281,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     WriteBusData(BusDataType, BusNumber, SlotNumber, Offset, _Buffer, BufferSize) {
-        result := ComCall(19, this, "uint", BusDataType, "uint", BusNumber, "uint", SlotNumber, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+        result := ComCall(19, this, UInt32, BusDataType, UInt32, BusNumber, UInt32, SlotNumber, UInt32, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -302,7 +302,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadDebuggerData(Index, _Buffer, BufferSize) {
-        result := ComCall(21, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &DataSize := 0, "HRESULT")
+        result := ComCall(21, this, UInt32, Index, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &DataSize := 0, "HRESULT")
         return DataSize
     }
 
@@ -315,7 +315,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadProcessorSystemData(Processor, Index, _Buffer, BufferSize) {
-        result := ComCall(22, this, "uint", Processor, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &DataSize := 0, "HRESULT")
+        result := ComCall(22, this, UInt32, Processor, UInt32, Index, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &DataSize := 0, "HRESULT")
         return DataSize
     }
 
@@ -325,7 +325,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     VirtualToPhysical(Virtual) {
-        result := ComCall(23, this, "uint", Virtual, "uint*", &_Physical := 0, "HRESULT")
+        result := ComCall(23, this, Int64, Virtual, "uint*", &_Physical := 0, "HRESULT")
         return _Physical
     }
 
@@ -341,7 +341,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
         OffsetsMarshal := Offsets is VarRef ? "uint*" : "ptr"
         _LevelsMarshal := _Levels is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, "uint", Virtual, OffsetsMarshal, Offsets, "uint", OffsetsSize, _LevelsMarshal, _Levels, "HRESULT")
+        result := ComCall(24, this, Int64, Virtual, OffsetsMarshal, Offsets, UInt32, OffsetsSize, _LevelsMarshal, _Levels, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadHandleData(_Handle, DataType, _Buffer, BufferSize) {
-        result := ComCall(25, this, "uint", _Handle, "uint", DataType, "ptr", _Buffer, "uint", BufferSize, "uint*", &DataSize := 0, "HRESULT")
+        result := ComCall(25, this, Int64, _Handle, UInt32, DataType, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &DataSize := 0, "HRESULT")
         return DataSize
     }
 
@@ -367,7 +367,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     FillVirtual(Start, _Size, Pattern, PatternSize) {
-        result := ComCall(26, this, "uint", Start, "uint", _Size, "ptr", Pattern, "uint", PatternSize, "uint*", &Filled := 0, "HRESULT")
+        result := ComCall(26, this, Int64, Start, UInt32, _Size, IntPtr, Pattern, UInt32, PatternSize, "uint*", &Filled := 0, "HRESULT")
         return Filled
     }
 
@@ -380,7 +380,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     FillPhysical(Start, _Size, Pattern, PatternSize) {
-        result := ComCall(27, this, "uint", Start, "uint", _Size, "ptr", Pattern, "uint", PatternSize, "uint*", &Filled := 0, "HRESULT")
+        result := ComCall(27, this, Int64, Start, UInt32, _Size, IntPtr, Pattern, UInt32, PatternSize, "uint*", &Filled := 0, "HRESULT")
         return Filled
     }
 
@@ -391,7 +391,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      */
     QueryVirtual(Offset) {
         Info := MEMORY_BASIC_INFORMATION64()
-        result := ComCall(28, this, "uint", Offset, MEMORY_BASIC_INFORMATION64.Ptr, Info, "HRESULT")
+        result := ComCall(28, this, Int64, Offset, MEMORY_BASIC_INFORMATION64.Ptr, Info, "HRESULT")
         return Info
     }
 
@@ -402,7 +402,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      */
     ReadImageNtHeaders(ImageBase) {
         Headers := IMAGE_NT_HEADERS64()
-        result := ComCall(29, this, "uint", ImageBase, IMAGE_NT_HEADERS64.Ptr, Headers, "HRESULT")
+        result := ComCall(29, this, Int64, ImageBase, IMAGE_NT_HEADERS64.Ptr, Headers, "HRESULT")
         return Headers
     }
 
@@ -415,7 +415,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {Integer} 
      */
     ReadTagged(Tag, Offset, _Buffer, BufferSize) {
-        result := ComCall(30, this, Guid.Ptr, Tag, "uint", Offset, "ptr", _Buffer, "uint", BufferSize, "uint*", &TotalSize := 0, "HRESULT")
+        result := ComCall(30, this, Guid.Ptr, Tag, UInt32, Offset, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &TotalSize := 0, "HRESULT")
         return TotalSize
     }
 
@@ -438,7 +438,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
     GetNextTagged(_Handle, Tag, _Size) {
         _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(32, this, "uint", _Handle, Guid.Ptr, Tag, _SizeMarshal, _Size, "HRESULT")
+        result := ComCall(32, this, Int64, _Handle, Guid.Ptr, Tag, _SizeMarshal, _Size, "HRESULT")
         return result
     }
 
@@ -448,7 +448,7 @@ export default struct IDebugDataSpaces3 extends IUnknown {
      * @returns {HRESULT} 
      */
     EndEnumTagged(_Handle) {
-        result := ComCall(33, this, "uint", _Handle, "HRESULT")
+        result := ComCall(33, this, Int64, _Handle, "HRESULT")
         return result
     }
 

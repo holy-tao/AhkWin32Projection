@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\SID.ahk" { SID }
 #Import ".\EFS_HASH_BLOB.ahk" { EFS_HASH_BLOB }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains a certificate hash and display information for the certificate.

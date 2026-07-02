@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D2D1_SVG_ASPECT_ALIGN.ahk" { D2D1_SVG_ASPECT_ALIGN }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D2D1_SVG_ASPECT_ALIGN.ahk" { D2D1_SVG_ASPECT_ALIGN }
 #Import ".\D2D1_SVG_ASPECT_SCALING.ahk" { D2D1_SVG_ASPECT_SCALING }
 
 /**

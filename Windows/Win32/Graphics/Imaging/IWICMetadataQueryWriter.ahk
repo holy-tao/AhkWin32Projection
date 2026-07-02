@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

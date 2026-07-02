@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IScheduledWorkItem.ahk" { IScheduledWorkItem }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides the methods for running tasks, getting or setting task information, and terminating tasks. It is derived from the IScheduledWorkItem interface and inherits all the methods of that interface.
@@ -312,7 +312,7 @@ export default struct ITask extends IScheduledWorkItem {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-setpriority
      */
     SetPriority(dwPriority) {
-        result := ComCall(38, this, "uint", dwPriority, "HRESULT")
+        result := ComCall(38, this, UInt32, dwPriority, "HRESULT")
         return result
     }
 
@@ -390,7 +390,7 @@ export default struct ITask extends IScheduledWorkItem {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-settaskflags
      */
     SetTaskFlags(dwFlags) {
-        result := ComCall(40, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(40, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -456,7 +456,7 @@ export default struct ITask extends IScheduledWorkItem {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-setmaxruntime
      */
     SetMaxRunTime(dwMaxRunTimeMS) {
-        result := ComCall(42, this, "uint", dwMaxRunTimeMS, "HRESULT")
+        result := ComCall(42, this, UInt32, dwMaxRunTimeMS, "HRESULT")
         return result
     }
 

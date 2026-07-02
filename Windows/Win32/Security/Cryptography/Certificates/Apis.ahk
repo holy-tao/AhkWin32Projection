@@ -1,20 +1,20 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
-#Import "..\..\Authentication\Identity\LSA_TOKEN_INFORMATION_TYPE.ahk" { LSA_TOKEN_INFORMATION_TYPE }
 #Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CSBACKUP_TYPE.ahk" { CSBACKUP_TYPE }
-#Import "..\..\Authentication\Identity\SecPkgContext_IssuerListInfoEx.ahk" { SecPkgContext_IssuerListInfoEx }
-#Import "..\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CSBACKUP_TYPE.ahk" { CSBACKUP_TYPE }
+#Import "..\..\Authentication\Identity\LSA_TOKEN_INFORMATION_TYPE.ahk" { LSA_TOKEN_INFORMATION_TYPE }
+#Import "..\..\Authentication\Identity\SecPkgContext_IssuerListInfoEx.ahk" { SecPkgContext_IssuerListInfoEx }
 #Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CSEDB_RSTMAPW.ahk" { CSEDB_RSTMAPW }
+#Import "..\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
 #Import "..\CERT_SELECT_CRITERIA.ahk" { CERT_SELECT_CRITERIA }
+#Import ".\CSEDB_RSTMAPW.ahk" { CSEDB_RSTMAPW }
+#Import "..\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
+#Import "..\..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -91,7 +91,7 @@ export CertSrvBackupPrepareW(pwszServerName, grbitJet, dwBackupFlags, phbc) {
 
     phbcMarshal := phbc is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, "uint", grbitJet, CSBACKUP_TYPE, dwBackupFlags, phbcMarshal, phbc, "HRESULT")
+    result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, UInt32, grbitJet, CSBACKUP_TYPE, dwBackupFlags, phbcMarshal, phbc, "HRESULT")
     return result
 }
 
@@ -166,7 +166,7 @@ export CertSrvBackupOpenFileW(hbc, pwszAttachmentName, cbReadHintSize, pliFileSi
     hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
     pliFileSizeMarshal := pliFileSize is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("certadm.dll\CertSrvBackupOpenFileW", hbcMarshal, hbc, "ptr", pwszAttachmentName, "uint", cbReadHintSize, pliFileSizeMarshal, pliFileSize, "HRESULT")
+    result := DllCall("certadm.dll\CertSrvBackupOpenFileW", hbcMarshal, hbc, "ptr", pwszAttachmentName, UInt32, cbReadHintSize, pliFileSizeMarshal, pliFileSize, "HRESULT")
     return result
 }
 
@@ -189,7 +189,7 @@ export CertSrvBackupRead(hbc, pvBuffer, cbBuffer, pcbRead) {
     pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
     pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("certadm.dll\CertSrvBackupRead", hbcMarshal, hbc, pvBufferMarshal, pvBuffer, "uint", cbBuffer, pcbReadMarshal, pcbRead, "HRESULT")
+    result := DllCall("certadm.dll\CertSrvBackupRead", hbcMarshal, hbc, pvBufferMarshal, pvBuffer, UInt32, cbBuffer, pcbReadMarshal, pcbRead, "HRESULT")
     return result
 }
 
@@ -370,7 +370,7 @@ export CertSrvRestorePrepareW(pwszServerName, dwRestoreFlags, phbc) {
 
     phbcMarshal := phbc is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, "uint", dwRestoreFlags, phbcMarshal, phbc, "HRESULT")
+    result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, UInt32, dwRestoreFlags, phbcMarshal, phbc, "HRESULT")
     return result
 }
 
@@ -406,7 +406,7 @@ export CertSrvRestoreRegisterW(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstma
 
     hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("certadm.dll\CertSrvRestoreRegisterW", hbcMarshal, hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, CSEDB_RSTMAPW.Ptr, rgrstmap, "int", crstmap, "ptr", pwszBackupLogPath, "uint", genLow, "uint", genHigh, "HRESULT")
+    result := DllCall("certadm.dll\CertSrvRestoreRegisterW", hbcMarshal, hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, CSEDB_RSTMAPW.Ptr, rgrstmap, Int32, crstmap, "ptr", pwszBackupLogPath, UInt32, genLow, UInt32, genHigh, "HRESULT")
     return result
 }
 
@@ -437,7 +437,7 @@ export CertSrvRestoreRegisterThroughFile(hbc, pwszCheckPointFilePath, pwszLogPat
 
     hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("certadm.dll\CertSrvRestoreRegisterThroughFile", hbcMarshal, hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, CSEDB_RSTMAPW.Ptr, rgrstmap, "int", crstmap, "ptr", pwszBackupLogPath, "uint", genLow, "uint", genHigh, "HRESULT")
+    result := DllCall("certadm.dll\CertSrvRestoreRegisterThroughFile", hbcMarshal, hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, CSEDB_RSTMAPW.Ptr, rgrstmap, Int32, crstmap, "ptr", pwszBackupLogPath, UInt32, genLow, UInt32, genHigh, "HRESULT")
     return result
 }
 
@@ -514,7 +514,7 @@ export CertSrvServerControlW(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
     pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
     ppbOutMarshal := ppbOut is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, "uint", dwControlFlags, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "HRESULT")
+    result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, UInt32, dwControlFlags, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "HRESULT")
     return result
 }
 
@@ -533,8 +533,8 @@ export CertSrvServerControlW(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
 export PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers) {
     ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("certpoleng.dll\PstGetTrustAnchors", UNICODE_STRING.Ptr, pTargetName, "uint", cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("certpoleng.dll\PstGetTrustAnchors", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -550,8 +550,8 @@ export PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers)
 export PstGetTrustAnchorsEx(pTargetName, cCriteria, rgpCriteria, pCertContext, ppTrustedIssuers) {
     ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", UNICODE_STRING.Ptr, pTargetName, "uint", cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, CERT_CONTEXT.Ptr, pCertContext, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, CERT_CONTEXT.Ptr, pCertContext, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -566,7 +566,7 @@ export PstGetCertificateChain(pCert, pTrustedIssuers, ppCertChainContext) {
     ppCertChainContextMarshal := ppCertChainContext is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("certpoleng.dll\PstGetCertificateChain", CERT_CONTEXT.Ptr, pCert, SecPkgContext_IssuerListInfoEx.Ptr, pTrustedIssuers, ppCertChainContextMarshal, ppCertChainContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -588,8 +588,8 @@ export PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCer
     pdwCertChainContextCountMarshal := pdwCertChainContextCount is VarRef ? "uint*" : "ptr"
     ppCertChainContextsMarshal := ppCertChainContexts is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("certpoleng.dll\PstGetCertificates", UNICODE_STRING.Ptr, pTargetName, "uint", cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, BOOL, bIsClient, pdwCertChainContextCountMarshal, pdwCertChainContextCount, ppCertChainContextsMarshal, ppCertChainContexts, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("certpoleng.dll\PstGetCertificates", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, BOOL, bIsClient, pdwCertChainContextCountMarshal, pdwCertChainContextCount, ppCertChainContextsMarshal, ppCertChainContexts, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -604,7 +604,7 @@ export PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCer
  */
 export PstAcquirePrivateKey(pCert) {
     result := DllCall("certpoleng.dll\PstAcquirePrivateKey", CERT_CONTEXT.Ptr, pCert, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -624,7 +624,7 @@ export PstAcquirePrivateKey(pCert) {
  */
 export PstValidate(pTargetName, bIsClient, pRequestedIssuancePolicy, phAdditionalCertStore, pCert, pProvGUID) {
     result := DllCall("certpoleng.dll\PstValidate", UNICODE_STRING.Ptr, pTargetName, BOOL, bIsClient, CERT_USAGE_MATCH.Ptr, pRequestedIssuancePolicy, HCERTSTORE.Ptr, phAdditionalCertStore, CERT_CONTEXT.Ptr, pCert, Guid.Ptr, pProvGUID, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -644,7 +644,7 @@ export PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
     ppTokenInformationMarshal := ppTokenInformation is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("certpoleng.dll\PstMapCertificate", CERT_CONTEXT.Ptr, pCert, pTokenInformationTypeMarshal, pTokenInformationType, ppTokenInformationMarshal, ppTokenInformation, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -660,7 +660,7 @@ export PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
  */
 export PstGetUserNameForCertificate(pCertContext, UserName) {
     result := DllCall("certpoleng.dll\PstGetUserNameForCertificate", CERT_CONTEXT.Ptr, pCertContext, UNICODE_STRING.Ptr, UserName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

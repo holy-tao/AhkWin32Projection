@@ -1,4 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCryptCloseAlgorithmProviderFn.ahk" { BCryptCloseAlgorithmProviderFn }
+#Import ".\BCryptSetPropertyFn.ahk" { BCryptSetPropertyFn }
+#Import ".\BCryptGetPropertyFn.ahk" { BCryptGetPropertyFn }
+#Import ".\BCryptOpenAlgorithmProviderFn.ahk" { BCryptOpenAlgorithmProviderFn }
+#Import ".\BCryptGenRandomFn.ahk" { BCryptGenRandomFn }
 #Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
 
 /**
@@ -9,14 +14,14 @@ export default struct BCRYPT_RNG_FUNCTION_TABLE {
 
     Version : BCRYPT_INTERFACE_VERSION
 
-    OpenAlgorithmProvider : IntPtr
+    OpenAlgorithmProvider : BCryptOpenAlgorithmProviderFn
 
-    GetProperty : IntPtr
+    GetProperty : BCryptGetPropertyFn
 
-    SetProperty : IntPtr
+    SetProperty : BCryptSetPropertyFn
 
-    CloseAlgorithmProvider : IntPtr
+    CloseAlgorithmProvider : BCryptCloseAlgorithmProviderFn
 
-    GenRandom : IntPtr
+    GenRandom : BCryptGenRandomFn
 
 }

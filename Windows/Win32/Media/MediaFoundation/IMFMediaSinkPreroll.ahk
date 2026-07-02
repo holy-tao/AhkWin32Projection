@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables a media sink to receive samples before the presentation clock is started.
@@ -53,7 +53,7 @@ export default struct IMFMediaSinkPreroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasinkpreroll-notifypreroll
      */
     NotifyPreroll(hnsUpcomingStartTime) {
-        result := ComCall(3, this, "int64", hnsUpcomingStartTime, "HRESULT")
+        result := ComCall(3, this, Int64, hnsUpcomingStartTime, "HRESULT")
         return result
     }
 

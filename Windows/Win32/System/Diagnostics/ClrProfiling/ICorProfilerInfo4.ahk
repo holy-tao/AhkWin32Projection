@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COR_PRF_CODE_INFO.ahk" { COR_PRF_CODE_INFO }
+#Import ".\COR_DEBUG_IL_TO_NATIVE_MAP.ahk" { COR_DEBUG_IL_TO_NATIVE_MAP }
+#Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
 #Import ".\ICorProfilerThreadEnum.ahk" { ICorProfilerThreadEnum }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
-#Import ".\COR_DEBUG_IL_TO_NATIVE_MAP.ahk" { COR_DEBUG_IL_TO_NATIVE_MAP }
 #Import ".\ICorProfilerInfo3.ahk" { ICorProfilerInfo3 }
+#Import ".\COR_PRF_CODE_INFO.ahk" { COR_PRF_CODE_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -77,7 +77,7 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
         moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
         methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(73, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
+        result := ComCall(73, this, UInt32, cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
         moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
         methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(74, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int*", &_status := 0, "HRESULT")
+        result := ComCall(74, this, UInt32, cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int*", &_status := 0, "HRESULT")
         return _status
     }
 
@@ -108,7 +108,7 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
     GetCodeInfo3(functionID, reJitId, cCodeInfos, pcCodeInfos, codeInfos) {
         pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(75, this, "ptr", functionID, "ptr", reJitId, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
+        result := ComCall(75, this, IntPtr, functionID, IntPtr, reJitId, UInt32, cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
         pcReJitIdsMarshal := pcReJitIds is VarRef ? "uint*" : "ptr"
         reJitIdsMarshal := reJitIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(77, this, "ptr", functionId, "uint", cReJitIds, pcReJitIdsMarshal, pcReJitIds, reJitIdsMarshal, reJitIds, "HRESULT")
+        result := ComCall(77, this, IntPtr, functionId, UInt32, cReJitIds, pcReJitIdsMarshal, pcReJitIds, reJitIdsMarshal, reJitIds, "HRESULT")
         return result
     }
 
@@ -156,7 +156,7 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
     GetILToNativeMapping2(functionId, reJitId, cMap, pcMap, _map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(78, this, "ptr", functionId, "ptr", reJitId, "uint", cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
+        result := ComCall(78, this, IntPtr, functionId, IntPtr, reJitId, UInt32, cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
      * @returns {Pointer} 
      */
     GetObjectSize2(_objectId) {
-        result := ComCall(80, this, "ptr", _objectId, "ptr*", &pcSize := 0, "HRESULT")
+        result := ComCall(80, this, IntPtr, _objectId, "ptr*", &pcSize := 0, "HRESULT")
         return pcSize
     }
 

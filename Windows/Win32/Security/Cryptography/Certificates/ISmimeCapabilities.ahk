@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ICspInformation.ahk" { ICspInformation }
-#Import ".\ISmimeCapability.ahk" { ISmimeCapability }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISmimeCapability.ahk" { ISmimeCapability }
 
 /**
  * Defines the following methods and properties to manage a collection of ISmimeCapability objects.
@@ -69,7 +69,7 @@ export default struct ISmimeCapabilities extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-get_itembyindex
      */
     get_ItemByIndex(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Index, "ptr*", &pVal := 0, "HRESULT")
         return ISmimeCapability(pVal)
     }
 
@@ -115,7 +115,7 @@ export default struct ISmimeCapabilities extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-remove
      */
     Remove(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, Int32, Index, "HRESULT")
         return result
     }
 

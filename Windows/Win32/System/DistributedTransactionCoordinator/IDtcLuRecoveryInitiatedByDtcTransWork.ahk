@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DTCLUXLN.ahk" { DTCLUXLN }
-#Import ".\DTCLUXLNCONFIRMATION.ahk" { DTCLUXLNCONFIRMATION }
-#Import ".\DTCLUCOMPARESTATESERROR.ahk" { DTCLUCOMPARESTATESERROR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DTCLUCOMPARESTATESCONFIRMATION.ahk" { DTCLUCOMPARESTATESCONFIRMATION }
-#Import ".\DTCLUCOMPARESTATE.ahk" { DTCLUCOMPARESTATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DTCLUCOMPARESTATESERROR.ahk" { DTCLUCOMPARESTATESERROR }
+#Import ".\DTCLUCOMPARESTATE.ahk" { DTCLUCOMPARESTATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DTCLUXLNERROR.ahk" { DTCLUXLNERROR }
+#Import ".\DTCLUXLNCONFIRMATION.ahk" { DTCLUXLNCONFIRMATION }
+#Import ".\DTCLUXLN.ahk" { DTCLUXLN }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -109,7 +109,7 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
         pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : "ptr"
         pConfirmationMarshal := pConfirmation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, DTCLUXLN, Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, "uint", dwProtocol, pConfirmationMarshal, pConfirmation, "HRESULT")
+        result := ComCall(6, this, DTCLUXLN, Xln, pRemoteLogNameMarshal, pRemoteLogName, UInt32, cbRemoteLogName, UInt32, dwProtocol, pConfirmationMarshal, pConfirmation, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
      * @returns {HRESULT} 
      */
     ObsoleteRecoverySeqNum(lNewRecoverySeqNum) {
-        result := ComCall(15, this, "int", lNewRecoverySeqNum, "HRESULT")
+        result := ComCall(15, this, Int32, lNewRecoverySeqNum, "HRESULT")
         return result
     }
 

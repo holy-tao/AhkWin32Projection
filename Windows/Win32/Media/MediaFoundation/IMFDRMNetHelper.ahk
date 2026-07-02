@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures Windows Media Digital Rights Management (DRM) for Network Devices on a network sink.
@@ -106,7 +106,7 @@ export default struct IMFDRMNetHelper extends IUnknown {
         ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : "ptr"
         pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pLicenseRequestMarshal, pLicenseRequest, "uint", cbLicenseRequest, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, BSTR.Ptr, pbstrKID, "HRESULT")
+        result := ComCall(3, this, pLicenseRequestMarshal, pLicenseRequest, UInt32, cbLicenseRequest, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, BSTR.Ptr, pbstrKID, "HRESULT")
         return result
     }
 

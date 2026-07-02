@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISCPSecureExchange2.ahk" { ISCPSecureExchange2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMDSPDevice.ahk" { IMDSPDevice }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
 
 /**
@@ -90,7 +90,7 @@ export default struct ISCPSecureExchange3 extends ISCPSecureExchange2 {
     TransferContainerDataOnClearChannel(pDevice, pData, dwSize, pProgressCallback) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pDevice, pDataMarshal, pData, "uint", dwSize, "ptr", pProgressCallback, "uint*", &pfuReadyFlags := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pDevice, pDataMarshal, pData, UInt32, dwSize, "ptr", pProgressCallback, "uint*", &pfuReadyFlags := 0, "HRESULT")
         return pfuReadyFlags
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SQL_YEAR_MONTH_STRUCT.ahk" { SQL_YEAR_MONTH_STRUCT }
 #Import ".\SQLINTERVAL.ahk" { SQLINTERVAL }
 #Import ".\SQL_DAY_SECOND_STRUCT.ahk" { SQL_DAY_SECOND_STRUCT }
-#Import ".\SQL_YEAR_MONTH_STRUCT.ahk" { SQL_YEAR_MONTH_STRUCT }
 
 /**
  * @namespace Windows.Win32.System.Search

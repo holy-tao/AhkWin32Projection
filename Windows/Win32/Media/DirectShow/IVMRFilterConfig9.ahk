@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVMRImageCompositor9.ahk" { IVMRImageCompositor9 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVMRFilterConfig9 interface is implemented by the Video Mixing Renderer Filter 9.
@@ -175,7 +175,7 @@ export default struct IVMRFilterConfig9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrfilterconfig9-setnumberofstreams
      */
     SetNumberOfStreams(dwMaxStreams) {
-        result := ComCall(4, this, "uint", dwMaxStreams, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMaxStreams, "HRESULT")
         return result
     }
 
@@ -238,7 +238,7 @@ export default struct IVMRFilterConfig9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrfilterconfig9-setrenderingprefs
      */
     SetRenderingPrefs(dwRenderFlags) {
-        result := ComCall(6, this, "uint", dwRenderFlags, "HRESULT")
+        result := ComCall(6, this, UInt32, dwRenderFlags, "HRESULT")
         return result
     }
 
@@ -309,7 +309,7 @@ export default struct IVMRFilterConfig9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrfilterconfig9-setrenderingmode
      */
     SetRenderingMode(_Mode) {
-        result := ComCall(8, this, "uint", _Mode, "HRESULT")
+        result := ComCall(8, this, UInt32, _Mode, "HRESULT")
         return result
     }
 

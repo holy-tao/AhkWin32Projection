@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 #Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 
 /**
  * The DDOVERLAYFX structure passes overlay information to the IDirectDrawSurface7::UpdateOverlay method.

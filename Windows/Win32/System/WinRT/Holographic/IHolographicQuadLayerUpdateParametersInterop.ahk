@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 #Import "..\..\..\Graphics\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IInspectable.ahk" { IInspectable }
-#Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * A nano-COM interface that allows COM interop with the [HolographicQuadLayerUpdateParameters](/uwp/api/windows.graphics.holographic.holographicquadlayerupdateparameters) class for applications that use Direct3D 12 for holographic rendering.
@@ -73,7 +73,7 @@ export default struct IHolographicQuadLayerUpdateParametersInterop extends IInsp
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nf-windows-graphics-holographic-interop-iholographicquadlayerupdateparametersinterop-commitdirect3d12resource
      */
     CommitDirect3D12Resource(pColorResourceToCommit, pColorResourceFence, colorResourceFenceSignalValue) {
-        result := ComCall(6, this, "ptr", pColorResourceToCommit, "ptr", pColorResourceFence, "uint", colorResourceFenceSignalValue, "HRESULT")
+        result := ComCall(6, this, "ptr", pColorResourceToCommit, "ptr", pColorResourceFence, Int64, colorResourceFenceSignalValue, "HRESULT")
         return result
     }
 

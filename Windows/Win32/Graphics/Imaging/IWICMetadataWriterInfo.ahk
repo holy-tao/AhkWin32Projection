@@ -56,7 +56,7 @@ export default struct IWICMetadataWriterInfo extends IWICMetadataHandlerInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-getheader
      */
     GetHeader(guidContainerFormat, cbSize, pHeader) {
-        result := ComCall(18, this, Guid.Ptr, guidContainerFormat, "uint", cbSize, "ptr", pHeader, "uint*", &pcbActual := 0, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, guidContainerFormat, UInt32, cbSize, IntPtr, pHeader, "uint*", &pcbActual := 0, "HRESULT")
         return pcbActual
     }
 

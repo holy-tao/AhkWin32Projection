@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IFsiItem.ahk" { IFsiItem }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to enumerate the child directory and file items for a FsiDirectoryItem object.
@@ -110,7 +110,7 @@ export default struct IEnumFsiItems extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, IFsiItem.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, IFsiItem.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct IEnumFsiItems extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ienumfsiitems-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRawCDImageTrackInfo.ahk" { IRawCDImageTrackInfo }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk" { IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE }
-#Import ".\IMAPI_CD_SECTOR_TYPE.ahk" { IMAPI_CD_SECTOR_TYPE }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRawCDImageTrackInfo.ahk" { IRawCDImageTrackInfo }
+#Import ".\IMAPI_CD_SECTOR_TYPE.ahk" { IMAPI_CD_SECTOR_TYPE }
+#Import ".\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk" { IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Use this interface to create a RAW CD image for use in writing to CD media in Disc-at-Once (DAO) mode. Images created with this interface can be written to CD media using the IDiscFormat2RawCD interface.
@@ -250,7 +250,7 @@ export default struct IRawCDImageCreator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-put_startofleadoutlimit
      */
     put_StartOfLeadoutLimit(value) {
-        result := ComCall(14, this, "int", value, "HRESULT")
+        result := ComCall(14, this, Int32, value, "HRESULT")
         return result
     }
 
@@ -344,7 +344,7 @@ export default struct IRawCDImageCreator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-put_startingtracknumber
      */
     put_StartingTrackNumber(value) {
-        result := ComCall(20, this, "int", value, "HRESULT")
+        result := ComCall(20, this, Int32, value, "HRESULT")
         return result
     }
 
@@ -371,7 +371,7 @@ export default struct IRawCDImageCreator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_trackinfo
      */
     get_TrackInfo(trackIndex) {
-        result := ComCall(22, this, "int", trackIndex, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(22, this, Int32, trackIndex, "ptr*", &value := 0, "HRESULT")
         return IRawCDImageTrackInfo(value)
     }
 

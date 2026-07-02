@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\BG_AUTH_CREDENTIALS.ahk" { BG_AUTH_CREDENTIALS }
 #Import ".\BG_AUTH_TARGET.ahk" { BG_AUTH_TARGET }
-#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BG_AUTH_SCHEME.ahk" { BG_AUTH_SCHEME }
+#Import ".\BG_AUTH_CREDENTIALS.ahk" { BG_AUTH_CREDENTIALS }
 #Import ".\BG_JOB_REPLY_PROGRESS.ahk" { BG_JOB_REPLY_PROGRESS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\BG_AUTH_SCHEME.ahk" { BG_AUTH_SCHEME }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
 
 /**
  * Retrieve reply data from an upload-reply job, determine the progress of the reply data transfer to the client, request command line execution, and provide credentials for proxy and remote server authentication requests.

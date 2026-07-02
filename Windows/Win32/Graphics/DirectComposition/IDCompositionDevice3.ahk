@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionTurbulenceEffect.ahk" { IDCompositionTurbulenceEffect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionGaussianBlurEffect.ahk" { IDCompositionGaussianBlurEffect }
-#Import ".\IDCompositionDevice2.ahk" { IDCompositionDevice2 }
-#Import ".\IDCompositionArithmeticCompositeEffect.ahk" { IDCompositionArithmeticCompositeEffect }
 #Import ".\IDCompositionCompositeEffect.ahk" { IDCompositionCompositeEffect }
-#Import ".\IDCompositionSaturationEffect.ahk" { IDCompositionSaturationEffect }
-#Import ".\IDCompositionTableTransferEffect.ahk" { IDCompositionTableTransferEffect }
-#Import ".\IDCompositionAffineTransform2DEffect.ahk" { IDCompositionAffineTransform2DEffect }
-#Import ".\IDCompositionLinearTransferEffect.ahk" { IDCompositionLinearTransferEffect }
 #Import ".\IDCompositionHueRotationEffect.ahk" { IDCompositionHueRotationEffect }
-#Import ".\IDCompositionBrightnessEffect.ahk" { IDCompositionBrightnessEffect }
-#Import ".\IDCompositionColorMatrixEffect.ahk" { IDCompositionColorMatrixEffect }
-#Import ".\IDCompositionBlendEffect.ahk" { IDCompositionBlendEffect }
+#Import ".\IDCompositionTurbulenceEffect.ahk" { IDCompositionTurbulenceEffect }
+#Import ".\IDCompositionArithmeticCompositeEffect.ahk" { IDCompositionArithmeticCompositeEffect }
 #Import ".\IDCompositionShadowEffect.ahk" { IDCompositionShadowEffect }
+#Import ".\IDCompositionGaussianBlurEffect.ahk" { IDCompositionGaussianBlurEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionDevice2.ahk" { IDCompositionDevice2 }
+#Import ".\IDCompositionAffineTransform2DEffect.ahk" { IDCompositionAffineTransform2DEffect }
+#Import ".\IDCompositionSaturationEffect.ahk" { IDCompositionSaturationEffect }
+#Import ".\IDCompositionLinearTransferEffect.ahk" { IDCompositionLinearTransferEffect }
+#Import ".\IDCompositionColorMatrixEffect.ahk" { IDCompositionColorMatrixEffect }
+#Import ".\IDCompositionBrightnessEffect.ahk" { IDCompositionBrightnessEffect }
+#Import ".\IDCompositionTableTransferEffect.ahk" { IDCompositionTableTransferEffect }
+#Import ".\IDCompositionBlendEffect.ahk" { IDCompositionBlendEffect }
 
 /**
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice3)

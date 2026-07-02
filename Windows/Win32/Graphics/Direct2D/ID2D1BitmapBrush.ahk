@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
 #Import ".\D2D1_BITMAP_INTERPOLATION_MODE.ahk" { D2D1_BITMAP_INTERPOLATION_MODE }
-#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
 #Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
 
 /**
  * Paints an area with a bitmap. (ID2D1BitmapBrush)

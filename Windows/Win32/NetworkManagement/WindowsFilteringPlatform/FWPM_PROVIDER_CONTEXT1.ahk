@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_DOSP_OPTIONS0.ahk" { IPSEC_DOSP_OPTIONS0 }
-#Import ".\FWPM_PROVIDER_CONTEXT_TYPE.ahk" { FWPM_PROVIDER_CONTEXT_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IKEEXT_POLICY1.ahk" { IKEEXT_POLICY1 }
 #Import ".\FWPM_CLASSIFY_OPTIONS0.ahk" { FWPM_CLASSIFY_OPTIONS0 }
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\IPSEC_DOSP_OPTIONS0.ahk" { IPSEC_DOSP_OPTIONS0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWPM_PROVIDER_CONTEXT_TYPE.ahk" { FWPM_PROVIDER_CONTEXT_TYPE }
+#Import ".\IPSEC_TRANSPORT_POLICY1.ahk" { IPSEC_TRANSPORT_POLICY1 }
 #Import ".\IPSEC_KEYING_POLICY0.ahk" { IPSEC_KEYING_POLICY0 }
 #Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
-#Import ".\IKEEXT_POLICY1.ahk" { IKEEXT_POLICY1 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IPSEC_TUNNEL_POLICY1.ahk" { IPSEC_TUNNEL_POLICY1 }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPSEC_TRANSPORT_POLICY1.ahk" { IPSEC_TRANSPORT_POLICY1 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 
 /**
  * Stores the state associated with a provider context. (FWPM_PROVIDER_CONTEXT1)

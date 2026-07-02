@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls how media sources and transforms are enumerated in Microsoft Media Foundation. (IMFPluginControl)
@@ -87,7 +87,7 @@ export default struct IMFPluginControl extends IUnknown {
         selector := selector is String ? StrPtr(selector) : selector
 
         clsid := Guid()
-        result := ComCall(3, this, "uint", pluginType, "ptr", selector, Guid.Ptr, clsid, "HRESULT")
+        result := ComCall(3, this, UInt32, pluginType, "ptr", selector, Guid.Ptr, clsid, "HRESULT")
         return clsid
     }
 
@@ -143,7 +143,7 @@ export default struct IMFPluginControl extends IUnknown {
     GetPreferredClsidByIndex(pluginType, index, selector, clsid) {
         selectorMarshal := selector is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", pluginType, "uint", index, selectorMarshal, selector, Guid.Ptr, clsid, "HRESULT")
+        result := ComCall(4, this, UInt32, pluginType, UInt32, index, selectorMarshal, selector, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct IMFPluginControl extends IUnknown {
     SetPreferredClsid(pluginType, selector, clsid) {
         selector := selector is String ? StrPtr(selector) : selector
 
-        result := ComCall(5, this, "uint", pluginType, "ptr", selector, Guid.Ptr, clsid, "HRESULT")
+        result := ComCall(5, this, UInt32, pluginType, "ptr", selector, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -212,7 +212,7 @@ export default struct IMFPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-isdisabled
      */
     IsDisabled(pluginType, clsid) {
-        result := ComCall(6, this, "uint", pluginType, Guid.Ptr, clsid, "HRESULT")
+        result := ComCall(6, this, UInt32, pluginType, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -225,7 +225,7 @@ export default struct IMFPluginControl extends IUnknown {
      */
     GetDisabledByIndex(pluginType, index) {
         clsid := Guid()
-        result := ComCall(7, this, "uint", pluginType, "uint", index, Guid.Ptr, clsid, "HRESULT")
+        result := ComCall(7, this, UInt32, pluginType, UInt32, index, Guid.Ptr, clsid, "HRESULT")
         return clsid
     }
 
@@ -269,7 +269,7 @@ export default struct IMFPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-setdisabled
      */
     SetDisabled(pluginType, clsid, disabled) {
-        result := ComCall(8, this, "uint", pluginType, Guid.Ptr, clsid, BOOL, disabled, "HRESULT")
+        result := ComCall(8, this, UInt32, pluginType, Guid.Ptr, clsid, BOOL, disabled, "HRESULT")
         return result
     }
 

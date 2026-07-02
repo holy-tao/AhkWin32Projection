@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWSDAttachment.ahk" { IWSDAttachment }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows applications to read MIME-encoded attachment data from an incoming message.
@@ -105,7 +105,7 @@ export default struct IWSDInboundAttachment extends IWSDAttachment {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
         pdwNumberOfBytesReadMarshal := pdwNumberOfBytesRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwBytesToRead, pdwNumberOfBytesReadMarshal, pdwNumberOfBytesRead, "HRESULT")
+        result := ComCall(3, this, pBufferMarshal, pBuffer, UInt32, dwBytesToRead, pdwNumberOfBytesReadMarshal, pdwNumberOfBytesRead, "HRESULT")
         return result
     }
 

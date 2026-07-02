@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMbnServiceActivation.ahk" { IMbnServiceActivation }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMbnServiceActivation.ahk" { IMbnServiceActivation }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This notification interface signals an application about the completion of a service activation request.
@@ -65,7 +65,7 @@ export default struct IMbnServiceActivationEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnserviceactivationevents-onactivationcomplete
      */
     OnActivationComplete(serviceActivation, vendorSpecificData, requestID, _status, networkError) {
-        result := ComCall(3, this, "ptr", serviceActivation, SAFEARRAY.Ptr, vendorSpecificData, "uint", requestID, "int", _status, "uint", networkError, "HRESULT")
+        result := ComCall(3, this, "ptr", serviceActivation, SAFEARRAY.Ptr, vendorSpecificData, UInt32, requestID, "int", _status, UInt32, networkError, "HRESULT")
         return result
     }
 

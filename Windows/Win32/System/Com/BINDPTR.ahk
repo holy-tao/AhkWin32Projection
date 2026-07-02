@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\VARDESC.ahk" { VARDESC }
-#Import ".\ITypeComp.ahk" { ITypeComp }
 #Import ".\FUNCDESC.ahk" { FUNCDESC }
+#Import ".\ITypeComp.ahk" { ITypeComp }
 
 /**
  * Describes a pointer.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\GROUP_POLICY_OBJECTA.ahk" { GROUP_POLICY_OBJECTA }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Wmi\IWbemServices.ahk" { IWbemServices }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\Wmi\IWbemServices.ahk" { IWbemServices }
 
 /**
  * The RSOP_TARGET structure contains computer and user information required by the GenerateGroupPolicy function.

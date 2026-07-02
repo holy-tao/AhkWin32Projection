@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAMTuner.ahk" { IAMTuner }
 #Import ".\TunerInputType.ahk" { TunerInputType }
+#Import ".\IAMTuner.ahk" { IAMTuner }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -122,7 +122,7 @@ export default struct IAMTVTuner extends IAMTuner {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-autotune
      */
     AutoTune(lChannel) {
-        result := ComCall(20, this, "int", lChannel, "int*", &plFoundSignal := 0, "HRESULT")
+        result := ComCall(20, this, Int32, lChannel, "int*", &plFoundSignal := 0, "HRESULT")
         return plFoundSignal
     }
 
@@ -156,7 +156,7 @@ export default struct IAMTVTuner extends IAMTuner {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-put_inputtype
      */
     put_InputType(lIndex, InputType) {
-        result := ComCall(23, this, "int", lIndex, TunerInputType, InputType, "HRESULT")
+        result := ComCall(23, this, Int32, lIndex, TunerInputType, InputType, "HRESULT")
         return result
     }
 
@@ -167,7 +167,7 @@ export default struct IAMTVTuner extends IAMTuner {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_inputtype
      */
     get_InputType(lIndex) {
-        result := ComCall(24, this, "int", lIndex, "int*", &pInputType := 0, "HRESULT")
+        result := ComCall(24, this, Int32, lIndex, "int*", &pInputType := 0, "HRESULT")
         return pInputType
     }
 
@@ -178,7 +178,7 @@ export default struct IAMTVTuner extends IAMTuner {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-put_connectinput
      */
     put_ConnectInput(lIndex) {
-        result := ComCall(25, this, "int", lIndex, "HRESULT")
+        result := ComCall(25, this, Int32, lIndex, "HRESULT")
         return result
     }
 

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SimilarityData.ahk" { SimilarityData }
-#Import ".\ISimilarityTraitsMapping.ahk" { ISimilarityTraitsMapping }
+#Import ".\SimilarityFileId.ahk" { SimilarityFileId }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
-#Import ".\ISimilarityReportProgress.ahk" { ISimilarityReportProgress }
+#Import ".\ISimilarityTraitsMapping.ahk" { ISimilarityTraitsMapping }
 #Import ".\IRdcFileWriter.ahk" { IRdcFileWriter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFindSimilarResults.ahk" { IFindSimilarResults }
-#Import ".\SimilarityFileId.ahk" { SimilarityFileId }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SimilarityData.ahk" { SimilarityData }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ISimilarityReportProgress.ahk" { ISimilarityReportProgress }
+#Import ".\IFindSimilarResults.ahk" { IFindSimilarResults }
 
 /**
  * Defines methods for storing and retrieving per-file similarity data and file IDs in a similarity file.
@@ -74,7 +74,7 @@ export default struct ISimilarity extends IUnknown {
 
         _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", _path, BOOL, truncate, _securityDescriptorMarshal, _securityDescriptor, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _path, BOOL, truncate, _securityDescriptorMarshal, _securityDescriptor, UInt32, recordSize, "int*", &isNew := 0, "HRESULT")
         return isNew
     }
 
@@ -91,7 +91,7 @@ export default struct ISimilarity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-createtableindirect
      */
     CreateTableIndirect(mapping, fileIdFile, truncate, recordSize) {
-        result := ComCall(4, this, "ptr", mapping, "ptr", fileIdFile, BOOL, truncate, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", mapping, "ptr", fileIdFile, BOOL, truncate, UInt32, recordSize, "int*", &isNew := 0, "HRESULT")
         return isNew
     }
 
@@ -137,7 +137,7 @@ export default struct ISimilarity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-findsimilarfileid
      */
     FindSimilarFileId(_similarityData, numberOfMatchesRequired, resultsSize) {
-        result := ComCall(7, this, SimilarityData.Ptr, _similarityData, "ushort", numberOfMatchesRequired, "uint", resultsSize, "ptr*", &_findSimilarResults := 0, "HRESULT")
+        result := ComCall(7, this, SimilarityData.Ptr, _similarityData, UInt16, numberOfMatchesRequired, UInt32, resultsSize, "ptr*", &_findSimilarResults := 0, "HRESULT")
         return IFindSimilarResults(_findSimilarResults)
     }
 

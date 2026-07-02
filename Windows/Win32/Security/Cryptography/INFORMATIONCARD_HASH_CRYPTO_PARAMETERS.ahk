@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS.ahk" { INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS.ahk" { INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

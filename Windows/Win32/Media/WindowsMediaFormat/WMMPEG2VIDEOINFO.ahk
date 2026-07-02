@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WMVIDEOINFOHEADER2.ahk" { WMVIDEOINFOHEADER2 }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\WMVIDEOINFOHEADER2.ahk" { WMVIDEOINFOHEADER2 }
 
 /**
  * The WMMPEG2VIDEOINFO structure describes an MPEG-2 video stream.

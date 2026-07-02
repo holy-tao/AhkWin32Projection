@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SCRIPTINFO.ahk" { SCRIPTINFO }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -60,7 +60,7 @@ export default struct IEnumScript extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", celt, SCRIPTINFO.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, SCRIPTINFO.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct IEnumScript extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(celt) {
-        result := ComCall(6, this, "uint", celt, "HRESULT")
+        result := ComCall(6, this, UInt32, celt, "HRESULT")
         return result
     }
 

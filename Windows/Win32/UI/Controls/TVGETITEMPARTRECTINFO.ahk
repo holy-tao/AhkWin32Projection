@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TVITEMPART.ahk" { TVITEMPART }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\TVITEMPART.ahk" { TVITEMPART }
 
 /**
  * Contains information for identifying the &quot;hit zone&quot; for a specified part of a tree item. The structure is used with the TVM_GETITEMPARTRECT message and the TreeView_GetItemPartRect macro.

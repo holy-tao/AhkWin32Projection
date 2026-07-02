@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 }
-#Import ".\ID3D12VideoProcessCommandList.ahk" { ID3D12VideoProcessCommandList }
 #Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS }
 #Import ".\ID3D12VideoProcessor.ahk" { ID3D12VideoProcessor }
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 }
+#Import ".\ID3D12VideoProcessCommandList.ahk" { ID3D12VideoProcessCommandList }
 
 /**
  * Encapsulates a list of graphics commands for video processing. (ID3D12VideoProcessCommandList1)
@@ -49,7 +49,7 @@ export default struct ID3D12VideoProcessCommandList1 extends ID3D12VideoProcessC
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoprocesscommandlist1-processframes1
      */
     ProcessFrames1(pVideoProcessor, pOutputArguments, NumInputStreams, pInputArguments) {
-        ComCall(23, this, "ptr", pVideoProcessor, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS.Ptr, pOutputArguments, "uint", NumInputStreams, D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1.Ptr, pInputArguments)
+        ComCall(23, this, "ptr", pVideoProcessor, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS.Ptr, pOutputArguments, UInt32, NumInputStreams, D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1.Ptr, pInputArguments)
     }
 
     Query(iid) {

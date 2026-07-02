@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
 
 /**
@@ -59,7 +59,7 @@ export default struct IDCompositionVirtualSurface extends IDCompositionSurface {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvirtualsurface-resize
      */
     Resize(width, height) {
-        result := ComCall(8, this, "uint", width, "uint", height, "HRESULT")
+        result := ComCall(8, this, UInt32, width, UInt32, height, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IDCompositionVirtualSurface extends IDCompositionSurface {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvirtualsurface-trim
      */
     Trim(rectangles, count) {
-        result := ComCall(9, this, RECT.Ptr, rectangles, "uint", count, "HRESULT")
+        result := ComCall(9, this, RECT.Ptr, rectangles, UInt32, count, "HRESULT")
         return result
     }
 

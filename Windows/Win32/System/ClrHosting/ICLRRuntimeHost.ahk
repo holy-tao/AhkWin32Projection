@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHostControl.ahk" { IHostControl }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ICLRControl.ahk" { ICLRControl }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHostControl.ahk" { IHostControl }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FExecuteInAppDomainCallback.ahk" { FExecuteInAppDomainCallback }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -97,7 +98,7 @@ export default struct ICLRRuntimeHost extends IUnknown {
      * @returns {HRESULT} 
      */
     UnloadAppDomain(dwAppDomainId, fWaitUntilDone) {
-        result := ComCall(7, this, "uint", dwAppDomainId, BOOL, fWaitUntilDone, "HRESULT")
+        result := ComCall(7, this, UInt32, dwAppDomainId, BOOL, fWaitUntilDone, "HRESULT")
         return result
     }
 
@@ -111,7 +112,7 @@ export default struct ICLRRuntimeHost extends IUnknown {
     ExecuteInAppDomain(dwAppDomainId, pCallback, cookie) {
         cookieMarshal := cookie is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", dwAppDomainId, "ptr", pCallback, cookieMarshal, cookie, "HRESULT")
+        result := ComCall(8, this, UInt32, dwAppDomainId, FExecuteInAppDomainCallback, pCallback, cookieMarshal, cookie, "HRESULT")
         return result
     }
 
@@ -139,7 +140,7 @@ export default struct ICLRRuntimeHost extends IUnknown {
         ppwzManifestPathsMarshal := ppwzManifestPaths is VarRef ? "ptr*" : "ptr"
         ppwzActivationDataMarshal := ppwzActivationData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", pwzAppFullName, "uint", dwManifestPaths, ppwzManifestPathsMarshal, ppwzManifestPaths, "uint", dwActivationData, ppwzActivationDataMarshal, ppwzActivationData, "int*", &pReturnValue := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pwzAppFullName, UInt32, dwManifestPaths, ppwzManifestPathsMarshal, ppwzManifestPaths, UInt32, dwActivationData, ppwzActivationDataMarshal, ppwzActivationData, "int*", &pReturnValue := 0, "HRESULT")
         return pReturnValue
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FOLDERFLAGS.ahk" { FOLDERFLAGS }
-#Import ".\FOLDERLOGICALVIEWMODE.ahk" { FOLDERLOGICALVIEWMODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
+#Import ".\FOLDERLOGICALVIEWMODE.ahk" { FOLDERLOGICALVIEWMODE }
+#Import ".\FOLDERFLAGS.ahk" { FOLDERFLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods to obtain folder view settings.
@@ -145,7 +145,7 @@ export default struct IFolderViewSettings extends IUnknown {
     GetSortColumns(rgSortColumns, cColumnsIn, pcColumnsOut) {
         pcColumnsOutMarshal := pcColumnsOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, SORTCOLUMN.Ptr, rgSortColumns, "uint", cColumnsIn, pcColumnsOutMarshal, pcColumnsOut, "HRESULT")
+        result := ComCall(8, this, SORTCOLUMN.Ptr, rgSortColumns, UInt32, cColumnsIn, pcColumnsOutMarshal, pcColumnsOut, "HRESULT")
         return result
     }
 

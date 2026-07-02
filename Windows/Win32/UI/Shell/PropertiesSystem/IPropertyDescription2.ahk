@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
 
 /**
  * Exposes methods that enumerate and retrieve individual property description details. (IPropertyDescription2)

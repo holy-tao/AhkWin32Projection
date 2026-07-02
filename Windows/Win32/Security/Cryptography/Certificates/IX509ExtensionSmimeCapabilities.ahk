@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509Extension.ahk" { IX509Extension }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISmimeCapabilities.ahk" { ISmimeCapabilities }
-#Import ".\IX509Extension.ahk" { IX509Extension }
 
 /**
  * Can be used to report the decryption capabilities of an email recipient to an email sender so that the sender can choose the most secure algorithm supported by both parties.

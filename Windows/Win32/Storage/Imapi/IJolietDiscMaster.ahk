@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\StructuredStorage\IPropertyStorage.ahk" { IPropertyStorage }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IJolietDiscMaster interface enables the staging of a CD data disc.
@@ -96,7 +96,7 @@ export default struct IJolietDiscMaster extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-adddata
      */
     AddData(pStorage, lFileOverwrite) {
-        result := ComCall(6, this, "ptr", pStorage, "int", lFileOverwrite, "HRESULT")
+        result := ComCall(6, this, "ptr", pStorage, Int32, lFileOverwrite, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\IErrorLog.ahk" { IErrorLog }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PROPBAG2.ahk" { PROPBAG2 }
-#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\IErrorLog.ahk" { IErrorLog }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROPBAG2.ahk" { PROPBAG2 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
@@ -55,7 +55,7 @@ export default struct IPropertyBag2 extends IUnknown {
         phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
 
         pvarValue := VARIANT()
-        result := ComCall(3, this, "uint", cProperties, PROPBAG2.Ptr, pPropBag, "ptr", pErrLog, VARIANT.Ptr, pvarValue, phrErrorMarshal, phrError, "HRESULT")
+        result := ComCall(3, this, UInt32, cProperties, PROPBAG2.Ptr, pPropBag, "ptr", pErrLog, VARIANT.Ptr, pvarValue, phrErrorMarshal, phrError, "HRESULT")
         return pvarValue
     }
 
@@ -67,7 +67,7 @@ export default struct IPropertyBag2 extends IUnknown {
      * @returns {HRESULT} 
      */
     Write(cProperties, pPropBag, pvarValue) {
-        result := ComCall(4, this, "uint", cProperties, PROPBAG2.Ptr, pPropBag, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(4, this, UInt32, cProperties, PROPBAG2.Ptr, pPropBag, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IPropertyBag2 extends IUnknown {
     GetPropertyInfo(iProperty, cProperties, pPropBag, pcProperties) {
         pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", iProperty, "uint", cProperties, PROPBAG2.Ptr, pPropBag, pcPropertiesMarshal, pcProperties, "HRESULT")
+        result := ComCall(6, this, UInt32, iProperty, UInt32, cProperties, PROPBAG2.Ptr, pPropBag, pcPropertiesMarshal, pcProperties, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IPropertyBag2 extends IUnknown {
     LoadObject(pstrName, dwHint, pUnkObject, pErrLog) {
         pstrName := pstrName is String ? StrPtr(pstrName) : pstrName
 
-        result := ComCall(7, this, "ptr", pstrName, "uint", dwHint, "ptr", pUnkObject, "ptr", pErrLog, "HRESULT")
+        result := ComCall(7, this, "ptr", pstrName, UInt32, dwHint, "ptr", pUnkObject, "ptr", pErrLog, "HRESULT")
         return result
     }
 

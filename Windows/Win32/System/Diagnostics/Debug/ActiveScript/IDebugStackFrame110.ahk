@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DEBUG_STACKFRAME_TYPE.ahk" { DEBUG_STACKFRAME_TYPE }
 #Import ".\IDebugStackFrame.ahk" { IDebugStackFrame }
 #Import ".\IScriptInvocationContext.ahk" { IScriptInvocationContext }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DEBUG_STACKFRAME_TYPE.ahk" { DEBUG_STACKFRAME_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber if a queued message is created, de-queued, or moved to a retry or dead letter queue.
@@ -59,7 +59,7 @@ export default struct IComQCEvents extends IUnknown {
     OnQCRecord(pInfo, objid, szQueue, guidMsgId, guidWorkFlowId, msmqhr) {
         szQueue := szQueue is String ? StrPtr(szQueue) : szQueue
 
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", objid, "ptr", szQueue, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "int", msmqhr, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, objid, "ptr", szQueue, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "int", msmqhr, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct IComQCEvents extends IUnknown {
     OnQCQueueOpen(pInfo, szQueue, QueueID, hr) {
         szQueue := szQueue is String ? StrPtr(szQueue) : szQueue
 
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "ptr", szQueue, "uint", QueueID, "int", hr, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "ptr", szQueue, Int64, QueueID, "int", hr, "HRESULT")
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IComQCEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomqcevents-onqcreceive
      */
     OnQCReceive(pInfo, QueueID, guidMsgId, guidWorkFlowId, hr) {
-        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", QueueID, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "int", hr, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, QueueID, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "int", hr, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IComQCEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomqcevents-onqcreceivefail
      */
     OnQCReceiveFail(pInfo, QueueID, msmqhr) {
-        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", QueueID, "int", msmqhr, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, QueueID, "int", msmqhr, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IComQCEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomqcevents-onqcmovetoretryqueue
      */
     OnQCMoveToReTryQueue(pInfo, guidMsgId, guidWorkFlowId, RetryIndex) {
-        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "uint", RetryIndex, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, UInt32, RetryIndex, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IComQCEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomqcevents-onqcplayback
      */
     OnQCPlayback(pInfo, objid, guidMsgId, guidWorkFlowId, hr) {
-        result := ComCall(9, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", objid, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "int", hr, "HRESULT")
+        result := ComCall(9, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, objid, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "int", hr, "HRESULT")
         return result
     }
 

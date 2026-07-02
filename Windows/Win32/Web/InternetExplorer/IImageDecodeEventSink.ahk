@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -52,7 +52,7 @@ export default struct IImageDecodeEventSink extends IUnknown {
      * @returns {IUnknown} 
      */
     GetSurface(nWidth, nHeight, bfid, nPasses, dwHints) {
-        result := ComCall(3, this, "int", nWidth, "int", nHeight, Guid.Ptr, bfid, "uint", nPasses, "uint", dwHints, "ptr*", &ppSurface := 0, "HRESULT")
+        result := ComCall(3, this, Int32, nWidth, Int32, nHeight, Guid.Ptr, bfid, UInt32, nPasses, UInt32, dwHints, "ptr*", &ppSurface := 0, "HRESULT")
         return IUnknown(ppSurface)
     }
 

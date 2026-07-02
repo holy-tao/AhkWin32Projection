@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\Com\BLOB.ahk" { BLOB }
+#Import ".\SEARCH_KIND_OF_CHANGE.ahk" { SEARCH_KIND_OF_CHANGE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SEARCH_NOTIFICATION_PRIORITY.ahk" { SEARCH_NOTIFICATION_PRIORITY }
-#Import ".\SEARCH_KIND_OF_CHANGE.ahk" { SEARCH_KIND_OF_CHANGE }
 
 /**
  * Specifies the changes to an indexed item.

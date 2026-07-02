@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Callback interface for the Microsoft Media Foundation sink writer.
@@ -71,7 +71,7 @@ export default struct IMFSinkWriterCallback extends IUnknown {
     OnMarker(dwStreamIndex, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", dwStreamIndex, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamIndex, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 

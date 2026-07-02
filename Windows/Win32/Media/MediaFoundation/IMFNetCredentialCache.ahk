@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMFNetCredential.ahk" { IMFNetCredential }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets credentials from the credential cache.
@@ -76,7 +76,7 @@ export default struct IMFNetCredentialCache extends IUnknown {
 
         pdwRequirementsFlagsMarshal := pdwRequirementsFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszRealm, "uint", dwAuthenticationFlags, IMFNetCredential.Ptr, ppCred, pdwRequirementsFlagsMarshal, pdwRequirementsFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszRealm, UInt32, dwAuthenticationFlags, IMFNetCredential.Ptr, ppCred, pdwRequirementsFlagsMarshal, pdwRequirementsFlags, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct IMFNetCredentialCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredentialcache-setuseroptions
      */
     SetUserOptions(pCred, dwOptionsFlags) {
-        result := ComCall(5, this, "ptr", pCred, "uint", dwOptionsFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pCred, UInt32, dwOptionsFlags, "HRESULT")
         return result
     }
 

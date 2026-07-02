@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IXpsOMGradientBrush.ahk" { IXpsOMGradientBrush }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
 #Import ".\XPS_POINT.ahk" { XPS_POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
 
 /**
  * Specifies a radial gradient.

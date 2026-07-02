@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
 
 /**
  * Exposes methods that store file system information for optimizing calls to IShellFolder::ParseDisplayName.

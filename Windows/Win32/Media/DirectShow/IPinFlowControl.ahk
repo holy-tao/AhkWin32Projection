@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Blocks data flow from an active output pin.
@@ -104,7 +104,7 @@ export default struct IPinFlowControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipinflowcontrol-block
      */
     Block(dwBlockFlags, hEvent) {
-        result := ComCall(3, this, "uint", dwBlockFlags, HANDLE, hEvent, "HRESULT")
+        result := ComCall(3, this, UInt32, dwBlockFlags, HANDLE, hEvent, "HRESULT")
         return result
     }
 

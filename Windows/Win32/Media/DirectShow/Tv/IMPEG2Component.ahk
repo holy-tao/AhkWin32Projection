@@ -91,7 +91,7 @@ export default struct IMPEG2Component extends IComponent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2component-put_pid
      */
     put_PID(PID) {
-        result := ComCall(17, this, "int", PID, "HRESULT")
+        result := ComCall(17, this, Int32, PID, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IMPEG2Component extends IComponent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2component-put_pcrpid
      */
     put_PCRPID(PCRPID) {
-        result := ComCall(19, this, "int", PCRPID, "HRESULT")
+        result := ComCall(19, this, Int32, PCRPID, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IMPEG2Component extends IComponent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2component-put_programnumber
      */
     put_ProgramNumber(ProgramNumber) {
-        result := ComCall(21, this, "int", ProgramNumber, "HRESULT")
+        result := ComCall(21, this, Int32, ProgramNumber, "HRESULT")
         return result
     }
 

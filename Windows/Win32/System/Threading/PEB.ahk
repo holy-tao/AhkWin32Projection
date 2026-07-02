@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPS_POST_PROCESS_INIT_ROUTINE.ahk" { PPS_POST_PROCESS_INIT_ROUTINE }
 #Import ".\RTL_USER_PROCESS_PARAMETERS.ahk" { RTL_USER_PROCESS_PARAMETERS }
 #Import ".\PEB_LDR_DATA.ahk" { PEB_LDR_DATA }
 
@@ -90,7 +91,7 @@ export default struct PEB {
     /**
      * Not supported.
      */
-    PostProcessInitRoutine : IntPtr
+    PostProcessInitRoutine : PPS_POST_PROCESS_INIT_ROUTINE
 
     Reserved11 : Int8[128]
 

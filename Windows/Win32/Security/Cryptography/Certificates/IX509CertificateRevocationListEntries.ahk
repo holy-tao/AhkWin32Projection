@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IX509CertificateRevocationListEntry.ahk" { IX509CertificateRevocationListEntry }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509CertificateRevocationListEntry.ahk" { IX509CertificateRevocationListEntry }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -66,7 +66,7 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
      * @returns {IX509CertificateRevocationListEntry} 
      */
     get_ItemByIndex(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Index, "ptr*", &pVal := 0, "HRESULT")
         return IX509CertificateRevocationListEntry(pVal)
     }
 
@@ -104,7 +104,7 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
      * @returns {HRESULT} 
      */
     Remove(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, Int32, Index, "HRESULT")
         return result
     }
 

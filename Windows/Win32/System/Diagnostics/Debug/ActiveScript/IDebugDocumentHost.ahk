@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -58,7 +58,7 @@ export default struct IDebugDocumentHost extends IUnknown {
         pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
         pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwTextStartCookie, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, "uint", cMaxChars, "HRESULT")
+        result := ComCall(3, this, UInt32, dwTextStartCookie, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, UInt32, cMaxChars, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IDebugDocumentHost extends IUnknown {
 
         pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
+        result := ComCall(4, this, "ptr", pstrCode, UInt32, uNumCodeChars, "ptr", pstrDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 

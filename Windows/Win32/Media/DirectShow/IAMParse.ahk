@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMParse interface sets and retrieves the parse time for an MPEG-2 stream.
@@ -89,7 +89,7 @@ export default struct IAMParse extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amparse/nf-amparse-iamparse-setparsetime
      */
     SetParseTime(rtCurrent) {
-        result := ComCall(4, this, "int64", rtCurrent, "HRESULT")
+        result := ComCall(4, this, Int64, rtCurrent, "HRESULT")
         return result
     }
 

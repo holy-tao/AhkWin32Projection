@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\X509PrivateKeyProtection.ahk" { X509PrivateKeyProtection }
-#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\ICspStatus.ahk" { ICspStatus }
 #Import ".\X509PrivateKeyExportFlags.ahk" { X509PrivateKeyExportFlags }
+#Import ".\ICspInformations.ahk" { ICspInformations }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\X509ProviderType.ahk" { X509ProviderType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\X509PrivateKeyVerify.ahk" { X509PrivateKeyVerify }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\X509PrivateKeyUsageFlags.ahk" { X509PrivateKeyUsageFlags }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IObjectId.ahk" { IObjectId }
-#Import ".\X509PrivateKeyVerify.ahk" { X509PrivateKeyVerify }
-#Import ".\ICspInformations.ahk" { ICspInformations }
-#Import ".\X509PrivateKeyUsageFlags.ahk" { X509PrivateKeyUsageFlags }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\X509ProviderType.ahk" { X509ProviderType }
 #Import ".\IX509PublicKey.ahk" { IX509PublicKey }
-#Import ".\ICspStatus.ahk" { ICspStatus }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\X509PrivateKeyProtection.ahk" { X509PrivateKeyProtection }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Represents an asymmetric private key that can be used for encryption, signing, and key agreement.
@@ -1148,7 +1148,7 @@ export default struct IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_length
      */
     put_Length(Value) {
-        result := ComCall(36, this, "int", Value, "HRESULT")
+        result := ComCall(36, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1426,7 +1426,7 @@ export default struct IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_parentwindow
      */
     put_ParentWindow(Value) {
-        result := ComCall(57, this, "int", Value, "HRESULT")
+        result := ComCall(57, this, Int32, Value, "HRESULT")
         return result
     }
 

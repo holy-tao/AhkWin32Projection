@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFByteStream.ahk" { IMFByteStream }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
 
 /**
  * Represents a buffer which contains media data for a IMFMediaSourceExtension.
@@ -90,7 +90,7 @@ export default struct IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-settimestampoffset
      */
     SetTimeStampOffset(offset) {
-        result := ComCall(6, this, "double", offset, "HRESULT")
+        result := ComCall(6, this, Float64, offset, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-setappendwindowstart
      */
     SetAppendWindowStart(time) {
-        result := ComCall(8, this, "double", time, "HRESULT")
+        result := ComCall(8, this, Float64, time, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-setappendwindowend
      */
     SetAppendWindowEnd(time) {
-        result := ComCall(10, this, "double", time, "HRESULT")
+        result := ComCall(10, this, Float64, time, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-append
      */
     Append(pData, len) {
-        result := ComCall(11, this, "ptr", pData, "uint", len, "HRESULT")
+        result := ComCall(11, this, IntPtr, pData, UInt32, len, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-remove
      */
     Remove(start, end) {
-        result := ComCall(14, this, "double", start, "double", end, "HRESULT")
+        result := ComCall(14, this, Float64, start, Float64, end, "HRESULT")
         return result
     }
 

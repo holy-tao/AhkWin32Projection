@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Do not use. Used to filter contact data, based on a label or property set. Enumerates contact properties exposed with an IContactProperties object. For each property, the name, type, version, and modification date can be retrieved.
@@ -179,7 +179,7 @@ export default struct IContactPropertyCollection extends IUnknown {
 
         pdwcchPropertyNameRequiredMarshal := pdwcchPropertyNameRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszPropertyName, "uint", cchPropertyName, pdwcchPropertyNameRequiredMarshal, pdwcchPropertyNameRequired, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPropertyName, UInt32, cchPropertyName, pdwcchPropertyNameRequiredMarshal, pdwcchPropertyNameRequired, "HRESULT")
         return result
     }
 
@@ -399,7 +399,7 @@ export default struct IContactPropertyCollection extends IUnknown {
 
         pdwcchArrayElementIDRequiredMarshal := pdwcchArrayElementIDRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pszArrayElementID, "uint", cchArrayElementID, pdwcchArrayElementIDRequiredMarshal, pdwcchArrayElementIDRequired, "HRESULT")
+        result := ComCall(9, this, "ptr", pszArrayElementID, UInt32, cchArrayElementID, pdwcchArrayElementIDRequiredMarshal, pdwcchArrayElementIDRequired, "HRESULT")
         return result
     }
 

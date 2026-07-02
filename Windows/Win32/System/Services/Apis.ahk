@@ -1,32 +1,35 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SERVICE_REGISTRY_STATE_TYPE.ahk" { SERVICE_REGISTRY_STATE_TYPE }
-#Import ".\PSC_NOTIFICATION_REGISTRATION.ahk" { PSC_NOTIFICATION_REGISTRATION }
-#Import ".\SERVICE_NOTIFY.ahk" { SERVICE_NOTIFY }
-#Import ".\SERVICE_TABLE_ENTRYA.ahk" { SERVICE_TABLE_ENTRYA }
-#Import ".\ENUM_SERVICE_STATE.ahk" { ENUM_SERVICE_STATE }
-#Import ".\SC_ENUM_TYPE.ahk" { SC_ENUM_TYPE }
-#Import ".\SC_EVENT_TYPE.ahk" { SC_EVENT_TYPE }
-#Import ".\SERVICE_NOTIFY_2W.ahk" { SERVICE_NOTIFY_2W }
-#Import ".\SERVICE_CONFIG.ahk" { SERVICE_CONFIG }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SERVICE_STATUS.ahk" { SERVICE_STATUS }
-#Import ".\SERVICE_DIRECTORY_TYPE.ahk" { SERVICE_DIRECTORY_TYPE }
-#Import ".\SC_STATUS_TYPE.ahk" { SC_STATUS_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Security\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
-#Import ".\SERVICE_STATUS_HANDLE.ahk" { SERVICE_STATUS_HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SERVICE_SHARED_DIRECTORY_TYPE.ahk" { SERVICE_SHARED_DIRECTORY_TYPE }
-#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\SERVICE_SHARED_REGISTRY_STATE_TYPE.ahk" { SERVICE_SHARED_REGISTRY_STATE_TYPE }
-#Import ".\SERVICE_START_TYPE.ahk" { SERVICE_START_TYPE }
+#Import ".\SC_STATUS_TYPE.ahk" { SC_STATUS_TYPE }
 #Import ".\SC_HANDLE.ahk" { SC_HANDLE }
-#Import ".\SERVICE_NOTIFY_2A.ahk" { SERVICE_NOTIFY_2A }
 #Import ".\SERVICE_TABLE_ENTRYW.ahk" { SERVICE_TABLE_ENTRYW }
-#Import ".\SERVICE_ERROR.ahk" { SERVICE_ERROR }
+#Import ".\SERVICE_TABLE_ENTRYA.ahk" { SERVICE_TABLE_ENTRYA }
 #Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import ".\SERVICE_SHARED_REGISTRY_STATE_TYPE.ahk" { SERVICE_SHARED_REGISTRY_STATE_TYPE }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SERVICE_DIRECTORY_TYPE.ahk" { SERVICE_DIRECTORY_TYPE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ENUM_SERVICE_STATE.ahk" { ENUM_SERVICE_STATE }
+#Import ".\SERVICE_NOTIFY.ahk" { SERVICE_NOTIFY }
+#Import ".\SERVICE_SHARED_DIRECTORY_TYPE.ahk" { SERVICE_SHARED_DIRECTORY_TYPE }
+#Import ".\LPHANDLER_FUNCTION.ahk" { LPHANDLER_FUNCTION }
+#Import ".\PSC_NOTIFICATION_REGISTRATION.ahk" { PSC_NOTIFICATION_REGISTRATION }
+#Import ".\SERVICE_STATUS_HANDLE.ahk" { SERVICE_STATUS_HANDLE }
+#Import ".\SERVICE_NOTIFY_2W.ahk" { SERVICE_NOTIFY_2W }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SC_EVENT_TYPE.ahk" { SC_EVENT_TYPE }
+#Import "..\..\Security\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
+#Import ".\SERVICE_CONFIG.ahk" { SERVICE_CONFIG }
+#Import ".\SC_ENUM_TYPE.ahk" { SC_ENUM_TYPE }
+#Import ".\SERVICE_ERROR.ahk" { SERVICE_ERROR }
+#Import ".\LPHANDLER_FUNCTION_EX.ahk" { LPHANDLER_FUNCTION_EX }
+#Import ".\SERVICE_REGISTRY_STATE_TYPE.ahk" { SERVICE_REGISTRY_STATE_TYPE }
+#Import ".\SERVICE_STATUS.ahk" { SERVICE_STATUS }
+#Import ".\PSC_NOTIFICATION_CALLBACK.ahk" { PSC_NOTIFICATION_CALLBACK }
+#Import ".\SERVICE_START_TYPE.ahk" { SERVICE_START_TYPE }
+#Import ".\SERVICE_NOTIFY_2A.ahk" { SERVICE_NOTIFY_2A }
 #Import "..\Registry\HKEY.ahk" { HKEY }
 
 /**
@@ -57,7 +60,7 @@
 export SetServiceBits(hServiceStatus, dwServiceBits, bSetBitsOn, bUpdateImmediately) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetServiceBits", SERVICE_STATUS_HANDLE, hServiceStatus, "uint", dwServiceBits, BOOL, bSetBitsOn, BOOL, bUpdateImmediately, BOOL)
+    result := DllCall("ADVAPI32.dll\SetServiceBits", SERVICE_STATUS_HANDLE, hServiceStatus, UInt32, dwServiceBits, BOOL, bSetBitsOn, BOOL, bUpdateImmediately, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1195,7 +1198,7 @@ export CloseServiceHandle(hSCObject) {
 export ControlService(hService, dwControl, lpServiceStatus) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ControlService", SC_HANDLE, hService, "uint", dwControl, SERVICE_STATUS.Ptr, lpServiceStatus, BOOL)
+    result := DllCall("ADVAPI32.dll\ControlService", SC_HANDLE, hService, UInt32, dwControl, SERVICE_STATUS.Ptr, lpServiceStatus, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1481,7 +1484,7 @@ export CreateServiceA(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess,
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateServiceA", SC_HANDLE, hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, ENUM_SERVICE_TYPE, dwServiceType, SERVICE_START_TYPE, dwStartType, SERVICE_ERROR, dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, lpdwTagIdMarshal, lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, SC_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\CreateServiceA", SC_HANDLE, hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, UInt32, dwDesiredAccess, ENUM_SERVICE_TYPE, dwServiceType, SERVICE_START_TYPE, dwStartType, SERVICE_ERROR, dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, lpdwTagIdMarshal, lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, SC_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1767,7 +1770,7 @@ export CreateServiceW(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess,
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateServiceW", SC_HANDLE, hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, ENUM_SERVICE_TYPE, dwServiceType, SERVICE_START_TYPE, dwStartType, SERVICE_ERROR, dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, lpdwTagIdMarshal, lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, SC_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\CreateServiceW", SC_HANDLE, hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, UInt32, dwDesiredAccess, ENUM_SERVICE_TYPE, dwServiceType, SERVICE_START_TYPE, dwStartType, SERVICE_ERROR, dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, lpdwTagIdMarshal, lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, SC_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1932,7 +1935,7 @@ export EnumDependentServicesA(hService, dwServiceState, lpServices, cbBufSize, p
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\EnumDependentServicesA", SC_HANDLE, hService, ENUM_SERVICE_STATE, dwServiceState, "ptr", lpServices, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, BOOL)
+    result := DllCall("ADVAPI32.dll\EnumDependentServicesA", SC_HANDLE, hService, ENUM_SERVICE_STATE, dwServiceState, IntPtr, lpServices, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2024,7 +2027,7 @@ export EnumDependentServicesW(hService, dwServiceState, lpServices, cbBufSize, p
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\EnumDependentServicesW", SC_HANDLE, hService, ENUM_SERVICE_STATE, dwServiceState, "ptr", lpServices, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, BOOL)
+    result := DllCall("ADVAPI32.dll\EnumDependentServicesW", SC_HANDLE, hService, ENUM_SERVICE_STATE, dwServiceState, IntPtr, lpServices, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2122,7 +2125,7 @@ export EnumServicesStatusA(hSCManager, dwServiceType, dwServiceState, lpServices
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\EnumServicesStatusA", SC_HANDLE, hSCManager, ENUM_SERVICE_TYPE, dwServiceType, ENUM_SERVICE_STATE, dwServiceState, "ptr", lpServices, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, lpResumeHandleMarshal, lpResumeHandle, BOOL)
+    result := DllCall("ADVAPI32.dll\EnumServicesStatusA", SC_HANDLE, hSCManager, ENUM_SERVICE_TYPE, dwServiceType, ENUM_SERVICE_STATE, dwServiceState, IntPtr, lpServices, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, lpResumeHandleMarshal, lpResumeHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2220,7 +2223,7 @@ export EnumServicesStatusW(hSCManager, dwServiceType, dwServiceState, lpServices
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\EnumServicesStatusW", SC_HANDLE, hSCManager, ENUM_SERVICE_TYPE, dwServiceType, ENUM_SERVICE_STATE, dwServiceState, "ptr", lpServices, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, lpResumeHandleMarshal, lpResumeHandle, BOOL)
+    result := DllCall("ADVAPI32.dll\EnumServicesStatusW", SC_HANDLE, hSCManager, ENUM_SERVICE_TYPE, dwServiceType, ENUM_SERVICE_STATE, dwServiceState, IntPtr, lpServices, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, lpResumeHandleMarshal, lpResumeHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2350,7 +2353,7 @@ export EnumServicesStatusExA(hSCManager, InfoLevel, dwServiceType, dwServiceStat
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\EnumServicesStatusExA", SC_HANDLE, hSCManager, SC_ENUM_TYPE, InfoLevel, ENUM_SERVICE_TYPE, dwServiceType, ENUM_SERVICE_STATE, dwServiceState, "ptr", lpServices, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, lpResumeHandleMarshal, lpResumeHandle, "ptr", pszGroupName, BOOL)
+    result := DllCall("ADVAPI32.dll\EnumServicesStatusExA", SC_HANDLE, hSCManager, SC_ENUM_TYPE, InfoLevel, ENUM_SERVICE_TYPE, dwServiceType, ENUM_SERVICE_STATE, dwServiceState, IntPtr, lpServices, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, lpResumeHandleMarshal, lpResumeHandle, "ptr", pszGroupName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2480,7 +2483,7 @@ export EnumServicesStatusExW(hSCManager, InfoLevel, dwServiceType, dwServiceStat
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\EnumServicesStatusExW", SC_HANDLE, hSCManager, SC_ENUM_TYPE, InfoLevel, ENUM_SERVICE_TYPE, dwServiceType, ENUM_SERVICE_STATE, dwServiceState, "ptr", lpServices, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, lpResumeHandleMarshal, lpResumeHandle, "ptr", pszGroupName, BOOL)
+    result := DllCall("ADVAPI32.dll\EnumServicesStatusExW", SC_HANDLE, hSCManager, SC_ENUM_TYPE, InfoLevel, ENUM_SERVICE_TYPE, dwServiceType, ENUM_SERVICE_STATE, dwServiceState, IntPtr, lpServices, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, lpServicesReturnedMarshal, lpServicesReturned, lpResumeHandleMarshal, lpResumeHandle, "ptr", pszGroupName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2887,7 +2890,7 @@ export OpenSCManagerA(lpMachineName, lpDatabaseName, dwDesiredAccess) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\OpenSCManagerA", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess, SC_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\OpenSCManagerA", "ptr", lpMachineName, "ptr", lpDatabaseName, UInt32, dwDesiredAccess, SC_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2965,7 +2968,7 @@ export OpenSCManagerW(lpMachineName, lpDatabaseName, dwDesiredAccess) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\OpenSCManagerW", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess, SC_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\OpenSCManagerW", "ptr", lpMachineName, "ptr", lpDatabaseName, UInt32, dwDesiredAccess, SC_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3058,7 +3061,7 @@ export OpenServiceA(hSCManager, lpServiceName, dwDesiredAccess) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\OpenServiceA", SC_HANDLE, hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess, SC_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\OpenServiceA", SC_HANDLE, hSCManager, "ptr", lpServiceName, UInt32, dwDesiredAccess, SC_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3151,7 +3154,7 @@ export OpenServiceW(hSCManager, lpServiceName, dwDesiredAccess) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\OpenServiceW", SC_HANDLE, hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess, SC_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\OpenServiceW", SC_HANDLE, hSCManager, "ptr", lpServiceName, UInt32, dwDesiredAccess, SC_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3234,7 +3237,7 @@ export QueryServiceConfigA(hService, lpServiceConfig, cbBufSize, pcbBytesNeeded)
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\QueryServiceConfigA", SC_HANDLE, hService, "ptr", lpServiceConfig, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\QueryServiceConfigA", SC_HANDLE, hService, IntPtr, lpServiceConfig, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3317,7 +3320,7 @@ export QueryServiceConfigW(hService, lpServiceConfig, cbBufSize, pcbBytesNeeded)
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\QueryServiceConfigW", SC_HANDLE, hService, "ptr", lpServiceConfig, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\QueryServiceConfigW", SC_HANDLE, hService, IntPtr, lpServiceConfig, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3399,7 +3402,7 @@ export QueryServiceConfig2A(hService, dwInfoLevel, lpBuffer, cbBufSize, pcbBytes
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\QueryServiceConfig2A", SC_HANDLE, hService, SERVICE_CONFIG, dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\QueryServiceConfig2A", SC_HANDLE, hService, SERVICE_CONFIG, dwInfoLevel, IntPtr, lpBuffer, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3481,7 +3484,7 @@ export QueryServiceConfig2W(hService, dwInfoLevel, lpBuffer, cbBufSize, pcbBytes
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\QueryServiceConfig2W", SC_HANDLE, hService, SERVICE_CONFIG, dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\QueryServiceConfig2W", SC_HANDLE, hService, SERVICE_CONFIG, dwInfoLevel, IntPtr, lpBuffer, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3567,7 +3570,7 @@ export QueryServiceLockStatusA(hSCManager, lpLockStatus, cbBufSize, pcbBytesNeed
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\QueryServiceLockStatusA", SC_HANDLE, hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\QueryServiceLockStatusA", SC_HANDLE, hSCManager, IntPtr, lpLockStatus, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3653,7 +3656,7 @@ export QueryServiceLockStatusW(hSCManager, lpLockStatus, cbBufSize, pcbBytesNeed
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\QueryServiceLockStatusW", SC_HANDLE, hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\QueryServiceLockStatusW", SC_HANDLE, hSCManager, IntPtr, lpLockStatus, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3747,7 +3750,7 @@ export QueryServiceObjectSecurity(hService, dwSecurityInformation, lpSecurityDes
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\QueryServiceObjectSecurity", SC_HANDLE, hService, "uint", dwSecurityInformation, "ptr", lpSecurityDescriptor, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\QueryServiceObjectSecurity", SC_HANDLE, hService, UInt32, dwSecurityInformation, IntPtr, lpSecurityDescriptor, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3926,7 +3929,7 @@ export QueryServiceStatusEx(hService, InfoLevel, lpBuffer, cbBufSize, pcbBytesNe
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\QueryServiceStatusEx", SC_HANDLE, hService, SC_STATUS_TYPE, InfoLevel, "ptr", lpBuffer, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\QueryServiceStatusEx", SC_HANDLE, hService, SC_STATUS_TYPE, InfoLevel, IntPtr, lpBuffer, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4004,7 +4007,7 @@ export RegisterServiceCtrlHandlerA(lpServiceName, lpHandlerProc) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, "ptr", lpHandlerProc, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, LPHANDLER_FUNCTION, lpHandlerProc, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4082,7 +4085,7 @@ export RegisterServiceCtrlHandlerW(lpServiceName, lpHandlerProc) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, "ptr", lpHandlerProc, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, LPHANDLER_FUNCTION, lpHandlerProc, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4165,7 +4168,7 @@ export RegisterServiceCtrlHandlerExA(lpServiceName, lpHandlerProc, lpContext) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, "ptr", lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, LPHANDLER_FUNCTION_EX, lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4248,7 +4251,7 @@ export RegisterServiceCtrlHandlerExW(lpServiceName, lpHandlerProc, lpContext) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, "ptr", lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
+    result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, LPHANDLER_FUNCTION_EX, lpHandlerProc, lpContextMarshal, lpContext, SERVICE_STATUS_HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4805,7 +4808,7 @@ export StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\StartServiceA", SC_HANDLE, hService, "uint", dwNumServiceArgs, lpServiceArgVectorsMarshal, lpServiceArgVectors, BOOL)
+    result := DllCall("ADVAPI32.dll\StartServiceA", SC_HANDLE, hService, UInt32, dwNumServiceArgs, lpServiceArgVectorsMarshal, lpServiceArgVectors, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5004,7 +5007,7 @@ export StartServiceW(hService, dwNumServiceArgs, lpServiceArgVectors) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\StartServiceW", SC_HANDLE, hService, "uint", dwNumServiceArgs, lpServiceArgVectorsMarshal, lpServiceArgVectors, BOOL)
+    result := DllCall("ADVAPI32.dll\StartServiceW", SC_HANDLE, hService, UInt32, dwNumServiceArgs, lpServiceArgVectorsMarshal, lpServiceArgVectors, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5498,7 +5501,7 @@ export ControlServiceExA(hService, dwControl, dwInfoLevel, pControlParams) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ControlServiceExA", SC_HANDLE, hService, "uint", dwControl, "uint", dwInfoLevel, pControlParamsMarshal, pControlParams, BOOL)
+    result := DllCall("ADVAPI32.dll\ControlServiceExA", SC_HANDLE, hService, UInt32, dwControl, UInt32, dwInfoLevel, pControlParamsMarshal, pControlParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5854,7 +5857,7 @@ export ControlServiceExW(hService, dwControl, dwInfoLevel, pControlParams) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ControlServiceExW", SC_HANDLE, hService, "uint", dwControl, "uint", dwInfoLevel, pControlParamsMarshal, pControlParams, BOOL)
+    result := DllCall("ADVAPI32.dll\ControlServiceExW", SC_HANDLE, hService, UInt32, dwControl, UInt32, dwInfoLevel, pControlParamsMarshal, pControlParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5895,7 +5898,7 @@ export QueryServiceDynamicInformation(hServiceStatus, dwInfoLevel, ppDynamicInfo
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\QueryServiceDynamicInformation", SERVICE_STATUS_HANDLE, hServiceStatus, "uint", dwInfoLevel, ppDynamicInfoMarshal, ppDynamicInfo, BOOL)
+    result := DllCall("ADVAPI32.dll\QueryServiceDynamicInformation", SERVICE_STATUS_HANDLE, hServiceStatus, UInt32, dwInfoLevel, ppDynamicInfoMarshal, ppDynamicInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5946,7 +5949,7 @@ export SubscribeServiceChangeNotifications(hService, eEventType, pCallback, pCal
     pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : "ptr"
     pSubscriptionMarshal := pSubscription is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", SC_HANDLE, hService, SC_EVENT_TYPE, eEventType, "ptr", pCallback, pCallbackContextMarshal, pCallbackContext, pSubscriptionMarshal, pSubscription, UInt32)
+    result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", SC_HANDLE, hService, SC_EVENT_TYPE, eEventType, PSC_NOTIFICATION_CALLBACK, pCallback, pCallbackContextMarshal, pCallbackContext, pSubscriptionMarshal, pSubscription, UInt32)
     return result
 }
 
@@ -5971,7 +5974,7 @@ export UnsubscribeServiceChangeNotifications(pSubscription) {
  * @returns {Integer} 
  */
 export WaitServiceState(hService, dwNotify, dwTimeout, hCancelEvent) {
-    result := DllCall("ADVAPI32.dll\WaitServiceState", SC_HANDLE, hService, "uint", dwNotify, "uint", dwTimeout, HANDLE, hCancelEvent, UInt32)
+    result := DllCall("ADVAPI32.dll\WaitServiceState", SC_HANDLE, hService, UInt32, dwNotify, UInt32, dwTimeout, HANDLE, hCancelEvent, UInt32)
     return result
 }
 
@@ -5993,7 +5996,7 @@ export WaitServiceState(hService, dwNotify, dwTimeout, hCancelEvent) {
  * @since windows10.0.19041
  */
 export GetServiceRegistryStateKey(ServiceStatusHandle, StateType, AccessMask, ServiceStateKey) {
-    result := DllCall("api-ms-win-service-core-l1-1-3.dll\GetServiceRegistryStateKey", SERVICE_STATUS_HANDLE, ServiceStatusHandle, SERVICE_REGISTRY_STATE_TYPE, StateType, "uint", AccessMask, HKEY.Ptr, ServiceStateKey, UInt32)
+    result := DllCall("api-ms-win-service-core-l1-1-3.dll\GetServiceRegistryStateKey", SERVICE_STATUS_HANDLE, ServiceStatusHandle, SERVICE_REGISTRY_STATE_TYPE, StateType, UInt32, AccessMask, HKEY.Ptr, ServiceStateKey, UInt32)
     return result
 }
 
@@ -6019,7 +6022,7 @@ export GetServiceDirectory(hServiceStatus, eDirectoryType, lpPathBuffer, cchPath
 
     lpcchRequiredBufferLengthMarshal := lpcchRequiredBufferLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-service-core-l1-1-4.dll\GetServiceDirectory", SERVICE_STATUS_HANDLE, hServiceStatus, SERVICE_DIRECTORY_TYPE, eDirectoryType, "ptr", lpPathBuffer, "uint", cchPathBufferLength, lpcchRequiredBufferLengthMarshal, lpcchRequiredBufferLength, UInt32)
+    result := DllCall("api-ms-win-service-core-l1-1-4.dll\GetServiceDirectory", SERVICE_STATUS_HANDLE, hServiceStatus, SERVICE_DIRECTORY_TYPE, eDirectoryType, "ptr", lpPathBuffer, UInt32, cchPathBufferLength, lpcchRequiredBufferLengthMarshal, lpcchRequiredBufferLength, UInt32)
     return result
 }
 
@@ -6040,7 +6043,7 @@ export GetServiceDirectory(hServiceStatus, eDirectoryType, lpPathBuffer, cchPath
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getsharedserviceregistrystatekey
  */
 export GetSharedServiceRegistryStateKey(ServiceHandle, StateType, AccessMask, ServiceStateKey) {
-    result := DllCall("api-ms-win-service-core-l1-1-5.dll\GetSharedServiceRegistryStateKey", SC_HANDLE, ServiceHandle, SERVICE_SHARED_REGISTRY_STATE_TYPE, StateType, "uint", AccessMask, HKEY.Ptr, ServiceStateKey, UInt32)
+    result := DllCall("api-ms-win-service-core-l1-1-5.dll\GetSharedServiceRegistryStateKey", SC_HANDLE, ServiceHandle, SERVICE_SHARED_REGISTRY_STATE_TYPE, StateType, UInt32, AccessMask, HKEY.Ptr, ServiceStateKey, UInt32)
     return result
 }
 
@@ -6065,7 +6068,7 @@ export GetSharedServiceDirectory(ServiceHandle, DirectoryType, PathBuffer, PathB
 
     RequiredBufferLengthMarshal := RequiredBufferLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-service-core-l1-1-5.dll\GetSharedServiceDirectory", SC_HANDLE, ServiceHandle, SERVICE_SHARED_DIRECTORY_TYPE, DirectoryType, "ptr", PathBuffer, "uint", PathBufferLength, RequiredBufferLengthMarshal, RequiredBufferLength, UInt32)
+    result := DllCall("api-ms-win-service-core-l1-1-5.dll\GetSharedServiceDirectory", SC_HANDLE, ServiceHandle, SERVICE_SHARED_DIRECTORY_TYPE, DirectoryType, "ptr", PathBuffer, UInt32, PathBufferLength, RequiredBufferLengthMarshal, RequiredBufferLength, UInt32)
     return result
 }
 

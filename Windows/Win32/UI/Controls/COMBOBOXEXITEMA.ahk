@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\COMBOBOX_EX_ITEM_FLAGS.ahk" { COMBOBOX_EX_ITEM_FLAGS }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about an item in a ComboBoxEx control. (ANSI)

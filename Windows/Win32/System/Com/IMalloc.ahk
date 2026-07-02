@@ -54,7 +54,7 @@ export default struct IMalloc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imalloc-alloc
      */
     Alloc(cb) {
-        result := ComCall(3, this, "ptr", cb, IntPtr)
+        result := ComCall(3, this, IntPtr, cb, IntPtr)
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct IMalloc extends IUnknown {
     Realloc(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, pvMarshal, pv, "ptr", cb, IntPtr)
+        result := ComCall(4, this, pvMarshal, pv, IntPtr, cb, IntPtr)
         return result
     }
 

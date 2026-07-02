@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ICreatePropBagOnRegKey interface creates a property bag that can store information in the system registry.Use this interface to store the default tune request in the registry.
@@ -94,7 +94,7 @@ export default struct ICreatePropBagOnRegKey extends IUnknown {
     Create(_hkey, subkey, ulOptions, samDesired, iid) {
         subkey := subkey is String ? StrPtr(subkey) : subkey
 
-        result := ComCall(3, this, HKEY, _hkey, "ptr", subkey, "uint", ulOptions, "uint", samDesired, Guid.Ptr, iid, "ptr*", &ppBag := 0, "HRESULT")
+        result := ComCall(3, this, HKEY, _hkey, "ptr", subkey, UInt32, ulOptions, UInt32, samDesired, Guid.Ptr, iid, "ptr*", &ppBag := 0, "HRESULT")
         return ppBag
     }
 

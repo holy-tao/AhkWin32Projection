@@ -64,7 +64,7 @@ export default struct IWSCProductList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproductlist-initialize
      */
     Initialize(provider) {
-        result := ComCall(7, this, "uint", provider, "HRESULT")
+        result := ComCall(7, this, UInt32, provider, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IWSCProductList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproductlist-get_item
      */
     get_Item(index) {
-        result := ComCall(9, this, "uint", index, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, index, "ptr*", &pVal := 0, "HRESULT")
         return IWscProduct(pVal)
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_USAGE.ahk" { D3D11_USAGE }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D11_USAGE.ahk" { D3D11_USAGE }
 
 /**
  * Describes a 3D texture. (D3D11_TEXTURE3D_DESC)

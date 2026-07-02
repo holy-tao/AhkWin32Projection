@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMSVidOutputDevice.ahk" { IMSVidOutputDevice }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMSVidAudioRenderer interface represents an audio renderer device. It enables applications to control the volume and balance. To retrieve the audio renderer device that is currently active, call the IMSVidCtl::get_AudioRendererActive method.
@@ -73,7 +73,7 @@ export default struct IMSVidAudioRenderer extends IMSVidOutputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-put_volume
      */
     put_Volume(lVol) {
-        result := ComCall(16, this, "int", lVol, "HRESULT")
+        result := ComCall(16, this, Int32, lVol, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct IMSVidAudioRenderer extends IMSVidOutputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-put_balance
      */
     put_Balance(lBal) {
-        result := ComCall(18, this, "int", lBal, "HRESULT")
+        result := ComCall(18, this, Int32, lBal, "HRESULT")
         return result
     }
 

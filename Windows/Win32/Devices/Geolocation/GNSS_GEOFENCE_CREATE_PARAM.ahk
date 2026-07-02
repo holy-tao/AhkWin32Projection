@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GNSS_GEOREGION.ahk" { GNSS_GEOREGION }
-#Import ".\GNSS_GEOFENCE_STATE.ahk" { GNSS_GEOFENCE_STATE }
-#Import ".\GNSS_GEOREGIONTYPE.ahk" { GNSS_GEOREGIONTYPE }
 #Import ".\GNSS_GEOREGION_CIRCLE.ahk" { GNSS_GEOREGION_CIRCLE }
+#Import ".\GNSS_GEOFENCE_STATE.ahk" { GNSS_GEOFENCE_STATE }
+#Import ".\GNSS_GEOREGION.ahk" { GNSS_GEOREGION }
+#Import ".\GNSS_GEOREGIONTYPE.ahk" { GNSS_GEOREGIONTYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IToc.ahk" { IToc }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IToc.ahk" { IToc }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITocCollection represents a collection of tables of contents. It provides methods for adding, retrieving, and removing, tables of contents from the collection.
@@ -84,7 +84,7 @@ export default struct ITocCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoccollection-getentrybyindex
      */
     GetEntryByIndex(dwEntryIndex) {
-        result := ComCall(4, this, "uint", dwEntryIndex, "ptr*", &ppToc := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwEntryIndex, "ptr*", &ppToc := 0, "HRESULT")
         return IToc(ppToc)
     }
 
@@ -150,7 +150,7 @@ export default struct ITocCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoccollection-addentrybyindex
      */
     AddEntryByIndex(dwEntryIndex, pToc) {
-        result := ComCall(6, this, "uint", dwEntryIndex, "ptr", pToc, "HRESULT")
+        result := ComCall(6, this, UInt32, dwEntryIndex, "ptr", pToc, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ export default struct ITocCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoccollection-removeentrybyindex
      */
     RemoveEntryByIndex(dwEntryIndex) {
-        result := ComCall(7, this, "uint", dwEntryIndex, "HRESULT")
+        result := ComCall(7, this, UInt32, dwEntryIndex, "HRESULT")
         return result
     }
 

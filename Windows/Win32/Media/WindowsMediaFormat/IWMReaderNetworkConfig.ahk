@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WM_PORT_NUMBER_RANGE.ahk" { WM_PORT_NUMBER_RANGE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WM_PORT_NUMBER_RANGE.ahk" { WM_PORT_NUMBER_RANGE }
 #Import ".\WMT_PROXY_SETTINGS.ahk" { WMT_PROXY_SETTINGS }
 
 /**
@@ -123,7 +123,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setbufferingtime
      */
     SetBufferingTime(cnsBufferingTime) {
-        result := ComCall(4, this, "uint", cnsBufferingTime, "HRESULT")
+        result := ComCall(4, this, Int64, cnsBufferingTime, "HRESULT")
         return result
     }
 
@@ -182,7 +182,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setudpportranges
      */
     SetUDPPortRanges(pRangeArray, cRanges) {
-        result := ComCall(6, this, WM_PORT_NUMBER_RANGE.Ptr, pRangeArray, "uint", cRanges, "HRESULT")
+        result := ComCall(6, this, WM_PORT_NUMBER_RANGE.Ptr, pRangeArray, UInt32, cRanges, "HRESULT")
         return result
     }
 
@@ -406,7 +406,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
     SetProxyPort(pwszProtocol, dwPort) {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
 
-        result := ComCall(12, this, "ptr", pwszProtocol, "uint", dwPort, "HRESULT")
+        result := ComCall(12, this, "ptr", pwszProtocol, UInt32, dwPort, "HRESULT")
         return result
     }
 
@@ -914,7 +914,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setconnectionbandwidth
      */
     SetConnectionBandwidth(dwConnectionBandwidth) {
-        result := ComCall(29, this, "uint", dwConnectionBandwidth, "HRESULT")
+        result := ComCall(29, this, UInt32, dwConnectionBandwidth, "HRESULT")
         return result
     }
 
@@ -983,7 +983,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
 
         pcchProtocolNameMarshal := pcchProtocolName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "uint", dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "HRESULT")
+        result := ComCall(31, this, UInt32, dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "HRESULT")
         return result
     }
 
@@ -1097,7 +1097,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
 
         pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(33, this, "uint", dwIndex, "ptr", pwszUrl, pcchUrlMarshal, pcchUrl, "HRESULT")
+        result := ComCall(33, this, UInt32, dwIndex, "ptr", pwszUrl, pcchUrlMarshal, pcchUrl, "HRESULT")
         return result
     }
 

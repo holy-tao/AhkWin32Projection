@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
 #Import ".\IEnumTfLanguageProfiles.ahk" { IEnumTfLanguageProfiles }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ITfInputProcessorProfiles interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
@@ -201,7 +201,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
         pchIconFile := pchIconFile is String ? StrPtr(pchIconFile) : pchIconFile
 
-        result := ComCall(5, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, "ptr", pchDesc, UInt32, cchDesc, "ptr", pchIconFile, UInt32, cchFile, UInt32, uIconIndex, "HRESULT")
         return result
     }
 
@@ -243,7 +243,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-removelanguageprofile
      */
     RemoveLanguageProfile(rclsid, langid, guidProfile) {
-        result := ComCall(6, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, "HRESULT")
         return result
     }
 
@@ -318,7 +318,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getdefaultlanguageprofile
      */
     GetDefaultLanguageProfile(langid, catid, pclsid, pguidProfile) {
-        result := ComCall(8, this, "ushort", langid, Guid.Ptr, catid, Guid.Ptr, pclsid, Guid.Ptr, pguidProfile, "HRESULT")
+        result := ComCall(8, this, UInt16, langid, Guid.Ptr, catid, Guid.Ptr, pclsid, Guid.Ptr, pguidProfile, "HRESULT")
         return result
     }
 
@@ -371,7 +371,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-setdefaultlanguageprofile
      */
     SetDefaultLanguageProfile(langid, rclsid, guidProfiles) {
-        result := ComCall(9, this, "ushort", langid, Guid.Ptr, rclsid, Guid.Ptr, guidProfiles, "HRESULT")
+        result := ComCall(9, this, UInt16, langid, Guid.Ptr, rclsid, Guid.Ptr, guidProfiles, "HRESULT")
         return result
     }
 
@@ -446,7 +446,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-activatelanguageprofile
      */
     ActivateLanguageProfile(rclsid, langid, guidProfiles) {
-        result := ComCall(10, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfiles, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfiles, "HRESULT")
         return result
     }
 
@@ -537,7 +537,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      */
     GetLanguageProfileDescription(rclsid, langid, guidProfile) {
         pbstrProfile := BSTR.Owned()
-        result := ComCall(12, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, BSTR.Ptr, pbstrProfile, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, BSTR.Ptr, pbstrProfile, "HRESULT")
         return pbstrProfile
     }
 
@@ -620,7 +620,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-changecurrentlanguage
      */
     ChangeCurrentLanguage(langid) {
-        result := ComCall(14, this, "ushort", langid, "HRESULT")
+        result := ComCall(14, this, UInt16, langid, "HRESULT")
         return result
     }
 
@@ -697,7 +697,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-enumlanguageprofiles
      */
     EnumLanguageProfiles(langid) {
-        result := ComCall(16, this, "ushort", langid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(16, this, UInt16, langid, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumTfLanguageProfiles(ppEnum)
     }
 
@@ -740,7 +740,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-enablelanguageprofile
      */
     EnableLanguageProfile(rclsid, langid, guidProfile, fEnable) {
-        result := ComCall(17, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, BOOL, fEnable, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -753,7 +753,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-isenabledlanguageprofile
      */
     IsEnabledLanguageProfile(rclsid, langid, guidProfile) {
-        result := ComCall(18, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, BOOL.Ptr, &pfEnable := 0, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, BOOL.Ptr, &pfEnable := 0, "HRESULT")
         return pfEnable
     }
 
@@ -796,7 +796,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-enablelanguageprofilebydefault
      */
     EnableLanguageProfileByDefault(rclsid, langid, guidProfile, fEnable) {
-        result := ComCall(19, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, BOOL, fEnable, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -839,7 +839,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-substitutekeyboardlayout
      */
     SubstituteKeyboardLayout(rclsid, langid, guidProfile, _hKL) {
-        result := ComCall(20, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, HKL, _hKL, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, HKL, _hKL, "HRESULT")
         return result
     }
 

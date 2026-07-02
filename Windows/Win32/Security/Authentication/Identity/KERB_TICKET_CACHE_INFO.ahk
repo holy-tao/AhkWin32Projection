@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\KERB_TICKET_FLAGS.ahk" { KERB_TICKET_FLAGS }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about a cached Kerberos ticket. The Kerberos ticket is defined in Internet RFC 4120. For more information, see http://www.ietf.org.

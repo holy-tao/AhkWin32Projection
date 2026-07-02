@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_LUN_PROP.ahk" { VDS_LUN_PROP }
-#Import ".\VDS_HINTS.ahk" { VDS_HINTS }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import ".\VDS_LUN_STATUS.ahk" { VDS_LUN_STATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
 #Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_HINTS.ahk" { VDS_HINTS }
+#Import ".\VDS_LUN_PROP.ahk" { VDS_LUN_PROP }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\VDS_LUN_STATUS.ahk" { VDS_LUN_STATUS }
 
 /**
  * The IVdsLun interface (vdshwprv.h) provides methods for performing query and configuration operations on a logical unit number (LUN).
@@ -156,7 +156,7 @@ export default struct IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-extend
      */
     Extend(ullNumberOfBytesToAdd, pDriveIdArray, lNumberOfDrives) {
-        result := ComCall(7, this, "uint", ullNumberOfBytesToAdd, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(7, this, Int64, ullNumberOfBytesToAdd, Guid.Ptr, pDriveIdArray, Int32, lNumberOfDrives, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -176,7 +176,7 @@ export default struct IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-shrink
      */
     Shrink(ullNumberOfBytesToRemove) {
-        result := ComCall(8, this, "uint", ullNumberOfBytesToRemove, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(8, this, Int64, ullNumberOfBytesToRemove, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -621,7 +621,7 @@ export default struct IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-associatecontrollers
      */
     AssociateControllers(pActiveControllerIdArray, lNumberOfActiveControllers, pInactiveControllerIdArray, lNumberOfInactiveControllers) {
-        result := ComCall(15, this, Guid.Ptr, pActiveControllerIdArray, "int", lNumberOfActiveControllers, Guid.Ptr, pInactiveControllerIdArray, "int", lNumberOfInactiveControllers, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, pActiveControllerIdArray, Int32, lNumberOfActiveControllers, Guid.Ptr, pInactiveControllerIdArray, Int32, lNumberOfInactiveControllers, "HRESULT")
         return result
     }
 
@@ -819,7 +819,7 @@ export default struct IVdsLun extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun-querymaxlunextendsize
      */
     QueryMaxLunExtendSize(pDriveIdArray, lNumberOfDrives) {
-        result := ComCall(19, this, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, "uint*", &pullMaxBytesToBeAdded := 0, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, pDriveIdArray, Int32, lNumberOfDrives, "uint*", &pullMaxBytesToBeAdded := 0, "HRESULT")
         return pullMaxBytesToBeAdded
     }
 

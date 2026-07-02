@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDWriteFontFileStream.ahk" { IDWriteFontFileStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Handles loading font file resources of a particular type from a font file reference key into a font file stream object.
@@ -57,7 +57,7 @@ export default struct IDWriteFontFileLoader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfileloader-createstreamfromkey
      */
     CreateStreamFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
-        result := ComCall(3, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, fontFileReferenceKey, UInt32, fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "HRESULT")
         return IDWriteFontFileStream(fontFileStream)
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFByteStreamCacheControl.ahk" { IMFByteStreamCacheControl }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\MF_BYTE_STREAM_CACHE_RANGE.ahk" { MF_BYTE_STREAM_CACHE_RANGE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFByteStreamCacheControl.ahk" { IMFByteStreamCacheControl }
 
 /**
  * Controls how a network byte stream transfers data to a local cache. (IMFByteStreamCacheControl2)
@@ -65,7 +65,7 @@ export default struct IMFByteStreamCacheControl2 extends IMFByteStreamCacheContr
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamcachecontrol2-setcachelimit
      */
     SetCacheLimit(qwBytes) {
-        result := ComCall(5, this, "uint", qwBytes, "HRESULT")
+        result := ComCall(5, this, Int64, qwBytes, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DRM_VAL16.ahk" { DRM_VAL16 }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DRM_VAL16.ahk" { DRM_VAL16 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMDRMMessageParser interface parses pertinent information from messages received from a device.An IWMDRMMessageParser interface exists for every device registration object.
@@ -88,7 +88,7 @@ export default struct IWMDRMMessageParser extends IUnknown {
     ParseRegistrationReqMsg(pbRegistrationReqMsg, cbRegistrationReqMsg, ppDeviceCert, pDeviceSerialNumber) {
         pbRegistrationReqMsgMarshal := pbRegistrationReqMsg is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pbRegistrationReqMsgMarshal, pbRegistrationReqMsg, "uint", cbRegistrationReqMsg, INSSBuffer.Ptr, ppDeviceCert, DRM_VAL16.Ptr, pDeviceSerialNumber, "HRESULT")
+        result := ComCall(3, this, pbRegistrationReqMsgMarshal, pbRegistrationReqMsg, UInt32, cbRegistrationReqMsg, INSSBuffer.Ptr, ppDeviceCert, DRM_VAL16.Ptr, pDeviceSerialNumber, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IWMDRMMessageParser extends IUnknown {
     ParseLicenseRequestMsg(pbLicenseRequestMsg, cbLicenseRequestMsg, ppDeviceCert, pDeviceSerialNumber, pbstrAction) {
         pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, "uint", cbLicenseRequestMsg, INSSBuffer.Ptr, ppDeviceCert, DRM_VAL16.Ptr, pDeviceSerialNumber, BSTR.Ptr, pbstrAction, "HRESULT")
+        result := ComCall(4, this, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, UInt32, cbLicenseRequestMsg, INSSBuffer.Ptr, ppDeviceCert, DRM_VAL16.Ptr, pDeviceSerialNumber, BSTR.Ptr, pbstrAction, "HRESULT")
         return result
     }
 

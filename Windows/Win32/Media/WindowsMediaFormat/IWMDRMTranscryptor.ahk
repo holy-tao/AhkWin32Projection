@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
-#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMDRMTranscryptor interface transforms a DRM-protected ASF file into a secure data stream conforming to the Windows Media DRM 10 for Network Devices protocol.
@@ -65,7 +65,7 @@ export default struct IWMDRMTranscryptor extends IUnknown {
         pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, BSTR, bstrFileName, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, "uint", cbLicenseRequestMsg, "ptr*", &ppLicenseResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrFileName, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, UInt32, cbLicenseRequestMsg, "ptr*", &ppLicenseResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppLicenseResponseMsg)
     }
 
@@ -113,7 +113,7 @@ export default struct IWMDRMTranscryptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-seek
      */
     Seek(hnsTime) {
-        result := ComCall(4, this, "uint", hnsTime, "HRESULT")
+        result := ComCall(4, this, Int64, hnsTime, "HRESULT")
         return result
     }
 

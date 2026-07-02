@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHAL_FLIPTOGDISURFACE.ahk" { LPDDHAL_FLIPTOGDISURFACE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -16,6 +17,6 @@ export default struct DDHAL_FLIPTOGDISURFACEDATA {
 
     ddRVal : HRESULT
 
-    FlipToGDISurface : IntPtr
+    FlipToGDISurface : LPDDHAL_FLIPTOGDISURFACE
 
 }

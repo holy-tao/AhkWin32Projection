@@ -61,7 +61,7 @@ export default struct IADsSyntax extends IADs {
      * @returns {HRESULT} 
      */
     put_OleAutoDataType(lnOleAutoDataType) {
-        result := ComCall(21, this, "int", lnOleAutoDataType, "HRESULT")
+        result := ComCall(21, this, Int32, lnOleAutoDataType, "HRESULT")
         return result
     }
 

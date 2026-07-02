@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
-#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
+#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
 #Import ".\IMFByteStream.ahk" { IMFByteStream }
 
 /**
@@ -100,7 +100,7 @@ export default struct IMFCaptureRecordSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturerecordsink-setsamplecallback
      */
     SetSampleCallback(dwStreamSinkIndex, pCallback) {
-        result := ComCall(10, this, "uint", dwStreamSinkIndex, "ptr", pCallback, "HRESULT")
+        result := ComCall(10, this, UInt32, dwStreamSinkIndex, "ptr", pCallback, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct IMFCaptureRecordSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturerecordsink-getrotation
      */
     GetRotation(dwStreamIndex) {
-        result := ComCall(12, this, "uint", dwStreamIndex, "uint*", &pdwRotationValue := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwStreamIndex, "uint*", &pdwRotationValue := 0, "HRESULT")
         return pdwRotationValue
     }
 
@@ -136,7 +136,7 @@ export default struct IMFCaptureRecordSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturerecordsink-setrotation
      */
     SetRotation(dwStreamIndex, dwRotationValue) {
-        result := ComCall(13, this, "uint", dwStreamIndex, "uint", dwRotationValue, "HRESULT")
+        result := ComCall(13, this, UInt32, dwStreamIndex, UInt32, dwRotationValue, "HRESULT")
         return result
     }
 

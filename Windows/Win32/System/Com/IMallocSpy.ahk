@@ -63,7 +63,7 @@ export default struct IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-prealloc
      */
     PreAlloc(cbRequest) {
-        result := ComCall(3, this, "ptr", cbRequest, IntPtr)
+        result := ComCall(3, this, IntPtr, cbRequest, IntPtr)
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IMallocSpy extends IUnknown {
         pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
         ppNewRequestMarshal := ppNewRequest is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, pRequestMarshal, pRequest, "ptr", cbRequest, ppNewRequestMarshal, ppNewRequest, BOOL, fSpyed, IntPtr)
+        result := ComCall(7, this, pRequestMarshal, pRequest, IntPtr, cbRequest, ppNewRequestMarshal, ppNewRequest, BOOL, fSpyed, IntPtr)
         return result
     }
 
@@ -178,7 +178,7 @@ export default struct IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-postgetsize
      */
     PostGetSize(cbActual, fSpyed) {
-        result := ComCall(10, this, "ptr", cbActual, BOOL, fSpyed, IntPtr)
+        result := ComCall(10, this, IntPtr, cbActual, BOOL, fSpyed, IntPtr)
         return result
     }
 
@@ -213,7 +213,7 @@ export default struct IMallocSpy extends IUnknown {
     PostDidAlloc(pRequest, fSpyed, fActual) {
         pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, pRequestMarshal, pRequest, BOOL, fSpyed, "int", fActual, Int32)
+        result := ComCall(12, this, pRequestMarshal, pRequest, BOOL, fSpyed, Int32, fActual, Int32)
         return result
     }
 

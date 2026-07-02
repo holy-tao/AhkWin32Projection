@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DDVIDEOPORTBANDWIDTH.ahk" { DDVIDEOPORTBANDWIDTH }
-#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDCOLORCONTROL.ahk" { DDCOLORCONTROL }
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DDVIDEOPORTINFO.ahk" { DDVIDEOPORTINFO }
+#Import ".\DDCOLORCONTROL.ahk" { DDCOLORCONTROL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -61,7 +61,7 @@ export default struct IDirectDrawVideoPort extends IUnknown {
      * @returns {HRESULT} 
      */
     Flip(param0, param1) {
-        result := ComCall(3, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(3, this, "ptr", param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct IDirectDrawVideoPort extends IUnknown {
      * @returns {HRESULT} 
      */
     GetBandwidthInfo(param0, param1, param2, param3, param4) {
-        result := ComCall(4, this, DDPIXELFORMAT.Ptr, param0, "uint", param1, "uint", param2, "uint", param3, DDVIDEOPORTBANDWIDTH.Ptr, param4, "HRESULT")
+        result := ComCall(4, this, DDPIXELFORMAT.Ptr, param0, UInt32, param1, UInt32, param2, UInt32, param3, DDVIDEOPORTBANDWIDTH.Ptr, param4, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IDirectDrawVideoPort extends IUnknown {
         lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
 
         param1 := DDPIXELFORMAT()
-        result := ComCall(6, this, lpNumFormatsMarshal, lpNumFormats, DDPIXELFORMAT.Ptr, param1, "uint", param2, "HRESULT")
+        result := ComCall(6, this, lpNumFormatsMarshal, lpNumFormats, DDPIXELFORMAT.Ptr, param1, UInt32, param2, "HRESULT")
         return param1
     }
 
@@ -114,7 +114,7 @@ export default struct IDirectDrawVideoPort extends IUnknown {
         lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
 
         param2 := DDPIXELFORMAT()
-        result := ComCall(7, this, DDPIXELFORMAT.Ptr, param0, lpNumFormatsMarshal, lpNumFormats, DDPIXELFORMAT.Ptr, param2, "uint", param3, "HRESULT")
+        result := ComCall(7, this, DDPIXELFORMAT.Ptr, param0, lpNumFormatsMarshal, lpNumFormats, DDPIXELFORMAT.Ptr, param2, UInt32, param3, "HRESULT")
         return param2
     }
 
@@ -171,7 +171,7 @@ export default struct IDirectDrawVideoPort extends IUnknown {
      * @returns {HRESULT} 
      */
     SetTargetSurface(param0, param1) {
-        result := ComCall(12, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(12, this, "ptr", param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -212,7 +212,7 @@ export default struct IDirectDrawVideoPort extends IUnknown {
      * @returns {HRESULT} 
      */
     WaitForSync(param0, param1, param2) {
-        result := ComCall(16, this, "uint", param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(16, this, UInt32, param0, UInt32, param1, UInt32, param2, "HRESULT")
         return result
     }
 

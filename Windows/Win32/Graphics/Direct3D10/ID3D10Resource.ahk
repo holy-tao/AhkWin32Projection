@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10DeviceChild.ahk" { ID3D10DeviceChild }
 #Import ".\D3D10_RESOURCE_DIMENSION.ahk" { D3D10_RESOURCE_DIMENSION }
+#Import ".\ID3D10DeviceChild.ahk" { ID3D10DeviceChild }
 
 /**
  * A resource interface provides common actions on all resources. (ID3D10Resource)
@@ -70,7 +70,7 @@ export default struct ID3D10Resource extends ID3D10DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10resource-setevictionpriority
      */
     SetEvictionPriority(EvictionPriority) {
-        ComCall(8, this, "uint", EvictionPriority)
+        ComCall(8, this, UInt32, EvictionPriority)
     }
 
     /**

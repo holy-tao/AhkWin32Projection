@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\WSD_HEADER_RELATESTO.ahk" { WSD_HEADER_RELATESTO }
+#Import ".\WSD_APP_SEQUENCE.ahk" { WSD_APP_SEQUENCE }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
-#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
-#Import ".\WSD_APP_SEQUENCE.ahk" { WSD_APP_SEQUENCE }
 #Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
 
 /**

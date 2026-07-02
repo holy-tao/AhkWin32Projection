@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\BFFCALLBACK.ahk" { BFFCALLBACK }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains parameters for the SHBrowseForFolder function and receives information about the folder selected by the user. (ANSI)
@@ -54,7 +55,7 @@ export default struct BROWSEINFOA {
      * 
      * Pointer to an application-defined function that the dialog box calls when an event occurs. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762598(v=vs.85)">BrowseCallbackProc</a> function. This member can be <b>NULL</b>.
      */
-    lpfn : IntPtr
+    lpfn : BFFCALLBACK
 
     /**
      * Type: <b>LPARAM</b>

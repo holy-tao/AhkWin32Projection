@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
-#Import ".\IDirectXVideoProcessor.ahk" { IDirectXVideoProcessor }
 #Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
-#Import ".\IDirectXVideoAccelerationService.ahk" { IDirectXVideoAccelerationService }
 #Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
 #Import ".\DXVA2_ValueRange.ahk" { DXVA2_ValueRange }
+#Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
+#Import ".\IDirectXVideoAccelerationService.ahk" { IDirectXVideoAccelerationService }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectXVideoProcessor.ahk" { IDirectXVideoProcessor }
 
 /**
  * Provides access to DirectX Video Acceleration (DXVA) video processing services.
@@ -203,7 +203,7 @@ export default struct IDirectXVideoProcessorService extends IDirectXVideoAcceler
      */
     GetProcAmpRange(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, ProcAmpCap) {
         pRange := DXVA2_ValueRange()
-        result := ComCall(9, this, Guid.Ptr, VideoProcDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, D3DFORMAT, RenderTargetFormat, "uint", ProcAmpCap, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, VideoProcDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, D3DFORMAT, RenderTargetFormat, UInt32, ProcAmpCap, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
         return pRange
     }
 
@@ -219,7 +219,7 @@ export default struct IDirectXVideoProcessorService extends IDirectXVideoAcceler
      */
     GetFilterPropertyRange(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, FilterSetting) {
         pRange := DXVA2_ValueRange()
-        result := ComCall(10, this, Guid.Ptr, VideoProcDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, D3DFORMAT, RenderTargetFormat, "uint", FilterSetting, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, VideoProcDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, D3DFORMAT, RenderTargetFormat, UInt32, FilterSetting, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
         return pRange
     }
 
@@ -234,7 +234,7 @@ export default struct IDirectXVideoProcessorService extends IDirectXVideoAcceler
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-createvideoprocessor
      */
     CreateVideoProcessor(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, MaxNumSubStreams) {
-        result := ComCall(11, this, Guid.Ptr, VideoProcDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, D3DFORMAT, RenderTargetFormat, "uint", MaxNumSubStreams, "ptr*", &ppVidProcess := 0, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, VideoProcDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, D3DFORMAT, RenderTargetFormat, UInt32, MaxNumSubStreams, "ptr*", &ppVidProcess := 0, "HRESULT")
         return IDirectXVideoProcessor(ppVidProcess)
     }
 

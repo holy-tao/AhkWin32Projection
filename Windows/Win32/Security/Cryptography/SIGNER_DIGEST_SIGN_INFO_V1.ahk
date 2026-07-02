@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFN_AUTHENTICODE_DIGEST_SIGN.ahk" { PFN_AUTHENTICODE_DIGEST_SIGN }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
@@ -14,7 +15,7 @@ export default struct SIGNER_DIGEST_SIGN_INFO_V1 {
      */
     cbSize : UInt32 := this.Size
 
-    pfnAuthenticodeDigestSign : IntPtr
+    pfnAuthenticodeDigestSign : PFN_AUTHENTICODE_DIGEST_SIGN
 
     /**
      * Optional pointer to [**CRYPT_DATA_BLOB**](/windows/win32/api/wincrypt/ns-wincrypt-crypt_integer_blob) specifying metadata.

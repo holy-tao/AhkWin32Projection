@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDirectDraw.ahk" { IDirectDraw }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Applications use the methods of the IDirectDrawClipper interface to manage clip lists. This section is a reference to the methods of this interface.
@@ -88,9 +88,9 @@ export default struct IDirectDrawClipper extends IUnknown {
 
     /**
      * Retrieves a copy of the clip list that is associated with a DirectDrawClipper object. To select a subset of the clip list, you can pass a rectangle that clips the clip list.
-     * @param {Pointer<RECT>} param0 
-     * @param {Pointer<RGNDATA>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<RECT>} param0 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that <b>GetClipList</b> uses to clip the clip list. Set this parameter to NULL to retrieve the entire clip list.
+     * @param {Pointer<RGNDATA>} param1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgndata">RGNDATA</a> structure that receives the resulting copy of the clip list. If this parameter is NULL, <b>GetClipList</b> fills the variable at <i>lpdwSize</i> with the number of bytes necessary to hold the entire clip list.
+     * @param {Pointer<Integer>} param2 A pointer to a variable that receives the size of the resulting clip list. When retrieving the clip list, this parameter is the size of the buffer at <i>lpClipList</i>. When <i>lpClipList</i> is NULL, the variable at <i>lpdwSize</i> receives the required size of the buffer, in bytes.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -116,7 +116,7 @@ export default struct IDirectDrawClipper extends IUnknown {
 
     /**
      * Retrieves the window handle that was previously associated with this DirectDrawClipper object by the IDirectDrawClipper::SetHWnd method.
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<HWND>} param0 A pointer to a variable that receives the window handle that was previously associated with this DirectDrawClipper object by the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawclipper-sethwnd">IDirectDrawClipper::SetHWnd</a> method.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -138,8 +138,8 @@ export default struct IDirectDrawClipper extends IUnknown {
      * Initializes a DirectDrawClipper object that was created by using the CoCreateInstance COM function.
      * @remarks
      * The <b>IDirectDrawClipper::Initialize</b> method is provided for compliance with the Component Object Model (COM). If you used the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-directdrawcreateclipper">DirectDrawCreateClipper</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdraw7-createclipper">IDirectDraw7::CreateClipper</a> method to create the DirectDrawClipper object, the <b>IDirectDrawClipper::Initialize</b> method returns DDERR_ALREADYINITIALIZED.
-     * @param {IDirectDraw} param0 
-     * @param {Integer} param1 
+     * @param {IDirectDraw} param0 A pointer to the DirectDraw object to associate with the DirectDrawClipper object. If this parameter is set to NULL, an independent DirectDrawClipper object is initialized; a call of this type is equivalent to using the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-directdrawcreateclipper">DirectDrawCreateClipper</a> function.
+     * @param {Integer} param1 Currently not used and must be set to 0.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -153,13 +153,13 @@ export default struct IDirectDrawClipper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-initialize
      */
     Initialize(param0, param1) {
-        result := ComCall(5, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(5, this, "ptr", param0, UInt32, param1, "HRESULT")
         return result
     }
 
     /**
      * Retrieves the status of the clip list if a window handle is associated with a DirectDrawClipper object.
-     * @param {Pointer<BOOL>} param0 
+     * @param {Pointer<BOOL>} param0 A pointer to a variable that receives the status of the clip list. This parameter is TRUE if the clip list has changed, and FALSE otherwise.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -183,8 +183,8 @@ export default struct IDirectDrawClipper extends IUnknown {
      * You cannot set the clip list if a window handle is already associated with the DirectDrawClipper object. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-bltfast">IDirectDrawSurface7::BltFast</a> method cannot clip. If you call <b>IDirectDrawSurface7::BltFast</b> on a surface with an attached clipper, it returns DDERR_UNSUPPORTED.
-     * @param {Pointer<RGNDATA>} param0 
-     * @param {Integer} param1 
+     * @param {Pointer<RGNDATA>} param0 A pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgndata">RGNDATA</a> structure for the clip list to set or NULL. If there is an existing clip list that is associated with the DirectDrawClipper object and this value is NULL, the clip list is deleted.
+     * @param {Integer} param1 Currently not used and must be set to 0.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -201,14 +201,14 @@ export default struct IDirectDrawClipper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-setcliplist
      */
     SetClipList(param0, param1) {
-        result := ComCall(7, this, RGNDATA.Ptr, param0, "uint", param1, "HRESULT")
+        result := ComCall(7, this, RGNDATA.Ptr, param0, UInt32, param1, "HRESULT")
         return result
     }
 
     /**
      * Sets the window handle that the clipper object uses to obtain clipping information.
-     * @param {Integer} param0 
-     * @param {HWND} param1 
+     * @param {Integer} param0 Currently not used and must be set to 0.
+     * @param {HWND} param1 Window handle that obtains the clipping information.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -224,7 +224,7 @@ export default struct IDirectDrawClipper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-sethwnd
      */
     SetHWnd(param0, param1) {
-        result := ComCall(8, this, "uint", param0, HWND, param1, "HRESULT")
+        result := ComCall(8, this, UInt32, param0, HWND, param1, "HRESULT")
         return result
     }
 

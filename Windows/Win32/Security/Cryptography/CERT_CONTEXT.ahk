@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
 #Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\CERT_INFO.ahk" { CERT_INFO }
+#Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
 
 /**
  * Contains both the encoded and decoded representations of a certificate.

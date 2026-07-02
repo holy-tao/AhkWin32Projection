@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_ALT_NAME_ENTRY.ahk" { CERT_ALT_NAME_ENTRY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\CERT_OTHER_NAME.ahk" { CERT_OTHER_NAME }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CERT_OTHER_NAME.ahk" { CERT_OTHER_NAME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CERT_ALT_NAME_ENTRY.ahk" { CERT_ALT_NAME_ENTRY }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * The CERT_ACCESS_DESCRIPTION structure is a member of a CERT_AUTHORITY_INFO_ACCESS structure.

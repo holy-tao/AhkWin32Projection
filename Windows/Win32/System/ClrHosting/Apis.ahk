@@ -1,18 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HOST_TYPE.ahk" { HOST_TYPE }
-#Import ".\CLSID_RESOLUTION_FLAGS.ahk" { CLSID_RESOLUTION_FLAGS }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\Threading\PROCESS_INFORMATION.ahk" { PROCESS_INFORMATION }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\FLockClrVersionCallback.ahk" { FLockClrVersionCallback }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\HOST_TYPE.ahk" { HOST_TYPE }
+#Import ".\CLSID_RESOLUTION_FLAGS.ahk" { CLSID_RESOLUTION_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -31,7 +32,7 @@ export GetCORSystemDirectory(pbuffer, cchBuffer, dwLength) {
 
     dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\GetCORSystemDirectory", "ptr", pbuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
+    result := DllCall("MSCorEE.dll\GetCORSystemDirectory", "ptr", pbuffer, UInt32, cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
     return result
 }
 
@@ -47,7 +48,7 @@ export GetCORVersion(pbBuffer, cchBuffer, dwLength) {
 
     dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\GetCORVersion", "ptr", pbBuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
+    result := DllCall("MSCorEE.dll\GetCORVersion", "ptr", pbBuffer, UInt32, cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
     return result
 }
 
@@ -65,7 +66,7 @@ export GetFileVersion(szFilename, szBuffer, cchBuffer, dwLength) {
 
     dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\GetFileVersion", "ptr", szFilename, "ptr", szBuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
+    result := DllCall("MSCorEE.dll\GetFileVersion", "ptr", szFilename, "ptr", szBuffer, UInt32, cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
     return result
 }
 
@@ -81,7 +82,7 @@ export GetCORRequiredVersion(pbuffer, cchBuffer, dwLength) {
 
     dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\GetCORRequiredVersion", "ptr", pbuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
+    result := DllCall("MSCorEE.dll\GetCORRequiredVersion", "ptr", pbuffer, UInt32, cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
     return result
 }
 
@@ -110,7 +111,7 @@ export GetRequestedRuntimeInfo(pExe, pwszVersion, pConfigurationFile, startupFla
     dwDirectoryLengthMarshal := dwDirectoryLength is VarRef ? "uint*" : "ptr"
     dwlengthMarshal := dwlength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\GetRequestedRuntimeInfo", "ptr", pExe, "ptr", pwszVersion, "ptr", pConfigurationFile, "uint", startupFlags, "uint", runtimeInfoFlags, "ptr", pDirectory, "uint", dwDirectory, dwDirectoryLengthMarshal, dwDirectoryLength, "ptr", pVersion, "uint", cchBuffer, dwlengthMarshal, dwlength, "HRESULT")
+    result := DllCall("MSCorEE.dll\GetRequestedRuntimeInfo", "ptr", pExe, "ptr", pwszVersion, "ptr", pConfigurationFile, UInt32, startupFlags, UInt32, runtimeInfoFlags, "ptr", pDirectory, UInt32, dwDirectory, dwDirectoryLengthMarshal, dwDirectoryLength, "ptr", pVersion, UInt32, cchBuffer, dwlengthMarshal, dwlength, "HRESULT")
     return result
 }
 
@@ -125,7 +126,7 @@ export GetRequestedRuntimeVersion(pExe, pVersion, cchBuffer) {
     pExe := pExe is String ? StrPtr(pExe) : pExe
     pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
-    result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersion", "ptr", pExe, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "HRESULT")
+    result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersion", "ptr", pExe, "ptr", pVersion, UInt32, cchBuffer, "uint*", &dwLength := 0, "HRESULT")
     return dwLength
 }
 
@@ -149,7 +150,7 @@ export CorBindToRuntimeHost(pwszVersion, pwszBuildFlavor, pwszHostConfigFile, pR
     pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
     ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, pReservedMarshal, pReserved, "uint", startupFlags, Guid.Ptr, rclsid, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
+    result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, pReservedMarshal, pReserved, UInt32, startupFlags, Guid.Ptr, rclsid, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
     return result
 }
 
@@ -169,7 +170,7 @@ export CorBindToRuntimeEx(pwszVersion, pwszBuildFlavor, startupFlags, rclsid, ri
 
     ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "uint", startupFlags, Guid.Ptr, rclsid, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
+    result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, UInt32, startupFlags, Guid.Ptr, rclsid, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
     return result
 }
 
@@ -186,7 +187,7 @@ export CorBindToRuntimeEx(pwszVersion, pwszBuildFlavor, startupFlags, rclsid, ri
 export CorBindToRuntimeByCfg(pCfgStream, reserved, startupFlags, rclsid, riid, ppv) {
     ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\CorBindToRuntimeByCfg", "ptr", pCfgStream, "uint", reserved, "uint", startupFlags, Guid.Ptr, rclsid, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
+    result := DllCall("MSCorEE.dll\CorBindToRuntimeByCfg", "ptr", pCfgStream, UInt32, reserved, UInt32, startupFlags, Guid.Ptr, rclsid, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
     return result
 }
 
@@ -261,7 +262,7 @@ export CorMarkThreadInThreadPool() {
 export RunDll32ShimW(_hwnd, hinst, lpszCmdLine, nCmdShow) {
     lpszCmdLine := lpszCmdLine is String ? StrPtr(lpszCmdLine) : lpszCmdLine
 
-    result := DllCall("MSCorEE.dll\RunDll32ShimW", HWND, _hwnd, HINSTANCE, hinst, "ptr", lpszCmdLine, "int", nCmdShow, "HRESULT")
+    result := DllCall("MSCorEE.dll\RunDll32ShimW", HWND, _hwnd, HINSTANCE, hinst, "ptr", lpszCmdLine, Int32, nCmdShow, "HRESULT")
     return result
 }
 
@@ -332,7 +333,7 @@ export GetRealProcAddress(pwszProcName, ppv) {
  * @returns {String} Nothing - always returns an empty string
  */
 export CorExitProcess(exitCode) {
-    DllCall("MSCorEE.dll\CorExitProcess", "int", exitCode)
+    DllCall("MSCorEE.dll\CorExitProcess", Int32, exitCode)
 }
 
 /**
@@ -346,7 +347,7 @@ export CorExitProcess(exitCode) {
 export LoadStringRC(iResouceID, szBuffer, iMax, bQuiet) {
     szBuffer := szBuffer is String ? StrPtr(szBuffer) : szBuffer
 
-    result := DllCall("MSCorEE.dll\LoadStringRC", "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, "HRESULT")
+    result := DllCall("MSCorEE.dll\LoadStringRC", UInt32, iResouceID, "ptr", szBuffer, Int32, iMax, Int32, bQuiet, "HRESULT")
     return result
 }
 
@@ -365,7 +366,7 @@ export LoadStringRCEx(lcid, iResouceID, szBuffer, iMax, bQuiet, pcwchUsed) {
 
     pcwchUsedMarshal := pcwchUsed is VarRef ? "int*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\LoadStringRCEx", "uint", lcid, "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, pcwchUsedMarshal, pcwchUsed, "HRESULT")
+    result := DllCall("MSCorEE.dll\LoadStringRCEx", UInt32, lcid, UInt32, iResouceID, "ptr", szBuffer, Int32, iMax, Int32, bQuiet, pcwchUsedMarshal, pcwchUsed, "HRESULT")
     return result
 }
 
@@ -380,7 +381,7 @@ export LockClrVersion(hostCallback, pBeginHostSetup, pEndHostSetup) {
     pBeginHostSetupMarshal := pBeginHostSetup is VarRef ? "ptr*" : "ptr"
     pEndHostSetupMarshal := pEndHostSetup is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\LockClrVersion", "ptr", hostCallback, pBeginHostSetupMarshal, pBeginHostSetup, pEndHostSetupMarshal, pEndHostSetup, "HRESULT")
+    result := DllCall("MSCorEE.dll\LockClrVersion", FLockClrVersionCallback, hostCallback, pBeginHostSetupMarshal, pBeginHostSetup, pEndHostSetupMarshal, pEndHostSetup, "HRESULT")
     return result
 }
 
@@ -393,7 +394,7 @@ export LockClrVersion(hostCallback, pBeginHostSetup, pEndHostSetup) {
 export CreateDebuggingInterfaceFromVersion(iDebuggerVersion, szDebuggeeVersion) {
     szDebuggeeVersion := szDebuggeeVersion is String ? StrPtr(szDebuggeeVersion) : szDebuggeeVersion
 
-    result := DllCall("MSCorEE.dll\CreateDebuggingInterfaceFromVersion", "int", iDebuggerVersion, "ptr", szDebuggeeVersion, "ptr*", &ppCordb := 0, "HRESULT")
+    result := DllCall("MSCorEE.dll\CreateDebuggingInterfaceFromVersion", Int32, iDebuggerVersion, "ptr", szDebuggeeVersion, "ptr*", &ppCordb := 0, "HRESULT")
     return IUnknown(ppCordb)
 }
 
@@ -407,7 +408,7 @@ export CreateDebuggingInterfaceFromVersion(iDebuggerVersion, szDebuggeeVersion) 
 export GetVersionFromProcess(hProcess, pVersion, cchBuffer) {
     pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
-    result := DllCall("MSCorEE.dll\GetVersionFromProcess", HANDLE, hProcess, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "HRESULT")
+    result := DllCall("MSCorEE.dll\GetVersionFromProcess", HANDLE, hProcess, "ptr", pVersion, UInt32, cchBuffer, "uint*", &dwLength := 0, "HRESULT")
     return dwLength
 }
 
@@ -428,7 +429,7 @@ export CorLaunchApplication(dwClickOnceHost, pwzAppFullName, dwManifestPaths, pp
     ppwzManifestPathsMarshal := ppwzManifestPaths is VarRef ? "ptr*" : "ptr"
     ppwzActivationDataMarshal := ppwzActivationData is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSCorEE.dll\CorLaunchApplication", HOST_TYPE, dwClickOnceHost, "ptr", pwzAppFullName, "uint", dwManifestPaths, ppwzManifestPathsMarshal, ppwzManifestPaths, "uint", dwActivationData, ppwzActivationDataMarshal, ppwzActivationData, PROCESS_INFORMATION.Ptr, lpProcessInformation, "HRESULT")
+    result := DllCall("MSCorEE.dll\CorLaunchApplication", HOST_TYPE, dwClickOnceHost, "ptr", pwzAppFullName, UInt32, dwManifestPaths, ppwzManifestPathsMarshal, ppwzManifestPaths, UInt32, dwActivationData, ppwzActivationDataMarshal, ppwzActivationData, PROCESS_INFORMATION.Ptr, lpProcessInformation, "HRESULT")
     return result
 }
 
@@ -443,7 +444,7 @@ export CorLaunchApplication(dwClickOnceHost, pwzAppFullName, dwManifestPaths, pp
 export GetRequestedRuntimeVersionForCLSID(rclsid, pVersion, cchBuffer, dwResolutionFlags) {
     pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
-    result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersionForCLSID", Guid.Ptr, rclsid, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, CLSID_RESOLUTION_FLAGS, dwResolutionFlags, "HRESULT")
+    result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersionForCLSID", Guid.Ptr, rclsid, "ptr", pVersion, UInt32, cchBuffer, "uint*", &dwLength := 0, CLSID_RESOLUTION_FLAGS, dwResolutionFlags, "HRESULT")
     return dwLength
 }
 

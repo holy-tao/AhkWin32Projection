@@ -1,68 +1,79 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\alljoyn_keystorelistener.ahk" { alljoyn_keystorelistener }
-#Import ".\alljoyn_applicationstate.ahk" { alljoyn_applicationstate }
-#Import ".\alljoyn_certificateid.ahk" { alljoyn_certificateid }
-#Import ".\alljoyn_abouticonproxy.ahk" { alljoyn_abouticonproxy }
-#Import ".\alljoyn_about_announceflag.ahk" { alljoyn_about_announceflag }
-#Import ".\alljoyn_buslistener_callbacks.ahk" { alljoyn_buslistener_callbacks }
-#Import ".\alljoyn_typeid.ahk" { alljoyn_typeid }
-#Import ".\alljoyn_aboutlistener_callback.ahk" { alljoyn_aboutlistener_callback }
-#Import ".\alljoyn_aboutlistener.ahk" { alljoyn_aboutlistener }
-#Import ".\alljoyn_sessionopts.ahk" { alljoyn_sessionopts }
-#Import ".\alljoyn_aboutdatalistener_callbacks.ahk" { alljoyn_aboutdatalistener_callbacks }
-#Import ".\alljoyn_keystore.ahk" { alljoyn_keystore }
-#Import ".\alljoyn_busobject.ahk" { alljoyn_busobject }
 #Import ".\alljoyn_manifestarray.ahk" { alljoyn_manifestarray }
-#Import ".\alljoyn_permissionconfigurationlistener_callbacks.ahk" { alljoyn_permissionconfigurationlistener_callbacks }
-#Import ".\QStatus.ahk" { QStatus }
-#Import ".\alljoyn_aboutobjectdescription.ahk" { alljoyn_aboutobjectdescription }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\alljoyn_interfacedescription_property.ahk" { alljoyn_interfacedescription_property }
+#Import ".\alljoyn_authlistener.ahk" { alljoyn_authlistener }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\alljoyn_interfacedescription_securitypolicy.ahk" { alljoyn_interfacedescription_securitypolicy }
+#Import ".\alljoyn_proxybusobject_listener_propertieschanged_ptr.ahk" { alljoyn_proxybusobject_listener_propertieschanged_ptr }
+#Import ".\alljoyn_applicationstate.ahk" { alljoyn_applicationstate }
+#Import ".\alljoyn_observer.ahk" { alljoyn_observer }
+#Import ".\alljoyn_authlistener_callbacks.ahk" { alljoyn_authlistener_callbacks }
 #Import ".\alljoyn_aboutobj.ahk" { alljoyn_aboutobj }
-#Import ".\alljoyn_applicationstatelistener_callbacks.ahk" { alljoyn_applicationstatelistener_callbacks }
-#Import ".\alljoyn_aboutdatalistener.ahk" { alljoyn_aboutdatalistener }
+#Import ".\alljoyn_proxybusobject_listener_getallpropertiescb_ptr.ahk" { alljoyn_proxybusobject_listener_getallpropertiescb_ptr }
+#Import ".\alljoyn_message.ahk" { alljoyn_message }
+#Import ".\alljoyn_busobject_methodentry.ahk" { alljoyn_busobject_methodentry }
+#Import ".\alljoyn_proxybusobject_listener_setpropertycb_ptr.ahk" { alljoyn_proxybusobject_listener_setpropertycb_ptr }
+#Import ".\alljoyn_busobject.ahk" { alljoyn_busobject }
+#Import ".\QStatus.ahk" { QStatus }
+#Import ".\alljoyn_keystorelistener_callbacks.ahk" { alljoyn_keystorelistener_callbacks }
+#Import ".\alljoyn_interfacedescription_translation_callback_ptr.ahk" { alljoyn_interfacedescription_translation_callback_ptr }
+#Import ".\alljoyn_autopinger.ahk" { alljoyn_autopinger }
+#Import ".\alljoyn_certificateidarray.ahk" { alljoyn_certificateidarray }
+#Import ".\alljoyn_permissionconfigurationlistener.ahk" { alljoyn_permissionconfigurationlistener }
+#Import ".\alljoyn_messagereceiver_replyhandler_ptr.ahk" { alljoyn_messagereceiver_replyhandler_ptr }
+#Import ".\alljoyn_typeid.ahk" { alljoyn_typeid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\alljoyn_abouticonobj.ahk" { alljoyn_abouticonobj }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\alljoyn_aboutproxy.ahk" { alljoyn_aboutproxy }
+#Import ".\alljoyn_pinglistener.ahk" { alljoyn_pinglistener }
+#Import ".\alljoyn_pinglistener_callback.ahk" { alljoyn_pinglistener_callback }
+#Import ".\alljoyn_aboutdata.ahk" { alljoyn_aboutdata }
+#Import ".\alljoyn_keystore.ahk" { alljoyn_keystore }
+#Import ".\alljoyn_aboutdatalistener_callbacks.ahk" { alljoyn_aboutdatalistener_callbacks }
+#Import ".\alljoyn_observerlistener.ahk" { alljoyn_observerlistener }
+#Import ".\alljoyn_keystorelistener.ahk" { alljoyn_keystorelistener }
+#Import ".\alljoyn_messagereceiver_methodhandler_ptr.ahk" { alljoyn_messagereceiver_methodhandler_ptr }
+#Import ".\alljoyn_sessionportlistener.ahk" { alljoyn_sessionportlistener }
+#Import ".\alljoyn_busattachment_joinsessioncb_ptr.ahk" { alljoyn_busattachment_joinsessioncb_ptr }
+#Import ".\alljoyn_securityapplicationproxy.ahk" { alljoyn_securityapplicationproxy }
+#Import ".\alljoyn_observerlistener_callback.ahk" { alljoyn_observerlistener_callback }
+#Import ".\alljoyn_interfacedescription.ahk" { alljoyn_interfacedescription }
+#Import ".\alljoyn_sessionportlistener_callbacks.ahk" { alljoyn_sessionportlistener_callbacks }
+#Import ".\alljoyn_proxybusobject_listener_introspectcb_ptr.ahk" { alljoyn_proxybusobject_listener_introspectcb_ptr }
+#Import ".\alljoyn_sessionlistener.ahk" { alljoyn_sessionlistener }
+#Import ".\alljoyn_aboutlistener_callback.ahk" { alljoyn_aboutlistener_callback }
+#Import ".\alljoyn_sessionopts.ahk" { alljoyn_sessionopts }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\alljoyn_abouticonproxy.ahk" { alljoyn_abouticonproxy }
+#Import ".\alljoyn_aboutobjectdescription.ahk" { alljoyn_aboutobjectdescription }
+#Import ".\alljoyn_busobject_callbacks.ahk" { alljoyn_busobject_callbacks }
+#Import ".\alljoyn_msgarg.ahk" { alljoyn_msgarg }
 #Import ".\alljoyn_proxybusobject.ahk" { alljoyn_proxybusobject }
 #Import ".\alljoyn_permissionconfigurator.ahk" { alljoyn_permissionconfigurator }
-#Import ".\alljoyn_authlistener.ahk" { alljoyn_authlistener }
-#Import ".\alljoyn_interfacedescription.ahk" { alljoyn_interfacedescription }
-#Import ".\alljoyn_pinglistener.ahk" { alljoyn_pinglistener }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\alljoyn_applicationstatelistener.ahk" { alljoyn_applicationstatelistener }
-#Import ".\alljoyn_authlistenerasync_callbacks.ahk" { alljoyn_authlistenerasync_callbacks }
-#Import ".\alljoyn_authlistener_callbacks.ahk" { alljoyn_authlistener_callbacks }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\alljoyn_observer.ahk" { alljoyn_observer }
-#Import ".\alljoyn_aboutdata.ahk" { alljoyn_aboutdata }
-#Import ".\alljoyn_observerlistener_callback.ahk" { alljoyn_observerlistener_callback }
-#Import ".\alljoyn_abouticon.ahk" { alljoyn_abouticon }
-#Import ".\alljoyn_interfacedescription_securitypolicy.ahk" { alljoyn_interfacedescription_securitypolicy }
-#Import ".\alljoyn_busobject_methodentry.ahk" { alljoyn_busobject_methodentry }
-#Import ".\alljoyn_msgarg.ahk" { alljoyn_msgarg }
-#Import ".\alljoyn_certificateidarray.ahk" { alljoyn_certificateidarray }
-#Import ".\alljoyn_interfacedescription_property.ahk" { alljoyn_interfacedescription_property }
-#Import ".\alljoyn_sessionportlistener.ahk" { alljoyn_sessionportlistener }
-#Import ".\alljoyn_message.ahk" { alljoyn_message }
+#Import ".\alljoyn_applicationstatelistener_callbacks.ahk" { alljoyn_applicationstatelistener_callbacks }
 #Import ".\alljoyn_busattachment.ahk" { alljoyn_busattachment }
-#Import ".\alljoyn_busobject_callbacks.ahk" { alljoyn_busobject_callbacks }
-#Import ".\alljoyn_sessionlistener_callbacks.ahk" { alljoyn_sessionlistener_callbacks }
-#Import ".\alljoyn_pinglistener_callback.ahk" { alljoyn_pinglistener_callback }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\alljoyn_credentials.ahk" { alljoyn_credentials }
-#Import ".\alljoyn_aboutproxy.ahk" { alljoyn_aboutproxy }
-#Import ".\alljoyn_sessionlistener.ahk" { alljoyn_sessionlistener }
-#Import ".\alljoyn_permissionconfigurationlistener.ahk" { alljoyn_permissionconfigurationlistener }
-#Import ".\alljoyn_messagetype.ahk" { alljoyn_messagetype }
-#Import ".\alljoyn_interfacedescription_member.ahk" { alljoyn_interfacedescription_member }
 #Import ".\alljoyn_buslistener.ahk" { alljoyn_buslistener }
-#Import ".\alljoyn_abouticonobj.ahk" { alljoyn_abouticonobj }
-#Import ".\alljoyn_keystorelistener_callbacks.ahk" { alljoyn_keystorelistener_callbacks }
-#Import ".\alljoyn_observerlistener.ahk" { alljoyn_observerlistener }
-#Import ".\alljoyn_securityapplicationproxy.ahk" { alljoyn_securityapplicationproxy }
-#Import ".\alljoyn_sessionportlistener_callbacks.ahk" { alljoyn_sessionportlistener_callbacks }
-#Import ".\alljoyn_proxybusobject_ref.ahk" { alljoyn_proxybusobject_ref }
-#Import ".\alljoyn_autopinger.ahk" { alljoyn_autopinger }
+#Import ".\alljoyn_aboutdatalistener.ahk" { alljoyn_aboutdatalistener }
+#Import ".\alljoyn_applicationstatelistener.ahk" { alljoyn_applicationstatelistener }
+#Import ".\alljoyn_interfacedescription_member.ahk" { alljoyn_interfacedescription_member }
+#Import ".\alljoyn_buslistener_callbacks.ahk" { alljoyn_buslistener_callbacks }
+#Import ".\alljoyn_proxybusobject_listener_getpropertycb_ptr.ahk" { alljoyn_proxybusobject_listener_getpropertycb_ptr }
+#Import ".\alljoyn_permissionconfigurationlistener_callbacks.ahk" { alljoyn_permissionconfigurationlistener_callbacks }
+#Import ".\alljoyn_messagetype.ahk" { alljoyn_messagetype }
+#Import ".\alljoyn_busattachment_setlinktimeoutcb_ptr.ahk" { alljoyn_busattachment_setlinktimeoutcb_ptr }
+#Import ".\alljoyn_sessionlistener_callbacks.ahk" { alljoyn_sessionlistener_callbacks }
+#Import ".\alljoyn_about_announceflag.ahk" { alljoyn_about_announceflag }
+#Import ".\alljoyn_aboutlistener.ahk" { alljoyn_aboutlistener }
 #Import ".\alljoyn_keystorelistener_with_synchronization_callbacks.ahk" { alljoyn_keystorelistener_with_synchronization_callbacks }
+#Import ".\alljoyn_messagereceiver_signalhandler_ptr.ahk" { alljoyn_messagereceiver_signalhandler_ptr }
+#Import ".\alljoyn_certificateid.ahk" { alljoyn_certificateid }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\alljoyn_abouticon.ahk" { alljoyn_abouticon }
+#Import ".\alljoyn_credentials.ahk" { alljoyn_credentials }
+#Import ".\alljoyn_proxybusobject_ref.ahk" { alljoyn_proxybusobject_ref }
+#Import ".\alljoyn_authlistenerasync_callbacks.ahk" { alljoyn_authlistenerasync_callbacks }
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -148,7 +159,7 @@ export AllJoynSendToBus(connectedBusHandle, _buffer, bytesToWrite, bytesTransfer
 
     A_LastError := 0
 
-    result := DllCall("MSAJApi.dll\AllJoynSendToBus", HANDLE, connectedBusHandle, "ptr", _buffer, "uint", bytesToWrite, bytesTransferredMarshal, bytesTransferred, reservedMarshal, reserved, BOOL)
+    result := DllCall("MSAJApi.dll\AllJoynSendToBus", HANDLE, connectedBusHandle, IntPtr, _buffer, UInt32, bytesToWrite, bytesTransferredMarshal, bytesTransferred, reservedMarshal, reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -176,7 +187,7 @@ export AllJoynReceiveFromBus(connectedBusHandle, _buffer, bytesToRead, bytesTran
 
     A_LastError := 0
 
-    result := DllCall("MSAJApi.dll\AllJoynReceiveFromBus", HANDLE, connectedBusHandle, "ptr", _buffer, "uint", bytesToRead, bytesTransferredMarshal, bytesTransferred, reservedMarshal, reserved, BOOL)
+    result := DllCall("MSAJApi.dll\AllJoynReceiveFromBus", HANDLE, connectedBusHandle, IntPtr, _buffer, UInt32, bytesToRead, bytesTransferredMarshal, bytesTransferred, reservedMarshal, reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -199,7 +210,7 @@ export AllJoynReceiveFromBus(connectedBusHandle, _buffer, bytesToRead, bytesTran
 export AllJoynEventSelect(connectedBusHandle, eventHandle, eventTypes) {
     A_LastError := 0
 
-    result := DllCall("MSAJApi.dll\AllJoynEventSelect", HANDLE, connectedBusHandle, HANDLE, eventHandle, "uint", eventTypes, BOOL)
+    result := DllCall("MSAJApi.dll\AllJoynEventSelect", HANDLE, connectedBusHandle, HANDLE, eventHandle, UInt32, eventTypes, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -240,7 +251,7 @@ export AllJoynEnumEvents(connectedBusHandle, eventToReset, eventTypes) {
  * @returns {HANDLE} 
  */
 export AllJoynCreateBus(outBufferSize, inBufferSize, lpSecurityAttributes) {
-    result := DllCall("MSAJApi.dll\AllJoynCreateBus", "uint", outBufferSize, "uint", inBufferSize, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
+    result := DllCall("MSAJApi.dll\AllJoynCreateBus", UInt32, outBufferSize, UInt32, inBufferSize, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
     return result
 }
 
@@ -270,7 +281,7 @@ export alljoyn_unity_deferred_callbacks_process() {
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_unity_set_deferred_callback_mainthread_only(mainthread_only) {
-    DllCall("MSAJApi.dll\alljoyn_unity_set_deferred_callback_mainthread_only", "int", mainthread_only)
+    DllCall("MSAJApi.dll\alljoyn_unity_set_deferred_callback_mainthread_only", Int32, mainthread_only)
 }
 
 /**
@@ -323,7 +334,7 @@ export alljoyn_msgarg_destroy(arg) {
  * @returns {alljoyn_msgarg} 
  */
 export alljoyn_msgarg_array_create(_size) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_create", "ptr", _size, alljoyn_msgarg)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_create", IntPtr, _size, alljoyn_msgarg)
     return result
 }
 
@@ -334,7 +345,7 @@ export alljoyn_msgarg_array_create(_size) {
  * @returns {alljoyn_msgarg} 
  */
 export alljoyn_msgarg_array_element(arg, index) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_element", alljoyn_msgarg, arg, "ptr", index, alljoyn_msgarg)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_element", alljoyn_msgarg, arg, IntPtr, index, alljoyn_msgarg)
     return result
 }
 
@@ -437,7 +448,7 @@ export alljoyn_msgarg_array_get(args, numArgs, signature, _args*) {
     varArgs := [_args*]
     varArgs.Push(QStatus)
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_get", alljoyn_msgarg, args, "ptr", numArgs, "ptr", signature, varArgs*)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_get", alljoyn_msgarg, args, IntPtr, numArgs, "ptr", signature, varArgs*)
     return result
 }
 
@@ -452,7 +463,7 @@ export alljoyn_msgarg_array_get(args, numArgs, signature, _args*) {
 export alljoyn_msgarg_tostring(arg, str, buf, indent) {
     str := str is String ? StrPtr(str) : str
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_tostring", alljoyn_msgarg, arg, "ptr", str, "ptr", buf, "ptr", indent, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_tostring", alljoyn_msgarg, arg, "ptr", str, IntPtr, buf, IntPtr, indent, IntPtr)
     return result
 }
 
@@ -468,7 +479,7 @@ export alljoyn_msgarg_tostring(arg, str, buf, indent) {
 export alljoyn_msgarg_array_tostring(args, numArgs, str, buf, indent) {
     str := str is String ? StrPtr(str) : str
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_tostring", alljoyn_msgarg, args, "ptr", numArgs, "ptr", str, "ptr", buf, "ptr", indent, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_tostring", alljoyn_msgarg, args, IntPtr, numArgs, "ptr", str, IntPtr, buf, IntPtr, indent, IntPtr)
     return result
 }
 
@@ -482,7 +493,7 @@ export alljoyn_msgarg_array_tostring(args, numArgs, str, buf, indent) {
 export alljoyn_msgarg_signature(arg, str, buf) {
     str := str is String ? StrPtr(str) : str
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_signature", alljoyn_msgarg, arg, "ptr", str, "ptr", buf, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_signature", alljoyn_msgarg, arg, "ptr", str, IntPtr, buf, IntPtr)
     return result
 }
 
@@ -497,7 +508,7 @@ export alljoyn_msgarg_signature(arg, str, buf) {
 export alljoyn_msgarg_array_signature(values, numValues, str, buf) {
     str := str is String ? StrPtr(str) : str
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_signature", alljoyn_msgarg, values, "ptr", numValues, "ptr", str, "ptr", buf, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_signature", alljoyn_msgarg, values, IntPtr, numValues, "ptr", str, IntPtr, buf, IntPtr)
     return result
 }
 
@@ -576,7 +587,7 @@ export alljoyn_msgarg_array_set_offset(args, argOffset, numArgs, signature, _arg
     varArgs := [_args*]
     varArgs.Push(QStatus)
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set_offset", alljoyn_msgarg, args, "ptr", argOffset, numArgsMarshal, numArgs, "ptr", signature, varArgs*)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set_offset", alljoyn_msgarg, args, IntPtr, argOffset, numArgsMarshal, numArgs, "ptr", signature, varArgs*)
     return result
 }
 
@@ -604,7 +615,7 @@ export alljoyn_msgarg_set_and_stabilize(arg, signature, args*) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_set_uint8(arg, y) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint8", alljoyn_msgarg, arg, "char", y, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint8", alljoyn_msgarg, arg, Int8, y, QStatus)
     return result
 }
 
@@ -615,7 +626,7 @@ export alljoyn_msgarg_set_uint8(arg, y) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_set_bool(arg, b) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_bool", alljoyn_msgarg, arg, "int", b, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_bool", alljoyn_msgarg, arg, Int32, b, QStatus)
     return result
 }
 
@@ -626,7 +637,7 @@ export alljoyn_msgarg_set_bool(arg, b) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_set_int16(arg, n) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int16", alljoyn_msgarg, arg, "short", n, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int16", alljoyn_msgarg, arg, Int16, n, QStatus)
     return result
 }
 
@@ -637,7 +648,7 @@ export alljoyn_msgarg_set_int16(arg, n) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_set_uint16(arg, q) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint16", alljoyn_msgarg, arg, "ushort", q, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint16", alljoyn_msgarg, arg, UInt16, q, QStatus)
     return result
 }
 
@@ -648,7 +659,7 @@ export alljoyn_msgarg_set_uint16(arg, q) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_set_int32(arg, i) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int32", alljoyn_msgarg, arg, "int", i, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int32", alljoyn_msgarg, arg, Int32, i, QStatus)
     return result
 }
 
@@ -659,7 +670,7 @@ export alljoyn_msgarg_set_int32(arg, i) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_set_uint32(arg, u) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint32", alljoyn_msgarg, arg, "uint", u, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint32", alljoyn_msgarg, arg, UInt32, u, QStatus)
     return result
 }
 
@@ -670,7 +681,7 @@ export alljoyn_msgarg_set_uint32(arg, u) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_set_int64(arg, x) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int64", alljoyn_msgarg, arg, "int64", x, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int64", alljoyn_msgarg, arg, Int64, x, QStatus)
     return result
 }
 
@@ -681,7 +692,7 @@ export alljoyn_msgarg_set_int64(arg, x) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_set_uint64(arg, t) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint64", alljoyn_msgarg, arg, "uint", t, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint64", alljoyn_msgarg, arg, Int64, t, QStatus)
     return result
 }
 
@@ -692,7 +703,7 @@ export alljoyn_msgarg_set_uint64(arg, t) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_set_double(arg, d) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_double", alljoyn_msgarg, arg, "double", d, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_double", alljoyn_msgarg, arg, Float64, d, QStatus)
     return result
 }
 
@@ -912,7 +923,7 @@ export alljoyn_msgarg_get_variant(arg, v) {
 export alljoyn_msgarg_set_uint8_array(arg, length, ay) {
     ayMarshal := ay is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint8_array", alljoyn_msgarg, arg, "ptr", length, ayMarshal, ay, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint8_array", alljoyn_msgarg, arg, IntPtr, length, ayMarshal, ay, QStatus)
     return result
 }
 
@@ -926,7 +937,7 @@ export alljoyn_msgarg_set_uint8_array(arg, length, ay) {
 export alljoyn_msgarg_set_bool_array(arg, length, ab) {
     abMarshal := ab is VarRef ? "int*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_bool_array", alljoyn_msgarg, arg, "ptr", length, abMarshal, ab, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_bool_array", alljoyn_msgarg, arg, IntPtr, length, abMarshal, ab, QStatus)
     return result
 }
 
@@ -940,7 +951,7 @@ export alljoyn_msgarg_set_bool_array(arg, length, ab) {
 export alljoyn_msgarg_set_int16_array(arg, length, an) {
     anMarshal := an is VarRef ? "short*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int16_array", alljoyn_msgarg, arg, "ptr", length, anMarshal, an, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int16_array", alljoyn_msgarg, arg, IntPtr, length, anMarshal, an, QStatus)
     return result
 }
 
@@ -954,7 +965,7 @@ export alljoyn_msgarg_set_int16_array(arg, length, an) {
 export alljoyn_msgarg_set_uint16_array(arg, length, aq) {
     aqMarshal := aq is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint16_array", alljoyn_msgarg, arg, "ptr", length, aqMarshal, aq, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint16_array", alljoyn_msgarg, arg, IntPtr, length, aqMarshal, aq, QStatus)
     return result
 }
 
@@ -968,7 +979,7 @@ export alljoyn_msgarg_set_uint16_array(arg, length, aq) {
 export alljoyn_msgarg_set_int32_array(arg, length, ai) {
     aiMarshal := ai is VarRef ? "int*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int32_array", alljoyn_msgarg, arg, "ptr", length, aiMarshal, ai, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int32_array", alljoyn_msgarg, arg, IntPtr, length, aiMarshal, ai, QStatus)
     return result
 }
 
@@ -982,7 +993,7 @@ export alljoyn_msgarg_set_int32_array(arg, length, ai) {
 export alljoyn_msgarg_set_uint32_array(arg, length, au) {
     auMarshal := au is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint32_array", alljoyn_msgarg, arg, "ptr", length, auMarshal, au, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint32_array", alljoyn_msgarg, arg, IntPtr, length, auMarshal, au, QStatus)
     return result
 }
 
@@ -996,7 +1007,7 @@ export alljoyn_msgarg_set_uint32_array(arg, length, au) {
 export alljoyn_msgarg_set_int64_array(arg, length, ax) {
     axMarshal := ax is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int64_array", alljoyn_msgarg, arg, "ptr", length, axMarshal, ax, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_int64_array", alljoyn_msgarg, arg, IntPtr, length, axMarshal, ax, QStatus)
     return result
 }
 
@@ -1010,7 +1021,7 @@ export alljoyn_msgarg_set_int64_array(arg, length, ax) {
 export alljoyn_msgarg_set_uint64_array(arg, length, at) {
     atMarshal := at is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint64_array", alljoyn_msgarg, arg, "ptr", length, atMarshal, at, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_uint64_array", alljoyn_msgarg, arg, IntPtr, length, atMarshal, at, QStatus)
     return result
 }
 
@@ -1024,7 +1035,7 @@ export alljoyn_msgarg_set_uint64_array(arg, length, at) {
 export alljoyn_msgarg_set_double_array(arg, length, ad) {
     adMarshal := ad is VarRef ? "double*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_double_array", alljoyn_msgarg, arg, "ptr", length, adMarshal, ad, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_double_array", alljoyn_msgarg, arg, IntPtr, length, adMarshal, ad, QStatus)
     return result
 }
 
@@ -1038,7 +1049,7 @@ export alljoyn_msgarg_set_double_array(arg, length, ad) {
 export alljoyn_msgarg_set_string_array(arg, length, _as) {
     _asMarshal := _as is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_string_array", alljoyn_msgarg, arg, "ptr", length, _asMarshal, _as, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_string_array", alljoyn_msgarg, arg, IntPtr, length, _asMarshal, _as, QStatus)
     return result
 }
 
@@ -1052,7 +1063,7 @@ export alljoyn_msgarg_set_string_array(arg, length, _as) {
 export alljoyn_msgarg_set_objectpath_array(arg, length, ao) {
     aoMarshal := ao is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_objectpath_array", alljoyn_msgarg, arg, "ptr", length, aoMarshal, ao, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_objectpath_array", alljoyn_msgarg, arg, IntPtr, length, aoMarshal, ao, QStatus)
     return result
 }
 
@@ -1066,7 +1077,7 @@ export alljoyn_msgarg_set_objectpath_array(arg, length, ao) {
 export alljoyn_msgarg_set_signature_array(arg, length, ag) {
     agMarshal := ag is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_signature_array", alljoyn_msgarg, arg, "ptr", length, agMarshal, ag, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_signature_array", alljoyn_msgarg, arg, IntPtr, length, agMarshal, ag, QStatus)
     return result
 }
 
@@ -1243,7 +1254,7 @@ export alljoyn_msgarg_get_array_numberofelements(arg) {
 export alljoyn_msgarg_get_array_element(arg, index, element) {
     elementMarshal := element is VarRef ? "ptr*" : "ptr"
 
-    DllCall("MSAJApi.dll\alljoyn_msgarg_get_array_element", alljoyn_msgarg, arg, "ptr", index, elementMarshal, element)
+    DllCall("MSAJApi.dll\alljoyn_msgarg_get_array_element", alljoyn_msgarg, arg, IntPtr, index, elementMarshal, element)
 }
 
 /**
@@ -1253,7 +1264,7 @@ export alljoyn_msgarg_get_array_element(arg, index, element) {
  * @returns {PSTR} 
  */
 export alljoyn_msgarg_get_array_elementsignature(arg, index) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_array_elementsignature", alljoyn_msgarg, arg, "ptr", index, PSTR)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_get_array_elementsignature", alljoyn_msgarg, arg, IntPtr, index, PSTR)
     return result
 }
 
@@ -1297,7 +1308,7 @@ export alljoyn_msgarg_setdictentry(arg, key, value) {
  * @returns {QStatus} 
  */
 export alljoyn_msgarg_setstruct(arg, struct_members, num_members) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_setstruct", alljoyn_msgarg, arg, alljoyn_msgarg, struct_members, "ptr", num_members, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_setstruct", alljoyn_msgarg, arg, alljoyn_msgarg, struct_members, IntPtr, num_members, QStatus)
     return result
 }
 
@@ -1318,7 +1329,7 @@ export alljoyn_msgarg_getnummembers(arg) {
  * @returns {alljoyn_msgarg} 
  */
 export alljoyn_msgarg_getmember(arg, index) {
-    result := DllCall("MSAJApi.dll\alljoyn_msgarg_getmember", alljoyn_msgarg, arg, "ptr", index, alljoyn_msgarg)
+    result := DllCall("MSAJApi.dll\alljoyn_msgarg_getmember", alljoyn_msgarg, arg, IntPtr, index, alljoyn_msgarg)
     return result
 }
 
@@ -1415,7 +1426,7 @@ export alljoyn_aboutdata_createfrommsgarg(data, arg, language) {
 export alljoyn_aboutdata_setappid(data, appId, num) {
     appIdMarshal := appId is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setappid", alljoyn_aboutdata, data, appIdMarshal, appId, "ptr", num, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_aboutdata_setappid", alljoyn_aboutdata, data, appIdMarshal, appId, IntPtr, num, QStatus)
     return result
 }
 
@@ -1641,7 +1652,7 @@ export alljoyn_aboutdata_setsupportedlanguage(data, language) {
 export alljoyn_aboutdata_getsupportedlanguages(data, languageTags, num) {
     languageTagsMarshal := languageTags is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getsupportedlanguages", alljoyn_aboutdata, data, languageTagsMarshal, languageTags, "ptr", num, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getsupportedlanguages", alljoyn_aboutdata, data, languageTagsMarshal, languageTags, IntPtr, num, IntPtr)
     return result
 }
 
@@ -1837,7 +1848,7 @@ export alljoyn_aboutdata_getfield(data, name, value, language) {
 export alljoyn_aboutdata_getfields(data, fields, num_fields) {
     fieldsMarshal := fields is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getfields", alljoyn_aboutdata, data, fieldsMarshal, fields, "ptr", num_fields, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_aboutdata_getfields", alljoyn_aboutdata, data, fieldsMarshal, fields, IntPtr, num_fields, IntPtr)
     return result
 }
 
@@ -1964,7 +1975,7 @@ export alljoyn_abouticon_setcontent(icon, type, data, csize, ownsData) {
 
     dataMarshal := data is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_abouticon_setcontent", alljoyn_abouticon, icon, "ptr", type, dataMarshal, data, "ptr", csize, "char", ownsData, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_abouticon_setcontent", alljoyn_abouticon, icon, "ptr", type, dataMarshal, data, IntPtr, csize, Int8, ownsData, QStatus)
     return result
 }
 
@@ -2131,7 +2142,7 @@ export alljoyn_permissionconfigurator_getclaimcapabilities(configurator, claimCa
  * @returns {QStatus} 
  */
 export alljoyn_permissionconfigurator_setclaimcapabilities(configurator, claimCapabilities) {
-    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setclaimcapabilities", alljoyn_permissionconfigurator, configurator, "ushort", claimCapabilities, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setclaimcapabilities", alljoyn_permissionconfigurator, configurator, UInt16, claimCapabilities, QStatus)
     return result
 }
 
@@ -2155,7 +2166,7 @@ export alljoyn_permissionconfigurator_getclaimcapabilitiesadditionalinfo(configu
  * @returns {QStatus} 
  */
 export alljoyn_permissionconfigurator_setclaimcapabilitiesadditionalinfo(configurator, additionalInfo) {
-    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setclaimcapabilitiesadditionalinfo", alljoyn_permissionconfigurator, configurator, "ushort", additionalInfo, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_setclaimcapabilitiesadditionalinfo", alljoyn_permissionconfigurator, configurator, UInt16, additionalInfo, QStatus)
     return result
 }
 
@@ -2188,7 +2199,7 @@ export alljoyn_permissionconfigurator_claim(configurator, caKey, identityCertifi
     groupAuthorityMarshal := groupAuthority is VarRef ? "char*" : "ptr"
     manifestsXmlsMarshal := manifestsXmls is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_claim", alljoyn_permissionconfigurator, configurator, caKeyMarshal, caKey, identityCertificateChainMarshal, identityCertificateChain, groupIdMarshal, groupId, "ptr", groupSize, groupAuthorityMarshal, groupAuthority, manifestsXmlsMarshal, manifestsXmls, "ptr", manifestsCount, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_claim", alljoyn_permissionconfigurator, configurator, caKeyMarshal, caKey, identityCertificateChainMarshal, identityCertificateChain, groupIdMarshal, groupId, IntPtr, groupSize, groupAuthorityMarshal, groupAuthority, manifestsXmlsMarshal, manifestsXmls, IntPtr, manifestsCount, QStatus)
     return result
 }
 
@@ -2204,7 +2215,7 @@ export alljoyn_permissionconfigurator_updateidentity(configurator, identityCerti
     identityCertificateChainMarshal := identityCertificateChain is VarRef ? "char*" : "ptr"
     manifestsXmlsMarshal := manifestsXmls is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_updateidentity", alljoyn_permissionconfigurator, configurator, identityCertificateChainMarshal, identityCertificateChain, manifestsXmlsMarshal, manifestsXmls, "ptr", manifestsCount, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_updateidentity", alljoyn_permissionconfigurator, configurator, identityCertificateChainMarshal, identityCertificateChain, manifestsXmlsMarshal, manifestsXmls, IntPtr, manifestsCount, QStatus)
     return result
 }
 
@@ -2263,7 +2274,7 @@ export alljoyn_permissionconfigurator_manifestarray_cleanup(manifestArray) {
 export alljoyn_permissionconfigurator_installmanifests(configurator, manifestsXmls, manifestsCount, append) {
     manifestsXmlsMarshal := manifestsXmls is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_installmanifests", alljoyn_permissionconfigurator, configurator, manifestsXmlsMarshal, manifestsXmls, "ptr", manifestsCount, "int", append, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_installmanifests", alljoyn_permissionconfigurator, configurator, manifestsXmlsMarshal, manifestsXmls, IntPtr, manifestsCount, Int32, append, QStatus)
     return result
 }
 
@@ -2395,7 +2406,7 @@ export alljoyn_permissionconfigurator_removemembership(configurator, serial, ser
     issuerPublicKeyMarshal := issuerPublicKey is VarRef ? "char*" : "ptr"
     issuerAkiMarshal := issuerAki is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_removemembership", alljoyn_permissionconfigurator, configurator, serialMarshal, serial, "ptr", serialLen, issuerPublicKeyMarshal, issuerPublicKey, issuerAkiMarshal, issuerAki, "ptr", issuerAkiLen, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_permissionconfigurator_removemembership", alljoyn_permissionconfigurator, configurator, serialMarshal, serial, IntPtr, serialLen, issuerPublicKeyMarshal, issuerPublicKey, issuerAkiMarshal, issuerAki, IntPtr, issuerAkiLen, QStatus)
     return result
 }
 
@@ -2518,7 +2529,7 @@ export alljoyn_keystorelistener_getkeys(listener, keyStore, sink, sink_sz) {
  * @returns {alljoyn_sessionopts} 
  */
 export alljoyn_sessionopts_create(traffic, isMultipoint, proximity, transports) {
-    result := DllCall("MSAJApi.dll\alljoyn_sessionopts_create", "char", traffic, "int", isMultipoint, "char", proximity, "ushort", transports, alljoyn_sessionopts)
+    result := DllCall("MSAJApi.dll\alljoyn_sessionopts_create", Int8, traffic, Int32, isMultipoint, Int8, proximity, UInt16, transports, alljoyn_sessionopts)
     return result
 }
 
@@ -2548,7 +2559,7 @@ export alljoyn_sessionopts_get_traffic(opts) {
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_sessionopts_set_traffic(opts, traffic) {
-    DllCall("MSAJApi.dll\alljoyn_sessionopts_set_traffic", alljoyn_sessionopts, opts, "char", traffic)
+    DllCall("MSAJApi.dll\alljoyn_sessionopts_set_traffic", alljoyn_sessionopts, opts, Int8, traffic)
 }
 
 /**
@@ -2568,7 +2579,7 @@ export alljoyn_sessionopts_get_multipoint(opts) {
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_sessionopts_set_multipoint(opts, isMultipoint) {
-    DllCall("MSAJApi.dll\alljoyn_sessionopts_set_multipoint", alljoyn_sessionopts, opts, "int", isMultipoint)
+    DllCall("MSAJApi.dll\alljoyn_sessionopts_set_multipoint", alljoyn_sessionopts, opts, Int32, isMultipoint)
 }
 
 /**
@@ -2588,7 +2599,7 @@ export alljoyn_sessionopts_get_proximity(opts) {
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_sessionopts_set_proximity(opts, proximity) {
-    DllCall("MSAJApi.dll\alljoyn_sessionopts_set_proximity", alljoyn_sessionopts, opts, "char", proximity)
+    DllCall("MSAJApi.dll\alljoyn_sessionopts_set_proximity", alljoyn_sessionopts, opts, Int8, proximity)
 }
 
 /**
@@ -2608,7 +2619,7 @@ export alljoyn_sessionopts_get_transports(opts) {
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_sessionopts_set_transports(opts, transports) {
-    DllCall("MSAJApi.dll\alljoyn_sessionopts_set_transports", alljoyn_sessionopts, opts, "ushort", transports)
+    DllCall("MSAJApi.dll\alljoyn_sessionopts_set_transports", alljoyn_sessionopts, opts, UInt16, transports)
 }
 
 /**
@@ -2766,7 +2777,7 @@ export alljoyn_message_getargs(_msg, numArgs, args) {
  * @returns {alljoyn_msgarg} 
  */
 export alljoyn_message_getarg(_msg, argN) {
-    result := DllCall("MSAJApi.dll\alljoyn_message_getarg", alljoyn_message, _msg, "ptr", argN, alljoyn_msgarg)
+    result := DllCall("MSAJApi.dll\alljoyn_message_getarg", alljoyn_message, _msg, IntPtr, argN, alljoyn_msgarg)
     return result
 }
 
@@ -2923,7 +2934,7 @@ export alljoyn_message_geterrorname(_msg, errorMessage, errorMessage_size) {
 export alljoyn_message_tostring(_msg, str, buf) {
     str := str is String ? StrPtr(str) : str
 
-    result := DllCall("MSAJApi.dll\alljoyn_message_tostring", alljoyn_message, _msg, "ptr", str, "ptr", buf, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_message_tostring", alljoyn_message, _msg, "ptr", str, IntPtr, buf, IntPtr)
     return result
 }
 
@@ -2937,7 +2948,7 @@ export alljoyn_message_tostring(_msg, str, buf) {
 export alljoyn_message_description(_msg, str, buf) {
     str := str is String ? StrPtr(str) : str
 
-    result := DllCall("MSAJApi.dll\alljoyn_message_description", alljoyn_message, _msg, "ptr", str, "ptr", buf, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_message_description", alljoyn_message, _msg, "ptr", str, IntPtr, buf, IntPtr)
     return result
 }
 
@@ -2968,7 +2979,7 @@ export alljoyn_message_eql(one, other) {
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_message_setendianess(endian) {
-    DllCall("MSAJApi.dll\alljoyn_message_setendianess", "char", endian)
+    DllCall("MSAJApi.dll\alljoyn_message_setendianess", Int8, endian)
 }
 
 /**
@@ -2982,7 +2993,7 @@ export alljoyn_message_setendianess(endian) {
 export alljoyn_authlistener_requestcredentialsresponse(listener, authContext, accept, credentials) {
     authContextMarshal := authContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_authlistener_requestcredentialsresponse", alljoyn_authlistener, listener, authContextMarshal, authContext, "int", accept, alljoyn_credentials, credentials, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_authlistener_requestcredentialsresponse", alljoyn_authlistener, listener, authContextMarshal, authContext, Int32, accept, alljoyn_credentials, credentials, QStatus)
     return result
 }
 
@@ -2996,7 +3007,7 @@ export alljoyn_authlistener_requestcredentialsresponse(listener, authContext, ac
 export alljoyn_authlistener_verifycredentialsresponse(listener, authContext, accept) {
     authContextMarshal := authContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_authlistener_verifycredentialsresponse", alljoyn_authlistener, listener, authContextMarshal, authContext, "int", accept, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_authlistener_verifycredentialsresponse", alljoyn_authlistener, listener, authContextMarshal, authContext, Int32, accept, QStatus)
     return result
 }
 
@@ -3054,7 +3065,7 @@ export alljoyn_authlistenerasync_destroy(listener) {
 export alljoyn_authlistener_setsharedsecret(listener, sharedSecret, sharedSecretSize) {
     sharedSecretMarshal := sharedSecret is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_authlistener_setsharedsecret", alljoyn_authlistener, listener, sharedSecretMarshal, sharedSecret, "ptr", sharedSecretSize, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_authlistener_setsharedsecret", alljoyn_authlistener, listener, sharedSecretMarshal, sharedSecret, IntPtr, sharedSecretSize, QStatus)
     return result
 }
 
@@ -3083,7 +3094,7 @@ export alljoyn_credentials_destroy(cred) {
  * @returns {Integer} 
  */
 export alljoyn_credentials_isset(cred, creds) {
-    result := DllCall("MSAJApi.dll\alljoyn_credentials_isset", alljoyn_credentials, cred, "ushort", creds, Int32)
+    result := DllCall("MSAJApi.dll\alljoyn_credentials_isset", alljoyn_credentials, cred, UInt16, creds, Int32)
     return result
 }
 
@@ -3154,7 +3165,7 @@ export alljoyn_credentials_setlogonentry(cred, logonEntry) {
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_credentials_setexpiration(cred, expiration) {
-    DllCall("MSAJApi.dll\alljoyn_credentials_setexpiration", alljoyn_credentials, cred, "uint", expiration)
+    DllCall("MSAJApi.dll\alljoyn_credentials_setexpiration", alljoyn_credentials, cred, UInt32, expiration)
 }
 
 /**
@@ -3275,7 +3286,7 @@ export alljoyn_interfacedescription_member_getannotationatindex(member, index, n
     name_sizeMarshal := name_size is VarRef ? "ptr*" : "ptr"
     value_sizeMarshal := value_size is VarRef ? "ptr*" : "ptr"
 
-    DllCall("MSAJApi.dll\alljoyn_interfacedescription_member_getannotationatindex", alljoyn_interfacedescription_member, member, "ptr", index, "ptr", name, name_sizeMarshal, name_size, "ptr", value, value_sizeMarshal, value_size)
+    DllCall("MSAJApi.dll\alljoyn_interfacedescription_member_getannotationatindex", alljoyn_interfacedescription_member, member, IntPtr, index, "ptr", name, name_sizeMarshal, name_size, "ptr", value, value_sizeMarshal, value_size)
 }
 
 /**
@@ -3328,7 +3339,7 @@ export alljoyn_interfacedescription_member_getargannotationatindex(member, argNa
     name_sizeMarshal := name_size is VarRef ? "ptr*" : "ptr"
     value_sizeMarshal := value_size is VarRef ? "ptr*" : "ptr"
 
-    DllCall("MSAJApi.dll\alljoyn_interfacedescription_member_getargannotationatindex", alljoyn_interfacedescription_member, member, "ptr", argName, "ptr", index, "ptr", name, name_sizeMarshal, name_size, "ptr", value, value_sizeMarshal, value_size)
+    DllCall("MSAJApi.dll\alljoyn_interfacedescription_member_getargannotationatindex", alljoyn_interfacedescription_member, member, "ptr", argName, IntPtr, index, "ptr", name, name_sizeMarshal, name_size, "ptr", value, value_sizeMarshal, value_size)
 }
 
 /**
@@ -3378,7 +3389,7 @@ export alljoyn_interfacedescription_property_getannotationatindex(_property, ind
     name_sizeMarshal := name_size is VarRef ? "ptr*" : "ptr"
     value_sizeMarshal := value_size is VarRef ? "ptr*" : "ptr"
 
-    DllCall("MSAJApi.dll\alljoyn_interfacedescription_property_getannotationatindex", alljoyn_interfacedescription_property, _property, "ptr", index, "ptr", name, name_sizeMarshal, name_size, "ptr", value, value_sizeMarshal, value_size)
+    DllCall("MSAJApi.dll\alljoyn_interfacedescription_property_getannotationatindex", alljoyn_interfacedescription_property, _property, IntPtr, index, "ptr", name, name_sizeMarshal, name_size, "ptr", value, value_sizeMarshal, value_size)
 }
 
 /**
@@ -3468,7 +3479,7 @@ export alljoyn_interfacedescription_getannotationatindex(iface, index, name, nam
     name_sizeMarshal := name_size is VarRef ? "ptr*" : "ptr"
     value_sizeMarshal := value_size is VarRef ? "ptr*" : "ptr"
 
-    DllCall("MSAJApi.dll\alljoyn_interfacedescription_getannotationatindex", alljoyn_interfacedescription, iface, "ptr", index, "ptr", name, name_sizeMarshal, name_size, "ptr", value, value_sizeMarshal, value_size)
+    DllCall("MSAJApi.dll\alljoyn_interfacedescription_getannotationatindex", alljoyn_interfacedescription, iface, IntPtr, index, "ptr", name, name_sizeMarshal, name_size, "ptr", value, value_sizeMarshal, value_size)
 }
 
 /**
@@ -3502,7 +3513,7 @@ export alljoyn_interfacedescription_addmember(iface, type, name, inputSig, outSi
     outSig := outSig is String ? StrPtr(outSig) : outSig
     argNames := argNames is String ? StrPtr(argNames) : argNames
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmember", alljoyn_interfacedescription, iface, alljoyn_messagetype, type, "ptr", name, "ptr", inputSig, "ptr", outSig, "ptr", argNames, "char", annotation, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmember", alljoyn_interfacedescription, iface, alljoyn_messagetype, type, "ptr", name, "ptr", inputSig, "ptr", outSig, "ptr", argNames, Int8, annotation, QStatus)
     return result
 }
 
@@ -3551,7 +3562,7 @@ export alljoyn_interfacedescription_getmemberannotation(iface, member, name, val
  * @returns {Pointer} 
  */
 export alljoyn_interfacedescription_getmembers(iface, members, numMembers) {
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getmembers", alljoyn_interfacedescription, iface, alljoyn_interfacedescription_member.Ptr, members, "ptr", numMembers, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getmembers", alljoyn_interfacedescription, iface, alljoyn_interfacedescription_member.Ptr, members, IntPtr, numMembers, IntPtr)
     return result
 }
 
@@ -3590,7 +3601,7 @@ export alljoyn_interfacedescription_addmethod(iface, name, inputSig, outSig, arg
     argNames := argNames is String ? StrPtr(argNames) : argNames
     accessPerms := accessPerms is String ? StrPtr(accessPerms) : accessPerms
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmethod", alljoyn_interfacedescription, iface, "ptr", name, "ptr", inputSig, "ptr", outSig, "ptr", argNames, "char", annotation, "ptr", accessPerms, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addmethod", alljoyn_interfacedescription, iface, "ptr", name, "ptr", inputSig, "ptr", outSig, "ptr", argNames, Int8, annotation, "ptr", accessPerms, QStatus)
     return result
 }
 
@@ -3624,7 +3635,7 @@ export alljoyn_interfacedescription_addsignal(iface, name, sig, argNames, annota
     argNames := argNames is String ? StrPtr(argNames) : argNames
     accessPerms := accessPerms is String ? StrPtr(accessPerms) : accessPerms
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addsignal", alljoyn_interfacedescription, iface, "ptr", name, "ptr", sig, "ptr", argNames, "char", annotation, "ptr", accessPerms, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addsignal", alljoyn_interfacedescription, iface, "ptr", name, "ptr", sig, "ptr", argNames, Int8, annotation, "ptr", accessPerms, QStatus)
     return result
 }
 
@@ -3664,7 +3675,7 @@ export alljoyn_interfacedescription_getproperty(iface, name, _property) {
  * @returns {Pointer} 
  */
 export alljoyn_interfacedescription_getproperties(iface, props, numProps) {
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getproperties", alljoyn_interfacedescription, iface, alljoyn_interfacedescription_property.Ptr, props, "ptr", numProps, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getproperties", alljoyn_interfacedescription, iface, alljoyn_interfacedescription_property.Ptr, props, IntPtr, numProps, IntPtr)
     return result
 }
 
@@ -3680,7 +3691,7 @@ export alljoyn_interfacedescription_addproperty(iface, name, signature, access) 
     name := name is String ? StrPtr(name) : name
     signature := signature is String ? StrPtr(signature) : signature
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addproperty", alljoyn_interfacedescription, iface, "ptr", name, "ptr", signature, "char", access, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_addproperty", alljoyn_interfacedescription, iface, "ptr", name, "ptr", signature, Int8, access, QStatus)
     return result
 }
 
@@ -3765,7 +3776,7 @@ export alljoyn_interfacedescription_getname(iface) {
 export alljoyn_interfacedescription_introspect(iface, str, buf, indent) {
     str := str is String ? StrPtr(str) : str
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_introspect", alljoyn_interfacedescription, iface, "ptr", str, "ptr", buf, "ptr", indent, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_introspect", alljoyn_interfacedescription, iface, "ptr", str, IntPtr, buf, IntPtr, indent, IntPtr)
     return result
 }
 
@@ -3811,7 +3822,7 @@ export alljoyn_interfacedescription_setdescriptionlanguage(iface, language) {
 export alljoyn_interfacedescription_getdescriptionlanguages(iface, languages, _size) {
     languagesMarshal := languages is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptionlanguages", alljoyn_interfacedescription, iface, languagesMarshal, languages, "ptr", _size, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptionlanguages", alljoyn_interfacedescription, iface, languagesMarshal, languages, IntPtr, _size, IntPtr)
     return result
 }
 
@@ -3825,7 +3836,7 @@ export alljoyn_interfacedescription_getdescriptionlanguages(iface, languages, _s
 export alljoyn_interfacedescription_getdescriptionlanguages2(iface, languages, languagesSize) {
     languages := languages is String ? StrPtr(languages) : languages
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptionlanguages2", alljoyn_interfacedescription, iface, "ptr", languages, "ptr", languagesSize, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptionlanguages2", alljoyn_interfacedescription, iface, "ptr", languages, IntPtr, languagesSize, IntPtr)
     return result
 }
 
@@ -3868,7 +3879,7 @@ export alljoyn_interfacedescription_getdescriptionforlanguage(iface, description
     description := description is String ? StrPtr(description) : description
     languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptionforlanguage", alljoyn_interfacedescription, iface, "ptr", description, "ptr", maxLanguageLength, "ptr", languageTag, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptionforlanguage", alljoyn_interfacedescription, iface, "ptr", description, IntPtr, maxLanguageLength, "ptr", languageTag, IntPtr)
     return result
 }
 
@@ -3918,7 +3929,7 @@ export alljoyn_interfacedescription_getmemberdescriptionforlanguage(iface, membe
     description := description is String ? StrPtr(description) : description
     languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getmemberdescriptionforlanguage", alljoyn_interfacedescription, iface, "ptr", member, "ptr", description, "ptr", maxLanguageLength, "ptr", languageTag, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getmemberdescriptionforlanguage", alljoyn_interfacedescription, iface, "ptr", member, "ptr", description, IntPtr, maxLanguageLength, "ptr", languageTag, IntPtr)
     return result
 }
 
@@ -3974,7 +3985,7 @@ export alljoyn_interfacedescription_getargdescriptionforlanguage(iface, member, 
     description := description is String ? StrPtr(description) : description
     languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getargdescriptionforlanguage", alljoyn_interfacedescription, iface, "ptr", member, "ptr", arg, "ptr", description, "ptr", maxLanguageLength, "ptr", languageTag, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getargdescriptionforlanguage", alljoyn_interfacedescription, iface, "ptr", member, "ptr", arg, "ptr", description, IntPtr, maxLanguageLength, "ptr", languageTag, IntPtr)
     return result
 }
 
@@ -4024,7 +4035,7 @@ export alljoyn_interfacedescription_getpropertydescriptionforlanguage(iface, _pr
     description := description is String ? StrPtr(description) : description
     languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
 
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getpropertydescriptionforlanguage", alljoyn_interfacedescription, iface, "ptr", _property, "ptr", description, "ptr", maxLanguageLength, "ptr", languageTag, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getpropertydescriptionforlanguage", alljoyn_interfacedescription, iface, "ptr", _property, "ptr", description, IntPtr, maxLanguageLength, "ptr", languageTag, IntPtr)
     return result
 }
 
@@ -4035,7 +4046,7 @@ export alljoyn_interfacedescription_getpropertydescriptionforlanguage(iface, _pr
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_interfacedescription_setdescriptiontranslationcallback(iface, translationCallback) {
-    DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptiontranslationcallback", alljoyn_interfacedescription, iface, "ptr", translationCallback)
+    DllCall("MSAJApi.dll\alljoyn_interfacedescription_setdescriptiontranslationcallback", alljoyn_interfacedescription, iface, alljoyn_interfacedescription_translation_callback_ptr, translationCallback)
 }
 
 /**
@@ -4044,7 +4055,7 @@ export alljoyn_interfacedescription_setdescriptiontranslationcallback(iface, tra
  * @returns {Pointer<alljoyn_interfacedescription_translation_callback_ptr>} 
  */
 export alljoyn_interfacedescription_getdescriptiontranslationcallback(iface) {
-    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptiontranslationcallback", alljoyn_interfacedescription, iface, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_interfacedescription_getdescriptiontranslationcallback", alljoyn_interfacedescription, iface, alljoyn_interfacedescription_translation_callback_ptr)
     return result
 }
 
@@ -4145,7 +4156,7 @@ export alljoyn_busobject_create(_path, isPlaceholder, callbacks_in, context_in) 
 
     context_inMarshal := context_in is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busobject_create", "ptr", _path, "int", isPlaceholder, alljoyn_busobject_callbacks.Ptr, callbacks_in, context_inMarshal, context_in, alljoyn_busobject)
+    result := DllCall("MSAJApi.dll\alljoyn_busobject_create", "ptr", _path, Int32, isPlaceholder, alljoyn_busobject_callbacks.Ptr, callbacks_in, context_inMarshal, context_in, alljoyn_busobject)
     return result
 }
 
@@ -4181,7 +4192,7 @@ export alljoyn_busobject_emitpropertychanged(bus, ifcName, propName, _val, id) {
     ifcName := ifcName is String ? StrPtr(ifcName) : ifcName
     propName := propName is String ? StrPtr(propName) : propName
 
-    DllCall("MSAJApi.dll\alljoyn_busobject_emitpropertychanged", alljoyn_busobject, bus, "ptr", ifcName, "ptr", propName, alljoyn_msgarg, _val, "uint", id)
+    DllCall("MSAJApi.dll\alljoyn_busobject_emitpropertychanged", alljoyn_busobject, bus, "ptr", ifcName, "ptr", propName, alljoyn_msgarg, _val, UInt32, id)
 }
 
 /**
@@ -4198,7 +4209,7 @@ export alljoyn_busobject_emitpropertieschanged(bus, ifcName, propNames, numProps
 
     propNamesMarshal := propNames is VarRef ? "ptr*" : "ptr"
 
-    DllCall("MSAJApi.dll\alljoyn_busobject_emitpropertieschanged", alljoyn_busobject, bus, "ptr", ifcName, propNamesMarshal, propNames, "ptr", numProps, "uint", id)
+    DllCall("MSAJApi.dll\alljoyn_busobject_emitpropertieschanged", alljoyn_busobject, bus, "ptr", ifcName, propNamesMarshal, propNames, IntPtr, numProps, UInt32, id)
 }
 
 /**
@@ -4211,7 +4222,7 @@ export alljoyn_busobject_emitpropertieschanged(bus, ifcName, propNames, numProps
 export alljoyn_busobject_getname(bus, _buffer, bufferSz) {
     _buffer := _buffer is String ? StrPtr(_buffer) : _buffer
 
-    result := DllCall("MSAJApi.dll\alljoyn_busobject_getname", alljoyn_busobject, bus, "ptr", _buffer, "ptr", bufferSz, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_busobject_getname", alljoyn_busobject, bus, "ptr", _buffer, IntPtr, bufferSz, IntPtr)
     return result
 }
 
@@ -4237,7 +4248,7 @@ export alljoyn_busobject_addinterface(bus, iface) {
 export alljoyn_busobject_addmethodhandler(bus, member, handler, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandler", alljoyn_busobject, bus, alljoyn_interfacedescription_member, member, "ptr", handler, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandler", alljoyn_busobject, bus, alljoyn_interfacedescription_member, member, alljoyn_messagereceiver_methodhandler_ptr, handler, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4249,7 +4260,7 @@ export alljoyn_busobject_addmethodhandler(bus, member, handler, _context) {
  * @returns {QStatus} 
  */
 export alljoyn_busobject_addmethodhandlers(bus, entries, numEntries) {
-    result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandlers", alljoyn_busobject, bus, alljoyn_busobject_methodentry.Ptr, entries, "ptr", numEntries, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busobject_addmethodhandlers", alljoyn_busobject, bus, alljoyn_busobject_methodentry.Ptr, entries, IntPtr, numEntries, QStatus)
     return result
 }
 
@@ -4262,7 +4273,7 @@ export alljoyn_busobject_addmethodhandlers(bus, entries, numEntries) {
  * @returns {QStatus} 
  */
 export alljoyn_busobject_methodreply_args(bus, _msg, args, numArgs) {
-    result := DllCall("MSAJApi.dll\alljoyn_busobject_methodreply_args", alljoyn_busobject, bus, alljoyn_message, _msg, alljoyn_msgarg, args, "ptr", numArgs, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busobject_methodreply_args", alljoyn_busobject, bus, alljoyn_message, _msg, alljoyn_msgarg, args, IntPtr, numArgs, QStatus)
     return result
 }
 
@@ -4320,7 +4331,7 @@ export alljoyn_busobject_getbusattachment(bus) {
 export alljoyn_busobject_signal(bus, destination, sessionId, signal, args, numArgs, timeToLive, flags, _msg) {
     destination := destination is String ? StrPtr(destination) : destination
 
-    result := DllCall("MSAJApi.dll\alljoyn_busobject_signal", alljoyn_busobject, bus, "ptr", destination, "uint", sessionId, alljoyn_interfacedescription_member, signal, alljoyn_msgarg, args, "ptr", numArgs, "ushort", timeToLive, "char", flags, alljoyn_message, _msg, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busobject_signal", alljoyn_busobject, bus, "ptr", destination, UInt32, sessionId, alljoyn_interfacedescription_member, signal, alljoyn_msgarg, args, IntPtr, numArgs, UInt16, timeToLive, Int8, flags, alljoyn_message, _msg, QStatus)
     return result
 }
 
@@ -4331,7 +4342,7 @@ export alljoyn_busobject_signal(bus, destination, sessionId, signal, args, numAr
  * @returns {QStatus} 
  */
 export alljoyn_busobject_cancelsessionlessmessage_serial(bus, serialNumber) {
-    result := DllCall("MSAJApi.dll\alljoyn_busobject_cancelsessionlessmessage_serial", alljoyn_busobject, bus, "uint", serialNumber, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busobject_cancelsessionlessmessage_serial", alljoyn_busobject, bus, UInt32, serialNumber, QStatus)
     return result
 }
 
@@ -4366,7 +4377,7 @@ export alljoyn_busobject_issecure(bus) {
 export alljoyn_busobject_getannouncedinterfacenames(bus, interfaces, numInterfaces) {
     interfacesMarshal := interfaces is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busobject_getannouncedinterfacenames", alljoyn_busobject, bus, interfacesMarshal, interfaces, "ptr", numInterfaces, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_busobject_getannouncedinterfacenames", alljoyn_busobject, bus, interfacesMarshal, interfaces, IntPtr, numInterfaces, IntPtr)
     return result
 }
 
@@ -4405,7 +4416,7 @@ export alljoyn_proxybusobject_create(bus, service, _path, sessionId) {
     service := service is String ? StrPtr(service) : service
     _path := _path is String ? StrPtr(_path) : _path
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_create", alljoyn_busattachment, bus, "ptr", service, "ptr", _path, "uint", sessionId, alljoyn_proxybusobject)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_create", alljoyn_busattachment, bus, "ptr", service, "ptr", _path, UInt32, sessionId, alljoyn_proxybusobject)
     return result
 }
 
@@ -4421,7 +4432,7 @@ export alljoyn_proxybusobject_create_secure(bus, service, _path, sessionId) {
     service := service is String ? StrPtr(service) : service
     _path := _path is String ? StrPtr(_path) : _path
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_create_secure", alljoyn_busattachment, bus, "ptr", service, "ptr", _path, "uint", sessionId, alljoyn_proxybusobject)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_create_secure", alljoyn_busattachment, bus, "ptr", service, "ptr", _path, UInt32, sessionId, alljoyn_proxybusobject)
     return result
 }
 
@@ -4468,7 +4479,7 @@ export alljoyn_proxybusobject_addinterface_by_name(proxyObj, name) {
 export alljoyn_proxybusobject_getchildren(proxyObj, children, numChildren) {
     childrenMarshal := children is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getchildren", alljoyn_proxybusobject, proxyObj, childrenMarshal, children, "ptr", numChildren, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getchildren", alljoyn_proxybusobject, proxyObj, childrenMarshal, children, IntPtr, numChildren, IntPtr)
     return result
 }
 
@@ -4529,7 +4540,7 @@ export alljoyn_proxybusobject_introspectremoteobject(proxyObj) {
 export alljoyn_proxybusobject_introspectremoteobjectasync(proxyObj, callback, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_introspectremoteobjectasync", alljoyn_proxybusobject, proxyObj, "ptr", callback, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_introspectremoteobjectasync", alljoyn_proxybusobject, proxyObj, alljoyn_proxybusobject_listener_introspectcb_ptr, callback, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4565,7 +4576,7 @@ export alljoyn_proxybusobject_getpropertyasync(proxyObj, iface, _property, callb
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getpropertyasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", _property, "ptr", callback, "uint", timeout, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getpropertyasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", _property, alljoyn_proxybusobject_listener_getpropertycb_ptr, callback, UInt32, timeout, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4597,7 +4608,7 @@ export alljoyn_proxybusobject_getallpropertiesasync(proxyObj, iface, callback, t
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getallpropertiesasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", callback, "uint", timeout, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getallpropertiesasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, alljoyn_proxybusobject_listener_getallpropertiescb_ptr, callback, UInt32, timeout, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4633,7 +4644,7 @@ export alljoyn_proxybusobject_registerpropertieschangedlistener(proxyObj, iface,
     _propertiesMarshal := _properties is VarRef ? "ptr*" : "ptr"
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_registerpropertieschangedlistener", alljoyn_proxybusobject, proxyObj, "ptr", iface, _propertiesMarshal, _properties, "ptr", numProperties, "ptr", callback, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_registerpropertieschangedlistener", alljoyn_proxybusobject, proxyObj, "ptr", iface, _propertiesMarshal, _properties, IntPtr, numProperties, alljoyn_proxybusobject_listener_propertieschanged_ptr, callback, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4647,7 +4658,7 @@ export alljoyn_proxybusobject_registerpropertieschangedlistener(proxyObj, iface,
 export alljoyn_proxybusobject_unregisterpropertieschangedlistener(proxyObj, iface, callback) {
     iface := iface is String ? StrPtr(iface) : iface
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_unregisterpropertieschangedlistener", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", callback, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_unregisterpropertieschangedlistener", alljoyn_proxybusobject, proxyObj, "ptr", iface, alljoyn_proxybusobject_listener_propertieschanged_ptr, callback, QStatus)
     return result
 }
 
@@ -4668,7 +4679,7 @@ export alljoyn_proxybusobject_setpropertyasync(proxyObj, iface, _property, value
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_setpropertyasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", _property, alljoyn_msgarg, value, "ptr", callback, "uint", timeout, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_setpropertyasync", alljoyn_proxybusobject, proxyObj, "ptr", iface, "ptr", _property, alljoyn_msgarg, value, alljoyn_proxybusobject_listener_setpropertycb_ptr, callback, UInt32, timeout, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -4688,7 +4699,7 @@ export alljoyn_proxybusobject_methodcall(proxyObj, ifaceName, methodName, args, 
     ifaceName := ifaceName is String ? StrPtr(ifaceName) : ifaceName
     methodName := methodName is String ? StrPtr(methodName) : methodName
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall", alljoyn_proxybusobject, proxyObj, "ptr", ifaceName, "ptr", methodName, alljoyn_msgarg, args, "ptr", numArgs, alljoyn_message, replyMsg, "uint", timeout, "char", flags, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall", alljoyn_proxybusobject, proxyObj, "ptr", ifaceName, "ptr", methodName, alljoyn_msgarg, args, IntPtr, numArgs, alljoyn_message, replyMsg, UInt32, timeout, Int8, flags, QStatus)
     return result
 }
 
@@ -4704,7 +4715,7 @@ export alljoyn_proxybusobject_methodcall(proxyObj, ifaceName, methodName, args, 
  * @returns {QStatus} 
  */
 export alljoyn_proxybusobject_methodcall_member(proxyObj, method, args, numArgs, replyMsg, timeout, flags) {
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_member", alljoyn_proxybusobject, proxyObj, alljoyn_interfacedescription_member, method, alljoyn_msgarg, args, "ptr", numArgs, alljoyn_message, replyMsg, "uint", timeout, "char", flags, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_member", alljoyn_proxybusobject, proxyObj, alljoyn_interfacedescription_member, method, alljoyn_msgarg, args, IntPtr, numArgs, alljoyn_message, replyMsg, UInt32, timeout, Int8, flags, QStatus)
     return result
 }
 
@@ -4722,7 +4733,7 @@ export alljoyn_proxybusobject_methodcall_noreply(proxyObj, ifaceName, methodName
     ifaceName := ifaceName is String ? StrPtr(ifaceName) : ifaceName
     methodName := methodName is String ? StrPtr(methodName) : methodName
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_noreply", alljoyn_proxybusobject, proxyObj, "ptr", ifaceName, "ptr", methodName, alljoyn_msgarg, args, "ptr", numArgs, "char", flags, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_noreply", alljoyn_proxybusobject, proxyObj, "ptr", ifaceName, "ptr", methodName, alljoyn_msgarg, args, IntPtr, numArgs, Int8, flags, QStatus)
     return result
 }
 
@@ -4736,7 +4747,7 @@ export alljoyn_proxybusobject_methodcall_noreply(proxyObj, ifaceName, methodName
  * @returns {QStatus} 
  */
 export alljoyn_proxybusobject_methodcall_member_noreply(proxyObj, method, args, numArgs, flags) {
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_member_noreply", alljoyn_proxybusobject, proxyObj, alljoyn_interfacedescription_member, method, alljoyn_msgarg, args, "ptr", numArgs, "char", flags, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcall_member_noreply", alljoyn_proxybusobject, proxyObj, alljoyn_interfacedescription_member, method, alljoyn_msgarg, args, IntPtr, numArgs, Int8, flags, QStatus)
     return result
 }
 
@@ -4759,7 +4770,7 @@ export alljoyn_proxybusobject_methodcallasync(proxyObj, ifaceName, methodName, r
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync", alljoyn_proxybusobject, proxyObj, "ptr", ifaceName, "ptr", methodName, "ptr", replyFunc, alljoyn_msgarg, args, "ptr", numArgs, _contextMarshal, _context, "uint", timeout, "char", flags, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync", alljoyn_proxybusobject, proxyObj, "ptr", ifaceName, "ptr", methodName, alljoyn_messagereceiver_replyhandler_ptr, replyFunc, alljoyn_msgarg, args, IntPtr, numArgs, _contextMarshal, _context, UInt32, timeout, Int8, flags, QStatus)
     return result
 }
 
@@ -4778,7 +4789,7 @@ export alljoyn_proxybusobject_methodcallasync(proxyObj, ifaceName, methodName, r
 export alljoyn_proxybusobject_methodcallasync_member(proxyObj, method, replyFunc, args, numArgs, _context, timeout, flags) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync_member", alljoyn_proxybusobject, proxyObj, alljoyn_interfacedescription_member, method, "ptr", replyFunc, alljoyn_msgarg, args, "ptr", numArgs, _contextMarshal, _context, "uint", timeout, "char", flags, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_methodcallasync_member", alljoyn_proxybusobject, proxyObj, alljoyn_interfacedescription_member, method, alljoyn_messagereceiver_replyhandler_ptr, replyFunc, alljoyn_msgarg, args, IntPtr, numArgs, _contextMarshal, _context, UInt32, timeout, Int8, flags, QStatus)
     return result
 }
 
@@ -4804,7 +4815,7 @@ export alljoyn_proxybusobject_parsexml(proxyObj, xml, identifier) {
  * @returns {QStatus} 
  */
 export alljoyn_proxybusobject_secureconnection(proxyObj, forceAuth) {
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_secureconnection", alljoyn_proxybusobject, proxyObj, "int", forceAuth, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_secureconnection", alljoyn_proxybusobject, proxyObj, Int32, forceAuth, QStatus)
     return result
 }
 
@@ -4815,7 +4826,7 @@ export alljoyn_proxybusobject_secureconnection(proxyObj, forceAuth) {
  * @returns {QStatus} 
  */
 export alljoyn_proxybusobject_secureconnectionasync(proxyObj, forceAuth) {
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_secureconnectionasync", alljoyn_proxybusobject, proxyObj, "int", forceAuth, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_secureconnectionasync", alljoyn_proxybusobject, proxyObj, Int32, forceAuth, QStatus)
     return result
 }
 
@@ -4842,7 +4853,7 @@ export alljoyn_proxybusobject_getinterface(proxyObj, iface) {
 export alljoyn_proxybusobject_getinterfaces(proxyObj, ifaces, numIfaces) {
     ifacesMarshal := ifaces is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getinterfaces", alljoyn_proxybusobject, proxyObj, ifacesMarshal, ifaces, "ptr", numIfaces, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_proxybusobject_getinterfaces", alljoyn_proxybusobject, proxyObj, ifacesMarshal, ifaces, IntPtr, numIfaces, IntPtr)
     return result
 }
 
@@ -5035,7 +5046,7 @@ export alljoyn_aboutlistener_destroy(listener) {
 export alljoyn_busattachment_create(applicationName, allowRemoteMessages) {
     applicationName := applicationName is String ? StrPtr(applicationName) : applicationName
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_create", "ptr", applicationName, "int", allowRemoteMessages, alljoyn_busattachment)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_create", "ptr", applicationName, Int32, allowRemoteMessages, alljoyn_busattachment)
     return result
 }
 
@@ -5049,7 +5060,7 @@ export alljoyn_busattachment_create(applicationName, allowRemoteMessages) {
 export alljoyn_busattachment_create_concurrency(applicationName, allowRemoteMessages, concurrency) {
     applicationName := applicationName is String ? StrPtr(applicationName) : applicationName
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_create_concurrency", "ptr", applicationName, "int", allowRemoteMessages, "uint", concurrency, alljoyn_busattachment)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_create_concurrency", "ptr", applicationName, Int32, allowRemoteMessages, UInt32, concurrency, alljoyn_busattachment)
     return result
 }
 
@@ -5210,7 +5221,7 @@ export alljoyn_busattachment_findadvertisedname(bus, namePrefix) {
 export alljoyn_busattachment_findadvertisednamebytransport(bus, namePrefix, transports) {
     namePrefix := namePrefix is String ? StrPtr(namePrefix) : namePrefix
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_findadvertisednamebytransport", alljoyn_busattachment, bus, "ptr", namePrefix, "ushort", transports, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_findadvertisednamebytransport", alljoyn_busattachment, bus, "ptr", namePrefix, UInt16, transports, QStatus)
     return result
 }
 
@@ -5237,7 +5248,7 @@ export alljoyn_busattachment_cancelfindadvertisedname(bus, namePrefix) {
 export alljoyn_busattachment_cancelfindadvertisednamebytransport(bus, namePrefix, transports) {
     namePrefix := namePrefix is String ? StrPtr(namePrefix) : namePrefix
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelfindadvertisednamebytransport", alljoyn_busattachment, bus, "ptr", namePrefix, "ushort", transports, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelfindadvertisednamebytransport", alljoyn_busattachment, bus, "ptr", namePrefix, UInt16, transports, QStatus)
     return result
 }
 
@@ -5251,7 +5262,7 @@ export alljoyn_busattachment_cancelfindadvertisednamebytransport(bus, namePrefix
 export alljoyn_busattachment_advertisename(bus, name, transports) {
     name := name is String ? StrPtr(name) : name
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_advertisename", alljoyn_busattachment, bus, "ptr", name, "ushort", transports, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_advertisename", alljoyn_busattachment, bus, "ptr", name, UInt16, transports, QStatus)
     return result
 }
 
@@ -5265,7 +5276,7 @@ export alljoyn_busattachment_advertisename(bus, name, transports) {
 export alljoyn_busattachment_canceladvertisename(bus, name, transports) {
     name := name is String ? StrPtr(name) : name
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_canceladvertisename", alljoyn_busattachment, bus, "ptr", name, "ushort", transports, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_canceladvertisename", alljoyn_busattachment, bus, "ptr", name, UInt16, transports, QStatus)
     return result
 }
 
@@ -5297,7 +5308,7 @@ export alljoyn_busattachment_joinsession(bus, sessionHost, sessionPort, listener
 
     sessionIdMarshal := sessionId is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsession", alljoyn_busattachment, bus, "ptr", sessionHost, "ushort", sessionPort, alljoyn_sessionlistener, listener, sessionIdMarshal, sessionId, alljoyn_sessionopts, opts, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsession", alljoyn_busattachment, bus, "ptr", sessionHost, UInt16, sessionPort, alljoyn_sessionlistener, listener, sessionIdMarshal, sessionId, alljoyn_sessionopts, opts, QStatus)
     return result
 }
 
@@ -5317,7 +5328,7 @@ export alljoyn_busattachment_joinsessionasync(bus, sessionHost, sessionPort, lis
 
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsessionasync", alljoyn_busattachment, bus, "ptr", sessionHost, "ushort", sessionPort, alljoyn_sessionlistener, listener, alljoyn_sessionopts, opts, "ptr", callback, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_joinsessionasync", alljoyn_busattachment, bus, "ptr", sessionHost, UInt16, sessionPort, alljoyn_sessionlistener, listener, alljoyn_sessionopts, opts, alljoyn_busattachment_joinsessioncb_ptr, callback, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -5363,7 +5374,7 @@ export alljoyn_busattachment_unregisterbusobject(bus, _object) {
 export alljoyn_busattachment_requestname(bus, requestedName, flags) {
     requestedName := requestedName is String ? StrPtr(requestedName) : requestedName
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_requestname", alljoyn_busattachment, bus, "ptr", requestedName, "uint", flags, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_requestname", alljoyn_busattachment, bus, "ptr", requestedName, UInt32, flags, QStatus)
     return result
 }
 
@@ -5402,7 +5413,7 @@ export alljoyn_busattachment_bindsessionport(bus, sessionPort, opts, listener) {
  * @returns {QStatus} 
  */
 export alljoyn_busattachment_unbindsessionport(bus, sessionPort) {
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unbindsessionport", alljoyn_busattachment, bus, "ushort", sessionPort, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unbindsessionport", alljoyn_busattachment, bus, UInt16, sessionPort, QStatus)
     return result
 }
 
@@ -5419,7 +5430,7 @@ export alljoyn_busattachment_enablepeersecurity(bus, authMechanisms, listener, k
     authMechanisms := authMechanisms is String ? StrPtr(authMechanisms) : authMechanisms
     keyStoreFileName := keyStoreFileName is String ? StrPtr(keyStoreFileName) : keyStoreFileName
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_enablepeersecurity", alljoyn_busattachment, bus, "ptr", authMechanisms, alljoyn_authlistener, listener, "ptr", keyStoreFileName, "int", isShared, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_enablepeersecurity", alljoyn_busattachment, bus, "ptr", authMechanisms, alljoyn_authlistener, listener, "ptr", keyStoreFileName, Int32, isShared, QStatus)
     return result
 }
 
@@ -5437,7 +5448,7 @@ export alljoyn_busattachment_enablepeersecuritywithpermissionconfigurationlisten
     authMechanisms := authMechanisms is String ? StrPtr(authMechanisms) : authMechanisms
     keyStoreFileName := keyStoreFileName is String ? StrPtr(keyStoreFileName) : keyStoreFileName
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_enablepeersecuritywithpermissionconfigurationlistener", alljoyn_busattachment, bus, "ptr", authMechanisms, alljoyn_authlistener, authListener, "ptr", keyStoreFileName, "int", isShared, alljoyn_permissionconfigurationlistener, permissionConfigurationListener, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_enablepeersecuritywithpermissionconfigurationlistener", alljoyn_busattachment, bus, "ptr", authMechanisms, alljoyn_authlistener, authListener, "ptr", keyStoreFileName, Int32, isShared, alljoyn_permissionconfigurationlistener, permissionConfigurationListener, QStatus)
     return result
 }
 
@@ -5474,7 +5485,7 @@ export alljoyn_busattachment_createinterfacesfromxml(bus, xml) {
 export alljoyn_busattachment_getinterfaces(bus, ifaces, numIfaces) {
     ifacesMarshal := ifaces is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_getinterfaces", alljoyn_busattachment, bus, ifacesMarshal, ifaces, "ptr", numIfaces, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_getinterfaces", alljoyn_busattachment, bus, ifacesMarshal, ifaces, IntPtr, numIfaces, IntPtr)
     return result
 }
 
@@ -5593,7 +5604,7 @@ export alljoyn_busattachment_getglobalguidstring(bus) {
 export alljoyn_busattachment_registersignalhandler(bus, signal_handler, member, srcPath) {
     srcPath := srcPath is String ? StrPtr(srcPath) : srcPath
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandler", alljoyn_busattachment, bus, "ptr", signal_handler, alljoyn_interfacedescription_member, member, "ptr", srcPath, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandler", alljoyn_busattachment, bus, alljoyn_messagereceiver_signalhandler_ptr, signal_handler, alljoyn_interfacedescription_member, member, "ptr", srcPath, QStatus)
     return result
 }
 
@@ -5608,7 +5619,7 @@ export alljoyn_busattachment_registersignalhandler(bus, signal_handler, member, 
 export alljoyn_busattachment_registersignalhandlerwithrule(bus, signal_handler, member, matchRule) {
     matchRule := matchRule is String ? StrPtr(matchRule) : matchRule
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandlerwithrule", alljoyn_busattachment, bus, "ptr", signal_handler, alljoyn_interfacedescription_member, member, "ptr", matchRule, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_registersignalhandlerwithrule", alljoyn_busattachment, bus, alljoyn_messagereceiver_signalhandler_ptr, signal_handler, alljoyn_interfacedescription_member, member, "ptr", matchRule, QStatus)
     return result
 }
 
@@ -5623,7 +5634,7 @@ export alljoyn_busattachment_registersignalhandlerwithrule(bus, signal_handler, 
 export alljoyn_busattachment_unregistersignalhandler(bus, signal_handler, member, srcPath) {
     srcPath := srcPath is String ? StrPtr(srcPath) : srcPath
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandler", alljoyn_busattachment, bus, "ptr", signal_handler, alljoyn_interfacedescription_member, member, "ptr", srcPath, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandler", alljoyn_busattachment, bus, alljoyn_messagereceiver_signalhandler_ptr, signal_handler, alljoyn_interfacedescription_member, member, "ptr", srcPath, QStatus)
     return result
 }
 
@@ -5638,7 +5649,7 @@ export alljoyn_busattachment_unregistersignalhandler(bus, signal_handler, member
 export alljoyn_busattachment_unregistersignalhandlerwithrule(bus, signal_handler, member, matchRule) {
     matchRule := matchRule is String ? StrPtr(matchRule) : matchRule
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandlerwithrule", alljoyn_busattachment, bus, "ptr", signal_handler, alljoyn_interfacedescription_member, member, "ptr", matchRule, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_unregistersignalhandlerwithrule", alljoyn_busattachment, bus, alljoyn_messagereceiver_signalhandler_ptr, signal_handler, alljoyn_interfacedescription_member, member, "ptr", matchRule, QStatus)
     return result
 }
 
@@ -5705,7 +5716,7 @@ export alljoyn_busattachment_clearkeys(bus, guid) {
 export alljoyn_busattachment_setkeyexpiration(bus, guid, timeout) {
     guid := guid is String ? StrPtr(guid) : guid
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setkeyexpiration", alljoyn_busattachment, bus, "ptr", guid, "uint", timeout, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setkeyexpiration", alljoyn_busattachment, bus, "ptr", guid, UInt32, timeout, QStatus)
     return result
 }
 
@@ -5776,7 +5787,7 @@ export alljoyn_busattachment_removematch(bus, rule) {
  * @returns {QStatus} 
  */
 export alljoyn_busattachment_setsessionlistener(bus, sessionId, listener) {
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setsessionlistener", alljoyn_busattachment, bus, "uint", sessionId, alljoyn_sessionlistener, listener, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setsessionlistener", alljoyn_busattachment, bus, UInt32, sessionId, alljoyn_sessionlistener, listener, QStatus)
     return result
 }
 
@@ -5787,7 +5798,7 @@ export alljoyn_busattachment_setsessionlistener(bus, sessionId, listener) {
  * @returns {QStatus} 
  */
 export alljoyn_busattachment_leavesession(bus, sessionId) {
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_leavesession", alljoyn_busattachment, bus, "uint", sessionId, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_leavesession", alljoyn_busattachment, bus, UInt32, sessionId, QStatus)
     return result
 }
 
@@ -5801,7 +5812,7 @@ export alljoyn_busattachment_leavesession(bus, sessionId) {
 export alljoyn_busattachment_secureconnection(bus, name, forceAuth) {
     name := name is String ? StrPtr(name) : name
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_secureconnection", alljoyn_busattachment, bus, "ptr", name, "int", forceAuth, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_secureconnection", alljoyn_busattachment, bus, "ptr", name, Int32, forceAuth, QStatus)
     return result
 }
 
@@ -5815,7 +5826,7 @@ export alljoyn_busattachment_secureconnection(bus, name, forceAuth) {
 export alljoyn_busattachment_secureconnectionasync(bus, name, forceAuth) {
     name := name is String ? StrPtr(name) : name
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_secureconnectionasync", alljoyn_busattachment, bus, "ptr", name, "int", forceAuth, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_secureconnectionasync", alljoyn_busattachment, bus, "ptr", name, Int32, forceAuth, QStatus)
     return result
 }
 
@@ -5829,7 +5840,7 @@ export alljoyn_busattachment_secureconnectionasync(bus, name, forceAuth) {
 export alljoyn_busattachment_removesessionmember(bus, sessionId, memberName) {
     memberName := memberName is String ? StrPtr(memberName) : memberName
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_removesessionmember", alljoyn_busattachment, bus, "uint", sessionId, "ptr", memberName, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_removesessionmember", alljoyn_busattachment, bus, UInt32, sessionId, "ptr", memberName, QStatus)
     return result
 }
 
@@ -5843,7 +5854,7 @@ export alljoyn_busattachment_removesessionmember(bus, sessionId, memberName) {
 export alljoyn_busattachment_setlinktimeout(bus, sessionid, linkTimeout) {
     linkTimeoutMarshal := linkTimeout is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeout", alljoyn_busattachment, bus, "uint", sessionid, linkTimeoutMarshal, linkTimeout, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeout", alljoyn_busattachment, bus, UInt32, sessionid, linkTimeoutMarshal, linkTimeout, QStatus)
     return result
 }
 
@@ -5859,7 +5870,7 @@ export alljoyn_busattachment_setlinktimeout(bus, sessionid, linkTimeout) {
 export alljoyn_busattachment_setlinktimeoutasync(bus, sessionid, linkTimeout, callback, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeoutasync", alljoyn_busattachment, bus, "uint", sessionid, "uint", linkTimeout, "ptr", callback, _contextMarshal, _context, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setlinktimeoutasync", alljoyn_busattachment, bus, UInt32, sessionid, UInt32, linkTimeout, alljoyn_busattachment_setlinktimeoutcb_ptr, callback, _contextMarshal, _context, QStatus)
     return result
 }
 
@@ -5907,7 +5918,7 @@ export alljoyn_busattachment_getpeerguid(bus, name, guid, guidSz) {
 export alljoyn_busattachment_setdaemondebug(bus, module, level) {
     module := module is String ? StrPtr(module) : module
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setdaemondebug", alljoyn_busattachment, bus, "ptr", module, "uint", level, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_setdaemondebug", alljoyn_busattachment, bus, "ptr", module, UInt32, level, QStatus)
     return result
 }
 
@@ -5930,7 +5941,7 @@ export alljoyn_busattachment_gettimestamp() {
 export alljoyn_busattachment_ping(bus, name, timeout) {
     name := name is String ? StrPtr(name) : name
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_ping", alljoyn_busattachment, bus, "ptr", name, "uint", timeout, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_ping", alljoyn_busattachment, bus, "ptr", name, UInt32, timeout, QStatus)
     return result
 }
 
@@ -5973,7 +5984,7 @@ export alljoyn_busattachment_unregisterallaboutlisteners(bus) {
 export alljoyn_busattachment_whoimplements_interfaces(bus, implementsInterfaces, numberInterfaces) {
     implementsInterfacesMarshal := implementsInterfaces is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_whoimplements_interfaces", alljoyn_busattachment, bus, implementsInterfacesMarshal, implementsInterfaces, "ptr", numberInterfaces, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_whoimplements_interfaces", alljoyn_busattachment, bus, implementsInterfacesMarshal, implementsInterfaces, IntPtr, numberInterfaces, QStatus)
     return result
 }
 
@@ -6000,7 +6011,7 @@ export alljoyn_busattachment_whoimplements_interface(bus, implementsInterface) {
 export alljoyn_busattachment_cancelwhoimplements_interfaces(bus, implementsInterfaces, numberInterfaces) {
     implementsInterfacesMarshal := implementsInterfaces is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelwhoimplements_interfaces", alljoyn_busattachment, bus, implementsInterfacesMarshal, implementsInterfaces, "ptr", numberInterfaces, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_busattachment_cancelwhoimplements_interfaces", alljoyn_busattachment, bus, implementsInterfacesMarshal, implementsInterfaces, IntPtr, numberInterfaces, QStatus)
     return result
 }
 
@@ -6091,7 +6102,7 @@ export alljoyn_abouticonobj_destroy(icon) {
 export alljoyn_abouticonproxy_create(bus, busName, sessionId) {
     busName := busName is String ? StrPtr(busName) : busName
 
-    result := DllCall("MSAJApi.dll\alljoyn_abouticonproxy_create", alljoyn_busattachment, bus, "ptr", busName, "uint", sessionId, alljoyn_abouticonproxy)
+    result := DllCall("MSAJApi.dll\alljoyn_abouticonproxy_create", alljoyn_busattachment, bus, "ptr", busName, UInt32, sessionId, alljoyn_abouticonproxy)
     return result
 }
 
@@ -6178,7 +6189,7 @@ export alljoyn_aboutobj_destroy(obj) {
  * @returns {QStatus} 
  */
 export alljoyn_aboutobj_announce(obj, sessionPort, aboutData) {
-    result := DllCall("MSAJApi.dll\alljoyn_aboutobj_announce", alljoyn_aboutobj, obj, "ushort", sessionPort, alljoyn_aboutdata, aboutData, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_aboutobj_announce", alljoyn_aboutobj, obj, UInt16, sessionPort, alljoyn_aboutdata, aboutData, QStatus)
     return result
 }
 
@@ -6190,7 +6201,7 @@ export alljoyn_aboutobj_announce(obj, sessionPort, aboutData) {
  * @returns {QStatus} 
  */
 export alljoyn_aboutobj_announce_using_datalistener(obj, sessionPort, aboutListener) {
-    result := DllCall("MSAJApi.dll\alljoyn_aboutobj_announce_using_datalistener", alljoyn_aboutobj, obj, "ushort", sessionPort, alljoyn_aboutdatalistener, aboutListener, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_aboutobj_announce_using_datalistener", alljoyn_aboutobj, obj, UInt16, sessionPort, alljoyn_aboutdatalistener, aboutListener, QStatus)
     return result
 }
 
@@ -6253,7 +6264,7 @@ export alljoyn_aboutobjectdescription_destroy(description) {
 export alljoyn_aboutobjectdescription_getpaths(description, paths, numPaths) {
     pathsMarshal := paths is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_getpaths", alljoyn_aboutobjectdescription, description, pathsMarshal, paths, "ptr", numPaths, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_getpaths", alljoyn_aboutobjectdescription, description, pathsMarshal, paths, IntPtr, numPaths, IntPtr)
     return result
 }
 
@@ -6270,7 +6281,7 @@ export alljoyn_aboutobjectdescription_getinterfaces(description, _path, interfac
 
     interfacesMarshal := interfaces is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_getinterfaces", alljoyn_aboutobjectdescription, description, "ptr", _path, interfacesMarshal, interfaces, "ptr", numInterfaces, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_getinterfaces", alljoyn_aboutobjectdescription, description, "ptr", _path, interfacesMarshal, interfaces, IntPtr, numInterfaces, IntPtr)
     return result
 }
 
@@ -6287,7 +6298,7 @@ export alljoyn_aboutobjectdescription_getinterfacepaths(description, interfaceNa
 
     pathsMarshal := paths is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_getinterfacepaths", alljoyn_aboutobjectdescription, description, "ptr", interfaceName, pathsMarshal, paths, "ptr", numPaths, IntPtr)
+    result := DllCall("MSAJApi.dll\alljoyn_aboutobjectdescription_getinterfacepaths", alljoyn_aboutobjectdescription, description, "ptr", interfaceName, pathsMarshal, paths, IntPtr, numPaths, IntPtr)
     return result
 }
 
@@ -6362,7 +6373,7 @@ export alljoyn_aboutobjectdescription_getmsgarg(description, msgArg) {
 export alljoyn_aboutproxy_create(bus, busName, sessionId) {
     busName := busName is String ? StrPtr(busName) : busName
 
-    result := DllCall("MSAJApi.dll\alljoyn_aboutproxy_create", alljoyn_busattachment, bus, "ptr", busName, "uint", sessionId, alljoyn_aboutproxy)
+    result := DllCall("MSAJApi.dll\alljoyn_aboutproxy_create", alljoyn_busattachment, bus, "ptr", busName, UInt32, sessionId, alljoyn_aboutproxy)
     return result
 }
 
@@ -6483,7 +6494,7 @@ export alljoyn_autopinger_resume(autopinger) {
 export alljoyn_autopinger_addpinggroup(autopinger, group, listener, pinginterval) {
     group := group is String ? StrPtr(group) : group
 
-    DllCall("MSAJApi.dll\alljoyn_autopinger_addpinggroup", alljoyn_autopinger, autopinger, "ptr", group, alljoyn_pinglistener, listener, "uint", pinginterval)
+    DllCall("MSAJApi.dll\alljoyn_autopinger_addpinggroup", alljoyn_autopinger, autopinger, "ptr", group, alljoyn_pinglistener, listener, UInt32, pinginterval)
 }
 
 /**
@@ -6508,7 +6519,7 @@ export alljoyn_autopinger_removepinggroup(autopinger, group) {
 export alljoyn_autopinger_setpinginterval(autopinger, group, pinginterval) {
     group := group is String ? StrPtr(group) : group
 
-    result := DllCall("MSAJApi.dll\alljoyn_autopinger_setpinginterval", alljoyn_autopinger, autopinger, "ptr", group, "uint", pinginterval, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_autopinger_setpinginterval", alljoyn_autopinger, autopinger, "ptr", group, UInt32, pinginterval, QStatus)
     return result
 }
 
@@ -6539,7 +6550,7 @@ export alljoyn_autopinger_removedestination(autopinger, group, destination, remo
     group := group is String ? StrPtr(group) : group
     destination := destination is String ? StrPtr(destination) : destination
 
-    result := DllCall("MSAJApi.dll\alljoyn_autopinger_removedestination", alljoyn_autopinger, autopinger, "ptr", group, "ptr", destination, "int", removeall, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_autopinger_removedestination", alljoyn_autopinger, autopinger, "ptr", group, "ptr", destination, Int32, removeall, QStatus)
     return result
 }
 
@@ -6688,7 +6699,7 @@ export alljoyn_observerlistener_destroy(listener) {
 export alljoyn_observer_create(bus, mandatoryInterfaces, numMandatoryInterfaces) {
     mandatoryInterfacesMarshal := mandatoryInterfaces is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_observer_create", alljoyn_busattachment, bus, mandatoryInterfacesMarshal, mandatoryInterfaces, "ptr", numMandatoryInterfaces, alljoyn_observer)
+    result := DllCall("MSAJApi.dll\alljoyn_observer_create", alljoyn_busattachment, bus, mandatoryInterfacesMarshal, mandatoryInterfaces, IntPtr, numMandatoryInterfaces, alljoyn_observer)
     return result
 }
 
@@ -6709,7 +6720,7 @@ export alljoyn_observer_destroy(observer) {
  * @returns {String} Nothing - always returns an empty string
  */
 export alljoyn_observer_registerlistener(observer, listener, triggerOnExisting) {
-    DllCall("MSAJApi.dll\alljoyn_observer_registerlistener", alljoyn_observer, observer, alljoyn_observerlistener, listener, "int", triggerOnExisting)
+    DllCall("MSAJApi.dll\alljoyn_observer_registerlistener", alljoyn_observer, observer, alljoyn_observerlistener, listener, Int32, triggerOnExisting)
 }
 
 /**
@@ -6800,7 +6811,7 @@ export alljoyn_securityapplicationproxy_getpermissionmanagementsessionport() {
 export alljoyn_securityapplicationproxy_create(bus, appBusName, sessionId) {
     appBusNameMarshal := appBusName is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_create", alljoyn_busattachment, bus, appBusNameMarshal, appBusName, "uint", sessionId, alljoyn_securityapplicationproxy)
+    result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_create", alljoyn_busattachment, bus, appBusNameMarshal, appBusName, UInt32, sessionId, alljoyn_securityapplicationproxy)
     return result
 }
 
@@ -6832,7 +6843,7 @@ export alljoyn_securityapplicationproxy_claim(proxy, caKey, identityCertificateC
     groupAuthorityMarshal := groupAuthority is VarRef ? "char*" : "ptr"
     manifestsXmlsMarshal := manifestsXmls is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_claim", alljoyn_securityapplicationproxy, proxy, caKeyMarshal, caKey, identityCertificateChainMarshal, identityCertificateChain, groupIdMarshal, groupId, "ptr", groupSize, groupAuthorityMarshal, groupAuthority, manifestsXmlsMarshal, manifestsXmls, "ptr", manifestsCount, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_claim", alljoyn_securityapplicationproxy, proxy, caKeyMarshal, caKey, identityCertificateChainMarshal, identityCertificateChain, groupIdMarshal, groupId, IntPtr, groupSize, groupAuthorityMarshal, groupAuthority, manifestsXmlsMarshal, manifestsXmls, IntPtr, manifestsCount, QStatus)
     return result
 }
 
@@ -6961,7 +6972,7 @@ export alljoyn_securityapplicationproxy_updateidentity(proxy, identityCertificat
     identityCertificateChainMarshal := identityCertificateChain is VarRef ? "char*" : "ptr"
     manifestsXmlsMarshal := manifestsXmls is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_updateidentity", alljoyn_securityapplicationproxy, proxy, identityCertificateChainMarshal, identityCertificateChain, manifestsXmlsMarshal, manifestsXmls, "ptr", manifestsCount, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_updateidentity", alljoyn_securityapplicationproxy, proxy, identityCertificateChainMarshal, identityCertificateChain, manifestsXmlsMarshal, manifestsXmls, IntPtr, manifestsCount, QStatus)
     return result
 }
 
@@ -7115,7 +7126,7 @@ export alljoyn_securityapplicationproxy_setmanifestsignature(unsignedManifestXml
     signatureMarshal := signature is VarRef ? "char*" : "ptr"
     signedManifestXmlMarshal := signedManifestXml is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_setmanifestsignature", unsignedManifestXmlMarshal, unsignedManifestXml, identityCertificatePemMarshal, identityCertificatePem, signatureMarshal, signature, "ptr", signatureSize, signedManifestXmlMarshal, signedManifestXml, QStatus)
+    result := DllCall("MSAJApi.dll\alljoyn_securityapplicationproxy_setmanifestsignature", unsignedManifestXmlMarshal, unsignedManifestXml, identityCertificatePemMarshal, identityCertificatePem, signatureMarshal, signature, IntPtr, signatureSize, signedManifestXmlMarshal, signedManifestXml, QStatus)
     return result
 }
 

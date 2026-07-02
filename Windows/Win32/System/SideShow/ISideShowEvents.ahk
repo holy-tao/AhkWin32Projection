@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISideShowCapabilities.ahk" { ISideShowCapabilities }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISideShowContent.ahk" { ISideShowContent }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISideShowContent.ahk" { ISideShowContent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.SideShow
@@ -46,7 +46,7 @@ export default struct ISideShowEvents extends IUnknown {
      * @returns {ISideShowContent} 
      */
     ContentMissing(in_contentId) {
-        result := ComCall(3, this, "uint", in_contentId, "ptr*", &out_ppIContent := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, in_contentId, "ptr*", &out_ppIContent := 0, "HRESULT")
         return ISideShowContent(out_ppIContent)
     }
 
@@ -61,7 +61,7 @@ export default struct ISideShowEvents extends IUnknown {
     ApplicationEvent(in_pICapabilities, in_dwEventId, in_dwEventSize, in_pbEventData) {
         in_pbEventDataMarshal := in_pbEventData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", in_pICapabilities, "uint", in_dwEventId, "uint", in_dwEventSize, in_pbEventDataMarshal, in_pbEventData, "HRESULT")
+        result := ComCall(4, this, "ptr", in_pICapabilities, UInt32, in_dwEventId, UInt32, in_dwEventSize, in_pbEventDataMarshal, in_pbEventData, "HRESULT")
         return result
     }
 

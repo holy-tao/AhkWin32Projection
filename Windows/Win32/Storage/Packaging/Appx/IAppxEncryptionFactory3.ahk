@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAppxEncryptedBundleWriter.ahk" { IAppxEncryptedBundleWriter }
 #Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
-#Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS2.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS2 }
 #Import ".\APPX_ENCRYPTED_EXEMPTIONS.ahk" { APPX_ENCRYPTED_EXEMPTIONS }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAppxEncryptedPackageWriter.ahk" { IAppxEncryptedPackageWriter }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IAppxEncryptedBundleWriter.ahk" { IAppxEncryptedBundleWriter }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS2.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS2 }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Creates objects for encrypting, decrypting, reading, and writing Windows app packages and bundles. (IAppxEncryptionFactory3)
@@ -103,7 +103,7 @@ export default struct IAppxEncryptionFactory3 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory3-createencryptedbundlewriter
      */
     CreateEncryptedBundleWriter(outputStream, bundleVersion, settings, keyInfo, exemptedFiles) {
-        result := ComCall(6, this, "ptr", outputStream, "uint", bundleVersion, APPX_ENCRYPTED_PACKAGE_SETTINGS2.Ptr, settings, APPX_KEY_INFO.Ptr, keyInfo, APPX_ENCRYPTED_EXEMPTIONS.Ptr, exemptedFiles, "ptr*", &bundleWriter := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", outputStream, Int64, bundleVersion, APPX_ENCRYPTED_PACKAGE_SETTINGS2.Ptr, settings, APPX_KEY_INFO.Ptr, keyInfo, APPX_ENCRYPTED_EXEMPTIONS.Ptr, exemptedFiles, "ptr*", &bundleWriter := 0, "HRESULT")
         return IAppxEncryptedBundleWriter(bundleWriter)
     }
 

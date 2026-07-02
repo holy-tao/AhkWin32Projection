@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The PDH_FMT_COUNTERVALUE structure contains the computed value of the counter and its status.

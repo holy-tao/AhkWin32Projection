@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A module-instance interface is used for resource rebinding.
@@ -82,7 +82,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindconstantbuffer
      */
     BindConstantBuffer(uSrcSlot, uDstSlot, cbDstOffset) {
-        result := ComCall(3, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", cbDstOffset, "HRESULT")
+        result := ComCall(3, this, UInt32, uSrcSlot, UInt32, uDstSlot, UInt32, cbDstOffset, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
     BindConstantBufferByName(pName, uDstSlot, cbDstOffset) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(4, this, "ptr", pName, "uint", uDstSlot, "uint", cbDstOffset, "HRESULT")
+        result := ComCall(4, this, "ptr", pName, UInt32, uDstSlot, UInt32, cbDstOffset, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresource
      */
     BindResource(uSrcSlot, uDstSlot, uCount) {
-        result := ComCall(5, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(5, this, UInt32, uSrcSlot, UInt32, uDstSlot, UInt32, uCount, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
     BindResourceByName(pName, uDstSlot, uCount) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(6, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(6, this, "ptr", pName, UInt32, uDstSlot, UInt32, uCount, "HRESULT")
         return result
     }
 
@@ -205,7 +205,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindsampler
      */
     BindSampler(uSrcSlot, uDstSlot, uCount) {
-        result := ComCall(7, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(7, this, UInt32, uSrcSlot, UInt32, uDstSlot, UInt32, uCount, "HRESULT")
         return result
     }
 
@@ -236,7 +236,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
     BindSamplerByName(pName, uDstSlot, uCount) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(8, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(8, this, "ptr", pName, UInt32, uDstSlot, UInt32, uCount, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindunorderedaccessview
      */
     BindUnorderedAccessView(uSrcSlot, uDstSlot, uCount) {
-        result := ComCall(9, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(9, this, UInt32, uSrcSlot, UInt32, uDstSlot, UInt32, uCount, "HRESULT")
         return result
     }
 
@@ -296,7 +296,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
     BindUnorderedAccessViewByName(pName, uDstSlot, uCount) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(10, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(10, this, "ptr", pName, UInt32, uDstSlot, UInt32, uCount, "HRESULT")
         return result
     }
 
@@ -325,7 +325,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresourceasunorderedaccessview
      */
     BindResourceAsUnorderedAccessView(uSrcSrvSlot, uDstUavSlot, uCount) {
-        result := ComCall(11, this, "uint", uSrcSrvSlot, "uint", uDstUavSlot, "uint", uCount, "HRESULT")
+        result := ComCall(11, this, UInt32, uSrcSrvSlot, UInt32, uDstUavSlot, UInt32, uCount, "HRESULT")
         return result
     }
 
@@ -356,7 +356,7 @@ export default struct ID3D11ModuleInstance extends IUnknown {
     BindResourceAsUnorderedAccessViewByName(pSrvName, uDstUavSlot, uCount) {
         pSrvName := pSrvName is String ? StrPtr(pSrvName) : pSrvName
 
-        result := ComCall(12, this, "ptr", pSrvName, "uint", uDstUavSlot, "uint", uCount, "HRESULT")
+        result := ComCall(12, this, "ptr", pSrvName, UInt32, uDstUavSlot, UInt32, uCount, "HRESULT")
         return result
     }
 

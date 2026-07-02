@@ -1,57 +1,70 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\RPC_ASYNC_NOTIFICATION_INFO.ahk" { RPC_ASYNC_NOTIFICATION_INFO }
-#Import ".\RPC_SERVER_INTERFACE.ahk" { RPC_SERVER_INTERFACE }
-#Import ".\LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION.ahk" { LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION }
-#Import ".\NDR_USER_MARSHAL_INFO.ahk" { NDR_USER_MARSHAL_INFO }
-#Import "..\Com\IRpcChannelBuffer.ahk" { IRpcChannelBuffer }
-#Import ".\RPC_NOTIFICATIONS.ahk" { RPC_NOTIFICATIONS }
-#Import ".\RDR_CALLOUT_STATE.ahk" { RDR_CALLOUT_STATE }
-#Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
-#Import ".\MIDL_ES_CODE.ahk" { MIDL_ES_CODE }
-#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\RPC_POLICY.ahk" { RPC_POLICY }
-#Import ".\RPC_BINDING_HANDLE_SECURITY_V1_A.ahk" { RPC_BINDING_HANDLE_SECURITY_V1_A }
-#Import ".\RPC_BINDING_HANDLE_SECURITY_V1_W.ahk" { RPC_BINDING_HANDLE_SECURITY_V1_W }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\RPC_BINDING_HANDLE_TEMPLATE_V1_W.ahk" { RPC_BINDING_HANDLE_TEMPLATE_V1_W }
+#Import ".\CLIENT_CALL_RETURN.ahk" { CLIENT_CALL_RETURN }
+#Import ".\RPC_MESSAGE.ahk" { RPC_MESSAGE }
+#Import ".\MIDL_ES_READ.ahk" { MIDL_ES_READ }
 #Import ".\GROUP_NAME_SYNTAX.ahk" { GROUP_NAME_SYNTAX }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MIDL_STUB_DESC.ahk" { MIDL_STUB_DESC }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RPC_ASYNC_NOTIFICATION_INFO.ahk" { RPC_ASYNC_NOTIFICATION_INFO }
+#Import ".\RPC_INTERFACE_TEMPLATEA.ahk" { RPC_INTERFACE_TEMPLATEA }
+#Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
 #Import ".\MIDL_STUBLESS_PROXY_INFO.ahk" { MIDL_STUBLESS_PROXY_INFO }
-#Import ".\FULL_PTR_XLAT_TABLES.ahk" { FULL_PTR_XLAT_TABLES }
-#Import "..\Com\IRpcStubBuffer.ahk" { IRpcStubBuffer }
+#Import ".\RPC_ERROR_ENUM_HANDLE.ahk" { RPC_ERROR_ENUM_HANDLE }
+#Import ".\RPC_BINDING_HANDLE_SECURITY_V1_W.ahk" { RPC_BINDING_HANDLE_SECURITY_V1_W }
+#Import ".\XLAT_SIDE.ahk" { XLAT_SIDE }
+#Import ".\NDR_SCONTEXT.ahk" { NDR_SCONTEXT }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MIDL_ES_CODE.ahk" { MIDL_ES_CODE }
+#Import ".\MIDL_STUB_DESC.ahk" { MIDL_STUB_DESC }
 #Import ".\RPC_PROTSEQ_VECTORW.ahk" { RPC_PROTSEQ_VECTORW }
+#Import ".\RPC_BINDING_HANDLE_SECURITY_V1_A.ahk" { RPC_BINDING_HANDLE_SECURITY_V1_A }
+#Import ".\RDR_CALLOUT_STATE.ahk" { RDR_CALLOUT_STATE }
+#Import ".\RPC_BINDING_HANDLE_TEMPLATE_V1_W.ahk" { RPC_BINDING_HANDLE_TEMPLATE_V1_W }
+#Import ".\RPC_IF_CALLBACK_FN.ahk" { RPC_IF_CALLBACK_FN }
+#Import ".\UUID_VECTOR.ahk" { UUID_VECTOR }
+#Import ".\NDR_RUNDOWN.ahk" { NDR_RUNDOWN }
+#Import ".\MIDL_ES_WRITE.ahk" { MIDL_ES_WRITE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MIDL_ES_ALLOC.ahk" { MIDL_ES_ALLOC }
+#Import ".\RPC_STATS_VECTOR.ahk" { RPC_STATS_VECTOR }
+#Import ".\RPC_SERVER_INTERFACE.ahk" { RPC_SERVER_INTERFACE }
+#Import ".\RPC_INTERFACE_TEMPLATEW.ahk" { RPC_INTERFACE_TEMPLATEW }
+#Import ".\RPC_ASYNC_STATE.ahk" { RPC_ASYNC_STATE }
+#Import ".\RPC_OBJECT_INQ_FN.ahk" { RPC_OBJECT_INQ_FN }
+#Import ".\RPC_ADDRESS_CHANGE_FN.ahk" { RPC_ADDRESS_CHANGE_FN }
+#Import ".\RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN.ahk" { RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN }
+#Import ".\RPC_CLIENT_FREE.ahk" { RPC_CLIENT_FREE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RPC_BINDING_VECTOR.ahk" { RPC_BINDING_VECTOR }
+#Import ".\MIDL_TYPE_PICKLING_INFO.ahk" { MIDL_TYPE_PICKLING_INFO }
+#Import ".\RPC_NOTIFICATIONS.ahk" { RPC_NOTIFICATIONS }
+#Import ".\MIDL_STUB_MESSAGE.ahk" { MIDL_STUB_MESSAGE }
+#Import ".\LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION.ahk" { LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION }
+#Import ".\RPC_IF_ID.ahk" { RPC_IF_ID }
+#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\RPC_FORWARD_FUNCTION.ahk" { RPC_FORWARD_FUNCTION }
 #Import ".\RPC_ENDPOINT_TEMPLATEA.ahk" { RPC_ENDPOINT_TEMPLATEA }
+#Import ".\RPC_PROTSEQ_VECTORA.ahk" { RPC_PROTSEQ_VECTORA }
+#Import ".\RPC_ENDPOINT_TEMPLATEW.ahk" { RPC_ENDPOINT_TEMPLATEW }
+#Import "..\Com\IRpcChannelBuffer.ahk" { IRpcChannelBuffer }
+#Import ".\RPC_TRANSFER_SYNTAX.ahk" { RPC_TRANSFER_SYNTAX }
+#Import ".\RPC_BINDING_HANDLE_OPTIONS_V1.ahk" { RPC_BINDING_HANDLE_OPTIONS_V1 }
+#Import ".\NDR_USER_MARSHAL_INFO.ahk" { NDR_USER_MARSHAL_INFO }
+#Import ".\RPC_CLIENT_ALLOC.ahk" { RPC_CLIENT_ALLOC }
+#Import ".\RPC_SECURITY_QOS.ahk" { RPC_SECURITY_QOS }
+#Import ".\RPC_MGMT_AUTHORIZATION_FN.ahk" { RPC_MGMT_AUTHORIZATION_FN }
+#Import ".\RPC_POLICY.ahk" { RPC_POLICY }
+#Import ".\RPC_IF_ID_VECTOR.ahk" { RPC_IF_ID_VECTOR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\RPC_NOTIFICATION_TYPES.ahk" { RPC_NOTIFICATION_TYPES }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RPC_AUTH_KEY_RETRIEVAL_FN.ahk" { RPC_AUTH_KEY_RETRIEVAL_FN }
+#Import "..\Com\IRpcStubBuffer.ahk" { IRpcStubBuffer }
+#Import ".\FULL_PTR_XLAT_TABLES.ahk" { FULL_PTR_XLAT_TABLES }
 #Import ".\RPC_EXTENDED_ERROR_INFO.ahk" { RPC_EXTENDED_ERROR_INFO }
-#Import ".\RPC_IF_ID_VECTOR.ahk" { RPC_IF_ID_VECTOR }
-#Import ".\UUID_VECTOR.ahk" { UUID_VECTOR }
-#Import ".\RPC_PROTSEQ_VECTORA.ahk" { RPC_PROTSEQ_VECTORA }
-#Import ".\RPC_INTERFACE_TEMPLATEW.ahk" { RPC_INTERFACE_TEMPLATEW }
 #Import ".\RPC_VERSION.ahk" { RPC_VERSION }
-#Import ".\RPC_BINDING_VECTOR.ahk" { RPC_BINDING_VECTOR }
-#Import ".\RPC_ENDPOINT_TEMPLATEW.ahk" { RPC_ENDPOINT_TEMPLATEW }
-#Import ".\MIDL_TYPE_PICKLING_INFO.ahk" { MIDL_TYPE_PICKLING_INFO }
-#Import ".\RPC_ERROR_ENUM_HANDLE.ahk" { RPC_ERROR_ENUM_HANDLE }
-#Import ".\RPC_ASYNC_STATE.ahk" { RPC_ASYNC_STATE }
-#Import ".\RPC_STATUS.ahk" { RPC_STATUS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\RPC_STATS_VECTOR.ahk" { RPC_STATS_VECTOR }
-#Import ".\RPC_IF_ID.ahk" { RPC_IF_ID }
-#Import ".\RPC_SECURITY_QOS.ahk" { RPC_SECURITY_QOS }
-#Import ".\XLAT_SIDE.ahk" { XLAT_SIDE }
-#Import ".\CLIENT_CALL_RETURN.ahk" { CLIENT_CALL_RETURN }
-#Import ".\RPC_INTERFACE_TEMPLATEA.ahk" { RPC_INTERFACE_TEMPLATEA }
-#Import ".\RPC_BINDING_HANDLE_OPTIONS_V1.ahk" { RPC_BINDING_HANDLE_OPTIONS_V1 }
-#Import ".\RPC_TRANSFER_SYNTAX.ahk" { RPC_TRANSFER_SYNTAX }
-#Import ".\RPC_MESSAGE.ahk" { RPC_MESSAGE }
-#Import ".\NDR_SCONTEXT.ahk" { NDR_SCONTEXT }
-#Import ".\MIDL_STUB_MESSAGE.ahk" { MIDL_STUB_MESSAGE }
 #Import ".\RPC_BINDING_HANDLE_TEMPLATE_V1_A.ahk" { RPC_BINDING_HANDLE_TEMPLATE_V1_A }
 
 /**
@@ -334,7 +347,7 @@ export RpcBindingFree(Binding) {
 export RpcBindingSetOption(hBinding, option, optionValue) {
     hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingSetOption", hBindingMarshal, hBinding, "uint", option, "ptr", optionValue, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingSetOption", hBindingMarshal, hBinding, UInt32, option, IntPtr, optionValue, RPC_STATUS)
     return result
 }
 
@@ -391,7 +404,7 @@ export RpcBindingInqOption(hBinding, option, pOptionValue) {
     hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
     pOptionValueMarshal := pOptionValue is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingInqOption", hBindingMarshal, hBinding, "uint", option, pOptionValueMarshal, pOptionValue, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingInqOption", hBindingMarshal, hBinding, UInt32, option, pOptionValueMarshal, pOptionValue, RPC_STATUS)
     return result
 }
 
@@ -947,7 +960,7 @@ export RpcBindingSetObject(Binding, ObjectUuid) {
 export RpcMgmtInqDefaultProtectLevel(AuthnSvc, AuthnLevel) {
     AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcMgmtInqDefaultProtectLevel", "uint", AuthnSvc, AuthnLevelMarshal, AuthnLevel, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtInqDefaultProtectLevel", UInt32, AuthnSvc, AuthnLevelMarshal, AuthnLevel, RPC_STATUS)
     return result
 }
 
@@ -1985,7 +1998,7 @@ export RpcMgmtInqComTimeout(Binding, Timeout) {
 export RpcMgmtSetComTimeout(Binding, Timeout) {
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcMgmtSetComTimeout", BindingMarshal, Binding, "uint", Timeout, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtSetComTimeout", BindingMarshal, Binding, UInt32, Timeout, RPC_STATUS)
     return result
 }
 
@@ -2034,7 +2047,7 @@ export RpcMgmtSetComTimeout(Binding, Timeout) {
  * @since windows5.0
  */
 export RpcMgmtSetCancelTimeout(Timeout) {
-    result := DllCall("RPCRT4.dll\RpcMgmtSetCancelTimeout", "int", Timeout, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtSetCancelTimeout", Int32, Timeout, RPC_STATUS)
     return result
 }
 
@@ -2288,7 +2301,7 @@ export RpcObjectInqType(ObjUuid, TypeUuid) {
  * @since windows5.0
  */
 export RpcObjectSetInqFn(InquiryFn) {
-    result := DllCall("RPCRT4.dll\RpcObjectSetInqFn", "ptr", InquiryFn, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcObjectSetInqFn", RPC_OBJECT_INQ_FN, InquiryFn, RPC_STATUS)
     return result
 }
 
@@ -2759,7 +2772,7 @@ export RpcServerInqIf(IfSpec, MgrTypeUuid, MgrEpv) {
  * @since windows5.0
  */
 export RpcServerListen(MinimumCallThreads, MaxCalls, DontWait) {
-    result := DllCall("RPCRT4.dll\RpcServerListen", "uint", MinimumCallThreads, "uint", MaxCalls, "uint", DontWait, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerListen", UInt32, MinimumCallThreads, UInt32, MaxCalls, UInt32, DontWait, RPC_STATUS)
     return result
 }
 
@@ -2884,7 +2897,7 @@ export RpcServerRegisterIfEx(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, IfCal
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterIfEx", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, "uint", Flags, "uint", MaxCalls, "ptr", IfCallback, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterIfEx", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, UInt32, Flags, UInt32, MaxCalls, RPC_IF_CALLBACK_FN, IfCallback, RPC_STATUS)
     return result
 }
 
@@ -2962,7 +2975,7 @@ export RpcServerRegisterIf2(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpc
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterIf2", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, "uint", Flags, "uint", MaxCalls, "uint", MaxRpcSize, "ptr", IfCallbackFn, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterIf2", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, UInt32, Flags, UInt32, MaxCalls, UInt32, MaxRpcSize, RPC_IF_CALLBACK_FN, IfCallbackFn, RPC_STATUS)
     return result
 }
 
@@ -3006,7 +3019,7 @@ export RpcServerRegisterIf3(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpc
     MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterIf3", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, "uint", Flags, "uint", MaxCalls, "uint", MaxRpcSize, "ptr", IfCallback, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterIf3", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, UInt32, Flags, UInt32, MaxCalls, UInt32, MaxRpcSize, RPC_IF_CALLBACK_FN, IfCallback, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -3130,7 +3143,7 @@ export RpcServerRegisterIf3(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpc
 export RpcServerUnregisterIf(IfSpec, MgrTypeUuid, WaitForCallsToComplete) {
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUnregisterIf", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, "uint", WaitForCallsToComplete, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUnregisterIf", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, UInt32, WaitForCallsToComplete, RPC_STATUS)
     return result
 }
 
@@ -3175,7 +3188,7 @@ export RpcServerUnregisterIf(IfSpec, MgrTypeUuid, WaitForCallsToComplete) {
 export RpcServerUnregisterIfEx(IfSpec, MgrTypeUuid, RundownContextHandles) {
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUnregisterIfEx", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, "int", RundownContextHandles, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUnregisterIfEx", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, Int32, RundownContextHandles, RPC_STATUS)
     return result
 }
 
@@ -3291,7 +3304,7 @@ export RpcServerUnregisterIfEx(IfSpec, MgrTypeUuid, RundownContextHandles) {
 export RpcServerUseAllProtseqs(MaxCalls, _SecurityDescriptor) {
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqs", "uint", MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqs", UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -3421,7 +3434,7 @@ export RpcServerUseAllProtseqs(MaxCalls, _SecurityDescriptor) {
 export RpcServerUseAllProtseqsEx(MaxCalls, _SecurityDescriptor, Policy) {
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsEx", "uint", MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsEx", UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
 }
 
@@ -3570,7 +3583,7 @@ export RpcServerUseAllProtseqsIf(MaxCalls, IfSpec, _SecurityDescriptor) {
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIf", "uint", MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIf", UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -3730,7 +3743,7 @@ export RpcServerUseAllProtseqsIfEx(MaxCalls, IfSpec, _SecurityDescriptor, Policy
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIfEx", "uint", MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIfEx", UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
 }
 
@@ -3840,7 +3853,7 @@ export RpcServerUseProtseqA(Protseq, MaxCalls, _SecurityDescriptor) {
 
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqA", "ptr", Protseq, "uint", MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqA", "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -3964,7 +3977,7 @@ export RpcServerUseProtseqExA(Protseq, MaxCalls, _SecurityDescriptor, Policy) {
 
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqExA", "ptr", Protseq, "uint", MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqExA", "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
 }
 
@@ -4074,7 +4087,7 @@ export RpcServerUseProtseqW(Protseq, MaxCalls, _SecurityDescriptor) {
 
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqW", "ptr", Protseq, "uint", MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqW", "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -4198,7 +4211,7 @@ export RpcServerUseProtseqExW(Protseq, MaxCalls, _SecurityDescriptor, Policy) {
 
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqExW", "ptr", Protseq, "uint", MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqExW", "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
 }
 
@@ -4330,7 +4343,7 @@ export RpcServerUseProtseqEpA(Protseq, MaxCalls, Endpoint, _SecurityDescriptor) 
 
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpA", "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -4482,7 +4495,7 @@ export RpcServerUseProtseqEpExA(Protseq, MaxCalls, Endpoint, _SecurityDescriptor
 
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExA", "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
 }
 
@@ -4614,7 +4627,7 @@ export RpcServerUseProtseqEpW(Protseq, MaxCalls, Endpoint, _SecurityDescriptor) 
 
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpW", "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -4766,7 +4779,7 @@ export RpcServerUseProtseqEpExW(Protseq, MaxCalls, Endpoint, _SecurityDescriptor
 
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExW", "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
 }
 
@@ -4903,7 +4916,7 @@ export RpcServerUseProtseqIfA(Protseq, MaxCalls, IfSpec, _SecurityDescriptor) {
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfA", "ptr", Protseq, "uint", MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfA", "ptr", Protseq, UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -5050,7 +5063,7 @@ export RpcServerUseProtseqIfExA(Protseq, MaxCalls, IfSpec, _SecurityDescriptor, 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExA", "ptr", Protseq, "uint", MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExA", "ptr", Protseq, UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
 }
 
@@ -5187,7 +5200,7 @@ export RpcServerUseProtseqIfW(Protseq, MaxCalls, IfSpec, _SecurityDescriptor) {
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfW", "ptr", Protseq, "uint", MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfW", "ptr", Protseq, UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -5334,7 +5347,7 @@ export RpcServerUseProtseqIfExW(Protseq, MaxCalls, IfSpec, _SecurityDescriptor, 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExW", "ptr", Protseq, "uint", MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExW", "ptr", Protseq, UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
 }
 
@@ -5761,7 +5774,7 @@ export RpcMgmtWaitServerListen() {
  * @since windows5.0
  */
 export RpcMgmtSetServerStackSize(ThreadStackSize) {
-    result := DllCall("RPCRT4.dll\RpcMgmtSetServerStackSize", "uint", ThreadStackSize, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtSetServerStackSize", UInt32, ThreadStackSize, RPC_STATUS)
     return result
 }
 
@@ -6049,7 +6062,7 @@ export RpcMgmtInqServerPrincNameA(Binding, AuthnSvc, ServerPrincName) {
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
     ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameA", BindingMarshal, Binding, "uint", AuthnSvc, ServerPrincNameMarshal, ServerPrincName, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameA", BindingMarshal, Binding, UInt32, AuthnSvc, ServerPrincNameMarshal, ServerPrincName, RPC_STATUS)
     return result
 }
 
@@ -6125,7 +6138,7 @@ export RpcMgmtInqServerPrincNameW(Binding, AuthnSvc, ServerPrincName) {
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
     ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameW", BindingMarshal, Binding, "uint", AuthnSvc, ServerPrincNameMarshal, ServerPrincName, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameW", BindingMarshal, Binding, UInt32, AuthnSvc, ServerPrincNameMarshal, ServerPrincName, RPC_STATUS)
     return result
 }
 
@@ -6181,7 +6194,7 @@ export RpcMgmtInqServerPrincNameW(Binding, AuthnSvc, ServerPrincName) {
 export RpcServerInqDefaultPrincNameA(AuthnSvc, PrincName) {
     PrincNameMarshal := PrincName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerInqDefaultPrincNameA", "uint", AuthnSvc, PrincNameMarshal, PrincName, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerInqDefaultPrincNameA", UInt32, AuthnSvc, PrincNameMarshal, PrincName, RPC_STATUS)
     return result
 }
 
@@ -6237,7 +6250,7 @@ export RpcServerInqDefaultPrincNameA(AuthnSvc, PrincName) {
 export RpcServerInqDefaultPrincNameW(AuthnSvc, PrincName) {
     PrincNameMarshal := PrincName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerInqDefaultPrincNameW", "uint", AuthnSvc, PrincNameMarshal, PrincName, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerInqDefaultPrincNameW", UInt32, AuthnSvc, PrincNameMarshal, PrincName, RPC_STATUS)
     return result
 }
 
@@ -6446,7 +6459,7 @@ export RpcNsBindingInqEntryNameA(Binding, EntryNameSyntax, EntryName) {
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
     EntryNameMarshal := EntryName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameA", BindingMarshal, Binding, "uint", EntryNameSyntax, EntryNameMarshal, EntryName, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameA", BindingMarshal, Binding, UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, RPC_STATUS)
     return result
 }
 
@@ -6575,7 +6588,7 @@ export RpcNsBindingInqEntryNameW(Binding, EntryNameSyntax, EntryName) {
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
     EntryNameMarshal := EntryName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameW", BindingMarshal, Binding, "uint", EntryNameSyntax, EntryNameMarshal, EntryName, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameW", BindingMarshal, Binding, UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, RPC_STATUS)
     return result
 }
 
@@ -7411,7 +7424,7 @@ export RpcBindingInqAuthClientExA(ClientBinding, Privs, ServerPrincName, AuthnLe
     AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
     AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExA", ClientBindingMarshal, ClientBinding, PrivsMarshal, Privs, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, "uint", Flags, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExA", ClientBindingMarshal, ClientBinding, PrivsMarshal, Privs, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, UInt32, Flags, RPC_STATUS)
     return result
 }
 
@@ -7549,7 +7562,7 @@ export RpcBindingInqAuthClientExW(ClientBinding, Privs, ServerPrincName, AuthnLe
     AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
     AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExW", ClientBindingMarshal, ClientBinding, PrivsMarshal, Privs, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, "uint", Flags, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExW", ClientBindingMarshal, ClientBinding, PrivsMarshal, Privs, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, UInt32, Flags, RPC_STATUS)
     return result
 }
 
@@ -7906,7 +7919,7 @@ export RpcBindingSetAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, Au
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
     AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoA", BindingMarshal, Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, AuthIdentityMarshal, AuthIdentity, "uint", AuthzSvc, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoA", BindingMarshal, Binding, "ptr", ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_STATUS)
     return result
 }
 
@@ -8026,7 +8039,7 @@ export RpcBindingSetAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, 
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
     AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExA", BindingMarshal, Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, AuthIdentityMarshal, AuthIdentity, "uint", AuthzSvc, RPC_SECURITY_QOS.Ptr, SecurityQos, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExA", BindingMarshal, Binding, "ptr", ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_SECURITY_QOS.Ptr, SecurityQos, RPC_STATUS)
     return result
 }
 
@@ -8152,7 +8165,7 @@ export RpcBindingSetAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, Au
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
     AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoW", BindingMarshal, Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, AuthIdentityMarshal, AuthIdentity, "uint", AuthzSvc, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoW", BindingMarshal, Binding, "ptr", ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_STATUS)
     return result
 }
 
@@ -8280,7 +8293,7 @@ export RpcBindingSetAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, 
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
     AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExW", BindingMarshal, Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, AuthIdentityMarshal, AuthIdentity, "uint", AuthzSvc, RPC_SECURITY_QOS.Ptr, SecurityQOS, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExW", BindingMarshal, Binding, "ptr", ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_SECURITY_QOS.Ptr, SecurityQOS, RPC_STATUS)
     return result
 }
 
@@ -8394,7 +8407,7 @@ export RpcBindingInqAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, 
     AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : "ptr"
     AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExA", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, "uint", RpcQosVersion, RPC_SECURITY_QOS.Ptr, SecurityQOS, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExA", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, UInt32, RpcQosVersion, RPC_SECURITY_QOS.Ptr, SecurityQOS, RPC_STATUS)
     return result
 }
 
@@ -8508,7 +8521,7 @@ export RpcBindingInqAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, 
     AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : "ptr"
     AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExW", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, "uint", RpcQosVersion, RPC_SECURITY_QOS.Ptr, SecurityQOS, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExW", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, UInt32, RpcQosVersion, RPC_SECURITY_QOS.Ptr, SecurityQOS, RPC_STATUS)
     return result
 }
 
@@ -8689,7 +8702,7 @@ export RpcServerRegisterAuthInfoA(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
 
     ArgMarshal := Arg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoA", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, ArgMarshal, Arg, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoA", "ptr", ServerPrincName, UInt32, AuthnSvc, RPC_AUTH_KEY_RETRIEVAL_FN, GetKeyFn, ArgMarshal, Arg, RPC_STATUS)
     return result
 }
 
@@ -8851,7 +8864,7 @@ export RpcServerRegisterAuthInfoW(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
 
     ArgMarshal := Arg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoW", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, ArgMarshal, Arg, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoW", "ptr", ServerPrincName, UInt32, AuthnSvc, RPC_AUTH_KEY_RETRIEVAL_FN, GetKeyFn, ArgMarshal, Arg, RPC_STATUS)
     return result
 }
 
@@ -9252,7 +9265,7 @@ export RpcCancelThread(Thread) {
 export RpcCancelThreadEx(Thread, Timeout) {
     ThreadMarshal := Thread is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcCancelThreadEx", ThreadMarshal, Thread, "int", Timeout, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcCancelThreadEx", ThreadMarshal, Thread, Int32, Timeout, RPC_STATUS)
     return result
 }
 
@@ -10727,7 +10740,7 @@ export RpcMgmtEpEltInqBegin(EpBinding, InquiryType, IfId, VersOption, ObjectUuid
     EpBindingMarshal := EpBinding is VarRef ? "ptr" : "ptr"
     InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqBegin", EpBindingMarshal, EpBinding, "uint", InquiryType, RPC_IF_ID.Ptr, IfId, "uint", VersOption, Guid.Ptr, ObjectUuid, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqBegin", EpBindingMarshal, EpBinding, UInt32, InquiryType, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, Guid.Ptr, ObjectUuid, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -11035,7 +11048,7 @@ export RpcMgmtEpUnregister(EpBinding, IfId, Binding, ObjectUuid) {
  * @since windows5.0
  */
 export RpcMgmtSetAuthorizationFn(AuthorizationFn) {
-    result := DllCall("RPCRT4.dll\RpcMgmtSetAuthorizationFn", "ptr", AuthorizationFn, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtSetAuthorizationFn", RPC_MGMT_AUTHORIZATION_FN, AuthorizationFn, RPC_STATUS)
     return result
 }
 
@@ -11094,7 +11107,7 @@ export RpcMgmtSetAuthorizationFn(AuthorizationFn) {
  * @since windows6.0.6000
  */
 export RpcExceptionFilter(ExceptionCode) {
-    result := DllCall("RPCRT4.dll\RpcExceptionFilter", "uint", ExceptionCode, Int32)
+    result := DllCall("RPCRT4.dll\RpcExceptionFilter", UInt32, ExceptionCode, Int32)
     return result
 }
 
@@ -11152,7 +11165,7 @@ export RpcServerInterfaceGroupCreateW(Interfaces, NumIfs, Endpoints, NumEndpoint
     IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : "ptr"
     IfGroupMarshal := IfGroup is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateW", RPC_INTERFACE_TEMPLATEW.Ptr, Interfaces, "uint", NumIfs, RPC_ENDPOINT_TEMPLATEW.Ptr, Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, IdleCallbackContextMarshal, IdleCallbackContext, IfGroupMarshal, IfGroup, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateW", RPC_INTERFACE_TEMPLATEW.Ptr, Interfaces, UInt32, NumIfs, RPC_ENDPOINT_TEMPLATEW.Ptr, Endpoints, UInt32, NumEndpoints, UInt32, IdlePeriod, RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN, IdleCallbackFn, IdleCallbackContextMarshal, IdleCallbackContext, IfGroupMarshal, IfGroup, RPC_STATUS)
     return result
 }
 
@@ -11210,7 +11223,7 @@ export RpcServerInterfaceGroupCreateA(Interfaces, NumIfs, Endpoints, NumEndpoint
     IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : "ptr"
     IfGroupMarshal := IfGroup is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateA", RPC_INTERFACE_TEMPLATEA.Ptr, Interfaces, "uint", NumIfs, RPC_ENDPOINT_TEMPLATEA.Ptr, Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, IdleCallbackContextMarshal, IdleCallbackContext, IfGroupMarshal, IfGroup, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateA", RPC_INTERFACE_TEMPLATEA.Ptr, Interfaces, UInt32, NumIfs, RPC_ENDPOINT_TEMPLATEA.Ptr, Endpoints, UInt32, NumEndpoints, UInt32, IdlePeriod, RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN, IdleCallbackFn, IdleCallbackContextMarshal, IdleCallbackContext, IfGroupMarshal, IfGroup, RPC_STATUS)
     return result
 }
 
@@ -11423,7 +11436,7 @@ export RpcServerInterfaceGroupActivate(IfGroup) {
 export RpcServerInterfaceGroupDeactivate(IfGroup, ForceDeactivation) {
     IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupDeactivate", IfGroupMarshal, IfGroup, "uint", ForceDeactivation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupDeactivate", IfGroupMarshal, IfGroup, UInt32, ForceDeactivation, RPC_STATUS)
     return result
 }
 
@@ -11549,7 +11562,7 @@ export I_RpcSend(Message) {
  * @returns {RPC_STATUS} 
  */
 export I_RpcReceive(Message, _Size) {
-    result := DllCall("RPCRT4.dll\I_RpcReceive", RPC_MESSAGE.Ptr, Message, "uint", _Size, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcReceive", RPC_MESSAGE.Ptr, Message, UInt32, _Size, RPC_STATUS)
     return result
 }
 
@@ -11570,7 +11583,7 @@ export I_RpcFreePipeBuffer(Message) {
  * @returns {RPC_STATUS} 
  */
 export I_RpcReallocPipeBuffer(Message, NewSize) {
-    result := DllCall("RPCRT4.dll\I_RpcReallocPipeBuffer", RPC_MESSAGE.Ptr, Message, "uint", NewSize, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcReallocPipeBuffer", RPC_MESSAGE.Ptr, Message, UInt32, NewSize, RPC_STATUS)
     return result
 }
 
@@ -11613,7 +11626,7 @@ export I_RpcDeleteMutex(Mutex) {
  * @returns {Pointer<Void>} 
  */
 export I_RpcAllocate(_Size) {
-    result := DllCall("RPCRT4.dll\I_RpcAllocate", "uint", _Size, IntPtr)
+    result := DllCall("RPCRT4.dll\I_RpcAllocate", UInt32, _Size, IntPtr)
     return result
 }
 
@@ -11634,7 +11647,7 @@ export I_RpcFree(_Object) {
  * @returns {String} Nothing - always returns an empty string
  */
 export I_RpcPauseExecution(Milliseconds) {
-    DllCall("RPCRT4.dll\I_RpcPauseExecution", "uint", Milliseconds)
+    DllCall("RPCRT4.dll\I_RpcPauseExecution", UInt32, Milliseconds)
 }
 
 /**
@@ -11657,7 +11670,7 @@ export I_RpcGetExtendedError() {
 export I_RpcSystemHandleTypeSpecificWork(_Handle, ActualType, IdlType, MarshalDirection) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcSystemHandleTypeSpecificWork", _HandleMarshal, _Handle, "char", ActualType, "char", IdlType, LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION, MarshalDirection, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcSystemHandleTypeSpecificWork", _HandleMarshal, _Handle, Int8, ActualType, Int8, IdlType, LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION, MarshalDirection, RPC_STATUS)
     return result
 }
 
@@ -11680,7 +11693,7 @@ export I_RpcGetCurrentCallHandle() {
 export I_RpcNsInterfaceExported(EntryNameSyntax, EntryName, RpcInterfaceInformation) {
     EntryNameMarshal := EntryName is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcNsInterfaceExported", "uint", EntryNameSyntax, EntryNameMarshal, EntryName, RPC_SERVER_INTERFACE.Ptr, RpcInterfaceInformation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcNsInterfaceExported", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, RPC_SERVER_INTERFACE.Ptr, RpcInterfaceInformation, RPC_STATUS)
     return result
 }
 
@@ -11694,7 +11707,7 @@ export I_RpcNsInterfaceExported(EntryNameSyntax, EntryName, RpcInterfaceInformat
 export I_RpcNsInterfaceUnexported(EntryNameSyntax, EntryName, RpcInterfaceInformation) {
     EntryNameMarshal := EntryName is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcNsInterfaceUnexported", "uint", EntryNameSyntax, EntryNameMarshal, EntryName, RPC_SERVER_INTERFACE.Ptr, RpcInterfaceInformation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcNsInterfaceUnexported", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, RPC_SERVER_INTERFACE.Ptr, RpcInterfaceInformation, RPC_STATUS)
     return result
 }
 
@@ -11857,7 +11870,7 @@ export I_RpcNsBindingSetEntryNameW(Binding, EntryNameSyntax, EntryName) {
 
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameW", BindingMarshal, Binding, "uint", EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameW", BindingMarshal, Binding, UInt32, EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
     return result
 }
 
@@ -11873,7 +11886,7 @@ export I_RpcNsBindingSetEntryNameA(Binding, EntryNameSyntax, EntryName) {
 
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameA", BindingMarshal, Binding, "uint", EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameA", BindingMarshal, Binding, UInt32, EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
     return result
 }
 
@@ -11895,7 +11908,7 @@ export I_RpcServerUseProtseqEp2A(NetworkAddress, Protseq, MaxCalls, Endpoint, _S
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
     PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2A", "ptr", NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
     return result
 }
 
@@ -11917,7 +11930,7 @@ export I_RpcServerUseProtseqEp2W(NetworkAddress, Protseq, MaxCalls, Endpoint, _S
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
     PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2W", "ptr", NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
     return result
 }
 
@@ -11937,7 +11950,7 @@ export I_RpcServerUseProtseq2W(NetworkAddress, Protseq, MaxCalls, _SecurityDescr
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
     PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2W", "ptr", NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
     return result
 }
 
@@ -11957,7 +11970,7 @@ export I_RpcServerUseProtseq2A(NetworkAddress, Protseq, MaxCalls, _SecurityDescr
     _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
     PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2A", "ptr", NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
     return result
 }
 
@@ -12044,7 +12057,7 @@ export I_RpcIfInqTransferSyntaxes(RpcIfHandle, TransferSyntaxes, TransferSyntaxS
     RpcIfHandleMarshal := RpcIfHandle is VarRef ? "ptr" : "ptr"
     TransferSyntaxCountMarshal := TransferSyntaxCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcIfInqTransferSyntaxes", RpcIfHandleMarshal, RpcIfHandle, RPC_TRANSFER_SYNTAX.Ptr, TransferSyntaxes, "uint", TransferSyntaxSize, TransferSyntaxCountMarshal, TransferSyntaxCount, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcIfInqTransferSyntaxes", RpcIfHandleMarshal, RpcIfHandle, RPC_TRANSFER_SYNTAX.Ptr, TransferSyntaxes, UInt32, TransferSyntaxSize, TransferSyntaxCountMarshal, TransferSyntaxCount, RPC_STATUS)
     return result
 }
 
@@ -12266,7 +12279,7 @@ export I_RpcOpenClientProcess(Binding, DesiredAccess, ClientProcess) {
     BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
     ClientProcessMarshal := ClientProcess is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcOpenClientProcess", BindingMarshal, Binding, "uint", DesiredAccess, ClientProcessMarshal, ClientProcess, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcOpenClientProcess", BindingMarshal, Binding, UInt32, DesiredAccess, ClientProcessMarshal, ClientProcess, RPC_STATUS)
     return result
 }
 
@@ -12294,7 +12307,7 @@ export I_RpcBindingIsServerLocal(Binding, ServerLocalFlag) {
 export I_RpcBindingSetPrivateOption(hBinding, option, optionValue) {
     hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\I_RpcBindingSetPrivateOption", hBindingMarshal, hBinding, "uint", option, "ptr", optionValue, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcBindingSetPrivateOption", hBindingMarshal, hBinding, UInt32, option, IntPtr, optionValue, RPC_STATUS)
     return result
 }
 
@@ -12567,7 +12580,7 @@ export RpcNsBindingExportA(EntryNameSyntax, EntryName, IfSpec, BindingVec, Objec
 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingExportA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingExportA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -12739,7 +12752,7 @@ export RpcNsBindingUnexportA(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) 
 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -12947,7 +12960,7 @@ export RpcNsBindingExportW(EntryNameSyntax, EntryName, IfSpec, BindingVec, Objec
 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingExportW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingExportW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -13119,7 +13132,7 @@ export RpcNsBindingUnexportW(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) 
 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -13269,7 +13282,7 @@ export RpcNsBindingExportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) 
 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
     return result
 }
 
@@ -13413,7 +13426,7 @@ export RpcNsBindingUnexportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector
 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
     return result
 }
 
@@ -13563,7 +13576,7 @@ export RpcNsBindingExportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) 
 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
     return result
 }
 
@@ -13707,7 +13720,7 @@ export RpcNsBindingUnexportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector
 
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
     return result
 }
 
@@ -13871,7 +13884,7 @@ export RpcNsBindingLookupBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, Bin
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     LookupContextMarshal := LookupContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, "uint", BindingMaxCount, LookupContextMarshal, LookupContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, UInt32, BindingMaxCount, LookupContextMarshal, LookupContext, RPC_STATUS)
     return result
 }
 
@@ -14035,7 +14048,7 @@ export RpcNsBindingLookupBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, Bin
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     LookupContextMarshal := LookupContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, "uint", BindingMaxCount, LookupContextMarshal, LookupContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, UInt32, BindingMaxCount, LookupContextMarshal, LookupContext, RPC_STATUS)
     return result
 }
 
@@ -14425,7 +14438,7 @@ export RpcNsGroupMbrAddA(GroupNameSyntax, GroupName, MemberNameSyntax, MemberNam
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    result := DllCall("RPCNS4.dll\RpcNsGroupMbrAddA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsGroupMbrAddA", UInt32, GroupNameSyntax, "ptr", GroupName, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
     return result
 }
 
@@ -14552,7 +14565,7 @@ export RpcNsGroupMbrRemoveA(GroupNameSyntax, GroupName, MemberNameSyntax, Member
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    result := DllCall("RPCNS4.dll\RpcNsGroupMbrRemoveA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsGroupMbrRemoveA", UInt32, GroupNameSyntax, "ptr", GroupName, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
     return result
 }
 
@@ -14675,7 +14688,7 @@ export RpcNsGroupMbrInqBeginA(GroupNameSyntax, GroupName, MemberNameSyntax, Inqu
 
     InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginA", UInt32, GroupNameSyntax, "ptr", GroupName, UInt32, MemberNameSyntax, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -14990,7 +15003,7 @@ export RpcNsGroupMbrAddW(GroupNameSyntax, GroupName, MemberNameSyntax, MemberNam
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    result := DllCall("RPCNS4.dll\RpcNsGroupMbrAddW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsGroupMbrAddW", UInt32, GroupNameSyntax, "ptr", GroupName, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
     return result
 }
 
@@ -15117,7 +15130,7 @@ export RpcNsGroupMbrRemoveW(GroupNameSyntax, GroupName, MemberNameSyntax, Member
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    result := DllCall("RPCNS4.dll\RpcNsGroupMbrRemoveW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsGroupMbrRemoveW", UInt32, GroupNameSyntax, "ptr", GroupName, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
     return result
 }
 
@@ -15240,7 +15253,7 @@ export RpcNsGroupMbrInqBeginW(GroupNameSyntax, GroupName, MemberNameSyntax, Inqu
 
     InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginW", UInt32, GroupNameSyntax, "ptr", GroupName, UInt32, MemberNameSyntax, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -15505,7 +15518,7 @@ export RpcNsGroupMbrInqDone(InquiryContext) {
 export RpcNsProfileDeleteA(ProfileNameSyntax, ProfileName) {
     ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileDeleteA", "uint", ProfileNameSyntax, "ptr", ProfileName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileDeleteA", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_STATUS)
     return result
 }
 
@@ -15624,7 +15637,7 @@ export RpcNsProfileEltAddA(ProfileNameSyntax, ProfileName, IfId, MemberNameSynta
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
     Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltAddA", "uint", ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, "uint", MemberNameSyntax, "ptr", MemberName, "uint", _Priority, "ptr", Annotation, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltAddA", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, UInt32, _Priority, "ptr", Annotation, RPC_STATUS)
     return result
 }
 
@@ -15749,7 +15762,7 @@ export RpcNsProfileEltRemoveA(ProfileNameSyntax, ProfileName, IfId, MemberNameSy
     ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveA", "uint", ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, "uint", MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveA", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
     return result
 }
 
@@ -16032,7 +16045,7 @@ export RpcNsProfileEltInqBeginA(ProfileNameSyntax, ProfileName, InquiryType, IfI
 
     InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginA", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, RPC_IF_ID.Ptr, IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginA", UInt32, ProfileNameSyntax, "ptr", ProfileName, UInt32, InquiryType, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, UInt32, MemberNameSyntax, "ptr", MemberName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -16257,7 +16270,7 @@ export RpcNsProfileEltInqNextA(InquiryContext, IfId, MemberName, _Priority, Anno
 export RpcNsProfileDeleteW(ProfileNameSyntax, ProfileName) {
     ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileDeleteW", "uint", ProfileNameSyntax, "ptr", ProfileName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileDeleteW", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_STATUS)
     return result
 }
 
@@ -16376,7 +16389,7 @@ export RpcNsProfileEltAddW(ProfileNameSyntax, ProfileName, IfId, MemberNameSynta
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
     Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltAddW", "uint", ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, "uint", MemberNameSyntax, "ptr", MemberName, "uint", _Priority, "ptr", Annotation, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltAddW", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, UInt32, _Priority, "ptr", Annotation, RPC_STATUS)
     return result
 }
 
@@ -16501,7 +16514,7 @@ export RpcNsProfileEltRemoveW(ProfileNameSyntax, ProfileName, IfId, MemberNameSy
     ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveW", "uint", ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, "uint", MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveW", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
     return result
 }
 
@@ -16784,7 +16797,7 @@ export RpcNsProfileEltInqBeginW(ProfileNameSyntax, ProfileName, InquiryType, IfI
 
     InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginW", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, RPC_IF_ID.Ptr, IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginW", UInt32, ProfileNameSyntax, "ptr", ProfileName, UInt32, InquiryType, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, UInt32, MemberNameSyntax, "ptr", MemberName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -17068,7 +17081,7 @@ export RpcNsEntryObjectInqBeginA(EntryNameSyntax, EntryName, InquiryContext) {
 
     InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginA", "uint", EntryNameSyntax, "ptr", EntryName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginA", UInt32, EntryNameSyntax, "ptr", EntryName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -17186,7 +17199,7 @@ export RpcNsEntryObjectInqBeginW(EntryNameSyntax, EntryName, InquiryContext) {
 
     InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginW", "uint", EntryNameSyntax, "ptr", EntryName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginW", UInt32, EntryNameSyntax, "ptr", EntryName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -17401,7 +17414,7 @@ export RpcNsEntryExpandNameA(EntryNameSyntax, EntryName, ExpandedName) {
 
     ExpandedNameMarshal := ExpandedName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameA", "uint", EntryNameSyntax, "ptr", EntryName, ExpandedNameMarshal, ExpandedName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameA", UInt32, EntryNameSyntax, "ptr", EntryName, ExpandedNameMarshal, ExpandedName, RPC_STATUS)
     return result
 }
 
@@ -17628,7 +17641,7 @@ export RpcNsEntryExpandNameA(EntryNameSyntax, EntryName, ExpandedName) {
 export RpcNsMgmtBindingUnexportA(EntryNameSyntax, EntryName, IfId, VersOption, ObjectUuidVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportA", "uint", EntryNameSyntax, "ptr", EntryName, RPC_IF_ID.Ptr, IfId, "uint", VersOption, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportA", UInt32, EntryNameSyntax, "ptr", EntryName, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -17737,7 +17750,7 @@ export RpcNsMgmtBindingUnexportA(EntryNameSyntax, EntryName, IfId, VersOption, O
 export RpcNsMgmtEntryCreateA(EntryNameSyntax, EntryName) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryCreateA", "uint", EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryCreateA", UInt32, EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
     return result
 }
 
@@ -17857,7 +17870,7 @@ export RpcNsMgmtEntryCreateA(EntryNameSyntax, EntryName) {
 export RpcNsMgmtEntryDeleteA(EntryNameSyntax, EntryName) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryDeleteA", "uint", EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryDeleteA", UInt32, EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
     return result
 }
 
@@ -17967,7 +17980,7 @@ export RpcNsMgmtEntryInqIfIdsA(EntryNameSyntax, EntryName, IfIdVec) {
 
     IfIdVecMarshal := IfIdVec is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsA", "uint", EntryNameSyntax, "ptr", EntryName, IfIdVecMarshal, IfIdVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsA", UInt32, EntryNameSyntax, "ptr", EntryName, IfIdVecMarshal, IfIdVec, RPC_STATUS)
     return result
 }
 
@@ -18058,7 +18071,7 @@ export RpcNsMgmtEntryInqIfIdsA(EntryNameSyntax, EntryName, IfIdVec) {
 export RpcNsMgmtHandleSetExpAge(NsHandle, ExpirationAge) {
     NsHandleMarshal := NsHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtHandleSetExpAge", NsHandleMarshal, NsHandle, "uint", ExpirationAge, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtHandleSetExpAge", NsHandleMarshal, NsHandle, UInt32, ExpirationAge, RPC_STATUS)
     return result
 }
 
@@ -18160,7 +18173,7 @@ export RpcNsMgmtInqExpAge(ExpirationAge) {
  * @since windows5.0
  */
 export RpcNsMgmtSetExpAge(ExpirationAge) {
-    result := DllCall("RPCNS4.dll\RpcNsMgmtSetExpAge", "uint", ExpirationAge, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtSetExpAge", UInt32, ExpirationAge, RPC_STATUS)
     return result
 }
 
@@ -18232,7 +18245,7 @@ export RpcNsEntryExpandNameW(EntryNameSyntax, EntryName, ExpandedName) {
 
     ExpandedNameMarshal := ExpandedName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameW", "uint", EntryNameSyntax, "ptr", EntryName, ExpandedNameMarshal, ExpandedName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameW", UInt32, EntryNameSyntax, "ptr", EntryName, ExpandedNameMarshal, ExpandedName, RPC_STATUS)
     return result
 }
 
@@ -18459,7 +18472,7 @@ export RpcNsEntryExpandNameW(EntryNameSyntax, EntryName, ExpandedName) {
 export RpcNsMgmtBindingUnexportW(EntryNameSyntax, EntryName, IfId, VersOption, ObjectUuidVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportW", "uint", EntryNameSyntax, "ptr", EntryName, RPC_IF_ID.Ptr, IfId, "uint", VersOption, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportW", UInt32, EntryNameSyntax, "ptr", EntryName, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -18568,7 +18581,7 @@ export RpcNsMgmtBindingUnexportW(EntryNameSyntax, EntryName, IfId, VersOption, O
 export RpcNsMgmtEntryCreateW(EntryNameSyntax, EntryName) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryCreateW", "uint", EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryCreateW", UInt32, EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
     return result
 }
 
@@ -18688,7 +18701,7 @@ export RpcNsMgmtEntryCreateW(EntryNameSyntax, EntryName) {
 export RpcNsMgmtEntryDeleteW(EntryNameSyntax, EntryName) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryDeleteW", "uint", EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryDeleteW", UInt32, EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
     return result
 }
 
@@ -18798,7 +18811,7 @@ export RpcNsMgmtEntryInqIfIdsW(EntryNameSyntax, EntryName, IfIdVec) {
 
     IfIdVecMarshal := IfIdVec is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsW", "uint", EntryNameSyntax, "ptr", EntryName, IfIdVecMarshal, IfIdVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsW", UInt32, EntryNameSyntax, "ptr", EntryName, IfIdVecMarshal, IfIdVec, RPC_STATUS)
     return result
 }
 
@@ -18951,7 +18964,7 @@ export RpcNsBindingImportBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, Imp
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     ImportContextMarshal := ImportContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, ImportContextMarshal, ImportContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, ImportContextMarshal, ImportContext, RPC_STATUS)
     return result
 }
 
@@ -19104,7 +19117,7 @@ export RpcNsBindingImportBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, Imp
     IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
     ImportContextMarshal := ImportContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", "uint", EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, ImportContextMarshal, ImportContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, ImportContextMarshal, ImportContext, RPC_STATUS)
     return result
 }
 
@@ -19402,7 +19415,7 @@ export RpcAsyncRegisterInfo(pAsync) {
  * @since windows5.0
  */
 export RpcAsyncInitializeHandle(pAsync, _Size) {
-    result := DllCall("RPCRT4.dll\RpcAsyncInitializeHandle", "ptr", pAsync, "uint", _Size, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcAsyncInitializeHandle", IntPtr, pAsync, UInt32, _Size, RPC_STATUS)
     return result
 }
 
@@ -19620,7 +19633,7 @@ export RpcAsyncCompleteCall(pAsync, Reply) {
  * @since windows5.0
  */
 export RpcAsyncAbortCall(pAsync, ExceptionCode) {
-    result := DllCall("RPCRT4.dll\RpcAsyncAbortCall", RPC_ASYNC_STATE.Ptr, pAsync, "uint", ExceptionCode, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcAsyncAbortCall", RPC_ASYNC_STATE.Ptr, pAsync, UInt32, ExceptionCode, RPC_STATUS)
     return result
 }
 
@@ -19876,7 +19889,7 @@ export RpcErrorSaveErrorInfo(EnumHandle, ErrorBlob, BlobSize) {
  * @since windows5.1.2600
  */
 export RpcErrorLoadErrorInfo(ErrorBlob, BlobSize, EnumHandle) {
-    result := DllCall("RPCRT4.dll\RpcErrorLoadErrorInfo", "ptr", ErrorBlob, "ptr", BlobSize, RPC_ERROR_ENUM_HANDLE.Ptr, EnumHandle, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcErrorLoadErrorInfo", IntPtr, ErrorBlob, IntPtr, BlobSize, RPC_ERROR_ENUM_HANDLE.Ptr, EnumHandle, RPC_STATUS)
     return result
 }
 
@@ -20030,7 +20043,7 @@ export RpcGetAuthorizationContextForClient(ClientBinding, ImpersonateOnReturn, R
     Reserved4Marshal := Reserved4 is VarRef ? "ptr" : "ptr"
     pAuthzClientContextMarshal := pAuthzClientContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcGetAuthorizationContextForClient", ClientBindingMarshal, ClientBinding, BOOL, ImpersonateOnReturn, Reserved1Marshal, Reserved1, pExpirationTimeMarshal, pExpirationTime, LUID, Reserved2, "uint", Reserved3, Reserved4Marshal, Reserved4, pAuthzClientContextMarshal, pAuthzClientContext, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcGetAuthorizationContextForClient", ClientBindingMarshal, ClientBinding, BOOL, ImpersonateOnReturn, Reserved1Marshal, Reserved1, pExpirationTimeMarshal, pExpirationTime, LUID, Reserved2, UInt32, Reserved3, Reserved4Marshal, Reserved4, pAuthzClientContextMarshal, pAuthzClientContext, RPC_STATUS)
     return result
 }
 
@@ -20498,7 +20511,7 @@ export I_RpcAsyncSetHandle(Message, pAsync) {
  * @returns {RPC_STATUS} 
  */
 export I_RpcAsyncAbortCall(pAsync, ExceptionCode) {
-    result := DllCall("RPCRT4.dll\I_RpcAsyncAbortCall", RPC_ASYNC_STATE.Ptr, pAsync, "uint", ExceptionCode, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcAsyncAbortCall", RPC_ASYNC_STATE.Ptr, pAsync, UInt32, ExceptionCode, RPC_STATUS)
     return result
 }
 
@@ -20529,7 +20542,7 @@ export I_RpcAsyncAbortCall(pAsync, ExceptionCode) {
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/nf-rpcasync-i_rpcexceptionfilter
  */
 export I_RpcExceptionFilter(ExceptionCode) {
-    result := DllCall("RPCRT4.dll\I_RpcExceptionFilter", "uint", ExceptionCode, Int32)
+    result := DllCall("RPCRT4.dll\I_RpcExceptionFilter", UInt32, ExceptionCode, Int32)
     return result
 }
 
@@ -20597,7 +20610,7 @@ export I_RpcReBindBuffer(Message) {
  * @returns {Pointer<Void>} 
  */
 export NDRCContextBinding(CContext) {
-    result := DllCall("RPCRT4.dll\NDRCContextBinding", "ptr", CContext, IntPtr)
+    result := DllCall("RPCRT4.dll\NDRCContextBinding", IntPtr, CContext, IntPtr)
     return result
 }
 
@@ -20610,7 +20623,7 @@ export NDRCContextBinding(CContext) {
 export NDRCContextMarshall(CContext, pBuff) {
     pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NDRCContextMarshall", "ptr", CContext, pBuffMarshal, pBuff)
+    DllCall("RPCRT4.dll\NDRCContextMarshall", IntPtr, CContext, pBuffMarshal, pBuff)
 }
 
 /**
@@ -20626,7 +20639,7 @@ export NDRCContextUnmarshall(pCContext, hBinding, pBuff, DataRepresentation) {
     hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
     pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NDRCContextUnmarshall", pCContextMarshal, pCContext, hBindingMarshal, hBinding, pBuffMarshal, pBuff, "uint", DataRepresentation)
+    DllCall("RPCRT4.dll\NDRCContextUnmarshall", pCContextMarshal, pCContext, hBindingMarshal, hBinding, pBuffMarshal, pBuff, UInt32, DataRepresentation)
 }
 
 /**
@@ -20639,7 +20652,7 @@ export NDRCContextUnmarshall(pCContext, hBinding, pBuff, DataRepresentation) {
 export NDRSContextMarshall(CContext, pBuff, userRunDownIn) {
     pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NDRSContextMarshall", NDR_SCONTEXT.Ptr, CContext, pBuffMarshal, pBuff, "ptr", userRunDownIn)
+    DllCall("RPCRT4.dll\NDRSContextMarshall", NDR_SCONTEXT.Ptr, CContext, pBuffMarshal, pBuff, NDR_RUNDOWN, userRunDownIn)
 }
 
 /**
@@ -20651,7 +20664,7 @@ export NDRSContextMarshall(CContext, pBuff, userRunDownIn) {
 export NDRSContextUnmarshall(pBuff, DataRepresentation) {
     pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NDRSContextUnmarshall", pBuffMarshal, pBuff, "uint", DataRepresentation, NDR_SCONTEXT.Ptr)
+    result := DllCall("RPCRT4.dll\NDRSContextUnmarshall", pBuffMarshal, pBuff, UInt32, DataRepresentation, NDR_SCONTEXT.Ptr)
     return result
 }
 
@@ -20667,7 +20680,7 @@ export NDRSContextMarshallEx(BindingHandle, CContext, pBuff, userRunDownIn) {
     BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
     pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NDRSContextMarshallEx", BindingHandleMarshal, BindingHandle, NDR_SCONTEXT.Ptr, CContext, pBuffMarshal, pBuff, "ptr", userRunDownIn)
+    DllCall("RPCRT4.dll\NDRSContextMarshallEx", BindingHandleMarshal, BindingHandle, NDR_SCONTEXT.Ptr, CContext, pBuffMarshal, pBuff, NDR_RUNDOWN, userRunDownIn)
 }
 
 /**
@@ -20685,7 +20698,7 @@ export NDRSContextMarshall2(BindingHandle, CContext, pBuff, userRunDownIn, CtxGu
     pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
     CtxGuardMarshal := CtxGuard is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NDRSContextMarshall2", BindingHandleMarshal, BindingHandle, NDR_SCONTEXT.Ptr, CContext, pBuffMarshal, pBuff, "ptr", userRunDownIn, CtxGuardMarshal, CtxGuard, "uint", Flags)
+    DllCall("RPCRT4.dll\NDRSContextMarshall2", BindingHandleMarshal, BindingHandle, NDR_SCONTEXT.Ptr, CContext, pBuffMarshal, pBuff, NDR_RUNDOWN, userRunDownIn, CtxGuardMarshal, CtxGuard, UInt32, Flags)
 }
 
 /**
@@ -20699,7 +20712,7 @@ export NDRSContextUnmarshallEx(BindingHandle, pBuff, DataRepresentation) {
     BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
     pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NDRSContextUnmarshallEx", BindingHandleMarshal, BindingHandle, pBuffMarshal, pBuff, "uint", DataRepresentation, NDR_SCONTEXT.Ptr)
+    result := DllCall("RPCRT4.dll\NDRSContextUnmarshallEx", BindingHandleMarshal, BindingHandle, pBuffMarshal, pBuff, UInt32, DataRepresentation, NDR_SCONTEXT.Ptr)
     return result
 }
 
@@ -20717,7 +20730,7 @@ export NDRSContextUnmarshall2(BindingHandle, pBuff, DataRepresentation, CtxGuard
     pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
     CtxGuardMarshal := CtxGuard is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NDRSContextUnmarshall2", BindingHandleMarshal, BindingHandle, pBuffMarshal, pBuff, "uint", DataRepresentation, CtxGuardMarshal, CtxGuard, "uint", Flags, NDR_SCONTEXT.Ptr)
+    result := DllCall("RPCRT4.dll\NDRSContextUnmarshall2", BindingHandleMarshal, BindingHandle, pBuffMarshal, pBuff, UInt32, DataRepresentation, CtxGuardMarshal, CtxGuard, UInt32, Flags, NDR_SCONTEXT.Ptr)
     return result
 }
 
@@ -20757,7 +20770,7 @@ export RpcSsDestroyClientContext(ContextHandle) {
 export NdrSimpleTypeMarshall(pStubMsg, pMemory, FormatChar) {
     pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrSimpleTypeMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, "char", FormatChar)
+    DllCall("RPCRT4.dll\NdrSimpleTypeMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, Int8, FormatChar)
 }
 
 /**
@@ -21175,7 +21188,7 @@ export NdrInterfacePointerMarshall(pStubMsg, pMemory, pFormat) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrClientContextMarshall(pStubMsg, ContextHandle, fCheck) {
-    DllCall("RPCRT4.dll\NdrClientContextMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, "ptr", ContextHandle, "int", fCheck)
+    DllCall("RPCRT4.dll\NdrClientContextMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, IntPtr, ContextHandle, Int32, fCheck)
 }
 
 /**
@@ -21186,7 +21199,7 @@ export NdrClientContextMarshall(pStubMsg, ContextHandle, fCheck) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrServerContextMarshall(pStubMsg, ContextHandle, RundownRoutine) {
-    DllCall("RPCRT4.dll\NdrServerContextMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, NDR_SCONTEXT.Ptr, ContextHandle, "ptr", RundownRoutine)
+    DllCall("RPCRT4.dll\NdrServerContextMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, NDR_SCONTEXT.Ptr, ContextHandle, NDR_RUNDOWN, RundownRoutine)
 }
 
 /**
@@ -21200,7 +21213,7 @@ export NdrServerContextMarshall(pStubMsg, ContextHandle, RundownRoutine) {
 export NdrServerContextNewMarshall(pStubMsg, ContextHandle, RundownRoutine, pFormat) {
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrServerContextNewMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, NDR_SCONTEXT.Ptr, ContextHandle, "ptr", RundownRoutine, pFormatMarshal, pFormat)
+    DllCall("RPCRT4.dll\NdrServerContextNewMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, NDR_SCONTEXT.Ptr, ContextHandle, NDR_RUNDOWN, RundownRoutine, pFormatMarshal, pFormat)
 }
 
 /**
@@ -21215,7 +21228,7 @@ export NdrServerContextNewMarshall(pStubMsg, ContextHandle, RundownRoutine, pFor
 export NdrSimpleTypeUnmarshall(pStubMsg, pMemory, FormatChar) {
     pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrSimpleTypeUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, "char", FormatChar)
+    DllCall("RPCRT4.dll\NdrSimpleTypeUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, Int8, FormatChar)
 }
 
 /**
@@ -21230,7 +21243,7 @@ export NdrRangeUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrRangeUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrRangeUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21245,7 +21258,7 @@ export NdrRangeUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
 export NdrCorrelationInitialize(pStubMsg, pMemory, CacheSize, flags) {
     pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrCorrelationInitialize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, "uint", CacheSize, "uint", flags)
+    DllCall("RPCRT4.dll\NdrCorrelationInitialize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, UInt32, CacheSize, UInt32, flags)
 }
 
 /**
@@ -21305,7 +21318,7 @@ export NdrPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrPointerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrPointerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21346,7 +21359,7 @@ export NdrSimpleStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrSimpleStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrSimpleStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21362,7 +21375,7 @@ export NdrConformantStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrConformantStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrConformantStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21378,7 +21391,7 @@ export NdrConformantVaryingStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAl
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrConformantVaryingStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrConformantVaryingStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21419,7 +21432,7 @@ export NdrComplexStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrComplexStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrComplexStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21435,7 +21448,7 @@ export NdrFixedArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrFixedArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrFixedArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21519,7 +21532,7 @@ export NdrConformantArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrConformantArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrConformantArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21535,7 +21548,7 @@ export NdrConformantVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAll
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21551,7 +21564,7 @@ export NdrVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrVaryingArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrVaryingArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21592,7 +21605,7 @@ export NdrComplexArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrComplexArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrComplexArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21608,7 +21621,7 @@ export NdrNonConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc)
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrNonConformantStringUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrNonConformantStringUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21649,7 +21662,7 @@ export NdrConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrConformantStringUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrConformantStringUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21665,7 +21678,7 @@ export NdrEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21681,7 +21694,7 @@ export NdrNonEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21697,7 +21710,7 @@ export NdrByteCountPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrByteCountPointerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrByteCountPointerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21713,7 +21726,7 @@ export NdrXmitOrRepAsUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrXmitOrRepAsUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrXmitOrRepAsUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21746,7 +21759,7 @@ export NdrUserMarshalUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrUserMarshalUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrUserMarshalUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -21787,7 +21800,7 @@ export NdrInterfacePointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
     ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrInterfacePointerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, "char", fMustAlloc, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrInterfacePointerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
@@ -22594,7 +22607,7 @@ export NdrInterfacePointerFree(pStubMsg, pMemory, pFormat) {
 export NdrConvert2(pStubMsg, pFormat, NumberParams) {
     pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrConvert2", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, "int", NumberParams)
+    DllCall("RPCRT4.dll\NdrConvert2", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, Int32, NumberParams)
 }
 
 /**
@@ -22624,7 +22637,7 @@ export NdrUserMarshalSimpleTypeConvert(pFlags, pBuffer, FormatChar) {
     pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
     pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrUserMarshalSimpleTypeConvert", pFlagsMarshal, pFlags, pBufferMarshal, pBuffer, "char", FormatChar, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrUserMarshalSimpleTypeConvert", pFlagsMarshal, pFlags, pBufferMarshal, pBuffer, Int8, FormatChar, IntPtr)
     return result
 }
 
@@ -22637,7 +22650,7 @@ export NdrUserMarshalSimpleTypeConvert(pFlags, pBuffer, FormatChar) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrClientInitializeNew(pRpcMsg, pStubMsg, pStubDescriptor, ProcNum) {
-    DllCall("RPCRT4.dll\NdrClientInitializeNew", RPC_MESSAGE.Ptr, pRpcMsg, MIDL_STUB_MESSAGE.Ptr, pStubMsg, MIDL_STUB_DESC.Ptr, pStubDescriptor, "uint", ProcNum)
+    DllCall("RPCRT4.dll\NdrClientInitializeNew", RPC_MESSAGE.Ptr, pRpcMsg, MIDL_STUB_MESSAGE.Ptr, pStubMsg, MIDL_STUB_DESC.Ptr, pStubDescriptor, UInt32, ProcNum)
 }
 
 /**
@@ -22661,7 +22674,7 @@ export NdrServerInitializeNew(pRpcMsg, pStubMsg, pStubDescriptor) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrServerInitializePartial(pRpcMsg, pStubMsg, pStubDescriptor, RequestedBufferSize) {
-    DllCall("RPCRT4.dll\NdrServerInitializePartial", RPC_MESSAGE.Ptr, pRpcMsg, MIDL_STUB_MESSAGE.Ptr, pStubMsg, MIDL_STUB_DESC.Ptr, pStubDescriptor, "uint", RequestedBufferSize)
+    DllCall("RPCRT4.dll\NdrServerInitializePartial", RPC_MESSAGE.Ptr, pRpcMsg, MIDL_STUB_MESSAGE.Ptr, pStubMsg, MIDL_STUB_DESC.Ptr, pStubDescriptor, UInt32, RequestedBufferSize)
 }
 
 /**
@@ -22673,7 +22686,7 @@ export NdrServerInitializePartial(pRpcMsg, pStubMsg, pStubDescriptor, RequestedB
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrClientInitialize(pRpcMsg, pStubMsg, pStubDescriptor, ProcNum) {
-    DllCall("RPCRT4.dll\NdrClientInitialize", RPC_MESSAGE.Ptr, pRpcMsg, MIDL_STUB_MESSAGE.Ptr, pStubMsg, MIDL_STUB_DESC.Ptr, pStubDescriptor, "uint", ProcNum)
+    DllCall("RPCRT4.dll\NdrClientInitialize", RPC_MESSAGE.Ptr, pRpcMsg, MIDL_STUB_MESSAGE.Ptr, pStubMsg, MIDL_STUB_DESC.Ptr, pStubDescriptor, UInt32, ProcNum)
 }
 
 /**
@@ -22720,7 +22733,7 @@ export NdrServerInitializeMarshall(pRpcMsg, pStubMsg) {
 export NdrGetBuffer(pStubMsg, BufferLength, _Handle) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrGetBuffer", MIDL_STUB_MESSAGE.Ptr, pStubMsg, "uint", BufferLength, _HandleMarshal, _Handle, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrGetBuffer", MIDL_STUB_MESSAGE.Ptr, pStubMsg, UInt32, BufferLength, _HandleMarshal, _Handle, IntPtr)
     return result
 }
 
@@ -22734,7 +22747,7 @@ export NdrGetBuffer(pStubMsg, BufferLength, _Handle) {
 export NdrNsGetBuffer(pStubMsg, BufferLength, _Handle) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrNsGetBuffer", MIDL_STUB_MESSAGE.Ptr, pStubMsg, "uint", BufferLength, _HandleMarshal, _Handle, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrNsGetBuffer", MIDL_STUB_MESSAGE.Ptr, pStubMsg, UInt32, BufferLength, _HandleMarshal, _Handle, IntPtr)
     return result
 }
 
@@ -23006,7 +23019,7 @@ export NdrMapCommAndFaultStatus(pStubMsg, pCommStatus, pFaultStatus, _Status) {
  * @since windows5.0
  */
 export RpcSsAllocate(_Size) {
-    result := DllCall("RPCRT4.dll\RpcSsAllocate", "ptr", _Size, IntPtr)
+    result := DllCall("RPCRT4.dll\RpcSsAllocate", IntPtr, _Size, IntPtr)
     return result
 }
 
@@ -23156,7 +23169,7 @@ export RpcSsGetThreadHandle() {
  * @since windows5.0
  */
 export RpcSsSetClientAllocFree(ClientAlloc, ClientFree) {
-    DllCall("RPCRT4.dll\RpcSsSetClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree)
+    DllCall("RPCRT4.dll\RpcSsSetClientAllocFree", RPC_CLIENT_ALLOC, ClientAlloc, RPC_CLIENT_FREE, ClientFree)
 }
 
 /**
@@ -23218,7 +23231,7 @@ export RpcSsSwapClientAllocFree(ClientAlloc, ClientFree, OldClientAlloc, OldClie
     OldClientAllocMarshal := OldClientAlloc is VarRef ? "ptr*" : "ptr"
     OldClientFreeMarshal := OldClientFree is VarRef ? "ptr*" : "ptr"
 
-    DllCall("RPCRT4.dll\RpcSsSwapClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree, OldClientAllocMarshal, OldClientAlloc, OldClientFreeMarshal, OldClientFree)
+    DllCall("RPCRT4.dll\RpcSsSwapClientAllocFree", RPC_CLIENT_ALLOC, ClientAlloc, RPC_CLIENT_FREE, ClientFree, OldClientAllocMarshal, OldClientAlloc, OldClientFreeMarshal, OldClientFree)
 }
 
 /**
@@ -23291,7 +23304,7 @@ export RpcSsSwapClientAllocFree(ClientAlloc, ClientFree, OldClientAlloc, OldClie
 export RpcSmAllocate(_Size, pStatus) {
     pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcSmAllocate", "ptr", _Size, pStatusMarshal, pStatus, IntPtr)
+    result := DllCall("RPCRT4.dll\RpcSmAllocate", IntPtr, _Size, pStatusMarshal, pStatus, IntPtr)
     return result
 }
 
@@ -23650,7 +23663,7 @@ export RpcSmGetThreadHandle(pStatus) {
  * @since windows5.0
  */
 export RpcSmSetClientAllocFree(ClientAlloc, ClientFree) {
-    result := DllCall("RPCRT4.dll\RpcSmSetClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcSmSetClientAllocFree", RPC_CLIENT_ALLOC, ClientAlloc, RPC_CLIENT_FREE, ClientFree, RPC_STATUS)
     return result
 }
 
@@ -23756,7 +23769,7 @@ export RpcSmSwapClientAllocFree(ClientAlloc, ClientFree, OldClientAlloc, OldClie
     OldClientAllocMarshal := OldClientAlloc is VarRef ? "ptr*" : "ptr"
     OldClientFreeMarshal := OldClientFree is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcSmSwapClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree, OldClientAllocMarshal, OldClientAlloc, OldClientFreeMarshal, OldClientFree, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcSmSwapClientAllocFree", RPC_CLIENT_ALLOC, ClientAlloc, RPC_CLIENT_FREE, ClientFree, OldClientAllocMarshal, OldClientAlloc, OldClientFreeMarshal, OldClientFree, RPC_STATUS)
     return result
 }
 
@@ -23793,7 +23806,7 @@ export NdrRpcSmSetClientToOsf(pMessage) {
  * @returns {Pointer<Void>} 
  */
 export NdrRpcSmClientAllocate(_Size) {
-    result := DllCall("RPCRT4.dll\NdrRpcSmClientAllocate", "ptr", _Size, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrRpcSmClientAllocate", IntPtr, _Size, IntPtr)
     return result
 }
 
@@ -23814,7 +23827,7 @@ export NdrRpcSmClientFree(NodeToFree) {
  * @returns {Pointer<Void>} 
  */
 export NdrRpcSsDefaultAllocate(_Size) {
-    result := DllCall("RPCRT4.dll\NdrRpcSsDefaultAllocate", "ptr", _Size, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrRpcSsDefaultAllocate", IntPtr, _Size, IntPtr)
     return result
 }
 
@@ -23836,7 +23849,7 @@ export NdrRpcSsDefaultFree(NodeToFree) {
  * @returns {Pointer<FULL_PTR_XLAT_TABLES>} 
  */
 export NdrFullPointerXlatInit(NumberOfPointers, XlatSide) {
-    result := DllCall("RPCRT4.dll\NdrFullPointerXlatInit", "uint", NumberOfPointers, XLAT_SIDE, XlatSide, FULL_PTR_XLAT_TABLES.Ptr)
+    result := DllCall("RPCRT4.dll\NdrFullPointerXlatInit", UInt32, NumberOfPointers, XLAT_SIDE, XlatSide, FULL_PTR_XLAT_TABLES.Ptr)
     return result
 }
 
@@ -23856,7 +23869,7 @@ export NdrFullPointerXlatFree(pXlatTables) {
  * @returns {Pointer<Void>} 
  */
 export NdrAllocate(pStubMsg, Len) {
-    result := DllCall("RPCRT4.dll\NdrAllocate", MIDL_STUB_MESSAGE.Ptr, pStubMsg, "ptr", Len, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrAllocate", MIDL_STUB_MESSAGE.Ptr, pStubMsg, IntPtr, Len, IntPtr)
     return result
 }
 
@@ -23886,7 +23899,7 @@ export NdrClearOutParameters(pStubMsg, pFormat, ArgAddr) {
  * @since windows5.0
  */
 export NdrOleAllocate(_Size) {
-    result := DllCall("RPCRT4.dll\NdrOleAllocate", "ptr", _Size, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrOleAllocate", IntPtr, _Size, IntPtr)
     return result
 }
 
@@ -23960,7 +23973,7 @@ export NdrOleFree(NodeToFree) {
 export NdrGetUserMarshalInfo(pFlags, InformationLevel, pMarshalInfo) {
     pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrGetUserMarshalInfo", pFlagsMarshal, pFlags, "uint", InformationLevel, NDR_USER_MARSHAL_INFO.Ptr, pMarshalInfo, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\NdrGetUserMarshalInfo", pFlagsMarshal, pFlags, UInt32, InformationLevel, NDR_USER_MARSHAL_INFO.Ptr, pMarshalInfo, RPC_STATUS)
     return result
 }
 
@@ -23991,7 +24004,7 @@ export NdrClientCall3(pProxyInfo, nProcNum, pReturnValue, args*) {
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
 
-    result := DllCall("RPCRT4.dll\NdrClientCall3", MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
+    result := DllCall("RPCRT4.dll\NdrClientCall3", MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, UInt32, nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
     return result
 }
 
@@ -24011,7 +24024,7 @@ export Ndr64AsyncClientCall(pProxyInfo, nProcNum, pReturnValue, args*) {
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
 
-    result := DllCall("RPCRT4.dll\Ndr64AsyncClientCall", MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
+    result := DllCall("RPCRT4.dll\Ndr64AsyncClientCall", MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, UInt32, nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
     return result
 }
 
@@ -24029,7 +24042,7 @@ export Ndr64DcomAsyncClientCall(pProxyInfo, nProcNum, pReturnValue, args*) {
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
 
-    result := DllCall("RPCRT4.dll\Ndr64DcomAsyncClientCall", MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
+    result := DllCall("RPCRT4.dll\Ndr64DcomAsyncClientCall", MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, UInt32, nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
     return result
 }
 
@@ -24236,7 +24249,7 @@ export MesEncodeIncrementalHandleCreate(UserState, AllocFn, WriteFn, pHandle) {
     UserStateMarshal := UserState is VarRef ? "ptr" : "ptr"
     pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\MesEncodeIncrementalHandleCreate", UserStateMarshal, UserState, "ptr", AllocFn, "ptr", WriteFn, pHandleMarshal, pHandle, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\MesEncodeIncrementalHandleCreate", UserStateMarshal, UserState, MIDL_ES_ALLOC, AllocFn, MIDL_ES_WRITE, WriteFn, pHandleMarshal, pHandle, RPC_STATUS)
     return result
 }
 
@@ -24300,7 +24313,7 @@ export MesDecodeIncrementalHandleCreate(UserState, ReadFn, pHandle) {
     UserStateMarshal := UserState is VarRef ? "ptr" : "ptr"
     pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\MesDecodeIncrementalHandleCreate", UserStateMarshal, UserState, "ptr", ReadFn, pHandleMarshal, pHandle, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\MesDecodeIncrementalHandleCreate", UserStateMarshal, UserState, MIDL_ES_READ, ReadFn, pHandleMarshal, pHandle, RPC_STATUS)
     return result
 }
 
@@ -24367,7 +24380,7 @@ export MesIncrementalHandleReset(_Handle, UserState, AllocFn, WriteFn, ReadFn, O
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
     UserStateMarshal := UserState is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\MesIncrementalHandleReset", _HandleMarshal, _Handle, UserStateMarshal, UserState, "ptr", AllocFn, "ptr", WriteFn, "ptr", ReadFn, MIDL_ES_CODE, Operation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\MesIncrementalHandleReset", _HandleMarshal, _Handle, UserStateMarshal, UserState, MIDL_ES_ALLOC, AllocFn, MIDL_ES_WRITE, WriteFn, MIDL_ES_READ, ReadFn, MIDL_ES_CODE, Operation, RPC_STATUS)
     return result
 }
 
@@ -24436,7 +24449,7 @@ export MesEncodeFixedBufferHandleCreate(pBuffer, BufferSize, pEncodedSize, pHand
     pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : "ptr"
     pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\MesEncodeFixedBufferHandleCreate", "ptr", pBuffer, "uint", BufferSize, pEncodedSizeMarshal, pEncodedSize, pHandleMarshal, pHandle, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\MesEncodeFixedBufferHandleCreate", IntPtr, pBuffer, UInt32, BufferSize, pEncodedSizeMarshal, pEncodedSize, pHandleMarshal, pHandle, RPC_STATUS)
     return result
 }
 
@@ -24578,7 +24591,7 @@ export MesEncodeDynBufferHandleCreate(pBuffer, pEncodedSize, pHandle) {
 export MesDecodeBufferHandleCreate(_Buffer, BufferSize, pHandle) {
     pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\MesDecodeBufferHandleCreate", "ptr", _Buffer, "uint", BufferSize, pHandleMarshal, pHandle, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\MesDecodeBufferHandleCreate", IntPtr, _Buffer, UInt32, BufferSize, pHandleMarshal, pHandle, RPC_STATUS)
     return result
 }
 
@@ -24642,7 +24655,7 @@ export MesBufferHandleReset(_Handle, HandleStyle, Operation, pBuffer, BufferSize
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
     pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\MesBufferHandleReset", _HandleMarshal, _Handle, "uint", HandleStyle, MIDL_ES_CODE, Operation, "ptr", pBuffer, "uint", BufferSize, pEncodedSizeMarshal, pEncodedSize, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\MesBufferHandleReset", _HandleMarshal, _Handle, UInt32, HandleStyle, MIDL_ES_CODE, Operation, IntPtr, pBuffer, UInt32, BufferSize, pEncodedSizeMarshal, pEncodedSize, RPC_STATUS)
     return result
 }
 
@@ -24828,7 +24841,7 @@ export NdrMesSimpleTypeDecode(_Handle, pObject, _Size) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
     pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrMesSimpleTypeDecode", _HandleMarshal, _Handle, pObjectMarshal, pObject, "short", _Size)
+    DllCall("RPCRT4.dll\NdrMesSimpleTypeDecode", _HandleMarshal, _Handle, pObjectMarshal, pObject, Int16, _Size)
 }
 
 /**
@@ -24843,7 +24856,7 @@ export NdrMesSimpleTypeEncode(_Handle, pStubDesc, pObject, _Size) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
     pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrMesSimpleTypeEncode", _HandleMarshal, _Handle, MIDL_STUB_DESC.Ptr, pStubDesc, pObjectMarshal, pObject, "short", _Size)
+    DllCall("RPCRT4.dll\NdrMesSimpleTypeEncode", _HandleMarshal, _Handle, MIDL_STUB_DESC.Ptr, pStubDesc, pObjectMarshal, pObject, Int16, _Size)
 }
 
 /**
@@ -25017,7 +25030,7 @@ export NdrMesTypeAlignSize3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, n
     ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : "ptr"
     pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, "uint", nTypeIndex, pObjectMarshal, pObject, IntPtr)
+    result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, UInt32, nTypeIndex, pObjectMarshal, pObject, IntPtr)
     return result
 }
 
@@ -25036,7 +25049,7 @@ export NdrMesTypeEncode3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTyp
     ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : "ptr"
     pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrMesTypeEncode3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, "uint", nTypeIndex, pObjectMarshal, pObject)
+    DllCall("RPCRT4.dll\NdrMesTypeEncode3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, UInt32, nTypeIndex, pObjectMarshal, pObject)
 }
 
 /**
@@ -25054,7 +25067,7 @@ export NdrMesTypeDecode3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTyp
     ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : "ptr"
     pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrMesTypeDecode3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, "uint", nTypeIndex, pObjectMarshal, pObject)
+    DllCall("RPCRT4.dll\NdrMesTypeDecode3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, UInt32, nTypeIndex, pObjectMarshal, pObject)
 }
 
 /**
@@ -25072,7 +25085,7 @@ export NdrMesTypeFree3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeI
     ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : "ptr"
     pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrMesTypeFree3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, "uint", nTypeIndex, pObjectMarshal, pObject)
+    DllCall("RPCRT4.dll\NdrMesTypeFree3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, UInt32, nTypeIndex, pObjectMarshal, pObject)
 }
 
 /**
@@ -25091,7 +25104,7 @@ export NdrMesProcEncodeDecode3(_Handle, pProxyInfo, nProcNum, pReturnValue, args
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
 
-    result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode3", _HandleMarshal, _Handle, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
+    result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode3", _HandleMarshal, _Handle, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, UInt32, nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
     return result
 }
 
@@ -25107,7 +25120,7 @@ export NdrMesSimpleTypeDecodeAll(_Handle, pProxyInfo, pObject, _Size) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
     pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrMesSimpleTypeDecodeAll", _HandleMarshal, _Handle, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, pObjectMarshal, pObject, "short", _Size)
+    DllCall("RPCRT4.dll\NdrMesSimpleTypeDecodeAll", _HandleMarshal, _Handle, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, pObjectMarshal, pObject, Int16, _Size)
 }
 
 /**
@@ -25122,7 +25135,7 @@ export NdrMesSimpleTypeEncodeAll(_Handle, pProxyInfo, pObject, _Size) {
     _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
     pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
 
-    DllCall("RPCRT4.dll\NdrMesSimpleTypeEncodeAll", _HandleMarshal, _Handle, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, pObjectMarshal, pObject, "short", _Size)
+    DllCall("RPCRT4.dll\NdrMesSimpleTypeEncodeAll", _HandleMarshal, _Handle, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, pObjectMarshal, pObject, Int16, _Size)
 }
 
 /**
@@ -25165,7 +25178,7 @@ export NdrMesSimpleTypeAlignSizeAll(_Handle, pProxyInfo) {
 export RpcCertGeneratePrincipalNameW(_Context, Flags, pBuffer) {
     pBufferMarshal := pBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcCertGeneratePrincipalNameW", CERT_CONTEXT.Ptr, _Context, "uint", Flags, pBufferMarshal, pBuffer, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcCertGeneratePrincipalNameW", CERT_CONTEXT.Ptr, _Context, UInt32, Flags, pBufferMarshal, pBuffer, RPC_STATUS)
     return result
 }
 
@@ -25196,7 +25209,7 @@ export RpcCertGeneratePrincipalNameW(_Context, Flags, pBuffer) {
 export RpcCertGeneratePrincipalNameA(_Context, Flags, pBuffer) {
     pBufferMarshal := pBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcCertGeneratePrincipalNameA", CERT_CONTEXT.Ptr, _Context, "uint", Flags, pBufferMarshal, pBuffer, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcCertGeneratePrincipalNameA", CERT_CONTEXT.Ptr, _Context, UInt32, Flags, pBufferMarshal, pBuffer, RPC_STATUS)
     return result
 }
 

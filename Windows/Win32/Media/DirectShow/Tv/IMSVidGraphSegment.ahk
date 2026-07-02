@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IEnumFilters.ahk" { IEnumFilters }
-#Import ".\MSVidSegmentType.ahk" { MSVidSegmentType }
 #Import ".\IMSVidGraphSegmentContainer.ahk" { IMSVidGraphSegmentContainer }
+#Import "..\IEnumFilters.ahk" { IEnumFilters }
 #Import "..\..\..\System\Com\IPersist.ahk" { IPersist }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MSVidSegmentType.ahk" { MSVidSegmentType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -211,7 +211,7 @@ export default struct IMSVidGraphSegment extends IPersist {
      * @returns {HRESULT} 
      */
     OnEventNotify(lEventCode, lEventParm1, lEventParm2) {
-        result := ComCall(17, this, "int", lEventCode, "ptr", lEventParm1, "ptr", lEventParm2, "HRESULT")
+        result := ComCall(17, this, Int32, lEventCode, IntPtr, lEventParm1, IntPtr, lEventParm2, "HRESULT")
         return result
     }
 

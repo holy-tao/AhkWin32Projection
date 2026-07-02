@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MBN_PIN_INFO.ahk" { MBN_PIN_INFO }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MBN_PIN_INFO.ahk" { MBN_PIN_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMbnPin.ahk" { IMbnPin }
 
 /**
@@ -72,7 +72,7 @@ export default struct IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onenablecomplete
      */
     OnEnableComplete(pin, pinInfo, requestID, _status) {
-        result := ComCall(3, this, "ptr", pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(3, this, "ptr", pin, MBN_PIN_INFO.Ptr, pinInfo, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-ondisablecomplete
      */
     OnDisableComplete(pin, pinInfo, requestID, _status) {
-        result := ComCall(4, this, "ptr", pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(4, this, "ptr", pin, MBN_PIN_INFO.Ptr, pinInfo, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onentercomplete
      */
     OnEnterComplete(Pin, pinInfo, requestID, _status) {
-        result := ComCall(5, this, "ptr", Pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(5, this, "ptr", Pin, MBN_PIN_INFO.Ptr, pinInfo, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -137,7 +137,7 @@ export default struct IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onchangecomplete
      */
     OnChangeComplete(Pin, pinInfo, requestID, _status) {
-        result := ComCall(6, this, "ptr", Pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(6, this, "ptr", Pin, MBN_PIN_INFO.Ptr, pinInfo, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -161,7 +161,7 @@ export default struct IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onunblockcomplete
      */
     OnUnblockComplete(Pin, pinInfo, requestID, _status) {
-        result := ComCall(7, this, "ptr", Pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(7, this, "ptr", Pin, MBN_PIN_INFO.Ptr, pinInfo, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 

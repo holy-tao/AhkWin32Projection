@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Is passed in calls to the CertVerifyRevocation function to assist in finding the issuer of the context to be verified.

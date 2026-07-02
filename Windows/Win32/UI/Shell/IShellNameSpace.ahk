@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellFavoritesNameSpace.ahk" { IShellFavoritesNameSpace }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -150,7 +150,7 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {HRESULT} 
      */
     put_EnumOptions(lVal) {
-        result := ComCall(21, this, "int", lVal, "HRESULT")
+        result := ComCall(21, this, Int32, lVal, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {HRESULT} 
      */
     put_Depth(iDepth) {
-        result := ComCall(27, this, "int", iDepth, "HRESULT")
+        result := ComCall(27, this, Int32, iDepth, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {HRESULT} 
      */
     put_Mode(uMode) {
-        result := ComCall(29, this, "uint", uMode, "HRESULT")
+        result := ComCall(29, this, UInt32, uMode, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {HRESULT} 
      */
     put_Flags(dwFlags) {
-        result := ComCall(31, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(31, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {HRESULT} 
      */
     put_TVFlags(dwFlags) {
-        result := ComCall(32, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(32, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -306,7 +306,7 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {HRESULT} 
      */
     SetViewType(iType) {
-        result := ComCall(37, this, "int", iType, "HRESULT")
+        result := ComCall(37, this, Int32, iType, "HRESULT")
         return result
     }
 
@@ -326,7 +326,7 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
      * @returns {HRESULT} 
      */
     Expand(var, iDepth) {
-        result := ComCall(39, this, VARIANT, var, "int", iDepth, "HRESULT")
+        result := ComCall(39, this, VARIANT, var, Int32, iDepth, "HRESULT")
         return result
     }
 

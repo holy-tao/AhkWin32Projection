@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
 #Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITargetFramePriv.ahk" { ITargetFramePriv }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUri.ahk" { IUri }
-#Import ".\ITargetFramePriv.ahk" { ITargetFramePriv }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -53,7 +53,7 @@ export default struct ITargetFramePriv2 extends ITargetFramePriv {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
         pszLocation := pszLocation is String ? StrPtr(pszLocation) : pszLocation
 
-        result := ComCall(9, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pszTargetName, "ptr", pUri, "ptr", pszLocation, "HRESULT")
+        result := ComCall(9, this, UInt32, grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pszTargetName, "ptr", pUri, "ptr", pszLocation, "HRESULT")
         return result
     }
 

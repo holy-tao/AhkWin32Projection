@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IKsDataTypeHandler.ahk" { IKsDataTypeHandler }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\KSIOOPERATION.ahk" { KSIOOPERATION }
 #Import ".\IKsInterfaceHandler.ahk" { IKsInterfaceHandler }
+#Import ".\KSIOOPERATION.ahk" { KSIOOPERATION }
+#Import ".\IKsDataTypeHandler.ahk" { IKsDataTypeHandler }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDeviceTopology.ahk" { IDeviceTopology }
-#Import ".\IControlChangeNotify.ahk" { IControlChangeNotify }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PartType.ahk" { PartType }
-#Import ".\IControlInterface.ahk" { IControlInterface }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDeviceTopology.ahk" { IDeviceTopology }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IPartsList.ahk" { IPartsList }
+#Import ".\IControlInterface.ahk" { IControlInterface }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IControlChangeNotify.ahk" { IControlChangeNotify }
 
 /**
  * The IPart interface represents a part (connector or subunit) of a device topology.
@@ -280,7 +280,7 @@ export default struct IPart extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getcontrolinterface
      */
     GetControlInterface(nIndex) {
-        result := ComCall(9, this, "uint", nIndex, "ptr*", &ppInterfaceDesc := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, nIndex, "ptr*", &ppInterfaceDesc := 0, "HRESULT")
         return IControlInterface(ppInterfaceDesc)
     }
 
@@ -435,7 +435,7 @@ export default struct IPart extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-activate
      */
     Activate(dwClsContext, refiid) {
-        result := ComCall(13, this, "uint", dwClsContext, Guid.Ptr, refiid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwClsContext, Guid.Ptr, refiid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 

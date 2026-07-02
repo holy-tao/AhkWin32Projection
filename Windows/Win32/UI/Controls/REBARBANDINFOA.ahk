@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * Contains information that defines a band in a rebar control. (ANSI)

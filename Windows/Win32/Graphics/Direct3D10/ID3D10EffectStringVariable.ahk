@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * A string-variable interface accesses a string variable.
@@ -65,7 +65,7 @@ export default struct ID3D10EffectStringVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectstringvariable-getstringarray
      */
     GetStringArray(Offset, Count) {
-        result := ComCall(26, this, PSTR.Ptr, &ppStrings := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(26, this, PSTR.Ptr, &ppStrings := 0, UInt32, Offset, UInt32, Count, "HRESULT")
         return ppStrings
     }
 

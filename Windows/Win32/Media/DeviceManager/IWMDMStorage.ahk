@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\IWMDMEnumStorage.ahk" { IWMDMEnumStorage }
+#Import ".\WMDMDATETIME.ahk" { WMDMDATETIME }
 #Import ".\IWMDMStorageGlobals.ahk" { IWMDMStorageGlobals }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WMDMDATETIME.ahk" { WMDMDATETIME }
 #Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMEnumStorage.ahk" { IWMDMEnumStorage }
 
 /**
  * An instance of the IWMDMStorage interface provides methods to examine and explore a storage (a generic name for a data or collection object, such as a file, folder, or playlist) on a device.
@@ -132,7 +132,7 @@ export default struct IWMDMStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-setattributes
      */
     SetAttributes(dwAttributes, pFormat) {
-        result := ComCall(3, this, "uint", dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
+        result := ComCall(3, this, UInt32, dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
         return result
     }
 
@@ -289,7 +289,7 @@ export default struct IWMDMStorage extends IUnknown {
     GetName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(6, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 

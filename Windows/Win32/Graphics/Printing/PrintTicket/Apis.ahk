@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Gdi\DEVMODEA.ahk" { DEVMODEA }
-#Import ".\EPrintTicketScope.ahk" { EPrintTicketScope }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\HPTPROVIDER.ahk" { HPTPROVIDER }
 #Import ".\EDefaultDevmodeType.ahk" { EDefaultDevmodeType }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\EPrintTicketScope.ahk" { EPrintTicketScope }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing.PrintTicket
@@ -54,7 +54,7 @@ export PTOpenProvider(pszPrinterName, dwVersion) {
     pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
     phProvider := HPTPROVIDER.Owned()
-    result := DllCall("prntvpt.dll\PTOpenProvider", "ptr", pszPrinterName, "uint", dwVersion, HPTPROVIDER.Ptr, phProvider, "HRESULT")
+    result := DllCall("prntvpt.dll\PTOpenProvider", "ptr", pszPrinterName, UInt32, dwVersion, HPTPROVIDER.Ptr, phProvider, "HRESULT")
     return phProvider
 }
 
@@ -84,7 +84,7 @@ export PTOpenProviderEx(pszPrinterName, dwMaxVersion, dwPrefVersion, phProvider,
 
     pUsedVersionMarshal := pUsedVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("prntvpt.dll\PTOpenProviderEx", "ptr", pszPrinterName, "uint", dwMaxVersion, "uint", dwPrefVersion, HPTPROVIDER.Ptr, phProvider, pUsedVersionMarshal, pUsedVersion, "HRESULT")
+    result := DllCall("prntvpt.dll\PTOpenProviderEx", "ptr", pszPrinterName, UInt32, dwMaxVersion, UInt32, dwPrefVersion, HPTPROVIDER.Ptr, phProvider, pUsedVersionMarshal, pUsedVersion, "HRESULT")
     return result
 }
 
@@ -301,7 +301,7 @@ export PTConvertPrintTicketToDevMode(_hProvider, pPrintTicket, baseDevmodeType, 
  * @since windows5.1.2600
  */
 export PTConvertDevModeToPrintTicket(_hProvider, cbDevmode, pDevmode, scope, pPrintTicket) {
-    result := DllCall("prntvpt.dll\PTConvertDevModeToPrintTicket", HPTPROVIDER, _hProvider, "uint", cbDevmode, DEVMODEA.Ptr, pDevmode, EPrintTicketScope, scope, "ptr", pPrintTicket, "HRESULT")
+    result := DllCall("prntvpt.dll\PTConvertDevModeToPrintTicket", HPTPROVIDER, _hProvider, UInt32, cbDevmode, DEVMODEA.Ptr, pDevmode, EPrintTicketScope, scope, "ptr", pPrintTicket, "HRESULT")
     return result
 }
 

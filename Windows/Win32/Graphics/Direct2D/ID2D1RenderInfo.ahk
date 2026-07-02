@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_CHANNEL_DEPTH.ahk" { D2D1_CHANNEL_DEPTH }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_CHANNEL_DEPTH.ahk" { D2D1_CHANNEL_DEPTH }
 #Import ".\D2D1_INPUT_DESCRIPTION.ahk" { D2D1_INPUT_DESCRIPTION }
 
 /**
@@ -78,7 +78,7 @@ export default struct ID2D1RenderInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinputdescription
      */
     SetInputDescription(inputIndex, inputDescription) {
-        result := ComCall(3, this, "uint", inputIndex, D2D1_INPUT_DESCRIPTION, inputDescription, "HRESULT")
+        result := ComCall(3, this, UInt32, inputIndex, D2D1_INPUT_DESCRIPTION, inputDescription, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct ID2D1RenderInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinstructioncounthint
      */
     SetInstructionCountHint(instructionCount) {
-        ComCall(6, this, "uint", instructionCount)
+        ComCall(6, this, UInt32, instructionCount)
     }
 
     Query(iid) {

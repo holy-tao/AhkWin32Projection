@@ -1,22 +1,23 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MQRESTRICTION.ahk" { MQRESTRICTION }
-#Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\MQQMPROPS.ahk" { MQQMPROPS }
-#Import ".\MQMSGPROPS.ahk" { MQMSGPROPS }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\MQSORTSET.ahk" { MQSORTSET }
-#Import "..\..\Security\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MQMGMTPROPS.ahk" { MQMGMTPROPS }
+#Import "..\..\Security\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\MQQUEUEPROPS.ahk" { MQQUEUEPROPS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MQMSGPROPS.ahk" { MQMSGPROPS }
 #Import ".\MQPRIVATEPROPS.ahk" { MQPRIVATEPROPS }
-#Import ".\MQCOLUMNSET.ahk" { MQCOLUMNSET }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\MQCOLUMNSET.ahk" { MQCOLUMNSET }
+#Import ".\MQQMPROPS.ahk" { MQQMPROPS }
+#Import ".\MQQUEUEPROPS.ahk" { MQQUEUEPROPS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\MQRESTRICTION.ahk" { MQRESTRICTION }
+#Import ".\MQMGMTPROPS.ahk" { MQMGMTPROPS }
+#Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
+#Import ".\MQSORTSET.ahk" { MQSORTSET }
+#Import ".\PMQRECEIVECALLBACK.ahk" { PMQRECEIVECALLBACK }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -102,7 +103,7 @@ export MQLocateEnd(hEnum) {
 export MQOpenQueue(lpwcsFormatName, dwAccess, dwShareMode) {
     lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-    result := DllCall("mqrt.dll\MQOpenQueue", "ptr", lpwcsFormatName, "uint", dwAccess, "uint", dwShareMode, "ptr*", &phQueue := 0, "HRESULT")
+    result := DllCall("mqrt.dll\MQOpenQueue", "ptr", lpwcsFormatName, UInt32, dwAccess, UInt32, dwShareMode, "ptr*", &phQueue := 0, "HRESULT")
     return phQueue
 }
 
@@ -114,7 +115,7 @@ export MQOpenQueue(lpwcsFormatName, dwAccess, dwShareMode) {
  * @returns {HRESULT} 
  */
 export MQSendMessage(hDestinationQueue, pMessageProps, pTransaction) {
-    result := DllCall("mqrt.dll\MQSendMessage", "ptr", hDestinationQueue, MQMSGPROPS.Ptr, pMessageProps, "ptr", pTransaction, "HRESULT")
+    result := DllCall("mqrt.dll\MQSendMessage", IntPtr, hDestinationQueue, MQMSGPROPS.Ptr, pMessageProps, "ptr", pTransaction, "HRESULT")
     return result
 }
 
@@ -131,7 +132,7 @@ export MQSendMessage(hDestinationQueue, pMessageProps, pTransaction) {
  * @returns {HRESULT} 
  */
 export MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlapped, fnReceiveCallback, _hCursor, pTransaction) {
-    result := DllCall("mqrt.dll\MQReceiveMessage", "ptr", hSource, "uint", dwTimeout, "uint", dwAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, "ptr", fnReceiveCallback, HANDLE, _hCursor, "ptr", pTransaction, "HRESULT")
+    result := DllCall("mqrt.dll\MQReceiveMessage", IntPtr, hSource, UInt32, dwTimeout, UInt32, dwAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, PMQRECEIVECALLBACK, fnReceiveCallback, HANDLE, _hCursor, "ptr", pTransaction, "HRESULT")
     return result
 }
 
@@ -147,7 +148,7 @@ export MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlappe
  * @returns {HRESULT} 
  */
 export MQReceiveMessageByLookupId(hSource, ullLookupId, dwLookupAction, pMessageProps, lpOverlapped, fnReceiveCallback, pTransaction) {
-    result := DllCall("mqrt.dll\MQReceiveMessageByLookupId", "ptr", hSource, "uint", ullLookupId, "uint", dwLookupAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, "ptr", fnReceiveCallback, "ptr", pTransaction, "HRESULT")
+    result := DllCall("mqrt.dll\MQReceiveMessageByLookupId", IntPtr, hSource, Int64, ullLookupId, UInt32, dwLookupAction, MQMSGPROPS.Ptr, pMessageProps, OVERLAPPED.Ptr, lpOverlapped, PMQRECEIVECALLBACK, fnReceiveCallback, "ptr", pTransaction, "HRESULT")
     return result
 }
 
@@ -158,7 +159,7 @@ export MQReceiveMessageByLookupId(hSource, ullLookupId, dwLookupAction, pMessage
  */
 export MQCreateCursor(hQueue) {
     phCursor := HANDLE.Owned()
-    result := DllCall("mqrt.dll\MQCreateCursor", "ptr", hQueue, HANDLE.Ptr, phCursor, "HRESULT")
+    result := DllCall("mqrt.dll\MQCreateCursor", IntPtr, hQueue, HANDLE.Ptr, phCursor, "HRESULT")
     return phCursor
 }
 
@@ -178,7 +179,7 @@ export MQCloseCursor(_hCursor) {
  * @returns {HRESULT} 
  */
 export MQCloseQueue(hQueue) {
-    result := DllCall("mqrt.dll\MQCloseQueue", "ptr", hQueue, "HRESULT")
+    result := DllCall("mqrt.dll\MQCloseQueue", IntPtr, hQueue, "HRESULT")
     return result
 }
 
@@ -219,7 +220,7 @@ export MQGetQueueProperties(lpwcsFormatName, pQueueProps) {
 export MQGetQueueSecurity(lpwcsFormatName, RequestedInformation, pSecurityDescriptor, nLength) {
     lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-    result := DllCall("mqrt.dll\MQGetQueueSecurity", "ptr", lpwcsFormatName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, "uint*", &lpnLengthNeeded := 0, "HRESULT")
+    result := DllCall("mqrt.dll\MQGetQueueSecurity", "ptr", lpwcsFormatName, UInt32, RequestedInformation, IntPtr, pSecurityDescriptor, UInt32, nLength, "uint*", &lpnLengthNeeded := 0, "HRESULT")
     return lpnLengthNeeded
 }
 
@@ -266,7 +267,7 @@ export MQHandleToFormatName(hQueue, lpwcsFormatName, lpdwFormatNameLength) {
 
     lpdwFormatNameLengthMarshal := lpdwFormatNameLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("mqrt.dll\MQHandleToFormatName", "ptr", hQueue, "ptr", lpwcsFormatName, lpdwFormatNameLengthMarshal, lpdwFormatNameLength, "HRESULT")
+    result := DllCall("mqrt.dll\MQHandleToFormatName", IntPtr, hQueue, "ptr", lpwcsFormatName, lpdwFormatNameLengthMarshal, lpdwFormatNameLength, "HRESULT")
     return result
 }
 
@@ -336,7 +337,7 @@ export MQGetMachineProperties(lpwcsMachineName, pguidMachineId, pQMProps) {
  */
 export MQGetSecurityContext(lpCertBuffer, dwCertBufferLength) {
     phSecurityContext := HANDLE.Owned()
-    result := DllCall("mqrt.dll\MQGetSecurityContext", "ptr", lpCertBuffer, "uint", dwCertBufferLength, HANDLE.Ptr, phSecurityContext, "HRESULT")
+    result := DllCall("mqrt.dll\MQGetSecurityContext", IntPtr, lpCertBuffer, UInt32, dwCertBufferLength, HANDLE.Ptr, phSecurityContext, "HRESULT")
     return phSecurityContext
 }
 
@@ -348,7 +349,7 @@ export MQGetSecurityContext(lpCertBuffer, dwCertBufferLength) {
  */
 export MQGetSecurityContextEx(lpCertBuffer, dwCertBufferLength) {
     phSecurityContext := HANDLE.Owned()
-    result := DllCall("mqrt.dll\MQGetSecurityContextEx", "ptr", lpCertBuffer, "uint", dwCertBufferLength, HANDLE.Ptr, phSecurityContext, "HRESULT")
+    result := DllCall("mqrt.dll\MQGetSecurityContextEx", IntPtr, lpCertBuffer, UInt32, dwCertBufferLength, HANDLE.Ptr, phSecurityContext, "HRESULT")
     return phSecurityContext
 }
 
@@ -371,7 +372,7 @@ export MQFreeSecurityContext(hSecurityContext) {
 export MQRegisterCertificate(dwFlags, lpCertBuffer, dwCertBufferLength) {
     lpCertBufferMarshal := lpCertBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("mqrt.dll\MQRegisterCertificate", "uint", dwFlags, lpCertBufferMarshal, lpCertBuffer, "uint", dwCertBufferLength, "HRESULT")
+    result := DllCall("mqrt.dll\MQRegisterCertificate", UInt32, dwFlags, lpCertBufferMarshal, lpCertBuffer, UInt32, dwCertBufferLength, "HRESULT")
     return result
 }
 
@@ -413,7 +414,7 @@ export MQGetPrivateComputerInformation(lpwcsComputerName, pPrivateProps) {
  * @returns {HRESULT} 
  */
 export MQPurgeQueue(hQueue) {
-    result := DllCall("mqrt.dll\MQPurgeQueue", "ptr", hQueue, "HRESULT")
+    result := DllCall("mqrt.dll\MQPurgeQueue", IntPtr, hQueue, "HRESULT")
     return result
 }
 
@@ -455,7 +456,7 @@ export MQMgmtAction(pComputerName, pObjectName, pAction) {
  * @returns {HRESULT} 
  */
 export MQMarkMessageRejected(hQueue, ullLookupId) {
-    result := DllCall("mqrt.dll\MQMarkMessageRejected", HANDLE, hQueue, "uint", ullLookupId, "HRESULT")
+    result := DllCall("mqrt.dll\MQMarkMessageRejected", HANDLE, hQueue, Int64, ullLookupId, "HRESULT")
     return result
 }
 
@@ -468,7 +469,7 @@ export MQMarkMessageRejected(hQueue, ullLookupId) {
  * @returns {HRESULT} 
  */
 export MQMoveMessage(hSourceQueue, hDestinationQueue, ullLookupId, pTransaction) {
-    result := DllCall("mqrt.dll\MQMoveMessage", "ptr", hSourceQueue, "ptr", hDestinationQueue, "uint", ullLookupId, "ptr", pTransaction, "HRESULT")
+    result := DllCall("mqrt.dll\MQMoveMessage", IntPtr, hSourceQueue, IntPtr, hDestinationQueue, Int64, ullLookupId, "ptr", pTransaction, "HRESULT")
     return result
 }
 

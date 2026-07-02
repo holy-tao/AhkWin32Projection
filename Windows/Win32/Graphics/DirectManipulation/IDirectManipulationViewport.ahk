@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DIRECTMANIPULATION_VIEWPORT_OPTIONS.ahk" { DIRECTMANIPULATION_VIEWPORT_OPTIONS }
 #Import ".\DIRECTMANIPULATION_STATUS.ahk" { DIRECTMANIPULATION_STATUS }
-#Import ".\DIRECTMANIPULATION_INPUT_MODE.ahk" { DIRECTMANIPULATION_INPUT_MODE }
-#Import ".\IDirectManipulationViewportEventHandler.ahk" { IDirectManipulationViewportEventHandler }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DIRECTMANIPULATION_CONFIGURATION.ahk" { DIRECTMANIPULATION_CONFIGURATION }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DIRECTMANIPULATION_GESTURE_CONFIGURATION.ahk" { DIRECTMANIPULATION_GESTURE_CONFIGURATION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
 #Import ".\IDirectManipulationContent.ahk" { IDirectManipulationContent }
+#Import ".\DIRECTMANIPULATION_GESTURE_CONFIGURATION.ahk" { DIRECTMANIPULATION_GESTURE_CONFIGURATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
+#Import ".\DIRECTMANIPULATION_VIEWPORT_OPTIONS.ahk" { DIRECTMANIPULATION_VIEWPORT_OPTIONS }
+#Import ".\DIRECTMANIPULATION_CONFIGURATION.ahk" { DIRECTMANIPULATION_CONFIGURATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectManipulationViewportEventHandler.ahk" { IDirectManipulationViewportEventHandler }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DIRECTMANIPULATION_INPUT_MODE.ahk" { DIRECTMANIPULATION_INPUT_MODE }
 
 /**
  * Defines a region within a window (referred to as a viewport) that is able to receive and process input from user interactions.
@@ -132,7 +132,7 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setcontact
      */
     SetContact(pointerId) {
-        result := ComCall(5, this, "uint", pointerId, "HRESULT")
+        result := ComCall(5, this, UInt32, pointerId, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-releasecontact
      */
     ReleaseContact(pointerId) {
-        result := ComCall(6, this, "uint", pointerId, "HRESULT")
+        result := ComCall(6, this, UInt32, pointerId, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-settag
      */
     SetTag(_object, id) {
-        result := ComCall(10, this, "ptr", _object, "uint", id, "HRESULT")
+        result := ComCall(10, this, "ptr", _object, UInt32, id, "HRESULT")
         return result
     }
 
@@ -250,7 +250,7 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-zoomtorect
      */
     ZoomToRect(left, top, right, bottom, animate) {
-        result := ComCall(13, this, "float", left, "float", top, "float", right, "float", bottom, BOOL, animate, "HRESULT")
+        result := ComCall(13, this, Float32, left, Float32, top, Float32, right, Float32, bottom, BOOL, animate, "HRESULT")
         return result
     }
 
@@ -284,7 +284,7 @@ export default struct IDirectManipulationViewport extends IUnknown {
     SetViewportTransform(_matrix, pointCount) {
         _matrixMarshal := _matrix is VarRef ? "float*" : "ptr"
 
-        result := ComCall(14, this, _matrixMarshal, _matrix, "uint", pointCount, "HRESULT")
+        result := ComCall(14, this, _matrixMarshal, _matrix, UInt32, pointCount, "HRESULT")
         return result
     }
 
@@ -309,7 +309,7 @@ export default struct IDirectManipulationViewport extends IUnknown {
     SyncDisplayTransform(_matrix, pointCount) {
         _matrixMarshal := _matrix is VarRef ? "float*" : "ptr"
 
-        result := ComCall(15, this, _matrixMarshal, _matrix, "uint", pointCount, "HRESULT")
+        result := ComCall(15, this, _matrixMarshal, _matrix, UInt32, pointCount, "HRESULT")
         return result
     }
 
@@ -484,7 +484,7 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-removeeventhandler
      */
     RemoveEventHandler(cookie) {
-        result := ComCall(26, this, "uint", cookie, "HRESULT")
+        result := ComCall(26, this, UInt32, cookie, "HRESULT")
         return result
     }
 

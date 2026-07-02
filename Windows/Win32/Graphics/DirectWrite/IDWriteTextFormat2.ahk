@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDWriteTextFormat1.ahk" { IDWriteTextFormat1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_LINE_SPACING.ahk" { DWRITE_LINE_SPACING }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. | IDWriteTextFormat2 interface

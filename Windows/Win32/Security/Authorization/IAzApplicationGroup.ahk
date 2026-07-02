@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines a collection of principals.
@@ -197,7 +197,7 @@ export default struct IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-put_type
      */
     put_Type(lProp) {
-        result := ComCall(10, this, "int", lProp, "HRESULT")
+        result := ComCall(10, this, Int32, lProp, "HRESULT")
         return result
     }
 
@@ -613,7 +613,7 @@ export default struct IAzApplicationGroup extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(28, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
+        result := ComCall(28, this, Int32, lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -728,7 +728,7 @@ export default struct IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(29, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(29, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -754,7 +754,7 @@ export default struct IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(30, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(30, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -840,7 +840,7 @@ export default struct IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(31, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(31, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -856,7 +856,7 @@ export default struct IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(32, this, "int", lFlags, VARIANT, varReserved, "HRESULT")
+        result := ComCall(32, this, Int32, lFlags, VARIANT, varReserved, "HRESULT")
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\NMHDR.ahk" { NMHDR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about an unsupported Rich Text Format (RTF) keyword in a Microsoft Rich Edit control.

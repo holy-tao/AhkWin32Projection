@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\BINDINFO.ahk" { BINDINFO }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInternetBindInfo.ahk" { IInternetBindInfo }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

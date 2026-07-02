@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaEventCallback interface is used by applications to receive notification of Windows Image Acquisition (WIA) hardware device events.
@@ -108,7 +108,7 @@ export default struct IWiaEventCallback extends IUnknown {
 
         pulEventTypeMarshal := pulEventType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, Guid.Ptr, pEventGUID, BSTR, bstrEventDescription, BSTR, bstrDeviceID, BSTR, bstrDeviceDescription, "uint", dwDeviceType, BSTR, bstrFullItemName, pulEventTypeMarshal, pulEventType, "uint", ulReserved, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pEventGUID, BSTR, bstrEventDescription, BSTR, bstrDeviceID, BSTR, bstrDeviceDescription, UInt32, dwDeviceType, BSTR, bstrFullItemName, pulEventTypeMarshal, pulEventType, UInt32, ulReserved, "HRESULT")
         return result
     }
 

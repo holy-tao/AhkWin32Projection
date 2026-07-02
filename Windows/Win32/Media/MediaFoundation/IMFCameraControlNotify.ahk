@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the notification callback for changes to camera controls.
@@ -52,7 +52,7 @@ export default struct IMFCameraControlNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontrolnotify-onchange
      */
     OnChange(controlSet, id) {
-        ComCall(3, this, Guid.Ptr, controlSet, "uint", id)
+        ComCall(3, this, Guid.Ptr, controlSet, UInt32, id)
     }
 
     /**

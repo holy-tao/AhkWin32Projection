@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
-#Import ".\IDXGISwapChain.ahk" { IDXGISwapChain }
-#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DXGI_MWA_FLAGS.ahk" { DXGI_MWA_FLAGS }
+#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import ".\IDXGISwapChain.ahk" { IDXGISwapChain }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
 #Import ".\IDXGIObject.ahk" { IDXGIObject }
 
 /**
@@ -91,7 +91,7 @@ export default struct IDXGIFactory extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory-enumadapters
      */
     EnumAdapters(_Adapter) {
-        result := ComCall(7, this, "uint", _Adapter, "ptr*", &ppAdapter := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, _Adapter, "ptr*", &ppAdapter := 0, "HRESULT")
         return IDXGIAdapter(ppAdapter)
     }
 

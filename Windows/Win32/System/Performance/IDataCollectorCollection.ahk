@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IValueMap.ahk" { IValueMap }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DataCollectorType.ahk" { DataCollectorType }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDataCollector.ahk" { IDataCollector }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Manages a collection of DataCollector objects.To get this interface, access the IDataCollectorSet::DataCollectors property.

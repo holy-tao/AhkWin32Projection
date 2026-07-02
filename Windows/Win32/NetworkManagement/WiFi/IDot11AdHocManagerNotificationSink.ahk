@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
 #Import ".\IDot11AdHocInterface.ahk" { IDot11AdHocInterface }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines the notifications supported by the IDot11AdHocManager interface.

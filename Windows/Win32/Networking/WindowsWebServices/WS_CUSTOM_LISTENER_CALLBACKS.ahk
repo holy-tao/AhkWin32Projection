@@ -1,4 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_ABORT_LISTENER_CALLBACK.ahk" { WS_ABORT_LISTENER_CALLBACK }
+#Import ".\WS_ACCEPT_CHANNEL_CALLBACK.ahk" { WS_ACCEPT_CHANNEL_CALLBACK }
+#Import ".\WS_OPEN_LISTENER_CALLBACK.ahk" { WS_OPEN_LISTENER_CALLBACK }
+#Import ".\WS_CLOSE_LISTENER_CALLBACK.ahk" { WS_CLOSE_LISTENER_CALLBACK }
+#Import ".\WS_CREATE_LISTENER_CALLBACK.ahk" { WS_CREATE_LISTENER_CALLBACK }
+#Import ".\WS_SET_LISTENER_PROPERTY_CALLBACK.ahk" { WS_SET_LISTENER_PROPERTY_CALLBACK }
+#Import ".\WS_RESET_LISTENER_CALLBACK.ahk" { WS_RESET_LISTENER_CALLBACK }
+#Import ".\WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK.ahk" { WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK }
+#Import ".\WS_GET_LISTENER_PROPERTY_CALLBACK.ahk" { WS_GET_LISTENER_PROPERTY_CALLBACK }
+#Import ".\WS_FREE_LISTENER_CALLBACK.ahk" { WS_FREE_LISTENER_CALLBACK }
 
 /**
  * A structure that is used to specify a set of callbacks that form the implementation of a custom listener.
@@ -21,60 +31,60 @@ export default struct WS_CUSTOM_LISTENER_CALLBACKS {
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_listener_callback">WS_CREATE_LISTENER_CALLBACK</a> for more information.
      */
-    createListenerCallback : IntPtr
+    createListenerCallback : WS_CREATE_LISTENER_CALLBACK
 
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreelistener">WsFreeListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_listener_callback">WS_FREE_LISTENER_CALLBACK</a> for more information.
      */
-    freeListenerCallback : IntPtr
+    freeListenerCallback : WS_FREE_LISTENER_CALLBACK
 
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsresetlistener">WsResetListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_reset_listener_callback">WS_RESET_LISTENER_CALLBACK</a> for more information.
      */
-    resetListenerCallback : IntPtr
+    resetListenerCallback : WS_RESET_LISTENER_CALLBACK
 
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsopenlistener">WsOpenListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_open_listener_callback">WS_OPEN_LISTENER_CALLBACK</a> for more information.
      */
-    openListenerCallback : IntPtr
+    openListenerCallback : WS_OPEN_LISTENER_CALLBACK
 
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscloselistener">WsCloseListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_close_listener_callback">WS_CLOSE_LISTENER_CALLBACK</a> for more information.
      */
-    closeListenerCallback : IntPtr
+    closeListenerCallback : WS_CLOSE_LISTENER_CALLBACK
 
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsabortlistener">WsAbortListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_abort_listener_callback">WS_ABORT_LISTENER_CALLBACK</a> for more information.
      */
-    abortListenerCallback : IntPtr
+    abortListenerCallback : WS_ABORT_LISTENER_CALLBACK
 
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetlistenerproperty">WsGetListenerProperty</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_get_listener_property_callback">WS_GET_LISTENER_PROPERTY_CALLBACK</a> for more information.
      */
-    getListenerPropertyCallback : IntPtr
+    getListenerPropertyCallback : WS_GET_LISTENER_PROPERTY_CALLBACK
 
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wssetlistenerproperty">WsSetListenerProperty</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_set_listener_property_callback">WS_SET_LISTENER_PROPERTY_CALLBACK</a> for more information.
      */
-    setListenerPropertyCallback : IntPtr
+    setListenerPropertyCallback : WS_SET_LISTENER_PROPERTY_CALLBACK
 
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatechannelforlistener">WsCreateChannelForListener</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_channel_for_listener_callback">WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK</a> for more information.
      */
-    createChannelForListenerCallback : IntPtr
+    createChannelForListenerCallback : WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK
 
     /**
      * The callback that implements <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsacceptchannel">WsAcceptChannel</a>.
      *                     See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_accept_channel_callback">WS_ACCEPT_CHANNEL_CALLBACK</a> for more information.
      */
-    acceptChannelCallback : IntPtr
+    acceptChannelCallback : WS_ACCEPT_CHANNEL_CALLBACK
 
 }

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.

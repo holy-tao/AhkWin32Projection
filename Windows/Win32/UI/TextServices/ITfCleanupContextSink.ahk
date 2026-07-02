@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContext.ahk" { ITfContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfContext.ahk" { ITfContext }
 
 /**
  * The ITfCleanupContextSink interface is implemented by a text service to receive notifications when a context cleanup operation occurs. This notification sink is installed by calling ITfSourceSingle::AdviseSingleSink with IID_ITfCleanupContextSink.
@@ -62,7 +62,7 @@ export default struct ITfCleanupContextSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcleanupcontextsink-oncleanupcontext
      */
     OnCleanupContext(ecWrite, pic) {
-        result := ComCall(3, this, "uint", ecWrite, "ptr", pic, "HRESULT")
+        result := ComCall(3, this, UInt32, ecWrite, "ptr", pic, "HRESULT")
         return result
     }
 

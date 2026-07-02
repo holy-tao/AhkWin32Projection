@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CorrectionMode.ahk" { CorrectionMode }
-#Import ".\InPlaceState.ahk" { InPlaceState }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\InPlaceDirection.ahk" { InPlaceDirection }
-#Import ".\PanelInputArea.ahk" { PanelInputArea }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ITextInputPanelEventSink.ahk" { ITextInputPanelEventSink }
 #Import ".\CorrectionPosition.ahk" { CorrectionPosition }
-#Import ".\InteractionMode.ahk" { InteractionMode }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\InPlaceDirection.ahk" { InPlaceDirection }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\CorrectionMode.ahk" { CorrectionMode }
+#Import ".\PanelInputArea.ahk" { PanelInputArea }
+#Import ".\InPlaceState.ahk" { InPlaceState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InteractionMode.ahk" { InteractionMode }
 
 /**
  * Provides control of appearance and behavior of the Tablet PC Input Panel.
@@ -596,7 +596,7 @@ export default struct ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-setinplaceposition
      */
     SetInPlacePosition(xPosition, yPosition, position) {
-        result := ComCall(24, this, "int", xPosition, "int", yPosition, CorrectionPosition, position, "HRESULT")
+        result := ComCall(24, this, Int32, xPosition, Int32, yPosition, CorrectionPosition, position, "HRESULT")
         return result
     }
 
@@ -641,7 +641,7 @@ export default struct ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-setinplacehovertargetposition
      */
     SetInPlaceHoverTargetPosition(xPosition, yPosition) {
-        result := ComCall(25, this, "int", xPosition, "int", yPosition, "HRESULT")
+        result := ComCall(25, this, Int32, xPosition, Int32, yPosition, "HRESULT")
         return result
     }
 
@@ -682,7 +682,7 @@ export default struct ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-advise
      */
     Advise(EventSink, _EventMask) {
-        result := ComCall(26, this, "ptr", EventSink, "uint", _EventMask, "HRESULT")
+        result := ComCall(26, this, "ptr", EventSink, UInt32, _EventMask, "HRESULT")
         return result
     }
 

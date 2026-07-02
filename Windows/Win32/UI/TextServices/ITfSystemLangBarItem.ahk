@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * The ITfSystemLangBarItem interface is implemented by a system language bar menu and is used by a system language bar extension to modify the icon and/or tooltip string displayed for the menu.
@@ -125,7 +125,7 @@ export default struct ITfSystemLangBarItem extends IUnknown {
     SetTooltipString(pchToolTip, cch) {
         pchToolTip := pchToolTip is String ? StrPtr(pchToolTip) : pchToolTip
 
-        result := ComCall(4, this, "ptr", pchToolTip, "uint", cch, "HRESULT")
+        result := ComCall(4, this, "ptr", pchToolTip, UInt32, cch, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RAWHID.ahk" { RAWHID }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\RAWMOUSE.ahk" { RAWMOUSE }
 #Import ".\RAWKEYBOARD.ahk" { RAWKEYBOARD }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\RAWINPUTHEADER.ahk" { RAWINPUTHEADER }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import ".\MOUSE_STATE.ahk" { MOUSE_STATE }
+#Import ".\RAWHID.ahk" { RAWHID }
+#Import ".\RAWINPUTHEADER.ahk" { RAWINPUTHEADER }
 
 /**
  * Contains the raw input from a device.

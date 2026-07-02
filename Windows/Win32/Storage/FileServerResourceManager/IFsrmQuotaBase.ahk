@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmAction.ahk" { IFsrmAction }
-#Import ".\IFsrmObject.ahk" { IFsrmObject }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FsrmActionType.ahk" { FsrmActionType }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
 
 /**
  * Base interface for all quota interfaces.
@@ -117,7 +117,7 @@ export default struct IFsrmQuotaBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-put_quotaflags
      */
     put_QuotaFlags(quotaFlags) {
-        result := ComCall(15, this, "int", quotaFlags, "HRESULT")
+        result := ComCall(15, this, Int32, quotaFlags, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IFsrmQuotaBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-addthreshold
      */
     AddThreshold(threshold) {
-        result := ComCall(17, this, "int", threshold, "HRESULT")
+        result := ComCall(17, this, Int32, threshold, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IFsrmQuotaBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-deletethreshold
      */
     DeleteThreshold(threshold) {
-        result := ComCall(18, this, "int", threshold, "HRESULT")
+        result := ComCall(18, this, Int32, threshold, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IFsrmQuotaBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-modifythreshold
      */
     ModifyThreshold(threshold, newThreshold) {
-        result := ComCall(19, this, "int", threshold, "int", newThreshold, "HRESULT")
+        result := ComCall(19, this, Int32, threshold, Int32, newThreshold, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct IFsrmQuotaBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-createthresholdaction
      */
     CreateThresholdAction(threshold, actionType) {
-        result := ComCall(20, this, "int", threshold, FsrmActionType, actionType, "ptr*", &action := 0, "HRESULT")
+        result := ComCall(20, this, Int32, threshold, FsrmActionType, actionType, "ptr*", &action := 0, "HRESULT")
         return IFsrmAction(action)
     }
 
@@ -213,7 +213,7 @@ export default struct IFsrmQuotaBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-enumthresholdactions
      */
     EnumThresholdActions(threshold) {
-        result := ComCall(21, this, "int", threshold, "ptr*", &actions := 0, "HRESULT")
+        result := ComCall(21, this, Int32, threshold, "ptr*", &actions := 0, "HRESULT")
         return IFsrmCollection(actions)
     }
 

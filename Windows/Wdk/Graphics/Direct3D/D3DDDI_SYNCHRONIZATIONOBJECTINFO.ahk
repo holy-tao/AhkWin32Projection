@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DDDI_SYNCHRONIZATIONOBJECT_TYPE.ahk" { D3DDDI_SYNCHRONIZATIONOBJECT_TYPE }
 #Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DDDI_SYNCHRONIZATIONOBJECT_TYPE.ahk" { D3DDDI_SYNCHRONIZATIONOBJECT_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

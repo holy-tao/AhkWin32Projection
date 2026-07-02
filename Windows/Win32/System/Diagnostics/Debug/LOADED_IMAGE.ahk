@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\IMAGE_FILE_CHARACTERISTICS2.ahk" { IMAGE_FILE_CHARACTERISTICS2 }
 #Import ".\IMAGE_SECTION_HEADER.ahk" { IMAGE_SECTION_HEADER }
 #Import ".\IMAGE_NT_HEADERS64.ahk" { IMAGE_NT_HEADERS64 }
-#Import "..\..\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
-#Import ".\IMAGE_FILE_CHARACTERISTICS2.ahk" { IMAGE_FILE_CHARACTERISTICS2 }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains information about the loaded image.

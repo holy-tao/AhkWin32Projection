@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -45,7 +45,7 @@ export default struct IHTMLOMWindowServices extends IUnknown {
      * @returns {HRESULT} 
      */
     moveTo(x, y) {
-        result := ComCall(3, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(3, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -56,7 +56,7 @@ export default struct IHTMLOMWindowServices extends IUnknown {
      * @returns {HRESULT} 
      */
     moveBy(x, y) {
-        result := ComCall(4, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(4, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct IHTMLOMWindowServices extends IUnknown {
      * @returns {HRESULT} 
      */
     resizeTo(x, y) {
-        result := ComCall(5, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(5, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct IHTMLOMWindowServices extends IUnknown {
      * @returns {HRESULT} 
      */
     resizeBy(x, y) {
-        result := ComCall(6, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(6, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 

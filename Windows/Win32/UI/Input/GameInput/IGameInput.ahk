@@ -1,19 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
-#Import ".\GameInputSystemButtons.ahk" { GameInputSystemButtons }
-#Import ".\GameInputEnumerationKind.ahk" { GameInputEnumerationKind }
-#Import "..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk" { APP_LOCAL_DEVICE_ID }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IGameInputReading.ahk" { IGameInputReading }
-#Import ".\GameInputKind.ahk" { GameInputKind }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IGameInputDispatcher.ahk" { IGameInputDispatcher }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\GameInputFocusPolicy.ahk" { GameInputFocusPolicy }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGameInputReading.ahk" { IGameInputReading }
 #Import ".\GameInputDeviceStatus.ahk" { GameInputDeviceStatus }
+#Import ".\GameInputReadingCallback.ahk" { GameInputReadingCallback }
+#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\GameInputKind.ahk" { GameInputKind }
+#Import ".\GameInputSystemButtons.ahk" { GameInputSystemButtons }
+#Import ".\GameInputEnumerationKind.ahk" { GameInputEnumerationKind }
+#Import ".\GameInputSystemButtonCallback.ahk" { GameInputSystemButtonCallback }
+#Import ".\GameInputFocusPolicy.ahk" { GameInputFocusPolicy }
+#Import ".\GameInputKeyboardLayoutCallback.ahk" { GameInputKeyboardLayoutCallback }
+#Import "..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk" { APP_LOCAL_DEVICE_ID }
+#Import ".\GameInputDeviceCallback.ahk" { GameInputDeviceCallback }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
@@ -115,7 +119,7 @@ export default struct IGameInput extends IUnknown {
      * @returns {IGameInputReading} 
      */
     GetTemporalReading(_timestamp, device) {
-        result := ComCall(7, this, "uint", _timestamp, "ptr", device, "ptr*", &reading := 0, "HRESULT")
+        result := ComCall(7, this, Int64, _timestamp, "ptr", device, "ptr*", &reading := 0, "HRESULT")
         return IGameInputReading(reading)
     }
 
@@ -131,7 +135,7 @@ export default struct IGameInput extends IUnknown {
     RegisterReadingCallback(device, inputKind, analogThreshold, _context, callbackFunc) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", device, GameInputKind, inputKind, "float", analogThreshold, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", device, GameInputKind, inputKind, Float32, analogThreshold, _contextMarshal, _context, GameInputReadingCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
@@ -148,7 +152,7 @@ export default struct IGameInput extends IUnknown {
     RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, _context, callbackFunc) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", device, GameInputKind, inputKind, GameInputDeviceStatus, statusFilter, GameInputEnumerationKind, enumerationKind, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", device, GameInputKind, inputKind, GameInputDeviceStatus, statusFilter, GameInputEnumerationKind, enumerationKind, _contextMarshal, _context, GameInputDeviceCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
@@ -163,7 +167,7 @@ export default struct IGameInput extends IUnknown {
     RegisterSystemButtonCallback(device, buttonFilter, _context, callbackFunc) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", device, GameInputSystemButtons, buttonFilter, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", device, GameInputSystemButtons, buttonFilter, _contextMarshal, _context, GameInputSystemButtonCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
@@ -177,7 +181,7 @@ export default struct IGameInput extends IUnknown {
     RegisterKeyboardLayoutCallback(device, _context, callbackFunc) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, "ptr", device, _contextMarshal, _context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", device, _contextMarshal, _context, GameInputKeyboardLayoutCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
@@ -187,7 +191,7 @@ export default struct IGameInput extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     StopCallback(callbackToken) {
-        ComCall(12, this, "uint", callbackToken)
+        ComCall(12, this, Int64, callbackToken)
     }
 
     /**
@@ -197,7 +201,7 @@ export default struct IGameInput extends IUnknown {
      * @returns {Boolean} 
      */
     UnregisterCallback(callbackToken, timeoutInMicroseconds) {
-        result := ComCall(13, this, "uint", callbackToken, "uint", timeoutInMicroseconds, Int32)
+        result := ComCall(13, this, Int64, callbackToken, Int64, timeoutInMicroseconds, Int32)
         return result
     }
 
@@ -271,7 +275,7 @@ export default struct IGameInput extends IUnknown {
      * @returns {HRESULT} 
      */
     EnableOemDeviceSupport(vendorId, productId, interfaceNumber, collectionNumber) {
-        result := ComCall(20, this, "ushort", vendorId, "ushort", productId, "char", interfaceNumber, "char", collectionNumber, "HRESULT")
+        result := ComCall(20, this, UInt16, vendorId, UInt16, productId, Int8, interfaceNumber, Int8, collectionNumber, "HRESULT")
         return result
     }
 

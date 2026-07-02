@@ -2,12 +2,12 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
 #Import ".\IDebugApplication32.ahk" { IDebugApplication32 }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
 #Import ".\IActiveScriptErrorDebug.ahk" { IActiveScriptErrorDebug }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -51,7 +51,7 @@ export default struct IActiveScriptSiteDebug32 extends IUnknown {
      * @returns {IDebugDocumentContext} 
      */
     GetDocumentContextFromPosition(dwSourceContext, uCharacterOffset, uNumChars) {
-        result := ComCall(3, this, "uint", dwSourceContext, "uint", uCharacterOffset, "uint", uNumChars, "ptr*", &ppsc := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSourceContext, UInt32, uCharacterOffset, UInt32, uNumChars, "ptr*", &ppsc := 0, "HRESULT")
         return IDebugDocumentContext(ppsc)
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DBPROPIDSET.ahk" { DBPROPIDSET }
 
 /**
@@ -51,7 +51,7 @@ export default struct IRowsetInfo extends IUnknown {
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
         prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
+        result := ComCall(3, this, UInt32, cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
         return result
     }
 
@@ -62,7 +62,7 @@ export default struct IRowsetInfo extends IUnknown {
      * @returns {IUnknown} 
      */
     GetReferencedRowset(iOrdinal, riid) {
-        result := ComCall(4, this, "ptr", iOrdinal, Guid.Ptr, riid, "ptr*", &ppReferencedRowset := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, iOrdinal, Guid.Ptr, riid, "ptr*", &ppReferencedRowset := 0, "HRESULT")
         return IUnknown(ppReferencedRowset)
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -44,7 +44,7 @@ export default struct IRowPositionChange extends IUnknown {
      * @returns {HRESULT} 
      */
     OnRowPositionChange(eReason, ePhase, fCantDeny) {
-        result := ComCall(3, this, "uint", eReason, "uint", ePhase, BOOL, fCantDeny, "HRESULT")
+        result := ComCall(3, this, UInt32, eReason, UInt32, ePhase, BOOL, fCantDeny, "HRESULT")
         return result
     }
 

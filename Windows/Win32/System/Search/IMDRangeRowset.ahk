@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -47,7 +47,7 @@ export default struct IMDRangeRowset extends IUnknown {
      * @returns {IUnknown} 
      */
     GetRangeRowset(pUnkOuter, ulStartCell, ulEndCell, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", ulStartCell, "ptr", ulEndCell, Guid.Ptr, riid, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, IntPtr, ulStartCell, IntPtr, ulEndCell, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
         return IUnknown(ppRowset)
     }
 

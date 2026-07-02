@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXGI_GPU_PREFERENCE.ahk" { DXGI_GPU_PREFERENCE }
 #Import ".\IDXGIFactory5.ahk" { IDXGIFactory5 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXGI_GPU_PREFERENCE.ahk" { DXGI_GPU_PREFERENCE }
 
 /**
  * This interface enables a single method that enumerates graphics adapters based on a given GPU preference.
@@ -76,7 +76,7 @@ export default struct IDXGIFactory6 extends IDXGIFactory5 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory6-enumadapterbygpupreference
      */
     EnumAdapterByGpuPreference(_Adapter, GpuPreference, riid) {
-        result := ComCall(29, this, "uint", _Adapter, DXGI_GPU_PREFERENCE, GpuPreference, Guid.Ptr, riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        result := ComCall(29, this, UInt32, _Adapter, DXGI_GPU_PREFERENCE, GpuPreference, Guid.Ptr, riid, "ptr*", &ppvAdapter := 0, "HRESULT")
         return ppvAdapter
     }
 

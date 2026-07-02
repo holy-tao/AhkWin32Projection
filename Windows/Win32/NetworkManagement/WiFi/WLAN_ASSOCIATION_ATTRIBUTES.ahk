@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
-#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 #Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 
 /**
  * Contains association attributes for a connection.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * The DXGI_OUTDUPL_POINTER_POSITION structure describes the position of the hardware cursor.

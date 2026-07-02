@@ -3,9 +3,9 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import ".\PROPENUMTYPE.ahk" { PROPENUMTYPE }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that extract data from enumeration information. IPropertyEnumType gives access to the enum and enumRange elements in the property schema in a programmatic way at run time.

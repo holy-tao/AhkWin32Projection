@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * The FAX_DEVICE_STATUS structure contains information about the current status of a fax device. (ANSI)

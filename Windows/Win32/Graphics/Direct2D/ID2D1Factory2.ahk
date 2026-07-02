@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1Device1.ahk" { ID2D1Device1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
+#Import ".\ID2D1Device1.ahk" { ID2D1Device1 }
 #Import ".\ID2D1Factory1.ahk" { ID2D1Factory1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Creates Direct2D resources. (ID2D1Factory2)

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISWbemRefresher.ahk" { ISWbemRefresher }
-#Import ".\ISWbemObjectSet.ahk" { ISWbemObjectSet }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ISWbemObjectEx.ahk" { ISWbemObjectEx }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISWbemObjectSet.ahk" { ISWbemObjectSet }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISWbemRefresher.ahk" { ISWbemRefresher }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -136,7 +136,7 @@ export default struct ISWbemRefreshableItem extends IDispatch {
      * @returns {HRESULT} 
      */
     Remove(iFlags) {
-        result := ComCall(12, this, "int", iFlags, "HRESULT")
+        result := ComCall(12, this, Int32, iFlags, "HRESULT")
         return result
     }
 

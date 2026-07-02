@@ -58,7 +58,7 @@ export default struct IACList2 extends IACList {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iaclist2-setoptions
      */
     SetOptions(dwFlag) {
-        result := ComCall(4, this, "uint", dwFlag, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlag, "HRESULT")
         return result
     }
 

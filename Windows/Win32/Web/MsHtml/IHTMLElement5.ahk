@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLDOMAttribute2.ahk" { IHTMLDOMAttribute2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLAttributeCollection3.ahk" { IHTMLAttributeCollection3 }
-#Import ".\IHTMLDOMAttribute2.ahk" { IHTMLDOMAttribute2 }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -762,7 +762,7 @@ export default struct IHTMLElement5 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ariaPosinset(v) {
-        result := ComCall(45, this, "short", v, "HRESULT")
+        result := ComCall(45, this, Int16, v, "HRESULT")
         return result
     }
 
@@ -781,7 +781,7 @@ export default struct IHTMLElement5 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ariaSetsize(v) {
-        result := ComCall(47, this, "short", v, "HRESULT")
+        result := ComCall(47, this, Int16, v, "HRESULT")
         return result
     }
 
@@ -800,7 +800,7 @@ export default struct IHTMLElement5 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ariaLevel(v) {
-        result := ComCall(49, this, "short", v, "HRESULT")
+        result := ComCall(49, this, Int16, v, "HRESULT")
         return result
     }
 

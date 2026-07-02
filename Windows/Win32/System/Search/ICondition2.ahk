@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
-#Import ".\ICondition.ahk" { ICondition }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICondition.ahk" { ICondition }
 
 /**
  * Extends the functionality of the ICondition interface. ICondition2 provides methods for retrieving information about a search condition.

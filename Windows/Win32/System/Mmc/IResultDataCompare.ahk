@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows primary snap-ins to compare result items that are displayed in a sorted order in the result pane.
@@ -65,7 +65,7 @@ export default struct IResultDataCompare extends IUnknown {
     Compare(lUserParam, cookieA, cookieB, pnResult) {
         pnResultMarshal := pnResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, LPARAM, lUserParam, "ptr", cookieA, "ptr", cookieB, pnResultMarshal, pnResult, "HRESULT")
+        result := ComCall(3, this, LPARAM, lUserParam, IntPtr, cookieA, IntPtr, cookieB, pnResultMarshal, pnResult, "HRESULT")
         return result
     }
 

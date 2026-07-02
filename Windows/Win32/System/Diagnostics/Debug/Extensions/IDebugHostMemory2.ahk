@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugHostMemory.ahk" { IDebugHostMemory }
 #Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import ".\Location.ahk" { Location }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Location.ahk" { Location }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

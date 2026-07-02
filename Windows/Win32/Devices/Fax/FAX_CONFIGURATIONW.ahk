@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FAX_TIME.ahk" { FAX_TIME }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FAX_TIME.ahk" { FAX_TIME }
 
 /**
  * The FAX_CONFIGURATION structure contains information about the global configuration settings of a fax server. (Unicode)

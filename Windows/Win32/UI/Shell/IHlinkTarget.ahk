@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import ".\IHlinkBrowseContext.ahk" { IHlinkBrowseContext }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -71,7 +71,7 @@ export default struct IHlinkTarget extends IUnknown {
     Navigate(grfHLNF, pwzJumpLocation) {
         pwzJumpLocation := pwzJumpLocation is String ? StrPtr(pwzJumpLocation) : pwzJumpLocation
 
-        result := ComCall(5, this, "uint", grfHLNF, "ptr", pwzJumpLocation, "HRESULT")
+        result := ComCall(5, this, UInt32, grfHLNF, "ptr", pwzJumpLocation, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IHlinkTarget extends IUnknown {
     GetMoniker(pwzLocation, dwAssign) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
 
-        result := ComCall(6, this, "ptr", pwzLocation, "uint", dwAssign, "ptr*", &ppimkLocation := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pwzLocation, UInt32, dwAssign, "ptr*", &ppimkLocation := 0, "HRESULT")
         return IMoniker(ppimkLocation)
     }
 

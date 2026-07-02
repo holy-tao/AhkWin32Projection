@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBootOptions.ahk" { IBootOptions }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFsiFileItem.ahk" { IFsiFileItem }
-#Import ".\IFileSystemImageResult.ahk" { IFileSystemImageResult }
-#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
-#Import ".\IFsiDirectoryItem.ahk" { IFsiDirectoryItem }
 #Import ".\FsiFileSystems.ahk" { FsiFileSystems }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\FsiItemType.ahk" { FsiItemType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IBootOptions.ahk" { IBootOptions }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsiItemType.ahk" { FsiItemType }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import ".\IFsiFileItem.ahk" { IFsiFileItem }
+#Import ".\IFsiDirectoryItem.ahk" { IFsiDirectoryItem }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IFileSystemImageResult.ahk" { IFileSystemImageResult }
 
 /**
  * Use this interface to build a file system image, set session parameter, and import or export an image.
@@ -315,7 +315,7 @@ export default struct IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_sessionstartblock
      */
     put_SessionStartBlock(newVal) {
-        result := ComCall(9, this, "int", newVal, "HRESULT")
+        result := ComCall(9, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -360,7 +360,7 @@ export default struct IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_freemediablocks
      */
     put_FreeMediaBlocks(newVal) {
-        result := ComCall(11, this, "int", newVal, "HRESULT")
+        result := ComCall(11, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -870,7 +870,7 @@ export default struct IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_udfrevision
      */
     put_UDFRevision(newVal) {
-        result := ComCall(31, this, "int", newVal, "HRESULT")
+        result := ComCall(31, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -1043,7 +1043,7 @@ export default struct IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-put_iso9660interchangelevel
      */
     put_ISO9660InterchangeLevel(newVal) {
-        result := ComCall(36, this, "int", newVal, "HRESULT")
+        result := ComCall(36, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -1355,7 +1355,7 @@ export default struct IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-rollbacktochangepoint
      */
     RollbackToChangePoint(changePoint) {
-        result := ComCall(46, this, "int", changePoint, "HRESULT")
+        result := ComCall(46, this, Int32, changePoint, "HRESULT")
         return result
     }
 

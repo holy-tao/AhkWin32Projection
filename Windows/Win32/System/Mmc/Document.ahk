@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ScopeNamespace.ahk" { ScopeNamespace }
+#Import ".\SnapIns.ahk" { SnapIns }
+#Import ".\Properties.ahk" { Properties }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Views.ahk" { Views }
+#Import ".\View.ahk" { View }
+#Import ".\Node.ahk" { Node }
 #Import ".\_DocumentMode.ahk" { _DocumentMode }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\View.ahk" { View }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SnapIns.ahk" { SnapIns }
-#Import ".\Views.ahk" { Views }
-#Import ".\Properties.ahk" { Properties }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\Node.ahk" { Node }
 #Import ".\_Application.ahk" { _Application }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ScopeNamespace.ahk" { ScopeNamespace }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.System.Mmc

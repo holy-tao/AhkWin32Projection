@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides a direct mechanism to specify and obtain provider-specific options for manipulating an ADSI object.
@@ -47,7 +47,7 @@ export default struct IADsObjectOptions extends IDispatch {
      */
     GetOption(lnOption) {
         pvValue := VARIANT()
-        result := ComCall(7, this, "int", lnOption, VARIANT.Ptr, pvValue, "HRESULT")
+        result := ComCall(7, this, Int32, lnOption, VARIANT.Ptr, pvValue, "HRESULT")
         return pvValue
     }
 
@@ -59,7 +59,7 @@ export default struct IADsObjectOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsobjectoptions-setoption
      */
     SetOption(lnOption, vValue) {
-        result := ComCall(8, this, "int", lnOption, VARIANT, vValue, "HRESULT")
+        result := ComCall(8, this, Int32, lnOption, VARIANT, vValue, "HRESULT")
         return result
     }
 

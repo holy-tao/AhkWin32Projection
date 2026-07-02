@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WTS_SMALL_RECT.ahk" { WTS_SMALL_RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WTS_DISPLAY_IOCTL.ahk" { WTS_DISPLAY_IOCTL }
 
 /**
@@ -67,7 +67,7 @@ export default struct IWTSProtocolConnectionCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-brokenconnection
      */
     BrokenConnection(Reason, Source) {
-        result := ComCall(4, this, "uint", Reason, "uint", Source, "HRESULT")
+        result := ComCall(4, this, UInt32, Reason, UInt32, Source, "HRESULT")
         return result
     }
 

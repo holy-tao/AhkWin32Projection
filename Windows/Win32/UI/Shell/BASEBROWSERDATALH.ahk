@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IExpDispSupport.ahk" { IExpDispSupport }
-#Import ".\IShellService.ahk" { IShellService }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IShellFolder.ahk" { IShellFolder }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWebBrowser2.ahk" { IWebBrowser2 }
-#Import ".\IShellView.ahk" { IShellView }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ITravelLog.ahk" { ITravelLog }
-#Import ".\IHlinkFrame.ahk" { IHlinkFrame }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IExpDispSupport.ahk" { IExpDispSupport }
+#Import ".\IWebBrowser2.ahk" { IWebBrowser2 }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IHlinkFrame.ahk" { IHlinkFrame }
+#Import ".\IShellView.ahk" { IShellView }
+#Import ".\IShellFolder.ahk" { IShellFolder }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITravelLog.ahk" { ITravelLog }
+#Import ".\IShellService.ahk" { IShellService }
 #Import "..\..\System\Ole\IOleCommandTarget.ahk" { IOleCommandTarget }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The BASEBROWSERDATALH structure contains protected members of the base class. (BASEBROWSERDATALH structure)

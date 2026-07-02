@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface performs all the same functions as the existing ID2D1GdiMetafile interface. It also enables accessing the metafile DPI and bounds.

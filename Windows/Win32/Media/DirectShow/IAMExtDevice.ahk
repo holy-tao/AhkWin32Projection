@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMExtDevice interface controls an external device, such as a DV camera or video tape recoder (VTR).
@@ -416,7 +416,7 @@ export default struct IAMExtDevice extends IUnknown {
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
         pdblValueMarshal := pdblValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(3, this, "int", Capability, pValueMarshal, pValue, pdblValueMarshal, pdblValue, "HRESULT")
+        result := ComCall(3, this, Int32, Capability, pValueMarshal, pValue, pdblValueMarshal, pdblValue, "HRESULT")
         return result
     }
 
@@ -447,7 +447,7 @@ export default struct IAMExtDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-put_devicepower
      */
     put_DevicePower(PowerMode) {
-        result := ComCall(6, this, "int", PowerMode, "HRESULT")
+        result := ComCall(6, this, Int32, PowerMode, "HRESULT")
         return result
     }
 
@@ -519,7 +519,7 @@ export default struct IAMExtDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-calibrate
      */
     Calibrate(hEvent, _Mode) {
-        result := ComCall(8, this, "ptr", hEvent, "int", _Mode, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(8, this, IntPtr, hEvent, Int32, _Mode, "int*", &pStatus := 0, "HRESULT")
         return pStatus
     }
 
@@ -530,7 +530,7 @@ export default struct IAMExtDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-put_deviceport
      */
     put_DevicePort(DevicePort) {
-        result := ComCall(9, this, "int", DevicePort, "HRESULT")
+        result := ComCall(9, this, Int32, DevicePort, "HRESULT")
         return result
     }
 

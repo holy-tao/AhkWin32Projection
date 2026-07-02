@@ -46,7 +46,7 @@ export default struct IConsole3 extends IConsole2 {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole3-renamescopeitem
      */
     RenameScopeItem(hScopeItem) {
-        result := ComCall(17, this, "ptr", hScopeItem, "HRESULT")
+        result := ComCall(17, this, IntPtr, hScopeItem, "HRESULT")
         return result
     }
 

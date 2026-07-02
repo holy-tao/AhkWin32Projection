@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
-#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 #Import ".\CHANGER_ELEMENT_LIST.ahk" { CHANGER_ELEMENT_LIST }
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 
 /**
  * Represents the status of all media changer elements or the specified elements of a particular type.

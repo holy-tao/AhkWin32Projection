@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
-#Import ".\IUIAutomationProxyFactory.ahk" { IUIAutomationProxyFactory }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IUIAutomationProxyFactory.ahk" { IUIAutomationProxyFactory }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
 
 /**
  * Represents a proxy factory in the table maintained by Microsoft UI Automation, and exposes properties and methods that can be used by client applications to interact with IUIAutomationProxyFactory objects.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\ExtendedErrorParamTypes.ahk" { ExtendedErrorParamTypes }
 #Import ".\BinaryParam.ahk" { BinaryParam }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The RPC_EE_INFO_PARAM structure is used to store extended error information.

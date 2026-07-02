@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PRJ_NOTIFY_TYPES.ahk" { PRJ_NOTIFY_TYPES }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\PRJ_NOTIFY_TYPES.ahk" { PRJ_NOTIFY_TYPES }
 
 /**
  * Extra parameters for notifications.

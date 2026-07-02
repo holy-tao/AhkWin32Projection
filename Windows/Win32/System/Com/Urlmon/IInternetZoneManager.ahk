@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ZONEATTRIBUTES.ahk" { ZONEATTRIBUTES }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\URLZONEREG.ahk" { URLZONEREG }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ZONEATTRIBUTES.ahk" { ZONEATTRIBUTES }
+#Import ".\URLZONEREG.ahk" { URLZONEREG }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -57,7 +57,7 @@ export default struct IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     GetZoneAttributes(dwZone, pZoneAttributes) {
-        result := ComCall(3, this, "uint", dwZone, ZONEATTRIBUTES.Ptr, pZoneAttributes, "HRESULT")
+        result := ComCall(3, this, UInt32, dwZone, ZONEATTRIBUTES.Ptr, pZoneAttributes, "HRESULT")
         return result
     }
 
@@ -68,7 +68,7 @@ export default struct IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetZoneAttributes(dwZone, pZoneAttributes) {
-        result := ComCall(4, this, "uint", dwZone, ZONEATTRIBUTES.Ptr, pZoneAttributes, "HRESULT")
+        result := ComCall(4, this, UInt32, dwZone, ZONEATTRIBUTES.Ptr, pZoneAttributes, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IInternetZoneManager extends IUnknown {
         ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : "ptr"
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwZone, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
+        result := ComCall(5, this, UInt32, dwZone, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct IInternetZoneManager extends IUnknown {
     SetZoneCustomPolicy(dwZone, guidKey, pPolicy, cbPolicy, _urlZoneReg) {
         pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwZone, Guid.Ptr, guidKey, pPolicyMarshal, pPolicy, "uint", cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
+        result := ComCall(6, this, UInt32, dwZone, Guid.Ptr, guidKey, pPolicyMarshal, pPolicy, UInt32, cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IInternetZoneManager extends IUnknown {
      * @returns {Integer} 
      */
     GetZoneActionPolicy(dwZone, dwAction, cbPolicy, _urlZoneReg) {
-        result := ComCall(7, this, "uint", dwZone, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
+        result := ComCall(7, this, UInt32, dwZone, UInt32, dwAction, "char*", &pPolicy := 0, UInt32, cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return pPolicy
     }
 
@@ -130,7 +130,7 @@ export default struct IInternetZoneManager extends IUnknown {
     SetZoneActionPolicy(dwZone, dwAction, pPolicy, cbPolicy, _urlZoneReg) {
         pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwZone, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
+        result := ComCall(8, this, UInt32, dwZone, UInt32, dwAction, pPolicyMarshal, pPolicy, UInt32, cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IInternetZoneManager extends IUnknown {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(9, this, "uint", dwAction, HWND, hwndParent, "ptr", pwszUrl, "ptr", pwszText, "uint", dwPromptFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, dwAction, HWND, hwndParent, "ptr", pwszUrl, "ptr", pwszText, UInt32, dwPromptFlags, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IInternetZoneManager extends IUnknown {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(10, this, "uint", dwAction, "ptr", pwszUrl, "ptr", pwszText, "uint", dwLogFlags, "HRESULT")
+        result := ComCall(10, this, UInt32, dwAction, "ptr", pwszUrl, "ptr", pwszText, UInt32, dwLogFlags, "HRESULT")
         return result
     }
 
@@ -178,7 +178,7 @@ export default struct IInternetZoneManager extends IUnknown {
         pdwEnumMarshal := pdwEnum is VarRef ? "uint*" : "ptr"
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pdwEnumMarshal, pdwEnum, pdwCountMarshal, pdwCount, "uint", dwFlags, "HRESULT")
+        result := ComCall(11, this, pdwEnumMarshal, pdwEnum, pdwCountMarshal, pdwCount, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IInternetZoneManager extends IUnknown {
      * @returns {Integer} 
      */
     GetZoneAt(dwEnum, dwIndex) {
-        result := ComCall(12, this, "uint", dwEnum, "uint", dwIndex, "uint*", &pdwZone := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwEnum, UInt32, dwIndex, "uint*", &pdwZone := 0, "HRESULT")
         return pdwZone
     }
 
@@ -199,7 +199,7 @@ export default struct IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     DestroyZoneEnumerator(dwEnum) {
-        result := ComCall(13, this, "uint", dwEnum, "HRESULT")
+        result := ComCall(13, this, UInt32, dwEnum, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     CopyTemplatePoliciesToZone(dwTemplate, dwZone, dwReserved) {
-        result := ComCall(14, this, "uint", dwTemplate, "uint", dwZone, "uint", dwReserved, "HRESULT")
+        result := ComCall(14, this, UInt32, dwTemplate, UInt32, dwZone, UInt32, dwReserved, "HRESULT")
         return result
     }
 

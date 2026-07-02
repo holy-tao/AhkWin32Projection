@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_MEDIA_ENGINE_SEEK_MODE.ahk" { MF_MEDIA_ENGINE_SEEK_MODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MF_MEDIA_ENGINE_S3D_PACKING_MODE.ahk" { MF_MEDIA_ENGINE_S3D_PACKING_MODE }
-#Import ".\MF_MEDIA_ENGINE_STATISTIC.ahk" { MF_MEDIA_ENGINE_STATISTIC }
-#Import ".\MFARGB.ahk" { MFARGB }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MF3DVideoOutputType.ahk" { MF3DVideoOutputType }
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
 #Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF3DVideoOutputType.ahk" { MF3DVideoOutputType }
+#Import ".\MF_MEDIA_ENGINE_SEEK_MODE.ahk" { MF_MEDIA_ENGINE_SEEK_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFMediaEngine.ahk" { IMFMediaEngine }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\MFARGB.ahk" { MFARGB }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\MF_MEDIA_ENGINE_STATISTIC.ahk" { MF_MEDIA_ENGINE_STATISTIC }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\IMFMediaEngine.ahk" { IMFMediaEngine }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\MF_MEDIA_ENGINE_S3D_PACKING_MODE.ahk" { MF_MEDIA_ENGINE_S3D_PACKING_MODE }
 
 /**
  * Extends the IMFMediaEngine interface.
@@ -224,7 +224,7 @@ export default struct IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setbalance
      */
     SetBalance(balance) {
-        result := ComCall(49, this, "double", balance, "HRESULT")
+        result := ComCall(49, this, Float64, balance, "HRESULT")
         return result
     }
 
@@ -239,7 +239,7 @@ export default struct IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-isplaybackratesupported
      */
     IsPlaybackRateSupported(rate) {
-        result := ComCall(50, this, "double", rate, BOOL)
+        result := ComCall(50, this, Float64, rate, BOOL)
         return result
     }
 
@@ -311,7 +311,7 @@ export default struct IMFMediaEngineEx extends IMFMediaEngine {
      */
     GetStreamAttribute(dwStreamIndex, guidMFAttribute) {
         pvValue := PROPVARIANT()
-        result := ComCall(55, this, "uint", dwStreamIndex, Guid.Ptr, guidMFAttribute, PROPVARIANT.Ptr, pvValue, "HRESULT")
+        result := ComCall(55, this, UInt32, dwStreamIndex, Guid.Ptr, guidMFAttribute, PROPVARIANT.Ptr, pvValue, "HRESULT")
         return pvValue
     }
 
@@ -350,7 +350,7 @@ export default struct IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstreamselection
      */
     GetStreamSelection(dwStreamIndex) {
-        result := ComCall(56, this, "uint", dwStreamIndex, BOOL.Ptr, &pEnabled := 0, "HRESULT")
+        result := ComCall(56, this, UInt32, dwStreamIndex, BOOL.Ptr, &pEnabled := 0, "HRESULT")
         return pEnabled
     }
 
@@ -389,7 +389,7 @@ export default struct IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstreamselection
      */
     SetStreamSelection(dwStreamIndex, Enabled) {
-        result := ComCall(57, this, "uint", dwStreamIndex, BOOL, Enabled, "HRESULT")
+        result := ComCall(57, this, UInt32, dwStreamIndex, BOOL, Enabled, "HRESULT")
         return result
     }
 
@@ -590,7 +590,7 @@ export default struct IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-settimelinemarkertimer
      */
     SetTimelineMarkerTimer(timeToFire) {
-        result := ComCall(63, this, "double", timeToFire, "HRESULT")
+        result := ComCall(63, this, Float64, timeToFire, "HRESULT")
         return result
     }
 
@@ -726,7 +726,7 @@ export default struct IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setaudiostreamcategory
      */
     SetAudioStreamCategory(category) {
-        result := ComCall(75, this, "uint", category, "HRESULT")
+        result := ComCall(75, this, UInt32, category, "HRESULT")
         return result
     }
 
@@ -751,7 +751,7 @@ export default struct IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setaudioendpointrole
      */
     SetAudioEndpointRole(role) {
-        result := ComCall(77, this, "uint", role, "HRESULT")
+        result := ComCall(77, this, UInt32, role, "HRESULT")
         return result
     }
 
@@ -784,7 +784,7 @@ export default struct IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setcurrenttimeex
      */
     SetCurrentTimeEx(seekTime, seekMode) {
-        result := ComCall(80, this, "double", seekTime, MF_MEDIA_ENGINE_SEEK_MODE, seekMode, "HRESULT")
+        result := ComCall(80, this, Float64, seekTime, MF_MEDIA_ENGINE_SEEK_MODE, seekMode, "HRESULT")
         return result
     }
 

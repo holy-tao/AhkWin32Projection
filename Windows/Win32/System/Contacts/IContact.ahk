@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Do not use. Defines methods for reading and writing properties for a single contact.
@@ -118,7 +118,7 @@ export default struct IContact extends IUnknown {
 
         pdwcchContactIDRequiredMarshal := pdwcchContactIDRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszContactID, "uint", cchContactID, pdwcchContactIDRequiredMarshal, pdwcchContactIDRequired, "HRESULT")
+        result := ComCall(3, this, "ptr", pszContactID, UInt32, cchContactID, pdwcchContactIDRequiredMarshal, pdwcchContactIDRequired, "HRESULT")
         return result
     }
 
@@ -183,7 +183,7 @@ export default struct IContact extends IUnknown {
 
         pdwcchPathRequiredMarshal := pdwcchPathRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszPath, "uint", cchPath, pdwcchPathRequiredMarshal, pdwcchPathRequired, "HRESULT")
+        result := ComCall(4, this, "ptr", pszPath, UInt32, cchPath, pdwcchPathRequiredMarshal, pdwcchPathRequired, "HRESULT")
         return result
     }
 
@@ -242,7 +242,7 @@ export default struct IContact extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontact-commitchanges
      */
     CommitChanges(dwCommitFlags) {
-        result := ComCall(5, this, "uint", dwCommitFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, dwCommitFlags, "HRESULT")
         return result
     }
 

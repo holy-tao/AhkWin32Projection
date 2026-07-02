@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\FDEX_PROP_FLAGS.ahk" { FDEX_PROP_FLAGS }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\Com\EXCEPINFO.ahk" { EXCEPINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FDEX_PROP_FLAGS.ahk" { FDEX_PROP_FLAGS }
-#Import "..\Com\IServiceProvider.ahk" { IServiceProvider }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -58,7 +58,7 @@ export default struct IDispatchEx extends IDispatch {
     GetDispID(bstrName, grfdex) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(7, this, BSTR, bstrName, "uint", grfdex, "int*", &pid := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrName, UInt32, grfdex, "int*", &pid := 0, "HRESULT")
         return pid
     }
 
@@ -74,7 +74,7 @@ export default struct IDispatchEx extends IDispatch {
      * @returns {HRESULT} 
      */
     InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pspCaller) {
-        result := ComCall(8, this, "int", id, "uint", lcid, "ushort", wFlags, DISPPARAMS.Ptr, pdp, VARIANT.Ptr, pvarRes, EXCEPINFO.Ptr, pei, "ptr", pspCaller, "HRESULT")
+        result := ComCall(8, this, Int32, id, UInt32, lcid, UInt16, wFlags, DISPPARAMS.Ptr, pdp, VARIANT.Ptr, pvarRes, EXCEPINFO.Ptr, pei, "ptr", pspCaller, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IDispatchEx extends IDispatch {
     DeleteMemberByName(bstrName, grfdex) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, BSTR, bstrName, "uint", grfdex, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrName, UInt32, grfdex, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IDispatchEx extends IDispatch {
      * @returns {HRESULT} 
      */
     DeleteMemberByDispID(id) {
-        result := ComCall(10, this, "int", id, "HRESULT")
+        result := ComCall(10, this, Int32, id, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct IDispatchEx extends IDispatch {
      * @returns {FDEX_PROP_FLAGS} 
      */
     GetMemberProperties(id, grfdexFetch) {
-        result := ComCall(11, this, "int", id, "uint", grfdexFetch, "uint*", &pgrfdex := 0, "HRESULT")
+        result := ComCall(11, this, Int32, id, UInt32, grfdexFetch, "uint*", &pgrfdex := 0, "HRESULT")
         return pgrfdex
     }
 
@@ -119,7 +119,7 @@ export default struct IDispatchEx extends IDispatch {
      */
     GetMemberName(id) {
         pbstrName := BSTR.Owned()
-        result := ComCall(12, this, "int", id, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(12, this, Int32, id, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -130,7 +130,7 @@ export default struct IDispatchEx extends IDispatch {
      * @returns {Integer} 
      */
     GetNextDispID(grfdex, id) {
-        result := ComCall(13, this, "uint", grfdex, "int", id, "int*", &pid := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, grfdex, Int32, id, "int*", &pid := 0, "HRESULT")
         return pid
     }
 

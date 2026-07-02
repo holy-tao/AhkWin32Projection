@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AudioSessionState.ahk" { AudioSessionState }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\AudioSessionDisconnectReason.ahk" { AudioSessionDisconnectReason }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\AudioSessionState.ahk" { AudioSessionState }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAudioSessionEvents interface provides notifications of session-related events such as changes in the volume level, display name, and session state.
@@ -102,7 +102,7 @@ export default struct IAudioSessionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionevents-onsimplevolumechanged
      */
     OnSimpleVolumeChanged(NewVolume, NewMute, EventContext) {
-        result := ComCall(5, this, "float", NewVolume, BOOL, NewMute, Guid.Ptr, EventContext, "HRESULT")
+        result := ComCall(5, this, Float32, NewVolume, BOOL, NewMute, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct IAudioSessionEvents extends IUnknown {
     OnChannelVolumeChanged(ChannelCount, NewChannelVolumeArray, ChangedChannel, EventContext) {
         NewChannelVolumeArrayMarshal := NewChannelVolumeArray is VarRef ? "float*" : "ptr"
 
-        result := ComCall(6, this, "uint", ChannelCount, NewChannelVolumeArrayMarshal, NewChannelVolumeArray, "uint", ChangedChannel, Guid.Ptr, EventContext, "HRESULT")
+        result := ComCall(6, this, UInt32, ChannelCount, NewChannelVolumeArrayMarshal, NewChannelVolumeArray, UInt32, ChangedChannel, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 

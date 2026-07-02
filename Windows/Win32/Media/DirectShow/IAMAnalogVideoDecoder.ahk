@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMAnalogVideoDecoder interface sets and retrieves information about the analog-to-digital conversion process in a video capture filter.The WDM Video Capture filter exposes this interface if the device is an analog video capture device.
@@ -109,7 +109,7 @@ export default struct IAMAnalogVideoDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-put_tvformat
      */
     put_TVFormat(lAnalogVideoStandard) {
-        result := ComCall(4, this, "int", lAnalogVideoStandard, "HRESULT")
+        result := ComCall(4, this, Int32, lAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct IAMAnalogVideoDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-put_vcrhorizontallocking
      */
     put_VCRHorizontalLocking(lVCRHorizontalLocking) {
-        result := ComCall(7, this, "int", lVCRHorizontalLocking, "HRESULT")
+        result := ComCall(7, this, Int32, lVCRHorizontalLocking, "HRESULT")
         return result
     }
 
@@ -235,7 +235,7 @@ export default struct IAMAnalogVideoDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideodecoder-put_outputenable
      */
     put_OutputEnable(lOutputEnable) {
-        result := ComCall(10, this, "int", lOutputEnable, "HRESULT")
+        result := ComCall(10, this, Int32, lOutputEnable, "HRESULT")
         return result
     }
 

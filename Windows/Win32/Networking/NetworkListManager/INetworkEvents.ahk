@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\NLM_NETWORK_PROPERTY_CHANGE.ahk" { NLM_NETWORK_PROPERTY_CHANGE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * INetworkEvents is a notification sink interface that a client implements to get network related events. These APIs are all callback functions that are called automatically when the respective events are raised.

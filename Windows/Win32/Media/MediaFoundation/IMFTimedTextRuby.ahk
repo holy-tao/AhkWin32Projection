@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MF_TIMED_TEXT_RUBY_POSITION.ahk" { MF_TIMED_TEXT_RUBY_POSITION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MF_TIMED_TEXT_RUBY_RESERVE.ahk" { MF_TIMED_TEXT_RUBY_RESERVE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MF_TIMED_TEXT_RUBY_ALIGN.ahk" { MF_TIMED_TEXT_RUBY_ALIGN }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MF_TIMED_TEXT_RUBY_ALIGN.ahk" { MF_TIMED_TEXT_RUBY_ALIGN }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_TIMED_TEXT_RUBY_RESERVE.ahk" { MF_TIMED_TEXT_RUBY_RESERVE }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
-#Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
-#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
 #Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
+#Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
 
 /**
  * Represents a font set. (IDWriteFontSet1)
@@ -76,7 +76,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getmatchingfonts
      */
     GetMatchingFonts(fontProperty, fontAxisValues, fontAxisValueCount) {
-        result := ComCall(13, this, DWRITE_FONT_PROPERTY.Ptr, fontProperty, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &matchingFonts := 0, "HRESULT")
+        result := ComCall(13, this, DWRITE_FONT_PROPERTY.Ptr, fontProperty, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "ptr*", &matchingFonts := 0, "HRESULT")
         return IDWriteFontSet1(matchingFonts)
     }
 
@@ -110,7 +110,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
     GetFilteredFonts(indices, indexCount) {
         indicesMarshal := indices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, indicesMarshal, indices, "uint", indexCount, "ptr*", &filteredFontSet := 0, "HRESULT")
+        result := ComCall(15, this, indicesMarshal, indices, UInt32, indexCount, "ptr*", &filteredFontSet := 0, "HRESULT")
         return IDWriteFontSet1(filteredFontSet)
     }
 
@@ -127,7 +127,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfonts(uint32const_uint32_idwritefontset1)
      */
     GetFilteredFonts1(fontAxisRanges, fontAxisRangeCount, selectAnyRange) {
-        result := ComCall(16, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", fontAxisRangeCount, BOOL, selectAnyRange, "ptr*", &filteredFontSet := 0, "HRESULT")
+        result := ComCall(16, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, UInt32, fontAxisRangeCount, BOOL, selectAnyRange, "ptr*", &filteredFontSet := 0, "HRESULT")
         return IDWriteFontSet1(filteredFontSet)
     }
 
@@ -144,7 +144,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfonts(uint32const_uint32_idwritefontset1)
      */
     GetFilteredFonts2(_properties, propertyCount, selectAnyProperty) {
-        result := ComCall(17, this, DWRITE_FONT_PROPERTY.Ptr, _properties, "uint", propertyCount, BOOL, selectAnyProperty, "ptr*", &filteredFontSet := 0, "HRESULT")
+        result := ComCall(17, this, DWRITE_FONT_PROPERTY.Ptr, _properties, UInt32, propertyCount, BOOL, selectAnyProperty, "ptr*", &filteredFontSet := 0, "HRESULT")
         return IDWriteFontSet1(filteredFontSet)
     }
 
@@ -175,7 +175,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
         indicesMarshal := indices is VarRef ? "uint*" : "ptr"
         actualIndexCountMarshal := actualIndexCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", fontAxisRangeCount, BOOL, selectAnyRange, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
+        result := ComCall(18, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, UInt32, fontAxisRangeCount, BOOL, selectAnyRange, indicesMarshal, indices, UInt32, maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
         return result
     }
 
@@ -212,7 +212,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
         indicesMarshal := indices is VarRef ? "uint*" : "ptr"
         actualIndexCountMarshal := actualIndexCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, DWRITE_FONT_PROPERTY.Ptr, _properties, "uint", propertyCount, BOOL, selectAnyProperty, indicesMarshal, indices, "uint", maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
+        result := ComCall(19, this, DWRITE_FONT_PROPERTY.Ptr, _properties, UInt32, propertyCount, BOOL, selectAnyProperty, indicesMarshal, indices, UInt32, maxIndexCount, actualIndexCountMarshal, actualIndexCount, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
     GetFontAxisRanges(listIndex, fontAxisRanges, maxFontAxisRangeCount, actualFontAxisRangeCount) {
         actualFontAxisRangeCountMarshal := actualFontAxisRangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "uint", listIndex, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
+        result := ComCall(20, this, UInt32, listIndex, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, UInt32, maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
         return result
     }
 
@@ -267,7 +267,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
     GetFontAxisRanges1(fontAxisRanges, maxFontAxisRangeCount, actualFontAxisRangeCount) {
         actualFontAxisRangeCountMarshal := actualFontAxisRangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
+        result := ComCall(21, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, UInt32, maxFontAxisRangeCount, actualFontAxisRangeCountMarshal, actualFontAxisRangeCount, "HRESULT")
         return result
     }
 
@@ -282,7 +282,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfontfacereference
      */
     GetFontFaceReference(listIndex) {
-        result := ComCall(22, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
+        result := ComCall(22, this, UInt32, listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference1(fontFaceReference)
     }
 
@@ -297,7 +297,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-createfontresource
      */
     CreateFontResource(listIndex) {
-        result := ComCall(23, this, "uint", listIndex, "ptr*", &fontResource := 0, "HRESULT")
+        result := ComCall(23, this, UInt32, listIndex, "ptr*", &fontResource := 0, "HRESULT")
         return IDWriteFontResource(fontResource)
     }
 
@@ -312,7 +312,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-createfontface
      */
     CreateFontFace(listIndex) {
-        result := ComCall(24, this, "uint", listIndex, "ptr*", &fontFace := 0, "HRESULT")
+        result := ComCall(24, this, UInt32, listIndex, "ptr*", &fontFace := 0, "HRESULT")
         return IDWriteFontFace5(fontFace)
     }
 
@@ -329,7 +329,7 @@ export default struct IDWriteFontSet1 extends IDWriteFontSet {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfontlocality
      */
     GetFontLocality(listIndex) {
-        result := ComCall(25, this, "uint", listIndex, DWRITE_LOCALITY)
+        result := ComCall(25, this, UInt32, listIndex, DWRITE_LOCALITY)
         return result
     }
 

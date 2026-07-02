@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\OA_BOOL.ahk" { OA_BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\UI\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
+#Import ".\OA_BOOL.ahk" { OA_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVideoWindow interface sets properties on the video window.
@@ -311,7 +311,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_windowstyle
      */
     put_WindowStyle(WindowStyle) {
-        result := ComCall(9, this, "int", WindowStyle, "HRESULT")
+        result := ComCall(9, this, Int32, WindowStyle, "HRESULT")
         return result
     }
 
@@ -365,7 +365,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_windowstyleex
      */
     put_WindowStyleEx(WindowStyleEx) {
-        result := ComCall(11, this, "int", WindowStyleEx, "HRESULT")
+        result := ComCall(11, this, Int32, WindowStyleEx, "HRESULT")
         return result
     }
 
@@ -430,7 +430,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_autoshow
      */
     put_AutoShow(AutoShow) {
-        result := ComCall(13, this, "int", AutoShow, "HRESULT")
+        result := ComCall(13, this, Int32, AutoShow, "HRESULT")
         return result
     }
 
@@ -480,7 +480,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_windowstate
      */
     put_WindowState(WindowState) {
-        result := ComCall(15, this, "int", WindowState, "HRESULT")
+        result := ComCall(15, this, Int32, WindowState, "HRESULT")
         return result
     }
 
@@ -551,7 +551,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_backgroundpalette
      */
     put_BackgroundPalette(BackgroundPalette) {
-        result := ComCall(17, this, "int", BackgroundPalette, "HRESULT")
+        result := ComCall(17, this, Int32, BackgroundPalette, "HRESULT")
         return result
     }
 
@@ -612,7 +612,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_visible
      */
     put_Visible(Visible) {
-        result := ComCall(19, this, "int", Visible, "HRESULT")
+        result := ComCall(19, this, Int32, Visible, "HRESULT")
         return result
     }
 
@@ -675,7 +675,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_left
      */
     put_Left(Left) {
-        result := ComCall(21, this, "int", Left, "HRESULT")
+        result := ComCall(21, this, Int32, Left, "HRESULT")
         return result
     }
 
@@ -736,7 +736,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_width
      */
     put_Width(Width) {
-        result := ComCall(23, this, "int", Width, "HRESULT")
+        result := ComCall(23, this, Int32, Width, "HRESULT")
         return result
     }
 
@@ -797,7 +797,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_top
      */
     put_Top(Top) {
-        result := ComCall(25, this, "int", Top, "HRESULT")
+        result := ComCall(25, this, Int32, Top, "HRESULT")
         return result
     }
 
@@ -858,7 +858,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_height
      */
     put_Height(Height) {
-        result := ComCall(27, this, "int", Height, "HRESULT")
+        result := ComCall(27, this, Int32, Height, "HRESULT")
         return result
     }
 
@@ -912,7 +912,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_owner
      */
     put_Owner(Owner) {
-        result := ComCall(29, this, "ptr", Owner, "HRESULT")
+        result := ComCall(29, this, IntPtr, Owner, "HRESULT")
         return result
     }
 
@@ -999,7 +999,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_messagedrain
      */
     put_MessageDrain(Drain) {
-        result := ComCall(31, this, "ptr", Drain, "HRESULT")
+        result := ComCall(31, this, IntPtr, Drain, "HRESULT")
         return result
     }
 
@@ -1061,7 +1061,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_bordercolor
      */
     put_BorderColor(_Color) {
-        result := ComCall(34, this, "int", _Color, "HRESULT")
+        result := ComCall(34, this, Int32, _Color, "HRESULT")
         return result
     }
 
@@ -1155,7 +1155,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-put_fullscreenmode
      */
     put_FullScreenMode(FullScreenMode) {
-        result := ComCall(36, this, "int", FullScreenMode, "HRESULT")
+        result := ComCall(36, this, Int32, FullScreenMode, "HRESULT")
         return result
     }
 
@@ -1206,7 +1206,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-setwindowforeground
      */
     SetWindowForeground(Focus) {
-        result := ComCall(37, this, "int", Focus, "HRESULT")
+        result := ComCall(37, this, Int32, Focus, "HRESULT")
         return result
     }
 
@@ -1261,7 +1261,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-notifyownermessage
      */
     NotifyOwnerMessage(_hwnd, uMsg, _wParam, _lParam) {
-        result := ComCall(38, this, "ptr", _hwnd, "int", uMsg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(38, this, IntPtr, _hwnd, Int32, uMsg, IntPtr, _wParam, IntPtr, _lParam, "HRESULT")
         return result
     }
 
@@ -1319,7 +1319,7 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-setwindowposition
      */
     SetWindowPosition(Left, Top, Width, Height) {
-        result := ComCall(39, this, "int", Left, "int", Top, "int", Width, "int", Height, "HRESULT")
+        result := ComCall(39, this, Int32, Left, Int32, Top, Int32, Width, Int32, Height, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KEYBD_EVENT_FLAGS.ahk" { KEYBD_EVENT_FLAGS }
-#Import ".\HARDWAREINPUT.ahk" { HARDWAREINPUT }
-#Import ".\KEYBDINPUT.ahk" { KEYBDINPUT }
 #Import ".\INPUT_TYPE.ahk" { INPUT_TYPE }
-#Import ".\MOUSEINPUT.ahk" { MOUSEINPUT }
+#Import ".\KEYBDINPUT.ahk" { KEYBDINPUT }
 #Import ".\VIRTUAL_KEY.ahk" { VIRTUAL_KEY }
+#Import ".\MOUSEINPUT.ahk" { MOUSEINPUT }
+#Import ".\HARDWAREINPUT.ahk" { HARDWAREINPUT }
+#Import ".\KEYBD_EVENT_FLAGS.ahk" { KEYBD_EVENT_FLAGS }
 #Import ".\MOUSE_EVENT_FLAGS.ahk" { MOUSE_EVENT_FLAGS }
 
 /**

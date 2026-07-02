@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPhotoAcquireSource.ahk" { IPhotoAcquireSource }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\IPhotoAcquireProgressCB.ahk" { IPhotoAcquireProgressCB }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
+#Import ".\IPhotoAcquireSource.ahk" { IPhotoAcquireSource }
 
 /**
  * Implement the IPhotoAcquirePlugin interface when you want to create a plug-in to run alongside the Windows Vista user interface (UI) for image acquisition. Registry settings are required to enable the plug-in.
@@ -151,7 +151,7 @@ export default struct IPhotoAcquirePlugin extends IUnknown {
     ProcessItem(dwAcquireStage, pPhotoAcquireItem, pOriginalItemStream, pszFinalFilename, pPropertyStore) {
         pszFinalFilename := pszFinalFilename is String ? StrPtr(pszFinalFilename) : pszFinalFilename
 
-        result := ComCall(4, this, "uint", dwAcquireStage, "ptr", pPhotoAcquireItem, "ptr", pOriginalItemStream, "ptr", pszFinalFilename, "ptr", pPropertyStore, "HRESULT")
+        result := ComCall(4, this, UInt32, dwAcquireStage, "ptr", pPhotoAcquireItem, "ptr", pOriginalItemStream, "ptr", pszFinalFilename, "ptr", pPropertyStore, "HRESULT")
         return result
     }
 

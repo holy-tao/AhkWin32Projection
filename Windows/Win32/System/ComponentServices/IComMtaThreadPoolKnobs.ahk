@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
@@ -44,7 +44,7 @@ export default struct IComMtaThreadPoolKnobs extends IUnknown {
      * @returns {HRESULT} 
      */
     MTASetMaxThreadCount(dwMaxThreads) {
-        result := ComCall(3, this, "uint", dwMaxThreads, "HRESULT")
+        result := ComCall(3, this, UInt32, dwMaxThreads, "HRESULT")
         return result
     }
 
@@ -63,7 +63,7 @@ export default struct IComMtaThreadPoolKnobs extends IUnknown {
      * @returns {HRESULT} 
      */
     MTASetThrottleValue(dwThrottle) {
-        result := ComCall(5, this, "uint", dwThrottle, "HRESULT")
+        result := ComCall(5, this, UInt32, dwThrottle, "HRESULT")
         return result
     }
 

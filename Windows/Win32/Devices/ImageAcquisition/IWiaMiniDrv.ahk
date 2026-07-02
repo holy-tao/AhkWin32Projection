@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MINIDRV_TRANSFER_CONTEXT.ahk" { MINIDRV_TRANSFER_CONTEXT }
 #Import ".\WIA_FORMAT_INFO.ahk" { WIA_FORMAT_INFO }
-#Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWiaDrvItem.ahk" { IWiaDrvItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WIA_DEV_CAP_DRV.ahk" { WIA_DEV_CAP_DRV }
+#Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWiaDrvItem.ahk" { IWiaDrvItem }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MINIDRV_TRANSFER_CONTEXT.ahk" { MINIDRV_TRANSFER_CONTEXT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -78,7 +78,7 @@ export default struct IWiaMiniDrv extends IUnknown {
         __MIDL__IWiaMiniDrv0000Marshal := __MIDL__IWiaMiniDrv0000 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0008Marshal := __MIDL__IWiaMiniDrv0008 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, __MIDL__IWiaMiniDrv0000Marshal, __MIDL__IWiaMiniDrv0000, "int", __MIDL__IWiaMiniDrv0001, BSTR, __MIDL__IWiaMiniDrv0002, BSTR, __MIDL__IWiaMiniDrv0003, "ptr", __MIDL__IWiaMiniDrv0004, "ptr", __MIDL__IWiaMiniDrv0005, IWiaDrvItem.Ptr, __MIDL__IWiaMiniDrv0006, IUnknown.Ptr, __MIDL__IWiaMiniDrv0007, __MIDL__IWiaMiniDrv0008Marshal, __MIDL__IWiaMiniDrv0008, "HRESULT")
+        result := ComCall(3, this, __MIDL__IWiaMiniDrv0000Marshal, __MIDL__IWiaMiniDrv0000, Int32, __MIDL__IWiaMiniDrv0001, BSTR, __MIDL__IWiaMiniDrv0002, BSTR, __MIDL__IWiaMiniDrv0003, "ptr", __MIDL__IWiaMiniDrv0004, "ptr", __MIDL__IWiaMiniDrv0005, IWiaDrvItem.Ptr, __MIDL__IWiaMiniDrv0006, IUnknown.Ptr, __MIDL__IWiaMiniDrv0007, __MIDL__IWiaMiniDrv0008Marshal, __MIDL__IWiaMiniDrv0008, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvAcquireItemData(__MIDL__IWiaMiniDrv0009, __MIDL__IWiaMiniDrv0010, __MIDL__IWiaMiniDrv0011) {
         __MIDL__IWiaMiniDrv0009Marshal := __MIDL__IWiaMiniDrv0009 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, __MIDL__IWiaMiniDrv0009Marshal, __MIDL__IWiaMiniDrv0009, "int", __MIDL__IWiaMiniDrv0010, MINIDRV_TRANSFER_CONTEXT.Ptr, __MIDL__IWiaMiniDrv0011, "int*", &__MIDL__IWiaMiniDrv0012 := 0, "HRESULT")
+        result := ComCall(4, this, __MIDL__IWiaMiniDrv0009Marshal, __MIDL__IWiaMiniDrv0009, Int32, __MIDL__IWiaMiniDrv0010, MINIDRV_TRANSFER_CONTEXT.Ptr, __MIDL__IWiaMiniDrv0011, "int*", &__MIDL__IWiaMiniDrv0012 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0012
     }
 
@@ -105,7 +105,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvInitItemProperties(__MIDL__IWiaMiniDrv0013, __MIDL__IWiaMiniDrv0014) {
         __MIDL__IWiaMiniDrv0013Marshal := __MIDL__IWiaMiniDrv0013 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, __MIDL__IWiaMiniDrv0013Marshal, __MIDL__IWiaMiniDrv0013, "int", __MIDL__IWiaMiniDrv0014, "int*", &__MIDL__IWiaMiniDrv0015 := 0, "HRESULT")
+        result := ComCall(5, this, __MIDL__IWiaMiniDrv0013Marshal, __MIDL__IWiaMiniDrv0013, Int32, __MIDL__IWiaMiniDrv0014, "int*", &__MIDL__IWiaMiniDrv0015 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0015
     }
 
@@ -120,7 +120,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvValidateItemProperties(__MIDL__IWiaMiniDrv0016, __MIDL__IWiaMiniDrv0017, __MIDL__IWiaMiniDrv0018, __MIDL__IWiaMiniDrv0019) {
         __MIDL__IWiaMiniDrv0016Marshal := __MIDL__IWiaMiniDrv0016 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, __MIDL__IWiaMiniDrv0016Marshal, __MIDL__IWiaMiniDrv0016, "int", __MIDL__IWiaMiniDrv0017, "uint", __MIDL__IWiaMiniDrv0018, PROPSPEC.Ptr, __MIDL__IWiaMiniDrv0019, "int*", &__MIDL__IWiaMiniDrv0020 := 0, "HRESULT")
+        result := ComCall(6, this, __MIDL__IWiaMiniDrv0016Marshal, __MIDL__IWiaMiniDrv0016, Int32, __MIDL__IWiaMiniDrv0017, UInt32, __MIDL__IWiaMiniDrv0018, PROPSPEC.Ptr, __MIDL__IWiaMiniDrv0019, "int*", &__MIDL__IWiaMiniDrv0020 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0020
     }
 
@@ -134,7 +134,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvWriteItemProperties(__MIDL__IWiaMiniDrv0021, __MIDL__IWiaMiniDrv0022, __MIDL__IWiaMiniDrv0023) {
         __MIDL__IWiaMiniDrv0021Marshal := __MIDL__IWiaMiniDrv0021 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, __MIDL__IWiaMiniDrv0021Marshal, __MIDL__IWiaMiniDrv0021, "int", __MIDL__IWiaMiniDrv0022, MINIDRV_TRANSFER_CONTEXT.Ptr, __MIDL__IWiaMiniDrv0023, "int*", &__MIDL__IWiaMiniDrv0024 := 0, "HRESULT")
+        result := ComCall(7, this, __MIDL__IWiaMiniDrv0021Marshal, __MIDL__IWiaMiniDrv0021, Int32, __MIDL__IWiaMiniDrv0022, MINIDRV_TRANSFER_CONTEXT.Ptr, __MIDL__IWiaMiniDrv0023, "int*", &__MIDL__IWiaMiniDrv0024 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0024
     }
 
@@ -149,7 +149,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvReadItemProperties(__MIDL__IWiaMiniDrv0025, __MIDL__IWiaMiniDrv0026, __MIDL__IWiaMiniDrv0027, __MIDL__IWiaMiniDrv0028) {
         __MIDL__IWiaMiniDrv0025Marshal := __MIDL__IWiaMiniDrv0025 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, __MIDL__IWiaMiniDrv0025Marshal, __MIDL__IWiaMiniDrv0025, "int", __MIDL__IWiaMiniDrv0026, "uint", __MIDL__IWiaMiniDrv0027, PROPSPEC.Ptr, __MIDL__IWiaMiniDrv0028, "int*", &__MIDL__IWiaMiniDrv0029 := 0, "HRESULT")
+        result := ComCall(8, this, __MIDL__IWiaMiniDrv0025Marshal, __MIDL__IWiaMiniDrv0025, Int32, __MIDL__IWiaMiniDrv0026, UInt32, __MIDL__IWiaMiniDrv0027, PROPSPEC.Ptr, __MIDL__IWiaMiniDrv0028, "int*", &__MIDL__IWiaMiniDrv0029 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0029
     }
 
@@ -162,7 +162,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvLockWiaDevice(__MIDL__IWiaMiniDrv0030, __MIDL__IWiaMiniDrv0031) {
         __MIDL__IWiaMiniDrv0030Marshal := __MIDL__IWiaMiniDrv0030 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, __MIDL__IWiaMiniDrv0030Marshal, __MIDL__IWiaMiniDrv0030, "int", __MIDL__IWiaMiniDrv0031, "int*", &__MIDL__IWiaMiniDrv0032 := 0, "HRESULT")
+        result := ComCall(9, this, __MIDL__IWiaMiniDrv0030Marshal, __MIDL__IWiaMiniDrv0030, Int32, __MIDL__IWiaMiniDrv0031, "int*", &__MIDL__IWiaMiniDrv0032 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0032
     }
 
@@ -175,7 +175,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvUnLockWiaDevice(__MIDL__IWiaMiniDrv0033, __MIDL__IWiaMiniDrv0034) {
         __MIDL__IWiaMiniDrv0033Marshal := __MIDL__IWiaMiniDrv0033 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, __MIDL__IWiaMiniDrv0033Marshal, __MIDL__IWiaMiniDrv0033, "int", __MIDL__IWiaMiniDrv0034, "int*", &__MIDL__IWiaMiniDrv0035 := 0, "HRESULT")
+        result := ComCall(10, this, __MIDL__IWiaMiniDrv0033Marshal, __MIDL__IWiaMiniDrv0033, Int32, __MIDL__IWiaMiniDrv0034, "int*", &__MIDL__IWiaMiniDrv0035 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0035
     }
 
@@ -190,7 +190,7 @@ export default struct IWiaMiniDrv extends IUnknown {
         __MIDL__IWiaMiniDrv0036Marshal := __MIDL__IWiaMiniDrv0036 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0038Marshal := __MIDL__IWiaMiniDrv0038 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, __MIDL__IWiaMiniDrv0036Marshal, __MIDL__IWiaMiniDrv0036, "int", __MIDL__IWiaMiniDrv0037, __MIDL__IWiaMiniDrv0038Marshal, __MIDL__IWiaMiniDrv0038, "HRESULT")
+        result := ComCall(11, this, __MIDL__IWiaMiniDrv0036Marshal, __MIDL__IWiaMiniDrv0036, Int32, __MIDL__IWiaMiniDrv0037, __MIDL__IWiaMiniDrv0038Marshal, __MIDL__IWiaMiniDrv0038, "HRESULT")
         return result
     }
 
@@ -206,7 +206,7 @@ export default struct IWiaMiniDrv extends IUnknown {
         __MIDL__IWiaMiniDrv0041Marshal := __MIDL__IWiaMiniDrv0041 is VarRef ? "ptr*" : "ptr"
         __MIDL__IWiaMiniDrv0042Marshal := __MIDL__IWiaMiniDrv0042 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "int", __MIDL__IWiaMiniDrv0039, "int", __MIDL__IWiaMiniDrv0040, __MIDL__IWiaMiniDrv0041Marshal, __MIDL__IWiaMiniDrv0041, __MIDL__IWiaMiniDrv0042Marshal, __MIDL__IWiaMiniDrv0042, "HRESULT")
+        result := ComCall(12, this, Int32, __MIDL__IWiaMiniDrv0039, Int32, __MIDL__IWiaMiniDrv0040, __MIDL__IWiaMiniDrv0041Marshal, __MIDL__IWiaMiniDrv0041, __MIDL__IWiaMiniDrv0042Marshal, __MIDL__IWiaMiniDrv0042, "HRESULT")
         return result
     }
 
@@ -223,7 +223,7 @@ export default struct IWiaMiniDrv extends IUnknown {
         __MIDL__IWiaMiniDrv0043Marshal := __MIDL__IWiaMiniDrv0043 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0047Marshal := __MIDL__IWiaMiniDrv0047 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, __MIDL__IWiaMiniDrv0043Marshal, __MIDL__IWiaMiniDrv0043, "int", __MIDL__IWiaMiniDrv0044, Guid.Ptr, __MIDL__IWiaMiniDrv0045, IWiaDrvItem.Ptr, __MIDL__IWiaMiniDrv0046, __MIDL__IWiaMiniDrv0047Marshal, __MIDL__IWiaMiniDrv0047, "HRESULT")
+        result := ComCall(13, this, __MIDL__IWiaMiniDrv0043Marshal, __MIDL__IWiaMiniDrv0043, Int32, __MIDL__IWiaMiniDrv0044, Guid.Ptr, __MIDL__IWiaMiniDrv0045, IWiaDrvItem.Ptr, __MIDL__IWiaMiniDrv0046, __MIDL__IWiaMiniDrv0047Marshal, __MIDL__IWiaMiniDrv0047, "HRESULT")
         return result
     }
 
@@ -242,7 +242,7 @@ export default struct IWiaMiniDrv extends IUnknown {
         __MIDL__IWiaMiniDrv0051Marshal := __MIDL__IWiaMiniDrv0051 is VarRef ? "ptr*" : "ptr"
         __MIDL__IWiaMiniDrv0052Marshal := __MIDL__IWiaMiniDrv0052 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, __MIDL__IWiaMiniDrv0048Marshal, __MIDL__IWiaMiniDrv0048, "int", __MIDL__IWiaMiniDrv0049, __MIDL__IWiaMiniDrv0050Marshal, __MIDL__IWiaMiniDrv0050, __MIDL__IWiaMiniDrv0051Marshal, __MIDL__IWiaMiniDrv0051, __MIDL__IWiaMiniDrv0052Marshal, __MIDL__IWiaMiniDrv0052, "HRESULT")
+        result := ComCall(14, this, __MIDL__IWiaMiniDrv0048Marshal, __MIDL__IWiaMiniDrv0048, Int32, __MIDL__IWiaMiniDrv0049, __MIDL__IWiaMiniDrv0050Marshal, __MIDL__IWiaMiniDrv0050, __MIDL__IWiaMiniDrv0051Marshal, __MIDL__IWiaMiniDrv0051, __MIDL__IWiaMiniDrv0052Marshal, __MIDL__IWiaMiniDrv0052, "HRESULT")
         return result
     }
 
@@ -255,7 +255,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvDeleteItem(__MIDL__IWiaMiniDrv0053, __MIDL__IWiaMiniDrv0054) {
         __MIDL__IWiaMiniDrv0053Marshal := __MIDL__IWiaMiniDrv0053 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, __MIDL__IWiaMiniDrv0053Marshal, __MIDL__IWiaMiniDrv0053, "int", __MIDL__IWiaMiniDrv0054, "int*", &__MIDL__IWiaMiniDrv0055 := 0, "HRESULT")
+        result := ComCall(15, this, __MIDL__IWiaMiniDrv0053Marshal, __MIDL__IWiaMiniDrv0053, Int32, __MIDL__IWiaMiniDrv0054, "int*", &__MIDL__IWiaMiniDrv0055 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0055
     }
 
@@ -268,7 +268,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvFreeDrvItemContext(__MIDL__IWiaMiniDrv0056, __MIDL__IWiaMiniDrv0057) {
         __MIDL__IWiaMiniDrv0057Marshal := __MIDL__IWiaMiniDrv0057 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, "int", __MIDL__IWiaMiniDrv0056, __MIDL__IWiaMiniDrv0057Marshal, __MIDL__IWiaMiniDrv0057, "int*", &__MIDL__IWiaMiniDrv0058 := 0, "HRESULT")
+        result := ComCall(16, this, Int32, __MIDL__IWiaMiniDrv0056, __MIDL__IWiaMiniDrv0057Marshal, __MIDL__IWiaMiniDrv0057, "int*", &__MIDL__IWiaMiniDrv0058 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0058
     }
 
@@ -287,7 +287,7 @@ export default struct IWiaMiniDrv extends IUnknown {
         __MIDL__IWiaMiniDrv0062Marshal := __MIDL__IWiaMiniDrv0062 is VarRef ? "ptr*" : "ptr"
         __MIDL__IWiaMiniDrv0063Marshal := __MIDL__IWiaMiniDrv0063 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, __MIDL__IWiaMiniDrv0059Marshal, __MIDL__IWiaMiniDrv0059, "int", __MIDL__IWiaMiniDrv0060, __MIDL__IWiaMiniDrv0061Marshal, __MIDL__IWiaMiniDrv0061, __MIDL__IWiaMiniDrv0062Marshal, __MIDL__IWiaMiniDrv0062, __MIDL__IWiaMiniDrv0063Marshal, __MIDL__IWiaMiniDrv0063, "HRESULT")
+        result := ComCall(17, this, __MIDL__IWiaMiniDrv0059Marshal, __MIDL__IWiaMiniDrv0059, Int32, __MIDL__IWiaMiniDrv0060, __MIDL__IWiaMiniDrv0061Marshal, __MIDL__IWiaMiniDrv0061, __MIDL__IWiaMiniDrv0062Marshal, __MIDL__IWiaMiniDrv0062, __MIDL__IWiaMiniDrv0063Marshal, __MIDL__IWiaMiniDrv0063, "HRESULT")
         return result
     }
 
@@ -301,7 +301,7 @@ export default struct IWiaMiniDrv extends IUnknown {
     drvNotifyPnpEvent(pEventGUID, bstrDeviceID, ulReserved) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
 
-        result := ComCall(18, this, Guid.Ptr, pEventGUID, BSTR, bstrDeviceID, "uint", ulReserved, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, pEventGUID, BSTR, bstrDeviceID, UInt32, ulReserved, "HRESULT")
         return result
     }
 

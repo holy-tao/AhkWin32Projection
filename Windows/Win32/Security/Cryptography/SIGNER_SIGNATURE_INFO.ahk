@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
 #Import ".\SIGNER_SIGNATURE_ATTRIBUTE_CHOICE.ahk" { SIGNER_SIGNATURE_ATTRIBUTE_CHOICE }
-#Import ".\SIGNER_ATTR_AUTHCODE.ahk" { SIGNER_ATTR_AUTHCODE }
+#Import ".\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
 #Import ".\ALG_ID.ahk" { ALG_ID }
+#Import ".\SIGNER_ATTR_AUTHCODE.ahk" { SIGNER_ATTR_AUTHCODE }
 
 /**
  * Contains information about a digital signature.

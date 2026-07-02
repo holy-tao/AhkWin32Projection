@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IProgressItems.ahk" { IProgressItems }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IProgressItems.ahk" { IProgressItems }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Use this interface to get information about the burn image, the image data stream, and progress information.

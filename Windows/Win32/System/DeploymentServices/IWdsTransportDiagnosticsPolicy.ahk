@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWdsTransportCacheable.ahk" { IWdsTransportCacheable }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the diagnostics policy part of the WDS transport server's configuration.
@@ -101,7 +101,7 @@ export default struct IWdsTransportDiagnosticsPolicy extends IWdsTransportCachea
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-put_components
      */
     put_Components(ulComponents) {
-        result := ComCall(14, this, "uint", ulComponents, "HRESULT")
+        result := ComCall(14, this, UInt32, ulComponents, "HRESULT")
         return result
     }
 

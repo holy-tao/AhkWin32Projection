@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVssWMDependency.ahk" { IVssWMDependency }
-#Import ".\VSS_COMPONENTINFO.ahk" { VSS_COMPONENTINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVssWMDependency.ahk" { IVssWMDependency }
 #Import ".\IVssWMFiledesc.ahk" { IVssWMFiledesc }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VSS_COMPONENTINFO.ahk" { VSS_COMPONENTINFO }
 
 /**
  * The IVssWMComponent is a C++ (not COM) interface that allows access to component information stored in a Writer Metadata Document.
@@ -98,7 +98,7 @@ export default struct IVssWMComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivsswmcomponent-getfile
      */
     GetFile(iFile) {
-        result := ComCall(5, this, "uint", iFile, "ptr*", &ppFiledesc := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, iFile, "ptr*", &ppFiledesc := 0, "HRESULT")
         return IVssWMFiledesc(ppFiledesc)
     }
 
@@ -115,7 +115,7 @@ export default struct IVssWMComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivsswmcomponent-getdatabasefile
      */
     GetDatabaseFile(iDBFile) {
-        result := ComCall(6, this, "uint", iDBFile, "ptr*", &ppFiledesc := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, iDBFile, "ptr*", &ppFiledesc := 0, "HRESULT")
         return IVssWMFiledesc(ppFiledesc)
     }
 
@@ -132,7 +132,7 @@ export default struct IVssWMComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivsswmcomponent-getdatabaselogfile
      */
     GetDatabaseLogFile(iDbLogFile) {
-        result := ComCall(7, this, "uint", iDbLogFile, "ptr*", &ppFiledesc := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, iDbLogFile, "ptr*", &ppFiledesc := 0, "HRESULT")
         return IVssWMFiledesc(ppFiledesc)
     }
 
@@ -149,7 +149,7 @@ export default struct IVssWMComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivsswmcomponent-getdependency
      */
     GetDependency(iDependency) {
-        result := ComCall(8, this, "uint", iDependency, "ptr*", &ppDependency := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, iDependency, "ptr*", &ppDependency := 0, "HRESULT")
         return IVssWMDependency(ppDependency)
     }
 

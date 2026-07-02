@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISVGMatrix.ahk" { ISVGMatrix }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISVGMatrix.ahk" { ISVGMatrix }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -68,7 +68,7 @@ export default struct ISVGPoint extends IDispatch {
      * @returns {HRESULT} 
      */
     put_x(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct ISVGPoint extends IDispatch {
      * @returns {HRESULT} 
      */
     put_y(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, Float32, v, "HRESULT")
         return result
     }
 

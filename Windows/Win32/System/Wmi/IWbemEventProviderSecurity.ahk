@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWbemEventProviderSecurity interface is optionally implemented by event providers who want to restrict consumer access to their event. For more information about when to use this interface, see Securing WMI Events.
@@ -54,7 +54,7 @@ export default struct IWbemEventProviderSecurity extends IUnknown {
         wszQueryMarshal := wszQuery is VarRef ? "ushort*" : "ptr"
         _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, "int", lSidLength, _pSidMarshal, _pSid, "HRESULT")
+        result := ComCall(3, this, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, Int32, lSidLength, _pSidMarshal, _pSid, "HRESULT")
         return result
     }
 

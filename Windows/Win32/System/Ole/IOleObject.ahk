@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\IOleClientSite.ahk" { IOleClientSite }
 #Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\OLEMISC.ahk" { OLEMISC }
-#Import "..\..\Graphics\Gdi\LOGPALETTE.ahk" { LOGPALETTE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IMoniker.ahk" { IMoniker }
-#Import "..\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\Com\IEnumSTATDATA.ahk" { IEnumSTATDATA }
+#Import ".\OLEMISC.ahk" { OLEMISC }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\DVASPECT.ahk" { DVASPECT }
 #Import ".\IEnumOLEVERB.ahk" { IEnumOLEVERB }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\Gdi\LOGPALETTE.ahk" { LOGPALETTE }
 
 /**
  * Serves as the principal means by which an embedded object provides basic functionality to, and communicates with, its container.
@@ -211,7 +211,7 @@ export default struct IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-close
      */
     Close(dwSaveOption) {
-        result := ComCall(6, this, "uint", dwSaveOption, "HRESULT")
+        result := ComCall(6, this, UInt32, dwSaveOption, "HRESULT")
         return result
     }
 
@@ -253,7 +253,7 @@ export default struct IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-setmoniker
      */
     SetMoniker(dwWhichMoniker, pmk) {
-        result := ComCall(7, this, "uint", dwWhichMoniker, "ptr", pmk, "HRESULT")
+        result := ComCall(7, this, UInt32, dwWhichMoniker, "ptr", pmk, "HRESULT")
         return result
     }
 
@@ -277,7 +277,7 @@ export default struct IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getmoniker
      */
     GetMoniker(dwAssign, dwWhichMoniker) {
-        result := ComCall(8, this, "uint", dwAssign, "uint", dwWhichMoniker, "ptr*", &ppmk := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwAssign, UInt32, dwWhichMoniker, "ptr*", &ppmk := 0, "HRESULT")
         return IMoniker(ppmk)
     }
 
@@ -346,7 +346,7 @@ export default struct IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-initfromdata
      */
     InitFromData(pDataObject, fCreation, dwReserved) {
-        result := ComCall(9, this, "ptr", pDataObject, BOOL, fCreation, "uint", dwReserved, "HRESULT")
+        result := ComCall(9, this, "ptr", pDataObject, BOOL, fCreation, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -365,7 +365,7 @@ export default struct IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getclipboarddata
      */
     GetClipboardData(dwReserved) {
-        result := ComCall(10, this, "uint", dwReserved, "ptr*", &ppDataObject := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwReserved, "ptr*", &ppDataObject := 0, "HRESULT")
         return IDataObject(ppDataObject)
     }
 
@@ -604,7 +604,7 @@ export default struct IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-doverb
      */
     DoVerb(iVerb, lpmsg, pActiveSite, lindex, hwndParent, lprcPosRect) {
-        result := ComCall(11, this, "int", iVerb, MSG.Ptr, lpmsg, "ptr", pActiveSite, "int", lindex, HWND, hwndParent, RECT.Ptr, lprcPosRect, "HRESULT")
+        result := ComCall(11, this, Int32, iVerb, MSG.Ptr, lpmsg, "ptr", pActiveSite, Int32, lindex, HWND, hwndParent, RECT.Ptr, lprcPosRect, "HRESULT")
         return result
     }
 
@@ -753,7 +753,7 @@ export default struct IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-getusertype
      */
     GetUserType(dwFormOfType) {
-        result := ComCall(16, this, "uint", dwFormOfType, PWSTR.Ptr, &pszUserType := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, dwFormOfType, PWSTR.Ptr, &pszUserType := 0, "HRESULT")
         return pszUserType
     }
 
@@ -895,7 +895,7 @@ export default struct IOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleobject-unadvise
      */
     Unadvise(dwConnection) {
-        result := ComCall(20, this, "uint", dwConnection, "HRESULT")
+        result := ComCall(20, this, UInt32, dwConnection, "HRESULT")
         return result
     }
 

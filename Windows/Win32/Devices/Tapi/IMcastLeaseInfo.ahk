@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumBstr.ahk" { IEnumBstr }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMcastLeaseInfo interface exposes methods that can get or set information concerning a multicast address allocation. The IMcastLease object is created by calling IMcastAddressAllocation::CreateLeaseInfo.
@@ -167,7 +167,7 @@ export default struct IMcastLeaseInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-put_leasestarttime
      */
     put_LeaseStartTime(time) {
-        result := ComCall(9, this, "double", time, "HRESULT")
+        result := ComCall(9, this, Float64, time, "HRESULT")
         return result
     }
 
@@ -221,7 +221,7 @@ export default struct IMcastLeaseInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-put_leasestoptime
      */
     put_LeaseStopTime(time) {
-        result := ComCall(11, this, "double", time, "HRESULT")
+        result := ComCall(11, this, Float64, time, "HRESULT")
         return result
     }
 

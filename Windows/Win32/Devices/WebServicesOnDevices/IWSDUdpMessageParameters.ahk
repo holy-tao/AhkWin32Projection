@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WSDUdpRetransmitParams.ahk" { WSDUdpRetransmitParams }
 #Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
+#Import ".\WSDUdpRetransmitParams.ahk" { WSDUdpRetransmitParams }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to specify how often WSD repeats the message transmission.

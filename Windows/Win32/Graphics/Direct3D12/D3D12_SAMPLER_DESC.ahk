@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_COMPARISON_FUNC.ahk" { D3D12_COMPARISON_FUNC }
 #Import ".\D3D12_TEXTURE_ADDRESS_MODE.ahk" { D3D12_TEXTURE_ADDRESS_MODE }
 #Import ".\D3D12_FILTER.ahk" { D3D12_FILTER }
+#Import ".\D3D12_COMPARISON_FUNC.ahk" { D3D12_COMPARISON_FUNC }
 
 /**
  * Describes a sampler state. (D3D12_SAMPLER_DESC)

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfCompartment.ahk" { ITfCompartment }
-#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import ".\ITfCompartment.ahk" { ITfCompartment }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfCompartmentMgr interface is implemented by the TSF manager and used by clients (applications and text services) to obtain and manipulate TSF compartments.
@@ -122,7 +122,7 @@ export default struct ITfCompartmentMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-clearcompartment
      */
     ClearCompartment(tid, rguid) {
-        result := ComCall(4, this, "uint", tid, Guid.Ptr, rguid, "HRESULT")
+        result := ComCall(4, this, UInt32, tid, Guid.Ptr, rguid, "HRESULT")
         return result
     }
 

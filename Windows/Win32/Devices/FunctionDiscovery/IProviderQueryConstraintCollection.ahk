@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is accessible to the provider through the IFunctionDiscoveryProviderQuery::GetQueryConstraints method.
@@ -107,7 +107,7 @@ export default struct IProviderQueryConstraintCollection extends IUnknown {
         ppszConstraintNameMarshal := ppszConstraintName is VarRef ? "ptr*" : "ptr"
         ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwIndex, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
+        result := ComCall(5, this, UInt32, dwIndex, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISharedProperty.ahk" { ISharedProperty }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISharedProperty.ahk" { ISharedProperty }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to create and access the shared properties in a shared property group.
@@ -68,7 +68,7 @@ export default struct ISharedPropertyGroup extends IDispatch {
     CreatePropertyByPosition(Index, fExists, ppProp) {
         fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, "int", Index, fExistsMarshal, fExists, ISharedProperty.Ptr, ppProp, "HRESULT")
+        result := ComCall(7, this, Int32, Index, fExistsMarshal, fExists, ISharedProperty.Ptr, ppProp, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct ISharedPropertyGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroup-get_propertybyposition
      */
     get_PropertyByPosition(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &ppProperty := 0, "HRESULT")
+        result := ComCall(8, this, Int32, Index, "ptr*", &ppProperty := 0, "HRESULT")
         return ISharedProperty(ppProperty)
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the collection of currently visible 802.11 ad hoc networks.
@@ -125,7 +125,7 @@ export default struct IEnumDot11AdHocNetworks extends IUnknown {
     Next(cElt, rgElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cElt, IDot11AdHocNetwork.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cElt, IDot11AdHocNetwork.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
         return result
     }
 
@@ -165,7 +165,7 @@ export default struct IEnumDot11AdHocNetworks extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocnetworks-skip
      */
     Skip(cElt) {
-        result := ComCall(4, this, "uint", cElt, "HRESULT")
+        result := ComCall(4, this, UInt32, cElt, "HRESULT")
         return result
     }
 

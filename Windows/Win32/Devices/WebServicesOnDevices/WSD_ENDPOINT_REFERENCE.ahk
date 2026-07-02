@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WSD_REFERENCE_PARAMETERS.ahk" { WSD_REFERENCE_PARAMETERS }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
-#Import ".\WSD_REFERENCE_PROPERTIES.ahk" { WSD_REFERENCE_PROPERTIES }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\WSD_REFERENCE_PARAMETERS.ahk" { WSD_REFERENCE_PARAMETERS }
+#Import ".\WSD_REFERENCE_PROPERTIES.ahk" { WSD_REFERENCE_PROPERTIES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 
 /**
  * Represents a WS-Addressing endpoint reference.

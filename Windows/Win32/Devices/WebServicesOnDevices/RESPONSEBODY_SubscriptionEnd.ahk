@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
-#Import ".\WSD_LOCALIZED_STRING.ahk" { WSD_LOCALIZED_STRING }
 #Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
+#Import ".\WSD_LOCALIZED_STRING.ahk" { WSD_LOCALIZED_STRING }
 
 /**
  * Represents a WS-Eventing SubscriptionEnd response message.

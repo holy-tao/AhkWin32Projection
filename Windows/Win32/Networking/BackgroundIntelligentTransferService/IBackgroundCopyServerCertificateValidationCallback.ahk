@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
 #Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Server certificates are sent when an HTTPS connection is opened. Use this method to implement a callback to be called to validate those server certificates.
@@ -118,7 +118,7 @@ export default struct IBackgroundCopyServerCertificateValidationCallback extends
         certDataMarshal := certData is VarRef ? "char*" : "ptr"
         certStoreDataMarshal := certStoreData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", job, "ptr", _file, "uint", certLength, certDataMarshal, certData, "uint", certEncodingType, "uint", certStoreLength, certStoreDataMarshal, certStoreData, "HRESULT")
+        result := ComCall(3, this, "ptr", job, "ptr", _file, UInt32, certLength, certDataMarshal, certData, UInt32, certEncodingType, UInt32, certStoreLength, certStoreDataMarshal, certStoreData, "HRESULT")
         return result
     }
 

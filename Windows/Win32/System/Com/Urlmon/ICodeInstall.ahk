@@ -48,7 +48,7 @@ export default struct ICodeInstall extends IWindowForBindingUI {
         szDestination := szDestination is String ? StrPtr(szDestination) : szDestination
         szSource := szSource is String ? StrPtr(szSource) : szSource
 
-        result := ComCall(4, this, "uint", ulStatusCode, "ptr", szDestination, "ptr", szSource, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, UInt32, ulStatusCode, "ptr", szDestination, "ptr", szSource, UInt32, dwReserved, "HRESULT")
         return result
     }
 

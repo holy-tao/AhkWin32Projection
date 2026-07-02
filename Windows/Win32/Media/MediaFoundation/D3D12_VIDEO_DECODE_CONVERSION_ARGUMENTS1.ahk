@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies the parameters for decode output conversion. (D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1)

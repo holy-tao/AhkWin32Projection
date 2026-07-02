@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MF_MEDIAKEYSESSION_TYPE.ahk" { MF_MEDIAKEYSESSION_TYPE }
-#Import ".\IMFMediaKeySessionNotify2.ahk" { IMFMediaKeySessionNotify2 }
-#Import ".\IMFMediaKeys.ahk" { IMFMediaKeys }
 #Import ".\IMFMediaKeySession2.ahk" { IMFMediaKeySession2 }
+#Import ".\IMFMediaKeys.ahk" { IMFMediaKeys }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaKeySessionNotify2.ahk" { IMFMediaKeySessionNotify2 }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -58,7 +58,7 @@ export default struct IMFMediaKeys2 extends IMFMediaKeys {
      * @returns {HRESULT} 
      */
     SetServerCertificate(pbServerCertificate, cb) {
-        result := ComCall(8, this, "ptr", pbServerCertificate, "uint", cb, "HRESULT")
+        result := ComCall(8, this, IntPtr, pbServerCertificate, UInt32, cb, "HRESULT")
         return result
     }
 

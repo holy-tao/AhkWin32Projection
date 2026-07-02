@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfUIElement.ahk" { ITfUIElement }
 
 /**
@@ -102,7 +102,7 @@ export default struct IEnumTfUIElements extends IUnknown {
     Next(ulCount, ppElement, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, ITfUIElement.Ptr, ppElement, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, ITfUIElement.Ptr, ppElement, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IEnumTfUIElements extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfuielements-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
@@ -45,7 +45,7 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
      * @returns {Integer} 
      */
     GetInputTensorDimensionCount(inputIndex) {
-        result := ComCall(3, this, "uint", inputIndex, "uint*", &dimensionCount := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, inputIndex, "uint*", &dimensionCount := 0, "HRESULT")
         return dimensionCount
     }
 
@@ -56,7 +56,7 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
      * @returns {Integer} 
      */
     GetInputTensorShape(inputIndex, dimensionCount) {
-        result := ComCall(4, this, "uint", inputIndex, "uint", dimensionCount, "uint*", &dimensions := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, inputIndex, UInt32, dimensionCount, "uint*", &dimensions := 0, "HRESULT")
         return dimensions
     }
 
@@ -75,7 +75,7 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
      * @returns {Integer} 
      */
     GetOutputTensorDimensionCount(outputIndex) {
-        result := ComCall(6, this, "uint", outputIndex, "uint*", &dimensionCount := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, outputIndex, "uint*", &dimensionCount := 0, "HRESULT")
         return dimensionCount
     }
 
@@ -86,7 +86,7 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
      * @returns {Integer} 
      */
     GetOutputTensorShape(outputIndex, dimensionCount) {
-        result := ComCall(7, this, "uint", outputIndex, "uint", dimensionCount, "uint*", &dimensions := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, outputIndex, UInt32, dimensionCount, "uint*", &dimensions := 0, "HRESULT")
         return dimensions
     }
 

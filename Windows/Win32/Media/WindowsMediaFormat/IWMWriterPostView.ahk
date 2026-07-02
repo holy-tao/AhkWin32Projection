@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWMWriterPostViewCallback.ahk" { IWMWriterPostViewCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMMediaProps.ahk" { IWMMediaProps }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMWriterPostView interface manages advanced writing functionality related to the postviewing of samples.
@@ -121,7 +121,7 @@ export default struct IWMWriterPostView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-setreceivepostviewsamples
      */
     SetReceivePostViewSamples(wStreamNum, fReceivePostViewSamples) {
-        result := ComCall(4, this, "ushort", wStreamNum, BOOL, fReceivePostViewSamples, "HRESULT")
+        result := ComCall(4, this, UInt16, wStreamNum, BOOL, fReceivePostViewSamples, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IWMWriterPostView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getreceivepostviewsamples
      */
     GetReceivePostViewSamples(wStreamNum) {
-        result := ComCall(5, this, "ushort", wStreamNum, BOOL.Ptr, &pfReceivePostViewSamples := 0, "HRESULT")
+        result := ComCall(5, this, UInt16, wStreamNum, BOOL.Ptr, &pfReceivePostViewSamples := 0, "HRESULT")
         return pfReceivePostViewSamples
     }
 
@@ -145,7 +145,7 @@ export default struct IWMWriterPostView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getpostviewprops
      */
     GetPostViewProps(wStreamNumber) {
-        result := ComCall(6, this, "ushort", wStreamNumber, "ptr*", &ppOutput := 0, "HRESULT")
+        result := ComCall(6, this, UInt16, wStreamNumber, "ptr*", &ppOutput := 0, "HRESULT")
         return IWMMediaProps(ppOutput)
     }
 
@@ -201,7 +201,7 @@ export default struct IWMWriterPostView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-setpostviewprops
      */
     SetPostViewProps(wStreamNumber, pOutput) {
-        result := ComCall(7, this, "ushort", wStreamNumber, "ptr", pOutput, "HRESULT")
+        result := ComCall(7, this, UInt16, wStreamNumber, "ptr", pOutput, "HRESULT")
         return result
     }
 
@@ -214,7 +214,7 @@ export default struct IWMWriterPostView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getpostviewformatcount
      */
     GetPostViewFormatCount(wStreamNumber) {
-        result := ComCall(8, this, "ushort", wStreamNumber, "uint*", &pcFormats := 0, "HRESULT")
+        result := ComCall(8, this, UInt16, wStreamNumber, "uint*", &pcFormats := 0, "HRESULT")
         return pcFormats
     }
 
@@ -228,7 +228,7 @@ export default struct IWMWriterPostView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getpostviewformat
      */
     GetPostViewFormat(wStreamNumber, dwFormatNumber) {
-        result := ComCall(9, this, "ushort", wStreamNumber, "uint", dwFormatNumber, "ptr*", &ppProps := 0, "HRESULT")
+        result := ComCall(9, this, UInt16, wStreamNumber, UInt32, dwFormatNumber, "ptr*", &ppProps := 0, "HRESULT")
         return IWMMediaProps(ppProps)
     }
 
@@ -284,7 +284,7 @@ export default struct IWMWriterPostView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-setallocateforpostview
      */
     SetAllocateForPostView(wStreamNumber, fAllocate) {
-        result := ComCall(10, this, "ushort", wStreamNumber, BOOL, fAllocate, "HRESULT")
+        result := ComCall(10, this, UInt16, wStreamNumber, BOOL, fAllocate, "HRESULT")
         return result
     }
 
@@ -297,7 +297,7 @@ export default struct IWMWriterPostView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getallocateforpostview
      */
     GetAllocateForPostView(wStreamNumber) {
-        result := ComCall(11, this, "ushort", wStreamNumber, BOOL.Ptr, &pfAllocate := 0, "HRESULT")
+        result := ComCall(11, this, UInt16, wStreamNumber, BOOL.Ptr, &pfAllocate := 0, "HRESULT")
         return pfAllocate
     }
 

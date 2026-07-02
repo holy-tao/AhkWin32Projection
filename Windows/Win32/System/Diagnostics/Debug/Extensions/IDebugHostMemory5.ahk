@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugHostMemory4.ahk" { IDebugHostMemory4 }
 #Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import ".\Location.ahk" { Location }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Location.ahk" { Location }
+#Import ".\IDebugHostMemory4.ahk" { IDebugHostMemory4 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -52,7 +52,7 @@ export default struct IDebugHostMemory5 extends IDebugHostMemory4 {
     ReadIntrinsics(_context, _location, vt, count, vals, intrinsicsRead) {
         intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", _context, Location, _location, "ushort", vt, "uint", count, VARIANT.Ptr, vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
+        result := ComCall(12, this, "ptr", _context, Location, _location, UInt16, vt, Int64, count, VARIANT.Ptr, vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IDebugHostMemory5 extends IDebugHostMemory4 {
     ReadOrdinalIntrinsics(_context, _location, ordinalSize, ordinalIsSigned, count, vals, intrinsicsRead) {
         intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", _context, Location, _location, "uint", ordinalSize, "char", ordinalIsSigned, "uint", count, VARIANT.Ptr, vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
+        result := ComCall(13, this, "ptr", _context, Location, _location, Int64, ordinalSize, Int8, ordinalIsSigned, Int64, count, VARIANT.Ptr, vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
         return result
     }
 

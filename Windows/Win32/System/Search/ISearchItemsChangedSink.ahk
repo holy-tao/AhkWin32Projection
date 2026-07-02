@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SEARCH_ITEM_CHANGE.ahk" { SEARCH_ITEM_CHANGE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides notifications for changes to indexed items. Also provides notification of the hierarchical scope that is being monitored for changed items.
@@ -102,7 +102,7 @@ export default struct ISearchItemsChangedSink extends IUnknown {
         rgdwDocIdsMarshal := rgdwDocIds is VarRef ? "uint*" : "ptr"
         rghrCompletionCodesMarshal := rghrCompletionCodes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwNumberOfChanges, SEARCH_ITEM_CHANGE.Ptr, rgDataChangeEntries, rgdwDocIdsMarshal, rgdwDocIds, rghrCompletionCodesMarshal, rghrCompletionCodes, "HRESULT")
+        result := ComCall(5, this, UInt32, dwNumberOfChanges, SEARCH_ITEM_CHANGE.Ptr, rgDataChangeEntries, rgdwDocIdsMarshal, rgdwDocIds, rghrCompletionCodesMarshal, rghrCompletionCodes, "HRESULT")
         return result
     }
 

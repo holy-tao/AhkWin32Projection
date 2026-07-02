@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\UI_INVALIDATIONS.ahk" { UI_INVALIDATIONS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import ".\IUIApplication.ahk" { IUIApplication }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_INVALIDATIONS.ahk" { UI_INVALIDATIONS }
 
 /**
  * The IUIFramework interface is implemented by the Windows Ribbon framework and defines the methods that provide the core functionality for the framework.
@@ -201,7 +201,7 @@ export default struct IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-getview
      */
     GetView(viewId, riid) {
-        result := ComCall(6, this, "uint", viewId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, viewId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -220,7 +220,7 @@ export default struct IUIFramework extends IUnknown {
      */
     GetUICommandProperty(commandId, key) {
         value := PROPVARIANT()
-        result := ComCall(7, this, "uint", commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, value, "HRESULT")
+        result := ComCall(7, this, UInt32, commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, value, "HRESULT")
         return value
     }
 
@@ -262,7 +262,7 @@ export default struct IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-setuicommandproperty
      */
     SetUICommandProperty(commandId, key, value) {
-        result := ComCall(8, this, "uint", commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, value, "HRESULT")
+        result := ComCall(8, this, UInt32, commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, value, "HRESULT")
         return result
     }
 
@@ -322,7 +322,7 @@ export default struct IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-invalidateuicommand
      */
     InvalidateUICommand(commandId, flags, key) {
-        result := ComCall(9, this, "uint", commandId, UI_INVALIDATIONS, flags, PROPERTYKEY.Ptr, key, "HRESULT")
+        result := ComCall(9, this, UInt32, commandId, UI_INVALIDATIONS, flags, PROPERTYKEY.Ptr, key, "HRESULT")
         return result
     }
 
@@ -366,7 +366,7 @@ export default struct IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-setmodes
      */
     SetModes(iModes) {
-        result := ComCall(11, this, "int", iModes, "HRESULT")
+        result := ComCall(11, this, Int32, iModes, "HRESULT")
         return result
     }
 

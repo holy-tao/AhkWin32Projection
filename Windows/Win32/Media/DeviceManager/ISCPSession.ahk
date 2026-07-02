@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISCPSecureQuery.ahk" { ISCPSecureQuery }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISCPSecureQuery.ahk" { ISCPSecureQuery }
 
 /**
  * The ISCPSession interface provides efficient common state management for multiple operations.A secure content provider (SCP) session is useful when transferring multiple files.
@@ -52,7 +52,7 @@ export default struct ISCPSession extends IUnknown {
     BeginSession(pIDevice, pCtx, dwSizeCtx) {
         pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pIDevice, pCtxMarshal, pCtx, "uint", dwSizeCtx, "HRESULT")
+        result := ComCall(3, this, "ptr", pIDevice, pCtxMarshal, pCtx, UInt32, dwSizeCtx, "HRESULT")
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct ISCPSession extends IUnknown {
     EndSession(pCtx, dwSizeCtx) {
         pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pCtxMarshal, pCtx, "uint", dwSizeCtx, "HRESULT")
+        result := ComCall(4, this, pCtxMarshal, pCtx, UInt32, dwSizeCtx, "HRESULT")
         return result
     }
 

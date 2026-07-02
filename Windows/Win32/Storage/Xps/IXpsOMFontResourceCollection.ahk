@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A collection of IXpsOMFontResource interface pointers.
@@ -68,7 +68,7 @@ export default struct IXpsOMFontResourceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &value := 0, "HRESULT")
         return IXpsOMFontResource(value)
     }
 
@@ -84,7 +84,7 @@ export default struct IXpsOMFontResourceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-setat
      */
     SetAt(index, value) {
-        result := ComCall(5, this, "uint", index, "ptr", value, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr", value, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IXpsOMFontResourceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-insertat
      */
     InsertAt(index, value) {
-        result := ComCall(6, this, "uint", index, "ptr", value, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "ptr", value, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IXpsOMFontResourceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresourcecollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(8, this, "uint", index, "HRESULT")
+        result := ComCall(8, this, UInt32, index, "HRESULT")
         return result
     }
 

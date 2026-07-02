@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDiskQuotaUserBatch.ahk" { IDiskQuotaUserBatch }
 #Import ".\IEnumDiskQuotaUsers.ahk" { IEnumDiskQuotaUsers }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IConnectionPointContainer.ahk" { IConnectionPointContainer }
-#Import "..\..\Security\PSID.ahk" { PSID }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDiskQuotaUserBatch.ahk" { IDiskQuotaUserBatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDiskQuotaUser.ahk" { IDiskQuotaUser }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DISKQUOTA_USERNAME_RESOLVE.ahk" { DISKQUOTA_USERNAME_RESOLVE }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * Controls the disk quota facilities of a single NTFS file system volume.
@@ -294,7 +294,7 @@ export default struct IDiskQuotaControl extends IConnectionPointContainer {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-setquotastate
      */
     SetQuotaState(dwState) {
-        result := ComCall(6, this, "uint", dwState, "HRESULT")
+        result := ComCall(6, this, UInt32, dwState, "HRESULT")
         return result
     }
 
@@ -552,7 +552,7 @@ export default struct IDiskQuotaControl extends IConnectionPointContainer {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-setquotalogflags
      */
     SetQuotaLogFlags(dwFlags) {
-        result := ComCall(8, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -748,7 +748,7 @@ export default struct IDiskQuotaControl extends IConnectionPointContainer {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-setdefaultquotathreshold
      */
     SetDefaultQuotaThreshold(llThreshold) {
-        result := ComCall(10, this, "int64", llThreshold, "HRESULT")
+        result := ComCall(10, this, Int64, llThreshold, "HRESULT")
         return result
     }
 
@@ -943,7 +943,7 @@ export default struct IDiskQuotaControl extends IConnectionPointContainer {
     GetDefaultQuotaThresholdText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(12, this, "ptr", pszText, "uint", cchText, "HRESULT")
+        result := ComCall(12, this, "ptr", pszText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -1027,7 +1027,7 @@ export default struct IDiskQuotaControl extends IConnectionPointContainer {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-setdefaultquotalimit
      */
     SetDefaultQuotaLimit(llLimit) {
-        result := ComCall(13, this, "int64", llLimit, "HRESULT")
+        result := ComCall(13, this, Int64, llLimit, "HRESULT")
         return result
     }
 
@@ -1222,7 +1222,7 @@ export default struct IDiskQuotaControl extends IConnectionPointContainer {
     GetDefaultQuotaLimitText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(15, this, "ptr", pszText, "uint", cchText, "HRESULT")
+        result := ComCall(15, this, "ptr", pszText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -1411,7 +1411,7 @@ export default struct IDiskQuotaControl extends IConnectionPointContainer {
     CreateEnumUsers(rgpUserSids, cpSids, fNameResolution) {
         rgpUserSidsMarshal := rgpUserSids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(21, this, rgpUserSidsMarshal, rgpUserSids, "uint", cpSids, DISKQUOTA_USERNAME_RESOLVE, fNameResolution, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(21, this, rgpUserSidsMarshal, rgpUserSids, UInt32, cpSids, DISKQUOTA_USERNAME_RESOLVE, fNameResolution, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumDiskQuotaUsers(ppEnum)
     }
 

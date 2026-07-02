@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import ".\RuntimeLoadedCallbackFnPtr.ahk" { RuntimeLoadedCallbackFnPtr }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -99,7 +100,7 @@ export default struct ICLRMetaHost extends IUnknown {
      * @returns {HRESULT} 
      */
     RequestRuntimeLoadedNotification(pCallbackFunction) {
-        result := ComCall(7, this, "ptr", pCallbackFunction, "HRESULT")
+        result := ComCall(7, this, RuntimeLoadedCallbackFnPtr, pCallbackFunction, "HRESULT")
         return result
     }
 
@@ -148,7 +149,7 @@ export default struct ICLRMetaHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitprocess
      */
     ExitProcess(iExitCode) {
-        result := ComCall(9, this, "int", iExitCode, "HRESULT")
+        result := ComCall(9, this, Int32, iExitCode, "HRESULT")
         return result
     }
 

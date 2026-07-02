@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ROWSTATUS.ahk" { ROWSTATUS }
 #Import ".\COLUMNSTATUS.ahk" { COLUMNSTATUS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PRIORITY.ahk" { PRIORITY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CProperty.ahk" { CProperty }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PFNCOLHEAPFREE.ahk" { PFNCOLHEAPFREE }
+#Import ".\PRIORITY.ahk" { PRIORITY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Use this interface in run-time applications to initialize, build, and obtain information about result sets.
@@ -79,7 +80,7 @@ export default struct IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     SetColumnPriority(lColumnIndex, ColumnPriority) {
-        result := ComCall(3, this, "int", lColumnIndex, PRIORITY, ColumnPriority, "HRESULT")
+        result := ComCall(3, this, Int32, lColumnIndex, PRIORITY, ColumnPriority, "HRESULT")
         return result
     }
 
@@ -93,7 +94,7 @@ export default struct IITResultSet extends IUnknown {
     SetColumnHeap(lColumnIndex, lpvHeap, _pfnColHeapFree) {
         lpvHeapMarshal := lpvHeap is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "int", lColumnIndex, lpvHeapMarshal, lpvHeap, "ptr", _pfnColHeapFree, "HRESULT")
+        result := ComCall(4, this, Int32, lColumnIndex, lpvHeapMarshal, lpvHeap, PFNCOLHEAPFREE, _pfnColHeapFree, "HRESULT")
         return result
     }
 
@@ -103,7 +104,7 @@ export default struct IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     SetKeyProp(PropID) {
-        result := ComCall(5, this, "uint", PropID, "HRESULT")
+        result := ComCall(5, this, UInt32, PropID, "HRESULT")
         return result
     }
 
@@ -149,7 +150,7 @@ export default struct IITResultSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-add(propid_lpvoid_dword_priority)
      */
     Add(PropID, dwDefaultData, _Priority) {
-        result := ComCall(6, this, "uint", PropID, "uint", dwDefaultData, PRIORITY, _Priority, "HRESULT")
+        result := ComCall(6, this, UInt32, PropID, UInt32, dwDefaultData, PRIORITY, _Priority, "HRESULT")
         return result
     }
 
@@ -197,7 +198,7 @@ export default struct IITResultSet extends IUnknown {
     Add1(PropID, lpszwDefault, _Priority) {
         lpszwDefault := lpszwDefault is String ? StrPtr(lpszwDefault) : lpszwDefault
 
-        result := ComCall(7, this, "uint", PropID, "ptr", lpszwDefault, PRIORITY, _Priority, "HRESULT")
+        result := ComCall(7, this, UInt32, PropID, "ptr", lpszwDefault, PRIORITY, _Priority, "HRESULT")
         return result
     }
 
@@ -246,7 +247,7 @@ export default struct IITResultSet extends IUnknown {
     Add2(PropID, lpvDefaultData, cbData, _Priority) {
         lpvDefaultDataMarshal := lpvDefaultData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", PropID, lpvDefaultDataMarshal, lpvDefaultData, "uint", cbData, PRIORITY, _Priority, "HRESULT")
+        result := ComCall(8, this, UInt32, PropID, lpvDefaultDataMarshal, lpvDefaultData, UInt32, cbData, PRIORITY, _Priority, "HRESULT")
         return result
     }
 
@@ -331,7 +332,7 @@ export default struct IITResultSet extends IUnknown {
     Set(lRowIndex, lColumnIndex, lpvData, cbData) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, "int", lRowIndex, "int", lColumnIndex, lpvDataMarshal, lpvData, "uint", cbData, "HRESULT")
+        result := ComCall(11, this, Int32, lRowIndex, Int32, lColumnIndex, lpvDataMarshal, lpvData, UInt32, cbData, "HRESULT")
         return result
     }
 
@@ -345,7 +346,7 @@ export default struct IITResultSet extends IUnknown {
     Set1(lRowIndex, lColumnIndex, lpwStr) {
         lpwStr := lpwStr is String ? StrPtr(lpwStr) : lpwStr
 
-        result := ComCall(12, this, "int", lRowIndex, "int", lColumnIndex, "ptr", lpwStr, "HRESULT")
+        result := ComCall(12, this, Int32, lRowIndex, Int32, lColumnIndex, "ptr", lpwStr, "HRESULT")
         return result
     }
 
@@ -357,7 +358,7 @@ export default struct IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     Set2(lRowIndex, lColumnIndex, dwData) {
-        result := ComCall(13, this, "int", lRowIndex, "int", lColumnIndex, "ptr", dwData, "HRESULT")
+        result := ComCall(13, this, Int32, lRowIndex, Int32, lColumnIndex, IntPtr, dwData, "HRESULT")
         return result
     }
 
@@ -372,7 +373,7 @@ export default struct IITResultSet extends IUnknown {
         lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : "ptr"
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(14, this, "int", lRowIndex, lpvHdrMarshal, lpvHdr, lpvDataMarshal, lpvData, "HRESULT")
+        result := ComCall(14, this, Int32, lRowIndex, lpvHdrMarshal, lpvHdr, lpvDataMarshal, lpvData, "HRESULT")
         return result
     }
 
@@ -397,7 +398,7 @@ export default struct IITResultSet extends IUnknown {
     AppendRows(pResSrc, lRowSrcFirst, cSrcRows, lRowFirstDest) {
         lRowFirstDestMarshal := lRowFirstDest is VarRef ? "int*" : "ptr"
 
-        result := ComCall(16, this, "ptr", pResSrc, "int", lRowSrcFirst, "int", cSrcRows, lRowFirstDestMarshal, lRowFirstDest, "HRESULT")
+        result := ComCall(16, this, "ptr", pResSrc, Int32, lRowSrcFirst, Int32, cSrcRows, lRowFirstDestMarshal, lRowFirstDest, "HRESULT")
         return result
     }
 
@@ -443,7 +444,7 @@ export default struct IITResultSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-get
      */
     Get(lRowIndex, lColumnIndex, Prop) {
-        result := ComCall(17, this, "int", lRowIndex, "int", lColumnIndex, CProperty.Ptr, Prop, "HRESULT")
+        result := ComCall(17, this, Int32, lRowIndex, Int32, lColumnIndex, CProperty.Ptr, Prop, "HRESULT")
         return result
     }
 
@@ -468,7 +469,7 @@ export default struct IITResultSet extends IUnknown {
     GetColumnPriority(lColumnIndex, ColumnPriority) {
         ColumnPriorityMarshal := ColumnPriority is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "int", lColumnIndex, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
+        result := ComCall(19, this, Int32, lColumnIndex, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
         return result
     }
 
@@ -534,7 +535,7 @@ export default struct IITResultSet extends IUnknown {
         cbSizeMarshal := cbSize is VarRef ? "uint*" : "ptr"
         ColumnPriorityMarshal := ColumnPriority is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, "int", lColumnIndex, PropIDMarshal, PropID, dwTypeMarshal, dwType, lpvDefaultValueMarshal, lpvDefaultValue, cbSizeMarshal, cbSize, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
+        result := ComCall(22, this, Int32, lColumnIndex, PropIDMarshal, PropID, dwTypeMarshal, dwType, lpvDefaultValueMarshal, lpvDefaultValue, cbSizeMarshal, cbSize, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
         return result
     }
 
@@ -547,7 +548,7 @@ export default struct IITResultSet extends IUnknown {
     GetColumn1(lColumnIndex, PropID) {
         PropIDMarshal := PropID is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "int", lColumnIndex, PropIDMarshal, PropID, "HRESULT")
+        result := ComCall(23, this, Int32, lColumnIndex, PropIDMarshal, PropID, "HRESULT")
         return result
     }
 
@@ -560,7 +561,7 @@ export default struct IITResultSet extends IUnknown {
     GetColumnFromPropID(PropID, lColumnIndex) {
         lColumnIndexMarshal := lColumnIndex is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, "uint", PropID, lColumnIndexMarshal, lColumnIndex, "HRESULT")
+        result := ComCall(24, this, UInt32, PropID, lColumnIndexMarshal, lColumnIndex, "HRESULT")
         return result
     }
 
@@ -649,7 +650,7 @@ export default struct IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRowStatus(lRowFirst, cRows, lpRowStatus) {
-        result := ComCall(31, this, "int", lRowFirst, "int", cRows, ROWSTATUS.Ptr, lpRowStatus, "HRESULT")
+        result := ComCall(31, this, Int32, lRowFirst, Int32, cRows, ROWSTATUS.Ptr, lpRowStatus, "HRESULT")
         return result
     }
 

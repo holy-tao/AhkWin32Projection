@@ -44,7 +44,7 @@ export default struct IDebugHostExtensibility3 extends IDebugHostExtensibility2 
      * @returns {Integer} 
      */
     ExtendHostContext(blobSize, identifier) {
-        result := ComCall(6, this, "uint", blobSize, Guid.Ptr, identifier, "uint*", &blobId := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, blobSize, Guid.Ptr, identifier, "uint*", &blobId := 0, "HRESULT")
         return blobId
     }
 
@@ -69,7 +69,7 @@ export default struct IDebugHostExtensibility3 extends IDebugHostExtensibility2 
      * @returns {HRESULT} 
      */
     ReleaseHostContextExtension(blobId) {
-        result := ComCall(8, this, "uint", blobId, "HRESULT")
+        result := ComCall(8, this, UInt32, blobId, "HRESULT")
         return result
     }
 

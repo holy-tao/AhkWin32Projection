@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\sockaddr_in6_old.ahk" { sockaddr_in6_old }
 #Import ".\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
 #Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 #Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
-#Import ".\sockaddr_in6_old.ahk" { sockaddr_in6_old }
 #Import ".\SOCKADDR.ahk" { SOCKADDR }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 

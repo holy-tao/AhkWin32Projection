@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Graphics\Direct3D12\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
 #Import ".\IDMLDispatchable.ahk" { IDMLDispatchable }
+#Import "..\..\..\Graphics\Direct3D12\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
 #Import "..\..\..\Graphics\Direct3D12\D3D12_GPU_DESCRIPTOR_HANDLE.ahk" { D3D12_GPU_DESCRIPTOR_HANDLE }
 
 /**

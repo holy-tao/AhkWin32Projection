@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMLicenseRestore interface manages the restoring of licenses.This interface is obtained from another interface on the backup restorer object.
@@ -64,7 +64,7 @@ export default struct IWMLicenseRestore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicenserestore-restorelicenses
      */
     RestoreLicenses(dwFlags, pCallback) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pCallback, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "ptr", pCallback, "HRESULT")
         return result
     }
 

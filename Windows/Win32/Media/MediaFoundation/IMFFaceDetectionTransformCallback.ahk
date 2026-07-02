@@ -42,7 +42,7 @@ export default struct IMFFaceDetectionTransformCallback extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     OnFaceDetectionResult(countOfBounds, detectedFaceBounds) {
-        ComCall(3, this, "uint", countOfBounds, DetectedFaceBound.Ptr, detectedFaceBounds)
+        ComCall(3, this, UInt32, countOfBounds, DetectedFaceBound.Ptr, detectedFaceBounds)
     }
 
     Query(iid) {

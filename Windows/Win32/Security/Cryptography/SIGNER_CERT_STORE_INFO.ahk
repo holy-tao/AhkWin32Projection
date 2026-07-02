@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\SIGNER_CERT_POLICY.ahk" { SIGNER_CERT_POLICY }
 
 /**

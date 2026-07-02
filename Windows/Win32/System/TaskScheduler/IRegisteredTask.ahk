@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IRunningTask.ahk" { IRunningTask }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\TASK_STATE.ahk" { TASK_STATE }
+#Import ".\IRunningTaskCollection.ahk" { IRunningTaskCollection }
+#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\TASK_STATE.ahk" { TASK_STATE }
-#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
-#Import ".\IRunningTaskCollection.ahk" { IRunningTaskCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IRunningTask.ahk" { IRunningTask }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Provides the methods that are used to run the task immediately, get any running instances of the task, get or set the credentials that are used to register the task, and the properties that describe the task.
@@ -249,7 +249,7 @@ export default struct IRegisteredTask extends IDispatch {
     RunEx(params, flags, sessionID, user) {
         user := user is String ? BSTR.Alloc(user).Value : user
 
-        result := ComCall(13, this, VARIANT, params, "int", flags, "int", sessionID, BSTR, user, "ptr*", &ppRunningTask := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT, params, Int32, flags, Int32, sessionID, BSTR, user, "ptr*", &ppRunningTask := 0, "HRESULT")
         return IRunningTask(ppRunningTask)
     }
 
@@ -262,7 +262,7 @@ export default struct IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-getinstances
      */
     GetInstances(flags) {
-        result := ComCall(14, this, "int", flags, "ptr*", &ppRunningTasks := 0, "HRESULT")
+        result := ComCall(14, this, Int32, flags, "ptr*", &ppRunningTasks := 0, "HRESULT")
         return IRunningTaskCollection(ppRunningTasks)
     }
 
@@ -337,7 +337,7 @@ export default struct IRegisteredTask extends IDispatch {
      */
     GetSecurityDescriptor(securityInformation) {
         pSddl := BSTR.Owned()
-        result := ComCall(21, this, "int", securityInformation, BSTR.Ptr, pSddl, "HRESULT")
+        result := ComCall(21, this, Int32, securityInformation, BSTR.Ptr, pSddl, "HRESULT")
         return pSddl
     }
 
@@ -356,7 +356,7 @@ export default struct IRegisteredTask extends IDispatch {
     SetSecurityDescriptor(sddl, flags) {
         sddl := sddl is String ? BSTR.Alloc(sddl).Value : sddl
 
-        result := ComCall(22, this, BSTR, sddl, "int", flags, "HRESULT")
+        result := ComCall(22, this, BSTR, sddl, Int32, flags, "HRESULT")
         return result
     }
 
@@ -400,7 +400,7 @@ export default struct IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-stop
      */
     Stop(flags) {
-        result := ComCall(23, this, "int", flags, "HRESULT")
+        result := ComCall(23, this, Int32, flags, "HRESULT")
         return result
     }
 

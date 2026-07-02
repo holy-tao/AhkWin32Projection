@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNC_FULL_ENUMERATION_ACTION.ahk" { SYNC_FULL_ENUMERATION_ACTION }
 #Import ".\SYNC_PROGRESS_STAGE.ahk" { SYNC_PROGRESS_STAGE }
-#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
-#Import ".\IRecoverableError.ahk" { IRecoverableError }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncChange.ahk" { ISyncChange }
-#Import ".\IChangeConflict.ahk" { IChangeConflict }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNC_FULL_ENUMERATION_ACTION.ahk" { SYNC_FULL_ENUMERATION_ACTION }
+#Import ".\IRecoverableError.ahk" { IRecoverableError }
+#Import ".\IChangeConflict.ahk" { IChangeConflict }
+#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
 
 /**
  * Represents application callbacks that are used to notify the application of synchronization events.
@@ -85,7 +85,7 @@ export default struct ISyncCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback-onprogress
      */
     OnProgress(provider, syncStage, dwCompletedWork, dwTotalWork) {
-        result := ComCall(3, this, SYNC_PROVIDER_ROLE, provider, SYNC_PROGRESS_STAGE, syncStage, "uint", dwCompletedWork, "uint", dwTotalWork, "HRESULT")
+        result := ComCall(3, this, SYNC_PROVIDER_ROLE, provider, SYNC_PROGRESS_STAGE, syncStage, UInt32, dwCompletedWork, UInt32, dwTotalWork, "HRESULT")
         return result
     }
 

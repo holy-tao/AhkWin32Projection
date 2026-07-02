@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXGI_ADAPTER_DESC3.ahk" { DXGI_ADAPTER_DESC3 }
 #Import ".\IDXGIAdapter3.ahk" { IDXGIAdapter3 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_ADAPTER_DESC3.ahk" { DXGI_ADAPTER_DESC3 }
 
 /**
  * This interface represents a display subsystem, and extends this family of interfaces to expose a method to check for an adapter's compatibility with Arbitrary Code Guard (ACG).

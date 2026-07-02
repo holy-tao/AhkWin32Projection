@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_CONTROLLER_PROP.ahk" { VDS_CONTROLLER_PROP }
-#Import ".\VDS_CONTROLLER_STATUS.ahk" { VDS_CONTROLLER_STATUS }
-#Import ".\VDS_PORT_PROP.ahk" { VDS_PORT_PROP }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\VDS_PORT_PROP.ahk" { VDS_PORT_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
+#Import ".\VDS_CONTROLLER_STATUS.ahk" { VDS_CONTROLLER_STATUS }
+#Import ".\VDS_CONTROLLER_PROP.ahk" { VDS_CONTROLLER_PROP }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVdsController (vdshwprv.h) interface provides methods for performing query and configuration operations on a controller.
@@ -85,7 +85,7 @@ export default struct IVdsController extends IUnknown {
      */
     GetPortProperties(sPortNumber) {
         pPortProp := VDS_PORT_PROP()
-        result := ComCall(5, this, "short", sPortNumber, VDS_PORT_PROP.Ptr, pPortProp, "HRESULT")
+        result := ComCall(5, this, Int16, sPortNumber, VDS_PORT_PROP.Ptr, pPortProp, "HRESULT")
         return pPortProp
     }
 

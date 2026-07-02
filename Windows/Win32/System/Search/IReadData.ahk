@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -56,7 +56,7 @@ export default struct IReadData extends IUnknown {
         pcbVariableTotalMarshal := pcbVariableTotal is VarRef ? "ptr*" : "ptr"
         ppVariableDataMarshal := ppVariableData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, HACCESSOR, _hAccessor, "ptr", cRows, "ptr*", &pcRowsObtained := 0, ppFixedDataMarshal, ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, ppVariableDataMarshal, ppVariableData, "HRESULT")
+        result := ComCall(3, this, IntPtr, hChapter, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, IntPtr, lRowsOffset, HACCESSOR, _hAccessor, IntPtr, cRows, "ptr*", &pcRowsObtained := 0, ppFixedDataMarshal, ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, ppVariableDataMarshal, ppVariableData, "HRESULT")
         return pcRowsObtained
     }
 
@@ -66,7 +66,7 @@ export default struct IReadData extends IUnknown {
      * @returns {HRESULT} 
      */
     ReleaseChapter(hChapter) {
-        result := ComCall(4, this, "ptr", hChapter, "HRESULT")
+        result := ComCall(4, this, IntPtr, hChapter, "HRESULT")
         return result
     }
 

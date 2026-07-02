@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\HTML_PAINT_DRAW_INFO.ahk" { HTML_PAINT_DRAW_INFO }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -90,7 +90,7 @@ export default struct IHTMLPaintSite extends IUnknown {
      */
     GetDrawInfo(lFlags) {
         pDrawInfo := HTML_PAINT_DRAW_INFO()
-        result := ComCall(6, this, "int", lFlags, HTML_PAINT_DRAW_INFO.Ptr, pDrawInfo, "HRESULT")
+        result := ComCall(6, this, Int32, lFlags, HTML_PAINT_DRAW_INFO.Ptr, pDrawInfo, "HRESULT")
         return pDrawInfo
     }
 

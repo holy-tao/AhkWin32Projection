@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRegisteredSyncProvider.ahk" { IRegisteredSyncProvider }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the information and properties needed to create an instance of a synchronization provider.
@@ -51,7 +51,7 @@ export default struct ISyncProviderInfo extends IPropertyStore {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderinfo-getsyncprovider
      */
     GetSyncProvider(dwClsContext) {
-        result := ComCall(8, this, "uint", dwClsContext, "ptr*", &ppSyncProvider := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwClsContext, "ptr*", &ppSyncProvider := 0, "HRESULT")
         return IRegisteredSyncProvider(ppSyncProvider)
     }
 

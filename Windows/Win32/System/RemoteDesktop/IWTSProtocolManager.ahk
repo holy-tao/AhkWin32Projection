@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWTSProtocolListener.ahk" { IWTSProtocolListener }
+#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WTS_SERVICE_STATE.ahk" { WTS_SERVICE_STATE }
 
 /**
@@ -112,7 +112,7 @@ export default struct IWTSProtocolManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionstatechange
      */
     NotifySessionStateChange(SessionId, EventId) {
-        result := ComCall(7, this, WTS_SESSION_ID.Ptr, SessionId, "uint", EventId, "HRESULT")
+        result := ComCall(7, this, WTS_SESSION_ID.Ptr, SessionId, UInt32, EventId, "HRESULT")
         return result
     }
 

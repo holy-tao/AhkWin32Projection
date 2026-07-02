@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Exposes a method that initializes a handler, such as a property handler, thumbnail handler, or preview handler, with a stream.
@@ -60,7 +60,7 @@ export default struct IInitializeWithStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-iinitializewithstream-initialize
      */
     Initialize(pstream, grfMode) {
-        result := ComCall(3, this, "ptr", pstream, "uint", grfMode, "HRESULT")
+        result := ComCall(3, this, "ptr", pstream, UInt32, grfMode, "HRESULT")
         return result
     }
 

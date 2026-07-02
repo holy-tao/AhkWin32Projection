@@ -58,7 +58,7 @@ export default struct IMFSinkWriterCallback2 extends IMFSinkWriterCallback {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwritercallback2-onstreamerror
      */
     OnStreamError(dwStreamIndex, hrStatus) {
-        result := ComCall(6, this, "uint", dwStreamIndex, "int", hrStatus, "HRESULT")
+        result := ComCall(6, this, UInt32, dwStreamIndex, "int", hrStatus, "HRESULT")
         return result
     }
 

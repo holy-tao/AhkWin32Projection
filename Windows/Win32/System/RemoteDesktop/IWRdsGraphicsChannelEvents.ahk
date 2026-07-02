@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface receives notifications that relate to a graphics virtual channel.
@@ -52,7 +52,7 @@ export default struct IWRdsGraphicsChannelEvents extends IUnknown {
     OnDataReceived(cbSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", cbSize, pBufferMarshal, pBuffer, "HRESULT")
+        result := ComCall(3, this, UInt32, cbSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IWRdsGraphicsChannelEvents extends IUnknown {
     OnDataSent(pWriteContext, bCancelled, pBuffer, cbBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pWriteContext, BOOL, bCancelled, pBufferMarshal, pBuffer, "uint", cbBuffer, "HRESULT")
+        result := ComCall(6, this, "ptr", pWriteContext, BOOL, bCancelled, pBufferMarshal, pBuffer, UInt32, cbBuffer, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IWRdsGraphicsChannelEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelevents-onmetricsupdate
      */
     OnMetricsUpdate(bandwidth, RTT, lastSentByteIndex) {
-        result := ComCall(7, this, "uint", bandwidth, "uint", RTT, "uint", lastSentByteIndex, "HRESULT")
+        result := ComCall(7, this, UInt32, bandwidth, UInt32, RTT, Int64, lastSentByteIndex, "HRESULT")
         return result
     }
 

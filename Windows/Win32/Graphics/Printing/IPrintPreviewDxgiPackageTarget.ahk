@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\PageCountType.ahk" { PageCountType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -46,7 +46,7 @@ export default struct IPrintPreviewDxgiPackageTarget extends IUnknown {
      * @returns {HRESULT} 
      */
     SetJobPageCount(countType, count) {
-        result := ComCall(3, this, PageCountType, countType, "uint", count, "HRESULT")
+        result := ComCall(3, this, PageCountType, countType, UInt32, count, "HRESULT")
         return result
     }
 
@@ -59,7 +59,7 @@ export default struct IPrintPreviewDxgiPackageTarget extends IUnknown {
      * @returns {HRESULT} 
      */
     DrawPage(jobPageNumber, pageImage, dpiX, dpiY) {
-        result := ComCall(4, this, "uint", jobPageNumber, "ptr", pageImage, "float", dpiX, "float", dpiY, "HRESULT")
+        result := ComCall(4, this, UInt32, jobPageNumber, "ptr", pageImage, Float32, dpiX, Float32, dpiY, "HRESULT")
         return result
     }
 

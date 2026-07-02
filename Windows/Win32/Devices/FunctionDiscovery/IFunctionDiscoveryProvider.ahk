@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFunctionDiscoveryNotification.ahk" { IFunctionDiscoveryNotification }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFunctionDiscoveryProviderQuery.ahk" { IFunctionDiscoveryProviderQuery }
-#Import ".\IFunctionInstance.ahk" { IFunctionInstance }
-#Import ".\IFunctionDiscoveryProviderFactory.ahk" { IFunctionDiscoveryProviderFactory }
+#Import ".\IFunctionDiscoveryNotification.ahk" { IFunctionDiscoveryNotification }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\IFunctionDiscoveryProviderFactory.ahk" { IFunctionDiscoveryProviderFactory }
+#Import ".\IFunctionInstance.ahk" { IFunctionInstance }
 #Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
 
 /**
@@ -70,7 +70,7 @@ export default struct IFunctionDiscoveryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-initialize
      */
     Initialize(pIFunctionDiscoveryProviderFactory, pIFunctionDiscoveryNotification, lcidUserDefault) {
-        result := ComCall(3, this, "ptr", pIFunctionDiscoveryProviderFactory, "ptr", pIFunctionDiscoveryNotification, "uint", lcidUserDefault, "uint*", &pdwStgAccessCapabilities := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pIFunctionDiscoveryProviderFactory, "ptr", pIFunctionDiscoveryNotification, UInt32, lcidUserDefault, "uint*", &pdwStgAccessCapabilities := 0, "HRESULT")
         return pdwStgAccessCapabilities
     }
 
@@ -218,7 +218,7 @@ export default struct IFunctionDiscoveryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancepropertystorevalidateaccess
      */
     InstancePropertyStoreValidateAccess(pIFunctionInstance, iProviderInstanceContext, dwStgAccess) {
-        result := ComCall(6, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint", dwStgAccess, "HRESULT")
+        result := ComCall(6, this, "ptr", pIFunctionInstance, IntPtr, iProviderInstanceContext, UInt32, dwStgAccess, "HRESULT")
         return result
     }
 
@@ -234,7 +234,7 @@ export default struct IFunctionDiscoveryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancepropertystoreopen
      */
     InstancePropertyStoreOpen(pIFunctionInstance, iProviderInstanceContext, dwStgAccess) {
-        result := ComCall(7, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint", dwStgAccess, "ptr*", &ppIPropertyStore := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pIFunctionInstance, IntPtr, iProviderInstanceContext, UInt32, dwStgAccess, "ptr*", &ppIPropertyStore := 0, "HRESULT")
         return IPropertyStore(ppIPropertyStore)
     }
 
@@ -306,7 +306,7 @@ export default struct IFunctionDiscoveryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancepropertystoreflush
      */
     InstancePropertyStoreFlush(pIFunctionInstance, iProviderInstanceContext) {
-        result := ComCall(8, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "HRESULT")
+        result := ComCall(8, this, "ptr", pIFunctionInstance, IntPtr, iProviderInstanceContext, "HRESULT")
         return result
     }
 
@@ -326,7 +326,7 @@ export default struct IFunctionDiscoveryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancequeryservice
      */
     InstanceQueryService(pIFunctionInstance, iProviderInstanceContext, guidService, riid) {
-        result := ComCall(9, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppIUnknown := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pIFunctionInstance, IntPtr, iProviderInstanceContext, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppIUnknown := 0, "HRESULT")
         return IUnknown(ppIUnknown)
     }
 
@@ -385,7 +385,7 @@ export default struct IFunctionDiscoveryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryprovider-instancereleased
      */
     InstanceReleased(pIFunctionInstance, iProviderInstanceContext) {
-        result := ComCall(10, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "HRESULT")
+        result := ComCall(10, this, "ptr", pIFunctionInstance, IntPtr, iProviderInstanceContext, "HRESULT")
         return result
     }
 

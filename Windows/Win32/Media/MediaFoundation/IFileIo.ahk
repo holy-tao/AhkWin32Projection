@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FILE_OPENMODE.ahk" { FILE_OPENMODE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SEEK_ORIGIN.ahk" { SEEK_ORIGIN }
-#Import ".\FILE_ACCESSMODE.ahk" { FILE_ACCESSMODE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FILE_ACCESSMODE.ahk" { FILE_ACCESSMODE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FILE_OPENMODE.ahk" { FILE_OPENMODE }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -105,7 +105,7 @@ export default struct IFileIo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetLength(qwLength) {
-        result := ComCall(5, this, "uint", qwLength, "HRESULT")
+        result := ComCall(5, this, Int64, qwLength, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IFileIo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCurrentPosition(qwPosition) {
-        result := ComCall(7, this, "uint", qwPosition, "HRESULT")
+        result := ComCall(7, this, Int64, qwPosition, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IFileIo extends IUnknown {
         pbtMarshal := pbt is VarRef ? "char*" : "ptr"
         pulReadMarshal := pulRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pbtMarshal, pbt, "uint", ul, pulReadMarshal, pulRead, "HRESULT")
+        result := ComCall(9, this, pbtMarshal, pbt, UInt32, ul, pulReadMarshal, pulRead, "HRESULT")
         return result
     }
 
@@ -169,7 +169,7 @@ export default struct IFileIo extends IUnknown {
         pbtMarshal := pbt is VarRef ? "char*" : "ptr"
         pulWrittenMarshal := pulWritten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, pbtMarshal, pbt, "uint", ul, pulWrittenMarshal, pulWritten, "HRESULT")
+        result := ComCall(10, this, pbtMarshal, pbt, UInt32, ul, pulWrittenMarshal, pulWritten, "HRESULT")
         return result
     }
 
@@ -184,7 +184,7 @@ export default struct IFileIo extends IUnknown {
     Seek(eSeekOrigin, qwSeekOffset, dwSeekFlags, pqwCurrentPosition) {
         pqwCurrentPositionMarshal := pqwCurrentPosition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, SEEK_ORIGIN, eSeekOrigin, "uint", qwSeekOffset, "uint", dwSeekFlags, pqwCurrentPositionMarshal, pqwCurrentPosition, "HRESULT")
+        result := ComCall(11, this, SEEK_ORIGIN, eSeekOrigin, Int64, qwSeekOffset, UInt32, dwSeekFlags, pqwCurrentPositionMarshal, pqwCurrentPosition, "HRESULT")
         return result
     }
 

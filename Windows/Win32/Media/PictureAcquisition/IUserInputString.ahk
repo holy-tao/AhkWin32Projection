@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\USER_INPUT_STRING_TYPE.ahk" { USER_INPUT_STRING_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\USER_INPUT_STRING_TYPE.ahk" { USER_INPUT_STRING_TYPE }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * The IUserInputString interface represents the object created when asking the user for a string�for example, when obtaining the name of a tag.
@@ -162,7 +162,7 @@ export default struct IUserInputString extends IUnknown {
      */
     GetMruEntryAt(nIndex) {
         pbstrMruEntry := BSTR.Owned()
-        result := ComCall(11, this, "uint", nIndex, BSTR.Ptr, pbstrMruEntry, "HRESULT")
+        result := ComCall(11, this, UInt32, nIndex, BSTR.Ptr, pbstrMruEntry, "HRESULT")
         return pbstrMruEntry
     }
 
@@ -204,7 +204,7 @@ export default struct IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getimage
      */
     GetImage(nSize, phBitmap, phIcon) {
-        result := ComCall(12, this, "uint", nSize, HBITMAP.Ptr, phBitmap, HICON.Ptr, phIcon, "HRESULT")
+        result := ComCall(12, this, UInt32, nSize, HBITMAP.Ptr, phBitmap, HICON.Ptr, phIcon, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KDHELP64.ahk" { KDHELP64 }
-#Import ".\ADDRESS64.ahk" { ADDRESS64 }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ADDRESS_MODE.ahk" { ADDRESS_MODE }
+#Import ".\ADDRESS64.ahk" { ADDRESS64 }
+#Import ".\KDHELP64.ahk" { KDHELP64 }
 
 /**
  * Represents a stack frame. (STACKFRAME64)

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\ICompositionDrawingSurfaceInterop.ahk" { ICompositionDrawingSurfaceInterop }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Composition
@@ -68,7 +68,7 @@ export default struct ICompositionDrawingSurfaceInterop2 extends ICompositionDra
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop2-copysurface
      */
     CopySurface(destinationResource, destinationOffsetX, destinationOffsetY, sourceRectangle) {
-        result := ComCall(9, this, "ptr", destinationResource, "int", destinationOffsetX, "int", destinationOffsetY, RECT.Ptr, sourceRectangle, "HRESULT")
+        result := ComCall(9, this, "ptr", destinationResource, Int32, destinationOffsetX, Int32, destinationOffsetY, RECT.Ptr, sourceRectangle, "HRESULT")
         return result
     }
 

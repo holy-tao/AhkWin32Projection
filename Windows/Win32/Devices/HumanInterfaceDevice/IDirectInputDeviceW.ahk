@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DIDEVICEOBJECTDATA.ahk" { DIDEVICEOBJECTDATA }
-#Import ".\DIDEVICEINSTANCEW.ahk" { DIDEVICEINSTANCEW }
-#Import ".\DIDEVICEOBJECTINSTANCEW.ahk" { DIDEVICEOBJECTINSTANCEW }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\DIDATAFORMAT.ahk" { DIDATAFORMAT }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DIDEVCAPS.ahk" { DIDEVCAPS }
+#Import ".\DIDATAFORMAT.ahk" { DIDATAFORMAT }
+#Import ".\DIDEVICEINSTANCEW.ahk" { DIDEVICEINSTANCEW }
+#Import ".\LPDIENUMDEVICEOBJECTSCALLBACKW.ahk" { LPDIENUMDEVICEOBJECTSCALLBACKW }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DIDEVICEOBJECTDATA.ahk" { DIDEVICEOBJECTDATA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DIDEVICEOBJECTINSTANCEW.ahk" { DIDEVICEOBJECTINSTANCEW }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -82,7 +83,7 @@ export default struct IDirectInputDeviceW extends IUnknown {
     EnumObjects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
+        result := ComCall(4, this, LPDIENUMDEVICEOBJECTSCALLBACKW, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -142,7 +143,7 @@ export default struct IDirectInputDeviceW extends IUnknown {
     GetDeviceState(param0, param1) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "uint", param0, param1Marshal, param1, "HRESULT")
+        result := ComCall(9, this, UInt32, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -157,7 +158,7 @@ export default struct IDirectInputDeviceW extends IUnknown {
     GetDeviceData(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, "uint", param3, "HRESULT")
+        result := ComCall(10, this, UInt32, param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
@@ -188,7 +189,7 @@ export default struct IDirectInputDeviceW extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCooperativeLevel(param0, param1) {
-        result := ComCall(13, this, HWND, param0, "uint", param1, "HRESULT")
+        result := ComCall(13, this, HWND, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -200,7 +201,7 @@ export default struct IDirectInputDeviceW extends IUnknown {
      * @returns {HRESULT} 
      */
     GetObjectInfo(param0, param1, param2) {
-        result := ComCall(14, this, DIDEVICEOBJECTINSTANCEW.Ptr, param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(14, this, DIDEVICEOBJECTINSTANCEW.Ptr, param0, UInt32, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -221,7 +222,7 @@ export default struct IDirectInputDeviceW extends IUnknown {
      * @returns {HRESULT} 
      */
     RunControlPanel(param0, param1) {
-        result := ComCall(16, this, HWND, param0, "uint", param1, "HRESULT")
+        result := ComCall(16, this, HWND, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -257,7 +258,7 @@ export default struct IDirectInputDeviceW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1, param2) {
-        result := ComCall(17, this, HINSTANCE, param0, "uint", param1, Guid.Ptr, param2, "HRESULT")
+        result := ComCall(17, this, HINSTANCE, param0, UInt32, param1, Guid.Ptr, param2, "HRESULT")
         return result
     }
 

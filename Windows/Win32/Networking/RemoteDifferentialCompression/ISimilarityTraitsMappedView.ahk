@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SimilarityMappedViewInfo.ahk" { SimilarityMappedViewInfo }
 
 /**
@@ -80,7 +80,7 @@ export default struct ISimilarityTraitsMappedView extends IUnknown {
      */
     Get(index, dirty, numElements) {
         viewInfo := SimilarityMappedViewInfo()
-        result := ComCall(5, this, "uint", index, BOOL, dirty, "uint", numElements, SimilarityMappedViewInfo.Ptr, viewInfo, "HRESULT")
+        result := ComCall(5, this, Int64, index, BOOL, dirty, UInt32, numElements, SimilarityMappedViewInfo.Ptr, viewInfo, "HRESULT")
         return viewInfo
     }
 

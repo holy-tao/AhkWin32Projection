@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -97,7 +97,7 @@ export default struct IHTMLOListElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_start(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, Int32, v, "HRESULT")
         return result
     }
 

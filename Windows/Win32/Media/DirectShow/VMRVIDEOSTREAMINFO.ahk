@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NORMALIZEDRECT.ahk" { NORMALIZEDRECT }
-#Import "..\..\Graphics\DirectDraw\DDCOLORKEY.ahk" { DDCOLORKEY }
 #Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
+#Import "..\..\Graphics\DirectDraw\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\NORMALIZEDRECT.ahk" { NORMALIZEDRECT }
 
 /**
  * This topic applies to Windows XP or later. The VMRVIDEOSTREAMINFO structure is used in the VMR-7 filter's call to IVMRImageCompositor::CompositeImage on the image compositor.

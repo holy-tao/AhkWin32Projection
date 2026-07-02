@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CONFIG_CI_PROV_INFO_RESULT2.ahk" { CONFIG_CI_PROV_INFO_RESULT2 }
 #Import ".\CONFIG_CI_PROV_INFO_RESULT.ahk" { CONFIG_CI_PROV_INFO_RESULT }

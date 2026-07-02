@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\TIMECODE_SAMPLE.ahk" { TIMECODE_SAMPLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMTimecodeGenerator interface controls how an external SMPTE/MIDI timecode generator supplies data to the filter graph.DirectShow currently does not provide any filters that implement this interface.
@@ -184,7 +184,7 @@ export default struct IAMTimecodeGenerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodegenerator-gettcgmode
      */
     GetTCGMode(Param) {
-        result := ComCall(3, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(3, this, Int32, Param, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -322,7 +322,7 @@ export default struct IAMTimecodeGenerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodegenerator-settcgmode
      */
     SetTCGMode(Param, Value) {
-        result := ComCall(4, this, "int", Param, "int", Value, "HRESULT")
+        result := ComCall(4, this, Int32, Param, Int32, Value, "HRESULT")
         return result
     }
 
@@ -337,7 +337,7 @@ export default struct IAMTimecodeGenerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodegenerator-put_vitcline
      */
     put_VITCLine(Line) {
-        result := ComCall(5, this, "int", Line, "HRESULT")
+        result := ComCall(5, this, Int32, Line, "HRESULT")
         return result
     }
 

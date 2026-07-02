@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\alljoyn_interfacedescription.ahk" { alljoyn_interfacedescription }
-#Import ".\alljoyn_messagetype.ahk" { alljoyn_messagetype }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\alljoyn_messagetype.ahk" { alljoyn_messagetype }
+#Import ".\alljoyn_interfacedescription.ahk" { alljoyn_interfacedescription }
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn

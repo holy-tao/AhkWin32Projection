@@ -1,13 +1,17 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\System\AddressBook\SPropTagArray.ahk" { SPropTagArray }
+#Import "..\..\System\AddressBook\LPALLOCATEMORE.ahk" { LPALLOCATEMORE }
 #Import "..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
-#Import "..\..\System\Com\IMalloc.ahk" { IMalloc }
+#Import ".\MSGCALLRELEASE.ahk" { MSGCALLRELEASE }
 #Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
 #Import ".\SPropAttrArray.ahk" { SPropAttrArray }
+#Import ".\LPMSGSESS.ahk" { LPMSGSESS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\AddressBook\SPropProblemArray.ahk" { SPropProblemArray }
-#Import ".\LPMSGSESS.ahk" { LPMSGSESS }
+#Import "..\..\System\AddressBook\LPALLOCATEBUFFER.ahk" { LPALLOCATEBUFFER }
+#Import "..\..\System\AddressBook\SPropTagArray.ahk" { SPropTagArray }
+#Import "..\..\System\AddressBook\LPFREEBUFFER.ahk" { LPFREEBUFFER }
+#Import "..\..\System\Com\IMalloc.ahk" { IMalloc }
 
 /**
  * @namespace Windows.Win32.Storage.Imapi
@@ -47,7 +51,7 @@
 export OpenIMsgSession(lpMalloc, ulFlags, lppMsgSess) {
     lppMsgSessMarshal := lppMsgSess is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, "uint", ulFlags, lppMsgSessMarshal, lppMsgSess, Int32)
+    result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, UInt32, ulFlags, lppMsgSessMarshal, lppMsgSess, Int32)
     return result
 }
 
@@ -100,7 +104,7 @@ export OpenIMsgOnIStg(_lpMsgSess, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuf
     lpMapiSupMarshal := lpMapiSup is VarRef ? "ptr" : "ptr"
     lpfMsgCallReleaseMarshal := lpfMsgCallRelease is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MAPI32.dll\OpenIMsgOnIStg", LPMSGSESS, _lpMsgSess, "ptr", _lpAllocateBuffer, "ptr", _lpAllocateMore, "ptr", _lpFreeBuffer, "ptr", lpMalloc, lpMapiSupMarshal, lpMapiSup, "ptr", lpStg, lpfMsgCallReleaseMarshal, lpfMsgCallRelease, "uint", ulCallerData, "uint", ulFlags, IMessage.Ptr, lppMsg, Int32)
+    result := DllCall("MAPI32.dll\OpenIMsgOnIStg", LPMSGSESS, _lpMsgSess, LPALLOCATEBUFFER, _lpAllocateBuffer, LPALLOCATEMORE, _lpAllocateMore, LPFREEBUFFER, _lpFreeBuffer, "ptr", lpMalloc, lpMapiSupMarshal, lpMapiSup, "ptr", lpStg, lpfMsgCallReleaseMarshal, lpfMsgCallRelease, UInt32, ulCallerData, UInt32, ulFlags, IMessage.Ptr, lppMsg, Int32)
     return result
 }
 
@@ -181,7 +185,7 @@ export SetAttribIMsgOnIStg(lpObject, lpPropTags, lpPropAttrs, lppPropProblems) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapstoragescode
  */
 export MapStorageSCode(StgSCode) {
-    result := DllCall("MAPI32.dll\MapStorageSCode", "int", StgSCode, Int32)
+    result := DllCall("MAPI32.dll\MapStorageSCode", Int32, StgSCode, Int32)
     return result
 }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XmlStandalone.ahk" { XmlStandalone }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXmlReader.ahk" { IXmlReader }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\XmlStandalone.ahk" { XmlStandalone }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXmlReader.ahk" { IXmlReader }
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
@@ -87,7 +87,7 @@ export default struct IXmlWriterLite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/getproperty
      */
     GetProperty(nProperty) {
-        result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, nProperty, "ptr*", &ppValue := 0, "HRESULT")
         return ppValue
     }
 
@@ -98,7 +98,7 @@ export default struct IXmlWriterLite extends IUnknown {
      * @returns {HRESULT} 
      */
     SetProperty(nProperty, pValue) {
-        result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "HRESULT")
+        result := ComCall(5, this, UInt32, nProperty, IntPtr, pValue, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IXmlWriterLite extends IUnknown {
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(7, this, "ptr", pwszQName, "uint", cwszQName, "ptr", pwszValue, "uint", cwszValue, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszQName, UInt32, cwszQName, "ptr", pwszValue, UInt32, cwszValue, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IXmlWriterLite extends IUnknown {
      * @returns {HRESULT} 
      */
     WriteCharEntity(wch) {
-        result := ComCall(9, this, "char", wch, "HRESULT")
+        result := ComCall(9, this, Int8, wch, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct IXmlWriterLite extends IUnknown {
     WriteChars(pwch, cwch) {
         pwch := pwch is String ? StrPtr(pwch) : pwch
 
-        result := ComCall(10, this, "ptr", pwch, "uint", cwch, "HRESULT")
+        result := ComCall(10, this, "ptr", pwch, UInt32, cwch, "HRESULT")
         return result
     }
 
@@ -205,7 +205,7 @@ export default struct IXmlWriterLite extends IUnknown {
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(13, this, "ptr", pwszQName, "uint", cwszQName, "ptr", pwszValue, "HRESULT")
+        result := ComCall(13, this, "ptr", pwszQName, UInt32, cwszQName, "ptr", pwszValue, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IXmlWriterLite extends IUnknown {
     WriteEndElement(pwszQName, cwszQName) {
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
 
-        result := ComCall(15, this, "ptr", pwszQName, "uint", cwszQName, "HRESULT")
+        result := ComCall(15, this, "ptr", pwszQName, UInt32, cwszQName, "HRESULT")
         return result
     }
 
@@ -252,7 +252,7 @@ export default struct IXmlWriterLite extends IUnknown {
     WriteFullEndElement(pwszQName, cwszQName) {
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
 
-        result := ComCall(17, this, "ptr", pwszQName, "uint", cwszQName, "HRESULT")
+        result := ComCall(17, this, "ptr", pwszQName, UInt32, cwszQName, "HRESULT")
         return result
     }
 
@@ -337,7 +337,7 @@ export default struct IXmlWriterLite extends IUnknown {
     WriteRawChars(pwch, cwch) {
         pwch := pwch is String ? StrPtr(pwch) : pwch
 
-        result := ComCall(24, this, "ptr", pwch, "uint", cwch, "HRESULT")
+        result := ComCall(24, this, "ptr", pwch, UInt32, cwch, "HRESULT")
         return result
     }
 
@@ -360,7 +360,7 @@ export default struct IXmlWriterLite extends IUnknown {
     WriteStartElement(pwszQName, cwszQName) {
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
 
-        result := ComCall(26, this, "ptr", pwszQName, "uint", cwszQName, "HRESULT")
+        result := ComCall(26, this, "ptr", pwszQName, UInt32, cwszQName, "HRESULT")
         return result
     }
 
@@ -383,7 +383,7 @@ export default struct IXmlWriterLite extends IUnknown {
      * @returns {HRESULT} 
      */
     WriteSurrogateCharEntity(wchLow, wchHigh) {
-        result := ComCall(28, this, "char", wchLow, "char", wchHigh, "HRESULT")
+        result := ComCall(28, this, Int8, wchLow, Int8, wchHigh, "HRESULT")
         return result
     }
 

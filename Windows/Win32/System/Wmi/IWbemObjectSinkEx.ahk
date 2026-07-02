@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 #Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -52,7 +52,7 @@ export default struct IWbemObjectSinkEx extends IWbemObjectSink {
     WriteMessage(uChannel, strMessage) {
         strMessage := strMessage is String ? BSTR.Alloc(strMessage).Value : strMessage
 
-        result := ComCall(5, this, "uint", uChannel, BSTR, strMessage, "HRESULT")
+        result := ComCall(5, this, UInt32, uChannel, BSTR, strMessage, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IWbemObjectSinkEx extends IWbemObjectSink {
     PromptUser(strMessage, uPromptType) {
         strMessage := strMessage is String ? BSTR.Alloc(strMessage).Value : strMessage
 
-        result := ComCall(7, this, BSTR, strMessage, "char", uPromptType, "char*", &puReturned := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, strMessage, Int8, uPromptType, "char*", &puReturned := 0, "HRESULT")
         return puReturned
     }
 
@@ -96,7 +96,7 @@ export default struct IWbemObjectSinkEx extends IWbemObjectSink {
         strCurrentOperation := strCurrentOperation is String ? BSTR.Alloc(strCurrentOperation).Value : strCurrentOperation
         strStatusDescription := strStatusDescription is String ? BSTR.Alloc(strStatusDescription).Value : strStatusDescription
 
-        result := ComCall(8, this, BSTR, strActivity, BSTR, strCurrentOperation, BSTR, strStatusDescription, "uint", uPercentComplete, "uint", uSecondsRemaining, "HRESULT")
+        result := ComCall(8, this, BSTR, strActivity, BSTR, strCurrentOperation, BSTR, strStatusDescription, UInt32, uPercentComplete, UInt32, uSecondsRemaining, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IWbemObjectSinkEx extends IWbemObjectSink {
     WriteStreamParameter(strName, vtValue, ulType, ulFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(9, this, BSTR, strName, VARIANT.Ptr, vtValue, "uint", ulType, "uint", ulFlags, "HRESULT")
+        result := ComCall(9, this, BSTR, strName, VARIANT.Ptr, vtValue, UInt32, ulType, UInt32, ulFlags, "HRESULT")
         return result
     }
 

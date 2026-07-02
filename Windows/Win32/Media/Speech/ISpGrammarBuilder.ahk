@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPPROPERTYINFO.ahk" { SPPROPERTYINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SPGRAMMARWORDTYPE.ahk" { SPGRAMMARWORDTYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SPSTATEHANDLE.ahk" { SPSTATEHANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPROPERTYINFO.ahk" { SPPROPERTYINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -53,7 +53,7 @@ export default struct ISpGrammarBuilder extends IUnknown {
      * @returns {HRESULT} 
      */
     ResetGrammar(NewLanguage) {
-        result := ComCall(3, this, "ushort", NewLanguage, "HRESULT")
+        result := ComCall(3, this, UInt16, NewLanguage, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct ISpGrammarBuilder extends IUnknown {
     GetRule(pszRuleName, dwRuleId, dwAttributes, fCreateIfNotExist, phInitialState) {
         pszRuleName := pszRuleName is String ? StrPtr(pszRuleName) : pszRuleName
 
-        result := ComCall(4, this, "ptr", pszRuleName, "uint", dwRuleId, "uint", dwAttributes, BOOL, fCreateIfNotExist, SPSTATEHANDLE.Ptr, phInitialState, "HRESULT")
+        result := ComCall(4, this, "ptr", pszRuleName, UInt32, dwRuleId, UInt32, dwAttributes, BOOL, fCreateIfNotExist, SPSTATEHANDLE.Ptr, phInitialState, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct ISpGrammarBuilder extends IUnknown {
         psz := psz is String ? StrPtr(psz) : psz
         pszSeparators := pszSeparators is String ? StrPtr(pszSeparators) : pszSeparators
 
-        result := ComCall(7, this, SPSTATEHANDLE, hFromState, SPSTATEHANDLE, hToState, "ptr", psz, "ptr", pszSeparators, SPGRAMMARWORDTYPE, eWordType, "float", Weight, SPPROPERTYINFO.Ptr, pPropInfo, "HRESULT")
+        result := ComCall(7, this, SPSTATEHANDLE, hFromState, SPSTATEHANDLE, hToState, "ptr", psz, "ptr", pszSeparators, SPGRAMMARWORDTYPE, eWordType, Float32, Weight, SPPROPERTYINFO.Ptr, pPropInfo, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct ISpGrammarBuilder extends IUnknown {
      * @returns {HRESULT} 
      */
     AddRuleTransition(hFromState, hToState, hRule, Weight, pPropInfo) {
-        result := ComCall(8, this, SPSTATEHANDLE, hFromState, SPSTATEHANDLE, hToState, SPSTATEHANDLE, hRule, "float", Weight, SPPROPERTYINFO.Ptr, pPropInfo, "HRESULT")
+        result := ComCall(8, this, SPSTATEHANDLE, hFromState, SPSTATEHANDLE, hToState, SPSTATEHANDLE, hRule, Float32, Weight, SPPROPERTYINFO.Ptr, pPropInfo, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct ISpGrammarBuilder extends IUnknown {
      * @returns {HRESULT} 
      */
     Commit(dwReserved) {
-        result := ComCall(10, this, "uint", dwReserved, "HRESULT")
+        result := ComCall(10, this, UInt32, dwReserved, "HRESULT")
         return result
     }
 

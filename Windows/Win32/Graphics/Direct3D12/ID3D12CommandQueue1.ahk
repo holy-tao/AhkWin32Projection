@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
-#Import ".\D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY.ahk" { D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_COMMAND_QUEUE_PROCESS_PRIORITY.ahk" { D3D12_COMMAND_QUEUE_PROCESS_PRIORITY }
+#Import ".\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY.ahk" { D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

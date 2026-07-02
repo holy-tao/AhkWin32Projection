@@ -71,7 +71,7 @@ export default struct ID3D11Resource extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11resource-setevictionpriority
      */
     SetEvictionPriority(EvictionPriority) {
-        ComCall(8, this, "uint", EvictionPriority)
+        ComCall(8, this, UInt32, EvictionPriority)
     }
 
     /**

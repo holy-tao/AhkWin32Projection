@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IBDA_NetworkProvider interface is implemented on a Network Provider filter. It provides methods that BDA device filters call to register themselves after they are added to the graph.
@@ -52,7 +52,7 @@ export default struct IBDA_NetworkProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-putsignalsource
      */
     PutSignalSource(ulSignalSource) {
-        result := ComCall(3, this, "uint", ulSignalSource, "HRESULT")
+        result := ComCall(3, this, UInt32, ulSignalSource, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IBDA_NetworkProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-unregisterdevicefilter
      */
     UnRegisterDeviceFilter(pvRegistrationContext) {
-        result := ComCall(9, this, "uint", pvRegistrationContext, "HRESULT")
+        result := ComCall(9, this, UInt32, pvRegistrationContext, "HRESULT")
         return result
     }
 

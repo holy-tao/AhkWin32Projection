@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMDSPEnumStorage.ahk" { IMDSPEnumStorage }
 #Import ".\WMDMID.ahk" { WMDMID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\IMDSPEnumStorage.ahk" { IMDSPEnumStorage }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMDSPDevice interface provides an instance-based association with a media device.
@@ -75,7 +75,7 @@ export default struct IMDSPDevice extends IUnknown {
     GetName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(3, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IMDSPDevice extends IUnknown {
     GetManufacturer(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(4, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 

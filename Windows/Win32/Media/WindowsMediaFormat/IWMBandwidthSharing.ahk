@@ -168,7 +168,7 @@ export default struct IWMBandwidthSharing extends IWMStreamList {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-setbandwidth
      */
     SetBandwidth(dwBitrate, msBufferWindow) {
-        result := ComCall(9, this, "uint", dwBitrate, "uint", msBufferWindow, "HRESULT")
+        result := ComCall(9, this, UInt32, dwBitrate, UInt32, msBufferWindow, "HRESULT")
         return result
     }
 

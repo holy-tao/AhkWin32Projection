@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes enumeration of IShellItem interfaces. This interface is typically obtained by calling the IEnumShellItems method.
@@ -97,7 +97,7 @@ export default struct IEnumShellItems extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, IShellItem.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, IShellItem.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IEnumShellItems extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumshellitems-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains additional information about the status of an enrollment that is in progress.

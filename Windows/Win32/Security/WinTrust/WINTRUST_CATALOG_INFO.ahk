@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Cryptography\CTL_CONTEXT.ahk" { CTL_CONTEXT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The WINTRUST_CATALOG_INFO structure is used when calling WinVerifyTrust to verify a member of a Microsoft catalog.

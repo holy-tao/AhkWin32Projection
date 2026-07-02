@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
 
 /**
  * The IChannelTuneRequest interface is implemented on tuning request objects that support channel numbers, including analog TV and ATSC.
@@ -73,7 +73,7 @@ export default struct IChannelTuneRequest extends ITuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichanneltunerequest-put_channel
      */
     put_Channel(Channel) {
-        result := ComCall(13, this, "int", Channel, "HRESULT")
+        result := ComCall(13, this, Int32, Channel, "HRESULT")
         return result
     }
 

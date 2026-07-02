@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_RANGE.ahk" { D3D12_RANGE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3D12_RANGE.ahk" { D3D12_RANGE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -42,7 +42,7 @@ export default struct ID3D12ManualWriteTrackingResource extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     TrackWrite(Subresource, pWrittenRange) {
-        ComCall(3, this, "uint", Subresource, D3D12_RANGE.Ptr, pWrittenRange)
+        ComCall(3, this, UInt32, Subresource, D3D12_RANGE.Ptr, pWrittenRange)
     }
 
     Query(iid) {

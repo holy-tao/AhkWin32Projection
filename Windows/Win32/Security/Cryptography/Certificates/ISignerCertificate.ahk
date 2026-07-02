@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EncodingType.ahk" { EncodingType }
 #Import ".\X509PrivateKeyVerify.ahk" { X509PrivateKeyVerify }
-#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Represents a signing certificate that enables you to sign a certificate request.
@@ -346,7 +346,7 @@ export default struct ISignerCertificate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-put_parentwindow
      */
     put_ParentWindow(Value) {
-        result := ComCall(13, this, "int", Value, "HRESULT")
+        result := ComCall(13, this, Int32, Value, "HRESULT")
         return result
     }
 

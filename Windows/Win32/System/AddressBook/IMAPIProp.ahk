@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPropProblemArray.ahk" { SPropProblemArray }
-#Import ".\SPropValue.ahk" { SPropValue }
-#Import ".\IMAPIProgress.ahk" { IMAPIProgress }
-#Import ".\SPropTagArray.ahk" { SPropTagArray }
-#Import ".\MAPINAMEID.ahk" { MAPINAMEID }
 #Import ".\MAPIERROR.ahk" { MAPIERROR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\SPropProblemArray.ahk" { SPropProblemArray }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\IMAPIProgress.ahk" { IMAPIProgress }
+#Import ".\MAPINAMEID.ahk" { MAPINAMEID }
 
 /**
  * IMAPIPropIUnknown enables clients, service providers, and MAPI to work with properties. All objects that support properties implement this interface.
@@ -93,7 +93,7 @@ export default struct IMAPIProp extends IUnknown {
     GetLastError(_hResult, ulFlags, lppMAPIError) {
         lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
+        result := ComCall(3, this, "int", _hResult, UInt32, ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-savechanges
      */
     SaveChanges(ulFlags) {
-        result := ComCall(4, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -205,7 +205,7 @@ export default struct IMAPIProp extends IUnknown {
         lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
         lppPropArrayMarshal := lppPropArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, SPropTagArray.Ptr, lpPropTagArray, "uint", ulFlags, lpcValuesMarshal, lpcValues, lppPropArrayMarshal, lppPropArray, "HRESULT")
+        result := ComCall(5, this, SPropTagArray.Ptr, lpPropTagArray, UInt32, ulFlags, lpcValuesMarshal, lpcValues, lppPropArrayMarshal, lppPropArray, "HRESULT")
         return result
     }
 
@@ -235,7 +235,7 @@ export default struct IMAPIProp extends IUnknown {
     GetPropList(ulFlags, lppPropTagArray) {
         lppPropTagArrayMarshal := lppPropTagArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", ulFlags, lppPropTagArrayMarshal, lppPropTagArray, "HRESULT")
+        result := ComCall(6, this, UInt32, ulFlags, lppPropTagArrayMarshal, lppPropTagArray, "HRESULT")
         return result
     }
 
@@ -267,7 +267,7 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-openproperty
      */
     OpenProperty(ulPropTag, lpiid, ulInterfaceOptions, ulFlags) {
-        result := ComCall(7, this, "uint", ulPropTag, Guid.Ptr, lpiid, "uint", ulInterfaceOptions, "uint", ulFlags, "ptr*", &lppUnk := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, ulPropTag, Guid.Ptr, lpiid, UInt32, ulInterfaceOptions, UInt32, ulFlags, "ptr*", &lppUnk := 0, "HRESULT")
         return IUnknown(lppUnk)
     }
 
@@ -310,7 +310,7 @@ export default struct IMAPIProp extends IUnknown {
     SetProps(cValues, lpPropArray, lppProblems) {
         lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "uint", cValues, SPropValue.Ptr, lpPropArray, lppProblemsMarshal, lppProblems, "HRESULT")
+        result := ComCall(8, this, UInt32, cValues, SPropValue.Ptr, lpPropArray, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
     }
 
@@ -414,7 +414,7 @@ export default struct IMAPIProp extends IUnknown {
         lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : "ptr"
         lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "uint", ciidExclude, Guid.Ptr, rgiidExclude, SPropTagArray.Ptr, lpExcludeProps, "ptr", ulUIParam, "ptr", lpProgress, Guid.Ptr, lpInterface, lpDestObjMarshal, lpDestObj, "uint", ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
+        result := ComCall(10, this, UInt32, ciidExclude, Guid.Ptr, rgiidExclude, SPropTagArray.Ptr, lpExcludeProps, IntPtr, ulUIParam, "ptr", lpProgress, Guid.Ptr, lpInterface, lpDestObjMarshal, lpDestObj, UInt32, ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
     }
 
@@ -494,7 +494,7 @@ export default struct IMAPIProp extends IUnknown {
         lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : "ptr"
         lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, SPropTagArray.Ptr, lpIncludeProps, "ptr", ulUIParam, "ptr", lpProgress, Guid.Ptr, lpInterface, lpDestObjMarshal, lpDestObj, "uint", ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
+        result := ComCall(11, this, SPropTagArray.Ptr, lpIncludeProps, IntPtr, ulUIParam, "ptr", lpProgress, Guid.Ptr, lpInterface, lpDestObjMarshal, lpDestObj, UInt32, ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
     }
 
@@ -561,7 +561,7 @@ export default struct IMAPIProp extends IUnknown {
         lpcPropNamesMarshal := lpcPropNames is VarRef ? "uint*" : "ptr"
         lpppPropNamesMarshal := lpppPropNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, lppPropTagsMarshal, lppPropTags, Guid.Ptr, lpPropSetGuid, "uint", ulFlags, lpcPropNamesMarshal, lpcPropNames, lpppPropNamesMarshal, lpppPropNames, "HRESULT")
+        result := ComCall(12, this, lppPropTagsMarshal, lppPropTags, Guid.Ptr, lpPropSetGuid, UInt32, ulFlags, lpcPropNamesMarshal, lpcPropNames, lpppPropNamesMarshal, lpppPropNames, "HRESULT")
         return result
     }
 
@@ -614,7 +614,7 @@ export default struct IMAPIProp extends IUnknown {
         lppPropNamesMarshal := lppPropNames is VarRef ? "ptr*" : "ptr"
         lppPropTagsMarshal := lppPropTags is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "uint", cPropNames, lppPropNamesMarshal, lppPropNames, "uint", ulFlags, lppPropTagsMarshal, lppPropTags, "HRESULT")
+        result := ComCall(13, this, UInt32, cPropNames, lppPropNamesMarshal, lppPropNames, UInt32, ulFlags, lppPropTagsMarshal, lppPropTags, "HRESULT")
         return result
     }
 

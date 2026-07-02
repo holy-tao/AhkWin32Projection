@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that enumerate the possible values for a property.
@@ -67,7 +67,7 @@ export default struct IPropertyEnumTypeList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getat
      */
     GetAt(itype, riid) {
-        result := ComCall(4, this, "uint", itype, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, itype, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -85,7 +85,7 @@ export default struct IPropertyEnumTypeList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getconditionat
      */
     GetConditionAt(nIndex, riid) {
-        result := ComCall(5, this, "uint", nIndex, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, nIndex, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

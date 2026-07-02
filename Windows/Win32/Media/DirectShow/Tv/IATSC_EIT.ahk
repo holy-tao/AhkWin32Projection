@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
 #Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 #Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
+#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -153,7 +153,7 @@ export default struct IATSC_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecordeventid
      */
     GetRecordEventId(dwRecordIndex) {
-        result := ComCall(8, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -165,7 +165,7 @@ export default struct IATSC_EIT extends IUnknown {
      */
     GetRecordStartTime(dwRecordIndex) {
         pmdtVal := MPEG_DATE_AND_TIME()
-        result := ComCall(9, this, "uint", dwRecordIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
+        result := ComCall(9, this, UInt32, dwRecordIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
         return pmdtVal
     }
 
@@ -176,7 +176,7 @@ export default struct IATSC_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecordetmlocation
      */
     GetRecordEtmLocation(dwRecordIndex) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -188,7 +188,7 @@ export default struct IATSC_EIT extends IUnknown {
      */
     GetRecordDuration(dwRecordIndex) {
         pmdVal := MPEG_TIME()
-        result := ComCall(11, this, "uint", dwRecordIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
+        result := ComCall(11, this, UInt32, dwRecordIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
         return pmdVal
     }
 
@@ -266,7 +266,7 @@ export default struct IATSC_EIT extends IUnknown {
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
         ppTextMarshal := ppText is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwRecordIndex, pdwLengthMarshal, pdwLength, ppTextMarshal, ppText, "HRESULT")
+        result := ComCall(12, this, UInt32, dwRecordIndex, pdwLengthMarshal, pdwLength, ppTextMarshal, ppText, "HRESULT")
         return result
     }
 
@@ -277,7 +277,7 @@ export default struct IATSC_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -289,7 +289,7 @@ export default struct IATSC_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
-        result := ComCall(14, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwRecordIndex, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -306,7 +306,7 @@ export default struct IATSC_EIT extends IUnknown {
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

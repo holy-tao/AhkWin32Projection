@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IRTCSession.ahk" { IRTCSession }
 #Import ".\RTC_SECURITY_TYPE.ahk" { RTC_SECURITY_TYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -55,7 +55,7 @@ export default struct IRTCSession2 extends IRTCSession {
         bstrInfoHeader := bstrInfoHeader is String ? BSTR.Alloc(bstrInfoHeader).Value : bstrInfoHeader
         bstrInfo := bstrInfo is String ? BSTR.Alloc(bstrInfo).Value : bstrInfo
 
-        result := ComCall(23, this, BSTR, bstrInfoHeader, BSTR, bstrInfo, "ptr", lCookie, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrInfoHeader, BSTR, bstrInfo, IntPtr, lCookie, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IRTCSession2 extends IRTCSession {
         bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
         bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
 
-        result := ComCall(28, this, BSTR, bstrContentType, BSTR, bstrSessionDescription, "ptr", lCookie, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrContentType, BSTR, bstrSessionDescription, IntPtr, lCookie, "HRESULT")
         return result
     }
 

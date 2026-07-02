@@ -42,7 +42,7 @@ export default struct IWindowsDevicesAllJoynBusObjectFactoryInterop extends IIns
      * @returns {Pointer<Void>} 
      */
     CreateFromWin32Handle(win32handle, riid) {
-        result := ComCall(6, this, "uint", win32handle, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, Int64, win32handle, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVPManager interface is implemented on the Video Port Manager (VPM).
@@ -47,7 +47,7 @@ export default struct IVPManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivpmanager-setvideoportindex
      */
     SetVideoPortIndex(dwVideoPortIndex) {
-        result := ComCall(3, this, "uint", dwVideoPortIndex, "HRESULT")
+        result := ComCall(3, this, UInt32, dwVideoPortIndex, "HRESULT")
         return result
     }
 

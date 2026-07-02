@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 #Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Security\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Represents the criteria for matching client certificates against those of an HTTPS server. (WSD_SECURITY_CERT_VALIDATION)

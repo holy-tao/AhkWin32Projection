@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EXPLORER_BROWSER_FILL_FLAGS.ahk" { EXPLORER_BROWSER_FILL_FLAGS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\EXPLORER_BROWSER_OPTIONS.ahk" { EXPLORER_BROWSER_OPTIONS }
 #Import ".\IExplorerBrowserEvents.ahk" { IExplorerBrowserEvents }
 #Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\WindowsAndMessaging\HDWP.ahk" { HDWP }
+#Import ".\EXPLORER_BROWSER_OPTIONS.ahk" { EXPLORER_BROWSER_OPTIONS }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\EXPLORER_BROWSER_FILL_FLAGS.ahk" { EXPLORER_BROWSER_FILL_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\WindowsAndMessaging\HDWP.ahk" { HDWP }
 
 /**
  * IExplorerBrowser is a browser object that can be either navigated or that can host a view of a data object. As a full-featured browser object, it also supports an automatic travel log.
@@ -258,7 +258,7 @@ export default struct IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-unadvise
      */
     Unadvise(dwCookie) {
-        result := ComCall(10, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(10, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -325,7 +325,7 @@ export default struct IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-browsetoidlist
      */
     BrowseToIDList(pidl, uFlags) {
-        result := ComCall(13, this, ITEMIDLIST.Ptr, pidl, "uint", uFlags, "HRESULT")
+        result := ComCall(13, this, ITEMIDLIST.Ptr, pidl, UInt32, uFlags, "HRESULT")
         return result
     }
 
@@ -347,7 +347,7 @@ export default struct IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-browsetoobject
      */
     BrowseToObject(punk, uFlags) {
-        result := ComCall(14, this, "ptr", punk, "uint", uFlags, "HRESULT")
+        result := ComCall(14, this, "ptr", punk, UInt32, uFlags, "HRESULT")
         return result
     }
 

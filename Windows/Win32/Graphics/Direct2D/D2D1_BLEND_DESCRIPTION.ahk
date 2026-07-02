@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D2D1_BLEND.ahk" { D2D1_BLEND }
 #Import ".\D2D1_BLEND_OPERATION.ahk" { D2D1_BLEND_OPERATION }
+#Import ".\D2D1_BLEND.ahk" { D2D1_BLEND }
 
 /**
  * Defines a blend description to be used in a particular blend transform.

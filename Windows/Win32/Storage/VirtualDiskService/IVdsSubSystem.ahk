@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VDS_SUB_SYSTEM_PROP.ahk" { VDS_SUB_SYSTEM_PROP }
 #Import ".\VDS_HINTS.ahk" { VDS_HINTS }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import ".\VDS_SUB_SYSTEM_STATUS.ahk" { VDS_SUB_SYSTEM_STATUS }
-#Import ".\IVdsDrive.ahk" { IVdsDrive }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
-#Import ".\IVdsProvider.ahk" { IVdsProvider }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import ".\IVdsDrive.ahk" { IVdsDrive }
+#Import ".\IVdsProvider.ahk" { IVdsProvider }
 
 /**
  * The IVdsSubSystem interface (vdshwprv.h) provides methods for performing query and configuration operations on a subsystem.
@@ -144,7 +144,7 @@ export default struct IVdsSubSystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-getdrive
      */
     GetDrive(sBusNumber, sSlotNumber) {
-        result := ComCall(8, this, "short", sBusNumber, "short", sSlotNumber, "ptr*", &ppDrive := 0, "HRESULT")
+        result := ComCall(8, this, Int16, sBusNumber, Int16, sSlotNumber, "ptr*", &ppDrive := 0, "HRESULT")
         return IVdsDrive(ppDrive)
     }
 
@@ -331,7 +331,7 @@ export default struct IVdsSubSystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-setcontrollerstatus
      */
     SetControllerStatus(pOnlineControllerIdArray, lNumberOfOnlineControllers, pOfflineControllerIdArray, lNumberOfOfflineControllers) {
-        result := ComCall(10, this, Guid.Ptr, pOnlineControllerIdArray, "int", lNumberOfOnlineControllers, Guid.Ptr, pOfflineControllerIdArray, "int", lNumberOfOfflineControllers, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pOnlineControllerIdArray, Int32, lNumberOfOnlineControllers, Guid.Ptr, pOfflineControllerIdArray, Int32, lNumberOfOfflineControllers, "HRESULT")
         return result
     }
 
@@ -430,7 +430,7 @@ export default struct IVdsSubSystem extends IUnknown {
     CreateLun(type, ullSizeInBytes, pDriveIdArray, lNumberOfDrives, pwszUnmaskingList, pHints) {
         pwszUnmaskingList := pwszUnmaskingList is String ? StrPtr(pwszUnmaskingList) : pwszUnmaskingList
 
-        result := ComCall(11, this, VDS_LUN_TYPE, type, "uint", ullSizeInBytes, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, VDS_HINTS.Ptr, pHints, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(11, this, VDS_LUN_TYPE, type, Int64, ullSizeInBytes, Guid.Ptr, pDriveIdArray, Int32, lNumberOfDrives, "ptr", pwszUnmaskingList, VDS_HINTS.Ptr, pHints, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -630,7 +630,7 @@ export default struct IVdsSubSystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystem-querymaxluncreatesize
      */
     QueryMaxLunCreateSize(type, pDriveIdArray, lNumberOfDrives, pHints) {
-        result := ComCall(14, this, VDS_LUN_TYPE, type, Guid.Ptr, pDriveIdArray, "int", lNumberOfDrives, VDS_HINTS.Ptr, pHints, "uint*", &pullMaxLunSize := 0, "HRESULT")
+        result := ComCall(14, this, VDS_LUN_TYPE, type, Guid.Ptr, pDriveIdArray, Int32, lNumberOfDrives, VDS_HINTS.Ptr, pHints, "uint*", &pullMaxLunSize := 0, "HRESULT")
         return pullMaxLunSize
     }
 

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
-#Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Extends IShellItem with methods that retrieve various property values of the item. IShellItem and IShellItem2 are the preferred representations of items in any new code.
@@ -132,7 +132,7 @@ export default struct IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystoreforkeys
      */
     GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid) {
-        result := ComCall(10, this, PROPERTYKEY.Ptr, rgKeys, "uint", cKeys, GETPROPERTYSTOREFLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, PROPERTYKEY.Ptr, rgKeys, UInt32, cKeys, GETPROPERTYSTOREFLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

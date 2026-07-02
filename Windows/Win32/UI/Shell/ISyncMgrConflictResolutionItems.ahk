@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CONFIRM_CONFLICT_RESULT_INFO.ahk" { CONFIRM_CONFLICT_RESULT_INFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CONFIRM_CONFLICT_RESULT_INFO.ahk" { CONFIRM_CONFLICT_RESULT_INFO }
 
 /**
  * Exposes methods that get item info and item count.
@@ -63,7 +63,7 @@ export default struct ISyncMgrConflictResolutionItems extends IUnknown {
      */
     GetItem(iIndex) {
         pItemInfo := CONFIRM_CONFLICT_RESULT_INFO()
-        result := ComCall(4, this, "uint", iIndex, CONFIRM_CONFLICT_RESULT_INFO.Ptr, pItemInfo, "HRESULT")
+        result := ComCall(4, this, UInt32, iIndex, CONFIRM_CONFLICT_RESULT_INFO.Ptr, pItemInfo, "HRESULT")
         return pItemInfo
     }
 

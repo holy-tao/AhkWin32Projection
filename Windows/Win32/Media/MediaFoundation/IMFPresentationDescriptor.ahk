@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IMFStreamDescriptor.ahk" { IMFStreamDescriptor }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Describes the details of a presentation. A presentation is a set of related media streams that share a common presentation time.
@@ -87,7 +87,7 @@ export default struct IMFPresentationDescriptor extends IMFAttributes {
     GetStreamDescriptorByIndex(dwIndex, pfSelected, ppDescriptor) {
         pfSelectedMarshal := pfSelected is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, "uint", dwIndex, pfSelectedMarshal, pfSelected, IMFStreamDescriptor.Ptr, ppDescriptor, "HRESULT")
+        result := ComCall(34, this, UInt32, dwIndex, pfSelectedMarshal, pfSelected, IMFStreamDescriptor.Ptr, ppDescriptor, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct IMFPresentationDescriptor extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationdescriptor-selectstream
      */
     SelectStream(dwDescriptorIndex) {
-        result := ComCall(35, this, "uint", dwDescriptorIndex, "HRESULT")
+        result := ComCall(35, this, UInt32, dwDescriptorIndex, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct IMFPresentationDescriptor extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationdescriptor-deselectstream
      */
     DeselectStream(dwDescriptorIndex) {
-        result := ComCall(36, this, "uint", dwDescriptorIndex, "HRESULT")
+        result := ComCall(36, this, UInt32, dwDescriptorIndex, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MODIFY_WORLD_TRANSFORM_MODE.ahk" { MODIFY_WORLD_TRANSFORM_MODE }
 #Import ".\XFORM.ahk" { XFORM }
-#Import ".\EMR.ahk" { EMR }
 #Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\MODIFY_WORLD_TRANSFORM_MODE.ahk" { MODIFY_WORLD_TRANSFORM_MODE }
+#Import ".\EMR.ahk" { EMR }
 
 /**
  * The EMRMODIFYWORLDTRANSFORM structure contains members for the ModifyWorldTransform enhanced metafile record.

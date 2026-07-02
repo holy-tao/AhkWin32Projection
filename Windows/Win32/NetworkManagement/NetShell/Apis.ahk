@@ -2,8 +2,8 @@
 
 #Import ".\TOKEN_VALUE.ahk" { TOKEN_VALUE }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\NS_CONTEXT_ATTRIBUTES.ahk" { NS_CONTEXT_ATTRIBUTES }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\NS_CONTEXT_ATTRIBUTES.ahk" { NS_CONTEXT_ATTRIBUTES }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\NS_HELPER_ATTRIBUTES.ahk" { NS_HELPER_ATTRIBUTES }
@@ -31,7 +31,7 @@ export MatchEnumTag(_hModule, pwcArg, dwNumArg, pEnumTable, pdwValue) {
 
     pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETSH.dll\MatchEnumTag", HANDLE, _hModule, "ptr", pwcArg, "uint", dwNumArg, TOKEN_VALUE.Ptr, pEnumTable, pdwValueMarshal, pdwValue, UInt32)
+    result := DllCall("NETSH.dll\MatchEnumTag", HANDLE, _hModule, "ptr", pwcArg, UInt32, dwNumArg, TOKEN_VALUE.Ptr, pEnumTable, pdwValueMarshal, pdwValue, UInt32)
     return result
 }
 
@@ -159,7 +159,7 @@ export PreprocessCommand(_hModule, ppwcArguments, dwCurrentIndex, dwArgCount, pt
     ppwcArgumentsMarshal := ppwcArguments is VarRef ? "ptr*" : "ptr"
     pdwTagTypeMarshal := pdwTagType is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETSH.dll\PreprocessCommand", HANDLE, _hModule, ppwcArgumentsMarshal, ppwcArguments, "uint", dwCurrentIndex, "uint", dwArgCount, TAG_TYPE.Ptr, pttTags, "uint", dwTagCount, "uint", dwMinArgs, "uint", dwMaxArgs, pdwTagTypeMarshal, pdwTagType, UInt32)
+    result := DllCall("NETSH.dll\PreprocessCommand", HANDLE, _hModule, ppwcArgumentsMarshal, ppwcArguments, UInt32, dwCurrentIndex, UInt32, dwArgCount, TAG_TYPE.Ptr, pttTags, UInt32, dwTagCount, UInt32, dwMinArgs, UInt32, dwMaxArgs, pdwTagTypeMarshal, pdwTagType, UInt32)
     return result
 }
 
@@ -176,7 +176,7 @@ export PrintError(_hModule, dwErrId, args*) {
     varArgs := [args*]
     varArgs.Push(UInt32)
 
-    result := DllCall("NETSH.dll\PrintError", HANDLE, _hModule, "uint", dwErrId, varArgs*)
+    result := DllCall("NETSH.dll\PrintError", HANDLE, _hModule, UInt32, dwErrId, varArgs*)
     return result
 }
 
@@ -195,7 +195,7 @@ export PrintMessageFromModule(_hModule, dwMsgId, args*) {
     varArgs := [args*]
     varArgs.Push(UInt32)
 
-    result := DllCall("NETSH.dll\PrintMessageFromModule", HANDLE, _hModule, "uint", dwMsgId, varArgs*)
+    result := DllCall("NETSH.dll\PrintMessageFromModule", HANDLE, _hModule, UInt32, dwMsgId, varArgs*)
     return result
 }
 

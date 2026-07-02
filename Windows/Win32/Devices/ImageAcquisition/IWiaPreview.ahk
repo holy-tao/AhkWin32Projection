@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWiaItem2.ahk" { IWiaItem2 }
 #Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWiaItem2.ahk" { IWiaItem2 }
 
 /**
  * The IWiaPreview interface caches unfiltered images internally and passes them through image processing filters.
@@ -84,7 +84,7 @@ export default struct IWiaPreview extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiapreview-getnewpreview
      */
     GetNewPreview(lFlags, pWiaItem2, pWiaTransferCallback) {
-        result := ComCall(3, this, "int", lFlags, "ptr", pWiaItem2, "ptr", pWiaTransferCallback, "HRESULT")
+        result := ComCall(3, this, Int32, lFlags, "ptr", pWiaItem2, "ptr", pWiaTransferCallback, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IWiaPreview extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiapreview-updatepreview
      */
     UpdatePreview(lFlags, pChildWiaItem2, pWiaTransferCallback) {
-        result := ComCall(4, this, "int", lFlags, "ptr", pChildWiaItem2, "ptr", pWiaTransferCallback, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, "ptr", pChildWiaItem2, "ptr", pWiaTransferCallback, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IWiaPreview extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiapreview-detectregions
      */
     DetectRegions(lFlags) {
-        result := ComCall(5, this, "int", lFlags, "HRESULT")
+        result := ComCall(5, this, Int32, lFlags, "HRESULT")
         return result
     }
 

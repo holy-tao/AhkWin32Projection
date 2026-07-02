@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D2D1_PROPERTY_TYPE.ahk" { D2D1_PROPERTY_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a set of run-time bindable and discoverable properties that allow a data-driven application to modify the state of a Direct2D effect.
@@ -333,7 +333,7 @@ export default struct ID2D1Properties extends IUnknown {
     GetPropertyName(index, name, nameCount) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "uint", index, "ptr", name, "uint", nameCount, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr", name, UInt32, nameCount, "HRESULT")
         return result
     }
 
@@ -357,7 +357,7 @@ export default struct ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertynamelength(u)
      */
     GetPropertyNameLength(index) {
-        result := ComCall(5, this, "uint", index, UInt32)
+        result := ComCall(5, this, UInt32, index, UInt32)
         return result
     }
 
@@ -374,7 +374,7 @@ export default struct ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-gettype(uint32)
      */
     GetType(index) {
-        result := ComCall(6, this, "uint", index, D2D1_PROPERTY_TYPE)
+        result := ComCall(6, this, UInt32, index, D2D1_PROPERTY_TYPE)
         return result
     }
 
@@ -454,7 +454,7 @@ export default struct ID2D1Properties extends IUnknown {
 
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "ptr", name, D2D1_PROPERTY_TYPE, type, dataMarshal, data, "uint", dataSize, "HRESULT")
+        result := ComCall(8, this, "ptr", name, D2D1_PROPERTY_TYPE, type, dataMarshal, data, UInt32, dataSize, "HRESULT")
         return result
     }
 
@@ -510,7 +510,7 @@ export default struct ID2D1Properties extends IUnknown {
     SetValue(index, type, data, dataSize) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", index, D2D1_PROPERTY_TYPE, type, dataMarshal, data, "uint", dataSize, "HRESULT")
+        result := ComCall(9, this, UInt32, index, D2D1_PROPERTY_TYPE, type, dataMarshal, data, UInt32, dataSize, "HRESULT")
         return result
     }
 
@@ -525,7 +525,7 @@ export default struct ID2D1Properties extends IUnknown {
     GetValueByName(name, type, dataSize) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(10, this, "ptr", name, D2D1_PROPERTY_TYPE, type, "char*", &data := 0, "uint", dataSize, "HRESULT")
+        result := ComCall(10, this, "ptr", name, D2D1_PROPERTY_TYPE, type, "char*", &data := 0, UInt32, dataSize, "HRESULT")
         return data
     }
 
@@ -547,7 +547,7 @@ export default struct ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvalue(u_t)
      */
     GetValue(index, type, dataSize) {
-        result := ComCall(11, this, "uint", index, D2D1_PROPERTY_TYPE, type, "char*", &data := 0, "uint", dataSize, "HRESULT")
+        result := ComCall(11, this, UInt32, index, D2D1_PROPERTY_TYPE, type, "char*", &data := 0, UInt32, dataSize, "HRESULT")
         return data
     }
 
@@ -573,7 +573,7 @@ export default struct ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvaluesize(u)
      */
     GetValueSize(index) {
-        result := ComCall(12, this, "uint", index, UInt32)
+        result := ComCall(12, this, UInt32, index, UInt32)
         return result
     }
 
@@ -590,7 +590,7 @@ export default struct ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getsubproperties(uint32_id2d1properties)
      */
     GetSubProperties(index) {
-        result := ComCall(13, this, "uint", index, "ptr*", &subProperties := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, index, "ptr*", &subProperties := 0, "HRESULT")
         return ID2D1Properties(subProperties)
     }
 

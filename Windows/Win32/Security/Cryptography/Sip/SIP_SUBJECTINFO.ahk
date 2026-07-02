@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MS_ADDINFO_FLAT.ahk" { MS_ADDINFO_FLAT }
-#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\MS_ADDINFO_BLOB.ahk" { MS_ADDINFO_BLOB }
-#Import ".\MS_ADDINFO_DETACHEDSIG.ahk" { MS_ADDINFO_DETACHEDSIG }
-#Import "..\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import "..\Catalog\MS_ADDINFO_CATALOGMEMBER.ahk" { MS_ADDINFO_CATALOGMEMBER }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\MS_ADDINFO_DETACHEDSIG.ahk" { MS_ADDINFO_DETACHEDSIG }
+#Import ".\MS_ADDINFO_FLAT.ahk" { MS_ADDINFO_FLAT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Catalog\MS_ADDINFO_CATALOGMEMBER.ahk" { MS_ADDINFO_CATALOGMEMBER }
+#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MS_ADDINFO_BLOB.ahk" { MS_ADDINFO_BLOB }
+#Import "..\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
 
 /**
  * Specifies subject information data to the subject interface package (SIP) APIs.

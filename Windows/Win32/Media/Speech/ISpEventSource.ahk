@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SPEVENT.ahk" { SPEVENT }
-#Import ".\ISpNotifySource.ahk" { ISpNotifySource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SPEVENTSOURCEINFO.ahk" { SPEVENTSOURCEINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpNotifySource.ahk" { ISpNotifySource }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -46,7 +46,7 @@ export default struct ISpEventSource extends ISpNotifySource {
      * @returns {HRESULT} 
      */
     SetInterest(ullEventInterest, ullQueuedInterest) {
-        result := ComCall(10, this, "uint", ullEventInterest, "uint", ullQueuedInterest, "HRESULT")
+        result := ComCall(10, this, Int64, ullEventInterest, Int64, ullQueuedInterest, "HRESULT")
         return result
     }
 
@@ -60,7 +60,7 @@ export default struct ISpEventSource extends ISpNotifySource {
     GetEvents(ulCount, pEventArray, pulFetched) {
         pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", ulCount, SPEVENT.Ptr, pEventArray, pulFetchedMarshal, pulFetched, "HRESULT")
+        result := ComCall(11, this, UInt32, ulCount, SPEVENT.Ptr, pEventArray, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -46,7 +46,7 @@ export default struct ISurfacePresenter extends IUnknown {
      * @returns {HRESULT} 
      */
     Present(uBuffer, pDirty) {
-        result := ComCall(3, this, "uint", uBuffer, RECT.Ptr, pDirty, "HRESULT")
+        result := ComCall(3, this, UInt32, uBuffer, RECT.Ptr, pDirty, "HRESULT")
         return result
     }
 
@@ -57,7 +57,7 @@ export default struct ISurfacePresenter extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     GetBuffer(backBufferIndex, riid) {
-        result := ComCall(4, this, "uint", backBufferIndex, Guid.Ptr, riid, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, backBufferIndex, Guid.Ptr, riid, "ptr*", &ppBuffer := 0, "HRESULT")
         return ppBuffer
     }
 

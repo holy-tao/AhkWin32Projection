@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CONNECTION_CHANGE_NOTIFICATION.ahk" { CONNECTION_CHANGE_NOTIFICATION }
-#Import ".\ITsSbSession.ahk" { ITsSbSession }
-#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
 #Import ".\ITsSbClientConnection.ahk" { ITsSbClientConnection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CONNECTION_CHANGE_NOTIFICATION.ahk" { CONNECTION_CHANGE_NOTIFICATION }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
 
 /**
  * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to notify plug-ins of any state changes that occur in the session, target, and client connection objects. (ITsSbResourceNotification)
@@ -68,7 +68,7 @@ export default struct ITsSbResourceNotification extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcenotification-notifytargetchange
      */
     NotifyTargetChange(TargetChangeType, pTarget) {
-        result := ComCall(4, this, "uint", TargetChangeType, "ptr", pTarget, "HRESULT")
+        result := ComCall(4, this, UInt32, TargetChangeType, "ptr", pTarget, "HRESULT")
         return result
     }
 

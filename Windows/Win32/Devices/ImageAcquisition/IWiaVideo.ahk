@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WIAVIDEO_STATE.ahk" { WIAVIDEO_STATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWiaVideo interface provides methods that allow an application that uses Windows Image Acquisition (WIA) services to acquire still images from a streaming video device.Note  WIA does not support video devices in Windows Server 2003, Windows Vista, and later. For those versions of the Windows, use DirectShow to acquire images from video.
@@ -203,7 +203,7 @@ export default struct IWiaVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-createvideobydevnum
      */
     CreateVideoByDevNum(uiDeviceNumber, hwndParent, bStretchToFitParent, bAutoBeginPlayback) {
-        result := ComCall(8, this, "uint", uiDeviceNumber, HWND, hwndParent, BOOL, bStretchToFitParent, BOOL, bAutoBeginPlayback, "HRESULT")
+        result := ComCall(8, this, UInt32, uiDeviceNumber, HWND, hwndParent, BOOL, bStretchToFitParent, BOOL, bAutoBeginPlayback, "HRESULT")
         return result
     }
 

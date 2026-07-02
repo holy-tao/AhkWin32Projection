@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISCluster.ahk" { ISCluster }
-#Import ".\ISClusResGroup.ahk" { ISClusResGroup }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISClusNode.ahk" { ISClusNode }
 #Import ".\ISClusRegistryKeys.ahk" { ISClusRegistryKeys }
+#Import ".\ISClusResGroup.ahk" { ISClusResGroup }
 #Import ".\ISClusResDependents.ahk" { ISClusResDependents }
-#Import ".\CLUSTER_RESOURCE_CLASS.ahk" { CLUSTER_RESOURCE_CLASS }
-#Import ".\ISClusCryptoKeys.ahk" { ISClusCryptoKeys }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISCluster.ahk" { ISCluster }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISClusProperties.ahk" { ISClusProperties }
+#Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
 #Import ".\ISClusResType.ahk" { ISClusResType }
-#Import ".\ISClusDisk.ahk" { ISClusDisk }
+#Import ".\ISClusCryptoKeys.ahk" { ISClusCryptoKeys }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CLUS_FLAGS.ahk" { CLUS_FLAGS }
+#Import ".\CLUSTER_RESOURCE_CLASS.ahk" { CLUSTER_RESOURCE_CLASS }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\ISClusResDependencies.ahk" { ISClusResDependencies }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CLUS_FLAGS.ahk" { CLUS_FLAGS }
+#Import ".\ISClusDisk.ahk" { ISClusDisk }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ISClusResPossibleOwnerNodes.ahk" { ISClusResPossibleOwnerNodes }
-#Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
-#Import ".\ISClusNode.ahk" { ISClusNode }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -326,7 +326,7 @@ export default struct ISClusResource extends IDispatch {
     BecomeQuorumResource(bstrDevicePath, lMaxLogSize) {
         bstrDevicePath := bstrDevicePath is String ? BSTR.Alloc(bstrDevicePath).Value : bstrDevicePath
 
-        result := ComCall(16, this, BSTR, bstrDevicePath, "int", lMaxLogSize, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrDevicePath, Int32, lMaxLogSize, "HRESULT")
         return result
     }
 
@@ -355,7 +355,7 @@ export default struct ISClusResource extends IDispatch {
      */
     Online(nTimeout) {
         pvarPending := VARIANT()
-        result := ComCall(19, this, "int", nTimeout, VARIANT.Ptr, pvarPending, "HRESULT")
+        result := ComCall(19, this, Int32, nTimeout, VARIANT.Ptr, pvarPending, "HRESULT")
         return pvarPending
     }
 
@@ -366,7 +366,7 @@ export default struct ISClusResource extends IDispatch {
      */
     Offline(nTimeout) {
         pvarPending := VARIANT()
-        result := ComCall(20, this, "int", nTimeout, VARIANT.Ptr, pvarPending, "HRESULT")
+        result := ComCall(20, this, Int32, nTimeout, VARIANT.Ptr, pvarPending, "HRESULT")
         return pvarPending
     }
 

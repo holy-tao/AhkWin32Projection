@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\AATrustClassID.ahk" { AATrustClassID }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SESSION_TIMEOUT_ACTION_TYPE.ahk" { SESSION_TIMEOUT_ACTION_TYPE }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that notify Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a connection.
@@ -65,7 +65,7 @@ export default struct ITSGAuthorizeConnectionSink extends IUnknown {
         pbSoHResponseMarshal := pbSoHResponse is VarRef ? "char*" : "ptr"
         policyAttributesMarshal := policyAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "int", hrIn, Guid, mainSessionId, "uint", cbSoHResponse, pbSoHResponseMarshal, pbSoHResponse, "uint", idleTimeout, "uint", sessionTimeout, SESSION_TIMEOUT_ACTION_TYPE, sessionTimeoutAction, AATrustClassID, trustClass, policyAttributesMarshal, policyAttributes, "HRESULT")
+        result := ComCall(3, this, "int", hrIn, Guid, mainSessionId, UInt32, cbSoHResponse, pbSoHResponseMarshal, pbSoHResponse, UInt32, idleTimeout, UInt32, sessionTimeout, SESSION_TIMEOUT_ACTION_TYPE, sessionTimeoutAction, AATrustClassID, trustClass, policyAttributesMarshal, policyAttributes, "HRESULT")
         return result
     }
 

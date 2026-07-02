@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDMOVideoOutputOptimizations interface supports video optimizations on a Microsoft DirectX Media Object (DMO).
@@ -82,7 +82,7 @@ export default struct IDMOVideoOutputOptimizations extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-queryoperationmodepreferences
      */
     QueryOperationModePreferences(ulOutputStreamIndex) {
-        result := ComCall(3, this, "uint", ulOutputStreamIndex, "uint*", &pdwRequestedCapabilities := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, ulOutputStreamIndex, "uint*", &pdwRequestedCapabilities := 0, "HRESULT")
         return pdwRequestedCapabilities
     }
 
@@ -142,7 +142,7 @@ export default struct IDMOVideoOutputOptimizations extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-setoperationmode
      */
     SetOperationMode(ulOutputStreamIndex, dwEnabledFeatures) {
-        result := ComCall(4, this, "uint", ulOutputStreamIndex, "uint", dwEnabledFeatures, "HRESULT")
+        result := ComCall(4, this, UInt32, ulOutputStreamIndex, UInt32, dwEnabledFeatures, "HRESULT")
         return result
     }
 
@@ -153,7 +153,7 @@ export default struct IDMOVideoOutputOptimizations extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-getcurrentoperationmode
      */
     GetCurrentOperationMode(ulOutputStreamIndex) {
-        result := ComCall(5, this, "uint", ulOutputStreamIndex, "uint*", &pdwEnabledFeatures := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, ulOutputStreamIndex, "uint*", &pdwEnabledFeatures := 0, "HRESULT")
         return pdwEnabledFeatures
     }
 
@@ -170,7 +170,7 @@ export default struct IDMOVideoOutputOptimizations extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-getcurrentsamplerequirements
      */
     GetCurrentSampleRequirements(ulOutputStreamIndex) {
-        result := ComCall(6, this, "uint", ulOutputStreamIndex, "uint*", &pdwRequestedFeatures := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, ulOutputStreamIndex, "uint*", &pdwRequestedFeatures := 0, "HRESULT")
         return pdwRequestedFeatures
     }
 

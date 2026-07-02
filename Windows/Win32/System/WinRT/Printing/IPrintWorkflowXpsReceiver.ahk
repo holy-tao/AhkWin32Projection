@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Com\IStream.ahk" { IStream }
 #Import "..\..\..\Storage\Xps\IXpsOMPageReference.ahk" { IXpsOMPageReference }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing
@@ -74,7 +74,7 @@ export default struct IPrintWorkflowXpsReceiver extends IUnknown {
     AddDocumentData(documentId, documentPrintTicket, documentUri) {
         documentUri := documentUri is String ? StrPtr(documentUri) : documentUri
 
-        result := ComCall(5, this, "uint", documentId, "ptr", documentPrintTicket, "ptr", documentUri, "HRESULT")
+        result := ComCall(5, this, UInt32, documentId, "ptr", documentPrintTicket, "ptr", documentUri, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IPrintWorkflowXpsReceiver extends IUnknown {
     AddPage(documentId, pageId, pageReference, pageUri) {
         pageUri := pageUri is String ? StrPtr(pageUri) : pageUri
 
-        result := ComCall(6, this, "uint", documentId, "uint", pageId, "ptr", pageReference, "ptr", pageUri, "HRESULT")
+        result := ComCall(6, this, UInt32, documentId, UInt32, pageId, "ptr", pageReference, "ptr", pageUri, "HRESULT")
         return result
     }
 

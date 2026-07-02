@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAMVideoAccelerator.ahk" { IAMVideoAccelerator }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\WindowsMediaFormat\IWMPlayerTimestampHook.ahk" { IWMPlayerTimestampHook }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\EVENT_RECORD.ahk" { EVENT_RECORD }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\EVENT_RECORD.ahk" { EVENT_RECORD }
 
 /**
  * Provides access to data relating to a specific event.
@@ -108,7 +108,7 @@ export default struct ITraceEvent extends IUnknown {
     SetPayload(Payload, PayloadSize) {
         PayloadMarshal := Payload is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, PayloadMarshal, Payload, "uint", PayloadSize, "HRESULT")
+        result := ComCall(6, this, PayloadMarshal, Payload, UInt32, PayloadSize, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct ITraceEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setprocessid
      */
     SetProcessId(ProcessId) {
-        result := ComCall(8, this, "uint", ProcessId, "HRESULT")
+        result := ComCall(8, this, UInt32, ProcessId, "HRESULT")
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct ITraceEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setprocessorindex
      */
     SetProcessorIndex(ProcessorIndex) {
-        result := ComCall(9, this, "uint", ProcessorIndex, "HRESULT")
+        result := ComCall(9, this, UInt32, ProcessorIndex, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct ITraceEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setthreadid
      */
     SetThreadId(ThreadId) {
-        result := ComCall(10, this, "uint", ThreadId, "HRESULT")
+        result := ComCall(10, this, UInt32, ThreadId, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct ITraceEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setthreadtimes
      */
     SetThreadTimes(KernelTime, UserTime) {
-        result := ComCall(11, this, "uint", KernelTime, "uint", UserTime, "HRESULT")
+        result := ComCall(11, this, UInt32, KernelTime, UInt32, UserTime, "HRESULT")
         return result
     }
 

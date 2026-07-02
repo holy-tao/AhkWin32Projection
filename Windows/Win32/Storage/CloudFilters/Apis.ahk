@@ -1,42 +1,42 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import ".\CF_CONNECT_FLAGS.ahk" { CF_CONNECT_FLAGS }
+#Import ".\CF_PLACEHOLDER_CREATE_INFO.ahk" { CF_PLACEHOLDER_CREATE_INFO }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\CF_PLACEHOLDER_STATE.ahk" { CF_PLACEHOLDER_STATE }
+#Import ".\CF_REGISTER_FLAGS.ahk" { CF_REGISTER_FLAGS }
+#Import ".\CF_SYNC_POLICIES.ahk" { CF_SYNC_POLICIES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CF_HYDRATE_FLAGS.ahk" { CF_HYDRATE_FLAGS }
+#Import ".\CF_OPERATION_INFO.ahk" { CF_OPERATION_INFO }
+#Import "..\FileSystem\FILE_INFO_BY_HANDLE_CLASS.ahk" { FILE_INFO_BY_HANDLE_CLASS }
+#Import ".\CF_SET_PIN_FLAGS.ahk" { CF_SET_PIN_FLAGS }
+#Import ".\CF_OPEN_FILE_FLAGS.ahk" { CF_OPEN_FILE_FLAGS }
 #Import ".\CF_DEHYDRATE_FLAGS.ahk" { CF_DEHYDRATE_FLAGS }
 #Import ".\CF_SYNC_STATUS.ahk" { CF_SYNC_STATUS }
-#Import "..\FileSystem\FILE_INFO_BY_HANDLE_CLASS.ahk" { FILE_INFO_BY_HANDLE_CLASS }
-#Import ".\CF_CONNECT_FLAGS.ahk" { CF_CONNECT_FLAGS }
-#Import ".\CF_PLACEHOLDER_INFO_CLASS.ahk" { CF_PLACEHOLDER_INFO_CLASS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\FileSystem\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
-#Import ".\CF_HYDRATE_FLAGS.ahk" { CF_HYDRATE_FLAGS }
-#Import ".\CF_CALLBACK_REGISTRATION.ahk" { CF_CALLBACK_REGISTRATION }
-#Import ".\CF_REVERT_FLAGS.ahk" { CF_REVERT_FLAGS }
-#Import ".\CF_PIN_STATE.ahk" { CF_PIN_STATE }
-#Import ".\CF_SYNC_POLICIES.ahk" { CF_SYNC_POLICIES }
-#Import ".\CF_PLACEHOLDER_CREATE_INFO.ahk" { CF_PLACEHOLDER_CREATE_INFO }
-#Import ".\CF_FS_METADATA.ahk" { CF_FS_METADATA }
-#Import "..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
-#Import ".\CF_FILE_RANGE.ahk" { CF_FILE_RANGE }
-#Import ".\CF_REGISTER_FLAGS.ahk" { CF_REGISTER_FLAGS }
-#Import ".\CF_OPEN_FILE_FLAGS.ahk" { CF_OPEN_FILE_FLAGS }
-#Import ".\CF_PLACEHOLDER_STATE.ahk" { CF_PLACEHOLDER_STATE }
-#Import ".\CF_UPDATE_FLAGS.ahk" { CF_UPDATE_FLAGS }
-#Import ".\CF_OPERATION_PARAMETERS.ahk" { CF_OPERATION_PARAMETERS }
-#Import ".\CF_PLATFORM_INFO.ahk" { CF_PLATFORM_INFO }
-#Import ".\CF_SYNC_REGISTRATION.ahk" { CF_SYNC_REGISTRATION }
-#Import ".\CF_SYNC_PROVIDER_STATUS.ahk" { CF_SYNC_PROVIDER_STATUS }
-#Import ".\CF_CONNECTION_KEY.ahk" { CF_CONNECTION_KEY }
-#Import ".\CF_CREATE_FLAGS.ahk" { CF_CREATE_FLAGS }
-#Import ".\CF_SET_IN_SYNC_FLAGS.ahk" { CF_SET_IN_SYNC_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CF_SET_PIN_FLAGS.ahk" { CF_SET_PIN_FLAGS }
-#Import ".\CF_IN_SYNC_STATE.ahk" { CF_IN_SYNC_STATE }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\CF_PLACEHOLDER_INFO_CLASS.ahk" { CF_PLACEHOLDER_INFO_CLASS }
+#Import ".\CF_PIN_STATE.ahk" { CF_PIN_STATE }
+#Import "..\FileSystem\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
+#Import ".\CF_FILE_RANGE.ahk" { CF_FILE_RANGE }
+#Import ".\CF_OPERATION_PARAMETERS.ahk" { CF_OPERATION_PARAMETERS }
+#Import ".\CF_CONNECTION_KEY.ahk" { CF_CONNECTION_KEY }
+#Import "..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
+#Import ".\CF_SET_IN_SYNC_FLAGS.ahk" { CF_SET_IN_SYNC_FLAGS }
+#Import ".\CF_REVERT_FLAGS.ahk" { CF_REVERT_FLAGS }
 #Import ".\CF_CONVERT_FLAGS.ahk" { CF_CONVERT_FLAGS }
-#Import ".\CF_PLACEHOLDER_RANGE_INFO_CLASS.ahk" { CF_PLACEHOLDER_RANGE_INFO_CLASS }
+#Import ".\CF_IN_SYNC_STATE.ahk" { CF_IN_SYNC_STATE }
+#Import ".\CF_PLATFORM_INFO.ahk" { CF_PLATFORM_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CF_UPDATE_FLAGS.ahk" { CF_UPDATE_FLAGS }
+#Import ".\CF_SYNC_PROVIDER_STATUS.ahk" { CF_SYNC_PROVIDER_STATUS }
 #Import ".\CF_SYNC_ROOT_INFO_CLASS.ahk" { CF_SYNC_ROOT_INFO_CLASS }
-#Import ".\CF_OPERATION_INFO.ahk" { CF_OPERATION_INFO }
+#Import ".\CF_SYNC_REGISTRATION.ahk" { CF_SYNC_REGISTRATION }
+#Import ".\CF_PLACEHOLDER_RANGE_INFO_CLASS.ahk" { CF_PLACEHOLDER_RANGE_INFO_CLASS }
+#Import ".\CF_FS_METADATA.ahk" { CF_FS_METADATA }
+#Import ".\CF_CREATE_FLAGS.ahk" { CF_CREATE_FLAGS }
+#Import ".\CF_CALLBACK_REGISTRATION.ahk" { CF_CALLBACK_REGISTRATION }
 
 /**
  * @namespace Windows.Win32.Storage.CloudFilters
@@ -386,7 +386,7 @@ export CfReportSyncStatus(SyncRootPath, SyncStatus) {
 export CfCreatePlaceholders(BaseDirectoryPath, PlaceholderArray, PlaceholderCount, CreateFlags) {
     BaseDirectoryPath := BaseDirectoryPath is String ? StrPtr(BaseDirectoryPath) : BaseDirectoryPath
 
-    result := DllCall("cldapi.dll\CfCreatePlaceholders", "ptr", BaseDirectoryPath, CF_PLACEHOLDER_CREATE_INFO.Ptr, PlaceholderArray, "uint", PlaceholderCount, CF_CREATE_FLAGS, CreateFlags, "uint*", &EntriesProcessed := 0, "HRESULT")
+    result := DllCall("cldapi.dll\CfCreatePlaceholders", "ptr", BaseDirectoryPath, CF_PLACEHOLDER_CREATE_INFO.Ptr, PlaceholderArray, UInt32, PlaceholderCount, CF_CREATE_FLAGS, CreateFlags, "uint*", &EntriesProcessed := 0, "HRESULT")
     return EntriesProcessed
 }
 
@@ -500,7 +500,7 @@ export CfCloseHandle(FileHandle) {
  * @since windows10.0.16299
  */
 export CfConvertToPlaceholder(FileHandle, FileIdentity, FileIdentityLength, ConvertFlags, _Overlapped) {
-    result := DllCall("cldapi.dll\CfConvertToPlaceholder", HANDLE, FileHandle, "ptr", FileIdentity, "uint", FileIdentityLength, CF_CONVERT_FLAGS, ConvertFlags, "int64*", &ConvertUsn := 0, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    result := DllCall("cldapi.dll\CfConvertToPlaceholder", HANDLE, FileHandle, IntPtr, FileIdentity, UInt32, FileIdentityLength, CF_CONVERT_FLAGS, ConvertFlags, "int64*", &ConvertUsn := 0, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
     return ConvertUsn
 }
 
@@ -559,7 +559,7 @@ export CfConvertToPlaceholder(FileHandle, FileIdentity, FileIdentityLength, Conv
 export CfUpdatePlaceholder(FileHandle, FsMetadata, FileIdentity, FileIdentityLength, DehydrateRangeArray, DehydrateRangeCount, UpdateFlags, UpdateUsn, _Overlapped) {
     UpdateUsnMarshal := UpdateUsn is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("cldapi.dll\CfUpdatePlaceholder", HANDLE, FileHandle, CF_FS_METADATA.Ptr, FsMetadata, "ptr", FileIdentity, "uint", FileIdentityLength, CF_FILE_RANGE.Ptr, DehydrateRangeArray, "uint", DehydrateRangeCount, CF_UPDATE_FLAGS, UpdateFlags, UpdateUsnMarshal, UpdateUsn, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    result := DllCall("cldapi.dll\CfUpdatePlaceholder", HANDLE, FileHandle, CF_FS_METADATA.Ptr, FsMetadata, IntPtr, FileIdentity, UInt32, FileIdentityLength, CF_FILE_RANGE.Ptr, DehydrateRangeArray, UInt32, DehydrateRangeCount, CF_UPDATE_FLAGS, UpdateFlags, UpdateUsnMarshal, UpdateUsn, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
     return result
 }
 
@@ -603,7 +603,7 @@ export CfRevertPlaceholder(FileHandle, RevertFlags, _Overlapped) {
  * @since windows10.0.16299
  */
 export CfHydratePlaceholder(FileHandle, StartingOffset, Length, HydrateFlags, _Overlapped) {
-    result := DllCall("cldapi.dll\CfHydratePlaceholder", HANDLE, FileHandle, "int64", StartingOffset, "int64", Length, CF_HYDRATE_FLAGS, HydrateFlags, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    result := DllCall("cldapi.dll\CfHydratePlaceholder", HANDLE, FileHandle, Int64, StartingOffset, Int64, Length, CF_HYDRATE_FLAGS, HydrateFlags, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
     return result
 }
 
@@ -617,7 +617,7 @@ export CfHydratePlaceholder(FileHandle, StartingOffset, Length, HydrateFlags, _O
  * @returns {HRESULT} 
  */
 export CfDehydratePlaceholder(FileHandle, StartingOffset, Length, DehydrateFlags, _Overlapped) {
-    result := DllCall("cldapi.dll\CfDehydratePlaceholder", HANDLE, FileHandle, "int64", StartingOffset, "int64", Length, CF_DEHYDRATE_FLAGS, DehydrateFlags, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    result := DllCall("cldapi.dll\CfDehydratePlaceholder", HANDLE, FileHandle, Int64, StartingOffset, Int64, Length, CF_DEHYDRATE_FLAGS, DehydrateFlags, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
     return result
 }
 
@@ -714,7 +714,7 @@ export CfGetCorrelationVector(FileHandle, CorrelationVector) {
  * @since windows10.0.16299
  */
 export CfGetPlaceholderStateFromAttributeTag(FileAttributes, ReparseTag) {
-    result := DllCall("cldapi.dll\CfGetPlaceholderStateFromAttributeTag", "uint", FileAttributes, "uint", ReparseTag, CF_PLACEHOLDER_STATE)
+    result := DllCall("cldapi.dll\CfGetPlaceholderStateFromAttributeTag", UInt32, FileAttributes, UInt32, ReparseTag, CF_PLACEHOLDER_STATE)
     return result
 }
 
@@ -777,7 +777,7 @@ export CfGetPlaceholderStateFromFindData(FindData) {
  * @since windows10.0.16299
  */
 export CfGetPlaceholderInfo(FileHandle, InfoClass, InfoBuffer, InfoBufferLength) {
-    result := DllCall("cldapi.dll\CfGetPlaceholderInfo", HANDLE, FileHandle, CF_PLACEHOLDER_INFO_CLASS, InfoClass, "ptr", InfoBuffer, "uint", InfoBufferLength, "uint*", &ReturnedLength := 0, "HRESULT")
+    result := DllCall("cldapi.dll\CfGetPlaceholderInfo", HANDLE, FileHandle, CF_PLACEHOLDER_INFO_CLASS, InfoClass, IntPtr, InfoBuffer, UInt32, InfoBufferLength, "uint*", &ReturnedLength := 0, "HRESULT")
     return ReturnedLength
 }
 
@@ -806,7 +806,7 @@ export CfGetSyncRootInfoByPath(FilePath, InfoClass, InfoBuffer, InfoBufferLength
     InfoBufferMarshal := InfoBuffer is VarRef ? "ptr" : "ptr"
     ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("cldapi.dll\CfGetSyncRootInfoByPath", "ptr", FilePath, CF_SYNC_ROOT_INFO_CLASS, InfoClass, InfoBufferMarshal, InfoBuffer, "uint", InfoBufferLength, ReturnedLengthMarshal, ReturnedLength, "HRESULT")
+    result := DllCall("cldapi.dll\CfGetSyncRootInfoByPath", "ptr", FilePath, CF_SYNC_ROOT_INFO_CLASS, InfoClass, InfoBufferMarshal, InfoBuffer, UInt32, InfoBufferLength, ReturnedLengthMarshal, ReturnedLength, "HRESULT")
     return result
 }
 
@@ -829,7 +829,7 @@ export CfGetSyncRootInfoByHandle(FileHandle, InfoClass, InfoBuffer, InfoBufferLe
     InfoBufferMarshal := InfoBuffer is VarRef ? "ptr" : "ptr"
     ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("cldapi.dll\CfGetSyncRootInfoByHandle", HANDLE, FileHandle, CF_SYNC_ROOT_INFO_CLASS, InfoClass, InfoBufferMarshal, InfoBuffer, "uint", InfoBufferLength, ReturnedLengthMarshal, ReturnedLength, "HRESULT")
+    result := DllCall("cldapi.dll\CfGetSyncRootInfoByHandle", HANDLE, FileHandle, CF_SYNC_ROOT_INFO_CLASS, InfoClass, InfoBufferMarshal, InfoBuffer, UInt32, InfoBufferLength, ReturnedLengthMarshal, ReturnedLength, "HRESULT")
     return result
 }
 
@@ -848,7 +848,7 @@ export CfGetSyncRootInfoByHandle(FileHandle, InfoClass, InfoBuffer, InfoBufferLe
  * @since windows10.0.16299
  */
 export CfGetPlaceholderRangeInfo(FileHandle, InfoClass, StartingOffset, Length, InfoBuffer, InfoBufferLength) {
-    result := DllCall("cldapi.dll\CfGetPlaceholderRangeInfo", HANDLE, FileHandle, CF_PLACEHOLDER_RANGE_INFO_CLASS, InfoClass, "int64", StartingOffset, "int64", Length, "ptr", InfoBuffer, "uint", InfoBufferLength, "uint*", &ReturnedLength := 0, "HRESULT")
+    result := DllCall("cldapi.dll\CfGetPlaceholderRangeInfo", HANDLE, FileHandle, CF_PLACEHOLDER_RANGE_INFO_CLASS, InfoClass, Int64, StartingOffset, Int64, Length, IntPtr, InfoBuffer, UInt32, InfoBufferLength, "uint*", &ReturnedLength := 0, "HRESULT")
     return ReturnedLength
 }
 
@@ -886,7 +886,7 @@ export CfGetPlaceholderRangeInfo(FileHandle, InfoClass, StartingOffset, Length, 
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderrangeinfoforhydration
  */
 export CfGetPlaceholderRangeInfoForHydration(ConnectionKey, TransferKey, FileId, InfoClass, StartingOffset, RangeLength, InfoBuffer, InfoBufferSize) {
-    result := DllCall("cldapi.dll\CfGetPlaceholderRangeInfoForHydration", CF_CONNECTION_KEY, ConnectionKey, "int64", TransferKey, "int64", FileId, CF_PLACEHOLDER_RANGE_INFO_CLASS, InfoClass, "int64", StartingOffset, "int64", RangeLength, "ptr", InfoBuffer, "uint", InfoBufferSize, "uint*", &InfoBufferWritten := 0, "HRESULT")
+    result := DllCall("cldapi.dll\CfGetPlaceholderRangeInfoForHydration", CF_CONNECTION_KEY, ConnectionKey, Int64, TransferKey, Int64, FileId, CF_PLACEHOLDER_RANGE_INFO_CLASS, InfoClass, Int64, StartingOffset, Int64, RangeLength, IntPtr, InfoBuffer, UInt32, InfoBufferSize, "uint*", &InfoBufferWritten := 0, "HRESULT")
     return InfoBufferWritten
 }
 
@@ -905,7 +905,7 @@ export CfGetPlaceholderRangeInfoForHydration(ConnectionKey, TransferKey, FileId,
  * @since windows10.0.16299
  */
 export CfReportProviderProgress(ConnectionKey, TransferKey, ProviderProgressTotal, ProviderProgressCompleted) {
-    result := DllCall("cldapi.dll\CfReportProviderProgress", CF_CONNECTION_KEY, ConnectionKey, "int64", TransferKey, "int64", ProviderProgressTotal, "int64", ProviderProgressCompleted, "HRESULT")
+    result := DllCall("cldapi.dll\CfReportProviderProgress", CF_CONNECTION_KEY, ConnectionKey, Int64, TransferKey, Int64, ProviderProgressTotal, Int64, ProviderProgressCompleted, "HRESULT")
     return result
 }
 
@@ -921,7 +921,7 @@ export CfReportProviderProgress(ConnectionKey, TransferKey, ProviderProgressTota
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfreportproviderprogress2
  */
 export CfReportProviderProgress2(ConnectionKey, TransferKey, RequestKey, ProviderProgressTotal, ProviderProgressCompleted, TargetSessionId) {
-    result := DllCall("cldapi.dll\CfReportProviderProgress2", CF_CONNECTION_KEY, ConnectionKey, "int64", TransferKey, "int64", RequestKey, "int64", ProviderProgressTotal, "int64", ProviderProgressCompleted, "uint", TargetSessionId, "HRESULT")
+    result := DllCall("cldapi.dll\CfReportProviderProgress2", CF_CONNECTION_KEY, ConnectionKey, Int64, TransferKey, Int64, RequestKey, Int64, ProviderProgressTotal, Int64, ProviderProgressCompleted, UInt32, TargetSessionId, "HRESULT")
     return result
 }
 

@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Graphics\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
 #Import "..\..\Graphics\Dwm\MilMatrix3x2D.ahk" { MilMatrix3x2D }
 #Import ".\MilPoint2D.ahk" { MilPoint2D }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MilRectD.ahk" { MilRectD }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that create a bitmap effect's output. This interface must be implemented to create third party Windows Presentation Foundation (WPF) bitmap effects.
@@ -73,7 +73,7 @@ export default struct IMILBitmapEffectPrimitive extends IUnknown {
     GetOutput(uiIndex, pContext, pfModifyInPlace) {
         pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
 
-        result := ComCall(3, this, "uint", uiIndex, "ptr", pContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, uiIndex, "ptr", pContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
         return IWICBitmapSource(ppBitmapSource)
     }
 
@@ -97,7 +97,7 @@ export default struct IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-transformpoint
      */
     TransformPoint(uiIndex, p, fForwardTransform, pContext) {
-        result := ComCall(4, this, "uint", uiIndex, MilPoint2D.Ptr, p, VARIANT_BOOL, fForwardTransform, "ptr", pContext, VARIANT_BOOL.Ptr, &pfPointTransformed := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, uiIndex, MilPoint2D.Ptr, p, VARIANT_BOOL, fForwardTransform, "ptr", pContext, VARIANT_BOOL.Ptr, &pfPointTransformed := 0, "HRESULT")
         return pfPointTransformed
     }
 
@@ -121,7 +121,7 @@ export default struct IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-transformrect
      */
     TransformRect(uiIndex, p, fForwardTransform, pContext) {
-        result := ComCall(5, this, "uint", uiIndex, MilRectD.Ptr, p, VARIANT_BOOL, fForwardTransform, "ptr", pContext, "HRESULT")
+        result := ComCall(5, this, UInt32, uiIndex, MilRectD.Ptr, p, VARIANT_BOOL, fForwardTransform, "ptr", pContext, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasaffinetransform
      */
     HasAffineTransform(uiIndex) {
-        result := ComCall(6, this, "uint", uiIndex, VARIANT_BOOL.Ptr, &pfAffine := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, uiIndex, VARIANT_BOOL.Ptr, &pfAffine := 0, "HRESULT")
         return pfAffine
     }
 
@@ -151,7 +151,7 @@ export default struct IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasinversetransform
      */
     HasInverseTransform(uiIndex) {
-        result := ComCall(7, this, "uint", uiIndex, VARIANT_BOOL.Ptr, &pfHasInverse := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, uiIndex, VARIANT_BOOL.Ptr, &pfHasInverse := 0, "HRESULT")
         return pfHasInverse
     }
 
@@ -169,7 +169,7 @@ export default struct IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-getaffinematrix
      */
     GetAffineMatrix(uiIndex, pMatrix) {
-        result := ComCall(8, this, "uint", uiIndex, MilMatrix3x2D.Ptr, pMatrix, "HRESULT")
+        result := ComCall(8, this, UInt32, uiIndex, MilMatrix3x2D.Ptr, pMatrix, "HRESULT")
         return result
     }
 

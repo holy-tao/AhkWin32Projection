@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) transport stream (TS) information descriptor.
@@ -105,7 +105,7 @@ export default struct IIsdbTSInformationDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getrecordtransmissiontypeinfo
      */
     GetRecordTransmissionTypeInfo(bRecordIndex) {
-        result := ComCall(8, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -116,7 +116,7 @@ export default struct IIsdbTSInformationDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getrecordnumberofservices
      */
     GetRecordNumberOfServices(bRecordIndex) {
-        result := ComCall(9, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(9, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -128,7 +128,7 @@ export default struct IIsdbTSInformationDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getrecordserviceidbyindex
      */
     GetRecordServiceIdByIndex(bRecordIndex, bServiceIndex) {
-        result := ComCall(10, this, "char", bRecordIndex, "char", bServiceIndex, "ushort*", &pdwVal := 0, "HRESULT")
+        result := ComCall(10, this, Int8, bRecordIndex, Int8, bServiceIndex, "ushort*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 

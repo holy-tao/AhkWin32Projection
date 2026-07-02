@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method used to initialize a handler, such as a property handler, thumbnail handler, or preview handler, with an IShellItem.
@@ -58,7 +58,7 @@ export default struct IInitializeWithItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinitializewithitem-initialize
      */
     Initialize(psi, grfMode) {
-        result := ComCall(3, this, "ptr", psi, "uint", grfMode, "HRESULT")
+        result := ComCall(3, this, "ptr", psi, UInt32, grfMode, "HRESULT")
         return result
     }
 

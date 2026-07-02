@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IReferenceTrackerTarget.ahk" { IReferenceTrackerTarget }
 #Import ".\XAML_REFERENCETRACKER_DISCONNECT.ahk" { XAML_REFERENCETRACKER_DISCONNECT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IReferenceTrackerTarget.ahk" { IReferenceTrackerTarget }
 
 /**
  * Defines an interface that provides the global services used by the garbage collection (GC) system used by the XAML framework.
@@ -102,7 +102,7 @@ export default struct IReferenceTrackerHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nf-windows-ui-xaml-hosting-referencetracker-ireferencetrackerhost-addmemorypressure
      */
     AddMemoryPressure(bytesAllocated) {
-        result := ComCall(7, this, "uint", bytesAllocated, "HRESULT")
+        result := ComCall(7, this, Int64, bytesAllocated, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IReferenceTrackerHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nf-windows-ui-xaml-hosting-referencetracker-ireferencetrackerhost-removememorypressure
      */
     RemoveMemoryPressure(bytesAllocated) {
-        result := ComCall(8, this, "uint", bytesAllocated, "HRESULT")
+        result := ComCall(8, this, Int64, bytesAllocated, "HRESULT")
         return result
     }
 

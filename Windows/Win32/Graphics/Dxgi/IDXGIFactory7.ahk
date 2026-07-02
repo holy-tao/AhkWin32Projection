@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDXGIFactory6.ahk" { IDXGIFactory6 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface enables registration for notifications to detect adapter enumeration state changes.
@@ -57,7 +57,7 @@ export default struct IDXGIFactory7 extends IDXGIFactory6 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory7-unregisteradapterschangedevent
      */
     UnregisterAdaptersChangedEvent(dwCookie) {
-        result := ComCall(31, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(31, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 

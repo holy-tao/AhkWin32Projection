@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWMDMStorageControl.ahk" { IWMDMStorageControl }
 #Import ".\IWMDMOperation.ahk" { IWMDMOperation }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMDMStorageControl.ahk" { IWMDMStorageControl }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
 
 /**
  * The IWMDMStorageControl2 interface extends IWMDMStorageControl by making it possible to set the name of the destination file when inserting content into a storage.
@@ -147,7 +147,7 @@ export default struct IWMDMStorageControl2 extends IWMDMStorageControl {
         pwszFileSource := pwszFileSource is String ? StrPtr(pwszFileSource) : pwszFileSource
         pwszFileDest := pwszFileDest is String ? StrPtr(pwszFileDest) : pwszFileDest
 
-        result := ComCall(8, this, "uint", fuMode, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pUnknown, IWMDMStorage.Ptr, ppNewObject, "HRESULT")
+        result := ComCall(8, this, UInt32, fuMode, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pUnknown, IWMDMStorage.Ptr, ppNewObject, "HRESULT")
         return result
     }
 

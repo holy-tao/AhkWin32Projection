@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_PROTECTED_RESOURCE_SESSION_DESC.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_DESC }
 #Import ".\ID3D12ProtectedSession.ahk" { ID3D12ProtectedSession }
+#Import ".\D3D12_PROTECTED_RESOURCE_SESSION_DESC.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_DESC }
 
 /**
  * Monitors the validity of a protected resource session. (ID3D12ProtectedResourceSession)

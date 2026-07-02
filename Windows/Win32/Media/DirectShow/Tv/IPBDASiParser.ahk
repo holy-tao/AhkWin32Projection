@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPBDA_EIT.ahk" { IPBDA_EIT }
 #Import ".\IPBDA_Services.ahk" { IPBDA_Services }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPBDA_EIT.ahk" { IPBDA_EIT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that retrieve program and system information protocol (PSIP) and service information (SI) tables from a Protected Broadcast Driver Architecture (PBDA) transport stream.
@@ -62,7 +62,7 @@ export default struct IPBDASiParser extends IUnknown {
     GetEIT(dwSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", &ppEIT := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSize, pBufferMarshal, pBuffer, "ptr*", &ppEIT := 0, "HRESULT")
         return IPBDA_EIT(ppEIT)
     }
 
@@ -76,7 +76,7 @@ export default struct IPBDASiParser extends IUnknown {
     GetServices(dwSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", &ppServices := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwSize, pBufferMarshal, pBuffer, "ptr*", &ppServices := 0, "HRESULT")
         return IPBDA_Services(ppServices)
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Gdi\BLENDFUNCTION.ahk" { BLENDFUNCTION }
 #Import ".\BP_PAINTPARAMS_FLAGS.ahk" { BP_PAINTPARAMS_FLAGS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Defines paint operation parameters for BeginBufferedPaint.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -45,7 +45,7 @@ export default struct ITransactionImport extends IUnknown {
     Import(cbTransactionCookie, rgbTransactionCookie, piid) {
         rgbTransactionCookieMarshal := rgbTransactionCookie is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, Guid.Ptr, piid, "ptr*", &ppvTransaction := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, Guid.Ptr, piid, "ptr*", &ppvTransaction := 0, "HRESULT")
         return ppvTransaction
     }
 

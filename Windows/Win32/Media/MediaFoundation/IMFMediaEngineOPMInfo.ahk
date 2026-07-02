@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_MEDIA_ENGINE_OPM_STATUS.ahk" { MF_MEDIA_ENGINE_OPM_STATUS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MF_MEDIA_ENGINE_OPM_STATUS.ahk" { MF_MEDIA_ENGINE_OPM_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for getting information about the Output Protection Manager (OPM).

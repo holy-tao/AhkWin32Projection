@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRealTimeStylus.ahk" { IRealTimeStylus }
-#Import ".\SYSTEM_EVENT_DATA.ahk" { SYSTEM_EVENT_DATA }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RealTimeStylusDataInterest.ahk" { RealTimeStylusDataInterest }
-#Import ".\IInkTablet.ahk" { IInkTablet }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRealTimeStylus.ahk" { IRealTimeStylus }
 #Import ".\StylusInfo.ahk" { StylusInfo }
+#Import ".\IInkTablet.ahk" { IInkTablet }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RealTimeStylusDataInterest.ahk" { RealTimeStylusDataInterest }
+#Import ".\SYSTEM_EVENT_DATA.ahk" { SYSTEM_EVENT_DATA }
 
 /**
  * Receives notifications of RealTimeStylus Class events to enable you to perform custom processing based on those events.
@@ -74,7 +74,7 @@ export default struct IStylusPlugin extends IUnknown {
     RealTimeStylusEnabled(piRtsSrc, cTcidCount, pTcids) {
         pTcidsMarshal := pTcids is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", piRtsSrc, "uint", cTcidCount, pTcidsMarshal, pTcids, "HRESULT")
+        result := ComCall(3, this, "ptr", piRtsSrc, UInt32, cTcidCount, pTcidsMarshal, pTcids, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct IStylusPlugin extends IUnknown {
     RealTimeStylusDisabled(piRtsSrc, cTcidCount, pTcids) {
         pTcidsMarshal := pTcids is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", piRtsSrc, "uint", cTcidCount, pTcidsMarshal, pTcids, "HRESULT")
+        result := ComCall(4, this, "ptr", piRtsSrc, UInt32, cTcidCount, pTcidsMarshal, pTcids, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IStylusPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusinrange
      */
     StylusInRange(piRtsSrc, tcid, _sid) {
-        result := ComCall(5, this, "ptr", piRtsSrc, "uint", tcid, "uint", _sid, "HRESULT")
+        result := ComCall(5, this, "ptr", piRtsSrc, UInt32, tcid, UInt32, _sid, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct IStylusPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusoutofrange
      */
     StylusOutOfRange(piRtsSrc, tcid, _sid) {
-        result := ComCall(6, this, "ptr", piRtsSrc, "uint", tcid, "uint", _sid, "HRESULT")
+        result := ComCall(6, this, "ptr", piRtsSrc, UInt32, tcid, UInt32, _sid, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IStylusPlugin extends IUnknown {
         pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
         ppInOutPktMarshal := ppInOutPkt is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
+        result := ComCall(7, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, UInt32, cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IStylusPlugin extends IUnknown {
         pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
         ppInOutPktMarshal := ppInOutPkt is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
+        result := ComCall(8, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, UInt32, cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct IStylusPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusbuttondown
      */
     StylusButtonDown(piRtsSrc, _sid, pGuidStylusButton, pStylusPos) {
-        result := ComCall(9, this, "ptr", piRtsSrc, "uint", _sid, Guid.Ptr, pGuidStylusButton, POINT.Ptr, pStylusPos, "HRESULT")
+        result := ComCall(9, this, "ptr", piRtsSrc, UInt32, _sid, Guid.Ptr, pGuidStylusButton, POINT.Ptr, pStylusPos, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IStylusPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusbuttonup
      */
     StylusButtonUp(piRtsSrc, _sid, pGuidStylusButton, pStylusPos) {
-        result := ComCall(10, this, "ptr", piRtsSrc, "uint", _sid, Guid.Ptr, pGuidStylusButton, POINT.Ptr, pStylusPos, "HRESULT")
+        result := ComCall(10, this, "ptr", piRtsSrc, UInt32, _sid, Guid.Ptr, pGuidStylusButton, POINT.Ptr, pStylusPos, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct IStylusPlugin extends IUnknown {
         pcInOutPktsMarshal := pcInOutPkts is VarRef ? "uint*" : "ptr"
         ppInOutPktsMarshal := ppInOutPkts is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
+        result := ComCall(11, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, UInt32, cPktCount, UInt32, cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
         return result
     }
 
@@ -271,7 +271,7 @@ export default struct IStylusPlugin extends IUnknown {
         pcInOutPktsMarshal := pcInOutPkts is VarRef ? "uint*" : "ptr"
         ppInOutPktsMarshal := ppInOutPkts is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
+        result := ComCall(12, this, "ptr", piRtsSrc, StylusInfo.Ptr, pStylusInfo, UInt32, cPktCount, UInt32, cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
         return result
     }
 
@@ -289,7 +289,7 @@ export default struct IStylusPlugin extends IUnknown {
     CustomStylusDataAdded(piRtsSrc, pGuidId, cbData, pbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "ptr", piRtsSrc, Guid.Ptr, pGuidId, "uint", cbData, pbDataMarshal, pbData, "HRESULT")
+        result := ComCall(13, this, "ptr", piRtsSrc, Guid.Ptr, pGuidId, UInt32, cbData, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 
@@ -309,7 +309,7 @@ export default struct IStylusPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-systemevent
      */
     SystemEvent(piRtsSrc, tcid, _sid, event, eventdata) {
-        result := ComCall(14, this, "ptr", piRtsSrc, "uint", tcid, "uint", _sid, "ushort", event, SYSTEM_EVENT_DATA, eventdata, "HRESULT")
+        result := ComCall(14, this, "ptr", piRtsSrc, UInt32, tcid, UInt32, _sid, UInt16, event, SYSTEM_EVENT_DATA, eventdata, "HRESULT")
         return result
     }
 
@@ -337,7 +337,7 @@ export default struct IStylusPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-tabletremoved
      */
     TabletRemoved(piRtsSrc, iTabletIndex) {
-        result := ComCall(16, this, "ptr", piRtsSrc, "int", iTabletIndex, "HRESULT")
+        result := ComCall(16, this, "ptr", piRtsSrc, Int32, iTabletIndex, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 #Import ".\HTTP_ENABLED_STATE.ahk" { HTTP_ENABLED_STATE }
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 
 /**
  * Used to enable or disable a Server Session or URL Group.

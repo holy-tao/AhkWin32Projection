@@ -3,13 +3,13 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXMLDOMNodeList.ahk" { IXMLDOMNodeList }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IXMLDOMNamedNodeMap.ahk" { IXMLDOMNamedNodeMap }
-#Import ".\IXMLDOMDocument.ahk" { IXMLDOMDocument }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\DOMNodeType.ahk" { DOMNodeType }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IXMLDOMNamedNodeMap.ahk" { IXMLDOMNamedNodeMap }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IXMLDOMDocument.ahk" { IXMLDOMDocument }
+#Import ".\DOMNodeType.ahk" { DOMNodeType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

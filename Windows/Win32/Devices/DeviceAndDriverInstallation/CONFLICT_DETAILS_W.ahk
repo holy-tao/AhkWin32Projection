@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CM_CDFLAGS.ahk" { CM_CDFLAGS }
 #Import ".\CM_CDMASK.ahk" { CM_CDMASK }
+#Import ".\CM_CDFLAGS.ahk" { CM_CDFLAGS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

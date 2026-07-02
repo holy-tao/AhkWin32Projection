@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
 #Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
 
 /**
  * Optionally supported by media sinks to perform required tasks before shutdown.

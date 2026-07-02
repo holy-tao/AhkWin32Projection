@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWMPMedia.ahk" { IWMPMedia }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
 
 /**
  * The IWMPPlaylist interface provides methods for manipulating lists of media items.
@@ -243,7 +243,7 @@ export default struct IWMPPlaylist extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_attributename
      */
     get_attributeName(lIndex, pbstrAttributeName) {
-        result := ComCall(11, this, "int", lIndex, BSTR.Ptr, pbstrAttributeName, "HRESULT")
+        result := ComCall(11, this, Int32, lIndex, BSTR.Ptr, pbstrAttributeName, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct IWMPPlaylist extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_item
      */
     get_item(lIndex) {
-        result := ComCall(12, this, "int", lIndex, "ptr*", &ppIWMPMedia := 0, "HRESULT")
+        result := ComCall(12, this, Int32, lIndex, "ptr*", &ppIWMPMedia := 0, "HRESULT")
         return IWMPMedia(ppIWMPMedia)
     }
 
@@ -421,7 +421,7 @@ export default struct IWMPPlaylist extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-insertitem
      */
     insertItem(lIndex, pIWMPMedia) {
-        result := ComCall(17, this, "int", lIndex, "ptr", pIWMPMedia, "HRESULT")
+        result := ComCall(17, this, Int32, lIndex, "ptr", pIWMPMedia, "HRESULT")
         return result
     }
 
@@ -521,7 +521,7 @@ export default struct IWMPPlaylist extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-moveitem
      */
     moveItem(lIndexOld, lIndexNew) {
-        result := ComCall(20, this, "int", lIndexOld, "int", lIndexNew, "HRESULT")
+        result := ComCall(20, this, Int32, lIndexOld, Int32, lIndexNew, "HRESULT")
         return result
     }
 

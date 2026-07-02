@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfReverseConversion.ahk" { ITfReverseConversion }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfReverseConversion.ahk" { ITfReverseConversion }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to ITfReverseConversion objects, which are used to perform reverse conversions.
@@ -102,7 +102,7 @@ export default struct ITfReverseConversionMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreverseconversionmgr-getreverseconversion
      */
     GetReverseConversion(langid, guidProfile, dwflag) {
-        result := ComCall(3, this, "ushort", langid, Guid.Ptr, guidProfile, "uint", dwflag, "ptr*", &ppReverseConversion := 0, "HRESULT")
+        result := ComCall(3, this, UInt16, langid, Guid.Ptr, guidProfile, UInt32, dwflag, "ptr*", &ppReverseConversion := 0, "HRESULT")
         return ITfReverseConversion(ppReverseConversion)
     }
 

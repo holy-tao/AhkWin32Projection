@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * The ISnapinAbout interface enables the console to get copyright and version information from a snap-in. The console also uses this interface to obtain images for the static folder from the snap-in.

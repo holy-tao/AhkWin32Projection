@@ -1,4 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UCharIteratorHasPrevious.ahk" { UCharIteratorHasPrevious }
+#Import ".\UCharIteratorNext.ahk" { UCharIteratorNext }
+#Import ".\UCharIteratorGetState.ahk" { UCharIteratorGetState }
+#Import ".\UCharIteratorMove.ahk" { UCharIteratorMove }
+#Import ".\UCharIteratorSetState.ahk" { UCharIteratorSetState }
+#Import ".\UCharIteratorPrevious.ahk" { UCharIteratorPrevious }
+#Import ".\UCharIteratorGetIndex.ahk" { UCharIteratorGetIndex }
+#Import ".\UCharIteratorReserved.ahk" { UCharIteratorReserved }
+#Import ".\UCharIteratorCurrent.ahk" { UCharIteratorCurrent }
+#Import ".\UCharIteratorHasNext.ahk" { UCharIteratorHasNext }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -18,24 +28,24 @@ export default struct UCharIterator {
 
     reservedField : Int32
 
-    getIndex : IntPtr
+    getIndex : UCharIteratorGetIndex
 
-    move : IntPtr
+    move : UCharIteratorMove
 
-    hasNext : IntPtr
+    hasNext : UCharIteratorHasNext
 
-    hasPrevious : IntPtr
+    hasPrevious : UCharIteratorHasPrevious
 
-    current : IntPtr
+    current : UCharIteratorCurrent
 
-    next : IntPtr
+    next : UCharIteratorNext
 
-    previous : IntPtr
+    previous : UCharIteratorPrevious
 
-    reservedFn : IntPtr
+    reservedFn : UCharIteratorReserved
 
-    getState : IntPtr
+    getState : UCharIteratorGetState
 
-    setState : IntPtr
+    setState : UCharIteratorSetState
 
 }

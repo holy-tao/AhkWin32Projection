@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Called by AutoPlay. Exposes methods that get dynamic information regarding a registered handler prior to displaying it to the user.
@@ -74,7 +74,7 @@ export default struct IDynamicHWHandler extends IUnknown {
     GetDynamicInfo(pszDeviceID, dwContentType) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID
 
-        result := ComCall(3, this, "ptr", pszDeviceID, "uint", dwContentType, PWSTR.Ptr, &ppszAction := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDeviceID, UInt32, dwContentType, PWSTR.Ptr, &ppszAction := 0, "HRESULT")
         return ppszAction
     }
 

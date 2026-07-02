@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\IShellMenu.ahk" { IShellMenu }
-#Import "..\..\Foundation\POINTL.ahk" { POINTL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * Exposes methods that extend the IShellMenu interface by providing the ability to coordinate toolbar buttons with a menu as well as display a pop-up menu.
@@ -73,7 +73,7 @@ export default struct ITrackShellMenu extends IShellMenu {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itrackshellmenu-setobscured
      */
     SetObscured(hwndTB, punkBand, dwSMSetFlags) {
-        result := ComCall(12, this, HWND, hwndTB, "ptr", punkBand, "uint", dwSMSetFlags, "HRESULT")
+        result := ComCall(12, this, HWND, hwndTB, "ptr", punkBand, UInt32, dwSMSetFlags, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct ITrackShellMenu extends IShellMenu {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itrackshellmenu-popup
      */
     Popup(_hwnd, ppt, prcExclude, dwFlags) {
-        result := ComCall(13, this, HWND, _hwnd, POINTL.Ptr, ppt, RECTL.Ptr, prcExclude, "int", dwFlags, "HRESULT")
+        result := ComCall(13, this, HWND, _hwnd, POINTL.Ptr, ppt, RECTL.Ptr, prcExclude, Int32, dwFlags, "HRESULT")
         return result
     }
 

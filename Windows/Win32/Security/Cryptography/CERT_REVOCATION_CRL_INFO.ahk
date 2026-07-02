@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRL_ENTRY.ahk" { CRL_ENTRY }
-#Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
+#Import ".\CRL_ENTRY.ahk" { CRL_ENTRY }
 
 /**
  * Contains information updated by a certificate revocation list (CRL) revocation type handler.

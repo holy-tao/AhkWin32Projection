@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GNSS_GEOREGIONTYPE.ahk" { GNSS_GEOREGIONTYPE }
 #Import ".\GNSS_GEOREGION_CIRCLE.ahk" { GNSS_GEOREGION_CIRCLE }
+#Import ".\GNSS_GEOREGIONTYPE.ahk" { GNSS_GEOREGIONTYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation

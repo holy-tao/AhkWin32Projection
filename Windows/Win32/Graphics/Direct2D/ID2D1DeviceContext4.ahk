@@ -2,24 +2,24 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D2D1_DRAW_TEXT_OPTIONS.ahk" { D2D1_DRAW_TEXT_OPTIONS }
-#Import "..\DirectWrite\IDWriteTextFormat.ahk" { IDWriteTextFormat }
-#Import ".\ID2D1CommandList.ahk" { ID2D1CommandList }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\DirectWrite\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import "..\DirectWrite\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
-#Import ".\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk" { D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION }
-#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import ".\ID2D1DeviceContext3.ahk" { ID2D1DeviceContext3 }
+#Import "..\DirectWrite\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk" { D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\DirectWrite\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 #Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ID2D1SvgGlyphStyle.ahk" { ID2D1SvgGlyphStyle }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\ID2D1CommandList.ahk" { ID2D1CommandList }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "..\DirectWrite\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
 #Import "..\DirectWrite\IDWriteTextLayout.ahk" { IDWriteTextLayout }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext3 interface, plus it enables functionality for handling new types of color font glyphs.
@@ -110,7 +110,7 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
     DrawText(_string, stringLength, textFormat, layoutRect, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options, measuringMode) {
         _string := _string is String ? StrPtr(_string) : _string
 
-        ComCall(109, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, D2D_RECT_F.Ptr, layoutRect, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options, DWRITE_MEASURING_MODE, measuringMode)
+        ComCall(109, this, "ptr", _string, UInt32, stringLength, "ptr", textFormat, D2D_RECT_F.Ptr, layoutRect, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -139,7 +139,7 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawtextlayout
      */
     DrawTextLayout(origin, textLayout, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options) {
-        ComCall(110, this, D2D_POINT_2F, origin, "ptr", textLayout, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options)
+        ComCall(110, this, D2D_POINT_2F, origin, "ptr", textLayout, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options)
     }
 
     /**
@@ -195,7 +195,7 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawsvgglyphrun
      */
     DrawSvgGlyphRun(baselineOrigin, _glyphRun, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, measuringMode) {
-        ComCall(112, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode)
+        ComCall(112, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -241,7 +241,7 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-getcolorbitmapglyphimage
      */
     GetColorBitmapGlyphImage(glyphImageFormat, glyphOrigin, fontFace, fontEmSize, glyphIndex, isSideways, worldTransform, dpiX, dpiY, glyphTransform, glyphImage) {
-        result := ComCall(113, this, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, "float", fontEmSize, "ushort", glyphIndex, BOOL, isSideways, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", dpiX, "float", dpiY, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1Image.Ptr, glyphImage, "HRESULT")
+        result := ComCall(113, this, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, Float32, fontEmSize, UInt16, glyphIndex, BOOL, isSideways, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, dpiX, Float32, dpiY, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1Image.Ptr, glyphImage, "HRESULT")
         return result
     }
 
@@ -289,7 +289,7 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-getsvgglyphimage
      */
     GetSvgGlyphImage(glyphOrigin, fontFace, fontEmSize, glyphIndex, isSideways, worldTransform, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, glyphTransform, glyphImage) {
-        result := ComCall(114, this, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, "float", fontEmSize, "ushort", glyphIndex, BOOL, isSideways, D2D_MATRIX_3X2_F.Ptr, worldTransform, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1CommandList.Ptr, glyphImage, "HRESULT")
+        result := ComCall(114, this, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, Float32, fontEmSize, UInt16, glyphIndex, BOOL, isSideways, D2D_MATRIX_3X2_F.Ptr, worldTransform, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1CommandList.Ptr, glyphImage, "HRESULT")
         return result
     }
 

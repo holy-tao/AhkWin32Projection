@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MEDIA_FLAGS.ahk" { MEDIA_FLAGS }
+#Import ".\RECORDER_TYPES.ahk" { RECORDER_TYPES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DISC_RECORDER_STATE_FLAGS.ahk" { DISC_RECORDER_STATE_FLAGS }
 #Import "..\..\System\Com\StructuredStorage\IPropertyStorage.ahk" { IPropertyStorage }
 #Import ".\MEDIA_TYPES.ahk" { MEDIA_TYPES }
-#Import ".\DISC_RECORDER_STATE_FLAGS.ahk" { DISC_RECORDER_STATE_FLAGS }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RECORDER_TYPES.ahk" { RECORDER_TYPES }
-#Import ".\MEDIA_FLAGS.ahk" { MEDIA_FLAGS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDiscRecorder interface enables access to a single disc recorder device, labeled the active disc recorder. An IMAPI object such as MSDiscMasterObj maintains an active disc recorder.
@@ -78,7 +78,7 @@ export default struct IDiscRecorder extends IUnknown {
     Init(pbyUniqueID, nulIDSize, nulDriveNumber) {
         pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pbyUniqueIDMarshal, pbyUniqueID, "uint", nulIDSize, "uint", nulDriveNumber, "HRESULT")
+        result := ComCall(3, this, pbyUniqueIDMarshal, pbyUniqueID, UInt32, nulIDSize, UInt32, nulDriveNumber, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IDiscRecorder extends IUnknown {
     GetRecorderGUID(pbyUniqueID, ulBufferSize) {
         pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pbyUniqueIDMarshal, pbyUniqueID, "uint", ulBufferSize, "uint*", &pulReturnSizeRequired := 0, "HRESULT")
+        result := ComCall(4, this, pbyUniqueIDMarshal, pbyUniqueID, UInt32, ulBufferSize, "uint*", &pulReturnSizeRequired := 0, "HRESULT")
         return pulReturnSizeRequired
     }
 
@@ -278,7 +278,7 @@ export default struct IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-erase
      */
     Erase(bFullErase) {
-        result := ComCall(16, this, "char", bFullErase, "HRESULT")
+        result := ComCall(16, this, Int8, bFullErase, "HRESULT")
         return result
     }
 

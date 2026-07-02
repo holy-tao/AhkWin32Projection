@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

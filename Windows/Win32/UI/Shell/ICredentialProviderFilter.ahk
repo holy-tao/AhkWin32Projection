@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk" { CREDENTIAL_PROVIDER_USAGE_SCENARIO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
 
 /**
  * Used to dynamically filter credential providers based on information available at runtime.
@@ -80,7 +80,7 @@ export default struct ICredentialProviderFilter extends IUnknown {
     Filter(cpus, dwFlags, rgclsidProviders, rgbAllow, cProviders) {
         rgbAllowMarshal := rgbAllow is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, CREDENTIAL_PROVIDER_USAGE_SCENARIO, cpus, "uint", dwFlags, Guid.Ptr, rgclsidProviders, rgbAllowMarshal, rgbAllow, "uint", cProviders, "HRESULT")
+        result := ComCall(3, this, CREDENTIAL_PROVIDER_USAGE_SCENARIO, cpus, UInt32, dwFlags, Guid.Ptr, rgclsidProviders, rgbAllowMarshal, rgbAllow, UInt32, cProviders, "HRESULT")
         return result
     }
 

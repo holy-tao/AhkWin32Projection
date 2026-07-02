@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMReaderAdvanced4.ahk" { IWMReaderAdvanced4 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMPlayerHook.ahk" { IWMPlayerHook }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMReaderAdvanced4.ahk" { IWMReaderAdvanced4 }
 
 /**
  * The IWMReaderAdvanced5 interface enables you to associate a player-hook callback interface with the reader object.An IWMReaderAdvanced5 interface exists for every reader object.
@@ -68,7 +68,7 @@ export default struct IWMReaderAdvanced5 extends IWMReaderAdvanced4 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced5-setplayerhook
      */
     SetPlayerHook(dwOutputNum, pHook) {
-        result := ComCall(49, this, "uint", dwOutputNum, "ptr", pHook, "HRESULT")
+        result := ComCall(49, this, UInt32, dwOutputNum, "ptr", pHook, "HRESULT")
         return result
     }
 

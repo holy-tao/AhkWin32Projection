@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HIGHCONTRASTW_FLAGS.ahk" { HIGHCONTRASTW_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about the high contrast accessibility feature. (Unicode)

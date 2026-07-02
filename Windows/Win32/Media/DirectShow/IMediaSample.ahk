@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaSample interface sets and retrieves properties on media samples.
@@ -250,7 +250,7 @@ export default struct IMediaSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample-setactualdatalength
      */
     SetActualDataLength(__MIDL__IMediaSample0000) {
-        result := ComCall(12, this, "int", __MIDL__IMediaSample0000, "HRESULT")
+        result := ComCall(12, this, Int32, __MIDL__IMediaSample0000, "HRESULT")
         return result
     }
 

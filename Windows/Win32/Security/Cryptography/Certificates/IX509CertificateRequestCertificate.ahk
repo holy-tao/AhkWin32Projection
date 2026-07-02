@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IX509CertificateRequestPkcs10.ahk" { IX509CertificateRequestPkcs10 }
-#Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
-#Import ".\EncodingType.ahk" { EncodingType }
 #Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509CertificateRequestPkcs10.ahk" { IX509CertificateRequestPkcs10 }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
 
 /**
  * The IX509CertificateRequestCertificate interface represents a request object for a self-generated certificate, enabling you to create a certificate directly without going through a registration or certification authority.
@@ -301,7 +301,7 @@ export default struct IX509CertificateRequestCertificate extends IX509Certificat
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-put_notbefore
      */
     put_NotBefore(Value) {
-        result := ComCall(64, this, "double", Value, "HRESULT")
+        result := ComCall(64, this, Float64, Value, "HRESULT")
         return result
     }
 
@@ -376,7 +376,7 @@ export default struct IX509CertificateRequestCertificate extends IX509Certificat
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-put_notafter
      */
     put_NotAfter(Value) {
-        result := ComCall(66, this, "double", Value, "HRESULT")
+        result := ComCall(66, this, Float64, Value, "HRESULT")
         return result
     }
 

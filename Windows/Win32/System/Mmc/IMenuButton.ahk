@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MMC_BUTTON_STATE.ahk" { MMC_BUTTON_STATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MMC_BUTTON_STATE.ahk" { MMC_BUTTON_STATE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMenuButton interface enables the user to add and manage menu buttons for a snap-in.
@@ -60,7 +60,7 @@ export default struct IMenuButton extends IUnknown {
         lpButtonText := lpButtonText is String ? StrPtr(lpButtonText) : lpButtonText
         lpTooltipText := lpTooltipText is String ? StrPtr(lpTooltipText) : lpTooltipText
 
-        result := ComCall(3, this, "int", idCommand, "ptr", lpButtonText, "ptr", lpTooltipText, "HRESULT")
+        result := ComCall(3, this, Int32, idCommand, "ptr", lpButtonText, "ptr", lpTooltipText, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IMenuButton extends IUnknown {
         lpButtonText := lpButtonText is String ? StrPtr(lpButtonText) : lpButtonText
         lpTooltipText := lpTooltipText is String ? StrPtr(lpTooltipText) : lpTooltipText
 
-        result := ComCall(4, this, "int", idCommand, "ptr", lpButtonText, "ptr", lpTooltipText, "HRESULT")
+        result := ComCall(4, this, Int32, idCommand, "ptr", lpButtonText, "ptr", lpTooltipText, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IMenuButton extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-imenubutton-setbuttonstate
      */
     SetButtonState(idCommand, nState, bState) {
-        result := ComCall(5, this, "int", idCommand, MMC_BUTTON_STATE, nState, BOOL, bState, "HRESULT")
+        result := ComCall(5, this, Int32, idCommand, MMC_BUTTON_STATE, nState, BOOL, bState, "HRESULT")
         return result
     }
 

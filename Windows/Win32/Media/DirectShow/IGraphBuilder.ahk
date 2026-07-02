@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IFilterGraph.ahk" { IFilterGraph }
 #Import ".\IBaseFilter.ahk" { IBaseFilter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFilterGraph.ahk" { IFilterGraph }
 #Import ".\IPin.ahk" { IPin }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface provides methods that enable an application to build a filter graph.
@@ -540,7 +540,7 @@ export default struct IGraphBuilder extends IFilterGraph {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphbuilder-setlogfile
      */
     SetLogFile(hFile) {
-        result := ComCall(15, this, "ptr", hFile, "HRESULT")
+        result := ComCall(15, this, IntPtr, hFile, "HRESULT")
         return result
     }
 

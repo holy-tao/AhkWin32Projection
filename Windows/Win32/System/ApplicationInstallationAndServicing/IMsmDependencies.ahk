@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMsmDependency.ahk" { IMsmDependency }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -58,7 +58,7 @@ export default struct IMsmDependencies extends IDispatch {
      * @returns {IMsmDependency} 
      */
     get_Item(Item) {
-        result := ComCall(7, this, "int", Item, "ptr*", &_Return := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Item, "ptr*", &_Return := 0, "HRESULT")
         return IMsmDependency(_Return)
     }
 

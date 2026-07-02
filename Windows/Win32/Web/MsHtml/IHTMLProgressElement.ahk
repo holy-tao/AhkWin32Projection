@@ -83,7 +83,7 @@ export default struct IHTMLProgressElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_value(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IHTMLProgressElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_max(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, Float32, v, "HRESULT")
         return result
     }
 

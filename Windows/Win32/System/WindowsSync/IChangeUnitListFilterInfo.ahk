@@ -103,7 +103,7 @@ export default struct IChangeUnitListFilterInfo extends ISyncFilterInfo {
     Initialize(ppbChangeUnitIds, dwChangeUnitCount) {
         ppbChangeUnitIdsMarshal := ppbChangeUnitIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, ppbChangeUnitIdsMarshal, ppbChangeUnitIds, "uint", dwChangeUnitCount, "HRESULT")
+        result := ComCall(4, this, ppbChangeUnitIdsMarshal, ppbChangeUnitIds, UInt32, dwChangeUnitCount, "HRESULT")
         return result
     }
 
@@ -224,7 +224,7 @@ export default struct IChangeUnitListFilterInfo extends ISyncFilterInfo {
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwChangeUnitIdIndex, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(6, this, UInt32, dwChangeUnitIdIndex, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 

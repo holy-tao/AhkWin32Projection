@@ -56,7 +56,7 @@ export default struct ISVGPathSegLinetoVerticalAbs extends IDispatch {
      * @returns {HRESULT} 
      */
     put_y(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, Float32, v, "HRESULT")
         return result
     }
 

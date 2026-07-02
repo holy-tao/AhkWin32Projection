@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFTOPONODE_ATTRIBUTE_UPDATE.ahk" { MFTOPONODE_ATTRIBUTE_UPDATE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFTOPONODE_ATTRIBUTE_UPDATE.ahk" { MFTOPONODE_ATTRIBUTE_UPDATE }
 
 /**
  * Updates the attributes of one or more nodes in the Media Session's current topology.
@@ -69,7 +69,7 @@ export default struct IMFTopologyNodeAttributeEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynodeattributeeditor-updatenodeattributes
      */
     UpdateNodeAttributes(TopoId, cUpdates, pUpdates) {
-        result := ComCall(3, this, "uint", TopoId, "uint", cUpdates, MFTOPONODE_ATTRIBUTE_UPDATE.Ptr, pUpdates, "HRESULT")
+        result := ComCall(3, this, Int64, TopoId, UInt32, cUpdates, MFTOPONODE_ATTRIBUTE_UPDATE.Ptr, pUpdates, "HRESULT")
         return result
     }
 

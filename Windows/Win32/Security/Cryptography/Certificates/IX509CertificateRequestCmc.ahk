@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IX509CertificateRequestPkcs7.ahk" { IX509CertificateRequestPkcs7 }
-#Import ".\IObjectId.ahk" { IObjectId }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\EncodingType.ahk" { EncodingType }
 #Import ".\IX509Extensions.ahk" { IX509Extensions }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISignerCertificates.ahk" { ISignerCertificates }
 #Import ".\ICryptAttributes.ahk" { ICryptAttributes }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IX509CertificateRequestPkcs7.ahk" { IX509CertificateRequestPkcs7 }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
+#Import ".\IObjectId.ahk" { IObjectId }
 #Import ".\IX509NameValuePairs.ahk" { IX509NameValuePairs }
 #Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
-#Import ".\IX509SignatureInformation.ahk" { IX509SignatureInformation }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IObjectIds.ahk" { IObjectIds }
 
 /**
  * Represents a CMC (Certificate Management Message over CMS) certificate request.
@@ -518,7 +518,7 @@ export default struct IX509CertificateRequestCmc extends IX509CertificateRequest
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_transactionid
      */
     put_TransactionId(Value) {
-        result := ComCall(49, this, "int", Value, "HRESULT")
+        result := ComCall(49, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -972,7 +972,7 @@ export default struct IX509CertificateRequestCmc extends IX509CertificateRequest
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_encryptionstrength
      */
     put_EncryptionStrength(Value) {
-        result := ComCall(60, this, "int", Value, "HRESULT")
+        result := ComCall(60, this, Int32, Value, "HRESULT")
         return result
     }
 

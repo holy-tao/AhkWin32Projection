@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellView2.ahk" { IShellView2 }
 #Import ".\FOLDERFLAGS.ahk" { FOLDERFLAGS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\IShellView.ahk" { IShellView }
-#Import ".\IShellView2.ahk" { IShellView2 }
 #Import ".\IShellBrowser.ahk" { IShellBrowser }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FOLDERVIEWMODE.ahk" { FOLDERVIEWMODE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Extends the capabilities of IShellView2 by providing a method to replace IShellView2::CreateViewWindow2.
@@ -78,7 +78,7 @@ export default struct IShellView3 extends IShellView2 {
      */
     CreateViewWindow3(psbOwner, psvPrev, dwViewFlags, dwMask, dwFlags, fvMode, pvid, prcView) {
         phwndView := HWND()
-        result := ComCall(20, this, "ptr", psbOwner, "ptr", psvPrev, "uint", dwViewFlags, FOLDERFLAGS, dwMask, FOLDERFLAGS, dwFlags, FOLDERVIEWMODE, fvMode, Guid.Ptr, pvid, RECT.Ptr, prcView, HWND.Ptr, phwndView, "HRESULT")
+        result := ComCall(20, this, "ptr", psbOwner, "ptr", psvPrev, UInt32, dwViewFlags, FOLDERFLAGS, dwMask, FOLDERFLAGS, dwFlags, FOLDERVIEWMODE, fvMode, Guid.Ptr, pvid, RECT.Ptr, prcView, HWND.Ptr, phwndView, "HRESULT")
         return phwndView
     }
 

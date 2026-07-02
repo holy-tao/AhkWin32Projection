@@ -1,30 +1,30 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\ISCSI_VERSION_INFO.ahk" { ISCSI_VERSION_INFO }
-#Import ".\ISCSI_TARGET_PORTAL_INFOA.ahk" { ISCSI_TARGET_PORTAL_INFOA }
-#Import ".\ISCSI_TARGET_PORTALW.ahk" { ISCSI_TARGET_PORTALW }
-#Import ".\ISCSI_SESSION_INFO_EX.ahk" { ISCSI_SESSION_INFO_EX }
-#Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
-#Import ".\ISCSI_TARGET_PORTAL_INFO_EXA.ahk" { ISCSI_TARGET_PORTAL_INFO_EXA }
-#Import ".\ISCSI_TARGET_PORTAL_INFOW.ahk" { ISCSI_TARGET_PORTAL_INFOW }
-#Import ".\PERSISTENT_ISCSI_LOGIN_INFOA.ahk" { PERSISTENT_ISCSI_LOGIN_INFOA }
 #Import ".\ISCSI_TARGET_PORTALA.ahk" { ISCSI_TARGET_PORTALA }
-#Import ".\ISCSI_LOGIN_OPTIONS.ahk" { ISCSI_LOGIN_OPTIONS }
-#Import ".\TARGET_INFORMATION_CLASS.ahk" { TARGET_INFORMATION_CLASS }
-#Import ".\ISCSI_SESSION_INFOW.ahk" { ISCSI_SESSION_INFOW }
-#Import ".\PERSISTENT_ISCSI_LOGIN_INFOW.ahk" { PERSISTENT_ISCSI_LOGIN_INFOW }
+#Import ".\ISCSI_SESSION_INFOA.ahk" { ISCSI_SESSION_INFOA }
+#Import ".\PERSISTENT_ISCSI_LOGIN_INFOA.ahk" { PERSISTENT_ISCSI_LOGIN_INFOA }
+#Import ".\ISCSI_TARGET_PORTAL_INFO_EXA.ahk" { ISCSI_TARGET_PORTAL_INFO_EXA }
+#Import ".\ISCSI_TARGET_PORTALW.ahk" { ISCSI_TARGET_PORTALW }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISCSI_TARGET_PORTAL_GROUPA.ahk" { ISCSI_TARGET_PORTAL_GROUPA }
+#Import ".\ISCSI_VERSION_INFO.ahk" { ISCSI_VERSION_INFO }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\ISCSI_SESSION_INFOW.ahk" { ISCSI_SESSION_INFOW }
+#Import ".\ISCSI_DEVICE_ON_SESSIONA.ahk" { ISCSI_DEVICE_ON_SESSIONA }
+#Import ".\ISCSI_TARGET_PORTAL_INFOW.ahk" { ISCSI_TARGET_PORTAL_INFOW }
+#Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
+#Import ".\IKE_AUTHENTICATION_INFORMATION.ahk" { IKE_AUTHENTICATION_INFORMATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISCSI_TARGET_PORTAL_INFOA.ahk" { ISCSI_TARGET_PORTAL_INFOA }
+#Import ".\ISCSI_TARGET_PORTAL_GROUPA.ahk" { ISCSI_TARGET_PORTAL_GROUPA }
+#Import ".\ISCSI_TARGET_MAPPINGW.ahk" { ISCSI_TARGET_MAPPINGW }
+#Import ".\ISCSI_SESSION_INFO_EX.ahk" { ISCSI_SESSION_INFO_EX }
+#Import ".\TARGET_INFORMATION_CLASS.ahk" { TARGET_INFORMATION_CLASS }
+#Import ".\PERSISTENT_ISCSI_LOGIN_INFOW.ahk" { PERSISTENT_ISCSI_LOGIN_INFOW }
+#Import ".\ISCSI_TARGET_PORTAL_INFO_EXW.ahk" { ISCSI_TARGET_PORTAL_INFO_EXW }
+#Import ".\ISCSI_LOGIN_OPTIONS.ahk" { ISCSI_LOGIN_OPTIONS }
+#Import ".\ISCSI_TARGET_PORTAL_GROUPW.ahk" { ISCSI_TARGET_PORTAL_GROUPW }
 #Import ".\ISCSI_TARGET_MAPPINGA.ahk" { ISCSI_TARGET_MAPPINGA }
 #Import ".\ISCSI_DEVICE_ON_SESSIONW.ahk" { ISCSI_DEVICE_ON_SESSIONW }
-#Import ".\ISCSI_TARGET_PORTAL_INFO_EXW.ahk" { ISCSI_TARGET_PORTAL_INFO_EXW }
-#Import ".\ISCSI_TARGET_MAPPINGW.ahk" { ISCSI_TARGET_MAPPINGW }
-#Import ".\ISCSI_SESSION_INFOA.ahk" { ISCSI_SESSION_INFOA }
-#Import ".\ISCSI_DEVICE_ON_SESSIONA.ahk" { ISCSI_DEVICE_ON_SESSIONA }
-#Import ".\IKE_AUTHENTICATION_INFORMATION.ahk" { IKE_AUTHENTICATION_INFORMATION }
-#Import ".\ISCSI_TARGET_PORTAL_GROUPW.ahk" { ISCSI_TARGET_PORTAL_GROUPW }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
@@ -226,7 +226,7 @@ export AddIScsiConnectionW(UniqueSessionId, Reserved, InitiatorPortNumber, Targe
 
     ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiConnectionW", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ReservedMarshal, Reserved, "uint", InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, TargetPortal, "uint", SecurityFlags, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, "uint", KeySize, "ptr", Key, ISCSI_UNIQUE_SESSION_ID.Ptr, ConnectionId, UInt32)
+    result := DllCall("ISCSIDSC.dll\AddIScsiConnectionW", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ReservedMarshal, Reserved, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, "ptr", Key, ISCSI_UNIQUE_SESSION_ID.Ptr, ConnectionId, UInt32)
     return result
 }
 
@@ -339,7 +339,7 @@ export AddIScsiConnectionA(UniqueSessionId, Reserved, InitiatorPortNumber, Targe
 
     ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiConnectionA", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ReservedMarshal, Reserved, "uint", InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, TargetPortal, "uint", SecurityFlags, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, "uint", KeySize, "ptr", Key, ISCSI_UNIQUE_SESSION_ID.Ptr, ConnectionId, UInt32)
+    result := DllCall("ISCSIDSC.dll\AddIScsiConnectionA", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ReservedMarshal, Reserved, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, "ptr", Key, ISCSI_UNIQUE_SESSION_ID.Ptr, ConnectionId, UInt32)
     return result
 }
 
@@ -460,7 +460,7 @@ export AddIScsiStaticTargetW(TargetName, TargetAlias, TargetFlags, Persist, Mapp
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
     TargetAlias := TargetAlias is String ? StrPtr(TargetAlias) : TargetAlias
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetW", "ptr", TargetName, "ptr", TargetAlias, "uint", TargetFlags, BOOLEAN, Persist, ISCSI_TARGET_MAPPINGW.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, ISCSI_TARGET_PORTAL_GROUPW.Ptr, PortalGroup, UInt32)
+    result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetW", "ptr", TargetName, "ptr", TargetAlias, UInt32, TargetFlags, BOOLEAN, Persist, ISCSI_TARGET_MAPPINGW.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, ISCSI_TARGET_PORTAL_GROUPW.Ptr, PortalGroup, UInt32)
     return result
 }
 
@@ -524,7 +524,7 @@ export AddIScsiStaticTargetA(TargetName, TargetAlias, TargetFlags, Persist, Mapp
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
     TargetAlias := TargetAlias is String ? StrPtr(TargetAlias) : TargetAlias
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetA", "ptr", TargetName, "ptr", TargetAlias, "uint", TargetFlags, BOOLEAN, Persist, ISCSI_TARGET_MAPPINGA.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, ISCSI_TARGET_PORTAL_GROUPA.Ptr, PortalGroup, UInt32)
+    result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetA", "ptr", TargetName, "ptr", TargetAlias, UInt32, TargetFlags, BOOLEAN, Persist, ISCSI_TARGET_MAPPINGA.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, ISCSI_TARGET_PORTAL_GROUPA.Ptr, PortalGroup, UInt32)
     return result
 }
 
@@ -665,7 +665,7 @@ export RemoveIScsiStaticTargetA(TargetName) {
 export AddIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalW", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, "uint", SecurityFlags, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
+    result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalW", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, Int64, SecurityFlags, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
     return result
 }
 
@@ -772,7 +772,7 @@ export AddIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, LoginOp
 export AddIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalA", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, "uint", SecurityFlags, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
+    result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalA", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, Int64, SecurityFlags, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
     return result
 }
 
@@ -791,7 +791,7 @@ export AddIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, LoginOp
 export RemoveIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalW", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
+    result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalW", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
     return result
 }
 
@@ -810,7 +810,7 @@ export RemoveIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Port
 export RemoveIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalA", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
+    result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalA", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
     return result
 }
 
@@ -829,7 +829,7 @@ export RemoveIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Port
 export RefreshIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalW", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
+    result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalW", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
     return result
 }
 
@@ -848,7 +848,7 @@ export RefreshIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Por
 export RefreshIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalA", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
+    result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalA", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
     return result
 }
 
@@ -1058,7 +1058,7 @@ export LoginIScsiTargetW(TargetName, IsInformationalSession, InitiatorInstance, 
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
     Key := Key is String ? StrPtr(Key) : Key
 
-    result := DllCall("ISCSIDSC.dll\LoginIScsiTargetW", "ptr", TargetName, BOOLEAN, IsInformationalSession, "ptr", InitiatorInstance, "uint", InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, TargetPortal, "uint", SecurityFlags, ISCSI_TARGET_MAPPINGW.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, "uint", KeySize, "ptr", Key, BOOLEAN, IsPersistent, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueConnectionId, UInt32)
+    result := DllCall("ISCSIDSC.dll\LoginIScsiTargetW", "ptr", TargetName, BOOLEAN, IsInformationalSession, "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_TARGET_MAPPINGW.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, "ptr", Key, BOOLEAN, IsPersistent, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueConnectionId, UInt32)
     return result
 }
 
@@ -1192,7 +1192,7 @@ export LoginIScsiTargetA(TargetName, IsInformationalSession, InitiatorInstance, 
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
     Key := Key is String ? StrPtr(Key) : Key
 
-    result := DllCall("ISCSIDSC.dll\LoginIScsiTargetA", "ptr", TargetName, BOOLEAN, IsInformationalSession, "ptr", InitiatorInstance, "uint", InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, TargetPortal, "uint", SecurityFlags, ISCSI_TARGET_MAPPINGA.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, "uint", KeySize, "ptr", Key, BOOLEAN, IsPersistent, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueConnectionId, UInt32)
+    result := DllCall("ISCSIDSC.dll\LoginIScsiTargetA", "ptr", TargetName, BOOLEAN, IsInformationalSession, "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_TARGET_MAPPINGA.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, "ptr", Key, BOOLEAN, IsPersistent, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueConnectionId, UInt32)
     return result
 }
 
@@ -1283,7 +1283,7 @@ export RemoveIScsiPersistentTargetW(InitiatorInstance, InitiatorPortNumber, Targ
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    result := DllCall("ISCSIDSC.dll\RemoveIScsiPersistentTargetW", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetName, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
+    result := DllCall("ISCSIDSC.dll\RemoveIScsiPersistentTargetW", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, "ptr", TargetName, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
     return result
 }
 
@@ -1304,7 +1304,7 @@ export RemoveIScsiPersistentTargetA(InitiatorInstance, InitiatorPortNumber, Targ
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    result := DllCall("ISCSIDSC.dll\RemoveIScsiPersistentTargetA", "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetName, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
+    result := DllCall("ISCSIDSC.dll\RemoveIScsiPersistentTargetA", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, "ptr", TargetName, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
     return result
 }
 
@@ -1339,7 +1339,7 @@ export SendScsiInquiry(UniqueSessionId, Lun, EvpdCmddt, PageCode, ScsiStatus, Re
     SenseSizeMarshal := SenseSize is VarRef ? "uint*" : "ptr"
     SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ISCSIDSC.dll\SendScsiInquiry", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, "uint", Lun, "char", EvpdCmddt, "char", PageCode, ScsiStatusMarshal, ScsiStatus, ResponseSizeMarshal, ResponseSize, ResponseBufferMarshal, ResponseBuffer, SenseSizeMarshal, SenseSize, SenseBufferMarshal, SenseBuffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\SendScsiInquiry", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, Int64, Lun, Int8, EvpdCmddt, Int8, PageCode, ScsiStatusMarshal, ScsiStatus, ResponseSizeMarshal, ResponseSize, ResponseBufferMarshal, ResponseBuffer, SenseSizeMarshal, SenseSize, SenseBufferMarshal, SenseBuffer, UInt32)
     return result
 }
 
@@ -1371,7 +1371,7 @@ export SendScsiReadCapacity(UniqueSessionId, Lun, ScsiStatus, ResponseSize, Resp
     SenseSizeMarshal := SenseSize is VarRef ? "uint*" : "ptr"
     SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ISCSIDSC.dll\SendScsiReadCapacity", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, "uint", Lun, ScsiStatusMarshal, ScsiStatus, ResponseSizeMarshal, ResponseSize, ResponseBufferMarshal, ResponseBuffer, SenseSizeMarshal, SenseSize, SenseBufferMarshal, SenseBuffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\SendScsiReadCapacity", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, Int64, Lun, ScsiStatusMarshal, ScsiStatus, ResponseSizeMarshal, ResponseSize, ResponseBufferMarshal, ResponseBuffer, SenseSizeMarshal, SenseSize, SenseBufferMarshal, SenseBuffer, UInt32)
     return result
 }
 
@@ -1531,7 +1531,7 @@ export SetIScsiTunnelModeOuterAddressW(InitiatorName, InitiatorPortNumber, Desti
     DestinationAddress := DestinationAddress is String ? StrPtr(DestinationAddress) : DestinationAddress
     OuterModeAddress := OuterModeAddress is String ? StrPtr(OuterModeAddress) : OuterModeAddress
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressW", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, BOOLEAN, Persist, UInt32)
+    result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressW", "ptr", InitiatorName, UInt32, InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, BOOLEAN, Persist, UInt32)
     return result
 }
 
@@ -1554,7 +1554,7 @@ export SetIScsiTunnelModeOuterAddressA(InitiatorName, InitiatorPortNumber, Desti
     DestinationAddress := DestinationAddress is String ? StrPtr(DestinationAddress) : DestinationAddress
     OuterModeAddress := OuterModeAddress is String ? StrPtr(OuterModeAddress) : OuterModeAddress
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressA", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, BOOLEAN, Persist, UInt32)
+    result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressA", "ptr", InitiatorName, UInt32, InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, BOOLEAN, Persist, UInt32)
     return result
 }
 
@@ -1574,7 +1574,7 @@ export SetIScsiTunnelModeOuterAddressA(InitiatorName, InitiatorPortNumber, Desti
 export SetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
     InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoW", "ptr", InitiatorName, "uint", InitiatorPortNumber, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, BOOLEAN, Persist, UInt32)
+    result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoW", "ptr", InitiatorName, UInt32, InitiatorPortNumber, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, BOOLEAN, Persist, UInt32)
     return result
 }
 
@@ -1594,7 +1594,7 @@ export SetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
 export SetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
     InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoA", "ptr", InitiatorName, "uint", InitiatorPortNumber, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, BOOLEAN, Persist, UInt32)
+    result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoA", "ptr", InitiatorName, UInt32, InitiatorPortNumber, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, BOOLEAN, Persist, UInt32)
     return result
 }
 
@@ -1616,7 +1616,7 @@ export GetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) 
 
     ReservedMarshal := Reserved is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoW", "ptr", InitiatorName, "uint", InitiatorPortNumber, ReservedMarshal, Reserved, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, UInt32)
+    result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoW", "ptr", InitiatorName, UInt32, InitiatorPortNumber, ReservedMarshal, Reserved, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, UInt32)
     return result
 }
 
@@ -1638,7 +1638,7 @@ export GetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) 
 
     ReservedMarshal := Reserved is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoA", "ptr", InitiatorName, "uint", InitiatorPortNumber, ReservedMarshal, Reserved, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, UInt32)
+    result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoA", "ptr", InitiatorName, UInt32, InitiatorPortNumber, ReservedMarshal, Reserved, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, UInt32)
     return result
 }
 
@@ -1654,7 +1654,7 @@ export GetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) 
 export SetIScsiGroupPresharedKey(KeyLength, Key, Persist) {
     KeyMarshal := Key is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiGroupPresharedKey", "uint", KeyLength, KeyMarshal, Key, BOOLEAN, Persist, UInt32)
+    result := DllCall("ISCSIDSC.dll\SetIScsiGroupPresharedKey", UInt32, KeyLength, KeyMarshal, Key, BOOLEAN, Persist, UInt32)
     return result
 }
 
@@ -1673,7 +1673,7 @@ export SetIScsiGroupPresharedKey(KeyLength, Key, Persist) {
 export SetIScsiInitiatorCHAPSharedSecret(SharedSecretLength, SharedSecret) {
     SharedSecretMarshal := SharedSecret is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorCHAPSharedSecret", "uint", SharedSecretLength, SharedSecretMarshal, SharedSecret, UInt32)
+    result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorCHAPSharedSecret", UInt32, SharedSecretLength, SharedSecretMarshal, SharedSecret, UInt32)
     return result
 }
 
@@ -1690,7 +1690,7 @@ export SetIScsiInitiatorCHAPSharedSecret(SharedSecretLength, SharedSecret) {
 export SetIScsiInitiatorRADIUSSharedSecret(SharedSecretLength, SharedSecret) {
     SharedSecretMarshal := SharedSecret is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorRADIUSSharedSecret", "uint", SharedSecretLength, SharedSecretMarshal, SharedSecret, UInt32)
+    result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorRADIUSSharedSecret", UInt32, SharedSecretLength, SharedSecretMarshal, SharedSecret, UInt32)
     return result
 }
 

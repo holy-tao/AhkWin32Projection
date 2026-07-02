@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemPathKeyList.ahk" { IWbemPathKeyList }
 
 /**
@@ -75,7 +75,7 @@ export default struct IWbemPath extends IUnknown {
     SetText(uMode, pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(3, this, "uint", uMode, "ptr", pszPath, "HRESULT")
+        result := ComCall(3, this, UInt32, uMode, "ptr", pszPath, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IWbemPath extends IUnknown {
 
         puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "int", lFlags, puBuffLengthMarshal, puBuffLength, "ptr", pszText, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, puBuffLengthMarshal, puBuffLength, "ptr", pszText, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IWbemPath extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-getinfo
      */
     GetInfo(uRequestedInfo) {
-        result := ComCall(5, this, "uint", uRequestedInfo, "uint*", &puResponse := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, uRequestedInfo, "uint*", &puResponse := 0, "HRESULT")
         return puResponse
     }
 
@@ -158,7 +158,7 @@ export default struct IWbemPath extends IUnknown {
     SetNamespaceAt(uIndex, pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(9, this, "uint", uIndex, "ptr", pszName, "HRESULT")
+        result := ComCall(9, this, UInt32, uIndex, "ptr", pszName, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IWbemPath extends IUnknown {
 
         puNameBufLengthMarshal := puNameBufLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", uIndex, puNameBufLengthMarshal, puNameBufLength, "ptr", pName, "HRESULT")
+        result := ComCall(10, this, UInt32, uIndex, puNameBufLengthMarshal, puNameBufLength, "ptr", pName, "HRESULT")
         return result
     }
 
@@ -188,7 +188,7 @@ export default struct IWbemPath extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-removenamespaceat
      */
     RemoveNamespaceAt(uIndex) {
-        result := ComCall(11, this, "uint", uIndex, "HRESULT")
+        result := ComCall(11, this, UInt32, uIndex, "HRESULT")
         return result
     }
 
@@ -222,7 +222,7 @@ export default struct IWbemPath extends IUnknown {
     SetScope(uIndex, pszClass) {
         pszClass := pszClass is String ? StrPtr(pszClass) : pszClass
 
-        result := ComCall(14, this, "uint", uIndex, "ptr", pszClass, "HRESULT")
+        result := ComCall(14, this, UInt32, uIndex, "ptr", pszClass, "HRESULT")
         return result
     }
 
@@ -236,7 +236,7 @@ export default struct IWbemPath extends IUnknown {
     SetScopeFromText(uIndex, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(15, this, "uint", uIndex, "ptr", pszText, "HRESULT")
+        result := ComCall(15, this, UInt32, uIndex, "ptr", pszText, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct IWbemPath extends IUnknown {
 
         puClassNameBufSizeMarshal := puClassNameBufSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", uIndex, puClassNameBufSizeMarshal, puClassNameBufSize, "ptr", pszClass, "ptr*", &pKeyList := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, uIndex, puClassNameBufSizeMarshal, puClassNameBufSize, "ptr", pszClass, "ptr*", &pKeyList := 0, "HRESULT")
         return IWbemPathKeyList(pKeyList)
     }
 
@@ -275,7 +275,7 @@ export default struct IWbemPath extends IUnknown {
 
         puTextBufSizeMarshal := puTextBufSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", uIndex, puTextBufSizeMarshal, puTextBufSize, "ptr", pszText, "HRESULT")
+        result := ComCall(17, this, UInt32, uIndex, puTextBufSizeMarshal, puTextBufSize, "ptr", pszText, "HRESULT")
         return result
     }
 
@@ -286,7 +286,7 @@ export default struct IWbemPath extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-removescope
      */
     RemoveScope(uIndex) {
-        result := ComCall(18, this, "uint", uIndex, "HRESULT")
+        result := ComCall(18, this, UInt32, uIndex, "HRESULT")
         return result
     }
 
@@ -352,7 +352,7 @@ export default struct IWbemPath extends IUnknown {
     CreateClassPart(lFlags, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(23, this, "int", lFlags, "ptr", Name, "HRESULT")
+        result := ComCall(23, this, Int32, lFlags, "ptr", Name, "HRESULT")
         return result
     }
 
@@ -363,7 +363,7 @@ export default struct IWbemPath extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempath-deleteclasspart
      */
     DeleteClassPart(lFlags) {
-        result := ComCall(24, this, "int", lFlags, "HRESULT")
+        result := ComCall(24, this, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -394,7 +394,7 @@ export default struct IWbemPath extends IUnknown {
         wszMachine := wszMachine is String ? StrPtr(wszMachine) : wszMachine
         wszNamespace := wszNamespace is String ? StrPtr(wszNamespace) : wszNamespace
 
-        result := ComCall(26, this, "ptr", wszMachine, "ptr", wszNamespace, "int", lFlags, BOOL)
+        result := ComCall(26, this, "ptr", wszMachine, "ptr", wszNamespace, Int32, lFlags, BOOL)
         return result
     }
 

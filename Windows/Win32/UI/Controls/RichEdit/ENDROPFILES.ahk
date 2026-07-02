@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\NMHDR.ahk" { NMHDR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information associated with an EN_DROPFILES notification code. A rich edit control sends this notification code when it receives a WM_DROPFILES message.

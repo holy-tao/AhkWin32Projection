@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CERT_REVOCATION_CRL_INFO.ahk" { CERT_REVOCATION_CRL_INFO }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Indicates the revocation status of a certificate in a CERT_CHAIN_ELEMENT.

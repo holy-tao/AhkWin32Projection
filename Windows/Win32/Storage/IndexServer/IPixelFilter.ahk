@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFilter.ahk" { IFilter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IFilter.ahk" { IFilter }
 #Import ".\IMAGE_INFO.ahk" { IMAGE_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Storage.IndexServer
@@ -56,7 +56,7 @@ export default struct IPixelFilter extends IFilter {
      * @returns {Integer} 
      */
     GetPixelsForImage(scalingFactor, sourceRect, pixelBufferSize) {
-        result := ComCall(9, this, "float", scalingFactor, RECT.Ptr, sourceRect, "uint", pixelBufferSize, "char*", &pixelBuffer := 0, "HRESULT")
+        result := ComCall(9, this, Float32, scalingFactor, RECT.Ptr, sourceRect, UInt32, pixelBufferSize, "char*", &pixelBuffer := 0, "HRESULT")
         return pixelBuffer
     }
 

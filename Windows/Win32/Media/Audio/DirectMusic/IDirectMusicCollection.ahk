@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectMusicInstrument.ahk" { IDirectMusicInstrument }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectMusicInstrument.ahk" { IDirectMusicInstrument }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -44,7 +44,7 @@ export default struct IDirectMusicCollection extends IUnknown {
      * @returns {IDirectMusicInstrument} 
      */
     GetInstrument(dwPatch) {
-        result := ComCall(3, this, "uint", dwPatch, "ptr*", &ppInstrument := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwPatch, "ptr*", &ppInstrument := 0, "HRESULT")
         return IDirectMusicInstrument(ppInstrument)
     }
 
@@ -61,7 +61,7 @@ export default struct IDirectMusicCollection extends IUnknown {
 
         pdwPatchMarshal := pdwPatch is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwIndex, pdwPatchMarshal, pdwPatch, "ptr", pwszName, "uint", dwNameLen, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, pdwPatchMarshal, pdwPatch, "ptr", pwszName, UInt32, dwNameLen, "HRESULT")
         return result
     }
 

@@ -1,55 +1,58 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\GOPHER_FIND_DATAA.ahk" { GOPHER_FIND_DATAA }
-#Import ".\URLCACHE_ENTRY_INFO.ahk" { URLCACHE_ENTRY_INFO }
-#Import "..\WinHttp\WIN_HTTP_CREATE_URL_FLAGS.ahk" { WIN_HTTP_CREATE_URL_FLAGS }
-#Import ".\INTERNET_BUFFERSW.ahk" { INTERNET_BUFFERSW }
-#Import "..\..\Security\Cryptography\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
-#Import ".\INTERNET_CACHE_GROUP_INFOA.ahk" { INTERNET_CACHE_GROUP_INFOA }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import ".\INTERNET_SCHEME.ahk" { INTERNET_SCHEME }
-#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
-#Import ".\HTTP_PUSH_NOTIFICATION_STATUS.ahk" { HTTP_PUSH_NOTIFICATION_STATUS }
-#Import ".\HTTP_PUSH_WAIT_HANDLE.ahk" { HTTP_PUSH_WAIT_HANDLE }
-#Import ".\PROXY_AUTO_DETECT_TYPE.ahk" { PROXY_AUTO_DETECT_TYPE }
+#Import ".\CACHE_OPERATOR.ahk" { CACHE_OPERATOR }
+#Import ".\APP_CACHE_STATE.ahk" { APP_CACHE_STATE }
 #Import ".\INTERNET_COOKIE_FLAGS.ahk" { INTERNET_COOKIE_FLAGS }
-#Import ".\INTERNET_CONNECTION.ahk" { INTERNET_CONNECTION }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\WININET_PROXY_INFO_LIST.ahk" { WININET_PROXY_INFO_LIST }
+#Import ".\INTERNET_CACHE_CONFIG_INFOW.ahk" { INTERNET_CACHE_CONFIG_INFOW }
+#Import ".\URLCACHE_ENTRY_INFO.ahk" { URLCACHE_ENTRY_INFO }
+#Import ".\LPINTERNET_STATUS_CALLBACK.ahk" { LPINTERNET_STATUS_CALLBACK }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\INTERNET_SECURITY_INFO.ahk" { INTERNET_SECURITY_INFO }
-#Import ".\WPAD_CACHE_DELETE.ahk" { WPAD_CACHE_DELETE }
-#Import ".\APP_CACHE_GROUP_LIST.ahk" { APP_CACHE_GROUP_LIST }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\INTERNET_CACHE_GROUP_INFOW.ahk" { INTERNET_CACHE_GROUP_INFOW }
+#Import ".\INTERNET_CACHE_ENTRY_INFOW.ahk" { INTERNET_CACHE_ENTRY_INFOW }
+#Import ".\INTERNET_CACHE_CONFIG_INFOA.ahk" { INTERNET_CACHE_CONFIG_INFOA }
+#Import ".\INTERNET_BUFFERSA.ahk" { INTERNET_BUFFERSA }
+#Import ".\FTP_FLAGS.ahk" { FTP_FLAGS }
+#Import ".\INTERNET_AUTODIAL.ahk" { INTERNET_AUTODIAL }
+#Import ".\INTERNET_COOKIE2.ahk" { INTERNET_COOKIE2 }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\PROXY_AUTO_DETECT_TYPE.ahk" { PROXY_AUTO_DETECT_TYPE }
+#Import ".\INTERNET_CACHE_GROUP_INFOA.ahk" { INTERNET_CACHE_GROUP_INFOA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\INTERNET_SECURITY_INFO.ahk" { INTERNET_SECURITY_INFO }
 #Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
+#Import ".\URL_CACHE_LIMIT_TYPE.ahk" { URL_CACHE_LIMIT_TYPE }
+#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
 #Import ".\APP_CACHE_FINALIZE_STATE.ahk" { APP_CACHE_FINALIZE_STATE }
+#Import ".\CACHE_CONFIG.ahk" { CACHE_CONFIG }
+#Import ".\HTTP_PUSH_TRANSPORT_SETTING.ahk" { HTTP_PUSH_TRANSPORT_SETTING }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\GOPHER_ATTRIBUTE_ENUMERATOR.ahk" { GOPHER_ATTRIBUTE_ENUMERATOR }
+#Import ".\WPAD_CACHE_DELETE.ahk" { WPAD_CACHE_DELETE }
+#Import ".\INTERNET_CONNECTION.ahk" { INTERNET_CONNECTION }
+#Import ".\HTTP_PUSH_WAIT_HANDLE.ahk" { HTTP_PUSH_WAIT_HANDLE }
+#Import ".\APP_CACHE_GROUP_INFO.ahk" { APP_CACHE_GROUP_INFO }
+#Import ".\HTTP_PUSH_NOTIFICATION_STATUS.ahk" { HTTP_PUSH_NOTIFICATION_STATUS }
+#Import ".\APP_CACHE_GROUP_LIST.ahk" { APP_CACHE_GROUP_LIST }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\INTERNET_BUFFERSW.ahk" { INTERNET_BUFFERSW }
+#Import ".\INTERNET_CACHE_ENTRY_INFOA.ahk" { INTERNET_CACHE_ENTRY_INFOA }
+#Import ".\GOPHER_FIND_DATAW.ahk" { GOPHER_FIND_DATAW }
+#Import ".\APP_CACHE_DOWNLOAD_LIST.ahk" { APP_CACHE_DOWNLOAD_LIST }
+#Import ".\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { HTTP_WEB_SOCKET_BUFFER_TYPE }
+#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
+#Import ".\INTERNET_SCHEME.ahk" { INTERNET_SCHEME }
+#Import ".\GOPHER_FIND_DATAA.ahk" { GOPHER_FIND_DATAA }
+#Import ".\HTTP_PUSH_WAIT_TYPE.ahk" { HTTP_PUSH_WAIT_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\Cryptography\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\URL_COMPONENTSW.ahk" { URL_COMPONENTSW }
-#Import ".\HTTP_PUSH_WAIT_TYPE.ahk" { HTTP_PUSH_WAIT_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CACHE_CONFIG.ahk" { CACHE_CONFIG }
-#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
-#Import ".\INTERNET_CACHE_CONFIG_INFOW.ahk" { INTERNET_CACHE_CONFIG_INFOW }
-#Import ".\APP_CACHE_GROUP_INFO.ahk" { APP_CACHE_GROUP_INFO }
-#Import ".\INTERNET_BUFFERSA.ahk" { INTERNET_BUFFERSA }
-#Import ".\INTERNET_CACHE_ENTRY_INFOW.ahk" { INTERNET_CACHE_ENTRY_INFOW }
-#Import ".\INTERNET_AUTODIAL.ahk" { INTERNET_AUTODIAL }
-#Import ".\GOPHER_FIND_DATAW.ahk" { GOPHER_FIND_DATAW }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\INTERNET_CACHE_CONFIG_INFOA.ahk" { INTERNET_CACHE_CONFIG_INFOA }
-#Import ".\HTTP_ADDREQ_FLAG.ahk" { HTTP_ADDREQ_FLAG }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\INTERNET_CACHE_ENTRY_INFOA.ahk" { INTERNET_CACHE_ENTRY_INFOA }
-#Import ".\APP_CACHE_STATE.ahk" { APP_CACHE_STATE }
-#Import ".\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk" { HTTP_WEB_SOCKET_BUFFER_TYPE }
-#Import ".\HTTP_PUSH_TRANSPORT_SETTING.ahk" { HTTP_PUSH_TRANSPORT_SETTING }
-#Import ".\WININET_PROXY_INFO_LIST.ahk" { WININET_PROXY_INFO_LIST }
 #Import ".\URL_COMPONENTSA.ahk" { URL_COMPONENTSA }
-#Import ".\FTP_FLAGS.ahk" { FTP_FLAGS }
-#Import ".\APP_CACHE_DOWNLOAD_LIST.ahk" { APP_CACHE_DOWNLOAD_LIST }
-#Import ".\INTERNET_COOKIE2.ahk" { INTERNET_COOKIE2 }
-#Import ".\URL_CACHE_LIMIT_TYPE.ahk" { URL_CACHE_LIMIT_TYPE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\HTTP_ADDREQ_FLAG.ahk" { HTTP_ADDREQ_FLAG }
+#Import "..\WinHttp\WIN_HTTP_CREATE_URL_FLAGS.ahk" { WIN_HTTP_CREATE_URL_FLAGS }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -81,7 +84,7 @@
 export InternetTimeFromSystemTimeA(pst, dwRFC, lpszTime, cbTime) {
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetTimeFromSystemTimeA", SYSTEMTIME.Ptr, pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, BOOL)
+    result := DllCall("WININET.dll\InternetTimeFromSystemTimeA", SYSTEMTIME.Ptr, pst, UInt32, dwRFC, IntPtr, lpszTime, UInt32, cbTime, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -114,7 +117,7 @@ export InternetTimeFromSystemTimeA(pst, dwRFC, lpszTime, cbTime) {
 export InternetTimeFromSystemTimeW(pst, dwRFC, lpszTime, cbTime) {
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetTimeFromSystemTimeW", SYSTEMTIME.Ptr, pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, BOOL)
+    result := DllCall("WININET.dll\InternetTimeFromSystemTimeW", SYSTEMTIME.Ptr, pst, UInt32, dwRFC, IntPtr, lpszTime, UInt32, cbTime, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -141,7 +144,7 @@ export InternetTimeFromSystemTimeW(pst, dwRFC, lpszTime, cbTime) {
 export InternetTimeFromSystemTime(pst, dwRFC, lpszTime, cbTime) {
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetTimeFromSystemTime", SYSTEMTIME.Ptr, pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, BOOL)
+    result := DllCall("WININET.dll\InternetTimeFromSystemTime", SYSTEMTIME.Ptr, pst, UInt32, dwRFC, IntPtr, lpszTime, UInt32, cbTime, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -175,7 +178,7 @@ export InternetTimeToSystemTimeA(lpszTime, pst) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetTimeToSystemTimeA", "ptr", lpszTime, SYSTEMTIME.Ptr, pst, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetTimeToSystemTimeA", "ptr", lpszTime, SYSTEMTIME.Ptr, pst, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -209,7 +212,7 @@ export InternetTimeToSystemTimeW(lpszTime, pst) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetTimeToSystemTimeW", "ptr", lpszTime, SYSTEMTIME.Ptr, pst, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetTimeToSystemTimeW", "ptr", lpszTime, SYSTEMTIME.Ptr, pst, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -237,7 +240,7 @@ export InternetTimeToSystemTime(lpszTime, pst) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetTimeToSystemTime", "ptr", lpszTime, SYSTEMTIME.Ptr, pst, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetTimeToSystemTime", "ptr", lpszTime, SYSTEMTIME.Ptr, pst, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -291,7 +294,7 @@ export InternetCrackUrlA(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCrackUrlA", "ptr", lpszUrl, "uint", dwUrlLength, WIN_HTTP_CREATE_URL_FLAGS, dwFlags, URL_COMPONENTSA.Ptr, lpUrlComponents, BOOL)
+    result := DllCall("WININET.dll\InternetCrackUrlA", "ptr", lpszUrl, UInt32, dwUrlLength, WIN_HTTP_CREATE_URL_FLAGS, dwFlags, URL_COMPONENTSA.Ptr, lpUrlComponents, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -345,7 +348,7 @@ export InternetCrackUrlW(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCrackUrlW", "ptr", lpszUrl, "uint", dwUrlLength, WIN_HTTP_CREATE_URL_FLAGS, dwFlags, URL_COMPONENTSW.Ptr, lpUrlComponents, BOOL)
+    result := DllCall("WININET.dll\InternetCrackUrlW", "ptr", lpszUrl, UInt32, dwUrlLength, WIN_HTTP_CREATE_URL_FLAGS, dwFlags, URL_COMPONENTSW.Ptr, lpUrlComponents, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -385,7 +388,7 @@ export InternetCreateUrlA(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCreateUrlA", URL_COMPONENTSA.Ptr, lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, lpdwUrlLengthMarshal, lpdwUrlLength, BOOL)
+    result := DllCall("WININET.dll\InternetCreateUrlA", URL_COMPONENTSA.Ptr, lpUrlComponents, UInt32, dwFlags, "ptr", lpszUrl, lpdwUrlLengthMarshal, lpdwUrlLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -425,7 +428,7 @@ export InternetCreateUrlW(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCreateUrlW", URL_COMPONENTSW.Ptr, lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, lpdwUrlLengthMarshal, lpdwUrlLength, BOOL)
+    result := DllCall("WININET.dll\InternetCreateUrlW", URL_COMPONENTSW.Ptr, lpUrlComponents, UInt32, dwFlags, "ptr", lpszUrl, lpdwUrlLengthMarshal, lpdwUrlLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -530,7 +533,7 @@ export InternetCanonicalizeUrlA(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) 
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCanonicalizeUrlA", "ptr", lpszUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\InternetCanonicalizeUrlA", "ptr", lpszUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -635,7 +638,7 @@ export InternetCanonicalizeUrlW(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) 
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCanonicalizeUrlW", "ptr", lpszUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\InternetCanonicalizeUrlW", "ptr", lpszUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -726,7 +729,7 @@ export InternetCombineUrlA(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferL
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCombineUrlA", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\InternetCombineUrlA", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -817,7 +820,7 @@ export InternetCombineUrlW(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferL
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCombineUrlW", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\InternetCombineUrlW", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -887,7 +890,7 @@ export InternetOpenA(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlag
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetOpenA", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags, IntPtr)
+    result := DllCall("WININET.dll\InternetOpenA", "ptr", lpszAgent, UInt32, dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, UInt32, dwFlags, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -957,7 +960,7 @@ export InternetOpenW(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlag
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetOpenW", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags, IntPtr)
+    result := DllCall("WININET.dll\InternetOpenW", "ptr", lpszAgent, UInt32, dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, UInt32, dwFlags, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1118,7 +1121,7 @@ export InternetConnectA(hInternet, lpszServerName, nServerPort, lpszUserName, lp
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetConnectA", hInternetMarshal, hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\InternetConnectA", hInternetMarshal, hInternet, "ptr", lpszServerName, UInt16, nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, UInt32, dwService, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1239,7 +1242,7 @@ export InternetConnectW(hInternet, lpszServerName, nServerPort, lpszUserName, lp
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetConnectW", hInternetMarshal, hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\InternetConnectW", hInternetMarshal, hInternet, "ptr", lpszServerName, UInt16, nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, UInt32, dwService, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1304,7 +1307,7 @@ export InternetOpenUrlA(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlag
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetOpenUrlA", hInternetMarshal, hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\InternetOpenUrlA", hInternetMarshal, hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, UInt32, dwHeadersLength, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1369,7 +1372,7 @@ export InternetOpenUrlW(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlag
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetOpenUrlW", hInternetMarshal, hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\InternetOpenUrlW", hInternetMarshal, hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, UInt32, dwHeadersLength, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1429,7 +1432,7 @@ export InternetReadFile(hFile, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfByte
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetReadFile", hFileMarshal, hFile, "ptr", lpBuffer, "uint", dwNumberOfBytesToRead, lpdwNumberOfBytesReadMarshal, lpdwNumberOfBytesRead, BOOL)
+    result := DllCall("WININET.dll\InternetReadFile", hFileMarshal, hFile, IntPtr, lpBuffer, UInt32, dwNumberOfBytesToRead, lpdwNumberOfBytesReadMarshal, lpdwNumberOfBytesRead, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1466,7 +1469,7 @@ export InternetReadFileExA(hFile, lpBuffersOut, dwFlags, dwContext) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetReadFileExA", hFileMarshal, hFile, INTERNET_BUFFERSA.Ptr, lpBuffersOut, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\InternetReadFileExA", hFileMarshal, hFile, INTERNET_BUFFERSA.Ptr, lpBuffersOut, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1503,7 +1506,7 @@ export InternetReadFileExW(hFile, lpBuffersOut, dwFlags, dwContext) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetReadFileExW", hFileMarshal, hFile, INTERNET_BUFFERSW.Ptr, lpBuffersOut, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\InternetReadFileExW", hFileMarshal, hFile, INTERNET_BUFFERSW.Ptr, lpBuffersOut, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1568,7 +1571,7 @@ export InternetSetFilePointer(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMo
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetSetFilePointer", hFileMarshal, hFile, "int", lDistanceToMove, lpDistanceToMoveHighMarshal, lpDistanceToMoveHigh, "uint", dwMoveMethod, "ptr", dwContext, UInt32)
+    result := DllCall("WININET.dll\InternetSetFilePointer", hFileMarshal, hFile, Int32, lDistanceToMove, lpDistanceToMoveHighMarshal, lpDistanceToMoveHigh, UInt32, dwMoveMethod, IntPtr, dwContext, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1606,7 +1609,7 @@ export InternetWriteFile(hFile, lpBuffer, dwNumberOfBytesToWrite, lpdwNumberOfBy
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetWriteFile", hFileMarshal, hFile, "ptr", lpBuffer, "uint", dwNumberOfBytesToWrite, lpdwNumberOfBytesWrittenMarshal, lpdwNumberOfBytesWritten, BOOL)
+    result := DllCall("WININET.dll\InternetWriteFile", hFileMarshal, hFile, IntPtr, lpBuffer, UInt32, dwNumberOfBytesToWrite, lpdwNumberOfBytesWrittenMarshal, lpdwNumberOfBytesWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1652,7 +1655,7 @@ export InternetQueryDataAvailable(hFile, lpdwNumberOfBytesAvailable, dwFlags, dw
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetQueryDataAvailable", hFileMarshal, hFile, lpdwNumberOfBytesAvailableMarshal, lpdwNumberOfBytesAvailable, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\InternetQueryDataAvailable", hFileMarshal, hFile, lpdwNumberOfBytesAvailableMarshal, lpdwNumberOfBytesAvailable, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1783,7 +1786,7 @@ export InternetQueryOptionA(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetQueryOptionA", hInternetMarshal, hInternet, "uint", dwOption, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
+    result := DllCall("WININET.dll\InternetQueryOptionA", hInternetMarshal, hInternet, UInt32, dwOption, IntPtr, lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1832,7 +1835,7 @@ export InternetQueryOptionW(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetQueryOptionW", hInternetMarshal, hInternet, "uint", dwOption, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
+    result := DllCall("WININET.dll\InternetQueryOptionW", hInternetMarshal, hInternet, UInt32, dwOption, IntPtr, lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1879,7 +1882,7 @@ export InternetSetOptionA(hInternet, dwOption, lpBuffer, dwBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetSetOptionA", hInternetMarshal, hInternet, "uint", dwOption, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, BOOL)
+    result := DllCall("WININET.dll\InternetSetOptionA", hInternetMarshal, hInternet, UInt32, dwOption, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1926,7 +1929,7 @@ export InternetSetOptionW(hInternet, dwOption, lpBuffer, dwBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetSetOptionW", hInternetMarshal, hInternet, "uint", dwOption, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, BOOL)
+    result := DllCall("WININET.dll\InternetSetOptionW", hInternetMarshal, hInternet, UInt32, dwOption, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1958,7 +1961,7 @@ export InternetSetOptionExA(hInternet, dwOption, lpBuffer, dwBufferLength, dwFla
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
     lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetOptionExA", hInternetMarshal, hInternet, "uint", dwOption, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\InternetSetOptionExA", hInternetMarshal, hInternet, UInt32, dwOption, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -1986,7 +1989,7 @@ export InternetSetOptionExW(hInternet, dwOption, lpBuffer, dwBufferLength, dwFla
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
     lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetOptionExW", hInternetMarshal, hInternet, "uint", dwOption, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\InternetSetOptionExW", hInternetMarshal, hInternet, UInt32, dwOption, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -2190,7 +2193,7 @@ export InternetGetLastResponseInfoW(lpdwError, lpszBuffer, lpdwBufferLength) {
 export InternetSetStatusCallbackA(hInternet, lpfnInternetCallback) {
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetStatusCallbackA", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, IntPtr)
+    result := DllCall("WININET.dll\InternetSetStatusCallbackA", hInternetMarshal, hInternet, LPINTERNET_STATUS_CALLBACK, lpfnInternetCallback, LPINTERNET_STATUS_CALLBACK)
     return result
 }
 
@@ -2231,7 +2234,7 @@ export InternetSetStatusCallbackA(hInternet, lpfnInternetCallback) {
 export InternetSetStatusCallbackW(hInternet, lpfnInternetCallback) {
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetStatusCallbackW", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, IntPtr)
+    result := DllCall("WININET.dll\InternetSetStatusCallbackW", hInternetMarshal, hInternet, LPINTERNET_STATUS_CALLBACK, lpfnInternetCallback, LPINTERNET_STATUS_CALLBACK)
     return result
 }
 
@@ -2267,7 +2270,7 @@ export InternetSetStatusCallbackW(hInternet, lpfnInternetCallback) {
 export InternetSetStatusCallback(hInternet, lpfnInternetCallback) {
     hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetStatusCallback", hInternetMarshal, hInternet, "ptr", lpfnInternetCallback, IntPtr)
+    result := DllCall("WININET.dll\InternetSetStatusCallback", hInternetMarshal, hInternet, LPINTERNET_STATUS_CALLBACK, lpfnInternetCallback, LPINTERNET_STATUS_CALLBACK)
     return result
 }
 
@@ -2336,7 +2339,7 @@ export FtpFindFirstFileA(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwCo
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpFindFirstFileA", hConnectMarshal, hConnect, "ptr", lpszSearchFile, WIN32_FIND_DATAA.Ptr, lpFindFileData, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\FtpFindFirstFileA", hConnectMarshal, hConnect, "ptr", lpszSearchFile, WIN32_FIND_DATAA.Ptr, lpFindFileData, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2409,7 +2412,7 @@ export FtpFindFirstFileW(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwCo
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpFindFirstFileW", hConnectMarshal, hConnect, "ptr", lpszSearchFile, WIN32_FIND_DATAW.Ptr, lpFindFileData, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\FtpFindFirstFileW", hConnectMarshal, hConnect, "ptr", lpszSearchFile, WIN32_FIND_DATAW.Ptr, lpFindFileData, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2582,7 +2585,7 @@ export FtpGetFileA(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlags
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpGetFileA", hConnectMarshal, hConnect, "ptr", lpszRemoteFile, "ptr", lpszNewFile, BOOL, fFailIfExists, "uint", dwFlagsAndAttributes, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\FtpGetFileA", hConnectMarshal, hConnect, "ptr", lpszRemoteFile, "ptr", lpszNewFile, BOOL, fFailIfExists, UInt32, dwFlagsAndAttributes, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2755,7 +2758,7 @@ export FtpGetFileW(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlags
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpGetFileW", hConnectMarshal, hConnect, "ptr", lpszRemoteFile, "ptr", lpszNewFile, BOOL, fFailIfExists, "uint", dwFlagsAndAttributes, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\FtpGetFileW", hConnectMarshal, hConnect, "ptr", lpszRemoteFile, "ptr", lpszNewFile, BOOL, fFailIfExists, UInt32, dwFlagsAndAttributes, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2806,7 +2809,7 @@ export FtpPutFileA(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContex
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpPutFileA", hConnectMarshal, hConnect, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, FTP_FLAGS, dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\FtpPutFileA", hConnectMarshal, hConnect, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, FTP_FLAGS, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2857,7 +2860,7 @@ export FtpPutFileW(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContex
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpPutFileW", hConnectMarshal, hConnect, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, FTP_FLAGS, dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\FtpPutFileW", hConnectMarshal, hConnect, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, FTP_FLAGS, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2882,7 +2885,7 @@ export FtpGetFileEx(hFtpSession, lpszRemoteFile, lpszNewFile, fFailIfExists, dwF
 
     hFtpSessionMarshal := hFtpSession is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\FtpGetFileEx", hFtpSessionMarshal, hFtpSession, "ptr", lpszRemoteFile, "ptr", lpszNewFile, BOOL, fFailIfExists, "uint", dwFlagsAndAttributes, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\FtpGetFileEx", hFtpSessionMarshal, hFtpSession, "ptr", lpszRemoteFile, "ptr", lpszNewFile, BOOL, fFailIfExists, UInt32, dwFlagsAndAttributes, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     return result
 }
 
@@ -2901,7 +2904,7 @@ export FtpPutFileEx(hFtpSession, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwCo
 
     hFtpSessionMarshal := hFtpSession is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\FtpPutFileEx", hFtpSessionMarshal, hFtpSession, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\FtpPutFileEx", hFtpSessionMarshal, hFtpSession, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     return result
 }
 
@@ -3109,7 +3112,7 @@ export FtpOpenFileA(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpOpenFileA", hConnectMarshal, hConnect, "ptr", lpszFileName, "uint", dwAccess, FTP_FLAGS, dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\FtpOpenFileA", hConnectMarshal, hConnect, "ptr", lpszFileName, UInt32, dwAccess, FTP_FLAGS, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3161,7 +3164,7 @@ export FtpOpenFileW(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpOpenFileW", hConnectMarshal, hConnect, "ptr", lpszFileName, "uint", dwAccess, FTP_FLAGS, dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\FtpOpenFileW", hConnectMarshal, hConnect, "ptr", lpszFileName, UInt32, dwAccess, FTP_FLAGS, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3544,7 +3547,7 @@ export FtpCommandA(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, p
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpCommandA", hConnectMarshal, hConnect, BOOL, fExpectResponse, FTP_FLAGS, dwFlags, "ptr", lpszCommand, "ptr", dwContext, phFtpCommandMarshal, phFtpCommand, BOOL)
+    result := DllCall("WININET.dll\FtpCommandA", hConnectMarshal, hConnect, BOOL, fExpectResponse, FTP_FLAGS, dwFlags, "ptr", lpszCommand, IntPtr, dwContext, phFtpCommandMarshal, phFtpCommand, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3591,7 +3594,7 @@ export FtpCommandW(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, p
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FtpCommandW", hConnectMarshal, hConnect, BOOL, fExpectResponse, FTP_FLAGS, dwFlags, "ptr", lpszCommand, "ptr", dwContext, phFtpCommandMarshal, phFtpCommand, BOOL)
+    result := DllCall("WININET.dll\FtpCommandW", hConnectMarshal, hConnect, BOOL, fExpectResponse, FTP_FLAGS, dwFlags, "ptr", lpszCommand, IntPtr, dwContext, phFtpCommandMarshal, phFtpCommand, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3670,7 +3673,7 @@ export GopherCreateLocatorA(lpszHost, nServerPort, lpszDisplayString, lpszSelect
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherCreateLocatorA", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
+    result := DllCall("WININET.dll\GopherCreateLocatorA", "ptr", lpszHost, UInt16, nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, UInt32, dwGopherType, "ptr", lpszLocator, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3729,7 +3732,7 @@ export GopherCreateLocatorW(lpszHost, nServerPort, lpszDisplayString, lpszSelect
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherCreateLocatorW", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
+    result := DllCall("WININET.dll\GopherCreateLocatorW", "ptr", lpszHost, UInt16, nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, UInt32, dwGopherType, "ptr", lpszLocator, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3868,7 +3871,7 @@ export GopherFindFirstFileA(hConnect, lpszLocator, lpszSearchString, lpFindData,
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherFindFirstFileA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, GOPHER_FIND_DATAA.Ptr, lpFindData, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\GopherFindFirstFileA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, GOPHER_FIND_DATAA.Ptr, lpFindData, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3931,7 +3934,7 @@ export GopherFindFirstFileW(hConnect, lpszLocator, lpszSearchString, lpFindData,
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherFindFirstFileW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, GOPHER_FIND_DATAW.Ptr, lpFindData, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\GopherFindFirstFileW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, GOPHER_FIND_DATAW.Ptr, lpFindData, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3984,7 +3987,7 @@ export GopherOpenFileA(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherOpenFileA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\GopherOpenFileA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszView, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4037,7 +4040,7 @@ export GopherOpenFileW(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherOpenFileW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\GopherOpenFileW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszView, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4101,7 +4104,7 @@ export GopherGetAttributeA(hConnect, lpszLocator, lpszAttributeName, lpBuffer, d
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherGetAttributeA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\GopherGetAttributeA", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, GOPHER_ATTRIBUTE_ENUMERATOR, lpfnEnumerator, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4165,7 +4168,7 @@ export GopherGetAttributeW(hConnect, lpszLocator, lpszAttributeName, lpBuffer, d
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GopherGetAttributeW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, "uint", dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\GopherGetAttributeW", hConnectMarshal, hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, lpBufferMarshal, lpBuffer, UInt32, dwBufferLength, lpdwCharactersReturnedMarshal, lpdwCharactersReturned, GOPHER_ATTRIBUTE_ENUMERATOR, lpfnEnumerator, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4260,7 +4263,7 @@ export HttpOpenRequestA(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszRef
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpOpenRequestA", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, lplpszAcceptTypesMarshal, lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\HttpOpenRequestA", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, lplpszAcceptTypesMarshal, lplpszAcceptTypes, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4356,7 +4359,7 @@ export HttpOpenRequestW(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszRef
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpOpenRequestW", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, lplpszAcceptTypesMarshal, lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\HttpOpenRequestW", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, lplpszAcceptTypesMarshal, lplpszAcceptTypes, UInt32, dwFlags, IntPtr, dwContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4406,7 +4409,7 @@ export HttpAddRequestHeadersA(hRequest, lpszHeaders, dwHeadersLength, dwModifier
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpAddRequestHeadersA", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, HTTP_ADDREQ_FLAG, dwModifiers, BOOL)
+    result := DllCall("WININET.dll\HttpAddRequestHeadersA", hRequestMarshal, hRequest, "ptr", lpszHeaders, UInt32, dwHeadersLength, HTTP_ADDREQ_FLAG, dwModifiers, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4456,7 +4459,7 @@ export HttpAddRequestHeadersW(hRequest, lpszHeaders, dwHeadersLength, dwModifier
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpAddRequestHeadersW", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, HTTP_ADDREQ_FLAG, dwModifiers, BOOL)
+    result := DllCall("WININET.dll\HttpAddRequestHeadersW", hRequestMarshal, hRequest, "ptr", lpszHeaders, UInt32, dwHeadersLength, HTTP_ADDREQ_FLAG, dwModifiers, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4520,7 +4523,7 @@ export HttpSendRequestA(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOp
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpSendRequestA", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "ptr", lpOptional, "uint", dwOptionalLength, BOOL)
+    result := DllCall("WININET.dll\HttpSendRequestA", hRequestMarshal, hRequest, "ptr", lpszHeaders, UInt32, dwHeadersLength, IntPtr, lpOptional, UInt32, dwOptionalLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4584,7 +4587,7 @@ export HttpSendRequestW(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOp
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpSendRequestW", hRequestMarshal, hRequest, "ptr", lpszHeaders, "uint", dwHeadersLength, "ptr", lpOptional, "uint", dwOptionalLength, BOOL)
+    result := DllCall("WININET.dll\HttpSendRequestW", hRequestMarshal, hRequest, "ptr", lpszHeaders, UInt32, dwHeadersLength, IntPtr, lpOptional, UInt32, dwOptionalLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4630,7 +4633,7 @@ export HttpSendRequestExA(hRequest, lpBuffersIn, lpBuffersOut, dwFlags, dwContex
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpSendRequestExA", hRequestMarshal, hRequest, INTERNET_BUFFERSA.Ptr, lpBuffersIn, INTERNET_BUFFERSA.Ptr, lpBuffersOut, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\HttpSendRequestExA", hRequestMarshal, hRequest, INTERNET_BUFFERSA.Ptr, lpBuffersIn, INTERNET_BUFFERSA.Ptr, lpBuffersOut, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4676,7 +4679,7 @@ export HttpSendRequestExW(hRequest, lpBuffersIn, lpBuffersOut, dwFlags, dwContex
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpSendRequestExW", hRequestMarshal, hRequest, INTERNET_BUFFERSW.Ptr, lpBuffersIn, INTERNET_BUFFERSW.Ptr, lpBuffersOut, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\HttpSendRequestExW", hRequestMarshal, hRequest, INTERNET_BUFFERSW.Ptr, lpBuffersIn, INTERNET_BUFFERSW.Ptr, lpBuffersOut, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4721,7 +4724,7 @@ export HttpEndRequestA(hRequest, lpBuffersOut, dwFlags, dwContext) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpEndRequestA", hRequestMarshal, hRequest, INTERNET_BUFFERSA.Ptr, lpBuffersOut, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\HttpEndRequestA", hRequestMarshal, hRequest, INTERNET_BUFFERSA.Ptr, lpBuffersOut, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4766,7 +4769,7 @@ export HttpEndRequestW(hRequest, lpBuffersOut, dwFlags, dwContext) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpEndRequestW", hRequestMarshal, hRequest, INTERNET_BUFFERSW.Ptr, lpBuffersOut, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\HttpEndRequestW", hRequestMarshal, hRequest, INTERNET_BUFFERSW.Ptr, lpBuffersOut, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4832,7 +4835,7 @@ export HttpQueryInfoA(hRequest, dwInfoLevel, lpBuffer, lpdwBufferLength, lpdwInd
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpQueryInfoA", hRequestMarshal, hRequest, "uint", dwInfoLevel, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpdwIndexMarshal, lpdwIndex, BOOL)
+    result := DllCall("WININET.dll\HttpQueryInfoA", hRequestMarshal, hRequest, UInt32, dwInfoLevel, IntPtr, lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpdwIndexMarshal, lpdwIndex, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4898,7 +4901,7 @@ export HttpQueryInfoW(hRequest, dwInfoLevel, lpBuffer, lpdwBufferLength, lpdwInd
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\HttpQueryInfoW", hRequestMarshal, hRequest, "uint", dwInfoLevel, "ptr", lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpdwIndexMarshal, lpdwIndex, BOOL)
+    result := DllCall("WININET.dll\HttpQueryInfoW", hRequestMarshal, hRequest, UInt32, dwInfoLevel, IntPtr, lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpdwIndexMarshal, lpdwIndex, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5294,7 +5297,7 @@ export InternetSetCookieExA(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dw
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetSetCookieExA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint", dwFlags, "ptr", dwReserved, UInt32)
+    result := DllCall("WININET.dll\InternetSetCookieExA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, UInt32, dwFlags, IntPtr, dwReserved, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5390,7 +5393,7 @@ export InternetSetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dw
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetSetCookieExW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint", dwFlags, "ptr", dwReserved, UInt32)
+    result := DllCall("WININET.dll\InternetSetCookieExW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, UInt32, dwFlags, IntPtr, dwReserved, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5597,7 +5600,7 @@ export InternetGetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize, d
  * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetfreecookies
  */
 export InternetFreeCookies(pCookies, dwCookieCount) {
-    DllCall("WININET.dll\InternetFreeCookies", INTERNET_COOKIE2.Ptr, pCookies, "uint", dwCookieCount)
+    DllCall("WININET.dll\InternetFreeCookies", INTERNET_COOKIE2.Ptr, pCookies, UInt32, dwCookieCount)
 }
 
 /**
@@ -5627,7 +5630,7 @@ export InternetGetCookieEx2(pcwszUrl, pcwszCookieName, dwFlags, ppCookies, pdwCo
     ppCookiesMarshal := ppCookies is VarRef ? "ptr*" : "ptr"
     pdwCookieCountMarshal := pdwCookieCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetGetCookieEx2", "ptr", pcwszUrl, "ptr", pcwszCookieName, "uint", dwFlags, ppCookiesMarshal, ppCookies, pdwCookieCountMarshal, pdwCookieCount, UInt32)
+    result := DllCall("WININET.dll\InternetGetCookieEx2", "ptr", pcwszUrl, "ptr", pcwszCookieName, UInt32, dwFlags, ppCookiesMarshal, ppCookies, pdwCookieCountMarshal, pdwCookieCount, UInt32)
     return result
 }
 
@@ -5658,7 +5661,7 @@ export InternetSetCookieEx2(pcwszUrl, pCookie, pcwszP3PPolicy, dwFlags, pdwCooki
 
     pdwCookieStateMarshal := pdwCookieState is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSetCookieEx2", "ptr", pcwszUrl, INTERNET_COOKIE2.Ptr, pCookie, "ptr", pcwszP3PPolicy, "uint", dwFlags, pdwCookieStateMarshal, pdwCookieState, UInt32)
+    result := DllCall("WININET.dll\InternetSetCookieEx2", "ptr", pcwszUrl, INTERNET_COOKIE2.Ptr, pCookie, "ptr", pcwszP3PPolicy, UInt32, dwFlags, pdwCookieStateMarshal, pdwCookieState, UInt32)
     return result
 }
 
@@ -5677,7 +5680,7 @@ export InternetSetCookieEx2(pcwszUrl, pCookie, pcwszP3PPolicy, dwFlags, pdwCooki
  * @since windows5.0
  */
 export InternetAttemptConnect(dwReserved) {
-    result := DllCall("WININET.dll\InternetAttemptConnect", "uint", dwReserved, UInt32)
+    result := DllCall("WININET.dll\InternetAttemptConnect", UInt32, dwReserved, UInt32)
     return result
 }
 
@@ -5715,7 +5718,7 @@ export InternetCheckConnectionA(lpszUrl, dwFlags, dwReserved) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCheckConnectionA", "ptr", lpszUrl, "uint", dwFlags, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetCheckConnectionA", "ptr", lpszUrl, UInt32, dwFlags, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5757,7 +5760,7 @@ export InternetCheckConnectionW(lpszUrl, dwFlags, dwReserved) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetCheckConnectionW", "ptr", lpszUrl, "uint", dwFlags, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetCheckConnectionW", "ptr", lpszUrl, UInt32, dwFlags, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5788,7 +5791,7 @@ export ResumeSuspendedDownload(hRequest, dwResultCode) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\ResumeSuspendedDownload", hRequestMarshal, hRequest, "uint", dwResultCode, BOOL)
+    result := DllCall("WININET.dll\ResumeSuspendedDownload", hRequestMarshal, hRequest, UInt32, dwResultCode, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5878,7 +5881,7 @@ export InternetErrorDlg(_hWnd, hRequest, dwError, dwFlags, lppvData) {
     hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
     lppvDataMarshal := lppvData is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetErrorDlg", HWND, _hWnd, hRequestMarshal, hRequest, "uint", dwError, "uint", dwFlags, lppvDataMarshal, lppvData, UInt32)
+    result := DllCall("WININET.dll\InternetErrorDlg", HWND, _hWnd, hRequestMarshal, hRequest, UInt32, dwError, UInt32, dwFlags, lppvDataMarshal, lppvData, UInt32)
     return result
 }
 
@@ -6141,7 +6144,7 @@ export CreateUrlCacheEntryA(lpszUrlName, dwExpectedFileSize, lpszFileExtension, 
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\CreateUrlCacheEntryA", "ptr", lpszUrlName, "uint", dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\CreateUrlCacheEntryA", "ptr", lpszUrlName, UInt32, dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6201,7 +6204,7 @@ export CreateUrlCacheEntryW(lpszUrlName, dwExpectedFileSize, lpszFileExtension, 
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\CreateUrlCacheEntryW", "ptr", lpszUrlName, "uint", dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\CreateUrlCacheEntryW", "ptr", lpszUrlName, UInt32, dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6390,7 +6393,7 @@ export CommitUrlCacheEntryA(lpszUrlName, lpszLocalFileName, ExpireTime, LastModi
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\CommitUrlCacheEntryA", "ptr", lpszUrlName, "ptr", lpszLocalFileName, FILETIME, ExpireTime, FILETIME, LastModifiedTime, "uint", CacheEntryType, lpHeaderInfoMarshal, lpHeaderInfo, "uint", cchHeaderInfo, "ptr", lpszFileExtension, "ptr", lpszOriginalUrl, BOOL)
+    result := DllCall("WININET.dll\CommitUrlCacheEntryA", "ptr", lpszUrlName, "ptr", lpszLocalFileName, FILETIME, ExpireTime, FILETIME, LastModifiedTime, UInt32, CacheEntryType, lpHeaderInfoMarshal, lpHeaderInfo, UInt32, cchHeaderInfo, "ptr", lpszFileExtension, "ptr", lpszOriginalUrl, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6579,7 +6582,7 @@ export CommitUrlCacheEntryW(lpszUrlName, lpszLocalFileName, ExpireTime, LastModi
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\CommitUrlCacheEntryW", "ptr", lpszUrlName, "ptr", lpszLocalFileName, FILETIME, ExpireTime, FILETIME, LastModifiedTime, "uint", CacheEntryType, "ptr", lpszHeaderInfo, "uint", cchHeaderInfo, "ptr", lpszFileExtension, "ptr", lpszOriginalUrl, BOOL)
+    result := DllCall("WININET.dll\CommitUrlCacheEntryW", "ptr", lpszUrlName, "ptr", lpszLocalFileName, FILETIME, ExpireTime, FILETIME, LastModifiedTime, UInt32, CacheEntryType, "ptr", lpszHeaderInfo, UInt32, cchHeaderInfo, "ptr", lpszFileExtension, "ptr", lpszOriginalUrl, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6656,7 +6659,7 @@ export RetrieveUrlCacheEntryFileA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryI
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileA", "ptr", lpszUrlName, IntPtr, lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6733,7 +6736,7 @@ export RetrieveUrlCacheEntryFileW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryI
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileW", "ptr", lpszUrlName, IntPtr, lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6771,7 +6774,7 @@ export UnlockUrlCacheEntryFileA(lpszUrlName) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\UnlockUrlCacheEntryFileA", "ptr", lpszUrlName, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\UnlockUrlCacheEntryFileA", "ptr", lpszUrlName, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6809,7 +6812,7 @@ export UnlockUrlCacheEntryFileW(lpszUrlName) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\UnlockUrlCacheEntryFileW", "ptr", lpszUrlName, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\UnlockUrlCacheEntryFileW", "ptr", lpszUrlName, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6841,7 +6844,7 @@ export UnlockUrlCacheEntryFile(lpszUrlName) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\UnlockUrlCacheEntryFile", "ptr", lpszUrlName, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\UnlockUrlCacheEntryFile", "ptr", lpszUrlName, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6924,7 +6927,7 @@ export RetrieveUrlCacheEntryStreamA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntr
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL, fRandomRead, "uint", dwReserved, HANDLE.Owned)
+    result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamA", "ptr", lpszUrlName, IntPtr, lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL, fRandomRead, UInt32, dwReserved, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7007,7 +7010,7 @@ export RetrieveUrlCacheEntryStreamW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntr
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL, fRandomRead, "uint", dwReserved, HANDLE.Owned)
+    result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamW", "ptr", lpszUrlName, IntPtr, lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL, fRandomRead, UInt32, dwReserved, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7044,7 +7047,7 @@ export ReadUrlCacheEntryStream(hUrlCacheStream, dwLocation, lpBuffer, lpdwLen) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\ReadUrlCacheEntryStream", HANDLE, hUrlCacheStream, "uint", dwLocation, "ptr", lpBuffer, lpdwLenMarshal, lpdwLen, "uint", Reserved, BOOL)
+    result := DllCall("WININET.dll\ReadUrlCacheEntryStream", HANDLE, hUrlCacheStream, UInt32, dwLocation, IntPtr, lpBuffer, lpdwLenMarshal, lpdwLen, UInt32, Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7063,7 +7066,7 @@ export ReadUrlCacheEntryStream(hUrlCacheStream, dwLocation, lpBuffer, lpdwLen) {
 export ReadUrlCacheEntryStreamEx(hUrlCacheStream, qwLocation, lpBuffer, lpdwLen) {
     lpdwLenMarshal := lpdwLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\ReadUrlCacheEntryStreamEx", HANDLE, hUrlCacheStream, "uint", qwLocation, "ptr", lpBuffer, lpdwLenMarshal, lpdwLen, BOOL)
+    result := DllCall("WININET.dll\ReadUrlCacheEntryStreamEx", HANDLE, hUrlCacheStream, Int64, qwLocation, IntPtr, lpBuffer, lpdwLenMarshal, lpdwLen, BOOL)
     return result
 }
 
@@ -7084,7 +7087,7 @@ export UnlockUrlCacheEntryStream(hUrlCacheStream) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\UnlockUrlCacheEntryStream", HANDLE, hUrlCacheStream, "uint", Reserved, BOOL)
+    result := DllCall("WININET.dll\UnlockUrlCacheEntryStream", HANDLE, hUrlCacheStream, UInt32, Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7158,7 +7161,7 @@ export GetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) 
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GetUrlCacheEntryInfoA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL)
+    result := DllCall("WININET.dll\GetUrlCacheEntryInfoA", "ptr", lpszUrlName, IntPtr, lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7232,7 +7235,7 @@ export GetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) 
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GetUrlCacheEntryInfoW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL)
+    result := DllCall("WININET.dll\GetUrlCacheEntryInfoW", "ptr", lpszUrlName, IntPtr, lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7266,7 +7269,7 @@ export FindFirstUrlCacheGroup(dwFlags, dwFilter, lpGroupId) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FindFirstUrlCacheGroup", "uint", dwFlags, "uint", dwFilter, "ptr", lpSearchCondition, "uint", dwSearchCondition, lpGroupIdMarshal, lpGroupId, "ptr", lpReserved, HANDLE.Owned)
+    result := DllCall("WININET.dll\FindFirstUrlCacheGroup", UInt32, dwFlags, UInt32, dwFilter, "ptr", lpSearchCondition, UInt32, dwSearchCondition, lpGroupIdMarshal, lpGroupId, "ptr", lpReserved, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7335,7 +7338,7 @@ export GetUrlCacheGroupAttributeA(gid, dwAttributes, lpGroupInfo, lpcbGroupInfo)
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GetUrlCacheGroupAttributeA", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, lpcbGroupInfoMarshal, lpcbGroupInfo, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\GetUrlCacheGroupAttributeA", Int64, gid, UInt32, dwFlags, UInt32, dwAttributes, IntPtr, lpGroupInfo, lpcbGroupInfoMarshal, lpcbGroupInfo, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7372,7 +7375,7 @@ export GetUrlCacheGroupAttributeW(gid, dwAttributes, lpGroupInfo, lpcbGroupInfo)
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GetUrlCacheGroupAttributeW", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, lpcbGroupInfoMarshal, lpcbGroupInfo, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\GetUrlCacheGroupAttributeW", Int64, gid, UInt32, dwFlags, UInt32, dwAttributes, IntPtr, lpGroupInfo, lpcbGroupInfoMarshal, lpcbGroupInfo, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7405,7 +7408,7 @@ export SetUrlCacheGroupAttributeA(gid, dwAttributes, lpGroupInfo) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\SetUrlCacheGroupAttributeA", "int64", gid, "uint", dwFlags, "uint", dwAttributes, INTERNET_CACHE_GROUP_INFOA.Ptr, lpGroupInfo, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheGroupAttributeA", Int64, gid, UInt32, dwFlags, UInt32, dwAttributes, INTERNET_CACHE_GROUP_INFOA.Ptr, lpGroupInfo, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7438,7 +7441,7 @@ export SetUrlCacheGroupAttributeW(gid, dwAttributes, lpGroupInfo) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\SetUrlCacheGroupAttributeW", "int64", gid, "uint", dwFlags, "uint", dwAttributes, INTERNET_CACHE_GROUP_INFOW.Ptr, lpGroupInfo, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheGroupAttributeW", Int64, gid, UInt32, dwFlags, UInt32, dwAttributes, INTERNET_CACHE_GROUP_INFOW.Ptr, lpGroupInfo, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7514,7 +7517,7 @@ export GetUrlCacheEntryInfoExA(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dw
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GetUrlCacheEntryInfoExA", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "uint*", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\GetUrlCacheEntryInfoExA", "ptr", lpszUrl, IntPtr, lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "uint*", lpcbRedirectUrl, "ptr", lpReserved, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7590,7 +7593,7 @@ export GetUrlCacheEntryInfoExW(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dw
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\GetUrlCacheEntryInfoExW", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "uint*", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\GetUrlCacheEntryInfoExW", "ptr", lpszUrl, IntPtr, lpCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "uint*", lpcbRedirectUrl, "ptr", lpReserved, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7653,7 +7656,7 @@ export SetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\SetUrlCacheEntryInfoA", "ptr", lpszUrlName, INTERNET_CACHE_ENTRY_INFOA.Ptr, lpCacheEntryInfo, "uint", dwFieldControl, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheEntryInfoA", "ptr", lpszUrlName, INTERNET_CACHE_ENTRY_INFOA.Ptr, lpCacheEntryInfo, UInt32, dwFieldControl, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7716,7 +7719,7 @@ export SetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\SetUrlCacheEntryInfoW", "ptr", lpszUrlName, INTERNET_CACHE_ENTRY_INFOW.Ptr, lpCacheEntryInfo, "uint", dwFieldControl, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheEntryInfoW", "ptr", lpszUrlName, INTERNET_CACHE_ENTRY_INFOW.Ptr, lpCacheEntryInfo, UInt32, dwFieldControl, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7742,7 +7745,7 @@ export CreateUrlCacheGroup(dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\CreateUrlCacheGroup", "uint", dwFlags, "ptr", lpReserved, Int64)
+    result := DllCall("WININET.dll\CreateUrlCacheGroup", UInt32, dwFlags, "ptr", lpReserved, Int64)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7769,7 +7772,7 @@ export DeleteUrlCacheGroup(GroupId, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\DeleteUrlCacheGroup", "int64", GroupId, "uint", dwFlags, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\DeleteUrlCacheGroup", Int64, GroupId, UInt32, dwFlags, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7804,7 +7807,7 @@ export SetUrlCacheEntryGroupA(lpszUrlName, dwFlags, GroupId) {
 
     lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
-    result := DllCall("WININET.dll\SetUrlCacheEntryGroupA", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "char*", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheEntryGroupA", "ptr", lpszUrlName, UInt32, dwFlags, Int64, GroupId, "char*", pbGroupAttributes, UInt32, cbGroupAttributes, "ptr", lpReserved, BOOL)
     return result
 }
 
@@ -7835,7 +7838,7 @@ export SetUrlCacheEntryGroupW(lpszUrlName, dwFlags, GroupId) {
 
     lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
-    result := DllCall("WININET.dll\SetUrlCacheEntryGroupW", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "char*", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheEntryGroupW", "ptr", lpszUrlName, UInt32, dwFlags, Int64, GroupId, "char*", pbGroupAttributes, UInt32, cbGroupAttributes, "ptr", lpReserved, BOOL)
     return result
 }
 
@@ -7860,7 +7863,7 @@ export SetUrlCacheEntryGroup(lpszUrlName, dwFlags, GroupId) {
 
     lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
-    result := DllCall("WININET.dll\SetUrlCacheEntryGroup", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "char*", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheEntryGroup", "ptr", lpszUrlName, UInt32, dwFlags, Int64, GroupId, "char*", pbGroupAttributes, UInt32, cbGroupAttributes, "ptr", lpReserved, BOOL)
     return result
 }
 
@@ -8000,7 +8003,7 @@ export FindFirstUrlCacheEntryExA(lpszUrlSearchPattern, dwFlags, dwFilter, GroupI
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FindFirstUrlCacheEntryExA", "ptr", lpszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, HANDLE.Owned)
+    result := DllCall("WININET.dll\FindFirstUrlCacheEntryExA", "ptr", lpszUrlSearchPattern, UInt32, dwFlags, UInt32, dwFilter, Int64, GroupId, IntPtr, lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8144,7 +8147,7 @@ export FindFirstUrlCacheEntryExW(lpszUrlSearchPattern, dwFlags, dwFilter, GroupI
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FindFirstUrlCacheEntryExW", "ptr", lpszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, HANDLE.Owned)
+    result := DllCall("WININET.dll\FindFirstUrlCacheEntryExW", "ptr", lpszUrlSearchPattern, UInt32, dwFlags, UInt32, dwFilter, Int64, GroupId, IntPtr, lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8184,7 +8187,7 @@ export FindNextUrlCacheEntryExA(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntr
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FindNextUrlCacheEntryExA", HANDLE, hEnumHandle, "ptr", lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\FindNextUrlCacheEntryExA", HANDLE, hEnumHandle, IntPtr, lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8224,7 +8227,7 @@ export FindNextUrlCacheEntryExW(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntr
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FindNextUrlCacheEntryExW", HANDLE, hEnumHandle, "ptr", lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, BOOL)
+    result := DllCall("WININET.dll\FindNextUrlCacheEntryExW", HANDLE, hEnumHandle, IntPtr, lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8276,7 +8279,7 @@ export FindFirstUrlCacheEntryA(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcb
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FindFirstUrlCacheEntryA", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, HANDLE.Owned)
+    result := DllCall("WININET.dll\FindFirstUrlCacheEntryA", "ptr", lpszUrlSearchPattern, IntPtr, lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8328,7 +8331,7 @@ export FindFirstUrlCacheEntryW(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcb
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FindFirstUrlCacheEntryW", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, HANDLE.Owned)
+    result := DllCall("WININET.dll\FindFirstUrlCacheEntryW", "ptr", lpszUrlSearchPattern, IntPtr, lpFirstCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8399,7 +8402,7 @@ export FindNextUrlCacheEntryA(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryI
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FindNextUrlCacheEntryA", HANDLE, hEnumHandle, "ptr", lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL)
+    result := DllCall("WININET.dll\FindNextUrlCacheEntryA", HANDLE, hEnumHandle, IntPtr, lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8470,7 +8473,7 @@ export FindNextUrlCacheEntryW(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryI
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FindNextUrlCacheEntryW", HANDLE, hEnumHandle, "ptr", lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL)
+    result := DllCall("WININET.dll\FindNextUrlCacheEntryW", HANDLE, hEnumHandle, IntPtr, lpNextCacheEntryInfo, lpcbCacheEntryInfoMarshal, lpcbCacheEntryInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8744,7 +8747,7 @@ export InternetDialA(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
 
     lpdwConnectionMarshal := lpdwConnection is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetDialA", HWND, hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, lpdwConnectionMarshal, lpdwConnection, "uint", dwReserved, UInt32)
+    result := DllCall("WININET.dll\InternetDialA", HWND, hwndParent, "ptr", lpszConnectoid, UInt32, dwFlags, lpdwConnectionMarshal, lpdwConnection, UInt32, dwReserved, UInt32)
     return result
 }
 
@@ -8820,7 +8823,7 @@ export InternetDialW(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
 
     lpdwConnectionMarshal := lpdwConnection is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetDialW", HWND, hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, lpdwConnectionMarshal, lpdwConnection, "uint", dwReserved, UInt32)
+    result := DllCall("WININET.dll\InternetDialW", HWND, hwndParent, "ptr", lpszConnectoid, UInt32, dwFlags, lpdwConnectionMarshal, lpdwConnection, UInt32, dwReserved, UInt32)
     return result
 }
 
@@ -8889,7 +8892,7 @@ export InternetDial(hwndParent, lpszConnectoid, dwFlags, lpdwConnection, dwReser
 
     lpdwConnectionMarshal := lpdwConnection is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetDial", HWND, hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, lpdwConnectionMarshal, lpdwConnection, "uint", dwReserved, UInt32)
+    result := DllCall("WININET.dll\InternetDial", HWND, hwndParent, "ptr", lpszConnectoid, UInt32, dwFlags, lpdwConnectionMarshal, lpdwConnection, UInt32, dwReserved, UInt32)
     return result
 }
 
@@ -8906,7 +8909,7 @@ export InternetDial(hwndParent, lpszConnectoid, dwFlags, lpdwConnection, dwReser
 export InternetHangUp(dwConnection) {
     static dwReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("WININET.dll\InternetHangUp", "ptr", dwConnection, "uint", dwReserved, UInt32)
+    result := DllCall("WININET.dll\InternetHangUp", IntPtr, dwConnection, UInt32, dwReserved, UInt32)
     return result
 }
 
@@ -8975,7 +8978,7 @@ export InternetGoOnlineA(lpszURL, hwndParent, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetGoOnlineA", "ptr", lpszURL, HWND, hwndParent, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\InternetGoOnlineA", "ptr", lpszURL, HWND, hwndParent, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9048,7 +9051,7 @@ export InternetGoOnlineW(lpszURL, hwndParent, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetGoOnlineW", "ptr", lpszURL, HWND, hwndParent, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\InternetGoOnlineW", "ptr", lpszURL, HWND, hwndParent, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9115,7 +9118,7 @@ export InternetGoOnline(lpszURL, hwndParent, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetGoOnline", "ptr", lpszURL, HWND, hwndParent, "uint", dwFlags, BOOL)
+    result := DllCall("WININET.dll\InternetGoOnline", "ptr", lpszURL, HWND, hwndParent, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9177,7 +9180,7 @@ export InternetAutodialHangup() {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetAutodialHangup", "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetAutodialHangup", UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9210,7 +9213,7 @@ export InternetGetConnectedState(lpdwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetGetConnectedState", lpdwFlagsMarshal, lpdwFlags, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetGetConnectedState", lpdwFlagsMarshal, lpdwFlags, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9253,7 +9256,7 @@ export InternetGetConnectedStateExA(lpdwFlags, lpszConnectionName, cchNameLen) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetGetConnectedStateExA", lpdwFlagsMarshal, lpdwFlags, "ptr", lpszConnectionName, "uint", cchNameLen, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetGetConnectedStateExA", lpdwFlagsMarshal, lpdwFlags, "ptr", lpszConnectionName, UInt32, cchNameLen, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9296,7 +9299,7 @@ export InternetGetConnectedStateExW(lpdwFlags, lpszConnectionName, cchNameLen) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetGetConnectedStateExW", lpdwFlagsMarshal, lpdwFlags, "ptr", lpszConnectionName, "uint", cchNameLen, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetGetConnectedStateExW", lpdwFlagsMarshal, lpdwFlags, "ptr", lpszConnectionName, UInt32, cchNameLen, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9332,7 +9335,7 @@ export DeleteWpadCacheForNetworks(param0) {
 export InternetInitializeAutoProxyDll(dwReserved) {
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetInitializeAutoProxyDll", "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetInitializeAutoProxyDll", UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9359,7 +9362,7 @@ export DetectAutoProxyUrl(pszAutoProxyUrl, cchAutoProxyUrl, dwDetectFlags) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\DetectAutoProxyUrl", "ptr", pszAutoProxyUrl, "uint", cchAutoProxyUrl, PROXY_AUTO_DETECT_TYPE, dwDetectFlags, BOOL)
+    result := DllCall("WININET.dll\DetectAutoProxyUrl", "ptr", pszAutoProxyUrl, UInt32, cchAutoProxyUrl, PROXY_AUTO_DETECT_TYPE, dwDetectFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9426,7 +9429,7 @@ export InternetGetConnectedStateEx(lpdwFlags, lpszConnectionName, dwNameLen, dwR
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\InternetGetConnectedStateEx", lpdwFlagsMarshal, lpdwFlags, "ptr", lpszConnectionName, "uint", dwNameLen, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetGetConnectedStateEx", lpdwFlagsMarshal, lpdwFlags, "ptr", lpszConnectionName, UInt32, dwNameLen, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9454,7 +9457,7 @@ export InternetSetDialStateA(lpszConnectoid, dwState) {
 
     lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
 
-    result := DllCall("WININET.dll\InternetSetDialStateA", "ptr", lpszConnectoid, "uint", dwState, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetSetDialStateA", "ptr", lpszConnectoid, UInt32, dwState, UInt32, dwReserved, BOOL)
     return result
 }
 
@@ -9478,7 +9481,7 @@ export InternetSetDialStateW(lpszConnectoid, dwState) {
 
     lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
 
-    result := DllCall("WININET.dll\InternetSetDialStateW", "ptr", lpszConnectoid, "uint", dwState, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetSetDialStateW", "ptr", lpszConnectoid, UInt32, dwState, UInt32, dwReserved, BOOL)
     return result
 }
 
@@ -9496,7 +9499,7 @@ export InternetSetDialStateW(lpszConnectoid, dwState) {
 export InternetSetDialState(lpszConnectoid, dwState, dwReserved) {
     lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
 
-    result := DllCall("WININET.dll\InternetSetDialState", "ptr", lpszConnectoid, "uint", dwState, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetSetDialState", "ptr", lpszConnectoid, UInt32, dwState, UInt32, dwReserved, BOOL)
     return result
 }
 
@@ -9524,7 +9527,7 @@ export InternetSetDialState(lpszConnectoid, dwState, dwReserved) {
 export InternetSetPerSiteCookieDecisionA(pchHostName, dwDecision) {
     pchHostName := pchHostName is String ? StrPtr(pchHostName) : pchHostName
 
-    result := DllCall("WININET.dll\InternetSetPerSiteCookieDecisionA", "ptr", pchHostName, "uint", dwDecision, BOOL)
+    result := DllCall("WININET.dll\InternetSetPerSiteCookieDecisionA", "ptr", pchHostName, UInt32, dwDecision, BOOL)
     return result
 }
 
@@ -9552,7 +9555,7 @@ export InternetSetPerSiteCookieDecisionA(pchHostName, dwDecision) {
 export InternetSetPerSiteCookieDecisionW(pchHostName, dwDecision) {
     pchHostName := pchHostName is String ? StrPtr(pchHostName) : pchHostName
 
-    result := DllCall("WININET.dll\InternetSetPerSiteCookieDecisionW", "ptr", pchHostName, "uint", dwDecision, BOOL)
+    result := DllCall("WININET.dll\InternetSetPerSiteCookieDecisionW", "ptr", pchHostName, UInt32, dwDecision, BOOL)
     return result
 }
 
@@ -9667,7 +9670,7 @@ export InternetEnumPerSiteCookieDecisionA(pszSiteName, pcSiteNameSize, pdwDecisi
     pcSiteNameSizeMarshal := pcSiteNameSize is VarRef ? "uint*" : "ptr"
     pdwDecisionMarshal := pdwDecision is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionA", "ptr", pszSiteName, pcSiteNameSizeMarshal, pcSiteNameSize, pdwDecisionMarshal, pdwDecision, "uint", dwIndex, BOOL)
+    result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionA", "ptr", pszSiteName, pcSiteNameSizeMarshal, pcSiteNameSize, pdwDecisionMarshal, pdwDecision, UInt32, dwIndex, BOOL)
     return result
 }
 
@@ -9700,7 +9703,7 @@ export InternetEnumPerSiteCookieDecisionW(pszSiteName, pcSiteNameSize, pdwDecisi
     pcSiteNameSizeMarshal := pcSiteNameSize is VarRef ? "uint*" : "ptr"
     pdwDecisionMarshal := pdwDecision is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionW", "ptr", pszSiteName, pcSiteNameSizeMarshal, pcSiteNameSize, pdwDecisionMarshal, pdwDecision, "uint", dwIndex, BOOL)
+    result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionW", "ptr", pszSiteName, pcSiteNameSizeMarshal, pcSiteNameSize, pdwDecisionMarshal, pdwDecision, UInt32, dwIndex, BOOL)
     return result
 }
 
@@ -9789,7 +9792,7 @@ export InternetEnumPerSiteCookieDecisionW(pszSiteName, pcSiteNameSize, pdwDecisi
 export PrivacySetZonePreferenceW(dwZone, dwType, dwTemplate, pszPreference) {
     pszPreference := pszPreference is String ? StrPtr(pszPreference) : pszPreference
 
-    result := DllCall("WININET.dll\PrivacySetZonePreferenceW", "uint", dwZone, "uint", dwType, "uint", dwTemplate, "ptr", pszPreference, UInt32)
+    result := DllCall("WININET.dll\PrivacySetZonePreferenceW", UInt32, dwZone, UInt32, dwType, UInt32, dwTemplate, "ptr", pszPreference, UInt32)
     return result
 }
 
@@ -9817,7 +9820,7 @@ export PrivacyGetZonePreferenceW(dwZone, dwType, pdwTemplate, pszBuffer, pdwBuff
     pdwTemplateMarshal := pdwTemplate is VarRef ? "uint*" : "ptr"
     pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\PrivacyGetZonePreferenceW", "uint", dwZone, "uint", dwType, pdwTemplateMarshal, pdwTemplate, "ptr", pszBuffer, pdwBufferLengthMarshal, pdwBufferLength, UInt32)
+    result := DllCall("WININET.dll\PrivacyGetZonePreferenceW", UInt32, dwZone, UInt32, dwType, pdwTemplateMarshal, pdwTemplate, "ptr", pszBuffer, pdwBufferLengthMarshal, pdwBufferLength, UInt32)
     return result
 }
 
@@ -9850,7 +9853,7 @@ export InternetAlgIdToStringA(ai, lpstr, lpdwstrLength) {
 
     lpdwstrLengthMarshal := lpdwstrLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetAlgIdToStringA", ALG_ID, ai, "ptr", lpstr, lpdwstrLengthMarshal, lpdwstrLength, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetAlgIdToStringA", ALG_ID, ai, "ptr", lpstr, lpdwstrLengthMarshal, lpdwstrLength, UInt32, dwReserved, BOOL)
     return result
 }
 
@@ -9868,7 +9871,7 @@ export InternetAlgIdToStringW(ai, lpstr, lpdwstrLength) {
 
     lpdwstrLengthMarshal := lpdwstrLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetAlgIdToStringW", ALG_ID, ai, "ptr", lpstr, lpdwstrLengthMarshal, lpdwstrLength, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetAlgIdToStringW", ALG_ID, ai, "ptr", lpstr, lpdwstrLengthMarshal, lpdwstrLength, UInt32, dwReserved, BOOL)
     return result
 }
 
@@ -9886,7 +9889,7 @@ export InternetSecurityProtocolToStringA(dwProtocol, lpstr, lpdwstrLength) {
 
     lpdwstrLengthMarshal := lpdwstrLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSecurityProtocolToStringA", "uint", dwProtocol, "ptr", lpstr, lpdwstrLengthMarshal, lpdwstrLength, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetSecurityProtocolToStringA", UInt32, dwProtocol, "ptr", lpstr, lpdwstrLengthMarshal, lpdwstrLength, UInt32, dwReserved, BOOL)
     return result
 }
 
@@ -9904,7 +9907,7 @@ export InternetSecurityProtocolToStringW(dwProtocol, lpstr, lpdwstrLength) {
 
     lpdwstrLengthMarshal := lpdwstrLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetSecurityProtocolToStringW", "uint", dwProtocol, "ptr", lpstr, lpdwstrLengthMarshal, lpdwstrLength, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetSecurityProtocolToStringW", UInt32, dwProtocol, "ptr", lpstr, lpdwstrLengthMarshal, lpdwstrLength, UInt32, dwReserved, BOOL)
     return result
 }
 
@@ -9978,7 +9981,7 @@ export ShowSecurityInfo(hWndParent, pSecurityInfo) {
  * @returns {Integer} 
  */
 export ShowX509EncodedCertificate(hWndParent, lpCert, cbCert) {
-    result := DllCall("WININET.dll\ShowX509EncodedCertificate", HWND, hWndParent, "ptr", lpCert, "uint", cbCert, UInt32)
+    result := DllCall("WININET.dll\ShowX509EncodedCertificate", HWND, hWndParent, IntPtr, lpCert, UInt32, cbCert, UInt32)
     return result
 }
 
@@ -10005,7 +10008,7 @@ export ParseX509EncodedCertificateForListBoxEntry(lpCert, cbCert, lpszListBoxEnt
 
     lpdwListBoxEntryMarshal := lpdwListBoxEntry is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\ParseX509EncodedCertificateForListBoxEntry", "ptr", lpCert, "uint", cbCert, "ptr", lpszListBoxEntry, lpdwListBoxEntryMarshal, lpdwListBoxEntry, UInt32)
+    result := DllCall("WININET.dll\ParseX509EncodedCertificateForListBoxEntry", IntPtr, lpCert, UInt32, cbCert, "ptr", lpszListBoxEntry, lpdwListBoxEntryMarshal, lpdwListBoxEntry, UInt32)
     return result
 }
 
@@ -10057,7 +10060,7 @@ export InternetShowSecurityInfoByURL(lpszURL, hwndParent) {
 export InternetFortezzaCommand(dwCommand, _hwnd) {
     static dwReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("WININET.dll\InternetFortezzaCommand", "uint", dwCommand, HWND, _hwnd, "ptr", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetFortezzaCommand", UInt32, dwCommand, HWND, _hwnd, IntPtr, dwReserved, BOOL)
     return result
 }
 
@@ -10071,7 +10074,7 @@ export InternetQueryFortezzaStatus(pdwStatus) {
 
     pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetQueryFortezzaStatus", pdwStatusMarshal, pdwStatus, "ptr", dwReserved, BOOL)
+    result := DllCall("WININET.dll\InternetQueryFortezzaStatus", pdwStatusMarshal, pdwStatus, IntPtr, dwReserved, BOOL)
     return result
 }
 
@@ -10086,7 +10089,7 @@ export InternetQueryFortezzaStatus(pdwStatus) {
 export InternetWriteFileExA(hFile, lpBuffersIn, dwFlags, dwContext) {
     hFileMarshal := hFile is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetWriteFileExA", hFileMarshal, hFile, INTERNET_BUFFERSA.Ptr, lpBuffersIn, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\InternetWriteFileExA", hFileMarshal, hFile, INTERNET_BUFFERSA.Ptr, lpBuffersIn, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     return result
 }
 
@@ -10101,7 +10104,7 @@ export InternetWriteFileExA(hFile, lpBuffersIn, dwFlags, dwContext) {
 export InternetWriteFileExW(hFile, lpBuffersIn, dwFlags, dwContext) {
     hFileMarshal := hFile is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\InternetWriteFileExW", hFileMarshal, hFile, INTERNET_BUFFERSW.Ptr, lpBuffersIn, "uint", dwFlags, "ptr", dwContext, BOOL)
+    result := DllCall("WININET.dll\InternetWriteFileExW", hFileMarshal, hFile, INTERNET_BUFFERSW.Ptr, lpBuffersIn, UInt32, dwFlags, IntPtr, dwContext, BOOL)
     return result
 }
 
@@ -10219,7 +10222,7 @@ export HttpCheckDavComplianceW(lpszUrl, lpszComplianceToken, lpfFound, _hWnd, lp
 export IsUrlCacheEntryExpiredA(lpszUrlName, dwFlags, pftLastModified) {
     lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
-    result := DllCall("WININET.dll\IsUrlCacheEntryExpiredA", "ptr", lpszUrlName, "uint", dwFlags, FILETIME.Ptr, pftLastModified, BOOL)
+    result := DllCall("WININET.dll\IsUrlCacheEntryExpiredA", "ptr", lpszUrlName, UInt32, dwFlags, FILETIME.Ptr, pftLastModified, BOOL)
     return result
 }
 
@@ -10233,7 +10236,7 @@ export IsUrlCacheEntryExpiredA(lpszUrlName, dwFlags, pftLastModified) {
 export IsUrlCacheEntryExpiredW(lpszUrlName, dwFlags, pftLastModified) {
     lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
-    result := DllCall("WININET.dll\IsUrlCacheEntryExpiredW", "ptr", lpszUrlName, "uint", dwFlags, FILETIME.Ptr, pftLastModified, BOOL)
+    result := DllCall("WININET.dll\IsUrlCacheEntryExpiredW", "ptr", lpszUrlName, UInt32, dwFlags, FILETIME.Ptr, pftLastModified, BOOL)
     return result
 }
 
@@ -10252,7 +10255,7 @@ export CreateUrlCacheEntryExW(lpszUrlName, dwExpectedFileSize, lpszFileExtension
     lpszFileExtension := lpszFileExtension is String ? StrPtr(lpszFileExtension) : lpszFileExtension
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("WININET.dll\CreateUrlCacheEntryExW", "ptr", lpszUrlName, "uint", dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, "uint", dwReserved, BOOL, fPreserveIncomingFileName, BOOL)
+    result := DllCall("WININET.dll\CreateUrlCacheEntryExW", "ptr", lpszUrlName, UInt32, dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, UInt32, dwReserved, BOOL, fPreserveIncomingFileName, BOOL)
     return result
 }
 
@@ -10293,7 +10296,7 @@ export CommitUrlCacheEntryBinaryBlob(pwszUrlName, dwType, ftExpireTime, ftModifi
 
     pbBlobMarshal := pbBlob is VarRef ? "char*" : "ptr"
 
-    result := DllCall("WININET.dll\CommitUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "uint", dwType, FILETIME, ftExpireTime, FILETIME, ftModifiedTime, pbBlobMarshal, pbBlob, "uint", cbBlob, UInt32)
+    result := DllCall("WININET.dll\CommitUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, UInt32, dwType, FILETIME, ftExpireTime, FILETIME, ftModifiedTime, pbBlobMarshal, pbBlob, UInt32, cbBlob, UInt32)
     return result
 }
 
@@ -10322,7 +10325,7 @@ export CreateUrlCacheContainerA(Name, lpCachePrefix, lpszCachePath, KBCacheLimit
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\CreateUrlCacheContainerA", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, "uint", KBCacheLimit, "uint", dwContainerType, "uint", dwOptions, "ptr", pvBuffer, "uint*", cbBuffer, BOOL)
+    result := DllCall("WININET.dll\CreateUrlCacheContainerA", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, UInt32, KBCacheLimit, UInt32, dwContainerType, UInt32, dwOptions, "ptr", pvBuffer, "uint*", cbBuffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10355,7 +10358,7 @@ export CreateUrlCacheContainerW(Name, lpCachePrefix, lpszCachePath, KBCacheLimit
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\CreateUrlCacheContainerW", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, "uint", KBCacheLimit, "uint", dwContainerType, "uint", dwOptions, "ptr", pvBuffer, "uint*", cbBuffer, BOOL)
+    result := DllCall("WININET.dll\CreateUrlCacheContainerW", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, UInt32, KBCacheLimit, UInt32, dwContainerType, UInt32, dwOptions, "ptr", pvBuffer, "uint*", cbBuffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10385,7 +10388,7 @@ export DeleteUrlCacheContainerA(Name, dwOptions) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\DeleteUrlCacheContainerA", "ptr", Name, "uint", dwOptions, BOOL)
+    result := DllCall("WININET.dll\DeleteUrlCacheContainerA", "ptr", Name, UInt32, dwOptions, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10415,7 +10418,7 @@ export DeleteUrlCacheContainerW(Name, dwOptions) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\DeleteUrlCacheContainerW", "ptr", Name, "uint", dwOptions, BOOL)
+    result := DllCall("WININET.dll\DeleteUrlCacheContainerW", "ptr", Name, UInt32, dwOptions, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10435,7 +10438,7 @@ export FindFirstUrlCacheContainerA(pdwModified, lpContainerInfo, lpcbContainerIn
     pdwModifiedMarshal := pdwModified is VarRef ? "uint*" : "ptr"
     lpcbContainerInfoMarshal := lpcbContainerInfo is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\FindFirstUrlCacheContainerA", pdwModifiedMarshal, pdwModified, "ptr", lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, "uint", dwOptions, HANDLE.Owned)
+    result := DllCall("WININET.dll\FindFirstUrlCacheContainerA", pdwModifiedMarshal, pdwModified, IntPtr, lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, UInt32, dwOptions, HANDLE.Owned)
     return result
 }
 
@@ -10451,7 +10454,7 @@ export FindFirstUrlCacheContainerW(pdwModified, lpContainerInfo, lpcbContainerIn
     pdwModifiedMarshal := pdwModified is VarRef ? "uint*" : "ptr"
     lpcbContainerInfoMarshal := lpcbContainerInfo is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\FindFirstUrlCacheContainerW", pdwModifiedMarshal, pdwModified, "ptr", lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, "uint", dwOptions, HANDLE.Owned)
+    result := DllCall("WININET.dll\FindFirstUrlCacheContainerW", pdwModifiedMarshal, pdwModified, IntPtr, lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, UInt32, dwOptions, HANDLE.Owned)
     return result
 }
 
@@ -10465,7 +10468,7 @@ export FindFirstUrlCacheContainerW(pdwModified, lpContainerInfo, lpcbContainerIn
 export FindNextUrlCacheContainerA(hEnumHandle, lpContainerInfo, lpcbContainerInfo) {
     lpcbContainerInfoMarshal := lpcbContainerInfo is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\FindNextUrlCacheContainerA", HANDLE, hEnumHandle, "ptr", lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, BOOL)
+    result := DllCall("WININET.dll\FindNextUrlCacheContainerA", HANDLE, hEnumHandle, IntPtr, lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, BOOL)
     return result
 }
 
@@ -10479,7 +10482,7 @@ export FindNextUrlCacheContainerA(hEnumHandle, lpContainerInfo, lpcbContainerInf
 export FindNextUrlCacheContainerW(hEnumHandle, lpContainerInfo, lpcbContainerInfo) {
     lpcbContainerInfoMarshal := lpcbContainerInfo is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\FindNextUrlCacheContainerW", HANDLE, hEnumHandle, "ptr", lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, BOOL)
+    result := DllCall("WININET.dll\FindNextUrlCacheContainerW", HANDLE, hEnumHandle, IntPtr, lpContainerInfo, lpcbContainerInfoMarshal, lpcbContainerInfo, BOOL)
     return result
 }
 
@@ -10506,7 +10509,7 @@ export FreeUrlCacheSpaceA(lpszCachePath, dwSize, dwFilter) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FreeUrlCacheSpaceA", "ptr", lpszCachePath, "uint", dwSize, "uint", dwFilter, BOOL)
+    result := DllCall("WININET.dll\FreeUrlCacheSpaceA", "ptr", lpszCachePath, UInt32, dwSize, UInt32, dwFilter, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10537,7 +10540,7 @@ export FreeUrlCacheSpaceW(lpszCachePath, dwSize, dwFilter) {
 
     A_LastError := 0
 
-    result := DllCall("WININET.dll\FreeUrlCacheSpaceW", "ptr", lpszCachePath, "uint", dwSize, "uint", dwFilter, BOOL)
+    result := DllCall("WININET.dll\FreeUrlCacheSpaceW", "ptr", lpszCachePath, UInt32, dwSize, UInt32, dwFilter, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10552,7 +10555,7 @@ export FreeUrlCacheSpaceW(lpszCachePath, dwSize, dwFilter) {
  * @returns {Integer} 
  */
 export UrlCacheFreeGlobalSpace(ullTargetSize, dwFilter) {
-    result := DllCall("WININET.dll\UrlCacheFreeGlobalSpace", "uint", ullTargetSize, "uint", dwFilter, UInt32)
+    result := DllCall("WININET.dll\UrlCacheFreeGlobalSpace", Int64, ullTargetSize, UInt32, dwFilter, UInt32)
     return result
 }
 
@@ -10567,7 +10570,7 @@ export UrlCacheGetGlobalCacheSize(dwFilter, pullSize, pullLimit) {
     pullSizeMarshal := pullSize is VarRef ? "uint*" : "ptr"
     pullLimitMarshal := pullLimit is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\UrlCacheGetGlobalCacheSize", "uint", dwFilter, pullSizeMarshal, pullSize, pullLimitMarshal, pullLimit, UInt32)
+    result := DllCall("WININET.dll\UrlCacheGetGlobalCacheSize", UInt32, dwFilter, pullSizeMarshal, pullSize, pullLimitMarshal, pullLimit, UInt32)
     return result
 }
 
@@ -10648,7 +10651,7 @@ export GetUrlCacheConfigInfoW(lpCacheConfigInfo, dwFieldControl) {
  * @returns {BOOL} 
  */
 export SetUrlCacheConfigInfoA(lpCacheConfigInfo, dwFieldControl) {
-    result := DllCall("WININET.dll\SetUrlCacheConfigInfoA", INTERNET_CACHE_CONFIG_INFOA.Ptr, lpCacheConfigInfo, "uint", dwFieldControl, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheConfigInfoA", INTERNET_CACHE_CONFIG_INFOA.Ptr, lpCacheConfigInfo, UInt32, dwFieldControl, BOOL)
     return result
 }
 
@@ -10659,7 +10662,7 @@ export SetUrlCacheConfigInfoA(lpCacheConfigInfo, dwFieldControl) {
  * @returns {BOOL} 
  */
 export SetUrlCacheConfigInfoW(lpCacheConfigInfo, dwFieldControl) {
-    result := DllCall("WININET.dll\SetUrlCacheConfigInfoW", INTERNET_CACHE_CONFIG_INFOW.Ptr, lpCacheConfigInfo, "uint", dwFieldControl, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheConfigInfoW", INTERNET_CACHE_CONFIG_INFOW.Ptr, lpCacheConfigInfo, UInt32, dwFieldControl, BOOL)
     return result
 }
 
@@ -10674,7 +10677,7 @@ export SetUrlCacheConfigInfoW(lpCacheConfigInfo, dwFieldControl) {
 export RunOnceUrlCache(_hwnd, hinst, lpszCmd, nCmdShow) {
     lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
 
-    result := DllCall("WININET.dll\RunOnceUrlCache", HWND, _hwnd, HINSTANCE, hinst, "ptr", lpszCmd, "int", nCmdShow, UInt32)
+    result := DllCall("WININET.dll\RunOnceUrlCache", HWND, _hwnd, HINSTANCE, hinst, "ptr", lpszCmd, Int32, nCmdShow, UInt32)
     return result
 }
 
@@ -10689,7 +10692,7 @@ export RunOnceUrlCache(_hwnd, hinst, lpszCmd, nCmdShow) {
 export DeleteIE3Cache(_hwnd, hinst, lpszCmd, nCmdShow) {
     lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
 
-    result := DllCall("WININET.dll\DeleteIE3Cache", HWND, _hwnd, HINSTANCE, hinst, "ptr", lpszCmd, "int", nCmdShow, UInt32)
+    result := DllCall("WININET.dll\DeleteIE3Cache", HWND, _hwnd, HINSTANCE, hinst, "ptr", lpszCmd, Int32, nCmdShow, UInt32)
     return result
 }
 
@@ -10715,7 +10718,7 @@ export UpdateUrlCacheContentPath(szNewPath) {
  * @returns {BOOL} 
  */
 export RegisterUrlCacheNotification(_hWnd, uMsg, gid, dwOpsFilter, dwReserved) {
-    result := DllCall("WININET.dll\RegisterUrlCacheNotification", HWND, _hWnd, "uint", uMsg, "int64", gid, "uint", dwOpsFilter, "uint", dwReserved, BOOL)
+    result := DllCall("WININET.dll\RegisterUrlCacheNotification", HWND, _hWnd, UInt32, uMsg, Int64, gid, UInt32, dwOpsFilter, UInt32, dwReserved, BOOL)
     return result
 }
 
@@ -10728,7 +10731,7 @@ export RegisterUrlCacheNotification(_hWnd, uMsg, gid, dwOpsFilter, dwReserved) {
 export GetUrlCacheHeaderData(nIdx, lpdwData) {
     lpdwDataMarshal := lpdwData is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\GetUrlCacheHeaderData", "uint", nIdx, lpdwDataMarshal, lpdwData, BOOL)
+    result := DllCall("WININET.dll\GetUrlCacheHeaderData", UInt32, nIdx, lpdwDataMarshal, lpdwData, BOOL)
     return result
 }
 
@@ -10739,7 +10742,7 @@ export GetUrlCacheHeaderData(nIdx, lpdwData) {
  * @returns {BOOL} 
  */
 export SetUrlCacheHeaderData(nIdx, dwData) {
-    result := DllCall("WININET.dll\SetUrlCacheHeaderData", "uint", nIdx, "uint", dwData, BOOL)
+    result := DllCall("WININET.dll\SetUrlCacheHeaderData", UInt32, nIdx, UInt32, dwData, BOOL)
     return result
 }
 
@@ -10752,7 +10755,7 @@ export SetUrlCacheHeaderData(nIdx, dwData) {
 export IncrementUrlCacheHeaderData(nIdx, lpdwData) {
     lpdwDataMarshal := lpdwData is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\IncrementUrlCacheHeaderData", "uint", nIdx, lpdwDataMarshal, lpdwData, BOOL)
+    result := DllCall("WININET.dll\IncrementUrlCacheHeaderData", UInt32, nIdx, lpdwDataMarshal, lpdwData, BOOL)
     return result
 }
 
@@ -10777,7 +10780,7 @@ export AppCacheLookup(pwszUrl, dwFlags, phAppCache) {
 
     phAppCacheMarshal := phAppCache is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WININET.dll\AppCacheLookup", "ptr", pwszUrl, "uint", dwFlags, phAppCacheMarshal, phAppCache, UInt32)
+    result := DllCall("WININET.dll\AppCacheLookup", "ptr", pwszUrl, UInt32, dwFlags, phAppCacheMarshal, phAppCache, UInt32)
     return result
 }
 
@@ -10800,7 +10803,7 @@ export AppCacheCheckManifest(pwszMasterUrl, pwszManifestUrl, pbManifestData, dwM
     peStateMarshal := peState is VarRef ? "int*" : "ptr"
     phNewAppCacheMarshal := phNewAppCache is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WININET.dll\AppCacheCheckManifest", "ptr", pwszMasterUrl, "ptr", pwszManifestUrl, "ptr", pbManifestData, "uint", dwManifestDataSize, "ptr", pbManifestResponseHeaders, "uint", dwManifestResponseHeadersSize, peStateMarshal, peState, phNewAppCacheMarshal, phNewAppCache, UInt32)
+    result := DllCall("WININET.dll\AppCacheCheckManifest", "ptr", pwszMasterUrl, "ptr", pwszManifestUrl, IntPtr, pbManifestData, UInt32, dwManifestDataSize, IntPtr, pbManifestResponseHeaders, UInt32, dwManifestResponseHeadersSize, peStateMarshal, peState, phNewAppCacheMarshal, phNewAppCache, UInt32)
     return result
 }
 
@@ -10838,7 +10841,7 @@ export AppCacheFinalize(hAppCache, pbManifestData, dwManifestDataSize, peState) 
     hAppCacheMarshal := hAppCache is VarRef ? "ptr" : "ptr"
     peStateMarshal := peState is VarRef ? "int*" : "ptr"
 
-    result := DllCall("WININET.dll\AppCacheFinalize", hAppCacheMarshal, hAppCache, "ptr", pbManifestData, "uint", dwManifestDataSize, peStateMarshal, peState, UInt32)
+    result := DllCall("WININET.dll\AppCacheFinalize", hAppCacheMarshal, hAppCache, IntPtr, pbManifestData, UInt32, dwManifestDataSize, peStateMarshal, peState, UInt32)
     return result
 }
 
@@ -10999,7 +11002,7 @@ export AppCacheCreateAndCommitFile(hAppCache, pwszSourceFilePath, pwszUrl, pbRes
 
     hAppCacheMarshal := hAppCache is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\AppCacheCreateAndCommitFile", hAppCacheMarshal, hAppCache, "ptr", pwszSourceFilePath, "ptr", pwszUrl, "ptr", pbResponseHeaders, "uint", dwResponseHeadersSize, UInt32)
+    result := DllCall("WININET.dll\AppCacheCreateAndCommitFile", hAppCacheMarshal, hAppCache, "ptr", pwszSourceFilePath, "ptr", pwszUrl, IntPtr, pbResponseHeaders, UInt32, dwResponseHeadersSize, UInt32)
     return result
 }
 
@@ -11123,7 +11126,7 @@ export UrlCacheReadEntryStream(hUrlCacheStream, ullLocation, pBuffer, dwBufferLe
     pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
     pdwBufferLenMarshal := pdwBufferLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\UrlCacheReadEntryStream", hUrlCacheStreamMarshal, hUrlCacheStream, "uint", ullLocation, pBufferMarshal, pBuffer, "uint", dwBufferLen, pdwBufferLenMarshal, pdwBufferLen, UInt32)
+    result := DllCall("WININET.dll\UrlCacheReadEntryStream", hUrlCacheStreamMarshal, hUrlCacheStream, Int64, ullLocation, pBufferMarshal, pBuffer, UInt32, dwBufferLen, pdwBufferLenMarshal, pdwBufferLen, UInt32)
     return result
 }
 
@@ -11159,7 +11162,7 @@ export UrlCacheUpdateEntryExtraData(hAppCache, pcwszUrl, pbExtraData, cbExtraDat
 
     hAppCacheMarshal := hAppCache is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\UrlCacheUpdateEntryExtraData", hAppCacheMarshal, hAppCache, "ptr", pcwszUrl, "ptr", pbExtraData, "uint", cbExtraData, UInt32)
+    result := DllCall("WININET.dll\UrlCacheUpdateEntryExtraData", hAppCacheMarshal, hAppCache, "ptr", pcwszUrl, IntPtr, pbExtraData, UInt32, cbExtraData, UInt32)
     return result
 }
 
@@ -11177,7 +11180,7 @@ export UrlCacheCreateContainer(pwszName, pwszPrefix, pwszDirectory, ullLimit, dw
     pwszPrefix := pwszPrefix is String ? StrPtr(pwszPrefix) : pwszPrefix
     pwszDirectory := pwszDirectory is String ? StrPtr(pwszDirectory) : pwszDirectory
 
-    result := DllCall("WININET.dll\UrlCacheCreateContainer", "ptr", pwszName, "ptr", pwszPrefix, "ptr", pwszDirectory, "uint", ullLimit, "uint", dwOptions, UInt32)
+    result := DllCall("WININET.dll\UrlCacheCreateContainer", "ptr", pwszName, "ptr", pwszPrefix, "ptr", pwszDirectory, Int64, ullLimit, UInt32, dwOptions, UInt32)
     return result
 }
 
@@ -11192,7 +11195,7 @@ export UrlCacheCheckEntriesExist(rgpwszUrls, cEntries, rgfExist) {
     rgpwszUrlsMarshal := rgpwszUrls is VarRef ? "ptr*" : "ptr"
     rgfExistMarshal := rgfExist is VarRef ? "int*" : "ptr"
 
-    result := DllCall("WININET.dll\UrlCacheCheckEntriesExist", rgpwszUrlsMarshal, rgpwszUrls, "uint", cEntries, rgfExistMarshal, rgfExist, UInt32)
+    result := DllCall("WININET.dll\UrlCacheCheckEntriesExist", rgpwszUrlsMarshal, rgpwszUrls, UInt32, cEntries, rgfExistMarshal, rgfExist, UInt32)
     return result
 }
 
@@ -11230,7 +11233,7 @@ export UrlCacheGetGlobalLimit(limitType, pullLimit) {
  * @returns {Integer} 
  */
 export UrlCacheSetGlobalLimit(limitType, ullLimit) {
-    result := DllCall("WININET.dll\UrlCacheSetGlobalLimit", URL_CACHE_LIMIT_TYPE, limitType, "uint", ullLimit, UInt32)
+    result := DllCall("WININET.dll\UrlCacheSetGlobalLimit", URL_CACHE_LIMIT_TYPE, limitType, Int64, ullLimit, UInt32)
     return result
 }
 
@@ -11252,7 +11255,7 @@ export UrlCacheReloadSettings() {
 export UrlCacheContainerSetEntryMaximumAge(pwszPrefix, dwEntryMaxAge) {
     pwszPrefix := pwszPrefix is String ? StrPtr(pwszPrefix) : pwszPrefix
 
-    result := DllCall("WININET.dll\UrlCacheContainerSetEntryMaximumAge", "ptr", pwszPrefix, "uint", dwEntryMaxAge, UInt32)
+    result := DllCall("WININET.dll\UrlCacheContainerSetEntryMaximumAge", "ptr", pwszPrefix, UInt32, dwEntryMaxAge, UInt32)
     return result
 }
 
@@ -11269,7 +11272,7 @@ export UrlCacheContainerSetEntryMaximumAge(pwszPrefix, dwEntryMaxAge) {
 export UrlCacheFindFirstEntry(pwszPrefix, dwFlags, dwFilter, GroupId, pCacheEntryInfo, phFind) {
     pwszPrefix := pwszPrefix is String ? StrPtr(pwszPrefix) : pwszPrefix
 
-    result := DllCall("WININET.dll\UrlCacheFindFirstEntry", "ptr", pwszPrefix, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, URLCACHE_ENTRY_INFO.Ptr, pCacheEntryInfo, HANDLE.Ptr, phFind, UInt32)
+    result := DllCall("WININET.dll\UrlCacheFindFirstEntry", "ptr", pwszPrefix, UInt32, dwFlags, UInt32, dwFilter, Int64, GroupId, URLCACHE_ENTRY_INFO.Ptr, pCacheEntryInfo, HANDLE.Ptr, phFind, UInt32)
     return result
 }
 
@@ -11325,7 +11328,7 @@ export ReadGuidsForConnectedNetworks(pcNetworks, pppwszNetworkGuids, pppbstrNetw
 export IsHostInProxyBypassList(tScheme, lpszHost, cchHost) {
     lpszHost := lpszHost is String ? StrPtr(lpszHost) : lpszHost
 
-    result := DllCall("WININET.dll\IsHostInProxyBypassList", INTERNET_SCHEME, tScheme, "ptr", lpszHost, "uint", cchHost, BOOL)
+    result := DllCall("WININET.dll\IsHostInProxyBypassList", INTERNET_SCHEME, tScheme, "ptr", lpszHost, UInt32, cchHost, BOOL)
     return result
 }
 
@@ -11399,7 +11402,7 @@ export PerformOperationOverUrlCacheA(pszUrlSearchPattern, dwFlags, dwFilter, Gro
 
     pOperatorDataMarshal := pOperatorData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", pReserved1, "uint*", pdwReserved2, "ptr", pReserved3, "ptr", op, pOperatorDataMarshal, pOperatorData, BOOL)
+    result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, UInt32, dwFlags, UInt32, dwFilter, Int64, GroupId, "ptr", pReserved1, "uint*", pdwReserved2, "ptr", pReserved3, CACHE_OPERATOR, op, pOperatorDataMarshal, pOperatorData, BOOL)
     return result
 }
 
@@ -11516,7 +11519,7 @@ export IsDomainLegalCookieDomainW(pchDomain, pchFullDomain) {
 export HttpWebSocketCompleteUpgrade(hRequest, dwContext) {
     hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\HttpWebSocketCompleteUpgrade", hRequestMarshal, hRequest, "ptr", dwContext, IntPtr)
+    result := DllCall("WININET.dll\HttpWebSocketCompleteUpgrade", hRequestMarshal, hRequest, IntPtr, dwContext, IntPtr)
     return result
 }
 
@@ -11531,7 +11534,7 @@ export HttpWebSocketCompleteUpgrade(hRequest, dwContext) {
 export HttpWebSocketSend(hWebSocket, BufferType, pvBuffer, dwBufferLength) {
     hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\HttpWebSocketSend", hWebSocketMarshal, hWebSocket, HTTP_WEB_SOCKET_BUFFER_TYPE, BufferType, "ptr", pvBuffer, "uint", dwBufferLength, BOOL)
+    result := DllCall("WININET.dll\HttpWebSocketSend", hWebSocketMarshal, hWebSocket, HTTP_WEB_SOCKET_BUFFER_TYPE, BufferType, IntPtr, pvBuffer, UInt32, dwBufferLength, BOOL)
     return result
 }
 
@@ -11549,7 +11552,7 @@ export HttpWebSocketReceive(hWebSocket, pvBuffer, dwBufferLength, pdwBytesRead, 
     pdwBytesReadMarshal := pdwBytesRead is VarRef ? "uint*" : "ptr"
     pBufferTypeMarshal := pBufferType is VarRef ? "int*" : "ptr"
 
-    result := DllCall("WININET.dll\HttpWebSocketReceive", hWebSocketMarshal, hWebSocket, "ptr", pvBuffer, "uint", dwBufferLength, pdwBytesReadMarshal, pdwBytesRead, pBufferTypeMarshal, pBufferType, BOOL)
+    result := DllCall("WININET.dll\HttpWebSocketReceive", hWebSocketMarshal, hWebSocket, IntPtr, pvBuffer, UInt32, dwBufferLength, pdwBytesReadMarshal, pdwBytesRead, pBufferTypeMarshal, pBufferType, BOOL)
     return result
 }
 
@@ -11564,7 +11567,7 @@ export HttpWebSocketReceive(hWebSocket, pvBuffer, dwBufferLength, pdwBytesRead, 
 export HttpWebSocketClose(hWebSocket, usStatus, pvReason, dwReasonLength) {
     hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\HttpWebSocketClose", hWebSocketMarshal, hWebSocket, "ushort", usStatus, "ptr", pvReason, "uint", dwReasonLength, BOOL)
+    result := DllCall("WININET.dll\HttpWebSocketClose", hWebSocketMarshal, hWebSocket, UInt16, usStatus, IntPtr, pvReason, UInt32, dwReasonLength, BOOL)
     return result
 }
 
@@ -11579,7 +11582,7 @@ export HttpWebSocketClose(hWebSocket, usStatus, pvReason, dwReasonLength) {
 export HttpWebSocketShutdown(hWebSocket, usStatus, pvReason, dwReasonLength) {
     hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WININET.dll\HttpWebSocketShutdown", hWebSocketMarshal, hWebSocket, "ushort", usStatus, "ptr", pvReason, "uint", dwReasonLength, BOOL)
+    result := DllCall("WININET.dll\HttpWebSocketShutdown", hWebSocketMarshal, hWebSocket, UInt16, usStatus, IntPtr, pvReason, UInt32, dwReasonLength, BOOL)
     return result
 }
 
@@ -11597,7 +11600,7 @@ export HttpWebSocketQueryCloseStatus(hWebSocket, pusStatus, pvReason, dwReasonLe
     pusStatusMarshal := pusStatus is VarRef ? "ushort*" : "ptr"
     pdwReasonLengthConsumedMarshal := pdwReasonLengthConsumed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WININET.dll\HttpWebSocketQueryCloseStatus", hWebSocketMarshal, hWebSocket, pusStatusMarshal, pusStatus, "ptr", pvReason, "uint", dwReasonLength, pdwReasonLengthConsumedMarshal, pdwReasonLengthConsumed, BOOL)
+    result := DllCall("WININET.dll\HttpWebSocketQueryCloseStatus", hWebSocketMarshal, hWebSocket, pusStatusMarshal, pusStatus, IntPtr, pvReason, UInt32, dwReasonLength, pdwReasonLengthConsumedMarshal, pdwReasonLengthConsumed, BOOL)
     return result
 }
 
@@ -11619,7 +11622,7 @@ export InternetConvertUrlFromWireToWideChar(pcszUrl, cchUrl, pcwszBaseUrl, dwCod
 
     ppwszConvertedUrlMarshal := ppwszConvertedUrl is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WININET.dll\InternetConvertUrlFromWireToWideChar", "ptr", pcszUrl, "uint", cchUrl, "ptr", pcwszBaseUrl, "uint", dwCodePageHost, "uint", dwCodePagePath, BOOL, fEncodePathExtra, "uint", dwCodePageExtra, ppwszConvertedUrlMarshal, ppwszConvertedUrl, UInt32)
+    result := DllCall("WININET.dll\InternetConvertUrlFromWireToWideChar", "ptr", pcszUrl, UInt32, cchUrl, "ptr", pcwszBaseUrl, UInt32, dwCodePageHost, UInt32, dwCodePagePath, BOOL, fEncodePathExtra, UInt32, dwCodePageExtra, ppwszConvertedUrlMarshal, ppwszConvertedUrl, UInt32)
     return result
 }
 

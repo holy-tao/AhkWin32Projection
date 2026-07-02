@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WPCFLAG_RESTRICTION.ahk" { WPCFLAG_RESTRICTION }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import ".\WPCFLAG_RESTRICTION.ahk" { WPCFLAG_RESTRICTION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Accesses general settings for the user.

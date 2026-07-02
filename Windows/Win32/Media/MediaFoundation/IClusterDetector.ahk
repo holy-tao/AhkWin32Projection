@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IToc.ahk" { IToc }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IToc.ahk" { IToc }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -68,7 +68,7 @@ export default struct IClusterDetector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(wBaseEntryLevel, wClusterEntryLevel) {
-        result := ComCall(3, this, "ushort", wBaseEntryLevel, "ushort", wClusterEntryLevel, "HRESULT")
+        result := ComCall(3, this, UInt16, wBaseEntryLevel, UInt16, wClusterEntryLevel, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IClusterDetector extends IUnknown {
      * @returns {IToc} 
      */
     Detect(dwMaxNumClusters, fMinClusterDuration, fMaxClusterDuration, pSrcToc) {
-        result := ComCall(4, this, "uint", dwMaxNumClusters, "float", fMinClusterDuration, "float", fMaxClusterDuration, "ptr", pSrcToc, "ptr*", &ppDstToc := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMaxNumClusters, Float32, fMinClusterDuration, Float32, fMaxClusterDuration, "ptr", pSrcToc, "ptr*", &ppDstToc := 0, "HRESULT")
         return IToc(ppDstToc)
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionDevice3.ahk" { IDCompositionDevice3 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionTexture.ahk" { IDCompositionTexture }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDCompositionTexture.ahk" { IDCompositionTexture }
+#Import ".\IDCompositionDevice3.ahk" { IDCompositionDevice3 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition

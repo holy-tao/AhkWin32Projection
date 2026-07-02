@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
-#Import ".\DataCollectorType.ahk" { DataCollectorType }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IValueMap.ahk" { IValueMap }
 #Import ".\IDataCollectorSet.ahk" { IDataCollectorSet }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\DataCollectorType.ahk" { DataCollectorType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\AutoPathFormat.ahk" { AutoPathFormat }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Sets and retrieves collector properties using XML, specifies the log file name, and retrieves the location of the log file.This interface is an abstract class from which the following data collectors derive:IAlertDataCollectorIApiTracingDataCollectorIConfigurationDataCollectorIPerformanceCounterDataCollectorITraceDataCollector
@@ -773,7 +773,7 @@ export default struct IDataCollector extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Index(index) {
-        result := ComCall(28, this, "int", index, "HRESULT")
+        result := ComCall(28, this, Int32, index, "HRESULT")
         return result
     }
 

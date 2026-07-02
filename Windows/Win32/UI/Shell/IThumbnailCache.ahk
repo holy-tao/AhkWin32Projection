@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WTS_FLAGS.ahk" { WTS_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISharedBitmap.ahk" { ISharedBitmap }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WTS_FLAGS.ahk" { WTS_FLAGS }
+#Import ".\WTS_CACHEFLAGS.ahk" { WTS_CACHEFLAGS }
 #Import ".\IShellItem.ahk" { IShellItem }
 #Import ".\WTS_THUMBNAILID.ahk" { WTS_THUMBNAILID }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WTS_CACHEFLAGS.ahk" { WTS_CACHEFLAGS }
 
 /**
  * Exposes methods for a system thumbnail cache that is shared across applications.
@@ -178,7 +178,7 @@ export default struct IThumbnailCache extends IUnknown {
     GetThumbnail(pShellItem, cxyRequestedThumbSize, flags, ppvThumb, pOutFlags, pThumbnailID) {
         pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pShellItem, "uint", cxyRequestedThumbSize, WTS_FLAGS, flags, ISharedBitmap.Ptr, ppvThumb, pOutFlagsMarshal, pOutFlags, WTS_THUMBNAILID.Ptr, pThumbnailID, "HRESULT")
+        result := ComCall(3, this, "ptr", pShellItem, UInt32, cxyRequestedThumbSize, WTS_FLAGS, flags, ISharedBitmap.Ptr, ppvThumb, pOutFlagsMarshal, pOutFlags, WTS_THUMBNAILID.Ptr, pThumbnailID, "HRESULT")
         return result
     }
 
@@ -268,7 +268,7 @@ export default struct IThumbnailCache extends IUnknown {
     GetThumbnailByID(thumbnailID, cxyRequestedThumbSize, ppvThumb, pOutFlags) {
         pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, WTS_THUMBNAILID, thumbnailID, "uint", cxyRequestedThumbSize, ISharedBitmap.Ptr, ppvThumb, pOutFlagsMarshal, pOutFlags, "HRESULT")
+        result := ComCall(4, this, WTS_THUMBNAILID, thumbnailID, UInt32, cxyRequestedThumbSize, ISharedBitmap.Ptr, ppvThumb, pOutFlagsMarshal, pOutFlags, "HRESULT")
         return result
     }
 

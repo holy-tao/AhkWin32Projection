@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IRawElementProviderWindowlessSite.ahk" { IRawElementProviderWindowlessSite }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables the host container of a windowless rich edit control to obtain the Microsoft UI Automation provider for the parent of the control.

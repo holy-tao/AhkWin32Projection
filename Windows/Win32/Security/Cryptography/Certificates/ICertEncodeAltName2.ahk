@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICertEncodeAltName.ahk" { ICertEncodeAltName }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -72,7 +72,7 @@ export default struct ICertEncodeAltName2 extends ICertEncodeAltName {
      */
     GetNameBlob(NameIndex, Encoding) {
         pstrName := BSTR.Owned()
-        result := ComCall(16, this, "int", NameIndex, EncodingType, Encoding, BSTR.Ptr, pstrName, "HRESULT")
+        result := ComCall(16, this, Int32, NameIndex, EncodingType, Encoding, BSTR.Ptr, pstrName, "HRESULT")
         return pstrName
     }
 
@@ -87,7 +87,7 @@ export default struct ICertEncodeAltName2 extends ICertEncodeAltName {
     SetNameEntryBlob(NameIndex, NameChoice, strName, Encoding) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(17, this, "int", NameIndex, "int", NameChoice, BSTR, strName, EncodingType, Encoding, "HRESULT")
+        result := ComCall(17, this, Int32, NameIndex, Int32, NameChoice, BSTR, strName, EncodingType, Encoding, "HRESULT")
         return result
     }
 

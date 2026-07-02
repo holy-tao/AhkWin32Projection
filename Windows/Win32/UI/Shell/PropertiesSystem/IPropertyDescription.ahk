@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PROPDESC_AGGREGATION_TYPE.ahk" { PROPDESC_AGGREGATION_TYPE }
-#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import ".\PROPDESC_DISPLAYTYPE.ahk" { PROPDESC_DISPLAYTYPE }
-#Import ".\PROPDESC_TYPE_FLAGS.ahk" { PROPDESC_TYPE_FLAGS }
-#Import ".\PROPDESC_CONDITION_TYPE.ahk" { PROPDESC_CONDITION_TYPE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Search\Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROPDESC_DISPLAYTYPE.ahk" { PROPDESC_DISPLAYTYPE }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import ".\PROPDESC_RELATIVEDESCRIPTION_TYPE.ahk" { PROPDESC_RELATIVEDESCRIPTION_TYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PROPDESC_CONDITION_TYPE.ahk" { PROPDESC_CONDITION_TYPE }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import ".\PROPDESC_FORMAT_FLAGS.ahk" { PROPDESC_FORMAT_FLAGS }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\PROPDESC_VIEW_FLAGS.ahk" { PROPDESC_VIEW_FLAGS }
-#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\PROPDESC_AGGREGATION_TYPE.ahk" { PROPDESC_AGGREGATION_TYPE }
+#Import ".\PROPDESC_TYPE_FLAGS.ahk" { PROPDESC_TYPE_FLAGS }
+#Import "..\..\..\System\Search\Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
 #Import ".\PROPDESC_SORTDESCRIPTION.ahk" { PROPDESC_SORTDESCRIPTION }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\PROPDESC_GROUPING_RANGE.ahk" { PROPDESC_GROUPING_RANGE }
 
 /**

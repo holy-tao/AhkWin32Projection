@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\WLAN_CONNECTION_MODE.ahk" { WLAN_CONNECTION_MODE }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 #Import ".\DOT11_BSSID_LIST.ahk" { DOT11_BSSID_LIST }
-#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * Specifies the parameters used when using the WlanConnect function.

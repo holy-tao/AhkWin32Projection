@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_STRING.ahk" { WS_STRING }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WS_XML_READER_ENCODING.ahk" { WS_XML_READER_ENCODING }
-#Import ".\WS_XML_READER_ENCODING_TYPE.ahk" { WS_XML_READER_ENCODING_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_XML_READER_ENCODING_TYPE.ahk" { WS_XML_READER_ENCODING_TYPE }
+#Import ".\WS_XML_READER_ENCODING.ahk" { WS_XML_READER_ENCODING }
+#Import ".\WS_STRING.ahk" { WS_STRING }
 
 /**
  * Used to indicate that the reader should interpret the bytes it reads as in MTOM format.

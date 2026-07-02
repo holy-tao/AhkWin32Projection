@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_VIDEO_PROCESS_ORIENTATION.ahk" { D3D12_VIDEO_PROCESS_ORIENTATION }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3D12_VIDEO_PROCESS_ORIENTATION.ahk" { D3D12_VIDEO_PROCESS_ORIENTATION }
 
 /**
  * Specifies transform parameters for video processing.

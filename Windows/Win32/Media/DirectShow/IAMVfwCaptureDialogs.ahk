@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMVfwCaptureDialogs interface displays a dialog box provided by a Video for Windows (VFW) capture driver.The VFW Capture filter implements this interface.
@@ -49,7 +49,7 @@ export default struct IAMVfwCaptureDialogs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcapturedialogs-hasdialog
      */
     HasDialog(iDialog) {
-        result := ComCall(3, this, "int", iDialog, "HRESULT")
+        result := ComCall(3, this, Int32, iDialog, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IAMVfwCaptureDialogs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcapturedialogs-showdialog
      */
     ShowDialog(iDialog, _hwnd) {
-        result := ComCall(4, this, "int", iDialog, HWND, _hwnd, "HRESULT")
+        result := ComCall(4, this, Int32, iDialog, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct IAMVfwCaptureDialogs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcapturedialogs-senddrivermessage
      */
     SendDriverMessage(iDialog, uMsg, dw1, dw2) {
-        result := ComCall(5, this, "int", iDialog, "int", uMsg, "int", dw1, "int", dw2, "HRESULT")
+        result := ComCall(5, this, Int32, iDialog, Int32, uMsg, Int32, dw1, Int32, dw2, "HRESULT")
         return result
     }
 

@@ -55,7 +55,7 @@ export default struct IDelayedPropertyStoreFactory extends IPropertyStoreFactory
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-idelayedpropertystorefactory-getdelayedpropertystore
      */
     GetDelayedPropertyStore(flags, dwStoreId, riid) {
-        result := ComCall(5, this, GETPROPERTYSTOREFLAGS, flags, "uint", dwStoreId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, GETPROPERTYSTOREFLAGS, flags, UInt32, dwStoreId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

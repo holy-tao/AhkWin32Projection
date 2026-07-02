@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DBIMPLICITSESSION.ahk" { DBIMPLICITSESSION }
 #Import "..\Com\IAuthenticate.ahk" { IAuthenticate }
 
@@ -84,7 +84,7 @@ export default struct IBindResource extends IUnknown {
 
         pdwBindStatusMarshal := pdwBindStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pwszURL, "uint", dwBindURLFlags, Guid.Ptr, rguid, Guid.Ptr, riid, "ptr", pAuthenticate, DBIMPLICITSESSION.Ptr, pImplSession, pdwBindStatusMarshal, pdwBindStatus, IUnknown.Ptr, ppUnk, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pwszURL, UInt32, dwBindURLFlags, Guid.Ptr, rguid, Guid.Ptr, riid, "ptr", pAuthenticate, DBIMPLICITSESSION.Ptr, pImplSession, pdwBindStatusMarshal, pdwBindStatus, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
     }
 

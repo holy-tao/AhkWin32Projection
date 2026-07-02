@@ -1,25 +1,26 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\LDAP_TIMEVAL.ahk" { LDAP_TIMEVAL }
-#Import ".\LDAPMessage.ahk" { LDAPMessage }
-#Import ".\LDAPSortKeyA.ahk" { LDAPSortKeyA }
-#Import ".\LDAPModW.ahk" { LDAPModW }
-#Import ".\PLDAPSearch.ahk" { PLDAPSearch }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\LDAPVLVInfo.ahk" { LDAPVLVInfo }
-#Import ".\LDAP_VERSION_INFO.ahk" { LDAP_VERSION_INFO }
-#Import ".\LDAP_BERVAL.ahk" { LDAP_BERVAL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\LDAPSortKeyW.ahk" { LDAPSortKeyW }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\LDAPControlW.ahk" { LDAPControlW }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import ".\LDAPControlA.ahk" { LDAPControlA }
-#Import ".\LDAPModA.ahk" { LDAPModA }
+#Import ".\LDAP_BERVAL.ahk" { LDAP_BERVAL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LDAPModW.ahk" { LDAPModW }
+#Import ".\LDAPSortKeyA.ahk" { LDAPSortKeyA }
 #Import ".\LDAP.ahk" { LDAP }
+#Import ".\LDAPControlA.ahk" { LDAPControlA }
 #Import ".\BerElement.ahk" { BerElement }
+#Import ".\LDAPModA.ahk" { LDAPModA }
+#Import ".\LDAP_VERSION_INFO.ahk" { LDAP_VERSION_INFO }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\LDAPMessage.ahk" { LDAPMessage }
+#Import ".\DBGPRINT.ahk" { DBGPRINT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\LDAPControlW.ahk" { LDAPControlW }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\LDAP_TIMEVAL.ahk" { LDAP_TIMEVAL }
+#Import ".\PLDAPSearch.ahk" { PLDAPSearch }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\LDAPVLVInfo.ahk" { LDAPVLVInfo }
 
 /**
  * @namespace Windows.Win32.Networking.Ldap
@@ -63,7 +64,7 @@
 export ldap_openW(HostName, PortNumber) {
     HostName := HostName is String ? StrPtr(HostName) : HostName
 
-    result := DllCall("WLDAP32.dll\ldap_openW", "ptr", HostName, "uint", PortNumber, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_openW", "ptr", HostName, UInt32, PortNumber, LDAP.Ptr)
     return result
 }
 
@@ -98,7 +99,7 @@ export ldap_openW(HostName, PortNumber) {
 export ldap_openA(HostName, PortNumber) {
     HostName := HostName is String ? StrPtr(HostName) : HostName
 
-    result := DllCall("WLDAP32.dll\ldap_openA", "ptr", HostName, "uint", PortNumber, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_openA", "ptr", HostName, UInt32, PortNumber, LDAP.Ptr)
     return result
 }
 
@@ -152,7 +153,7 @@ export ldap_openA(HostName, PortNumber) {
 export ldap_initW(HostName, PortNumber) {
     HostName := HostName is String ? StrPtr(HostName) : HostName
 
-    result := DllCall("WLDAP32.dll\ldap_initW", "ptr", HostName, "uint", PortNumber, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_initW", "ptr", HostName, UInt32, PortNumber, LDAP.Ptr)
     return result
 }
 
@@ -200,7 +201,7 @@ export ldap_initW(HostName, PortNumber) {
 export ldap_initA(HostName, PortNumber) {
     HostName := HostName is String ? StrPtr(HostName) : HostName
 
-    result := DllCall("WLDAP32.dll\ldap_initA", "ptr", HostName, "uint", PortNumber, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_initA", "ptr", HostName, UInt32, PortNumber, LDAP.Ptr)
     return result
 }
 
@@ -239,7 +240,7 @@ export ldap_initA(HostName, PortNumber) {
 export ldap_sslinitW(HostName, PortNumber, secure) {
     HostName := HostName is String ? StrPtr(HostName) : HostName
 
-    result := DllCall("WLDAP32.dll\ldap_sslinitW", "ptr", HostName, "uint", PortNumber, "int", secure, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_sslinitW", "ptr", HostName, UInt32, PortNumber, Int32, secure, LDAP.Ptr)
     return result
 }
 
@@ -271,7 +272,7 @@ export ldap_sslinitW(HostName, PortNumber, secure) {
 export ldap_sslinitA(HostName, PortNumber, secure) {
     HostName := HostName is String ? StrPtr(HostName) : HostName
 
-    result := DllCall("WLDAP32.dll\ldap_sslinitA", "ptr", HostName, "uint", PortNumber, "int", secure, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_sslinitA", "ptr", HostName, UInt32, PortNumber, Int32, secure, LDAP.Ptr)
     return result
 }
 
@@ -329,7 +330,7 @@ export ldap_connect(ld, timeout) {
 export ldap_open(HostName, PortNumber) {
     HostName := HostName is String ? StrPtr(HostName) : HostName
 
-    result := DllCall("WLDAP32.dll\ldap_open", "ptr", HostName, "uint", PortNumber, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_open", "ptr", HostName, UInt32, PortNumber, LDAP.Ptr)
     return result
 }
 
@@ -377,7 +378,7 @@ export ldap_open(HostName, PortNumber) {
 export ldap_init(HostName, PortNumber) {
     HostName := HostName is String ? StrPtr(HostName) : HostName
 
-    result := DllCall("WLDAP32.dll\ldap_init", "ptr", HostName, "uint", PortNumber, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_init", "ptr", HostName, UInt32, PortNumber, LDAP.Ptr)
     return result
 }
 
@@ -409,7 +410,7 @@ export ldap_init(HostName, PortNumber) {
 export ldap_sslinit(HostName, PortNumber, secure) {
     HostName := HostName is String ? StrPtr(HostName) : HostName
 
-    result := DllCall("WLDAP32.dll\ldap_sslinit", "ptr", HostName, "uint", PortNumber, "int", secure, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_sslinit", "ptr", HostName, UInt32, PortNumber, Int32, secure, LDAP.Ptr)
     return result
 }
 
@@ -446,7 +447,7 @@ export cldap_openW(HostName, PortNumber) {
 
     A_LastError := 0
 
-    result := DllCall("WLDAP32.dll\cldap_openW", "ptr", HostName, "uint", PortNumber, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\cldap_openW", "ptr", HostName, UInt32, PortNumber, LDAP.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -481,7 +482,7 @@ export cldap_openA(HostName, PortNumber) {
 
     A_LastError := 0
 
-    result := DllCall("WLDAP32.dll\cldap_openA", "ptr", HostName, "uint", PortNumber, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\cldap_openA", "ptr", HostName, UInt32, PortNumber, LDAP.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -516,7 +517,7 @@ export cldap_open(HostName, PortNumber) {
 
     A_LastError := 0
 
-    result := DllCall("WLDAP32.dll\cldap_open", "ptr", HostName, "uint", PortNumber, LDAP.Ptr)
+    result := DllCall("WLDAP32.dll\cldap_open", "ptr", HostName, UInt32, PortNumber, LDAP.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -593,7 +594,7 @@ export ldap_unbind_s(ld) {
 export ldap_get_option(ld, option, outvalue) {
     outvalueMarshal := outvalue is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_get_option", LDAP.Ptr, ld, "int", option, outvalueMarshal, outvalue, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_get_option", LDAP.Ptr, ld, Int32, option, outvalueMarshal, outvalue, UInt32)
     return result
 }
 
@@ -626,7 +627,7 @@ export ldap_get_option(ld, option, outvalue) {
 export ldap_get_optionW(ld, option, outvalue) {
     outvalueMarshal := outvalue is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_get_optionW", LDAP.Ptr, ld, "int", option, outvalueMarshal, outvalue, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_get_optionW", LDAP.Ptr, ld, Int32, option, outvalueMarshal, outvalue, UInt32)
     return result
 }
 
@@ -659,7 +660,7 @@ export ldap_get_optionW(ld, option, outvalue) {
 export ldap_set_option(ld, option, invalue) {
     invalueMarshal := invalue is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_set_option", LDAP.Ptr, ld, "int", option, invalueMarshal, invalue, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_set_option", LDAP.Ptr, ld, Int32, option, invalueMarshal, invalue, UInt32)
     return result
 }
 
@@ -692,7 +693,7 @@ export ldap_set_option(ld, option, invalue) {
 export ldap_set_optionW(ld, option, invalue) {
     invalueMarshal := invalue is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_set_optionW", LDAP.Ptr, ld, "int", option, invalueMarshal, invalue, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_set_optionW", LDAP.Ptr, ld, Int32, option, invalueMarshal, invalue, UInt32)
     return result
 }
 
@@ -902,7 +903,7 @@ export ldap_bindW(ld, dn, cred, method) {
     dn := dn is String ? StrPtr(dn) : dn
     cred := cred is String ? StrPtr(cred) : cred
 
-    result := DllCall("WLDAP32.dll\ldap_bindW", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, "uint", method, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_bindW", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, UInt32, method, UInt32)
     return result
 }
 
@@ -949,7 +950,7 @@ export ldap_bindA(ld, dn, cred, method) {
     dn := dn is String ? StrPtr(dn) : dn
     cred := cred is String ? StrPtr(cred) : cred
 
-    result := DllCall("WLDAP32.dll\ldap_bindA", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, "uint", method, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_bindA", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, UInt32, method, UInt32)
     return result
 }
 
@@ -1104,7 +1105,7 @@ export ldap_bind_sW(ld, dn, cred, method) {
     dn := dn is String ? StrPtr(dn) : dn
     cred := cred is String ? StrPtr(cred) : cred
 
-    result := DllCall("WLDAP32.dll\ldap_bind_sW", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, "uint", method, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_bind_sW", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, UInt32, method, UInt32)
     return result
 }
 
@@ -1252,7 +1253,7 @@ export ldap_bind_sA(ld, dn, cred, method) {
     dn := dn is String ? StrPtr(dn) : dn
     cred := cred is String ? StrPtr(cred) : cred
 
-    result := DllCall("WLDAP32.dll\ldap_bind_sA", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, "uint", method, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_bind_sA", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, UInt32, method, UInt32)
     return result
 }
 
@@ -1530,7 +1531,7 @@ export ldap_bind(ld, dn, cred, method) {
     dn := dn is String ? StrPtr(dn) : dn
     cred := cred is String ? StrPtr(cred) : cred
 
-    result := DllCall("WLDAP32.dll\ldap_bind", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, "uint", method, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_bind", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, UInt32, method, UInt32)
     return result
 }
 
@@ -1678,7 +1679,7 @@ export ldap_bind_s(ld, dn, cred, method) {
     dn := dn is String ? StrPtr(dn) : dn
     cred := cred is String ? StrPtr(cred) : cred
 
-    result := DllCall("WLDAP32.dll\ldap_bind_s", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, "uint", method, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_bind_s", LDAP.Ptr, ld, "ptr", dn, "ptr", cred, UInt32, method, UInt32)
     return result
 }
 
@@ -1732,7 +1733,7 @@ export ldap_searchW(ld, base, scope, filter, attrs, attrsonly) {
 
     attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_searchW", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_searchW", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, UInt32)
     return result
 }
 
@@ -1780,7 +1781,7 @@ export ldap_searchA(ld, base, scope, filter, attrs, attrsonly) {
 
     attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_searchA", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_searchA", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, UInt32)
     return result
 }
 
@@ -1876,7 +1877,7 @@ export ldap_search_sW(ld, base, scope, filter, attrs, attrsonly, res) {
     attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_sW", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_sW", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, resMarshal, res, UInt32)
     return result
 }
 
@@ -1964,7 +1965,7 @@ export ldap_search_sA(ld, base, scope, filter, attrs, attrsonly, res) {
     attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_sA", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_sA", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, resMarshal, res, UInt32)
     return result
 }
 
@@ -2063,7 +2064,7 @@ export ldap_search_stW(ld, base, scope, filter, attrs, attrsonly, timeout, res) 
     attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_stW", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, LDAP_TIMEVAL.Ptr, timeout, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_stW", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, LDAP_TIMEVAL.Ptr, timeout, resMarshal, res, UInt32)
     return result
 }
 
@@ -2154,7 +2155,7 @@ export ldap_search_stA(ld, base, scope, filter, attrs, attrsonly, timeout, res) 
     attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_stA", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, LDAP_TIMEVAL.Ptr, timeout, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_stA", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, LDAP_TIMEVAL.Ptr, timeout, resMarshal, res, UInt32)
     return result
 }
 
@@ -2215,7 +2216,7 @@ export ldap_search_extW(ld, base, scope, filter, attrs, attrsonly, ServerControl
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
     MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_extW", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", TimeLimit, "uint", SizeLimit, MessageNumberMarshal, MessageNumber, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_extW", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32, TimeLimit, UInt32, SizeLimit, MessageNumberMarshal, MessageNumber, UInt32)
     return result
 }
 
@@ -2269,7 +2270,7 @@ export ldap_search_extA(ld, base, scope, filter, attrs, attrsonly, ServerControl
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
     MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_extA", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", TimeLimit, "uint", SizeLimit, MessageNumberMarshal, MessageNumber, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_extA", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32, TimeLimit, UInt32, SizeLimit, MessageNumberMarshal, MessageNumber, UInt32)
     return result
 }
 
@@ -2377,7 +2378,7 @@ export ldap_search_ext_sW(ld, base, scope, filter, attrs, attrsonly, ServerContr
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_ext_sW", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, LDAP_TIMEVAL.Ptr, timeout, "uint", SizeLimit, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_ext_sW", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, LDAP_TIMEVAL.Ptr, timeout, UInt32, SizeLimit, resMarshal, res, UInt32)
     return result
 }
 
@@ -2477,7 +2478,7 @@ export ldap_search_ext_sA(ld, base, scope, filter, attrs, attrsonly, ServerContr
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_ext_sA", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, LDAP_TIMEVAL.Ptr, timeout, "uint", SizeLimit, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_ext_sA", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, LDAP_TIMEVAL.Ptr, timeout, UInt32, SizeLimit, resMarshal, res, UInt32)
     return result
 }
 
@@ -2525,7 +2526,7 @@ export ldap_search(ld, base, scope, filter, attrs, attrsonly) {
 
     attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, UInt32)
     return result
 }
 
@@ -2613,7 +2614,7 @@ export ldap_search_s(ld, base, scope, filter, attrs, attrsonly, res) {
     attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_s", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_s", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, resMarshal, res, UInt32)
     return result
 }
 
@@ -2704,7 +2705,7 @@ export ldap_search_st(ld, base, scope, filter, attrs, attrsonly, timeout, res) {
     attrsMarshal := attrs is VarRef ? "ptr*" : "ptr"
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_st", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, LDAP_TIMEVAL.Ptr, timeout, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_st", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, LDAP_TIMEVAL.Ptr, timeout, resMarshal, res, UInt32)
     return result
 }
 
@@ -2758,7 +2759,7 @@ export ldap_search_ext(ld, base, scope, filter, attrs, attrsonly, ServerControls
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
     MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_ext", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", TimeLimit, "uint", SizeLimit, MessageNumberMarshal, MessageNumber, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_ext", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32, TimeLimit, UInt32, SizeLimit, MessageNumberMarshal, MessageNumber, UInt32)
     return result
 }
 
@@ -2858,7 +2859,7 @@ export ldap_search_ext_s(ld, base, scope, filter, attrs, attrsonly, ServerContro
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_search_ext_s", LDAP.Ptr, ld, "ptr", base, "uint", scope, "ptr", filter, attrsMarshal, attrs, "uint", attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, LDAP_TIMEVAL.Ptr, timeout, "uint", SizeLimit, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_search_ext_s", LDAP.Ptr, ld, "ptr", base, UInt32, scope, "ptr", filter, attrsMarshal, attrs, UInt32, attrsonly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, LDAP_TIMEVAL.Ptr, timeout, UInt32, SizeLimit, resMarshal, res, UInt32)
     return result
 }
 
@@ -3401,7 +3402,7 @@ export ldap_modrdn2W(ExternalHandle, DistinguishedName, NewDistinguishedName, De
     DistinguishedName := DistinguishedName is String ? StrPtr(DistinguishedName) : DistinguishedName
     NewDistinguishedName := NewDistinguishedName is String ? StrPtr(NewDistinguishedName) : NewDistinguishedName
 
-    result := DllCall("WLDAP32.dll\ldap_modrdn2W", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_modrdn2W", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, Int32, DeleteOldRdn, UInt32)
     return result
 }
 
@@ -3438,7 +3439,7 @@ export ldap_modrdn2A(ExternalHandle, DistinguishedName, NewDistinguishedName, De
     DistinguishedName := DistinguishedName is String ? StrPtr(DistinguishedName) : DistinguishedName
     NewDistinguishedName := NewDistinguishedName is String ? StrPtr(NewDistinguishedName) : NewDistinguishedName
 
-    result := DllCall("WLDAP32.dll\ldap_modrdn2A", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_modrdn2A", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, Int32, DeleteOldRdn, UInt32)
     return result
 }
 
@@ -3560,7 +3561,7 @@ export ldap_modrdn2_sW(ExternalHandle, DistinguishedName, NewDistinguishedName, 
     DistinguishedName := DistinguishedName is String ? StrPtr(DistinguishedName) : DistinguishedName
     NewDistinguishedName := NewDistinguishedName is String ? StrPtr(NewDistinguishedName) : NewDistinguishedName
 
-    result := DllCall("WLDAP32.dll\ldap_modrdn2_sW", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_modrdn2_sW", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, Int32, DeleteOldRdn, UInt32)
     return result
 }
 
@@ -3590,7 +3591,7 @@ export ldap_modrdn2_sA(ExternalHandle, DistinguishedName, NewDistinguishedName, 
     DistinguishedName := DistinguishedName is String ? StrPtr(DistinguishedName) : DistinguishedName
     NewDistinguishedName := NewDistinguishedName is String ? StrPtr(NewDistinguishedName) : NewDistinguishedName
 
-    result := DllCall("WLDAP32.dll\ldap_modrdn2_sA", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_modrdn2_sA", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, Int32, DeleteOldRdn, UInt32)
     return result
 }
 
@@ -3692,7 +3693,7 @@ export ldap_modrdn2(ExternalHandle, DistinguishedName, NewDistinguishedName, Del
     DistinguishedName := DistinguishedName is String ? StrPtr(DistinguishedName) : DistinguishedName
     NewDistinguishedName := NewDistinguishedName is String ? StrPtr(NewDistinguishedName) : NewDistinguishedName
 
-    result := DllCall("WLDAP32.dll\ldap_modrdn2", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_modrdn2", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, Int32, DeleteOldRdn, UInt32)
     return result
 }
 
@@ -3762,7 +3763,7 @@ export ldap_modrdn2_s(ExternalHandle, DistinguishedName, NewDistinguishedName, D
     DistinguishedName := DistinguishedName is String ? StrPtr(DistinguishedName) : DistinguishedName
     NewDistinguishedName := NewDistinguishedName is String ? StrPtr(NewDistinguishedName) : NewDistinguishedName
 
-    result := DllCall("WLDAP32.dll\ldap_modrdn2_s", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, "int", DeleteOldRdn, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_modrdn2_s", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "ptr", NewDistinguishedName, Int32, DeleteOldRdn, UInt32)
     return result
 }
 
@@ -3833,7 +3834,7 @@ export ldap_rename_extW(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls,
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
     MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_rename_extW", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_rename_extW", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, Int32, DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, UInt32)
     return result
 }
 
@@ -3868,7 +3869,7 @@ export ldap_rename_extA(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls,
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
     MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_rename_extA", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_rename_extA", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, Int32, DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, UInt32)
     return result
 }
 
@@ -3905,7 +3906,7 @@ export ldap_rename_ext_sW(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControl
     ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_rename_ext_sW", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_rename_ext_sW", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, Int32, DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32)
     return result
 }
 
@@ -3935,7 +3936,7 @@ export ldap_rename_ext_sA(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControl
     ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_rename_ext_sA", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_rename_ext_sA", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, Int32, DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32)
     return result
 }
 
@@ -3970,7 +3971,7 @@ export ldap_rename_ext(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, 
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
     MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_rename_ext", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_rename_ext", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, Int32, DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, MessageNumberMarshal, MessageNumber, UInt32)
     return result
 }
 
@@ -4000,7 +4001,7 @@ export ldap_rename_ext_s(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls
     ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
     ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_rename_ext_s", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_rename_ext_s", LDAP.Ptr, ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, Int32, DeleteOldRdn, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32)
     return result
 }
 
@@ -5489,7 +5490,7 @@ export ldap_delete_ext_s(ld, dn, ServerControls, ClientControls) {
  * @since windows6.0.6000
  */
 export ldap_abandon(ld, msgid) {
-    result := DllCall("WLDAP32.dll\ldap_abandon", LDAP.Ptr, ld, "uint", msgid, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_abandon", LDAP.Ptr, ld, UInt32, msgid, UInt32)
     return result
 }
 
@@ -5515,7 +5516,7 @@ export ldap_abandon(ld, msgid) {
 export ldap_result(ld, msgid, all, timeout, res) {
     resMarshal := res is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_result", LDAP.Ptr, ld, "uint", msgid, "uint", all, LDAP_TIMEVAL.Ptr, timeout, resMarshal, res, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_result", LDAP.Ptr, ld, UInt32, msgid, UInt32, all, LDAP_TIMEVAL.Ptr, timeout, resMarshal, res, UInt32)
     return result
 }
 
@@ -5552,7 +5553,7 @@ export ldap_msgfree(res) {
  * @since windows6.0.6000
  */
 export ldap_result2error(ld, res, freeit) {
-    result := DllCall("WLDAP32.dll\ldap_result2error", LDAP.Ptr, ld, LDAPMessage.Ptr, res, "uint", freeit, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_result2error", LDAP.Ptr, ld, LDAPMessage.Ptr, res, UInt32, freeit, UInt32)
     return result
 }
 
@@ -5984,7 +5985,7 @@ export ldap_free_controls(Controls) {
  * @since windows6.0.6000
  */
 export ldap_err2stringW(err) {
-    result := DllCall("WLDAP32.dll\ldap_err2stringW", "uint", err, PWSTR)
+    result := DllCall("WLDAP32.dll\ldap_err2stringW", UInt32, err, PWSTR)
     return result
 }
 
@@ -6002,7 +6003,7 @@ export ldap_err2stringW(err) {
  * @since windows6.0.6000
  */
 export ldap_err2stringA(err) {
-    result := DllCall("WLDAP32.dll\ldap_err2stringA", "uint", err, PSTR)
+    result := DllCall("WLDAP32.dll\ldap_err2stringA", UInt32, err, PSTR)
     return result
 }
 
@@ -6020,7 +6021,7 @@ export ldap_err2stringA(err) {
  * @since windows6.0.6000
  */
 export ldap_err2string(err) {
-    result := DllCall("WLDAP32.dll\ldap_err2string", "uint", err, PSTR)
+    result := DllCall("WLDAP32.dll\ldap_err2string", UInt32, err, PSTR)
     return result
 }
 
@@ -6805,7 +6806,7 @@ export ldap_get_dn(ld, entry) {
 export ldap_explode_dnW(dn, notypes) {
     dn := dn is String ? StrPtr(dn) : dn
 
-    result := DllCall("WLDAP32.dll\ldap_explode_dnW", "ptr", dn, "uint", notypes, PWSTR.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_explode_dnW", "ptr", dn, UInt32, notypes, PWSTR.Ptr)
     return result
 }
 
@@ -6825,7 +6826,7 @@ export ldap_explode_dnW(dn, notypes) {
 export ldap_explode_dnA(dn, notypes) {
     dn := dn is String ? StrPtr(dn) : dn
 
-    result := DllCall("WLDAP32.dll\ldap_explode_dnA", "ptr", dn, "uint", notypes, PSTR.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_explode_dnA", "ptr", dn, UInt32, notypes, PSTR.Ptr)
     return result
 }
 
@@ -6845,7 +6846,7 @@ export ldap_explode_dnA(dn, notypes) {
 export ldap_explode_dn(dn, notypes) {
     dn := dn is String ? StrPtr(dn) : dn
 
-    result := DllCall("WLDAP32.dll\ldap_explode_dn", "ptr", dn, "uint", notypes, PSTR.Ptr)
+    result := DllCall("WLDAP32.dll\ldap_explode_dn", "ptr", dn, UInt32, notypes, PSTR.Ptr)
     return result
 }
 
@@ -7126,7 +7127,7 @@ export ldap_cleanup(_hInstance) {
  * @since windows6.0.6000
  */
 export ldap_escape_filter_elementW(sourceFilterElement, sourceLength, destFilterElement, destLength) {
-    result := DllCall("WLDAP32.dll\ldap_escape_filter_elementW", "ptr", sourceFilterElement, "uint", sourceLength, "ptr", destFilterElement, "uint", destLength, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_escape_filter_elementW", IntPtr, sourceFilterElement, UInt32, sourceLength, IntPtr, destFilterElement, UInt32, destLength, UInt32)
     return result
 }
 
@@ -7151,7 +7152,7 @@ export ldap_escape_filter_elementW(sourceFilterElement, sourceLength, destFilter
  * @since windows6.0.6000
  */
 export ldap_escape_filter_elementA(sourceFilterElement, sourceLength, destFilterElement, destLength) {
-    result := DllCall("WLDAP32.dll\ldap_escape_filter_elementA", "ptr", sourceFilterElement, "uint", sourceLength, "ptr", destFilterElement, "uint", destLength, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_escape_filter_elementA", IntPtr, sourceFilterElement, UInt32, sourceLength, IntPtr, destFilterElement, UInt32, destLength, UInt32)
     return result
 }
 
@@ -7176,7 +7177,7 @@ export ldap_escape_filter_elementA(sourceFilterElement, sourceLength, destFilter
  * @since windows6.0.6000
  */
 export ldap_escape_filter_element(sourceFilterElement, sourceLength, destFilterElement, destLength) {
-    result := DllCall("WLDAP32.dll\ldap_escape_filter_element", "ptr", sourceFilterElement, "uint", sourceLength, "ptr", destFilterElement, "uint", destLength, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_escape_filter_element", IntPtr, sourceFilterElement, UInt32, sourceLength, IntPtr, destFilterElement, UInt32, destLength, UInt32)
     return result
 }
 
@@ -7186,7 +7187,7 @@ export ldap_escape_filter_element(sourceFilterElement, sourceLength, destFilterE
  * @returns {Integer} 
  */
 export ldap_set_dbg_flags(NewFlags) {
-    result := DllCall("WLDAP32.dll\ldap_set_dbg_flags", "uint", NewFlags, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_set_dbg_flags", UInt32, NewFlags, UInt32)
     return result
 }
 
@@ -7196,7 +7197,7 @@ export ldap_set_dbg_flags(NewFlags) {
  * @returns {String} Nothing - always returns an empty string
  */
 export ldap_set_dbg_routine(DebugPrintRoutine) {
-    DllCall("WLDAP32.dll\ldap_set_dbg_routine", "ptr", DebugPrintRoutine)
+    DllCall("WLDAP32.dll\ldap_set_dbg_routine", DBGPRINT, DebugPrintRoutine)
 }
 
 /**
@@ -7218,7 +7219,7 @@ export LdapUTF8ToUnicode(lpSrcStr, cchSrc, lpDestStr, cchDest) {
 
     A_LastError := 0
 
-    result := DllCall("WLDAP32.dll\LdapUTF8ToUnicode", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, Int32)
+    result := DllCall("WLDAP32.dll\LdapUTF8ToUnicode", "ptr", lpSrcStr, Int32, cchSrc, "ptr", lpDestStr, Int32, cchDest, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7245,7 +7246,7 @@ export LdapUnicodeToUTF8(lpSrcStr, cchSrc, lpDestStr, cchDest) {
 
     A_LastError := 0
 
-    result := DllCall("WLDAP32.dll\LdapUnicodeToUTF8", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, Int32)
+    result := DllCall("WLDAP32.dll\LdapUnicodeToUTF8", "ptr", lpSrcStr, Int32, cchSrc, "ptr", lpDestStr, Int32, cchDest, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7277,7 +7278,7 @@ export ldap_create_sort_controlA(ExternalHandle, SortKeys, IsCritical, Control) 
     SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
     ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_create_sort_controlA", LDAP.Ptr, ExternalHandle, SortKeysMarshal, SortKeys, "char", IsCritical, ControlMarshal, Control, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_create_sort_controlA", LDAP.Ptr, ExternalHandle, SortKeysMarshal, SortKeys, Int8, IsCritical, ControlMarshal, Control, UInt32)
     return result
 }
 
@@ -7312,7 +7313,7 @@ export ldap_create_sort_controlW(ExternalHandle, SortKeys, IsCritical, Control) 
     SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
     ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_create_sort_controlW", LDAP.Ptr, ExternalHandle, SortKeysMarshal, SortKeys, "char", IsCritical, ControlMarshal, Control, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_create_sort_controlW", LDAP.Ptr, ExternalHandle, SortKeysMarshal, SortKeys, Int8, IsCritical, ControlMarshal, Control, UInt32)
     return result
 }
 
@@ -7403,7 +7404,7 @@ export ldap_create_sort_control(ExternalHandle, SortKeys, IsCritical, Control) {
     SortKeysMarshal := SortKeys is VarRef ? "ptr*" : "ptr"
     ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_create_sort_control", LDAP.Ptr, ExternalHandle, SortKeysMarshal, SortKeys, "char", IsCritical, ControlMarshal, Control, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_create_sort_control", LDAP.Ptr, ExternalHandle, SortKeysMarshal, SortKeys, Int8, IsCritical, ControlMarshal, Control, UInt32)
     return result
 }
 
@@ -7510,7 +7511,7 @@ export ldap_encode_sort_controlA(ExternalHandle, SortKeys, Control, Criticality)
 export ldap_create_page_controlW(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
     ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_create_page_controlW", LDAP.Ptr, ExternalHandle, "uint", PageSize, LDAP_BERVAL.Ptr, Cookie, "char", IsCritical, ControlMarshal, Control, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_create_page_controlW", LDAP.Ptr, ExternalHandle, UInt32, PageSize, LDAP_BERVAL.Ptr, Cookie, Int8, IsCritical, ControlMarshal, Control, UInt32)
     return result
 }
 
@@ -7543,7 +7544,7 @@ export ldap_create_page_controlW(ExternalHandle, PageSize, Cookie, IsCritical, C
 export ldap_create_page_controlA(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
     ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_create_page_controlA", LDAP.Ptr, ExternalHandle, "uint", PageSize, LDAP_BERVAL.Ptr, Cookie, "char", IsCritical, ControlMarshal, Control, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_create_page_controlA", LDAP.Ptr, ExternalHandle, UInt32, PageSize, LDAP_BERVAL.Ptr, Cookie, Int8, IsCritical, ControlMarshal, Control, UInt32)
     return result
 }
 
@@ -7635,7 +7636,7 @@ export ldap_parse_page_controlA(ExternalHandle, ServerControls, TotalCount, Cook
 export ldap_create_page_control(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
     ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_create_page_control", LDAP.Ptr, ExternalHandle, "uint", PageSize, LDAP_BERVAL.Ptr, Cookie, "char", IsCritical, ControlMarshal, Control, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_create_page_control", LDAP.Ptr, ExternalHandle, UInt32, PageSize, LDAP_BERVAL.Ptr, Cookie, Int8, IsCritical, ControlMarshal, Control, UInt32)
     return result
 }
 
@@ -7718,7 +7719,7 @@ export ldap_search_init_pageW(ExternalHandle, DistinguishedName, ScopeOfSearch, 
 
     A_LastError := 0
 
-    result := DllCall("WLDAP32.dll\ldap_search_init_pageW", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, "uint", AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, SortKeysMarshal, SortKeys, PLDAPSearch)
+    result := DllCall("WLDAP32.dll\ldap_search_init_pageW", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, UInt32, ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, UInt32, AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32, PageTimeLimit, UInt32, TotalSizeLimit, SortKeysMarshal, SortKeys, PLDAPSearch)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7772,7 +7773,7 @@ export ldap_search_init_pageA(ExternalHandle, DistinguishedName, ScopeOfSearch, 
 
     A_LastError := 0
 
-    result := DllCall("WLDAP32.dll\ldap_search_init_pageA", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, "uint", AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, SortKeysMarshal, SortKeys, PLDAPSearch)
+    result := DllCall("WLDAP32.dll\ldap_search_init_pageA", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, UInt32, ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, UInt32, AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32, PageTimeLimit, UInt32, TotalSizeLimit, SortKeysMarshal, SortKeys, PLDAPSearch)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7826,7 +7827,7 @@ export ldap_search_init_page(ExternalHandle, DistinguishedName, ScopeOfSearch, S
 
     A_LastError := 0
 
-    result := DllCall("WLDAP32.dll\ldap_search_init_page", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, "uint", AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, SortKeysMarshal, SortKeys, PLDAPSearch)
+    result := DllCall("WLDAP32.dll\ldap_search_init_page", LDAP.Ptr, ExternalHandle, "ptr", DistinguishedName, UInt32, ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, UInt32, AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, UInt32, PageTimeLimit, UInt32, TotalSizeLimit, SortKeysMarshal, SortKeys, PLDAPSearch)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7862,7 +7863,7 @@ export ldap_search_init_page(ExternalHandle, DistinguishedName, ScopeOfSearch, S
 export ldap_get_next_page(ExternalHandle, SearchHandle, PageSize, MessageNumber) {
     MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_get_next_page", LDAP.Ptr, ExternalHandle, PLDAPSearch, SearchHandle, "uint", PageSize, MessageNumberMarshal, MessageNumber, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_get_next_page", LDAP.Ptr, ExternalHandle, PLDAPSearch, SearchHandle, UInt32, PageSize, MessageNumberMarshal, MessageNumber, UInt32)
     return result
 }
 
@@ -7900,7 +7901,7 @@ export ldap_get_next_page_s(ExternalHandle, SearchHandle, timeout, PageSize, Tot
     TotalCountMarshal := TotalCount is VarRef ? "uint*" : "ptr"
     ResultsMarshal := Results is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_get_next_page_s", LDAP.Ptr, ExternalHandle, PLDAPSearch, SearchHandle, LDAP_TIMEVAL.Ptr, timeout, "uint", PageSize, TotalCountMarshal, TotalCount, ResultsMarshal, Results, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_get_next_page_s", LDAP.Ptr, ExternalHandle, PLDAPSearch, SearchHandle, LDAP_TIMEVAL.Ptr, timeout, UInt32, PageSize, TotalCountMarshal, TotalCount, ResultsMarshal, Results, UInt32)
     return result
 }
 
@@ -7976,7 +7977,7 @@ export ldap_search_abandon_page(ExternalHandle, SearchBlock) {
 export ldap_create_vlv_controlW(ExternalHandle, VlvInfo, IsCritical, Control) {
     ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_create_vlv_controlW", LDAP.Ptr, ExternalHandle, LDAPVLVInfo.Ptr, VlvInfo, "char", IsCritical, ControlMarshal, Control, Int32)
+    result := DllCall("WLDAP32.dll\ldap_create_vlv_controlW", LDAP.Ptr, ExternalHandle, LDAPVLVInfo.Ptr, VlvInfo, Int8, IsCritical, ControlMarshal, Control, Int32)
     return result
 }
 
@@ -8006,7 +8007,7 @@ export ldap_create_vlv_controlW(ExternalHandle, VlvInfo, IsCritical, Control) {
 export ldap_create_vlv_controlA(ExternalHandle, VlvInfo, IsCritical, Control) {
     ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WLDAP32.dll\ldap_create_vlv_controlA", LDAP.Ptr, ExternalHandle, LDAPVLVInfo.Ptr, VlvInfo, "char", IsCritical, ControlMarshal, Control, Int32)
+    result := DllCall("WLDAP32.dll\ldap_create_vlv_controlA", LDAP.Ptr, ExternalHandle, LDAPVLVInfo.Ptr, VlvInfo, Int8, IsCritical, ControlMarshal, Control, Int32)
     return result
 }
 
@@ -8598,7 +8599,7 @@ export ldap_extended_operation(ld, Oid, Data, ServerControls, ClientControls, Me
  * @since windows6.0.6000
  */
 export ldap_close_extended_op(ld, MessageNumber) {
-    result := DllCall("WLDAP32.dll\ldap_close_extended_op", LDAP.Ptr, ld, "uint", MessageNumber, UInt32)
+    result := DllCall("WLDAP32.dll\ldap_close_extended_op", LDAP.Ptr, ld, UInt32, MessageNumber, UInt32)
     return result
 }
 
@@ -8626,7 +8627,7 @@ export LdapGetLastError() {
  * @since windows6.0.6000
  */
 export LdapMapErrorToWin32(LdapError) {
-    result := DllCall("WLDAP32.dll\LdapMapErrorToWin32", "uint", LdapError, WIN32_ERROR)
+    result := DllCall("WLDAP32.dll\LdapMapErrorToWin32", UInt32, LdapError, WIN32_ERROR)
     return result
 }
 
@@ -8681,7 +8682,7 @@ export ber_init(pBerVal) {
  * @since windows6.0.6000
  */
 export ber_free(pBerElement, fbuf) {
-    DllCall("WLDAP32.dll\ber_free", BerElement.Ptr, pBerElement, "int", fbuf)
+    DllCall("WLDAP32.dll\ber_free", BerElement.Ptr, pBerElement, Int32, fbuf)
 }
 
 /**
@@ -8734,7 +8735,7 @@ export ber_bvdup(pBerVal) {
  * @since windows6.0.6000
  */
 export ber_alloc_t(options) {
-    result := DllCall("WLDAP32.dll\ber_alloc_t", "int", options, BerElement.Ptr)
+    result := DllCall("WLDAP32.dll\ber_alloc_t", Int32, options, BerElement.Ptr)
     return result
 }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Ole\IOleObject.ahk" { IOleObject }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to manage the Windows Desktop.
@@ -58,7 +58,7 @@ export default struct IADesktopP2 extends IUnknown {
      * @returns {Integer} 
      */
     GetADObjectFlags(dwMask) {
-        result := ComCall(4, this, "uint*", &pdwFlags := 0, "uint", dwMask, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwFlags := 0, UInt32, dwMask, "HRESULT")
         return pdwFlags
     }
 

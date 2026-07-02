@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\APPLICATION_VIEW_STATE.ahk" { APPLICATION_VIEW_STATE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APPLICATION_VIEW_STATE.ahk" { APPLICATION_VIEW_STATE }
 #Import ".\EDGE_GESTURE_KIND.ahk" { EDGE_GESTURE_KIND }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "Common\DEVICE_SCALE_FACTOR.ahk" { DEVICE_SCALE_FACTOR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "Common\DEVICE_SCALE_FACTOR.ahk" { DEVICE_SCALE_FACTOR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Enables development tool applications to dynamically spoof system and user states, such as native display resolution, device scale factor, and application view state, for the purpose of testing Windows Store apps running in design mode for a wide range of form factors without the need for the actual hardware. Also enables testing of changes in normally user-controlled state to test Windows Store apps under a variety of scenarios.

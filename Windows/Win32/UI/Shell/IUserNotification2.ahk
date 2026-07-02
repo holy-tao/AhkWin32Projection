@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IQueryContinue.ahk" { IQueryContinue }
-#Import ".\IUserNotificationCallback.ahk" { IUserNotificationCallback }
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IUserNotificationCallback.ahk" { IUserNotificationCallback }
+#Import ".\IQueryContinue.ahk" { IQueryContinue }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * Exposes methods that set notification information and then display that notification to the user in a balloon that appears in conjunction with the notification area of the taskbar. (IUserNotification2)
@@ -66,7 +66,7 @@ export default struct IUserNotification2 extends IUnknown {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(3, this, "ptr", pszTitle, "ptr", pszText, "uint", dwInfoFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszTitle, "ptr", pszText, UInt32, dwInfoFlags, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IUserNotification2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iusernotification2-setballoonretry
      */
     SetBalloonRetry(dwShowTime, dwInterval, cRetryCount) {
-        result := ComCall(4, this, "uint", dwShowTime, "uint", dwInterval, "uint", cRetryCount, "HRESULT")
+        result := ComCall(4, this, UInt32, dwShowTime, UInt32, dwInterval, UInt32, cRetryCount, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IUserNotification2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iusernotification2-show
      */
     Show(pqc, dwContinuePollInterval, pSink) {
-        result := ComCall(6, this, "ptr", pqc, "uint", dwContinuePollInterval, "ptr", pSink, "HRESULT")
+        result := ComCall(6, this, "ptr", pqc, UInt32, dwContinuePollInterval, "ptr", pSink, "HRESULT")
         return result
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WMDM_FORMATCODE.ahk" { WMDM_FORMATCODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
-#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
 #Import ".\IMDSPDevice2.ahk" { IMDSPDevice2 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
 #Import ".\WMDM_FORMAT_CAPABILITY.ahk" { WMDM_FORMAT_CAPABILITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\WMDM_FORMATCODE.ahk" { WMDM_FORMATCODE }
 
 /**
  * The IMDSPDevice3 interface must be supported for devices that expect to synchronize with Windows Media Player.
@@ -134,7 +134,7 @@ export default struct IMDSPDevice3 extends IMDSPDevice2 {
         lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : "ptr"
         pnOutBufferSizeMarshal := pnOutBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, "char*", &lpOutBuffer := 0, pnOutBufferSizeMarshal, pnOutBufferSize, "HRESULT")
+        result := ComCall(21, this, UInt32, dwIoControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, "char*", &lpOutBuffer := 0, pnOutBufferSizeMarshal, pnOutBufferSize, "HRESULT")
         return lpOutBuffer
     }
 

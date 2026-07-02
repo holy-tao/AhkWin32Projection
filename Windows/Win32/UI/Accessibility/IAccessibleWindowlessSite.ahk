@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAccessibleHandler.ahk" { IAccessibleHandler }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IAccessible.ahk" { IAccessible }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAccessibleHandler.ahk" { IAccessibleHandler }
 
 /**
  * A Microsoft ActiveX control site implements this interface to enable a windowless ActiveX control that has a Microsoft Active Accessibility implementation to express its accessibility.
@@ -59,7 +59,7 @@ export default struct IAccessibleWindowlessSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-acquireobjectidrange
      */
     AcquireObjectIdRange(rangeSize, pRangeOwner) {
-        result := ComCall(3, this, "int", rangeSize, "ptr", pRangeOwner, "int*", &pRangeBase := 0, "HRESULT")
+        result := ComCall(3, this, Int32, rangeSize, "ptr", pRangeOwner, "int*", &pRangeBase := 0, "HRESULT")
         return pRangeBase
     }
 
@@ -79,7 +79,7 @@ export default struct IAccessibleWindowlessSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblewindowlesssite-releaseobjectidrange
      */
     ReleaseObjectIdRange(rangeBase, pRangeOwner) {
-        result := ComCall(4, this, "int", rangeBase, "ptr", pRangeOwner, "HRESULT")
+        result := ComCall(4, this, Int32, rangeBase, "ptr", pRangeOwner, "HRESULT")
         return result
     }
 

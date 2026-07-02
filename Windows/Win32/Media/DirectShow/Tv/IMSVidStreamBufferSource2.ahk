@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMSVidStreamBufferSource.ahk" { IMSVidStreamBufferSource }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMSVidStreamBufferSource2 interface represents the Stream Buffer Source filter within the Video Control.
@@ -98,7 +98,7 @@ export default struct IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-put_rateex
      */
     put_RateEx(dwRate, dwFramesPerSecond) {
-        result := ComCall(41, this, "double", dwRate, "uint", dwFramesPerSecond, "HRESULT")
+        result := ComCall(41, this, Float64, dwRate, UInt32, dwFramesPerSecond, "HRESULT")
         return result
     }
 

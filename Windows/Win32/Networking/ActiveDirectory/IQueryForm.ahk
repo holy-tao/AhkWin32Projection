@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\LPCQADDFORMSPROC.ahk" { LPCQADDFORMSPROC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\LPCQADDPAGESPROC.ahk" { LPCQADDPAGESPROC }
 
 /**
  * Implemented by a query form extension object to allow the form object to add forms and pages to the system-supplied directory service query dialog box.
@@ -109,7 +111,7 @@ export default struct IQueryForm extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nf-cmnquery-iqueryform-addforms
      */
     AddForms(pAddFormsProc, _lParam) {
-        result := ComCall(4, this, "ptr", pAddFormsProc, LPARAM, _lParam, "HRESULT")
+        result := ComCall(4, this, LPCQADDFORMSPROC, pAddFormsProc, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -121,7 +123,7 @@ export default struct IQueryForm extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nf-cmnquery-iqueryform-addpages
      */
     AddPages(pAddPagesProc, _lParam) {
-        result := ComCall(5, this, "ptr", pAddPagesProc, LPARAM, _lParam, "HRESULT")
+        result := ComCall(5, this, LPCQADDPAGESPROC, pAddPagesProc, LPARAM, _lParam, "HRESULT")
         return result
     }
 

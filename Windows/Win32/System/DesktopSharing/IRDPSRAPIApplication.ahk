@@ -4,8 +4,8 @@
 #Import ".\IRDPSRAPIWindowList.ahk" { IRDPSRAPIWindowList }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Groups the sharable windows within a process. Each application object contains a list of window objects. If an application object is shared, all its windows are shared.

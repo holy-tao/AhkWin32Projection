@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 #Import ".\DBCOLUMNACCESS.ahk" { DBCOLUMNACCESS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -46,7 +46,7 @@ export default struct IRow extends IUnknown {
      * @returns {HRESULT} 
      */
     GetColumns(cColumns, rgColumns) {
-        result := ComCall(3, this, "ptr", cColumns, DBCOLUMNACCESS.Ptr, rgColumns, "HRESULT")
+        result := ComCall(3, this, IntPtr, cColumns, DBCOLUMNACCESS.Ptr, rgColumns, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IRow extends IUnknown {
      * @returns {IUnknown} 
      */
     Open(pUnkOuter, pColumnID, rguidColumnType, dwBindFlags, riid) {
-        result := ComCall(5, this, "ptr", pUnkOuter, DBID.Ptr, pColumnID, Guid.Ptr, rguidColumnType, "uint", dwBindFlags, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pUnkOuter, DBID.Ptr, pColumnID, Guid.Ptr, rguidColumnType, UInt32, dwBindFlags, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
     }
 

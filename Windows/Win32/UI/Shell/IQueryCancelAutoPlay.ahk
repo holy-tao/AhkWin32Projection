@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that programmatically overrides AutoPlay or AutoRun. This allows you to customize the location and type of content that is launched when media is inserted.
@@ -89,7 +89,7 @@ export default struct IQueryCancelAutoPlay extends IUnknown {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(3, this, "ptr", pszPath, "uint", dwContentType, "ptr", pszLabel, "uint", dwSerialNumber, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPath, UInt32, dwContentType, "ptr", pszLabel, UInt32, dwSerialNumber, "HRESULT")
         return result
     }
 

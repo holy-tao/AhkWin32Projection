@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_XML_KEY_VALUE_TYPE.ahk" { CRYPT_XML_KEY_VALUE_TYPE }
 #Import ".\CRYPT_XML_DATA_BLOB.ahk" { CRYPT_XML_DATA_BLOB }
-#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPT_XML_KEY_RSA_KEY_VALUE.ahk" { CRYPT_XML_KEY_RSA_KEY_VALUE }
-#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
 #Import ".\CRYPT_XML_KEY_DSA_KEY_VALUE.ahk" { CRYPT_XML_KEY_DSA_KEY_VALUE }
+#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
+#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
+#Import ".\CRYPT_XML_KEY_VALUE_TYPE.ahk" { CRYPT_XML_KEY_VALUE_TYPE }
 #Import ".\CRYPT_XML_KEY_ECDSA_KEY_VALUE.ahk" { CRYPT_XML_KEY_ECDSA_KEY_VALUE }
+#Import ".\CRYPT_XML_KEY_RSA_KEY_VALUE.ahk" { CRYPT_XML_KEY_RSA_KEY_VALUE }
 
 /**
  * Contains a single public key that may be useful in validating the signature.

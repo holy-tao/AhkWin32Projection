@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMNetShowConfig interface configures the legacy Windows Media Player 6.4 source filter. The Windows Media Source filter implements this interface.
@@ -172,7 +172,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_bufferingtime
      */
     put_BufferingTime(BufferingTime) {
-        result := ComCall(8, this, "double", BufferingTime, "HRESULT")
+        result := ComCall(8, this, Float64, BufferingTime, "HRESULT")
         return result
     }
 
@@ -220,7 +220,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_fixedudpport
      */
     put_FixedUDPPort(FixedUDPPort) {
-        result := ComCall(12, this, "int", FixedUDPPort, "HRESULT")
+        result := ComCall(12, this, Int32, FixedUDPPort, "HRESULT")
         return result
     }
 
@@ -320,7 +320,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_httpproxyport
      */
     put_HTTPProxyPort(HTTPProxyPort) {
-        result := ComCall(20, this, "int", HTTPProxyPort, "HRESULT")
+        result := ComCall(20, this, Int32, HTTPProxyPort, "HRESULT")
         return result
     }
 

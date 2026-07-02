@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\OPEN_FILENAME_FLAGS_EX.ahk" { OPEN_FILENAME_FLAGS_EX }
+#Import ".\LPOFNHOOKPROC.ahk" { LPOFNHOOKPROC }
 #Import ".\OPEN_FILENAME_FLAGS.ahk" { OPEN_FILENAME_FLAGS }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\OPEN_FILENAME_FLAGS_EX.ahk" { OPEN_FILENAME_FLAGS_EX }
 #Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information that the GetOpenFileName and GetSaveFileName functions use to initialize an Open or Save As dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. (ANSI)
@@ -502,7 +503,7 @@ export default struct OPENFILENAMEA {
      * 
      * If <b>OFN_EXPLORER</b> is set, <b>lpfnHook</b> is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpofnhookproc">OFNHookProc</a> hook procedure. The hook procedure receives notification messages sent from the dialog box. The hook procedure also receives messages for any additional controls that you defined by specifying a child dialog template. The hook procedure does not receive messages intended for the standard controls of the default dialog box.
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPOFNHOOKPROC
 
     /**
      * Type: <b>LPCTSTR</b>

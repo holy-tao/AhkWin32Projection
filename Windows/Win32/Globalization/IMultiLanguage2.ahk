@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMLangConvertCharset.ahk" { IMLangConvertCharset }
+#Import ".\RFC1766INFO.ahk" { RFC1766INFO }
 #Import ".\IEnumRfc1766.ahk" { IEnumRfc1766 }
 #Import "..\Foundation\HWND.ahk" { HWND }
-#Import ".\IEnumScript.ahk" { IEnumScript }
-#Import "..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RFC1766INFO.ahk" { RFC1766INFO }
-#Import ".\IMLangConvertCharset.ahk" { IMLangConvertCharset }
-#Import ".\IEnumCodePage.ahk" { IEnumCodePage }
-#Import "..\System\Com\IStream.ahk" { IStream }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DetectEncodingInfo.ahk" { DetectEncodingInfo }
 #Import ".\MIMECPINFO.ahk" { MIMECPINFO }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\System\Com\IStream.ahk" { IStream }
 #Import ".\MIMECONTF.ahk" { MIMECONTF }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\MIMECSETINFO.ahk" { MIMECSETINFO }
+#Import ".\IEnumScript.ahk" { IEnumScript }
+#Import ".\DetectEncodingInfo.ahk" { DetectEncodingInfo }
+#Import ".\IEnumCodePage.ahk" { IEnumCodePage }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -91,7 +91,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      */
     GetCodePageInfo(uiCodePage, LangId) {
         pCodePageInfo := MIMECPINFO()
-        result := ComCall(4, this, "uint", uiCodePage, "ushort", LangId, MIMECPINFO.Ptr, pCodePageInfo, "HRESULT")
+        result := ComCall(4, this, UInt32, uiCodePage, UInt16, LangId, MIMECPINFO.Ptr, pCodePageInfo, "HRESULT")
         return pCodePageInfo
     }
 
@@ -101,7 +101,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      * @returns {Integer} 
      */
     GetFamilyCodePage(uiCodePage) {
-        result := ComCall(5, this, "uint", uiCodePage, "uint*", &puiFamilyCodePage := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, uiCodePage, "uint*", &puiFamilyCodePage := 0, "HRESULT")
         return puiFamilyCodePage
     }
 
@@ -112,7 +112,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      * @returns {IEnumCodePage} 
      */
     EnumCodePages(grfFlags, LangId) {
-        result := ComCall(6, this, "uint", grfFlags, "ushort", LangId, "ptr*", &ppEnumCodePage := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, grfFlags, UInt16, LangId, "ptr*", &ppEnumCodePage := 0, "HRESULT")
         return IEnumCodePage(ppEnumCodePage)
     }
 
@@ -136,7 +136,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      * @returns {HRESULT} 
      */
     IsConvertible(dwSrcEncoding, dwDstEncoding) {
-        result := ComCall(8, this, "uint", dwSrcEncoding, "uint", dwDstEncoding, "HRESULT")
+        result := ComCall(8, this, UInt32, dwSrcEncoding, UInt32, dwDstEncoding, "HRESULT")
         return result
     }
 
@@ -156,7 +156,7 @@ export default struct IMultiLanguage2 extends IUnknown {
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pdwModeMarshal, pdwMode, "uint", dwSrcEncoding, "uint", dwDstEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(9, this, pdwModeMarshal, pdwMode, UInt32, dwSrcEncoding, UInt32, dwDstEncoding, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, IntPtr, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IMultiLanguage2 extends IUnknown {
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(10, this, pdwModeMarshal, pdwMode, UInt32, dwEncoding, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IMultiLanguage2 extends IUnknown {
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(11, this, pdwModeMarshal, pdwMode, UInt32, dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, IntPtr, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -218,7 +218,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      */
     GetRfc1766FromLcid(Locale) {
         pbstrRfc1766 := BSTR.Owned()
-        result := ComCall(13, this, "uint", Locale, BSTR.Ptr, pbstrRfc1766, "HRESULT")
+        result := ComCall(13, this, UInt32, Locale, BSTR.Ptr, pbstrRfc1766, "HRESULT")
         return pbstrRfc1766
     }
 
@@ -240,7 +240,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      * @returns {IEnumRfc1766} 
      */
     EnumRfc1766(LangId) {
-        result := ComCall(15, this, "ushort", LangId, "ptr*", &ppEnumRfc1766 := 0, "HRESULT")
+        result := ComCall(15, this, UInt16, LangId, "ptr*", &ppEnumRfc1766 := 0, "HRESULT")
         return IEnumRfc1766(ppEnumRfc1766)
     }
 
@@ -252,7 +252,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      */
     GetRfc1766Info(Locale, LangId) {
         pRfc1766Info := RFC1766INFO()
-        result := ComCall(16, this, "uint", Locale, "ushort", LangId, RFC1766INFO.Ptr, pRfc1766Info, "HRESULT")
+        result := ComCall(16, this, UInt32, Locale, UInt16, LangId, RFC1766INFO.Ptr, pRfc1766Info, "HRESULT")
         return pRfc1766Info
     }
 
@@ -264,7 +264,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      * @returns {IMLangConvertCharset} 
      */
     CreateConvertCharset(uiSrcCodePage, uiDstCodePage, dwProperty) {
-        result := ComCall(17, this, "uint", uiSrcCodePage, "uint", uiDstCodePage, "uint", dwProperty, "ptr*", &ppMLangConvertCharset := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, uiSrcCodePage, UInt32, uiDstCodePage, UInt32, dwProperty, "ptr*", &ppMLangConvertCharset := 0, "HRESULT")
         return IMLangConvertCharset(ppMLangConvertCharset)
     }
 
@@ -284,7 +284,7 @@ export default struct IMultiLanguage2 extends IUnknown {
 
         pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, pdwModeMarshal, pdwMode, "uint", dwFlag, "ptr", lpFallBack, "uint", dwSrcEncoding, "uint", dwDstEncoding, "ptr", pstmIn, "ptr", pstmOut, "HRESULT")
+        result := ComCall(18, this, pdwModeMarshal, pdwMode, UInt32, dwFlag, "ptr", lpFallBack, UInt32, dwSrcEncoding, UInt32, dwDstEncoding, "ptr", pstmIn, "ptr", pstmOut, "HRESULT")
         return result
     }
 
@@ -308,7 +308,7 @@ export default struct IMultiLanguage2 extends IUnknown {
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "uint", dwFlag, "ptr", lpFallBack, "HRESULT")
+        result := ComCall(19, this, pdwModeMarshal, pdwMode, UInt32, dwEncoding, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, UInt32, dwFlag, "ptr", lpFallBack, "HRESULT")
         return result
     }
 
@@ -332,7 +332,7 @@ export default struct IMultiLanguage2 extends IUnknown {
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "uint", dwFlag, "ptr", lpFallBack, "HRESULT")
+        result := ComCall(20, this, pdwModeMarshal, pdwMode, UInt32, dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, IntPtr, pDstStr, pcDstSizeMarshal, pcDstSize, UInt32, dwFlag, "ptr", lpFallBack, "HRESULT")
         return result
     }
 
@@ -348,7 +348,7 @@ export default struct IMultiLanguage2 extends IUnknown {
         pnScoresMarshal := pnScores is VarRef ? "int*" : "ptr"
 
         lpEncoding := DetectEncodingInfo()
-        result := ComCall(21, this, "uint", dwFlag, "uint", dwPrefWinCodePage, "ptr", pstmIn, DetectEncodingInfo.Ptr, lpEncoding, pnScoresMarshal, pnScores, "HRESULT")
+        result := ComCall(21, this, UInt32, dwFlag, UInt32, dwPrefWinCodePage, "ptr", pstmIn, DetectEncodingInfo.Ptr, lpEncoding, pnScoresMarshal, pnScores, "HRESULT")
         return lpEncoding
     }
 
@@ -366,7 +366,7 @@ export default struct IMultiLanguage2 extends IUnknown {
         pnScoresMarshal := pnScores is VarRef ? "int*" : "ptr"
 
         lpEncoding := DetectEncodingInfo()
-        result := ComCall(22, this, "uint", dwFlag, "uint", dwPrefWinCodePage, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, DetectEncodingInfo.Ptr, lpEncoding, pnScoresMarshal, pnScores, "HRESULT")
+        result := ComCall(22, this, UInt32, dwFlag, UInt32, dwPrefWinCodePage, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, DetectEncodingInfo.Ptr, lpEncoding, pnScoresMarshal, pnScores, "HRESULT")
         return lpEncoding
     }
 
@@ -377,7 +377,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      * @returns {HRESULT} 
      */
     ValidateCodePage(uiCodePage, _hwnd) {
-        result := ComCall(23, this, "uint", uiCodePage, HWND, _hwnd, "HRESULT")
+        result := ComCall(23, this, UInt32, uiCodePage, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -392,7 +392,7 @@ export default struct IMultiLanguage2 extends IUnknown {
     GetCodePageDescription(uiCodePage, lcid, lpWideCharStr, cchWideChar) {
         lpWideCharStr := lpWideCharStr is String ? StrPtr(lpWideCharStr) : lpWideCharStr
 
-        result := ComCall(24, this, "uint", uiCodePage, "uint", lcid, "ptr", lpWideCharStr, "int", cchWideChar, "HRESULT")
+        result := ComCall(24, this, UInt32, uiCodePage, UInt32, lcid, "ptr", lpWideCharStr, Int32, cchWideChar, "HRESULT")
         return result
     }
 
@@ -402,7 +402,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      * @returns {HRESULT} 
      */
     IsCodePageInstallable(uiCodePage) {
-        result := ComCall(25, this, "uint", uiCodePage, "HRESULT")
+        result := ComCall(25, this, UInt32, uiCodePage, "HRESULT")
         return result
     }
 
@@ -432,7 +432,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      * @returns {IEnumScript} 
      */
     EnumScripts(dwFlags, LangId) {
-        result := ComCall(28, this, "uint", dwFlags, "ushort", LangId, "ptr*", &ppEnumScript := 0, "HRESULT")
+        result := ComCall(28, this, UInt32, dwFlags, UInt16, LangId, "ptr*", &ppEnumScript := 0, "HRESULT")
         return IEnumScript(ppEnumScript)
     }
 
@@ -444,7 +444,7 @@ export default struct IMultiLanguage2 extends IUnknown {
      * @returns {HRESULT} 
      */
     ValidateCodePageEx(uiCodePage, _hwnd, dwfIODControl) {
-        result := ComCall(29, this, "uint", uiCodePage, HWND, _hwnd, "uint", dwfIODControl, "HRESULT")
+        result := ComCall(29, this, UInt32, uiCodePage, HWND, _hwnd, UInt32, dwfIODControl, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVideoProcAmp interface controls the image adjustment (ProcAmp) settings on a capture device.This interface may be exposed by one or more nodes in a capture filter.
@@ -98,7 +98,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_backlightcompensation
      */
     put_BacklightCompensation(Value, Flags) {
-        result := ComCall(4, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(4, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_brightness
      */
     put_Brightness(Value, Flags) {
-        result := ComCall(7, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(7, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_colorenable
      */
     put_ColorEnable(Value, Flags) {
-        result := ComCall(10, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(10, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -242,7 +242,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_contrast
      */
     put_Contrast(Value, Flags) {
-        result := ComCall(13, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(13, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -290,7 +290,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_gamma
      */
     put_Gamma(Value, Flags) {
-        result := ComCall(16, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(16, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -338,7 +338,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_saturation
      */
     put_Saturation(Value, Flags) {
-        result := ComCall(19, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(19, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -386,7 +386,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_sharpness
      */
     put_Sharpness(Value, Flags) {
-        result := ComCall(22, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(22, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -434,7 +434,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_whitebalance
      */
     put_WhiteBalance(Value, Flags) {
-        result := ComCall(25, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(25, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -482,7 +482,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_gain
      */
     put_Gain(Value, Flags) {
-        result := ComCall(28, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(28, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -530,7 +530,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_hue
      */
     put_Hue(Value, Flags) {
-        result := ComCall(31, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(31, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -601,7 +601,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_digitalmultiplier
      */
     put_DigitalMultiplier(Value, Flags) {
-        result := ComCall(34, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(34, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -649,7 +649,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_powerlinefrequency
      */
     put_PowerlineFrequency(Value, Flags) {
-        result := ComCall(37, this, "int", Value, "int", Flags, "HRESULT")
+        result := ComCall(37, this, Int32, Value, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -700,7 +700,7 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-put_whitebalancecomponent
      */
     put_WhiteBalanceComponent(Value1, Value2, Flags) {
-        result := ComCall(40, this, "int", Value1, "int", Value2, "int", Flags, "HRESULT")
+        result := ComCall(40, this, Int32, Value1, Int32, Value2, Int32, Flags, "HRESULT")
         return result
     }
 

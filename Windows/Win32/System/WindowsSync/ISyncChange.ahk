@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumSyncChangeUnits.ahk" { IEnumSyncChangeUnits }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 
 /**
  * Represents a change to an item.
@@ -487,7 +487,7 @@ export default struct ISyncChange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-setworkestimate
      */
     SetWorkEstimate(dwWork) {
-        result := ComCall(12, this, "uint", dwWork, "HRESULT")
+        result := ComCall(12, this, UInt32, dwWork, "HRESULT")
         return result
     }
 

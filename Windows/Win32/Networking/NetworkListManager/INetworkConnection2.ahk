@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\NLM_DOMAIN_AUTHENTICATION_KIND.ahk" { NLM_DOMAIN_AUTHENTICATION_KIND }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\INetworkConnection.ahk" { INetworkConnection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NLM_DOMAIN_AUTHENTICATION_KIND.ahk" { NLM_DOMAIN_AUTHENTICATION_KIND }
 
 /**
  * The **INetworkConnection2** interface represents a single network connection.

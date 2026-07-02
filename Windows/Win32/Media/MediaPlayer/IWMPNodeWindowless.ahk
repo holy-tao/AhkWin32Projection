@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMPWindowMessageSink.ahk" { IWMPWindowMessageSink }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IWMPWindowMessageSink.ahk" { IWMPWindowMessageSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -43,7 +43,7 @@ export default struct IWMPNodeWindowless extends IWMPWindowMessageSink {
      * @returns {HRESULT} 
      */
     OnDraw(_hdc, prcDraw) {
-        result := ComCall(4, this, "ptr", _hdc, RECT.Ptr, prcDraw, "HRESULT")
+        result := ComCall(4, this, IntPtr, _hdc, RECT.Ptr, prcDraw, "HRESULT")
         return result
     }
 

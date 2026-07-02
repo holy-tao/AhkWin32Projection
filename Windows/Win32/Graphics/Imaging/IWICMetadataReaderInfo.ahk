@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IWICMetadataHandlerInfo.ahk" { IWICMetadataHandlerInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWICMetadataHandlerInfo.ahk" { IWICMetadataHandlerInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Exposes methods that provide basic information about the registered metadata reader.
@@ -68,7 +68,7 @@ export default struct IWICMetadataReaderInfo extends IWICMetadataHandlerInfo {
         pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
         pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, Guid.Ptr, guidContainerFormat, "uint", cbSize, "ptr", pPattern, pcCountMarshal, pcCount, pcbActualMarshal, pcbActual, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, guidContainerFormat, UInt32, cbSize, IntPtr, pPattern, pcCountMarshal, pcCount, pcbActualMarshal, pcbActual, "HRESULT")
         return result
     }
 

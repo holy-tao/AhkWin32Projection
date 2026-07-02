@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SENSORPROFILEID.ahk" { SENSORPROFILEID }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFSensorProfile.ahk" { IMFSensorProfile }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFSensorProfile.ahk" { IMFSensorProfile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains a collection of media foundation sensor profile objects.
@@ -60,7 +60,7 @@ export default struct IMFSensorProfileCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-getprofile
      */
     GetProfile(Index) {
-        result := ComCall(4, this, "uint", Index, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, Index, "ptr*", &ppProfile := 0, "HRESULT")
         return IMFSensorProfile(ppProfile)
     }
 
@@ -93,7 +93,7 @@ export default struct IMFSensorProfileCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofilecollection-removeprofilebyindex
      */
     RemoveProfileByIndex(Index) {
-        ComCall(7, this, "uint", Index)
+        ComCall(7, this, UInt32, Index)
     }
 
     /**

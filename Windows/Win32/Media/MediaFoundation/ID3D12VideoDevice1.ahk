@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC.ahk" { D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC }
-#Import ".\ID3D12VideoDevice.ahk" { ID3D12VideoDevice }
 #Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_DESC.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_DESC }
+#Import ".\ID3D12VideoDevice.ahk" { ID3D12VideoDevice }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC.ahk" { D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC }
 #Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
 
 /**

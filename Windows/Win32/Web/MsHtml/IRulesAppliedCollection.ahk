@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRulesApplied.ahk" { IRulesApplied }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRulesApplied.ahk" { IRulesApplied }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -78,7 +78,7 @@ export default struct IRulesAppliedCollection extends IDispatch {
      * @returns {IRulesApplied} 
      */
     item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        result := ComCall(7, this, Int32, index, "ptr*", &ppRulesApplied := 0, "HRESULT")
         return IRulesApplied(ppRulesApplied)
     }
 
@@ -128,7 +128,7 @@ export default struct IRulesAppliedCollection extends IDispatch {
      */
     property(index) {
         pbstrProperty := BSTR.Owned()
-        result := ComCall(12, this, "int", index, BSTR.Ptr, pbstrProperty, "HRESULT")
+        result := ComCall(12, this, Int32, index, BSTR.Ptr, pbstrProperty, "HRESULT")
         return pbstrProperty
     }
 
@@ -141,7 +141,7 @@ export default struct IRulesAppliedCollection extends IDispatch {
     propertyInheritedTrace(name, index) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(13, this, BSTR, name, "int", index, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, name, Int32, index, "ptr*", &ppRulesApplied := 0, "HRESULT")
         return IRulesApplied(ppRulesApplied)
     }
 

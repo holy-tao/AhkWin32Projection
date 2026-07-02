@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVssAsync.ahk" { IVssAsync }
+#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
 #Import ".\IVssHardwareSnapshotProvider.ahk" { IVssHardwareSnapshotProvider }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides an additional method used by VSS to notify hardware providers of LUN state changes.
@@ -169,7 +169,7 @@ export default struct IVssHardwareSnapshotProviderEx extends IVssHardwareSnapsho
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-onlunstatechange
      */
     OnLunStateChange(pSnapshotLuns, pOriginalLuns, dwCount, dwFlags) {
-        result := ComCall(10, this, VDS_LUN_INFORMATION.Ptr, pSnapshotLuns, VDS_LUN_INFORMATION.Ptr, pOriginalLuns, "uint", dwCount, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, VDS_LUN_INFORMATION.Ptr, pSnapshotLuns, VDS_LUN_INFORMATION.Ptr, pOriginalLuns, UInt32, dwCount, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct IVssHardwareSnapshotProviderEx extends IVssHardwareSnapsho
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-resyncluns
      */
     ResyncLuns(pSourceLuns, pTargetLuns, dwCount) {
-        result := ComCall(11, this, VDS_LUN_INFORMATION.Ptr, pSourceLuns, VDS_LUN_INFORMATION.Ptr, pTargetLuns, "uint", dwCount, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(11, this, VDS_LUN_INFORMATION.Ptr, pSourceLuns, VDS_LUN_INFORMATION.Ptr, pTargetLuns, UInt32, dwCount, "ptr*", &ppAsync := 0, "HRESULT")
         return IVssAsync(ppAsync)
     }
 
@@ -207,7 +207,7 @@ export default struct IVssHardwareSnapshotProviderEx extends IVssHardwareSnapsho
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-onreuseluns
      */
     OnReuseLuns(pSnapshotLuns, pOriginalLuns, dwCount) {
-        result := ComCall(12, this, VDS_LUN_INFORMATION.Ptr, pSnapshotLuns, VDS_LUN_INFORMATION.Ptr, pOriginalLuns, "uint", dwCount, "HRESULT")
+        result := ComCall(12, this, VDS_LUN_INFORMATION.Ptr, pSnapshotLuns, VDS_LUN_INFORMATION.Ptr, pOriginalLuns, UInt32, dwCount, "HRESULT")
         return result
     }
 

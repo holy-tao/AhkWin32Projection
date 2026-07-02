@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteInMemoryFontFileLoader.ahk" { IDWriteInMemoryFontFileLoader }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteFontFileStream.ahk" { IDWriteFontFileStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteRemoteFontFileLoader.ahk" { IDWriteRemoteFontFileLoader }
-#Import ".\IDWriteFontSetBuilder1.ahk" { IDWriteFontSetBuilder1 }
 #Import ".\IDWriteFactory4.ahk" { IDWriteFactory4 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontFileStream.ahk" { IDWriteFontFileStream }
+#Import ".\IDWriteFontSetBuilder1.ahk" { IDWriteFontSetBuilder1 }
 #Import ".\DWRITE_CONTAINER_TYPE.ahk" { DWRITE_CONTAINER_TYPE }
+#Import ".\IDWriteRemoteFontFileLoader.ahk" { IDWriteRemoteFontFileLoader }
+#Import ".\IDWriteInMemoryFontFileLoader.ahk" { IDWriteInMemoryFontFileLoader }
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory5)
@@ -106,7 +106,7 @@ export default struct IDWriteFactory5 extends IDWriteFactory4 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory5-analyzecontainertype
      */
     AnalyzeContainerType(fileData, fileDataSize) {
-        result := ComCall(46, this, "ptr", fileData, "uint", fileDataSize, DWRITE_CONTAINER_TYPE)
+        result := ComCall(46, this, IntPtr, fileData, UInt32, fileDataSize, DWRITE_CONTAINER_TYPE)
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IDWriteFactory5 extends IDWriteFactory4 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory5-unpackfontfile
      */
     UnpackFontFile(containerType, fileData, fileDataSize) {
-        result := ComCall(47, this, DWRITE_CONTAINER_TYPE, containerType, "ptr", fileData, "uint", fileDataSize, "ptr*", &unpackedFontStream := 0, "HRESULT")
+        result := ComCall(47, this, DWRITE_CONTAINER_TYPE, containerType, IntPtr, fileData, UInt32, fileDataSize, "ptr*", &unpackedFontStream := 0, "HRESULT")
         return IDWriteFontFileStream(unpackedFontStream)
     }
 

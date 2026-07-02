@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\ITextServices.ahk" { ITextServices }
 #Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\..\Graphics\Direct2D\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
+#Import "..\..\..\System\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextServices.ahk" { ITextServices }
+#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * The ITextServices2 interface extends the ITextServices interface.
@@ -208,7 +208,7 @@ export default struct ITextServices2 extends ITextServices {
         pheightMarshal := pheight is VarRef ? "int*" : "ptr"
         pascentMarshal := pascent is VarRef ? "int*" : "ptr"
 
-        result := ComCall(21, this, "uint", dwAspect, HDC, hdcDraw, HDC, hicTargetDev, DVTARGETDEVICE.Ptr, ptd, "uint", dwMode, SIZE.Ptr, psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, pascentMarshal, pascent, "HRESULT")
+        result := ComCall(21, this, UInt32, dwAspect, HDC, hdcDraw, HDC, hicTargetDev, DVTARGETDEVICE.Ptr, ptd, UInt32, dwMode, SIZE.Ptr, psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, pascentMarshal, pascent, "HRESULT")
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct ITextServices2 extends ITextServices {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices2-txdrawd2d
      */
     TxDrawD2D(pRenderTarget, lprcBounds, lprcUpdate, lViewId) {
-        result := ComCall(22, this, "ptr", pRenderTarget, RECTL.Ptr, lprcBounds, RECT.Ptr, lprcUpdate, "int", lViewId, "HRESULT")
+        result := ComCall(22, this, "ptr", pRenderTarget, RECTL.Ptr, lprcBounds, RECT.Ptr, lprcUpdate, Int32, lViewId, "HRESULT")
         return result
     }
 

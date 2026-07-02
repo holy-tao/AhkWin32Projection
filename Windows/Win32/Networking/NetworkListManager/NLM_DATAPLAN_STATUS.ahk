@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NLM_USAGE_DATA.ahk" { NLM_USAGE_DATA }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NLM_USAGE_DATA.ahk" { NLM_USAGE_DATA }
 
 /**
  * NLM_DATAPLAN_STATUS structure stores the current data plan status information supplied by the carrier.

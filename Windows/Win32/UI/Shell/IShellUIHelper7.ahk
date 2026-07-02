@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IShellUIHelper6.ahk" { IShellUIHelper6 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellUIHelper6.ahk" { IShellUIHelper6 }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -79,7 +79,7 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     SetExperimentalValue(bstrValueString, dwValue) {
         bstrValueString := bstrValueString is String ? BSTR.Alloc(bstrValueString).Value : bstrValueString
 
-        result := ComCall(90, this, BSTR, bstrValueString, "uint", dwValue, "HRESULT")
+        result := ComCall(90, this, BSTR, bstrValueString, UInt32, dwValue, "HRESULT")
         return result
     }
 

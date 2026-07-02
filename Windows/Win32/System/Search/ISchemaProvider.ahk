@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEntity.ahk" { IEntity }
-#Import ".\ITokenCollection.ahk" { ITokenCollection }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISchemaLocalizerSupport.ahk" { ISchemaLocalizerSupport }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEntity.ahk" { IEntity }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITokenCollection.ahk" { ITokenCollection }
 
 /**
  * Provides a schema repository that can be browsed.
@@ -124,7 +124,7 @@ export default struct ISchemaProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemaprovider-localize
      */
     Localize(lcid, pSchemaLocalizerSupport) {
-        result := ComCall(7, this, "uint", lcid, "ptr", pSchemaLocalizerSupport, "HRESULT")
+        result := ComCall(7, this, UInt32, lcid, "ptr", pSchemaLocalizerSupport, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct ISchemaProvider extends IUnknown {
         pcTokensLengthMarshal := pcTokensLength is VarRef ? "uint*" : "ptr"
         ppszValueMarshal := ppszValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pEntity, "ptr", pszInputString, "ptr", pTokenCollection, "uint", cTokensBegin, pcTokensLengthMarshal, pcTokensLength, ppszValueMarshal, ppszValue, "HRESULT")
+        result := ComCall(9, this, "ptr", pEntity, "ptr", pszInputString, "ptr", pTokenCollection, UInt32, cTokensBegin, pcTokensLengthMarshal, pcTokensLength, ppszValueMarshal, ppszValue, "HRESULT")
         return result
     }
 

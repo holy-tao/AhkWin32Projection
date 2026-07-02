@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HrtfDirectivityType.ahk" { HrtfDirectivityType }
 #Import ".\HrtfDirectivity.ahk" { HrtfDirectivity }
+#Import ".\HrtfDirectivityType.ahk" { HrtfDirectivityType }
 
 /**
  * Describes a cone directivity.

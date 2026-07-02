@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ID3D11ModuleInstance.ahk" { ID3D11ModuleInstance }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A linker interface is used to link a shader module.
@@ -78,7 +78,7 @@ export default struct ID3D11Linker extends IUnknown {
         pEntryName := pEntryName is String ? StrPtr(pEntryName) : pEntryName
         pTargetName := pTargetName is String ? StrPtr(pTargetName) : pTargetName
 
-        result := ComCall(3, this, "ptr", pEntry, "ptr", pEntryName, "ptr", pTargetName, "uint", uFlags, ID3DBlob.Ptr, ppShaderBlob, ID3DBlob.Ptr, ppErrorBuffer, "HRESULT")
+        result := ComCall(3, this, "ptr", pEntry, "ptr", pEntryName, "ptr", pTargetName, UInt32, uFlags, ID3DBlob.Ptr, ppShaderBlob, ID3DBlob.Ptr, ppErrorBuffer, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct ID3D11Linker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11linker-addclipplanefromcbuffer
      */
     AddClipPlaneFromCBuffer(uCBufferSlot, uCBufferEntry) {
-        result := ComCall(5, this, "uint", uCBufferSlot, "uint", uCBufferEntry, "HRESULT")
+        result := ComCall(5, this, UInt32, uCBufferSlot, UInt32, uCBufferEntry, "HRESULT")
         return result
     }
 

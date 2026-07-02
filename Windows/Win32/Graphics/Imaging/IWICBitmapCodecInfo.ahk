@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWICComponentInfo.ahk" { IWICComponentInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide information about a particular codec.
@@ -82,7 +82,7 @@ export default struct IWICBitmapCodecInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getpixelformats
      */
     GetPixelFormats(cFormats, pguidPixelFormats) {
-        result := ComCall(12, this, "uint", cFormats, Guid.Ptr, pguidPixelFormats, "uint*", &pcActual := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, cFormats, Guid.Ptr, pguidPixelFormats, "uint*", &pcActual := 0, "HRESULT")
         return pcActual
     }
 
@@ -107,7 +107,7 @@ export default struct IWICBitmapCodecInfo extends IWICComponentInfo {
     GetColorManagementVersion(cchColorManagementVersion, wzColorManagementVersion) {
         wzColorManagementVersion := wzColorManagementVersion is String ? StrPtr(wzColorManagementVersion) : wzColorManagementVersion
 
-        result := ComCall(13, this, "uint", cchColorManagementVersion, "ptr", wzColorManagementVersion, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, cchColorManagementVersion, "ptr", wzColorManagementVersion, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -132,7 +132,7 @@ export default struct IWICBitmapCodecInfo extends IWICComponentInfo {
     GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer) {
         wzDeviceManufacturer := wzDeviceManufacturer is String ? StrPtr(wzDeviceManufacturer) : wzDeviceManufacturer
 
-        result := ComCall(14, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, cchDeviceManufacturer, "ptr", wzDeviceManufacturer, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -157,7 +157,7 @@ export default struct IWICBitmapCodecInfo extends IWICComponentInfo {
     GetDeviceModels(cchDeviceModels, wzDeviceModels) {
         wzDeviceModels := wzDeviceModels is String ? StrPtr(wzDeviceModels) : wzDeviceModels
 
-        result := ComCall(15, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, cchDeviceModels, "ptr", wzDeviceModels, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -182,7 +182,7 @@ export default struct IWICBitmapCodecInfo extends IWICComponentInfo {
     GetMimeTypes(cchMimeTypes, wzMimeTypes) {
         wzMimeTypes := wzMimeTypes is String ? StrPtr(wzMimeTypes) : wzMimeTypes
 
-        result := ComCall(16, this, "uint", cchMimeTypes, "ptr", wzMimeTypes, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, cchMimeTypes, "ptr", wzMimeTypes, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -209,7 +209,7 @@ export default struct IWICBitmapCodecInfo extends IWICComponentInfo {
     GetFileExtensions(cchFileExtensions, wzFileExtensions) {
         wzFileExtensions := wzFileExtensions is String ? StrPtr(wzFileExtensions) : wzFileExtensions
 
-        result := ComCall(17, this, "uint", cchFileExtensions, "ptr", wzFileExtensions, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, cchFileExtensions, "ptr", wzFileExtensions, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 

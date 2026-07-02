@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
-#Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS2.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS2 }
 #Import ".\APPX_ENCRYPTED_EXEMPTIONS.ahk" { APPX_ENCRYPTED_EXEMPTIONS }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS2.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS2 }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Creates objects for encrypting Windows app packages and bundles.
@@ -53,7 +53,7 @@ export default struct IAppxEncryptionFactory4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory4-encryptpackage
      */
     EncryptPackage(inputStream, outputStream, settings, keyInfo, exemptedFiles, memoryLimit) {
-        result := ComCall(3, this, "ptr", inputStream, "ptr", outputStream, APPX_ENCRYPTED_PACKAGE_SETTINGS2.Ptr, settings, APPX_KEY_INFO.Ptr, keyInfo, APPX_ENCRYPTED_EXEMPTIONS.Ptr, exemptedFiles, "uint", memoryLimit, "HRESULT")
+        result := ComCall(3, this, "ptr", inputStream, "ptr", outputStream, APPX_ENCRYPTED_PACKAGE_SETTINGS2.Ptr, settings, APPX_KEY_INFO.Ptr, keyInfo, APPX_ENCRYPTED_EXEMPTIONS.Ptr, exemptedFiles, Int64, memoryLimit, "HRESULT")
         return result
     }
 

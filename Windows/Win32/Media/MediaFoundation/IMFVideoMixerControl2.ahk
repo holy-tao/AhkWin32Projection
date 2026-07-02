@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFVideoMixerControl.ahk" { IMFVideoMixerControl }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls preferences for video deinterlacing.
@@ -45,7 +45,7 @@ export default struct IMFVideoMixerControl2 extends IMFVideoMixerControl {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol2-setmixingprefs
      */
     SetMixingPrefs(dwMixFlags) {
-        result := ComCall(7, this, "uint", dwMixFlags, "HRESULT")
+        result := ComCall(7, this, UInt32, dwMixFlags, "HRESULT")
         return result
     }
 

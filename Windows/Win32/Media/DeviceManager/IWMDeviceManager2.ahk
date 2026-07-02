@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMDMEnumDevice.ahk" { IWMDMEnumDevice }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMDeviceManager.ahk" { IWMDeviceManager }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMDMDevice.ahk" { IWMDMDevice }
-#Import ".\IWMDeviceManager.ahk" { IWMDeviceManager }
 
 /**
  * The IWMDeviceManager2 interface extends IWMDeviceManager interface.

@@ -1,15 +1,16 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\KEY_VALUE_INFORMATION_CLASS.ahk" { KEY_VALUE_INFORMATION_CLASS }
-#Import ".\KEY_INFORMATION_CLASS.ahk" { KEY_INFORMATION_CLASS }
-#Import "..\..\Foundation\OBJECT_ATTRIBUTES.ahk" { OBJECT_ATTRIBUTES }
+#Import ".\KEY_VALUE_ENTRY.ahk" { KEY_VALUE_ENTRY }
 #Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk" { IO_STATUS_BLOCK }
 #Import ".\KEY_SET_INFORMATION_CLASS.ahk" { KEY_SET_INFORMATION_CLASS }
-#Import ".\KEY_VALUE_ENTRY.ahk" { KEY_VALUE_ENTRY }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\System\IO\PIO_APC_ROUTINE.ahk" { PIO_APC_ROUTINE }
+#Import ".\KEY_VALUE_INFORMATION_CLASS.ahk" { KEY_VALUE_INFORMATION_CLASS }
+#Import ".\KEY_INFORMATION_CLASS.ahk" { KEY_INFORMATION_CLASS }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\..\Foundation\OBJECT_ATTRIBUTES.ahk" { OBJECT_ATTRIBUTES }
+#Import "..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk" { IO_STATUS_BLOCK }
 
 /**
  * @namespace Windows.Wdk.System.Registry
@@ -89,8 +90,8 @@
 export NtNotifyChangeMultipleKeys(MasterKeyHandle, Count, SubordinateObjects, Event, ApcRoutine, ApcContext, IoStatusBlock, CompletionFilter, WatchTree, _Buffer, BufferSize, Asynchronous) {
     ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntdll.dll\NtNotifyChangeMultipleKeys", HANDLE, MasterKeyHandle, "uint", Count, OBJECT_ATTRIBUTES.Ptr, SubordinateObjects, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, "uint", CompletionFilter, BOOLEAN, WatchTree, "ptr", _Buffer, "uint", BufferSize, BOOLEAN, Asynchronous, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtNotifyChangeMultipleKeys", HANDLE, MasterKeyHandle, UInt32, Count, OBJECT_ATTRIBUTES.Ptr, SubordinateObjects, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, CompletionFilter, BOOLEAN, WatchTree, IntPtr, _Buffer, UInt32, BufferSize, BOOLEAN, Asynchronous, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -113,8 +114,8 @@ export NtNotifyChangeMultipleKeys(MasterKeyHandle, Count, SubordinateObjects, Ev
 export ZwNotifyChangeMultipleKeys(MasterKeyHandle, Count, SubordinateObjects, Event, ApcRoutine, ApcContext, IoStatusBlock, CompletionFilter, WatchTree, _Buffer, BufferSize, Asynchronous) {
     ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwNotifyChangeMultipleKeys", HANDLE, MasterKeyHandle, "uint", Count, OBJECT_ATTRIBUTES.Ptr, SubordinateObjects, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, "uint", CompletionFilter, BOOLEAN, WatchTree, "ptr", _Buffer, "uint", BufferSize, BOOLEAN, Asynchronous, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwNotifyChangeMultipleKeys", HANDLE, MasterKeyHandle, UInt32, Count, OBJECT_ATTRIBUTES.Ptr, SubordinateObjects, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, CompletionFilter, BOOLEAN, WatchTree, IntPtr, _Buffer, UInt32, BufferSize, BOOLEAN, Asynchronous, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -139,8 +140,8 @@ export NtQueryMultipleValueKey(KeyHandle, ValueEntries, EntryCount, ValueBuffer,
     BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
     RequiredBufferLengthMarshal := RequiredBufferLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\NtQueryMultipleValueKey", HANDLE, KeyHandle, KEY_VALUE_ENTRY.Ptr, ValueEntries, "uint", EntryCount, "ptr", ValueBuffer, BufferLengthMarshal, BufferLength, RequiredBufferLengthMarshal, RequiredBufferLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtQueryMultipleValueKey", HANDLE, KeyHandle, KEY_VALUE_ENTRY.Ptr, ValueEntries, UInt32, EntryCount, IntPtr, ValueBuffer, BufferLengthMarshal, BufferLength, RequiredBufferLengthMarshal, RequiredBufferLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -158,8 +159,8 @@ export ZwQueryMultipleValueKey(KeyHandle, ValueEntries, EntryCount, ValueBuffer,
     BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
     RequiredBufferLengthMarshal := RequiredBufferLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwQueryMultipleValueKey", HANDLE, KeyHandle, KEY_VALUE_ENTRY.Ptr, ValueEntries, "uint", EntryCount, "ptr", ValueBuffer, BufferLengthMarshal, BufferLength, RequiredBufferLengthMarshal, RequiredBufferLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwQueryMultipleValueKey", HANDLE, KeyHandle, KEY_VALUE_ENTRY.Ptr, ValueEntries, UInt32, EntryCount, IntPtr, ValueBuffer, BufferLengthMarshal, BufferLength, RequiredBufferLengthMarshal, RequiredBufferLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -178,7 +179,7 @@ export ZwQueryMultipleValueKey(KeyHandle, ValueEntries, EntryCount, ValueBuffer,
  */
 export NtRenameKey(KeyHandle, NewName) {
     result := DllCall("ntdll.dll\NtRenameKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, NewName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -207,8 +208,8 @@ export NtRenameKey(KeyHandle, NewName) {
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntsetinformationkey
  */
 export NtSetInformationKey(KeyHandle, KeySetInformationClass, KeySetInformation, KeySetInformationLength) {
-    result := DllCall("ntdll.dll\NtSetInformationKey", HANDLE, KeyHandle, KEY_SET_INFORMATION_CLASS, KeySetInformationClass, "ptr", KeySetInformation, "uint", KeySetInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtSetInformationKey", HANDLE, KeyHandle, KEY_SET_INFORMATION_CLASS, KeySetInformationClass, IntPtr, KeySetInformation, UInt32, KeySetInformationLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -227,8 +228,8 @@ export NtCreateKey(KeyHandle, DesiredAccess, ObjectAttributes, _Class, CreateOpt
 
     DispositionMarshal := Disposition is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\NtCreateKey", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", TitleIndex, UNICODE_STRING.Ptr, _Class, "uint", CreateOptions, DispositionMarshal, Disposition, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtCreateKey", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, TitleIndex, UNICODE_STRING.Ptr, _Class, UInt32, CreateOptions, DispositionMarshal, Disposition, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -248,8 +249,8 @@ export NtCreateKeyTransacted(KeyHandle, DesiredAccess, ObjectAttributes, _Class,
 
     DispositionMarshal := Disposition is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\NtCreateKeyTransacted", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", TitleIndex, UNICODE_STRING.Ptr, _Class, "uint", CreateOptions, HANDLE, TransactionHandle, DispositionMarshal, Disposition, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtCreateKeyTransacted", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, TitleIndex, UNICODE_STRING.Ptr, _Class, UInt32, CreateOptions, HANDLE, TransactionHandle, DispositionMarshal, Disposition, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -262,8 +263,8 @@ export NtCreateKeyTransacted(KeyHandle, DesiredAccess, ObjectAttributes, _Class,
  * @returns {NTSTATUS} 
  */
 export NtCreateRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, CreateOptions) {
-    result := DllCall("ntdll.dll\NtCreateRegistryTransaction", HANDLE.Ptr, TransactionHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", CreateOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtCreateRegistryTransaction", HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, CreateOptions, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -274,8 +275,8 @@ export NtCreateRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttri
  * @returns {NTSTATUS} 
  */
 export NtCommitRegistryTransaction(TransactionHandle, Flags) {
-    result := DllCall("ntdll.dll\NtCommitRegistryTransaction", HANDLE, TransactionHandle, "uint", Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtCommitRegistryTransaction", HANDLE, TransactionHandle, UInt32, Flags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -287,8 +288,8 @@ export NtCommitRegistryTransaction(TransactionHandle, Flags) {
  * @returns {NTSTATUS} 
  */
 export NtOpenKey(KeyHandle, DesiredAccess, ObjectAttributes) {
-    result := DllCall("ntdll.dll\NtOpenKey", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtOpenKey", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -301,8 +302,8 @@ export NtOpenKey(KeyHandle, DesiredAccess, ObjectAttributes) {
  * @returns {NTSTATUS} 
  */
 export NtOpenKeyEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOptions) {
-    result := DllCall("ntdll.dll\NtOpenKeyEx", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", OpenOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtOpenKeyEx", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, OpenOptions, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -315,8 +316,8 @@ export NtOpenKeyEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOptions) {
  * @returns {NTSTATUS} 
  */
 export NtOpenKeyTransacted(KeyHandle, DesiredAccess, ObjectAttributes, TransactionHandle) {
-    result := DllCall("ntdll.dll\NtOpenKeyTransacted", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, HANDLE, TransactionHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtOpenKeyTransacted", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, HANDLE, TransactionHandle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -330,8 +331,8 @@ export NtOpenKeyTransacted(KeyHandle, DesiredAccess, ObjectAttributes, Transacti
  * @returns {NTSTATUS} 
  */
 export NtOpenKeyTransactedEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOptions, TransactionHandle) {
-    result := DllCall("ntdll.dll\NtOpenKeyTransactedEx", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", OpenOptions, HANDLE, TransactionHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtOpenKeyTransactedEx", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, OpenOptions, HANDLE, TransactionHandle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -342,7 +343,7 @@ export NtOpenKeyTransactedEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOpt
  */
 export NtDeleteKey(KeyHandle) {
     result := DllCall("ntdll.dll\NtDeleteKey", HANDLE, KeyHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -354,7 +355,7 @@ export NtDeleteKey(KeyHandle) {
  */
 export NtDeleteValueKey(KeyHandle, _ValueName) {
     result := DllCall("ntdll.dll\NtDeleteValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -371,8 +372,8 @@ export NtDeleteValueKey(KeyHandle, _ValueName) {
 export NtEnumerateKey(KeyHandle, Index, KeyInformationClass, KeyInformation, Length, ResultLength) {
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\NtEnumerateKey", HANDLE, KeyHandle, "uint", Index, KEY_INFORMATION_CLASS, KeyInformationClass, "ptr", KeyInformation, "uint", Length, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtEnumerateKey", HANDLE, KeyHandle, UInt32, Index, KEY_INFORMATION_CLASS, KeyInformationClass, IntPtr, KeyInformation, UInt32, Length, ResultLengthMarshal, ResultLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -389,8 +390,8 @@ export NtEnumerateKey(KeyHandle, Index, KeyInformationClass, KeyInformation, Len
 export NtEnumerateValueKey(KeyHandle, Index, KeyValueInformationClass, KeyValueInformation, Length, ResultLength) {
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\NtEnumerateValueKey", HANDLE, KeyHandle, "uint", Index, KEY_VALUE_INFORMATION_CLASS, KeyValueInformationClass, "ptr", KeyValueInformation, "uint", Length, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtEnumerateValueKey", HANDLE, KeyHandle, UInt32, Index, KEY_VALUE_INFORMATION_CLASS, KeyValueInformationClass, IntPtr, KeyValueInformation, UInt32, Length, ResultLengthMarshal, ResultLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -401,7 +402,7 @@ export NtEnumerateValueKey(KeyHandle, Index, KeyValueInformationClass, KeyValueI
  */
 export NtFlushKey(KeyHandle) {
     result := DllCall("ntdll.dll\NtFlushKey", HANDLE, KeyHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -417,8 +418,8 @@ export NtFlushKey(KeyHandle) {
 export NtQueryKey(KeyHandle, KeyInformationClass, KeyInformation, Length, ResultLength) {
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\NtQueryKey", HANDLE, KeyHandle, KEY_INFORMATION_CLASS, KeyInformationClass, "ptr", KeyInformation, "uint", Length, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtQueryKey", HANDLE, KeyHandle, KEY_INFORMATION_CLASS, KeyInformationClass, IntPtr, KeyInformation, UInt32, Length, ResultLengthMarshal, ResultLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -435,8 +436,8 @@ export NtQueryKey(KeyHandle, KeyInformationClass, KeyInformation, Length, Result
 export NtQueryValueKey(KeyHandle, _ValueName, KeyValueInformationClass, KeyValueInformation, Length, ResultLength) {
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\NtQueryValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, KEY_VALUE_INFORMATION_CLASS, KeyValueInformationClass, "ptr", KeyValueInformation, "uint", Length, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtQueryValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, KEY_VALUE_INFORMATION_CLASS, KeyValueInformationClass, IntPtr, KeyValueInformation, UInt32, Length, ResultLengthMarshal, ResultLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -448,7 +449,7 @@ export NtQueryValueKey(KeyHandle, _ValueName, KeyValueInformationClass, KeyValue
  */
 export NtSaveKey(KeyHandle, FileHandle) {
     result := DllCall("ntdll.dll\NtSaveKey", HANDLE, KeyHandle, HANDLE, FileHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -460,8 +461,8 @@ export NtSaveKey(KeyHandle, FileHandle) {
  * @returns {NTSTATUS} 
  */
 export NtSaveKeyEx(KeyHandle, FileHandle, Format) {
-    result := DllCall("ntdll.dll\NtSaveKeyEx", HANDLE, KeyHandle, HANDLE, FileHandle, "uint", Format, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtSaveKeyEx", HANDLE, KeyHandle, HANDLE, FileHandle, UInt32, Format, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -473,8 +474,8 @@ export NtSaveKeyEx(KeyHandle, FileHandle, Format) {
  * @returns {NTSTATUS} 
  */
 export NtRestoreKey(KeyHandle, FileHandle, Flags) {
-    result := DllCall("ntdll.dll\NtRestoreKey", HANDLE, KeyHandle, HANDLE, FileHandle, "uint", Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtRestoreKey", HANDLE, KeyHandle, HANDLE, FileHandle, UInt32, Flags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -489,8 +490,8 @@ export NtRestoreKey(KeyHandle, FileHandle, Flags) {
  * @returns {NTSTATUS} 
  */
 export NtSetValueKey(KeyHandle, _ValueName, TitleIndex, Type, Data, DataSize) {
-    result := DllCall("ntdll.dll\NtSetValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, "uint", TitleIndex, "uint", Type, "ptr", Data, "uint", DataSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtSetValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, UInt32, TitleIndex, UInt32, Type, IntPtr, Data, UInt32, DataSize, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -502,8 +503,8 @@ export NtSetValueKey(KeyHandle, _ValueName, TitleIndex, Type, Data, DataSize) {
  * @returns {NTSTATUS} 
  */
 export ZwOpenRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttributes) {
-    result := DllCall("ntdll.dll\ZwOpenRegistryTransaction", HANDLE.Ptr, TransactionHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwOpenRegistryTransaction", HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -514,8 +515,8 @@ export ZwOpenRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttribu
  * @returns {NTSTATUS} 
  */
 export ZwRollbackRegistryTransaction(TransactionHandle, Flags) {
-    result := DllCall("ntdll.dll\ZwRollbackRegistryTransaction", HANDLE, TransactionHandle, "uint", Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwRollbackRegistryTransaction", HANDLE, TransactionHandle, UInt32, Flags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -534,8 +535,8 @@ export ZwCreateKey(KeyHandle, DesiredAccess, ObjectAttributes, _Class, CreateOpt
 
     DispositionMarshal := Disposition is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwCreateKey", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", TitleIndex, UNICODE_STRING.Ptr, _Class, "uint", CreateOptions, DispositionMarshal, Disposition, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwCreateKey", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, TitleIndex, UNICODE_STRING.Ptr, _Class, UInt32, CreateOptions, DispositionMarshal, Disposition, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -555,8 +556,8 @@ export ZwCreateKeyTransacted(KeyHandle, DesiredAccess, ObjectAttributes, _Class,
 
     DispositionMarshal := Disposition is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwCreateKeyTransacted", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", TitleIndex, UNICODE_STRING.Ptr, _Class, "uint", CreateOptions, HANDLE, TransactionHandle, DispositionMarshal, Disposition, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwCreateKeyTransacted", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, TitleIndex, UNICODE_STRING.Ptr, _Class, UInt32, CreateOptions, HANDLE, TransactionHandle, DispositionMarshal, Disposition, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -569,8 +570,8 @@ export ZwCreateKeyTransacted(KeyHandle, DesiredAccess, ObjectAttributes, _Class,
  * @returns {NTSTATUS} 
  */
 export ZwCreateRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttributes, CreateOptions) {
-    result := DllCall("ntdll.dll\ZwCreateRegistryTransaction", HANDLE.Ptr, TransactionHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", CreateOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwCreateRegistryTransaction", HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, CreateOptions, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -582,8 +583,8 @@ export ZwCreateRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttri
  * @returns {NTSTATUS} 
  */
 export NtOpenRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttributes) {
-    result := DllCall("ntdll.dll\NtOpenRegistryTransaction", HANDLE.Ptr, TransactionHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtOpenRegistryTransaction", HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -594,8 +595,8 @@ export NtOpenRegistryTransaction(TransactionHandle, DesiredAccess, ObjectAttribu
  * @returns {NTSTATUS} 
  */
 export ZwCommitRegistryTransaction(TransactionHandle, Flags) {
-    result := DllCall("ntdll.dll\ZwCommitRegistryTransaction", HANDLE, TransactionHandle, "uint", Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwCommitRegistryTransaction", HANDLE, TransactionHandle, UInt32, Flags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -606,8 +607,8 @@ export ZwCommitRegistryTransaction(TransactionHandle, Flags) {
  * @returns {NTSTATUS} 
  */
 export NtRollbackRegistryTransaction(TransactionHandle, Flags) {
-    result := DllCall("ntdll.dll\NtRollbackRegistryTransaction", HANDLE, TransactionHandle, "uint", Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtRollbackRegistryTransaction", HANDLE, TransactionHandle, UInt32, Flags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -619,8 +620,8 @@ export NtRollbackRegistryTransaction(TransactionHandle, Flags) {
  * @returns {NTSTATUS} 
  */
 export ZwOpenKey(KeyHandle, DesiredAccess, ObjectAttributes) {
-    result := DllCall("ntdll.dll\ZwOpenKey", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwOpenKey", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -633,8 +634,8 @@ export ZwOpenKey(KeyHandle, DesiredAccess, ObjectAttributes) {
  * @returns {NTSTATUS} 
  */
 export ZwOpenKeyEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOptions) {
-    result := DllCall("ntdll.dll\ZwOpenKeyEx", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", OpenOptions, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwOpenKeyEx", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, OpenOptions, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -647,8 +648,8 @@ export ZwOpenKeyEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOptions) {
  * @returns {NTSTATUS} 
  */
 export ZwOpenKeyTransacted(KeyHandle, DesiredAccess, ObjectAttributes, TransactionHandle) {
-    result := DllCall("ntdll.dll\ZwOpenKeyTransacted", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, HANDLE, TransactionHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwOpenKeyTransacted", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, HANDLE, TransactionHandle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -662,8 +663,8 @@ export ZwOpenKeyTransacted(KeyHandle, DesiredAccess, ObjectAttributes, Transacti
  * @returns {NTSTATUS} 
  */
 export ZwOpenKeyTransactedEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOptions, TransactionHandle) {
-    result := DllCall("ntdll.dll\ZwOpenKeyTransactedEx", HANDLE.Ptr, KeyHandle, "uint", DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", OpenOptions, HANDLE, TransactionHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwOpenKeyTransactedEx", HANDLE.Ptr, KeyHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, OpenOptions, HANDLE, TransactionHandle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -674,7 +675,7 @@ export ZwOpenKeyTransactedEx(KeyHandle, DesiredAccess, ObjectAttributes, OpenOpt
  */
 export ZwDeleteKey(KeyHandle) {
     result := DllCall("ntdll.dll\ZwDeleteKey", HANDLE, KeyHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -686,7 +687,7 @@ export ZwDeleteKey(KeyHandle) {
  */
 export ZwDeleteValueKey(KeyHandle, _ValueName) {
     result := DllCall("ntdll.dll\ZwDeleteValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -703,8 +704,8 @@ export ZwDeleteValueKey(KeyHandle, _ValueName) {
 export ZwEnumerateKey(KeyHandle, Index, KeyInformationClass, KeyInformation, Length, ResultLength) {
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwEnumerateKey", HANDLE, KeyHandle, "uint", Index, KEY_INFORMATION_CLASS, KeyInformationClass, "ptr", KeyInformation, "uint", Length, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwEnumerateKey", HANDLE, KeyHandle, UInt32, Index, KEY_INFORMATION_CLASS, KeyInformationClass, IntPtr, KeyInformation, UInt32, Length, ResultLengthMarshal, ResultLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -721,8 +722,8 @@ export ZwEnumerateKey(KeyHandle, Index, KeyInformationClass, KeyInformation, Len
 export ZwEnumerateValueKey(KeyHandle, Index, KeyValueInformationClass, KeyValueInformation, Length, ResultLength) {
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwEnumerateValueKey", HANDLE, KeyHandle, "uint", Index, KEY_VALUE_INFORMATION_CLASS, KeyValueInformationClass, "ptr", KeyValueInformation, "uint", Length, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwEnumerateValueKey", HANDLE, KeyHandle, UInt32, Index, KEY_VALUE_INFORMATION_CLASS, KeyValueInformationClass, IntPtr, KeyValueInformation, UInt32, Length, ResultLengthMarshal, ResultLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -733,7 +734,7 @@ export ZwEnumerateValueKey(KeyHandle, Index, KeyValueInformationClass, KeyValueI
  */
 export ZwFlushKey(KeyHandle) {
     result := DllCall("ntdll.dll\ZwFlushKey", HANDLE, KeyHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -749,8 +750,8 @@ export ZwFlushKey(KeyHandle) {
 export ZwQueryKey(KeyHandle, KeyInformationClass, KeyInformation, Length, ResultLength) {
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwQueryKey", HANDLE, KeyHandle, KEY_INFORMATION_CLASS, KeyInformationClass, "ptr", KeyInformation, "uint", Length, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwQueryKey", HANDLE, KeyHandle, KEY_INFORMATION_CLASS, KeyInformationClass, IntPtr, KeyInformation, UInt32, Length, ResultLengthMarshal, ResultLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -767,8 +768,8 @@ export ZwQueryKey(KeyHandle, KeyInformationClass, KeyInformation, Length, Result
 export ZwQueryValueKey(KeyHandle, _ValueName, KeyValueInformationClass, KeyValueInformation, Length, ResultLength) {
     ResultLengthMarshal := ResultLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\ZwQueryValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, KEY_VALUE_INFORMATION_CLASS, KeyValueInformationClass, "ptr", KeyValueInformation, "uint", Length, ResultLengthMarshal, ResultLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwQueryValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, KEY_VALUE_INFORMATION_CLASS, KeyValueInformationClass, IntPtr, KeyValueInformation, UInt32, Length, ResultLengthMarshal, ResultLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -780,7 +781,7 @@ export ZwQueryValueKey(KeyHandle, _ValueName, KeyValueInformationClass, KeyValue
  */
 export ZwRenameKey(KeyHandle, NewName) {
     result := DllCall("ntdll.dll\ZwRenameKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, NewName, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -792,7 +793,7 @@ export ZwRenameKey(KeyHandle, NewName) {
  */
 export ZwSaveKey(KeyHandle, FileHandle) {
     result := DllCall("ntdll.dll\ZwSaveKey", HANDLE, KeyHandle, HANDLE, FileHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -804,8 +805,8 @@ export ZwSaveKey(KeyHandle, FileHandle) {
  * @returns {NTSTATUS} 
  */
 export ZwSaveKeyEx(KeyHandle, FileHandle, Format) {
-    result := DllCall("ntdll.dll\ZwSaveKeyEx", HANDLE, KeyHandle, HANDLE, FileHandle, "uint", Format, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwSaveKeyEx", HANDLE, KeyHandle, HANDLE, FileHandle, UInt32, Format, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -817,8 +818,8 @@ export ZwSaveKeyEx(KeyHandle, FileHandle, Format) {
  * @returns {NTSTATUS} 
  */
 export ZwRestoreKey(KeyHandle, FileHandle, Flags) {
-    result := DllCall("ntdll.dll\ZwRestoreKey", HANDLE, KeyHandle, HANDLE, FileHandle, "uint", Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwRestoreKey", HANDLE, KeyHandle, HANDLE, FileHandle, UInt32, Flags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -831,8 +832,8 @@ export ZwRestoreKey(KeyHandle, FileHandle, Flags) {
  * @returns {NTSTATUS} 
  */
 export ZwSetInformationKey(KeyHandle, KeySetInformationClass, KeySetInformation, KeySetInformationLength) {
-    result := DllCall("ntdll.dll\ZwSetInformationKey", HANDLE, KeyHandle, KEY_SET_INFORMATION_CLASS, KeySetInformationClass, "ptr", KeySetInformation, "uint", KeySetInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwSetInformationKey", HANDLE, KeyHandle, KEY_SET_INFORMATION_CLASS, KeySetInformationClass, IntPtr, KeySetInformation, UInt32, KeySetInformationLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -847,8 +848,8 @@ export ZwSetInformationKey(KeyHandle, KeySetInformationClass, KeySetInformation,
  * @returns {NTSTATUS} 
  */
 export ZwSetValueKey(KeyHandle, _ValueName, TitleIndex, Type, Data, DataSize) {
-    result := DllCall("ntdll.dll\ZwSetValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, "uint", TitleIndex, "uint", Type, "ptr", Data, "uint", DataSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\ZwSetValueKey", HANDLE, KeyHandle, UNICODE_STRING.Ptr, _ValueName, UInt32, TitleIndex, UInt32, Type, IntPtr, Data, UInt32, DataSize, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

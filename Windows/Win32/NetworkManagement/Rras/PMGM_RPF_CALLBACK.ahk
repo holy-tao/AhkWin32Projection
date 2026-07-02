@@ -1,0 +1,120 @@
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+
+/**
+ * The PMGM_RPF_CALLBACK callback is a call into a routing protocol to determine if a given packet was received on the correct interface.
+ * @remarks
+ * This callback is invoked when an MFE is created. MFEs are created when data from a new multicast source, or destined to a new group, is received.
+ * 
+ * The multicast group manager invokes this callback to the routing protocol that owns the incoming interface towards the source. The multicast group manager determines the interface by looking up the source of the multicast data in the multicast view of the routing table. This interface is not always the same as the interface on which the data was actually received; this condition occurs if multicast data was received on the wrong interface.
+ * 
+ * When this callback is invoked, the routing protocol can change the incoming interface if the routing protocol behavior requires it to receive the data for the group from another interface.
+ * @see https://learn.microsoft.com/windows/win32/api/mgm/nc-mgm-pmgm_rpf_callback
+ * @namespace Windows.Win32.NetworkManagement.Rras
+ */
+export default struct PMGM_RPF_CALLBACK {
+    value : IntPtr
+
+    __value {
+        set {
+            if (value is PMGM_RPF_CALLBACK) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {Integer} dwSourceAddr Specifies the source address from which the multicast data was received. Zero indicates that data is received from all sources (a wildcard receiver for a group); otherwise, the value of <i>dwSourceAddr</i> is the IP address of the source or source network. 
+     * 
+     * 
+     * 
+     * 
+     * To specify a range of source addresses, the multicast group manager specifies the source network using <i>dwSourceAddr</i>, and specifies a subnet mask using <i>dwSourceMask</i>.
+     * @param {Integer} dwSourceMask Specifies the subnet mask that corresponds to <i>dwSourceAddr</i>. The <i>dwSourceAddr</i> and <i>dwSourceMask</i> parameters are used together to define a range of sources from which to receive multicast data. 
+     * 
+     * 
+     * 
+     * 
+     * The multicast group manager specifies zero for this parameter if it also specified zero for <i>dwSourceAddr</i> (a wildcard receiver).
+     * @param {Integer} dwGroupAddr Specifies the multicast group for which the data is destined. Zero indicates that all groups are received (a wildcard receiver); otherwise, the value of <i>dwGroupAddr</i> is the IP address of the group. 
+     * 
+     * 
+     * 
+     * 
+     * To specify a range of group addresses, the multicast group manager specifies the group address using <i>dwGroupAddr</i>, and specifies a subnet mask using <i>dwGroupMask</i>.
+     * @param {Integer} dwGroupMask Specifies the subnet mask that corresponds to <i>dwGroupAddr</i>. The <i>dwGroupAddr</i> and <i>dwGroupMask</i> parameters are used together to define a range of multicast groups. 
+     * 
+     * 
+     * 
+     * 
+     * The multicast group manager specifies zero for this parameter if it also specified zero for <i>dwGroupAddr</i> (a wildcard receiver).
+     * @param {Pointer<Integer>} pdwInIfIndex On input, a pointer to a <b>DWORD</b>-sized memory location that specifies the index of the interface on which data from the source is expected to be received, based on the multicast view of the routing table. 
+     * 
+     * 
+     * 
+     * 
+     * On output, <i>pdwInIfIndex</i> points to a <b>DWORD</b>-sized memory location that contains the index of the interface on which the protocol expects to receive packets. The interface index may differ on output from the index specified on input.
+     * @param {Pointer<Integer>} pdwInIfNextHopAddr On input, <i>pdwInIfNextHopAddr</i> specifies the address of the next hop that corresponds to the index specified by <i>dwIfIndex</i>. 
+     * 
+     * 
+     * 
+     * 
+     * The <i>dwIfIndex</i> and <i>dwIfNextHopIPAddr</i> parameters uniquely identify a next hop on point-to-multipoint interfaces. A point-to-multipoint interface is a connection where one interface connects to multiple networks. Examples of point-to-multipoint interfaces include non-broadcast multiple access (NBMA) interfaces and the internal interface on which all dial-up clients connect.
+     * 
+     * For broadcast interfaces (such as Ethernet interfaces) or point-to-point interfaces, which are identified by only the value of <i>dwIfIndex</i>, specify zero.
+     * 
+     * On output, <i>pdwInIfNextHopAddr</i> points to the next hop that corresponds to <i>pdwInIfIndex</i>.
+     * @param {Pointer<Integer>} pdwUpStreamNbr On input, <i>pdwUpStreamNbr</i> points to a <b>DWORD</b> value specifying the immediate upstream neighbor towards the source (the source is found in the multicast view of the routing table). 
+     * 
+     * 
+     * 
+     * 
+     * On output, <i>pdwUpStreamNbr</i> may have been modified by the protocol. This parameter is for informational purposes only.
+     * @param {Integer} dwHdrSize Specifies, in bytes, the size of the buffer pointed to by <i>pbPacketHdr</i>.
+     * @param {Pointer<Integer>} pbPacketHdr Pointer to a buffer that contains the IP header of the packet, including the IP options and a fragment of the data. This parameter is used by those protocols that examine the contents of the packet header.
+     * @param {Pointer<Integer>} pbRoute On input, <i>pbRoute</i> points to a buffer that contains the route towards the source. The buffer contains an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_dest_info">RTM_DEST_INFO</a> structure. 
+     * 
+     * 
+     * 
+     * 
+     * On output, <i>pbRoute</i> points to a buffer that contains the route used by the protocol to determine the interface towards the source.
+     * @returns {Integer} RRAS does not expect the application to return any specific value; any value returned is ignored by RRAS.
+     */
+    Call(dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, pdwInIfIndex, pdwInIfNextHopAddr, pdwUpStreamNbr, dwHdrSize, pbPacketHdr, pbRoute) {
+        pdwInIfIndexMarshal := pdwInIfIndex is VarRef ? "uint*" : "ptr"
+        pdwInIfNextHopAddrMarshal := pdwInIfNextHopAddr is VarRef ? "uint*" : "ptr"
+        pdwUpStreamNbrMarshal := pdwUpStreamNbr is VarRef ? "uint*" : "ptr"
+        pbPacketHdrMarshal := pbPacketHdr is VarRef ? "char*" : "ptr"
+        pbRouteMarshal := pbRoute is VarRef ? "char*" : "ptr"
+
+        result := DllCall(this.value, UInt32, dwSourceAddr, UInt32, dwSourceMask, UInt32, dwGroupAddr, UInt32, dwGroupMask, pdwInIfIndexMarshal, pdwInIfIndex, pdwInIfNextHopAddrMarshal, pdwInIfNextHopAddr, pdwUpStreamNbrMarshal, pdwUpStreamNbr, UInt32, dwHdrSize, pbPacketHdrMarshal, pbPacketHdr, pbRouteMarshal, pbRoute, UInt32)
+        return result
+    }
+
+    /**
+     * A PMGM_RPF_CALLBACK that invokes the given AHK function when called.
+     * This callback is owned by the script and cleaned up automatically.
+     */
+    struct From extends PMGM_RPF_CALLBACK {
+        /**
+         * Creates a PMGM_RPF_CALLBACK pointer that invokes the given AHK function when called.
+         * @param {Func(UInt32, UInt32, UInt32, UInt32, "uint*", "uint*", "uint*", UInt32, "char*", "char*") => UInt32} fn the function to invoke.
+         */
+        __New(fn) {
+            if (!HasMethod(fn, , 10)) {
+                throw MethodError("Object of type " Type(fn) " is not callable with 10 parameters.", -1, fn)
+            }
+            this.value := CallbackCreate(fn, , [UInt32, UInt32, UInt32, UInt32, "uint*", "uint*", "uint*", UInt32, "char*", "char*", UInt32])
+        }
+
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
+    }
+}

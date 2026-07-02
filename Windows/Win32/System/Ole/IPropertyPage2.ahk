@@ -76,7 +76,7 @@ export default struct IPropertyPage2 extends IPropertyPage {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage2-editproperty
      */
     EditProperty(dispID) {
-        result := ComCall(14, this, "int", dispID, "HRESULT")
+        result := ComCall(14, this, Int32, dispID, "HRESULT")
         return result
     }
 

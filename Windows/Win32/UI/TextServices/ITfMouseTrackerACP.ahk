@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfMouseSink.ahk" { ITfMouseSink }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfRangeACP.ahk" { ITfRangeACP }
+#Import ".\ITfMouseSink.ahk" { ITfMouseSink }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfMouseTrackerACP interface is implemented by an application to support mouse event sinks.
@@ -94,7 +94,7 @@ export default struct ITfMouseTrackerACP extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmousetrackeracp-unadvisemousesink
      */
     UnadviseMouseSink(dwCookie) {
-        result := ComCall(4, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 

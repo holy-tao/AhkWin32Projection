@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMWriterSink interface is the basic interface of all writer sinks, including the file, network, and push sinks defined in the Windows Media Format SDK, and custom sinks.
@@ -73,7 +73,7 @@ export default struct IWMWriterSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwritersink-allocatedataunit
      */
     AllocateDataUnit(cbDataUnit) {
-        result := ComCall(5, this, "uint", cbDataUnit, "ptr*", &ppDataUnit := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, cbDataUnit, "ptr*", &ppDataUnit := 0, "HRESULT")
         return INSSBuffer(ppDataUnit)
     }
 

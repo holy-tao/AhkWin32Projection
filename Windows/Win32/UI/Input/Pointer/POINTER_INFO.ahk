@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\POINTER_BUTTON_CHANGE_TYPE.ahk" { POINTER_BUTTON_CHANGE_TYPE }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
-#Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\POINTER_FLAGS.ahk" { POINTER_FLAGS }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\POINTER_BUTTON_CHANGE_TYPE.ahk" { POINTER_BUTTON_CHANGE_TYPE }
+#Import "..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
 
 /**
  * Contains basic pointer information common to all pointer types. Applications can retrieve this information using the GetPointerInfo, GetPointerFrameInfo, GetPointerInfoHistory and GetPointerFrameInfoHistory functions.

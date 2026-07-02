@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -53,7 +53,7 @@ export default struct IMetaDataFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     MarkToken(tk) {
-        result := ComCall(4, this, "uint", tk, "HRESULT")
+        result := ComCall(4, this, UInt32, tk, "HRESULT")
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct IMetaDataFilter extends IUnknown {
     IsTokenMarked(tk, pIsMarked) {
         pIsMarkedMarshal := pIsMarked is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", tk, pIsMarkedMarshal, pIsMarked, "HRESULT")
+        result := ComCall(5, this, UInt32, tk, pIsMarkedMarshal, pIsMarked, "HRESULT")
         return result
     }
 

@@ -48,7 +48,7 @@ export default struct IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify
     KeyMessage2(eMessageType, destinationURL, pbMessage, cbMessage) {
         destinationURL := destinationURL is String ? BSTR.Alloc(destinationURL).Value : destinationURL
 
-        ComCall(6, this, MF_MEDIAKEYSESSION_MESSAGETYPE, eMessageType, BSTR, destinationURL, "ptr", pbMessage, "uint", cbMessage)
+        ComCall(6, this, MF_MEDIAKEYSESSION_MESSAGETYPE, eMessageType, BSTR, destinationURL, IntPtr, pbMessage, UInt32, cbMessage)
     }
 
     /**

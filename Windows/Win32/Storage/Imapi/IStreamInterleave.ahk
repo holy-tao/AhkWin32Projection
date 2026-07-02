@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Use this interface to combine several data streams into a single stream by alternately interspersing portions of each.
@@ -96,7 +96,7 @@ export default struct IStreamInterleave extends IStream {
     Initialize(streams, interleaveSizes, streamCount) {
         interleaveSizesMarshal := interleaveSizes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, IStream.Ptr, streams, interleaveSizesMarshal, interleaveSizes, "uint", streamCount, "HRESULT")
+        result := ComCall(14, this, IStream.Ptr, streams, interleaveSizesMarshal, interleaveSizes, UInt32, streamCount, "HRESULT")
         return result
     }
 

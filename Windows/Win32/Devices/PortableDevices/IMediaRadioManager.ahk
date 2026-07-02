@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYSTEM_RADIO_STATE.ahk" { SYSTEM_RADIO_STATE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRadioInstanceCollection.ahk" { IRadioInstanceCollection }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYSTEM_RADIO_STATE.ahk" { SYSTEM_RADIO_STATE }
+#Import ".\IRadioInstanceCollection.ahk" { IRadioInstanceCollection }
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
@@ -54,7 +54,7 @@ export default struct IMediaRadioManager extends IUnknown {
      * @returns {HRESULT} 
      */
     OnSystemRadioStateChange(sysRadioState, uTimeoutSec) {
-        result := ComCall(4, this, SYSTEM_RADIO_STATE, sysRadioState, "uint", uTimeoutSec, "HRESULT")
+        result := ComCall(4, this, SYSTEM_RADIO_STATE, sysRadioState, UInt32, uTimeoutSec, "HRESULT")
         return result
     }
 

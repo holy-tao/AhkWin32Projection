@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
 
 /**
  * Use this interface to write audio to blank CD-R or CD-RW media in Track-At-Once mode.
@@ -1681,7 +1681,7 @@ export default struct IDiscFormat2TrackAtOnce extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-setwritespeed
      */
     SetWriteSpeed(RequestedSectorsPerSecond, RotationTypeIsPureCAV) {
-        result := ComCall(16, this, "int", RequestedSectorsPerSecond, VARIANT_BOOL, RotationTypeIsPureCAV, "HRESULT")
+        result := ComCall(16, this, Int32, RequestedSectorsPerSecond, VARIANT_BOOL, RotationTypeIsPureCAV, "HRESULT")
         return result
     }
 

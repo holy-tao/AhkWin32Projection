@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
-#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
 
 /**
  * Represents text rendering settings such as ClearType level, enhanced contrast, and gamma correction for glyph rasterization and filtering.

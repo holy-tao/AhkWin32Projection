@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_CAMERA_CONTROL_CONFIGURATION_TYPE.ahk" { MF_CAMERA_CONTROL_CONFIGURATION_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import ".\IMFCameraControlDefaults.ahk" { IMFCameraControlDefaults }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\MF_CAMERA_CONTROL_CONFIGURATION_TYPE.ahk" { MF_CAMERA_CONTROL_CONFIGURATION_TYPE }
 
 /**
  * Represents a collection of camera controls.
@@ -65,7 +65,7 @@ export default struct IMFCameraControlDefaultsCollection extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-getcontrol
      */
     GetControl(index) {
-        result := ComCall(34, this, "uint", index, "ptr*", &configuration := 0, "HRESULT")
+        result := ComCall(34, this, UInt32, index, "ptr*", &configuration := 0, "HRESULT")
         return IMFCameraControlDefaults(configuration)
     }
 
@@ -81,7 +81,7 @@ export default struct IMFCameraControlDefaultsCollection extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-getoraddextendedcontrol
      */
     GetOrAddExtendedControl(configType, constrolId, streamId, dataSize) {
-        result := ComCall(35, this, MF_CAMERA_CONTROL_CONFIGURATION_TYPE, configType, "uint", constrolId, "uint", streamId, "uint", dataSize, "ptr*", &defaults := 0, "HRESULT")
+        result := ComCall(35, this, MF_CAMERA_CONTROL_CONFIGURATION_TYPE, configType, UInt32, constrolId, UInt32, streamId, UInt32, dataSize, "ptr*", &defaults := 0, "HRESULT")
         return IMFCameraControlDefaults(defaults)
     }
 
@@ -98,7 +98,7 @@ export default struct IMFCameraControlDefaultsCollection extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-getoraddcontrol
      */
     GetOrAddControl(configType, controlSet, constrolId, controlSize, dataSize) {
-        result := ComCall(36, this, MF_CAMERA_CONTROL_CONFIGURATION_TYPE, configType, Guid.Ptr, controlSet, "uint", constrolId, "uint", controlSize, "uint", dataSize, "ptr*", &defaults := 0, "HRESULT")
+        result := ComCall(36, this, MF_CAMERA_CONTROL_CONFIGURATION_TYPE, configType, Guid.Ptr, controlSet, UInt32, constrolId, UInt32, controlSize, UInt32, dataSize, "ptr*", &defaults := 0, "HRESULT")
         return IMFCameraControlDefaults(defaults)
     }
 
@@ -110,7 +110,7 @@ export default struct IMFCameraControlDefaultsCollection extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-removecontrol
      */
     RemoveControl(controlSet, constrolId) {
-        result := ComCall(37, this, Guid.Ptr, controlSet, "uint", constrolId, "HRESULT")
+        result := ComCall(37, this, Guid.Ptr, controlSet, UInt32, constrolId, "HRESULT")
         return result
     }
 

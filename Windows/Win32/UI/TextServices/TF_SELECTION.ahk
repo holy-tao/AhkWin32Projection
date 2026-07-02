@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\TF_SELECTIONSTYLE.ahk" { TF_SELECTIONSTYLE }
 #Import ".\TfActiveSelEnd.ahk" { TfActiveSelEnd }
 #Import ".\ITfRange.ahk" { ITfRange }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The TF_SELECTION structure contains text selection data.

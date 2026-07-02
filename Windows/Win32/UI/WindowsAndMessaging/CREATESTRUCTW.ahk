@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import ".\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import ".\HMENU.ahk" { HMENU }
 
 /**

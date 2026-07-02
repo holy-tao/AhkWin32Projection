@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\RecordingType.ahk" { RecordingType }
 
 /**
@@ -145,7 +145,7 @@ export default struct IMSVidStreamBufferRecordingControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-put_starttime
      */
     put_StartTime(rtStart) {
-        result := ComCall(8, this, "int", rtStart, "HRESULT")
+        result := ComCall(8, this, Int32, rtStart, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct IMSVidStreamBufferRecordingControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-put_stoptime
      */
     put_StopTime(rtStop) {
-        result := ComCall(10, this, "int", rtStop, "HRESULT")
+        result := ComCall(10, this, Int32, rtStop, "HRESULT")
         return result
     }
 

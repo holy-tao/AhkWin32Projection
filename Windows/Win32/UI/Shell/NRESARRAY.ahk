@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\NetworkManagement\WNet\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
 #Import "..\..\NetworkManagement\WNet\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
 #Import "..\..\NetworkManagement\WNet\NETRESOURCEA.ahk" { NETRESOURCEA }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\NetworkManagement\WNet\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
 
 /**
  * Defines the CF_NETRESOURCE clipboard format.

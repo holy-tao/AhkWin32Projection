@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IOleContainer.ahk" { IOleContainer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IMoniker.ahk" { IMoniker }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the primary means by which an embedded object obtains information about the location and extent of its display site, its moniker, its user interface, and other resources provided by its container.
@@ -95,7 +95,7 @@ export default struct IOleClientSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleclientsite-getmoniker
      */
     GetMoniker(dwAssign, dwWhichMoniker) {
-        result := ComCall(4, this, "uint", dwAssign, "uint", dwWhichMoniker, "ptr*", &ppmk := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwAssign, UInt32, dwWhichMoniker, "ptr*", &ppmk := 0, "HRESULT")
         return IMoniker(ppmk)
     }
 

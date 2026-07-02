@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLDocument.ahk" { IHTMLDocument }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IHTMLDocument.ahk" { IHTMLDocument }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLStyle.ahk" { IHTMLStyle }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLStyle.ahk" { IHTMLStyle }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -217,7 +217,7 @@ export default struct IHTMLElementDefaults extends IDispatch {
      * @returns {HRESULT} 
      */
     put_scrollSegmentX(v) {
-        result := ComCall(14, this, "int", v, "HRESULT")
+        result := ComCall(14, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -236,7 +236,7 @@ export default struct IHTMLElementDefaults extends IDispatch {
      * @returns {HRESULT} 
      */
     put_scrollSegmentY(v) {
-        result := ComCall(16, this, "int", v, "HRESULT")
+        result := ComCall(16, this, Int32, v, "HRESULT")
         return result
     }
 

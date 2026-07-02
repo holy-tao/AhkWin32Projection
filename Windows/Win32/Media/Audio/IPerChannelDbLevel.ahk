@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IPerChannelDbLevel interface represents a generic subunit control interface that provides per-channel control over the volume level, in decibels, of an audio stream or of a frequency band in an audio stream.
@@ -95,7 +95,7 @@ export default struct IPerChannelDbLevel extends IUnknown {
         pfMaxLevelDBMarshal := pfMaxLevelDB is VarRef ? "float*" : "ptr"
         pfSteppingMarshal := pfStepping is VarRef ? "float*" : "ptr"
 
-        result := ComCall(4, this, "uint", nChannel, pfMinLevelDBMarshal, pfMinLevelDB, pfMaxLevelDBMarshal, pfMaxLevelDB, pfSteppingMarshal, pfStepping, "HRESULT")
+        result := ComCall(4, this, UInt32, nChannel, pfMinLevelDBMarshal, pfMinLevelDB, pfMaxLevelDBMarshal, pfMaxLevelDB, pfSteppingMarshal, pfStepping, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IPerChannelDbLevel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevel
      */
     GetLevel(nChannel) {
-        result := ComCall(5, this, "uint", nChannel, "float*", &pfLevelDB := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, nChannel, "float*", &pfLevelDB := 0, "HRESULT")
         return pfLevelDB
     }
 
@@ -154,7 +154,7 @@ export default struct IPerChannelDbLevel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setlevel
      */
     SetLevel(nChannel, fLevelDB, pguidEventContext) {
-        result := ComCall(6, this, "uint", nChannel, "float", fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(6, this, UInt32, nChannel, Float32, fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -186,7 +186,7 @@ export default struct IPerChannelDbLevel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setleveluniform
      */
     SetLevelUniform(fLevelDB, pguidEventContext) {
-        result := ComCall(7, this, "float", fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(7, this, Float32, fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -243,7 +243,7 @@ export default struct IPerChannelDbLevel extends IUnknown {
     SetLevelAllChannels(aLevelsDB, cChannels, pguidEventContext) {
         aLevelsDBMarshal := aLevelsDB is VarRef ? "float*" : "ptr"
 
-        result := ComCall(8, this, aLevelsDBMarshal, aLevelsDB, "uint", cChannels, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(8, this, aLevelsDBMarshal, aLevelsDB, UInt32, cChannels, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 

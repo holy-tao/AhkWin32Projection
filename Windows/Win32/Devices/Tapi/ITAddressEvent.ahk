@@ -4,8 +4,8 @@
 #Import ".\ITTerminal.ahk" { ITTerminal }
 #Import ".\ITAddress.ahk" { ITAddress }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ADDRESS_EVENT.ahk" { ADDRESS_EVENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITAddressEvent interface contains methods that retrieve the description of address events.

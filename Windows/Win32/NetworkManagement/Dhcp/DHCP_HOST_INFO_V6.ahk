@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains network information about a DHCPv6 server (host), such as its IPv6 address and name.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMarkupPointer.ahk" { IMarkupPointer }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IHTMLChangeLog.ahk" { IHTMLChangeLog }
-#Import ".\IHTMLChangeSink.ahk" { IHTMLChangeSink }
 #Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import ".\IMarkupContainer.ahk" { IMarkupContainer }
+#Import ".\IHTMLChangeSink.ahk" { IHTMLChangeSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLChangeLog.ahk" { IHTMLChangeLog }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -73,7 +73,7 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
      * @returns {HRESULT} 
      */
     UnRegisterForDirtyRange(dwCookie) {
-        result := ComCall(6, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(6, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
      * @returns {HRESULT} 
      */
     GetAndClearDirtyRange(dwCookie, pIPointerBegin, pIPointerEnd) {
-        result := ComCall(7, this, "uint", dwCookie, "ptr", pIPointerBegin, "ptr", pIPointerEnd, "HRESULT")
+        result := ComCall(7, this, UInt32, dwCookie, "ptr", pIPointerBegin, "ptr", pIPointerEnd, "HRESULT")
         return result
     }
 

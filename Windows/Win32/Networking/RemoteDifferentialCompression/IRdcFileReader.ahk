@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IRdcFileReader interface is used to provide the equivalent of a file handle, because the data being synchronized may not exist as a file on disk.
@@ -83,7 +83,7 @@ export default struct IRdcFileReader extends IUnknown {
         _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
         eofMarshal := eof is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", offsetFileStart, "uint", bytesToRead, bytesActuallyReadMarshal, bytesActuallyRead, _bufferMarshal, _buffer, eofMarshal, eof, "HRESULT")
+        result := ComCall(4, this, Int64, offsetFileStart, UInt32, bytesToRead, bytesActuallyReadMarshal, bytesActuallyRead, _bufferMarshal, _buffer, eofMarshal, eof, "HRESULT")
         return result
     }
 

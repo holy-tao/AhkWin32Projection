@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IComponentType.ahk" { IComponentType }
 #Import "..\..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import ".\IComponentType.ahk" { IComponentType }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IEnumComponentTypes.ahk" { IEnumComponentTypes }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IComponentTypes interface is implemented on ComponentTypes objects and contains methods that enable applications to enumerate, add, remove and retrieve individual ComponentType objects. All ComponentTypes objects also support IPersistPropertyBag.

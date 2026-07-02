@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\PROPPAGEINFO.ahk" { PROPPAGEINFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PROPPAGEINFO.ahk" { PROPPAGEINFO }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 #Import ".\IPropertyPageSite.ahk" { IPropertyPageSite }
 
 /**
@@ -203,7 +203,7 @@ export default struct IPropertyPage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage-setobjects
      */
     SetObjects(cObjects, ppUnk) {
-        result := ComCall(7, this, "uint", cObjects, IUnknown.Ptr, ppUnk, "HRESULT")
+        result := ComCall(7, this, UInt32, cObjects, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
     }
 
@@ -220,7 +220,7 @@ export default struct IPropertyPage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage-show
      */
     Show(nCmdShow) {
-        result := ComCall(8, this, "uint", nCmdShow, "HRESULT")
+        result := ComCall(8, this, UInt32, nCmdShow, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DEV_BROADCAST_HDR.ahk" { DEV_BROADCAST_HDR }
 #Import ".\DEV_BROADCAST_HDR_DEVICE_TYPE.ahk" { DEV_BROADCAST_HDR_DEVICE_TYPE }
+#Import ".\DEV_BROADCAST_HDR.ahk" { DEV_BROADCAST_HDR }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging

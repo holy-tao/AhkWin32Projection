@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) subtitling descriptor.
@@ -80,7 +80,7 @@ export default struct IDvbSubtitlingDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordlangid
      */
     GetRecordLangId(bRecordIndex) {
-        result := ComCall(6, this, "char", bRecordIndex, "uint*", &pulVal := 0, "HRESULT")
+        result := ComCall(6, this, Int8, bRecordIndex, "uint*", &pulVal := 0, "HRESULT")
         return pulVal
     }
 
@@ -91,7 +91,7 @@ export default struct IDvbSubtitlingDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordsubtitlingtype
      */
     GetRecordSubtitlingType(bRecordIndex) {
-        result := ComCall(7, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -106,7 +106,7 @@ export default struct IDvbSubtitlingDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordcompositionpageid
      */
     GetRecordCompositionPageID(bRecordIndex) {
-        result := ComCall(8, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -123,7 +123,7 @@ export default struct IDvbSubtitlingDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordancillarypageid
      */
     GetRecordAncillaryPageID(bRecordIndex) {
-        result := ComCall(9, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(9, this, Int8, bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 

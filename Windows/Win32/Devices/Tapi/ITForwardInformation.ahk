@@ -88,7 +88,7 @@ export default struct ITForwardInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-put_numringsnoanswer
      */
     put_NumRingsNoAnswer(lNumRings) {
-        result := ComCall(7, this, "int", lNumRings, "HRESULT")
+        result := ComCall(7, this, Int32, lNumRings, "HRESULT")
         return result
     }
 
@@ -169,7 +169,7 @@ export default struct ITForwardInformation extends IDispatch {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
         pCallerAddress := pCallerAddress is String ? BSTR.Alloc(pCallerAddress).Value : pCallerAddress
 
-        result := ComCall(9, this, "int", ForwardType, BSTR, pDestAddress, BSTR, pCallerAddress, "HRESULT")
+        result := ComCall(9, this, Int32, ForwardType, BSTR, pDestAddress, BSTR, pCallerAddress, "HRESULT")
         return result
     }
 
@@ -184,7 +184,7 @@ export default struct ITForwardInformation extends IDispatch {
      */
     get_ForwardTypeDestination(ForwardType) {
         ppDestAddress := BSTR.Owned()
-        result := ComCall(10, this, "int", ForwardType, BSTR.Ptr, ppDestAddress, "HRESULT")
+        result := ComCall(10, this, Int32, ForwardType, BSTR.Ptr, ppDestAddress, "HRESULT")
         return ppDestAddress
     }
 
@@ -199,7 +199,7 @@ export default struct ITForwardInformation extends IDispatch {
      */
     get_ForwardTypeCaller(Forwardtype) {
         ppCallerAddress := BSTR.Owned()
-        result := ComCall(11, this, "int", Forwardtype, BSTR.Ptr, ppCallerAddress, "HRESULT")
+        result := ComCall(11, this, Int32, Forwardtype, BSTR.Ptr, ppCallerAddress, "HRESULT")
         return ppCallerAddress
     }
 
@@ -255,7 +255,7 @@ export default struct ITForwardInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation-getforwardtype
      */
     GetForwardType(ForwardType, ppDestinationAddress, ppCallerAddress) {
-        result := ComCall(12, this, "int", ForwardType, BSTR.Ptr, ppDestinationAddress, BSTR.Ptr, ppCallerAddress, "HRESULT")
+        result := ComCall(12, this, Int32, ForwardType, BSTR.Ptr, ppDestinationAddress, BSTR.Ptr, ppCallerAddress, "HRESULT")
         return result
     }
 

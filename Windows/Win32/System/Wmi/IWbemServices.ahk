@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WBEM_GENERIC_FLAG_TYPE.ahk" { WBEM_GENERIC_FLAG_TYPE }
-#Import ".\IEnumWbemClassObject.ahk" { IEnumWbemClassObject }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWbemCallResult.ahk" { IWbemCallResult }
 #Import ".\IWbemContext.ahk" { IWbemContext }
-#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
+#Import ".\IWbemCallResult.ahk" { IWbemCallResult }
+#Import ".\IEnumWbemClassObject.ahk" { IEnumWbemClassObject }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 #Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used by clients and providers to access WMI services. The interface is implemented by WMI and WMI providers, and is the primary WMI interface.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAudioSourceProvider.ahk" { IAudioSourceProvider }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioSourceProvider.ahk" { IAudioSourceProvider }
 
 /**
  * Enables playback of web audio.
@@ -58,7 +58,7 @@ export default struct IMFMediaEngineWebSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginewebsupport-connectwebaudio
      */
     ConnectWebAudio(dwSampleRate) {
-        result := ComCall(4, this, "uint", dwSampleRate, "ptr*", &ppSourceProvider := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSampleRate, "ptr*", &ppSourceProvider := 0, "HRESULT")
         return IAudioSourceProvider(ppSourceProvider)
     }
 

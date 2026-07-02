@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID2D1GradientStopCollection.ahk" { ID2D1GradientStopCollection }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 #Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 
 /**
  * Paints an area with a radial gradient.
@@ -93,7 +93,7 @@ export default struct ID2D1RadialGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-setradiusx
      */
     SetRadiusX(radiusX) {
-        ComCall(10, this, "float", radiusX)
+        ComCall(10, this, Float32, radiusX)
     }
 
     /**
@@ -105,7 +105,7 @@ export default struct ID2D1RadialGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-setradiusy
      */
     SetRadiusY(radiusY) {
-        ComCall(11, this, "float", radiusY)
+        ComCall(11, this, Float32, radiusY)
     }
 
     /**

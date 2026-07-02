@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ShutdownType.ahk" { ShutdownType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ApplicationType.ahk" { ApplicationType }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\ShutdownType.ahk" { ShutdownType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IProcessLock.ahk" { IProcessLock }
 
 /**
@@ -99,7 +99,7 @@ export default struct ISurrogateService extends IUnknown {
     CatalogRefresh() {
         static ulReserved := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(6, this, "uint", ulReserved, "HRESULT")
+        result := ComCall(6, this, UInt32, ulReserved, "HRESULT")
         return result
     }
 

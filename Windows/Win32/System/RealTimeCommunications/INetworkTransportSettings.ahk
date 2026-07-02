@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Networking\WinSock\TRANSPORT_SETTING_ID.ahk" { TRANSPORT_SETTING_ID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -51,7 +51,7 @@ export default struct INetworkTransportSettings extends IUnknown {
         LengthOutMarshal := LengthOut is VarRef ? "uint*" : "ptr"
         ValueOutMarshal := ValueOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, TRANSPORT_SETTING_ID.Ptr, SettingId, "uint", LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "HRESULT")
+        result := ComCall(3, this, TRANSPORT_SETTING_ID.Ptr, SettingId, UInt32, LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct INetworkTransportSettings extends IUnknown {
         LengthOutMarshal := LengthOut is VarRef ? "uint*" : "ptr"
         ValueOutMarshal := ValueOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, TRANSPORT_SETTING_ID.Ptr, SettingId, "uint", LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "HRESULT")
+        result := ComCall(4, this, TRANSPORT_SETTING_ID.Ptr, SettingId, UInt32, LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "HRESULT")
         return result
     }
 

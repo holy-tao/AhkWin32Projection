@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITransactionExport.ahk" { ITransactionExport }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -57,7 +57,7 @@ export default struct ITransactionExportFactory extends IUnknown {
     Create(cbWhereabouts, rgbWhereabouts) {
         rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, "ptr*", &ppExport := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, "ptr*", &ppExport := 0, "HRESULT")
         return ITransactionExport(ppExport)
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import ".\ITfContext.ahk" { ITfContext }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfCandidateList.ahk" { ITfCandidateList }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ITfRange.ahk" { ITfRange }
 #Import ".\ITfFunction.ahk" { ITfFunction }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * The ITfFnLMProcessor interface is implemented by the language model text service and is used by an application or text service to enable alternate language model processing.
@@ -117,7 +117,7 @@ export default struct ITfFnLMProcessor extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-querylangid
      */
     QueryLangID(langid) {
-        result := ComCall(5, this, "ushort", langid, BOOL.Ptr, &pfAccepted := 0, "HRESULT")
+        result := ComCall(5, this, UInt16, langid, BOOL.Ptr, &pfAccepted := 0, "HRESULT")
         return pfAccepted
     }
 

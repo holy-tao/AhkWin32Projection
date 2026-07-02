@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMSAdminBase2W.ahk" { IMSAdminBase2W }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -51,7 +51,7 @@ export default struct IMSAdminBase3W extends IMSAdminBase2W {
 
         pcchMDRequiredBufferSizeMarshal := pcchMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", cchMDBufferSize, "ptr", pszBuffer, pcchMDRequiredBufferSizeMarshal, pcchMDRequiredBufferSize, "HRESULT")
+        result := ComCall(40, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, cchMDBufferSize, "ptr", pszBuffer, pcchMDRequiredBufferSizeMarshal, pcchMDRequiredBufferSize, "HRESULT")
         return result
     }
 

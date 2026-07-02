@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IAzClientContext.ahk" { IAzClientContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAzClientContext.ahk" { IAzClientContext }
 
 /**
  * Inherits from the IAzClientContext interface and implements new methods that manipulate the client context.
@@ -84,7 +84,7 @@ export default struct IAzClientContext2 extends IAzClientContext {
      */
     GetAssignedScopesPage(lOptions, PageSize, pvarCursor) {
         pvarScopeNames := VARIANT()
-        result := ComCall(20, this, "int", lOptions, "int", PageSize, VARIANT.Ptr, pvarCursor, VARIANT.Ptr, pvarScopeNames, "HRESULT")
+        result := ComCall(20, this, Int32, lOptions, Int32, PageSize, VARIANT.Ptr, pvarCursor, VARIANT.Ptr, pvarScopeNames, "HRESULT")
         return pvarScopeNames
     }
 

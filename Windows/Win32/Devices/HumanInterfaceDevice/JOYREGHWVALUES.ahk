@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\JOYRANGE.ahk" { JOYRANGE }
 #Import ".\JOYPOS.ahk" { JOYPOS }
+#Import ".\JOYRANGE.ahk" { JOYRANGE }
 
 /**
  * The JOYREGHWVALUES (dinputd.h) structure contains the range of values returned by the hardware (filled in by calibration).

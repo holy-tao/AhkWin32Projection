@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\TCITEMHEADERA_MASK.ahk" { TCITEMHEADERA_MASK }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Specifies or receives the attributes of a tab. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEMHEADER structure. (Unicode)

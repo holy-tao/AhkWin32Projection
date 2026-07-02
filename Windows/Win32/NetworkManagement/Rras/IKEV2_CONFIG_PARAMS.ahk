@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ROUTER_CUSTOM_IKEv2_POLICY0.ahk" { ROUTER_CUSTOM_IKEv2_POLICY0 }
-#Import "..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\IKEV2_TUNNEL_CONFIG_PARAMS4.ahk" { IKEV2_TUNNEL_CONFIG_PARAMS4 }
+#Import "..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\MPR_CERT_EKU.ahk" { MPR_CERT_EKU }
+#Import ".\ROUTER_CUSTOM_IKEv2_POLICY0.ahk" { ROUTER_CUSTOM_IKEv2_POLICY0 }
 
 /**
  * Used to get or set parameters for Internet Key Exchange version 2 (IKEv2) devices (RFC 4306).

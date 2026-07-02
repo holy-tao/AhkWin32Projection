@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPresentationSurface.ahk" { IPresentationSurface }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IPresentationBuffer.ahk" { IPresentationBuffer }
-#Import ".\IPresentStatistics.ahk" { IPresentStatistics }
 #Import ".\PresentStatisticsKind.ahk" { PresentStatisticsKind }
+#Import ".\IPresentStatistics.ahk" { IPresentStatistics }
+#Import ".\IPresentationSurface.ahk" { IPresentationSurface }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPresentationBuffer.ahk" { IPresentationBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SystemInterruptTime.ahk" { SystemInterruptTime }
 
 /**
@@ -152,7 +152,7 @@ export default struct IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-forcevsyncinterrupt
      */
     ForceVSyncInterrupt(forceVsyncInterrupt) {
-        result := ComCall(8, this, "char", forceVsyncInterrupt, "HRESULT")
+        result := ComCall(8, this, Int8, forceVsyncInterrupt, "HRESULT")
         return result
     }
 
@@ -200,7 +200,7 @@ export default struct IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-cancelpresentsfrom
      */
     CancelPresentsFrom(presentIdToCancelFrom) {
-        result := ComCall(11, this, "uint", presentIdToCancelFrom, "HRESULT")
+        result := ComCall(11, this, Int64, presentIdToCancelFrom, "HRESULT")
         return result
     }
 
@@ -254,7 +254,7 @@ export default struct IPresentationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-enablepresentstatisticskind
      */
     EnablePresentStatisticsKind(_presentStatisticsKind, enabled) {
-        result := ComCall(14, this, PresentStatisticsKind, _presentStatisticsKind, "char", enabled, "HRESULT")
+        result := ComCall(14, this, PresentStatisticsKind, _presentStatisticsKind, Int8, enabled, "HRESULT")
         return result
     }
 

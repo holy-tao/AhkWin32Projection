@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CRLRevocationReason.ahk" { CRLRevocationReason }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IX509Extensions.ahk" { IX509Extensions }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IObjectIds.ahk" { IObjectIds }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\CRLRevocationReason.ahk" { CRLRevocationReason }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -109,7 +109,7 @@ export default struct IX509CertificateRevocationListEntry extends IDispatch {
     Initialize(Encoding, SerialNumber, RevocationDate) {
         SerialNumber := SerialNumber is String ? BSTR.Alloc(SerialNumber).Value : SerialNumber
 
-        result := ComCall(7, this, EncodingType, Encoding, BSTR, SerialNumber, "double", RevocationDate, "HRESULT")
+        result := ComCall(7, this, EncodingType, Encoding, BSTR, SerialNumber, Float64, RevocationDate, "HRESULT")
         return result
     }
 

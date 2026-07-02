@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
 #Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
 
 /**
  * Represents a composite geometry, composed of other ID2D1Geometry objects.
@@ -84,7 +84,7 @@ export default struct ID2D1GeometryGroup extends ID2D1Geometry {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrygroup-getsourcegeometries
      */
     GetSourceGeometries(geometries, geometriesCount) {
-        ComCall(19, this, ID2D1Geometry.Ptr, geometries, "uint", geometriesCount)
+        ComCall(19, this, ID2D1Geometry.Ptr, geometries, UInt32, geometriesCount)
     }
 
     Query(iid) {

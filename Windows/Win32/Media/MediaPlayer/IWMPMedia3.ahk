@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWMPMedia2.ahk" { IWMPMedia2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPMedia3 interface provides methods that supplement the IWMPMedia2 interface.
@@ -127,7 +127,7 @@ export default struct IWMPMedia3 extends IWMPMedia2 {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(27, this, BSTR, bstrType, BSTR, bstrLanguage, "int", lIndex, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrType, BSTR, bstrLanguage, Int32, lIndex, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 

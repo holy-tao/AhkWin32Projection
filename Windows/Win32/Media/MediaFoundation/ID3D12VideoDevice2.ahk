@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_VIDEO_EXTENSION_COMMAND_DESC.ahk" { D3D12_VIDEO_EXTENSION_COMMAND_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC }
-#Import ".\D3D12_VIDEO_DECODER_DESC.ahk" { D3D12_VIDEO_DECODER_DESC }
 #Import ".\D3D12_VIDEO_DECODER_HEAP_DESC.ahk" { D3D12_VIDEO_DECODER_HEAP_DESC }
+#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC }
 #Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
 #Import ".\ID3D12VideoExtensionCommand.ahk" { ID3D12VideoExtensionCommand }
-#Import ".\D3D12_VIDEO_EXTENSION_COMMAND_DESC.ahk" { D3D12_VIDEO_EXTENSION_COMMAND_DESC }
-#Import ".\ID3D12VideoDevice1.ahk" { ID3D12VideoDevice1 }
 #Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC }
+#Import ".\ID3D12VideoDevice1.ahk" { ID3D12VideoDevice1 }
+#Import ".\D3D12_VIDEO_DECODER_DESC.ahk" { D3D12_VIDEO_DECODER_DESC }
 
 /**
  * Adds support for protected resources.
@@ -90,7 +90,7 @@ export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideoprocessor1
      */
     CreateVideoProcessor1(NodeMask, pOutputStreamDesc, NumInputStreamDescs, pInputStreamDescs, pProtectedResourceSession, riid) {
-        result := ComCall(11, this, "uint", NodeMask, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.Ptr, pOutputStreamDesc, "uint", NumInputStreamDescs, D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.Ptr, pInputStreamDescs, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, NodeMask, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.Ptr, pOutputStreamDesc, UInt32, NumInputStreamDescs, D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.Ptr, pInputStreamDescs, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
         return ppVideoProcessor
     }
 
@@ -105,7 +105,7 @@ export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideoextensioncommand
      */
     CreateVideoExtensionCommand(pDesc, pCreationParameters, CreationParametersDataSizeInBytes, pProtectedResourceSession, riid) {
-        result := ComCall(12, this, D3D12_VIDEO_EXTENSION_COMMAND_DESC.Ptr, pDesc, "ptr", pCreationParameters, "ptr", CreationParametersDataSizeInBytes, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoExtensionCommand := 0, "HRESULT")
+        result := ComCall(12, this, D3D12_VIDEO_EXTENSION_COMMAND_DESC.Ptr, pDesc, IntPtr, pCreationParameters, IntPtr, CreationParametersDataSizeInBytes, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoExtensionCommand := 0, "HRESULT")
         return ppVideoExtensionCommand
     }
 
@@ -126,7 +126,7 @@ export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-executeextensioncommand
      */
     ExecuteExtensionCommand(pExtensionCommand, pExecutionParameters, ExecutionParametersSizeInBytes, pOutputData, OutputDataSizeInBytes) {
-        result := ComCall(13, this, "ptr", pExtensionCommand, "ptr", pExecutionParameters, "ptr", ExecutionParametersSizeInBytes, "ptr", pOutputData, "ptr", OutputDataSizeInBytes, "HRESULT")
+        result := ComCall(13, this, "ptr", pExtensionCommand, IntPtr, pExecutionParameters, IntPtr, ExecutionParametersSizeInBytes, IntPtr, pOutputData, IntPtr, OutputDataSizeInBytes, "HRESULT")
         return result
     }
 

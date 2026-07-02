@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Receives state-change notifications from the presentation clock.
@@ -73,7 +73,7 @@ export default struct IMFClockStateSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclockstart
      */
     OnClockStart(hnsSystemTime, llClockStartOffset) {
-        result := ComCall(3, this, "int64", hnsSystemTime, "int64", llClockStartOffset, "HRESULT")
+        result := ComCall(3, this, Int64, hnsSystemTime, Int64, llClockStartOffset, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IMFClockStateSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclockstop
      */
     OnClockStop(hnsSystemTime) {
-        result := ComCall(4, this, "int64", hnsSystemTime, "HRESULT")
+        result := ComCall(4, this, Int64, hnsSystemTime, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct IMFClockStateSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclockpause
      */
     OnClockPause(hnsSystemTime) {
-        result := ComCall(5, this, "int64", hnsSystemTime, "HRESULT")
+        result := ComCall(5, this, Int64, hnsSystemTime, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct IMFClockStateSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclockrestart
      */
     OnClockRestart(hnsSystemTime) {
-        result := ComCall(6, this, "int64", hnsSystemTime, "HRESULT")
+        result := ComCall(6, this, Int64, hnsSystemTime, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct IMFClockStateSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockstatesink-onclocksetrate
      */
     OnClockSetRate(hnsSystemTime, flRate) {
-        result := ComCall(7, this, "int64", hnsSystemTime, "float", flRate, "HRESULT")
+        result := ComCall(7, this, Int64, hnsSystemTime, Float32, flRate, "HRESULT")
         return result
     }
 

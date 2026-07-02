@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WICBitmapChainType.ahk" { WICBitmapChainType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
@@ -55,7 +55,7 @@ export default struct IWICBitmapFrameChainReader extends IUnknown {
      * @returns {IWICBitmapFrameDecode} 
      */
     GetChainedFrame(chainType, index) {
-        result := ComCall(4, this, WICBitmapChainType, chainType, "uint", index, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
+        result := ComCall(4, this, WICBitmapChainType, chainType, UInt32, index, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
         return IWICBitmapFrameDecode(ppIBitmapFrame)
     }
 

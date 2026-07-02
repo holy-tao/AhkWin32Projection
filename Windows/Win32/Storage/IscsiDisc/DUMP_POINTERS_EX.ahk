@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\PDUMP_DEVICE_POWERON_ROUTINE.ahk" { PDUMP_DEVICE_POWERON_ROUTINE }
 #Import ".\DUMP_POINTERS_VERSION.ahk" { DUMP_POINTERS_VERSION }
 
 /**
@@ -36,7 +37,7 @@ export default struct DUMP_POINTERS_EX {
 
     DeviceReady : BOOLEAN.Ptr
 
-    DumpDevicePowerOn : IntPtr
+    DumpDevicePowerOn : PDUMP_DEVICE_POWERON_ROUTINE
 
     DumpDevicePowerOnContext : IntPtr
 

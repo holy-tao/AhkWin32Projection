@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_CHANNEL_DEPTH.ahk" { D2D1_CHANNEL_DEPTH }
-#Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_CHANNEL_DEPTH.ahk" { D2D1_CHANNEL_DEPTH }
 
 /**
  * Represents the set of transforms implemented by the effect-rendering system, which provides fixed-functionality.

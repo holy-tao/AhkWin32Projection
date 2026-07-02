@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10View.ahk" { ID3D10View }
 #Import ".\D3D10_SHADER_RESOURCE_VIEW_DESC.ahk" { D3D10_SHADER_RESOURCE_VIEW_DESC }
+#Import ".\ID3D10View.ahk" { ID3D10View }
 
 /**
  * A shader-resource-view interface specifies the subresources a shader can access during rendering. Examples of shader resources include a constant buffer, a texture buffer, a texture or a sampler. (ID3D10ShaderResourceView)

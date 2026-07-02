@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVA2_SampleFormat.ahk" { DXVA2_SampleFormat }
-#Import ".\OPM_RANDOM_NUMBER.ahk" { OPM_RANDOM_NUMBER }
 #Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\OPM_RANDOM_NUMBER.ahk" { OPM_RANDOM_NUMBER }
+#Import ".\DXVA2_SampleFormat.ahk" { DXVA2_SampleFormat }
 
 /**
  * Contains the result of an OPM_GET_ACTUAL_OUTPUT_FORMAT query in Output Protection Manager (OPM).

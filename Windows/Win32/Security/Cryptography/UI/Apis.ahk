@@ -1,20 +1,20 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\CERT_SELECTUI_INPUT.ahk" { CERT_SELECTUI_INPUT }
-#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT }
-#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_INFO.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_INFO }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPTUI_VIEWCERTIFICATE_STRUCTW.ahk" { CRYPTUI_VIEWCERTIFICATE_STRUCTW }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CRYPTUI_VIEWCERTIFICATE_STRUCTA.ahk" { CRYPTUI_VIEWCERTIFICATE_STRUCTA }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\CRYPTUI_WIZ_FLAGS.ahk" { CRYPTUI_WIZ_FLAGS }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\CRYPTUI_CERT_MGR_STRUCT.ahk" { CRYPTUI_CERT_MGR_STRUCT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CRYPTUI_WIZ_IMPORT_SRC_INFO.ahk" { CRYPTUI_WIZ_IMPORT_SRC_INFO }
+#Import ".\CRYPTUI_VIEWCERTIFICATE_STRUCTW.ahk" { CRYPTUI_VIEWCERTIFICATE_STRUCTW }
+#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT }
 #Import ".\CRYPTUI_WIZ_EXPORT_INFO.ahk" { CRYPTUI_WIZ_EXPORT_INFO }
+#Import ".\CERT_SELECTUI_INPUT.ahk" { CERT_SELECTUI_INPUT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_INFO.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_INFO }
+#Import ".\CRYPTUI_VIEWCERTIFICATE_STRUCTA.ahk" { CRYPTUI_VIEWCERTIFICATE_STRUCTA }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -81,7 +81,7 @@ export CryptUIDlgViewContext(dwContextType, pvContext, _hwnd, pwszTitle, dwFlags
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
     pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, pvContextMarshal, pvContext, HWND, _hwnd, "ptr", pwszTitle, "uint", dwFlags, pvReservedMarshal, pvReserved, BOOL)
+    result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", UInt32, dwContextType, pvContextMarshal, pvContext, HWND, _hwnd, "ptr", pwszTitle, UInt32, dwFlags, pvReservedMarshal, pvReserved, BOOL)
     return result
 }
 
@@ -175,7 +175,7 @@ export CryptUIDlgSelectCertificateFromStore(_hCertStore, _hwnd, pwszTitle, pwszD
 
     pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", HCERTSTORE, _hCertStore, HWND, _hwnd, "ptr", pwszTitle, "ptr", pwszDisplayString, "uint", dwDontUseColumn, "uint", dwFlags, pvReservedMarshal, pvReserved, CERT_CONTEXT.Ptr)
+    result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", HCERTSTORE, _hCertStore, HWND, _hwnd, "ptr", pwszTitle, "ptr", pwszDisplayString, UInt32, dwDontUseColumn, UInt32, dwFlags, pvReservedMarshal, pvReserved, CERT_CONTEXT.Ptr)
     return result
 }
 
@@ -314,7 +314,7 @@ export CryptUIWizDigitalSign(dwFlags, hwndParent, pwszWizardTitle, pDigitalSignI
 
     ppSignContextMarshal := ppSignContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", "uint", dwFlags, HWND, hwndParent, "ptr", pwszWizardTitle, CRYPTUI_WIZ_DIGITAL_SIGN_INFO.Ptr, pDigitalSignInfo, ppSignContextMarshal, ppSignContext, BOOL)
+    result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", UInt32, dwFlags, HWND, hwndParent, "ptr", pwszWizardTitle, CRYPTUI_WIZ_DIGITAL_SIGN_INFO.Ptr, pDigitalSignInfo, ppSignContextMarshal, ppSignContext, BOOL)
     return result
 }
 

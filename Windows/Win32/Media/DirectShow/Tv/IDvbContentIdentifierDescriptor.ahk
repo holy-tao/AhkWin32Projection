@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get information from a Digital Video Broadcast (DVB) content identifier descriptor.
@@ -86,7 +86,7 @@ export default struct IDvbContentIdentifierDescriptor extends IUnknown {
         pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
         ppbBytesMarshal := ppbBytes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "char", bRecordIndex, pbTypeMarshal, pbType, pbLocationMarshal, pbLocation, pbLengthMarshal, pbLength, ppbBytesMarshal, ppbBytes, "HRESULT")
+        result := ComCall(6, this, Int8, bRecordIndex, pbTypeMarshal, pbType, pbLocationMarshal, pbLocation, pbLengthMarshal, pbLength, ppbBytesMarshal, ppbBytes, "HRESULT")
         return result
     }
 

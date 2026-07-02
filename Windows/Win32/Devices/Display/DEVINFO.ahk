@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
-#Import "..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
-#Import "..\..\Graphics\Gdi\FONT_QUALITY.ahk" { FONT_QUALITY }
 #Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import "..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
 #Import "..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import "..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import "..\..\Graphics\Gdi\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import "..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

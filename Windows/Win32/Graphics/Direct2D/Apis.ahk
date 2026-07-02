@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\D2D1_CREATION_PROPERTIES.ahk" { D2D1_CREATION_PROPERTIES }
-#Import ".\ID2D1Device.ahk" { ID2D1Device }
-#Import ".\D2D1_FACTORY_TYPE.ahk" { D2D1_FACTORY_TYPE }
 #Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
-#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
 #Import ".\ID2D1DeviceContext.ahk" { ID2D1DeviceContext }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
 #Import ".\D2D1_FACTORY_OPTIONS.ahk" { D2D1_FACTORY_OPTIONS }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_FACTORY_TYPE.ahk" { D2D1_FACTORY_TYPE }
+#Import ".\ID2D1Device.ahk" { ID2D1Device }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D2D1_CREATION_PROPERTIES.ahk" { D2D1_CREATION_PROPERTIES }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
@@ -62,7 +62,7 @@ export D2D1CreateFactory(factoryType, riid, pFactoryOptions) {
  * @since windows6.1
  */
 export D2D1MakeRotateMatrix(angle, center, _matrix) {
-    DllCall("d2d1.dll\D2D1MakeRotateMatrix", "float", angle, D2D_POINT_2F, center, D2D_MATRIX_3X2_F.Ptr, _matrix)
+    DllCall("d2d1.dll\D2D1MakeRotateMatrix", Float32, angle, D2D_POINT_2F, center, D2D_MATRIX_3X2_F.Ptr, _matrix)
 }
 
 /**
@@ -84,7 +84,7 @@ export D2D1MakeRotateMatrix(angle, center, _matrix) {
  * @since windows6.1
  */
 export D2D1MakeSkewMatrix(angleX, angleY, center, _matrix) {
-    DllCall("d2d1.dll\D2D1MakeSkewMatrix", "float", angleX, "float", angleY, D2D_POINT_2F, center, D2D_MATRIX_3X2_F.Ptr, _matrix)
+    DllCall("d2d1.dll\D2D1MakeSkewMatrix", Float32, angleX, Float32, angleY, D2D_POINT_2F, center, D2D_MATRIX_3X2_F.Ptr, _matrix)
 }
 
 /**
@@ -196,7 +196,7 @@ export D2D1SinCos(angle, s, c) {
     sMarshal := s is VarRef ? "float*" : "ptr"
     cMarshal := c is VarRef ? "float*" : "ptr"
 
-    DllCall("d2d1.dll\D2D1SinCos", "float", angle, sMarshal, s, cMarshal, c)
+    DllCall("d2d1.dll\D2D1SinCos", Float32, angle, sMarshal, s, cMarshal, c)
 }
 
 /**
@@ -210,7 +210,7 @@ export D2D1SinCos(angle, s, c) {
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1tan
  */
 export D2D1Tan(angle) {
-    result := DllCall("d2d1.dll\D2D1Tan", "float", angle, Float32)
+    result := DllCall("d2d1.dll\D2D1Tan", Float32, angle, Float32)
     return result
 }
 
@@ -231,7 +231,7 @@ export D2D1Tan(angle) {
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1vec3length
  */
 export D2D1Vec3Length(x, y, z) {
-    result := DllCall("d2d1.dll\D2D1Vec3Length", "float", x, "float", y, "float", z, Float32)
+    result := DllCall("d2d1.dll\D2D1Vec3Length", Float32, x, Float32, y, Float32, z, Float32)
     return result
 }
 

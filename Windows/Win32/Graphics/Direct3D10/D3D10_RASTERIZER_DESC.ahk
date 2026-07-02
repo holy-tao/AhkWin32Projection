@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D10_FILL_MODE.ahk" { D3D10_FILL_MODE }
-#Import ".\D3D10_CULL_MODE.ahk" { D3D10_CULL_MODE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D10_CULL_MODE.ahk" { D3D10_CULL_MODE }
+#Import ".\D3D10_FILL_MODE.ahk" { D3D10_FILL_MODE }
 
 /**
  * Describes the rasterizer state.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPolicyQualifier.ahk" { IPolicyQualifier }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPolicyQualifier.ahk" { IPolicyQualifier }
 
 /**
  * Defines methods and properties that enable you to manage a collection of IPolicyQualifier objects.
@@ -65,7 +65,7 @@ export default struct IPolicyQualifiers extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ipolicyqualifiers-get_itembyindex
      */
     get_ItemByIndex(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Index, "ptr*", &pVal := 0, "HRESULT")
         return IPolicyQualifier(pVal)
     }
 
@@ -111,7 +111,7 @@ export default struct IPolicyQualifiers extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ipolicyqualifiers-remove
      */
     Remove(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, Int32, Index, "HRESULT")
         return result
     }
 

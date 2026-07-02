@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IRDPSRAPIAttendee.ahk" { IRDPSRAPIAttendee }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ATTENDEE_DISCONNECT_REASON.ahk" { ATTENDEE_DISCONNECT_REASON }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ATTENDEE_DISCONNECT_REASON.ahk" { ATTENDEE_DISCONNECT_REASON }
 
 /**
  * Contains information about the reason an attendee disconnected.

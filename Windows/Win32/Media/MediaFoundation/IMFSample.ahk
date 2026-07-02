@@ -113,7 +113,7 @@ export default struct IMFSample extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-setsampleflags
      */
     SetSampleFlags(dwSampleFlags) {
-        result := ComCall(34, this, "uint", dwSampleFlags, "HRESULT")
+        result := ComCall(34, this, UInt32, dwSampleFlags, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct IMFSample extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-setsampletime
      */
     SetSampleTime(hnsSampleTime) {
-        result := ComCall(36, this, "int64", hnsSampleTime, "HRESULT")
+        result := ComCall(36, this, Int64, hnsSampleTime, "HRESULT")
         return result
     }
 
@@ -213,7 +213,7 @@ export default struct IMFSample extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-setsampleduration
      */
     SetSampleDuration(hnsSampleDuration) {
-        result := ComCall(38, this, "int64", hnsSampleDuration, "HRESULT")
+        result := ComCall(38, this, Int64, hnsSampleDuration, "HRESULT")
         return result
     }
 
@@ -250,7 +250,7 @@ export default struct IMFSample extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getbufferbyindex
      */
     GetBufferByIndex(dwIndex) {
-        result := ComCall(40, this, "uint", dwIndex, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(40, this, UInt32, dwIndex, "ptr*", &ppBuffer := 0, "HRESULT")
         return IMFMediaBuffer(ppBuffer)
     }
 
@@ -356,7 +356,7 @@ export default struct IMFSample extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-removebufferbyindex
      */
     RemoveBufferByIndex(dwIndex) {
-        result := ComCall(43, this, "uint", dwIndex, "HRESULT")
+        result := ComCall(43, this, UInt32, dwIndex, "HRESULT")
         return result
     }
 

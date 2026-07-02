@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IRowset.ahk" { IRowset }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -45,7 +45,7 @@ export default struct IRowsetCopyRows extends IUnknown {
      * @returns {HRESULT} 
      */
     CloseSource(hSourceID) {
-        result := ComCall(3, this, "ushort", hSourceID, "HRESULT")
+        result := ComCall(3, this, UInt16, hSourceID, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct IRowsetCopyRows extends IUnknown {
     CopyByHROWS(hSourceID, hReserved, cRows, rghRows, bFlags) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint", bFlags, "HRESULT")
+        result := ComCall(4, this, UInt16, hSourceID, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, UInt32, bFlags, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IRowsetCopyRows extends IUnknown {
      * @returns {Pointer} 
      */
     CopyRows(hSourceID, hReserved, cRows, bFlags) {
-        result := ComCall(5, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, "uint", bFlags, "ptr*", &pcRowsCopied := 0, "HRESULT")
+        result := ComCall(5, this, UInt16, hSourceID, IntPtr, hReserved, IntPtr, cRows, UInt32, bFlags, "ptr*", &pcRowsCopied := 0, "HRESULT")
         return pcRowsCopied
     }
 
@@ -90,7 +90,7 @@ export default struct IRowsetCopyRows extends IUnknown {
         rgSourceColumnsMarshal := rgSourceColumns is VarRef ? "ptr*" : "ptr"
         rgTargetColumnsMarshal := rgTargetColumns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pRowsetSource, "ptr", cColIds, rgSourceColumnsMarshal, rgSourceColumns, rgTargetColumnsMarshal, rgTargetColumns, "ushort*", &phSourceID := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pRowsetSource, IntPtr, cColIds, rgSourceColumnsMarshal, rgSourceColumns, rgTargetColumnsMarshal, rgTargetColumns, "ushort*", &phSourceID := 0, "HRESULT")
         return phSourceID
     }
 

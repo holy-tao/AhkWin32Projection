@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWSMan.ahk" { IWSMan }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWSMan.ahk" { IWSMan }
 
 /**
  * Extends the methods and properties of the IWSMan interface to include creating IWSManResourceLocator objects, methods that return enumeration and session flag values, and a method to get extended error information.
@@ -223,7 +223,7 @@ export default struct IWSManEx extends IWSMan {
      */
     GetErrorMessage(errorNumber) {
         errorMessage := BSTR.Owned()
-        result := ComCall(26, this, "uint", errorNumber, BSTR.Ptr, errorMessage, "HRESULT")
+        result := ComCall(26, this, UInt32, errorNumber, BSTR.Ptr, errorMessage, "HRESULT")
         return errorMessage
     }
 

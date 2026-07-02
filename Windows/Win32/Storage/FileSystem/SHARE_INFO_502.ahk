@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SHARE_INFO_PERMISSIONS.ahk" { SHARE_INFO_PERMISSIONS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 #Import ".\SHARE_TYPE.ahk" { SHARE_TYPE }
 

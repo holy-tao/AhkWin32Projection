@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
+#Import ".\LPDDHALMOCOMPCB_ENDFRAME.ahk" { LPDDHALMOCOMPCB_ENDFRAME }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -19,6 +20,6 @@ export default struct DDHAL_ENDMOCOMPFRAMEDATA {
 
     ddRVal : HRESULT
 
-    EndMoCompFrame : IntPtr
+    EndMoCompFrame : LPDDHALMOCOMPCB_ENDFRAME
 
 }

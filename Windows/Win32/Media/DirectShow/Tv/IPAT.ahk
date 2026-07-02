@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * The IPAT interface enables the client to get information from a Program Association Table (PAT). The IAtscPsipParser::GetPAT method returns a pointer to this interface.
@@ -139,7 +139,7 @@ export default struct IPAT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogramnumber
      */
     GetRecordProgramNumber(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -150,7 +150,7 @@ export default struct IPAT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogrammappid
      */
     GetRecordProgramMapPid(dwIndex) {
-        result := ComCall(8, this, "uint", dwIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -161,7 +161,7 @@ export default struct IPAT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-findrecordprogrammappid
      */
     FindRecordProgramMapPid(wProgramNumber) {
-        result := ComCall(9, this, "ushort", wProgramNumber, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(9, this, UInt16, wProgramNumber, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 

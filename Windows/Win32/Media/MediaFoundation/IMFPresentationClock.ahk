@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFClock.ahk" { IMFClock }
 #Import ".\IMFPresentationTimeSource.ahk" { IMFPresentationTimeSource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFClock.ahk" { IMFClock }
 #Import ".\IMFClockStateSink.ahk" { IMFClockStateSink }
 
 /**
@@ -233,7 +233,7 @@ export default struct IMFPresentationClock extends IMFClock {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationclock-start
      */
     Start(llClockStartOffset) {
-        result := ComCall(13, this, "int64", llClockStartOffset, "HRESULT")
+        result := ComCall(13, this, Int64, llClockStartOffset, "HRESULT")
         return result
     }
 

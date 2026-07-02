@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS.ahk" { DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a swap chain that is used by desktop media apps to decode video data and show it on a DirectComposition surface.
@@ -89,7 +89,7 @@ export default struct IDXGIDecodeSwapChain extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-presentbuffer
      */
     PresentBuffer(BufferToPresent, SyncInterval, Flags) {
-        result := ComCall(3, this, "uint", BufferToPresent, "uint", SyncInterval, DXGI_PRESENT, Flags, Int32)
+        result := ComCall(3, this, UInt32, BufferToPresent, UInt32, SyncInterval, DXGI_PRESENT, Flags, Int32)
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IDXGIDecodeSwapChain extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-setdestsize
      */
     SetDestSize(Width, Height) {
-        result := ComCall(6, this, "uint", Width, "uint", Height, "HRESULT")
+        result := ComCall(6, this, UInt32, Width, UInt32, Height, "HRESULT")
         return result
     }
 

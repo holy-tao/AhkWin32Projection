@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWTSProtocolShadowConnection.ahk" { IWTSProtocolShadowConnection }
-#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
-#Import ".\IWTSProtocolLogonErrorRedirector.ahk" { IWTSProtocolLogonErrorRedirector }
-#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WTS_PROPERTY_VALUE.ahk" { WTS_PROPERTY_VALUE }
-#Import ".\IWTSProtocolLicenseConnection.ahk" { IWTSProtocolLicenseConnection }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 #Import ".\WTS_POLICY_DATA.ahk" { WTS_POLICY_DATA }
-#Import ".\WTS_CLIENT_DATA.ahk" { WTS_CLIENT_DATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWTSProtocolShadowConnection.ahk" { IWTSProtocolShadowConnection }
+#Import ".\IWTSProtocolLicenseConnection.ahk" { IWTSProtocolLicenseConnection }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
+#Import ".\IWTSProtocolLogonErrorRedirector.ahk" { IWTSProtocolLogonErrorRedirector }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WTS_PROTOCOL_STATUS.ahk" { WTS_PROTOCOL_STATUS }
-#Import ".\WTS_USER_CREDENTIAL.ahk" { WTS_USER_CREDENTIAL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WTS_CLIENT_DATA.ahk" { WTS_CLIENT_DATA }
 #Import ".\WTS_USER_DATA.ahk" { WTS_USER_DATA }
+#Import ".\WTS_USER_CREDENTIAL.ahk" { WTS_USER_CREDENTIAL }
 
 /**
  * IWTSProtocolConnection is no longer available. Instead, use IWRdsProtocolConnection.
@@ -196,7 +196,7 @@ export default struct IWTSProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-connectnotify
      */
     ConnectNotify(SessionId) {
-        result := ComCall(12, this, "uint", SessionId, "HRESULT")
+        result := ComCall(12, this, UInt32, SessionId, "HRESULT")
         return result
     }
 
@@ -213,7 +213,7 @@ export default struct IWTSProtocolConnection extends IUnknown {
         pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
         pUserName := pUserName is String ? StrPtr(pUserName) : pUserName
 
-        result := ComCall(13, this, "uint", SessionId, HANDLE_PTR, UserToken, "ptr", pDomainName, "ptr", pUserName, "HRESULT")
+        result := ComCall(13, this, UInt32, SessionId, HANDLE_PTR, UserToken, "ptr", pDomainName, "ptr", pUserName, "HRESULT")
         return result
     }
 
@@ -321,7 +321,7 @@ export default struct IWTSProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-seterrorinfo
      */
     SetErrorInfo(ulError) {
-        result := ComCall(21, this, "uint", ulError, "HRESULT")
+        result := ComCall(21, this, UInt32, ulError, "HRESULT")
         return result
     }
 
@@ -333,7 +333,7 @@ export default struct IWTSProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-sendbeep
      */
     SendBeep(Frequency, Duration) {
-        result := ComCall(22, this, "uint", Frequency, "uint", Duration, "HRESULT")
+        result := ComCall(22, this, UInt32, Frequency, UInt32, Duration, "HRESULT")
         return result
     }
 
@@ -351,7 +351,7 @@ export default struct IWTSProtocolConnection extends IUnknown {
     CreateVirtualChannel(szEndpointName, bStatic, RequestedPriority) {
         szEndpointName := szEndpointName is String ? StrPtr(szEndpointName) : szEndpointName
 
-        result := ComCall(23, this, "ptr", szEndpointName, BOOL, bStatic, "uint", RequestedPriority, "ptr*", &phChannel := 0, "HRESULT")
+        result := ComCall(23, this, "ptr", szEndpointName, BOOL, bStatic, UInt32, RequestedPriority, "ptr*", &phChannel := 0, "HRESULT")
         return phChannel
     }
 
@@ -372,7 +372,7 @@ export default struct IWTSProtocolConnection extends IUnknown {
      */
     QueryProperty(QueryType, ulNumEntriesIn, ulNumEntriesOut, pPropertyEntriesIn) {
         pPropertyEntriesOut := WTS_PROPERTY_VALUE()
-        result := ComCall(24, this, Guid, QueryType, "uint", ulNumEntriesIn, "uint", ulNumEntriesOut, WTS_PROPERTY_VALUE.Ptr, pPropertyEntriesIn, WTS_PROPERTY_VALUE.Ptr, pPropertyEntriesOut, "HRESULT")
+        result := ComCall(24, this, Guid, QueryType, UInt32, ulNumEntriesIn, UInt32, ulNumEntriesOut, WTS_PROPERTY_VALUE.Ptr, pPropertyEntriesIn, WTS_PROPERTY_VALUE.Ptr, pPropertyEntriesOut, "HRESULT")
         return pPropertyEntriesOut
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\tomConstants.ahk" { tomConstants }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\tomConstants.ahk" { tomConstants }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -368,7 +368,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setstyle
      */
     SetStyle(Value) {
-        result := ComCall(13, this, "int", Value, "HRESULT")
+        result := ComCall(13, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -490,7 +490,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setallcaps
      */
     SetAllCaps(Value) {
-        result := ComCall(15, this, "int", Value, "HRESULT")
+        result := ComCall(15, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -544,7 +544,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setanimation
      */
     SetAnimation(Value) {
-        result := ComCall(17, this, "int", Value, "HRESULT")
+        result := ComCall(17, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -648,7 +648,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setbackcolor
      */
     SetBackColor(Value) {
-        result := ComCall(19, this, "int", Value, "HRESULT")
+        result := ComCall(19, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -770,7 +770,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setbold
      */
     SetBold(Value) {
-        result := ComCall(21, this, "int", Value, "HRESULT")
+        result := ComCall(21, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -892,7 +892,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setemboss
      */
     SetEmboss(Value) {
-        result := ComCall(23, this, "int", Value, "HRESULT")
+        result := ComCall(23, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -998,7 +998,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setforecolor
      */
     SetForeColor(Value) {
-        result := ComCall(25, this, "int", Value, "HRESULT")
+        result := ComCall(25, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1120,7 +1120,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-sethidden
      */
     SetHidden(Value) {
-        result := ComCall(27, this, "int", Value, "HRESULT")
+        result := ComCall(27, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1242,7 +1242,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setengrave
      */
     SetEngrave(Value) {
-        result := ComCall(29, this, "int", Value, "HRESULT")
+        result := ComCall(29, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1362,7 +1362,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setitalic
      */
     SetItalic(Value) {
-        result := ComCall(31, this, "int", Value, "HRESULT")
+        result := ComCall(31, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1445,7 +1445,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setkerning
      */
     SetKerning(Value) {
-        result := ComCall(33, this, "float", Value, "HRESULT")
+        result := ComCall(33, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -1532,7 +1532,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setlanguageid
      */
     SetLanguageID(Value) {
-        result := ComCall(35, this, "int", Value, "HRESULT")
+        result := ComCall(35, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1735,7 +1735,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setoutline
      */
     SetOutline(Value) {
-        result := ComCall(39, this, "int", Value, "HRESULT")
+        result := ComCall(39, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1817,7 +1817,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setposition
      */
     SetPosition(Value) {
-        result := ComCall(41, this, "float", Value, "HRESULT")
+        result := ComCall(41, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -1941,7 +1941,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setprotected
      */
     SetProtected(Value) {
-        result := ComCall(43, this, "int", Value, "HRESULT")
+        result := ComCall(43, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -2063,7 +2063,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setshadow
      */
     SetShadow(Value) {
-        result := ComCall(45, this, "int", Value, "HRESULT")
+        result := ComCall(45, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -2141,7 +2141,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setsize
      */
     SetSize(Value) {
-        result := ComCall(47, this, "float", Value, "HRESULT")
+        result := ComCall(47, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -2263,7 +2263,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setsmallcaps
      */
     SetSmallCaps(Value) {
-        result := ComCall(49, this, "int", Value, "HRESULT")
+        result := ComCall(49, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -2345,7 +2345,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setspacing
      */
     SetSpacing(Value) {
-        result := ComCall(51, this, "float", Value, "HRESULT")
+        result := ComCall(51, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -2467,7 +2467,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setstrikethrough
      */
     SetStrikeThrough(Value) {
-        result := ComCall(53, this, "int", Value, "HRESULT")
+        result := ComCall(53, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -2589,7 +2589,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setsubscript
      */
     SetSubscript(Value) {
-        result := ComCall(55, this, "int", Value, "HRESULT")
+        result := ComCall(55, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -2711,7 +2711,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setsuperscript
      */
     SetSuperscript(Value) {
-        result := ComCall(57, this, "int", Value, "HRESULT")
+        result := ComCall(57, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -2785,7 +2785,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setunderline
      */
     SetUnderline(Value) {
-        result := ComCall(59, this, "int", Value, "HRESULT")
+        result := ComCall(59, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -2965,7 +2965,7 @@ export default struct ITextFont extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont-setweight
      */
     SetWeight(Value) {
-        result := ComCall(61, this, "int", Value, "HRESULT")
+        result := ComCall(61, this, Int32, Value, "HRESULT")
         return result
     }
 

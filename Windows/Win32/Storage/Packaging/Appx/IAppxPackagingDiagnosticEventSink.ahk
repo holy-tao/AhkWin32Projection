@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\APPX_PACKAGING_CONTEXT_CHANGE_TYPE.ahk" { APPX_PACKAGING_CONTEXT_CHANGE_TYPE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
@@ -53,7 +53,7 @@ export default struct IAppxPackagingDiagnosticEventSink extends IUnknown {
         contextMessage := contextMessage is String ? StrPtr(contextMessage) : contextMessage
         detailsMessage := detailsMessage is String ? StrPtr(detailsMessage) : detailsMessage
 
-        result := ComCall(3, this, APPX_PACKAGING_CONTEXT_CHANGE_TYPE, _changeType, "int", contextId, "ptr", contextName, "ptr", contextMessage, "ptr", detailsMessage, "HRESULT")
+        result := ComCall(3, this, APPX_PACKAGING_CONTEXT_CHANGE_TYPE, _changeType, Int32, contextId, "ptr", contextName, "ptr", contextMessage, "ptr", detailsMessage, "HRESULT")
         return result
     }
 

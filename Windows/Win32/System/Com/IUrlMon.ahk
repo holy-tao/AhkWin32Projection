@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IBindCtx.ahk" { IBindCtx }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -56,7 +56,7 @@ export default struct IUrlMon extends IUnknown {
         pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
         pszCodeBase := pszCodeBase is String ? StrPtr(pszCodeBase) : pszCodeBase
 
-        result := ComCall(3, this, Guid.Ptr, rclsid, "ptr", pszTYPE, "ptr", pszExt, "uint", dwFileVersionMS, "uint", dwFileVersionLS, "ptr", pszCodeBase, "ptr", pbc, "uint", dwClassContext, Guid.Ptr, riid, "uint", flags, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, "ptr", pszTYPE, "ptr", pszExt, UInt32, dwFileVersionMS, UInt32, dwFileVersionLS, "ptr", pszCodeBase, "ptr", pbc, UInt32, dwClassContext, Guid.Ptr, riid, UInt32, flags, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -81,7 +81,7 @@ export default struct IChannelHook extends IUnknown {
     ClientNotify(uExtent, riid, cbDataSize, pDataBuffer, lDataRep, hrFault) {
         pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
 
-        ComCall(5, this, Guid.Ptr, uExtent, Guid.Ptr, riid, "uint", cbDataSize, pDataBufferMarshal, pDataBuffer, "uint", lDataRep, "int", hrFault)
+        ComCall(5, this, Guid.Ptr, uExtent, Guid.Ptr, riid, UInt32, cbDataSize, pDataBufferMarshal, pDataBuffer, UInt32, lDataRep, "int", hrFault)
     }
 
     /**
@@ -96,7 +96,7 @@ export default struct IChannelHook extends IUnknown {
     ServerNotify(uExtent, riid, cbDataSize, pDataBuffer, lDataRep) {
         pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
 
-        ComCall(6, this, Guid.Ptr, uExtent, Guid.Ptr, riid, "uint", cbDataSize, pDataBufferMarshal, pDataBuffer, "uint", lDataRep)
+        ComCall(6, this, Guid.Ptr, uExtent, Guid.Ptr, riid, UInt32, cbDataSize, pDataBufferMarshal, pDataBuffer, UInt32, lDataRep)
     }
 
     /**

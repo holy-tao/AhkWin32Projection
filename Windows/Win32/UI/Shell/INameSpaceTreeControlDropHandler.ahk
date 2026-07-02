@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IShellItemArray.ahk" { IShellItemArray }
 
 /**
  * Exposes handler methods for drag-and-drop.
@@ -72,7 +72,7 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
     OnDragEnter(psiOver, psiaData, fOutsideSource, grfKeyState, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", psiOver, "ptr", psiaData, BOOL, fOutsideSource, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(3, this, "ptr", psiOver, "ptr", psiaData, BOOL, fOutsideSource, UInt32, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
     OnDragOver(psiOver, psiaData, grfKeyState, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", psiOver, "ptr", psiaData, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(4, this, "ptr", psiOver, "ptr", psiaData, UInt32, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragposition
      */
     OnDragPosition(psiOver, psiaData, iNewPosition, iOldPosition) {
-        result := ComCall(5, this, "ptr", psiOver, "ptr", psiaData, "int", iNewPosition, "int", iOldPosition, "HRESULT")
+        result := ComCall(5, this, "ptr", psiOver, "ptr", psiaData, Int32, iNewPosition, Int32, iOldPosition, "HRESULT")
         return result
     }
 
@@ -158,7 +158,7 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
     OnDrop(psiOver, psiaData, iPosition, grfKeyState, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", psiOver, "ptr", psiaData, "int", iPosition, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(6, this, "ptr", psiOver, "ptr", psiaData, Int32, iPosition, UInt32, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -184,7 +184,7 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondropposition
      */
     OnDropPosition(psiOver, psiaData, iNewPosition, iOldPosition) {
-        result := ComCall(7, this, "ptr", psiOver, "ptr", psiaData, "int", iNewPosition, "int", iOldPosition, "HRESULT")
+        result := ComCall(7, this, "ptr", psiOver, "ptr", psiaData, Int32, iNewPosition, Int32, iOldPosition, "HRESULT")
         return result
     }
 

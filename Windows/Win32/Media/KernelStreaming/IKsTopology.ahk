@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -45,7 +45,7 @@ export default struct IKsTopology extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     CreateNodeInstance(NodeId, Flags, DesiredAccess, UnkOuter, InterfaceId) {
-        result := ComCall(3, this, "uint", NodeId, "uint", Flags, "uint", DesiredAccess, "ptr", UnkOuter, Guid.Ptr, InterfaceId, "ptr*", &_Interface := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, NodeId, UInt32, Flags, UInt32, DesiredAccess, "ptr", UnkOuter, Guid.Ptr, InterfaceId, "ptr*", &_Interface := 0, "HRESULT")
         return _Interface
     }
 

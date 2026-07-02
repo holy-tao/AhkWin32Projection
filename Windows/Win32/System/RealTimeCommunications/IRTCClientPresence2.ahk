@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RTC_BUDDY_SUBSCRIPTION_TYPE.ahk" { RTC_BUDDY_SUBSCRIPTION_TYPE }
-#Import ".\IRTCBuddyGroup.ahk" { IRTCBuddyGroup }
-#Import ".\RTC_ACE_SCOPE.ahk" { RTC_ACE_SCOPE }
 #Import ".\IRTCClientPresence.ahk" { IRTCClientPresence }
-#Import ".\IRTCWatcher2.ahk" { IRTCWatcher2 }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RTC_WATCHER_STATE.ahk" { RTC_WATCHER_STATE }
 #Import ".\RTC_PRESENCE_STATUS.ahk" { RTC_PRESENCE_STATUS }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import ".\IRTCBuddyGroup.ahk" { IRTCBuddyGroup }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\RTC_ACE_SCOPE.ahk" { RTC_ACE_SCOPE }
+#Import ".\IRTCBuddy2.ahk" { IRTCBuddy2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\RTC_WATCHER_MATCH_MODE.ahk" { RTC_WATCHER_MATCH_MODE }
 #Import ".\IRTCCollection.ahk" { IRTCCollection }
 #Import ".\RTC_PRESENCE_PROPERTY.ahk" { RTC_PRESENCE_PROPERTY }
-#Import ".\IRTCBuddy2.ahk" { IRTCBuddy2 }
+#Import ".\RTC_WATCHER_STATE.ahk" { RTC_WATCHER_STATE }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\RTC_BUDDY_SUBSCRIPTION_TYPE.ahk" { RTC_BUDDY_SUBSCRIPTION_TYPE }
 #Import ".\IRTCEnumGroups.ahk" { IRTCEnumGroups }
-#Import ".\IRTCProfile.ahk" { IRTCProfile }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IRTCWatcher2.ahk" { IRTCWatcher2 }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -79,7 +79,7 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
      * @returns {HRESULT} 
      */
     EnablePresenceEx(pProfile, varStorage, lFlags) {
-        result := ComCall(21, this, "ptr", pProfile, VARIANT, varStorage, "int", lFlags, "HRESULT")
+        result := ComCall(21, this, "ptr", pProfile, VARIANT, varStorage, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -104,7 +104,7 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(23, this, BSTR, bstrGroupName, BSTR, bstrData, "ptr", pProfile, "int", lFlags, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrGroupName, BSTR, bstrData, "ptr", pProfile, Int32, lFlags, "ptr*", &ppGroup := 0, "HRESULT")
         return IRTCBuddyGroup(ppGroup)
     }
 
@@ -165,7 +165,7 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(28, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, RTC_WATCHER_STATE, enState, VARIANT_BOOL, fPersistent, RTC_ACE_SCOPE, enScope, "ptr", pProfile, "int", lFlags, "ptr*", &ppWatcher := 0, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, RTC_WATCHER_STATE, enState, VARIANT_BOOL, fPersistent, RTC_ACE_SCOPE, enScope, "ptr", pProfile, Int32, lFlags, "ptr*", &ppWatcher := 0, "HRESULT")
         return IRTCWatcher2(ppWatcher)
     }
 
@@ -260,7 +260,7 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(35, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, VARIANT_BOOL, fPersistent, RTC_BUDDY_SUBSCRIPTION_TYPE, enSubscriptionType, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, VARIANT_BOOL, fPersistent, RTC_BUDDY_SUBSCRIPTION_TYPE, enSubscriptionType, "ptr", pProfile, Int32, lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
         return IRTCBuddy2(ppBuddy)
     }
 

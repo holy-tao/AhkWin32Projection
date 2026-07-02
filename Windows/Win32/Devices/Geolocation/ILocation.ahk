@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ILocationReport.ahk" { ILocationReport }
 #Import ".\LOCATION_REPORT_STATUS.ahk" { LOCATION_REPORT_STATUS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ILocationReport.ahk" { ILocationReport }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ILocationEvents.ahk" { ILocationEvents }
-#Import "..\Sensors\LOCATION_DESIRED_ACCURACY.ahk" { LOCATION_DESIRED_ACCURACY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Sensors\LOCATION_DESIRED_ACCURACY.ahk" { LOCATION_DESIRED_ACCURACY }
+#Import ".\ILocationEvents.ahk" { ILocationEvents }
 
 /**
  * Provides methods used to manage location reports, event registration, and sensor permissions.
@@ -114,7 +114,7 @@ export default struct ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-registerforreport
      */
     RegisterForReport(pEvents, reportType, dwRequestedReportInterval) {
-        result := ComCall(3, this, "ptr", pEvents, Guid.Ptr, reportType, "uint", dwRequestedReportInterval, "HRESULT")
+        result := ComCall(3, this, "ptr", pEvents, Guid.Ptr, reportType, UInt32, dwRequestedReportInterval, "HRESULT")
         return result
     }
 
@@ -294,14 +294,14 @@ export default struct ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-setreportinterval
      */
     SetReportInterval(reportType, millisecondsRequested) {
-        result := ComCall(8, this, Guid.Ptr, reportType, "uint", millisecondsRequested, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, reportType, UInt32, millisecondsRequested, "HRESULT")
         return result
     }
 
     /**
      * Retrieves the current requested accuracy setting.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to get the requested accuracy.
-     * @returns {LOCATION_DESIRED_ACCURACY} 
+     * @returns {LOCATION_DESIRED_ACCURACY} The address of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd756639(v=vs.85)">LOCATION_DESIRED_ACCURACY</a> that receives the accuracy value. If the report is not registered, this will be set to <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getdesiredaccuracy
      */
     GetDesiredAccuracy(reportType) {
@@ -312,7 +312,7 @@ export default struct ILocation extends IUnknown {
     /**
      * Specifies the accuracy to be used.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to set the accuracy to be used.
-     * @param {LOCATION_DESIRED_ACCURACY} desiredAccuracy 
+     * @param {LOCATION_DESIRED_ACCURACY} desiredAccuracy <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd756639(v=vs.85)">LOCATION_DESIRED_ACCURACY</a> value that specifies the accuracy to be used.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -471,7 +471,7 @@ export default struct ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-requestpermissions
      */
     RequestPermissions(hParent, pReportTypes, count, fModal) {
-        result := ComCall(11, this, HWND, hParent, Guid.Ptr, pReportTypes, "uint", count, BOOL, fModal, "HRESULT")
+        result := ComCall(11, this, HWND, hParent, Guid.Ptr, pReportTypes, UInt32, count, BOOL, fModal, "HRESULT")
         return result
     }
 

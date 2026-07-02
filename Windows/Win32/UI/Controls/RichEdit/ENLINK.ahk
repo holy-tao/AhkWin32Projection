@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\NMHDR.ahk" { NMHDR }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\CHARRANGE.ahk" { CHARRANGE }
-#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about an EN_LINK notification code from a rich edit control.

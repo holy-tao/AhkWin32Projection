@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SPVSKIPTYPE.ahk" { SPVSKIPTYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpEventSink.ahk" { ISpEventSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -59,7 +59,7 @@ export default struct ISpTTSEngineSite extends ISpEventSink {
     Write(pBuff, cb) {
         pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, pBuffMarshal, pBuff, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(6, this, pBuffMarshal, pBuff, UInt32, cb, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 
@@ -101,7 +101,7 @@ export default struct ISpTTSEngineSite extends ISpEventSink {
      * @returns {HRESULT} 
      */
     CompleteSkip(ulNumSkipped) {
-        result := ComCall(10, this, "int", ulNumSkipped, "HRESULT")
+        result := ComCall(10, this, Int32, ulNumSkipped, "HRESULT")
         return result
     }
 

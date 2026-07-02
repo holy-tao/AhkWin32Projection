@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\TimedLevel.ahk" { TimedLevel }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IWMPEffects interface
@@ -79,7 +79,7 @@ export default struct IWMPEffects extends IUnknown {
     MediaInfo(lChannelCount, lSampleRate, bstrTitle) {
         bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
 
-        result := ComCall(4, this, "int", lChannelCount, "int", lSampleRate, BSTR, bstrTitle, "HRESULT")
+        result := ComCall(4, this, Int32, lChannelCount, Int32, lSampleRate, BSTR, bstrTitle, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getpresettitle
      */
     GetPresetTitle(nPreset, bstrPresetTitle) {
-        result := ComCall(7, this, "int", nPreset, BSTR.Ptr, bstrPresetTitle, "HRESULT")
+        result := ComCall(7, this, Int32, nPreset, BSTR.Ptr, bstrPresetTitle, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-setcurrentpreset
      */
     SetCurrentPreset(nPreset) {
-        result := ComCall(9, this, "int", nPreset, "HRESULT")
+        result := ComCall(9, this, Int32, nPreset, "HRESULT")
         return result
     }
 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPMMIOPROC.ahk" { LPMMIOPROC }
 #Import ".\HMMIO.ahk" { HMMIO }
 #Import "..\..\Foundation\HTASK.ahk" { HTASK }
 
@@ -12,7 +13,7 @@ export default struct MMIOINFO {
 
     fccIOProc : UInt32
 
-    pIOProc : IntPtr
+    pIOProc : LPMMIOPROC
 
     wErrorRet : UInt32
 

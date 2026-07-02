@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to controls that act as containers of other controls, such as a virtual list-view.

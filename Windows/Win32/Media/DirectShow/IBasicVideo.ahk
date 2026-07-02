@@ -270,7 +270,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-put_sourceleft
      */
     put_SourceLeft(SourceLeft) {
-        result := ComCall(12, this, "int", SourceLeft, "HRESULT")
+        result := ComCall(12, this, Int32, SourceLeft, "HRESULT")
         return result
     }
 
@@ -291,7 +291,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-put_sourcewidth
      */
     put_SourceWidth(SourceWidth) {
-        result := ComCall(14, this, "int", SourceWidth, "HRESULT")
+        result := ComCall(14, this, Int32, SourceWidth, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-put_sourcetop
      */
     put_SourceTop(SourceTop) {
-        result := ComCall(16, this, "int", SourceTop, "HRESULT")
+        result := ComCall(16, this, Int32, SourceTop, "HRESULT")
         return result
     }
 
@@ -375,7 +375,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-put_sourceheight
      */
     put_SourceHeight(SourceHeight) {
-        result := ComCall(18, this, "int", SourceHeight, "HRESULT")
+        result := ComCall(18, this, Int32, SourceHeight, "HRESULT")
         return result
     }
 
@@ -396,7 +396,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-put_destinationleft
      */
     put_DestinationLeft(DestinationLeft) {
-        result := ComCall(20, this, "int", DestinationLeft, "HRESULT")
+        result := ComCall(20, this, Int32, DestinationLeft, "HRESULT")
         return result
     }
 
@@ -457,7 +457,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-put_destinationwidth
      */
     put_DestinationWidth(DestinationWidth) {
-        result := ComCall(22, this, "int", DestinationWidth, "HRESULT")
+        result := ComCall(22, this, Int32, DestinationWidth, "HRESULT")
         return result
     }
 
@@ -478,7 +478,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-put_destinationtop
      */
     put_DestinationTop(DestinationTop) {
-        result := ComCall(24, this, "int", DestinationTop, "HRESULT")
+        result := ComCall(24, this, Int32, DestinationTop, "HRESULT")
         return result
     }
 
@@ -539,7 +539,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-put_destinationheight
      */
     put_DestinationHeight(DestinationHeight) {
-        result := ComCall(26, this, "int", DestinationHeight, "HRESULT")
+        result := ComCall(26, this, Int32, DestinationHeight, "HRESULT")
         return result
     }
 
@@ -567,7 +567,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-setsourceposition
      */
     SetSourcePosition(Left, Top, Width, Height) {
-        result := ComCall(28, this, "int", Left, "int", Top, "int", Width, "int", Height, "HRESULT")
+        result := ComCall(28, this, Int32, Left, Int32, Top, Int32, Width, Int32, Height, "HRESULT")
         return result
     }
 
@@ -654,7 +654,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-setdestinationposition
      */
     SetDestinationPosition(Left, Top, Width, Height) {
-        result := ComCall(31, this, "int", Left, "int", Top, "int", Width, "int", Height, "HRESULT")
+        result := ComCall(31, this, Int32, Left, Int32, Top, Int32, Width, Int32, Height, "HRESULT")
         return result
     }
 
@@ -768,7 +768,7 @@ export default struct IBasicVideo extends IDispatch {
         pRetrievedMarshal := pRetrieved is VarRef ? "int*" : "ptr"
         pPaletteMarshal := pPalette is VarRef ? "int*" : "ptr"
 
-        result := ComCall(35, this, "int", StartIndex, "int", Entries, pRetrievedMarshal, pRetrieved, pPaletteMarshal, pPalette, "HRESULT")
+        result := ComCall(35, this, Int32, StartIndex, Int32, Entries, pRetrievedMarshal, pRetrieved, pPaletteMarshal, pPalette, "HRESULT")
         return result
     }
 

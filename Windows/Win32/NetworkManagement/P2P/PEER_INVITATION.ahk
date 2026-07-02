@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_DATA.ahk" { PEER_DATA }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PEER_DATA.ahk" { PEER_DATA }
 
 /**
  * The PEER_INVITATION structure contains a request to initiate or join a peer collaboration activity.

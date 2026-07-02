@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMDMID.ahk" { WMDMID }
 #Import ".\IWMDMProgress.ahk" { IWMDMProgress }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WMDMID.ahk" { WMDMID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMDMStorageGlobals interface provides methods for retrieving global information about a storage medium (such as a flash ROM card) on a device.
@@ -224,7 +224,7 @@ export default struct IWMDMStorageGlobals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-initialize
      */
     Initialize(fuMode, pProgress) {
-        result := ComCall(9, this, "uint", fuMode, "ptr", pProgress, "HRESULT")
+        result := ComCall(9, this, UInt32, fuMode, "ptr", pProgress, "HRESULT")
         return result
     }
 

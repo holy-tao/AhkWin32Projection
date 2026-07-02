@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HEAACWAVEINFO.ahk" { HEAACWAVEINFO }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\HEAACWAVEINFO.ahk" { HEAACWAVEINFO }
 
 /**
  * Contains format data for an AAC or HE-AAC stream that includes AudioSpecificConfig() data.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -454,7 +454,7 @@ export default struct IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_vspace(v) {
-        result := ComCall(21, this, "int", v, "HRESULT")
+        result := ComCall(21, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -473,7 +473,7 @@ export default struct IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_hspace(v) {
-        result := ComCall(23, this, "int", v, "HRESULT")
+        result := ComCall(23, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -745,7 +745,7 @@ export default struct IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(49, this, "int", v, "HRESULT")
+        result := ComCall(49, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -764,7 +764,7 @@ export default struct IHTMLImgElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(51, this, "int", v, "HRESULT")
+        result := ComCall(51, this, Int32, v, "HRESULT")
         return result
     }
 

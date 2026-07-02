@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -48,7 +48,7 @@ export default struct IHTMLPersistData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Multimedia/save
      */
     save(pUnk, lType) {
-        result := ComCall(3, this, "ptr", pUnk, "int", lType, VARIANT_BOOL.Ptr, &fContinueBroacast := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnk, Int32, lType, VARIANT_BOOL.Ptr, &fContinueBroacast := 0, "HRESULT")
         return fContinueBroacast
     }
 
@@ -62,7 +62,7 @@ export default struct IHTMLPersistData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Multimedia/load
      */
     load(pUnk, lType) {
-        result := ComCall(4, this, "ptr", pUnk, "int", lType, VARIANT_BOOL.Ptr, &fDoDefault := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pUnk, Int32, lType, VARIANT_BOOL.Ptr, &fDoDefault := 0, "HRESULT")
         return fDoDefault
     }
 
@@ -72,7 +72,7 @@ export default struct IHTMLPersistData extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     queryType(lType) {
-        result := ComCall(5, this, "int", lType, VARIANT_BOOL.Ptr, &pfSupportsType := 0, "HRESULT")
+        result := ComCall(5, this, Int32, lType, VARIANT_BOOL.Ptr, &pfSupportsType := 0, "HRESULT")
         return pfSupportsType
     }
 

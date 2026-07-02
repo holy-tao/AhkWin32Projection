@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The FAX_DEVICE_STATUS structure contains information about the current status of a fax device. (Unicode)

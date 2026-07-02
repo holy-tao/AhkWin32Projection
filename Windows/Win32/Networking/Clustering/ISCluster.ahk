@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISClusResGroups.ahk" { ISClusResGroups }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISClusNetInterfaces.ahk" { ISClusNetInterfaces }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISClusVersion.ahk" { ISClusVersion }
-#Import ".\ISClusNetworks.ahk" { ISClusNetworks }
-#Import ".\ISClusResources.ahk" { ISClusResources }
 #Import ".\ISClusResource.ahk" { ISClusResource }
-#Import ".\ISClusProperties.ahk" { ISClusProperties }
 #Import ".\ISClusResTypes.ahk" { ISClusResTypes }
+#Import ".\ISClusVersion.ahk" { ISClusVersion }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISClusNetInterfaces.ahk" { ISClusNetInterfaces }
+#Import ".\ISClusProperties.ahk" { ISClusProperties }
 #Import ".\ISClusNodes.ahk" { ISClusNodes }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISClusNetworks.ahk" { ISClusNetworks }
+#Import ".\ISClusResGroups.ahk" { ISClusResGroups }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISClusResources.ahk" { ISClusResources }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -303,7 +303,7 @@ export default struct ISCluster extends IDispatch {
      * @returns {HRESULT} 
      */
     put_QuorumLogSize(nLogSize) {
-        result := ComCall(19, this, "int", nLogSize, "HRESULT")
+        result := ComCall(19, this, Int32, nLogSize, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDsAdminNewObj interface is used by a primary or secondary object creation wizard extension to obtain page count data and to control the command buttons in the wizard.
@@ -54,7 +54,7 @@ export default struct IDsAdminNewObj extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobj-setbuttons
      */
     SetButtons(nCurrIndex, bValid) {
-        result := ComCall(3, this, "uint", nCurrIndex, BOOL, bValid, "HRESULT")
+        result := ComCall(3, this, UInt32, nCurrIndex, BOOL, bValid, "HRESULT")
         return result
     }
 

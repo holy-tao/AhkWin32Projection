@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsNameTranslateinterface translates distinguished names (DNs) among various formats as defined in the ADS_NAME_TYPE_ENUM enumeration. The feature is available to objects in Active Directory.
@@ -58,7 +58,7 @@ export default struct IADsNameTranslate extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ChaseReferral(lnChaseReferral) {
-        result := ComCall(7, this, "int", lnChaseReferral, "HRESULT")
+        result := ComCall(7, this, Int32, lnChaseReferral, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IADsNameTranslate extends IDispatch {
     Init(lnSetType, bstrADsPath) {
         bstrADsPath := bstrADsPath is String ? BSTR.Alloc(bstrADsPath).Value : bstrADsPath
 
-        result := ComCall(8, this, "int", lnSetType, BSTR, bstrADsPath, "HRESULT")
+        result := ComCall(8, this, Int32, lnSetType, BSTR, bstrADsPath, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IADsNameTranslate extends IDispatch {
         bstrDomain := bstrDomain is String ? BSTR.Alloc(bstrDomain).Value : bstrDomain
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(9, this, "int", lnSetType, BSTR, bstrADsPath, BSTR, bstrUserID, BSTR, bstrDomain, BSTR, bstrPassword, "HRESULT")
+        result := ComCall(9, this, Int32, lnSetType, BSTR, bstrADsPath, BSTR, bstrUserID, BSTR, bstrDomain, BSTR, bstrPassword, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IADsNameTranslate extends IDispatch {
     Set(lnSetType, bstrADsPath) {
         bstrADsPath := bstrADsPath is String ? BSTR.Alloc(bstrADsPath).Value : bstrADsPath
 
-        result := ComCall(10, this, "int", lnSetType, BSTR, bstrADsPath, "HRESULT")
+        result := ComCall(10, this, Int32, lnSetType, BSTR, bstrADsPath, "HRESULT")
         return result
     }
 
@@ -130,7 +130,7 @@ export default struct IADsNameTranslate extends IDispatch {
      */
     Get(lnFormatType) {
         pbstrADsPath := BSTR.Owned()
-        result := ComCall(11, this, "int", lnFormatType, BSTR.Ptr, pbstrADsPath, "HRESULT")
+        result := ComCall(11, this, Int32, lnFormatType, BSTR.Ptr, pbstrADsPath, "HRESULT")
         return pbstrADsPath
     }
 
@@ -146,7 +146,7 @@ export default struct IADsNameTranslate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsnametranslate-setex
      */
     SetEx(lnFormatType, pvar) {
-        result := ComCall(12, this, "int", lnFormatType, VARIANT, pvar, "HRESULT")
+        result := ComCall(12, this, Int32, lnFormatType, VARIANT, pvar, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IADsNameTranslate extends IDispatch {
      */
     GetEx(lnFormatType) {
         pvar := VARIANT()
-        result := ComCall(13, this, "int", lnFormatType, VARIANT.Ptr, pvar, "HRESULT")
+        result := ComCall(13, this, Int32, lnFormatType, VARIANT.Ptr, pvar, "HRESULT")
         return pvar
     }
 

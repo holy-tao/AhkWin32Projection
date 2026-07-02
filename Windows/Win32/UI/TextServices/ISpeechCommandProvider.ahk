@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumSpeechCommands.ahk" { IEnumSpeechCommands }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumSpeechCommands.ahk" { IEnumSpeechCommands }
 
 /**
  * @namespace Windows.Win32.UI.TextServices
@@ -44,7 +44,7 @@ export default struct ISpeechCommandProvider extends IUnknown {
      * @returns {IEnumSpeechCommands} 
      */
     EnumSpeechCommands(langid) {
-        result := ComCall(3, this, "ushort", langid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, UInt16, langid, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumSpeechCommands(ppEnum)
     }
 
@@ -58,7 +58,7 @@ export default struct ISpeechCommandProvider extends IUnknown {
     ProcessCommand(pszCommand, cch, langid) {
         pszCommand := pszCommand is String ? StrPtr(pszCommand) : pszCommand
 
-        result := ComCall(4, this, "ptr", pszCommand, "uint", cch, "ushort", langid, "HRESULT")
+        result := ComCall(4, this, "ptr", pszCommand, UInt32, cch, UInt16, langid, "HRESULT")
         return result
     }
 

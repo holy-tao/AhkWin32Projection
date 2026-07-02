@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Performs initialization or cleanup when entering or exiting a COM apartment.
@@ -48,7 +48,7 @@ export default struct IInitializeSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iinitializespy-preinitialize
      */
     PreInitialize(dwCoInit, dwCurThreadAptRefs) {
-        result := ComCall(3, this, "uint", dwCoInit, "uint", dwCurThreadAptRefs, "HRESULT")
+        result := ComCall(3, this, UInt32, dwCoInit, UInt32, dwCurThreadAptRefs, "HRESULT")
         return result
     }
 
@@ -65,7 +65,7 @@ export default struct IInitializeSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iinitializespy-postinitialize
      */
     PostInitialize(hrCoInit, dwCoInit, dwNewThreadAptRefs) {
-        result := ComCall(4, this, "int", hrCoInit, "uint", dwCoInit, "uint", dwNewThreadAptRefs, "HRESULT")
+        result := ComCall(4, this, "int", hrCoInit, UInt32, dwCoInit, UInt32, dwNewThreadAptRefs, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IInitializeSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iinitializespy-preuninitialize
      */
     PreUninitialize(dwCurThreadAptRefs) {
-        result := ComCall(5, this, "uint", dwCurThreadAptRefs, "HRESULT")
+        result := ComCall(5, this, UInt32, dwCurThreadAptRefs, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IInitializeSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iinitializespy-postuninitialize
      */
     PostUninitialize(dwNewThreadAptRefs) {
-        result := ComCall(6, this, "uint", dwNewThreadAptRefs, "HRESULT")
+        result := ComCall(6, this, UInt32, dwNewThreadAptRefs, "HRESULT")
         return result
     }
 

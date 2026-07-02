@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
-#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
-#Import ".\D2D1_SVG_PATH_COMMAND.ahk" { D2D1_SVG_PATH_COMMAND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1PathGeometry1.ahk" { ID2D1PathGeometry1 }
+#Import ".\D2D1_SVG_PATH_COMMAND.ahk" { D2D1_SVG_PATH_COMMAND }
+#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Interface describing SVG path data. Path data can be set as the 'd' attribute on a 'path' element.
@@ -59,7 +59,7 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-removesegmentdataatend
      */
     RemoveSegmentDataAtEnd(dataCount) {
-        result := ComCall(6, this, "uint", dataCount, "HRESULT")
+        result := ComCall(6, this, UInt32, dataCount, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
     UpdateSegmentData(data, dataCount, startIndex) {
         dataMarshal := data is VarRef ? "float*" : "ptr"
 
-        result := ComCall(7, this, dataMarshal, data, "uint", dataCount, "uint", startIndex, "HRESULT")
+        result := ComCall(7, this, dataMarshal, data, UInt32, dataCount, UInt32, startIndex, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getsegmentdata
      */
     GetSegmentData(dataCount, startIndex) {
-        result := ComCall(8, this, "float*", &data := 0, "uint", dataCount, "uint", startIndex, "HRESULT")
+        result := ComCall(8, this, "float*", &data := 0, UInt32, dataCount, UInt32, startIndex, "HRESULT")
         return data
     }
 
@@ -127,7 +127,7 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-removecommandsatend
      */
     RemoveCommandsAtEnd(commandsCount) {
-        result := ComCall(10, this, "uint", commandsCount, "HRESULT")
+        result := ComCall(10, this, UInt32, commandsCount, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
     UpdateCommands(commands, commandsCount, startIndex) {
         commandsMarshal := commands is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, commandsMarshal, commands, "uint", commandsCount, "uint", startIndex, "HRESULT")
+        result := ComCall(11, this, commandsMarshal, commands, UInt32, commandsCount, UInt32, startIndex, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-getcommands
      */
     GetCommands(commandsCount, startIndex) {
-        result := ComCall(12, this, "int*", &commands := 0, "uint", commandsCount, "uint", startIndex, "HRESULT")
+        result := ComCall(12, this, "int*", &commands := 0, UInt32, commandsCount, UInt32, startIndex, "HRESULT")
         return commands
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 #Import "..\..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\TLS_PARAMETERS.ahk" { TLS_PARAMETERS }
-#Import "..\..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\_HMAPPER.ahk" { _HMAPPER }
 
 /**

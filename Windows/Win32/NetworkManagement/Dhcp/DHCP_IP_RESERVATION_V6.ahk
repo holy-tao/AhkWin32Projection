@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
 #Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
+#Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
 
 /**
  * Defines an IPv6 reservation for a DHCPv6 client in a specific IPv6 prefix.

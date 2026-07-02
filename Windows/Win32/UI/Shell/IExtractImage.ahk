@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Exposes methods that request a thumbnail image from a Shell folder.
@@ -117,7 +117,7 @@ export default struct IExtractImage extends IUnknown {
         pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszPathBuffer, "uint", cch, pdwPriorityMarshal, pdwPriority, SIZE.Ptr, prgSize, "uint", dwRecClrDepth, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPathBuffer, UInt32, cch, pdwPriorityMarshal, pdwPriority, SIZE.Ptr, prgSize, UInt32, dwRecClrDepth, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

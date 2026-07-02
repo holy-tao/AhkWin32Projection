@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFilterMapper2.ahk" { IFilterMapper2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICreateDevEnum.ahk" { ICreateDevEnum }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFilterMapper2.ahk" { IFilterMapper2 }
 
 /**
  * The IFilterMapper3 interface extends the IFilterMapper2 interface. The Filter Mapper object implements this interface.Note  This interface is deprecated. .

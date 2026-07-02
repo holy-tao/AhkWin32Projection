@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STORAGE_FIRMWARE_SLOT_INFO.ahk" { STORAGE_FIRMWARE_SLOT_INFO }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\STORAGE_FIRMWARE_SLOT_INFO.ahk" { STORAGE_FIRMWARE_SLOT_INFO }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWindowsMediaLibrarySharingDeviceProperty.ahk" { IWindowsMediaLibrarySharingDeviceProperty }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWindowsMediaLibrarySharingDeviceProperty.ahk" { IWindowsMediaLibrarySharingDeviceProperty }
 
 /**
  * The IWindowsMediaLibrarySharingDeviceProperties interface defines methods that provide access to the collection of all properties for an individual media device.
@@ -57,7 +57,7 @@ export default struct IWindowsMediaLibrarySharingDeviceProperties extends IDispa
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdeviceproperties-get_item
      */
     get_Item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &_property := 0, "HRESULT")
+        result := ComCall(7, this, Int32, index, "ptr*", &_property := 0, "HRESULT")
         return IWindowsMediaLibrarySharingDeviceProperty(_property)
     }
 

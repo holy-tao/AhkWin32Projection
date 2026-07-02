@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EMemoryCriticalLevel.ahk" { EMemoryCriticalLevel }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -45,7 +45,7 @@ export default struct IHostMalloc extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     Alloc(cbSize, eCriticalLevel) {
-        result := ComCall(3, this, "ptr", cbSize, EMemoryCriticalLevel, eCriticalLevel, "ptr*", &ppMem := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, cbSize, EMemoryCriticalLevel, eCriticalLevel, "ptr*", &ppMem := 0, "HRESULT")
         return ppMem
     }
 
@@ -60,7 +60,7 @@ export default struct IHostMalloc extends IUnknown {
     DebugAlloc(cbSize, eCriticalLevel, pszFileName, iLineNo) {
         pszFileNameMarshal := pszFileName is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cbSize, EMemoryCriticalLevel, eCriticalLevel, pszFileNameMarshal, pszFileName, "int", iLineNo, "ptr*", &ppMem := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, cbSize, EMemoryCriticalLevel, eCriticalLevel, pszFileNameMarshal, pszFileName, Int32, iLineNo, "ptr*", &ppMem := 0, "HRESULT")
         return ppMem
     }
 

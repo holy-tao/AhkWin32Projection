@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInkCursors.ahk" { IInkCursors }
-#Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
-#Import ".\IInkCursor.ahk" { IInkCursor }
 #Import ".\IStylusSyncPlugin.ahk" { IStylusSyncPlugin }
-#Import ".\StylusQueue.ahk" { StylusQueue }
-#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IInkCursor.ahk" { IInkCursor }
 #Import ".\IStylusAsyncPlugin.ahk" { IStylusAsyncPlugin }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 #Import ".\IInkTablet.ahk" { IInkTablet }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\StylusQueue.ahk" { StylusQueue }
+#Import ".\IInkCursors.ahk" { IInkCursors }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Handles the stylus packet data from a digitizer in real time.
@@ -253,7 +253,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-addstylussyncplugin
      */
     AddStylusSyncPlugin(iIndex, piPlugin) {
-        result := ComCall(9, this, "uint", iIndex, "ptr", piPlugin, "HRESULT")
+        result := ComCall(9, this, UInt32, iIndex, "ptr", piPlugin, "HRESULT")
         return result
     }
 
@@ -269,7 +269,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-removestylussyncplugin
      */
     RemoveStylusSyncPlugin(iIndex, ppiPlugin) {
-        result := ComCall(10, this, "uint", iIndex, IStylusSyncPlugin.Ptr, ppiPlugin, "HRESULT")
+        result := ComCall(10, this, UInt32, iIndex, IStylusSyncPlugin.Ptr, ppiPlugin, "HRESULT")
         return result
     }
 
@@ -290,7 +290,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylussyncplugin
      */
     GetStylusSyncPlugin(iIndex) {
-        result := ComCall(12, this, "uint", iIndex, "ptr*", &ppiPlugin := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, iIndex, "ptr*", &ppiPlugin := 0, "HRESULT")
         return IStylusSyncPlugin(ppiPlugin)
     }
 
@@ -314,7 +314,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-addstylusasyncplugin
      */
     AddStylusAsyncPlugin(iIndex, piPlugin) {
-        result := ComCall(14, this, "uint", iIndex, "ptr", piPlugin, "HRESULT")
+        result := ComCall(14, this, UInt32, iIndex, "ptr", piPlugin, "HRESULT")
         return result
     }
 
@@ -326,7 +326,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-removestylusasyncplugin
      */
     RemoveStylusAsyncPlugin(iIndex, ppiPlugin) {
-        result := ComCall(15, this, "uint", iIndex, IStylusAsyncPlugin.Ptr, ppiPlugin, "HRESULT")
+        result := ComCall(15, this, UInt32, iIndex, IStylusAsyncPlugin.Ptr, ppiPlugin, "HRESULT")
         return result
     }
 
@@ -349,7 +349,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylusasyncplugin
      */
     GetStylusAsyncPlugin(iIndex) {
-        result := ComCall(17, this, "uint", iIndex, "ptr*", &ppiPlugin := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, iIndex, "ptr*", &ppiPlugin := 0, "HRESULT")
         return IStylusAsyncPlugin(ppiPlugin)
     }
 
@@ -422,7 +422,7 @@ export default struct IRealTimeStylus extends IUnknown {
     AddCustomStylusDataToQueue(sq, pGuidId, cbData, pbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(21, this, StylusQueue, sq, Guid.Ptr, pGuidId, "uint", cbData, pbDataMarshal, pbData, "HRESULT")
+        result := ComCall(21, this, StylusQueue, sq, Guid.Ptr, pGuidId, UInt32, cbData, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 
@@ -513,7 +513,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-gettabletfromtabletcontextid
      */
     GetTabletFromTabletContextId(tcid) {
-        result := ComCall(27, this, "uint", tcid, "ptr*", &ppiTablet := 0, "HRESULT")
+        result := ComCall(27, this, UInt32, tcid, "ptr*", &ppiTablet := 0, "HRESULT")
         return IInkTablet(ppiTablet)
     }
 
@@ -560,7 +560,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylusforid
      */
     GetStylusForId(_sid) {
-        result := ComCall(30, this, "uint", _sid, "ptr*", &ppiInkCursor := 0, "HRESULT")
+        result := ComCall(30, this, UInt32, _sid, "ptr*", &ppiInkCursor := 0, "HRESULT")
         return IInkCursor(ppiInkCursor)
     }
 
@@ -620,7 +620,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-setdesiredpacketdescription
      */
     SetDesiredPacketDescription(cProperties, pPropertyGuids) {
-        result := ComCall(31, this, "uint", cProperties, Guid.Ptr, pPropertyGuids, "HRESULT")
+        result := ComCall(31, this, UInt32, cProperties, Guid.Ptr, pPropertyGuids, "HRESULT")
         return result
     }
 
@@ -674,7 +674,7 @@ export default struct IRealTimeStylus extends IUnknown {
         pfInkToDeviceScaleYMarshal := pfInkToDeviceScaleY is VarRef ? "float*" : "ptr"
         pcPacketPropertiesMarshal := pcPacketProperties is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(33, this, "uint", tcid, pfInkToDeviceScaleXMarshal, pfInkToDeviceScaleX, pfInkToDeviceScaleYMarshal, pfInkToDeviceScaleY, pcPacketPropertiesMarshal, pcPacketProperties, "ptr*", &ppPacketProperties := 0, "HRESULT")
+        result := ComCall(33, this, UInt32, tcid, pfInkToDeviceScaleXMarshal, pfInkToDeviceScaleX, pfInkToDeviceScaleYMarshal, pfInkToDeviceScaleY, pcPacketPropertiesMarshal, pcPacketProperties, "ptr*", &ppPacketProperties := 0, "HRESULT")
         return ppPacketProperties
     }
 

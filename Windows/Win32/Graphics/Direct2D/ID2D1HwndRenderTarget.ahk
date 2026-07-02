@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D2D1_WINDOW_STATE.ahk" { D2D1_WINDOW_STATE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
 
 /**
  * Renders drawing instructions to a window.

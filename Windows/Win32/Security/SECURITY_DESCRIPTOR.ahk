@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ACL.ahk" { ACL }
 #Import ".\SECURITY_DESCRIPTOR_CONTROL.ahk" { SECURITY_DESCRIPTOR_CONTROL }
+#Import ".\ACL.ahk" { ACL }
 #Import ".\PSID.ahk" { PSID }
 
 /**

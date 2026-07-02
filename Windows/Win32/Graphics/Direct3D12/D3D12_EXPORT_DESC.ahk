@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\D3D12_EXPORT_FLAGS.ahk" { D3D12_EXPORT_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Describes an export from a state subobject such as a DXIL library or a collection state object.

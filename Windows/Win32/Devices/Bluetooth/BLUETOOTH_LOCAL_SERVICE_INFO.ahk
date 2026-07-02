@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BLUETOOTH_ADDRESS.ahk" { BLUETOOTH_ADDRESS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\BLUETOOTH_ADDRESS.ahk" { BLUETOOTH_ADDRESS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

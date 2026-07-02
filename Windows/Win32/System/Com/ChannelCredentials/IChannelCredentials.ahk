@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Com.ChannelCredentials
@@ -61,7 +61,7 @@ export default struct IChannelCredentials extends IDispatch {
         username := username is String ? BSTR.Alloc(username).Value : username
         password := password is String ? BSTR.Alloc(password).Value : password
 
-        result := ComCall(7, this, BSTR, domain, BSTR, username, BSTR, password, "int", impersonationLevel, BOOL, allowNtlm, "HRESULT")
+        result := ComCall(7, this, BSTR, domain, BSTR, username, BSTR, password, Int32, impersonationLevel, BOOL, allowNtlm, "HRESULT")
         return result
     }
 

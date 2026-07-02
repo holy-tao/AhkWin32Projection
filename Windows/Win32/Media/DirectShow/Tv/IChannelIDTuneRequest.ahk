@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
 
 /**
  * Implements methods that support channel requests using a string identifier.

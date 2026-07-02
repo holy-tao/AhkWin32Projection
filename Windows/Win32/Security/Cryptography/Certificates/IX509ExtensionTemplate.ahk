@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IObjectId.ahk" { IObjectId }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IX509Extension.ahk" { IX509Extension }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectId.ahk" { IObjectId }
 
 /**
  * Defines methods and properties that can be used to initialize or retrieve a CertificateTemplate extension.
@@ -107,7 +107,7 @@ export default struct IX509ExtensionTemplate extends IX509Extension {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensiontemplate-initializeencode
      */
     InitializeEncode(pTemplateOid, MajorVersion, MinorVersion) {
-        result := ComCall(12, this, "ptr", pTemplateOid, "int", MajorVersion, "int", MinorVersion, "HRESULT")
+        result := ComCall(12, this, "ptr", pTemplateOid, Int32, MajorVersion, Int32, MinorVersion, "HRESULT")
         return result
     }
 

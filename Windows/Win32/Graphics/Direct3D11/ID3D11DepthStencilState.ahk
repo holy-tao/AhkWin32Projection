@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 #Import ".\D3D11_DEPTH_STENCIL_DESC.ahk" { D3D11_DEPTH_STENCIL_DESC }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 
 /**
  * The depth-stencil-state interface holds a description for depth-stencil state that you can bind to the output-merger stage.

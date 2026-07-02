@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITTerminalSupport.ahk" { ITTerminalSupport }
-#Import ".\IEnumPluggableSuperclassInfo.ahk" { IEnumPluggableSuperclassInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumPluggableTerminalClassInfo.ahk" { IEnumPluggableTerminalClassInfo }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEnumPluggableSuperclassInfo.ahk" { IEnumPluggableSuperclassInfo }
+#Import ".\ITTerminalSupport.ahk" { ITTerminalSupport }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITTerminalSupport2 interface is derived from the ITTerminalSupport interface. ITTerminalSupport2 supports the retrieval of information about pluggable terminal classes and superclasses by C, C++, and scripting applications.
@@ -101,7 +101,7 @@ export default struct ITTerminalSupport2 extends ITTerminalSupport {
         bstrTerminalSuperclass := bstrTerminalSuperclass is String ? BSTR.Alloc(bstrTerminalSuperclass).Value : bstrTerminalSuperclass
 
         pVariant := VARIANT()
-        result := ComCall(15, this, BSTR, bstrTerminalSuperclass, "int", lMediaType, VARIANT.Ptr, pVariant, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrTerminalSuperclass, Int32, lMediaType, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -119,7 +119,7 @@ export default struct ITTerminalSupport2 extends ITTerminalSupport {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport2-enumeratepluggableterminalclasses
      */
     EnumeratePluggableTerminalClasses(iidTerminalSuperclass, lMediaType) {
-        result := ComCall(16, this, Guid, iidTerminalSuperclass, "int", lMediaType, "ptr*", &ppClassEnumerator := 0, "HRESULT")
+        result := ComCall(16, this, Guid, iidTerminalSuperclass, Int32, lMediaType, "ptr*", &ppClassEnumerator := 0, "HRESULT")
         return IEnumPluggableTerminalClassInfo(ppClassEnumerator)
     }
 

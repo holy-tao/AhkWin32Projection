@@ -2,13 +2,13 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISchemaComplexType.ahk" { ISchemaComplexType }
-#Import ".\ISchemaParticle.ahk" { ISchemaParticle }
-#Import ".\SCHEMADERIVATIONMETHOD.ahk" { SCHEMADERIVATIONMETHOD }
-#Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
 #Import ".\ISchemaType.ahk" { ISchemaType }
+#Import ".\ISchemaComplexType.ahk" { ISchemaComplexType }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISchemaParticle.ahk" { ISchemaParticle }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
+#Import ".\SCHEMADERIVATIONMETHOD.ahk" { SCHEMADERIVATIONMETHOD }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

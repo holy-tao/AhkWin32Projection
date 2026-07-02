@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Direct2D\Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\Direct2D\Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
 
 /**
  * Data for a single glyph from GetGlyphImageData.

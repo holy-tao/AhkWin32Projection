@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISyncMgrEvent.ahk" { ISyncMgrEvent }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumSyncMgrEvents.ahk" { IEnumSyncMgrEvents }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumSyncMgrEvents.ahk" { IEnumSyncMgrEvents }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that allow a handler to provide its own event store and manage its own sync events, instead of using the default Sync Center event store. These events are displayed in the Sync Results folder.
@@ -104,7 +104,7 @@ export default struct ISyncMgrEventStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgreventstore-removeevent
      */
     RemoveEvent(pguidEventIDs, cEvents) {
-        result := ComCall(6, this, Guid.Ptr, pguidEventIDs, "uint", cEvents, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pguidEventIDs, UInt32, cEvents, "HRESULT")
         return result
     }
 

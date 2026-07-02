@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ProofOfPossessionCookieInfo.ahk" { ProofOfPossessionCookieInfo }
 
 /**
@@ -51,7 +51,7 @@ export default struct IProofOfPossessionCookieInfoManager3 extends IUnknown {
         cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
         cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", uri, "uint", options, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", uri, UInt32, options, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
         return result
     }
 

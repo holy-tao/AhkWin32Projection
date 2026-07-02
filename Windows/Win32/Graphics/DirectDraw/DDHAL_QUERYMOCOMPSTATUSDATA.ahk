@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
+#Import ".\LPDDHALMOCOMPCB_QUERYSTATUS.ahk" { LPDDHALMOCOMPCB_QUERYSTATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 
 /**
@@ -20,6 +21,6 @@ export default struct DDHAL_QUERYMOCOMPSTATUSDATA {
 
     ddRVal : HRESULT
 
-    QueryMoCompStatus : IntPtr
+    QueryMoCompStatus : LPDDHALMOCOMPCB_QUERYSTATUS
 
 }

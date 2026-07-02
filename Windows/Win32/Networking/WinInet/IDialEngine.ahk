@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDialEventSink.ahk" { IDialEventSink }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -98,7 +98,7 @@ export default struct IDialEngine extends IUnknown {
         pwzProperty := pwzProperty is String ? StrPtr(pwzProperty) : pwzProperty
         pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
-        result := ComCall(4, this, "ptr", pwzProperty, "ptr", pwzValue, "uint", dwBufSize, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzProperty, "ptr", pwzValue, UInt32, dwBufSize, "HRESULT")
         return result
     }
 

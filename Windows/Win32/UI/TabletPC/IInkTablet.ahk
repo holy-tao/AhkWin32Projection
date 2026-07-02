@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TabletPropertyMetricUnit.ahk" { TabletPropertyMetricUnit }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\TabletHardwareCapabilities.ahk" { TabletHardwareCapabilities }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkRectangle.ahk" { IInkRectangle }
-#Import ".\TabletPropertyMetricUnit.ahk" { TabletPropertyMetricUnit }
 
 /**
  * Represents the digitizer device of Tablet PC that receives tablet device messages or events.

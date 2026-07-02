@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\IFsrmAction.ahk" { IFsrmAction }
-#Import ".\IFsrmActionCommand.ahk" { IFsrmActionCommand }
-#Import ".\FsrmActionType.ahk" { FsrmActionType }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 #Import ".\FsrmFileManagementType.ahk" { FsrmFileManagementType }
-#Import ".\IFsrmObject.ahk" { IFsrmObject }
-#Import ".\IFsrmPropertyCondition.ahk" { IFsrmPropertyCondition }
+#Import ".\FsrmActionType.ahk" { FsrmActionType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
+#Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFsrmActionCommand.ahk" { IFsrmActionCommand }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmPropertyCondition.ahk" { IFsrmPropertyCondition }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Defines a file management job.
@@ -576,7 +576,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_logging
      */
     put_Logging(loggingFlags) {
-        result := ComCall(25, this, "int", loggingFlags, "HRESULT")
+        result := ComCall(25, this, Int32, loggingFlags, "HRESULT")
         return result
     }
 
@@ -707,7 +707,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_dayssincefilecreated
      */
     put_DaysSinceFileCreated(daysSinceCreation) {
-        result := ComCall(33, this, "int", daysSinceCreation, "HRESULT")
+        result := ComCall(33, this, Int32, daysSinceCreation, "HRESULT")
         return result
     }
 
@@ -738,7 +738,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_dayssincefilelastaccessed
      */
     put_DaysSinceFileLastAccessed(daysSinceAccess) {
-        result := ComCall(35, this, "int", daysSinceAccess, "HRESULT")
+        result := ComCall(35, this, Int32, daysSinceAccess, "HRESULT")
         return result
     }
 
@@ -769,7 +769,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_dayssincefilelastmodified
      */
     put_DaysSinceFileLastModified(daysSinceModify) {
-        result := ComCall(37, this, "int", daysSinceModify, "HRESULT")
+        result := ComCall(37, this, Int32, daysSinceModify, "HRESULT")
         return result
     }
 
@@ -826,7 +826,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_fromdate
      */
     put_FromDate(fromDate) {
-        result := ComCall(40, this, "double", fromDate, "HRESULT")
+        result := ComCall(40, this, Float64, fromDate, "HRESULT")
         return result
     }
 
@@ -1031,7 +1031,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-waitforcompletion
      */
     WaitForCompletion(waitSeconds) {
-        result := ComCall(52, this, "int", waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
+        result := ComCall(52, this, Int32, waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 
@@ -1098,7 +1098,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-addnotification
      */
     AddNotification(days) {
-        result := ComCall(54, this, "int", days, "HRESULT")
+        result := ComCall(54, this, Int32, days, "HRESULT")
         return result
     }
 
@@ -1111,7 +1111,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-deletenotification
      */
     DeleteNotification(days) {
-        result := ComCall(55, this, "int", days, "HRESULT")
+        result := ComCall(55, this, Int32, days, "HRESULT")
         return result
     }
 
@@ -1123,7 +1123,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-modifynotification
      */
     ModifyNotification(days, newDays) {
-        result := ComCall(56, this, "int", days, "int", newDays, "HRESULT")
+        result := ComCall(56, this, Int32, days, Int32, newDays, "HRESULT")
         return result
     }
 
@@ -1146,7 +1146,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createnotificationaction
      */
     CreateNotificationAction(days, actionType) {
-        result := ComCall(57, this, "int", days, FsrmActionType, actionType, "ptr*", &action := 0, "HRESULT")
+        result := ComCall(57, this, Int32, days, FsrmActionType, actionType, "ptr*", &action := 0, "HRESULT")
         return IFsrmAction(action)
     }
 
@@ -1157,7 +1157,7 @@ export default struct IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-enumnotificationactions
      */
     EnumNotificationActions(days) {
-        result := ComCall(58, this, "int", days, "ptr*", &actions := 0, "HRESULT")
+        result := ComCall(58, this, Int32, days, "ptr*", &actions := 0, "HRESULT")
         return IFsrmCollection(actions)
     }
 

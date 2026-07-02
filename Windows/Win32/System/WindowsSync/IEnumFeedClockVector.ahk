@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IFeedClockVectorElement.ahk" { IFeedClockVectorElement }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates the clock vector elements that are stored in a clock vector that contains FeedSync information.
@@ -51,7 +51,7 @@ export default struct IEnumFeedClockVector extends IUnknown {
     Next(cClockVectorElements, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cClockVectorElements, "ptr*", &ppiClockVectorElements := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cClockVectorElements, "ptr*", &ppiClockVectorElements := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return IFeedClockVectorElement(ppiClockVectorElements)
     }
 
@@ -99,7 +99,7 @@ export default struct IEnumFeedClockVector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumfeedclockvector-skip
      */
     Skip(cSyncVersions) {
-        result := ComCall(4, this, "uint", cSyncVersions, "HRESULT")
+        result := ComCall(4, this, UInt32, cSyncVersions, "HRESULT")
         return result
     }
 

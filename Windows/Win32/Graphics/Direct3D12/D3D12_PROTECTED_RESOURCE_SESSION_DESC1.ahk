@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_PROTECTED_RESOURCE_SESSION_FLAGS.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_FLAGS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_PROTECTED_RESOURCE_SESSION_FLAGS.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_FLAGS }
 
 /**
  * Describes flags and protection type for a protected resource session, per adapter.

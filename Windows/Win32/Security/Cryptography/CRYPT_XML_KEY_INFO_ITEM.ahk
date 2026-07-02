@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_XML_KEYINFO_TYPE.ahk" { CRYPT_XML_KEYINFO_TYPE }
-#Import ".\CRYPT_XML_X509DATA_ITEM.ahk" { CRYPT_XML_X509DATA_ITEM }
+#Import ".\CRYPT_XML_X509DATA.ahk" { CRYPT_XML_X509DATA }
+#Import ".\CRYPT_XML_KEY_DSA_KEY_VALUE.ahk" { CRYPT_XML_KEY_DSA_KEY_VALUE }
 #Import ".\CRYPT_XML_KEY_VALUE.ahk" { CRYPT_XML_KEY_VALUE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPT_XML_KEY_VALUE_TYPE.ahk" { CRYPT_XML_KEY_VALUE_TYPE }
-#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
-#Import ".\CRYPT_XML_DATA_BLOB.ahk" { CRYPT_XML_DATA_BLOB }
-#Import ".\CRYPT_XML_KEY_ECDSA_KEY_VALUE.ahk" { CRYPT_XML_KEY_ECDSA_KEY_VALUE }
-#Import ".\CRYPT_XML_KEY_DSA_KEY_VALUE.ahk" { CRYPT_XML_KEY_DSA_KEY_VALUE }
 #Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
+#Import ".\CRYPT_XML_DATA_BLOB.ahk" { CRYPT_XML_DATA_BLOB }
+#Import ".\CRYPT_XML_KEY_VALUE_TYPE.ahk" { CRYPT_XML_KEY_VALUE_TYPE }
+#Import ".\CRYPT_XML_X509DATA_ITEM.ahk" { CRYPT_XML_X509DATA_ITEM }
+#Import ".\CRYPT_XML_KEYINFO_TYPE.ahk" { CRYPT_XML_KEYINFO_TYPE }
+#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
 #Import ".\CRYPT_XML_KEY_RSA_KEY_VALUE.ahk" { CRYPT_XML_KEY_RSA_KEY_VALUE }
-#Import ".\CRYPT_XML_X509DATA.ahk" { CRYPT_XML_X509DATA }
+#Import ".\CRYPT_XML_KEY_ECDSA_KEY_VALUE.ahk" { CRYPT_XML_KEY_ECDSA_KEY_VALUE }
 
 /**
  * Encapsulates key information data that corresponds to a KeyInfo element. The KeyInfo element enables the recipient to obtain the key needed to validate the signature.

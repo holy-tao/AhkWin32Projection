@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\System\Ole\IOleClientSite.ahk" { IOleClientSite }
-#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
 #Import ".\REOBJECT_FLAGS.ahk" { REOBJECT_FLAGS }
-#Import "..\..\..\System\Ole\IOleObject.ahk" { IOleObject }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\..\..\System\Ole\IOleClientSite.ahk" { IOleClientSite }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Ole\IOleObject.ahk" { IOleObject }
 
 /**
  * Contains information about an OLE or image object in a rich edit control.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for enumerating through running packages.
@@ -70,7 +70,7 @@ export default struct IMtsGrp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsgrp-item
      */
     Item(lIndex) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", &ppUnkDispatcher := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, "ptr*", &ppUnkDispatcher := 0, "HRESULT")
         return IUnknown(ppUnkDispatcher)
     }
 

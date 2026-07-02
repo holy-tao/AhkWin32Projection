@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import "..\..\Graphics\Gdi\LOGPALETTE.ahk" { LOGPALETTE }
-#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\Com\DVASPECT.ahk" { DVASPECT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\..\Graphics\Gdi\LOGPALETTE.ahk" { LOGPALETTE }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * Enables an object to display itself directly without passing a data object to the caller. In addition, this interface can create and manage a connection with an advise sink so the caller can be notified of changes in the view object.
@@ -158,7 +158,7 @@ export default struct IViewObject extends IUnknown {
     Draw(dwDrawAspect, lindex, pvAspect, ptd, hdcTargetDev, hdcDraw, lprcBounds, lprcWBounds, pfnContinue, dwContinue) {
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcTargetDev, HDC, hdcDraw, RECTL.Ptr, lprcBounds, RECTL.Ptr, lprcWBounds, "ptr", pfnContinue, "ptr", dwContinue, "HRESULT")
+        result := ComCall(3, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcTargetDev, HDC, hdcDraw, RECTL.Ptr, lprcBounds, RECTL.Ptr, lprcWBounds, IntPtr, pfnContinue, IntPtr, dwContinue, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IViewObject extends IUnknown {
     GetColorSet(dwDrawAspect, lindex, pvAspect, ptd, hicTargetDev) {
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hicTargetDev, "ptr*", &ppColorSet := 0, "HRESULT")
+        result := ComCall(4, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hicTargetDev, "ptr*", &ppColorSet := 0, "HRESULT")
         return ppColorSet
     }
 
@@ -202,7 +202,7 @@ export default struct IViewObject extends IUnknown {
     Freeze(dwDrawAspect, lindex, pvAspect) {
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "uint*", &pdwFreeze := 0, "HRESULT")
+        result := ComCall(5, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, "uint*", &pdwFreeze := 0, "HRESULT")
         return pdwFreeze
     }
 
@@ -231,7 +231,7 @@ export default struct IViewObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-unfreeze
      */
     Unfreeze(dwFreeze) {
-        result := ComCall(6, this, "uint", dwFreeze, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFreeze, "HRESULT")
         return result
     }
 
@@ -334,7 +334,7 @@ export default struct IViewObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-setadvise
      */
     SetAdvise(aspects, _advf, pAdvSink) {
-        result := ComCall(7, this, DVASPECT, aspects, "uint", _advf, "ptr", pAdvSink, "HRESULT")
+        result := ComCall(7, this, DVASPECT, aspects, UInt32, _advf, "ptr", pAdvSink, "HRESULT")
         return result
     }
 

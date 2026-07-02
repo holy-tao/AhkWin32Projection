@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.TextServices
@@ -16,7 +16,7 @@
  * @returns {BOOL} 
  */
 export DoMsCtfMonitor(dwFlags, hEventForServiceStop) {
-    result := DllCall("MsCtfMonitor.dll\DoMsCtfMonitor", "uint", dwFlags, HANDLE, hEventForServiceStop, BOOL)
+    result := DllCall("MsCtfMonitor.dll\DoMsCtfMonitor", UInt32, dwFlags, HANDLE, hEventForServiceStop, BOOL)
     return result
 }
 
@@ -70,7 +70,7 @@ export DoMsCtfMonitor(dwFlags, hEventForServiceStop) {
  * @since windows6.0.6000
  */
 export InitLocalMsCtfMonitor(dwFlags) {
-    result := DllCall("MsCtfMonitor.dll\InitLocalMsCtfMonitor", "uint", dwFlags, "HRESULT")
+    result := DllCall("MsCtfMonitor.dll\InitLocalMsCtfMonitor", UInt32, dwFlags, "HRESULT")
     return result
 }
 

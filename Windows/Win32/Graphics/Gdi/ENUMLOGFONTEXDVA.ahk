@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\DESIGNVECTOR.ahk" { DESIGNVECTOR }
 #Import ".\LOGFONTA.ahk" { LOGFONTA }
 #Import ".\ENUMLOGFONTEXA.ahk" { ENUMLOGFONTEXA }
-#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
-#Import ".\DESIGNVECTOR.ahk" { DESIGNVECTOR }
-#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
 #Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

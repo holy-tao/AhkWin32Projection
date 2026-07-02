@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_INTERCONNECT.ahk" { VDS_INTERCONNECT }
-#Import ".\VDS_STORAGE_IDENTIFIER.ahk" { VDS_STORAGE_IDENTIFIER }
 #Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_INTERCONNECT.ahk" { VDS_INTERCONNECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\VDS_STORAGE_DEVICE_ID_DESCRIPTOR.ahk" { VDS_STORAGE_DEVICE_ID_DESCRIPTOR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_STORAGE_IDENTIFIER.ahk" { VDS_STORAGE_IDENTIFIER }
 
 /**
  * Defines information about a LUN or disk. Applications can use this structure to uniquely identify a LUN at all times.

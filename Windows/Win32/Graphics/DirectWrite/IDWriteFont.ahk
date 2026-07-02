@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
+#Import ".\IDWriteFontFamily.ahk" { IDWriteFontFamily }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import ".\DWRITE_INFORMATIONAL_STRING_ID.ahk" { DWRITE_INFORMATIONAL_STRING_ID }
 #Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
-#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
-#Import ".\IDWriteFontFamily.ahk" { IDWriteFontFamily }
-#Import ".\DWRITE_INFORMATIONAL_STRING_ID.ahk" { DWRITE_INFORMATIONAL_STRING_ID }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 
 /**
  * Represents a physical font in a font collection. This interface is used to create font faces from physical fonts, or to retrieve information such as font face metrics or face names from existing font faces.
@@ -190,7 +190,7 @@ export default struct IDWriteFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-hascharacter
      */
     HasCharacter(unicodeValue) {
-        result := ComCall(12, this, "uint", unicodeValue, BOOL.Ptr, &exists := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, unicodeValue, BOOL.Ptr, &exists := 0, "HRESULT")
         return exists
     }
 

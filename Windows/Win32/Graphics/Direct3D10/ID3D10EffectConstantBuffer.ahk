@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10ShaderResourceView.ahk" { ID3D10ShaderResourceView }
+#Import ".\ID3D10Buffer.ahk" { ID3D10Buffer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
-#Import ".\ID3D10Buffer.ahk" { ID3D10Buffer }
+#Import ".\ID3D10ShaderResourceView.ahk" { ID3D10ShaderResourceView }
 
 /**
  * A constant-buffer interface accesses constant buffers or texture buffers.

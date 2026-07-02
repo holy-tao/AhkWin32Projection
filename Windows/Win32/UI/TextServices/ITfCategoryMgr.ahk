@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfCategoryMgr interface manages categories of objects for text services. The TSF manager implements this interface.
@@ -174,7 +174,7 @@ export default struct ITfCategoryMgr extends IUnknown {
         ppcatidListMarshal := ppcatidList is VarRef ? "ptr*" : "ptr"
 
         pcatid := Guid()
-        result := ComCall(7, this, Guid.Ptr, rguid, Guid.Ptr, pcatid, ppcatidListMarshal, ppcatidList, "uint", ulCount, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, rguid, Guid.Ptr, pcatid, ppcatidListMarshal, ppcatidList, UInt32, ulCount, "HRESULT")
         return pcatid
     }
 
@@ -230,7 +230,7 @@ export default struct ITfCategoryMgr extends IUnknown {
     RegisterGUIDDescription(rclsid, rguid, pchDesc, cch) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
 
-        result := ComCall(8, this, Guid.Ptr, rclsid, Guid.Ptr, rguid, "ptr", pchDesc, "uint", cch, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rclsid, Guid.Ptr, rguid, "ptr", pchDesc, UInt32, cch, "HRESULT")
         return result
     }
 
@@ -327,7 +327,7 @@ export default struct ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registerguiddword
      */
     RegisterGUIDDWORD(rclsid, rguid, dw) {
-        result := ComCall(11, this, Guid.Ptr, rclsid, Guid.Ptr, rguid, "uint", dw, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, rclsid, Guid.Ptr, rguid, UInt32, dw, "HRESULT")
         return result
     }
 
@@ -406,7 +406,7 @@ export default struct ITfCategoryMgr extends IUnknown {
      */
     GetGUID(guidatom) {
         pguid := Guid()
-        result := ComCall(15, this, "uint", guidatom, Guid.Ptr, pguid, "HRESULT")
+        result := ComCall(15, this, UInt32, guidatom, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -420,7 +420,7 @@ export default struct ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-isequaltfguidatom
      */
     IsEqualTfGuidAtom(guidatom, rguid) {
-        result := ComCall(16, this, "uint", guidatom, Guid.Ptr, rguid, BOOL.Ptr, &pfEqual := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, guidatom, Guid.Ptr, rguid, BOOL.Ptr, &pfEqual := 0, "HRESULT")
         return pfEqual
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -1403,7 +1403,7 @@ export default struct IHTMLCurrentStyle extends IDispatch {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
         AttributeValue := VARIANT()
-        result := ComCall(70, this, BSTR, strAttributeName, "int", lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
+        result := ComCall(70, this, BSTR, strAttributeName, Int32, lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
         return AttributeValue
     }
 

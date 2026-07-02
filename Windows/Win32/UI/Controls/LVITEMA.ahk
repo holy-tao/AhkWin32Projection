@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LIST_VIEW_ITEM_STATE_FLAGS.ahk" { LIST_VIEW_ITEM_STATE_FLAGS }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk" { LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS }
 #Import ".\LIST_VIEW_ITEM_FLAGS.ahk" { LIST_VIEW_ITEM_FLAGS }
+#Import ".\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk" { LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LIST_VIEW_ITEM_STATE_FLAGS.ahk" { LIST_VIEW_ITEM_STATE_FLAGS }
 
 /**
  * Specifies or receives the attributes of a list-view item. This structure has been updated to support a new mask value (LVIF_INDENT) that enables item indenting. This structure supersedes the LV_ITEM structure. (ANSI)

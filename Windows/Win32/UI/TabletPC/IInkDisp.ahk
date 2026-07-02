@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import ".\InkExtractFlags.ahk" { InkExtractFlags }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\InkClipboardFormats.ahk" { InkClipboardFormats }
-#Import ".\InkExtractFlags.ahk" { InkExtractFlags }
-#Import ".\InkPersistenceCompressionMode.ahk" { InkPersistenceCompressionMode }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import ".\InkClipboardModes.ahk" { InkClipboardModes }
-#Import ".\InkPersistenceFormat.ahk" { InkPersistenceFormat }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IInkRectangle.ahk" { IInkRectangle }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IInkCustomStrokes.ahk" { IInkCustomStrokes }
-#Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
 #Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
-#Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
+#Import ".\InkClipboardModes.ahk" { InkClipboardModes }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
+#Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\InkPersistenceFormat.ahk" { InkPersistenceFormat }
+#Import ".\InkPersistenceCompressionMode.ahk" { InkPersistenceCompressionMode }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * . (IInkDisp)
@@ -540,7 +540,7 @@ export default struct IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-hittestcircle
      */
     HitTestCircle(X, Y, radius) {
-        result := ComCall(19, this, "int", X, "int", Y, "float", radius, "ptr*", &Strokes := 0, "HRESULT")
+        result := ComCall(19, this, Int32, X, Int32, Y, Float32, radius, "ptr*", &Strokes := 0, "HRESULT")
         return IInkStrokes(Strokes)
     }
 
@@ -554,7 +554,7 @@ export default struct IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-hittestwithrectangle
      */
     HitTestWithRectangle(SelectionRectangle, IntersectPercent) {
-        result := ComCall(20, this, "ptr", SelectionRectangle, "float", IntersectPercent, "ptr*", &Strokes := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", SelectionRectangle, Float32, IntersectPercent, "ptr*", &Strokes := 0, "HRESULT")
         return IInkStrokes(Strokes)
     }
 
@@ -571,7 +571,7 @@ export default struct IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-hittestwithlasso
      */
     HitTestWithLasso(_Points, IntersectPercent, LassoPoints) {
-        result := ComCall(21, this, VARIANT, _Points, "float", IntersectPercent, VARIANT.Ptr, LassoPoints, "ptr*", &Strokes := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT, _Points, Float32, IntersectPercent, VARIANT.Ptr, LassoPoints, "ptr*", &Strokes := 0, "HRESULT")
         return IInkStrokes(Strokes)
     }
 
@@ -592,7 +592,7 @@ export default struct IInkDisp extends IDispatch {
         PointOnStrokeMarshal := PointOnStroke is VarRef ? "float*" : "ptr"
         DistanceFromPacketMarshal := DistanceFromPacket is VarRef ? "float*" : "ptr"
 
-        result := ComCall(22, this, "int", X, "int", Y, PointOnStrokeMarshal, PointOnStroke, DistanceFromPacketMarshal, DistanceFromPacket, "ptr*", &Stroke := 0, "HRESULT")
+        result := ComCall(22, this, Int32, X, Int32, Y, PointOnStrokeMarshal, PointOnStroke, DistanceFromPacketMarshal, DistanceFromPacket, "ptr*", &Stroke := 0, "HRESULT")
         return IInkStrokeDisp(Stroke)
     }
 
@@ -995,7 +995,7 @@ export default struct IInkDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-clipboardpaste
      */
     ClipboardPaste(x, y, DataObject) {
-        result := ComCall(31, this, "int", x, "int", y, "ptr", DataObject, "ptr*", &Strokes := 0, "HRESULT")
+        result := ComCall(31, this, Int32, x, Int32, y, "ptr", DataObject, "ptr*", &Strokes := 0, "HRESULT")
         return IInkStrokes(Strokes)
     }
 

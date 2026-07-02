@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\_wireSAFEARRAY.ahk" { _wireSAFEARRAY }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\FLAGGED_WORD_BLOB.ahk" { FLAGGED_WORD_BLOB }
 #Import ".\_wireBRECORD.ahk" { _wireBRECORD }
-#Import ".\_wireSAFEARRAY.ahk" { _wireSAFEARRAY }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.Ole

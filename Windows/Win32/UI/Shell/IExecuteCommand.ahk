@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that set a given state or parameter related to the command verb, as well as a method to invoke that verb.
@@ -65,7 +65,7 @@ export default struct IExecuteCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommand-setkeystate
      */
     SetKeyState(grfKeyState) {
-        result := ComCall(3, this, "uint", grfKeyState, "HRESULT")
+        result := ComCall(3, this, UInt32, grfKeyState, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IExecuteCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommand-setshowwindow
      */
     SetShowWindow(nShow) {
-        result := ComCall(6, this, "int", nShow, "HRESULT")
+        result := ComCall(6, this, Int32, nShow, "HRESULT")
         return result
     }
 

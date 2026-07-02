@@ -1,37 +1,37 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\IDWriteGdiInterop.ahk" { IDWriteGdiInterop }
+#Import ".\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import "..\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
+#Import ".\IDWriteGlyphRunAnalysis.ahk" { IDWriteGlyphRunAnalysis }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDWriteFontCollectionLoader.ahk" { IDWriteFontCollectionLoader }
+#Import ".\IDWriteTypography.ahk" { IDWriteTypography }
+#Import ".\DWRITE_NUMBER_SUBSTITUTION_METHOD.ahk" { DWRITE_NUMBER_SUBSTITUTION_METHOD }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
 #Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
-#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
-#Import ".\IDWriteTextLayout.ahk" { IDWriteTextLayout }
-#Import ".\IDWriteTextFormat.ahk" { IDWriteTextFormat }
-#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
-#Import ".\IDWriteGlyphRunAnalysis.ahk" { IDWriteGlyphRunAnalysis }
-#Import ".\DWRITE_NUMBER_SUBSTITUTION_METHOD.ahk" { DWRITE_NUMBER_SUBSTITUTION_METHOD }
-#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDWriteGdiInterop.ahk" { IDWriteGdiInterop }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
-#Import ".\IDWriteTextAnalyzer.ahk" { IDWriteTextAnalyzer }
-#Import ".\IDWriteTypography.ahk" { IDWriteTypography }
-#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
-#Import ".\IDWriteFontCollectionLoader.ahk" { IDWriteFontCollectionLoader }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import "..\Gdi\HMONITOR.ahk" { HMONITOR }
 #Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import ".\IDWriteTextLayout.ahk" { IDWriteTextLayout }
+#Import ".\IDWriteTextAnalyzer.ahk" { IDWriteTextAnalyzer }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 
 /**
  * Used to create all subsequent DirectWrite objects. This interface is the root factory interface for all DirectWrite objects.
@@ -142,7 +142,7 @@ export default struct IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomfontcollection
      */
     CreateCustomFontCollection(collectionLoader, collectionKey, collectionKeySize) {
-        result := ComCall(4, this, "ptr", collectionLoader, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", &_fontCollection := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", collectionLoader, IntPtr, collectionKey, UInt32, collectionKeySize, "ptr*", &_fontCollection := 0, "HRESULT")
         return IDWriteFontCollection(_fontCollection)
     }
 
@@ -229,7 +229,7 @@ export default struct IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomfontfilereference
      */
     CreateCustomFontFileReference(fontFileReferenceKey, fontFileReferenceKeySize, fontFileLoader) {
-        result := ComCall(8, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", fontFileLoader, "ptr*", &fontFile := 0, "HRESULT")
+        result := ComCall(8, this, IntPtr, fontFileReferenceKey, UInt32, fontFileReferenceKeySize, "ptr", fontFileLoader, "ptr*", &fontFile := 0, "HRESULT")
         return IDWriteFontFile(fontFile)
     }
 
@@ -258,7 +258,7 @@ export default struct IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createfontface
      */
     CreateFontFace(fontFaceType, numberOfFiles, fontFiles, faceIndex, fontFaceSimulationFlags) {
-        result := ComCall(9, this, DWRITE_FONT_FACE_TYPE, fontFaceType, "uint", numberOfFiles, IDWriteFontFile.Ptr, fontFiles, "uint", faceIndex, DWRITE_FONT_SIMULATIONS, fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
+        result := ComCall(9, this, DWRITE_FONT_FACE_TYPE, fontFaceType, UInt32, numberOfFiles, IDWriteFontFile.Ptr, fontFiles, UInt32, faceIndex, DWRITE_FONT_SIMULATIONS, fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
         return IDWriteFontFace(fontFace)
     }
 
@@ -312,7 +312,7 @@ export default struct IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, clearTypeLevel, pixelGeometry, renderingMode) {
-        result := ComCall(12, this, "float", gamma, "float", enhancedContrast, "float", clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE, renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
+        result := ComCall(12, this, Float32, gamma, Float32, enhancedContrast, Float32, clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE, renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
         return IDWriteRenderingParams(renderingParams)
     }
 
@@ -396,7 +396,7 @@ export default struct IDWriteFactory extends IUnknown {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(15, this, "ptr", fontFamilyName, "ptr", _fontCollection, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STYLE, _fontStyle, DWRITE_FONT_STRETCH, fontStretch, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", fontFamilyName, "ptr", _fontCollection, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STYLE, _fontStyle, DWRITE_FONT_STRETCH, fontStretch, Float32, fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
         return IDWriteTextFormat(textFormat)
     }
 
@@ -449,7 +449,7 @@ export default struct IDWriteFactory extends IUnknown {
     CreateTextLayout(_string, stringLength, textFormat, maxWidth, maxHeight) {
         _string := _string is String ? StrPtr(_string) : _string
 
-        result := ComCall(18, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, "float", maxWidth, "float", maxHeight, "ptr*", &textLayout := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", _string, UInt32, stringLength, "ptr", textFormat, Float32, maxWidth, Float32, maxHeight, "ptr*", &textLayout := 0, "HRESULT")
         return IDWriteTextLayout(textLayout)
     }
 
@@ -493,7 +493,7 @@ export default struct IDWriteFactory extends IUnknown {
     CreateGdiCompatibleTextLayout(_string, stringLength, textFormat, layoutWidth, layoutHeight, pixelsPerDip, transform, useGdiNatural) {
         _string := _string is String ? StrPtr(_string) : _string
 
-        result := ComCall(19, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, "float", layoutWidth, "float", layoutHeight, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, "ptr*", &textLayout := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", _string, UInt32, stringLength, "ptr", textFormat, Float32, layoutWidth, Float32, layoutHeight, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, "ptr*", &textLayout := 0, "HRESULT")
         return IDWriteTextLayout(textLayout)
     }
 
@@ -582,7 +582,7 @@ export default struct IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createglyphrunanalysis
      */
     CreateGlyphRunAnalysis(_glyphRun, pixelsPerDip, transform, renderingMode, measuringMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(23, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        result := ComCall(23, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, Float32, baselineOriginX, Float32, baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 

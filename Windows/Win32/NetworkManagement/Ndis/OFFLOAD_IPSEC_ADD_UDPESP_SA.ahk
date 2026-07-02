@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\OFFLOAD_ALGO_INFO.ahk" { OFFLOAD_ALGO_INFO }
 #Import ".\OFFLOAD_SECURITY_ASSOCIATION.ahk" { OFFLOAD_SECURITY_ASSOCIATION }
+#Import ".\OFFLOAD_OPERATION_E.ahk" { OFFLOAD_OPERATION_E }
 #Import ".\UDP_ENCAP_TYPE.ahk" { UDP_ENCAP_TYPE }
 #Import ".\OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY.ahk" { OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY }
-#Import ".\OFFLOAD_OPERATION_E.ahk" { OFFLOAD_OPERATION_E }
+#Import ".\OFFLOAD_ALGO_INFO.ahk" { OFFLOAD_ALGO_INFO }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
-#Import ".\IMILBitmapEffectOutputConnector.ahk" { IMILBitmapEffectOutputConnector }
 #Import ".\MilRectD.ahk" { MilRectD }
-#Import ".\IMILBitmapEffectGroup.ahk" { IMILBitmapEffectGroup }
+#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMILBitmapEffectGroup.ahk" { IMILBitmapEffectGroup }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMILBitmapEffectOutputConnector.ahk" { IMILBitmapEffectOutputConnector }
 
 /**
  * Exposes methods that define an an out IMILBitmapEffect object.
@@ -92,7 +92,7 @@ export default struct IMILBitmapEffectImpl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectimpl-getinputsource
      */
     GetInputSource(uiIndex) {
-        result := ComCall(5, this, "uint", uiIndex, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, uiIndex, "ptr*", &ppBitmapSource := 0, "HRESULT")
         return IWICBitmapSource(ppBitmapSource)
     }
 
@@ -108,7 +108,7 @@ export default struct IMILBitmapEffectImpl extends IUnknown {
      */
     GetInputSourceBounds(uiIndex) {
         pRect := MilRectD()
-        result := ComCall(6, this, "uint", uiIndex, MilRectD.Ptr, pRect, "HRESULT")
+        result := ComCall(6, this, UInt32, uiIndex, MilRectD.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -131,7 +131,7 @@ export default struct IMILBitmapEffectImpl extends IUnknown {
     GetInputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace) {
         pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, "uint", uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
         return IWICBitmapSource(ppBitmapSource)
     }
 
@@ -154,7 +154,7 @@ export default struct IMILBitmapEffectImpl extends IUnknown {
     GetOutputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace) {
         pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
 
-        result := ComCall(8, this, "uint", uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
         return IWICBitmapSource(ppBitmapSource)
     }
 

@@ -45,7 +45,7 @@ export default struct ID3D12VideoEncodeCommandList3 extends ID3D12VideoEncodeCom
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist3-barrier
      */
     Barrier(NumBarrierGroups, pBarrierGroups) {
-        ComCall(29, this, "uint", NumBarrierGroups, D3D12_BARRIER_GROUP.Ptr, pBarrierGroups)
+        ComCall(29, this, UInt32, NumBarrierGroups, D3D12_BARRIER_GROUP.Ptr, pBarrierGroups)
     }
 
     Query(iid) {

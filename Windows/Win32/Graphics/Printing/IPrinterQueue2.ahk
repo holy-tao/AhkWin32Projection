@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IPrinterQueue.ahk" { IPrinterQueue }
 #Import ".\IPrinterExtensionAsyncOperation.ahk" { IPrinterExtensionAsyncOperation }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IPrinterQueueView.ahk" { IPrinterQueueView }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPrinterBidiSetRequestCallback.ahk" { IPrinterBidiSetRequestCallback }
-#Import ".\IPrinterQueue.ahk" { IPrinterQueue }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -60,7 +60,7 @@ export default struct IPrinterQueue2 extends IPrinterQueue {
      * @returns {IPrinterQueueView} 
      */
     GetPrinterQueueView(ulViewOffset, ulViewSize) {
-        result := ComCall(12, this, "uint", ulViewOffset, "uint", ulViewSize, "ptr*", &ppJobView := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, ulViewOffset, UInt32, ulViewSize, "ptr*", &ppJobView := 0, "HRESULT")
         return IPrinterQueueView(ppJobView)
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 #Import ".\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 
 /**
  * A view interface specifies the parts of a resource the pipeline can access during rendering. (ID3D11View)

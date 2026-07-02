@@ -42,7 +42,7 @@ export default struct IHTMLTableSection2 extends IDispatch {
      * @returns {IDispatch} 
      */
     moveRow(indexFrom, indexTo) {
-        result := ComCall(7, this, "int", indexFrom, "int", indexTo, "ptr*", &row := 0, "HRESULT")
+        result := ComCall(7, this, Int32, indexFrom, Int32, indexTo, "ptr*", &row := 0, "HRESULT")
         return IDispatch(row)
     }
 

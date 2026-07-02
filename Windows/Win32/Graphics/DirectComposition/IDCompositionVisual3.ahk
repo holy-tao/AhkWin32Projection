@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Direct2D\Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import ".\IDCompositionVisualDebug.ahk" { IDCompositionVisualDebug }
 #Import ".\DCOMPOSITION_DEPTH_MODE.ahk" { DCOMPOSITION_DEPTH_MODE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
-#Import "..\Direct2D\Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
 
 /**
  * Represents one DirectComposition visual in a visual tree. (IDCompositionVisual3)
@@ -88,7 +88,7 @@ export default struct IDCompositionVisual3 extends IDCompositionVisualDebug {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-setoffsetz(float)
      */
     SetOffsetZ1(offsetZ) {
-        result := ComCall(28, this, "float", offsetZ, "HRESULT")
+        result := ComCall(28, this, Float32, offsetZ, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IDCompositionVisual3 extends IDCompositionVisualDebug {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-setopacity(idcompositionanimation)
      */
     SetOpacity1(opacity) {
-        result := ComCall(30, this, "float", opacity, "HRESULT")
+        result := ComCall(30, this, Float32, opacity, "HRESULT")
         return result
     }
 

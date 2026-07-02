@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WcmDataType.ahk" { WcmDataType }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\WcmRestrictionFacets.ahk" { WcmRestrictionFacets }
-#Import ".\IItemEnumerator.ahk" { IItemEnumerator }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\WcmSettingType.ahk" { WcmSettingType }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WcmRestrictionFacets.ahk" { WcmRestrictionFacets }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WcmSettingType.ahk" { WcmSettingType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WcmDataType.ahk" { WcmDataType }
+#Import ".\IItemEnumerator.ahk" { IItemEnumerator }
 
 /**
  * Navigates the settings tree, retrieves the metadata for a particular setting, and retrieves or modify its value.
@@ -223,7 +223,7 @@ export default struct ISettingsItem extends IUnknown {
     SetValueRaw(DataType, Data, DataSize) {
         DataMarshal := Data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "int", DataType, DataMarshal, Data, "uint", DataSize, "HRESULT")
+        result := ComCall(9, this, Int32, DataType, DataMarshal, Data, UInt32, DataSize, "HRESULT")
         return result
     }
 

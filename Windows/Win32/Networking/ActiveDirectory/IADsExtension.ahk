@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\EXCEPINFO.ahk" { EXCEPINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\DISPPARAMS.ahk" { DISPPARAMS }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\EXCEPINFO.ahk" { EXCEPINFO }
 
 /**
  * The IADsExtension interface forms the basis of the ADSI application extension model.
@@ -56,7 +56,7 @@ export default struct IADsExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsextension-operate
      */
     Operate(dwCode, varData1, varData2, varData3) {
-        result := ComCall(3, this, "uint", dwCode, VARIANT, varData1, VARIANT, varData2, VARIANT, varData3, "HRESULT")
+        result := ComCall(3, this, UInt32, dwCode, VARIANT, varData1, VARIANT, varData2, VARIANT, varData3, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IADsExtension extends IUnknown {
     PrivateGetIDsOfNames(riid, rgszNames, cNames, lcid) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgDispid := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, UInt32, cNames, UInt32, lcid, "int*", &rgDispid := 0, "HRESULT")
         return rgDispid
     }
 
@@ -96,7 +96,7 @@ export default struct IADsExtension extends IUnknown {
     PrivateInvoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", dispidMember, Guid.Ptr, riid, "uint", lcid, "ushort", wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(5, this, Int32, dispidMember, Guid.Ptr, riid, UInt32, lcid, UInt16, wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 

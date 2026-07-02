@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMAGEINFO.ahk" { IMAGEINFO }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\IMAGE_LIST_ITEM_FLAGS.ahk" { IMAGE_LIST_ITEM_FLAGS }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\IMAGEINFO.ahk" { IMAGEINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Exposes methods that manipulate and interact with image lists.
@@ -116,7 +116,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-replaceicon
      */
     ReplaceIcon(i, _hicon) {
-        result := ComCall(4, this, "int", i, HICON, _hicon, "int*", &pi := 0, "HRESULT")
+        result := ComCall(4, this, Int32, i, HICON, _hicon, "int*", &pi := 0, "HRESULT")
         return pi
     }
 
@@ -142,7 +142,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-setoverlayimage
      */
     SetOverlayImage(iImage, _iOverlay) {
-        result := ComCall(5, this, "int", iImage, "int", _iOverlay, "HRESULT")
+        result := ComCall(5, this, Int32, iImage, Int32, _iOverlay, "HRESULT")
         return result
     }
 
@@ -167,7 +167,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-replace
      */
     Replace(i, hbmImage, hbmMask) {
-        result := ComCall(6, this, "int", i, HBITMAP, hbmImage, HBITMAP, hbmMask, "HRESULT")
+        result := ComCall(6, this, Int32, i, HBITMAP, hbmImage, HBITMAP, hbmMask, "HRESULT")
         return result
     }
 
@@ -232,7 +232,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-remove
      */
     Remove(i) {
-        result := ComCall(9, this, "int", i, "HRESULT")
+        result := ComCall(9, this, Int32, i, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct IImageList extends IUnknown {
      */
     GetIcon(i, flags) {
         picon := HICON.Owned()
-        result := ComCall(10, this, "int", i, "uint", flags, HICON.Ptr, picon, "HRESULT")
+        result := ComCall(10, this, Int32, i, UInt32, flags, HICON.Ptr, picon, "HRESULT")
         return picon
     }
 
@@ -274,7 +274,7 @@ export default struct IImageList extends IUnknown {
      */
     GetImageInfo(i) {
         pImageInfo := IMAGEINFO()
-        result := ComCall(11, this, "int", i, IMAGEINFO.Ptr, pImageInfo, "HRESULT")
+        result := ComCall(11, this, Int32, i, IMAGEINFO.Ptr, pImageInfo, "HRESULT")
         return pImageInfo
     }
 
@@ -320,7 +320,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-copy
      */
     Copy(iDst, punkSrc, iSrc, uFlags) {
-        result := ComCall(12, this, "int", iDst, "ptr", punkSrc, "int", iSrc, "uint", uFlags, "HRESULT")
+        result := ComCall(12, this, Int32, iDst, "ptr", punkSrc, Int32, iSrc, UInt32, uFlags, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-merge
      */
     Merge(i1, punk2, i2, dx, dy, riid) {
-        result := ComCall(13, this, "int", i1, "ptr", punk2, "int", i2, "int", dx, "int", dy, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(13, this, Int32, i1, "ptr", punk2, Int32, i2, Int32, dx, Int32, dy, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -389,7 +389,7 @@ export default struct IImageList extends IUnknown {
      */
     GetImageRect(i) {
         prc := RECT()
-        result := ComCall(15, this, "int", i, RECT.Ptr, prc, "HRESULT")
+        result := ComCall(15, this, Int32, i, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 
@@ -432,7 +432,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-seticonsize
      */
     SetIconSize(cx, _cy) {
-        result := ComCall(17, this, "int", cx, "int", _cy, "HRESULT")
+        result := ComCall(17, this, Int32, cx, Int32, _cy, "HRESULT")
         return result
     }
 
@@ -468,7 +468,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-setimagecount
      */
     SetImageCount(uNewCount) {
-        result := ComCall(19, this, "uint", uNewCount, "HRESULT")
+        result := ComCall(19, this, UInt32, uNewCount, "HRESULT")
         return result
     }
 
@@ -525,7 +525,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-begindrag
      */
     BeginDrag(iTrack, dxHotspot, dyHotspot) {
-        result := ComCall(22, this, "int", iTrack, "int", dxHotspot, "int", dyHotspot, "HRESULT")
+        result := ComCall(22, this, Int32, iTrack, Int32, dxHotspot, Int32, dyHotspot, "HRESULT")
         return result
     }
 
@@ -565,7 +565,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-dragenter
      */
     DragEnter(hwndLock, x, y) {
-        result := ComCall(24, this, HWND, hwndLock, "int", x, "int", y, "HRESULT")
+        result := ComCall(24, this, HWND, hwndLock, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -605,7 +605,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-dragmove
      */
     DragMove(x, y) {
-        result := ComCall(26, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(26, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -631,7 +631,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-setdragcursorimage
      */
     SetDragCursorImage(punk, iDrag, dxHotspot, dyHotspot) {
-        result := ComCall(27, this, "ptr", punk, "int", iDrag, "int", dxHotspot, "int", dyHotspot, "HRESULT")
+        result := ComCall(27, this, "ptr", punk, Int32, iDrag, Int32, dxHotspot, Int32, dyHotspot, "HRESULT")
         return result
     }
 
@@ -694,7 +694,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getitemflags
      */
     GetItemFlags(i) {
-        result := ComCall(30, this, "int", i, "uint*", &dwFlags := 0, "HRESULT")
+        result := ComCall(30, this, Int32, i, "uint*", &dwFlags := 0, "HRESULT")
         return dwFlags
     }
 
@@ -712,7 +712,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getoverlayimage
      */
     GetOverlayImage(_iOverlay) {
-        result := ComCall(31, this, "int", _iOverlay, "int*", &piIndex := 0, "HRESULT")
+        result := ComCall(31, this, Int32, _iOverlay, "int*", &piIndex := 0, "HRESULT")
         return piIndex
     }
 

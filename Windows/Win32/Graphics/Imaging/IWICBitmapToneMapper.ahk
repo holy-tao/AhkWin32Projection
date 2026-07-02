@@ -47,7 +47,7 @@ export default struct IWICBitmapToneMapper extends IWICBitmapSource {
      * @returns {HRESULT} 
      */
     InitializeForHdrTarget(pISource, guidDstFormat, fLuminanceInNits, fWhiteLevelInNits, _mode) {
-        result := ComCall(8, this, "ptr", pISource, Guid.Ptr, guidDstFormat, "float", fLuminanceInNits, "float", fWhiteLevelInNits, WICBitmapToneMappingMode, _mode, "HRESULT")
+        result := ComCall(8, this, "ptr", pISource, Guid.Ptr, guidDstFormat, Float32, fLuminanceInNits, Float32, fWhiteLevelInNits, WICBitmapToneMappingMode, _mode, "HRESULT")
         return result
     }
 

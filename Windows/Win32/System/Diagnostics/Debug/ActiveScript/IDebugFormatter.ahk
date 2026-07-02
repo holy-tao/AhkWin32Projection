@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Variant\VARENUM.ahk" { VARENUM }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Com\TYPEDESC.ahk" { TYPEDESC }
 #Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Variant\VARENUM.ahk" { VARENUM }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -50,7 +50,7 @@ export default struct IDebugFormatter extends IUnknown {
      */
     GetStringForVariant(pvar, nRadix) {
         pbstrValue := BSTR.Owned()
-        result := ComCall(3, this, VARIANT.Ptr, pvar, "uint", nRadix, BSTR.Ptr, pbstrValue, "HRESULT")
+        result := ComCall(3, this, VARIANT.Ptr, pvar, UInt32, nRadix, BSTR.Ptr, pbstrValue, "HRESULT")
         return pbstrValue
     }
 

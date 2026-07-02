@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STORAGE_PORT_CODE_SET.ahk" { STORAGE_PORT_CODE_SET }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\STORAGE_PORT_CODE_SET.ahk" { STORAGE_PORT_CODE_SET }
 
 /**
  * Reserved for system use. (STORAGE_MINIPORT_DESCRIPTOR)

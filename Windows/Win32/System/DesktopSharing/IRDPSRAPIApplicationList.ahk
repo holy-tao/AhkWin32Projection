@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRDPSRAPIApplication.ahk" { IRDPSRAPIApplication }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages the application list.
@@ -72,7 +72,7 @@ export default struct IRDPSRAPIApplicationList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationlist-get_item
      */
     get_Item(item) {
-        result := ComCall(8, this, "int", item, "ptr*", &pApplication := 0, "HRESULT")
+        result := ComCall(8, this, Int32, item, "ptr*", &pApplication := 0, "HRESULT")
         return IRDPSRAPIApplication(pApplication)
     }
 

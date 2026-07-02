@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IEnumWIA_DEV_CAPS.ahk" { IEnumWIA_DEV_CAPS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWiaPreview.ahk" { IWiaPreview }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IEnumWiaItem2.ahk" { IEnumWiaItem2 }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IWiaPreview.ahk" { IWiaPreview }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumWIA_DEV_CAPS.ahk" { IEnumWIA_DEV_CAPS }
 
 /**
  * The IWiaItem2 interface provides applications with the same functionality as the IWiaItem interface (the ability to query devices to discover their capabilities, to access data transfer interfaces and item properties, and to control the device).
@@ -118,7 +118,7 @@ export default struct IWiaItem2 extends IUnknown {
     CreateChildItem(lItemFlags, lCreationFlags, bstrItemName) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(3, this, "int", lItemFlags, "int", lCreationFlags, BSTR, bstrItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
+        result := ComCall(3, this, Int32, lItemFlags, Int32, lCreationFlags, BSTR, bstrItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
         return IWiaItem2(ppIWiaItem2)
     }
 
@@ -137,7 +137,7 @@ export default struct IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-deleteitem
      */
     DeleteItem(lFlags) {
-        result := ComCall(4, this, "int", lFlags, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -182,7 +182,7 @@ export default struct IWiaItem2 extends IUnknown {
     FindItemByName(lFlags, bstrFullItemName) {
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(6, this, "int", lFlags, BSTR, bstrFullItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
+        result := ComCall(6, this, Int32, lFlags, BSTR, bstrFullItemName, "ptr*", &ppIWiaItem2 := 0, "HRESULT")
         return IWiaItem2(ppIWiaItem2)
     }
 
@@ -256,7 +256,7 @@ export default struct IWiaItem2 extends IUnknown {
         plNumFilesMarshal := plNumFiles is VarRef ? "int*" : "ptr"
         ppbstrFilePathsMarshal := ppbstrFilePaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "int", lFlags, HWND, hwndParent, BSTR, bstrFolderName, BSTR, bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, IWiaItem2.Ptr, ppItem, "HRESULT")
+        result := ComCall(9, this, Int32, lFlags, HWND, hwndParent, BSTR, bstrFolderName, BSTR, bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, IWiaItem2.Ptr, ppItem, "HRESULT")
         return result
     }
 
@@ -289,7 +289,7 @@ export default struct IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-devicecommand
      */
     DeviceCommand(lFlags, pCmdGUID, ppIWiaItem2) {
-        result := ComCall(10, this, "int", lFlags, Guid.Ptr, pCmdGUID, IWiaItem2.Ptr, ppIWiaItem2, "HRESULT")
+        result := ComCall(10, this, Int32, lFlags, Guid.Ptr, pCmdGUID, IWiaItem2.Ptr, ppIWiaItem2, "HRESULT")
         return result
     }
 
@@ -333,7 +333,7 @@ export default struct IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-enumdevicecapabilities
      */
     EnumDeviceCapabilities(lFlags) {
-        result := ComCall(11, this, "int", lFlags, "ptr*", &ppIEnumWIA_DEV_CAPS := 0, "HRESULT")
+        result := ComCall(11, this, Int32, lFlags, "ptr*", &ppIEnumWIA_DEV_CAPS := 0, "HRESULT")
         return IEnumWIA_DEV_CAPS(ppIEnumWIA_DEV_CAPS)
     }
 
@@ -381,7 +381,7 @@ export default struct IWiaItem2 extends IUnknown {
 
         pbExtensionExistsMarshal := pbExtensionExists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "int", lFlags, BSTR, bstrName, Guid.Ptr, riidExtensionInterface, pbExtensionExistsMarshal, pbExtensionExists, "HRESULT")
+        result := ComCall(12, this, Int32, lFlags, BSTR, bstrName, Guid.Ptr, riidExtensionInterface, pbExtensionExistsMarshal, pbExtensionExists, "HRESULT")
         return result
     }
 
@@ -422,7 +422,7 @@ export default struct IWiaItem2 extends IUnknown {
 
         ppOutMarshal := ppOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "int", lFlags, BSTR, bstrName, Guid.Ptr, riidExtensionInterface, ppOutMarshal, ppOut, "HRESULT")
+        result := ComCall(13, this, Int32, lFlags, BSTR, bstrName, Guid.Ptr, riidExtensionInterface, ppOutMarshal, ppOut, "HRESULT")
         return result
     }
 
@@ -473,7 +473,7 @@ export default struct IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-getpreviewcomponent
      */
     GetPreviewComponent(lFlags) {
-        result := ComCall(16, this, "int", lFlags, "ptr*", &ppWiaPreview := 0, "HRESULT")
+        result := ComCall(16, this, Int32, lFlags, "ptr*", &ppWiaPreview := 0, "HRESULT")
         return IWiaPreview(ppWiaPreview)
     }
 
@@ -495,7 +495,7 @@ export default struct IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-enumregistereventinfo
      */
     EnumRegisterEventInfo(lFlags, pEventGUID) {
-        result := ComCall(17, this, "int", lFlags, Guid.Ptr, pEventGUID, "ptr*", &ppIEnum := 0, "HRESULT")
+        result := ComCall(17, this, Int32, lFlags, Guid.Ptr, pEventGUID, "ptr*", &ppIEnum := 0, "HRESULT")
         return IEnumWIA_DEV_CAPS(ppIEnum)
     }
 
@@ -509,7 +509,7 @@ export default struct IWiaItem2 extends IUnknown {
     Diagnostic(ulSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, "uint", ulSize, pBufferMarshal, pBuffer, "HRESULT")
+        result := ComCall(18, this, UInt32, ulSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 

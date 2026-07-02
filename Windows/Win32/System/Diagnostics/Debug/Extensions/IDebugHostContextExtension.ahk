@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -47,7 +47,7 @@ export default struct IDebugHostContextExtension extends IUnknown {
     AddExtensionData(blobId, dataSize, data) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "HRESULT")
+        result := ComCall(3, this, UInt32, blobId, UInt32, dataSize, dataMarshal, data, "HRESULT")
         return result
     }
 

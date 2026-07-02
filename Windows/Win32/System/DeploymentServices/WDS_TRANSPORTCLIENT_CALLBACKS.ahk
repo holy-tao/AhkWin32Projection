@@ -1,4 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFN_WdsTransportClientSessionComplete.ahk" { PFN_WdsTransportClientSessionComplete }
+#Import ".\PFN_WdsTransportClientSessionStartEx.ahk" { PFN_WdsTransportClientSessionStartEx }
+#Import ".\PFN_WdsTransportClientReceiveMetadata.ahk" { PFN_WdsTransportClientReceiveMetadata }
+#Import ".\PFN_WdsTransportClientSessionStart.ahk" { PFN_WdsTransportClientSessionStart }
+#Import ".\PFN_WdsTransportClientSessionNegotiate.ahk" { PFN_WdsTransportClientSessionNegotiate }
+#Import ".\PFN_WdsTransportClientReceiveContents.ahk" { PFN_WdsTransportClientReceiveContents }
 
 /**
  * @namespace Windows.Win32.System.DeploymentServices
@@ -6,16 +12,16 @@
 export default struct WDS_TRANSPORTCLIENT_CALLBACKS {
     #StructPack 8
 
-    SessionStart : IntPtr
+    SessionStart : PFN_WdsTransportClientSessionStart
 
-    SessionStartEx : IntPtr
+    SessionStartEx : PFN_WdsTransportClientSessionStartEx
 
-    ReceiveContents : IntPtr
+    ReceiveContents : PFN_WdsTransportClientReceiveContents
 
-    ReceiveMetadata : IntPtr
+    ReceiveMetadata : PFN_WdsTransportClientReceiveMetadata
 
-    SessionComplete : IntPtr
+    SessionComplete : PFN_WdsTransportClientSessionComplete
 
-    SessionNegotiate : IntPtr
+    SessionNegotiate : PFN_WdsTransportClientSessionNegotiate
 
 }

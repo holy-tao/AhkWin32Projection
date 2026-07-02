@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -67,7 +67,7 @@ export default struct IMLangStringBufW extends IUnknown {
         ppszBufMarshal := ppszBuf is VarRef ? "ptr*" : "ptr"
         pcchBufMarshal := pcchBuf is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", cchOffset, "int", cchMaxLock, ppszBufMarshal, ppszBuf, pcchBufMarshal, pcchBuf, "HRESULT")
+        result := ComCall(4, this, Int32, cchOffset, Int32, cchMaxLock, ppszBufMarshal, ppszBuf, pcchBufMarshal, pcchBuf, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IMLangStringBufW extends IUnknown {
     UnlockBuf(pszBuf, cchOffset, cchWrite) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := ComCall(5, this, "ptr", pszBuf, "int", cchOffset, "int", cchWrite, "HRESULT")
+        result := ComCall(5, this, "ptr", pszBuf, Int32, cchOffset, Int32, cchWrite, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IMLangStringBufW extends IUnknown {
      * @returns {Integer} 
      */
     Insert(cchOffset, cchMaxInsert) {
-        result := ComCall(6, this, "int", cchOffset, "int", cchMaxInsert, "int*", &pcchActual := 0, "HRESULT")
+        result := ComCall(6, this, Int32, cchOffset, Int32, cchMaxInsert, "int*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -103,7 +103,7 @@ export default struct IMLangStringBufW extends IUnknown {
      * @returns {HRESULT} 
      */
     Delete(cchOffset, cchDelete) {
-        result := ComCall(7, this, "int", cchOffset, "int", cchDelete, "HRESULT")
+        result := ComCall(7, this, Int32, cchOffset, Int32, cchDelete, "HRESULT")
         return result
     }
 

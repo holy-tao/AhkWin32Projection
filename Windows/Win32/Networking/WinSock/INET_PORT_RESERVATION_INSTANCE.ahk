@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INET_PORT_RESERVATION_TOKEN.ahk" { INET_PORT_RESERVATION_TOKEN }
 #Import ".\INET_PORT_RANGE.ahk" { INET_PORT_RANGE }
+#Import ".\INET_PORT_RESERVATION_TOKEN.ahk" { INET_PORT_RESERVATION_TOKEN }
 
 /**
  * Contains a port reservation and a token for a block of TCP or UDP ports.

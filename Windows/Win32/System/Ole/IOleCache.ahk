@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDataObject.ahk" { IDataObject }
 #Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\FORMATETC.ahk" { FORMATETC }
 #Import "..\Com\IEnumSTATDATA.ahk" { IEnumSTATDATA }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\FORMATETC.ahk" { FORMATETC }
 
 /**
  * Provides control of the presentation data that gets cached inside of an object. Cached presentation data is available to the container of the object even when the server application is not running or is unavailable.
@@ -137,7 +137,7 @@ export default struct IOleCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache-cache
      */
     Cache(pformatetc, _advf) {
-        result := ComCall(3, this, FORMATETC.Ptr, pformatetc, "uint", _advf, "uint*", &pdwConnection := 0, "HRESULT")
+        result := ComCall(3, this, FORMATETC.Ptr, pformatetc, UInt32, _advf, "uint*", &pdwConnection := 0, "HRESULT")
         return pdwConnection
     }
 
@@ -168,7 +168,7 @@ export default struct IOleCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache-uncache
      */
     Uncache(dwConnection) {
-        result := ComCall(4, this, "uint", dwConnection, "HRESULT")
+        result := ComCall(4, this, UInt32, dwConnection, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used by wizards such as the Web Publishing Wizard and Online Print Ordering Wizard which host server-side content pages. This interface exposes methods to specify supported extension pages and to navigate into and out of those pages.
@@ -68,7 +68,7 @@ export default struct IWizardExtension extends IUnknown {
     AddPages(aPages, cPages, pnPagesAdded) {
         pnPagesAddedMarshal := pnPagesAdded is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, HPROPSHEETPAGE.Ptr, aPages, "uint", cPages, pnPagesAddedMarshal, pnPagesAdded, "HRESULT")
+        result := ComCall(3, this, HPROPSHEETPAGE.Ptr, aPages, UInt32, cPages, pnPagesAddedMarshal, pnPagesAdded, "HRESULT")
         return result
     }
 

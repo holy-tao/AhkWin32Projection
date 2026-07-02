@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBackgroundCopyGroup.ahk" { IBackgroundCopyGroup }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumBackgroundCopyGroups.ahk" { IEnumBackgroundCopyGroups }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IBackgroundCopyGroup.ahk" { IBackgroundCopyGroup }
 
 /**
  * Use the IBackgroundCopyQMgr interface to create a new group, retrieve an existing group, or enumerate all groups in the queue. A group contains a download job.
@@ -76,7 +76,7 @@ export default struct IBackgroundCopyQMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyqmgr-enumgroups
      */
     EnumGroups(dwFlags) {
-        result := ComCall(5, this, "uint", dwFlags, "ptr*", &ppEnumGroups := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, "ptr*", &ppEnumGroups := 0, "HRESULT")
         return IEnumBackgroundCopyGroups(ppEnumGroups)
     }
 

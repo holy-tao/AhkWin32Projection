@@ -54,7 +54,7 @@ export default struct IUpdateInstaller4 extends IUpdateInstaller3 {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller4-commit
      */
     Commit(dwFlags) {
-        result := ComCall(32, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(32, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

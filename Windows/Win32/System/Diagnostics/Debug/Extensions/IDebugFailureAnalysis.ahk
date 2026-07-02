@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\FA_ENTRY.ahk" { FA_ENTRY }
-#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
 #Import ".\DEBUG_FAILURE_TYPE.ahk" { DEBUG_FAILURE_TYPE }
 
 /**
@@ -104,7 +104,7 @@ export default struct IDebugFailureAnalysis extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetString(Tag, Str, MaxSize) {
-        result := ComCall(8, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Str, "uint", MaxSize, FA_ENTRY.Ptr)
+        result := ComCall(8, this, DEBUG_FLR_PARAM_TYPE, Tag, IntPtr, Str, UInt32, MaxSize, FA_ENTRY.Ptr)
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IDebugFailureAnalysis extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetBuffer(Tag, Buf, _Size) {
-        result := ComCall(9, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Buf, "uint", _Size, FA_ENTRY.Ptr)
+        result := ComCall(9, this, DEBUG_FLR_PARAM_TYPE, Tag, IntPtr, Buf, UInt32, _Size, FA_ENTRY.Ptr)
         return result
     }
 

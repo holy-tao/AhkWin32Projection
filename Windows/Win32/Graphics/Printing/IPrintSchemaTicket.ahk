@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPrintSchemaCapabilities.ahk" { IPrintSchemaCapabilities }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPrintSchemaElement.ahk" { IPrintSchemaElement }
-#Import ".\IPrintSchemaAsyncOperation.ahk" { IPrintSchemaAsyncOperation }
 #Import ".\IPrintSchemaFeature.ahk" { IPrintSchemaFeature }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IPrintSchemaCapabilities.ahk" { IPrintSchemaCapabilities }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPrintSchemaAsyncOperation.ahk" { IPrintSchemaAsyncOperation }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -132,7 +132,7 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
      * @returns {HRESULT} 
      */
     put_JobCopiesAllDocuments(ulJobCopiesAllDocuments) {
-        result := ComCall(17, this, "uint", ulJobCopiesAllDocuments, "HRESULT")
+        result := ComCall(17, this, UInt32, ulJobCopiesAllDocuments, "HRESULT")
         return result
     }
 

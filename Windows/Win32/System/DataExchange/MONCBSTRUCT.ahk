@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HDDEDATA.ahk" { HDDEDATA }
-#Import "..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
-#Import ".\HSZ.ahk" { HSZ }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\HCONV.ahk" { HCONV }
-#Import ".\CONVCONTEXT.ahk" { CONVCONTEXT }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
+#Import ".\HSZ.ahk" { HSZ }
+#Import ".\CONVCONTEXT.ahk" { CONVCONTEXT }
+#Import ".\HCONV.ahk" { HCONV }
+#Import ".\HDDEDATA.ahk" { HDDEDATA }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains information about the current Dynamic Data Exchange (DDE) transaction. A DDE debugging application can use this structure when monitoring transactions that the system passes to the DDE callback functions of other applications.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PanelType.ahk" { PanelType }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\PanelType.ahk" { PanelType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * . (IPenInputPanel)
@@ -266,7 +266,7 @@ export default struct IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-put_attachededitwindow
      */
     put_AttachedEditWindow(AttachedEditWindow) {
-        result := ComCall(11, this, "int", AttachedEditWindow, "HRESULT")
+        result := ComCall(11, this, Int32, AttachedEditWindow, "HRESULT")
         return result
     }
 
@@ -455,7 +455,7 @@ export default struct IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-put_verticaloffset
      */
     put_VerticalOffset(VerticalOffset) {
-        result := ComCall(23, this, "int", VerticalOffset, "HRESULT")
+        result := ComCall(23, this, Int32, VerticalOffset, "HRESULT")
         return result
     }
 
@@ -484,7 +484,7 @@ export default struct IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-put_horizontaloffset
      */
     put_HorizontalOffset(HorizontalOffset) {
-        result := ComCall(25, this, "int", HorizontalOffset, "HRESULT")
+        result := ComCall(25, this, Int32, HorizontalOffset, "HRESULT")
         return result
     }
 
@@ -569,7 +569,7 @@ export default struct IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-moveto
      */
     MoveTo(Left, Top) {
-        result := ComCall(28, this, "int", Left, "int", Top, "HRESULT")
+        result := ComCall(28, this, Int32, Left, Int32, Top, "HRESULT")
         return result
     }
 

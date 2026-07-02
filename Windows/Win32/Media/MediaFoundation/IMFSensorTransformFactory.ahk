@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFCollection.ahk" { IMFCollection }
 #Import ".\IMFDeviceTransform.ahk" { IMFDeviceTransform }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The interface implemented by sensor transforms to allow the media pipeline to query requirements of the sensor transform and to create a runtime instance of the sensor transform.
@@ -62,7 +62,7 @@ export default struct IMFSensorTransformFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensortransformfactory-initializefactory
      */
     InitializeFactory(dwMaxTransformCount, pSensorDevices, pAttributes) {
-        result := ComCall(4, this, "uint", dwMaxTransformCount, "ptr", pSensorDevices, "ptr", pAttributes, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMaxTransformCount, "ptr", pSensorDevices, "ptr", pAttributes, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IMFSensorTransformFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensortransformfactory-gettransforminformation
      */
     GetTransformInformation(TransformIndex, pguidTransformId, ppAttributes, ppStreamInformation) {
-        result := ComCall(6, this, "uint", TransformIndex, Guid.Ptr, pguidTransformId, IMFAttributes.Ptr, ppAttributes, IMFCollection.Ptr, ppStreamInformation, "HRESULT")
+        result := ComCall(6, this, UInt32, TransformIndex, Guid.Ptr, pguidTransformId, IMFAttributes.Ptr, ppAttributes, IMFCollection.Ptr, ppStreamInformation, "HRESULT")
         return result
     }
 

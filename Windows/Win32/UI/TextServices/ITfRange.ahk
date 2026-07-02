@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContext.ahk" { ITfContext }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TfShiftDir.ahk" { TfShiftDir }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TfShiftDir.ahk" { TfShiftDir }
 #Import ".\TfGravity.ahk" { TfGravity }
-#Import ".\TfAnchor.ahk" { TfAnchor }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
 #Import ".\TF_HALTCOND.ahk" { TF_HALTCOND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TfAnchor.ahk" { TfAnchor }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfContext.ahk" { ITfContext }
 
 /**
  * The ITfRange interface is used by text services and applications to reference and manipulate text within a given context. The interface ID is IID_ITfRange.
@@ -107,7 +107,7 @@ export default struct ITfRange extends IUnknown {
     GetText(ec, dwFlags, pchText, cchMax) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(3, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "uint", cchMax, "uint*", &pcch := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, ec, UInt32, dwFlags, "ptr", pchText, UInt32, cchMax, "uint*", &pcch := 0, "HRESULT")
         return pcch
     }
 
@@ -204,7 +204,7 @@ export default struct ITfRange extends IUnknown {
     SetText(ec, dwFlags, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(4, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "int", cch, "HRESULT")
+        result := ComCall(4, this, UInt32, ec, UInt32, dwFlags, "ptr", pchText, Int32, cch, "HRESULT")
         return result
     }
 
@@ -217,7 +217,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-getformattedtext
      */
     GetFormattedText(ec) {
-        result := ComCall(5, this, "uint", ec, "ptr*", &ppDataObject := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, ec, "ptr*", &ppDataObject := 0, "HRESULT")
         return IDataObject(ppDataObject)
     }
 
@@ -279,7 +279,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-getembedded
      */
     GetEmbedded(ec, rguidService, riid) {
-        result := ComCall(6, this, "uint", ec, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, ec, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -384,7 +384,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-insertembedded
      */
     InsertEmbedded(ec, dwFlags, pDataObject) {
-        result := ComCall(7, this, "uint", ec, "uint", dwFlags, "ptr", pDataObject, "HRESULT")
+        result := ComCall(7, this, UInt32, ec, UInt32, dwFlags, "ptr", pDataObject, "HRESULT")
         return result
     }
 
@@ -405,7 +405,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstart
      */
     ShiftStart(ec, cchReq, pHalt) {
-        result := ComCall(8, this, "uint", ec, "int", cchReq, "int*", &pcch := 0, TF_HALTCOND.Ptr, pHalt, "HRESULT")
+        result := ComCall(8, this, UInt32, ec, Int32, cchReq, "int*", &pcch := 0, TF_HALTCOND.Ptr, pHalt, "HRESULT")
         return pcch
     }
 
@@ -426,7 +426,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftend
      */
     ShiftEnd(ec, cchReq, pHalt) {
-        result := ComCall(9, this, "uint", ec, "int", cchReq, "int*", &pcch := 0, TF_HALTCOND.Ptr, pHalt, "HRESULT")
+        result := ComCall(9, this, UInt32, ec, Int32, cchReq, "int*", &pcch := 0, TF_HALTCOND.Ptr, pHalt, "HRESULT")
         return pcch
     }
 
@@ -496,7 +496,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstarttorange
      */
     ShiftStartToRange(ec, pRange, aPos) {
-        result := ComCall(10, this, "uint", ec, "ptr", pRange, TfAnchor, aPos, "HRESULT")
+        result := ComCall(10, this, UInt32, ec, "ptr", pRange, TfAnchor, aPos, "HRESULT")
         return result
     }
 
@@ -566,7 +566,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftendtorange
      */
     ShiftEndToRange(ec, pRange, aPos) {
-        result := ComCall(11, this, "uint", ec, "ptr", pRange, TfAnchor, aPos, "HRESULT")
+        result := ComCall(11, this, UInt32, ec, "ptr", pRange, TfAnchor, aPos, "HRESULT")
         return result
     }
 
@@ -582,7 +582,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstartregion
      */
     ShiftStartRegion(ec, dir) {
-        result := ComCall(12, this, "uint", ec, TfShiftDir, dir, BOOL.Ptr, &pfNoRegion := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, ec, TfShiftDir, dir, BOOL.Ptr, &pfNoRegion := 0, "HRESULT")
         return pfNoRegion
     }
 
@@ -598,7 +598,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftendregion
      */
     ShiftEndRegion(ec, dir) {
-        result := ComCall(13, this, "uint", ec, TfShiftDir, dir, BOOL.Ptr, &pfNoRegion := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, ec, TfShiftDir, dir, BOOL.Ptr, &pfNoRegion := 0, "HRESULT")
         return pfNoRegion
     }
 
@@ -609,7 +609,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-isempty
      */
     IsEmpty(ec) {
-        result := ComCall(14, this, "uint", ec, BOOL.Ptr, &pfEmpty := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, ec, BOOL.Ptr, &pfEmpty := 0, "HRESULT")
         return pfEmpty
     }
 
@@ -700,7 +700,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-collapse
      */
     Collapse(ec, aPos) {
-        result := ComCall(15, this, "uint", ec, TfAnchor, aPos, "HRESULT")
+        result := ComCall(15, this, UInt32, ec, TfAnchor, aPos, "HRESULT")
         return result
     }
 
@@ -742,7 +742,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-isequalstart
      */
     IsEqualStart(ec, pWith, aPos) {
-        result := ComCall(16, this, "uint", ec, "ptr", pWith, TfAnchor, aPos, BOOL.Ptr, &pfEqual := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, ec, "ptr", pWith, TfAnchor, aPos, BOOL.Ptr, &pfEqual := 0, "HRESULT")
         return pfEqual
     }
 
@@ -786,7 +786,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-isequalend
      */
     IsEqualEnd(ec, pWith, aPos) {
-        result := ComCall(17, this, "uint", ec, "ptr", pWith, TfAnchor, aPos, BOOL.Ptr, &pfEqual := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, ec, "ptr", pWith, TfAnchor, aPos, BOOL.Ptr, &pfEqual := 0, "HRESULT")
         return pfEqual
     }
 
@@ -865,7 +865,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-comparestart
      */
     CompareStart(ec, pWith, aPos) {
-        result := ComCall(18, this, "uint", ec, "ptr", pWith, TfAnchor, aPos, "int*", &plResult := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, ec, "ptr", pWith, TfAnchor, aPos, "int*", &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -946,7 +946,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-compareend
      */
     CompareEnd(ec, pWith, aPos) {
-        result := ComCall(19, this, "uint", ec, "ptr", pWith, TfAnchor, aPos, "int*", &plResult := 0, "HRESULT")
+        result := ComCall(19, this, UInt32, ec, "ptr", pWith, TfAnchor, aPos, "int*", &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -966,7 +966,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-adjustforinsert
      */
     AdjustForInsert(ec, cchInsert) {
-        result := ComCall(20, this, "uint", ec, "uint", cchInsert, BOOL.Ptr, &pfInsertOk := 0, "HRESULT")
+        result := ComCall(20, this, UInt32, ec, UInt32, cchInsert, BOOL.Ptr, &pfInsertOk := 0, "HRESULT")
         return pfInsertOk
     }
 
@@ -1063,7 +1063,7 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-setgravity
      */
     SetGravity(ec, gStart, gEnd) {
-        result := ComCall(22, this, "uint", ec, TfGravity, gStart, TfGravity, gEnd, "HRESULT")
+        result := ComCall(22, this, UInt32, ec, TfGravity, gStart, TfGravity, gEnd, "HRESULT")
         return result
     }
 

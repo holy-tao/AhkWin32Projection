@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
 
 /**
  * The VMR9AllocationInfo structure describes the Direct3D surfaces that a VMR-9 Allocator-Presenter object should allocate.

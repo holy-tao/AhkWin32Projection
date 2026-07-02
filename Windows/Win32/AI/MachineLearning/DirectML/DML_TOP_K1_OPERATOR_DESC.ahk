@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 #Import ".\DML_AXIS_DIRECTION.ahk" { DML_AXIS_DIRECTION }
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**
  * Selects the largest or smallest *K* elements from each sequence along an axis of the *InputTensor*, and returns the values and indices of those elements in the *OutputValueTensor* and *OutputIndexTensor*, respectively.

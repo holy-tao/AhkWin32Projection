@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by containers and used by the container's Object Properties dialog box and by the Convert dialog box. (ANSI)
@@ -107,7 +107,7 @@ export default struct IOleUIObjInfoA extends IUnknown {
         lplpszShortTypeMarshal := lplpszShortType is VarRef ? "ptr*" : "ptr"
         lplpszLocationMarshal := lplpszLocation is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwObject, lpdwObjSizeMarshal, lpdwObjSize, lplpszLabelMarshal, lplpszLabel, lplpszTypeMarshal, lplpszType, lplpszShortTypeMarshal, lplpszShortType, lplpszLocationMarshal, lplpszLocation, "HRESULT")
+        result := ComCall(3, this, UInt32, dwObject, lpdwObjSizeMarshal, lpdwObjSize, lplpszLabelMarshal, lplpszLabel, lplpszTypeMarshal, lplpszType, lplpszShortTypeMarshal, lplpszShortType, lplpszLocationMarshal, lplpszLocation, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ export default struct IOleUIObjInfoA extends IUnknown {
         lplpClsidExcludeMarshal := lplpClsidExclude is VarRef ? "ptr*" : "ptr"
         lpcClsidExcludeMarshal := lpcClsidExclude is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwObject, Guid.Ptr, lpClassID, lpwFormatMarshal, lpwFormat, Guid.Ptr, lpConvertDefaultClassID, lplpClsidExcludeMarshal, lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "HRESULT")
+        result := ComCall(4, this, UInt32, dwObject, Guid.Ptr, lpClassID, lpwFormatMarshal, lpwFormat, Guid.Ptr, lpConvertDefaultClassID, lplpClsidExcludeMarshal, lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "HRESULT")
         return result
     }
 
@@ -247,7 +247,7 @@ export default struct IOleUIObjInfoA extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-convertobject
      */
     ConvertObject(dwObject, clsidNew) {
-        result := ComCall(5, this, "uint", dwObject, Guid.Ptr, clsidNew, "HRESULT")
+        result := ComCall(5, this, UInt32, dwObject, Guid.Ptr, clsidNew, "HRESULT")
         return result
     }
 
@@ -318,7 +318,7 @@ export default struct IOleUIObjInfoA extends IUnknown {
         pdvAspectMarshal := pdvAspect is VarRef ? "uint*" : "ptr"
         pnCurrentScaleMarshal := pnCurrentScale is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwObject, HGLOBAL.Ptr, phMetaPict, pdvAspectMarshal, pdvAspect, pnCurrentScaleMarshal, pnCurrentScale, "HRESULT")
+        result := ComCall(6, this, UInt32, dwObject, HGLOBAL.Ptr, phMetaPict, pdvAspectMarshal, pdvAspect, pnCurrentScaleMarshal, pnCurrentScale, "HRESULT")
         return result
     }
 
@@ -387,7 +387,7 @@ export default struct IOleUIObjInfoA extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-setviewinfo
      */
     SetViewInfo(dwObject, hMetaPict, _dvAspect, nCurrentScale, bRelativeToOrig) {
-        result := ComCall(7, this, "uint", dwObject, HGLOBAL, hMetaPict, "uint", _dvAspect, "int", nCurrentScale, BOOL, bRelativeToOrig, "HRESULT")
+        result := ComCall(7, this, UInt32, dwObject, HGLOBAL, hMetaPict, UInt32, _dvAspect, Int32, nCurrentScale, BOOL, bRelativeToOrig, "HRESULT")
         return result
     }
 

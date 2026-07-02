@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNCMGR_RESOLUTION_FEEDBACK.ahk" { SYNCMGR_RESOLUTION_FEEDBACK }
-#Import ".\ISyncMgrConflictResolutionItems.ahk" { ISyncMgrConflictResolutionItems }
-#Import ".\IShellItem.ahk" { IShellItem }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISyncMgrConflictResolutionItems.ahk" { ISyncMgrConflictResolutionItems }
+#Import ".\SYNCMGR_RESOLUTION_FEEDBACK.ahk" { SYNCMGR_RESOLUTION_FEEDBACK }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
 
 /**
  * Exposes methods that manage synchronizing conflicts. Implement this interface to construct a sync conflict handler. The conflict resolution user interface (UI) will call this interface to resolve the conflict presented to the user.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IScriptEntry.ahk" { IScriptEntry }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IScriptNode.ahk" { IScriptNode }
-#Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IScriptEntry.ahk" { IScriptEntry }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -64,7 +64,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
     AddNamedItem(pszName, dwFlags, pdisp) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(3, this, "ptr", pszName, "uint", dwFlags, "ptr", pdisp, "HRESULT")
+        result := ComCall(3, this, "ptr", pszName, UInt32, dwFlags, "ptr", pdisp, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
         pszEventName := pszEventName is String ? StrPtr(pszEventName) : pszEventName
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(4, this, "ptr", pszDefaultName, "ptr", pszCode, "ptr", pszItemName, "ptr", pszSubItemName, "ptr", pszEventName, "ptr", pszDelimiter, "uint", dwCookie, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", pszDefaultName, "ptr", pszCode, "ptr", pszItemName, "ptr", pszSubItemName, "ptr", pszEventName, "ptr", pszDelimiter, UInt32, dwCookie, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
         pszItemName := pszItemName is String ? StrPtr(pszItemName) : pszItemName
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(5, this, "ptr", pszCode, "ptr", pszItemName, "ptr", pszDelimiter, "uint", dwCookie, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pszCode, "ptr", pszItemName, "ptr", pszDelimiter, UInt32, dwCookie, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
 
         pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
+        result := ComCall(6, this, "ptr", pszCode, UInt32, cch, "ptr", pszDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
 
         pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
+        result := ComCall(7, this, "ptr", pszCode, UInt32, cch, "ptr", pszDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
@@ -204,7 +204,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
      * @returns {HRESULT} 
      */
     AddTypeLib(rguidTypeLib, dwMajor, dwMinor, dwFlags) {
-        result := ComCall(12, this, Guid.Ptr, rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, rguidTypeLib, UInt32, dwMajor, UInt32, dwMinor, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -216,7 +216,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveTypeLib(rguidTypeLib, dwMajor, dwMinor) {
-        result := ComCall(13, this, Guid.Ptr, rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, rguidTypeLib, UInt32, dwMajor, UInt32, dwMinor, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
      */
     GetChars(fRequestedList) {
         pbstrChars := BSTR.Owned()
-        result := ComCall(14, this, "uint", fRequestedList, BSTR.Ptr, pbstrChars, "HRESULT")
+        result := ComCall(14, this, UInt32, fRequestedList, BSTR.Ptr, pbstrChars, "HRESULT")
         return pbstrChars
     }
 
@@ -254,7 +254,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
         pmemidMarshal := pmemid is VarRef ? "int*" : "ptr"
         piCurrentParameterMarshal := piCurrentParameter is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pszCode, "uint", cchCode, "uint", ichCurrentPosition, "uint", dwListTypesRequested, pdwListTypesProvidedMarshal, pdwListTypesProvided, pichListAnchorPositionMarshal, pichListAnchorPosition, pichFuncAnchorPositionMarshal, pichFuncAnchorPosition, pmemidMarshal, pmemid, piCurrentParameterMarshal, piCurrentParameter, IUnknown.Ptr, ppunk, "HRESULT")
+        result := ComCall(15, this, "ptr", pszCode, UInt32, cchCode, UInt32, ichCurrentPosition, UInt32, dwListTypesRequested, pdwListTypesProvidedMarshal, pdwListTypesProvided, pichListAnchorPositionMarshal, pichListAnchorPosition, pichFuncAnchorPositionMarshal, pichFuncAnchorPosition, pmemidMarshal, pmemid, piCurrentParameterMarshal, piCurrentParameter, IUnknown.Ptr, ppunk, "HRESULT")
         return result
     }
 
@@ -264,7 +264,7 @@ export default struct IActiveScriptAuthor extends IUnknown {
      * @returns {BOOL} 
      */
     IsCommitChar(ch) {
-        result := ComCall(16, this, "char", ch, BOOL.Ptr, &pfcommit := 0, "HRESULT")
+        result := ComCall(16, this, Int8, ch, BOOL.Ptr, &pfcommit := 0, "HRESULT")
         return pfcommit
     }
 

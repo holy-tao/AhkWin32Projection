@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Time\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Time\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -96,7 +96,7 @@ export default struct IMLangString extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMLStr(lDestPos, lDestLen, pSrcMLStr, lSrcPos, lSrcLen) {
-        result := ComCall(5, this, "int", lDestPos, "int", lDestLen, "ptr", pSrcMLStr, "int", lSrcPos, "int", lSrcLen, "HRESULT")
+        result := ComCall(5, this, Int32, lDestPos, Int32, lDestLen, "ptr", pSrcMLStr, Int32, lSrcPos, Int32, lSrcLen, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IMLangString extends IUnknown {
         plDestPosMarshal := plDestPos is VarRef ? "int*" : "ptr"
         plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "int", lSrcPos, "int", lSrcLen, "ptr", pUnkOuter, "uint", dwClsContext, Guid.Ptr, piid, IUnknown.Ptr, ppDestMLStr, plDestPosMarshal, plDestPos, plDestLenMarshal, plDestLen, "HRESULT")
+        result := ComCall(6, this, Int32, lSrcPos, Int32, lSrcLen, "ptr", pUnkOuter, UInt32, dwClsContext, Guid.Ptr, piid, IUnknown.Ptr, ppDestMLStr, plDestPosMarshal, plDestPos, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 

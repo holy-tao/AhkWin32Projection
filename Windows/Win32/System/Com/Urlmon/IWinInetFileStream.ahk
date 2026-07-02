@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -43,7 +43,7 @@ export default struct IWinInetFileStream extends IUnknown {
      * @returns {HRESULT} 
      */
     SetHandleForUnlock(hWinInetLockHandle, dwReserved) {
-        result := ComCall(3, this, "ptr", hWinInetLockHandle, "ptr", dwReserved, "HRESULT")
+        result := ComCall(3, this, IntPtr, hWinInetLockHandle, IntPtr, dwReserved, "HRESULT")
         return result
     }
 
@@ -53,7 +53,7 @@ export default struct IWinInetFileStream extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDeleteFile(dwReserved) {
-        result := ComCall(4, this, "ptr", dwReserved, "HRESULT")
+        result := ComCall(4, this, IntPtr, dwReserved, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COMAdminTxIsolationLevelOptions.ahk" { COMAdminTxIsolationLevelOptions }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CSC_TransactionConfig.ahk" { CSC_TransactionConfig }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures the transaction services for the work that is done when calling either CoCreateActivity or CoEnterServiceDomain. (IServiceTransactionConfigBase)
@@ -77,7 +77,7 @@ export default struct IServiceTransactionConfigBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfigbase-transactiontimeout
      */
     TransactionTimeout(ulTimeoutSec) {
-        result := ComCall(5, this, "uint", ulTimeoutSec, "HRESULT")
+        result := ComCall(5, this, UInt32, ulTimeoutSec, "HRESULT")
         return result
     }
 

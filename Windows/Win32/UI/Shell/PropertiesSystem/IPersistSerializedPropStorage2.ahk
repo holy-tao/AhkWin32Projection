@@ -76,7 +76,7 @@ export default struct IPersistSerializedPropStorage2 extends IPersistSerializedP
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragebuffer
      */
     GetPropertyStorageBuffer(psps, cb) {
-        result := ComCall(7, this, "ptr", psps, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(7, this, IntPtr, psps, UInt32, cb, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 

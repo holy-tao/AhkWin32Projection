@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAudioSystemEffectsPropertyChangeNotificationClient.ahk" { IAudioSystemEffectsPropertyChangeNotificationClient }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAudioSystemEffectsPropertyChangeNotificationClient.ahk" { IAudioSystemEffectsPropertyChangeNotificationClient }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to manage audio system effects audio stores and to register for notifications when audio system effect properties change.
@@ -68,7 +68,7 @@ export default struct IAudioSystemEffectsPropertyStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iaudiosystemeffectspropertystore-opendefaultpropertystore
      */
     OpenDefaultPropertyStore(stgmAccess) {
-        result := ComCall(3, this, "uint", stgmAccess, "ptr*", &propStore := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, stgmAccess, "ptr*", &propStore := 0, "HRESULT")
         return IPropertyStore(propStore)
     }
 
@@ -91,7 +91,7 @@ export default struct IAudioSystemEffectsPropertyStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iaudiosystemeffectspropertystore-openuserpropertystore
      */
     OpenUserPropertyStore(stgmAccess) {
-        result := ComCall(4, this, "uint", stgmAccess, "ptr*", &propStore := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, stgmAccess, "ptr*", &propStore := 0, "HRESULT")
         return IPropertyStore(propStore)
     }
 
@@ -114,7 +114,7 @@ export default struct IAudioSystemEffectsPropertyStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iaudiosystemeffectspropertystore-openvolatilepropertystore
      */
     OpenVolatilePropertyStore(stgmAccess) {
-        result := ComCall(5, this, "uint", stgmAccess, "ptr*", &propStore := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, stgmAccess, "ptr*", &propStore := 0, "HRESULT")
         return IPropertyStore(propStore)
     }
 

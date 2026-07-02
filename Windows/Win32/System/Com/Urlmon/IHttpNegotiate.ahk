@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -48,7 +48,7 @@ export default struct IHttpNegotiate extends IUnknown {
         szURL := szURL is String ? StrPtr(szURL) : szURL
         szHeaders := szHeaders is String ? StrPtr(szHeaders) : szHeaders
 
-        result := ComCall(3, this, "ptr", szURL, "ptr", szHeaders, "uint", dwReserved, PWSTR.Ptr, &pszAdditionalHeaders := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", szURL, "ptr", szHeaders, UInt32, dwReserved, PWSTR.Ptr, &pszAdditionalHeaders := 0, "HRESULT")
         return pszAdditionalHeaders
     }
 
@@ -63,7 +63,7 @@ export default struct IHttpNegotiate extends IUnknown {
         szResponseHeaders := szResponseHeaders is String ? StrPtr(szResponseHeaders) : szResponseHeaders
         szRequestHeaders := szRequestHeaders is String ? StrPtr(szRequestHeaders) : szRequestHeaders
 
-        result := ComCall(4, this, "uint", dwResponseCode, "ptr", szResponseHeaders, "ptr", szRequestHeaders, PWSTR.Ptr, &pszAdditionalRequestHeaders := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwResponseCode, "ptr", szResponseHeaders, "ptr", szRequestHeaders, PWSTR.Ptr, &pszAdditionalRequestHeaders := 0, "HRESULT")
         return pszAdditionalRequestHeaders
     }
 

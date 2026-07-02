@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -48,7 +48,7 @@ export default struct IOpenRowset extends IUnknown {
      * @returns {IUnknown} 
      */
     OpenRowset(pUnkOuter, pTableID, pIndexID, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, Guid.Ptr, riid, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
         return IUnknown(ppRowset)
     }
 

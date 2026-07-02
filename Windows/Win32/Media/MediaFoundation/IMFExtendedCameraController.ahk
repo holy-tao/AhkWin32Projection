@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFExtendedCameraControl.ahk" { IMFExtendedCameraControl }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFExtendedCameraControl.ahk" { IMFExtendedCameraControl }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMFExtendedCameraController interface allows apps to retrieve an instance of IMFExtendedCameraControl, which is used to configure a capture device's extended properties.
@@ -47,7 +47,7 @@ export default struct IMFExtendedCameraController extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfextendedcameracontroller-getextendedcameracontrol
      */
     GetExtendedCameraControl(dwStreamIndex, ulPropertyId) {
-        result := ComCall(3, this, "uint", dwStreamIndex, "uint", ulPropertyId, "ptr*", &ppControl := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwStreamIndex, UInt32, ulPropertyId, "ptr*", &ppControl := 0, "HRESULT")
         return IMFExtendedCameraControl(ppControl)
     }
 

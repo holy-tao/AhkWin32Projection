@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Controls the container's top-level frame window.
@@ -132,7 +132,7 @@ export default struct IOleInPlaceFrame extends IOleInPlaceUIWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceframe-setmenu
      */
     SetMenu(hmenuShared, holemenu, hwndActiveObject) {
-        result := ComCall(10, this, HMENU, hmenuShared, "ptr", holemenu, HWND, hwndActiveObject, "HRESULT")
+        result := ComCall(10, this, HMENU, hmenuShared, IntPtr, holemenu, HWND, hwndActiveObject, "HRESULT")
         return result
     }
 
@@ -332,7 +332,7 @@ export default struct IOleInPlaceFrame extends IOleInPlaceUIWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceframe-translateaccelerator
      */
     TranslateAccelerator(lpmsg, wID) {
-        result := ComCall(14, this, MSG.Ptr, lpmsg, "ushort", wID, "HRESULT")
+        result := ComCall(14, this, MSG.Ptr, lpmsg, UInt16, wID, "HRESULT")
         return result
     }
 

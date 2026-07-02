@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\LPOCNCHKPROC.ahk" { LPOCNCHKPROC }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\LPOCNCONNPROCA.ahk" { LPOCNCONNPROCA }
+#Import ".\LPOCNDSCPROC.ahk" { LPOCNDSCPROC }
 
 /**
  * The OPENCARD_SEARCH_CRITERIA structure is used by the SCardUIDlgSelectCard function in order to recognize cards that meet the requirements set forth by the caller. You can, however, call SCardUIDlgSelectCard without using this structure. (ANSI)
@@ -67,7 +70,7 @@ export default struct OPENCARD_SEARCH_CRITERIAA {
      * 
      * ```
      */
-    lpfnCheck : IntPtr
+    lpfnCheck : LPOCNCHKPROC
 
     /**
      * A pointer to the caller's card connect routine. If the caller needs to perform additional processing to connect to the card, this function pointer is set to the user's connect function. If the connect function is successful, the card is left connected and initialized, and the card handle is returned. 
@@ -89,7 +92,7 @@ export default struct OPENCARD_SEARCH_CRITERIAA {
      * 
      * ```
      */
-    lpfnConnect : IntPtr
+    lpfnConnect : LPOCNCONNPROCA
 
     /**
      * A pointer to the caller's card disconnect routine. 
@@ -113,7 +116,7 @@ export default struct OPENCARD_SEARCH_CRITERIAA {
      * <div class="alert"><b>Note</b>  When you use <b>lpfnConnect</b>, <b>lpfnCheck</b>, and <b>lpfnDisconnect</b>, all three callback procedures should be present. Using these callbacks allows further verification that the calling application has found the appropriate card. This is the best way to ensure the appropriate card is selected. However, when using a value that is not <b>NULL</b> for <b>lpfnCheck</b>, either both <b>lpfnConnect</b> and <b>lpfnDisconnect</b> must not be <b>NULL</b> (and <b>pvUserData</b> should also be provided), or <b>dwShareMode</b> and <b>dwPreferredProtocols</b> must both be set.</div>
      * <div> </div>
      */
-    lpfnDisconnect : IntPtr
+    lpfnDisconnect : LPOCNDSCPROC
 
     /**
      * Void pointer to user data. This pointer is passed back to the caller on the Connect, Check, and Disconnect routines.

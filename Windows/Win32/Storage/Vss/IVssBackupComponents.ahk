@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IVssExamineWriterMetadata.ahk" { IVssExamineWriterMetadata }
 #Import ".\VSS_OBJECT_TYPE.ahk" { VSS_OBJECT_TYPE }
-#Import ".\VSS_FILE_RESTORE_STATUS.ahk" { VSS_FILE_RESTORE_STATUS }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VSS_RESTORE_TYPE.ahk" { VSS_RESTORE_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\VSS_WRITER_STATE.ahk" { VSS_WRITER_STATE }
-#Import ".\IVssAsync.ahk" { IVssAsync }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
 #Import ".\IVssWriterComponentsExt.ahk" { IVssWriterComponentsExt }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VSS_SNAPSHOT_PROP.ahk" { VSS_SNAPSHOT_PROP }
-#Import ".\VSS_BACKUP_TYPE.ahk" { VSS_BACKUP_TYPE }
+#Import ".\IVssAsync.ahk" { IVssAsync }
 #Import ".\IVssEnumObject.ahk" { IVssEnumObject }
+#Import ".\VSS_BACKUP_TYPE.ahk" { VSS_BACKUP_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VSS_SNAPSHOT_PROP.ahk" { VSS_SNAPSHOT_PROP }
+#Import ".\VSS_FILE_RESTORE_STATUS.ahk" { VSS_FILE_RESTORE_STATUS }
 
 /**
  * The IVssBackupComponents interface is used by a requester to poll writers about file status and to run backup/restore operations.
@@ -140,7 +140,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getwritercomponents
      */
     GetWriterComponents(iWriter) {
-        result := ComCall(4, this, "uint", iWriter, "ptr*", &ppWriter := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, iWriter, "ptr*", &ppWriter := 0, "HRESULT")
         return IVssWriterComponentsExt(ppWriter)
     }
 
@@ -341,7 +341,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setbackupstate
      */
     SetBackupState(bSelectComponents, bBackupBootableSystemState, backupType, bPartialFileSupport) {
-        result := ComCall(6, this, "char", bSelectComponents, "char", bBackupBootableSystemState, VSS_BACKUP_TYPE, backupType, "char", bPartialFileSupport, "HRESULT")
+        result := ComCall(6, this, Int8, bSelectComponents, Int8, bBackupBootableSystemState, VSS_BACKUP_TYPE, backupType, Int8, bPartialFileSupport, "HRESULT")
         return result
     }
 
@@ -692,7 +692,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getwritermetadata
      */
     GetWriterMetadata(iWriter, pidInstance, ppMetadata) {
-        result := ComCall(11, this, "uint", iWriter, Guid.Ptr, pidInstance, IVssExamineWriterMetadata.Ptr, ppMetadata, "HRESULT")
+        result := ComCall(11, this, UInt32, iWriter, Guid.Ptr, pidInstance, IVssExamineWriterMetadata.Ptr, ppMetadata, "HRESULT")
         return result
     }
 
@@ -1294,7 +1294,7 @@ export default struct IVssBackupComponents extends IUnknown {
         pnStatusMarshal := pnStatus is VarRef ? "int*" : "ptr"
         phResultFailureMarshal := phResultFailure is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "uint", iWriter, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, BSTR.Ptr, pbstrWriter, pnStatusMarshal, pnStatus, phResultFailureMarshal, phResultFailure, "HRESULT")
+        result := ComCall(19, this, UInt32, iWriter, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, BSTR.Ptr, pbstrWriter, pnStatusMarshal, pnStatus, phResultFailureMarshal, phResultFailure, "HRESULT")
         return result
     }
 
@@ -1426,7 +1426,7 @@ export default struct IVssBackupComponents extends IUnknown {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
 
-        result := ComCall(20, this, Guid, instanceId, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "char", bSucceded, "HRESULT")
+        result := ComCall(20, this, Guid, instanceId, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, Int8, bSucceded, "HRESULT")
         return result
     }
 
@@ -1698,7 +1698,7 @@ export default struct IVssBackupComponents extends IUnknown {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
 
-        result := ComCall(22, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "char", bSelectedForRestore, "HRESULT")
+        result := ComCall(22, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, Int8, bSelectedForRestore, "HRESULT")
         return result
     }
 
@@ -1968,7 +1968,7 @@ export default struct IVssBackupComponents extends IUnknown {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
 
-        result := ComCall(24, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "char", bAdditionalRestores, "HRESULT")
+        result := ComCall(24, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, Int8, bAdditionalRestores, "HRESULT")
         return result
     }
 
@@ -2423,7 +2423,7 @@ export default struct IVssBackupComponents extends IUnknown {
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
         wszDestination := wszDestination is String ? StrPtr(wszDestination) : wszDestination
 
-        result := ComCall(28, this, Guid, writerId, VSS_COMPONENT_TYPE, _componentType, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "ptr", wszDestination, "HRESULT")
+        result := ComCall(28, this, Guid, writerId, VSS_COMPONENT_TYPE, _componentType, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszPath, "ptr", wszFilespec, Int8, bRecursive, "ptr", wszDestination, "HRESULT")
         return result
     }
 
@@ -2584,7 +2584,7 @@ export default struct IVssBackupComponents extends IUnknown {
         wszSubComponentLogicalPath := wszSubComponentLogicalPath is String ? StrPtr(wszSubComponentLogicalPath) : wszSubComponentLogicalPath
         wszSubComponentName := wszSubComponentName is String ? StrPtr(wszSubComponentName) : wszSubComponentName
 
-        result := ComCall(29, this, Guid, writerId, VSS_COMPONENT_TYPE, _componentType, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszSubComponentLogicalPath, "ptr", wszSubComponentName, "char", bRepair, "HRESULT")
+        result := ComCall(29, this, Guid, writerId, VSS_COMPONENT_TYPE, _componentType, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszSubComponentLogicalPath, "ptr", wszSubComponentName, Int8, bRepair, "HRESULT")
         return result
     }
 
@@ -2895,7 +2895,7 @@ export default struct IVssBackupComponents extends IUnknown {
         wszFileName := wszFileName is String ? StrPtr(wszFileName) : wszFileName
         wszAlternatePath := wszAlternatePath is String ? StrPtr(wszAlternatePath) : wszAlternatePath
 
-        result := ComCall(31, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszPath, "ptr", wszFileName, "char", bRecursive, "ptr", wszAlternatePath, "HRESULT")
+        result := ComCall(31, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszPath, "ptr", wszFileName, Int8, bRecursive, "ptr", wszAlternatePath, "HRESULT")
         return result
     }
 
@@ -3025,7 +3025,7 @@ export default struct IVssBackupComponents extends IUnknown {
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
         wszRangesFile := wszRangesFile is String ? StrPtr(wszRangesFile) : wszRangesFile
 
-        result := ComCall(32, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "uint", iPartialFile, "ptr", wszRangesFile, "HRESULT")
+        result := ComCall(32, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, UInt32, iPartialFile, "ptr", wszRangesFile, "HRESULT")
         return result
     }
 
@@ -3155,7 +3155,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setcontext
      */
     SetContext(lContext) {
-        result := ComCall(35, this, "int", lContext, "HRESULT")
+        result := ComCall(35, this, Int32, lContext, "HRESULT")
         return result
     }
 
@@ -3912,7 +3912,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-disablewriterclasses
      */
     DisableWriterClasses(rgWriterClassId, cClassId) {
-        result := ComCall(45, this, Guid.Ptr, rgWriterClassId, "uint", cClassId, "HRESULT")
+        result := ComCall(45, this, Guid.Ptr, rgWriterClassId, UInt32, cClassId, "HRESULT")
         return result
     }
 
@@ -3999,7 +3999,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-enablewriterclasses
      */
     EnableWriterClasses(rgWriterClassId, cClassId) {
-        result := ComCall(46, this, Guid.Ptr, rgWriterClassId, "uint", cClassId, "HRESULT")
+        result := ComCall(46, this, Guid.Ptr, rgWriterClassId, UInt32, cClassId, "HRESULT")
         return result
     }
 
@@ -4080,7 +4080,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-disablewriterinstances
      */
     DisableWriterInstances(rgWriterInstanceId, cInstanceId) {
-        result := ComCall(47, this, Guid.Ptr, rgWriterInstanceId, "uint", cInstanceId, "HRESULT")
+        result := ComCall(47, this, Guid.Ptr, rgWriterInstanceId, UInt32, cInstanceId, "HRESULT")
         return result
     }
 
@@ -4134,7 +4134,7 @@ export default struct IVssBackupComponents extends IUnknown {
         wszPathFromRootMarshal := wszPathFromRoot is VarRef ? "ushort*" : "ptr"
         wszExposeMarshal := wszExpose is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(48, this, Guid, SnapshotId, wszPathFromRootMarshal, wszPathFromRoot, "int", lAttributes, wszExposeMarshal, wszExpose, "ptr*", &pwszExposed := 0, "HRESULT")
+        result := ComCall(48, this, Guid, SnapshotId, wszPathFromRootMarshal, wszPathFromRoot, Int32, lAttributes, wszExposeMarshal, wszExpose, "ptr*", &pwszExposed := 0, "HRESULT")
         return pwszExposed
     }
 

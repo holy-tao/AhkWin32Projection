@@ -1,32 +1,32 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\WER_FAULT_REPORTING.ahk" { WER_FAULT_REPORTING }
-#Import ".\HREPORTSTORE.ahk" { HREPORTSTORE }
-#Import ".\WER_REPORT_INFORMATION.ahk" { WER_REPORT_INFORMATION }
-#Import ".\WER_REPORT_UI.ahk" { WER_REPORT_UI }
-#Import ".\WER_FILE_TYPE.ahk" { WER_FILE_TYPE }
-#Import ".\WER_DUMP_CUSTOM_OPTIONS.ahk" { WER_DUMP_CUSTOM_OPTIONS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk" { EXCEPTION_POINTERS }
-#Import ".\WER_CONSENT.ahk" { WER_CONSENT }
-#Import ".\WER_REPORT_TYPE.ahk" { WER_REPORT_TYPE }
-#Import ".\WER_SUBMIT_FLAGS.ahk" { WER_SUBMIT_FLAGS }
-#Import ".\WER_EXCEPTION_INFORMATION.ahk" { WER_EXCEPTION_INFORMATION }
-#Import ".\WER_REGISTER_FILE_TYPE.ahk" { WER_REGISTER_FILE_TYPE }
-#Import ".\WER_REPORT_METADATA_V3.ahk" { WER_REPORT_METADATA_V3 }
-#Import ".\WER_FILE.ahk" { WER_FILE }
-#Import ".\WER_REPORT_METADATA_V2.ahk" { WER_REPORT_METADATA_V2 }
-#Import ".\WER_DUMP_TYPE.ahk" { WER_DUMP_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\REPORT_STORE_TYPES.ahk" { REPORT_STORE_TYPES }
-#Import ".\WER_SUBMIT_RESULT.ahk" { WER_SUBMIT_RESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\WER_REPORT_METADATA_V1.ahk" { WER_REPORT_METADATA_V1 }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WER_REPORT_METADATA_V2.ahk" { WER_REPORT_METADATA_V2 }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\REPORT_STORE_TYPES.ahk" { REPORT_STORE_TYPES }
+#Import ".\WER_REPORT_INFORMATION.ahk" { WER_REPORT_INFORMATION }
+#Import ".\HREPORTSTORE.ahk" { HREPORTSTORE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WER_FILE.ahk" { WER_FILE }
+#Import ".\WER_REGISTER_FILE_TYPE.ahk" { WER_REGISTER_FILE_TYPE }
+#Import ".\WER_SUBMIT_RESULT.ahk" { WER_SUBMIT_RESULT }
+#Import ".\WER_CONSENT.ahk" { WER_CONSENT }
+#Import ".\WER_REPORT_UI.ahk" { WER_REPORT_UI }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\HREPORT.ahk" { HREPORT }
 #Import ".\EFaultRepRetVal.ahk" { EFaultRepRetVal }
+#Import ".\WER_DUMP_CUSTOM_OPTIONS.ahk" { WER_DUMP_CUSTOM_OPTIONS }
+#Import "..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk" { EXCEPTION_POINTERS }
+#Import ".\WER_REPORT_METADATA_V3.ahk" { WER_REPORT_METADATA_V3 }
+#Import ".\WER_DUMP_TYPE.ahk" { WER_DUMP_TYPE }
+#Import ".\WER_REPORT_TYPE.ahk" { WER_REPORT_TYPE }
+#Import ".\WER_FILE_TYPE.ahk" { WER_FILE_TYPE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WER_EXCEPTION_INFORMATION.ahk" { WER_EXCEPTION_INFORMATION }
+#Import ".\WER_FAULT_REPORTING.ahk" { WER_FAULT_REPORTING }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WER_SUBMIT_FLAGS.ahk" { WER_SUBMIT_FLAGS }
+#Import ".\HREPORT.ahk" { HREPORT }
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -106,7 +106,7 @@ export WerReportSetParameter(hReportHandle, dwparamID, pwzName, pwzValue) {
     pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
     pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
-    result := DllCall("wer.dll\WerReportSetParameter", HREPORT, hReportHandle, "uint", dwparamID, "ptr", pwzName, "ptr", pwzValue, "HRESULT")
+    result := DllCall("wer.dll\WerReportSetParameter", HREPORT, hReportHandle, UInt32, dwparamID, "ptr", pwzName, "ptr", pwzValue, "HRESULT")
     return result
 }
 
@@ -235,7 +235,7 @@ export WerReportSubmit(hReportHandle, consent, dwFlags) {
  * @since windows6.0.6000
  */
 export WerReportAddDump(hReportHandle, hProcess, hThread, _dumpType, pExceptionParam, pDumpCustomOptions, dwFlags) {
-    result := DllCall("wer.dll\WerReportAddDump", HREPORT, hReportHandle, HANDLE, hProcess, HANDLE, hThread, WER_DUMP_TYPE, _dumpType, WER_EXCEPTION_INFORMATION.Ptr, pExceptionParam, WER_DUMP_CUSTOM_OPTIONS.Ptr, pDumpCustomOptions, "uint", dwFlags, "HRESULT")
+    result := DllCall("wer.dll\WerReportAddDump", HREPORT, hReportHandle, HANDLE, hProcess, HANDLE, hThread, WER_DUMP_TYPE, _dumpType, WER_EXCEPTION_INFORMATION.Ptr, pExceptionParam, WER_DUMP_CUSTOM_OPTIONS.Ptr, pDumpCustomOptions, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -398,7 +398,7 @@ export WerUnregisterFile(pwzFilePath) {
 export WerRegisterMemoryBlock(pvAddress, dwSize) {
     pvAddressMarshal := pvAddress is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\WerRegisterMemoryBlock", pvAddressMarshal, pvAddress, "uint", dwSize, "HRESULT")
+    result := DllCall("KERNEL32.dll\WerRegisterMemoryBlock", pvAddressMarshal, pvAddress, UInt32, dwSize, "HRESULT")
     return result
 }
 
@@ -509,7 +509,7 @@ export WerUnregisterMemoryBlock(pvAddress) {
 export WerRegisterExcludedMemoryBlock(_address, _size) {
     _addressMarshal := _address is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\WerRegisterExcludedMemoryBlock", _addressMarshal, _address, "uint", _size, "HRESULT")
+    result := DllCall("KERNEL32.dll\WerRegisterExcludedMemoryBlock", _addressMarshal, _address, UInt32, _size, "HRESULT")
     return result
 }
 
@@ -719,7 +719,7 @@ export WerUnregisterCustomMetadata(key) {
  * @since windows10.0.15063
  */
 export WerRegisterAdditionalProcess(processId, captureExtraInfoForThreadId) {
-    result := DllCall("KERNEL32.dll\WerRegisterAdditionalProcess", "uint", processId, "uint", captureExtraInfoForThreadId, "HRESULT")
+    result := DllCall("KERNEL32.dll\WerRegisterAdditionalProcess", UInt32, processId, UInt32, captureExtraInfoForThreadId, "HRESULT")
     return result
 }
 
@@ -760,7 +760,7 @@ export WerRegisterAdditionalProcess(processId, captureExtraInfoForThreadId) {
  * @since windows10.0.15063
  */
 export WerUnregisterAdditionalProcess(processId) {
-    result := DllCall("KERNEL32.dll\WerUnregisterAdditionalProcess", "uint", processId, "HRESULT")
+    result := DllCall("KERNEL32.dll\WerUnregisterAdditionalProcess", UInt32, processId, "HRESULT")
     return result
 }
 
@@ -1220,7 +1220,7 @@ export WerStoreQueryReportMetadataV1(_hReportStore, pszReportKey, pReportMetadat
 export WerStoreUploadReport(_hReportStore, pszReportKey, dwFlags) {
     pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
-    result := DllCall("wer.dll\WerStoreUploadReport", HREPORTSTORE, _hReportStore, "ptr", pszReportKey, "uint", dwFlags, "int*", &pSubmitResult := 0, "HRESULT")
+    result := DllCall("wer.dll\WerStoreUploadReport", HREPORTSTORE, _hReportStore, "ptr", pszReportKey, UInt32, dwFlags, "int*", &pSubmitResult := 0, "HRESULT")
     return pSubmitResult
 }
 
@@ -1334,7 +1334,7 @@ export WerStoreUploadReport(_hReportStore, pszReportKey, dwFlags) {
  * @since windows5.1.2600
  */
 export ReportFault(pep, dwOpt) {
-    result := DllCall("faultrep.dll\ReportFault", EXCEPTION_POINTERS.Ptr, pep, "uint", dwOpt, EFaultRepRetVal)
+    result := DllCall("faultrep.dll\ReportFault", EXCEPTION_POINTERS.Ptr, pep, UInt32, dwOpt, EFaultRepRetVal)
     return result
 }
 

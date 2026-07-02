@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITaskbarList3.ahk" { ITaskbarList3 }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\STPFLAG.ahk" { STPFLAG }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STPFLAG.ahk" { STPFLAG }
 
 /**
  * Extends ITaskbarList3 by providing a method that allows the caller to control two property values for the tab thumbnail and peek feature.

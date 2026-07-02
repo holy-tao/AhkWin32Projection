@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\OperationResultCode.ahk" { OperationResultCode }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUpdateInstallationResult.ahk" { IUpdateInstallationResult }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IUpdateInstallationResult.ahk" { IUpdateInstallationResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the result of an installation or uninstallation.
@@ -101,7 +101,7 @@ export default struct IInstallationResult extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-getupdateresult
      */
     GetUpdateResult(updateIndex) {
-        result := ComCall(10, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(10, this, Int32, updateIndex, "ptr*", &retval := 0, "HRESULT")
         return IUpdateInstallationResult(retval)
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DOT11_ADHOC_NETWORK_CONNECTION_STATUS.ahk" { DOT11_ADHOC_NETWORK_CONNECTION_STATUS }
-#Import ".\DOT11_ADHOC_CONNECT_FAIL_REASON.ahk" { DOT11_ADHOC_CONNECT_FAIL_REASON }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DOT11_ADHOC_CONNECT_FAIL_REASON.ahk" { DOT11_ADHOC_CONNECT_FAIL_REASON }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines the notifications supported by the IDot11AdHocNetwork interface.

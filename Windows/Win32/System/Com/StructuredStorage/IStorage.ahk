@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumSTATSTG.ahk" { IEnumSTATSTG }
-#Import "..\IStream.ahk" { IStream }
-#Import "..\STATSTG.ahk" { STATSTG }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumSTATSTG.ahk" { IEnumSTATSTG }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IStream.ahk" { IStream }
 #Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\STGM.ahk" { STGM }
-#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\STATSTG.ahk" { STATSTG }
 
 /**
  * The IStorage interface supports the creation and management of structured storage objects.
@@ -81,7 +81,7 @@ export default struct IStorage extends IUnknown {
     CreateStream(pwcsName, grfMode, reserved1, reserved2) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(3, this, "ptr", pwcsName, STGM, grfMode, "uint", reserved1, "uint", reserved2, "ptr*", &ppstm := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwcsName, STGM, grfMode, UInt32, reserved1, UInt32, reserved2, "ptr*", &ppstm := 0, "HRESULT")
         return IStream(ppstm)
     }
 
@@ -101,7 +101,7 @@ export default struct IStorage extends IUnknown {
 
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(4, this, "ptr", pwcsName, "ptr", reserved1, STGM, grfMode, "uint", reserved2, "ptr*", &ppstm := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwcsName, "ptr", reserved1, STGM, grfMode, UInt32, reserved2, "ptr*", &ppstm := 0, "HRESULT")
         return IStream(ppstm)
     }
 
@@ -129,7 +129,7 @@ export default struct IStorage extends IUnknown {
     CreateStorage(pwcsName, grfMode, reserved1, reserved2) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(5, this, "ptr", pwcsName, STGM, grfMode, "uint", reserved1, "uint", reserved2, "ptr*", &ppstg := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pwcsName, STGM, grfMode, UInt32, reserved1, UInt32, reserved2, "ptr*", &ppstg := 0, "HRESULT")
         return IStorage(ppstg)
     }
 
@@ -154,7 +154,7 @@ export default struct IStorage extends IUnknown {
 
         snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwcsName, "ptr", pstgPriority, STGM, grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", &ppstg := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pwcsName, "ptr", pstgPriority, STGM, grfMode, snbExcludeMarshal, snbExclude, UInt32, reserved, "ptr*", &ppstg := 0, "HRESULT")
         return IStorage(ppstg)
     }
 
@@ -218,7 +218,7 @@ export default struct IStorage extends IUnknown {
     CopyTo(ciidExclude, rgiidExclude, snbExclude, pstgDest) {
         snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", ciidExclude, Guid.Ptr, rgiidExclude, snbExcludeMarshal, snbExclude, "ptr", pstgDest, "HRESULT")
+        result := ComCall(7, this, UInt32, ciidExclude, Guid.Ptr, rgiidExclude, snbExcludeMarshal, snbExclude, "ptr", pstgDest, "HRESULT")
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct IStorage extends IUnknown {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
         pwcsNewName := pwcsNewName is String ? StrPtr(pwcsNewName) : pwcsNewName
 
-        result := ComCall(8, this, "ptr", pwcsName, "ptr", pstgDest, "ptr", pwcsNewName, "uint", grfFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", pwcsName, "ptr", pstgDest, "ptr", pwcsNewName, UInt32, grfFlags, "HRESULT")
         return result
     }
 
@@ -301,7 +301,7 @@ export default struct IStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-commit
      */
     Commit(grfCommitFlags) {
-        result := ComCall(9, this, "uint", grfCommitFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, grfCommitFlags, "HRESULT")
         return result
     }
 
@@ -350,7 +350,7 @@ export default struct IStorage extends IUnknown {
     EnumElements() {
         static reserved1 := 0, reserved2 := 0, reserved3 := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(11, this, "uint", reserved1, "ptr", reserved2, "uint", reserved3, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, reserved1, "ptr", reserved2, UInt32, reserved3, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumSTATSTG(ppenum)
     }
 
@@ -509,7 +509,7 @@ export default struct IStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-setstatebits
      */
     SetStateBits(grfStateBits, grfMask) {
-        result := ComCall(16, this, "uint", grfStateBits, "uint", grfMask, "HRESULT")
+        result := ComCall(16, this, UInt32, grfStateBits, UInt32, grfMask, "HRESULT")
         return result
     }
 
@@ -530,7 +530,7 @@ export default struct IStorage extends IUnknown {
      */
     Stat(grfStatFlag) {
         pstatstg := STATSTG()
-        result := ComCall(17, this, STATSTG.Ptr, pstatstg, "uint", grfStatFlag, "HRESULT")
+        result := ComCall(17, this, STATSTG.Ptr, pstatstg, UInt32, grfStatFlag, "HRESULT")
         return pstatstg
     }
 

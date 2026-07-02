@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITextPara.ahk" { ITextPara }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITextFont.ahk" { ITextFont }
 #Import ".\ITextDocument.ahk" { ITextDocument }
-#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITextSelection.ahk" { ITextSelection }
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\ITextFont.ahk" { ITextFont }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextPara.ahk" { ITextPara }
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
@@ -81,7 +81,7 @@ export default struct ITextDocument2Old extends ITextDocument {
      * @returns {HRESULT} 
      */
     SetEffectColor(Index, cr) {
-        result := ComCall(27, this, "int", Index, COLORREF, cr, "HRESULT")
+        result := ComCall(27, this, Int32, Index, COLORREF, cr, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct ITextDocument2Old extends ITextDocument {
      * @returns {COLORREF} 
      */
     GetEffectColor(Index) {
-        result := ComCall(28, this, "int", Index, COLORREF.Ptr, &pcr := 0, "HRESULT")
+        result := ComCall(28, this, Int32, Index, COLORREF.Ptr, &pcr := 0, "HRESULT")
         return pcr
     }
 
@@ -110,7 +110,7 @@ export default struct ITextDocument2Old extends ITextDocument {
      * @returns {HRESULT} 
      */
     SetCaretType(CaretType) {
-        result := ComCall(30, this, "int", CaretType, "HRESULT")
+        result := ComCall(30, this, Int32, CaretType, "HRESULT")
         return result
     }
 
@@ -129,7 +129,7 @@ export default struct ITextDocument2Old extends ITextDocument {
      * @returns {HRESULT} 
      */
     ReleaseImmContext(_Context) {
-        result := ComCall(32, this, "int64", _Context, "HRESULT")
+        result := ComCall(32, this, Int64, _Context, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct ITextDocument2Old extends ITextDocument {
         pPitchAndFamilyMarshal := pPitchAndFamily is VarRef ? "int*" : "ptr"
         pNewFontSizeMarshal := pNewFontSize is VarRef ? "int*" : "ptr"
 
-        result := ComCall(33, this, "int", cp, "int", CharRep, "int", Option, "int", CharRepCur, "int", curFontSize, BSTR.Ptr, pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
+        result := ComCall(33, this, Int32, cp, Int32, CharRep, Int32, Option, Int32, CharRepCur, Int32, curFontSize, BSTR.Ptr, pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct ITextDocument2Old extends ITextDocument {
      * @returns {HRESULT} 
      */
     SetNotificationMode(_Mode) {
-        result := ComCall(35, this, "int", _Mode, "HRESULT")
+        result := ComCall(35, this, Int32, _Mode, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct ITextDocument2Old extends ITextDocument {
         pRightMarshal := pRight is VarRef ? "int*" : "ptr"
         pBottomMarshal := pBottom is VarRef ? "int*" : "ptr"
 
-        result := ComCall(36, this, "int", Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, "HRESULT")
+        result := ComCall(36, this, Int32, Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, "HRESULT")
         return result
     }
 
@@ -249,7 +249,7 @@ export default struct ITextDocument2Old extends ITextDocument {
     CheckTextLimit(cch, pcch) {
         pcchMarshal := pcch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(41, this, "int", cch, pcchMarshal, pcch, "HRESULT")
+        result := ComCall(41, this, Int32, cch, pcchMarshal, pcch, "HRESULT")
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct ITextDocument2Old extends ITextDocument {
      * @returns {HRESULT} 
      */
     IMEInProgress(Value) {
-        result := ComCall(42, this, "int", Value, "HRESULT")
+        result := ComCall(42, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -279,7 +279,7 @@ export default struct ITextDocument2Old extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/update-constructor
      */
     Update(_Mode) {
-        result := ComCall(44, this, "int", _Mode, "HRESULT")
+        result := ComCall(44, this, Int32, _Mode, "HRESULT")
         return result
     }
 
@@ -289,7 +289,7 @@ export default struct ITextDocument2Old extends ITextDocument {
      * @returns {HRESULT} 
      */
     Notify(Notify) {
-        result := ComCall(45, this, "int", Notify, "HRESULT")
+        result := ComCall(45, this, Int32, Notify, "HRESULT")
         return result
     }
 

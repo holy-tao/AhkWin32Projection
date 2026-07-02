@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\IDataObject.ahk" { IDataObject }
+#Import ".\IEnumSTATDATA.ahk" { IEnumSTATDATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAdviseSink.ahk" { IAdviseSink }
 #Import ".\FORMATETC.ahk" { FORMATETC }
-#Import ".\IEnumSTATDATA.ahk" { IEnumSTATDATA }
-#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates and manages advisory connections between a data object and one or more advise sinks.
@@ -109,7 +109,7 @@ export default struct IDataAdviseHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataadviseholder-advise
      */
     Advise(pDataObject, pFetc, _advf, pAdvise) {
-        result := ComCall(3, this, "ptr", pDataObject, FORMATETC.Ptr, pFetc, "uint", _advf, "ptr", pAdvise, "uint*", &pdwConnection := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDataObject, FORMATETC.Ptr, pFetc, UInt32, _advf, "ptr", pAdvise, "uint*", &pdwConnection := 0, "HRESULT")
         return pdwConnection
     }
 
@@ -138,7 +138,7 @@ export default struct IDataAdviseHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataadviseholder-unadvise
      */
     Unadvise(dwConnection) {
-        result := ComCall(4, this, "uint", dwConnection, "HRESULT")
+        result := ComCall(4, this, UInt32, dwConnection, "HRESULT")
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IDataAdviseHolder extends IUnknown {
     SendOnDataChange(pDataObject, _advf) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(6, this, "ptr", pDataObject, "uint", dwReserved, "uint", _advf, "HRESULT")
+        result := ComCall(6, this, "ptr", pDataObject, UInt32, dwReserved, UInt32, _advf, "HRESULT")
         return result
     }
 

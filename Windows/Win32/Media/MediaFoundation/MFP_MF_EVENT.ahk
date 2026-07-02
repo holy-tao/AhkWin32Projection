@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
-#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
-#Import ".\IMFPMediaItem.ahk" { IMFPMediaItem }
-#Import ".\MFP_EVENT_TYPE.ahk" { MFP_EVENT_TYPE }
-#Import ".\MFP_EVENT_HEADER.ahk" { MFP_EVENT_HEADER }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 #Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
+#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFP_EVENT_TYPE.ahk" { MFP_EVENT_TYPE }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import ".\IMFPMediaItem.ahk" { IMFPMediaItem }
+#Import ".\MFP_EVENT_HEADER.ahk" { MFP_EVENT_HEADER }
 
 /**
  * Event structure for the MFP_EVENT_TYPE_MF event.

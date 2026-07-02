@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D10_MESSAGE_CATEGORY.ahk" { D3D10_MESSAGE_CATEGORY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\D3D10_MESSAGE_SEVERITY.ahk" { D3D10_MESSAGE_SEVERITY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3D10_MESSAGE_ID.ahk" { D3D10_MESSAGE_ID }
 #Import ".\D3D10_INFO_QUEUE_FILTER.ahk" { D3D10_INFO_QUEUE_FILTER }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D10_MESSAGE_SEVERITY.ahk" { D3D10_MESSAGE_SEVERITY }
 
 /**
  * An information-queue interface stores, retrieves, and filters debug messages. The queue consists of a message queue, an optional storage filter stack, and a optional retrieval filter stack. (ID3D10InfoQueue)
@@ -101,7 +101,7 @@ export default struct ID3D10InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10infoqueue-setmessagecountlimit
      */
     SetMessageCountLimit(MessageCountLimit) {
-        result := ComCall(3, this, "uint", MessageCountLimit, "HRESULT")
+        result := ComCall(3, this, Int64, MessageCountLimit, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct ID3D10InfoQueue extends IUnknown {
     GetMessage(MessageIndex, pMessage, pMessageByteLength) {
         pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", MessageIndex, "ptr", pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
+        result := ComCall(5, this, Int64, MessageIndex, IntPtr, pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
         return result
     }
 
@@ -268,7 +268,7 @@ export default struct ID3D10InfoQueue extends IUnknown {
     GetStorageFilter(pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(13, this, IntPtr, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -380,7 +380,7 @@ export default struct ID3D10InfoQueue extends IUnknown {
     GetRetrievalFilter(pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(21, this, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(21, this, IntPtr, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 

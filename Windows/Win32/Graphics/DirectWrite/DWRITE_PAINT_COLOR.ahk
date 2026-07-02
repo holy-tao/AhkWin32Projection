@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
 #Import ".\DWRITE_PAINT_ATTRIBUTES.ahk" { DWRITE_PAINT_ATTRIBUTES }
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

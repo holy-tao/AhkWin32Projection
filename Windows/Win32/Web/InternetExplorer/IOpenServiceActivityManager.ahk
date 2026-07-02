@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IOpenServiceActivity.ahk" { IOpenServiceActivity }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumOpenServiceActivityCategory.ahk" { IEnumOpenServiceActivityCategory }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpenServiceActivity.ahk" { IOpenServiceActivity }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumOpenServiceActivityCategory.ahk" { IEnumOpenServiceActivityCategory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\OpenServiceActivityContentType.ahk" { OpenServiceActivityContentType }
 
 /**

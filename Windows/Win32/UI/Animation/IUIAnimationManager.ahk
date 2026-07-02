@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
-#Import ".\IUIAnimationPriorityComparison.ahk" { IUIAnimationPriorityComparison }
-#Import ".\IUIAnimationStoryboard.ahk" { IUIAnimationStoryboard }
-#Import ".\IUIAnimationManagerEventHandler.ahk" { IUIAnimationManagerEventHandler }
-#Import ".\UI_ANIMATION_MANAGER_STATUS.ahk" { UI_ANIMATION_MANAGER_STATUS }
-#Import ".\IUIAnimationTransition.ahk" { IUIAnimationTransition }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IUIAnimationVariable.ahk" { IUIAnimationVariable }
 #Import ".\UI_ANIMATION_MODE.ahk" { UI_ANIMATION_MODE }
+#Import ".\IUIAnimationTransition.ahk" { IUIAnimationTransition }
+#Import ".\IUIAnimationManagerEventHandler.ahk" { IUIAnimationManagerEventHandler }
+#Import ".\IUIAnimationVariable.ahk" { IUIAnimationVariable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAnimationStoryboard.ahk" { IUIAnimationStoryboard }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationPriorityComparison.ahk" { IUIAnimationPriorityComparison }
+#Import ".\UI_ANIMATION_MANAGER_STATUS.ahk" { UI_ANIMATION_MANAGER_STATUS }
 
 /**
  * Defines the animation manager, which provides a central interface for creating and managing animations.
@@ -89,7 +89,7 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-createanimationvariable
      */
     CreateAnimationVariable(initialValue) {
-        result := ComCall(3, this, "double", initialValue, "ptr*", &variable := 0, "HRESULT")
+        result := ComCall(3, this, Float64, initialValue, "ptr*", &variable := 0, "HRESULT")
         return IUIAnimationVariable(variable)
     }
 
@@ -104,7 +104,7 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-scheduletransition
      */
     ScheduleTransition(variable, transition, timeNow) {
-        result := ComCall(4, this, "ptr", variable, "ptr", transition, "double", timeNow, "HRESULT")
+        result := ComCall(4, this, "ptr", variable, "ptr", transition, Float64, timeNow, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-finishallstoryboards
      */
     FinishAllStoryboards(completionDeadline) {
-        result := ComCall(6, this, "double", completionDeadline, "HRESULT")
+        result := ComCall(6, this, Float64, completionDeadline, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-update
      */
     Update(timeNow) {
-        result := ComCall(8, this, "double", timeNow, "int*", &updateResult := 0, "HRESULT")
+        result := ComCall(8, this, Float64, timeNow, "int*", &updateResult := 0, "HRESULT")
         return updateResult
     }
 
@@ -176,7 +176,7 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getvariablefromtag
      */
     GetVariableFromTag(_object, id) {
-        result := ComCall(9, this, "ptr", _object, "uint", id, "ptr*", &variable := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", _object, UInt32, id, "ptr*", &variable := 0, "HRESULT")
         return IUIAnimationVariable(variable)
     }
 
@@ -193,7 +193,7 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getstoryboardfromtag
      */
     GetStoryboardFromTag(_object, id) {
-        result := ComCall(10, this, "ptr", _object, "uint", id, "ptr*", &storyboard := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", _object, UInt32, id, "ptr*", &storyboard := 0, "HRESULT")
         return IUIAnimationStoryboard(storyboard)
     }
 
@@ -351,7 +351,7 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-setdefaultlongestacceptabledelay
      */
     SetDefaultLongestAcceptableDelay(delay) {
-        result := ComCall(20, this, "double", delay, "HRESULT")
+        result := ComCall(20, this, Float64, delay, "HRESULT")
         return result
     }
 

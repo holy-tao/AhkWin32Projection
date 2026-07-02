@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWMPContentContainer.ahk" { IWMPContentContainer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMPTransactionType.ahk" { WMPTransactionType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Note  This section describes functionality designed for use by online stores.
@@ -68,7 +68,7 @@ export default struct IWMPContentContainerList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainerlist-getcontainer
      */
     GetContainer(idxContainer) {
-        result := ComCall(5, this, "uint", idxContainer, "ptr*", &ppContent := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, idxContainer, "ptr*", &ppContent := 0, "HRESULT")
         return IWMPContentContainer(ppContent)
     }
 

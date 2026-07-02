@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IAlternativeNames.ahk" { IAlternativeNames }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAlternativeNames.ahk" { IAlternativeNames }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IX509Extension.ahk" { IX509Extension }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables you to specify one or more alternative name forms for the subject of a certificate. A certification authority processes the extension by binding the names to the certified public key.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWbemContext interface is optionally used to communicate additional context information to providers when submitting IWbemServices calls to WMI. All primary calls in IWbemServices take an optional parameter pointing to an object of this type.
@@ -113,7 +113,7 @@ export default struct IWbemContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-getnames
      */
     GetNames(lFlags) {
-        result := ComCall(4, this, "int", lFlags, "ptr*", &pNames := 0, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, "ptr*", &pNames := 0, "HRESULT")
         return pNames
     }
 
@@ -124,7 +124,7 @@ export default struct IWbemContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-beginenumeration
      */
     BeginEnumeration(lFlags) {
-        result := ComCall(5, this, "int", lFlags, "HRESULT")
+        result := ComCall(5, this, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IWbemContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-next
      */
     Next(lFlags, pstrName, pValue) {
-        result := ComCall(6, this, "int", lFlags, BSTR.Ptr, pstrName, VARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(6, this, Int32, lFlags, BSTR.Ptr, pstrName, VARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -178,7 +178,7 @@ export default struct IWbemContext extends IUnknown {
     SetValue(wszName, lFlags, pValue) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(8, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(8, this, "ptr", wszName, Int32, lFlags, VARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct IWbemContext extends IUnknown {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
         pValue := VARIANT()
-        result := ComCall(9, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(9, this, "ptr", wszName, Int32, lFlags, VARIANT.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -211,7 +211,7 @@ export default struct IWbemContext extends IUnknown {
     DeleteValue(wszName, lFlags) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(10, this, "ptr", wszName, "int", lFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", wszName, Int32, lFlags, "HRESULT")
         return result
     }
 

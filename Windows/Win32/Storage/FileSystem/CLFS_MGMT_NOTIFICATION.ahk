@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLFS_MGMT_NOTIFICATION_TYPE.ahk" { CLFS_MGMT_NOTIFICATION_TYPE }
 #Import ".\CLS_LSN.ahk" { CLS_LSN }
+#Import ".\CLFS_MGMT_NOTIFICATION_TYPE.ahk" { CLFS_MGMT_NOTIFICATION_TYPE }
 
 /**
  * The CLFS_MGMT_NOTIFICATION structure specifies information about the notifications that the client receives.

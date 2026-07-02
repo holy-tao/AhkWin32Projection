@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WMT_PAYLOAD_FRAGMENT.ahk" { WMT_PAYLOAD_FRAGMENT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import ".\WMT_BUFFER_SEGMENT.ahk" { WMT_BUFFER_SEGMENT }
+#Import ".\WMT_PAYLOAD_FRAGMENT.ahk" { WMT_PAYLOAD_FRAGMENT }
 
 /**
  * The WMT_FILESINK_DATA_UNIT structure is used by IWMWriterFileSink3::OnDataUnitEx to deliver information about a packet.

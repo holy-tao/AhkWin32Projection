@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WEB_SOCKET_ACTION_QUEUE.ahk" { WEB_SOCKET_ACTION_QUEUE }
 #Import ".\WEB_SOCKET_ACTION.ahk" { WEB_SOCKET_ACTION }
-#Import ".\WEB_SOCKET_PROPERTY.ahk" { WEB_SOCKET_PROPERTY }
 #Import ".\WEB_SOCKET_HANDLE.ahk" { WEB_SOCKET_HANDLE }
-#Import ".\WEB_SOCKET_HTTP_HEADER.ahk" { WEB_SOCKET_HTTP_HEADER }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WEB_SOCKET_PROPERTY_TYPE.ahk" { WEB_SOCKET_PROPERTY_TYPE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\WEB_SOCKET_BUFFER.ahk" { WEB_SOCKET_BUFFER }
+#Import ".\WEB_SOCKET_HTTP_HEADER.ahk" { WEB_SOCKET_HTTP_HEADER }
+#Import ".\WEB_SOCKET_ACTION_QUEUE.ahk" { WEB_SOCKET_ACTION_QUEUE }
 #Import ".\WEB_SOCKET_BUFFER_TYPE.ahk" { WEB_SOCKET_BUFFER_TYPE }
-#Import ".\WEB_SOCKET_PROPERTY_TYPE.ahk" { WEB_SOCKET_PROPERTY_TYPE }
+#Import ".\WEB_SOCKET_PROPERTY.ahk" { WEB_SOCKET_PROPERTY }
 
 /**
  * @namespace Windows.Win32.Networking.WebSocket
@@ -32,7 +32,7 @@
  */
 export WebSocketCreateClientHandle(pProperties, ulPropertyCount) {
     phWebSocket := WEB_SOCKET_HANDLE.Owned()
-    result := DllCall("websocket.dll\WebSocketCreateClientHandle", WEB_SOCKET_PROPERTY.Ptr, pProperties, "uint", ulPropertyCount, WEB_SOCKET_HANDLE.Ptr, phWebSocket, "HRESULT")
+    result := DllCall("websocket.dll\WebSocketCreateClientHandle", WEB_SOCKET_PROPERTY.Ptr, pProperties, UInt32, ulPropertyCount, WEB_SOCKET_HANDLE.Ptr, phWebSocket, "HRESULT")
     return phWebSocket
 }
 
@@ -81,7 +81,7 @@ export WebSocketBeginClientHandshake(hWebSocket, pszSubprotocols, ulSubprotocolC
     pAdditionalHeadersMarshal := pAdditionalHeaders is VarRef ? "ptr*" : "ptr"
     pulAdditionalHeaderCountMarshal := pulAdditionalHeaderCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("websocket.dll\WebSocketBeginClientHandshake", WEB_SOCKET_HANDLE, hWebSocket, pszSubprotocolsMarshal, pszSubprotocols, "uint", ulSubprotocolCount, pszExtensionsMarshal, pszExtensions, "uint", ulExtensionCount, WEB_SOCKET_HTTP_HEADER.Ptr, pInitialHeaders, "uint", ulInitialHeaderCount, pAdditionalHeadersMarshal, pAdditionalHeaders, pulAdditionalHeaderCountMarshal, pulAdditionalHeaderCount, "HRESULT")
+    result := DllCall("websocket.dll\WebSocketBeginClientHandshake", WEB_SOCKET_HANDLE, hWebSocket, pszSubprotocolsMarshal, pszSubprotocols, UInt32, ulSubprotocolCount, pszExtensionsMarshal, pszExtensions, UInt32, ulExtensionCount, WEB_SOCKET_HTTP_HEADER.Ptr, pInitialHeaders, UInt32, ulInitialHeaderCount, pAdditionalHeadersMarshal, pAdditionalHeaders, pulAdditionalHeaderCountMarshal, pulAdditionalHeaderCount, "HRESULT")
     return result
 }
 
@@ -160,7 +160,7 @@ export WebSocketEndClientHandshake(hWebSocket, pResponseHeaders, ulReponseHeader
     pulSelectedExtensionCountMarshal := pulSelectedExtensionCount is VarRef ? "uint*" : "ptr"
     pulSelectedSubprotocolMarshal := pulSelectedSubprotocol is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("websocket.dll\WebSocketEndClientHandshake", WEB_SOCKET_HANDLE, hWebSocket, WEB_SOCKET_HTTP_HEADER.Ptr, pResponseHeaders, "uint", ulReponseHeaderCount, pulSelectedExtensionsMarshal, pulSelectedExtensions, pulSelectedExtensionCountMarshal, pulSelectedExtensionCount, pulSelectedSubprotocolMarshal, pulSelectedSubprotocol, "HRESULT")
+    result := DllCall("websocket.dll\WebSocketEndClientHandshake", WEB_SOCKET_HANDLE, hWebSocket, WEB_SOCKET_HTTP_HEADER.Ptr, pResponseHeaders, UInt32, ulReponseHeaderCount, pulSelectedExtensionsMarshal, pulSelectedExtensions, pulSelectedExtensionCountMarshal, pulSelectedExtensionCount, pulSelectedSubprotocolMarshal, pulSelectedSubprotocol, "HRESULT")
     return result
 }
 
@@ -180,7 +180,7 @@ export WebSocketEndClientHandshake(hWebSocket, pResponseHeaders, ulReponseHeader
  */
 export WebSocketCreateServerHandle(pProperties, ulPropertyCount) {
     phWebSocket := WEB_SOCKET_HANDLE.Owned()
-    result := DllCall("websocket.dll\WebSocketCreateServerHandle", WEB_SOCKET_PROPERTY.Ptr, pProperties, "uint", ulPropertyCount, WEB_SOCKET_HANDLE.Ptr, phWebSocket, "HRESULT")
+    result := DllCall("websocket.dll\WebSocketCreateServerHandle", WEB_SOCKET_PROPERTY.Ptr, pProperties, UInt32, ulPropertyCount, WEB_SOCKET_HANDLE.Ptr, phWebSocket, "HRESULT")
     return phWebSocket
 }
 
@@ -245,7 +245,7 @@ export WebSocketBeginServerHandshake(hWebSocket, pszSubprotocolSelected, pszExte
     pResponseHeadersMarshal := pResponseHeaders is VarRef ? "ptr*" : "ptr"
     pulResponseHeaderCountMarshal := pulResponseHeaderCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("websocket.dll\WebSocketBeginServerHandshake", WEB_SOCKET_HANDLE, hWebSocket, "ptr", pszSubprotocolSelected, pszExtensionSelectedMarshal, pszExtensionSelected, "uint", ulExtensionSelectedCount, WEB_SOCKET_HTTP_HEADER.Ptr, pRequestHeaders, "uint", ulRequestHeaderCount, pResponseHeadersMarshal, pResponseHeaders, pulResponseHeaderCountMarshal, pulResponseHeaderCount, "HRESULT")
+    result := DllCall("websocket.dll\WebSocketBeginServerHandshake", WEB_SOCKET_HANDLE, hWebSocket, "ptr", pszSubprotocolSelected, pszExtensionSelectedMarshal, pszExtensionSelected, UInt32, ulExtensionSelectedCount, WEB_SOCKET_HTTP_HEADER.Ptr, pRequestHeaders, UInt32, ulRequestHeaderCount, pResponseHeadersMarshal, pResponseHeaders, pulResponseHeaderCountMarshal, pulResponseHeaderCount, "HRESULT")
     return result
 }
 
@@ -487,7 +487,7 @@ export WebSocketGetAction(hWebSocket, eActionQueue, pDataBuffers, pulDataBufferC
 export WebSocketCompleteAction(hWebSocket, pvActionContext, ulBytesTransferred) {
     pvActionContextMarshal := pvActionContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("websocket.dll\WebSocketCompleteAction", WEB_SOCKET_HANDLE, hWebSocket, pvActionContextMarshal, pvActionContext, "uint", ulBytesTransferred)
+    DllCall("websocket.dll\WebSocketCompleteAction", WEB_SOCKET_HANDLE, hWebSocket, pvActionContextMarshal, pvActionContext, UInt32, ulBytesTransferred)
 }
 
 /**

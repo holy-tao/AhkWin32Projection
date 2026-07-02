@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMAudioInputMixer interface controls audio capture properties, such as panning and loudness; and enables or disables specific audio inputs, such as the line in or the microphone. The Audio Capture filter exposes this interface on each input pin, as well as on the filter itself. The input pins on the Audio Capture Filter represent physical hardware connections; they are not connected to other DirectShow filters. The pin name indicates the input type; for example, &quot;Line In&quot; or &quot;Microphone.&quot; Use the IAMAudioInputMixer interface as follows:To control the settings on a particular input, use the interface on the pin.To set the overall properties when multiple inputs are enabled, use the interface on the filter.To enable or disable an input, call that pin's IAMAudioInputMixer::put_Enable method.Some methods on this interface might fail, depending on the capabilities of the underlying hardware.Filter Developers:\_Implement this interface on each input pin of an audio capture filter. You can also implement this interface on the audio capture filter itself to control the overall audio settings after mixing.
@@ -295,7 +295,7 @@ export default struct IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-put_mixlevel
      */
     put_MixLevel(Level) {
-        result := ComCall(7, this, "double", Level, "HRESULT")
+        result := ComCall(7, this, Float64, Level, "HRESULT")
         return result
     }
 
@@ -356,7 +356,7 @@ export default struct IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-put_pan
      */
     put_Pan(Pan) {
-        result := ComCall(9, this, "double", Pan, "HRESULT")
+        result := ComCall(9, this, Float64, Pan, "HRESULT")
         return result
     }
 
@@ -452,7 +452,7 @@ export default struct IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-put_treble
      */
     put_Treble(Treble) {
-        result := ComCall(13, this, "double", Treble, "HRESULT")
+        result := ComCall(13, this, Float64, Treble, "HRESULT")
         return result
     }
 
@@ -514,7 +514,7 @@ export default struct IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-put_bass
      */
     put_Bass(Bass) {
-        result := ComCall(16, this, "double", Bass, "HRESULT")
+        result := ComCall(16, this, Float64, Bass, "HRESULT")
         return result
     }
 

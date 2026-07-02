@@ -52,7 +52,7 @@ export default struct ID3D12RootSignature1 extends ID3D12RootSignature {
      * @returns {HRESULT} 
      */
     GetSerializedData(pData, _Size) {
-        result := ComCall(9, this, "ptr", pData, "ptr", _Size, "HRESULT")
+        result := ComCall(9, this, IntPtr, pData, IntPtr, _Size, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ADSTYPE.ahk" { ADSTYPE }
-#Import ".\ADSVALUE.ahk" { ADSVALUE }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ADSVALUE.ahk" { ADSVALUE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ADSTYPE.ahk" { ADSTYPE }
 
 /**
  * The ADS_SEARCH_COLUMN structure specifies the contents of a search column in the query returned from the directory service database.

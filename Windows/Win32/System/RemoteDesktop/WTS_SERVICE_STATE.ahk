@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WTS_RCM_SERVICE_STATE.ahk" { WTS_RCM_SERVICE_STATE }
 #Import ".\WTS_RCM_DRAIN_STATE.ahk" { WTS_RCM_DRAIN_STATE }
+#Import ".\WTS_RCM_SERVICE_STATE.ahk" { WTS_RCM_SERVICE_STATE }
 
 /**
  * Contains information about changes in the state of the Remote Desktop Services service.

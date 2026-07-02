@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_CERT_CREDENTIAL.ahk" { WS_CERT_CREDENTIAL }
-#Import ".\WS_SECURITY_BINDING.ahk" { WS_SECURITY_BINDING }
-#Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
 #Import ".\WS_SECURITY_BINDING_TYPE.ahk" { WS_SECURITY_BINDING_TYPE }
+#Import ".\WS_SECURITY_BINDING.ahk" { WS_SECURITY_BINDING }
+#Import ".\WS_CERT_CREDENTIAL.ahk" { WS_CERT_CREDENTIAL }
+#Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
 
 /**
  * The security binding subtype for specifying the use of SSL/TLS protocol based transport security.

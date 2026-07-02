@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PciPin2Line.ahk" { PciPin2Line }
+#Import ".\PciLine2Pin.ahk" { PciLine2Pin }
+#Import ".\PciReadWriteConfig.ahk" { PciReadWriteConfig }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -10,13 +13,13 @@ export default struct PCIBUSDATA {
 
     Version : UInt32
 
-    ReadConfig : IntPtr
+    ReadConfig : PciReadWriteConfig
 
-    WriteConfig : IntPtr
+    WriteConfig : PciReadWriteConfig
 
-    Pin2Line : IntPtr
+    Pin2Line : PciPin2Line
 
-    Line2Pin : IntPtr
+    Line2Pin : PciLine2Pin
 
     ParentSlot : IntPtr
 

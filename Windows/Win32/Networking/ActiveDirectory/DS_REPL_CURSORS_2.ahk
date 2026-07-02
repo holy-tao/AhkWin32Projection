@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DS_REPL_CURSOR_2.ahk" { DS_REPL_CURSOR_2 }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\DS_REPL_CURSOR_2.ahk" { DS_REPL_CURSOR_2 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**

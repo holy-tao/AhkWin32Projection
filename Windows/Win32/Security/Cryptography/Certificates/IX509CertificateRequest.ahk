@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\InnerRequestLevel.ahk" { InnerRequestLevel }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\EncodingType.ahk" { EncodingType }
 #Import ".\RequestClientInfoClientId.ahk" { RequestClientInfoClientId }
 #Import ".\ICspInformations.ahk" { ICspInformations }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\X509RequestType.ahk" { X509RequestType }
+#Import ".\InnerRequestLevel.ahk" { InnerRequestLevel }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\X509RequestType.ahk" { X509RequestType }
 
 /**
  * The IX509CertificateRequest interface represents an abstract base certificate request that identifies methods and properties common to and inherited by each of the request objects implemented by the Certificate Enrollment API.
@@ -471,7 +471,7 @@ export default struct IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_parentwindow
      */
     put_ParentWindow(Value) {
-        result := ComCall(16, this, "int", Value, "HRESULT")
+        result := ComCall(16, this, Int32, Value, "HRESULT")
         return result
     }
 

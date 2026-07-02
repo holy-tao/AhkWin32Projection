@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -43,7 +43,7 @@ export default struct IConvertType extends IUnknown {
      * @returns {HRESULT} 
      */
     CanConvert(wFromType, wToType, dwConvertFlags) {
-        result := ComCall(3, this, "ushort", wFromType, "ushort", wToType, "uint", dwConvertFlags, "HRESULT")
+        result := ComCall(3, this, UInt16, wFromType, UInt16, wToType, UInt32, dwConvertFlags, "HRESULT")
         return result
     }
 

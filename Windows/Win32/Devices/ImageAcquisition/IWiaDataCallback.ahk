@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides an application callback mechanism during data transfers from Windows Image Acquisition (WIA) hardware devices to applications.Note  For Windows Vista applications, use IWiaTransferCallback instead of IWiaDataCallback.
@@ -108,7 +108,7 @@ export default struct IWiaDataCallback extends IUnknown {
     BandedDataCallback(lMessage, lStatus, lPercentComplete, lOffset, lLength, lReserved, lResLength, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "int", lMessage, "int", lStatus, "int", lPercentComplete, "int", lOffset, "int", lLength, "int", lReserved, "int", lResLength, pbBufferMarshal, pbBuffer, "HRESULT")
+        result := ComCall(3, this, Int32, lMessage, Int32, lStatus, Int32, lPercentComplete, Int32, lOffset, Int32, lLength, Int32, lReserved, Int32, lResLength, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 

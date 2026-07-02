@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Created and used by the IRDPSRAPITransportStream interface for sending and receiving data.
@@ -125,7 +125,7 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     put_PayloadSize(lVal) {
-        result := ComCall(6, this, "int", lVal, "HRESULT")
+        result := ComCall(6, this, Int32, lVal, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     put_PayloadOffset(lRetVal) {
-        result := ComCall(8, this, "int", lRetVal, "HRESULT")
+        result := ComCall(8, this, Int32, lRetVal, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Flags(lFlags) {
-        result := ComCall(10, this, "int", lFlags, "HRESULT")
+        result := ComCall(10, this, Int32, lFlags, "HRESULT")
         return result
     }
 

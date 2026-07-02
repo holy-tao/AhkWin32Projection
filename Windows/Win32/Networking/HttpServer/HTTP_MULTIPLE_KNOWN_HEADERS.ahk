@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_HEADER_ID.ahk" { HTTP_HEADER_ID }
 #Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
+#Import ".\HTTP_HEADER_ID.ahk" { HTTP_HEADER_ID }
 
 /**
  * Specifies the headers that are included in an HTTP response when more than one header is required.

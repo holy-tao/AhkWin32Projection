@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
-#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
-#Import ".\AM_LINE21_CCSERVICE.ahk" { AM_LINE21_CCSERVICE }
-#Import ".\AM_LINE21_CCLEVEL.ahk" { AM_LINE21_CCLEVEL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\AM_LINE21_CCSTATE.ahk" { AM_LINE21_CCSTATE }
+#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
+#Import ".\AM_LINE21_CCLEVEL.ahk" { AM_LINE21_CCLEVEL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 #Import ".\AM_LINE21_DRAWBGMODE.ahk" { AM_LINE21_DRAWBGMODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AM_LINE21_CCSTATE.ahk" { AM_LINE21_CCSTATE }
+#Import ".\AM_LINE21_CCSERVICE.ahk" { AM_LINE21_CCSERVICE }
 
 /**
  * The IAMLine21Decoder interface sets and retrieves information about closed captions.The Line 21 Decoder filter exposes this interface.
@@ -367,7 +367,7 @@ export default struct IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-setbackgroundcolor
      */
     SetBackgroundColor(dwPhysColor) {
-        result := ComCall(11, this, "uint", dwPhysColor, "HRESULT")
+        result := ComCall(11, this, UInt32, dwPhysColor, "HRESULT")
         return result
     }
 

@@ -1,9 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\OVERLAPPED_ENTRY.ahk" { OVERLAPPED_ENTRY }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\OVERLAPPED.ahk" { OVERLAPPED }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\LPOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPOVERLAPPED_COMPLETION_ROUTINE }
+#Import ".\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\OVERLAPPED_ENTRY.ahk" { OVERLAPPED_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.IO
@@ -144,7 +145,7 @@
 export CreateIoCompletionPort(FileHandle, ExistingCompletionPort, CompletionKey, NumberOfConcurrentThreads) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateIoCompletionPort", HANDLE, FileHandle, HANDLE, ExistingCompletionPort, "ptr", CompletionKey, "uint", NumberOfConcurrentThreads, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateIoCompletionPort", HANDLE, FileHandle, HANDLE, ExistingCompletionPort, IntPtr, CompletionKey, UInt32, NumberOfConcurrentThreads, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -263,7 +264,7 @@ export GetQueuedCompletionStatus(CompletionPort, lpNumberOfBytesTransferred, lpC
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetQueuedCompletionStatus", HANDLE, CompletionPort, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, lpCompletionKeyMarshal, lpCompletionKey, lpOverlappedMarshal, lpOverlapped, "uint", dwMilliseconds, BOOL)
+    result := DllCall("KERNEL32.dll\GetQueuedCompletionStatus", HANDLE, CompletionPort, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, lpCompletionKeyMarshal, lpCompletionKey, lpOverlappedMarshal, lpOverlapped, UInt32, dwMilliseconds, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -410,7 +411,7 @@ export GetQueuedCompletionStatusEx(CompletionPort, lpCompletionPortEntries, ulCo
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetQueuedCompletionStatusEx", HANDLE, CompletionPort, OVERLAPPED_ENTRY.Ptr, lpCompletionPortEntries, "uint", ulCount, ulNumEntriesRemovedMarshal, ulNumEntriesRemoved, "uint", dwMilliseconds, BOOL, fAlertable, BOOL)
+    result := DllCall("KERNEL32.dll\GetQueuedCompletionStatusEx", HANDLE, CompletionPort, OVERLAPPED_ENTRY.Ptr, lpCompletionPortEntries, UInt32, ulCount, ulNumEntriesRemovedMarshal, ulNumEntriesRemoved, UInt32, dwMilliseconds, BOOL, fAlertable, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -503,7 +504,7 @@ export GetQueuedCompletionStatusEx(CompletionPort, lpCompletionPortEntries, ulCo
 export PostQueuedCompletionStatus(CompletionPort, dwNumberOfBytesTransferred, dwCompletionKey, lpOverlapped) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\PostQueuedCompletionStatus", HANDLE, CompletionPort, "uint", dwNumberOfBytesTransferred, "ptr", dwCompletionKey, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\PostQueuedCompletionStatus", HANDLE, CompletionPort, UInt32, dwNumberOfBytesTransferred, IntPtr, dwCompletionKey, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -646,7 +647,7 @@ export DeviceIoControl(hDevice, dwIoControlCode, lpInBuffer, nInBufferSize, lpOu
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\DeviceIoControl", HANDLE, hDevice, "uint", dwIoControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\DeviceIoControl", HANDLE, hDevice, UInt32, dwIoControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -993,7 +994,7 @@ export GetOverlappedResultEx(hFile, lpOverlapped, lpNumberOfBytesTransferred, dw
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetOverlappedResultEx", HANDLE, hFile, OVERLAPPED.Ptr, lpOverlapped, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, "uint", dwMilliseconds, BOOL, bAlertable, BOOL)
+    result := DllCall("KERNEL32.dll\GetOverlappedResultEx", HANDLE, hFile, OVERLAPPED.Ptr, lpOverlapped, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, UInt32, dwMilliseconds, BOOL, bAlertable, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1138,7 +1139,7 @@ export CancelSynchronousIo(hThread) {
 export BindIoCompletionCallback(FileHandle, Function, Flags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\BindIoCompletionCallback", HANDLE, FileHandle, "ptr", Function, "uint", Flags, BOOL)
+    result := DllCall("KERNEL32.dll\BindIoCompletionCallback", HANDLE, FileHandle, LPOVERLAPPED_COMPLETION_ROUTINE, Function, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

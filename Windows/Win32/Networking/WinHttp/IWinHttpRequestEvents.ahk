@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
@@ -76,7 +76,7 @@ export default struct IWinHttpRequestEvents extends IUnknown {
     OnResponseStart(_Status, ContentType) {
         ContentType := ContentType is String ? BSTR.Alloc(ContentType).Value : ContentType
 
-        ComCall(3, this, "int", _Status, BSTR, ContentType)
+        ComCall(3, this, Int32, _Status, BSTR, ContentType)
     }
 
     /**
@@ -123,7 +123,7 @@ export default struct IWinHttpRequestEvents extends IUnknown {
     OnError(ErrorNumber, ErrorDescription) {
         ErrorDescription := ErrorDescription is String ? BSTR.Alloc(ErrorDescription).Value : ErrorDescription
 
-        ComCall(6, this, "int", ErrorNumber, BSTR, ErrorDescription)
+        ComCall(6, this, Int32, ErrorNumber, BSTR, ErrorDescription)
     }
 
     Query(iid) {

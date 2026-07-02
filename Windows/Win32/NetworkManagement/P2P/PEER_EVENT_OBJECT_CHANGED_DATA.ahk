@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_OBJECT.ahk" { PEER_OBJECT }
+#Import ".\PEER_CHANGE_TYPE.ahk" { PEER_CHANGE_TYPE }
 #Import ".\PEER_CONTACT.ahk" { PEER_CONTACT }
 #Import ".\PEER_ENDPOINT.ahk" { PEER_ENDPOINT }
-#Import ".\PEER_CHANGE_TYPE.ahk" { PEER_CHANGE_TYPE }
+#Import ".\PEER_OBJECT.ahk" { PEER_OBJECT }
 
 /**
  * The PEER_EVENT_OBJECT_CHANGED_DATA structure contains information returned when a PEER_EVENT_ENDPOINT_OBJECT_CHANGED or PEER_EVENT_MY_OBJECT_CHANGED event is raised on a peer participating in a peer collaboration network.

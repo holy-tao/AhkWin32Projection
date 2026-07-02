@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IXpsOMDocumentSequence.ahk" { IXpsOMDocumentSequence }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
 #Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMDocumentSequence.ahk" { IXpsOMDocumentSequence }
+#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
 
 /**
  * Provides the top-level entry into the XPS object model tree.
@@ -381,7 +381,7 @@ export default struct IXpsOMPackage extends IUnknown {
     WriteToFile(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(11, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, BOOL, optimizeMarkupSize, "HRESULT")
+        result := ComCall(11, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, UInt32, flagsAndAttributes, BOOL, optimizeMarkupSize, "HRESULT")
         return result
     }
 

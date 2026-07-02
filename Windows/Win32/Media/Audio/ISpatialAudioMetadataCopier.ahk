@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SpatialAudioMetadataCopyMode.ahk" { SpatialAudioMetadataCopyMode }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
 
 /**
@@ -90,7 +90,7 @@ export default struct ISpatialAudioMetadataCopier extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-copymetadataforframes
      */
     CopyMetadataForFrames(copyFrameCount, copyMode, dstMetadataItems) {
-        result := ComCall(4, this, "ushort", copyFrameCount, SpatialAudioMetadataCopyMode, copyMode, "ptr", dstMetadataItems, "ushort*", &itemsCopied := 0, "HRESULT")
+        result := ComCall(4, this, UInt16, copyFrameCount, SpatialAudioMetadataCopyMode, copyMode, "ptr", dstMetadataItems, "ushort*", &itemsCopied := 0, "HRESULT")
         return itemsCopied
     }
 

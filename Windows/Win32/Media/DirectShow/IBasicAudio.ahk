@@ -114,7 +114,7 @@ export default struct IBasicAudio extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicaudio-put_volume
      */
     put_Volume(lVolume) {
-        result := ComCall(7, this, "int", lVolume, "HRESULT")
+        result := ComCall(7, this, Int32, lVolume, "HRESULT")
         return result
     }
 
@@ -186,7 +186,7 @@ export default struct IBasicAudio extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicaudio-put_balance
      */
     put_Balance(lBalance) {
-        result := ComCall(9, this, "int", lBalance, "HRESULT")
+        result := ComCall(9, this, Int32, lBalance, "HRESULT")
         return result
     }
 

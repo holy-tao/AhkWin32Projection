@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 
 /**
  * The IWpdSerializer interface is used by the device driver to serialize IPortableDeviceValues interfaces to and from the raw data buffers used to communicate with the application.Applications do not need to use this interface, because the data is serialized and deserialized automatically when calling IPortableDevice::SendCommand.To get this interface, call CoCreateInstance and pass in IID\_IWpdSerializer.
@@ -57,7 +57,7 @@ export default struct IWpdSerializer extends IUnknown {
     GetIPortableDeviceValuesFromBuffer(pBuffer, dwInputBufferLength) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwInputBufferLength, "ptr*", &ppParams := 0, "HRESULT")
+        result := ComCall(3, this, pBufferMarshal, pBuffer, UInt32, dwInputBufferLength, "ptr*", &ppParams := 0, "HRESULT")
         return IPortableDeviceValues(ppParams)
     }
 
@@ -84,7 +84,7 @@ export default struct IWpdSerializer extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
         pdwBytesWrittenMarshal := pdwBytesWritten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwOutputBufferLength, "ptr", pResults, pBufferMarshal, pBuffer, pdwBytesWrittenMarshal, pdwBytesWritten, "HRESULT")
+        result := ComCall(4, this, UInt32, dwOutputBufferLength, "ptr", pResults, pBufferMarshal, pBuffer, pdwBytesWrittenMarshal, pdwBytesWritten, "HRESULT")
         return result
     }
 

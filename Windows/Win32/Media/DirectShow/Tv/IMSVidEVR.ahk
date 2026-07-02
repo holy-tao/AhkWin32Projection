@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\MediaFoundation\IMFVideoPresenter.ahk" { IMFVideoPresenter }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMSVidVideoRenderer.ahk" { IMSVidVideoRenderer }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMSVidEVR interface represents the Enhanced Video Renderer (EVR) filter within the Video Control filter graph.

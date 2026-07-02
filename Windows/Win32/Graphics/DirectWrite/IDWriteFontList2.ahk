@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
 #Import ".\IDWriteFontList1.ahk" { IDWriteFontList1 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
 
 /**
  * Represents a list of fonts. **IDWriteFontList2** adds new facilities, including retrieving the underlying font set used by the list.

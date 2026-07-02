@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPropTagArray.ahk" { SPropTagArray }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
-#Import ".\FlagList.ahk" { FlagList }
-#Import ".\ADRLIST.ahk" { ADRLIST }
 #Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\FlagList.ahk" { FlagList }
 #Import ".\IMAPIContainer.ahk" { IMAPIContainer }
+#Import ".\ADRLIST.ahk" { ADRLIST }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
 #Import ".\IMAPIProgress.ahk" { IMAPIProgress }
 
 /**
@@ -49,7 +49,7 @@ export default struct IDistList extends IMAPIContainer {
      * @returns {IMAPIProp} 
      */
     CreateEntry(cbEntryID, lpEntryID, ulCreateFlags) {
-        result := ComCall(19, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulCreateFlags, "ptr*", &lppMAPIPropEntry := 0, "HRESULT")
+        result := ComCall(19, this, UInt32, cbEntryID, IntPtr, lpEntryID, UInt32, ulCreateFlags, "ptr*", &lppMAPIPropEntry := 0, "HRESULT")
         return IMAPIProp(lppMAPIPropEntry)
     }
 
@@ -62,7 +62,7 @@ export default struct IDistList extends IMAPIContainer {
      * @returns {HRESULT} 
      */
     CopyEntries(lpEntries, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(20, this, SBinaryArray.Ptr, lpEntries, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(20, this, SBinaryArray.Ptr, lpEntries, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct IDistList extends IMAPIContainer {
      * @returns {HRESULT} 
      */
     DeleteEntries(lpEntries, ulFlags) {
-        result := ComCall(21, this, SBinaryArray.Ptr, lpEntries, "uint", ulFlags, "HRESULT")
+        result := ComCall(21, this, SBinaryArray.Ptr, lpEntries, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct IDistList extends IMAPIContainer {
      */
     ResolveNames(lpPropTagArray, ulFlags, lpAdrList) {
         lpFlagList := FlagList()
-        result := ComCall(22, this, SPropTagArray.Ptr, lpPropTagArray, "uint", ulFlags, ADRLIST.Ptr, lpAdrList, FlagList.Ptr, lpFlagList, "HRESULT")
+        result := ComCall(22, this, SPropTagArray.Ptr, lpPropTagArray, UInt32, ulFlags, ADRLIST.Ptr, lpAdrList, FlagList.Ptr, lpFlagList, "HRESULT")
         return lpFlagList
     }
 

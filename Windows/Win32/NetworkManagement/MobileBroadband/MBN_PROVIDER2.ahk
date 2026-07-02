@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MBN_PROVIDER.ahk" { MBN_PROVIDER }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\MBN_PROVIDER.ahk" { MBN_PROVIDER }
 #Import ".\MBN_CELLULAR_CLASS.ahk" { MBN_CELLULAR_CLASS }
 
 /**

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
 
 /**
@@ -167,7 +167,7 @@ export default struct IHTMLOptionElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_index(v) {
-        result := ComCall(13, this, "int", v, "HRESULT")
+        result := ComCall(13, this, Int32, v, "HRESULT")
         return result
     }
 

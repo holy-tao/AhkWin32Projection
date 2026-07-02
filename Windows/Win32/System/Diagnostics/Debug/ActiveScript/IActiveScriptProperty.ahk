@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -50,7 +50,7 @@ export default struct IActiveScriptProperty extends IUnknown {
      */
     GetProperty(dwProperty, pvarIndex) {
         pvarValue := VARIANT()
-        result := ComCall(3, this, "uint", dwProperty, VARIANT.Ptr, pvarIndex, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(3, this, UInt32, dwProperty, VARIANT.Ptr, pvarIndex, VARIANT.Ptr, pvarValue, "HRESULT")
         return pvarValue
     }
 
@@ -62,7 +62,7 @@ export default struct IActiveScriptProperty extends IUnknown {
      * @returns {HRESULT} 
      */
     SetProperty(dwProperty, pvarIndex, pvarValue) {
-        result := ComCall(4, this, "uint", dwProperty, VARIANT.Ptr, pvarIndex, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(4, this, UInt32, dwProperty, VARIANT.Ptr, pvarIndex, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 

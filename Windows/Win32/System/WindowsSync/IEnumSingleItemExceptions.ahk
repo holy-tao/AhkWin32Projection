@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISingleItemException.ahk" { ISingleItemException }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISingleItemException.ahk" { ISingleItemException }
 
 /**
  * Enumerates single-item exceptions that are stored in a knowledge object.
@@ -51,7 +51,7 @@ export default struct IEnumSingleItemExceptions extends IUnknown {
     Next(cExceptions, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cExceptions, "ptr*", &ppSingleItemException := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cExceptions, "ptr*", &ppSingleItemException := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return ISingleItemException(ppSingleItemException)
     }
 
@@ -99,7 +99,7 @@ export default struct IEnumSingleItemExceptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-skip
      */
     Skip(cExceptions) {
-        result := ComCall(4, this, "uint", cExceptions, "HRESULT")
+        result := ComCall(4, this, UInt32, cExceptions, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\IOleInPlaceObject.ahk" { IOleInPlaceObject }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\IDropTarget.ahk" { IDropTarget }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleInPlaceObject.ahk" { IOleInPlaceObject }
 
 /**
  * Enables a windowless object to process window messages and participate in drag and drop operations. It is derived from and extends the IOleInPlaceObject interface.
@@ -109,7 +109,7 @@ export default struct IOleInPlaceObjectWindowless extends IOleInPlaceObject {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplaceobjectwindowless-onwindowmessage
      */
     OnWindowMessage(_msg, _wParam, _lParam) {
-        result := ComCall(9, this, "uint", _msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, _msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 

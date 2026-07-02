@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AAL5_PARAMETERS.ahk" { AAL5_PARAMETERS }
 #Import ".\AAL_TYPE.ahk" { AAL_TYPE }
 #Import ".\AALUSER_PARAMETERS.ahk" { AALUSER_PARAMETERS }
-#Import ".\AAL5_PARAMETERS.ahk" { AAL5_PARAMETERS }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ICanvasRenderingContext2D.ahk" { ICanvasRenderingContext2D }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICanvasRenderingContext2D.ahk" { ICanvasRenderingContext2D }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -71,7 +71,7 @@ export default struct IHTMLCanvasElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IHTMLCanvasElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, Int32, v, "HRESULT")
         return result
     }
 

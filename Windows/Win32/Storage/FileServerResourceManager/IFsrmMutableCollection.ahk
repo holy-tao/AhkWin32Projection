@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 
 /**
  * Used to manage a collection of FSRM objects that can have objects added to or removed from the collection.
@@ -61,7 +61,7 @@ export default struct IFsrmMutableCollection extends IFsrmCollection {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmmutablecollection-remove
      */
     Remove(index) {
-        result := ComCall(15, this, "int", index, "HRESULT")
+        result := ComCall(15, this, Int32, index, "HRESULT")
         return result
     }
 

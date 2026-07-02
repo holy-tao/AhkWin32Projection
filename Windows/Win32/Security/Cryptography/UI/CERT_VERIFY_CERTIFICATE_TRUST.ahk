@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\PFNTRUSTHELPER.ahk" { PFNTRUSTHELPER }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -39,7 +40,7 @@ export default struct CERT_VERIFY_CERTIFICATE_TRUST {
 
     lCustData : LPARAM
 
-    pfnTrustHelper : IntPtr
+    pfnTrustHelper : PFNTRUSTHELPER
 
     pcChain : IntPtr
 

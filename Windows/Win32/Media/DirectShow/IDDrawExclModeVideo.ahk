@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
-#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
-#Import ".\IDDrawExclModeVideoCallback.ahk" { IDDrawExclModeVideoCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDDrawExclModeVideoCallback.ahk" { IDDrawExclModeVideoCallback }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 
 /**
  * The IDDrawExclModeVideo interface enables video playback in DirectDraw exclusive full-screen mode.
@@ -369,7 +369,7 @@ export default struct IDDrawExclModeVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideo-setcallbackinterface
      */
     SetCallbackInterface(pCallback, dwFlags) {
-        result := ComCall(9, this, "ptr", pCallback, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", pCallback, UInt32, dwFlags, "HRESULT")
         return result
     }
 

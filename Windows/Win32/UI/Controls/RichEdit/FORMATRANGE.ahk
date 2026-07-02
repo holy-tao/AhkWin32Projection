@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\CHARRANGE.ahk" { CHARRANGE }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Information that a rich edit control uses to format its output for a particular device. This structure is used with the EM_FORMATRANGE message.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
@@ -48,7 +48,7 @@ export default struct INetDiagExtensibleHelper extends IUnknown {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
         prgMatchValuesMarshal := prgMatchValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, HELPER_ATTRIBUTE.Ptr, rgKeyAttributes, pceltMarshal, pcelt, prgMatchValuesMarshal, prgMatchValues, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, HELPER_ATTRIBUTE.Ptr, rgKeyAttributes, pceltMarshal, pcelt, prgMatchValuesMarshal, prgMatchValues, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SYNC_SERIALIZATION_VERSION.ahk" { SYNC_SERIALIZATION_VERSION }
 #Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents additional capabilities of an ISyncChangeBatchBase object.
@@ -155,7 +155,7 @@ export default struct ISyncChangeBatchBase2 extends ISyncChangeBatchBase {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, SYNC_SERIALIZATION_VERSION, targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
+        result := ComCall(17, this, SYNC_SERIALIZATION_VERSION, targetFormatVersion, UInt32, dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
         return result
     }
 

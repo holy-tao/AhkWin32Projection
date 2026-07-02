@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IPlayToControl.ahk" { IPlayToControl }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\WinRT\IInspectable.ahk" { IInspectable }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates an instance of the PlayToSource object.
@@ -49,7 +49,7 @@ export default struct IPlayToSourceClassFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-iplaytosourceclassfactory-createinstance
      */
     CreateInstance(dwFlags, pControl) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pControl, "ptr*", &ppSource := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "ptr", pControl, "ptr*", &ppSource := 0, "HRESULT")
         return IInspectable(ppSource)
     }
 

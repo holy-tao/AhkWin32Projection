@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\WindowsAndMessaging\WINDOWPOS.ahk" { WINDOWPOS }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\WindowsAndMessaging\WINDOWPOS.ahk" { WINDOWPOS }
 
 /**
  * Contains information used to set the size and position of a header control. HDLAYOUT is used with the HDM_LAYOUT message. This structure supersedes the HD_LAYOUT structure.

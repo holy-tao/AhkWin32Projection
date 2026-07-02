@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Exposes methods to create a new Internet shortcut. (ANSI)
@@ -93,7 +93,7 @@ export default struct INewShortcutHookA extends IUnknown {
     GetReferent(pszReferent, cchReferent) {
         pszReferent := pszReferent is String ? StrPtr(pszReferent) : pszReferent
 
-        result := ComCall(4, this, "ptr", pszReferent, "int", cchReferent, "HRESULT")
+        result := ComCall(4, this, "ptr", pszReferent, Int32, cchReferent, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct INewShortcutHookA extends IUnknown {
     GetFolder(pszFolder, cchFolder) {
         pszFolder := pszFolder is String ? StrPtr(pszFolder) : pszFolder
 
-        result := ComCall(6, this, "ptr", pszFolder, "int", cchFolder, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFolder, Int32, cchFolder, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct INewShortcutHookA extends IUnknown {
     GetName(pszName, cchName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(7, this, "ptr", pszName, "int", cchName, "HRESULT")
+        result := ComCall(7, this, "ptr", pszName, Int32, cchName, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct INewShortcutHookA extends IUnknown {
     GetExtension(pszExtension, cchExtension) {
         pszExtension := pszExtension is String ? StrPtr(pszExtension) : pszExtension
 
-        result := ComCall(8, this, "ptr", pszExtension, "int", cchExtension, "HRESULT")
+        result := ComCall(8, this, "ptr", pszExtension, Int32, cchExtension, "HRESULT")
         return result
     }
 

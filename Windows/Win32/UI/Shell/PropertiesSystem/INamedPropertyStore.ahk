@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that get and set named properties.
@@ -105,7 +105,7 @@ export default struct INamedPropertyStore extends IUnknown {
      */
     GetNameAt(iProp) {
         pbstrName := BSTR.Owned()
-        result := ComCall(6, this, "uint", iProp, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(6, this, UInt32, iProp, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 

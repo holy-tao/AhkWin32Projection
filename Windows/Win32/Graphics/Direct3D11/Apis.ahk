@@ -1,22 +1,22 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\ID3DX11Scan.ahk" { ID3DX11Scan }
-#Import ".\ID3D11Device.ahk" { ID3D11Device }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import ".\D3DX11_FFT_BUFFER_INFO.ahk" { D3DX11_FFT_BUFFER_INFO }
+#Import "..\Dxgi\IDXGIAdapter.ahk" { IDXGIAdapter }
+#Import ".\ID3D11ShaderTrace.ahk" { ID3D11ShaderTrace }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
-#Import ".\D3DX11_FFT_DESC.ahk" { D3DX11_FFT_DESC }
-#Import "..\Dxgi\IDXGIAdapter.ahk" { IDXGIAdapter }
-#Import "..\Dxgi\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
-#Import ".\ID3DX11FFT.ahk" { ID3DX11FFT }
-#Import ".\D3DX11_FFT_BUFFER_INFO.ahk" { D3DX11_FFT_BUFFER_INFO }
-#Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
-#Import ".\D3D11_CREATE_DEVICE_FLAG.ahk" { D3D11_CREATE_DEVICE_FLAG }
-#Import ".\ID3D11ShaderTrace.ahk" { ID3D11ShaderTrace }
-#Import ".\ID3DX11SegmentedScan.ahk" { ID3DX11SegmentedScan }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct3D\D3D_DRIVER_TYPE.ahk" { D3D_DRIVER_TYPE }
+#Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
 #Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
+#Import ".\ID3DX11Scan.ahk" { ID3DX11Scan }
+#Import ".\ID3D11Device.ahk" { ID3D11Device }
+#Import ".\ID3DX11SegmentedScan.ahk" { ID3DX11SegmentedScan }
+#Import ".\D3D11_CREATE_DEVICE_FLAG.ahk" { D3D11_CREATE_DEVICE_FLAG }
+#Import ".\ID3DX11FFT.ahk" { ID3DX11FFT }
+#Import ".\D3DX11_FFT_DESC.ahk" { D3DX11_FFT_DESC }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import "..\Dxgi\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11
@@ -164,7 +164,7 @@ export D3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, 
     pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
     pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : "ptr"
 
-    result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, D3D_DRIVER_TYPE, DriverType, HMODULE, Software, D3D11_CREATE_DEVICE_FLAG, Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, ID3D11Device.Ptr, ppDevice, pFeatureLevelMarshal, pFeatureLevel, ID3D11DeviceContext.Ptr, ppImmediateContext, "HRESULT")
+    result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, D3D_DRIVER_TYPE, DriverType, HMODULE, Software, D3D11_CREATE_DEVICE_FLAG, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, UInt32, SDKVersion, ID3D11Device.Ptr, ppDevice, pFeatureLevelMarshal, pFeatureLevel, ID3D11DeviceContext.Ptr, ppImmediateContext, "HRESULT")
     return result
 }
 
@@ -289,7 +289,7 @@ export D3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFea
     pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
     pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : "ptr"
 
-    result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, D3D_DRIVER_TYPE, DriverType, HMODULE, Software, D3D11_CREATE_DEVICE_FLAG, Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, DXGI_SWAP_CHAIN_DESC.Ptr, pSwapChainDesc, IDXGISwapChain.Ptr, ppSwapChain, ID3D11Device.Ptr, ppDevice, pFeatureLevelMarshal, pFeatureLevel, ID3D11DeviceContext.Ptr, ppImmediateContext, "HRESULT")
+    result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, D3D_DRIVER_TYPE, DriverType, HMODULE, Software, D3D11_CREATE_DEVICE_FLAG, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, UInt32, SDKVersion, DXGI_SWAP_CHAIN_DESC.Ptr, pSwapChainDesc, IDXGISwapChain.Ptr, ppSwapChain, ID3D11Device.Ptr, ppDevice, pFeatureLevelMarshal, pFeatureLevel, ID3D11DeviceContext.Ptr, ppImmediateContext, "HRESULT")
     return result
 }
 
@@ -363,7 +363,7 @@ export D3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFea
  * @since windows8.0
  */
 export D3DDisassemble11Trace(pSrcData, SrcDataSize, pTrace, StartStep, NumSteps, Flags) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble11Trace", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pTrace, "uint", StartStep, "uint", NumSteps, "uint", Flags, "ptr*", &ppDisassembly := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble11Trace", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr", pTrace, UInt32, StartStep, UInt32, NumSteps, UInt32, Flags, "ptr*", &ppDisassembly := 0, "HRESULT")
     return ID3DBlob(ppDisassembly)
 }
 
@@ -384,7 +384,7 @@ export D3DDisassemble11Trace(pSrcData, SrcDataSize, pTrace, StartStep, NumSteps,
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createscan
  */
 export D3DX11CreateScan(pDeviceContext, MaxElementScanSize, MaxScanCount) {
-    result := DllCall("d3dcsx.dll\D3DX11CreateScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "uint", MaxScanCount, "ptr*", &ppScan := 0, "HRESULT")
+    result := DllCall("d3dcsx.dll\D3DX11CreateScan", "ptr", pDeviceContext, UInt32, MaxElementScanSize, UInt32, MaxScanCount, "ptr*", &ppScan := 0, "HRESULT")
     return ID3DX11Scan(ppScan)
 }
 
@@ -402,7 +402,7 @@ export D3DX11CreateScan(pDeviceContext, MaxElementScanSize, MaxScanCount) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createsegmentedscan
  */
 export D3DX11CreateSegmentedScan(pDeviceContext, MaxElementScanSize) {
-    result := DllCall("d3dcsx.dll\D3DX11CreateSegmentedScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "ptr*", &ppScan := 0, "HRESULT")
+    result := DllCall("d3dcsx.dll\D3DX11CreateSegmentedScan", "ptr", pDeviceContext, UInt32, MaxElementScanSize, "ptr*", &ppScan := 0, "HRESULT")
     return ID3DX11SegmentedScan(ppScan)
 }
 
@@ -427,7 +427,7 @@ export D3DX11CreateSegmentedScan(pDeviceContext, MaxElementScanSize) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft
  */
 export D3DX11CreateFFT(pDeviceContext, pDesc, Flags, pBufferInfo) {
-    result := DllCall("d3dcsx.dll\D3DX11CreateFFT", "ptr", pDeviceContext, D3DX11_FFT_DESC.Ptr, pDesc, "uint", Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
+    result := DllCall("d3dcsx.dll\D3DX11CreateFFT", "ptr", pDeviceContext, D3DX11_FFT_DESC.Ptr, pDesc, UInt32, Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
     return ID3DX11FFT(ppFFT)
 }
 
@@ -451,7 +451,7 @@ export D3DX11CreateFFT(pDeviceContext, pDesc, Flags, pBufferInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft1dreal
  */
 export D3DX11CreateFFT1DReal(pDeviceContext, X, Flags, pBufferInfo) {
-    result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DReal", "ptr", pDeviceContext, "uint", X, "uint", Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
+    result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DReal", "ptr", pDeviceContext, UInt32, X, UInt32, Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
     return ID3DX11FFT(ppFFT)
 }
 
@@ -475,7 +475,7 @@ export D3DX11CreateFFT1DReal(pDeviceContext, X, Flags, pBufferInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft1dcomplex
  */
 export D3DX11CreateFFT1DComplex(pDeviceContext, X, Flags, pBufferInfo) {
-    result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DComplex", "ptr", pDeviceContext, "uint", X, "uint", Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
+    result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DComplex", "ptr", pDeviceContext, UInt32, X, UInt32, Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
     return ID3DX11FFT(ppFFT)
 }
 
@@ -502,7 +502,7 @@ export D3DX11CreateFFT1DComplex(pDeviceContext, X, Flags, pBufferInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft2dreal
  */
 export D3DX11CreateFFT2DReal(pDeviceContext, X, Y, Flags, pBufferInfo) {
-    result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
+    result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DReal", "ptr", pDeviceContext, UInt32, X, UInt32, Y, UInt32, Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
     return ID3DX11FFT(ppFFT)
 }
 
@@ -529,7 +529,7 @@ export D3DX11CreateFFT2DReal(pDeviceContext, X, Y, Flags, pBufferInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft2dcomplex
  */
 export D3DX11CreateFFT2DComplex(pDeviceContext, X, Y, Flags, pBufferInfo) {
-    result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
+    result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DComplex", "ptr", pDeviceContext, UInt32, X, UInt32, Y, UInt32, Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
     return ID3DX11FFT(ppFFT)
 }
 
@@ -559,7 +559,7 @@ export D3DX11CreateFFT2DComplex(pDeviceContext, X, Y, Flags, pBufferInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft3dreal
  */
 export D3DX11CreateFFT3DReal(pDeviceContext, X, Y, Z, Flags, pBufferInfo) {
-    result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
+    result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DReal", "ptr", pDeviceContext, UInt32, X, UInt32, Y, UInt32, Z, UInt32, Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
     return ID3DX11FFT(ppFFT)
 }
 
@@ -589,7 +589,7 @@ export D3DX11CreateFFT3DReal(pDeviceContext, X, Y, Z, Flags, pBufferInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft3dcomplex
  */
 export D3DX11CreateFFT3DComplex(pDeviceContext, X, Y, Z, Flags, pBufferInfo) {
-    result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
+    result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DComplex", "ptr", pDeviceContext, UInt32, X, UInt32, Y, UInt32, Z, UInt32, Flags, D3DX11_FFT_BUFFER_INFO.Ptr, pBufferInfo, "ptr*", &ppFFT := 0, "HRESULT")
     return ID3DX11FFT(ppFFT)
 }
 

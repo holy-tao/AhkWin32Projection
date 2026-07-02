@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\PM_APPLICATION_STATE.ahk" { PM_APPLICATION_STATE }
-#Import ".\PM_APPLICATION_INSTALL_TYPE.ahk" { PM_APPLICATION_INSTALL_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PM_APPLICATION_INSTALL_TYPE.ahk" { PM_APPLICATION_INSTALL_TYPE }
+#Import ".\PM_APPLICATION_STATE.ahk" { PM_APPLICATION_STATE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**

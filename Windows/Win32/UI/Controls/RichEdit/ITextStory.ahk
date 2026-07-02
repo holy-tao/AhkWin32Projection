@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextRange2.ahk" { ITextRange2 }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITextRange2.ahk" { ITextRange2 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITextStory interface methods are used to access shared data from multiple stories, which is stored in the parent ITextServices instance.
@@ -71,7 +71,7 @@ export default struct ITextStory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-setactive
      */
     SetActive(Value) {
-        result := ComCall(4, this, "int", Value, "HRESULT")
+        result := ComCall(4, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct ITextStory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-settype
      */
     SetType(Value) {
-        result := ComCall(8, this, "int", Value, "HRESULT")
+        result := ComCall(8, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct ITextStory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getproperty
      */
     GetProperty(Type) {
-        result := ComCall(9, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(9, this, Int32, Type, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -157,7 +157,7 @@ export default struct ITextStory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getrange
      */
     GetRange(cpActive, cpAnchor) {
-        result := ComCall(10, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(10, this, Int32, cpActive, Int32, cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
         return ITextRange2(ppRange)
     }
 
@@ -181,7 +181,7 @@ export default struct ITextStory extends IUnknown {
      */
     GetText(Flags) {
         pbstr := BSTR.Owned()
-        result := ComCall(11, this, "int", Flags, BSTR.Ptr, pbstr, "HRESULT")
+        result := ComCall(11, this, Int32, Flags, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -256,7 +256,7 @@ export default struct ITextStory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-setproperty
      */
     SetProperty(Type, Value) {
-        result := ComCall(13, this, "int", Type, "int", Value, "HRESULT")
+        result := ComCall(13, this, Int32, Type, Int32, Value, "HRESULT")
         return result
     }
 
@@ -321,7 +321,7 @@ export default struct ITextStory extends IUnknown {
     SetText(Flags, _bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(14, this, "int", Flags, BSTR, _bstr, "HRESULT")
+        result := ComCall(14, this, Int32, Flags, BSTR, _bstr, "HRESULT")
         return result
     }
 

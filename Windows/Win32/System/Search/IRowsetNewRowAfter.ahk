@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -49,7 +49,7 @@ export default struct IRowsetNewRowAfter extends IUnknown {
         pbmPreviousMarshal := pbmPrevious is VarRef ? "char*" : "ptr"
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "uint", cbbmPrevious, pbmPreviousMarshal, pbmPrevious, HACCESSOR, _hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, hChapter, UInt32, cbbmPrevious, pbmPreviousMarshal, pbmPrevious, HACCESSOR, _hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
         return phRow
     }
 

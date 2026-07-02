@@ -1,32 +1,32 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
 #Import ".\ID2D1Mesh.ahk" { ID2D1Mesh }
-#Import "Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
-#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
+#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "Common\D2D1_COMPOSITE_MODE.ahk" { D2D1_COMPOSITE_MODE }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
+#Import "Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
+#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
+#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\D2D1_UNIT_MODE.ahk" { D2D1_UNIT_MODE }
+#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
 #Import ".\D2D1_LAYER_PARAMETERS1.ahk" { D2D1_LAYER_PARAMETERS1 }
 #Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
-#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
-#Import ".\D2D1_UNIT_MODE.ahk" { D2D1_UNIT_MODE }
-#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
-#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
-#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
-#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
-#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
-#Import ".\ID2D1Image.ahk" { ID2D1Image }
-#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 
 /**
  * The command sink is implemented by you for an application when you want to receive a playback of the commands recorded in a command list.
@@ -152,7 +152,7 @@ export default struct ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-settags
      */
     SetTags(tag1, tag2) {
-        result := ComCall(6, this, "uint", tag1, "uint", tag2, "HRESULT")
+        result := ComCall(6, this, Int64, tag1, Int64, tag2, "HRESULT")
         return result
     }
 
@@ -314,7 +314,7 @@ export default struct ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawline
      */
     DrawLine(point0, point1, brush, strokeWidth, strokeStyle) {
-        result := ComCall(14, this, D2D_POINT_2F, point0, D2D_POINT_2F, point1, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle, "HRESULT")
+        result := ComCall(14, this, D2D_POINT_2F, point0, D2D_POINT_2F, point1, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle, "HRESULT")
         return result
     }
 
@@ -340,7 +340,7 @@ export default struct ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawgeometry
      */
     DrawGeometry(geometry, brush, strokeWidth, strokeStyle) {
-        result := ComCall(15, this, "ptr", geometry, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle, "HRESULT")
+        result := ComCall(15, this, "ptr", geometry, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle, "HRESULT")
         return result
     }
 
@@ -364,7 +364,7 @@ export default struct ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawrectangle
      */
     DrawRectangle(_rect, brush, strokeWidth, strokeStyle) {
-        result := ComCall(16, this, D2D_RECT_F.Ptr, _rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle, "HRESULT")
+        result := ComCall(16, this, D2D_RECT_F.Ptr, _rect, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle, "HRESULT")
         return result
     }
 
@@ -402,7 +402,7 @@ export default struct ID2D1CommandSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-drawbitmap
      */
     DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle, perspectiveTransform) {
-        result := ComCall(17, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, "float", opacity, D2D1_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle, D2D_MATRIX_4X4_F.Ptr, perspectiveTransform, "HRESULT")
+        result := ComCall(17, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, Float32, opacity, D2D1_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle, D2D_MATRIX_4X4_F.Ptr, perspectiveTransform, "HRESULT")
         return result
     }
 

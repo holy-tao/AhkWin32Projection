@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\_ColumnSortOrder.ahk" { _ColumnSortOrder }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\_ColumnSortOrder.ahk" { _ColumnSortOrder }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Mmc
@@ -102,7 +102,7 @@ export default struct Column extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Width(Width) {
-        result := ComCall(9, this, "int", Width, "HRESULT")
+        result := ComCall(9, this, Int32, Width, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct Column extends IDispatch {
      * @returns {HRESULT} 
      */
     put_DisplayPosition(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, Int32, Index, "HRESULT")
         return result
     }
 

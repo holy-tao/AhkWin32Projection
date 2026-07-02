@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IHTMLPluginsCollection.ahk" { IHTMLPluginsCollection }
-#Import ".\IHTMLMimeTypesCollection.ahk" { IHTMLMimeTypesCollection }
+#Import ".\IHTMLOpsProfile.ahk" { IHTMLOpsProfile }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLOpsProfile.ahk" { IHTMLOpsProfile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLMimeTypesCollection.ahk" { IHTMLMimeTypesCollection }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

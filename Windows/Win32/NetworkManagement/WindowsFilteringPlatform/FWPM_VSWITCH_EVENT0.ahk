@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\FWPM_VSWITCH_EVENT_TYPE.ahk" { FWPM_VSWITCH_EVENT_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information about a vSwitch event.

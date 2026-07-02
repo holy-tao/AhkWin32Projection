@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\Cryptography\CERT_CHAIN_ELEMENT.ahk" { CERT_CHAIN_ELEMENT }
-#Import "..\Cryptography\CTL_CONTEXT.ahk" { CTL_CONTEXT }
+#Import "..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Cryptography\CTL_CONTEXT.ahk" { CTL_CONTEXT }
 
 /**
  * Provides information about a provider certificate.

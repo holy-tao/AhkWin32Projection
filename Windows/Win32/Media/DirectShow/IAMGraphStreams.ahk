@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPin.ahk" { IPin }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMGraphStreams interface controls a filter graph that renders a live source.
@@ -72,7 +72,7 @@ export default struct IAMGraphStreams extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamgraphstreams-findupstreaminterface
      */
     FindUpstreamInterface(pPin, riid, dwFlags) {
-        result := ComCall(3, this, "ptr", pPin, Guid.Ptr, riid, "ptr*", &ppvInterface := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pPin, Guid.Ptr, riid, "ptr*", &ppvInterface := 0, UInt32, dwFlags, "HRESULT")
         return ppvInterface
     }
 
@@ -129,7 +129,7 @@ export default struct IAMGraphStreams extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamgraphstreams-setmaxgraphlatency
      */
     SetMaxGraphLatency(rtMaxGraphLatency) {
-        result := ComCall(5, this, "int64", rtMaxGraphLatency, "HRESULT")
+        result := ComCall(5, this, Int64, rtMaxGraphLatency, "HRESULT")
         return result
     }
 

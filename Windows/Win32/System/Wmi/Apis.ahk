@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import ".\MI_Application.ahk" { MI_Application }
 #Import ".\MI_Instance.ahk" { MI_Instance }
 #Import ".\MI_Result.ahk" { MI_Result }
-#Import ".\MI_Application.ahk" { MI_Application }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -44,7 +44,7 @@ export MI_Application_InitializeV1(flags, applicationID, extendedError, _applica
     applicationIDMarshal := applicationID is VarRef ? "ushort*" : "ptr"
     extendedErrorMarshal := extendedError is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("mi.dll\MI_Application_InitializeV1", "uint", flags, applicationIDMarshal, applicationID, extendedErrorMarshal, extendedError, MI_Application.Ptr, _application, MI_Result)
+    result := DllCall("mi.dll\MI_Application_InitializeV1", UInt32, flags, applicationIDMarshal, applicationID, extendedErrorMarshal, extendedError, MI_Application.Ptr, _application, MI_Result)
     return result
 }
 

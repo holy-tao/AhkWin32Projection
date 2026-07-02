@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Acts as a container for the entire set of named qualifiers for a single property or entire object (a class or instance).
@@ -72,7 +72,7 @@ export default struct IWbemQualifierSet extends IUnknown {
 
         plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pVal, plFlavorMarshal, plFlavor, "HRESULT")
+        result := ComCall(3, this, "ptr", wszName, Int32, lFlags, VARIANT.Ptr, pVal, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IWbemQualifierSet extends IUnknown {
     Put(wszName, pVal, lFlavor) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(4, this, "ptr", wszName, VARIANT.Ptr, pVal, "int", lFlavor, "HRESULT")
+        result := ComCall(4, this, "ptr", wszName, VARIANT.Ptr, pVal, Int32, lFlavor, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct IWbemQualifierSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-getnames
      */
     GetNames(lFlags) {
-        result := ComCall(6, this, "int", lFlags, "ptr*", &pNames := 0, "HRESULT")
+        result := ComCall(6, this, Int32, lFlags, "ptr*", &pNames := 0, "HRESULT")
         return pNames
     }
 
@@ -129,7 +129,7 @@ export default struct IWbemQualifierSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-beginenumeration
      */
     BeginEnumeration(lFlags) {
-        result := ComCall(7, this, "int", lFlags, "HRESULT")
+        result := ComCall(7, this, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IWbemQualifierSet extends IUnknown {
     Next(lFlags, pstrName, pVal, plFlavor) {
         plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "int", lFlags, BSTR.Ptr, pstrName, VARIANT.Ptr, pVal, plFlavorMarshal, plFlavor, "HRESULT")
+        result := ComCall(8, this, Int32, lFlags, BSTR.Ptr, pstrName, VARIANT.Ptr, pVal, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 

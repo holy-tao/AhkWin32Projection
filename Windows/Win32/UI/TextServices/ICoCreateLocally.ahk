@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that enables a client application to create a helper object in the server context.
@@ -64,7 +64,7 @@ export default struct ICoCreateLocally extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-icocreatelocally-cocreatelocally
      */
     CoCreateLocally(rclsid, dwClsContext, riid, riidParam, punkParam, varParam) {
-        result := ComCall(3, this, Guid.Ptr, rclsid, "uint", dwClsContext, Guid.Ptr, riid, "ptr*", &punk := 0, Guid.Ptr, riidParam, "ptr", punkParam, VARIANT, varParam, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, UInt32, dwClsContext, Guid.Ptr, riid, "ptr*", &punk := 0, Guid.Ptr, riidParam, "ptr", punkParam, VARIANT, varParam, "HRESULT")
         return IUnknown(punk)
     }
 

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
 #Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
 
 /**
  * Implemented by media source objects.

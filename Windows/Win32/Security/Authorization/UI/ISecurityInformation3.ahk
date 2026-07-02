@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods necessary for displaying an elevated access control editor when a user clicks the Edit button on an access control editor page that displays an image of a shield on that Edit button.

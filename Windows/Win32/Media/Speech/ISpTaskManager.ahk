@@ -3,12 +3,12 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\ISpThreadTask.ahk" { ISpThreadTask }
+#Import ".\ISpTask.ahk" { ISpTask }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISpNotifySink.ahk" { ISpNotifySink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpThreadControl.ahk" { ISpThreadControl }
 #Import ".\SPTMTHREADINFO.ahk" { SPTMTHREADINFO }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISpTask.ahk" { ISpTask }
+#Import ".\ISpThreadControl.ahk" { ISpThreadControl }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -107,7 +107,7 @@ export default struct ISpTaskManager extends IUnknown {
     CreateThreadControl(pTask, pvTaskData, nPriority) {
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "int", nPriority, "ptr*", &ppTaskCtrl := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, Int32, nPriority, "ptr*", &ppTaskCtrl := 0, "HRESULT")
         return ISpThreadControl(ppTaskCtrl)
     }
 
@@ -118,7 +118,7 @@ export default struct ISpTaskManager extends IUnknown {
      * @returns {HRESULT} 
      */
     TerminateTask(dwTaskId, ulWaitPeriod) {
-        result := ComCall(8, this, "uint", dwTaskId, "uint", ulWaitPeriod, "HRESULT")
+        result := ComCall(8, this, UInt32, dwTaskId, UInt32, ulWaitPeriod, "HRESULT")
         return result
     }
 
@@ -129,7 +129,7 @@ export default struct ISpTaskManager extends IUnknown {
      * @returns {HRESULT} 
      */
     TerminateTaskGroup(dwGroupId, ulWaitPeriod) {
-        result := ComCall(9, this, "uint", dwGroupId, "uint", ulWaitPeriod, "HRESULT")
+        result := ComCall(9, this, UInt32, dwGroupId, UInt32, ulWaitPeriod, "HRESULT")
         return result
     }
 

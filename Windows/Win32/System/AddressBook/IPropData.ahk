@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\SPropProblemArray.ahk" { SPropProblemArray }
 #Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPropProblemArray.ahk" { SPropProblemArray }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
 
 /**
  * IPropData IMAPIProp provides the ability to retrieve and change the access for an object's properties.
@@ -60,7 +60,7 @@ export default struct IPropData extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ipropdata-hrsetobjaccess
      */
     HrSetObjAccess(ulAccess) {
-        result := ComCall(14, this, "uint", ulAccess, "HRESULT")
+        result := ComCall(14, this, UInt32, ulAccess, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CONTEXT_FLAGS.ahk" { CONTEXT_FLAGS }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CONTEXT.ahk" { CONTEXT }
+#Import ".\CONTEXT_FLAGS.ahk" { CONTEXT_FLAGS }
 #Import ".\ARM64_NT_NEON128.ahk" { ARM64_NT_NEON128 }
+#Import ".\CONTEXT.ahk" { CONTEXT }
 
 /**
  * Contains extended thread information for the MiniDumpCallback function when the callback type is ThreadExCallback.

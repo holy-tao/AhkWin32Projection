@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import ".\IEnumExplorerCommand.ahk" { IEnumExplorerCommand }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IShellItemArray.ahk" { IShellItemArray }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumExplorerCommand.ahk" { IEnumExplorerCommand }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods that get the command appearance, enumerate subcommands, or invoke the command.

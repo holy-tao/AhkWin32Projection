@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TANALYZE_RETURN.ahk" { TANALYZE_RETURN }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TANALYZE_RETURN.ahk" { TANALYZE_RETURN }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFActivate.ahk" { IMFActivate }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMFTranscodeProfile.ahk" { IMFTranscodeProfile }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MF_TRANSCODE_SINK_INFO.ahk" { MF_TRANSCODE_SINK_INFO }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MF_TRANSCODE_SINK_INFO.ahk" { MF_TRANSCODE_SINK_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by the transcode sink activation object.

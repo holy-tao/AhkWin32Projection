@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The CREDUI_INFO structure is used to pass information to the CredUIPromptForCredentials function that creates a dialog box used to obtain credentials information. (ANSI)

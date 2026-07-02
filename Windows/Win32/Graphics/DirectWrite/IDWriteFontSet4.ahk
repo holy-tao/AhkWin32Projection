@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteFontSet3.ahk" { IDWriteFontSet3 }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
 
 /**
  * Represents a font set. (IDWriteFontSet4)
@@ -75,7 +75,7 @@ export default struct IDWriteFontSet4 extends IDWriteFontSet3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset4-convertweightstretchstyletofontaxisvalues
      */
     ConvertWeightStretchStyleToFontAxisValues(inputAxisValues, inputAxisCount, fontWeight, fontStretch, _fontStyle, fontSize, outputAxisValues) {
-        result := ComCall(30, this, DWRITE_FONT_AXIS_VALUE.Ptr, inputAxisValues, "uint", inputAxisCount, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STRETCH, fontStretch, DWRITE_FONT_STYLE, _fontStyle, "float", fontSize, DWRITE_FONT_AXIS_VALUE.Ptr, outputAxisValues, UInt32)
+        result := ComCall(30, this, DWRITE_FONT_AXIS_VALUE.Ptr, inputAxisValues, UInt32, inputAxisCount, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STRETCH, fontStretch, DWRITE_FONT_STYLE, _fontStyle, Float32, fontSize, DWRITE_FONT_AXIS_VALUE.Ptr, outputAxisValues, UInt32)
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IDWriteFontSet4 extends IDWriteFontSet3 {
     GetMatchingFonts(familyName, fontAxisValues, fontAxisValueCount, allowedSimulations) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        result := ComCall(31, this, "ptr", familyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, DWRITE_FONT_SIMULATIONS, allowedSimulations, "ptr*", &matchingFonts := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", familyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, DWRITE_FONT_SIMULATIONS, allowedSimulations, "ptr*", &matchingFonts := 0, "HRESULT")
         return IDWriteFontSet4(matchingFonts)
     }
 

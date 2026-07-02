@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFaxOutboundRoutingRule.ahk" { IFaxOutboundRoutingRule }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFaxOutboundRoutingRules interface describes a configuration collection that is used by a fax client application to manage the fax outbound routing rules.
@@ -92,7 +92,7 @@ export default struct IFaxOutboundRoutingRules extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get_item
      */
     get_Item(lIndex) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
         return IFaxOutboundRoutingRule(pFaxOutboundRoutingRule)
     }
 
@@ -120,7 +120,7 @@ export default struct IFaxOutboundRoutingRules extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-itembycountryandarea
      */
     ItemByCountryAndArea(lCountryCode, lAreaCode) {
-        result := ComCall(10, this, "int", lCountryCode, "int", lAreaCode, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
+        result := ComCall(10, this, Int32, lCountryCode, Int32, lAreaCode, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
         return IFaxOutboundRoutingRule(pFaxOutboundRoutingRule)
     }
 
@@ -140,7 +140,7 @@ export default struct IFaxOutboundRoutingRules extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-removebycountryandarea
      */
     RemoveByCountryAndArea(lCountryCode, lAreaCode) {
-        result := ComCall(11, this, "int", lCountryCode, "int", lAreaCode, "HRESULT")
+        result := ComCall(11, this, Int32, lCountryCode, Int32, lAreaCode, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct IFaxOutboundRoutingRules extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-remove
      */
     Remove(lIndex) {
-        result := ComCall(12, this, "int", lIndex, "HRESULT")
+        result := ComCall(12, this, Int32, lIndex, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct IFaxOutboundRoutingRules extends IDispatch {
     Add(lCountryCode, lAreaCode, bUseDevice, bstrGroupName, lDeviceId) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(13, this, "int", lCountryCode, "int", lAreaCode, VARIANT_BOOL, bUseDevice, BSTR, bstrGroupName, "int", lDeviceId, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
+        result := ComCall(13, this, Int32, lCountryCode, Int32, lAreaCode, VARIANT_BOOL, bUseDevice, BSTR, bstrGroupName, Int32, lDeviceId, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
         return IFaxOutboundRoutingRule(pFaxOutboundRoutingRule)
     }
 

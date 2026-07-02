@@ -45,7 +45,7 @@ export default struct IWindowsDevicesAllJoynBusAttachmentFactoryInterop extends 
      * @returns {Pointer<Void>} 
      */
     CreateFromWin32Handle(win32handle, enableAboutData, riid) {
-        result := ComCall(6, this, "uint", win32handle, "char", enableAboutData, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, Int64, win32handle, Int8, enableAboutData, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

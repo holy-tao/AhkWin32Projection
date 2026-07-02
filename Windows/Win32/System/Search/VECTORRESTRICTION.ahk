@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RESTRICTION.ahk" { RESTRICTION }
 #Import ".\NODERESTRICTION.ahk" { NODERESTRICTION }
+#Import ".\RESTRICTION.ahk" { RESTRICTION }
 
 /**
  * @namespace Windows.Win32.System.Search

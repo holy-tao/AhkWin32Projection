@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ICastingController.ahk" { ICastingController }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\UI\Shell\PropertiesSystem\INamedPropertyStore.ahk" { INamedPropertyStore }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\Shell\PropertiesSystem\INamedPropertyStore.ahk" { INamedPropertyStore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WinRT

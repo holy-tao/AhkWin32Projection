@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the methods that are used by COM handlers to notify the Task Scheduler about the status of the handler.
@@ -53,7 +53,7 @@ export default struct ITaskHandlerStatus extends IUnknown {
     UpdateStatus(percentComplete, statusMessage) {
         statusMessage := statusMessage is String ? BSTR.Alloc(statusMessage).Value : statusMessage
 
-        result := ComCall(3, this, "short", percentComplete, BSTR, statusMessage, "HRESULT")
+        result := ComCall(3, this, Int16, percentComplete, BSTR, statusMessage, "HRESULT")
         return result
     }
 

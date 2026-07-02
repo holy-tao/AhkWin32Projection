@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMEDP.ahk" { IMEDP }
-#Import ".\IMESHF.ahk" { IMESHF }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMEREG.ahk" { IMEREG }
 #Import ".\IMEFMT.ahk" { IMEFMT }
-#Import ".\IMEWRD.ahk" { IMEWRD }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\POSTBL.ahk" { POSTBL }
 #Import ".\IMEREL.ahk" { IMEREL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IMEWRD.ahk" { IMEWRD }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PFNLOG.ahk" { PFNLOG }
+#Import ".\POSTBL.ahk" { POSTBL }
+#Import ".\IMESHF.ahk" { IMESHF }
+#Import ".\IMEDP.ahk" { IMEDP }
+#Import ".\IMEREG.ahk" { IMEREG }
 
 /**
  * The IFEDictionary interface allows clients to access a Microsoft IME user dictionary.
@@ -402,7 +403,7 @@ export default struct IFEDictionary extends IUnknown {
         pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
         pcWrdMarshal := pcWrd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pwchFirst, "ptr", pwchLast, "ptr", pwchDisplay, "uint", ulPos, "uint", ulSelect, "uint", ulWordSrc, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcWrdMarshal, pcWrd, "HRESULT")
+        result := ComCall(8, this, "ptr", pwchFirst, "ptr", pwchLast, "ptr", pwchDisplay, UInt32, ulPos, UInt32, ulSelect, UInt32, ulWordSrc, pchBufferMarshal, pchBuffer, UInt32, cbBuffer, pcWrdMarshal, pcWrd, "HRESULT")
         return result
     }
 
@@ -452,7 +453,7 @@ export default struct IFEDictionary extends IUnknown {
         pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
         pcWrdMarshal := pcWrd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcWrdMarshal, pcWrd, "HRESULT")
+        result := ComCall(9, this, pchBufferMarshal, pchBuffer, UInt32, cbBuffer, pcWrdMarshal, pcWrd, "HRESULT")
         return result
     }
 
@@ -669,7 +670,7 @@ export default struct IFEDictionary extends IUnknown {
         pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
         pcdpMarshal := pcdp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", pwchKakariReading, "ptr", pwchKakariDisplay, "uint", ulKakariPos, "ptr", pwchUkeReading, "ptr", pwchUkeDisplay, "uint", ulUkePos, IMEREL, jrel, "uint", ulWordSrc, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcdpMarshal, pcdp, "HRESULT")
+        result := ComCall(16, this, "ptr", pwchKakariReading, "ptr", pwchKakariDisplay, UInt32, ulKakariPos, "ptr", pwchUkeReading, "ptr", pwchUkeDisplay, UInt32, ulUkePos, IMEREL, jrel, UInt32, ulWordSrc, pchBufferMarshal, pchBuffer, UInt32, cbBuffer, pcdpMarshal, pcdp, "HRESULT")
         return result
     }
 
@@ -684,7 +685,7 @@ export default struct IFEDictionary extends IUnknown {
         pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
         pcDpMarshal := pcDp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, pchBufferMarshal, pchBuffer, "uint", cbBuffer, pcDpMarshal, pcDp, "HRESULT")
+        result := ComCall(17, this, pchBufferMarshal, pchBuffer, UInt32, cbBuffer, pcDpMarshal, pcDp, "HRESULT")
         return result
     }
 
@@ -698,7 +699,7 @@ export default struct IFEDictionary extends IUnknown {
     ConvertFromOldMSIME(pchDic, _pfnLog, reg) {
         pchDic := pchDic is String ? StrPtr(pchDic) : pchDic
 
-        result := ComCall(18, this, "ptr", pchDic, "ptr", _pfnLog, IMEREG, reg, "HRESULT")
+        result := ComCall(18, this, "ptr", pchDic, PFNLOG, _pfnLog, IMEREG, reg, "HRESULT")
         return result
     }
 

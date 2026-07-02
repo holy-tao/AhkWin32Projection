@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SpeechTokenContext.ahk" { SpeechTokenContext }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\SpeechTokenShellFolder.ahk" { SpeechTokenShellFolder }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpeechObjectTokenCategory.ahk" { ISpeechObjectTokenCategory }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISpeechObjectTokenCategory.ahk" { ISpeechObjectTokenCategory }
 #Import ".\ISpeechDataKey.ahk" { ISpeechDataKey }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\SpeechTokenShellFolder.ahk" { SpeechTokenShellFolder }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -112,7 +112,7 @@ export default struct ISpeechObjectToken extends IDispatch {
      */
     GetDescription(Locale) {
         Description := BSTR.Owned()
-        result := ComCall(10, this, "int", Locale, BSTR.Ptr, Description, "HRESULT")
+        result := ComCall(10, this, Int32, Locale, BSTR.Ptr, Description, "HRESULT")
         return Description
     }
 
@@ -230,7 +230,7 @@ export default struct ISpeechObjectToken extends IDispatch {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(18, this, "int", _hWnd, BSTR, Title, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, "ptr", _Object, "HRESULT")
+        result := ComCall(18, this, Int32, _hWnd, BSTR, Title, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, "ptr", _Object, "HRESULT")
         return result
     }
 

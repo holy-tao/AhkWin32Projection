@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDCOLORCONTROL.ahk" { DDCOLORCONTROL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Applications use the methods of the IDirectDrawColorControl interface to get and set color controls.
@@ -54,7 +54,7 @@ export default struct IDirectDrawColorControl extends IUnknown {
      * Retrieves the current color-control settings that are associated with an overlay or a primary surface.
      * @remarks
      * The <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549237(v=vs.85)">DDCOLORCONTROL</a> structure indicates which of the color-control options are supported.
-     * @param {Pointer<DDCOLORCONTROL>} param0 
+     * @param {Pointer<DDCOLORCONTROL>} param0 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549237(v=vs.85)">DDCOLORCONTROL</a> structure that receives the current control settings.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -75,7 +75,7 @@ export default struct IDirectDrawColorControl extends IUnknown {
 
     /**
      * Sets the color-control options for an overlay or a primary surface.
-     * @param {Pointer<DDCOLORCONTROL>} param0 
+     * @param {Pointer<DDCOLORCONTROL>} param0 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549237(v=vs.85)">DDCOLORCONTROL</a> structure that contains the new control settings to apply.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:

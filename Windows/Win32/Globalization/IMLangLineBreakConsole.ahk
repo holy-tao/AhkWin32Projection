@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMLangString.ahk" { IMLangString }
-#Import "..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -55,7 +55,7 @@ export default struct IMLangLineBreakConsole extends IUnknown {
         plLineLenMarshal := plLineLen is VarRef ? "int*" : "ptr"
         plSkipLenMarshal := plSkipLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSrcMLStr, "int", lSrcPos, "int", lSrcLen, "int", cMinColumns, "int", cMaxColumns, plLineLenMarshal, plLineLen, plSkipLenMarshal, plSkipLen, "HRESULT")
+        result := ComCall(3, this, "ptr", pSrcMLStr, Int32, lSrcPos, Int32, lSrcLen, Int32, cMinColumns, Int32, cMaxColumns, plLineLenMarshal, plLineLen, plSkipLenMarshal, plSkipLen, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct IMLangLineBreakConsole extends IUnknown {
         pcchLineMarshal := pcchLine is VarRef ? "int*" : "ptr"
         pcchSkipMarshal := pcchSkip is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", locale, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
+        result := ComCall(4, this, UInt32, locale, "ptr", pszSrc, Int32, cchSrc, Int32, cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IMLangLineBreakConsole extends IUnknown {
         pcchLineMarshal := pcchLine is VarRef ? "int*" : "ptr"
         pcchSkipMarshal := pcchSkip is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", locale, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
+        result := ComCall(5, this, UInt32, locale, UInt32, uCodePage, "ptr", pszSrc, Int32, cchSrc, Int32, cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
         return result
     }
 

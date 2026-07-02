@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\ICspStatus.ahk" { ICspStatus }
 #Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\X509ProviderType.ahk" { X509ProviderType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IObjectId.ahk" { IObjectId }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\X509ProviderType.ahk" { X509ProviderType }
 #Import ".\ICspAlgorithms.ahk" { ICspAlgorithms }
-#Import ".\ICspStatus.ahk" { ICspStatus }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Provides access to general information about a cryptographic provider.

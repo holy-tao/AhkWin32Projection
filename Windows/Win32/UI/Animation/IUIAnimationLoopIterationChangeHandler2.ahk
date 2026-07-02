@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a method for handling storyboard loop iteration events.
@@ -48,7 +48,7 @@ export default struct IUIAnimationLoopIterationChangeHandler2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationloopiterationchangehandler2-onloopiterationchanged
      */
     OnLoopIterationChanged(storyboard, id, newIterationCount, oldIterationCount) {
-        result := ComCall(3, this, "ptr", storyboard, "ptr", id, "uint", newIterationCount, "uint", oldIterationCount, "HRESULT")
+        result := ComCall(3, this, "ptr", storyboard, IntPtr, id, UInt32, newIterationCount, UInt32, oldIterationCount, "HRESULT")
         return result
     }
 

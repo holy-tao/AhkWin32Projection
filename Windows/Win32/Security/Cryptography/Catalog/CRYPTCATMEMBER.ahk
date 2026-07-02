@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\Sip\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import "..\Sip\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**

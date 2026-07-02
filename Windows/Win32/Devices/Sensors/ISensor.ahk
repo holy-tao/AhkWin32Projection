@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\PortableDevices\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
-#Import ".\ISensorDataReport.ahk" { ISensorDataReport }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISensorEvents.ahk" { ISensorEvents }
-#Import "..\PortableDevices\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 #Import ".\SensorState.ahk" { SensorState }
+#Import "..\PortableDevices\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
+#Import ".\ISensorEvents.ahk" { ISensorEvents }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import ".\ISensorDataReport.ahk" { ISensorDataReport }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\PortableDevices\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 
 /**
  * Represents a sensor.
@@ -295,7 +295,7 @@ export default struct ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-seteventinterest
      */
     SetEventInterest(pValues, count) {
-        result := ComCall(16, this, Guid.Ptr, pValues, "uint", count, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, pValues, UInt32, count, "HRESULT")
         return result
     }
 

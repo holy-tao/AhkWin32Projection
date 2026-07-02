@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFaxActivity.ahk" { IFaxActivity }
-#Import ".\IFaxSecurity.ahk" { IFaxSecurity }
+#Import ".\IFaxReceiptOptions.ahk" { IFaxReceiptOptions }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxFolders.ahk" { IFaxFolders }
 #Import ".\IFaxOutboundRouting.ahk" { IFaxOutboundRouting }
-#Import ".\IFaxLoggingOptions.ahk" { IFaxLoggingOptions }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IFaxDevices.ahk" { IFaxDevices }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\FAX_SERVER_APIVERSION_ENUM.ahk" { FAX_SERVER_APIVERSION_ENUM }
 #Import ".\IFaxInboundRouting.ahk" { IFaxInboundRouting }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxLoggingOptions.ahk" { IFaxLoggingOptions }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IFaxDeviceProviders.ahk" { IFaxDeviceProviders }
+#Import ".\IFaxSecurity.ahk" { IFaxSecurity }
 #Import ".\FAX_SERVER_EVENTS_TYPE_ENUM.ahk" { FAX_SERVER_EVENTS_TYPE_ENUM }
-#Import ".\IFaxFolders.ahk" { IFaxFolders }
-#Import ".\IFaxReceiptOptions.ahk" { IFaxReceiptOptions }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IFaxServer interface describes a messaging collection that is used by a fax client application to manage a connection to the fax service.
@@ -604,7 +604,7 @@ export default struct IFaxServer extends IDispatch {
         bstrImageName := bstrImageName is String ? BSTR.Alloc(bstrImageName).Value : bstrImageName
         TspName := TspName is String ? BSTR.Alloc(TspName).Value : TspName
 
-        result := ComCall(27, this, BSTR, bstrGUID, BSTR, bstrFriendlyName, BSTR, bstrImageName, BSTR, TspName, "int", lFSPIVersion, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrGUID, BSTR, bstrFriendlyName, BSTR, bstrImageName, BSTR, TspName, Int32, lFSPIVersion, "HRESULT")
         return result
     }
 

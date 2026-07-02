@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * UI for EAP provider.
@@ -58,7 +58,7 @@ export default struct IEAPProviderConfig extends IUnknown {
     Initialize(pszMachineName, dwEapTypeId) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
 
-        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwEapTypeId, "ptr*", &puConnectionParam := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszMachineName, UInt32, dwEapTypeId, "ptr*", &puConnectionParam := 0, "HRESULT")
         return puConnectionParam
     }
 
@@ -128,7 +128,7 @@ export default struct IEAPProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nf-rrascfg-ieapproviderconfig-uninitialize
      */
     Uninitialize(dwEapTypeId, uConnectionParam) {
-        result := ComCall(4, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "HRESULT")
+        result := ComCall(4, this, UInt32, dwEapTypeId, IntPtr, uConnectionParam, "HRESULT")
         return result
     }
 
@@ -199,7 +199,7 @@ export default struct IEAPProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nf-rrascfg-ieapproviderconfig-serverinvokeconfigui
      */
     ServerInvokeConfigUI(dwEapTypeId, uConnectionParam, _hWnd, uReserved1, uReserved2) {
-        result := ComCall(5, this, "uint", dwEapTypeId, "ptr", uConnectionParam, HWND, _hWnd, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
+        result := ComCall(5, this, UInt32, dwEapTypeId, IntPtr, uConnectionParam, HWND, _hWnd, IntPtr, uReserved1, IntPtr, uReserved2, "HRESULT")
         return result
     }
 
@@ -274,7 +274,7 @@ export default struct IEAPProviderConfig extends IUnknown {
         ppConnectionDataOutMarshal := ppConnectionDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConnectionDataOutMarshal := pdwSizeOfConnectionDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwEapTypeId, "ptr", uConnectionParam, HWND, hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, ppConnectionDataOutMarshal, ppConnectionDataOut, pdwSizeOfConnectionDataOutMarshal, pdwSizeOfConnectionDataOut, "HRESULT")
+        result := ComCall(6, this, UInt32, dwEapTypeId, IntPtr, uConnectionParam, HWND, hwndParent, UInt32, dwFlags, pConnectionDataInMarshal, pConnectionDataIn, UInt32, dwSizeOfConnectionDataIn, ppConnectionDataOutMarshal, ppConnectionDataOut, pdwSizeOfConnectionDataOutMarshal, pdwSizeOfConnectionDataOut, "HRESULT")
         return result
     }
 
@@ -352,7 +352,7 @@ export default struct IEAPProviderConfig extends IUnknown {
         ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwEapTypeId, "ptr", uConnectionParam, HWND, hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, pUserDataInMarshal, pUserDataIn, "uint", dwSizeOfUserDataIn, ppUserDataOutMarshal, ppUserDataOut, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, "HRESULT")
+        result := ComCall(7, this, UInt32, dwEapTypeId, IntPtr, uConnectionParam, HWND, hwndParent, UInt32, dwFlags, pConnectionDataInMarshal, pConnectionDataIn, UInt32, dwSizeOfConnectionDataIn, pUserDataInMarshal, pUserDataIn, UInt32, dwSizeOfUserDataIn, ppUserDataOutMarshal, ppUserDataOut, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, "HRESULT")
         return result
     }
 

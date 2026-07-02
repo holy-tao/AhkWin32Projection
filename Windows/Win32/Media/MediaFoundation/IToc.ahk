@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\TOC_DESCRIPTOR.ahk" { TOC_DESCRIPTOR }
+#Import ".\ITocEntryList.ahk" { ITocEntryList }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ITocEntryList.ahk" { ITocEntryList }
 
 /**
  * The IToc interface represents an individual table of contents. It provides methods for adding entries to, and removing entries from the table of contents.
@@ -216,7 +216,7 @@ export default struct IToc extends IUnknown {
     SetContext(dwContextSize, pbtContext) {
         pbtContextMarshal := pbtContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwContextSize, pbtContextMarshal, pbtContext, "HRESULT")
+        result := ComCall(7, this, UInt32, dwContextSize, pbtContextMarshal, pbtContext, "HRESULT")
         return result
     }
 
@@ -302,7 +302,7 @@ export default struct IToc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-getentrylistbyindex
      */
     GetEntryListByIndex(wEntryListIndex) {
-        result := ComCall(10, this, "ushort", wEntryListIndex, "ptr*", &ppEntryList := 0, "HRESULT")
+        result := ComCall(10, this, UInt16, wEntryListIndex, "ptr*", &ppEntryList := 0, "HRESULT")
         return ITocEntryList(ppEntryList)
     }
 
@@ -364,7 +364,7 @@ export default struct IToc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-addentrylistbyindex
      */
     AddEntryListByIndex(wEntryListIndex, pEntryList) {
-        result := ComCall(12, this, "ushort", wEntryListIndex, "ptr", pEntryList, "HRESULT")
+        result := ComCall(12, this, UInt16, wEntryListIndex, "ptr", pEntryList, "HRESULT")
         return result
     }
 
@@ -394,7 +394,7 @@ export default struct IToc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-removeentrylistbyindex
      */
     RemoveEntryListByIndex(wEntryListIndex) {
-        result := ComCall(13, this, "ushort", wEntryListIndex, "HRESULT")
+        result := ComCall(13, this, UInt16, wEntryListIndex, "HRESULT")
         return result
     }
 

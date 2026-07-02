@@ -1,198 +1,239 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\UNumberRangeIdentityFallback.ahk" { UNumberRangeIdentityFallback }
-#Import ".\UTransDirection.ahk" { UTransDirection }
-#Import ".\URegularExpression.ahk" { URegularExpression }
-#Import ".\UConverterSelector.ahk" { UConverterSelector }
-#Import ".\ENUM_DATE_FORMATS_FLAGS.ahk" { ENUM_DATE_FORMATS_FLAGS }
+#Import ".\URegexMatchCallback.ahk" { URegexMatchCallback }
 #Import ".\CALDATETIME_DATEUNIT.ahk" { CALDATETIME_DATEUNIT }
-#Import ".\UCalendarDisplayNameType.ahk" { UCalendarDisplayNameType }
-#Import ".\USetSpanCondition.ahk" { USetSpanCondition }
-#Import ".\CALDATETIME.ahk" { CALDATETIME }
-#Import ".\UIDNAInfo.ahk" { UIDNAInfo }
-#Import ".\UColAttributeValue.ahk" { UColAttributeValue }
-#Import ".\COMPARE_STRING_FLAGS.ahk" { COMPARE_STRING_FLAGS }
-#Import ".\UFormattableType.ahk" { UFormattableType }
-#Import ".\UColReorderCode.ahk" { UColReorderCode }
-#Import ".\UConverterUnicodeSet.ahk" { UConverterUnicodeSet }
-#Import ".\UFormattedValue.ahk" { UFormattedValue }
-#Import ".\UGender.ahk" { UGender }
-#Import ".\UProperty.ahk" { UProperty }
-#Import ".\UTransPosition.ahk" { UTransPosition }
-#Import ".\UDateTimePatternMatchOptions.ahk" { UDateTimePatternMatchOptions }
-#Import ".\UConverterToUnicodeArgs.ahk" { UConverterToUnicodeArgs }
-#Import ".\UCPMapRangeOption.ahk" { UCPMapRangeOption }
-#Import ".\USystemTimeZoneType.ahk" { USystemTimeZoneType }
+#Import ".\URegularExpression.ahk" { URegularExpression }
 #Import ".\UFormattedNumberRange.ahk" { UFormattedNumberRange }
-#Import "..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\UColBoundMode.ahk" { UColBoundMode }
-#Import ".\UCalendarType.ahk" { UCalendarType }
-#Import ".\UDateFormatHourCycle.ahk" { UDateFormatHourCycle }
-#Import ".\UFieldPositionIterator.ahk" { UFieldPositionIterator }
-#Import ".\ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS.ahk" { ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS }
-#Import ".\UResourceBundle.ahk" { UResourceBundle }
-#Import ".\UBreakIteratorType.ahk" { UBreakIteratorType }
-#Import ".\URelativeDateTimeUnit.ahk" { URelativeDateTimeUnit }
-#Import ".\UAcceptResult.ahk" { UAcceptResult }
-#Import ".\UIDNA.ahk" { UIDNA }
-#Import ".\UScriptUsage.ahk" { UScriptUsage }
-#Import ".\UConverterCallbackReason.ahk" { UConverterCallbackReason }
-#Import ".\UCalendarWeekdayType.ahk" { UCalendarWeekdayType }
-#Import ".\SCRIPT_ITEM.ahk" { SCRIPT_ITEM }
-#Import "..\Foundation\RECT.ahk" { RECT }
-#Import ".\URegionType.ahk" { URegionType }
-#Import "..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import ".\UTimeZoneTransitionType.ahk" { UTimeZoneTransitionType }
-#Import ".\TEXTRANGE_PROPERTIES.ahk" { TEXTRANGE_PROPERTIES }
-#Import ".\UDateTimePGDisplayWidth.ahk" { UDateTimePGDisplayWidth }
-#Import ".\NLSVERSIONINFO.ahk" { NLSVERSIONINFO }
-#Import ".\ULayoutType.ahk" { ULayoutType }
-#Import ".\USearchAttributeValue.ahk" { USearchAttributeValue }
-#Import ".\UPropertyNameChoice.ahk" { UPropertyNameChoice }
-#Import ".\TIME_FORMAT_FLAGS.ahk" { TIME_FORMAT_FLAGS }
-#Import ".\UConstrainedFieldPosition.ahk" { UConstrainedFieldPosition }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UReplaceableCallbacks.ahk" { UReplaceableCallbacks }
-#Import ".\CURRENCYFMTW.ahk" { CURRENCYFMTW }
-#Import ".\ENUM_SYSTEM_CODE_PAGES_FLAGS.ahk" { ENUM_SYSTEM_CODE_PAGES_FLAGS }
-#Import ".\UCalendarDateFields.ahk" { UCalendarDateFields }
-#Import "..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\CPINFOEXW.ahk" { CPINFOEXW }
-#Import ".\URelativeDateTimeFormatter.ahk" { URelativeDateTimeFormatter }
-#Import ".\UNormalizationCheckResult.ahk" { UNormalizationCheckResult }
-#Import ".\URestrictionLevel.ahk" { URestrictionLevel }
-#Import ".\USpoofChecker.ahk" { USpoofChecker }
-#Import ".\UNumberFormatSymbol.ahk" { UNumberFormatSymbol }
-#Import ".\UNumberFormatTextAttribute.ahk" { UNumberFormatTextAttribute }
-#Import ".\UNumberFormatStyle.ahk" { UNumberFormatStyle }
+#Import ".\HSAVEDUILANGUAGES.ahk" { HSAVEDUILANGUAGES }
+#Import ".\LOCALE_ENUMPROCA.ahk" { LOCALE_ENUMPROCA }
+#Import ".\SYSGEOTYPE.ahk" { SYSGEOTYPE }
+#Import ".\CALINFO_ENUMPROCEXEX.ahk" { CALINFO_ENUMPROCEXEX }
+#Import ".\UNormalization2Mode.ahk" { UNormalization2Mode }
+#Import ".\UDateFormatBooleanAttribute.ahk" { UDateFormatBooleanAttribute }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\UConverterToUCallback.ahk" { UConverterToUCallback }
+#Import ".\UCharIterator.ahk" { UCharIterator }
+#Import ".\UBiDiReorderingMode.ahk" { UBiDiReorderingMode }
+#Import ".\UDialectHandling.ahk" { UDialectHandling }
 #Import ".\TRANSLATE_CHARSET_INFO_FLAGS.ahk" { TRANSLATE_CHARSET_INFO_FLAGS }
-#Import ".\UEnumeration.ahk" { UEnumeration }
-#Import ".\UNumberRangeIdentityResult.ahk" { UNumberRangeIdentityResult }
-#Import ".\UDateFormatStyle.ahk" { UDateFormatStyle }
-#Import "..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import ".\UFormattedList.ahk" { UFormattedList }
-#Import ".\UBiDiTransform.ahk" { UBiDiTransform }
-#Import ".\SCRIPT_VISATTR.ahk" { SCRIPT_VISATTR }
-#Import ".\UScriptCode.ahk" { UScriptCode }
-#Import ".\UColRuleOption.ahk" { UColRuleOption }
-#Import ".\UText.ahk" { UText }
-#Import ".\MULTI_BYTE_TO_WIDE_CHAR_FLAGS.ahk" { MULTI_BYTE_TO_WIDE_CHAR_FLAGS }
+#Import ".\UILANGUAGE_ENUMPROCA.ahk" { UILANGUAGE_ENUMPROCA }
+#Import ".\MAPPING_ENUM_OPTIONS.ahk" { MAPPING_ENUM_OPTIONS }
+#Import ".\UPluralType.ahk" { UPluralType }
+#Import ".\TIME_FORMAT_FLAGS.ahk" { TIME_FORMAT_FLAGS }
+#Import ".\UDateRelativeDateTimeFormatterStyle.ahk" { UDateRelativeDateTimeFormatterStyle }
+#Import ".\UProperty.ahk" { UProperty }
+#Import ".\SCRIPT_STATE.ahk" { SCRIPT_STATE }
+#Import ".\CALINFO_ENUMPROCEXA.ahk" { CALINFO_ENUMPROCEXA }
+#Import ".\CALDATETIME.ahk" { CALDATETIME }
+#Import ".\URelativeDateTimeFormatter.ahk" { URelativeDateTimeFormatter }
+#Import ".\LOCALE_ENUMPROCW.ahk" { LOCALE_ENUMPROCW }
+#Import ".\UCharNameChoice.ahk" { UCharNameChoice }
+#Import ".\UCalendarWeekdayType.ahk" { UCalendarWeekdayType }
 #Import ".\NUMBERFMTW.ahk" { NUMBERFMTW }
-#Import ".\SCRIPT_TABDEF.ahk" { SCRIPT_TABDEF }
+#Import ".\UConverterFromUCallback.ahk" { UConverterFromUCallback }
+#Import ".\TEXTRANGE_PROPERTIES.ahk" { TEXTRANGE_PROPERTIES }
+#Import ".\URegion.ahk" { URegion }
+#Import "..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\UDateTimePatternField.ahk" { UDateTimePatternField }
+#Import ".\UBiDiMirroring.ahk" { UBiDiMirroring }
+#Import ".\NORM_FORM.ahk" { NORM_FORM }
+#Import ".\UTransPosition.ahk" { UTransPosition }
+#Import ".\LANGGROUPLOCALE_ENUMPROCW.ahk" { LANGGROUPLOCALE_ENUMPROCW }
+#Import ".\ENUM_DATE_FORMATS_FLAGS.ahk" { ENUM_DATE_FORMATS_FLAGS }
+#Import ".\UDateTimePatternMatchOptions.ahk" { UDateTimePatternMatchOptions }
+#Import ".\ULayoutType.ahk" { ULayoutType }
+#Import ".\DATEFMT_ENUMPROCA.ahk" { DATEFMT_ENUMPROCA }
+#Import ".\UListFormatterType.ahk" { UListFormatterType }
+#Import ".\UCPMapValueFilter.ahk" { UCPMapValueFilter }
+#Import ".\UCollator.ahk" { UCollator }
+#Import ".\GEO_ENUMPROC.ahk" { GEO_ENUMPROC }
+#Import ".\USearchAttributeValue.ahk" { USearchAttributeValue }
+#Import ".\CPINFOEXA.ahk" { CPINFOEXA }
+#Import ".\URegionType.ahk" { URegionType }
+#Import ".\SCRIPT_CHARPROP.ahk" { SCRIPT_CHARPROP }
+#Import ".\UNumberFormatTextAttribute.ahk" { UNumberFormatTextAttribute }
+#Import ".\GEO_ENUMNAMEPROC.ahk" { GEO_ENUMNAMEPROC }
+#Import ".\UDisplayContext.ahk" { UDisplayContext }
+#Import ".\UAcceptResult.ahk" { UAcceptResult }
+#Import ".\UColAttributeValue.ahk" { UColAttributeValue }
+#Import ".\SCRIPT_LOGATTR.ahk" { SCRIPT_LOGATTR }
+#Import ".\SCRIPT_DIGITSUBSTITUTE.ahk" { SCRIPT_DIGITSUBSTITUTE }
+#Import ".\USystemTimeZoneType.ahk" { USystemTimeZoneType }
+#Import ".\UCPMapRangeOption.ahk" { UCPMapRangeOption }
+#Import ".\COMPARE_STRING_FLAGS.ahk" { COMPARE_STRING_FLAGS }
+#Import ".\FOLD_STRING_MAP_FLAGS.ahk" { FOLD_STRING_MAP_FLAGS }
+#Import ".\IS_VALID_LOCALE_FLAGS.ahk" { IS_VALID_LOCALE_FLAGS }
+#Import ".\UBreakIteratorType.ahk" { UBreakIteratorType }
+#Import ".\UCollationElements.ahk" { UCollationElements }
+#Import ".\UFormattedValue.ahk" { UFormattedValue }
+#Import ".\UConverterCallbackReason.ahk" { UConverterCallbackReason }
+#Import ".\UCalendarDisplayNameType.ahk" { UCalendarDisplayNameType }
+#Import ".\UMutableCPTrie.ahk" { UMutableCPTrie }
+#Import ".\CALINFO_ENUMPROCA.ahk" { CALINFO_ENUMPROCA }
+#Import ".\UMemAllocFn.ahk" { UMemAllocFn }
+#Import ".\UNumberRangeFormatter.ahk" { UNumberRangeFormatter }
+#Import ".\UScriptUsage.ahk" { UScriptUsage }
+#Import ".\UCurrNameStyle.ahk" { UCurrNameStyle }
+#Import ".\UListFormatter.ahk" { UListFormatter }
+#Import "..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\NLSVERSIONINFOEX.ahk" { NLSVERSIONINFOEX }
+#Import "..\Foundation\RECT.ahk" { RECT }
+#Import ".\UNumberFormatSymbol.ahk" { UNumberFormatSymbol }
+#Import ".\UFieldPositionIterator.ahk" { UFieldPositionIterator }
+#Import ".\UErrorCode.ahk" { UErrorCode }
+#Import ".\CODEPAGE_ENUMPROCW.ahk" { CODEPAGE_ENUMPROCW }
+#Import ".\SYSGEOCLASS.ahk" { SYSGEOCLASS }
+#Import ".\UDateTimePGDisplayWidth.ahk" { UDateTimePGDisplayWidth }
+#Import "..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\UTraceExit.ahk" { UTraceExit }
+#Import ".\UNumberFormatStyle.ahk" { UNumberFormatStyle }
+#Import ".\UColBoundMode.ahk" { UColBoundMode }
+#Import ".\SCRIPT_FONTPROPERTIES.ahk" { SCRIPT_FONTPROPERTIES }
+#Import ".\LOCALE_ENUMPROCEX.ahk" { LOCALE_ENUMPROCEX }
+#Import ".\UBiDiClassCallback.ahk" { UBiDiClassCallback }
+#Import ".\UResourceBundle.ahk" { UResourceBundle }
+#Import ".\UConverterFromUnicodeArgs.ahk" { UConverterFromUnicodeArgs }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SCRIPT_ITEM.ahk" { SCRIPT_ITEM }
+#Import ".\UMemFreeFn.ahk" { UMemFreeFn }
+#Import ".\UCPTrieValueWidth.ahk" { UCPTrieValueWidth }
+#Import ".\LANGUAGEGROUP_ENUMPROCW.ahk" { LANGUAGEGROUP_ENUMPROCW }
+#Import ".\UCalendarLimitType.ahk" { UCalendarLimitType }
 #Import ".\UNumberRangeCollapse.ahk" { UNumberRangeCollapse }
-#Import ".\UNormalizer2.ahk" { UNormalizer2 }
-#Import ".\UNumberFormatter.ahk" { UNumberFormatter }
+#Import ".\UConstrainedFieldPosition.ahk" { UConstrainedFieldPosition }
+#Import ".\SCRIPT_IS_COMPLEX_FLAGS.ahk" { SCRIPT_IS_COMPLEX_FLAGS }
+#Import ".\UBiDiTransform.ahk" { UBiDiTransform }
+#Import ".\UCPTrie.ahk" { UCPTrie }
+#Import ".\UConverterSelector.ahk" { UConverterSelector }
+#Import ".\NLSVERSIONINFO.ahk" { NLSVERSIONINFO }
+#Import ".\UDateTimePatternConflict.ahk" { UDateTimePatternConflict }
+#Import ".\CURRENCYFMTA.ahk" { CURRENCYFMTA }
+#Import "..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\UDisplayContextType.ahk" { UDisplayContextType }
+#Import ".\UTimeScaleValue.ahk" { UTimeScaleValue }
+#Import ".\UFormattableType.ahk" { UFormattableType }
+#Import ".\TIMEFMT_ENUMPROCW.ahk" { TIMEFMT_ENUMPROCW }
+#Import ".\UTimeZoneTransitionType.ahk" { UTimeZoneTransitionType }
+#Import ".\MULTI_BYTE_TO_WIDE_CHAR_FLAGS.ahk" { MULTI_BYTE_TO_WIDE_CHAR_FLAGS }
+#Import ".\UCalendarAttribute.ahk" { UCalendarAttribute }
+#Import ".\UCPTrieType.ahk" { UCPTrieType }
+#Import ".\CHARSETINFO.ahk" { CHARSETINFO }
+#Import ".\UBiDiDirection.ahk" { UBiDiDirection }
+#Import ".\USearchAttribute.ahk" { USearchAttribute }
+#Import ".\UFormattedList.ahk" { UFormattedList }
+#Import ".\UEnumCharNamesFn.ahk" { UEnumCharNamesFn }
+#Import ".\UFormattedNumber.ahk" { UFormattedNumber }
+#Import ".\UGender.ahk" { UGender }
+#Import ".\ULocaleDataDelimiterType.ahk" { ULocaleDataDelimiterType }
+#Import ".\UNormalizationCheckResult.ahk" { UNormalizationCheckResult }
+#Import ".\UBiDi.ahk" { UBiDi }
+#Import ".\URegexFindProgressCallback.ahk" { URegexFindProgressCallback }
+#Import ".\SCRIPT_VISATTR.ahk" { SCRIPT_VISATTR }
+#Import ".\DATEFMT_ENUMPROCW.ahk" { DATEFMT_ENUMPROCW }
+#Import ".\UNumberFormatAttribute.ahk" { UNumberFormatAttribute }
+#Import ".\UEnumeration.ahk" { UEnumeration }
+#Import ".\UCalendarDateFields.ahk" { UCalendarDateFields }
+#Import ".\LANGUAGEGROUP_ENUMPROCA.ahk" { LANGUAGEGROUP_ENUMPROCA }
+#Import ".\TIMEFMT_ENUMPROCEX.ahk" { TIMEFMT_ENUMPROCEX }
+#Import ".\ULocaleDisplayNames.ahk" { ULocaleDisplayNames }
+#Import ".\USerializedSet.ahk" { USerializedSet }
+#Import ".\UBlockCode.ahk" { UBlockCode }
+#Import ".\UDateFormatStyle.ahk" { UDateFormatStyle }
+#Import ".\UScriptCode.ahk" { UScriptCode }
+#Import ".\UConverterToUnicodeArgs.ahk" { UConverterToUnicodeArgs }
+#Import ".\CPINFOEXW.ahk" { CPINFOEXW }
+#Import ".\URelativeDateTimeUnit.ahk" { URelativeDateTimeUnit }
+#Import ".\ULocDataLocaleType.ahk" { ULocDataLocaleType }
+#Import ".\UFieldPosition.ahk" { UFieldPosition }
+#Import ".\UIDNA.ahk" { UIDNA }
+#Import ".\UTimeZoneLocalOption.ahk" { UTimeZoneLocalOption }
+#Import ".\UParseError.ahk" { UParseError }
+#Import ".\UConverter.ahk" { UConverter }
+#Import ".\ULocAvailableType.ahk" { ULocAvailableType }
+#Import ".\UConverterType.ahk" { UConverterType }
+#Import ".\URestrictionLevel.ahk" { URestrictionLevel }
+#Import ".\UDateTimeScale.ahk" { UDateTimeScale }
+#Import ".\UDateFormatSymbolType.ahk" { UDateFormatSymbolType }
+#Import ".\TIMEFMT_ENUMPROCA.ahk" { TIMEFMT_ENUMPROCA }
+#Import ".\SCRIPT_TABDEF.ahk" { SCRIPT_TABDEF }
+#Import ".\CALINFO_ENUMPROCW.ahk" { CALINFO_ENUMPROCW }
+#Import ".\USet.ahk" { USet }
+#Import ".\DATEFMT_ENUMPROCEXEX.ahk" { DATEFMT_ENUMPROCEXEX }
+#Import ".\UNumberRangeIdentityFallback.ahk" { UNumberRangeIdentityFallback }
+#Import ".\UCollationResult.ahk" { UCollationResult }
+#Import ".\UColReorderCode.ahk" { UColReorderCode }
+#Import "..\Graphics\Gdi\ETO_OPTIONS.ahk" { ETO_OPTIONS }
+#Import ".\UNumberRangeIdentityResult.ahk" { UNumberRangeIdentityResult }
+#Import ".\COMPARESTRING_RESULT.ahk" { COMPARESTRING_RESULT }
 #Import ".\UStringSearch.ahk" { UStringSearch }
 #Import ".\UListFormatterWidth.ahk" { UListFormatterWidth }
-#Import ".\UCalendarLimitType.ahk" { UCalendarLimitType }
-#Import ".\UCPMap.ahk" { UCPMap }
-#Import ".\UGenderInfo.ahk" { UGenderInfo }
-#Import ".\SCRIPT_CONTROL.ahk" { SCRIPT_CONTROL }
-#Import ".\UCharIterator.ahk" { UCharIterator }
-#Import ".\NORM_FORM.ahk" { NORM_FORM }
-#Import ".\COMPARESTRING_RESULT.ahk" { COMPARESTRING_RESULT }
-#Import ".\USpoofCheckResult.ahk" { USpoofCheckResult }
-#Import ".\USerializedSet.ahk" { USerializedSet }
-#Import ".\UBiDi.ahk" { UBiDi }
-#Import ".\UStringPrepProfile.ahk" { UStringPrepProfile }
-#Import ".\UBiDiOrder.ahk" { UBiDiOrder }
-#Import ".\SYSGEOTYPE.ahk" { SYSGEOTYPE }
-#Import ".\ULocaleDisplayNames.ahk" { ULocaleDisplayNames }
-#Import ".\UMutableCPTrie.ahk" { UMutableCPTrie }
-#Import ".\CURRENCYFMTA.ahk" { CURRENCYFMTA }
-#Import ".\UCPTrieType.ahk" { UCPTrieType }
-#Import ".\ULocaleData.ahk" { ULocaleData }
-#Import ".\UPluralType.ahk" { UPluralType }
-#Import ".\ULocaleDataExemplarSetType.ahk" { ULocaleDataExemplarSetType }
-#Import ".\UCollator.ahk" { UCollator }
-#Import ".\MAPPING_OPTIONS.ahk" { MAPPING_OPTIONS }
-#Import ".\SCRIPT_DIGITSUBSTITUTE.ahk" { SCRIPT_DIGITSUBSTITUTE }
-#Import ".\UConverter.ahk" { UConverter }
-#Import ".\UConverterPlatform.ahk" { UConverterPlatform }
-#Import ".\UTimeScaleValue.ahk" { UTimeScaleValue }
-#Import ".\UCalendarDaysOfWeek.ahk" { UCalendarDaysOfWeek }
-#Import ".\UBiDiMirroring.ahk" { UBiDiMirroring }
-#Import ".\UBiDiDirection.ahk" { UBiDiDirection }
-#Import ".\UFormattedRelativeDateTime.ahk" { UFormattedRelativeDateTime }
-#Import ".\SCRIPT_PROPERTIES.ahk" { SCRIPT_PROPERTIES }
-#Import ".\UStringPrepProfileType.ahk" { UStringPrepProfileType }
-#Import ".\MAPPING_ENUM_OPTIONS.ahk" { MAPPING_ENUM_OPTIONS }
-#Import ".\CPINFO.ahk" { CPINFO }
-#Import "..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\UListFormatterType.ahk" { UListFormatterType }
-#Import ".\MAPPING_PROPERTY_BAG.ahk" { MAPPING_PROPERTY_BAG }
-#Import ".\UDateTimePatternField.ahk" { UDateTimePatternField }
-#Import ".\UDisplayContextType.ahk" { UDisplayContextType }
-#Import ".\ULocDataLocaleType.ahk" { ULocDataLocaleType }
-#Import ".\ULocaleDataDelimiterType.ahk" { ULocaleDataDelimiterType }
-#Import ".\UCPTrieValueWidth.ahk" { UCPTrieValueWidth }
-#Import ".\ULocAvailableType.ahk" { ULocAvailableType }
-#Import ".\UCharDirection.ahk" { UCharDirection }
-#Import ".\IS_VALID_LOCALE_FLAGS.ahk" { IS_VALID_LOCALE_FLAGS }
-#Import ".\UBlockCode.ahk" { UBlockCode }
-#Import ".\UFormattedDateInterval.ahk" { UFormattedDateInterval }
-#Import ".\GOFFSET.ahk" { GOFFSET }
-#Import ".\SCRIPT_STATE.ahk" { SCRIPT_STATE }
-#Import ".\UDialectHandling.ahk" { UDialectHandling }
-#Import ".\UBreakIterator.ahk" { UBreakIterator }
-#Import ".\UCalendarAttribute.ahk" { UCalendarAttribute }
-#Import ".\UCharNameChoice.ahk" { UCharNameChoice }
-#Import ".\UParseError.ahk" { UParseError }
-#Import ".\UDateFormatBooleanAttribute.ahk" { UDateFormatBooleanAttribute }
-#Import "..\Graphics\Gdi\ETO_OPTIONS.ahk" { ETO_OPTIONS }
-#Import ".\UColAttribute.ahk" { UColAttribute }
-#Import ".\USet.ahk" { USet }
+#Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
+#Import ".\UText.ahk" { UText }
+#Import ".\MAPPING_SERVICE_INFO.ahk" { MAPPING_SERVICE_INFO }
 #Import ".\SCRIPT_ANALYSIS.ahk" { SCRIPT_ANALYSIS }
-#Import ".\UConverterFromUnicodeArgs.ahk" { UConverterFromUnicodeArgs }
-#Import ".\UErrorCode.ahk" { UErrorCode }
+#Import ".\UStringPrepProfile.ahk" { UStringPrepProfile }
+#Import ".\UCharEnumTypeRange.ahk" { UCharEnumTypeRange }
+#Import ".\UStringPrepProfileType.ahk" { UStringPrepProfileType }
+#Import ".\UNumberFormatter.ahk" { UNumberFormatter }
+#Import ".\UDateFormatField.ahk" { UDateFormatField }
+#Import ".\USetSpanCondition.ahk" { USetSpanCondition }
+#Import ".\UNumberingSystem.ahk" { UNumberingSystem }
 #Import ".\UResType.ahk" { UResType }
 #Import ".\UCurrencyUsage.ahk" { UCurrencyUsage }
-#Import ".\CPINFOEXA.ahk" { CPINFOEXA }
-#Import ".\UPluralRules.ahk" { UPluralRules }
-#Import ".\UNormalization2Mode.ahk" { UNormalization2Mode }
-#Import ".\UCollationElements.ahk" { UCollationElements }
-#Import ".\SCRIPT_GLYPHPROP.ahk" { SCRIPT_GLYPHPROP }
-#Import ".\UCollationResult.ahk" { UCollationResult }
-#Import ".\UDateRelativeDateTimeFormatterStyle.ahk" { UDateRelativeDateTimeFormatterStyle }
-#Import ".\UCPTrie.ahk" { UCPTrie }
-#Import ".\UDateFormatSymbolType.ahk" { UDateFormatSymbolType }
-#Import ".\UNumberingSystem.ahk" { UNumberingSystem }
-#Import ".\NLSVERSIONINFOEX.ahk" { NLSVERSIONINFOEX }
-#Import ".\URegion.ahk" { URegion }
-#Import ".\UCharsetDetector.ahk" { UCharsetDetector }
-#Import ".\NUMBERFMTA.ahk" { NUMBERFMTA }
-#Import ".\UDateTimeScale.ahk" { UDateTimeScale }
-#Import ".\IS_TEXT_UNICODE_RESULT.ahk" { IS_TEXT_UNICODE_RESULT }
-#Import ".\MAPPING_SERVICE_INFO.ahk" { MAPPING_SERVICE_INFO }
-#Import ".\UCaseMap.ahk" { UCaseMap }
-#Import ".\UCurrNameStyle.ahk" { UCurrNameStyle }
-#Import ".\UMeasurementSystem.ahk" { UMeasurementSystem }
-#Import ".\UTimeZoneLocalOption.ahk" { UTimeZoneLocalOption }
-#Import ".\HSAVEDUILANGUAGES.ahk" { HSAVEDUILANGUAGES }
-#Import ".\FOLD_STRING_MAP_FLAGS.ahk" { FOLD_STRING_MAP_FLAGS }
-#Import ".\UFieldPosition.ahk" { UFieldPosition }
-#Import "..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\SCRIPT_IS_COMPLEX_FLAGS.ahk" { SCRIPT_IS_COMPLEX_FLAGS }
-#Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
-#Import ".\CHARSETINFO.ahk" { CHARSETINFO }
-#Import "..\Graphics\Gdi\ABC.ahk" { ABC }
-#Import ".\SYSGEOCLASS.ahk" { SYSGEOCLASS }
-#Import ".\UDateTimePatternConflict.ahk" { UDateTimePatternConflict }
-#Import ".\UListFormatter.ahk" { UListFormatter }
-#Import ".\UCharsetMatch.ahk" { UCharsetMatch }
-#Import ".\UFormattedNumber.ahk" { UFormattedNumber }
-#Import ".\SCRIPT_FONTPROPERTIES.ahk" { SCRIPT_FONTPROPERTIES }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\UDateFormatField.ahk" { UDateFormatField }
-#Import ".\UNumberFormatAttribute.ahk" { UNumberFormatAttribute }
-#Import ".\UDisplayContext.ahk" { UDisplayContext }
-#Import ".\UBiDiReorderingMode.ahk" { UBiDiReorderingMode }
-#Import ".\USearchAttribute.ahk" { USearchAttribute }
-#Import ".\UConverterType.ahk" { UConverterType }
+#Import ".\UMemReallocFn.ahk" { UMemReallocFn }
 #Import ".\UDateIntervalFormat.ahk" { UDateIntervalFormat }
-#Import ".\UNumberRangeFormatter.ahk" { UNumberRangeFormatter }
-#Import ".\SCRIPT_CHARPROP.ahk" { SCRIPT_CHARPROP }
-#Import ".\SCRIPT_LOGATTR.ahk" { SCRIPT_LOGATTR }
+#Import ".\CURRENCYFMTW.ahk" { CURRENCYFMTW }
+#Import ".\SCRIPT_PROPERTIES.ahk" { SCRIPT_PROPERTIES }
+#Import ".\DATEFMT_ENUMPROCEXW.ahk" { DATEFMT_ENUMPROCEXW }
+#Import ".\ULocaleDataExemplarSetType.ahk" { ULocaleDataExemplarSetType }
+#Import ".\UCharsetDetector.ahk" { UCharsetDetector }
+#Import ".\UReplaceableCallbacks.ahk" { UReplaceableCallbacks }
+#Import ".\UPropertyNameChoice.ahk" { UPropertyNameChoice }
+#Import ".\UFormattedRelativeDateTime.ahk" { UFormattedRelativeDateTime }
+#Import ".\CPINFO.ahk" { CPINFO }
+#Import ".\UBiDiOrder.ahk" { UBiDiOrder }
+#Import "..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IS_TEXT_UNICODE_RESULT.ahk" { IS_TEXT_UNICODE_RESULT }
+#Import ".\UCharsetMatch.ahk" { UCharsetMatch }
+#Import ".\SCRIPT_CONTROL.ahk" { SCRIPT_CONTROL }
+#Import ".\UMeasurementSystem.ahk" { UMeasurementSystem }
+#Import ".\ENUM_SYSTEM_CODE_PAGES_FLAGS.ahk" { ENUM_SYSTEM_CODE_PAGES_FLAGS }
+#Import ".\UConverterPlatform.ahk" { UConverterPlatform }
+#Import ".\UTraceEntry.ahk" { UTraceEntry }
+#Import ".\UPluralRules.ahk" { UPluralRules }
+#Import ".\UDateFormatHourCycle.ahk" { UDateFormatHourCycle }
+#Import ".\NUMBERFMTA.ahk" { NUMBERFMTA }
+#Import ".\UConverterUnicodeSet.ahk" { UConverterUnicodeSet }
+#Import ".\UCalendarType.ahk" { UCalendarType }
+#Import ".\USpoofChecker.ahk" { USpoofChecker }
+#Import ".\UTransDirection.ahk" { UTransDirection }
+#Import "..\Graphics\Gdi\ABC.ahk" { ABC }
+#Import ".\MAPPING_PROPERTY_BAG.ahk" { MAPPING_PROPERTY_BAG }
+#Import ".\UILANGUAGE_ENUMPROCW.ahk" { UILANGUAGE_ENUMPROCW }
+#Import ".\ULocaleData.ahk" { ULocaleData }
+#Import ".\CODEPAGE_ENUMPROCA.ahk" { CODEPAGE_ENUMPROCA }
+#Import ".\UCalendarDaysOfWeek.ahk" { UCalendarDaysOfWeek }
+#Import ".\USpoofCheckResult.ahk" { USpoofCheckResult }
+#Import ".\ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS.ahk" { ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS }
+#Import ".\UGenderInfo.ahk" { UGenderInfo }
+#Import ".\UNormalizer2.ahk" { UNormalizer2 }
+#Import ".\MAPPING_OPTIONS.ahk" { MAPPING_OPTIONS }
+#Import ".\CALINFO_ENUMPROCEXW.ahk" { CALINFO_ENUMPROCEXW }
+#Import ".\UFormattedDateInterval.ahk" { UFormattedDateInterval }
+#Import ".\UIDNAInfo.ahk" { UIDNAInfo }
+#Import ".\GOFFSET.ahk" { GOFFSET }
+#Import ".\DATEFMT_ENUMPROCEXA.ahk" { DATEFMT_ENUMPROCEXA }
+#Import ".\UCaseMap.ahk" { UCaseMap }
+#Import ".\UTraceData.ahk" { UTraceData }
+#Import ".\UNESCAPE_CHAR_AT.ahk" { UNESCAPE_CHAR_AT }
+#Import ".\UCPMap.ahk" { UCPMap }
+#Import ".\SCRIPT_GLYPHPROP.ahk" { SCRIPT_GLYPHPROP }
+#Import ".\LANGGROUPLOCALE_ENUMPROCA.ahk" { LANGGROUPLOCALE_ENUMPROCA }
+#Import ".\UBreakIterator.ahk" { UBreakIterator }
+#Import ".\UColAttribute.ahk" { UColAttribute }
+#Import ".\UCharDirection.ahk" { UCharDirection }
+#Import ".\UColRuleOption.ahk" { UColRuleOption }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -231,7 +272,7 @@ export GetTextCharset(_hdc) {
  * @since windows5.0
  */
 export GetTextCharsetInfo(_hdc, lpSig, dwFlags) {
-    result := DllCall("GDI32.dll\GetTextCharsetInfo", HDC, _hdc, FONTSIGNATURE.Ptr, lpSig, "uint", dwFlags, Int32)
+    result := DllCall("GDI32.dll\GetTextCharsetInfo", HDC, _hdc, FONTSIGNATURE.Ptr, lpSig, UInt32, dwFlags, Int32)
     return result
 }
 
@@ -322,7 +363,7 @@ export GetDateFormatA(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetDateFormatA", "uint", Locale, "uint", dwFlags, SYSTEMTIME.Ptr, lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, Int32)
+    result := DllCall("KERNEL32.dll\GetDateFormatA", UInt32, Locale, UInt32, dwFlags, SYSTEMTIME.Ptr, lpDate, "ptr", lpFormat, "ptr", lpDateStr, Int32, cchDate, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -395,7 +436,7 @@ export GetDateFormatW(Locale, dwFlags, lpDate, lpFormat, lpDateStr, cchDate) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetDateFormatW", "uint", Locale, "uint", dwFlags, SYSTEMTIME.Ptr, lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, Int32)
+    result := DllCall("KERNEL32.dll\GetDateFormatW", UInt32, Locale, UInt32, dwFlags, SYSTEMTIME.Ptr, lpDate, "ptr", lpFormat, "ptr", lpDateStr, Int32, cchDate, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -465,7 +506,7 @@ export GetTimeFormatA(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetTimeFormatA", "uint", Locale, "uint", dwFlags, SYSTEMTIME.Ptr, lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime, Int32)
+    result := DllCall("KERNEL32.dll\GetTimeFormatA", UInt32, Locale, UInt32, dwFlags, SYSTEMTIME.Ptr, lpTime, "ptr", lpFormat, "ptr", lpTimeStr, Int32, cchTime, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -535,7 +576,7 @@ export GetTimeFormatW(Locale, dwFlags, lpTime, lpFormat, lpTimeStr, cchTime) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetTimeFormatW", "uint", Locale, "uint", dwFlags, SYSTEMTIME.Ptr, lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime, Int32)
+    result := DllCall("KERNEL32.dll\GetTimeFormatW", UInt32, Locale, UInt32, dwFlags, SYSTEMTIME.Ptr, lpTime, "ptr", lpFormat, "ptr", lpTimeStr, Int32, cchTime, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -671,7 +712,7 @@ export GetTimeFormatEx(lpLocaleName, dwFlags, lpTime, lpFormat, lpTimeStr, cchTi
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetTimeFormatEx", "ptr", lpLocaleName, TIME_FORMAT_FLAGS, dwFlags, SYSTEMTIME.Ptr, lpTime, "ptr", lpFormat, "ptr", lpTimeStr, "int", cchTime, Int32)
+    result := DllCall("KERNEL32.dll\GetTimeFormatEx", "ptr", lpLocaleName, TIME_FORMAT_FLAGS, dwFlags, SYSTEMTIME.Ptr, lpTime, "ptr", lpFormat, "ptr", lpTimeStr, Int32, cchTime, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -757,7 +798,7 @@ export GetDateFormatEx(lpLocaleName, dwFlags, lpDate, lpFormat, lpDateStr, cchDa
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetDateFormatEx", "ptr", lpLocaleName, ENUM_DATE_FORMATS_FLAGS, dwFlags, SYSTEMTIME.Ptr, lpDate, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, "ptr", lpCalendar, Int32)
+    result := DllCall("KERNEL32.dll\GetDateFormatEx", "ptr", lpLocaleName, ENUM_DATE_FORMATS_FLAGS, dwFlags, SYSTEMTIME.Ptr, lpDate, "ptr", lpFormat, "ptr", lpDateStr, Int32, cchDate, "ptr", lpCalendar, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1029,7 +1070,7 @@ export GetDurationFormatEx(lpLocaleName, dwFlags, lpDuration, ullDuration, lpFor
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetDurationFormatEx", "ptr", lpLocaleName, "uint", dwFlags, SYSTEMTIME.Ptr, lpDuration, "uint", ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, "int", cchDuration, Int32)
+    result := DllCall("KERNEL32.dll\GetDurationFormatEx", "ptr", lpLocaleName, UInt32, dwFlags, SYSTEMTIME.Ptr, lpDuration, Int64, ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, Int32, cchDuration, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1099,7 +1140,7 @@ export CompareStringEx(lpLocaleName, dwCmpFlags, lpString1, cchCount1, lpString2
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CompareStringEx", "ptr", lpLocaleName, COMPARE_STRING_FLAGS, dwCmpFlags, "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, NLSVERSIONINFO.Ptr, lpVersionInformation, "ptr", lpReserved, LPARAM, _lParam, COMPARESTRING_RESULT)
+    result := DllCall("KERNEL32.dll\CompareStringEx", "ptr", lpLocaleName, COMPARE_STRING_FLAGS, dwCmpFlags, "ptr", lpString1, Int32, cchCount1, "ptr", lpString2, Int32, cchCount2, NLSVERSIONINFO.Ptr, lpVersionInformation, "ptr", lpReserved, LPARAM, _lParam, COMPARESTRING_RESULT)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1141,7 +1182,7 @@ export CompareStringOrdinal(lpString1, cchCount1, lpString2, cchCount2, bIgnoreC
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CompareStringOrdinal", "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, BOOL, bIgnoreCase, COMPARESTRING_RESULT)
+    result := DllCall("KERNEL32.dll\CompareStringOrdinal", "ptr", lpString1, Int32, cchCount1, "ptr", lpString2, Int32, cchCount2, BOOL, bIgnoreCase, COMPARESTRING_RESULT)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1194,7 +1235,7 @@ export CompareStringW(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCo
     lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
     lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-    result := DllCall("KERNEL32.dll\CompareStringW", "uint", Locale, "uint", dwCmpFlags, "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, COMPARESTRING_RESULT)
+    result := DllCall("KERNEL32.dll\CompareStringW", UInt32, Locale, UInt32, dwCmpFlags, "ptr", lpString1, Int32, cchCount1, "ptr", lpString2, Int32, cchCount2, COMPARESTRING_RESULT)
     return result
 }
 
@@ -1239,7 +1280,7 @@ export FoldStringW(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FoldStringW", FOLD_STRING_MAP_FLAGS, dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, Int32)
+    result := DllCall("KERNEL32.dll\FoldStringW", FOLD_STRING_MAP_FLAGS, dwMapFlags, "ptr", lpSrcStr, Int32, cchSrc, "ptr", lpDestStr, Int32, cchDest, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1310,7 +1351,7 @@ export GetStringTypeExW(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetStringTypeExW", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, lpCharTypeMarshal, lpCharType, BOOL)
+    result := DllCall("KERNEL32.dll\GetStringTypeExW", UInt32, Locale, UInt32, dwInfoType, "ptr", lpSrcStr, Int32, cchSrc, lpCharTypeMarshal, lpCharType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1671,7 +1712,7 @@ export GetStringTypeW(dwInfoType, lpSrcStr, cchSrc, lpCharType) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetStringTypeW", "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, lpCharTypeMarshal, lpCharType, BOOL)
+    result := DllCall("KERNEL32.dll\GetStringTypeW", UInt32, dwInfoType, "ptr", lpSrcStr, Int32, cchSrc, lpCharTypeMarshal, lpCharType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1819,7 +1860,7 @@ export MultiByteToWideChar(CodePage, dwFlags, lpMultiByteStr, cbMultiByte, lpWid
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MultiByteToWideChar", "uint", CodePage, MULTI_BYTE_TO_WIDE_CHAR_FLAGS, dwFlags, "ptr", lpMultiByteStr, "int", cbMultiByte, "ptr", lpWideCharStr, "int", cchWideChar, Int32)
+    result := DllCall("KERNEL32.dll\MultiByteToWideChar", UInt32, CodePage, MULTI_BYTE_TO_WIDE_CHAR_FLAGS, dwFlags, "ptr", lpMultiByteStr, Int32, cbMultiByte, "ptr", lpWideCharStr, Int32, cchWideChar, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2001,7 +2042,7 @@ export WideCharToMultiByte(CodePage, dwFlags, lpWideCharStr, cchWideChar, lpMult
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WideCharToMultiByte", "uint", CodePage, "uint", dwFlags, "ptr", lpWideCharStr, "int", cchWideChar, "ptr", lpMultiByteStr, "int", cbMultiByte, "ptr", lpDefaultChar, lpUsedDefaultCharMarshal, lpUsedDefaultChar, Int32)
+    result := DllCall("KERNEL32.dll\WideCharToMultiByte", UInt32, CodePage, UInt32, dwFlags, "ptr", lpWideCharStr, Int32, cchWideChar, IntPtr, lpMultiByteStr, Int32, cbMultiByte, "ptr", lpDefaultChar, lpUsedDefaultCharMarshal, lpUsedDefaultChar, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2021,7 +2062,7 @@ export WideCharToMultiByte(CodePage, dwFlags, lpWideCharStr, cchWideChar, lpMult
  * @since windows5.0
  */
 export IsValidCodePage(CodePage) {
-    result := DllCall("KERNEL32.dll\IsValidCodePage", "uint", CodePage, BOOL)
+    result := DllCall("KERNEL32.dll\IsValidCodePage", UInt32, CodePage, BOOL)
     return result
 }
 
@@ -2069,7 +2110,7 @@ export GetOEMCP() {
 export GetCPInfo(CodePage, lpCPInfo) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCPInfo", "uint", CodePage, CPINFO.Ptr, lpCPInfo, BOOL)
+    result := DllCall("KERNEL32.dll\GetCPInfo", UInt32, CodePage, CPINFO.Ptr, lpCPInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2150,7 +2191,7 @@ export GetCPInfo(CodePage, lpCPInfo) {
 export GetCPInfoExA(CodePage, dwFlags, lpCPInfoEx) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCPInfoExA", "uint", CodePage, "uint", dwFlags, CPINFOEXA.Ptr, lpCPInfoEx, BOOL)
+    result := DllCall("KERNEL32.dll\GetCPInfoExA", UInt32, CodePage, UInt32, dwFlags, CPINFOEXA.Ptr, lpCPInfoEx, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2231,7 +2272,7 @@ export GetCPInfoExA(CodePage, dwFlags, lpCPInfoEx) {
 export GetCPInfoExW(CodePage, dwFlags, lpCPInfoEx) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCPInfoExW", "uint", CodePage, "uint", dwFlags, CPINFOEXW.Ptr, lpCPInfoEx, BOOL)
+    result := DllCall("KERNEL32.dll\GetCPInfoExW", UInt32, CodePage, UInt32, dwFlags, CPINFOEXW.Ptr, lpCPInfoEx, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2291,7 +2332,7 @@ export CompareStringA(Locale, dwCmpFlags, lpString1, cchCount1, lpString2, cchCo
     lpString1Marshal := lpString1 is VarRef ? "char*" : "ptr"
     lpString2Marshal := lpString2 is VarRef ? "char*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\CompareStringA", "uint", Locale, "uint", dwCmpFlags, lpString1Marshal, lpString1, "int", cchCount1, lpString2Marshal, lpString2, "int", cchCount2, COMPARESTRING_RESULT)
+    result := DllCall("KERNEL32.dll\CompareStringA", UInt32, Locale, UInt32, dwCmpFlags, lpString1Marshal, lpString1, Int32, cchCount1, lpString2Marshal, lpString2, Int32, cchCount2, COMPARESTRING_RESULT)
     return result
 }
 
@@ -2351,7 +2392,7 @@ export FindNLSString(Locale, dwFindNLSStringFlags, lpStringSource, cchSource, lp
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindNLSString", "uint", Locale, "uint", dwFindNLSStringFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, pcchFoundMarshal, pcchFound, Int32)
+    result := DllCall("KERNEL32.dll\FindNLSString", UInt32, Locale, UInt32, dwFindNLSStringFlags, "ptr", lpStringSource, Int32, cchSource, "ptr", lpStringValue, Int32, cchValue, pcchFoundMarshal, pcchFound, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2451,7 +2492,7 @@ export LCMapStringW(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LCMapStringW", "uint", Locale, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, Int32)
+    result := DllCall("KERNEL32.dll\LCMapStringW", UInt32, Locale, UInt32, dwMapFlags, "ptr", lpSrcStr, Int32, cchSrc, "ptr", lpDestStr, Int32, cchDest, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2550,7 +2591,7 @@ export LCMapStringA(Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LCMapStringA", "uint", Locale, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, Int32)
+    result := DllCall("KERNEL32.dll\LCMapStringA", UInt32, Locale, UInt32, dwMapFlags, "ptr", lpSrcStr, Int32, cchSrc, "ptr", lpDestStr, Int32, cchDest, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2645,7 +2686,7 @@ export GetLocaleInfoW(Locale, LCType, lpLCData, cchData) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLocaleInfoW", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int", cchData, Int32)
+    result := DllCall("KERNEL32.dll\GetLocaleInfoW", UInt32, Locale, UInt32, LCType, "ptr", lpLCData, Int32, cchData, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2740,7 +2781,7 @@ export GetLocaleInfoA(Locale, LCType, lpLCData, cchData) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLocaleInfoA", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int", cchData, Int32)
+    result := DllCall("KERNEL32.dll\GetLocaleInfoA", UInt32, Locale, UInt32, LCType, "ptr", lpLCData, Int32, cchData, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2811,7 +2852,7 @@ export SetLocaleInfoA(Locale, LCType, lpLCData) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetLocaleInfoA", "uint", Locale, "uint", LCType, "ptr", lpLCData, BOOL)
+    result := DllCall("KERNEL32.dll\SetLocaleInfoA", UInt32, Locale, UInt32, LCType, "ptr", lpLCData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2882,7 +2923,7 @@ export SetLocaleInfoW(Locale, LCType, lpLCData) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetLocaleInfoW", "uint", Locale, "uint", LCType, "ptr", lpLCData, BOOL)
+    result := DllCall("KERNEL32.dll\SetLocaleInfoW", UInt32, Locale, UInt32, LCType, "ptr", lpLCData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2955,7 +2996,7 @@ export GetCalendarInfoA(Locale, Calendar, CalType, lpCalData, cchData, lpValue) 
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCalendarInfoA", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int", cchData, lpValueMarshal, lpValue, Int32)
+    result := DllCall("KERNEL32.dll\GetCalendarInfoA", UInt32, Locale, UInt32, Calendar, UInt32, CalType, "ptr", lpCalData, Int32, cchData, lpValueMarshal, lpValue, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3028,7 +3069,7 @@ export GetCalendarInfoW(Locale, Calendar, CalType, lpCalData, cchData, lpValue) 
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCalendarInfoW", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int", cchData, lpValueMarshal, lpValue, Int32)
+    result := DllCall("KERNEL32.dll\GetCalendarInfoW", UInt32, Locale, UInt32, Calendar, UInt32, CalType, "ptr", lpCalData, Int32, cchData, lpValueMarshal, lpValue, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3103,7 +3144,7 @@ export SetCalendarInfoA(Locale, Calendar, CalType, lpCalData) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetCalendarInfoA", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, BOOL)
+    result := DllCall("KERNEL32.dll\SetCalendarInfoA", UInt32, Locale, UInt32, Calendar, UInt32, CalType, "ptr", lpCalData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3178,7 +3219,7 @@ export SetCalendarInfoW(Locale, Calendar, CalType, lpCalData) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetCalendarInfoW", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, BOOL)
+    result := DllCall("KERNEL32.dll\SetCalendarInfoW", UInt32, Locale, UInt32, Calendar, UInt32, CalType, "ptr", lpCalData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3218,7 +3259,7 @@ export SetCalendarInfoW(Locale, Calendar, CalType, lpCalData) {
 export IsDBCSLeadByte(TestChar) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\IsDBCSLeadByte", "char", TestChar, BOOL)
+    result := DllCall("KERNEL32.dll\IsDBCSLeadByte", Int8, TestChar, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3292,7 +3333,7 @@ export IsDBCSLeadByte(TestChar) {
 export IsDBCSLeadByteEx(CodePage, TestChar) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\IsDBCSLeadByteEx", "uint", CodePage, "char", TestChar, BOOL)
+    result := DllCall("KERNEL32.dll\IsDBCSLeadByteEx", UInt32, CodePage, Int8, TestChar, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3338,7 +3379,7 @@ export LocaleNameToLCID(lpName, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LocaleNameToLCID", "ptr", lpName, "uint", dwFlags, UInt32)
+    result := DllCall("KERNEL32.dll\LocaleNameToLCID", "ptr", lpName, UInt32, dwFlags, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3409,7 +3450,7 @@ export LCIDToLocaleName(Locale, lpName, cchName, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LCIDToLocaleName", "uint", Locale, "ptr", lpName, "int", cchName, "uint", dwFlags, Int32)
+    result := DllCall("KERNEL32.dll\LCIDToLocaleName", UInt32, Locale, "ptr", lpName, Int32, cchName, UInt32, dwFlags, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3477,7 +3518,7 @@ export GetDurationFormat(Locale, dwFlags, lpDuration, ullDuration, lpFormat, lpD
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetDurationFormat", "uint", Locale, "uint", dwFlags, SYSTEMTIME.Ptr, lpDuration, "uint", ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, "int", cchDuration, Int32)
+    result := DllCall("KERNEL32.dll\GetDurationFormat", UInt32, Locale, UInt32, dwFlags, SYSTEMTIME.Ptr, lpDuration, Int64, ullDuration, "ptr", lpFormat, "ptr", lpDurationStr, Int32, cchDuration, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3554,7 +3595,7 @@ export GetNumberFormatA(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumb
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetNumberFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpValue, NUMBERFMTA.Ptr, lpFormat, "ptr", lpNumberStr, "int", cchNumber, Int32)
+    result := DllCall("KERNEL32.dll\GetNumberFormatA", UInt32, Locale, UInt32, dwFlags, "ptr", lpValue, NUMBERFMTA.Ptr, lpFormat, "ptr", lpNumberStr, Int32, cchNumber, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3631,7 +3672,7 @@ export GetNumberFormatW(Locale, dwFlags, lpValue, lpFormat, lpNumberStr, cchNumb
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetNumberFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpValue, NUMBERFMTW.Ptr, lpFormat, "ptr", lpNumberStr, "int", cchNumber, Int32)
+    result := DllCall("KERNEL32.dll\GetNumberFormatW", UInt32, Locale, UInt32, dwFlags, "ptr", lpValue, NUMBERFMTW.Ptr, lpFormat, "ptr", lpNumberStr, Int32, cchNumber, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3701,7 +3742,7 @@ export GetCurrencyFormatA(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cch
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCurrencyFormatA", "uint", Locale, "uint", dwFlags, "ptr", lpValue, CURRENCYFMTA.Ptr, lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency, Int32)
+    result := DllCall("KERNEL32.dll\GetCurrencyFormatA", UInt32, Locale, UInt32, dwFlags, "ptr", lpValue, CURRENCYFMTA.Ptr, lpFormat, "ptr", lpCurrencyStr, Int32, cchCurrency, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3771,7 +3812,7 @@ export GetCurrencyFormatW(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cch
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCurrencyFormatW", "uint", Locale, "uint", dwFlags, "ptr", lpValue, CURRENCYFMTW.Ptr, lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency, Int32)
+    result := DllCall("KERNEL32.dll\GetCurrencyFormatW", UInt32, Locale, UInt32, dwFlags, "ptr", lpValue, CURRENCYFMTW.Ptr, lpFormat, "ptr", lpCurrencyStr, Int32, cchCurrency, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3827,7 +3868,7 @@ export GetCurrencyFormatW(Locale, dwFlags, lpValue, lpFormat, lpCurrencyStr, cch
 export EnumCalendarInfoA(lpCalInfoEnumProc, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoA", "ptr", lpCalInfoEnumProc, "uint", Locale, "uint", Calendar, "uint", CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoA", CALINFO_ENUMPROCA, lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3883,7 +3924,7 @@ export EnumCalendarInfoA(lpCalInfoEnumProc, Locale, Calendar, CalType) {
 export EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoW", "ptr", lpCalInfoEnumProc, "uint", Locale, "uint", Calendar, "uint", CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoW", CALINFO_ENUMPROCW, lpCalInfoEnumProc, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3947,7 +3988,7 @@ export EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType) {
 export EnumCalendarInfoExA(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoExA", "ptr", lpCalInfoEnumProcEx, "uint", Locale, "uint", Calendar, "uint", CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoExA", CALINFO_ENUMPROCEXA, lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4011,7 +4052,7 @@ export EnumCalendarInfoExA(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
 export EnumCalendarInfoExW(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoExW", "ptr", lpCalInfoEnumProcEx, "uint", Locale, "uint", Calendar, "uint", CalType, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoExW", CALINFO_ENUMPROCEXW, lpCalInfoEnumProcEx, UInt32, Locale, UInt32, Calendar, UInt32, CalType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4072,7 +4113,7 @@ export EnumCalendarInfoExW(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
 export EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumTimeFormatsA", "ptr", lpTimeFmtEnumProc, "uint", Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumTimeFormatsA", TIMEFMT_ENUMPROCA, lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4133,7 +4174,7 @@ export EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags) {
 export EnumTimeFormatsW(lpTimeFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumTimeFormatsW", "ptr", lpTimeFmtEnumProc, "uint", Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumTimeFormatsW", TIMEFMT_ENUMPROCW, lpTimeFmtEnumProc, UInt32, Locale, TIME_FORMAT_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4192,7 +4233,7 @@ export EnumTimeFormatsW(lpTimeFmtEnumProc, Locale, dwFlags) {
 export EnumDateFormatsA(lpDateFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsA", "ptr", lpDateFmtEnumProc, "uint", Locale, "uint", dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsA", DATEFMT_ENUMPROCA, lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4251,7 +4292,7 @@ export EnumDateFormatsA(lpDateFmtEnumProc, Locale, dwFlags) {
 export EnumDateFormatsW(lpDateFmtEnumProc, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsW", "ptr", lpDateFmtEnumProc, "uint", Locale, "uint", dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsW", DATEFMT_ENUMPROCW, lpDateFmtEnumProc, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4320,7 +4361,7 @@ export EnumDateFormatsW(lpDateFmtEnumProc, Locale, dwFlags) {
 export EnumDateFormatsExA(lpDateFmtEnumProcEx, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsExA", "ptr", lpDateFmtEnumProcEx, "uint", Locale, "uint", dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsExA", DATEFMT_ENUMPROCEXA, lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4389,7 +4430,7 @@ export EnumDateFormatsExA(lpDateFmtEnumProcEx, Locale, dwFlags) {
 export EnumDateFormatsExW(lpDateFmtEnumProcEx, Locale, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsExW", "ptr", lpDateFmtEnumProcEx, "uint", Locale, "uint", dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsExW", DATEFMT_ENUMPROCEXW, lpDateFmtEnumProcEx, UInt32, Locale, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4410,7 +4451,7 @@ export EnumDateFormatsExW(lpDateFmtEnumProcEx, Locale, dwFlags) {
  * @since windows5.0
  */
 export IsValidLanguageGroup(LanguageGroup, dwFlags) {
-    result := DllCall("KERNEL32.dll\IsValidLanguageGroup", "uint", LanguageGroup, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\IsValidLanguageGroup", UInt32, LanguageGroup, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, BOOL)
     return result
 }
 
@@ -4462,7 +4503,7 @@ export IsValidLanguageGroup(LanguageGroup, dwFlags) {
 export GetNLSVersion(Function, Locale, lpVersionInformation) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetNLSVersion", "uint", Function, "uint", Locale, NLSVERSIONINFO.Ptr, lpVersionInformation, BOOL)
+    result := DllCall("KERNEL32.dll\GetNLSVersion", UInt32, Function, UInt32, Locale, NLSVERSIONINFO.Ptr, lpVersionInformation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4512,7 +4553,7 @@ export GetNLSVersion(Function, Locale, lpVersionInformation) {
  * @since windows5.0
  */
 export IsValidLocale(Locale, dwFlags) {
-    result := DllCall("KERNEL32.dll\IsValidLocale", "uint", Locale, IS_VALID_LOCALE_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\IsValidLocale", UInt32, Locale, IS_VALID_LOCALE_FLAGS, dwFlags, BOOL)
     return result
 }
 
@@ -4561,7 +4602,7 @@ export GetGeoInfoA(_Location, GeoType, lpGeoData, cchData, LangId) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetGeoInfoA", "int", _Location, SYSGEOTYPE, GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId, Int32)
+    result := DllCall("KERNEL32.dll\GetGeoInfoA", Int32, _Location, SYSGEOTYPE, GeoType, "ptr", lpGeoData, Int32, cchData, UInt16, LangId, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4614,7 +4655,7 @@ export GetGeoInfoW(_Location, GeoType, lpGeoData, cchData, LangId) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetGeoInfoW", "int", _Location, SYSGEOTYPE, GeoType, "ptr", lpGeoData, "int", cchData, "ushort", LangId, Int32)
+    result := DllCall("KERNEL32.dll\GetGeoInfoW", Int32, _Location, SYSGEOTYPE, GeoType, "ptr", lpGeoData, Int32, cchData, UInt16, LangId, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4709,7 +4750,7 @@ export GetGeoInfoEx(_location, geoType, geoData, geoDataCount) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetGeoInfoEx", "ptr", _location, SYSGEOTYPE, geoType, "ptr", geoData, "int", geoDataCount, Int32)
+    result := DllCall("KERNEL32.dll\GetGeoInfoEx", "ptr", _location, SYSGEOTYPE, geoType, "ptr", geoData, Int32, geoDataCount, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4734,7 +4775,7 @@ export GetGeoInfoEx(_location, geoType, geoData, geoDataCount) {
 export EnumSystemGeoID(GeoClass, ParentGeoId, lpGeoEnumProc) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemGeoID", "uint", GeoClass, "int", ParentGeoId, "ptr", lpGeoEnumProc, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemGeoID", UInt32, GeoClass, Int32, ParentGeoId, GEO_ENUMPROC, lpGeoEnumProc, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4785,7 +4826,7 @@ export EnumSystemGeoID(GeoClass, ParentGeoId, lpGeoEnumProc) {
 export EnumSystemGeoNames(geoClass, geoEnumProc, data) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemGeoNames", "uint", geoClass, "ptr", geoEnumProc, LPARAM, data, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemGeoNames", UInt32, geoClass, GEO_ENUMNAMEPROC, geoEnumProc, LPARAM, data, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4865,7 +4906,7 @@ export GetUserDefaultGeoName(geoName, geoNameCount) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetUserDefaultGeoName", "ptr", geoName, "int", geoNameCount, Int32)
+    result := DllCall("KERNEL32.dll\GetUserDefaultGeoName", "ptr", geoName, Int32, geoNameCount, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4897,7 +4938,7 @@ export GetUserDefaultGeoName(geoName, geoNameCount) {
 export SetUserGeoID(GeoId) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetUserGeoID", "int", GeoId, BOOL)
+    result := DllCall("KERNEL32.dll\SetUserGeoID", Int32, GeoId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5010,7 +5051,7 @@ export SetUserGeoName(geoName) {
  * @since windows5.0
  */
 export ConvertDefaultLocale(Locale) {
-    result := DllCall("KERNEL32.dll\ConvertDefaultLocale", "uint", Locale, UInt32)
+    result := DllCall("KERNEL32.dll\ConvertDefaultLocale", UInt32, Locale, UInt32)
     return result
 }
 
@@ -5084,7 +5125,7 @@ export GetThreadLocale() {
  * @since windows5.0
  */
 export SetThreadLocale(Locale) {
-    result := DllCall("KERNEL32.dll\SetThreadLocale", "uint", Locale, BOOL)
+    result := DllCall("KERNEL32.dll\SetThreadLocale", UInt32, Locale, BOOL)
     return result
 }
 
@@ -5217,7 +5258,7 @@ export GetUserDefaultLCID() {
 export SetThreadUILanguage(LangId) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetThreadUILanguage", "ushort", LangId, UInt16)
+    result := DllCall("KERNEL32.dll\SetThreadUILanguage", UInt16, LangId, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5326,7 +5367,7 @@ export GetProcessPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuf
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetProcessPreferredUILanguages", "uint", dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, BOOL)
+    result := DllCall("KERNEL32.dll\GetProcessPreferredUILanguages", UInt32, dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5410,7 +5451,7 @@ export SetProcessPreferredUILanguages(dwFlags, pwszLanguagesBuffer, pulNumLangua
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetProcessPreferredUILanguages", "uint", dwFlags, "ptr", pwszLanguagesBuffer, pulNumLanguagesMarshal, pulNumLanguages, BOOL)
+    result := DllCall("KERNEL32.dll\SetProcessPreferredUILanguages", UInt32, dwFlags, "ptr", pwszLanguagesBuffer, pulNumLanguagesMarshal, pulNumLanguages, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5460,7 +5501,7 @@ export GetUserPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuffer
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetUserPreferredUILanguages", "uint", dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, BOOL)
+    result := DllCall("KERNEL32.dll\GetUserPreferredUILanguages", UInt32, dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5581,7 +5622,7 @@ export GetSystemPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuff
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemPreferredUILanguages", "uint", dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, BOOL)
+    result := DllCall("KERNEL32.dll\GetSystemPreferredUILanguages", UInt32, dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5721,7 +5762,7 @@ export GetThreadPreferredUILanguages(dwFlags, pulNumLanguages, pwszLanguagesBuff
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetThreadPreferredUILanguages", "uint", dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, BOOL)
+    result := DllCall("KERNEL32.dll\GetThreadPreferredUILanguages", UInt32, dwFlags, pulNumLanguagesMarshal, pulNumLanguages, "ptr", pwszLanguagesBuffer, pcchLanguagesBufferMarshal, pcchLanguagesBuffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5874,7 +5915,7 @@ export SetThreadPreferredUILanguages(dwFlags, pwszLanguagesBuffer, pulNumLanguag
 
     pulNumLanguagesMarshal := pulNumLanguages is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages", "uint", dwFlags, "ptr", pwszLanguagesBuffer, pulNumLanguagesMarshal, pulNumLanguages, BOOL)
+    result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages", UInt32, dwFlags, "ptr", pwszLanguagesBuffer, pulNumLanguagesMarshal, pulNumLanguages, BOOL)
     return result
 }
 
@@ -5996,7 +6037,7 @@ export GetFileMUIInfo(dwFlags, pcwszFilePath, pFileMUIInfo, pcbFileMUIInfo) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFileMUIInfo", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pFileMUIInfo, pcbFileMUIInfoMarshal, pcbFileMUIInfo, BOOL)
+    result := DllCall("KERNEL32.dll\GetFileMUIInfo", UInt32, dwFlags, "ptr", pcwszFilePath, IntPtr, pFileMUIInfo, pcbFileMUIInfoMarshal, pcbFileMUIInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6219,7 +6260,7 @@ export GetFileMUIPath(dwFlags, pcwszFilePath, pwszLanguage, pcchLanguage, pwszFi
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFileMUIPath", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pwszLanguage, pcchLanguageMarshal, pcchLanguage, "ptr", pwszFileMUIPath, pcchFileMUIPathMarshal, pcchFileMUIPath, pululEnumeratorMarshal, pululEnumerator, BOOL)
+    result := DllCall("KERNEL32.dll\GetFileMUIPath", UInt32, dwFlags, "ptr", pcwszFilePath, "ptr", pwszLanguage, pcchLanguageMarshal, pcchLanguage, "ptr", pwszFileMUIPath, pcchFileMUIPathMarshal, pcchFileMUIPath, pululEnumeratorMarshal, pululEnumerator, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6408,7 +6449,7 @@ export GetUILanguageInfo(dwFlags, pwmszLanguage, pwszFallbackLanguages, pcchFall
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetUILanguageInfo", "uint", dwFlags, "ptr", pwmszLanguage, "ptr", pwszFallbackLanguages, pcchFallbackLanguagesMarshal, pcchFallbackLanguages, pAttributesMarshal, pAttributes, BOOL)
+    result := DllCall("KERNEL32.dll\GetUILanguageInfo", UInt32, dwFlags, "ptr", pwmszLanguage, "ptr", pwszFallbackLanguages, pcchFallbackLanguagesMarshal, pcchFallbackLanguages, pAttributesMarshal, pAttributes, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6429,7 +6470,7 @@ export SetThreadPreferredUILanguages2(flags, languages, numLanguagesSet, snapsho
 
     numLanguagesSetMarshal := numLanguagesSet is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages2", "uint", flags, "ptr", languages, numLanguagesSetMarshal, numLanguagesSet, HSAVEDUILANGUAGES.Ptr, snapshot, BOOL)
+    result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages2", UInt32, flags, "ptr", languages, numLanguagesSetMarshal, numLanguagesSet, HSAVEDUILANGUAGES.Ptr, snapshot, BOOL)
     return result
 }
 
@@ -6462,7 +6503,7 @@ export NotifyUILanguageChange(dwFlags, pcwstrNewLanguage, pcwstrPreviousLanguage
 
     pdwStatusRtrnMarshal := pdwStatusRtrn is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\NotifyUILanguageChange", "uint", dwFlags, "ptr", pcwstrNewLanguage, "ptr", pcwstrPreviousLanguage, "uint", dwReserved, pdwStatusRtrnMarshal, pdwStatusRtrn, BOOL)
+    result := DllCall("KERNEL32.dll\NotifyUILanguageChange", UInt32, dwFlags, "ptr", pcwstrNewLanguage, "ptr", pcwstrPreviousLanguage, UInt32, dwReserved, pdwStatusRtrnMarshal, pdwStatusRtrn, BOOL)
     return result
 }
 
@@ -6526,7 +6567,7 @@ export GetStringTypeExA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
 
     lpCharTypeMarshal := lpCharType is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetStringTypeExA", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, lpCharTypeMarshal, lpCharType, BOOL)
+    result := DllCall("KERNEL32.dll\GetStringTypeExA", UInt32, Locale, UInt32, dwInfoType, "ptr", lpSrcStr, Int32, cchSrc, lpCharTypeMarshal, lpCharType, BOOL)
     return result
 }
 
@@ -6590,7 +6631,7 @@ export GetStringTypeA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetStringTypeA", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, lpCharTypeMarshal, lpCharType, BOOL)
+    result := DllCall("KERNEL32.dll\GetStringTypeA", UInt32, Locale, UInt32, dwInfoType, "ptr", lpSrcStr, Int32, cchSrc, lpCharTypeMarshal, lpCharType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6639,7 +6680,7 @@ export FoldStringA(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FoldStringA", FOLD_STRING_MAP_FLAGS, dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, Int32)
+    result := DllCall("KERNEL32.dll\FoldStringA", FOLD_STRING_MAP_FLAGS, dwMapFlags, "ptr", lpSrcStr, Int32, cchSrc, "ptr", lpDestStr, Int32, cchDest, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6710,7 +6751,7 @@ export FoldStringA(dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest) {
 export EnumSystemLocalesA(lpLocaleEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLocalesA", "ptr", lpLocaleEnumProc, "uint", dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLocalesA", LOCALE_ENUMPROCA, lpLocaleEnumProc, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6781,7 +6822,7 @@ export EnumSystemLocalesA(lpLocaleEnumProc, dwFlags) {
 export EnumSystemLocalesW(lpLocaleEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLocalesW", "ptr", lpLocaleEnumProc, "uint", dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLocalesW", LOCALE_ENUMPROCW, lpLocaleEnumProc, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6816,7 +6857,7 @@ export EnumSystemLocalesW(lpLocaleEnumProc, dwFlags) {
 export EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", "ptr", lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", LANGUAGEGROUP_ENUMPROCA, lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6851,7 +6892,7 @@ export EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, _lParam) {
 export EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", "ptr", lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", LANGUAGEGROUP_ENUMPROCW, lpLanguageGroupEnumProc, ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6887,7 +6928,7 @@ export EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, _lParam) {
 export EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", LANGGROUPLOCALE_ENUMPROCA, lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6923,7 +6964,7 @@ export EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFla
 export EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", LANGGROUPLOCALE_ENUMPROCW, lpLangGroupLocaleEnumProc, UInt32, LanguageGroup, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7052,7 +7093,7 @@ export EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFla
 export EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumUILanguagesA", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumUILanguagesA", UILANGUAGE_ENUMPROCA, lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7181,7 +7222,7 @@ export EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, _lParam) {
 export EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumUILanguagesW", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumUILanguagesW", UILANGUAGE_ENUMPROCW, lpUILanguageEnumProc, UInt32, dwFlags, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7217,7 +7258,7 @@ export EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, _lParam) {
 export EnumSystemCodePagesA(lpCodePageEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemCodePagesA", "ptr", lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemCodePagesA", CODEPAGE_ENUMPROCA, lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7253,7 +7294,7 @@ export EnumSystemCodePagesA(lpCodePageEnumProc, dwFlags) {
 export EnumSystemCodePagesW(lpCodePageEnumProc, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemCodePagesW", "ptr", lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemCodePagesW", CODEPAGE_ENUMPROCW, lpCodePageEnumProc, ENUM_SYSTEM_CODE_PAGES_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7357,7 +7398,7 @@ export IdnToAscii(dwFlags, lpUnicodeCharStr, cchUnicodeChar, lpASCIICharStr, cch
 
     A_LastError := 0
 
-    result := DllCall("NORMALIZ.dll\IdnToAscii", "uint", dwFlags, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, "ptr", lpASCIICharStr, "int", cchASCIIChar, Int32)
+    result := DllCall("NORMALIZ.dll\IdnToAscii", UInt32, dwFlags, "ptr", lpUnicodeCharStr, Int32, cchUnicodeChar, "ptr", lpASCIICharStr, Int32, cchASCIIChar, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7396,7 +7437,7 @@ export IdnToUnicode(dwFlags, lpASCIICharStr, cchASCIIChar, lpUnicodeCharStr, cch
 
     A_LastError := 0
 
-    result := DllCall("NORMALIZ.dll\IdnToUnicode", "uint", dwFlags, "ptr", lpASCIICharStr, "int", cchASCIIChar, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, Int32)
+    result := DllCall("NORMALIZ.dll\IdnToUnicode", UInt32, dwFlags, "ptr", lpASCIICharStr, Int32, cchASCIIChar, "ptr", lpUnicodeCharStr, Int32, cchUnicodeChar, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7435,7 +7476,7 @@ export IdnToNameprepUnicode(dwFlags, lpUnicodeCharStr, cchUnicodeChar, lpNamepre
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\IdnToNameprepUnicode", "uint", dwFlags, "ptr", lpUnicodeCharStr, "int", cchUnicodeChar, "ptr", lpNameprepCharStr, "int", cchNameprepChar, Int32)
+    result := DllCall("KERNEL32.dll\IdnToNameprepUnicode", UInt32, dwFlags, "ptr", lpUnicodeCharStr, Int32, cchUnicodeChar, "ptr", lpNameprepCharStr, Int32, cchNameprepChar, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7513,7 +7554,7 @@ export NormalizeString(NormForm, lpSrcString, cwSrcLength, lpDstString, cwDstLen
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\NormalizeString", NORM_FORM, NormForm, "ptr", lpSrcString, "int", cwSrcLength, "ptr", lpDstString, "int", cwDstLength, Int32)
+    result := DllCall("KERNEL32.dll\NormalizeString", NORM_FORM, NormForm, "ptr", lpSrcString, Int32, cwSrcLength, "ptr", lpDstString, Int32, cwDstLength, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7548,7 +7589,7 @@ export IsNormalizedString(NormForm, lpString, cwLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\IsNormalizedString", NORM_FORM, NormForm, "ptr", lpString, "int", cwLength, BOOL)
+    result := DllCall("KERNEL32.dll\IsNormalizedString", NORM_FORM, NormForm, "ptr", lpString, Int32, cwLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7666,7 +7707,7 @@ export VerifyScripts(dwFlags, lpLocaleScripts, cchLocaleScripts, lpTestScripts, 
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\VerifyScripts", "uint", dwFlags, "ptr", lpLocaleScripts, "int", cchLocaleScripts, "ptr", lpTestScripts, "int", cchTestScripts, BOOL)
+    result := DllCall("KERNEL32.dll\VerifyScripts", UInt32, dwFlags, "ptr", lpLocaleScripts, Int32, cchLocaleScripts, "ptr", lpTestScripts, Int32, cchTestScripts, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7798,7 +7839,7 @@ export GetStringScripts(dwFlags, lpString, cchString, lpScripts, cchScripts) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetStringScripts", "uint", dwFlags, "ptr", lpString, "int", cchString, "ptr", lpScripts, "int", cchScripts, Int32)
+    result := DllCall("KERNEL32.dll\GetStringScripts", UInt32, dwFlags, "ptr", lpString, Int32, cchString, "ptr", lpScripts, Int32, cchScripts, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7886,7 +7927,7 @@ export GetLocaleInfoEx(lpLocaleName, LCType, lpLCData, cchData) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLocaleInfoEx", "ptr", lpLocaleName, "uint", LCType, "ptr", lpLCData, "int", cchData, Int32)
+    result := DllCall("KERNEL32.dll\GetLocaleInfoEx", "ptr", lpLocaleName, UInt32, LCType, "ptr", lpLCData, Int32, cchData, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7945,7 +7986,7 @@ export GetCalendarInfoEx(lpLocaleName, Calendar, CalType, lpCalData, cchData, lp
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCalendarInfoEx", "ptr", lpLocaleName, "uint", Calendar, "ptr", lpReserved, "uint", CalType, "ptr", lpCalData, "int", cchData, lpValueMarshal, lpValue, Int32)
+    result := DllCall("KERNEL32.dll\GetCalendarInfoEx", "ptr", lpLocaleName, UInt32, Calendar, "ptr", lpReserved, UInt32, CalType, "ptr", lpCalData, Int32, cchData, lpValueMarshal, lpValue, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8004,7 +8045,7 @@ export GetNumberFormatEx(lpLocaleName, dwFlags, lpValue, lpFormat, lpNumberStr, 
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetNumberFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpValue, NUMBERFMTW.Ptr, lpFormat, "ptr", lpNumberStr, "int", cchNumber, Int32)
+    result := DllCall("KERNEL32.dll\GetNumberFormatEx", "ptr", lpLocaleName, UInt32, dwFlags, "ptr", lpValue, NUMBERFMTW.Ptr, lpFormat, "ptr", lpNumberStr, Int32, cchNumber, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8062,7 +8103,7 @@ export GetCurrencyFormatEx(lpLocaleName, dwFlags, lpValue, lpFormat, lpCurrencyS
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCurrencyFormatEx", "ptr", lpLocaleName, "uint", dwFlags, "ptr", lpValue, CURRENCYFMTW.Ptr, lpFormat, "ptr", lpCurrencyStr, "int", cchCurrency, Int32)
+    result := DllCall("KERNEL32.dll\GetCurrencyFormatEx", "ptr", lpLocaleName, UInt32, dwFlags, "ptr", lpValue, CURRENCYFMTW.Ptr, lpFormat, "ptr", lpCurrencyStr, Int32, cchCurrency, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8093,7 +8134,7 @@ export GetUserDefaultLocaleName(lpLocaleName, cchLocaleName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetUserDefaultLocaleName", "ptr", lpLocaleName, "int", cchLocaleName, Int32)
+    result := DllCall("KERNEL32.dll\GetUserDefaultLocaleName", "ptr", lpLocaleName, Int32, cchLocaleName, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8122,7 +8163,7 @@ export GetSystemDefaultLocaleName(lpLocaleName, cchLocaleName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemDefaultLocaleName", "ptr", lpLocaleName, "int", cchLocaleName, Int32)
+    result := DllCall("KERNEL32.dll\GetSystemDefaultLocaleName", "ptr", lpLocaleName, Int32, cchLocaleName, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8158,7 +8199,7 @@ export IsNLSDefinedString(Function, dwFlags, lpVersionInformation, lpString, cch
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\IsNLSDefinedString", "uint", Function, "uint", dwFlags, NLSVERSIONINFO.Ptr, lpVersionInformation, "ptr", lpString, "int", cchStr, BOOL)
+    result := DllCall("KERNEL32.dll\IsNLSDefinedString", UInt32, Function, UInt32, dwFlags, NLSVERSIONINFO.Ptr, lpVersionInformation, "ptr", lpString, Int32, cchStr, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8221,7 +8262,7 @@ export GetNLSVersionEx(function, lpLocaleName, lpVersionInformation) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetNLSVersionEx", "uint", function, "ptr", lpLocaleName, NLSVERSIONINFOEX.Ptr, lpVersionInformation, BOOL)
+    result := DllCall("KERNEL32.dll\GetNLSVersionEx", UInt32, function, "ptr", lpLocaleName, NLSVERSIONINFOEX.Ptr, lpVersionInformation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8257,7 +8298,7 @@ export GetNLSVersionEx(function, lpLocaleName, lpVersionInformation) {
 export IsValidNLSVersion(function, lpLocaleName, lpVersionInformation) {
     lpLocaleName := lpLocaleName is String ? StrPtr(lpLocaleName) : lpLocaleName
 
-    result := DllCall("KERNEL32.dll\IsValidNLSVersion", "uint", function, "ptr", lpLocaleName, NLSVERSIONINFOEX.Ptr, lpVersionInformation, UInt32)
+    result := DllCall("KERNEL32.dll\IsValidNLSVersion", UInt32, function, "ptr", lpLocaleName, NLSVERSIONINFOEX.Ptr, lpVersionInformation, UInt32)
     return result
 }
 
@@ -8472,7 +8513,7 @@ export FindNLSStringEx(lpLocaleName, dwFindNLSStringFlags, lpStringSource, cchSo
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindNLSStringEx", "ptr", lpLocaleName, "uint", dwFindNLSStringFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, pcchFoundMarshal, pcchFound, NLSVERSIONINFO.Ptr, lpVersionInformation, "ptr", lpReserved, LPARAM, sortHandle, Int32)
+    result := DllCall("KERNEL32.dll\FindNLSStringEx", "ptr", lpLocaleName, UInt32, dwFindNLSStringFlags, "ptr", lpStringSource, Int32, cchSource, "ptr", lpStringValue, Int32, cchValue, pcchFoundMarshal, pcchFound, NLSVERSIONINFO.Ptr, lpVersionInformation, "ptr", lpReserved, LPARAM, sortHandle, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8705,7 +8746,7 @@ export LCMapStringEx(lpLocaleName, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchD
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LCMapStringEx", "ptr", lpLocaleName, "uint", dwMapFlags, "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, NLSVERSIONINFO.Ptr, lpVersionInformation, "ptr", lpReserved, LPARAM, sortHandle, Int32)
+    result := DllCall("KERNEL32.dll\LCMapStringEx", "ptr", lpLocaleName, UInt32, dwMapFlags, "ptr", lpSrcStr, Int32, cchSrc, "ptr", lpDestStr, Int32, cchDest, NLSVERSIONINFO.Ptr, lpVersionInformation, "ptr", lpReserved, LPARAM, sortHandle, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8772,7 +8813,7 @@ export EnumCalendarInfoExEx(pCalInfoEnumProcExEx, lpLocaleName, Calendar, CalTyp
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", "ptr", pCalInfoEnumProcExEx, "ptr", lpLocaleName, "uint", Calendar, "ptr", lpReserved, "uint", CalType, LPARAM, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", CALINFO_ENUMPROCEXEX, pCalInfoEnumProcExEx, "ptr", lpLocaleName, UInt32, Calendar, "ptr", lpReserved, UInt32, CalType, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8819,7 +8860,7 @@ export EnumDateFormatsExEx(lpDateFmtEnumProcExEx, lpLocaleName, dwFlags, _lParam
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", "ptr", lpDateFmtEnumProcExEx, "ptr", lpLocaleName, ENUM_DATE_FORMATS_FLAGS, dwFlags, LPARAM, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", DATEFMT_ENUMPROCEXEX, lpDateFmtEnumProcExEx, "ptr", lpLocaleName, ENUM_DATE_FORMATS_FLAGS, dwFlags, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8863,7 +8904,7 @@ export EnumTimeFormatsEx(lpTimeFmtEnumProcEx, lpLocaleName, dwFlags, _lParam) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", "ptr", lpTimeFmtEnumProcEx, "ptr", lpLocaleName, "uint", dwFlags, LPARAM, _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", TIMEFMT_ENUMPROCEX, lpTimeFmtEnumProcEx, "ptr", lpLocaleName, UInt32, dwFlags, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8915,7 +8956,7 @@ export EnumSystemLocalesEx(lpLocaleEnumProcEx, dwFlags, _lParam) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", "ptr", lpLocaleEnumProcEx, "uint", dwFlags, LPARAM, _lParam, "ptr", lpReserved, BOOL)
+    result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", LOCALE_ENUMPROCEX, lpLocaleEnumProcEx, UInt32, dwFlags, LPARAM, _lParam, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8952,7 +8993,7 @@ export ResolveLocaleName(lpNameToResolve, lpLocaleName, cchLocaleName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ResolveLocaleName", "ptr", lpNameToResolve, "ptr", lpLocaleName, "int", cchLocaleName, Int32)
+    result := DllCall("KERNEL32.dll\ResolveLocaleName", "ptr", lpNameToResolve, "ptr", lpLocaleName, Int32, cchLocaleName, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9027,7 +9068,7 @@ export MappingFreeServices(pServiceInfo) {
 export MappingRecognizeText(pServiceInfo, pszText, dwLength, dwIndex, pOptions, pbag) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("elscore.dll\MappingRecognizeText", MAPPING_SERVICE_INFO.Ptr, pServiceInfo, "ptr", pszText, "uint", dwLength, "uint", dwIndex, MAPPING_OPTIONS.Ptr, pOptions, MAPPING_PROPERTY_BAG.Ptr, pbag, "HRESULT")
+    result := DllCall("elscore.dll\MappingRecognizeText", MAPPING_SERVICE_INFO.Ptr, pServiceInfo, "ptr", pszText, UInt32, dwLength, UInt32, dwIndex, MAPPING_OPTIONS.Ptr, pOptions, MAPPING_PROPERTY_BAG.Ptr, pbag, "HRESULT")
     return result
 }
 
@@ -9056,7 +9097,7 @@ export MappingRecognizeText(pServiceInfo, pszText, dwLength, dwIndex, pOptions, 
 export MappingDoAction(pBag, dwRangeIndex, pszActionId) {
     pszActionId := pszActionId is String ? StrPtr(pszActionId) : pszActionId
 
-    result := DllCall("elscore.dll\MappingDoAction", MAPPING_PROPERTY_BAG.Ptr, pBag, "uint", dwRangeIndex, "ptr", pszActionId, "HRESULT")
+    result := DllCall("elscore.dll\MappingDoAction", MAPPING_PROPERTY_BAG.Ptr, pBag, UInt32, dwRangeIndex, "ptr", pszActionId, "HRESULT")
     return result
 }
 
@@ -9219,7 +9260,7 @@ export ScriptFreeCache(psc) {
 export ScriptItemize(pwcInChars, cInChars, cMaxItems, psControl, psState, pItems) {
     pwcInChars := pwcInChars is String ? StrPtr(pwcInChars) : pwcInChars
 
-    result := DllCall("USP10.dll\ScriptItemize", "ptr", pwcInChars, "int", cInChars, "int", cMaxItems, SCRIPT_CONTROL.Ptr, psControl, SCRIPT_STATE.Ptr, psState, SCRIPT_ITEM.Ptr, pItems, "int*", &pcItems := 0, "HRESULT")
+    result := DllCall("USP10.dll\ScriptItemize", "ptr", pwcInChars, Int32, cInChars, Int32, cMaxItems, SCRIPT_CONTROL.Ptr, psControl, SCRIPT_STATE.Ptr, psState, SCRIPT_ITEM.Ptr, pItems, "int*", &pcItems := 0, "HRESULT")
     return pcItems
 }
 
@@ -9277,7 +9318,7 @@ export ScriptLayout(cRuns, pbLevel, piVisualToLogical, piLogicalToVisual) {
     piVisualToLogicalMarshal := piVisualToLogical is VarRef ? "int*" : "ptr"
     piLogicalToVisualMarshal := piLogicalToVisual is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptLayout", "int", cRuns, pbLevelMarshal, pbLevel, piVisualToLogicalMarshal, piVisualToLogical, piLogicalToVisualMarshal, piLogicalToVisual, "HRESULT")
+    result := DllCall("USP10.dll\ScriptLayout", Int32, cRuns, pbLevelMarshal, pbLevel, piVisualToLogicalMarshal, piVisualToLogical, piLogicalToVisualMarshal, piLogicalToVisual, "HRESULT")
     return result
 }
 
@@ -9328,7 +9369,7 @@ export ScriptShape(_hdc, psc, pwcChars, cChars, cMaxGlyphs, psa, pwOutGlyphs, pw
     pwLogClustMarshal := pwLogClust is VarRef ? "ushort*" : "ptr"
     pcGlyphsMarshal := pcGlyphs is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptShape", HDC, _hdc, pscMarshal, psc, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, SCRIPT_ANALYSIS.Ptr, psa, pwOutGlyphsMarshal, pwOutGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, pcGlyphsMarshal, pcGlyphs, "HRESULT")
+    result := DllCall("USP10.dll\ScriptShape", HDC, _hdc, pscMarshal, psc, "ptr", pwcChars, Int32, cChars, Int32, cMaxGlyphs, SCRIPT_ANALYSIS.Ptr, psa, pwOutGlyphsMarshal, pwOutGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, pcGlyphsMarshal, pcGlyphs, "HRESULT")
     return result
 }
 
@@ -9359,7 +9400,7 @@ export ScriptPlace(_hdc, psc, pwGlyphs, cGlyphs, psva, psa, pGoffset, pABC) {
     pscMarshal := psc is VarRef ? "ptr*" : "ptr"
     pwGlyphsMarshal := pwGlyphs is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptPlace", HDC, _hdc, pscMarshal, psc, pwGlyphsMarshal, pwGlyphs, "int", cGlyphs, SCRIPT_VISATTR.Ptr, psva, SCRIPT_ANALYSIS.Ptr, psa, "int*", &piAdvance := 0, GOFFSET.Ptr, pGoffset, ABC.Ptr, pABC, "HRESULT")
+    result := DllCall("USP10.dll\ScriptPlace", HDC, _hdc, pscMarshal, psc, pwGlyphsMarshal, pwGlyphs, Int32, cGlyphs, SCRIPT_VISATTR.Ptr, psva, SCRIPT_ANALYSIS.Ptr, psa, "int*", &piAdvance := 0, GOFFSET.Ptr, pGoffset, ABC.Ptr, pABC, "HRESULT")
     return piAdvance
 }
 
@@ -9406,7 +9447,7 @@ export ScriptTextOut(_hdc, psc, x, y, fuOptions, lprc, psa, pwGlyphs, cGlyphs, p
     piAdvanceMarshal := piAdvance is VarRef ? "int*" : "ptr"
     piJustifyMarshal := piJustify is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptTextOut", HDC, _hdc, pscMarshal, psc, "int", x, "int", y, "uint", fuOptions, RECT.Ptr, lprc, SCRIPT_ANALYSIS.Ptr, psa, "ptr", pwcReserved, "int", iReserved, pwGlyphsMarshal, pwGlyphs, "int", cGlyphs, piAdvanceMarshal, piAdvance, piJustifyMarshal, piJustify, GOFFSET.Ptr, pGoffset, "HRESULT")
+    result := DllCall("USP10.dll\ScriptTextOut", HDC, _hdc, pscMarshal, psc, Int32, x, Int32, y, UInt32, fuOptions, RECT.Ptr, lprc, SCRIPT_ANALYSIS.Ptr, psa, "ptr", pwcReserved, Int32, iReserved, pwGlyphsMarshal, pwGlyphs, Int32, cGlyphs, piAdvanceMarshal, piAdvance, piJustifyMarshal, piJustify, GOFFSET.Ptr, pGoffset, "HRESULT")
     return result
 }
 
@@ -9441,7 +9482,7 @@ export ScriptTextOut(_hdc, psc, x, y, fuOptions, lprc, psa, pwGlyphs, cGlyphs, p
 export ScriptJustify(psva, piAdvance, cGlyphs, iDx, iMinKashida) {
     piAdvanceMarshal := piAdvance is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptJustify", SCRIPT_VISATTR.Ptr, psva, piAdvanceMarshal, piAdvance, "int", cGlyphs, "int", iDx, "int", iMinKashida, "int*", &piJustify := 0, "HRESULT")
+    result := DllCall("USP10.dll\ScriptJustify", SCRIPT_VISATTR.Ptr, psva, piAdvanceMarshal, piAdvance, Int32, cGlyphs, Int32, iDx, Int32, iMinKashida, "int*", &piJustify := 0, "HRESULT")
     return piJustify
 }
 
@@ -9473,7 +9514,7 @@ export ScriptJustify(psva, piAdvance, cGlyphs, iDx, iMinKashida) {
 export ScriptBreak(pwcChars, cChars, psa, psla) {
     pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
 
-    result := DllCall("USP10.dll\ScriptBreak", "ptr", pwcChars, "int", cChars, SCRIPT_ANALYSIS.Ptr, psa, SCRIPT_LOGATTR.Ptr, psla, "HRESULT")
+    result := DllCall("USP10.dll\ScriptBreak", "ptr", pwcChars, Int32, cChars, SCRIPT_ANALYSIS.Ptr, psa, SCRIPT_LOGATTR.Ptr, psla, "HRESULT")
     return result
 }
 
@@ -9506,7 +9547,7 @@ export ScriptCPtoX(iCP, fTrailing, cChars, cGlyphs, pwLogClust, psva, piAdvance,
     piAdvanceMarshal := piAdvance is VarRef ? "int*" : "ptr"
     piXMarshal := piX is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptCPtoX", "int", iCP, BOOL, fTrailing, "int", cChars, "int", cGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, piAdvanceMarshal, piAdvance, SCRIPT_ANALYSIS.Ptr, psa, piXMarshal, piX, "HRESULT")
+    result := DllCall("USP10.dll\ScriptCPtoX", Int32, iCP, BOOL, fTrailing, Int32, cChars, Int32, cGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, piAdvanceMarshal, piAdvance, SCRIPT_ANALYSIS.Ptr, psa, piXMarshal, piX, "HRESULT")
     return result
 }
 
@@ -9562,7 +9603,7 @@ export ScriptXtoCP(iX, cChars, cGlyphs, pwLogClust, psva, piAdvance, psa, piCP, 
     piCPMarshal := piCP is VarRef ? "int*" : "ptr"
     piTrailingMarshal := piTrailing is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptXtoCP", "int", iX, "int", cChars, "int", cGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, piAdvanceMarshal, piAdvance, SCRIPT_ANALYSIS.Ptr, psa, piCPMarshal, piCP, piTrailingMarshal, piTrailing, "HRESULT")
+    result := DllCall("USP10.dll\ScriptXtoCP", Int32, iX, Int32, cChars, Int32, cGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, piAdvanceMarshal, piAdvance, SCRIPT_ANALYSIS.Ptr, psa, piCPMarshal, piCP, piTrailingMarshal, piTrailing, "HRESULT")
     return result
 }
 
@@ -9591,7 +9632,7 @@ export ScriptGetLogicalWidths(psa, cChars, cGlyphs, piGlyphWidth, pwLogClust, ps
     pwLogClustMarshal := pwLogClust is VarRef ? "ushort*" : "ptr"
     piDxMarshal := piDx is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptGetLogicalWidths", SCRIPT_ANALYSIS.Ptr, psa, "int", cChars, "int", cGlyphs, piGlyphWidthMarshal, piGlyphWidth, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, piDxMarshal, piDx, "HRESULT")
+    result := DllCall("USP10.dll\ScriptGetLogicalWidths", SCRIPT_ANALYSIS.Ptr, psa, Int32, cChars, Int32, cGlyphs, piGlyphWidthMarshal, piGlyphWidth, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, piDxMarshal, piDx, "HRESULT")
     return result
 }
 
@@ -9619,7 +9660,7 @@ export ScriptApplyLogicalWidth(piDx, cChars, cGlyphs, pwLogClust, psva, piAdvanc
     pwLogClustMarshal := pwLogClust is VarRef ? "ushort*" : "ptr"
     piAdvanceMarshal := piAdvance is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptApplyLogicalWidth", piDxMarshal, piDx, "int", cChars, "int", cGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, piAdvanceMarshal, piAdvance, SCRIPT_ANALYSIS.Ptr, psa, ABC.Ptr, pABC, "int*", &piJustify := 0, "HRESULT")
+    result := DllCall("USP10.dll\ScriptApplyLogicalWidth", piDxMarshal, piDx, Int32, cChars, Int32, cGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_VISATTR.Ptr, psva, piAdvanceMarshal, piAdvance, SCRIPT_ANALYSIS.Ptr, psa, ABC.Ptr, pABC, "int*", &piJustify := 0, "HRESULT")
     return piJustify
 }
 
@@ -9669,7 +9710,7 @@ export ScriptGetCMap(_hdc, psc, pwcInChars, cChars, dwFlags) {
 
     pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptGetCMap", HDC, _hdc, pscMarshal, psc, "ptr", pwcInChars, "int", cChars, "uint", dwFlags, "ushort*", &pwOutGlyphs := 0, "HRESULT")
+    result := DllCall("USP10.dll\ScriptGetCMap", HDC, _hdc, pscMarshal, psc, "ptr", pwcInChars, Int32, cChars, UInt32, dwFlags, "ushort*", &pwOutGlyphs := 0, "HRESULT")
     return pwOutGlyphs
 }
 
@@ -9693,7 +9734,7 @@ export ScriptGetCMap(_hdc, psc, pwcInChars, cChars, dwFlags) {
 export ScriptGetGlyphABCWidth(_hdc, psc, wGlyph, pABC) {
     pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptGetGlyphABCWidth", HDC, _hdc, pscMarshal, psc, "ushort", wGlyph, ABC.Ptr, pABC, "HRESULT")
+    result := DllCall("USP10.dll\ScriptGetGlyphABCWidth", HDC, _hdc, pscMarshal, psc, UInt16, wGlyph, ABC.Ptr, pABC, "HRESULT")
     return result
 }
 
@@ -9948,7 +9989,7 @@ export ScriptStringAnalyse(_hdc, pString, _cString, cGlyphs, iCharset, dwFlags, 
     piDxMarshal := piDx is VarRef ? "int*" : "ptr"
     pbInClassMarshal := pbInClass is VarRef ? "char*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptStringAnalyse", HDC, _hdc, pStringMarshal, pString, "int", _cString, "int", cGlyphs, "int", iCharset, "uint", dwFlags, "int", iReqWidth, SCRIPT_CONTROL.Ptr, psControl, SCRIPT_STATE.Ptr, psState, piDxMarshal, piDx, SCRIPT_TABDEF.Ptr, pTabdef, pbInClassMarshal, pbInClass, "ptr*", &pssa := 0, "HRESULT")
+    result := DllCall("USP10.dll\ScriptStringAnalyse", HDC, _hdc, pStringMarshal, pString, Int32, _cString, Int32, cGlyphs, Int32, iCharset, UInt32, dwFlags, Int32, iReqWidth, SCRIPT_CONTROL.Ptr, psControl, SCRIPT_STATE.Ptr, psState, piDxMarshal, piDx, SCRIPT_TABDEF.Ptr, pTabdef, pbInClassMarshal, pbInClass, "ptr*", &pssa := 0, "HRESULT")
     return pssa
 }
 
@@ -10074,7 +10115,7 @@ export ScriptStringGetOrder(ssa, puOrder) {
 export ScriptStringCPtoX(ssa, icp, fTrailing) {
     ssaMarshal := ssa is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptStringCPtoX", ssaMarshal, ssa, "int", icp, BOOL, fTrailing, "int*", &pX := 0, "HRESULT")
+    result := DllCall("USP10.dll\ScriptStringCPtoX", ssaMarshal, ssa, Int32, icp, BOOL, fTrailing, "int*", &pX := 0, "HRESULT")
     return pX
 }
 
@@ -10100,7 +10141,7 @@ export ScriptStringXtoCP(ssa, iX, piCh, piTrailing) {
     piChMarshal := piCh is VarRef ? "int*" : "ptr"
     piTrailingMarshal := piTrailing is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptStringXtoCP", ssaMarshal, ssa, "int", iX, piChMarshal, piCh, piTrailingMarshal, piTrailing, "HRESULT")
+    result := DllCall("USP10.dll\ScriptStringXtoCP", ssaMarshal, ssa, Int32, iX, piChMarshal, piCh, piTrailingMarshal, piTrailing, "HRESULT")
     return result
 }
 
@@ -10172,7 +10213,7 @@ export ScriptStringValidate(ssa) {
 export ScriptStringOut(ssa, iX, iY, uOptions, prc, iMinSel, iMaxSel, fDisabled) {
     ssaMarshal := ssa is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptStringOut", ssaMarshal, ssa, "int", iX, "int", iY, ETO_OPTIONS, uOptions, RECT.Ptr, prc, "int", iMinSel, "int", iMaxSel, BOOL, fDisabled, "HRESULT")
+    result := DllCall("USP10.dll\ScriptStringOut", ssaMarshal, ssa, Int32, iX, Int32, iY, ETO_OPTIONS, uOptions, RECT.Ptr, prc, Int32, iMinSel, Int32, iMaxSel, BOOL, fDisabled, "HRESULT")
     return result
 }
 
@@ -10193,7 +10234,7 @@ export ScriptStringOut(ssa, iX, iY, uOptions, prc, iMinSel, iMaxSel, fDisabled) 
 export ScriptIsComplex(pwcInChars, cInChars, dwFlags) {
     pwcInChars := pwcInChars is String ? StrPtr(pwcInChars) : pwcInChars
 
-    result := DllCall("USP10.dll\ScriptIsComplex", "ptr", pwcInChars, "int", cInChars, SCRIPT_IS_COMPLEX_FLAGS, dwFlags, Int32)
+    result := DllCall("USP10.dll\ScriptIsComplex", "ptr", pwcInChars, Int32, cInChars, SCRIPT_IS_COMPLEX_FLAGS, dwFlags, Int32)
     return result
 }
 
@@ -10242,7 +10283,7 @@ export ScriptIsComplex(pwcInChars, cInChars, dwFlags) {
  * @since windows5.0
  */
 export ScriptRecordDigitSubstitution(Locale, psds) {
-    result := DllCall("USP10.dll\ScriptRecordDigitSubstitution", "uint", Locale, SCRIPT_DIGITSUBSTITUTE.Ptr, psds, "HRESULT")
+    result := DllCall("USP10.dll\ScriptRecordDigitSubstitution", UInt32, Locale, SCRIPT_DIGITSUBSTITUTE.Ptr, psds, "HRESULT")
     return result
 }
 
@@ -10344,7 +10385,7 @@ export ScriptShapeOpenType(_hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, 
     pwOutGlyphsMarshal := pwOutGlyphs is VarRef ? "ushort*" : "ptr"
     pcGlyphsMarshal := pcGlyphs is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptShapeOpenType", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, "uint", tagScript, "uint", tagLangSys, rcRangeCharsMarshal, rcRangeChars, rpRangePropertiesMarshal, rpRangeProperties, "int", cRanges, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_CHARPROP.Ptr, pCharProps, pwOutGlyphsMarshal, pwOutGlyphs, SCRIPT_GLYPHPROP.Ptr, pOutGlyphProps, pcGlyphsMarshal, pcGlyphs, "HRESULT")
+    result := DllCall("USP10.dll\ScriptShapeOpenType", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, UInt32, tagScript, UInt32, tagLangSys, rcRangeCharsMarshal, rcRangeChars, rpRangePropertiesMarshal, rpRangeProperties, Int32, cRanges, "ptr", pwcChars, Int32, cChars, Int32, cMaxGlyphs, pwLogClustMarshal, pwLogClust, SCRIPT_CHARPROP.Ptr, pCharProps, pwOutGlyphsMarshal, pwOutGlyphs, SCRIPT_GLYPHPROP.Ptr, pOutGlyphProps, pcGlyphsMarshal, pcGlyphs, "HRESULT")
     return result
 }
 
@@ -10396,7 +10437,7 @@ export ScriptPlaceOpenType(_hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, 
     pwLogClustMarshal := pwLogClust is VarRef ? "ushort*" : "ptr"
     pwGlyphsMarshal := pwGlyphs is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptPlaceOpenType", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, "uint", tagScript, "uint", tagLangSys, rcRangeCharsMarshal, rcRangeChars, rpRangePropertiesMarshal, rpRangeProperties, "int", cRanges, "ptr", pwcChars, pwLogClustMarshal, pwLogClust, SCRIPT_CHARPROP.Ptr, pCharProps, "int", cChars, pwGlyphsMarshal, pwGlyphs, SCRIPT_GLYPHPROP.Ptr, pGlyphProps, "int", cGlyphs, "int*", &piAdvance := 0, GOFFSET.Ptr, pGoffset, ABC.Ptr, pABC, "HRESULT")
+    result := DllCall("USP10.dll\ScriptPlaceOpenType", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, UInt32, tagScript, UInt32, tagLangSys, rcRangeCharsMarshal, rcRangeChars, rpRangePropertiesMarshal, rpRangeProperties, Int32, cRanges, "ptr", pwcChars, pwLogClustMarshal, pwLogClust, SCRIPT_CHARPROP.Ptr, pCharProps, Int32, cChars, pwGlyphsMarshal, pwGlyphs, SCRIPT_GLYPHPROP.Ptr, pGlyphProps, Int32, cGlyphs, "int*", &piAdvance := 0, GOFFSET.Ptr, pGoffset, ABC.Ptr, pABC, "HRESULT")
     return piAdvance
 }
 
@@ -10541,7 +10582,7 @@ export ScriptItemizeOpenType(pwcInChars, cInChars, cMaxItems, psControl, psState
     pScriptTagsMarshal := pScriptTags is VarRef ? "uint*" : "ptr"
     pcItemsMarshal := pcItems is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptItemizeOpenType", "ptr", pwcInChars, "int", cInChars, "int", cMaxItems, SCRIPT_CONTROL.Ptr, psControl, SCRIPT_STATE.Ptr, psState, SCRIPT_ITEM.Ptr, pItems, pScriptTagsMarshal, pScriptTags, pcItemsMarshal, pcItems, "HRESULT")
+    result := DllCall("USP10.dll\ScriptItemizeOpenType", "ptr", pwcInChars, Int32, cInChars, Int32, cMaxItems, SCRIPT_CONTROL.Ptr, psControl, SCRIPT_STATE.Ptr, psState, SCRIPT_ITEM.Ptr, pItems, pScriptTagsMarshal, pScriptTags, pcItemsMarshal, pcItems, "HRESULT")
     return result
 }
 
@@ -10581,7 +10622,7 @@ export ScriptGetFontScriptTags(_hdc, psc, psa, cMaxTags, pScriptTags, pcTags) {
     pScriptTagsMarshal := pScriptTags is VarRef ? "uint*" : "ptr"
     pcTagsMarshal := pcTags is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptGetFontScriptTags", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, "int", cMaxTags, pScriptTagsMarshal, pScriptTags, pcTagsMarshal, pcTags, "HRESULT")
+    result := DllCall("USP10.dll\ScriptGetFontScriptTags", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, Int32, cMaxTags, pScriptTagsMarshal, pScriptTags, pcTagsMarshal, pcTags, "HRESULT")
     return result
 }
 
@@ -10612,7 +10653,7 @@ export ScriptGetFontLanguageTags(_hdc, psc, psa, tagScript, cMaxTags, pLangsysTa
     pLangsysTagsMarshal := pLangsysTags is VarRef ? "uint*" : "ptr"
     pcTagsMarshal := pcTags is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptGetFontLanguageTags", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, "uint", tagScript, "int", cMaxTags, pLangsysTagsMarshal, pLangsysTags, pcTagsMarshal, pcTags, "HRESULT")
+    result := DllCall("USP10.dll\ScriptGetFontLanguageTags", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, UInt32, tagScript, Int32, cMaxTags, pLangsysTagsMarshal, pLangsysTags, pcTagsMarshal, pcTags, "HRESULT")
     return result
 }
 
@@ -10646,7 +10687,7 @@ export ScriptGetFontFeatureTags(_hdc, psc, psa, tagScript, tagLangSys, cMaxTags,
     pFeatureTagsMarshal := pFeatureTags is VarRef ? "uint*" : "ptr"
     pcTagsMarshal := pcTags is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptGetFontFeatureTags", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, "uint", tagScript, "uint", tagLangSys, "int", cMaxTags, pFeatureTagsMarshal, pFeatureTags, pcTagsMarshal, pcTags, "HRESULT")
+    result := DllCall("USP10.dll\ScriptGetFontFeatureTags", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, UInt32, tagScript, UInt32, tagLangSys, Int32, cMaxTags, pFeatureTagsMarshal, pFeatureTags, pcTagsMarshal, pcTags, "HRESULT")
     return result
 }
 
@@ -10688,7 +10729,7 @@ export ScriptGetFontAlternateGlyphs(_hdc, psc, psa, tagScript, tagLangSys, tagFe
     pAlternateGlyphsMarshal := pAlternateGlyphs is VarRef ? "ushort*" : "ptr"
     pcAlternatesMarshal := pcAlternates is VarRef ? "int*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptGetFontAlternateGlyphs", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "ushort", wGlyphId, "int", cMaxAlternates, pAlternateGlyphsMarshal, pAlternateGlyphs, pcAlternatesMarshal, pcAlternates, "HRESULT")
+    result := DllCall("USP10.dll\ScriptGetFontAlternateGlyphs", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, UInt32, tagScript, UInt32, tagLangSys, UInt32, tagFeature, UInt16, wGlyphId, Int32, cMaxAlternates, pAlternateGlyphsMarshal, pAlternateGlyphs, pcAlternatesMarshal, pcAlternates, "HRESULT")
     return result
 }
 
@@ -10716,7 +10757,7 @@ export ScriptGetFontAlternateGlyphs(_hdc, psc, psa, tagScript, tagLangSys, tagFe
 export ScriptSubstituteSingleGlyph(_hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId) {
     pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptSubstituteSingleGlyph", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "int", lParameter, "ushort", wGlyphId, "ushort*", &pwOutGlyphId := 0, "HRESULT")
+    result := DllCall("USP10.dll\ScriptSubstituteSingleGlyph", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, UInt32, tagScript, UInt32, tagLangSys, UInt32, tagFeature, Int32, lParameter, UInt16, wGlyphId, "ushort*", &pwOutGlyphId := 0, "HRESULT")
     return pwOutGlyphId
 }
 
@@ -10752,7 +10793,7 @@ export ScriptSubstituteSingleGlyph(_hdc, psc, psa, tagScript, tagLangSys, tagFea
 export ScriptPositionSingleGlyph(_hdc, psc, psa, tagScript, tagLangSys, tagFeature, lParameter, wGlyphId, iAdvance, _GOffset, pOutGoffset) {
     pscMarshal := psc is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("USP10.dll\ScriptPositionSingleGlyph", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, "uint", tagScript, "uint", tagLangSys, "uint", tagFeature, "int", lParameter, "ushort", wGlyphId, "int", iAdvance, GOFFSET, _GOffset, "int*", &piOutAdvance := 0, GOFFSET.Ptr, pOutGoffset, "HRESULT")
+    result := DllCall("USP10.dll\ScriptPositionSingleGlyph", HDC, _hdc, pscMarshal, psc, SCRIPT_ANALYSIS.Ptr, psa, UInt32, tagScript, UInt32, tagLangSys, UInt32, tagFeature, Int32, lParameter, UInt16, wGlyphId, Int32, iAdvance, GOFFSET, _GOffset, "int*", &piOutAdvance := 0, GOFFSET.Ptr, pOutGoffset, "HRESULT")
     return piOutAdvance
 }
 
@@ -10769,7 +10810,7 @@ export utf8_nextCharSafeBody(s, pi, length, c, strict) {
     sMarshal := s is VarRef ? "char*" : "ptr"
     piMarshal := pi is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\utf8_nextCharSafeBody", sMarshal, s, piMarshal, pi, "int", length, "int", c, "char", strict, Int32)
+    result := DllCall("icuuc.dll\utf8_nextCharSafeBody", sMarshal, s, piMarshal, pi, Int32, length, Int32, c, Int8, strict, Int32)
     return result
 }
 
@@ -10786,7 +10827,7 @@ export utf8_appendCharSafeBody(s, i, length, c, pIsError) {
     sMarshal := s is VarRef ? "char*" : "ptr"
     pIsErrorMarshal := pIsError is VarRef ? "char*" : "ptr"
 
-    result := DllCall("icuuc.dll\utf8_appendCharSafeBody", sMarshal, s, "int", i, "int", length, "int", c, pIsErrorMarshal, pIsError, Int32)
+    result := DllCall("icuuc.dll\utf8_appendCharSafeBody", sMarshal, s, Int32, i, Int32, length, Int32, c, pIsErrorMarshal, pIsError, Int32)
     return result
 }
 
@@ -10803,7 +10844,7 @@ export utf8_prevCharSafeBody(s, start, pi, c, strict) {
     sMarshal := s is VarRef ? "char*" : "ptr"
     piMarshal := pi is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\utf8_prevCharSafeBody", sMarshal, s, "int", start, piMarshal, pi, "int", c, "char", strict, Int32)
+    result := DllCall("icuuc.dll\utf8_prevCharSafeBody", sMarshal, s, Int32, start, piMarshal, pi, Int32, c, Int8, strict, Int32)
     return result
 }
 
@@ -10817,7 +10858,7 @@ export utf8_prevCharSafeBody(s, start, pi, c, strict) {
 export utf8_back1SafeBody(s, start, i) {
     sMarshal := s is VarRef ? "char*" : "ptr"
 
-    result := DllCall("icuuc.dll\utf8_back1SafeBody", sMarshal, s, "int", start, "int", i, Int32)
+    result := DllCall("icuuc.dll\utf8_back1SafeBody", sMarshal, s, Int32, start, Int32, i, Int32)
     return result
 }
 
@@ -10889,7 +10930,7 @@ export u_errorName(code) {
  * @returns {String} Nothing - always returns an empty string
  */
 export utrace_setLevel(traceLevel) {
-    DllCall("icuuc.dll\utrace_setLevel", "int", traceLevel)
+    DllCall("icuuc.dll\utrace_setLevel", Int32, traceLevel)
 }
 
 /**
@@ -10912,7 +10953,7 @@ export utrace_getLevel() {
 export utrace_setFunctions(_context, e, x, d) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    DllCall("icuuc.dll\utrace_setFunctions", _contextMarshal, _context, "ptr", e, "ptr", x, "ptr", d)
+    DllCall("icuuc.dll\utrace_setFunctions", _contextMarshal, _context, UTraceEntry, e, UTraceExit, x, UTraceData, d)
 }
 
 /**
@@ -10947,7 +10988,7 @@ export utrace_vformat(outBuf, capacity, indent, fmt, args) {
 
     argsMarshal := args is VarRef ? "char*" : "ptr"
 
-    result := DllCall("icuuc.dll\utrace_vformat", "ptr", outBuf, "int", capacity, "int", indent, "ptr", fmt, argsMarshal, args, Int32)
+    result := DllCall("icuuc.dll\utrace_vformat", "ptr", outBuf, Int32, capacity, Int32, indent, "ptr", fmt, argsMarshal, args, Int32)
     return result
 }
 
@@ -10967,7 +11008,7 @@ export utrace_format(outBuf, capacity, indent, fmt, args*) {
     varArgs := [args*]
     varArgs.Push(Int32)
 
-    result := DllCall("icuuc.dll\utrace_format", "ptr", outBuf, "int", capacity, "int", indent, "ptr", fmt, varArgs*)
+    result := DllCall("icuuc.dll\utrace_format", "ptr", outBuf, Int32, capacity, Int32, indent, "ptr", fmt, varArgs*)
     return result
 }
 
@@ -10977,7 +11018,7 @@ export utrace_format(outBuf, capacity, indent, fmt, args*) {
  * @returns {PSTR} 
  */
 export utrace_functionName(fnNumber) {
-    result := DllCall("icuuc.dll\utrace_functionName", "int", fnNumber, PSTR)
+    result := DllCall("icuuc.dll\utrace_functionName", Int32, fnNumber, PSTR)
     return result
 }
 
@@ -10996,7 +11037,7 @@ export u_shapeArabic(source, sourceLength, dest, destSize, options, pErrorCode) 
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_shapeArabic", sourceMarshal, source, "int", sourceLength, destMarshal, dest, "int", destSize, "uint", options, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\u_shapeArabic", sourceMarshal, source, Int32, sourceLength, destMarshal, dest, Int32, destSize, UInt32, options, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -11014,7 +11055,7 @@ export uscript_getCode(nameOrAbbrOrLocale, fillIn, capacity, err) {
     fillInMarshal := fillIn is VarRef ? "int*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uscript_getCode", "ptr", nameOrAbbrOrLocale, fillInMarshal, fillIn, "int", capacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uscript_getCode", "ptr", nameOrAbbrOrLocale, fillInMarshal, fillIn, Int32, capacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11047,7 +11088,7 @@ export uscript_getShortName(scriptCode) {
 export uscript_getScript(codepoint, err) {
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uscript_getScript", "int", codepoint, errMarshal, err, UScriptCode)
+    result := DllCall("icuuc.dll\uscript_getScript", Int32, codepoint, errMarshal, err, UScriptCode)
     return result
 }
 
@@ -11058,7 +11099,7 @@ export uscript_getScript(codepoint, err) {
  * @returns {Integer} 
  */
 export uscript_hasScript(c, sc) {
-    result := DllCall("icuuc.dll\uscript_hasScript", "int", c, UScriptCode, sc, Int8)
+    result := DllCall("icuuc.dll\uscript_hasScript", Int32, c, UScriptCode, sc, Int8)
     return result
 }
 
@@ -11074,7 +11115,7 @@ export uscript_getScriptExtensions(c, scripts, capacity, errorCode) {
     scriptsMarshal := scripts is VarRef ? "int*" : "ptr"
     errorCodeMarshal := errorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uscript_getScriptExtensions", "int", c, scriptsMarshal, scripts, "int", capacity, errorCodeMarshal, errorCode, Int32)
+    result := DllCall("icuuc.dll\uscript_getScriptExtensions", Int32, c, scriptsMarshal, scripts, Int32, capacity, errorCodeMarshal, errorCode, Int32)
     return result
 }
 
@@ -11090,7 +11131,7 @@ export uscript_getSampleString(script, dest, capacity, pErrorCode) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uscript_getSampleString", UScriptCode, script, destMarshal, dest, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uscript_getSampleString", UScriptCode, script, destMarshal, dest, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -11184,7 +11225,7 @@ export uiter_getState(iter) {
 export uiter_setState(iter, state, pErrorCode) {
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\uiter_setState", UCharIterator.Ptr, iter, "uint", state, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\uiter_setState", UCharIterator.Ptr, iter, UInt32, state, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -11197,7 +11238,7 @@ export uiter_setState(iter, state, pErrorCode) {
 export uiter_setString(iter, s, length) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuuc.dll\uiter_setString", UCharIterator.Ptr, iter, sMarshal, s, "int", length)
+    DllCall("icuuc.dll\uiter_setString", UCharIterator.Ptr, iter, sMarshal, s, Int32, length)
 }
 
 /**
@@ -11210,7 +11251,7 @@ export uiter_setString(iter, s, length) {
 export uiter_setUTF16BE(iter, s, length) {
     s := s is String ? StrPtr(s) : s
 
-    DllCall("icuuc.dll\uiter_setUTF16BE", UCharIterator.Ptr, iter, "ptr", s, "int", length)
+    DllCall("icuuc.dll\uiter_setUTF16BE", UCharIterator.Ptr, iter, "ptr", s, Int32, length)
 }
 
 /**
@@ -11223,7 +11264,7 @@ export uiter_setUTF16BE(iter, s, length) {
 export uiter_setUTF8(iter, s, length) {
     s := s is String ? StrPtr(s) : s
 
-    DllCall("icuuc.dll\uiter_setUTF8", UCharIterator.Ptr, iter, "ptr", s, "int", length)
+    DllCall("icuuc.dll\uiter_setUTF8", UCharIterator.Ptr, iter, "ptr", s, Int32, length)
 }
 
 /**
@@ -11307,7 +11348,7 @@ export uenum_openUCharStringsEnumeration(strings, count, ec) {
     stringsMarshal := strings is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uenum_openUCharStringsEnumeration", stringsMarshal, strings, "int", count, ecMarshal, ec, UEnumeration.Ptr)
+    result := DllCall("icuuc.dll\uenum_openUCharStringsEnumeration", stringsMarshal, strings, Int32, count, ecMarshal, ec, UEnumeration.Ptr)
     return result
 }
 
@@ -11322,7 +11363,7 @@ export uenum_openCharStringsEnumeration(strings, count, ec) {
     stringsMarshal := strings is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uenum_openCharStringsEnumeration", stringsMarshal, strings, "int", count, ecMarshal, ec, UEnumeration.Ptr)
+    result := DllCall("icuuc.dll\uenum_openCharStringsEnumeration", stringsMarshal, strings, Int32, count, ecMarshal, ec, UEnumeration.Ptr)
     return result
 }
 
@@ -11363,7 +11404,7 @@ export uloc_getLanguage(localeID, language, languageCapacity, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getLanguage", "ptr", localeID, "ptr", language, "int", languageCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_getLanguage", "ptr", localeID, "ptr", language, Int32, languageCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11381,7 +11422,7 @@ export uloc_getScript(localeID, script, scriptCapacity, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getScript", "ptr", localeID, "ptr", script, "int", scriptCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_getScript", "ptr", localeID, "ptr", script, Int32, scriptCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11399,7 +11440,7 @@ export uloc_getCountry(localeID, country, countryCapacity, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getCountry", "ptr", localeID, "ptr", country, "int", countryCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_getCountry", "ptr", localeID, "ptr", country, Int32, countryCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11417,7 +11458,7 @@ export uloc_getVariant(localeID, _variant, variantCapacity, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getVariant", "ptr", localeID, "ptr", _variant, "int", variantCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_getVariant", "ptr", localeID, "ptr", _variant, Int32, variantCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11435,7 +11476,7 @@ export uloc_getName(localeID, name, nameCapacity, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getName", "ptr", localeID, "ptr", name, "int", nameCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_getName", "ptr", localeID, "ptr", name, Int32, nameCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11453,7 +11494,7 @@ export uloc_canonicalize(localeID, name, nameCapacity, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_canonicalize", "ptr", localeID, "ptr", name, "int", nameCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_canonicalize", "ptr", localeID, "ptr", name, Int32, nameCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11509,7 +11550,7 @@ export uloc_getDisplayLanguage(locale, displayLocale, language, languageCapacity
     languageMarshal := language is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getDisplayLanguage", "ptr", locale, "ptr", displayLocale, languageMarshal, language, "int", languageCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_getDisplayLanguage", "ptr", locale, "ptr", displayLocale, languageMarshal, language, Int32, languageCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11529,7 +11570,7 @@ export uloc_getDisplayScript(locale, displayLocale, script, scriptCapacity, _sta
     scriptMarshal := script is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getDisplayScript", "ptr", locale, "ptr", displayLocale, scriptMarshal, script, "int", scriptCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_getDisplayScript", "ptr", locale, "ptr", displayLocale, scriptMarshal, script, Int32, scriptCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11549,7 +11590,7 @@ export uloc_getDisplayCountry(locale, displayLocale, country, countryCapacity, _
     countryMarshal := country is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getDisplayCountry", "ptr", locale, "ptr", displayLocale, countryMarshal, country, "int", countryCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_getDisplayCountry", "ptr", locale, "ptr", displayLocale, countryMarshal, country, Int32, countryCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11569,7 +11610,7 @@ export uloc_getDisplayVariant(locale, displayLocale, _variant, variantCapacity, 
     _variantMarshal := _variant is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getDisplayVariant", "ptr", locale, "ptr", displayLocale, _variantMarshal, _variant, "int", variantCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_getDisplayVariant", "ptr", locale, "ptr", displayLocale, _variantMarshal, _variant, Int32, variantCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11589,7 +11630,7 @@ export uloc_getDisplayKeyword(keyword, displayLocale, dest, destCapacity, _statu
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getDisplayKeyword", "ptr", keyword, "ptr", displayLocale, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_getDisplayKeyword", "ptr", keyword, "ptr", displayLocale, destMarshal, dest, Int32, destCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11611,7 +11652,7 @@ export uloc_getDisplayKeywordValue(locale, keyword, displayLocale, dest, destCap
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getDisplayKeywordValue", "ptr", locale, "ptr", keyword, "ptr", displayLocale, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_getDisplayKeywordValue", "ptr", locale, "ptr", keyword, "ptr", displayLocale, destMarshal, dest, Int32, destCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11631,7 +11672,7 @@ export uloc_getDisplayName(localeID, inLocaleID, result, maxResultSize, err) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getDisplayName", "ptr", localeID, "ptr", inLocaleID, resultMarshal, result, "int", maxResultSize, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_getDisplayName", "ptr", localeID, "ptr", inLocaleID, resultMarshal, result, Int32, maxResultSize, errMarshal, err, Int32)
     return result
 }
 
@@ -11641,7 +11682,7 @@ export uloc_getDisplayName(localeID, inLocaleID, result, maxResultSize, err) {
  * @returns {PSTR} 
  */
 export uloc_getAvailable(n) {
-    result := DllCall("icuuc.dll\uloc_getAvailable", "int", n, PSTR)
+    result := DllCall("icuuc.dll\uloc_getAvailable", Int32, n, PSTR)
     return result
 }
 
@@ -11699,7 +11740,7 @@ export uloc_getParent(localeID, parent, parentCapacity, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getParent", "ptr", localeID, "ptr", parent, "int", parentCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_getParent", "ptr", localeID, "ptr", parent, Int32, parentCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11717,7 +11758,7 @@ export uloc_getBaseName(localeID, name, nameCapacity, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getBaseName", "ptr", localeID, "ptr", name, "int", nameCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_getBaseName", "ptr", localeID, "ptr", name, Int32, nameCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11752,7 +11793,7 @@ export uloc_getKeywordValue(localeID, keywordName, _buffer, bufferCapacity, _sta
 
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getKeywordValue", "ptr", localeID, "ptr", keywordName, "ptr", _buffer, "int", bufferCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_getKeywordValue", "ptr", localeID, "ptr", keywordName, "ptr", _buffer, Int32, bufferCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11772,7 +11813,7 @@ export uloc_setKeywordValue(keywordName, keywordValue, _buffer, bufferCapacity, 
 
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_setKeywordValue", "ptr", keywordName, "ptr", keywordValue, "ptr", _buffer, "int", bufferCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_setKeywordValue", "ptr", keywordName, "ptr", keywordValue, "ptr", _buffer, Int32, bufferCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11836,7 +11877,7 @@ export uloc_acceptLanguageFromHTTP(result, resultAvailable, outResult, httpAccep
     availableLocalesMarshal := availableLocales is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_acceptLanguageFromHTTP", "ptr", result, "int", resultAvailable, outResultMarshal, outResult, "ptr", httpAcceptLanguage, availableLocalesMarshal, availableLocales, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_acceptLanguageFromHTTP", "ptr", result, Int32, resultAvailable, outResultMarshal, outResult, "ptr", httpAcceptLanguage, availableLocalesMarshal, availableLocales, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11859,7 +11900,7 @@ export uloc_acceptLanguage(result, resultAvailable, outResult, acceptList, accep
     availableLocalesMarshal := availableLocales is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_acceptLanguage", "ptr", result, "int", resultAvailable, outResultMarshal, outResult, acceptListMarshal, acceptList, "int", acceptListCount, availableLocalesMarshal, availableLocales, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_acceptLanguage", "ptr", result, Int32, resultAvailable, outResultMarshal, outResult, acceptListMarshal, acceptList, Int32, acceptListCount, availableLocalesMarshal, availableLocales, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11876,7 +11917,7 @@ export uloc_getLocaleForLCID(hostID, locale, localeCapacity, _status) {
 
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_getLocaleForLCID", "uint", hostID, "ptr", locale, "int", localeCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uloc_getLocaleForLCID", UInt32, hostID, "ptr", locale, Int32, localeCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -11894,7 +11935,7 @@ export uloc_addLikelySubtags(localeID, maximizedLocaleID, maximizedLocaleIDCapac
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_addLikelySubtags", "ptr", localeID, "ptr", maximizedLocaleID, "int", maximizedLocaleIDCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_addLikelySubtags", "ptr", localeID, "ptr", maximizedLocaleID, Int32, maximizedLocaleIDCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11912,7 +11953,7 @@ export uloc_minimizeSubtags(localeID, minimizedLocaleID, minimizedLocaleIDCapaci
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_minimizeSubtags", "ptr", localeID, "ptr", minimizedLocaleID, "int", minimizedLocaleIDCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_minimizeSubtags", "ptr", localeID, "ptr", minimizedLocaleID, Int32, minimizedLocaleIDCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -11932,7 +11973,7 @@ export uloc_forLanguageTag(langtag, localeID, localeIDCapacity, parsedLength, er
     parsedLengthMarshal := parsedLength is VarRef ? "int*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_forLanguageTag", "ptr", langtag, "ptr", localeID, "int", localeIDCapacity, parsedLengthMarshal, parsedLength, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_forLanguageTag", "ptr", langtag, "ptr", localeID, Int32, localeIDCapacity, parsedLengthMarshal, parsedLength, errMarshal, err, Int32)
     return result
 }
 
@@ -11951,7 +11992,7 @@ export uloc_toLanguageTag(localeID, langtag, langtagCapacity, strict, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uloc_toLanguageTag", "ptr", localeID, "ptr", langtag, "int", langtagCapacity, "char", strict, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\uloc_toLanguageTag", "ptr", localeID, "ptr", langtag, Int32, langtagCapacity, Int8, strict, errMarshal, err, Int32)
     return result
 }
 
@@ -12129,7 +12170,7 @@ export ures_getUTF8String(resB, dest, length, forceCopy, _status) {
     lengthMarshal := length is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ures_getUTF8String", resBMarshal, resB, "ptr", dest, lengthMarshal, length, "char", forceCopy, _statusMarshal, _status, PSTR)
+    result := DllCall("icuuc.dll\ures_getUTF8String", resBMarshal, resB, "ptr", dest, lengthMarshal, length, Int8, forceCopy, _statusMarshal, _status, PSTR)
     return result
 }
 
@@ -12299,7 +12340,7 @@ export ures_getByIndex(resourceBundle, indexR, fillIn, _status) {
     fillInMarshal := fillIn is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ures_getByIndex", resourceBundleMarshal, resourceBundle, "int", indexR, fillInMarshal, fillIn, _statusMarshal, _status, UResourceBundle.Ptr)
+    result := DllCall("icuuc.dll\ures_getByIndex", resourceBundleMarshal, resourceBundle, Int32, indexR, fillInMarshal, fillIn, _statusMarshal, _status, UResourceBundle.Ptr)
     return result
 }
 
@@ -12316,7 +12357,7 @@ export ures_getStringByIndex(resourceBundle, indexS, len, _status) {
     lenMarshal := len is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ures_getStringByIndex", resourceBundleMarshal, resourceBundle, "int", indexS, lenMarshal, len, _statusMarshal, _status, IntPtr)
+    result := DllCall("icuuc.dll\ures_getStringByIndex", resourceBundleMarshal, resourceBundle, Int32, indexS, lenMarshal, len, _statusMarshal, _status, IntPtr)
     return result
 }
 
@@ -12337,7 +12378,7 @@ export ures_getUTF8StringByIndex(resB, stringIndex, dest, pLength, forceCopy, _s
     pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ures_getUTF8StringByIndex", resBMarshal, resB, "int", stringIndex, "ptr", dest, pLengthMarshal, pLength, "char", forceCopy, _statusMarshal, _status, PSTR)
+    result := DllCall("icuuc.dll\ures_getUTF8StringByIndex", resBMarshal, resB, Int32, stringIndex, "ptr", dest, pLengthMarshal, pLength, Int8, forceCopy, _statusMarshal, _status, PSTR)
     return result
 }
 
@@ -12397,7 +12438,7 @@ export ures_getUTF8StringByKey(resB, key, dest, pLength, forceCopy, _status) {
     pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ures_getUTF8StringByKey", resBMarshal, resB, "ptr", key, "ptr", dest, pLengthMarshal, pLength, "char", forceCopy, _statusMarshal, _status, PSTR)
+    result := DllCall("icuuc.dll\ures_getUTF8StringByKey", resBMarshal, resB, "ptr", key, "ptr", dest, pLengthMarshal, pLength, Int8, forceCopy, _statusMarshal, _status, PSTR)
     return result
 }
 
@@ -12483,7 +12524,7 @@ export uldn_localeDisplayName(ldn, locale, result, maxResultSize, pErrorCode) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uldn_localeDisplayName", ldnMarshal, ldn, "ptr", locale, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uldn_localeDisplayName", ldnMarshal, ldn, "ptr", locale, resultMarshal, result, Int32, maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -12503,7 +12544,7 @@ export uldn_languageDisplayName(ldn, lang, result, maxResultSize, pErrorCode) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uldn_languageDisplayName", ldnMarshal, ldn, "ptr", lang, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uldn_languageDisplayName", ldnMarshal, ldn, "ptr", lang, resultMarshal, result, Int32, maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -12523,7 +12564,7 @@ export uldn_scriptDisplayName(ldn, script, result, maxResultSize, pErrorCode) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uldn_scriptDisplayName", ldnMarshal, ldn, "ptr", script, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uldn_scriptDisplayName", ldnMarshal, ldn, "ptr", script, resultMarshal, result, Int32, maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -12541,7 +12582,7 @@ export uldn_scriptCodeDisplayName(ldn, scriptCode, result, maxResultSize, pError
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uldn_scriptCodeDisplayName", ldnMarshal, ldn, UScriptCode, scriptCode, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uldn_scriptCodeDisplayName", ldnMarshal, ldn, UScriptCode, scriptCode, resultMarshal, result, Int32, maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -12561,7 +12602,7 @@ export uldn_regionDisplayName(ldn, _region, result, maxResultSize, pErrorCode) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uldn_regionDisplayName", ldnMarshal, ldn, "ptr", _region, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uldn_regionDisplayName", ldnMarshal, ldn, "ptr", _region, resultMarshal, result, Int32, maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -12581,7 +12622,7 @@ export uldn_variantDisplayName(ldn, _variant, result, maxResultSize, pErrorCode)
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uldn_variantDisplayName", ldnMarshal, ldn, "ptr", _variant, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uldn_variantDisplayName", ldnMarshal, ldn, "ptr", _variant, resultMarshal, result, Int32, maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -12601,7 +12642,7 @@ export uldn_keyDisplayName(ldn, key, result, maxResultSize, pErrorCode) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uldn_keyDisplayName", ldnMarshal, ldn, "ptr", key, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uldn_keyDisplayName", ldnMarshal, ldn, "ptr", key, resultMarshal, result, Int32, maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -12623,7 +12664,7 @@ export uldn_keyValueDisplayName(ldn, key, value, result, maxResultSize, pErrorCo
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uldn_keyValueDisplayName", ldnMarshal, ldn, "ptr", key, "ptr", value, resultMarshal, result, "int", maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uldn_keyValueDisplayName", ldnMarshal, ldn, "ptr", key, "ptr", value, resultMarshal, result, Int32, maxResultSize, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -12641,7 +12682,7 @@ export uldn_openForContext(locale, contexts, length, pErrorCode) {
     contextsMarshal := contexts is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uldn_openForContext", "ptr", locale, contextsMarshal, contexts, "int", length, pErrorCodeMarshal, pErrorCode, ULocaleDisplayNames.Ptr)
+    result := DllCall("icuuc.dll\uldn_openForContext", "ptr", locale, contextsMarshal, contexts, Int32, length, pErrorCodeMarshal, pErrorCode, ULocaleDisplayNames.Ptr)
     return result
 }
 
@@ -12674,7 +12715,7 @@ export ucurr_forLocale(locale, buff, buffCapacity, ec) {
     buffMarshal := buff is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucurr_forLocale", "ptr", locale, buffMarshal, buff, "int", buffCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icuuc.dll\ucurr_forLocale", "ptr", locale, buffMarshal, buff, Int32, buffCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -12821,7 +12862,7 @@ export ucurr_getRoundingIncrementForUsage(currency, usage, ec) {
 export ucurr_openISOCurrencies(currType, pErrorCode) {
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucurr_openISOCurrencies", "uint", currType, pErrorCodeMarshal, pErrorCode, UEnumeration.Ptr)
+    result := DllCall("icuuc.dll\ucurr_openISOCurrencies", UInt32, currType, pErrorCodeMarshal, pErrorCode, UEnumeration.Ptr)
     return result
 }
 
@@ -12837,7 +12878,7 @@ export ucurr_isAvailable(isoCode, from, to, errorCode) {
     isoCodeMarshal := isoCode is VarRef ? "ushort*" : "ptr"
     errorCodeMarshal := errorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucurr_isAvailable", isoCodeMarshal, isoCode, "double", from, "double", to, errorCodeMarshal, errorCode, Int8)
+    result := DllCall("icuuc.dll\ucurr_isAvailable", isoCodeMarshal, isoCode, Float64, from, Float64, to, errorCodeMarshal, errorCode, Int8)
     return result
 }
 
@@ -12853,7 +12894,7 @@ export ucurr_countCurrencies(locale, date, ec) {
 
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucurr_countCurrencies", "ptr", locale, "double", date, ecMarshal, ec, Int32)
+    result := DllCall("icuuc.dll\ucurr_countCurrencies", "ptr", locale, Float64, date, ecMarshal, ec, Int32)
     return result
 }
 
@@ -12873,7 +12914,7 @@ export ucurr_forLocaleAndDate(locale, date, index, buff, buffCapacity, ec) {
     buffMarshal := buff is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucurr_forLocaleAndDate", "ptr", locale, "double", date, "int", index, buffMarshal, buff, "int", buffCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icuuc.dll\ucurr_forLocaleAndDate", "ptr", locale, Float64, date, Int32, index, buffMarshal, buff, Int32, buffCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -12891,7 +12932,7 @@ export ucurr_getKeywordValuesForLocale(key, locale, commonlyUsed, _status) {
 
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucurr_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, _statusMarshal, _status, UEnumeration.Ptr)
+    result := DllCall("icuuc.dll\ucurr_getKeywordValuesForLocale", "ptr", key, "ptr", locale, Int8, commonlyUsed, _statusMarshal, _status, UEnumeration.Ptr)
     return result
 }
 
@@ -12916,7 +12957,7 @@ export ucurr_getNumericCode(currency) {
 export ucpmap_get(_map, c) {
     _mapMarshal := _map is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icu.dll\ucpmap_get", _mapMarshal, _map, "int", c, UInt32)
+    result := DllCall("icu.dll\ucpmap_get", _mapMarshal, _map, Int32, c, UInt32)
     return result
 }
 
@@ -12937,7 +12978,7 @@ export ucpmap_getRange(_map, start, option, surrogateValue, filter, _context, pV
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("icu.dll\ucpmap_getRange", _mapMarshal, _map, "int", start, UCPMapRangeOption, option, "uint", surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, Int32)
+    result := DllCall("icu.dll\ucpmap_getRange", _mapMarshal, _map, Int32, start, UCPMapRangeOption, option, UInt32, surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, Int32)
     return result
 }
 
@@ -12956,7 +12997,7 @@ export ucptrie_openFromBinary(type, valueWidth, data, length, pActualLength, pEr
     pActualLengthMarshal := pActualLength is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\ucptrie_openFromBinary", UCPTrieType, type, UCPTrieValueWidth, valueWidth, dataMarshal, data, "int", length, pActualLengthMarshal, pActualLength, pErrorCodeMarshal, pErrorCode, UCPTrie.Ptr)
+    result := DllCall("icu.dll\ucptrie_openFromBinary", UCPTrieType, type, UCPTrieValueWidth, valueWidth, dataMarshal, data, Int32, length, pActualLengthMarshal, pActualLength, pErrorCodeMarshal, pErrorCode, UCPTrie.Ptr)
     return result
 }
 
@@ -12996,7 +13037,7 @@ export ucptrie_getValueWidth(trie) {
  * @returns {Integer} 
  */
 export ucptrie_get(trie, c) {
-    result := DllCall("icu.dll\ucptrie_get", UCPTrie.Ptr, trie, "int", c, UInt32)
+    result := DllCall("icu.dll\ucptrie_get", UCPTrie.Ptr, trie, Int32, c, UInt32)
     return result
 }
 
@@ -13016,7 +13057,7 @@ export ucptrie_getRange(trie, start, option, surrogateValue, filter, _context, p
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("icu.dll\ucptrie_getRange", UCPTrie.Ptr, trie, "int", start, UCPMapRangeOption, option, "uint", surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, Int32)
+    result := DllCall("icu.dll\ucptrie_getRange", UCPTrie.Ptr, trie, Int32, start, UCPMapRangeOption, option, UInt32, surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, Int32)
     return result
 }
 
@@ -13032,7 +13073,7 @@ export ucptrie_toBinary(trie, data, capacity, pErrorCode) {
     dataMarshal := data is VarRef ? "ptr" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\ucptrie_toBinary", UCPTrie.Ptr, trie, dataMarshal, data, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icu.dll\ucptrie_toBinary", UCPTrie.Ptr, trie, dataMarshal, data, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -13043,7 +13084,7 @@ export ucptrie_toBinary(trie, data, capacity, pErrorCode) {
  * @returns {Integer} 
  */
 export ucptrie_internalSmallIndex(trie, c) {
-    result := DllCall("icu.dll\ucptrie_internalSmallIndex", UCPTrie.Ptr, trie, "int", c, Int32)
+    result := DllCall("icu.dll\ucptrie_internalSmallIndex", UCPTrie.Ptr, trie, Int32, c, Int32)
     return result
 }
 
@@ -13056,7 +13097,7 @@ export ucptrie_internalSmallIndex(trie, c) {
  * @returns {Integer} 
  */
 export ucptrie_internalSmallU8Index(trie, lt1, t2, t3) {
-    result := DllCall("icu.dll\ucptrie_internalSmallU8Index", UCPTrie.Ptr, trie, "int", lt1, "char", t2, "char", t3, Int32)
+    result := DllCall("icu.dll\ucptrie_internalSmallU8Index", UCPTrie.Ptr, trie, Int32, lt1, Int8, t2, Int8, t3, Int32)
     return result
 }
 
@@ -13072,7 +13113,7 @@ export ucptrie_internalU8PrevIndex(trie, c, start, src) {
     startMarshal := start is VarRef ? "char*" : "ptr"
     srcMarshal := src is VarRef ? "char*" : "ptr"
 
-    result := DllCall("icu.dll\ucptrie_internalU8PrevIndex", UCPTrie.Ptr, trie, "int", c, startMarshal, start, srcMarshal, src, Int32)
+    result := DllCall("icu.dll\ucptrie_internalU8PrevIndex", UCPTrie.Ptr, trie, Int32, c, startMarshal, start, srcMarshal, src, Int32)
     return result
 }
 
@@ -13086,7 +13127,7 @@ export ucptrie_internalU8PrevIndex(trie, c, start, src) {
 export umutablecptrie_open(initialValue, errorValue, pErrorCode) {
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\umutablecptrie_open", "uint", initialValue, "uint", errorValue, pErrorCodeMarshal, pErrorCode, UMutableCPTrie.Ptr)
+    result := DllCall("icu.dll\umutablecptrie_open", UInt32, initialValue, UInt32, errorValue, pErrorCodeMarshal, pErrorCode, UMutableCPTrie.Ptr)
     return result
 }
 
@@ -13151,7 +13192,7 @@ export umutablecptrie_fromUCPTrie(trie, pErrorCode) {
 export umutablecptrie_get(trie, c) {
     trieMarshal := trie is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icu.dll\umutablecptrie_get", trieMarshal, trie, "int", c, UInt32)
+    result := DllCall("icu.dll\umutablecptrie_get", trieMarshal, trie, Int32, c, UInt32)
     return result
 }
 
@@ -13172,7 +13213,7 @@ export umutablecptrie_getRange(trie, start, option, surrogateValue, filter, _con
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("icu.dll\umutablecptrie_getRange", trieMarshal, trie, "int", start, UCPMapRangeOption, option, "uint", surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, Int32)
+    result := DllCall("icu.dll\umutablecptrie_getRange", trieMarshal, trie, Int32, start, UCPMapRangeOption, option, UInt32, surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, Int32)
     return result
 }
 
@@ -13188,7 +13229,7 @@ export umutablecptrie_set(trie, c, value, pErrorCode) {
     trieMarshal := trie is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\umutablecptrie_set", trieMarshal, trie, "int", c, "uint", value, pErrorCodeMarshal, pErrorCode)
+    DllCall("icu.dll\umutablecptrie_set", trieMarshal, trie, Int32, c, UInt32, value, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -13204,7 +13245,7 @@ export umutablecptrie_setRange(trie, start, end, value, pErrorCode) {
     trieMarshal := trie is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\umutablecptrie_setRange", trieMarshal, trie, "int", start, "int", end, "uint", value, pErrorCodeMarshal, pErrorCode)
+    DllCall("icu.dll\umutablecptrie_setRange", trieMarshal, trie, Int32, start, Int32, end, UInt32, value, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -13239,7 +13280,7 @@ export UCNV_FROM_U_CALLBACK_STOP(_context, fromUArgs, codeUnits, length, codePoi
     codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_STOP", _contextMarshal, _context, UConverterFromUnicodeArgs.Ptr, fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, UConverterCallbackReason, reason, errMarshal, err)
+    DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_STOP", _contextMarshal, _context, UConverterFromUnicodeArgs.Ptr, fromUArgs, codeUnitsMarshal, codeUnits, Int32, length, Int32, codePoint, UConverterCallbackReason, reason, errMarshal, err)
 }
 
 /**
@@ -13258,7 +13299,7 @@ export UCNV_TO_U_CALLBACK_STOP(_context, toUArgs, codeUnits, length, reason, err
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_STOP", _contextMarshal, _context, UConverterToUnicodeArgs.Ptr, toUArgs, "ptr", codeUnits, "int", length, UConverterCallbackReason, reason, errMarshal, err)
+    DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_STOP", _contextMarshal, _context, UConverterToUnicodeArgs.Ptr, toUArgs, "ptr", codeUnits, Int32, length, UConverterCallbackReason, reason, errMarshal, err)
 }
 
 /**
@@ -13277,7 +13318,7 @@ export UCNV_FROM_U_CALLBACK_SKIP(_context, fromUArgs, codeUnits, length, codePoi
     codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SKIP", _contextMarshal, _context, UConverterFromUnicodeArgs.Ptr, fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, UConverterCallbackReason, reason, errMarshal, err)
+    DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SKIP", _contextMarshal, _context, UConverterFromUnicodeArgs.Ptr, fromUArgs, codeUnitsMarshal, codeUnits, Int32, length, Int32, codePoint, UConverterCallbackReason, reason, errMarshal, err)
 }
 
 /**
@@ -13296,7 +13337,7 @@ export UCNV_FROM_U_CALLBACK_SUBSTITUTE(_context, fromUArgs, codeUnits, length, c
     codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, UConverterFromUnicodeArgs.Ptr, fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, UConverterCallbackReason, reason, errMarshal, err)
+    DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, UConverterFromUnicodeArgs.Ptr, fromUArgs, codeUnitsMarshal, codeUnits, Int32, length, Int32, codePoint, UConverterCallbackReason, reason, errMarshal, err)
 }
 
 /**
@@ -13315,7 +13356,7 @@ export UCNV_FROM_U_CALLBACK_ESCAPE(_context, fromUArgs, codeUnits, length, codeP
     codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_ESCAPE", _contextMarshal, _context, UConverterFromUnicodeArgs.Ptr, fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, UConverterCallbackReason, reason, errMarshal, err)
+    DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_ESCAPE", _contextMarshal, _context, UConverterFromUnicodeArgs.Ptr, fromUArgs, codeUnitsMarshal, codeUnits, Int32, length, Int32, codePoint, UConverterCallbackReason, reason, errMarshal, err)
 }
 
 /**
@@ -13334,7 +13375,7 @@ export UCNV_TO_U_CALLBACK_SKIP(_context, toUArgs, codeUnits, length, reason, err
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SKIP", _contextMarshal, _context, UConverterToUnicodeArgs.Ptr, toUArgs, "ptr", codeUnits, "int", length, UConverterCallbackReason, reason, errMarshal, err)
+    DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SKIP", _contextMarshal, _context, UConverterToUnicodeArgs.Ptr, toUArgs, "ptr", codeUnits, Int32, length, UConverterCallbackReason, reason, errMarshal, err)
 }
 
 /**
@@ -13353,7 +13394,7 @@ export UCNV_TO_U_CALLBACK_SUBSTITUTE(_context, toUArgs, codeUnits, length, reaso
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, UConverterToUnicodeArgs.Ptr, toUArgs, "ptr", codeUnits, "int", length, UConverterCallbackReason, reason, errMarshal, err)
+    DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, UConverterToUnicodeArgs.Ptr, toUArgs, "ptr", codeUnits, Int32, length, UConverterCallbackReason, reason, errMarshal, err)
 }
 
 /**
@@ -13372,7 +13413,7 @@ export UCNV_TO_U_CALLBACK_ESCAPE(_context, toUArgs, codeUnits, length, reason, e
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_ESCAPE", _contextMarshal, _context, UConverterToUnicodeArgs.Ptr, toUArgs, "ptr", codeUnits, "int", length, UConverterCallbackReason, reason, errMarshal, err)
+    DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_ESCAPE", _contextMarshal, _context, UConverterToUnicodeArgs.Ptr, toUArgs, "ptr", codeUnits, Int32, length, UConverterCallbackReason, reason, errMarshal, err)
 }
 
 /**
@@ -13428,7 +13469,7 @@ export ucnv_openU(name, err) {
 export ucnv_openCCSID(codepage, platform, err) {
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_openCCSID", "int", codepage, UConverterPlatform, platform, errMarshal, err, UConverter.Ptr)
+    result := DllCall("icuuc.dll\ucnv_openCCSID", Int32, codepage, UConverterPlatform, platform, errMarshal, err, UConverter.Ptr)
     return result
 }
 
@@ -13524,7 +13565,7 @@ export ucnv_setSubstChars(converter, subChars, len, err) {
     converterMarshal := converter is VarRef ? "ptr*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_setSubstChars", converterMarshal, converter, "ptr", subChars, "char", len, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_setSubstChars", converterMarshal, converter, "ptr", subChars, Int8, len, errMarshal, err)
 }
 
 /**
@@ -13540,7 +13581,7 @@ export ucnv_setSubstString(cnv, s, length, err) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_setSubstString", cnvMarshal, cnv, sMarshal, s, "int", length, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_setSubstString", cnvMarshal, cnv, sMarshal, s, Int32, length, errMarshal, err)
 }
 
 /**
@@ -13651,7 +13692,7 @@ export ucnv_getDisplayName(converter, displayLocale, displayName, displayNameCap
     displayNameMarshal := displayName is VarRef ? "ushort*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_getDisplayName", converterMarshal, converter, "ptr", displayLocale, displayNameMarshal, displayName, "int", displayNameCapacity, errMarshal, err, Int32)
+    result := DllCall("icuuc.dll\ucnv_getDisplayName", converterMarshal, converter, "ptr", displayLocale, displayNameMarshal, displayName, Int32, displayNameCapacity, errMarshal, err, Int32)
     return result
 }
 
@@ -13787,7 +13828,7 @@ export ucnv_setToUCallBack(converter, newAction, newContext, oldAction, oldConte
     oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_setToUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_setToUCallBack", converterMarshal, converter, UConverterToUCallback, newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
 }
 
 /**
@@ -13807,7 +13848,7 @@ export ucnv_setFromUCallBack(converter, newAction, newContext, oldAction, oldCon
     oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_setFromUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_setFromUCallBack", converterMarshal, converter, UConverterFromUCallback, newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err)
 }
 
 /**
@@ -13832,7 +13873,7 @@ export ucnv_fromUnicode(converter, target, targetLimit, source, sourceLimit, off
     offsetsMarshal := offsets is VarRef ? "int*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_fromUnicode", converterMarshal, converter, targetMarshal, target, "ptr", targetLimit, sourceMarshal, source, sourceLimitMarshal, sourceLimit, offsetsMarshal, offsets, "char", flush, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_fromUnicode", converterMarshal, converter, targetMarshal, target, "ptr", targetLimit, sourceMarshal, source, sourceLimitMarshal, sourceLimit, offsetsMarshal, offsets, Int8, flush, errMarshal, err)
 }
 
 /**
@@ -13857,7 +13898,7 @@ export ucnv_toUnicode(converter, target, targetLimit, source, sourceLimit, offse
     offsetsMarshal := offsets is VarRef ? "int*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_toUnicode", converterMarshal, converter, targetMarshal, target, targetLimitMarshal, targetLimit, sourceMarshal, source, "ptr", sourceLimit, offsetsMarshal, offsets, "char", flush, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_toUnicode", converterMarshal, converter, targetMarshal, target, targetLimitMarshal, targetLimit, sourceMarshal, source, "ptr", sourceLimit, offsetsMarshal, offsets, Int8, flush, errMarshal, err)
 }
 
 /**
@@ -13877,7 +13918,7 @@ export ucnv_fromUChars(cnv, dest, destCapacity, src, srcLength, pErrorCode) {
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_fromUChars", cnvMarshal, cnv, "ptr", dest, "int", destCapacity, srcMarshal, src, "int", srcLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucnv_fromUChars", cnvMarshal, cnv, "ptr", dest, Int32, destCapacity, srcMarshal, src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -13898,7 +13939,7 @@ export ucnv_toUChars(cnv, dest, destCapacity, src, srcLength, pErrorCode) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_toUChars", cnvMarshal, cnv, destMarshal, dest, "int", destCapacity, "ptr", src, "int", srcLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucnv_toUChars", cnvMarshal, cnv, destMarshal, dest, Int32, destCapacity, "ptr", src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -13952,7 +13993,7 @@ export ucnv_convertEx(targetCnv, sourceCnv, target, targetLimit, source, sourceL
     pivotLimitMarshal := pivotLimit is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_convertEx", targetCnvMarshal, targetCnv, sourceCnvMarshal, sourceCnv, targetMarshal, target, "ptr", targetLimit, sourceMarshal, source, "ptr", sourceLimit, pivotStartMarshal, pivotStart, pivotSourceMarshal, pivotSource, pivotTargetMarshal, pivotTarget, pivotLimitMarshal, pivotLimit, "char", reset, "char", flush, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\ucnv_convertEx", targetCnvMarshal, targetCnv, sourceCnvMarshal, sourceCnv, targetMarshal, target, "ptr", targetLimit, sourceMarshal, source, "ptr", sourceLimit, pivotStartMarshal, pivotStart, pivotSourceMarshal, pivotSource, pivotTargetMarshal, pivotTarget, pivotLimitMarshal, pivotLimit, Int8, reset, Int8, flush, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -13974,7 +14015,7 @@ export ucnv_convert(toConverterName, fromConverterName, target, targetCapacity, 
 
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_convert", "ptr", toConverterName, "ptr", fromConverterName, "ptr", target, "int", targetCapacity, "ptr", source, "int", sourceLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucnv_convert", "ptr", toConverterName, "ptr", fromConverterName, "ptr", target, Int32, targetCapacity, "ptr", source, Int32, sourceLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -13996,7 +14037,7 @@ export ucnv_toAlgorithmic(algorithmicType, cnv, target, targetCapacity, source, 
     cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_toAlgorithmic", UConverterType, algorithmicType, cnvMarshal, cnv, "ptr", target, "int", targetCapacity, "ptr", source, "int", sourceLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucnv_toAlgorithmic", UConverterType, algorithmicType, cnvMarshal, cnv, "ptr", target, Int32, targetCapacity, "ptr", source, Int32, sourceLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -14018,7 +14059,7 @@ export ucnv_fromAlgorithmic(cnv, algorithmicType, target, targetCapacity, source
     cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_fromAlgorithmic", cnvMarshal, cnv, UConverterType, algorithmicType, "ptr", target, "int", targetCapacity, "ptr", source, "int", sourceLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucnv_fromAlgorithmic", cnvMarshal, cnv, UConverterType, algorithmicType, "ptr", target, Int32, targetCapacity, "ptr", source, Int32, sourceLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -14046,7 +14087,7 @@ export ucnv_countAvailable() {
  * @returns {PSTR} 
  */
 export ucnv_getAvailableName(n) {
-    result := DllCall("icuuc.dll\ucnv_getAvailableName", "int", n, PSTR)
+    result := DllCall("icuuc.dll\ucnv_getAvailableName", Int32, n, PSTR)
     return result
 }
 
@@ -14089,7 +14130,7 @@ export ucnv_getAlias(alias, n, pErrorCode) {
 
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_getAlias", "ptr", alias, "ushort", n, pErrorCodeMarshal, pErrorCode, PSTR)
+    result := DllCall("icuuc.dll\ucnv_getAlias", "ptr", alias, UInt16, n, pErrorCodeMarshal, pErrorCode, PSTR)
     return result
 }
 
@@ -14144,7 +14185,7 @@ export ucnv_countStandards() {
 export ucnv_getStandard(n, pErrorCode) {
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_getStandard", "ushort", n, pErrorCodeMarshal, pErrorCode, PSTR)
+    result := DllCall("icuuc.dll\ucnv_getStandard", UInt16, n, pErrorCodeMarshal, pErrorCode, PSTR)
     return result
 }
 
@@ -14213,7 +14254,7 @@ export ucnv_fixFileSeparator(cnv, source, sourceLen) {
     cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
     sourceMarshal := source is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_fixFileSeparator", cnvMarshal, cnv, sourceMarshal, source, "int", sourceLen)
+    DllCall("icuuc.dll\ucnv_fixFileSeparator", cnvMarshal, cnv, sourceMarshal, source, Int32, sourceLen)
 }
 
 /**
@@ -14237,7 +14278,7 @@ export ucnv_isAmbiguous(cnv) {
 export ucnv_setFallback(cnv, usesFallback) {
     cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_setFallback", cnvMarshal, cnv, "char", usesFallback)
+    DllCall("icuuc.dll\ucnv_setFallback", cnvMarshal, cnv, Int8, usesFallback)
 }
 
 /**
@@ -14266,7 +14307,7 @@ export ucnv_detectUnicodeSignature(source, sourceLength, signatureLength, pError
     signatureLengthMarshal := signatureLength is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnv_detectUnicodeSignature", "ptr", source, "int", sourceLength, signatureLengthMarshal, signatureLength, pErrorCodeMarshal, pErrorCode, PSTR)
+    result := DllCall("icuuc.dll\ucnv_detectUnicodeSignature", "ptr", source, Int32, sourceLength, signatureLengthMarshal, signatureLength, pErrorCodeMarshal, pErrorCode, PSTR)
     return result
 }
 
@@ -14326,7 +14367,7 @@ export ucnv_cbFromUWriteBytes(args, source, length, offsetIndex, err) {
 
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_cbFromUWriteBytes", UConverterFromUnicodeArgs.Ptr, args, "ptr", source, "int", length, "int", offsetIndex, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_cbFromUWriteBytes", UConverterFromUnicodeArgs.Ptr, args, "ptr", source, Int32, length, Int32, offsetIndex, errMarshal, err)
 }
 
 /**
@@ -14339,7 +14380,7 @@ export ucnv_cbFromUWriteBytes(args, source, length, offsetIndex, err) {
 export ucnv_cbFromUWriteSub(args, offsetIndex, err) {
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_cbFromUWriteSub", UConverterFromUnicodeArgs.Ptr, args, "int", offsetIndex, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_cbFromUWriteSub", UConverterFromUnicodeArgs.Ptr, args, Int32, offsetIndex, errMarshal, err)
 }
 
 /**
@@ -14356,7 +14397,7 @@ export ucnv_cbFromUWriteUChars(args, source, sourceLimit, offsetIndex, err) {
     sourceLimitMarshal := sourceLimit is VarRef ? "ushort*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_cbFromUWriteUChars", UConverterFromUnicodeArgs.Ptr, args, sourceMarshal, source, sourceLimitMarshal, sourceLimit, "int", offsetIndex, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_cbFromUWriteUChars", UConverterFromUnicodeArgs.Ptr, args, sourceMarshal, source, sourceLimitMarshal, sourceLimit, Int32, offsetIndex, errMarshal, err)
 }
 
 /**
@@ -14372,7 +14413,7 @@ export ucnv_cbToUWriteUChars(args, source, length, offsetIndex, err) {
     sourceMarshal := source is VarRef ? "ushort*" : "ptr"
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_cbToUWriteUChars", UConverterToUnicodeArgs.Ptr, args, sourceMarshal, source, "int", length, "int", offsetIndex, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_cbToUWriteUChars", UConverterToUnicodeArgs.Ptr, args, sourceMarshal, source, Int32, length, Int32, offsetIndex, errMarshal, err)
 }
 
 /**
@@ -14385,7 +14426,7 @@ export ucnv_cbToUWriteUChars(args, source, length, offsetIndex, err) {
 export ucnv_cbToUWriteSub(args, offsetIndex, err) {
     errMarshal := err is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucnv_cbToUWriteSub", UConverterToUnicodeArgs.Ptr, args, "int", offsetIndex, errMarshal, err)
+    DllCall("icuuc.dll\ucnv_cbToUWriteSub", UConverterToUnicodeArgs.Ptr, args, Int32, offsetIndex, errMarshal, err)
 }
 
 /**
@@ -14470,7 +14511,7 @@ export u_catgets(catd, set_num, msg_num, s, len, ec) {
     lenMarshal := len is VarRef ? "int*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_catgets", catdMarshal, catd, "int", set_num, "int", msg_num, sMarshal, s, lenMarshal, len, ecMarshal, ec, IntPtr)
+    result := DllCall("icuuc.dll\u_catgets", catdMarshal, catd, Int32, set_num, Int32, msg_num, sMarshal, s, lenMarshal, len, ecMarshal, ec, IntPtr)
     return result
 }
 
@@ -14481,7 +14522,7 @@ export u_catgets(catd, set_num, msg_num, s, len, ec) {
  * @returns {Integer} 
  */
 export u_hasBinaryProperty(c, which) {
-    result := DllCall("icuuc.dll\u_hasBinaryProperty", "int", c, UProperty, which, Int8)
+    result := DllCall("icuuc.dll\u_hasBinaryProperty", Int32, c, UProperty, which, Int8)
     return result
 }
 
@@ -14495,7 +14536,7 @@ export u_hasBinaryProperty(c, which) {
 export u_stringHasBinaryProperty(s, length, which) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icu.dll\u_stringHasBinaryProperty", sMarshal, s, "int", length, UProperty, which, Int8)
+    result := DllCall("icu.dll\u_stringHasBinaryProperty", sMarshal, s, Int32, length, UProperty, which, Int8)
     return result
 }
 
@@ -14518,7 +14559,7 @@ export u_getBinaryPropertySet(_property, pErrorCode) {
  * @returns {Integer} 
  */
 export u_isUAlphabetic(c) {
-    result := DllCall("icuuc.dll\u_isUAlphabetic", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isUAlphabetic", Int32, c, Int8)
     return result
 }
 
@@ -14528,7 +14569,7 @@ export u_isUAlphabetic(c) {
  * @returns {Integer} 
  */
 export u_isULowercase(c) {
-    result := DllCall("icuuc.dll\u_isULowercase", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isULowercase", Int32, c, Int8)
     return result
 }
 
@@ -14538,7 +14579,7 @@ export u_isULowercase(c) {
  * @returns {Integer} 
  */
 export u_isUUppercase(c) {
-    result := DllCall("icuuc.dll\u_isUUppercase", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isUUppercase", Int32, c, Int8)
     return result
 }
 
@@ -14548,7 +14589,7 @@ export u_isUUppercase(c) {
  * @returns {Integer} 
  */
 export u_isUWhiteSpace(c) {
-    result := DllCall("icuuc.dll\u_isUWhiteSpace", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isUWhiteSpace", Int32, c, Int8)
     return result
 }
 
@@ -14559,7 +14600,7 @@ export u_isUWhiteSpace(c) {
  * @returns {Integer} 
  */
 export u_getIntPropertyValue(c, which) {
-    result := DllCall("icuuc.dll\u_getIntPropertyValue", "int", c, UProperty, which, Int32)
+    result := DllCall("icuuc.dll\u_getIntPropertyValue", Int32, c, UProperty, which, Int32)
     return result
 }
 
@@ -14602,7 +14643,7 @@ export u_getIntPropertyMap(_property, pErrorCode) {
  * @returns {Float} 
  */
 export u_getNumericValue(c) {
-    result := DllCall("icuuc.dll\u_getNumericValue", "int", c, Float64)
+    result := DllCall("icuuc.dll\u_getNumericValue", Int32, c, Float64)
     return result
 }
 
@@ -14612,7 +14653,7 @@ export u_getNumericValue(c) {
  * @returns {Integer} 
  */
 export u_islower(c) {
-    result := DllCall("icuuc.dll\u_islower", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_islower", Int32, c, Int8)
     return result
 }
 
@@ -14622,7 +14663,7 @@ export u_islower(c) {
  * @returns {Integer} 
  */
 export u_isupper(c) {
-    result := DllCall("icuuc.dll\u_isupper", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isupper", Int32, c, Int8)
     return result
 }
 
@@ -14632,7 +14673,7 @@ export u_isupper(c) {
  * @returns {Integer} 
  */
 export u_istitle(c) {
-    result := DllCall("icuuc.dll\u_istitle", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_istitle", Int32, c, Int8)
     return result
 }
 
@@ -14642,7 +14683,7 @@ export u_istitle(c) {
  * @returns {Integer} 
  */
 export u_isdigit(c) {
-    result := DllCall("icuuc.dll\u_isdigit", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isdigit", Int32, c, Int8)
     return result
 }
 
@@ -14652,7 +14693,7 @@ export u_isdigit(c) {
  * @returns {Integer} 
  */
 export u_isalpha(c) {
-    result := DllCall("icuuc.dll\u_isalpha", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isalpha", Int32, c, Int8)
     return result
 }
 
@@ -14662,7 +14703,7 @@ export u_isalpha(c) {
  * @returns {Integer} 
  */
 export u_isalnum(c) {
-    result := DllCall("icuuc.dll\u_isalnum", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isalnum", Int32, c, Int8)
     return result
 }
 
@@ -14672,7 +14713,7 @@ export u_isalnum(c) {
  * @returns {Integer} 
  */
 export u_isxdigit(c) {
-    result := DllCall("icuuc.dll\u_isxdigit", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isxdigit", Int32, c, Int8)
     return result
 }
 
@@ -14682,7 +14723,7 @@ export u_isxdigit(c) {
  * @returns {Integer} 
  */
 export u_ispunct(c) {
-    result := DllCall("icuuc.dll\u_ispunct", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_ispunct", Int32, c, Int8)
     return result
 }
 
@@ -14692,7 +14733,7 @@ export u_ispunct(c) {
  * @returns {Integer} 
  */
 export u_isgraph(c) {
-    result := DllCall("icuuc.dll\u_isgraph", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isgraph", Int32, c, Int8)
     return result
 }
 
@@ -14702,7 +14743,7 @@ export u_isgraph(c) {
  * @returns {Integer} 
  */
 export u_isblank(c) {
-    result := DllCall("icuuc.dll\u_isblank", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isblank", Int32, c, Int8)
     return result
 }
 
@@ -14712,7 +14753,7 @@ export u_isblank(c) {
  * @returns {Integer} 
  */
 export u_isdefined(c) {
-    result := DllCall("icuuc.dll\u_isdefined", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isdefined", Int32, c, Int8)
     return result
 }
 
@@ -14722,7 +14763,7 @@ export u_isdefined(c) {
  * @returns {Integer} 
  */
 export u_isspace(c) {
-    result := DllCall("icuuc.dll\u_isspace", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isspace", Int32, c, Int8)
     return result
 }
 
@@ -14732,7 +14773,7 @@ export u_isspace(c) {
  * @returns {Integer} 
  */
 export u_isJavaSpaceChar(c) {
-    result := DllCall("icuuc.dll\u_isJavaSpaceChar", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isJavaSpaceChar", Int32, c, Int8)
     return result
 }
 
@@ -14742,7 +14783,7 @@ export u_isJavaSpaceChar(c) {
  * @returns {Integer} 
  */
 export u_isWhitespace(c) {
-    result := DllCall("icuuc.dll\u_isWhitespace", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isWhitespace", Int32, c, Int8)
     return result
 }
 
@@ -14752,7 +14793,7 @@ export u_isWhitespace(c) {
  * @returns {Integer} 
  */
 export u_iscntrl(c) {
-    result := DllCall("icuuc.dll\u_iscntrl", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_iscntrl", Int32, c, Int8)
     return result
 }
 
@@ -14762,7 +14803,7 @@ export u_iscntrl(c) {
  * @returns {Integer} 
  */
 export u_isISOControl(c) {
-    result := DllCall("icuuc.dll\u_isISOControl", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isISOControl", Int32, c, Int8)
     return result
 }
 
@@ -14772,7 +14813,7 @@ export u_isISOControl(c) {
  * @returns {Integer} 
  */
 export u_isprint(c) {
-    result := DllCall("icuuc.dll\u_isprint", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isprint", Int32, c, Int8)
     return result
 }
 
@@ -14782,7 +14823,7 @@ export u_isprint(c) {
  * @returns {Integer} 
  */
 export u_isbase(c) {
-    result := DllCall("icuuc.dll\u_isbase", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isbase", Int32, c, Int8)
     return result
 }
 
@@ -14792,7 +14833,7 @@ export u_isbase(c) {
  * @returns {UCharDirection} 
  */
 export u_charDirection(c) {
-    result := DllCall("icuuc.dll\u_charDirection", "int", c, UCharDirection)
+    result := DllCall("icuuc.dll\u_charDirection", Int32, c, UCharDirection)
     return result
 }
 
@@ -14802,7 +14843,7 @@ export u_charDirection(c) {
  * @returns {Integer} 
  */
 export u_isMirrored(c) {
-    result := DllCall("icuuc.dll\u_isMirrored", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isMirrored", Int32, c, Int8)
     return result
 }
 
@@ -14812,7 +14853,7 @@ export u_isMirrored(c) {
  * @returns {Integer} 
  */
 export u_charMirror(c) {
-    result := DllCall("icuuc.dll\u_charMirror", "int", c, Int32)
+    result := DllCall("icuuc.dll\u_charMirror", Int32, c, Int32)
     return result
 }
 
@@ -14822,7 +14863,7 @@ export u_charMirror(c) {
  * @returns {Integer} 
  */
 export u_getBidiPairedBracket(c) {
-    result := DllCall("icuuc.dll\u_getBidiPairedBracket", "int", c, Int32)
+    result := DllCall("icuuc.dll\u_getBidiPairedBracket", Int32, c, Int32)
     return result
 }
 
@@ -14832,7 +14873,7 @@ export u_getBidiPairedBracket(c) {
  * @returns {Integer} 
  */
 export u_charType(c) {
-    result := DllCall("icuuc.dll\u_charType", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_charType", Int32, c, Int8)
     return result
 }
 
@@ -14855,7 +14896,7 @@ export u_enumCharTypes(enumRange, _context) {
  * @returns {Integer} 
  */
 export u_getCombiningClass(c) {
-    result := DllCall("icuuc.dll\u_getCombiningClass", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_getCombiningClass", Int32, c, Int8)
     return result
 }
 
@@ -14865,7 +14906,7 @@ export u_getCombiningClass(c) {
  * @returns {Integer} 
  */
 export u_charDigitValue(c) {
-    result := DllCall("icuuc.dll\u_charDigitValue", "int", c, Int32)
+    result := DllCall("icuuc.dll\u_charDigitValue", Int32, c, Int32)
     return result
 }
 
@@ -14875,7 +14916,7 @@ export u_charDigitValue(c) {
  * @returns {UBlockCode} 
  */
 export ublock_getCode(c) {
-    result := DllCall("icuuc.dll\ublock_getCode", "int", c, UBlockCode)
+    result := DllCall("icuuc.dll\ublock_getCode", Int32, c, UBlockCode)
     return result
 }
 
@@ -14893,7 +14934,7 @@ export u_charName(code, nameChoice, _buffer, bufferLength, pErrorCode) {
 
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_charName", "int", code, UCharNameChoice, nameChoice, "ptr", _buffer, "int", bufferLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\u_charName", Int32, code, UCharNameChoice, nameChoice, "ptr", _buffer, Int32, bufferLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -14928,7 +14969,7 @@ export u_enumCharNames(start, limit, fn, _context, nameChoice, pErrorCode) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\u_enumCharNames", "int", start, "int", limit, fnMarshal, fn, _contextMarshal, _context, UCharNameChoice, nameChoice, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\u_enumCharNames", Int32, start, Int32, limit, fnMarshal, fn, _contextMarshal, _context, UCharNameChoice, nameChoice, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -14962,7 +15003,7 @@ export u_getPropertyEnum(alias) {
  * @returns {PSTR} 
  */
 export u_getPropertyValueName(_property, value, nameChoice) {
-    result := DllCall("icuuc.dll\u_getPropertyValueName", UProperty, _property, "int", value, UPropertyNameChoice, nameChoice, PSTR)
+    result := DllCall("icuuc.dll\u_getPropertyValueName", UProperty, _property, Int32, value, UPropertyNameChoice, nameChoice, PSTR)
     return result
 }
 
@@ -14985,7 +15026,7 @@ export u_getPropertyValueEnum(_property, alias) {
  * @returns {Integer} 
  */
 export u_isIDStart(c) {
-    result := DllCall("icuuc.dll\u_isIDStart", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isIDStart", Int32, c, Int8)
     return result
 }
 
@@ -14995,7 +15036,7 @@ export u_isIDStart(c) {
  * @returns {Integer} 
  */
 export u_isIDPart(c) {
-    result := DllCall("icuuc.dll\u_isIDPart", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isIDPart", Int32, c, Int8)
     return result
 }
 
@@ -15005,7 +15046,7 @@ export u_isIDPart(c) {
  * @returns {Integer} 
  */
 export u_isIDIgnorable(c) {
-    result := DllCall("icuuc.dll\u_isIDIgnorable", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isIDIgnorable", Int32, c, Int8)
     return result
 }
 
@@ -15015,7 +15056,7 @@ export u_isIDIgnorable(c) {
  * @returns {Integer} 
  */
 export u_isJavaIDStart(c) {
-    result := DllCall("icuuc.dll\u_isJavaIDStart", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isJavaIDStart", Int32, c, Int8)
     return result
 }
 
@@ -15025,7 +15066,7 @@ export u_isJavaIDStart(c) {
  * @returns {Integer} 
  */
 export u_isJavaIDPart(c) {
-    result := DllCall("icuuc.dll\u_isJavaIDPart", "int", c, Int8)
+    result := DllCall("icuuc.dll\u_isJavaIDPart", Int32, c, Int8)
     return result
 }
 
@@ -15035,7 +15076,7 @@ export u_isJavaIDPart(c) {
  * @returns {Integer} 
  */
 export u_tolower(c) {
-    result := DllCall("icuuc.dll\u_tolower", "int", c, Int32)
+    result := DllCall("icuuc.dll\u_tolower", Int32, c, Int32)
     return result
 }
 
@@ -15045,7 +15086,7 @@ export u_tolower(c) {
  * @returns {Integer} 
  */
 export u_toupper(c) {
-    result := DllCall("icuuc.dll\u_toupper", "int", c, Int32)
+    result := DllCall("icuuc.dll\u_toupper", Int32, c, Int32)
     return result
 }
 
@@ -15055,7 +15096,7 @@ export u_toupper(c) {
  * @returns {Integer} 
  */
 export u_totitle(c) {
-    result := DllCall("icuuc.dll\u_totitle", "int", c, Int32)
+    result := DllCall("icuuc.dll\u_totitle", Int32, c, Int32)
     return result
 }
 
@@ -15066,7 +15107,7 @@ export u_totitle(c) {
  * @returns {Integer} 
  */
 export u_foldCase(c, options) {
-    result := DllCall("icuuc.dll\u_foldCase", "int", c, "uint", options, Int32)
+    result := DllCall("icuuc.dll\u_foldCase", Int32, c, UInt32, options, Int32)
     return result
 }
 
@@ -15077,7 +15118,7 @@ export u_foldCase(c, options) {
  * @returns {Integer} 
  */
 export u_digit(ch, radix) {
-    result := DllCall("icuuc.dll\u_digit", "int", ch, "char", radix, Int32)
+    result := DllCall("icuuc.dll\u_digit", Int32, ch, Int8, radix, Int32)
     return result
 }
 
@@ -15088,7 +15129,7 @@ export u_digit(ch, radix) {
  * @returns {Integer} 
  */
 export u_forDigit(digit, radix) {
-    result := DllCall("icuuc.dll\u_forDigit", "int", digit, "char", radix, Int32)
+    result := DllCall("icuuc.dll\u_forDigit", Int32, digit, Int8, radix, Int32)
     return result
 }
 
@@ -15101,7 +15142,7 @@ export u_forDigit(digit, radix) {
 export u_charAge(c, versionArray) {
     versionArrayMarshal := versionArray is VarRef ? "char*" : "ptr"
 
-    DllCall("icuuc.dll\u_charAge", "int", c, versionArrayMarshal, versionArray)
+    DllCall("icuuc.dll\u_charAge", Int32, c, versionArrayMarshal, versionArray)
 }
 
 /**
@@ -15127,7 +15168,7 @@ export u_getFC_NFKC_Closure(c, dest, destCapacity, pErrorCode) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_getFC_NFKC_Closure", "int", c, destMarshal, dest, "int", destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\u_getFC_NFKC_Closure", Int32, c, destMarshal, dest, Int32, destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -15150,7 +15191,7 @@ export ubidi_open() {
 export ubidi_openSized(maxLength, maxRunCount, pErrorCode) {
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_openSized", "int", maxLength, "int", maxRunCount, pErrorCodeMarshal, pErrorCode, UBiDi.Ptr)
+    result := DllCall("icuuc.dll\ubidi_openSized", Int32, maxLength, Int32, maxRunCount, pErrorCodeMarshal, pErrorCode, UBiDi.Ptr)
     return result
 }
 
@@ -15174,7 +15215,7 @@ export ubidi_close(pBiDi) {
 export ubidi_setInverse(pBiDi, isInverse) {
     pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_setInverse", pBiDiMarshal, pBiDi, "char", isInverse)
+    DllCall("icuuc.dll\ubidi_setInverse", pBiDiMarshal, pBiDi, Int8, isInverse)
 }
 
 /**
@@ -15198,7 +15239,7 @@ export ubidi_isInverse(pBiDi) {
 export ubidi_orderParagraphsLTR(pBiDi, orderParagraphsLTR) {
     pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_orderParagraphsLTR", pBiDiMarshal, pBiDi, "char", orderParagraphsLTR)
+    DllCall("icuuc.dll\ubidi_orderParagraphsLTR", pBiDiMarshal, pBiDi, Int8, orderParagraphsLTR)
 }
 
 /**
@@ -15246,7 +15287,7 @@ export ubidi_getReorderingMode(pBiDi) {
 export ubidi_setReorderingOptions(pBiDi, reorderingOptions) {
     pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_setReorderingOptions", pBiDiMarshal, pBiDi, "uint", reorderingOptions)
+    DllCall("icuuc.dll\ubidi_setReorderingOptions", pBiDiMarshal, pBiDi, UInt32, reorderingOptions)
 }
 
 /**
@@ -15277,7 +15318,7 @@ export ubidi_setContext(pBiDi, prologue, proLength, epilogue, epiLength, pErrorC
     epilogueMarshal := epilogue is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_setContext", pBiDiMarshal, pBiDi, prologueMarshal, prologue, "int", proLength, epilogueMarshal, epilogue, "int", epiLength, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\ubidi_setContext", pBiDiMarshal, pBiDi, prologueMarshal, prologue, Int32, proLength, epilogueMarshal, epilogue, Int32, epiLength, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -15296,7 +15337,7 @@ export ubidi_setPara(pBiDi, text, length, paraLevel, embeddingLevels, pErrorCode
     embeddingLevelsMarshal := embeddingLevels is VarRef ? "char*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_setPara", pBiDiMarshal, pBiDi, textMarshal, text, "int", length, "char", paraLevel, embeddingLevelsMarshal, embeddingLevels, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\ubidi_setPara", pBiDiMarshal, pBiDi, textMarshal, text, Int32, length, Int8, paraLevel, embeddingLevelsMarshal, embeddingLevels, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -15313,7 +15354,7 @@ export ubidi_setLine(pParaBiDi, start, limit, pLineBiDi, pErrorCode) {
     pLineBiDiMarshal := pLineBiDi is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_setLine", pParaBiDiMarshal, pParaBiDi, "int", start, "int", limit, pLineBiDiMarshal, pLineBiDi, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\ubidi_setLine", pParaBiDiMarshal, pParaBiDi, Int32, start, Int32, limit, pLineBiDiMarshal, pLineBiDi, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -15337,7 +15378,7 @@ export ubidi_getDirection(pBiDi) {
 export ubidi_getBaseDirection(text, length) {
     textMarshal := text is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_getBaseDirection", textMarshal, text, "int", length, UBiDiDirection)
+    result := DllCall("icuuc.dll\ubidi_getBaseDirection", textMarshal, text, Int32, length, UBiDiDirection)
     return result
 }
 
@@ -15406,7 +15447,7 @@ export ubidi_getParagraph(pBiDi, charIndex, pParaStart, pParaLimit, pParaLevel, 
     pParaLevelMarshal := pParaLevel is VarRef ? "char*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_getParagraph", pBiDiMarshal, pBiDi, "int", charIndex, pParaStartMarshal, pParaStart, pParaLimitMarshal, pParaLimit, pParaLevelMarshal, pParaLevel, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ubidi_getParagraph", pBiDiMarshal, pBiDi, Int32, charIndex, pParaStartMarshal, pParaStart, pParaLimitMarshal, pParaLimit, pParaLevelMarshal, pParaLevel, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -15427,7 +15468,7 @@ export ubidi_getParagraphByIndex(pBiDi, paraIndex, pParaStart, pParaLimit, pPara
     pParaLevelMarshal := pParaLevel is VarRef ? "char*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_getParagraphByIndex", pBiDiMarshal, pBiDi, "int", paraIndex, pParaStartMarshal, pParaStart, pParaLimitMarshal, pParaLimit, pParaLevelMarshal, pParaLevel, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\ubidi_getParagraphByIndex", pBiDiMarshal, pBiDi, Int32, paraIndex, pParaStartMarshal, pParaStart, pParaLimitMarshal, pParaLimit, pParaLevelMarshal, pParaLevel, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -15439,7 +15480,7 @@ export ubidi_getParagraphByIndex(pBiDi, paraIndex, pParaStart, pParaLimit, pPara
 export ubidi_getLevelAt(pBiDi, charIndex) {
     pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_getLevelAt", pBiDiMarshal, pBiDi, "int", charIndex, Int8)
+    result := DllCall("icuuc.dll\ubidi_getLevelAt", pBiDiMarshal, pBiDi, Int32, charIndex, Int8)
     return result
 }
 
@@ -15470,7 +15511,7 @@ export ubidi_getLogicalRun(pBiDi, logicalPosition, pLogicalLimit, pLevel) {
     pLogicalLimitMarshal := pLogicalLimit is VarRef ? "int*" : "ptr"
     pLevelMarshal := pLevel is VarRef ? "char*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_getLogicalRun", pBiDiMarshal, pBiDi, "int", logicalPosition, pLogicalLimitMarshal, pLogicalLimit, pLevelMarshal, pLevel)
+    DllCall("icuuc.dll\ubidi_getLogicalRun", pBiDiMarshal, pBiDi, Int32, logicalPosition, pLogicalLimitMarshal, pLogicalLimit, pLevelMarshal, pLevel)
 }
 
 /**
@@ -15500,7 +15541,7 @@ export ubidi_getVisualRun(pBiDi, runIndex, pLogicalStart, pLength) {
     pLogicalStartMarshal := pLogicalStart is VarRef ? "int*" : "ptr"
     pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_getVisualRun", pBiDiMarshal, pBiDi, "int", runIndex, pLogicalStartMarshal, pLogicalStart, pLengthMarshal, pLength, UBiDiDirection)
+    result := DllCall("icuuc.dll\ubidi_getVisualRun", pBiDiMarshal, pBiDi, Int32, runIndex, pLogicalStartMarshal, pLogicalStart, pLengthMarshal, pLength, UBiDiDirection)
     return result
 }
 
@@ -15515,7 +15556,7 @@ export ubidi_getVisualIndex(pBiDi, logicalIndex, pErrorCode) {
     pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_getVisualIndex", pBiDiMarshal, pBiDi, "int", logicalIndex, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ubidi_getVisualIndex", pBiDiMarshal, pBiDi, Int32, logicalIndex, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -15530,7 +15571,7 @@ export ubidi_getLogicalIndex(pBiDi, visualIndex, pErrorCode) {
     pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_getLogicalIndex", pBiDiMarshal, pBiDi, "int", visualIndex, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ubidi_getLogicalIndex", pBiDiMarshal, pBiDi, Int32, visualIndex, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -15575,7 +15616,7 @@ export ubidi_reorderLogical(_levels, length, indexMap) {
     _levelsMarshal := _levels is VarRef ? "char*" : "ptr"
     indexMapMarshal := indexMap is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_reorderLogical", _levelsMarshal, _levels, "int", length, indexMapMarshal, indexMap)
+    DllCall("icuuc.dll\ubidi_reorderLogical", _levelsMarshal, _levels, Int32, length, indexMapMarshal, indexMap)
 }
 
 /**
@@ -15589,7 +15630,7 @@ export ubidi_reorderVisual(_levels, length, indexMap) {
     _levelsMarshal := _levels is VarRef ? "char*" : "ptr"
     indexMapMarshal := indexMap is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_reorderVisual", _levelsMarshal, _levels, "int", length, indexMapMarshal, indexMap)
+    DllCall("icuuc.dll\ubidi_reorderVisual", _levelsMarshal, _levels, Int32, length, indexMapMarshal, indexMap)
 }
 
 /**
@@ -15603,7 +15644,7 @@ export ubidi_invertMap(srcMap, destMap, length) {
     srcMapMarshal := srcMap is VarRef ? "int*" : "ptr"
     destMapMarshal := destMap is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_invertMap", srcMapMarshal, srcMap, destMapMarshal, destMap, "int", length)
+    DllCall("icuuc.dll\ubidi_invertMap", srcMapMarshal, srcMap, destMapMarshal, destMap, Int32, length)
 }
 
 /**
@@ -15639,7 +15680,7 @@ export ubidi_getResultLength(pBiDi) {
 export ubidi_getCustomizedClass(pBiDi, c) {
     pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_getCustomizedClass", pBiDiMarshal, pBiDi, "int", c, UCharDirection)
+    result := DllCall("icuuc.dll\ubidi_getCustomizedClass", pBiDiMarshal, pBiDi, Int32, c, UCharDirection)
     return result
 }
 
@@ -15660,7 +15701,7 @@ export ubidi_setClassCallback(pBiDi, newFn, newContext, oldFn, oldContext, pErro
     oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubidi_setClassCallback", pBiDiMarshal, pBiDi, "ptr", newFn, newContextMarshal, newContext, oldFnMarshal, oldFn, oldContextMarshal, oldContext, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\ubidi_setClassCallback", pBiDiMarshal, pBiDi, UBiDiClassCallback, newFn, newContextMarshal, newContext, oldFnMarshal, oldFn, oldContextMarshal, oldContext, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -15692,7 +15733,7 @@ export ubidi_writeReordered(pBiDi, dest, destSize, options, pErrorCode) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_writeReordered", pBiDiMarshal, pBiDi, destMarshal, dest, "int", destSize, "ushort", options, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ubidi_writeReordered", pBiDiMarshal, pBiDi, destMarshal, dest, Int32, destSize, UInt16, options, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -15711,7 +15752,7 @@ export ubidi_writeReverse(src, srcLength, dest, destSize, options, pErrorCode) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubidi_writeReverse", srcMarshal, src, "int", srcLength, destMarshal, dest, "int", destSize, "ushort", options, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ubidi_writeReverse", srcMarshal, src, Int32, srcLength, destMarshal, dest, Int32, destSize, UInt16, options, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -15737,7 +15778,7 @@ export ubiditransform_transform(pBiDiTransform, src, srcLength, dest, destSize, 
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubiditransform_transform", pBiDiTransformMarshal, pBiDiTransform, srcMarshal, src, "int", srcLength, destMarshal, dest, "int", destSize, "char", inParaLevel, UBiDiOrder, inOrder, "char", outParaLevel, UBiDiOrder, outOrder, UBiDiMirroring, doMirroring, "uint", shapingOptions, pErrorCodeMarshal, pErrorCode, UInt32)
+    result := DllCall("icuuc.dll\ubiditransform_transform", pBiDiTransformMarshal, pBiDiTransform, srcMarshal, src, Int32, srcLength, destMarshal, dest, Int32, destSize, Int8, inParaLevel, UBiDiOrder, inOrder, Int8, outParaLevel, UBiDiOrder, outOrder, UBiDiMirroring, doMirroring, UInt32, shapingOptions, pErrorCodeMarshal, pErrorCode, UInt32)
     return result
 }
 
@@ -15787,7 +15828,7 @@ export utext_openUTF8(ut, s, length, _status) {
 
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\utext_openUTF8", UText.Ptr, ut, "ptr", s, "int64", length, _statusMarshal, _status, UText.Ptr)
+    result := DllCall("icuuc.dll\utext_openUTF8", UText.Ptr, ut, "ptr", s, Int64, length, _statusMarshal, _status, UText.Ptr)
     return result
 }
 
@@ -15803,7 +15844,7 @@ export utext_openUChars(ut, s, length, _status) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\utext_openUChars", UText.Ptr, ut, sMarshal, s, "int64", length, _statusMarshal, _status, UText.Ptr)
+    result := DllCall("icuuc.dll\utext_openUChars", UText.Ptr, ut, sMarshal, s, Int64, length, _statusMarshal, _status, UText.Ptr)
     return result
 }
 
@@ -15819,7 +15860,7 @@ export utext_openUChars(ut, s, length, _status) {
 export utext_clone(dest, src, deep, readOnly, _status) {
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\utext_clone", UText.Ptr, dest, UText.Ptr, src, "char", deep, "char", readOnly, _statusMarshal, _status, UText.Ptr)
+    result := DllCall("icuuc.dll\utext_clone", UText.Ptr, dest, UText.Ptr, src, Int8, deep, Int8, readOnly, _statusMarshal, _status, UText.Ptr)
     return result
 }
 
@@ -15861,7 +15902,7 @@ export utext_isLengthExpensive(ut) {
  * @returns {Integer} 
  */
 export utext_char32At(ut, nativeIndex) {
-    result := DllCall("icuuc.dll\utext_char32At", UText.Ptr, ut, "int64", nativeIndex, Int32)
+    result := DllCall("icuuc.dll\utext_char32At", UText.Ptr, ut, Int64, nativeIndex, Int32)
     return result
 }
 
@@ -15902,7 +15943,7 @@ export utext_previous32(ut) {
  * @returns {Integer} 
  */
 export utext_next32From(ut, nativeIndex) {
-    result := DllCall("icuuc.dll\utext_next32From", UText.Ptr, ut, "int64", nativeIndex, Int32)
+    result := DllCall("icuuc.dll\utext_next32From", UText.Ptr, ut, Int64, nativeIndex, Int32)
     return result
 }
 
@@ -15913,7 +15954,7 @@ export utext_next32From(ut, nativeIndex) {
  * @returns {Integer} 
  */
 export utext_previous32From(ut, nativeIndex) {
-    result := DllCall("icuuc.dll\utext_previous32From", UText.Ptr, ut, "int64", nativeIndex, Int32)
+    result := DllCall("icuuc.dll\utext_previous32From", UText.Ptr, ut, Int64, nativeIndex, Int32)
     return result
 }
 
@@ -15934,7 +15975,7 @@ export utext_getNativeIndex(ut) {
  * @returns {String} Nothing - always returns an empty string
  */
 export utext_setNativeIndex(ut, nativeIndex) {
-    DllCall("icuuc.dll\utext_setNativeIndex", UText.Ptr, ut, "int64", nativeIndex)
+    DllCall("icuuc.dll\utext_setNativeIndex", UText.Ptr, ut, Int64, nativeIndex)
 }
 
 /**
@@ -15944,7 +15985,7 @@ export utext_setNativeIndex(ut, nativeIndex) {
  * @returns {Integer} 
  */
 export utext_moveIndex32(ut, delta) {
-    result := DllCall("icuuc.dll\utext_moveIndex32", UText.Ptr, ut, "int", delta, Int8)
+    result := DllCall("icuuc.dll\utext_moveIndex32", UText.Ptr, ut, Int32, delta, Int8)
     return result
 }
 
@@ -15972,7 +16013,7 @@ export utext_extract(ut, nativeStart, nativeLimit, dest, destCapacity, _status) 
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\utext_extract", UText.Ptr, ut, "int64", nativeStart, "int64", nativeLimit, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\utext_extract", UText.Ptr, ut, Int64, nativeStart, Int64, nativeLimit, destMarshal, dest, Int32, destCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -16010,7 +16051,7 @@ export utext_replace(ut, nativeStart, nativeLimit, replacementText, replacementL
     replacementTextMarshal := replacementText is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\utext_replace", UText.Ptr, ut, "int64", nativeStart, "int64", nativeLimit, replacementTextMarshal, replacementText, "int", replacementLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\utext_replace", UText.Ptr, ut, Int64, nativeStart, Int64, nativeLimit, replacementTextMarshal, replacementText, Int32, replacementLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -16027,7 +16068,7 @@ export utext_replace(ut, nativeStart, nativeLimit, replacementText, replacementL
 export utext_copy(ut, nativeStart, nativeLimit, destIndex, move, _status) {
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\utext_copy", UText.Ptr, ut, "int64", nativeStart, "int64", nativeLimit, "int64", destIndex, "char", move, _statusMarshal, _status)
+    DllCall("icuuc.dll\utext_copy", UText.Ptr, ut, Int64, nativeStart, Int64, nativeLimit, Int64, destIndex, Int8, move, _statusMarshal, _status)
 }
 
 /**
@@ -16049,7 +16090,7 @@ export utext_freeze(ut) {
 export utext_setup(ut, extraSpace, _status) {
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\utext_setup", UText.Ptr, ut, "int", extraSpace, _statusMarshal, _status, UText.Ptr)
+    result := DllCall("icuuc.dll\utext_setup", UText.Ptr, ut, Int32, extraSpace, _statusMarshal, _status, UText.Ptr)
     return result
 }
 
@@ -16069,7 +16110,7 @@ export uset_openEmpty() {
  * @returns {Pointer<USet>} 
  */
 export uset_open(start, end) {
-    result := DllCall("icuuc.dll\uset_open", "int", start, "int", end, USet.Ptr)
+    result := DllCall("icuuc.dll\uset_open", Int32, start, Int32, end, USet.Ptr)
     return result
 }
 
@@ -16084,7 +16125,7 @@ export uset_openPattern(pattern, patternLength, ec) {
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_openPattern", patternMarshal, pattern, "int", patternLength, ecMarshal, ec, USet.Ptr)
+    result := DllCall("icuuc.dll\uset_openPattern", patternMarshal, pattern, Int32, patternLength, ecMarshal, ec, USet.Ptr)
     return result
 }
 
@@ -16100,7 +16141,7 @@ export uset_openPatternOptions(pattern, patternLength, options, ec) {
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_openPatternOptions", patternMarshal, pattern, "int", patternLength, "uint", options, ecMarshal, ec, USet.Ptr)
+    result := DllCall("icuuc.dll\uset_openPatternOptions", patternMarshal, pattern, Int32, patternLength, UInt32, options, ecMarshal, ec, USet.Ptr)
     return result
 }
 
@@ -16172,7 +16213,7 @@ export uset_cloneAsThawed(set) {
 export uset_set(set, start, end) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\uset_set", setMarshal, set, "int", start, "int", end)
+    DllCall("icuuc.dll\uset_set", setMarshal, set, Int32, start, Int32, end)
 }
 
 /**
@@ -16189,7 +16230,7 @@ export uset_applyPattern(set, pattern, patternLength, options, _status) {
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_applyPattern", setMarshal, set, patternMarshal, pattern, "int", patternLength, "uint", options, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\uset_applyPattern", setMarshal, set, patternMarshal, pattern, Int32, patternLength, UInt32, options, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -16205,7 +16246,7 @@ export uset_applyIntPropertyValue(set, prop, value, ec) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\uset_applyIntPropertyValue", setMarshal, set, UProperty, prop, "int", value, ecMarshal, ec)
+    DllCall("icuuc.dll\uset_applyIntPropertyValue", setMarshal, set, UProperty, prop, Int32, value, ecMarshal, ec)
 }
 
 /**
@@ -16224,7 +16265,7 @@ export uset_applyPropertyAlias(set, prop, propLength, value, valueLength, ec) {
     valueMarshal := value is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\uset_applyPropertyAlias", setMarshal, set, propMarshal, prop, "int", propLength, valueMarshal, value, "int", valueLength, ecMarshal, ec)
+    DllCall("icuuc.dll\uset_applyPropertyAlias", setMarshal, set, propMarshal, prop, Int32, propLength, valueMarshal, value, Int32, valueLength, ecMarshal, ec)
 }
 
 /**
@@ -16237,7 +16278,7 @@ export uset_applyPropertyAlias(set, prop, propLength, value, valueLength, ec) {
 export uset_resemblesPattern(pattern, patternLength, pos) {
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_resemblesPattern", patternMarshal, pattern, "int", patternLength, "int", pos, Int8)
+    result := DllCall("icuuc.dll\uset_resemblesPattern", patternMarshal, pattern, Int32, patternLength, Int32, pos, Int8)
     return result
 }
 
@@ -16255,7 +16296,7 @@ export uset_toPattern(set, result, resultCapacity, escapeUnprintable, ec) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_toPattern", setMarshal, set, resultMarshal, result, "int", resultCapacity, "char", escapeUnprintable, ecMarshal, ec, Int32)
+    result := DllCall("icuuc.dll\uset_toPattern", setMarshal, set, resultMarshal, result, Int32, resultCapacity, Int8, escapeUnprintable, ecMarshal, ec, Int32)
     return result
 }
 
@@ -16268,7 +16309,7 @@ export uset_toPattern(set, result, resultCapacity, escapeUnprintable, ec) {
 export uset_add(set, c) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\uset_add", setMarshal, set, "int", c)
+    DllCall("icuuc.dll\uset_add", setMarshal, set, Int32, c)
 }
 
 /**
@@ -16294,7 +16335,7 @@ export uset_addAll(set, additionalSet) {
 export uset_addRange(set, start, end) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\uset_addRange", setMarshal, set, "int", start, "int", end)
+    DllCall("icuuc.dll\uset_addRange", setMarshal, set, Int32, start, Int32, end)
 }
 
 /**
@@ -16308,7 +16349,7 @@ export uset_addString(set, str, strLen) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuuc.dll\uset_addString", setMarshal, set, strMarshal, str, "int", strLen)
+    DllCall("icuuc.dll\uset_addString", setMarshal, set, strMarshal, str, Int32, strLen)
 }
 
 /**
@@ -16322,7 +16363,7 @@ export uset_addAllCodePoints(set, str, strLen) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuuc.dll\uset_addAllCodePoints", setMarshal, set, strMarshal, str, "int", strLen)
+    DllCall("icuuc.dll\uset_addAllCodePoints", setMarshal, set, strMarshal, str, Int32, strLen)
 }
 
 /**
@@ -16334,7 +16375,7 @@ export uset_addAllCodePoints(set, str, strLen) {
 export uset_remove(set, c) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\uset_remove", setMarshal, set, "int", c)
+    DllCall("icuuc.dll\uset_remove", setMarshal, set, Int32, c)
 }
 
 /**
@@ -16347,7 +16388,7 @@ export uset_remove(set, c) {
 export uset_removeRange(set, start, end) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\uset_removeRange", setMarshal, set, "int", start, "int", end)
+    DllCall("icuuc.dll\uset_removeRange", setMarshal, set, Int32, start, Int32, end)
 }
 
 /**
@@ -16361,7 +16402,7 @@ export uset_removeString(set, str, strLen) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuuc.dll\uset_removeString", setMarshal, set, strMarshal, str, "int", strLen)
+    DllCall("icuuc.dll\uset_removeString", setMarshal, set, strMarshal, str, Int32, strLen)
 }
 
 /**
@@ -16375,7 +16416,7 @@ export uset_removeAllCodePoints(set, str, length) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icu.dll\uset_removeAllCodePoints", setMarshal, set, strMarshal, str, "int", length)
+    DllCall("icu.dll\uset_removeAllCodePoints", setMarshal, set, strMarshal, str, Int32, length)
 }
 
 /**
@@ -16401,7 +16442,7 @@ export uset_removeAll(set, removeSet) {
 export uset_retain(set, start, end) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\uset_retain", setMarshal, set, "int", start, "int", end)
+    DllCall("icuuc.dll\uset_retain", setMarshal, set, Int32, start, Int32, end)
 }
 
 /**
@@ -16415,7 +16456,7 @@ export uset_retainString(set, str, length) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icu.dll\uset_retainString", setMarshal, set, strMarshal, str, "int", length)
+    DllCall("icu.dll\uset_retainString", setMarshal, set, strMarshal, str, Int32, length)
 }
 
 /**
@@ -16429,7 +16470,7 @@ export uset_retainAllCodePoints(set, str, length) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icu.dll\uset_retainAllCodePoints", setMarshal, set, strMarshal, str, "int", length)
+    DllCall("icu.dll\uset_retainAllCodePoints", setMarshal, set, strMarshal, str, Int32, length)
 }
 
 /**
@@ -16477,7 +16518,7 @@ export uset_complement(set) {
 export uset_complementRange(set, start, end) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icu.dll\uset_complementRange", setMarshal, set, "int", start, "int", end)
+    DllCall("icu.dll\uset_complementRange", setMarshal, set, Int32, start, Int32, end)
 }
 
 /**
@@ -16491,7 +16532,7 @@ export uset_complementString(set, str, length) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icu.dll\uset_complementString", setMarshal, set, strMarshal, str, "int", length)
+    DllCall("icu.dll\uset_complementString", setMarshal, set, strMarshal, str, Int32, length)
 }
 
 /**
@@ -16505,7 +16546,7 @@ export uset_complementAllCodePoints(set, str, length) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icu.dll\uset_complementAllCodePoints", setMarshal, set, strMarshal, str, "int", length)
+    DllCall("icu.dll\uset_complementAllCodePoints", setMarshal, set, strMarshal, str, Int32, length)
 }
 
 /**
@@ -16541,7 +16582,7 @@ export uset_clear(set) {
 export uset_closeOver(set, attributes) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuuc.dll\uset_closeOver", setMarshal, set, "int", attributes)
+    DllCall("icuuc.dll\uset_closeOver", setMarshal, set, Int32, attributes)
 }
 
 /**
@@ -16588,7 +16629,7 @@ export uset_hasStrings(set) {
 export uset_contains(set, c) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_contains", setMarshal, set, "int", c, Int8)
+    result := DllCall("icuuc.dll\uset_contains", setMarshal, set, Int32, c, Int8)
     return result
 }
 
@@ -16602,7 +16643,7 @@ export uset_contains(set, c) {
 export uset_containsRange(set, start, end) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_containsRange", setMarshal, set, "int", start, "int", end, Int8)
+    result := DllCall("icuuc.dll\uset_containsRange", setMarshal, set, Int32, start, Int32, end, Int8)
     return result
 }
 
@@ -16617,7 +16658,7 @@ export uset_containsString(set, str, strLen) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_containsString", setMarshal, set, strMarshal, str, "int", strLen, Int8)
+    result := DllCall("icuuc.dll\uset_containsString", setMarshal, set, strMarshal, str, Int32, strLen, Int8)
     return result
 }
 
@@ -16630,7 +16671,7 @@ export uset_containsString(set, str, strLen) {
 export uset_indexOf(set, c) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_indexOf", setMarshal, set, "int", c, Int32)
+    result := DllCall("icuuc.dll\uset_indexOf", setMarshal, set, Int32, c, Int32)
     return result
 }
 
@@ -16643,7 +16684,7 @@ export uset_indexOf(set, c) {
 export uset_charAt(set, charIndex) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_charAt", setMarshal, set, "int", charIndex, Int32)
+    result := DllCall("icuuc.dll\uset_charAt", setMarshal, set, Int32, charIndex, Int32)
     return result
 }
 
@@ -16701,7 +16742,7 @@ export uset_getItem(set, itemIndex, start, end, str, strCapacity, ec) {
     strMarshal := str is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_getItem", setMarshal, set, "int", itemIndex, startMarshal, start, endMarshal, end, strMarshal, str, "int", strCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icuuc.dll\uset_getItem", setMarshal, set, Int32, itemIndex, startMarshal, start, endMarshal, end, strMarshal, str, Int32, strCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -16730,7 +16771,7 @@ export uset_containsAllCodePoints(set, str, strLen) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_containsAllCodePoints", setMarshal, set, strMarshal, str, "int", strLen, Int8)
+    result := DllCall("icuuc.dll\uset_containsAllCodePoints", setMarshal, set, strMarshal, str, Int32, strLen, Int8)
     return result
 }
 
@@ -16774,7 +16815,7 @@ export uset_span(set, s, length, spanCondition) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_span", setMarshal, set, sMarshal, s, "int", length, USetSpanCondition, spanCondition, Int32)
+    result := DllCall("icuuc.dll\uset_span", setMarshal, set, sMarshal, s, Int32, length, USetSpanCondition, spanCondition, Int32)
     return result
 }
 
@@ -16790,7 +16831,7 @@ export uset_spanBack(set, s, length, spanCondition) {
     setMarshal := set is VarRef ? "ptr*" : "ptr"
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_spanBack", setMarshal, set, sMarshal, s, "int", length, USetSpanCondition, spanCondition, Int32)
+    result := DllCall("icuuc.dll\uset_spanBack", setMarshal, set, sMarshal, s, Int32, length, USetSpanCondition, spanCondition, Int32)
     return result
 }
 
@@ -16807,7 +16848,7 @@ export uset_spanUTF8(set, s, length, spanCondition) {
 
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_spanUTF8", setMarshal, set, "ptr", s, "int", length, USetSpanCondition, spanCondition, Int32)
+    result := DllCall("icuuc.dll\uset_spanUTF8", setMarshal, set, "ptr", s, Int32, length, USetSpanCondition, spanCondition, Int32)
     return result
 }
 
@@ -16824,7 +16865,7 @@ export uset_spanBackUTF8(set, s, length, spanCondition) {
 
     setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_spanBackUTF8", setMarshal, set, "ptr", s, "int", length, USetSpanCondition, spanCondition, Int32)
+    result := DllCall("icuuc.dll\uset_spanBackUTF8", setMarshal, set, "ptr", s, Int32, length, USetSpanCondition, spanCondition, Int32)
     return result
 }
 
@@ -16855,7 +16896,7 @@ export uset_serialize(set, dest, destCapacity, pErrorCode) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_serialize", setMarshal, set, destMarshal, dest, "int", destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uset_serialize", setMarshal, set, destMarshal, dest, Int32, destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -16869,7 +16910,7 @@ export uset_serialize(set, dest, destCapacity, pErrorCode) {
 export uset_getSerializedSet(fillSet, src, srcLength) {
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_getSerializedSet", USerializedSet.Ptr, fillSet, srcMarshal, src, "int", srcLength, Int8)
+    result := DllCall("icuuc.dll\uset_getSerializedSet", USerializedSet.Ptr, fillSet, srcMarshal, src, Int32, srcLength, Int8)
     return result
 }
 
@@ -16880,7 +16921,7 @@ export uset_getSerializedSet(fillSet, src, srcLength) {
  * @returns {String} Nothing - always returns an empty string
  */
 export uset_setSerializedToOne(fillSet, c) {
-    DllCall("icuuc.dll\uset_setSerializedToOne", USerializedSet.Ptr, fillSet, "int", c)
+    DllCall("icuuc.dll\uset_setSerializedToOne", USerializedSet.Ptr, fillSet, Int32, c)
 }
 
 /**
@@ -16890,7 +16931,7 @@ export uset_setSerializedToOne(fillSet, c) {
  * @returns {Integer} 
  */
 export uset_serializedContains(set, c) {
-    result := DllCall("icuuc.dll\uset_serializedContains", USerializedSet.Ptr, set, "int", c, Int8)
+    result := DllCall("icuuc.dll\uset_serializedContains", USerializedSet.Ptr, set, Int32, c, Int8)
     return result
 }
 
@@ -16916,7 +16957,7 @@ export uset_getSerializedRange(set, rangeIndex, pStart, pEnd) {
     pStartMarshal := pStart is VarRef ? "int*" : "ptr"
     pEndMarshal := pEnd is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uset_getSerializedRange", USerializedSet.Ptr, set, "int", rangeIndex, pStartMarshal, pStart, pEndMarshal, pEnd, Int8)
+    result := DllCall("icuuc.dll\uset_getSerializedRange", USerializedSet.Ptr, set, Int32, rangeIndex, pStartMarshal, pStart, pEndMarshal, pEnd, Int8)
     return result
 }
 
@@ -17041,7 +17082,7 @@ export unorm2_normalize(norm2, src, length, dest, capacity, pErrorCode) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_normalize", norm2Marshal, norm2, srcMarshal, src, "int", length, destMarshal, dest, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\unorm2_normalize", norm2Marshal, norm2, srcMarshal, src, Int32, length, destMarshal, dest, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -17062,7 +17103,7 @@ export unorm2_normalizeSecondAndAppend(norm2, first, firstLength, firstCapacity,
     secondMarshal := second is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_normalizeSecondAndAppend", norm2Marshal, norm2, firstMarshal, first, "int", firstLength, "int", firstCapacity, secondMarshal, second, "int", secondLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\unorm2_normalizeSecondAndAppend", norm2Marshal, norm2, firstMarshal, first, Int32, firstLength, Int32, firstCapacity, secondMarshal, second, Int32, secondLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -17083,7 +17124,7 @@ export unorm2_append(norm2, first, firstLength, firstCapacity, second, secondLen
     secondMarshal := second is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_append", norm2Marshal, norm2, firstMarshal, first, "int", firstLength, "int", firstCapacity, secondMarshal, second, "int", secondLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\unorm2_append", norm2Marshal, norm2, firstMarshal, first, Int32, firstLength, Int32, firstCapacity, secondMarshal, second, Int32, secondLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -17101,7 +17142,7 @@ export unorm2_getDecomposition(norm2, c, decomposition, capacity, pErrorCode) {
     decompositionMarshal := decomposition is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_getDecomposition", norm2Marshal, norm2, "int", c, decompositionMarshal, decomposition, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\unorm2_getDecomposition", norm2Marshal, norm2, Int32, c, decompositionMarshal, decomposition, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -17119,7 +17160,7 @@ export unorm2_getRawDecomposition(norm2, c, decomposition, capacity, pErrorCode)
     decompositionMarshal := decomposition is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_getRawDecomposition", norm2Marshal, norm2, "int", c, decompositionMarshal, decomposition, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\unorm2_getRawDecomposition", norm2Marshal, norm2, Int32, c, decompositionMarshal, decomposition, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -17133,7 +17174,7 @@ export unorm2_getRawDecomposition(norm2, c, decomposition, capacity, pErrorCode)
 export unorm2_composePair(norm2, a, b) {
     norm2Marshal := norm2 is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_composePair", norm2Marshal, norm2, "int", a, "int", b, Int32)
+    result := DllCall("icuuc.dll\unorm2_composePair", norm2Marshal, norm2, Int32, a, Int32, b, Int32)
     return result
 }
 
@@ -17146,7 +17187,7 @@ export unorm2_composePair(norm2, a, b) {
 export unorm2_getCombiningClass(norm2, c) {
     norm2Marshal := norm2 is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_getCombiningClass", norm2Marshal, norm2, "int", c, Int8)
+    result := DllCall("icuuc.dll\unorm2_getCombiningClass", norm2Marshal, norm2, Int32, c, Int8)
     return result
 }
 
@@ -17163,7 +17204,7 @@ export unorm2_isNormalized(norm2, s, length, pErrorCode) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_isNormalized", norm2Marshal, norm2, sMarshal, s, "int", length, pErrorCodeMarshal, pErrorCode, Int8)
+    result := DllCall("icuuc.dll\unorm2_isNormalized", norm2Marshal, norm2, sMarshal, s, Int32, length, pErrorCodeMarshal, pErrorCode, Int8)
     return result
 }
 
@@ -17180,7 +17221,7 @@ export unorm2_quickCheck(norm2, s, length, pErrorCode) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_quickCheck", norm2Marshal, norm2, sMarshal, s, "int", length, pErrorCodeMarshal, pErrorCode, UNormalizationCheckResult)
+    result := DllCall("icuuc.dll\unorm2_quickCheck", norm2Marshal, norm2, sMarshal, s, Int32, length, pErrorCodeMarshal, pErrorCode, UNormalizationCheckResult)
     return result
 }
 
@@ -17197,7 +17238,7 @@ export unorm2_spanQuickCheckYes(norm2, s, length, pErrorCode) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_spanQuickCheckYes", norm2Marshal, norm2, sMarshal, s, "int", length, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\unorm2_spanQuickCheckYes", norm2Marshal, norm2, sMarshal, s, Int32, length, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -17210,7 +17251,7 @@ export unorm2_spanQuickCheckYes(norm2, s, length, pErrorCode) {
 export unorm2_hasBoundaryBefore(norm2, c) {
     norm2Marshal := norm2 is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_hasBoundaryBefore", norm2Marshal, norm2, "int", c, Int8)
+    result := DllCall("icuuc.dll\unorm2_hasBoundaryBefore", norm2Marshal, norm2, Int32, c, Int8)
     return result
 }
 
@@ -17223,7 +17264,7 @@ export unorm2_hasBoundaryBefore(norm2, c) {
 export unorm2_hasBoundaryAfter(norm2, c) {
     norm2Marshal := norm2 is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_hasBoundaryAfter", norm2Marshal, norm2, "int", c, Int8)
+    result := DllCall("icuuc.dll\unorm2_hasBoundaryAfter", norm2Marshal, norm2, Int32, c, Int8)
     return result
 }
 
@@ -17236,7 +17277,7 @@ export unorm2_hasBoundaryAfter(norm2, c) {
 export unorm2_isInert(norm2, c) {
     norm2Marshal := norm2 is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm2_isInert", norm2Marshal, norm2, "int", c, Int8)
+    result := DllCall("icuuc.dll\unorm2_isInert", norm2Marshal, norm2, Int32, c, Int8)
     return result
 }
 
@@ -17255,7 +17296,7 @@ export unorm_compare(s1, length1, s2, length2, options, pErrorCode) {
     s2Marshal := s2 is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\unorm_compare", s1Marshal, s1, "int", length1, s2Marshal, s2, "int", length2, "uint", options, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\unorm_compare", s1Marshal, s1, Int32, length1, s2Marshal, s2, Int32, length2, UInt32, options, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -17273,7 +17314,7 @@ export ucnvsel_open(converterList, converterListSize, excludedCodePoints, whichS
     excludedCodePointsMarshal := excludedCodePoints is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnvsel_open", converterListMarshal, converterList, "int", converterListSize, excludedCodePointsMarshal, excludedCodePoints, UConverterUnicodeSet, whichSet, _statusMarshal, _status, UConverterSelector.Ptr)
+    result := DllCall("icuuc.dll\ucnvsel_open", converterListMarshal, converterList, Int32, converterListSize, excludedCodePointsMarshal, excludedCodePoints, UConverterUnicodeSet, whichSet, _statusMarshal, _status, UConverterSelector.Ptr)
     return result
 }
 
@@ -17299,7 +17340,7 @@ export ucnvsel_openFromSerialized(_buffer, length, _status) {
     _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnvsel_openFromSerialized", _bufferMarshal, _buffer, "int", length, _statusMarshal, _status, UConverterSelector.Ptr)
+    result := DllCall("icuuc.dll\ucnvsel_openFromSerialized", _bufferMarshal, _buffer, Int32, length, _statusMarshal, _status, UConverterSelector.Ptr)
     return result
 }
 
@@ -17316,7 +17357,7 @@ export ucnvsel_serialize(sel, _buffer, bufferCapacity, _status) {
     _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnvsel_serialize", selMarshal, sel, _bufferMarshal, _buffer, "int", bufferCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\ucnvsel_serialize", selMarshal, sel, _bufferMarshal, _buffer, Int32, bufferCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -17333,7 +17374,7 @@ export ucnvsel_selectForString(sel, s, length, _status) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnvsel_selectForString", selMarshal, sel, sMarshal, s, "int", length, _statusMarshal, _status, UEnumeration.Ptr)
+    result := DllCall("icuuc.dll\ucnvsel_selectForString", selMarshal, sel, sMarshal, s, Int32, length, _statusMarshal, _status, UEnumeration.Ptr)
     return result
 }
 
@@ -17351,7 +17392,7 @@ export ucnvsel_selectForUTF8(sel, s, length, _status) {
     selMarshal := sel is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucnvsel_selectForUTF8", selMarshal, sel, "ptr", s, "int", length, _statusMarshal, _status, UEnumeration.Ptr)
+    result := DllCall("icuuc.dll\ucnvsel_selectForUTF8", selMarshal, sel, "ptr", s, Int32, length, _statusMarshal, _status, UEnumeration.Ptr)
     return result
 }
 
@@ -17367,7 +17408,7 @@ export u_charsToUChars(cs, us, length) {
 
     usMarshal := us is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuuc.dll\u_charsToUChars", "ptr", cs, usMarshal, us, "int", length)
+    DllCall("icuuc.dll\u_charsToUChars", "ptr", cs, usMarshal, us, Int32, length)
 }
 
 /**
@@ -17382,7 +17423,7 @@ export u_UCharsToChars(us, cs, length) {
 
     usMarshal := us is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuuc.dll\u_UCharsToChars", usMarshal, us, "ptr", cs, "int", length)
+    DllCall("icuuc.dll\u_UCharsToChars", usMarshal, us, "ptr", cs, Int32, length)
 }
 
 /**
@@ -17406,7 +17447,7 @@ export u_strlen(s) {
 export u_countChar32(s, length) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_countChar32", sMarshal, s, "int", length, Int32)
+    result := DllCall("icuuc.dll\u_countChar32", sMarshal, s, Int32, length, Int32)
     return result
 }
 
@@ -17420,7 +17461,7 @@ export u_countChar32(s, length) {
 export u_strHasMoreChar32Than(s, length, _number) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strHasMoreChar32Than", sMarshal, s, "int", length, "int", _number, Int8)
+    result := DllCall("icuuc.dll\u_strHasMoreChar32Than", sMarshal, s, Int32, length, Int32, _number, Int8)
     return result
 }
 
@@ -17449,7 +17490,7 @@ export u_strncat(dst, src, n) {
     dstMarshal := dst is VarRef ? "ushort*" : "ptr"
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strncat", dstMarshal, dst, srcMarshal, src, "int", n, IntPtr)
+    result := DllCall("icuuc.dll\u_strncat", dstMarshal, dst, srcMarshal, src, Int32, n, IntPtr)
     return result
 }
 
@@ -17479,7 +17520,7 @@ export u_strFindFirst(s, length, substring, subLength) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
     substringMarshal := substring is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFindFirst", sMarshal, s, "int", length, substringMarshal, substring, "int", subLength, IntPtr)
+    result := DllCall("icuuc.dll\u_strFindFirst", sMarshal, s, Int32, length, substringMarshal, substring, Int32, subLength, IntPtr)
     return result
 }
 
@@ -17492,7 +17533,7 @@ export u_strFindFirst(s, length, substring, subLength) {
 export u_strchr(s, c) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strchr", sMarshal, s, "ushort", c, IntPtr)
+    result := DllCall("icuuc.dll\u_strchr", sMarshal, s, UInt16, c, IntPtr)
     return result
 }
 
@@ -17505,7 +17546,7 @@ export u_strchr(s, c) {
 export u_strchr32(s, c) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strchr32", sMarshal, s, "int", c, IntPtr)
+    result := DllCall("icuuc.dll\u_strchr32", sMarshal, s, Int32, c, IntPtr)
     return result
 }
 
@@ -17535,7 +17576,7 @@ export u_strFindLast(s, length, substring, subLength) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
     substringMarshal := substring is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFindLast", sMarshal, s, "int", length, substringMarshal, substring, "int", subLength, IntPtr)
+    result := DllCall("icuuc.dll\u_strFindLast", sMarshal, s, Int32, length, substringMarshal, substring, Int32, subLength, IntPtr)
     return result
 }
 
@@ -17548,7 +17589,7 @@ export u_strFindLast(s, length, substring, subLength) {
 export u_strrchr(s, c) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strrchr", sMarshal, s, "ushort", c, IntPtr)
+    result := DllCall("icuuc.dll\u_strrchr", sMarshal, s, UInt16, c, IntPtr)
     return result
 }
 
@@ -17561,7 +17602,7 @@ export u_strrchr(s, c) {
 export u_strrchr32(s, c) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strrchr32", sMarshal, s, "int", c, IntPtr)
+    result := DllCall("icuuc.dll\u_strrchr32", sMarshal, s, Int32, c, IntPtr)
     return result
 }
 
@@ -17664,7 +17705,7 @@ export u_strCompare(s1, length1, s2, length2, codePointOrder) {
     s1Marshal := s1 is VarRef ? "ushort*" : "ptr"
     s2Marshal := s2 is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strCompare", s1Marshal, s1, "int", length1, s2Marshal, s2, "int", length2, "char", codePointOrder, Int32)
+    result := DllCall("icuuc.dll\u_strCompare", s1Marshal, s1, Int32, length1, s2Marshal, s2, Int32, length2, Int8, codePointOrder, Int32)
     return result
 }
 
@@ -17676,7 +17717,7 @@ export u_strCompare(s1, length1, s2, length2, codePointOrder) {
  * @returns {Integer} 
  */
 export u_strCompareIter(iter1, iter2, codePointOrder) {
-    result := DllCall("icuuc.dll\u_strCompareIter", UCharIterator.Ptr, iter1, UCharIterator.Ptr, iter2, "char", codePointOrder, Int32)
+    result := DllCall("icuuc.dll\u_strCompareIter", UCharIterator.Ptr, iter1, UCharIterator.Ptr, iter2, Int8, codePointOrder, Int32)
     return result
 }
 
@@ -17695,7 +17736,7 @@ export u_strCaseCompare(s1, length1, s2, length2, options, pErrorCode) {
     s2Marshal := s2 is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strCaseCompare", s1Marshal, s1, "int", length1, s2Marshal, s2, "int", length2, "uint", options, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\u_strCaseCompare", s1Marshal, s1, Int32, length1, s2Marshal, s2, Int32, length2, UInt32, options, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -17710,7 +17751,7 @@ export u_strncmp(ucs1, ucs2, n) {
     ucs1Marshal := ucs1 is VarRef ? "ushort*" : "ptr"
     ucs2Marshal := ucs2 is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strncmp", ucs1Marshal, ucs1, ucs2Marshal, ucs2, "int", n, Int32)
+    result := DllCall("icuuc.dll\u_strncmp", ucs1Marshal, ucs1, ucs2Marshal, ucs2, Int32, n, Int32)
     return result
 }
 
@@ -17725,7 +17766,7 @@ export u_strncmpCodePointOrder(s1, s2, n) {
     s1Marshal := s1 is VarRef ? "ushort*" : "ptr"
     s2Marshal := s2 is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strncmpCodePointOrder", s1Marshal, s1, s2Marshal, s2, "int", n, Int32)
+    result := DllCall("icuuc.dll\u_strncmpCodePointOrder", s1Marshal, s1, s2Marshal, s2, Int32, n, Int32)
     return result
 }
 
@@ -17740,7 +17781,7 @@ export u_strcasecmp(s1, s2, options) {
     s1Marshal := s1 is VarRef ? "ushort*" : "ptr"
     s2Marshal := s2 is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strcasecmp", s1Marshal, s1, s2Marshal, s2, "uint", options, Int32)
+    result := DllCall("icuuc.dll\u_strcasecmp", s1Marshal, s1, s2Marshal, s2, UInt32, options, Int32)
     return result
 }
 
@@ -17756,7 +17797,7 @@ export u_strncasecmp(s1, s2, n, options) {
     s1Marshal := s1 is VarRef ? "ushort*" : "ptr"
     s2Marshal := s2 is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strncasecmp", s1Marshal, s1, s2Marshal, s2, "int", n, "uint", options, Int32)
+    result := DllCall("icuuc.dll\u_strncasecmp", s1Marshal, s1, s2Marshal, s2, Int32, n, UInt32, options, Int32)
     return result
 }
 
@@ -17772,7 +17813,7 @@ export u_memcasecmp(s1, s2, length, options) {
     s1Marshal := s1 is VarRef ? "ushort*" : "ptr"
     s2Marshal := s2 is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memcasecmp", s1Marshal, s1, s2Marshal, s2, "int", length, "uint", options, Int32)
+    result := DllCall("icuuc.dll\u_memcasecmp", s1Marshal, s1, s2Marshal, s2, Int32, length, UInt32, options, Int32)
     return result
 }
 
@@ -17801,7 +17842,7 @@ export u_strncpy(dst, src, n) {
     dstMarshal := dst is VarRef ? "ushort*" : "ptr"
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strncpy", dstMarshal, dst, srcMarshal, src, "int", n, IntPtr)
+    result := DllCall("icuuc.dll\u_strncpy", dstMarshal, dst, srcMarshal, src, Int32, n, IntPtr)
     return result
 }
 
@@ -17832,7 +17873,7 @@ export u_uastrncpy(dst, src, n) {
 
     dstMarshal := dst is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_uastrncpy", dstMarshal, dst, "ptr", src, "int", n, IntPtr)
+    result := DllCall("icuuc.dll\u_uastrncpy", dstMarshal, dst, "ptr", src, Int32, n, IntPtr)
     return result
 }
 
@@ -17863,7 +17904,7 @@ export u_austrncpy(dst, src, n) {
 
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_austrncpy", "ptr", dst, srcMarshal, src, "int", n, PSTR)
+    result := DllCall("icuuc.dll\u_austrncpy", "ptr", dst, srcMarshal, src, Int32, n, PSTR)
     return result
 }
 
@@ -17878,7 +17919,7 @@ export u_memcpy(dest, src, count) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memcpy", destMarshal, dest, srcMarshal, src, "int", count, IntPtr)
+    result := DllCall("icuuc.dll\u_memcpy", destMarshal, dest, srcMarshal, src, Int32, count, IntPtr)
     return result
 }
 
@@ -17893,7 +17934,7 @@ export u_memmove(dest, src, count) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memmove", destMarshal, dest, srcMarshal, src, "int", count, IntPtr)
+    result := DllCall("icuuc.dll\u_memmove", destMarshal, dest, srcMarshal, src, Int32, count, IntPtr)
     return result
 }
 
@@ -17907,7 +17948,7 @@ export u_memmove(dest, src, count) {
 export u_memset(dest, c, count) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memset", destMarshal, dest, "ushort", c, "int", count, IntPtr)
+    result := DllCall("icuuc.dll\u_memset", destMarshal, dest, UInt16, c, Int32, count, IntPtr)
     return result
 }
 
@@ -17922,7 +17963,7 @@ export u_memcmp(buf1, buf2, count) {
     buf1Marshal := buf1 is VarRef ? "ushort*" : "ptr"
     buf2Marshal := buf2 is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memcmp", buf1Marshal, buf1, buf2Marshal, buf2, "int", count, Int32)
+    result := DllCall("icuuc.dll\u_memcmp", buf1Marshal, buf1, buf2Marshal, buf2, Int32, count, Int32)
     return result
 }
 
@@ -17937,7 +17978,7 @@ export u_memcmpCodePointOrder(s1, s2, count) {
     s1Marshal := s1 is VarRef ? "ushort*" : "ptr"
     s2Marshal := s2 is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memcmpCodePointOrder", s1Marshal, s1, s2Marshal, s2, "int", count, Int32)
+    result := DllCall("icuuc.dll\u_memcmpCodePointOrder", s1Marshal, s1, s2Marshal, s2, Int32, count, Int32)
     return result
 }
 
@@ -17951,7 +17992,7 @@ export u_memcmpCodePointOrder(s1, s2, count) {
 export u_memchr(s, c, count) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memchr", sMarshal, s, "ushort", c, "int", count, IntPtr)
+    result := DllCall("icuuc.dll\u_memchr", sMarshal, s, UInt16, c, Int32, count, IntPtr)
     return result
 }
 
@@ -17965,7 +18006,7 @@ export u_memchr(s, c, count) {
 export u_memchr32(s, c, count) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memchr32", sMarshal, s, "int", c, "int", count, IntPtr)
+    result := DllCall("icuuc.dll\u_memchr32", sMarshal, s, Int32, c, Int32, count, IntPtr)
     return result
 }
 
@@ -17979,7 +18020,7 @@ export u_memchr32(s, c, count) {
 export u_memrchr(s, c, count) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memrchr", sMarshal, s, "ushort", c, "int", count, IntPtr)
+    result := DllCall("icuuc.dll\u_memrchr", sMarshal, s, UInt16, c, Int32, count, IntPtr)
     return result
 }
 
@@ -17993,7 +18034,7 @@ export u_memrchr(s, c, count) {
 export u_memrchr32(s, c, count) {
     sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_memrchr32", sMarshal, s, "int", c, "int", count, IntPtr)
+    result := DllCall("icuuc.dll\u_memrchr32", sMarshal, s, Int32, c, Int32, count, IntPtr)
     return result
 }
 
@@ -18009,7 +18050,7 @@ export u_unescape(src, dest, destCapacity) {
 
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_unescape", "ptr", src, destMarshal, dest, "int", destCapacity, Int32)
+    result := DllCall("icuuc.dll\u_unescape", "ptr", src, destMarshal, dest, Int32, destCapacity, Int32)
     return result
 }
 
@@ -18025,7 +18066,7 @@ export u_unescapeAt(charAt, offset, length, _context) {
     offsetMarshal := offset is VarRef ? "int*" : "ptr"
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("icuuc.dll\u_unescapeAt", "ptr", charAt, offsetMarshal, offset, "int", length, _contextMarshal, _context, Int32)
+    result := DllCall("icuuc.dll\u_unescapeAt", UNESCAPE_CHAR_AT, charAt, offsetMarshal, offset, Int32, length, _contextMarshal, _context, Int32)
     return result
 }
 
@@ -18046,7 +18087,7 @@ export u_strToUpper(dest, destCapacity, src, srcLength, locale, pErrorCode) {
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strToUpper", destMarshal, dest, "int", destCapacity, srcMarshal, src, "int", srcLength, "ptr", locale, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\u_strToUpper", destMarshal, dest, Int32, destCapacity, srcMarshal, src, Int32, srcLength, "ptr", locale, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18067,7 +18108,7 @@ export u_strToLower(dest, destCapacity, src, srcLength, locale, pErrorCode) {
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strToLower", destMarshal, dest, "int", destCapacity, srcMarshal, src, "int", srcLength, "ptr", locale, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\u_strToLower", destMarshal, dest, Int32, destCapacity, srcMarshal, src, Int32, srcLength, "ptr", locale, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18090,7 +18131,7 @@ export u_strToTitle(dest, destCapacity, src, srcLength, titleIter, locale, pErro
     titleIterMarshal := titleIter is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strToTitle", destMarshal, dest, "int", destCapacity, srcMarshal, src, "int", srcLength, titleIterMarshal, titleIter, "ptr", locale, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\u_strToTitle", destMarshal, dest, Int32, destCapacity, srcMarshal, src, Int32, srcLength, titleIterMarshal, titleIter, "ptr", locale, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18109,7 +18150,7 @@ export u_strFoldCase(dest, destCapacity, src, srcLength, options, pErrorCode) {
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFoldCase", destMarshal, dest, "int", destCapacity, srcMarshal, src, "int", srcLength, "uint", options, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\u_strFoldCase", destMarshal, dest, Int32, destCapacity, srcMarshal, src, Int32, srcLength, UInt32, options, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18130,7 +18171,7 @@ export u_strToWCS(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strToWCS", "ptr", dest, "int", destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, "int", srcLength, pErrorCodeMarshal, pErrorCode, PWSTR)
+    result := DllCall("icuuc.dll\u_strToWCS", "ptr", dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, PWSTR)
     return result
 }
 
@@ -18151,7 +18192,7 @@ export u_strFromWCS(dest, destCapacity, pDestLength, src, srcLength, pErrorCode)
     pDestLengthMarshal := pDestLength is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFromWCS", destMarshal, dest, "int", destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, "int", srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuuc.dll\u_strFromWCS", destMarshal, dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -18172,7 +18213,7 @@ export u_strToUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) 
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strToUTF8", "ptr", dest, "int", destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, "int", srcLength, pErrorCodeMarshal, pErrorCode, PSTR)
+    result := DllCall("icuuc.dll\u_strToUTF8", "ptr", dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, PSTR)
     return result
 }
 
@@ -18193,7 +18234,7 @@ export u_strFromUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode
     pDestLengthMarshal := pDestLength is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFromUTF8", destMarshal, dest, "int", destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, "int", srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuuc.dll\u_strFromUTF8", destMarshal, dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -18217,7 +18258,7 @@ export u_strToUTF8WithSub(dest, destCapacity, pDestLength, src, srcLength, subch
     pNumSubstitutionsMarshal := pNumSubstitutions is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strToUTF8WithSub", "ptr", dest, "int", destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, "int", srcLength, "int", subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, PSTR)
+    result := DllCall("icuuc.dll\u_strToUTF8WithSub", "ptr", dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, Int32, srcLength, Int32, subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, PSTR)
     return result
 }
 
@@ -18241,7 +18282,7 @@ export u_strFromUTF8WithSub(dest, destCapacity, pDestLength, src, srcLength, sub
     pNumSubstitutionsMarshal := pNumSubstitutions is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFromUTF8WithSub", destMarshal, dest, "int", destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, "int", srcLength, "int", subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuuc.dll\u_strFromUTF8WithSub", destMarshal, dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, Int32, srcLength, Int32, subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -18262,7 +18303,7 @@ export u_strFromUTF8Lenient(dest, destCapacity, pDestLength, src, srcLength, pEr
     pDestLengthMarshal := pDestLength is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFromUTF8Lenient", destMarshal, dest, "int", destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, "int", srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuuc.dll\u_strFromUTF8Lenient", destMarshal, dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -18282,7 +18323,7 @@ export u_strToUTF32(dest, destCapacity, pDestLength, src, srcLength, pErrorCode)
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strToUTF32", destMarshal, dest, "int", destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, "int", srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuuc.dll\u_strToUTF32", destMarshal, dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -18302,7 +18343,7 @@ export u_strFromUTF32(dest, destCapacity, pDestLength, src, srcLength, pErrorCod
     srcMarshal := src is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFromUTF32", destMarshal, dest, "int", destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, "int", srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuuc.dll\u_strFromUTF32", destMarshal, dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -18325,7 +18366,7 @@ export u_strToUTF32WithSub(dest, destCapacity, pDestLength, src, srcLength, subc
     pNumSubstitutionsMarshal := pNumSubstitutions is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strToUTF32WithSub", destMarshal, dest, "int", destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, "int", srcLength, "int", subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuuc.dll\u_strToUTF32WithSub", destMarshal, dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, Int32, srcLength, Int32, subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -18348,7 +18389,7 @@ export u_strFromUTF32WithSub(dest, destCapacity, pDestLength, src, srcLength, su
     pNumSubstitutionsMarshal := pNumSubstitutions is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFromUTF32WithSub", destMarshal, dest, "int", destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, "int", srcLength, "int", subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuuc.dll\u_strFromUTF32WithSub", destMarshal, dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, Int32, srcLength, Int32, subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -18369,7 +18410,7 @@ export u_strToJavaModifiedUTF8(dest, destCapacity, pDestLength, src, srcLength, 
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strToJavaModifiedUTF8", "ptr", dest, "int", destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, "int", srcLength, pErrorCodeMarshal, pErrorCode, PSTR)
+    result := DllCall("icuuc.dll\u_strToJavaModifiedUTF8", "ptr", dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, srcMarshal, src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, PSTR)
     return result
 }
 
@@ -18393,7 +18434,7 @@ export u_strFromJavaModifiedUTF8WithSub(dest, destCapacity, pDestLength, src, sr
     pNumSubstitutionsMarshal := pNumSubstitutions is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\u_strFromJavaModifiedUTF8WithSub", destMarshal, dest, "int", destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, "int", srcLength, "int", subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuuc.dll\u_strFromJavaModifiedUTF8WithSub", destMarshal, dest, Int32, destCapacity, pDestLengthMarshal, pDestLength, "ptr", src, Int32, srcLength, Int32, subchar, pNumSubstitutionsMarshal, pNumSubstitutions, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -18409,7 +18450,7 @@ export ucasemap_open(locale, options, pErrorCode) {
 
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucasemap_open", "ptr", locale, "uint", options, pErrorCodeMarshal, pErrorCode, UCaseMap.Ptr)
+    result := DllCall("icuuc.dll\ucasemap_open", "ptr", locale, UInt32, options, pErrorCodeMarshal, pErrorCode, UCaseMap.Ptr)
     return result
 }
 
@@ -18475,7 +18516,7 @@ export ucasemap_setOptions(csm, options, pErrorCode) {
     csmMarshal := csm is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ucasemap_setOptions", csmMarshal, csm, "uint", options, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuuc.dll\ucasemap_setOptions", csmMarshal, csm, UInt32, options, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -18521,7 +18562,7 @@ export ucasemap_toTitle(csm, dest, destCapacity, src, srcLength, pErrorCode) {
     srcMarshal := src is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucasemap_toTitle", csmMarshal, csm, destMarshal, dest, "int", destCapacity, srcMarshal, src, "int", srcLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucasemap_toTitle", csmMarshal, csm, destMarshal, dest, Int32, destCapacity, srcMarshal, src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18542,7 +18583,7 @@ export ucasemap_utf8ToLower(csm, dest, destCapacity, src, srcLength, pErrorCode)
     csmMarshal := csm is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucasemap_utf8ToLower", csmMarshal, csm, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucasemap_utf8ToLower", csmMarshal, csm, "ptr", dest, Int32, destCapacity, "ptr", src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18563,7 +18604,7 @@ export ucasemap_utf8ToUpper(csm, dest, destCapacity, src, srcLength, pErrorCode)
     csmMarshal := csm is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucasemap_utf8ToUpper", csmMarshal, csm, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucasemap_utf8ToUpper", csmMarshal, csm, "ptr", dest, Int32, destCapacity, "ptr", src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18584,7 +18625,7 @@ export ucasemap_utf8ToTitle(csm, dest, destCapacity, src, srcLength, pErrorCode)
     csmMarshal := csm is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucasemap_utf8ToTitle", csmMarshal, csm, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucasemap_utf8ToTitle", csmMarshal, csm, "ptr", dest, Int32, destCapacity, "ptr", src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18605,7 +18646,7 @@ export ucasemap_utf8FoldCase(csm, dest, destCapacity, src, srcLength, pErrorCode
     csmMarshal := csm is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ucasemap_utf8FoldCase", csmMarshal, csm, "ptr", dest, "int", destCapacity, "ptr", src, "int", srcLength, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\ucasemap_utf8FoldCase", csmMarshal, csm, "ptr", dest, Int32, destCapacity, "ptr", src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18668,7 +18709,7 @@ export usprep_prepare(prep, src, srcLength, dest, destCapacity, options, parseEr
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\usprep_prepare", prepMarshal, prep, srcMarshal, src, "int", srcLength, destMarshal, dest, "int", destCapacity, "int", options, UParseError.Ptr, parseError, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\usprep_prepare", prepMarshal, prep, srcMarshal, src, Int32, srcLength, destMarshal, dest, Int32, destCapacity, Int32, options, UParseError.Ptr, parseError, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -18681,7 +18722,7 @@ export usprep_prepare(prep, src, srcLength, dest, destCapacity, options, parseEr
 export uidna_openUTS46(options, pErrorCode) {
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uidna_openUTS46", "uint", options, pErrorCodeMarshal, pErrorCode, UIDNA.Ptr)
+    result := DllCall("icuuc.dll\uidna_openUTS46", UInt32, options, pErrorCodeMarshal, pErrorCode, UIDNA.Ptr)
     return result
 }
 
@@ -18713,7 +18754,7 @@ export uidna_labelToASCII(idna, label, length, dest, capacity, pInfo, pErrorCode
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uidna_labelToASCII", idnaMarshal, idna, labelMarshal, label, "int", length, destMarshal, dest, "int", capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uidna_labelToASCII", idnaMarshal, idna, labelMarshal, label, Int32, length, destMarshal, dest, Int32, capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18734,7 +18775,7 @@ export uidna_labelToUnicode(idna, label, length, dest, capacity, pInfo, pErrorCo
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uidna_labelToUnicode", idnaMarshal, idna, labelMarshal, label, "int", length, destMarshal, dest, "int", capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uidna_labelToUnicode", idnaMarshal, idna, labelMarshal, label, Int32, length, destMarshal, dest, Int32, capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18755,7 +18796,7 @@ export uidna_nameToASCII(idna, name, length, dest, capacity, pInfo, pErrorCode) 
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uidna_nameToASCII", idnaMarshal, idna, nameMarshal, name, "int", length, destMarshal, dest, "int", capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uidna_nameToASCII", idnaMarshal, idna, nameMarshal, name, Int32, length, destMarshal, dest, Int32, capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18776,7 +18817,7 @@ export uidna_nameToUnicode(idna, name, length, dest, capacity, pInfo, pErrorCode
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uidna_nameToUnicode", idnaMarshal, idna, nameMarshal, name, "int", length, destMarshal, dest, "int", capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uidna_nameToUnicode", idnaMarshal, idna, nameMarshal, name, Int32, length, destMarshal, dest, Int32, capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18798,7 +18839,7 @@ export uidna_labelToASCII_UTF8(idna, label, length, dest, capacity, pInfo, pErro
     idnaMarshal := idna is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uidna_labelToASCII_UTF8", idnaMarshal, idna, "ptr", label, "int", length, "ptr", dest, "int", capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uidna_labelToASCII_UTF8", idnaMarshal, idna, "ptr", label, Int32, length, "ptr", dest, Int32, capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18820,7 +18861,7 @@ export uidna_labelToUnicodeUTF8(idna, label, length, dest, capacity, pInfo, pErr
     idnaMarshal := idna is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uidna_labelToUnicodeUTF8", idnaMarshal, idna, "ptr", label, "int", length, "ptr", dest, "int", capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uidna_labelToUnicodeUTF8", idnaMarshal, idna, "ptr", label, Int32, length, "ptr", dest, Int32, capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18842,7 +18883,7 @@ export uidna_nameToASCII_UTF8(idna, name, length, dest, capacity, pInfo, pErrorC
     idnaMarshal := idna is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uidna_nameToASCII_UTF8", idnaMarshal, idna, "ptr", name, "int", length, "ptr", dest, "int", capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uidna_nameToASCII_UTF8", idnaMarshal, idna, "ptr", name, Int32, length, "ptr", dest, Int32, capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18864,7 +18905,7 @@ export uidna_nameToUnicodeUTF8(idna, name, length, dest, capacity, pInfo, pError
     idnaMarshal := idna is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\uidna_nameToUnicodeUTF8", idnaMarshal, idna, "ptr", name, "int", length, "ptr", dest, "int", capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuuc.dll\uidna_nameToUnicodeUTF8", idnaMarshal, idna, "ptr", name, Int32, length, "ptr", dest, Int32, capacity, UIDNAInfo.Ptr, pInfo, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -18883,7 +18924,7 @@ export ubrk_open(type, locale, text, textLength, _status) {
     textMarshal := text is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubrk_open", UBreakIteratorType, type, "ptr", locale, textMarshal, text, "int", textLength, _statusMarshal, _status, UBreakIterator.Ptr)
+    result := DllCall("icuuc.dll\ubrk_open", UBreakIteratorType, type, "ptr", locale, textMarshal, text, Int32, textLength, _statusMarshal, _status, UBreakIterator.Ptr)
     return result
 }
 
@@ -18902,7 +18943,7 @@ export ubrk_openRules(rules, rulesLength, text, textLength, parseErr, _status) {
     textMarshal := text is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubrk_openRules", rulesMarshal, rules, "int", rulesLength, textMarshal, text, "int", textLength, UParseError.Ptr, parseErr, _statusMarshal, _status, UBreakIterator.Ptr)
+    result := DllCall("icuuc.dll\ubrk_openRules", rulesMarshal, rules, Int32, rulesLength, textMarshal, text, Int32, textLength, UParseError.Ptr, parseErr, _statusMarshal, _status, UBreakIterator.Ptr)
     return result
 }
 
@@ -18920,7 +18961,7 @@ export ubrk_openBinaryRules(binaryRules, rulesLength, text, textLength, _status)
     textMarshal := text is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubrk_openBinaryRules", binaryRulesMarshal, binaryRules, "int", rulesLength, textMarshal, text, "int", textLength, _statusMarshal, _status, UBreakIterator.Ptr)
+    result := DllCall("icuuc.dll\ubrk_openBinaryRules", binaryRulesMarshal, binaryRules, Int32, rulesLength, textMarshal, text, Int32, textLength, _statusMarshal, _status, UBreakIterator.Ptr)
     return result
 }
 
@@ -18980,7 +19021,7 @@ export ubrk_setText(bi, text, textLength, _status) {
     textMarshal := text is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuuc.dll\ubrk_setText", biMarshal, bi, textMarshal, text, "int", textLength, _statusMarshal, _status)
+    DllCall("icuuc.dll\ubrk_setText", biMarshal, bi, textMarshal, text, Int32, textLength, _statusMarshal, _status)
 }
 
 /**
@@ -19066,7 +19107,7 @@ export ubrk_last(bi) {
 export ubrk_preceding(bi, offset) {
     biMarshal := bi is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubrk_preceding", biMarshal, bi, "int", offset, Int32)
+    result := DllCall("icuuc.dll\ubrk_preceding", biMarshal, bi, Int32, offset, Int32)
     return result
 }
 
@@ -19079,7 +19120,7 @@ export ubrk_preceding(bi, offset) {
 export ubrk_following(bi, offset) {
     biMarshal := bi is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubrk_following", biMarshal, bi, "int", offset, Int32)
+    result := DllCall("icuuc.dll\ubrk_following", biMarshal, bi, Int32, offset, Int32)
     return result
 }
 
@@ -19089,7 +19130,7 @@ export ubrk_following(bi, offset) {
  * @returns {PSTR} 
  */
 export ubrk_getAvailable(index) {
-    result := DllCall("icuuc.dll\ubrk_getAvailable", "int", index, PSTR)
+    result := DllCall("icuuc.dll\ubrk_getAvailable", Int32, index, PSTR)
     return result
 }
 
@@ -19111,7 +19152,7 @@ export ubrk_countAvailable() {
 export ubrk_isBoundary(bi, offset) {
     biMarshal := bi is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubrk_isBoundary", biMarshal, bi, "int", offset, Int8)
+    result := DllCall("icuuc.dll\ubrk_isBoundary", biMarshal, bi, Int32, offset, Int8)
     return result
 }
 
@@ -19140,7 +19181,7 @@ export ubrk_getRuleStatusVec(bi, fillInVec, capacity, _status) {
     fillInVecMarshal := fillInVec is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubrk_getRuleStatusVec", biMarshal, bi, fillInVecMarshal, fillInVec, "int", capacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\ubrk_getRuleStatusVec", biMarshal, bi, fillInVecMarshal, fillInVec, Int32, capacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -19186,7 +19227,7 @@ export ubrk_getBinaryRules(bi, binaryRules, rulesCapacity, _status) {
     binaryRulesMarshal := binaryRules is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ubrk_getBinaryRules", biMarshal, bi, binaryRulesMarshal, binaryRules, "int", rulesCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\ubrk_getBinaryRules", biMarshal, bi, binaryRulesMarshal, binaryRules, Int32, rulesCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -19259,7 +19300,7 @@ export ucal_getDefaultTimeZone(result, resultCapacity, ec) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_getDefaultTimeZone", resultMarshal, result, "int", resultCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icuin.dll\ucal_getDefaultTimeZone", resultMarshal, result, Int32, resultCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -19287,7 +19328,7 @@ export ucal_getHostTimeZone(result, resultCapacity, ec) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\ucal_getHostTimeZone", resultMarshal, result, "int", resultCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icu.dll\ucal_getHostTimeZone", resultMarshal, result, Int32, resultCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -19329,7 +19370,7 @@ export ucal_open(zoneID, len, locale, type, _status) {
     zoneIDMarshal := zoneID is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_open", zoneIDMarshal, zoneID, "int", len, "ptr", locale, UCalendarType, type, _statusMarshal, _status, IntPtr)
+    result := DllCall("icuin.dll\ucal_open", zoneIDMarshal, zoneID, Int32, len, "ptr", locale, UCalendarType, type, _statusMarshal, _status, IntPtr)
     return result
 }
 
@@ -19371,7 +19412,7 @@ export ucal_setTimeZone(_cal, zoneID, len, _status) {
     zoneIDMarshal := zoneID is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucal_setTimeZone", _calMarshal, _cal, zoneIDMarshal, zoneID, "int", len, _statusMarshal, _status)
+    DllCall("icuin.dll\ucal_setTimeZone", _calMarshal, _cal, zoneIDMarshal, zoneID, Int32, len, _statusMarshal, _status)
 }
 
 /**
@@ -19387,7 +19428,7 @@ export ucal_getTimeZoneID(_cal, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_getTimeZoneID", _calMarshal, _cal, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucal_getTimeZoneID", _calMarshal, _cal, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -19408,7 +19449,7 @@ export ucal_getTimeZoneDisplayName(_cal, type, locale, result, resultLength, _st
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_getTimeZoneDisplayName", _calMarshal, _cal, UCalendarDisplayNameType, type, "ptr", locale, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucal_getTimeZoneDisplayName", _calMarshal, _cal, UCalendarDisplayNameType, type, "ptr", locale, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -19437,7 +19478,7 @@ export ucal_setGregorianChange(_cal, date, pErrorCode) {
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucal_setGregorianChange", _calMarshal, _cal, "double", date, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuin.dll\ucal_setGregorianChange", _calMarshal, _cal, Float64, date, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -19477,7 +19518,7 @@ export ucal_getAttribute(_cal, attr) {
 export ucal_setAttribute(_cal, attr, newValue) {
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuin.dll\ucal_setAttribute", _calMarshal, _cal, UCalendarAttribute, attr, "int", newValue)
+    DllCall("icuin.dll\ucal_setAttribute", _calMarshal, _cal, UCalendarAttribute, attr, Int32, newValue)
 }
 
 /**
@@ -19486,7 +19527,7 @@ export ucal_setAttribute(_cal, attr, newValue) {
  * @returns {PSTR} 
  */
 export ucal_getAvailable(localeIndex) {
-    result := DllCall("icuin.dll\ucal_getAvailable", "int", localeIndex, PSTR)
+    result := DllCall("icuin.dll\ucal_getAvailable", Int32, localeIndex, PSTR)
     return result
 }
 
@@ -19524,7 +19565,7 @@ export ucal_setMillis(_cal, _dateTime, _status) {
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucal_setMillis", _calMarshal, _cal, "double", _dateTime, _statusMarshal, _status)
+    DllCall("icuin.dll\ucal_setMillis", _calMarshal, _cal, Float64, _dateTime, _statusMarshal, _status)
 }
 
 /**
@@ -19540,7 +19581,7 @@ export ucal_setDate(_cal, year, month, date, _status) {
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucal_setDate", _calMarshal, _cal, "int", year, "int", month, "int", date, _statusMarshal, _status)
+    DllCall("icuin.dll\ucal_setDate", _calMarshal, _cal, Int32, year, Int32, month, Int32, date, _statusMarshal, _status)
 }
 
 /**
@@ -19559,7 +19600,7 @@ export ucal_setDateTime(_cal, year, month, date, hour, minute, second, _status) 
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucal_setDateTime", _calMarshal, _cal, "int", year, "int", month, "int", date, "int", hour, "int", minute, "int", second, _statusMarshal, _status)
+    DllCall("icuin.dll\ucal_setDateTime", _calMarshal, _cal, Int32, year, Int32, month, Int32, date, Int32, hour, Int32, minute, Int32, second, _statusMarshal, _status)
 }
 
 /**
@@ -19588,7 +19629,7 @@ export ucal_add(_cal, field, amount, _status) {
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucal_add", _calMarshal, _cal, UCalendarDateFields, field, "int", amount, _statusMarshal, _status)
+    DllCall("icuin.dll\ucal_add", _calMarshal, _cal, UCalendarDateFields, field, Int32, amount, _statusMarshal, _status)
 }
 
 /**
@@ -19603,7 +19644,7 @@ export ucal_roll(_cal, field, amount, _status) {
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucal_roll", _calMarshal, _cal, UCalendarDateFields, field, "int", amount, _statusMarshal, _status)
+    DllCall("icuin.dll\ucal_roll", _calMarshal, _cal, UCalendarDateFields, field, Int32, amount, _statusMarshal, _status)
 }
 
 /**
@@ -19631,7 +19672,7 @@ export ucal_get(_cal, field, _status) {
 export ucal_set(_cal, field, value) {
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuin.dll\ucal_set", _calMarshal, _cal, UCalendarDateFields, field, "int", value)
+    DllCall("icuin.dll\ucal_set", _calMarshal, _cal, UCalendarDateFields, field, Int32, value)
 }
 
 /**
@@ -19729,7 +19770,7 @@ export ucal_getCanonicalTimeZoneID(id, len, result, resultCapacity, isSystemID, 
     isSystemIDMarshal := isSystemID is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_getCanonicalTimeZoneID", idMarshal, id, "int", len, resultMarshal, result, "int", resultCapacity, isSystemIDMarshal, isSystemID, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucal_getCanonicalTimeZoneID", idMarshal, id, Int32, len, resultMarshal, result, Int32, resultCapacity, isSystemIDMarshal, isSystemID, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -19761,7 +19802,7 @@ export ucal_getKeywordValuesForLocale(key, locale, commonlyUsed, _status) {
 
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, _statusMarshal, _status, UEnumeration.Ptr)
+    result := DllCall("icuin.dll\ucal_getKeywordValuesForLocale", "ptr", key, "ptr", locale, Int8, commonlyUsed, _statusMarshal, _status, UEnumeration.Ptr)
     return result
 }
 
@@ -19806,7 +19847,7 @@ export ucal_isWeekend(_cal, date, _status) {
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_isWeekend", _calMarshal, _cal, "double", date, _statusMarshal, _status, Int8)
+    result := DllCall("icuin.dll\ucal_isWeekend", _calMarshal, _cal, Float64, date, _statusMarshal, _status, Int8)
     return result
 }
 
@@ -19822,7 +19863,7 @@ export ucal_getFieldDifference(_cal, target, field, _status) {
     _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_getFieldDifference", _calMarshal, _cal, "double", target, UCalendarDateFields, field, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucal_getFieldDifference", _calMarshal, _cal, Float64, target, UCalendarDateFields, field, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -19857,7 +19898,7 @@ export ucal_getWindowsTimeZoneID(id, len, winid, winidCapacity, _status) {
     winidMarshal := winid is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_getWindowsTimeZoneID", idMarshal, id, "int", len, winidMarshal, winid, "int", winidCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucal_getWindowsTimeZoneID", idMarshal, id, Int32, len, winidMarshal, winid, Int32, winidCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -19878,7 +19919,7 @@ export ucal_getTimeZoneIDForWindowsID(winid, len, _region, id, idCapacity, _stat
     idMarshal := id is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucal_getTimeZoneIDForWindowsID", winidMarshal, winid, "int", len, "ptr", _region, idMarshal, id, "int", idCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucal_getTimeZoneIDForWindowsID", winidMarshal, winid, Int32, len, "ptr", _region, idMarshal, id, Int32, idCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -19930,7 +19971,7 @@ export ucol_openRules(rules, rulesLength, normalizationMode, strength, parseErro
     rulesMarshal := rules is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_openRules", rulesMarshal, rules, "int", rulesLength, UColAttributeValue, normalizationMode, UColAttributeValue, strength, UParseError.Ptr, parseError, _statusMarshal, _status, UCollator.Ptr)
+    result := DllCall("icuin.dll\ucol_openRules", rulesMarshal, rules, Int32, rulesLength, UColAttributeValue, normalizationMode, UColAttributeValue, strength, UParseError.Ptr, parseError, _statusMarshal, _status, UCollator.Ptr)
     return result
 }
 
@@ -19949,7 +19990,7 @@ export ucol_getContractionsAndExpansions(coll, contractions, expansions, addPref
     expansionsMarshal := expansions is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucol_getContractionsAndExpansions", collMarshal, coll, contractionsMarshal, contractions, expansionsMarshal, expansions, "char", addPrefixes, _statusMarshal, _status)
+    DllCall("icuin.dll\ucol_getContractionsAndExpansions", collMarshal, coll, contractionsMarshal, contractions, expansionsMarshal, expansions, Int8, addPrefixes, _statusMarshal, _status)
 }
 
 /**
@@ -19977,7 +20018,7 @@ export ucol_strcoll(coll, source, sourceLength, target, targetLength) {
     sourceMarshal := source is VarRef ? "ushort*" : "ptr"
     targetMarshal := target is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_strcoll", collMarshal, coll, sourceMarshal, source, "int", sourceLength, targetMarshal, target, "int", targetLength, UCollationResult)
+    result := DllCall("icuin.dll\ucol_strcoll", collMarshal, coll, sourceMarshal, source, Int32, sourceLength, targetMarshal, target, Int32, targetLength, UCollationResult)
     return result
 }
 
@@ -19998,7 +20039,7 @@ export ucol_strcollUTF8(coll, source, sourceLength, target, targetLength, _statu
     collMarshal := coll is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_strcollUTF8", collMarshal, coll, "ptr", source, "int", sourceLength, "ptr", target, "int", targetLength, _statusMarshal, _status, UCollationResult)
+    result := DllCall("icuin.dll\ucol_strcollUTF8", collMarshal, coll, "ptr", source, Int32, sourceLength, "ptr", target, Int32, targetLength, _statusMarshal, _status, UCollationResult)
     return result
 }
 
@@ -20016,7 +20057,7 @@ export ucol_greater(coll, source, sourceLength, target, targetLength) {
     sourceMarshal := source is VarRef ? "ushort*" : "ptr"
     targetMarshal := target is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_greater", collMarshal, coll, sourceMarshal, source, "int", sourceLength, targetMarshal, target, "int", targetLength, Int8)
+    result := DllCall("icuin.dll\ucol_greater", collMarshal, coll, sourceMarshal, source, Int32, sourceLength, targetMarshal, target, Int32, targetLength, Int8)
     return result
 }
 
@@ -20034,7 +20075,7 @@ export ucol_greaterOrEqual(coll, source, sourceLength, target, targetLength) {
     sourceMarshal := source is VarRef ? "ushort*" : "ptr"
     targetMarshal := target is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_greaterOrEqual", collMarshal, coll, sourceMarshal, source, "int", sourceLength, targetMarshal, target, "int", targetLength, Int8)
+    result := DllCall("icuin.dll\ucol_greaterOrEqual", collMarshal, coll, sourceMarshal, source, Int32, sourceLength, targetMarshal, target, Int32, targetLength, Int8)
     return result
 }
 
@@ -20052,7 +20093,7 @@ export ucol_equal(coll, source, sourceLength, target, targetLength) {
     sourceMarshal := source is VarRef ? "ushort*" : "ptr"
     targetMarshal := target is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_equal", collMarshal, coll, sourceMarshal, source, "int", sourceLength, targetMarshal, target, "int", targetLength, Int8)
+    result := DllCall("icuin.dll\ucol_equal", collMarshal, coll, sourceMarshal, source, Int32, sourceLength, targetMarshal, target, Int32, targetLength, Int8)
     return result
 }
 
@@ -20109,7 +20150,7 @@ export ucol_getReorderCodes(coll, dest, destCapacity, pErrorCode) {
     destMarshal := dest is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_getReorderCodes", collMarshal, coll, destMarshal, dest, "int", destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuin.dll\ucol_getReorderCodes", collMarshal, coll, destMarshal, dest, Int32, destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -20126,7 +20167,7 @@ export ucol_setReorderCodes(coll, reorderCodes, reorderCodesLength, pErrorCode) 
     reorderCodesMarshal := reorderCodes is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucol_setReorderCodes", collMarshal, coll, reorderCodesMarshal, reorderCodes, "int", reorderCodesLength, pErrorCodeMarshal, pErrorCode)
+    DllCall("icuin.dll\ucol_setReorderCodes", collMarshal, coll, reorderCodesMarshal, reorderCodes, Int32, reorderCodesLength, pErrorCodeMarshal, pErrorCode)
 }
 
 /**
@@ -20141,7 +20182,7 @@ export ucol_getEquivalentReorderCodes(reorderCode, dest, destCapacity, pErrorCod
     destMarshal := dest is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_getEquivalentReorderCodes", "int", reorderCode, destMarshal, dest, "int", destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuin.dll\ucol_getEquivalentReorderCodes", Int32, reorderCode, destMarshal, dest, Int32, destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -20161,7 +20202,7 @@ export ucol_getDisplayName(objLoc, dispLoc, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_getDisplayName", "ptr", objLoc, "ptr", dispLoc, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucol_getDisplayName", "ptr", objLoc, "ptr", dispLoc, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -20171,7 +20212,7 @@ export ucol_getDisplayName(objLoc, dispLoc, result, resultLength, _status) {
  * @returns {PSTR} 
  */
 export ucol_getAvailable(localeIndex) {
-    result := DllCall("icuin.dll\ucol_getAvailable", "int", localeIndex, PSTR)
+    result := DllCall("icuin.dll\ucol_getAvailable", Int32, localeIndex, PSTR)
     return result
 }
 
@@ -20237,7 +20278,7 @@ export ucol_getKeywordValuesForLocale(key, locale, commonlyUsed, _status) {
 
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_getKeywordValuesForLocale", "ptr", key, "ptr", locale, "char", commonlyUsed, _statusMarshal, _status, UEnumeration.Ptr)
+    result := DllCall("icuin.dll\ucol_getKeywordValuesForLocale", "ptr", key, "ptr", locale, Int8, commonlyUsed, _statusMarshal, _status, UEnumeration.Ptr)
     return result
 }
 
@@ -20259,7 +20300,7 @@ export ucol_getFunctionalEquivalent(result, resultCapacity, keyword, locale, isA
     isAvailableMarshal := isAvailable is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_getFunctionalEquivalent", "ptr", result, "int", resultCapacity, "ptr", keyword, "ptr", locale, isAvailableMarshal, isAvailable, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucol_getFunctionalEquivalent", "ptr", result, Int32, resultCapacity, "ptr", keyword, "ptr", locale, isAvailableMarshal, isAvailable, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -20291,7 +20332,7 @@ export ucol_getSortKey(coll, source, sourceLength, result, resultLength) {
     sourceMarshal := source is VarRef ? "ushort*" : "ptr"
     resultMarshal := result is VarRef ? "char*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_getSortKey", collMarshal, coll, sourceMarshal, source, "int", sourceLength, resultMarshal, result, "int", resultLength, Int32)
+    result := DllCall("icuin.dll\ucol_getSortKey", collMarshal, coll, sourceMarshal, source, Int32, sourceLength, resultMarshal, result, Int32, resultLength, Int32)
     return result
 }
 
@@ -20311,7 +20352,7 @@ export ucol_nextSortKeyPart(coll, iter, state, dest, count, _status) {
     destMarshal := dest is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_nextSortKeyPart", collMarshal, coll, UCharIterator.Ptr, iter, stateMarshal, state, destMarshal, dest, "int", count, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucol_nextSortKeyPart", collMarshal, coll, UCharIterator.Ptr, iter, stateMarshal, state, destMarshal, dest, Int32, count, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -20331,7 +20372,7 @@ export ucol_getBound(source, sourceLength, boundType, noOfLevels, result, result
     resultMarshal := result is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_getBound", sourceMarshal, source, "int", sourceLength, UColBoundMode, boundType, "uint", noOfLevels, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucol_getBound", sourceMarshal, source, Int32, sourceLength, UColBoundMode, boundType, UInt32, noOfLevels, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -20376,7 +20417,7 @@ export ucol_mergeSortkeys(src1, src1Length, src2, src2Length, dest, destCapacity
     src2Marshal := src2 is VarRef ? "char*" : "ptr"
     destMarshal := dest is VarRef ? "char*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_mergeSortkeys", src1Marshal, src1, "int", src1Length, src2Marshal, src2, "int", src2Length, destMarshal, dest, "int", destCapacity, Int32)
+    result := DllCall("icuin.dll\ucol_mergeSortkeys", src1Marshal, src1, Int32, src1Length, src2Marshal, src2, Int32, src2Length, destMarshal, dest, Int32, destCapacity, Int32)
     return result
 }
 
@@ -20494,7 +20535,7 @@ export ucol_getRulesEx(coll, delta, _buffer, bufferLen) {
     collMarshal := coll is VarRef ? "ptr*" : "ptr"
     _bufferMarshal := _buffer is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_getRulesEx", collMarshal, coll, UColRuleOption, delta, _bufferMarshal, _buffer, "int", bufferLen, Int32)
+    result := DllCall("icuin.dll\ucol_getRulesEx", collMarshal, coll, UColRuleOption, delta, _bufferMarshal, _buffer, Int32, bufferLen, Int32)
     return result
 }
 
@@ -20540,7 +20581,7 @@ export ucol_cloneBinary(coll, _buffer, capacity, _status) {
     _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_cloneBinary", collMarshal, coll, _bufferMarshal, _buffer, "int", capacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucol_cloneBinary", collMarshal, coll, _bufferMarshal, _buffer, Int32, capacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -20557,7 +20598,7 @@ export ucol_openBinary(bin, length, base, _status) {
     baseMarshal := base is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_openBinary", binMarshal, bin, "int", length, baseMarshal, base, _statusMarshal, _status, UCollator.Ptr)
+    result := DllCall("icuin.dll\ucol_openBinary", binMarshal, bin, Int32, length, baseMarshal, base, _statusMarshal, _status, UCollator.Ptr)
     return result
 }
 
@@ -20574,7 +20615,7 @@ export ucol_openElements(coll, text, textLength, _status) {
     textMarshal := text is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_openElements", collMarshal, coll, textMarshal, text, "int", textLength, _statusMarshal, _status, UCollationElements.Ptr)
+    result := DllCall("icuin.dll\ucol_openElements", collMarshal, coll, textMarshal, text, Int32, textLength, _statusMarshal, _status, UCollationElements.Ptr)
     return result
 }
 
@@ -20587,7 +20628,7 @@ export ucol_openElements(coll, text, textLength, _status) {
 export ucol_keyHashCode(key, length) {
     keyMarshal := key is VarRef ? "char*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_keyHashCode", keyMarshal, key, "int", length, Int32)
+    result := DllCall("icuin.dll\ucol_keyHashCode", keyMarshal, key, Int32, length, Int32)
     return result
 }
 
@@ -20650,7 +20691,7 @@ export ucol_previous(elems, _status) {
 export ucol_getMaxExpansion(elems, order) {
     elemsMarshal := elems is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuin.dll\ucol_getMaxExpansion", elemsMarshal, elems, "int", order, Int32)
+    result := DllCall("icuin.dll\ucol_getMaxExpansion", elemsMarshal, elems, Int32, order, Int32)
     return result
 }
 
@@ -20667,7 +20708,7 @@ export ucol_setText(elems, text, textLength, _status) {
     textMarshal := text is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucol_setText", elemsMarshal, elems, textMarshal, text, "int", textLength, _statusMarshal, _status)
+    DllCall("icuin.dll\ucol_setText", elemsMarshal, elems, textMarshal, text, Int32, textLength, _statusMarshal, _status)
 }
 
 /**
@@ -20693,7 +20734,7 @@ export ucol_setOffset(elems, offset, _status) {
     elemsMarshal := elems is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucol_setOffset", elemsMarshal, elems, "int", offset, _statusMarshal, _status)
+    DllCall("icuin.dll\ucol_setOffset", elemsMarshal, elems, Int32, offset, _statusMarshal, _status)
 }
 
 /**
@@ -20702,7 +20743,7 @@ export ucol_setOffset(elems, offset, _status) {
  * @returns {Integer} 
  */
 export ucol_primaryOrder(order) {
-    result := DllCall("icuin.dll\ucol_primaryOrder", "int", order, Int32)
+    result := DllCall("icuin.dll\ucol_primaryOrder", Int32, order, Int32)
     return result
 }
 
@@ -20712,7 +20753,7 @@ export ucol_primaryOrder(order) {
  * @returns {Integer} 
  */
 export ucol_secondaryOrder(order) {
-    result := DllCall("icuin.dll\ucol_secondaryOrder", "int", order, Int32)
+    result := DllCall("icuin.dll\ucol_secondaryOrder", Int32, order, Int32)
     return result
 }
 
@@ -20722,7 +20763,7 @@ export ucol_secondaryOrder(order) {
  * @returns {Integer} 
  */
 export ucol_tertiaryOrder(order) {
-    result := DllCall("icuin.dll\ucol_tertiaryOrder", "int", order, Int32)
+    result := DllCall("icuin.dll\ucol_tertiaryOrder", Int32, order, Int32)
     return result
 }
 
@@ -20763,7 +20804,7 @@ export ucsdet_setText(ucsd, textIn, len, _status) {
     ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucsdet_setText", ucsdMarshal, ucsd, "ptr", textIn, "int", len, _statusMarshal, _status)
+    DllCall("icuin.dll\ucsdet_setText", ucsdMarshal, ucsd, "ptr", textIn, Int32, len, _statusMarshal, _status)
 }
 
 /**
@@ -20780,7 +20821,7 @@ export ucsdet_setDeclaredEncoding(ucsd, encoding, length, _status) {
     ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\ucsdet_setDeclaredEncoding", ucsdMarshal, ucsd, "ptr", encoding, "int", length, _statusMarshal, _status)
+    DllCall("icuin.dll\ucsdet_setDeclaredEncoding", ucsdMarshal, ucsd, "ptr", encoding, Int32, length, _statusMarshal, _status)
 }
 
 /**
@@ -20868,7 +20909,7 @@ export ucsdet_getUChars(ucsm, buf, cap, _status) {
     bufMarshal := buf is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ucsdet_getUChars", ucsmMarshal, ucsm, bufMarshal, buf, "int", cap, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ucsdet_getUChars", ucsmMarshal, ucsm, bufMarshal, buf, Int32, cap, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -20907,7 +20948,7 @@ export ucsdet_isInputFilterEnabled(ucsd) {
 export ucsdet_enableInputFilter(ucsd, filter) {
     ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuin.dll\ucsdet_enableInputFilter", ucsdMarshal, ucsd, "char", filter, Int8)
+    result := DllCall("icuin.dll\ucsdet_enableInputFilter", ucsdMarshal, ucsd, Int8, filter, Int8)
     return result
 }
 
@@ -21110,7 +21151,7 @@ export ufmt_getArrayItemByIndex(fmt, n, _status) {
     fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ufmt_getArrayItemByIndex", fmtMarshal, fmt, "int", n, _statusMarshal, _status, IntPtr)
+    result := DllCall("icuin.dll\ufmt_getArrayItemByIndex", fmtMarshal, fmt, Int32, n, _statusMarshal, _status, IntPtr)
     return result
 }
 
@@ -21177,7 +21218,7 @@ export ucfpos_constrainCategory(ucfpos, category, ec) {
     ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\ucfpos_constrainCategory", ucfposMarshal, ucfpos, "int", category, ecMarshal, ec)
+    DllCall("icu.dll\ucfpos_constrainCategory", ucfposMarshal, ucfpos, Int32, category, ecMarshal, ec)
 }
 
 /**
@@ -21192,7 +21233,7 @@ export ucfpos_constrainField(ucfpos, category, field, ec) {
     ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\ucfpos_constrainField", ucfposMarshal, ucfpos, "int", category, "int", field, ecMarshal, ec)
+    DllCall("icu.dll\ucfpos_constrainField", ucfposMarshal, ucfpos, Int32, category, Int32, field, ecMarshal, ec)
 }
 
 /**
@@ -21265,7 +21306,7 @@ export ucfpos_setInt64IterationContext(ucfpos, _context, ec) {
     ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\ucfpos_setInt64IterationContext", ucfposMarshal, ucfpos, "int64", _context, ecMarshal, ec)
+    DllCall("icu.dll\ucfpos_setInt64IterationContext", ucfposMarshal, ucfpos, Int64, _context, ecMarshal, ec)
 }
 
 /**
@@ -21280,7 +21321,7 @@ export ucfpos_matchesField(ucfpos, category, field, ec) {
     ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\ucfpos_matchesField", ucfposMarshal, ucfpos, "int", category, "int", field, ecMarshal, ec, Int8)
+    result := DllCall("icu.dll\ucfpos_matchesField", ucfposMarshal, ucfpos, Int32, category, Int32, field, ecMarshal, ec, Int8)
     return result
 }
 
@@ -21298,7 +21339,7 @@ export ucfpos_setState(ucfpos, category, field, start, limit, ec) {
     ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\ucfpos_setState", ucfposMarshal, ucfpos, "int", category, "int", field, "int", start, "int", limit, ecMarshal, ec)
+    DllCall("icu.dll\ucfpos_setState", ucfposMarshal, ucfpos, Int32, category, Int32, field, Int32, start, Int32, limit, ecMarshal, ec)
 }
 
 /**
@@ -21350,7 +21391,7 @@ export udtitvfmt_open(locale, skeleton, skeletonLength, tzID, tzIDLength, _statu
     tzIDMarshal := tzID is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udtitvfmt_open", "ptr", locale, skeletonMarshal, skeleton, "int", skeletonLength, tzIDMarshal, tzID, "int", tzIDLength, _statusMarshal, _status, UDateIntervalFormat.Ptr)
+    result := DllCall("icuin.dll\udtitvfmt_open", "ptr", locale, skeletonMarshal, skeleton, Int32, skeletonLength, tzIDMarshal, tzID, Int32, tzIDLength, _statusMarshal, _status, UDateIntervalFormat.Ptr)
     return result
 }
 
@@ -21418,7 +21459,7 @@ export udtitvfmt_format(formatter, fromDate, toDate, result, resultCapacity, pos
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udtitvfmt_format", formatterMarshal, formatter, "double", fromDate, "double", toDate, resultMarshal, result, "int", resultCapacity, UFieldPosition.Ptr, position, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\udtitvfmt_format", formatterMarshal, formatter, Float64, fromDate, Float64, toDate, resultMarshal, result, Int32, resultCapacity, UFieldPosition.Ptr, position, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -21436,7 +21477,7 @@ export udtitvfmt_formatToResult(formatter, fromDate, toDate, result, _status) {
     resultMarshal := result is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\udtitvfmt_formatToResult", formatterMarshal, formatter, "double", fromDate, "double", toDate, resultMarshal, result, _statusMarshal, _status)
+    DllCall("icu.dll\udtitvfmt_formatToResult", formatterMarshal, formatter, Float64, fromDate, Float64, toDate, resultMarshal, result, _statusMarshal, _status)
 }
 
 /**
@@ -21496,7 +21537,7 @@ export ugender_getListGender(genderInfo, genders, _size, _status) {
     gendersMarshal := genders is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ugender_getListGender", genderInfoMarshal, genderInfo, gendersMarshal, genders, "int", _size, _statusMarshal, _status, UGender)
+    result := DllCall("icuin.dll\ugender_getListGender", genderInfoMarshal, genderInfo, gendersMarshal, genders, Int32, _size, _statusMarshal, _status, UGender)
     return result
 }
 
@@ -21598,7 +21639,7 @@ export ulistfmt_format(listfmt, strings, stringLengths, stringCount, result, res
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuuc.dll\ulistfmt_format", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, "int", stringCount, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuuc.dll\ulistfmt_format", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, Int32, stringCount, resultMarshal, result, Int32, resultCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -21619,7 +21660,7 @@ export ulistfmt_formatStringsToResult(listfmt, strings, stringLengths, stringCou
     uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\ulistfmt_formatStringsToResult", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, "int", stringCount, uresultMarshal, uresult, _statusMarshal, _status)
+    DllCall("icu.dll\ulistfmt_formatStringsToResult", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, Int32, stringCount, uresultMarshal, uresult, _statusMarshal, _status)
 }
 
 /**
@@ -21657,7 +21698,7 @@ export ulocdata_close(uld) {
 export ulocdata_setNoSubstitute(uld, setting) {
     uldMarshal := uld is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuin.dll\ulocdata_setNoSubstitute", uldMarshal, uld, "char", setting)
+    DllCall("icuin.dll\ulocdata_setNoSubstitute", uldMarshal, uld, Int8, setting)
 }
 
 /**
@@ -21686,7 +21727,7 @@ export ulocdata_getExemplarSet(uld, fillIn, options, extype, _status) {
     fillInMarshal := fillIn is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ulocdata_getExemplarSet", uldMarshal, uld, fillInMarshal, fillIn, "uint", options, ULocaleDataExemplarSetType, extype, _statusMarshal, _status, USet.Ptr)
+    result := DllCall("icuin.dll\ulocdata_getExemplarSet", uldMarshal, uld, fillInMarshal, fillIn, UInt32, options, ULocaleDataExemplarSetType, extype, _statusMarshal, _status, USet.Ptr)
     return result
 }
 
@@ -21704,7 +21745,7 @@ export ulocdata_getDelimiter(uld, type, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ulocdata_getDelimiter", uldMarshal, uld, ULocaleDataDelimiterType, type, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ulocdata_getDelimiter", uldMarshal, uld, ULocaleDataDelimiterType, type, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -21767,7 +21808,7 @@ export ulocdata_getLocaleDisplayPattern(uld, pattern, patternCapacity, _status) 
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ulocdata_getLocaleDisplayPattern", uldMarshal, uld, patternMarshal, pattern, "int", patternCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ulocdata_getLocaleDisplayPattern", uldMarshal, uld, patternMarshal, pattern, Int32, patternCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -21784,7 +21825,7 @@ export ulocdata_getLocaleSeparator(uld, separator, separatorCapacity, _status) {
     separatorMarshal := separator is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ulocdata_getLocaleSeparator", uldMarshal, uld, separatorMarshal, separator, "int", separatorCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ulocdata_getLocaleSeparator", uldMarshal, uld, separatorMarshal, separator, Int32, separatorCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -21809,7 +21850,7 @@ export u_formatMessage(locale, pattern, patternLength, result, resultLength, _st
     varArgs := [args*]
     varArgs.Push(Int32)
 
-    result := DllCall("icuin.dll\u_formatMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, _statusMarshal, _status, varArgs*)
+    result := DllCall("icuin.dll\u_formatMessage", "ptr", locale, patternMarshal, pattern, Int32, patternLength, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, varArgs*)
     return result
 }
 
@@ -21832,7 +21873,7 @@ export u_vformatMessage(locale, pattern, patternLength, result, resultLength, ap
     apMarshal := ap is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\u_vformatMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, apMarshal, ap, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\u_vformatMessage", "ptr", locale, patternMarshal, pattern, Int32, patternLength, resultMarshal, result, Int32, resultLength, apMarshal, ap, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -21856,7 +21897,7 @@ export u_parseMessage(locale, pattern, patternLength, source, sourceLength, _sta
 
     varArgs := [args*]
 
-    DllCall("icuin.dll\u_parseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, _statusMarshal, _status, varArgs*)
+    DllCall("icuin.dll\u_parseMessage", "ptr", locale, patternMarshal, pattern, Int32, patternLength, sourceMarshal, source, Int32, sourceLength, _statusMarshal, _status, varArgs*)
 }
 
 /**
@@ -21878,7 +21919,7 @@ export u_vparseMessage(locale, pattern, patternLength, source, sourceLength, ap,
     apMarshal := ap is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\u_vparseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, _statusMarshal, _status)
+    DllCall("icuin.dll\u_vparseMessage", "ptr", locale, patternMarshal, pattern, Int32, patternLength, sourceMarshal, source, Int32, sourceLength, apMarshal, ap, _statusMarshal, _status)
 }
 
 /**
@@ -21903,7 +21944,7 @@ export u_formatMessageWithError(locale, pattern, patternLength, result, resultLe
     varArgs := [args*]
     varArgs.Push(Int32)
 
-    result := DllCall("icuin.dll\u_formatMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, UParseError.Ptr, parseError, _statusMarshal, _status, varArgs*)
+    result := DllCall("icuin.dll\u_formatMessageWithError", "ptr", locale, patternMarshal, pattern, Int32, patternLength, resultMarshal, result, Int32, resultLength, UParseError.Ptr, parseError, _statusMarshal, _status, varArgs*)
     return result
 }
 
@@ -21927,7 +21968,7 @@ export u_vformatMessageWithError(locale, pattern, patternLength, result, resultL
     apMarshal := ap is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\u_vformatMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, UParseError.Ptr, parseError, apMarshal, ap, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\u_vformatMessageWithError", "ptr", locale, patternMarshal, pattern, Int32, patternLength, resultMarshal, result, Int32, resultLength, UParseError.Ptr, parseError, apMarshal, ap, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -21952,7 +21993,7 @@ export u_parseMessageWithError(locale, pattern, patternLength, source, sourceLen
 
     varArgs := [args*]
 
-    DllCall("icuin.dll\u_parseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, UParseError.Ptr, parseError, _statusMarshal, _status, varArgs*)
+    DllCall("icuin.dll\u_parseMessageWithError", "ptr", locale, patternMarshal, pattern, Int32, patternLength, sourceMarshal, source, Int32, sourceLength, UParseError.Ptr, parseError, _statusMarshal, _status, varArgs*)
 }
 
 /**
@@ -21975,7 +22016,7 @@ export u_vparseMessageWithError(locale, pattern, patternLength, source, sourceLe
     apMarshal := ap is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\u_vparseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, UParseError.Ptr, parseError, _statusMarshal, _status)
+    DllCall("icuin.dll\u_vparseMessageWithError", "ptr", locale, patternMarshal, pattern, Int32, patternLength, sourceMarshal, source, Int32, sourceLength, apMarshal, ap, UParseError.Ptr, parseError, _statusMarshal, _status)
 }
 
 /**
@@ -21993,7 +22034,7 @@ export umsg_open(pattern, patternLength, locale, parseError, _status) {
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\umsg_open", patternMarshal, pattern, "int", patternLength, "ptr", locale, UParseError.Ptr, parseError, _statusMarshal, _status, IntPtr)
+    result := DllCall("icuin.dll\umsg_open", patternMarshal, pattern, Int32, patternLength, "ptr", locale, UParseError.Ptr, parseError, _statusMarshal, _status, IntPtr)
     return result
 }
 
@@ -22062,7 +22103,7 @@ export umsg_applyPattern(fmt, pattern, patternLength, parseError, _status) {
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\umsg_applyPattern", fmtMarshal, fmt, patternMarshal, pattern, "int", patternLength, UParseError.Ptr, parseError, _statusMarshal, _status)
+    DllCall("icuin.dll\umsg_applyPattern", fmtMarshal, fmt, patternMarshal, pattern, Int32, patternLength, UParseError.Ptr, parseError, _statusMarshal, _status)
 }
 
 /**
@@ -22078,7 +22119,7 @@ export umsg_toPattern(fmt, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\umsg_toPattern", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\umsg_toPattern", fmtMarshal, fmt, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22099,7 +22140,7 @@ export umsg_format(fmt, result, resultLength, _status, args*) {
     varArgs := [args*]
     varArgs.Push(Int32)
 
-    result := DllCall("icuin.dll\umsg_format", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, _statusMarshal, _status, varArgs*)
+    result := DllCall("icuin.dll\umsg_format", fmtMarshal, fmt, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, varArgs*)
     return result
 }
 
@@ -22118,7 +22159,7 @@ export umsg_vformat(fmt, result, resultLength, ap, _status) {
     apMarshal := ap is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\umsg_vformat", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, apMarshal, ap, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\umsg_vformat", fmtMarshal, fmt, resultMarshal, result, Int32, resultLength, apMarshal, ap, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22140,7 +22181,7 @@ export umsg_parse(fmt, source, sourceLength, count, _status, args*) {
 
     varArgs := [args*]
 
-    DllCall("icuin.dll\umsg_parse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, _statusMarshal, _status, varArgs*)
+    DllCall("icuin.dll\umsg_parse", fmtMarshal, fmt, sourceMarshal, source, Int32, sourceLength, countMarshal, count, _statusMarshal, _status, varArgs*)
 }
 
 /**
@@ -22160,7 +22201,7 @@ export umsg_vparse(fmt, source, sourceLength, count, ap, _status) {
     apMarshal := ap is VarRef ? "char*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\umsg_vparse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, apMarshal, ap, _statusMarshal, _status)
+    DllCall("icuin.dll\umsg_vparse", fmtMarshal, fmt, sourceMarshal, source, Int32, sourceLength, countMarshal, count, apMarshal, ap, _statusMarshal, _status)
 }
 
 /**
@@ -22177,7 +22218,7 @@ export umsg_autoQuoteApostrophe(pattern, patternLength, dest, destCapacity, ec) 
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\umsg_autoQuoteApostrophe", patternMarshal, pattern, "int", patternLength, destMarshal, dest, "int", destCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icuin.dll\umsg_autoQuoteApostrophe", patternMarshal, pattern, Int32, patternLength, destMarshal, dest, Int32, destCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -22197,7 +22238,7 @@ export unum_open(style, pattern, patternLength, locale, parseErr, _status) {
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_open", UNumberFormatStyle, style, patternMarshal, pattern, "int", patternLength, "ptr", locale, UParseError.Ptr, parseErr, _statusMarshal, _status, IntPtr)
+    result := DllCall("icuin.dll\unum_open", UNumberFormatStyle, style, patternMarshal, pattern, Int32, patternLength, "ptr", locale, UParseError.Ptr, parseErr, _statusMarshal, _status, IntPtr)
     return result
 }
 
@@ -22241,7 +22282,7 @@ export unum_format(fmt, _number, result, resultLength, pos, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_format", fmtMarshal, fmt, "int", _number, resultMarshal, result, "int", resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_format", fmtMarshal, fmt, Int32, _number, resultMarshal, result, Int32, resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22260,7 +22301,7 @@ export unum_formatInt64(fmt, _number, result, resultLength, pos, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_formatInt64", fmtMarshal, fmt, "int64", _number, resultMarshal, result, "int", resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_formatInt64", fmtMarshal, fmt, Int64, _number, resultMarshal, result, Int32, resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22279,7 +22320,7 @@ export unum_formatDouble(fmt, _number, result, resultLength, pos, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_formatDouble", fmtMarshal, fmt, "double", _number, resultMarshal, result, "int", resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_formatDouble", fmtMarshal, fmt, Float64, _number, resultMarshal, result, Int32, resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22299,7 +22340,7 @@ export unum_formatDoubleForFields(format, _number, result, resultLength, fposite
     fpositerMarshal := fpositer is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_formatDoubleForFields", formatMarshal, format, "double", _number, resultMarshal, result, "int", resultLength, fpositerMarshal, fpositer, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_formatDoubleForFields", formatMarshal, format, Float64, _number, resultMarshal, result, Int32, resultLength, fpositerMarshal, fpositer, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22321,7 +22362,7 @@ export unum_formatDecimal(fmt, _number, length, result, resultLength, pos, _stat
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_formatDecimal", fmtMarshal, fmt, "ptr", _number, "int", length, resultMarshal, result, "int", resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_formatDecimal", fmtMarshal, fmt, "ptr", _number, Int32, length, resultMarshal, result, Int32, resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22342,7 +22383,7 @@ export unum_formatDoubleCurrency(fmt, _number, currency, result, resultLength, p
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_formatDoubleCurrency", fmtMarshal, fmt, "double", _number, currencyMarshal, currency, resultMarshal, result, "int", resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_formatDoubleCurrency", fmtMarshal, fmt, Float64, _number, currencyMarshal, currency, resultMarshal, result, Int32, resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22362,7 +22403,7 @@ export unum_formatUFormattable(fmt, _number, result, resultLength, pos, _status)
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_formatUFormattable", fmtMarshal, fmt, _numberMarshal, _number, resultMarshal, result, "int", resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_formatUFormattable", fmtMarshal, fmt, _numberMarshal, _number, resultMarshal, result, Int32, resultLength, UFieldPosition.Ptr, pos, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22381,7 +22422,7 @@ export unum_parse(fmt, text, textLength, parsePos, _status) {
     parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_parse", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_parse", fmtMarshal, fmt, textMarshal, text, Int32, textLength, parsePosMarshal, parsePos, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22400,7 +22441,7 @@ export unum_parseInt64(fmt, text, textLength, parsePos, _status) {
     parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_parseInt64", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, Int64)
+    result := DllCall("icuin.dll\unum_parseInt64", fmtMarshal, fmt, textMarshal, text, Int32, textLength, parsePosMarshal, parsePos, _statusMarshal, _status, Int64)
     return result
 }
 
@@ -22419,7 +22460,7 @@ export unum_parseDouble(fmt, text, textLength, parsePos, _status) {
     parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_parseDouble", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, Float64)
+    result := DllCall("icuin.dll\unum_parseDouble", fmtMarshal, fmt, textMarshal, text, Int32, textLength, parsePosMarshal, parsePos, _statusMarshal, _status, Float64)
     return result
 }
 
@@ -22442,7 +22483,7 @@ export unum_parseDecimal(fmt, text, textLength, parsePos, outBuf, outBufLength, 
     parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_parseDecimal", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, "ptr", outBuf, "int", outBufLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_parseDecimal", fmtMarshal, fmt, textMarshal, text, Int32, textLength, parsePosMarshal, parsePos, "ptr", outBuf, Int32, outBufLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22463,7 +22504,7 @@ export unum_parseDoubleCurrency(fmt, text, textLength, parsePos, currency, _stat
     currencyMarshal := currency is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_parseDoubleCurrency", fmtMarshal, fmt, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, currencyMarshal, currency, _statusMarshal, _status, Float64)
+    result := DllCall("icuin.dll\unum_parseDoubleCurrency", fmtMarshal, fmt, textMarshal, text, Int32, textLength, parsePosMarshal, parsePos, currencyMarshal, currency, _statusMarshal, _status, Float64)
     return result
 }
 
@@ -22484,7 +22525,7 @@ export unum_parseToUFormattable(fmt, result, text, textLength, parsePos, _status
     parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_parseToUFormattable", fmtMarshal, fmt, resultMarshal, result, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, IntPtr)
+    result := DllCall("icuin.dll\unum_parseToUFormattable", fmtMarshal, fmt, resultMarshal, result, textMarshal, text, Int32, textLength, parsePosMarshal, parsePos, _statusMarshal, _status, IntPtr)
     return result
 }
 
@@ -22503,7 +22544,7 @@ export unum_applyPattern(format, localized, pattern, patternLength, parseError, 
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\unum_applyPattern", formatMarshal, format, "char", localized, patternMarshal, pattern, "int", patternLength, UParseError.Ptr, parseError, _statusMarshal, _status)
+    DllCall("icuin.dll\unum_applyPattern", formatMarshal, format, Int8, localized, patternMarshal, pattern, Int32, patternLength, UParseError.Ptr, parseError, _statusMarshal, _status)
 }
 
 /**
@@ -22512,7 +22553,7 @@ export unum_applyPattern(format, localized, pattern, patternLength, parseError, 
  * @returns {PSTR} 
  */
 export unum_getAvailable(localeIndex) {
-    result := DllCall("icuin.dll\unum_getAvailable", "int", localeIndex, PSTR)
+    result := DllCall("icuin.dll\unum_getAvailable", Int32, localeIndex, PSTR)
     return result
 }
 
@@ -22548,7 +22589,7 @@ export unum_getAttribute(fmt, attr) {
 export unum_setAttribute(fmt, attr, newValue) {
     fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuin.dll\unum_setAttribute", fmtMarshal, fmt, UNumberFormatAttribute, attr, "int", newValue)
+    DllCall("icuin.dll\unum_setAttribute", fmtMarshal, fmt, UNumberFormatAttribute, attr, Int32, newValue)
 }
 
 /**
@@ -22574,7 +22615,7 @@ export unum_getDoubleAttribute(fmt, attr) {
 export unum_setDoubleAttribute(fmt, attr, newValue) {
     fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuin.dll\unum_setDoubleAttribute", fmtMarshal, fmt, UNumberFormatAttribute, attr, "double", newValue)
+    DllCall("icuin.dll\unum_setDoubleAttribute", fmtMarshal, fmt, UNumberFormatAttribute, attr, Float64, newValue)
 }
 
 /**
@@ -22591,7 +22632,7 @@ export unum_getTextAttribute(fmt, tag, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_getTextAttribute", fmtMarshal, fmt, UNumberFormatTextAttribute, tag, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_getTextAttribute", fmtMarshal, fmt, UNumberFormatTextAttribute, tag, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22609,7 +22650,7 @@ export unum_setTextAttribute(fmt, tag, newValue, newValueLength, _status) {
     newValueMarshal := newValue is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\unum_setTextAttribute", fmtMarshal, fmt, UNumberFormatTextAttribute, tag, newValueMarshal, newValue, "int", newValueLength, _statusMarshal, _status)
+    DllCall("icuin.dll\unum_setTextAttribute", fmtMarshal, fmt, UNumberFormatTextAttribute, tag, newValueMarshal, newValue, Int32, newValueLength, _statusMarshal, _status)
 }
 
 /**
@@ -22626,7 +22667,7 @@ export unum_toPattern(fmt, isPatternLocalized, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_toPattern", fmtMarshal, fmt, "char", isPatternLocalized, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_toPattern", fmtMarshal, fmt, Int8, isPatternLocalized, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22644,7 +22685,7 @@ export unum_getSymbol(fmt, symbol, _buffer, _size, _status) {
     _bufferMarshal := _buffer is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unum_getSymbol", fmtMarshal, fmt, UNumberFormatSymbol, symbol, _bufferMarshal, _buffer, "int", _size, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unum_getSymbol", fmtMarshal, fmt, UNumberFormatSymbol, symbol, _bufferMarshal, _buffer, Int32, _size, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22662,7 +22703,7 @@ export unum_setSymbol(fmt, symbol, value, length, _status) {
     valueMarshal := value is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\unum_setSymbol", fmtMarshal, fmt, UNumberFormatSymbol, symbol, valueMarshal, value, "int", length, _statusMarshal, _status)
+    DllCall("icuin.dll\unum_setSymbol", fmtMarshal, fmt, UNumberFormatSymbol, symbol, valueMarshal, value, Int32, length, _statusMarshal, _status)
 }
 
 /**
@@ -22738,7 +22779,7 @@ export udat_open(timeStyle, dateStyle, locale, tzID, tzIDLength, pattern, patter
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udat_open", UDateFormatStyle, timeStyle, UDateFormatStyle, dateStyle, "ptr", locale, tzIDMarshal, tzID, "int", tzIDLength, patternMarshal, pattern, "int", patternLength, _statusMarshal, _status, IntPtr)
+    result := DllCall("icuin.dll\udat_open", UDateFormatStyle, timeStyle, UDateFormatStyle, dateStyle, "ptr", locale, tzIDMarshal, tzID, Int32, tzIDLength, patternMarshal, pattern, Int32, patternLength, _statusMarshal, _status, IntPtr)
     return result
 }
 
@@ -22780,7 +22821,7 @@ export udat_setBooleanAttribute(fmt, attr, newValue, _status) {
     fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\udat_setBooleanAttribute", fmtMarshal, fmt, UDateFormatBooleanAttribute, attr, "char", newValue, _statusMarshal, _status)
+    DllCall("icuin.dll\udat_setBooleanAttribute", fmtMarshal, fmt, UDateFormatBooleanAttribute, attr, Int8, newValue, _statusMarshal, _status)
 }
 
 /**
@@ -22812,7 +22853,7 @@ export udat_format(format, dateToFormat, result, resultLength, position, _status
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udat_format", formatMarshal, format, "double", dateToFormat, resultMarshal, result, "int", resultLength, UFieldPosition.Ptr, position, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\udat_format", formatMarshal, format, Float64, dateToFormat, resultMarshal, result, Int32, resultLength, UFieldPosition.Ptr, position, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22832,7 +22873,7 @@ export udat_formatCalendar(format, calendar, result, capacity, position, _status
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udat_formatCalendar", formatMarshal, format, calendarMarshal, calendar, resultMarshal, result, "int", capacity, UFieldPosition.Ptr, position, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\udat_formatCalendar", formatMarshal, format, calendarMarshal, calendar, resultMarshal, result, Int32, capacity, UFieldPosition.Ptr, position, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22852,7 +22893,7 @@ export udat_formatForFields(format, dateToFormat, result, resultLength, fpositer
     fpositerMarshal := fpositer is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udat_formatForFields", formatMarshal, format, "double", dateToFormat, resultMarshal, result, "int", resultLength, fpositerMarshal, fpositer, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\udat_formatForFields", formatMarshal, format, Float64, dateToFormat, resultMarshal, result, Int32, resultLength, fpositerMarshal, fpositer, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22873,7 +22914,7 @@ export udat_formatCalendarForFields(format, calendar, result, capacity, fpositer
     fpositerMarshal := fpositer is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udat_formatCalendarForFields", formatMarshal, format, calendarMarshal, calendar, resultMarshal, result, "int", capacity, fpositerMarshal, fpositer, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\udat_formatCalendarForFields", formatMarshal, format, calendarMarshal, calendar, resultMarshal, result, Int32, capacity, fpositerMarshal, fpositer, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -22892,7 +22933,7 @@ export udat_parse(format, text, textLength, parsePos, _status) {
     parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udat_parse", formatMarshal, format, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, Float64)
+    result := DllCall("icuin.dll\udat_parse", formatMarshal, format, textMarshal, text, Int32, textLength, parsePosMarshal, parsePos, _statusMarshal, _status, Float64)
     return result
 }
 
@@ -22913,7 +22954,7 @@ export udat_parseCalendar(format, calendar, text, textLength, parsePos, _status)
     parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\udat_parseCalendar", formatMarshal, format, calendarMarshal, calendar, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status)
+    DllCall("icuin.dll\udat_parseCalendar", formatMarshal, format, calendarMarshal, calendar, textMarshal, text, Int32, textLength, parsePosMarshal, parsePos, _statusMarshal, _status)
 }
 
 /**
@@ -22937,7 +22978,7 @@ export udat_isLenient(fmt) {
 export udat_setLenient(fmt, isLenient) {
     fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-    DllCall("icuin.dll\udat_setLenient", fmtMarshal, fmt, "char", isLenient)
+    DllCall("icuin.dll\udat_setLenient", fmtMarshal, fmt, Int8, isLenient)
 }
 
 /**
@@ -22986,7 +23027,7 @@ export udat_getNumberFormat(fmt) {
 export udat_getNumberFormatForField(fmt, field) {
     fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("icuin.dll\udat_getNumberFormatForField", fmtMarshal, fmt, "ushort", field, IntPtr)
+    result := DllCall("icuin.dll\udat_getNumberFormatForField", fmtMarshal, fmt, UInt16, field, IntPtr)
     return result
 }
 
@@ -23039,7 +23080,7 @@ export udat_adoptNumberFormat(fmt, numberFormatToAdopt) {
  * @returns {PSTR} 
  */
 export udat_getAvailable(localeIndex) {
-    result := DllCall("icuin.dll\udat_getAvailable", "int", localeIndex, PSTR)
+    result := DllCall("icuin.dll\udat_getAvailable", Int32, localeIndex, PSTR)
     return result
 }
 
@@ -23077,7 +23118,7 @@ export udat_set2DigitYearStart(fmt, d, _status) {
     fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\udat_set2DigitYearStart", fmtMarshal, fmt, "double", d, _statusMarshal, _status)
+    DllCall("icuin.dll\udat_set2DigitYearStart", fmtMarshal, fmt, Float64, d, _statusMarshal, _status)
 }
 
 /**
@@ -23094,7 +23135,7 @@ export udat_toPattern(fmt, localized, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udat_toPattern", fmtMarshal, fmt, "char", localized, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\udat_toPattern", fmtMarshal, fmt, Int8, localized, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -23110,7 +23151,7 @@ export udat_applyPattern(format, localized, pattern, patternLength) {
     formatMarshal := format is VarRef ? "ptr*" : "ptr"
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuin.dll\udat_applyPattern", formatMarshal, format, "char", localized, patternMarshal, pattern, "int", patternLength)
+    DllCall("icuin.dll\udat_applyPattern", formatMarshal, format, Int8, localized, patternMarshal, pattern, Int32, patternLength)
 }
 
 /**
@@ -23128,7 +23169,7 @@ export udat_getSymbols(fmt, type, symbolIndex, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udat_getSymbols", fmtMarshal, fmt, UDateFormatSymbolType, type, "int", symbolIndex, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\udat_getSymbols", fmtMarshal, fmt, UDateFormatSymbolType, type, Int32, symbolIndex, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -23160,7 +23201,7 @@ export udat_setSymbols(format, type, symbolIndex, value, valueLength, _status) {
     valueMarshal := value is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\udat_setSymbols", formatMarshal, format, UDateFormatSymbolType, type, "int", symbolIndex, valueMarshal, value, "int", valueLength, _statusMarshal, _status)
+    DllCall("icuin.dll\udat_setSymbols", formatMarshal, format, UDateFormatSymbolType, type, Int32, symbolIndex, valueMarshal, value, Int32, valueLength, _statusMarshal, _status)
 }
 
 /**
@@ -23275,7 +23316,7 @@ export udatpg_getBestPattern(dtpg, skeleton, length, bestPattern, capacity, pErr
     bestPatternMarshal := bestPattern is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udatpg_getBestPattern", dtpgMarshal, dtpg, skeletonMarshal, skeleton, "int", length, bestPatternMarshal, bestPattern, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuin.dll\udatpg_getBestPattern", dtpgMarshal, dtpg, skeletonMarshal, skeleton, Int32, length, bestPatternMarshal, bestPattern, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -23296,7 +23337,7 @@ export udatpg_getBestPatternWithOptions(dtpg, skeleton, length, options, bestPat
     bestPatternMarshal := bestPattern is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udatpg_getBestPatternWithOptions", dtpgMarshal, dtpg, skeletonMarshal, skeleton, "int", length, UDateTimePatternMatchOptions, options, bestPatternMarshal, bestPattern, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuin.dll\udatpg_getBestPatternWithOptions", dtpgMarshal, dtpg, skeletonMarshal, skeleton, Int32, length, UDateTimePatternMatchOptions, options, bestPatternMarshal, bestPattern, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -23316,7 +23357,7 @@ export udatpg_getSkeleton(unusedDtpg, pattern, length, skeleton, capacity, pErro
     skeletonMarshal := skeleton is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udatpg_getSkeleton", unusedDtpgMarshal, unusedDtpg, patternMarshal, pattern, "int", length, skeletonMarshal, skeleton, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuin.dll\udatpg_getSkeleton", unusedDtpgMarshal, unusedDtpg, patternMarshal, pattern, Int32, length, skeletonMarshal, skeleton, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -23336,7 +23377,7 @@ export udatpg_getBaseSkeleton(unusedDtpg, pattern, length, baseSkeleton, capacit
     baseSkeletonMarshal := baseSkeleton is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udatpg_getBaseSkeleton", unusedDtpgMarshal, unusedDtpg, patternMarshal, pattern, "int", length, baseSkeletonMarshal, baseSkeleton, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuin.dll\udatpg_getBaseSkeleton", unusedDtpgMarshal, unusedDtpg, patternMarshal, pattern, Int32, length, baseSkeletonMarshal, baseSkeleton, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -23359,7 +23400,7 @@ export udatpg_addPattern(dtpg, pattern, patternLength, override, conflictingPatt
     pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udatpg_addPattern", dtpgMarshal, dtpg, patternMarshal, pattern, "int", patternLength, "char", override, conflictingPatternMarshal, conflictingPattern, "int", capacity, pLengthMarshal, pLength, pErrorCodeMarshal, pErrorCode, UDateTimePatternConflict)
+    result := DllCall("icuin.dll\udatpg_addPattern", dtpgMarshal, dtpg, patternMarshal, pattern, Int32, patternLength, Int8, override, conflictingPatternMarshal, conflictingPattern, Int32, capacity, pLengthMarshal, pLength, pErrorCodeMarshal, pErrorCode, UDateTimePatternConflict)
     return result
 }
 
@@ -23375,7 +23416,7 @@ export udatpg_setAppendItemFormat(dtpg, field, value, length) {
     dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
     valueMarshal := value is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuin.dll\udatpg_setAppendItemFormat", dtpgMarshal, dtpg, UDateTimePatternField, field, valueMarshal, value, "int", length)
+    DllCall("icuin.dll\udatpg_setAppendItemFormat", dtpgMarshal, dtpg, UDateTimePatternField, field, valueMarshal, value, Int32, length)
 }
 
 /**
@@ -23405,7 +23446,7 @@ export udatpg_setAppendItemName(dtpg, field, value, length) {
     dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
     valueMarshal := value is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuin.dll\udatpg_setAppendItemName", dtpgMarshal, dtpg, UDateTimePatternField, field, valueMarshal, value, "int", length)
+    DllCall("icuin.dll\udatpg_setAppendItemName", dtpgMarshal, dtpg, UDateTimePatternField, field, valueMarshal, value, Int32, length)
 }
 
 /**
@@ -23438,7 +23479,7 @@ export udatpg_getFieldDisplayName(dtpg, field, width, fieldName, capacity, pErro
     fieldNameMarshal := fieldName is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\udatpg_getFieldDisplayName", dtpgMarshal, dtpg, UDateTimePatternField, field, UDateTimePGDisplayWidth, width, fieldNameMarshal, fieldName, "int", capacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icu.dll\udatpg_getFieldDisplayName", dtpgMarshal, dtpg, UDateTimePatternField, field, UDateTimePGDisplayWidth, width, fieldNameMarshal, fieldName, Int32, capacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -23453,7 +23494,7 @@ export udatpg_setDateTimeFormat(dtpg, dtFormat, length) {
     dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
     dtFormatMarshal := dtFormat is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuin.dll\udatpg_setDateTimeFormat", dtpgMarshal, dtpg, dtFormatMarshal, dtFormat, "int", length)
+    DllCall("icuin.dll\udatpg_setDateTimeFormat", dtpgMarshal, dtpg, dtFormatMarshal, dtFormat, Int32, length)
 }
 
 /**
@@ -23481,7 +23522,7 @@ export udatpg_setDecimal(dtpg, _decimal, length) {
     dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
     _decimalMarshal := _decimal is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuin.dll\udatpg_setDecimal", dtpgMarshal, dtpg, _decimalMarshal, _decimal, "int", length)
+    DllCall("icuin.dll\udatpg_setDecimal", dtpgMarshal, dtpg, _decimalMarshal, _decimal, Int32, length)
 }
 
 /**
@@ -23517,7 +23558,7 @@ export udatpg_replaceFieldTypes(dtpg, pattern, patternLength, skeleton, skeleton
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udatpg_replaceFieldTypes", dtpgMarshal, dtpg, patternMarshal, pattern, "int", patternLength, skeletonMarshal, skeleton, "int", skeletonLength, destMarshal, dest, "int", destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuin.dll\udatpg_replaceFieldTypes", dtpgMarshal, dtpg, patternMarshal, pattern, Int32, patternLength, skeletonMarshal, skeleton, Int32, skeletonLength, destMarshal, dest, Int32, destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -23541,7 +23582,7 @@ export udatpg_replaceFieldTypesWithOptions(dtpg, pattern, patternLength, skeleto
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udatpg_replaceFieldTypesWithOptions", dtpgMarshal, dtpg, patternMarshal, pattern, "int", patternLength, skeletonMarshal, skeleton, "int", skeletonLength, UDateTimePatternMatchOptions, options, destMarshal, dest, "int", destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
+    result := DllCall("icuin.dll\udatpg_replaceFieldTypesWithOptions", dtpgMarshal, dtpg, patternMarshal, pattern, Int32, patternLength, skeletonMarshal, skeleton, Int32, skeletonLength, UDateTimePatternMatchOptions, options, destMarshal, dest, Int32, destCapacity, pErrorCodeMarshal, pErrorCode, Int32)
     return result
 }
 
@@ -23586,7 +23627,7 @@ export udatpg_getPatternForSkeleton(dtpg, skeleton, skeletonLength, pLength) {
     skeletonMarshal := skeleton is VarRef ? "ushort*" : "ptr"
     pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\udatpg_getPatternForSkeleton", dtpgMarshal, dtpg, skeletonMarshal, skeleton, "int", skeletonLength, pLengthMarshal, pLength, IntPtr)
+    result := DllCall("icuin.dll\udatpg_getPatternForSkeleton", dtpgMarshal, dtpg, skeletonMarshal, skeleton, Int32, skeletonLength, pLengthMarshal, pLength, IntPtr)
     return result
 }
 
@@ -23618,7 +23659,7 @@ export unumf_openForSkeletonAndLocale(skeleton, skeletonLen, locale, ec) {
     skeletonMarshal := skeleton is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\unumf_openForSkeletonAndLocale", skeletonMarshal, skeleton, "int", skeletonLen, "ptr", locale, ecMarshal, ec, UNumberFormatter.Ptr)
+    result := DllCall("icu.dll\unumf_openForSkeletonAndLocale", skeletonMarshal, skeleton, Int32, skeletonLen, "ptr", locale, ecMarshal, ec, UNumberFormatter.Ptr)
     return result
 }
 
@@ -23637,7 +23678,7 @@ export unumf_openForSkeletonAndLocaleWithError(skeleton, skeletonLen, locale, pe
     skeletonMarshal := skeleton is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\unumf_openForSkeletonAndLocaleWithError", skeletonMarshal, skeleton, "int", skeletonLen, "ptr", locale, UParseError.Ptr, perror, ecMarshal, ec, UNumberFormatter.Ptr)
+    result := DllCall("icu.dll\unumf_openForSkeletonAndLocaleWithError", skeletonMarshal, skeleton, Int32, skeletonLen, "ptr", locale, UParseError.Ptr, perror, ecMarshal, ec, UNumberFormatter.Ptr)
     return result
 }
 
@@ -23666,7 +23707,7 @@ export unumf_formatInt(uformatter, value, uresult, ec) {
     uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\unumf_formatInt", uformatterMarshal, uformatter, "int64", value, uresultMarshal, uresult, ecMarshal, ec)
+    DllCall("icu.dll\unumf_formatInt", uformatterMarshal, uformatter, Int64, value, uresultMarshal, uresult, ecMarshal, ec)
 }
 
 /**
@@ -23682,7 +23723,7 @@ export unumf_formatDouble(uformatter, value, uresult, ec) {
     uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\unumf_formatDouble", uformatterMarshal, uformatter, "double", value, uresultMarshal, uresult, ecMarshal, ec)
+    DllCall("icu.dll\unumf_formatDouble", uformatterMarshal, uformatter, Float64, value, uresultMarshal, uresult, ecMarshal, ec)
 }
 
 /**
@@ -23701,7 +23742,7 @@ export unumf_formatDecimal(uformatter, value, valueLen, uresult, ec) {
     uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\unumf_formatDecimal", uformatterMarshal, uformatter, "ptr", value, "int", valueLen, uresultMarshal, uresult, ecMarshal, ec)
+    DllCall("icu.dll\unumf_formatDecimal", uformatterMarshal, uformatter, "ptr", value, Int32, valueLen, uresultMarshal, uresult, ecMarshal, ec)
 }
 
 /**
@@ -23731,7 +23772,7 @@ export unumf_resultToString(uresult, _buffer, bufferCapacity, ec) {
     _bufferMarshal := _buffer is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\unumf_resultToString", uresultMarshal, uresult, _bufferMarshal, _buffer, "int", bufferCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icu.dll\unumf_resultToString", uresultMarshal, uresult, _bufferMarshal, _buffer, Int32, bufferCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -23779,7 +23820,7 @@ export unumf_resultToDecimalNumber(uresult, dest, destCapacity, ec) {
     uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\unumf_resultToDecimalNumber", uresultMarshal, uresult, "ptr", dest, "int", destCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icu.dll\unumf_resultToDecimalNumber", uresultMarshal, uresult, "ptr", dest, Int32, destCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -23822,7 +23863,7 @@ export unumrf_openForSkeletonWithCollapseAndIdentityFallback(skeleton, skeletonL
     skeletonMarshal := skeleton is VarRef ? "ushort*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\unumrf_openForSkeletonWithCollapseAndIdentityFallback", skeletonMarshal, skeleton, "int", skeletonLen, UNumberRangeCollapse, collapse, UNumberRangeIdentityFallback, identityFallback, "ptr", locale, UParseError.Ptr, perror, ecMarshal, ec, UNumberRangeFormatter.Ptr)
+    result := DllCall("icu.dll\unumrf_openForSkeletonWithCollapseAndIdentityFallback", skeletonMarshal, skeleton, Int32, skeletonLen, UNumberRangeCollapse, collapse, UNumberRangeIdentityFallback, identityFallback, "ptr", locale, UParseError.Ptr, perror, ecMarshal, ec, UNumberRangeFormatter.Ptr)
     return result
 }
 
@@ -23852,7 +23893,7 @@ export unumrf_formatDoubleRange(uformatter, first, second, uresult, ec) {
     uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\unumrf_formatDoubleRange", uformatterMarshal, uformatter, "double", first, "double", second, uresultMarshal, uresult, ecMarshal, ec)
+    DllCall("icu.dll\unumrf_formatDoubleRange", uformatterMarshal, uformatter, Float64, first, Float64, second, uresultMarshal, uresult, ecMarshal, ec)
 }
 
 /**
@@ -23874,7 +23915,7 @@ export unumrf_formatDecimalRange(uformatter, first, firstLen, second, secondLen,
     uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\unumrf_formatDecimalRange", uformatterMarshal, uformatter, "ptr", first, "int", firstLen, "ptr", second, "int", secondLen, uresultMarshal, uresult, ecMarshal, ec)
+    DllCall("icu.dll\unumrf_formatDecimalRange", uformatterMarshal, uformatter, "ptr", first, Int32, firstLen, "ptr", second, Int32, secondLen, uresultMarshal, uresult, ecMarshal, ec)
 }
 
 /**
@@ -23919,7 +23960,7 @@ export unumrf_resultGetFirstDecimalNumber(uresult, dest, destCapacity, ec) {
     uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\unumrf_resultGetFirstDecimalNumber", uresultMarshal, uresult, "ptr", dest, "int", destCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icu.dll\unumrf_resultGetFirstDecimalNumber", uresultMarshal, uresult, "ptr", dest, Int32, destCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -23937,7 +23978,7 @@ export unumrf_resultGetSecondDecimalNumber(uresult, dest, destCapacity, ec) {
     uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
     ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\unumrf_resultGetSecondDecimalNumber", uresultMarshal, uresult, "ptr", dest, "int", destCapacity, ecMarshal, ec, Int32)
+    result := DllCall("icu.dll\unumrf_resultGetSecondDecimalNumber", uresultMarshal, uresult, "ptr", dest, Int32, destCapacity, ecMarshal, ec, Int32)
     return result
 }
 
@@ -24065,7 +24106,7 @@ export unumsys_getDescription(unumsys, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\unumsys_getDescription", unumsysMarshal, unumsys, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\unumsys_getDescription", unumsysMarshal, unumsys, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24125,7 +24166,7 @@ export uplrules_select(uplrules, _number, keyword, capacity, _status) {
     keywordMarshal := keyword is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uplrules_select", uplrulesMarshal, uplrules, "double", _number, keywordMarshal, keyword, "int", capacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uplrules_select", uplrulesMarshal, uplrules, Float64, _number, keywordMarshal, keyword, Int32, capacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24144,7 +24185,7 @@ export uplrules_selectFormatted(uplrules, _number, keyword, capacity, _status) {
     keywordMarshal := keyword is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icu.dll\uplrules_selectFormatted", uplrulesMarshal, uplrules, _numberMarshal, _number, keywordMarshal, keyword, "int", capacity, _statusMarshal, _status, Int32)
+    result := DllCall("icu.dll\uplrules_selectFormatted", uplrulesMarshal, uplrules, _numberMarshal, _number, keywordMarshal, keyword, Int32, capacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24175,7 +24216,7 @@ export uregex_open(pattern, patternLength, flags, pe, _status) {
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_open", patternMarshal, pattern, "int", patternLength, "uint", flags, UParseError.Ptr, pe, _statusMarshal, _status, URegularExpression.Ptr)
+    result := DllCall("icuin.dll\uregex_open", patternMarshal, pattern, Int32, patternLength, UInt32, flags, UParseError.Ptr, pe, _statusMarshal, _status, URegularExpression.Ptr)
     return result
 }
 
@@ -24190,7 +24231,7 @@ export uregex_open(pattern, patternLength, flags, pe, _status) {
 export uregex_openUText(pattern, flags, pe, _status) {
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_openUText", UText.Ptr, pattern, "uint", flags, UParseError.Ptr, pe, _statusMarshal, _status, URegularExpression.Ptr)
+    result := DllCall("icuin.dll\uregex_openUText", UText.Ptr, pattern, UInt32, flags, UParseError.Ptr, pe, _statusMarshal, _status, URegularExpression.Ptr)
     return result
 }
 
@@ -24207,7 +24248,7 @@ export uregex_openC(pattern, flags, pe, _status) {
 
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_openC", "ptr", pattern, "uint", flags, UParseError.Ptr, pe, _statusMarshal, _status, URegularExpression.Ptr)
+    result := DllCall("icuin.dll\uregex_openC", "ptr", pattern, UInt32, flags, UParseError.Ptr, pe, _statusMarshal, _status, URegularExpression.Ptr)
     return result
 }
 
@@ -24293,7 +24334,7 @@ export uregex_setText(regexp, text, textLength, _status) {
     textMarshal := text is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setText", regexpMarshal, regexp, textMarshal, text, "int", textLength, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setText", regexpMarshal, regexp, textMarshal, text, Int32, textLength, _statusMarshal, _status)
 }
 
 /**
@@ -24366,7 +24407,7 @@ export uregex_matches(regexp, startIndex, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_matches", regexpMarshal, regexp, "int", startIndex, _statusMarshal, _status, Int8)
+    result := DllCall("icuin.dll\uregex_matches", regexpMarshal, regexp, Int32, startIndex, _statusMarshal, _status, Int8)
     return result
 }
 
@@ -24381,7 +24422,7 @@ export uregex_matches64(regexp, startIndex, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_matches64", regexpMarshal, regexp, "int64", startIndex, _statusMarshal, _status, Int8)
+    result := DllCall("icuin.dll\uregex_matches64", regexpMarshal, regexp, Int64, startIndex, _statusMarshal, _status, Int8)
     return result
 }
 
@@ -24396,7 +24437,7 @@ export uregex_lookingAt(regexp, startIndex, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_lookingAt", regexpMarshal, regexp, "int", startIndex, _statusMarshal, _status, Int8)
+    result := DllCall("icuin.dll\uregex_lookingAt", regexpMarshal, regexp, Int32, startIndex, _statusMarshal, _status, Int8)
     return result
 }
 
@@ -24411,7 +24452,7 @@ export uregex_lookingAt64(regexp, startIndex, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_lookingAt64", regexpMarshal, regexp, "int64", startIndex, _statusMarshal, _status, Int8)
+    result := DllCall("icuin.dll\uregex_lookingAt64", regexpMarshal, regexp, Int64, startIndex, _statusMarshal, _status, Int8)
     return result
 }
 
@@ -24426,7 +24467,7 @@ export uregex_find(regexp, startIndex, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_find", regexpMarshal, regexp, "int", startIndex, _statusMarshal, _status, Int8)
+    result := DllCall("icuin.dll\uregex_find", regexpMarshal, regexp, Int32, startIndex, _statusMarshal, _status, Int8)
     return result
 }
 
@@ -24441,7 +24482,7 @@ export uregex_find64(regexp, startIndex, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_find64", regexpMarshal, regexp, "int64", startIndex, _statusMarshal, _status, Int8)
+    result := DllCall("icuin.dll\uregex_find64", regexpMarshal, regexp, Int64, startIndex, _statusMarshal, _status, Int8)
     return result
 }
 
@@ -24486,7 +24527,7 @@ export uregex_groupNumberFromName(regexp, groupName, nameLength, _status) {
     groupNameMarshal := groupName is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_groupNumberFromName", regexpMarshal, regexp, groupNameMarshal, groupName, "int", nameLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_groupNumberFromName", regexpMarshal, regexp, groupNameMarshal, groupName, Int32, nameLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24504,7 +24545,7 @@ export uregex_groupNumberFromCName(regexp, groupName, nameLength, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_groupNumberFromCName", regexpMarshal, regexp, "ptr", groupName, "int", nameLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_groupNumberFromCName", regexpMarshal, regexp, "ptr", groupName, Int32, nameLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24522,7 +24563,7 @@ export uregex_group(regexp, groupNum, dest, destCapacity, _status) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_group", regexpMarshal, regexp, "int", groupNum, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_group", regexpMarshal, regexp, Int32, groupNum, destMarshal, dest, Int32, destCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24540,7 +24581,7 @@ export uregex_groupUText(regexp, groupNum, dest, groupLength, _status) {
     groupLengthMarshal := groupLength is VarRef ? "int64*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_groupUText", regexpMarshal, regexp, "int", groupNum, UText.Ptr, dest, groupLengthMarshal, groupLength, _statusMarshal, _status, UText.Ptr)
+    result := DllCall("icuin.dll\uregex_groupUText", regexpMarshal, regexp, Int32, groupNum, UText.Ptr, dest, groupLengthMarshal, groupLength, _statusMarshal, _status, UText.Ptr)
     return result
 }
 
@@ -24555,7 +24596,7 @@ export uregex_start(regexp, groupNum, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_start", regexpMarshal, regexp, "int", groupNum, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_start", regexpMarshal, regexp, Int32, groupNum, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24570,7 +24611,7 @@ export uregex_start64(regexp, groupNum, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_start64", regexpMarshal, regexp, "int", groupNum, _statusMarshal, _status, Int64)
+    result := DllCall("icuin.dll\uregex_start64", regexpMarshal, regexp, Int32, groupNum, _statusMarshal, _status, Int64)
     return result
 }
 
@@ -24585,7 +24626,7 @@ export uregex_end(regexp, groupNum, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_end", regexpMarshal, regexp, "int", groupNum, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_end", regexpMarshal, regexp, Int32, groupNum, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24600,7 +24641,7 @@ export uregex_end64(regexp, groupNum, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_end64", regexpMarshal, regexp, "int", groupNum, _statusMarshal, _status, Int64)
+    result := DllCall("icuin.dll\uregex_end64", regexpMarshal, regexp, Int32, groupNum, _statusMarshal, _status, Int64)
     return result
 }
 
@@ -24615,7 +24656,7 @@ export uregex_reset(regexp, index, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_reset", regexpMarshal, regexp, "int", index, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_reset", regexpMarshal, regexp, Int32, index, _statusMarshal, _status)
 }
 
 /**
@@ -24629,7 +24670,7 @@ export uregex_reset64(regexp, index, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_reset64", regexpMarshal, regexp, "int64", index, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_reset64", regexpMarshal, regexp, Int64, index, _statusMarshal, _status)
 }
 
 /**
@@ -24644,7 +24685,7 @@ export uregex_setRegion(regexp, regionStart, regionLimit, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setRegion", regexpMarshal, regexp, "int", regionStart, "int", regionLimit, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setRegion", regexpMarshal, regexp, Int32, regionStart, Int32, regionLimit, _statusMarshal, _status)
 }
 
 /**
@@ -24659,7 +24700,7 @@ export uregex_setRegion64(regexp, regionStart, regionLimit, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setRegion64", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setRegion64", regexpMarshal, regexp, Int64, regionStart, Int64, regionLimit, _statusMarshal, _status)
 }
 
 /**
@@ -24675,7 +24716,7 @@ export uregex_setRegionAndStart(regexp, regionStart, regionLimit, startIndex, _s
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setRegionAndStart", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, "int64", startIndex, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setRegionAndStart", regexpMarshal, regexp, Int64, regionStart, Int64, regionLimit, Int64, startIndex, _statusMarshal, _status)
 }
 
 /**
@@ -24759,7 +24800,7 @@ export uregex_useTransparentBounds(regexp, b, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_useTransparentBounds", regexpMarshal, regexp, "char", b, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_useTransparentBounds", regexpMarshal, regexp, Int8, b, _statusMarshal, _status)
 }
 
 /**
@@ -24787,7 +24828,7 @@ export uregex_useAnchoringBounds(regexp, b, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_useAnchoringBounds", regexpMarshal, regexp, "char", b, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_useAnchoringBounds", regexpMarshal, regexp, Int8, b, _statusMarshal, _status)
 }
 
 /**
@@ -24834,7 +24875,7 @@ export uregex_replaceAll(regexp, replacementText, replacementLength, destBuf, de
     destBufMarshal := destBuf is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_replaceAll", regexpMarshal, regexp, replacementTextMarshal, replacementText, "int", replacementLength, destBufMarshal, destBuf, "int", destCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_replaceAll", regexpMarshal, regexp, replacementTextMarshal, replacementText, Int32, replacementLength, destBufMarshal, destBuf, Int32, destCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24870,7 +24911,7 @@ export uregex_replaceFirst(regexp, replacementText, replacementLength, destBuf, 
     destBufMarshal := destBuf is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_replaceFirst", regexpMarshal, regexp, replacementTextMarshal, replacementText, "int", replacementLength, destBufMarshal, destBuf, "int", destCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_replaceFirst", regexpMarshal, regexp, replacementTextMarshal, replacementText, Int32, replacementLength, destBufMarshal, destBuf, Int32, destCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24907,7 +24948,7 @@ export uregex_appendReplacement(regexp, replacementText, replacementLength, dest
     destCapacityMarshal := destCapacity is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_appendReplacement", regexpMarshal, regexp, replacementTextMarshal, replacementText, "int", replacementLength, destBufMarshal, destBuf, destCapacityMarshal, destCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_appendReplacement", regexpMarshal, regexp, replacementTextMarshal, replacementText, Int32, replacementLength, destBufMarshal, destBuf, destCapacityMarshal, destCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24977,7 +25018,7 @@ export uregex_split(regexp, destBuf, destCapacity, requiredCapacity, destFields,
     destFieldsMarshal := destFields is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_split", regexpMarshal, regexp, destBufMarshal, destBuf, "int", destCapacity, requiredCapacityMarshal, requiredCapacity, destFieldsMarshal, destFields, "int", destFieldsCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_split", regexpMarshal, regexp, destBufMarshal, destBuf, Int32, destCapacity, requiredCapacityMarshal, requiredCapacity, destFieldsMarshal, destFields, Int32, destFieldsCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -24994,7 +25035,7 @@ export uregex_splitUText(regexp, destFields, destFieldsCapacity, _status) {
     destFieldsMarshal := destFields is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregex_splitUText", regexpMarshal, regexp, destFieldsMarshal, destFields, "int", destFieldsCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uregex_splitUText", regexpMarshal, regexp, destFieldsMarshal, destFields, Int32, destFieldsCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -25009,7 +25050,7 @@ export uregex_setTimeLimit(regexp, limit, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setTimeLimit", regexpMarshal, regexp, "int", limit, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setTimeLimit", regexpMarshal, regexp, Int32, limit, _statusMarshal, _status)
 }
 
 /**
@@ -25037,7 +25078,7 @@ export uregex_setStackLimit(regexp, limit, _status) {
     regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setStackLimit", regexpMarshal, regexp, "int", limit, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setStackLimit", regexpMarshal, regexp, Int32, limit, _statusMarshal, _status)
 }
 
 /**
@@ -25067,7 +25108,7 @@ export uregex_setMatchCallback(regexp, callback, _context, _status) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, URegexMatchCallback, callback, _contextMarshal, _context, _statusMarshal, _status)
 }
 
 /**
@@ -25100,7 +25141,7 @@ export uregex_setFindProgressCallback(regexp, callback, _context, _status) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status)
+    DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, URegexFindProgressCallback, callback, _contextMarshal, _context, _statusMarshal, _status)
 }
 
 /**
@@ -25144,7 +25185,7 @@ export uregion_getRegionFromCode(regionCode, _status) {
 export uregion_getRegionFromNumericCode(code, _status) {
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uregion_getRegionFromNumericCode", "int", code, _statusMarshal, _status, URegion.Ptr)
+    result := DllCall("icuin.dll\uregion_getRegionFromNumericCode", Int32, code, _statusMarshal, _status, URegion.Ptr)
     return result
 }
 
@@ -25375,7 +25416,7 @@ export ureldatefmt_formatNumeric(reldatefmt, offset, _unit, result, resultCapaci
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ureldatefmt_formatNumeric", reldatefmtMarshal, reldatefmt, "double", offset, URelativeDateTimeUnit, _unit, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ureldatefmt_formatNumeric", reldatefmtMarshal, reldatefmt, Float64, offset, URelativeDateTimeUnit, _unit, resultMarshal, result, Int32, resultCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -25393,7 +25434,7 @@ export ureldatefmt_formatNumericToResult(reldatefmt, offset, _unit, result, _sta
     resultMarshal := result is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\ureldatefmt_formatNumericToResult", reldatefmtMarshal, reldatefmt, "double", offset, URelativeDateTimeUnit, _unit, resultMarshal, result, _statusMarshal, _status)
+    DllCall("icu.dll\ureldatefmt_formatNumericToResult", reldatefmtMarshal, reldatefmt, Float64, offset, URelativeDateTimeUnit, _unit, resultMarshal, result, _statusMarshal, _status)
 }
 
 /**
@@ -25411,7 +25452,7 @@ export ureldatefmt_format(reldatefmt, offset, _unit, result, resultCapacity, _st
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ureldatefmt_format", reldatefmtMarshal, reldatefmt, "double", offset, URelativeDateTimeUnit, _unit, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ureldatefmt_format", reldatefmtMarshal, reldatefmt, Float64, offset, URelativeDateTimeUnit, _unit, resultMarshal, result, Int32, resultCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -25429,7 +25470,7 @@ export ureldatefmt_formatToResult(reldatefmt, offset, _unit, result, _status) {
     resultMarshal := result is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icu.dll\ureldatefmt_formatToResult", reldatefmtMarshal, reldatefmt, "double", offset, URelativeDateTimeUnit, _unit, resultMarshal, result, _statusMarshal, _status)
+    DllCall("icu.dll\ureldatefmt_formatToResult", reldatefmtMarshal, reldatefmt, Float64, offset, URelativeDateTimeUnit, _unit, resultMarshal, result, _statusMarshal, _status)
 }
 
 /**
@@ -25451,7 +25492,7 @@ export ureldatefmt_combineDateAndTime(reldatefmt, relativeDateString, relativeDa
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\ureldatefmt_combineDateAndTime", reldatefmtMarshal, reldatefmt, relativeDateStringMarshal, relativeDateString, "int", relativeDateStringLen, timeStringMarshal, timeString, "int", timeStringLen, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\ureldatefmt_combineDateAndTime", reldatefmtMarshal, reldatefmt, relativeDateStringMarshal, relativeDateString, Int32, relativeDateStringLen, timeStringMarshal, timeString, Int32, timeStringLen, resultMarshal, result, Int32, resultCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -25474,7 +25515,7 @@ export usearch_open(pattern, patternlength, text, textlength, locale, breakiter,
     breakiterMarshal := breakiter is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\usearch_open", patternMarshal, pattern, "int", patternlength, textMarshal, text, "int", textlength, "ptr", locale, breakiterMarshal, breakiter, _statusMarshal, _status, UStringSearch.Ptr)
+    result := DllCall("icuin.dll\usearch_open", patternMarshal, pattern, Int32, patternlength, textMarshal, text, Int32, textlength, "ptr", locale, breakiterMarshal, breakiter, _statusMarshal, _status, UStringSearch.Ptr)
     return result
 }
 
@@ -25496,7 +25537,7 @@ export usearch_openFromCollator(pattern, patternlength, text, textlength, collat
     breakiterMarshal := breakiter is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\usearch_openFromCollator", patternMarshal, pattern, "int", patternlength, textMarshal, text, "int", textlength, collatorMarshal, collator, breakiterMarshal, breakiter, _statusMarshal, _status, UStringSearch.Ptr)
+    result := DllCall("icuin.dll\usearch_openFromCollator", patternMarshal, pattern, Int32, patternlength, textMarshal, text, Int32, textlength, collatorMarshal, collator, breakiterMarshal, breakiter, _statusMarshal, _status, UStringSearch.Ptr)
     return result
 }
 
@@ -25522,7 +25563,7 @@ export usearch_setOffset(strsrch, position, _status) {
     strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\usearch_setOffset", strsrchMarshal, strsrch, "int", position, _statusMarshal, _status)
+    DllCall("icuin.dll\usearch_setOffset", strsrchMarshal, strsrch, Int32, position, _statusMarshal, _status)
 }
 
 /**
@@ -25602,7 +25643,7 @@ export usearch_getMatchedText(strsrch, result, resultCapacity, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\usearch_getMatchedText", strsrchMarshal, strsrch, resultMarshal, result, "int", resultCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\usearch_getMatchedText", strsrchMarshal, strsrch, resultMarshal, result, Int32, resultCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -25646,7 +25687,7 @@ export usearch_setText(strsrch, text, textlength, _status) {
     textMarshal := text is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\usearch_setText", strsrchMarshal, strsrch, textMarshal, text, "int", textlength, _statusMarshal, _status)
+    DllCall("icuin.dll\usearch_setText", strsrchMarshal, strsrch, textMarshal, text, Int32, textlength, _statusMarshal, _status)
 }
 
 /**
@@ -25703,7 +25744,7 @@ export usearch_setPattern(strsrch, pattern, patternlength, _status) {
     patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\usearch_setPattern", strsrchMarshal, strsrch, patternMarshal, pattern, "int", patternlength, _statusMarshal, _status)
+    DllCall("icuin.dll\usearch_setPattern", strsrchMarshal, strsrch, patternMarshal, pattern, Int32, patternlength, _statusMarshal, _status)
 }
 
 /**
@@ -25745,7 +25786,7 @@ export usearch_following(strsrch, position, _status) {
     strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\usearch_following", strsrchMarshal, strsrch, "int", position, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\usearch_following", strsrchMarshal, strsrch, Int32, position, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -25774,7 +25815,7 @@ export usearch_preceding(strsrch, position, _status) {
     strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\usearch_preceding", strsrchMarshal, strsrch, "int", position, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\usearch_preceding", strsrchMarshal, strsrch, Int32, position, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -25842,7 +25883,7 @@ export uspoof_openFromSerialized(data, length, pActualLength, pErrorCode) {
     pActualLengthMarshal := pActualLength is VarRef ? "int*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_openFromSerialized", dataMarshal, data, "int", length, pActualLengthMarshal, pActualLength, pErrorCodeMarshal, pErrorCode, USpoofChecker.Ptr)
+    result := DllCall("icuin.dll\uspoof_openFromSerialized", dataMarshal, data, Int32, length, pActualLengthMarshal, pActualLength, pErrorCodeMarshal, pErrorCode, USpoofChecker.Ptr)
     return result
 }
 
@@ -25864,7 +25905,7 @@ export uspoof_openFromSource(confusables, confusablesLen, confusablesWholeScript
     errTypeMarshal := errType is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_openFromSource", "ptr", confusables, "int", confusablesLen, "ptr", confusablesWholeScript, "int", confusablesWholeScriptLen, errTypeMarshal, errType, UParseError.Ptr, pe, _statusMarshal, _status, USpoofChecker.Ptr)
+    result := DllCall("icuin.dll\uspoof_openFromSource", "ptr", confusables, Int32, confusablesLen, "ptr", confusablesWholeScript, Int32, confusablesWholeScriptLen, errTypeMarshal, errType, UParseError.Ptr, pe, _statusMarshal, _status, USpoofChecker.Ptr)
     return result
 }
 
@@ -25904,7 +25945,7 @@ export uspoof_setChecks(sc, checks, _status) {
     scMarshal := sc is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\uspoof_setChecks", scMarshal, sc, "int", checks, _statusMarshal, _status)
+    DllCall("icuin.dll\uspoof_setChecks", scMarshal, sc, Int32, checks, _statusMarshal, _status)
 }
 
 /**
@@ -26019,7 +26060,7 @@ export uspoof_check(sc, id, length, position, _status) {
     positionMarshal := position is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_check", scMarshal, sc, idMarshal, id, "int", length, positionMarshal, position, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uspoof_check", scMarshal, sc, idMarshal, id, Int32, length, positionMarshal, position, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26039,7 +26080,7 @@ export uspoof_checkUTF8(sc, id, length, position, _status) {
     positionMarshal := position is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_checkUTF8", scMarshal, sc, "ptr", id, "int", length, positionMarshal, position, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uspoof_checkUTF8", scMarshal, sc, "ptr", id, Int32, length, positionMarshal, position, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26058,7 +26099,7 @@ export uspoof_check2(sc, id, length, checkResult, _status) {
     checkResultMarshal := checkResult is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_check2", scMarshal, sc, idMarshal, id, "int", length, checkResultMarshal, checkResult, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uspoof_check2", scMarshal, sc, idMarshal, id, Int32, length, checkResultMarshal, checkResult, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26078,7 +26119,7 @@ export uspoof_check2UTF8(sc, id, length, checkResult, _status) {
     checkResultMarshal := checkResult is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_check2UTF8", scMarshal, sc, "ptr", id, "int", length, checkResultMarshal, checkResult, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uspoof_check2UTF8", scMarshal, sc, "ptr", id, Int32, length, checkResultMarshal, checkResult, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26163,7 +26204,7 @@ export uspoof_areConfusable(sc, id1, length1, id2, length2, _status) {
     id2Marshal := id2 is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_areConfusable", scMarshal, sc, id1Marshal, id1, "int", length1, id2Marshal, id2, "int", length2, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uspoof_areConfusable", scMarshal, sc, id1Marshal, id1, Int32, length1, id2Marshal, id2, Int32, length2, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26184,7 +26225,7 @@ export uspoof_areConfusableUTF8(sc, id1, length1, id2, length2, _status) {
     scMarshal := sc is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_areConfusableUTF8", scMarshal, sc, "ptr", id1, "int", length1, "ptr", id2, "int", length2, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uspoof_areConfusableUTF8", scMarshal, sc, "ptr", id1, Int32, length1, "ptr", id2, Int32, length2, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26205,7 +26246,7 @@ export uspoof_getSkeleton(sc, type, id, length, dest, destCapacity, _status) {
     destMarshal := dest is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_getSkeleton", scMarshal, sc, "uint", type, idMarshal, id, "int", length, destMarshal, dest, "int", destCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uspoof_getSkeleton", scMarshal, sc, UInt32, type, idMarshal, id, Int32, length, destMarshal, dest, Int32, destCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26227,7 +26268,7 @@ export uspoof_getSkeletonUTF8(sc, type, id, length, dest, destCapacity, _status)
     scMarshal := sc is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_getSkeletonUTF8", scMarshal, sc, "uint", type, "ptr", id, "int", length, "ptr", dest, "int", destCapacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uspoof_getSkeletonUTF8", scMarshal, sc, UInt32, type, "ptr", id, Int32, length, "ptr", dest, Int32, destCapacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26268,7 +26309,7 @@ export uspoof_serialize(sc, data, capacity, _status) {
     dataMarshal := data is VarRef ? "ptr" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\uspoof_serialize", scMarshal, sc, dataMarshal, data, "int", capacity, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\uspoof_serialize", scMarshal, sc, dataMarshal, data, Int32, capacity, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26296,7 +26337,7 @@ export utmscale_getTimeScaleValue(timeScale, value, _status) {
 export utmscale_fromInt64(otherTime, timeScale, _status) {
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\utmscale_fromInt64", "int64", otherTime, UDateTimeScale, timeScale, _statusMarshal, _status, Int64)
+    result := DllCall("icuin.dll\utmscale_fromInt64", Int64, otherTime, UDateTimeScale, timeScale, _statusMarshal, _status, Int64)
     return result
 }
 
@@ -26310,7 +26351,7 @@ export utmscale_fromInt64(otherTime, timeScale, _status) {
 export utmscale_toInt64(universalTime, timeScale, _status) {
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\utmscale_toInt64", "int64", universalTime, UDateTimeScale, timeScale, _statusMarshal, _status, Int64)
+    result := DllCall("icuin.dll\utmscale_toInt64", Int64, universalTime, UDateTimeScale, timeScale, _statusMarshal, _status, Int64)
     return result
 }
 
@@ -26330,7 +26371,7 @@ export utrans_openU(id, idLength, dir, rules, rulesLength, parseError, pErrorCod
     rulesMarshal := rules is VarRef ? "ushort*" : "ptr"
     pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\utrans_openU", idMarshal, id, "int", idLength, UTransDirection, dir, rulesMarshal, rules, "int", rulesLength, UParseError.Ptr, parseError, pErrorCodeMarshal, pErrorCode, IntPtr)
+    result := DllCall("icuin.dll\utrans_openU", idMarshal, id, Int32, idLength, UTransDirection, dir, rulesMarshal, rules, Int32, rulesLength, UParseError.Ptr, parseError, pErrorCodeMarshal, pErrorCode, IntPtr)
     return result
 }
 
@@ -26409,7 +26450,7 @@ export utrans_register(adoptedTrans, _status) {
 export utrans_unregisterID(id, idLength) {
     idMarshal := id is VarRef ? "ushort*" : "ptr"
 
-    DllCall("icuin.dll\utrans_unregisterID", idMarshal, id, "int", idLength)
+    DllCall("icuin.dll\utrans_unregisterID", idMarshal, id, Int32, idLength)
 }
 
 /**
@@ -26425,7 +26466,7 @@ export utrans_setFilter(trans, filterPattern, filterPatternLen, _status) {
     filterPatternMarshal := filterPattern is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\utrans_setFilter", transMarshal, trans, filterPatternMarshal, filterPattern, "int", filterPatternLen, _statusMarshal, _status)
+    DllCall("icuin.dll\utrans_setFilter", transMarshal, trans, filterPatternMarshal, filterPattern, Int32, filterPatternLen, _statusMarshal, _status)
 }
 
 /**
@@ -26465,7 +26506,7 @@ export utrans_trans(trans, rep, repFunc, start, limit, _status) {
     limitMarshal := limit is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\utrans_trans", transMarshal, trans, repMarshal, rep, UReplaceableCallbacks.Ptr, repFunc, "int", start, limitMarshal, limit, _statusMarshal, _status)
+    DllCall("icuin.dll\utrans_trans", transMarshal, trans, repMarshal, rep, UReplaceableCallbacks.Ptr, repFunc, Int32, start, limitMarshal, limit, _statusMarshal, _status)
 }
 
 /**
@@ -26503,7 +26544,7 @@ export utrans_transUChars(trans, text, textLength, textCapacity, start, limit, _
     limitMarshal := limit is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\utrans_transUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, "int", start, limitMarshal, limit, _statusMarshal, _status)
+    DllCall("icuin.dll\utrans_transUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, Int32, textCapacity, Int32, start, limitMarshal, limit, _statusMarshal, _status)
 }
 
 /**
@@ -26522,7 +26563,7 @@ export utrans_transIncrementalUChars(trans, text, textLength, textCapacity, pos,
     textLengthMarshal := textLength is VarRef ? "int*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    DllCall("icuin.dll\utrans_transIncrementalUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, UTransPosition.Ptr, pos, _statusMarshal, _status)
+    DllCall("icuin.dll\utrans_transIncrementalUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, Int32, textCapacity, UTransPosition.Ptr, pos, _statusMarshal, _status)
 }
 
 /**
@@ -26539,7 +26580,7 @@ export utrans_toRules(trans, escapeUnprintable, result, resultLength, _status) {
     resultMarshal := result is VarRef ? "ushort*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\utrans_toRules", transMarshal, trans, "char", escapeUnprintable, resultMarshal, result, "int", resultLength, _statusMarshal, _status, Int32)
+    result := DllCall("icuin.dll\utrans_toRules", transMarshal, trans, Int8, escapeUnprintable, resultMarshal, result, Int32, resultLength, _statusMarshal, _status, Int32)
     return result
 }
 
@@ -26556,7 +26597,7 @@ export utrans_getSourceSet(trans, ignoreFilter, fillIn, _status) {
     fillInMarshal := fillIn is VarRef ? "ptr*" : "ptr"
     _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-    result := DllCall("icuin.dll\utrans_getSourceSet", transMarshal, trans, "char", ignoreFilter, fillInMarshal, fillIn, _statusMarshal, _status, USet.Ptr)
+    result := DllCall("icuin.dll\utrans_getSourceSet", transMarshal, trans, Int8, ignoreFilter, fillInMarshal, fillIn, _statusMarshal, _status, USet.Ptr)
     return result
 }
 
@@ -26587,7 +26628,7 @@ export GetDistanceOfClosestLanguageInList(pszLanguage, pszLanguagesList, wchList
     pszLanguage := pszLanguage is String ? StrPtr(pszLanguage) : pszLanguage
     pszLanguagesList := pszLanguagesList is String ? StrPtr(pszLanguagesList) : pszLanguagesList
 
-    result := DllCall("bcp47mrm.dll\GetDistanceOfClosestLanguageInList", "ptr", pszLanguage, "ptr", pszLanguagesList, "char", wchListDelimiter, "double*", &pClosestDistance := 0, "HRESULT")
+    result := DllCall("bcp47mrm.dll\GetDistanceOfClosestLanguageInList", "ptr", pszLanguage, "ptr", pszLanguagesList, Int8, wchListDelimiter, "double*", &pClosestDistance := 0, "HRESULT")
     return pClosestDistance
 }
 
@@ -26623,7 +26664,7 @@ export IsWellFormedTag(pszTag) {
  * @see https://learn.microsoft.com/windows/win32/Intl/getcalendarsupporteddaterange
  */
 export GetCalendarSupportedDateRange(Calendar, lpCalMinDateTime, lpCalMaxDateTime) {
-    result := DllCall("KERNEL32.dll\GetCalendarSupportedDateRange", "uint", Calendar, CALDATETIME.Ptr, lpCalMinDateTime, CALDATETIME.Ptr, lpCalMaxDateTime, BOOL)
+    result := DllCall("KERNEL32.dll\GetCalendarSupportedDateRange", UInt32, Calendar, CALDATETIME.Ptr, lpCalMinDateTime, CALDATETIME.Ptr, lpCalMaxDateTime, BOOL)
     return result
 }
 
@@ -26670,7 +26711,7 @@ export GetCalendarDateFormatEx(lpszLocale, dwFlags, lpCalDateTime, lpFormat, lpD
     lpFormat := lpFormat is String ? StrPtr(lpFormat) : lpFormat
     lpDateStr := lpDateStr is String ? StrPtr(lpDateStr) : lpDateStr
 
-    result := DllCall("KERNEL32.dll\GetCalendarDateFormatEx", "ptr", lpszLocale, "uint", dwFlags, CALDATETIME.Ptr, lpCalDateTime, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, BOOL)
+    result := DllCall("KERNEL32.dll\GetCalendarDateFormatEx", "ptr", lpszLocale, UInt32, dwFlags, CALDATETIME.Ptr, lpCalDateTime, "ptr", lpFormat, "ptr", lpDateStr, Int32, cchDate, BOOL)
     return result
 }
 
@@ -26689,7 +26730,7 @@ export GetCalendarDateFormatEx(lpszLocale, dwFlags, lpCalDateTime, lpFormat, lpD
  * @see https://learn.microsoft.com/windows/win32/Intl/convertsystemtimetocaldatetime
  */
 export ConvertSystemTimeToCalDateTime(lpSysTime, calId, lpCalDateTime) {
-    result := DllCall("KERNEL32.dll\ConvertSystemTimeToCalDateTime", SYSTEMTIME.Ptr, lpSysTime, "uint", calId, CALDATETIME.Ptr, lpCalDateTime, BOOL)
+    result := DllCall("KERNEL32.dll\ConvertSystemTimeToCalDateTime", SYSTEMTIME.Ptr, lpSysTime, UInt32, calId, CALDATETIME.Ptr, lpCalDateTime, BOOL)
     return result
 }
 
@@ -26723,7 +26764,7 @@ export UpdateCalendarDayOfWeek(lpCalDateTime) {
  * @see https://learn.microsoft.com/windows/win32/Intl/adjustcalendardate
  */
 export AdjustCalendarDate(lpCalDateTime, calUnit, amount) {
-    result := DllCall("KERNEL32.dll\AdjustCalendarDate", CALDATETIME.Ptr, lpCalDateTime, CALDATETIME_DATEUNIT, calUnit, "int", amount, BOOL)
+    result := DllCall("KERNEL32.dll\AdjustCalendarDate", CALDATETIME.Ptr, lpCalDateTime, CALDATETIME_DATEUNIT, calUnit, Int32, amount, BOOL)
     return result
 }
 
@@ -26757,7 +26798,7 @@ export ConvertCalDateTimeToSystemTime(lpCalDateTime, lpSysTime) {
  * @see https://learn.microsoft.com/windows/win32/Intl/iscalendarleapyear
  */
 export IsCalendarLeapYear(calId, year, era) {
-    result := DllCall("KERNEL32.dll\IsCalendarLeapYear", "uint", calId, "uint", year, "uint", era, BOOL)
+    result := DllCall("KERNEL32.dll\IsCalendarLeapYear", UInt32, calId, UInt32, year, UInt32, era, BOOL)
     return result
 }
 
@@ -26842,7 +26883,7 @@ export FindStringOrdinal(dwFindStringOrdinalFlags, lpStringSource, cchSource, lp
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindStringOrdinal", "uint", dwFindStringOrdinalFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, BOOL, bIgnoreCase, Int32)
+    result := DllCall("KERNEL32.dll\FindStringOrdinal", UInt32, dwFindStringOrdinalFlags, "ptr", lpStringSource, Int32, cchSource, "ptr", lpStringValue, Int32, cchValue, BOOL, bIgnoreCase, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -27124,7 +27165,7 @@ export lstrcpynA(lpString1, lpString2, iMaxLength) {
     lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
     lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-    result := DllCall("KERNEL32.dll\lstrcpynA", "ptr", lpString1, "ptr", lpString2, "int", iMaxLength, PSTR)
+    result := DllCall("KERNEL32.dll\lstrcpynA", "ptr", lpString1, "ptr", lpString2, Int32, iMaxLength, PSTR)
     return result
 }
 
@@ -27210,7 +27251,7 @@ export lstrcpynW(lpString1, lpString2, iMaxLength) {
     lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
     lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-    result := DllCall("KERNEL32.dll\lstrcpynW", "ptr", lpString1, "ptr", lpString2, "int", iMaxLength, PWSTR)
+    result := DllCall("KERNEL32.dll\lstrcpynW", "ptr", lpString1, "ptr", lpString2, Int32, iMaxLength, PWSTR)
     return result
 }
 
@@ -27462,7 +27503,7 @@ export lstrlenW(lpString) {
 export IsTextUnicode(lpv, iSize, lpiResult) {
     lpiResultMarshal := lpiResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\IsTextUnicode", "ptr", lpv, "int", iSize, lpiResultMarshal, lpiResult, BOOL)
+    result := DllCall("ADVAPI32.dll\IsTextUnicode", IntPtr, lpv, Int32, iSize, lpiResultMarshal, lpiResult, BOOL)
     return result
 }
 

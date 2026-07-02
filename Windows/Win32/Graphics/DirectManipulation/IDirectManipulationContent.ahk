@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Encapsulates content inside a viewport, where content represents a visual surface clipped inside the viewport.
@@ -121,7 +121,7 @@ export default struct IDirectManipulationContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-settag
      */
     SetTag(_object, id) {
-        result := ComCall(7, this, "ptr", _object, "uint", id, "HRESULT")
+        result := ComCall(7, this, "ptr", _object, UInt32, id, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IDirectManipulationContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getoutputtransform
      */
     GetOutputTransform(pointCount) {
-        result := ComCall(8, this, "float*", &_matrix := 0, "uint", pointCount, "HRESULT")
+        result := ComCall(8, this, "float*", &_matrix := 0, UInt32, pointCount, "HRESULT")
         return _matrix
     }
 
@@ -162,7 +162,7 @@ export default struct IDirectManipulationContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getcontenttransform
      */
     GetContentTransform(pointCount) {
-        result := ComCall(9, this, "float*", &_matrix := 0, "uint", pointCount, "HRESULT")
+        result := ComCall(9, this, "float*", &_matrix := 0, UInt32, pointCount, "HRESULT")
         return _matrix
     }
 
@@ -180,7 +180,7 @@ export default struct IDirectManipulationContent extends IUnknown {
     SyncContentTransform(_matrix, pointCount) {
         _matrixMarshal := _matrix is VarRef ? "float*" : "ptr"
 
-        result := ComCall(10, this, _matrixMarshal, _matrix, "uint", pointCount, "HRESULT")
+        result := ComCall(10, this, _matrixMarshal, _matrix, UInt32, pointCount, "HRESULT")
         return result
     }
 

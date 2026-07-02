@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMStreamConfig interface is the primary interface of a stream configuration object.
@@ -80,7 +80,7 @@ export default struct IWMStreamConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setstreamnumber
      */
     SetStreamNumber(wStreamNum) {
-        result := ComCall(5, this, "ushort", wStreamNum, "HRESULT")
+        result := ComCall(5, this, UInt16, wStreamNum, "HRESULT")
         return result
     }
 
@@ -317,7 +317,7 @@ export default struct IWMStreamConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setbitrate
      */
     SetBitrate(pdwBitrate) {
-        result := ComCall(11, this, "uint", pdwBitrate, "HRESULT")
+        result := ComCall(11, this, UInt32, pdwBitrate, "HRESULT")
         return result
     }
 
@@ -348,7 +348,7 @@ export default struct IWMStreamConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setbufferwindow
      */
     SetBufferWindow(msBufferWindow) {
-        result := ComCall(13, this, "uint", msBufferWindow, "HRESULT")
+        result := ComCall(13, this, UInt32, msBufferWindow, "HRESULT")
         return result
     }
 

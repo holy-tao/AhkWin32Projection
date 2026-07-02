@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMNetShowExProps interface configures the legacy Windows Media Player 6.4 source filter. The Windows Media Source filter implements this interface.
@@ -149,7 +149,7 @@ export default struct IAMNetShowExProps extends IDispatch {
     GetCodecInstalled(CodecNum, pCodecInstalled) {
         pCodecInstalledMarshal := pCodecInstalled is VarRef ? "short*" : "ptr"
 
-        result := ComCall(11, this, "int", CodecNum, pCodecInstalledMarshal, pCodecInstalled, "HRESULT")
+        result := ComCall(11, this, Int32, CodecNum, pCodecInstalledMarshal, pCodecInstalled, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-getcodecdescription
      */
     GetCodecDescription(CodecNum, pbstrCodecDescription) {
-        result := ComCall(12, this, "int", CodecNum, BSTR.Ptr, pbstrCodecDescription, "HRESULT")
+        result := ComCall(12, this, Int32, CodecNum, BSTR.Ptr, pbstrCodecDescription, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-getcodecurl
      */
     GetCodecURL(CodecNum, pbstrCodecURL) {
-        result := ComCall(13, this, "int", CodecNum, BSTR.Ptr, pbstrCodecURL, "HRESULT")
+        result := ComCall(13, this, Int32, CodecNum, BSTR.Ptr, pbstrCodecURL, "HRESULT")
         return result
     }
 

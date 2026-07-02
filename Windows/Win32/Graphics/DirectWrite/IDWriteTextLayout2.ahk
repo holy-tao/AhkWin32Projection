@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
 #Import ".\DWRITE_VERTICAL_GLYPH_ORIENTATION.ahk" { DWRITE_VERTICAL_GLYPH_ORIENTATION }
 #Import ".\IDWriteTextLayout1.ahk" { IDWriteTextLayout1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_TEXT_METRICS1.ahk" { DWRITE_TEXT_METRICS1 }
 #Import ".\DWRITE_OPTICAL_ALIGNMENT.ahk" { DWRITE_OPTICAL_ALIGNMENT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_TEXT_METRICS1.ahk" { DWRITE_TEXT_METRICS1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted. | IDWriteTextLayout2 interface

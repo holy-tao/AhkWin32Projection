@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Sets and retrieves parameters used by the FilterMax generator.
@@ -68,7 +68,7 @@ export default struct IRdcGeneratorFilterMaxParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-sethorizonsize
      */
     SetHorizonSize(horizonSize) {
-        result := ComCall(4, this, "uint", horizonSize, "HRESULT")
+        result := ComCall(4, this, UInt32, horizonSize, "HRESULT")
         return result
     }
 
@@ -93,7 +93,7 @@ export default struct IRdcGeneratorFilterMaxParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-sethashwindowsize
      */
     SetHashWindowSize(hashWindowSize) {
-        result := ComCall(6, this, "uint", hashWindowSize, "HRESULT")
+        result := ComCall(6, this, UInt32, hashWindowSize, "HRESULT")
         return result
     }
 

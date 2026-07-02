@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\COMAdminApplicationInstallOptions.ahk" { COMAdminApplicationInstallOptions }
 #Import ".\COMAdminApplicationExportOptions.ahk" { COMAdminApplicationExportOptions }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ICOMAdminCatalog.ahk" { ICOMAdminCatalog }
-#Import ".\COMAdminInUse.ahk" { COMAdminInUse }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\COMAdminInUse.ahk" { COMAdminInUse }
+#Import ".\ICOMAdminCatalog.ahk" { ICOMAdminCatalog }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\COMAdminApplicationInstallOptions.ahk" { COMAdminApplicationInstallOptions }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * An extension of the ICOMAdminCatalog interface.
@@ -138,7 +138,7 @@ export default struct ICOMAdminCatalog2 extends ICOMAdminCatalog {
      */
     GetApplicationInstanceIDFromProcessID(lProcessID) {
         pbstrApplicationInstanceID := BSTR.Owned()
-        result := ComCall(34, this, "int", lProcessID, BSTR.Ptr, pbstrApplicationInstanceID, "HRESULT")
+        result := ComCall(34, this, Int32, lProcessID, BSTR.Ptr, pbstrApplicationInstanceID, "HRESULT")
         return pbstrApplicationInstanceID
     }
 
@@ -300,7 +300,7 @@ export default struct ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-recycleapplicationinstances
      */
     RecycleApplicationInstances(pVarApplicationInstanceID, lReasonCode) {
-        result := ComCall(38, this, VARIANT.Ptr, pVarApplicationInstanceID, "int", lReasonCode, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, pVarApplicationInstanceID, Int32, lReasonCode, "HRESULT")
         return result
     }
 
@@ -328,7 +328,7 @@ export default struct ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrDirectory := bstrDirectory is String ? BSTR.Alloc(bstrDirectory).Value : bstrDirectory
 
         pbstrDumpFile := BSTR.Owned()
-        result := ComCall(40, this, BSTR, bstrApplicationInstanceID, BSTR, bstrDirectory, "int", lMaxImages, BSTR.Ptr, pbstrDumpFile, "HRESULT")
+        result := ComCall(40, this, BSTR, bstrApplicationInstanceID, BSTR, bstrDirectory, Int32, lMaxImages, BSTR.Ptr, pbstrDumpFile, "HRESULT")
         return pbstrDumpFile
     }
 

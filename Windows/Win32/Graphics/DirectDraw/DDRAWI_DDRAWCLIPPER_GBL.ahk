@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

@@ -1,13 +1,20 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
-#Import ".\LOAD_LIBRARY_FLAGS.ahk" { LOAD_LIBRARY_FLAGS }
+#Import ".\ENUMRESLANGPROCW.ahk" { ENUMRESLANGPROCW }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 #Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\FARPROC.ahk" { FARPROC }
+#Import ".\ENUMRESNAMEPROCW.ahk" { ENUMRESNAMEPROCW }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import ".\ENUMRESTYPEPROCW.ahk" { ENUMRESTYPEPROCW }
+#Import ".\ENUMRESNAMEPROCA.ahk" { ENUMRESNAMEPROCA }
+#Import ".\ENUMRESLANGPROCA.ahk" { ENUMRESLANGPROCA }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\LOAD_LIBRARY_FLAGS.ahk" { LOAD_LIBRARY_FLAGS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ENUMRESTYPEPROCA.ahk" { ENUMRESTYPEPROCA }
 
 /**
  * @namespace Windows.Win32.System.LibraryLoader
@@ -134,7 +141,7 @@ export FindResourceExW(_hModule, lpType, lpName, wLanguage) {
     lpType := lpType is String ? StrPtr(lpType) : lpType
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
-    result := DllCall("KERNEL32.dll\FindResourceExW", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, HRSRC)
+    result := DllCall("KERNEL32.dll\FindResourceExW", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, UInt16, wLanguage, HRSRC)
     return result
 }
 
@@ -157,7 +164,7 @@ export FindResourceExW(_hModule, lpType, lpName, wLanguage) {
  * @since windows5.1.2600
  */
 export FreeLibraryAndExitThread(hLibModule, dwExitCode) {
-    DllCall("KERNEL32.dll\FreeLibraryAndExitThread", HMODULE, hLibModule, "uint", dwExitCode)
+    DllCall("KERNEL32.dll\FreeLibraryAndExitThread", HMODULE, hLibModule, UInt32, dwExitCode)
 }
 
 /**
@@ -255,7 +262,7 @@ export GetModuleFileNameA(_hModule, lpFilename, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetModuleFileNameA", HMODULE, _hModule, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetModuleFileNameA", HMODULE, _hModule, "ptr", lpFilename, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -295,7 +302,7 @@ export GetModuleFileNameW(_hModule, lpFilename, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetModuleFileNameW", HMODULE, _hModule, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetModuleFileNameW", HMODULE, _hModule, "ptr", lpFilename, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -430,7 +437,7 @@ export GetModuleHandleExA(dwFlags, lpModuleName, phModule) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetModuleHandleExA", "uint", dwFlags, "ptr", lpModuleName, HMODULE.Ptr, phModule, BOOL)
+    result := DllCall("KERNEL32.dll\GetModuleHandleExA", UInt32, dwFlags, "ptr", lpModuleName, HMODULE.Ptr, phModule, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -483,7 +490,7 @@ export GetModuleHandleExW(dwFlags, lpModuleName, phModule) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetModuleHandleExW", "uint", dwFlags, "ptr", lpModuleName, HMODULE.Ptr, phModule, BOOL)
+    result := DllCall("KERNEL32.dll\GetModuleHandleExW", UInt32, dwFlags, "ptr", lpModuleName, HMODULE.Ptr, phModule, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -552,7 +559,7 @@ export GetProcAddress(_hModule, lpProcName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetProcAddress", HMODULE, _hModule, "ptr", lpProcName, IntPtr)
+    result := DllCall("KERNEL32.dll\GetProcAddress", HMODULE, _hModule, "ptr", lpProcName, FARPROC)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1248,7 +1255,7 @@ export EnumResourceLanguagesExA(_hModule, lpType, lpName, lpEnumFunc, _lParam, d
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceLanguagesExA", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", _lParam, "uint", dwFlags, "ushort", LangId, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceLanguagesExA", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, ENUMRESLANGPROCA, lpEnumFunc, IntPtr, _lParam, UInt32, dwFlags, UInt16, LangId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1372,7 +1379,7 @@ export EnumResourceLanguagesExW(_hModule, lpType, lpName, lpEnumFunc, _lParam, d
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceLanguagesExW", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", _lParam, "uint", dwFlags, "ushort", LangId, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceLanguagesExW", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, ENUMRESLANGPROCW, lpEnumFunc, IntPtr, _lParam, UInt32, dwFlags, UInt16, LangId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1473,7 +1480,7 @@ export EnumResourceNamesExA(_hModule, lpType, lpEnumFunc, _lParam, dwFlags, Lang
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceNamesExA", HMODULE, _hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", _lParam, "uint", dwFlags, "ushort", LangId, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceNamesExA", HMODULE, _hModule, "ptr", lpType, ENUMRESNAMEPROCA, lpEnumFunc, IntPtr, _lParam, UInt32, dwFlags, UInt16, LangId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1574,7 +1581,7 @@ export EnumResourceNamesExW(_hModule, lpType, lpEnumFunc, _lParam, dwFlags, Lang
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceNamesExW", HMODULE, _hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", _lParam, "uint", dwFlags, "ushort", LangId, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceNamesExW", HMODULE, _hModule, "ptr", lpType, ENUMRESNAMEPROCW, lpEnumFunc, IntPtr, _lParam, UInt32, dwFlags, UInt16, LangId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1660,7 +1667,7 @@ export EnumResourceNamesExW(_hModule, lpType, lpEnumFunc, _lParam, dwFlags, Lang
 export EnumResourceTypesExA(_hModule, lpEnumFunc, _lParam, dwFlags, LangId) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceTypesExA", HMODULE, _hModule, "ptr", lpEnumFunc, "ptr", _lParam, "uint", dwFlags, "ushort", LangId, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceTypesExA", HMODULE, _hModule, ENUMRESTYPEPROCA, lpEnumFunc, IntPtr, _lParam, UInt32, dwFlags, UInt16, LangId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1746,7 +1753,7 @@ export EnumResourceTypesExA(_hModule, lpEnumFunc, _lParam, dwFlags, LangId) {
 export EnumResourceTypesExW(_hModule, lpEnumFunc, _lParam, dwFlags, LangId) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceTypesExW", HMODULE, _hModule, "ptr", lpEnumFunc, "ptr", _lParam, "uint", dwFlags, "ushort", LangId, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceTypesExW", HMODULE, _hModule, ENUMRESTYPEPROCW, lpEnumFunc, IntPtr, _lParam, UInt32, dwFlags, UInt16, LangId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2183,7 +2190,7 @@ export LoadLibraryW(lpLibFileName) {
 export EnumResourceNamesW(_hModule, lpType, lpEnumFunc, _lParam) {
     lpType := lpType is String ? StrPtr(lpType) : lpType
 
-    result := DllCall("KERNEL32.dll\EnumResourceNamesW", HMODULE, _hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceNamesW", HMODULE, _hModule, "ptr", lpType, ENUMRESNAMEPROCW, lpEnumFunc, IntPtr, _lParam, BOOL)
     return result
 }
 
@@ -2228,7 +2235,7 @@ export EnumResourceNamesA(_hModule, lpType, lpEnumFunc, _lParam) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceNamesA", HMODULE, _hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceNamesA", HMODULE, _hModule, "ptr", lpType, ENUMRESNAMEPROCA, lpEnumFunc, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2281,7 +2288,7 @@ export LoadPackagedLibrary(lpwLibFileName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LoadPackagedLibrary", "ptr", lpwLibFileName, "uint", Reserved, HMODULE.Owned)
+    result := DllCall("KERNEL32.dll\LoadPackagedLibrary", "ptr", lpwLibFileName, UInt32, Reserved, HMODULE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2317,7 +2324,7 @@ export QueryOptionalDelayLoadedAPI(hParentModule, lpDllName, lpProcName) {
 
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-libraryloader-l2-1-0.dll\QueryOptionalDelayLoadedAPI", HMODULE, hParentModule, "ptr", lpDllName, "ptr", lpProcName, "uint", Reserved, BOOL)
+    result := DllCall("api-ms-win-core-libraryloader-l2-1-0.dll\QueryOptionalDelayLoadedAPI", HMODULE, hParentModule, "ptr", lpDllName, "ptr", lpProcName, UInt32, Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2707,7 +2714,7 @@ export FindResourceExA(_hModule, lpType, lpName, wLanguage) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindResourceExA", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, HRSRC)
+    result := DllCall("KERNEL32.dll\FindResourceExA", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, UInt16, wLanguage, HRSRC)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2747,7 +2754,7 @@ export FindResourceExA(_hModule, lpType, lpName, wLanguage) {
 export EnumResourceTypesA(_hModule, lpEnumFunc, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceTypesA", HMODULE, _hModule, "ptr", lpEnumFunc, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceTypesA", HMODULE, _hModule, ENUMRESTYPEPROCA, lpEnumFunc, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2787,7 +2794,7 @@ export EnumResourceTypesA(_hModule, lpEnumFunc, _lParam) {
 export EnumResourceTypesW(_hModule, lpEnumFunc, _lParam) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceTypesW", HMODULE, _hModule, "ptr", lpEnumFunc, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceTypesW", HMODULE, _hModule, ENUMRESTYPEPROCW, lpEnumFunc, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2844,7 +2851,7 @@ export EnumResourceLanguagesA(_hModule, lpType, lpName, lpEnumFunc, _lParam) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceLanguagesA", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceLanguagesA", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, ENUMRESLANGPROCA, lpEnumFunc, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2901,7 +2908,7 @@ export EnumResourceLanguagesW(_hModule, lpType, lpName, lpEnumFunc, _lParam) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumResourceLanguagesW", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", _lParam, BOOL)
+    result := DllCall("KERNEL32.dll\EnumResourceLanguagesW", HMODULE, _hModule, "ptr", lpType, "ptr", lpName, ENUMRESLANGPROCW, lpEnumFunc, IntPtr, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3071,7 +3078,7 @@ export UpdateResourceA(hUpdate, lpType, lpName, wLanguage, lpData, cb) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\UpdateResourceA", HANDLE, hUpdate, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr", lpData, "uint", cb, BOOL)
+    result := DllCall("KERNEL32.dll\UpdateResourceA", HANDLE, hUpdate, "ptr", lpType, "ptr", lpName, UInt16, wLanguage, IntPtr, lpData, UInt32, cb, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3175,7 +3182,7 @@ export UpdateResourceW(hUpdate, lpType, lpName, wLanguage, lpData, cb) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\UpdateResourceW", HANDLE, hUpdate, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr", lpData, "uint", cb, BOOL)
+    result := DllCall("KERNEL32.dll\UpdateResourceW", HANDLE, hUpdate, "ptr", lpType, "ptr", lpName, UInt16, wLanguage, IntPtr, lpData, UInt32, cb, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3393,7 +3400,7 @@ export GetDllDirectoryA(nBufferLength, lpBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetDllDirectoryA", "uint", nBufferLength, "ptr", lpBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetDllDirectoryA", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3431,7 +3438,7 @@ export GetDllDirectoryW(nBufferLength, lpBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetDllDirectoryW", "uint", nBufferLength, "ptr", lpBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetDllDirectoryW", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

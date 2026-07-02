@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAssemblyName interface represents a side-by-side assembly name.
@@ -97,7 +97,7 @@ export default struct IAssemblyName extends IUnknown {
     SetProperty(PropertyId, pvProperty, cbProperty) {
         pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", PropertyId, pvPropertyMarshal, pvProperty, "uint", cbProperty, "HRESULT")
+        result := ComCall(3, this, UInt32, PropertyId, pvPropertyMarshal, pvProperty, UInt32, cbProperty, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct IAssemblyName extends IUnknown {
         pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
         pcbPropertyMarshal := pcbProperty is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", PropertyId, pvPropertyMarshal, pvProperty, pcbPropertyMarshal, pcbProperty, "HRESULT")
+        result := ComCall(4, this, UInt32, PropertyId, pvPropertyMarshal, pvProperty, pcbPropertyMarshal, pcbProperty, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IAssemblyName extends IUnknown {
 
         pccDisplayNameMarshal := pccDisplayName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", szDisplayName, pccDisplayNameMarshal, pccDisplayName, "uint", dwDisplayFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", szDisplayName, pccDisplayNameMarshal, pccDisplayName, UInt32, dwDisplayFlags, "HRESULT")
         return result
     }
 
@@ -250,7 +250,7 @@ export default struct IAssemblyName extends IUnknown {
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
         ppReservedMarshal := ppReserved is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, Guid.Ptr, refIID, "ptr", pUnkReserved1, "ptr", pUnkReserved2, "ptr", szReserved, "int64", llReserved, pvReservedMarshal, pvReserved, "uint", cbReserved, ppReservedMarshal, ppReserved, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, refIID, "ptr", pUnkReserved1, "ptr", pUnkReserved2, "ptr", szReserved, Int64, llReserved, pvReservedMarshal, pvReserved, UInt32, cbReserved, ppReservedMarshal, ppReserved, "HRESULT")
         return result
     }
 
@@ -361,7 +361,7 @@ export default struct IAssemblyName extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-isequal
      */
     IsEqual(pName, dwCmpFlags) {
-        result := ComCall(10, this, "ptr", pName, "uint", dwCmpFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", pName, UInt32, dwCmpFlags, "HRESULT")
         return result
     }
 

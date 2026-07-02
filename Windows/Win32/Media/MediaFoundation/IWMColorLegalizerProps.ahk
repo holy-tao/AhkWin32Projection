@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -41,7 +41,7 @@ export default struct IWMColorLegalizerProps extends IUnknown {
      * @returns {HRESULT} 
      */
     SetColorLegalizerQuality(lquality) {
-        result := ComCall(3, this, "int", lquality, "HRESULT")
+        result := ComCall(3, this, Int32, lquality, "HRESULT")
         return result
     }
 

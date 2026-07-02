@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICRect.ahk" { WICRect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWICPalette.ahk" { IWICPalette }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WICRect.ahk" { WICRect }
+#Import ".\IWICPalette.ahk" { IWICPalette }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that refers to a source from which pixels are retrieved, but cannot be written back to.
@@ -198,7 +198,7 @@ export default struct IWICBitmapSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels
      */
     CopyPixels(prc, cbStride, cbBufferSize) {
-        result := ComCall(7, this, WICRect.Ptr, prc, "uint", cbStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
+        result := ComCall(7, this, WICRect.Ptr, prc, UInt32, cbStride, UInt32, cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
     }
 

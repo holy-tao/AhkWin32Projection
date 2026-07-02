@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXMLHTTPRequest.ahk" { IXMLHTTPRequest }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\SERVERXMLHTTP_OPTION.ahk" { SERVERXMLHTTP_OPTION }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXMLHTTPRequest.ahk" { IXMLHTTPRequest }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -50,7 +50,7 @@ export default struct IServerXMLHTTPRequest extends IXMLHTTPRequest {
      * @returns {HRESULT} 
      */
     setTimeouts(resolveTimeout, connectTimeout, sendTimeout, receiveTimeout) {
-        result := ComCall(21, this, "int", resolveTimeout, "int", connectTimeout, "int", sendTimeout, "int", receiveTimeout, "HRESULT")
+        result := ComCall(21, this, Int32, resolveTimeout, Int32, connectTimeout, Int32, sendTimeout, Int32, receiveTimeout, "HRESULT")
         return result
     }
 

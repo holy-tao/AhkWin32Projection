@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMStreamSelect interface selects from the available streams on a parser filter.
@@ -141,7 +141,7 @@ export default struct IAMStreamSelect extends IUnknown {
         pdwGroupMarshal := pdwGroup is VarRef ? "uint*" : "ptr"
         ppszNameMarshal := ppszName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "int", lIndex, ppmtMarshal, ppmt, pdwFlagsMarshal, pdwFlags, plcidMarshal, plcid, pdwGroupMarshal, pdwGroup, ppszNameMarshal, ppszName, IUnknown.Ptr, ppObject, IUnknown.Ptr, ppUnk, "HRESULT")
+        result := ComCall(4, this, Int32, lIndex, ppmtMarshal, ppmt, pdwFlagsMarshal, pdwFlags, plcidMarshal, plcid, pdwGroupMarshal, pdwGroup, ppszNameMarshal, ppszName, IUnknown.Ptr, ppObject, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
     }
 
@@ -215,7 +215,7 @@ export default struct IAMStreamSelect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamselect-enable
      */
     Enable(lIndex, dwFlags) {
-        result := ComCall(5, this, "int", lIndex, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, Int32, lIndex, UInt32, dwFlags, "HRESULT")
         return result
     }
 

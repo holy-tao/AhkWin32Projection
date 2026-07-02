@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICorProfilerCallback7.ahk" { ICorProfilerCallback7 }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerCallback7.ahk" { ICorProfilerCallback7 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -48,7 +48,7 @@ export default struct ICorProfilerCallback8 extends ICorProfilerCallback7 {
     DynamicMethodJITCompilationStarted(functionId, fIsSafeToBlock, pILHeader, cbILHeader) {
         pILHeaderMarshal := pILHeader is VarRef ? "char*" : "ptr"
 
-        result := ComCall(92, this, "ptr", functionId, BOOL, fIsSafeToBlock, pILHeaderMarshal, pILHeader, "uint", cbILHeader, "HRESULT")
+        result := ComCall(92, this, IntPtr, functionId, BOOL, fIsSafeToBlock, pILHeaderMarshal, pILHeader, UInt32, cbILHeader, "HRESULT")
         return result
     }
 
@@ -60,7 +60,7 @@ export default struct ICorProfilerCallback8 extends ICorProfilerCallback7 {
      * @returns {HRESULT} 
      */
     DynamicMethodJITCompilationFinished(functionId, hrStatus, fIsSafeToBlock) {
-        result := ComCall(93, this, "ptr", functionId, "int", hrStatus, BOOL, fIsSafeToBlock, "HRESULT")
+        result := ComCall(93, this, IntPtr, functionId, "int", hrStatus, BOOL, fIsSafeToBlock, "HRESULT")
         return result
     }
 

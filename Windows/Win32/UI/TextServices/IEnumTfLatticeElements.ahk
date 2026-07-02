@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\TF_LMLATTELEMENT.ahk" { TF_LMLATTELEMENT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumTfLatticeElements interface is implemented by the TSF manager to provide an enumeration of lattice elements.
@@ -104,7 +104,7 @@ export default struct IEnumTfLatticeElements extends IUnknown {
     Next(ulCount, rgsElements, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, TF_LMLATTELEMENT.Ptr, rgsElements, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, TF_LMLATTELEMENT.Ptr, rgsElements, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IEnumTfLatticeElements extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-ienumtflatticeelements-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

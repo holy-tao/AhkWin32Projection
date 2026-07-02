@@ -44,7 +44,7 @@ export default struct IADsDeleteOps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsdeleteops-deleteobject
      */
     DeleteObject(lnFlags) {
-        result := ComCall(7, this, "int", lnFlags, "HRESULT")
+        result := ComCall(7, this, Int32, lnFlags, "HRESULT")
         return result
     }
 

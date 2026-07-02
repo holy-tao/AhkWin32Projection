@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -78,7 +78,7 @@ export default struct ISpThreadTask extends Win32ComInterface {
     WindowMessage(pvTaskData, _hWnd, _Msg, _wParam, _lParam) {
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, HWND, _hWnd, "uint", _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+        result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
         return result
     }
 

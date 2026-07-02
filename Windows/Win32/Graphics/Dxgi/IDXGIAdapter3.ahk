@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDXGIAdapter2.ahk" { IDXGIAdapter2 }
-#Import ".\DXGI_MEMORY_SEGMENT_GROUP.ahk" { DXGI_MEMORY_SEGMENT_GROUP }
 #Import ".\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk" { DXGI_QUERY_VIDEO_MEMORY_INFO }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IDXGIAdapter2.ahk" { IDXGIAdapter2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_MEMORY_SEGMENT_GROUP.ahk" { DXGI_MEMORY_SEGMENT_GROUP }
 
 /**
  * This interface adds some memory residency methods, for budgeting and reserving physical memory.
@@ -75,7 +75,7 @@ export default struct IDXGIAdapter3 extends IDXGIAdapter2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregisterhardwarecontentprotectionteardownstatus
      */
     UnregisterHardwareContentProtectionTeardownStatus(dwCookie) {
-        ComCall(13, this, "uint", dwCookie)
+        ComCall(13, this, UInt32, dwCookie)
     }
 
     /**
@@ -99,7 +99,7 @@ export default struct IDXGIAdapter3 extends IDXGIAdapter2 {
      */
     QueryVideoMemoryInfo(NodeIndex, MemorySegmentGroup) {
         pVideoMemoryInfo := DXGI_QUERY_VIDEO_MEMORY_INFO()
-        result := ComCall(14, this, "uint", NodeIndex, DXGI_MEMORY_SEGMENT_GROUP, MemorySegmentGroup, DXGI_QUERY_VIDEO_MEMORY_INFO.Ptr, pVideoMemoryInfo, "HRESULT")
+        result := ComCall(14, this, UInt32, NodeIndex, DXGI_MEMORY_SEGMENT_GROUP, MemorySegmentGroup, DXGI_QUERY_VIDEO_MEMORY_INFO.Ptr, pVideoMemoryInfo, "HRESULT")
         return pVideoMemoryInfo
     }
 
@@ -127,7 +127,7 @@ export default struct IDXGIAdapter3 extends IDXGIAdapter2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-setvideomemoryreservation
      */
     SetVideoMemoryReservation(NodeIndex, MemorySegmentGroup, Reservation) {
-        result := ComCall(15, this, "uint", NodeIndex, DXGI_MEMORY_SEGMENT_GROUP, MemorySegmentGroup, "uint", Reservation, "HRESULT")
+        result := ComCall(15, this, UInt32, NodeIndex, DXGI_MEMORY_SEGMENT_GROUP, MemorySegmentGroup, Int64, Reservation, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct IDXGIAdapter3 extends IDXGIAdapter2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregistervideomemorybudgetchangenotification
      */
     UnregisterVideoMemoryBudgetChangeNotification(dwCookie) {
-        ComCall(17, this, "uint", dwCookie)
+        ComCall(17, this, UInt32, dwCookie)
     }
 
     Query(iid) {

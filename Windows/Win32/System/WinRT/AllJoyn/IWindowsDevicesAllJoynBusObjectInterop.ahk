@@ -55,7 +55,7 @@ export default struct IWindowsDevicesAllJoynBusObjectInterop extends IInspectabl
     AddPropertyGetHandler(_context, interfaceName, callback) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, _contextMarshal, _context, HSTRING, interfaceName, "ptr", callback, "HRESULT")
+        result := ComCall(6, this, _contextMarshal, _context, HSTRING, interfaceName, IntPtr, callback, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct IWindowsDevicesAllJoynBusObjectInterop extends IInspectabl
     AddPropertySetHandler(_context, interfaceName, callback) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, _contextMarshal, _context, HSTRING, interfaceName, "ptr", callback, "HRESULT")
+        result := ComCall(7, this, _contextMarshal, _context, HSTRING, interfaceName, IntPtr, callback, "HRESULT")
         return result
     }
 

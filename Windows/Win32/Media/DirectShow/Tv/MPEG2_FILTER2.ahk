@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DSMCC_FILTER_OPTIONS.ahk" { DSMCC_FILTER_OPTIONS }
-#Import ".\ATSC_FILTER_OPTIONS.ahk" { ATSC_FILTER_OPTIONS }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DVB_EIT_FILTER_OPTIONS.ahk" { DVB_EIT_FILTER_OPTIONS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ATSC_FILTER_OPTIONS.ahk" { ATSC_FILTER_OPTIONS }
+#Import ".\DSMCC_FILTER_OPTIONS.ahk" { DSMCC_FILTER_OPTIONS }
 
 /**
  * The MPEG2_FILTER2 structure specifies criteria for matching MPEG-2 section headers.

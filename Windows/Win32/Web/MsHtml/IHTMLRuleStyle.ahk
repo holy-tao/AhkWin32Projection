@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -2525,7 +2525,7 @@ export default struct IHTMLRuleStyle extends IDispatch {
     setAttribute(strAttributeName, AttributeValue, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(166, this, BSTR, strAttributeName, VARIANT, AttributeValue, "int", lFlags, "HRESULT")
+        result := ComCall(166, this, BSTR, strAttributeName, VARIANT, AttributeValue, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -2539,7 +2539,7 @@ export default struct IHTMLRuleStyle extends IDispatch {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
         AttributeValue := VARIANT()
-        result := ComCall(167, this, BSTR, strAttributeName, "int", lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
+        result := ComCall(167, this, BSTR, strAttributeName, Int32, lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
         return AttributeValue
     }
 
@@ -2552,7 +2552,7 @@ export default struct IHTMLRuleStyle extends IDispatch {
     removeAttribute(strAttributeName, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(168, this, BSTR, strAttributeName, "int", lFlags, VARIANT_BOOL.Ptr, &pfSuccess := 0, "HRESULT")
+        result := ComCall(168, this, BSTR, strAttributeName, Int32, lFlags, VARIANT_BOOL.Ptr, &pfSuccess := 0, "HRESULT")
         return pfSuccess
     }
 

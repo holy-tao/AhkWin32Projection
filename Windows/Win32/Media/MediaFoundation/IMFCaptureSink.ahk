@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Controls a capture sink, which is an object that receives one or more streams from a capture device.
@@ -95,7 +95,7 @@ export default struct IMFCaptureSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getoutputmediatype
      */
     GetOutputMediaType(dwSinkStreamIndex) {
-        result := ComCall(3, this, "uint", dwSinkStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSinkStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
         return IMFMediaType(ppMediaType)
     }
 
@@ -108,7 +108,7 @@ export default struct IMFCaptureSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getservice
      */
     GetService(dwSinkStreamIndex, rguidService, riid) {
-        result := ComCall(4, this, "uint", dwSinkStreamIndex, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppUnknown := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSinkStreamIndex, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppUnknown := 0, "HRESULT")
         return IUnknown(ppUnknown)
     }
 
@@ -180,7 +180,7 @@ export default struct IMFCaptureSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream
      */
     AddStream(dwSourceStreamIndex, pMediaType, pAttributes) {
-        result := ComCall(5, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "ptr", pAttributes, "uint*", &pdwSinkStreamIndex := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwSourceStreamIndex, "ptr", pMediaType, "ptr", pAttributes, "uint*", &pdwSinkStreamIndex := 0, "HRESULT")
         return pdwSinkStreamIndex
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves name/value pairs from a media transform device (MTD) through the device's General Purpose Name Value Service (GPNVS). Name/value pairs are used to get the capabilities of the device.
@@ -50,7 +50,7 @@ export default struct IBDA_NameValueService extends IUnknown {
      */
     GetValueNameByIndex(ulIndex) {
         pbstrName := BSTR.Owned()
-        result := ComCall(3, this, "uint", ulIndex, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(3, this, UInt32, ulIndex, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -85,7 +85,7 @@ export default struct IBDA_NameValueService extends IUnknown {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
 
-        result := ComCall(5, this, "uint", ulDialogRequest, BSTR, bstrLanguage, BSTR, bstrName, BSTR, bstrValue, "uint", ulReserved, "HRESULT")
+        result := ComCall(5, this, UInt32, ulDialogRequest, BSTR, bstrLanguage, BSTR, bstrName, BSTR, bstrValue, UInt32, ulReserved, "HRESULT")
         return result
     }
 

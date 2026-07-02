@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAttributeGet interface gets key/value pairs from an object, where the key is a GUID and the value is any binary data.
@@ -64,7 +64,7 @@ export default struct IAttributeGet extends IUnknown {
         pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
 
         pguidAttribute := Guid()
-        result := ComCall(4, this, "int", lIndex, Guid.Ptr, pguidAttribute, pbAttributeMarshal, pbAttribute, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
+        result := ComCall(4, this, Int32, lIndex, Guid.Ptr, pguidAttribute, pbAttributeMarshal, pbAttribute, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
         return pguidAttribute
     }
 

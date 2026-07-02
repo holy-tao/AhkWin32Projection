@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DxcBuffer.ahk" { DxcBuffer }
 #Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DxcBuffer.ahk" { DxcBuffer }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -51,7 +51,7 @@ export default struct IDxcCompiler3 extends IUnknown {
     Compile(pSource, pArguments, argCount, pIncludeHandler, riid) {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, DxcBuffer.Ptr, pSource, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pIncludeHandler, Guid.Ptr, riid, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(3, this, DxcBuffer.Ptr, pSource, pArgumentsMarshal, pArguments, UInt32, argCount, "ptr", pIncludeHandler, Guid.Ptr, riid, "ptr*", &ppResult := 0, "HRESULT")
         return ppResult
     }
 

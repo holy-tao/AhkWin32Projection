@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IShellView.ahk" { IShellView }
-#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 #Import "..\..\System\Ole\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\Controls\TBBUTTON.ahk" { TBBUTTON }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
 
 /**
  * Implemented by hosts of Shell views (objects that implement IShellView). Exposes methods that provide services for the view it is hosting and other objects that run in the context of the Explorer window.
@@ -123,7 +123,7 @@ export default struct IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-setmenusb
      */
     SetMenuSB(hmenuShared, holemenuRes, hwndActiveObject) {
-        result := ComCall(6, this, HMENU, hmenuShared, "ptr", holemenuRes, HWND, hwndActiveObject, "HRESULT")
+        result := ComCall(6, this, HMENU, hmenuShared, IntPtr, holemenuRes, HWND, hwndActiveObject, "HRESULT")
         return result
     }
 
@@ -204,7 +204,7 @@ export default struct IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-translateacceleratorsb
      */
     TranslateAcceleratorSB(pmsg, wID) {
-        result := ComCall(10, this, MSG.Ptr, pmsg, "ushort", wID, "HRESULT")
+        result := ComCall(10, this, MSG.Ptr, pmsg, UInt16, wID, "HRESULT")
         return result
     }
 
@@ -222,7 +222,7 @@ export default struct IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-browseobject
      */
     BrowseObject(pidl, wFlags) {
-        result := ComCall(11, this, ITEMIDLIST.Ptr, pidl, "uint", wFlags, "HRESULT")
+        result := ComCall(11, this, ITEMIDLIST.Ptr, pidl, UInt32, wFlags, "HRESULT")
         return result
     }
 
@@ -245,7 +245,7 @@ export default struct IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-getviewstatestream
      */
     GetViewStateStream(grfMode) {
-        result := ComCall(12, this, "uint", grfMode, "ptr*", &ppStrm := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, grfMode, "ptr*", &ppStrm := 0, "HRESULT")
         return IStream(ppStrm)
     }
 
@@ -269,7 +269,7 @@ export default struct IShellBrowser extends IOleWindow {
      */
     GetControlWindow(id) {
         phwnd := HWND()
-        result := ComCall(13, this, "uint", id, HWND.Ptr, phwnd, "HRESULT")
+        result := ComCall(13, this, UInt32, id, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -302,7 +302,7 @@ export default struct IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-sendcontrolmsg
      */
     SendControlMsg(id, uMsg, _wParam, _lParam) {
-        result := ComCall(14, this, "uint", id, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &pret := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, id, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &pret := 0, "HRESULT")
         return pret
     }
 
@@ -359,7 +359,7 @@ export default struct IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-settoolbaritems
      */
     SetToolbarItems(lpButtons, nButtons, uFlags) {
-        result := ComCall(17, this, TBBUTTON.Ptr, lpButtons, "uint", nButtons, "uint", uFlags, "HRESULT")
+        result := ComCall(17, this, TBBUTTON.Ptr, lpButtons, UInt32, nButtons, UInt32, uFlags, "HRESULT")
         return result
     }
 

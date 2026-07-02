@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMReaderAdvanced3.ahk" { IWMReaderAdvanced3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReaderAdvanced4 interface provides additional functionality to the reader.An IWMReaderAdvanced4 interface exists for every reader object.
@@ -56,7 +56,7 @@ export default struct IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getlanguagecount
      */
     GetLanguageCount(dwOutputNum) {
-        result := ComCall(40, this, "uint", dwOutputNum, "ushort*", &pwLanguageCount := 0, "HRESULT")
+        result := ComCall(40, this, UInt32, dwOutputNum, "ushort*", &pwLanguageCount := 0, "HRESULT")
         return pwLanguageCount
     }
 
@@ -94,7 +94,7 @@ export default struct IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
 
         pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(41, this, "uint", dwOutputNum, "ushort", wLanguage, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "HRESULT")
+        result := ComCall(41, this, UInt32, dwOutputNum, UInt16, wLanguage, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "HRESULT")
         return result
     }
 

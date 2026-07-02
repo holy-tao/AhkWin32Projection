@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IFaxInboundRoutingMethod.ahk" { IFaxInboundRoutingMethod }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IFaxInboundRoutingMethod.ahk" { IFaxInboundRoutingMethod }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxInboundRoutingMethods interface defines a configuration collection used by a fax client application to manage the ordered inbound fax routing methods.

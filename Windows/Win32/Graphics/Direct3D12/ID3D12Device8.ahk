@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
-#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
-#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
-#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
-#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
-#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
 #Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
 #Import ".\D3D12_RESOURCE_DESC1.ahk" { D3D12_RESOURCE_DESC1 }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
-#Import ".\ID3D12Device7.ahk" { ID3D12Device7 }
-#Import ".\D3D12_RESOURCE_ALLOCATION_INFO1.ahk" { D3D12_RESOURCE_ALLOCATION_INFO1 }
 #Import ".\D3D12_PLACED_SUBRESOURCE_FOOTPRINT.ahk" { D3D12_PLACED_SUBRESOURCE_FOOTPRINT }
 #Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO1.ahk" { D3D12_RESOURCE_ALLOCATION_INFO1 }
+#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
+#Import ".\ID3D12Device7.ahk" { ID3D12Device7 }
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device7](../d3d12/nn-d3d12-id3d12device7.md).
@@ -75,7 +75,7 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-getresourceallocationinfo2
      */
     GetResourceAllocationInfo2(visibleMask, numResourceDescs, pResourceDescs, pResourceAllocationInfo1) {
-        result := ComCall(68, this, "uint", visibleMask, "uint", numResourceDescs, D3D12_RESOURCE_DESC1.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
+        result := ComCall(68, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC1.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-createplacedresource1
      */
     CreatePlacedResource1(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid) {
-        result := ComCall(70, this, "ptr", pHeap, "uint", HeapOffset, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(70, this, "ptr", pHeap, Int64, HeapOffset, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -232,7 +232,7 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
         pRowSizeInBytesMarshal := pRowSizeInBytes is VarRef ? "uint*" : "ptr"
         pTotalBytesMarshal := pTotalBytes is VarRef ? "uint*" : "ptr"
 
-        ComCall(72, this, D3D12_RESOURCE_DESC1.Ptr, pResourceDesc, "uint", FirstSubresource, "uint", NumSubresources, "uint", BaseOffset, D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
+        ComCall(72, this, D3D12_RESOURCE_DESC1.Ptr, pResourceDesc, UInt32, FirstSubresource, UInt32, NumSubresources, Int64, BaseOffset, D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
     }
 
     Query(iid) {

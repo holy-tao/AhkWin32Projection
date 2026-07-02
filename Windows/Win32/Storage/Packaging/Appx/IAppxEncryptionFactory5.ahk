@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAppxBundleReader.ahk" { IAppxBundleReader }
 #Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IAppxPackageReader.ahk" { IAppxPackageReader }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAppxBundleReader.ahk" { IAppxBundleReader }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAppxPackageReader.ahk" { IAppxPackageReader }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Creates objects for reading encrypted Windows app packages and bundles.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS.ahk" { D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS }
-#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Specifies the parameters for the output stream for a video decode operation. (D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS)

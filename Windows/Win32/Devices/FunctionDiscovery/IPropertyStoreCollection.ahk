@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.FunctionDiscovery
@@ -86,7 +86,7 @@ export default struct IPropertyStoreCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(dwIndex) {
-        result := ComCall(5, this, "uint", dwIndex, "ptr*", &ppIPropertyStore := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwIndex, "ptr*", &ppIPropertyStore := 0, "HRESULT")
         return IPropertyStore(ppIPropertyStore)
     }
 
@@ -106,7 +106,7 @@ export default struct IPropertyStoreCollection extends IUnknown {
      * @returns {IPropertyStore} 
      */
     Remove(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", &pIPropertyStore := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "ptr*", &pIPropertyStore := 0, "HRESULT")
         return IPropertyStore(pIPropertyStore)
     }
 
@@ -116,7 +116,7 @@ export default struct IPropertyStoreCollection extends IUnknown {
      * @returns {HRESULT} 
      */
     Delete(dwIndex) {
-        result := ComCall(8, this, "uint", dwIndex, "HRESULT")
+        result := ComCall(8, this, UInt32, dwIndex, "HRESULT")
         return result
     }
 

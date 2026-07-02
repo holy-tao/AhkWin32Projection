@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
 #Import ".\IShellFolder.ahk" { IShellFolder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * Exposes a method that enables the callback of a context menu. For example, to add a shield icon to a menuItem that requires elevation.
@@ -143,7 +143,7 @@ export default struct IContextMenuCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenucb-callback
      */
     CallBack(psf, hwndOwner, pdtobj, uMsg, _wParam, _lParam) {
-        result := ComCall(3, this, "ptr", psf, HWND, hwndOwner, "ptr", pdtobj, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(3, this, "ptr", psf, HWND, hwndOwner, "ptr", pdtobj, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 

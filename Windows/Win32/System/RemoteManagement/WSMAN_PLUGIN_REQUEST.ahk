@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\WSMAN_OPERATION_INFO.ahk" { WSMAN_OPERATION_INFO }
 #Import ".\WSMAN_SENDER_DETAILS.ahk" { WSMAN_SENDER_DETAILS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Specifies information for a plug-in request.

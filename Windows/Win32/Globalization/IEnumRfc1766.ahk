@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RFC1766INFO.ahk" { RFC1766INFO }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RFC1766INFO.ahk" { RFC1766INFO }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -60,7 +60,7 @@ export default struct IEnumRfc1766 extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", celt, RFC1766INFO.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, RFC1766INFO.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct IEnumRfc1766 extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(celt) {
-        result := ComCall(6, this, "uint", celt, "HRESULT")
+        result := ComCall(6, this, UInt32, celt, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMDServiceProvider2.ahk" { IMDServiceProvider2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMDServiceProvider3 interface extends the IMDServiceProvider2 interface by providing a method for setting the device enumeration preferences.
@@ -109,7 +109,7 @@ export default struct IMDServiceProvider3 extends IMDServiceProvider2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdserviceprovider3-setdeviceenumpreference
      */
     SetDeviceEnumPreference(dwEnumPref) {
-        result := ComCall(6, this, "uint", dwEnumPref, "HRESULT")
+        result := ComCall(6, this, UInt32, dwEnumPref, "HRESULT")
         return result
     }
 

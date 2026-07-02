@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPropTagArray.ahk" { SPropTagArray }
-#Import ".\SRestriction.ahk" { SRestriction }
-#Import ".\SRowSet.ahk" { SRowSet }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
 #Import ".\MAPIERROR.ahk" { MAPIERROR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SRowSet.ahk" { SRowSet }
 #Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
+#Import ".\SRestriction.ahk" { SRestriction }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
 
 /**
  * Do not use. This interface is used for content tables of Windows Address Book (WAB) containers and distribution lists.
@@ -83,7 +83,7 @@ export default struct IMAPITable extends IUnknown {
     GetLastError(_hResult, ulFlags, lppMAPIError) {
         lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
+        result := ComCall(3, this, "int", _hResult, UInt32, ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IMAPITable extends IUnknown {
     Advise(ulEventMask, lpAdviseSink, lpulConnection) {
         lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
+        result := ComCall(4, this, UInt32, ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-unadvise
      */
     Unadvise(ulConnection) {
-        result := ComCall(5, this, "uint", ulConnection, "HRESULT")
+        result := ComCall(5, this, UInt32, ulConnection, "HRESULT")
         return result
     }
 
@@ -226,7 +226,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-setcolumns
      */
     SetColumns(lpPropTagArray, ulFlags) {
-        result := ComCall(7, this, SPropTagArray.Ptr, lpPropTagArray, "uint", ulFlags, "HRESULT")
+        result := ComCall(7, this, SPropTagArray.Ptr, lpPropTagArray, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -258,7 +258,7 @@ export default struct IMAPITable extends IUnknown {
     QueryColumns(ulFlags, lpPropTagArray) {
         lpPropTagArrayMarshal := lpPropTagArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulFlags, lpPropTagArrayMarshal, lpPropTagArray, "HRESULT")
+        result := ComCall(8, this, UInt32, ulFlags, lpPropTagArrayMarshal, lpPropTagArray, "HRESULT")
         return result
     }
 
@@ -288,7 +288,7 @@ export default struct IMAPITable extends IUnknown {
     GetRowCount(ulFlags, lpulCount) {
         lpulCountMarshal := lpulCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", ulFlags, lpulCountMarshal, lpulCount, "HRESULT")
+        result := ComCall(9, this, UInt32, ulFlags, lpulCountMarshal, lpulCount, "HRESULT")
         return result
     }
 
@@ -333,7 +333,7 @@ export default struct IMAPITable extends IUnknown {
     SeekRow(bkOrigin, lRowCount, lplRowsSought) {
         lplRowsSoughtMarshal := lplRowsSought is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "uint", bkOrigin, "int", lRowCount, lplRowsSoughtMarshal, lplRowsSought, "HRESULT")
+        result := ComCall(10, this, UInt32, bkOrigin, Int32, lRowCount, lplRowsSoughtMarshal, lplRowsSought, "HRESULT")
         return result
     }
 
@@ -353,7 +353,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-seekrowapprox
      */
     SeekRowApprox(ulNumerator, ulDenominator) {
-        result := ComCall(11, this, "uint", ulNumerator, "uint", ulDenominator, "HRESULT")
+        result := ComCall(11, this, UInt32, ulNumerator, UInt32, ulDenominator, "HRESULT")
         return result
     }
 
@@ -415,7 +415,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-findrow
      */
     FindRow(lpRestriction, bkOrigin, ulFlags) {
-        result := ComCall(13, this, SRestriction.Ptr, lpRestriction, "uint", bkOrigin, "uint", ulFlags, "HRESULT")
+        result := ComCall(13, this, SRestriction.Ptr, lpRestriction, UInt32, bkOrigin, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -458,7 +458,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-restrict
      */
     Restrict(lpRestriction, ulFlags) {
-        result := ComCall(14, this, SRestriction.Ptr, lpRestriction, "uint", ulFlags, "HRESULT")
+        result := ComCall(14, this, SRestriction.Ptr, lpRestriction, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -500,7 +500,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-freebookmark
      */
     FreeBookmark(bkPosition) {
-        result := ComCall(16, this, "uint", bkPosition, "HRESULT")
+        result := ComCall(16, this, UInt32, bkPosition, "HRESULT")
         return result
     }
 
@@ -562,7 +562,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-sorttable
      */
     SortTable(lpSortCriteria, ulFlags) {
-        result := ComCall(17, this, SSortOrderSet.Ptr, lpSortCriteria, "uint", ulFlags, "HRESULT")
+        result := ComCall(17, this, SSortOrderSet.Ptr, lpSortCriteria, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -644,7 +644,7 @@ export default struct IMAPITable extends IUnknown {
     QueryRows(lRowCount, ulFlags, lppRows) {
         lppRowsMarshal := lppRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, "int", lRowCount, "uint", ulFlags, lppRowsMarshal, lppRows, "HRESULT")
+        result := ComCall(19, this, Int32, lRowCount, UInt32, ulFlags, lppRowsMarshal, lppRows, "HRESULT")
         return result
     }
 
@@ -695,7 +695,7 @@ export default struct IMAPITable extends IUnknown {
         lppRowsMarshal := lppRows is VarRef ? "ptr*" : "ptr"
         lpulMoreRowsMarshal := lpulMoreRows is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, "uint", ulRowCount, "uint", ulFlags, lppRowsMarshal, lppRows, lpulMoreRowsMarshal, lpulMoreRows, "HRESULT")
+        result := ComCall(21, this, UInt32, cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, UInt32, ulRowCount, UInt32, ulFlags, lppRowsMarshal, lppRows, lpulMoreRowsMarshal, lpulMoreRows, "HRESULT")
         return result
     }
 
@@ -730,7 +730,7 @@ export default struct IMAPITable extends IUnknown {
         pbInstanceKeyMarshal := pbInstanceKey is VarRef ? "char*" : "ptr"
         lpulRowCountMarshal := lpulRowCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "uint", cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, "uint", ulFlags, lpulRowCountMarshal, lpulRowCount, "HRESULT")
+        result := ComCall(22, this, UInt32, cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, UInt32, ulFlags, lpulRowCountMarshal, lpulRowCount, "HRESULT")
         return result
     }
 
@@ -757,7 +757,7 @@ export default struct IMAPITable extends IUnknown {
     WaitForCompletion(ulFlags, ulTimeout, lpulTableStatus) {
         lpulTableStatusMarshal := lpulTableStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "uint", ulFlags, "uint", ulTimeout, lpulTableStatusMarshal, lpulTableStatus, "HRESULT")
+        result := ComCall(23, this, UInt32, ulFlags, UInt32, ulTimeout, lpulTableStatusMarshal, lpulTableStatus, "HRESULT")
         return result
     }
 
@@ -796,7 +796,7 @@ export default struct IMAPITable extends IUnknown {
         lpcbCollapseStateMarshal := lpcbCollapseState is VarRef ? "uint*" : "ptr"
         lppbCollapseStateMarshal := lppbCollapseState is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, "uint", ulFlags, "uint", cbInstanceKey, lpbInstanceKeyMarshal, lpbInstanceKey, lpcbCollapseStateMarshal, lpcbCollapseState, lppbCollapseStateMarshal, lppbCollapseState, "HRESULT")
+        result := ComCall(24, this, UInt32, ulFlags, UInt32, cbInstanceKey, lpbInstanceKeyMarshal, lpbInstanceKey, lpcbCollapseStateMarshal, lpcbCollapseState, lppbCollapseStateMarshal, lppbCollapseState, "HRESULT")
         return result
     }
 
@@ -833,7 +833,7 @@ export default struct IMAPITable extends IUnknown {
         pbCollapseStateMarshal := pbCollapseState is VarRef ? "char*" : "ptr"
         lpbkLocationMarshal := lpbkLocation is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, "uint", ulFlags, "uint", cbCollapseState, pbCollapseStateMarshal, pbCollapseState, lpbkLocationMarshal, lpbkLocation, "HRESULT")
+        result := ComCall(25, this, UInt32, ulFlags, UInt32, cbCollapseState, pbCollapseStateMarshal, pbCollapseState, lpbkLocationMarshal, lpbkLocation, "HRESULT")
         return result
     }
 

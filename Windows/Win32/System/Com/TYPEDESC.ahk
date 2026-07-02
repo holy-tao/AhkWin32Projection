@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Variant\VARENUM.ahk" { VARENUM }
 #Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
 
 /**
  * Describes the type of a variable, the return type of a function, or the type of a function parameter.

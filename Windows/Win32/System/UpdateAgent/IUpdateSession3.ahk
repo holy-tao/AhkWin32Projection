@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUpdateHistoryEntryCollection.ahk" { IUpdateHistoryEntryCollection }
 #Import ".\IUpdateSession2.ahk" { IUpdateSession2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUpdateServiceManager2.ahk" { IUpdateServiceManager2 }
-#Import ".\IUpdateHistoryEntryCollection.ahk" { IUpdateHistoryEntryCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession3)
@@ -92,7 +92,7 @@ export default struct IUpdateSession3 extends IUpdateSession2 {
     QueryHistory(criteria, startIndex, count) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        result := ComCall(18, this, BSTR, criteria, "int", startIndex, "int", count, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(18, this, BSTR, criteria, Int32, startIndex, Int32, count, "ptr*", &retval := 0, "HRESULT")
         return IUpdateHistoryEntryCollection(retval)
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that allows communication between Windows Explorer and a folder view implemented using the system folder view object (the IShellView object returned through SHCreateShellFolderView) so that the folder view can be notified of events and modify its view accordingly.
@@ -268,7 +268,7 @@ export default struct IShellFolderViewCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderviewcb-messagesfvcb
      */
     MessageSFVCB(uMsg, _wParam, _lParam) {
-        result := ComCall(3, this, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(3, this, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XmlNodeType.ahk" { XmlNodeType }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XmlNodeType.ahk" { XmlNodeType }
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
@@ -81,7 +81,7 @@ export default struct IXmlReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/getproperty
      */
     GetProperty(nProperty) {
-        result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, nProperty, "ptr*", &ppValue := 0, "HRESULT")
         return ppValue
     }
 
@@ -92,7 +92,7 @@ export default struct IXmlReader extends IUnknown {
      * @returns {HRESULT} 
      */
     SetProperty(nProperty, pValue) {
-        result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "HRESULT")
+        result := ComCall(5, this, UInt32, nProperty, IntPtr, pValue, "HRESULT")
         return result
     }
 
@@ -237,7 +237,7 @@ export default struct IXmlReader extends IUnknown {
 
         pcwchReadMarshal := pcwchRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "ptr", pwchBuffer, "uint", cwchChunkSize, pcwchReadMarshal, pcwchRead, Int32)
+        result := ComCall(17, this, "ptr", pwchBuffer, UInt32, cwchChunkSize, pcwchReadMarshal, pcwchRead, Int32)
         return result
     }
 

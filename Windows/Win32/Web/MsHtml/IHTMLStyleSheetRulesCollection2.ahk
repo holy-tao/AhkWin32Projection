@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLCSSRule.ahk" { IHTMLCSSRule }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -59,7 +59,7 @@ export default struct IHTMLStyleSheetRulesCollection2 extends IDispatch {
      * @returns {IHTMLCSSRule} 
      */
     item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &ppHTMLCSSRule := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "ptr*", &ppHTMLCSSRule := 0, "HRESULT")
         return IHTMLCSSRule(ppHTMLCSSRule)
     }
 

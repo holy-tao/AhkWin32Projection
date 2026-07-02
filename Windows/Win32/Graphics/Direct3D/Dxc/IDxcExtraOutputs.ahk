@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -58,7 +58,7 @@ export default struct IDxcExtraOutputs extends IUnknown {
     GetOutput(uIndex, iid, ppvObject, ppOutputType, ppOutputName) {
         ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", uIndex, Guid.Ptr, iid, ppvObjectMarshal, ppvObject, IDxcBlobUtf16.Ptr, ppOutputType, IDxcBlobUtf16.Ptr, ppOutputName, "HRESULT")
+        result := ComCall(4, this, UInt32, uIndex, Guid.Ptr, iid, ppvObjectMarshal, ppvObject, IDxcBlobUtf16.Ptr, ppOutputType, IDxcBlobUtf16.Ptr, ppOutputName, "HRESULT")
         return result
     }
 

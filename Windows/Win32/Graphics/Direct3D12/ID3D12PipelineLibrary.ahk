@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\D3D12_GRAPHICS_PIPELINE_STATE_DESC.ahk" { D3D12_GRAPHICS_PIPELINE_STATE_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12PipelineState.ahk" { ID3D12PipelineState }
-#Import ".\D3D12_COMPUTE_PIPELINE_STATE_DESC.ahk" { D3D12_COMPUTE_PIPELINE_STATE_DESC }
 #Import ".\ID3D12DeviceChild.ahk" { ID3D12DeviceChild }
+#Import ".\ID3D12PipelineState.ahk" { ID3D12PipelineState }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_COMPUTE_PIPELINE_STATE_DESC.ahk" { D3D12_COMPUTE_PIPELINE_STATE_DESC }
+#Import ".\D3D12_GRAPHICS_PIPELINE_STATE_DESC.ahk" { D3D12_GRAPHICS_PIPELINE_STATE_DESC }
 
 /**
  * Manages a pipeline library, in particular loading and retrieving individual PSOs.
@@ -146,7 +146,7 @@ export default struct ID3D12PipelineLibrary extends ID3D12DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-serialize
      */
     Serialize(DataSizeInBytes) {
-        result := ComCall(12, this, "ptr", &pData := 0, "ptr", DataSizeInBytes, "HRESULT")
+        result := ComCall(12, this, "ptr", &pData := 0, IntPtr, DataSizeInBytes, "HRESULT")
         return pData
     }
 

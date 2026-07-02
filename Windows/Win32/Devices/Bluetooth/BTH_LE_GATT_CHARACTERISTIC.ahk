@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\BTH_LE_UUID.ahk" { BTH_LE_UUID }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The BTH_LE_GATT_CHARACTERISTIC structure describes a Bluetooth Low Energy (LE) generic attribute (GATT) profile characteristic.

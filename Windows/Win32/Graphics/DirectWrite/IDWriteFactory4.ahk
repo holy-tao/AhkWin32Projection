@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "..\Direct2D\Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\IDWriteColorGlyphRunEnumerator1.ahk" { IDWriteColorGlyphRunEnumerator1 }
+#Import ".\IDWriteFactory3.ahk" { IDWriteFactory3 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
-#Import ".\IDWriteFactory3.ahk" { IDWriteFactory3 }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import ".\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
-#Import ".\IDWriteColorGlyphRunEnumerator1.ahk" { IDWriteColorGlyphRunEnumerator1 }
-#Import "..\Direct2D\Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory4)
@@ -81,7 +81,7 @@ export default struct IDWriteFactory4 extends IDWriteFactory3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-translatecolorglyphrun
      */
     TranslateColorGlyphRun(baselineOrigin, _glyphRun, glyphRunDescription, desiredGlyphImageFormats, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
-        result := ComCall(40, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_GLYPH_IMAGE_FORMATS, desiredGlyphImageFormats, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
+        result := ComCall(40, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_GLYPH_IMAGE_FORMATS, desiredGlyphImageFormats, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldAndDpiTransform, UInt32, colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
         return IDWriteColorGlyphRunEnumerator1(colorLayers)
     }
 

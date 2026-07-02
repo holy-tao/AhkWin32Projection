@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFsrmProperty.ahk" { IFsrmProperty }
-#Import ".\IFsrmRule.ahk" { IFsrmRule }
-#Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
 #Import ".\FsrmRuleType.ahk" { FsrmRuleType }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\FsrmGetFilePropertyOptions.ahk" { FsrmGetFilePropertyOptions }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
-#Import ".\FsrmPipelineModuleType.ahk" { FsrmPipelineModuleType }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IFsrmPropertyDefinition.ahk" { IFsrmPropertyDefinition }
-#Import ".\IFsrmPipelineModuleDefinition.ahk" { IFsrmPipelineModuleDefinition }
-#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import ".\IFsrmProperty.ahk" { IFsrmProperty }
+#Import ".\IFsrmPipelineModuleDefinition.ahk" { IFsrmPipelineModuleDefinition }
+#Import ".\FsrmGetFilePropertyOptions.ahk" { FsrmGetFilePropertyOptions }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsrmPipelineModuleType.ahk" { FsrmPipelineModuleType }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmPropertyDefinition.ahk" { IFsrmPropertyDefinition }
+#Import ".\IFsrmRule.ahk" { IFsrmRule }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting. (IFsrmClassificationManager)
@@ -260,7 +260,7 @@ export default struct IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-put_logging
      */
     put_Logging(logging) {
-        result := ComCall(10, this, "int", logging, "HRESULT")
+        result := ComCall(10, this, Int32, logging, "HRESULT")
         return result
     }
 
@@ -667,7 +667,7 @@ export default struct IFsrmClassificationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-waitforclassificationcompletion
      */
     WaitForClassificationCompletion(waitSeconds) {
-        result := ComCall(28, this, "int", waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
+        result := ComCall(28, this, Int32, waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 

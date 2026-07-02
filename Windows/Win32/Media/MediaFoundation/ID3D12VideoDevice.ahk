@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_FEATURE_VIDEO.ahk" { D3D12_FEATURE_VIDEO }
-#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC }
 #Import ".\D3D12_VIDEO_DECODER_DESC.ahk" { D3D12_VIDEO_DECODER_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_VIDEO_DECODER_HEAP_DESC.ahk" { D3D12_VIDEO_DECODER_HEAP_DESC }
-#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC }
+#Import ".\D3D12_FEATURE_VIDEO.ahk" { D3D12_FEATURE_VIDEO }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3D12_VIDEO_DECODER_HEAP_DESC.ahk" { D3D12_VIDEO_DECODER_HEAP_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC }
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC }
 
 /**
  * Provides video decoding and processing capabilities of a Microsoft Direct3D 12 device including the ability to query video capabilities and instantiating video decoders and processors.
@@ -54,7 +54,7 @@ export default struct ID3D12VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-checkfeaturesupport
      */
     CheckFeatureSupport(FeatureVideo, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(3, this, D3D12_FEATURE_VIDEO, FeatureVideo, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(3, this, D3D12_FEATURE_VIDEO, FeatureVideo, IntPtr, pFeatureSupportData, UInt32, FeatureSupportDataSize, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct ID3D12VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideoprocessor
      */
     CreateVideoProcessor(NodeMask, pOutputStreamDesc, NumInputStreamDescs, pInputStreamDescs, riid) {
-        result := ComCall(6, this, "uint", NodeMask, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.Ptr, pOutputStreamDesc, "uint", NumInputStreamDescs, D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.Ptr, pInputStreamDescs, Guid.Ptr, riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, NodeMask, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.Ptr, pOutputStreamDesc, UInt32, NumInputStreamDescs, D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.Ptr, pInputStreamDescs, Guid.Ptr, riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
         return ppVideoProcessor
     }
 

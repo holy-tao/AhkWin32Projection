@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGISwapChain3.ahk" { IDXGISwapChain3 }
 #Import ".\DXGI_HDR_METADATA_TYPE.ahk" { DXGI_HDR_METADATA_TYPE }
+#Import ".\IDXGISwapChain3.ahk" { IDXGISwapChain3 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -63,7 +63,7 @@ export default struct IDXGISwapChain4 extends IDXGISwapChain3 {
     SetHDRMetaData(Type, _Size, pMetaData) {
         pMetaDataMarshal := pMetaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(40, this, DXGI_HDR_METADATA_TYPE, Type, "uint", _Size, pMetaDataMarshal, pMetaData, "HRESULT")
+        result := ComCall(40, this, DXGI_HDR_METADATA_TYPE, Type, UInt32, _Size, pMetaDataMarshal, pMetaData, "HRESULT")
         return result
     }
 

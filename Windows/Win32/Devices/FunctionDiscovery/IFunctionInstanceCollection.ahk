@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IFunctionInstance.ahk" { IFunctionInstance }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a group of IFunctionInstance objects returned as the result of a query or get instance request.
@@ -90,7 +90,7 @@ export default struct IFunctionInstanceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-item
      */
     Item(dwIndex) {
-        result := ComCall(5, this, "uint", dwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
         return IFunctionInstance(ppIFunctionInstance)
     }
 
@@ -152,7 +152,7 @@ export default struct IFunctionInstanceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-remove
      */
     Remove(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
         return IFunctionInstance(ppIFunctionInstance)
     }
 
@@ -203,7 +203,7 @@ export default struct IFunctionInstanceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-delete
      */
     Delete(dwIndex) {
-        result := ComCall(8, this, "uint", dwIndex, "HRESULT")
+        result := ComCall(8, this, UInt32, dwIndex, "HRESULT")
         return result
     }
 

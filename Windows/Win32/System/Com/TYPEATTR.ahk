@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IDLDESC.ahk" { IDLDESC }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDLFLAGS.ahk" { IDLFLAGS }
-#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDLDESC.ahk" { IDLDESC }
 #Import ".\TYPEKIND.ahk" { TYPEKIND }
-#Import ".\TYPEDESC.ahk" { TYPEDESC }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TYPEDESC.ahk" { TYPEDESC }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
 
 /**
  * Contains attributes of a type.

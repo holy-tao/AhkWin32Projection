@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OPEN_VIRTUAL_DISK_VERSION.ahk" { OPEN_VIRTUAL_DISK_VERSION }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OPEN_VIRTUAL_DISK_VERSION.ahk" { OPEN_VIRTUAL_DISK_VERSION }
 
 /**
  * Contains virtual disk open request parameters.

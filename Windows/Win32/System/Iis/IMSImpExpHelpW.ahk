@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -49,7 +49,7 @@ export default struct IMSImpExpHelpW extends IUnknown {
         pszKeyType := pszKeyType is String ? StrPtr(pszKeyType) : pszKeyType
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(3, this, "ptr", pszFileName, "ptr", pszKeyType, "uint", dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFileName, "ptr", pszKeyType, UInt32, dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
         return pdwMDRequiredBufferSize
     }
 

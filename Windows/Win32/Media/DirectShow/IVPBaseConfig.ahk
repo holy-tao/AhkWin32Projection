@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\AMVPSIZE.ahk" { AMVPSIZE }
-#Import "..\..\Graphics\DirectDraw\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
-#Import ".\AMVPDATAINFO.ahk" { AMVPDATAINFO }
-#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 #Import "..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AMVPDATAINFO.ahk" { AMVPDATAINFO }
+#Import "..\..\Graphics\DirectDraw\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 
 /**
  * IVPBaseConfig is implemented on a filter that wraps a hardware device such as a decoder or capture device, if the device has a video port to the graphics adapter.
@@ -82,7 +82,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-setconnectinfo
      */
     SetConnectInfo(dwChosenEntry) {
-        result := ComCall(4, this, "uint", dwChosenEntry, "HRESULT")
+        result := ComCall(4, this, UInt32, dwChosenEntry, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-informvpinputformats
      */
     InformVPInputFormats(dwNumFormats, pDDPixelFormats) {
-        result := ComCall(7, this, "uint", dwNumFormats, DDPIXELFORMAT.Ptr, pDDPixelFormats, "HRESULT")
+        result := ComCall(7, this, UInt32, dwNumFormats, DDPIXELFORMAT.Ptr, pDDPixelFormats, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-setvideoformat
      */
     SetVideoFormat(dwChosenEntry) {
-        result := ComCall(9, this, "uint", dwChosenEntry, "HRESULT")
+        result := ComCall(9, this, UInt32, dwChosenEntry, "HRESULT")
         return result
     }
 
@@ -209,7 +209,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-setdirectdrawkernelhandle
      */
     SetDirectDrawKernelHandle(dwDDKernelHandle) {
-        result := ComCall(12, this, "ptr", dwDDKernelHandle, "HRESULT")
+        result := ComCall(12, this, IntPtr, dwDDKernelHandle, "HRESULT")
         return result
     }
 
@@ -224,7 +224,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-setvideoportid
      */
     SetVideoPortID(dwVideoPortID) {
-        result := ComCall(13, this, "uint", dwVideoPortID, "HRESULT")
+        result := ComCall(13, this, UInt32, dwVideoPortID, "HRESULT")
         return result
     }
 
@@ -242,7 +242,7 @@ export default struct IVPBaseConfig extends IUnknown {
     SetDDSurfaceKernelHandles(cHandles, rgDDKernelHandles) {
         rgDDKernelHandlesMarshal := rgDDKernelHandles is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "uint", cHandles, rgDDKernelHandlesMarshal, rgDDKernelHandles, "HRESULT")
+        result := ComCall(14, this, UInt32, cHandles, rgDDKernelHandlesMarshal, rgDDKernelHandles, "HRESULT")
         return result
     }
 
@@ -257,7 +257,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-setsurfaceparameters
      */
     SetSurfaceParameters(dwPitch, dwXOrigin, dwYOrigin) {
-        result := ComCall(15, this, "uint", dwPitch, "uint", dwXOrigin, "uint", dwYOrigin, "HRESULT")
+        result := ComCall(15, this, UInt32, dwPitch, UInt32, dwXOrigin, UInt32, dwYOrigin, "HRESULT")
         return result
     }
 

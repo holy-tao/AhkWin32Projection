@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\UiaCondition.ahk" { UiaCondition }
 #Import ".\ConditionType.ahk" { ConditionType }
+#Import ".\UiaCondition.ahk" { UiaCondition }
 
 /**
  * Note  This structure is deprecated.  Contains information about a negative condition.

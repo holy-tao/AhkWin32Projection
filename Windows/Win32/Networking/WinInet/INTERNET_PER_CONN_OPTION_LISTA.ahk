@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERNET_PER_CONN_OPTIONA.ahk" { INTERNET_PER_CONN_OPTIONA }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\INTERNET_PER_CONN_OPTIONA.ahk" { INTERNET_PER_CONN_OPTIONA }
 
 /**
  * Contains the list of options for a particular Internet connection. (ANSI)

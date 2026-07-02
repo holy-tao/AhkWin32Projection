@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPMediaPluginRegistrar interface manages plug-in registration.
@@ -69,7 +69,7 @@ export default struct IWMPMediaPluginRegistrar extends IUnknown {
 
         pMediaTypesMarshal := pMediaTypes is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwszFriendlyName, "ptr", pwszDescription, "ptr", pwszUninstallString, "uint", dwPriority, Guid, guidPluginType, Guid, clsid, "uint", cMediaTypes, pMediaTypesMarshal, pMediaTypes, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszFriendlyName, "ptr", pwszDescription, "ptr", pwszUninstallString, UInt32, dwPriority, Guid, guidPluginType, Guid, clsid, UInt32, cMediaTypes, pMediaTypesMarshal, pMediaTypes, "HRESULT")
         return result
     }
 

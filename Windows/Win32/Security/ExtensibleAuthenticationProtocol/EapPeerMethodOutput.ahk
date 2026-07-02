@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EapPeerMethodResponseAction.ahk" { EapPeerMethodResponseAction }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\EapPeerMethodResponseAction.ahk" { EapPeerMethodResponseAction }
 
 /**
  * Contains the action information returned by an EAP peer method.

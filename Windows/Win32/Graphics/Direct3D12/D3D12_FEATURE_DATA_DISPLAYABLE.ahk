@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER.ahk" { D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER.ahk" { D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER }
 
 /**
  * This feature is currently in preview.

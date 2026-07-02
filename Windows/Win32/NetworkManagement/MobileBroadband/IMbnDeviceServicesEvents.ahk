@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMbnDeviceService.ahk" { IMbnDeviceService }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MBN_DEVICE_SERVICES_INTERFACE_STATE.ahk" { MBN_DEVICE_SERVICES_INTERFACE_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMbnDeviceService.ahk" { IMbnDeviceService }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Signals an application about notification events related to Mobile Broadband device services on the system.
@@ -93,7 +93,7 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerysupportedcommandscomplete
      */
     OnQuerySupportedCommandsComplete(deviceService, commandIDList, _status, requestID) {
-        result := ComCall(3, this, "ptr", deviceService, SAFEARRAY.Ptr, commandIDList, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(3, this, "ptr", deviceService, SAFEARRAY.Ptr, commandIDList, "int", _status, UInt32, requestID, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onopencommandsessioncomplete
      */
     OnOpenCommandSessionComplete(deviceService, _status, requestID) {
-        result := ComCall(4, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(4, this, "ptr", deviceService, "int", _status, UInt32, requestID, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onclosecommandsessioncomplete
      */
     OnCloseCommandSessionComplete(deviceService, _status, requestID) {
-        result := ComCall(5, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(5, this, "ptr", deviceService, "int", _status, UInt32, requestID, "HRESULT")
         return result
     }
 
@@ -190,7 +190,7 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onsetcommandcomplete
      */
     OnSetCommandComplete(deviceService, responseID, deviceServiceData, _status, requestID) {
-        result := ComCall(6, this, "ptr", deviceService, "uint", responseID, SAFEARRAY.Ptr, deviceServiceData, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(6, this, "ptr", deviceService, UInt32, responseID, SAFEARRAY.Ptr, deviceServiceData, "int", _status, UInt32, requestID, "HRESULT")
         return result
     }
 
@@ -225,7 +225,7 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerycommandcomplete
      */
     OnQueryCommandComplete(deviceService, responseID, deviceServiceData, _status, requestID) {
-        result := ComCall(7, this, "ptr", deviceService, "uint", responseID, SAFEARRAY.Ptr, deviceServiceData, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(7, this, "ptr", deviceService, UInt32, responseID, SAFEARRAY.Ptr, deviceServiceData, "int", _status, UInt32, requestID, "HRESULT")
         return result
     }
 
@@ -258,7 +258,7 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-oneventnotification
      */
     OnEventNotification(deviceService, eventID, deviceServiceData) {
-        result := ComCall(8, this, "ptr", deviceService, "uint", eventID, SAFEARRAY.Ptr, deviceServiceData, "HRESULT")
+        result := ComCall(8, this, "ptr", deviceService, UInt32, eventID, SAFEARRAY.Ptr, deviceServiceData, "HRESULT")
         return result
     }
 
@@ -289,7 +289,7 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onopendatasessioncomplete
      */
     OnOpenDataSessionComplete(deviceService, _status, requestID) {
-        result := ComCall(9, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(9, this, "ptr", deviceService, "int", _status, UInt32, requestID, "HRESULT")
         return result
     }
 
@@ -320,7 +320,7 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onclosedatasessioncomplete
      */
     OnCloseDataSessionComplete(deviceService, _status, requestID) {
-        result := ComCall(10, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(10, this, "ptr", deviceService, "int", _status, UInt32, requestID, "HRESULT")
         return result
     }
 
@@ -351,7 +351,7 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onwritedatacomplete
      */
     OnWriteDataComplete(deviceService, _status, requestID) {
-        result := ComCall(11, this, "ptr", deviceService, "int", _status, "uint", requestID, "HRESULT")
+        result := ComCall(11, this, "ptr", deviceService, "int", _status, UInt32, requestID, "HRESULT")
         return result
     }
 

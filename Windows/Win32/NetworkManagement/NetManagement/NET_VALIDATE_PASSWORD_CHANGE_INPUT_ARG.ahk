@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\NET_VALIDATE_PASSWORD_HASH.ahk" { NET_VALIDATE_PASSWORD_HASH }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\NET_VALIDATE_PERSISTED_FIELDS.ahk" { NET_VALIDATE_PERSISTED_FIELDS }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\NET_VALIDATE_PASSWORD_HASH.ahk" { NET_VALIDATE_PASSWORD_HASH }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * A client application passes the NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG structure to the NetValidatePasswordPolicy function when the application requests a password change validation.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCERTSTOREPROV.ahk" { HCERTSTOREPROV }
 #Import ".\CERT_STORE_PROV_FLAGS.ahk" { CERT_STORE_PROV_FLAGS }
+#Import ".\HCERTSTOREPROV.ahk" { HCERTSTOREPROV }
 
 /**
  * Contains information returned by the installed CertDllOpenStoreProv function when a store is opened by using the CertOpenStore function.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -168,7 +168,7 @@ export default struct IHTMLSelectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_size(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -257,7 +257,7 @@ export default struct IHTMLSelectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_selectedIndex(v) {
-        result := ComCall(16, this, "int", v, "HRESULT")
+        result := ComCall(16, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -376,7 +376,7 @@ export default struct IHTMLSelectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     remove(index) {
-        result := ComCall(25, this, "int", index, "HRESULT")
+        result := ComCall(25, this, Int32, index, "HRESULT")
         return result
     }
 
@@ -386,7 +386,7 @@ export default struct IHTMLSelectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_length(v) {
-        result := ComCall(26, this, "int", v, "HRESULT")
+        result := ComCall(26, this, Int32, v, "HRESULT")
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\RFCOMM_MSC_DATA.ahk" { RFCOMM_MSC_DATA }
-#Import ".\RFCOMM_RPN_DATA.ahk" { RFCOMM_RPN_DATA }
 #Import ".\RFCOMM_RLS_DATA.ahk" { RFCOMM_RLS_DATA }
+#Import ".\RFCOMM_RPN_DATA.ahk" { RFCOMM_RPN_DATA }
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth

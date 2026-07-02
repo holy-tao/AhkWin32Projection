@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITaskTrigger.ahk" { ITaskTrigger }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ITaskTrigger.ahk" { ITaskTrigger }
 
 /**
  * Provides the methods for managing specific work items.
@@ -194,7 +194,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-deletetrigger
      */
     DeleteTrigger(_iTrigger) {
-        result := ComCall(4, this, "ushort", _iTrigger, "HRESULT")
+        result := ComCall(4, this, UInt16, _iTrigger, "HRESULT")
         return result
     }
 
@@ -216,7 +216,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettrigger
      */
     GetTrigger(_iTrigger) {
-        result := ComCall(6, this, "ushort", _iTrigger, "ptr*", &ppTrigger := 0, "HRESULT")
+        result := ComCall(6, this, UInt16, _iTrigger, "ptr*", &ppTrigger := 0, "HRESULT")
         return ITaskTrigger(ppTrigger)
     }
 
@@ -232,7 +232,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettriggerstring
      */
     GetTriggerString(_iTrigger) {
-        result := ComCall(7, this, "ushort", _iTrigger, PWSTR.Ptr, &ppwszTrigger := 0, "HRESULT")
+        result := ComCall(7, this, UInt16, _iTrigger, PWSTR.Ptr, &ppwszTrigger := 0, "HRESULT")
         return ppwszTrigger
     }
 
@@ -341,7 +341,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setidlewait
      */
     SetIdleWait(wIdleMinutes, wDeadlineMinutes) {
-        result := ComCall(10, this, "ushort", wIdleMinutes, "ushort", wDeadlineMinutes, "HRESULT")
+        result := ComCall(10, this, UInt16, wIdleMinutes, UInt16, wDeadlineMinutes, "HRESULT")
         return result
     }
 
@@ -572,7 +572,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-editworkitem
      */
     EditWorkItem(hParent, dwReserved) {
-        result := ComCall(14, this, HWND, hParent, "uint", dwReserved, "HRESULT")
+        result := ComCall(14, this, HWND, hParent, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -814,7 +814,7 @@ export default struct IScheduledWorkItem extends IUnknown {
     SetWorkItemData(cbData, rgbData) {
         rgbDataMarshal := rgbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, "ushort", cbData, rgbDataMarshal, rgbData, "HRESULT")
+        result := ComCall(22, this, UInt16, cbData, rgbDataMarshal, rgbData, "HRESULT")
         return result
     }
 
@@ -939,7 +939,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-seterrorretrycount
      */
     SetErrorRetryCount(wRetryCount) {
-        result := ComCall(24, this, "ushort", wRetryCount, "HRESULT")
+        result := ComCall(24, this, UInt16, wRetryCount, "HRESULT")
         return result
     }
 
@@ -1015,7 +1015,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-seterrorretryinterval
      */
     SetErrorRetryInterval(wRetryInterval) {
-        result := ComCall(26, this, "ushort", wRetryInterval, "HRESULT")
+        result := ComCall(26, this, UInt16, wRetryInterval, "HRESULT")
         return result
     }
 
@@ -1083,7 +1083,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setflags
      */
     SetFlags(dwFlags) {
-        result := ComCall(28, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(28, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

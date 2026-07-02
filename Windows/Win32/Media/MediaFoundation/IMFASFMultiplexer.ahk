@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFSample.ahk" { IMFSample }
-#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
 #Import ".\ASF_MUX_STATISTICS.ahk" { ASF_MUX_STATISTICS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods to create Advanced Systems Format (ASF) data packets.
@@ -104,7 +104,7 @@ export default struct IMFASFMultiplexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-setflags
      */
     SetFlags(dwFlags) {
-        result := ComCall(4, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -199,7 +199,7 @@ export default struct IMFASFMultiplexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-processsample
      */
     ProcessSample(wStreamNumber, pISample, hnsTimestampAdjust) {
-        result := ComCall(6, this, "ushort", wStreamNumber, "ptr", pISample, "int64", hnsTimestampAdjust, "HRESULT")
+        result := ComCall(6, this, UInt16, wStreamNumber, "ptr", pISample, Int64, hnsTimestampAdjust, "HRESULT")
         return result
     }
 
@@ -323,7 +323,7 @@ export default struct IMFASFMultiplexer extends IUnknown {
      */
     GetStatistics(wStreamNumber) {
         pMuxStats := ASF_MUX_STATISTICS()
-        result := ComCall(10, this, "ushort", wStreamNumber, ASF_MUX_STATISTICS.Ptr, pMuxStats, "HRESULT")
+        result := ComCall(10, this, UInt16, wStreamNumber, ASF_MUX_STATISTICS.Ptr, pMuxStats, "HRESULT")
         return pMuxStats
     }
 
@@ -354,7 +354,7 @@ export default struct IMFASFMultiplexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-setsynctolerance
      */
     SetSyncTolerance(msSyncTolerance) {
-        result := ComCall(11, this, "uint", msSyncTolerance, "HRESULT")
+        result := ComCall(11, this, UInt32, msSyncTolerance, "HRESULT")
         return result
     }
 

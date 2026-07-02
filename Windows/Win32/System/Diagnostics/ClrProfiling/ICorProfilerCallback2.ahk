@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COR_PRF_GC_ROOT_KIND.ahk" { COR_PRF_GC_ROOT_KIND }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\COR_PRF_GC_ROOT_FLAGS.ahk" { COR_PRF_GC_ROOT_FLAGS }
-#Import ".\ICorProfilerCallback.ahk" { ICorProfilerCallback }
 #Import ".\COR_PRF_GC_REASON.ahk" { COR_PRF_GC_REASON }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COR_PRF_GC_ROOT_KIND.ahk" { COR_PRF_GC_ROOT_KIND }
+#Import ".\COR_PRF_GC_ROOT_FLAGS.ahk" { COR_PRF_GC_ROOT_FLAGS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerCallback.ahk" { ICorProfilerCallback }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -57,7 +57,7 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
     ThreadNameChanged(threadId, cchName, name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(72, this, "ptr", threadId, "uint", cchName, "ptr", name, "HRESULT")
+        result := ComCall(72, this, IntPtr, threadId, UInt32, cchName, "ptr", name, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
     GarbageCollectionStarted(cGenerations, generationCollected, reason) {
         generationCollectedMarshal := generationCollected is VarRef ? "int*" : "ptr"
 
-        result := ComCall(73, this, "int", cGenerations, generationCollectedMarshal, generationCollected, COR_PRF_GC_REASON, reason, "HRESULT")
+        result := ComCall(73, this, Int32, cGenerations, generationCollectedMarshal, generationCollected, COR_PRF_GC_REASON, reason, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
         objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : "ptr"
         cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(74, this, "uint", cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
+        result := ComCall(74, this, UInt32, cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
      * @returns {HRESULT} 
      */
     FinalizeableObjectQueued(finalizerFlags, _objectID) {
-        result := ComCall(76, this, "uint", finalizerFlags, "ptr", _objectID, "HRESULT")
+        result := ComCall(76, this, UInt32, finalizerFlags, IntPtr, _objectID, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
         rootFlagsMarshal := rootFlags is VarRef ? "int*" : "ptr"
         rootIdsMarshal := rootIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(77, this, "uint", cRootRefs, rootRefIdsMarshal, rootRefIds, rootKindsMarshal, rootKinds, rootFlagsMarshal, rootFlags, rootIdsMarshal, rootIds, "HRESULT")
+        result := ComCall(77, this, UInt32, cRootRefs, rootRefIdsMarshal, rootRefIds, rootKindsMarshal, rootKinds, rootFlagsMarshal, rootFlags, rootIdsMarshal, rootIds, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
      * @returns {HRESULT} 
      */
     HandleCreated(handleId, initialObjectId) {
-        result := ComCall(78, this, "ptr", handleId, "ptr", initialObjectId, "HRESULT")
+        result := ComCall(78, this, IntPtr, handleId, IntPtr, initialObjectId, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
      * @returns {HRESULT} 
      */
     HandleDestroyed(handleId) {
-        result := ComCall(79, this, "ptr", handleId, "HRESULT")
+        result := ComCall(79, this, IntPtr, handleId, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

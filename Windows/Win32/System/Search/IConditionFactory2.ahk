@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICondition.ahk" { ICondition }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IConditionFactory.ahk" { IConditionFactory }
 #Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import ".\STRUCTURED_QUERY_RESOLVE_OPTION.ahk" { STRUCTURED_QUERY_RESOLVE_OPTION }
 #Import ".\IRichChunk.ahk" { IRichChunk }
-#Import "Common\CONDITION_TYPE.ahk" { CONDITION_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CONDITION_CREATION_OPTIONS.ahk" { CONDITION_CREATION_OPTIONS }
-#Import "..\..\UI\Shell\Common\IObjectArray.ahk" { IObjectArray }
-#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICondition.ahk" { ICondition }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\CONDITION_CREATION_OPTIONS.ahk" { CONDITION_CREATION_OPTIONS }
+#Import "Common\CONDITION_TYPE.ahk" { CONDITION_TYPE }
+#Import ".\STRUCTURED_QUERY_RESOLVE_OPTION.ahk" { STRUCTURED_QUERY_RESOLVE_OPTION }
+#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
+#Import "..\..\UI\Shell\Common\IObjectArray.ahk" { IObjectArray }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Extends the functionality of IConditionFactory. IConditionFactory2 provides methods for creating or resolving a condition tree that was obtained by parsing a query string.
@@ -158,7 +158,7 @@ export default struct IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromarray
      */
     CreateCompoundFromArray(ct, ppcondSubs, cSubs, cco, riid) {
-        result := ComCall(10, this, CONDITION_TYPE, ct, ICondition.Ptr, ppcondSubs, "uint", cSubs, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, CONDITION_TYPE, ct, ICondition.Ptr, ppcondSubs, UInt32, cSubs, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -222,7 +222,7 @@ export default struct IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createintegerleaf
      */
     CreateIntegerLeaf(propkey, cop, lValue, cco, riid) {
-        result := ComCall(12, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, "int", lValue, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(12, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, Int32, lValue, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

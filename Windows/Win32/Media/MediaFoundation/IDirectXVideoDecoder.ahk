@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
 #Import ".\IDirectXVideoDecoderService.ahk" { IDirectXVideoDecoderService }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DXVA2_ConfigPictureDecode.ahk" { DXVA2_ConfigPictureDecode }
 #Import ".\DXVA2_DecodeExecuteParams.ahk" { DXVA2_DecodeExecuteParams }
 
@@ -146,7 +146,7 @@ export default struct IDirectXVideoDecoder extends IUnknown {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", BufferType, ppBufferMarshal, ppBuffer, pBufferSizeMarshal, pBufferSize, "HRESULT")
+        result := ComCall(5, this, UInt32, BufferType, ppBufferMarshal, ppBuffer, pBufferSizeMarshal, pBufferSize, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IDirectXVideoDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-releasebuffer
      */
     ReleaseBuffer(BufferType) {
-        result := ComCall(6, this, "uint", BufferType, "HRESULT")
+        result := ComCall(6, this, UInt32, BufferType, "HRESULT")
         return result
     }
 

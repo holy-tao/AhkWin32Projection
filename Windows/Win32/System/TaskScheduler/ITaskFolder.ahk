@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITaskFolderCollection.ahk" { ITaskFolderCollection }
-#Import ".\TASK_LOGON_TYPE.ahk" { TASK_LOGON_TYPE }
 #Import ".\ITaskDefinition.ahk" { ITaskDefinition }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRegisteredTaskCollection.ahk" { IRegisteredTaskCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TASK_LOGON_TYPE.ahk" { TASK_LOGON_TYPE }
 #Import ".\IRegisteredTask.ahk" { IRegisteredTask }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITaskFolderCollection.ahk" { ITaskFolderCollection }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IRegisteredTaskCollection.ahk" { IRegisteredTaskCollection }
 
 /**
  * Provides the methods that are used to register (create) tasks in the folder, remove tasks from the folder, and create or remove subfolders from the folder.
@@ -117,7 +117,7 @@ export default struct ITaskFolder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-getfolders
      */
     GetFolders(flags) {
-        result := ComCall(10, this, "int", flags, "ptr*", &ppFolders := 0, "HRESULT")
+        result := ComCall(10, this, Int32, flags, "ptr*", &ppFolders := 0, "HRESULT")
         return ITaskFolderCollection(ppFolders)
     }
 
@@ -155,7 +155,7 @@ export default struct ITaskFolder extends IDispatch {
     DeleteFolder(subFolderName, flags) {
         subFolderName := subFolderName is String ? BSTR.Alloc(subFolderName).Value : subFolderName
 
-        result := ComCall(12, this, BSTR, subFolderName, "int", flags, "HRESULT")
+        result := ComCall(12, this, BSTR, subFolderName, Int32, flags, "HRESULT")
         return result
     }
 
@@ -184,7 +184,7 @@ export default struct ITaskFolder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-gettasks
      */
     GetTasks(flags) {
-        result := ComCall(14, this, "int", flags, "ptr*", &ppTasks := 0, "HRESULT")
+        result := ComCall(14, this, Int32, flags, "ptr*", &ppTasks := 0, "HRESULT")
         return IRegisteredTaskCollection(ppTasks)
     }
 
@@ -198,7 +198,7 @@ export default struct ITaskFolder extends IDispatch {
     DeleteTask(name, flags) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(15, this, BSTR, name, "int", flags, "HRESULT")
+        result := ComCall(15, this, BSTR, name, Int32, flags, "HRESULT")
         return result
     }
 
@@ -430,7 +430,7 @@ export default struct ITaskFolder extends IDispatch {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
         xmlText := xmlText is String ? BSTR.Alloc(xmlText).Value : xmlText
 
-        result := ComCall(16, this, BSTR, _path, BSTR, xmlText, "int", flags, VARIANT, userId, VARIANT, password, TASK_LOGON_TYPE, logonType, VARIANT, sddl, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(16, this, BSTR, _path, BSTR, xmlText, Int32, flags, VARIANT, userId, VARIANT, password, TASK_LOGON_TYPE, logonType, VARIANT, sddl, "ptr*", &ppTask := 0, "HRESULT")
         return IRegisteredTask(ppTask)
     }
 
@@ -640,7 +640,7 @@ export default struct ITaskFolder extends IDispatch {
     RegisterTaskDefinition(_path, pDefinition, flags, userId, password, logonType, sddl) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(17, this, BSTR, _path, "ptr", pDefinition, "int", flags, VARIANT, userId, VARIANT, password, TASK_LOGON_TYPE, logonType, VARIANT, sddl, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, _path, "ptr", pDefinition, Int32, flags, VARIANT, userId, VARIANT, password, TASK_LOGON_TYPE, logonType, VARIANT, sddl, "ptr*", &ppTask := 0, "HRESULT")
         return IRegisteredTask(ppTask)
     }
 
@@ -652,7 +652,7 @@ export default struct ITaskFolder extends IDispatch {
      */
     GetSecurityDescriptor(securityInformation) {
         pSddl := BSTR.Owned()
-        result := ComCall(18, this, "int", securityInformation, BSTR.Ptr, pSddl, "HRESULT")
+        result := ComCall(18, this, Int32, securityInformation, BSTR.Ptr, pSddl, "HRESULT")
         return pSddl
     }
 
@@ -671,7 +671,7 @@ export default struct ITaskFolder extends IDispatch {
     SetSecurityDescriptor(sddl, flags) {
         sddl := sddl is String ? BSTR.Alloc(sddl).Value : sddl
 
-        result := ComCall(19, this, BSTR, sddl, "int", flags, "HRESULT")
+        result := ComCall(19, this, BSTR, sddl, Int32, flags, "HRESULT")
         return result
     }
 

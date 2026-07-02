@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CRYPTUI_WIZ_EXPORT_FORMAT.ahk" { CRYPTUI_WIZ_EXPORT_FORMAT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function when a certificate is the object being exported.

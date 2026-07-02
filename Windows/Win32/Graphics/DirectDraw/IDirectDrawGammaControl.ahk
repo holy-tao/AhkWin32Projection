@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DDGAMMARAMP.ahk" { DDGAMMARAMP }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Applications use the methods of the IDirectDrawGammaControl interface to adjust the red, green, and blue gamma ramp levels of the primary surface. This section is a reference to the methods of this interface.
@@ -56,8 +56,8 @@ export default struct IDirectDrawGammaControl extends IUnknown {
 
     /**
      * Retrieves the red, green, and blue gamma ramps for the primary surface.
-     * @param {Integer} param0 
-     * @param {Pointer<DDGAMMARAMP>} param1 
+     * @param {Integer} param0 Currently not used and must be set to 0.
+     * @param {Pointer<DDGAMMARAMP>} param1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddgammaramp">DDGAMMARAMP</a> structure that receives the current red, green, and blue gamma ramps. Each array maps color values in the frame buffer to the color values to be passed to the digital-to-analog converter (DAC).
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -72,7 +72,7 @@ export default struct IDirectDrawGammaControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawgammacontrol-getgammaramp
      */
     GetGammaRamp(param0, param1) {
-        result := ComCall(3, this, "uint", param0, DDGAMMARAMP.Ptr, param1, "HRESULT")
+        result := ComCall(3, this, UInt32, param0, DDGAMMARAMP.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -86,8 +86,8 @@ export default struct IDirectDrawGammaControl extends IUnknown {
      * Calibrating gamma ramps incurs some processing overhead and should not be used frequently.
      * 
      * Including the DDSGR_CALIBRATE flag in the <i>dwFlags</i> parameter when running on computers that do not support gamma calibration does not cause this method to fail. The method succeeds and sets new gamma ramp values without calibration.
-     * @param {Integer} param0 
-     * @param {Pointer<DDGAMMARAMP>} param1 
+     * @param {Integer} param0 Flag that indicates whether gamma calibration is required. Set this parameter to DDSGR_CALIBRATE to request that the calibrator adjust the gamma ramp according to the physical properties of the display, which makes the result identical on all computers. If calibration is not needed, set this parameter to 0.
+     * @param {Pointer<DDGAMMARAMP>} param1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddgammaramp">DDGAMMARAMP</a> structure that contains the new red, green, and blue gamma ramp entries. Each array maps color values in the frame buffer to the color values to be passed to the digital-to-analog converter (DAC).
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -103,7 +103,7 @@ export default struct IDirectDrawGammaControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawgammacontrol-setgammaramp
      */
     SetGammaRamp(param0, param1) {
-        result := ComCall(4, this, "uint", param0, DDGAMMARAMP.Ptr, param1, "HRESULT")
+        result := ComCall(4, this, UInt32, param0, DDGAMMARAMP.Ptr, param1, "HRESULT")
         return result
     }
 

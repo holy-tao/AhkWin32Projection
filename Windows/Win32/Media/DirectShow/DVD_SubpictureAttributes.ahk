@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DVD_SUBPICTURE_TYPE.ahk" { DVD_SUBPICTURE_TYPE }
-#Import ".\DVD_SUBPICTURE_CODING.ahk" { DVD_SUBPICTURE_CODING }
 #Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
+#Import ".\DVD_SUBPICTURE_CODING.ahk" { DVD_SUBPICTURE_CODING }
+#Import ".\DVD_SUBPICTURE_TYPE.ahk" { DVD_SUBPICTURE_TYPE }
 
 /**
  * The DVD_SubpictureAttributes structure contains information about the DVD subpicture. The IDvdInfo2::GetSubpictureAttributes method fills in a DVD_SubpictureAttributes structure for a specified stream.

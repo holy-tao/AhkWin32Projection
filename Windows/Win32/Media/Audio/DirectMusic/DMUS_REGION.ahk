@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLOOP.ahk" { WLOOP }
 #Import ".\WAVELINK.ahk" { WAVELINK }
 #Import ".\WSMPL.ahk" { WSMPL }
 #Import ".\RGNRANGE.ahk" { RGNRANGE }
-#Import ".\WLOOP.ahk" { WLOOP }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic

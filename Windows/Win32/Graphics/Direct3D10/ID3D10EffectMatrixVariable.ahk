@@ -97,7 +97,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
     SetMatrixArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(27, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(27, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -120,7 +120,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
     GetMatrixArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(28, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(28, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -183,7 +183,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
     SetMatrixTransposeArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(31, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(31, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
     GetMatrixTransposeArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(32, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(32, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MORRSLT.ahk" { MORRSLT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MORRSLT.ahk" { MORRSLT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFELanguage interface provides language processing services using the Microsoft IME.
@@ -400,7 +400,7 @@ export default struct IFELanguage extends IUnknown {
         pfCInfoMarshal := pfCInfo is VarRef ? "uint*" : "ptr"
         ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwRequest, "uint", dwCMode, "int", cwchInput, "ptr", pwchInput, pfCInfoMarshal, pfCInfo, ppResultMarshal, ppResult, "HRESULT")
+        result := ComCall(5, this, UInt32, dwRequest, UInt32, dwCMode, Int32, cwchInput, "ptr", pwchInput, pfCInfoMarshal, pfCInfo, ppResultMarshal, ppResult, "HRESULT")
         return result
     }
 
@@ -674,7 +674,7 @@ export default struct IFELanguage extends IUnknown {
     GetPhonetic(_string, start, length, phonetic) {
         _string := _string is String ? BSTR.Alloc(_string).Value : _string
 
-        result := ComCall(7, this, BSTR, _string, "int", start, "int", length, BSTR.Ptr, phonetic, "HRESULT")
+        result := ComCall(7, this, BSTR, _string, Int32, start, Int32, length, BSTR.Ptr, phonetic, "HRESULT")
         return result
     }
 
@@ -690,7 +690,7 @@ export default struct IFELanguage extends IUnknown {
     GetConversion(_string, start, length, result) {
         _string := _string is String ? BSTR.Alloc(_string).Value : _string
 
-        result := ComCall(8, this, BSTR, _string, "int", start, "int", length, BSTR.Ptr, result, "HRESULT")
+        result := ComCall(8, this, BSTR, _string, Int32, start, Int32, length, BSTR.Ptr, result, "HRESULT")
         return result
     }
 

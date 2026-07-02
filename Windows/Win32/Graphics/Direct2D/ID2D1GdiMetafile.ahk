@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1GdiMetafileSink.ahk" { ID2D1GdiMetafileSink }
 #Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import ".\ID2D1GdiMetafileSink.ahk" { ID2D1GdiMetafileSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A Direct2D resource that wraps a WMF, EMF, or EMF+ metafile.

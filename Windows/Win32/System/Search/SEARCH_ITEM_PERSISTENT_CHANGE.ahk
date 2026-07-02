@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SEARCH_KIND_OF_CHANGE.ahk" { SEARCH_KIND_OF_CHANGE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SEARCH_NOTIFICATION_PRIORITY.ahk" { SEARCH_NOTIFICATION_PRIORITY }
-#Import ".\SEARCH_KIND_OF_CHANGE.ahk" { SEARCH_KIND_OF_CHANGE }
 
 /**
  * Contains information about the kind of change that has occurred in an item to be indexed. This structure is used with the ISearchPersistentItemsChangedSink::OnItemsChanged method to pass information to the indexer about what has changed.

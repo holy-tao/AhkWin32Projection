@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\DEVICEDIALOGDATA.ahk" { DEVICEDIALOGDATA }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DEVICEDIALOGDATA.ahk" { DEVICEDIALOGDATA }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * The IWiaUIExtension interface provides methods that replace the default system user interface, provide a custom device bitmap logo, and provide a custom device icon.
@@ -90,7 +90,7 @@ export default struct IWiaUIExtension extends IUnknown {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
         phIcon := HICON.Owned()
-        result := ComCall(4, this, BSTR, bstrDeviceId, HICON.Ptr, phIcon, "uint", nSize, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrDeviceId, HICON.Ptr, phIcon, UInt32, nSize, "HRESULT")
         return phIcon
     }
 
@@ -114,7 +114,7 @@ export default struct IWiaUIExtension extends IUnknown {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
         phBitmap := HBITMAP.Owned()
-        result := ComCall(5, this, BSTR, bstrDeviceId, HBITMAP.Ptr, phBitmap, "uint", nMaxWidth, "uint", nMaxHeight, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrDeviceId, HBITMAP.Ptr, phBitmap, UInt32, nMaxWidth, UInt32, nMaxHeight, "HRESULT")
         return phBitmap
     }
 

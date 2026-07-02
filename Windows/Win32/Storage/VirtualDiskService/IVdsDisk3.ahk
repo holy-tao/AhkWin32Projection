@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_DISK_PROP2.ahk" { VDS_DISK_PROP2 }
 #Import ".\VDS_DISK_FREE_EXTENT.ahk" { VDS_DISK_FREE_EXTENT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_DISK_PROP2.ahk" { VDS_DISK_PROP2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a method to retrieve property information for a disk, including the disk's location path.
@@ -121,7 +121,7 @@ export default struct IVdsDisk3 extends IUnknown {
         ppFreeExtentArrayMarshal := ppFreeExtentArray is VarRef ? "ptr*" : "ptr"
         plNumberOfFreeExtentsMarshal := plNumberOfFreeExtents is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulAlign, ppFreeExtentArrayMarshal, ppFreeExtentArray, plNumberOfFreeExtentsMarshal, plNumberOfFreeExtents, "HRESULT")
+        result := ComCall(4, this, UInt32, ulAlign, ppFreeExtentArrayMarshal, ppFreeExtentArray, plNumberOfFreeExtentsMarshal, plNumberOfFreeExtents, "HRESULT")
         return result
     }
 

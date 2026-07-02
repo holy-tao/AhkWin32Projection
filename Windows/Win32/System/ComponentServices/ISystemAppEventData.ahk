@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber when a COM+ application instance is created or reconfigured.
@@ -63,7 +63,7 @@ export default struct ISystemAppEventData extends IUnknown {
     OnDataChanged(dwPID, dwMask, dwNumberSinks, bstrDwMethodMask, dwReason, u64TraceHandle) {
         bstrDwMethodMask := bstrDwMethodMask is String ? BSTR.Alloc(bstrDwMethodMask).Value : bstrDwMethodMask
 
-        result := ComCall(4, this, "uint", dwPID, "uint", dwMask, "uint", dwNumberSinks, BSTR, bstrDwMethodMask, "uint", dwReason, "uint", u64TraceHandle, "HRESULT")
+        result := ComCall(4, this, UInt32, dwPID, UInt32, dwMask, UInt32, dwNumberSinks, BSTR, bstrDwMethodMask, UInt32, dwReason, Int64, u64TraceHandle, "HRESULT")
         return result
     }
 

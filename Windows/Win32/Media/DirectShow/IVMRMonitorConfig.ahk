@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VMRMONITORINFO.ahk" { VMRMONITORINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VMRGUID.ahk" { VMRGUID }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVMRMonitorConfig interface is implemented by the Video Mixing Renderer Filter 7 (VMR-7).
@@ -267,7 +267,7 @@ export default struct IVMRMonitorConfig extends IUnknown {
     GetAvailableMonitors(pInfo, dwMaxInfoArraySize, pdwNumDevices) {
         pdwNumDevicesMarshal := pdwNumDevices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, VMRMONITORINFO.Ptr, pInfo, "uint", dwMaxInfoArraySize, pdwNumDevicesMarshal, pdwNumDevices, "HRESULT")
+        result := ComCall(7, this, VMRMONITORINFO.Ptr, pInfo, UInt32, dwMaxInfoArraySize, pdwNumDevicesMarshal, pdwNumDevices, "HRESULT")
         return result
     }
 

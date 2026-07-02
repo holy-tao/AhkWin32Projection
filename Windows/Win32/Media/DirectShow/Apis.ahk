@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -23,7 +23,7 @@
 export AMGetErrorTextA(hr, pbuffer, MaxLen) {
     pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer
 
-    result := DllCall("QUARTZ.dll\AMGetErrorTextA", "int", hr, "ptr", pbuffer, "uint", MaxLen, UInt32)
+    result := DllCall("QUARTZ.dll\AMGetErrorTextA", "int", hr, "ptr", pbuffer, UInt32, MaxLen, UInt32)
     return result
 }
 
@@ -41,7 +41,7 @@ export AMGetErrorTextA(hr, pbuffer, MaxLen) {
 export AMGetErrorTextW(hr, pbuffer, MaxLen) {
     pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer
 
-    result := DllCall("QUARTZ.dll\AMGetErrorTextW", "int", hr, "ptr", pbuffer, "uint", MaxLen, UInt32)
+    result := DllCall("QUARTZ.dll\AMGetErrorTextW", "int", hr, "ptr", pbuffer, UInt32, MaxLen, UInt32)
     return result
 }
 

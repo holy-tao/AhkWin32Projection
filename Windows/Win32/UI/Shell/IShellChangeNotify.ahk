@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that notifies a Shell namespace extension when the ID of an item has changed.
@@ -65,7 +65,7 @@ export default struct IShellChangeNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellchangenotify-onchange
      */
     OnChange(lEvent, pidl1, pidl2) {
-        result := ComCall(3, this, "int", lEvent, ITEMIDLIST.Ptr, pidl1, ITEMIDLIST.Ptr, pidl2, "HRESULT")
+        result := ComCall(3, this, Int32, lEvent, ITEMIDLIST.Ptr, pidl1, ITEMIDLIST.Ptr, pidl2, "HRESULT")
         return result
     }
 

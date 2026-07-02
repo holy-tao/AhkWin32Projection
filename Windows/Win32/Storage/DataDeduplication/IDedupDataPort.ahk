@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DedupStream.ahk" { DedupStream }
-#Import ".\DedupHash.ahk" { DedupHash }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\DedupDataPortVolumeStatus.ahk" { DedupDataPortVolumeStatus }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DedupStream.ahk" { DedupStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DedupHash.ahk" { DedupHash }
 #Import ".\DedupStreamEntry.ahk" { DedupStreamEntry }
 #Import ".\DedupDataPortRequestStatus.ahk" { DedupDataPortRequestStatus }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DedupChunk.ahk" { DedupChunk }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
@@ -82,7 +82,7 @@ export default struct IDedupDataPort extends IUnknown {
      */
     LookupChunks(Count, pHashes) {
         pRequestId := Guid()
-        result := ComCall(4, this, "uint", Count, DedupHash.Ptr, pHashes, Guid.Ptr, pRequestId, "HRESULT")
+        result := ComCall(4, this, UInt32, Count, DedupHash.Ptr, pHashes, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -98,7 +98,7 @@ export default struct IDedupDataPort extends IUnknown {
         pChunkDataMarshal := pChunkData is VarRef ? "char*" : "ptr"
 
         pRequestId := Guid()
-        result := ComCall(5, this, "uint", ChunkCount, DedupChunk.Ptr, pChunkMetadata, "uint", DataByteCount, pChunkDataMarshal, pChunkData, Guid.Ptr, pRequestId, "HRESULT")
+        result := ComCall(5, this, UInt32, ChunkCount, DedupChunk.Ptr, pChunkMetadata, UInt32, DataByteCount, pChunkDataMarshal, pChunkData, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -112,7 +112,7 @@ export default struct IDedupDataPort extends IUnknown {
      */
     InsertChunksWithStream(ChunkCount, pChunkMetadata, DataByteCount, pChunkDataStream) {
         pRequestId := Guid()
-        result := ComCall(6, this, "uint", ChunkCount, DedupChunk.Ptr, pChunkMetadata, "uint", DataByteCount, "ptr", pChunkDataStream, Guid.Ptr, pRequestId, "HRESULT")
+        result := ComCall(6, this, UInt32, ChunkCount, DedupChunk.Ptr, pChunkMetadata, UInt32, DataByteCount, "ptr", pChunkDataStream, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -126,7 +126,7 @@ export default struct IDedupDataPort extends IUnknown {
      */
     CommitStreams(StreamCount, pStreams, EntryCount, pEntries) {
         pRequestId := Guid()
-        result := ComCall(7, this, "uint", StreamCount, DedupStream.Ptr, pStreams, "uint", EntryCount, DedupStreamEntry.Ptr, pEntries, Guid.Ptr, pRequestId, "HRESULT")
+        result := ComCall(7, this, UInt32, StreamCount, DedupStream.Ptr, pStreams, UInt32, EntryCount, DedupStreamEntry.Ptr, pEntries, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -140,7 +140,7 @@ export default struct IDedupDataPort extends IUnknown {
      */
     CommitStreamsWithStream(StreamCount, pStreams, EntryCount, pEntriesStream) {
         pRequestId := Guid()
-        result := ComCall(8, this, "uint", StreamCount, DedupStream.Ptr, pStreams, "uint", EntryCount, "ptr", pEntriesStream, Guid.Ptr, pRequestId, "HRESULT")
+        result := ComCall(8, this, UInt32, StreamCount, DedupStream.Ptr, pStreams, UInt32, EntryCount, "ptr", pEntriesStream, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -152,7 +152,7 @@ export default struct IDedupDataPort extends IUnknown {
      */
     GetStreams(StreamCount, pStreamPaths) {
         pRequestId := Guid()
-        result := ComCall(9, this, "uint", StreamCount, BSTR.Ptr, pStreamPaths, Guid.Ptr, pRequestId, "HRESULT")
+        result := ComCall(9, this, UInt32, StreamCount, BSTR.Ptr, pStreamPaths, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -177,7 +177,7 @@ export default struct IDedupDataPort extends IUnknown {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, Guid, RequestId, "uint", MaxWaitMs, "uint", StreamEntryIndex, pStreamCountMarshal, pStreamCount, ppStreamsMarshal, ppStreams, pEntryCountMarshal, pEntryCount, ppEntriesMarshal, ppEntries, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(10, this, Guid, RequestId, UInt32, MaxWaitMs, UInt32, StreamEntryIndex, pStreamCountMarshal, pStreamCount, ppStreamsMarshal, ppStreams, pEntryCountMarshal, pEntryCount, ppEntriesMarshal, ppEntries, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IDedupDataPort extends IUnknown {
      */
     GetChunks(Count, pHashes) {
         pRequestId := Guid()
-        result := ComCall(11, this, "uint", Count, DedupHash.Ptr, pHashes, Guid.Ptr, pRequestId, "HRESULT")
+        result := ComCall(11, this, UInt32, Count, DedupHash.Ptr, pHashes, Guid.Ptr, pRequestId, "HRESULT")
         return pRequestId
     }
 
@@ -214,7 +214,7 @@ export default struct IDedupDataPort extends IUnknown {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, Guid, RequestId, "uint", MaxWaitMs, "uint", ChunkIndex, pChunkCountMarshal, pChunkCount, ppChunkMetadataMarshal, ppChunkMetadata, pDataByteCountMarshal, pDataByteCount, ppChunkDataMarshal, ppChunkData, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(12, this, Guid, RequestId, UInt32, MaxWaitMs, UInt32, ChunkIndex, pChunkCountMarshal, pChunkCount, ppChunkMetadataMarshal, ppChunkMetadata, pDataByteCountMarshal, pDataByteCount, ppChunkDataMarshal, ppChunkData, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct IDedupDataPort extends IUnknown {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, Guid, RequestId, "uint", MaxWaitMs, pBatchResultMarshal, pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(14, this, Guid, RequestId, UInt32, MaxWaitMs, pBatchResultMarshal, pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
     }
 

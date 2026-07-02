@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CRYPT_XML_KEY_INFO_ITEM.ahk" { CRYPT_XML_KEY_INFO_ITEM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
 
 /**
  * Encapsulates key information data.

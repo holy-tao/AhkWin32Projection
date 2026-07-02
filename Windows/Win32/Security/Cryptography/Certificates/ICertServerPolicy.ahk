@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows the policy module to communicate with Certificate Services.
@@ -66,7 +66,7 @@ export default struct ICertServerPolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-setcontext
      */
     SetContext(_Context) {
-        result := ComCall(7, this, "int", _Context, "HRESULT")
+        result := ComCall(7, this, Int32, _Context, "HRESULT")
         return result
     }
 
@@ -235,7 +235,7 @@ export default struct ICertServerPolicy extends IDispatch {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(8, this, BSTR, strPropertyName, "int", PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
+        result := ComCall(8, this, BSTR, strPropertyName, Int32, PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -588,7 +588,7 @@ export default struct ICertServerPolicy extends IDispatch {
     SetCertificateProperty(strPropertyName, PropertyType, pvarPropertyValue) {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
-        result := ComCall(11, this, BSTR, strPropertyName, "int", PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
+        result := ComCall(11, this, BSTR, strPropertyName, Int32, PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return result
     }
 
@@ -864,7 +864,7 @@ export default struct ICertServerPolicy extends IDispatch {
     SetCertificateExtension(strExtensionName, Type, ExtFlags, pvarValue) {
         strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
 
-        result := ComCall(14, this, BSTR, strExtensionName, "int", Type, "int", ExtFlags, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(14, this, BSTR, strExtensionName, Int32, Type, Int32, ExtFlags, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -883,7 +883,7 @@ export default struct ICertServerPolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-enumerateextensionssetup
      */
     EnumerateExtensionsSetup(Flags) {
-        result := ComCall(15, this, "int", Flags, "HRESULT")
+        result := ComCall(15, this, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -934,7 +934,7 @@ export default struct ICertServerPolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-enumerateattributessetup
      */
     EnumerateAttributesSetup(Flags) {
-        result := ComCall(18, this, "int", Flags, "HRESULT")
+        result := ComCall(18, this, Int32, Flags, "HRESULT")
         return result
     }
 

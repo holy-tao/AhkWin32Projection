@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\FAX_ACCESS_RIGHTS_ENUM_2.ahk" { FAX_ACCESS_RIGHTS_ENUM_2 }
 
 /**
@@ -231,7 +231,7 @@ export default struct IFaxSecurity2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity2-put_informationtype
      */
     put_InformationType(lInformationType) {
-        result := ComCall(13, this, "int", lInformationType, "HRESULT")
+        result := ComCall(13, this, Int32, lInformationType, "HRESULT")
         return result
     }
 

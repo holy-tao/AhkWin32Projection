@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IADsService.ahk" { IADsService }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IADsFileService interface is a dual interface that inherits from IADsService.
@@ -96,7 +96,7 @@ export default struct IADsFileService extends IADsService {
      * @returns {HRESULT} 
      */
     put_MaxUserCount(lnMaxUserCount) {
-        result := ComCall(47, this, "int", lnMaxUserCount, "HRESULT")
+        result := ComCall(47, this, Int32, lnMaxUserCount, "HRESULT")
         return result
     }
 

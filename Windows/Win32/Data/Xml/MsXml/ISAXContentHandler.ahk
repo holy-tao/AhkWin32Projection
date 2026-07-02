@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISAXAttributes.ahk" { ISAXAttributes }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISAXLocator.ahk" { ISAXLocator }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISAXAttributes.ahk" { ISAXAttributes }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -88,7 +88,7 @@ export default struct ISAXContentHandler extends IUnknown {
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
 
-        result := ComCall(6, this, "ptr", pwchPrefix, "int", cchPrefix, "ptr", pwchUri, "int", cchUri, "HRESULT")
+        result := ComCall(6, this, "ptr", pwchPrefix, Int32, cchPrefix, "ptr", pwchUri, Int32, cchUri, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct ISAXContentHandler extends IUnknown {
     endPrefixMapping(pwchPrefix, cchPrefix) {
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
 
-        result := ComCall(7, this, "ptr", pwchPrefix, "int", cchPrefix, "HRESULT")
+        result := ComCall(7, this, "ptr", pwchPrefix, Int32, cchPrefix, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct ISAXContentHandler extends IUnknown {
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        result := ComCall(8, this, "ptr", pwchNamespaceUri, "int", cchNamespaceUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr", pwchQName, "int", cchQName, "ptr", pAttributes, "HRESULT")
+        result := ComCall(8, this, "ptr", pwchNamespaceUri, Int32, cchNamespaceUri, "ptr", pwchLocalName, Int32, cchLocalName, "ptr", pwchQName, Int32, cchQName, "ptr", pAttributes, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct ISAXContentHandler extends IUnknown {
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        result := ComCall(9, this, "ptr", pwchNamespaceUri, "int", cchNamespaceUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr", pwchQName, "int", cchQName, "HRESULT")
+        result := ComCall(9, this, "ptr", pwchNamespaceUri, Int32, cchNamespaceUri, "ptr", pwchLocalName, Int32, cchLocalName, "ptr", pwchQName, Int32, cchQName, "HRESULT")
         return result
     }
 
@@ -153,7 +153,7 @@ export default struct ISAXContentHandler extends IUnknown {
     characters(pwchChars, cchChars) {
         pwchChars := pwchChars is String ? StrPtr(pwchChars) : pwchChars
 
-        result := ComCall(10, this, "ptr", pwchChars, "int", cchChars, "HRESULT")
+        result := ComCall(10, this, "ptr", pwchChars, Int32, cchChars, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct ISAXContentHandler extends IUnknown {
     ignorableWhitespace(pwchChars, cchChars) {
         pwchChars := pwchChars is String ? StrPtr(pwchChars) : pwchChars
 
-        result := ComCall(11, this, "ptr", pwchChars, "int", cchChars, "HRESULT")
+        result := ComCall(11, this, "ptr", pwchChars, Int32, cchChars, "HRESULT")
         return result
     }
 
@@ -182,7 +182,7 @@ export default struct ISAXContentHandler extends IUnknown {
         pwchTarget := pwchTarget is String ? StrPtr(pwchTarget) : pwchTarget
         pwchData := pwchData is String ? StrPtr(pwchData) : pwchData
 
-        result := ComCall(12, this, "ptr", pwchTarget, "int", cchTarget, "ptr", pwchData, "int", cchData, "HRESULT")
+        result := ComCall(12, this, "ptr", pwchTarget, Int32, cchTarget, "ptr", pwchData, Int32, cchData, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct ISAXContentHandler extends IUnknown {
     skippedEntity(pwchName, cchName) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(13, this, "ptr", pwchName, "int", cchName, "HRESULT")
+        result := ComCall(13, this, "ptr", pwchName, Int32, cchName, "HRESULT")
         return result
     }
 

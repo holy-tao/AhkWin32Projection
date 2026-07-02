@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\COMEVENTSYSCHANGEINFO.ahk" { COMEVENTSYSCHANGEINFO }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies subscribers of changes to the event store while including partition and application ID information.

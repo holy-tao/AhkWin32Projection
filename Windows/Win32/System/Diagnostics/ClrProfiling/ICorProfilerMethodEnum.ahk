@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COR_PRF_METHOD.ahk" { COR_PRF_METHOD }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -46,7 +46,7 @@ export default struct ICorProfilerMethodEnum extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(celt) {
-        result := ComCall(3, this, "uint", celt, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct ICorProfilerMethodEnum extends IUnknown {
     Next(celt, elements, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", celt, COR_PRF_METHOD.Ptr, elements, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(7, this, UInt32, celt, COR_PRF_METHOD.Ptr, elements, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

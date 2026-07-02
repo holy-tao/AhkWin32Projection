@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ADS_NETADDRESS.ahk" { ADS_NETADDRESS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents an ADSI representation of the Replica Pointer attribute syntax.

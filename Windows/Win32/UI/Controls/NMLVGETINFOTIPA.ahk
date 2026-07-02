@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\NMHDR.ahk" { NMHDR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\NMLVGETINFOTIP_FLAGS.ahk" { NMLVGETINFOTIP_FLAGS }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\NMLVGETINFOTIP_FLAGS.ahk" { NMLVGETINFOTIP_FLAGS }
 
 /**
  * Contains and receives list-view item information needed to display a tooltip for an item. This structure is used with the LVN_GETINFOTIP notification code. (ANSI)

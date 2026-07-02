@@ -1,56 +1,56 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3DTRIPATCH_INFO.ahk" { D3DTRIPATCH_INFO }
-#Import ".\D3DCLIPSTATUS9.ahk" { D3DCLIPSTATUS9 }
-#Import ".\IDirect3DCubeTexture9.ahk" { IDirect3DCubeTexture9 }
-#Import ".\IDirect3DVertexDeclaration9.ahk" { IDirect3DVertexDeclaration9 }
-#Import ".\D3DRENDERSTATETYPE.ahk" { D3DRENDERSTATETYPE }
-#Import ".\IDirect3DPixelShader9.ahk" { IDirect3DPixelShader9 }
-#Import ".\IDirect3DBaseTexture9.ahk" { IDirect3DBaseTexture9 }
-#Import ".\IDirect3DVolumeTexture9.ahk" { IDirect3DVolumeTexture9 }
-#Import ".\IDirect3DStateBlock9.ahk" { IDirect3DStateBlock9 }
-#Import ".\IDirect3DVertexShader9.ahk" { IDirect3DVertexShader9 }
-#Import ".\D3DCAPS9.ahk" { D3DCAPS9 }
-#Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
-#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirect3DTexture9.ahk" { IDirect3DTexture9 }
-#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
-#Import ".\IDirect3DIndexBuffer9.ahk" { IDirect3DIndexBuffer9 }
-#Import ".\D3DPRIMITIVETYPE.ahk" { D3DPRIMITIVETYPE }
-#Import ".\IDirect3DQuery9.ahk" { IDirect3DQuery9 }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3DLIGHT9.ahk" { D3DLIGHT9 }
-#Import ".\D3DTEXTURESTAGESTATETYPE.ahk" { D3DTEXTURESTAGESTATETYPE }
-#Import ".\D3DMATERIAL9.ahk" { D3DMATERIAL9 }
 #Import ".\D3DQUERYTYPE.ahk" { D3DQUERYTYPE }
-#Import ".\D3DSTATEBLOCKTYPE.ahk" { D3DSTATEBLOCKTYPE }
-#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\D3DRECTPATCH_INFO.ahk" { D3DRECTPATCH_INFO }
-#Import ".\IDirect3D9.ahk" { IDirect3D9 }
-#Import ".\D3DRECT.ahk" { D3DRECT }
-#Import ".\D3DGAMMARAMP.ahk" { D3DGAMMARAMP }
-#Import ".\D3DPOOL.ahk" { D3DPOOL }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\IDirect3DSwapChain9.ahk" { IDirect3DSwapChain9 }
-#Import ".\D3DTRANSFORMSTATETYPE.ahk" { D3DTRANSFORMSTATETYPE }
 #Import ".\D3DSAMPLERSTATETYPE.ahk" { D3DSAMPLERSTATETYPE }
-#Import "..\Direct3D\D3DMATRIX.ahk" { D3DMATRIX }
-#Import ".\D3DDEVICE_CREATION_PARAMETERS.ahk" { D3DDEVICE_CREATION_PARAMETERS }
+#Import ".\D3DRENDERSTATETYPE.ahk" { D3DRENDERSTATETYPE }
+#Import ".\IDirect3DVertexShader9.ahk" { IDirect3DVertexShader9 }
+#Import ".\IDirect3DVertexDeclaration9.ahk" { IDirect3DVertexDeclaration9 }
+#Import ".\D3DPRIMITIVETYPE.ahk" { D3DPRIMITIVETYPE }
+#Import ".\D3DSTATEBLOCKTYPE.ahk" { D3DSTATEBLOCKTYPE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
+#Import ".\IDirect3D9.ahk" { IDirect3D9 }
+#Import ".\D3DLIGHT9.ahk" { D3DLIGHT9 }
+#Import ".\IDirect3DVertexBuffer9.ahk" { IDirect3DVertexBuffer9 }
+#Import ".\IDirect3DPixelShader9.ahk" { IDirect3DPixelShader9 }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\D3DTEXTUREFILTERTYPE.ahk" { D3DTEXTUREFILTERTYPE }
+#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\D3DMATERIAL9.ahk" { D3DMATERIAL9 }
+#Import ".\D3DTRANSFORMSTATETYPE.ahk" { D3DTRANSFORMSTATETYPE }
+#Import ".\D3DRECT.ahk" { D3DRECT }
 #Import ".\D3DVERTEXELEMENT9.ahk" { D3DVERTEXELEMENT9 }
 #Import ".\D3DRASTER_STATUS.ahk" { D3DRASTER_STATUS }
+#Import ".\D3DRECTPATCH_INFO.ahk" { D3DRECTPATCH_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IDirect3DCubeTexture9.ahk" { IDirect3DCubeTexture9 }
+#Import ".\IDirect3DIndexBuffer9.ahk" { IDirect3DIndexBuffer9 }
+#Import ".\D3DTRIPATCH_INFO.ahk" { D3DTRIPATCH_INFO }
+#Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import ".\D3DCAPS9.ahk" { D3DCAPS9 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirect3DSwapChain9.ahk" { IDirect3DSwapChain9 }
+#Import ".\D3DDEVICE_CREATION_PARAMETERS.ahk" { D3DDEVICE_CREATION_PARAMETERS }
+#Import ".\IDirect3DTexture9.ahk" { IDirect3DTexture9 }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DGAMMARAMP.ahk" { D3DGAMMARAMP }
+#Import ".\D3DTEXTURESTAGESTATETYPE.ahk" { D3DTEXTURESTAGESTATETYPE }
+#Import ".\D3DCLIPSTATUS9.ahk" { D3DCLIPSTATUS9 }
+#Import "..\Direct3D\D3DMATRIX.ahk" { D3DMATRIX }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 #Import ".\D3DVIEWPORT9.ahk" { D3DVIEWPORT9 }
+#Import ".\IDirect3DBaseTexture9.ahk" { IDirect3DBaseTexture9 }
+#Import ".\D3DPOOL.ahk" { D3DPOOL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDirect3DStateBlock9.ahk" { IDirect3DStateBlock9 }
+#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
+#Import ".\IDirect3DQuery9.ahk" { IDirect3DQuery9 }
+#Import ".\IDirect3DVolumeTexture9.ahk" { IDirect3DVolumeTexture9 }
 #Import ".\D3DBACKBUFFER_TYPE.ahk" { D3DBACKBUFFER_TYPE }
-#Import ".\D3DTEXTUREFILTERTYPE.ahk" { D3DTEXTUREFILTERTYPE }
-#Import ".\IDirect3DVertexBuffer9.ahk" { IDirect3DVertexBuffer9 }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * The IDirect3DDevice9 (d3d9.h) applications use the methods of the IDirect3DDevice9 interface to perform DrawPrimitive-based rendering and create resources.
@@ -303,7 +303,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getdisplaymode
      */
     GetDisplayMode(iSwapChain, pMode) {
-        result := ComCall(8, this, "uint", iSwapChain, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
+        result := ComCall(8, this, UInt32, iSwapChain, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
         return result
     }
 
@@ -375,7 +375,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setcursorproperties
      */
     SetCursorProperties(XHotSpot, YHotSpot, pCursorBitmap) {
-        result := ComCall(10, this, "uint", XHotSpot, "uint", YHotSpot, "ptr", pCursorBitmap, "HRESULT")
+        result := ComCall(10, this, UInt32, XHotSpot, UInt32, YHotSpot, "ptr", pCursorBitmap, "HRESULT")
         return result
     }
 
@@ -420,7 +420,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setcursorposition
      */
     SetCursorPosition(X, Y, Flags) {
-        ComCall(11, this, "int", X, "int", Y, "uint", Flags)
+        ComCall(11, this, Int32, X, Int32, Y, UInt32, Flags)
     }
 
     /**
@@ -500,7 +500,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getswapchain
      */
     GetSwapChain(iSwapChain) {
-        result := ComCall(14, this, "uint", iSwapChain, "ptr*", &pSwapChain := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, iSwapChain, "ptr*", &pSwapChain := 0, "HRESULT")
         return IDirect3DSwapChain9(pSwapChain)
     }
 
@@ -614,7 +614,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getbackbuffer
      */
     GetBackBuffer(iSwapChain, iBackBuffer, Type) {
-        result := ComCall(18, this, "uint", iSwapChain, "uint", iBackBuffer, D3DBACKBUFFER_TYPE, Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, iSwapChain, UInt32, iBackBuffer, D3DBACKBUFFER_TYPE, Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
         return IDirect3DSurface9(ppBackBuffer)
     }
 
@@ -632,7 +632,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getrasterstatus
      */
     GetRasterStatus(iSwapChain, pRasterStatus) {
-        result := ComCall(19, this, "uint", iSwapChain, D3DRASTER_STATUS.Ptr, pRasterStatus, "HRESULT")
+        result := ComCall(19, this, UInt32, iSwapChain, D3DRASTER_STATUS.Ptr, pRasterStatus, "HRESULT")
         return result
     }
 
@@ -685,7 +685,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setgammaramp
      */
     SetGammaRamp(iSwapChain, Flags, pRamp) {
-        ComCall(21, this, "uint", iSwapChain, "uint", Flags, D3DGAMMARAMP.Ptr, pRamp)
+        ComCall(21, this, UInt32, iSwapChain, UInt32, Flags, D3DGAMMARAMP.Ptr, pRamp)
     }
 
     /**
@@ -700,7 +700,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getgammaramp
      */
     GetGammaRamp(iSwapChain, pRamp) {
-        ComCall(22, this, "uint", iSwapChain, D3DGAMMARAMP.Ptr, pRamp)
+        ComCall(22, this, UInt32, iSwapChain, D3DGAMMARAMP.Ptr, pRamp)
     }
 
     /**
@@ -753,7 +753,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createtexture
      */
     CreateTexture(Width, Height, _Levels, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(23, this, "uint", Width, "uint", Height, "uint", _Levels, "uint", Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppTexture := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(23, this, UInt32, Width, UInt32, Height, UInt32, _Levels, UInt32, Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppTexture := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DTexture9(ppTexture)
     }
 
@@ -789,7 +789,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvolumetexture
      */
     CreateVolumeTexture(Width, Height, Depth, _Levels, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(24, this, "uint", Width, "uint", Height, "uint", Depth, "uint", _Levels, "uint", Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppVolumeTexture := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(24, this, UInt32, Width, UInt32, Height, UInt32, Depth, UInt32, _Levels, UInt32, Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppVolumeTexture := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DVolumeTexture9(ppVolumeTexture)
     }
 
@@ -823,7 +823,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createcubetexture
      */
     CreateCubeTexture(EdgeLength, _Levels, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(25, this, "uint", EdgeLength, "uint", _Levels, "uint", Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppCubeTexture := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(25, this, UInt32, EdgeLength, UInt32, _Levels, UInt32, Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppCubeTexture := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DCubeTexture9(ppCubeTexture)
     }
 
@@ -879,7 +879,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvertexbuffer
      */
     CreateVertexBuffer(Length, Usage, FVF, Pool, pSharedHandle) {
-        result := ComCall(26, this, "uint", Length, "uint", Usage, "uint", FVF, D3DPOOL, Pool, "ptr*", &ppVertexBuffer := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(26, this, UInt32, Length, UInt32, Usage, UInt32, FVF, D3DPOOL, Pool, "ptr*", &ppVertexBuffer := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DVertexBuffer9(ppVertexBuffer)
     }
 
@@ -941,7 +941,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createindexbuffer
      */
     CreateIndexBuffer(Length, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(27, this, "uint", Length, "uint", Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppIndexBuffer := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(27, this, UInt32, Length, UInt32, Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppIndexBuffer := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DIndexBuffer9(ppIndexBuffer)
     }
 
@@ -980,7 +980,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createrendertarget
      */
     CreateRenderTarget(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, pSharedHandle) {
-        result := ComCall(28, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, "uint", MultisampleQuality, BOOL, Lockable, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(28, this, UInt32, Width, UInt32, Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, UInt32, MultisampleQuality, BOOL, Lockable, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -1018,7 +1018,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createdepthstencilsurface
      */
     CreateDepthStencilSurface(Width, Height, Format, MultiSample, MultisampleQuality, Discard, pSharedHandle) {
-        result := ComCall(29, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, "uint", MultisampleQuality, BOOL, Discard, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(29, this, UInt32, Width, UInt32, Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, UInt32, MultisampleQuality, BOOL, Discard, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -1275,7 +1275,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getfrontbufferdata
      */
     GetFrontBufferData(iSwapChain, pDestSurface) {
-        result := ComCall(33, this, "uint", iSwapChain, "ptr", pDestSurface, "HRESULT")
+        result := ComCall(33, this, UInt32, iSwapChain, "ptr", pDestSurface, "HRESULT")
         return result
     }
 
@@ -1606,7 +1606,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-colorfill
      */
     ColorFill(pSurface, pRect, _color) {
-        result := ComCall(35, this, "ptr", pSurface, RECT.Ptr, pRect, "uint", _color, "HRESULT")
+        result := ComCall(35, this, "ptr", pSurface, RECT.Ptr, pRect, UInt32, _color, "HRESULT")
         return result
     }
 
@@ -1641,7 +1641,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createoffscreenplainsurface
      */
     CreateOffscreenPlainSurface(Width, Height, Format, Pool, pSharedHandle) {
-        result := ComCall(36, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(36, this, UInt32, Width, UInt32, Height, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -1684,7 +1684,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setrendertarget
      */
     SetRenderTarget(RenderTargetIndex, pRenderTarget) {
-        result := ComCall(37, this, "uint", RenderTargetIndex, "ptr", pRenderTarget, "HRESULT")
+        result := ComCall(37, this, UInt32, RenderTargetIndex, "ptr", pRenderTarget, "HRESULT")
         return result
     }
 
@@ -1705,7 +1705,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getrendertarget
      */
     GetRenderTarget(RenderTargetIndex) {
-        result := ComCall(38, this, "uint", RenderTargetIndex, "ptr*", &ppRenderTarget := 0, "HRESULT")
+        result := ComCall(38, this, UInt32, RenderTargetIndex, "ptr*", &ppRenderTarget := 0, "HRESULT")
         return IDirect3DSurface9(ppRenderTarget)
     }
 
@@ -1836,7 +1836,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-clear
      */
     Clear(Count, pRects, Flags, _Color, Z, Stencil) {
-        result := ComCall(43, this, "uint", Count, D3DRECT.Ptr, pRects, "uint", Flags, "uint", _Color, "float", Z, "uint", Stencil, "HRESULT")
+        result := ComCall(43, this, UInt32, Count, D3DRECT.Ptr, pRects, UInt32, Flags, UInt32, _Color, Float32, Z, UInt32, Stencil, "HRESULT")
         return result
     }
 
@@ -1922,8 +1922,12 @@ export default struct IDirect3DDevice9 extends IUnknown {
      *                                     wrist_transform)
      * IDirect3DDevice9::DrawPrimitive(hand)
      * ```
-     * @param {D3DTRANSFORMSTATETYPE} param0 
-     * @param {Pointer<D3DMATRIX>} param1 
+     * @param {D3DTRANSFORMSTATETYPE} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dtransformstatetype">D3DTRANSFORMSTATETYPE</a></b>
+     * 
+     * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dtransformstatetype">D3DTRANSFORMSTATETYPE</a> enumerated type, or the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dts-worldmatrix">D3DTS_WORLDMATRIX</a> macro that identifies which device matrix is to be modified. The most common setting, <b>D3DTS_WORLDMATRIX</b>(0), modifies the world matrix, but you can specify that the method modify the view or projection matrices, if needed.
+     * @param {Pointer<D3DMATRIX>} param1 Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dmatrix">D3DMATRIX</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dmatrix">D3DMATRIX</a> structure that modifies the current transformation.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL if one of the arguments is invalid.
@@ -2080,14 +2084,16 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Zero-based index of the set of lighting properties to set. If a set of lighting properties exists at this index, it is overwritten by the new properties specified in pLight.
-     * @param {Pointer<D3DLIGHT9>} param1 
+     * @param {Pointer<D3DLIGHT9>} param1 Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlight9">D3DLIGHT9</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlight9">D3DLIGHT9</a> structure, containing the lighting parameters to set.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setlight
      */
     SetLight(Index, param1) {
-        result := ComCall(51, this, "uint", Index, D3DLIGHT9.Ptr, param1, "HRESULT")
+        result := ComCall(51, this, UInt32, Index, D3DLIGHT9.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -2140,14 +2146,16 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Zero-based index of the lighting property set to retrieve. This method will fail if a lighting property has not been set for this index by calling the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-setlight">IDirect3DDevice9::SetLight</a> method.
-     * @param {Pointer<D3DLIGHT9>} param1 
+     * @param {Pointer<D3DLIGHT9>} param1 Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlight9">D3DLight9</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlight9">D3DLIGHT9</a> structure that is filled with the retrieved lighting-parameter set.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getlight
      */
     GetLight(Index, param1) {
-        result := ComCall(52, this, "uint", Index, D3DLIGHT9.Ptr, param1, "HRESULT")
+        result := ComCall(52, this, UInt32, Index, D3DLIGHT9.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -2252,7 +2260,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-lightenable
      */
     LightEnable(Index, Enable) {
-        result := ComCall(53, this, "uint", Index, BOOL, Enable, "HRESULT")
+        result := ComCall(53, this, UInt32, Index, BOOL, Enable, "HRESULT")
         return result
     }
 
@@ -2274,7 +2282,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetLightEnable(Index, pEnable) {
         pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
 
-        result := ComCall(54, this, "uint", Index, pEnableMarshal, pEnable, "HRESULT")
+        result := ComCall(54, this, UInt32, Index, pEnableMarshal, pEnable, "HRESULT")
         return result
     }
 
@@ -2300,7 +2308,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     SetClipPlane(Index, pPlane) {
         pPlaneMarshal := pPlane is VarRef ? "float*" : "ptr"
 
-        result := ComCall(55, this, "uint", Index, pPlaneMarshal, pPlane, "HRESULT")
+        result := ComCall(55, this, UInt32, Index, pPlaneMarshal, pPlane, "HRESULT")
         return result
     }
 
@@ -2328,7 +2336,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetClipPlane(Index, pPlane) {
         pPlaneMarshal := pPlane is VarRef ? "float*" : "ptr"
 
-        result := ComCall(56, this, "uint", Index, pPlaneMarshal, pPlane, "HRESULT")
+        result := ComCall(56, this, UInt32, Index, pPlaneMarshal, pPlane, "HRESULT")
         return result
     }
 
@@ -2346,7 +2354,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setrenderstate
      */
     SetRenderState(State, Value) {
-        result := ComCall(57, this, D3DRENDERSTATETYPE, State, "uint", Value, "HRESULT")
+        result := ComCall(57, this, D3DRENDERSTATETYPE, State, UInt32, Value, "HRESULT")
         return result
     }
 
@@ -2571,7 +2579,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-gettexture
      */
     GetTexture(Stage) {
-        result := ComCall(64, this, "uint", Stage, "ptr*", &ppTexture := 0, "HRESULT")
+        result := ComCall(64, this, UInt32, Stage, "ptr*", &ppTexture := 0, "HRESULT")
         return IDirect3DBaseTexture9(ppTexture)
     }
 
@@ -2604,7 +2612,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-settexture
      */
     SetTexture(Stage, pTexture) {
-        result := ComCall(65, this, "uint", Stage, "ptr", pTexture, "HRESULT")
+        result := ComCall(65, this, UInt32, Stage, "ptr", pTexture, "HRESULT")
         return result
     }
 
@@ -2629,7 +2637,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetTextureStageState(Stage, Type, pValue) {
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(66, this, "uint", Stage, D3DTEXTURESTAGESTATETYPE, Type, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(66, this, UInt32, Stage, D3DTEXTURESTAGESTATETYPE, Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -2650,7 +2658,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-settexturestagestate
      */
     SetTextureStageState(Stage, Type, Value) {
-        result := ComCall(67, this, "uint", Stage, D3DTEXTURESTAGESTATETYPE, Type, "uint", Value, "HRESULT")
+        result := ComCall(67, this, UInt32, Stage, D3DTEXTURESTAGESTATETYPE, Type, UInt32, Value, "HRESULT")
         return result
     }
 
@@ -2675,7 +2683,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetSamplerState(Sampler, Type, pValue) {
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(68, this, "uint", Sampler, D3DSAMPLERSTATETYPE, Type, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(68, this, UInt32, Sampler, D3DSAMPLERSTATETYPE, Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -2696,7 +2704,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setsamplerstate
      */
     SetSamplerState(Sampler, Type, Value) {
-        result := ComCall(69, this, "uint", Sampler, D3DSAMPLERSTATETYPE, Type, "uint", Value, "HRESULT")
+        result := ComCall(69, this, UInt32, Sampler, D3DSAMPLERSTATETYPE, Type, UInt32, Value, "HRESULT")
         return result
     }
 
@@ -2757,7 +2765,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setpaletteentries
      */
     SetPaletteEntries(PaletteNumber, pEntries) {
-        result := ComCall(71, this, "uint", PaletteNumber, PALETTEENTRY.Ptr, pEntries, "HRESULT")
+        result := ComCall(71, this, UInt32, PaletteNumber, PALETTEENTRY.Ptr, pEntries, "HRESULT")
         return result
     }
 
@@ -2780,7 +2788,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getpaletteentries
      */
     GetPaletteEntries(PaletteNumber, pEntries) {
-        result := ComCall(72, this, "uint", PaletteNumber, PALETTEENTRY.Ptr, pEntries, "HRESULT")
+        result := ComCall(72, this, UInt32, PaletteNumber, PALETTEENTRY.Ptr, pEntries, "HRESULT")
         return result
     }
 
@@ -2797,7 +2805,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setcurrenttexturepalette
      */
     SetCurrentTexturePalette(PaletteNumber) {
-        result := ComCall(73, this, "uint", PaletteNumber, "HRESULT")
+        result := ComCall(73, this, UInt32, PaletteNumber, "HRESULT")
         return result
     }
 
@@ -2913,7 +2921,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setnpatchmode
      */
     SetNPatchMode(nSegments) {
-        result := ComCall(79, this, "float", nSegments, "HRESULT")
+        result := ComCall(79, this, Float32, nSegments, "HRESULT")
         return result
     }
 
@@ -2949,7 +2957,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawprimitive
      */
     DrawPrimitive(PrimitiveType, StartVertex, PrimitiveCount) {
-        result := ComCall(81, this, D3DPRIMITIVETYPE, PrimitiveType, "uint", StartVertex, "uint", PrimitiveCount, "HRESULT")
+        result := ComCall(81, this, D3DPRIMITIVETYPE, PrimitiveType, UInt32, StartVertex, UInt32, PrimitiveCount, "HRESULT")
         return result
     }
 
@@ -2965,7 +2973,9 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * The D3DPT_POINTLIST member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dprimitivetype">D3DPRIMITIVETYPE</a> enumerated type is not supported and is not a valid type for this method.
      * 
      * When converting a legacy application to Direct3D 9, you must add a call to either <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-setfvf">IDirect3DDevice9::SetFVF</a> to use the fixed function pipeline, or <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-setvertexdeclaration">IDirect3DDevice9::SetVertexDeclaration</a> to use a vertex shader before you make any Draw calls.
-     * @param {D3DPRIMITIVETYPE} param0 
+     * @param {D3DPRIMITIVETYPE} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dprimitivetype">D3DPRIMITIVETYPE</a></b>
+     * 
+     * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dprimitivetype">D3DPRIMITIVETYPE</a> enumerated type, describing the type of primitive to render. D3DPT_POINTLIST is not supported with this method. See Remarks.
      * @param {Integer} BaseVertexIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * 
      * Offset from the start of the vertex buffer to the first vertex. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/rendering-from-vertex-and-index-buffers">Scenario 4</a>.
@@ -2988,7 +2998,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawindexedprimitive
      */
     DrawIndexedPrimitive(param0, BaseVertexIndex, MinVertexIndex, NumVertices, startIndex, primCount) {
-        result := ComCall(82, this, D3DPRIMITIVETYPE, param0, "int", BaseVertexIndex, "uint", MinVertexIndex, "uint", NumVertices, "uint", startIndex, "uint", primCount, "HRESULT")
+        result := ComCall(82, this, D3DPRIMITIVETYPE, param0, Int32, BaseVertexIndex, UInt32, MinVertexIndex, UInt32, NumVertices, UInt32, startIndex, UInt32, primCount, "HRESULT")
         return result
     }
 
@@ -3022,7 +3032,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     DrawPrimitiveUP(PrimitiveType, PrimitiveCount, pVertexStreamZeroData, VertexStreamZeroStride) {
         pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(83, this, D3DPRIMITIVETYPE, PrimitiveType, "uint", PrimitiveCount, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
+        result := ComCall(83, this, D3DPRIMITIVETYPE, PrimitiveType, UInt32, PrimitiveCount, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, UInt32, VertexStreamZeroStride, "HRESULT")
         return result
     }
 
@@ -3080,7 +3090,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
         pIndexDataMarshal := pIndexData is VarRef ? "ptr" : "ptr"
         pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(84, this, D3DPRIMITIVETYPE, PrimitiveType, "uint", MinVertexIndex, "uint", NumVertices, "uint", PrimitiveCount, pIndexDataMarshal, pIndexData, D3DFORMAT, IndexDataFormat, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
+        result := ComCall(84, this, D3DPRIMITIVETYPE, PrimitiveType, UInt32, MinVertexIndex, UInt32, NumVertices, UInt32, PrimitiveCount, pIndexDataMarshal, pIndexData, D3DFORMAT, IndexDataFormat, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, UInt32, VertexStreamZeroStride, "HRESULT")
         return result
     }
 
@@ -3122,7 +3132,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-processvertices
      */
     ProcessVertices(SrcStartIndex, DestIndex, VertexCount, pDestBuffer, pVertexDecl, Flags) {
-        result := ComCall(85, this, "uint", SrcStartIndex, "uint", DestIndex, "uint", VertexCount, "ptr", pDestBuffer, "ptr", pVertexDecl, "uint", Flags, "HRESULT")
+        result := ComCall(85, this, UInt32, SrcStartIndex, UInt32, DestIndex, UInt32, VertexCount, "ptr", pDestBuffer, "ptr", pVertexDecl, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -3345,7 +3355,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setfvf
      */
     SetFVF(FVF) {
-        result := ComCall(89, this, "uint", FVF, "HRESULT")
+        result := ComCall(89, this, UInt32, FVF, "HRESULT")
         return result
     }
 
@@ -3454,7 +3464,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     SetVertexShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(94, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4fCount, "HRESULT")
+        result := ComCall(94, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4fCount, "HRESULT")
         return result
     }
 
@@ -3478,7 +3488,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetVertexShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(95, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4fCount, "HRESULT")
+        result := ComCall(95, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4fCount, "HRESULT")
         return result
     }
 
@@ -3502,7 +3512,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     SetVertexShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(96, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4iCount, "HRESULT")
+        result := ComCall(96, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4iCount, "HRESULT")
         return result
     }
 
@@ -3526,7 +3536,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetVertexShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(97, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4iCount, "HRESULT")
+        result := ComCall(97, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4iCount, "HRESULT")
         return result
     }
 
@@ -3550,7 +3560,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     SetVertexShaderConstantB(StartRegister, pConstantData, BoolCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(98, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", BoolCount, "HRESULT")
+        result := ComCall(98, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, BoolCount, "HRESULT")
         return result
     }
 
@@ -3574,7 +3584,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetVertexShaderConstantB(StartRegister, pConstantData, BoolCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(99, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", BoolCount, "HRESULT")
+        result := ComCall(99, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, BoolCount, "HRESULT")
         return result
     }
 
@@ -3602,7 +3612,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setstreamsource
      */
     SetStreamSource(StreamNumber, pStreamData, OffsetInBytes, Stride) {
-        result := ComCall(100, this, "uint", StreamNumber, "ptr", pStreamData, "uint", OffsetInBytes, "uint", Stride, "HRESULT")
+        result := ComCall(100, this, UInt32, StreamNumber, "ptr", pStreamData, UInt32, OffsetInBytes, UInt32, Stride, "HRESULT")
         return result
     }
 
@@ -3632,7 +3642,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
         pOffsetInBytesMarshal := pOffsetInBytes is VarRef ? "uint*" : "ptr"
         pStrideMarshal := pStride is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(101, this, "uint", StreamNumber, "ptr*", &ppStreamData := 0, pOffsetInBytesMarshal, pOffsetInBytes, pStrideMarshal, pStride, "HRESULT")
+        result := ComCall(101, this, UInt32, StreamNumber, "ptr*", &ppStreamData := 0, pOffsetInBytesMarshal, pOffsetInBytes, pStrideMarshal, pStride, "HRESULT")
         return IDirect3DVertexBuffer9(ppStreamData)
     }
 
@@ -3650,7 +3660,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setstreamsourcefreq
      */
     SetStreamSourceFreq(StreamNumber, Setting) {
-        result := ComCall(102, this, "uint", StreamNumber, "uint", Setting, "HRESULT")
+        result := ComCall(102, this, UInt32, StreamNumber, UInt32, Setting, "HRESULT")
         return result
     }
 
@@ -3670,7 +3680,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetStreamSourceFreq(StreamNumber, pSetting) {
         pSettingMarshal := pSetting is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(103, this, "uint", StreamNumber, pSettingMarshal, pSetting, "HRESULT")
+        result := ComCall(103, this, UInt32, StreamNumber, pSettingMarshal, pSetting, "HRESULT")
         return result
     }
 
@@ -3773,7 +3783,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     SetPixelShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(109, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4fCount, "HRESULT")
+        result := ComCall(109, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4fCount, "HRESULT")
         return result
     }
 
@@ -3797,7 +3807,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetPixelShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(110, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4fCount, "HRESULT")
+        result := ComCall(110, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4fCount, "HRESULT")
         return result
     }
 
@@ -3821,7 +3831,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     SetPixelShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(111, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4iCount, "HRESULT")
+        result := ComCall(111, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4iCount, "HRESULT")
         return result
     }
 
@@ -3845,7 +3855,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetPixelShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(112, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", Vector4iCount, "HRESULT")
+        result := ComCall(112, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4iCount, "HRESULT")
         return result
     }
 
@@ -3869,7 +3879,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     SetPixelShaderConstantB(StartRegister, pConstantData, BoolCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(113, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", BoolCount, "HRESULT")
+        result := ComCall(113, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, BoolCount, "HRESULT")
         return result
     }
 
@@ -3893,7 +3903,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     GetPixelShaderConstantB(StartRegister, pConstantData, BoolCount) {
         pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(114, this, "uint", StartRegister, pConstantDataMarshal, pConstantData, "uint", BoolCount, "HRESULT")
+        result := ComCall(114, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, BoolCount, "HRESULT")
         return result
     }
 
@@ -3923,7 +3933,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     DrawRectPatch(_Handle, pNumSegs, pRectPatchInfo) {
         pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
 
-        result := ComCall(115, this, "uint", _Handle, pNumSegsMarshal, pNumSegs, D3DRECTPATCH_INFO.Ptr, pRectPatchInfo, "HRESULT")
+        result := ComCall(115, this, UInt32, _Handle, pNumSegsMarshal, pNumSegs, D3DRECTPATCH_INFO.Ptr, pRectPatchInfo, "HRESULT")
         return result
     }
 
@@ -3953,7 +3963,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
     DrawTriPatch(_Handle, pNumSegs, pTriPatchInfo) {
         pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
 
-        result := ComCall(116, this, "uint", _Handle, pNumSegsMarshal, pNumSegs, D3DTRIPATCH_INFO.Ptr, pTriPatchInfo, "HRESULT")
+        result := ComCall(116, this, UInt32, _Handle, pNumSegsMarshal, pNumSegs, D3DTRIPATCH_INFO.Ptr, pTriPatchInfo, "HRESULT")
         return result
     }
 
@@ -3969,7 +3979,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-deletepatch
      */
     DeletePatch(_Handle) {
-        result := ComCall(117, this, "uint", _Handle, "HRESULT")
+        result := ComCall(117, this, UInt32, _Handle, "HRESULT")
         return result
     }
 

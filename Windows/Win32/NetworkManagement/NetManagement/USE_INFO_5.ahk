@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USE_INFO_2.ahk" { USE_INFO_2 }
+#Import ".\USE_INFO_ASG_TYPE.ahk" { USE_INFO_ASG_TYPE }
 #Import ".\USE_INFO_3.ahk" { USE_INFO_3 }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\USE_INFO_ASG_TYPE.ahk" { USE_INFO_ASG_TYPE }
-#Import ".\USE_INFO_2.ahk" { USE_INFO_2 }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SCOPEDATAITEM.ahk" { SCOPEDATAITEM }
 
 /**
@@ -66,7 +66,7 @@ export default struct IConsoleNameSpace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-deleteitem
      */
     DeleteItem(hItem, fDeleteThis) {
-        result := ComCall(4, this, "ptr", hItem, "int", fDeleteThis, "HRESULT")
+        result := ComCall(4, this, IntPtr, hItem, Int32, fDeleteThis, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IConsoleNameSpace extends IUnknown {
         pItemChildMarshal := pItemChild is VarRef ? "ptr*" : "ptr"
         pCookieMarshal := pCookie is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", item, pItemChildMarshal, pItemChild, pCookieMarshal, pCookie, "HRESULT")
+        result := ComCall(7, this, IntPtr, item, pItemChildMarshal, pItemChild, pCookieMarshal, pCookie, "HRESULT")
         return result
     }
 
@@ -129,7 +129,7 @@ export default struct IConsoleNameSpace extends IUnknown {
         pItemNextMarshal := pItemNext is VarRef ? "ptr*" : "ptr"
         pCookieMarshal := pCookie is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", item, pItemNextMarshal, pItemNext, pCookieMarshal, pCookie, "HRESULT")
+        result := ComCall(8, this, IntPtr, item, pItemNextMarshal, pItemNext, pCookieMarshal, pCookie, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IConsoleNameSpace extends IUnknown {
         pItemParentMarshal := pItemParent is VarRef ? "ptr*" : "ptr"
         pCookieMarshal := pCookie is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", item, pItemParentMarshal, pItemParent, pCookieMarshal, pCookie, "HRESULT")
+        result := ComCall(9, this, IntPtr, item, pItemParentMarshal, pItemParent, pCookieMarshal, pCookie, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 
 /**
  * Provides methods to perform additional file system management operations on the volume object. (IVdsVolumeMF3)
@@ -102,7 +102,7 @@ export default struct IVdsVolumeMF3 extends IUnknown {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(4, this, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "uint", Options, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszFileSystemTypeName, UInt16, usFileSystemRevision, UInt32, ulDesiredUnitAllocationSize, "ptr", pwszLabel, UInt32, Options, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

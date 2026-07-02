@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IADsMembers.ahk" { IADsMembers }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IADs.ahk" { IADs }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsUser interface is a dual interface that inherits from IADs.
@@ -1183,7 +1183,7 @@ export default struct IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_AccountExpirationDate(daAccountExpirationDate) {
-        result := ComCall(71, this, "double", daAccountExpirationDate, "HRESULT")
+        result := ComCall(71, this, Float64, daAccountExpirationDate, "HRESULT")
         return result
     }
 
@@ -1202,7 +1202,7 @@ export default struct IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_GraceLoginsAllowed(lnGraceLoginsAllowed) {
-        result := ComCall(73, this, "int", lnGraceLoginsAllowed, "HRESULT")
+        result := ComCall(73, this, Int32, lnGraceLoginsAllowed, "HRESULT")
         return result
     }
 
@@ -1221,7 +1221,7 @@ export default struct IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_GraceLoginsRemaining(lnGraceLoginsRemaining) {
-        result := ComCall(75, this, "int", lnGraceLoginsRemaining, "HRESULT")
+        result := ComCall(75, this, Int32, lnGraceLoginsRemaining, "HRESULT")
         return result
     }
 
@@ -1299,7 +1299,7 @@ export default struct IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_MaxLogins(lnMaxLogins) {
-        result := ComCall(83, this, "int", lnMaxLogins, "HRESULT")
+        result := ComCall(83, this, Int32, lnMaxLogins, "HRESULT")
         return result
     }
 
@@ -1318,7 +1318,7 @@ export default struct IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_MaxStorage(lnMaxStorage) {
-        result := ComCall(85, this, "int", lnMaxStorage, "HRESULT")
+        result := ComCall(85, this, Int32, lnMaxStorage, "HRESULT")
         return result
     }
 
@@ -1337,7 +1337,7 @@ export default struct IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_PasswordExpirationDate(daPasswordExpirationDate) {
-        result := ComCall(87, this, "double", daPasswordExpirationDate, "HRESULT")
+        result := ComCall(87, this, Float64, daPasswordExpirationDate, "HRESULT")
         return result
     }
 
@@ -1356,7 +1356,7 @@ export default struct IADsUser extends IADs {
      * @returns {HRESULT} 
      */
     put_PasswordMinimumLength(lnPasswordMinimumLength) {
-        result := ComCall(89, this, "int", lnPasswordMinimumLength, "HRESULT")
+        result := ComCall(89, this, Int32, lnPasswordMinimumLength, "HRESULT")
         return result
     }
 

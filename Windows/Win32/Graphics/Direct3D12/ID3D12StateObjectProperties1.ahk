@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\D3D12_PROGRAM_IDENTIFIER.ahk" { D3D12_PROGRAM_IDENTIFIER }
 #Import ".\ID3D12StateObjectProperties.ahk" { ID3D12StateObjectProperties }
+#Import ".\D3D12_PROGRAM_IDENTIFIER.ahk" { D3D12_PROGRAM_IDENTIFIER }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

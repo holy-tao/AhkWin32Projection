@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KS_VIDEOINFOHEADER2.ahk" { KS_VIDEOINFOHEADER2 }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\KS_VIDEOINFOHEADER2.ahk" { KS_VIDEOINFOHEADER2 }
 #Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
 
 /**

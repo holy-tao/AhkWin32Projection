@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CONNECTDLGSTRUCT_FLAGS.ahk" { CONNECTDLGSTRUCT_FLAGS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\NETRESOURCEW.ahk" { NETRESOURCEW }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\CONNECTDLGSTRUCT_FLAGS.ahk" { CONNECTDLGSTRUCT_FLAGS }
 
 /**
  * Used by the WNetConnectionDialog1 function to establish browsing dialog box parameters. (Unicode)

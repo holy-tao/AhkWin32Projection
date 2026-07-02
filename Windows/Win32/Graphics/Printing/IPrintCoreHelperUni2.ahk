@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPrintCoreHelperUni.ahk" { IPrintCoreHelperUni }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPrintCoreHelperUni.ahk" { IPrintCoreHelperUni }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -51,7 +51,7 @@ export default struct IPrintCoreHelperUni2 extends IPrintCoreHelperUni {
         ppCommandBytesMarshal := ppCommandBytes is VarRef ? "ptr*" : "ptr"
         pcbCommandSizeMarshal := pcbCommandSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszCommandName, ppCommandBytesMarshal, ppCommandBytes, pcbCommandSizeMarshal, pcbCommandSize, "HRESULT")
+        result := ComCall(14, this, IntPtr, pDevmode, UInt32, cbSize, "ptr", pszCommandName, ppCommandBytesMarshal, ppCommandBytes, pcbCommandSizeMarshal, pcbCommandSize, "HRESULT")
         return result
     }
 

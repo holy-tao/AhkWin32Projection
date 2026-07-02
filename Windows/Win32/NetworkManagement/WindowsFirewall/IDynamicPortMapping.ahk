@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
@@ -205,7 +205,7 @@ export default struct IDynamicPortMapping extends IDispatch {
      * @returns {Integer} 
      */
     RenewLease(lLeaseDurationDesired) {
-        result := ComCall(16, this, "int", lLeaseDurationDesired, "int*", &pLeaseDurationReturned := 0, "HRESULT")
+        result := ComCall(16, this, Int32, lLeaseDurationDesired, "int*", &pLeaseDurationReturned := 0, "HRESULT")
         return pLeaseDurationReturned
     }
 
@@ -256,7 +256,7 @@ export default struct IDynamicPortMapping extends IDispatch {
      * @returns {HRESULT} 
      */
     EditInternalPort(lInternalPort) {
-        result := ComCall(20, this, "int", lInternalPort, "HRESULT")
+        result := ComCall(20, this, Int32, lInternalPort, "HRESULT")
         return result
     }
 

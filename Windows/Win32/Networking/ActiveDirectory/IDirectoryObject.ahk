@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ADS_OBJECT_INFO.ahk" { ADS_OBJECT_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ADS_ATTR_INFO.ahk" { ADS_ATTR_INFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ADS_OBJECT_INFO.ahk" { ADS_OBJECT_INFO }
 
 /**
  * The IDirectoryObject interface is a non-Automation COM interface that provides clients with direct access to directory service objects.
@@ -87,7 +87,7 @@ export default struct IDirectoryObject extends IUnknown {
         ppAttributeEntriesMarshal := ppAttributeEntries is VarRef ? "ptr*" : "ptr"
         pdwNumAttributesReturnedMarshal := pdwNumAttributesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pAttributeNamesMarshal, pAttributeNames, "uint", dwNumberAttributes, ppAttributeEntriesMarshal, ppAttributeEntries, pdwNumAttributesReturnedMarshal, pdwNumAttributesReturned, "HRESULT")
+        result := ComCall(4, this, pAttributeNamesMarshal, pAttributeNames, UInt32, dwNumberAttributes, ppAttributeEntriesMarshal, ppAttributeEntries, pdwNumAttributesReturnedMarshal, pdwNumAttributesReturned, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct IDirectoryObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-setobjectattributes
      */
     SetObjectAttributes(pAttributeEntries, dwNumAttributes) {
-        result := ComCall(5, this, ADS_ATTR_INFO.Ptr, pAttributeEntries, "uint", dwNumAttributes, "uint*", &pdwNumAttributesModified := 0, "HRESULT")
+        result := ComCall(5, this, ADS_ATTR_INFO.Ptr, pAttributeEntries, UInt32, dwNumAttributes, "uint*", &pdwNumAttributesModified := 0, "HRESULT")
         return pdwNumAttributesModified
     }
 
@@ -122,7 +122,7 @@ export default struct IDirectoryObject extends IUnknown {
     CreateDSObject(pszRDNName, pAttributeEntries, dwNumAttributes) {
         pszRDNName := pszRDNName is String ? StrPtr(pszRDNName) : pszRDNName
 
-        result := ComCall(6, this, "ptr", pszRDNName, ADS_ATTR_INFO.Ptr, pAttributeEntries, "uint", dwNumAttributes, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszRDNName, ADS_ATTR_INFO.Ptr, pAttributeEntries, UInt32, dwNumAttributes, "ptr*", &ppObject := 0, "HRESULT")
         return IDispatch(ppObject)
     }
 

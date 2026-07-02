@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HSE_VERSION_INFO.ahk" { HSE_VERSION_INFO }
-#Import ".\HTTP_FILTER_VERSION.ahk" { HTTP_FILTER_VERSION }
 #Import ".\HTTP_FILTER_CONTEXT.ahk" { HTTP_FILTER_CONTEXT }
-#Import ".\EXTENSION_CONTROL_BLOCK.ahk" { EXTENSION_CONTROL_BLOCK }
+#Import ".\HSE_VERSION_INFO.ahk" { HSE_VERSION_INFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\HTTP_FILTER_VERSION.ahk" { HTTP_FILTER_VERSION }
+#Import ".\EXTENSION_CONTROL_BLOCK.ahk" { EXTENSION_CONTROL_BLOCK }
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -41,7 +41,7 @@ export HttpExtensionProc(pECB) {
 export HttpFilterProc(pfc, NotificationType, pvNotification) {
     pvNotificationMarshal := pvNotification is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("RpcProxy.dll\HttpFilterProc", HTTP_FILTER_CONTEXT.Ptr, pfc, "uint", NotificationType, pvNotificationMarshal, pvNotification, UInt32)
+    result := DllCall("RpcProxy.dll\HttpFilterProc", HTTP_FILTER_CONTEXT.Ptr, pfc, UInt32, NotificationType, pvNotificationMarshal, pvNotification, UInt32)
     return result
 }
 

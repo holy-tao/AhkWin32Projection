@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Provides specialized application information to Add/Remove Programs in Control Panel. This structure is not applicable to published applications.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\QOCINFO.ahk" { QOCINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\QOCINFO.ahk" { QOCINFO }
 
 /**
  * @namespace Windows.Win32.System.EventNotificationService

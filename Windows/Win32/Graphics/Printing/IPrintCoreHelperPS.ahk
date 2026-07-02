@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPrintCoreHelper.ahk" { IPrintCoreHelper }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IPrintCoreHelper.ahk" { IPrintCoreHelper }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

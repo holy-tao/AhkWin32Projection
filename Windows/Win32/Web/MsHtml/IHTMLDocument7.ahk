@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IHTMLSelection.ahk" { IHTMLSelection }
+#Import ".\IHTMLDOMAttribute.ahk" { IHTMLDOMAttribute }
+#Import ".\IHTMLDOMNode3.ahk" { IHTMLDOMNode3 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IDOMProcessingInstruction.ahk" { IDOMProcessingInstruction }
-#Import ".\IHTMLDOMAttribute.ahk" { IHTMLDOMAttribute }
+#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IHTMLSelection.ahk" { IHTMLSelection }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
-#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLDOMNode3.ahk" { IHTMLDOMNode3 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

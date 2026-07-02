@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_CHANNEL_BINDING.ahk" { WS_CHANNEL_BINDING }
 #Import ".\WS_CHANNEL_PROPERTY_CONSTRAINT.ahk" { WS_CHANNEL_PROPERTY_CONSTRAINT }
-#Import ".\WS_SECURITY_CONSTRAINTS.ahk" { WS_SECURITY_CONSTRAINTS }
 #Import ".\WS_POLICY_EXTENSION.ahk" { WS_POLICY_EXTENSION }
+#Import ".\WS_SECURITY_CONSTRAINTS.ahk" { WS_SECURITY_CONSTRAINTS }
+#Import ".\WS_CHANNEL_BINDING.ahk" { WS_CHANNEL_BINDING }
 
 /**
  * Specifies policy constraints for a channel.

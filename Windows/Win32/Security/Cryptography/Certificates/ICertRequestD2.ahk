@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CERTTRANSBLOB.ahk" { CERTTRANSBLOB }
 #Import ".\ICertRequestD.ahk" { ICertRequestD }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERTTRANSBLOB.ahk" { CERTTRANSBLOB }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -62,7 +62,7 @@ export default struct ICertRequestD2 extends ICertRequestD {
         pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : "ptr"
         pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszAuthority, "uint", dwFlags, "ptr", pwszSerialNumber, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, CERTTRANSBLOB.Ptr, pctbRequest, CERTTRANSBLOB.Ptr, pctbFullResponse, CERTTRANSBLOB.Ptr, pctbEncodedCert, CERTTRANSBLOB.Ptr, pctbDispositionMessage, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszAuthority, UInt32, dwFlags, "ptr", pwszSerialNumber, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, CERTTRANSBLOB.Ptr, pctbRequest, CERTTRANSBLOB.Ptr, pctbFullResponse, CERTTRANSBLOB.Ptr, pctbEncodedCert, CERTTRANSBLOB.Ptr, pctbDispositionMessage, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct ICertRequestD2 extends ICertRequestD {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
         pctbPropertyValue := CERTTRANSBLOB()
-        result := ComCall(7, this, "ptr", pwszAuthority, "int", PropId, "int", PropIndex, "int", PropType, CERTTRANSBLOB.Ptr, pctbPropertyValue, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszAuthority, Int32, PropId, Int32, PropIndex, Int32, PropType, CERTTRANSBLOB.Ptr, pctbPropertyValue, "HRESULT")
         return pctbPropertyValue
     }
 

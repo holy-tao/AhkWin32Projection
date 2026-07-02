@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CHANGE_PARTITION_TYPE_PARAMETERS.ahk" { CHANGE_PARTITION_TYPE_PARAMETERS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CHANGE_PARTITION_TYPE_PARAMETERS.ahk" { CHANGE_PARTITION_TYPE_PARAMETERS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a method to change partition types.
@@ -164,7 +164,7 @@ export default struct IVdsAdvancedDisk2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk2-changepartitiontype
      */
     ChangePartitionType(ullOffset, bForce, para) {
-        result := ComCall(3, this, "uint", ullOffset, BOOL, bForce, CHANGE_PARTITION_TYPE_PARAMETERS.Ptr, para, "HRESULT")
+        result := ComCall(3, this, Int64, ullOffset, BOOL, bForce, CHANGE_PARTITION_TYPE_PARAMETERS.Ptr, para, "HRESULT")
         return result
     }
 

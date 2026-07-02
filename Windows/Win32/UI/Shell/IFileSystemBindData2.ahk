@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFileSystemBindData.ahk" { IFileSystemBindData }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends IFileSystemBindData, which stores file system information for optimizing calls to IShellFolder::ParseDisplayName. This interface adds the ability set or get file ID or junction class identifier (CLSID).
@@ -78,7 +78,7 @@ export default struct IFileSystemBindData2 extends IFileSystemBindData {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata2-setfileid
      */
     SetFileID(liFileID) {
-        result := ComCall(5, this, "int64", liFileID, "HRESULT")
+        result := ComCall(5, this, Int64, liFileID, "HRESULT")
         return result
     }
 

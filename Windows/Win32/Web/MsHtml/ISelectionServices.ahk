@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMarkupPointer.ahk" { IMarkupPointer }
-#Import ".\IElementSegment.ahk" { IElementSegment }
-#Import ".\ISelectionServicesListener.ahk" { ISelectionServicesListener }
-#Import ".\ISegment.ahk" { ISegment }
-#Import ".\SELECTION_TYPE.ahk" { SELECTION_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IElementSegment.ahk" { IElementSegment }
 #Import ".\IMarkupContainer.ahk" { IMarkupContainer }
+#Import ".\ISegment.ahk" { ISegment }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISelectionServicesListener.ahk" { ISelectionServicesListener }
+#Import ".\SELECTION_TYPE.ahk" { SELECTION_TYPE }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IStaticPortMapping interface provides methods to retrieve and change the information for a particular port mapping.
@@ -614,7 +614,7 @@ export default struct IStaticPortMapping extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-editinternalport
      */
     EditInternalPort(lInternalPort) {
-        result := ComCall(17, this, "int", lInternalPort, "HRESULT")
+        result := ComCall(17, this, Int32, lInternalPort, "HRESULT")
         return result
     }
 

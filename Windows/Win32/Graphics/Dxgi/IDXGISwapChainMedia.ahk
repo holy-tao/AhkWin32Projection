@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DXGI_FRAME_STATISTICS_MEDIA.ahk" { DXGI_FRAME_STATISTICS_MEDIA }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This swap chain interface allows desktop media applications to request a seamless change to a specific refresh rate.
@@ -63,7 +63,7 @@ export default struct IDXGISwapChainMedia extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-setpresentduration
      */
     SetPresentDuration(Duration) {
-        result := ComCall(4, this, "uint", Duration, "HRESULT")
+        result := ComCall(4, this, UInt32, Duration, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IDXGISwapChainMedia extends IUnknown {
         pClosestSmallerPresentDurationMarshal := pClosestSmallerPresentDuration is VarRef ? "uint*" : "ptr"
         pClosestLargerPresentDurationMarshal := pClosestLargerPresentDuration is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", DesiredPresentDuration, pClosestSmallerPresentDurationMarshal, pClosestSmallerPresentDuration, pClosestLargerPresentDurationMarshal, pClosestLargerPresentDuration, "HRESULT")
+        result := ComCall(5, this, UInt32, DesiredPresentDuration, pClosestSmallerPresentDurationMarshal, pClosestSmallerPresentDuration, pClosestLargerPresentDurationMarshal, pClosestLargerPresentDuration, "HRESULT")
         return result
     }
 

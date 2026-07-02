@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DEBUG_VALUE.ahk" { DEBUG_VALUE }
-#Import ".\DEBUG_REGISTER_DESCRIPTION.ahk" { DEBUG_REGISTER_DESCRIPTION }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DEBUG_VALUE.ahk" { DEBUG_VALUE }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_REGISTER_DESCRIPTION.ahk" { DEBUG_REGISTER_DESCRIPTION }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -72,7 +72,7 @@ export default struct IDebugRegisters extends IUnknown {
 
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, DEBUG_REGISTER_DESCRIPTION.Ptr, Desc, "HRESULT")
+        result := ComCall(4, this, UInt32, Register, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DEBUG_REGISTER_DESCRIPTION.Ptr, Desc, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IDebugRegisters extends IUnknown {
      */
     GetValue(Register) {
         Value := DEBUG_VALUE()
-        result := ComCall(6, this, "uint", Register, DEBUG_VALUE.Ptr, Value, "HRESULT")
+        result := ComCall(6, this, UInt32, Register, DEBUG_VALUE.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -106,7 +106,7 @@ export default struct IDebugRegisters extends IUnknown {
      * @returns {HRESULT} 
      */
     SetValue(Register, Value) {
-        result := ComCall(7, this, "uint", Register, DEBUG_VALUE.Ptr, Value, "HRESULT")
+        result := ComCall(7, this, UInt32, Register, DEBUG_VALUE.Ptr, Value, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct IDebugRegisters extends IUnknown {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
         Values := DEBUG_VALUE()
-        result := ComCall(8, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
+        result := ComCall(8, this, UInt32, Count, IndicesMarshal, Indices, UInt32, Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return Values
     }
 
@@ -136,7 +136,7 @@ export default struct IDebugRegisters extends IUnknown {
     SetValues(Count, Indices, Start, Values) {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
+        result := ComCall(9, this, UInt32, Count, IndicesMarshal, Indices, UInt32, Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IDebugRegisters extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputRegisters(OutputControl, Flags) {
-        result := ComCall(10, this, "uint", OutputControl, "uint", Flags, "HRESULT")
+        result := ComCall(10, this, UInt32, OutputControl, UInt32, Flags, "HRESULT")
         return result
     }
 

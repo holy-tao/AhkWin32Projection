@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICRect.ahk" { WICRect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICBitmapTransformOptions.ahk" { WICBitmapTransformOptions }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WICBitmapTransformOptions.ahk" { WICBitmapTransformOptions }
+#Import ".\WICRect.ahk" { WICRect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for offloading certain operations to the underlying IWICBitmapSource implementation.
@@ -106,7 +106,7 @@ export default struct IWICBitmapSourceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-copypixels
      */
     CopyPixels(prc, uiWidth, uiHeight, pguidDstFormat, dstTransform, nStride, cbBufferSize) {
-        result := ComCall(3, this, WICRect.Ptr, prc, "uint", uiWidth, "uint", uiHeight, Guid.Ptr, pguidDstFormat, WICBitmapTransformOptions, dstTransform, "uint", nStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
+        result := ComCall(3, this, WICRect.Ptr, prc, UInt32, uiWidth, UInt32, uiHeight, Guid.Ptr, pguidDstFormat, WICBitmapTransformOptions, dstTransform, UInt32, nStride, UInt32, cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
     }
 

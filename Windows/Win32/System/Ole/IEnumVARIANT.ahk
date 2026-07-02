@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a method for enumerating a collection of variants, including heterogeneous collections of objects and intrinsic types.
@@ -87,7 +87,7 @@ export default struct IEnumVARIANT extends IUnknown {
     Next(celt, rgVar, pCeltFetched) {
         pCeltFetchedMarshal := pCeltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, VARIANT.Ptr, rgVar, pCeltFetchedMarshal, pCeltFetched, Int32)
+        result := ComCall(3, this, UInt32, celt, VARIANT.Ptr, rgVar, pCeltFetchedMarshal, pCeltFetched, Int32)
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IEnumVARIANT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ienumvariant-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, Int32)
+        result := ComCall(4, this, UInt32, celt, Int32)
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\EPcxGeoLocation.ahk" { EPcxGeoLocation }
-#Import ".\EPcxConnectionType.ahk" { EPcxConnectionType }
-#Import ".\EPxcPortConnection.ahk" { EPxcPortConnection }
-#Import ".\EPcxGenLocation.ahk" { EPcxGenLocation }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\EPxcPortConnection.ahk" { EPxcPortConnection }
+#Import ".\EPcxConnectionType.ahk" { EPcxConnectionType }
+#Import ".\EPcxGenLocation.ahk" { EPcxGenLocation }
 
 /**
  * The KSJACK_DESCRIPTION structure describes an audio jack.

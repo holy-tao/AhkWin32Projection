@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TBBUTTONINFOW_MASK.ahk" { TBBUTTONINFOW_MASK }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TBBUTTONINFOW_MASK.ahk" { TBBUTTONINFOW_MASK }
 
 /**
  * Contains or receives information for a specific button in a toolbar. (ANSI)

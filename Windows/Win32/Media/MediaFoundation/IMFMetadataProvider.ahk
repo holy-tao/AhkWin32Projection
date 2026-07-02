@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMetadata.ahk" { IMFMetadata }
 #Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Gets metadata from a media source or other object.
@@ -48,7 +48,7 @@ export default struct IMFMetadataProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmetadataprovider-getmfmetadata
      */
     GetMFMetadata(pPresentationDescriptor, dwStreamIdentifier, dwFlags) {
-        result := ComCall(3, this, "ptr", pPresentationDescriptor, "uint", dwStreamIdentifier, "uint", dwFlags, "ptr*", &ppMFMetadata := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pPresentationDescriptor, UInt32, dwStreamIdentifier, UInt32, dwFlags, "ptr*", &ppMFMetadata := 0, "HRESULT")
         return IMFMetadata(ppMFMetadata)
     }
 

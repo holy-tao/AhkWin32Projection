@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_BITMAP_DATA_BGRA32.ahk" { DWRITE_BITMAP_DATA_BGRA32 }
 #Import ".\IDWriteBitmapRenderTarget1.ahk" { IDWriteBitmapRenderTarget1 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_BITMAP_DATA_BGRA32.ahk" { DWRITE_BITMAP_DATA_BGRA32 }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

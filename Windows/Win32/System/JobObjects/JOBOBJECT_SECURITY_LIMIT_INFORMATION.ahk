@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Security\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
 #Import ".\JOB_OBJECT_SECURITY.ahk" { JOB_OBJECT_SECURITY }
+#Import "..\..\Security\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
 #Import "..\..\Security\TOKEN_PRIVILEGES.ahk" { TOKEN_PRIVILEGES }
 
 /**

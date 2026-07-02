@@ -4,11 +4,11 @@
 #Import ".\MBN_READY_STATE.ahk" { MBN_READY_STATE }
 #Import ".\MBN_INTERFACE_CAPS.ahk" { MBN_INTERFACE_CAPS }
 #Import ".\MBN_PROVIDER.ahk" { MBN_PROVIDER }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMbnConnection.ahk" { IMbnConnection }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IMbnConnection.ahk" { IMbnConnection }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import ".\IMbnSubscriberInformation.ahk" { IMbnSubscriberInformation }
 

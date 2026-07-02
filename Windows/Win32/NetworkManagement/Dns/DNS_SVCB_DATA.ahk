@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DNS_SVCB_PARAM.ahk" { DNS_SVCB_PARAM }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DNS_SVCB_PARAM.ahk" { DNS_SVCB_PARAM }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns

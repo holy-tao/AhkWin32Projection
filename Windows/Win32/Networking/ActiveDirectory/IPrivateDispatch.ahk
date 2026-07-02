@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\EXCEPINFO.ahk" { EXCEPINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\ITypeInfo.ahk" { ITypeInfo }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Com\DISPPARAMS.ahk" { DISPPARAMS }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\System\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\EXCEPINFO.ahk" { EXCEPINFO }
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory
@@ -49,7 +49,7 @@ export default struct IPrivateDispatch extends IUnknown {
      * @returns {HRESULT} 
      */
     ADSIInitializeDispatchManager(dwExtensionId) {
-        result := ComCall(3, this, "int", dwExtensionId, "HRESULT")
+        result := ComCall(3, this, Int32, dwExtensionId, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct IPrivateDispatch extends IUnknown {
      * @returns {ITypeInfo} 
      */
     ADSIGetTypeInfo(itinfo, lcid) {
-        result := ComCall(5, this, "uint", itinfo, "uint", lcid, "ptr*", &pptinfo := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, itinfo, UInt32, lcid, "ptr*", &pptinfo := 0, "HRESULT")
         return ITypeInfo(pptinfo)
     }
 
@@ -84,7 +84,7 @@ export default struct IPrivateDispatch extends IUnknown {
     ADSIGetIDsOfNames(riid, rgszNames, cNames, lcid) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgdispid := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, UInt32, cNames, UInt32, lcid, "int*", &rgdispid := 0, "HRESULT")
         return rgdispid
     }
 
@@ -103,7 +103,7 @@ export default struct IPrivateDispatch extends IUnknown {
     ADSIInvoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "int", dispidMember, Guid.Ptr, riid, "uint", lcid, "ushort", wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(7, this, Int32, dispidMember, Guid.Ptr, riid, UInt32, lcid, UInt16, wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 

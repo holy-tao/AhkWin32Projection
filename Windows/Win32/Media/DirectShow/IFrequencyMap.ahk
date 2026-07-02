@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFrequencyMap interface sets the frequency table used by the BDA Network Provider filter.A frequency table is a list of broadcast or cable frequencies for a given country/region.
@@ -81,7 +81,7 @@ export default struct IFrequencyMap extends IUnknown {
     put_FrequencyMapping(ulCount, pList) {
         pListMarshal := pList is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, pListMarshal, pList, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, pListMarshal, pList, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct IFrequencyMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-put_countrycode
      */
     put_CountryCode(ulCountryCode) {
-        result := ComCall(6, this, "uint", ulCountryCode, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCountryCode, "HRESULT")
         return result
     }
 
@@ -130,7 +130,7 @@ export default struct IFrequencyMap extends IUnknown {
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
         ppulListMarshal := ppulList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", ulCountryCode, pulCountMarshal, pulCount, ppulListMarshal, ppulList, "HRESULT")
+        result := ComCall(7, this, UInt32, ulCountryCode, pulCountMarshal, pulCount, ppulListMarshal, ppulList, "HRESULT")
         return result
     }
 

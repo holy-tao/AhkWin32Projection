@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import "..\..\System\Ole\IOleObject.ahk" { IOleObject }
-#Import ".\BNSTATE.ahk" { BNSTATE }
-#Import ".\ShellWindowTypeConstants.ahk" { ShellWindowTypeConstants }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IShellView.ahk" { IShellView }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ITravelLog.ahk" { ITravelLog }
+#Import ".\BNSTATE.ahk" { BNSTATE }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\ShellWindowTypeConstants.ahk" { ShellWindowTypeConstants }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\System\Ole\IOleInPlaceSite.ahk" { IOleInPlaceSite }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\ITravelLog.ahk" { ITravelLog }
 #Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Ole\IOleObject.ahk" { IOleObject }
 
 /**
  * Deprecated. (IBrowserService)
@@ -134,7 +134,7 @@ export default struct IBrowserService extends IUnknown {
     GetTitle(psv, pszName, cchName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(5, this, "ptr", psv, "ptr", pszName, "uint", cchName, "HRESULT")
+        result := ComCall(5, this, "ptr", psv, "ptr", pszName, UInt32, cchName, "HRESULT")
         return result
     }
 
@@ -174,7 +174,7 @@ export default struct IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-showcontrolwindow
      */
     ShowControlWindow(id, fShow) {
-        result := ComCall(8, this, "uint", id, BOOL, fShow, "HRESULT")
+        result := ComCall(8, this, UInt32, id, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-iscontrolwindowshown
      */
     IsControlWindowShown(id) {
-        result := ComCall(9, this, "uint", id, BOOL.Ptr, &pfShown := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, id, BOOL.Ptr, &pfShown := 0, "HRESULT")
         return pfShown
     }
 
@@ -213,7 +213,7 @@ export default struct IBrowserService extends IUnknown {
     IEGetDisplayName(pidl, pwszName, uFlags) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(10, this, ITEMIDLIST.Ptr, pidl, "ptr", pwszName, "uint", uFlags, "HRESULT")
+        result := ComCall(10, this, ITEMIDLIST.Ptr, pidl, "ptr", pwszName, UInt32, uFlags, "HRESULT")
         return result
     }
 
@@ -233,7 +233,7 @@ export default struct IBrowserService extends IUnknown {
     IEParseDisplayName(uiCP, pwszPath) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(11, this, "uint", uiCP, "ptr", pwszPath, "ptr*", &ppidlOut := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, uiCP, "ptr", pwszPath, "ptr*", &ppidlOut := 0, "HRESULT")
         return ppidlOut
     }
 
@@ -273,7 +273,7 @@ export default struct IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-navigatetopidl
      */
     NavigateToPidl(pidl, grfHLNF) {
-        result := ComCall(13, this, ITEMIDLIST.Ptr, pidl, "uint", grfHLNF, "HRESULT")
+        result := ComCall(13, this, ITEMIDLIST.Ptr, pidl, UInt32, grfHLNF, "HRESULT")
         return result
     }
 
@@ -358,7 +358,7 @@ export default struct IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-setflags
      */
     SetFlags(dwFlags, dwFlagMask) {
-        result := ComCall(19, this, "uint", dwFlags, "uint", dwFlagMask, "HRESULT")
+        result := ComCall(19, this, UInt32, dwFlags, UInt32, dwFlagMask, "HRESULT")
         return result
     }
 
@@ -438,7 +438,7 @@ export default struct IBrowserService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getbrowserbyindex
      */
     GetBrowserByIndex(dwID) {
-        result := ComCall(25, this, "uint", dwID, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(25, this, UInt32, dwID, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 

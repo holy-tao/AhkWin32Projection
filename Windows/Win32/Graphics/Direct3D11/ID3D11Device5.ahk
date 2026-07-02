@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D11_FENCE_FLAG.ahk" { D3D11_FENCE_FLAG }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\ID3D11Device4.ahk" { ID3D11Device4 }
+#Import ".\D3D11_FENCE_FLAG.ahk" { D3D11_FENCE_FLAG }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -78,7 +78,7 @@ export default struct ID3D11Device5 extends ID3D11Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device5-createfence
      */
     CreateFence(InitialValue, Flags, ReturnedInterface) {
-        result := ComCall(68, this, "uint", InitialValue, D3D11_FENCE_FLAG, Flags, Guid.Ptr, ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
+        result := ComCall(68, this, Int64, InitialValue, D3D11_FENCE_FLAG, Flags, Guid.Ptr, ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
         return ppFence
     }
 

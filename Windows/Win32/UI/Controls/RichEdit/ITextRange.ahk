@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\tomConstants.ahk" { tomConstants }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ITextPara.ahk" { ITextPara }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITextFont.ahk" { ITextFont }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\tomConstants.ahk" { tomConstants }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITextPara.ahk" { ITextPara }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITextRange objects are powerful editing and data-binding tools that allow a program to select text in a story and then examine or change that text.
@@ -439,7 +439,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setchar
      */
     SetChar(_Char) {
-        result := ComCall(10, this, "int", _Char, "HRESULT")
+        result := ComCall(10, this, Int32, _Char, "HRESULT")
         return result
     }
 
@@ -577,7 +577,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setstart
      */
     SetStart(cpFirst) {
-        result := ComCall(15, this, "int", cpFirst, "HRESULT")
+        result := ComCall(15, this, Int32, cpFirst, "HRESULT")
         return result
     }
 
@@ -629,7 +629,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setend
      */
     SetEnd(cpLim) {
-        result := ComCall(17, this, "int", cpLim, "HRESULT")
+        result := ComCall(17, this, Int32, cpLim, "HRESULT")
         return result
     }
 
@@ -847,7 +847,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-collapse
      */
     Collapse(bStart) {
-        result := ComCall(24, this, "int", bStart, "HRESULT")
+        result := ComCall(24, this, Int32, bStart, "HRESULT")
         return result
     }
 
@@ -864,7 +864,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-expand
      */
     Expand(_Unit) {
-        result := ComCall(25, this, "int", _Unit, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(25, this, Int32, _Unit, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -883,7 +883,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-getindex
      */
     GetIndex(_Unit) {
-        result := ComCall(26, this, "int", _Unit, "int*", &pIndex := 0, "HRESULT")
+        result := ComCall(26, this, Int32, _Unit, "int*", &pIndex := 0, "HRESULT")
         return pIndex
     }
 
@@ -946,7 +946,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setindex
      */
     SetIndex(_Unit, Index, Extend) {
-        result := ComCall(27, this, "int", _Unit, "int", Index, "int", Extend, "HRESULT")
+        result := ComCall(27, this, Int32, _Unit, Int32, Index, Int32, Extend, "HRESULT")
         return result
     }
 
@@ -971,7 +971,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setrange
      */
     SetRange(cpAnchor, cpActive) {
-        result := ComCall(28, this, "int", cpAnchor, "int", cpActive, "HRESULT")
+        result := ComCall(28, this, Int32, cpAnchor, Int32, cpActive, "HRESULT")
         return result
     }
 
@@ -1081,7 +1081,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-startof
      */
     StartOf(_Unit, Extend) {
-        result := ComCall(33, this, "int", _Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(33, this, Int32, _Unit, Int32, Extend, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1119,7 +1119,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-endof
      */
     EndOf(_Unit, Extend) {
-        result := ComCall(34, this, "int", _Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(34, this, Int32, _Unit, Int32, Extend, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1163,7 +1163,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-move
      */
     Move(_Unit, Count) {
-        result := ComCall(35, this, "int", _Unit, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(35, this, Int32, _Unit, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1187,7 +1187,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movestart
      */
     MoveStart(_Unit, Count) {
-        result := ComCall(36, this, "int", _Unit, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(36, this, Int32, _Unit, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1211,7 +1211,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveend
      */
     MoveEnd(_Unit, Count) {
-        result := ComCall(37, this, "int", _Unit, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(37, this, Int32, _Unit, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1279,7 +1279,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movewhile
      */
     MoveWhile(Cset, Count) {
-        result := ComCall(38, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, Cset, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1303,7 +1303,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movestartwhile
      */
     MoveStartWhile(Cset, Count) {
-        result := ComCall(39, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(39, this, VARIANT.Ptr, Cset, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1327,7 +1327,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveendwhile
      */
     MoveEndWhile(Cset, Count) {
-        result := ComCall(40, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(40, this, VARIANT.Ptr, Cset, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1390,7 +1390,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveuntil
      */
     MoveUntil(Cset, Count) {
-        result := ComCall(41, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(41, this, VARIANT.Ptr, Cset, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1418,7 +1418,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-movestartuntil
      */
     MoveStartUntil(Cset, Count) {
-        result := ComCall(42, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(42, this, VARIANT.Ptr, Cset, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1442,7 +1442,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-moveenduntil
      */
     MoveEndUntil(Cset, Count) {
-        result := ComCall(43, this, VARIANT.Ptr, Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(43, this, VARIANT.Ptr, Cset, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1586,7 +1586,7 @@ export default struct ITextRange extends IDispatch {
     FindText(_bstr, Count, Flags) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(44, this, BSTR, _bstr, "int", Count, tomConstants, Flags, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(44, this, BSTR, _bstr, Int32, Count, tomConstants, Flags, "int*", &pLength := 0, "HRESULT")
         return pLength
     }
 
@@ -1623,7 +1623,7 @@ export default struct ITextRange extends IDispatch {
     FindTextStart(_bstr, Count, Flags) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(45, this, BSTR, _bstr, "int", Count, tomConstants, Flags, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(45, this, BSTR, _bstr, Int32, Count, tomConstants, Flags, "int*", &pLength := 0, "HRESULT")
         return pLength
     }
 
@@ -1662,7 +1662,7 @@ export default struct ITextRange extends IDispatch {
     FindTextEnd(_bstr, Count, Flags) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(46, this, BSTR, _bstr, "int", Count, tomConstants, Flags, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(46, this, BSTR, _bstr, Int32, Count, tomConstants, Flags, "int*", &pLength := 0, "HRESULT")
         return pLength
     }
 
@@ -1720,7 +1720,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-delete
      */
     Delete(_Unit, Count) {
-        result := ComCall(47, this, "int", _Unit, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(47, this, Int32, _Unit, Int32, Count, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -1836,7 +1836,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-paste
      */
     Paste(pVar, Format) {
-        result := ComCall(50, this, VARIANT.Ptr, pVar, "int", Format, "HRESULT")
+        result := ComCall(50, this, VARIANT.Ptr, pVar, Int32, Format, "HRESULT")
         return result
     }
 
@@ -1865,7 +1865,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-canpaste
      */
     CanPaste(pVar, Format) {
-        result := ComCall(51, this, VARIANT.Ptr, pVar, "int", Format, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(51, this, VARIANT.Ptr, pVar, Int32, Format, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -2059,7 +2059,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setpoint
      */
     SetPoint(x, y, Type, Extend) {
-        result := ComCall(55, this, "int", x, "int", y, tomConstants, Type, "int", Extend, "HRESULT")
+        result := ComCall(55, this, Int32, x, Int32, y, tomConstants, Type, Int32, Extend, "HRESULT")
         return result
     }
 
@@ -2115,7 +2115,7 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-scrollintoview
      */
     ScrollIntoView(Value) {
-        result := ComCall(56, this, "int", Value, "HRESULT")
+        result := ComCall(56, this, Int32, Value, "HRESULT")
         return result
     }
 

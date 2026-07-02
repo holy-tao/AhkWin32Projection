@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMSVidStreamBufferSourceEvent2.ahk" { IMSVidStreamBufferSourceEvent2 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidStreamBufferSourceEvent2.ahk" { IMSVidStreamBufferSourceEvent2 }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -72,7 +72,7 @@ export default struct IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferS
     BroadcastEventEx(Guid, Param1, Param2, Param3, Param4) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
 
-        result := ComCall(19, this, BSTR, Guid, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
+        result := ComCall(19, this, BSTR, Guid, UInt32, Param1, UInt32, Param2, UInt32, Param3, UInt32, Param4, "HRESULT")
         return result
     }
 

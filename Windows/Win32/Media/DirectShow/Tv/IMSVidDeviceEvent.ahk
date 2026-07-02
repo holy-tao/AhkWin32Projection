@@ -51,7 +51,7 @@ export default struct IMSVidDeviceEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddeviceevent-statechange
      */
     StateChange(lpd, oldState, newState) {
-        result := ComCall(7, this, "ptr", lpd, "int", oldState, "int", newState, "HRESULT")
+        result := ComCall(7, this, "ptr", lpd, Int32, oldState, Int32, newState, "HRESULT")
         return result
     }
 

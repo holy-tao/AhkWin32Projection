@@ -1,25 +1,29 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
-#Import ".\DIDEVICEINSTANCEA.ahk" { DIDEVICEINSTANCEA }
-#Import ".\DIACTIONFORMATA.ahk" { DIACTIONFORMATA }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DIFILEEFFECT.ahk" { DIFILEEFFECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\LPDIENUMEFFECTSCALLBACKA.ahk" { LPDIENUMEFFECTSCALLBACKA }
+#Import ".\LPDIENUMCREATEDEFFECTOBJECTSCALLBACK.ahk" { LPDIENUMCREATEDEFFECTOBJECTSCALLBACK }
 #Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
+#Import ".\IDirectInputEffect.ahk" { IDirectInputEffect }
+#Import ".\DIACTIONFORMATA.ahk" { DIACTIONFORMATA }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DIDEVICEIMAGEINFOHEADERA.ahk" { DIDEVICEIMAGEINFOHEADERA }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DIEFFECTINFOA.ahk" { DIEFFECTINFOA }
 #Import ".\DIDATAFORMAT.ahk" { DIDATAFORMAT }
+#Import ".\DIEFFECT.ahk" { DIEFFECT }
+#Import ".\DIDEVCAPS.ahk" { DIDEVCAPS }
+#Import ".\LPDIENUMEFFECTSINFILECALLBACK.ahk" { LPDIENUMEFFECTSINFILECALLBACK }
+#Import ".\DIDEVICEINSTANCEA.ahk" { DIDEVICEINSTANCEA }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
 #Import ".\DIDEVICEOBJECTDATA.ahk" { DIDEVICEOBJECTDATA }
 #Import ".\DIDEVICEOBJECTINSTANCEA.ahk" { DIDEVICEOBJECTINSTANCEA }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\DIFILEEFFECT.ahk" { DIFILEEFFECT }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DIDEVCAPS.ahk" { DIDEVCAPS }
-#Import ".\DIEFFECT.ahk" { DIEFFECT }
-#Import ".\DIDEVICEIMAGEINFOHEADERA.ahk" { DIDEVICEIMAGEINFOHEADERA }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\LPDIENUMDEVICEOBJECTSCALLBACKA.ahk" { LPDIENUMDEVICEOBJECTSCALLBACKA }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -104,7 +108,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     EnumObjects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
+        result := ComCall(4, this, LPDIENUMDEVICEOBJECTSCALLBACKA, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -164,7 +168,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     GetDeviceState(param0, param1) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "uint", param0, param1Marshal, param1, "HRESULT")
+        result := ComCall(9, this, UInt32, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
@@ -179,7 +183,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     GetDeviceData(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, "uint", param3, "HRESULT")
+        result := ComCall(10, this, UInt32, param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
@@ -210,7 +214,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCooperativeLevel(param0, param1) {
-        result := ComCall(13, this, HWND, param0, "uint", param1, "HRESULT")
+        result := ComCall(13, this, HWND, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -222,7 +226,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     GetObjectInfo(param0, param1, param2) {
-        result := ComCall(14, this, DIDEVICEOBJECTINSTANCEA.Ptr, param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(14, this, DIDEVICEOBJECTINSTANCEA.Ptr, param0, UInt32, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -243,7 +247,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     RunControlPanel(param0, param1) {
-        result := ComCall(16, this, HWND, param0, "uint", param1, "HRESULT")
+        result := ComCall(16, this, HWND, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -279,7 +283,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1, param2) {
-        result := ComCall(17, this, HINSTANCE, param0, "uint", param1, Guid.Ptr, param2, "HRESULT")
+        result := ComCall(17, this, HINSTANCE, param0, UInt32, param1, Guid.Ptr, param2, "HRESULT")
         return result
     }
 
@@ -305,7 +309,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     EnumEffects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
+        result := ComCall(19, this, LPDIENUMEFFECTSCALLBACKA, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -338,7 +342,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
      * @returns {HRESULT} 
      */
     SendForceFeedbackCommand(param0) {
-        result := ComCall(22, this, "uint", param0, "HRESULT")
+        result := ComCall(22, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -352,7 +356,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     EnumCreatedEffectObjects(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, "uint", param2, "HRESULT")
+        result := ComCall(23, this, LPDIENUMCREATEDEFFECTOBJECTSCALLBACK, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -427,7 +431,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     SendDeviceData(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, "uint", param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, "uint", param3, "HRESULT")
+        result := ComCall(26, this, UInt32, param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
@@ -444,7 +448,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
 
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(27, this, "ptr", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
+        result := ComCall(27, this, "ptr", param0, LPDIENUMEFFECTSINFILECALLBACK, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
@@ -459,7 +463,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     WriteEffectToFile(param0, param1, param2, param3) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := ComCall(28, this, "ptr", param0, "uint", param1, DIFILEEFFECT.Ptr, param2, "uint", param3, "HRESULT")
+        result := ComCall(28, this, "ptr", param0, UInt32, param1, DIFILEEFFECT.Ptr, param2, UInt32, param3, "HRESULT")
         return result
     }
 
@@ -473,7 +477,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     BuildActionMap(param0, param1, param2) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := ComCall(29, this, DIACTIONFORMATA.Ptr, param0, "ptr", param1, "uint", param2, "HRESULT")
+        result := ComCall(29, this, DIACTIONFORMATA.Ptr, param0, "ptr", param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -487,7 +491,7 @@ export default struct IDirectInputDevice8A extends IUnknown {
     SetActionMap(param0, param1, param2) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := ComCall(30, this, DIACTIONFORMATA.Ptr, param0, "ptr", param1, "uint", param2, "HRESULT")
+        result := ComCall(30, this, DIACTIONFORMATA.Ptr, param0, "ptr", param1, UInt32, param2, "HRESULT")
         return result
     }
 

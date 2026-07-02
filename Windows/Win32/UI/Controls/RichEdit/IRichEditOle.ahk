@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CHARRANGE.ahk" { CHARRANGE }
+#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
 #Import "..\..\..\System\Ole\IOleClientSite.ahk" { IOleClientSite }
 #Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import ".\RICH_EDIT_GET_OBJECT_FLAGS.ahk" { RICH_EDIT_GET_OBJECT_FLAGS }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CHARRANGE.ahk" { CHARRANGE }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
 #Import ".\REOBJECT.ahk" { REOBJECT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RICH_EDIT_GET_OBJECT_FLAGS.ahk" { RICH_EDIT_GET_OBJECT_FLAGS }
 
 /**
  * The IRichEditOle interface exposes the Component Object Model (COM) functionality of a rich edit control. The interface can be obtained by sending the EM_GETOLEINTERFACE message. This interface has the following methods.
@@ -112,7 +112,7 @@ export default struct IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-getobject
      */
     GetObject(iob, lpreobject, dwFlags) {
-        result := ComCall(6, this, "int", iob, REOBJECT.Ptr, lpreobject, RICH_EDIT_GET_OBJECT_FLAGS, dwFlags, "HRESULT")
+        result := ComCall(6, this, Int32, iob, REOBJECT.Ptr, lpreobject, RICH_EDIT_GET_OBJECT_FLAGS, dwFlags, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IRichEditOle extends IUnknown {
     ConvertObject(iob, rclsidNew, lpstrUserTypeNew) {
         lpstrUserTypeNew := lpstrUserTypeNew is String ? StrPtr(lpstrUserTypeNew) : lpstrUserTypeNew
 
-        result := ComCall(8, this, "int", iob, Guid.Ptr, rclsidNew, "ptr", lpstrUserTypeNew, "HRESULT")
+        result := ComCall(8, this, Int32, iob, Guid.Ptr, rclsidNew, "ptr", lpstrUserTypeNew, "HRESULT")
         return result
     }
 
@@ -209,7 +209,7 @@ export default struct IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-setlinkavailable
      */
     SetLinkAvailable(iob, fAvailable) {
-        result := ComCall(11, this, "int", iob, BOOL, fAvailable, "HRESULT")
+        result := ComCall(11, this, Int32, iob, BOOL, fAvailable, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-setdvaspect
      */
     SetDvaspect(iob, _dvaspect) {
-        result := ComCall(12, this, "int", iob, "uint", _dvaspect, "HRESULT")
+        result := ComCall(12, this, Int32, iob, UInt32, _dvaspect, "HRESULT")
         return result
     }
 
@@ -242,7 +242,7 @@ export default struct IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-handsoffstorage
      */
     HandsOffStorage(iob) {
-        result := ComCall(13, this, "int", iob, "HRESULT")
+        result := ComCall(13, this, Int32, iob, "HRESULT")
         return result
     }
 
@@ -260,7 +260,7 @@ export default struct IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-savecompleted
      */
     SaveCompleted(iob, lpstg) {
-        result := ComCall(14, this, "int", iob, "ptr", lpstg, "HRESULT")
+        result := ComCall(14, this, Int32, iob, "ptr", lpstg, "HRESULT")
         return result
     }
 
@@ -306,7 +306,7 @@ export default struct IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-getclipboarddata
      */
     GetClipboardData(lpchrg, reco) {
-        result := ComCall(17, this, CHARRANGE.Ptr, lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
+        result := ComCall(17, this, CHARRANGE.Ptr, lpchrg, UInt32, reco, "ptr*", &lplpdataobj := 0, "HRESULT")
         return IDataObject(lplpdataobj)
     }
 
@@ -356,7 +356,7 @@ export default struct IRichEditOle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-importdataobject
      */
     ImportDataObject(lpdataobj, cf, hMetaPict) {
-        result := ComCall(18, this, "ptr", lpdataobj, "ushort", cf, HGLOBAL, hMetaPict, "HRESULT")
+        result := ComCall(18, this, "ptr", lpdataobj, UInt16, cf, HGLOBAL, hMetaPict, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWMOutputMediaProps.ahk" { IWMOutputMediaProps }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReaderTypeNegotiation interface provides a single method that can be used to test certain changes to the output properties of a stream.An IWMReaderTypeNegotiation interface exists for every reader object.
@@ -110,7 +110,7 @@ export default struct IWMReaderTypeNegotiation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadertypenegotiation-tryoutputprops
      */
     TryOutputProps(dwOutputNum, pOutput) {
-        result := ComCall(3, this, "uint", dwOutputNum, "ptr", pOutput, "HRESULT")
+        result := ComCall(3, this, UInt32, dwOutputNum, "ptr", pOutput, "HRESULT")
         return result
     }
 

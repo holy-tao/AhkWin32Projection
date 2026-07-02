@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DDDI_COLOR_SPACE_TYPE.ahk" { D3DDDI_COLOR_SPACE_TYPE }
 #Import ".\D3DDDI_FLIPINTERVAL_TYPE.ahk" { D3DDDI_FLIPINTERVAL_TYPE }
 #Import ".\D3DDDI_HDR_METADATA_TYPE.ahk" { D3DDDI_HDR_METADATA_TYPE }
 #Import ".\D3DDDI_ROTATION.ahk" { D3DDDI_ROTATION }
-#Import ".\D3DDDI_COLOR_SPACE_TYPE.ahk" { D3DDDI_COLOR_SPACE_TYPE }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IInternetSecurityManager.ahk" { IInternetSecurityManager }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IInternetSecurityManager.ahk" { IInternetSecurityManager }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -56,7 +56,7 @@ export default struct IInternetSecurityManagerEx extends IInternetSecurityManage
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
         pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pwszUrl, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszUrl, UInt32, dwAction, pPolicyMarshal, pPolicy, UInt32, cbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwFlags, UInt32, dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumTfLangBarItems interface is implemented by the TSF manager to provide an enumeration of language bar item objects.
@@ -61,7 +61,7 @@ export default struct IEnumTfLangBarItems extends IUnknown {
     Next(ulCount, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, "ptr*", &ppItem := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, "ptr*", &ppItem := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return ITfLangBarItem(ppItem)
     }
 
@@ -129,7 +129,7 @@ export default struct IEnumTfLangBarItems extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

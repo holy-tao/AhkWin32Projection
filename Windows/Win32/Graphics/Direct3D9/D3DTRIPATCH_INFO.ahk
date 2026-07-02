@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DDEGREETYPE.ahk" { D3DDEGREETYPE }
 #Import ".\D3DBASISTYPE.ahk" { D3DBASISTYPE }
+#Import ".\D3DDEGREETYPE.ahk" { D3DDEGREETYPE }
 
 /**
  * Describes a triangular high-order patch.

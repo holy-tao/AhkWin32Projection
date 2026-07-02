@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables clients to enumerate through a collection of class IDs for COM classes.
@@ -55,7 +55,7 @@ export default struct IEnumGUID extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, Guid.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
+        result := ComCall(3, this, UInt32, celt, Guid.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct IEnumGUID extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumguid-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, Int32)
+        result := ComCall(4, this, UInt32, celt, Int32)
         return result
     }
 

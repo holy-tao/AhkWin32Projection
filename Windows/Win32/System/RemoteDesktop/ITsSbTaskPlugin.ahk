@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ITsSbTaskInfo.ahk" { ITsSbTaskInfo }
 #Import ".\ITsSbTaskPluginNotifySink.ahk" { ITsSbTaskPluginNotifySink }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITsSbPlugin.ahk" { ITsSbPlugin }
 
@@ -63,7 +63,7 @@ export default struct ITsSbTaskPlugin extends ITsSbPlugin {
     SetTaskQueue(pszHostName, SbTaskInfoSize, pITsSbTaskInfo) {
         pszHostName := pszHostName is String ? BSTR.Alloc(pszHostName).Value : pszHostName
 
-        result := ComCall(6, this, BSTR, pszHostName, "uint", SbTaskInfoSize, ITsSbTaskInfo.Ptr, pITsSbTaskInfo, "HRESULT")
+        result := ComCall(6, this, BSTR, pszHostName, UInt32, SbTaskInfoSize, ITsSbTaskInfo.Ptr, pITsSbTaskInfo, "HRESULT")
         return result
     }
 

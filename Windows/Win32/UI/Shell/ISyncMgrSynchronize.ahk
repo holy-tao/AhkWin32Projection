@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNCMGRHANDLERINFO.ahk" { SYNCMGRHANDLERINFO }
+#Import ".\ISyncMgrEnumItems.ahk" { ISyncMgrEnumItems }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGRHANDLERINFO.ahk" { SYNCMGRHANDLERINFO }
 #Import ".\ISyncMgrSynchronizeCallback.ahk" { ISyncMgrSynchronizeCallback }
-#Import ".\ISyncMgrEnumItems.ahk" { ISyncMgrEnumItems }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that enable the registered application or service to receive notifications from the synchronization manager.
@@ -118,7 +118,7 @@ export default struct ISyncMgrSynchronize extends IUnknown {
     Initialize(dwReserved, dwSyncMgrFlags, cbCookie, lpCookie) {
         lpCookieMarshal := lpCookie is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwReserved, "uint", dwSyncMgrFlags, "uint", cbCookie, lpCookieMarshal, lpCookie, "HRESULT")
+        result := ComCall(3, this, UInt32, dwReserved, UInt32, dwSyncMgrFlags, UInt32, cbCookie, lpCookieMarshal, lpCookie, "HRESULT")
         return result
     }
 
@@ -301,7 +301,7 @@ export default struct ISyncMgrSynchronize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-prepareforsync
      */
     PrepareForSync(cbNumItems, pItemIDs, hWndParent, dwReserved) {
-        result := ComCall(9, this, "uint", cbNumItems, Guid.Ptr, pItemIDs, HWND, hWndParent, "uint", dwReserved, "HRESULT")
+        result := ComCall(9, this, UInt32, cbNumItems, Guid.Ptr, pItemIDs, HWND, hWndParent, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -399,7 +399,7 @@ export default struct ISyncMgrSynchronize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-setitemstatus
      */
     SetItemStatus(pItemID, dwSyncMgrStatus) {
-        result := ComCall(11, this, Guid.Ptr, pItemID, "uint", dwSyncMgrStatus, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, pItemID, UInt32, dwSyncMgrStatus, "HRESULT")
         return result
     }
 

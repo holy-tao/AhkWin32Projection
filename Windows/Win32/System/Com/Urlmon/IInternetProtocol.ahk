@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IInternetProtocolRoot.ahk" { IInternetProtocolRoot }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInternetProtocolRoot.ahk" { IInternetProtocolRoot }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -47,7 +47,7 @@ export default struct IInternetProtocol extends IInternetProtocolRoot {
     Read(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, pvMarshal, pv, "uint", cb, "uint*", &pcbRead := 0, "HRESULT")
+        result := ComCall(9, this, pvMarshal, pv, UInt32, cb, "uint*", &pcbRead := 0, "HRESULT")
         return pcbRead
     }
 
@@ -58,7 +58,7 @@ export default struct IInternetProtocol extends IInternetProtocolRoot {
      * @returns {Integer} 
      */
     Seek(dlibMove, dwOrigin) {
-        result := ComCall(10, this, "int64", dlibMove, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        result := ComCall(10, this, Int64, dlibMove, UInt32, dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
         return plibNewPosition
     }
 
@@ -68,7 +68,7 @@ export default struct IInternetProtocol extends IInternetProtocolRoot {
      * @returns {HRESULT} 
      */
     LockRequest(dwOptions) {
-        result := ComCall(11, this, "uint", dwOptions, "HRESULT")
+        result := ComCall(11, this, UInt32, dwOptions, "HRESULT")
         return result
     }
 

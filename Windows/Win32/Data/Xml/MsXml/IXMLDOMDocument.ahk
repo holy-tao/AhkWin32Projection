@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IXMLDOMProcessingInstruction.ahk" { IXMLDOMProcessingInstruction }
+#Import ".\IXMLDOMCDATASection.ahk" { IXMLDOMCDATASection }
+#Import ".\IXMLDOMText.ahk" { IXMLDOMText }
 #Import ".\IXMLDOMImplementation.ahk" { IXMLDOMImplementation }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXMLDOMDocumentType.ahk" { IXMLDOMDocumentType }
-#Import ".\IXMLDOMElement.ahk" { IXMLDOMElement }
 #Import ".\IXMLDOMNodeList.ahk" { IXMLDOMNodeList }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IXMLDOMDocumentFragment.ahk" { IXMLDOMDocumentFragment }
-#Import ".\IXMLDOMText.ahk" { IXMLDOMText }
-#Import ".\IXMLDOMParseError.ahk" { IXMLDOMParseError }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IXMLDOMEntityReference.ahk" { IXMLDOMEntityReference }
-#Import ".\IXMLDOMCDATASection.ahk" { IXMLDOMCDATASection }
+#Import ".\IXMLDOMProcessingInstruction.ahk" { IXMLDOMProcessingInstruction }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IXMLDOMParseError.ahk" { IXMLDOMParseError }
+#Import ".\IXMLDOMAttribute.ahk" { IXMLDOMAttribute }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IXMLDOMDocumentType.ahk" { IXMLDOMDocumentType }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IXMLDOMElement.ahk" { IXMLDOMElement }
+#Import ".\IXMLDOMDocumentFragment.ahk" { IXMLDOMDocumentFragment }
 #Import ".\IXMLDOMComment.ahk" { IXMLDOMComment }
 #Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
-#Import ".\IXMLDOMAttribute.ahk" { IXMLDOMAttribute }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

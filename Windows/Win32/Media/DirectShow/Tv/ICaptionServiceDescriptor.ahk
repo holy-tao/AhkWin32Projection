@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -67,7 +67,7 @@ export default struct ICaptionServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getlanguagecode
      */
     GetLanguageCode(bIndex) {
-        result := ComCall(4, this, "char", bIndex, "char*", &LangCode := 0, "HRESULT")
+        result := ComCall(4, this, Int8, bIndex, "char*", &LangCode := 0, "HRESULT")
         return LangCode
     }
 
@@ -78,7 +78,7 @@ export default struct ICaptionServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcaptionservicenumber
      */
     GetCaptionServiceNumber(bIndex) {
-        result := ComCall(5, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, Int8, bIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -106,7 +106,7 @@ export default struct ICaptionServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcctype
      */
     GetCCType(bIndex) {
-        result := ComCall(6, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(6, this, Int8, bIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -134,7 +134,7 @@ export default struct ICaptionServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-geteasyreader
      */
     GetEasyReader(bIndex) {
-        result := ComCall(7, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -162,7 +162,7 @@ export default struct ICaptionServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getwideaspectratio
      */
     GetWideAspectRatio(bIndex) {
-        result := ComCall(8, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -95,7 +95,7 @@ export default struct ISpStreamFormatConverter extends ISpStreamFormat {
      * @returns {Integer} 
      */
     ScaleConvertedToBaseOffset(ullOffsetConvertedStream) {
-        result := ComCall(19, this, "uint", ullOffsetConvertedStream, "uint*", &pullOffsetBaseStream := 0, "HRESULT")
+        result := ComCall(19, this, Int64, ullOffsetConvertedStream, "uint*", &pullOffsetBaseStream := 0, "HRESULT")
         return pullOffsetBaseStream
     }
 
@@ -105,7 +105,7 @@ export default struct ISpStreamFormatConverter extends ISpStreamFormat {
      * @returns {Integer} 
      */
     ScaleBaseToConvertedOffset(ullOffsetBaseStream) {
-        result := ComCall(20, this, "uint", ullOffsetBaseStream, "uint*", &pullOffsetConvertedStream := 0, "HRESULT")
+        result := ComCall(20, this, Int64, ullOffsetBaseStream, "uint*", &pullOffsetConvertedStream := 0, "HRESULT")
         return pullOffsetConvertedStream
     }
 

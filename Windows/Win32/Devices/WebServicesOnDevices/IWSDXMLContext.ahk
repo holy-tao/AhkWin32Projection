@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSDXML_TYPE.ahk" { WSDXML_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_NAMESPACE.ahk" { WSDXML_NAMESPACE }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WSDXML_NAMESPACE.ahk" { WSDXML_NAMESPACE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_TYPE.ahk" { WSDXML_TYPE }
 
 /**
  * Is a collection of namespaces and types used in a WSDAPI stack.
@@ -144,7 +144,7 @@ export default struct IWSDXMLContext extends IUnknown {
     SetNamespaces(pNamespaces, wNamespacesCount, bLayerNumber) {
         pNamespacesMarshal := pNamespaces is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pNamespacesMarshal, pNamespaces, "ushort", wNamespacesCount, "char", bLayerNumber, "HRESULT")
+        result := ComCall(5, this, pNamespacesMarshal, pNamespaces, UInt16, wNamespacesCount, Int8, bLayerNumber, "HRESULT")
         return result
     }
 
@@ -210,7 +210,7 @@ export default struct IWSDXMLContext extends IUnknown {
     SetTypes(pTypes, dwTypesCount, bLayerNumber) {
         pTypesMarshal := pTypes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pTypesMarshal, pTypes, "uint", dwTypesCount, "char", bLayerNumber, "HRESULT")
+        result := ComCall(6, this, pTypesMarshal, pTypes, UInt32, dwTypesCount, Int8, bLayerNumber, "HRESULT")
         return result
     }
 

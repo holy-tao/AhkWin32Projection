@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITfMenu.ahk" { ITfMenu }
-#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
-#Import ".\TfLBIClick.ahk" { TfLBIClick }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\ITfMenu.ahk" { ITfMenu }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\TfLBIClick.ahk" { TfLBIClick }
 
 /**
  * The ITfLangBarItemBitmapButton interface is implemented by a language bar bitmap button provider and is used by the language bar manager to obtain information specific to a bitmap button item on the language bar.
@@ -169,7 +169,7 @@ export default struct ITfLangBarItemBitmapButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmapbutton-onmenuselect
      */
     OnMenuSelect(wID) {
-        result := ComCall(9, this, "uint", wID, "HRESULT")
+        result := ComCall(9, this, UInt32, wID, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct ITfLangBarItemBitmapButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmapbutton-drawbitmap
      */
     DrawBitmap(bmWidth, bmHeight, dwFlags, phbmp, phbmpMask) {
-        result := ComCall(11, this, "int", bmWidth, "int", bmHeight, "uint", dwFlags, HBITMAP.Ptr, phbmp, HBITMAP.Ptr, phbmpMask, "HRESULT")
+        result := ComCall(11, this, Int32, bmWidth, Int32, bmHeight, UInt32, dwFlags, HBITMAP.Ptr, phbmp, HBITMAP.Ptr, phbmpMask, "HRESULT")
         return result
     }
 

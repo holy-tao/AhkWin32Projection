@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ICertificatePolicies.ahk" { ICertificatePolicies }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICertificatePolicies.ahk" { ICertificatePolicies }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IX509Extension.ahk" { IX509Extension }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables you to specify a collection of object identifiers (OIDs) that indicate how a certificate can be used by an application.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MFSensorDeviceMode.ahk" { MFSensorDeviceMode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import ".\MFSensorStreamType.ahk" { MFSensorStreamType }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MFSensorDeviceType.ahk" { MFSensorDeviceType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MFSensorDeviceMode.ahk" { MFSensorDeviceMode }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFSensorStreamType.ahk" { MFSensorStreamType }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Represents a sensor device that can belong to a sensor group, which is represented by the IMFSensorGroup interface. The term &quot;device&quot; in this context could refer to a physical device, a custom media source, or a frame provider.
@@ -94,7 +94,7 @@ export default struct IMFSensorDevice extends IUnknown {
     GetSymbolicLink(SymbolicLink, cchSymbolicLink) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
 
-        result := ComCall(6, this, "ptr", SymbolicLink, "int", cchSymbolicLink, "int*", &pcchWritten := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", SymbolicLink, Int32, cchSymbolicLink, "int*", &pcchWritten := 0, "HRESULT")
         return pcchWritten
     }
 
@@ -138,7 +138,7 @@ export default struct IMFSensorDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributes
      */
     GetStreamAttributes(eType, dwIndex) {
-        result := ComCall(9, this, MFSensorStreamType, eType, "uint", dwIndex, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(9, this, MFSensorStreamType, eType, UInt32, dwIndex, "ptr*", &ppAttributes := 0, "HRESULT")
         return IMFAttributes(ppAttributes)
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TfCandidateResult.ahk" { TfCandidateResult }
-#Import ".\IEnumTfCandidates.ahk" { IEnumTfCandidates }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumTfCandidates.ahk" { IEnumTfCandidates }
 #Import ".\ITfCandidateString.ahk" { ITfCandidateString }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfCandidateList interface is implemented by a text service and is used by the TSF manager or a client (application or other text service) to obtain and manipulate candidate string objects.
@@ -62,7 +62,7 @@ export default struct ITfCandidateList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-getcandidate
      */
     GetCandidate(nIndex) {
-        result := ComCall(4, this, "uint", nIndex, "ptr*", &ppCand := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, nIndex, "ptr*", &ppCand := 0, "HRESULT")
         return ITfCandidateString(ppCand)
     }
 
@@ -123,7 +123,7 @@ export default struct ITfCandidateList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-setresult
      */
     SetResult(nIndex, imcr) {
-        result := ComCall(6, this, "uint", nIndex, TfCandidateResult, imcr, "HRESULT")
+        result := ComCall(6, this, UInt32, nIndex, TfCandidateResult, imcr, "HRESULT")
         return result
     }
 

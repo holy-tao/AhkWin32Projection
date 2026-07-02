@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDSCAPS.ahk" { DDSCAPS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
 #Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
 
 /**

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumBitsPeerCacheRecords.ahk" { IEnumBitsPeerCacheRecords }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumBitsPeerCacheRecords.ahk" { IEnumBitsPeerCacheRecords }
 #Import ".\IBitsPeerCacheRecord.ahk" { IBitsPeerCacheRecord }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumBitsPeers.ahk" { IEnumBitsPeers }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use IBitsPeerCacheAdministration to manage the pool of peers from which you can download content.
@@ -112,7 +112,7 @@ export default struct IBitsPeerCacheAdministration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-setmaximumcachesize
      */
     SetMaximumCacheSize(Bytes) {
-        result := ComCall(4, this, "uint", Bytes, "HRESULT")
+        result := ComCall(4, this, UInt32, Bytes, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IBitsPeerCacheAdministration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-setmaximumcontentage
      */
     SetMaximumContentAge(Seconds) {
-        result := ComCall(6, this, "uint", Seconds, Int32)
+        result := ComCall(6, this, UInt32, Seconds, Int32)
         return result
     }
 
@@ -291,7 +291,7 @@ export default struct IBitsPeerCacheAdministration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-setconfigurationflags
      */
     SetConfigurationFlags(Flags) {
-        result := ComCall(8, this, "uint", Flags, "HRESULT")
+        result := ComCall(8, this, UInt32, Flags, "HRESULT")
         return result
     }
 

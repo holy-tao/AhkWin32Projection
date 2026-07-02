@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\INetConnection.ahk" { INetConnection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\INetConnection.ahk" { INetConnection }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
@@ -56,7 +56,7 @@ export default struct INetConnectionConnectUi extends IUnknown {
      * @returns {HRESULT} 
      */
     Connect(hwndParent, dwFlags) {
-        result := ComCall(4, this, HWND, hwndParent, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct INetConnectionConnectUi extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-disconnect
      */
     Disconnect(hwndParent, dwFlags) {
-        result := ComCall(5, this, HWND, hwndParent, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, HWND, hwndParent, UInt32, dwFlags, "HRESULT")
         return result
     }
 

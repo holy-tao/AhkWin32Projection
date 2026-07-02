@@ -3,10 +3,10 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFCdmSuspendNotify.ahk" { IMFCdmSuspendNotify }
 #Import ".\IMFMediaKeySessionNotify.ahk" { IMFMediaKeySessionNotify }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMFMediaKeySession.ahk" { IMFMediaKeySession }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaKeySession.ahk" { IMFMediaKeySession }
 
 /**
  * Represents a media keys used for decrypting media data using a Digital Rights Management (DRM) key system.
@@ -65,7 +65,7 @@ export default struct IMFMediaKeys extends IUnknown {
     CreateSession(mimeType, initData, cb, customData, cbCustomData, notify) {
         mimeType := mimeType is String ? BSTR.Alloc(mimeType).Value : mimeType
 
-        result := ComCall(3, this, BSTR, mimeType, "ptr", initData, "uint", cb, "ptr", customData, "uint", cbCustomData, "ptr", notify, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, mimeType, IntPtr, initData, UInt32, cb, IntPtr, customData, UInt32, cbCustomData, "ptr", notify, "ptr*", &ppSession := 0, "HRESULT")
         return IMFMediaKeySession(ppSession)
     }
 

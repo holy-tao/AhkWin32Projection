@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11VideoContext1.ahk" { ID3D11VideoContext1 }
-#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
 #Import "..\Dxgi\DXGI_HDR_METADATA_TYPE.ahk" { DXGI_HDR_METADATA_TYPE }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import ".\ID3D11VideoContext1.ahk" { ID3D11VideoContext1 }
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext2)
@@ -61,7 +61,7 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorsetoutputhdrmetadata
      */
     VideoProcessorSetOutputHDRMetaData(pVideoProcessor, Type, _Size, pHDRMetaData) {
-        ComCall(79, this, "ptr", pVideoProcessor, DXGI_HDR_METADATA_TYPE, Type, "uint", _Size, "ptr", pHDRMetaData)
+        ComCall(79, this, "ptr", pVideoProcessor, DXGI_HDR_METADATA_TYPE, Type, UInt32, _Size, IntPtr, pHDRMetaData)
     }
 
     /**
@@ -82,7 +82,7 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
     VideoProcessorGetOutputHDRMetaData(pVideoProcessor, pType, _Size, pMetaData) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        ComCall(80, this, "ptr", pVideoProcessor, pTypeMarshal, pType, "uint", _Size, "ptr", pMetaData)
+        ComCall(80, this, "ptr", pVideoProcessor, pTypeMarshal, pType, UInt32, _Size, IntPtr, pMetaData)
     }
 
     /**
@@ -106,7 +106,7 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorsetstreamhdrmetadata
      */
     VideoProcessorSetStreamHDRMetaData(pVideoProcessor, StreamIndex, Type, _Size, pHDRMetaData) {
-        ComCall(81, this, "ptr", pVideoProcessor, "uint", StreamIndex, DXGI_HDR_METADATA_TYPE, Type, "uint", _Size, "ptr", pHDRMetaData)
+        ComCall(81, this, "ptr", pVideoProcessor, UInt32, StreamIndex, DXGI_HDR_METADATA_TYPE, Type, UInt32, _Size, IntPtr, pHDRMetaData)
     }
 
     /**
@@ -128,7 +128,7 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
     VideoProcessorGetStreamHDRMetaData(pVideoProcessor, StreamIndex, pType, _Size, pMetaData) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        ComCall(82, this, "ptr", pVideoProcessor, "uint", StreamIndex, pTypeMarshal, pType, "uint", _Size, "ptr", pMetaData)
+        ComCall(82, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pTypeMarshal, pType, UInt32, _Size, IntPtr, pMetaData)
     }
 
     Query(iid) {

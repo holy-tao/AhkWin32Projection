@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\GPMReportType.ahk" { GPMReportType }
-#Import ".\IGPMDomain2.ahk" { IGPMDomain2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGPMResult.ahk" { IGPMResult }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMDomain2.ahk" { IGPMDomain2 }
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy
@@ -97,7 +97,7 @@ export default struct IGPMDomain3 extends IGPMDomain2 {
      * @returns {HRESULT} 
      */
     put_InfrastructureFlags(dwFlags) {
-        result := ComCall(26, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(26, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

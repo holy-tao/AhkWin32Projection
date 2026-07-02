@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContext.ahk" { ITfContext }
-#Import ".\ITfRange.ahk" { ITfRange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\ITfContext.ahk" { ITfContext }
 
 /**
  * The ITfTransitoryExtensionSink interface is implemented by the application that uses Transitory Extension dim. The application can track the changes that happened in the transitory extension by using this sink interface.
@@ -50,7 +50,7 @@ export default struct ITfTransitoryExtensionSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftransitoryextensionsink-ontransitoryextensionupdated
      */
     OnTransitoryExtensionUpdated(pic, ecReadOnly, pResultRange, pCompositionRange) {
-        result := ComCall(3, this, "ptr", pic, "uint", ecReadOnly, "ptr", pResultRange, "ptr", pCompositionRange, BOOL.Ptr, &pfDeleteResultRange := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pic, UInt32, ecReadOnly, "ptr", pResultRange, "ptr", pCompositionRange, BOOL.Ptr, &pfDeleteResultRange := 0, "HRESULT")
         return pfDeleteResultRange
     }
 

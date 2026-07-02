@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFSTREAMSINK_MARKER_TYPE.ahk" { MFSTREAMSINK_MARKER_TYPE }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
-#Import ".\IMFSample.ahk" { IMFSample }
-#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFSTREAMSINK_MARKER_TYPE.ahk" { MFSTREAMSINK_MARKER_TYPE }
+#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
 #Import ".\IMFMediaTypeHandler.ahk" { IMFMediaTypeHandler }
 
 /**

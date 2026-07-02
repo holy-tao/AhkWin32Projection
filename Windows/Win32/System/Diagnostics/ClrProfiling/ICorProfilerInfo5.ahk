@@ -57,7 +57,7 @@ export default struct ICorProfilerInfo5 extends ICorProfilerInfo4 {
      * @returns {HRESULT} 
      */
     SetEventMask2(dwEventsLow, dwEventsHigh) {
-        result := ComCall(82, this, "uint", dwEventsLow, "uint", dwEventsHigh, "HRESULT")
+        result := ComCall(82, this, UInt32, dwEventsLow, UInt32, dwEventsHigh, "HRESULT")
         return result
     }
 

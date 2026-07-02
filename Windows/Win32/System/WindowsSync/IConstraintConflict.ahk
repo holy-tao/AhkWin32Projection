@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CONSTRAINT_CONFLICT_REASON.ahk" { CONSTRAINT_CONFLICT_REASON }
-#Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncChange.ahk" { ISyncChange }
 #Import ".\SYNC_CONSTRAINT_RESOLVE_ACTION.ahk" { SYNC_CONSTRAINT_RESOLVE_ACTION }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync

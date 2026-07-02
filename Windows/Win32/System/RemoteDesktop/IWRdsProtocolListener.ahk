@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WRDS_LISTENER_SETTING_LEVEL.ahk" { WRDS_LISTENER_SETTING_LEVEL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWRdsProtocolListenerCallback.ahk" { IWRdsProtocolListenerCallback }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WRDS_LISTENER_SETTINGS.ahk" { WRDS_LISTENER_SETTINGS }
+#Import ".\IWRdsProtocolListenerCallback.ahk" { IWRdsProtocolListenerCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that request that the protocol start and stop listening for client connection requests.

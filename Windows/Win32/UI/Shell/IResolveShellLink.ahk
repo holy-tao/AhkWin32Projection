@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that enables an application to request that a Shell folder object resolve a link for one of its items.
@@ -71,7 +71,7 @@ export default struct IResolveShellLink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iresolveshelllink-resolveshelllink
      */
     ResolveShellLink(punkLink, _hwnd, fFlags) {
-        result := ComCall(3, this, "ptr", punkLink, HWND, _hwnd, "uint", fFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", punkLink, HWND, _hwnd, UInt32, fFlags, "HRESULT")
         return result
     }
 

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IOpcPartSet.ahk" { IOpcPartSet }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IOpcRelationshipSet.ahk" { IOpcRelationshipSet }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcRelationshipSet.ahk" { IOpcRelationshipSet }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a package and provides methods to access the package's parts and relationships.

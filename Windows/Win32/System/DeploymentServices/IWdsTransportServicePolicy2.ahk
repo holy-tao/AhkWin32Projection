@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WDSTRANSPORT_UDP_PORT_POLICY.ahk" { WDSTRANSPORT_UDP_PORT_POLICY }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWdsTransportServicePolicy.ahk" { IWdsTransportServicePolicy }
 
 /**
@@ -106,7 +106,7 @@ export default struct IWdsTransportServicePolicy2 extends IWdsTransportServicePo
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_tftpmaximumblocksize
      */
     put_TftpMaximumBlockSize(ulTftpMaximumBlockSize) {
-        result := ComCall(26, this, "uint", ulTftpMaximumBlockSize, "HRESULT")
+        result := ComCall(26, this, UInt32, ulTftpMaximumBlockSize, "HRESULT")
         return result
     }
 

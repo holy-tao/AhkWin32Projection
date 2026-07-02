@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DODownloadState.ahk" { DODownloadState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to obtain the status of a specific download.

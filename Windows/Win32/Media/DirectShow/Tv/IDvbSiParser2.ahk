@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDvbSiParser.ahk" { IDvbSiParser }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDvbSiParser.ahk" { IDvbSiParser }
 #Import ".\IDVB_EIT2.ahk" { IDVB_EIT2 }
 
 /**
@@ -62,7 +62,7 @@ export default struct IDvbSiParser2 extends IDvbSiParser {
         pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
         pbSegmentMarshal := pbSegment is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, "char", tableId, pwServiceIdMarshal, pwServiceId, pbSegmentMarshal, pbSegment, "ptr*", &ppEIT := 0, "HRESULT")
+        result := ComCall(18, this, Int8, tableId, pwServiceIdMarshal, pwServiceId, pbSegmentMarshal, pbSegment, "ptr*", &ppEIT := 0, "HRESULT")
         return IDVB_EIT2(ppEIT)
     }
 

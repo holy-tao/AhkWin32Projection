@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D10_EFFECT_TYPE_DESC.ahk" { D3D10_EFFECT_TYPE_DESC }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D10_EFFECT_TYPE_DESC.ahk" { D3D10_EFFECT_TYPE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ID3D10EffectType interface accesses effect variables by type.
@@ -87,7 +87,7 @@ export default struct ID3D10EffectType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getmembertypebyindex
      */
     GetMemberTypeByIndex(Index) {
-        result := ComCall(2, this, "uint", Index, ID3D10EffectType)
+        result := ComCall(2, this, UInt32, Index, ID3D10EffectType)
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct ID3D10EffectType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getmembername
      */
     GetMemberName(Index) {
-        result := ComCall(5, this, "uint", Index, PSTR)
+        result := ComCall(5, this, UInt32, Index, PSTR)
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct ID3D10EffectType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getmembersemantic
      */
     GetMemberSemantic(Index) {
-        result := ComCall(6, this, "uint", Index, PSTR)
+        result := ComCall(6, this, UInt32, Index, PSTR)
         return result
     }
 

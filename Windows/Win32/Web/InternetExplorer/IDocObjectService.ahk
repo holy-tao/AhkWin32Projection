@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\MsHtml\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\MsHtml\IHTMLElement.ahk" { IHTMLElement }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\MsHtml\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
@@ -69,7 +69,7 @@ export default struct IDocObjectService extends IUnknown {
 
         pPostDataMarshal := pPostData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pDispatch, "ptr", lpszUrl, "uint", dwFlags, "ptr", lpszFrameName, pPostDataMarshal, pPostData, "uint", cbPostData, "ptr", lpszHeaders, BOOL, fPlayNavSound, BOOL.Ptr, &pfCancel := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDispatch, "ptr", lpszUrl, UInt32, dwFlags, "ptr", lpszFrameName, pPostDataMarshal, pPostData, UInt32, cbPostData, "ptr", lpszHeaders, BOOL, fPlayNavSound, BOOL.Ptr, &pfCancel := 0, "HRESULT")
         return pfCancel
     }
 
@@ -80,7 +80,7 @@ export default struct IDocObjectService extends IUnknown {
      * @returns {HRESULT} 
      */
     FireNavigateComplete2(pHTMLWindow2, dwFlags) {
-        result := ComCall(4, this, "ptr", pHTMLWindow2, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", pHTMLWindow2, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct IDocObjectService extends IUnknown {
      * @returns {HRESULT} 
      */
     FireDocumentComplete(pHTMLWindow, dwFlags) {
-        result := ComCall(7, this, "ptr", pHTMLWindow, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, "ptr", pHTMLWindow, UInt32, dwFlags, "HRESULT")
         return result
     }
 

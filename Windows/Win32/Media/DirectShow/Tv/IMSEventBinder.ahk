@@ -92,7 +92,7 @@ export default struct IMSEventBinder extends IDispatch {
      * @returns {HRESULT} 
      */
     Unbind(CancelCookie) {
-        result := ComCall(8, this, "uint", CancelCookie, "HRESULT")
+        result := ComCall(8, this, UInt32, CancelCookie, "HRESULT")
         return result
     }
 

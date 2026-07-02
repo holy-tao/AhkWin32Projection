@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SpeechStreamSeekPositionType.ahk" { SpeechStreamSeekPositionType }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpeechStreamSeekPositionType.ahk" { SpeechStreamSeekPositionType }
+#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -78,7 +78,7 @@ export default struct ISpeechBaseStream extends IDispatch {
     Read(_Buffer, NumberOfBytes, BytesRead) {
         BytesReadMarshal := BytesRead is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, VARIANT.Ptr, _Buffer, "int", NumberOfBytes, BytesReadMarshal, BytesRead, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, _Buffer, Int32, NumberOfBytes, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 

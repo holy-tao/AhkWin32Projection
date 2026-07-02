@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
+#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
+#Import ".\IAzScopes.ahk" { IAzScopes }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAzTasks.ahk" { IAzTasks }
 #Import ".\IAzTask.ahk" { IAzTask }
+#Import ".\IAzRoles.ahk" { IAzRoles }
+#Import ".\IAzRole.ahk" { IAzRole }
+#Import ".\IAzTasks.ahk" { IAzTasks }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IAzScope.ahk" { IAzScope }
 #Import ".\IAzOperations.ahk" { IAzOperations }
+#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
 #Import ".\IAzClientContext.ahk" { IAzClientContext }
 #Import ".\IAzOperation.ahk" { IAzOperation }
-#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IAzScopes.ahk" { IAzScopes }
-#Import ".\IAzRole.ahk" { IAzRole }
-#Import ".\IAzRoles.ahk" { IAzRoles }
 
 /**
  * Defines an installed instance of an application. An IAzApplication object is created when an application is installed.
@@ -625,7 +625,7 @@ export default struct IAzApplication extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(22, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
+        result := ComCall(22, this, Int32, lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -803,7 +803,7 @@ export default struct IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(23, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(23, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1246,7 +1246,7 @@ export default struct IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-initializeclientcontextfromtoken
      */
     InitializeClientContextFromToken(ullTokenHandle, varReserved) {
-        result := ComCall(50, this, "uint", ullTokenHandle, VARIANT, varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        result := ComCall(50, this, Int64, ullTokenHandle, VARIANT, varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
         return IAzClientContext(ppClientContext)
     }
 
@@ -1334,7 +1334,7 @@ export default struct IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(51, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(51, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1422,7 +1422,7 @@ export default struct IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(52, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(52, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1438,7 +1438,7 @@ export default struct IAzApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(53, this, "int", lFlags, VARIANT, varReserved, "HRESULT")
+        result := ComCall(53, this, Int32, lFlags, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1561,7 +1561,7 @@ export default struct IAzApplication extends IDispatch {
     InitializeClientContextFromStringSid(SidString, lOptions, varReserved) {
         SidString := SidString is String ? BSTR.Alloc(SidString).Value : SidString
 
-        result := ComCall(58, this, BSTR, SidString, "int", lOptions, VARIANT, varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        result := ComCall(58, this, BSTR, SidString, Int32, lOptions, VARIANT, varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
         return IAzClientContext(ppClientContext)
     }
 

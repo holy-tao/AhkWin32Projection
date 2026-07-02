@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RowOrColumnMajor.ahk" { RowOrColumnMajor }
 #Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\RowOrColumnMajor.ahk" { RowOrColumnMajor }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to a control that acts as a container for a collection of child elements.

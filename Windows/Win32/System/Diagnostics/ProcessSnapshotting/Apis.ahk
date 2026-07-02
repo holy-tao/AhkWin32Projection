@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HPSS.ahk" { HPSS }
 #Import ".\PSS_QUERY_INFORMATION_CLASS.ahk" { PSS_QUERY_INFORMATION_CLASS }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\HPSS.ahk" { HPSS }
 #Import ".\PSS_DUPLICATE_FLAGS.ahk" { PSS_DUPLICATE_FLAGS }
-#Import ".\PSS_WALK_INFORMATION_CLASS.ahk" { PSS_WALK_INFORMATION_CLASS }
-#Import ".\HPSSWALK.ahk" { HPSSWALK }
 #Import ".\PSS_ALLOCATOR.ahk" { PSS_ALLOCATOR }
+#Import ".\HPSSWALK.ahk" { HPSSWALK }
 #Import ".\PSS_CAPTURE_FLAGS.ahk" { PSS_CAPTURE_FLAGS }
+#Import ".\PSS_WALK_INFORMATION_CLASS.ahk" { PSS_WALK_INFORMATION_CLASS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
@@ -27,7 +27,7 @@
  * @since windows8.1
  */
 export PssCaptureSnapshot(ProcessHandle, CaptureFlags, ThreadContextFlags, SnapshotHandle) {
-    result := DllCall("KERNEL32.dll\PssCaptureSnapshot", HANDLE, ProcessHandle, PSS_CAPTURE_FLAGS, CaptureFlags, "uint", ThreadContextFlags, HPSS.Ptr, SnapshotHandle, UInt32)
+    result := DllCall("KERNEL32.dll\PssCaptureSnapshot", HANDLE, ProcessHandle, PSS_CAPTURE_FLAGS, CaptureFlags, UInt32, ThreadContextFlags, HPSS.Ptr, SnapshotHandle, UInt32)
     return result
 }
 
@@ -149,7 +149,7 @@ export PssFreeSnapshot(ProcessHandle, SnapshotHandle) {
  * @since windows8.1
  */
 export PssQuerySnapshot(SnapshotHandle, InformationClass, _Buffer, BufferLength) {
-    result := DllCall("KERNEL32.dll\PssQuerySnapshot", HPSS, SnapshotHandle, PSS_QUERY_INFORMATION_CLASS, InformationClass, "ptr", _Buffer, "uint", BufferLength, UInt32)
+    result := DllCall("KERNEL32.dll\PssQuerySnapshot", HPSS, SnapshotHandle, PSS_QUERY_INFORMATION_CLASS, InformationClass, IntPtr, _Buffer, UInt32, BufferLength, UInt32)
     return result
 }
 
@@ -245,7 +245,7 @@ export PssQuerySnapshot(SnapshotHandle, InformationClass, _Buffer, BufferLength)
 export PssWalkSnapshot(SnapshotHandle, InformationClass, WalkMarkerHandle, _Buffer, BufferLength) {
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\PssWalkSnapshot", HPSS, SnapshotHandle, PSS_WALK_INFORMATION_CLASS, InformationClass, HPSSWALK, WalkMarkerHandle, _BufferMarshal, _Buffer, "uint", BufferLength, UInt32)
+    result := DllCall("KERNEL32.dll\PssWalkSnapshot", HPSS, SnapshotHandle, PSS_WALK_INFORMATION_CLASS, InformationClass, HPSSWALK, WalkMarkerHandle, _BufferMarshal, _Buffer, UInt32, BufferLength, UInt32)
     return result
 }
 
@@ -370,7 +370,7 @@ export PssWalkMarkerGetPosition(WalkMarkerHandle, Position) {
  * @since windows8.1
  */
 export PssWalkMarkerSetPosition(WalkMarkerHandle, Position) {
-    result := DllCall("KERNEL32.dll\PssWalkMarkerSetPosition", HPSSWALK, WalkMarkerHandle, "ptr", Position, UInt32)
+    result := DllCall("KERNEL32.dll\PssWalkMarkerSetPosition", HPSSWALK, WalkMarkerHandle, IntPtr, Position, UInt32)
     return result
 }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\KNOWNFOLDER_DEFINITION.ahk" { KNOWNFOLDER_DEFINITION }
-#Import ".\KF_CATEGORY.ahk" { KF_CATEGORY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\KF_CATEGORY.ahk" { KF_CATEGORY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\KNOWNFOLDER_DEFINITION.ahk" { KNOWNFOLDER_DEFINITION }
 
 /**
  * Exposes methods that allow an application to retrieve information about a known folder's category, type, GUID, pointer to an item identifier list (PIDL) value, redirection capabilities, and definition.
@@ -92,7 +92,7 @@ export default struct IKnownFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getshellitem
      */
     GetShellItem(dwFlags, riid) {
-        result := ComCall(5, this, "uint", dwFlags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -109,7 +109,7 @@ export default struct IKnownFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getpath
      */
     GetPath(dwFlags) {
-        result := ComCall(6, this, "uint", dwFlags, PWSTR.Ptr, &ppszPath := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFlags, PWSTR.Ptr, &ppszPath := 0, "HRESULT")
         return ppszPath
     }
 
@@ -135,7 +135,7 @@ export default struct IKnownFolder extends IUnknown {
     SetPath(dwFlags, pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(7, this, "uint", dwFlags, "ptr", pszPath, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, "ptr", pszPath, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IKnownFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getidlist
      */
     GetIDList(dwFlags) {
-        result := ComCall(8, this, "uint", dwFlags, "ptr*", &ppidl := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFlags, "ptr*", &ppidl := 0, "HRESULT")
         return ppidl
     }
 

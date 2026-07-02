@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\SID.ahk" { SID }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SID.ahk" { SID }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**

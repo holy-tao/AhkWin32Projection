@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
 #Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
 #Import ".\DXGI_RESOURCE_PRIORITY.ahk" { DXGI_RESOURCE_PRIORITY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }

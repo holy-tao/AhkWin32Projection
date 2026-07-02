@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The INSSBuffer interface is the basic interface of a buffer object.
@@ -89,7 +89,7 @@ export default struct INSSBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer-setlength
      */
     SetLength(dwLength) {
-        result := ComCall(4, this, "uint", dwLength, "HRESULT")
+        result := ComCall(4, this, UInt32, dwLength, "HRESULT")
         return result
     }
 

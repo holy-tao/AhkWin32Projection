@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHTMLStyleSheetPagesCollection.ahk" { IHTMLStyleSheetPagesCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLStyleSheetPagesCollection.ahk" { IHTMLStyleSheetPagesCollection }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -65,7 +65,7 @@ export default struct IHTMLStyleSheet2 extends IDispatch {
         bstrSelector := bstrSelector is String ? BSTR.Alloc(bstrSelector).Value : bstrSelector
         bstrStyle := bstrStyle is String ? BSTR.Alloc(bstrStyle).Value : bstrStyle
 
-        result := ComCall(8, this, BSTR, bstrSelector, BSTR, bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrSelector, BSTR, bstrStyle, Int32, lIndex, "int*", &plNewIndex := 0, "HRESULT")
         return plNewIndex
     }
 

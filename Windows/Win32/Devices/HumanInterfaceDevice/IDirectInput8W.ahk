@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirectInputDevice8W.ahk" { IDirectInputDevice8W }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\DICONFIGUREDEVICESPARAMSW.ahk" { DICONFIGUREDEVICESPARAMSW }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\LPDICONFIGUREDEVICESCALLBACK.ahk" { LPDICONFIGUREDEVICESCALLBACK }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\LPDIENUMDEVICESCALLBACKW.ahk" { LPDIENUMDEVICESCALLBACKW }
+#Import ".\DICONFIGUREDEVICESPARAMSW.ahk" { DICONFIGUREDEVICESPARAMSW }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DIACTIONFORMATW.ahk" { DIACTIONFORMATW }
+#Import ".\IDirectInputDevice8W.ahk" { IDirectInputDevice8W }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\LPDIENUMDEVICESBYSEMANTICSCBW.ahk" { LPDIENUMDEVICESBYSEMANTICSCBW }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -71,7 +74,7 @@ export default struct IDirectInput8W extends IUnknown {
     EnumDevices(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
+        result := ComCall(4, this, UInt32, param0, LPDIENUMDEVICESCALLBACKW, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
@@ -92,7 +95,7 @@ export default struct IDirectInput8W extends IUnknown {
      * @returns {HRESULT} 
      */
     RunControlPanel(param0, param1) {
-        result := ComCall(6, this, HWND, param0, "uint", param1, "HRESULT")
+        result := ComCall(6, this, HWND, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -127,7 +130,7 @@ export default struct IDirectInput8W extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1) {
-        result := ComCall(7, this, HINSTANCE, param0, "uint", param1, "HRESULT")
+        result := ComCall(7, this, HINSTANCE, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -159,7 +162,7 @@ export default struct IDirectInput8W extends IUnknown {
 
         param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", param0, DIACTIONFORMATW.Ptr, param1, "ptr", param2, param3Marshal, param3, "uint", param4, "HRESULT")
+        result := ComCall(9, this, "ptr", param0, DIACTIONFORMATW.Ptr, param1, LPDIENUMDEVICESBYSEMANTICSCBW, param2, param3Marshal, param3, UInt32, param4, "HRESULT")
         return result
     }
 
@@ -174,7 +177,7 @@ export default struct IDirectInput8W extends IUnknown {
     ConfigureDevices(param0, param1, param2, param3) {
         param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", param0, DICONFIGUREDEVICESPARAMSW.Ptr, param1, "uint", param2, param3Marshal, param3, "HRESULT")
+        result := ComCall(10, this, LPDICONFIGUREDEVICESCALLBACK, param0, DICONFIGUREDEVICESPARAMSW.Ptr, param1, UInt32, param2, param3Marshal, param3, "HRESULT")
         return result
     }
 

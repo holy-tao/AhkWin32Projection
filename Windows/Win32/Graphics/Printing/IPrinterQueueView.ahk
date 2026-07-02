@@ -48,7 +48,7 @@ export default struct IPrinterQueueView extends IDispatch {
      * @returns {HRESULT} 
      */
     SetViewRange(ulViewOffset, ulViewSize) {
-        result := ComCall(7, this, "uint", ulViewOffset, "uint", ulViewSize, "HRESULT")
+        result := ComCall(7, this, UInt32, ulViewOffset, UInt32, ulViewSize, "HRESULT")
         return result
     }
 

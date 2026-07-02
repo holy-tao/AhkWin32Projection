@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IWMWriterNetworkSink.ahk" { IWMWriterNetworkSink }
-#Import ".\IWMWriterPushSink.ahk" { IWMWriterPushSink }
+#Import ".\IWMIndexer.ahk" { IWMIndexer }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWMReader.ahk" { IWMReader }
 #Import ".\IWMWriter.ahk" { IWMWriter }
 #Import ".\IWMProfileManager.ahk" { IWMProfileManager }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMReader.ahk" { IWMReader }
+#Import ".\IWMWriterFileSink.ahk" { IWMWriterFileSink }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMLicenseBackup.ahk" { IWMLicenseBackup }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWMWriterNetworkSink.ahk" { IWMWriterNetworkSink }
+#Import ".\IWMWriterPushSink.ahk" { IWMWriterPushSink }
 #Import ".\IWMMetadataEditor.ahk" { IWMMetadataEditor }
 #Import ".\IWMSyncReader.ahk" { IWMSyncReader }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWMLicenseBackup.ahk" { IWMLicenseBackup }
-#Import ".\IWMIndexer.ahk" { IWMIndexer }
-#Import ".\IWMWriterFileSink.ahk" { IWMWriterFileSink }
 
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat
@@ -102,7 +102,7 @@ export WMCreateWriter(pUnkCert) {
  * @since windows5.0
  */
 export WMCreateReader(pUnkCert, dwRights) {
-    result := DllCall("WMVCore.dll\WMCreateReader", "ptr", pUnkCert, "uint", dwRights, "ptr*", &ppReader := 0, "HRESULT")
+    result := DllCall("WMVCore.dll\WMCreateReader", "ptr", pUnkCert, UInt32, dwRights, "ptr*", &ppReader := 0, "HRESULT")
     return IWMReader(ppReader)
 }
 
@@ -115,7 +115,7 @@ export WMCreateReader(pUnkCert, dwRights) {
  * @since windows5.0
  */
 export WMCreateSyncReader(pUnkCert, dwRights) {
-    result := DllCall("WMVCore.dll\WMCreateSyncReader", "ptr", pUnkCert, "uint", dwRights, "ptr*", &ppSyncReader := 0, "HRESULT")
+    result := DllCall("WMVCore.dll\WMCreateSyncReader", "ptr", pUnkCert, UInt32, dwRights, "ptr*", &ppSyncReader := 0, "HRESULT")
     return IWMSyncReader(ppSyncReader)
 }
 

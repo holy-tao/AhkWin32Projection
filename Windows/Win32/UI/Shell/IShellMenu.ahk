@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import ".\IShellMenuCallback.ahk" { IShellMenuCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SMDATA.ahk" { SMDATA }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IShellFolder.ahk" { IShellFolder }
-#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**
  * Exposes methods that interact with Shell menus such as the Start menu, and the Favorites menu.
@@ -157,7 +157,7 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-initialize
      */
     Initialize(psmc, uId, uIdAncestor, dwFlags) {
-        result := ComCall(3, this, "ptr", psmc, "uint", uId, "uint", uIdAncestor, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", psmc, UInt32, uId, UInt32, uIdAncestor, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setshellfolder
      */
     SetShellFolder(psf, pidlFolder, _hKey, dwFlags) {
-        result := ComCall(5, this, "ptr", psf, ITEMIDLIST.Ptr, pidlFolder, HKEY, _hKey, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", psf, ITEMIDLIST.Ptr, pidlFolder, HKEY, _hKey, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -345,7 +345,7 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setmenu
      */
     SetMenu(_hmenu, _hwnd, dwFlags) {
-        result := ComCall(7, this, HMENU, _hmenu, HWND, _hwnd, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, HMENU, _hmenu, HWND, _hwnd, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -386,7 +386,7 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-invalidateitem
      */
     InvalidateItem(psmd, dwFlags) {
-        result := ComCall(9, this, SMDATA.Ptr, psmd, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, SMDATA.Ptr, psmd, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -417,7 +417,7 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setmenutoolbar
      */
     SetMenuToolbar(punk, dwFlags) {
-        result := ComCall(11, this, "ptr", punk, "uint", dwFlags, "HRESULT")
+        result := ComCall(11, this, "ptr", punk, UInt32, dwFlags, "HRESULT")
         return result
     }
 

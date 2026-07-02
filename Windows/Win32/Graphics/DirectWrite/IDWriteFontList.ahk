@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFont.ahk" { IDWriteFont }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
 
 /**
  * Represents a list of fonts. (IDWriteFontList)
@@ -76,7 +76,7 @@ export default struct IDWriteFontList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontlist-getfont
      */
     GetFont(index) {
-        result := ComCall(5, this, "uint", index, "ptr*", &_font := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr*", &_font := 0, "HRESULT")
         return IDWriteFont(_font)
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Media\DirectShow\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITAllocatorProperties interface (tapi3ds.h) exposes the buffer allocator properties of the Media Streaming Terminal (MST) to an end-user or server application.
@@ -99,7 +99,7 @@ export default struct ITAllocatorProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-setbuffersize
      */
     SetBufferSize(BufferSize) {
-        result := ComCall(7, this, "uint", BufferSize, "HRESULT")
+        result := ComCall(7, this, UInt32, BufferSize, "HRESULT")
         return result
     }
 

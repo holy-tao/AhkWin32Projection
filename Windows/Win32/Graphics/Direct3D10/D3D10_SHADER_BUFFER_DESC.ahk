@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Direct3D\D3D_CBUFFER_TYPE.ahk" { D3D_CBUFFER_TYPE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Direct3D\D3D_CBUFFER_TYPE.ahk" { D3D_CBUFFER_TYPE }
 
 /**
  * Describes a shader constant-buffer. (D3D10_SHADER_BUFFER_DESC)

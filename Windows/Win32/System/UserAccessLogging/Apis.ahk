@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\UAL_DATA_BLOB.ahk" { UAL_DATA_BLOB }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UAL_DATA_BLOB.ahk" { UAL_DATA_BLOB }
 
 /**
  * @namespace Windows.Win32.System.UserAccessLogging

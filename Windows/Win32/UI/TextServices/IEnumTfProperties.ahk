@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITfProperty.ahk" { ITfProperty }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumTfProperties interface is implemented by the TSF manager to provide an enumeration of property objects.
@@ -102,7 +102,7 @@ export default struct IEnumTfProperties extends IUnknown {
     Next(ulCount, ppProp, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, ITfProperty.Ptr, ppProp, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, ITfProperty.Ptr, ppProp, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IEnumTfProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfproperties-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

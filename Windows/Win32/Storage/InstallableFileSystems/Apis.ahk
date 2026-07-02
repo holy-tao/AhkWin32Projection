@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HFILTER.ahk" { HFILTER }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\HFILTER_INSTANCE.ahk" { HFILTER_INSTANCE }
+#Import ".\HFILTER.ahk" { HFILTER }
+#Import ".\FILTER_INFORMATION_CLASS.ahk" { FILTER_INFORMATION_CLASS }
 #Import ".\INSTANCE_INFORMATION_CLASS.ahk" { INSTANCE_INFORMATION_CLASS }
 #Import ".\FILTER_VOLUME_INFORMATION_CLASS.ahk" { FILTER_VOLUME_INFORMATION_CLASS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HFILTER_INSTANCE.ahk" { HFILTER_INSTANCE }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import ".\FILTER_INFORMATION_CLASS.ahk" { FILTER_INFORMATION_CLASS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
@@ -309,7 +309,7 @@ export FilterAttach(lpFilterName, lpVolumeName, lpInstanceName, dwCreatedInstanc
     lpVolumeName := lpVolumeName is String ? StrPtr(lpVolumeName) : lpVolumeName
     lpInstanceName := lpInstanceName is String ? StrPtr(lpInstanceName) : lpInstanceName
 
-    result := DllCall("FLTLIB.dll\FilterAttach", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpInstanceName, "uint", dwCreatedInstanceNameLength, "ptr", lpCreatedInstanceName, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterAttach", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpInstanceName, UInt32, dwCreatedInstanceNameLength, IntPtr, lpCreatedInstanceName, "HRESULT")
     return result
 }
 
@@ -395,7 +395,7 @@ export FilterAttachAtAltitude(lpFilterName, lpVolumeName, lpAltitude, lpInstance
     lpAltitude := lpAltitude is String ? StrPtr(lpAltitude) : lpAltitude
     lpInstanceName := lpInstanceName is String ? StrPtr(lpInstanceName) : lpInstanceName
 
-    result := DllCall("FLTLIB.dll\FilterAttachAtAltitude", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpAltitude, "ptr", lpInstanceName, "uint", dwCreatedInstanceNameLength, "ptr", lpCreatedInstanceName, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterAttachAtAltitude", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpAltitude, "ptr", lpInstanceName, UInt32, dwCreatedInstanceNameLength, IntPtr, lpCreatedInstanceName, "HRESULT")
     return result
 }
 
@@ -506,7 +506,7 @@ export FilterDetach(lpFilterName, lpVolumeName, lpInstanceName) {
 export FilterFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpFilterFind) {
     lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("FLTLIB.dll\FilterFindFirst", FILTER_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, HANDLE.Ptr, lpFilterFind, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterFindFirst", FILTER_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, HANDLE.Ptr, lpFilterFind, "HRESULT")
     return result
 }
 
@@ -529,7 +529,7 @@ export FilterFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturn
  * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterfindnext
  */
 export FilterFindNext(hFilterFind, dwInformationClass, lpBuffer, dwBufferSize) {
-    result := DllCall("FLTLIB.dll\FilterFindNext", HANDLE, hFilterFind, FILTER_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterFindNext", HANDLE, hFilterFind, FILTER_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
     return lpBytesReturned
 }
 
@@ -607,7 +607,7 @@ export FilterFindClose(hFilterFind) {
 export FilterVolumeFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpVolumeFind) {
     lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("FLTLIB.dll\FilterVolumeFindFirst", FILTER_VOLUME_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, HANDLE.Ptr, lpVolumeFind, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterVolumeFindFirst", FILTER_VOLUME_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, HANDLE.Ptr, lpVolumeFind, "HRESULT")
     return result
 }
 
@@ -625,7 +625,7 @@ export FilterVolumeFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpBytes
  * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtervolumefindnext
  */
 export FilterVolumeFindNext(hVolumeFind, dwInformationClass, lpBuffer, dwBufferSize) {
-    result := DllCall("FLTLIB.dll\FilterVolumeFindNext", HANDLE, hVolumeFind, FILTER_VOLUME_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterVolumeFindNext", HANDLE, hVolumeFind, FILTER_VOLUME_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
     return lpBytesReturned
 }
 
@@ -700,7 +700,7 @@ export FilterInstanceFindFirst(lpFilterName, dwInformationClass, lpBuffer, dwBuf
 
     lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("FLTLIB.dll\FilterInstanceFindFirst", "ptr", lpFilterName, INSTANCE_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, HANDLE.Ptr, lpFilterInstanceFind, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterInstanceFindFirst", "ptr", lpFilterName, INSTANCE_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, HANDLE.Ptr, lpFilterInstanceFind, "HRESULT")
     return result
 }
 
@@ -718,7 +718,7 @@ export FilterInstanceFindFirst(lpFilterName, dwInformationClass, lpBuffer, dwBuf
  * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstancefindnext
  */
 export FilterInstanceFindNext(hFilterInstanceFind, dwInformationClass, lpBuffer, dwBufferSize) {
-    result := DllCall("FLTLIB.dll\FilterInstanceFindNext", HANDLE, hFilterInstanceFind, INSTANCE_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterInstanceFindNext", HANDLE, hFilterInstanceFind, INSTANCE_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
     return lpBytesReturned
 }
 
@@ -818,7 +818,7 @@ export FilterVolumeInstanceFindFirst(lpVolumeName, dwInformationClass, lpBuffer,
 
     lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindFirst", "ptr", lpVolumeName, INSTANCE_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, HANDLE.Ptr, lpVolumeInstanceFind, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindFirst", "ptr", lpVolumeName, INSTANCE_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, HANDLE.Ptr, lpVolumeInstanceFind, "HRESULT")
     return result
 }
 
@@ -838,7 +838,7 @@ export FilterVolumeInstanceFindFirst(lpVolumeName, dwInformationClass, lpBuffer,
  * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtervolumeinstancefindnext
  */
 export FilterVolumeInstanceFindNext(hVolumeInstanceFind, dwInformationClass, lpBuffer, dwBufferSize) {
-    result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindNext", HANDLE, hVolumeInstanceFind, INSTANCE_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindNext", HANDLE, hVolumeInstanceFind, INSTANCE_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
     return lpBytesReturned
 }
 
@@ -867,7 +867,7 @@ export FilterVolumeInstanceFindClose(hVolumeInstanceFind) {
  * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtergetinformation
  */
 export FilterGetInformation(_hFilter, dwInformationClass, lpBuffer, dwBufferSize) {
-    result := DllCall("FLTLIB.dll\FilterGetInformation", HFILTER, _hFilter, FILTER_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterGetInformation", HFILTER, _hFilter, FILTER_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
     return lpBytesReturned
 }
 
@@ -885,7 +885,7 @@ export FilterGetInformation(_hFilter, dwInformationClass, lpBuffer, dwBufferSize
  * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filterinstancegetinformation
  */
 export FilterInstanceGetInformation(_hInstance, dwInformationClass, lpBuffer, dwBufferSize) {
-    result := DllCall("FLTLIB.dll\FilterInstanceGetInformation", HFILTER_INSTANCE, _hInstance, INSTANCE_INFORMATION_CLASS, dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterInstanceGetInformation", HFILTER_INSTANCE, _hInstance, INSTANCE_INFORMATION_CLASS, dwInformationClass, IntPtr, lpBuffer, UInt32, dwBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
     return lpBytesReturned
 }
 
@@ -926,7 +926,7 @@ export FilterConnectCommunicationPort(lpPortName, dwOptions, lpContext, wSizeOfC
     lpPortName := lpPortName is String ? StrPtr(lpPortName) : lpPortName
 
     hPort := HANDLE.Owned()
-    result := DllCall("FLTLIB.dll\FilterConnectCommunicationPort", "ptr", lpPortName, "uint", dwOptions, "ptr", lpContext, "ushort", wSizeOfContext, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Ptr, hPort, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterConnectCommunicationPort", "ptr", lpPortName, UInt32, dwOptions, IntPtr, lpContext, UInt16, wSizeOfContext, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Ptr, hPort, "HRESULT")
     return hPort
 }
 
@@ -953,7 +953,7 @@ export FilterConnectCommunicationPort(lpPortName, dwOptions, lpContext, wSizeOfC
  * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtersendmessage
  */
 export FilterSendMessage(hPort, lpInBuffer, dwInBufferSize, lpOutBuffer, dwOutBufferSize) {
-    result := DllCall("FLTLIB.dll\FilterSendMessage", HANDLE, hPort, "ptr", lpInBuffer, "uint", dwInBufferSize, "ptr", lpOutBuffer, "uint", dwOutBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterSendMessage", HANDLE, hPort, IntPtr, lpInBuffer, UInt32, dwInBufferSize, IntPtr, lpOutBuffer, UInt32, dwOutBufferSize, "uint*", &lpBytesReturned := 0, "HRESULT")
     return lpBytesReturned
 }
 
@@ -977,7 +977,7 @@ export FilterSendMessage(hPort, lpInBuffer, dwInBufferSize, lpOutBuffer, dwOutBu
  * @see https://learn.microsoft.com/windows/win32/api/fltuser/nf-fltuser-filtergetmessage
  */
 export FilterGetMessage(hPort, lpMessageBuffer, dwMessageBufferSize, lpOverlapped) {
-    result := DllCall("FLTLIB.dll\FilterGetMessage", HANDLE, hPort, "ptr", lpMessageBuffer, "uint", dwMessageBufferSize, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterGetMessage", HANDLE, hPort, IntPtr, lpMessageBuffer, UInt32, dwMessageBufferSize, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
     return result
 }
 
@@ -1018,7 +1018,7 @@ export FilterGetMessage(hPort, lpMessageBuffer, dwMessageBufferSize, lpOverlappe
  * @since windows5.0
  */
 export FilterReplyMessage(hPort, lpReplyBuffer, dwReplyBufferSize) {
-    result := DllCall("FLTLIB.dll\FilterReplyMessage", HANDLE, hPort, "ptr", lpReplyBuffer, "uint", dwReplyBufferSize, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterReplyMessage", HANDLE, hPort, IntPtr, lpReplyBuffer, UInt32, dwReplyBufferSize, "HRESULT")
     return result
 }
 
@@ -1058,7 +1058,7 @@ export FilterGetDosName(lpVolumeName, lpDosName, dwDosNameBufferSize) {
     lpVolumeName := lpVolumeName is String ? StrPtr(lpVolumeName) : lpVolumeName
     lpDosName := lpDosName is String ? StrPtr(lpDosName) : lpDosName
 
-    result := DllCall("FLTLIB.dll\FilterGetDosName", "ptr", lpVolumeName, "ptr", lpDosName, "uint", dwDosNameBufferSize, "HRESULT")
+    result := DllCall("FLTLIB.dll\FilterGetDosName", "ptr", lpVolumeName, "ptr", lpDosName, UInt32, dwDosNameBufferSize, "HRESULT")
     return result
 }
 

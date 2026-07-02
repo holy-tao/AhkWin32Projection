@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\NMHDR.ahk" { NMHDR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains the requested size of a rich edit control. A rich edit control sends this structure to its parent window as part of an EN_REQUESTRESIZE notification code.

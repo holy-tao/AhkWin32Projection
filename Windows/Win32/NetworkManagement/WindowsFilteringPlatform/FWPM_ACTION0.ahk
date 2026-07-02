@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWP_ACTION_TYPE.ahk" { FWP_ACTION_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWP_ACTION_TYPE.ahk" { FWP_ACTION_TYPE }
 
 /**
  * Specifies the action taken if all the filter conditions are true.

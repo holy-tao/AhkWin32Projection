@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Security\ACL.ahk" { ACL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ESymbolReadingPolicy.ahk" { ESymbolReadingPolicy }
-#Import ".\ICLRTask.ahk" { ICLRTask }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\ACL.ahk" { ACL }
+#Import ".\ICLRTask.ahk" { ICLRTask }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ESymbolReadingPolicy.ahk" { ESymbolReadingPolicy }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -55,7 +55,7 @@ export default struct ICLRDebugManager extends IUnknown {
     BeginConnection(dwConnectionId, szConnectionName) {
         szConnectionName := szConnectionName is String ? StrPtr(szConnectionName) : szConnectionName
 
-        result := ComCall(3, this, "uint", dwConnectionId, "ptr", szConnectionName, "HRESULT")
+        result := ComCall(3, this, UInt32, dwConnectionId, "ptr", szConnectionName, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct ICLRDebugManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConnectionTasks(id, dwCount, ppCLRTask) {
-        result := ComCall(4, this, "uint", id, "uint", dwCount, ICLRTask.Ptr, ppCLRTask, "HRESULT")
+        result := ComCall(4, this, UInt32, id, UInt32, dwCount, ICLRTask.Ptr, ppCLRTask, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct ICLRDebugManager extends IUnknown {
      * @returns {HRESULT} 
      */
     EndConnection(dwConnectionId) {
-        result := ComCall(5, this, "uint", dwConnectionId, "HRESULT")
+        result := ComCall(5, this, UInt32, dwConnectionId, "HRESULT")
         return result
     }
 

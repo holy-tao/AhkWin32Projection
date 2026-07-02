@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to controls that can be set to a value within a range.
@@ -101,7 +101,7 @@ export default struct IRangeValueProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irangevalueprovider-setvalue
      */
     SetValue(_val) {
-        result := ComCall(3, this, "double", _val, "HRESULT")
+        result := ComCall(3, this, Float64, _val, "HRESULT")
         return result
     }
 

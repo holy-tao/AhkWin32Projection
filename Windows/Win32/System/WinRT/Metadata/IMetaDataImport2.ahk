@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMetaDataImport.ahk" { IMetaDataImport }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMetaDataImport.ahk" { IMetaDataImport }
 
 /**
  * Extends the IMetaDataImport interface to provide the capability of working with generic types.
@@ -76,7 +76,7 @@ export default struct IMetaDataImport2 extends IMetaDataImport {
         rGenericParamsMarshal := rGenericParams is VarRef ? "uint*" : "ptr"
         pcGenericParamsMarshal := pcGenericParams is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(65, this, phEnumMarshal, phEnum, "uint", tk, rGenericParamsMarshal, rGenericParams, "uint", cMax, pcGenericParamsMarshal, pcGenericParams, "HRESULT")
+        result := ComCall(65, this, phEnumMarshal, phEnum, UInt32, tk, rGenericParamsMarshal, rGenericParams, UInt32, cMax, pcGenericParamsMarshal, pcGenericParams, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IMetaDataImport2 extends IMetaDataImport {
         reservedMarshal := reserved is VarRef ? "uint*" : "ptr"
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(66, this, "uint", gp, pulParamSeqMarshal, pulParamSeq, pdwParamFlagsMarshal, pdwParamFlags, ptOwnerMarshal, ptOwner, reservedMarshal, reserved, "ptr", wzname, "uint", cchName, pchNameMarshal, pchName, "HRESULT")
+        result := ComCall(66, this, UInt32, gp, pulParamSeqMarshal, pulParamSeq, pdwParamFlagsMarshal, pdwParamFlags, ptOwnerMarshal, ptOwner, reservedMarshal, reserved, "ptr", wzname, UInt32, cchName, pchNameMarshal, pchName, "HRESULT")
         return result
     }
 
@@ -120,7 +120,7 @@ export default struct IMetaDataImport2 extends IMetaDataImport {
         ppvSigBlobMarshal := ppvSigBlob is VarRef ? "ptr*" : "ptr"
         pcbSigBlobMarshal := pcbSigBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(67, this, "uint", mi, tkParentMarshal, tkParent, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, "HRESULT")
+        result := ComCall(67, this, UInt32, mi, tkParentMarshal, tkParent, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct IMetaDataImport2 extends IMetaDataImport {
         rGenericParamConstraintsMarshal := rGenericParamConstraints is VarRef ? "uint*" : "ptr"
         pcGenericParamConstraintsMarshal := pcGenericParamConstraints is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(68, this, phEnumMarshal, phEnum, "uint", tk, rGenericParamConstraintsMarshal, rGenericParamConstraints, "uint", cMax, pcGenericParamConstraintsMarshal, pcGenericParamConstraints, "HRESULT")
+        result := ComCall(68, this, phEnumMarshal, phEnum, UInt32, tk, rGenericParamConstraintsMarshal, rGenericParamConstraints, UInt32, cMax, pcGenericParamConstraintsMarshal, pcGenericParamConstraints, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct IMetaDataImport2 extends IMetaDataImport {
         ptGenericParamMarshal := ptGenericParam is VarRef ? "uint*" : "ptr"
         ptkConstraintTypeMarshal := ptkConstraintType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(69, this, "uint", gpc, ptGenericParamMarshal, ptGenericParam, ptkConstraintTypeMarshal, ptkConstraintType, "HRESULT")
+        result := ComCall(69, this, UInt32, gpc, ptGenericParamMarshal, ptGenericParam, ptkConstraintTypeMarshal, ptkConstraintType, "HRESULT")
         return result
     }
 
@@ -255,7 +255,7 @@ export default struct IMetaDataImport2 extends IMetaDataImport {
 
         pccBufSizeMarshal := pccBufSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(71, this, "ptr", pwzBuf, "uint", ccBufSize, pccBufSizeMarshal, pccBufSize, "HRESULT")
+        result := ComCall(71, this, "ptr", pwzBuf, UInt32, ccBufSize, pccBufSizeMarshal, pccBufSize, "HRESULT")
         return result
     }
 
@@ -290,7 +290,7 @@ export default struct IMetaDataImport2 extends IMetaDataImport {
         rMethodSpecsMarshal := rMethodSpecs is VarRef ? "uint*" : "ptr"
         pcMethodSpecsMarshal := pcMethodSpecs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(72, this, phEnumMarshal, phEnum, "uint", tk, rMethodSpecsMarshal, rMethodSpecs, "uint", cMax, pcMethodSpecsMarshal, pcMethodSpecs, "HRESULT")
+        result := ComCall(72, this, phEnumMarshal, phEnum, UInt32, tk, rMethodSpecsMarshal, rMethodSpecs, UInt32, cMax, pcMethodSpecsMarshal, pcMethodSpecs, "HRESULT")
         return result
     }
 

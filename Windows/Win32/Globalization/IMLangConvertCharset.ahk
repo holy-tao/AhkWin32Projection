@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -74,7 +74,7 @@ export default struct IMLangConvertCharset extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(uiSrcCodePage, uiDstCodePage, dwProperty) {
-        result := ComCall(3, this, "uint", uiSrcCodePage, "uint", uiDstCodePage, "uint", dwProperty, "HRESULT")
+        result := ComCall(3, this, UInt32, uiSrcCodePage, UInt32, uiDstCodePage, UInt32, dwProperty, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct IMLangConvertCharset extends IUnknown {
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(7, this, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, IntPtr, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct IMLangConvertCharset extends IUnknown {
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(8, this, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
@@ -158,7 +158,7 @@ export default struct IMLangConvertCharset extends IUnknown {
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(9, this, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, IntPtr, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 

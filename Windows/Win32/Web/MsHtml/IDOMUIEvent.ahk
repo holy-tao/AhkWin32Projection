@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
@@ -90,7 +90,7 @@ export default struct IDOMUIEvent extends IDispatch {
     initUIEvent(eventType, canBubble, cancelable, _view, detail) {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
 
-        result := ComCall(9, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", _view, "int", detail, "HRESULT")
+        result := ComCall(9, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", _view, Int32, detail, "HRESULT")
         return result
     }
 

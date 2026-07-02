@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\MsHtml\VIEW_OBJECT_ALPHA_MODE.ahk" { VIEW_OBJECT_ALPHA_MODE }
 #Import "..\..\Foundation\LUID.ahk" { LUID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\MsHtml\VIEW_OBJECT_ALPHA_MODE.ahk" { VIEW_OBJECT_ALPHA_MODE }
-#Import ".\ISurfacePresenterFlip.ahk" { ISurfacePresenterFlip }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\ISurfacePresenterFlip.ahk" { ISurfacePresenterFlip }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -61,7 +61,7 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
      * @returns {ISurfacePresenterFlip} 
      */
     CreateSurfacePresenterFlip(pDevice, width, height, backBufferCount, format, _mode) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, DXGI_FORMAT, format, VIEW_OBJECT_ALPHA_MODE, _mode, "ptr*", &ppSPFlip := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDevice, UInt32, width, UInt32, height, UInt32, backBufferCount, DXGI_FORMAT, format, VIEW_OBJECT_ALPHA_MODE, _mode, "ptr*", &ppSPFlip := 0, "HRESULT")
         return ISurfacePresenterFlip(ppSPFlip)
     }
 

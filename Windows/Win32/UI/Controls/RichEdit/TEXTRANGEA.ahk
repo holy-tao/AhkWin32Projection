@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CHARRANGE.ahk" { CHARRANGE }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CHARRANGE.ahk" { CHARRANGE }
 
 /**
  * A range of text from a rich edit control. This structure is filled in by the EM_GETTEXTRANGE message. The buffer pointed to by the lpstrText member must be large enough to receive all characters and the terminating null character. (ANSI)

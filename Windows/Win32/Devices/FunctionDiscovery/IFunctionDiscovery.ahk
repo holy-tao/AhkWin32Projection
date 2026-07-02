@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IFunctionInstanceQuery.ahk" { IFunctionInstanceQuery }
-#Import ".\IFunctionInstanceCollectionQuery.ahk" { IFunctionInstanceCollectionQuery }
-#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IFunctionInstanceCollectionQuery.ahk" { IFunctionInstanceCollectionQuery }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SystemVisibilityFlags.ahk" { SystemVisibilityFlags }
 #Import ".\IFunctionDiscoveryNotification.ahk" { IFunctionDiscoveryNotification }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SystemVisibilityFlags.ahk" { SystemVisibilityFlags }
 #Import ".\IFunctionInstance.ahk" { IFunctionInstance }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
 
 /**
  * This interface is used by client programs to discover function instances, get the default function instance for a category, and create advanced Function Discovery query objects that enable registering Function Discovery defaults, among other things.

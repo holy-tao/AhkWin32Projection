@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IBDA_EasMessage interface represents an ATSC emergency alert system (EAS) message table.
@@ -49,7 +49,7 @@ export default struct IBDA_EasMessage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_easmessage-get_easmessage
      */
     get_EasMessage(ulEventID, ppEASObject) {
-        result := ComCall(3, this, "uint", ulEventID, IUnknown.Ptr, ppEASObject, "HRESULT")
+        result := ComCall(3, this, UInt32, ulEventID, IUnknown.Ptr, ppEASObject, "HRESULT")
         return result
     }
 

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
-#Import ".\IWICBitmapDecoderInfo.ahk" { IWICBitmapDecoderInfo }
-#Import ".\WICDecodeOptions.ahk" { WICDecodeOptions }
-#Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
 #Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\WICDecodeOptions.ahk" { WICDecodeOptions }
+#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
 #Import ".\IWICPalette.ahk" { IWICPalette }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWICBitmapDecoderInfo.ahk" { IWICBitmapDecoderInfo }
 #Import ".\IWICColorContext.ahk" { IWICColorContext }
+#Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
 
 /**
  * Exposes methods that represent a decoder.
@@ -231,7 +231,7 @@ export default struct IWICBitmapDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getcolorcontexts
      */
     GetColorContexts(cCount, ppIColorContexts) {
-        result := ComCall(10, this, "uint", cCount, IWICColorContext.Ptr, ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, cCount, IWICColorContext.Ptr, ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
         return pcActualCount
     }
 
@@ -272,7 +272,7 @@ export default struct IWICBitmapDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getframe
      */
     GetFrame(index) {
-        result := ComCall(13, this, "uint", index, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, index, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
         return IWICBitmapFrameDecode(ppIBitmapFrame)
     }
 

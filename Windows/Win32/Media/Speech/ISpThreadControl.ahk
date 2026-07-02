@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpNotifySink.ahk" { ISpNotifySink }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -53,7 +53,7 @@ export default struct ISpThreadControl extends ISpNotifySink {
      */
     StartThread(dwFlags) {
         phwnd := HWND()
-        result := ComCall(4, this, "uint", dwFlags, HWND.Ptr, phwnd, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -64,7 +64,7 @@ export default struct ISpThreadControl extends ISpNotifySink {
      * @returns {HRESULT} 
      */
     WaitForThreadDone(fForceStop, msTimeOut) {
-        result := ComCall(5, this, BOOL, fForceStop, "int*", &phrThreadResult := 0, "uint", msTimeOut, "HRESULT")
+        result := ComCall(5, this, BOOL, fForceStop, "int*", &phrThreadResult := 0, UInt32, msTimeOut, "HRESULT")
         return phrThreadResult
     }
 

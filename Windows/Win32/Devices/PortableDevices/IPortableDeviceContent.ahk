@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPortableDeviceResources.ahk" { IPortableDeviceResources }
-#Import ".\IPortableDeviceProperties.ahk" { IPortableDeviceProperties }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import ".\IPortableDeviceResources.ahk" { IPortableDeviceResources }
 #Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumPortableDeviceObjectIDs.ahk" { IEnumPortableDeviceObjectIDs }
+#Import ".\IPortableDeviceProperties.ahk" { IPortableDeviceProperties }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import ".\IEnumPortableDeviceObjectIDs.ahk" { IEnumPortableDeviceObjectIDs }
 
 /**
  * The IPortableDeviceContent interface provides methods to create, enumerate, examine, and delete content on a device. To get this interface, call IPortableDevice::Content.
@@ -64,7 +64,7 @@ export default struct IPortableDeviceContent extends IUnknown {
     EnumObjects(dwFlags, pszParentObjectID, pFilter) {
         pszParentObjectID := pszParentObjectID is String ? StrPtr(pszParentObjectID) : pszParentObjectID
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszParentObjectID, "ptr", pFilter, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "ptr", pszParentObjectID, "ptr", pFilter, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumPortableDeviceObjectIDs(ppEnum)
     }
 
@@ -281,7 +281,7 @@ export default struct IPortableDeviceContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-delete
      */
     Delete(dwOptions, pObjectIDs, ppResults) {
-        result := ComCall(8, this, "uint", dwOptions, "ptr", pObjectIDs, IPortableDevicePropVariantCollection.Ptr, ppResults, "HRESULT")
+        result := ComCall(8, this, UInt32, dwOptions, "ptr", pObjectIDs, IPortableDevicePropVariantCollection.Ptr, ppResults, "HRESULT")
         return result
     }
 

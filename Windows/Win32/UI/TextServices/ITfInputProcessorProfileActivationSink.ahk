@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfInputProcessorProfileActivationSink interface is implemented by an application to receive notifications when the profile changes.
@@ -97,7 +97,7 @@ export default struct ITfInputProcessorProfileActivationSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofileactivationsink-onactivated
      */
     OnActivated(dwProfileType, langid, clsid, catid, guidProfile, _hkl, dwFlags) {
-        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, Guid.Ptr, clsid, Guid.Ptr, catid, Guid.Ptr, guidProfile, HKL, _hkl, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, dwProfileType, UInt16, langid, Guid.Ptr, clsid, Guid.Ptr, catid, Guid.Ptr, guidProfile, HKL, _hkl, UInt32, dwFlags, "HRESULT")
         return result
     }
 

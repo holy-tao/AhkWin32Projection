@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationChangesEventHandler.ahk" { IUIAutomationChangesEventHandler }
+#Import ".\IUIAutomationStructureChangedEventHandler.ahk" { IUIAutomationStructureChangedEventHandler }
+#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import ".\IUIAutomationNotificationEventHandler.ahk" { IUIAutomationNotificationEventHandler }
 #Import ".\IUIAutomationEventHandler.ahk" { IUIAutomationEventHandler }
 #Import ".\IUIAutomationTextEditTextChangedEventHandler.ahk" { IUIAutomationTextEditTextChangedEventHandler }
-#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
-#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
-#Import ".\IUIAutomationChangesEventHandler.ahk" { IUIAutomationChangesEventHandler }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
 #Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import ".\TreeScope.ahk" { TreeScope }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
-#Import ".\IUIAutomationStructureChangedEventHandler.ahk" { IUIAutomationStructureChangedEventHandler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
+#Import ".\IUIAutomationNotificationEventHandler.ahk" { IUIAutomationNotificationEventHandler }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
 
 /**
  * Exposes methods for adding one or more events to a collection for bulk registration through the CreateEventHandlerGroup and AddEventHandlerGroup methods defined in IUIAutomation6.
@@ -76,7 +76,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
      * Similarly, activating a new page URI (with a fragment identifier: (<c>&lt;a href=”www.blah.com#C4”&gt;Jump to Chapter 4&lt;/a&gt;</c>)) loads the new page and jumps to the specified bookmark, but leaves the UI Automation clients   at the top of the page.
      * 
      * For editable text elements, such as <a href="https://docs.microsoft.com/windows/desktop/controls/edit-controls">Edit</a> and <a href="https://docs.microsoft.com/windows/desktop/controls/rich-edit-controls">Rich Edit</a> controls,  you can listen for a SelectionChanged event.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler A pointer to the object that handles the active text position changed event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -90,7 +90,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
     /**
      * Registers a method that handles Microsoft UI Automation events.
      * @param {UIA_EVENT_ID} eventId The identifier of the event that the method handles. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationEventHandler} handler A pointer to the object that handles the event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -105,7 +105,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles change events.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {Pointer<Integer>} changeTypes A pointer to a list of integers that indicate the change types the event represents.
      * @param {Integer} changesCount The number of changes that occurred in this event.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -116,7 +116,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
     AddChangesEventHandler(scope, changeTypes, changesCount, cacheRequest, handler) {
         changeTypesMarshal := changeTypes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, TreeScope, scope, changeTypesMarshal, changeTypes, "int", changesCount, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(5, this, TreeScope, scope, changeTypesMarshal, changeTypes, Int32, changesCount, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles notification events.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationNotificationEventHandler} handler A pointer to the object that handles the notification event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -139,7 +139,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles a property-changed event.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and children.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationPropertyChangedEventHandler} handler A pointer to the object that handles the event.
      * @param {Pointer<UIA_PROPERTY_ID>} propertyArray A pointer to the UI Automation properties of interest. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
@@ -150,7 +150,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
     AddPropertyChangedEventHandler(scope, cacheRequest, handler, propertyArray, propertyCount) {
         propertyArrayMarshal := propertyArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "HRESULT")
+        result := ComCall(7, this, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, Int32, propertyCount, "HRESULT")
         return result
     }
 
@@ -158,7 +158,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles structure-changed events.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationStructureChangedEventHandler} handler A pointer to the object that handles the structure-changed event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -173,8 +173,8 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
      * Registers a method that handles programmatic text-edit events.
      * @remarks
      * Before implementing an event handler, you should be familiar with the threading issues described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-threading">Understanding Threading Issues</a>.
-     * @param {TreeScope} scope 
-     * @param {TextEditChangeType} _textEditChangeType 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
+     * @param {TextEditChangeType} _textEditChangeType The specific change type to listen for. Clients register for each text-edit change type separately, so that the UI Automation system can check for registered listeners at run-time and avoid raising events for particular text-edit changes when there are no listeners.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationTextEditTextChangedEventHandler} handler A pointer to the object that handles the programmatic text-edit event.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

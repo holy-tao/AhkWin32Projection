@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DOT11_ADHOC_CIPHER_ALGORITHM.ahk" { DOT11_ADHOC_CIPHER_ALGORITHM }
-#Import ".\DOT11_ADHOC_AUTH_ALGORITHM.ahk" { DOT11_ADHOC_AUTH_ALGORITHM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DOT11_ADHOC_AUTH_ALGORITHM.ahk" { DOT11_ADHOC_AUTH_ALGORITHM }
 
 /**
  * Specifies the security settings for a wireless ad hoc network.

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISnapinHelp.ahk" { ISnapinHelp }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISnapinHelp.ahk" { ISnapinHelp }
 
 /**
  * Allows snap-ins to add HTML Help support. (ISnapinHelp2)

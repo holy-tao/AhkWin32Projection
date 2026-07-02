@@ -1,22 +1,22 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\COMSTAT.ahk" { COMSTAT }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\DCB.ahk" { DCB }
+#Import ".\COMMTIMEOUTS.ahk" { COMMTIMEOUTS }
+#Import ".\COMMCONFIG.ahk" { COMMCONFIG }
+#Import ".\CLEAR_COMM_ERROR_FLAGS.ahk" { CLEAR_COMM_ERROR_FLAGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\PURGE_COMM_FLAGS.ahk" { PURGE_COMM_FLAGS }
+#Import ".\COMM_EVENT_MASK.ahk" { COMM_EVENT_MASK }
+#Import ".\ESCAPE_COMM_FUNCTION.ahk" { ESCAPE_COMM_FUNCTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MODEM_STATUS_FLAGS.ahk" { MODEM_STATUS_FLAGS }
 #Import ".\COMMPROP.ahk" { COMMPROP }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\MODEM_STATUS_FLAGS.ahk" { MODEM_STATUS_FLAGS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ESCAPE_COMM_FUNCTION.ahk" { ESCAPE_COMM_FUNCTION }
-#Import ".\COMMTIMEOUTS.ahk" { COMMTIMEOUTS }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\COMMCONFIG.ahk" { COMMCONFIG }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import ".\PURGE_COMM_FLAGS.ahk" { PURGE_COMM_FLAGS }
-#Import ".\CLEAR_COMM_ERROR_FLAGS.ahk" { CLEAR_COMM_ERROR_FLAGS }
-#Import ".\COMM_EVENT_MASK.ahk" { COMM_EVENT_MASK }
+#Import ".\DCB.ahk" { DCB }
 
 /**
  * @namespace Windows.Win32.Devices.Communication
@@ -108,7 +108,7 @@ export ClearCommError(hFile, lpErrors, lpStat) {
 export SetupComm(hFile, dwInQueue, dwOutQueue) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetupComm", HANDLE, hFile, "uint", dwInQueue, "uint", dwOutQueue, BOOL)
+    result := DllCall("KERNEL32.dll\SetupComm", HANDLE, hFile, UInt32, dwInQueue, UInt32, dwOutQueue, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -158,7 +158,7 @@ export GetCommConfig(hCommDev, lpCC, lpdwSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCommConfig", HANDLE, hCommDev, "ptr", lpCC, lpdwSizeMarshal, lpdwSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetCommConfig", HANDLE, hCommDev, IntPtr, lpCC, lpdwSizeMarshal, lpdwSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -376,7 +376,7 @@ export SetCommBreak(hFile) {
 export SetCommConfig(hCommDev, lpCC, dwSize) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetCommConfig", HANDLE, hCommDev, "ptr", lpCC, "uint", dwSize, BOOL)
+    result := DllCall("KERNEL32.dll\SetCommConfig", HANDLE, hCommDev, IntPtr, lpCC, UInt32, dwSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -607,7 +607,7 @@ export WaitCommEvent(hFile, lpEvtMask, lpOverlapped) {
  * @since windows10.0.16299
  */
 export OpenCommPort(uPortNumber, dwDesiredAccess, dwFlagsAndAttributes) {
-    result := DllCall("api-ms-win-core-comm-l1-1-1.dll\OpenCommPort", "uint", uPortNumber, "uint", dwDesiredAccess, "uint", dwFlagsAndAttributes, HANDLE.Owned)
+    result := DllCall("api-ms-win-core-comm-l1-1-1.dll\OpenCommPort", UInt32, uPortNumber, UInt32, dwDesiredAccess, UInt32, dwFlagsAndAttributes, HANDLE.Owned)
     return result
 }
 
@@ -662,7 +662,7 @@ export GetCommPorts(lpPortNumbers, uPortNumbersCount, puPortNumbersFound) {
     lpPortNumbersMarshal := lpPortNumbers is VarRef ? "uint*" : "ptr"
     puPortNumbersFoundMarshal := puPortNumbersFound is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-core-comm-l1-1-2.dll\GetCommPorts", lpPortNumbersMarshal, lpPortNumbers, "uint", uPortNumbersCount, puPortNumbersFoundMarshal, puPortNumbersFound, UInt32)
+    result := DllCall("api-ms-win-core-comm-l1-1-2.dll\GetCommPorts", lpPortNumbersMarshal, lpPortNumbers, UInt32, uPortNumbersCount, puPortNumbersFoundMarshal, puPortNumbersFound, UInt32)
     return result
 }
 
@@ -1111,7 +1111,7 @@ export GetDefaultCommConfigA(lpszName, lpCC, lpdwSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, lpdwSizeMarshal, lpdwSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, IntPtr, lpCC, lpdwSizeMarshal, lpdwSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1142,7 +1142,7 @@ export GetDefaultCommConfigW(lpszName, lpCC, lpdwSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, lpdwSizeMarshal, lpdwSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, IntPtr, lpCC, lpdwSizeMarshal, lpdwSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1171,7 +1171,7 @@ export SetDefaultCommConfigA(lpszName, lpCC, dwSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, BOOL)
+    result := DllCall("KERNEL32.dll\SetDefaultCommConfigA", "ptr", lpszName, IntPtr, lpCC, UInt32, dwSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1200,7 +1200,7 @@ export SetDefaultCommConfigW(lpszName, lpCC, dwSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, BOOL)
+    result := DllCall("KERNEL32.dll\SetDefaultCommConfigW", "ptr", lpszName, IntPtr, lpCC, UInt32, dwSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

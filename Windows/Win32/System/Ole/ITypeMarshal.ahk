@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -50,7 +50,7 @@ export default struct ITypeMarshal extends IUnknown {
         pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pvTypeMarshal, pvType, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint*", &pSize := 0, "HRESULT")
+        result := ComCall(3, this, pvTypeMarshal, pvType, UInt32, dwDestContext, pvDestContextMarshal, pvDestContext, "uint*", &pSize := 0, "HRESULT")
         return pSize
     }
 
@@ -67,7 +67,7 @@ export default struct ITypeMarshal extends IUnknown {
         pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, pvTypeMarshal, pvType, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", cbBufferLength, "ptr", pBuffer, "uint*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(4, this, pvTypeMarshal, pvType, UInt32, dwDestContext, pvDestContextMarshal, pvDestContext, UInt32, cbBufferLength, IntPtr, pBuffer, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 
@@ -85,7 +85,7 @@ export default struct ITypeMarshal extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
         pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pvTypeMarshal, pvType, "uint", dwFlags, "uint", cbBufferLength, pBufferMarshal, pBuffer, pcbReadMarshal, pcbRead, "HRESULT")
+        result := ComCall(5, this, pvTypeMarshal, pvType, UInt32, dwFlags, UInt32, cbBufferLength, pBufferMarshal, pBuffer, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICorProfilerMethodEnum.ahk" { ICorProfilerMethodEnum }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICorProfilerInfo5.ahk" { ICorProfilerInfo5 }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ICorProfilerInfo5.ahk" { ICorProfilerInfo5 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerMethodEnum.ahk" { ICorProfilerMethodEnum }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -49,7 +49,7 @@ export default struct ICorProfilerInfo6 extends ICorProfilerInfo5 {
     EnumNgenModuleMethodsInliningThisMethod(inlinersModuleId, inlineeModuleId, inlineeMethodId, incompleteData, ppEnum) {
         incompleteDataMarshal := incompleteData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(83, this, "ptr", inlinersModuleId, "ptr", inlineeModuleId, "uint", inlineeMethodId, incompleteDataMarshal, incompleteData, ICorProfilerMethodEnum.Ptr, ppEnum, "HRESULT")
+        result := ComCall(83, this, IntPtr, inlinersModuleId, IntPtr, inlineeModuleId, UInt32, inlineeMethodId, incompleteDataMarshal, incompleteData, ICorProfilerMethodEnum.Ptr, ppEnum, "HRESULT")
         return result
     }
 

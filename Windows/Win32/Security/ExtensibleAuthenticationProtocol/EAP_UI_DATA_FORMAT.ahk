@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EAP_CRED_EXPIRY_REQ.ahk" { EAP_CRED_EXPIRY_REQ }
 #Import ".\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk" { EAP_CONFIG_INPUT_FIELD_ARRAY }
+#Import ".\EAP_CRED_EXPIRY_REQ.ahk" { EAP_CRED_EXPIRY_REQ }
 
 /**
  * The EAP_UI_DATA_FORMAT union specifies the value of the attribute stored in the pbUiData member of the EAP_INTERACTIVE_UI_DATA structure.

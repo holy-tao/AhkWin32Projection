@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PACKAGE_ID.ahk" { PACKAGE_ID }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PACKAGE_VERSION.ahk" { PACKAGE_VERSION }
 
 /**

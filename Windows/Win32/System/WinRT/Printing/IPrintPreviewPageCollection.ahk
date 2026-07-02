@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IInspectable.ahk" { IInspectable }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing
@@ -44,7 +44,7 @@ export default struct IPrintPreviewPageCollection extends IUnknown {
      * @returns {HRESULT} 
      */
     Paginate(currentJobPage, printTaskOptions) {
-        result := ComCall(3, this, "uint", currentJobPage, "ptr", printTaskOptions, "HRESULT")
+        result := ComCall(3, this, UInt32, currentJobPage, "ptr", printTaskOptions, "HRESULT")
         return result
     }
 
@@ -56,7 +56,7 @@ export default struct IPrintPreviewPageCollection extends IUnknown {
      * @returns {HRESULT} 
      */
     MakePage(desiredJobPage, width, height) {
-        result := ComCall(4, this, "uint", desiredJobPage, "float", width, "float", height, "HRESULT")
+        result := ComCall(4, this, UInt32, desiredJobPage, Float32, width, Float32, height, "HRESULT")
         return result
     }
 

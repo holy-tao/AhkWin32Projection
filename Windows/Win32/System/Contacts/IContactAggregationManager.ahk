@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CONTACT_AGGREGATION_COLLECTION_OPTIONS.ahk" { CONTACT_AGGREGATION_COLLECTION_OPTIONS }
-#Import ".\IContactAggregationContactCollection.ahk" { IContactAggregationContactCollection }
-#Import ".\IContactAggregationServerPerson.ahk" { IContactAggregationServerPerson }
-#Import ".\CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS.ahk" { CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS }
-#Import ".\IContactAggregationGroupCollection.ahk" { IContactAggregationGroupCollection }
+#Import ".\IContactAggregationAggregate.ahk" { IContactAggregationAggregate }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IContactAggregationLink.ahk" { IContactAggregationLink }
+#Import ".\IContactAggregationLinkCollection.ahk" { IContactAggregationLinkCollection }
+#Import ".\IContactAggregationServerPersonCollection.ahk" { IContactAggregationServerPersonCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IContactAggregationGroup.ahk" { IContactAggregationGroup }
-#Import ".\IContactAggregationServerPersonCollection.ahk" { IContactAggregationServerPersonCollection }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IContactAggregationAggregate.ahk" { IContactAggregationAggregate }
-#Import ".\IContactAggregationLinkCollection.ahk" { IContactAggregationLinkCollection }
-#Import ".\IContactAggregationAggregateCollection.ahk" { IContactAggregationAggregateCollection }
 #Import ".\IContactAggregationContact.ahk" { IContactAggregationContact }
+#Import ".\IContactAggregationGroupCollection.ahk" { IContactAggregationGroupCollection }
+#Import ".\IContactAggregationContactCollection.ahk" { IContactAggregationContactCollection }
+#Import ".\CONTACT_AGGREGATION_COLLECTION_OPTIONS.ahk" { CONTACT_AGGREGATION_COLLECTION_OPTIONS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IContactAggregationServerPerson.ahk" { IContactAggregationServerPerson }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IContactAggregationAggregateCollection.ahk" { IContactAggregationAggregateCollection }
+#Import ".\IContactAggregationLink.ahk" { IContactAggregationLink }
+#Import ".\CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS.ahk" { CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS }
 
 /**
  * @namespace Windows.Win32.System.Contacts

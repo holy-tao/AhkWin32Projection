@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -50,7 +50,7 @@ export default struct IErrorLookup extends IUnknown {
      * @returns {HRESULT} 
      */
     GetErrorDescription(hrError, dwLookupID, pdispparams, lcid, pbstrSource, pbstrDescription) {
-        result := ComCall(3, this, "int", hrError, "uint", dwLookupID, DISPPARAMS.Ptr, pdispparams, "uint", lcid, BSTR.Ptr, pbstrSource, BSTR.Ptr, pbstrDescription, "HRESULT")
+        result := ComCall(3, this, "int", hrError, UInt32, dwLookupID, DISPPARAMS.Ptr, pdispparams, UInt32, lcid, BSTR.Ptr, pbstrSource, BSTR.Ptr, pbstrDescription, "HRESULT")
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct IErrorLookup extends IUnknown {
     GetHelpInfo(hrError, dwLookupID, lcid, pbstrHelpFile, pdwHelpContext) {
         pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "int", hrError, "uint", dwLookupID, "uint", lcid, BSTR.Ptr, pbstrHelpFile, pdwHelpContextMarshal, pdwHelpContext, "HRESULT")
+        result := ComCall(4, this, "int", hrError, UInt32, dwLookupID, UInt32, lcid, BSTR.Ptr, pbstrHelpFile, pdwHelpContextMarshal, pdwHelpContext, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IErrorLookup extends IUnknown {
      * @returns {HRESULT} 
      */
     ReleaseErrors(dwDynamicErrorID) {
-        result := ComCall(5, this, "uint", dwDynamicErrorID, "HRESULT")
+        result := ComCall(5, this, UInt32, dwDynamicErrorID, "HRESULT")
         return result
     }
 

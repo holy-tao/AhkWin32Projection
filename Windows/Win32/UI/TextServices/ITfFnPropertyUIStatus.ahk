@@ -103,7 +103,7 @@ export default struct ITfFnPropertyUIStatus extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnpropertyuistatus-setstatus
      */
     SetStatus(refguidProp, dw) {
-        result := ComCall(5, this, Guid.Ptr, refguidProp, "uint", dw, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, refguidProp, UInt32, dw, "HRESULT")
         return result
     }
 

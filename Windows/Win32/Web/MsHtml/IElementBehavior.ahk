@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IElementBehaviorSite.ahk" { IElementBehaviorSite }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IElementBehaviorSite.ahk" { IElementBehaviorSite }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -56,7 +56,7 @@ export default struct IElementBehavior extends IUnknown {
      * @returns {HRESULT} 
      */
     Notify(lEvent, pVar) {
-        result := ComCall(4, this, "int", lEvent, VARIANT.Ptr, pVar, "HRESULT")
+        result := ComCall(4, this, Int32, lEvent, VARIANT.Ptr, pVar, "HRESULT")
         return result
     }
 

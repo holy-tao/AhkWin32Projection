@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMDSPObjectInfo interface provides methods for getting and setting parameters that describe how playable objects on a storage medium are referenced or accessed by the IMDSPDeviceControl interface.
@@ -79,7 +79,7 @@ export default struct IMDSPObjectInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobjectinfo-setplaylength
      */
     SetPlayLength(dwLength) {
-        result := ComCall(4, this, "uint", dwLength, "HRESULT")
+        result := ComCall(4, this, UInt32, dwLength, "HRESULT")
         return result
     }
 
@@ -119,7 +119,7 @@ export default struct IMDSPObjectInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobjectinfo-setplayoffset
      */
     SetPlayOffset(dwOffset) {
-        result := ComCall(6, this, "uint", dwOffset, "HRESULT")
+        result := ComCall(6, this, UInt32, dwOffset, "HRESULT")
         return result
     }
 

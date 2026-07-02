@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OFFLINEFILES_SYNC_CONFLICT_RESOLVE.ahk" { OFFLINEFILES_SYNC_CONFLICT_RESOLVE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\OFFLINEFILES_SYNC_STATE.ahk" { OFFLINEFILES_SYNC_STATE }
+#Import ".\OFFLINEFILES_SYNC_CONFLICT_RESOLVE.ahk" { OFFLINEFILES_SYNC_CONFLICT_RESOLVE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used by a client calling the IOfflineFilesCache::Synchronize method to prescribe a conflict resolution strategy for sync conflicts as they are detected.
@@ -77,7 +77,7 @@ export default struct IOfflineFilesSyncConflictHandler extends IUnknown {
         pConflictResolutionMarshal := pConflictResolution is VarRef ? "int*" : "ptr"
         ppszNewNameMarshal := ppszNewName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszPath, "uint", fStateKnown, OFFLINEFILES_SYNC_STATE, state, "uint", fChangeDetails, pConflictResolutionMarshal, pConflictResolution, ppszNewNameMarshal, ppszNewName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPath, UInt32, fStateKnown, OFFLINEFILES_SYNC_STATE, state, UInt32, fChangeDetails, pConflictResolutionMarshal, pConflictResolution, ppszNewNameMarshal, ppszNewName, "HRESULT")
         return result
     }
 

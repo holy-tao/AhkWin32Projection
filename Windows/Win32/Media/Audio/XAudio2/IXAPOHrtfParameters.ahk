@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\HrtfEnvironment.ahk" { HrtfEnvironment }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\HrtfOrientation.ahk" { HrtfOrientation }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\HrtfPosition.ahk" { HrtfPosition }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HrtfEnvironment.ahk" { HrtfEnvironment }
 
 /**
  * The interface used to set parameters that control how head-related transfer function (HRTF) is applied to a sound.
@@ -74,7 +74,7 @@ export default struct IXAPOHrtfParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nf-hrtfapoapi-ixapohrtfparameters-setsourcegain
      */
     SetSourceGain(gain) {
-        result := ComCall(5, this, "float", gain, "HRESULT")
+        result := ComCall(5, this, Float32, gain, "HRESULT")
         return result
     }
 

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDebugDocument.ahk" { IDebugDocument }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugDocument.ahk" { IDebugDocument }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -72,7 +72,7 @@ export default struct IDebugDocumentText extends IDebugDocument {
      * @returns {Integer} 
      */
     GetPositionOfLine(cLineNumber) {
-        result := ComCall(7, this, "uint", cLineNumber, "uint*", &pcCharacterPosition := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, cLineNumber, "uint*", &pcCharacterPosition := 0, "HRESULT")
         return pcCharacterPosition
     }
 
@@ -87,7 +87,7 @@ export default struct IDebugDocumentText extends IDebugDocument {
         pcLineNumberMarshal := pcLineNumber is VarRef ? "uint*" : "ptr"
         pcCharacterOffsetInLineMarshal := pcCharacterOffsetInLine is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", cCharacterPosition, pcLineNumberMarshal, pcLineNumber, pcCharacterOffsetInLineMarshal, pcCharacterOffsetInLine, "HRESULT")
+        result := ComCall(8, this, UInt32, cCharacterPosition, pcLineNumberMarshal, pcLineNumber, pcCharacterOffsetInLineMarshal, pcCharacterOffsetInLine, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IDebugDocumentText extends IDebugDocument {
         pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
         pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", cCharacterPosition, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, "uint", cMaxChars, "HRESULT")
+        result := ComCall(9, this, UInt32, cCharacterPosition, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, UInt32, cMaxChars, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IDebugDocumentText extends IDebugDocument {
      * @returns {IDebugDocumentContext} 
      */
     GetContextOfPosition(cCharacterPosition, cNumChars) {
-        result := ComCall(11, this, "uint", cCharacterPosition, "uint", cNumChars, "ptr*", &ppsc := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, cCharacterPosition, UInt32, cNumChars, "ptr*", &ppsc := 0, "HRESULT")
         return IDebugDocumentContext(ppsc)
     }
 

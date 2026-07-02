@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumTfLatticeElements.ahk" { IEnumTfLatticeElements }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTfLatticeElements.ahk" { IEnumTfLatticeElements }
 
 /**
  * The ITfLMLattice interface is implemented by the speech text service to provide information about lattice element properties and is used by a client (application or other text service).
@@ -59,7 +59,7 @@ export default struct ITfLMLattice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itflmlattice-enumlatticeelements
      */
     EnumLatticeElements(dwFrameStart, rguidType) {
-        result := ComCall(4, this, "uint", dwFrameStart, Guid.Ptr, rguidType, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFrameStart, Guid.Ptr, rguidType, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumTfLatticeElements(ppEnum)
     }
 

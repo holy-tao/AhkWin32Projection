@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GameInputSwitchPosition.ahk" { GameInputSwitchPosition }
 #Import ".\GameInputFlightStickButtons.ahk" { GameInputFlightStickButtons }
+#Import ".\GameInputSwitchPosition.ahk" { GameInputSwitchPosition }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

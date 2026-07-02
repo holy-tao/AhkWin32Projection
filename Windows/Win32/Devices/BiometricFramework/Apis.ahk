@@ -1,21 +1,28 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import ".\WINBIO_CREDENTIAL_FORMAT.ahk" { WINBIO_CREDENTIAL_FORMAT }
+#Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
+#Import ".\PWINBIO_IDENTIFY_CALLBACK.ahk" { PWINBIO_IDENTIFY_CALLBACK }
+#Import ".\WINBIO_CREDENTIAL_STATE.ahk" { WINBIO_CREDENTIAL_STATE }
+#Import ".\PWINBIO_EVENT_CALLBACK.ahk" { PWINBIO_EVENT_CALLBACK }
 #Import ".\WINBIO_COMPONENT.ahk" { WINBIO_COMPONENT }
 #Import ".\WINBIO_CREDENTIAL_TYPE.ahk" { WINBIO_CREDENTIAL_TYPE }
-#Import ".\WINBIO_UNIT_SCHEMA.ahk" { WINBIO_UNIT_SCHEMA }
-#Import ".\WINBIO_SETTING_SOURCE.ahk" { WINBIO_SETTING_SOURCE }
-#Import ".\WINBIO_BSP_SCHEMA.ahk" { WINBIO_BSP_SCHEMA }
-#Import ".\WINBIO_CREDENTIAL_FORMAT.ahk" { WINBIO_CREDENTIAL_FORMAT }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WINBIO_BIR.ahk" { WINBIO_BIR }
-#Import ".\WINBIO_ASYNC_NOTIFICATION_METHOD.ahk" { WINBIO_ASYNC_NOTIFICATION_METHOD }
-#Import ".\WINBIO_CREDENTIAL_STATE.ahk" { WINBIO_CREDENTIAL_STATE }
-#Import ".\WINBIO_POOL.ahk" { WINBIO_POOL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\PWINBIO_VERIFY_CALLBACK.ahk" { PWINBIO_VERIFY_CALLBACK }
+#Import ".\PWINBIO_LOCATE_SENSOR_CALLBACK.ahk" { PWINBIO_LOCATE_SENSOR_CALLBACK }
+#Import ".\PWINBIO_ASYNC_COMPLETION_CALLBACK.ahk" { PWINBIO_ASYNC_COMPLETION_CALLBACK }
+#Import ".\WINBIO_POOL.ahk" { WINBIO_POOL }
 #Import ".\WINBIO_STORAGE_SCHEMA.ahk" { WINBIO_STORAGE_SCHEMA }
-#Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
+#Import ".\WINBIO_UNIT_SCHEMA.ahk" { WINBIO_UNIT_SCHEMA }
+#Import ".\WINBIO_BSP_SCHEMA.ahk" { WINBIO_BSP_SCHEMA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\WINBIO_ASYNC_NOTIFICATION_METHOD.ahk" { WINBIO_ASYNC_NOTIFICATION_METHOD }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINBIO_SETTING_SOURCE.ahk" { WINBIO_SETTING_SOURCE }
+#Import ".\WINBIO_BIR.ahk" { WINBIO_BIR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PWINBIO_CAPTURE_CALLBACK.ahk" { PWINBIO_CAPTURE_CALLBACK }
+#Import ".\PWINBIO_ENROLL_CAPTURE_CALLBACK.ahk" { PWINBIO_ENROLL_CAPTURE_CALLBACK }
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
@@ -81,7 +88,7 @@ export WinBioEnumServiceProviders(Factor, BspSchemaArray, BspCount) {
     BspSchemaArrayMarshal := BspSchemaArray is VarRef ? "ptr*" : "ptr"
     BspCountMarshal := BspCount is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioEnumServiceProviders", "uint", Factor, BspSchemaArrayMarshal, BspSchemaArray, BspCountMarshal, BspCount, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnumServiceProviders", UInt32, Factor, BspSchemaArrayMarshal, BspSchemaArray, BspCountMarshal, BspCount, "HRESULT")
     return result
 }
 
@@ -157,7 +164,7 @@ export WinBioEnumBiometricUnits(Factor, UnitSchemaArray, UnitCount) {
     UnitSchemaArrayMarshal := UnitSchemaArray is VarRef ? "ptr*" : "ptr"
     UnitCountMarshal := UnitCount is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioEnumBiometricUnits", "uint", Factor, UnitSchemaArrayMarshal, UnitSchemaArray, UnitCountMarshal, UnitCount, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnumBiometricUnits", UInt32, Factor, UnitSchemaArrayMarshal, UnitSchemaArray, UnitCountMarshal, UnitCount, "HRESULT")
     return result
 }
 
@@ -220,7 +227,7 @@ export WinBioEnumDatabases(Factor, StorageSchemaArray, StorageCount) {
     StorageSchemaArrayMarshal := StorageSchemaArray is VarRef ? "ptr*" : "ptr"
     StorageCountMarshal := StorageCount is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioEnumDatabases", "uint", Factor, StorageSchemaArrayMarshal, StorageSchemaArray, StorageCountMarshal, StorageCount, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnumDatabases", UInt32, Factor, StorageSchemaArrayMarshal, StorageSchemaArray, StorageCountMarshal, StorageCount, "HRESULT")
     return result
 }
 
@@ -269,7 +276,7 @@ export WinBioEnumDatabases(Factor, StorageSchemaArray, StorageCount) {
 export WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, _UserData, AsynchronousOpen) {
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioAsyncOpenFramework", WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &FrameworkHandle := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncOpenFramework", WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, UInt32, MessageCode, PWINBIO_ASYNC_COMPLETION_CALLBACK, CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &FrameworkHandle := 0, "HRESULT")
     return FrameworkHandle
 }
 
@@ -283,7 +290,7 @@ export WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, C
  * @since windows8.0
  */
 export WinBioCloseFramework(FrameworkHandle) {
-    result := DllCall("winbio.dll\WinBioCloseFramework", "uint", FrameworkHandle, "HRESULT")
+    result := DllCall("winbio.dll\WinBioCloseFramework", UInt32, FrameworkHandle, "HRESULT")
     return result
 }
 
@@ -357,7 +364,7 @@ export WinBioCloseFramework(FrameworkHandle) {
  * @since windows8.0
  */
 export WinBioAsyncEnumServiceProviders(FrameworkHandle, Factor) {
-    result := DllCall("winbio.dll\WinBioAsyncEnumServiceProviders", "uint", FrameworkHandle, "uint", Factor, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncEnumServiceProviders", UInt32, FrameworkHandle, UInt32, Factor, "HRESULT")
     return result
 }
 
@@ -453,7 +460,7 @@ export WinBioAsyncEnumServiceProviders(FrameworkHandle, Factor) {
  * @since windows8.0
  */
 export WinBioAsyncEnumBiometricUnits(FrameworkHandle, Factor) {
-    result := DllCall("winbio.dll\WinBioAsyncEnumBiometricUnits", "uint", FrameworkHandle, "uint", Factor, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncEnumBiometricUnits", UInt32, FrameworkHandle, UInt32, Factor, "HRESULT")
     return result
 }
 
@@ -527,7 +534,7 @@ export WinBioAsyncEnumBiometricUnits(FrameworkHandle, Factor) {
  * @since windows8.0
  */
 export WinBioAsyncEnumDatabases(FrameworkHandle, Factor) {
-    result := DllCall("winbio.dll\WinBioAsyncEnumDatabases", "uint", FrameworkHandle, "uint", Factor, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncEnumDatabases", UInt32, FrameworkHandle, UInt32, Factor, "HRESULT")
     return result
 }
 
@@ -635,7 +642,7 @@ export WinBioAsyncEnumDatabases(FrameworkHandle, Factor) {
  * @since windows8.0
  */
 export WinBioAsyncMonitorFrameworkChanges(FrameworkHandle, ChangeTypes) {
-    result := DllCall("winbio.dll\WinBioAsyncMonitorFrameworkChanges", "uint", FrameworkHandle, "uint", ChangeTypes, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncMonitorFrameworkChanges", UInt32, FrameworkHandle, UInt32, ChangeTypes, "HRESULT")
     return result
 }
 
@@ -758,7 +765,7 @@ export WinBioAsyncMonitorFrameworkChanges(FrameworkHandle, ChangeTypes) {
 export WinBioOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId) {
     UnitArrayMarshal := UnitArray is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioOpenSession", "uint", Factor, WINBIO_POOL, PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, Guid.Ptr, DatabaseId, "uint*", &SessionHandle := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioOpenSession", UInt32, Factor, WINBIO_POOL, PoolType, UInt32, Flags, UnitArrayMarshal, UnitArray, IntPtr, UnitCount, Guid.Ptr, DatabaseId, "uint*", &SessionHandle := 0, "HRESULT")
     return SessionHandle
 }
 
@@ -987,7 +994,7 @@ export WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, Dat
     UnitArrayMarshal := UnitArray is VarRef ? "uint*" : "ptr"
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, WINBIO_POOL, PoolType, "uint", Flags, UnitArrayMarshal, UnitArray, "ptr", UnitCount, Guid.Ptr, DatabaseId, WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &SessionHandle := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncOpenSession", UInt32, Factor, WINBIO_POOL, PoolType, UInt32, Flags, UnitArrayMarshal, UnitArray, IntPtr, UnitCount, Guid.Ptr, DatabaseId, WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, UInt32, MessageCode, PWINBIO_ASYNC_COMPLETION_CALLBACK, CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &SessionHandle := 0, "HRESULT")
     return SessionHandle
 }
 
@@ -1027,7 +1034,7 @@ export WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, Dat
  * @since windows6.1
  */
 export WinBioCloseSession(SessionHandle) {
-    result := DllCall("winbio.dll\WinBioCloseSession", "uint", SessionHandle, "HRESULT")
+    result := DllCall("winbio.dll\WinBioCloseSession", UInt32, SessionHandle, "HRESULT")
     return result
 }
 
@@ -1166,7 +1173,7 @@ export WinBioVerify(SessionHandle, Identity, SubFactor, UnitId, Match, RejectDet
     MatchMarshal := Match is VarRef ? "char*" : "ptr"
     RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioVerify", "uint", SessionHandle, WINBIO_IDENTITY.Ptr, Identity, "char", SubFactor, UnitIdMarshal, UnitId, MatchMarshal, Match, RejectDetailMarshal, RejectDetail, "HRESULT")
+    result := DllCall("winbio.dll\WinBioVerify", UInt32, SessionHandle, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, UnitIdMarshal, UnitId, MatchMarshal, Match, RejectDetailMarshal, RejectDetail, "HRESULT")
     return result
 }
 
@@ -1260,7 +1267,7 @@ export WinBioVerify(SessionHandle, Identity, SubFactor, UnitId, Match, RejectDet
 export WinBioVerifyWithCallback(SessionHandle, Identity, SubFactor, VerifyCallback, VerifyCallbackContext) {
     VerifyCallbackContextMarshal := VerifyCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioVerifyWithCallback", "uint", SessionHandle, WINBIO_IDENTITY.Ptr, Identity, "char", SubFactor, "ptr", VerifyCallback, VerifyCallbackContextMarshal, VerifyCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioVerifyWithCallback", UInt32, SessionHandle, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, PWINBIO_VERIFY_CALLBACK, VerifyCallback, VerifyCallbackContextMarshal, VerifyCallbackContext, "HRESULT")
     return result
 }
 
@@ -1383,7 +1390,7 @@ export WinBioIdentify(SessionHandle, UnitId, Identity, SubFactor, RejectDetail) 
     SubFactorMarshal := SubFactor is VarRef ? "char*" : "ptr"
     RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioIdentify", "uint", SessionHandle, UnitIdMarshal, UnitId, WINBIO_IDENTITY.Ptr, Identity, SubFactorMarshal, SubFactor, RejectDetailMarshal, RejectDetail, "HRESULT")
+    result := DllCall("winbio.dll\WinBioIdentify", UInt32, SessionHandle, UnitIdMarshal, UnitId, WINBIO_IDENTITY.Ptr, Identity, SubFactorMarshal, SubFactor, RejectDetailMarshal, RejectDetail, "HRESULT")
     return result
 }
 
@@ -1444,7 +1451,7 @@ export WinBioIdentify(SessionHandle, UnitId, Identity, SubFactor, RejectDetail) 
 export WinBioIdentifyWithCallback(SessionHandle, IdentifyCallback, IdentifyCallbackContext) {
     IdentifyCallbackContextMarshal := IdentifyCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioIdentifyWithCallback", "uint", SessionHandle, "ptr", IdentifyCallback, IdentifyCallbackContextMarshal, IdentifyCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioIdentifyWithCallback", UInt32, SessionHandle, PWINBIO_IDENTIFY_CALLBACK, IdentifyCallback, IdentifyCallbackContextMarshal, IdentifyCallbackContext, "HRESULT")
     return result
 }
 
@@ -1484,7 +1491,7 @@ export WinBioIdentifyWithCallback(SessionHandle, IdentifyCallback, IdentifyCallb
  * @since windows6.1
  */
 export WinBioWait(SessionHandle) {
-    result := DllCall("winbio.dll\WinBioWait", "uint", SessionHandle, "HRESULT")
+    result := DllCall("winbio.dll\WinBioWait", UInt32, SessionHandle, "HRESULT")
     return result
 }
 
@@ -1535,7 +1542,7 @@ export WinBioWait(SessionHandle) {
  * @since windows6.1
  */
 export WinBioCancel(SessionHandle) {
-    result := DllCall("winbio.dll\WinBioCancel", "uint", SessionHandle, "HRESULT")
+    result := DllCall("winbio.dll\WinBioCancel", UInt32, SessionHandle, "HRESULT")
     return result
 }
 
@@ -1563,7 +1570,7 @@ export WinBioCancel(SessionHandle) {
  * @since windows6.1
  */
 export WinBioLocateSensor(SessionHandle) {
-    result := DllCall("winbio.dll\WinBioLocateSensor", "uint", SessionHandle, "uint*", &UnitId := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioLocateSensor", UInt32, SessionHandle, "uint*", &UnitId := 0, "HRESULT")
     return UnitId
 }
 
@@ -1624,7 +1631,7 @@ export WinBioLocateSensor(SessionHandle) {
 export WinBioLocateSensorWithCallback(SessionHandle, LocateCallback, LocateCallbackContext) {
     LocateCallbackContextMarshal := LocateCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioLocateSensorWithCallback", "uint", SessionHandle, "ptr", LocateCallback, LocateCallbackContextMarshal, LocateCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioLocateSensorWithCallback", UInt32, SessionHandle, PWINBIO_LOCATE_SENSOR_CALLBACK, LocateCallback, LocateCallbackContextMarshal, LocateCallbackContext, "HRESULT")
     return result
 }
 
@@ -1714,7 +1721,7 @@ export WinBioLocateSensorWithCallback(SessionHandle, LocateCallback, LocateCallb
  * @since windows6.1
  */
 export WinBioEnrollBegin(SessionHandle, SubFactor, UnitId) {
-    result := DllCall("winbio.dll\WinBioEnrollBegin", "uint", SessionHandle, "char", SubFactor, "uint", UnitId, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnrollBegin", UInt32, SessionHandle, Int8, SubFactor, UInt32, UnitId, "HRESULT")
     return result
 }
 
@@ -1785,7 +1792,7 @@ export WinBioEnrollBegin(SessionHandle, SubFactor, UnitId) {
  * @since windows10.0.10240
  */
 export WinBioEnrollSelect(SessionHandle, SelectorValue) {
-    result := DllCall("winbio.dll\WinBioEnrollSelect", "uint", SessionHandle, "uint", SelectorValue, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnrollSelect", UInt32, SessionHandle, Int64, SelectorValue, "HRESULT")
     return result
 }
 
@@ -1824,7 +1831,7 @@ export WinBioEnrollSelect(SessionHandle, SelectorValue) {
  * @since windows6.1
  */
 export WinBioEnrollCapture(SessionHandle) {
-    result := DllCall("winbio.dll\WinBioEnrollCapture", "uint", SessionHandle, "uint*", &RejectDetail := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnrollCapture", UInt32, SessionHandle, "uint*", &RejectDetail := 0, "HRESULT")
     return RejectDetail
 }
 
@@ -1882,7 +1889,7 @@ export WinBioEnrollCapture(SessionHandle) {
 export WinBioEnrollCaptureWithCallback(SessionHandle, EnrollCallback, EnrollCallbackContext) {
     EnrollCallbackContextMarshal := EnrollCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioEnrollCaptureWithCallback", "uint", SessionHandle, "ptr", EnrollCallback, EnrollCallbackContextMarshal, EnrollCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnrollCaptureWithCallback", UInt32, SessionHandle, PWINBIO_ENROLL_CAPTURE_CALLBACK, EnrollCallback, EnrollCallbackContextMarshal, EnrollCallbackContext, "HRESULT")
     return result
 }
 
@@ -1921,7 +1928,7 @@ export WinBioEnrollCaptureWithCallback(SessionHandle, EnrollCallback, EnrollCall
  * @since windows6.1
  */
 export WinBioEnrollCommit(SessionHandle, Identity) {
-    result := DllCall("winbio.dll\WinBioEnrollCommit", "uint", SessionHandle, WINBIO_IDENTITY.Ptr, Identity, "char*", &IsNewTemplate := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnrollCommit", UInt32, SessionHandle, WINBIO_IDENTITY.Ptr, Identity, "char*", &IsNewTemplate := 0, "HRESULT")
     return IsNewTemplate
 }
 
@@ -1985,7 +1992,7 @@ export WinBioEnrollCommit(SessionHandle, Identity) {
  * @since windows6.1
  */
 export WinBioEnrollDiscard(SessionHandle) {
-    result := DllCall("winbio.dll\WinBioEnrollDiscard", "uint", SessionHandle, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnrollDiscard", UInt32, SessionHandle, "HRESULT")
     return result
 }
 
@@ -2080,7 +2087,7 @@ export WinBioEnumEnrollments(SessionHandle, UnitId, Identity, SubFactorArray, Su
     SubFactorArrayMarshal := SubFactorArray is VarRef ? "ptr*" : "ptr"
     SubFactorCountMarshal := SubFactorCount is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, WINBIO_IDENTITY.Ptr, Identity, SubFactorArrayMarshal, SubFactorArray, SubFactorCountMarshal, SubFactorCount, "HRESULT")
+    result := DllCall("winbio.dll\WinBioEnumEnrollments", UInt32, SessionHandle, UInt32, UnitId, WINBIO_IDENTITY.Ptr, Identity, SubFactorArrayMarshal, SubFactorArray, SubFactorCountMarshal, SubFactorCount, "HRESULT")
     return result
 }
 
@@ -2091,7 +2098,7 @@ export WinBioEnumEnrollments(SessionHandle, UnitId, Identity, SubFactorArray, Su
  * @returns {HRESULT} 
  */
 export WinBioImproveBegin(SessionHandle, UnitId) {
-    result := DllCall("winbio.dll\WinBioImproveBegin", "uint", SessionHandle, "uint", UnitId, "HRESULT")
+    result := DllCall("winbio.dll\WinBioImproveBegin", UInt32, SessionHandle, UInt32, UnitId, "HRESULT")
     return result
 }
 
@@ -2101,7 +2108,7 @@ export WinBioImproveBegin(SessionHandle, UnitId) {
  * @returns {HRESULT} 
  */
 export WinBioImproveEnd(SessionHandle) {
-    result := DllCall("winbio.dll\WinBioImproveEnd", "uint", SessionHandle, "HRESULT")
+    result := DllCall("winbio.dll\WinBioImproveEnd", UInt32, SessionHandle, "HRESULT")
     return result
 }
 
@@ -2214,7 +2221,7 @@ export WinBioImproveEnd(SessionHandle) {
 export WinBioRegisterEventMonitor(SessionHandle, _EventMask, EventCallback, EventCallbackContext) {
     EventCallbackContextMarshal := EventCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioRegisterEventMonitor", "uint", SessionHandle, "uint", _EventMask, "ptr", EventCallback, EventCallbackContextMarshal, EventCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioRegisterEventMonitor", UInt32, SessionHandle, UInt32, _EventMask, PWINBIO_EVENT_CALLBACK, EventCallback, EventCallbackContextMarshal, EventCallbackContext, "HRESULT")
     return result
 }
 
@@ -2248,7 +2255,7 @@ export WinBioRegisterEventMonitor(SessionHandle, _EventMask, EventCallback, Even
  * @since windows6.1
  */
 export WinBioUnregisterEventMonitor(SessionHandle) {
-    result := DllCall("winbio.dll\WinBioUnregisterEventMonitor", "uint", SessionHandle, "HRESULT")
+    result := DllCall("winbio.dll\WinBioUnregisterEventMonitor", UInt32, SessionHandle, "HRESULT")
     return result
 }
 
@@ -2311,7 +2318,7 @@ export WinBioUnregisterEventMonitor(SessionHandle) {
  * @since windows10.0.10240
  */
 export WinBioMonitorPresence(SessionHandle, UnitId) {
-    result := DllCall("winbio.dll\WinBioMonitorPresence", "uint", SessionHandle, "uint", UnitId, "HRESULT")
+    result := DllCall("winbio.dll\WinBioMonitorPresence", UInt32, SessionHandle, UInt32, UnitId, "HRESULT")
     return result
 }
 
@@ -2461,7 +2468,7 @@ export WinBioCaptureSample(SessionHandle, Purpose, Flags, UnitId, Sample, Sample
     SampleSizeMarshal := SampleSize is VarRef ? "ptr*" : "ptr"
     RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioCaptureSample", "uint", SessionHandle, "char", Purpose, "char", Flags, UnitIdMarshal, UnitId, SampleMarshal, Sample, SampleSizeMarshal, SampleSize, RejectDetailMarshal, RejectDetail, "HRESULT")
+    result := DllCall("winbio.dll\WinBioCaptureSample", UInt32, SessionHandle, Int8, Purpose, Int8, Flags, UnitIdMarshal, UnitId, SampleMarshal, Sample, SampleSizeMarshal, SampleSize, RejectDetailMarshal, RejectDetail, "HRESULT")
     return result
 }
 
@@ -2586,7 +2593,7 @@ export WinBioCaptureSample(SessionHandle, Purpose, Flags, UnitId, Sample, Sample
 export WinBioCaptureSampleWithCallback(SessionHandle, Purpose, Flags, CaptureCallback, CaptureCallbackContext) {
     CaptureCallbackContextMarshal := CaptureCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioCaptureSampleWithCallback", "uint", SessionHandle, "char", Purpose, "char", Flags, "ptr", CaptureCallback, CaptureCallbackContextMarshal, CaptureCallbackContext, "HRESULT")
+    result := DllCall("winbio.dll\WinBioCaptureSampleWithCallback", UInt32, SessionHandle, Int8, Purpose, Int8, Flags, PWINBIO_CAPTURE_CALLBACK, CaptureCallback, CaptureCallbackContextMarshal, CaptureCallbackContext, "HRESULT")
     return result
 }
 
@@ -2662,7 +2669,7 @@ export WinBioCaptureSampleWithCallback(SessionHandle, Purpose, Flags, CaptureCal
  * @since windows6.1
  */
 export WinBioDeleteTemplate(SessionHandle, UnitId, Identity, SubFactor) {
-    result := DllCall("winbio.dll\WinBioDeleteTemplate", "uint", SessionHandle, "uint", UnitId, WINBIO_IDENTITY.Ptr, Identity, "char", SubFactor, "HRESULT")
+    result := DllCall("winbio.dll\WinBioDeleteTemplate", UInt32, SessionHandle, UInt32, UnitId, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, "HRESULT")
     return result
 }
 
@@ -2740,7 +2747,7 @@ export WinBioDeleteTemplate(SessionHandle, UnitId, Identity, SubFactor) {
  * @since windows6.1
  */
 export WinBioLockUnit(SessionHandle, UnitId) {
-    result := DllCall("winbio.dll\WinBioLockUnit", "uint", SessionHandle, "uint", UnitId, "HRESULT")
+    result := DllCall("winbio.dll\WinBioLockUnit", UInt32, SessionHandle, UInt32, UnitId, "HRESULT")
     return result
 }
 
@@ -2805,7 +2812,7 @@ export WinBioLockUnit(SessionHandle, UnitId) {
  * @since windows6.1
  */
 export WinBioUnlockUnit(SessionHandle, UnitId) {
-    result := DllCall("winbio.dll\WinBioUnlockUnit", "uint", SessionHandle, "uint", UnitId, "HRESULT")
+    result := DllCall("winbio.dll\WinBioUnlockUnit", UInt32, SessionHandle, UInt32, UnitId, "HRESULT")
     return result
 }
 
@@ -2841,7 +2848,7 @@ export WinBioUnlockUnit(SessionHandle, UnitId) {
 export WinBioControlUnit(SessionHandle, UnitId, _Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
     ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioControlUnit", "uint", SessionHandle, "uint", UnitId, WINBIO_COMPONENT, _Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioControlUnit", UInt32, SessionHandle, UInt32, UnitId, WINBIO_COMPONENT, _Component, UInt32, ControlCode, IntPtr, SendBuffer, IntPtr, SendBufferSize, IntPtr, ReceiveBuffer, IntPtr, ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
     return OperationStatus
 }
 
@@ -2879,7 +2886,7 @@ export WinBioControlUnit(SessionHandle, UnitId, _Component, ControlCode, SendBuf
 export WinBioControlUnitPrivileged(SessionHandle, UnitId, _Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
     ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioControlUnitPrivileged", "uint", SessionHandle, "uint", UnitId, WINBIO_COMPONENT, _Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioControlUnitPrivileged", UInt32, SessionHandle, UInt32, UnitId, WINBIO_COMPONENT, _Component, UInt32, ControlCode, IntPtr, SendBuffer, IntPtr, SendBufferSize, IntPtr, ReceiveBuffer, IntPtr, ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
     return OperationStatus
 }
 
@@ -3087,7 +3094,7 @@ export WinBioGetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identi
     PropertyBufferMarshal := PropertyBuffer is VarRef ? "ptr*" : "ptr"
     PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("winbio.dll\WinBioGetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, WINBIO_IDENTITY.Ptr, Identity, "char", SubFactor, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, "HRESULT")
+    result := DllCall("winbio.dll\WinBioGetProperty", UInt32, SessionHandle, UInt32, PropertyType, UInt32, PropertyId, UInt32, UnitId, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, "HRESULT")
     return result
 }
 
@@ -3211,7 +3218,7 @@ export WinBioGetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identi
  * @since windows10.0.10240
  */
 export WinBioSetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
-    result := DllCall("winbio.dll\WinBioSetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, WINBIO_IDENTITY.Ptr, Identity, "char", SubFactor, "ptr", PropertyBuffer, "ptr", PropertyBufferSize, "HRESULT")
+    result := DllCall("winbio.dll\WinBioSetProperty", UInt32, SessionHandle, UInt32, PropertyType, UInt32, PropertyId, UInt32, UnitId, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, IntPtr, PropertyBuffer, IntPtr, PropertyBufferSize, "HRESULT")
     return result
 }
 
@@ -3408,7 +3415,7 @@ export WinBioFree(_Address) {
  * @since windows8.1
  */
 export WinBioSetCredential(Type, Credential, CredentialSize, Format) {
-    result := DllCall("winbio.dll\WinBioSetCredential", WINBIO_CREDENTIAL_TYPE, Type, "ptr", Credential, "ptr", CredentialSize, WINBIO_CREDENTIAL_FORMAT, Format, "HRESULT")
+    result := DllCall("winbio.dll\WinBioSetCredential", WINBIO_CREDENTIAL_TYPE, Type, IntPtr, Credential, IntPtr, CredentialSize, WINBIO_CREDENTIAL_FORMAT, Format, "HRESULT")
     return result
 }
 
@@ -3599,7 +3606,7 @@ export WinBioGetCredentialState(Identity, Type) {
  * @since windows6.1
  */
 export WinBioLogonIdentifiedUser(SessionHandle) {
-    result := DllCall("winbio.dll\WinBioLogonIdentifiedUser", "uint", SessionHandle, "HRESULT")
+    result := DllCall("winbio.dll\WinBioLogonIdentifiedUser", UInt32, SessionHandle, "HRESULT")
     return result
 }
 

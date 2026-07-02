@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_DEVICE_FACTORY_FLAGS.ahk" { D3D12_DEVICE_FACTORY_FLAGS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -185,7 +185,7 @@ export default struct ID3D12DeviceFactory extends IUnknown {
         pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : "ptr"
         pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", NumFeatures, Guid.Ptr, pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
+        result := ComCall(8, this, UInt32, NumFeatures, Guid.Ptr, pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
         return result
     }
 

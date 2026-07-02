@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAction.ahk" { IAction }
+#Import ".\TASK_ACTION_TYPE.ahk" { TASK_ACTION_TYPE }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\TASK_ACTION_TYPE.ahk" { TASK_ACTION_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IAction.ahk" { IAction }
 
 /**
  * Contains the actions that are performed by the task.
@@ -104,7 +104,7 @@ export default struct IActionCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get_item
      */
     get_Item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &ppAction := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "ptr*", &ppAction := 0, "HRESULT")
         return IAction(ppAction)
     }
 

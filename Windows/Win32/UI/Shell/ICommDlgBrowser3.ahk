@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ICommDlgBrowser2.ahk" { ICommDlgBrowser2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the capabilities of ICommDlgBrowser2, and used by the common file dialog boxes when they host a Shell browser.
@@ -59,7 +59,7 @@ export default struct ICommDlgBrowser3 extends ICommDlgBrowser2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icommdlgbrowser3-oncolumnclicked
      */
     OnColumnClicked(ppshv, iColumn) {
-        result := ComCall(9, this, "ptr", ppshv, "int", iColumn, "HRESULT")
+        result := ComCall(9, this, "ptr", ppshv, Int32, iColumn, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct ICommDlgBrowser3 extends ICommDlgBrowser2 {
     GetCurrentFilter(pszFileSpec, cchFileSpec) {
         pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
 
-        result := ComCall(10, this, "ptr", pszFileSpec, "int", cchFileSpec, "HRESULT")
+        result := ComCall(10, this, "ptr", pszFileSpec, Int32, cchFileSpec, "HRESULT")
         return result
     }
 

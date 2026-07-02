@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Callback interface for the IMFMediaEngine interface.
@@ -48,7 +48,7 @@ export default struct IMFMediaEngineNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginenotify-eventnotify
      */
     EventNotify(event, param1, param2) {
-        result := ComCall(3, this, "uint", event, "ptr", param1, "uint", param2, "HRESULT")
+        result := ComCall(3, this, UInt32, event, IntPtr, param1, UInt32, param2, "HRESULT")
         return result
     }
 

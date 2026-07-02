@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
 #Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method to handle events that occur when Microsoft UI Automation reports a text-changed event from text edit controls.
@@ -57,7 +57,9 @@ export default struct IUIAutomationTextEditTextChangedEventHandler extends IUnkn
      * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element that raised the event.
-     * @param {TextEditChangeType} _textEditChangeType 
+     * @param {TextEditChangeType} _textEditChangeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-texteditchangetype">TextEditChangeType</a></b>
+     * 
+     * The type of text-edit change that occurred.
      * @param {Pointer<SAFEARRAY>} eventStrings Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-workingwithsafearrays">SAFEARRAY</a>*</b>
      * 
      * Event data passed by the event.

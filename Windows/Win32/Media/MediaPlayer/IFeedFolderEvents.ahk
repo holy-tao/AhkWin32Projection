@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -137,7 +137,7 @@ export default struct IFeedFolderEvents extends IDispatch {
     FolderItemCountChanged(_path, itemCountType) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(13, this, BSTR, _path, "int", itemCountType, "HRESULT")
+        result := ComCall(13, this, BSTR, _path, Int32, itemCountType, "HRESULT")
         return result
     }
 
@@ -253,7 +253,7 @@ export default struct IFeedFolderEvents extends IDispatch {
     FeedItemCountChanged(_path, itemCountType) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(22, this, BSTR, _path, "int", itemCountType, "HRESULT")
+        result := ComCall(22, this, BSTR, _path, Int32, itemCountType, "HRESULT")
         return result
     }
 

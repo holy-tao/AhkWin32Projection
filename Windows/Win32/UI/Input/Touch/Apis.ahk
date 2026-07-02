@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\GESTURECONFIG.ahk" { GESTURECONFIG }
 #Import ".\HGESTUREINFO.ahk" { HGESTUREINFO }
-#Import ".\REGISTER_TOUCH_WINDOW_FLAGS.ahk" { REGISTER_TOUCH_WINDOW_FLAGS }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\HTOUCHINPUT.ahk" { HTOUCHINPUT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\GESTUREINFO.ahk" { GESTUREINFO }
+#Import ".\GESTURECONFIG.ahk" { GESTURECONFIG }
+#Import ".\HTOUCHINPUT.ahk" { HTOUCHINPUT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\TOUCHINPUT.ahk" { TOUCHINPUT }
+#Import ".\REGISTER_TOUCH_WINDOW_FLAGS.ahk" { REGISTER_TOUCH_WINDOW_FLAGS }
 
 /**
  * @namespace Windows.Win32.UI.Input.Touch
@@ -30,7 +30,7 @@
 export GetTouchInputInfo(_hTouchInput, cInputs, pInputs, cbSize) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetTouchInputInfo", HTOUCHINPUT, _hTouchInput, "uint", cInputs, TOUCHINPUT.Ptr, pInputs, "int", cbSize, BOOL)
+    result := DllCall("USER32.dll\GetTouchInputInfo", HTOUCHINPUT, _hTouchInput, UInt32, cInputs, TOUCHINPUT.Ptr, pInputs, Int32, cbSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -213,7 +213,7 @@ export GetGestureInfo(_hGestureInfo, pGestureInfo) {
 export GetGestureExtraArgs(_hGestureInfo, cbExtraArgs, pExtraArgs) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetGestureExtraArgs", HGESTUREINFO, _hGestureInfo, "uint", cbExtraArgs, "ptr", pExtraArgs, BOOL)
+    result := DllCall("USER32.dll\GetGestureExtraArgs", HGESTUREINFO, _hGestureInfo, UInt32, cbExtraArgs, IntPtr, pExtraArgs, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -447,7 +447,7 @@ export CloseGestureInfoHandle(_hGestureInfo) {
 export SetGestureConfig(_hwnd, dwReserved, cIDs, pGestureConfig, cbSize) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetGestureConfig", HWND, _hwnd, "uint", dwReserved, "uint", cIDs, GESTURECONFIG.Ptr, pGestureConfig, "uint", cbSize, BOOL)
+    result := DllCall("USER32.dll\SetGestureConfig", HWND, _hwnd, UInt32, dwReserved, UInt32, cIDs, GESTURECONFIG.Ptr, pGestureConfig, UInt32, cbSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -499,7 +499,7 @@ export GetGestureConfig(_hwnd, dwReserved, dwFlags, pcIDs, pGestureConfig, cbSiz
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetGestureConfig", HWND, _hwnd, "uint", dwReserved, "uint", dwFlags, pcIDsMarshal, pcIDs, GESTURECONFIG.Ptr, pGestureConfig, "uint", cbSize, BOOL)
+    result := DllCall("USER32.dll\GetGestureConfig", HWND, _hwnd, UInt32, dwReserved, UInt32, dwFlags, pcIDsMarshal, pcIDs, GESTURECONFIG.Ptr, pGestureConfig, UInt32, cbSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

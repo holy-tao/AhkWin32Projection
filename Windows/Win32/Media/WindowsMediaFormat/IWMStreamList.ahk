@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMStreamList interface is used by mutual exclusion objects and bandwidth sharing objects to maintain lists of streams.
@@ -92,7 +92,7 @@ export default struct IWMStreamList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamlist-addstream
      */
     AddStream(wStreamNum) {
-        result := ComCall(4, this, "ushort", wStreamNum, "HRESULT")
+        result := ComCall(4, this, UInt16, wStreamNum, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct IWMStreamList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamlist-removestream
      */
     RemoveStream(wStreamNum) {
-        result := ComCall(5, this, "ushort", wStreamNum, "HRESULT")
+        result := ComCall(5, this, UInt16, wStreamNum, "HRESULT")
         return result
     }
 

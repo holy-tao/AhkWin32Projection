@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CERT_X942_DH_VALIDATION_PARAMS.ahk" { CERT_X942_DH_VALIDATION_PARAMS }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Contains parameters associated with a Diffie-Hellman public key algorithm.

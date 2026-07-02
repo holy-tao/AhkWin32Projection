@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFVideoAlphaBitmapParams.ahk" { MFVideoAlphaBitmapParams }
-#Import ".\MFVideoAlphaBitmap.ahk" { MFVideoAlphaBitmap }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MFVideoAlphaBitmapParams.ahk" { MFVideoAlphaBitmapParams }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFVideoAlphaBitmap.ahk" { MFVideoAlphaBitmap }
 
 /**
  * Alpha-blends a static bitmap image with the video displayed by the Enhanced Video Renderer (EVR).

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DRT_EVENT_TYPE.ahk" { DRT_EVENT_TYPE }
-#Import ".\DRT_LEAFSET_KEY_CHANGE_TYPE.ahk" { DRT_LEAFSET_KEY_CHANGE_TYPE }
-#Import ".\DRT_DATA.ahk" { DRT_DATA }
 #Import "..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
-#Import ".\DRT_REGISTRATION_STATE.ahk" { DRT_REGISTRATION_STATE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DRT_LEAFSET_KEY_CHANGE_TYPE.ahk" { DRT_LEAFSET_KEY_CHANGE_TYPE }
 #Import ".\DRT_STATUS.ahk" { DRT_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DRT_EVENT_TYPE.ahk" { DRT_EVENT_TYPE }
+#Import ".\DRT_REGISTRATION_STATE.ahk" { DRT_REGISTRATION_STATE }
+#Import ".\DRT_DATA.ahk" { DRT_DATA }
 
 /**
  * DRT_EVENT_DATA.

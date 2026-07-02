@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to a device's Encoder Service.
@@ -106,7 +106,7 @@ export default struct IBDA_Encoder extends IUnknown {
         BitDepthMarshal := BitDepth is VarRef ? "uint*" : "ptr"
         NumChannelsMarshal := NumChannels is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", FmtIndex, MethodIDMarshal, MethodID, _AlgorithmTypeMarshal, _AlgorithmType, SamplingRateMarshal, SamplingRate, BitDepthMarshal, BitDepth, NumChannelsMarshal, NumChannels, "HRESULT")
+        result := ComCall(4, this, UInt32, FmtIndex, MethodIDMarshal, MethodID, _AlgorithmTypeMarshal, _AlgorithmType, SamplingRateMarshal, SamplingRate, BitDepthMarshal, BitDepth, NumChannelsMarshal, NumChannels, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct IBDA_Encoder extends IUnknown {
         FrameRateCodeMarshal := FrameRateCode is VarRef ? "uint*" : "ptr"
         ProgressiveSequenceMarshal := ProgressiveSequence is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", FmtIndex, MethodIDMarshal, MethodID, _AlgorithmTypeMarshal, _AlgorithmType, VerticalSizeMarshal, VerticalSize, HorizontalSizeMarshal, HorizontalSize, AspectRatioMarshal, AspectRatio, FrameRateCodeMarshal, FrameRateCode, ProgressiveSequenceMarshal, ProgressiveSequence, "HRESULT")
+        result := ComCall(5, this, UInt32, FmtIndex, MethodIDMarshal, MethodID, _AlgorithmTypeMarshal, _AlgorithmType, VerticalSizeMarshal, VerticalSize, HorizontalSizeMarshal, HorizontalSize, AspectRatioMarshal, AspectRatio, FrameRateCodeMarshal, FrameRateCode, ProgressiveSequenceMarshal, ProgressiveSequence, "HRESULT")
         return result
     }
 
@@ -242,7 +242,7 @@ export default struct IBDA_Encoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-setparameters
      */
     SetParameters(AudioBitrateMode, AudioBitrate, AudioMethodID, AudioProgram, VideoBitrateMode, VideoBitrate, VideoMethodID) {
-        result := ComCall(6, this, "uint", AudioBitrateMode, "uint", AudioBitrate, "uint", AudioMethodID, "uint", AudioProgram, "uint", VideoBitrateMode, "uint", VideoBitrate, "uint", VideoMethodID, "HRESULT")
+        result := ComCall(6, this, UInt32, AudioBitrateMode, UInt32, AudioBitrate, UInt32, AudioMethodID, UInt32, AudioProgram, UInt32, VideoBitrateMode, UInt32, VideoBitrate, UInt32, VideoMethodID, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumString (objidlbase.h) interface enumerates strings. LPWSTR is the type that indicates a pointer to a zero-terminated string of wide, or Unicode, characters.
@@ -55,7 +55,7 @@ export default struct IEnumString extends IUnknown {
         rgeltMarshal := rgelt is VarRef ? "ptr*" : "ptr"
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, rgeltMarshal, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
+        result := ComCall(3, this, UInt32, celt, rgeltMarshal, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct IEnumString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumstring-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, Int32)
+        result := ComCall(4, this, UInt32, celt, Int32)
         return result
     }
 

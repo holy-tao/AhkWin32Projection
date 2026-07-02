@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DEBUG_SYMBOL_PARAMETERS.ahk" { DEBUG_SYMBOL_PARAMETERS }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_SYMBOL_PARAMETERS.ahk" { DEBUG_SYMBOL_PARAMETERS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -89,7 +89,7 @@ export default struct IDebugSymbolGroup extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveSymbolByIndex(Index) {
-        result := ComCall(6, this, "uint", Index, "HRESULT")
+        result := ComCall(6, this, UInt32, Index, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IDebugSymbolGroup extends IUnknown {
     GetSymbolName(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(7, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
@@ -115,7 +115,7 @@ export default struct IDebugSymbolGroup extends IUnknown {
      */
     GetSymbolParameters(Start, Count) {
         Params := DEBUG_SYMBOL_PARAMETERS()
-        result := ComCall(8, this, "uint", Start, "uint", Count, DEBUG_SYMBOL_PARAMETERS.Ptr, Params, "HRESULT")
+        result := ComCall(8, this, UInt32, Start, UInt32, Count, DEBUG_SYMBOL_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -126,7 +126,7 @@ export default struct IDebugSymbolGroup extends IUnknown {
      * @returns {HRESULT} 
      */
     ExpandSymbol(Index, Expand) {
-        result := ComCall(9, this, "uint", Index, BOOL, Expand, "HRESULT")
+        result := ComCall(9, this, UInt32, Index, BOOL, Expand, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IDebugSymbolGroup extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputSymbols(OutputControl, Flags, Start, Count) {
-        result := ComCall(10, this, "uint", OutputControl, "uint", Flags, "uint", Start, "uint", Count, "HRESULT")
+        result := ComCall(10, this, UInt32, OutputControl, UInt32, Flags, UInt32, Start, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IDebugSymbolGroup extends IUnknown {
     WriteSymbol(Index, Value) {
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := ComCall(11, this, "uint", Index, "ptr", Value, "HRESULT")
+        result := ComCall(11, this, UInt32, Index, "ptr", Value, "HRESULT")
         return result
     }
 
@@ -165,7 +165,7 @@ export default struct IDebugSymbolGroup extends IUnknown {
     OutputAsType(Index, Type) {
         Type := Type is String ? StrPtr(Type) : Type
 
-        result := ComCall(12, this, "uint", Index, "ptr", Type, "HRESULT")
+        result := ComCall(12, this, UInt32, Index, "ptr", Type, "HRESULT")
         return result
     }
 

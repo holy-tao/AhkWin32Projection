@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\NLM_DATAPLAN_STATUS.ahk" { NLM_DATAPLAN_STATUS }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\NLM_SOCKADDR.ahk" { NLM_SOCKADDR }
 
 /**
@@ -135,7 +135,7 @@ export default struct INetworkCostManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkcostmanager-setdestinationaddresses
      */
     SetDestinationAddresses(length, pDestIPAddrList, bAppend) {
-        result := ComCall(5, this, "uint", length, NLM_SOCKADDR.Ptr, pDestIPAddrList, VARIANT_BOOL, bAppend, "HRESULT")
+        result := ComCall(5, this, UInt32, length, NLM_SOCKADDR.Ptr, pDestIPAddrList, VARIANT_BOOL, bAppend, "HRESULT")
         return result
     }
 

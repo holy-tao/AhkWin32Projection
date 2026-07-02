@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AMVAUncompDataInfo.ahk" { AMVAUncompDataInfo }
 #Import ".\AMVABUFFERINFO.ahk" { AMVABUFFERINFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMediaSample.ahk" { IMediaSample }
 #Import "..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\AMVABeginFrameInfo.ahk" { AMVABeginFrameInfo }
 #Import ".\AMVAInternalMemInfo.ahk" { AMVAInternalMemInfo }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\AMVABeginFrameInfo.ahk" { AMVABeginFrameInfo }
-#Import ".\AMVAEndFrameInfo.ahk" { AMVAEndFrameInfo }
 #Import ".\AMVACompBufferInfo.ahk" { AMVACompBufferInfo }
+#Import ".\AMVAEndFrameInfo.ahk" { AMVAEndFrameInfo }
+#Import ".\AMVAUncompDataInfo.ahk" { AMVAUncompDataInfo }
+#Import ".\IMediaSample.ahk" { IMediaSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMVideoAccelerator interface enables a video decoder filter to access DirectX Video Acceleration (DXVA) 1.0 functionality.
@@ -543,7 +543,7 @@ export default struct IAMVideoAccelerator extends IUnknown {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         lpStrideMarshal := lpStride is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "uint", dwTypeIndex, "uint", dwBufferIndex, BOOL, bReadOnly, ppBufferMarshal, ppBuffer, lpStrideMarshal, lpStride, "HRESULT")
+        result := ComCall(10, this, UInt32, dwTypeIndex, UInt32, dwBufferIndex, BOOL, bReadOnly, ppBufferMarshal, ppBuffer, lpStrideMarshal, lpStride, "HRESULT")
         return result
     }
 
@@ -645,7 +645,7 @@ export default struct IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-releasebuffer
      */
     ReleaseBuffer(dwTypeIndex, dwBufferIndex) {
-        result := ComCall(11, this, "uint", dwTypeIndex, "uint", dwBufferIndex, "HRESULT")
+        result := ComCall(11, this, UInt32, dwTypeIndex, UInt32, dwBufferIndex, "HRESULT")
         return result
     }
 
@@ -757,7 +757,7 @@ export default struct IAMVideoAccelerator extends IUnknown {
         lpPrivateInputDataMarshal := lpPrivateInputData is VarRef ? "ptr" : "ptr"
         lpPrivateOutputDatMarshal := lpPrivateOutputDat is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, "uint", dwFunction, lpPrivateInputDataMarshal, lpPrivateInputData, "uint", cbPrivateInputData, lpPrivateOutputDatMarshal, lpPrivateOutputDat, "uint", cbPrivateOutputData, "uint", dwNumBuffers, AMVABUFFERINFO.Ptr, pamvaBufferInfo, "HRESULT")
+        result := ComCall(12, this, UInt32, dwFunction, lpPrivateInputDataMarshal, lpPrivateInputData, UInt32, cbPrivateInputData, lpPrivateOutputDatMarshal, lpPrivateOutputDat, UInt32, cbPrivateOutputData, UInt32, dwNumBuffers, AMVABUFFERINFO.Ptr, pamvaBufferInfo, "HRESULT")
         return result
     }
 
@@ -856,7 +856,7 @@ export default struct IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-queryrenderstatus
      */
     QueryRenderStatus(dwTypeIndex, dwBufferIndex, dwFlags) {
-        result := ComCall(13, this, "uint", dwTypeIndex, "uint", dwBufferIndex, "uint", dwFlags, "HRESULT")
+        result := ComCall(13, this, UInt32, dwTypeIndex, UInt32, dwBufferIndex, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -959,7 +959,7 @@ export default struct IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-displayframe
      */
     DisplayFrame(dwFlipToIndex, pMediaSample) {
-        result := ComCall(14, this, "uint", dwFlipToIndex, "ptr", pMediaSample, "HRESULT")
+        result := ComCall(14, this, UInt32, dwFlipToIndex, "ptr", pMediaSample, "HRESULT")
         return result
     }
 

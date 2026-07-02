@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\LVFINDINFOW_FLAGS.ahk" { LVFINDINFOW_FLAGS }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Contains information used when searching for a list-view item. This structure is identical to LV_FINDINFO but has been renamed to fit standard naming conventions. (ANSI)

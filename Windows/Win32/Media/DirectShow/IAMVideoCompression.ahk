@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMVideoCompression interface sets and retrieves video compression properties.
@@ -90,7 +90,7 @@ export default struct IAMVideoCompression extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_keyframerate
      */
     put_KeyFrameRate(KeyFrameRate) {
-        result := ComCall(3, this, "int", KeyFrameRate, "HRESULT")
+        result := ComCall(3, this, Int32, KeyFrameRate, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IAMVideoCompression extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_pframesperkeyframe
      */
     put_PFramesPerKeyFrame(PFramesPerKeyFrame) {
-        result := ComCall(5, this, "int", PFramesPerKeyFrame, "HRESULT")
+        result := ComCall(5, this, Int32, PFramesPerKeyFrame, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IAMVideoCompression extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_quality
      */
     put_Quality(_Quality) {
-        result := ComCall(7, this, "double", _Quality, "HRESULT")
+        result := ComCall(7, this, Float64, _Quality, "HRESULT")
         return result
     }
 
@@ -169,7 +169,7 @@ export default struct IAMVideoCompression extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-put_windowsize
      */
     put_WindowSize(WindowSize) {
-        result := ComCall(9, this, "uint", WindowSize, "HRESULT")
+        result := ComCall(9, this, Int64, WindowSize, "HRESULT")
         return result
     }
 
@@ -243,7 +243,7 @@ export default struct IAMVideoCompression extends IUnknown {
         pDefaultQualityMarshal := pDefaultQuality is VarRef ? "double*" : "ptr"
         pCapabilitiesMarshal := pCapabilities is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pszVersion, pcbVersionMarshal, pcbVersion, "ptr", pszDescription, pcbDescriptionMarshal, pcbDescription, pDefaultKeyFrameRateMarshal, pDefaultKeyFrameRate, pDefaultPFramesPerKeyMarshal, pDefaultPFramesPerKey, pDefaultQualityMarshal, pDefaultQuality, pCapabilitiesMarshal, pCapabilities, "HRESULT")
+        result := ComCall(11, this, IntPtr, pszVersion, pcbVersionMarshal, pcbVersion, IntPtr, pszDescription, pcbDescriptionMarshal, pcbDescription, pDefaultKeyFrameRateMarshal, pDefaultKeyFrameRate, pDefaultPFramesPerKeyMarshal, pDefaultPFramesPerKey, pDefaultQualityMarshal, pDefaultQuality, pCapabilitiesMarshal, pCapabilities, "HRESULT")
         return result
     }
 
@@ -285,7 +285,7 @@ export default struct IAMVideoCompression extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-overridekeyframe
      */
     OverrideKeyFrame(FrameNumber) {
-        result := ComCall(12, this, "int", FrameNumber, "HRESULT")
+        result := ComCall(12, this, Int32, FrameNumber, "HRESULT")
         return result
     }
 
@@ -328,7 +328,7 @@ export default struct IAMVideoCompression extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-overrideframesize
      */
     OverrideFrameSize(FrameNumber, _Size) {
-        result := ComCall(13, this, "int", FrameNumber, "int", _Size, "HRESULT")
+        result := ComCall(13, this, Int32, FrameNumber, Int32, _Size, "HRESULT")
         return result
     }
 

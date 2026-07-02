@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
-#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
-#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
-#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
-#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
-#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
-#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
-#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
-#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
 #Import ".\PAN_WEIGHT.ahk" { PAN_WEIGHT }
+#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
+#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
+#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
 
 /**
  * The PANOSE structure describes the PANOSE font-classification values for a TrueType font. These characteristics are then used to associate the font with other fonts of similar appearance but different names.

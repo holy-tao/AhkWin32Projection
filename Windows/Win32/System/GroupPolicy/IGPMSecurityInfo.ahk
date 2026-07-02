@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
-#Import ".\IGPMPermission.ahk" { IGPMPermission }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMPermission.ahk" { IGPMPermission }
 
 /**
  * The IGPMSecurityInfo interface defines the methods of the GPMSecurityInfo collection. This collection represents a set of policy-related permissions that can be set on a particular object, such as a scope of management (SOM), a GPO, or a WMI filter.
@@ -199,7 +199,7 @@ export default struct IGPMSecurityInfo extends IDispatch {
      */
     get_Item(lIndex) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", lIndex, VARIANT.Ptr, pVal, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 

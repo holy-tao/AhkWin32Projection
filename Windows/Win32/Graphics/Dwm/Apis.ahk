@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\DWM_TAB_WINDOW_REQUIREMENTS.ahk" { DWM_TAB_WINDOW_REQUIREMENTS }
+#Import "..\..\UI\Controls\MARGINS.ahk" { MARGINS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\DWM_THUMBNAIL_PROPERTIES.ahk" { DWM_THUMBNAIL_PROPERTIES }
-#Import "..\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import ".\DWM_SHOWCONTACT.ahk" { DWM_SHOWCONTACT }
-#Import ".\DWM_TAB_WINDOW_REQUIREMENTS.ahk" { DWM_TAB_WINDOW_REQUIREMENTS }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\GESTURE_TYPE.ahk" { GESTURE_TYPE }
-#Import ".\DWM_BLURBEHIND.ahk" { DWM_BLURBEHIND }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DWM_PRESENT_PARAMETERS.ahk" { DWM_PRESENT_PARAMETERS }
-#Import "..\..\UI\Controls\MARGINS.ahk" { MARGINS }
-#Import ".\MilMatrix3x2D.ahk" { MilMatrix3x2D }
-#Import ".\DWM_TIMING_INFO.ahk" { DWM_TIMING_INFO }
+#Import ".\GESTURE_TYPE.ahk" { GESTURE_TYPE }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import ".\DWMTRANSITION_OWNEDWINDOW_TARGET.ahk" { DWMTRANSITION_OWNEDWINDOW_TARGET }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\DWM_THUMBNAIL_PROPERTIES.ahk" { DWM_THUMBNAIL_PROPERTIES }
+#Import ".\MilMatrix3x2D.ahk" { MilMatrix3x2D }
+#Import "..\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\DWM_TIMING_INFO.ahk" { DWM_TIMING_INFO }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\DWM_BLURBEHIND.ahk" { DWM_BLURBEHIND }
+#Import ".\DWM_SHOWCONTACT.ahk" { DWM_SHOWCONTACT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.Dwm
@@ -42,7 +42,7 @@
 export DwmDefWindowProc(_hWnd, _msg, _wParam, _lParam, plResult) {
     plResultMarshal := plResult is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("dwmapi.dll\DwmDefWindowProc", HWND, _hWnd, "uint", _msg, WPARAM, _wParam, LPARAM, _lParam, plResultMarshal, plResult, BOOL)
+    result := DllCall("dwmapi.dll\DwmDefWindowProc", HWND, _hWnd, UInt32, _msg, WPARAM, _wParam, LPARAM, _lParam, plResultMarshal, plResult, BOOL)
     return result
 }
 
@@ -88,7 +88,7 @@ export DwmEnableBlurBehindWindow(_hWnd, pBlurBehind) {
  * @since windows6.0.6000
  */
 export DwmEnableComposition(uCompositionAction) {
-    result := DllCall("dwmapi.dll\DwmEnableComposition", "uint", uCompositionAction, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmEnableComposition", UInt32, uCompositionAction, "HRESULT")
     return result
 }
 
@@ -171,7 +171,7 @@ export DwmGetCompositionTimingInfo(_hwnd, pTimingInfo) {
  * @since windows6.0.6000
  */
 export DwmGetWindowAttribute(_hwnd, dwAttribute, pvAttribute, cbAttribute) {
-    result := DllCall("dwmapi.dll\DwmGetWindowAttribute", HWND, _hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmGetWindowAttribute", HWND, _hwnd, UInt32, dwAttribute, IntPtr, pvAttribute, UInt32, cbAttribute, "HRESULT")
     return result
 }
 
@@ -202,7 +202,7 @@ export DwmIsCompositionEnabled() {
  * @since windows6.0.6000
  */
 export DwmModifyPreviousDxFrameDuration(_hwnd, cRefreshes, fRelative) {
-    result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", HWND, _hwnd, "int", cRefreshes, BOOL, fRelative, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", HWND, _hwnd, Int32, cRefreshes, BOOL, fRelative, "HRESULT")
     return result
 }
 
@@ -215,7 +215,7 @@ export DwmModifyPreviousDxFrameDuration(_hwnd, cRefreshes, fRelative) {
  * @since windows6.0.6000
  */
 export DwmQueryThumbnailSourceSize(hThumbnail, pSize) {
-    result := DllCall("dwmapi.dll\DwmQueryThumbnailSourceSize", "ptr", hThumbnail, SIZE.Ptr, pSize, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmQueryThumbnailSourceSize", IntPtr, hThumbnail, SIZE.Ptr, pSize, "HRESULT")
     return result
 }
 
@@ -249,7 +249,7 @@ export DwmRegisterThumbnail(hwndDestination, hwndSource) {
  * @since windows6.0.6000
  */
 export DwmSetDxFrameDuration(_hwnd, cRefreshes) {
-    result := DllCall("dwmapi.dll\DwmSetDxFrameDuration", HWND, _hwnd, "int", cRefreshes, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmSetDxFrameDuration", HWND, _hwnd, Int32, cRefreshes, "HRESULT")
     return result
 }
 
@@ -283,7 +283,7 @@ export DwmSetPresentParameters(_hwnd, pPresentParams) {
  * @since windows6.0.6000
  */
 export DwmSetWindowAttribute(_hwnd, dwAttribute, pvAttribute, cbAttribute) {
-    result := DllCall("dwmapi.dll\DwmSetWindowAttribute", HWND, _hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmSetWindowAttribute", HWND, _hwnd, UInt32, dwAttribute, IntPtr, pvAttribute, UInt32, cbAttribute, "HRESULT")
     return result
 }
 
@@ -297,7 +297,7 @@ export DwmSetWindowAttribute(_hwnd, dwAttribute, pvAttribute, cbAttribute) {
  * @since windows6.0.6000
  */
 export DwmUnregisterThumbnail(hThumbnailId) {
-    result := DllCall("dwmapi.dll\DwmUnregisterThumbnail", "ptr", hThumbnailId, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmUnregisterThumbnail", IntPtr, hThumbnailId, "HRESULT")
     return result
 }
 
@@ -312,7 +312,7 @@ export DwmUnregisterThumbnail(hThumbnailId) {
  * @since windows6.0.6000
  */
 export DwmUpdateThumbnailProperties(hThumbnailId, ptnProperties) {
-    result := DllCall("dwmapi.dll\DwmUpdateThumbnailProperties", "ptr", hThumbnailId, DWM_THUMBNAIL_PROPERTIES.Ptr, ptnProperties, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmUpdateThumbnailProperties", IntPtr, hThumbnailId, DWM_THUMBNAIL_PROPERTIES.Ptr, ptnProperties, "HRESULT")
     return result
 }
 
@@ -332,7 +332,7 @@ export DwmUpdateThumbnailProperties(hThumbnailId, ptnProperties) {
  * @since windows6.1
  */
 export DwmSetIconicThumbnail(_hwnd, hbmp, dwSITFlags) {
-    result := DllCall("dwmapi.dll\DwmSetIconicThumbnail", HWND, _hwnd, HBITMAP, hbmp, "uint", dwSITFlags, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmSetIconicThumbnail", HWND, _hwnd, HBITMAP, hbmp, UInt32, dwSITFlags, "HRESULT")
     return result
 }
 
@@ -353,7 +353,7 @@ export DwmSetIconicThumbnail(_hwnd, hbmp, dwSITFlags) {
  * @since windows6.1
  */
 export DwmSetIconicLivePreviewBitmap(_hwnd, hbmp, pptClient, dwSITFlags) {
-    result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", HWND, _hwnd, HBITMAP, hbmp, POINT.Ptr, pptClient, "uint", dwSITFlags, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", HWND, _hwnd, HBITMAP, hbmp, POINT.Ptr, pptClient, UInt32, dwSITFlags, "HRESULT")
     return result
 }
 
@@ -417,7 +417,7 @@ export DwmFlush() {
  * @since windows6.0.6000
  */
 export DwmGetGraphicsStreamTransformHint(uIndex, pTransform) {
-    result := DllCall("dwmapi.dll\DwmGetGraphicsStreamTransformHint", "uint", uIndex, MilMatrix3x2D.Ptr, pTransform, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmGetGraphicsStreamTransformHint", UInt32, uIndex, MilMatrix3x2D.Ptr, pTransform, "HRESULT")
     return result
 }
 
@@ -430,7 +430,7 @@ export DwmGetGraphicsStreamTransformHint(uIndex, pTransform) {
  * @since windows6.0.6000
  */
 export DwmGetGraphicsStreamClient(uIndex, pClientUuid) {
-    result := DllCall("dwmapi.dll\DwmGetGraphicsStreamClient", "uint", uIndex, Guid.Ptr, pClientUuid, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmGetGraphicsStreamClient", UInt32, uIndex, Guid.Ptr, pClientUuid, "HRESULT")
     return result
 }
 
@@ -455,7 +455,7 @@ export DwmGetTransportAttributes(pfIsRemoting, pfIsConnected, pDwGeneration) {
 /**
  * Coordinates the animations of tool windows with the Desktop Window Manager (DWM).
  * @param {HWND} _hwnd Handle to the window.
- * @param {DWMTRANSITION_OWNEDWINDOW_TARGET} target 
+ * @param {DWMTRANSITION_OWNEDWINDOW_TARGET} target The target.
  * @returns {HRESULT} 
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmtransitionownedwindow
  * @since windows8.0
@@ -467,7 +467,7 @@ export DwmTransitionOwnedWindow(_hwnd, target) {
 
 /**
  * Notifies Desktop Window Manager (DWM) that a touch contact has been recognized as a gesture, and that DWM should draw feedback for that gesture.
- * @param {GESTURE_TYPE} gt 
+ * @param {GESTURE_TYPE} gt The type of gesture, specified as one of the <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ne-dwmapi-gesture_type">GESTURE_TYPE</a> values.
  * @param {Integer} cContacts The number of contact points.
  * @param {Pointer<Integer>} pdwPointerID The pointer ID.
  * @param {Pointer<POINT>} pPoints The points.
@@ -478,7 +478,7 @@ export DwmTransitionOwnedWindow(_hwnd, target) {
 export DwmRenderGesture(gt, cContacts, pdwPointerID, pPoints) {
     pdwPointerIDMarshal := pdwPointerID is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("dwmapi.dll\DwmRenderGesture", GESTURE_TYPE, gt, "uint", cContacts, pdwPointerIDMarshal, pdwPointerID, POINT.Ptr, pPoints, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmRenderGesture", GESTURE_TYPE, gt, UInt32, cContacts, pdwPointerIDMarshal, pdwPointerID, POINT.Ptr, pPoints, "HRESULT")
     return result
 }
 
@@ -492,7 +492,7 @@ export DwmRenderGesture(gt, cContacts, pdwPointerID, pPoints) {
  * @since windows8.0
  */
 export DwmTetherContact(dwPointerID, fEnable, ptTether) {
-    result := DllCall("dwmapi.dll\DwmTetherContact", "uint", dwPointerID, BOOL, fEnable, POINT, ptTether, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmTetherContact", UInt32, dwPointerID, BOOL, fEnable, POINT, ptTether, "HRESULT")
     return result
 }
 
@@ -501,20 +501,20 @@ export DwmTetherContact(dwPointerID, fEnable, ptTether) {
  * @remarks
  * It is safe to call this function on the UI thread.
  * @param {Integer} dwPointerID The pointer ID of the contact. Each touch or pen contact is given a unique ID when it is detected.
- * @param {DWM_SHOWCONTACT} eShowContact 
+ * @param {DWM_SHOWCONTACT} eShowContact One or more of the following DWM_SHOWCONTACT visualizations that DWM should show for this contact.
  * @returns {HRESULT} If <i>dwPointerID</i> does not match that of a contact currently present on the screen, this function returns E_INVALIDARG; otherwise, it returns S_OK.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmshowcontact
  * @since windows8.0
  */
 export DwmShowContact(dwPointerID, eShowContact) {
-    result := DllCall("dwmapi.dll\DwmShowContact", "uint", dwPointerID, DWM_SHOWCONTACT, eShowContact, "HRESULT")
+    result := DllCall("dwmapi.dll\DwmShowContact", UInt32, dwPointerID, DWM_SHOWCONTACT, eShowContact, "HRESULT")
     return result
 }
 
 /**
  * This function was part of an experimental feature that was never implemented in Windows. It has no effect and should not be used.
  * @param {HWND} appWindow This parameter is not used.
- * @returns {DWM_TAB_WINDOW_REQUIREMENTS} 
+ * @returns {DWM_TAB_WINDOW_REQUIREMENTS} This parameter is not used.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetunmettabrequirements
  * @since windows10.0.17134
  */

@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\VHF_CONFIG.ahk" { VHF_CONFIG }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\HID_XFER_PACKET.ahk" { HID_XFER_PACKET }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Wdk.Devices.HumanInterfaceDevice
@@ -20,7 +20,7 @@ export VhfCreate(VhfConfig, VhfHandle) {
     VhfHandleMarshal := VhfHandle is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("VhfUm.DLL\VhfCreate", VHF_CONFIG.Ptr, VhfConfig, VhfHandleMarshal, VhfHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -33,7 +33,7 @@ export VhfStart(VhfHandle) {
     VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("VhfUm.DLL\VhfStart", VhfHandleMarshal, VhfHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -59,7 +59,7 @@ export VhfReadReportSubmit(VhfHandle, HidTransferPacket) {
     VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("VhfUm.DLL\VhfReadReportSubmit", VhfHandleMarshal, VhfHandle, HID_XFER_PACKET.Ptr, HidTransferPacket, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -73,7 +73,7 @@ export VhfAsyncOperationComplete(VhfOperationHandle, CompletionStatus) {
     VhfOperationHandleMarshal := VhfOperationHandle is VarRef ? "ptr" : "ptr"
 
     result := DllCall("VhfUm.DLL\VhfAsyncOperationComplete", VhfOperationHandleMarshal, VhfOperationHandle, NTSTATUS, CompletionStatus, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

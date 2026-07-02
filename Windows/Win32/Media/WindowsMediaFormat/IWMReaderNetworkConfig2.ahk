@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMReaderNetworkConfig.ahk" { IWMReaderNetworkConfig }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMReaderNetworkConfig.ahk" { IWMReaderNetworkConfig }
 
 /**
  * The IWMReaderNetworkConfig2 interface provides advanced networking functionality.An IWMReaderNetworkConfig2 interface exists for every reader object.
@@ -177,7 +177,7 @@ export default struct IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-setacceleratedstreamingduration
      */
     SetAcceleratedStreamingDuration(cnsAccelDuration) {
-        result := ComCall(41, this, "uint", cnsAccelDuration, "HRESULT")
+        result := ComCall(41, this, Int64, cnsAccelDuration, "HRESULT")
         return result
     }
 
@@ -224,7 +224,7 @@ export default struct IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig2-setautoreconnectlimit
      */
     SetAutoReconnectLimit(dwAutoReconnectLimit) {
-        result := ComCall(43, this, "uint", dwAutoReconnectLimit, "HRESULT")
+        result := ComCall(43, this, UInt32, dwAutoReconnectLimit, "HRESULT")
         return result
     }
 

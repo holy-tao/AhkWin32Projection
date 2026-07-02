@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to control the channel state, and writes on the channel.
@@ -49,7 +49,7 @@ export default struct IWTSVirtualChannel extends IUnknown {
     Write(cbSize, pBuffer, pReserved) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", cbSize, pBufferMarshal, pBuffer, "ptr", pReserved, "HRESULT")
+        result := ComCall(3, this, UInt32, cbSize, pBufferMarshal, pBuffer, "ptr", pReserved, "HRESULT")
         return result
     }
 

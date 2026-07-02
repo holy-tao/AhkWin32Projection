@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NDR64_BIND_GENERIC.ahk" { NDR64_BIND_GENERIC }
 #Import ".\NDR64_BIND_CONTEXT.ahk" { NDR64_BIND_CONTEXT }
 #Import ".\NDR64_BIND_PRIMITIVE.ahk" { NDR64_BIND_PRIMITIVE }
+#Import ".\NDR64_BIND_GENERIC.ahk" { NDR64_BIND_GENERIC }
 
 /**
  * @namespace Windows.Win32.System.Rpc

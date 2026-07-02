@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\BDA_MUX_PIDLISTITEM.ahk" { BDA_MUX_PIDLISTITEM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BDA_MUX_PIDLISTITEM.ahk" { BDA_MUX_PIDLISTITEM }
 
 /**
  * Provides access to a device's Mux Service. The Mux Service is used to specify which packet identifiers (PIDs) in the MPEG transport stream are delivered to a media sink device (MSD).
@@ -49,7 +49,7 @@ export default struct IBDA_MUX extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_mux-setpidlist
      */
     SetPidList(ulPidListCount, pbPidListBuffer) {
-        result := ComCall(3, this, "uint", ulPidListCount, BDA_MUX_PIDLISTITEM.Ptr, pbPidListBuffer, "HRESULT")
+        result := ComCall(3, this, UInt32, ulPidListCount, BDA_MUX_PIDLISTITEM.Ptr, pbPidListBuffer, "HRESULT")
         return result
     }
 

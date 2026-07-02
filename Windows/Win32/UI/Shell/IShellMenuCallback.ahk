@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SMDATA.ahk" { SMDATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * A callback interface that exposes a method that receives messages from a menu band.
@@ -62,7 +62,7 @@ export default struct IShellMenuCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenucallback-callbacksm
      */
     CallbackSM(psmd, uMsg, _wParam, _lParam) {
-        result := ComCall(3, this, SMDATA.Ptr, psmd, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(3, this, SMDATA.Ptr, psmd, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 

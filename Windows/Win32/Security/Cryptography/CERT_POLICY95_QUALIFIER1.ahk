@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CPS_URLS.ahk" { CPS_URLS }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

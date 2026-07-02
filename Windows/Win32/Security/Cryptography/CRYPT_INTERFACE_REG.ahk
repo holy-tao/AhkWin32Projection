@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\BCRYPT_TABLE.ahk" { BCRYPT_TABLE }
 #Import ".\BCRYPT_INTERFACE.ahk" { BCRYPT_INTERFACE }
+#Import ".\BCRYPT_TABLE.ahk" { BCRYPT_TABLE }
 
 /**
  * Used to contain information about the type of interface supported by a CNG provider.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITextFont.ahk" { ITextFont }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * In the Text Object Model (TOM), applications access text-range attributes by using a pair of dual interfaces, ITextFont and ITextPara.
@@ -159,7 +159,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setautoligatures
      */
     SetAutoLigatures(Value) {
-        result := ComCall(64, this, "int", Value, "HRESULT")
+        result := ComCall(64, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -228,7 +228,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setautospacealpha
      */
     SetAutospaceAlpha(Value) {
-        result := ComCall(66, this, "int", Value, "HRESULT")
+        result := ComCall(66, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -297,7 +297,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setautospacenumeric
      */
     SetAutospaceNumeric(Value) {
-        result := ComCall(68, this, "int", Value, "HRESULT")
+        result := ComCall(68, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -366,7 +366,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setautospaceparens
      */
     SetAutospaceParens(Value) {
-        result := ComCall(70, this, "int", Value, "HRESULT")
+        result := ComCall(70, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -391,7 +391,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setcharrep
      */
     SetCharRep(Value) {
-        result := ComCall(72, this, "int", Value, "HRESULT")
+        result := ComCall(72, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -432,7 +432,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setcompressionmode
      */
     SetCompressionMode(Value) {
-        result := ComCall(74, this, "int", Value, "HRESULT")
+        result := ComCall(74, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -463,7 +463,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setcookie
      */
     SetCookie(Value) {
-        result := ComCall(76, this, "int", Value, "HRESULT")
+        result := ComCall(76, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -532,7 +532,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setdoublestrike
      */
     SetDoubleStrike(Value) {
-        result := ComCall(78, this, "int", Value, "HRESULT")
+        result := ComCall(78, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -671,7 +671,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setmathzone
      */
     SetMathZone(Value) {
-        result := ComCall(83, this, "int", Value, "HRESULT")
+        result := ComCall(83, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -740,7 +740,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setmodwidthpairs
      */
     SetModWidthPairs(Value) {
-        result := ComCall(85, this, "int", Value, "HRESULT")
+        result := ComCall(85, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -809,7 +809,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setmodwidthspace
      */
     SetModWidthSpace(Value) {
-        result := ComCall(87, this, "int", Value, "HRESULT")
+        result := ComCall(87, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -878,7 +878,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setoldnumbers
      */
     SetOldNumbers(Value) {
-        result := ComCall(89, this, "int", Value, "HRESULT")
+        result := ComCall(89, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -947,7 +947,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setoverlapping
      */
     SetOverlapping(Value) {
-        result := ComCall(91, this, "int", Value, "HRESULT")
+        result := ComCall(91, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -978,7 +978,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setpositionsubsuper
      */
     SetPositionSubSuper(Value) {
-        result := ComCall(93, this, "int", Value, "HRESULT")
+        result := ComCall(93, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1007,7 +1007,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setscaling
      */
     SetScaling(Value) {
-        result := ComCall(95, this, "int", Value, "HRESULT")
+        result := ComCall(95, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1034,7 +1034,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setspaceextension
      */
     SetSpaceExtension(Value) {
-        result := ComCall(97, this, "float", Value, "HRESULT")
+        result := ComCall(97, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -1057,7 +1057,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setunderlinepositionmode
      */
     SetUnderlinePositionMode(Value) {
-        result := ComCall(99, this, "int", Value, "HRESULT")
+        result := ComCall(99, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1125,7 +1125,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getproperty
      */
     GetProperty(Type) {
-        result := ComCall(102, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(102, this, Int32, Type, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1149,7 +1149,7 @@ export default struct ITextFont2 extends ITextFont {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
 
-        result := ComCall(103, this, "int", Index, pTypeMarshal, pType, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(103, this, Int32, Index, pTypeMarshal, pType, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -1192,7 +1192,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-seteffects
      */
     SetEffects(Value, Mask) {
-        result := ComCall(105, this, "int", Value, "int", Mask, "HRESULT")
+        result := ComCall(105, this, Int32, Value, Int32, Mask, "HRESULT")
         return result
     }
 
@@ -1216,7 +1216,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-seteffects2
      */
     SetEffects2(Value, Mask) {
-        result := ComCall(106, this, "int", Value, "int", Mask, "HRESULT")
+        result := ComCall(106, this, Int32, Value, Int32, Mask, "HRESULT")
         return result
     }
 
@@ -1234,7 +1234,7 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setproperty
      */
     SetProperty(Type, Value) {
-        result := ComCall(107, this, "int", Type, "int", Value, "HRESULT")
+        result := ComCall(107, this, Int32, Type, Int32, Value, "HRESULT")
         return result
     }
 

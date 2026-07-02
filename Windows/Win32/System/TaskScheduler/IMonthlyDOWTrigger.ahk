@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\ITrigger.ahk" { ITrigger }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a trigger that starts a task on a monthly day-of-week schedule.
@@ -208,7 +208,7 @@ export default struct IMonthlyDOWTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-put_daysofweek
      */
     put_DaysOfWeek(days) {
-        result := ComCall(21, this, "short", days, "HRESULT")
+        result := ComCall(21, this, Int16, days, "HRESULT")
         return result
     }
 
@@ -308,7 +308,7 @@ export default struct IMonthlyDOWTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-put_weeksofmonth
      */
     put_WeeksOfMonth(weeks) {
-        result := ComCall(23, this, "short", weeks, "HRESULT")
+        result := ComCall(23, this, Int16, weeks, "HRESULT")
         return result
     }
 
@@ -478,7 +478,7 @@ export default struct IMonthlyDOWTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-put_monthsofyear
      */
     put_MonthsOfYear(months) {
-        result := ComCall(25, this, "short", months, "HRESULT")
+        result := ComCall(25, this, Int16, months, "HRESULT")
         return result
     }
 

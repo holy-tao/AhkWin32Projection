@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -50,7 +50,7 @@ export default struct IPTFilterLicenseRenewal extends IUnknown {
         wszFileName := wszFileName is String ? StrPtr(wszFileName) : wszFileName
         wszExpiredKid := wszExpiredKid is String ? StrPtr(wszExpiredKid) : wszExpiredKid
 
-        result := ComCall(3, this, "ptr", wszFileName, "ptr", wszExpiredKid, "uint", dwCallersId, BOOL, bHighPriority, "HRESULT")
+        result := ComCall(3, this, "ptr", wszFileName, "ptr", wszExpiredKid, UInt32, dwCallersId, BOOL, bHighPriority, "HRESULT")
         return result
     }
 

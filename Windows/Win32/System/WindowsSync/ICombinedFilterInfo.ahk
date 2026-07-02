@@ -56,7 +56,7 @@ export default struct ICombinedFilterInfo extends ISyncFilterInfo {
      * @returns {ISyncFilterInfo} 
      */
     GetFilterInfo(dwFilterIndex) {
-        result := ComCall(5, this, "uint", dwFilterIndex, "ptr*", &ppIFilterInfo := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFilterIndex, "ptr*", &ppIFilterInfo := 0, "HRESULT")
         return ISyncFilterInfo(ppIFilterInfo)
     }
 

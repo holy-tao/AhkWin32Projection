@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\APO_REG_PROPERTIES.ahk" { APO_REG_PROPERTIES }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IAudioMediaType.ahk" { IAudioMediaType }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * System Effects Audio Processing Objects (sAPOs) are typically used in or called from real-time process threads.
@@ -162,7 +162,7 @@ export default struct IAudioProcessingObject extends IUnknown {
     Initialize(cbDataSize, pbyData) {
         pbyDataMarshal := pbyData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "uint", cbDataSize, pbyDataMarshal, pbyData, "HRESULT")
+        result := ComCall(6, this, UInt32, cbDataSize, pbyDataMarshal, pbyData, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -43,7 +43,7 @@ export default struct IDebugThreadCall64 extends IUnknown {
      * @returns {HRESULT} 
      */
     ThreadCallHandler(dwParam1, dwParam2, dwParam3) {
-        result := ComCall(3, this, "uint", dwParam1, "uint", dwParam2, "uint", dwParam3, "HRESULT")
+        result := ComCall(3, this, Int64, dwParam1, Int64, dwParam2, Int64, dwParam3, "HRESULT")
         return result
     }
 

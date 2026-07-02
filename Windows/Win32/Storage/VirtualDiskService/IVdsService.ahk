@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_OBJECT_TYPE.ahk" { VDS_OBJECT_TYPE }
-#Import ".\VDS_SERVICE_PROP.ahk" { VDS_SERVICE_PROP }
-#Import ".\IVdsAdviseSink.ahk" { IVdsAdviseSink }
 #Import ".\VDS_FILE_SYSTEM_TYPE_PROP.ahk" { VDS_FILE_SYSTEM_TYPE_PROP }
-#Import ".\VDS_DRIVE_LETTER_PROP.ahk" { VDS_DRIVE_LETTER_PROP }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_SERVICE_PROP.ahk" { VDS_SERVICE_PROP }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsAdviseSink.ahk" { IVdsAdviseSink }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\VDS_DRIVE_LETTER_PROP.ahk" { VDS_DRIVE_LETTER_PROP }
+#Import ".\VDS_OBJECT_TYPE.ahk" { VDS_OBJECT_TYPE }
 
 /**
  * Provides methods to query and interact with VDS.
@@ -177,7 +177,7 @@ export default struct IVdsService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-queryproviders
      */
     QueryProviders(masks) {
-        result := ComCall(6, this, "uint", masks, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, masks, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumVdsObject(ppEnum)
     }
 
@@ -236,7 +236,7 @@ export default struct IVdsService extends IUnknown {
      */
     QueryDriveLetters(wcFirstLetter, count) {
         pDriveLetterPropArray := VDS_DRIVE_LETTER_PROP()
-        result := ComCall(10, this, "char", wcFirstLetter, "uint", count, VDS_DRIVE_LETTER_PROP.Ptr, pDriveLetterPropArray, "HRESULT")
+        result := ComCall(10, this, Int8, wcFirstLetter, UInt32, count, VDS_DRIVE_LETTER_PROP.Ptr, pDriveLetterPropArray, "HRESULT")
         return pDriveLetterPropArray
     }
 
@@ -533,7 +533,7 @@ export default struct IVdsService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-unadvise
      */
     Unadvise(dwCookie) {
-        result := ComCall(16, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(16, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -622,7 +622,7 @@ export default struct IVdsService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-setflags
      */
     SetFlags(ulFlags) {
-        result := ComCall(18, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(18, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -665,7 +665,7 @@ export default struct IVdsService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-clearflags
      */
     ClearFlags(ulFlags) {
-        result := ComCall(19, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(19, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 

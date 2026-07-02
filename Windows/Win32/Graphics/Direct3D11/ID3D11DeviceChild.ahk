@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D11Device.ahk" { ID3D11Device }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D11Device.ahk" { ID3D11Device }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A device-child interface accesses data used by a device. (ID3D11DeviceChild)
@@ -89,7 +89,7 @@ export default struct ID3D11DeviceChild extends IUnknown {
     GetPrivateData(guid, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, IntPtr, pData, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct ID3D11DeviceChild extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicechild-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(5, this, Guid.Ptr, guid, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guid, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 

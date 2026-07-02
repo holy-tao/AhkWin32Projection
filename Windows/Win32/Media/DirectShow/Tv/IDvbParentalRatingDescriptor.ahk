@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) parental rating descriptor.
@@ -82,7 +82,7 @@ export default struct IDvbParentalRatingDescriptor extends IUnknown {
         pszCountryCodeMarshal := pszCountryCode is VarRef ? "char*" : "ptr"
         pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "char", bRecordIndex, pszCountryCodeMarshal, pszCountryCode, pbValMarshal, pbVal, "HRESULT")
+        result := ComCall(6, this, Int8, bRecordIndex, pszCountryCodeMarshal, pszCountryCode, pbValMarshal, pbVal, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SPWORDPRONUNCIATIONLIST.ahk" { SPWORDPRONUNCIATIONLIST }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SPNORMALIZATIONLIST.ahk" { SPNORMALIZATIONLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPWORDPRONUNCIATIONLIST.ahk" { SPWORDPRONUNCIATIONLIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -53,7 +53,7 @@ export default struct ISpEnginePronunciation extends IUnknown {
         pszLeftContext := pszLeftContext is String ? StrPtr(pszLeftContext) : pszLeftContext
         pszRightContext := pszRightContext is String ? StrPtr(pszRightContext) : pszRightContext
 
-        result := ComCall(3, this, "ptr", pszWord, "ptr", pszLeftContext, "ptr", pszRightContext, "ushort", LangID, SPNORMALIZATIONLIST.Ptr, pNormalizationList, "HRESULT")
+        result := ComCall(3, this, "ptr", pszWord, "ptr", pszLeftContext, "ptr", pszRightContext, UInt16, LangID, SPNORMALIZATIONLIST.Ptr, pNormalizationList, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct ISpEnginePronunciation extends IUnknown {
         pszLeftContext := pszLeftContext is String ? StrPtr(pszLeftContext) : pszLeftContext
         pszRightContext := pszRightContext is String ? StrPtr(pszRightContext) : pszRightContext
 
-        result := ComCall(4, this, "ptr", pszWord, "ptr", pszLeftContext, "ptr", pszRightContext, "ushort", LangID, SPWORDPRONUNCIATIONLIST.Ptr, pEnginePronunciationList, "HRESULT")
+        result := ComCall(4, this, "ptr", pszWord, "ptr", pszLeftContext, "ptr", pszRightContext, UInt16, LangID, SPWORDPRONUNCIATIONLIST.Ptr, pEnginePronunciationList, "HRESULT")
         return result
     }
 

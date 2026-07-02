@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_PROTECTED_RESOURCE_SESSION_DESC.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_DESC }
-#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
-#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
-#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
-#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
-#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
 #Import ".\D3D12_COMMAND_LIST_TYPE.ahk" { D3D12_COMMAND_LIST_TYPE }
-#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
-#Import ".\D3D12_HEAP_DESC.ahk" { D3D12_HEAP_DESC }
-#Import ".\D3D12_COMMAND_LIST_FLAGS.ahk" { D3D12_COMMAND_LIST_FLAGS }
 #Import ".\D3D12_RESOURCE_ALLOCATION_INFO1.ahk" { D3D12_RESOURCE_ALLOCATION_INFO1 }
-#Import ".\ID3D12Device3.ahk" { ID3D12Device3 }
+#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
 #Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
+#Import ".\ID3D12Device3.ahk" { ID3D12Device3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_COMMAND_LIST_FLAGS.ahk" { D3D12_COMMAND_LIST_FLAGS }
+#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
+#Import ".\D3D12_HEAP_DESC.ahk" { D3D12_HEAP_DESC }
+#Import ".\D3D12_PROTECTED_RESOURCE_SESSION_DESC.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_DESC }
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device3](../d3d12/nn-d3d12-id3d12device3.md).
@@ -74,7 +74,7 @@ export default struct ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommandlist1
      */
     CreateCommandList1(nodeMask, type, flags, riid) {
-        result := ComCall(51, this, "uint", nodeMask, D3D12_COMMAND_LIST_TYPE, type, D3D12_COMMAND_LIST_FLAGS, flags, Guid.Ptr, riid, "ptr*", &ppCommandList := 0, "HRESULT")
+        result := ComCall(51, this, UInt32, nodeMask, D3D12_COMMAND_LIST_TYPE, type, D3D12_COMMAND_LIST_FLAGS, flags, Guid.Ptr, riid, "ptr*", &ppCommandList := 0, "HRESULT")
         return ppCommandList
     }
 
@@ -253,7 +253,7 @@ export default struct ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-getresourceallocationinfo1
      */
     GetResourceAllocationInfo1(visibleMask, numResourceDescs, pResourceDescs, pResourceAllocationInfo1) {
-        result := ComCall(56, this, "uint", visibleMask, "uint", numResourceDescs, D3D12_RESOURCE_DESC.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
+        result := ComCall(56, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
         return result
     }
 

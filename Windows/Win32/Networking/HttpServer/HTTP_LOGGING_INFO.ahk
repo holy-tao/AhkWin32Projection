@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HTTP_LOGGING_ROLLOVER_TYPE.ahk" { HTTP_LOGGING_ROLLOVER_TYPE }
 #Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 #Import ".\HTTP_LOGGING_TYPE.ahk" { HTTP_LOGGING_TYPE }
 
 /**

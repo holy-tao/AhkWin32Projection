@@ -78,7 +78,7 @@ export default struct ICertEncodeAltName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-getnamechoice
      */
     GetNameChoice(NameIndex) {
-        result := ComCall(9, this, "int", NameIndex, "int*", &pNameChoice := 0, "HRESULT")
+        result := ComCall(9, this, Int32, NameIndex, "int*", &pNameChoice := 0, "HRESULT")
         return pNameChoice
     }
 
@@ -92,7 +92,7 @@ export default struct ICertEncodeAltName extends IDispatch {
      */
     GetName(NameIndex) {
         pstrName := BSTR.Owned()
-        result := ComCall(10, this, "int", NameIndex, BSTR.Ptr, pstrName, "HRESULT")
+        result := ComCall(10, this, Int32, NameIndex, BSTR.Ptr, pstrName, "HRESULT")
         return pstrName
     }
 
@@ -106,7 +106,7 @@ export default struct ICertEncodeAltName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-reset
      */
     Reset(NameCount) {
-        result := ComCall(11, this, "int", NameCount, "HRESULT")
+        result := ComCall(11, this, Int32, NameCount, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct ICertEncodeAltName extends IDispatch {
     SetNameEntry(NameIndex, NameChoice, strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(12, this, "int", NameIndex, CERT_ALT_NAME, NameChoice, BSTR, strName, "HRESULT")
+        result := ComCall(12, this, Int32, NameIndex, CERT_ALT_NAME, NameChoice, BSTR, strName, "HRESULT")
         return result
     }
 

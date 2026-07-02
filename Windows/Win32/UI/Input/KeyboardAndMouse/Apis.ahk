@@ -1,22 +1,22 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\INPUT.ahk" { INPUT }
-#Import ".\HOT_KEY_MODIFIERS.ahk" { HOT_KEY_MODIFIERS }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\MAP_VIRTUAL_KEY_TYPE.ahk" { MAP_VIRTUAL_KEY_TYPE }
-#Import ".\MOUSEMOVEPOINT.ahk" { MOUSEMOVEPOINT }
-#Import ".\ACTIVATE_KEYBOARD_LAYOUT_FLAGS.ahk" { ACTIVATE_KEYBOARD_LAYOUT_FLAGS }
-#Import ".\KEYBD_EVENT_FLAGS.ahk" { KEYBD_EVENT_FLAGS }
-#Import ".\MOUSE_EVENT_FLAGS.ahk" { MOUSE_EVENT_FLAGS }
-#Import ".\HKL.ahk" { HKL }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\LASTINPUTINFO.ahk" { LASTINPUTINFO }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\GET_MOUSE_MOVE_POINTS_EX_RESOLUTION.ahk" { GET_MOUSE_MOVE_POINTS_EX_RESOLUTION }
-#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\INPUT.ahk" { INPUT }
 #Import ".\TRACKMOUSEEVENT.ahk" { TRACKMOUSEEVENT as TRACKMOUSEEVENT_struct }
+#Import ".\HKL.ahk" { HKL }
+#Import ".\HOT_KEY_MODIFIERS.ahk" { HOT_KEY_MODIFIERS }
+#Import ".\ACTIVATE_KEYBOARD_LAYOUT_FLAGS.ahk" { ACTIVATE_KEYBOARD_LAYOUT_FLAGS }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\MOUSEMOVEPOINT.ahk" { MOUSEMOVEPOINT }
+#Import ".\KEYBD_EVENT_FLAGS.ahk" { KEYBD_EVENT_FLAGS }
+#Import ".\MOUSE_EVENT_FLAGS.ahk" { MOUSE_EVENT_FLAGS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MAP_VIRTUAL_KEY_TYPE.ahk" { MAP_VIRTUAL_KEY_TYPE }
+#Import ".\GET_MOUSE_MOVE_POINTS_EX_RESOLUTION.ahk" { GET_MOUSE_MOVE_POINTS_EX_RESOLUTION }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
@@ -254,7 +254,7 @@ export ToUnicodeEx(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags, d
 
     lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
 
-    result := DllCall("USER32.dll\ToUnicodeEx", "uint", wVirtKey, "uint", wScanCode, lpKeyStateMarshal, lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags, HKL, dwhkl, Int32)
+    result := DllCall("USER32.dll\ToUnicodeEx", UInt32, wVirtKey, UInt32, wScanCode, lpKeyStateMarshal, lpKeyState, "ptr", pwszBuff, Int32, cchBuff, UInt32, wFlags, HKL, dwhkl, Int32)
     return result
 }
 
@@ -395,7 +395,7 @@ export GetKeyboardLayoutNameW(pwszKLID) {
 export GetKeyboardLayoutList(nBuff, lpList) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetKeyboardLayoutList", "int", nBuff, HKL.Ptr, lpList, Int32)
+    result := DllCall("USER32.dll\GetKeyboardLayoutList", Int32, nBuff, HKL.Ptr, lpList, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -423,7 +423,7 @@ export GetKeyboardLayoutList(nBuff, lpList) {
  * @since windows5.0
  */
 export GetKeyboardLayout(idThread) {
-    result := DllCall("USER32.dll\GetKeyboardLayout", "uint", idThread, HKL.Owned)
+    result := DllCall("USER32.dll\GetKeyboardLayout", UInt32, idThread, HKL.Owned)
     return result
 }
 
@@ -517,7 +517,7 @@ export GetKeyboardLayout(idThread) {
 export GetMouseMovePointsEx(cbSize, lppt, lpptBuf, nBufPoints, resolution) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetMouseMovePointsEx", "uint", cbSize, MOUSEMOVEPOINT.Ptr, lppt, MOUSEMOVEPOINT.Ptr, lpptBuf, "int", nBufPoints, GET_MOUSE_MOVE_POINTS_EX_RESOLUTION, resolution, Int32)
+    result := DllCall("USER32.dll\GetMouseMovePointsEx", UInt32, cbSize, MOUSEMOVEPOINT.Ptr, lppt, MOUSEMOVEPOINT.Ptr, lpptBuf, Int32, nBufPoints, GET_MOUSE_MOVE_POINTS_EX_RESOLUTION, resolution, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -617,7 +617,7 @@ export TrackMouseEvent(lpEventTrack) {
 export RegisterHotKey(_hWnd, id, fsModifiers, vk) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\RegisterHotKey", HWND, _hWnd, "int", id, HOT_KEY_MODIFIERS, fsModifiers, "uint", vk, BOOL)
+    result := DllCall("USER32.dll\RegisterHotKey", HWND, _hWnd, Int32, id, HOT_KEY_MODIFIERS, fsModifiers, UInt32, vk, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -644,7 +644,7 @@ export RegisterHotKey(_hWnd, id, fsModifiers, vk) {
 export UnregisterHotKey(_hWnd, id) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\UnregisterHotKey", HWND, _hWnd, "int", id, BOOL)
+    result := DllCall("USER32.dll\UnregisterHotKey", HWND, _hWnd, Int32, id, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -689,7 +689,9 @@ export GetDoubleClickTime() {
  * Sets the double-click time for the mouse.
  * @remarks
  * The <b>SetDoubleClickTime</b> function alters the double-click time for all windows in the system.
- * @param {Integer} param0 
+ * @param {Integer} param0 Type: <b>UINT</b>
+ * 
+ * The number of milliseconds that may occur between the first and second clicks of a double-click. If this parameter is set to 0, the system uses the default double-click time of 500 milliseconds. If this parameter value is greater than 5000 milliseconds, the system sets the value to 5000 milliseconds.
  * @returns {BOOL} Type: <b>BOOL</b>
  * 
  * If the function succeeds, the return value is nonzero.
@@ -701,7 +703,7 @@ export GetDoubleClickTime() {
 export SetDoubleClickTime(param0) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetDoubleClickTime", "uint", param0, BOOL)
+    result := DllCall("USER32.dll\SetDoubleClickTime", UInt32, param0, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -827,7 +829,7 @@ export GetKBCodePage() {
  * @since windows5.0
  */
 export GetKeyState(nVirtKey) {
-    result := DllCall("USER32.dll\GetKeyState", "int", nVirtKey, Int16)
+    result := DllCall("USER32.dll\GetKeyState", Int32, nVirtKey, Int16)
     return result
 }
 
@@ -916,7 +918,7 @@ export GetKeyState(nVirtKey) {
  * @since windows5.0
  */
 export GetAsyncKeyState(vKey) {
-    result := DllCall("USER32.dll\GetAsyncKeyState", "int", vKey, Int16)
+    result := DllCall("USER32.dll\GetAsyncKeyState", Int32, vKey, Int16)
     return result
 }
 
@@ -1049,7 +1051,7 @@ export GetKeyNameTextA(_lParam, lpString, cchSize) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetKeyNameTextA", "int", _lParam, "ptr", lpString, "int", cchSize, Int32)
+    result := DllCall("USER32.dll\GetKeyNameTextA", Int32, _lParam, "ptr", lpString, Int32, cchSize, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1097,7 +1099,7 @@ export GetKeyNameTextW(_lParam, lpString, cchSize) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetKeyNameTextW", "int", _lParam, "ptr", lpString, "int", cchSize, Int32)
+    result := DllCall("USER32.dll\GetKeyNameTextW", Int32, _lParam, "ptr", lpString, Int32, cchSize, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1130,7 +1132,7 @@ export GetKeyNameTextW(_lParam, lpString, cchSize) {
 export GetKeyboardType(nTypeFlag) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetKeyboardType", "int", nTypeFlag, Int32)
+    result := DllCall("USER32.dll\GetKeyboardType", Int32, nTypeFlag, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1217,7 +1219,7 @@ export ToAscii(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags) {
     lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
     lpCharMarshal := lpChar is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("USER32.dll\ToAscii", "uint", uVirtKey, "uint", uScanCode, lpKeyStateMarshal, lpKeyState, lpCharMarshal, lpChar, "uint", uFlags, Int32)
+    result := DllCall("USER32.dll\ToAscii", UInt32, uVirtKey, UInt32, uScanCode, lpKeyStateMarshal, lpKeyState, lpCharMarshal, lpChar, UInt32, uFlags, Int32)
     return result
 }
 
@@ -1304,7 +1306,7 @@ export ToAsciiEx(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags, dwhkl) {
     lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
     lpCharMarshal := lpChar is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("USER32.dll\ToAsciiEx", "uint", uVirtKey, "uint", uScanCode, lpKeyStateMarshal, lpKeyState, lpCharMarshal, lpChar, "uint", uFlags, HKL, dwhkl, Int32)
+    result := DllCall("USER32.dll\ToAsciiEx", UInt32, uVirtKey, UInt32, uScanCode, lpKeyStateMarshal, lpKeyState, lpCharMarshal, lpChar, UInt32, uFlags, HKL, dwhkl, Int32)
     return result
 }
 
@@ -1397,7 +1399,7 @@ export ToUnicode(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags) {
 
     lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
 
-    result := DllCall("USER32.dll\ToUnicode", "uint", wVirtKey, "uint", wScanCode, lpKeyStateMarshal, lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags, Int32)
+    result := DllCall("USER32.dll\ToUnicode", UInt32, wVirtKey, UInt32, wScanCode, lpKeyStateMarshal, lpKeyState, "ptr", pwszBuff, Int32, cchBuff, UInt32, wFlags, Int32)
     return result
 }
 
@@ -1496,7 +1498,7 @@ export ToUnicode(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags) {
  * @since windows5.0
  */
 export OemKeyScan(wOemChar) {
-    result := DllCall("USER32.dll\OemKeyScan", "ushort", wOemChar, UInt32)
+    result := DllCall("USER32.dll\OemKeyScan", UInt16, wOemChar, UInt32)
     return result
 }
 
@@ -1708,7 +1710,7 @@ export VkKeyScanA(ch) {
  * @since windows5.0
  */
 export VkKeyScanW(ch) {
-    result := DllCall("USER32.dll\VkKeyScanW", "char", ch, Int16)
+    result := DllCall("USER32.dll\VkKeyScanW", Int8, ch, Int16)
     return result
 }
 
@@ -1934,7 +1936,7 @@ export VkKeyScanExA(ch, dwhkl) {
  * @since windows5.0
  */
 export VkKeyScanExW(ch, dwhkl) {
-    result := DllCall("USER32.dll\VkKeyScanExW", "char", ch, HKL, dwhkl, Int16)
+    result := DllCall("USER32.dll\VkKeyScanExW", Int8, ch, HKL, dwhkl, Int16)
     return result
 }
 
@@ -1958,7 +1960,7 @@ export VkKeyScanExW(ch, dwhkl) {
  * @since windows5.0
  */
 export keybd_event(bVk, bScan, dwFlags, dwExtraInfo) {
-    DllCall("USER32.dll\keybd_event", "char", bVk, "char", bScan, KEYBD_EVENT_FLAGS, dwFlags, "ptr", dwExtraInfo)
+    DllCall("USER32.dll\keybd_event", Int8, bVk, Int8, bScan, KEYBD_EVENT_FLAGS, dwFlags, IntPtr, dwExtraInfo)
 }
 
 /**
@@ -2045,7 +2047,7 @@ export keybd_event(bVk, bScan, dwFlags, dwExtraInfo) {
  * @since windows5.0
  */
 export mouse_event(dwFlags, dx, dy, dwData, dwExtraInfo) {
-    DllCall("USER32.dll\mouse_event", MOUSE_EVENT_FLAGS, dwFlags, "int", dx, "int", dy, "int", dwData, "ptr", dwExtraInfo)
+    DllCall("USER32.dll\mouse_event", MOUSE_EVENT_FLAGS, dwFlags, Int32, dx, Int32, dy, Int32, dwData, IntPtr, dwExtraInfo)
 }
 
 /**
@@ -2080,7 +2082,7 @@ export mouse_event(dwFlags, dx, dy, dwData, dwExtraInfo) {
 export SendInput(cInputs, pInputs, cbSize) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SendInput", "uint", cInputs, INPUT.Ptr, pInputs, "int", cbSize, UInt32)
+    result := DllCall("USER32.dll\SendInput", UInt32, cInputs, INPUT.Ptr, pInputs, Int32, cbSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2155,7 +2157,7 @@ export GetLastInputInfo(plii) {
  * @since windows5.0
  */
 export MapVirtualKeyA(uCode, uMapType) {
-    result := DllCall("USER32.dll\MapVirtualKeyA", "uint", uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, UInt32)
+    result := DllCall("USER32.dll\MapVirtualKeyA", UInt32, uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, UInt32)
     return result
 }
 
@@ -2204,7 +2206,7 @@ export MapVirtualKeyA(uCode, uMapType) {
  * @since windows5.0
  */
 export MapVirtualKeyW(uCode, uMapType) {
-    result := DllCall("USER32.dll\MapVirtualKeyW", "uint", uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, UInt32)
+    result := DllCall("USER32.dll\MapVirtualKeyW", UInt32, uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, UInt32)
     return result
 }
 
@@ -2256,7 +2258,7 @@ export MapVirtualKeyW(uCode, uMapType) {
  * @since windows5.0
  */
 export MapVirtualKeyExA(uCode, uMapType, dwhkl) {
-    result := DllCall("USER32.dll\MapVirtualKeyExA", "uint", uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, HKL, dwhkl, UInt32)
+    result := DllCall("USER32.dll\MapVirtualKeyExA", UInt32, uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, HKL, dwhkl, UInt32)
     return result
 }
 
@@ -2308,7 +2310,7 @@ export MapVirtualKeyExA(uCode, uMapType, dwhkl) {
  * @since windows5.0
  */
 export MapVirtualKeyExW(uCode, uMapType, dwhkl) {
-    result := DllCall("USER32.dll\MapVirtualKeyExW", "uint", uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, HKL, dwhkl, UInt32)
+    result := DllCall("USER32.dll\MapVirtualKeyExW", UInt32, uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, HKL, dwhkl, UInt32)
     return result
 }
 

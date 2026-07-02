@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLStyleSheetRulesCollection.ahk" { IHTMLStyleSheetRulesCollection }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -101,7 +101,7 @@ export default struct IHTMLCSSMediaRule extends IDispatch {
     insertRule(bstrRule, lIndex) {
         bstrRule := bstrRule is String ? BSTR.Alloc(bstrRule).Value : bstrRule
 
-        result := ComCall(10, this, BSTR, bstrRule, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrRule, Int32, lIndex, "int*", &plNewIndex := 0, "HRESULT")
         return plNewIndex
     }
 
@@ -111,7 +111,7 @@ export default struct IHTMLCSSMediaRule extends IDispatch {
      * @returns {HRESULT} 
      */
     deleteRule(lIndex) {
-        result := ComCall(11, this, "int", lIndex, "HRESULT")
+        result := ComCall(11, this, Int32, lIndex, "HRESULT")
         return result
     }
 

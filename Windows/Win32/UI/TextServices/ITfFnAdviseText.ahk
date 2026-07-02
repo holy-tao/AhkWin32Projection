@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ITfRange.ahk" { ITfRange }
-#Import ".\ITfLMLattice.ahk" { ITfLMLattice }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfLMLattice.ahk" { ITfLMLattice }
 #Import ".\ITfFunction.ahk" { ITfFunction }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfFnAdviseText interface is implemented by a text service and used by the TSF manager to supply notifications when the text or lattice element in a context changes.
@@ -81,7 +81,7 @@ export default struct ITfFnAdviseText extends ITfFunction {
     OnTextUpdate(pRange, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(4, this, "ptr", pRange, "ptr", pchText, "int", cch, "HRESULT")
+        result := ComCall(4, this, "ptr", pRange, "ptr", pchText, Int32, cch, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber if a Microsoft Distributed Transaction Coordinator (DTC) transaction starts, commits, or aborts. The subscriber is also notified when the transaction is in the prepare phase of the two-phase commit protocol.
@@ -53,7 +53,7 @@ export default struct IComTransaction2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtransaction2events-ontransactionstart2
      */
     OnTransactionStart2(pInfo, guidTx, tsid, fRoot, nIsolationLevel) {
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidTx, Guid.Ptr, tsid, BOOL, fRoot, "int", nIsolationLevel, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidTx, Guid.Ptr, tsid, BOOL, fRoot, Int32, nIsolationLevel, "HRESULT")
         return result
     }
 

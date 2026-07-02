@@ -306,7 +306,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_allowlogon
      */
     put_AllowLogon(NewVal) {
-        result := ComCall(14, this, "int", NewVal, "HRESULT")
+        result := ComCall(14, this, Int32, NewVal, "HRESULT")
         return result
     }
 
@@ -327,7 +327,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_enableremotecontrol
      */
     put_EnableRemoteControl(NewVal) {
-        result := ComCall(16, this, "int", NewVal, "HRESULT")
+        result := ComCall(16, this, Int32, NewVal, "HRESULT")
         return result
     }
 
@@ -348,7 +348,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_maxdisconnectiontime
      */
     put_MaxDisconnectionTime(NewVal) {
-        result := ComCall(18, this, "int", NewVal, "HRESULT")
+        result := ComCall(18, this, Int32, NewVal, "HRESULT")
         return result
     }
 
@@ -369,7 +369,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_maxconnectiontime
      */
     put_MaxConnectionTime(NewVal) {
-        result := ComCall(20, this, "int", NewVal, "HRESULT")
+        result := ComCall(20, this, Int32, NewVal, "HRESULT")
         return result
     }
 
@@ -390,7 +390,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_maxidletime
      */
     put_MaxIdleTime(NewVal) {
-        result := ComCall(22, this, "int", NewVal, "HRESULT")
+        result := ComCall(22, this, Int32, NewVal, "HRESULT")
         return result
     }
 
@@ -411,7 +411,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_reconnectionaction
      */
     put_ReconnectionAction(NewVal) {
-        result := ComCall(24, this, "int", NewVal, "HRESULT")
+        result := ComCall(24, this, Int32, NewVal, "HRESULT")
         return result
     }
 
@@ -432,7 +432,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_brokenconnectionaction
      */
     put_BrokenConnectionAction(NewVal) {
-        result := ComCall(26, this, "int", NewVal, "HRESULT")
+        result := ComCall(26, this, Int32, NewVal, "HRESULT")
         return result
     }
 
@@ -453,7 +453,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_connectclientdrivesatlogon
      */
     put_ConnectClientDrivesAtLogon(NewVal) {
-        result := ComCall(28, this, "int", NewVal, "HRESULT")
+        result := ComCall(28, this, Int32, NewVal, "HRESULT")
         return result
     }
 
@@ -474,7 +474,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_connectclientprintersatlogon
      */
     put_ConnectClientPrintersAtLogon(NewVal) {
-        result := ComCall(30, this, "int", NewVal, "HRESULT")
+        result := ComCall(30, this, Int32, NewVal, "HRESULT")
         return result
     }
 
@@ -495,7 +495,7 @@ export default struct IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-put_defaulttomainprinter
      */
     put_DefaultToMainPrinter(NewVal) {
-        result := ComCall(32, this, "int", NewVal, "HRESULT")
+        result := ComCall(32, this, Int32, NewVal, "HRESULT")
         return result
     }
 

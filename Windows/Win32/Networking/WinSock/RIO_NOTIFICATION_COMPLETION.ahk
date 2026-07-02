@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\RIO_NOTIFICATION_COMPLETION_TYPE.ahk" { RIO_NOTIFICATION_COMPLETION_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RIO_NOTIFICATION_COMPLETION_TYPE.ahk" { RIO_NOTIFICATION_COMPLETION_TYPE }
 
 /**
  * Specifies the method for I/O completion to be used with a RIONotify function for sending or receiving network data with the Winsock registered I/O extensions.

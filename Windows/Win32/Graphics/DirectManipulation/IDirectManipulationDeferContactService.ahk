@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a service for managing associations between a contact and a viewport.
@@ -47,7 +47,7 @@ export default struct IDirectManipulationDeferContactService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-defercontact
      */
     DeferContact(pointerId, timeout) {
-        result := ComCall(3, this, "uint", pointerId, "uint", timeout, "HRESULT")
+        result := ComCall(3, this, UInt32, pointerId, UInt32, timeout, "HRESULT")
         return result
     }
 
@@ -60,7 +60,7 @@ export default struct IDirectManipulationDeferContactService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-cancelcontact
      */
     CancelContact(pointerId) {
-        result := ComCall(4, this, "uint", pointerId, "HRESULT")
+        result := ComCall(4, this, UInt32, pointerId, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IDirectManipulationDeferContactService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-canceldeferral
      */
     CancelDeferral(pointerId) {
-        result := ComCall(5, this, "uint", pointerId, "HRESULT")
+        result := ComCall(5, this, UInt32, pointerId, "HRESULT")
         return result
     }
 

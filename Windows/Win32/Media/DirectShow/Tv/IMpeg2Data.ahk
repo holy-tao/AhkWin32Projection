@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMpeg2Stream.ahk" { IMpeg2Stream }
 #Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
+#Import ".\IMpeg2Stream.ahk" { IMpeg2Stream }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * IMpeg2Data is no longer available for use as of Windows 7.
@@ -61,7 +61,7 @@ export default struct IMpeg2Data extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2data-getsection
      */
     GetSection(pid, tid, pFilter, dwTimeout) {
-        result := ComCall(3, this, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, "uint", dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
+        result := ComCall(3, this, UInt16, pid, Int8, tid, MPEG2_FILTER.Ptr, pFilter, UInt32, dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
         return ISectionList(ppSectionList)
     }
 
@@ -77,7 +77,7 @@ export default struct IMpeg2Data extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2data-gettable
      */
     GetTable(pid, tid, pFilter, dwTimeout) {
-        result := ComCall(4, this, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, "uint", dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
+        result := ComCall(4, this, UInt16, pid, Int8, tid, MPEG2_FILTER.Ptr, pFilter, UInt32, dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
         return ISectionList(ppSectionList)
     }
 
@@ -91,7 +91,7 @@ export default struct IMpeg2Data extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2data-getstreamofsections
      */
     GetStreamOfSections(pid, tid, pFilter, hDataReadyEvent) {
-        result := ComCall(5, this, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, HANDLE, hDataReadyEvent, "ptr*", &ppMpegStream := 0, "HRESULT")
+        result := ComCall(5, this, UInt16, pid, Int8, tid, MPEG2_FILTER.Ptr, pFilter, HANDLE, hDataReadyEvent, "ptr*", &ppMpegStream := 0, "HRESULT")
         return IMpeg2Stream(ppMpegStream)
     }
 

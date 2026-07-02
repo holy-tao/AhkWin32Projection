@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "Common\DXGI_MODE_SCANLINE_ORDER.ahk" { DXGI_MODE_SCANLINE_ORDER }
 #Import "Common\DXGI_MODE_SCALING.ahk" { DXGI_MODE_SCALING }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes full-screen mode for a swap chain.

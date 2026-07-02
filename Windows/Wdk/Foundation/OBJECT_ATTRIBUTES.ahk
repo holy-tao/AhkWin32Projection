@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import "..\..\Win32\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
-#Import "..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
 #Import "..\..\Win32\Foundation\OBJECT_ATTRIBUTE_FLAGS.ahk" { OBJECT_ATTRIBUTE_FLAGS }
+#Import "..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
+#Import "..\..\Win32\Security\SECURITY_DESCRIPTOR.ahk" { SECURITY_DESCRIPTOR }
 
 /**
  * @namespace Windows.Wdk.Foundation

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMLOperatorShapeInferenceContext.ahk" { IMLOperatorShapeInferenceContext }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMLOperatorShapeInferenceContext.ahk" { IMLOperatorShapeInferenceContext }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML

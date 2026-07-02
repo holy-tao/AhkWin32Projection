@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXVA2_Fixed32.ahk" { DXVA2_Fixed32 }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DXVA2_ProcAmpValues.ahk" { DXVA2_ProcAmpValues }
 #Import ".\DXVA2_ValueRange.ahk" { DXVA2_ValueRange }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXVA2_Fixed32.ahk" { DXVA2_Fixed32 }
-#Import ".\DXVA2_ProcAmpValues.ahk" { DXVA2_ProcAmpValues }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls video processing in the Enhanced Video Renderer (EVR).
@@ -222,7 +222,7 @@ export default struct IMFVideoProcessor extends IUnknown {
      */
     GetProcAmpRange(dwProperty) {
         pPropRange := DXVA2_ValueRange()
-        result := ComCall(7, this, "uint", dwProperty, DXVA2_ValueRange.Ptr, pPropRange, "HRESULT")
+        result := ComCall(7, this, UInt32, dwProperty, DXVA2_ValueRange.Ptr, pPropRange, "HRESULT")
         return pPropRange
     }
 
@@ -240,7 +240,7 @@ export default struct IMFVideoProcessor extends IUnknown {
      */
     GetProcAmpValues(dwFlags) {
         Values := DXVA2_ProcAmpValues()
-        result := ComCall(8, this, "uint", dwFlags, DXVA2_ProcAmpValues.Ptr, Values, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFlags, DXVA2_ProcAmpValues.Ptr, Values, "HRESULT")
         return Values
     }
 
@@ -296,7 +296,7 @@ export default struct IMFVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-setprocampvalues
      */
     SetProcAmpValues(dwFlags, pValues) {
-        result := ComCall(9, this, "uint", dwFlags, DXVA2_ProcAmpValues.Ptr, pValues, "HRESULT")
+        result := ComCall(9, this, UInt32, dwFlags, DXVA2_ProcAmpValues.Ptr, pValues, "HRESULT")
         return result
     }
 
@@ -314,7 +314,7 @@ export default struct IMFVideoProcessor extends IUnknown {
      */
     GetFilteringRange(dwProperty) {
         pPropRange := DXVA2_ValueRange()
-        result := ComCall(10, this, "uint", dwProperty, DXVA2_ValueRange.Ptr, pPropRange, "HRESULT")
+        result := ComCall(10, this, UInt32, dwProperty, DXVA2_ValueRange.Ptr, pPropRange, "HRESULT")
         return pPropRange
     }
 
@@ -332,7 +332,7 @@ export default struct IMFVideoProcessor extends IUnknown {
      */
     GetFilteringValue(dwProperty) {
         pValue := DXVA2_Fixed32()
-        result := ComCall(11, this, "uint", dwProperty, DXVA2_Fixed32.Ptr, pValue, "HRESULT")
+        result := ComCall(11, this, UInt32, dwProperty, DXVA2_Fixed32.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -388,7 +388,7 @@ export default struct IMFVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-setfilteringvalue
      */
     SetFilteringValue(dwProperty, pValue) {
-        result := ComCall(12, this, "uint", dwProperty, DXVA2_Fixed32.Ptr, pValue, "HRESULT")
+        result := ComCall(12, this, UInt32, dwProperty, DXVA2_Fixed32.Ptr, pValue, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APPLICATION_VIEW_SIZE_PREFERENCE.ahk" { APPLICATION_VIEW_SIZE_PREFERENCE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\APPLICATION_VIEW_SIZE_PREFERENCE.ahk" { APPLICATION_VIEW_SIZE_PREFERENCE }
 
 /**
  * Provides methods for retrieving information about the source application.

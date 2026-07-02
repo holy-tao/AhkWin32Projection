@@ -67,7 +67,7 @@ export default struct IMetaDataTables2 extends IMetaDataTables {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "uint", ix, ppchNameMarshal, ppchName, ppvMarshal, ppv, pcbMarshal, pcb, "HRESULT")
+        result := ComCall(23, this, UInt32, ix, ppchNameMarshal, ppchName, ppvMarshal, ppv, pcbMarshal, pcb, "HRESULT")
         return result
     }
 

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -79,7 +79,7 @@ export default struct ICLRStrongName extends IUnknown {
         pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
         pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, "uint", cchHash, pchHashMarshal, pchHash, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct ICLRStrongName extends IUnknown {
         pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
         pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwzFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, "uint", cchHash, pchHashMarshal, pchHash, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
@@ -119,7 +119,7 @@ export default struct ICLRStrongName extends IUnknown {
         pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
         pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pbBlobMarshal, pbBlob, "uint", cchBlob, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, "uint", cchHash, pchHashMarshal, pchHash, "HRESULT")
+        result := ComCall(5, this, pbBlobMarshal, pbBlob, UInt32, cchBlob, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct ICLRStrongName extends IUnknown {
         pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
         pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pszFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, "uint", cchHash, pchHashMarshal, pchHash, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct ICLRStrongName extends IUnknown {
         pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
         pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pwzFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, "uint", cchHash, pchHashMarshal, pchHash, "HRESULT")
+        result := ComCall(7, this, "ptr", pwzFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct ICLRStrongName extends IUnknown {
         pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
         pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, HANDLE, hFile, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, "uint", cchHash, pchHashMarshal, pchHash, "HRESULT")
+        result := ComCall(8, this, HANDLE, hFile, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
@@ -235,7 +235,7 @@ export default struct ICLRStrongName extends IUnknown {
         pbBaseMarshal := pbBase is VarRef ? "char*" : "ptr"
         pcbBlobMarshal := pcbBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, pbBaseMarshal, pbBase, "uint", dwLength, "char*", &pbBlob := 0, pcbBlobMarshal, pcbBlob, "HRESULT")
+        result := ComCall(12, this, pbBaseMarshal, pbBase, UInt32, dwLength, "char*", &pbBlob := 0, pcbBlobMarshal, pcbBlob, "HRESULT")
         return pbBlob
     }
 
@@ -255,7 +255,7 @@ export default struct ICLRStrongName extends IUnknown {
         ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : "ptr"
         pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, ppbPublicKeyBlobMarshal, ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "HRESULT")
+        result := ComCall(13, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, ppbPublicKeyBlobMarshal, ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct ICLRStrongName extends IUnknown {
      * @returns {Integer} 
      */
     StrongNameHashSize(ulHashAlg) {
-        result := ComCall(14, this, "uint", ulHashAlg, "uint*", &pcbSize := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, ulHashAlg, "uint*", &pcbSize := 0, "HRESULT")
         return pcbSize
     }
 
@@ -295,7 +295,7 @@ export default struct ICLRStrongName extends IUnknown {
         ppbKeyBlobMarshal := ppbKeyBlob is VarRef ? "ptr*" : "ptr"
         pcbKeyBlobMarshal := pcbKeyBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", pwzKeyContainer, "uint", dwFlags, ppbKeyBlobMarshal, ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
+        result := ComCall(16, this, "ptr", pwzKeyContainer, UInt32, dwFlags, ppbKeyBlobMarshal, ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
         return result
     }
 
@@ -314,7 +314,7 @@ export default struct ICLRStrongName extends IUnknown {
         ppbKeyBlobMarshal := ppbKeyBlob is VarRef ? "ptr*" : "ptr"
         pcbKeyBlobMarshal := pcbKeyBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "ptr", pwzKeyContainer, "uint", dwFlags, "uint", dwKeySize, ppbKeyBlobMarshal, ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
+        result := ComCall(17, this, "ptr", pwzKeyContainer, UInt32, dwFlags, UInt32, dwKeySize, ppbKeyBlobMarshal, ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
         return result
     }
 
@@ -330,7 +330,7 @@ export default struct ICLRStrongName extends IUnknown {
 
         pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, "HRESULT")
+        result := ComCall(18, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, "HRESULT")
         return result
     }
 
@@ -352,7 +352,7 @@ export default struct ICLRStrongName extends IUnknown {
         ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : "ptr"
         pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr", pwzFilePath, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "HRESULT")
+        result := ComCall(19, this, "ptr", pwzFilePath, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "HRESULT")
         return result
     }
 
@@ -375,7 +375,7 @@ export default struct ICLRStrongName extends IUnknown {
         ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : "ptr"
         pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "ptr", wszFilePath, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "uint", dwFlags, "HRESULT")
+        result := ComCall(20, this, "ptr", wszFilePath, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -390,7 +390,7 @@ export default struct ICLRStrongName extends IUnknown {
         pbPublicKeyBlobMarshal := pbPublicKeyBlob is VarRef ? "char*" : "ptr"
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, pbPublicKeyBlobMarshal, pbPublicKeyBlob, "uint", cbPublicKeyBlob, pcbSizeMarshal, pcbSize, "HRESULT")
+        result := ComCall(21, this, pbPublicKeyBlobMarshal, pbPublicKeyBlob, UInt32, cbPublicKeyBlob, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -403,7 +403,7 @@ export default struct ICLRStrongName extends IUnknown {
     StrongNameSignatureVerification(pwzFilePath, dwInFlags) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        result := ComCall(22, this, "ptr", pwzFilePath, "uint", dwInFlags, "uint*", &pdwOutFlags := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", pwzFilePath, UInt32, dwInFlags, "uint*", &pdwOutFlags := 0, "HRESULT")
         return pdwOutFlags
     }
 
@@ -430,7 +430,7 @@ export default struct ICLRStrongName extends IUnknown {
     StrongNameSignatureVerificationFromImage(pbBase, dwLength, dwInFlags) {
         pbBaseMarshal := pbBase is VarRef ? "char*" : "ptr"
 
-        result := ComCall(24, this, pbBaseMarshal, pbBase, "uint", dwLength, "uint", dwInFlags, "uint*", &pdwOutFlags := 0, "HRESULT")
+        result := ComCall(24, this, pbBaseMarshal, pbBase, UInt32, dwLength, UInt32, dwInFlags, "uint*", &pdwOutFlags := 0, "HRESULT")
         return pdwOutFlags
     }
 
@@ -485,7 +485,7 @@ export default struct ICLRStrongName extends IUnknown {
         ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : "ptr"
         pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(27, this, pbPublicKeyBlobMarshal, pbPublicKeyBlob, "uint", cbPublicKeyBlob, ppbStrongNameTokenMarshal, ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "HRESULT")
+        result := ComCall(27, this, pbPublicKeyBlobMarshal, pbPublicKeyBlob, UInt32, cbPublicKeyBlob, ppbStrongNameTokenMarshal, ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "HRESULT")
         return result
     }
 

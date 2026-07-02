@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDigitalLocator.ahk" { IDigitalLocator }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IATSCLocator interface is implemented on the ATSCLocator object and contains methods that enable the network provider to determine the physical channel and transport stream ID of an ATSC transmission.
@@ -85,7 +85,7 @@ export default struct IATSCLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator-put_physicalchannel
      */
     put_PhysicalChannel(PhysicalChannel) {
-        result := ComCall(23, this, "int", PhysicalChannel, "HRESULT")
+        result := ComCall(23, this, Int32, PhysicalChannel, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct IATSCLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator-put_tsid
      */
     put_TSID(TSID) {
-        result := ComCall(25, this, "int", TSID, "HRESULT")
+        result := ComCall(25, this, Int32, TSID, "HRESULT")
         return result
     }
 

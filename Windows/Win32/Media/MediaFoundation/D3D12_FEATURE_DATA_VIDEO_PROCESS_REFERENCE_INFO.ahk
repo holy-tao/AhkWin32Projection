@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_VIDEO_PROCESS_DEINTERLACE_FLAGS.ahk" { D3D12_VIDEO_PROCESS_DEINTERLACE_FLAGS }
 #Import "..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
-#Import ".\D3D12_VIDEO_PROCESS_FILTER_FLAGS.ahk" { D3D12_VIDEO_PROCESS_FILTER_FLAGS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\D3D12_VIDEO_PROCESS_FEATURE_FLAGS.ahk" { D3D12_VIDEO_PROCESS_FEATURE_FLAGS }
+#Import ".\D3D12_VIDEO_PROCESS_DEINTERLACE_FLAGS.ahk" { D3D12_VIDEO_PROCESS_DEINTERLACE_FLAGS }
+#Import ".\D3D12_VIDEO_PROCESS_FILTER_FLAGS.ahk" { D3D12_VIDEO_PROCESS_FILTER_FLAGS }
 
 /**
  * Retrieves the number of past and future reference frames required for the specified deinterlace mode, filter, rate conversion, or auto processing features.

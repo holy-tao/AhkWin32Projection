@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDeskBand.ahk" { IDeskBand }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\BANDSITEINFO.ahk" { BANDSITEINFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDeskBand.ahk" { IDeskBand }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that control band objects.
@@ -78,7 +78,7 @@ export default struct IBandSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-enumbands
      */
     EnumBands(uBand) {
-        result := ComCall(4, this, "uint", uBand, "uint*", &pdwBandID := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, uBand, "uint*", &pdwBandID := 0, "HRESULT")
         return pdwBandID
     }
 
@@ -109,7 +109,7 @@ export default struct IBandSite extends IUnknown {
 
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwBandID, IDeskBand.Ptr, ppstb, pdwStateMarshal, pdwState, "ptr", pszName, "int", cchName, "HRESULT")
+        result := ComCall(5, this, UInt32, dwBandID, IDeskBand.Ptr, ppstb, pdwStateMarshal, pdwState, "ptr", pszName, Int32, cchName, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IBandSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-setbandstate
      */
     SetBandState(dwBandID, dwMask, dwState) {
-        result := ComCall(6, this, "uint", dwBandID, "uint", dwMask, "uint", dwState, "HRESULT")
+        result := ComCall(6, this, UInt32, dwBandID, UInt32, dwMask, UInt32, dwState, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IBandSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-removeband
      */
     RemoveBand(dwBandID) {
-        result := ComCall(7, this, "uint", dwBandID, "HRESULT")
+        result := ComCall(7, this, UInt32, dwBandID, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct IBandSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibandsite-getbandobject
      */
     GetBandObject(dwBandID, riid) {
-        result := ComCall(8, this, "uint", dwBandID, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwBandID, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

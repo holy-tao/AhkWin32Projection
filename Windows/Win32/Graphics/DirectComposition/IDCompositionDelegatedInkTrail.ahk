@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct2D\Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DCompositionInkTrailPoint.ahk" { DCompositionInkTrailPoint }
 
 /**
@@ -47,7 +47,7 @@ export default struct IDCompositionDelegatedInkTrail extends IUnknown {
      * @returns {Integer} 
      */
     AddTrailPoints(inkPoints, inkPointsCount) {
-        result := ComCall(3, this, DCompositionInkTrailPoint.Ptr, inkPoints, "uint", inkPointsCount, "uint*", &generationId := 0, "HRESULT")
+        result := ComCall(3, this, DCompositionInkTrailPoint.Ptr, inkPoints, UInt32, inkPointsCount, "uint*", &generationId := 0, "HRESULT")
         return generationId
     }
 
@@ -60,7 +60,7 @@ export default struct IDCompositionDelegatedInkTrail extends IUnknown {
      * @returns {Integer} 
      */
     AddTrailPointsWithPrediction(inkPoints, inkPointsCount, predictedInkPoints, predictedInkPointsCount) {
-        result := ComCall(4, this, DCompositionInkTrailPoint.Ptr, inkPoints, "uint", inkPointsCount, DCompositionInkTrailPoint.Ptr, predictedInkPoints, "uint", predictedInkPointsCount, "uint*", &generationId := 0, "HRESULT")
+        result := ComCall(4, this, DCompositionInkTrailPoint.Ptr, inkPoints, UInt32, inkPointsCount, DCompositionInkTrailPoint.Ptr, predictedInkPoints, UInt32, predictedInkPointsCount, "uint*", &generationId := 0, "HRESULT")
         return generationId
     }
 
@@ -70,7 +70,7 @@ export default struct IDCompositionDelegatedInkTrail extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveTrailPoints(generationId) {
-        result := ComCall(5, this, "uint", generationId, "HRESULT")
+        result := ComCall(5, this, UInt32, generationId, "HRESULT")
         return result
     }
 

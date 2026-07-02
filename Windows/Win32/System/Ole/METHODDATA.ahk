@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Variant\VARENUM.ahk" { VARENUM }
 #Import "..\Com\CALLCONV.ahk" { CALLCONV }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PARAMDATA.ahk" { PARAMDATA }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
 
 /**
  * Describes a method or property.

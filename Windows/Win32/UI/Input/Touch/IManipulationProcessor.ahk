@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MANIPULATION_PROCESSOR_MANIPULATIONS.ahk" { MANIPULATION_PROCESSOR_MANIPULATIONS }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IManipulationProcessor provides functionality for monitoring and responding to multitouch input.
@@ -148,7 +148,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-put_pivotpointx
      */
     put_PivotPointX(pivotPointX) {
-        result := ComCall(6, this, "float", pivotPointX, "HRESULT")
+        result := ComCall(6, this, Float32, pivotPointX, "HRESULT")
         return result
     }
 
@@ -169,7 +169,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-put_pivotpointy
      */
     put_PivotPointY(pivotPointY) {
-        result := ComCall(8, this, "float", pivotPointY, "HRESULT")
+        result := ComCall(8, this, Float32, pivotPointY, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-put_pivotradius
      */
     put_PivotRadius(pivotRadius) {
-        result := ComCall(10, this, "float", pivotRadius, "HRESULT")
+        result := ComCall(10, this, Float32, pivotRadius, "HRESULT")
         return result
     }
 
@@ -231,7 +231,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processdown
      */
     ProcessDown(manipulatorId, x, y) {
-        result := ComCall(12, this, "uint", manipulatorId, "float", x, "float", y, "HRESULT")
+        result := ComCall(12, this, UInt32, manipulatorId, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -247,7 +247,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processmove
      */
     ProcessMove(manipulatorId, x, y) {
-        result := ComCall(13, this, "uint", manipulatorId, "float", x, "float", y, "HRESULT")
+        result := ComCall(13, this, UInt32, manipulatorId, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -263,7 +263,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processup
      */
     ProcessUp(manipulatorId, x, y) {
-        result := ComCall(14, this, "uint", manipulatorId, "float", x, "float", y, "HRESULT")
+        result := ComCall(14, this, UInt32, manipulatorId, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -280,7 +280,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processdownwithtime
      */
     ProcessDownWithTime(manipulatorId, x, y, _timestamp) {
-        result := ComCall(15, this, "uint", manipulatorId, "float", x, "float", y, "uint", _timestamp, "HRESULT")
+        result := ComCall(15, this, UInt32, manipulatorId, Float32, x, Float32, y, UInt32, _timestamp, "HRESULT")
         return result
     }
 
@@ -297,7 +297,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processmovewithtime
      */
     ProcessMoveWithTime(manipulatorId, x, y, _timestamp) {
-        result := ComCall(16, this, "uint", manipulatorId, "float", x, "float", y, "uint", _timestamp, "HRESULT")
+        result := ComCall(16, this, UInt32, manipulatorId, Float32, x, Float32, y, UInt32, _timestamp, "HRESULT")
         return result
     }
 
@@ -314,7 +314,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-processupwithtime
      */
     ProcessUpWithTime(manipulatorId, x, y, _timestamp) {
-        result := ComCall(17, this, "uint", manipulatorId, "float", x, "float", y, "uint", _timestamp, "HRESULT")
+        result := ComCall(17, this, UInt32, manipulatorId, Float32, x, Float32, y, UInt32, _timestamp, "HRESULT")
         return result
     }
 
@@ -403,7 +403,7 @@ export default struct IManipulationProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-imanipulationprocessor-put_minimumscalerotateradius
      */
     put_MinimumScaleRotateRadius(minRadius) {
-        result := ComCall(23, this, "float", minRadius, "HRESULT")
+        result := ComCall(23, this, Float32, minRadius, "HRESULT")
         return result
     }
 

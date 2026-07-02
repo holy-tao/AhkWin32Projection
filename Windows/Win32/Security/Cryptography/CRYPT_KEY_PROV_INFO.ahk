@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CRYPT_KEY_PROV_PARAM.ahk" { CRYPT_KEY_PROV_PARAM }
 #Import ".\CRYPT_KEY_FLAGS.ahk" { CRYPT_KEY_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The CRYPT_KEY_PROV_INFO structure contains information about a key container within a cryptographic service provider (CSP).

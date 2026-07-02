@@ -2,15 +2,15 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
 #Import ".\IPortableDeviceValuesCollection.ahk" { IPortableDeviceValuesCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
 #Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IPortableDeviceValues interface holds a collection of PROPERTYKEY/PROPVARIANT pairs.
@@ -127,7 +127,7 @@ export default struct IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getat
      */
     GetAt(index, pKey, pValue) {
-        result := ComCall(4, this, "uint", index, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(4, this, UInt32, index, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -220,7 +220,7 @@ export default struct IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setunsignedintegervalue
      */
     SetUnsignedIntegerValue(key, Value) {
-        result := ComCall(9, this, PROPERTYKEY.Ptr, key, "uint", Value, "HRESULT")
+        result := ComCall(9, this, PROPERTYKEY.Ptr, key, UInt32, Value, "HRESULT")
         return result
     }
 
@@ -251,7 +251,7 @@ export default struct IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setsignedintegervalue
      */
     SetSignedIntegerValue(key, Value) {
-        result := ComCall(11, this, PROPERTYKEY.Ptr, key, "int", Value, "HRESULT")
+        result := ComCall(11, this, PROPERTYKEY.Ptr, key, Int32, Value, "HRESULT")
         return result
     }
 
@@ -280,7 +280,7 @@ export default struct IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setunsignedlargeintegervalue
      */
     SetUnsignedLargeIntegerValue(key, Value) {
-        result := ComCall(13, this, PROPERTYKEY.Ptr, key, "uint", Value, "HRESULT")
+        result := ComCall(13, this, PROPERTYKEY.Ptr, key, Int64, Value, "HRESULT")
         return result
     }
 
@@ -311,7 +311,7 @@ export default struct IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setsignedlargeintegervalue
      */
     SetSignedLargeIntegerValue(key, Value) {
-        result := ComCall(15, this, PROPERTYKEY.Ptr, key, "int64", Value, "HRESULT")
+        result := ComCall(15, this, PROPERTYKEY.Ptr, key, Int64, Value, "HRESULT")
         return result
     }
 
@@ -342,7 +342,7 @@ export default struct IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setfloatvalue
      */
     SetFloatValue(key, Value) {
-        result := ComCall(17, this, PROPERTYKEY.Ptr, key, "float", Value, "HRESULT")
+        result := ComCall(17, this, PROPERTYKEY.Ptr, key, Float32, Value, "HRESULT")
         return result
     }
 
@@ -535,7 +535,7 @@ export default struct IPortableDeviceValues extends IUnknown {
     SetBufferValue(key, pValue, cbValue) {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(29, this, PROPERTYKEY.Ptr, key, pValueMarshal, pValue, "uint", cbValue, "HRESULT")
+        result := ComCall(29, this, PROPERTYKEY.Ptr, key, pValueMarshal, pValue, UInt32, cbValue, "HRESULT")
         return result
     }
 

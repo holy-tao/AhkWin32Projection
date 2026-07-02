@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID3D12VideoExtensionCommand.ahk" { ID3D12VideoExtensionCommand }
-#Import ".\ID3D12VideoDecodeCommandList1.ahk" { ID3D12VideoDecodeCommandList1 }
 #Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import ".\ID3D12VideoDecodeCommandList1.ahk" { ID3D12VideoDecodeCommandList1 }
 
 /**
  * Adds support for video extension commands. (ID3D12VideoDecodeCommandList2)
@@ -61,7 +61,7 @@ export default struct ID3D12VideoDecodeCommandList2 extends ID3D12VideoDecodeCom
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist2-initializeextensioncommand
      */
     InitializeExtensionCommand(pExtensionCommand, pInitializationParameters, InitializationParametersSizeInBytes) {
-        ComCall(25, this, "ptr", pExtensionCommand, "ptr", pInitializationParameters, "ptr", InitializationParametersSizeInBytes)
+        ComCall(25, this, "ptr", pExtensionCommand, IntPtr, pInitializationParameters, IntPtr, InitializationParametersSizeInBytes)
     }
 
     /**
@@ -75,7 +75,7 @@ export default struct ID3D12VideoDecodeCommandList2 extends ID3D12VideoDecodeCom
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist2-executeextensioncommand
      */
     ExecuteExtensionCommand(pExtensionCommand, pExecutionParameters, ExecutionParametersSizeInBytes) {
-        ComCall(26, this, "ptr", pExtensionCommand, "ptr", pExecutionParameters, "ptr", ExecutionParametersSizeInBytes)
+        ComCall(26, this, "ptr", pExtensionCommand, IntPtr, pExecutionParameters, IntPtr, ExecutionParametersSizeInBytes)
     }
 
     Query(iid) {

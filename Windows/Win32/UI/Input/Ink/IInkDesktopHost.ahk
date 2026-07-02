@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IInkHostWorkItem.ahk" { IInkHostWorkItem }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An IInkDesktopHost object enables ink input, processing, and rendering through the creation of an app thread to host an IInkPresenterDesktop object and insert it into the app's DirectComposition visual tree.
@@ -72,7 +72,7 @@ export default struct IInkDesktopHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkdesktophost-createandinitializeinkpresenter
      */
     CreateAndInitializeInkPresenter(rootVisual, width, height, riid) {
-        result := ComCall(5, this, "ptr", rootVisual, "float", width, "float", height, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", rootVisual, Float32, width, Float32, height, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

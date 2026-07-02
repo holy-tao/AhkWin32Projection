@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -48,7 +48,7 @@ export default struct IDebugOutputCallbacks2 extends IUnknown {
     Output(Mask, Text) {
         Text := Text is String ? StrPtr(Text) : Text
 
-        result := ComCall(3, this, "uint", Mask, "ptr", Text, "HRESULT")
+        result := ComCall(3, this, UInt32, Mask, "ptr", Text, "HRESULT")
         return result
     }
 
@@ -72,7 +72,7 @@ export default struct IDebugOutputCallbacks2 extends IUnknown {
     Output2(Which, Flags, Arg, Text) {
         Text := Text is String ? StrPtr(Text) : Text
 
-        result := ComCall(5, this, "uint", Which, "uint", Flags, "uint", Arg, "ptr", Text, "HRESULT")
+        result := ComCall(5, this, UInt32, Which, UInt32, Flags, Int64, Arg, "ptr", Text, "HRESULT")
         return result
     }
 

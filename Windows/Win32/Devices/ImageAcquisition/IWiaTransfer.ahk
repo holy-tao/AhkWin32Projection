@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumWIA_FORMAT_INFO.ahk" { IEnumWIA_FORMAT_INFO }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumWIA_FORMAT_INFO.ahk" { IEnumWIA_FORMAT_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * The IWiaTransfer interface provides stream-based transfer of data.
@@ -74,7 +74,7 @@ export default struct IWiaTransfer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiatransfer-download
      */
     Download(lFlags, pIWiaTransferCallback) {
-        result := ComCall(3, this, "int", lFlags, "ptr", pIWiaTransferCallback, "HRESULT")
+        result := ComCall(3, this, Int32, lFlags, "ptr", pIWiaTransferCallback, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IWiaTransfer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiatransfer-upload
      */
     Upload(lFlags, pSource, pIWiaTransferCallback) {
-        result := ComCall(4, this, "int", lFlags, "ptr", pSource, "ptr", pIWiaTransferCallback, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, "ptr", pSource, "ptr", pIWiaTransferCallback, "HRESULT")
         return result
     }
 

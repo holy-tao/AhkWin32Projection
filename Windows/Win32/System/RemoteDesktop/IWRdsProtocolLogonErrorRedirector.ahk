@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WTS_LOGON_ERROR_REDIRECTOR_RESPONSE.ahk" { WTS_LOGON_ERROR_REDIRECTOR_RESPONSE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods called by the Remote Desktop Services service to update logon status and determine how to direct logon error messages.
@@ -79,7 +79,7 @@ export default struct IWRdsProtocolLogonErrorRedirector extends IUnknown {
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        result := ComCall(5, this, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, "int*", &pResponse := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszCaption, "ptr", pszMessage, UInt32, uType, "int*", &pResponse := 0, "HRESULT")
         return pResponse
     }
 
@@ -97,7 +97,7 @@ export default struct IWRdsProtocolLogonErrorRedirector extends IUnknown {
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        result := ComCall(6, this, "int", ntsStatus, "int", ntsSubstatus, "ptr", pszCaption, "ptr", pszMessage, "uint", uType, "int*", &pResponse := 0, "HRESULT")
+        result := ComCall(6, this, Int32, ntsStatus, Int32, ntsSubstatus, "ptr", pszCaption, "ptr", pszMessage, UInt32, uType, "int*", &pResponse := 0, "HRESULT")
         return pResponse
     }
 

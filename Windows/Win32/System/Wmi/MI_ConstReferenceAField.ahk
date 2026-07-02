@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_ConstReferenceA.ahk" { MI_ConstReferenceA }
 #Import ".\MI_Instance.ahk" { MI_Instance }
+#Import ".\MI_ConstReferenceA.ahk" { MI_ConstReferenceA }
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_ConstReferenceAField)

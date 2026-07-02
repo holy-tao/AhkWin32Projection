@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D2D1_PRINT_FONT_SUBSET_MODE.ahk" { D2D1_PRINT_FONT_SUBSET_MODE }
 #Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
+#Import ".\D2D1_PRINT_FONT_SUBSET_MODE.ahk" { D2D1_PRINT_FONT_SUBSET_MODE }
 
 /**
  * The creation properties for a ID2D1PrintControl object.

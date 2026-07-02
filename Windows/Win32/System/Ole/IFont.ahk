@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\CY.ahk" { CY }
-#Import "..\..\Graphics\Gdi\TEXTMETRICW.ahk" { TEXTMETRICW }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Graphics\Gdi\HFONT.ahk" { HFONT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\Gdi\TEXTMETRICW.ahk" { TEXTMETRICW }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a wrapper around a Windows font object.
@@ -636,7 +636,7 @@ export default struct IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_weight
      */
     put_Weight(weight) {
-        result := ComCall(16, this, "short", weight, "HRESULT")
+        result := ComCall(16, this, Int16, weight, "HRESULT")
         return result
     }
 
@@ -658,7 +658,7 @@ export default struct IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-put_charset
      */
     put_Charset(charset) {
-        result := ComCall(18, this, "short", charset, "HRESULT")
+        result := ComCall(18, this, Int16, charset, "HRESULT")
         return result
     }
 
@@ -758,7 +758,7 @@ export default struct IFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-setratio
      */
     SetRatio(cyLogical, cyHimetric) {
-        result := ComCall(22, this, "int", cyLogical, "int", cyHimetric, "HRESULT")
+        result := ComCall(22, this, Int32, cyLogical, Int32, cyHimetric, "HRESULT")
         return result
     }
 

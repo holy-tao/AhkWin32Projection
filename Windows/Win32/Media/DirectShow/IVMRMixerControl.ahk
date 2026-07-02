@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\NORMALIZEDRECT.ahk" { NORMALIZEDRECT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NORMALIZEDRECT.ahk" { NORMALIZEDRECT }
 
 /**
  * The IVMRMixerControl interface is enables an application to manipulate the incoming video streams on the Video Mixing Renderer Filter 7 (VMR-7).
@@ -76,7 +76,7 @@ export default struct IVMRMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-setalpha
      */
     SetAlpha(dwStreamID, Alpha) {
-        result := ComCall(3, this, "uint", dwStreamID, "float", Alpha, "HRESULT")
+        result := ComCall(3, this, UInt32, dwStreamID, Float32, Alpha, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IVMRMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-getalpha
      */
     GetAlpha(dwStreamID) {
-        result := ComCall(4, this, "uint", dwStreamID, "float*", &pAlpha := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamID, "float*", &pAlpha := 0, "HRESULT")
         return pAlpha
     }
 
@@ -119,7 +119,7 @@ export default struct IVMRMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-setzorder
      */
     SetZOrder(dwStreamID, dwZ) {
-        result := ComCall(5, this, "uint", dwStreamID, "uint", dwZ, "HRESULT")
+        result := ComCall(5, this, UInt32, dwStreamID, UInt32, dwZ, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IVMRMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-getzorder
      */
     GetZOrder(dwStreamID) {
-        result := ComCall(6, this, "uint", dwStreamID, "uint*", &pZ := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwStreamID, "uint*", &pZ := 0, "HRESULT")
         return pZ
     }
 
@@ -175,7 +175,7 @@ export default struct IVMRMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-setoutputrect
      */
     SetOutputRect(dwStreamID, pRect) {
-        result := ComCall(7, this, "uint", dwStreamID, NORMALIZEDRECT.Ptr, pRect, "HRESULT")
+        result := ComCall(7, this, UInt32, dwStreamID, NORMALIZEDRECT.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IVMRMixerControl extends IUnknown {
      */
     GetOutputRect(dwStreamID) {
         pRect := NORMALIZEDRECT()
-        result := ComCall(8, this, "uint", dwStreamID, NORMALIZEDRECT.Ptr, pRect, "HRESULT")
+        result := ComCall(8, this, UInt32, dwStreamID, NORMALIZEDRECT.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -258,7 +258,7 @@ export default struct IVMRMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-setmixingprefs
      */
     SetMixingPrefs(dwMixerPrefs) {
-        result := ComCall(11, this, "uint", dwMixerPrefs, "HRESULT")
+        result := ComCall(11, this, UInt32, dwMixerPrefs, "HRESULT")
         return result
     }
 

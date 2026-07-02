@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IInkTransform.ahk" { IInkTransform }
+#Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
+#Import ".\TabletPropertyMetricUnit.ahk" { TabletPropertyMetricUnit }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
-#Import ".\IInkRectangle.ahk" { IInkRectangle }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
-#Import ".\TabletPropertyMetricUnit.ahk" { TabletPropertyMetricUnit }
-#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IInkTransform.ahk" { IInkTransform }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
 
 /**
  * Represents a single ink stroke.A stroke is a set of properties and point data that the digitizer captures that represent the coordinates and properties of a known ink mark.
@@ -505,7 +505,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-hittestcircle
      */
     HitTestCircle(X, Y, Radius) {
-        result := ComCall(24, this, "int", X, "int", Y, "float", Radius, VARIANT_BOOL.Ptr, &Intersects := 0, "HRESULT")
+        result := ComCall(24, this, Int32, X, Int32, Y, Float32, Radius, VARIANT_BOOL.Ptr, &Intersects := 0, "HRESULT")
         return Intersects
     }
 
@@ -524,7 +524,7 @@ export default struct IInkStrokeDisp extends IDispatch {
     NearestPoint(X, Y, Distance) {
         DistanceMarshal := Distance is VarRef ? "float*" : "ptr"
 
-        result := ComCall(25, this, "int", X, "int", Y, DistanceMarshal, Distance, "float*", &_Point := 0, "HRESULT")
+        result := ComCall(25, this, Int32, X, Int32, Y, DistanceMarshal, Distance, "float*", &_Point := 0, "HRESULT")
         return _Point
     }
 
@@ -542,7 +542,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-split
      */
     Split(SplitAt) {
-        result := ComCall(26, this, "float", SplitAt, "ptr*", &NewStroke := 0, "HRESULT")
+        result := ComCall(26, this, Float32, SplitAt, "ptr*", &NewStroke := 0, "HRESULT")
         return IInkStrokeDisp(NewStroke)
     }
 
@@ -654,7 +654,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      */
     GetPoints(Index, Count) {
         _Points := VARIANT()
-        result := ComCall(28, this, "int", Index, "int", Count, VARIANT.Ptr, _Points, "HRESULT")
+        result := ComCall(28, this, Int32, Index, Int32, Count, VARIANT.Ptr, _Points, "HRESULT")
         return _Points
     }
 
@@ -677,7 +677,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-setpoints
      */
     SetPoints(_Points, Index, Count) {
-        result := ComCall(29, this, VARIANT, _Points, "int", Index, "int", Count, "int*", &NumberOfPointsSet := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT, _Points, Int32, Index, Int32, Count, "int*", &NumberOfPointsSet := 0, "HRESULT")
         return NumberOfPointsSet
     }
 
@@ -696,7 +696,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      */
     GetPacketData(Index, Count) {
         PacketData := VARIANT()
-        result := ComCall(30, this, "int", Index, "int", Count, VARIANT.Ptr, PacketData, "HRESULT")
+        result := ComCall(30, this, Int32, Index, Int32, Count, VARIANT.Ptr, PacketData, "HRESULT")
         return PacketData
     }
 
@@ -718,7 +718,7 @@ export default struct IInkStrokeDisp extends IDispatch {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
         PacketValues := VARIANT()
-        result := ComCall(31, this, BSTR, PropertyName, "int", Index, "int", Count, VARIANT.Ptr, PacketValues, "HRESULT")
+        result := ComCall(31, this, BSTR, PropertyName, Int32, Index, Int32, Count, VARIANT.Ptr, PacketValues, "HRESULT")
         return PacketValues
     }
 
@@ -734,7 +734,7 @@ export default struct IInkStrokeDisp extends IDispatch {
     SetPacketValuesByProperty(bstrPropertyName, PacketValues, Index, Count) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(32, this, BSTR, bstrPropertyName, VARIANT, PacketValues, "int", Index, "int", Count, "int*", &NumberOfPacketsSet := 0, "HRESULT")
+        result := ComCall(32, this, BSTR, bstrPropertyName, VARIANT, PacketValues, Int32, Index, Int32, Count, "int*", &NumberOfPacketsSet := 0, "HRESULT")
         return NumberOfPacketsSet
     }
 
@@ -750,7 +750,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      */
     GetFlattenedBezierPoints(FittingError) {
         FlattenedBezierPoints := VARIANT()
-        result := ComCall(33, this, "int", FittingError, VARIANT.Ptr, FlattenedBezierPoints, "HRESULT")
+        result := ComCall(33, this, Int32, FittingError, VARIANT.Ptr, FlattenedBezierPoints, "HRESULT")
         return FlattenedBezierPoints
     }
 
@@ -887,7 +887,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-move
      */
     Move(HorizontalComponent, VerticalComponent) {
-        result := ComCall(36, this, "float", HorizontalComponent, "float", VerticalComponent, "HRESULT")
+        result := ComCall(36, this, Float32, HorizontalComponent, Float32, VerticalComponent, "HRESULT")
         return result
     }
 
@@ -929,7 +929,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-rotate
      */
     Rotate(Degrees, x, y) {
-        result := ComCall(37, this, "float", Degrees, "float", x, "float", y, "HRESULT")
+        result := ComCall(37, this, Float32, Degrees, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -976,7 +976,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-shear
      */
     Shear(HorizontalMultiplier, VerticalMultiplier) {
-        result := ComCall(38, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "HRESULT")
+        result := ComCall(38, this, Float32, HorizontalMultiplier, Float32, VerticalMultiplier, "HRESULT")
         return result
     }
 
@@ -1019,7 +1019,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-scaletransform
      */
     ScaleTransform(HorizontalMultiplier, VerticalMultiplier) {
-        result := ComCall(39, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "HRESULT")
+        result := ComCall(39, this, Float32, HorizontalMultiplier, Float32, VerticalMultiplier, "HRESULT")
         return result
     }
 

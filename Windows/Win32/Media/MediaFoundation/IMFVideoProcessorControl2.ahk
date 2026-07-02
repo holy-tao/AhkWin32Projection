@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFVideoProcessorControl.ahk" { IMFVideoProcessorControl }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFVideoProcessorControl.ahk" { IMFVideoProcessorControl }
 
 /**
  * Configures the Video Processor MFT. (IMFVideoProcessorControl2)
@@ -53,7 +53,7 @@ export default struct IMFVideoProcessorControl2 extends IMFVideoProcessorControl
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol2-setrotationoverride
      */
     SetRotationOverride(uiRotation) {
-        result := ComCall(9, this, "uint", uiRotation, "HRESULT")
+        result := ComCall(9, this, UInt32, uiRotation, "HRESULT")
         return result
     }
 

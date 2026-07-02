@@ -70,7 +70,7 @@ export default struct IADsPathname extends IDispatch {
     Set(bstrADsPath, lnSetType) {
         bstrADsPath := bstrADsPath is String ? BSTR.Alloc(bstrADsPath).Value : bstrADsPath
 
-        result := ComCall(7, this, BSTR, bstrADsPath, "int", lnSetType, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrADsPath, Int32, lnSetType, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IADsPathname extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-setdisplaytype
      */
     SetDisplayType(lnDisplayType) {
-        result := ComCall(8, this, "int", lnDisplayType, "HRESULT")
+        result := ComCall(8, this, Int32, lnDisplayType, "HRESULT")
         return result
     }
 
@@ -93,7 +93,7 @@ export default struct IADsPathname extends IDispatch {
      */
     Retrieve(lnFormatType) {
         pbstrADsPath := BSTR.Owned()
-        result := ComCall(9, this, "int", lnFormatType, BSTR.Ptr, pbstrADsPath, "HRESULT")
+        result := ComCall(9, this, Int32, lnFormatType, BSTR.Ptr, pbstrADsPath, "HRESULT")
         return pbstrADsPath
     }
 
@@ -115,7 +115,7 @@ export default struct IADsPathname extends IDispatch {
      */
     GetElement(lnElementIndex) {
         pbstrElement := BSTR.Owned()
-        result := ComCall(11, this, "int", lnElementIndex, BSTR.Ptr, pbstrElement, "HRESULT")
+        result := ComCall(11, this, Int32, lnElementIndex, BSTR.Ptr, pbstrElement, "HRESULT")
         return pbstrElement
     }
 
@@ -172,7 +172,7 @@ export default struct IADsPathname extends IDispatch {
         bstrInStr := bstrInStr is String ? BSTR.Alloc(bstrInStr).Value : bstrInStr
 
         pbstrOutStr := BSTR.Owned()
-        result := ComCall(15, this, "int", lnReserved, BSTR, bstrInStr, BSTR.Ptr, pbstrOutStr, "HRESULT")
+        result := ComCall(15, this, Int32, lnReserved, BSTR, bstrInStr, BSTR.Ptr, pbstrOutStr, "HRESULT")
         return pbstrOutStr
     }
 
@@ -191,7 +191,7 @@ export default struct IADsPathname extends IDispatch {
      * @returns {HRESULT} 
      */
     put_EscapedMode(lnEscapedMode) {
-        result := ComCall(17, this, "int", lnEscapedMode, "HRESULT")
+        result := ComCall(17, this, Int32, lnEscapedMode, "HRESULT")
         return result
     }
 

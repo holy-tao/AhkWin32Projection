@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LPOFNHOOKPROC.ahk" { LPOFNHOOKPROC }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
@@ -50,7 +51,7 @@ export default struct OPENFILENAME_NT4W {
 
     lCustData : LPARAM
 
-    lpfnHook : IntPtr
+    lpfnHook : LPOFNHOOKPROC
 
     lpTemplateName : PWSTR
 

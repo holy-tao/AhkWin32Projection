@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPersist.ahk" { IPersist }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -124,7 +124,7 @@ export default struct IPersistMemory extends IPersist {
     Load(pMem, cbSize) {
         pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pMemMarshal, pMem, "uint", cbSize, "HRESULT")
+        result := ComCall(5, this, pMemMarshal, pMem, UInt32, cbSize, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IPersistMemory extends IPersist {
      * @returns {Void} 
      */
     Save(fClearDirty, cbSize) {
-        result := ComCall(6, this, "ptr", &pMem := 0, BOOL, fClearDirty, "uint", cbSize, "HRESULT")
+        result := ComCall(6, this, "ptr", &pMem := 0, BOOL, fClearDirty, UInt32, cbSize, "HRESULT")
         return pMem
     }
 

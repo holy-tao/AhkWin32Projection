@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\STREAMBUFFER_ATTR_DATATYPE.ahk" { STREAMBUFFER_ATTR_DATATYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * This topic applies only to Windows XP Service Pack 1 or later. The STREAMBUFFER_ATTRIBUTE structure describes an attribute on a stream buffer file.

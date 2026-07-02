@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -47,7 +47,7 @@ export default struct IMultipleResults extends IUnknown {
     GetResult(pUnkOuter, lResultFlag, riid, pcRowsAffected, ppRowset) {
         pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", lResultFlag, Guid.Ptr, riid, pcRowsAffectedMarshal, pcRowsAffected, IUnknown.Ptr, ppRowset, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, IntPtr, lResultFlag, Guid.Ptr, riid, pcRowsAffectedMarshal, pcRowsAffected, IUnknown.Ptr, ppRowset, "HRESULT")
         return result
     }
 

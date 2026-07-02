@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpeechPhraseReplacements.ahk" { ISpeechPhraseReplacements }
-#Import ".\ISpeechPhraseProperties.ahk" { ISpeechPhraseProperties }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\SpeechDisplayAttributes.ahk" { SpeechDisplayAttributes }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISpeechPhraseRule.ahk" { ISpeechPhraseRule }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\ISpeechPhraseElements.ahk" { ISpeechPhraseElements }
-#Import ".\ISpeechPhraseRule.ahk" { ISpeechPhraseRule }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechPhraseProperties.ahk" { ISpeechPhraseProperties }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -290,7 +290,7 @@ export default struct ISpeechPhraseInfo extends IDispatch {
      */
     GetText(StartElement, Elements, UseReplacements) {
         Text := BSTR.Owned()
-        result := ComCall(21, this, "int", StartElement, "int", Elements, VARIANT_BOOL, UseReplacements, BSTR.Ptr, Text, "HRESULT")
+        result := ComCall(21, this, Int32, StartElement, Int32, Elements, VARIANT_BOOL, UseReplacements, BSTR.Ptr, Text, "HRESULT")
         return Text
     }
 
@@ -302,7 +302,7 @@ export default struct ISpeechPhraseInfo extends IDispatch {
      * @returns {SpeechDisplayAttributes} 
      */
     GetDisplayAttributes(StartElement, Elements, UseReplacements) {
-        result := ComCall(22, this, "int", StartElement, "int", Elements, VARIANT_BOOL, UseReplacements, "int*", &DisplayAttributes := 0, "HRESULT")
+        result := ComCall(22, this, Int32, StartElement, Int32, Elements, VARIANT_BOOL, UseReplacements, "int*", &DisplayAttributes := 0, "HRESULT")
         return DisplayAttributes
     }
 

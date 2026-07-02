@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to control the behavior of thread pools.
@@ -79,7 +79,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setmaxthreads
      */
     SetMaxThreads(lcMaxThreads) {
-        result := ComCall(5, this, "int", lcMaxThreads, "HRESULT")
+        result := ComCall(5, this, Int32, lcMaxThreads, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setdeletedelay
      */
     SetDeleteDelay(msecDeleteDelay) {
-        result := ComCall(7, this, "int", msecDeleteDelay, "HRESULT")
+        result := ComCall(7, this, Int32, msecDeleteDelay, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setmaxqueuedrequests
      */
     SetMaxQueuedRequests(lcMaxQueuedRequests) {
-        result := ComCall(10, this, "int", lcMaxQueuedRequests, "HRESULT")
+        result := ComCall(10, this, Int32, lcMaxQueuedRequests, "HRESULT")
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setminthreads
      */
     SetMinThreads(lcMinThreads) {
-        result := ComCall(11, this, "int", lcMinThreads, "HRESULT")
+        result := ComCall(11, this, Int32, lcMinThreads, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-setqueuedepth
      */
     SetQueueDepth(lcQueueDepth) {
-        result := ComCall(12, this, "int", lcQueueDepth, "HRESULT")
+        result := ComCall(12, this, Int32, lcQueueDepth, "HRESULT")
         return result
     }
 

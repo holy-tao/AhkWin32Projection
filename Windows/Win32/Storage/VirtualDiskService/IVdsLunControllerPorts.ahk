@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVdsLunControllerPorts interface (vdshwprv.h) provides methods for performing controller port configuration operations on a LUN.
@@ -149,7 +149,7 @@ export default struct IVdsLunControllerPorts extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsluncontrollerports-associatecontrollerports
      */
     AssociateControllerPorts(pActiveControllerPortIdArray, lNumberOfActiveControllerPorts, pInactiveControllerPortIdArray, lNumberOfInactiveControllerPorts) {
-        result := ComCall(3, this, Guid.Ptr, pActiveControllerPortIdArray, "int", lNumberOfActiveControllerPorts, Guid.Ptr, pInactiveControllerPortIdArray, "int", lNumberOfInactiveControllerPorts, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pActiveControllerPortIdArray, Int32, lNumberOfActiveControllerPorts, Guid.Ptr, pInactiveControllerPortIdArray, Int32, lNumberOfInactiveControllerPorts, "HRESULT")
         return result
     }
 

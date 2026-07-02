@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\DirectDraw\DDSURFACEDESC.ahk" { DDSURFACEDESC }
-#Import "..\..\Graphics\DirectDraw\DDCAPS_DX7.ahk" { DDCAPS_DX7 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\..\Graphics\DirectDraw\DDCAPS_DX7.ahk" { DDCAPS_DX7 }
+#Import "..\..\Graphics\DirectDraw\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirectDrawVideo interface queries the Video Renderer filter about DirectDraw surfaces and hardware capabilities.Applications can use this interface to control what DirectDraw features the Video Renderer will take advantage of.
@@ -204,7 +204,7 @@ export default struct IDirectDrawVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-setswitches
      */
     SetSwitches(Switches) {
-        result := ComCall(4, this, "uint", Switches, "HRESULT")
+        result := ComCall(4, this, UInt32, Switches, "HRESULT")
         return result
     }
 
@@ -324,7 +324,7 @@ export default struct IDirectDrawVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-usescanline
      */
     UseScanLine(UseScanLine) {
-        result := ComCall(13, this, "int", UseScanLine, "HRESULT")
+        result := ComCall(13, this, Int32, UseScanLine, "HRESULT")
         return result
     }
 
@@ -351,7 +351,7 @@ export default struct IDirectDrawVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-useoverlaystretch
      */
     UseOverlayStretch(UseOverlayStretch) {
-        result := ComCall(15, this, "int", UseOverlayStretch, "HRESULT")
+        result := ComCall(15, this, Int32, UseOverlayStretch, "HRESULT")
         return result
     }
 
@@ -380,7 +380,7 @@ export default struct IDirectDrawVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-usewhenfullscreen
      */
     UseWhenFullScreen(UseWhenFullScreen) {
-        result := ComCall(17, this, "int", UseWhenFullScreen, "HRESULT")
+        result := ComCall(17, this, Int32, UseWhenFullScreen, "HRESULT")
         return result
     }
 

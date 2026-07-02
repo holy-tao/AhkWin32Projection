@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\INTERFACEINFO.ahk" { INTERFACEINFO }
-#Import "..\..\Foundation\HTASK.ahk" { HTASK }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HTASK.ahk" { HTASK }
+#Import "..\..\System\Com\INTERFACEINFO.ahk" { INTERFACEINFO }
 
 /**
  * Provides COM servers and applications with the ability to selectively handle incoming and outgoing COM messages while waiting for responses from synchronous calls.
@@ -119,7 +119,7 @@ export default struct IMessageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imessagefilter-handleincomingcall
      */
     HandleInComingCall(dwCallType, htaskCaller, dwTickCount, lpInterfaceInfo) {
-        result := ComCall(3, this, "uint", dwCallType, HTASK, htaskCaller, "uint", dwTickCount, INTERFACEINFO.Ptr, lpInterfaceInfo, UInt32)
+        result := ComCall(3, this, UInt32, dwCallType, HTASK, htaskCaller, UInt32, dwTickCount, INTERFACEINFO.Ptr, lpInterfaceInfo, UInt32)
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct IMessageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imessagefilter-retryrejectedcall
      */
     RetryRejectedCall(htaskCallee, dwTickCount, dwRejectType) {
-        result := ComCall(4, this, HTASK, htaskCallee, "uint", dwTickCount, "uint", dwRejectType, UInt32)
+        result := ComCall(4, this, HTASK, htaskCallee, UInt32, dwTickCount, UInt32, dwRejectType, UInt32)
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct IMessageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imessagefilter-messagepending
      */
     MessagePending(htaskCallee, dwTickCount, dwPendingType) {
-        result := ComCall(5, this, HTASK, htaskCallee, "uint", dwTickCount, "uint", dwPendingType, UInt32)
+        result := ComCall(5, this, HTASK, htaskCallee, UInt32, dwTickCount, UInt32, dwPendingType, UInt32)
         return result
     }
 

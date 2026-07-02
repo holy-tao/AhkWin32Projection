@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MMC_FILTERDATA.ahk" { MMC_FILTERDATA }
 #Import ".\IHeaderCtrl.ahk" { IHeaderCtrl }
+#Import ".\MMC_FILTERDATA.ahk" { MMC_FILTERDATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IHeaderCtrl2 interface is introduced in MMC 1.2.
@@ -47,7 +47,7 @@ export default struct IHeaderCtrl2 extends IHeaderCtrl {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl2-setchangetimeout
      */
     SetChangeTimeOut(uTimeout) {
-        result := ComCall(9, this, "uint", uTimeout, "HRESULT")
+        result := ComCall(9, this, UInt32, uTimeout, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct IHeaderCtrl2 extends IHeaderCtrl {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl2-setcolumnfilter
      */
     SetColumnFilter(nColumn, dwType, pFilterData) {
-        result := ComCall(10, this, "uint", nColumn, "uint", dwType, MMC_FILTERDATA.Ptr, pFilterData, "HRESULT")
+        result := ComCall(10, this, UInt32, nColumn, UInt32, dwType, MMC_FILTERDATA.Ptr, pFilterData, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IHeaderCtrl2 extends IHeaderCtrl {
     GetColumnFilter(nColumn, pdwType, pFilterData) {
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", nColumn, pdwTypeMarshal, pdwType, MMC_FILTERDATA.Ptr, pFilterData, "HRESULT")
+        result := ComCall(11, this, UInt32, nColumn, pdwTypeMarshal, pdwType, MMC_FILTERDATA.Ptr, pFilterData, "HRESULT")
         return result
     }
 

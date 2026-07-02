@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 
 /**
  * Represents a 3D transformation that affects the rotation of a visual along an arbitrary axis in 3D space. The coordinate system is rotated around the specified center point.
@@ -101,7 +101,7 @@ export default struct IDCompositionRotateTransform3D extends IDCompositionTransf
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform3d-setangle(idcompositionanimation)
      */
     SetAngle1(angle) {
-        result := ComCall(4, this, "float", angle, "HRESULT")
+        result := ComCall(4, this, Float32, angle, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IDCompositionRotateTransform3D extends IDCompositionTransf
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform3d-setaxisx(float)
      */
     SetAxisX1(axisX) {
-        result := ComCall(6, this, "float", axisX, "HRESULT")
+        result := ComCall(6, this, Float32, axisX, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IDCompositionRotateTransform3D extends IDCompositionTransf
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform3d-setaxisy(float)
      */
     SetAxisY1(axisY) {
-        result := ComCall(8, this, "float", axisY, "HRESULT")
+        result := ComCall(8, this, Float32, axisY, "HRESULT")
         return result
     }
 
@@ -233,7 +233,7 @@ export default struct IDCompositionRotateTransform3D extends IDCompositionTransf
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform3d-setaxisz(float)
      */
     SetAxisZ1(axisZ) {
-        result := ComCall(10, this, "float", axisZ, "HRESULT")
+        result := ComCall(10, this, Float32, axisZ, "HRESULT")
         return result
     }
 
@@ -273,7 +273,7 @@ export default struct IDCompositionRotateTransform3D extends IDCompositionTransf
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform3d-setcenterx(idcompositionanimation)
      */
     SetCenterX1(centerX) {
-        result := ComCall(12, this, "float", centerX, "HRESULT")
+        result := ComCall(12, this, Float32, centerX, "HRESULT")
         return result
     }
 
@@ -313,7 +313,7 @@ export default struct IDCompositionRotateTransform3D extends IDCompositionTransf
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform3d-setcentery(idcompositionanimation)
      */
     SetCenterY1(centerY) {
-        result := ComCall(14, this, "float", centerY, "HRESULT")
+        result := ComCall(14, this, Float32, centerY, "HRESULT")
         return result
     }
 
@@ -353,7 +353,7 @@ export default struct IDCompositionRotateTransform3D extends IDCompositionTransf
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform3d-setcenterz(idcompositionanimation)
      */
     SetCenterZ1(centerZ) {
-        result := ComCall(16, this, "float", centerZ, "HRESULT")
+        result := ComCall(16, this, Float32, centerZ, "HRESULT")
         return result
     }
 

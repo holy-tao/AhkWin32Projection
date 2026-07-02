@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PrintAsyncNotifyConversationStyle.ahk" { PrintAsyncNotifyConversationStyle }
-#Import ".\IPrintAsyncNotifyRegistration.ahk" { IPrintAsyncNotifyRegistration }
 #Import ".\IPrintAsyncNotifyChannel.ahk" { IPrintAsyncNotifyChannel }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PrintAsyncNotifyUserFilter.ahk" { PrintAsyncNotifyUserFilter }
-#Import ".\IPrintAsyncNotifyCallback.ahk" { IPrintAsyncNotifyCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPrintAsyncNotifyRegistration.ahk" { IPrintAsyncNotifyRegistration }
+#Import ".\PrintAsyncNotifyConversationStyle.ahk" { PrintAsyncNotifyConversationStyle }
+#Import ".\IPrintAsyncNotifyCallback.ahk" { IPrintAsyncNotifyCallback }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -72,7 +72,7 @@ export default struct IPrintAsyncNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-createprintasyncnotifychannel
      */
     CreatePrintAsyncNotifyChannel(param0, param1, param2, param3, param4) {
-        result := ComCall(3, this, "uint", param0, Guid.Ptr, param1, PrintAsyncNotifyUserFilter, param2, PrintAsyncNotifyConversationStyle, param3, "ptr", param4, "ptr*", &param5 := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, param0, Guid.Ptr, param1, PrintAsyncNotifyUserFilter, param2, PrintAsyncNotifyConversationStyle, param3, "ptr", param4, "ptr*", &param5 := 0, "HRESULT")
         return IPrintAsyncNotifyChannel(param5)
     }
 

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAzRole.ahk" { IAzRole }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
-#Import ".\IAzRoles.ahk" { IAzRoles }
-#Import ".\IAzTasks.ahk" { IAzTasks }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAzTask.ahk" { IAzTask }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IAzRoles.ahk" { IAzRoles }
+#Import ".\IAzRole.ahk" { IAzRole }
+#Import ".\IAzTasks.ahk" { IAzTasks }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Defines a logical container of resources to which the application manages access.
@@ -399,7 +399,7 @@ export default struct IAzScope extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(14, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
+        result := ComCall(14, this, Int32, lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -491,7 +491,7 @@ export default struct IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(15, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(15, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -557,7 +557,7 @@ export default struct IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(16, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(16, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -621,7 +621,7 @@ export default struct IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(17, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(17, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -948,7 +948,7 @@ export default struct IAzScope extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscope-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(36, this, "int", lFlags, VARIANT, varReserved, "HRESULT")
+        result := ComCall(36, this, Int32, lFlags, VARIANT, varReserved, "HRESULT")
         return result
     }
 

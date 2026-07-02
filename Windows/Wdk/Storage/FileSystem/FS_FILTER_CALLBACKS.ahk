@@ -1,4 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFS_FILTER_COMPLETION_CALLBACK.ahk" { PFS_FILTER_COMPLETION_CALLBACK }
+#Import ".\PFS_FILTER_CALLBACK.ahk" { PFS_FILTER_CALLBACK }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
@@ -10,32 +12,32 @@ export default struct FS_FILTER_CALLBACKS {
 
     Reserved : UInt32
 
-    PreAcquireForSectionSynchronization : IntPtr
+    PreAcquireForSectionSynchronization : PFS_FILTER_CALLBACK
 
-    PostAcquireForSectionSynchronization : IntPtr
+    PostAcquireForSectionSynchronization : PFS_FILTER_COMPLETION_CALLBACK
 
-    PreReleaseForSectionSynchronization : IntPtr
+    PreReleaseForSectionSynchronization : PFS_FILTER_CALLBACK
 
-    PostReleaseForSectionSynchronization : IntPtr
+    PostReleaseForSectionSynchronization : PFS_FILTER_COMPLETION_CALLBACK
 
-    PreAcquireForCcFlush : IntPtr
+    PreAcquireForCcFlush : PFS_FILTER_CALLBACK
 
-    PostAcquireForCcFlush : IntPtr
+    PostAcquireForCcFlush : PFS_FILTER_COMPLETION_CALLBACK
 
-    PreReleaseForCcFlush : IntPtr
+    PreReleaseForCcFlush : PFS_FILTER_CALLBACK
 
-    PostReleaseForCcFlush : IntPtr
+    PostReleaseForCcFlush : PFS_FILTER_COMPLETION_CALLBACK
 
-    PreAcquireForModifiedPageWriter : IntPtr
+    PreAcquireForModifiedPageWriter : PFS_FILTER_CALLBACK
 
-    PostAcquireForModifiedPageWriter : IntPtr
+    PostAcquireForModifiedPageWriter : PFS_FILTER_COMPLETION_CALLBACK
 
-    PreReleaseForModifiedPageWriter : IntPtr
+    PreReleaseForModifiedPageWriter : PFS_FILTER_CALLBACK
 
-    PostReleaseForModifiedPageWriter : IntPtr
+    PostReleaseForModifiedPageWriter : PFS_FILTER_COMPLETION_CALLBACK
 
-    PreQueryOpen : IntPtr
+    PreQueryOpen : PFS_FILTER_CALLBACK
 
-    PostQueryOpen : IntPtr
+    PostQueryOpen : PFS_FILTER_COMPLETION_CALLBACK
 
 }

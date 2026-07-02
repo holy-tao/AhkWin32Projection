@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_InstanceFT.ahk" { MI_InstanceFT }
+#Import ".\MI_PropertySetFT.ahk" { MI_PropertySetFT }
+#Import ".\MI_ContextFT.ahk" { MI_ContextFT }
 #Import ".\MI_FilterFT.ahk" { MI_FilterFT }
 #Import ".\MI_ServerFT.ahk" { MI_ServerFT }
-#Import ".\MI_InstanceFT.ahk" { MI_InstanceFT }
-#Import ".\MI_ContextFT.ahk" { MI_ContextFT }
-#Import ".\MI_PropertySetFT.ahk" { MI_PropertySetFT }
 
 /**
  * This structure defines default function tables for all types:\_Context, Instance, PropertySet, and Filter.

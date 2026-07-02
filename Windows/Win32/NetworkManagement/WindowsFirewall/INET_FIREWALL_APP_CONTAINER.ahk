@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\SID.ahk" { SID }
 #Import ".\INET_FIREWALL_AC_BINARIES.ahk" { INET_FIREWALL_AC_BINARIES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Security\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 #Import ".\INET_FIREWALL_AC_CAPABILITIES.ahk" { INET_FIREWALL_AC_CAPABILITIES }
 
 /**

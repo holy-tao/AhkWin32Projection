@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\GPMStarterGPOType.ahk" { GPMStarterGPOType }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\GPMReportType.ahk" { GPMReportType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGPMResult.ahk" { IGPMResult }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMStarterGPOType.ahk" { GPMStarterGPOType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IGPMStarterGPOBackup interface supports methods that allow you to delete GPMStarterGPOBackup objects and to retrieve various properties of GPMStarterGPOBackup objects.

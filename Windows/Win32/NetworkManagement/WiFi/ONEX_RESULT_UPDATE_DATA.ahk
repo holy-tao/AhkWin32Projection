@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
-#Import ".\ONEX_STATUS.ahk" { ONEX_STATUS }
-#Import ".\ONEX_AUTH_STATUS.ahk" { ONEX_AUTH_STATUS }
-#Import ".\ONEX_EAP_METHOD_BACKEND_SUPPORT.ahk" { ONEX_EAP_METHOD_BACKEND_SUPPORT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ONEX_EAP_METHOD_BACKEND_SUPPORT.ahk" { ONEX_EAP_METHOD_BACKEND_SUPPORT }
+#Import ".\ONEX_AUTH_STATUS.ahk" { ONEX_AUTH_STATUS }
+#Import ".\ONEX_STATUS.ahk" { ONEX_STATUS }
+#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
 
 /**
  * Contains information on a status change to 802.1X authentication.

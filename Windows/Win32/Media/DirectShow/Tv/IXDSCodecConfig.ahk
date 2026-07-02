@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IXDSCodecConfig interface configures the XDS Codec filter. Most applications will not have to use this interface.
@@ -59,7 +59,7 @@ export default struct IXDSCodecConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodecconfig-setpausebuffertime
      */
     SetPauseBufferTime(dwPauseBufferTime) {
-        result := ComCall(4, this, "uint", dwPauseBufferTime, "HRESULT")
+        result := ComCall(4, this, UInt32, dwPauseBufferTime, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE.ahk" { D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE }
 #Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE.ahk" { D3DKMT_CHECK_MULTIPLANE_OVERLAY_PLANE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

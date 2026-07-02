@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_RESPONSE_INFO.ahk" { HTTP_RESPONSE_INFO }
-#Import ".\HTTP_DATA_CHUNK.ahk" { HTTP_DATA_CHUNK }
-#Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
-#Import ".\HTTP_VERSION.ahk" { HTTP_VERSION }
-#Import ".\HTTP_RESPONSE_V1.ahk" { HTTP_RESPONSE_V1 }
-#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HTTP_RESPONSE_V1.ahk" { HTTP_RESPONSE_V1 }
+#Import ".\HTTP_DATA_CHUNK.ahk" { HTTP_DATA_CHUNK }
+#Import ".\HTTP_RESPONSE_INFO.ahk" { HTTP_RESPONSE_INFO }
+#Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
 #Import ".\HTTP_RESPONSE_HEADERS.ahk" { HTTP_RESPONSE_HEADERS }
+#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
+#Import ".\HTTP_VERSION.ahk" { HTTP_VERSION }
 
 /**
  * Extends the HTTP version 1.0 response structure with more information for the response.

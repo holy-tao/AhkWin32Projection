@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import "..\Vhd\MERGE_VIRTUAL_DISK_FLAG.ahk" { MERGE_VIRTUAL_DISK_FLAG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Vhd\DETACH_VIRTUAL_DISK_FLAG.ahk" { DETACH_VIRTUAL_DISK_FLAG }
 #Import "..\Vhd\ATTACH_VIRTUAL_DISK_FLAG.ahk" { ATTACH_VIRTUAL_DISK_FLAG }
-#Import "..\Vhd\EXPAND_VIRTUAL_DISK_FLAG.ahk" { EXPAND_VIRTUAL_DISK_FLAG }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Vhd\COMPACT_VIRTUAL_DISK_FLAG.ahk" { COMPACT_VIRTUAL_DISK_FLAG }
+#Import "..\Vhd\MERGE_VIRTUAL_DISK_FLAG.ahk" { MERGE_VIRTUAL_DISK_FLAG }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Vhd\COMPACT_VIRTUAL_DISK_FLAG.ahk" { COMPACT_VIRTUAL_DISK_FLAG }
+#Import "..\Vhd\EXPAND_VIRTUAL_DISK_FLAG.ahk" { EXPAND_VIRTUAL_DISK_FLAG }
+#Import "..\Vhd\DETACH_VIRTUAL_DISK_FLAG.ahk" { DETACH_VIRTUAL_DISK_FLAG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 
 /**
  * Defines methods for managing a virtual disk. (IVdsOpenVDisk)
@@ -133,7 +133,7 @@ export default struct IVdsOpenVDisk extends IUnknown {
     Attach(pStringSecurityDescriptor, Flags, ProviderSpecificFlags, TimeoutInMs) {
         pStringSecurityDescriptor := pStringSecurityDescriptor is String ? StrPtr(pStringSecurityDescriptor) : pStringSecurityDescriptor
 
-        result := ComCall(3, this, "ptr", pStringSecurityDescriptor, ATTACH_VIRTUAL_DISK_FLAG, Flags, "uint", ProviderSpecificFlags, "uint", TimeoutInMs, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pStringSecurityDescriptor, ATTACH_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, UInt32, TimeoutInMs, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -163,7 +163,7 @@ export default struct IVdsOpenVDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsopenvdisk-detach
      */
     Detach(Flags, ProviderSpecificFlags) {
-        result := ComCall(4, this, DETACH_VIRTUAL_DISK_FLAG, Flags, "uint", ProviderSpecificFlags, "HRESULT")
+        result := ComCall(4, this, DETACH_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, "HRESULT")
         return result
     }
 
@@ -193,7 +193,7 @@ export default struct IVdsOpenVDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsopenvdisk-detachanddelete
      */
     DetachAndDelete(Flags, ProviderSpecificFlags) {
-        result := ComCall(5, this, DETACH_VIRTUAL_DISK_FLAG, Flags, "uint", ProviderSpecificFlags, "HRESULT")
+        result := ComCall(5, this, DETACH_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, "HRESULT")
         return result
     }
 
@@ -221,7 +221,7 @@ export default struct IVdsOpenVDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsopenvdisk-compact
      */
     Compact(Flags, Reserved) {
-        result := ComCall(6, this, COMPACT_VIRTUAL_DISK_FLAG, Flags, "uint", Reserved, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, COMPACT_VIRTUAL_DISK_FLAG, Flags, UInt32, Reserved, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -239,7 +239,7 @@ export default struct IVdsOpenVDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsopenvdisk-merge
      */
     Merge(Flags, MergeDepth) {
-        result := ComCall(7, this, MERGE_VIRTUAL_DISK_FLAG, Flags, "uint", MergeDepth, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(7, this, MERGE_VIRTUAL_DISK_FLAG, Flags, UInt32, MergeDepth, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -255,7 +255,7 @@ export default struct IVdsOpenVDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsopenvdisk-expand
      */
     Expand(Flags, NewSize) {
-        result := ComCall(8, this, EXPAND_VIRTUAL_DISK_FLAG, Flags, "uint", NewSize, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(8, this, EXPAND_VIRTUAL_DISK_FLAG, Flags, Int64, NewSize, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

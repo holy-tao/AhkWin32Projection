@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a list of the keystroke sequences required to create a specified string.
@@ -59,7 +59,7 @@ export default struct ITfReverseConversionList extends IUnknown {
      */
     GetString(uIndex) {
         pbstr := BSTR.Owned()
-        result := ComCall(4, this, "uint", uIndex, BSTR.Ptr, pbstr, "HRESULT")
+        result := ComCall(4, this, UInt32, uIndex, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 

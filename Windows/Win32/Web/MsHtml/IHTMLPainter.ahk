@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HTML_PAINTER_INFO.ahk" { HTML_PAINTER_INFO }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\HTML_PAINTER_INFO.ahk" { HTML_PAINTER_INFO }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -56,7 +56,7 @@ export default struct IHTMLPainter extends IUnknown {
     Draw(rcBounds, rcUpdate, lDrawFlags, _hdc, pvDrawObject) {
         pvDrawObjectMarshal := pvDrawObject is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, RECT, rcBounds, RECT, rcUpdate, "int", lDrawFlags, HDC, _hdc, pvDrawObjectMarshal, pvDrawObject, "HRESULT")
+        result := ComCall(3, this, RECT, rcBounds, RECT, rcUpdate, Int32, lDrawFlags, HDC, _hdc, pvDrawObjectMarshal, pvDrawObject, "HRESULT")
         return result
     }
 

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RESULTDATAITEM.ahk" { RESULTDATAITEM }
-#Import ".\MMC_RESULT_VIEW_STYLE.ahk" { MMC_RESULT_VIEW_STYLE }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RESULTDATAITEM.ahk" { RESULTDATAITEM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MMC_RESULT_VIEW_STYLE.ahk" { MMC_RESULT_VIEW_STYLE }
 
 /**
  * The IResultData interface enables a user to add, remove, find, and modify items associated with the result view pane. It also enables the manipulation of the view style of the result view pane.
@@ -95,7 +95,7 @@ export default struct IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-deleteitem
      */
     DeleteItem(itemID, nCol) {
-        result := ComCall(4, this, "ptr", itemID, "int", nCol, "HRESULT")
+        result := ComCall(4, this, IntPtr, itemID, Int32, nCol, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-modifyitemstate
      */
     ModifyItemState(nIndex, itemID, uAdd, uRemove) {
-        result := ComCall(10, this, "int", nIndex, "ptr", itemID, "uint", uAdd, "uint", uRemove, "HRESULT")
+        result := ComCall(10, this, Int32, nIndex, IntPtr, itemID, UInt32, uAdd, UInt32, uRemove, "HRESULT")
         return result
     }
 
@@ -218,7 +218,7 @@ export default struct IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-setviewmode
      */
     SetViewMode(lViewMode) {
-        result := ComCall(12, this, "int", lViewMode, "HRESULT")
+        result := ComCall(12, this, Int32, lViewMode, "HRESULT")
         return result
     }
 
@@ -243,7 +243,7 @@ export default struct IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-updateitem
      */
     UpdateItem(itemID) {
-        result := ComCall(14, this, "ptr", itemID, "HRESULT")
+        result := ComCall(14, this, IntPtr, itemID, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-sort
      */
     Sort(nColumn, dwSortOptions, lUserParam) {
-        result := ComCall(15, this, "int", nColumn, "uint", dwSortOptions, LPARAM, lUserParam, "HRESULT")
+        result := ComCall(15, this, Int32, nColumn, UInt32, dwSortOptions, LPARAM, lUserParam, "HRESULT")
         return result
     }
 
@@ -302,7 +302,7 @@ export default struct IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-setitemcount
      */
     SetItemCount(nItemCount, dwOptions) {
-        result := ComCall(17, this, "int", nItemCount, "uint", dwOptions, "HRESULT")
+        result := ComCall(17, this, Int32, nItemCount, UInt32, dwOptions, "HRESULT")
         return result
     }
 

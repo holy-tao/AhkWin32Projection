@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
 
 /**
  * Provides criteria for identifying issuer certificates to be used to build a certificate chain.

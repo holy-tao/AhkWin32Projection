@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to a control that acts as a container for a collection of child controls that are organized in a two-dimensional logical coordinate system that can be traversed by row and column.
@@ -86,7 +86,7 @@ export default struct IUIAutomationGridPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-getitem
      */
     GetItem(row, _column) {
-        result := ComCall(3, this, "int", row, "int", _column, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(3, this, Int32, row, Int32, _column, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 

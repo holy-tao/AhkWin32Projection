@@ -57,7 +57,7 @@ export default struct ICorProfilerCallback10 extends ICorProfilerCallback9 {
         eventDataMarshal := eventData is VarRef ? "char*" : "ptr"
         stackFramesMarshal := stackFrames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(95, this, "ptr", provider, "uint", eventId, "uint", eventVersion, "uint", cbMetadataBlob, metadataBlobMarshal, metadataBlob, "uint", cbEventData, eventDataMarshal, eventData, Guid.Ptr, pActivityId, Guid.Ptr, pRelatedActivityId, "ptr", eventThread, "uint", numStackFrames, stackFramesMarshal, stackFrames, "HRESULT")
+        result := ComCall(95, this, IntPtr, provider, UInt32, eventId, UInt32, eventVersion, UInt32, cbMetadataBlob, metadataBlobMarshal, metadataBlob, UInt32, cbEventData, eventDataMarshal, eventData, Guid.Ptr, pActivityId, Guid.Ptr, pRelatedActivityId, IntPtr, eventThread, UInt32, numStackFrames, stackFramesMarshal, stackFrames, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct ICorProfilerCallback10 extends ICorProfilerCallback9 {
      * @returns {HRESULT} 
      */
     EventPipeProviderCreated(provider) {
-        result := ComCall(96, this, "ptr", provider, "HRESULT")
+        result := ComCall(96, this, IntPtr, provider, "HRESULT")
         return result
     }
 

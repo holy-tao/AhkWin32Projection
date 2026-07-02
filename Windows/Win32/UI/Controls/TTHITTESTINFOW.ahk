@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\TTTOOLINFOW.ahk" { TTTOOLINFOW }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\TOOLTIP_FLAGS.ahk" { TOOLTIP_FLAGS }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * Contains information that a tooltip control uses to determine whether a point is in the bounding rectangle of the specified tool. If the point is in the rectangle, the structure receives information about the tool. (Unicode)

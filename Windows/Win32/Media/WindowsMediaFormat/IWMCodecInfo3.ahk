@@ -135,7 +135,7 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, UInt32, dwFormatIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 
@@ -370,7 +370,7 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "uint", dwSize, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt32, dwSize, "HRESULT")
         return result
     }
 
@@ -459,7 +459,7 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 

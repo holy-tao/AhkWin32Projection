@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISpNotifyCallback.ahk" { ISpNotifyCallback }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ISpNotifyCallback.ahk" { ISpNotifyCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpNotifySink.ahk" { ISpNotifySink }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\SPNOTIFYCALLBACK.ahk" { SPNOTIFYCALLBACK }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -61,7 +62,7 @@ export default struct ISpNotifyTranslator extends ISpNotifySink {
      * @returns {HRESULT} 
      */
     InitWindowMessage(_hWnd, _Msg, _wParam, _lParam) {
-        result := ComCall(4, this, HWND, _hWnd, "uint", _Msg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(4, this, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -108,7 +109,7 @@ export default struct ISpNotifyTranslator extends ISpNotifySink {
      * @returns {HRESULT} 
      */
     Wait(dwMilliseconds) {
-        result := ComCall(8, this, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(8, this, UInt32, dwMilliseconds, "HRESULT")
         return result
     }
 

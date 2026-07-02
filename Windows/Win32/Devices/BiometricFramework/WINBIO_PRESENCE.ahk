@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINBIO_PRESENCE_PROPERTIES.ahk" { WINBIO_PRESENCE_PROPERTIES }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
+#Import ".\WINBIO_PRESENCE_PROPERTIES.ahk" { WINBIO_PRESENCE_PROPERTIES }
 
 /**
  * Contains information about the presence of an individual whose presence is being monitored.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Ole\ISpecifyPropertyPages.ahk" { ISpecifyPropertyPages }
-#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
+#Import "..\..\System\Ole\ISpecifyPropertyPages.ahk" { ISpecifyPropertyPages }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
 #Import ".\WMFILECAPABILITIES.ahk" { WMFILECAPABILITIES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
 
 /**
  * The IMDSPDevice2 interface extends IMDSPDevice by getting extended formats, getting Plug and Play (PnP) device names, enabling the use of property pages, and making it possible to get a pointer to a storage medium from its name.
@@ -118,7 +118,7 @@ export default struct IMDSPDevice2 extends IMDSPDevice {
         ppFileTypeMarshal := ppFileType is VarRef ? "ptr*" : "ptr"
         pnFileTypeCountMarshal := pnFileTypeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwFlags, ppAudioFormatExMarshal, ppAudioFormatEx, pnAudioFormatCountMarshal, pnAudioFormatCount, ppVideoFormatExMarshal, ppVideoFormatEx, pnVideoFormatCountMarshal, pnVideoFormatCount, ppFileTypeMarshal, ppFileType, pnFileTypeCountMarshal, pnFileTypeCount, "HRESULT")
+        result := ComCall(15, this, UInt32, dwFlags, ppAudioFormatExMarshal, ppAudioFormatEx, pnAudioFormatCountMarshal, pnAudioFormatCount, ppVideoFormatExMarshal, ppVideoFormatEx, pnVideoFormatCountMarshal, pnVideoFormatCount, ppFileTypeMarshal, ppFileType, pnFileTypeCountMarshal, pnFileTypeCount, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IMDSPDevice2 extends IMDSPDevice {
     GetCanonicalName(pwszPnPName, nMaxChars) {
         pwszPnPName := pwszPnPName is String ? StrPtr(pwszPnPName) : pwszPnPName
 
-        result := ComCall(17, this, "ptr", pwszPnPName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(17, this, "ptr", pwszPnPName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 

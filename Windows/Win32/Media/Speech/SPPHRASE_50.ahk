@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\SPPHRASEPROPERTY.ahk" { SPPHRASEPROPERTY }
+#Import ".\SPPHRASERULE.ahk" { SPPHRASERULE }
+#Import ".\SPPHRASEREPLACEMENT.ahk" { SPPHRASEREPLACEMENT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
-#Import ".\SPPHRASEREPLACEMENT.ahk" { SPPHRASEREPLACEMENT }
-#Import ".\SPPHRASERULE.ahk" { SPPHRASERULE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**

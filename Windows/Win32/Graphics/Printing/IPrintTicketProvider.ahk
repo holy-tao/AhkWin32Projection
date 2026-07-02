@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\SHIMOPTS.ahk" { SHIMOPTS }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk" { IXMLDOMDocument2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk" { IXMLDOMDocument2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\SHIMOPTS.ahk" { SHIMOPTS }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -77,7 +77,7 @@ export default struct IPrintTicketProvider extends IUnknown {
         cNamespacesMarshal := cNamespaces is VarRef ? "int*" : "ptr"
         ppNamespacesMarshal := ppNamespaces is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, PRINTER_HANDLE, hPrinter, "int", _version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "HRESULT")
+        result := ComCall(4, this, PRINTER_HANDLE, hPrinter, Int32, _version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "HRESULT")
         return result
     }
 
@@ -104,7 +104,7 @@ export default struct IPrintTicketProvider extends IUnknown {
         pcbDevmodeOutMarshal := pcbDevmodeOut is VarRef ? "uint*" : "ptr"
         ppDevmodeOutMarshal := ppDevmodeOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pPrintTicket, "uint", cbDevmodeIn, DEVMODEA.Ptr, pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, ppDevmodeOutMarshal, ppDevmodeOut, "HRESULT")
+        result := ComCall(6, this, "ptr", pPrintTicket, UInt32, cbDevmodeIn, DEVMODEA.Ptr, pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, ppDevmodeOutMarshal, ppDevmodeOut, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IPrintTicketProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     ConvertDevModeToPrintTicket(cbDevmode, pDevmode, pPrintTicket) {
-        result := ComCall(7, this, "uint", cbDevmode, DEVMODEA.Ptr, pDevmode, "ptr", pPrintTicket, "HRESULT")
+        result := ComCall(7, this, UInt32, cbDevmode, DEVMODEA.Ptr, pDevmode, "ptr", pPrintTicket, "HRESULT")
         return result
     }
 

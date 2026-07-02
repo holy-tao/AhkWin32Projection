@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsRasterizerNotificationCallback.ahk" { IXpsRasterizerNotificationCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Imaging\IWICBitmap.ahk" { IWICBitmap }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IXpsRasterizerNotificationCallback.ahk" { IXpsRasterizerNotificationCallback }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -48,7 +48,7 @@ export default struct IXpsRasterizer extends IUnknown {
      * @returns {IWICBitmap} 
      */
     RasterizeRect(x, y, width, height, notificationCallback) {
-        result := ComCall(3, this, "int", x, "int", y, "int", width, "int", height, "ptr", notificationCallback, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(3, this, Int32, x, Int32, y, Int32, width, Int32, height, "ptr", notificationCallback, "ptr*", &_bitmap := 0, "HRESULT")
         return IWICBitmap(_bitmap)
     }
 
@@ -58,7 +58,7 @@ export default struct IXpsRasterizer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMinimalLineWidth(width) {
-        result := ComCall(4, this, "int", width, "HRESULT")
+        result := ComCall(4, this, Int32, width, "HRESULT")
         return result
     }
 

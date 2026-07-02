@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CMSG_RECIPIENT_ENCODE_INFO.ahk" { CMSG_RECIPIENT_ENCODE_INFO }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PFN_CMSG_ALLOC.ahk" { PFN_CMSG_ALLOC }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CMSG_RECIPIENT_ENCODE_INFO.ahk" { CMSG_RECIPIENT_ENCODE_INFO }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
+#Import ".\PFN_CMSG_FREE.ahk" { PFN_CMSG_FREE }
 
 /**
  * Contains information shared between the PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY, PFN_CMSG_EXPORT_KEY_TRANS, PFN_CMSG_EXPORT_KEY_AGREE, and PFN_CMSG_EXPORT_MAIL_LIST functions.
@@ -116,12 +118,12 @@ export default struct CMSG_CONTENT_ENCRYPT_INFO {
     /**
      * A pointer to an installable function used to allocate memory for an updated member.
      */
-    pfnAlloc : IntPtr
+    pfnAlloc : PFN_CMSG_ALLOC
 
     /**
      * A pointer to an installable function used to free memory allocated by <b>pfnAlloc</b>.
      */
-    pfnFree : IntPtr
+    pfnFree : PFN_CMSG_FREE
 
     /**
      * A value that indicates whether the encoded output should be padded with zeros to obtain a consistent maximum length required for definite-length streaming in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgcalculateencodedlength">CryptMsgCalculateEncodedLength</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> functions.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about an IPv6 subnet.

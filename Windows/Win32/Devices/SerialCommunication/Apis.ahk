@@ -1,7 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HCOMDB.ahk" { HCOMDB }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\HCOMDB.ahk" { HCOMDB }
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
@@ -196,7 +196,7 @@ export ComDBClose(_HComDB) {
 export ComDBGetCurrentPortUsage(_HComDB, _Buffer, BufferSize, ReportType, MaxPortsReported) {
     MaxPortsReportedMarshal := MaxPortsReported is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", HCOMDB, _HComDB, "ptr", _Buffer, "uint", BufferSize, "uint", ReportType, MaxPortsReportedMarshal, MaxPortsReported, Int32)
+    result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", HCOMDB, _HComDB, IntPtr, _Buffer, UInt32, BufferSize, UInt32, ReportType, MaxPortsReportedMarshal, MaxPortsReported, Int32)
     return result
 }
 
@@ -384,7 +384,7 @@ export ComDBClaimNextFreePort(_HComDB, ComNumber) {
 export ComDBClaimPort(_HComDB, ComNumber, ForceClaim, Forced) {
     ForcedMarshal := Forced is VarRef ? "int*" : "ptr"
 
-    result := DllCall("MSPORTS.dll\ComDBClaimPort", HCOMDB, _HComDB, "uint", ComNumber, BOOL, ForceClaim, ForcedMarshal, Forced, Int32)
+    result := DllCall("MSPORTS.dll\ComDBClaimPort", HCOMDB, _HComDB, UInt32, ComNumber, BOOL, ForceClaim, ForcedMarshal, Forced, Int32)
     return result
 }
 
@@ -453,7 +453,7 @@ export ComDBClaimPort(_HComDB, ComNumber, ForceClaim, Forced) {
  * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbreleaseport
  */
 export ComDBReleasePort(_HComDB, ComNumber) {
-    result := DllCall("MSPORTS.dll\ComDBReleasePort", HCOMDB, _HComDB, "uint", ComNumber, Int32)
+    result := DllCall("MSPORTS.dll\ComDBReleasePort", HCOMDB, _HComDB, UInt32, ComNumber, Int32)
     return result
 }
 
@@ -533,7 +533,7 @@ export ComDBReleasePort(_HComDB, ComNumber) {
  * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbresizedatabase
  */
 export ComDBResizeDatabase(_HComDB, NewSize) {
-    result := DllCall("MSPORTS.dll\ComDBResizeDatabase", HCOMDB, _HComDB, "uint", NewSize, Int32)
+    result := DllCall("MSPORTS.dll\ComDBResizeDatabase", HCOMDB, _HComDB, UInt32, NewSize, Int32)
     return result
 }
 

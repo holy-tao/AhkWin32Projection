@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITuningSpace.ahk" { ITuningSpace }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
 #Import ".\IComponentTypes.ahk" { IComponentTypes }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumTuningSpaces.ahk" { IEnumTuningSpaces }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumTuningSpaces.ahk" { IEnumTuningSpaces }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
 
 /**
  * The ITuner interface is implemented on the Microsoft BDA Network Provider filters.
@@ -204,7 +204,7 @@ export default struct ITuner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-triggersignalevents
      */
     TriggerSignalEvents(_Interval) {
-        result := ComCall(12, this, "int", _Interval, "HRESULT")
+        result := ComCall(12, this, Int32, _Interval, "HRESULT")
         return result
     }
 

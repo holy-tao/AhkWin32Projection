@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CATEGORY_INFO.ahk" { CATEGORY_INFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CATSORT_FLAGS.ahk" { CATSORT_FLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CATEGORY_INFO.ahk" { CATEGORY_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that are used to obtain information about item identifier lists.
@@ -62,7 +62,7 @@ export default struct ICategorizer extends IUnknown {
     GetDescription(pszDesc, cch) {
         pszDesc := pszDesc is String ? StrPtr(pszDesc) : pszDesc
 
-        result := ComCall(3, this, "ptr", pszDesc, "uint", cch, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDesc, UInt32, cch, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct ICategorizer extends IUnknown {
     GetCategory(cidl, apidl) {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", cidl, apidlMarshal, apidl, "uint*", &rgCategoryIds := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, cidl, apidlMarshal, apidl, "uint*", &rgCategoryIds := 0, "HRESULT")
         return rgCategoryIds
     }
 
@@ -103,7 +103,7 @@ export default struct ICategorizer extends IUnknown {
      */
     GetCategoryInfo(dwCategoryId) {
         pci := CATEGORY_INFO()
-        result := ComCall(5, this, "uint", dwCategoryId, CATEGORY_INFO.Ptr, pci, "HRESULT")
+        result := ComCall(5, this, UInt32, dwCategoryId, CATEGORY_INFO.Ptr, pci, "HRESULT")
         return pci
     }
 
@@ -144,7 +144,7 @@ export default struct ICategorizer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategorizer-comparecategory
      */
     CompareCategory(csfFlags, dwCategoryId1, dwCategoryId2) {
-        result := ComCall(6, this, CATSORT_FLAGS, csfFlags, "uint", dwCategoryId1, "uint", dwCategoryId2, "HRESULT")
+        result := ComCall(6, this, CATSORT_FLAGS, csfFlags, UInt32, dwCategoryId1, UInt32, dwCategoryId2, "HRESULT")
         return result
     }
 

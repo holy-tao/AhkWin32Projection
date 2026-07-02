@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAudioRenderClient interface enables a client to write output data to a rendering endpoint buffer.
@@ -67,7 +67,7 @@ export default struct IAudioRenderClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer
      */
     GetBuffer(NumFramesRequested) {
-        result := ComCall(3, this, "uint", NumFramesRequested, "ptr*", &ppData := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, NumFramesRequested, "ptr*", &ppData := 0, "HRESULT")
         return ppData
     }
 
@@ -175,7 +175,7 @@ export default struct IAudioRenderClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiorenderclient-releasebuffer
      */
     ReleaseBuffer(NumFramesWritten, dwFlags) {
-        result := ComCall(4, this, "uint", NumFramesWritten, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, NumFramesWritten, UInt32, dwFlags, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ICorProfilerInfo7.ahk" { ICorProfilerInfo7 }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICorProfilerInfo7.ahk" { ICorProfilerInfo7 }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -45,7 +45,7 @@ export default struct ICorProfilerInfo8 extends ICorProfilerInfo7 {
      * @returns {BOOL} 
      */
     IsFunctionDynamic(functionId) {
-        result := ComCall(87, this, "ptr", functionId, BOOL.Ptr, &isDynamic := 0, "HRESULT")
+        result := ComCall(87, this, IntPtr, functionId, BOOL.Ptr, &isDynamic := 0, "HRESULT")
         return isDynamic
     }
 
@@ -84,7 +84,7 @@ export default struct ICorProfilerInfo8 extends ICorProfilerInfo7 {
         pbSigMarshal := pbSig is VarRef ? "uint*" : "ptr"
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(89, this, "ptr", functionId, moduleIdMarshal, moduleId, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, "uint", cchName, pcchNameMarshal, pcchName, "ptr", wszName, "HRESULT")
+        result := ComCall(89, this, IntPtr, functionId, moduleIdMarshal, moduleId, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", wszName, "HRESULT")
         return result
     }
 

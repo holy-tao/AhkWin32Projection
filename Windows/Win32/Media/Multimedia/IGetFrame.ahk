@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IGetFrame interface supports extracting, decompressing, and displaying individual frames from an open stream.
@@ -58,7 +58,7 @@ export default struct IGetFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-igetframe-getframe
      */
     GetFrame(lPos) {
-        result := ComCall(3, this, "int", lPos, IntPtr)
+        result := ComCall(3, this, Int32, lPos, IntPtr)
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IGetFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-igetframe-begin
      */
     Begin(lStart, lEnd, lRate) {
-        result := ComCall(4, this, "int", lStart, "int", lEnd, "int", lRate, "HRESULT")
+        result := ComCall(4, this, Int32, lStart, Int32, lEnd, Int32, lRate, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IGetFrame extends IUnknown {
     SetFormat(lpbi, lpBits, x, y, dx, dy) {
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, BITMAPINFOHEADER.Ptr, lpbi, lpBitsMarshal, lpBits, "int", x, "int", y, "int", dx, "int", dy, "HRESULT")
+        result := ComCall(6, this, BITMAPINFOHEADER.Ptr, lpbi, lpBitsMarshal, lpBits, Int32, x, Int32, y, Int32, dx, Int32, dy, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface for opening and closing the database object, and for instantiating objects stored in the database.
@@ -91,7 +91,7 @@ export default struct IITDatabase extends IUnknown {
         lpszHost := lpszHost is String ? StrPtr(lpszHost) : lpszHost
         lpszMoniker := lpszMoniker is String ? StrPtr(lpszMoniker) : lpszMoniker
 
-        result := ComCall(3, this, "ptr", lpszHost, "ptr", lpszMoniker, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", lpszHost, "ptr", lpszMoniker, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -258,7 +258,7 @@ export default struct IITDatabase extends IUnknown {
     GetObject(dwObjInstance, riid, ppvObj) {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwObjInstance, Guid.Ptr, riid, ppvObjMarshal, ppvObj, "HRESULT")
+        result := ComCall(6, this, UInt32, dwObjInstance, Guid.Ptr, riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 
@@ -275,7 +275,7 @@ export default struct IITDatabase extends IUnknown {
 
         ppvPersistenceMarshal := ppvPersistence is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", lpwszObject, "uint", dwObjInstance, ppvPersistenceMarshal, ppvPersistence, BOOL, fStream, "HRESULT")
+        result := ComCall(7, this, "ptr", lpwszObject, UInt32, dwObjInstance, ppvPersistenceMarshal, ppvPersistence, BOOL, fStream, "HRESULT")
         return result
     }
 

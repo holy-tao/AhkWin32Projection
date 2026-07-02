@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

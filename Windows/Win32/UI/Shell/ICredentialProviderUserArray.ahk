@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ICredentialProviderUser.ahk" { ICredentialProviderUser }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CREDENTIAL_PROVIDER_ACCOUNT_OPTIONS.ahk" { CREDENTIAL_PROVIDER_ACCOUNT_OPTIONS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the set of users that will appear in the logon or credential UI. This information enables the credential provider to enumerate the set to retrieve property information about each user to populate fields or filter the set.
@@ -89,7 +89,7 @@ export default struct ICredentialProviderUserArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getat
      */
     GetAt(userIndex) {
-        result := ComCall(6, this, "uint", userIndex, "ptr*", &user := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, userIndex, "ptr*", &user := 0, "HRESULT")
         return ICredentialProviderUser(user)
     }
 

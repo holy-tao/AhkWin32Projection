@@ -1,54 +1,54 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\DirectWrite\IDWriteTextFormat.ahk" { IDWriteTextFormat }
-#Import ".\D2D1_DRAW_TEXT_OPTIONS.ahk" { D2D1_DRAW_TEXT_OPTIONS }
-#Import ".\ID2D1SolidColorBrush.ahk" { ID2D1SolidColorBrush }
-#Import ".\ID2D1BitmapRenderTarget.ahk" { ID2D1BitmapRenderTarget }
-#Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
-#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import ".\ID2D1Mesh.ahk" { ID2D1Mesh }
-#Import ".\D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES.ahk" { D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES }
-#Import ".\ID2D1DrawingStateBlock.ahk" { ID2D1DrawingStateBlock }
-#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
-#Import ".\D2D1_GAMMA.ahk" { D2D1_GAMMA }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
-#Import ".\D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES.ahk" { D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES }
-#Import ".\ID2D1BitmapBrush.ahk" { ID2D1BitmapBrush }
-#Import ".\D2D1_ROUNDED_RECT.ahk" { D2D1_ROUNDED_RECT }
 #Import ".\D2D1_BRUSH_PROPERTIES.ahk" { D2D1_BRUSH_PROPERTIES }
-#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import ".\D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS.ahk" { D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS }
-#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import ".\D2D1_OPACITY_MASK_CONTENT.ahk" { D2D1_OPACITY_MASK_CONTENT }
-#Import ".\D2D1_LAYER_PARAMETERS.ahk" { D2D1_LAYER_PARAMETERS }
-#Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
-#Import "Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
-#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
-#Import ".\D2D1_BITMAP_PROPERTIES.ahk" { D2D1_BITMAP_PROPERTIES }
-#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
-#Import ".\ID2D1GradientStopCollection.ahk" { ID2D1GradientStopCollection }
-#Import ".\D2D1_ELLIPSE.ahk" { D2D1_ELLIPSE }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
-#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D2D1_GAMMA.ahk" { D2D1_GAMMA }
+#Import ".\ID2D1BitmapBrush.ahk" { ID2D1BitmapBrush }
 #Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
-#Import ".\ID2D1LinearGradientBrush.ahk" { ID2D1LinearGradientBrush }
-#Import ".\ID2D1RadialGradientBrush.ahk" { ID2D1RadialGradientBrush }
-#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\ID2D1GradientStopCollection.ahk" { ID2D1GradientStopCollection }
+#Import ".\D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES.ahk" { D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES }
+#Import ".\D2D1_LAYER_PARAMETERS.ahk" { D2D1_LAYER_PARAMETERS }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
 #Import ".\D2D1_RENDER_TARGET_PROPERTIES.ahk" { D2D1_RENDER_TARGET_PROPERTIES }
-#Import ".\D2D1_BITMAP_BRUSH_PROPERTIES.ahk" { D2D1_BITMAP_BRUSH_PROPERTIES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
-#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
+#Import ".\ID2D1LinearGradientBrush.ahk" { ID2D1LinearGradientBrush }
 #Import ".\D2D1_BITMAP_INTERPOLATION_MODE.ahk" { D2D1_BITMAP_INTERPOLATION_MODE }
+#Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
 #Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS.ahk" { D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS }
+#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
+#Import ".\ID2D1SolidColorBrush.ahk" { ID2D1SolidColorBrush }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\ID2D1Mesh.ahk" { ID2D1Mesh }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
 #Import "..\DirectWrite\IDWriteTextLayout.ahk" { IDWriteTextLayout }
+#Import ".\ID2D1RadialGradientBrush.ahk" { ID2D1RadialGradientBrush }
+#Import ".\D2D1_BITMAP_PROPERTIES.ahk" { D2D1_BITMAP_PROPERTIES }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
+#Import ".\ID2D1BitmapRenderTarget.ahk" { ID2D1BitmapRenderTarget }
+#Import "Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
+#Import "..\DirectWrite\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D2D1_OPACITY_MASK_CONTENT.ahk" { D2D1_OPACITY_MASK_CONTENT }
+#Import ".\D2D1_ROUNDED_RECT.ahk" { D2D1_ROUNDED_RECT }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
+#Import ".\D2D1_BITMAP_BRUSH_PROPERTIES.ahk" { D2D1_BITMAP_BRUSH_PROPERTIES }
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
+#Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
+#Import ".\D2D1_DRAW_TEXT_OPTIONS.ahk" { D2D1_DRAW_TEXT_OPTIONS }
+#Import ".\D2D1_ELLIPSE.ahk" { D2D1_ELLIPSE }
+#Import ".\D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES.ahk" { D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES }
+#Import ".\ID2D1DrawingStateBlock.ahk" { ID2D1DrawingStateBlock }
+#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 
 /**
  * Represents an object that can receive drawing commands. Interfaces that inherit from ID2D1RenderTarget render the drawing commands they receive in different ways.
@@ -149,7 +149,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
     CreateBitmap(_size, srcData, pitch, bitmapProperties) {
         srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, D2D_SIZE_U, _size, srcDataMarshal, srcData, "uint", pitch, D2D1_BITMAP_PROPERTIES.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(4, this, D2D_SIZE_U, _size, srcDataMarshal, srcData, UInt32, pitch, D2D1_BITMAP_PROPERTIES.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap(_bitmap)
     }
 
@@ -246,7 +246,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-creategradientstopcollection
      */
     CreateGradientStopCollection(gradientStops, gradientStopsCount, colorInterpolationGamma, extendMode) {
-        result := ComCall(9, this, D2D1_GRADIENT_STOP.Ptr, gradientStops, "uint", gradientStopsCount, D2D1_GAMMA, colorInterpolationGamma, D2D1_EXTEND_MODE, extendMode, "ptr*", &gradientStopCollection := 0, "HRESULT")
+        result := ComCall(9, this, D2D1_GRADIENT_STOP.Ptr, gradientStops, UInt32, gradientStopsCount, D2D1_GAMMA, colorInterpolationGamma, D2D1_EXTEND_MODE, extendMode, "ptr*", &gradientStopCollection := 0, "HRESULT")
         return ID2D1GradientStopCollection(gradientStopCollection)
     }
 
@@ -340,7 +340,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawline
      */
     DrawLine(point0, point1, brush, strokeWidth, strokeStyle) {
-        ComCall(15, this, D2D_POINT_2F, point0, D2D_POINT_2F, point1, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+        ComCall(15, this, D2D_POINT_2F, point0, D2D_POINT_2F, point1, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
     }
 
     /**
@@ -355,7 +355,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawrectangle
      */
     DrawRectangle(_rect, brush, strokeWidth, strokeStyle) {
-        ComCall(16, this, D2D_RECT_F.Ptr, _rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+        ComCall(16, this, D2D_RECT_F.Ptr, _rect, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
     }
 
     /**
@@ -383,7 +383,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawroundedrectangle
      */
     DrawRoundedRectangle(roundedRect, brush, strokeWidth, strokeStyle) {
-        ComCall(18, this, D2D1_ROUNDED_RECT.Ptr, roundedRect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+        ComCall(18, this, D2D1_ROUNDED_RECT.Ptr, roundedRect, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
     }
 
     /**
@@ -411,7 +411,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawellipse
      */
     DrawEllipse(ellipse, brush, strokeWidth, strokeStyle) {
-        ComCall(20, this, D2D1_ELLIPSE.Ptr, ellipse, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+        ComCall(20, this, D2D1_ELLIPSE.Ptr, ellipse, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
     }
 
     /**
@@ -447,7 +447,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawgeometry
      */
     DrawGeometry(geometry, brush, strokeWidth, strokeStyle) {
-        ComCall(22, this, "ptr", geometry, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+        ComCall(22, this, "ptr", geometry, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
     }
 
     /**
@@ -527,7 +527,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawbitmap
      */
     DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle) {
-        ComCall(26, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, "float", opacity, D2D1_BITMAP_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle)
+        ComCall(26, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, Float32, opacity, D2D1_BITMAP_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle)
     }
 
     /**
@@ -549,7 +549,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
     DrawText(_string, stringLength, textFormat, layoutRect, defaultFillBrush, options, measuringMode) {
         _string := _string is String ? StrPtr(_string) : _string
 
-        ComCall(27, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, D2D_RECT_F.Ptr, layoutRect, "ptr", defaultFillBrush, D2D1_DRAW_TEXT_OPTIONS, options, DWRITE_MEASURING_MODE, measuringMode)
+        ComCall(27, this, "ptr", _string, UInt32, stringLength, "ptr", textFormat, D2D_RECT_F.Ptr, layoutRect, "ptr", defaultFillBrush, D2D1_DRAW_TEXT_OPTIONS, options, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -714,7 +714,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-settags
      */
     SetTags(tag1, tag2) {
-        ComCall(38, this, "uint", tag1, "uint", tag2)
+        ComCall(38, this, Int64, tag1, Int64, tag2)
     }
 
     /**
@@ -955,7 +955,7 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-setdpi
      */
     SetDpi(dpiX, dpiY) {
-        ComCall(51, this, "float", dpiX, "float", dpiY)
+        ComCall(51, this, Float32, dpiX, Float32, dpiY)
     }
 
     /**

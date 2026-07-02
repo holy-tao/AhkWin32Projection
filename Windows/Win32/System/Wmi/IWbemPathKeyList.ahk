@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to access the details of the path keys.
@@ -72,7 +72,7 @@ export default struct IWbemPathKeyList extends IUnknown {
 
         pKeyValMarshal := pKeyVal is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", wszName, "uint", uFlags, "uint", uCimType, pKeyValMarshal, pKeyVal, "HRESULT")
+        result := ComCall(4, this, "ptr", wszName, UInt32, uFlags, UInt32, uCimType, pKeyValMarshal, pKeyVal, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IWbemPathKeyList extends IUnknown {
     SetKey2(wszName, uFlags, uCimType, pKeyVal) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(5, this, "ptr", wszName, "uint", uFlags, "uint", uCimType, VARIANT.Ptr, pKeyVal, "HRESULT")
+        result := ComCall(5, this, "ptr", wszName, UInt32, uFlags, UInt32, uCimType, VARIANT.Ptr, pKeyVal, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IWbemPathKeyList extends IUnknown {
         puKeyValBufSizeMarshal := puKeyValBufSize is VarRef ? "uint*" : "ptr"
         pKeyValMarshal := pKeyVal is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "uint", uKeyIx, "uint", uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, puKeyValBufSizeMarshal, puKeyValBufSize, pKeyValMarshal, pKeyVal, "uint*", &puApparentCimType := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, uKeyIx, UInt32, uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, puKeyValBufSizeMarshal, puKeyValBufSize, pKeyValMarshal, pKeyVal, "uint*", &puApparentCimType := 0, "HRESULT")
         return puApparentCimType
     }
 
@@ -133,7 +133,7 @@ export default struct IWbemPathKeyList extends IUnknown {
 
         puNameBufSizeMarshal := puNameBufSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", uKeyIx, "uint", uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, VARIANT.Ptr, pKeyValue, "uint*", &puApparentCimType := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, uKeyIx, UInt32, uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, VARIANT.Ptr, pKeyValue, "uint*", &puApparentCimType := 0, "HRESULT")
         return puApparentCimType
     }
 
@@ -147,7 +147,7 @@ export default struct IWbemPathKeyList extends IUnknown {
     RemoveKey(wszName, uFlags) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(8, this, "ptr", wszName, "uint", uFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", wszName, UInt32, uFlags, "HRESULT")
         return result
     }
 
@@ -158,7 +158,7 @@ export default struct IWbemPathKeyList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempathkeylist-removeallkeys
      */
     RemoveAllKeys(uFlags) {
-        result := ComCall(9, this, "uint", uFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, uFlags, "HRESULT")
         return result
     }
 
@@ -169,7 +169,7 @@ export default struct IWbemPathKeyList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempathkeylist-makesingleton
      */
     MakeSingleton(bSet) {
-        result := ComCall(10, this, "char", bSet, "HRESULT")
+        result := ComCall(10, this, Int8, bSet, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct IWbemPathKeyList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbempathkeylist-getinfo
      */
     GetInfo(uRequestedInfo) {
-        result := ComCall(11, this, "uint", uRequestedInfo, "uint*", &puResponse := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, uRequestedInfo, "uint*", &puResponse := 0, "HRESULT")
         return puResponse
     }
 
@@ -199,7 +199,7 @@ export default struct IWbemPathKeyList extends IUnknown {
 
         puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "int", lFlags, puBuffLengthMarshal, puBuffLength, "ptr", pszText, "HRESULT")
+        result := ComCall(12, this, Int32, lFlags, puBuffLengthMarshal, puBuffLength, "ptr", pszText, "HRESULT")
         return result
     }
 

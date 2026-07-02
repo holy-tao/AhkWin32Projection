@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide the briefcase reconciler with the means to notify the initiator of its progress, to set a termination object, and to request a given version of a document. The initiator is responsible for implementing this interface.
@@ -102,7 +102,7 @@ export default struct IReconcileInitiator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcileinitiator-setprogressfeedback
      */
     SetProgressFeedback(ulProgress, ulProgressMax) {
-        result := ComCall(4, this, "uint", ulProgress, "uint", ulProgressMax, "HRESULT")
+        result := ComCall(4, this, UInt32, ulProgress, UInt32, ulProgressMax, "HRESULT")
         return result
     }
 

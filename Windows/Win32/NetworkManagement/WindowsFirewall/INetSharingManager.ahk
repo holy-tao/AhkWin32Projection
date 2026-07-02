@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\INetSharingConfiguration.ahk" { INetSharingConfiguration }
-#Import ".\INetSharingEveryConnectionCollection.ahk" { INetSharingEveryConnectionCollection }
-#Import ".\INetSharingPublicConnectionCollection.ahk" { INetSharingPublicConnectionCollection }
 #Import ".\SHARINGCONNECTION_ENUM_FLAGS.ahk" { SHARINGCONNECTION_ENUM_FLAGS }
-#Import ".\INetConnection.ahk" { INetConnection }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\INetConnectionProps.ahk" { INetConnectionProps }
+#Import ".\INetSharingConfiguration.ahk" { INetSharingConfiguration }
+#Import ".\INetSharingPublicConnectionCollection.ahk" { INetSharingPublicConnectionCollection }
 #Import ".\INetSharingPrivateConnectionCollection.ahk" { INetSharingPrivateConnectionCollection }
+#Import ".\INetConnection.ahk" { INetConnection }
+#Import ".\INetConnectionProps.ahk" { INetConnectionProps }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetSharingEveryConnectionCollection.ahk" { INetSharingEveryConnectionCollection }
 
 /**
  * The INetSharingManager interface is the primary interface for the Manager object. INetSharingManager provides methods to determine if sharing is installed, to manage port mappings, and to obtain enumeration interfaces for public and private connections.

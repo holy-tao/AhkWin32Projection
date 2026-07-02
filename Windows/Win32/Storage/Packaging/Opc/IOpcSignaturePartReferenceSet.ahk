@@ -2,12 +2,12 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IOpcSignaturePartReferenceEnumerator.ahk" { IOpcSignaturePartReferenceEnumerator }
-#Import ".\IOpcSignaturePartReference.ahk" { IOpcSignaturePartReference }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
+#Import ".\IOpcSignaturePartReferenceEnumerator.ahk" { IOpcSignaturePartReferenceEnumerator }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcSignaturePartReference.ahk" { IOpcSignaturePartReference }
 
 /**
  * An unordered set of IOpcSignaturePartReference interface pointers that represent references to parts to be signed.

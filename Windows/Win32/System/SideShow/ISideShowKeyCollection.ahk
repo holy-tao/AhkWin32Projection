@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.SideShow
@@ -91,7 +91,7 @@ export default struct ISideShowKeyCollection extends IUnknown {
      * @returns {HRESULT} 
      */
     GetAt(dwIndex, pKey) {
-        result := ComCall(5, this, "uint", dwIndex, PROPERTYKEY.Ptr, pKey, "HRESULT")
+        result := ComCall(5, this, UInt32, dwIndex, PROPERTYKEY.Ptr, pKey, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct ISideShowKeyCollection extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveAt(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "HRESULT")
         return result
     }
 

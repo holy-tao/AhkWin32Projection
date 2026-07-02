@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides an entry point through which a WMI Query Language (WQL) query can be parsed.
@@ -71,7 +71,7 @@ export default struct IWbemQuery extends IUnknown {
     SetLanguageFeatures(uFlags, uArraySize, puFeatures) {
         puFeaturesMarshal := puFeatures is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", uFlags, "uint", uArraySize, puFeaturesMarshal, puFeatures, "HRESULT")
+        result := ComCall(4, this, UInt32, uFlags, UInt32, uArraySize, puFeaturesMarshal, puFeatures, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IWbemQuery extends IUnknown {
     TestLanguageFeatures(uFlags, uArraySize) {
         uArraySizeMarshal := uArraySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", uFlags, uArraySizeMarshal, uArraySize, "uint*", &puFeatures := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, uFlags, uArraySizeMarshal, uArraySize, "uint*", &puFeatures := 0, "HRESULT")
         return puFeatures
     }
 
@@ -101,7 +101,7 @@ export default struct IWbemQuery extends IUnknown {
         pszLang := pszLang is String ? StrPtr(pszLang) : pszLang
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        result := ComCall(6, this, "ptr", pszLang, "ptr", pszQuery, "uint", uFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", pszLang, "ptr", pszQuery, UInt32, uFlags, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IWbemQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbemquery-getanalysis
      */
     GetAnalysis(uAnalysisType, uFlags) {
-        result := ComCall(7, this, "uint", uAnalysisType, "uint", uFlags, "ptr*", &pAnalysis := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, uAnalysisType, UInt32, uFlags, "ptr*", &pAnalysis := 0, "HRESULT")
         return pAnalysis
     }
 
@@ -141,7 +141,7 @@ export default struct IWbemQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbemquery
      */
     GetQueryInfo(uAnalysisType, uInfoId, uBufSize) {
-        result := ComCall(9, this, "uint", uAnalysisType, "uint", uInfoId, "uint", uBufSize, "ptr", &pDestBuf := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, uAnalysisType, UInt32, uInfoId, UInt32, uBufSize, "ptr", &pDestBuf := 0, "HRESULT")
         return pDestBuf
     }
 

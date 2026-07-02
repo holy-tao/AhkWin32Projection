@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUrlHistoryStg.ahk" { IUrlHistoryStg }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Ole\IOleCommandTarget.ahk" { IOleCommandTarget }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Ole\IOleCommandTarget.ahk" { IOleCommandTarget }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -54,7 +54,7 @@ export default struct IUrlHistoryStg2 extends IUrlHistoryStg {
         pocsUrl := pocsUrl is String ? StrPtr(pocsUrl) : pocsUrl
         pocsTitle := pocsTitle is String ? StrPtr(pocsTitle) : pocsTitle
 
-        result := ComCall(8, this, "ptr", pocsUrl, "ptr", pocsTitle, "uint", dwFlags, BOOL, fWriteHistory, "ptr", poctNotify, "ptr", punkISFolder, "HRESULT")
+        result := ComCall(8, this, "ptr", pocsUrl, "ptr", pocsTitle, UInt32, dwFlags, BOOL, fWriteHistory, "ptr", poctNotify, "ptr", punkISFolder, "HRESULT")
         return result
     }
 

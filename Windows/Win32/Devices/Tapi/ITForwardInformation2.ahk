@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ITForwardInformation.ahk" { ITForwardInformation }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -106,7 +106,7 @@ export default struct ITForwardInformation2 extends ITForwardInformation {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
         pCallerAddress := pCallerAddress is String ? BSTR.Alloc(pCallerAddress).Value : pCallerAddress
 
-        result := ComCall(14, this, "int", ForwardType, BSTR, pDestAddress, "int", DestAddressType, BSTR, pCallerAddress, "int", CallerAddressType, "HRESULT")
+        result := ComCall(14, this, Int32, ForwardType, BSTR, pDestAddress, Int32, DestAddressType, BSTR, pCallerAddress, Int32, CallerAddressType, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct ITForwardInformation2 extends ITForwardInformation {
         pDestAddressTypeMarshal := pDestAddressType is VarRef ? "int*" : "ptr"
         pCallerAddressTypeMarshal := pCallerAddressType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "int", ForwardType, BSTR.Ptr, ppDestinationAddress, pDestAddressTypeMarshal, pDestAddressType, BSTR.Ptr, ppCallerAddress, pCallerAddressTypeMarshal, pCallerAddressType, "HRESULT")
+        result := ComCall(15, this, Int32, ForwardType, BSTR.Ptr, ppDestinationAddress, pDestAddressTypeMarshal, pDestAddressType, BSTR.Ptr, ppCallerAddress, pCallerAddressTypeMarshal, pCallerAddressType, "HRESULT")
         return result
     }
 
@@ -186,7 +186,7 @@ export default struct ITForwardInformation2 extends ITForwardInformation {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypedestinationaddresstype
      */
     get_ForwardTypeDestinationAddressType(ForwardType) {
-        result := ComCall(16, this, "int", ForwardType, "int*", &pDestAddressType := 0, "HRESULT")
+        result := ComCall(16, this, Int32, ForwardType, "int*", &pDestAddressType := 0, "HRESULT")
         return pDestAddressType
     }
 
@@ -197,7 +197,7 @@ export default struct ITForwardInformation2 extends ITForwardInformation {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-get_forwardtypecalleraddresstype
      */
     get_ForwardTypeCallerAddressType(Forwardtype) {
-        result := ComCall(17, this, "int", Forwardtype, "int*", &pCallerAddressType := 0, "HRESULT")
+        result := ComCall(17, this, Int32, Forwardtype, "int*", &pCallerAddressType := 0, "HRESULT")
         return pCallerAddressType
     }
 

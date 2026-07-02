@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMDM_TAG_DATATYPE.ahk" { WMDM_TAG_DATATYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WMDM_TAG_DATATYPE.ahk" { WMDM_TAG_DATATYPE }
 
 /**
  * The IWMDMMetaData interface sets and retrieves metadata properties (such as artist, album, genre, and so on) of a storage.
@@ -63,7 +63,7 @@ export default struct IWMDMMetaData extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, WMDM_TAG_DATATYPE, Type, "ptr", pwszTagName, pValueMarshal, pValue, "uint", iLength, "HRESULT")
+        result := ComCall(3, this, WMDM_TAG_DATATYPE, Type, "ptr", pwszTagName, pValueMarshal, pValue, UInt32, iLength, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IWMDMMetaData extends IUnknown {
         ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", iIndex, ppwszNameMarshal, ppwszName, pTypeMarshal, pType, ppValueMarshal, ppValue, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(5, this, UInt32, iIndex, ppwszNameMarshal, ppwszName, pTypeMarshal, pType, ppValueMarshal, ppValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 

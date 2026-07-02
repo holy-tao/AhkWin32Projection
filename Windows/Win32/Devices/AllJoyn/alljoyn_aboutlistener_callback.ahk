@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\alljoyn_about_announced_ptr.ahk" { alljoyn_about_announced_ptr }
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -6,6 +7,6 @@
 export default struct alljoyn_aboutlistener_callback {
     #StructPack 8
 
-    about_listener_announced : IntPtr
+    about_listener_announced : alljoyn_about_announced_ptr
 
 }

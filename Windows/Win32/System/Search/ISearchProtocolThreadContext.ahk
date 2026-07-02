@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This optional interface enables the protocol handler to perform an action on the thread used for filtering in the protocol host.
@@ -80,7 +80,7 @@ export default struct ISearchProtocolThreadContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchprotocolthreadcontext-threadidle
      */
     ThreadIdle(dwTimeElaspedSinceLastCallInMS) {
-        result := ComCall(5, this, "uint", dwTimeElaspedSinceLastCallInMS, "HRESULT")
+        result := ComCall(5, this, UInt32, dwTimeElaspedSinceLastCallInMS, "HRESULT")
         return result
     }
 

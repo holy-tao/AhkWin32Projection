@@ -4,8 +4,8 @@
 #Import ".\IFaxIncomingMessageIterator.ahk" { IFaxIncomingMessageIterator }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFaxIncomingMessage.ahk" { IFaxIncomingMessage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used by a fax client application to access a particular fax account's archive of successfully received inbound fax messages. Use this interface to retrieve messages and get the size of the archive.
@@ -125,7 +125,7 @@ export default struct IFaxAccountIncomingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountincomingarchive-getmessages
      */
     GetMessages(lPrefetchSize) {
-        result := ComCall(10, this, "int", lPrefetchSize, "ptr*", &pFaxIncomingMessageIterator := 0, "HRESULT")
+        result := ComCall(10, this, Int32, lPrefetchSize, "ptr*", &pFaxIncomingMessageIterator := 0, "HRESULT")
         return IFaxIncomingMessageIterator(pFaxIncomingMessageIterator)
     }
 

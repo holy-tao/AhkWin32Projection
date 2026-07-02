@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CALLFRAME_COPY.ahk" { CALLFRAME_COPY }
-#Import ".\CALLFRAMEPARAMINFO.ahk" { CALLFRAMEPARAMINFO }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CALLFRAME_MARSHALCONTEXT.ahk" { CALLFRAME_MARSHALCONTEXT }
-#Import ".\CALLFRAMEINFO.ahk" { CALLFRAMEINFO }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\MSHLFLAGS.ahk" { MSHLFLAGS }
-#Import ".\ICallFrameWalker.ahk" { ICallFrameWalker }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import ".\CALLFRAMEINFO.ahk" { CALLFRAMEINFO }
+#Import ".\ICallFrameWalker.ahk" { ICallFrameWalker }
+#Import ".\CALLFRAME_MARSHALCONTEXT.ahk" { CALLFRAME_MARSHALCONTEXT }
+#Import ".\CALLFRAMEPARAMINFO.ahk" { CALLFRAMEPARAMINFO }
 #Import "..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\CALLFRAME_COPY.ahk" { CALLFRAME_COPY }
+#Import "..\MSHLFLAGS.ahk" { MSHLFLAGS }
 
 /**
  * Enables manipulation of call frames such as stack frames.
@@ -211,7 +211,7 @@ export default struct ICallFrame extends IUnknown {
      */
     GetParamInfo(iparam) {
         pInfo := CALLFRAMEPARAMINFO()
-        result := ComCall(10, this, "uint", iparam, CALLFRAMEPARAMINFO.Ptr, pInfo, "HRESULT")
+        result := ComCall(10, this, UInt32, iparam, CALLFRAMEPARAMINFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -252,7 +252,7 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-setparam
      */
     SetParam(iparam, pvar) {
-        result := ComCall(11, this, "uint", iparam, VARIANT.Ptr, pvar, "HRESULT")
+        result := ComCall(11, this, UInt32, iparam, VARIANT.Ptr, pvar, "HRESULT")
         return result
     }
 
@@ -264,7 +264,7 @@ export default struct ICallFrame extends IUnknown {
      */
     GetParam(iparam) {
         pvar := VARIANT()
-        result := ComCall(12, this, "uint", iparam, VARIANT.Ptr, pvar, "HRESULT")
+        result := ComCall(12, this, UInt32, iparam, VARIANT.Ptr, pvar, "HRESULT")
         return pvar
     }
 
@@ -325,7 +325,7 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-free
      */
     Free(pframeArgsDest, pWalkerDestFree, pWalkerCopy, freeFlags, pWalkerFree, nullFlags) {
-        result := ComCall(14, this, "ptr", pframeArgsDest, "ptr", pWalkerDestFree, "ptr", pWalkerCopy, "uint", freeFlags, "ptr", pWalkerFree, "uint", nullFlags, "HRESULT")
+        result := ComCall(14, this, "ptr", pframeArgsDest, "ptr", pWalkerDestFree, "ptr", pWalkerCopy, UInt32, freeFlags, "ptr", pWalkerFree, UInt32, nullFlags, "HRESULT")
         return result
     }
 
@@ -368,7 +368,7 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-freeparam
      */
     FreeParam(iparam, freeFlags, pWalkerFree, nullFlags) {
-        result := ComCall(15, this, "uint", iparam, "uint", freeFlags, "ptr", pWalkerFree, "uint", nullFlags, "HRESULT")
+        result := ComCall(15, this, UInt32, iparam, UInt32, freeFlags, "ptr", pWalkerFree, UInt32, nullFlags, "HRESULT")
         return result
     }
 
@@ -409,7 +409,7 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-walkframe
      */
     WalkFrame(walkWhat, pWalker) {
-        result := ComCall(16, this, "uint", walkWhat, "ptr", pWalker, "HRESULT")
+        result := ComCall(16, this, UInt32, walkWhat, "ptr", pWalker, "HRESULT")
         return result
     }
 
@@ -476,7 +476,7 @@ export default struct ICallFrame extends IUnknown {
         pdataRepMarshal := pdataRep is VarRef ? "uint*" : "ptr"
         prpcFlagsMarshal := prpcFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, CALLFRAME_MARSHALCONTEXT.Ptr, pmshlContext, MSHLFLAGS, _mshlflags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "HRESULT")
+        result := ComCall(18, this, CALLFRAME_MARSHALCONTEXT.Ptr, pmshlContext, MSHLFLAGS, _mshlflags, pBufferMarshal, pBuffer, UInt32, cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "HRESULT")
         return result
     }
 
@@ -494,7 +494,7 @@ export default struct ICallFrame extends IUnknown {
     Unmarshal(pBuffer, cbBuffer, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "uint*", &pcbUnmarshalled := 0, "HRESULT")
+        result := ComCall(19, this, pBufferMarshal, pBuffer, UInt32, cbBuffer, UInt32, dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "uint*", &pcbUnmarshalled := 0, "HRESULT")
         return pcbUnmarshalled
     }
 
@@ -544,7 +544,7 @@ export default struct ICallFrame extends IUnknown {
     ReleaseMarshalData(pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(20, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "HRESULT")
+        result := ComCall(20, this, pBufferMarshal, pBuffer, UInt32, cbBuffer, UInt32, ibFirstRelease, UInt32, dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "HRESULT")
         return result
     }
 

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FVTEXTTYPE.ahk" { FVTEXTTYPE }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\IShellItemArray.ahk" { IShellItemArray }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FVTEXTTYPE.ahk" { FVTEXTTYPE }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
-#Import ".\IFolderView.ahk" { IFolderView }
-#Import ".\FOLDERVIEWMODE.ahk" { FOLDERVIEWMODE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\FOLDERVIEWMODE.ahk" { FOLDERVIEWMODE }
+#Import ".\IFolderView.ahk" { IFolderView }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView2)
@@ -262,7 +262,7 @@ export default struct IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setcurrentfolderflags
      */
     SetCurrentFolderFlags(dwMask, dwFlags) {
-        result := ComCall(24, this, "uint", dwMask, "uint", dwFlags, "HRESULT")
+        result := ComCall(24, this, UInt32, dwMask, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -306,7 +306,7 @@ export default struct IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setsortcolumns
      */
     SetSortColumns(rgSortColumns, cColumns) {
-        result := ComCall(27, this, SORTCOLUMN.Ptr, rgSortColumns, "int", cColumns, "HRESULT")
+        result := ComCall(27, this, SORTCOLUMN.Ptr, rgSortColumns, Int32, cColumns, "HRESULT")
         return result
     }
 
@@ -322,7 +322,7 @@ export default struct IFolderView2 extends IFolderView {
      */
     GetSortColumns(cColumns) {
         rgSortColumns := SORTCOLUMN()
-        result := ComCall(28, this, SORTCOLUMN.Ptr, rgSortColumns, "int", cColumns, "HRESULT")
+        result := ComCall(28, this, SORTCOLUMN.Ptr, rgSortColumns, Int32, cColumns, "HRESULT")
         return rgSortColumns
     }
 
@@ -340,7 +340,7 @@ export default struct IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getitem
      */
     GetItem(iItem, riid) {
-        result := ComCall(29, this, "int", iItem, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(29, this, Int32, iItem, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -358,7 +358,7 @@ export default struct IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getvisibleitem
      */
     GetVisibleItem(iStart, fPrevious) {
-        result := ComCall(30, this, "int", iStart, BOOL, fPrevious, "int*", &piItem := 0, "HRESULT")
+        result := ComCall(30, this, Int32, iStart, BOOL, fPrevious, "int*", &piItem := 0, "HRESULT")
         return piItem
     }
 
@@ -373,7 +373,7 @@ export default struct IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselecteditem
      */
     GetSelectedItem(iStart) {
-        result := ComCall(31, this, "int", iStart, "int*", &piItem := 0, "HRESULT")
+        result := ComCall(31, this, Int32, iStart, "int*", &piItem := 0, "HRESULT")
         return piItem
     }
 
@@ -442,7 +442,7 @@ export default struct IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setviewmodeandiconsize
      */
     SetViewModeAndIconSize(uViewMode, iImageSize) {
-        result := ComCall(35, this, FOLDERVIEWMODE, uViewMode, "int", iImageSize, "HRESULT")
+        result := ComCall(35, this, FOLDERVIEWMODE, uViewMode, Int32, iImageSize, "HRESULT")
         return result
     }
 
@@ -480,7 +480,7 @@ export default struct IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setgroupsubsetcount
      */
     SetGroupSubsetCount(cVisibleRows) {
-        result := ComCall(37, this, "uint", cVisibleRows, "HRESULT")
+        result := ComCall(37, this, UInt32, cVisibleRows, "HRESULT")
         return result
     }
 

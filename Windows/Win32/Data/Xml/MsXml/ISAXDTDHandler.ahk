@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -52,7 +52,7 @@ export default struct ISAXDTDHandler extends IUnknown {
         pwchPublicId := pwchPublicId is String ? StrPtr(pwchPublicId) : pwchPublicId
         pwchSystemId := pwchSystemId is String ? StrPtr(pwchSystemId) : pwchSystemId
 
-        result := ComCall(3, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "HRESULT")
+        result := ComCall(3, this, "ptr", pwchName, Int32, cchName, "ptr", pwchPublicId, Int32, cchPublicId, "ptr", pwchSystemId, Int32, cchSystemId, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct ISAXDTDHandler extends IUnknown {
         pwchSystemId := pwchSystemId is String ? StrPtr(pwchSystemId) : pwchSystemId
         pwchNotationName := pwchNotationName is String ? StrPtr(pwchNotationName) : pwchNotationName
 
-        result := ComCall(4, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "ptr", pwchNotationName, "int", cchNotationName, "HRESULT")
+        result := ComCall(4, this, "ptr", pwchName, Int32, cchName, "ptr", pwchPublicId, Int32, cchPublicId, "ptr", pwchSystemId, Int32, cchSystemId, "ptr", pwchNotationName, Int32, cchNotationName, "HRESULT")
         return result
     }
 

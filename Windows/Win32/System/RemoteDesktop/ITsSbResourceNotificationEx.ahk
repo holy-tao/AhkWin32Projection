@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\CONNECTION_CHANGE_NOTIFICATION.ahk" { CONNECTION_CHANGE_NOTIFICATION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to notify plug-ins of any state changes that occur in the session, target, and client connection objects. (ITsSbResourceNotificationEx)
@@ -57,7 +57,7 @@ export default struct ITsSbResourceNotificationEx extends IUnknown {
         userName := userName is String ? BSTR.Alloc(userName).Value : userName
         domain := domain is String ? BSTR.Alloc(domain).Value : domain
 
-        result := ComCall(3, this, BSTR, targetName, BSTR, userName, BSTR, domain, "uint", sessionId, TSSESSION_STATE, sessionState, "HRESULT")
+        result := ComCall(3, this, BSTR, targetName, BSTR, userName, BSTR, domain, UInt32, sessionId, TSSESSION_STATE, sessionState, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct ITsSbResourceNotificationEx extends IUnknown {
     NotifyTargetChangeEx(targetName, targetChangeType) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
 
-        result := ComCall(4, this, BSTR, targetName, "uint", targetChangeType, "HRESULT")
+        result := ComCall(4, this, BSTR, targetName, UInt32, targetChangeType, "HRESULT")
         return result
     }
 

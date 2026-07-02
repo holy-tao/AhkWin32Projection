@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -50,7 +50,7 @@ export default struct ID3D12GBVDiagnostics extends IUnknown {
      * @returns {HRESULT} 
      */
     GetGBVEntireSubresourceStatesData(pResource, pData, DataSize) {
-        result := ComCall(3, this, "ptr", pResource, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(3, this, "ptr", pResource, IntPtr, pData, UInt32, DataSize, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct ID3D12GBVDiagnostics extends IUnknown {
      * @returns {Integer} 
      */
     GetGBVSubresourceState(pResource, Subresource) {
-        result := ComCall(4, this, "ptr", pResource, "uint", Subresource, "int*", &pData := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pResource, UInt32, Subresource, "int*", &pData := 0, "HRESULT")
         return pData
     }
 

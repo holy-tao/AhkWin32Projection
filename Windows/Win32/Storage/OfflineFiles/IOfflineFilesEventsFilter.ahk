@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\OFFLINEFILES_EVENTS.ahk" { OFFLINEFILES_EVENTS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\OFFLINEFILES_PATHFILTER_MATCH.ahk" { OFFLINEFILES_PATHFILTER_MATCH }
+#Import ".\OFFLINEFILES_EVENTS.ahk" { OFFLINEFILES_EVENTS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a mechanism for recipients of published events to restrict the number of event instances they receive.
@@ -69,7 +69,7 @@ export default struct IOfflineFilesEventsFilter extends IUnknown {
         prgEventsMarshal := prgEvents is VarRef ? "int*" : "ptr"
         pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
+        result := ComCall(4, this, UInt32, cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IOfflineFilesEventsFilter extends IUnknown {
         prgEventsMarshal := prgEvents is VarRef ? "int*" : "ptr"
         pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
+        result := ComCall(5, this, UInt32, cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
         return result
     }
 

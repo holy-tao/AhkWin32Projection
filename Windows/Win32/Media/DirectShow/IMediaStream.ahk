@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
 #Import ".\IStreamSample.ahk" { IStreamSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMultiMediaStream.ahk" { IMultiMediaStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
 
 /**
  * Note  This interface is deprecated.
@@ -81,7 +81,7 @@ export default struct IMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-setsameformat
      */
     SetSameFormat(pStreamThatHasDesiredFormat, dwFlags) {
-        result := ComCall(5, this, "ptr", pStreamThatHasDesiredFormat, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pStreamThatHasDesiredFormat, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-allocatesample
      */
     AllocateSample(dwFlags) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFlags, "ptr*", &ppSample := 0, "HRESULT")
         return IStreamSample(ppSample)
     }
 
@@ -108,7 +108,7 @@ export default struct IMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-createsharedsample
      */
     CreateSharedSample(pExistingSample, dwFlags) {
-        result := ComCall(7, this, "ptr", pExistingSample, "uint", dwFlags, "ptr*", &ppNewSample := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pExistingSample, UInt32, dwFlags, "ptr*", &ppNewSample := 0, "HRESULT")
         return IStreamSample(ppNewSample)
     }
 
@@ -121,7 +121,7 @@ export default struct IMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-sendendofstream
      */
     SendEndOfStream(dwFlags) {
-        result := ComCall(8, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

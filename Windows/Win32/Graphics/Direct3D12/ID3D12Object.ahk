@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An interface from which ID3D12Device and ID3D12DeviceChild inherit from. It provides methods to associate private data and annotate object names.
@@ -62,7 +62,7 @@ export default struct ID3D12Object extends IUnknown {
     GetPrivateData(guid, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, IntPtr, pData, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct ID3D12Object extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12object-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(4, this, Guid.Ptr, guid, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guid, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 

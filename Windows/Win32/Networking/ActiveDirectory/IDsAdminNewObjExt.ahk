@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IADs.ahk" { IADs }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IADsContainer.ahk" { IADsContainer }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IDsAdminNewObj.ahk" { IDsAdminNewObj }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\Controls\LPFNSVADDPROPSHEETPAGE.ahk" { LPFNSVADDPROPSHEETPAGE }
 #Import ".\DSA_NEWOBJ_DISPINFO.ahk" { DSA_NEWOBJ_DISPINFO }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IADs.ahk" { IADs }
+#Import ".\IADsContainer.ahk" { IADsContainer }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDsAdminNewObj.ahk" { IDsAdminNewObj }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * The IDsAdminNewObjExt interface is implemented by an object creation wizard extension.
@@ -92,7 +93,7 @@ export default struct IDsAdminNewObjExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-addpages
      */
     AddPages(lpfnAddPage, _lParam) {
-        result := ComCall(4, this, "ptr", lpfnAddPage, LPARAM, _lParam, "HRESULT")
+        result := ComCall(4, this, LPFNSVADDPROPSHEETPAGE, lpfnAddPage, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -119,7 +120,7 @@ export default struct IDsAdminNewObjExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-writedata
      */
     WriteData(_hWnd, uContext) {
-        result := ComCall(6, this, HWND, _hWnd, "uint", uContext, "HRESULT")
+        result := ComCall(6, this, HWND, _hWnd, UInt32, uContext, "HRESULT")
         return result
     }
 
@@ -134,7 +135,7 @@ export default struct IDsAdminNewObjExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-onerror
      */
     OnError(_hWnd, hr, uContext) {
-        result := ComCall(7, this, HWND, _hWnd, "int", hr, "uint", uContext, "HRESULT")
+        result := ComCall(7, this, HWND, _hWnd, "int", hr, UInt32, uContext, "HRESULT")
         return result
     }
 

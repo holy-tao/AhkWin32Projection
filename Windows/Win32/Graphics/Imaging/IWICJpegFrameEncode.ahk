@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_AC_HUFFMAN_TABLE }
 #Import "..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_DC_HUFFMAN_TABLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk" { DXGI_JPEG_QUANTIZATION_TABLE }
+#Import "..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_AC_HUFFMAN_TABLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for writing compressed JPEG scan data directly to the WIC encoder's output stream. Also provides access to the Huffman and quantization tables.
@@ -70,7 +70,7 @@ export default struct IWICJpegFrameEncode extends IUnknown {
      */
     GetAcHuffmanTable(scanIndex, tableIndex) {
         pAcHuffmanTable := DXGI_JPEG_AC_HUFFMAN_TABLE()
-        result := ComCall(3, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_AC_HUFFMAN_TABLE.Ptr, pAcHuffmanTable, "HRESULT")
+        result := ComCall(3, this, UInt32, scanIndex, UInt32, tableIndex, DXGI_JPEG_AC_HUFFMAN_TABLE.Ptr, pAcHuffmanTable, "HRESULT")
         return pAcHuffmanTable
     }
 
@@ -83,7 +83,7 @@ export default struct IWICJpegFrameEncode extends IUnknown {
      */
     GetDcHuffmanTable(scanIndex, tableIndex) {
         pDcHuffmanTable := DXGI_JPEG_DC_HUFFMAN_TABLE()
-        result := ComCall(4, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_DC_HUFFMAN_TABLE.Ptr, pDcHuffmanTable, "HRESULT")
+        result := ComCall(4, this, UInt32, scanIndex, UInt32, tableIndex, DXGI_JPEG_DC_HUFFMAN_TABLE.Ptr, pDcHuffmanTable, "HRESULT")
         return pDcHuffmanTable
     }
 
@@ -102,7 +102,7 @@ export default struct IWICJpegFrameEncode extends IUnknown {
      */
     GetQuantizationTable(scanIndex, tableIndex) {
         pQuantizationTable := DXGI_JPEG_QUANTIZATION_TABLE()
-        result := ComCall(5, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_QUANTIZATION_TABLE.Ptr, pQuantizationTable, "HRESULT")
+        result := ComCall(5, this, UInt32, scanIndex, UInt32, tableIndex, DXGI_JPEG_QUANTIZATION_TABLE.Ptr, pQuantizationTable, "HRESULT")
         return pQuantizationTable
     }
 
@@ -128,7 +128,7 @@ export default struct IWICJpegFrameEncode extends IUnknown {
     WriteScan(cbScanData, pbScanData) {
         pbScanDataMarshal := pbScanData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "uint", cbScanData, pbScanDataMarshal, pbScanData, "HRESULT")
+        result := ComCall(6, this, UInt32, cbScanData, pbScanDataMarshal, pbScanData, "HRESULT")
         return result
     }
 

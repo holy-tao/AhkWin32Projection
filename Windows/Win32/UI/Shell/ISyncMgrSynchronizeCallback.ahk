@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNCMGRLOGERRORINFO.ahk" { SYNCMGRLOGERRORINFO }
 #Import ".\SYNCMGRPROGRESSITEM.ahk" { SYNCMGRPROGRESSITEM }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGRLOGERRORINFO.ahk" { SYNCMGRLOGERRORINFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that manage the synchronization process.
@@ -219,7 +219,7 @@ export default struct ISyncMgrSynchronizeCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-showerrorcompleted
      */
     ShowErrorCompleted(hr, cItems, pItemIDs) {
-        result := ComCall(6, this, "int", hr, "uint", cItems, Guid.Ptr, pItemIDs, "HRESULT")
+        result := ComCall(6, this, "int", hr, UInt32, cItems, Guid.Ptr, pItemIDs, "HRESULT")
         return result
     }
 
@@ -366,7 +366,7 @@ export default struct ISyncMgrSynchronizeCallback extends IUnknown {
     LogError(dwErrorLevel, pszErrorText, pSyncLogError) {
         pszErrorText := pszErrorText is String ? StrPtr(pszErrorText) : pszErrorText
 
-        result := ComCall(9, this, "uint", dwErrorLevel, "ptr", pszErrorText, SYNCMGRLOGERRORINFO.Ptr, pSyncLogError, "HRESULT")
+        result := ComCall(9, this, UInt32, dwErrorLevel, "ptr", pszErrorText, SYNCMGRLOGERRORINFO.Ptr, pSyncLogError, "HRESULT")
         return result
     }
 
@@ -400,7 +400,7 @@ export default struct ISyncMgrSynchronizeCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizecallback-deletelogerror
      */
     DeleteLogError(ErrorID, dwReserved) {
-        result := ComCall(10, this, Guid.Ptr, ErrorID, "uint", dwReserved, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, ErrorID, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -441,7 +441,7 @@ export default struct ISyncMgrSynchronizeCallback extends IUnknown {
     EstablishConnection(pwszConnection, dwReserved) {
         pwszConnection := pwszConnection is String ? StrPtr(pwszConnection) : pwszConnection
 
-        result := ComCall(11, this, "ptr", pwszConnection, "uint", dwReserved, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszConnection, UInt32, dwReserved, "HRESULT")
         return result
     }
 

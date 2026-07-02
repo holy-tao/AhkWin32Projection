@@ -2,14 +2,14 @@
 #Import ".\TVITEMA.ahk" { TVITEMA }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\HTREEITEM.ahk" { HTREEITEM }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
+#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\NM_TREEVIEW_ACTION.ahk" { NM_TREEVIEW_ACTION }
-#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
 #Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
-#Import ".\HTREEITEM.ahk" { HTREEITEM }
 #Import ".\NMHDR.ahk" { NMHDR }
-#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
 
 /**
  * Contains information about a tree-view notification message. This structure is identical to the NM_TREEVIEW structure, but it has been renamed to follow current naming conventions. (ANSI)

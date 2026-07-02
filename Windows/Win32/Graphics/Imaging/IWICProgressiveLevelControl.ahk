@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for obtaining information about and controlling progressive decoding.
@@ -88,7 +88,7 @@ export default struct IWICProgressiveLevelControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicprogressivelevelcontrol-setcurrentlevel
      */
     SetCurrentLevel(nLevel) {
-        result := ComCall(5, this, "uint", nLevel, "HRESULT")
+        result := ComCall(5, this, UInt32, nLevel, "HRESULT")
         return result
     }
 

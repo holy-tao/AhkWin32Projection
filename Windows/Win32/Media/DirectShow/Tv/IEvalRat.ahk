@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEvalRat interface is used to evaluate content ratings carried by a broadcast stream.
@@ -110,7 +110,7 @@ export default struct IEvalRat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-put_blockedratingattributes
      */
     put_BlockedRatingAttributes(enSystem, enLevel, lbfAttrs) {
-        result := ComCall(8, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enLevel, "int", lbfAttrs, "HRESULT")
+        result := ComCall(8, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enLevel, Int32, lbfAttrs, "HRESULT")
         return result
     }
 
@@ -221,7 +221,7 @@ export default struct IEvalRat extends IDispatch {
         penEnLevelMarshal := penEnLevel is VarRef ? "int*" : "ptr"
         plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, EnTvRat_System, enSystem1, EnTvRat_GenericLevel, enEnLevel1, "int", lbfEnAttr1, EnTvRat_System, enSystem2, EnTvRat_GenericLevel, enEnLevel2, "int", lbfEnAttr2, penSystemMarshal, penSystem, penEnLevelMarshal, penEnLevel, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
+        result := ComCall(11, this, EnTvRat_System, enSystem1, EnTvRat_GenericLevel, enEnLevel1, Int32, lbfEnAttr1, EnTvRat_System, enSystem2, EnTvRat_GenericLevel, enEnLevel2, Int32, lbfEnAttr2, penSystemMarshal, penSystem, penEnLevelMarshal, penEnLevel, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
         return result
     }
 
@@ -304,7 +304,7 @@ export default struct IEvalRat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-testrating
      */
     TestRating(enShowSystem, enShowLevel, lbfEnShowAttributes) {
-        result := ComCall(12, this, EnTvRat_System, enShowSystem, EnTvRat_GenericLevel, enShowLevel, "int", lbfEnShowAttributes, "HRESULT")
+        result := ComCall(12, this, EnTvRat_System, enShowSystem, EnTvRat_GenericLevel, enShowLevel, Int32, lbfEnShowAttributes, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IAnchor.ahk" { IAnchor }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.TextServices
@@ -46,7 +46,7 @@ export default struct ITextStoreAnchorEx extends IUnknown {
      * @returns {HRESULT} 
      */
     ScrollToRect(pStart, pEnd, rc, dwPosition) {
-        result := ComCall(3, this, "ptr", pStart, "ptr", pEnd, RECT, rc, "uint", dwPosition, "HRESULT")
+        result := ComCall(3, this, "ptr", pStart, "ptr", pEnd, RECT, rc, UInt32, dwPosition, "HRESULT")
         return result
     }
 

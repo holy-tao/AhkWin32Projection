@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDirect3DDevice9Ex.ahk" { IDirect3DDevice9Ex }
-#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
-#Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
-#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
 #Import ".\IDirect3D9.ahk" { IDirect3D9 }
+#Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
+#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
 #Import ".\D3DDISPLAYMODEFILTER.ahk" { D3DDISPLAYMODEFILTER }
 
 /**
@@ -81,7 +81,7 @@ export default struct IDirect3D9Ex extends IDirect3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-getadaptermodecountex
      */
     GetAdapterModeCountEx(_Adapter, pFilter) {
-        result := ComCall(17, this, "uint", _Adapter, D3DDISPLAYMODEFILTER.Ptr, pFilter, UInt32)
+        result := ComCall(17, this, UInt32, _Adapter, D3DDISPLAYMODEFILTER.Ptr, pFilter, UInt32)
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct IDirect3D9Ex extends IDirect3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-enumadaptermodesex
      */
     EnumAdapterModesEx(_Adapter, pFilter, _Mode, pMode) {
-        result := ComCall(18, this, "uint", _Adapter, D3DDISPLAYMODEFILTER.Ptr, pFilter, "uint", _Mode, D3DDISPLAYMODEEX.Ptr, pMode, "HRESULT")
+        result := ComCall(18, this, UInt32, _Adapter, D3DDISPLAYMODEFILTER.Ptr, pFilter, UInt32, _Mode, D3DDISPLAYMODEEX.Ptr, pMode, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IDirect3D9Ex extends IDirect3D9 {
     GetAdapterDisplayModeEx(_Adapter, pMode, pRotation) {
         pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "uint", _Adapter, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
+        result := ComCall(19, this, UInt32, _Adapter, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct IDirect3D9Ex extends IDirect3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-createdeviceex
      */
     CreateDeviceEx(_Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, pFullscreenDisplayMode) {
-        result := ComCall(20, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, HWND, hFocusWindow, "uint", BehaviorFlags, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, D3DDISPLAYMODEEX.Ptr, pFullscreenDisplayMode, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
+        result := ComCall(20, this, UInt32, _Adapter, D3DDEVTYPE, DeviceType, HWND, hFocusWindow, UInt32, BehaviorFlags, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, D3DDISPLAYMODEEX.Ptr, pFullscreenDisplayMode, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
         return IDirect3DDevice9Ex(ppReturnedDeviceInterface)
     }
 
@@ -194,7 +194,7 @@ export default struct IDirect3D9Ex extends IDirect3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-getadapterluid
      */
     GetAdapterLUID(_Adapter, pLUID) {
-        result := ComCall(21, this, "uint", _Adapter, LUID.Ptr, pLUID, "HRESULT")
+        result := ComCall(21, this, UInt32, _Adapter, LUID.Ptr, pLUID, "HRESULT")
         return result
     }
 

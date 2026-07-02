@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\WinRT\IInspectable.ahk" { IInspectable }
 #Import "..\..\System\WinRT\HSTRING.ahk" { HSTRING }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
@@ -55,7 +55,7 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
      * @returns {Pointer<Void>} 
      */
     RequestAccessWithBehaviorForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, messageFromApp, behavior, riid) {
-        result := ComCall(6, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, targetIdentity, "ptr", auditInfoUnk, HSTRING, messageFromApp, "uint", behavior, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(6, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, targetIdentity, "ptr", auditInfoUnk, HSTRING, messageFromApp, UInt32, behavior, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 
@@ -71,7 +71,7 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
      * @returns {Pointer<Void>} 
      */
     RequestAccessForAppWithBehaviorForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, messageFromApp, behavior, riid) {
-        result := ComCall(7, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, appPackageFamilyName, "ptr", auditInfoUnk, HSTRING, messageFromApp, "uint", behavior, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(7, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, appPackageFamilyName, "ptr", auditInfoUnk, HSTRING, messageFromApp, UInt32, behavior, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 
@@ -101,7 +101,7 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
      * @returns {Pointer<Void>} 
      */
     RequestAccessToFilesForAppWithMessageAndBehaviorForWindowAsync(appWindow, sourceItemListUnk, appPackageFamilyName, auditInfoUnk, messageFromApp, behavior, riid) {
-        result := ComCall(9, this, HWND, appWindow, "ptr", sourceItemListUnk, HSTRING, appPackageFamilyName, "ptr", auditInfoUnk, HSTRING, messageFromApp, "uint", behavior, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(9, this, HWND, appWindow, "ptr", sourceItemListUnk, HSTRING, appPackageFamilyName, "ptr", auditInfoUnk, HSTRING, messageFromApp, UInt32, behavior, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 
@@ -115,7 +115,7 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
      * @returns {Pointer<Void>} 
      */
     RequestAccessToFilesForProcessForWindowAsync(appWindow, sourceItemListUnk, processId, auditInfoUnk, riid) {
-        result := ComCall(10, this, HWND, appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(10, this, HWND, appWindow, "ptr", sourceItemListUnk, UInt32, processId, "ptr", auditInfoUnk, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 
@@ -131,7 +131,7 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
      * @returns {Pointer<Void>} 
      */
     RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync(appWindow, sourceItemListUnk, processId, auditInfoUnk, messageFromApp, behavior, riid) {
-        result := ComCall(11, this, HWND, appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, HSTRING, messageFromApp, "uint", behavior, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(11, this, HWND, appWindow, "ptr", sourceItemListUnk, UInt32, processId, "ptr", auditInfoUnk, HSTRING, messageFromApp, UInt32, behavior, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 

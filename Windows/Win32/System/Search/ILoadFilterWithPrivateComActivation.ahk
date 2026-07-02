@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ILoadFilter.ahk" { ILoadFilter }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FILTERED_DATA_SOURCES.ahk" { FILTERED_DATA_SOURCES }
 
 /**

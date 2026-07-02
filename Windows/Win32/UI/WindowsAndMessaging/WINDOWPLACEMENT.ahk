@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\WINDOWPLACEMENT_FLAGS.ahk" { WINDOWPLACEMENT_FLAGS }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Contains information about the placement of a window on the screen.

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
-#Import "..\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
 #Import "..\Direct3D9\IDirect3DResource9.ahk" { IDirect3DResource9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12
@@ -78,7 +78,7 @@ export default struct IDirect3DDevice9On12 extends IUnknown {
     ReturnUnderlyingResource(pResource, NumSync, pSignalValues) {
         pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pResource, "uint", NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", &ppFences := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pResource, UInt32, NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", &ppFences := 0, "HRESULT")
         return ID3D12Fence(ppFences)
     }
 

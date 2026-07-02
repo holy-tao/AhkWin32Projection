@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITransactionOutcomeEvents.ahk" { ITransactionOutcomeEvents }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITransactionOutcomeEvents.ahk" { ITransactionOutcomeEvents }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

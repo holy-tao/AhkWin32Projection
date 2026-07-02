@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OFFLINEFILES_COMPARE.ahk" { OFFLINEFILES_COMPARE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\OFFLINEFILES_ITEM_TIME.ahk" { OFFLINEFILES_ITEM_TIME }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OFFLINEFILES_COMPARE.ahk" { OFFLINEFILES_COMPARE }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Represents an instance of a filter to be applied to an enumeration.
@@ -139,7 +139,7 @@ export default struct IOfflineFilesItemFilter extends IUnknown {
     GetPatternFilter(pszPattern, cchPattern) {
         pszPattern := pszPattern is String ? StrPtr(pszPattern) : pszPattern
 
-        result := ComCall(5, this, "ptr", pszPattern, "uint", cchPattern, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPattern, UInt32, cchPattern, "HRESULT")
         return result
     }
 

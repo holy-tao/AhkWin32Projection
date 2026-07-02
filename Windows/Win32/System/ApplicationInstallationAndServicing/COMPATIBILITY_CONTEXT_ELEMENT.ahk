@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ACTCTX_COMPATIBILITY_ELEMENT_TYPE.ahk" { ACTCTX_COMPATIBILITY_ELEMENT_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ACTCTX_COMPATIBILITY_ELEMENT_TYPE.ahk" { ACTCTX_COMPATIBILITY_ELEMENT_TYPE }
 
 /**
  * The COMPATIBILITY_CONTEXT_ELEMENT structure is used by the QueryActCtxW function as part of the ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION structure.

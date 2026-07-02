@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
-#Import ".\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
 #Import ".\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
+#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
 
 /**
  * The CERT_CHAIN_PARA structure establishes the searching and matching criteria to be used in building a certificate chain.

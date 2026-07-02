@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWSDEventingStatus.ahk" { IWSDEventingStatus }
-#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
-#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWSDMetadataExchange.ahk" { IWSDMetadataExchange }
-#Import ".\WSD_SERVICE_METADATA.ahk" { WSD_SERVICE_METADATA }
 #Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
+#Import ".\WSD_SERVICE_METADATA.ahk" { WSD_SERVICE_METADATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\IWSDEventingStatus.ahk" { IWSDEventingStatus }
+#Import ".\IWSDMetadataExchange.ahk" { IWSDMetadataExchange }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
+#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
 #Import ".\IWSDAsyncResult.ahk" { IWSDAsyncResult }
 
 /**

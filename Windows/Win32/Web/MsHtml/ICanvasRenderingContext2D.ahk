@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLCanvasElement.ahk" { IHTMLCanvasElement }
-#Import ".\ICanvasPattern.ahk" { ICanvasPattern }
-#Import ".\ICanvasGradient.ahk" { ICanvasGradient }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ICanvasTextMetrics.ahk" { ICanvasTextMetrics }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLCanvasElement.ahk" { IHTMLCanvasElement }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ICanvasGradient.ahk" { ICanvasGradient }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ICanvasImageData.ahk" { ICanvasImageData }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ICanvasPattern.ahk" { ICanvasPattern }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -350,7 +350,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     rotate(angle) {
-        result := ComCall(10, this, "float", angle, "HRESULT")
+        result := ComCall(10, this, Float32, angle, "HRESULT")
         return result
     }
 
@@ -361,7 +361,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     scale(x, y) {
-        result := ComCall(11, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(11, this, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -376,7 +376,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     setTransform(m11, m12, m21, m22, dx, dy) {
-        result := ComCall(12, this, "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, "HRESULT")
+        result := ComCall(12, this, Float32, m11, Float32, m12, Float32, m21, Float32, m22, Float32, dx, Float32, dy, "HRESULT")
         return result
     }
 
@@ -391,7 +391,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     transform(m11, m12, m21, m22, dx, dy) {
-        result := ComCall(13, this, "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, "HRESULT")
+        result := ComCall(13, this, Float32, m11, Float32, m12, Float32, m21, Float32, m22, Float32, dx, Float32, dy, "HRESULT")
         return result
     }
 
@@ -402,7 +402,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     translate(x, y) {
-        result := ComCall(14, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(14, this, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -412,7 +412,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     put_globalAlpha(v) {
-        result := ComCall(15, this, "float", v, "HRESULT")
+        result := ComCall(15, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -496,7 +496,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {ICanvasGradient} 
      */
     createLinearGradient(x0, y0, x1, y1) {
-        result := ComCall(23, this, "float", x0, "float", y0, "float", x1, "float", y1, "ptr*", &ppCanvasGradient := 0, "HRESULT")
+        result := ComCall(23, this, Float32, x0, Float32, y0, Float32, x1, Float32, y1, "ptr*", &ppCanvasGradient := 0, "HRESULT")
         return ICanvasGradient(ppCanvasGradient)
     }
 
@@ -511,7 +511,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {ICanvasGradient} 
      */
     createRadialGradient(x0, y0, r0, x1, y1, r1) {
-        result := ComCall(24, this, "float", x0, "float", y0, "float", r0, "float", x1, "float", y1, "float", r1, "ptr*", &ppCanvasGradient := 0, "HRESULT")
+        result := ComCall(24, this, Float32, x0, Float32, y0, Float32, r0, Float32, x1, Float32, y1, Float32, r1, "ptr*", &ppCanvasGradient := 0, "HRESULT")
         return ICanvasGradient(ppCanvasGradient)
     }
 
@@ -576,7 +576,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     put_lineWidth(v) {
-        result := ComCall(30, this, "float", v, "HRESULT")
+        result := ComCall(30, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -595,7 +595,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     put_miterLimit(v) {
-        result := ComCall(32, this, "float", v, "HRESULT")
+        result := ComCall(32, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -614,7 +614,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     put_shadowBlur(v) {
-        result := ComCall(34, this, "float", v, "HRESULT")
+        result := ComCall(34, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -655,7 +655,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     put_shadowOffsetX(v) {
-        result := ComCall(38, this, "float", v, "HRESULT")
+        result := ComCall(38, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -674,7 +674,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     put_shadowOffsetY(v) {
-        result := ComCall(40, this, "float", v, "HRESULT")
+        result := ComCall(40, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -696,7 +696,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     clearRect(x, y, w, h) {
-        result := ComCall(42, this, "float", x, "float", y, "float", w, "float", h, "HRESULT")
+        result := ComCall(42, this, Float32, x, Float32, y, Float32, w, Float32, h, "HRESULT")
         return result
     }
 
@@ -709,7 +709,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     fillRect(x, y, w, h) {
-        result := ComCall(43, this, "float", x, "float", y, "float", w, "float", h, "HRESULT")
+        result := ComCall(43, this, Float32, x, Float32, y, Float32, w, Float32, h, "HRESULT")
         return result
     }
 
@@ -722,7 +722,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     strokeRect(x, y, w, h) {
-        result := ComCall(44, this, "float", x, "float", y, "float", w, "float", h, "HRESULT")
+        result := ComCall(44, this, Float32, x, Float32, y, Float32, w, Float32, h, "HRESULT")
         return result
     }
 
@@ -737,7 +737,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     arc(x, y, radius, startAngle, endAngle, anticlockwise) {
-        result := ComCall(45, this, "float", x, "float", y, "float", radius, "float", startAngle, "float", endAngle, BOOL, anticlockwise, "HRESULT")
+        result := ComCall(45, this, Float32, x, Float32, y, Float32, radius, Float32, startAngle, Float32, endAngle, BOOL, anticlockwise, "HRESULT")
         return result
     }
 
@@ -751,7 +751,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     arcTo(x1, y1, x2, y2, radius) {
-        result := ComCall(46, this, "float", x1, "float", y1, "float", x2, "float", y2, "float", radius, "HRESULT")
+        result := ComCall(46, this, Float32, x1, Float32, y1, Float32, x2, Float32, y2, Float32, radius, "HRESULT")
         return result
     }
 
@@ -775,7 +775,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) {
-        result := ComCall(48, this, "float", cp1x, "float", cp1y, "float", cp2x, "float", cp2y, "float", x, "float", y, "HRESULT")
+        result := ComCall(48, this, Float32, cp1x, Float32, cp1y, Float32, cp2x, Float32, cp2y, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -832,7 +832,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     lineTo(x, y) {
-        result := ComCall(52, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(52, this, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -843,7 +843,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     moveTo(x, y) {
-        result := ComCall(53, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(53, this, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -856,7 +856,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     quadraticCurveTo(cpx, cpy, x, y) {
-        result := ComCall(54, this, "float", cpx, "float", cpy, "float", x, "float", y, "HRESULT")
+        result := ComCall(54, this, Float32, cpx, Float32, cpy, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -869,7 +869,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     rect(x, y, w, h) {
-        result := ComCall(55, this, "float", x, "float", y, "float", w, "float", h, "HRESULT")
+        result := ComCall(55, this, Float32, x, Float32, y, Float32, w, Float32, h, "HRESULT")
         return result
     }
 
@@ -889,7 +889,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     isPointInPath(x, y) {
-        result := ComCall(57, this, "float", x, "float", y, VARIANT_BOOL.Ptr, &pResult := 0, "HRESULT")
+        result := ComCall(57, this, Float32, x, Float32, y, VARIANT_BOOL.Ptr, &pResult := 0, "HRESULT")
         return pResult
     }
 
@@ -970,7 +970,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     fillText(text, x, y, maxWidth) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(64, this, BSTR, text, "float", x, "float", y, VARIANT, maxWidth, "HRESULT")
+        result := ComCall(64, this, BSTR, text, Float32, x, Float32, y, VARIANT, maxWidth, "HRESULT")
         return result
     }
 
@@ -997,7 +997,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     strokeText(text, x, y, maxWidth) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(66, this, BSTR, text, "float", x, "float", y, VARIANT, maxWidth, "HRESULT")
+        result := ComCall(66, this, BSTR, text, Float32, x, Float32, y, VARIANT, maxWidth, "HRESULT")
         return result
     }
 
@@ -1039,7 +1039,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {ICanvasImageData} 
      */
     getImageData(sx, sy, sw, sh) {
-        result := ComCall(69, this, "float", sx, "float", sy, "float", sw, "float", sh, "ptr*", &ppCanvasImageData := 0, "HRESULT")
+        result := ComCall(69, this, Float32, sx, Float32, sy, Float32, sw, Float32, sh, "ptr*", &ppCanvasImageData := 0, "HRESULT")
         return ICanvasImageData(ppCanvasImageData)
     }
 
@@ -1055,7 +1055,7 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
      * @returns {HRESULT} 
      */
     putImageData(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight) {
-        result := ComCall(70, this, "ptr", imagedata, "float", dx, "float", dy, VARIANT, dirtyX, VARIANT, dirtyY, VARIANT, dirtyWidth, VARIANT, dirtyHeight, "HRESULT")
+        result := ComCall(70, this, "ptr", imagedata, Float32, dx, Float32, dy, VARIANT, dirtyX, VARIANT, dirtyY, VARIANT, dirtyWidth, VARIANT, dirtyHeight, "HRESULT")
         return result
     }
 

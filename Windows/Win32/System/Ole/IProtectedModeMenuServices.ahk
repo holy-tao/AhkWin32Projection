@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
@@ -80,7 +80,7 @@ export default struct IProtectedModeMenuServices extends IUnknown {
         pszModuleName := pszModuleName is String ? StrPtr(pszModuleName) : pszModuleName
 
         phMenu := HMENU.Owned()
-        result := ComCall(5, this, "ptr", pszModuleName, "ushort", wResourceID, HMENU.Ptr, phMenu, "HRESULT")
+        result := ComCall(5, this, "ptr", pszModuleName, UInt16, wResourceID, HMENU.Ptr, phMenu, "HRESULT")
         return phMenu
     }
 

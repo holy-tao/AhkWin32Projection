@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_SECURITY_KEY_HANDLE.ahk" { WS_SECURITY_KEY_HANDLE }
 #Import ".\WS_SECURITY_KEY_HANDLE_TYPE.ahk" { WS_SECURITY_KEY_HANDLE_TYPE }
 #Import "..\..\Security\Cryptography\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
-#Import ".\WS_SECURITY_KEY_HANDLE.ahk" { WS_SECURITY_KEY_HANDLE }
 
 /**
  * The type for specifying asymmetric cryptographic keys as a CryptoNG NCRYPT_KEY_HANDLE.

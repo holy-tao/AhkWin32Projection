@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -110,7 +110,7 @@ export default struct ISpeechDataKey extends IDispatch {
     SetLongValue(_ValueName, Value) {
         _ValueName := _ValueName is String ? BSTR.Alloc(_ValueName).Value : _ValueName
 
-        result := ComCall(11, this, BSTR, _ValueName, "int", Value, "HRESULT")
+        result := ComCall(11, this, BSTR, _ValueName, Int32, Value, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ export default struct ISpeechDataKey extends IDispatch {
      */
     EnumKeys(Index) {
         SubKeyName := BSTR.Owned()
-        result := ComCall(17, this, "int", Index, BSTR.Ptr, SubKeyName, "HRESULT")
+        result := ComCall(17, this, Int32, Index, BSTR.Ptr, SubKeyName, "HRESULT")
         return SubKeyName
     }
 
@@ -192,7 +192,7 @@ export default struct ISpeechDataKey extends IDispatch {
      */
     EnumValues(Index) {
         _ValueName := BSTR.Owned()
-        result := ComCall(18, this, "int", Index, BSTR.Ptr, _ValueName, "HRESULT")
+        result := ComCall(18, this, Int32, Index, BSTR.Ptr, _ValueName, "HRESULT")
         return _ValueName
     }
 

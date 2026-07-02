@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSMAN_SHELL_COMPLETION_FUNCTION.ahk" { WSMAN_SHELL_COMPLETION_FUNCTION }
 
 /**
  * Defines an asynchronous structure to be passed to all shell operations.
@@ -16,6 +17,6 @@ export default struct WSMAN_SHELL_ASYNC {
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nc-wsman-wsman_shell_completion_function">WSMAN_SHELL_COMPLETION_FUNCTION</a> callback function for the operation.
      */
-    completionFunction : IntPtr
+    completionFunction : WSMAN_SHELL_COMPLETION_FUNCTION
 
 }

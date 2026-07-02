@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncFullEnumerationChangeBatch.ahk" { ISyncFullEnumerationChangeBatch }
-#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
+#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
+#Import ".\ISyncFullEnumerationChangeBatch.ahk" { ISyncFullEnumerationChangeBatch }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
@@ -52,7 +52,7 @@ export default struct ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerat
         pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, "uint", dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 

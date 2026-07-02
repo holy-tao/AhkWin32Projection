@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that supply version information for accessible elements.
@@ -53,7 +53,7 @@ export default struct IVersionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getsubcomponentcount
      */
     GetSubcomponentCount(ulSub) {
-        result := ComCall(3, this, "uint", ulSub, "uint*", &ulCount := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, ulSub, "uint*", &ulCount := 0, "HRESULT")
         return ulCount
     }
 
@@ -69,7 +69,7 @@ export default struct IVersionInfo extends IUnknown {
      */
     GetImplementationID(ulSub) {
         implid := Guid()
-        result := ComCall(4, this, "uint", ulSub, Guid.Ptr, implid, "HRESULT")
+        result := ComCall(4, this, UInt32, ulSub, Guid.Ptr, implid, "HRESULT")
         return implid
     }
 
@@ -93,7 +93,7 @@ export default struct IVersionInfo extends IUnknown {
         pdwMajorMarshal := pdwMajor is VarRef ? "uint*" : "ptr"
         pdwMinorMarshal := pdwMinor is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", ulSub, pdwMajorMarshal, pdwMajor, pdwMinorMarshal, pdwMinor, "HRESULT")
+        result := ComCall(5, this, UInt32, ulSub, pdwMajorMarshal, pdwMajor, pdwMinorMarshal, pdwMinor, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct IVersionInfo extends IUnknown {
      */
     GetComponentDescription(ulSub) {
         pImplStr := BSTR.Owned()
-        result := ComCall(6, this, "uint", ulSub, BSTR.Ptr, pImplStr, "HRESULT")
+        result := ComCall(6, this, UInt32, ulSub, BSTR.Ptr, pImplStr, "HRESULT")
         return pImplStr
     }
 
@@ -126,7 +126,7 @@ export default struct IVersionInfo extends IUnknown {
      */
     GetInstanceDescription(ulSub) {
         pImplStr := BSTR.Owned()
-        result := ComCall(7, this, "uint", ulSub, BSTR.Ptr, pImplStr, "HRESULT")
+        result := ComCall(7, this, UInt32, ulSub, BSTR.Ptr, pImplStr, "HRESULT")
         return pImplStr
     }
 

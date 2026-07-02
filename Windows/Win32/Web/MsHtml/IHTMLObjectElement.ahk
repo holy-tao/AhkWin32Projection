@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -546,7 +546,7 @@ export default struct IHTMLObjectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_vspace(v) {
-        result := ComCall(37, this, "int", v, "HRESULT")
+        result := ComCall(37, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -565,7 +565,7 @@ export default struct IHTMLObjectElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_hspace(v) {
-        result := ComCall(39, this, "int", v, "HRESULT")
+        result := ComCall(39, this, Int32, v, "HRESULT")
         return result
     }
 

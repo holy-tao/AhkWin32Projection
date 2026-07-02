@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Defines a cookie that you can add to the HTTP cookie jar by calling the SetCookie method or retrieve from the HTTP cookie jar by calling the GetCookie method.

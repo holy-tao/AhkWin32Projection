@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ZONEATTRIBUTES.ahk" { ZONEATTRIBUTES }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IInternetZoneManagerEx.ahk" { IInternetZoneManagerEx }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ZONEATTRIBUTES.ahk" { ZONEATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -48,7 +48,7 @@ export default struct IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
      * @returns {HRESULT} 
      */
     GetZoneAttributesEx(dwZone, pZoneAttributes, dwFlags) {
-        result := ComCall(17, this, "uint", dwZone, ZONEATTRIBUTES.Ptr, pZoneAttributes, "uint", dwFlags, "HRESULT")
+        result := ComCall(17, this, UInt32, dwZone, ZONEATTRIBUTES.Ptr, pZoneAttributes, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
         pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, "uint", dwZoneIndex, BOOL, fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "HRESULT")
+        result := ComCall(18, this, UInt32, dwZoneIndex, BOOL, fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "HRESULT")
         return result
     }
 

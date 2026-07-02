@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUpdateInstallationResult.ahk" { IUpdateInstallationResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the progress of an asynchronous installation or uninstallation.
@@ -102,7 +102,7 @@ export default struct IInstallationProgress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogress-getupdateresult
      */
     GetUpdateResult(updateIndex) {
-        result := ComCall(10, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(10, this, Int32, updateIndex, "ptr*", &retval := 0, "HRESULT")
         return IUpdateInstallationResult(retval)
     }
 

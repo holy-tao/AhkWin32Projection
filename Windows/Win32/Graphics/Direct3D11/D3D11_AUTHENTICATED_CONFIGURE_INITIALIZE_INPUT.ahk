@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3D11_OMAC.ahk" { D3D11_OMAC }
 #Import ".\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk" { D3D11_AUTHENTICATED_CONFIGURE_INPUT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D11_OMAC.ahk" { D3D11_OMAC }
 
 /**
  * Contains input data for a D3D11_AUTHENTICATED_CONFIGURE_INITIALIZE command.

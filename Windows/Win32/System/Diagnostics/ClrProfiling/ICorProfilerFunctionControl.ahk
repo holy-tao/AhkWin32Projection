@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COR_IL_MAP.ahk" { COR_IL_MAP }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -44,7 +44,7 @@ export default struct ICorProfilerFunctionControl extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCodegenFlags(flags) {
-        result := ComCall(3, this, "uint", flags, "HRESULT")
+        result := ComCall(3, this, UInt32, flags, "HRESULT")
         return result
     }
 
@@ -57,7 +57,7 @@ export default struct ICorProfilerFunctionControl extends IUnknown {
     SetILFunctionBody(cbNewILMethodHeader, pbNewILMethodHeader) {
         pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", cbNewILMethodHeader, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
+        result := ComCall(4, this, UInt32, cbNewILMethodHeader, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
         return result
     }
 
@@ -68,7 +68,7 @@ export default struct ICorProfilerFunctionControl extends IUnknown {
      * @returns {HRESULT} 
      */
     SetILInstrumentedCodeMap(cILMapEntries, rgILMapEntries) {
-        result := ComCall(5, this, "uint", cILMapEntries, COR_IL_MAP.Ptr, rgILMapEntries, "HRESULT")
+        result := ComCall(5, this, UInt32, cILMapEntries, COR_IL_MAP.Ptr, rgILMapEntries, "HRESULT")
         return result
     }
 

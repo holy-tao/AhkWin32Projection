@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IFaxOutgoingMessageIterator.ahk" { IFaxOutgoingMessageIterator }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IFaxOutgoingMessage.ahk" { IFaxOutgoingMessage }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -123,7 +123,7 @@ export default struct IFaxAccountOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountoutgoingarchive-getmessages
      */
     GetMessages(lPrefetchSize) {
-        result := ComCall(10, this, "int", lPrefetchSize, "ptr*", &pFaxOutgoingMessageIterator := 0, "HRESULT")
+        result := ComCall(10, this, Int32, lPrefetchSize, "ptr*", &pFaxOutgoingMessageIterator := 0, "HRESULT")
         return IFaxOutgoingMessageIterator(pFaxOutgoingMessageIterator)
     }
 

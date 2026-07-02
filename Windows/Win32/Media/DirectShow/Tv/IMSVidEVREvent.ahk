@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMSVidOutputDeviceEvent.ahk" { IMSVidOutputDeviceEvent }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Windows Vista or later.
@@ -56,7 +56,7 @@ export default struct IMSVidEVREvent extends IMSVidOutputDeviceEvent {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidevrevent-onuserevent
      */
     OnUserEvent(lEventCode) {
-        result := ComCall(8, this, "int", lEventCode, "HRESULT")
+        result := ComCall(8, this, Int32, lEventCode, "HRESULT")
         return result
     }
 

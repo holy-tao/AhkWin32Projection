@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_WATCHER_STATE.ahk" { RTC_WATCHER_STATE }
 #Import ".\IRTCPresenceContact.ahk" { IRTCPresenceContact }
+#Import ".\RTC_WATCHER_STATE.ahk" { RTC_WATCHER_STATE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

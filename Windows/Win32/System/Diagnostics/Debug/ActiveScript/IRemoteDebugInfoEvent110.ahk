@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DEBUG_EVENT_INFO_TYPE.ahk" { DEBUG_EVENT_INFO_TYPE }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemBackupRestore interface backs up and restores the contents of the WMI repository.
@@ -63,7 +63,7 @@ export default struct IWbemBackupRestore extends IUnknown {
     Backup(strBackupToFile, lFlags) {
         strBackupToFile := strBackupToFile is String ? StrPtr(strBackupToFile) : strBackupToFile
 
-        result := ComCall(3, this, "ptr", strBackupToFile, "int", lFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", strBackupToFile, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct IWbemBackupRestore extends IUnknown {
     Restore(strRestoreFromFile, lFlags) {
         strRestoreFromFile := strRestoreFromFile is String ? StrPtr(strRestoreFromFile) : strRestoreFromFile
 
-        result := ComCall(4, this, "ptr", strRestoreFromFile, "int", lFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", strRestoreFromFile, Int32, lFlags, "HRESULT")
         return result
     }
 

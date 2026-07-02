@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IADsCollection.ahk" { IADsCollection }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IADs.ahk" { IADs }
 
 /**
@@ -152,7 +152,7 @@ export default struct IADsProperty extends IADs {
      * @returns {HRESULT} 
      */
     put_MaxRange(lnMaxRange) {
-        result := ComCall(25, this, "int", lnMaxRange, "HRESULT")
+        result := ComCall(25, this, Int32, lnMaxRange, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct IADsProperty extends IADs {
      * @returns {HRESULT} 
      */
     put_MinRange(lnMinRange) {
-        result := ComCall(27, this, "int", lnMinRange, "HRESULT")
+        result := ComCall(27, this, Int32, lnMinRange, "HRESULT")
         return result
     }
 

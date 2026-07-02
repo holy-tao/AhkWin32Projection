@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import ".\IExtendPropertySheet.ahk" { IExtendPropertySheet }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IExtendPropertySheet.ahk" { IExtendPropertySheet }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * The IExtendPropertySheet2 interface is introduced in MMC 1.1.

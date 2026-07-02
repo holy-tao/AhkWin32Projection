@@ -77,7 +77,7 @@ export default struct ISpeechMMSysAudio extends ISpeechAudio {
      * @returns {HRESULT} 
      */
     put_DeviceId(DeviceId) {
-        result := ComCall(22, this, "int", DeviceId, "HRESULT")
+        result := ComCall(22, this, Int32, DeviceId, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct ISpeechMMSysAudio extends ISpeechAudio {
      * @returns {HRESULT} 
      */
     put_LineId(LineId) {
-        result := ComCall(24, this, "int", LineId, "HRESULT")
+        result := ComCall(24, this, Int32, LineId, "HRESULT")
         return result
     }
 

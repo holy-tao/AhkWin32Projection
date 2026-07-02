@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_FONT_METRICS1.ahk" { DWRITE_FONT_METRICS1 }
 #Import ".\DWRITE_PANOSE.ahk" { DWRITE_PANOSE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteFont.ahk" { IDWriteFont }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_FONT_METRICS1.ahk" { DWRITE_FONT_METRICS1 }
-#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
 
 /**
  * Represents a physical font in a font collection. (IDWriteFont1)
@@ -133,7 +133,7 @@ export default struct IDWriteFont1 extends IDWriteFont {
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
         actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", maxRangeCount, DWRITE_UNICODE_RANGE.Ptr, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
+        result := ComCall(16, this, UInt32, maxRangeCount, DWRITE_UNICODE_RANGE.Ptr, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
         return result
     }
 

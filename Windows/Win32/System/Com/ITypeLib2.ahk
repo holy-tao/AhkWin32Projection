@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CUSTDATA.ahk" { CUSTDATA }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\ITypeLib.ahk" { ITypeLib }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CUSTDATA.ahk" { CUSTDATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a type library, the data that describes a set of objects. (ITypeLib2)
@@ -175,7 +175,7 @@ export default struct ITypeLib2 extends ITypeLib {
     GetDocumentation2(index, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
         pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "int", index, "uint", lcid, BSTR.Ptr, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, BSTR.Ptr, pbstrHelpStringDll, "HRESULT")
+        result := ComCall(15, this, Int32, index, UInt32, lcid, BSTR.Ptr, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, BSTR.Ptr, pbstrHelpStringDll, "HRESULT")
         return result
     }
 

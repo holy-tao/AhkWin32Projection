@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IMFByteStream.ahk" { IMFByteStream }
 #Import ".\IMFMediaSourceExtension.ahk" { IMFMediaSourceExtension }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables the media source to be transferred between the media engine and the sharing engine for Play To.

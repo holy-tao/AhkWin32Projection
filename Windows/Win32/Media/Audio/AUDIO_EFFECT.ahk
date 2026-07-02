@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AUDIO_EFFECT_STATE.ahk" { AUDIO_EFFECT_STATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AUDIO_EFFECT_STATE.ahk" { AUDIO_EFFECT_STATE }
 
 /**
  * Represents an audio effect.

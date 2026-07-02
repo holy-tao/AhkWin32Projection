@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IManagedPooledObj.ahk" { IManagedPooledObj }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IObjectControl.ahk" { IObjectControl }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes the stub for a managed object.

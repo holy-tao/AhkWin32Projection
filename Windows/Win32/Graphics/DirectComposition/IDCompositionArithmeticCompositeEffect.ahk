@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct2D\Common\D2D_VECTOR_4F.ahk" { D2D_VECTOR_4F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Direct2D\Common\D2D_VECTOR_4F.ahk" { D2D_VECTOR_4F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
@@ -103,7 +103,7 @@ export default struct IDCompositionArithmeticCompositeEffect extends IDCompositi
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient1(float)
      */
     SetCoefficient11(Coeffcient1) {
-        result := ComCall(7, this, "float", Coeffcient1, "HRESULT")
+        result := ComCall(7, this, Float32, Coeffcient1, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IDCompositionArithmeticCompositeEffect extends IDCompositi
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient2(idcompositionanimation)
      */
     SetCoefficient21(Coefficient2) {
-        result := ComCall(9, this, "float", Coefficient2, "HRESULT")
+        result := ComCall(9, this, Float32, Coefficient2, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct IDCompositionArithmeticCompositeEffect extends IDCompositi
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient3(float)
      */
     SetCoefficient31(Coefficient3) {
-        result := ComCall(11, this, "float", Coefficient3, "HRESULT")
+        result := ComCall(11, this, Float32, Coefficient3, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IDCompositionArithmeticCompositeEffect extends IDCompositi
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionarithmeticcompositeeffect-setcoefficient4(float)
      */
     SetCoefficient41(Coefficient4) {
-        result := ComCall(13, this, "float", Coefficient4, "HRESULT")
+        result := ComCall(13, this, Float32, Coefficient4, "HRESULT")
         return result
     }
 

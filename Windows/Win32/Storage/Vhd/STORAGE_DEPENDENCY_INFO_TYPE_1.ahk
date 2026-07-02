@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DEPENDENT_DISK_FLAG.ahk" { DEPENDENT_DISK_FLAG }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DEPENDENT_DISK_FLAG.ahk" { DEPENDENT_DISK_FLAG }
 
 /**
  * Contains virtual hard disk (VHD) storage dependency information for type 1.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumQueue.ahk" { IEnumQueue }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITACDGroup interface (tapi3cc.h) handles Automatic Call Distribution (ACD) mechanisms, which queue and distribute calls within a switching system.

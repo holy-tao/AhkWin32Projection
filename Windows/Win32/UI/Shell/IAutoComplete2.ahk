@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAutoComplete.ahk" { IAutoComplete }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends IAutoComplete. This interface enables clients of the autocomplete object to retrieve and set a number of options that control how autocompletion operates.
@@ -59,7 +59,7 @@ export default struct IAutoComplete2 extends IAutoComplete {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-iautocomplete2-setoptions
      */
     SetOptions(dwFlag) {
-        result := ComCall(5, this, "uint", dwFlag, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlag, "HRESULT")
         return result
     }
 

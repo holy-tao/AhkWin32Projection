@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Passes configuration information to the media sinks that are used for streaming the content.
@@ -74,7 +74,7 @@ export default struct IMFStreamingSinkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamingsinkconfig-startstreaming
      */
     StartStreaming(fSeekOffsetIsByteOffset, qwSeekOffset) {
-        result := ComCall(3, this, BOOL, fSeekOffsetIsByteOffset, "uint", qwSeekOffset, "HRESULT")
+        result := ComCall(3, this, BOOL, fSeekOffsetIsByteOffset, Int64, qwSeekOffset, "HRESULT")
         return result
     }
 

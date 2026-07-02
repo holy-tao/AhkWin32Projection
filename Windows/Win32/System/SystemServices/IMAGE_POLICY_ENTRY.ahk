@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\IMAGE_POLICY_ENTRY_TYPE.ahk" { IMAGE_POLICY_ENTRY_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\IMAGE_POLICY_ID.ahk" { IMAGE_POLICY_ID }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.SystemServices

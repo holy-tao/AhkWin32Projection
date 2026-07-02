@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * Used to define a query form added to the query dialog box with the CQAddFormsProc callback function.

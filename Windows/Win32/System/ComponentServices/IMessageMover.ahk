@@ -139,7 +139,7 @@ export default struct IMessageMover extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imessagemover-put_commitbatchsize
      */
     put_CommitBatchSize(newVal) {
-        result := ComCall(12, this, "int", newVal, "HRESULT")
+        result := ComCall(12, this, Int32, newVal, "HRESULT")
         return result
     }
 

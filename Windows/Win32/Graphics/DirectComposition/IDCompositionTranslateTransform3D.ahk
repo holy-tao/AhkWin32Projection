@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 
 /**
  * Represents a 3D transformation that affects the offset of a visual along the x-axis, y-axis, and z-axis.
@@ -86,7 +86,7 @@ export default struct IDCompositionTranslateTransform3D extends IDCompositionTra
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontranslatetransform3d-setoffsetx(idcompositionanimation)
      */
     SetOffsetX1(offsetX) {
-        result := ComCall(4, this, "float", offsetX, "HRESULT")
+        result := ComCall(4, this, Float32, offsetX, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct IDCompositionTranslateTransform3D extends IDCompositionTra
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontranslatetransform3d-setoffsety(idcompositionanimation)
      */
     SetOffsetY1(offsetY) {
-        result := ComCall(6, this, "float", offsetY, "HRESULT")
+        result := ComCall(6, this, Float32, offsetY, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct IDCompositionTranslateTransform3D extends IDCompositionTra
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontranslatetransform3d-setoffsetz(float)
      */
     SetOffsetZ1(offsetZ) {
-        result := ComCall(8, this, "float", offsetZ, "HRESULT")
+        result := ComCall(8, this, Float32, offsetZ, "HRESULT")
         return result
     }
 

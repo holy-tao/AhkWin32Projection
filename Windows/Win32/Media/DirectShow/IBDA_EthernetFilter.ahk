@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IBDA_EthernetFilter interface is implemented on a Network Provider.
@@ -68,7 +68,7 @@ export default struct IBDA_EthernetFilter extends IUnknown {
     PutMulticastList(ulcbAddresses, pAddressList) {
         pAddressListMarshal := pAddressList is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulcbAddresses, pAddressListMarshal, pAddressList, "HRESULT")
+        result := ComCall(4, this, UInt32, ulcbAddresses, pAddressListMarshal, pAddressList, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct IBDA_EthernetFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-putmulticastmode
      */
     PutMulticastMode(ulModeMask) {
-        result := ComCall(6, this, "uint", ulModeMask, "HRESULT")
+        result := ComCall(6, this, UInt32, ulModeMask, "HRESULT")
         return result
     }
 

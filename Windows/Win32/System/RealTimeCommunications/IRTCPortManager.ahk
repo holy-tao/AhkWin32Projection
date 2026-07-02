@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\RTC_PORT_TYPE.ahk" { RTC_PORT_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -73,7 +73,7 @@ export default struct IRTCPortManager extends IUnknown {
         bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
         bstrExternalLocalAddress := bstrExternalLocalAddress is String ? BSTR.Alloc(bstrExternalLocalAddress).Value : bstrExternalLocalAddress
 
-        result := ComCall(4, this, BSTR, bstrRemoteAddress, BSTR, bstrInternalLocalAddress, "int", lInternalLocalPort, BSTR, bstrExternalLocalAddress, "int", lExternalLocalPort, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrRemoteAddress, BSTR, bstrInternalLocalAddress, Int32, lInternalLocalPort, BSTR, bstrExternalLocalAddress, Int32, lExternalLocalPort, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IRTCPortManager extends IUnknown {
         bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
         bstrExternalLocalAddress := bstrExternalLocalAddress is String ? BSTR.Alloc(bstrExternalLocalAddress).Value : bstrExternalLocalAddress
 
-        result := ComCall(5, this, BSTR, bstrInternalLocalAddress, "int", lInternalLocalPort, BSTR, bstrExternalLocalAddress, "int", lExternalLocalAddress, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrInternalLocalAddress, Int32, lInternalLocalPort, BSTR, bstrExternalLocalAddress, Int32, lExternalLocalAddress, "HRESULT")
         return result
     }
 

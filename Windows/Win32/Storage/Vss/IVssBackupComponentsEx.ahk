@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVssExamineWriterMetadataEx.ahk" { IVssExamineWriterMetadataEx }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IVssBackupComponents.ahk" { IVssBackupComponents }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
 
 /**
@@ -161,7 +161,7 @@ export default struct IVssBackupComponentsEx extends IVssBackupComponents {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex-getwritermetadataex
      */
     GetWriterMetadataEx(iWriter, pidInstance, ppMetadata) {
-        result := ComCall(51, this, "uint", iWriter, Guid.Ptr, pidInstance, IVssExamineWriterMetadataEx.Ptr, ppMetadata, "HRESULT")
+        result := ComCall(51, this, UInt32, iWriter, Guid.Ptr, pidInstance, IVssExamineWriterMetadataEx.Ptr, ppMetadata, "HRESULT")
         return result
     }
 
@@ -316,7 +316,7 @@ export default struct IVssBackupComponentsEx extends IVssBackupComponents {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
 
-        result := ComCall(52, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "char", bSelectedForRestore, Guid, instanceId, "HRESULT")
+        result := ComCall(52, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, Int8, bSelectedForRestore, Guid, instanceId, "HRESULT")
         return result
     }
 

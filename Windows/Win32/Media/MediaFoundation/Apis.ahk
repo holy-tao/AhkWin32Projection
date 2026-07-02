@@ -1,119 +1,121 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
-#Import ".\IMFRemoteDesktopPlugin.ahk" { IMFRemoteDesktopPlugin }
-#Import ".\DXVAHD_CONTENT_DESC.ahk" { DXVAHD_CONTENT_DESC }
-#Import ".\IDirect3DDeviceManager9.ahk" { IDirect3DDeviceManager9 }
-#Import ".\IMFStreamDescriptor.ahk" { IMFStreamDescriptor }
-#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import ".\IMFSensorActivitiesReportCallback.ahk" { IMFSensorActivitiesReportCallback }
-#Import ".\IMFPMPHostApp.ahk" { IMFPMPHostApp }
-#Import ".\IMFPluginControl.ahk" { IMFPluginControl }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import ".\IMFExtendedCameraIntrinsics.ahk" { IMFExtendedCameraIntrinsics }
-#Import ".\DXVAHD_DEVICE_USAGE.ahk" { DXVAHD_DEVICE_USAGE }
-#Import "..\DxMediaObjects\IMediaBuffer.ahk" { IMediaBuffer }
-#Import ".\IMFMediaSession.ahk" { IMFMediaSession }
-#Import ".\MFVideoInterlaceMode.ahk" { MFVideoInterlaceMode }
-#Import ".\MF_FILE_OPENMODE.ahk" { MF_FILE_OPENMODE }
-#Import ".\IOPMVideoOutput.ahk" { IOPMVideoOutput }
-#Import ".\MFT_REGISTER_TYPE_INFO.ahk" { MFT_REGISTER_TYPE_INFO }
-#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
-#Import ".\IMFSensorGroup.ahk" { IMFSensorGroup }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
-#Import ".\MF_FILE_ACCESSMODE.ahk" { MF_FILE_ACCESSMODE }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
-#Import ".\IMFTopoLoader.ahk" { IMFTopoLoader }
-#Import ".\IMFDXGIDeviceManager.ahk" { IMFDXGIDeviceManager }
-#Import ".\IMFTransform.ahk" { IMFTransform }
-#Import ".\IMFByteStream.ahk" { IMFByteStream }
-#Import ".\IMFMediaEventQueue.ahk" { IMFMediaEventQueue }
-#Import "..\..\System\Com\IClassFactory.ahk" { IClassFactory }
-#Import "..\..\UI\Shell\PropertiesSystem\INamedPropertyStore.ahk" { INamedPropertyStore }
-#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IMFPresentationTimeSource.ahk" { IMFPresentationTimeSource }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFCameraOcclusionStateMonitor.ahk" { IMFCameraOcclusionStateMonitor }
-#Import ".\IMFCameraOcclusionStateReportCallback.ahk" { IMFCameraOcclusionStateReportCallback }
-#Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
-#Import ".\IMFCameraControlNotify.ahk" { IMFCameraControlNotify }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFSensorActivityMonitor.ahk" { IMFSensorActivityMonitor }
-#Import ".\IMFProtectedEnvironmentAccess.ahk" { IMFProtectedEnvironmentAccess }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\IMFSignedLibrary.ahk" { IMFSignedLibrary }
-#Import ".\IMFSensorProfile.ahk" { IMFSensorProfile }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IMFSensorStream.ahk" { IMFSensorStream }
-#Import ".\IMFCollection.ahk" { IMFCollection }
-#Import ".\IMFVideoMediaType.ahk" { IMFVideoMediaType }
-#Import ".\IMFContentDecryptorContext.ahk" { IMFContentDecryptorContext }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMFPresentationClock.ahk" { IMFPresentationClock }
-#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9Ex.ahk" { IDirect3DDevice9Ex }
-#Import ".\MFVirtualCameraType.ahk" { MFVirtualCameraType }
-#Import ".\IMFTranscodeProfile.ahk" { IMFTranscodeProfile }
-#Import ".\IMFPMediaPlayerCallback.ahk" { IMFPMediaPlayerCallback }
-#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import ".\MFCameraIntrinsic_DistortionModelType.ahk" { MFCameraIntrinsic_DistortionModelType }
-#Import ".\IMFTopology.ahk" { IMFTopology }
-#Import ".\IMFVirtualCamera.ahk" { IMFVirtualCamera }
-#Import ".\IMFSourceReader.ahk" { IMFSourceReader }
-#Import ".\IMFRelativePanelWatcher.ahk" { IMFRelativePanelWatcher }
-#Import ".\OPM_HDCP_TYPE.ahk" { OPM_HDCP_TYPE }
-#Import ".\EAllocationType.ahk" { EAllocationType }
-#Import ".\MFP_CREATION_OPTIONS.ahk" { MFP_CREATION_OPTIONS }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\IMFASFStreamSelector.ahk" { IMFASFStreamSelector }
-#Import ".\IMFContentProtectionDevice.ahk" { IMFContentProtectionDevice }
-#Import ".\IMFSample.ahk" { IMFSample }
-#Import ".\OPM_HDCP_STATUS.ahk" { OPM_HDCP_STATUS }
-#Import ".\IMFASFProfile.ahk" { IMFASFProfile }
 #Import ".\IMFMediaTypeHandler.ahk" { IMFMediaTypeHandler }
-#Import "..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
-#Import ".\IMFNetCredentialCache.ahk" { IMFNetCredentialCache }
-#Import ".\IMFASFMultiplexer.ahk" { IMFASFMultiplexer }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MFVirtualCameraAccess.ahk" { MFVirtualCameraAccess }
-#Import ".\MF_DXGI_DEVICE_MANAGER_MODE.ahk" { MF_DXGI_DEVICE_MANAGER_MODE }
-#Import ".\IMFTopologyNode.ahk" { IMFTopologyNode }
-#Import ".\IMFASFIndexer.ahk" { IMFASFIndexer }
-#Import ".\IMFSensorProfileCollection.ahk" { IMFSensorProfileCollection }
-#Import ".\MFVirtualCameraLifetime.ahk" { MFVirtualCameraLifetime }
-#Import ".\IMFQualityManager.ahk" { IMFQualityManager }
-#Import ".\MFVIDEOFORMAT.ahk" { MFVIDEOFORMAT }
-#Import ".\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
-#Import ".\MF_TOPOLOGY_TYPE.ahk" { MF_TOPOLOGY_TYPE }
-#Import ".\IDXVAHD_Device.ahk" { IDXVAHD_Device }
-#Import ".\IMFTrackedSample.ahk" { IMFTrackedSample }
-#Import ".\IMFASFSplitter.ahk" { IMFASFSplitter }
-#Import ".\IMFCameraControlMonitor.ahk" { IMFCameraControlMonitor }
-#Import ".\IMFSequencerSource.ahk" { IMFSequencerSource }
-#Import ".\MFStandardVideoFormat.ahk" { MFStandardVideoFormat }
 #Import ".\MFASYNC_WORKQUEUE_TYPE.ahk" { MFASYNC_WORKQUEUE_TYPE }
-#Import ".\IMFSampleGrabberSinkCallback.ahk" { IMFSampleGrabberSinkCallback }
-#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
-#Import ".\IMFAudioMediaType.ahk" { IMFAudioMediaType }
-#Import ".\OPM_VIDEO_OUTPUT_SEMANTICS.ahk" { OPM_VIDEO_OUTPUT_SEMANTICS }
-#Import ".\MF_FILE_FLAGS.ahk" { MF_FILE_FLAGS }
-#Import ".\IMFSourceResolver.ahk" { IMFSourceResolver }
-#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
+#Import ".\MF_TOPOLOGY_TYPE.ahk" { MF_TOPOLOGY_TYPE }
+#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9Ex.ahk" { IDirect3DDevice9Ex }
+#Import ".\IMFPMPHostApp.ahk" { IMFPMPHostApp }
 #Import ".\IMFActivate.ahk" { IMFActivate }
-#Import ".\IMFExtendedCameraIntrinsicModel.ahk" { IMFExtendedCameraIntrinsicModel }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
-#Import ".\IMFSinkWriter.ahk" { IMFSinkWriter }
-#Import ".\IMFPMPServer.ahk" { IMFPMPServer }
-#Import ".\IMFNetProxyLocator.ahk" { IMFNetProxyLocator }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IMFASFStreamSelector.ahk" { IMFASFStreamSelector }
+#Import ".\IMFTranscodeProfile.ahk" { IMFTranscodeProfile }
 #Import ".\IMFSystemId.ahk" { IMFSystemId }
+#Import ".\IMFTopology.ahk" { IMFTopology }
+#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
+#Import ".\IMFExtendedCameraIntrinsicModel.ahk" { IMFExtendedCameraIntrinsicModel }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IMFContentDecryptorContext.ahk" { IMFContentDecryptorContext }
+#Import ".\IMFTopoLoader.ahk" { IMFTopoLoader }
+#Import ".\IMFCollection.ahk" { IMFCollection }
+#Import ".\MFVIDEOFORMAT.ahk" { MFVIDEOFORMAT }
+#Import ".\IMFCameraOcclusionStateMonitor.ahk" { IMFCameraOcclusionStateMonitor }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import ".\IMFSequencerSource.ahk" { IMFSequencerSource }
+#Import ".\IMFMediaSession.ahk" { IMFMediaSession }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\IMFExtendedCameraIntrinsics.ahk" { IMFExtendedCameraIntrinsics }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\IMFTrackedSample.ahk" { IMFTrackedSample }
+#Import "..\..\System\Com\IClassFactory.ahk" { IClassFactory }
+#Import ".\IMFNetProxyLocator.ahk" { IMFNetProxyLocator }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\MFVirtualCameraType.ahk" { MFVirtualCameraType }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\MFStandardVideoFormat.ahk" { MFStandardVideoFormat }
+#Import "..\..\UI\Shell\PropertiesSystem\INamedPropertyStore.ahk" { INamedPropertyStore }
+#Import ".\DXVAHD_DEVICE_USAGE.ahk" { DXVAHD_DEVICE_USAGE }
+#Import ".\IMFASFIndexer.ahk" { IMFASFIndexer }
+#Import ".\IMFSinkWriter.ahk" { IMFSinkWriter }
+#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import ".\IMFStreamDescriptor.ahk" { IMFStreamDescriptor }
+#Import ".\IMFSourceResolver.ahk" { IMFSourceResolver }
+#Import ".\EAllocationType.ahk" { EAllocationType }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IMFASFMultiplexer.ahk" { IMFASFMultiplexer }
+#Import "..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
+#Import ".\OPM_HDCP_TYPE.ahk" { OPM_HDCP_TYPE }
+#Import ".\IMFPluginControl.ahk" { IMFPluginControl }
+#Import ".\IMFPMPServer.ahk" { IMFPMPServer }
+#Import ".\OPM_HDCP_STATUS.ahk" { OPM_HDCP_STATUS }
+#Import ".\MFP_CREATION_OPTIONS.ahk" { MFP_CREATION_OPTIONS }
+#Import ".\IMFMediaEventQueue.ahk" { IMFMediaEventQueue }
+#Import "..\DxMediaObjects\IMediaBuffer.ahk" { IMediaBuffer }
+#Import ".\MF_FILE_FLAGS.ahk" { MF_FILE_FLAGS }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import ".\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
+#Import ".\MF_FILE_OPENMODE.ahk" { MF_FILE_OPENMODE }
+#Import ".\IMFVirtualCamera.ahk" { IMFVirtualCamera }
+#Import ".\IMFPresentationClock.ahk" { IMFPresentationClock }
+#Import ".\IMFCameraControlNotify.ahk" { IMFCameraControlNotify }
+#Import ".\MFCameraIntrinsic_DistortionModelType.ahk" { MFCameraIntrinsic_DistortionModelType }
+#Import ".\IMFContentProtectionDevice.ahk" { IMFContentProtectionDevice }
+#Import ".\MF_FILE_ACCESSMODE.ahk" { MF_FILE_ACCESSMODE }
+#Import ".\IMFSensorStream.ahk" { IMFSensorStream }
+#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import ".\IOPMVideoOutput.ahk" { IOPMVideoOutput }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFQualityManager.ahk" { IMFQualityManager }
+#Import ".\IMFSensorProfile.ahk" { IMFSensorProfile }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import ".\IMFCameraControlMonitor.ahk" { IMFCameraControlMonitor }
+#Import ".\IMFRemoteDesktopPlugin.ahk" { IMFRemoteDesktopPlugin }
+#Import ".\MF_DXGI_DEVICE_MANAGER_MODE.ahk" { MF_DXGI_DEVICE_MANAGER_MODE }
+#Import ".\IDXVAHD_Device.ahk" { IDXVAHD_Device }
+#Import ".\IMFCameraOcclusionStateReportCallback.ahk" { IMFCameraOcclusionStateReportCallback }
+#Import ".\MFVirtualCameraAccess.ahk" { MFVirtualCameraAccess }
+#Import ".\IMFTopologyNode.ahk" { IMFTopologyNode }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IMFDXGIDeviceManager.ahk" { IMFDXGIDeviceManager }
+#Import ".\IMFSignedLibrary.ahk" { IMFSignedLibrary }
+#Import ".\IMFSensorProfileCollection.ahk" { IMFSensorProfileCollection }
+#Import ".\IMFAudioMediaType.ahk" { IMFAudioMediaType }
+#Import ".\IMFASFSplitter.ahk" { IMFASFSplitter }
+#Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
+#Import ".\MFVirtualCameraLifetime.ahk" { MFVirtualCameraLifetime }
+#Import ".\MFVideoInterlaceMode.ahk" { MFVideoInterlaceMode }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
+#Import ".\IMFSampleGrabberSinkCallback.ahk" { IMFSampleGrabberSinkCallback }
+#Import ".\PDXVAHDSW_Plugin.ahk" { PDXVAHDSW_Plugin }
+#Import ".\IMFTransform.ahk" { IMFTransform }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\DXVAHD_CONTENT_DESC.ahk" { DXVAHD_CONTENT_DESC }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\IMFRelativePanelWatcher.ahk" { IMFRelativePanelWatcher }
+#Import ".\IMFNetCredentialCache.ahk" { IMFNetCredentialCache }
+#Import ".\IMFVideoMediaType.ahk" { IMFVideoMediaType }
+#Import ".\MFT_REGISTER_TYPE_INFO.ahk" { MFT_REGISTER_TYPE_INFO }
+#Import ".\OPM_VIDEO_OUTPUT_SEMANTICS.ahk" { OPM_VIDEO_OUTPUT_SEMANTICS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFASFProfile.ahk" { IMFASFProfile }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFSourceReader.ahk" { IMFSourceReader }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IDirect3DDeviceManager9.ahk" { IDirect3DDeviceManager9 }
+#Import ".\IMFSensorGroup.ahk" { IMFSensorGroup }
+#Import ".\IMFProtectedEnvironmentAccess.ahk" { IMFProtectedEnvironmentAccess }
+#Import ".\IMFSensorActivitiesReportCallback.ahk" { IMFSensorActivitiesReportCallback }
+#Import ".\IMFPresentationTimeSource.ahk" { IMFPresentationTimeSource }
+#Import ".\IMFSensorActivityMonitor.ahk" { IMFSensorActivityMonitor }
+#Import ".\IMFPMediaPlayerCallback.ahk" { IMFPMediaPlayerCallback }
+#Import ".\MFPERIODICCALLBACK.ahk" { MFPERIODICCALLBACK }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -135,7 +137,7 @@
  * @since windows6.1
  */
 export DXVAHD_CreateDevice(pD3DDevice, pContentDesc, Usage, pPlugin) {
-    result := DllCall("dxva2.dll\DXVAHD_CreateDevice", "ptr", pD3DDevice, DXVAHD_CONTENT_DESC.Ptr, pContentDesc, DXVAHD_DEVICE_USAGE, Usage, "ptr", pPlugin, "ptr*", &ppDevice := 0, "HRESULT")
+    result := DllCall("dxva2.dll\DXVAHD_CreateDevice", "ptr", pD3DDevice, DXVAHD_CONTENT_DESC.Ptr, pContentDesc, DXVAHD_DEVICE_USAGE, Usage, PDXVAHDSW_Plugin, pPlugin, "ptr*", &ppDevice := 0, "HRESULT")
     return IDXVAHD_Device(ppDevice)
 }
 
@@ -270,7 +272,7 @@ export OPMGetVideoOutputsFromHMONITOR(_hMonitor, vos, pulNumVideoOutputs, pppOPM
  * @since windows6.0.6000
  */
 export OPMGetVideoOutputForTarget(pAdapterLuid, VidPnTarget, vos) {
-    result := DllCall("dxva2.dll\OPMGetVideoOutputForTarget", LUID.Ptr, pAdapterLuid, "uint", VidPnTarget, OPM_VIDEO_OUTPUT_SEMANTICS, vos, "ptr*", &ppOPMVideoOutput := 0, "HRESULT")
+    result := DllCall("dxva2.dll\OPMGetVideoOutputForTarget", LUID.Ptr, pAdapterLuid, UInt32, VidPnTarget, OPM_VIDEO_OUTPUT_SEMANTICS, vos, "ptr*", &ppOPMVideoOutput := 0, "HRESULT")
     return IOPMVideoOutput(ppOPMVideoOutput)
 }
 
@@ -369,7 +371,7 @@ export OPMGetVideoOutputsFromIDirect3DDevice9Object(pDirect3DDevice9, vos, pulNu
  * @since windows6.0.6000
  */
 export MFSerializeAttributesToStream(pAttr, dwOptions, pStm) {
-    result := DllCall("MFPlat.dll\MFSerializeAttributesToStream", "ptr", pAttr, "uint", dwOptions, "ptr", pStm, "HRESULT")
+    result := DllCall("MFPlat.dll\MFSerializeAttributesToStream", "ptr", pAttr, UInt32, dwOptions, "ptr", pStm, "HRESULT")
     return result
 }
 
@@ -417,7 +419,7 @@ export MFSerializeAttributesToStream(pAttr, dwOptions, pStm) {
  * @since windows6.0.6000
  */
 export MFDeserializeAttributesFromStream(pAttr, dwOptions, pStm) {
-    result := DllCall("MFPlat.dll\MFDeserializeAttributesFromStream", "ptr", pAttr, "uint", dwOptions, "ptr", pStm, "HRESULT")
+    result := DllCall("MFPlat.dll\MFDeserializeAttributesFromStream", "ptr", pAttr, UInt32, dwOptions, "ptr", pStm, "HRESULT")
     return result
 }
 
@@ -615,7 +617,7 @@ export MFCreateMediaSession(pConfiguration) {
  * @since windows6.0.6000
  */
 export MFCreatePMPMediaSession(dwCreationFlags, pConfiguration, ppMediaSession, ppEnablerActivate) {
-    result := DllCall("MF.dll\MFCreatePMPMediaSession", "uint", dwCreationFlags, "ptr", pConfiguration, IMFMediaSession.Ptr, ppMediaSession, IMFActivate.Ptr, ppEnablerActivate, "HRESULT")
+    result := DllCall("MF.dll\MFCreatePMPMediaSession", UInt32, dwCreationFlags, "ptr", pConfiguration, IMFMediaSession.Ptr, ppMediaSession, IMFActivate.Ptr, ppEnablerActivate, "HRESULT")
     return result
 }
 
@@ -761,7 +763,7 @@ export MFCreateTopologyNode(NodeType) {
  * @since windows6.1
  */
 export MFGetTopoNodeCurrentType(pNode, dwStreamIndex, fOutput) {
-    result := DllCall("MF.dll\MFGetTopoNodeCurrentType", "ptr", pNode, "uint", dwStreamIndex, BOOL, fOutput, "ptr*", &ppType := 0, "HRESULT")
+    result := DllCall("MF.dll\MFGetTopoNodeCurrentType", "ptr", pNode, UInt32, dwStreamIndex, BOOL, fOutput, "ptr*", &ppType := 0, "HRESULT")
     return IMFMediaType(ppType)
 }
 
@@ -835,7 +837,7 @@ export MFCreateSystemTimeSource() {
  * @since windows6.0.6000
  */
 export MFCreatePresentationDescriptor(cStreamDescriptors, apStreamDescriptors) {
-    result := DllCall("MFPlat.dll\MFCreatePresentationDescriptor", "uint", cStreamDescriptors, IMFStreamDescriptor.Ptr, apStreamDescriptors, "ptr*", &ppPresentationDescriptor := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreatePresentationDescriptor", UInt32, cStreamDescriptors, IMFStreamDescriptor.Ptr, apStreamDescriptors, "ptr*", &ppPresentationDescriptor := 0, "HRESULT")
     return IMFPresentationDescriptor(ppPresentationDescriptor)
 }
 
@@ -934,7 +936,7 @@ export MFSerializePresentationDescriptor(pPD, pcbData, ppbData) {
 export MFDeserializePresentationDescriptor(cbData, pbData) {
     pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFDeserializePresentationDescriptor", "uint", cbData, pbDataMarshal, pbData, "ptr*", &ppPD := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFDeserializePresentationDescriptor", UInt32, cbData, pbDataMarshal, pbData, "ptr*", &ppPD := 0, "HRESULT")
     return IMFPresentationDescriptor(ppPD)
 }
 
@@ -958,7 +960,7 @@ export MFDeserializePresentationDescriptor(cbData, pbData) {
  * @since windows6.0.6000
  */
 export MFCreateStreamDescriptor(dwStreamIdentifier, cMediaTypes, apMediaTypes) {
-    result := DllCall("MFPlat.dll\MFCreateStreamDescriptor", "uint", dwStreamIdentifier, "uint", cMediaTypes, IMFMediaType.Ptr, apMediaTypes, "ptr*", &ppDescriptor := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateStreamDescriptor", UInt32, dwStreamIdentifier, UInt32, cMediaTypes, IMFMediaType.Ptr, apMediaTypes, "ptr*", &ppDescriptor := 0, "HRESULT")
     return IMFStreamDescriptor(ppDescriptor)
 }
 
@@ -1473,7 +1475,7 @@ export MFCreateSequencerSource(pReserved) {
  * @since windows6.0.6000
  */
 export MFCreateSequencerSegmentOffset(dwId, hnsOffset, pvarSegmentOffset) {
-    result := DllCall("MF.dll\MFCreateSequencerSegmentOffset", "uint", dwId, "int64", hnsOffset, PROPVARIANT.Ptr, pvarSegmentOffset, "HRESULT")
+    result := DllCall("MF.dll\MFCreateSequencerSegmentOffset", UInt32, dwId, Int64, hnsOffset, PROPVARIANT.Ptr, pvarSegmentOffset, "HRESULT")
     return result
 }
 
@@ -1561,7 +1563,7 @@ export MFCreateNetSchemePlugin(riid, ppvHandler) {
  * @since windows6.0.6000
  */
 export MFCreatePMPServer(dwCreationFlags) {
-    result := DllCall("MF.dll\MFCreatePMPServer", "uint", dwCreationFlags, "ptr*", &ppPMPServer := 0, "HRESULT")
+    result := DllCall("MF.dll\MFCreatePMPServer", UInt32, dwCreationFlags, "ptr*", &ppPMPServer := 0, "HRESULT")
     return IMFPMPServer(ppPMPServer)
 }
 
@@ -1749,7 +1751,7 @@ export MFCreateTranscodeTopologyFromByteStream(pSrc, pOutputStream, pProfile) {
  * @since windows6.1
  */
 export MFTranscodeGetAudioOutputAvailableTypes(guidSubType, dwMFTFlags, pCodecConfig) {
-    result := DllCall("MF.dll\MFTranscodeGetAudioOutputAvailableTypes", Guid.Ptr, guidSubType, "uint", dwMFTFlags, "ptr", pCodecConfig, "ptr*", &ppAvailableTypes := 0, "HRESULT")
+    result := DllCall("MF.dll\MFTranscodeGetAudioOutputAvailableTypes", Guid.Ptr, guidSubType, UInt32, dwMFTFlags, "ptr", pCodecConfig, "ptr*", &ppAvailableTypes := 0, "HRESULT")
     return IMFCollection(ppAvailableTypes)
 }
 
@@ -2164,7 +2166,7 @@ export MFGetSystemId() {
  * @since windows8.0
  */
 export MFGetLocalId(verifier, _size) {
-    result := DllCall("MF.dll\MFGetLocalId", "ptr", verifier, "uint", _size, PWSTR.Ptr, &id := 0, "HRESULT")
+    result := DllCall("MF.dll\MFGetLocalId", IntPtr, verifier, UInt32, _size, PWSTR.Ptr, &id := 0, "HRESULT")
     return id
 }
 
@@ -2235,7 +2237,7 @@ export MFCreateSensorGroup(SensorGroupSymbolicLink) {
  * @since windows10.0.15063
  */
 export MFCreateSensorStream(StreamId, pAttributes, pMediaTypeCollection) {
-    result := DllCall("MFSENSORGROUP.dll\MFCreateSensorStream", "uint", StreamId, "ptr", pAttributes, "ptr", pMediaTypeCollection, "ptr*", &ppStream := 0, "HRESULT")
+    result := DllCall("MFSENSORGROUP.dll\MFCreateSensorStream", UInt32, StreamId, "ptr", pAttributes, "ptr", pMediaTypeCollection, "ptr*", &ppStream := 0, "HRESULT")
     return IMFSensorStream(ppStream)
 }
 
@@ -2251,7 +2253,7 @@ export MFCreateSensorStream(StreamId, pAttributes, pMediaTypeCollection) {
 export MFCreateSensorProfile(ProfileType, ProfileIndex, Constraints) {
     Constraints := Constraints is String ? StrPtr(Constraints) : Constraints
 
-    result := DllCall("MFSENSORGROUP.dll\MFCreateSensorProfile", Guid.Ptr, ProfileType, "uint", ProfileIndex, "ptr", Constraints, "ptr*", &ppProfile := 0, "HRESULT")
+    result := DllCall("MFSENSORGROUP.dll\MFCreateSensorProfile", Guid.Ptr, ProfileType, UInt32, ProfileIndex, "ptr", Constraints, "ptr*", &ppProfile := 0, "HRESULT")
     return IMFSensorProfile(ppProfile)
 }
 
@@ -2373,7 +2375,7 @@ export MFCreateASFIndexer() {
  * @since windows6.0.6000
  */
 export MFCreateASFIndexerByteStream(pIContentByteStream, cbIndexStartOffset) {
-    result := DllCall("MF.dll\MFCreateASFIndexerByteStream", "ptr", pIContentByteStream, "uint", cbIndexStartOffset, "ptr*", &pIIndexByteStream := 0, "HRESULT")
+    result := DllCall("MF.dll\MFCreateASFIndexerByteStream", "ptr", pIContentByteStream, Int64, cbIndexStartOffset, "ptr*", &pIIndexByteStream := 0, "HRESULT")
     return IMFByteStream(pIIndexByteStream)
 }
 
@@ -2669,7 +2671,7 @@ export MFCreateD3D12SynchronizationObject(pDevice, riid) {
  * @since windows6.0.6000
  */
 export MFStartup(_Version, dwFlags) {
-    result := DllCall("MFPlat.dll\MFStartup", "uint", _Version, "uint", dwFlags, "HRESULT")
+    result := DllCall("MFPlat.dll\MFStartup", UInt32, _Version, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -2828,7 +2830,7 @@ export MFUnlockPlatform() {
  * @since windows6.0.6000
  */
 export MFPutWorkItem(dwQueue, pCallback, pState) {
-    result := DllCall("MFPlat.dll\MFPutWorkItem", "uint", dwQueue, "ptr", pCallback, "ptr", pState, "HRESULT")
+    result := DllCall("MFPlat.dll\MFPutWorkItem", UInt32, dwQueue, "ptr", pCallback, "ptr", pState, "HRESULT")
     return result
 }
 
@@ -2883,7 +2885,7 @@ export MFPutWorkItem(dwQueue, pCallback, pState) {
  * @since windows8.0
  */
 export MFPutWorkItem2(dwQueue, _Priority, pCallback, pState) {
-    result := DllCall("MFPlat.dll\MFPutWorkItem2", "uint", dwQueue, "int", _Priority, "ptr", pCallback, "ptr", pState, "HRESULT")
+    result := DllCall("MFPlat.dll\MFPutWorkItem2", UInt32, dwQueue, Int32, _Priority, "ptr", pCallback, "ptr", pState, "HRESULT")
     return result
 }
 
@@ -2946,7 +2948,7 @@ export MFPutWorkItem2(dwQueue, _Priority, pCallback, pState) {
  * @since windows6.0.6000
  */
 export MFPutWorkItemEx(dwQueue, pResult) {
-    result := DllCall("MFPlat.dll\MFPutWorkItemEx", "uint", dwQueue, "ptr", pResult, "HRESULT")
+    result := DllCall("MFPlat.dll\MFPutWorkItemEx", UInt32, dwQueue, "ptr", pResult, "HRESULT")
     return result
 }
 
@@ -3002,7 +3004,7 @@ export MFPutWorkItemEx(dwQueue, pResult) {
  * @since windows8.0
  */
 export MFPutWorkItemEx2(dwQueue, _Priority, pResult) {
-    result := DllCall("MFPlat.dll\MFPutWorkItemEx2", "uint", dwQueue, "int", _Priority, "ptr", pResult, "HRESULT")
+    result := DllCall("MFPlat.dll\MFPutWorkItemEx2", UInt32, dwQueue, Int32, _Priority, "ptr", pResult, "HRESULT")
     return result
 }
 
@@ -3032,7 +3034,7 @@ export MFPutWorkItemEx2(dwQueue, _Priority, pResult) {
  * @since windows8.0
  */
 export MFPutWaitingWorkItem(hEvent, _Priority, pResult) {
-    result := DllCall("MFPlat.dll\MFPutWaitingWorkItem", HANDLE, hEvent, "int", _Priority, "ptr", pResult, "uint*", &pKey := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFPutWaitingWorkItem", HANDLE, hEvent, Int32, _Priority, "ptr", pResult, "uint*", &pKey := 0, "HRESULT")
     return pKey
 }
 
@@ -3081,7 +3083,7 @@ export MFPutWaitingWorkItem(hEvent, _Priority, pResult) {
  * @since windows8.0
  */
 export MFAllocateSerialWorkQueue(dwWorkQueue) {
-    result := DllCall("MFPlat.dll\MFAllocateSerialWorkQueue", "uint", dwWorkQueue, "uint*", &pdwWorkQueue := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFAllocateSerialWorkQueue", UInt32, dwWorkQueue, "uint*", &pdwWorkQueue := 0, "HRESULT")
     return pdwWorkQueue
 }
 
@@ -3096,7 +3098,7 @@ export MFAllocateSerialWorkQueue(dwWorkQueue) {
  * @since windows6.0.6000
  */
 export MFScheduleWorkItemEx(pResult, Timeout) {
-    result := DllCall("MFPlat.dll\MFScheduleWorkItemEx", "ptr", pResult, "int64", Timeout, "uint*", &pKey := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFScheduleWorkItemEx", "ptr", pResult, Int64, Timeout, "uint*", &pKey := 0, "HRESULT")
     return pKey
 }
 
@@ -3119,7 +3121,7 @@ export MFScheduleWorkItemEx(pResult, Timeout) {
  * @since windows6.0.6000
  */
 export MFScheduleWorkItem(pCallback, pState, Timeout) {
-    result := DllCall("MFPlat.dll\MFScheduleWorkItem", "ptr", pCallback, "ptr", pState, "int64", Timeout, "uint*", &pKey := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFScheduleWorkItem", "ptr", pCallback, "ptr", pState, Int64, Timeout, "uint*", &pKey := 0, "HRESULT")
     return pKey
 }
 
@@ -3140,7 +3142,7 @@ export MFScheduleWorkItem(pCallback, pState, Timeout) {
  * @since windows6.0.6000
  */
 export MFCancelWorkItem(Key) {
-    result := DllCall("MFPlat.dll\MFCancelWorkItem", "uint", Key, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCancelWorkItem", Int64, Key, "HRESULT")
     return result
 }
 
@@ -3166,7 +3168,7 @@ export MFGetTimerPeriodicity() {
  * @since windows6.0.6000
  */
 export MFAddPeriodicCallback(Callback, pContext) {
-    result := DllCall("MFPlat.dll\MFAddPeriodicCallback", "ptr", Callback, "ptr", pContext, "uint*", &pdwKey := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFAddPeriodicCallback", MFPERIODICCALLBACK, Callback, "ptr", pContext, "uint*", &pdwKey := 0, "HRESULT")
     return pdwKey
 }
 
@@ -3198,7 +3200,7 @@ export MFAddPeriodicCallback(Callback, pContext) {
  * @since windows6.0.6000
  */
 export MFRemovePeriodicCallback(dwKey) {
-    result := DllCall("MFPlat.dll\MFRemovePeriodicCallback", "uint", dwKey, "HRESULT")
+    result := DllCall("MFPlat.dll\MFRemovePeriodicCallback", UInt32, dwKey, "HRESULT")
     return result
 }
 
@@ -3286,7 +3288,7 @@ export MFAllocateWorkQueue() {
  * @since windows6.0.6000
  */
 export MFLockWorkQueue(dwWorkQueue) {
-    result := DllCall("MFPlat.dll\MFLockWorkQueue", "uint", dwWorkQueue, "HRESULT")
+    result := DllCall("MFPlat.dll\MFLockWorkQueue", UInt32, dwWorkQueue, "HRESULT")
     return result
 }
 
@@ -3318,7 +3320,7 @@ export MFLockWorkQueue(dwWorkQueue) {
  * @since windows6.0.6000
  */
 export MFUnlockWorkQueue(dwWorkQueue) {
-    result := DllCall("MFPlat.dll\MFUnlockWorkQueue", "uint", dwWorkQueue, "HRESULT")
+    result := DllCall("MFPlat.dll\MFUnlockWorkQueue", UInt32, dwWorkQueue, "HRESULT")
     return result
 }
 
@@ -3358,7 +3360,7 @@ export MFUnlockWorkQueue(dwWorkQueue) {
 export MFBeginRegisterWorkQueueWithMMCSS(dwWorkQueueId, wszClass, dwTaskId, pDoneCallback, pDoneState) {
     wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-    result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSS", "uint", dwWorkQueueId, "ptr", wszClass, "uint", dwTaskId, "ptr", pDoneCallback, "ptr", pDoneState, "HRESULT")
+    result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSS", UInt32, dwWorkQueueId, "ptr", wszClass, UInt32, dwTaskId, "ptr", pDoneCallback, "ptr", pDoneState, "HRESULT")
     return result
 }
 
@@ -3384,7 +3386,7 @@ export MFBeginRegisterWorkQueueWithMMCSS(dwWorkQueueId, wszClass, dwTaskId, pDon
 export MFBeginRegisterWorkQueueWithMMCSSEx(dwWorkQueueId, wszClass, dwTaskId, lPriority, pDoneCallback, pDoneState) {
     wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-    result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSSEx", "uint", dwWorkQueueId, "ptr", wszClass, "uint", dwTaskId, "int", lPriority, "ptr", pDoneCallback, "ptr", pDoneState, "HRESULT")
+    result := DllCall("MFPlat.dll\MFBeginRegisterWorkQueueWithMMCSSEx", UInt32, dwWorkQueueId, "ptr", wszClass, UInt32, dwTaskId, Int32, lPriority, "ptr", pDoneCallback, "ptr", pDoneState, "HRESULT")
     return result
 }
 
@@ -3436,7 +3438,7 @@ export MFEndRegisterWorkQueueWithMMCSS(pResult) {
  * @since windows6.0.6000
  */
 export MFBeginUnregisterWorkQueueWithMMCSS(dwWorkQueueId, pDoneCallback, pDoneState) {
-    result := DllCall("MFPlat.dll\MFBeginUnregisterWorkQueueWithMMCSS", "uint", dwWorkQueueId, "ptr", pDoneCallback, "ptr", pDoneState, "HRESULT")
+    result := DllCall("MFPlat.dll\MFBeginUnregisterWorkQueueWithMMCSS", UInt32, dwWorkQueueId, "ptr", pDoneCallback, "ptr", pDoneState, "HRESULT")
     return result
 }
 
@@ -3519,7 +3521,7 @@ export MFGetWorkQueueMMCSSClass(dwWorkQueueId, pwszClass, pcchClass) {
 
     pcchClassMarshal := pcchClass is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSClass", "uint", dwWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
+    result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSClass", UInt32, dwWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
     return result
 }
 
@@ -3533,7 +3535,7 @@ export MFGetWorkQueueMMCSSClass(dwWorkQueueId, pwszClass, pcchClass) {
  * @since windows6.0.6000
  */
 export MFGetWorkQueueMMCSSTaskId(dwWorkQueueId) {
-    result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSTaskId", "uint", dwWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSTaskId", UInt32, dwWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
     return pdwTaskId
 }
 
@@ -3553,7 +3555,7 @@ export MFRegisterPlatformWithMMCSS(wszClass, pdwTaskId, lPriority) {
 
     pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFRegisterPlatformWithMMCSS", "ptr", wszClass, pdwTaskIdMarshal, pdwTaskId, "int", lPriority, "HRESULT")
+    result := DllCall("MFPlat.dll\MFRegisterPlatformWithMMCSS", "ptr", wszClass, pdwTaskIdMarshal, pdwTaskId, Int32, lPriority, "HRESULT")
     return result
 }
 
@@ -3606,7 +3608,7 @@ export MFLockSharedWorkQueue(wszClass, BasePriority, pdwTaskId) {
 
     pdwTaskIdMarshal := pdwTaskId is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFLockSharedWorkQueue", "ptr", wszClass, "int", BasePriority, pdwTaskIdMarshal, pdwTaskId, "uint*", &pID := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFLockSharedWorkQueue", "ptr", wszClass, Int32, BasePriority, pdwTaskIdMarshal, pdwTaskId, "uint*", &pID := 0, "HRESULT")
     return pID
 }
 
@@ -3620,7 +3622,7 @@ export MFLockSharedWorkQueue(wszClass, BasePriority, pdwTaskId) {
  * @since windows8.0
  */
 export MFGetWorkQueueMMCSSPriority(dwWorkQueueId) {
-    result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSPriority", "uint", dwWorkQueueId, "int*", &lPriority := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFGetWorkQueueMMCSSPriority", UInt32, dwWorkQueueId, "int*", &lPriority := 0, "HRESULT")
     return lPriority
 }
 
@@ -3833,7 +3835,7 @@ export MFCancelCreateFile(pCancelCookie) {
  * @since windows6.0.6000
  */
 export MFCreateMemoryBuffer(cbMaxLength) {
-    result := DllCall("MFPlat.dll\MFCreateMemoryBuffer", "uint", cbMaxLength, "ptr*", &ppBuffer := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateMemoryBuffer", UInt32, cbMaxLength, "ptr*", &ppBuffer := 0, "HRESULT")
     return IMFMediaBuffer(ppBuffer)
 }
 
@@ -3856,7 +3858,7 @@ export MFCreateMemoryBuffer(cbMaxLength) {
  * @since windows6.0.6000
  */
 export MFCreateMediaBufferWrapper(pBuffer, cbOffset, dwLength) {
-    result := DllCall("MFPlat.dll\MFCreateMediaBufferWrapper", "ptr", pBuffer, "uint", cbOffset, "uint", dwLength, "ptr*", &ppBuffer := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateMediaBufferWrapper", "ptr", pBuffer, UInt32, cbOffset, UInt32, dwLength, "ptr*", &ppBuffer := 0, "HRESULT")
     return IMFMediaBuffer(ppBuffer)
 }
 
@@ -3874,7 +3876,7 @@ export MFCreateMediaBufferWrapper(pBuffer, cbOffset, dwLength) {
  * @since windows6.0.6000
  */
 export MFCreateLegacyMediaBufferOnMFMediaBuffer(pSample, pMFMediaBuffer, cbOffset) {
-    result := DllCall("MFPlat.dll\MFCreateLegacyMediaBufferOnMFMediaBuffer", "ptr", pSample, "ptr", pMFMediaBuffer, "uint", cbOffset, "ptr*", &ppMediaBuffer := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateLegacyMediaBufferOnMFMediaBuffer", "ptr", pSample, "ptr", pMFMediaBuffer, UInt32, cbOffset, "ptr*", &ppMediaBuffer := 0, "HRESULT")
     return IMediaBuffer(ppMediaBuffer)
 }
 
@@ -3886,7 +3888,7 @@ export MFCreateLegacyMediaBufferOnMFMediaBuffer(pSample, pMFMediaBuffer, cbOffse
  * @since windows8.0
  */
 export MFMapDX9FormatToDXGIFormat(dx9) {
-    result := DllCall("MFPlat.dll\MFMapDX9FormatToDXGIFormat", "uint", dx9, DXGI_FORMAT)
+    result := DllCall("MFPlat.dll\MFMapDX9FormatToDXGIFormat", UInt32, dx9, DXGI_FORMAT)
     return result
 }
 
@@ -4007,7 +4009,7 @@ export MFCreateWICBitmapBuffer(riid, punkSurface) {
  * @since windows8.0
  */
 export MFCreateDXGISurfaceBuffer(riid, punkSurface, uSubresourceIndex, fBottomUpWhenLinear) {
-    result := DllCall("MFPlat.dll\MFCreateDXGISurfaceBuffer", Guid.Ptr, riid, "ptr", punkSurface, "uint", uSubresourceIndex, BOOL, fBottomUpWhenLinear, "ptr*", &ppBuffer := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateDXGISurfaceBuffer", Guid.Ptr, riid, "ptr", punkSurface, UInt32, uSubresourceIndex, BOOL, fBottomUpWhenLinear, "ptr*", &ppBuffer := 0, "HRESULT")
     return IMFMediaBuffer(ppBuffer)
 }
 
@@ -4020,7 +4022,7 @@ export MFCreateDXGISurfaceBuffer(riid, punkSurface, uSubresourceIndex, fBottomUp
  * @returns {IMFMediaBuffer} 
  */
 export MFCreateDXGICrossAdapterBuffer(riid, punkDevice, pMediaType, uSubresource) {
-    result := DllCall("MFPlat.DLL\MFCreateDXGICrossAdapterBuffer", Guid.Ptr, riid, "ptr", punkDevice, "ptr", pMediaType, "uint", uSubresource, "ptr*", &ppBuffer := 0, "HRESULT")
+    result := DllCall("MFPlat.DLL\MFCreateDXGICrossAdapterBuffer", Guid.Ptr, riid, "ptr", punkDevice, "ptr", pMediaType, UInt32, uSubresource, "ptr*", &ppBuffer := 0, "HRESULT")
     return IMFMediaBuffer(ppBuffer)
 }
 
@@ -4204,7 +4206,7 @@ export MFGetDXGIDeviceManageMode(pDeviceManager) {
  * @since windows6.0.6000
  */
 export MFCreateAlignedMemoryBuffer(cbMaxLength, cbAligment) {
-    result := DllCall("MFPlat.dll\MFCreateAlignedMemoryBuffer", "uint", cbMaxLength, "uint", cbAligment, "ptr*", &ppBuffer := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateAlignedMemoryBuffer", UInt32, cbMaxLength, UInt32, cbAligment, "ptr*", &ppBuffer := 0, "HRESULT")
     return IMFMediaBuffer(ppBuffer)
 }
 
@@ -4226,7 +4228,7 @@ export MFCreateAlignedMemoryBuffer(cbMaxLength, cbAligment) {
  * @since windows6.0.6000
  */
 export MFCreateMediaEvent(met, guidExtendedType, hrStatus, pvValue) {
-    result := DllCall("MFPlat.dll\MFCreateMediaEvent", "uint", met, Guid.Ptr, guidExtendedType, "int", hrStatus, PROPVARIANT.Ptr, pvValue, "ptr*", &ppEvent := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateMediaEvent", UInt32, met, Guid.Ptr, guidExtendedType, "int", hrStatus, PROPVARIANT.Ptr, pvValue, "ptr*", &ppEvent := 0, "HRESULT")
     return IMFMediaEvent(ppEvent)
 }
 
@@ -4282,7 +4284,7 @@ export MFCreateSample() {
  * @since windows6.0.6000
  */
 export MFCreateAttributes(cInitialSize) {
-    result := DllCall("MFPlat.dll\MFCreateAttributes", "ptr*", &ppMFAttributes := 0, "uint", cInitialSize, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateAttributes", "ptr*", &ppMFAttributes := 0, UInt32, cInitialSize, "HRESULT")
     return IMFAttributes(ppMFAttributes)
 }
 
@@ -4329,7 +4331,7 @@ export MFCreateAttributes(cInitialSize) {
  * @since windows6.0.6000
  */
 export MFInitAttributesFromBlob(pAttributes, pBuf, cbBufSize) {
-    result := DllCall("MFPlat.dll\MFInitAttributesFromBlob", "ptr", pAttributes, "ptr", pBuf, "uint", cbBufSize, "HRESULT")
+    result := DllCall("MFPlat.dll\MFInitAttributesFromBlob", "ptr", pAttributes, IntPtr, pBuf, UInt32, cbBufSize, "HRESULT")
     return result
 }
 
@@ -4392,7 +4394,7 @@ export MFGetAttributesAsBlobSize(pAttributes) {
  * @since windows6.0.6000
  */
 export MFGetAttributesAsBlob(pAttributes, pBuf, cbBufSize) {
-    result := DllCall("MFPlat.dll\MFGetAttributesAsBlob", "ptr", pAttributes, "ptr", pBuf, "uint", cbBufSize, "HRESULT")
+    result := DllCall("MFPlat.dll\MFGetAttributesAsBlob", "ptr", pAttributes, IntPtr, pBuf, UInt32, cbBufSize, "HRESULT")
     return result
 }
 
@@ -4552,7 +4554,7 @@ export MFGetAttributesAsBlob(pAttributes, pBuf, cbBufSize) {
 export MFTRegister(clsidMFT, guidCategory, pszName, Flags, cInputTypes, pInputTypes, cOutputTypes, pOutputTypes, pAttributes) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    result := DllCall("MFPlat.dll\MFTRegister", Guid, clsidMFT, Guid, guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pInputTypes, "uint", cOutputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pOutputTypes, "ptr", pAttributes, "HRESULT")
+    result := DllCall("MFPlat.dll\MFTRegister", Guid, clsidMFT, Guid, guidCategory, "ptr", pszName, UInt32, Flags, UInt32, cInputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pInputTypes, UInt32, cOutputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pOutputTypes, "ptr", pAttributes, "HRESULT")
     return result
 }
 
@@ -4601,7 +4603,7 @@ export MFTUnregister(clsidMFT) {
 export MFTRegisterLocal(pClassFactory, guidCategory, pszName, Flags, cInputTypes, pInputTypes, cOutputTypes, pOutputTypes) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    result := DllCall("MFPlat.dll\MFTRegisterLocal", "ptr", pClassFactory, Guid.Ptr, guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pInputTypes, "uint", cOutputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pOutputTypes, "HRESULT")
+    result := DllCall("MFPlat.dll\MFTRegisterLocal", "ptr", pClassFactory, Guid.Ptr, guidCategory, "ptr", pszName, UInt32, Flags, UInt32, cInputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pInputTypes, UInt32, cOutputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pOutputTypes, "HRESULT")
     return result
 }
 
@@ -4675,7 +4677,7 @@ export MFTUnregisterLocal(pClassFactory) {
 export MFTRegisterLocalByCLSID(clisdMFT, guidCategory, pszName, Flags, cInputTypes, pInputTypes, cOutputTypes, pOutputTypes) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    result := DllCall("MFPlat.dll\MFTRegisterLocalByCLSID", Guid.Ptr, clisdMFT, Guid.Ptr, guidCategory, "ptr", pszName, "uint", Flags, "uint", cInputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pInputTypes, "uint", cOutputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pOutputTypes, "HRESULT")
+    result := DllCall("MFPlat.dll\MFTRegisterLocalByCLSID", Guid.Ptr, clisdMFT, Guid.Ptr, guidCategory, "ptr", pszName, UInt32, Flags, UInt32, cInputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pInputTypes, UInt32, cOutputTypes, MFT_REGISTER_TYPE_INFO.Ptr, pOutputTypes, "HRESULT")
     return result
 }
 
@@ -4754,7 +4756,7 @@ export MFTEnum(guidCategory, Flags, pInputType, pOutputType, pAttributes, ppclsi
     ppclsidMFTMarshal := ppclsidMFT is VarRef ? "ptr*" : "ptr"
     pcMFTsMarshal := pcMFTs is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFTEnum", Guid, guidCategory, "uint", Flags, MFT_REGISTER_TYPE_INFO.Ptr, pInputType, MFT_REGISTER_TYPE_INFO.Ptr, pOutputType, "ptr", pAttributes, ppclsidMFTMarshal, ppclsidMFT, pcMFTsMarshal, pcMFTs, "HRESULT")
+    result := DllCall("MFPlat.dll\MFTEnum", Guid, guidCategory, UInt32, Flags, MFT_REGISTER_TYPE_INFO.Ptr, pInputType, MFT_REGISTER_TYPE_INFO.Ptr, pOutputType, "ptr", pAttributes, ppclsidMFTMarshal, ppclsidMFT, pcMFTsMarshal, pcMFTs, "HRESULT")
     return result
 }
 
@@ -4948,7 +4950,7 @@ export MFTEnumEx(guidCategory, Flags, pInputType, pOutputType, pppMFTActivate, p
     pppMFTActivateMarshal := pppMFTActivate is VarRef ? "ptr*" : "ptr"
     pnumMFTActivateMarshal := pnumMFTActivate is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFTEnumEx", Guid, guidCategory, "uint", Flags, MFT_REGISTER_TYPE_INFO.Ptr, pInputType, MFT_REGISTER_TYPE_INFO.Ptr, pOutputType, pppMFTActivateMarshal, pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "HRESULT")
+    result := DllCall("MFPlat.dll\MFTEnumEx", Guid, guidCategory, UInt32, Flags, MFT_REGISTER_TYPE_INFO.Ptr, pInputType, MFT_REGISTER_TYPE_INFO.Ptr, pOutputType, pppMFTActivateMarshal, pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "HRESULT")
     return result
 }
 
@@ -5163,7 +5165,7 @@ export MFTEnum2(guidCategory, Flags, pInputType, pOutputType, pAttributes, pppMF
     pppMFTActivateMarshal := pppMFTActivate is VarRef ? "ptr*" : "ptr"
     pnumMFTActivateMarshal := pnumMFTActivate is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFTEnum2", Guid, guidCategory, "uint", Flags, MFT_REGISTER_TYPE_INFO.Ptr, pInputType, MFT_REGISTER_TYPE_INFO.Ptr, pOutputType, "ptr", pAttributes, pppMFTActivateMarshal, pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "HRESULT")
+    result := DllCall("MFPlat.dll\MFTEnum2", Guid, guidCategory, UInt32, Flags, MFT_REGISTER_TYPE_INFO.Ptr, pInputType, MFT_REGISTER_TYPE_INFO.Ptr, pOutputType, "ptr", pAttributes, pppMFTActivateMarshal, pppMFTActivate, pnumMFTActivateMarshal, pnumMFTActivate, "HRESULT")
     return result
 }
 
@@ -5221,7 +5223,7 @@ export MFGetPluginControl() {
  * @since windows6.1
  */
 export MFGetMFTMerit(pMFT, cbVerifier, verifier) {
-    result := DllCall("MFPlat.dll\MFGetMFTMerit", "ptr", pMFT, "uint", cbVerifier, "ptr", verifier, "uint*", &merit := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFGetMFTMerit", "ptr", pMFT, UInt32, cbVerifier, IntPtr, verifier, "uint*", &merit := 0, "HRESULT")
     return merit
 }
 
@@ -5420,7 +5422,7 @@ export MFCreateMuxStreamSample(pSamplesToMux) {
  * @since windows6.0.6000
  */
 export MFValidateMediaTypeSize(FormatType, pBlock, cbSize) {
-    result := DllCall("MFPlat.dll\MFValidateMediaTypeSize", Guid, FormatType, "ptr", pBlock, "uint", cbSize, "HRESULT")
+    result := DllCall("MFPlat.dll\MFValidateMediaTypeSize", Guid, FormatType, IntPtr, pBlock, UInt32, cbSize, "HRESULT")
     return result
 }
 
@@ -5488,7 +5490,7 @@ export MFCreateWaveFormatExFromMFMediaType(pMFType, ppWF, pcbSize, Flags) {
     ppWFMarshal := ppWF is VarRef ? "ptr*" : "ptr"
     pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFCreateWaveFormatExFromMFMediaType", "ptr", pMFType, ppWFMarshal, ppWF, pcbSizeMarshal, pcbSize, "uint", Flags, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateWaveFormatExFromMFMediaType", "ptr", pMFType, ppWFMarshal, ppWF, pcbSizeMarshal, pcbSize, UInt32, Flags, "HRESULT")
     return result
 }
 
@@ -5510,7 +5512,7 @@ export MFCreateWaveFormatExFromMFMediaType(pMFType, ppWF, pcbSize, Flags) {
  * @since windows6.0.6000
  */
 export MFInitMediaTypeFromVideoInfoHeader(pMFType, pVIH, cbBufSize, pSubtype) {
-    result := DllCall("MFPlat.dll\MFInitMediaTypeFromVideoInfoHeader", "ptr", pMFType, "ptr", pVIH, "uint", cbBufSize, Guid.Ptr, pSubtype, "HRESULT")
+    result := DllCall("MFPlat.dll\MFInitMediaTypeFromVideoInfoHeader", "ptr", pMFType, IntPtr, pVIH, UInt32, cbBufSize, Guid.Ptr, pSubtype, "HRESULT")
     return result
 }
 
@@ -5543,7 +5545,7 @@ export MFInitMediaTypeFromVideoInfoHeader(pMFType, pVIH, cbBufSize, pSubtype) {
  * @since windows6.0.6000
  */
 export MFInitMediaTypeFromVideoInfoHeader2(pMFType, pVIH2, cbBufSize, pSubtype) {
-    result := DllCall("MFPlat.dll\MFInitMediaTypeFromVideoInfoHeader2", "ptr", pMFType, "ptr", pVIH2, "uint", cbBufSize, Guid.Ptr, pSubtype, "HRESULT")
+    result := DllCall("MFPlat.dll\MFInitMediaTypeFromVideoInfoHeader2", "ptr", pMFType, IntPtr, pVIH2, UInt32, cbBufSize, Guid.Ptr, pSubtype, "HRESULT")
     return result
 }
 
@@ -5576,7 +5578,7 @@ export MFInitMediaTypeFromVideoInfoHeader2(pMFType, pVIH2, cbBufSize, pSubtype) 
  * @since windows6.0.6000
  */
 export MFInitMediaTypeFromMPEG1VideoInfo(pMFType, pMP1VI, cbBufSize, pSubtype) {
-    result := DllCall("MFPlat.dll\MFInitMediaTypeFromMPEG1VideoInfo", "ptr", pMFType, "ptr", pMP1VI, "uint", cbBufSize, Guid.Ptr, pSubtype, "HRESULT")
+    result := DllCall("MFPlat.dll\MFInitMediaTypeFromMPEG1VideoInfo", "ptr", pMFType, IntPtr, pMP1VI, UInt32, cbBufSize, Guid.Ptr, pSubtype, "HRESULT")
     return result
 }
 
@@ -5609,7 +5611,7 @@ export MFInitMediaTypeFromMPEG1VideoInfo(pMFType, pMP1VI, cbBufSize, pSubtype) {
  * @since windows6.0.6000
  */
 export MFInitMediaTypeFromMPEG2VideoInfo(pMFType, pMP2VI, cbBufSize, pSubtype) {
-    result := DllCall("MFPlat.dll\MFInitMediaTypeFromMPEG2VideoInfo", "ptr", pMFType, "ptr", pMP2VI, "uint", cbBufSize, Guid.Ptr, pSubtype, "HRESULT")
+    result := DllCall("MFPlat.dll\MFInitMediaTypeFromMPEG2VideoInfo", "ptr", pMFType, IntPtr, pMP2VI, UInt32, cbBufSize, Guid.Ptr, pSubtype, "HRESULT")
     return result
 }
 
@@ -5678,7 +5680,7 @@ export MFCalculateBitmapImageSize(pBMIH, cbBufSize, pcbImageSize, pbKnown) {
     pcbImageSizeMarshal := pcbImageSize is VarRef ? "uint*" : "ptr"
     pbKnownMarshal := pbKnown is VarRef ? "int*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFCalculateBitmapImageSize", "ptr", pBMIH, "uint", cbBufSize, pcbImageSizeMarshal, pcbImageSize, pbKnownMarshal, pbKnown, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCalculateBitmapImageSize", IntPtr, pBMIH, UInt32, cbBufSize, pcbImageSizeMarshal, pcbImageSize, pbKnownMarshal, pbKnown, "HRESULT")
     return result
 }
 
@@ -5692,7 +5694,7 @@ export MFCalculateBitmapImageSize(pBMIH, cbBufSize, pcbImageSize, pbKnown) {
  * @since windows6.0.6000
  */
 export MFCalculateImageSize(guidSubtype, unWidth, unHeight) {
-    result := DllCall("MFPlat.dll\MFCalculateImageSize", Guid.Ptr, guidSubtype, "uint", unWidth, "uint", unHeight, "uint*", &pcbImageSize := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCalculateImageSize", Guid.Ptr, guidSubtype, UInt32, unWidth, UInt32, unHeight, "uint*", &pcbImageSize := 0, "HRESULT")
     return pcbImageSize
 }
 
@@ -5763,7 +5765,7 @@ export MFCalculateImageSize(guidSubtype, unWidth, unHeight) {
  * @since windows6.0.6000
  */
 export MFFrameRateToAverageTimePerFrame(unNumerator, unDenominator) {
-    result := DllCall("MFPlat.dll\MFFrameRateToAverageTimePerFrame", "uint", unNumerator, "uint", unDenominator, "uint*", &punAverageTimePerFrame := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFFrameRateToAverageTimePerFrame", UInt32, unNumerator, UInt32, unDenominator, "uint*", &punAverageTimePerFrame := 0, "HRESULT")
     return punAverageTimePerFrame
 }
 
@@ -5802,7 +5804,7 @@ export MFAverageTimePerFrameToFrameRate(unAverageTimePerFrame, punNumerator, pun
     punNumeratorMarshal := punNumerator is VarRef ? "uint*" : "ptr"
     punDenominatorMarshal := punDenominator is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFAverageTimePerFrameToFrameRate", "uint", unAverageTimePerFrame, punNumeratorMarshal, punNumerator, punDenominatorMarshal, punDenominator, "HRESULT")
+    result := DllCall("MFPlat.dll\MFAverageTimePerFrameToFrameRate", Int64, unAverageTimePerFrame, punNumeratorMarshal, punNumerator, punDenominatorMarshal, punDenominator, "HRESULT")
     return result
 }
 
@@ -5834,7 +5836,7 @@ export MFAverageTimePerFrameToFrameRate(unAverageTimePerFrame, punNumerator, pun
  * @since windows6.0.6000
  */
 export MFInitMediaTypeFromWaveFormatEx(pMFType, pWaveFormat, cbBufSize) {
-    result := DllCall("MFPlat.dll\MFInitMediaTypeFromWaveFormatEx", "ptr", pMFType, "ptr", pWaveFormat, "uint", cbBufSize, "HRESULT")
+    result := DllCall("MFPlat.dll\MFInitMediaTypeFromWaveFormatEx", "ptr", pMFType, IntPtr, pWaveFormat, UInt32, cbBufSize, "HRESULT")
     return result
 }
 
@@ -5848,7 +5850,7 @@ export MFInitMediaTypeFromWaveFormatEx(pMFType, pWaveFormat, cbBufSize) {
  * @since windows6.0.6000
  */
 export MFInitMediaTypeFromMFVideoFormat(pMFType, pMFVF, cbBufSize) {
-    result := DllCall("MFPlat.dll\MFInitMediaTypeFromMFVideoFormat", "ptr", pMFType, "ptr", pMFVF, "uint", cbBufSize, "HRESULT")
+    result := DllCall("MFPlat.dll\MFInitMediaTypeFromMFVideoFormat", "ptr", pMFType, IntPtr, pMFVF, UInt32, cbBufSize, "HRESULT")
     return result
 }
 
@@ -6094,7 +6096,7 @@ export MFUnwrapMediaType(pWrap) {
  * @since windows6.0.6000
  */
 export MFGetStrideForBitmapInfoHeader(format, dwWidth) {
-    result := DllCall("MFPlat.dll\MFGetStrideForBitmapInfoHeader", "uint", format, "uint", dwWidth, "int*", &pStride := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFGetStrideForBitmapInfoHeader", UInt32, format, UInt32, dwWidth, "int*", &pStride := 0, "HRESULT")
     return pStride
 }
 
@@ -6183,7 +6185,7 @@ export MFCreateVideoMediaTypeFromSubtype(pAMSubtype) {
  * @since windows6.0.6000
  */
 export MFIsFormatYUV(Format) {
-    result := DllCall("EVR.dll\MFIsFormatYUV", "uint", Format, BOOL)
+    result := DllCall("EVR.dll\MFIsFormatYUV", UInt32, Format, BOOL)
     return result
 }
 
@@ -6205,7 +6207,7 @@ export MFIsFormatYUV(Format) {
  * @since windows6.0.6000
  */
 export MFCreateVideoMediaTypeFromBitMapInfoHeader(pbmihBitMapInfoHeader, dwPixelAspectRatioX, dwPixelAspectRatioY, InterlaceMode, VideoFlags, qwFramesPerSecondNumerator, qwFramesPerSecondDenominator, dwMaxBitRate) {
-    result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromBitMapInfoHeader", BITMAPINFOHEADER.Ptr, pbmihBitMapInfoHeader, "uint", dwPixelAspectRatioX, "uint", dwPixelAspectRatioY, MFVideoInterlaceMode, InterlaceMode, "uint", VideoFlags, "uint", qwFramesPerSecondNumerator, "uint", qwFramesPerSecondDenominator, "uint", dwMaxBitRate, "ptr*", &ppIVideoMediaType := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromBitMapInfoHeader", BITMAPINFOHEADER.Ptr, pbmihBitMapInfoHeader, UInt32, dwPixelAspectRatioX, UInt32, dwPixelAspectRatioY, MFVideoInterlaceMode, InterlaceMode, Int64, VideoFlags, Int64, qwFramesPerSecondNumerator, Int64, qwFramesPerSecondDenominator, UInt32, dwMaxBitRate, "ptr*", &ppIVideoMediaType := 0, "HRESULT")
     return IMFVideoMediaType(ppIVideoMediaType)
 }
 
@@ -6225,7 +6227,7 @@ export MFCreateVideoMediaTypeFromBitMapInfoHeader(pbmihBitMapInfoHeader, dwPixel
  * @since windows6.0.6000
  */
 export MFGetPlaneSize(format, dwWidth, dwHeight) {
-    result := DllCall("EVR.dll\MFGetPlaneSize", "uint", format, "uint", dwWidth, "uint", dwHeight, "uint*", &pdwPlaneSize := 0, "HRESULT")
+    result := DllCall("EVR.dll\MFGetPlaneSize", UInt32, format, UInt32, dwWidth, UInt32, dwHeight, "uint*", &pdwPlaneSize := 0, "HRESULT")
     return pdwPlaneSize
 }
 
@@ -6247,7 +6249,7 @@ export MFGetPlaneSize(format, dwWidth, dwHeight) {
  * @since windows6.1
  */
 export MFCreateVideoMediaTypeFromBitMapInfoHeaderEx(pbmihBitMapInfoHeader, cbBitMapInfoHeader, dwPixelAspectRatioX, dwPixelAspectRatioY, InterlaceMode, VideoFlags, dwFramesPerSecondNumerator, dwFramesPerSecondDenominator, dwMaxBitRate) {
-    result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromBitMapInfoHeaderEx", "ptr", pbmihBitMapInfoHeader, "uint", cbBitMapInfoHeader, "uint", dwPixelAspectRatioX, "uint", dwPixelAspectRatioY, MFVideoInterlaceMode, InterlaceMode, "uint", VideoFlags, "uint", dwFramesPerSecondNumerator, "uint", dwFramesPerSecondDenominator, "uint", dwMaxBitRate, "ptr*", &ppIVideoMediaType := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateVideoMediaTypeFromBitMapInfoHeaderEx", IntPtr, pbmihBitMapInfoHeader, UInt32, cbBitMapInfoHeader, UInt32, dwPixelAspectRatioX, UInt32, dwPixelAspectRatioY, MFVideoInterlaceMode, InterlaceMode, Int64, VideoFlags, UInt32, dwFramesPerSecondNumerator, UInt32, dwFramesPerSecondDenominator, UInt32, dwMaxBitRate, "ptr*", &ppIVideoMediaType := 0, "HRESULT")
     return IMFVideoMediaType(ppIVideoMediaType)
 }
 
@@ -6383,7 +6385,7 @@ export MFInitVideoFormat(pVideoFormat, type) {
  * @since windows6.0.6000
  */
 export MFInitVideoFormat_RGB(pVideoFormat, dwWidth, dwHeight, D3Dfmt) {
-    result := DllCall("MFPlat.dll\MFInitVideoFormat_RGB", MFVIDEOFORMAT.Ptr, pVideoFormat, "uint", dwWidth, "uint", dwHeight, "uint", D3Dfmt, "HRESULT")
+    result := DllCall("MFPlat.dll\MFInitVideoFormat_RGB", MFVIDEOFORMAT.Ptr, pVideoFormat, UInt32, dwWidth, UInt32, dwHeight, UInt32, D3Dfmt, "HRESULT")
     return result
 }
 
@@ -6424,7 +6426,7 @@ export MFConvertColorInfoToDXVA(pFromFormat) {
  * @since windows6.0.6000
  */
 export MFConvertColorInfoFromDXVA(pToFormat, dwFromDXVA) {
-    result := DllCall("MFPlat.dll\MFConvertColorInfoFromDXVA", MFVIDEOFORMAT.Ptr, pToFormat, "uint", dwFromDXVA, "HRESULT")
+    result := DllCall("MFPlat.dll\MFConvertColorInfoFromDXVA", MFVIDEOFORMAT.Ptr, pToFormat, UInt32, dwFromDXVA, "HRESULT")
     return result
 }
 
@@ -6451,7 +6453,7 @@ export MFConvertColorInfoFromDXVA(pToFormat, dwFromDXVA) {
 export MFCopyImage(lDestStride, pSrc, lSrcStride, dwWidthInBytes, dwLines) {
     pSrcMarshal := pSrc is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFCopyImage", "char*", &pDest := 0, "int", lDestStride, pSrcMarshal, pSrc, "int", lSrcStride, "uint", dwWidthInBytes, "uint", dwLines, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCopyImage", "char*", &pDest := 0, Int32, lDestStride, pSrcMarshal, pSrc, Int32, lSrcStride, UInt32, dwWidthInBytes, UInt32, dwLines, "HRESULT")
     return pDest
 }
 
@@ -6472,7 +6474,7 @@ export MFCopyImage(lDestStride, pSrc, lSrcStride, dwWidthInBytes, dwLines) {
 export MFConvertFromFP16Array(pSrc, dwCount) {
     pSrcMarshal := pSrc is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFConvertFromFP16Array", "float*", &pDest := 0, pSrcMarshal, pSrc, "uint", dwCount, "HRESULT")
+    result := DllCall("MFPlat.dll\MFConvertFromFP16Array", "float*", &pDest := 0, pSrcMarshal, pSrc, UInt32, dwCount, "HRESULT")
     return pDest
 }
 
@@ -6493,7 +6495,7 @@ export MFConvertFromFP16Array(pSrc, dwCount) {
 export MFConvertToFP16Array(pSrc, dwCount) {
     pSrcMarshal := pSrc is VarRef ? "float*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFConvertToFP16Array", "ushort*", &pDest := 0, pSrcMarshal, pSrc, "uint", dwCount, "HRESULT")
+    result := DllCall("MFPlat.dll\MFConvertToFP16Array", "ushort*", &pDest := 0, pSrcMarshal, pSrc, UInt32, dwCount, "HRESULT")
     return pDest
 }
 
@@ -6514,7 +6516,7 @@ export MFConvertToFP16Array(pSrc, dwCount) {
  * @since windows8.0
  */
 export MFCreate2DMediaBuffer(dwWidth, dwHeight, dwFourCC, fBottomUp) {
-    result := DllCall("MFPlat.dll\MFCreate2DMediaBuffer", "uint", dwWidth, "uint", dwHeight, "uint", dwFourCC, BOOL, fBottomUp, "ptr*", &ppBuffer := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreate2DMediaBuffer", UInt32, dwWidth, UInt32, dwHeight, UInt32, dwFourCC, BOOL, fBottomUp, "ptr*", &ppBuffer := 0, "HRESULT")
     return IMFMediaBuffer(ppBuffer)
 }
 
@@ -6535,7 +6537,7 @@ export MFCreate2DMediaBuffer(dwWidth, dwHeight, dwFourCC, fBottomUp) {
  * @since windows8.0
  */
 export MFCreateMediaBufferFromMediaType(pMediaType, llDuration, dwMinLength, dwMinAlignment) {
-    result := DllCall("MFPlat.dll\MFCreateMediaBufferFromMediaType", "ptr", pMediaType, "int64", llDuration, "uint", dwMinLength, "uint", dwMinAlignment, "ptr*", &ppBuffer := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCreateMediaBufferFromMediaType", "ptr", pMediaType, Int64, llDuration, UInt32, dwMinLength, UInt32, dwMinAlignment, "ptr*", &ppBuffer := 0, "HRESULT")
     return IMFMediaBuffer(ppBuffer)
 }
 
@@ -6568,7 +6570,7 @@ export MFCreateCollection() {
 export MFHeapAlloc(nSize, dwFlags, pszFile, line, eat) {
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("MFPlat.dll\MFHeapAlloc", "ptr", nSize, "uint", dwFlags, "ptr", pszFile, "int", line, EAllocationType, eat, IntPtr)
+    result := DllCall("MFPlat.dll\MFHeapAlloc", IntPtr, nSize, UInt32, dwFlags, "ptr", pszFile, Int32, line, EAllocationType, eat, IntPtr)
     return result
 }
 
@@ -6599,7 +6601,7 @@ export MFHeapFree(pv) {
  * @since windows6.1
  */
 export MFllMulDiv(a, b, c, d) {
-    result := DllCall("MFPlat.dll\MFllMulDiv", "int64", a, "int64", b, "int64", c, "int64", d, Int64)
+    result := DllCall("MFPlat.dll\MFllMulDiv", Int64, a, Int64, b, Int64, c, Int64, d, Int64)
     return result
 }
 
@@ -6630,7 +6632,7 @@ export MFGetContentProtectionSystemCLSID(guidProtectionSystemID, pclsid) {
  * @since windows10.0.19041
  */
 export MFCombineSamples(pSample, pSampleToAdd, dwMaxMergedDurationInMS) {
-    result := DllCall("MFPlat.dll\MFCombineSamples", "ptr", pSample, "ptr", pSampleToAdd, "uint", dwMaxMergedDurationInMS, BOOL.Ptr, &pMerged := 0, "HRESULT")
+    result := DllCall("MFPlat.dll\MFCombineSamples", "ptr", pSample, "ptr", pSampleToAdd, UInt32, dwMaxMergedDurationInMS, BOOL.Ptr, &pMerged := 0, "HRESULT")
     return pMerged
 }
 
@@ -6649,7 +6651,7 @@ export MFCombineSamples(pSample, pSampleToAdd, dwMaxMergedDurationInMS) {
 export MFSplitSample(pSample, pOutputSamples, dwOutputSampleMaxCount, pdwOutputSampleCount) {
     pdwOutputSampleCountMarshal := pdwOutputSampleCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MFPlat.dll\MFSplitSample", "ptr", pSample, IMFSample.Ptr, pOutputSamples, "uint", dwOutputSampleMaxCount, pdwOutputSampleCountMarshal, pdwOutputSampleCount, "HRESULT")
+    result := DllCall("MFPlat.dll\MFSplitSample", "ptr", pSample, IMFSample.Ptr, pOutputSamples, UInt32, dwOutputSampleMaxCount, pdwOutputSampleCountMarshal, pdwOutputSampleCount, "HRESULT")
     return result
 }
 
@@ -6999,7 +7001,7 @@ export MFCreateVirtualCamera(type, lifetime, access, friendlyName, sourceId, cat
     friendlyName := friendlyName is String ? StrPtr(friendlyName) : friendlyName
     sourceId := sourceId is String ? StrPtr(sourceId) : sourceId
 
-    result := DllCall("MFSENSORGROUP.dll\MFCreateVirtualCamera", MFVirtualCameraType, type, MFVirtualCameraLifetime, lifetime, MFVirtualCameraAccess, access, "ptr", friendlyName, "ptr", sourceId, Guid.Ptr, categories, "uint", categoryCount, "ptr*", &virtualCamera := 0, "HRESULT")
+    result := DllCall("MFSENSORGROUP.dll\MFCreateVirtualCamera", MFVirtualCameraType, type, MFVirtualCameraLifetime, lifetime, MFVirtualCameraAccess, access, "ptr", friendlyName, "ptr", sourceId, Guid.Ptr, categories, UInt32, categoryCount, "ptr*", &virtualCamera := 0, "HRESULT")
     return IMFVirtualCamera(virtualCamera)
 }
 

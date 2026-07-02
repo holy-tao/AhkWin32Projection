@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEntity.ahk" { IEntity }
 #Import ".\NAMED_ENTITY_CERTAINTY.ahk" { NAMED_ENTITY_CERTAINTY }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEntity.ahk" { IEntity }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a method to accumulate named entities as identified by an IConditionGenerator object.
@@ -85,7 +85,7 @@ export default struct INamedEntityCollector extends IUnknown {
     Add(beginSpan, endSpan, beginActual, endActual, pType, pszValue, certainty) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(3, this, "uint", beginSpan, "uint", endSpan, "uint", beginActual, "uint", endActual, "ptr", pType, "ptr", pszValue, NAMED_ENTITY_CERTAINTY, certainty, "HRESULT")
+        result := ComCall(3, this, UInt32, beginSpan, UInt32, endSpan, UInt32, beginActual, UInt32, endActual, "ptr", pType, "ptr", pszValue, NAMED_ENTITY_CERTAINTY, certainty, "HRESULT")
         return result
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\SECURITY_PRODUCT_TYPE.ahk" { SECURITY_PRODUCT_TYPE }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\SECURITY_PRODUCT_TYPE.ahk" { SECURITY_PRODUCT_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

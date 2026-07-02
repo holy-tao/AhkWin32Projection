@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Use the ISdo interface to store, retrieve, and update Server Data Objects (SDO) information.
@@ -61,7 +61,7 @@ export default struct ISdo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdo-getpropertyinfo
      */
     GetPropertyInfo(Id) {
-        result := ComCall(7, this, "int", Id, "ptr*", &ppPropertyInfo := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Id, "ptr*", &ppPropertyInfo := 0, "HRESULT")
         return IUnknown(ppPropertyInfo)
     }
 
@@ -74,7 +74,7 @@ export default struct ISdo extends IDispatch {
      */
     GetProperty(Id) {
         pValue := VARIANT()
-        result := ComCall(8, this, "int", Id, VARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(8, this, Int32, Id, VARIANT.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -94,7 +94,7 @@ export default struct ISdo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdo-putproperty
      */
     PutProperty(Id, pValue) {
-        result := ComCall(9, this, "int", Id, VARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(9, this, Int32, Id, VARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct ISdo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdo-resetproperty
      */
     ResetProperty(Id) {
-        result := ComCall(10, this, "int", Id, "HRESULT")
+        result := ComCall(10, this, Int32, Id, "HRESULT")
         return result
     }
 

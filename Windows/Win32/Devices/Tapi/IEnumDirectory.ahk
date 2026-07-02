@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITDirectory.ahk" { ITDirectory }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITDirectory.ahk" { ITDirectory }
 
 /**
  * The IEnumDirectory interface provides COM-standard enumeration methods for the ITDirectory interface. The ITRendezvous::EnumerateDefaultDirectories method returns a pointer to IEnumDirectory.
@@ -56,7 +56,7 @@ export default struct IEnumDirectory extends IUnknown {
     Next(celt, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", &ppElements := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, "ptr*", &ppElements := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return ITDirectory(ppElements)
     }
 
@@ -124,7 +124,7 @@ export default struct IEnumDirectory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdirectory-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

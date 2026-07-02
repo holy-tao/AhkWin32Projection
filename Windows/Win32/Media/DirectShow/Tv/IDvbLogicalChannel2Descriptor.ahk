@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDvbLogicalChannelDescriptor2.ahk" { IDvbLogicalChannelDescriptor2 }
 
 /**
@@ -64,7 +64,7 @@ export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDe
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistid
      */
     GetListId(bListIndex) {
-        result := ComCall(10, this, "char", bListIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(10, this, Int8, bListIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -78,7 +78,7 @@ export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDe
      */
     GetListNameW(bListIndex, convMode) {
         pbstrName := BSTR.Owned()
-        result := ComCall(11, this, "char", bListIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(11, this, Int8, bListIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -90,7 +90,7 @@ export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDe
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistcountrycode
      */
     GetListCountryCode(bListIndex) {
-        result := ComCall(12, this, "char", bListIndex, "char*", &pszCode := 0, "HRESULT")
+        result := ComCall(12, this, Int8, bListIndex, "char*", &pszCode := 0, "HRESULT")
         return pszCode
     }
 
@@ -102,7 +102,7 @@ export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDe
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistcountofrecords
      */
     GetListCountOfRecords(bChannelListIndex) {
-        result := ComCall(13, this, "char", bChannelListIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(13, this, Int8, bChannelListIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -116,7 +116,7 @@ export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDe
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistrecordserviceid
      */
     GetListRecordServiceId(bListIndex, bRecordIndex) {
-        result := ComCall(14, this, "char", bListIndex, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(14, this, Int8, bListIndex, Int8, bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -130,7 +130,7 @@ export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDe
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistrecordlogicalchannelnumber
      */
     GetListRecordLogicalChannelNumber(bListIndex, bRecordIndex) {
-        result := ComCall(15, this, "char", bListIndex, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(15, this, Int8, bListIndex, Int8, bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -182,7 +182,7 @@ export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDe
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistrecordlogicalchannelandvisibility
      */
     GetListRecordLogicalChannelAndVisibility(bListIndex, bRecordIndex) {
-        result := ComCall(16, this, "char", bListIndex, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(16, this, Int8, bListIndex, Int8, bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 

@@ -1,26 +1,30 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\Com\Marshal\IMarshal.ahk" { IMarshal }
-#Import ".\HSTRING_HEADER.ahk" { HSTRING_HEADER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HSTRING_BUFFER.ahk" { HSTRING_BUFFER }
+#Import ".\AgileReferenceOptions.ahk" { AgileReferenceOptions }
+#Import ".\PINSPECT_HSTRING_CALLBACK2.ahk" { PINSPECT_HSTRING_CALLBACK2 }
 #Import ".\IAgileReference.ahk" { IAgileReference }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IApartmentShutdown.ahk" { IApartmentShutdown }
 #Import ".\IRestrictedErrorInfo.ahk" { IRestrictedErrorInfo }
 #Import ".\APARTMENT_SHUTDOWN_REGISTRATION_COOKIE.ahk" { APARTMENT_SHUTDOWN_REGISTRATION_COOKIE }
-#Import ".\HSTRING.ahk" { HSTRING }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import ".\IApartmentShutdown.ahk" { IApartmentShutdown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\RO_REGISTRATION_COOKIE.ahk" { RO_REGISTRATION_COOKIE }
-#Import ".\BSOS_OPTIONS.ahk" { BSOS_OPTIONS }
-#Import ".\DispatcherQueueOptions.ahk" { DispatcherQueueOptions }
-#Import ".\ServerInformation.ahk" { ServerInformation }
-#Import ".\AgileReferenceOptions.ahk" { AgileReferenceOptions }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RO_INIT_TYPE.ahk" { RO_INIT_TYPE }
 #Import ".\IInspectable.ahk" { IInspectable }
+#Import ".\DispatcherQueueOptions.ahk" { DispatcherQueueOptions }
+#Import "..\Com\Marshal\IMarshal.ahk" { IMarshal }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import ".\HSTRING_HEADER.ahk" { HSTRING_HEADER }
+#Import ".\ServerInformation.ahk" { ServerInformation }
+#Import ".\RO_INIT_TYPE.ahk" { RO_INIT_TYPE }
+#Import ".\HSTRING.ahk" { HSTRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PINSPECT_HSTRING_CALLBACK.ahk" { PINSPECT_HSTRING_CALLBACK }
+#Import ".\PFNGETACTIVATIONFACTORY.ahk" { PFNGETACTIVATIONFACTORY }
+#Import ".\RO_REGISTRATION_COOKIE.ahk" { RO_REGISTRATION_COOKIE }
+#Import ".\PINSPECT_MEMORY_CALLBACK.ahk" { PINSPECT_MEMORY_CALLBACK }
+#Import ".\HSTRING_BUFFER.ahk" { HSTRING_BUFFER }
+#Import ".\BSOS_OPTIONS.ahk" { BSOS_OPTIONS }
 
 /**
  * @namespace Windows.Win32.System.WinRT
@@ -83,7 +87,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codecodeproxy
  */
 export CoDecodeProxy(dwClientPid, ui64ProxyAddress, pServerInformation) {
-    result := DllCall("OLE32.dll\CoDecodeProxy", "uint", dwClientPid, "uint", ui64ProxyAddress, ServerInformation.Ptr, pServerInformation, "HRESULT")
+    result := DllCall("OLE32.dll\CoDecodeProxy", UInt32, dwClientPid, Int64, ui64ProxyAddress, ServerInformation.Ptr, pServerInformation, "HRESULT")
     return result
 }
 
@@ -111,9 +115,9 @@ export RoGetAgileReference(options, riid, pUnk) {
 
 /**
  * The HSTRING_UserSize function calculates the wire size of the HSTRING object, and retrieves its handle and data. (HSTRING_UserSize)
- * @param {Pointer<Integer>} param0 
- * @param {Integer} param1 
- * @param {Pointer<HSTRING>} param2 
+ * @param {Pointer<Integer>} param0 TBD
+ * @param {Integer} param1 TBD
+ * @param {Pointer<HSTRING>} param2 TBD
  * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
  * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize
  * @since windows8.0
@@ -121,15 +125,15 @@ export RoGetAgileReference(options, riid, pUnk) {
 export HSTRING_UserSize(param0, param1, param2) {
     param0Marshal := param0 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize", param0Marshal, param0, "uint", param1, HSTRING.Ptr, param2, UInt32)
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize", param0Marshal, param0, UInt32, param1, HSTRING.Ptr, param2, UInt32)
     return result
 }
 
 /**
  * The HSTRING_UserMarshal function marshals an HSTRING object into the RPC buffer. (HSTRING_UserMarshal)
- * @param {Pointer<Integer>} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<HSTRING>} param2 
+ * @param {Pointer<Integer>} param0 TBD
+ * @param {Pointer<Integer>} param1 TBD
+ * @param {Pointer<HSTRING>} param2 TBD
  * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
  * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal
  * @since windows8.0
@@ -144,9 +148,9 @@ export HSTRING_UserMarshal(param0, param1, param2) {
 
 /**
  * The HSTRING_UserUnmarshal function unmarshals an HSTRING object from the RPC buffer. (HSTRING_UserUnmarshal)
- * @param {Pointer<Integer>} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<HSTRING>} param2 
+ * @param {Pointer<Integer>} param0 TBD
+ * @param {Pointer<Integer>} param1 TBD
+ * @param {Pointer<HSTRING>} param2 TBD
  * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
  * 
  * <table>
@@ -190,8 +194,8 @@ export HSTRING_UserUnmarshal(param0, param1, param2) {
 
 /**
  * The HSTRING_UserFree function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree)
- * @param {Pointer<Integer>} param0 
- * @param {Pointer<HSTRING>} param1 
+ * @param {Pointer<Integer>} param0 TBD
+ * @param {Pointer<HSTRING>} param1 TBD
  * @returns {String} Nothing - always returns an empty string
  * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree
  * @since windows8.0
@@ -204,9 +208,9 @@ export HSTRING_UserFree(param0, param1) {
 
 /**
  * The HSTRING_UserSize64 function calculates the wire size of the HSTRING object, and retrieves its handle and data. (HSTRING_UserSize64)
- * @param {Pointer<Integer>} param0 
- * @param {Integer} param1 
- * @param {Pointer<HSTRING>} param2 
+ * @param {Pointer<Integer>} param0 The data used by RPC.
+ * @param {Integer} param1 The current buffer offset where the object will be marshaled. The method has to account for any padding needed for the <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a> object to be properly aligned when it will be marshaled to the buffer.
+ * @param {Pointer<HSTRING>} param2 The string.
  * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
  * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize64
  * @since windows8.0
@@ -214,15 +218,15 @@ export HSTRING_UserFree(param0, param1) {
 export HSTRING_UserSize64(param0, param1, param2) {
     param0Marshal := param0 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize64", param0Marshal, param0, "uint", param1, HSTRING.Ptr, param2, UInt32)
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize64", param0Marshal, param0, UInt32, param1, HSTRING.Ptr, param2, UInt32)
     return result
 }
 
 /**
  * The HSTRING_UserMarshal64 function marshals an HSTRING object into the RPC buffer. (HSTRING_UserMarshal64)
- * @param {Pointer<Integer>} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<HSTRING>} param2 
+ * @param {Pointer<Integer>} param0 The data used by RPC.
+ * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+ * @param {Pointer<HSTRING>} param2 The string.
  * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
  * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal64
  * @since windows8.0
@@ -237,9 +241,9 @@ export HSTRING_UserMarshal64(param0, param1, param2) {
 
 /**
  * The HSTRING_UserUnmarshal64 function unmarshals an HSTRING object from the RPC buffer. (HSTRING_UserUnmarshal64)
- * @param {Pointer<Integer>} param0 
- * @param {Pointer<Integer>} param1 
- * @param {Pointer<HSTRING>} param2 
+ * @param {Pointer<Integer>} param0 The data used by RPC.
+ * @param {Pointer<Integer>} param1 The current buffer. This pointer may or may not be aligned on entry.
+ * @param {Pointer<HSTRING>} param2 The string.
  * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
  * 
  * <table>
@@ -283,8 +287,8 @@ export HSTRING_UserUnmarshal64(param0, param1, param2) {
 
 /**
  * The HSTRING_UserFree64 function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree64)
- * @param {Pointer<Integer>} param0 
- * @param {Pointer<HSTRING>} param1 
+ * @param {Pointer<Integer>} param0 The data used by RPC.
+ * @param {Pointer<HSTRING>} param1 The string.
  * @returns {String} Nothing - always returns an empty string
  * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree64
  * @since windows8.0
@@ -321,7 +325,7 @@ export WindowsCreateString(sourceString, length) {
     sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
     _string := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, "uint", length, HSTRING.Ptr, _string, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, UInt32, length, HSTRING.Ptr, _string, "HRESULT")
     return _string
 }
 
@@ -356,7 +360,7 @@ export WindowsCreateStringReference(sourceString, length, hstringHeader) {
     sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
     _string := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, "uint", length, HSTRING_HEADER.Ptr, hstringHeader, HSTRING.Ptr, _string, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, UInt32, length, HSTRING_HEADER.Ptr, hstringHeader, HSTRING.Ptr, _string, "HRESULT")
     return _string
 }
 
@@ -530,7 +534,7 @@ export WindowsCompareStringOrdinal(string1, string2) {
  */
 export WindowsSubstring(_string, startIndex) {
     newString := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", HSTRING, _string, "uint", startIndex, HSTRING.Ptr, newString, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", HSTRING, _string, UInt32, startIndex, HSTRING.Ptr, newString, "HRESULT")
     return newString
 }
 
@@ -555,7 +559,7 @@ export WindowsSubstring(_string, startIndex) {
  */
 export WindowsSubstringWithSpecifiedLength(_string, startIndex, length) {
     newString := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", HSTRING, _string, "uint", startIndex, "uint", length, HSTRING.Ptr, newString, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", HSTRING, _string, UInt32, startIndex, UInt32, length, HSTRING.Ptr, newString, "HRESULT")
     return newString
 }
 
@@ -727,7 +731,7 @@ export WindowsTrimStringEnd(_string, trimString) {
 export WindowsPreallocateStringBuffer(length, charBuffer, bufferHandle) {
     charBufferMarshal := charBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, charBufferMarshal, charBuffer, HSTRING_BUFFER.Ptr, bufferHandle, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", UInt32, length, charBufferMarshal, charBuffer, HSTRING_BUFFER.Ptr, bufferHandle, "HRESULT")
     return result
 }
 
@@ -854,7 +858,7 @@ export WindowsInspectString(targetHString, machine, callback, _context, length, 
     lengthMarshal := length is VarRef ? "uint*" : "ptr"
     targetStringAddressMarshal := targetStringAddress is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", "ptr", targetHString, "ushort", machine, "ptr", callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", IntPtr, targetHString, UInt16, machine, PINSPECT_HSTRING_CALLBACK, callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
     return result
 }
 
@@ -911,7 +915,7 @@ export WindowsInspectString2(targetHString, machine, callback, _context, length,
     lengthMarshal := length is VarRef ? "uint*" : "ptr"
     targetStringAddressMarshal := targetStringAddress is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", "uint", targetHString, "ushort", machine, "ptr", callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", Int64, targetHString, UInt16, machine, PINSPECT_HSTRING_CALLBACK2, callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
     return result
 }
 
@@ -1058,7 +1062,7 @@ export RoActivateInstance(activatableClassId) {
 export RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count) {
     activationFactoryCallbacksMarshal := activationFactoryCallbacks is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", HSTRING.Ptr, activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, "uint", count, RO_REGISTRATION_COOKIE.Ptr, &cookie := 0, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", HSTRING.Ptr, activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, UInt32, count, RO_REGISTRATION_COOKIE.Ptr, &cookie := 0, "HRESULT")
     return cookie
 }
 
@@ -1220,7 +1224,7 @@ export RoGetErrorReportingFlags() {
  * @since windows8.0
  */
 export RoSetErrorReportingFlags(flags) {
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoSetErrorReportingFlags", "uint", flags, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoSetErrorReportingFlags", UInt32, flags, "HRESULT")
     return result
 }
 
@@ -1349,7 +1353,7 @@ export GetRestrictedErrorInfo() {
 export RoOriginateErrorW(_error, cchMax, message) {
     message := message is String ? StrPtr(message) : message
 
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateErrorW", "int", _error, "uint", cchMax, "ptr", message, BOOL)
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateErrorW", "int", _error, UInt32, cchMax, "ptr", message, BOOL)
     return result
 }
 
@@ -1481,7 +1485,7 @@ export RoOriginateError(_error, message) {
 export RoTransformErrorW(oldError, newError, cchMax, message) {
     message := message is String ? StrPtr(message) : message
 
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformErrorW", "int", oldError, "int", newError, "uint", cchMax, "ptr", message, BOOL)
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformErrorW", "int", oldError, "int", newError, UInt32, cchMax, "ptr", message, BOOL)
     return result
 }
 
@@ -1674,7 +1678,7 @@ export RoReportUnhandledError(pRestrictedErrorInfo) {
 export RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", "ptr", targetTebAddress, "ushort", machine, "ptr", readMemoryCallback, _contextMarshal, _context, "ptr*", &targetErrorInfoAddress := 0, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", IntPtr, targetTebAddress, UInt16, machine, PINSPECT_MEMORY_CALLBACK, readMemoryCallback, _contextMarshal, _context, "ptr*", &targetErrorInfoAddress := 0, "HRESULT")
     return targetErrorInfoAddress
 }
 
@@ -1699,7 +1703,7 @@ export RoInspectCapturedStackBackTrace(targetErrorInfoAddress, machine, readMemo
     frameCountMarshal := frameCount is VarRef ? "uint*" : "ptr"
     targetBackTraceAddressMarshal := targetBackTraceAddress is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", "ptr", targetErrorInfoAddress, "ushort", machine, "ptr", readMemoryCallback, _contextMarshal, _context, frameCountMarshal, frameCount, targetBackTraceAddressMarshal, targetBackTraceAddress, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", IntPtr, targetErrorInfoAddress, UInt16, machine, PINSPECT_MEMORY_CALLBACK, readMemoryCallback, _contextMarshal, _context, frameCountMarshal, frameCount, targetBackTraceAddressMarshal, targetBackTraceAddress, "HRESULT")
     return result
 }
 
@@ -1843,7 +1847,7 @@ export RoGetServerActivatableClasses(serverName, activatableClassIds, count) {
 export CreateRandomAccessStreamOnFile(filePath, accessMode, riid) {
     filePath := filePath is String ? StrPtr(filePath) : filePath
 
-    result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, "uint", accessMode, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, UInt32, accessMode, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 

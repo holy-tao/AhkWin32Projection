@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLDOMChildrenCollection.ahk" { IHTMLDOMChildrenCollection }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLDOMChildrenCollection.ahk" { IHTMLDOMChildrenCollection }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -516,7 +516,7 @@ export default struct IHTMLDocument8 extends IDispatch {
      * @returns {IHTMLDOMChildrenCollection} 
      */
     elementsFromPoint(x, y) {
-        result := ComCall(37, this, "float", x, "float", y, "ptr*", &elementsHit := 0, "HRESULT")
+        result := ComCall(37, this, Float32, x, Float32, y, "ptr*", &elementsHit := 0, "HRESULT")
         return IHTMLDOMChildrenCollection(elementsHit)
     }
 
@@ -529,7 +529,7 @@ export default struct IHTMLDocument8 extends IDispatch {
      * @returns {IHTMLDOMChildrenCollection} 
      */
     elementsFromRect(left, top, width, height) {
-        result := ComCall(38, this, "float", left, "float", top, "float", width, "float", height, "ptr*", &elementsHit := 0, "HRESULT")
+        result := ComCall(38, this, Float32, left, Float32, top, Float32, width, Float32, height, "ptr*", &elementsHit := 0, "HRESULT")
         return IHTMLDOMChildrenCollection(elementsHit)
     }
 

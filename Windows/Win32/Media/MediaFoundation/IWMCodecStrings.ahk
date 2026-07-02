@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\DxMediaObjects\DMO_MEDIA_TYPE.ahk" { DMO_MEDIA_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves names and descriptive strings for codecs and formats.
@@ -72,7 +72,7 @@ export default struct IWMCodecStrings extends IUnknown {
 
         pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, DMO_MEDIA_TYPE.Ptr, pmt, "uint", cchLength, "ptr", szName, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(3, this, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, cchLength, "ptr", szName, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct IWMCodecStrings extends IUnknown {
 
         pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, DMO_MEDIA_TYPE.Ptr, pmt, "uint", cchLength, "ptr", szDescription, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(4, this, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, cchLength, "ptr", szDescription, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 

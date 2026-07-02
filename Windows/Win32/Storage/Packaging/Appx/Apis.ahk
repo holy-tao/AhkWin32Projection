@@ -1,34 +1,34 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import ".\PackageInfo3Type.ahk" { PackageInfo3Type }
-#Import ".\AppPolicyShowDeveloperDiagnostic.ahk" { AppPolicyShowDeveloperDiagnostic }
-#Import "..\..\..\Security\PSID.ahk" { PSID }
-#Import ".\PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE.ahk" { PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AddPackageDependencyOptions2.ahk" { AddPackageDependencyOptions2 }
 #Import "..\..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\CreatePackageDependencyOptions.ahk" { CreatePackageDependencyOptions }
+#Import ".\_PACKAGE_INFO_REFERENCE.ahk" { _PACKAGE_INFO_REFERENCE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PackagePathType.ahk" { PackagePathType }
 #Import ".\FindPackageDependencyCriteria.ahk" { FindPackageDependencyCriteria }
-#Import ".\AppPolicyThreadInitializationType.ahk" { AppPolicyThreadInitializationType }
-#Import ".\AppPolicyClrCompat.ahk" { AppPolicyClrCompat }
-#Import ".\PackageDependencyLifetimeKind.ahk" { PackageDependencyLifetimeKind }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\AppPolicyLifecycleManagement.ahk" { AppPolicyLifecycleManagement }
+#Import ".\AppPolicyProcessTerminationMethod.ahk" { AppPolicyProcessTerminationMethod }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\PACKAGEDEPENDENCY_CONTEXT.ahk" { PACKAGEDEPENDENCY_CONTEXT }
+#Import ".\AppPolicyWindowingModel.ahk" { AppPolicyWindowingModel }
 #Import ".\AppPolicyMediaFoundationCodecLoading.ahk" { AppPolicyMediaFoundationCodecLoading }
 #Import ".\PACKAGE_ID.ahk" { PACKAGE_ID }
-#Import ".\AppPolicyProcessTerminationMethod.ahk" { AppPolicyProcessTerminationMethod }
-#Import ".\PackagePathType.ahk" { PackagePathType }
-#Import ".\CreatePackageDependencyOptions.ahk" { CreatePackageDependencyOptions }
-#Import ".\AddPackageDependencyOptions.ahk" { AddPackageDependencyOptions }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PackageDependencyProcessorArchitectures.ahk" { PackageDependencyProcessorArchitectures }
-#Import ".\PACKAGE_VERSION.ahk" { PACKAGE_VERSION }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\_PACKAGE_INFO_REFERENCE.ahk" { _PACKAGE_INFO_REFERENCE }
-#Import ".\AppPolicyCreateFileAccess.ahk" { AppPolicyCreateFileAccess }
-#Import ".\AppPolicyWindowingModel.ahk" { AppPolicyWindowingModel }
 #Import ".\PackageOrigin.ahk" { PackageOrigin }
+#Import ".\AppPolicyCreateFileAccess.ahk" { AppPolicyCreateFileAccess }
+#Import ".\AddPackageDependencyOptions2.ahk" { AddPackageDependencyOptions2 }
+#Import ".\AppPolicyThreadInitializationType.ahk" { AppPolicyThreadInitializationType }
+#Import ".\PackageDependencyLifetimeKind.ahk" { PackageDependencyLifetimeKind }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AppPolicyClrCompat.ahk" { AppPolicyClrCompat }
+#Import ".\AppPolicyShowDeveloperDiagnostic.ahk" { AppPolicyShowDeveloperDiagnostic }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE.ahk" { PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE }
+#Import ".\AddPackageDependencyOptions.ahk" { AddPackageDependencyOptions }
+#Import ".\PACKAGE_VERSION.ahk" { PACKAGE_VERSION }
+#Import "..\..\..\Security\PSID.ahk" { PSID }
+#Import ".\PackageDependencyProcessorArchitectures.ahk" { PackageDependencyProcessorArchitectures }
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
@@ -81,7 +81,7 @@
 export GetCurrentPackageId(bufferLength, _buffer) {
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetCurrentPackageId", bufferLengthMarshal, bufferLength, "ptr", _buffer, WIN32_ERROR)
+    result := DllCall("KERNEL32.dll\GetCurrentPackageId", bufferLengthMarshal, bufferLength, IntPtr, _buffer, WIN32_ERROR)
     return result
 }
 
@@ -294,7 +294,7 @@ export GetCurrentPackagePath(pathLength, _path) {
 export GetPackageId(hProcess, bufferLength, _buffer) {
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetPackageId", HANDLE, hProcess, bufferLengthMarshal, bufferLength, "ptr", _buffer, WIN32_ERROR)
+    result := DllCall("KERNEL32.dll\GetPackageId", HANDLE, hProcess, bufferLengthMarshal, bufferLength, IntPtr, _buffer, WIN32_ERROR)
     return result
 }
 
@@ -564,7 +564,7 @@ export GetPackagePath(packageId, pathLength, _path) {
 
     pathLengthMarshal := pathLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetPackagePath", PACKAGE_ID.Ptr, packageId, "uint", reserved, pathLengthMarshal, pathLength, "ptr", _path, WIN32_ERROR)
+    result := DllCall("KERNEL32.dll\GetPackagePath", PACKAGE_ID.Ptr, packageId, UInt32, reserved, pathLengthMarshal, pathLength, "ptr", _path, WIN32_ERROR)
     return result
 }
 
@@ -826,7 +826,7 @@ export GetCurrentPackageInfo2(flags, _packagePathType, bufferLength, _buffer, co
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
     countMarshal := count is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetCurrentPackageInfo2", "uint", flags, PackagePathType, _packagePathType, bufferLengthMarshal, bufferLength, "ptr", _buffer, countMarshal, count, WIN32_ERROR)
+    result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetCurrentPackageInfo2", UInt32, flags, PackagePathType, _packagePathType, bufferLengthMarshal, bufferLength, IntPtr, _buffer, countMarshal, count, WIN32_ERROR)
     return result
 }
 
@@ -1165,7 +1165,7 @@ export PackageIdFromFullName(packageFullName, flags, bufferLength, _buffer) {
 
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\PackageIdFromFullName", "ptr", packageFullName, "uint", flags, bufferLengthMarshal, bufferLength, "ptr", _buffer, WIN32_ERROR)
+    result := DllCall("KERNEL32.dll\PackageIdFromFullName", "ptr", packageFullName, UInt32, flags, bufferLengthMarshal, bufferLength, IntPtr, _buffer, WIN32_ERROR)
     return result
 }
 
@@ -1610,7 +1610,7 @@ export FindPackagesByPackageFamily(packageFamilyName, packageFilters, count, pac
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
     packagePropertiesMarshal := packageProperties is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\FindPackagesByPackageFamily", "ptr", packageFamilyName, "uint", packageFilters, countMarshal, count, packageFullNamesMarshal, packageFullNames, bufferLengthMarshal, bufferLength, "ptr", _buffer, packagePropertiesMarshal, packageProperties, WIN32_ERROR)
+    result := DllCall("KERNEL32.dll\FindPackagesByPackageFamily", "ptr", packageFamilyName, UInt32, packageFilters, countMarshal, count, packageFullNamesMarshal, packageFullNames, bufferLengthMarshal, bufferLength, "ptr", _buffer, packagePropertiesMarshal, packageProperties, WIN32_ERROR)
     return result
 }
 
@@ -1708,7 +1708,7 @@ export GetCurrentPackageInfo(flags, bufferLength, _buffer, count) {
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
     countMarshal := count is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetCurrentPackageInfo", "uint", flags, bufferLengthMarshal, bufferLength, "ptr", _buffer, countMarshal, count, WIN32_ERROR)
+    result := DllCall("KERNEL32.dll\GetCurrentPackageInfo", UInt32, flags, bufferLengthMarshal, bufferLength, IntPtr, _buffer, countMarshal, count, WIN32_ERROR)
     return result
 }
 
@@ -1751,7 +1751,7 @@ export OpenPackageInfoByFullName(packageFullName, packageInfoReference) {
 
     packageInfoReferenceMarshal := packageInfoReference is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\OpenPackageInfoByFullName", "ptr", packageFullName, "uint", reserved, packageInfoReferenceMarshal, packageInfoReference, WIN32_ERROR)
+    result := DllCall("KERNEL32.dll\OpenPackageInfoByFullName", "ptr", packageFullName, UInt32, reserved, packageInfoReferenceMarshal, packageInfoReference, WIN32_ERROR)
     return result
 }
 
@@ -1769,7 +1769,7 @@ export OpenPackageInfoByFullNameForUser(userSid, packageFullName, packageInfoRef
 
     packageInfoReferenceMarshal := packageInfoReference is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\OpenPackageInfoByFullNameForUser", PSID, userSid, "ptr", packageFullName, "uint", reserved, packageInfoReferenceMarshal, packageInfoReference, WIN32_ERROR)
+    result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\OpenPackageInfoByFullNameForUser", PSID, userSid, "ptr", packageFullName, UInt32, reserved, packageInfoReferenceMarshal, packageInfoReference, WIN32_ERROR)
     return result
 }
 
@@ -1834,7 +1834,7 @@ export GetPackageInfo(packageInfoReference, flags, bufferLength, _buffer, count)
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
     countMarshal := count is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetPackageInfo", _PACKAGE_INFO_REFERENCE.Ptr, packageInfoReference, "uint", flags, bufferLengthMarshal, bufferLength, "ptr", _buffer, countMarshal, count, WIN32_ERROR)
+    result := DllCall("KERNEL32.dll\GetPackageInfo", _PACKAGE_INFO_REFERENCE.Ptr, packageInfoReference, UInt32, flags, bufferLengthMarshal, bufferLength, IntPtr, _buffer, countMarshal, count, WIN32_ERROR)
     return result
 }
 
@@ -1882,7 +1882,7 @@ export GetPackageApplicationIds(packageInfoReference, bufferLength, _buffer, cou
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
     countMarshal := count is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetPackageApplicationIds", _PACKAGE_INFO_REFERENCE.Ptr, packageInfoReference, bufferLengthMarshal, bufferLength, "ptr", _buffer, countMarshal, count, WIN32_ERROR)
+    result := DllCall("KERNEL32.dll\GetPackageApplicationIds", _PACKAGE_INFO_REFERENCE.Ptr, packageInfoReference, bufferLengthMarshal, bufferLength, IntPtr, _buffer, countMarshal, count, WIN32_ERROR)
     return result
 }
 
@@ -1936,7 +1936,7 @@ export GetPackageInfo2(packageInfoReference, flags, _packagePathType, bufferLeng
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
     countMarshal := count is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetPackageInfo2", _PACKAGE_INFO_REFERENCE.Ptr, packageInfoReference, "uint", flags, PackagePathType, _packagePathType, bufferLengthMarshal, bufferLength, "ptr", _buffer, countMarshal, count, WIN32_ERROR)
+    result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetPackageInfo2", _PACKAGE_INFO_REFERENCE.Ptr, packageInfoReference, UInt32, flags, PackagePathType, _packagePathType, bufferLengthMarshal, bufferLength, IntPtr, _buffer, countMarshal, count, WIN32_ERROR)
     return result
 }
 
@@ -2075,7 +2075,7 @@ export AddPackageDependency(packageDependencyId, rank, options, packageDependenc
     packageDependencyContextMarshal := packageDependencyContext is VarRef ? "ptr*" : "ptr"
     packageFullNameMarshal := packageFullName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("KERNELBASE.dll\AddPackageDependency", "ptr", packageDependencyId, "int", rank, AddPackageDependencyOptions, options, packageDependencyContextMarshal, packageDependencyContext, packageFullNameMarshal, packageFullName, "HRESULT")
+    result := DllCall("KERNELBASE.dll\AddPackageDependency", "ptr", packageDependencyId, Int32, rank, AddPackageDependencyOptions, options, packageDependencyContextMarshal, packageDependencyContext, packageFullNameMarshal, packageFullName, "HRESULT")
     return result
 }
 
@@ -2094,7 +2094,7 @@ export AddPackageDependency2(packageDependencyId, rank, options, packageDependen
     packageDependencyContextMarshal := packageDependencyContext is VarRef ? "ptr*" : "ptr"
     packageFullNameMarshal := packageFullName is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\AddPackageDependency2", "ptr", packageDependencyId, "int", rank, AddPackageDependencyOptions2, options, packageDependencyContextMarshal, packageDependencyContext, packageFullNameMarshal, packageFullName, "HRESULT")
+    result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\AddPackageDependency2", "ptr", packageDependencyId, Int32, rank, AddPackageDependencyOptions2, options, packageDependencyContextMarshal, packageDependencyContext, packageFullNameMarshal, packageFullName, "HRESULT")
     return result
 }
 
@@ -2417,7 +2417,7 @@ export ReleasePackageVirtualizationContext(_context) {
  * @returns {String} Nothing - always returns an empty string
  */
 export DeactivatePackageVirtualizationContext(cookie) {
-    DllCall("KERNEL32.dll\DeactivatePackageVirtualizationContext", "ptr", cookie)
+    DllCall("KERNEL32.dll\DeactivatePackageVirtualizationContext", IntPtr, cookie)
 }
 
 /**
@@ -2487,7 +2487,7 @@ export GetProcessesInVirtualizationContext(packageFamilyName, count, processes) 
 export GetCurrentPackageInfo3(flags, packageInfoType, bufferLength, _buffer) {
     bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetCurrentPackageInfo3", "uint", flags, PackageInfo3Type, packageInfoType, bufferLengthMarshal, bufferLength, "ptr", _buffer, "uint*", &count := 0, "HRESULT")
+    result := DllCall("KERNEL32.dll\GetCurrentPackageInfo3", UInt32, flags, PackageInfo3Type, packageInfoType, bufferLengthMarshal, bufferLength, IntPtr, _buffer, "uint*", &count := 0, "HRESULT")
     return count
 }
 

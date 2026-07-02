@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GRAPHICS_EFFECT_PROPERTY_MAPPING.ahk" { GRAPHICS_EFFECT_PROPERTY_MAPPING }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GRAPHICS_EFFECT_PROPERTY_MAPPING.ahk" { GRAPHICS_EFFECT_PROPERTY_MAPPING }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Native interoperation interface that provides a counterpart to IGraphicsEffect and allows for metadata queries. This interface is available in C++ only.
@@ -106,7 +106,7 @@ export default struct IGraphicsEffectD2D1Interop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getproperty
      */
     GetProperty(index) {
-        result := ComCall(6, this, "uint", index, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "ptr*", &value := 0, "HRESULT")
         return value
     }
 
@@ -121,7 +121,7 @@ export default struct IGraphicsEffectD2D1Interop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getsource
      */
     GetSource(index) {
-        result := ComCall(7, this, "uint", index, "ptr*", &source := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, index, "ptr*", &source := 0, "HRESULT")
         return source
     }
 

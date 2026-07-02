@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID2D1DeviceContext2.ahk" { ID2D1DeviceContext2 }
-#Import ".\ID2D1Device1.ahk" { ID2D1Device1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
 #Import ".\D2D1_DEVICE_CONTEXT_OPTIONS.ahk" { D2D1_DEVICE_CONTEXT_OPTIONS }
+#Import ".\ID2D1Device1.ahk" { ID2D1Device1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
 
 /**

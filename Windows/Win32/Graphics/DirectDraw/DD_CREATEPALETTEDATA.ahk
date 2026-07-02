@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DD_PALETTE_GLOBAL.ahk" { DD_PALETTE_GLOBAL }
-#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DD_PALETTE_GLOBAL.ahk" { DD_PALETTE_GLOBAL }
 #Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
 
 /**
  * The DD_CREATEPALETTEDATA structure contains information necessary to create a DirectDrawPalette object for this Microsoft DirectDraw object.

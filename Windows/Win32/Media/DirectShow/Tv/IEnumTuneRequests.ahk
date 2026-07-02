@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
 
 /**
  * The IEnumTuneRequests interface provides access to a collection of tune requests returned from a call to IGuideData::GetServices. This collection of tune requests represents all the services available in the tuning space.
@@ -83,7 +83,7 @@ export default struct IEnumTuneRequests extends IUnknown {
     Next(celt, ppprop, pcelt) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, ITuneRequest.Ptr, ppprop, pceltMarshal, pcelt, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, ITuneRequest.Ptr, ppprop, pceltMarshal, pcelt, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IEnumTuneRequests extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_TEX2D_RTV.ahk" { D3D12_TEX2D_RTV }
+#Import ".\D3D12_RTV_DIMENSION.ahk" { D3D12_RTV_DIMENSION }
+#Import ".\D3D12_TEX2DMS_ARRAY_RTV.ahk" { D3D12_TEX2DMS_ARRAY_RTV }
 #Import ".\D3D12_BUFFER_RTV.ahk" { D3D12_BUFFER_RTV }
+#Import ".\D3D12_TEX2D_ARRAY_RTV.ahk" { D3D12_TEX2D_ARRAY_RTV }
+#Import ".\D3D12_TEX1D_RTV.ahk" { D3D12_TEX1D_RTV }
 #Import ".\D3D12_TEX1D_ARRAY_RTV.ahk" { D3D12_TEX1D_ARRAY_RTV }
 #Import ".\D3D12_TEX2DMS_RTV.ahk" { D3D12_TEX2DMS_RTV }
-#Import ".\D3D12_TEX1D_RTV.ahk" { D3D12_TEX1D_RTV }
-#Import ".\D3D12_TEX2D_ARRAY_RTV.ahk" { D3D12_TEX2D_ARRAY_RTV }
 #Import ".\D3D12_TEX3D_RTV.ahk" { D3D12_TEX3D_RTV }
-#Import ".\D3D12_RTV_DIMENSION.ahk" { D3D12_RTV_DIMENSION }
+#Import ".\D3D12_TEX2D_RTV.ahk" { D3D12_TEX2D_RTV }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D12_TEX2DMS_ARRAY_RTV.ahk" { D3D12_TEX2DMS_ARRAY_RTV }
 
 /**
  * Describes the subresources from a resource that are accessible by using a render-target view.

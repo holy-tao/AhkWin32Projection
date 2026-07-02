@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFSample.ahk" { IMFSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides the ability to retrieve IMFSample objects for individual substreams within the output of a multiplexed media source.
@@ -57,7 +57,7 @@ export default struct IMFMuxStreamSampleManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamsamplemanager-getsample
      */
     GetSample(dwMuxStreamIndex) {
-        result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", &ppSample := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMuxStreamIndex, "ptr*", &ppSample := 0, "HRESULT")
         return IMFSample(ppSample)
     }
 

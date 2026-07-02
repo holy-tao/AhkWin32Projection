@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EnTvRat_System.ahk" { EnTvRat_System }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IXDSToRat interface parses rating information from extended data services (XDS) information in line 21.
@@ -156,7 +156,7 @@ export default struct IXDSToRat extends IDispatch {
         pEnLevelMarshal := pEnLevel is VarRef ? "int*" : "ptr"
         plBfEnAttributesMarshal := plBfEnAttributes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "char", byte1, "char", byte2, pEnSystemMarshal, pEnSystem, pEnLevelMarshal, pEnLevel, plBfEnAttributesMarshal, plBfEnAttributes, "HRESULT")
+        result := ComCall(8, this, Int8, byte1, Int8, byte2, pEnSystemMarshal, pEnSystem, pEnLevelMarshal, pEnLevel, plBfEnAttributesMarshal, plBfEnAttributes, "HRESULT")
         return result
     }
 

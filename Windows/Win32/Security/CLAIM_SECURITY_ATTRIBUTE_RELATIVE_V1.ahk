@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk" { CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE }
 #Import ".\CLAIM_SECURITY_ATTRIBUTE_FLAGS.ahk" { CLAIM_SECURITY_ATTRIBUTE_FLAGS }
+#Import ".\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk" { CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE }
 
 /**
  * Defines a resource attribute that is defined in continuous memory for persistence within a serialized security descriptor.

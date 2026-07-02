@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\DS_REPL_VALUE_META_DATA_EXT.ahk" { DS_REPL_VALUE_META_DATA_EXT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DS_REPL_VALUE_META_DATA_EXT.ahk" { DS_REPL_VALUE_META_DATA_EXT }
 
 /**
  * Provides metadata for a collection of attribute replication values.

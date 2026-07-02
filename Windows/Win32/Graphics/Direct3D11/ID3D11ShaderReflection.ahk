@@ -2,16 +2,16 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D11_SHADER_DESC.ahk" { D3D11_SHADER_DESC }
-#Import ".\D3D11_SHADER_INPUT_BIND_DESC.ahk" { D3D11_SHADER_INPUT_BIND_DESC }
-#Import "..\Direct3D\D3D_PRIMITIVE.ahk" { D3D_PRIMITIVE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\ID3D11ShaderReflectionConstantBuffer.ahk" { ID3D11ShaderReflectionConstantBuffer }
+#Import ".\D3D11_SHADER_DESC.ahk" { D3D11_SHADER_DESC }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Direct3D\D3D_PRIMITIVE.ahk" { D3D_PRIMITIVE }
 #Import ".\ID3D11ShaderReflectionVariable.ahk" { ID3D11ShaderReflectionVariable }
 #Import ".\D3D11_SIGNATURE_PARAMETER_DESC.ahk" { D3D11_SIGNATURE_PARAMETER_DESC }
+#Import ".\D3D11_SHADER_INPUT_BIND_DESC.ahk" { D3D11_SHADER_INPUT_BIND_DESC }
 #Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D11ShaderReflection)
@@ -107,7 +107,7 @@ export default struct ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(Index) {
-        result := ComCall(4, this, "uint", Index, ID3D11ShaderReflectionConstantBuffer)
+        result := ComCall(4, this, UInt32, Index, ID3D11ShaderReflectionConstantBuffer)
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct ID3D11ShaderReflection extends IUnknown {
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D11_SHADER_INPUT_BIND_DESC()
-        result := ComCall(6, this, "uint", ResourceIndex, D3D11_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(6, this, UInt32, ResourceIndex, D3D11_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -168,7 +168,7 @@ export default struct ID3D11ShaderReflection extends IUnknown {
      */
     GetInputParameterDesc(ParameterIndex) {
         pDesc := D3D11_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(7, this, "uint", ParameterIndex, D3D11_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(7, this, UInt32, ParameterIndex, D3D11_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -188,7 +188,7 @@ export default struct ID3D11ShaderReflection extends IUnknown {
      */
     GetOutputParameterDesc(ParameterIndex) {
         pDesc := D3D11_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(8, this, "uint", ParameterIndex, D3D11_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(8, this, UInt32, ParameterIndex, D3D11_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -206,7 +206,7 @@ export default struct ID3D11ShaderReflection extends IUnknown {
      */
     GetPatchConstantParameterDesc(ParameterIndex) {
         pDesc := D3D11_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(9, this, "uint", ParameterIndex, D3D11_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(9, this, UInt32, ParameterIndex, D3D11_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -356,7 +356,9 @@ export default struct ID3D11ShaderReflection extends IUnknown {
      * Gets the minimum feature level. (ID3D11ShaderReflection.GetMinFeatureLevel)
      * @remarks
      * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
-     * @returns {D3D_FEATURE_LEVEL} 
+     * @returns {D3D_FEATURE_LEVEL} Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
+     * 
+     * A pointer to one of the enumerated values in <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>, which represents the minimum feature level.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getminfeaturelevel
      */
     GetMinFeatureLevel() {

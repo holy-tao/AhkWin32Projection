@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEventTarget.ahk" { IEventTarget }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IHTMLDataTransfer.ahk" { IHTMLDataTransfer }
+#Import ".\IEventTarget.ahk" { IEventTarget }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
@@ -86,7 +86,7 @@ export default struct IDOMDragEvent extends IDispatch {
     initDragEvent(eventType, canBubble, cancelable, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, ctrlKeyArg, altKeyArg, shiftKeyArg, metaKeyArg, buttonArg, relatedTargetArg, dataTransferArg) {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
 
-        result := ComCall(8, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, VARIANT_BOOL, ctrlKeyArg, VARIANT_BOOL, altKeyArg, VARIANT_BOOL, shiftKeyArg, VARIANT_BOOL, metaKeyArg, "ushort", buttonArg, "ptr", relatedTargetArg, "ptr", dataTransferArg, "HRESULT")
+        result := ComCall(8, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, Int32, detailArg, Int32, screenXArg, Int32, screenYArg, Int32, clientXArg, Int32, clientYArg, VARIANT_BOOL, ctrlKeyArg, VARIANT_BOOL, altKeyArg, VARIANT_BOOL, shiftKeyArg, VARIANT_BOOL, metaKeyArg, UInt16, buttonArg, "ptr", relatedTargetArg, "ptr", dataTransferArg, "HRESULT")
         return result
     }
 

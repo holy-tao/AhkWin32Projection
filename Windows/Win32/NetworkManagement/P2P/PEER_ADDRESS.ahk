@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 #Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 #Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
 #Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 

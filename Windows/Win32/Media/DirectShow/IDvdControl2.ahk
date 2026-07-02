@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
-#Import ".\IDvdState.ahk" { IDvdState }
+#Import ".\DVD_MENU_ID.ahk" { DVD_MENU_ID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DVD_OPTION_FLAG.ahk" { DVD_OPTION_FLAG }
-#Import ".\DVD_RELATIVE_BUTTON.ahk" { DVD_RELATIVE_BUTTON }
 #Import ".\IDvdCmd.ahk" { IDvdCmd }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\DVD_RELATIVE_BUTTON.ahk" { DVD_RELATIVE_BUTTON }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
-#Import ".\DVD_MENU_ID.ahk" { DVD_MENU_ID }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DVD_OPTION_FLAG.ahk" { DVD_OPTION_FLAG }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
+#Import ".\IDvdState.ahk" { IDvdState }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DVD_HMSF_TIMECODE.ahk" { DVD_HMSF_TIMECODE }
+#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
 
 /**
  * The IDvdControl2 interface navigates and plays DVD-Video titles.
@@ -117,7 +117,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playtitle
      */
     PlayTitle(ulTitle, dwFlags) {
-        result := ComCall(3, this, "uint", ulTitle, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, ulTitle, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -154,7 +154,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playchapterintitle
      */
     PlayChapterInTitle(ulTitle, ulChapter, dwFlags) {
-        result := ComCall(4, this, "uint", ulTitle, "uint", ulChapter, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, ulTitle, UInt32, ulChapter, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -189,7 +189,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playattimeintitle
      */
     PlayAtTimeInTitle(ulTitle, pStartTime, dwFlags) {
-        result := ComCall(5, this, "uint", ulTitle, DVD_HMSF_TIMECODE.Ptr, pStartTime, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, ulTitle, DVD_HMSF_TIMECODE.Ptr, pStartTime, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -286,7 +286,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-returnfromsubmenu
      */
     ReturnFromSubmenu(dwFlags) {
-        result := ComCall(7, this, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -315,7 +315,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playattime
      */
     PlayAtTime(pTime, dwFlags) {
-        result := ComCall(8, this, DVD_HMSF_TIMECODE.Ptr, pTime, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(8, this, DVD_HMSF_TIMECODE.Ptr, pTime, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -346,7 +346,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playchapter
      */
     PlayChapter(ulChapter, dwFlags) {
-        result := ComCall(9, this, "uint", ulChapter, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, ulChapter, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -380,7 +380,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playprevchapter
      */
     PlayPrevChapter(dwFlags) {
-        result := ComCall(10, this, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -412,7 +412,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-replaychapter
      */
     ReplayChapter(dwFlags) {
-        result := ComCall(11, this, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -448,7 +448,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playnextchapter
      */
     PlayNextChapter(dwFlags) {
-        result := ComCall(12, this, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -483,7 +483,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playforwards
      */
     PlayForwards(dSpeed, dwFlags) {
-        result := ComCall(13, this, "double", dSpeed, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(13, this, Float64, dSpeed, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -518,7 +518,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playbackwards
      */
     PlayBackwards(dSpeed, dwFlags) {
-        result := ComCall(14, this, "double", dSpeed, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(14, this, Float64, dSpeed, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -549,7 +549,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-showmenu
      */
     ShowMenu(MenuID, dwFlags) {
-        result := ComCall(15, this, DVD_MENU_ID, MenuID, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(15, this, DVD_MENU_ID, MenuID, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -585,7 +585,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-resume
      */
     Resume(dwFlags) {
-        result := ComCall(16, this, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -824,7 +824,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectbutton
      */
     SelectButton(ulButton) {
-        result := ComCall(19, this, "uint", ulButton, "HRESULT")
+        result := ComCall(19, this, UInt32, ulButton, "HRESULT")
         return result
     }
 
@@ -907,7 +907,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectandactivatebutton
      */
     SelectAndActivateButton(ulButton) {
-        result := ComCall(20, this, "uint", ulButton, "HRESULT")
+        result := ComCall(20, this, UInt32, ulButton, "HRESULT")
         return result
     }
 
@@ -1103,7 +1103,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectaudiostream
      */
     SelectAudioStream(ulAudio, dwFlags) {
-        result := ComCall(23, this, "uint", ulAudio, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(23, this, UInt32, ulAudio, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -1154,7 +1154,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectsubpicturestream
      */
     SelectSubpictureStream(ulSubPicture, dwFlags) {
-        result := ComCall(24, this, "uint", ulSubPicture, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(24, this, UInt32, ulSubPicture, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -1192,7 +1192,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-setsubpicturestate
      */
     SetSubpictureState(bState, dwFlags) {
-        result := ComCall(25, this, BOOL, bState, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(25, this, BOOL, bState, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -1228,7 +1228,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectangle
      */
     SelectAngle(ulAngle, dwFlags) {
-        result := ComCall(26, this, "uint", ulAngle, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(26, this, UInt32, ulAngle, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -1334,7 +1334,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectparentallevel
      */
     SelectParentalLevel(ulParentalLevel) {
-        result := ComCall(27, this, "uint", ulParentalLevel, "HRESULT")
+        result := ComCall(27, this, UInt32, ulParentalLevel, "HRESULT")
         return result
     }
 
@@ -1492,7 +1492,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectkaraokeaudiopresentationmode
      */
     SelectKaraokeAudioPresentationMode(ulMode) {
-        result := ComCall(29, this, "uint", ulMode, "HRESULT")
+        result := ComCall(29, this, UInt32, ulMode, "HRESULT")
         return result
     }
 
@@ -1588,7 +1588,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectvideomodepreference
      */
     SelectVideoModePreference(ulPreferredDisplayMode) {
-        result := ComCall(30, this, "uint", ulPreferredDisplayMode, "HRESULT")
+        result := ComCall(30, this, UInt32, ulPreferredDisplayMode, "HRESULT")
         return result
     }
 
@@ -1917,7 +1917,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playchaptersautostop
      */
     PlayChaptersAutoStop(ulTitle, ulChapter, ulChaptersToPlay, dwFlags) {
-        result := ComCall(34, this, "uint", ulTitle, "uint", ulChapter, "uint", ulChaptersToPlay, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(34, this, UInt32, ulTitle, UInt32, ulChapter, UInt32, ulChaptersToPlay, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -2027,7 +2027,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-setstate
      */
     SetState(pState, dwFlags) {
-        result := ComCall(37, this, "ptr", pState, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(37, this, "ptr", pState, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -2064,7 +2064,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-playperiodintitleautostop
      */
     PlayPeriodInTitleAutoStop(ulTitle, pStartTime, pEndTime, dwFlags) {
-        result := ComCall(38, this, "uint", ulTitle, DVD_HMSF_TIMECODE.Ptr, pStartTime, DVD_HMSF_TIMECODE.Ptr, pEndTime, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(38, this, UInt32, ulTitle, DVD_HMSF_TIMECODE.Ptr, pStartTime, DVD_HMSF_TIMECODE.Ptr, pEndTime, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -2094,7 +2094,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-setgprm
      */
     SetGPRM(ulIndex, wValue, dwFlags) {
-        result := ComCall(39, this, "uint", ulIndex, "ushort", wValue, "uint", dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
+        result := ComCall(39, this, UInt32, ulIndex, UInt16, wValue, UInt32, dwFlags, "ptr*", &ppCmd := 0, "HRESULT")
         return IDvdCmd(ppCmd)
     }
 
@@ -2162,7 +2162,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectdefaultmenulanguage
      */
     SelectDefaultMenuLanguage(Language) {
-        result := ComCall(40, this, "uint", Language, "HRESULT")
+        result := ComCall(40, this, UInt32, Language, "HRESULT")
         return result
     }
 
@@ -2231,7 +2231,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectdefaultaudiolanguage
      */
     SelectDefaultAudioLanguage(Language, audioExtension) {
-        result := ComCall(41, this, "uint", Language, DVD_AUDIO_LANG_EXT, audioExtension, "HRESULT")
+        result := ComCall(41, this, UInt32, Language, DVD_AUDIO_LANG_EXT, audioExtension, "HRESULT")
         return result
     }
 
@@ -2300,7 +2300,7 @@ export default struct IDvdControl2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-selectdefaultsubpicturelanguage
      */
     SelectDefaultSubpictureLanguage(Language, subpictureExtension) {
-        result := ComCall(42, this, "uint", Language, DVD_SUBPICTURE_LANG_EXT, subpictureExtension, "HRESULT")
+        result := ComCall(42, this, UInt32, Language, DVD_SUBPICTURE_LANG_EXT, subpictureExtension, "HRESULT")
         return result
     }
 

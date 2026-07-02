@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IKsNodeControl interface must be implemented by USB Video Class (UVC) extension units.
@@ -59,7 +59,7 @@ export default struct IKsNodeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iksnodecontrol-put_nodeid
      */
     put_NodeId(dwNodeId) {
-        result := ComCall(3, this, "uint", dwNodeId, "HRESULT")
+        result := ComCall(3, this, UInt32, dwNodeId, "HRESULT")
         return result
     }
 

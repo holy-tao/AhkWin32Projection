@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -58,7 +58,7 @@ export default struct IDataConvert extends IUnknown {
         pDstMarshal := pDst is VarRef ? "ptr" : "ptr"
         pdbsStatusMarshal := pdbsStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ushort", wSrcType, "ushort", wDstType, "ptr", cbSrcLength, pcbDstLengthMarshal, pcbDstLength, "ptr", pSrc, pDstMarshal, pDst, "ptr", cbDstMaxLength, "uint", dbsSrcStatus, pdbsStatusMarshal, pdbsStatus, "char", bPrecision, "char", bScale, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, UInt16, wSrcType, UInt16, wDstType, IntPtr, cbSrcLength, pcbDstLengthMarshal, pcbDstLength, IntPtr, pSrc, pDstMarshal, pDst, IntPtr, cbDstMaxLength, UInt32, dbsSrcStatus, pdbsStatusMarshal, pdbsStatus, Int8, bPrecision, Int8, bScale, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct IDataConvert extends IUnknown {
      * @returns {HRESULT} 
      */
     CanConvert(wSrcType, wDstType) {
-        result := ComCall(4, this, "ushort", wSrcType, "ushort", wDstType, "HRESULT")
+        result := ComCall(4, this, UInt16, wSrcType, UInt16, wDstType, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IDataConvert extends IUnknown {
     GetConversionSize(wSrcType, wDstType, pcbSrcLength, pSrc) {
         pcbSrcLengthMarshal := pcbSrcLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ushort", wSrcType, "ushort", wDstType, pcbSrcLengthMarshal, pcbSrcLength, "ptr*", &pcbDstLength := 0, "ptr", pSrc, "HRESULT")
+        result := ComCall(5, this, UInt16, wSrcType, UInt16, wDstType, pcbSrcLengthMarshal, pcbSrcLength, "ptr*", &pcbDstLength := 0, IntPtr, pSrc, "HRESULT")
         return pcbDstLength
     }
 

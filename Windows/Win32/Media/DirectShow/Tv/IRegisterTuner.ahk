@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITuner.ahk" { ITuner }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\IGraphBuilder.ahk" { IGraphBuilder }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This feature is expected to be available on a future version of the Windows operating system.

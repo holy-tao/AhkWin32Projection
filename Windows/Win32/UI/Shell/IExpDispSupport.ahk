@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IConnectionPoint.ahk" { IConnectionPoint }
-#Import "..\..\System\Com\EXCEPINFO.ahk" { EXCEPINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\EXCEPINFO.ahk" { EXCEPINFO }
 
 /**
  * Deprecated. Exposes methods that allow the retrieval of properties, translation of keyboard accelerators, and determination of a connection point for certain events. (IExpDispSupport)
@@ -76,7 +76,7 @@ export default struct IExpDispSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupport-ontranslateaccelerator
      */
     OnTranslateAccelerator(pMsg, grfModifiers) {
-        result := ComCall(4, this, MSG.Ptr, pMsg, "uint", grfModifiers, "HRESULT")
+        result := ComCall(4, this, MSG.Ptr, pMsg, UInt32, grfModifiers, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IExpDispSupport extends IUnknown {
     OnInvoke(dispidMember, iid, lcid, wFlags, pdispparams, pVarResult, pexcepinfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", dispidMember, Guid.Ptr, iid, "uint", lcid, "ushort", wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(5, this, Int32, dispidMember, Guid.Ptr, iid, UInt32, lcid, UInt16, wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
 
 /**
  * Configures the settings of a stream in an ASF file.
@@ -95,7 +95,7 @@ export default struct IMFASFStreamConfig extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-setstreamnumber
      */
     SetStreamNumber(wStreamNum) {
-        result := ComCall(35, this, "ushort", wStreamNum, "HRESULT")
+        result := ComCall(35, this, UInt16, wStreamNum, "HRESULT")
         return result
     }
 
@@ -218,7 +218,7 @@ export default struct IMFASFStreamConfig extends IMFAttributes {
         pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
         pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(39, this, "ushort", wPayloadExtensionNumber, Guid.Ptr, pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
+        result := ComCall(39, this, UInt16, wPayloadExtensionNumber, Guid.Ptr, pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
         return result
     }
 
@@ -252,7 +252,7 @@ export default struct IMFASFStreamConfig extends IMFAttributes {
     AddPayloadExtension(guidExtensionSystemID, cbExtensionDataSize, pbExtensionSystemInfo, cbExtensionSystemInfo) {
         pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(40, this, Guid, guidExtensionSystemID, "ushort", cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "HRESULT")
+        result := ComCall(40, this, Guid, guidExtensionSystemID, UInt16, cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, UInt32, cbExtensionSystemInfo, "HRESULT")
         return result
     }
 

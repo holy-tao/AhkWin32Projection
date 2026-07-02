@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DESKBANDINFO.ahk" { DESKBANDINFO }
 #Import ".\IDockingWindow.ahk" { IDockingWindow }
+#Import ".\DESKBANDINFO.ahk" { DESKBANDINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to obtain information about a band object.
@@ -61,7 +61,7 @@ export default struct IDeskBand extends IDockingWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ideskband-getbandinfo
      */
     GetBandInfo(dwBandID, dwViewMode, pdbi) {
-        result := ComCall(8, this, "uint", dwBandID, "uint", dwViewMode, DESKBANDINFO.Ptr, pdbi, "HRESULT")
+        result := ComCall(8, this, UInt32, dwBandID, UInt32, dwViewMode, DESKBANDINFO.Ptr, pdbi, "HRESULT")
         return result
     }
 

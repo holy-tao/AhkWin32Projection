@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAudioEndpointVolumeCallback.ahk" { IAudioEndpointVolumeCallback }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioEndpointVolumeCallback.ahk" { IAudioEndpointVolumeCallback }
 
 /**
  * The IAudioEndpointVolume interface represents the volume controls on the audio stream to or from an audio endpoint device.
@@ -177,7 +177,7 @@ export default struct IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-setmastervolumelevel
      */
     SetMasterVolumeLevel(fLevelDB, pguidEventContext) {
-        result := ComCall(6, this, "float", fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(6, this, Float32, fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -224,7 +224,7 @@ export default struct IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-setmastervolumelevelscalar
      */
     SetMasterVolumeLevelScalar(fLevel, pguidEventContext) {
-        result := ComCall(7, this, "float", fLevel, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(7, this, Float32, fLevel, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -294,7 +294,7 @@ export default struct IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-setchannelvolumelevel
      */
     SetChannelVolumeLevel(nChannel, fLevelDB, pguidEventContext) {
-        result := ComCall(10, this, "uint", nChannel, "float", fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(10, this, UInt32, nChannel, Float32, fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -340,7 +340,7 @@ export default struct IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-setchannelvolumelevelscalar
      */
     SetChannelVolumeLevelScalar(nChannel, fLevel, pguidEventContext) {
-        result := ComCall(11, this, "uint", nChannel, "float", fLevel, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(11, this, UInt32, nChannel, Float32, fLevel, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -351,7 +351,7 @@ export default struct IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getchannelvolumelevel
      */
     GetChannelVolumeLevel(nChannel) {
-        result := ComCall(12, this, "uint", nChannel, "float*", &pfLevelDB := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, nChannel, "float*", &pfLevelDB := 0, "HRESULT")
         return pfLevelDB
     }
 
@@ -366,7 +366,7 @@ export default struct IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getchannelvolumelevelscalar
      */
     GetChannelVolumeLevelScalar(nChannel) {
-        result := ComCall(13, this, "uint", nChannel, "float*", &pfLevel := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, nChannel, "float*", &pfLevel := 0, "HRESULT")
         return pfLevel
     }
 

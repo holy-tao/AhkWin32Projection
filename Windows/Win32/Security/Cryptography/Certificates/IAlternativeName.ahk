@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IObjectId.ahk" { IObjectId }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\AlternativeNameType.ahk" { AlternativeNameType }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectId.ahk" { IObjectId }
 
 /**
  * Is used by an IX509ExtensionAlternativeNames object to represent an instance of an AlternativeNames extension.

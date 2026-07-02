@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWSDAsyncCallback.ahk" { IWSDAsyncCallback }
 #Import ".\WSD_EVENT.ahk" { WSD_EVENT }
-#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an asynchronous operation.

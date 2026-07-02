@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RequestClientInfoClientId.ahk" { RequestClientInfoClientId }
 #Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\RequestClientInfoClientId.ahk" { RequestClientInfoClientId }
 #Import ".\IX509Attribute.ahk" { IX509Attribute }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

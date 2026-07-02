@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\KSSTREAMALLOCATOR_STATUS.ahk" { KSSTREAMALLOCATOR_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\KSALLOCATORMODE.ahk" { KSALLOCATORMODE }
 
 /**

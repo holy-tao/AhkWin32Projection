@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WTS_LICENSE_CAPABILITIES.ahk" { WTS_LICENSE_CAPABILITIES }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IWTSProtocolLicenseConnection is no longer available. Instead, use IWRdsProtocolLicenseConnection.
@@ -67,7 +67,7 @@ export default struct IWTSProtocolLicenseConnection extends IUnknown {
     SendClientLicense(pClientLicense, cbClientLicense) {
         pClientLicenseMarshal := pClientLicense is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pClientLicenseMarshal, pClientLicense, "uint", cbClientLicense, "HRESULT")
+        result := ComCall(4, this, pClientLicenseMarshal, pClientLicense, UInt32, cbClientLicense, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IWTSProtocolLicenseConnection extends IUnknown {
         Reserve1Marshal := Reserve1 is VarRef ? "char*" : "ptr"
         pcbClientLicenseMarshal := pcbClientLicense is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, Reserve1Marshal, Reserve1, "uint", Reserve2, "char*", &ppClientLicense := 0, pcbClientLicenseMarshal, pcbClientLicense, "HRESULT")
+        result := ComCall(5, this, Reserve1Marshal, Reserve1, UInt32, Reserve2, "char*", &ppClientLicense := 0, pcbClientLicenseMarshal, pcbClientLicense, "HRESULT")
         return ppClientLicense
     }
 
@@ -96,7 +96,7 @@ export default struct IWTSProtocolLicenseConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-protocolcomplete
      */
     ProtocolComplete(ulComplete) {
-        result := ComCall(6, this, "uint", ulComplete, "HRESULT")
+        result := ComCall(6, this, UInt32, ulComplete, "HRESULT")
         return result
     }
 

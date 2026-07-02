@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HDEV.ahk" { HDEV }
+#Import ".\FREEOBJPROC.ahk" { FREEOBJPROC }
 #Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\HDEV.ahk" { HDEV }
 
 /**
  * The DRIVEROBJ structure is used to track a resource, allocated by a driver, that requires use GDI services.
@@ -32,7 +33,7 @@ export default struct DRIVEROBJ {
      * 
      * The callback function returns <b>TRUE</b> if it is able to free the resource, and <b>FALSE</b> otherwise.
      */
-    pFreeProc : IntPtr
+    pFreeProc : FREEOBJPROC
 
     /**
      * GDI handle to the physical device associated with the object.

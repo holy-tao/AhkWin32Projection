@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOpcPart.ahk" { IOpcPart }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\OPC_COMPRESSION_OPTIONS.ahk" { OPC_COMPRESSION_OPTIONS }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IOpcPart.ahk" { IOpcPart }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
 #Import ".\IOpcPartEnumerator.ahk" { IOpcPartEnumerator }
 
 /**

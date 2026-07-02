@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes the structure of a particular UDT.
@@ -304,7 +304,7 @@ export default struct IRecordInfo extends IUnknown {
 
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, "uint", wFlags, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
+        result := ComCall(12, this, UInt32, wFlags, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
         return result
     }
 
@@ -353,7 +353,7 @@ export default struct IRecordInfo extends IUnknown {
 
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, "uint", wFlags, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
+        result := ComCall(13, this, UInt32, wFlags, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
         return result
     }
 

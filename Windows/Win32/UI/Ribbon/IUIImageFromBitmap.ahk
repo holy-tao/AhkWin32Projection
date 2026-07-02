@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UI_OWNERSHIP.ahk" { UI_OWNERSHIP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIImage.ahk" { IUIImage }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\UI_OWNERSHIP.ahk" { UI_OWNERSHIP }
-#Import ".\IUIImage.ahk" { IUIImage }
 
 /**
  * IUIImageFromBitmap is a factory interface implemented by the Windows Ribbon framework that defines the method for creating an IUIImage object.

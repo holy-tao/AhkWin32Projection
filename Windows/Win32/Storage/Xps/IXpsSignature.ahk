@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\XPS_SIGNATURE_STATUS.ahk" { XPS_SIGNATURE_STATUS }
-#Import ".\XPS_SIGN_POLICY.ahk" { XPS_SIGN_POLICY }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk" { IOpcSignatureCustomObjectEnumerator }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Packaging\Opc\IOpcCertificateEnumerator.ahk" { IOpcCertificateEnumerator }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
 #Import "..\Packaging\Opc\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
+#Import ".\XPS_SIGN_POLICY.ahk" { XPS_SIGN_POLICY }
+#Import "..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk" { IOpcSignatureCustomObjectEnumerator }
+#Import "..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\Packaging\Opc\IOpcCertificateEnumerator.ahk" { IOpcCertificateEnumerator }
 
 /**
  * Represents a single digital signature.
@@ -327,7 +327,7 @@ export default struct IXpsSignature extends IUnknown {
     SetSignatureXml(signatureXml, count) {
         signatureXmlMarshal := signatureXml is VarRef ? "char*" : "ptr"
 
-        result := ComCall(14, this, signatureXmlMarshal, signatureXml, "uint", count, "HRESULT")
+        result := ComCall(14, this, signatureXmlMarshal, signatureXml, UInt32, count, "HRESULT")
         return result
     }
 

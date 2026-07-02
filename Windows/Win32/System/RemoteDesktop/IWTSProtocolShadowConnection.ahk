@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWTSProtocolShadowCallback.ahk" { IWTSProtocolShadowCallback }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWTSProtocolShadowCallback.ahk" { IWTSProtocolShadowCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IWTSProtocolShadowConnection is no longer available. Instead, use IWRdsProtocolShadowConnection.
@@ -56,7 +56,7 @@ export default struct IWTSProtocolShadowConnection extends IUnknown {
     Start(pTargetServerName, TargetSessionId, HotKeyVk, HotkeyModifiers, pShadowCallback) {
         pTargetServerName := pTargetServerName is String ? StrPtr(pTargetServerName) : pTargetServerName
 
-        result := ComCall(3, this, "ptr", pTargetServerName, "uint", TargetSessionId, "char", HotKeyVk, "ushort", HotkeyModifiers, "ptr", pShadowCallback, "HRESULT")
+        result := ComCall(3, this, "ptr", pTargetServerName, UInt32, TargetSessionId, Int8, HotKeyVk, UInt16, HotkeyModifiers, "ptr", pShadowCallback, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IWTSProtocolShadowConnection extends IUnknown {
         pParam3Marshal := pParam3 is VarRef ? "char*" : "ptr"
         pParam4Marshal := pParam4 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, pParam1Marshal, pParam1, "uint", Param1Size, pParam2Marshal, pParam2, "uint", Param2Size, pParam3Marshal, pParam3, "uint", Param3Size, pParam4Marshal, pParam4, "uint", Param4Size, "ptr", pClientName, "HRESULT")
+        result := ComCall(5, this, pParam1Marshal, pParam1, UInt32, Param1Size, pParam2Marshal, pParam2, UInt32, Param2Size, pParam3Marshal, pParam3, UInt32, Param3Size, pParam4Marshal, pParam4, UInt32, Param4Size, "ptr", pClientName, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\SWbemQueryQualifiedName.ahk" { SWbemQueryQualifiedName }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SWbemRpnConst.ahk" { SWbemRpnConst }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The SWbemRpnQueryToken structure represents the query tokens in a WMIQ_ANALYSIS_RPN_SEQUENCE type query. An example of a query token is the following:\_j &gt; 4.

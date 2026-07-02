@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMPErrorItem.ahk" { IWMPErrorItem }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMPErrorItem.ahk" { IWMPErrorItem }
 
 /**
  * The IWMPError interface provides methods for accessing a collection of IWMPErrorItem pointers.
@@ -123,7 +123,7 @@ export default struct IWMPError extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-get_item
      */
     get_item(dwIndex) {
-        result := ComCall(9, this, "int", dwIndex, "ptr*", &ppErrorItem := 0, "HRESULT")
+        result := ComCall(9, this, Int32, dwIndex, "ptr*", &ppErrorItem := 0, "HRESULT")
         return IWMPErrorItem(ppErrorItem)
     }
 

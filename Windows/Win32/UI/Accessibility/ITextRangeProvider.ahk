@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\TextPatternRangeEndpoint.ahk" { TextPatternRangeEndpoint }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIA_TEXTATTRIBUTE_ID.ahk" { UIA_TEXTATTRIBUTE_ID }
-#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TextUnit.ahk" { TextUnit }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\TextUnit.ahk" { TextUnit }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\UIA_TEXTATTRIBUTE_ID.ahk" { UIA_TEXTATTRIBUTE_ID }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TextPatternRangeEndpoint.ahk" { TextPatternRangeEndpoint }
 
 /**
  * Provides access to a span of continuous text in a text container that implements ITextProvider or ITextProvider2.
@@ -108,11 +108,15 @@ export default struct ITextRangeProvider extends IUnknown {
      * 
      * 
      * Returns a positive value if the caller's endpoint occurs later in the text than the target endpoint.
-     * @param {TextPatternRangeEndpoint} endpoint 
+     * @param {TextPatternRangeEndpoint} endpoint Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textpatternrangeendpoint">TextPatternRangeEndpoint</a></b>
+     * 
+     * The endpoint (starting or ending) of the caller's text range.
      * @param {ITextRangeProvider} targetRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>*</b>
      * 
      * The text range to be compared.
-     * @param {TextPatternRangeEndpoint} targetEndpoint 
+     * @param {TextPatternRangeEndpoint} targetEndpoint Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textpatternrangeendpoint">TextPatternRangeEndpoint</a></b>
+     * 
+     * The endpoint (starting or ending) of the target text range.
      * @returns {Integer} Type: <b>int*</b>
      * 
      * Receives a value that indicates whether the two text ranges have identical endpoints.
@@ -311,7 +315,7 @@ export default struct ITextRangeProvider extends IUnknown {
      */
     GetText(maxLength) {
         pRetVal := BSTR.Owned()
-        result := ComCall(12, this, "int", maxLength, BSTR.Ptr, pRetVal, "HRESULT")
+        result := ComCall(12, this, Int32, maxLength, BSTR.Ptr, pRetVal, "HRESULT")
         return pRetVal
     }
 
@@ -363,7 +367,9 @@ export default struct ITextRangeProvider extends IUnknown {
      * </ul>
      * <h3><a id="Range_behavior_when_unit_is_TextUnit__Format"></a><a id="range_behavior_when_unit_is_textunit__format"></a><a id="RANGE_BEHAVIOR_WHEN_UNIT_IS_TEXTUNIT__FORMAT"></a>Range behavior when <i>unit</i> is <c>TextUnit::Format</c></h3>
      * <c>TextUnit::Format</c> as a <i>unit</i> value positions the boundary of a text range to expand or move the range based on shared text attributes (format) of the text within the range. However, using the format text unit should not move or expand a text range across the boundary of an embedded object, such as an image or hyperlink. For more info, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-uiautomationtextunits">UI Automation Text Units</a> or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtextandtextrange">Text and TextRange Control Patterns</a>.
-     * @param {TextUnit} _unit 
+     * @param {TextUnit} _unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textunit">TextUnit</a></b>
+     * 
+     * The type of text units, such as character, word, paragraph, and so on.
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of text units to move. A positive value moves the text range forward. 
@@ -375,7 +381,7 @@ export default struct ITextRangeProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-move
      */
     Move(_unit, count) {
-        result := ComCall(13, this, TextUnit, _unit, "int", count, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(13, this, TextUnit, _unit, Int32, count, "int*", &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -404,8 +410,12 @@ export default struct ITextRangeProvider extends IUnknown {
      * </ul>
      * <h3><a id="Range_behavior_when_unit_is_TextUnit__Format"></a><a id="range_behavior_when_unit_is_textunit__format"></a><a id="RANGE_BEHAVIOR_WHEN_UNIT_IS_TEXTUNIT__FORMAT"></a>Range behavior when <i>unit</i> is <c>TextUnit::Format</c></h3>
      * <c>TextUnit::Format</c> as a <i>unit</i> value positions the boundary of a text range to expand or move the range based on shared text attributes (format) of the text within the range. However, using the format text unit should not move or expand a text range across the boundary of an embedded object, such as an image or hyperlink. For more info, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-uiautomationtextunits">UI Automation Text Units</a> or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtextandtextrange">Text and TextRange Control Patterns</a>.
-     * @param {TextPatternRangeEndpoint} endpoint 
-     * @param {TextUnit} _unit 
+     * @param {TextPatternRangeEndpoint} endpoint Type: <b>TextPatternRangeEndpoint</b>
+     * 
+     * The endpoint to move.
+     * @param {TextUnit} _unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textunit">TextUnit</a></b>
+     * 
+     * The type of text units, such as character, word, paragraph, and so on.
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of units to move. A positive value moves the endpoint forward. 
@@ -416,7 +426,7 @@ export default struct ITextRangeProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-moveendpointbyunit
      */
     MoveEndpointByUnit(endpoint, _unit, count) {
-        result := ComCall(14, this, TextPatternRangeEndpoint, endpoint, TextUnit, _unit, "int", count, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(14, this, TextPatternRangeEndpoint, endpoint, TextUnit, _unit, Int32, count, "int*", &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -424,11 +434,15 @@ export default struct ITextRangeProvider extends IUnknown {
      * Moves one endpoint of the current text range to the specified endpoint of a second text range. (ITextRangeProvider.MoveEndpointByRange)
      * @remarks
      * If the endpoint being moved crosses the other endpoint of the same text range, that other endpoint is moved also, resulting in a degenerate (empty) range and ensuring the correct ordering of the endpoints (that is, the start is always less than or equal to the end).
-     * @param {TextPatternRangeEndpoint} endpoint 
+     * @param {TextPatternRangeEndpoint} endpoint Type: <b>TextPatternRangeEndpoint</b>
+     * 
+     * An endpoint (either start or end) of the current text range. This is the endpoint to be moved.
      * @param {ITextRangeProvider} targetRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>*</b>
      * 
      * A second text range from the same text provider as the current text range.
-     * @param {TextPatternRangeEndpoint} targetEndpoint 
+     * @param {TextPatternRangeEndpoint} targetEndpoint Type: <b>TextPatternRangeEndpoint</b>
+     * 
+     * An endpoint (either start or end) of the second text range.   The <i>endpoint</i> of the current text range is moved to this endpoint.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that initialize or retrieve Protected Broadcast Driver Architecture (PBDA) service records from a Program and System Information Protocol (PSIP) table in a Protected Broadcast Device Architecture (PBDA) transport stream.
@@ -49,7 +49,7 @@ export default struct IPBDA_Services extends IUnknown {
     Initialize(_size, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", _size, pBufferMarshal, pBuffer, "HRESULT")
+        result := ComCall(3, this, UInt32, _size, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IPBDA_Services extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_services-getrecordbyindex
      */
     GetRecordByIndex(dwRecordIndex) {
-        result := ComCall(5, this, "uint", dwRecordIndex, "uint*", &pul64ServiceIdx := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwRecordIndex, "uint*", &pul64ServiceIdx := 0, "HRESULT")
         return pul64ServiceIdx
     }
 

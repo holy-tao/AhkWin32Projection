@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
+#Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDxcVersionInfo.ahk" { IDxcVersionInfo }
-#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDxcBlob.ahk" { IDxcBlob }
-#Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -155,7 +155,7 @@ export default struct IDxcPdbUtils2 extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     GetSource(uIndex) {
-        result := ComCall(5, this, "uint", uIndex, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, uIndex, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcBlobEncoding(ppResult)
     }
 
@@ -165,7 +165,7 @@ export default struct IDxcPdbUtils2 extends IUnknown {
      * @returns {IDxcBlobUtf16} 
      */
     GetSourceName(uIndex) {
-        result := ComCall(6, this, "uint", uIndex, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, uIndex, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcBlobUtf16(ppResult)
     }
 
@@ -189,7 +189,7 @@ export default struct IDxcPdbUtils2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetLibraryPDB(uIndex, ppOutPdbUtils, ppLibraryName) {
-        result := ComCall(8, this, "uint", uIndex, IDxcPdbUtils2.Ptr, ppOutPdbUtils, IDxcBlobUtf16.Ptr, ppLibraryName, "HRESULT")
+        result := ComCall(8, this, UInt32, uIndex, IDxcPdbUtils2.Ptr, ppOutPdbUtils, IDxcBlobUtf16.Ptr, ppLibraryName, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct IDxcPdbUtils2 extends IUnknown {
      * @returns {IDxcBlobUtf16} 
      */
     GetFlag(uIndex) {
-        result := ComCall(10, this, "uint", uIndex, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, uIndex, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcBlobUtf16(ppResult)
     }
 
@@ -227,7 +227,7 @@ export default struct IDxcPdbUtils2 extends IUnknown {
      * @returns {IDxcBlobUtf16} 
      */
     GetArg(uIndex) {
-        result := ComCall(12, this, "uint", uIndex, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, uIndex, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcBlobUtf16(ppResult)
     }
 
@@ -248,7 +248,7 @@ export default struct IDxcPdbUtils2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetArgPair(uIndex, ppName, ppValue) {
-        result := ComCall(14, this, "uint", uIndex, IDxcBlobUtf16.Ptr, ppName, IDxcBlobUtf16.Ptr, ppValue, "HRESULT")
+        result := ComCall(14, this, UInt32, uIndex, IDxcBlobUtf16.Ptr, ppName, IDxcBlobUtf16.Ptr, ppValue, "HRESULT")
         return result
     }
 
@@ -267,7 +267,7 @@ export default struct IDxcPdbUtils2 extends IUnknown {
      * @returns {IDxcBlobUtf16} 
      */
     GetDefine(uIndex) {
-        result := ComCall(16, this, "uint", uIndex, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, uIndex, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcBlobUtf16(ppResult)
     }
 

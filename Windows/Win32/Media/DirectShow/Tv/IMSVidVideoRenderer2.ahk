@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMSVidVideoRenderer.ahk" { IMSVidVideoRenderer }
-#Import "..\IVMRSurfaceAllocator.ahk" { IVMRSurfaceAllocator }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMSVidVideoRenderer.ahk" { IMSVidVideoRenderer }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IVMRSurfaceAllocator.ahk" { IVMRSurfaceAllocator }
 
 /**
  * The IMSVidVideoRenderer2 interface represents a video renderer device.
@@ -139,7 +139,7 @@ export default struct IMSVidVideoRenderer2 extends IMSVidVideoRenderer {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer2-setallocator
      */
     SetAllocator(AllocPresent, ID) {
-        result := ComCall(49, this, "ptr", AllocPresent, "int", ID, "HRESULT")
+        result := ComCall(49, this, "ptr", AllocPresent, Int32, ID, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct IMSVidVideoRenderer2 extends IMSVidVideoRenderer {
      * @returns {HRESULT} 
      */
     _SetAllocator2(AllocPresent, ID) {
-        result := ComCall(50, this, "ptr", AllocPresent, "int", ID, "HRESULT")
+        result := ComCall(50, this, "ptr", AllocPresent, Int32, ID, "HRESULT")
         return result
     }
 

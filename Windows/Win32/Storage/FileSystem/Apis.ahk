@@ -1,95 +1,103 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\FILE_INFO_BY_NAME_CLASS.ahk" { FILE_INFO_BY_NAME_CLASS }
-#Import ".\CLS_LSN.ahk" { CLS_LSN }
-#Import ".\IORING_INFO.ahk" { IORING_INFO }
-#Import ".\CLS_WRITE_ENTRY.ahk" { CLS_WRITE_ENTRY }
-#Import ".\TAPE_INFORMATION_TYPE.ahk" { TAPE_INFORMATION_TYPE }
-#Import ".\GETFINALPATHNAMEBYHANDLE_FLAGS.ahk" { GETFINALPATHNAMEBYHANDLE_FLAGS }
-#Import ".\FILE_ID_DESCRIPTOR.ahk" { FILE_ID_DESCRIPTOR }
-#Import ".\MOVE_FILE_FLAGS.ahk" { MOVE_FILE_FLAGS }
-#Import ".\CLS_INFORMATION.ahk" { CLS_INFORMATION }
-#Import ".\ERASE_TAPE_TYPE.ahk" { ERASE_TAPE_TYPE }
-#Import ".\BY_HANDLE_FILE_INFORMATION.ahk" { BY_HANDLE_FILE_INFORMATION }
-#Import ".\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
+#Import ".\IORING_OP_CODE.ahk" { IORING_OP_CODE }
+#Import ".\PFE_IMPORT_FUNC.ahk" { PFE_IMPORT_FUNC }
+#Import ".\CLFS_BLOCK_ALLOCATION.ahk" { CLFS_BLOCK_ALLOCATION }
 #Import ".\FIND_FIRST_EX_FLAGS.ahk" { FIND_FIRST_EX_FLAGS }
-#Import ".\VER_FIND_FILE_FLAGS.ahk" { VER_FIND_FILE_FLAGS }
-#Import ".\FINDEX_INFO_LEVELS.ahk" { FINDEX_INFO_LEVELS }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\IORING_BUFFER_INFO.ahk" { IORING_BUFFER_INFO }
-#Import ".\CLS_SCAN_CONTEXT.ahk" { CLS_SCAN_CONTEXT }
-#Import ".\IORING_SQE_FLAGS.ahk" { IORING_SQE_FLAGS }
-#Import ".\CLFS_CONTEXT_MODE.ahk" { CLFS_CONTEXT_MODE }
-#Import ".\ENCRYPTION_CERTIFICATE_HASH.ahk" { ENCRYPTION_CERTIFICATE_HASH }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\FILE_WRITE_FLAGS.ahk" { FILE_WRITE_FLAGS }
-#Import ".\TXFS_MINIVERSION.ahk" { TXFS_MINIVERSION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\FILE_NOTIFY_CHANGE.ahk" { FILE_NOTIFY_CHANGE }
-#Import ".\GET_FILE_VERSION_INFO_FLAGS.ahk" { GET_FILE_VERSION_INFO_FLAGS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IORING_CREATE_FLAGS.ahk" { IORING_CREATE_FLAGS }
-#Import ".\FILE_INFO_BY_HANDLE_CLASS.ahk" { FILE_INFO_BY_HANDLE_CLASS }
-#Import ".\LOG_MANAGEMENT_CALLBACKS.ahk" { LOG_MANAGEMENT_CALLBACKS }
-#Import ".\SET_FILE_POINTER_MOVE_METHOD.ahk" { SET_FILE_POINTER_MOVE_METHOD }
-#Import ".\PREPARE_TAPE_OPERATION.ahk" { PREPARE_TAPE_OPERATION }
-#Import ".\FILE_TYPE.ahk" { FILE_TYPE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IORING_CQE.ahk" { IORING_CQE }
-#Import ".\CLFS_MGMT_NOTIFICATION.ahk" { CLFS_MGMT_NOTIFICATION }
 #Import ".\IORING_BUFFER_REF.ahk" { IORING_BUFFER_REF }
-#Import ".\TRANSACTION_NOTIFICATION.ahk" { TRANSACTION_NOTIFICATION }
-#Import ".\HIORING.ahk" { HIORING }
-#Import ".\READ_DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk" { READ_DIRECTORY_NOTIFY_INFORMATION_CLASS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IORING_VERSION.ahk" { IORING_VERSION }
-#Import ".\CREATEFILE2_EXTENDED_PARAMETERS.ahk" { CREATEFILE2_EXTENDED_PARAMETERS }
-#Import ".\FILE_CREATION_DISPOSITION.ahk" { FILE_CREATION_DISPOSITION }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ERASE_TAPE_TYPE.ahk" { ERASE_TAPE_TYPE }
+#Import ".\FILE_FLUSH_MODE.ahk" { FILE_FLUSH_MODE }
+#Import ".\GET_FILE_VERSION_INFO_FLAGS.ahk" { GET_FILE_VERSION_INFO_FLAGS }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\VER_INSTALL_FILE_STATUS.ahk" { VER_INSTALL_FILE_STATUS }
-#Import ".\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
-#Import ".\COPYFILE_FLAGS.ahk" { COPYFILE_FLAGS }
-#Import ".\CREATE_BIND_LINK_FLAGS.ahk" { CREATE_BIND_LINK_FLAGS }
-#Import ".\IORING_CAPABILITIES.ahk" { IORING_CAPABILITIES }
-#Import ".\STREAM_INFO_LEVELS.ahk" { STREAM_INFO_LEVELS }
-#Import ".\VER_INSTALL_FILE_FLAGS.ahk" { VER_INSTALL_FILE_FLAGS }
-#Import ".\CLFS_FLAG.ahk" { CLFS_FLAG }
-#Import ".\CLFS_IOSTATS_CLASS.ahk" { CLFS_IOSTATS_CLASS }
-#Import ".\CREATEFILE3_EXTENDED_PARAMETERS.ahk" { CREATEFILE3_EXTENDED_PARAMETERS }
+#Import ".\HIORING.ahk" { HIORING }
+#Import ".\PFE_EXPORT_FUNC.ahk" { PFE_EXPORT_FUNC }
+#Import ".\CLS_ARCHIVE_DESCRIPTOR.ahk" { CLS_ARCHIVE_DESCRIPTOR }
+#Import ".\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\READ_DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk" { READ_DIRECTORY_NOTIFY_INFORMATION_CLASS }
 #Import ".\OFSTRUCT.ahk" { OFSTRUCT }
+#Import ".\IORING_BUFFER_INFO.ahk" { IORING_BUFFER_INFO }
+#Import ".\STREAM_INFO_LEVELS.ahk" { STREAM_INFO_LEVELS }
+#Import ".\FILE_NOTIFY_CHANGE.ahk" { FILE_NOTIFY_CHANGE }
+#Import ".\FILE_INFO_BY_HANDLE_CLASS.ahk" { FILE_INFO_BY_HANDLE_CLASS }
+#Import ".\SYMBOLIC_LINK_FLAGS.ahk" { SYMBOLIC_LINK_FLAGS }
+#Import ".\TAPE_INFORMATION_TYPE.ahk" { TAPE_INFORMATION_TYPE }
+#Import ".\ENCRYPTION_CERTIFICATE.ahk" { ENCRYPTION_CERTIFICATE }
+#Import ".\REPLACE_FILE_FLAGS.ahk" { REPLACE_FILE_FLAGS }
+#Import ".\LZOPENFILE_STYLE.ahk" { LZOPENFILE_STYLE }
+#Import ".\DIRECTORY_FLAGS.ahk" { DIRECTORY_FLAGS }
+#Import ".\IORING_VERSION.ahk" { IORING_VERSION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IORING_INFO.ahk" { IORING_INFO }
+#Import ".\IORING_SQE_FLAGS.ahk" { IORING_SQE_FLAGS }
+#Import ".\ENCRYPTION_CERTIFICATE_HASH_LIST.ahk" { ENCRYPTION_CERTIFICATE_HASH_LIST }
+#Import ".\CLFS_LOG_ARCHIVE_MODE.ahk" { CLFS_LOG_ARCHIVE_MODE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IORING_HANDLE_REF.ahk" { IORING_HANDLE_REF }
+#Import ".\COPYFILE_FLAGS.ahk" { COPYFILE_FLAGS }
+#Import ".\CLS_LSN.ahk" { CLS_LSN }
+#Import ".\CREATEFILE3_EXTENDED_PARAMETERS.ahk" { CREATEFILE3_EXTENDED_PARAMETERS }
+#Import ".\MOVE_FILE_FLAGS.ahk" { MOVE_FILE_FLAGS }
+#Import ".\CLFS_IOSTATS_CLASS.ahk" { CLFS_IOSTATS_CLASS }
+#Import ".\WIN32_FIND_DATAA.ahk" { WIN32_FIND_DATAA }
+#Import ".\FILE_TYPE.ahk" { FILE_TYPE }
+#Import ".\SET_FILE_POINTER_MOVE_METHOD.ahk" { SET_FILE_POINTER_MOVE_METHOD }
+#Import ".\CREATE_TAPE_PARTITION_METHOD.ahk" { CREATE_TAPE_PARTITION_METHOD }
+#Import ".\LOG_MANAGEMENT_CALLBACKS.ahk" { LOG_MANAGEMENT_CALLBACKS }
+#Import ".\PREPARE_TAPE_OPERATION.ahk" { PREPARE_TAPE_OPERATION }
+#Import ".\BY_HANDLE_FILE_INFORMATION.ahk" { BY_HANDLE_FILE_INFORMATION }
+#Import ".\VER_FIND_FILE_FLAGS.ahk" { VER_FIND_FILE_FLAGS }
+#Import ".\CLS_SCAN_CONTEXT.ahk" { CLS_SCAN_CONTEXT }
+#Import ".\GETFINALPATHNAMEBYHANDLE_FLAGS.ahk" { GETFINALPATHNAMEBYHANDLE_FLAGS }
+#Import ".\CLFS_MGMT_NOTIFICATION.ahk" { CLFS_MGMT_NOTIFICATION }
+#Import ".\GET_TAPE_DRIVE_PARAMETERS_OPERATION.ahk" { GET_TAPE_DRIVE_PARAMETERS_OPERATION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ENCRYPTION_CERTIFICATE_HASH.ahk" { ENCRYPTION_CERTIFICATE_HASH }
+#Import ".\FINDEX_INFO_LEVELS.ahk" { FINDEX_INFO_LEVELS }
+#Import ".\CLFS_MGMT_POLICY_TYPE.ahk" { CLFS_MGMT_POLICY_TYPE }
+#Import ".\DEFINE_DOS_DEVICE_FLAGS.ahk" { DEFINE_DOS_DEVICE_FLAGS }
+#Import ".\LOCK_FILE_FLAGS.ahk" { LOCK_FILE_FLAGS }
+#Import ".\FINDEX_SEARCH_OPS.ahk" { FINDEX_SEARCH_OPS }
+#Import ".\CREATE_BIND_LINK_FLAGS.ahk" { CREATE_BIND_LINK_FLAGS }
+#Import ".\CLFS_CONTEXT_MODE.ahk" { CLFS_CONTEXT_MODE }
+#Import ".\VER_INSTALL_FILE_STATUS.ahk" { VER_INSTALL_FILE_STATUS }
+#Import ".\CLS_WRITE_ENTRY.ahk" { CLS_WRITE_ENTRY }
+#Import ".\FILE_SHARE_MODE.ahk" { FILE_SHARE_MODE }
+#Import ".\FILE_ID_DESCRIPTOR.ahk" { FILE_ID_DESCRIPTOR }
+#Import ".\IORING_CAPABILITIES.ahk" { IORING_CAPABILITIES }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\TAPE_POSITION_METHOD.ahk" { TAPE_POSITION_METHOD }
-#Import ".\CREATE_TAPE_PARTITION_METHOD.ahk" { CREATE_TAPE_PARTITION_METHOD }
-#Import ".\GET_FILEEX_INFO_LEVELS.ahk" { GET_FILEEX_INFO_LEVELS }
-#Import ".\DISK_SPACE_INFORMATION.ahk" { DISK_SPACE_INFORMATION }
-#Import ".\ENCRYPTION_CERTIFICATE.ahk" { ENCRYPTION_CERTIFICATE }
-#Import ".\FILE_FLAGS_AND_ATTRIBUTES.ahk" { FILE_FLAGS_AND_ATTRIBUTES }
-#Import ".\LOCK_FILE_FLAGS.ahk" { LOCK_FILE_FLAGS }
-#Import ".\VER_FIND_FILE_STATUS.ahk" { VER_FIND_FILE_STATUS }
-#Import ".\TAPE_POSITION_TYPE.ahk" { TAPE_POSITION_TYPE }
-#Import ".\TAPEMARK_TYPE.ahk" { TAPEMARK_TYPE }
-#Import ".\IORING_OP_CODE.ahk" { IORING_OP_CODE }
-#Import ".\FILE_SEGMENT_ELEMENT.ahk" { FILE_SEGMENT_ELEMENT }
-#Import ".\LZOPENFILE_STYLE.ahk" { LZOPENFILE_STYLE }
-#Import ".\CLFS_LOG_ARCHIVE_MODE.ahk" { CLFS_LOG_ARCHIVE_MODE }
-#Import ".\FILE_FLUSH_MODE.ahk" { FILE_FLUSH_MODE }
-#Import ".\SYMBOLIC_LINK_FLAGS.ahk" { SYMBOLIC_LINK_FLAGS }
-#Import ".\ENCRYPTION_CERTIFICATE_HASH_LIST.ahk" { ENCRYPTION_CERTIFICATE_HASH_LIST }
-#Import ".\DIRECTORY_FLAGS.ahk" { DIRECTORY_FLAGS }
-#Import ".\GET_TAPE_DRIVE_PARAMETERS_OPERATION.ahk" { GET_TAPE_DRIVE_PARAMETERS_OPERATION }
-#Import ".\TXF_ID.ahk" { TXF_ID }
-#Import ".\DEFINE_DOS_DEVICE_FLAGS.ahk" { DEFINE_DOS_DEVICE_FLAGS }
-#Import ".\CLFS_MGMT_POLICY_TYPE.ahk" { CLFS_MGMT_POLICY_TYPE }
-#Import ".\FINDEX_SEARCH_OPS.ahk" { FINDEX_SEARCH_OPS }
+#Import ".\CLFS_FLAG.ahk" { CLFS_FLAG }
 #Import ".\CLFS_MGMT_POLICY.ahk" { CLFS_MGMT_POLICY }
+#Import ".\FILE_FLAGS_AND_ATTRIBUTES.ahk" { FILE_FLAGS_AND_ATTRIBUTES }
+#Import ".\FILE_WRITE_FLAGS.ahk" { FILE_WRITE_FLAGS }
+#Import ".\VER_FIND_FILE_STATUS.ahk" { VER_FIND_FILE_STATUS }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\COPYFILE2_EXTENDED_PARAMETERS.ahk" { COPYFILE2_EXTENDED_PARAMETERS }
-#Import ".\REPLACE_FILE_FLAGS.ahk" { REPLACE_FILE_FLAGS }
-#Import ".\CLS_ARCHIVE_DESCRIPTOR.ahk" { CLS_ARCHIVE_DESCRIPTOR }
-#Import ".\IORING_HANDLE_REF.ahk" { IORING_HANDLE_REF }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import ".\FILE_SHARE_MODE.ahk" { FILE_SHARE_MODE }
+#Import "..\..\System\IO\LPOVERLAPPED_COMPLETION_ROUTINE.ahk" { LPOVERLAPPED_COMPLETION_ROUTINE }
 #Import ".\ENCRYPTION_CERTIFICATE_LIST.ahk" { ENCRYPTION_CERTIFICATE_LIST }
+#Import ".\FILE_SEGMENT_ELEMENT.ahk" { FILE_SEGMENT_ELEMENT }
+#Import ".\CLS_INFORMATION.ahk" { CLS_INFORMATION }
+#Import ".\TXF_ID.ahk" { TXF_ID }
+#Import ".\WofEnumFilesProc.ahk" { WofEnumFilesProc }
+#Import ".\TAPE_POSITION_TYPE.ahk" { TAPE_POSITION_TYPE }
+#Import ".\TRANSACTION_NOTIFICATION.ahk" { TRANSACTION_NOTIFICATION }
+#Import ".\IORING_CQE.ahk" { IORING_CQE }
+#Import ".\WofEnumEntryProc.ahk" { WofEnumEntryProc }
+#Import ".\TAPEMARK_TYPE.ahk" { TAPEMARK_TYPE }
+#Import ".\CLFS_BLOCK_DEALLOCATION.ahk" { CLFS_BLOCK_DEALLOCATION }
+#Import ".\TXFS_MINIVERSION.ahk" { TXFS_MINIVERSION }
+#Import ".\CREATEFILE2_EXTENDED_PARAMETERS.ahk" { CREATEFILE2_EXTENDED_PARAMETERS }
+#Import ".\DISK_SPACE_INFORMATION.ahk" { DISK_SPACE_INFORMATION }
+#Import ".\FILE_INFO_BY_NAME_CLASS.ahk" { FILE_INFO_BY_NAME_CLASS }
+#Import ".\IORING_CREATE_FLAGS.ahk" { IORING_CREATE_FLAGS }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\FILE_CREATION_DISPOSITION.ahk" { FILE_CREATION_DISPOSITION }
+#Import ".\VER_INSTALL_FILE_FLAGS.ahk" { VER_INSTALL_FILE_FLAGS }
+#Import ".\GET_FILEEX_INFO_LEVELS.ahk" { GET_FILEEX_INFO_LEVELS }
+#Import ".\LPPROGRESS_ROUTINE.ahk" { LPPROGRESS_ROUTINE }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -233,7 +241,7 @@ export SearchPathW(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpF
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SearchPathW", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, UInt32)
+    result := DllCall("KERNEL32.dll\SearchPathW", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, UInt32, nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -378,7 +386,7 @@ export SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpF
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SearchPathA", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, UInt32)
+    result := DllCall("KERNEL32.dll\SearchPathA", "ptr", lpPath, "ptr", lpFileName, "ptr", lpExtension, UInt32, nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1749,7 +1757,7 @@ export CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttribute
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFileA", "ptr", lpFileName, "uint", dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_CREATION_DISPOSITION, dwCreationDisposition, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFileA", "ptr", lpFileName, UInt32, dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_CREATION_DISPOSITION, dwCreationDisposition, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2775,7 +2783,7 @@ export CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttribute
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFileW", "ptr", lpFileName, "uint", dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_CREATION_DISPOSITION, dwCreationDisposition, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFileW", "ptr", lpFileName, UInt32, dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_CREATION_DISPOSITION, dwCreationDisposition, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4679,7 +4687,7 @@ export FindFirstVolumeW(lpszVolumeName, cchBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstVolumeW", "ptr", lpszVolumeName, "uint", cchBufferLength, HANDLE.OwnedWith(FindVolumeClose))
+    result := DllCall("KERNEL32.dll\FindFirstVolumeW", "ptr", lpszVolumeName, UInt32, cchBufferLength, HANDLE.OwnedWith(FindVolumeClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5113,7 +5121,7 @@ export FindNextVolumeW(hFindVolume, lpszVolumeName, cchBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindNextVolumeW", HANDLE, hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, BOOL)
+    result := DllCall("KERNEL32.dll\FindNextVolumeW", HANDLE, hFindVolume, "ptr", lpszVolumeName, UInt32, cchBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7113,7 +7121,7 @@ export GetFinalPathNameByHandleA(hFile, lpszFilePath, cchFilePath, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFinalPathNameByHandleA", HANDLE, hFile, "ptr", lpszFilePath, "uint", cchFilePath, GETFINALPATHNAMEBYHANDLE_FLAGS, dwFlags, UInt32)
+    result := DllCall("KERNEL32.dll\GetFinalPathNameByHandleA", HANDLE, hFile, "ptr", lpszFilePath, UInt32, cchFilePath, GETFINALPATHNAMEBYHANDLE_FLAGS, dwFlags, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7270,7 +7278,7 @@ export GetFinalPathNameByHandleW(hFile, lpszFilePath, cchFilePath, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFinalPathNameByHandleW", HANDLE, hFile, "ptr", lpszFilePath, "uint", cchFilePath, GETFINALPATHNAMEBYHANDLE_FLAGS, dwFlags, UInt32)
+    result := DllCall("KERNEL32.dll\GetFinalPathNameByHandleW", HANDLE, hFile, "ptr", lpszFilePath, UInt32, cchFilePath, GETFINALPATHNAMEBYHANDLE_FLAGS, dwFlags, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7482,7 +7490,7 @@ export GetFullPathNameW(lpFileName, nBufferLength, lpBuffer, lpFilePart) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFullPathNameW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, UInt32)
+    result := DllCall("KERNEL32.dll\GetFullPathNameW", "ptr", lpFileName, UInt32, nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7641,7 +7649,7 @@ export GetFullPathNameA(lpFileName, nBufferLength, lpBuffer, lpFilePart) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFullPathNameA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, UInt32)
+    result := DllCall("KERNEL32.dll\GetFullPathNameA", "ptr", lpFileName, UInt32, nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7826,7 +7834,7 @@ export GetLogicalDriveStringsW(nBufferLength, lpBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLogicalDriveStringsW", "uint", nBufferLength, "ptr", lpBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetLogicalDriveStringsW", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7955,7 +7963,7 @@ export GetLongPathNameA(lpszShortPath, lpszLongPath, cchBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLongPathNameA", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetLongPathNameA", "ptr", lpszShortPath, "ptr", lpszLongPath, UInt32, cchBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8084,7 +8092,7 @@ export GetLongPathNameW(lpszShortPath, lpszLongPath, cchBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLongPathNameW", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetLongPathNameW", "ptr", lpszShortPath, "ptr", lpszLongPath, UInt32, cchBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8238,7 +8246,7 @@ export GetShortPathNameW(lpszLongPath, lpszShortPath, cchBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetShortPathNameW", "ptr", lpszLongPath, "ptr", lpszShortPath, "uint", cchBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetShortPathNameW", "ptr", lpszLongPath, "ptr", lpszShortPath, UInt32, cchBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8412,7 +8420,7 @@ export GetTempFileNameW(lpPathName, lpPrefixString, uUnique, lpTempFileName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetTempFileNameW", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName, UInt32)
+    result := DllCall("KERNEL32.dll\GetTempFileNameW", "ptr", lpPathName, "ptr", lpPrefixString, UInt32, uUnique, "ptr", lpTempFileName, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8707,7 +8715,7 @@ export GetVolumeInformationByHandleW(hFile, lpVolumeNameBuffer, nVolumeNameSize,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetVolumeInformationByHandleW", HANDLE, hFile, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, lpVolumeSerialNumberMarshal, lpVolumeSerialNumber, lpMaximumComponentLengthMarshal, lpMaximumComponentLength, lpFileSystemFlagsMarshal, lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetVolumeInformationByHandleW", HANDLE, hFile, "ptr", lpVolumeNameBuffer, UInt32, nVolumeNameSize, lpVolumeSerialNumberMarshal, lpVolumeSerialNumber, lpMaximumComponentLengthMarshal, lpMaximumComponentLength, lpFileSystemFlagsMarshal, lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, UInt32, nFileSystemNameSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9147,7 +9155,7 @@ export GetVolumeInformationW(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetVolumeInformationW", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, lpVolumeSerialNumberMarshal, lpVolumeSerialNumber, lpMaximumComponentLengthMarshal, lpMaximumComponentLength, lpFileSystemFlagsMarshal, lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetVolumeInformationW", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, UInt32, nVolumeNameSize, lpVolumeSerialNumberMarshal, lpVolumeSerialNumber, lpMaximumComponentLengthMarshal, lpMaximumComponentLength, lpFileSystemFlagsMarshal, lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, UInt32, nFileSystemNameSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9204,7 +9212,7 @@ export GetVolumePathNameW(lpszFileName, lpszVolumePathName, cchBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetVolumePathNameW", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetVolumePathNameW", "ptr", lpszFileName, "ptr", lpszVolumePathName, UInt32, cchBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9338,7 +9346,7 @@ export LocalFileTimeToFileTime(lpLocalFileTime, lpFileTime) {
 export LockFile(hFile, dwFileOffsetLow, dwFileOffsetHigh, nNumberOfBytesToLockLow, nNumberOfBytesToLockHigh) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LockFile", HANDLE, hFile, "uint", dwFileOffsetLow, "uint", dwFileOffsetHigh, "uint", nNumberOfBytesToLockLow, "uint", nNumberOfBytesToLockHigh, BOOL)
+    result := DllCall("KERNEL32.dll\LockFile", HANDLE, hFile, UInt32, dwFileOffsetLow, UInt32, dwFileOffsetHigh, UInt32, nNumberOfBytesToLockLow, UInt32, nNumberOfBytesToLockHigh, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9448,7 +9456,7 @@ export LockFileEx(hFile, dwFlags, nNumberOfBytesToLockLow, nNumberOfBytesToLockH
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LockFileEx", HANDLE, hFile, LOCK_FILE_FLAGS, dwFlags, "uint", dwReserved, "uint", nNumberOfBytesToLockLow, "uint", nNumberOfBytesToLockHigh, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\LockFileEx", HANDLE, hFile, LOCK_FILE_FLAGS, dwFlags, UInt32, dwReserved, UInt32, nNumberOfBytesToLockLow, UInt32, nNumberOfBytesToLockHigh, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9575,7 +9583,7 @@ export QueryDosDeviceW(lpDeviceName, lpTargetPath, ucchMax) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\QueryDosDeviceW", "ptr", lpDeviceName, "ptr", lpTargetPath, "uint", ucchMax, UInt32)
+    result := DllCall("KERNEL32.dll\QueryDosDeviceW", "ptr", lpDeviceName, "ptr", lpTargetPath, UInt32, ucchMax, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9891,7 +9899,7 @@ export ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOv
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadFile", HANDLE, hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\ReadFile", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10093,7 +10101,7 @@ export ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOv
 export ReadFileEx(hFile, lpBuffer, nNumberOfBytesToRead, lpOverlapped, lpCompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadFileEx", HANDLE, hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, BOOL)
+    result := DllCall("KERNEL32.dll\ReadFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToRead, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10221,7 +10229,7 @@ export ReadFileScatter(hFile, aSegmentArray, nNumberOfBytesToRead, lpOverlapped)
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadFileScatter", HANDLE, hFile, FILE_SEGMENT_ELEMENT.Ptr, aSegmentArray, "uint", nNumberOfBytesToRead, "uint*", lpReserved, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\ReadFileScatter", HANDLE, hFile, FILE_SEGMENT_ELEMENT.Ptr, aSegmentArray, UInt32, nNumberOfBytesToRead, "uint*", lpReserved, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11370,7 +11378,7 @@ export SetFileAttributesW(lpFileName, dwFileAttributes) {
 export SetFileInformationByHandle(hFile, FileInformationClass, lpFileInformation, dwBufferSize) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFileInformationByHandle", HANDLE, hFile, FILE_INFO_BY_HANDLE_CLASS, FileInformationClass, "ptr", lpFileInformation, "uint", dwBufferSize, BOOL)
+    result := DllCall("KERNEL32.dll\SetFileInformationByHandle", HANDLE, hFile, FILE_INFO_BY_HANDLE_CLASS, FileInformationClass, IntPtr, lpFileInformation, UInt32, dwBufferSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11673,7 +11681,7 @@ export SetFilePointer(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFilePointer", HANDLE, hFile, "int", lDistanceToMove, lpDistanceToMoveHighMarshal, lpDistanceToMoveHigh, SET_FILE_POINTER_MOVE_METHOD, dwMoveMethod, UInt32)
+    result := DllCall("KERNEL32.dll\SetFilePointer", HANDLE, hFile, Int32, lDistanceToMove, lpDistanceToMoveHighMarshal, lpDistanceToMoveHigh, SET_FILE_POINTER_MOVE_METHOD, dwMoveMethod, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11806,7 +11814,7 @@ export SetFilePointerEx(hFile, liDistanceToMove, lpNewFilePointer, dwMoveMethod)
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFilePointerEx", HANDLE, hFile, "int64", liDistanceToMove, lpNewFilePointerMarshal, lpNewFilePointer, SET_FILE_POINTER_MOVE_METHOD, dwMoveMethod, BOOL)
+    result := DllCall("KERNEL32.dll\SetFilePointerEx", HANDLE, hFile, Int64, liDistanceToMove, lpNewFilePointerMarshal, lpNewFilePointer, SET_FILE_POINTER_MOVE_METHOD, dwMoveMethod, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11954,7 +11962,7 @@ export SetFileTime(hFile, lpCreationTime, lpLastAccessTime, lpLastWriteTime) {
 export SetFileValidData(hFile, ValidDataLength) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFileValidData", HANDLE, hFile, "int64", ValidDataLength, BOOL)
+    result := DllCall("KERNEL32.dll\SetFileValidData", HANDLE, hFile, Int64, ValidDataLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12046,7 +12054,7 @@ export SetFileValidData(hFile, ValidDataLength) {
 export UnlockFile(hFile, dwFileOffsetLow, dwFileOffsetHigh, nNumberOfBytesToUnlockLow, nNumberOfBytesToUnlockHigh) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\UnlockFile", HANDLE, hFile, "uint", dwFileOffsetLow, "uint", dwFileOffsetHigh, "uint", nNumberOfBytesToUnlockLow, "uint", nNumberOfBytesToUnlockHigh, BOOL)
+    result := DllCall("KERNEL32.dll\UnlockFile", HANDLE, hFile, UInt32, dwFileOffsetLow, UInt32, dwFileOffsetHigh, UInt32, nNumberOfBytesToUnlockLow, UInt32, nNumberOfBytesToUnlockHigh, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12145,7 +12153,7 @@ export UnlockFileEx(hFile, nNumberOfBytesToUnlockLow, nNumberOfBytesToUnlockHigh
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\UnlockFileEx", HANDLE, hFile, "uint", dwReserved, "uint", nNumberOfBytesToUnlockLow, "uint", nNumberOfBytesToUnlockHigh, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\UnlockFileEx", HANDLE, hFile, UInt32, dwReserved, UInt32, nNumberOfBytesToUnlockLow, UInt32, nNumberOfBytesToUnlockHigh, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12496,7 +12504,7 @@ export WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteFile", HANDLE, hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\WriteFile", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToWrite, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12597,7 +12605,7 @@ export WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten,
 export WriteFileEx(hFile, lpBuffer, nNumberOfBytesToWrite, lpOverlapped, lpCompletionRoutine) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteFileEx", HANDLE, hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, BOOL)
+    result := DllCall("KERNEL32.dll\WriteFileEx", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToWrite, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12726,7 +12734,7 @@ export WriteFileGather(hFile, aSegmentArray, nNumberOfBytesToWrite, lpOverlapped
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteFileGather", HANDLE, hFile, FILE_SEGMENT_ELEMENT.Ptr, aSegmentArray, "uint", nNumberOfBytesToWrite, "uint*", lpReserved, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\WriteFileGather", HANDLE, hFile, FILE_SEGMENT_ELEMENT.Ptr, aSegmentArray, UInt32, nNumberOfBytesToWrite, "uint*", lpReserved, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12837,7 +12845,7 @@ export GetTempPathW(nBufferLength, lpBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetTempPathW", "uint", nBufferLength, "ptr", lpBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetTempPathW", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12931,7 +12939,7 @@ export GetVolumeNameForVolumeMountPointW(lpszVolumeMountPoint, lpszVolumeName, c
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, UInt32, cchBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13031,7 +13039,7 @@ export GetVolumePathNamesForVolumeNameW(lpszVolumeName, lpszVolumePathNames, cch
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameW", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, lpcchReturnLengthMarshal, lpcchReturnLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameW", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, UInt32, cchBufferLength, lpcchReturnLengthMarshal, lpcchReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13601,7 +13609,7 @@ export CreateFile2(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDispositi
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFile2", "ptr", lpFileName, "uint", dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, FILE_CREATION_DISPOSITION, dwCreationDisposition, CREATEFILE2_EXTENDED_PARAMETERS.Ptr, pCreateExParams, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFile2", "ptr", lpFileName, UInt32, dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, FILE_CREATION_DISPOSITION, dwCreationDisposition, CREATEFILE2_EXTENDED_PARAMETERS.Ptr, pCreateExParams, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13698,7 +13706,7 @@ export SetFileIoOverlappedRange(FileHandle, OverlappedRangeStart, Length) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFileIoOverlappedRange", HANDLE, FileHandle, OverlappedRangeStartMarshal, OverlappedRangeStart, "uint", Length, BOOL)
+    result := DllCall("KERNEL32.dll\SetFileIoOverlappedRange", HANDLE, FileHandle, OverlappedRangeStartMarshal, OverlappedRangeStart, UInt32, Length, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14070,7 +14078,7 @@ export FindFirstStreamW(lpFileName, InfoLevel, lpFindStreamData) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstStreamW", "ptr", lpFileName, STREAM_INFO_LEVELS, InfoLevel, lpFindStreamDataMarshal, lpFindStreamData, "uint", dwFlags, HANDLE.OwnedWith(FindClose))
+    result := DllCall("KERNEL32.dll\FindFirstStreamW", "ptr", lpFileName, STREAM_INFO_LEVELS, InfoLevel, lpFindStreamDataMarshal, lpFindStreamData, UInt32, dwFlags, HANDLE.OwnedWith(FindClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14358,7 +14366,7 @@ export GetTempPathA(nBufferLength, lpBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetTempPathA", "uint", nBufferLength, "ptr", lpBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetTempPathA", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14456,7 +14464,7 @@ export FindFirstFileNameW(lpFileName, dwFlags, StringLength, LinkName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstFileNameW", "ptr", lpFileName, "uint", dwFlags, StringLengthMarshal, StringLength, "ptr", LinkName, HANDLE.OwnedWith(FindClose))
+    result := DllCall("KERNEL32.dll\FindFirstFileNameW", "ptr", lpFileName, UInt32, dwFlags, StringLengthMarshal, StringLength, "ptr", LinkName, HANDLE.OwnedWith(FindClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14990,7 +14998,7 @@ export GetVolumeInformationA(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetVolumeInformationA", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, lpVolumeSerialNumberMarshal, lpVolumeSerialNumber, lpMaximumComponentLengthMarshal, lpMaximumComponentLength, lpFileSystemFlagsMarshal, lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetVolumeInformationA", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, UInt32, nVolumeNameSize, lpVolumeSerialNumberMarshal, lpVolumeSerialNumber, lpMaximumComponentLengthMarshal, lpMaximumComponentLength, lpFileSystemFlagsMarshal, lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, UInt32, nFileSystemNameSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15164,7 +15172,7 @@ export GetTempFileNameA(lpPathName, lpPrefixString, uUnique, lpTempFileName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetTempFileNameA", "ptr", lpPathName, "ptr", lpPrefixString, "uint", uUnique, "ptr", lpTempFileName, UInt32)
+    result := DllCall("KERNEL32.dll\GetTempFileNameA", "ptr", lpPathName, "ptr", lpPrefixString, UInt32, uUnique, "ptr", lpTempFileName, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15480,7 +15488,7 @@ export SetFileApisToANSI() {
 export GetTempPath2W(BufferLength, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("KERNEL32.dll\GetTempPath2W", "uint", BufferLength, "ptr", _Buffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetTempPath2W", UInt32, BufferLength, "ptr", _Buffer, UInt32)
     return result
 }
 
@@ -15583,7 +15591,7 @@ export GetTempPath2W(BufferLength, _Buffer) {
 export GetTempPath2A(BufferLength, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("KERNEL32.dll\GetTempPath2A", "uint", BufferLength, "ptr", _Buffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetTempPath2A", UInt32, BufferLength, "ptr", _Buffer, UInt32)
     return result
 }
 
@@ -15599,7 +15607,7 @@ export GetTempPath2A(BufferLength, _Buffer) {
 export CreateFile3(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("KERNEL32.dll\CreateFile3", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, CREATEFILE3_EXTENDED_PARAMETERS.Ptr, pCreateExParams, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFile3", "ptr", lpFileName, UInt32, dwDesiredAccess, UInt32, dwShareMode, UInt32, dwCreationDisposition, CREATEFILE3_EXTENDED_PARAMETERS.Ptr, pCreateExParams, HANDLE.Owned)
     return result
 }
 
@@ -15615,7 +15623,7 @@ export CreateFile3(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDispositi
 export CreateDirectory2A(lpPathName, dwDesiredAccess, dwShareMode, DirectoryFlags, lpSecurityAttributes) {
     lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
-    result := DllCall("KERNEL32.dll\CreateDirectory2A", "ptr", lpPathName, "uint", dwDesiredAccess, "uint", dwShareMode, DIRECTORY_FLAGS, DirectoryFlags, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateDirectory2A", "ptr", lpPathName, UInt32, dwDesiredAccess, UInt32, dwShareMode, DIRECTORY_FLAGS, DirectoryFlags, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
     return result
 }
 
@@ -15631,7 +15639,7 @@ export CreateDirectory2A(lpPathName, dwDesiredAccess, dwShareMode, DirectoryFlag
 export CreateDirectory2W(lpPathName, dwDesiredAccess, dwShareMode, DirectoryFlags, lpSecurityAttributes) {
     lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
-    result := DllCall("KERNEL32.dll\CreateDirectory2W", "ptr", lpPathName, "uint", dwDesiredAccess, "uint", dwShareMode, DIRECTORY_FLAGS, DirectoryFlags, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateDirectory2W", "ptr", lpPathName, UInt32, dwDesiredAccess, UInt32, dwShareMode, DIRECTORY_FLAGS, DirectoryFlags, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
     return result
 }
 
@@ -15670,7 +15678,7 @@ export RemoveDirectory2W(lpPathName, DirectoryFlags) {
 export DeleteFile2A(lpFileName, Flags) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("KERNEL32.dll\DeleteFile2A", "ptr", lpFileName, "uint", Flags, BOOL)
+    result := DllCall("KERNEL32.dll\DeleteFile2A", "ptr", lpFileName, UInt32, Flags, BOOL)
     return result
 }
 
@@ -15683,7 +15691,7 @@ export DeleteFile2A(lpFileName, Flags) {
 export DeleteFile2W(lpFileName, Flags) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("KERNEL32.dll\DeleteFile2W", "ptr", lpFileName, "uint", Flags, BOOL)
+    result := DllCall("KERNEL32.dll\DeleteFile2W", "ptr", lpFileName, UInt32, Flags, BOOL)
     return result
 }
 
@@ -16028,7 +16036,7 @@ export CreateDirectoryFromAppW(lpPathName, lpSecurityAttributes) {
 export CreateFileFromAppW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFileFromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE.Owned)
+    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFileFromAppW", "ptr", lpFileName, UInt32, dwDesiredAccess, UInt32, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, UInt32, dwCreationDisposition, UInt32, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE.Owned)
     return result
 }
 
@@ -16065,7 +16073,7 @@ export CreateFileFromAppW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAt
 export CreateFile2FromAppW(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFile2FromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, CREATEFILE2_EXTENDED_PARAMETERS.Ptr, pCreateExParams, HANDLE.Owned)
+    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFile2FromAppW", "ptr", lpFileName, UInt32, dwDesiredAccess, UInt32, dwShareMode, UInt32, dwCreationDisposition, CREATEFILE2_EXTENDED_PARAMETERS.Ptr, pCreateExParams, HANDLE.Owned)
     return result
 }
 
@@ -16152,7 +16160,7 @@ export FindFirstFileExFromAppW(lpFileName, fInfoLevelId, lpFindFileData, fSearch
 
     lpFindFileDataMarshal := lpFindFileData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\FindFirstFileExFromAppW", "ptr", lpFileName, FINDEX_INFO_LEVELS, fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, FINDEX_SEARCH_OPS, fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, HANDLE.Owned)
+    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\FindFirstFileExFromAppW", "ptr", lpFileName, FINDEX_INFO_LEVELS, fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, FINDEX_SEARCH_OPS, fSearchOp, "ptr", lpSearchFilter, UInt32, dwAdditionalFlags, HANDLE.Owned)
     return result
 }
 
@@ -16286,7 +16294,7 @@ export ReplaceFileFromAppW(lpReplacedFileName, lpReplacementFileName, lpBackupFi
     lpReplacementFileName := lpReplacementFileName is String ? StrPtr(lpReplacementFileName) : lpReplacementFileName
     lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
-    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\ReplaceFileFromAppW", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, BOOL)
+    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\ReplaceFileFromAppW", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, UInt32, dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, BOOL)
     return result
 }
 
@@ -16373,7 +16381,7 @@ export ReplaceFileFromAppW(lpReplacedFileName, lpReplacementFileName, lpBackupFi
 export SetFileAttributesFromAppW(lpFileName, dwFileAttributes) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\SetFileAttributesFromAppW", "ptr", lpFileName, "uint", dwFileAttributes, BOOL)
+    result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\SetFileAttributesFromAppW", "ptr", lpFileName, UInt32, dwFileAttributes, BOOL)
     return result
 }
 
@@ -17426,7 +17434,7 @@ export GetFileVersionInfoA(lptstrFilename, dwLen, lpData) {
 
     A_LastError := 0
 
-    result := DllCall("VERSION.dll\GetFileVersionInfoA", "ptr", lptstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, BOOL)
+    result := DllCall("VERSION.dll\GetFileVersionInfoA", "ptr", lptstrFilename, UInt32, dwHandle, UInt32, dwLen, IntPtr, lpData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17481,7 +17489,7 @@ export GetFileVersionInfoW(lptstrFilename, dwLen, lpData) {
 
     A_LastError := 0
 
-    result := DllCall("VERSION.dll\GetFileVersionInfoW", "ptr", lptstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, BOOL)
+    result := DllCall("VERSION.dll\GetFileVersionInfoW", "ptr", lptstrFilename, UInt32, dwHandle, UInt32, dwLen, IntPtr, lpData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17724,7 +17732,7 @@ export GetFileVersionInfoExA(dwFlags, lpwstrFilename, dwLen, lpData) {
 
     A_LastError := 0
 
-    result := DllCall("VERSION.dll\GetFileVersionInfoExA", GET_FILE_VERSION_INFO_FLAGS, dwFlags, "ptr", lpwstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, BOOL)
+    result := DllCall("VERSION.dll\GetFileVersionInfoExA", GET_FILE_VERSION_INFO_FLAGS, dwFlags, "ptr", lpwstrFilename, UInt32, dwHandle, UInt32, dwLen, IntPtr, lpData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17819,7 +17827,7 @@ export GetFileVersionInfoExW(dwFlags, lpwstrFilename, dwLen, lpData) {
 
     A_LastError := 0
 
-    result := DllCall("VERSION.dll\GetFileVersionInfoExW", GET_FILE_VERSION_INFO_FLAGS, dwFlags, "ptr", lpwstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, BOOL)
+    result := DllCall("VERSION.dll\GetFileVersionInfoExW", GET_FILE_VERSION_INFO_FLAGS, dwFlags, "ptr", lpwstrFilename, UInt32, dwHandle, UInt32, dwLen, IntPtr, lpData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17862,7 +17870,7 @@ export GetFileVersionInfoExW(dwFlags, lpwstrFilename, dwLen, lpData) {
 export VerLanguageNameA(wLang, szLang, cchLang) {
     szLang := szLang is String ? StrPtr(szLang) : szLang
 
-    result := DllCall("KERNEL32.dll\VerLanguageNameA", "uint", wLang, "ptr", szLang, "uint", cchLang, UInt32)
+    result := DllCall("KERNEL32.dll\VerLanguageNameA", UInt32, wLang, "ptr", szLang, UInt32, cchLang, UInt32)
     return result
 }
 
@@ -17901,7 +17909,7 @@ export VerLanguageNameA(wLang, szLang, cchLang) {
 export VerLanguageNameW(wLang, szLang, cchLang) {
     szLang := szLang is String ? StrPtr(szLang) : szLang
 
-    result := DllCall("KERNEL32.dll\VerLanguageNameW", "uint", wLang, "ptr", szLang, "uint", cchLang, UInt32)
+    result := DllCall("KERNEL32.dll\VerLanguageNameW", UInt32, wLang, "ptr", szLang, UInt32, cchLang, UInt32)
     return result
 }
 
@@ -18090,7 +18098,7 @@ export LsnContainer(plsn) {
  * @since windows6.0.6000
  */
 export LsnCreate(cidContainer, offBlock, cRecord) {
-    result := DllCall("clfsw32.dll\LsnCreate", "uint", cidContainer, "uint", offBlock, "uint", cRecord, CLS_LSN)
+    result := DllCall("clfsw32.dll\LsnCreate", UInt32, cidContainer, UInt32, offBlock, UInt32, cRecord, CLS_LSN)
     return result
 }
 
@@ -18275,7 +18283,7 @@ export CreateLogFile(pszLogFileName, fDesiredAccess, dwShareMode, psaLogFile, fC
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\CreateLogFile", "ptr", pszLogFileName, "uint", fDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, psaLogFile, FILE_CREATION_DISPOSITION, fCreateDisposition, FILE_FLAGS_AND_ATTRIBUTES, fFlagsAndAttributes, HANDLE.Owned)
+    result := DllCall("clfsw32.dll\CreateLogFile", "ptr", pszLogFileName, UInt32, fDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, psaLogFile, FILE_CREATION_DISPOSITION, fCreateDisposition, FILE_FLAGS_AND_ATTRIBUTES, fFlagsAndAttributes, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18432,7 +18440,7 @@ export AddLogContainerSet(_hLog, cContainer, pcbContainer, rgwszContainerPath, p
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\AddLogContainerSet", HANDLE, _hLog, "ushort", cContainer, pcbContainerMarshal, pcbContainer, rgwszContainerPathMarshal, rgwszContainerPath, pReservedMarshal, pReserved, BOOL)
+    result := DllCall("clfsw32.dll\AddLogContainerSet", HANDLE, _hLog, UInt16, cContainer, pcbContainerMarshal, pcbContainer, rgwszContainerPathMarshal, rgwszContainerPath, pReservedMarshal, pReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18517,7 +18525,7 @@ export RemoveLogContainerSet(_hLog, cContainer, rgwszContainerPath, fForce, pRes
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\RemoveLogContainerSet", HANDLE, _hLog, "ushort", cContainer, rgwszContainerPathMarshal, rgwszContainerPath, BOOL, fForce, pReservedMarshal, pReserved, BOOL)
+    result := DllCall("clfsw32.dll\RemoveLogContainerSet", HANDLE, _hLog, UInt16, cContainer, rgwszContainerPathMarshal, rgwszContainerPath, BOOL, fForce, pReservedMarshal, pReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18699,7 +18707,7 @@ export TruncateLog(pvMarshal, plsnEnd, lpOverlapped) {
 export CreateLogContainerScanContext(_hLog, cFromContainer, cContainers, eScanMode, pcxScan, pOverlapped) {
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\CreateLogContainerScanContext", HANDLE, _hLog, "uint", cFromContainer, "uint", cContainers, "char", eScanMode, CLS_SCAN_CONTEXT.Ptr, pcxScan, OVERLAPPED.Ptr, pOverlapped, BOOL)
+    result := DllCall("clfsw32.dll\CreateLogContainerScanContext", HANDLE, _hLog, UInt32, cFromContainer, UInt32, cContainers, Int8, eScanMode, CLS_SCAN_CONTEXT.Ptr, pcxScan, OVERLAPPED.Ptr, pOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18787,7 +18795,7 @@ export ScanLogContainers(pcxScan, eScanMode, pReserved) {
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\ScanLogContainers", CLS_SCAN_CONTEXT.Ptr, pcxScan, "char", eScanMode, pReservedMarshal, pReserved, BOOL)
+    result := DllCall("clfsw32.dll\ScanLogContainers", CLS_SCAN_CONTEXT.Ptr, pcxScan, Int8, eScanMode, pReservedMarshal, pReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18820,7 +18828,7 @@ export AlignReservedLog(pvMarshal, cReservedRecords, rgcbReservation, pcbAlignRe
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\AlignReservedLog", pvMarshalMarshal, pvMarshal, "uint", cReservedRecords, rgcbReservationMarshal, rgcbReservation, pcbAlignReservationMarshal, pcbAlignReservation, BOOL)
+    result := DllCall("clfsw32.dll\AlignReservedLog", pvMarshalMarshal, pvMarshal, UInt32, cReservedRecords, rgcbReservationMarshal, rgcbReservation, pcbAlignReservationMarshal, pcbAlignReservation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18851,7 +18859,7 @@ export AllocReservedLog(pvMarshal, cReservedRecords, pcbAdjustment) {
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\AllocReservedLog", pvMarshalMarshal, pvMarshal, "uint", cReservedRecords, pcbAdjustmentMarshal, pcbAdjustment, BOOL)
+    result := DllCall("clfsw32.dll\AllocReservedLog", pvMarshalMarshal, pvMarshal, UInt32, cReservedRecords, pcbAdjustmentMarshal, pcbAdjustment, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18898,7 +18906,7 @@ export FreeReservedLog(pvMarshal, cReservedRecords, pcbAdjustment) {
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\FreeReservedLog", pvMarshalMarshal, pvMarshal, "uint", cReservedRecords, pcbAdjustmentMarshal, pcbAdjustment, BOOL)
+    result := DllCall("clfsw32.dll\FreeReservedLog", pvMarshalMarshal, pvMarshal, UInt32, cReservedRecords, pcbAdjustmentMarshal, pcbAdjustment, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19114,7 +19122,7 @@ export WriteLogRestartArea(pvMarshal, pvRestartBuffer, cbRestartBuffer, plsnBase
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\WriteLogRestartArea", pvMarshalMarshal, pvMarshal, pvRestartBufferMarshal, pvRestartBuffer, "uint", cbRestartBuffer, CLS_LSN.Ptr, plsnBase, CLFS_FLAG, fFlags, pcbWrittenMarshal, pcbWritten, CLS_LSN.Ptr, plsnNext, OVERLAPPED.Ptr, pOverlapped, BOOL)
+    result := DllCall("clfsw32.dll\WriteLogRestartArea", pvMarshalMarshal, pvMarshal, pvRestartBufferMarshal, pvRestartBuffer, UInt32, cbRestartBuffer, CLS_LSN.Ptr, plsnBase, CLFS_FLAG, fFlags, pcbWrittenMarshal, pcbWritten, CLS_LSN.Ptr, plsnNext, OVERLAPPED.Ptr, pOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19167,7 +19175,7 @@ export AdvanceLogBase(pvMarshal, plsnBase, fFlags, pOverlapped) {
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\AdvanceLogBase", pvMarshalMarshal, pvMarshal, CLS_LSN.Ptr, plsnBase, "uint", fFlags, OVERLAPPED.Ptr, pOverlapped, BOOL)
+    result := DllCall("clfsw32.dll\AdvanceLogBase", pvMarshalMarshal, pvMarshal, CLS_LSN.Ptr, plsnBase, UInt32, fFlags, OVERLAPPED.Ptr, pOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19251,7 +19259,7 @@ export CreateLogMarshallingArea(_hLog, pfnAllocBuffer, pfnFreeBuffer, pvBlockAll
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\CreateLogMarshallingArea", HANDLE, _hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, BOOL)
+    result := DllCall("clfsw32.dll\CreateLogMarshallingArea", HANDLE, _hLog, CLFS_BLOCK_ALLOCATION, pfnAllocBuffer, CLFS_BLOCK_DEALLOCATION, pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, UInt32, cbMarshallingBuffer, UInt32, cMaxWriteBuffers, UInt32, cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19333,7 +19341,7 @@ export ReserveAndAppendLog(pvMarshal, rgWriteEntries, cWriteEntries, plsnUndoNex
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\ReserveAndAppendLog", pvMarshalMarshal, pvMarshal, CLS_WRITE_ENTRY.Ptr, rgWriteEntries, "uint", cWriteEntries, CLS_LSN.Ptr, plsnUndoNext, CLS_LSN.Ptr, plsnPrevious, "uint", cReserveRecords, rgcbReservationMarshal, rgcbReservation, CLFS_FLAG, fFlags, CLS_LSN.Ptr, plsn, OVERLAPPED.Ptr, pOverlapped, BOOL)
+    result := DllCall("clfsw32.dll\ReserveAndAppendLog", pvMarshalMarshal, pvMarshal, CLS_WRITE_ENTRY.Ptr, rgWriteEntries, UInt32, cWriteEntries, CLS_LSN.Ptr, plsnUndoNext, CLS_LSN.Ptr, plsnPrevious, UInt32, cReserveRecords, rgcbReservationMarshal, rgcbReservation, CLFS_FLAG, fFlags, CLS_LSN.Ptr, plsn, OVERLAPPED.Ptr, pOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19392,7 +19400,7 @@ export ReserveAndAppendLogAligned(pvMarshal, rgWriteEntries, cWriteEntries, cbEn
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\ReserveAndAppendLogAligned", pvMarshalMarshal, pvMarshal, CLS_WRITE_ENTRY.Ptr, rgWriteEntries, "uint", cWriteEntries, "uint", cbEntryAlignment, CLS_LSN.Ptr, plsnUndoNext, CLS_LSN.Ptr, plsnPrevious, "uint", cReserveRecords, rgcbReservationMarshal, rgcbReservation, CLFS_FLAG, fFlags, CLS_LSN.Ptr, plsn, OVERLAPPED.Ptr, pOverlapped, BOOL)
+    result := DllCall("clfsw32.dll\ReserveAndAppendLogAligned", pvMarshalMarshal, pvMarshal, CLS_WRITE_ENTRY.Ptr, rgWriteEntries, UInt32, cWriteEntries, UInt32, cbEntryAlignment, CLS_LSN.Ptr, plsnUndoNext, CLS_LSN.Ptr, plsnPrevious, UInt32, cReserveRecords, rgcbReservationMarshal, rgcbReservation, CLFS_FLAG, fFlags, CLS_LSN.Ptr, plsn, OVERLAPPED.Ptr, pOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19739,7 +19747,7 @@ export PrepareLogArchive(_hLog, pszBaseLogFileName, cLen, plsnLow, plsnHigh, pcA
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\PrepareLogArchive", HANDLE, _hLog, "ptr", pszBaseLogFileName, "uint", cLen, CLS_LSN.Ptr, plsnLow, CLS_LSN.Ptr, plsnHigh, pcActualLengthMarshal, pcActualLength, poffBaseLogFileDataMarshal, poffBaseLogFileData, pcbBaseLogFileLengthMarshal, pcbBaseLogFileLength, CLS_LSN.Ptr, plsnBase, CLS_LSN.Ptr, plsnLast, CLS_LSN.Ptr, plsnCurrentArchiveTail, ppvArchiveContextMarshal, ppvArchiveContext, BOOL)
+    result := DllCall("clfsw32.dll\PrepareLogArchive", HANDLE, _hLog, "ptr", pszBaseLogFileName, UInt32, cLen, CLS_LSN.Ptr, plsnLow, CLS_LSN.Ptr, plsnHigh, pcActualLengthMarshal, pcActualLength, poffBaseLogFileDataMarshal, poffBaseLogFileData, pcbBaseLogFileLengthMarshal, pcbBaseLogFileLength, CLS_LSN.Ptr, plsnBase, CLS_LSN.Ptr, plsnLast, CLS_LSN.Ptr, plsnCurrentArchiveTail, ppvArchiveContextMarshal, ppvArchiveContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19777,7 +19785,7 @@ export ReadLogArchiveMetadata(pvArchiveContext, cbOffset, cbBytesToRead, pbReadB
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\ReadLogArchiveMetadata", pvArchiveContextMarshal, pvArchiveContext, "uint", cbOffset, "uint", cbBytesToRead, pbReadBufferMarshal, pbReadBuffer, pcbBytesReadMarshal, pcbBytesRead, BOOL)
+    result := DllCall("clfsw32.dll\ReadLogArchiveMetadata", pvArchiveContextMarshal, pvArchiveContext, UInt32, cbOffset, UInt32, cbBytesToRead, pbReadBufferMarshal, pbReadBuffer, pcbBytesReadMarshal, pcbBytesRead, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19811,7 +19819,7 @@ export GetNextLogArchiveExtent(pvArchiveContext, rgadExtent, cDescriptors, pcDes
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\GetNextLogArchiveExtent", pvArchiveContextMarshal, pvArchiveContext, CLS_ARCHIVE_DESCRIPTOR.Ptr, rgadExtent, "uint", cDescriptors, pcDescriptorsReturnedMarshal, pcDescriptorsReturned, BOOL)
+    result := DllCall("clfsw32.dll\GetNextLogArchiveExtent", pvArchiveContextMarshal, pvArchiveContext, CLS_ARCHIVE_DESCRIPTOR.Ptr, rgadExtent, UInt32, cDescriptors, pcDescriptorsReturnedMarshal, pcDescriptorsReturned, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19922,7 +19930,7 @@ export GetLogContainerName(_hLog, cidLogicalContainer, pwstrContainerName, cLenC
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\GetLogContainerName", HANDLE, _hLog, "uint", cidLogicalContainer, "ptr", pwstrContainerName, "uint", cLenContainerName, pcActualLenContainerNameMarshal, pcActualLenContainerName, BOOL)
+    result := DllCall("clfsw32.dll\GetLogContainerName", HANDLE, _hLog, UInt32, cidLogicalContainer, "ptr", pwstrContainerName, UInt32, cLenContainerName, pcActualLenContainerNameMarshal, pcActualLenContainerName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19957,7 +19965,7 @@ export GetLogIoStatistics(_hLog, pvStatsBuffer, cbStatsBuffer, eStatsClass, pcbS
 
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\GetLogIoStatistics", HANDLE, _hLog, pvStatsBufferMarshal, pvStatsBuffer, "uint", cbStatsBuffer, CLFS_IOSTATS_CLASS, eStatsClass, pcbStatsWrittenMarshal, pcbStatsWritten, BOOL)
+    result := DllCall("clfsw32.dll\GetLogIoStatistics", HANDLE, _hLog, pvStatsBufferMarshal, pvStatsBuffer, UInt32, cbStatsBuffer, CLFS_IOSTATS_CLASS, eStatsClass, pcbStatsWrittenMarshal, pcbStatsWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -20179,7 +20187,7 @@ export HandleLogFull(_hLog) {
 export LogTailAdvanceFailure(_hLog, dwReason) {
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\LogTailAdvanceFailure", HANDLE, _hLog, "uint", dwReason, BOOL)
+    result := DllCall("clfsw32.dll\LogTailAdvanceFailure", HANDLE, _hLog, UInt32, dwReason, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -20203,7 +20211,7 @@ export LogTailAdvanceFailure(_hLog, dwReason) {
 export RegisterForLogWriteNotification(_hLog, cbThreshold, fEnable) {
     A_LastError := 0
 
-    result := DllCall("clfsw32.dll\RegisterForLogWriteNotification", HANDLE, _hLog, "uint", cbThreshold, BOOL, fEnable, BOOL)
+    result := DllCall("clfsw32.dll\RegisterForLogWriteNotification", HANDLE, _hLog, UInt32, cbThreshold, BOOL, fEnable, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -20636,7 +20644,7 @@ export SetUserFileEncryptionKey(pEncryptionCertificate) {
 export SetUserFileEncryptionKeyEx(pEncryptionCertificate, dwCapabilities, dwFlags) {
     static pvReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("ADVAPI32.dll\SetUserFileEncryptionKeyEx", ENCRYPTION_CERTIFICATE.Ptr, pEncryptionCertificate, "uint", dwCapabilities, "uint", dwFlags, "ptr", pvReserved, UInt32)
+    result := DllCall("ADVAPI32.dll\SetUserFileEncryptionKeyEx", ENCRYPTION_CERTIFICATE.Ptr, pEncryptionCertificate, UInt32, dwCapabilities, UInt32, dwFlags, "ptr", pvReserved, UInt32)
     return result
 }
 
@@ -20923,7 +20931,7 @@ export DuplicateEncryptionInfoFile(SrcFileName, DstFileName, dwCreationDistribut
     SrcFileName := SrcFileName is String ? StrPtr(SrcFileName) : SrcFileName
     DstFileName := DstFileName is String ? StrPtr(DstFileName) : DstFileName
 
-    result := DllCall("ADVAPI32.dll\DuplicateEncryptionInfoFile", "ptr", SrcFileName, "ptr", DstFileName, "uint", dwCreationDistribution, "uint", dwAttributes, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, UInt32)
+    result := DllCall("ADVAPI32.dll\DuplicateEncryptionInfoFile", "ptr", SrcFileName, "ptr", DstFileName, UInt32, dwCreationDistribution, UInt32, dwAttributes, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, UInt32)
     return result
 }
 
@@ -20960,7 +20968,7 @@ export SetEncryptedFileMetadata(lpFileName, pbOldMetadata, pbNewMetadata, pOwner
     pbOldMetadataMarshal := pbOldMetadata is VarRef ? "char*" : "ptr"
     pbNewMetadataMarshal := pbNewMetadata is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\SetEncryptedFileMetadata", "ptr", lpFileName, pbOldMetadataMarshal, pbOldMetadata, pbNewMetadataMarshal, pbNewMetadata, ENCRYPTION_CERTIFICATE_HASH.Ptr, pOwnerHash, "uint", dwOperation, ENCRYPTION_CERTIFICATE_HASH_LIST.Ptr, pCertificatesAdded, UInt32)
+    result := DllCall("ADVAPI32.dll\SetEncryptedFileMetadata", "ptr", lpFileName, pbOldMetadataMarshal, pbOldMetadata, pbNewMetadataMarshal, pbNewMetadata, ENCRYPTION_CERTIFICATE_HASH.Ptr, pOwnerHash, UInt32, dwOperation, ENCRYPTION_CERTIFICATE_HASH_LIST.Ptr, pCertificatesAdded, UInt32)
     return result
 }
 
@@ -20999,7 +21007,7 @@ export LZDone() {
  * @returns {Integer} 
  */
 export CopyLZFile(hfSource, hfDest) {
-    result := DllCall("KERNEL32.dll\CopyLZFile", "int", hfSource, "int", hfDest, Int32)
+    result := DllCall("KERNEL32.dll\CopyLZFile", Int32, hfSource, Int32, hfDest, Int32)
     return result
 }
 
@@ -21153,7 +21161,7 @@ export CopyLZFile(hfSource, hfDest) {
  * @since windows5.1.2600
  */
 export LZCopy(hfSource, hfDest) {
-    result := DllCall("KERNEL32.dll\LZCopy", "int", hfSource, "int", hfDest, Int32)
+    result := DllCall("KERNEL32.dll\LZCopy", Int32, hfSource, Int32, hfDest, Int32)
     return result
 }
 
@@ -21294,7 +21302,7 @@ export LZCopy(hfSource, hfDest) {
  * @since windows5.1.2600
  */
 export LZInit(hfSource) {
-    result := DllCall("KERNEL32.dll\LZInit", "int", hfSource, Int32)
+    result := DllCall("KERNEL32.dll\LZInit", Int32, hfSource, Int32)
     return result
 }
 
@@ -21935,7 +21943,7 @@ export LZOpenFileW(lpFileName, lpReOpenBuf, wStyle) {
  * @since windows5.1.2600
  */
 export LZSeek(hFile, lOffset, iOrigin) {
-    result := DllCall("KERNEL32.dll\LZSeek", "int", hFile, "int", lOffset, "int", iOrigin, Int32)
+    result := DllCall("KERNEL32.dll\LZSeek", Int32, hFile, Int32, lOffset, Int32, iOrigin, Int32)
     return result
 }
 
@@ -22111,7 +22119,7 @@ export LZSeek(hFile, lOffset, iOrigin) {
  * @since windows5.1.2600
  */
 export LZRead(hFile, lpBuffer, cbRead) {
-    result := DllCall("KERNEL32.dll\LZRead", "int", hFile, "ptr", lpBuffer, "int", cbRead, Int32)
+    result := DllCall("KERNEL32.dll\LZRead", Int32, hFile, IntPtr, lpBuffer, Int32, cbRead, Int32)
     return result
 }
 
@@ -22194,7 +22202,7 @@ export LZRead(hFile, lpBuffer, cbRead) {
  * @since windows5.1.2600
  */
 export LZClose(hFile) {
-    DllCall("KERNEL32.dll\LZClose", "int", hFile)
+    DllCall("KERNEL32.dll\LZClose", Int32, hFile)
 }
 
 /**
@@ -22225,7 +22233,7 @@ export WofShouldCompressBinaries(Volume, Algorithm) {
  * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofgetdriverversion
  */
 export WofGetDriverVersion(FileOrVolumeHandle, Provider) {
-    result := DllCall("WOFUTIL.dll\WofGetDriverVersion", HANDLE, FileOrVolumeHandle, "uint", Provider, "uint*", &WofVersion := 0, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofGetDriverVersion", HANDLE, FileOrVolumeHandle, UInt32, Provider, "uint*", &WofVersion := 0, "HRESULT")
     return WofVersion
 }
 
@@ -22282,7 +22290,7 @@ export WofGetDriverVersion(FileOrVolumeHandle, Provider) {
 export WofSetFileDataLocation(FileHandle, Provider, ExternalFileInfo, Length) {
     ExternalFileInfoMarshal := ExternalFileInfo is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofSetFileDataLocation", HANDLE, FileHandle, "uint", Provider, ExternalFileInfoMarshal, ExternalFileInfo, "uint", Length, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofSetFileDataLocation", HANDLE, FileHandle, UInt32, Provider, ExternalFileInfoMarshal, ExternalFileInfo, UInt32, Length, "HRESULT")
     return result
 }
 
@@ -22370,7 +22378,7 @@ export WofEnumEntries(VolumeName, Provider, EnumProc, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, "uint", Provider, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, UInt32, Provider, WofEnumEntryProc, EnumProc, _UserDataMarshal, _UserData, "HRESULT")
     return result
 }
 
@@ -22387,7 +22395,7 @@ export WofWimAddEntry(VolumeName, WimPath, WimType, WimIndex) {
     VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
     WimPath := WimPath is String ? StrPtr(WimPath) : WimPath
 
-    result := DllCall("WOFUTIL.dll\WofWimAddEntry", "ptr", VolumeName, "ptr", WimPath, "uint", WimType, "uint", WimIndex, "int64*", &DataSourceId := 0, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofWimAddEntry", "ptr", VolumeName, "ptr", WimPath, UInt32, WimType, UInt32, WimIndex, "int64*", &DataSourceId := 0, "HRESULT")
     return DataSourceId
 }
 
@@ -22405,7 +22413,7 @@ export WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, "int64", DataSourceId, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, Int64, DataSourceId, WofEnumFilesProc, EnumProc, _UserDataMarshal, _UserData, "HRESULT")
     return result
 }
 
@@ -22421,7 +22429,7 @@ export WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, _UserData) {
 export WofWimSuspendEntry(VolumeName, DataSourceId) {
     VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
-    result := DllCall("WOFUTIL.dll\WofWimSuspendEntry", "ptr", VolumeName, "int64", DataSourceId, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofWimSuspendEntry", "ptr", VolumeName, Int64, DataSourceId, "HRESULT")
     return result
 }
 
@@ -22437,7 +22445,7 @@ export WofWimSuspendEntry(VolumeName, DataSourceId) {
 export WofWimRemoveEntry(VolumeName, DataSourceId) {
     VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
-    result := DllCall("WOFUTIL.dll\WofWimRemoveEntry", "ptr", VolumeName, "int64", DataSourceId, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofWimRemoveEntry", "ptr", VolumeName, Int64, DataSourceId, "HRESULT")
     return result
 }
 
@@ -22453,7 +22461,7 @@ export WofWimUpdateEntry(VolumeName, DataSourceId, NewWimPath) {
     VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
     NewWimPath := NewWimPath is String ? StrPtr(NewWimPath) : NewWimPath
 
-    result := DllCall("WOFUTIL.dll\WofWimUpdateEntry", "ptr", VolumeName, "int64", DataSourceId, "ptr", NewWimPath, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofWimUpdateEntry", "ptr", VolumeName, Int64, DataSourceId, "ptr", NewWimPath, "HRESULT")
     return result
 }
 
@@ -22471,7 +22479,7 @@ export WofFileEnumFiles(VolumeName, Algorithm, EnumProc, _UserData) {
 
     _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, "uint", Algorithm, "ptr", EnumProc, _UserDataMarshal, _UserData, "HRESULT")
+    result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, UInt32, Algorithm, WofEnumFilesProc, EnumProc, _UserDataMarshal, _UserData, "HRESULT")
     return result
 }
 
@@ -22523,7 +22531,7 @@ export TxfLogCreateRangeReadContext(LogPath, BeginningLsn, EndingLsn, BeginningV
     EndingVirtualClockMarshal := EndingVirtualClock is VarRef ? "int64*" : "ptr"
     TxfLogContextMarshal := TxfLogContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("txfw32.dll\TxfLogCreateRangeReadContext", "ptr", LogPath, CLS_LSN, BeginningLsn, CLS_LSN, EndingLsn, BeginningVirtualClockMarshal, BeginningVirtualClock, EndingVirtualClockMarshal, EndingVirtualClock, "uint", RecordTypeMask, TxfLogContextMarshal, TxfLogContext, BOOL)
+    result := DllCall("txfw32.dll\TxfLogCreateRangeReadContext", "ptr", LogPath, CLS_LSN, BeginningLsn, CLS_LSN, EndingLsn, BeginningVirtualClockMarshal, BeginningVirtualClock, EndingVirtualClockMarshal, EndingVirtualClock, UInt32, RecordTypeMask, TxfLogContextMarshal, TxfLogContext, BOOL)
     return result
 }
 
@@ -22627,7 +22635,7 @@ export TxfLogReadRecords(TxfLogContext, BufferLength, _Buffer, BytesUsed, Record
 
     A_LastError := 0
 
-    result := DllCall("txfw32.dll\TxfLogReadRecords", TxfLogContextMarshal, TxfLogContext, "uint", BufferLength, "ptr", _Buffer, BytesUsedMarshal, BytesUsed, RecordCountMarshal, RecordCount, BOOL)
+    result := DllCall("txfw32.dll\TxfLogReadRecords", TxfLogContextMarshal, TxfLogContext, UInt32, BufferLength, IntPtr, _Buffer, BytesUsedMarshal, BytesUsed, RecordCountMarshal, RecordCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22663,7 +22671,7 @@ export TxfReadMetadataInfo(FileHandle, TxfFileId, LastLsn, TransactionState, Loc
 export TxfLogRecordGetFileName(RecordBuffer, RecordBufferLengthInBytes, NameBuffer, NameBufferLengthInBytes, TxfId) {
     NameBufferLengthInBytesMarshal := NameBufferLengthInBytes is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("txfw32.dll\TxfLogRecordGetFileName", "ptr", RecordBuffer, "uint", RecordBufferLengthInBytes, "ptr", NameBuffer, NameBufferLengthInBytesMarshal, NameBufferLengthInBytes, TXF_ID.Ptr, TxfId, BOOL)
+    result := DllCall("txfw32.dll\TxfLogRecordGetFileName", IntPtr, RecordBuffer, UInt32, RecordBufferLengthInBytes, IntPtr, NameBuffer, NameBufferLengthInBytesMarshal, NameBufferLengthInBytes, TXF_ID.Ptr, TxfId, BOOL)
     return result
 }
 
@@ -22680,7 +22688,7 @@ export TxfLogRecordGetGenericType(RecordBuffer, RecordBufferLengthInBytes, Gener
     GenericTypeMarshal := GenericType is VarRef ? "uint*" : "ptr"
     VirtualClockMarshal := VirtualClock is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("txfw32.dll\TxfLogRecordGetGenericType", RecordBufferMarshal, RecordBuffer, "uint", RecordBufferLengthInBytes, GenericTypeMarshal, GenericType, VirtualClockMarshal, VirtualClock, BOOL)
+    result := DllCall("txfw32.dll\TxfLogRecordGetGenericType", RecordBufferMarshal, RecordBuffer, UInt32, RecordBufferLengthInBytes, GenericTypeMarshal, GenericType, VirtualClockMarshal, VirtualClock, BOOL)
     return result
 }
 
@@ -22691,7 +22699,7 @@ export TxfLogRecordGetGenericType(RecordBuffer, RecordBufferLengthInBytes, Gener
  * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txfsetthreadminiversionforcreate
  */
 export TxfSetThreadMiniVersionForCreate(MiniVersion) {
-    DllCall("txfw32.dll\TxfSetThreadMiniVersionForCreate", "ushort", MiniVersion)
+    DllCall("txfw32.dll\TxfSetThreadMiniVersionForCreate", UInt16, MiniVersion)
 }
 
 /**
@@ -22765,7 +22773,7 @@ export CreateTransaction(lpTransactionAttributes, UOW, CreateOptions, _Isolation
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\CreateTransaction", SECURITY_ATTRIBUTES.Ptr, lpTransactionAttributes, Guid.Ptr, UOW, "uint", CreateOptions, "uint", _IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, HANDLE.Owned)
+    result := DllCall("ktmw32.dll\CreateTransaction", SECURITY_ATTRIBUTES.Ptr, lpTransactionAttributes, Guid.Ptr, UOW, UInt32, CreateOptions, UInt32, _IsolationLevel, UInt32, IsolationFlags, UInt32, Timeout, "ptr", Description, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22790,7 +22798,7 @@ export CreateTransaction(lpTransactionAttributes, UOW, CreateOptions, _Isolation
 export OpenTransaction(dwDesiredAccess, TransactionId) {
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\OpenTransaction", "uint", dwDesiredAccess, Guid.Ptr, TransactionId, HANDLE.Owned)
+    result := DllCall("ktmw32.dll\OpenTransaction", UInt32, dwDesiredAccess, Guid.Ptr, TransactionId, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22943,7 +22951,7 @@ export GetTransactionInformation(TransactionHandle, Outcome, _IsolationLevel, Is
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\GetTransactionInformation", HANDLE, TransactionHandle, OutcomeMarshal, Outcome, _IsolationLevelMarshal, _IsolationLevel, IsolationFlagsMarshal, IsolationFlags, TimeoutMarshal, Timeout, "uint", BufferLength, "ptr", Description, BOOL)
+    result := DllCall("ktmw32.dll\GetTransactionInformation", HANDLE, TransactionHandle, OutcomeMarshal, Outcome, _IsolationLevelMarshal, _IsolationLevel, IsolationFlagsMarshal, IsolationFlags, TimeoutMarshal, Timeout, UInt32, BufferLength, "ptr", Description, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22972,7 +22980,7 @@ export SetTransactionInformation(TransactionHandle, _IsolationLevel, IsolationFl
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\SetTransactionInformation", HANDLE, TransactionHandle, "uint", _IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, BOOL)
+    result := DllCall("ktmw32.dll\SetTransactionInformation", HANDLE, TransactionHandle, UInt32, _IsolationLevel, UInt32, IsolationFlags, UInt32, Timeout, "ptr", Description, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23022,7 +23030,7 @@ export CreateTransactionManager(lpTransactionAttributes, LogFileName, CreateOpti
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\CreateTransactionManager", SECURITY_ATTRIBUTES.Ptr, lpTransactionAttributes, "ptr", LogFileName, "uint", CreateOptions, "uint", CommitStrength, HANDLE.Owned)
+    result := DllCall("ktmw32.dll\CreateTransactionManager", SECURITY_ATTRIBUTES.Ptr, lpTransactionAttributes, "ptr", LogFileName, UInt32, CreateOptions, UInt32, CommitStrength, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23052,7 +23060,7 @@ export OpenTransactionManager(LogFileName, DesiredAccess, OpenOptions) {
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\OpenTransactionManager", "ptr", LogFileName, "uint", DesiredAccess, "uint", OpenOptions, HANDLE.Owned)
+    result := DllCall("ktmw32.dll\OpenTransactionManager", "ptr", LogFileName, UInt32, DesiredAccess, UInt32, OpenOptions, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23078,7 +23086,7 @@ export OpenTransactionManager(LogFileName, DesiredAccess, OpenOptions) {
 export OpenTransactionManagerById(TransactionManagerId, DesiredAccess, OpenOptions) {
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\OpenTransactionManagerById", Guid.Ptr, TransactionManagerId, "uint", DesiredAccess, "uint", OpenOptions, HANDLE.Owned)
+    result := DllCall("ktmw32.dll\OpenTransactionManagerById", Guid.Ptr, TransactionManagerId, UInt32, DesiredAccess, UInt32, OpenOptions, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23263,7 +23271,7 @@ export CreateResourceManager(lpResourceManagerAttributes, ResourceManagerId, Cre
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\CreateResourceManager", SECURITY_ATTRIBUTES.Ptr, lpResourceManagerAttributes, Guid.Ptr, ResourceManagerId, "uint", CreateOptions, HANDLE, TmHandle, "ptr", Description, HANDLE.Owned)
+    result := DllCall("ktmw32.dll\CreateResourceManager", SECURITY_ATTRIBUTES.Ptr, lpResourceManagerAttributes, Guid.Ptr, ResourceManagerId, UInt32, CreateOptions, HANDLE, TmHandle, "ptr", Description, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23289,7 +23297,7 @@ export CreateResourceManager(lpResourceManagerAttributes, ResourceManagerId, Cre
 export OpenResourceManager(dwDesiredAccess, TmHandle, ResourceManagerId) {
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\OpenResourceManager", "uint", dwDesiredAccess, HANDLE, TmHandle, Guid.Ptr, ResourceManagerId, HANDLE.Owned)
+    result := DllCall("ktmw32.dll\OpenResourceManager", UInt32, dwDesiredAccess, HANDLE, TmHandle, Guid.Ptr, ResourceManagerId, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23357,7 +23365,7 @@ export GetNotificationResourceManager(ResourceManagerHandle, TransactionNotifica
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\GetNotificationResourceManager", HANDLE, ResourceManagerHandle, TRANSACTION_NOTIFICATION.Ptr, TransactionNotification, "uint", NotificationLength, "uint", dwMilliseconds, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ktmw32.dll\GetNotificationResourceManager", HANDLE, ResourceManagerHandle, TRANSACTION_NOTIFICATION.Ptr, TransactionNotification, UInt32, NotificationLength, UInt32, dwMilliseconds, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23408,7 +23416,7 @@ export GetNotificationResourceManagerAsync(ResourceManagerHandle, TransactionNot
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\GetNotificationResourceManagerAsync", HANDLE, ResourceManagerHandle, TRANSACTION_NOTIFICATION.Ptr, TransactionNotification, "uint", TransactionNotificationLength, ReturnLengthMarshal, ReturnLength, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("ktmw32.dll\GetNotificationResourceManagerAsync", HANDLE, ResourceManagerHandle, TRANSACTION_NOTIFICATION.Ptr, TransactionNotification, UInt32, TransactionNotificationLength, ReturnLengthMarshal, ReturnLength, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23436,7 +23444,7 @@ export GetNotificationResourceManagerAsync(ResourceManagerHandle, TransactionNot
 export SetResourceManagerCompletionPort(ResourceManagerHandle, IoCompletionPortHandle, CompletionKey) {
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\SetResourceManagerCompletionPort", HANDLE, ResourceManagerHandle, HANDLE, IoCompletionPortHandle, "ptr", CompletionKey, BOOL)
+    result := DllCall("ktmw32.dll\SetResourceManagerCompletionPort", HANDLE, ResourceManagerHandle, HANDLE, IoCompletionPortHandle, IntPtr, CompletionKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23506,7 +23514,7 @@ export CreateEnlistment(lpEnlistmentAttributes, ResourceManagerHandle, Transacti
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\CreateEnlistment", SECURITY_ATTRIBUTES.Ptr, lpEnlistmentAttributes, HANDLE, ResourceManagerHandle, HANDLE, TransactionHandle, "uint", NotificationMask, "uint", CreateOptions, EnlistmentKeyMarshal, EnlistmentKey, HANDLE.Owned)
+    result := DllCall("ktmw32.dll\CreateEnlistment", SECURITY_ATTRIBUTES.Ptr, lpEnlistmentAttributes, HANDLE, ResourceManagerHandle, HANDLE, TransactionHandle, UInt32, NotificationMask, UInt32, CreateOptions, EnlistmentKeyMarshal, EnlistmentKey, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23530,7 +23538,7 @@ export CreateEnlistment(lpEnlistmentAttributes, ResourceManagerHandle, Transacti
 export OpenEnlistment(dwDesiredAccess, ResourceManagerHandle, EnlistmentId) {
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\OpenEnlistment", "uint", dwDesiredAccess, HANDLE, ResourceManagerHandle, Guid.Ptr, EnlistmentId, HANDLE.Owned)
+    result := DllCall("ktmw32.dll\OpenEnlistment", UInt32, dwDesiredAccess, HANDLE, ResourceManagerHandle, Guid.Ptr, EnlistmentId, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23588,7 +23596,7 @@ export GetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, _Buffer, B
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", HANDLE, EnlistmentHandle, "uint", BufferSize, _BufferMarshal, _Buffer, BufferUsedMarshal, BufferUsed, BOOL)
+    result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", HANDLE, EnlistmentHandle, UInt32, BufferSize, _BufferMarshal, _Buffer, BufferUsedMarshal, BufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23642,7 +23650,7 @@ export SetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, _Buffer) {
 
     A_LastError := 0
 
-    result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", HANDLE, EnlistmentHandle, "uint", BufferSize, _BufferMarshal, _Buffer, BOOL)
+    result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", HANDLE, EnlistmentHandle, UInt32, BufferSize, _BufferMarshal, _Buffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24063,7 +24071,7 @@ export NetShareAdd(servername, level, buf, parm_err) {
     bufMarshal := buf is VarRef ? "char*" : "ptr"
     parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetShareAdd", "ptr", servername, "uint", level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetShareAdd", "ptr", servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -24116,7 +24124,7 @@ export NetShareEnum(servername, level, bufptr, prefmaxlen, entriesread, totalent
     totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
     resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetShareEnum", "ptr", servername, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetShareEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -24139,7 +24147,7 @@ export NetShareEnumSticky(servername, level, bufptr, prefmaxlen, entriesread, to
     totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
     resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetShareEnumSticky", "ptr", servername, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetShareEnumSticky", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -24243,7 +24251,7 @@ export NetShareGetInfo(servername, netname, level, bufptr) {
 
     bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetShareGetInfo", "ptr", servername, "ptr", netname, "uint", level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetShareGetInfo", "ptr", servername, "ptr", netname, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -24376,7 +24384,7 @@ export NetShareSetInfo(servername, netname, level, buf, parm_err) {
     bufMarshal := buf is VarRef ? "char*" : "ptr"
     parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetShareSetInfo", "ptr", servername, "ptr", netname, "uint", level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetShareSetInfo", "ptr", servername, "ptr", netname, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -24462,7 +24470,7 @@ export NetShareDel(servername, netname) {
     servername := servername is String ? StrPtr(servername) : servername
     netname := netname is String ? StrPtr(netname) : netname
 
-    result := DllCall("NETAPI32.dll\NetShareDel", "ptr", servername, "ptr", netname, "uint", reserved, UInt32)
+    result := DllCall("NETAPI32.dll\NetShareDel", "ptr", servername, "ptr", netname, UInt32, reserved, UInt32)
     return result
 }
 
@@ -24478,7 +24486,7 @@ export NetShareDelSticky(servername, netname) {
     servername := servername is String ? StrPtr(servername) : servername
     netname := netname is String ? StrPtr(netname) : netname
 
-    result := DllCall("NETAPI32.dll\NetShareDelSticky", "ptr", servername, "ptr", netname, "uint", reserved, UInt32)
+    result := DllCall("NETAPI32.dll\NetShareDelSticky", "ptr", servername, "ptr", netname, UInt32, reserved, UInt32)
     return result
 }
 
@@ -24685,7 +24693,7 @@ export NetShareDelEx(servername, level, buf) {
 
     bufMarshal := buf is VarRef ? "char*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetShareDelEx", "ptr", servername, "uint", level, bufMarshal, buf, UInt32)
+    result := DllCall("NETAPI32.dll\NetShareDelEx", "ptr", servername, UInt32, level, bufMarshal, buf, UInt32)
     return result
 }
 
@@ -24701,7 +24709,7 @@ export NetServerAliasAdd(servername, level, buf) {
 
     bufMarshal := buf is VarRef ? "char*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetServerAliasAdd", "ptr", servername, "uint", level, bufMarshal, buf, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerAliasAdd", "ptr", servername, UInt32, level, bufMarshal, buf, UInt32)
     return result
 }
 
@@ -24717,7 +24725,7 @@ export NetServerAliasDel(servername, level, buf) {
 
     bufMarshal := buf is VarRef ? "char*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetServerAliasDel", "ptr", servername, "uint", level, bufMarshal, buf, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerAliasDel", "ptr", servername, UInt32, level, bufMarshal, buf, UInt32)
     return result
 }
 
@@ -24740,7 +24748,7 @@ export NetServerAliasEnum(servername, level, bufptr, prefmaxlen, entriesread, to
     totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
     resumehandleMarshal := resumehandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetServerAliasEnum", "ptr", servername, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerAliasEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
     return result
 }
 
@@ -24880,7 +24888,7 @@ export NetSessionEnum(servername, UncClientName, username, level, bufptr, prefma
     totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
     resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetSessionEnum", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetSessionEnum", "ptr", servername, "ptr", UncClientName, "ptr", username, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -25085,7 +25093,7 @@ export NetSessionGetInfo(servername, UncClientName, username, level, bufptr) {
 
     bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetSessionGetInfo", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetSessionGetInfo", "ptr", servername, "ptr", UncClientName, "ptr", username, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -25134,7 +25142,7 @@ export NetConnectionEnum(servername, qualifier, level, bufptr, prefmaxlen, entri
     totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
     resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetConnectionEnum", "ptr", servername, "ptr", qualifier, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetConnectionEnum", "ptr", servername, "ptr", qualifier, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -25188,7 +25196,7 @@ export NetConnectionEnum(servername, qualifier, level, bufptr, prefmaxlen, entri
 export NetFileClose(servername, fileid) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    result := DllCall("NETAPI32.dll\NetFileClose", "ptr", servername, "uint", fileid, UInt32)
+    result := DllCall("NETAPI32.dll\NetFileClose", "ptr", servername, UInt32, fileid, UInt32)
     return result
 }
 
@@ -25311,7 +25319,7 @@ export NetFileEnum(servername, basepath, username, level, bufptr, prefmaxlen, en
     totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
     resume_handleMarshal := resume_handle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetFileEnum", "ptr", servername, "ptr", basepath, "ptr", username, "uint", level, bufptrMarshal, bufptr, "uint", prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetFileEnum", "ptr", servername, "ptr", basepath, "ptr", username, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -25413,7 +25421,7 @@ export NetFileGetInfo(servername, fileid, level, bufptr) {
 
     bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetFileGetInfo", "ptr", servername, "uint", fileid, "uint", level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetFileGetInfo", "ptr", servername, UInt32, fileid, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -25463,7 +25471,7 @@ export NetStatisticsGet(ServerName, Service, Level, Options, _Buffer) {
     ServiceMarshal := Service is VarRef ? "char*" : "ptr"
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, "uint", Level, "uint", Options, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, UInt32, Level, UInt32, Options, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -25510,7 +25518,7 @@ export IsIoRingOpSupported(ioRing, op) {
  */
 export CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize) {
     h := HIORING.Owned()
-    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CreateIoRing", IORING_VERSION, ioringVersion, IORING_CREATE_FLAGS, flags, "uint", submissionQueueSize, "uint", completionQueueSize, HIORING.Ptr, h, "HRESULT")
+    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CreateIoRing", IORING_VERSION, ioringVersion, IORING_CREATE_FLAGS, flags, UInt32, submissionQueueSize, UInt32, completionQueueSize, HIORING.Ptr, h, "HRESULT")
     return h
 }
 
@@ -25537,7 +25545,7 @@ export GetIoRingInfo(ioRing, info) {
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-submitioring
  */
 export SubmitIoRing(ioRing, waitOperations, milliseconds) {
-    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SubmitIoRing", HIORING, ioRing, "uint", waitOperations, "uint", milliseconds, "uint*", &submittedEntries := 0, "HRESULT")
+    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SubmitIoRing", HIORING, ioRing, UInt32, waitOperations, UInt32, milliseconds, "uint*", &submittedEntries := 0, "HRESULT")
     return submittedEntries
 }
 
@@ -25613,7 +25621,7 @@ export SetIoRingCompletionEvent(ioRing, hEvent) {
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringcancelrequest
  */
 export BuildIoRingCancelRequest(ioRing, _file, opToCancel, _userData) {
-    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingCancelRequest", HIORING, ioRing, IORING_HANDLE_REF, _file, "ptr", opToCancel, "ptr", _userData, "HRESULT")
+    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingCancelRequest", HIORING, ioRing, IORING_HANDLE_REF, _file, IntPtr, opToCancel, IntPtr, _userData, "HRESULT")
     return result
 }
 
@@ -25638,7 +25646,7 @@ export BuildIoRingCancelRequest(ioRing, _file, opToCancel, _userData) {
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringreadfile
  */
 export BuildIoRingReadFile(ioRing, fileRef, dataRef, numberOfBytesToRead, fileOffset, _userData, sqeFlags) {
-    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingReadFile", HIORING, ioRing, IORING_HANDLE_REF, fileRef, IORING_BUFFER_REF, dataRef, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
+    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingReadFile", HIORING, ioRing, IORING_HANDLE_REF, fileRef, IORING_BUFFER_REF, dataRef, UInt32, numberOfBytesToRead, Int64, fileOffset, IntPtr, _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
     return result
 }
 
@@ -25660,7 +25668,7 @@ export BuildIoRingReadFile(ioRing, fileRef, dataRef, numberOfBytesToRead, fileOf
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringregisterfilehandles
  */
 export BuildIoRingRegisterFileHandles(ioRing, count, handles, _userData) {
-    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterFileHandles", HIORING, ioRing, "uint", count, HANDLE.Ptr, handles, "ptr", _userData, "HRESULT")
+    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterFileHandles", HIORING, ioRing, UInt32, count, HANDLE.Ptr, handles, IntPtr, _userData, "HRESULT")
     return result
 }
 
@@ -25682,7 +25690,7 @@ export BuildIoRingRegisterFileHandles(ioRing, count, handles, _userData) {
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringregisterbuffers
  */
 export BuildIoRingRegisterBuffers(ioRing, count, buffers, _userData) {
-    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterBuffers", HIORING, ioRing, "uint", count, IORING_BUFFER_INFO.Ptr, buffers, "ptr", _userData, "HRESULT")
+    result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterBuffers", HIORING, ioRing, UInt32, count, IORING_BUFFER_INFO.Ptr, buffers, IntPtr, _userData, "HRESULT")
     return result
 }
 
@@ -25699,7 +25707,7 @@ export BuildIoRingRegisterBuffers(ioRing, count, buffers, _userData) {
  * @returns {HRESULT} 
  */
 export BuildIoRingWriteFile(ioRing, fileRef, bufferRef, numberOfBytesToWrite, fileOffset, writeFlags, _userData, sqeFlags) {
-    result := DllCall("KERNEL32.dll\BuildIoRingWriteFile", HIORING, ioRing, IORING_HANDLE_REF, fileRef, IORING_BUFFER_REF, bufferRef, "uint", numberOfBytesToWrite, "uint", fileOffset, FILE_WRITE_FLAGS, writeFlags, "ptr", _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
+    result := DllCall("KERNEL32.dll\BuildIoRingWriteFile", HIORING, ioRing, IORING_HANDLE_REF, fileRef, IORING_BUFFER_REF, bufferRef, UInt32, numberOfBytesToWrite, Int64, fileOffset, FILE_WRITE_FLAGS, writeFlags, IntPtr, _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
     return result
 }
 
@@ -25713,7 +25721,7 @@ export BuildIoRingWriteFile(ioRing, fileRef, bufferRef, numberOfBytesToWrite, fi
  * @returns {HRESULT} 
  */
 export BuildIoRingFlushFile(ioRing, fileRef, flushMode, _userData, sqeFlags) {
-    result := DllCall("KERNEL32.dll\BuildIoRingFlushFile", HIORING, ioRing, IORING_HANDLE_REF, fileRef, FILE_FLUSH_MODE, flushMode, "ptr", _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
+    result := DllCall("KERNEL32.dll\BuildIoRingFlushFile", HIORING, ioRing, IORING_HANDLE_REF, fileRef, FILE_FLUSH_MODE, flushMode, IntPtr, _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
     return result
 }
 
@@ -25730,7 +25738,7 @@ export BuildIoRingFlushFile(ioRing, fileRef, flushMode, _userData, sqeFlags) {
  * @returns {HRESULT} 
  */
 export BuildIoRingReadFileScatter(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToRead, fileOffset, _userData, sqeFlags) {
-    result := DllCall("KERNEL32.dll\BuildIoRingReadFileScatter", HIORING, ioRing, IORING_HANDLE_REF, fileRef, "uint", segmentCount, FILE_SEGMENT_ELEMENT.Ptr, segmentArray, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
+    result := DllCall("KERNEL32.dll\BuildIoRingReadFileScatter", HIORING, ioRing, IORING_HANDLE_REF, fileRef, UInt32, segmentCount, FILE_SEGMENT_ELEMENT.Ptr, segmentArray, UInt32, numberOfBytesToRead, Int64, fileOffset, IntPtr, _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
     return result
 }
 
@@ -25748,7 +25756,7 @@ export BuildIoRingReadFileScatter(ioRing, fileRef, segmentCount, segmentArray, n
  * @returns {HRESULT} 
  */
 export BuildIoRingWriteFileGather(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToWrite, fileOffset, writeFlags, _userData, sqeFlags) {
-    result := DllCall("KERNEL32.dll\BuildIoRingWriteFileGather", HIORING, ioRing, IORING_HANDLE_REF, fileRef, "uint", segmentCount, FILE_SEGMENT_ELEMENT.Ptr, segmentArray, "uint", numberOfBytesToWrite, "uint", fileOffset, FILE_WRITE_FLAGS, writeFlags, "ptr", _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
+    result := DllCall("KERNEL32.dll\BuildIoRingWriteFileGather", HIORING, ioRing, IORING_HANDLE_REF, fileRef, UInt32, segmentCount, FILE_SEGMENT_ELEMENT.Ptr, segmentArray, UInt32, numberOfBytesToWrite, Int64, fileOffset, FILE_WRITE_FLAGS, writeFlags, IntPtr, _userData, IORING_SQE_FLAGS, sqeFlags, "HRESULT")
     return result
 }
 
@@ -25767,7 +25775,7 @@ export CreateBindLink(virtualPath, backingPath, createBindLinkFlags, exceptionCo
 
     exceptionPathsMarshal := exceptionPaths is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("BINDFLTAPI.dll\CreateBindLink", "ptr", virtualPath, "ptr", backingPath, CREATE_BIND_LINK_FLAGS, createBindLinkFlags, "uint", exceptionCount, exceptionPathsMarshal, exceptionPaths, "HRESULT")
+    result := DllCall("BINDFLTAPI.dll\CreateBindLink", "ptr", virtualPath, "ptr", backingPath, CREATE_BIND_LINK_FLAGS, createBindLinkFlags, UInt32, exceptionCount, exceptionPathsMarshal, exceptionPaths, "HRESULT")
     return result
 }
 
@@ -26597,7 +26605,7 @@ export GetShortPathNameA(lpszLongPath, lpszShortPath, cchBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetShortPathNameA", "ptr", lpszLongPath, "ptr", lpszShortPath, "uint", cchBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetShortPathNameA", "ptr", lpszLongPath, "ptr", lpszShortPath, UInt32, cchBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26735,7 +26743,7 @@ export GetLongPathNameTransactedA(lpszShortPath, lpszLongPath, cchBuffer, hTrans
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLongPathNameTransactedA", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, HANDLE, hTransaction, UInt32)
+    result := DllCall("KERNEL32.dll\GetLongPathNameTransactedA", "ptr", lpszShortPath, "ptr", lpszLongPath, UInt32, cchBuffer, HANDLE, hTransaction, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26873,7 +26881,7 @@ export GetLongPathNameTransactedW(lpszShortPath, lpszLongPath, cchBuffer, hTrans
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLongPathNameTransactedW", "ptr", lpszShortPath, "ptr", lpszLongPath, "uint", cchBuffer, HANDLE, hTransaction, UInt32)
+    result := DllCall("KERNEL32.dll\GetLongPathNameTransactedW", "ptr", lpszShortPath, "ptr", lpszLongPath, UInt32, cchBuffer, HANDLE, hTransaction, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -27011,7 +27019,7 @@ export GetLongPathNameTransactedW(lpszShortPath, lpszLongPath, cchBuffer, hTrans
 export SetFileCompletionNotificationModes(FileHandle, Flags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFileCompletionNotificationModes", HANDLE, FileHandle, "char", Flags, BOOL)
+    result := DllCall("KERNEL32.dll\SetFileCompletionNotificationModes", HANDLE, FileHandle, Int8, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -27497,7 +27505,7 @@ export SetFileShortNameW(hFile, lpShortName) {
  * @since windows5.1.2600
  */
 export SetTapePosition(hDevice, dwPositionMethod, dwPartition, dwOffsetLow, dwOffsetHigh, bImmediate) {
-    result := DllCall("KERNEL32.dll\SetTapePosition", HANDLE, hDevice, TAPE_POSITION_METHOD, dwPositionMethod, "uint", dwPartition, "uint", dwOffsetLow, "uint", dwOffsetHigh, BOOL, bImmediate, UInt32)
+    result := DllCall("KERNEL32.dll\SetTapePosition", HANDLE, hDevice, TAPE_POSITION_METHOD, dwPositionMethod, UInt32, dwPartition, UInt32, dwOffsetLow, UInt32, dwOffsetHigh, BOOL, bImmediate, UInt32)
     return result
 }
 
@@ -28334,7 +28342,7 @@ export EraseTape(hDevice, dwEraseType, bImmediate) {
  * @since windows5.1.2600
  */
 export CreateTapePartition(hDevice, dwPartitionMethod, dwCount, dwSize) {
-    result := DllCall("KERNEL32.dll\CreateTapePartition", HANDLE, hDevice, CREATE_TAPE_PARTITION_METHOD, dwPartitionMethod, "uint", dwCount, "uint", dwSize, UInt32)
+    result := DllCall("KERNEL32.dll\CreateTapePartition", HANDLE, hDevice, CREATE_TAPE_PARTITION_METHOD, dwPartitionMethod, UInt32, dwCount, UInt32, dwSize, UInt32)
     return result
 }
 
@@ -28545,7 +28553,7 @@ export CreateTapePartition(hDevice, dwPartitionMethod, dwCount, dwSize) {
  * @since windows5.1.2600
  */
 export WriteTapemark(hDevice, dwTapemarkType, dwTapemarkCount, bImmediate) {
-    result := DllCall("KERNEL32.dll\WriteTapemark", HANDLE, hDevice, TAPEMARK_TYPE, dwTapemarkType, "uint", dwTapemarkCount, BOOL, bImmediate, UInt32)
+    result := DllCall("KERNEL32.dll\WriteTapemark", HANDLE, hDevice, TAPEMARK_TYPE, dwTapemarkType, UInt32, dwTapemarkCount, BOOL, bImmediate, UInt32)
     return result
 }
 
@@ -28973,7 +28981,7 @@ export GetTapeStatus(hDevice) {
 export GetTapeParameters(hDevice, dwOperation, lpdwSize, lpTapeInformation) {
     lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetTapeParameters", HANDLE, hDevice, GET_TAPE_DRIVE_PARAMETERS_OPERATION, dwOperation, lpdwSizeMarshal, lpdwSize, "ptr", lpTapeInformation, UInt32)
+    result := DllCall("KERNEL32.dll\GetTapeParameters", HANDLE, hDevice, GET_TAPE_DRIVE_PARAMETERS_OPERATION, dwOperation, lpdwSizeMarshal, lpdwSize, IntPtr, lpTapeInformation, UInt32)
     return result
 }
 
@@ -29511,7 +29519,7 @@ export DecryptFileA(lpFileName) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\DecryptFileA", "ptr", lpFileName, "uint", dwReserved, BOOL)
+    result := DllCall("ADVAPI32.dll\DecryptFileA", "ptr", lpFileName, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29614,7 +29622,7 @@ export DecryptFileW(lpFileName) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\DecryptFileW", "ptr", lpFileName, "uint", dwReserved, BOOL)
+    result := DllCall("ADVAPI32.dll\DecryptFileW", "ptr", lpFileName, UInt32, dwReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30199,7 +30207,7 @@ export OpenEncryptedFileRawA(lpFileName, ulFlags, pvContext) {
 
     pvContextMarshal := pvContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawA", "ptr", lpFileName, "uint", ulFlags, pvContextMarshal, pvContext, UInt32)
+    result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawA", "ptr", lpFileName, UInt32, ulFlags, pvContextMarshal, pvContext, UInt32)
     return result
 }
 
@@ -30366,7 +30374,7 @@ export OpenEncryptedFileRawW(lpFileName, ulFlags, pvContext) {
 
     pvContextMarshal := pvContext is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawW", "ptr", lpFileName, "uint", ulFlags, pvContextMarshal, pvContext, UInt32)
+    result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawW", "ptr", lpFileName, UInt32, ulFlags, pvContextMarshal, pvContext, UInt32)
     return result
 }
 
@@ -30480,7 +30488,7 @@ export ReadEncryptedFileRaw(pfExportCallback, pvCallbackContext, pvContext) {
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\ReadEncryptedFileRaw", "ptr", pfExportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
+    result := DllCall("ADVAPI32.dll\ReadEncryptedFileRaw", PFE_EXPORT_FUNC, pfExportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
     return result
 }
 
@@ -30601,7 +30609,7 @@ export WriteEncryptedFileRaw(pfImportCallback, pvCallbackContext, pvContext) {
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\WriteEncryptedFileRaw", "ptr", pfImportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
+    result := DllCall("ADVAPI32.dll\WriteEncryptedFileRaw", PFE_IMPORT_FUNC, pfImportCallback, pvCallbackContextMarshal, pvCallbackContext, pvContextMarshal, pvContext, UInt32)
     return result
 }
 
@@ -30834,7 +30842,7 @@ export OpenFile(lpFileName, lpReOpenBuff, uStyle) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\OpenFile", "ptr", lpFileName, OFSTRUCT.Ptr, lpReOpenBuff, "uint", uStyle, Int32)
+    result := DllCall("KERNEL32.dll\OpenFile", "ptr", lpFileName, OFSTRUCT.Ptr, lpReOpenBuff, UInt32, uStyle, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30909,7 +30917,7 @@ export BackupRead(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, bA
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\BackupRead", HANDLE, hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, BOOL, bAbort, BOOL, bProcessSecurity, lpContextMarshal, lpContext, BOOL)
+    result := DllCall("KERNEL32.dll\BackupRead", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, BOOL, bAbort, BOOL, bProcessSecurity, lpContextMarshal, lpContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30945,7 +30953,7 @@ export BackupSeek(hFile, dwLowBytesToSeek, dwHighBytesToSeek, lpdwLowByteSeeked,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\BackupSeek", HANDLE, hFile, "uint", dwLowBytesToSeek, "uint", dwHighBytesToSeek, lpdwLowByteSeekedMarshal, lpdwLowByteSeeked, lpdwHighByteSeekedMarshal, lpdwHighByteSeeked, lpContextMarshal, lpContext, BOOL)
+    result := DllCall("KERNEL32.dll\BackupSeek", HANDLE, hFile, UInt32, dwLowBytesToSeek, UInt32, dwHighBytesToSeek, lpdwLowByteSeekedMarshal, lpdwLowByteSeeked, lpdwHighByteSeekedMarshal, lpdwHighByteSeeked, lpContextMarshal, lpContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -31014,7 +31022,7 @@ export BackupWrite(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritte
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\BackupWrite", HANDLE, hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, BOOL, bAbort, BOOL, bProcessSecurity, lpContextMarshal, lpContext, BOOL)
+    result := DllCall("KERNEL32.dll\BackupWrite", HANDLE, hFile, IntPtr, lpBuffer, UInt32, nNumberOfBytesToWrite, lpNumberOfBytesWrittenMarshal, lpNumberOfBytesWritten, BOOL, bAbort, BOOL, bProcessSecurity, lpContextMarshal, lpContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -31117,7 +31125,7 @@ export GetLogicalDriveStringsA(nBufferLength, lpBuffer) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLogicalDriveStringsA", "uint", nBufferLength, "ptr", lpBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetLogicalDriveStringsA", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -31282,7 +31290,7 @@ export GetLogicalDriveStringsA(nBufferLength, lpBuffer) {
 export SetSearchPathMode(Flags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetSearchPathMode", "uint", Flags, BOOL)
+    result := DllCall("KERNEL32.dll\SetSearchPathMode", UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -32350,7 +32358,7 @@ export GetFullPathNameTransactedA(lpFileName, nBufferLength, lpBuffer, lpFilePar
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFullPathNameTransactedA", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, HANDLE, hTransaction, UInt32)
+    result := DllCall("KERNEL32.dll\GetFullPathNameTransactedA", "ptr", lpFileName, UInt32, nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, HANDLE, hTransaction, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -32496,7 +32504,7 @@ export GetFullPathNameTransactedW(lpFileName, nBufferLength, lpBuffer, lpFilePar
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFullPathNameTransactedW", "ptr", lpFileName, "uint", nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, HANDLE, hTransaction, UInt32)
+    result := DllCall("KERNEL32.dll\GetFullPathNameTransactedW", "ptr", lpFileName, UInt32, nBufferLength, "ptr", lpBuffer, lpFilePartMarshal, lpFilePart, HANDLE, hTransaction, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -32741,7 +32749,7 @@ export QueryDosDeviceA(lpDeviceName, lpTargetPath, ucchMax) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\QueryDosDeviceA", "ptr", lpDeviceName, "ptr", lpTargetPath, "uint", ucchMax, UInt32)
+    result := DllCall("KERNEL32.dll\QueryDosDeviceA", "ptr", lpDeviceName, "ptr", lpTargetPath, UInt32, ucchMax, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -33421,7 +33429,7 @@ export CreateFileTransactedA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurit
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFileTransactedA", "ptr", lpFileName, "uint", dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_CREATION_DISPOSITION, dwCreationDisposition, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE, hTransaction, pusMiniVersionMarshal, pusMiniVersion, "ptr", lpExtendedParameter, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFileTransactedA", "ptr", lpFileName, UInt32, dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_CREATION_DISPOSITION, dwCreationDisposition, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE, hTransaction, pusMiniVersionMarshal, pusMiniVersion, "ptr", lpExtendedParameter, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -34101,7 +34109,7 @@ export CreateFileTransactedW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurit
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFileTransactedW", "ptr", lpFileName, "uint", dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_CREATION_DISPOSITION, dwCreationDisposition, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE, hTransaction, pusMiniVersionMarshal, pusMiniVersion, "ptr", lpExtendedParameter, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFileTransactedW", "ptr", lpFileName, UInt32, dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_CREATION_DISPOSITION, dwCreationDisposition, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE, hTransaction, pusMiniVersionMarshal, pusMiniVersion, "ptr", lpExtendedParameter, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -34201,7 +34209,7 @@ export CreateFileTransactedW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurit
 export ReOpenFile(hOriginalFile, dwDesiredAccess, dwShareMode, dwFlagsAndAttributes) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReOpenFile", HANDLE, hOriginalFile, "uint", dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\ReOpenFile", HANDLE, hOriginalFile, UInt32, dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -34408,7 +34416,7 @@ export SetFileAttributesTransactedA(lpFileName, dwFileAttributes, hTransaction) 
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFileAttributesTransactedA", "ptr", lpFileName, "uint", dwFileAttributes, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\SetFileAttributesTransactedA", "ptr", lpFileName, UInt32, dwFileAttributes, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -34615,7 +34623,7 @@ export SetFileAttributesTransactedW(lpFileName, dwFileAttributes, hTransaction) 
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFileAttributesTransactedW", "ptr", lpFileName, "uint", dwFileAttributes, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\SetFileAttributesTransactedW", "ptr", lpFileName, UInt32, dwFileAttributes, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -35549,7 +35557,7 @@ export CheckNameLegalDOS8Dot3A(lpName, lpOemName, OemNameSize, pbNameContainsSpa
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3A", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, pbNameContainsSpacesMarshal, pbNameContainsSpaces, pbNameLegalMarshal, pbNameLegal, BOOL)
+    result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3A", "ptr", lpName, "ptr", lpOemName, UInt32, OemNameSize, pbNameContainsSpacesMarshal, pbNameContainsSpaces, pbNameLegalMarshal, pbNameLegal, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -35657,7 +35665,7 @@ export CheckNameLegalDOS8Dot3W(lpName, lpOemName, OemNameSize, pbNameContainsSpa
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3W", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, pbNameContainsSpacesMarshal, pbNameContainsSpaces, pbNameLegalMarshal, pbNameLegal, BOOL)
+    result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3W", "ptr", lpName, "ptr", lpOemName, UInt32, OemNameSize, pbNameContainsSpacesMarshal, pbNameContainsSpaces, pbNameLegalMarshal, pbNameLegal, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -35865,7 +35873,7 @@ export FindFirstFileTransactedA(lpFileName, fInfoLevelId, lpFindFileData, fSearc
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstFileTransactedA", "ptr", lpFileName, FINDEX_INFO_LEVELS, fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, FINDEX_SEARCH_OPS, fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, HANDLE, hTransaction, HANDLE.OwnedWith(FindClose))
+    result := DllCall("KERNEL32.dll\FindFirstFileTransactedA", "ptr", lpFileName, FINDEX_INFO_LEVELS, fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, FINDEX_SEARCH_OPS, fSearchOp, "ptr", lpSearchFilter, UInt32, dwAdditionalFlags, HANDLE, hTransaction, HANDLE.OwnedWith(FindClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -36073,7 +36081,7 @@ export FindFirstFileTransactedW(lpFileName, fInfoLevelId, lpFindFileData, fSearc
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstFileTransactedW", "ptr", lpFileName, FINDEX_INFO_LEVELS, fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, FINDEX_SEARCH_OPS, fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, HANDLE, hTransaction, HANDLE.OwnedWith(FindClose))
+    result := DllCall("KERNEL32.dll\FindFirstFileTransactedW", "ptr", lpFileName, FINDEX_INFO_LEVELS, fInfoLevelId, lpFindFileDataMarshal, lpFindFileData, FINDEX_SEARCH_OPS, fSearchOp, "ptr", lpSearchFilter, UInt32, dwAdditionalFlags, HANDLE, hTransaction, HANDLE.OwnedWith(FindClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -36635,7 +36643,7 @@ export CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -36924,7 +36932,7 @@ export CopyFileExW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, COPYFILE_FLAGS, dwCopyFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -37158,7 +37166,7 @@ export CopyFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -37392,7 +37400,7 @@ export CopyFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, "uint", dwCopyFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, pbCancelMarshal, pbCancel, UInt32, dwCopyFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38365,7 +38373,7 @@ export MoveFileWithProgressA(lpExistingFileName, lpNewFileName, lpProgressRoutin
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38527,7 +38535,7 @@ export MoveFileWithProgressW(lpExistingFileName, lpNewFileName, lpProgressRoutin
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38686,7 +38694,7 @@ export MoveFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -38845,7 +38853,7 @@ export MoveFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
+    result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, LPPROGRESS_ROUTINE, lpProgressRoutine, lpDataMarshal, lpData, MOVE_FILE_FLAGS, dwFlags, HANDLE, hTransaction, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -39901,7 +39909,7 @@ export FindFirstStreamTransactedW(lpFileName, InfoLevel, lpFindStreamData, hTran
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstStreamTransactedW", "ptr", lpFileName, STREAM_INFO_LEVELS, InfoLevel, lpFindStreamDataMarshal, lpFindStreamData, "uint", dwFlags, HANDLE, hTransaction, HANDLE.OwnedWith(FindClose))
+    result := DllCall("KERNEL32.dll\FindFirstStreamTransactedW", "ptr", lpFileName, STREAM_INFO_LEVELS, InfoLevel, lpFindStreamDataMarshal, lpFindStreamData, UInt32, dwFlags, HANDLE, hTransaction, HANDLE.OwnedWith(FindClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40003,7 +40011,7 @@ export FindFirstFileNameTransactedW(lpFileName, dwFlags, StringLength, LinkName,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstFileNameTransactedW", "ptr", lpFileName, "uint", dwFlags, StringLengthMarshal, StringLength, "ptr", LinkName, HANDLE, hTransaction, HANDLE.OwnedWith(FindClose))
+    result := DllCall("KERNEL32.dll\FindFirstFileNameTransactedW", "ptr", lpFileName, UInt32, dwFlags, StringLengthMarshal, StringLength, "ptr", LinkName, HANDLE, hTransaction, HANDLE.OwnedWith(FindClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40337,7 +40345,7 @@ export SetFileBandwidthReservation(hFile, nPeriodMilliseconds, nBytesPerPeriod, 
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFileBandwidthReservation", HANDLE, hFile, "uint", nPeriodMilliseconds, "uint", nBytesPerPeriod, BOOL, bDiscardable, lpTransferSizeMarshal, lpTransferSize, lpNumOutstandingRequestsMarshal, lpNumOutstandingRequests, BOOL)
+    result := DllCall("KERNEL32.dll\SetFileBandwidthReservation", HANDLE, hFile, UInt32, nPeriodMilliseconds, UInt32, nBytesPerPeriod, BOOL, bDiscardable, lpTransferSizeMarshal, lpTransferSize, lpNumOutstandingRequestsMarshal, lpNumOutstandingRequests, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40612,7 +40620,7 @@ export ReadDirectoryChangesW(hDirectory, lpBuffer, nBufferLength, bWatchSubtree,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadDirectoryChangesW", HANDLE, hDirectory, "ptr", lpBuffer, "uint", nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, BOOL)
+    result := DllCall("KERNEL32.dll\ReadDirectoryChangesW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40733,7 +40741,7 @@ export ReadDirectoryChangesExW(hDirectory, lpBuffer, nBufferLength, bWatchSubtre
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadDirectoryChangesExW", HANDLE, hDirectory, "ptr", lpBuffer, "uint", nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "ptr", lpCompletionRoutine, READ_DIRECTORY_NOTIFY_INFORMATION_CLASS, ReadDirectoryNotifyInformationClass, BOOL)
+    result := DllCall("KERNEL32.dll\ReadDirectoryChangesExW", HANDLE, hDirectory, IntPtr, lpBuffer, UInt32, nBufferLength, BOOL, bWatchSubtree, FILE_NOTIFY_CHANGE, dwNotifyFilter, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, LPOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, READ_DIRECTORY_NOTIFY_INFORMATION_CLASS, ReadDirectoryNotifyInformationClass, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40834,7 +40842,7 @@ export FindFirstVolumeA(lpszVolumeName, cchBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstVolumeA", "ptr", lpszVolumeName, "uint", cchBufferLength, HANDLE.OwnedWith(FindVolumeClose))
+    result := DllCall("KERNEL32.dll\FindFirstVolumeA", "ptr", lpszVolumeName, UInt32, cchBufferLength, HANDLE.OwnedWith(FindVolumeClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -40934,7 +40942,7 @@ export FindNextVolumeA(hFindVolume, lpszVolumeName, cchBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindNextVolumeA", HANDLE, hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, BOOL)
+    result := DllCall("KERNEL32.dll\FindNextVolumeA", HANDLE, hFindVolume, "ptr", lpszVolumeName, UInt32, cchBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -41052,7 +41060,7 @@ export FindFirstVolumeMountPointA(lpszRootPathName, lpszVolumeMountPoint, cchBuf
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointA", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, HANDLE.OwnedWith(FindVolumeMountPointClose))
+    result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointA", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, UInt32, cchBufferLength, HANDLE.OwnedWith(FindVolumeMountPointClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -41170,7 +41178,7 @@ export FindFirstVolumeMountPointW(lpszRootPathName, lpszVolumeMountPoint, cchBuf
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointW", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, HANDLE.OwnedWith(FindVolumeMountPointClose))
+    result := DllCall("KERNEL32.dll\FindFirstVolumeMountPointW", "ptr", lpszRootPathName, "ptr", lpszVolumeMountPoint, UInt32, cchBufferLength, HANDLE.OwnedWith(FindVolumeMountPointClose))
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -41285,7 +41293,7 @@ export FindNextVolumeMountPointA(hFindVolumeMountPoint, lpszVolumeMountPoint, cc
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindNextVolumeMountPointA", HANDLE, hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, BOOL)
+    result := DllCall("KERNEL32.dll\FindNextVolumeMountPointA", HANDLE, hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, UInt32, cchBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -41400,7 +41408,7 @@ export FindNextVolumeMountPointW(hFindVolumeMountPoint, lpszVolumeMountPoint, cc
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindNextVolumeMountPointW", HANDLE, hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, BOOL)
+    result := DllCall("KERNEL32.dll\FindNextVolumeMountPointW", HANDLE, hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, UInt32, cchBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -41882,7 +41890,7 @@ export GetVolumeNameForVolumeMountPointA(lpszVolumeMountPoint, lpszVolumeName, c
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, UInt32, cchBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -42054,7 +42062,7 @@ export GetVolumePathNameA(lpszFileName, lpszVolumePathName, cchBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetVolumePathNameA", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetVolumePathNameA", "ptr", lpszFileName, "ptr", lpszVolumePathName, UInt32, cchBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -42154,7 +42162,7 @@ export GetVolumePathNamesForVolumeNameA(lpszVolumeName, lpszVolumePathNames, cch
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameA", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, lpcchReturnLengthMarshal, lpcchReturnLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameA", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, UInt32, cchBufferLength, lpcchReturnLengthMarshal, lpcchReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -42366,7 +42374,7 @@ export GetVolumePathNamesForVolumeNameA(lpszVolumeName, lpszVolumePathNames, cch
 export GetFileInformationByHandleEx(hFile, FileInformationClass, lpFileInformation, dwBufferSize) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFileInformationByHandleEx", HANDLE, hFile, FILE_INFO_BY_HANDLE_CLASS, FileInformationClass, "ptr", lpFileInformation, "uint", dwBufferSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetFileInformationByHandleEx", HANDLE, hFile, FILE_INFO_BY_HANDLE_CLASS, FileInformationClass, IntPtr, lpFileInformation, UInt32, dwBufferSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -42385,7 +42393,7 @@ export GetFileInformationByHandleEx(hFile, FileInformationClass, lpFileInformati
 export GetFileInformationByName(FileName, FileInformationClass, FileInfoBuffer, FileInfoBufferSize) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
 
-    result := DllCall("KERNEL32.dll\GetFileInformationByName", "ptr", FileName, FILE_INFO_BY_NAME_CLASS, FileInformationClass, "ptr", FileInfoBuffer, "uint", FileInfoBufferSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetFileInformationByName", "ptr", FileName, FILE_INFO_BY_NAME_CLASS, FileInformationClass, IntPtr, FileInfoBuffer, UInt32, FileInfoBufferSize, BOOL)
     return result
 }
 
@@ -42664,7 +42672,7 @@ export GetFileInformationByName(FileName, FileInformationClass, FileInfoBuffer, 
 export OpenFileById(hVolumeHint, lpFileId, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwFlagsAndAttributes) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\OpenFileById", HANDLE, hVolumeHint, FILE_ID_DESCRIPTOR.Ptr, lpFileId, "uint", dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\OpenFileById", HANDLE, hVolumeHint, FILE_ID_DESCRIPTOR.Ptr, lpFileId, UInt32, dwDesiredAccess, FILE_SHARE_MODE, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, FILE_FLAGS_AND_ATTRIBUTES, dwFlagsAndAttributes, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

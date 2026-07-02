@@ -61,7 +61,7 @@ export default struct IWorkspaceRegistration2 extends IWorkspaceRegistration {
      * @returns {HRESULT} 
      */
     RemoveResourceEx(dwCookieConnection, _correlationId) {
-        result := ComCall(6, this, "uint", dwCookieConnection, Guid, _correlationId, "HRESULT")
+        result := ComCall(6, this, UInt32, dwCookieConnection, Guid, _correlationId, "HRESULT")
         return result
     }
 

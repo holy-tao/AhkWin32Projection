@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The INSNetSourceCreator interface creates an administrative network source plug-in.
@@ -103,7 +103,7 @@ export default struct INSNetSourceCreator extends IUnknown {
 
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszStreamName, "ptr", pMonitor, pDataMarshal, pData, "ptr", pUserContext, "ptr", pCallback, "uint", qwContext, "HRESULT")
+        result := ComCall(4, this, "ptr", pszStreamName, "ptr", pMonitor, pDataMarshal, pData, "ptr", pUserContext, "ptr", pCallback, Int64, qwContext, "HRESULT")
         return result
     }
 
@@ -167,7 +167,7 @@ export default struct INSNetSourceCreator extends IUnknown {
 
         pcchProtocolNameMarshal := pcchProtocolName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "HRESULT")
+        result := ComCall(9, this, UInt32, dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "HRESULT")
         return result
     }
 

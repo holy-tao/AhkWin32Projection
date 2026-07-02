@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\RTC_USER_SEARCH_PREFERENCE.ahk" { RTC_USER_SEARCH_PREFERENCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -102,7 +102,7 @@ export default struct IRTCUserSearchQuery extends IUnknown {
      * @returns {HRESULT} 
      */
     put_SearchPreference(enPreference, lValue) {
-        result := ComCall(6, this, RTC_USER_SEARCH_PREFERENCE, enPreference, "int", lValue, "HRESULT")
+        result := ComCall(6, this, RTC_USER_SEARCH_PREFERENCE, enPreference, Int32, lValue, "HRESULT")
         return result
     }
 

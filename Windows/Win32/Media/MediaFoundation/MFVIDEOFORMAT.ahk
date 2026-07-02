@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MFVideoInfo.ahk" { MFVideoInfo }
 #Import ".\MFPaletteEntry.ahk" { MFPaletteEntry }
-#Import ".\MFAYUVSample.ahk" { MFAYUVSample }
-#Import ".\MFVideoInterlaceMode.ahk" { MFVideoInterlaceMode }
-#Import ".\MFVideoCompressedInfo.ahk" { MFVideoCompressedInfo }
-#Import ".\MFARGB.ahk" { MFARGB }
-#Import ".\MFRatio.ahk" { MFRatio }
 #Import ".\MFVideoPrimaries.ahk" { MFVideoPrimaries }
-#Import ".\MFVideoTransferFunction.ahk" { MFVideoTransferFunction }
-#Import ".\MFNominalRange.ahk" { MFNominalRange }
-#Import ".\MFVideoChromaSubsampling.ahk" { MFVideoChromaSubsampling }
-#Import ".\MFVideoTransferMatrix.ahk" { MFVideoTransferMatrix }
 #Import ".\MFVideoArea.ahk" { MFVideoArea }
-#Import ".\MFVideoSurfaceInfo.ahk" { MFVideoSurfaceInfo }
+#Import ".\MFVideoInfo.ahk" { MFVideoInfo }
+#Import ".\MFRatio.ahk" { MFRatio }
 #Import ".\MFVideoLighting.ahk" { MFVideoLighting }
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import ".\MFVideoTransferMatrix.ahk" { MFVideoTransferMatrix }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MFVideoCompressedInfo.ahk" { MFVideoCompressedInfo }
+#Import ".\MFAYUVSample.ahk" { MFAYUVSample }
+#Import ".\MFNominalRange.ahk" { MFNominalRange }
 #Import ".\MFOffset.ahk" { MFOffset }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\MFVideoChromaSubsampling.ahk" { MFVideoChromaSubsampling }
+#Import ".\MFVideoInterlaceMode.ahk" { MFVideoInterlaceMode }
+#Import ".\MFVideoTransferFunction.ahk" { MFVideoTransferFunction }
+#Import ".\MFVideoSurfaceInfo.ahk" { MFVideoSurfaceInfo }
 
 /**
  * Describes a video format.

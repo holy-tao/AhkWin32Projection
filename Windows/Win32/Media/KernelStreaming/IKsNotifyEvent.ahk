@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -43,7 +43,7 @@ export default struct IKsNotifyEvent extends IUnknown {
      * @returns {HRESULT} 
      */
     KsNotifyEvent(Event, lParam1, lParam2) {
-        result := ComCall(3, this, "uint", Event, "ptr", lParam1, "ptr", lParam2, "HRESULT")
+        result := ComCall(3, this, UInt32, Event, IntPtr, lParam1, IntPtr, lParam2, "HRESULT")
         return result
     }
 

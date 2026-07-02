@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
 #Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
 #Import "..\..\System\Com\IUri.ahk" { IUri }
+#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
@@ -922,7 +922,7 @@ export default struct IXpsOMVisual extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacity
      */
     SetOpacity(opacity) {
-        result := ComCall(16, this, "float", opacity, "HRESULT")
+        result := ComCall(16, this, Float32, opacity, "HRESULT")
         return result
     }
 

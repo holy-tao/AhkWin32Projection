@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DVD_MUA_Coeff.ahk" { DVD_MUA_Coeff }
-#Import ".\DVD_MUA_MixingInfo.ahk" { DVD_MUA_MixingInfo }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DVD_MUA_MixingInfo.ahk" { DVD_MUA_MixingInfo }
 
 /**
  * The DVD_MultichannelAudioAttributes structure describes the multichannel attributes of one audio stream within a specified title.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_HBAPORT_TYPE.ahk" { VDS_HBAPORT_TYPE }
-#Import ".\VDS_WWN.ahk" { VDS_WWN }
 #Import ".\VDS_HBAPORT_STATUS.ahk" { VDS_HBAPORT_STATUS }
+#Import ".\VDS_WWN.ahk" { VDS_WWN }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_HBAPORT_TYPE.ahk" { VDS_HBAPORT_TYPE }
 
 /**
  * The VDS_HBAPORT_PROP structure (vdshwprv.h) defines the properties of an HBA port.

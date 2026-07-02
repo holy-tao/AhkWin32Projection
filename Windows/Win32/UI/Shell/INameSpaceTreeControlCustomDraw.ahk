@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\NSTCCUSTOMDRAW.ahk" { NSTCCUSTOMDRAW }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\NSTCCUSTOMDRAW.ahk" { NSTCCUSTOMDRAW }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that enable the user to draw a custom namespace tree control and its items.

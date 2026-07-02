@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Storage\Xps\Printing\IPrintDocumentPackageTarget.ahk" { IPrintDocumentPackageTarget }
-#Import ".\D2D1_PRINT_CONTROL_PROPERTIES.ahk" { D2D1_PRINT_CONTROL_PROPERTIES }
-#Import "..\Imaging\IWICImagingFactory.ahk" { IWICImagingFactory }
-#Import ".\ID2D1PrintControl.ahk" { ID2D1PrintControl }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D2D1_DEVICE_CONTEXT_OPTIONS.ahk" { D2D1_DEVICE_CONTEXT_OPTIONS }
 #Import ".\ID2D1DeviceContext.ahk" { ID2D1DeviceContext }
+#Import ".\ID2D1PrintControl.ahk" { ID2D1PrintControl }
+#Import ".\D2D1_PRINT_CONTROL_PROPERTIES.ahk" { D2D1_PRINT_CONTROL_PROPERTIES }
 #Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import "..\Imaging\IWICImagingFactory.ahk" { IWICImagingFactory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Storage\Xps\Printing\IPrintDocumentPackageTarget.ahk" { IPrintDocumentPackageTarget }
+#Import ".\D2D1_DEVICE_CONTEXT_OPTIONS.ahk" { D2D1_DEVICE_CONTEXT_OPTIONS }
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. (ID2D1Device)
@@ -89,7 +89,7 @@ export default struct ID2D1Device extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1device-setmaximumtexturememory
      */
     SetMaximumTextureMemory(maximumInBytes) {
-        ComCall(6, this, "uint", maximumInBytes)
+        ComCall(6, this, Int64, maximumInBytes)
     }
 
     /**
@@ -113,7 +113,7 @@ export default struct ID2D1Device extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1device-clearresources
      */
     ClearResources(millisecondsSinceUse) {
-        ComCall(8, this, "uint", millisecondsSinceUse)
+        ComCall(8, this, UInt32, millisecondsSinceUse)
     }
 
     Query(iid) {

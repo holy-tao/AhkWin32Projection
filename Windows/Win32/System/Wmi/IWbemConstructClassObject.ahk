@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -46,7 +46,7 @@ export default struct IWbemConstructClassObject extends IUnknown {
      * @returns {HRESULT} 
      */
     SetInheritanceChain(lNumAntecedents, awszAntecedents) {
-        result := ComCall(3, this, "int", lNumAntecedents, "ptr", awszAntecedents, "HRESULT")
+        result := ComCall(3, this, Int32, lNumAntecedents, IntPtr, awszAntecedents, "HRESULT")
         return result
     }
 
@@ -59,7 +59,7 @@ export default struct IWbemConstructClassObject extends IUnknown {
     SetPropertyOrigin(wszPropertyName, lOriginIndex) {
         wszPropertyName := wszPropertyName is String ? StrPtr(wszPropertyName) : wszPropertyName
 
-        result := ComCall(4, this, "ptr", wszPropertyName, "int", lOriginIndex, "HRESULT")
+        result := ComCall(4, this, "ptr", wszPropertyName, Int32, lOriginIndex, "HRESULT")
         return result
     }
 
@@ -72,7 +72,7 @@ export default struct IWbemConstructClassObject extends IUnknown {
     SetMethodOrigin(wszMethodName, lOriginIndex) {
         wszMethodName := wszMethodName is String ? StrPtr(wszMethodName) : wszMethodName
 
-        result := ComCall(5, this, "ptr", wszMethodName, "int", lOriginIndex, "HRESULT")
+        result := ComCall(5, this, "ptr", wszMethodName, Int32, lOriginIndex, "HRESULT")
         return result
     }
 

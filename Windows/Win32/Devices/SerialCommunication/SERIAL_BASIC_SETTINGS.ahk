@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SERIAL_TIMEOUTS.ahk" { SERIAL_TIMEOUTS }
 #Import ".\SERIAL_HANDFLOW.ahk" { SERIAL_HANDFLOW }
+#Import ".\SERIAL_TIMEOUTS.ahk" { SERIAL_TIMEOUTS }
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication

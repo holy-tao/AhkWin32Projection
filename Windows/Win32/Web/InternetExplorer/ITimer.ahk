@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITimerSink.ahk" { ITimerSink }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITimerSink.ahk" { ITimerSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -51,7 +51,7 @@ export default struct ITimer extends IUnknown {
      * @returns {Integer} 
      */
     Advise(vtimeMin, vtimeMax, vtimeInterval, dwFlags, pTimerSink) {
-        result := ComCall(3, this, VARIANT, vtimeMin, VARIANT, vtimeMax, VARIANT, vtimeInterval, "uint", dwFlags, "ptr", pTimerSink, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(3, this, VARIANT, vtimeMin, VARIANT, vtimeMax, VARIANT, vtimeInterval, UInt32, dwFlags, "ptr", pTimerSink, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -61,7 +61,7 @@ export default struct ITimer extends IUnknown {
      * @returns {HRESULT} 
      */
     Unadvise(dwCookie) {
-        result := ComCall(4, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WHEA_RECOVERY_FAILURE_REASON.ahk" { WHEA_RECOVERY_FAILURE_REASON }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\WHEA_RECOVERY_TYPE.ahk" { WHEA_RECOVERY_TYPE }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WHEA_RECOVERY_FAILURE_REASON.ahk" { WHEA_RECOVERY_FAILURE_REASON }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

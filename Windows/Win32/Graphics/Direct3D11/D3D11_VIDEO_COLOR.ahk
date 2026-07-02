@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_VIDEO_COLOR_RGBA.ahk" { D3D11_VIDEO_COLOR_RGBA }
 #Import ".\D3D11_VIDEO_COLOR_YCbCrA.ahk" { D3D11_VIDEO_COLOR_YCbCrA }
+#Import ".\D3D11_VIDEO_COLOR_RGBA.ahk" { D3D11_VIDEO_COLOR_RGBA }
 
 /**
  * Defines a color value for Microsoft Direct3D 11 video.

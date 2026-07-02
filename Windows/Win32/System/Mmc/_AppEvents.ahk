@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\_Application.ahk" { _Application }
 #Import ".\MenuItem.ahk" { MenuItem }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\View.ahk" { View }
 #Import ".\Nodes.ahk" { Nodes }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SnapIn.ahk" { SnapIn }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\Node.ahk" { Node }
+#Import ".\SnapIn.ahk" { SnapIn }
+#Import ".\_Application.ahk" { _Application }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\Document.ahk" { Document }
 
 /**

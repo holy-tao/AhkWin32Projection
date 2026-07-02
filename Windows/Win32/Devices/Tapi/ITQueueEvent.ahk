@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ACDQUEUE_EVENT.ahk" { ACDQUEUE_EVENT }
-#Import ".\ITQueue.ahk" { ITQueue }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITQueue.ahk" { ITQueue }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ACDQUEUE_EVENT.ahk" { ACDQUEUE_EVENT }
 
 /**
  * The ITQueueEvent interface (tapi3cc.h) contains methods that retrieve the description of Automatic Call Distribution (ACD) queue events.

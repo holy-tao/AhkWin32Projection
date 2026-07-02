@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICRect.ahk" { WICRect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 #Import ".\WICBitmapTransformOptions.ahk" { WICBitmapTransformOptions }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WICRect.ahk" { WICRect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
@@ -67,7 +67,7 @@ export default struct IWICD3DTextureSource extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     GetTransformedTexture(prc, uiWidth, uiHeight, pguidDstFormat, dstTransform, pD3DDevice, pID3DTextureOptions, riid) {
-        result := ComCall(4, this, WICRect.Ptr, prc, "uint", uiWidth, "uint", uiHeight, Guid.Ptr, pguidDstFormat, WICBitmapTransformOptions, dstTransform, "ptr", pD3DDevice, "ptr", pID3DTextureOptions, Guid.Ptr, riid, "ptr*", &ppTexture := 0, "HRESULT")
+        result := ComCall(4, this, WICRect.Ptr, prc, UInt32, uiWidth, UInt32, uiHeight, Guid.Ptr, pguidDstFormat, WICBitmapTransformOptions, dstTransform, "ptr", pD3DDevice, "ptr", pID3DTextureOptions, Guid.Ptr, riid, "ptr*", &ppTexture := 0, "HRESULT")
         return ppTexture
     }
 

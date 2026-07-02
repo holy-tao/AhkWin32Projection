@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WM_READER_STATISTICS.ahk" { WM_READER_STATISTICS }
 #Import ".\WM_READER_CLIENTINFO.ahk" { WM_READER_CLIENTINFO }
+#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WM_READER_STATISTICS.ahk" { WM_READER_STATISTICS }
 
 /**
  * A call to QueryInterface from a reader object exposes the advanced functionality described in this section.
@@ -178,7 +178,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-delivertime
      */
     DeliverTime(cnsTime) {
-        result := ComCall(5, this, "uint", cnsTime, "HRESULT")
+        result := ComCall(5, this, Int64, cnsTime, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
         pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
         pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "ushort", cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "HRESULT")
+        result := ComCall(8, this, UInt16, cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "HRESULT")
         return result
     }
 
@@ -267,7 +267,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getstreamselected
      */
     GetStreamSelected(wStreamNum) {
-        result := ComCall(9, this, "ushort", wStreamNum, "int*", &pSelection := 0, "HRESULT")
+        result := ComCall(9, this, UInt16, wStreamNum, "int*", &pSelection := 0, "HRESULT")
         return pSelection
     }
 
@@ -384,7 +384,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setreceivestreamsamples
      */
     SetReceiveStreamSamples(wStreamNum, fReceiveStreamSamples) {
-        result := ComCall(12, this, "ushort", wStreamNum, BOOL, fReceiveStreamSamples, "HRESULT")
+        result := ComCall(12, this, UInt16, wStreamNum, BOOL, fReceiveStreamSamples, "HRESULT")
         return result
     }
 
@@ -397,7 +397,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getreceivestreamsamples
      */
     GetReceiveStreamSamples(wStreamNum) {
-        result := ComCall(13, this, "ushort", wStreamNum, BOOL.Ptr, &pfReceiveStreamSamples := 0, "HRESULT")
+        result := ComCall(13, this, UInt16, wStreamNum, BOOL.Ptr, &pfReceiveStreamSamples := 0, "HRESULT")
         return pfReceiveStreamSamples
     }
 
@@ -413,7 +413,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setallocateforoutput
      */
     SetAllocateForOutput(dwOutputNum, fAllocate) {
-        result := ComCall(14, this, "uint", dwOutputNum, BOOL, fAllocate, "HRESULT")
+        result := ComCall(14, this, UInt32, dwOutputNum, BOOL, fAllocate, "HRESULT")
         return result
     }
 
@@ -424,7 +424,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getallocateforoutput
      */
     GetAllocateForOutput(dwOutputNum) {
-        result := ComCall(15, this, "uint", dwOutputNum, BOOL.Ptr, &pfAllocate := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwOutputNum, BOOL.Ptr, &pfAllocate := 0, "HRESULT")
         return pfAllocate
     }
 
@@ -438,7 +438,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setallocateforstream
      */
     SetAllocateForStream(wStreamNum, fAllocate) {
-        result := ComCall(16, this, "ushort", wStreamNum, BOOL, fAllocate, "HRESULT")
+        result := ComCall(16, this, UInt16, wStreamNum, BOOL, fAllocate, "HRESULT")
         return result
     }
 
@@ -451,7 +451,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getallocateforstream
      */
     GetAllocateForStream(dwSreamNum) {
-        result := ComCall(17, this, "ushort", dwSreamNum, BOOL.Ptr, &pfAllocate := 0, "HRESULT")
+        result := ComCall(17, this, UInt16, dwSreamNum, BOOL.Ptr, &pfAllocate := 0, "HRESULT")
         return pfAllocate
     }
 
@@ -587,7 +587,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmaxoutputsamplesize
      */
     GetMaxOutputSampleSize(dwOutput) {
-        result := ComCall(20, this, "uint", dwOutput, "uint*", &pcbMax := 0, "HRESULT")
+        result := ComCall(20, this, UInt32, dwOutput, "uint*", &pcbMax := 0, "HRESULT")
         return pcbMax
     }
 
@@ -598,7 +598,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmaxstreamsamplesize
      */
     GetMaxStreamSampleSize(wStream) {
-        result := ComCall(21, this, "ushort", wStream, "uint*", &pcbMax := 0, "HRESULT")
+        result := ComCall(21, this, UInt16, wStream, "uint*", &pcbMax := 0, "HRESULT")
         return pcbMax
     }
 
@@ -609,7 +609,7 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-notifylatedelivery
      */
     NotifyLateDelivery(cnsLateness) {
-        result := ComCall(22, this, "uint", cnsLateness, "HRESULT")
+        result := ComCall(22, this, Int64, cnsLateness, "HRESULT")
         return result
     }
 

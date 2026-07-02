@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UI_ANIMATION_ROUNDING_MODE.ahk" { UI_ANIMATION_ROUNDING_MODE }
+#Import ".\IUIAnimationVariableIntegerChangeHandler.ahk" { IUIAnimationVariableIntegerChangeHandler }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationStoryboard.ahk" { IUIAnimationStoryboard }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUIAnimationVariableChangeHandler.ahk" { IUIAnimationVariableChangeHandler }
-#Import ".\IUIAnimationVariableIntegerChangeHandler.ahk" { IUIAnimationVariableIntegerChangeHandler }
+#Import ".\UI_ANIMATION_ROUNDING_MODE.ahk" { UI_ANIMATION_ROUNDING_MODE }
 
 /**
  * Defines an animation variable, which represents a visual element that can be animated.
@@ -153,7 +153,7 @@ export default struct IUIAnimationVariable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-setlowerbound
      */
     SetLowerBound(bound) {
-        result := ComCall(10, this, "double", bound, "HRESULT")
+        result := ComCall(10, this, Float64, bound, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IUIAnimationVariable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-setupperbound
      */
     SetUpperBound(bound) {
-        result := ComCall(11, this, "double", bound, "HRESULT")
+        result := ComCall(11, this, Float64, bound, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct IUIAnimationVariable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-settag
      */
     SetTag(_object, id) {
-        result := ComCall(13, this, "ptr", _object, "uint", id, "HRESULT")
+        result := ComCall(13, this, "ptr", _object, UInt32, id, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -46,7 +46,7 @@ export default struct IScrollableContextMenu extends IUnknown {
     AddItem(itemText, cmdID) {
         itemText := itemText is String ? StrPtr(itemText) : itemText
 
-        result := ComCall(3, this, "ptr", itemText, "uint", cmdID, "HRESULT")
+        result := ComCall(3, this, "ptr", itemText, UInt32, cmdID, "HRESULT")
         return result
     }
 
@@ -57,7 +57,7 @@ export default struct IScrollableContextMenu extends IUnknown {
      * @returns {Integer} 
      */
     ShowModal(x, y) {
-        result := ComCall(4, this, "int", x, "int", y, "uint*", &cmdID := 0, "HRESULT")
+        result := ComCall(4, this, Int32, x, Int32, y, "uint*", &cmdID := 0, "HRESULT")
         return cmdID
     }
 

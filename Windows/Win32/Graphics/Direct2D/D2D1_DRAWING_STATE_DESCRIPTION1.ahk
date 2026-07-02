@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
-#Import ".\D2D1_UNIT_MODE.ahk" { D2D1_UNIT_MODE }
-#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 #Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
+#Import ".\D2D1_UNIT_MODE.ahk" { D2D1_UNIT_MODE }
 
 /**
  * Describes the drawing state of a device context.

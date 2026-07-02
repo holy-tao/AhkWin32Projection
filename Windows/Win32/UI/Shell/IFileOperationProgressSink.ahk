@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide a rich notification system used by callers of IFileOperation to monitor the details of the operations they are performing through that interface.
@@ -157,7 +157,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
     PreRenameItem(dwFlags, psiItem, pszNewName) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(5, this, "uint", dwFlags, "ptr", psiItem, "ptr", pszNewName, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, "ptr", psiItem, "ptr", pszNewName, "HRESULT")
         return result
     }
 
@@ -186,7 +186,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
     PostRenameItem(dwFlags, psiItem, pszNewName, hrRename, psiNewlyCreated) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(6, this, "uint", dwFlags, "ptr", psiItem, "ptr", pszNewName, "int", hrRename, "ptr", psiNewlyCreated, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFlags, "ptr", psiItem, "ptr", pszNewName, "int", hrRename, "ptr", psiNewlyCreated, "HRESULT")
         return result
     }
 
@@ -212,7 +212,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
     PreMoveItem(dwFlags, psiItem, psiDestinationFolder, pszNewName) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(7, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
     PostMoveItem(dwFlags, psiItem, psiDestinationFolder, pszNewName, hrMove, psiNewlyCreated) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(8, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int", hrMove, "ptr", psiNewlyCreated, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int", hrMove, "ptr", psiNewlyCreated, "HRESULT")
         return result
     }
 
@@ -270,7 +270,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
     PreCopyItem(dwFlags, psiItem, psiDestinationFolder, pszNewName) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(9, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "HRESULT")
+        result := ComCall(9, this, UInt32, dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "HRESULT")
         return result
     }
 
@@ -302,7 +302,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
     PostCopyItem(dwFlags, psiItem, psiDestinationFolder, pszNewName, hrCopy, psiNewlyCreated) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(10, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int", hrCopy, "ptr", psiNewlyCreated, "HRESULT")
+        result := ComCall(10, this, UInt32, dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int", hrCopy, "ptr", psiNewlyCreated, "HRESULT")
         return result
     }
 
@@ -320,7 +320,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-predeleteitem
      */
     PreDeleteItem(dwFlags, psiItem) {
-        result := ComCall(11, this, "uint", dwFlags, "ptr", psiItem, "HRESULT")
+        result := ComCall(11, this, UInt32, dwFlags, "ptr", psiItem, "HRESULT")
         return result
     }
 
@@ -344,7 +344,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postdeleteitem
      */
     PostDeleteItem(dwFlags, psiItem, hrDelete, psiNewlyCreated) {
-        result := ComCall(12, this, "uint", dwFlags, "ptr", psiItem, "int", hrDelete, "ptr", psiNewlyCreated, "HRESULT")
+        result := ComCall(12, this, UInt32, dwFlags, "ptr", psiItem, "int", hrDelete, "ptr", psiNewlyCreated, "HRESULT")
         return result
     }
 
@@ -367,7 +367,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
     PreNewItem(dwFlags, psiDestinationFolder, pszNewName) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(13, this, "uint", dwFlags, "ptr", psiDestinationFolder, "ptr", pszNewName, "HRESULT")
+        result := ComCall(13, this, UInt32, dwFlags, "ptr", psiDestinationFolder, "ptr", pszNewName, "HRESULT")
         return result
     }
 
@@ -414,7 +414,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
         pszTemplateName := pszTemplateName is String ? StrPtr(pszTemplateName) : pszTemplateName
 
-        result := ComCall(14, this, "uint", dwFlags, "ptr", psiDestinationFolder, "ptr", pszNewName, "ptr", pszTemplateName, "uint", dwFileAttributes, "int", hrNew, "ptr", psiNewItem, "HRESULT")
+        result := ComCall(14, this, UInt32, dwFlags, "ptr", psiDestinationFolder, "ptr", pszNewName, "ptr", pszTemplateName, UInt32, dwFileAttributes, "int", hrNew, "ptr", psiNewItem, "HRESULT")
         return result
     }
 
@@ -434,7 +434,7 @@ export default struct IFileOperationProgressSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-updateprogress
      */
     UpdateProgress(iWorkTotal, iWorkSoFar) {
-        result := ComCall(15, this, "uint", iWorkTotal, "uint", iWorkSoFar, "HRESULT")
+        result := ComCall(15, this, UInt32, iWorkTotal, UInt32, iWorkSoFar, "HRESULT")
         return result
     }
 

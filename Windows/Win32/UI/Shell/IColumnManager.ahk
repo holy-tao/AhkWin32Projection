@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CM_ENUM_FLAGS.ahk" { CM_ENUM_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CM_COLUMNINFO.ahk" { CM_COLUMNINFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CM_ENUM_FLAGS.ahk" { CM_ENUM_FLAGS }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that enable inspection and manipulation of columns in the Windows Explorer Details view. Each column is referenced by a PROPERTYKEY structure, which names a property.
@@ -194,7 +194,7 @@ export default struct IColumnManager extends IUnknown {
      */
     GetColumns(dwFlags, cColumns) {
         rgkeyOrder := PROPERTYKEY()
-        result := ComCall(6, this, CM_ENUM_FLAGS, dwFlags, PROPERTYKEY.Ptr, rgkeyOrder, "uint", cColumns, "HRESULT")
+        result := ComCall(6, this, CM_ENUM_FLAGS, dwFlags, PROPERTYKEY.Ptr, rgkeyOrder, UInt32, cColumns, "HRESULT")
         return rgkeyOrder
     }
 
@@ -244,7 +244,7 @@ export default struct IColumnManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icolumnmanager-setcolumns
      */
     SetColumns(rgkeyOrder, cVisible) {
-        result := ComCall(7, this, PROPERTYKEY.Ptr, rgkeyOrder, "uint", cVisible, "HRESULT")
+        result := ComCall(7, this, PROPERTYKEY.Ptr, rgkeyOrder, UInt32, cVisible, "HRESULT")
         return result
     }
 

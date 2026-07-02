@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PROFILER_HEAP_OBJECT_OPTIONAL_INFO.ahk" { PROFILER_HEAP_OBJECT_OPTIONAL_INFO }
 #Import ".\PROFILER_HEAP_OBJECT.ahk" { PROFILER_HEAP_OBJECT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -52,7 +52,7 @@ export default struct IActiveScriptProfilerHeapEnum extends IUnknown {
         heapObjectsMarshal := heapObjects is VarRef ? "ptr*" : "ptr"
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, heapObjectsMarshal, heapObjects, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, heapObjectsMarshal, heapObjects, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IActiveScriptProfilerHeapEnum extends IUnknown {
      */
     GetOptionalInfo(heapObject, celt) {
         optionalInfo := PROFILER_HEAP_OBJECT_OPTIONAL_INFO()
-        result := ComCall(4, this, PROFILER_HEAP_OBJECT.Ptr, heapObject, "uint", celt, PROFILER_HEAP_OBJECT_OPTIONAL_INFO.Ptr, optionalInfo, "HRESULT")
+        result := ComCall(4, this, PROFILER_HEAP_OBJECT.Ptr, heapObject, UInt32, celt, PROFILER_HEAP_OBJECT_OPTIONAL_INFO.Ptr, optionalInfo, "HRESULT")
         return optionalInfo
     }
 
@@ -77,7 +77,7 @@ export default struct IActiveScriptProfilerHeapEnum extends IUnknown {
     FreeObjectAndOptionalInfo(celt, heapObjects) {
         heapObjectsMarshal := heapObjects is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", celt, heapObjectsMarshal, heapObjects, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, heapObjectsMarshal, heapObjects, "HRESULT")
         return result
     }
 

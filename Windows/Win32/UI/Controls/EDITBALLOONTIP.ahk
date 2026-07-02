@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EDITBALLOONTIP_ICON.ahk" { EDITBALLOONTIP_ICON }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EDITBALLOONTIP_ICON.ahk" { EDITBALLOONTIP_ICON }
 
 /**
  * Contains information about a balloon tip associated with a button control.

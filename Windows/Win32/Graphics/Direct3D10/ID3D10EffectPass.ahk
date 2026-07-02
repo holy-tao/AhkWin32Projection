@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D10_PASS_SHADER_DESC.ahk" { D3D10_PASS_SHADER_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
-#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D10_PASS_DESC.ahk" { D3D10_PASS_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\D3D10_PASS_DESC.ahk" { D3D10_PASS_DESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
 
 /**
  * A pass interface encapsulates state assignments within a technique.
@@ -145,7 +145,7 @@ export default struct ID3D10EffectPass extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectpass-getannotationbyindex
      */
     GetAnnotationByIndex(Index) {
-        result := ComCall(5, this, "uint", Index, ID3D10EffectVariable)
+        result := ComCall(5, this, UInt32, Index, ID3D10EffectVariable)
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct ID3D10EffectPass extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectpass-apply
      */
     Apply(Flags) {
-        result := ComCall(7, this, "uint", Flags, "HRESULT")
+        result := ComCall(7, this, UInt32, Flags, "HRESULT")
         return result
     }
 

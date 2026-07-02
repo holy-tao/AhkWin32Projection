@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IExtendControlbar.ahk" { IExtendControlbar }
 #Import ".\MMC_CONTROL_TYPE.ahk" { MMC_CONTROL_TYPE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IExtendControlbar.ahk" { IExtendControlbar }
 
 /**
  * The IControlbar interface provides a way to create toolbars and other controls.

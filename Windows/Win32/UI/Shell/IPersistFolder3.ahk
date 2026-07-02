@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import ".\PERSIST_FOLDER_TARGET_INFO.ahk" { PERSIST_FOLDER_TARGET_INFO }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPersistFolder2.ahk" { IPersistFolder2 }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 
 /**
  * Extends the IPersistFolder and IPersistFolder2 interfaces by allowing a folder object to implement nondefault handling of folder shortcuts.

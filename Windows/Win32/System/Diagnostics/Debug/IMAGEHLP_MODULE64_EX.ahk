@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IMAGEHLP_MODULE64.ahk" { IMAGEHLP_MODULE64 }
 #Import ".\SYM_TYPE.ahk" { SYM_TYPE }
+#Import ".\IMAGEHLP_MODULE64.ahk" { IMAGEHLP_MODULE64 }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\CHAR.ahk" { CHAR }

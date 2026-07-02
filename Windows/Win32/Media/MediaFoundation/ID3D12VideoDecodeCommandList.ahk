@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
-#Import ".\ID3D12VideoDecoder.ahk" { ID3D12VideoDecoder }
-#Import "..\..\Graphics\Direct3D12\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
-#Import "..\..\Graphics\Direct3D12\D3D12_RESOURCE_BARRIER.ahk" { D3D12_RESOURCE_BARRIER }
-#Import "..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
-#Import "..\..\Graphics\Direct3D12\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
-#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk" { D3D12_WRITEBUFFERIMMEDIATE_PARAMETER }
 #Import ".\D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS }
-#Import "..\..\Graphics\Direct3D12\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
-#Import "..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
+#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk" { D3D12_WRITEBUFFERIMMEDIATE_PARAMETER }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\Graphics\Direct3D12\D3D12_RESOURCE_BARRIER.ahk" { D3D12_RESOURCE_BARRIER }
+#Import "..\..\Graphics\Direct3D12\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
+#Import "..\..\Graphics\Direct3D12\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
+#Import ".\ID3D12VideoDecoder.ahk" { ID3D12VideoDecoder }
+#Import ".\D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS.ahk" { D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS }
 #Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk" { D3D12_WRITEBUFFERIMMEDIATE_MODE }
+#Import "..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
+#Import "..\..\Graphics\Direct3D12\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Encapsulates a list of graphics commands for video decoding.
@@ -139,7 +139,7 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-resourcebarrier
      */
     ResourceBarrier(NumBarriers, pBarriers) {
-        ComCall(12, this, "uint", NumBarriers, D3D12_RESOURCE_BARRIER.Ptr, pBarriers)
+        ComCall(12, this, UInt32, NumBarriers, D3D12_RESOURCE_BARRIER.Ptr, pBarriers)
     }
 
     /**
@@ -164,7 +164,7 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-beginquery
      */
     BeginQuery(pQueryHeap, Type, Index) {
-        ComCall(14, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
+        ComCall(14, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, Index)
     }
 
     /**
@@ -176,7 +176,7 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-endquery
      */
     EndQuery(pQueryHeap, Type, Index) {
-        ComCall(15, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
+        ComCall(15, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, Index)
     }
 
     /**
@@ -191,7 +191,7 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-resolvequerydata
      */
     ResolveQueryData(pQueryHeap, Type, StartIndex, NumQueries, pDestinationBuffer, AlignedDestinationBufferOffset) {
-        ComCall(16, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", StartIndex, "uint", NumQueries, "ptr", pDestinationBuffer, "uint", AlignedDestinationBufferOffset)
+        ComCall(16, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, StartIndex, UInt32, NumQueries, "ptr", pDestinationBuffer, Int64, AlignedDestinationBufferOffset)
     }
 
     /**
@@ -203,7 +203,7 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-setpredication
      */
     SetPredication(pBuffer, AlignedBufferOffset, Operation) {
-        ComCall(17, this, "ptr", pBuffer, "uint", AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
+        ComCall(17, this, "ptr", pBuffer, Int64, AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
     }
 
     /**
@@ -215,7 +215,7 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-setmarker
      */
     SetMarker(Metadata, pData, _Size) {
-        ComCall(18, this, "uint", Metadata, "ptr", pData, "uint", _Size)
+        ComCall(18, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
     }
 
     /**
@@ -227,7 +227,7 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-beginevent
      */
     BeginEvent(Metadata, pData, _Size) {
-        ComCall(19, this, "uint", Metadata, "ptr", pData, "uint", _Size)
+        ComCall(19, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
     }
 
     /**
@@ -266,7 +266,7 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
     WriteBufferImmediate(Count, pParams, pModes) {
         pModesMarshal := pModes is VarRef ? "int*" : "ptr"
 
-        ComCall(22, this, "uint", Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
+        ComCall(22, this, UInt32, Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
     }
 
     Query(iid) {

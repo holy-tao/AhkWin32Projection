@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ILocator.ahk" { ILocator }
 #Import ".\IScanningTuner.ahk" { IScanningTuner }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * This topic applies to Windows Vista.
@@ -111,7 +111,7 @@ export default struct IScanningTunerEx extends IScanningTuner {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-performexhaustivescan
      */
     PerformExhaustiveScan(dwLowerFreq, dwHigherFreq, bFineTune, hEvent) {
-        result := ComCall(19, this, "int", dwLowerFreq, "int", dwHigherFreq, VARIANT_BOOL, bFineTune, "ptr", hEvent, "HRESULT")
+        result := ComCall(19, this, Int32, dwLowerFreq, Int32, dwHigherFreq, VARIANT_BOOL, bFineTune, IntPtr, hEvent, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IScanningTunerEx extends IScanningTuner {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-resumecurrentscan
      */
     ResumeCurrentScan(hEvent) {
-        result := ComCall(21, this, "ptr", hEvent, "HRESULT")
+        result := ComCall(21, this, IntPtr, hEvent, "HRESULT")
         return result
     }
 
@@ -268,7 +268,7 @@ export default struct IScanningTunerEx extends IScanningTuner {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-setscansignaltypefilter
      */
     SetScanSignalTypeFilter(_ScanModulationTypes, _AnalogVideoStandard) {
-        result := ComCall(25, this, "int", _ScanModulationTypes, "int", _AnalogVideoStandard, "HRESULT")
+        result := ComCall(25, this, Int32, _ScanModulationTypes, Int32, _AnalogVideoStandard, "HRESULT")
         return result
     }
 

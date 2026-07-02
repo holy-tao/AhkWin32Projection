@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpPhrase.ahk" { ISpPhrase }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -46,7 +46,7 @@ export default struct ISpRecognizer2 extends IUnknown {
      * @returns {HRESULT} 
      */
     EmulateRecognitionEx(pPhrase, dwCompareFlags) {
-        result := ComCall(3, this, "ptr", pPhrase, "uint", dwCompareFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pPhrase, UInt32, dwCompareFlags, "HRESULT")
         return result
     }
 

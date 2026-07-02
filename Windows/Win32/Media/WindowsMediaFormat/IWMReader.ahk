@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWMOutputMediaProps.ahk" { IWMOutputMediaProps }
 #Import ".\IWMReaderCallback.ahk" { IWMReaderCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReader interface is used to open, close, start, pause, resume, and unlock the WMReader object.
@@ -192,7 +192,7 @@ export default struct IWMReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-getoutputprops
      */
     GetOutputProps(dwOutputNum) {
-        result := ComCall(6, this, "uint", dwOutputNum, "ptr*", &ppOutput := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwOutputNum, "ptr*", &ppOutput := 0, "HRESULT")
         return IWMOutputMediaProps(ppOutput)
     }
 
@@ -251,7 +251,7 @@ export default struct IWMReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-setoutputprops
      */
     SetOutputProps(dwOutputNum, pOutput) {
-        result := ComCall(7, this, "uint", dwOutputNum, "ptr", pOutput, "HRESULT")
+        result := ComCall(7, this, UInt32, dwOutputNum, "ptr", pOutput, "HRESULT")
         return result
     }
 
@@ -268,7 +268,7 @@ export default struct IWMReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-getoutputformatcount
      */
     GetOutputFormatCount(dwOutputNumber) {
-        result := ComCall(8, this, "uint", dwOutputNumber, "uint*", &pcFormats := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwOutputNumber, "uint*", &pcFormats := 0, "HRESULT")
         return pcFormats
     }
 
@@ -286,7 +286,7 @@ export default struct IWMReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-getoutputformat
      */
     GetOutputFormat(dwOutputNumber, dwFormatNumber) {
-        result := ComCall(9, this, "uint", dwOutputNumber, "uint", dwFormatNumber, "ptr*", &ppProps := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwOutputNumber, UInt32, dwFormatNumber, "ptr*", &ppProps := 0, "HRESULT")
         return IWMOutputMediaProps(ppProps)
     }
 
@@ -363,7 +363,7 @@ export default struct IWMReader extends IUnknown {
     Start(cnsStart, cnsDuration, fRate, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "uint", cnsStart, "uint", cnsDuration, "float", fRate, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(10, this, Int64, cnsStart, Int64, cnsDuration, Float32, fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\SHGDNF.ahk" { SHGDNF }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\IEnumIDList.ahk" { IEnumIDList }
+#Import ".\SHGDNF.ahk" { SHGDNF }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\STRRET.ahk" { STRRET }
 
 /**
@@ -163,7 +163,7 @@ export default struct IShellFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-enumobjects
      */
     EnumObjects(_hwnd, grfFlags) {
-        result := ComCall(4, this, HWND, _hwnd, "uint", grfFlags, "ptr*", &ppenumIDList := 0, Int32)
+        result := ComCall(4, this, HWND, _hwnd, UInt32, grfFlags, "ptr*", &ppenumIDList := 0, Int32)
         return IEnumIDList(ppenumIDList)
     }
 
@@ -436,7 +436,7 @@ export default struct IShellFolder extends IUnknown {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
         rgfInOutMarshal := rgfInOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", cidl, apidlMarshal, apidl, rgfInOutMarshal, rgfInOut, "HRESULT")
+        result := ComCall(9, this, UInt32, cidl, apidlMarshal, apidl, rgfInOutMarshal, rgfInOut, "HRESULT")
         return result
     }
 
@@ -514,7 +514,7 @@ export default struct IShellFolder extends IUnknown {
 
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, HWND, hwndOwner, "uint", cidl, apidlMarshal, apidl, Guid.Ptr, riid, "uint*", rgfReserved, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, HWND, hwndOwner, UInt32, cidl, apidlMarshal, apidl, Guid.Ptr, riid, "uint*", rgfReserved, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUnsecuredApartment.ahk" { IUnsecuredApartment }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows client applications to determine whether Unsecapp.exe performs access checks on asynchronous callbacks.
@@ -68,7 +68,7 @@ export default struct IWbemUnsecuredApartment extends IUnsecuredApartment {
     CreateSinkStub(pSink, dwFlags, wszReserved) {
         wszReserved := wszReserved is String ? StrPtr(wszReserved) : wszReserved
 
-        result := ComCall(4, this, "ptr", pSink, "uint", dwFlags, "ptr", wszReserved, "ptr*", &ppStub := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pSink, UInt32, dwFlags, "ptr", wszReserved, "ptr*", &ppStub := 0, "HRESULT")
         return IWbemObjectSink(ppStub)
     }
 

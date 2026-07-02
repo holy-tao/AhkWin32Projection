@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IUpdate.ahk" { IUpdate }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an ordered list of updates.
@@ -85,7 +85,7 @@ export default struct IUpdateCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-get_item
      */
     get_Item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, Int32, index, "ptr*", &retval := 0, "HRESULT")
         return IUpdate(retval)
     }
 
@@ -97,7 +97,7 @@ export default struct IUpdateCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-put_item
      */
     put_Item(index, value) {
-        result := ComCall(8, this, "int", index, "ptr", value, "HRESULT")
+        result := ComCall(8, this, Int32, index, "ptr", value, "HRESULT")
         return result
     }
 
@@ -232,7 +232,7 @@ export default struct IUpdateCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-insert
      */
     Insert(index, value) {
-        result := ComCall(15, this, "int", index, "ptr", value, "HRESULT")
+        result := ComCall(15, this, Int32, index, "ptr", value, "HRESULT")
         return result
     }
 
@@ -274,7 +274,7 @@ export default struct IUpdateCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatecollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(16, this, "int", index, "HRESULT")
+        result := ComCall(16, this, Int32, index, "HRESULT")
         return result
     }
 

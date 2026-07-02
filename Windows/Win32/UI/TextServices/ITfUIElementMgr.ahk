@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumTfUIElements.ahk" { IEnumTfUIElements }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfUIElement.ahk" { ITfUIElement }
+#Import ".\IEnumTfUIElements.ahk" { IEnumTfUIElements }
 
 /**
  * The ITfUIElementMgr interface is implemented by TSF manager and used by an application or a text service. An application and a text service can obtain this interface by ITfThreadMgr::QueryInterface with IID_ITfUIElementMgr.
@@ -118,7 +118,7 @@ export default struct ITfUIElementMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-updateuielement
      */
     UpdateUIElement(dwUIElementId) {
-        result := ComCall(4, this, "uint", dwUIElementId, "HRESULT")
+        result := ComCall(4, this, UInt32, dwUIElementId, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct ITfUIElementMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-enduielement
      */
     EndUIElement(dwUIElementId) {
-        result := ComCall(5, this, "uint", dwUIElementId, "HRESULT")
+        result := ComCall(5, this, UInt32, dwUIElementId, "HRESULT")
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct ITfUIElementMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-getuielement
      */
     GetUIElement(dwUIELementId) {
-        result := ComCall(6, this, "uint", dwUIELementId, "ptr*", &ppElement := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwUIELementId, "ptr*", &ppElement := 0, "HRESULT")
         return ITfUIElement(ppElement)
     }
 

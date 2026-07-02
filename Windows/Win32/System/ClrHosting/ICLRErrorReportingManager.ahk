@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ECustomDumpFlavor.ahk" { ECustomDumpFlavor }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\BucketParameters.ahk" { BucketParameters }
+#Import ".\ECustomDumpFlavor.ahk" { ECustomDumpFlavor }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CustomDumpItem.ahk" { CustomDumpItem }
 
 /**
@@ -59,7 +59,7 @@ export default struct ICLRErrorReportingManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginCustomDump(dwFlavor, dwNumItems, items, dwReserved) {
-        result := ComCall(4, this, ECustomDumpFlavor, dwFlavor, "uint", dwNumItems, CustomDumpItem.Ptr, items, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, ECustomDumpFlavor, dwFlavor, UInt32, dwNumItems, CustomDumpItem.Ptr, items, UInt32, dwReserved, "HRESULT")
         return result
     }
 

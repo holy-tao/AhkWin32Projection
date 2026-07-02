@@ -1,49 +1,49 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_COMMAND_SIGNATURE_DESC.ahk" { D3D12_COMMAND_SIGNATURE_DESC }
-#Import ".\D3D12_PLACED_SUBRESOURCE_FOOTPRINT.ahk" { D3D12_PLACED_SUBRESOURCE_FOOTPRINT }
-#Import ".\ID3D12Object.ahk" { ID3D12Object }
-#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
-#Import ".\D3D12_COMMAND_LIST_TYPE.ahk" { D3D12_COMMAND_LIST_TYPE }
-#Import ".\D3D12_COMPUTE_PIPELINE_STATE_DESC.ahk" { D3D12_COMPUTE_PIPELINE_STATE_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
-#Import ".\D3D12_GRAPHICS_PIPELINE_STATE_DESC.ahk" { D3D12_GRAPHICS_PIPELINE_STATE_DESC }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
-#Import ".\D3D12_RENDER_TARGET_VIEW_DESC.ahk" { D3D12_RENDER_TARGET_VIEW_DESC }
-#Import ".\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
-#Import ".\D3D12_TILE_SHAPE.ahk" { D3D12_TILE_SHAPE }
-#Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
-#Import ".\D3D12_SAMPLER_DESC.ahk" { D3D12_SAMPLER_DESC }
-#Import ".\ID3D12RootSignature.ahk" { ID3D12RootSignature }
-#Import ".\D3D12_DESCRIPTOR_HEAP_DESC.ahk" { D3D12_DESCRIPTOR_HEAP_DESC }
-#Import ".\D3D12_FEATURE.ahk" { D3D12_FEATURE }
-#Import ".\D3D12_COMMAND_QUEUE_DESC.ahk" { D3D12_COMMAND_QUEUE_DESC }
-#Import ".\D3D12_SUBRESOURCE_TILING.ahk" { D3D12_SUBRESOURCE_TILING }
-#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
-#Import ".\ID3D12PipelineState.ahk" { ID3D12PipelineState }
-#Import ".\D3D12_FENCE_FLAGS.ahk" { D3D12_FENCE_FLAGS }
-#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
-#Import ".\D3D12_HEAP_TYPE.ahk" { D3D12_HEAP_TYPE }
-#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
-#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
-#Import ".\D3D12_UNORDERED_ACCESS_VIEW_DESC.ahk" { D3D12_UNORDERED_ACCESS_VIEW_DESC }
-#Import ".\D3D12_QUERY_HEAP_DESC.ahk" { D3D12_QUERY_HEAP_DESC }
-#Import ".\D3D12_SHADER_RESOURCE_VIEW_DESC.ahk" { D3D12_SHADER_RESOURCE_VIEW_DESC }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D12_CONSTANT_BUFFER_VIEW_DESC.ahk" { D3D12_CONSTANT_BUFFER_VIEW_DESC }
-#Import ".\ID3D12DeviceChild.ahk" { ID3D12DeviceChild }
-#Import ".\D3D12_PACKED_MIP_INFO.ahk" { D3D12_PACKED_MIP_INFO }
+#Import ".\ID3D12Object.ahk" { ID3D12Object }
 #Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_SAMPLER_DESC.ahk" { D3D12_SAMPLER_DESC }
 #Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
-#Import ".\D3D12_DESCRIPTOR_HEAP_TYPE.ahk" { D3D12_DESCRIPTOR_HEAP_TYPE }
-#Import ".\D3D12_DEPTH_STENCIL_VIEW_DESC.ahk" { D3D12_DEPTH_STENCIL_VIEW_DESC }
+#Import ".\D3D12_PLACED_SUBRESOURCE_FOOTPRINT.ahk" { D3D12_PLACED_SUBRESOURCE_FOOTPRINT }
+#Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_TILE_SHAPE.ahk" { D3D12_TILE_SHAPE }
+#Import ".\D3D12_PACKED_MIP_INFO.ahk" { D3D12_PACKED_MIP_INFO }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3D12_COMMAND_QUEUE_DESC.ahk" { D3D12_COMMAND_QUEUE_DESC }
+#Import ".\D3D12_COMMAND_SIGNATURE_DESC.ahk" { D3D12_COMMAND_SIGNATURE_DESC }
+#Import ".\D3D12_DESCRIPTOR_HEAP_DESC.ahk" { D3D12_DESCRIPTOR_HEAP_DESC }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 #Import ".\D3D12_HEAP_DESC.ahk" { D3D12_HEAP_DESC }
+#Import ".\D3D12_CONSTANT_BUFFER_VIEW_DESC.ahk" { D3D12_CONSTANT_BUFFER_VIEW_DESC }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\D3D12_UNORDERED_ACCESS_VIEW_DESC.ahk" { D3D12_UNORDERED_ACCESS_VIEW_DESC }
+#Import ".\D3D12_RENDER_TARGET_VIEW_DESC.ahk" { D3D12_RENDER_TARGET_VIEW_DESC }
+#Import ".\D3D12_SUBRESOURCE_TILING.ahk" { D3D12_SUBRESOURCE_TILING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ID3D12DeviceChild.ahk" { ID3D12DeviceChild }
+#Import ".\D3D12_FEATURE.ahk" { D3D12_FEATURE }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
+#Import ".\D3D12_QUERY_HEAP_DESC.ahk" { D3D12_QUERY_HEAP_DESC }
+#Import ".\D3D12_COMMAND_LIST_TYPE.ahk" { D3D12_COMMAND_LIST_TYPE }
+#Import ".\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
+#Import ".\D3D12_SHADER_RESOURCE_VIEW_DESC.ahk" { D3D12_SHADER_RESOURCE_VIEW_DESC }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\D3D12_FENCE_FLAGS.ahk" { D3D12_FENCE_FLAGS }
+#Import ".\D3D12_DESCRIPTOR_HEAP_TYPE.ahk" { D3D12_DESCRIPTOR_HEAP_TYPE }
+#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
+#Import ".\D3D12_GRAPHICS_PIPELINE_STATE_DESC.ahk" { D3D12_GRAPHICS_PIPELINE_STATE_DESC }
+#Import ".\D3D12_DEPTH_STENCIL_VIEW_DESC.ahk" { D3D12_DEPTH_STENCIL_VIEW_DESC }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\ID3D12PipelineState.ahk" { ID3D12PipelineState }
+#Import ".\D3D12_COMPUTE_PIPELINE_STATE_DESC.ahk" { D3D12_COMPUTE_PIPELINE_STATE_DESC }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
+#Import ".\ID3D12RootSignature.ahk" { ID3D12RootSignature }
+#Import ".\D3D12_HEAP_TYPE.ahk" { D3D12_HEAP_TYPE }
 
 /**
  * Represents a virtual adapter; it is used to create command allocators, command lists, command queues, fences, resources, pipeline state objects, heaps, root signatures, samplers, and many resource views.
@@ -242,7 +242,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist
      */
     CreateCommandList(nodeMask, type, pCommandAllocator, pInitialState, riid) {
-        result := ComCall(12, this, "uint", nodeMask, D3D12_COMMAND_LIST_TYPE, type, "ptr", pCommandAllocator, "ptr", pInitialState, Guid.Ptr, riid, "ptr*", &ppCommandList := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, nodeMask, D3D12_COMMAND_LIST_TYPE, type, "ptr", pCommandAllocator, "ptr", pInitialState, Guid.Ptr, riid, "ptr*", &ppCommandList := 0, "HRESULT")
         return ppCommandList
     }
 
@@ -294,7 +294,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport
      */
     CheckFeatureSupport(Feature, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(13, this, D3D12_FEATURE, Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(13, this, D3D12_FEATURE, Feature, IntPtr, pFeatureSupportData, UInt32, FeatureSupportDataSize, "HRESULT")
         return result
     }
 
@@ -366,7 +366,7 @@ export default struct ID3D12Device extends ID3D12Object {
     CreateRootSignature(nodeMask, pBlobWithRootSignature, blobLengthInBytes, riid) {
         pBlobWithRootSignatureMarshal := pBlobWithRootSignature is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(16, this, "uint", nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, "ptr", blobLengthInBytes, Guid.Ptr, riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, IntPtr, blobLengthInBytes, Guid.Ptr, riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
         return ppvRootSignature
     }
 
@@ -564,7 +564,7 @@ export default struct ID3D12Device extends ID3D12Object {
         pDestDescriptorRangeSizesMarshal := pDestDescriptorRangeSizes is VarRef ? "uint*" : "ptr"
         pSrcDescriptorRangeSizesMarshal := pSrcDescriptorRangeSizes is VarRef ? "uint*" : "ptr"
 
-        ComCall(23, this, "uint", NumDestDescriptorRanges, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pDestDescriptorRangeStarts, pDestDescriptorRangeSizesMarshal, pDestDescriptorRangeSizes, "uint", NumSrcDescriptorRanges, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pSrcDescriptorRangeStarts, pSrcDescriptorRangeSizesMarshal, pSrcDescriptorRangeSizes, D3D12_DESCRIPTOR_HEAP_TYPE, DescriptorHeapsType)
+        ComCall(23, this, UInt32, NumDestDescriptorRanges, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pDestDescriptorRangeStarts, pDestDescriptorRangeSizesMarshal, pDestDescriptorRangeSizes, UInt32, NumSrcDescriptorRanges, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pSrcDescriptorRangeStarts, pSrcDescriptorRangeSizesMarshal, pSrcDescriptorRangeSizes, D3D12_DESCRIPTOR_HEAP_TYPE, DescriptorHeapsType)
     }
 
     /**
@@ -594,7 +594,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-copydescriptorssimple
      */
     CopyDescriptorsSimple(NumDescriptors, DestDescriptorRangeStart, SrcDescriptorRangeStart, DescriptorHeapsType) {
-        ComCall(24, this, "uint", NumDescriptors, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptorRangeStart, D3D12_CPU_DESCRIPTOR_HANDLE, SrcDescriptorRangeStart, D3D12_DESCRIPTOR_HEAP_TYPE, DescriptorHeapsType)
+        ComCall(24, this, UInt32, NumDescriptors, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptorRangeStart, D3D12_CPU_DESCRIPTOR_HANDLE, SrcDescriptorRangeStart, D3D12_DESCRIPTOR_HEAP_TYPE, DescriptorHeapsType)
     }
 
     /**
@@ -626,7 +626,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo
      */
     GetResourceAllocationInfo(visibleMask, numResourceDescs, pResourceDescs) {
-        result := ComCall(25, this, "uint", visibleMask, "uint", numResourceDescs, D3D12_RESOURCE_DESC.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO)
+        result := ComCall(25, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO)
         return result
     }
 
@@ -728,7 +728,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getcustomheapproperties
      */
     GetCustomHeapProperties(nodeMask, heapType) {
-        result := ComCall(26, this, "uint", nodeMask, D3D12_HEAP_TYPE, heapType, D3D12_HEAP_PROPERTIES)
+        result := ComCall(26, this, UInt32, nodeMask, D3D12_HEAP_TYPE, heapType, D3D12_HEAP_PROPERTIES)
         return result
     }
 
@@ -852,7 +852,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createplacedresource
      */
     CreatePlacedResource(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid) {
-        result := ComCall(29, this, "ptr", pHeap, "uint", HeapOffset, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", pHeap, Int64, HeapOffset, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -969,7 +969,7 @@ export default struct ID3D12Device extends ID3D12Object {
         Name := Name is String ? StrPtr(Name) : Name
 
         pHandle := HANDLE.Owned()
-        result := ComCall(31, this, "ptr", pObject, SECURITY_ATTRIBUTES.Ptr, pAttributes, "uint", Access, "ptr", Name, HANDLE.Ptr, pHandle, "HRESULT")
+        result := ComCall(31, this, "ptr", pObject, SECURITY_ATTRIBUTES.Ptr, pAttributes, UInt32, Access, "ptr", Name, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 
@@ -1039,7 +1039,7 @@ export default struct ID3D12Device extends ID3D12Object {
         Name := Name is String ? StrPtr(Name) : Name
 
         pNTHandle := HANDLE.Owned()
-        result := ComCall(33, this, "ptr", Name, "uint", Access, HANDLE.Ptr, pNTHandle, "HRESULT")
+        result := ComCall(33, this, "ptr", Name, UInt32, Access, HANDLE.Ptr, pNTHandle, "HRESULT")
         return pNTHandle
     }
 
@@ -1080,7 +1080,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-makeresident
      */
     MakeResident(NumObjects, ppObjects) {
-        result := ComCall(34, this, "uint", NumObjects, ID3D12Pageable.Ptr, ppObjects, "HRESULT")
+        result := ComCall(34, this, UInt32, NumObjects, ID3D12Pageable.Ptr, ppObjects, "HRESULT")
         return result
     }
 
@@ -1107,7 +1107,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-evict
      */
     Evict(NumObjects, ppObjects) {
-        result := ComCall(35, this, "uint", NumObjects, ID3D12Pageable.Ptr, ppObjects, "HRESULT")
+        result := ComCall(35, this, UInt32, NumObjects, ID3D12Pageable.Ptr, ppObjects, "HRESULT")
         return result
     }
 
@@ -1131,7 +1131,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createfence
      */
     CreateFence(InitialValue, Flags, riid) {
-        result := ComCall(36, this, "uint", InitialValue, D3D12_FENCE_FLAGS, Flags, Guid.Ptr, riid, "ptr*", &ppFence := 0, "HRESULT")
+        result := ComCall(36, this, Int64, InitialValue, D3D12_FENCE_FLAGS, Flags, Guid.Ptr, riid, "ptr*", &ppFence := 0, "HRESULT")
         return ppFence
     }
 
@@ -1197,7 +1197,7 @@ export default struct ID3D12Device extends ID3D12Object {
         pRowSizeInBytesMarshal := pRowSizeInBytes is VarRef ? "uint*" : "ptr"
         pTotalBytesMarshal := pTotalBytes is VarRef ? "uint*" : "ptr"
 
-        ComCall(38, this, D3D12_RESOURCE_DESC.Ptr, pResourceDesc, "uint", FirstSubresource, "uint", NumSubresources, "uint", BaseOffset, D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
+        ComCall(38, this, D3D12_RESOURCE_DESC.Ptr, pResourceDesc, UInt32, FirstSubresource, UInt32, NumSubresources, Int64, BaseOffset, D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
     }
 
     /**
@@ -1305,7 +1305,7 @@ export default struct ID3D12Device extends ID3D12Object {
         pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : "ptr"
         pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : "ptr"
 
-        ComCall(42, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, D3D12_PACKED_MIP_INFO.Ptr, pPackedMipDesc, D3D12_TILE_SHAPE.Ptr, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, D3D12_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
+        ComCall(42, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, D3D12_PACKED_MIP_INFO.Ptr, pPackedMipDesc, D3D12_TILE_SHAPE.Ptr, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, UInt32, FirstSubresourceTilingToGet, D3D12_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
     }
 
     /**

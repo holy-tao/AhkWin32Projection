@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMarkupPointer.ahk" { IMarkupPointer }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\CARET_DIRECTION.ahk" { CARET_DIRECTION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDisplayPointer.ahk" { IDisplayPointer }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CARET_DIRECTION.ahk" { CARET_DIRECTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDisplayPointer.ahk" { IDisplayPointer }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -149,7 +149,7 @@ export default struct IHTMLCaret extends IUnknown {
     InsertText(pText, lLen) {
         pText := pText is String ? StrPtr(pText) : pText
 
-        result := ComCall(10, this, "ptr", pText, "int", lLen, "HRESULT")
+        result := ComCall(10, this, "ptr", pText, Int32, lLen, "HRESULT")
         return result
     }
 

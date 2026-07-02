@@ -1,19 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D_BLOB_PART.ahk" { D3D_BLOB_PART }
-#Import "..\ID3DBlob.ahk" { ID3DBlob }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Direct3D10\ID3D10Effect.ahk" { ID3D10Effect }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\D3D_SHADER_MACRO.ahk" { D3D_SHADER_MACRO }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Direct3D11\ID3D11Module.ahk" { ID3D11Module }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\ID3DInclude.ahk" { ID3DInclude }
 #Import ".\D3D_SHADER_DATA.ahk" { D3D_SHADER_DATA }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Direct3D11\ID3D11FunctionLinkingGraph.ahk" { ID3D11FunctionLinkingGraph }
+#Import "..\ID3DBlob.ahk" { ID3DBlob }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Direct3D10\ID3D10Effect.ahk" { ID3D10Effect }
+#Import "..\D3D_SHADER_MACRO.ahk" { D3D_SHADER_MACRO }
 #Import "..\..\Direct3D11\ID3D11Linker.ahk" { ID3D11Linker }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Direct3D11\ID3D11Module.ahk" { ID3D11Module }
+#Import ".\D3D_BLOB_PART.ahk" { D3D_BLOB_PART }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
@@ -112,7 +112,7 @@ export D3DCompile(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntry
     pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
     pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DCompile", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DCompile", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr", pSourceName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -195,7 +195,7 @@ export D3DCompile2(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntr
     pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
     pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "uint", SecondaryDataFlags, "ptr", pSecondaryData, "ptr", SecondaryDataSize, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr", pSourceName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, UInt32, SecondaryDataFlags, IntPtr, pSecondaryData, IntPtr, SecondaryDataSize, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -224,7 +224,7 @@ export D3DCompileFromFile(pFileName, pDefines, pInclude, pEntrypoint, pTarget, F
     pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
     pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -264,7 +264,7 @@ export D3DCompileFromFile(pFileName, pDefines, pInclude, pEntrypoint, pTarget, F
 export D3DPreprocess(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, ppCodeText, ppErrorMsgs) {
     pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, ID3DBlob.Ptr, ppCodeText, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr", pSourceName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, ID3DBlob.Ptr, ppCodeText, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -284,7 +284,7 @@ export D3DPreprocess(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, ppC
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetdebuginfo
  */
 export D3DGetDebugInfo(pSrcData, SrcDataSize) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DGetDebugInfo", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppDebugInfo := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DGetDebugInfo", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr*", &ppDebugInfo := 0, "HRESULT")
     return ID3DBlob(ppDebugInfo)
 }
 
@@ -321,7 +321,7 @@ export D3DGetDebugInfo(pSrcData, SrcDataSize) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dreflect
  */
 export D3DReflect(pSrcData, SrcDataSize, pInterface) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DReflect", "ptr", pSrcData, "ptr", SrcDataSize, Guid.Ptr, pInterface, "ptr*", &ppReflector := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DReflect", IntPtr, pSrcData, IntPtr, SrcDataSize, Guid.Ptr, pInterface, "ptr*", &ppReflector := 0, "HRESULT")
     return ppReflector
 }
 
@@ -342,7 +342,7 @@ export D3DReflect(pSrcData, SrcDataSize, pInterface) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dreflectlibrary
  */
 export D3DReflectLibrary(pSrcData, SrcDataSize, riid) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DReflectLibrary", "ptr", pSrcData, "ptr", SrcDataSize, Guid.Ptr, riid, "ptr*", &ppReflector := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DReflectLibrary", IntPtr, pSrcData, IntPtr, SrcDataSize, Guid.Ptr, riid, "ptr*", &ppReflector := 0, "HRESULT")
     return ppReflector
 }
 
@@ -366,7 +366,7 @@ export D3DReflectLibrary(pSrcData, SrcDataSize, riid) {
 export D3DDisassemble(pSrcData, SrcDataSize, Flags, szComments) {
     szComments := szComments is String ? StrPtr(szComments) : szComments
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr*", &ppDisassembly := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, "ptr", szComments, "ptr*", &ppDisassembly := 0, "HRESULT")
     return ID3DBlob(ppDisassembly)
 }
 
@@ -426,7 +426,7 @@ export D3DDisassembleRegion(pSrcData, SrcDataSize, Flags, szComments, StartByteO
 
     pFinishByteOffsetMarshal := pFinishByteOffset is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", StartByteOffset, "ptr", NumInsts, pFinishByteOffsetMarshal, pFinishByteOffset, ID3DBlob.Ptr, ppDisassembly, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, "ptr", szComments, IntPtr, StartByteOffset, IntPtr, NumInsts, pFinishByteOffsetMarshal, pFinishByteOffset, ID3DBlob.Ptr, ppDisassembly, "HRESULT")
     return result
 }
 
@@ -464,7 +464,7 @@ export D3DCreateLinker() {
 export D3DLoadModule(pSrcData, cbSrcDataSize) {
     pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DLoadModule", pSrcDataMarshal, pSrcData, "ptr", cbSrcDataSize, "ptr*", &ppModule := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DLoadModule", pSrcDataMarshal, pSrcData, IntPtr, cbSrcDataSize, "ptr*", &ppModule := 0, "HRESULT")
     return ID3D11Module(ppModule)
 }
 
@@ -482,7 +482,7 @@ export D3DLoadModule(pSrcData, cbSrcDataSize) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcreatefunctionlinkinggraph
  */
 export D3DCreateFunctionLinkingGraph(uFlags) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DCreateFunctionLinkingGraph", "uint", uFlags, "ptr*", &ppFunctionLinkingGraph := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DCreateFunctionLinkingGraph", UInt32, uFlags, "ptr*", &ppFunctionLinkingGraph := 0, "HRESULT")
     return ID3D11FunctionLinkingGraph(ppFunctionLinkingGraph)
 }
 
@@ -518,7 +518,7 @@ export D3DGetTraceInstructionOffsets(pSrcData, SrcDataSize, Flags, StartInstInde
     pOffsetsMarshal := pOffsets is VarRef ? "ptr*" : "ptr"
     pTotalInstsMarshal := pTotalInsts is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DGetTraceInstructionOffsets", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", StartInstIndex, "ptr", NumInsts, pOffsetsMarshal, pOffsets, pTotalInstsMarshal, pTotalInsts, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DGetTraceInstructionOffsets", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, IntPtr, StartInstIndex, IntPtr, NumInsts, pOffsetsMarshal, pOffsets, pTotalInstsMarshal, pTotalInsts, "HRESULT")
     return result
 }
 
@@ -536,7 +536,7 @@ export D3DGetTraceInstructionOffsets(pSrcData, SrcDataSize, Flags, StartInstInde
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetinputsignatureblob
  */
 export D3DGetInputSignatureBlob(pSrcData, SrcDataSize) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DGetInputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DGetInputSignatureBlob", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr*", &ppSignatureBlob := 0, "HRESULT")
     return ID3DBlob(ppSignatureBlob)
 }
 
@@ -554,7 +554,7 @@ export D3DGetInputSignatureBlob(pSrcData, SrcDataSize) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetoutputsignatureblob
  */
 export D3DGetOutputSignatureBlob(pSrcData, SrcDataSize) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DGetOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DGetOutputSignatureBlob", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr*", &ppSignatureBlob := 0, "HRESULT")
     return ID3DBlob(ppSignatureBlob)
 }
 
@@ -572,7 +572,7 @@ export D3DGetOutputSignatureBlob(pSrcData, SrcDataSize) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetinputandoutputsignatureblob
  */
 export D3DGetInputAndOutputSignatureBlob(pSrcData, SrcDataSize) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DGetInputAndOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DGetInputAndOutputSignatureBlob", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr*", &ppSignatureBlob := 0, "HRESULT")
     return ID3DBlob(ppSignatureBlob)
 }
 
@@ -593,7 +593,7 @@ export D3DGetInputAndOutputSignatureBlob(pSrcData, SrcDataSize) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dstripshader
  */
 export D3DStripShader(pShaderBytecode, BytecodeLength, uStripFlags) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DStripShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "uint", uStripFlags, "ptr*", &ppStrippedBlob := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DStripShader", IntPtr, pShaderBytecode, IntPtr, BytecodeLength, UInt32, uStripFlags, "ptr*", &ppStrippedBlob := 0, "HRESULT")
     return ID3DBlob(ppStrippedBlob)
 }
 
@@ -619,7 +619,7 @@ export D3DStripShader(pShaderBytecode, BytecodeLength, uStripFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetblobpart
  */
 export D3DGetBlobPart(pSrcData, SrcDataSize, Part, Flags) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DGetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, D3D_BLOB_PART, Part, "uint", Flags, "ptr*", &ppPart := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DGetBlobPart", IntPtr, pSrcData, IntPtr, SrcDataSize, D3D_BLOB_PART, Part, UInt32, Flags, "ptr*", &ppPart := 0, "HRESULT")
     return ID3DBlob(ppPart)
 }
 
@@ -654,7 +654,7 @@ export D3DGetBlobPart(pSrcData, SrcDataSize, Part, Flags) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dsetblobpart
  */
 export D3DSetBlobPart(pSrcData, SrcDataSize, Part, Flags, pPart, PartSize) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DSetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, D3D_BLOB_PART, Part, "uint", Flags, "ptr", pPart, "ptr", PartSize, "ptr*", &ppNewShader := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DSetBlobPart", IntPtr, pSrcData, IntPtr, SrcDataSize, D3D_BLOB_PART, Part, UInt32, Flags, IntPtr, pPart, IntPtr, PartSize, "ptr*", &ppNewShader := 0, "HRESULT")
     return ID3DBlob(ppNewShader)
 }
 
@@ -671,7 +671,7 @@ export D3DSetBlobPart(pSrcData, SrcDataSize, Part, Flags, pPart, PartSize) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcreateblob
  */
 export D3DCreateBlob(_Size) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DCreateBlob", "ptr", _Size, "ptr*", &ppBlob := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DCreateBlob", IntPtr, _Size, "ptr*", &ppBlob := 0, "HRESULT")
     return ID3DBlob(ppBlob)
 }
 
@@ -692,7 +692,7 @@ export D3DCreateBlob(_Size) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompressshaders
  */
 export D3DCompressShaders(uNumShaders, pShaderData, uFlags) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DCompressShaders", "uint", uNumShaders, D3D_SHADER_DATA.Ptr, pShaderData, "uint", uFlags, "ptr*", &ppCompressedData := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DCompressShaders", UInt32, uNumShaders, D3D_SHADER_DATA.Ptr, pShaderData, UInt32, uFlags, "ptr*", &ppCompressedData := 0, "HRESULT")
     return ID3DBlob(ppCompressedData)
 }
 
@@ -731,7 +731,7 @@ export D3DDecompressShaders(pSrcData, SrcDataSize, uNumShaders, uStartIndex, pIn
     pIndicesMarshal := pIndices is VarRef ? "uint*" : "ptr"
     pTotalShadersMarshal := pTotalShaders is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DDecompressShaders", "ptr", pSrcData, "ptr", SrcDataSize, "uint", uNumShaders, "uint", uStartIndex, pIndicesMarshal, pIndices, "uint", uFlags, ID3DBlob.Ptr, ppShaders, pTotalShadersMarshal, pTotalShaders, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DDecompressShaders", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, uNumShaders, UInt32, uStartIndex, pIndicesMarshal, pIndices, UInt32, uFlags, ID3DBlob.Ptr, ppShaders, pTotalShadersMarshal, pTotalShaders, "HRESULT")
     return result
 }
 
@@ -749,7 +749,7 @@ export D3DDecompressShaders(pSrcData, SrcDataSize, uNumShaders, uStartIndex, pIn
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3ddisassemble10effect
  */
 export D3DDisassemble10Effect(pEffect, Flags) {
-    result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble10Effect", "ptr", pEffect, "uint", Flags, "ptr*", &ppDisassembly := 0, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble10Effect", "ptr", pEffect, UInt32, Flags, "ptr*", &ppDisassembly := 0, "HRESULT")
     return ID3DBlob(ppDisassembly)
 }
 

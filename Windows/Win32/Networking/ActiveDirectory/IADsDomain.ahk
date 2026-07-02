@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IADs.ahk" { IADs }
 
 /**
@@ -151,7 +151,7 @@ export default struct IADsDomain extends IADs {
      * @returns {HRESULT} 
      */
     put_MinPasswordLength(lnMinPasswordLength) {
-        result := ComCall(22, this, "int", lnMinPasswordLength, "HRESULT")
+        result := ComCall(22, this, Int32, lnMinPasswordLength, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IADsDomain extends IADs {
      * @returns {HRESULT} 
      */
     put_MinPasswordAge(lnMinPasswordAge) {
-        result := ComCall(24, this, "int", lnMinPasswordAge, "HRESULT")
+        result := ComCall(24, this, Int32, lnMinPasswordAge, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IADsDomain extends IADs {
      * @returns {HRESULT} 
      */
     put_MaxPasswordAge(lnMaxPasswordAge) {
-        result := ComCall(26, this, "int", lnMaxPasswordAge, "HRESULT")
+        result := ComCall(26, this, Int32, lnMaxPasswordAge, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct IADsDomain extends IADs {
      * @returns {HRESULT} 
      */
     put_MaxBadPasswordsAllowed(lnMaxBadPasswordsAllowed) {
-        result := ComCall(28, this, "int", lnMaxBadPasswordsAllowed, "HRESULT")
+        result := ComCall(28, this, Int32, lnMaxBadPasswordsAllowed, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IADsDomain extends IADs {
      * @returns {HRESULT} 
      */
     put_PasswordHistoryLength(lnPasswordHistoryLength) {
-        result := ComCall(30, this, "int", lnPasswordHistoryLength, "HRESULT")
+        result := ComCall(30, this, Int32, lnPasswordHistoryLength, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IADsDomain extends IADs {
      * @returns {HRESULT} 
      */
     put_PasswordAttributes(lnPasswordAttributes) {
-        result := ComCall(32, this, "int", lnPasswordAttributes, "HRESULT")
+        result := ComCall(32, this, Int32, lnPasswordAttributes, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct IADsDomain extends IADs {
      * @returns {HRESULT} 
      */
     put_AutoUnlockInterval(lnAutoUnlockInterval) {
-        result := ComCall(34, this, "int", lnAutoUnlockInterval, "HRESULT")
+        result := ComCall(34, this, Int32, lnAutoUnlockInterval, "HRESULT")
         return result
     }
 
@@ -284,7 +284,7 @@ export default struct IADsDomain extends IADs {
      * @returns {HRESULT} 
      */
     put_LockoutObservationInterval(lnLockoutObservationInterval) {
-        result := ComCall(36, this, "int", lnLockoutObservationInterval, "HRESULT")
+        result := ComCall(36, this, Int32, lnLockoutObservationInterval, "HRESULT")
         return result
     }
 

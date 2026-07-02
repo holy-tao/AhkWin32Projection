@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a timer that invokes a callback at a specified time.
@@ -53,7 +53,7 @@ export default struct IMFTimer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimer-settimer
      */
     SetTimer(dwFlags, llClockTime, pCallback, punkState) {
-        result := ComCall(3, this, "uint", dwFlags, "int64", llClockTime, "ptr", pCallback, "ptr", punkState, "ptr*", &ppunkKey := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, Int64, llClockTime, "ptr", pCallback, "ptr", punkState, "ptr*", &ppunkKey := 0, "HRESULT")
         return IUnknown(ppunkKey)
     }
 

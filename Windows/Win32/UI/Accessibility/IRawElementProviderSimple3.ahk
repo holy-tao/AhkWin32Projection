@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UIA_METADATA_ID.ahk" { UIA_METADATA_ID }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRawElementProviderSimple2.ahk" { IRawElementProviderSimple2 }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IRawElementProviderSimple2.ahk" { IRawElementProviderSimple2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UIA_METADATA_ID.ahk" { UIA_METADATA_ID }
 
 /**
  * Extends the IRawElementProviderSimple2 interface to enable retrieving metadata about how accessible technology should say the preferred content type.
@@ -68,7 +68,7 @@ export default struct IRawElementProviderSimple3 extends IRawElementProviderSimp
      */
     GetMetadataValue(targetId, metadataId) {
         returnVal := VARIANT()
-        result := ComCall(8, this, "int", targetId, UIA_METADATA_ID, metadataId, VARIANT.Ptr, returnVal, "HRESULT")
+        result := ComCall(8, this, Int32, targetId, UIA_METADATA_ID, metadataId, VARIANT.Ptr, returnVal, "HRESULT")
         return returnVal
     }
 

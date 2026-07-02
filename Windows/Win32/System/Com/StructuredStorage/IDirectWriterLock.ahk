@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirectWriterLock interface enables a single writer to obtain exclusive write access to a root storage object opened in direct mode while allowing concurrent access by multiple readers.
@@ -56,7 +56,7 @@ export default struct IDirectWriterLock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idirectwriterlock-waitforwriteaccess
      */
     WaitForWriteAccess(dwTimeout) {
-        result := ComCall(3, this, "uint", dwTimeout, "HRESULT")
+        result := ComCall(3, this, UInt32, dwTimeout, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGPMStatusMsgCollection.ahk" { IGPMStatusMsgCollection }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMStatusMsgCollection.ahk" { IGPMStatusMsgCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IGPMAsyncProgress interface can be implemented by the client and passed as an input parameter to the Group Policy Management Console (GPMC) methods that can execute asynchronously.
@@ -72,7 +72,7 @@ export default struct IGPMAsyncProgress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmasyncprogress-status
      */
     Status(lProgressNumerator, lProgressDenominator, hrStatus, pResult, ppIGPMStatusMsgCollection) {
-        result := ComCall(7, this, "int", lProgressNumerator, "int", lProgressDenominator, "int", hrStatus, VARIANT.Ptr, pResult, "ptr", ppIGPMStatusMsgCollection, "HRESULT")
+        result := ComCall(7, this, Int32, lProgressNumerator, Int32, lProgressDenominator, "int", hrStatus, VARIANT.Ptr, pResult, "ptr", ppIGPMStatusMsgCollection, "HRESULT")
         return result
     }
 

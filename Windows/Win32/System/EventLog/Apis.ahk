@@ -1,21 +1,22 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EVT_SUBSCRIBE_CALLBACK.ahk" { EVT_SUBSCRIBE_CALLBACK }
 #Import ".\EVT_LOG_PROPERTY_ID.ahk" { EVT_LOG_PROPERTY_ID }
 #Import ".\EVT_VARIANT.ahk" { EVT_VARIANT }
-#Import ".\EVT_HANDLE.ahk" { EVT_HANDLE }
 #Import ".\REPORT_EVENT_TYPE.ahk" { REPORT_EVENT_TYPE }
-#Import ".\READ_EVENT_LOG_READ_FLAGS.ahk" { READ_EVENT_LOG_READ_FLAGS }
-#Import ".\EVT_EVENT_PROPERTY_ID.ahk" { EVT_EVENT_PROPERTY_ID }
 #Import ".\EVT_LOGIN_CLASS.ahk" { EVT_LOGIN_CLASS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\EVT_EVENT_METADATA_PROPERTY_ID.ahk" { EVT_EVENT_METADATA_PROPERTY_ID }
-#Import ".\EVT_QUERY_PROPERTY_ID.ahk" { EVT_QUERY_PROPERTY_ID }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\READ_EVENT_LOG_READ_FLAGS.ahk" { READ_EVENT_LOG_READ_FLAGS }
 #Import ".\EVT_CHANNEL_CONFIG_PROPERTY_ID.ahk" { EVT_CHANNEL_CONFIG_PROPERTY_ID }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\EVT_QUERY_PROPERTY_ID.ahk" { EVT_QUERY_PROPERTY_ID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\EVT_PUBLISHER_METADATA_PROPERTY_ID.ahk" { EVT_PUBLISHER_METADATA_PROPERTY_ID }
+#Import ".\EVT_HANDLE.ahk" { EVT_HANDLE }
+#Import ".\EVT_EVENT_PROPERTY_ID.ahk" { EVT_EVENT_PROPERTY_ID }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import ".\EVT_EVENT_METADATA_PROPERTY_ID.ahk" { EVT_EVENT_METADATA_PROPERTY_ID }
 
 /**
  * @namespace Windows.Win32.System.EventLog
@@ -43,7 +44,7 @@ export EvtOpenSession(LoginClass, Login) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtOpenSession", EVT_LOGIN_CLASS, LoginClass, LoginMarshal, Login, "uint", Timeout, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtOpenSession", EVT_LOGIN_CLASS, LoginClass, LoginMarshal, Login, UInt32, Timeout, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -221,7 +222,7 @@ export EvtGetExtendedStatus(BufferSize, _Buffer, BufferUsed) {
 
     BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", _Buffer, BufferUsedMarshal, BufferUsed, UInt32)
+    result := DllCall("wevtapi.dll\EvtGetExtendedStatus", UInt32, BufferSize, "ptr", _Buffer, BufferUsedMarshal, BufferUsed, UInt32)
     return result
 }
 
@@ -247,7 +248,7 @@ export EvtQuery(Session, _Path, Query, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtQuery", EVT_HANDLE, Session, "ptr", _Path, "ptr", Query, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtQuery", EVT_HANDLE, Session, "ptr", _Path, "ptr", Query, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -308,7 +309,7 @@ export EvtNext(ResultSet, EventsSize, Events, Timeout, Flags, Returned) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtNext", EVT_HANDLE, ResultSet, "uint", EventsSize, EventsMarshal, Events, "uint", Timeout, "uint", Flags, ReturnedMarshal, Returned, BOOL)
+    result := DllCall("wevtapi.dll\EvtNext", EVT_HANDLE, ResultSet, UInt32, EventsSize, EventsMarshal, Events, UInt32, Timeout, UInt32, Flags, ReturnedMarshal, Returned, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -362,7 +363,7 @@ export EvtSeek(ResultSet, Position, Bookmark, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtSeek", EVT_HANDLE, ResultSet, "int64", Position, EVT_HANDLE, Bookmark, "uint", Timeout, "uint", Flags, BOOL)
+    result := DllCall("wevtapi.dll\EvtSeek", EVT_HANDLE, ResultSet, Int64, Position, EVT_HANDLE, Bookmark, UInt32, Timeout, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -398,7 +399,7 @@ export EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, _Context
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtSubscribe", EVT_HANDLE, Session, HANDLE, SignalEvent, "ptr", ChannelPath, "ptr", Query, EVT_HANDLE, Bookmark, _ContextMarshal, _Context, "ptr", Callback, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtSubscribe", EVT_HANDLE, Session, HANDLE, SignalEvent, "ptr", ChannelPath, "ptr", Query, EVT_HANDLE, Bookmark, _ContextMarshal, _Context, EVT_SUBSCRIBE_CALLBACK, Callback, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -430,7 +431,7 @@ export EvtCreateRenderContext(ValuePathsCount, ValuePaths, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtCreateRenderContext", "uint", ValuePathsCount, ValuePathsMarshal, ValuePaths, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtCreateRenderContext", UInt32, ValuePathsCount, ValuePathsMarshal, ValuePaths, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -494,7 +495,7 @@ export EvtRender(_Context, Fragment, Flags, BufferSize, _Buffer, BufferUsed, Pro
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtRender", EVT_HANDLE, _Context, EVT_HANDLE, Fragment, "uint", Flags, "uint", BufferSize, "ptr", _Buffer, BufferUsedMarshal, BufferUsed, PropertyCountMarshal, PropertyCount, BOOL)
+    result := DllCall("wevtapi.dll\EvtRender", EVT_HANDLE, _Context, EVT_HANDLE, Fragment, UInt32, Flags, UInt32, BufferSize, IntPtr, _Buffer, BufferUsedMarshal, BufferUsed, PropertyCountMarshal, PropertyCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -587,7 +588,7 @@ export EvtFormatMessage(PublisherMetadata, Event, MessageId, ValueCount, Values,
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtFormatMessage", EVT_HANDLE, PublisherMetadata, EVT_HANDLE, Event, "uint", MessageId, "uint", ValueCount, EVT_VARIANT.Ptr, Values, "uint", Flags, "uint", BufferSize, "ptr", _Buffer, BufferUsedMarshal, BufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtFormatMessage", EVT_HANDLE, PublisherMetadata, EVT_HANDLE, Event, UInt32, MessageId, UInt32, ValueCount, EVT_VARIANT.Ptr, Values, UInt32, Flags, UInt32, BufferSize, "ptr", _Buffer, BufferUsedMarshal, BufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -613,7 +614,7 @@ export EvtOpenLog(Session, _Path, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtOpenLog", EVT_HANDLE, Session, "ptr", _Path, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtOpenLog", EVT_HANDLE, Session, "ptr", _Path, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -668,7 +669,7 @@ export EvtGetLogInfo(Log, PropertyId, PropertyValueBufferSize, PropertyValueBuff
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtGetLogInfo", EVT_HANDLE, Log, EVT_LOG_PROPERTY_ID, PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtGetLogInfo", EVT_HANDLE, Log, EVT_LOG_PROPERTY_ID, PropertyId, UInt32, PropertyValueBufferSize, IntPtr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -727,7 +728,7 @@ export EvtClearLog(Session, ChannelPath, TargetFilePath, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtClearLog", EVT_HANDLE, Session, "ptr", ChannelPath, "ptr", TargetFilePath, "uint", Flags, BOOL)
+    result := DllCall("wevtapi.dll\EvtClearLog", EVT_HANDLE, Session, "ptr", ChannelPath, "ptr", TargetFilePath, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -790,7 +791,7 @@ export EvtExportLog(Session, _Path, Query, TargetFilePath, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtExportLog", EVT_HANDLE, Session, "ptr", _Path, "ptr", Query, "ptr", TargetFilePath, "uint", Flags, BOOL)
+    result := DllCall("wevtapi.dll\EvtExportLog", EVT_HANDLE, Session, "ptr", _Path, "ptr", Query, "ptr", TargetFilePath, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -844,7 +845,7 @@ export EvtArchiveExportedLog(Session, LogFilePath, Locale, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtArchiveExportedLog", EVT_HANDLE, Session, "ptr", LogFilePath, "uint", Locale, "uint", Flags, BOOL)
+    result := DllCall("wevtapi.dll\EvtArchiveExportedLog", EVT_HANDLE, Session, "ptr", LogFilePath, UInt32, Locale, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -867,7 +868,7 @@ export EvtArchiveExportedLog(Session, LogFilePath, Locale, Flags) {
 export EvtOpenChannelEnum(Session, Flags) {
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtOpenChannelEnum", EVT_HANDLE, Session, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtOpenChannelEnum", EVT_HANDLE, Session, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -923,7 +924,7 @@ export EvtNextChannelPath(ChannelEnum, ChannelPathBufferSize, ChannelPathBuffer,
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtNextChannelPath", EVT_HANDLE, ChannelEnum, "uint", ChannelPathBufferSize, "ptr", ChannelPathBuffer, ChannelPathBufferUsedMarshal, ChannelPathBufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtNextChannelPath", EVT_HANDLE, ChannelEnum, UInt32, ChannelPathBufferSize, "ptr", ChannelPathBuffer, ChannelPathBufferUsedMarshal, ChannelPathBufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -953,7 +954,7 @@ export EvtOpenChannelConfig(Session, ChannelPath, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtOpenChannelConfig", EVT_HANDLE, Session, "ptr", ChannelPath, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtOpenChannelConfig", EVT_HANDLE, Session, "ptr", ChannelPath, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1005,7 +1006,7 @@ export EvtOpenChannelConfig(Session, ChannelPath, Flags) {
 export EvtSaveChannelConfig(ChannelConfig, Flags) {
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtSaveChannelConfig", EVT_HANDLE, ChannelConfig, "uint", Flags, BOOL)
+    result := DllCall("wevtapi.dll\EvtSaveChannelConfig", EVT_HANDLE, ChannelConfig, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1059,7 +1060,7 @@ export EvtSaveChannelConfig(ChannelConfig, Flags) {
 export EvtSetChannelConfigProperty(ChannelConfig, PropertyId, Flags, _PropertyValue) {
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtSetChannelConfigProperty", EVT_HANDLE, ChannelConfig, EVT_CHANNEL_CONFIG_PROPERTY_ID, PropertyId, "uint", Flags, EVT_VARIANT.Ptr, _PropertyValue, BOOL)
+    result := DllCall("wevtapi.dll\EvtSetChannelConfigProperty", EVT_HANDLE, ChannelConfig, EVT_CHANNEL_CONFIG_PROPERTY_ID, PropertyId, UInt32, Flags, EVT_VARIANT.Ptr, _PropertyValue, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1113,7 +1114,7 @@ export EvtGetChannelConfigProperty(ChannelConfig, PropertyId, Flags, PropertyVal
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtGetChannelConfigProperty", EVT_HANDLE, ChannelConfig, EVT_CHANNEL_CONFIG_PROPERTY_ID, PropertyId, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtGetChannelConfigProperty", EVT_HANDLE, ChannelConfig, EVT_CHANNEL_CONFIG_PROPERTY_ID, PropertyId, UInt32, Flags, UInt32, PropertyValueBufferSize, IntPtr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1136,7 +1137,7 @@ export EvtGetChannelConfigProperty(ChannelConfig, PropertyId, Flags, PropertyVal
 export EvtOpenPublisherEnum(Session, Flags) {
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtOpenPublisherEnum", EVT_HANDLE, Session, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtOpenPublisherEnum", EVT_HANDLE, Session, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1194,7 +1195,7 @@ export EvtNextPublisherId(PublisherEnum, PublisherIdBufferSize, PublisherIdBuffe
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtNextPublisherId", EVT_HANDLE, PublisherEnum, "uint", PublisherIdBufferSize, "ptr", PublisherIdBuffer, PublisherIdBufferUsedMarshal, PublisherIdBufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtNextPublisherId", EVT_HANDLE, PublisherEnum, UInt32, PublisherIdBufferSize, "ptr", PublisherIdBuffer, PublisherIdBufferUsedMarshal, PublisherIdBufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1225,7 +1226,7 @@ export EvtOpenPublisherMetadata(Session, PublisherId, LogFilePath, Locale, Flags
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtOpenPublisherMetadata", EVT_HANDLE, Session, "ptr", PublisherId, "ptr", LogFilePath, "uint", Locale, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtOpenPublisherMetadata", EVT_HANDLE, Session, "ptr", PublisherId, "ptr", LogFilePath, UInt32, Locale, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1285,7 +1286,7 @@ export EvtGetPublisherMetadataProperty(PublisherMetadata, PropertyId, Flags, Pub
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtGetPublisherMetadataProperty", EVT_HANDLE, PublisherMetadata, EVT_PUBLISHER_METADATA_PROPERTY_ID, PropertyId, "uint", Flags, "uint", PublisherMetadataPropertyBufferSize, "ptr", PublisherMetadataPropertyBuffer, PublisherMetadataPropertyBufferUsedMarshal, PublisherMetadataPropertyBufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtGetPublisherMetadataProperty", EVT_HANDLE, PublisherMetadata, EVT_PUBLISHER_METADATA_PROPERTY_ID, PropertyId, UInt32, Flags, UInt32, PublisherMetadataPropertyBufferSize, IntPtr, PublisherMetadataPropertyBuffer, PublisherMetadataPropertyBufferUsedMarshal, PublisherMetadataPropertyBufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1308,7 +1309,7 @@ export EvtGetPublisherMetadataProperty(PublisherMetadata, PropertyId, Flags, Pub
 export EvtOpenEventMetadataEnum(PublisherMetadata, Flags) {
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtOpenEventMetadataEnum", EVT_HANDLE, PublisherMetadata, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtOpenEventMetadataEnum", EVT_HANDLE, PublisherMetadata, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1333,7 +1334,7 @@ export EvtOpenEventMetadataEnum(PublisherMetadata, Flags) {
 export EvtNextEventMetadata(EventMetadataEnum, Flags) {
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtNextEventMetadata", EVT_HANDLE, EventMetadataEnum, "uint", Flags, EVT_HANDLE.Owned)
+    result := DllCall("wevtapi.dll\EvtNextEventMetadata", EVT_HANDLE, EventMetadataEnum, UInt32, Flags, EVT_HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1387,7 +1388,7 @@ export EvtGetEventMetadataProperty(EventMetadata, PropertyId, Flags, EventMetada
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtGetEventMetadataProperty", EVT_HANDLE, EventMetadata, EVT_EVENT_METADATA_PROPERTY_ID, PropertyId, "uint", Flags, "uint", EventMetadataPropertyBufferSize, "ptr", EventMetadataPropertyBuffer, EventMetadataPropertyBufferUsedMarshal, EventMetadataPropertyBufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtGetEventMetadataProperty", EVT_HANDLE, EventMetadata, EVT_EVENT_METADATA_PROPERTY_ID, PropertyId, UInt32, Flags, UInt32, EventMetadataPropertyBufferSize, IntPtr, EventMetadataPropertyBuffer, EventMetadataPropertyBufferUsedMarshal, EventMetadataPropertyBufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1437,7 +1438,7 @@ export EvtGetObjectArraySize(ObjectArray, ObjectArraySize) {
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtGetObjectArraySize", "ptr", ObjectArray, ObjectArraySizeMarshal, ObjectArraySize, BOOL)
+    result := DllCall("wevtapi.dll\EvtGetObjectArraySize", IntPtr, ObjectArray, ObjectArraySizeMarshal, ObjectArraySize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1505,7 +1506,7 @@ export EvtGetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, Pro
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtGetObjectArrayProperty", "ptr", ObjectArray, "uint", PropertyId, "uint", ArrayIndex, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtGetObjectArrayProperty", IntPtr, ObjectArray, UInt32, PropertyId, UInt32, ArrayIndex, UInt32, Flags, UInt32, PropertyValueBufferSize, IntPtr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1560,7 +1561,7 @@ export EvtGetQueryInfo(QueryOrSubscription, PropertyId, PropertyValueBufferSize,
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtGetQueryInfo", EVT_HANDLE, QueryOrSubscription, EVT_QUERY_PROPERTY_ID, PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtGetQueryInfo", EVT_HANDLE, QueryOrSubscription, EVT_QUERY_PROPERTY_ID, PropertyId, UInt32, PropertyValueBufferSize, IntPtr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1689,7 +1690,7 @@ export EvtGetEventInfo(Event, PropertyId, PropertyValueBufferSize, PropertyValue
 
     A_LastError := 0
 
-    result := DllCall("wevtapi.dll\EvtGetEventInfo", EVT_HANDLE, Event, EVT_EVENT_PROPERTY_ID, PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
+    result := DllCall("wevtapi.dll\EvtGetEventInfo", EVT_HANDLE, Event, EVT_EVENT_PROPERTY_ID, PropertyId, UInt32, PropertyValueBufferSize, IntPtr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2230,7 +2231,7 @@ export ReadEventLogA(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOf
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ReadEventLogA", HANDLE, hEventLog, READ_EVENT_LOG_READ_FLAGS, dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, pnBytesReadMarshal, pnBytesRead, pnMinNumberOfBytesNeededMarshal, pnMinNumberOfBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\ReadEventLogA", HANDLE, hEventLog, READ_EVENT_LOG_READ_FLAGS, dwReadFlags, UInt32, dwRecordOffset, IntPtr, lpBuffer, UInt32, nNumberOfBytesToRead, pnBytesReadMarshal, pnBytesRead, pnMinNumberOfBytesNeededMarshal, pnMinNumberOfBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2273,7 +2274,7 @@ export ReadEventLogW(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOf
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ReadEventLogW", HANDLE, hEventLog, READ_EVENT_LOG_READ_FLAGS, dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, pnBytesReadMarshal, pnBytesRead, pnMinNumberOfBytesNeededMarshal, pnMinNumberOfBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\ReadEventLogW", HANDLE, hEventLog, READ_EVENT_LOG_READ_FLAGS, dwReadFlags, UInt32, dwRecordOffset, IntPtr, lpBuffer, UInt32, nNumberOfBytesToRead, pnBytesReadMarshal, pnBytesRead, pnMinNumberOfBytesNeededMarshal, pnMinNumberOfBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2387,7 +2388,7 @@ export ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrin
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ReportEventA", HANDLE, hEventLog, REPORT_EVENT_TYPE, wType, "ushort", wCategory, "uint", dwEventID, PSID, lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, lpStringsMarshal, lpStrings, "ptr", lpRawData, BOOL)
+    result := DllCall("ADVAPI32.dll\ReportEventA", HANDLE, hEventLog, REPORT_EVENT_TYPE, wType, UInt16, wCategory, UInt32, dwEventID, PSID, lpUserSid, UInt16, wNumStrings, UInt32, dwDataSize, lpStringsMarshal, lpStrings, IntPtr, lpRawData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2501,7 +2502,7 @@ export ReportEventW(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrin
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ReportEventW", HANDLE, hEventLog, REPORT_EVENT_TYPE, wType, "ushort", wCategory, "uint", dwEventID, PSID, lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, lpStringsMarshal, lpStrings, "ptr", lpRawData, BOOL)
+    result := DllCall("ADVAPI32.dll\ReportEventW", HANDLE, hEventLog, REPORT_EVENT_TYPE, wType, UInt16, wCategory, UInt32, dwEventID, PSID, lpUserSid, UInt16, wNumStrings, UInt32, dwDataSize, lpStringsMarshal, lpStrings, IntPtr, lpRawData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2553,7 +2554,7 @@ export GetEventLogInformation(hEventLog, dwInfoLevel, lpBuffer, cbBufSize, pcbBy
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetEventLogInformation", HANDLE, hEventLog, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\GetEventLogInformation", HANDLE, hEventLog, UInt32, dwInfoLevel, IntPtr, lpBuffer, UInt32, cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
-#Import ".\DXC_CP.ahk" { DXC_CP }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
+#Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
+#Import ".\DXC_CP.ahk" { DXC_CP }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -69,7 +69,7 @@ export default struct IDxcLibrary extends IUnknown {
      * @returns {IDxcBlob} 
      */
     CreateBlobFromBlob(pBlob, offset, length) {
-        result := ComCall(4, this, "ptr", pBlob, "uint", offset, "uint", length, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pBlob, UInt32, offset, UInt32, length, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcBlob(ppResult)
     }
 
@@ -96,7 +96,7 @@ export default struct IDxcLibrary extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobWithEncodingFromPinned(pText, _size, codePage) {
-        result := ComCall(6, this, "ptr", pText, "uint", _size, DXC_CP, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
+        result := ComCall(6, this, IntPtr, pText, UInt32, _size, DXC_CP, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 
@@ -108,7 +108,7 @@ export default struct IDxcLibrary extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobWithEncodingOnHeapCopy(pText, _size, codePage) {
-        result := ComCall(7, this, "ptr", pText, "uint", _size, DXC_CP, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
+        result := ComCall(7, this, IntPtr, pText, UInt32, _size, DXC_CP, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 
@@ -121,7 +121,7 @@ export default struct IDxcLibrary extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobWithEncodingOnMalloc(pText, pIMalloc, _size, codePage) {
-        result := ComCall(8, this, "ptr", pText, "ptr", pIMalloc, "uint", _size, DXC_CP, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
+        result := ComCall(8, this, IntPtr, pText, "ptr", pIMalloc, UInt32, _size, DXC_CP, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 

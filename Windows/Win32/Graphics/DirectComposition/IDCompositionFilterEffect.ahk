@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDCompositionEffect.ahk" { IDCompositionEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a filter effect.
@@ -102,7 +102,7 @@ export default struct IDCompositionFilterEffect extends IDCompositionEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionfiltereffect-setinput
      */
     SetInput(index, _input, flags) {
-        result := ComCall(3, this, "uint", index, "ptr", _input, "uint", flags, "HRESULT")
+        result := ComCall(3, this, UInt32, index, "ptr", _input, UInt32, flags, "HRESULT")
         return result
     }
 

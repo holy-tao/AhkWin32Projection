@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IObjectId.ahk" { IObjectId }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IX509Attributes.ahk" { IX509Attributes }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectId.ahk" { IObjectId }
 
 /**
  * The ICryptAttribute interface represents a cryptographic attribute in a certificate request. A collection of these attributes is contained in the CertificateRequestInfo structure of a PKCS

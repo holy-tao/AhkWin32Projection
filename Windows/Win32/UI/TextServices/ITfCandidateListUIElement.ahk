@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfUIElement.ahk" { ITfUIElement }
-#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has the candidate list UI.
@@ -161,7 +161,7 @@ export default struct ITfCandidateListUIElement extends ITfUIElement {
      */
     GetString(uIndex) {
         _pstr := BSTR.Owned()
-        result := ComCall(11, this, "uint", uIndex, BSTR.Ptr, _pstr, "HRESULT")
+        result := ComCall(11, this, UInt32, uIndex, BSTR.Ptr, _pstr, "HRESULT")
         return _pstr
     }
 
@@ -217,7 +217,7 @@ export default struct ITfCandidateListUIElement extends ITfUIElement {
         pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
         puPageCntMarshal := puPageCnt is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, pIndexMarshal, pIndex, "uint", uSize, puPageCntMarshal, puPageCnt, "HRESULT")
+        result := ComCall(12, this, pIndexMarshal, pIndex, UInt32, uSize, puPageCntMarshal, puPageCnt, "HRESULT")
         return result
     }
 
@@ -271,7 +271,7 @@ export default struct ITfCandidateListUIElement extends ITfUIElement {
     SetPageIndex(pIndex, uPageCnt) {
         pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, pIndexMarshal, pIndex, "uint", uPageCnt, "HRESULT")
+        result := ComCall(13, this, pIndexMarshal, pIndex, UInt32, uPageCnt, "HRESULT")
         return result
     }
 

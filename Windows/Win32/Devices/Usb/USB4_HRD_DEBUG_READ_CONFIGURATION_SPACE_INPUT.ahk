@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USB4_HRD_DEBUG_ROUTE_STRING.ahk" { USB4_HRD_DEBUG_ROUTE_STRING }
 #Import ".\USB4_CONFIG_SPACE_TYPE.ahk" { USB4_CONFIG_SPACE_TYPE }
+#Import ".\USB4_HRD_DEBUG_ROUTE_STRING.ahk" { USB4_HRD_DEBUG_ROUTE_STRING }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\pluginResource.ahk" { pluginResource }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\pluginResource.ahk" { pluginResource }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes properties and methods that provide information about resources available to users of RemoteApp and Desktop Connections.
@@ -104,7 +104,7 @@ export default struct ItsPubPlugin extends IUnknown {
         alias := alias is String ? StrPtr(alias) : alias
 
         resource := pluginResource()
-        result := ComCall(4, this, "ptr", alias, "int", flags, pluginResource.Ptr, resource, "HRESULT")
+        result := ComCall(4, this, "ptr", alias, Int32, flags, pluginResource.Ptr, resource, "HRESULT")
         return resource
     }
 

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAnimationVariableChangeHandler2.ahk" { IUIAnimationVariableChangeHandler2 }
-#Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
-#Import ".\IUIAnimationVariableCurveChangeHandler2.ahk" { IUIAnimationVariableCurveChangeHandler2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\UI_ANIMATION_ROUNDING_MODE.ahk" { UI_ANIMATION_ROUNDING_MODE }
+#Import ".\IUIAnimationVariableChangeHandler2.ahk" { IUIAnimationVariableChangeHandler2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
+#Import "..\..\Graphics\DirectComposition\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import ".\IUIAnimationVariableIntegerChangeHandler2.ahk" { IUIAnimationVariableIntegerChangeHandler2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Graphics\DirectComposition\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IUIAnimationVariableCurveChangeHandler2.ahk" { IUIAnimationVariableCurveChangeHandler2 }
 
 /**
  * Defines an animation variable, which represents a visual element that can be animated in multiple dimensions.
@@ -96,7 +96,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvectorvalue
      */
     GetVectorValue(cDimension) {
-        result := ComCall(5, this, "double*", &value := 0, "uint", cDimension, "HRESULT")
+        result := ComCall(5, this, "double*", &value := 0, UInt32, cDimension, "HRESULT")
         return value
     }
 
@@ -123,7 +123,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvectorcurve
      */
     GetVectorCurve(animation, cDimension) {
-        result := ComCall(7, this, IDCompositionAnimation.Ptr, animation, "uint", cDimension, "HRESULT")
+        result := ComCall(7, this, IDCompositionAnimation.Ptr, animation, UInt32, cDimension, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalvectorvalue
      */
     GetFinalVectorValue(cDimension) {
-        result := ComCall(9, this, "double*", &finalValue := 0, "uint", cDimension, "HRESULT")
+        result := ComCall(9, this, "double*", &finalValue := 0, UInt32, cDimension, "HRESULT")
         return finalValue
     }
 
@@ -165,7 +165,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousvectorvalue
      */
     GetPreviousVectorValue(cDimension) {
-        result := ComCall(11, this, "double*", &previousValue := 0, "uint", cDimension, "HRESULT")
+        result := ComCall(11, this, "double*", &previousValue := 0, UInt32, cDimension, "HRESULT")
         return previousValue
     }
 
@@ -186,7 +186,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getintegervectorvalue
      */
     GetIntegerVectorValue(cDimension) {
-        result := ComCall(13, this, "int*", &value := 0, "uint", cDimension, "HRESULT")
+        result := ComCall(13, this, "int*", &value := 0, UInt32, cDimension, "HRESULT")
         return value
     }
 
@@ -207,7 +207,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalintegervectorvalue
      */
     GetFinalIntegerVectorValue(cDimension) {
-        result := ComCall(15, this, "int*", &finalValue := 0, "uint", cDimension, "HRESULT")
+        result := ComCall(15, this, "int*", &finalValue := 0, UInt32, cDimension, "HRESULT")
         return finalValue
     }
 
@@ -228,7 +228,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousintegervectorvalue
      */
     GetPreviousIntegerVectorValue(cDimension) {
-        result := ComCall(17, this, "int*", &previousValue := 0, "uint", cDimension, "HRESULT")
+        result := ComCall(17, this, "int*", &previousValue := 0, UInt32, cDimension, "HRESULT")
         return previousValue
     }
 
@@ -249,7 +249,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setlowerbound
      */
     SetLowerBound(bound) {
-        result := ComCall(19, this, "double", bound, "HRESULT")
+        result := ComCall(19, this, Float64, bound, "HRESULT")
         return result
     }
 
@@ -263,7 +263,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
     SetLowerBoundVector(bound, cDimension) {
         boundMarshal := bound is VarRef ? "double*" : "ptr"
 
-        result := ComCall(20, this, boundMarshal, bound, "uint", cDimension, "HRESULT")
+        result := ComCall(20, this, boundMarshal, bound, UInt32, cDimension, "HRESULT")
         return result
     }
 
@@ -274,7 +274,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setupperbound
      */
     SetUpperBound(bound) {
-        result := ComCall(21, this, "double", bound, "HRESULT")
+        result := ComCall(21, this, Float64, bound, "HRESULT")
         return result
     }
 
@@ -288,7 +288,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
     SetUpperBoundVector(bound, cDimension) {
         boundMarshal := bound is VarRef ? "double*" : "ptr"
 
-        result := ComCall(22, this, boundMarshal, bound, "uint", cDimension, "HRESULT")
+        result := ComCall(22, this, boundMarshal, bound, UInt32, cDimension, "HRESULT")
         return result
     }
 
@@ -317,7 +317,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-settag
      */
     SetTag(_object, id) {
-        result := ComCall(24, this, "ptr", _object, "uint", id, "HRESULT")
+        result := ComCall(24, this, "ptr", _object, UInt32, id, "HRESULT")
         return result
     }
 

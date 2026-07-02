@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_VERSIONED_ROOT_SIGNATURE_DESC.ahk" { D3D12_VERSIONED_ROOT_SIGNATURE_DESC }
 #Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
-#Import ".\D3D_ROOT_SIGNATURE_VERSION.ahk" { D3D_ROOT_SIGNATURE_VERSION }
-#Import ".\D3D12_ROOT_SIGNATURE_DESC.ahk" { D3D12_ROOT_SIGNATURE_DESC }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import ".\D3D12_ROOT_SIGNATURE_DESC.ahk" { D3D12_ROOT_SIGNATURE_DESC }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D_ROOT_SIGNATURE_VERSION.ahk" { D3D_ROOT_SIGNATURE_VERSION }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -78,7 +78,7 @@ export D3D12SerializeRootSignature(pRootSignature, _Version, ppBlob, ppErrorBlob
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12createrootsignaturedeserializer
  */
 export D3D12CreateRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface) {
-    result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, Guid.Ptr, pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "HRESULT")
+    result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", IntPtr, pSrcData, IntPtr, SrcDataSizeInBytes, Guid.Ptr, pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "HRESULT")
     return ppRootSignatureDeserializer
 }
 
@@ -147,7 +147,7 @@ export D3D12SerializeVersionedRootSignature(pRootSignature, ppBlob, ppErrorBlob)
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer
  */
 export D3D12CreateVersionedRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface) {
-    result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, Guid.Ptr, pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "HRESULT")
+    result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", IntPtr, pSrcData, IntPtr, SrcDataSizeInBytes, Guid.Ptr, pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "HRESULT")
     return ppRootSignatureDeserializer
 }
 
@@ -279,7 +279,7 @@ export D3D12EnableExperimentalFeatures(NumFeatures, pIIDs, pConfigurationStructs
     pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : "ptr"
     pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("d3d12.dll\D3D12EnableExperimentalFeatures", "uint", NumFeatures, Guid.Ptr, pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
+    result := DllCall("d3d12.dll\D3D12EnableExperimentalFeatures", UInt32, NumFeatures, Guid.Ptr, pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
     return result
 }
 

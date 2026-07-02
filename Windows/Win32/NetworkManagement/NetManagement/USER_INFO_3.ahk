@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\USER_PRIV.ahk" { USER_PRIV }
-#Import ".\AF_OP.ahk" { AF_OP }
 #Import ".\USER_ACCOUNT_FLAGS.ahk" { USER_ACCOUNT_FLAGS }
+#Import ".\AF_OP.ahk" { AF_OP }
+#Import ".\USER_PRIV.ahk" { USER_PRIV }
 
 /**
  * The USER_INFO_3 structure contains information about a user account, including the account name, password data, privilege level, the path to the user's home directory, relative identifiers (RIDs), and other user-related network statistics.

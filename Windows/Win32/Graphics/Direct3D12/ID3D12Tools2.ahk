@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID3D12Tools1.ahk" { ID3D12Tools1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

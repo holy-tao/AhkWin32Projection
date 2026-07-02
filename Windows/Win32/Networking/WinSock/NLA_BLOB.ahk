@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NLA_CONNECTIVITY_TYPE.ahk" { NLA_CONNECTIVITY_TYPE }
 #Import ".\NLA_INTERNET.ahk" { NLA_INTERNET }
+#Import ".\NLA_CONNECTIVITY_TYPE.ahk" { NLA_CONNECTIVITY_TYPE }
 #Import ".\NLA_BLOB_DATA_TYPE.ahk" { NLA_BLOB_DATA_TYPE }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }

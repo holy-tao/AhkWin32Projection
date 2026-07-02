@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IComStaThreadPoolKnobs.ahk" { IComStaThreadPoolKnobs }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
@@ -60,7 +60,7 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
      * @returns {HRESULT} 
      */
     SetMaxCPULoad(pdwLoad) {
-        result := ComCall(15, this, "int", pdwLoad, "HRESULT")
+        result := ComCall(15, this, Int32, pdwLoad, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
      * @returns {HRESULT} 
      */
     SetMaxCSR(dwCSR) {
-        result := ComCall(21, this, "int", dwCSR, "HRESULT")
+        result := ComCall(21, this, Int32, dwCSR, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
      * @returns {HRESULT} 
      */
     SetWaitTimeForThreadCleanup(dwThreadCleanupWaitTime) {
-        result := ComCall(23, this, "int", dwThreadCleanupWaitTime, "HRESULT")
+        result := ComCall(23, this, Int32, dwThreadCleanupWaitTime, "HRESULT")
         return result
     }
 

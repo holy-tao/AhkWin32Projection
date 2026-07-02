@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_NF_PORT.ahk" { VDS_NF_PORT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_NF_PORT.ahk" { VDS_NF_PORT }
 
 /**
  * The VDS_PORT_NOTIFICATION structure (vdshwprv.h) defines the details of controller port events.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IInkDivisionResult.ahk" { IInkDivisionResult }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IInkRecognizerContext.ahk" { IInkRecognizerContext }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInkDivisionResult.ahk" { IInkDivisionResult }
 #Import ".\IInkStrokes.ahk" { IInkStrokes }
 
 /**
@@ -183,7 +183,7 @@ export default struct IInkDivider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivider-put_lineheight
      */
     put_LineHeight(LineHeight) {
-        result := ComCall(12, this, "int", LineHeight, "HRESULT")
+        result := ComCall(12, this, Int32, LineHeight, "HRESULT")
         return result
     }
 

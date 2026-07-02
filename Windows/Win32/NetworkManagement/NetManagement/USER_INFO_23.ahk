@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Security\PSID.ahk" { PSID }
 #Import ".\USER_ACCOUNT_FLAGS.ahk" { USER_ACCOUNT_FLAGS }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * Contains information about a user account, including the account name, the user's full name, a comment associated with the account, and the user's security identifier (SID).

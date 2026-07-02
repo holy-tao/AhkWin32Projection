@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IUPnPDevices.ahk" { IUPnPDevices }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IUPnPDevice.ahk" { IUPnPDevice }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUPnPDevice.ahk" { IUPnPDevice }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUPnPDeviceFinder interface enables an application to find a device.
@@ -64,7 +64,7 @@ export default struct IUPnPDeviceFinder extends IDispatch {
     FindByType(bstrTypeURI, dwFlags) {
         bstrTypeURI := bstrTypeURI is String ? BSTR.Alloc(bstrTypeURI).Value : bstrTypeURI
 
-        result := ComCall(7, this, BSTR, bstrTypeURI, "uint", dwFlags, "ptr*", &pDevices := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrTypeURI, UInt32, dwFlags, "ptr*", &pDevices := 0, "HRESULT")
         return IUPnPDevices(pDevices)
     }
 
@@ -105,7 +105,7 @@ export default struct IUPnPDeviceFinder extends IDispatch {
     CreateAsyncFind(bstrTypeURI, dwFlags, punkDeviceFinderCallback) {
         bstrTypeURI := bstrTypeURI is String ? BSTR.Alloc(bstrTypeURI).Value : bstrTypeURI
 
-        result := ComCall(8, this, BSTR, bstrTypeURI, "uint", dwFlags, "ptr", punkDeviceFinderCallback, "int*", &plFindData := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrTypeURI, UInt32, dwFlags, "ptr", punkDeviceFinderCallback, "int*", &plFindData := 0, "HRESULT")
         return plFindData
     }
 
@@ -122,7 +122,7 @@ export default struct IUPnPDeviceFinder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefinder-startasyncfind
      */
     StartAsyncFind(lFindData) {
-        result := ComCall(9, this, "int", lFindData, "HRESULT")
+        result := ComCall(9, this, Int32, lFindData, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IUPnPDeviceFinder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefinder-cancelasyncfind
      */
     CancelAsyncFind(lFindData) {
-        result := ComCall(10, this, "int", lFindData, "HRESULT")
+        result := ComCall(10, this, Int32, lFindData, "HRESULT")
         return result
     }
 

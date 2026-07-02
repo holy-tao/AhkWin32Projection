@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\..\Graphics\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
 #Import ".\IPdfRendererNative.ahk" { IPdfRendererNative }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Graphics\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Pdf

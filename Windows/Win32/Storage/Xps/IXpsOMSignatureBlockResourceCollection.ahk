@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IXpsOMSignatureBlockResource.ahk" { IXpsOMSignatureBlockResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A collection of IXpsOMSignatureBlockResource interface pointers.
@@ -68,7 +68,7 @@ export default struct IXpsOMSignatureBlockResourceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresourcecollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &signatureBlockResource := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &signatureBlockResource := 0, "HRESULT")
         return IXpsOMSignatureBlockResource(signatureBlockResource)
     }
 
@@ -84,7 +84,7 @@ export default struct IXpsOMSignatureBlockResourceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresourcecollection-insertat
      */
     InsertAt(index, signatureBlockResource) {
-        result := ComCall(5, this, "uint", index, "ptr", signatureBlockResource, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr", signatureBlockResource, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IXpsOMSignatureBlockResourceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresourcecollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(6, this, "uint", index, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IXpsOMSignatureBlockResourceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsignatureblockresourcecollection-setat
      */
     SetAt(index, signatureBlockResource) {
-        result := ComCall(7, this, "uint", index, "ptr", signatureBlockResource, "HRESULT")
+        result := ComCall(7, this, UInt32, index, "ptr", signatureBlockResource, "HRESULT")
         return result
     }
 

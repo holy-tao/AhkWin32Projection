@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
-#Import ".\ONEX_AUTH_IDENTITY.ahk" { ONEX_AUTH_IDENTITY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ONEX_AUTH_IDENTITY.ahk" { ONEX_AUTH_IDENTITY }
+#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
 
 /**
  * Contains 802.1X authentication parameters used for 802.1X authentication.

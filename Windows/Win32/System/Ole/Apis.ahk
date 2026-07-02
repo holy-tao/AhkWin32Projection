@@ -1,108 +1,109 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\UI\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
-#Import ".\IOleObject.ahk" { IOleObject }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import ".\OLEUIBUSYA.ahk" { OLEUIBUSYA as OLEUIBUSYA_struct }
-#Import ".\IRecordInfo.ahk" { IRecordInfo }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\VARFORMAT_PARENTHESES.ahk" { VARFORMAT_PARENTHESES }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\Com\FORMATETC.ahk" { FORMATETC }
-#Import ".\ACTIVEOBJECT_FLAGS.ahk" { ACTIVEOBJECT_FLAGS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\OLEUIINSERTOBJECTW.ahk" { OLEUIINSERTOBJECTW as OLEUIINSERTOBJECTW_struct }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OLEUICHANGEICONW.ahk" { OLEUICHANGEICONW as OLEUICHANGEICONW_struct }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\CLIPBOARD_FORMAT.ahk" { CLIPBOARD_FORMAT }
-#Import ".\OLEUIEDITLINKSA.ahk" { OLEUIEDITLINKSA as OLEUIEDITLINKSA_struct }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import ".\OLEUIOBJECTPROPSA.ahk" { OLEUIOBJECTPROPSA }
-#Import ".\INTERFACEDATA.ahk" { INTERFACEDATA }
-#Import ".\IOleUILinkContainerA.ahk" { IOleUILinkContainerA }
-#Import ".\OLEUICHANGEICONA.ahk" { OLEUICHANGEICONA as OLEUICHANGEICONA_struct }
-#Import "..\Com\EXCEPINFO.ahk" { EXCEPINFO }
-#Import ".\VARCMP.ahk" { VARCMP as VARCMP_enum }
-#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
-#Import ".\DROPEFFECT.ahk" { DROPEFFECT }
-#Import ".\LOAD_PICTURE_FLAGS.ahk" { LOAD_PICTURE_FLAGS }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\NUMPARSE.ahk" { NUMPARSE }
-#Import ".\IDropTarget.ahk" { IDropTarget }
-#Import ".\IOleClientSite.ahk" { IOleClientSite }
-#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
-#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import ".\ICreateTypeLib2.ahk" { ICreateTypeLib2 }
-#Import ".\ICreateTypeLib.ahk" { ICreateTypeLib }
-#Import ".\OLEUIINSERTOBJECTA.ahk" { OLEUIINSERTOBJECTA as OLEUIINSERTOBJECTA_struct }
-#Import ".\IOleInPlaceActiveObject.ahk" { IOleInPlaceActiveObject }
-#Import ".\IOleAdviseHolder.ahk" { IOleAdviseHolder }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\VARFORMAT_LEADING_DIGIT.ahk" { VARFORMAT_LEADING_DIGIT }
 #Import ".\FONTDESC.ahk" { FONTDESC }
-#Import ".\REGKIND.ahk" { REGKIND }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\SYSKIND.ahk" { SYSKIND }
-#Import "..\Com\StructuredStorage\IPersistStorage.ahk" { IPersistStorage }
-#Import "..\Com\IPersistStream.ahk" { IPersistStream }
-#Import "..\Com\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
-#Import "..\Com\CY.ahk" { CY }
-#Import ".\OLEUIPASTESPECIALA.ahk" { OLEUIPASTESPECIALA as OLEUIPASTESPECIALA_struct }
-#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
-#Import ".\OLEUIBUSYW.ahk" { OLEUIBUSYW as OLEUIBUSYW_struct }
-#Import ".\OCPFIPARAMS.ahk" { OCPFIPARAMS }
-#Import ".\ICreateErrorInfo.ahk" { ICreateErrorInfo }
-#Import "..\Com\ITypeLib.ahk" { ITypeLib }
-#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
-#Import ".\VARFORMAT_FIRST_DAY.ahk" { VARFORMAT_FIRST_DAY }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import ".\EMBDHLP_FLAGS.ahk" { EMBDHLP_FLAGS }
-#Import "..\Com\IClassFactory.ahk" { IClassFactory }
-#Import ".\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
-#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
-#Import ".\VARFORMAT_GROUP.ahk" { VARFORMAT_GROUP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import ".\OLEUICHANGESOURCEA.ahk" { OLEUICHANGESOURCEA as OLEUICHANGESOURCEA_struct }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Memory\GLOBAL_ALLOC_FLAGS.ahk" { GLOBAL_ALLOC_FLAGS }
-#Import "..\..\UI\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\OLEUICHANGESOURCEW.ahk" { OLEUICHANGESOURCEW as OLEUICHANGESOURCEW_struct }
-#Import ".\OLEUICONVERTA.ahk" { OLEUICONVERTA as OLEUICONVERTA_struct }
-#Import ".\IDropSource.ahk" { IDropSource }
-#Import ".\OLEUIEDITLINKSW.ahk" { OLEUIEDITLINKSW as OLEUIEDITLINKSW_struct }
-#Import "..\Com\IEnumFORMATETC.ahk" { IEnumFORMATETC }
-#Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
-#Import "..\Com\StructuredStorage\IStorage.ahk" { IStorage }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\VARFORMAT_NAMED_FORMAT.ahk" { VARFORMAT_NAMED_FORMAT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\OLEUIOBJECTPROPSW.ahk" { OLEUIOBJECTPROPSW }
-#Import ".\VARFORMAT_FIRST_WEEK.ahk" { VARFORMAT_FIRST_WEEK }
-#Import ".\OLEUIPASTESPECIALW.ahk" { OLEUIPASTESPECIALW as OLEUIPASTESPECIALW_struct }
-#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import ".\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
-#Import ".\OLECREATE.ahk" { OLECREATE as OLECREATE_enum }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\Com\CUSTDATA.ahk" { CUSTDATA }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\Com\IMoniker.ahk" { IMoniker }
-#Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
-#Import "..\Com\StructuredStorage\OLESTREAM.ahk" { OLESTREAM }
-#Import ".\IEnumOLEVERB.ahk" { IEnumOLEVERB }
 #Import "..\Com\CALLCONV.ahk" { CALLCONV }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\PICTDESC.ahk" { PICTDESC }
-#Import "..\Variant\VARENUM.ahk" { VARENUM }
-#Import ".\UDATE.ahk" { UDATE }
+#Import "..\Com\StructuredStorage\OLESTREAM.ahk" { OLESTREAM }
+#Import "..\Com\StructuredStorage\IPersistStorage.ahk" { IPersistStorage }
 #Import ".\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
+#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import "..\..\UI\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
+#Import ".\OLEUIOBJECTPROPSW.ahk" { OLEUIOBJECTPROPSW }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import ".\IRecordInfo.ahk" { IRecordInfo }
+#Import ".\OLEUIPASTESPECIALW.ahk" { OLEUIPASTESPECIALW as OLEUIPASTESPECIALW_struct }
+#Import "..\Com\IClassFactory.ahk" { IClassFactory }
+#Import ".\INTERFACEDATA.ahk" { INTERFACEDATA }
+#Import ".\OLEUIBUSYW.ahk" { OLEUIBUSYW as OLEUIBUSYW_struct }
+#Import "..\Com\ITypeLib.ahk" { ITypeLib }
+#Import ".\OLEUIINSERTOBJECTW.ahk" { OLEUIINSERTOBJECTW as OLEUIINSERTOBJECTW_struct }
+#Import ".\VARFORMAT_LEADING_DIGIT.ahk" { VARFORMAT_LEADING_DIGIT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\OLEUIEDITLINKSA.ahk" { OLEUIEDITLINKSA as OLEUIEDITLINKSA_struct }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\UDATE.ahk" { UDATE }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\PICTDESC.ahk" { PICTDESC }
+#Import ".\VARFORMAT_NAMED_FORMAT.ahk" { VARFORMAT_NAMED_FORMAT }
+#Import ".\NUMPARSE.ahk" { NUMPARSE }
+#Import ".\IOleClientSite.ahk" { IOleClientSite }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IEnumFORMATETC.ahk" { IEnumFORMATETC }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import ".\OLEUIOBJECTPROPSA.ahk" { OLEUIOBJECTPROPSA }
+#Import ".\ICreateTypeLib.ahk" { ICreateTypeLib }
+#Import ".\CLIPBOARD_FORMAT.ahk" { CLIPBOARD_FORMAT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\VARFORMAT_PARENTHESES.ahk" { VARFORMAT_PARENTHESES }
+#Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import ".\ACTIVEOBJECT_FLAGS.ahk" { ACTIVEOBJECT_FLAGS }
+#Import "..\Com\IPersistStream.ahk" { IPersistStream }
+#Import "..\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\Com\EXCEPINFO.ahk" { EXCEPINFO }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IDropSource.ahk" { IDropSource }
+#Import ".\OLEUICONVERTA.ahk" { OLEUICONVERTA as OLEUICONVERTA_struct }
+#Import "..\Com\SYSKIND.ahk" { SYSKIND }
+#Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
+#Import ".\OLEUIINSERTOBJECTA.ahk" { OLEUIINSERTOBJECTA as OLEUIINSERTOBJECTA_struct }
+#Import ".\IOleObject.ahk" { IOleObject }
+#Import ".\OLECREATE.ahk" { OLECREATE as OLECREATE_enum }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\Com\CUSTDATA.ahk" { CUSTDATA }
+#Import ".\EMBDHLP_FLAGS.ahk" { EMBDHLP_FLAGS }
+#Import ".\OLEUIPASTESPECIALA.ahk" { OLEUIPASTESPECIALA as OLEUIPASTESPECIALA_struct }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\Memory\GLOBAL_ALLOC_FLAGS.ahk" { GLOBAL_ALLOC_FLAGS }
+#Import ".\IDropTarget.ahk" { IDropTarget }
+#Import ".\OLESTREAMQUERYCONVERTOLELINKCALLBACK.ahk" { OLESTREAMQUERYCONVERTOLELINKCALLBACK }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
+#Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\LOAD_PICTURE_FLAGS.ahk" { LOAD_PICTURE_FLAGS }
+#Import ".\OLEUIEDITLINKSW.ahk" { OLEUIEDITLINKSW as OLEUIEDITLINKSW_struct }
+#Import ".\IOleInPlaceActiveObject.ahk" { IOleInPlaceActiveObject }
+#Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\Com\FORMATETC.ahk" { FORMATETC }
+#Import ".\OCPFIPARAMS.ahk" { OCPFIPARAMS }
 #Import ".\OLEUICONVERTW.ahk" { OLEUICONVERTW as OLEUICONVERTW_struct }
+#Import ".\OLEMENUGROUPWIDTHS.ahk" { OLEMENUGROUPWIDTHS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\CY.ahk" { CY }
+#Import ".\VARCMP.ahk" { VARCMP as VARCMP_enum }
+#Import ".\OLEUICHANGESOURCEA.ahk" { OLEUICHANGESOURCEA as OLEUICHANGESOURCEA_struct }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DROPEFFECT.ahk" { DROPEFFECT }
+#Import ".\OLEUICHANGESOURCEW.ahk" { OLEUICHANGESOURCEW as OLEUICHANGESOURCEW_struct }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\VARFORMAT_GROUP.ahk" { VARFORMAT_GROUP }
+#Import ".\IEnumOLEVERB.ahk" { IEnumOLEVERB }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
+#Import ".\ICreateErrorInfo.ahk" { ICreateErrorInfo }
+#Import ".\VARFORMAT_FIRST_WEEK.ahk" { VARFORMAT_FIRST_WEEK }
+#Import ".\IOleUILinkContainerA.ahk" { IOleUILinkContainerA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
+#Import ".\REGKIND.ahk" { REGKIND }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import ".\OLEUICHANGEICONA.ahk" { OLEUICHANGEICONA as OLEUICHANGEICONA_struct }
+#Import ".\ICreateTypeLib2.ahk" { ICreateTypeLib2 }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import ".\IOleAdviseHolder.ahk" { IOleAdviseHolder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VARFORMAT_FIRST_DAY.ahk" { VARFORMAT_FIRST_DAY }
+#Import ".\OLEUICHANGEICONW.ahk" { OLEUICHANGEICONW as OLEUICHANGEICONW_struct }
+#Import ".\OLEUIBUSYA.ahk" { OLEUIBUSYA as OLEUIBUSYA_struct }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -118,7 +119,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearrayallocdescriptor
  */
 export SafeArrayAllocDescriptor(cDims) {
-    result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptor", "uint", cDims, "ptr*", &ppsaOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptor", UInt32, cDims, "ptr*", &ppsaOut := 0, "HRESULT")
     return ppsaOut
 }
 
@@ -132,7 +133,7 @@ export SafeArrayAllocDescriptor(cDims) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearrayallocdescriptorex
  */
 export SafeArrayAllocDescriptorEx(vt, cDims) {
-    result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptorEx", VARENUM, vt, "uint", cDims, "ptr*", &ppsaOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptorEx", VARENUM, vt, UInt32, cDims, "ptr*", &ppsaOut := 0, "HRESULT")
     return ppsaOut
 }
 
@@ -196,7 +197,7 @@ export SafeArrayAllocData(psa) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraycreate
  */
 export SafeArrayCreate(vt, cDims, rgsabound) {
-    result := DllCall("OLEAUT32.dll\SafeArrayCreate", VARENUM, vt, "uint", cDims, SAFEARRAYBOUND.Ptr, rgsabound, SAFEARRAY.Ptr)
+    result := DllCall("OLEAUT32.dll\SafeArrayCreate", VARENUM, vt, UInt32, cDims, SAFEARRAYBOUND.Ptr, rgsabound, SAFEARRAY.Ptr)
     return result
 }
 
@@ -214,7 +215,7 @@ export SafeArrayCreate(vt, cDims, rgsabound) {
 export SafeArrayCreateEx(vt, cDims, rgsabound, pvExtra) {
     pvExtraMarshal := pvExtra is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("OLEAUT32.dll\SafeArrayCreateEx", VARENUM, vt, "uint", cDims, SAFEARRAYBOUND.Ptr, rgsabound, pvExtraMarshal, pvExtra, SAFEARRAY.Ptr)
+    result := DllCall("OLEAUT32.dll\SafeArrayCreateEx", VARENUM, vt, UInt32, cDims, SAFEARRAYBOUND.Ptr, rgsabound, pvExtraMarshal, pvExtra, SAFEARRAY.Ptr)
     return result
 }
 
@@ -562,7 +563,7 @@ export SafeArrayGetElemsize(psa) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetubound
  */
 export SafeArrayGetUBound(psa, nDim) {
-    result := DllCall("OLEAUT32.dll\SafeArrayGetUBound", SAFEARRAY.Ptr, psa, "uint", nDim, "int*", &plUbound := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\SafeArrayGetUBound", SAFEARRAY.Ptr, psa, UInt32, nDim, "int*", &plUbound := 0, "HRESULT")
     return plUbound
 }
 
@@ -574,7 +575,7 @@ export SafeArrayGetUBound(psa, nDim) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetlbound
  */
 export SafeArrayGetLBound(psa, nDim) {
-    result := DllCall("OLEAUT32.dll\SafeArrayGetLBound", SAFEARRAY.Ptr, psa, "uint", nDim, "int*", &plLbound := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\SafeArrayGetLBound", SAFEARRAY.Ptr, psa, UInt32, nDim, "int*", &plLbound := 0, "HRESULT")
     return plLbound
 }
 
@@ -1026,7 +1027,7 @@ export SafeArrayGetVartype(psa) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraycreatevector
  */
 export SafeArrayCreateVector(vt, lLbound, cElements) {
-    result := DllCall("OLEAUT32.dll\SafeArrayCreateVector", VARENUM, vt, "int", lLbound, "uint", cElements, SAFEARRAY.Ptr)
+    result := DllCall("OLEAUT32.dll\SafeArrayCreateVector", VARENUM, vt, Int32, lLbound, UInt32, cElements, SAFEARRAY.Ptr)
     return result
 }
 
@@ -1042,7 +1043,7 @@ export SafeArrayCreateVector(vt, lLbound, cElements) {
 export SafeArrayCreateVectorEx(vt, lLbound, cElements, pvExtra) {
     pvExtraMarshal := pvExtra is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("OLEAUT32.dll\SafeArrayCreateVectorEx", VARENUM, vt, "int", lLbound, "uint", cElements, pvExtraMarshal, pvExtra, SAFEARRAY.Ptr)
+    result := DllCall("OLEAUT32.dll\SafeArrayCreateVectorEx", VARENUM, vt, Int32, lLbound, UInt32, cElements, pvExtraMarshal, pvExtra, SAFEARRAY.Ptr)
     return result
 }
 
@@ -1076,7 +1077,7 @@ export BstrFromVector(psa) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromi2
  */
 export VarUI1FromI2(sIn) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromI2", "short", sIn, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromI2", Int16, sIn, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1087,7 +1088,7 @@ export VarUI1FromI2(sIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromi4
  */
 export VarUI1FromI4(lIn) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromI4", "int", lIn, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromI4", Int32, lIn, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1098,7 +1099,7 @@ export VarUI1FromI4(lIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromi8
  */
 export VarUI1FromI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromI8", "int64", i64In, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromI8", Int64, i64In, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1109,7 +1110,7 @@ export VarUI1FromI8(i64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromr4
  */
 export VarUI1FromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromR4", "float", fltIn, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromR4", Float32, fltIn, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1120,7 +1121,7 @@ export VarUI1FromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromr8
  */
 export VarUI1FromR8(dblIn) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromR8", "double", dblIn, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromR8", Float64, dblIn, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1142,7 +1143,7 @@ export VarUI1FromCy(cyIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromdate
  */
 export VarUI1FromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromDate", "double", dateIn, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromDate", Float64, dateIn, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1174,7 +1175,7 @@ export VarUI1FromDate(dateIn) {
 export VarUI1FromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1186,7 +1187,7 @@ export VarUI1FromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromdisp
  */
 export VarUI1FromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromDisp", "ptr", pdispIn, "uint", lcid, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromDisp", "ptr", pdispIn, UInt32, lcid, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1219,7 +1220,7 @@ export VarUI1FromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromui2
  */
 export VarUI1FromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromUI2", "ushort", uiIn, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromUI2", UInt16, uiIn, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1230,7 +1231,7 @@ export VarUI1FromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromui4
  */
 export VarUI1FromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromUI4", "uint", ulIn, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromUI4", UInt32, ulIn, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1241,7 +1242,7 @@ export VarUI1FromUI4(ulIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromui8
  */
 export VarUI1FromUI8(ui64In) {
-    result := DllCall("OLEAUT32.dll\VarUI1FromUI8", "uint", ui64In, "char*", &pbOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI1FromUI8", Int64, ui64In, "char*", &pbOut := 0, "HRESULT")
     return pbOut
 }
 
@@ -1263,7 +1264,7 @@ export VarUI1FromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromui1
  */
 export VarI2FromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarI2FromUI1", "char", bIn, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromUI1", Int8, bIn, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1274,7 +1275,7 @@ export VarI2FromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromi4
  */
 export VarI2FromI4(lIn) {
-    result := DllCall("OLEAUT32.dll\VarI2FromI4", "int", lIn, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromI4", Int32, lIn, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1285,7 +1286,7 @@ export VarI2FromI4(lIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromi8
  */
 export VarI2FromI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarI2FromI8", "int64", i64In, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromI8", Int64, i64In, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1296,7 +1297,7 @@ export VarI2FromI8(i64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromr4
  */
 export VarI2FromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarI2FromR4", "float", fltIn, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromR4", Float32, fltIn, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1307,7 +1308,7 @@ export VarI2FromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromr8
  */
 export VarI2FromR8(dblIn) {
-    result := DllCall("OLEAUT32.dll\VarI2FromR8", "double", dblIn, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromR8", Float64, dblIn, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1407,7 +1408,7 @@ export VarI2FromCy(cyIn, psOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromdate
  */
 export VarI2FromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarI2FromDate", "double", dateIn, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromDate", Float64, dateIn, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1459,7 +1460,7 @@ export VarI2FromDate(dateIn) {
 export VarI2FromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1471,7 +1472,7 @@ export VarI2FromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromdisp
  */
 export VarI2FromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarI2FromDisp", "ptr", pdispIn, "uint", lcid, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromDisp", "ptr", pdispIn, UInt32, lcid, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1504,7 +1505,7 @@ export VarI2FromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromui2
  */
 export VarI2FromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarI2FromUI2", "ushort", uiIn, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromUI2", UInt16, uiIn, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1515,7 +1516,7 @@ export VarI2FromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromui4
  */
 export VarI2FromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarI2FromUI4", "uint", ulIn, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromUI4", UInt32, ulIn, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1526,7 +1527,7 @@ export VarI2FromUI4(ulIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromui8
  */
 export VarI2FromUI8(ui64In) {
-    result := DllCall("OLEAUT32.dll\VarI2FromUI8", "uint", ui64In, "short*", &psOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI2FromUI8", Int64, ui64In, "short*", &psOut := 0, "HRESULT")
     return psOut
 }
 
@@ -1548,7 +1549,7 @@ export VarI2FromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromui1
  */
 export VarI4FromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarI4FromUI1", "char", bIn, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromUI1", Int8, bIn, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1559,7 +1560,7 @@ export VarI4FromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromi2
  */
 export VarI4FromI2(sIn) {
-    result := DllCall("OLEAUT32.dll\VarI4FromI2", "short", sIn, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromI2", Int16, sIn, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1570,7 +1571,7 @@ export VarI4FromI2(sIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromi8
  */
 export VarI4FromI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarI4FromI8", "int64", i64In, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromI8", Int64, i64In, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1581,7 +1582,7 @@ export VarI4FromI8(i64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromr4
  */
 export VarI4FromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarI4FromR4", "float", fltIn, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromR4", Float32, fltIn, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1592,7 +1593,7 @@ export VarI4FromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromr8
  */
 export VarI4FromR8(dblIn) {
-    result := DllCall("OLEAUT32.dll\VarI4FromR8", "double", dblIn, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromR8", Float64, dblIn, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1614,7 +1615,7 @@ export VarI4FromCy(cyIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromdate
  */
 export VarI4FromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarI4FromDate", "double", dateIn, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromDate", Float64, dateIn, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1666,7 +1667,7 @@ export VarI4FromDate(dateIn) {
 export VarI4FromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1678,7 +1679,7 @@ export VarI4FromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromdisp
  */
 export VarI4FromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarI4FromDisp", "ptr", pdispIn, "uint", lcid, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromDisp", "ptr", pdispIn, UInt32, lcid, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1711,7 +1712,7 @@ export VarI4FromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromui2
  */
 export VarI4FromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarI4FromUI2", "ushort", uiIn, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromUI2", UInt16, uiIn, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1722,7 +1723,7 @@ export VarI4FromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromui4
  */
 export VarI4FromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarI4FromUI4", "uint", ulIn, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromUI4", UInt32, ulIn, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1733,7 +1734,7 @@ export VarI4FromUI4(ulIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromui8
  */
 export VarI4FromUI8(ui64In) {
-    result := DllCall("OLEAUT32.dll\VarI4FromUI8", "uint", ui64In, "int*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI4FromUI8", Int64, ui64In, "int*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -1755,7 +1756,7 @@ export VarI4FromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromui1
  */
 export VarI8FromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarI8FromUI1", "char", bIn, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromUI1", Int8, bIn, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1766,7 +1767,7 @@ export VarI8FromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromi2
  */
 export VarI8FromI2(sIn) {
-    result := DllCall("OLEAUT32.dll\VarI8FromI2", "short", sIn, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromI2", Int16, sIn, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1777,7 +1778,7 @@ export VarI8FromI2(sIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromr4
  */
 export VarI8FromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarI8FromR4", "float", fltIn, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromR4", Float32, fltIn, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1788,7 +1789,7 @@ export VarI8FromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromr8
  */
 export VarI8FromR8(dblIn) {
-    result := DllCall("OLEAUT32.dll\VarI8FromR8", "double", dblIn, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromR8", Float64, dblIn, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1810,7 +1811,7 @@ export VarI8FromCy(cyIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromdate
  */
 export VarI8FromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarI8FromDate", "double", dateIn, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromDate", Float64, dateIn, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1842,7 +1843,7 @@ export VarI8FromDate(dateIn) {
 export VarI8FromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1854,7 +1855,7 @@ export VarI8FromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromdisp
  */
 export VarI8FromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarI8FromDisp", "ptr", pdispIn, "uint", lcid, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromDisp", "ptr", pdispIn, UInt32, lcid, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1887,7 +1888,7 @@ export VarI8FromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromui2
  */
 export VarI8FromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarI8FromUI2", "ushort", uiIn, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromUI2", UInt16, uiIn, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1898,7 +1899,7 @@ export VarI8FromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromui4
  */
 export VarI8FromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarI8FromUI4", "uint", ulIn, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromUI4", UInt32, ulIn, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1909,7 +1910,7 @@ export VarI8FromUI4(ulIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromui8
  */
 export VarI8FromUI8(ui64In) {
-    result := DllCall("OLEAUT32.dll\VarI8FromUI8", "uint", ui64In, "int64*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI8FromUI8", Int64, ui64In, "int64*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -1931,7 +1932,7 @@ export VarI8FromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromui1
  */
 export VarR4FromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarR4FromUI1", "char", bIn, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromUI1", Int8, bIn, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -1942,7 +1943,7 @@ export VarR4FromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromi2
  */
 export VarR4FromI2(sIn) {
-    result := DllCall("OLEAUT32.dll\VarR4FromI2", "short", sIn, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromI2", Int16, sIn, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -1953,7 +1954,7 @@ export VarR4FromI2(sIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromi4
  */
 export VarR4FromI4(lIn) {
-    result := DllCall("OLEAUT32.dll\VarR4FromI4", "int", lIn, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromI4", Int32, lIn, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -1964,7 +1965,7 @@ export VarR4FromI4(lIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromi8
  */
 export VarR4FromI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarR4FromI8", "int64", i64In, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromI8", Int64, i64In, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -1975,7 +1976,7 @@ export VarR4FromI8(i64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromr8
  */
 export VarR4FromR8(dblIn) {
-    result := DllCall("OLEAUT32.dll\VarR4FromR8", "double", dblIn, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromR8", Float64, dblIn, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -2075,7 +2076,7 @@ export VarR4FromCy(cyIn, pfltOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromdate
  */
 export VarR4FromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarR4FromDate", "double", dateIn, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromDate", Float64, dateIn, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -2127,7 +2128,7 @@ export VarR4FromDate(dateIn) {
 export VarR4FromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -2139,7 +2140,7 @@ export VarR4FromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromdisp
  */
 export VarR4FromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarR4FromDisp", "ptr", pdispIn, "uint", lcid, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromDisp", "ptr", pdispIn, UInt32, lcid, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -2172,7 +2173,7 @@ export VarR4FromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromui2
  */
 export VarR4FromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarR4FromUI2", "ushort", uiIn, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromUI2", UInt16, uiIn, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -2183,7 +2184,7 @@ export VarR4FromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromui4
  */
 export VarR4FromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarR4FromUI4", "uint", ulIn, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromUI4", UInt32, ulIn, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -2194,7 +2195,7 @@ export VarR4FromUI4(ulIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromui8
  */
 export VarR4FromUI8(ui64In) {
-    result := DllCall("OLEAUT32.dll\VarR4FromUI8", "uint", ui64In, "float*", &pfltOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR4FromUI8", Int64, ui64In, "float*", &pfltOut := 0, "HRESULT")
     return pfltOut
 }
 
@@ -2216,7 +2217,7 @@ export VarR4FromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromui1
  */
 export VarR8FromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarR8FromUI1", "char", bIn, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromUI1", Int8, bIn, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2227,7 +2228,7 @@ export VarR8FromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromi2
  */
 export VarR8FromI2(sIn) {
-    result := DllCall("OLEAUT32.dll\VarR8FromI2", "short", sIn, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromI2", Int16, sIn, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2238,7 +2239,7 @@ export VarR8FromI2(sIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromi4
  */
 export VarR8FromI4(lIn) {
-    result := DllCall("OLEAUT32.dll\VarR8FromI4", "int", lIn, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromI4", Int32, lIn, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2249,7 +2250,7 @@ export VarR8FromI4(lIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromi8
  */
 export VarR8FromI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarR8FromI8", "int64", i64In, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromI8", Int64, i64In, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2260,7 +2261,7 @@ export VarR8FromI8(i64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromr4
  */
 export VarR8FromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarR8FromR4", "float", fltIn, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromR4", Float32, fltIn, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2360,7 +2361,7 @@ export VarR8FromCy(cyIn, pdblOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromdate
  */
 export VarR8FromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarR8FromDate", "double", dateIn, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromDate", Float64, dateIn, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2412,7 +2413,7 @@ export VarR8FromDate(dateIn) {
 export VarR8FromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2424,7 +2425,7 @@ export VarR8FromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromdisp
  */
 export VarR8FromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarR8FromDisp", "ptr", pdispIn, "uint", lcid, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromDisp", "ptr", pdispIn, UInt32, lcid, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2535,7 +2536,7 @@ export VarR8FromI1(cIn, pdblOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromui2
  */
 export VarR8FromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarR8FromUI2", "ushort", uiIn, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromUI2", UInt16, uiIn, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2546,7 +2547,7 @@ export VarR8FromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromui4
  */
 export VarR8FromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarR8FromUI4", "uint", ulIn, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromUI4", UInt32, ulIn, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2557,7 +2558,7 @@ export VarR8FromUI4(ulIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromui8
  */
 export VarR8FromUI8(ui64In) {
-    result := DllCall("OLEAUT32.dll\VarR8FromUI8", "uint", ui64In, "double*", &pdblOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8FromUI8", Int64, ui64In, "double*", &pdblOut := 0, "HRESULT")
     return pdblOut
 }
 
@@ -2579,7 +2580,7 @@ export VarR8FromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromui1
  */
 export VarDateFromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarDateFromUI1", "char", bIn, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromUI1", Int8, bIn, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2590,7 +2591,7 @@ export VarDateFromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromi2
  */
 export VarDateFromI2(sIn) {
-    result := DllCall("OLEAUT32.dll\VarDateFromI2", "short", sIn, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromI2", Int16, sIn, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2601,7 +2602,7 @@ export VarDateFromI2(sIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromi4
  */
 export VarDateFromI4(lIn) {
-    result := DllCall("OLEAUT32.dll\VarDateFromI4", "int", lIn, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromI4", Int32, lIn, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2612,7 +2613,7 @@ export VarDateFromI4(lIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromi8
  */
 export VarDateFromI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarDateFromI8", "int64", i64In, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromI8", Int64, i64In, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2623,7 +2624,7 @@ export VarDateFromI8(i64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromr4
  */
 export VarDateFromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarDateFromR4", "float", fltIn, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromR4", Float32, fltIn, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2634,7 +2635,7 @@ export VarDateFromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromr8
  */
 export VarDateFromR8(dblIn) {
-    result := DllCall("OLEAUT32.dll\VarDateFromR8", "double", dblIn, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromR8", Float64, dblIn, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2708,7 +2709,7 @@ export VarDateFromCy(cyIn) {
 export VarDateFromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2720,7 +2721,7 @@ export VarDateFromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromdisp
  */
 export VarDateFromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarDateFromDisp", "ptr", pdispIn, "uint", lcid, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromDisp", "ptr", pdispIn, UInt32, lcid, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2753,7 +2754,7 @@ export VarDateFromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromui2
  */
 export VarDateFromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarDateFromUI2", "ushort", uiIn, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromUI2", UInt16, uiIn, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2764,7 +2765,7 @@ export VarDateFromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromui4
  */
 export VarDateFromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarDateFromUI4", "uint", ulIn, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromUI4", UInt32, ulIn, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2775,7 +2776,7 @@ export VarDateFromUI4(ulIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromui8
  */
 export VarDateFromUI8(ui64In) {
-    result := DllCall("OLEAUT32.dll\VarDateFromUI8", "uint", ui64In, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromUI8", Int64, ui64In, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -2873,7 +2874,7 @@ export VarDateFromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromui1
  */
 export VarCyFromUI1(bIn, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromUI1", "char", bIn, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromUI1", Int8, bIn, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -2960,7 +2961,7 @@ export VarCyFromUI1(bIn, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromi2
  */
 export VarCyFromI2(sIn, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromI2", "short", sIn, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromI2", Int16, sIn, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -3047,7 +3048,7 @@ export VarCyFromI2(sIn, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromi4
  */
 export VarCyFromI4(lIn, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromI4", "int", lIn, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromI4", Int32, lIn, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -3134,7 +3135,7 @@ export VarCyFromI4(lIn, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromi8
  */
 export VarCyFromI8(i64In, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromI8", "int64", i64In, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromI8", Int64, i64In, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -3221,7 +3222,7 @@ export VarCyFromI8(i64In, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromr4
  */
 export VarCyFromR4(fltIn, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromR4", "float", fltIn, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromR4", Float32, fltIn, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -3308,7 +3309,7 @@ export VarCyFromR4(fltIn, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromr8
  */
 export VarCyFromR8(dblIn, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromR8", "double", dblIn, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromR8", Float64, dblIn, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -3395,7 +3396,7 @@ export VarCyFromR8(dblIn, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromdate
  */
 export VarCyFromDate(dateIn, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromDate", "double", dateIn, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromDate", Float64, dateIn, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -3523,7 +3524,7 @@ export VarCyFromDate(dateIn, pcyOut) {
 export VarCyFromStr(strIn, lcid, dwFlags, pcyOut) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarCyFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -3611,7 +3612,7 @@ export VarCyFromStr(strIn, lcid, dwFlags, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromdisp
  */
 export VarCyFromDisp(pdispIn, lcid, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromDisp", "ptr", pdispIn, "uint", lcid, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromDisp", "ptr", pdispIn, UInt32, lcid, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -3872,7 +3873,7 @@ export VarCyFromI1(cIn, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromui2
  */
 export VarCyFromUI2(uiIn, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromUI2", "ushort", uiIn, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromUI2", UInt16, uiIn, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -3959,7 +3960,7 @@ export VarCyFromUI2(uiIn, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromui4
  */
 export VarCyFromUI4(ulIn, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromUI4", "uint", ulIn, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromUI4", UInt32, ulIn, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -4046,7 +4047,7 @@ export VarCyFromUI4(ulIn, pcyOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyfromui8
  */
 export VarCyFromUI8(ui64In, pcyOut) {
-    result := DllCall("OLEAUT32.dll\VarCyFromUI8", "uint", ui64In, CY.Ptr, pcyOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyFromUI8", Int64, ui64In, CY.Ptr, pcyOut, "HRESULT")
     return result
 }
 
@@ -4164,7 +4165,7 @@ export VarCyFromDec(pdecIn, pcyOut) {
  */
 export VarBstrFromUI1(bVal, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromUI1", "char", bVal, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromUI1", Int8, bVal, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4178,7 +4179,7 @@ export VarBstrFromUI1(bVal, lcid, dwFlags) {
  */
 export VarBstrFromI2(iVal, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromI2", "short", iVal, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromI2", Int16, iVal, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4192,7 +4193,7 @@ export VarBstrFromI2(iVal, lcid, dwFlags) {
  */
 export VarBstrFromI4(lIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromI4", "int", lIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromI4", Int32, lIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4206,7 +4207,7 @@ export VarBstrFromI4(lIn, lcid, dwFlags) {
  */
 export VarBstrFromI8(i64In, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromI8", "int64", i64In, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromI8", Int64, i64In, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4237,7 +4238,7 @@ export VarBstrFromI8(i64In, lcid, dwFlags) {
  */
 export VarBstrFromR4(fltIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromR4", "float", fltIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromR4", Float32, fltIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4268,7 +4269,7 @@ export VarBstrFromR4(fltIn, lcid, dwFlags) {
  */
 export VarBstrFromR8(dblIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromR8", "double", dblIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromR8", Float64, dblIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4309,7 +4310,7 @@ export VarBstrFromR8(dblIn, lcid, dwFlags) {
  */
 export VarBstrFromCy(cyIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromCy", CY, cyIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromCy", CY, cyIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4403,7 +4404,7 @@ export VarBstrFromCy(cyIn, lcid, dwFlags) {
  */
 export VarBstrFromDate(dateIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromDate", "double", dateIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromDate", Float64, dateIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4417,7 +4418,7 @@ export VarBstrFromDate(dateIn, lcid, dwFlags) {
  */
 export VarBstrFromDisp(pdispIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromDisp", "ptr", pdispIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromDisp", "ptr", pdispIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4458,7 +4459,7 @@ export VarBstrFromDisp(pdispIn, lcid, dwFlags) {
  */
 export VarBstrFromBool(boolIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromBool", VARIANT_BOOL, boolIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromBool", VARIANT_BOOL, boolIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4472,7 +4473,7 @@ export VarBstrFromBool(boolIn, lcid, dwFlags) {
  */
 export VarBstrFromI1(cIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromI1", CHAR, cIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromI1", CHAR, cIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4503,7 +4504,7 @@ export VarBstrFromI1(cIn, lcid, dwFlags) {
  */
 export VarBstrFromUI2(uiIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromUI2", "ushort", uiIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromUI2", UInt16, uiIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4517,7 +4518,7 @@ export VarBstrFromUI2(uiIn, lcid, dwFlags) {
  */
 export VarBstrFromUI4(ulIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromUI4", "uint", ulIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromUI4", UInt32, ulIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4531,7 +4532,7 @@ export VarBstrFromUI4(ulIn, lcid, dwFlags) {
  */
 export VarBstrFromUI8(ui64In, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromUI8", "uint", ui64In, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromUI8", Int64, ui64In, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4584,7 +4585,7 @@ export VarBstrFromUI8(ui64In, lcid, dwFlags) {
  */
 export VarBstrFromDec(pdecIn, lcid, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarBstrFromDec", DECIMAL.Ptr, pdecIn, "uint", lcid, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrFromDec", DECIMAL.Ptr, pdecIn, UInt32, lcid, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -4595,7 +4596,7 @@ export VarBstrFromDec(pdecIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromui1
  */
 export VarBoolFromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromUI1", "char", bIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromUI1", Int8, bIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4606,7 +4607,7 @@ export VarBoolFromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromi2
  */
 export VarBoolFromI2(sIn) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromI2", "short", sIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromI2", Int16, sIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4617,7 +4618,7 @@ export VarBoolFromI2(sIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromi4
  */
 export VarBoolFromI4(lIn) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromI4", "int", lIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromI4", Int32, lIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4628,7 +4629,7 @@ export VarBoolFromI4(lIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromi8
  */
 export VarBoolFromI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromI8", "int64", i64In, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromI8", Int64, i64In, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4639,7 +4640,7 @@ export VarBoolFromI8(i64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromr4
  */
 export VarBoolFromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromR4", "float", fltIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromR4", Float32, fltIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4650,7 +4651,7 @@ export VarBoolFromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromr8
  */
 export VarBoolFromR8(dblIn) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromR8", "double", dblIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromR8", Float64, dblIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4661,7 +4662,7 @@ export VarBoolFromR8(dblIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromdate
  */
 export VarBoolFromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromDate", "double", dateIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromDate", Float64, dateIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4714,7 +4715,7 @@ export VarBoolFromCy(cyIn) {
 export VarBoolFromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4726,7 +4727,7 @@ export VarBoolFromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromdisp
  */
 export VarBoolFromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromDisp", "ptr", pdispIn, "uint", lcid, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromDisp", "ptr", pdispIn, UInt32, lcid, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4748,7 +4749,7 @@ export VarBoolFromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromui2
  */
 export VarBoolFromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromUI2", "ushort", uiIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromUI2", UInt16, uiIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4759,7 +4760,7 @@ export VarBoolFromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromui4
  */
 export VarBoolFromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromUI4", "uint", ulIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromUI4", UInt32, ulIn, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4770,7 +4771,7 @@ export VarBoolFromUI4(ulIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromui8
  */
 export VarBoolFromUI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarBoolFromUI8", "uint", i64In, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBoolFromUI8", Int64, i64In, VARIANT_BOOL.Ptr, &pboolOut := 0, "HRESULT")
     return pboolOut
 }
 
@@ -4870,7 +4871,7 @@ export VarBoolFromDec(pdecIn) {
 export VarI1FromUI1(bIn, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromUI1", "char", bIn, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromUI1", Int8, bIn, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -4959,7 +4960,7 @@ export VarI1FromUI1(bIn, pcOut) {
 export VarI1FromI2(uiIn, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromI2", "short", uiIn, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromI2", Int16, uiIn, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -5048,7 +5049,7 @@ export VarI1FromI2(uiIn, pcOut) {
 export VarI1FromI4(lIn, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromI4", "int", lIn, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromI4", Int32, lIn, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -5137,7 +5138,7 @@ export VarI1FromI4(lIn, pcOut) {
 export VarI1FromI8(i64In, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromI8", "int64", i64In, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromI8", Int64, i64In, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -5226,7 +5227,7 @@ export VarI1FromI8(i64In, pcOut) {
 export VarI1FromR4(fltIn, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromR4", "float", fltIn, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromR4", Float32, fltIn, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -5315,7 +5316,7 @@ export VarI1FromR4(fltIn, pcOut) {
 export VarI1FromR8(dblIn, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromR8", "double", dblIn, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromR8", Float64, dblIn, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -5404,7 +5405,7 @@ export VarI1FromR8(dblIn, pcOut) {
 export VarI1FromDate(dateIn, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromDate", "double", dateIn, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromDate", Float64, dateIn, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -5602,7 +5603,7 @@ export VarI1FromStr(strIn, lcid, dwFlags, pcOut) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -5692,7 +5693,7 @@ export VarI1FromStr(strIn, lcid, dwFlags, pcOut) {
 export VarI1FromDisp(pdispIn, lcid, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromDisp", "ptr", pdispIn, UInt32, lcid, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -5870,7 +5871,7 @@ export VarI1FromBool(boolIn, pcOut) {
 export VarI1FromUI2(uiIn, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromUI2", "ushort", uiIn, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromUI2", UInt16, uiIn, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -5959,7 +5960,7 @@ export VarI1FromUI2(uiIn, pcOut) {
 export VarI1FromUI4(ulIn, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromUI4", "uint", ulIn, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromUI4", UInt32, ulIn, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -6048,7 +6049,7 @@ export VarI1FromUI4(ulIn, pcOut) {
 export VarI1FromUI8(i64In, pcOut) {
     pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
-    result := DllCall("OLEAUT32.dll\VarI1FromUI8", "uint", i64In, "ptr", pcOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarI1FromUI8", Int64, i64In, "ptr", pcOut, "HRESULT")
     return result
 }
 
@@ -6148,7 +6149,7 @@ export VarI1FromDec(pdecIn, pcOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromui1
  */
 export VarUI2FromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarUI2FromUI1", "char", bIn, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromUI1", Int8, bIn, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6159,7 +6160,7 @@ export VarUI2FromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromi2
  */
 export VarUI2FromI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarUI2FromI2", "short", uiIn, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromI2", Int16, uiIn, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6170,7 +6171,7 @@ export VarUI2FromI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromi4
  */
 export VarUI2FromI4(lIn) {
-    result := DllCall("OLEAUT32.dll\VarUI2FromI4", "int", lIn, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromI4", Int32, lIn, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6181,7 +6182,7 @@ export VarUI2FromI4(lIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromi8
  */
 export VarUI2FromI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarUI2FromI8", "int64", i64In, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromI8", Int64, i64In, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6192,7 +6193,7 @@ export VarUI2FromI8(i64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromr4
  */
 export VarUI2FromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarUI2FromR4", "float", fltIn, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromR4", Float32, fltIn, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6281,7 +6282,7 @@ export VarUI2FromR4(fltIn) {
 export VarUI2FromR8(dblIn, puiOut) {
     puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("OLEAUT32.dll\VarUI2FromR8", "double", dblIn, puiOutMarshal, puiOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromR8", Float64, dblIn, puiOutMarshal, puiOut, "HRESULT")
     return result
 }
 
@@ -6292,7 +6293,7 @@ export VarUI2FromR8(dblIn, puiOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromdate
  */
 export VarUI2FromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarUI2FromDate", "double", dateIn, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromDate", Float64, dateIn, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6355,7 +6356,7 @@ export VarUI2FromCy(cyIn) {
 export VarUI2FromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6367,7 +6368,7 @@ export VarUI2FromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromdisp
  */
 export VarUI2FromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarUI2FromDisp", "ptr", pdispIn, "uint", lcid, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromDisp", "ptr", pdispIn, UInt32, lcid, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6400,7 +6401,7 @@ export VarUI2FromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromui4
  */
 export VarUI2FromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarUI2FromUI4", "uint", ulIn, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromUI4", UInt32, ulIn, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6411,7 +6412,7 @@ export VarUI2FromUI4(ulIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromui8
  */
 export VarUI2FromUI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarUI2FromUI8", "uint", i64In, "ushort*", &puiOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI2FromUI8", Int64, i64In, "ushort*", &puiOut := 0, "HRESULT")
     return puiOut
 }
 
@@ -6433,7 +6434,7 @@ export VarUI2FromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromui1
  */
 export VarUI4FromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromUI1", "char", bIn, "uint*", &pulOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromUI1", Int8, bIn, "uint*", &pulOut := 0, "HRESULT")
     return pulOut
 }
 
@@ -6444,7 +6445,7 @@ export VarUI4FromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromi2
  */
 export VarUI4FromI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromI2", "short", uiIn, "uint*", &pulOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromI2", Int16, uiIn, "uint*", &pulOut := 0, "HRESULT")
     return pulOut
 }
 
@@ -6455,7 +6456,7 @@ export VarUI4FromI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromi4
  */
 export VarUI4FromI4(lIn) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromI4", "int", lIn, "uint*", &pulOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromI4", Int32, lIn, "uint*", &pulOut := 0, "HRESULT")
     return pulOut
 }
 
@@ -6466,7 +6467,7 @@ export VarUI4FromI4(lIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromi8
  */
 export VarUI4FromI8(i64In) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromI8", "int64", i64In, "uint*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromI8", Int64, i64In, "uint*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -6477,7 +6478,7 @@ export VarUI4FromI8(i64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromr4
  */
 export VarUI4FromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromR4", "float", fltIn, "uint*", &pulOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromR4", Float32, fltIn, "uint*", &pulOut := 0, "HRESULT")
     return pulOut
 }
 
@@ -6488,7 +6489,7 @@ export VarUI4FromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromr8
  */
 export VarUI4FromR8(dblIn) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromR8", "double", dblIn, "uint*", &pulOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromR8", Float64, dblIn, "uint*", &pulOut := 0, "HRESULT")
     return pulOut
 }
 
@@ -6499,7 +6500,7 @@ export VarUI4FromR8(dblIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromdate
  */
 export VarUI4FromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromDate", "double", dateIn, "uint*", &pulOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromDate", Float64, dateIn, "uint*", &pulOut := 0, "HRESULT")
     return pulOut
 }
 
@@ -6562,7 +6563,7 @@ export VarUI4FromCy(cyIn) {
 export VarUI4FromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", &pulOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "uint*", &pulOut := 0, "HRESULT")
     return pulOut
 }
 
@@ -6574,7 +6575,7 @@ export VarUI4FromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromdisp
  */
 export VarUI4FromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", &pulOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromDisp", "ptr", pdispIn, UInt32, lcid, "uint*", &pulOut := 0, "HRESULT")
     return pulOut
 }
 
@@ -6607,7 +6608,7 @@ export VarUI4FromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromui2
  */
 export VarUI4FromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromUI2", "ushort", uiIn, "uint*", &pulOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromUI2", UInt16, uiIn, "uint*", &pulOut := 0, "HRESULT")
     return pulOut
 }
 
@@ -6618,7 +6619,7 @@ export VarUI4FromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromui8
  */
 export VarUI4FromUI8(ui64In) {
-    result := DllCall("OLEAUT32.dll\VarUI4FromUI8", "uint", ui64In, "uint*", &plOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI4FromUI8", Int64, ui64In, "uint*", &plOut := 0, "HRESULT")
     return plOut
 }
 
@@ -6640,7 +6641,7 @@ export VarUI4FromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromui1
  */
 export VarUI8FromUI1(bIn) {
-    result := DllCall("OLEAUT32.dll\VarUI8FromUI1", "char", bIn, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromUI1", Int8, bIn, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6651,7 +6652,7 @@ export VarUI8FromUI1(bIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromi2
  */
 export VarUI8FromI2(sIn) {
-    result := DllCall("OLEAUT32.dll\VarUI8FromI2", "short", sIn, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromI2", Int16, sIn, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6662,7 +6663,7 @@ export VarUI8FromI2(sIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromi8
  */
 export VarUI8FromI8(ui64In) {
-    result := DllCall("OLEAUT32.dll\VarUI8FromI8", "int64", ui64In, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromI8", Int64, ui64In, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6673,7 +6674,7 @@ export VarUI8FromI8(ui64In) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromr4
  */
 export VarUI8FromR4(fltIn) {
-    result := DllCall("OLEAUT32.dll\VarUI8FromR4", "float", fltIn, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromR4", Float32, fltIn, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6684,7 +6685,7 @@ export VarUI8FromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromr8
  */
 export VarUI8FromR8(dblIn) {
-    result := DllCall("OLEAUT32.dll\VarUI8FromR8", "double", dblIn, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromR8", Float64, dblIn, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6706,7 +6707,7 @@ export VarUI8FromCy(cyIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromdate
  */
 export VarUI8FromDate(dateIn) {
-    result := DllCall("OLEAUT32.dll\VarUI8FromDate", "double", dateIn, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromDate", Float64, dateIn, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6738,7 +6739,7 @@ export VarUI8FromDate(dateIn) {
 export VarUI8FromStr(strIn, lcid, dwFlags) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6750,7 +6751,7 @@ export VarUI8FromStr(strIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromdisp
  */
 export VarUI8FromDisp(pdispIn, lcid) {
-    result := DllCall("OLEAUT32.dll\VarUI8FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromDisp", "ptr", pdispIn, UInt32, lcid, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6783,7 +6784,7 @@ export VarUI8FromI1(cIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromui2
  */
 export VarUI8FromUI2(uiIn) {
-    result := DllCall("OLEAUT32.dll\VarUI8FromUI2", "ushort", uiIn, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromUI2", UInt16, uiIn, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6794,7 +6795,7 @@ export VarUI8FromUI2(uiIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromui4
  */
 export VarUI8FromUI4(ulIn) {
-    result := DllCall("OLEAUT32.dll\VarUI8FromUI4", "uint", ulIn, "uint*", &pi64Out := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUI8FromUI4", UInt32, ulIn, "uint*", &pi64Out := 0, "HRESULT")
     return pi64Out
 }
 
@@ -6892,7 +6893,7 @@ export VarUI8FromDec(pdecIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromui1
  */
 export VarDecFromUI1(bIn, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromUI1", "char", bIn, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromUI1", Int8, bIn, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -6979,7 +6980,7 @@ export VarDecFromUI1(bIn, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromi2
  */
 export VarDecFromI2(uiIn, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromI2", "short", uiIn, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromI2", Int16, uiIn, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -7066,7 +7067,7 @@ export VarDecFromI2(uiIn, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromi4
  */
 export VarDecFromI4(lIn, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromI4", "int", lIn, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromI4", Int32, lIn, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -7153,7 +7154,7 @@ export VarDecFromI4(lIn, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromi8
  */
 export VarDecFromI8(i64In, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromI8", "int64", i64In, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromI8", Int64, i64In, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -7240,7 +7241,7 @@ export VarDecFromI8(i64In, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromr4
  */
 export VarDecFromR4(fltIn, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromR4", "float", fltIn, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromR4", Float32, fltIn, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -7327,7 +7328,7 @@ export VarDecFromR4(fltIn, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromr8
  */
 export VarDecFromR8(dblIn, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromR8", "double", dblIn, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromR8", Float64, dblIn, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -7414,7 +7415,7 @@ export VarDecFromR8(dblIn, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromdate
  */
 export VarDecFromDate(dateIn, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromDate", "double", dateIn, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromDate", Float64, dateIn, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -7629,7 +7630,7 @@ export VarDecFromCy(cyIn, pdecOut) {
 export VarDecFromStr(strIn, lcid, dwFlags, pdecOut) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarDecFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -7717,7 +7718,7 @@ export VarDecFromStr(strIn, lcid, dwFlags, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromdisp
  */
 export VarDecFromDisp(pdispIn, lcid, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromDisp", "ptr", pdispIn, "uint", lcid, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromDisp", "ptr", pdispIn, UInt32, lcid, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -7978,7 +7979,7 @@ export VarDecFromI1(cIn, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromui2
  */
 export VarDecFromUI2(uiIn, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromUI2", "ushort", uiIn, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromUI2", UInt16, uiIn, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -8065,7 +8066,7 @@ export VarDecFromUI2(uiIn, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromui4
  */
 export VarDecFromUI4(ulIn, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromUI4", "uint", ulIn, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromUI4", UInt32, ulIn, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -8152,7 +8153,7 @@ export VarDecFromUI4(ulIn, pdecOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecfromui8
  */
 export VarDecFromUI8(ui64In, pdecOut) {
-    result := DllCall("OLEAUT32.dll\VarDecFromUI8", "uint", ui64In, DECIMAL.Ptr, pdecOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecFromUI8", Int64, ui64In, DECIMAL.Ptr, pdecOut, "HRESULT")
     return result
 }
 
@@ -8168,7 +8169,7 @@ export VarDecFromUI8(ui64In, pdecOut) {
 export VarParseNumFromStr(strIn, lcid, dwFlags, pnumprs) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, NUMPARSE.Ptr, pnumprs, "char*", &rgbDig := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, UInt32, lcid, UInt32, dwFlags, NUMPARSE.Ptr, pnumprs, "char*", &rgbDig := 0, "HRESULT")
     return rgbDig
 }
 
@@ -8230,7 +8231,7 @@ export VarParseNumFromStr(strIn, lcid, dwFlags, pnumprs) {
 export VarNumFromParseNum(pnumprs, rgbDig, dwVtBits, pvar) {
     rgbDigMarshal := rgbDig is VarRef ? "char*" : "ptr"
 
-    result := DllCall("OLEAUT32.dll\VarNumFromParseNum", NUMPARSE.Ptr, pnumprs, rgbDigMarshal, rgbDig, "uint", dwVtBits, VARIANT.Ptr, pvar, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarNumFromParseNum", NUMPARSE.Ptr, pnumprs, rgbDigMarshal, rgbDig, UInt32, dwVtBits, VARIANT.Ptr, pvar, "HRESULT")
     return result
 }
 
@@ -8925,7 +8926,7 @@ export VarNot(pvarIn, pvarResult) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varround
  */
 export VarRound(pvarIn, cDecimals, pvarResult) {
-    result := DllCall("OLEAUT32.dll\VarRound", VARIANT.Ptr, pvarIn, "int", cDecimals, VARIANT.Ptr, pvarResult, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarRound", VARIANT.Ptr, pvarIn, Int32, cDecimals, VARIANT.Ptr, pvarResult, "HRESULT")
     return result
 }
 
@@ -9075,7 +9076,7 @@ export VarRound(pvarIn, cDecimals, pvarResult) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcmp
  */
 export VarCmp(pvarLeft, pvarRight, lcid, dwFlags) {
-    result := DllCall("OLEAUT32.dll\VarCmp", VARIANT.Ptr, pvarLeft, VARIANT.Ptr, pvarRight, "uint", lcid, "uint", dwFlags, VARCMP_enum)
+    result := DllCall("OLEAUT32.dll\VarCmp", VARIANT.Ptr, pvarLeft, VARIANT.Ptr, pvarRight, UInt32, lcid, UInt32, dwFlags, VARCMP_enum)
     return result
 }
 
@@ -9188,7 +9189,7 @@ export VarDecNeg(pdecIn, pdecResult) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardecround
  */
 export VarDecRound(pdecIn, cDecimals, pdecResult) {
-    result := DllCall("OLEAUT32.dll\VarDecRound", DECIMAL.Ptr, pdecIn, "int", cDecimals, DECIMAL.Ptr, pdecResult, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDecRound", DECIMAL.Ptr, pdecIn, Int32, cDecimals, DECIMAL.Ptr, pdecResult, "HRESULT")
     return result
 }
 
@@ -9326,7 +9327,7 @@ export VarDecCmp(pdecLeft, pdecRight) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardeccmpr8
  */
 export VarDecCmpR8(pdecLeft, dblRight) {
-    result := DllCall("OLEAUT32.dll\VarDecCmpR8", DECIMAL.Ptr, pdecLeft, "double", dblRight, VARCMP_enum)
+    result := DllCall("OLEAUT32.dll\VarDecCmpR8", DECIMAL.Ptr, pdecLeft, Float64, dblRight, VARCMP_enum)
     return result
 }
 
@@ -9367,7 +9368,7 @@ export VarCyMul(cyLeft, cyRight, pcyResult) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcymuli4
  */
 export VarCyMulI4(cyLeft, lRight, pcyResult) {
-    result := DllCall("OLEAUT32.dll\VarCyMulI4", CY, cyLeft, "int", lRight, CY.Ptr, pcyResult, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyMulI4", CY, cyLeft, Int32, lRight, CY.Ptr, pcyResult, "HRESULT")
     return result
 }
 
@@ -9380,7 +9381,7 @@ export VarCyMulI4(cyLeft, lRight, pcyResult) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcymuli8
  */
 export VarCyMulI8(cyLeft, lRight, pcyResult) {
-    result := DllCall("OLEAUT32.dll\VarCyMulI8", CY, cyLeft, "int64", lRight, CY.Ptr, pcyResult, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyMulI8", CY, cyLeft, Int64, lRight, CY.Ptr, pcyResult, "HRESULT")
     return result
 }
 
@@ -9454,7 +9455,7 @@ export VarCyNeg(cyIn, pcyResult) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcyround
  */
 export VarCyRound(cyIn, cDecimals, pcyResult) {
-    result := DllCall("OLEAUT32.dll\VarCyRound", CY, cyIn, "int", cDecimals, CY.Ptr, pcyResult, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarCyRound", CY, cyIn, Int32, cDecimals, CY.Ptr, pcyResult, "HRESULT")
     return result
 }
 
@@ -9592,7 +9593,7 @@ export VarCyCmp(cyLeft, cyRight) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varcycmpr8
  */
 export VarCyCmpR8(cyLeft, dblRight) {
-    result := DllCall("OLEAUT32.dll\VarCyCmpR8", CY, cyLeft, "double", dblRight, VARCMP_enum)
+    result := DllCall("OLEAUT32.dll\VarCyCmpR8", CY, cyLeft, Float64, dblRight, VARCMP_enum)
     return result
 }
 
@@ -9737,7 +9738,7 @@ export VarBstrCat(bstrLeft, bstrRight) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrcmp
  */
 export VarBstrCmp(bstrLeft, bstrRight, lcid, dwFlags) {
-    result := DllCall("OLEAUT32.dll\VarBstrCmp", BSTR, bstrLeft, BSTR, bstrRight, "uint", lcid, "uint", dwFlags, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarBstrCmp", BSTR, bstrLeft, BSTR, bstrRight, UInt32, lcid, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -9749,7 +9750,7 @@ export VarBstrCmp(bstrLeft, bstrRight, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8pow
  */
 export VarR8Pow(dblLeft, dblRight) {
-    result := DllCall("OLEAUT32.dll\VarR8Pow", "double", dblLeft, "double", dblRight, "double*", &pdblResult := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8Pow", Float64, dblLeft, Float64, dblRight, "double*", &pdblResult := 0, "HRESULT")
     return pdblResult
 }
 
@@ -9818,7 +9819,7 @@ export VarR8Pow(dblLeft, dblRight) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4cmpr8
  */
 export VarR4CmpR8(fltLeft, dblRight) {
-    result := DllCall("OLEAUT32.dll\VarR4CmpR8", "float", fltLeft, "double", dblRight, VARCMP_enum)
+    result := DllCall("OLEAUT32.dll\VarR4CmpR8", Float32, fltLeft, Float64, dblRight, VARCMP_enum)
     return result
 }
 
@@ -9830,7 +9831,7 @@ export VarR4CmpR8(fltLeft, dblRight) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8round
  */
 export VarR8Round(dblIn, cDecimals) {
-    result := DllCall("OLEAUT32.dll\VarR8Round", "double", dblIn, "int", cDecimals, "double*", &pdblResult := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarR8Round", Float64, dblIn, Int32, cDecimals, "double*", &pdblResult := 0, "HRESULT")
     return pdblResult
 }
 
@@ -9856,7 +9857,7 @@ export VarR8Round(dblIn, cDecimals) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromudate
  */
 export VarDateFromUdate(pudateIn, dwFlags) {
-    result := DllCall("OLEAUT32.dll\VarDateFromUdate", UDATE.Ptr, pudateIn, "uint", dwFlags, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromUdate", UDATE.Ptr, pudateIn, UInt32, dwFlags, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -9881,7 +9882,7 @@ export VarDateFromUdate(pudateIn, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromudateex
  */
 export VarDateFromUdateEx(pudateIn, lcid, dwFlags) {
-    result := DllCall("OLEAUT32.dll\VarDateFromUdateEx", UDATE.Ptr, pudateIn, "uint", lcid, "uint", dwFlags, "double*", &pdateOut := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarDateFromUdateEx", UDATE.Ptr, pudateIn, UInt32, lcid, UInt32, dwFlags, "double*", &pdateOut := 0, "HRESULT")
     return pdateOut
 }
 
@@ -9946,7 +9947,7 @@ export VarDateFromUdateEx(pudateIn, lcid, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varudatefromdate
  */
 export VarUdateFromDate(dateIn, dwFlags, pudateOut) {
-    result := DllCall("OLEAUT32.dll\VarUdateFromDate", "double", dateIn, "uint", dwFlags, UDATE.Ptr, pudateOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarUdateFromDate", Float64, dateIn, UInt32, dwFlags, UDATE.Ptr, pudateOut, "HRESULT")
     return result
 }
 
@@ -9959,7 +9960,7 @@ export VarUdateFromDate(dateIn, dwFlags, pudateOut) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-getaltmonthnames
  */
 export GetAltMonthNames(lcid) {
-    result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, "ptr*", &prgp := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\GetAltMonthNames", UInt32, lcid, "ptr*", &prgp := 0, "HRESULT")
     return prgp
 }
 
@@ -10127,7 +10128,7 @@ export VarFormat(pvarIn, pstrFormat, iFirstDay, iFirstWeek, dwFlags) {
     pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarFormat", VARIANT.Ptr, pvarIn, "ptr", pstrFormat, VARFORMAT_FIRST_DAY, iFirstDay, VARFORMAT_FIRST_WEEK, iFirstWeek, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarFormat", VARIANT.Ptr, pvarIn, "ptr", pstrFormat, VARFORMAT_FIRST_DAY, iFirstDay, VARFORMAT_FIRST_WEEK, iFirstWeek, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -10205,7 +10206,7 @@ export VarFormat(pvarIn, pstrFormat, iFirstDay, iFirstWeek, dwFlags) {
  */
 export VarFormatDateTime(pvarIn, iNamedFormat, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarFormatDateTime", VARIANT.Ptr, pvarIn, VARFORMAT_NAMED_FORMAT, iNamedFormat, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarFormatDateTime", VARIANT.Ptr, pvarIn, VARFORMAT_NAMED_FORMAT, iNamedFormat, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -10346,7 +10347,7 @@ export VarFormatDateTime(pvarIn, iNamedFormat, dwFlags) {
  */
 export VarFormatNumber(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarFormatNumber", VARIANT.Ptr, pvarIn, "int", iNumDig, VARFORMAT_LEADING_DIGIT, iIncLead, VARFORMAT_PARENTHESES, iUseParens, VARFORMAT_GROUP, iGroup, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarFormatNumber", VARIANT.Ptr, pvarIn, Int32, iNumDig, VARFORMAT_LEADING_DIGIT, iIncLead, VARFORMAT_PARENTHESES, iUseParens, VARFORMAT_GROUP, iGroup, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -10487,7 +10488,7 @@ export VarFormatNumber(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
  */
 export VarFormatPercent(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarFormatPercent", VARIANT.Ptr, pvarIn, "int", iNumDig, VARFORMAT_LEADING_DIGIT, iIncLead, VARFORMAT_PARENTHESES, iUseParens, VARFORMAT_GROUP, iGroup, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarFormatPercent", VARIANT.Ptr, pvarIn, Int32, iNumDig, VARFORMAT_LEADING_DIGIT, iIncLead, VARFORMAT_PARENTHESES, iUseParens, VARFORMAT_GROUP, iGroup, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -10628,7 +10629,7 @@ export VarFormatPercent(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) 
  */
 export VarFormatCurrency(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarFormatCurrency", VARIANT.Ptr, pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarFormatCurrency", VARIANT.Ptr, pvarIn, Int32, iNumDig, Int32, iIncLead, Int32, iUseParens, Int32, iGroup, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -10834,7 +10835,7 @@ export VarFormatCurrency(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags)
  */
 export VarWeekdayName(iWeekday, fAbbrev, iFirstDay, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarWeekdayName", "int", iWeekday, "int", fAbbrev, "int", iFirstDay, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarWeekdayName", Int32, iWeekday, Int32, fAbbrev, Int32, iFirstDay, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -10848,7 +10849,7 @@ export VarWeekdayName(iWeekday, fAbbrev, iFirstDay, dwFlags) {
  */
 export VarMonthName(iMonth, fAbbrev, dwFlags) {
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarMonthName", "int", iMonth, "int", fAbbrev, "uint", dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarMonthName", Int32, iMonth, Int32, fAbbrev, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -10870,7 +10871,7 @@ export VarFormatFromTokens(pvarIn, pstrFormat, pbTokCur, dwFlags, lcid) {
     pbTokCurMarshal := pbTokCur is VarRef ? "char*" : "ptr"
 
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarFormatFromTokens", VARIANT.Ptr, pvarIn, "ptr", pstrFormat, pbTokCurMarshal, pbTokCur, "uint", dwFlags, BSTR.Ptr, pbstrOut, "uint", lcid, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarFormatFromTokens", VARIANT.Ptr, pvarIn, "ptr", pstrFormat, pbTokCurMarshal, pbTokCur, UInt32, dwFlags, BSTR.Ptr, pbstrOut, UInt32, lcid, "HRESULT")
     return pbstrOut
 }
 
@@ -11085,7 +11086,7 @@ export VarTokenizeFormatString(pstrFormat, rgbTok, cbTok, iFirstDay, iFirstWeek,
     rgbTokMarshal := rgbTok is VarRef ? "char*" : "ptr"
     pcbActualMarshal := pcbActual is VarRef ? "int*" : "ptr"
 
-    result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, rgbTokMarshal, rgbTok, "int", cbTok, VARFORMAT_FIRST_DAY, iFirstDay, VARFORMAT_FIRST_WEEK, iFirstWeek, "uint", lcid, pcbActualMarshal, pcbActual, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, rgbTokMarshal, rgbTok, Int32, cbTok, VARFORMAT_FIRST_DAY, iFirstDay, VARFORMAT_FIRST_WEEK, iFirstWeek, UInt32, lcid, pcbActualMarshal, pcbActual, "HRESULT")
     return result
 }
 
@@ -11100,7 +11101,7 @@ export VarTokenizeFormatString(pstrFormat, rgbTok, cbTok, iFirstDay, iFirstWeek,
 export LHashValOfNameSysA(_syskind, lcid, szName) {
     szName := szName is String ? StrPtr(szName) : szName
 
-    result := DllCall("OLEAUT32.dll\LHashValOfNameSysA", SYSKIND, _syskind, "uint", lcid, "ptr", szName, UInt32)
+    result := DllCall("OLEAUT32.dll\LHashValOfNameSysA", SYSKIND, _syskind, UInt32, lcid, "ptr", szName, UInt32)
     return result
 }
 
@@ -11115,7 +11116,7 @@ export LHashValOfNameSysA(_syskind, lcid, szName) {
 export LHashValOfNameSys(_syskind, lcid, szName) {
     szName := szName is String ? StrPtr(szName) : szName
 
-    result := DllCall("OLEAUT32.dll\LHashValOfNameSys", SYSKIND, _syskind, "uint", lcid, "ptr", szName, UInt32)
+    result := DllCall("OLEAUT32.dll\LHashValOfNameSys", SYSKIND, _syskind, UInt32, lcid, "ptr", szName, UInt32)
     return result
 }
 
@@ -11221,7 +11222,7 @@ export LoadTypeLibEx(szFile, _regkind) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-loadregtypelib
  */
 export LoadRegTypeLib(rguid, wVerMajor, wVerMinor, lcid) {
-    result := DllCall("OLEAUT32.dll\LoadRegTypeLib", Guid.Ptr, rguid, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, "ptr*", &pptlib := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\LoadRegTypeLib", Guid.Ptr, rguid, UInt16, wVerMajor, UInt16, wVerMinor, UInt32, lcid, "ptr*", &pptlib := 0, "HRESULT")
     return ITypeLib(pptlib)
 }
 
@@ -11238,7 +11239,7 @@ export LoadRegTypeLib(rguid, wVerMajor, wVerMinor, lcid) {
  */
 export QueryPathOfRegTypeLib(guid, wMaj, wMin, lcid) {
     lpbstrPathName := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\QueryPathOfRegTypeLib", Guid.Ptr, guid, "ushort", wMaj, "ushort", wMin, "uint", lcid, BSTR.Ptr, lpbstrPathName, "HRESULT")
+    result := DllCall("OLEAUT32.dll\QueryPathOfRegTypeLib", Guid.Ptr, guid, UInt16, wMaj, UInt16, wMin, UInt32, lcid, BSTR.Ptr, lpbstrPathName, "HRESULT")
     return lpbstrPathName
 }
 
@@ -11441,7 +11442,7 @@ export RegisterTypeLib(ptlib, szFullPath, szHelpDir) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-unregistertypelib
  */
 export UnRegisterTypeLib(libID, wVerMajor, wVerMinor, lcid, _syskind) {
-    result := DllCall("OLEAUT32.dll\UnRegisterTypeLib", Guid.Ptr, libID, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, SYSKIND, _syskind, "HRESULT")
+    result := DllCall("OLEAUT32.dll\UnRegisterTypeLib", Guid.Ptr, libID, UInt16, wVerMajor, UInt16, wVerMinor, UInt32, lcid, SYSKIND, _syskind, "HRESULT")
     return result
 }
 
@@ -11640,7 +11641,7 @@ export RegisterTypeLibForUser(ptlib, szFullPath, szHelpDir) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-unregistertypelibforuser
  */
 export UnRegisterTypeLibForUser(libID, wMajorVerNum, wMinorVerNum, lcid, _syskind) {
-    result := DllCall("OLEAUT32.dll\UnRegisterTypeLibForUser", Guid.Ptr, libID, "ushort", wMajorVerNum, "ushort", wMinorVerNum, "uint", lcid, SYSKIND, _syskind, "HRESULT")
+    result := DllCall("OLEAUT32.dll\UnRegisterTypeLibForUser", Guid.Ptr, libID, UInt16, wMajorVerNum, UInt16, wMinorVerNum, UInt32, lcid, SYSKIND, _syskind, "HRESULT")
     return result
 }
 
@@ -11696,7 +11697,7 @@ export CreateTypeLib2(_syskind, szFile) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispgetparam
  */
 export DispGetParam(pdispparams, position, vtTarg, pvarResult) {
-    result := DllCall("OLEAUT32.dll\DispGetParam", DISPPARAMS.Ptr, pdispparams, "uint", position, VARENUM, vtTarg, VARIANT.Ptr, pvarResult, "uint*", &puArgErr := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\DispGetParam", DISPPARAMS.Ptr, pdispparams, UInt32, position, VARENUM, vtTarg, VARIANT.Ptr, pvarResult, "uint*", &puArgErr := 0, "HRESULT")
     return puArgErr
 }
 
@@ -11711,7 +11712,7 @@ export DispGetParam(pdispparams, position, vtTarg, pvarResult) {
 export DispGetIDsOfNames(ptinfo, rgszNames, cNames) {
     rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, rgszNamesMarshal, rgszNames, "uint", cNames, "int*", &rgdispid := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, rgszNamesMarshal, rgszNames, UInt32, cNames, "int*", &rgdispid := 0, "HRESULT")
     return rgdispid
 }
 
@@ -11933,7 +11934,7 @@ export DispInvoke(_this, ptinfo, dispidMember, wFlags, pparams, pvarResult, pexc
     _thisMarshal := _this is VarRef ? "ptr" : "ptr"
     puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("OLEAUT32.dll\DispInvoke", _thisMarshal, _this, "ptr", ptinfo, "int", dispidMember, "ushort", wFlags, DISPPARAMS.Ptr, pparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
+    result := DllCall("OLEAUT32.dll\DispInvoke", _thisMarshal, _this, "ptr", ptinfo, Int32, dispidMember, UInt16, wFlags, DISPPARAMS.Ptr, pparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
     return result
 }
 
@@ -11953,7 +11954,7 @@ export DispInvoke(_this, ptinfo, dispidMember, wFlags, pparams, pvarResult, pexc
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-createdisptypeinfo
  */
 export CreateDispTypeInfo(pidata, lcid) {
-    result := DllCall("OLEAUT32.dll\CreateDispTypeInfo", INTERFACEDATA.Ptr, pidata, "uint", lcid, "ptr*", &pptinfo := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\CreateDispTypeInfo", INTERFACEDATA.Ptr, pidata, UInt32, lcid, "ptr*", &pptinfo := 0, "HRESULT")
     return ITypeInfo(pptinfo)
 }
 
@@ -12008,7 +12009,7 @@ export DispCallFunc(pvInstance, oVft, cc, vtReturn, cActuals, prgvt, prgpvarg, p
     prgvtMarshal := prgvt is VarRef ? "ushort*" : "ptr"
     prgpvargMarshal := prgpvarg is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("OLEAUT32.dll\DispCallFunc", pvInstanceMarshal, pvInstance, "ptr", oVft, CALLCONV, cc, VARENUM, vtReturn, "uint", cActuals, prgvtMarshal, prgvt, prgpvargMarshal, prgpvarg, VARIANT.Ptr, pvargResult, "HRESULT")
+    result := DllCall("OLEAUT32.dll\DispCallFunc", pvInstanceMarshal, pvInstance, IntPtr, oVft, CALLCONV, cc, VARENUM, vtReturn, UInt32, cActuals, prgvtMarshal, prgvt, prgpvargMarshal, prgpvarg, VARIANT.Ptr, pvargResult, "HRESULT")
     return result
 }
 
@@ -12114,7 +12115,7 @@ export RegisterActiveObject(punk, rclsid, dwFlags, pdwRegister) {
 export RevokeActiveObject(dwRegister) {
     static pvReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("OLEAUT32.dll\RevokeActiveObject", "uint", dwRegister, "ptr", pvReserved, "HRESULT")
+    result := DllCall("OLEAUT32.dll\RevokeActiveObject", UInt32, dwRegister, "ptr", pvReserved, "HRESULT")
     return result
 }
 
@@ -12167,7 +12168,7 @@ export GetRecordInfoFromTypeInfo(pTypeInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-getrecordinfofromguids
  */
 export GetRecordInfoFromGuids(rGuidTypeLib, uVerMajor, uVerMinor, lcid, rGuidTypeInfo) {
-    result := DllCall("OLEAUT32.dll\GetRecordInfoFromGuids", Guid.Ptr, rGuidTypeLib, "uint", uVerMajor, "uint", uVerMinor, "uint", lcid, Guid.Ptr, rGuidTypeInfo, "ptr*", &ppRecInfo := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\GetRecordInfoFromGuids", Guid.Ptr, rGuidTypeLib, UInt32, uVerMajor, UInt32, uVerMinor, UInt32, lcid, Guid.Ptr, rGuidTypeInfo, "ptr*", &ppRecInfo := 0, "HRESULT")
     return IRecordInfo(ppRecInfo)
 }
 
@@ -12440,7 +12441,7 @@ export OleQueryCreateFromData(pSrcDataObject) {
  * @since windows5.0
  */
 export OleCreate(rclsid, riid, renderopt, pFormatEtc, pClientSite, pStg) {
-    result := DllCall("OLE32.dll\OleCreate", Guid.Ptr, rclsid, Guid.Ptr, riid, "uint", renderopt, FORMATETC.Ptr, pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
+    result := DllCall("OLE32.dll\OleCreate", Guid.Ptr, rclsid, Guid.Ptr, riid, UInt32, renderopt, FORMATETC.Ptr, pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
     return ppvObj
 }
 
@@ -12514,7 +12515,7 @@ export OleCreateEx(rclsid, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatE
     rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
     ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ole32.dll\OleCreateEx", Guid.Ptr, rclsid, Guid.Ptr, riid, OLECREATE_enum, dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
+    result := DllCall("ole32.dll\OleCreateEx", Guid.Ptr, rclsid, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
 }
 
@@ -12601,7 +12602,7 @@ export OleCreateEx(rclsid, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatE
  * @since windows5.0
  */
 export OleCreateFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg) {
-    result := DllCall("OLE32.dll\OleCreateFromData", "ptr", pSrcDataObj, Guid.Ptr, riid, "uint", renderopt, FORMATETC.Ptr, pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
+    result := DllCall("OLE32.dll\OleCreateFromData", "ptr", pSrcDataObj, Guid.Ptr, riid, UInt32, renderopt, FORMATETC.Ptr, pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
     return ppvObj
 }
 
@@ -12682,7 +12683,7 @@ export OleCreateFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAd
     rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
     ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, Guid.Ptr, riid, OLECREATE_enum, dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
+    result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
 }
 
@@ -12736,7 +12737,7 @@ export OleCreateFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAd
  * @since windows5.0
  */
 export OleCreateLinkFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg) {
-    result := DllCall("OLE32.dll\OleCreateLinkFromData", "ptr", pSrcDataObj, Guid.Ptr, riid, "uint", renderopt, FORMATETC.Ptr, pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
+    result := DllCall("OLE32.dll\OleCreateLinkFromData", "ptr", pSrcDataObj, Guid.Ptr, riid, UInt32, renderopt, FORMATETC.Ptr, pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
     return ppvObj
 }
 
@@ -12786,7 +12787,7 @@ export OleCreateLinkFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, 
     rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
     rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, Guid.Ptr, riid, OLECREATE_enum, dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
+    result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
     return ppvObj
 }
 
@@ -12823,7 +12824,7 @@ export OleCreateLinkFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, 
  * @since windows5.0
  */
 export OleCreateStaticFromData(pSrcDataObj, iid, renderopt, pFormatEtc, pClientSite, pStg) {
-    result := DllCall("OLE32.dll\OleCreateStaticFromData", "ptr", pSrcDataObj, Guid.Ptr, iid, "uint", renderopt, FORMATETC.Ptr, pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
+    result := DllCall("OLE32.dll\OleCreateStaticFromData", "ptr", pSrcDataObj, Guid.Ptr, iid, UInt32, renderopt, FORMATETC.Ptr, pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
     return ppvObj
 }
 
@@ -12842,7 +12843,7 @@ export OleCreateStaticFromData(pSrcDataObj, iid, renderopt, pFormatEtc, pClientS
  * @since windows5.0
  */
 export OleCreateLink(pmkLinkSrc, riid, renderopt, lpFormatEtc, pClientSite, pStg) {
-    result := DllCall("ole32.dll\OleCreateLink", "ptr", pmkLinkSrc, Guid.Ptr, riid, "uint", renderopt, FORMATETC.Ptr, lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
+    result := DllCall("ole32.dll\OleCreateLink", "ptr", pmkLinkSrc, Guid.Ptr, riid, UInt32, renderopt, FORMATETC.Ptr, lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
     return ppvObj
 }
 
@@ -12929,7 +12930,7 @@ export OleCreateLinkEx(pmkLinkSrc, riid, dwFlags, renderopt, cFormats, rgAdvf, r
     rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
     ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, Guid.Ptr, riid, OLECREATE_enum, dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
+    result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
 }
 
@@ -12950,7 +12951,7 @@ export OleCreateLinkEx(pmkLinkSrc, riid, dwFlags, renderopt, cFormats, rgAdvf, r
 export OleCreateLinkToFile(lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, Guid.Ptr, riid, "uint", renderopt, FORMATETC.Ptr, lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
+    result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, Guid.Ptr, riid, UInt32, renderopt, FORMATETC.Ptr, lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
     return ppvObj
 }
 
@@ -13037,7 +13038,7 @@ export OleCreateLinkToFileEx(lpszFileName, riid, dwFlags, renderopt, cFormats, r
     rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
     ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, Guid.Ptr, riid, OLECREATE_enum, dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
+    result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
 }
 
@@ -13061,7 +13062,7 @@ export OleCreateLinkToFileEx(lpszFileName, riid, dwFlags, renderopt, cFormats, r
 export OleCreateFromFile(rclsid, lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("OLE32.dll\OleCreateFromFile", Guid.Ptr, rclsid, "ptr", lpszFileName, Guid.Ptr, riid, "uint", renderopt, FORMATETC.Ptr, lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
+    result := DllCall("OLE32.dll\OleCreateFromFile", Guid.Ptr, rclsid, "ptr", lpszFileName, Guid.Ptr, riid, UInt32, renderopt, FORMATETC.Ptr, lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
     return ppvObj
 }
 
@@ -13147,7 +13148,7 @@ export OleCreateFromFileEx(rclsid, lpszFileName, riid, dwFlags, renderopt, cForm
     rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
     ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ole32.dll\OleCreateFromFileEx", Guid.Ptr, rclsid, "ptr", lpszFileName, Guid.Ptr, riid, OLECREATE_enum, dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
+    result := DllCall("ole32.dll\OleCreateFromFileEx", Guid.Ptr, rclsid, "ptr", lpszFileName, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
 }
 
@@ -13948,7 +13949,7 @@ export OleCreateMenuDescriptor(hmenuCombined, lpMenuWidths) {
  * @since windows5.0
  */
 export OleSetMenuDescriptor(holemenu, hwndFrame, hwndActiveObject, lpFrame, lpActiveObj) {
-    result := DllCall("OLE32.dll\OleSetMenuDescriptor", "ptr", holemenu, HWND, hwndFrame, HWND, hwndActiveObject, "ptr", lpFrame, "ptr", lpActiveObj, "HRESULT")
+    result := DllCall("OLE32.dll\OleSetMenuDescriptor", IntPtr, holemenu, HWND, hwndFrame, HWND, hwndActiveObject, "ptr", lpFrame, "ptr", lpActiveObj, "HRESULT")
     return result
 }
 
@@ -13960,7 +13961,7 @@ export OleSetMenuDescriptor(holemenu, hwndFrame, hwndActiveObject, lpFrame, lpAc
  * @since windows5.0
  */
 export OleDestroyMenuDescriptor(holemenu) {
-    result := DllCall("OLE32.dll\OleDestroyMenuDescriptor", "ptr", holemenu, "HRESULT")
+    result := DllCall("OLE32.dll\OleDestroyMenuDescriptor", IntPtr, holemenu, "HRESULT")
     return result
 }
 
@@ -14132,7 +14133,7 @@ export OleDuplicateData(hSrc, cfFormat, uiFlags) {
  * @since windows5.0
  */
 export OleDraw(pUnknown, dwAspect, hdcDraw, lprcBounds) {
-    result := DllCall("OLE32.dll\OleDraw", "ptr", pUnknown, "uint", dwAspect, HDC, hdcDraw, RECT.Ptr, lprcBounds, "HRESULT")
+    result := DllCall("OLE32.dll\OleDraw", "ptr", pUnknown, UInt32, dwAspect, HDC, hdcDraw, RECT.Ptr, lprcBounds, "HRESULT")
     return result
 }
 
@@ -14501,7 +14502,7 @@ export OleCreateEmbeddingHelper(clsid, pUnkOuter, flags, pCF, riid) {
 export IsAccelerator(_hAccel, cAccelEntries, lpMsg, lpwCmd) {
     lpwCmdMarshal := lpwCmd is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("OLE32.dll\IsAccelerator", HACCEL, _hAccel, "int", cAccelEntries, MSG.Ptr, lpMsg, lpwCmdMarshal, lpwCmd, BOOL)
+    result := DllCall("OLE32.dll\IsAccelerator", HACCEL, _hAccel, Int32, cAccelEntries, MSG.Ptr, lpMsg, lpwCmdMarshal, lpwCmd, BOOL)
     return result
 }
 
@@ -14558,7 +14559,7 @@ export OleMetafilePictFromIconAndLabel(_hIcon, lpszLabel, lpszSourceFile, iIconI
 
     A_LastError := 0
 
-    result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", HICON, _hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, "uint", iIconIndex, HGLOBAL.Owned)
+    result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", HICON, _hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, UInt32, iIconIndex, HGLOBAL.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14581,7 +14582,7 @@ export OleMetafilePictFromIconAndLabel(_hIcon, lpszLabel, lpszSourceFile, iIconI
  * @since windows5.0
  */
 export OleRegGetUserType(clsid, dwFormOfType) {
-    result := DllCall("OLE32.dll\OleRegGetUserType", Guid.Ptr, clsid, "uint", dwFormOfType, PWSTR.Ptr, &pszUserType := 0, "HRESULT")
+    result := DllCall("OLE32.dll\OleRegGetUserType", Guid.Ptr, clsid, UInt32, dwFormOfType, PWSTR.Ptr, &pszUserType := 0, "HRESULT")
     return pszUserType
 }
 
@@ -14600,7 +14601,7 @@ export OleRegGetUserType(clsid, dwFormOfType) {
  * @since windows5.0
  */
 export OleRegGetMiscStatus(clsid, dwAspect) {
-    result := DllCall("OLE32.dll\OleRegGetMiscStatus", Guid.Ptr, clsid, "uint", dwAspect, "uint*", &pdwStatus := 0, "HRESULT")
+    result := DllCall("OLE32.dll\OleRegGetMiscStatus", Guid.Ptr, clsid, UInt32, dwAspect, "uint*", &pdwStatus := 0, "HRESULT")
     return pdwStatus
 }
 
@@ -14619,7 +14620,7 @@ export OleRegGetMiscStatus(clsid, dwAspect) {
  * @since windows5.0
  */
 export OleRegEnumFormatEtc(clsid, dwDirection) {
-    result := DllCall("ole32.dll\OleRegEnumFormatEtc", Guid.Ptr, clsid, "uint", dwDirection, "ptr*", &ppenum := 0, "HRESULT")
+    result := DllCall("ole32.dll\OleRegEnumFormatEtc", Guid.Ptr, clsid, UInt32, dwDirection, "ptr*", &ppenum := 0, "HRESULT")
     return IEnumFORMATETC(ppenum)
 }
 
@@ -14652,7 +14653,7 @@ export OleRegEnumVerbs(clsid) {
 export OleConvertOLESTREAMToIStorage2(lpolestream, pstg, ptd, opt, pvCallbackContext, pQueryConvertOLELinkCallback) {
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", OLESTREAM.Ptr, lpolestream, "ptr", pstg, DVTARGETDEVICE.Ptr, ptd, "uint", opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "HRESULT")
+    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", OLESTREAM.Ptr, lpolestream, "ptr", pstg, DVTARGETDEVICE.Ptr, ptd, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, OLESTREAMQUERYCONVERTOLELINKCALLBACK, pQueryConvertOLELinkCallback, "HRESULT")
     return result
 }
 
@@ -14888,7 +14889,7 @@ export OleConvertOLESTREAMToIStorageEx2(polestm, pstg, pcfFormat, plwWidth, plHe
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
     pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", OLESTREAM.Ptr, polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, STGMEDIUM.Ptr, pmedium, "uint", opt, pvCallbackContextMarshal, pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "HRESULT")
+    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", OLESTREAM.Ptr, polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, STGMEDIUM.Ptr, pmedium, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, OLESTREAMQUERYCONVERTOLELINKCALLBACK, pQueryConvertOLELinkCallback, "HRESULT")
     return result
 }
 
@@ -14902,7 +14903,7 @@ export OleConvertOLESTREAMToIStorageEx2(polestm, pstg, pcfFormat, plwWidth, plHe
 export HRGN_UserSize(param0, param1, param2) {
     param0Marshal := param0 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("OLE32.dll\HRGN_UserSize", param0Marshal, param0, "uint", param1, HRGN.Ptr, param2, UInt32)
+    result := DllCall("OLE32.dll\HRGN_UserSize", param0Marshal, param0, UInt32, param1, HRGN.Ptr, param2, UInt32)
     return result
 }
 
@@ -14958,7 +14959,7 @@ export HRGN_UserFree(param0, param1) {
 export HRGN_UserSize64(param0, param1, param2) {
     param0Marshal := param0 is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserSize64", param0Marshal, param0, "uint", param1, HRGN.Ptr, param2, UInt32)
+    result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserSize64", param0Marshal, param0, UInt32, param1, HRGN.Ptr, param2, UInt32)
     return result
 }
 
@@ -15057,7 +15058,7 @@ export OleCreatePropertyFrame(hwndOwner, x, y, lpszCaption, cObjects, ppUnk, cPa
 
     lpszCaption := lpszCaption is String ? StrPtr(lpszCaption) : lpszCaption
 
-    result := DllCall("OLEAUT32.dll\OleCreatePropertyFrame", HWND, hwndOwner, "uint", x, "uint", y, "ptr", lpszCaption, "uint", cObjects, IUnknown.Ptr, ppUnk, "uint", cPages, Guid.Ptr, pPageClsID, "uint", lcid, "uint", dwReserved, "ptr", pvReserved, "HRESULT")
+    result := DllCall("OLEAUT32.dll\OleCreatePropertyFrame", HWND, hwndOwner, UInt32, x, UInt32, y, "ptr", lpszCaption, UInt32, cObjects, IUnknown.Ptr, ppUnk, UInt32, cPages, Guid.Ptr, pPageClsID, UInt32, lcid, UInt32, dwReserved, "ptr", pvReserved, "HRESULT")
     return result
 }
 
@@ -15225,7 +15226,7 @@ export OleCreatePropertyFrameIndirect(lpParams) {
  * @since windows5.0
  */
 export OleTranslateColor(clr, hpal) {
-    result := DllCall("OLEAUT32.dll\OleTranslateColor", "uint", clr, HPALETTE, hpal, COLORREF.Ptr, &lpcolorref := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\OleTranslateColor", UInt32, clr, HPALETTE, hpal, COLORREF.Ptr, &lpcolorref := 0, "HRESULT")
     return lpcolorref
 }
 
@@ -15271,7 +15272,7 @@ export OleCreatePictureIndirect(lpPictDesc, riid, fOwn) {
  * @since windows5.0
  */
 export OleLoadPicture(lpstream, lSize, fRunmode, riid) {
-    result := DllCall("OLEAUT32.dll\OleLoadPicture", "ptr", lpstream, "int", lSize, BOOL, fRunmode, Guid.Ptr, riid, "ptr*", &lplpvObj := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\OleLoadPicture", "ptr", lpstream, Int32, lSize, BOOL, fRunmode, Guid.Ptr, riid, "ptr*", &lplpvObj := 0, "HRESULT")
     return lplpvObj
 }
 
@@ -15293,7 +15294,7 @@ export OleLoadPicture(lpstream, lSize, fRunmode, riid) {
  * @since windows5.0
  */
 export OleLoadPictureEx(lpstream, lSize, fRunmode, riid, xSizeDesired, ySizeDesired, dwFlags) {
-    result := DllCall("OLEAUT32.dll\OleLoadPictureEx", "ptr", lpstream, "int", lSize, BOOL, fRunmode, Guid.Ptr, riid, "uint", xSizeDesired, "uint", ySizeDesired, LOAD_PICTURE_FLAGS, dwFlags, "ptr*", &lplpvObj := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\OleLoadPictureEx", "ptr", lpstream, Int32, lSize, BOOL, fRunmode, Guid.Ptr, riid, UInt32, xSizeDesired, UInt32, ySizeDesired, LOAD_PICTURE_FLAGS, dwFlags, "ptr*", &lplpvObj := 0, "HRESULT")
     return lplpvObj
 }
 
@@ -15314,7 +15315,7 @@ export OleLoadPicturePath(szURLorPath, punkCaller, clrReserved, riid) {
 
     szURLorPath := szURLorPath is String ? StrPtr(szURLorPath) : szURLorPath
 
-    result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, Guid.Ptr, riid, "ptr*", &ppvRet := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, UInt32, dwReserved, UInt32, clrReserved, Guid.Ptr, riid, "ptr*", &ppvRet := 0, "HRESULT")
     return ppvRet
 }
 
@@ -15394,7 +15395,7 @@ export OleLoadPictureFile(varFileName) {
  * @see https://learn.microsoft.com/windows/win32/api/olectl/nf-olectl-oleloadpicturefileex
  */
 export OleLoadPictureFileEx(varFileName, xSizeDesired, ySizeDesired, dwFlags) {
-    result := DllCall("OLEAUT32.dll\OleLoadPictureFileEx", VARIANT, varFileName, "uint", xSizeDesired, "uint", ySizeDesired, LOAD_PICTURE_FLAGS, dwFlags, "ptr*", &lplpdispPicture := 0, "HRESULT")
+    result := DllCall("OLEAUT32.dll\OleLoadPictureFileEx", VARIANT, varFileName, UInt32, xSizeDesired, UInt32, ySizeDesired, LOAD_PICTURE_FLAGS, dwFlags, "ptr*", &lplpdispPicture := 0, "HRESULT")
     return IDispatch(lplpdispPicture)
 }
 
@@ -15496,7 +15497,7 @@ export OleIconToCursor(hinstExe, _hIcon) {
 export OleUIAddVerbMenuW(lpOleObj, lpszShortType, _hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
     lpszShortType := lpszShortType is String ? StrPtr(lpszShortType) : lpszShortType
 
-    result := DllCall("oledlg.dll\OleUIAddVerbMenuW", "ptr", lpOleObj, "ptr", lpszShortType, HMENU, _hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, BOOL, bAddConvert, "uint", idConvert, HMENU.Ptr, lphMenu, BOOL)
+    result := DllCall("oledlg.dll\OleUIAddVerbMenuW", "ptr", lpOleObj, "ptr", lpszShortType, HMENU, _hMenu, UInt32, uPos, UInt32, uIDVerbMin, UInt32, uIDVerbMax, BOOL, bAddConvert, UInt32, idConvert, HMENU.Ptr, lphMenu, BOOL)
     return result
 }
 
@@ -15527,7 +15528,7 @@ export OleUIAddVerbMenuW(lpOleObj, lpszShortType, _hMenu, uPos, uIDVerbMin, uIDV
 export OleUIAddVerbMenuA(lpOleObj, lpszShortType, _hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
     lpszShortType := lpszShortType is String ? StrPtr(lpszShortType) : lpszShortType
 
-    result := DllCall("oledlg.dll\OleUIAddVerbMenuA", "ptr", lpOleObj, "ptr", lpszShortType, HMENU, _hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, BOOL, bAddConvert, "uint", idConvert, HMENU.Ptr, lphMenu, BOOL)
+    result := DllCall("oledlg.dll\OleUIAddVerbMenuA", "ptr", lpOleObj, "ptr", lpszShortType, HMENU, _hMenu, UInt32, uPos, UInt32, uIDVerbMin, UInt32, uIDVerbMax, BOOL, bAddConvert, UInt32, idConvert, HMENU.Ptr, lphMenu, BOOL)
     return result
 }
 
@@ -15573,7 +15574,7 @@ export OleUIAddVerbMenuA(lpOleObj, lpszShortType, _hMenu, uPos, uIDVerbMin, uIDV
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIINSERTOBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIINSERTOBJECTW>} param0 
+ * @param {Pointer<OLEUIINSERTOBJECTW>} param0 Pointer to the in-out <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiinsertobjecta">OLEUIINSERTOBJECT</a> structure for this dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -15992,7 +15993,7 @@ export OleUIInsertObjectW(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIINSERTOBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIINSERTOBJECTA>} param0 
+ * @param {Pointer<OLEUIINSERTOBJECTA>} param0 Pointer to the in-out <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiinsertobjecta">OLEUIINSERTOBJECT</a> structure for this dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -16407,7 +16408,7 @@ export OleUIInsertObjectA(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIPASTESPECIAL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIPASTESPECIALW>} param0 
+ * @param {Pointer<OLEUIPASTESPECIALW>} param0 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> structure.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -16803,7 +16804,7 @@ export OleUIPasteSpecialW(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIPASTESPECIAL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIPASTESPECIALA>} param0 
+ * @param {Pointer<OLEUIPASTESPECIALA>} param0 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> structure.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -17166,7 +17167,7 @@ export OleUIPasteSpecialA(param0) {
  * @remarks
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIEDITLINKS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIEDITLINKSW>} param0 
+ * @param {Pointer<OLEUIEDITLINKSW>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuieditlinksa">OLEUIEDITLINKS</a> structure that contains information used to initialize the dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -17471,7 +17472,7 @@ export OleUIEditLinksW(param0) {
  * @remarks
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIEDITLINKS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIEDITLINKSA>} param0 
+ * @param {Pointer<OLEUIEDITLINKSA>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuieditlinksa">OLEUIEDITLINKS</a> structure that contains information used to initialize the dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -17783,7 +17784,7 @@ export OleUIEditLinksA(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUICHANGEICON as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUICHANGEICONW>} param0 
+ * @param {Pointer<OLEUICHANGEICONW>} param0 Pointer to the In/Out [OLEUICHANGEICON](./nf-oledlg-oleuichangeicona.md) structure for this dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -18128,7 +18129,7 @@ export OleUIChangeIconW(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUICHANGEICON as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUICHANGEICONA>} param0 
+ * @param {Pointer<OLEUICHANGEICONA>} param0 Pointer to the In/Out [OLEUICHANGEICON]() structure for this dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -18479,7 +18480,7 @@ export OleUIChangeIconA(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUICONVERT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUICONVERTW>} param0 
+ * @param {Pointer<OLEUICONVERTW>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiconverta">OLEUICONVERT</a> structure that contains information used to initialize the dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -18841,7 +18842,7 @@ export OleUIConvertW(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUICONVERT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUICONVERTA>} param0 
+ * @param {Pointer<OLEUICONVERTA>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiconverta">OLEUICONVERT</a> structure that contains information used to initialize the dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -19201,7 +19202,7 @@ export OleUIConvertA(param0) {
  * @since windows5.0
  */
 export OleUICanConvertOrActivateAs(rClsid, fIsLinkedObject, wFormat) {
-    result := DllCall("oledlg.dll\OleUICanConvertOrActivateAs", Guid.Ptr, rClsid, BOOL, fIsLinkedObject, "ushort", wFormat, BOOL)
+    result := DllCall("oledlg.dll\OleUICanConvertOrActivateAs", Guid.Ptr, rClsid, BOOL, fIsLinkedObject, UInt16, wFormat, BOOL)
     return result
 }
 
@@ -19217,7 +19218,7 @@ export OleUICanConvertOrActivateAs(rClsid, fIsLinkedObject, wFormat) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIBUSY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIBUSYW>} param0 
+ * @param {Pointer<OLEUIBUSYW>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuibusya">OLEUIBUSY</a> structure that contains information used to initialize the dialog box.
  * @returns {Integer} This function returns the following values:
  * 
  * 
@@ -19600,7 +19601,7 @@ export OleUIBusyW(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIBUSY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIBUSYA>} param0 
+ * @param {Pointer<OLEUIBUSYA>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuibusya">OLEUIBUSY</a> structure that contains information used to initialize the dialog box.
  * @returns {Integer} This function returns the following values:
  * 
  * 
@@ -19983,7 +19984,7 @@ export OleUIBusyA(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUICHANGESOURCE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUICHANGESOURCEW>} param0 
+ * @param {Pointer<OLEUICHANGESOURCEW>} param0 Pointer to the in-out <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuichangesourcea">OLEUICHANGESOURCE</a> structure for this dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -20361,7 +20362,7 @@ export OleUIChangeSourceW(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUICHANGESOURCE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUICHANGESOURCEA>} param0 
+ * @param {Pointer<OLEUICHANGESOURCEA>} param0 Pointer to the in-out <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuichangesourcea">OLEUICHANGESOURCE</a> structure for this dialog box.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -20738,7 +20739,7 @@ export OleUIChangeSourceA(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OleUIObjectProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIOBJECTPROPSW>} param0 
+ * @param {Pointer<OLEUIOBJECTPROPSW>} param0 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiobjectpropsa">OLEUIOBJECTPROPS</a> structure.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -21274,7 +21275,7 @@ export OleUIObjectPropertiesW(param0) {
  * 
  * > [!NOTE]
  * > The oledlg.h header defines OleUIObjectProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<OLEUIOBJECTPROPSA>} param0 
+ * @param {Pointer<OLEUIOBJECTPROPSA>} param0 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuiobjectpropsa">OLEUIOBJECTPROPS</a> structure.
  * @returns {Integer} Standard Success/Error Definitions
  * 
  * 
@@ -22119,7 +22120,7 @@ export OleUIPromptUserW(nTemplate, hwndParent, args*) {
     varArgs := [args*]
     varArgs.Push(Int32)
 
-    result := DllCall("oledlg.dll\OleUIPromptUserW", "int", nTemplate, HWND, hwndParent, varArgs*)
+    result := DllCall("oledlg.dll\OleUIPromptUserW", Int32, nTemplate, HWND, hwndParent, varArgs*)
     return result
 }
 
@@ -22443,7 +22444,7 @@ export OleUIPromptUserA(nTemplate, hwndParent, args*) {
     varArgs := [args*]
     varArgs.Push(Int32)
 
-    result := DllCall("oledlg.dll\OleUIPromptUserA", "int", nTemplate, HWND, hwndParent, varArgs*)
+    result := DllCall("oledlg.dll\OleUIPromptUserA", Int32, nTemplate, HWND, hwndParent, varArgs*)
     return result
 }
 
@@ -22463,7 +22464,7 @@ export OleUIPromptUserA(nTemplate, hwndParent, args*) {
 export OleUIUpdateLinksW(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
     lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
-    result := DllCall("oledlg.dll\OleUIUpdateLinksW", "ptr", lpOleUILinkCntr, HWND, hwndParent, "ptr", lpszTitle, "int", cLinks, BOOL)
+    result := DllCall("oledlg.dll\OleUIUpdateLinksW", "ptr", lpOleUILinkCntr, HWND, hwndParent, "ptr", lpszTitle, Int32, cLinks, BOOL)
     return result
 }
 
@@ -22483,7 +22484,7 @@ export OleUIUpdateLinksW(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
 export OleUIUpdateLinksA(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
     lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
-    result := DllCall("oledlg.dll\OleUIUpdateLinksA", "ptr", lpOleUILinkCntr, HWND, hwndParent, "ptr", lpszTitle, "int", cLinks, BOOL)
+    result := DllCall("oledlg.dll\OleUIUpdateLinksA", "ptr", lpOleUILinkCntr, HWND, hwndParent, "ptr", lpszTitle, Int32, cLinks, BOOL)
     return result
 }
 

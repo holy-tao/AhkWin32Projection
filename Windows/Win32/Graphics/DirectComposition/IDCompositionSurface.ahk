@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a physical bitmap that can be associated with a visual for composition in a visual tree. This interface can also be used to update the bitmap contents.
@@ -187,7 +187,7 @@ export default struct IDCompositionSurface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurface-scroll
      */
     Scroll(scrollRect, clipRect, offsetX, offsetY) {
-        result := ComCall(7, this, RECT.Ptr, scrollRect, RECT.Ptr, clipRect, "int", offsetX, "int", offsetY, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, scrollRect, RECT.Ptr, clipRect, Int32, offsetX, Int32, offsetY, "HRESULT")
         return result
     }
 

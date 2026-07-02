@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_TEX2D_ARRAY_RTV1.ahk" { D3D11_TEX2D_ARRAY_RTV1 }
-#Import ".\D3D11_RTV_DIMENSION.ahk" { D3D11_RTV_DIMENSION }
 #Import ".\D3D11_BUFFER_RTV.ahk" { D3D11_BUFFER_RTV }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D11_TEX1D_RTV.ahk" { D3D11_TEX1D_RTV }
+#Import ".\D3D11_TEX1D_ARRAY_RTV.ahk" { D3D11_TEX1D_ARRAY_RTV }
+#Import ".\D3D11_TEX2D_ARRAY_RTV1.ahk" { D3D11_TEX2D_ARRAY_RTV1 }
+#Import ".\D3D11_TEX2DMS_ARRAY_RTV.ahk" { D3D11_TEX2DMS_ARRAY_RTV }
+#Import ".\D3D11_RTV_DIMENSION.ahk" { D3D11_RTV_DIMENSION }
 #Import ".\D3D11_TEX3D_RTV.ahk" { D3D11_TEX3D_RTV }
 #Import ".\D3D11_TEX2D_RTV1.ahk" { D3D11_TEX2D_RTV1 }
-#Import ".\D3D11_TEX1D_ARRAY_RTV.ahk" { D3D11_TEX1D_ARRAY_RTV }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\D3D11_TEX2DMS_RTV.ahk" { D3D11_TEX2DMS_RTV }
-#Import ".\D3D11_TEX2DMS_ARRAY_RTV.ahk" { D3D11_TEX2DMS_ARRAY_RTV }
+#Import ".\D3D11_TEX1D_RTV.ahk" { D3D11_TEX1D_RTV }
 
 /**
  * Describes the subresources from a resource that are accessible using a render-target view. (D3D11_RENDER_TARGET_VIEW_DESC1)

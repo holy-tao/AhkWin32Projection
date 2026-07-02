@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import ".\COORD.ahk" { COORD }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CONSOLE_CHARACTER_ATTRIBUTES.ahk" { CONSOLE_CHARACTER_ATTRIBUTES }
+#Import ".\COORD.ahk" { COORD }
 #Import ".\SMALL_RECT.ahk" { SMALL_RECT }
+#Import ".\CONSOLE_CHARACTER_ATTRIBUTES.ahk" { CONSOLE_CHARACTER_ATTRIBUTES }
 
 /**
  * See reference information about the CONSOLE_SCREEN_BUFFER_INFOEX structure, which contains extended information about a console screen buffer.

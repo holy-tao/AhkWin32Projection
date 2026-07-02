@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\BINDINFO.ahk" { BINDINFO }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -55,7 +55,7 @@ export default struct IDownloadManager extends IUnknown {
         pszHeaders := pszHeaders is String ? StrPtr(pszHeaders) : pszHeaders
         pszRedir := pszRedir is String ? StrPtr(pszRedir) : pszRedir
 
-        result := ComCall(3, this, "ptr", pmk, "ptr", pbc, "uint", dwBindVerb, "int", grfBINDF, BINDINFO.Ptr, pBindInfo, "ptr", pszHeaders, "ptr", pszRedir, "uint", uiCP, "HRESULT")
+        result := ComCall(3, this, "ptr", pmk, "ptr", pbc, UInt32, dwBindVerb, Int32, grfBINDF, BINDINFO.Ptr, pBindInfo, "ptr", pszHeaders, "ptr", pszRedir, UInt32, uiCP, "HRESULT")
         return result
     }
 

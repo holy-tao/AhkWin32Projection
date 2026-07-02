@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\HMIDI.ahk" { HMIDI }
 #Import "..\..\Multimedia\MIDIOPENSTRMID.ahk" { MIDIOPENSTRMID }
+#Import "..\HMIDI.ahk" { HMIDI }
 
 /**
  * The MIDIOPENDESC structure is a client-filled structure that provides information about how to open a MIDI device.

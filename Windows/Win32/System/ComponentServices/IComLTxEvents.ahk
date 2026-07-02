@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber of events that relate to COM+ transactions.
@@ -54,7 +54,7 @@ export default struct IComLTxEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactionstart
      */
     OnLtxTransactionStart(pInfo, guidLtx, tsid, fRoot, nIsolationLevel) {
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidLtx, Guid, tsid, BOOL, fRoot, "int", nIsolationLevel, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidLtx, Guid, tsid, BOOL, fRoot, Int32, nIsolationLevel, "HRESULT")
         return result
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITMediaSupport interface provides methods that allow an application to discover the media support capabilities for an Address Object that exposes this interface.
@@ -64,7 +64,7 @@ export default struct ITMediaSupport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediasupport-querymediatype
      */
     QueryMediaType(lMediaType) {
-        result := ComCall(8, this, "int", lMediaType, VARIANT_BOOL.Ptr, &pfSupport := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lMediaType, VARIANT_BOOL.Ptr, &pfSupport := 0, "HRESULT")
         return pfSupport
     }
 

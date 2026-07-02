@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -109,7 +109,7 @@ export default struct IHTMLDOMTextNode extends IDispatch {
      * @returns {IHTMLDOMNode} 
      */
     splitText(offset) {
-        result := ComCall(11, this, "int", offset, "ptr*", &pRetNode := 0, "HRESULT")
+        result := ComCall(11, this, Int32, offset, "ptr*", &pRetNode := 0, "HRESULT")
         return IHTMLDOMNode(pRetNode)
     }
 

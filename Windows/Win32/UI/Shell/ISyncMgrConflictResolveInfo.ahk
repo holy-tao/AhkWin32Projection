@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SYNCMGR_PRESENTER_NEXT_STEP.ahk" { SYNCMGR_PRESENTER_NEXT_STEP }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SYNCMGR_PRESENTER_CHOICE.ahk" { SYNCMGR_PRESENTER_CHOICE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that get and set information about sync manager conflict resolution.
@@ -128,7 +128,7 @@ export default struct ISyncMgrConflictResolveInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getitemchoice
      */
     GetItemChoice(iChoice) {
-        result := ComCall(7, this, "uint", iChoice, "uint*", &piChoiceIndex := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, iChoice, "uint*", &piChoiceIndex := 0, "HRESULT")
         return piChoiceIndex
     }
 
@@ -181,7 +181,7 @@ export default struct ISyncMgrConflictResolveInfo extends IUnknown {
     SetItemChoices(prgiConflictItemIndexes, cChoices) {
         prgiConflictItemIndexesMarshal := prgiConflictItemIndexes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, prgiConflictItemIndexesMarshal, prgiConflictItemIndexes, "uint", cChoices, "HRESULT")
+        result := ComCall(10, this, prgiConflictItemIndexesMarshal, prgiConflictItemIndexes, UInt32, cChoices, "HRESULT")
         return result
     }
 

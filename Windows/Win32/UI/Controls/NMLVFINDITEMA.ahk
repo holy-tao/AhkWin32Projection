@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\NMHDR.ahk" { NMHDR }
-#Import ".\LVFINDINFOW_FLAGS.ahk" { LVFINDINFOW_FLAGS }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\LVFINDINFOA.ahk" { LVFINDINFOA }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\LVFINDINFOW_FLAGS.ahk" { LVFINDINFOW_FLAGS }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\LVFINDINFOA.ahk" { LVFINDINFOA }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information the owner needs to find items requested by a virtual list-view control. This structure is used with the LVN_ODFINDITEM notification code. (ANSI)

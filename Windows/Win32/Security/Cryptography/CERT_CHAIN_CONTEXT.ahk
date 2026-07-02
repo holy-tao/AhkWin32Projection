@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CERT_SIMPLE_CHAIN.ahk" { CERT_SIMPLE_CHAIN }
 #Import ".\CERT_TRUST_STATUS.ahk" { CERT_TRUST_STATUS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains an array of simple certificate chains and a trust status structure that indicates summary validity data on all of the connected simple chains.

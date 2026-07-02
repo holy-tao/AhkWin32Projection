@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IPropertySheetCallback.ahk" { IPropertySheetCallback }
 #Import "..\Com\IDataObject.ahk" { IDataObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables a snap-in component to add pages to the property sheet of an item.
@@ -69,7 +69,7 @@ export default struct IExtendPropertySheet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendpropertysheet-createpropertypages
      */
     CreatePropertyPages(lpProvider, _handle, lpIDataObject) {
-        result := ComCall(3, this, "ptr", lpProvider, "ptr", _handle, "ptr", lpIDataObject, "HRESULT")
+        result := ComCall(3, this, "ptr", lpProvider, IntPtr, _handle, "ptr", lpIDataObject, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ASSEMBLYMETADATA.ahk" { ASSEMBLYMETADATA }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -63,7 +63,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
         pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : "ptr"
         pmaMarshal := pma is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbPublicKeyMarshal, pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, "uint", dwAssemblyFlags, pmaMarshal, pma, "HRESULT")
+        result := ComCall(3, this, pbPublicKeyMarshal, pbPublicKey, UInt32, cbPublicKey, UInt32, ulHashAlgId, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, UInt32, dwAssemblyFlags, pmaMarshal, pma, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
         pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
         pmdarMarshal := pmdar is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, pmdarMarshal, pmdar, "HRESULT")
+        result := ComCall(4, this, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, UInt32, cbPublicKeyOrToken, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, UInt32, dwAssemblyRefFlags, pmdarMarshal, pmdar, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
         pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
         pmdfMarshal := pmdf is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", szName, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwFileFlags, pmdfMarshal, pmdf, "HRESULT")
+        result := ComCall(5, this, "ptr", szName, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, UInt32, dwFileFlags, pmdfMarshal, pmdf, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
 
         pmdctMarshal := pmdct is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", szName, "uint", tkImplementation, "uint", tkTypeDef, "uint", dwExportedTypeFlags, pmdctMarshal, pmdct, "HRESULT")
+        result := ComCall(6, this, "ptr", szName, UInt32, tkImplementation, UInt32, tkTypeDef, UInt32, dwExportedTypeFlags, pmdctMarshal, pmdct, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
 
         pmdmrMarshal := pmdmr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", szName, "uint", tkImplementation, "uint", dwOffset, "uint", dwResourceFlags, pmdmrMarshal, pmdmr, "HRESULT")
+        result := ComCall(7, this, "ptr", szName, UInt32, tkImplementation, UInt32, dwOffset, UInt32, dwResourceFlags, pmdmrMarshal, pmdmr, "HRESULT")
         return result
     }
 
@@ -161,7 +161,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
 
         pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", pma, pbPublicKeyMarshal, pbPublicKey, "uint", cbPublicKey, "uint", ulHashAlgId, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, "uint", dwAssemblyFlags, "HRESULT")
+        result := ComCall(8, this, UInt32, pma, pbPublicKeyMarshal, pbPublicKey, UInt32, cbPublicKey, UInt32, ulHashAlgId, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, UInt32, dwAssemblyFlags, "HRESULT")
         return result
     }
 
@@ -183,7 +183,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
         pbPublicKeyOrTokenMarshal := pbPublicKeyOrToken is VarRef ? "ptr" : "ptr"
         pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "uint", ar, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, "uint", cbPublicKeyOrToken, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwAssemblyRefFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, ar, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, UInt32, cbPublicKeyOrToken, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, UInt32, dwAssemblyRefFlags, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     SetFileProps(_file, pbHashValue, cbHashValue, dwFileFlags) {
         pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "uint", _file, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "uint", dwFileFlags, "HRESULT")
+        result := ComCall(10, this, UInt32, _file, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, UInt32, dwFileFlags, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     SetExportedTypeProps(ct, tkImplementation, tkTypeDef, dwExportedTypeFlags) {
-        result := ComCall(11, this, "uint", ct, "uint", tkImplementation, "uint", tkTypeDef, "uint", dwExportedTypeFlags, "HRESULT")
+        result := ComCall(11, this, UInt32, ct, UInt32, tkImplementation, UInt32, tkTypeDef, UInt32, dwExportedTypeFlags, "HRESULT")
         return result
     }
 
@@ -224,7 +224,7 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     SetManifestResourceProps(mr, tkImplementation, dwOffset, dwResourceFlags) {
-        result := ComCall(12, this, "uint", mr, "uint", tkImplementation, "uint", dwOffset, "uint", dwResourceFlags, "HRESULT")
+        result := ComCall(12, this, UInt32, mr, UInt32, tkImplementation, UInt32, dwOffset, UInt32, dwResourceFlags, "HRESULT")
         return result
     }
 

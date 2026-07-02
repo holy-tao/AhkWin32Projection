@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IComponentData.ahk" { IComponentData }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IComponentData2 interface supersedes the IComponentData interface.
@@ -48,7 +48,7 @@ export default struct IComponentData2 extends IComponentData {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata2-querydispatch
      */
     QueryDispatch(cookie, type) {
-        result := ComCall(10, this, "ptr", cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDispatch := 0, "HRESULT")
+        result := ComCall(10, this, IntPtr, cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDispatch := 0, "HRESULT")
         return IDispatch(ppDispatch)
     }
 

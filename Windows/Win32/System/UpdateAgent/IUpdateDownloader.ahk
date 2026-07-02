@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IDownloadResult.ahk" { IDownloadResult }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\DownloadPriority.ahk" { DownloadPriority }
-#Import ".\IDownloadJob.ahk" { IDownloadJob }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IDownloadResult.ahk" { IDownloadResult }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\DownloadPriority.ahk" { DownloadPriority }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDownloadJob.ahk" { IDownloadJob }
 
 /**
  * Downloads updates from the server.

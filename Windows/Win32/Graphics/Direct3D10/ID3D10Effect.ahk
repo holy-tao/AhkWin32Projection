@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ID3D10EffectConstantBuffer.ahk" { ID3D10EffectConstantBuffer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3D10_EFFECT_DESC.ahk" { D3D10_EFFECT_DESC }
-#Import ".\ID3D10EffectTechnique.ahk" { ID3D10EffectTechnique }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10Device.ahk" { ID3D10Device }
+#Import ".\ID3D10EffectTechnique.ahk" { ID3D10EffectTechnique }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * An ID3D10Effect interface manages a set of state objects, resources, and shaders for implementing a rendering effect.
@@ -139,7 +139,7 @@ export default struct ID3D10Effect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(Index) {
-        result := ComCall(7, this, "uint", Index, ID3D10EffectConstantBuffer)
+        result := ComCall(7, this, UInt32, Index, ID3D10EffectConstantBuffer)
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct ID3D10Effect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getvariablebyindex
      */
     GetVariableByIndex(Index) {
-        result := ComCall(9, this, "uint", Index, ID3D10EffectVariable)
+        result := ComCall(9, this, UInt32, Index, ID3D10EffectVariable)
         return result
     }
 
@@ -237,7 +237,7 @@ export default struct ID3D10Effect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-gettechniquebyindex
      */
     GetTechniqueByIndex(Index) {
-        result := ComCall(12, this, "uint", Index, ID3D10EffectTechnique)
+        result := ComCall(12, this, UInt32, Index, ID3D10EffectTechnique)
         return result
     }
 

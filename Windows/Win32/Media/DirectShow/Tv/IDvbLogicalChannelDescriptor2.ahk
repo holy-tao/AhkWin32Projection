@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDvbLogicalChannelDescriptor.ahk" { IDvbLogicalChannelDescriptor }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDvbLogicalChannelDescriptor.ahk" { IDvbLogicalChannelDescriptor }
 
 /**
  * The IDvbLogicalChannelDescriptor2 interface enables the client to get a logical channel descriptor from a DVB stream. The logical channel descriptor may be present in the network information table (NIT).
@@ -43,7 +43,7 @@ export default struct IDvbLogicalChannelDescriptor2 extends IDvbLogicalChannelDe
      * @returns {Integer} 
      */
     GetRecordLogicalChannelAndVisibility(bRecordIndex) {
-        result := ComCall(8, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 

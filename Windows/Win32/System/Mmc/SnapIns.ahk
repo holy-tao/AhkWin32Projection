@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SnapIn.ahk" { SnapIn }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Mmc
@@ -84,7 +84,7 @@ export default struct SnapIns extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &_SnapIn := 0, "HRESULT")
+        result := ComCall(8, this, Int32, Index, "ptr*", &_SnapIn := 0, "HRESULT")
         return SnapIn(_SnapIn)
     }
 

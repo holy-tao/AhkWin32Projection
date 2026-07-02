@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID2D1DeviceContext2.ahk" { ID2D1DeviceContext2 }
-#Import ".\ID2D1SpriteBatch.ahk" { ID2D1SpriteBatch }
-#Import ".\D2D1_BITMAP_INTERPOLATION_MODE.ahk" { D2D1_BITMAP_INTERPOLATION_MODE }
 #Import ".\D2D1_SPRITE_OPTIONS.ahk" { D2D1_SPRITE_OPTIONS }
+#Import ".\D2D1_BITMAP_INTERPOLATION_MODE.ahk" { D2D1_BITMAP_INTERPOLATION_MODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import ".\ID2D1SpriteBatch.ahk" { ID2D1SpriteBatch }
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext2 interface, plus it enables functionality for creating and drawing sprite batches.
@@ -74,7 +74,7 @@ export default struct ID2D1DeviceContext3 extends ID2D1DeviceContext2 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext3-drawspritebatch(id2d1spritebatch_id2d1bitmap_d2d1_bitmap_interpolation_mode_d2d1_sprite_options)
      */
     DrawSpriteBatch(spriteBatch, startIndex, spriteCount, _bitmap, _interpolationMode, spriteOptions) {
-        ComCall(107, this, "ptr", spriteBatch, "uint", startIndex, "uint", spriteCount, "ptr", _bitmap, D2D1_BITMAP_INTERPOLATION_MODE, _interpolationMode, D2D1_SPRITE_OPTIONS, spriteOptions)
+        ComCall(107, this, "ptr", spriteBatch, UInt32, startIndex, UInt32, spriteCount, "ptr", _bitmap, D2D1_BITMAP_INTERPOLATION_MODE, _interpolationMode, D2D1_SPRITE_OPTIONS, spriteOptions)
     }
 
     Query(iid) {

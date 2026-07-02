@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FSM_STATE.ahk" { FSM_STATE }
+#Import ".\DHCP_FAILOVER_SERVER.ahk" { DHCP_FAILOVER_SERVER }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DHCP_FAILOVER_MODE.ahk" { DHCP_FAILOVER_MODE }
+#Import ".\FSM_STATE.ahk" { FSM_STATE }
 #Import ".\DHCP_IP_ARRAY.ahk" { DHCP_IP_ARRAY }
-#Import ".\DHCP_FAILOVER_SERVER.ahk" { DHCP_FAILOVER_SERVER }
 
 /**
  * The DHCP_FAILOVER_RELATIONSHIP structure defines information about a DHCPv4 server failover relationship.

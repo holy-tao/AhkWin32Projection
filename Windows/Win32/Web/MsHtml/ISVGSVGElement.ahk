@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISVGTransform.ahk" { ISVGTransform }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\ISVGLength.ahk" { ISVGLength }
 #Import ".\ISVGPoint.ahk" { ISVGPoint }
 #Import ".\ISVGMatrix.ahk" { ISVGMatrix }
-#Import ".\ISVGAnimatedLength.ahk" { ISVGAnimatedLength }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ISVGLength.ahk" { ISVGLength }
-#Import ".\ISVGRect.ahk" { ISVGRect }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISVGAngle.ahk" { ISVGAngle }
-#Import ".\ISVGNumber.ahk" { ISVGNumber }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import ".\ISVGViewSpec.ahk" { ISVGViewSpec }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISVGElement.ahk" { ISVGElement }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISVGRect.ahk" { ISVGRect }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISVGNumber.ahk" { ISVGNumber }
+#Import ".\ISVGTransform.ahk" { ISVGTransform }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISVGAngle.ahk" { ISVGAngle }
+#Import ".\ISVGAnimatedLength.ahk" { ISVGAnimatedLength }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -365,7 +365,7 @@ export default struct ISVGSVGElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pixelUnitToMillimeterX(v) {
-        result := ComCall(21, this, "float", v, "HRESULT")
+        result := ComCall(21, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -384,7 +384,7 @@ export default struct ISVGSVGElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pixelUnitToMillimeterY(v) {
-        result := ComCall(23, this, "float", v, "HRESULT")
+        result := ComCall(23, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -403,7 +403,7 @@ export default struct ISVGSVGElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_screenPixelToMillimeterX(v) {
-        result := ComCall(25, this, "float", v, "HRESULT")
+        result := ComCall(25, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -422,7 +422,7 @@ export default struct ISVGSVGElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_screenPixelToMillimeterY(v) {
-        result := ComCall(27, this, "float", v, "HRESULT")
+        result := ComCall(27, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -479,7 +479,7 @@ export default struct ISVGSVGElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_currentScale(v) {
-        result := ComCall(33, this, "float", v, "HRESULT")
+        result := ComCall(33, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -517,7 +517,7 @@ export default struct ISVGSVGElement extends IDispatch {
      * @returns {Integer} 
      */
     suspendRedraw(maxWaitMilliseconds) {
-        result := ComCall(37, this, "uint", maxWaitMilliseconds, "uint*", &pResult := 0, "HRESULT")
+        result := ComCall(37, this, UInt32, maxWaitMilliseconds, "uint*", &pResult := 0, "HRESULT")
         return pResult
     }
 
@@ -527,7 +527,7 @@ export default struct ISVGSVGElement extends IDispatch {
      * @returns {HRESULT} 
      */
     unsuspendRedraw(suspendHandeID) {
-        result := ComCall(38, this, "uint", suspendHandeID, "HRESULT")
+        result := ComCall(38, this, UInt32, suspendHandeID, "HRESULT")
         return result
     }
 
@@ -591,7 +591,7 @@ export default struct ISVGSVGElement extends IDispatch {
      * @returns {HRESULT} 
      */
     setCurrentTime(seconds) {
-        result := ComCall(45, this, "float", seconds, "HRESULT")
+        result := ComCall(45, this, Float32, seconds, "HRESULT")
         return result
     }
 

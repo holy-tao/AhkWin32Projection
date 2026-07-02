@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAMLatency.ahk" { IAMLatency }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAMLatency.ahk" { IAMLatency }
 
 /**
  * The IAMPushSource interface synchronizes a filter graph that renders a live source.
@@ -73,7 +73,7 @@ export default struct IAMPushSource extends IAMLatency {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iampushsource-setpushsourceflags
      */
     SetPushSourceFlags(Flags) {
-        result := ComCall(5, this, "uint", Flags, "HRESULT")
+        result := ComCall(5, this, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IAMPushSource extends IAMLatency {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iampushsource-setstreamoffset
      */
     SetStreamOffset(rtOffset) {
-        result := ComCall(6, this, "int64", rtOffset, "HRESULT")
+        result := ComCall(6, this, Int64, rtOffset, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IAMPushSource extends IAMLatency {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iampushsource-setmaxstreamoffset
      */
     SetMaxStreamOffset(rtMaxOffset) {
-        result := ComCall(9, this, "int64", rtMaxOffset, "HRESULT")
+        result := ComCall(9, this, Int64, rtMaxOffset, "HRESULT")
         return result
     }
 

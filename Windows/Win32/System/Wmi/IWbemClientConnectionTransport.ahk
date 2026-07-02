@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWbemCallResult.ahk" { IWbemCallResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemContext.ahk" { IWbemContext }
+#Import ".\IWbemCallResult.ahk" { IWbemCallResult }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -67,7 +67,7 @@ export default struct IWbemClientConnectionTransport extends IUnknown {
         abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
         pInterfaceMarshal := pInterface is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, BSTR, strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strObject, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, "int", lFlags, "ptr", pCtx, Guid.Ptr, riid, pInterfaceMarshal, pInterface, IWbemCallResult.Ptr, pCallRes, "HRESULT")
+        result := ComCall(3, this, BSTR, strAddressType, UInt32, dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strObject, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, Int32, lFlags, "ptr", pCtx, Guid.Ptr, riid, pInterfaceMarshal, pInterface, IWbemCallResult.Ptr, pCallRes, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IWbemClientConnectionTransport extends IUnknown {
 
         abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, BSTR, strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strObject, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, "int", lFlags, "ptr", pCtx, Guid.Ptr, riid, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(4, this, BSTR, strAddressType, UInt32, dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strObject, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, Int32, lFlags, "ptr", pCtx, Guid.Ptr, riid, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IWbemClientConnectionTransport extends IUnknown {
      * @returns {HRESULT} 
      */
     Cancel(lFlags, pHandler) {
-        result := ComCall(5, this, "int", lFlags, "ptr", pHandler, "HRESULT")
+        result := ComCall(5, this, Int32, lFlags, "ptr", pHandler, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAudioCaptureClient interface enables a client to read input data from a capture endpoint buffer.
@@ -268,7 +268,7 @@ export default struct IAudioCaptureClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiocaptureclient-releasebuffer
      */
     ReleaseBuffer(NumFramesRead) {
-        result := ComCall(4, this, "uint", NumFramesRead, "HRESULT")
+        result := ComCall(4, this, UInt32, NumFramesRead, "HRESULT")
         return result
     }
 

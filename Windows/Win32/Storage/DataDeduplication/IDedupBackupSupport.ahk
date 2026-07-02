@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDedupReadFileCallback.ahk" { IDedupReadFileCallback }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a method for restoring a file from a backup store containing copies of Data Deduplication reparse points, metadata, and container files.
@@ -78,7 +78,7 @@ export default struct IDedupBackupSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/nf-ddpbackup-idedupbackupsupport-restorefiles
      */
     RestoreFiles(NumberOfFiles, FileFullPaths, Store, Flags) {
-        result := ComCall(3, this, "uint", NumberOfFiles, BSTR.Ptr, FileFullPaths, "ptr", Store, "uint", Flags, "int*", &FileResults := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, NumberOfFiles, BSTR.Ptr, FileFullPaths, "ptr", Store, UInt32, Flags, "int*", &FileResults := 0, "HRESULT")
         return FileResults
     }
 

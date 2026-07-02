@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to properties on an ADSI security descriptor object.
@@ -158,7 +158,7 @@ export default struct IADsSecurityDescriptor extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Revision(lnRevision) {
-        result := ComCall(8, this, "int", lnRevision, "HRESULT")
+        result := ComCall(8, this, Int32, lnRevision, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IADsSecurityDescriptor extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Control(lnControl) {
-        result := ComCall(10, this, "int", lnControl, "HRESULT")
+        result := ComCall(10, this, Int32, lnControl, "HRESULT")
         return result
     }
 

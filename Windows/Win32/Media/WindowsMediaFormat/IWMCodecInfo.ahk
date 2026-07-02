@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
 
 /**
  * The IWMCodecInfo interface retrieves the number and types of codecs available.
@@ -103,7 +103,7 @@ export default struct IWMCodecInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecformatcount
      */
     GetCodecFormatCount(guidType, dwCodecIndex) {
-        result := ComCall(4, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "uint*", &pcFormat := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, "uint*", &pcFormat := 0, "HRESULT")
         return pcFormat
     }
 
@@ -141,7 +141,7 @@ export default struct IWMCodecInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo-getcodecformat
      */
     GetCodecFormat(guidType, dwCodecIndex, dwFormatIndex) {
-        result := ComCall(5, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, UInt32, dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "HRESULT")
         return IWMStreamConfig(ppIStreamConfig)
     }
 

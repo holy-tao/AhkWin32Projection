@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OPM_RANDOM_NUMBER.ahk" { OPM_RANDOM_NUMBER }
 #Import ".\OPM_OMAC.ahk" { OPM_OMAC }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\OPM_RANDOM_NUMBER.ahk" { OPM_RANDOM_NUMBER }
 
 /**
  * OPM_GET_INFO_PARAMETERS (opmapi.h) contains parameters for the IOPMVideoOutput::GetInformation method.

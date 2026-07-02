@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DSCOLUMN.ahk" { DSCOLUMN }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\DSCOLUMN.ahk" { DSCOLUMN }
 
 /**
  * The DSQUERYPARAMS structure contains query data used by the directory service query when searching the directory service.

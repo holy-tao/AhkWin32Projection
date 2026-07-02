@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\TRUECOLORINFO.ahk" { TRUECOLORINFO }
 #Import "..\..\Graphics\Gdi\RGBQUAD.ahk" { RGBQUAD }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\TRUECOLORINFO.ahk" { TRUECOLORINFO }
 
 /**
  * The VIDEOINFO structure is equivalent to a VIDEOINFOHEADER structure, but it contains enough memory to hold three color masks plus a color table with 256 colors.If you are writing a video filter, you can use this structure to guarantee that the format block always has enough memory to contain the largest possible VIDEOINFOHEADER structure.

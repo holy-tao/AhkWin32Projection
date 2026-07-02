@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Not implemented. (IMFASFStreamPrioritization)
@@ -92,7 +92,7 @@ export default struct IMFASFStreamPrioritization extends IUnknown {
         pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
         pwStreamFlagsMarshal := pwStreamFlags is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, pwStreamFlagsMarshal, pwStreamFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, pwStreamFlagsMarshal, pwStreamFlags, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IMFASFStreamPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-addstream
      */
     AddStream(wStreamNumber, wStreamFlags) {
-        result := ComCall(5, this, "ushort", wStreamNumber, "ushort", wStreamFlags, "HRESULT")
+        result := ComCall(5, this, UInt16, wStreamNumber, UInt16, wStreamFlags, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct IMFASFStreamPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-removestream
      */
     RemoveStream(dwStreamIndex) {
-        result := ComCall(6, this, "uint", dwStreamIndex, "HRESULT")
+        result := ComCall(6, this, UInt32, dwStreamIndex, "HRESULT")
         return result
     }
 

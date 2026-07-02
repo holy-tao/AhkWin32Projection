@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 #Import ".\ID3D11ClassInstance.ahk" { ID3D11ClassInstance }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * This interface encapsulates an HLSL dynamic linkage.
@@ -74,7 +74,7 @@ export default struct ID3D11ClassLinkage extends ID3D11DeviceChild {
     GetClassInstance(pClassInstanceName, InstanceIndex) {
         pClassInstanceName := pClassInstanceName is String ? StrPtr(pClassInstanceName) : pClassInstanceName
 
-        result := ComCall(7, this, "ptr", pClassInstanceName, "uint", InstanceIndex, "ptr*", &ppInstance := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pClassInstanceName, UInt32, InstanceIndex, "ptr*", &ppInstance := 0, "HRESULT")
         return ID3D11ClassInstance(ppInstance)
     }
 
@@ -111,7 +111,7 @@ export default struct ID3D11ClassLinkage extends ID3D11DeviceChild {
     CreateClassInstance(pClassTypeName, ConstantBufferOffset, ConstantVectorOffset, TextureOffset, SamplerOffset) {
         pClassTypeName := pClassTypeName is String ? StrPtr(pClassTypeName) : pClassTypeName
 
-        result := ComCall(8, this, "ptr", pClassTypeName, "uint", ConstantBufferOffset, "uint", ConstantVectorOffset, "uint", TextureOffset, "uint", SamplerOffset, "ptr*", &ppInstance := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pClassTypeName, UInt32, ConstantBufferOffset, UInt32, ConstantVectorOffset, UInt32, TextureOffset, UInt32, SamplerOffset, "ptr*", &ppInstance := 0, "HRESULT")
         return ID3D11ClassInstance(ppInstance)
     }
 

@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMSVidAudioRendererDevices.ahk" { IMSVidAudioRendererDevices }
-#Import ".\IMSVidVideoRenderer.ahk" { IMSVidVideoRenderer }
-#Import ".\IMSVidVideoRendererDevices.ahk" { IMSVidVideoRendererDevices }
-#Import ".\MSVidCtlStateList.ahk" { MSVidCtlStateList }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMSVidAudioRenderer.ahk" { IMSVidAudioRenderer }
 #Import ".\IMSVidOutputDevices.ahk" { IMSVidOutputDevices }
+#Import ".\IMSVidAudioRendererDevices.ahk" { IMSVidAudioRendererDevices }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MSVidCtlStateList.ahk" { MSVidCtlStateList }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IMSVidAudioRenderer.ahk" { IMSVidAudioRenderer }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMSVidVideoRendererDevices.ahk" { IMSVidVideoRendererDevices }
+#Import ".\DisplaySizeList.ahk" { DisplaySizeList }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IMSVidFeatures.ahk" { IMSVidFeatures }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\DisplaySizeList.ahk" { DisplaySizeList }
 #Import ".\IMSVidInputDevice.ahk" { IMSVidInputDevice }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IMSVidInputDevices.ahk" { IMSVidInputDevices }
+#Import ".\IMSVidVideoRenderer.ahk" { IMSVidVideoRenderer }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IMSVidCtl interface is the main interface for the Video Control.
@@ -272,7 +272,7 @@ export default struct IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-put_backcolor
      */
     put_BackColor(backcolor) {
-        result := ComCall(10, this, "uint", backcolor, "HRESULT")
+        result := ComCall(10, this, UInt32, backcolor, "HRESULT")
         return result
     }
 
@@ -408,7 +408,7 @@ export default struct IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-put_colorkey
      */
     put_ColorKey(NewValue) {
-        result := ComCall(22, this, "uint", NewValue, "HRESULT")
+        result := ComCall(22, this, UInt32, NewValue, "HRESULT")
         return result
     }
 

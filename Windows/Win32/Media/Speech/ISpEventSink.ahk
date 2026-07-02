@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SPEVENT.ahk" { SPEVENT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -44,7 +44,7 @@ export default struct ISpEventSink extends IUnknown {
      * @returns {HRESULT} 
      */
     AddEvents(pEventArray, ulCount) {
-        result := ComCall(3, this, SPEVENT.Ptr, pEventArray, "uint", ulCount, "HRESULT")
+        result := ComCall(3, this, SPEVENT.Ptr, pEventArray, UInt32, ulCount, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMsmError.ahk" { IMsmError }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -58,7 +58,7 @@ export default struct IMsmErrors extends IDispatch {
      * @returns {IMsmError} 
      */
     get_Item(Item) {
-        result := ComCall(7, this, "int", Item, "ptr*", &_Return := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Item, "ptr*", &_Return := 0, "HRESULT")
         return IMsmError(_Return)
     }
 

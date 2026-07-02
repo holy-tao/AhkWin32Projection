@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLRectCollection.ahk" { IHTMLRectCollection }
 #Import ".\IHTMLRect.ahk" { IHTMLRect }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLRectCollection.ahk" { IHTMLRectCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
 
 /**
@@ -174,7 +174,7 @@ export default struct IHTMLDOMRange extends IDispatch {
      * @returns {HRESULT} 
      */
     setStart(refNode, offset) {
-        result := ComCall(13, this, "ptr", refNode, "int", offset, "HRESULT")
+        result := ComCall(13, this, "ptr", refNode, Int32, offset, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct IHTMLDOMRange extends IDispatch {
      * @returns {HRESULT} 
      */
     setEnd(refNode, offset) {
-        result := ComCall(14, this, "ptr", refNode, "int", offset, "HRESULT")
+        result := ComCall(14, this, "ptr", refNode, Int32, offset, "HRESULT")
         return result
     }
 
@@ -266,7 +266,7 @@ export default struct IHTMLDOMRange extends IDispatch {
      * @returns {Integer} 
      */
     compareBoundaryPoints(how, sourceRange) {
-        result := ComCall(22, this, "short", how, "ptr", sourceRange, "int*", &compareResult := 0, "HRESULT")
+        result := ComCall(22, this, Int16, how, "ptr", sourceRange, "int*", &compareResult := 0, "HRESULT")
         return compareResult
     }
 

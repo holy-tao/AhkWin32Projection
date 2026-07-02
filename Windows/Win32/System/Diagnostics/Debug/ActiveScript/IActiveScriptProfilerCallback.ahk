@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PROFILER_SCRIPT_TYPE.ahk" { PROFILER_SCRIPT_TYPE }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\PROFILER_SCRIPT_TYPE.ahk" { PROFILER_SCRIPT_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -72,7 +72,7 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(dwContext) {
-        result := ComCall(3, this, "uint", dwContext, "HRESULT")
+        result := ComCall(3, this, UInt32, dwContext, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ScriptCompiled(scriptId, type, pIDebugDocumentContext) {
-        result := ComCall(5, this, "int", scriptId, PROFILER_SCRIPT_TYPE, type, "ptr", pIDebugDocumentContext, "HRESULT")
+        result := ComCall(5, this, Int32, scriptId, PROFILER_SCRIPT_TYPE, type, "ptr", pIDebugDocumentContext, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
         pwszFunctionName := pwszFunctionName is String ? StrPtr(pwszFunctionName) : pwszFunctionName
         pwszFunctionNameHint := pwszFunctionNameHint is String ? StrPtr(pwszFunctionNameHint) : pwszFunctionNameHint
 
-        result := ComCall(6, this, "int", functionId, "int", scriptId, "ptr", pwszFunctionName, "ptr", pwszFunctionNameHint, "ptr", pIDebugDocumentContext, "HRESULT")
+        result := ComCall(6, this, Int32, functionId, Int32, scriptId, "ptr", pwszFunctionName, "ptr", pwszFunctionNameHint, "ptr", pIDebugDocumentContext, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     OnFunctionEnter(scriptId, functionId) {
-        result := ComCall(7, this, "int", scriptId, "int", functionId, "HRESULT")
+        result := ComCall(7, this, Int32, scriptId, Int32, functionId, "HRESULT")
         return result
     }
 
@@ -137,7 +137,7 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     OnFunctionExit(scriptId, functionId) {
-        result := ComCall(8, this, "int", scriptId, "int", functionId, "HRESULT")
+        result := ComCall(8, this, Int32, scriptId, Int32, functionId, "HRESULT")
         return result
     }
 

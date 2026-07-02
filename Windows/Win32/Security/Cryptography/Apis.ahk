@@ -1,192 +1,202 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\CRYPT_CREDENTIALS.ahk" { CRYPT_CREDENTIALS }
-#Import ".\CRYPT_KEY_PROV_INFO.ahk" { CRYPT_KEY_PROV_INFO }
-#Import ".\CERT_CHAIN_POLICY_STATUS.ahk" { CERT_CHAIN_POLICY_STATUS }
-#Import ".\CERT_EXTENSIONS.ahk" { CERT_EXTENSIONS }
-#Import ".\CRYPT_KEY_SIGN_MESSAGE_PARA.ahk" { CRYPT_KEY_SIGN_MESSAGE_PARA }
-#Import ".\CERT_PHYSICAL_STORE_INFO.ahk" { CERT_PHYSICAL_STORE_INFO }
-#Import ".\CRYPT_HASH_MESSAGE_PARA.ahk" { CRYPT_HASH_MESSAGE_PARA }
-#Import ".\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
-#Import ".\CRYPT_XML_FLAGS.ahk" { CRYPT_XML_FLAGS }
-#Import ".\NCRYPT_FLAGS.ahk" { NCRYPT_FLAGS }
-#Import ".\CRYPT_RETRIEVE_AUX_INFO.ahk" { CRYPT_RETRIEVE_AUX_INFO }
-#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
-#Import ".\CERT_QUERY_OBJECT_TYPE.ahk" { CERT_QUERY_OBJECT_TYPE }
-#Import ".\BCRYPT_HASH_FUNCTION_TABLE.ahk" { BCRYPT_HASH_FUNCTION_TABLE }
-#Import ".\BCRYPT_RESOLVE_PROVIDERS_FLAGS.ahk" { BCRYPT_RESOLVE_PROVIDERS_FLAGS }
-#Import ".\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
-#Import ".\CERT_QUERY_FORMAT_TYPE_FLAGS.ahk" { CERT_QUERY_FORMAT_TYPE_FLAGS }
-#Import ".\BCRYPT_OPERATION.ahk" { BCRYPT_OPERATION }
-#Import ".\CRYPT_OID_INFO.ahk" { CRYPT_OID_INFO }
-#Import ".\CERT_FIND_CHAIN_IN_STORE_FLAGS.ahk" { CERT_FIND_CHAIN_IN_STORE_FLAGS }
-#Import ".\ALG_ID.ahk" { ALG_ID }
-#Import ".\BCRYPT_SIGNATURE_FUNCTION_TABLE.ahk" { BCRYPT_SIGNATURE_FUNCTION_TABLE }
-#Import ".\CRYPT_ENCODE_PARA.ahk" { CRYPT_ENCODE_PARA }
-#Import ".\NCRYPT_SSL_CIPHER_SUITE.ahk" { NCRYPT_SSL_CIPHER_SUITE }
-#Import ".\NCRYPT_SECRET_HANDLE.ahk" { NCRYPT_SECRET_HANDLE }
-#Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
-#Import ".\HCRYPTASYNC.ahk" { HCRYPTASYNC }
-#Import ".\BCryptBufferDesc.ahk" { BCryptBufferDesc }
-#Import ".\CERT_STORE_SAVE_AS.ahk" { CERT_STORE_SAVE_AS }
-#Import ".\CRYPT_GET_URL_FLAGS.ahk" { CRYPT_GET_URL_FLAGS }
-#Import ".\BCRYPT_QUERY_PROVIDER_MODE.ahk" { BCRYPT_QUERY_PROVIDER_MODE }
-#Import ".\NCRYPT_SSL_FUNCTION_TABLE.ahk" { NCRYPT_SSL_FUNCTION_TABLE }
-#Import ".\CRYPT_PROVIDER_REG.ahk" { CRYPT_PROVIDER_REG }
-#Import ".\PaddingMode.ahk" { PaddingMode }
-#Import ".\CERT_SYSTEM_STORE_INFO.ahk" { CERT_SYSTEM_STORE_INFO }
-#Import ".\BCRYPT_RNG_FUNCTION_TABLE.ahk" { BCRYPT_RNG_FUNCTION_TABLE }
-#Import ".\CERT_RDN.ahk" { CERT_RDN }
-#Import ".\CRYPT_CONTEXT_FUNCTION_CONFIG.ahk" { CRYPT_CONTEXT_FUNCTION_CONFIG }
-#Import ".\CTL_VERIFY_USAGE_PARA.ahk" { CTL_VERIFY_USAGE_PARA }
-#Import ".\CRYPT_XML_PROPERTY.ahk" { CRYPT_XML_PROPERTY }
-#Import ".\CRYPT_XML_TRANSFORM_CHAIN_CONFIG.ahk" { CRYPT_XML_TRANSFORM_CHAIN_CONFIG }
-#Import ".\CERT_CHAIN_PARA.ahk" { CERT_CHAIN_PARA }
-#Import ".\CRYPT_XML_DOC_CTXT.ahk" { CRYPT_XML_DOC_CTXT }
-#Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
-#Import ".\CRYPTPROTECT_PROMPTSTRUCT.ahk" { CRYPTPROTECT_PROMPTSTRUCT }
-#Import ".\CERT_SERVER_OCSP_RESPONSE_CONTEXT.ahk" { CERT_SERVER_OCSP_RESPONSE_CONTEXT }
-#Import ".\CERT_REVOCATION_PARA.ahk" { CERT_REVOCATION_PARA }
-#Import ".\NCryptProviderName.ahk" { NCryptProviderName }
-#Import ".\BCRYPT_MULTI_OPERATION_TYPE.ahk" { BCRYPT_MULTI_OPERATION_TYPE }
-#Import ".\SIGNER_CERT.ahk" { SIGNER_CERT }
-#Import ".\NCRYPT_ALLOC_PARA.ahk" { NCRYPT_ALLOC_PARA }
-#Import ".\Direction.ahk" { Direction }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CRYPT_CONTEXT_FUNCTION_PROVIDERS.ahk" { CRYPT_CONTEXT_FUNCTION_PROVIDERS }
-#Import ".\SIGNER_SIGN_FLAGS.ahk" { SIGNER_SIGN_FLAGS }
-#Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
-#Import ".\BCRYPT_HASH_HANDLE.ahk" { BCRYPT_HASH_HANDLE }
-#Import ".\CRYPT_XML_STATUS.ahk" { CRYPT_XML_STATUS }
-#Import ".\BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS.ahk" { BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS }
-#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import ".\CRYPT_XML_REFERENCE.ahk" { CRYPT_XML_REFERENCE }
-#Import ".\HCERTCHAINENGINE.ahk" { HCERTCHAINENGINE }
-#Import ".\CRYPT_XML_SIGNATURE.ahk" { CRYPT_XML_SIGNATURE }
-#Import ".\CRYPT_TIMESTAMP_PARA.ahk" { CRYPT_TIMESTAMP_PARA }
-#Import ".\CERT_STRING_TYPE.ahk" { CERT_STRING_TYPE }
-#Import ".\CTL_VERIFY_USAGE_STATUS.ahk" { CTL_VERIFY_USAGE_STATUS }
-#Import "..\PSID.ahk" { PSID }
-#Import ".\NCRYPT_OPERATION.ahk" { NCRYPT_OPERATION }
-#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
-#Import "..\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
-#Import ".\CRL_INFO.ahk" { CRL_INFO }
-#Import ".\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
-#Import ".\NCRYPT_PROTECT_STREAM_INFO_EX.ahk" { NCRYPT_PROTECT_STREAM_INFO_EX }
-#Import ".\BCRYPTGENRANDOM_FLAGS.ahk" { BCRYPTGENRANDOM_FLAGS }
-#Import ".\CRYPT_SIGN_MESSAGE_PARA.ahk" { CRYPT_SIGN_MESSAGE_PARA }
-#Import ".\CRYPT_ENCODE_OBJECT_FLAGS.ahk" { CRYPT_ENCODE_OBJECT_FLAGS }
-#Import ".\CRYPT_CONTEXT_FUNCTIONS.ahk" { CRYPT_CONTEXT_FUNCTIONS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CRYPT_DEFAULT_CONTEXT_TYPE.ahk" { CRYPT_DEFAULT_CONTEXT_TYPE }
-#Import "..\..\System\Registry\REG_VALUE_TYPE.ahk" { REG_VALUE_TYPE }
-#Import ".\CERT_SELECT_CHAIN_PARA.ahk" { CERT_SELECT_CHAIN_PARA }
-#Import ".\BCRYPT_PROVIDER_NAME.ahk" { BCRYPT_PROVIDER_NAME }
-#Import ".\CERT_QUERY_CONTENT_TYPE.ahk" { CERT_QUERY_CONTENT_TYPE }
-#Import ".\CRYPT_VERIFY_MESSAGE_PARA.ahk" { CRYPT_VERIFY_MESSAGE_PARA }
-#Import ".\BCRYPT_HANDLE.ahk" { BCRYPT_HANDLE }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\CERT_CHAIN_POLICY_PARA.ahk" { CERT_CHAIN_POLICY_PARA }
-#Import ".\CERT_INFO.ahk" { CERT_INFO }
-#Import ".\CRL_ENTRY.ahk" { CRL_ENTRY }
-#Import ".\CMSG_SIGNER_ENCODE_INFO.ahk" { CMSG_SIGNER_ENCODE_INFO }
-#Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
-#Import ".\CERT_QUERY_CONTENT_TYPE_FLAGS.ahk" { CERT_QUERY_CONTENT_TYPE_FLAGS }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\BCRYPT_SECRET_HANDLE.ahk" { BCRYPT_SECRET_HANDLE }
-#Import ".\CRYPT_DECRYPT_MESSAGE_PARA.ahk" { CRYPT_DECRYPT_MESSAGE_PARA }
-#Import ".\CRYPT_FIND_FLAGS.ahk" { CRYPT_FIND_FLAGS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\BCRYPT_TABLE.ahk" { BCRYPT_TABLE }
-#Import ".\CTL_CONTEXT.ahk" { CTL_CONTEXT }
-#Import ".\SIGNER_DIGEST_SIGN_INFO.ahk" { SIGNER_DIGEST_SIGN_INFO }
-#Import ".\CRYPT_XML_KEYINFO_SPEC.ahk" { CRYPT_XML_KEYINFO_SPEC }
-#Import ".\CRYPT_CONTEXTS.ahk" { CRYPT_CONTEXTS }
-#Import ".\CERT_CREATE_CONTEXT_PARA.ahk" { CERT_CREATE_CONTEXT_PARA }
-#Import ".\CRYPT_STRING.ahk" { CRYPT_STRING }
-#Import ".\CERT_CREATE_SELFSIGN_FLAGS.ahk" { CERT_CREATE_SELFSIGN_FLAGS }
-#Import ".\CMSG_STREAM_INFO.ahk" { CMSG_STREAM_INFO }
-#Import ".\BCRYPT_FLAGS.ahk" { BCRYPT_FLAGS }
-#Import ".\CRYPT_ENCRYPT_MESSAGE_PARA.ahk" { CRYPT_ENCRYPT_MESSAGE_PARA }
-#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
-#Import ".\CERT_CONTROL_STORE_FLAGS.ahk" { CERT_CONTROL_STORE_FLAGS }
-#Import ".\CTL_ENTRY.ahk" { CTL_ENTRY }
-#Import ".\CERT_FIND_TYPE.ahk" { CERT_FIND_TYPE }
-#Import "..\NCRYPT_STREAM_HANDLE.ahk" { NCRYPT_STREAM_HANDLE }
-#Import ".\NCryptKeyName.ahk" { NCryptKeyName }
-#Import ".\SIGNER_PROVIDER_INFO.ahk" { SIGNER_PROVIDER_INFO }
-#Import ".\CRYPT_KEY_VERIFY_MESSAGE_PARA.ahk" { CRYPT_KEY_VERIFY_MESSAGE_PARA }
-#Import ".\CRYPT_PROVIDERS.ahk" { CRYPT_PROVIDERS }
-#Import ".\CERT_SERVER_OCSP_RESPONSE_OPEN_PARA.ahk" { CERT_SERVER_OCSP_RESPONSE_OPEN_PARA }
-#Import ".\CERT_REVOCATION_STATUS.ahk" { CERT_REVOCATION_STATUS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CRYPT_CONTEXT_CONFIG.ahk" { CRYPT_CONTEXT_CONFIG }
-#Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
-#Import ".\CRYPT_PKCS8_IMPORT_PARAMS.ahk" { CRYPT_PKCS8_IMPORT_PARAMS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CRYPT_XML_ALGORITHM_INFO.ahk" { CRYPT_XML_ALGORITHM_INFO }
-#Import ".\CTL_INFO.ahk" { CTL_INFO }
-#Import ".\SIGNER_SUBJECT_INFO.ahk" { SIGNER_SUBJECT_INFO }
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import "..\NCRYPT_DESCRIPTOR_HANDLE.ahk" { NCRYPT_DESCRIPTOR_HANDLE }
-#Import ".\CRYPT_XML_KEY_VALUE.ahk" { CRYPT_XML_KEY_VALUE }
-#Import ".\CERT_SELECT_CRITERIA.ahk" { CERT_SELECT_CRITERIA }
-#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
-#Import ".\SIGNER_TIMESTAMP_FLAGS.ahk" { SIGNER_TIMESTAMP_FLAGS }
-#Import ".\CERT_FIND_FLAGS.ahk" { CERT_FIND_FLAGS }
-#Import ".\NCRYPT_PROTECT_STREAM_INFO.ahk" { NCRYPT_PROTECT_STREAM_INFO }
-#Import ".\CERT_CHAIN_ENGINE_CONFIG.ahk" { CERT_CHAIN_ENGINE_CONFIG }
-#Import ".\CRYPT_KEY_FLAGS.ahk" { CRYPT_KEY_FLAGS }
-#Import ".\NCRYPT_KEY_STORAGE_FUNCTION_TABLE.ahk" { NCRYPT_KEY_STORAGE_FUNCTION_TABLE }
-#Import ".\NCRYPT_SSL_ECC_CURVE.ahk" { NCRYPT_SSL_ECC_CURVE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPT_KEY_PARAM_ID.ahk" { CRYPT_KEY_PARAM_ID }
-#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
-#Import ".\NCRYPT_PROV_HANDLE.ahk" { NCRYPT_PROV_HANDLE }
-#Import ".\CERT_NAME_INFO.ahk" { CERT_NAME_INFO }
-#Import ".\CRYPT_MSG_TYPE.ahk" { CRYPT_MSG_TYPE }
-#Import ".\CERT_QUERY_FORMAT_TYPE.ahk" { CERT_QUERY_FORMAT_TYPE }
-#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
 #Import ".\NCRYPT_HANDLE.ahk" { NCRYPT_HANDLE }
-#Import ".\POLICY_ELEMENT.ahk" { POLICY_ELEMENT }
-#Import ".\CRYPT_XML_OBJECT.ahk" { CRYPT_XML_OBJECT }
-#Import ".\NCRYPT_HASH_HANDLE.ahk" { NCRYPT_HASH_HANDLE }
-#Import ".\BCRYPT_CIPHER_FUNCTION_TABLE.ahk" { BCRYPT_CIPHER_FUNCTION_TABLE }
-#Import ".\CRYPT_DECODE_PARA.ahk" { CRYPT_DECODE_PARA }
-#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
-#Import ".\CRYPT_TIMESTAMP_CONTEXT.ahk" { CRYPT_TIMESTAMP_CONTEXT }
-#Import ".\CERT_STORE_SAVE_TO.ahk" { CERT_STORE_SAVE_TO }
-#Import ".\CRYPT_VERIFY_CERT_FLAGS.ahk" { CRYPT_VERIFY_CERT_FLAGS }
-#Import ".\BCRYPT_ALGORITHM_IDENTIFIER.ahk" { BCRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\BCRYPT_HASH_FUNCTION_TABLE.ahk" { BCRYPT_HASH_FUNCTION_TABLE }
+#Import ".\CRYPT_KEY_PROV_INFO.ahk" { CRYPT_KEY_PROV_INFO }
+#Import ".\CRYPT_RETRIEVE_AUX_INFO.ahk" { CRYPT_RETRIEVE_AUX_INFO }
+#Import ".\CERT_SYSTEM_STORE_INFO.ahk" { CERT_SYSTEM_STORE_INFO }
 #Import ".\BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE.ahk" { BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE }
-#Import ".\CRYPT_ACQUIRE_FLAGS.ahk" { CRYPT_ACQUIRE_FLAGS }
-#Import ".\NCryptAlgorithmName.ahk" { NCryptAlgorithmName }
-#Import ".\BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE.ahk" { BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE }
-#Import ".\CRYPT_DEFAULT_CONTEXT_FLAGS.ahk" { CRYPT_DEFAULT_CONTEXT_FLAGS }
-#Import ".\CERT_RDN_ATTR.ahk" { CERT_RDN_ATTR }
-#Import ".\CRYPT_OID_FUNC_ENTRY.ahk" { CRYPT_OID_FUNC_ENTRY }
-#Import ".\CRYPT_SET_PROV_PARAM_ID.ahk" { CRYPT_SET_PROV_PARAM_ID }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\CERT_OPEN_STORE_FLAGS.ahk" { CERT_OPEN_STORE_FLAGS }
-#Import ".\CMSG_SIGNED_ENCODE_INFO.ahk" { CMSG_SIGNED_ENCODE_INFO }
-#Import ".\CRYPT_SET_HASH_PARAM.ahk" { CRYPT_SET_HASH_PARAM }
-#Import ".\BCRYPT_KEY_DERIVATION_FUNCTION_TABLE.ahk" { BCRYPT_KEY_DERIVATION_FUNCTION_TABLE }
-#Import ".\CRYPT_PROVIDER_REFS.ahk" { CRYPT_PROVIDER_REFS }
-#Import ".\CERT_KEY_SPEC.ahk" { CERT_KEY_SPEC }
-#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
-#Import ".\CRYPT_XML_DATA_PROVIDER.ahk" { CRYPT_XML_DATA_PROVIDER }
-#Import ".\NCRYPT_SSL_CIPHER_SUITE_EX.ahk" { NCRYPT_SSL_CIPHER_SUITE_EX }
-#Import ".\CRYPT_IMPORT_PUBLIC_KEY_FLAGS.ahk" { CRYPT_IMPORT_PUBLIC_KEY_FLAGS }
-#Import ".\SIGNER_CONTEXT.ahk" { SIGNER_CONTEXT }
+#Import ".\PFN_CRYPT_XML_WRITE_CALLBACK.ahk" { PFN_CRYPT_XML_WRITE_CALLBACK }
 #Import ".\BCRYPT_INTERFACE.ahk" { BCRYPT_INTERFACE }
-#Import ".\SIGNER_SIGNATURE_INFO.ahk" { SIGNER_SIGNATURE_INFO }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import ".\HCRYPTPROV_OR_NCRYPT_KEY_HANDLE.ahk" { HCRYPTPROV_OR_NCRYPT_KEY_HANDLE }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\CRYPT_KEY_SIGN_MESSAGE_PARA.ahk" { CRYPT_KEY_SIGN_MESSAGE_PARA }
+#Import ".\CERT_CONTROL_STORE_FLAGS.ahk" { CERT_CONTROL_STORE_FLAGS }
+#Import ".\BCRYPT_CIPHER_FUNCTION_TABLE.ahk" { BCRYPT_CIPHER_FUNCTION_TABLE }
+#Import ".\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
+#Import ".\PFN_CRYPT_ENUM_OID_FUNC.ahk" { PFN_CRYPT_ENUM_OID_FUNC }
+#Import ".\NCRYPT_SSL_ECC_CURVE.ahk" { NCRYPT_SSL_ECC_CURVE }
+#Import ".\BCRYPT_RESOLVE_PROVIDERS_FLAGS.ahk" { BCRYPT_RESOLVE_PROVIDERS_FLAGS }
+#Import ".\BCRYPT_TABLE.ahk" { BCRYPT_TABLE }
+#Import ".\NCRYPT_SSL_CIPHER_SUITE.ahk" { NCRYPT_SSL_CIPHER_SUITE }
+#Import ".\CRYPT_SET_HASH_PARAM.ahk" { CRYPT_SET_HASH_PARAM }
+#Import ".\BCRYPT_SIGNATURE_FUNCTION_TABLE.ahk" { BCRYPT_SIGNATURE_FUNCTION_TABLE }
+#Import ".\CERT_REVOCATION_STATUS.ahk" { CERT_REVOCATION_STATUS }
+#Import ".\CRYPT_XML_DOC_CTXT.ahk" { CRYPT_XML_DOC_CTXT }
+#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
+#Import ".\CRYPT_ENCODE_PARA.ahk" { CRYPT_ENCODE_PARA }
+#Import ".\CERT_CREATE_CONTEXT_PARA.ahk" { CERT_CREATE_CONTEXT_PARA }
+#Import ".\CRYPT_PROVIDER_REG.ahk" { CRYPT_PROVIDER_REG }
+#Import "..\NCRYPT_STREAM_HANDLE.ahk" { NCRYPT_STREAM_HANDLE }
+#Import ".\NCRYPT_SSL_FUNCTION_TABLE.ahk" { NCRYPT_SSL_FUNCTION_TABLE }
+#Import ".\PFN_CRYPT_ENUM_KEYID_PROP.ahk" { PFN_CRYPT_ENUM_KEYID_PROP }
+#Import ".\CTL_CONTEXT.ahk" { CTL_CONTEXT }
+#Import ".\CTL_INFO.ahk" { CTL_INFO }
+#Import ".\NCryptAlgorithmName.ahk" { NCryptAlgorithmName }
+#Import ".\Direction.ahk" { Direction }
+#Import ".\BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS.ahk" { BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS }
+#Import ".\CERT_CREATE_SELFSIGN_FLAGS.ahk" { CERT_CREATE_SELFSIGN_FLAGS }
+#Import ".\BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE.ahk" { BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import ".\CERT_QUERY_CONTENT_TYPE_FLAGS.ahk" { CERT_QUERY_CONTENT_TYPE_FLAGS }
+#Import ".\CMSG_STREAM_INFO.ahk" { CMSG_STREAM_INFO }
+#Import ".\CERT_CHAIN_POLICY_STATUS.ahk" { CERT_CHAIN_POLICY_STATUS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NCRYPT_PROV_HANDLE.ahk" { NCRYPT_PROV_HANDLE }
+#Import ".\CRYPT_DEFAULT_CONTEXT_TYPE.ahk" { CRYPT_DEFAULT_CONTEXT_TYPE }
+#Import ".\CERT_STRING_TYPE.ahk" { CERT_STRING_TYPE }
+#Import ".\NCRYPT_OPERATION.ahk" { NCRYPT_OPERATION }
+#Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
+#Import ".\CRYPT_XML_STATUS.ahk" { CRYPT_XML_STATUS }
+#Import ".\PFN_CERT_ENUM_SYSTEM_STORE.ahk" { PFN_CERT_ENUM_SYSTEM_STORE }
+#Import ".\CRYPT_OID_INFO.ahk" { CRYPT_OID_INFO }
+#Import ".\CRYPT_PKCS8_IMPORT_PARAMS.ahk" { CRYPT_PKCS8_IMPORT_PARAMS }
+#Import ".\BCRYPT_SECRET_HANDLE.ahk" { BCRYPT_SECRET_HANDLE }
+#Import ".\CRYPT_XML_OBJECT.ahk" { CRYPT_XML_OBJECT }
+#Import ".\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
+#Import ".\CMSG_SIGNED_ENCODE_INFO.ahk" { CMSG_SIGNED_ENCODE_INFO }
+#Import ".\BCRYPT_QUERY_PROVIDER_MODE.ahk" { BCRYPT_QUERY_PROVIDER_MODE }
+#Import ".\CRYPT_SET_PROV_PARAM_ID.ahk" { CRYPT_SET_PROV_PARAM_ID }
+#Import ".\CERT_QUERY_OBJECT_TYPE.ahk" { CERT_QUERY_OBJECT_TYPE }
+#Import ".\CERT_REVOCATION_PARA.ahk" { CERT_REVOCATION_PARA }
+#Import ".\SIGNER_CONTEXT.ahk" { SIGNER_CONTEXT }
+#Import ".\BCRYPT_HANDLE.ahk" { BCRYPT_HANDLE }
+#Import ".\SIGNER_PROVIDER_INFO.ahk" { SIGNER_PROVIDER_INFO }
+#Import ".\CRYPT_MSG_TYPE.ahk" { CRYPT_MSG_TYPE }
+#Import ".\CMSG_SIGNER_ENCODE_INFO.ahk" { CMSG_SIGNER_ENCODE_INFO }
+#Import ".\CRYPT_CONTEXT_CONFIG.ahk" { CRYPT_CONTEXT_CONFIG }
+#Import ".\CERT_INFO.ahk" { CERT_INFO }
+#Import ".\CERT_SELECT_CRITERIA.ahk" { CERT_SELECT_CRITERIA }
+#Import ".\ALG_ID.ahk" { ALG_ID }
+#Import ".\CERT_QUERY_FORMAT_TYPE_FLAGS.ahk" { CERT_QUERY_FORMAT_TYPE_FLAGS }
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
+#Import ".\CRL_ENTRY.ahk" { CRL_ENTRY }
+#Import ".\CERT_STORE_SAVE_TO.ahk" { CERT_STORE_SAVE_TO }
+#Import ".\POLICY_ELEMENT.ahk" { POLICY_ELEMENT }
+#Import ".\CRYPT_XML_FLAGS.ahk" { CRYPT_XML_FLAGS }
+#Import ".\CERT_CHAIN_ENGINE_CONFIG.ahk" { CERT_CHAIN_ENGINE_CONFIG }
+#Import ".\CRYPT_CONTEXT_FUNCTIONS.ahk" { CRYPT_CONTEXT_FUNCTIONS }
+#Import ".\CTL_ENTRY.ahk" { CTL_ENTRY }
+#Import ".\HCERTCHAINENGINE.ahk" { HCERTCHAINENGINE }
+#Import ".\CRYPT_SIGN_MESSAGE_PARA.ahk" { CRYPT_SIGN_MESSAGE_PARA }
+#Import ".\CRYPT_PROVIDER_REFS.ahk" { CRYPT_PROVIDER_REFS }
+#Import ".\PFN_CRYPT_ASYNC_PARAM_FREE_FUNC.ahk" { PFN_CRYPT_ASYNC_PARAM_FREE_FUNC }
+#Import ".\NCRYPT_HASH_HANDLE.ahk" { NCRYPT_HASH_HANDLE }
+#Import ".\SIGNER_DIGEST_SIGN_INFO.ahk" { SIGNER_DIGEST_SIGN_INFO }
+#Import ".\CRYPT_KEY_FLAGS.ahk" { CRYPT_KEY_FLAGS }
+#Import ".\CRYPT_ENCODE_OBJECT_FLAGS.ahk" { CRYPT_ENCODE_OBJECT_FLAGS }
+#Import ".\CRYPT_XML_REFERENCE.ahk" { CRYPT_XML_REFERENCE }
+#Import ".\CRYPT_CONTEXT_FUNCTION_CONFIG.ahk" { CRYPT_CONTEXT_FUNCTION_CONFIG }
+#Import ".\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
+#Import ".\BCRYPT_HASH_HANDLE.ahk" { BCRYPT_HASH_HANDLE }
 #Import ".\INFORMATIONCARD_CRYPTO_HANDLE.ahk" { INFORMATIONCARD_CRYPTO_HANDLE }
+#Import ".\PFN_CERT_ENUM_PHYSICAL_STORE.ahk" { PFN_CERT_ENUM_PHYSICAL_STORE }
+#Import ".\NCRYPT_SECRET_HANDLE.ahk" { NCRYPT_SECRET_HANDLE }
+#Import ".\CRL_INFO.ahk" { CRL_INFO }
+#Import ".\PFN_CRYPT_CANCEL_RETRIEVAL.ahk" { PFN_CRYPT_CANCEL_RETRIEVAL }
+#Import ".\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
+#Import ".\BCRYPT_PROVIDER_NAME.ahk" { BCRYPT_PROVIDER_NAME }
+#Import ".\CERT_SELECT_CHAIN_PARA.ahk" { CERT_SELECT_CHAIN_PARA }
+#Import ".\CRYPT_PROVIDERS.ahk" { CRYPT_PROVIDERS }
+#Import ".\SIGNER_SUBJECT_INFO.ahk" { SIGNER_SUBJECT_INFO }
+#Import ".\CRYPT_XML_ALGORITHM_INFO.ahk" { CRYPT_XML_ALGORITHM_INFO }
+#Import ".\NCRYPT_FLAGS.ahk" { NCRYPT_FLAGS }
+#Import ".\CERT_QUERY_FORMAT_TYPE.ahk" { CERT_QUERY_FORMAT_TYPE }
+#Import ".\CERT_CHAIN_PARA.ahk" { CERT_CHAIN_PARA }
+#Import ".\BCRYPT_OPERATION.ahk" { BCRYPT_OPERATION }
+#Import ".\PFN_CRYPT_ENUM_OID_INFO.ahk" { PFN_CRYPT_ENUM_OID_INFO }
+#Import ".\SIGNER_CERT.ahk" { SIGNER_CERT }
+#Import ".\PaddingMode.ahk" { PaddingMode }
+#Import ".\CRYPT_DECODE_PARA.ahk" { CRYPT_DECODE_PARA }
+#Import ".\CRYPT_TIMESTAMP_CONTEXT.ahk" { CRYPT_TIMESTAMP_CONTEXT }
+#Import ".\CERT_OPEN_STORE_FLAGS.ahk" { CERT_OPEN_STORE_FLAGS }
+#Import ".\NCryptProviderName.ahk" { NCryptProviderName }
+#Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
+#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
+#Import ".\CTL_VERIFY_USAGE_STATUS.ahk" { CTL_VERIFY_USAGE_STATUS }
+#Import ".\CERT_RDN.ahk" { CERT_RDN }
+#Import ".\SIGNER_SIGN_FLAGS.ahk" { SIGNER_SIGN_FLAGS }
+#Import ".\SIGNER_TIMESTAMP_FLAGS.ahk" { SIGNER_TIMESTAMP_FLAGS }
+#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
+#Import ".\CRYPT_XML_SIGNATURE.ahk" { CRYPT_XML_SIGNATURE }
+#Import "..\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CTL_VERIFY_USAGE_PARA.ahk" { CTL_VERIFY_USAGE_PARA }
+#Import ".\CERT_FIND_CHAIN_IN_STORE_FLAGS.ahk" { CERT_FIND_CHAIN_IN_STORE_FLAGS }
+#Import ".\CRYPT_VERIFY_MESSAGE_PARA.ahk" { CRYPT_VERIFY_MESSAGE_PARA }
+#Import ".\CRYPT_XML_KEY_VALUE.ahk" { CRYPT_XML_KEY_VALUE }
+#Import ".\CERT_QUERY_CONTENT_TYPE.ahk" { CERT_QUERY_CONTENT_TYPE }
+#Import ".\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\HCRYPTPROV_OR_NCRYPT_KEY_HANDLE.ahk" { HCRYPTPROV_OR_NCRYPT_KEY_HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
+#Import ".\BCRYPT_ALGORITHM_IDENTIFIER.ahk" { BCRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CERT_STORE_SAVE_AS.ahk" { CERT_STORE_SAVE_AS }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
 #Import ".\GENERIC_XML_TOKEN.ahk" { GENERIC_XML_TOKEN }
+#Import ".\CERT_NAME_INFO.ahk" { CERT_NAME_INFO }
+#Import ".\CRYPT_ENCRYPT_MESSAGE_PARA.ahk" { CRYPT_ENCRYPT_MESSAGE_PARA }
+#Import ".\CRYPTPROTECT_PROMPTSTRUCT.ahk" { CRYPTPROTECT_PROMPTSTRUCT }
+#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
+#Import ".\CRYPT_XML_PROPERTY.ahk" { CRYPT_XML_PROPERTY }
+#Import ".\CERT_RDN_ATTR.ahk" { CERT_RDN_ATTR }
+#Import ".\CERT_CHAIN_POLICY_PARA.ahk" { CERT_CHAIN_POLICY_PARA }
+#Import ".\CRYPT_TIMESTAMP_PARA.ahk" { CRYPT_TIMESTAMP_PARA }
+#Import ".\CRYPT_HASH_MESSAGE_PARA.ahk" { CRYPT_HASH_MESSAGE_PARA }
+#Import "..\..\System\Registry\REG_VALUE_TYPE.ahk" { REG_VALUE_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BCRYPT_KEY_DERIVATION_FUNCTION_TABLE.ahk" { BCRYPT_KEY_DERIVATION_FUNCTION_TABLE }
+#Import ".\NCRYPT_SSL_CIPHER_SUITE_EX.ahk" { NCRYPT_SSL_CIPHER_SUITE_EX }
+#Import ".\PFN_CRYPT_XML_ENUM_ALG_INFO.ahk" { PFN_CRYPT_XML_ENUM_ALG_INFO }
+#Import ".\BCRYPT_MULTI_OPERATION_TYPE.ahk" { BCRYPT_MULTI_OPERATION_TYPE }
+#Import ".\CERT_FIND_FLAGS.ahk" { CERT_FIND_FLAGS }
+#Import ".\CRYPT_KEY_PARAM_ID.ahk" { CRYPT_KEY_PARAM_ID }
+#Import ".\CRYPT_CONTEXT_FUNCTION_PROVIDERS.ahk" { CRYPT_CONTEXT_FUNCTION_PROVIDERS }
+#Import ".\CRYPT_VERIFY_CERT_FLAGS.ahk" { CRYPT_VERIFY_CERT_FLAGS }
+#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
+#Import ".\CERT_FIND_TYPE.ahk" { CERT_FIND_TYPE }
+#Import ".\NCRYPT_KEY_STORAGE_FUNCTION_TABLE.ahk" { NCRYPT_KEY_STORAGE_FUNCTION_TABLE }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\CRYPT_GET_URL_FLAGS.ahk" { CRYPT_GET_URL_FLAGS }
+#Import ".\CRYPT_OID_FUNC_ENTRY.ahk" { CRYPT_OID_FUNC_ENTRY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CRYPT_DECRYPT_MESSAGE_PARA.ahk" { CRYPT_DECRYPT_MESSAGE_PARA }
+#Import ".\BCRYPTGENRANDOM_FLAGS.ahk" { BCRYPTGENRANDOM_FLAGS }
+#Import ".\CRYPT_CONTEXTS.ahk" { CRYPT_CONTEXTS }
+#Import ".\CERT_KEY_SPEC.ahk" { CERT_KEY_SPEC }
+#Import ".\CRYPT_FIND_FLAGS.ahk" { CRYPT_FIND_FLAGS }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\CERT_SERVER_OCSP_RESPONSE_OPEN_PARA.ahk" { CERT_SERVER_OCSP_RESPONSE_OPEN_PARA }
+#Import ".\CERT_SERVER_OCSP_RESPONSE_CONTEXT.ahk" { CERT_SERVER_OCSP_RESPONSE_CONTEXT }
+#Import ".\CRYPT_KEY_VERIFY_MESSAGE_PARA.ahk" { CRYPT_KEY_VERIFY_MESSAGE_PARA }
+#Import ".\NCryptKeyName.ahk" { NCryptKeyName }
+#Import ".\BCRYPT_FLAGS.ahk" { BCRYPT_FLAGS }
+#Import ".\CRYPT_XML_DATA_PROVIDER.ahk" { CRYPT_XML_DATA_PROVIDER }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\CRYPT_CREDENTIALS.ahk" { CRYPT_CREDENTIALS }
+#Import ".\CRYPT_STRING.ahk" { CRYPT_STRING }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\HCRYPTASYNC.ahk" { HCRYPTASYNC }
+#Import ".\CRYPT_XML_TRANSFORM_CHAIN_CONFIG.ahk" { CRYPT_XML_TRANSFORM_CHAIN_CONFIG }
+#Import "..\PSID.ahk" { PSID }
+#Import "..\NCRYPT_DESCRIPTOR_HANDLE.ahk" { NCRYPT_DESCRIPTOR_HANDLE }
+#Import ".\CRYPT_XML_KEYINFO_SPEC.ahk" { CRYPT_XML_KEYINFO_SPEC }
+#Import ".\NCRYPT_PROTECT_STREAM_INFO.ahk" { NCRYPT_PROTECT_STREAM_INFO }
+#Import ".\NCRYPT_ALLOC_PARA.ahk" { NCRYPT_ALLOC_PARA }
+#Import ".\CERT_PHYSICAL_STORE_INFO.ahk" { CERT_PHYSICAL_STORE_INFO }
+#Import ".\BCRYPT_RNG_FUNCTION_TABLE.ahk" { BCRYPT_RNG_FUNCTION_TABLE }
+#Import ".\CRYPT_IMPORT_PUBLIC_KEY_FLAGS.ahk" { CRYPT_IMPORT_PUBLIC_KEY_FLAGS }
+#Import ".\CRYPT_DEFAULT_CONTEXT_FLAGS.ahk" { CRYPT_DEFAULT_CONTEXT_FLAGS }
+#Import ".\CRYPT_ACQUIRE_FLAGS.ahk" { CRYPT_ACQUIRE_FLAGS }
+#Import ".\PFN_CERT_ENUM_SYSTEM_STORE_LOCATION.ahk" { PFN_CERT_ENUM_SYSTEM_STORE_LOCATION }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\NCRYPT_PROTECT_STREAM_INFO_EX.ahk" { NCRYPT_PROTECT_STREAM_INFO_EX }
+#Import ".\SIGNER_SIGNATURE_INFO.ahk" { SIGNER_SIGNATURE_INFO }
+#Import ".\CERT_EXTENSIONS.ahk" { CERT_EXTENSIONS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BCryptBufferDesc.ahk" { BCryptBufferDesc }
+#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
+#Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -201,7 +211,7 @@
  * @see https://learn.microsoft.com/windows/win32/SecCNG/systemprng
  */
 export SystemPrng(pbRandomData, cbRandomData) {
-    result := DllCall("BCryptPrimitives.dll\SystemPrng", "ptr", pbRandomData, "ptr", cbRandomData, BOOL)
+    result := DllCall("BCryptPrimitives.dll\SystemPrng", IntPtr, pbRandomData, IntPtr, cbRandomData, BOOL)
     return result
 }
 
@@ -213,7 +223,7 @@ export SystemPrng(pbRandomData, cbRandomData) {
  * @see https://learn.microsoft.com/windows/win32/SecCNG/processprng
  */
 export ProcessPrng(pbData, cbData) {
-    result := DllCall("BCryptPrimitives.dll\ProcessPrng", "ptr", pbData, "ptr", cbData, BOOL)
+    result := DllCall("BCryptPrimitives.dll\ProcessPrng", IntPtr, pbData, IntPtr, cbData, BOOL)
     return result
 }
 
@@ -638,7 +648,7 @@ export CryptAcquireContextA(phProv, szContainer, szProvider, dwProvType, dwFlags
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptAcquireContextA", phProvMarshal, phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptAcquireContextA", phProvMarshal, phProv, "ptr", szContainer, "ptr", szProvider, UInt32, dwProvType, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1067,7 +1077,7 @@ export CryptAcquireContextW(phProv, szContainer, szProvider, dwProvType, dwFlags
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptAcquireContextW", phProvMarshal, phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptAcquireContextW", phProvMarshal, phProv, "ptr", szContainer, "ptr", szProvider, UInt32, dwProvType, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1156,7 +1166,7 @@ export CryptAcquireContextW(phProv, szContainer, szProvider, dwProvType, dwFlags
 export CryptReleaseContext(hProv, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptReleaseContext", "ptr", hProv, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptReleaseContext", IntPtr, hProv, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1470,7 +1480,7 @@ export CryptGenKey(hProv, Algid, dwFlags, phKey) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptGenKey", "ptr", hProv, ALG_ID, Algid, CRYPT_KEY_FLAGS, dwFlags, phKeyMarshal, phKey, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptGenKey", IntPtr, hProv, ALG_ID, Algid, CRYPT_KEY_FLAGS, dwFlags, phKeyMarshal, phKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1862,7 +1872,7 @@ export CryptDeriveKey(hProv, Algid, hBaseData, dwFlags, phKey) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptDeriveKey", "ptr", hProv, ALG_ID, Algid, "ptr", hBaseData, "uint", dwFlags, phKeyMarshal, phKey, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptDeriveKey", IntPtr, hProv, ALG_ID, Algid, IntPtr, hBaseData, UInt32, dwFlags, phKeyMarshal, phKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1951,7 +1961,7 @@ export CryptDeriveKey(hProv, Algid, hBaseData, dwFlags, phKey) {
 export CryptDestroyKey(_hKey) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptDestroyKey", "ptr", _hKey, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptDestroyKey", IntPtr, _hKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2077,7 +2087,7 @@ export CryptSetKeyParam(_hKey, dwParam, pbData, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", _hKey, CRYPT_KEY_PARAM_ID, dwParam, pbDataMarshal, pbData, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptSetKeyParam", IntPtr, _hKey, CRYPT_KEY_PARAM_ID, dwParam, pbDataMarshal, pbData, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2196,7 +2206,7 @@ export CryptGetKeyParam(_hKey, dwParam, pbData, pdwDataLen, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", _hKey, CRYPT_KEY_PARAM_ID, dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptGetKeyParam", IntPtr, _hKey, CRYPT_KEY_PARAM_ID, dwParam, IntPtr, pbData, pdwDataLenMarshal, pdwDataLen, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2331,7 +2341,7 @@ export CryptSetHashParam(hHash, dwParam, pbData, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptSetHashParam", "ptr", hHash, CRYPT_SET_HASH_PARAM, dwParam, pbDataMarshal, pbData, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptSetHashParam", IntPtr, hHash, CRYPT_SET_HASH_PARAM, dwParam, pbDataMarshal, pbData, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2505,7 +2515,7 @@ export CryptGetHashParam(hHash, dwParam, pbData, pdwDataLen, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptGetHashParam", "ptr", hHash, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptGetHashParam", IntPtr, hHash, UInt32, dwParam, IntPtr, pbData, pdwDataLenMarshal, pdwDataLen, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2625,7 +2635,7 @@ export CryptSetProvParam(hProv, dwParam, pbData, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptSetProvParam", "ptr", hProv, CRYPT_SET_PROV_PARAM_ID, dwParam, pbDataMarshal, pbData, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptSetProvParam", IntPtr, hProv, CRYPT_SET_PROV_PARAM_ID, dwParam, pbDataMarshal, pbData, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3420,7 +3430,7 @@ export CryptGetProvParam(hProv, dwParam, pbData, pdwDataLen, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptGetProvParam", "ptr", hProv, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptGetProvParam", IntPtr, hProv, UInt32, dwParam, IntPtr, pbData, pdwDataLenMarshal, pdwDataLen, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3510,7 +3520,7 @@ export CryptGetProvParam(hProv, dwParam, pbData, pdwDataLen, dwFlags) {
 export CryptGenRandom(hProv, dwLen, pbBuffer) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptGenRandom", "ptr", hProv, "uint", dwLen, "ptr", pbBuffer, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptGenRandom", IntPtr, hProv, UInt32, dwLen, IntPtr, pbBuffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3606,7 +3616,7 @@ export CryptGetUserKey(hProv, dwKeySpec, phUserKey) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptGetUserKey", "ptr", hProv, "uint", dwKeySpec, phUserKeyMarshal, phUserKey, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptGetUserKey", IntPtr, hProv, UInt32, dwKeySpec, phUserKeyMarshal, phUserKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3874,7 +3884,7 @@ export CryptExportKey(_hKey, hExpKey, dwBlobType, dwFlags, pbData, pdwDataLen) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", _hKey, "ptr", hExpKey, "uint", dwBlobType, CRYPT_KEY_FLAGS, dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptExportKey", IntPtr, _hKey, IntPtr, hExpKey, UInt32, dwBlobType, CRYPT_KEY_FLAGS, dwFlags, IntPtr, pbData, pdwDataLenMarshal, pdwDataLen, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4069,7 +4079,7 @@ export CryptImportKey(hProv, pbData, dwDataLen, hPubKey, dwFlags, phKey) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptImportKey", "ptr", hProv, "ptr", pbData, "uint", dwDataLen, "ptr", hPubKey, CRYPT_KEY_FLAGS, dwFlags, phKeyMarshal, phKey, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptImportKey", IntPtr, hProv, IntPtr, pbData, UInt32, dwDataLen, IntPtr, hPubKey, CRYPT_KEY_FLAGS, dwFlags, phKeyMarshal, phKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4333,7 +4343,7 @@ export CryptEncrypt(_hKey, hHash, Final, dwFlags, pbData, pdwDataLen, dwBufLen) 
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", _hKey, "ptr", hHash, BOOL, Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwBufLen, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptEncrypt", IntPtr, _hKey, IntPtr, hHash, BOOL, Final, UInt32, dwFlags, IntPtr, pbData, pdwDataLenMarshal, pdwDataLen, UInt32, dwBufLen, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4588,7 +4598,7 @@ export CryptDecrypt(_hKey, hHash, Final, dwFlags, pbData, pdwDataLen) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", _hKey, "ptr", hHash, BOOL, Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptDecrypt", IntPtr, _hKey, IntPtr, hHash, BOOL, Final, UInt32, dwFlags, IntPtr, pbData, pdwDataLenMarshal, pdwDataLen, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4744,7 +4754,7 @@ export CryptCreateHash(hProv, Algid, _hKey, dwFlags, phHash) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, ALG_ID, Algid, "ptr", _hKey, "uint", dwFlags, phHashMarshal, phHash, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptCreateHash", IntPtr, hProv, ALG_ID, Algid, IntPtr, _hKey, UInt32, dwFlags, phHashMarshal, phHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4927,7 +4937,7 @@ export CryptCreateHash(hProv, Algid, _hKey, dwFlags, phHash) {
 export CryptHashData(hHash, pbData, dwDataLen, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptHashData", "ptr", hHash, "ptr", pbData, "uint", dwDataLen, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptHashData", IntPtr, hHash, IntPtr, pbData, UInt32, dwDataLen, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5081,7 +5091,7 @@ export CryptHashData(hHash, pbData, dwDataLen, dwFlags) {
 export CryptHashSessionKey(hHash, _hKey, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptHashSessionKey", "ptr", hHash, "ptr", _hKey, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptHashSessionKey", IntPtr, hHash, IntPtr, _hKey, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5184,7 +5194,7 @@ export CryptHashSessionKey(hHash, _hKey, dwFlags) {
 export CryptDestroyHash(hHash) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptDestroyHash", "ptr", hHash, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptDestroyHash", IntPtr, hHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5416,7 +5426,7 @@ export CryptSignHashA(hHash, dwKeySpec, szDescription, dwFlags, pbSignature, pdw
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptSignHashA", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, pdwSigLenMarshal, pdwSigLen, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptSignHashA", IntPtr, hHash, UInt32, dwKeySpec, "ptr", szDescription, UInt32, dwFlags, IntPtr, pbSignature, pdwSigLenMarshal, pdwSigLen, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5648,7 +5658,7 @@ export CryptSignHashW(hHash, dwKeySpec, szDescription, dwFlags, pbSignature, pdw
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptSignHashW", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, pdwSigLenMarshal, pdwSigLen, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptSignHashW", IntPtr, hHash, UInt32, dwKeySpec, "ptr", szDescription, UInt32, dwFlags, IntPtr, pbSignature, pdwSigLenMarshal, pdwSigLen, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5833,7 +5843,7 @@ export CryptVerifySignatureA(hHash, pbSignature, dwSigLen, hPubKey, szDescriptio
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptVerifySignatureA", "ptr", hHash, "ptr", pbSignature, "uint", dwSigLen, "ptr", hPubKey, "ptr", szDescription, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptVerifySignatureA", IntPtr, hHash, IntPtr, pbSignature, UInt32, dwSigLen, IntPtr, hPubKey, "ptr", szDescription, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6018,7 +6028,7 @@ export CryptVerifySignatureW(hHash, pbSignature, dwSigLen, hPubKey, szDescriptio
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptVerifySignatureW", "ptr", hHash, "ptr", pbSignature, "uint", dwSigLen, "ptr", hPubKey, "ptr", szDescription, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptVerifySignatureW", IntPtr, hHash, IntPtr, pbSignature, UInt32, dwSigLen, IntPtr, hPubKey, "ptr", szDescription, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6098,7 +6108,7 @@ export CryptSetProviderA(pszProvName, dwProvType) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptSetProviderA", "ptr", pszProvName, "uint", dwProvType, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptSetProviderA", "ptr", pszProvName, UInt32, dwProvType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6178,7 +6188,7 @@ export CryptSetProviderW(pszProvName, dwProvType) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptSetProviderW", "ptr", pszProvName, "uint", dwProvType, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptSetProviderW", "ptr", pszProvName, UInt32, dwProvType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6285,7 +6295,7 @@ export CryptSetProviderExA(pszProvName, dwProvType, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptSetProviderExA", "ptr", pszProvName, "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptSetProviderExA", "ptr", pszProvName, UInt32, dwProvType, "uint*", pdwReserved, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6392,7 +6402,7 @@ export CryptSetProviderExW(pszProvName, dwProvType, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptSetProviderExW", "ptr", pszProvName, "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptSetProviderExW", "ptr", pszProvName, UInt32, dwProvType, "uint*", pdwReserved, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6543,7 +6553,7 @@ export CryptGetDefaultProviderA(dwProvType, dwFlags, pszProvName, pcbProvName) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderA", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, pcbProvNameMarshal, pcbProvName, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderA", UInt32, dwProvType, "uint*", pdwReserved, UInt32, dwFlags, IntPtr, pszProvName, pcbProvNameMarshal, pcbProvName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6694,7 +6704,7 @@ export CryptGetDefaultProviderW(dwProvType, dwFlags, pszProvName, pcbProvName) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderW", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, pcbProvNameMarshal, pcbProvName, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderW", UInt32, dwProvType, "uint*", pdwReserved, UInt32, dwFlags, IntPtr, pszProvName, pcbProvNameMarshal, pcbProvName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6792,7 +6802,7 @@ export CryptEnumProviderTypesA(dwIndex, dwFlags, pdwProvType, szTypeName, pcbTyp
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szTypeName, pcbTypeNameMarshal, pcbTypeName, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesA", UInt32, dwIndex, "uint*", pdwReserved, UInt32, dwFlags, pdwProvTypeMarshal, pdwProvType, IntPtr, szTypeName, pcbTypeNameMarshal, pcbTypeName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6890,7 +6900,7 @@ export CryptEnumProviderTypesW(dwIndex, dwFlags, pdwProvType, szTypeName, pcbTyp
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szTypeName, pcbTypeNameMarshal, pcbTypeName, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesW", UInt32, dwIndex, "uint*", pdwReserved, UInt32, dwFlags, pdwProvTypeMarshal, pdwProvType, IntPtr, szTypeName, pcbTypeNameMarshal, pcbTypeName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6993,7 +7003,7 @@ export CryptEnumProvidersA(dwIndex, dwFlags, pdwProvType, szProvName, pcbProvNam
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptEnumProvidersA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szProvName, pcbProvNameMarshal, pcbProvName, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptEnumProvidersA", UInt32, dwIndex, "uint*", pdwReserved, UInt32, dwFlags, pdwProvTypeMarshal, pdwProvType, IntPtr, szProvName, pcbProvNameMarshal, pcbProvName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7096,7 +7106,7 @@ export CryptEnumProvidersW(dwIndex, dwFlags, pdwProvType, szProvName, pcbProvNam
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptEnumProvidersW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, pdwProvTypeMarshal, pdwProvType, "ptr", szProvName, pcbProvNameMarshal, pcbProvName, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptEnumProvidersW", UInt32, dwIndex, "uint*", pdwReserved, UInt32, dwFlags, pdwProvTypeMarshal, pdwProvType, IntPtr, szProvName, pcbProvNameMarshal, pcbProvName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7143,7 +7153,7 @@ export CryptContextAddRef(hProv, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptContextAddRef", "ptr", hProv, "uint*", pdwReserved, "uint", dwFlags, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptContextAddRef", IntPtr, hProv, "uint*", pdwReserved, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7218,7 +7228,7 @@ export CryptDuplicateKey(_hKey, dwFlags, phKey) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", _hKey, "uint*", pdwReserved, "uint", dwFlags, phKeyMarshal, phKey, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptDuplicateKey", IntPtr, _hKey, "uint*", pdwReserved, UInt32, dwFlags, phKeyMarshal, phKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7291,7 +7301,7 @@ export CryptDuplicateHash(hHash, dwFlags, phHash) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CryptDuplicateHash", "ptr", hHash, "uint*", pdwReserved, "uint", dwFlags, phHashMarshal, phHash, BOOL)
+    result := DllCall("ADVAPI32.dll\CryptDuplicateHash", IntPtr, hHash, "uint*", pdwReserved, UInt32, dwFlags, phHashMarshal, phHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7421,7 +7431,7 @@ export BCryptOpenAlgorithmProvider(phAlgorithm, pszAlgId, pszImplementation, dwF
     pszImplementation := pszImplementation is String ? StrPtr(pszImplementation) : pszImplementation
 
     result := DllCall("bcrypt.dll\BCryptOpenAlgorithmProvider", BCRYPT_ALG_HANDLE.Ptr, phAlgorithm, "ptr", pszAlgId, "ptr", pszImplementation, BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS, dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7486,8 +7496,8 @@ export BCryptEnumAlgorithms(dwAlgOperations, pAlgCount, ppAlgList, dwFlags) {
     pAlgCountMarshal := pAlgCount is VarRef ? "uint*" : "ptr"
     ppAlgListMarshal := ppAlgList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptEnumAlgorithms", BCRYPT_OPERATION, dwAlgOperations, pAlgCountMarshal, pAlgCount, ppAlgListMarshal, ppAlgList, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptEnumAlgorithms", BCRYPT_OPERATION, dwAlgOperations, pAlgCountMarshal, pAlgCount, ppAlgListMarshal, ppAlgList, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7554,8 +7564,8 @@ export BCryptEnumProviders(pszAlgId, pImplCount, ppImplList, dwFlags) {
     pImplCountMarshal := pImplCount is VarRef ? "uint*" : "ptr"
     ppImplListMarshal := ppImplList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptEnumProviders", "ptr", pszAlgId, pImplCountMarshal, pImplCount, ppImplListMarshal, ppImplList, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptEnumProviders", "ptr", pszAlgId, pImplCountMarshal, pImplCount, ppImplListMarshal, ppImplList, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7649,8 +7659,8 @@ export BCryptGetProperty(hObject, pszProperty, pbOutput, cbOutput, pcbResult, dw
 
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptGetProperty", BCRYPT_HANDLE, hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptGetProperty", BCRYPT_HANDLE, hObject, "ptr", pszProperty, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7728,8 +7738,8 @@ export BCryptGetProperty(hObject, pszProperty, pbOutput, cbOutput, pcbResult, dw
 export BCryptSetProperty(hObject, pszProperty, pbInput, cbInput, dwFlags) {
     pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-    result := DllCall("bcrypt.dll\BCryptSetProperty", BCRYPT_HANDLE, hObject, "ptr", pszProperty, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptSetProperty", BCRYPT_HANDLE, hObject, "ptr", pszProperty, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7781,8 +7791,8 @@ export BCryptSetProperty(hObject, pszProperty, pbInput, cbInput, dwFlags) {
 export BCryptCloseAlgorithmProvider(hAlgorithm) {
     static dwFlags := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("bcrypt.dll\BCryptCloseAlgorithmProvider", BCRYPT_ALG_HANDLE, hAlgorithm, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptCloseAlgorithmProvider", BCRYPT_ALG_HANDLE, hAlgorithm, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -7886,8 +7896,8 @@ export BCryptFreeBuffer(pvBuffer) {
  * @since windows6.0.6000
  */
 export BCryptGenerateSymmetricKey(hAlgorithm, phKey, pbKeyObject, cbKeyObject, pbSecret, cbSecret, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptGenerateSymmetricKey", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pbKeyObject, "uint", cbKeyObject, "ptr", pbSecret, "uint", cbSecret, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptGenerateSymmetricKey", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbKeyObject, UInt32, cbKeyObject, IntPtr, pbSecret, UInt32, cbSecret, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8061,8 +8071,8 @@ export BCryptGenerateSymmetricKey(hAlgorithm, phKey, pbKeyObject, cbKeyObject, p
  * @since windows6.0.6000
  */
 export BCryptGenerateKeyPair(hAlgorithm, phKey, dwLength, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptGenerateKeyPair", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE.Ptr, phKey, "uint", dwLength, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptGenerateKeyPair", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE.Ptr, phKey, UInt32, dwLength, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8204,8 +8214,8 @@ export BCryptEncrypt(_hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput
     pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptEncrypt", BCRYPT_KEY_HANDLE, _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, BCRYPT_FLAGS, dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptEncrypt", BCRYPT_KEY_HANDLE, _hKey, IntPtr, pbInput, UInt32, cbInput, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbIV, UInt32, cbIV, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, BCRYPT_FLAGS, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8354,8 +8364,8 @@ export BCryptDecrypt(_hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput
     pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptDecrypt", BCRYPT_KEY_HANDLE, _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, BCRYPT_FLAGS, dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptDecrypt", BCRYPT_KEY_HANDLE, _hKey, IntPtr, pbInput, UInt32, cbInput, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbIV, UInt32, cbIV, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, BCRYPT_FLAGS, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8452,8 +8462,8 @@ export BCryptExportKey(_hKey, hExportKey, pszBlobType, pbOutput, cbOutput, pcbRe
 
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptExportKey", BCRYPT_KEY_HANDLE, _hKey, BCRYPT_KEY_HANDLE, hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptExportKey", BCRYPT_KEY_HANDLE, _hKey, BCRYPT_KEY_HANDLE, hExportKey, "ptr", pszBlobType, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8552,8 +8562,8 @@ export BCryptExportKey(_hKey, hExportKey, pszBlobType, pbOutput, cbOutput, pcbRe
 export BCryptImportKey(hAlgorithm, hImportKey, pszBlobType, phKey, pbKeyObject, cbKeyObject, pbInput, cbInput, dwFlags) {
     pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-    result := DllCall("bcrypt.dll\BCryptImportKey", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE, hImportKey, "ptr", pszBlobType, BCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pbKeyObject, "uint", cbKeyObject, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptImportKey", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE, hImportKey, "ptr", pszBlobType, BCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbKeyObject, UInt32, cbKeyObject, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8650,8 +8660,8 @@ export BCryptImportKey(hAlgorithm, hImportKey, pszBlobType, phKey, pbKeyObject, 
 export BCryptImportKeyPair(hAlgorithm, hImportKey, pszBlobType, phKey, pbInput, cbInput, dwFlags) {
     pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-    result := DllCall("bcrypt.dll\BCryptImportKeyPair", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE, hImportKey, "ptr", pszBlobType, BCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptImportKeyPair", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE, hImportKey, "ptr", pszBlobType, BCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8729,8 +8739,8 @@ export BCryptImportKeyPair(hAlgorithm, hImportKey, pszBlobType, phKey, pbInput, 
  * @since windows6.0.6000
  */
 export BCryptDuplicateKey(_hKey, phNewKey, pbKeyObject, cbKeyObject, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptDuplicateKey", BCRYPT_KEY_HANDLE, _hKey, BCRYPT_KEY_HANDLE.Ptr, phNewKey, "ptr", pbKeyObject, "uint", cbKeyObject, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptDuplicateKey", BCRYPT_KEY_HANDLE, _hKey, BCRYPT_KEY_HANDLE.Ptr, phNewKey, IntPtr, pbKeyObject, UInt32, cbKeyObject, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8803,8 +8813,8 @@ export BCryptDuplicateKey(_hKey, phNewKey, pbKeyObject, cbKeyObject, dwFlags) {
  * @since windows6.0.6000
  */
 export BCryptFinalizeKeyPair(_hKey, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptFinalizeKeyPair", BCRYPT_KEY_HANDLE, _hKey, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptFinalizeKeyPair", BCRYPT_KEY_HANDLE, _hKey, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8855,7 +8865,7 @@ export BCryptFinalizeKeyPair(_hKey, dwFlags) {
  */
 export BCryptDestroyKey(_hKey) {
     result := DllCall("bcrypt.dll\BCryptDestroyKey", BCRYPT_KEY_HANDLE, _hKey, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8906,7 +8916,7 @@ export BCryptDestroyKey(_hKey) {
  */
 export BCryptDestroySecret(hSecret) {
     result := DllCall("bcrypt.dll\BCryptDestroySecret", BCRYPT_SECRET_HANDLE, hSecret, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9007,8 +9017,8 @@ export BCryptSignHash(_hKey, pPaddingInfo, pbInput, cbInput, pbOutput, cbOutput,
     pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptSignHash", BCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, BCRYPT_FLAGS, dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptSignHash", BCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbInput, UInt32, cbInput, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, BCRYPT_FLAGS, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9116,8 +9126,8 @@ export BCryptSignHash(_hKey, pPaddingInfo, pbInput, cbInput, pbOutput, cbOutput,
 export BCryptVerifySignature(_hKey, pPaddingInfo, pbHash, cbHash, pbSignature, cbSignature, dwFlags) {
     pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptVerifySignature", BCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHash, "uint", cbHash, "ptr", pbSignature, "uint", cbSignature, BCRYPT_FLAGS, dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptVerifySignature", BCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbHash, UInt32, cbHash, IntPtr, pbSignature, UInt32, cbSignature, BCRYPT_FLAGS, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9192,8 +9202,8 @@ export BCryptVerifySignature(_hKey, pPaddingInfo, pbHash, cbHash, pbSignature, c
  * @since windows6.0.6000
  */
 export BCryptSecretAgreement(hPrivKey, hPubKey, phAgreedSecret, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptSecretAgreement", BCRYPT_KEY_HANDLE, hPrivKey, BCRYPT_KEY_HANDLE, hPubKey, BCRYPT_SECRET_HANDLE.Ptr, phAgreedSecret, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptSecretAgreement", BCRYPT_KEY_HANDLE, hPrivKey, BCRYPT_KEY_HANDLE, hPubKey, BCRYPT_SECRET_HANDLE.Ptr, phAgreedSecret, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9333,8 +9343,8 @@ export BCryptDeriveKey(hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbD
 
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptDeriveKey", BCRYPT_SECRET_HANDLE, hSharedSecret, "ptr", pwszKDF, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptDeriveKey", BCRYPT_SECRET_HANDLE, hSharedSecret, "ptr", pwszKDF, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9481,8 +9491,8 @@ export BCryptDeriveKey(hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbD
 export BCryptKeyDerivation(_hKey, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptKeyDerivation", BCRYPT_KEY_HANDLE, _hKey, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptKeyDerivation", BCRYPT_KEY_HANDLE, _hKey, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9596,8 +9606,8 @@ export BCryptKeyDerivation(_hKey, pParameterList, pbDerivedKey, cbDerivedKey, pc
  * @since windows6.0.6000
  */
 export BCryptCreateHash(hAlgorithm, phHash, pbHashObject, cbHashObject, pbSecret, cbSecret, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptCreateHash", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_HASH_HANDLE.Ptr, phHash, "ptr", pbHashObject, "uint", cbHashObject, "ptr", pbSecret, "uint", cbSecret, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptCreateHash", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_HASH_HANDLE.Ptr, phHash, IntPtr, pbHashObject, UInt32, cbHashObject, IntPtr, pbSecret, UInt32, cbSecret, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9663,8 +9673,8 @@ export BCryptCreateHash(hAlgorithm, phHash, pbHashObject, cbHashObject, pbSecret
  * @since windows6.0.6000
  */
 export BCryptHashData(hHash, pbInput, cbInput, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptHashData", BCRYPT_HASH_HANDLE, hHash, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptHashData", BCRYPT_HASH_HANDLE, hHash, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9730,8 +9740,8 @@ export BCryptHashData(hHash, pbInput, cbInput, dwFlags) {
  * @since windows6.0.6000
  */
 export BCryptFinishHash(hHash, pbOutput, cbOutput, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptFinishHash", BCRYPT_HASH_HANDLE, hHash, "ptr", pbOutput, "uint", cbOutput, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptFinishHash", BCRYPT_HASH_HANDLE, hHash, IntPtr, pbOutput, UInt32, cbOutput, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9782,8 +9792,8 @@ export BCryptFinishHash(hHash, pbOutput, cbOutput, dwFlags) {
  * @since windows8.1
  */
 export BCryptCreateMultiHash(hAlgorithm, phHash, nHashes, pbHashObject, cbHashObject, pbSecret, cbSecret, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptCreateMultiHash", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_HASH_HANDLE.Ptr, phHash, "uint", nHashes, "ptr", pbHashObject, "uint", cbHashObject, "ptr", pbSecret, "uint", cbSecret, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptCreateMultiHash", BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_HASH_HANDLE.Ptr, phHash, UInt32, nHashes, IntPtr, pbHashObject, UInt32, cbHashObject, IntPtr, pbSecret, UInt32, cbSecret, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9813,8 +9823,8 @@ export BCryptCreateMultiHash(hAlgorithm, phHash, nHashes, pbHashObject, cbHashOb
  * @since windows8.1
  */
 export BCryptProcessMultiOperations(hObject, operationType, pOperations, cbOperations, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptProcessMultiOperations", BCRYPT_HANDLE, hObject, BCRYPT_MULTI_OPERATION_TYPE, operationType, "ptr", pOperations, "uint", cbOperations, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptProcessMultiOperations", BCRYPT_HANDLE, hObject, BCRYPT_MULTI_OPERATION_TYPE, operationType, IntPtr, pOperations, UInt32, cbOperations, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9894,8 +9904,8 @@ export BCryptProcessMultiOperations(hObject, operationType, pOperations, cbOpera
  * @since windows6.0.6000
  */
 export BCryptDuplicateHash(hHash, phNewHash, pbHashObject, cbHashObject, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptDuplicateHash", BCRYPT_HASH_HANDLE, hHash, BCRYPT_HASH_HANDLE.Ptr, phNewHash, "ptr", pbHashObject, "uint", cbHashObject, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptDuplicateHash", BCRYPT_HASH_HANDLE, hHash, BCRYPT_HASH_HANDLE.Ptr, phNewHash, IntPtr, pbHashObject, UInt32, cbHashObject, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9946,7 +9956,7 @@ export BCryptDuplicateHash(hHash, phNewHash, pbHashObject, cbHashObject, dwFlags
  */
 export BCryptDestroyHash(hHash) {
     result := DllCall("bcrypt.dll\BCryptDestroyHash", BCRYPT_HASH_HANDLE, hHash, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -9966,8 +9976,8 @@ export BCryptDestroyHash(hHash) {
  * @since windows10.0.10240
  */
 export BCryptHash(hAlgorithm, pbSecret, cbSecret, pbInput, cbInput, pbOutput, cbOutput) {
-    result := DllCall("bcrypt.dll\BCryptHash", BCRYPT_ALG_HANDLE, hAlgorithm, "ptr", pbSecret, "uint", cbSecret, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptHash", BCRYPT_ALG_HANDLE, hAlgorithm, IntPtr, pbSecret, UInt32, cbSecret, IntPtr, pbInput, UInt32, cbInput, IntPtr, pbOutput, UInt32, cbOutput, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10072,8 +10082,8 @@ export BCryptHash(hAlgorithm, pbSecret, cbSecret, pbInput, cbInput, pbOutput, cb
  * @since windows6.0.6000
  */
 export BCryptGenRandom(hAlgorithm, pbBuffer, cbBuffer, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptGenRandom", BCRYPT_ALG_HANDLE, hAlgorithm, "ptr", pbBuffer, "uint", cbBuffer, BCRYPTGENRANDOM_FLAGS, dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptGenRandom", BCRYPT_ALG_HANDLE, hAlgorithm, IntPtr, pbBuffer, UInt32, cbBuffer, BCRYPTGENRANDOM_FLAGS, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10151,8 +10161,8 @@ export BCryptGenRandom(hAlgorithm, pbBuffer, cbBuffer, dwFlags) {
  * @since windows6.1
  */
 export BCryptDeriveKeyCapi(hHash, hTargetAlg, pbDerivedKey, cbDerivedKey, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptDeriveKeyCapi", BCRYPT_HASH_HANDLE, hHash, BCRYPT_ALG_HANDLE, hTargetAlg, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptDeriveKeyCapi", BCRYPT_HASH_HANDLE, hHash, BCRYPT_ALG_HANDLE, hTargetAlg, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10236,8 +10246,8 @@ export BCryptDeriveKeyCapi(hHash, hTargetAlg, pbDerivedKey, cbDerivedKey, dwFlag
  * @since windows6.1
  */
 export BCryptDeriveKeyPBKDF2(hPrf, pbPassword, cbPassword, pbSalt, cbSalt, cIterations, pbDerivedKey, cbDerivedKey, dwFlags) {
-    result := DllCall("bcrypt.dll\BCryptDeriveKeyPBKDF2", BCRYPT_ALG_HANDLE, hPrf, "ptr", pbPassword, "uint", cbPassword, "ptr", pbSalt, "uint", cbSalt, "uint", cIterations, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptDeriveKeyPBKDF2", BCRYPT_ALG_HANDLE, hPrf, IntPtr, pbPassword, UInt32, cbPassword, IntPtr, pbSalt, UInt32, cbSalt, Int64, cIterations, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10257,8 +10267,8 @@ export BCryptEncapsulate(_hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipher
     pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
     pcbCipherTextMarshal := pcbCipherText is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptEncapsulate", BCRYPT_KEY_HANDLE, _hKey, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "ptr", pbCipherText, "uint", cbCipherText, pcbCipherTextMarshal, pcbCipherText, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptEncapsulate", BCRYPT_KEY_HANDLE, _hKey, IntPtr, pbSecretKey, UInt32, cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, IntPtr, pbCipherText, UInt32, cbCipherText, pcbCipherTextMarshal, pcbCipherText, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10276,8 +10286,8 @@ export BCryptEncapsulate(_hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipher
 export BCryptDecapsulate(_hKey, pbCipherText, cbCipherText, pbSecretKey, cbSecretKey, pcbSecretKey, dwFlags) {
     pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptDecapsulate", BCRYPT_KEY_HANDLE, _hKey, "ptr", pbCipherText, "uint", cbCipherText, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptDecapsulate", BCRYPT_KEY_HANDLE, _hKey, IntPtr, pbCipherText, UInt32, cbCipherText, IntPtr, pbSecretKey, UInt32, cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10367,7 +10377,7 @@ export BCryptQueryProviderRegistration(pszProvider, dwMode, dwInterface, pcbBuff
     ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("bcrypt.dll\BCryptQueryProviderRegistration", "ptr", pszProvider, BCRYPT_QUERY_PROVIDER_MODE, dwMode, BCRYPT_INTERFACE, dwInterface, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10464,7 +10474,7 @@ export BCryptEnumRegisteredProviders(pcbBuffer, ppBuffer) {
     ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("bcrypt.dll\BCryptEnumRegisteredProviders", pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10528,7 +10538,7 @@ export BCryptCreateContext(dwTable, pszContext, pConfig) {
     pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
     result := DllCall("bcrypt.dll\BCryptCreateContext", BCRYPT_TABLE, dwTable, "ptr", pszContext, CRYPT_CONTEXT_CONFIG.Ptr, pConfig, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10591,7 +10601,7 @@ export BCryptDeleteContext(dwTable, pszContext) {
     pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
     result := DllCall("bcrypt.dll\BCryptDeleteContext", BCRYPT_TABLE, dwTable, "ptr", pszContext, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10673,7 +10683,7 @@ export BCryptEnumContexts(dwTable, pcbBuffer, ppBuffer) {
     ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("bcrypt.dll\BCryptEnumContexts", BCRYPT_TABLE, dwTable, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10737,7 +10747,7 @@ export BCryptConfigureContext(dwTable, pszContext, pConfig) {
     pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
     result := DllCall("bcrypt.dll\BCryptConfigureContext", BCRYPT_TABLE, dwTable, "ptr", pszContext, CRYPT_CONTEXT_CONFIG.Ptr, pConfig, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10852,7 +10862,7 @@ export BCryptQueryContextConfiguration(dwTable, pszContext, pcbBuffer, ppBuffer)
     ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("bcrypt.dll\BCryptQueryContextConfiguration", BCRYPT_TABLE, dwTable, "ptr", pszContext, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10931,8 +10941,8 @@ export BCryptAddContextFunction(dwTable, pszContext, dwInterface, pszFunction, d
     pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
     pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
-    result := DllCall("bcrypt.dll\BCryptAddContextFunction", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, "ptr", pszFunction, "uint", dwPosition, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptAddContextFunction", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, "ptr", pszFunction, UInt32, dwPosition, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -10998,7 +11008,7 @@ export BCryptRemoveContextFunction(dwTable, pszContext, dwInterface, pszFunction
     pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
     result := DllCall("bcrypt.dll\BCryptRemoveContextFunction", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, "ptr", pszFunction, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11095,7 +11105,7 @@ export BCryptEnumContextFunctions(dwTable, pszContext, dwInterface, pcbBuffer, p
     ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("bcrypt.dll\BCryptEnumContextFunctions", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11162,7 +11172,7 @@ export BCryptConfigureContextFunction(dwTable, pszContext, dwInterface, pszFunct
     pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
 
     result := DllCall("bcrypt.dll\BCryptConfigureContextFunction", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, "ptr", pszFunction, CRYPT_CONTEXT_FUNCTION_CONFIG.Ptr, pConfig, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11282,7 +11292,7 @@ export BCryptQueryContextFunctionConfiguration(dwTable, pszContext, dwInterface,
     ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("bcrypt.dll\BCryptQueryContextFunctionConfiguration", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, "ptr", pszFunction, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11381,7 +11391,7 @@ export BCryptEnumContextFunctionProviders(dwTable, pszContext, dwInterface, pszF
     ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("bcrypt.dll\BCryptEnumContextFunctionProviders", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, "ptr", pszFunction, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11472,8 +11482,8 @@ export BCryptSetContextFunctionProperty(dwTable, pszContext, dwInterface, pszFun
     pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
     pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-    result := DllCall("bcrypt.dll\BCryptSetContextFunctionProperty", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, "ptr", pszFunction, "ptr", pszProperty, "uint", cbValue, "ptr", pbValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptSetContextFunctionProperty", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, "ptr", pszFunction, "ptr", pszProperty, UInt32, cbValue, IntPtr, pbValue, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11574,7 +11584,7 @@ export BCryptQueryContextFunctionProperty(dwTable, pszContext, dwInterface, pszF
     ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("bcrypt.dll\BCryptQueryContextFunctionProperty", BCRYPT_TABLE, dwTable, "ptr", pszContext, BCRYPT_INTERFACE, dwInterface, "ptr", pszFunction, "ptr", pszProperty, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11636,7 +11646,7 @@ export BCryptQueryContextFunctionProperty(dwTable, pszContext, dwInterface, pszF
  */
 export BCryptRegisterConfigChangeNotify(phEvent) {
     result := DllCall("bcrypt.dll\BCryptRegisterConfigChangeNotify", HANDLE.Ptr, phEvent, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11696,7 +11706,7 @@ export BCryptRegisterConfigChangeNotify(phEvent) {
  */
 export BCryptUnregisterConfigChangeNotify(hEvent) {
     result := DllCall("bcrypt.dll\BCryptUnregisterConfigChangeNotify", HANDLE, hEvent, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11788,8 +11798,8 @@ export BCryptResolveProviders(pszContext, dwInterface, pszFunction, pszProvider,
     pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
     ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcrypt.dll\BCryptResolveProviders", "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, BCRYPT_QUERY_PROVIDER_MODE, dwMode, BCRYPT_RESOLVE_PROVIDERS_FLAGS, dwFlags, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptResolveProviders", "ptr", pszContext, UInt32, dwInterface, "ptr", pszFunction, "ptr", pszProvider, BCRYPT_QUERY_PROVIDER_MODE, dwMode, BCRYPT_RESOLVE_PROVIDERS_FLAGS, dwFlags, pcbBufferMarshal, pcbBuffer, ppBufferMarshal, ppBuffer, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11840,7 +11850,7 @@ export BCryptGetFipsAlgorithmMode(pfEnabled) {
     pfEnabledMarshal := pfEnabled is VarRef ? "char*" : "ptr"
 
     result := DllCall("bcrypt.dll\BCryptGetFipsAlgorithmMode", pfEnabledMarshal, pfEnabled, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -11900,7 +11910,7 @@ export NCryptOpenStorageProvider(pszProviderName, dwFlags) {
     pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
 
     phProvider := NCRYPT_PROV_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\NCryptOpenStorageProvider", NCRYPT_PROV_HANDLE.Ptr, phProvider, "ptr", pszProviderName, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptOpenStorageProvider", NCRYPT_PROV_HANDLE.Ptr, phProvider, "ptr", pszProviderName, UInt32, dwFlags, "HRESULT")
     return phProvider
 }
 
@@ -12007,7 +12017,7 @@ export NCryptEnumAlgorithms(_hProvider, dwAlgOperations, pdwAlgCount, ppAlgList,
     pdwAlgCountMarshal := pdwAlgCount is VarRef ? "uint*" : "ptr"
     ppAlgListMarshal := ppAlgList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_OPERATION, dwAlgOperations, pdwAlgCountMarshal, pdwAlgCount, ppAlgListMarshal, ppAlgList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_OPERATION, dwAlgOperations, pdwAlgCountMarshal, pdwAlgCount, ppAlgListMarshal, ppAlgList, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -12111,7 +12121,7 @@ export NCryptEnumAlgorithms(_hProvider, dwAlgOperations, pdwAlgCount, ppAlgList,
 export NCryptIsAlgSupported(_hProvider, pszAlgId, dwFlags) {
     pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
-    result := DllCall("ncrypt.dll\NCryptIsAlgSupported", NCRYPT_PROV_HANDLE, _hProvider, "ptr", pszAlgId, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptIsAlgSupported", NCRYPT_PROV_HANDLE, _hProvider, "ptr", pszAlgId, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -12230,7 +12240,7 @@ export NCryptEnumStorageProviders(pdwProviderCount, ppProviderList, dwFlags) {
     pdwProviderCountMarshal := pdwProviderCount is VarRef ? "uint*" : "ptr"
     ppProviderListMarshal := ppProviderList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptEnumStorageProviders", pdwProviderCountMarshal, pdwProviderCount, ppProviderListMarshal, ppProviderList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptEnumStorageProviders", pdwProviderCountMarshal, pdwProviderCount, ppProviderListMarshal, ppProviderList, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -12375,7 +12385,7 @@ export NCryptCreatePersistedKey(_hProvider, pszAlgId, pszKeyName, dwLegacyKeySpe
 export NCryptGetProperty(hObject, pszProperty, pbOutput, cbOutput, dwFlags) {
     pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-    result := DllCall("ncrypt.dll\NCryptGetProperty", NCRYPT_HANDLE, hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, OBJECT_SECURITY_INFORMATION, dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptGetProperty", NCRYPT_HANDLE, hObject, "ptr", pszProperty, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, OBJECT_SECURITY_INFORMATION, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -12473,7 +12483,7 @@ export NCryptGetProperty(hObject, pszProperty, pbOutput, cbOutput, dwFlags) {
 export NCryptSetProperty(hObject, pszProperty, pbInput, cbInput, dwFlags) {
     pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-    result := DllCall("ncrypt.dll\NCryptSetProperty", NCRYPT_HANDLE, hObject, "ptr", pszProperty, "ptr", pbInput, "uint", cbInput, NCRYPT_FLAGS, dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptSetProperty", NCRYPT_HANDLE, hObject, "ptr", pszProperty, IntPtr, pbInput, UInt32, cbInput, NCRYPT_FLAGS, dwFlags, "HRESULT")
     return result
 }
 
@@ -12559,7 +12569,7 @@ export NCryptFinalizeKey(_hKey, dwFlags) {
 export NCryptEncrypt(_hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
     pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptEncrypt", NCRYPT_KEY_HANDLE, _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, NCRYPT_FLAGS, dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptEncrypt", NCRYPT_KEY_HANDLE, _hKey, IntPtr, pbInput, UInt32, cbInput, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, NCRYPT_FLAGS, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -12585,7 +12595,7 @@ export NCryptEncrypt(_hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, 
 export NCryptDecrypt(_hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
     pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptDecrypt", NCRYPT_KEY_HANDLE, _hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, NCRYPT_FLAGS, dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptDecrypt", NCRYPT_KEY_HANDLE, _hKey, IntPtr, pbInput, UInt32, cbInput, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, NCRYPT_FLAGS, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -12605,7 +12615,7 @@ export NCryptEncapsulate(_hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipher
     pcbSecretKeyMarshal := pcbSecretKey is VarRef ? "uint*" : "ptr"
     pcbCipherTextMarshal := pcbCipherText is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptEncapsulate", NCRYPT_KEY_HANDLE, _hKey, "ptr", pbSecretKey, "uint", cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, "ptr", pbCipherText, "uint", cbCipherText, pcbCipherTextMarshal, pcbCipherText, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptEncapsulate", NCRYPT_KEY_HANDLE, _hKey, IntPtr, pbSecretKey, UInt32, cbSecretKey, pcbSecretKeyMarshal, pcbSecretKey, IntPtr, pbCipherText, UInt32, cbCipherText, pcbCipherTextMarshal, pcbCipherText, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -12620,7 +12630,7 @@ export NCryptEncapsulate(_hKey, pbSecretKey, cbSecretKey, pcbSecretKey, pbCipher
  * @returns {Integer} 
  */
 export NCryptDecapsulate(_hKey, pbCipherText, cbCipherText, pbSecretKey, cbSecretKey, dwFlags) {
-    result := DllCall("ncrypt.dll\NCryptDecapsulate", NCRYPT_KEY_HANDLE, _hKey, "ptr", pbCipherText, "uint", cbCipherText, "ptr", pbSecretKey, "uint", cbSecretKey, "uint*", &pcbSecretKey := 0, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptDecapsulate", NCRYPT_KEY_HANDLE, _hKey, IntPtr, pbCipherText, UInt32, cbCipherText, IntPtr, pbSecretKey, UInt32, cbSecretKey, "uint*", &pcbSecretKey := 0, UInt32, dwFlags, "HRESULT")
     return pcbSecretKey
 }
 
@@ -12648,7 +12658,7 @@ export NCryptImportKey(_hProvider, hImportKey, pszBlobType, pParameterList, pbDa
     pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
     phKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\NCryptImportKey", NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, hImportKey, "ptr", pszBlobType, BCryptBufferDesc.Ptr, pParameterList, NCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pbData, "uint", cbData, NCRYPT_FLAGS, dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptImportKey", NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, hImportKey, "ptr", pszBlobType, BCryptBufferDesc.Ptr, pParameterList, NCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbData, UInt32, cbData, NCRYPT_FLAGS, dwFlags, "HRESULT")
     return phKey
 }
 
@@ -12670,7 +12680,7 @@ export NCryptImportKey(_hProvider, hImportKey, pszBlobType, pParameterList, pbDa
 export NCryptExportKey(_hKey, hExportKey, pszBlobType, pParameterList, pbOutput, cbOutput, dwFlags) {
     pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-    result := DllCall("ncrypt.dll\NCryptExportKey", NCRYPT_KEY_HANDLE, _hKey, NCRYPT_KEY_HANDLE, hExportKey, "ptr", pszBlobType, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, NCRYPT_FLAGS, dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptExportKey", NCRYPT_KEY_HANDLE, _hKey, NCRYPT_KEY_HANDLE, hExportKey, "ptr", pszBlobType, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, NCRYPT_FLAGS, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -12698,7 +12708,7 @@ export NCryptExportKey(_hKey, hExportKey, pszBlobType, pParameterList, pbOutput,
 export NCryptSignHash(_hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
     pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptSignHash", NCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", &pcbResult := 0, NCRYPT_FLAGS, dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptSignHash", NCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbHashValue, UInt32, cbHashValue, IntPtr, pbSignature, UInt32, cbSignature, "uint*", &pcbResult := 0, NCRYPT_FLAGS, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -12789,7 +12799,7 @@ export NCryptSignHash(_hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature
 export NCryptVerifySignature(_hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
     pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptVerifySignature", NCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, NCRYPT_FLAGS, dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptVerifySignature", NCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbHashValue, UInt32, cbHashValue, IntPtr, pbSignature, UInt32, cbSignature, NCRYPT_FLAGS, dwFlags, "HRESULT")
     return result
 }
 
@@ -12869,7 +12879,7 @@ export NCryptVerifySignature(_hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSi
  * @since windows6.0.6000
  */
 export NCryptDeleteKey(_hKey, dwFlags) {
-    result := DllCall("ncrypt.dll\NCryptDeleteKey", NCRYPT_KEY_HANDLE, _hKey, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptDeleteKey", NCRYPT_KEY_HANDLE, _hKey, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -13020,7 +13030,7 @@ export NCryptIsKeyHandle(_hKey) {
  * @since windows6.0.6000
  */
 export NCryptTranslateHandle(phProvider, phKey, hLegacyProv, hLegacyKey, dwLegacyKeySpec, dwFlags) {
-    result := DllCall("ncrypt.dll\NCryptTranslateHandle", NCRYPT_PROV_HANDLE.Ptr, phProvider, NCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", hLegacyProv, "ptr", hLegacyKey, CERT_KEY_SPEC, dwLegacyKeySpec, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptTranslateHandle", NCRYPT_PROV_HANDLE.Ptr, phProvider, NCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, hLegacyProv, IntPtr, hLegacyKey, CERT_KEY_SPEC, dwLegacyKeySpec, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -13184,7 +13194,7 @@ export NCryptSecretAgreement(hPrivKey, hPubKey, dwFlags) {
 export NCryptDeriveKey(hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbDerivedKey, dwFlags) {
     pwszKDF := pwszKDF is String ? StrPtr(pwszKDF) : pwszKDF
 
-    result := DllCall("ncrypt.dll\NCryptDeriveKey", NCRYPT_SECRET_HANDLE, hSharedSecret, "ptr", pwszKDF, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptDeriveKey", NCRYPT_SECRET_HANDLE, hSharedSecret, "ptr", pwszKDF, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -13335,7 +13345,7 @@ export NCryptDeriveKey(hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbD
  * @since windows8.0
  */
 export NCryptKeyDerivation(_hKey, pParameterList, pbDerivedKey, cbDerivedKey, dwFlags) {
-    result := DllCall("ncrypt.dll\NCryptKeyDerivation", NCRYPT_KEY_HANDLE, _hKey, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptKeyDerivation", NCRYPT_KEY_HANDLE, _hKey, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -13353,7 +13363,7 @@ export NCryptKeyDerivation(_hKey, pParameterList, pbDerivedKey, cbDerivedKey, dw
  * @since windows10.0.10240
  */
 export NCryptCreateClaim(hSubjectKey, hAuthorityKey, dwClaimType, pParameterList, pbClaimBlob, cbClaimBlob, dwFlags) {
-    result := DllCall("ncrypt.dll\NCryptCreateClaim", NCRYPT_KEY_HANDLE, hSubjectKey, NCRYPT_KEY_HANDLE, hAuthorityKey, "uint", dwClaimType, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbClaimBlob, "uint", cbClaimBlob, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptCreateClaim", NCRYPT_KEY_HANDLE, hSubjectKey, NCRYPT_KEY_HANDLE, hAuthorityKey, UInt32, dwClaimType, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbClaimBlob, UInt32, cbClaimBlob, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -13372,7 +13382,7 @@ export NCryptCreateClaim(hSubjectKey, hAuthorityKey, dwClaimType, pParameterList
  * @since windows10.0.10240
  */
 export NCryptVerifyClaim(hSubjectKey, hAuthorityKey, dwClaimType, pParameterList, pbClaimBlob, cbClaimBlob, pOutput, dwFlags) {
-    result := DllCall("ncrypt.dll\NCryptVerifyClaim", NCRYPT_KEY_HANDLE, hSubjectKey, NCRYPT_KEY_HANDLE, hAuthorityKey, "uint", dwClaimType, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbClaimBlob, "uint", cbClaimBlob, BCryptBufferDesc.Ptr, pOutput, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptVerifyClaim", NCRYPT_KEY_HANDLE, hSubjectKey, NCRYPT_KEY_HANDLE, hAuthorityKey, UInt32, dwClaimType, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbClaimBlob, UInt32, cbClaimBlob, BCryptBufferDesc.Ptr, pOutput, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -13632,7 +13642,7 @@ export CryptFormatObject(dwCertEncodingType, dwFormatType, dwFormatStrType, pFor
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptFormatObject", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "uint", dwFormatType, "uint", dwFormatStrType, pFormatStructMarshal, pFormatStruct, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbFormat, pcbFormatMarshal, pcbFormat, BOOL)
+    result := DllCall("CRYPT32.dll\CryptFormatObject", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, UInt32, dwFormatType, UInt32, dwFormatStrType, pFormatStructMarshal, pFormatStruct, "ptr", lpszStructType, IntPtr, pbEncoded, UInt32, cbEncoded, IntPtr, pbFormat, pcbFormatMarshal, pcbFormat, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13913,7 +13923,7 @@ export CryptEncodeObject(dwCertEncodingType, lpszStructType, pvStructInfo, pbEnc
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptEncodeObject", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, BOOL)
+    result := DllCall("CRYPT32.dll\CryptEncodeObject", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, IntPtr, pbEncoded, pcbEncodedMarshal, pcbEncoded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14182,7 +14192,7 @@ export CryptDecodeObjectEx(dwCertEncodingType, lpszStructType, pbEncoded, cbEnco
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptDecodeObjectEx", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, CRYPT_DECODE_PARA.Ptr, pDecodePara, pvStructInfoMarshal, pvStructInfo, pcbStructInfoMarshal, pcbStructInfo, BOOL)
+    result := DllCall("CRYPT32.dll\CryptDecodeObjectEx", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", lpszStructType, IntPtr, pbEncoded, UInt32, cbEncoded, UInt32, dwFlags, CRYPT_DECODE_PARA.Ptr, pDecodePara, pvStructInfoMarshal, pvStructInfo, pcbStructInfoMarshal, pcbStructInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14339,7 +14349,7 @@ export CryptDecodeObject(dwCertEncodingType, lpszStructType, pbEncoded, cbEncode
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptDecodeObject", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pvStructInfo, pcbStructInfoMarshal, pcbStructInfo, BOOL)
+    result := DllCall("CRYPT32.dll\CryptDecodeObject", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", lpszStructType, IntPtr, pbEncoded, UInt32, cbEncoded, UInt32, dwFlags, IntPtr, pvStructInfo, pcbStructInfoMarshal, pcbStructInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14372,7 +14382,7 @@ export CryptDecodeObject(dwCertEncodingType, lpszStructType, pbEncoded, cbEncode
 export CryptInstallOIDFunctionAddress(_hModule, dwEncodingType, pszFuncName, cFuncEntry, rgFuncEntry, dwFlags) {
     pszFuncName := pszFuncName is String ? StrPtr(pszFuncName) : pszFuncName
 
-    result := DllCall("CRYPT32.dll\CryptInstallOIDFunctionAddress", HMODULE, _hModule, "uint", dwEncodingType, "ptr", pszFuncName, "uint", cFuncEntry, CRYPT_OID_FUNC_ENTRY.Ptr, rgFuncEntry, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CryptInstallOIDFunctionAddress", HMODULE, _hModule, UInt32, dwEncodingType, "ptr", pszFuncName, UInt32, cFuncEntry, CRYPT_OID_FUNC_ENTRY.Ptr, rgFuncEntry, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -14387,7 +14397,7 @@ export CryptInstallOIDFunctionAddress(_hModule, dwEncodingType, pszFuncName, cFu
 export CryptInitOIDFunctionSet(pszFuncName, dwFlags) {
     pszFuncName := pszFuncName is String ? StrPtr(pszFuncName) : pszFuncName
 
-    result := DllCall("CRYPT32.dll\CryptInitOIDFunctionSet", "ptr", pszFuncName, "uint", dwFlags, IntPtr)
+    result := DllCall("CRYPT32.dll\CryptInitOIDFunctionSet", "ptr", pszFuncName, UInt32, dwFlags, IntPtr)
     return result
 }
 
@@ -14451,7 +14461,7 @@ export CryptGetOIDFunctionAddress(hFuncSet, dwEncodingType, pszOID, dwFlags, ppv
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptGetOIDFunctionAddress", hFuncSetMarshal, hFuncSet, "uint", dwEncodingType, "ptr", pszOID, "uint", dwFlags, ppvFuncAddrMarshal, ppvFuncAddr, phFuncAddrMarshal, phFuncAddr, BOOL)
+    result := DllCall("CRYPT32.dll\CryptGetOIDFunctionAddress", hFuncSetMarshal, hFuncSet, UInt32, dwEncodingType, "ptr", pszOID, UInt32, dwFlags, ppvFuncAddrMarshal, ppvFuncAddr, phFuncAddrMarshal, phFuncAddr, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14519,7 +14529,7 @@ export CryptGetDefaultOIDDllList(hFuncSet, dwEncodingType, pwszDllList, pcchDllL
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptGetDefaultOIDDllList", hFuncSetMarshal, hFuncSet, "uint", dwEncodingType, "ptr", pwszDllList, pcchDllListMarshal, pcchDllList, BOOL)
+    result := DllCall("CRYPT32.dll\CryptGetDefaultOIDDllList", hFuncSetMarshal, hFuncSet, UInt32, dwEncodingType, "ptr", pwszDllList, pcchDllListMarshal, pcchDllList, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14565,7 +14575,7 @@ export CryptGetDefaultOIDFunctionAddress(hFuncSet, dwEncodingType, pwszDll, dwFl
     ppvFuncAddrMarshal := ppvFuncAddr is VarRef ? "ptr*" : "ptr"
     phFuncAddrMarshal := phFuncAddr is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CryptGetDefaultOIDFunctionAddress", hFuncSetMarshal, hFuncSet, "uint", dwEncodingType, "ptr", pwszDll, "uint", dwFlags, ppvFuncAddrMarshal, ppvFuncAddr, phFuncAddrMarshal, phFuncAddr, BOOL)
+    result := DllCall("CRYPT32.dll\CryptGetDefaultOIDFunctionAddress", hFuncSetMarshal, hFuncSet, UInt32, dwEncodingType, "ptr", pwszDll, UInt32, dwFlags, ppvFuncAddrMarshal, ppvFuncAddr, phFuncAddrMarshal, phFuncAddr, BOOL)
     return result
 }
 
@@ -14586,7 +14596,7 @@ export CryptGetDefaultOIDFunctionAddress(hFuncSet, dwEncodingType, pwszDll, dwFl
 export CryptFreeOIDFunctionAddress(hFuncAddr, dwFlags) {
     hFuncAddrMarshal := hFuncAddr is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CryptFreeOIDFunctionAddress", hFuncAddrMarshal, hFuncAddr, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CryptFreeOIDFunctionAddress", hFuncAddrMarshal, hFuncAddr, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -14614,7 +14624,7 @@ export CryptRegisterOIDFunction(dwEncodingType, pszFuncName, pszOID, pwszDll, ps
     pwszDll := pwszDll is String ? StrPtr(pwszDll) : pwszDll
     pszOverrideFuncName := pszOverrideFuncName is String ? StrPtr(pszOverrideFuncName) : pszOverrideFuncName
 
-    result := DllCall("CRYPT32.dll\CryptRegisterOIDFunction", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszDll, "ptr", pszOverrideFuncName, BOOL)
+    result := DllCall("CRYPT32.dll\CryptRegisterOIDFunction", UInt32, dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszDll, "ptr", pszOverrideFuncName, BOOL)
     return result
 }
 
@@ -14639,7 +14649,7 @@ export CryptUnregisterOIDFunction(dwEncodingType, pszFuncName, pszOID) {
     pszFuncName := pszFuncName is String ? StrPtr(pszFuncName) : pszFuncName
     pszOID := pszOID is String ? StrPtr(pszOID) : pszOID
 
-    result := DllCall("CRYPT32.dll\CryptUnregisterOIDFunction", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, BOOL)
+    result := DllCall("CRYPT32.dll\CryptUnregisterOIDFunction", UInt32, dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, BOOL)
     return result
 }
 
@@ -14662,7 +14672,7 @@ export CryptRegisterDefaultOIDFunction(dwEncodingType, pszFuncName, dwIndex, pws
     pszFuncName := pszFuncName is String ? StrPtr(pszFuncName) : pszFuncName
     pwszDll := pwszDll is String ? StrPtr(pwszDll) : pwszDll
 
-    result := DllCall("CRYPT32.dll\CryptRegisterDefaultOIDFunction", "uint", dwEncodingType, "ptr", pszFuncName, "uint", dwIndex, "ptr", pwszDll, BOOL)
+    result := DllCall("CRYPT32.dll\CryptRegisterDefaultOIDFunction", UInt32, dwEncodingType, "ptr", pszFuncName, UInt32, dwIndex, "ptr", pwszDll, BOOL)
     return result
 }
 
@@ -14684,7 +14694,7 @@ export CryptUnregisterDefaultOIDFunction(dwEncodingType, pszFuncName, pwszDll) {
     pszFuncName := pszFuncName is String ? StrPtr(pszFuncName) : pszFuncName
     pwszDll := pwszDll is String ? StrPtr(pwszDll) : pwszDll
 
-    result := DllCall("CRYPT32.dll\CryptUnregisterDefaultOIDFunction", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pwszDll, BOOL)
+    result := DllCall("CRYPT32.dll\CryptUnregisterDefaultOIDFunction", UInt32, dwEncodingType, "ptr", pszFuncName, "ptr", pwszDll, BOOL)
     return result
 }
 
@@ -14711,7 +14721,7 @@ export CryptSetOIDFunctionValue(dwEncodingType, pszFuncName, pszOID, pwszValueNa
     pszOID := pszOID is String ? StrPtr(pszOID) : pszOID
     pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-    result := DllCall("CRYPT32.dll\CryptSetOIDFunctionValue", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszValueName, REG_VALUE_TYPE, dwValueType, "ptr", pbValueData, "uint", cbValueData, BOOL)
+    result := DllCall("CRYPT32.dll\CryptSetOIDFunctionValue", UInt32, dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszValueName, REG_VALUE_TYPE, dwValueType, IntPtr, pbValueData, UInt32, cbValueData, BOOL)
     return result
 }
 
@@ -14819,7 +14829,7 @@ export CryptGetOIDFunctionValue(dwEncodingType, pszFuncName, pszOID, pwszValueNa
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptGetOIDFunctionValue", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszValueName, pdwValueTypeMarshal, pdwValueType, "ptr", pbValueData, pcbValueDataMarshal, pcbValueData, BOOL)
+    result := DllCall("CRYPT32.dll\CryptGetOIDFunctionValue", UInt32, dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszValueName, pdwValueTypeMarshal, pdwValueType, IntPtr, pbValueData, pcbValueDataMarshal, pcbValueData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14862,7 +14872,7 @@ export CryptEnumOIDFunction(dwEncodingType, pszFuncName, pszOID, dwFlags, pvArg,
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptEnumOIDFunction", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnumOIDFunc, BOOL)
+    result := DllCall("CRYPT32.dll\CryptEnumOIDFunction", UInt32, dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, UInt32, dwFlags, pvArgMarshal, pvArg, PFN_CRYPT_ENUM_OID_FUNC, pfnEnumOIDFunc, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14936,7 +14946,7 @@ export CryptEnumOIDFunction(dwEncodingType, pszFuncName, pszOID, dwFlags, pvArg,
 export CryptFindOIDInfo(dwKeyType, pvKey, dwGroupId) {
     pvKeyMarshal := pvKey is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CryptFindOIDInfo", "uint", dwKeyType, pvKeyMarshal, pvKey, "uint", dwGroupId, CRYPT_OID_INFO.Ptr)
+    result := DllCall("CRYPT32.dll\CryptFindOIDInfo", UInt32, dwKeyType, pvKeyMarshal, pvKey, UInt32, dwGroupId, CRYPT_OID_INFO.Ptr)
     return result
 }
 
@@ -14959,7 +14969,7 @@ export CryptFindOIDInfo(dwKeyType, pvKey, dwGroupId) {
  * @since windows5.1.2600
  */
 export CryptRegisterOIDInfo(pInfo, dwFlags) {
-    result := DllCall("CRYPT32.dll\CryptRegisterOIDInfo", CRYPT_OID_INFO.Ptr, pInfo, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CryptRegisterOIDInfo", CRYPT_OID_INFO.Ptr, pInfo, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -15015,7 +15025,7 @@ export CryptUnregisterOIDInfo(pInfo) {
 export CryptEnumOIDInfo(dwGroupId, dwFlags, pvArg, pfnEnumOIDInfo) {
     pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CryptEnumOIDInfo", "uint", dwGroupId, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnumOIDInfo, BOOL)
+    result := DllCall("CRYPT32.dll\CryptEnumOIDInfo", UInt32, dwGroupId, UInt32, dwFlags, pvArgMarshal, pvArg, PFN_CRYPT_ENUM_OID_INFO, pfnEnumOIDInfo, BOOL)
     return result
 }
 
@@ -15317,7 +15327,7 @@ export CryptMsgOpenToEncode(dwMsgEncodingType, dwFlags, dwMsgType, pvMsgEncodeIn
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgOpenToEncode", "uint", dwMsgEncodingType, "uint", dwFlags, CRYPT_MSG_TYPE, dwMsgType, pvMsgEncodeInfoMarshal, pvMsgEncodeInfo, "ptr", pszInnerContentObjID, CMSG_STREAM_INFO.Ptr, pStreamInfo, IntPtr)
+    result := DllCall("CRYPT32.dll\CryptMsgOpenToEncode", UInt32, dwMsgEncodingType, UInt32, dwFlags, CRYPT_MSG_TYPE, dwMsgType, pvMsgEncodeInfoMarshal, pvMsgEncodeInfo, "ptr", pszInnerContentObjID, CMSG_STREAM_INFO.Ptr, pStreamInfo, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15535,7 +15545,7 @@ export CryptMsgCalculateEncodedLength(dwMsgEncodingType, dwFlags, dwMsgType, pvM
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgCalculateEncodedLength", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, pvMsgEncodeInfoMarshal, pvMsgEncodeInfo, "ptr", pszInnerContentObjID, "uint", cbData, UInt32)
+    result := DllCall("CRYPT32.dll\CryptMsgCalculateEncodedLength", UInt32, dwMsgEncodingType, UInt32, dwFlags, UInt32, dwMsgType, pvMsgEncodeInfoMarshal, pvMsgEncodeInfo, "ptr", pszInnerContentObjID, UInt32, cbData, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15728,7 +15738,7 @@ export CryptMsgOpenToDecode(dwMsgEncodingType, dwFlags, dwMsgType, hCryptProv, p
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgOpenToDecode", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, HCRYPTPROV_LEGACY, hCryptProv, CERT_INFO.Ptr, pRecipientInfo, CMSG_STREAM_INFO.Ptr, pStreamInfo, IntPtr)
+    result := DllCall("CRYPT32.dll\CryptMsgOpenToDecode", UInt32, dwMsgEncodingType, UInt32, dwFlags, UInt32, dwMsgType, HCRYPTPROV_LEGACY, hCryptProv, CERT_INFO.Ptr, pRecipientInfo, CMSG_STREAM_INFO.Ptr, pStreamInfo, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15923,7 +15933,7 @@ export CryptMsgUpdate(hCryptMsg, pbData, cbData, fFinal) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgUpdate", hCryptMsgMarshal, hCryptMsg, "ptr", pbData, "uint", cbData, BOOL, fFinal, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgUpdate", hCryptMsgMarshal, hCryptMsg, IntPtr, pbData, UInt32, cbData, BOOL, fFinal, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16545,7 +16555,7 @@ export CryptMsgGetParam(hCryptMsg, dwParamType, dwIndex, pvData, pcbData) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgGetParam", hCryptMsgMarshal, hCryptMsg, "uint", dwParamType, "uint", dwIndex, "ptr", pvData, pcbDataMarshal, pcbData, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgGetParam", hCryptMsgMarshal, hCryptMsg, UInt32, dwParamType, UInt32, dwIndex, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17106,7 +17116,7 @@ export CryptMsgControl(hCryptMsg, dwFlags, dwCtrlType, pvCtrlPara) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgControl", hCryptMsgMarshal, hCryptMsg, "uint", dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgControl", hCryptMsgMarshal, hCryptMsg, UInt32, dwFlags, UInt32, dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17243,7 +17253,7 @@ export CryptMsgControl(hCryptMsg, dwFlags, dwCtrlType, pvCtrlPara) {
 export CryptMsgVerifyCountersignatureEncoded(hCryptProv, dwEncodingType, pbSignerInfo, cbSignerInfo, pbSignerInfoCountersignature, cbSignerInfoCountersignature, pciCountersigner) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgVerifyCountersignatureEncoded", HCRYPTPROV_LEGACY, hCryptProv, "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "ptr", pbSignerInfoCountersignature, "uint", cbSignerInfoCountersignature, CERT_INFO.Ptr, pciCountersigner, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgVerifyCountersignatureEncoded", HCRYPTPROV_LEGACY, hCryptProv, UInt32, dwEncodingType, IntPtr, pbSignerInfo, UInt32, cbSignerInfo, IntPtr, pbSignerInfoCountersignature, UInt32, cbSignerInfoCountersignature, CERT_INFO.Ptr, pciCountersigner, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17447,7 +17457,7 @@ export CryptMsgVerifyCountersignatureEncodedEx(hCryptProv, dwEncodingType, pbSig
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgVerifyCountersignatureEncodedEx", HCRYPTPROV_LEGACY, hCryptProv, "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "ptr", pbSignerInfoCountersignature, "uint", cbSignerInfoCountersignature, "uint", dwSignerType, pvSignerMarshal, pvSigner, "uint", dwFlags, pvExtraMarshal, pvExtra, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgVerifyCountersignatureEncodedEx", HCRYPTPROV_LEGACY, hCryptProv, UInt32, dwEncodingType, IntPtr, pbSignerInfo, UInt32, cbSignerInfo, IntPtr, pbSignerInfoCountersignature, UInt32, cbSignerInfoCountersignature, UInt32, dwSignerType, pvSignerMarshal, pvSigner, UInt32, dwFlags, pvExtraMarshal, pvExtra, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17525,7 +17535,7 @@ export CryptMsgCountersign(hCryptMsg, dwIndex, cCountersigners, rgCountersigners
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgCountersign", hCryptMsgMarshal, hCryptMsg, "uint", dwIndex, "uint", cCountersigners, CMSG_SIGNER_ENCODE_INFO.Ptr, rgCountersigners, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgCountersign", hCryptMsgMarshal, hCryptMsg, UInt32, dwIndex, UInt32, cCountersigners, CMSG_SIGNER_ENCODE_INFO.Ptr, rgCountersigners, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17632,7 +17642,7 @@ export CryptMsgCountersignEncoded(dwEncodingType, pbSignerInfo, cbSignerInfo, cC
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgCountersignEncoded", "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "uint", cCountersigners, CMSG_SIGNER_ENCODE_INFO.Ptr, rgCountersigners, "ptr", pbCountersignature, pcbCountersignatureMarshal, pcbCountersignature, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgCountersignEncoded", UInt32, dwEncodingType, IntPtr, pbSignerInfo, UInt32, cbSignerInfo, UInt32, cCountersigners, CMSG_SIGNER_ENCODE_INFO.Ptr, rgCountersigners, IntPtr, pbCountersignature, pcbCountersignatureMarshal, pcbCountersignature, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18021,7 +18031,7 @@ export CertSaveStore(_hCertStore, dwEncodingType, dwSaveAs, dwSaveTo, pvSaveToPa
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertSaveStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwEncodingType, CERT_STORE_SAVE_AS, dwSaveAs, CERT_STORE_SAVE_TO, dwSaveTo, pvSaveToParaMarshal, pvSaveToPara, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CertSaveStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwEncodingType, CERT_STORE_SAVE_AS, dwSaveAs, CERT_STORE_SAVE_TO, dwSaveTo, pvSaveToParaMarshal, pvSaveToPara, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18096,7 +18106,7 @@ export CertSaveStore(_hCertStore, dwEncodingType, dwSaveAs, dwSaveTo, pvSaveToPa
 export CertCloseStore(_hCertStore, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertCloseStore", HCERTSTORE, _hCertStore, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CertCloseStore", HCERTSTORE, _hCertStore, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18312,7 +18322,7 @@ export CertFindCertificateInStore(_hCertStore, dwCertEncodingType, dwFindFlags, 
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertFindCertificateInStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "uint", dwFindFlags, CERT_FIND_FLAGS, dwFindType, pvFindParaMarshal, pvFindPara, CERT_CONTEXT.Ptr, pPrevCertContext, CERT_CONTEXT.Ptr)
+    result := DllCall("CRYPT32.dll\CertFindCertificateInStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, UInt32, dwFindFlags, CERT_FIND_FLAGS, dwFindType, pvFindParaMarshal, pvFindPara, CERT_CONTEXT.Ptr, pPrevCertContext, CERT_CONTEXT.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18642,7 +18652,7 @@ export CertDuplicateCertificateContext(pCertContext) {
 export CertCreateCertificateContext(dwCertEncodingType, pbCertEncoded, cbCertEncoded) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertCreateCertificateContext", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pbCertEncoded, "uint", cbCertEncoded, CERT_CONTEXT.Ptr)
+    result := DllCall("CRYPT32.dll\CertCreateCertificateContext", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, IntPtr, pbCertEncoded, UInt32, cbCertEncoded, CERT_CONTEXT.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18780,7 +18790,7 @@ export CertSetCertificateContextProperty(pCertContext, dwPropId, dwFlags, pvData
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertSetCertificateContextProperty", CERT_CONTEXT.Ptr, pCertContext, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, BOOL)
+    result := DllCall("CRYPT32.dll\CertSetCertificateContextProperty", CERT_CONTEXT.Ptr, pCertContext, UInt32, dwPropId, UInt32, dwFlags, pvDataMarshal, pvData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18858,7 +18868,7 @@ export CertGetCertificateContextProperty(pCertContext, dwPropId, pvData, pcbData
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertGetCertificateContextProperty", CERT_CONTEXT.Ptr, pCertContext, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, BOOL)
+    result := DllCall("CRYPT32.dll\CertGetCertificateContextProperty", CERT_CONTEXT.Ptr, pCertContext, UInt32, dwPropId, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18884,7 +18894,7 @@ export CertGetCertificateContextProperty(pCertContext, dwPropId, pvData, pcbData
  * @since windows5.1.2600
  */
 export CertEnumCertificateContextProperties(pCertContext, dwPropId) {
-    result := DllCall("CRYPT32.dll\CertEnumCertificateContextProperties", CERT_CONTEXT.Ptr, pCertContext, "uint", dwPropId, UInt32)
+    result := DllCall("CRYPT32.dll\CertEnumCertificateContextProperties", CERT_CONTEXT.Ptr, pCertContext, UInt32, dwPropId, UInt32)
     return result
 }
 
@@ -18910,7 +18920,7 @@ export CertCreateCTLEntryFromCertificateContextProperties(pCertContext, cOptAttr
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertCreateCTLEntryFromCertificateContextProperties", CERT_CONTEXT.Ptr, pCertContext, "uint", cOptAttr, CRYPT_ATTRIBUTE.Ptr, rgOptAttr, "uint", dwFlags, "ptr", pvReserved, "ptr", pCtlEntry, pcbCtlEntryMarshal, pcbCtlEntry, BOOL)
+    result := DllCall("CRYPT32.dll\CertCreateCTLEntryFromCertificateContextProperties", CERT_CONTEXT.Ptr, pCertContext, UInt32, cOptAttr, CRYPT_ATTRIBUTE.Ptr, rgOptAttr, UInt32, dwFlags, "ptr", pvReserved, IntPtr, pCtlEntry, pcbCtlEntryMarshal, pcbCtlEntry, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18933,7 +18943,7 @@ export CertCreateCTLEntryFromCertificateContextProperties(pCertContext, cOptAttr
 export CertSetCertificateContextPropertiesFromCTLEntry(pCertContext, pCtlEntry, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertSetCertificateContextPropertiesFromCTLEntry", CERT_CONTEXT.Ptr, pCertContext, CTL_ENTRY.Ptr, pCtlEntry, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CertSetCertificateContextPropertiesFromCTLEntry", CERT_CONTEXT.Ptr, pCertContext, CTL_ENTRY.Ptr, pCtlEntry, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19319,7 +19329,7 @@ export CertFindCRLInStore(_hCertStore, dwCertEncodingType, dwFindFlags, dwFindTy
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertFindCRLInStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, CRL_CONTEXT.Ptr, pPrevCrlContext, CRL_CONTEXT.Ptr)
+    result := DllCall("CRYPT32.dll\CertFindCRLInStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, UInt32, dwFindFlags, UInt32, dwFindType, pvFindParaMarshal, pvFindPara, CRL_CONTEXT.Ptr, pPrevCrlContext, CRL_CONTEXT.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19392,7 +19402,7 @@ export CertDuplicateCRLContext(pCrlContext) {
 export CertCreateCRLContext(dwCertEncodingType, pbCrlEncoded, cbCrlEncoded) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertCreateCRLContext", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pbCrlEncoded, "uint", cbCrlEncoded, CRL_CONTEXT.Ptr)
+    result := DllCall("CRYPT32.dll\CertCreateCRLContext", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, IntPtr, pbCrlEncoded, UInt32, cbCrlEncoded, CRL_CONTEXT.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19821,7 +19831,7 @@ export CertSetCRLContextProperty(pCrlContext, dwPropId, dwFlags, pvData) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertSetCRLContextProperty", CRL_CONTEXT.Ptr, pCrlContext, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, BOOL)
+    result := DllCall("CRYPT32.dll\CertSetCRLContextProperty", CRL_CONTEXT.Ptr, pCrlContext, UInt32, dwPropId, UInt32, dwFlags, pvDataMarshal, pvData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -20242,7 +20252,7 @@ export CertGetCRLContextProperty(pCrlContext, dwPropId, pvData, pcbData) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertGetCRLContextProperty", CRL_CONTEXT.Ptr, pCrlContext, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, BOOL)
+    result := DllCall("CRYPT32.dll\CertGetCRLContextProperty", CRL_CONTEXT.Ptr, pCrlContext, UInt32, dwPropId, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -20266,7 +20276,7 @@ export CertGetCRLContextProperty(pCrlContext, dwPropId, pvData, pcbData) {
  * @since windows5.1.2600
  */
 export CertEnumCRLContextProperties(pCrlContext, dwPropId) {
-    result := DllCall("CRYPT32.dll\CertEnumCRLContextProperties", CRL_CONTEXT.Ptr, pCrlContext, "uint", dwPropId, UInt32)
+    result := DllCall("CRYPT32.dll\CertEnumCRLContextProperties", CRL_CONTEXT.Ptr, pCrlContext, UInt32, dwPropId, UInt32)
     return result
 }
 
@@ -20287,7 +20297,7 @@ export CertFindCertificateInCRL(pCert, pCrlContext, dwFlags, ppCrlEntry) {
 
     ppCrlEntryMarshal := ppCrlEntry is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertFindCertificateInCRL", CERT_CONTEXT.Ptr, pCert, CRL_CONTEXT.Ptr, pCrlContext, "uint", dwFlags, "ptr", pvReserved, ppCrlEntryMarshal, ppCrlEntry, BOOL)
+    result := DllCall("CRYPT32.dll\CertFindCertificateInCRL", CERT_CONTEXT.Ptr, pCert, CRL_CONTEXT.Ptr, pCrlContext, UInt32, dwFlags, "ptr", pvReserved, ppCrlEntryMarshal, ppCrlEntry, BOOL)
     return result
 }
 
@@ -20305,7 +20315,7 @@ export CertFindCertificateInCRL(pCert, pCrlContext, dwFlags, ppCrlEntry) {
 export CertIsValidCRLForCertificate(pCert, pCrl, dwFlags) {
     static pvReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("CRYPT32.dll\CertIsValidCRLForCertificate", CERT_CONTEXT.Ptr, pCert, CRL_CONTEXT.Ptr, pCrl, "uint", dwFlags, "ptr", pvReserved, BOOL)
+    result := DllCall("CRYPT32.dll\CertIsValidCRLForCertificate", CERT_CONTEXT.Ptr, pCert, CRL_CONTEXT.Ptr, pCrl, UInt32, dwFlags, "ptr", pvReserved, BOOL)
     return result
 }
 
@@ -20430,7 +20440,7 @@ export CertAddEncodedCertificateToStore(_hCertStore, dwCertEncodingType, pbCertE
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pbCertEncoded, "uint", cbCertEncoded, "uint", dwAddDisposition, ppCertContextMarshal, ppCertContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, IntPtr, pbCertEncoded, UInt32, cbCertEncoded, UInt32, dwAddDisposition, ppCertContextMarshal, ppCertContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -20611,7 +20621,7 @@ export CertAddCertificateContextToStore(_hCertStore, pCertContext, dwAddDisposit
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddCertificateContextToStore", HCERTSTORE, _hCertStore, CERT_CONTEXT.Ptr, pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddCertificateContextToStore", HCERTSTORE, _hCertStore, CERT_CONTEXT.Ptr, pCertContext, UInt32, dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -20854,7 +20864,7 @@ export CertAddSerializedElementToStore(_hCertStore, pbElement, cbElement, dwAddD
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", HCERTSTORE, _hCertStore, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, pdwContextTypeMarshal, pdwContextType, ppvContextMarshal, ppvContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", HCERTSTORE, _hCertStore, IntPtr, pbElement, UInt32, cbElement, UInt32, dwAddDisposition, UInt32, dwFlags, UInt32, dwContextTypeFlags, pdwContextTypeMarshal, pdwContextType, ppvContextMarshal, ppvContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -21055,7 +21065,7 @@ export CertAddEncodedCRLToStore(_hCertStore, dwCertEncodingType, pbCrlEncoded, c
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddEncodedCRLToStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pbCrlEncoded, "uint", cbCrlEncoded, "uint", dwAddDisposition, ppCrlContextMarshal, ppCrlContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddEncodedCRLToStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, IntPtr, pbCrlEncoded, UInt32, cbCrlEncoded, UInt32, dwAddDisposition, ppCrlContextMarshal, ppCrlContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -21207,7 +21217,7 @@ export CertAddCRLContextToStore(_hCertStore, pCrlContext, dwAddDisposition, ppSt
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddCRLContextToStore", HCERTSTORE, _hCertStore, CRL_CONTEXT.Ptr, pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddCRLContextToStore", HCERTSTORE, _hCertStore, CRL_CONTEXT.Ptr, pCrlContext, UInt32, dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -21291,7 +21301,7 @@ export CertSerializeCertificateStoreElement(pCertContext, dwFlags, pbElement, pc
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertSerializeCertificateStoreElement", CERT_CONTEXT.Ptr, pCertContext, "uint", dwFlags, "ptr", pbElement, pcbElementMarshal, pcbElement, BOOL)
+    result := DllCall("CRYPT32.dll\CertSerializeCertificateStoreElement", CERT_CONTEXT.Ptr, pCertContext, UInt32, dwFlags, IntPtr, pbElement, pcbElementMarshal, pcbElement, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -21330,7 +21340,7 @@ export CertSerializeCRLStoreElement(pCrlContext, dwFlags, pbElement, pcbElement)
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertSerializeCRLStoreElement", CRL_CONTEXT.Ptr, pCrlContext, "uint", dwFlags, "ptr", pbElement, pcbElementMarshal, pcbElement, BOOL)
+    result := DllCall("CRYPT32.dll\CertSerializeCRLStoreElement", CRL_CONTEXT.Ptr, pCrlContext, UInt32, dwFlags, IntPtr, pbElement, pcbElementMarshal, pcbElement, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -21403,7 +21413,7 @@ export CertDuplicateCTLContext(pCtlContext) {
 export CertCreateCTLContext(dwMsgAndCertEncodingType, pbCtlEncoded, cbCtlEncoded) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertCreateCTLContext", "uint", dwMsgAndCertEncodingType, "ptr", pbCtlEncoded, "uint", cbCtlEncoded, CTL_CONTEXT.Ptr)
+    result := DllCall("CRYPT32.dll\CertCreateCTLContext", UInt32, dwMsgAndCertEncodingType, IntPtr, pbCtlEncoded, UInt32, cbCtlEncoded, CTL_CONTEXT.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -21724,7 +21734,7 @@ export CertSetCTLContextProperty(pCtlContext, dwPropId, dwFlags, pvData) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertSetCTLContextProperty", CTL_CONTEXT.Ptr, pCtlContext, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, BOOL)
+    result := DllCall("CRYPT32.dll\CertSetCTLContextProperty", CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwPropId, UInt32, dwFlags, pvDataMarshal, pvData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22047,7 +22057,7 @@ export CertGetCTLContextProperty(pCtlContext, dwPropId, pvData, pcbData) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertGetCTLContextProperty", CTL_CONTEXT.Ptr, pCtlContext, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, BOOL)
+    result := DllCall("CRYPT32.dll\CertGetCTLContextProperty", CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwPropId, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22071,7 +22081,7 @@ export CertGetCTLContextProperty(pCtlContext, dwPropId, pvData, pcbData) {
  * @since windows5.1.2600
  */
 export CertEnumCTLContextProperties(pCtlContext, dwPropId) {
-    result := DllCall("CRYPT32.dll\CertEnumCTLContextProperties", CTL_CONTEXT.Ptr, pCtlContext, "uint", dwPropId, UInt32)
+    result := DllCall("CRYPT32.dll\CertEnumCTLContextProperties", CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwPropId, UInt32)
     return result
 }
 
@@ -22239,7 +22249,7 @@ export CertFindSubjectInCTL(dwEncodingType, dwSubjectType, pvSubject, pCtlContex
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertFindSubjectInCTL", "uint", dwEncodingType, "uint", dwSubjectType, pvSubjectMarshal, pvSubject, CTL_CONTEXT.Ptr, pCtlContext, "uint", dwFlags, CTL_ENTRY.Ptr)
+    result := DllCall("CRYPT32.dll\CertFindSubjectInCTL", UInt32, dwEncodingType, UInt32, dwSubjectType, pvSubjectMarshal, pvSubject, CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwFlags, CTL_ENTRY.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22316,7 +22326,7 @@ export CertFindCTLInStore(_hCertStore, dwMsgAndCertEncodingType, dwFindFlags, dw
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertFindCTLInStore", HCERTSTORE, _hCertStore, "uint", dwMsgAndCertEncodingType, "uint", dwFindFlags, CERT_FIND_TYPE, dwFindType, pvFindParaMarshal, pvFindPara, CTL_CONTEXT.Ptr, pPrevCtlContext, CTL_CONTEXT.Ptr)
+    result := DllCall("CRYPT32.dll\CertFindCTLInStore", HCERTSTORE, _hCertStore, UInt32, dwMsgAndCertEncodingType, UInt32, dwFindFlags, CERT_FIND_TYPE, dwFindType, pvFindParaMarshal, pvFindPara, CTL_CONTEXT.Ptr, pPrevCtlContext, CTL_CONTEXT.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22484,7 +22494,7 @@ export CertAddEncodedCTLToStore(_hCertStore, dwMsgAndCertEncodingType, pbCtlEnco
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddEncodedCTLToStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwMsgAndCertEncodingType, "ptr", pbCtlEncoded, "uint", cbCtlEncoded, "uint", dwAddDisposition, ppCtlContextMarshal, ppCtlContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddEncodedCTLToStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwMsgAndCertEncodingType, IntPtr, pbCtlEncoded, UInt32, cbCtlEncoded, UInt32, dwAddDisposition, ppCtlContextMarshal, ppCtlContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22633,7 +22643,7 @@ export CertAddCTLContextToStore(_hCertStore, pCtlContext, dwAddDisposition, ppSt
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddCTLContextToStore", HCERTSTORE, _hCertStore, CTL_CONTEXT.Ptr, pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddCTLContextToStore", HCERTSTORE, _hCertStore, CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22672,7 +22682,7 @@ export CertSerializeCTLStoreElement(pCtlContext, dwFlags, pbElement, pcbElement)
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertSerializeCTLStoreElement", CTL_CONTEXT.Ptr, pCtlContext, "uint", dwFlags, "ptr", pbElement, pcbElementMarshal, pcbElement, BOOL)
+    result := DllCall("CRYPT32.dll\CertSerializeCTLStoreElement", CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwFlags, IntPtr, pbElement, pcbElementMarshal, pcbElement, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22839,7 +22849,7 @@ export CertAddCertificateLinkToStore(_hCertStore, pCertContext, dwAddDisposition
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddCertificateLinkToStore", HCERTSTORE, _hCertStore, CERT_CONTEXT.Ptr, pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddCertificateLinkToStore", HCERTSTORE, _hCertStore, CERT_CONTEXT.Ptr, pCertContext, UInt32, dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -22972,7 +22982,7 @@ export CertAddCRLLinkToStore(_hCertStore, pCrlContext, dwAddDisposition, ppStore
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddCRLLinkToStore", HCERTSTORE, _hCertStore, CRL_CONTEXT.Ptr, pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddCRLLinkToStore", HCERTSTORE, _hCertStore, CRL_CONTEXT.Ptr, pCrlContext, UInt32, dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23127,7 +23137,7 @@ export CertAddCTLLinkToStore(_hCertStore, pCtlContext, dwAddDisposition, ppStore
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddCTLLinkToStore", HCERTSTORE, _hCertStore, CTL_CONTEXT.Ptr, pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddCTLLinkToStore", HCERTSTORE, _hCertStore, CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwAddDisposition, ppStoreContextMarshal, ppStoreContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23156,7 +23166,7 @@ export CertAddCTLLinkToStore(_hCertStore, pCtlContext, dwAddDisposition, ppStore
  * @since windows5.1.2600
  */
 export CertAddStoreToCollection(hCollectionStore, hSiblingStore, dwUpdateFlags, dwPriority) {
-    result := DllCall("CRYPT32.dll\CertAddStoreToCollection", HCERTSTORE, hCollectionStore, HCERTSTORE, hSiblingStore, "uint", dwUpdateFlags, "uint", dwPriority, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddStoreToCollection", HCERTSTORE, hCollectionStore, HCERTSTORE, hSiblingStore, UInt32, dwUpdateFlags, UInt32, dwPriority, BOOL)
     return result
 }
 
@@ -23271,7 +23281,7 @@ export CertControlStore(_hCertStore, dwFlags, dwCtrlType, pvCtrlPara) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertControlStore", HCERTSTORE, _hCertStore, CERT_CONTROL_STORE_FLAGS, dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, BOOL)
+    result := DllCall("CRYPT32.dll\CertControlStore", HCERTSTORE, _hCertStore, CERT_CONTROL_STORE_FLAGS, dwFlags, UInt32, dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23306,7 +23316,7 @@ export CertControlStore(_hCertStore, dwFlags, dwCtrlType, pvCtrlPara) {
 export CertSetStoreProperty(_hCertStore, dwPropId, dwFlags, pvData) {
     pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertSetStoreProperty", HCERTSTORE, _hCertStore, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, BOOL)
+    result := DllCall("CRYPT32.dll\CertSetStoreProperty", HCERTSTORE, _hCertStore, UInt32, dwPropId, UInt32, dwFlags, pvDataMarshal, pvData, BOOL)
     return result
 }
 
@@ -23339,7 +23349,7 @@ export CertGetStoreProperty(_hCertStore, dwPropId, pvData, pcbData) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertGetStoreProperty", HCERTSTORE, _hCertStore, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, BOOL)
+    result := DllCall("CRYPT32.dll\CertGetStoreProperty", HCERTSTORE, _hCertStore, UInt32, dwPropId, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23470,7 +23480,7 @@ export CertGetStoreProperty(_hCertStore, dwPropId, pvData, pcbData) {
 export CertCreateContext(dwContextType, dwEncodingType, pbEncoded, cbEncoded, dwFlags, pCreatePara) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertCreateContext", "uint", dwContextType, "uint", dwEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, CERT_CREATE_CONTEXT_PARA.Ptr, pCreatePara, IntPtr)
+    result := DllCall("CRYPT32.dll\CertCreateContext", UInt32, dwContextType, UInt32, dwEncodingType, IntPtr, pbEncoded, UInt32, cbEncoded, UInt32, dwFlags, CERT_CREATE_CONTEXT_PARA.Ptr, pCreatePara, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23620,7 +23630,7 @@ export CertRegisterSystemStore(pvSystemStore, dwFlags, pStoreInfo) {
 
     pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertRegisterSystemStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, CERT_SYSTEM_STORE_INFO.Ptr, pStoreInfo, "ptr", pvReserved, BOOL)
+    result := DllCall("CRYPT32.dll\CertRegisterSystemStore", pvSystemStoreMarshal, pvSystemStore, UInt32, dwFlags, CERT_SYSTEM_STORE_INFO.Ptr, pStoreInfo, "ptr", pvReserved, BOOL)
     return result
 }
 
@@ -23680,7 +23690,7 @@ export CertRegisterPhysicalStore(pvSystemStore, dwFlags, pwszStoreName, pStoreIn
 
     pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertRegisterPhysicalStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, "ptr", pwszStoreName, CERT_PHYSICAL_STORE_INFO.Ptr, pStoreInfo, "ptr", pvReserved, BOOL)
+    result := DllCall("CRYPT32.dll\CertRegisterPhysicalStore", pvSystemStoreMarshal, pvSystemStore, UInt32, dwFlags, "ptr", pwszStoreName, CERT_PHYSICAL_STORE_INFO.Ptr, pStoreInfo, "ptr", pvReserved, BOOL)
     return result
 }
 
@@ -23733,7 +23743,7 @@ export CertRegisterPhysicalStore(pvSystemStore, dwFlags, pwszStoreName, pStoreIn
 export CertUnregisterSystemStore(pvSystemStore, dwFlags) {
     pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertUnregisterSystemStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CertUnregisterSystemStore", pvSystemStoreMarshal, pvSystemStore, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -23794,7 +23804,7 @@ export CertUnregisterPhysicalStore(pvSystemStore, dwFlags, pwszStoreName) {
 
     pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertUnregisterPhysicalStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, "ptr", pwszStoreName, BOOL)
+    result := DllCall("CRYPT32.dll\CertUnregisterPhysicalStore", pvSystemStoreMarshal, pvSystemStore, UInt32, dwFlags, "ptr", pwszStoreName, BOOL)
     return result
 }
 
@@ -23816,7 +23826,7 @@ export CertUnregisterPhysicalStore(pvSystemStore, dwFlags, pwszStoreName) {
 export CertEnumSystemStoreLocation(dwFlags, pvArg, pfnEnum) {
     pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertEnumSystemStoreLocation", "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnum, BOOL)
+    result := DllCall("CRYPT32.dll\CertEnumSystemStoreLocation", UInt32, dwFlags, pvArgMarshal, pvArg, PFN_CERT_ENUM_SYSTEM_STORE_LOCATION, pfnEnum, BOOL)
     return result
 }
 
@@ -23863,7 +23873,7 @@ export CertEnumSystemStore(dwFlags, pvSystemStoreLocationPara, pvArg, pfnEnum) {
     pvSystemStoreLocationParaMarshal := pvSystemStoreLocationPara is VarRef ? "ptr" : "ptr"
     pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertEnumSystemStore", "uint", dwFlags, pvSystemStoreLocationParaMarshal, pvSystemStoreLocationPara, pvArgMarshal, pvArg, "ptr", pfnEnum, BOOL)
+    result := DllCall("CRYPT32.dll\CertEnumSystemStore", UInt32, dwFlags, pvSystemStoreLocationParaMarshal, pvSystemStoreLocationPara, pvArgMarshal, pvArg, PFN_CERT_ENUM_SYSTEM_STORE, pfnEnum, BOOL)
     return result
 }
 
@@ -23905,7 +23915,7 @@ export CertEnumPhysicalStore(pvSystemStore, dwFlags, pvArg, pfnEnum) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertEnumPhysicalStore", pvSystemStoreMarshal, pvSystemStore, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnum, BOOL)
+    result := DllCall("CRYPT32.dll\CertEnumPhysicalStore", pvSystemStoreMarshal, pvSystemStore, UInt32, dwFlags, pvArgMarshal, pvArg, PFN_CERT_ENUM_PHYSICAL_STORE, pfnEnum, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23980,7 +23990,7 @@ export CertGetEnhancedKeyUsage(pCertContext, dwFlags, pUsage, pcbUsage) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertGetEnhancedKeyUsage", CERT_CONTEXT.Ptr, pCertContext, "uint", dwFlags, "ptr", pUsage, pcbUsageMarshal, pcbUsage, BOOL)
+    result := DllCall("CRYPT32.dll\CertGetEnhancedKeyUsage", CERT_CONTEXT.Ptr, pCertContext, UInt32, dwFlags, IntPtr, pUsage, pcbUsageMarshal, pcbUsage, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24082,7 +24092,7 @@ export CertGetValidUsages(cCerts, rghCerts, cNumOIDs, rghOIDs, pcbOIDs) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertGetValidUsages", "uint", cCerts, rghCertsMarshal, rghCerts, cNumOIDsMarshal, cNumOIDs, "ptr", rghOIDs, pcbOIDsMarshal, pcbOIDs, BOOL)
+    result := DllCall("CRYPT32.dll\CertGetValidUsages", UInt32, cCerts, rghCertsMarshal, rghCerts, cNumOIDsMarshal, cNumOIDs, IntPtr, rghOIDs, pcbOIDsMarshal, pcbOIDs, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24154,7 +24164,7 @@ export CryptMsgGetAndVerifySigner(hCryptMsg, cSignerStore, rghSignerStore, dwFla
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgGetAndVerifySigner", hCryptMsgMarshal, hCryptMsg, "uint", cSignerStore, HCERTSTORE.Ptr, rghSignerStore, "uint", dwFlags, ppSignerMarshal, ppSigner, pdwSignerIndexMarshal, pdwSignerIndex, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgGetAndVerifySigner", hCryptMsgMarshal, hCryptMsg, UInt32, cSignerStore, HCERTSTORE.Ptr, rghSignerStore, UInt32, dwFlags, ppSignerMarshal, ppSigner, pdwSignerIndexMarshal, pdwSignerIndex, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24204,7 +24214,7 @@ export CryptMsgSignCTL(dwMsgEncodingType, pbCtlContent, cbCtlContent, pSignInfo,
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgSignCTL", "uint", dwMsgEncodingType, "ptr", pbCtlContent, "uint", cbCtlContent, CMSG_SIGNED_ENCODE_INFO.Ptr, pSignInfo, "uint", dwFlags, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgSignCTL", UInt32, dwMsgEncodingType, IntPtr, pbCtlContent, UInt32, cbCtlContent, CMSG_SIGNED_ENCODE_INFO.Ptr, pSignInfo, UInt32, dwFlags, IntPtr, pbEncoded, pcbEncodedMarshal, pcbEncoded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24256,7 +24266,7 @@ export CryptMsgEncodeAndSignCTL(dwMsgEncodingType, pCtlInfo, pSignInfo, dwFlags,
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptMsgEncodeAndSignCTL", "uint", dwMsgEncodingType, CTL_INFO.Ptr, pCtlInfo, CMSG_SIGNED_ENCODE_INFO.Ptr, pSignInfo, "uint", dwFlags, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, BOOL)
+    result := DllCall("CRYPT32.dll\CryptMsgEncodeAndSignCTL", UInt32, dwMsgEncodingType, CTL_INFO.Ptr, pCtlInfo, CMSG_SIGNED_ENCODE_INFO.Ptr, pSignInfo, UInt32, dwFlags, IntPtr, pbEncoded, pcbEncodedMarshal, pcbEncoded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24281,7 +24291,7 @@ export CryptMsgEncodeAndSignCTL(dwMsgEncodingType, pCtlInfo, pSignInfo, dwFlags,
 export CertFindSubjectInSortedCTL(pSubjectIdentifier, pCtlContext, dwFlags, pEncodedAttributes) {
     static pvReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("CRYPT32.dll\CertFindSubjectInSortedCTL", CRYPT_INTEGER_BLOB.Ptr, pSubjectIdentifier, CTL_CONTEXT.Ptr, pCtlContext, "uint", dwFlags, "ptr", pvReserved, CRYPT_INTEGER_BLOB.Ptr, pEncodedAttributes, BOOL)
+    result := DllCall("CRYPT32.dll\CertFindSubjectInSortedCTL", CRYPT_INTEGER_BLOB.Ptr, pSubjectIdentifier, CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwFlags, "ptr", pvReserved, CRYPT_INTEGER_BLOB.Ptr, pEncodedAttributes, BOOL)
     return result
 }
 
@@ -24425,7 +24435,7 @@ export CertVerifyCTLUsage(dwEncodingType, dwSubjectType, pvSubject, pSubjectUsag
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertVerifyCTLUsage", "uint", dwEncodingType, "uint", dwSubjectType, pvSubjectMarshal, pvSubject, CTL_USAGE.Ptr, pSubjectUsage, "uint", dwFlags, CTL_VERIFY_USAGE_PARA.Ptr, pVerifyUsagePara, CTL_VERIFY_USAGE_STATUS.Ptr, pVerifyUsageStatus, BOOL)
+    result := DllCall("CRYPT32.dll\CertVerifyCTLUsage", UInt32, dwEncodingType, UInt32, dwSubjectType, pvSubjectMarshal, pvSubject, CTL_USAGE.Ptr, pSubjectUsage, UInt32, dwFlags, CTL_VERIFY_USAGE_PARA.Ptr, pVerifyUsagePara, CTL_VERIFY_USAGE_STATUS.Ptr, pVerifyUsageStatus, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24607,7 +24617,7 @@ export CertVerifyRevocation(dwEncodingType, dwRevType, cContext, rgpvContext, dw
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertVerifyRevocation", "uint", dwEncodingType, "uint", dwRevType, "uint", cContext, rgpvContextMarshal, rgpvContext, "uint", dwFlags, CERT_REVOCATION_PARA.Ptr, pRevPara, CERT_REVOCATION_STATUS.Ptr, pRevStatus, BOOL)
+    result := DllCall("CRYPT32.dll\CertVerifyRevocation", UInt32, dwEncodingType, UInt32, dwRevType, UInt32, cContext, rgpvContextMarshal, rgpvContext, UInt32, dwFlags, CERT_REVOCATION_PARA.Ptr, pRevPara, CERT_REVOCATION_STATUS.Ptr, pRevStatus, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24792,7 +24802,7 @@ export CertCompareCertificateName(dwCertEncodingType, pCertName1, pCertName2) {
 export CertIsRDNAttrsInCertificateName(dwCertEncodingType, dwFlags, pCertName, pRDN) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertIsRDNAttrsInCertificateName", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "uint", dwFlags, CRYPT_INTEGER_BLOB.Ptr, pCertName, CERT_RDN.Ptr, pRDN, BOOL)
+    result := DllCall("CRYPT32.dll\CertIsRDNAttrsInCertificateName", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, UInt32, dwFlags, CRYPT_INTEGER_BLOB.Ptr, pCertName, CERT_RDN.Ptr, pRDN, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24953,7 +24963,7 @@ export CertGetPublicKeyLength(dwCertEncodingType, pPublicKey) {
 export CryptVerifyCertificateSignature(hCryptProv, dwCertEncodingType, pbEncoded, cbEncoded, pPublicKey) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptVerifyCertificateSignature", HCRYPTPROV_LEGACY, hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pbEncoded, "uint", cbEncoded, CERT_PUBLIC_KEY_INFO.Ptr, pPublicKey, BOOL)
+    result := DllCall("CRYPT32.dll\CryptVerifyCertificateSignature", HCRYPTPROV_LEGACY, hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, IntPtr, pbEncoded, UInt32, cbEncoded, CERT_PUBLIC_KEY_INFO.Ptr, pPublicKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25180,7 +25190,7 @@ export CryptVerifyCertificateSignatureEx(hCryptProv, dwCertEncodingType, dwSubje
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptVerifyCertificateSignatureEx", HCRYPTPROV_LEGACY, hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "uint", dwSubjectType, pvSubjectMarshal, pvSubject, "uint", dwIssuerType, pvIssuerMarshal, pvIssuer, CRYPT_VERIFY_CERT_FLAGS, dwFlags, pvExtraMarshal, pvExtra, BOOL)
+    result := DllCall("CRYPT32.dll\CryptVerifyCertificateSignatureEx", HCRYPTPROV_LEGACY, hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, UInt32, dwSubjectType, pvSubjectMarshal, pvSubject, UInt32, dwIssuerType, pvIssuerMarshal, pvIssuer, CRYPT_VERIFY_CERT_FLAGS, dwFlags, pvExtraMarshal, pvExtra, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25348,7 +25358,7 @@ export CryptHashToBeSigned(hCryptProv, dwCertEncodingType, pbEncoded, cbEncoded,
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptHashToBeSigned", HCRYPTPROV_LEGACY, hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
+    result := DllCall("CRYPT32.dll\CryptHashToBeSigned", HCRYPTPROV_LEGACY, hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, IntPtr, pbEncoded, UInt32, cbEncoded, IntPtr, pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25404,7 +25414,7 @@ export CryptHashCertificate(hCryptProv, Algid, dwFlags, pbEncoded, cbEncoded, pb
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptHashCertificate", HCRYPTPROV_LEGACY, hCryptProv, ALG_ID, Algid, "uint", dwFlags, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
+    result := DllCall("CRYPT32.dll\CryptHashCertificate", HCRYPTPROV_LEGACY, hCryptProv, ALG_ID, Algid, UInt32, dwFlags, IntPtr, pbEncoded, UInt32, cbEncoded, IntPtr, pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25452,7 +25462,7 @@ export CryptHashCertificate2(pwszCNGHashAlgid, dwFlags, pbEncoded, cbEncoded, pb
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptHashCertificate2", "ptr", pwszCNGHashAlgid, "uint", dwFlags, "ptr", pvReserved, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
+    result := DllCall("CRYPT32.dll\CryptHashCertificate2", "ptr", pwszCNGHashAlgid, UInt32, dwFlags, "ptr", pvReserved, IntPtr, pbEncoded, UInt32, cbEncoded, IntPtr, pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25545,7 +25555,7 @@ export CryptSignCertificate(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodingType
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptSignCertificate", HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, "uint", dwKeySpec, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pbEncodedToBeSigned, "uint", cbEncodedToBeSigned, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pSignatureAlgorithm, pvHashAuxInfoMarshal, pvHashAuxInfo, "ptr", pbSignature, pcbSignatureMarshal, pcbSignature, BOOL)
+    result := DllCall("CRYPT32.dll\CryptSignCertificate", HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, UInt32, dwKeySpec, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, IntPtr, pbEncodedToBeSigned, UInt32, cbEncodedToBeSigned, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pSignatureAlgorithm, pvHashAuxInfoMarshal, pvHashAuxInfo, IntPtr, pbSignature, pcbSignatureMarshal, pcbSignature, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25724,7 +25734,7 @@ export CryptSignAndEncodeCertificate(hCryptProvOrNCryptKey, dwKeySpec, dwCertEnc
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptSignAndEncodeCertificate", HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, CERT_KEY_SPEC, dwKeySpec, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pSignatureAlgorithm, pvHashAuxInfoMarshal, pvHashAuxInfo, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, BOOL)
+    result := DllCall("CRYPT32.dll\CryptSignAndEncodeCertificate", HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, CERT_KEY_SPEC, dwKeySpec, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", lpszStructType, pvStructInfoMarshal, pvStructInfo, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pSignatureAlgorithm, pvHashAuxInfoMarshal, pvHashAuxInfo, IntPtr, pbEncoded, pcbEncodedMarshal, pcbEncoded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25802,7 +25812,7 @@ export CertVerifyValidityNesting(pSubjectInfo, pIssuerInfo) {
 export CertVerifyCRLRevocation(dwCertEncodingType, pCertId, cCrlInfo, rgpCrlInfo) {
     rgpCrlInfoMarshal := rgpCrlInfo is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertVerifyCRLRevocation", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_INFO.Ptr, pCertId, "uint", cCrlInfo, rgpCrlInfoMarshal, rgpCrlInfo, BOOL)
+    result := DllCall("CRYPT32.dll\CertVerifyCRLRevocation", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_INFO.Ptr, pCertId, UInt32, cCrlInfo, rgpCrlInfoMarshal, rgpCrlInfo, BOOL)
     return result
 }
 
@@ -25816,7 +25826,7 @@ export CertVerifyCRLRevocation(dwCertEncodingType, pCertId, cCrlInfo, rgpCrlInfo
  * @since windows5.1.2600
  */
 export CertAlgIdToOID(dwAlgId) {
-    result := DllCall("CRYPT32.dll\CertAlgIdToOID", "uint", dwAlgId, PSTR)
+    result := DllCall("CRYPT32.dll\CertAlgIdToOID", UInt32, dwAlgId, PSTR)
     return result
 }
 
@@ -25848,7 +25858,7 @@ export CertOIDToAlgId(pszObjId) {
 export CertFindExtension(pszObjId, cExtensions, rgExtensions) {
     pszObjId := pszObjId is String ? StrPtr(pszObjId) : pszObjId
 
-    result := DllCall("CRYPT32.dll\CertFindExtension", "ptr", pszObjId, "uint", cExtensions, CERT_EXTENSION.Ptr, rgExtensions, CERT_EXTENSION.Ptr)
+    result := DllCall("CRYPT32.dll\CertFindExtension", "ptr", pszObjId, UInt32, cExtensions, CERT_EXTENSION.Ptr, rgExtensions, CERT_EXTENSION.Ptr)
     return result
 }
 
@@ -25865,7 +25875,7 @@ export CertFindExtension(pszObjId, cExtensions, rgExtensions) {
 export CertFindAttribute(pszObjId, cAttr, rgAttr) {
     pszObjId := pszObjId is String ? StrPtr(pszObjId) : pszObjId
 
-    result := DllCall("CRYPT32.dll\CertFindAttribute", "ptr", pszObjId, "uint", cAttr, CRYPT_ATTRIBUTE.Ptr, rgAttr, CRYPT_ATTRIBUTE.Ptr)
+    result := DllCall("CRYPT32.dll\CertFindAttribute", "ptr", pszObjId, UInt32, cAttr, CRYPT_ATTRIBUTE.Ptr, rgAttr, CRYPT_ATTRIBUTE.Ptr)
     return result
 }
 
@@ -25922,7 +25932,7 @@ export CertFindRDNAttr(pszObjId, pName) {
 export CertGetIntendedKeyUsage(dwCertEncodingType, pCertInfo, pbKeyUsage, cbKeyUsage) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertGetIntendedKeyUsage", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_INFO.Ptr, pCertInfo, "ptr", pbKeyUsage, "uint", cbKeyUsage, BOOL)
+    result := DllCall("CRYPT32.dll\CertGetIntendedKeyUsage", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_INFO.Ptr, pCertInfo, IntPtr, pbKeyUsage, UInt32, cbKeyUsage, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25955,7 +25965,7 @@ export CryptInstallDefaultContext(hCryptProv, dwDefaultType, pvDefaultPara, dwFl
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptInstallDefaultContext", "ptr", hCryptProv, CRYPT_DEFAULT_CONTEXT_TYPE, dwDefaultType, pvDefaultParaMarshal, pvDefaultPara, CRYPT_DEFAULT_CONTEXT_FLAGS, dwFlags, "ptr", pvReserved, phDefaultContextMarshal, phDefaultContext, BOOL)
+    result := DllCall("CRYPT32.dll\CryptInstallDefaultContext", IntPtr, hCryptProv, CRYPT_DEFAULT_CONTEXT_TYPE, dwDefaultType, pvDefaultParaMarshal, pvDefaultPara, CRYPT_DEFAULT_CONTEXT_FLAGS, dwFlags, "ptr", pvReserved, phDefaultContextMarshal, phDefaultContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -25979,7 +25989,7 @@ export CryptUninstallDefaultContext(hDefaultContext, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptUninstallDefaultContext", hDefaultContextMarshal, hDefaultContext, "uint", dwFlags, "ptr", pvReserved, BOOL)
+    result := DllCall("CRYPT32.dll\CryptUninstallDefaultContext", hDefaultContextMarshal, hDefaultContext, UInt32, dwFlags, "ptr", pvReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26062,7 +26072,7 @@ export CryptExportPublicKeyInfo(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncoding
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfo", HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, "uint", dwKeySpec, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pInfo, pcbInfoMarshal, pcbInfo, BOOL)
+    result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfo", HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, UInt32, dwKeySpec, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, IntPtr, pInfo, pcbInfoMarshal, pcbInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26183,7 +26193,7 @@ export CryptExportPublicKeyInfoEx(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodi
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoEx", HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, "uint", dwKeySpec, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", pInfo, pcbInfoMarshal, pcbInfo, BOOL)
+    result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoEx", HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, UInt32, dwKeySpec, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPublicKeyObjId, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, IntPtr, pInfo, pcbInfoMarshal, pcbInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26259,7 +26269,7 @@ export CryptExportPublicKeyInfoFromBCryptKeyHandle(hBCryptKey, dwCertEncodingTyp
     pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
     pcbInfoMarshal := pcbInfo is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoFromBCryptKeyHandle", BCRYPT_KEY_HANDLE, hBCryptKey, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", pInfo, pcbInfoMarshal, pcbInfo, BOOL)
+    result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoFromBCryptKeyHandle", BCRYPT_KEY_HANDLE, hBCryptKey, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPublicKeyObjId, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, IntPtr, pInfo, pcbInfoMarshal, pcbInfo, BOOL)
     return result
 }
 
@@ -26342,7 +26352,7 @@ export CryptImportPublicKeyInfo(hCryptProv, dwCertEncodingType, pInfo, phKey) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfo", "ptr", hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_PUBLIC_KEY_INFO.Ptr, pInfo, phKeyMarshal, phKey, BOOL)
+    result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfo", IntPtr, hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_PUBLIC_KEY_INFO.Ptr, pInfo, phKeyMarshal, phKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26435,7 +26445,7 @@ export CryptImportPublicKeyInfoEx(hCryptProv, dwCertEncodingType, pInfo, aiKeyAl
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx", "ptr", hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_PUBLIC_KEY_INFO.Ptr, pInfo, ALG_ID, aiKeyAlg, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, phKeyMarshal, phKey, BOOL)
+    result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx", IntPtr, hCryptProv, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_PUBLIC_KEY_INFO.Ptr, pInfo, ALG_ID, aiKeyAlg, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, phKeyMarshal, phKey, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26802,7 +26812,7 @@ export CryptExportPKCS8(hCryptProv, dwKeySpec, pszPrivateKeyObjId, dwFlags, pvAu
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptExportPKCS8", "ptr", hCryptProv, "uint", dwKeySpec, "ptr", pszPrivateKeyObjId, "uint", dwFlags, pvAuxInfoMarshal, pvAuxInfo, "ptr", pbPrivateKeyBlob, pcbPrivateKeyBlobMarshal, pcbPrivateKeyBlob, BOOL)
+    result := DllCall("CRYPT32.dll\CryptExportPKCS8", IntPtr, hCryptProv, UInt32, dwKeySpec, "ptr", pszPrivateKeyObjId, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, IntPtr, pbPrivateKeyBlob, pcbPrivateKeyBlobMarshal, pcbPrivateKeyBlob, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26890,7 +26900,7 @@ export CryptHashPublicKeyInfo(hCryptProv, Algid, dwFlags, dwCertEncodingType, pI
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptHashPublicKeyInfo", HCRYPTPROV_LEGACY, hCryptProv, ALG_ID, Algid, "uint", dwFlags, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_PUBLIC_KEY_INFO.Ptr, pInfo, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
+    result := DllCall("CRYPT32.dll\CryptHashPublicKeyInfo", HCRYPTPROV_LEGACY, hCryptProv, ALG_ID, Algid, UInt32, dwFlags, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_PUBLIC_KEY_INFO.Ptr, pInfo, IntPtr, pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26921,7 +26931,7 @@ export CryptHashPublicKeyInfo(hCryptProv, Algid, dwFlags, dwCertEncodingType, pI
 export CertRDNValueToStrA(dwValueType, pValue, psz, csz) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("CRYPT32.dll\CertRDNValueToStrA", "uint", dwValueType, CRYPT_INTEGER_BLOB.Ptr, pValue, "ptr", psz, "uint", csz, UInt32)
+    result := DllCall("CRYPT32.dll\CertRDNValueToStrA", UInt32, dwValueType, CRYPT_INTEGER_BLOB.Ptr, pValue, "ptr", psz, UInt32, csz, UInt32)
     return result
 }
 
@@ -26948,7 +26958,7 @@ export CertRDNValueToStrA(dwValueType, pValue, psz, csz) {
 export CertRDNValueToStrW(dwValueType, pValue, psz, csz) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("CRYPT32.dll\CertRDNValueToStrW", "uint", dwValueType, CRYPT_INTEGER_BLOB.Ptr, pValue, "ptr", psz, "uint", csz, UInt32)
+    result := DllCall("CRYPT32.dll\CertRDNValueToStrW", UInt32, dwValueType, CRYPT_INTEGER_BLOB.Ptr, pValue, "ptr", psz, UInt32, csz, UInt32)
     return result
 }
 
@@ -27077,7 +27087,7 @@ export CertRDNValueToStrW(dwValueType, pValue, psz, csz) {
 export CertNameToStrA(dwCertEncodingType, pName, dwStrType, psz, csz) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("CRYPT32.dll\CertNameToStrA", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CRYPT_INTEGER_BLOB.Ptr, pName, CERT_STRING_TYPE, dwStrType, "ptr", psz, "uint", csz, UInt32)
+    result := DllCall("CRYPT32.dll\CertNameToStrA", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CRYPT_INTEGER_BLOB.Ptr, pName, CERT_STRING_TYPE, dwStrType, "ptr", psz, UInt32, csz, UInt32)
     return result
 }
 
@@ -27206,7 +27216,7 @@ export CertNameToStrA(dwCertEncodingType, pName, dwStrType, psz, csz) {
 export CertNameToStrW(dwCertEncodingType, pName, dwStrType, psz, csz) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("CRYPT32.dll\CertNameToStrW", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CRYPT_INTEGER_BLOB.Ptr, pName, CERT_STRING_TYPE, dwStrType, "ptr", psz, "uint", csz, UInt32)
+    result := DllCall("CRYPT32.dll\CertNameToStrW", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CRYPT_INTEGER_BLOB.Ptr, pName, CERT_STRING_TYPE, dwStrType, "ptr", psz, UInt32, csz, UInt32)
     return result
 }
 
@@ -27583,7 +27593,7 @@ export CertStrToNameA(dwCertEncodingType, pszX500, dwStrType, pbEncoded, pcbEnco
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertStrToNameA", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszX500, CERT_STRING_TYPE, dwStrType, "ptr", pvReserved, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, ppszErrorMarshal, ppszError, BOOL)
+    result := DllCall("CRYPT32.dll\CertStrToNameA", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszX500, CERT_STRING_TYPE, dwStrType, "ptr", pvReserved, IntPtr, pbEncoded, pcbEncodedMarshal, pcbEncoded, ppszErrorMarshal, ppszError, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -27964,7 +27974,7 @@ export CertStrToNameW(dwCertEncodingType, pszX500, dwStrType, pbEncoded, pcbEnco
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertStrToNameW", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszX500, CERT_STRING_TYPE, dwStrType, "ptr", pvReserved, "ptr", pbEncoded, pcbEncodedMarshal, pcbEncoded, ppszErrorMarshal, ppszError, BOOL)
+    result := DllCall("CRYPT32.dll\CertStrToNameW", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszX500, CERT_STRING_TYPE, dwStrType, "ptr", pvReserved, IntPtr, pbEncoded, pcbEncodedMarshal, pcbEncoded, ppszErrorMarshal, ppszError, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -28175,7 +28185,7 @@ export CertGetNameStringA(pCertContext, dwType, dwFlags, pvTypePara, pszNameStri
 
     pvTypeParaMarshal := pvTypePara is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertGetNameStringA", CERT_CONTEXT.Ptr, pCertContext, "uint", dwType, "uint", dwFlags, pvTypeParaMarshal, pvTypePara, "ptr", pszNameString, "uint", cchNameString, UInt32)
+    result := DllCall("CRYPT32.dll\CertGetNameStringA", CERT_CONTEXT.Ptr, pCertContext, UInt32, dwType, UInt32, dwFlags, pvTypeParaMarshal, pvTypePara, "ptr", pszNameString, UInt32, cchNameString, UInt32)
     return result
 }
 
@@ -28382,7 +28392,7 @@ export CertGetNameStringW(pCertContext, dwType, dwFlags, pvTypePara, pszNameStri
 
     pvTypeParaMarshal := pvTypePara is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertGetNameStringW", CERT_CONTEXT.Ptr, pCertContext, "uint", dwType, "uint", dwFlags, pvTypeParaMarshal, pvTypePara, "ptr", pszNameString, "uint", cchNameString, UInt32)
+    result := DllCall("CRYPT32.dll\CertGetNameStringW", CERT_CONTEXT.Ptr, pCertContext, UInt32, dwType, UInt32, dwFlags, pvTypeParaMarshal, pvTypePara, "ptr", pszNameString, UInt32, cchNameString, UInt32)
     return result
 }
 
@@ -28476,7 +28486,7 @@ export CryptSignMessage(pSignPara, fDetachedSignature, cToBeSigned, rgpbToBeSign
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptSignMessage", CRYPT_SIGN_MESSAGE_PARA.Ptr, pSignPara, BOOL, fDetachedSignature, "uint", cToBeSigned, rgpbToBeSignedMarshal, rgpbToBeSigned, rgcbToBeSignedMarshal, rgcbToBeSigned, "ptr", pbSignedBlob, pcbSignedBlobMarshal, pcbSignedBlob, BOOL)
+    result := DllCall("CRYPT32.dll\CryptSignMessage", CRYPT_SIGN_MESSAGE_PARA.Ptr, pSignPara, BOOL, fDetachedSignature, UInt32, cToBeSigned, rgpbToBeSignedMarshal, rgpbToBeSigned, rgcbToBeSignedMarshal, rgcbToBeSigned, IntPtr, pbSignedBlob, pcbSignedBlobMarshal, pcbSignedBlob, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -28612,7 +28622,7 @@ export CryptVerifyMessageSignature(pVerifyPara, dwSignerIndex, pbSignedBlob, cbS
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptVerifyMessageSignature", CRYPT_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, "uint", dwSignerIndex, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, pcbDecodedMarshal, pcbDecoded, ppSignerCertMarshal, ppSignerCert, BOOL)
+    result := DllCall("CRYPT32.dll\CryptVerifyMessageSignature", CRYPT_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, UInt32, dwSignerIndex, IntPtr, pbSignedBlob, UInt32, cbSignedBlob, IntPtr, pbDecoded, pcbDecodedMarshal, pcbDecoded, ppSignerCertMarshal, ppSignerCert, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -28666,7 +28676,7 @@ export CryptVerifyMessageSignature(pVerifyPara, dwSignerIndex, pbSignedBlob, cbS
 export CryptGetMessageSignerCount(dwMsgEncodingType, pbSignedBlob, cbSignedBlob) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptGetMessageSignerCount", "uint", dwMsgEncodingType, "ptr", pbSignedBlob, "uint", cbSignedBlob, Int32)
+    result := DllCall("CRYPT32.dll\CryptGetMessageSignerCount", UInt32, dwMsgEncodingType, IntPtr, pbSignedBlob, UInt32, cbSignedBlob, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -28733,7 +28743,7 @@ export CryptGetMessageSignerCount(dwMsgEncodingType, pbSignedBlob, cbSignedBlob)
 export CryptGetMessageCertificates(dwMsgAndCertEncodingType, hCryptProv, dwFlags, pbSignedBlob, cbSignedBlob) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptGetMessageCertificates", "uint", dwMsgAndCertEncodingType, HCRYPTPROV_LEGACY, hCryptProv, "uint", dwFlags, "ptr", pbSignedBlob, "uint", cbSignedBlob, HCERTSTORE)
+    result := DllCall("CRYPT32.dll\CryptGetMessageCertificates", UInt32, dwMsgAndCertEncodingType, HCRYPTPROV_LEGACY, hCryptProv, UInt32, dwFlags, IntPtr, pbSignedBlob, UInt32, cbSignedBlob, HCERTSTORE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -28845,7 +28855,7 @@ export CryptVerifyDetachedMessageSignature(pVerifyPara, dwSignerIndex, pbDetache
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageSignature", CRYPT_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, "uint", dwSignerIndex, "ptr", pbDetachedSignBlob, "uint", cbDetachedSignBlob, "uint", cToBeSigned, rgpbToBeSignedMarshal, rgpbToBeSigned, rgcbToBeSignedMarshal, rgcbToBeSigned, ppSignerCertMarshal, ppSignerCert, BOOL)
+    result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageSignature", CRYPT_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, UInt32, dwSignerIndex, IntPtr, pbDetachedSignBlob, UInt32, cbDetachedSignBlob, UInt32, cToBeSigned, rgpbToBeSignedMarshal, rgpbToBeSigned, rgcbToBeSignedMarshal, rgcbToBeSigned, ppSignerCertMarshal, ppSignerCert, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -28932,7 +28942,7 @@ export CryptEncryptMessage(pEncryptPara, cRecipientCert, rgpRecipientCert, pbToB
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptEncryptMessage", CRYPT_ENCRYPT_MESSAGE_PARA.Ptr, pEncryptPara, "uint", cRecipientCert, rgpRecipientCertMarshal, rgpRecipientCert, "ptr", pbToBeEncrypted, "uint", cbToBeEncrypted, "ptr", pbEncryptedBlob, pcbEncryptedBlobMarshal, pcbEncryptedBlob, BOOL)
+    result := DllCall("CRYPT32.dll\CryptEncryptMessage", CRYPT_ENCRYPT_MESSAGE_PARA.Ptr, pEncryptPara, UInt32, cRecipientCert, rgpRecipientCertMarshal, rgpRecipientCert, IntPtr, pbToBeEncrypted, UInt32, cbToBeEncrypted, IntPtr, pbEncryptedBlob, pcbEncryptedBlobMarshal, pcbEncryptedBlob, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29049,7 +29059,7 @@ export CryptDecryptMessage(pDecryptPara, pbEncryptedBlob, cbEncryptedBlob, pbDec
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptDecryptMessage", CRYPT_DECRYPT_MESSAGE_PARA.Ptr, pDecryptPara, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, pcbDecryptedMarshal, pcbDecrypted, ppXchgCertMarshal, ppXchgCert, BOOL)
+    result := DllCall("CRYPT32.dll\CryptDecryptMessage", CRYPT_DECRYPT_MESSAGE_PARA.Ptr, pDecryptPara, IntPtr, pbEncryptedBlob, UInt32, cbEncryptedBlob, IntPtr, pbDecrypted, pcbDecryptedMarshal, pcbDecrypted, ppXchgCertMarshal, ppXchgCert, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29124,7 +29134,7 @@ export CryptSignAndEncryptMessage(pSignPara, pEncryptPara, cRecipientCert, rgpRe
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptSignAndEncryptMessage", CRYPT_SIGN_MESSAGE_PARA.Ptr, pSignPara, CRYPT_ENCRYPT_MESSAGE_PARA.Ptr, pEncryptPara, "uint", cRecipientCert, rgpRecipientCertMarshal, rgpRecipientCert, "ptr", pbToBeSignedAndEncrypted, "uint", cbToBeSignedAndEncrypted, "ptr", pbSignedAndEncryptedBlob, pcbSignedAndEncryptedBlobMarshal, pcbSignedAndEncryptedBlob, BOOL)
+    result := DllCall("CRYPT32.dll\CryptSignAndEncryptMessage", CRYPT_SIGN_MESSAGE_PARA.Ptr, pSignPara, CRYPT_ENCRYPT_MESSAGE_PARA.Ptr, pEncryptPara, UInt32, cRecipientCert, rgpRecipientCertMarshal, rgpRecipientCert, IntPtr, pbToBeSignedAndEncrypted, UInt32, cbToBeSignedAndEncrypted, IntPtr, pbSignedAndEncryptedBlob, pcbSignedAndEncryptedBlobMarshal, pcbSignedAndEncryptedBlob, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29201,7 +29211,7 @@ export CryptDecryptAndVerifyMessageSignature(pDecryptPara, pVerifyPara, dwSigner
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptDecryptAndVerifyMessageSignature", CRYPT_DECRYPT_MESSAGE_PARA.Ptr, pDecryptPara, CRYPT_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, pcbDecryptedMarshal, pcbDecrypted, ppXchgCertMarshal, ppXchgCert, ppSignerCertMarshal, ppSignerCert, BOOL)
+    result := DllCall("CRYPT32.dll\CryptDecryptAndVerifyMessageSignature", CRYPT_DECRYPT_MESSAGE_PARA.Ptr, pDecryptPara, CRYPT_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, UInt32, dwSignerIndex, IntPtr, pbEncryptedBlob, UInt32, cbEncryptedBlob, IntPtr, pbDecrypted, pcbDecryptedMarshal, pcbDecrypted, ppXchgCertMarshal, ppXchgCert, ppSignerCertMarshal, ppSignerCert, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29317,7 +29327,7 @@ export CryptDecodeMessage(dwMsgTypeFlags, pDecryptPara, pVerifyPara, dwSignerInd
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptDecodeMessage", "uint", dwMsgTypeFlags, CRYPT_DECRYPT_MESSAGE_PARA.Ptr, pDecryptPara, CRYPT_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncodedBlob, "uint", cbEncodedBlob, "uint", dwPrevInnerContentType, pdwMsgTypeMarshal, pdwMsgType, pdwInnerContentTypeMarshal, pdwInnerContentType, "ptr", pbDecoded, pcbDecodedMarshal, pcbDecoded, ppXchgCertMarshal, ppXchgCert, ppSignerCertMarshal, ppSignerCert, BOOL)
+    result := DllCall("CRYPT32.dll\CryptDecodeMessage", UInt32, dwMsgTypeFlags, CRYPT_DECRYPT_MESSAGE_PARA.Ptr, pDecryptPara, CRYPT_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, UInt32, dwSignerIndex, IntPtr, pbEncodedBlob, UInt32, cbEncodedBlob, UInt32, dwPrevInnerContentType, pdwMsgTypeMarshal, pdwMsgType, pdwInnerContentTypeMarshal, pdwInnerContentType, IntPtr, pbDecoded, pcbDecodedMarshal, pcbDecoded, ppXchgCertMarshal, ppXchgCert, ppSignerCertMarshal, ppSignerCert, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29411,7 +29421,7 @@ export CryptHashMessage(pHashPara, fDetachedHash, cToBeHashed, rgpbToBeHashed, r
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptHashMessage", CRYPT_HASH_MESSAGE_PARA.Ptr, pHashPara, BOOL, fDetachedHash, "uint", cToBeHashed, rgpbToBeHashedMarshal, rgpbToBeHashed, rgcbToBeHashedMarshal, rgcbToBeHashed, "ptr", pbHashedBlob, pcbHashedBlobMarshal, pcbHashedBlob, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
+    result := DllCall("CRYPT32.dll\CryptHashMessage", CRYPT_HASH_MESSAGE_PARA.Ptr, pHashPara, BOOL, fDetachedHash, UInt32, cToBeHashed, rgpbToBeHashedMarshal, rgpbToBeHashed, rgcbToBeHashedMarshal, rgcbToBeHashed, IntPtr, pbHashedBlob, pcbHashedBlobMarshal, pcbHashedBlob, IntPtr, pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29516,7 +29526,7 @@ export CryptVerifyMessageHash(pHashPara, pbHashedBlob, cbHashedBlob, pbToBeHashe
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptVerifyMessageHash", CRYPT_HASH_MESSAGE_PARA.Ptr, pHashPara, "ptr", pbHashedBlob, "uint", cbHashedBlob, "ptr", pbToBeHashed, pcbToBeHashedMarshal, pcbToBeHashed, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
+    result := DllCall("CRYPT32.dll\CryptVerifyMessageHash", CRYPT_HASH_MESSAGE_PARA.Ptr, pHashPara, IntPtr, pbHashedBlob, UInt32, cbHashedBlob, IntPtr, pbToBeHashed, pcbToBeHashedMarshal, pcbToBeHashed, IntPtr, pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29616,7 +29626,7 @@ export CryptVerifyDetachedMessageHash(pHashPara, pbDetachedHashBlob, cbDetachedH
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageHash", CRYPT_HASH_MESSAGE_PARA.Ptr, pHashPara, "ptr", pbDetachedHashBlob, "uint", cbDetachedHashBlob, "uint", cToBeHashed, rgpbToBeHashedMarshal, rgpbToBeHashed, rgcbToBeHashedMarshal, rgcbToBeHashed, "ptr", pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
+    result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageHash", CRYPT_HASH_MESSAGE_PARA.Ptr, pHashPara, IntPtr, pbDetachedHashBlob, UInt32, cbDetachedHashBlob, UInt32, cToBeHashed, rgpbToBeHashedMarshal, rgpbToBeHashed, rgcbToBeHashedMarshal, rgcbToBeHashed, IntPtr, pbComputedHash, pcbComputedHashMarshal, pcbComputedHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29701,7 +29711,7 @@ export CryptSignMessageWithKey(pSignPara, pbToBeSigned, cbToBeSigned, pbSignedBl
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptSignMessageWithKey", CRYPT_KEY_SIGN_MESSAGE_PARA.Ptr, pSignPara, "ptr", pbToBeSigned, "uint", cbToBeSigned, "ptr", pbSignedBlob, pcbSignedBlobMarshal, pcbSignedBlob, BOOL)
+    result := DllCall("CRYPT32.dll\CryptSignMessageWithKey", CRYPT_KEY_SIGN_MESSAGE_PARA.Ptr, pSignPara, IntPtr, pbToBeSigned, UInt32, cbToBeSigned, IntPtr, pbSignedBlob, pcbSignedBlobMarshal, pcbSignedBlob, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29819,7 +29829,7 @@ export CryptVerifyMessageSignatureWithKey(pVerifyPara, pPublicKeyInfo, pbSignedB
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptVerifyMessageSignatureWithKey", CRYPT_KEY_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, CERT_PUBLIC_KEY_INFO.Ptr, pPublicKeyInfo, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, pcbDecodedMarshal, pcbDecoded, BOOL)
+    result := DllCall("CRYPT32.dll\CryptVerifyMessageSignatureWithKey", CRYPT_KEY_VERIFY_MESSAGE_PARA.Ptr, pVerifyPara, CERT_PUBLIC_KEY_INFO.Ptr, pPublicKeyInfo, IntPtr, pbSignedBlob, UInt32, cbSignedBlob, IntPtr, pbDecoded, pcbDecodedMarshal, pcbDecoded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30059,7 +30069,7 @@ export CertAddEncodedCertificateToSystemStoreA(szCertStoreName, pbCertEncoded, c
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToSystemStoreA", "ptr", szCertStoreName, "ptr", pbCertEncoded, "uint", cbCertEncoded, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToSystemStoreA", "ptr", szCertStoreName, IntPtr, pbCertEncoded, UInt32, cbCertEncoded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30133,7 +30143,7 @@ export CertAddEncodedCertificateToSystemStoreW(szCertStoreName, pbCertEncoded, c
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToSystemStoreW", "ptr", szCertStoreName, "ptr", pbCertEncoded, "uint", cbCertEncoded, BOOL)
+    result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToSystemStoreW", "ptr", szCertStoreName, IntPtr, pbCertEncoded, UInt32, cbCertEncoded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30156,7 +30166,7 @@ export FindCertsByIssuer(pCertChains, pcbCertChains, pbEncodedIssuerName, cbEnco
 
     pcbCertChainsMarshal := pcbCertChains is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WINTRUST.dll\FindCertsByIssuer", "ptr", pCertChains, pcbCertChainsMarshal, pcbCertChains, "uint*", &pcCertChains := 0, "ptr", pbEncodedIssuerName, "uint", cbEncodedIssuerName, "ptr", pwszPurpose, "uint", dwKeySpec, "HRESULT")
+    result := DllCall("WINTRUST.dll\FindCertsByIssuer", IntPtr, pCertChains, pcbCertChainsMarshal, pcbCertChains, "uint*", &pcCertChains := 0, IntPtr, pbEncodedIssuerName, UInt32, cbEncodedIssuerName, "ptr", pwszPurpose, UInt32, dwKeySpec, "HRESULT")
     return pcCertChains
 }
 
@@ -30293,7 +30303,7 @@ export CryptQueryObject(dwObjectType, pvObject, dwExpectedContentTypeFlags, dwEx
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptQueryObject", CERT_QUERY_OBJECT_TYPE, dwObjectType, pvObjectMarshal, pvObject, CERT_QUERY_CONTENT_TYPE_FLAGS, dwExpectedContentTypeFlags, CERT_QUERY_FORMAT_TYPE_FLAGS, dwExpectedFormatTypeFlags, "uint", dwFlags, pdwMsgAndCertEncodingTypeMarshal, pdwMsgAndCertEncodingType, pdwContentTypeMarshal, pdwContentType, pdwFormatTypeMarshal, pdwFormatType, HCERTSTORE.Ptr, phCertStore, phMsgMarshal, phMsg, ppvContextMarshal, ppvContext, BOOL)
+    result := DllCall("CRYPT32.dll\CryptQueryObject", CERT_QUERY_OBJECT_TYPE, dwObjectType, pvObjectMarshal, pvObject, CERT_QUERY_CONTENT_TYPE_FLAGS, dwExpectedContentTypeFlags, CERT_QUERY_FORMAT_TYPE_FLAGS, dwExpectedFormatTypeFlags, UInt32, dwFlags, pdwMsgAndCertEncodingTypeMarshal, pdwMsgAndCertEncodingType, pdwContentTypeMarshal, pdwContentType, pdwFormatTypeMarshal, pdwFormatType, HCERTSTORE.Ptr, phCertStore, phMsgMarshal, phMsg, ppvContextMarshal, ppvContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30309,7 +30319,7 @@ export CryptQueryObject(dwObjectType, pvObject, dwExpectedContentTypeFlags, dwEx
  * @since windows5.1.2600
  */
 export CryptMemAlloc(cbSize) {
-    result := DllCall("CRYPT32.dll\CryptMemAlloc", "uint", cbSize, IntPtr)
+    result := DllCall("CRYPT32.dll\CryptMemAlloc", UInt32, cbSize, IntPtr)
     return result
 }
 
@@ -30324,7 +30334,7 @@ export CryptMemAlloc(cbSize) {
 export CryptMemRealloc(pv, cbSize) {
     pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CryptMemRealloc", pvMarshal, pv, "uint", cbSize, IntPtr)
+    result := DllCall("CRYPT32.dll\CryptMemRealloc", pvMarshal, pv, UInt32, cbSize, IntPtr)
     return result
 }
 
@@ -30349,7 +30359,7 @@ export CryptMemFree(pv) {
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptcreateasynchandle
  */
 export CryptCreateAsyncHandle(dwFlags, phAsync) {
-    result := DllCall("CRYPT32.dll\CryptCreateAsyncHandle", "uint", dwFlags, HCRYPTASYNC.Ptr, phAsync, BOOL)
+    result := DllCall("CRYPT32.dll\CryptCreateAsyncHandle", UInt32, dwFlags, HCRYPTASYNC.Ptr, phAsync, BOOL)
     return result
 }
 
@@ -30367,7 +30377,7 @@ export CryptSetAsyncParam(hAsync, pszParamOid, pvParam, _pfnFree) {
 
     pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CryptSetAsyncParam", HCRYPTASYNC, hAsync, "ptr", pszParamOid, pvParamMarshal, pvParam, "ptr", _pfnFree, BOOL)
+    result := DllCall("CRYPT32.dll\CryptSetAsyncParam", HCRYPTASYNC, hAsync, "ptr", pszParamOid, pvParamMarshal, pvParam, PFN_CRYPT_ASYNC_PARAM_FREE_FUNC, _pfnFree, BOOL)
     return result
 }
 
@@ -30654,7 +30664,7 @@ export CryptRetrieveObjectByUrlA(pszUrl, pszObjectOid, dwRetrievalFlags, dwTimeo
     ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
     pvVerifyMarshal := pvVerify is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTNET.dll\CryptRetrieveObjectByUrlA", "ptr", pszUrl, "ptr", pszObjectOid, "uint", dwRetrievalFlags, "uint", dwTimeout, ppvObjectMarshal, ppvObject, HCRYPTASYNC, hAsyncRetrieve, CRYPT_CREDENTIALS.Ptr, pCredentials, pvVerifyMarshal, pvVerify, CRYPT_RETRIEVE_AUX_INFO.Ptr, pAuxInfo, BOOL)
+    result := DllCall("CRYPTNET.dll\CryptRetrieveObjectByUrlA", "ptr", pszUrl, "ptr", pszObjectOid, UInt32, dwRetrievalFlags, UInt32, dwTimeout, ppvObjectMarshal, ppvObject, HCRYPTASYNC, hAsyncRetrieve, CRYPT_CREDENTIALS.Ptr, pCredentials, pvVerifyMarshal, pvVerify, CRYPT_RETRIEVE_AUX_INFO.Ptr, pAuxInfo, BOOL)
     return result
 }
 
@@ -30912,7 +30922,7 @@ export CryptRetrieveObjectByUrlW(pszUrl, pszObjectOid, dwRetrievalFlags, dwTimeo
     ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
     pvVerifyMarshal := pvVerify is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTNET.dll\CryptRetrieveObjectByUrlW", "ptr", pszUrl, "ptr", pszObjectOid, "uint", dwRetrievalFlags, "uint", dwTimeout, ppvObjectMarshal, ppvObject, HCRYPTASYNC, hAsyncRetrieve, CRYPT_CREDENTIALS.Ptr, pCredentials, pvVerifyMarshal, pvVerify, CRYPT_RETRIEVE_AUX_INFO.Ptr, pAuxInfo, BOOL)
+    result := DllCall("CRYPTNET.dll\CryptRetrieveObjectByUrlW", "ptr", pszUrl, "ptr", pszObjectOid, UInt32, dwRetrievalFlags, UInt32, dwTimeout, ppvObjectMarshal, ppvObject, HCRYPTASYNC, hAsyncRetrieve, CRYPT_CREDENTIALS.Ptr, pCredentials, pvVerifyMarshal, pvVerify, CRYPT_RETRIEVE_AUX_INFO.Ptr, pAuxInfo, BOOL)
     return result
 }
 
@@ -30928,7 +30938,7 @@ export CryptInstallCancelRetrieval(pfnCancel, pvArg, dwFlags) {
 
     pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTNET.dll\CryptInstallCancelRetrieval", "ptr", pfnCancel, pvArgMarshal, pvArg, "uint", dwFlags, "ptr", pvReserved, BOOL)
+    result := DllCall("CRYPTNET.dll\CryptInstallCancelRetrieval", PFN_CRYPT_CANCEL_RETRIEVAL, pfnCancel, pvArgMarshal, pvArg, UInt32, dwFlags, "ptr", pvReserved, BOOL)
     return result
 }
 
@@ -30940,7 +30950,7 @@ export CryptInstallCancelRetrieval(pfnCancel, pvArg, dwFlags) {
 export CryptUninstallCancelRetrieval(dwFlags) {
     static pvReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("CRYPTNET.dll\CryptUninstallCancelRetrieval", "uint", dwFlags, "ptr", pvReserved, BOOL)
+    result := DllCall("CRYPTNET.dll\CryptUninstallCancelRetrieval", UInt32, dwFlags, "ptr", pvReserved, BOOL)
     return result
 }
 
@@ -30982,7 +30992,7 @@ export CryptGetObjectUrl(pszUrlOid, pvPara, dwFlags, pUrlArray, pcbUrlArray, pUr
 
     A_LastError := 0
 
-    result := DllCall("CRYPTNET.dll\CryptGetObjectUrl", "ptr", pszUrlOid, pvParaMarshal, pvPara, CRYPT_GET_URL_FLAGS, dwFlags, "ptr", pUrlArray, pcbUrlArrayMarshal, pcbUrlArray, "ptr", pUrlInfo, pcbUrlInfoMarshal, pcbUrlInfo, "ptr", pvReserved, BOOL)
+    result := DllCall("CRYPTNET.dll\CryptGetObjectUrl", "ptr", pszUrlOid, pvParaMarshal, pvPara, CRYPT_GET_URL_FLAGS, dwFlags, IntPtr, pUrlArray, pcbUrlArrayMarshal, pcbUrlArray, IntPtr, pUrlInfo, pcbUrlInfoMarshal, pcbUrlInfo, "ptr", pvReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -31103,7 +31113,7 @@ export CryptGetKeyIdentifierProperty(pKeyIdentifier, dwPropId, dwFlags, pwszComp
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptGetKeyIdentifierProperty", CRYPT_INTEGER_BLOB.Ptr, pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, "ptr", pvData, pcbDataMarshal, pcbData, BOOL)
+    result := DllCall("CRYPT32.dll\CryptGetKeyIdentifierProperty", CRYPT_INTEGER_BLOB.Ptr, pKeyIdentifier, UInt32, dwPropId, UInt32, dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -31183,7 +31193,7 @@ export CryptSetKeyIdentifierProperty(pKeyIdentifier, dwPropId, dwFlags, pwszComp
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptSetKeyIdentifierProperty", CRYPT_INTEGER_BLOB.Ptr, pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, pvDataMarshal, pvData, BOOL)
+    result := DllCall("CRYPT32.dll\CryptSetKeyIdentifierProperty", CRYPT_INTEGER_BLOB.Ptr, pKeyIdentifier, UInt32, dwPropId, UInt32, dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, pvDataMarshal, pvData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -31240,7 +31250,7 @@ export CryptEnumKeyIdentifierProperties(pKeyIdentifier, dwPropId, dwFlags, pwszC
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptEnumKeyIdentifierProperties", CRYPT_INTEGER_BLOB.Ptr, pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, pvArgMarshal, pvArg, "ptr", pfnEnum, BOOL)
+    result := DllCall("CRYPT32.dll\CryptEnumKeyIdentifierProperties", CRYPT_INTEGER_BLOB.Ptr, pKeyIdentifier, UInt32, dwPropId, UInt32, dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, pvArgMarshal, pvArg, PFN_CRYPT_ENUM_KEYID_PROP, pfnEnum, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -31287,7 +31297,7 @@ export CryptCreateKeyIdentifierFromCSP(dwCertEncodingType, pszPubKeyOID, pPubKey
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptCreateKeyIdentifierFromCSP", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPubKeyOID, "ptr", pPubKeyStruc, "uint", cbPubKeyStruc, "uint", dwFlags, "ptr", pvReserved, "ptr", pbHash, pcbHashMarshal, pcbHash, BOOL)
+    result := DllCall("CRYPT32.dll\CryptCreateKeyIdentifierFromCSP", CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPubKeyOID, IntPtr, pPubKeyStruc, UInt32, cbPubKeyStruc, UInt32, dwFlags, "ptr", pvReserved, IntPtr, pbHash, pcbHashMarshal, pcbHash, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -31612,7 +31622,7 @@ export CertGetCertificateChain(hChainEngine, pCertContext, pTime, hAdditionalSto
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertGetCertificateChain", HCERTCHAINENGINE, hChainEngine, CERT_CONTEXT.Ptr, pCertContext, FILETIME.Ptr, pTime, HCERTSTORE, hAdditionalStore, CERT_CHAIN_PARA.Ptr, pChainPara, "uint", dwFlags, "ptr", pvReserved, ppChainContextMarshal, ppChainContext, BOOL)
+    result := DllCall("CRYPT32.dll\CertGetCertificateChain", HCERTCHAINENGINE, hChainEngine, CERT_CONTEXT.Ptr, pCertContext, FILETIME.Ptr, pTime, HCERTSTORE, hAdditionalStore, CERT_CHAIN_PARA.Ptr, pChainPara, UInt32, dwFlags, "ptr", pvReserved, ppChainContextMarshal, ppChainContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -31693,7 +31703,7 @@ export CertDuplicateCertificateChain(pChainContext) {
 export CertFindChainInStore(_hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevChainContext) {
     pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertFindChainInStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_FIND_CHAIN_IN_STORE_FLAGS, dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, CERT_CHAIN_CONTEXT.Ptr, pPrevChainContext, CERT_CHAIN_CONTEXT.Ptr)
+    result := DllCall("CRYPT32.dll\CertFindChainInStore", HCERTSTORE, _hCertStore, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_FIND_CHAIN_IN_STORE_FLAGS, dwFindFlags, UInt32, dwFindType, pvFindParaMarshal, pvFindPara, CERT_CHAIN_CONTEXT.Ptr, pPrevChainContext, CERT_CHAIN_CONTEXT.Ptr)
     return result
 }
 
@@ -31942,7 +31952,7 @@ export CryptStringToBinaryA(pszString, cchString, dwFlags, pbBinary, pcbBinary, 
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptStringToBinaryA", "ptr", pszString, "uint", cchString, CRYPT_STRING, dwFlags, "ptr", pbBinary, pcbBinaryMarshal, pcbBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CryptStringToBinaryA", "ptr", pszString, UInt32, cchString, CRYPT_STRING, dwFlags, IntPtr, pbBinary, pcbBinaryMarshal, pcbBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -32015,7 +32025,7 @@ export CryptStringToBinaryW(pszString, cchString, dwFlags, pbBinary, pcbBinary, 
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptStringToBinaryW", "ptr", pszString, "uint", cchString, CRYPT_STRING, dwFlags, "ptr", pbBinary, pcbBinaryMarshal, pcbBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CryptStringToBinaryW", "ptr", pszString, UInt32, cchString, CRYPT_STRING, dwFlags, IntPtr, pbBinary, pcbBinaryMarshal, pcbBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -32050,7 +32060,7 @@ export CryptBinaryToStringA(pbBinary, cbBinary, dwFlags, pszString, pcchString) 
 
     pcchStringMarshal := pcchString is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CryptBinaryToStringA", "ptr", pbBinary, "uint", cbBinary, CRYPT_STRING, dwFlags, "ptr", pszString, pcchStringMarshal, pcchString, BOOL)
+    result := DllCall("CRYPT32.dll\CryptBinaryToStringA", IntPtr, pbBinary, UInt32, cbBinary, CRYPT_STRING, dwFlags, "ptr", pszString, pcchStringMarshal, pcchString, BOOL)
     return result
 }
 
@@ -32081,7 +32091,7 @@ export CryptBinaryToStringW(pbBinary, cbBinary, dwFlags, pszString, pcchString) 
 
     pcchStringMarshal := pcchString is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CryptBinaryToStringW", "ptr", pbBinary, "uint", cbBinary, CRYPT_STRING, dwFlags, "ptr", pszString, pcchStringMarshal, pcchString, BOOL)
+    result := DllCall("CRYPT32.dll\CryptBinaryToStringW", IntPtr, pbBinary, UInt32, cbBinary, CRYPT_STRING, dwFlags, "ptr", pszString, pcchStringMarshal, pcchString, BOOL)
     return result
 }
 
@@ -32206,7 +32216,7 @@ export PFXIsPFXBlob(pPFX) {
 export PFXVerifyPassword(pPFX, szPassword, dwFlags) {
     szPassword := szPassword is String ? StrPtr(szPassword) : szPassword
 
-    result := DllCall("CRYPT32.dll\PFXVerifyPassword", CRYPT_INTEGER_BLOB.Ptr, pPFX, "ptr", szPassword, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\PFXVerifyPassword", CRYPT_INTEGER_BLOB.Ptr, pPFX, "ptr", szPassword, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -32325,7 +32335,7 @@ export PFXExportCertStoreEx(hStore, pPFX, szPassword, pvPara, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\PFXExportCertStoreEx", HCERTSTORE, hStore, CRYPT_INTEGER_BLOB.Ptr, pPFX, "ptr", szPassword, pvParaMarshal, pvPara, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\PFXExportCertStoreEx", HCERTSTORE, hStore, CRYPT_INTEGER_BLOB.Ptr, pPFX, "ptr", szPassword, pvParaMarshal, pvPara, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -32386,7 +32396,7 @@ export PFXExportCertStore(hStore, pPFX, szPassword, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\PFXExportCertStore", HCERTSTORE, hStore, CRYPT_INTEGER_BLOB.Ptr, pPFX, "ptr", szPassword, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\PFXExportCertStore", HCERTSTORE, hStore, CRYPT_INTEGER_BLOB.Ptr, pPFX, "ptr", szPassword, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -32556,7 +32566,7 @@ export PFXExportCertStore(hStore, pPFX, szPassword, dwFlags) {
 export CertOpenServerOcspResponse(pChainContext, dwFlags, pOpenPara) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertOpenServerOcspResponse", CERT_CHAIN_CONTEXT.Ptr, pChainContext, "uint", dwFlags, CERT_SERVER_OCSP_RESPONSE_OPEN_PARA.Ptr, pOpenPara, IntPtr)
+    result := DllCall("CRYPT32.dll\CertOpenServerOcspResponse", CERT_CHAIN_CONTEXT.Ptr, pChainContext, UInt32, dwFlags, CERT_SERVER_OCSP_RESPONSE_OPEN_PARA.Ptr, pOpenPara, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -32592,7 +32602,7 @@ export CertAddRefServerOcspResponse(hServerOcspResponse) {
 export CertCloseServerOcspResponse(hServerOcspResponse, dwFlags) {
     hServerOcspResponseMarshal := hServerOcspResponse is VarRef ? "ptr" : "ptr"
 
-    DllCall("CRYPT32.dll\CertCloseServerOcspResponse", hServerOcspResponseMarshal, hServerOcspResponse, "uint", dwFlags)
+    DllCall("CRYPT32.dll\CertCloseServerOcspResponse", hServerOcspResponseMarshal, hServerOcspResponse, UInt32, dwFlags)
 }
 
 /**
@@ -32616,7 +32626,7 @@ export CertGetServerOcspResponseContext(hServerOcspResponse, dwFlags) {
 
     hServerOcspResponseMarshal := hServerOcspResponse is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPT32.dll\CertGetServerOcspResponseContext", hServerOcspResponseMarshal, hServerOcspResponse, "uint", dwFlags, "ptr", pvReserved, CERT_SERVER_OCSP_RESPONSE_CONTEXT.Ptr)
+    result := DllCall("CRYPT32.dll\CertGetServerOcspResponseContext", hServerOcspResponseMarshal, hServerOcspResponse, UInt32, dwFlags, "ptr", pvReserved, CERT_SERVER_OCSP_RESPONSE_CONTEXT.Ptr)
     return result
 }
 
@@ -32810,7 +32820,7 @@ export CertRetrieveLogoOrBiometricInfo(pCertContext, lpszLogoOrBiometricType, dw
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertRetrieveLogoOrBiometricInfo", CERT_CONTEXT.Ptr, pCertContext, "ptr", lpszLogoOrBiometricType, "uint", dwRetrievalFlags, "uint", dwTimeout, "uint", dwFlags, "ptr", pvReserved, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, ppwszMimeTypeMarshal, ppwszMimeType, BOOL)
+    result := DllCall("CRYPT32.dll\CertRetrieveLogoOrBiometricInfo", CERT_CONTEXT.Ptr, pCertContext, "ptr", lpszLogoOrBiometricType, UInt32, dwRetrievalFlags, UInt32, dwTimeout, UInt32, dwFlags, "ptr", pvReserved, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, ppwszMimeTypeMarshal, ppwszMimeType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -32976,7 +32986,7 @@ export CertSelectCertificateChains(pSelectionContext, dwFlags, pChainParameters,
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CertSelectCertificateChains", Guid.Ptr, pSelectionContext, "uint", dwFlags, CERT_SELECT_CHAIN_PARA.Ptr, pChainParameters, "uint", cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, HCERTSTORE, hStore, pcSelectionMarshal, pcSelection, pprgpSelectionMarshal, pprgpSelection, BOOL)
+    result := DllCall("CRYPT32.dll\CertSelectCertificateChains", Guid.Ptr, pSelectionContext, UInt32, dwFlags, CERT_SELECT_CHAIN_PARA.Ptr, pChainParameters, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, HCERTSTORE, hStore, pcSelectionMarshal, pcSelection, pprgpSelectionMarshal, pprgpSelection, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -33077,7 +33087,7 @@ export CryptRetrieveTimeStamp(wszUrl, dwRetrievalFlags, dwTimeout, pszHashId, pP
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptRetrieveTimeStamp", "ptr", wszUrl, "uint", dwRetrievalFlags, "uint", dwTimeout, "ptr", pszHashId, CRYPT_TIMESTAMP_PARA.Ptr, pPara, "ptr", pbData, "uint", cbData, ppTsContextMarshal, ppTsContext, ppTsSignerMarshal, ppTsSigner, HCERTSTORE.Ptr, phStore, BOOL)
+    result := DllCall("CRYPT32.dll\CryptRetrieveTimeStamp", "ptr", wszUrl, UInt32, dwRetrievalFlags, UInt32, dwTimeout, "ptr", pszHashId, CRYPT_TIMESTAMP_PARA.Ptr, pPara, IntPtr, pbData, UInt32, cbData, ppTsContextMarshal, ppTsContext, ppTsSignerMarshal, ppTsSigner, HCERTSTORE.Ptr, phStore, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -33117,7 +33127,7 @@ export CryptVerifyTimeStampSignature(pbTSContentInfo, cbTSContentInfo, pbData, c
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptVerifyTimeStampSignature", "ptr", pbTSContentInfo, "uint", cbTSContentInfo, "ptr", pbData, "uint", cbData, HCERTSTORE, hAdditionalStore, ppTsContextMarshal, ppTsContext, ppTsSignerMarshal, ppTsSigner, HCERTSTORE.Ptr, phStore, BOOL)
+    result := DllCall("CRYPT32.dll\CryptVerifyTimeStampSignature", IntPtr, pbTSContentInfo, UInt32, cbTSContentInfo, IntPtr, pbData, UInt32, cbData, HCERTSTORE, hAdditionalStore, ppTsContextMarshal, ppTsContext, ppTsSignerMarshal, ppTsSigner, HCERTSTORE.Ptr, phStore, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -33139,7 +33149,7 @@ export CertIsWeakHash(dwHashUseType, pwszCNGHashAlgid, dwChainFlags, pSignerChai
     pwszCNGHashAlgid := pwszCNGHashAlgid is String ? StrPtr(pwszCNGHashAlgid) : pwszCNGHashAlgid
     pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-    result := DllCall("CRYPT32.dll\CertIsWeakHash", "uint", dwHashUseType, "ptr", pwszCNGHashAlgid, "uint", dwChainFlags, CERT_CHAIN_CONTEXT.Ptr, pSignerChainContext, FILETIME.Ptr, pTimeStamp, "ptr", pwszFileName, BOOL)
+    result := DllCall("CRYPT32.dll\CertIsWeakHash", UInt32, dwHashUseType, "ptr", pwszCNGHashAlgid, UInt32, dwChainFlags, CERT_CHAIN_CONTEXT.Ptr, pSignerChainContext, FILETIME.Ptr, pTimeStamp, "ptr", pwszFileName, BOOL)
     return result
 }
 
@@ -33218,7 +33228,7 @@ export CryptProtectData(pDataIn, szDataDescr, pOptionalEntropy, pPromptStruct, d
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptProtectData", CRYPT_INTEGER_BLOB.Ptr, pDataIn, "ptr", szDataDescr, CRYPT_INTEGER_BLOB.Ptr, pOptionalEntropy, "ptr", pvReserved, CRYPTPROTECT_PROMPTSTRUCT.Ptr, pPromptStruct, "uint", dwFlags, CRYPT_INTEGER_BLOB.Ptr, pDataOut, BOOL)
+    result := DllCall("CRYPT32.dll\CryptProtectData", CRYPT_INTEGER_BLOB.Ptr, pDataIn, "ptr", szDataDescr, CRYPT_INTEGER_BLOB.Ptr, pOptionalEntropy, "ptr", pvReserved, CRYPTPROTECT_PROMPTSTRUCT.Ptr, pPromptStruct, UInt32, dwFlags, CRYPT_INTEGER_BLOB.Ptr, pDataOut, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -33286,7 +33296,7 @@ export CryptUnprotectData(pDataIn, ppszDataDescr, pOptionalEntropy, pPromptStruc
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptUnprotectData", CRYPT_INTEGER_BLOB.Ptr, pDataIn, ppszDataDescrMarshal, ppszDataDescr, CRYPT_INTEGER_BLOB.Ptr, pOptionalEntropy, "ptr", pvReserved, CRYPTPROTECT_PROMPTSTRUCT.Ptr, pPromptStruct, "uint", dwFlags, CRYPT_INTEGER_BLOB.Ptr, pDataOut, BOOL)
+    result := DllCall("CRYPT32.dll\CryptUnprotectData", CRYPT_INTEGER_BLOB.Ptr, pDataIn, ppszDataDescrMarshal, ppszDataDescr, CRYPT_INTEGER_BLOB.Ptr, pOptionalEntropy, "ptr", pvReserved, CRYPTPROTECT_PROMPTSTRUCT.Ptr, pPromptStruct, UInt32, dwFlags, CRYPT_INTEGER_BLOB.Ptr, pDataOut, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -33369,7 +33379,7 @@ export CryptUpdateProtectedState(pOldSid, pwszOldPassword, dwFlags, pdwSuccessCo
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptUpdateProtectedState", PSID, pOldSid, "ptr", pwszOldPassword, "uint", dwFlags, pdwSuccessCountMarshal, pdwSuccessCount, pdwFailureCountMarshal, pdwFailureCount, BOOL)
+    result := DllCall("CRYPT32.dll\CryptUpdateProtectedState", PSID, pOldSid, "ptr", pwszOldPassword, UInt32, dwFlags, pdwSuccessCountMarshal, pdwSuccessCount, pdwFailureCountMarshal, pdwFailureCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -33440,7 +33450,7 @@ export CryptProtectMemory(pDataIn, cbDataIn, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptProtectMemory", pDataInMarshal, pDataIn, "uint", cbDataIn, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CryptProtectMemory", pDataInMarshal, pDataIn, UInt32, cbDataIn, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -33509,7 +33519,7 @@ export CryptUnprotectMemory(pDataIn, cbDataIn, dwFlags) {
 
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptUnprotectMemory", pDataInMarshal, pDataIn, "uint", cbDataIn, "uint", dwFlags, BOOL)
+    result := DllCall("CRYPT32.dll\CryptUnprotectMemory", pDataInMarshal, pDataIn, UInt32, cbDataIn, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -33572,7 +33582,7 @@ export NCryptRegisterProtectionDescriptorName(pwszName, pwszDescriptorString, dw
     pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
     pwszDescriptorString := pwszDescriptorString is String ? StrPtr(pwszDescriptorString) : pwszDescriptorString
 
-    result := DllCall("ncrypt.dll\NCryptRegisterProtectionDescriptorName", "ptr", pwszName, "ptr", pwszDescriptorString, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptRegisterProtectionDescriptorName", "ptr", pwszName, "ptr", pwszDescriptorString, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -33634,7 +33644,7 @@ export NCryptQueryProtectionDescriptorName(pwszName, pwszDescriptorString, pcDes
 
     pcDescriptorStringMarshal := pcDescriptorString is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptQueryProtectionDescriptorName", "ptr", pwszName, "ptr", pwszDescriptorString, pcDescriptorStringMarshal, pcDescriptorString, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptQueryProtectionDescriptorName", "ptr", pwszName, "ptr", pwszDescriptorString, pcDescriptorStringMarshal, pcDescriptorString, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -33694,7 +33704,7 @@ export NCryptCreateProtectionDescriptor(pwszDescriptorString, dwFlags) {
     pwszDescriptorString := pwszDescriptorString is String ? StrPtr(pwszDescriptorString) : pwszDescriptorString
 
     phDescriptor := NCRYPT_DESCRIPTOR_HANDLE()
-    result := DllCall("ncrypt.dll\NCryptCreateProtectionDescriptor", "ptr", pwszDescriptorString, "uint", dwFlags, NCRYPT_DESCRIPTOR_HANDLE.Ptr, phDescriptor, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptCreateProtectionDescriptor", "ptr", pwszDescriptorString, UInt32, dwFlags, NCRYPT_DESCRIPTOR_HANDLE.Ptr, phDescriptor, "HRESULT")
     return phDescriptor
 }
 
@@ -33766,7 +33776,7 @@ export NCryptCloseProtectionDescriptor(hDescriptor) {
  * @since windows8.0
  */
 export NCryptGetProtectionDescriptorInfo(hDescriptor, pMemPara, dwInfoType) {
-    result := DllCall("ncrypt.dll\NCryptGetProtectionDescriptorInfo", NCRYPT_DESCRIPTOR_HANDLE, hDescriptor, NCRYPT_ALLOC_PARA.Ptr, pMemPara, "uint", dwInfoType, "ptr*", &ppvInfo := 0, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptGetProtectionDescriptorInfo", NCRYPT_DESCRIPTOR_HANDLE, hDescriptor, NCRYPT_ALLOC_PARA.Ptr, pMemPara, UInt32, dwInfoType, "ptr*", &ppvInfo := 0, "HRESULT")
     return ppvInfo
 }
 
@@ -33860,7 +33870,7 @@ export NCryptProtectSecret(hDescriptor, dwFlags, pbData, cbData, pMemPara, _hWnd
     ppbProtectedBlobMarshal := ppbProtectedBlob is VarRef ? "ptr*" : "ptr"
     pcbProtectedBlobMarshal := pcbProtectedBlob is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptProtectSecret", NCRYPT_DESCRIPTOR_HANDLE, hDescriptor, "uint", dwFlags, "ptr", pbData, "uint", cbData, NCRYPT_ALLOC_PARA.Ptr, pMemPara, HWND, _hWnd, ppbProtectedBlobMarshal, ppbProtectedBlob, pcbProtectedBlobMarshal, pcbProtectedBlob, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptProtectSecret", NCRYPT_DESCRIPTOR_HANDLE, hDescriptor, UInt32, dwFlags, IntPtr, pbData, UInt32, cbData, NCRYPT_ALLOC_PARA.Ptr, pMemPara, HWND, _hWnd, ppbProtectedBlobMarshal, ppbProtectedBlob, pcbProtectedBlobMarshal, pcbProtectedBlob, "HRESULT")
     return result
 }
 
@@ -33926,7 +33936,7 @@ export NCryptUnprotectSecret(phDescriptor, dwFlags, pbProtectedBlob, cbProtected
     ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
     pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ncrypt.dll\NCryptUnprotectSecret", NCRYPT_DESCRIPTOR_HANDLE.Ptr, phDescriptor, NCRYPT_FLAGS, dwFlags, "ptr", pbProtectedBlob, "uint", cbProtectedBlob, NCRYPT_ALLOC_PARA.Ptr, pMemPara, HWND, _hWnd, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptUnprotectSecret", NCRYPT_DESCRIPTOR_HANDLE.Ptr, phDescriptor, NCRYPT_FLAGS, dwFlags, IntPtr, pbProtectedBlob, UInt32, cbProtectedBlob, NCRYPT_ALLOC_PARA.Ptr, pMemPara, HWND, _hWnd, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
     return result
 }
 
@@ -33965,7 +33975,7 @@ export NCryptUnprotectSecret(phDescriptor, dwFlags, pbProtectedBlob, cbProtected
  */
 export NCryptStreamOpenToProtect(hDescriptor, dwFlags, _hWnd, pStreamInfo) {
     phStream := NCRYPT_STREAM_HANDLE()
-    result := DllCall("ncrypt.dll\NCryptStreamOpenToProtect", NCRYPT_DESCRIPTOR_HANDLE, hDescriptor, "uint", dwFlags, HWND, _hWnd, NCRYPT_PROTECT_STREAM_INFO.Ptr, pStreamInfo, NCRYPT_STREAM_HANDLE.Ptr, phStream, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptStreamOpenToProtect", NCRYPT_DESCRIPTOR_HANDLE, hDescriptor, UInt32, dwFlags, HWND, _hWnd, NCRYPT_PROTECT_STREAM_INFO.Ptr, pStreamInfo, NCRYPT_STREAM_HANDLE.Ptr, phStream, "HRESULT")
     return phStream
 }
 
@@ -34003,7 +34013,7 @@ export NCryptStreamOpenToProtect(hDescriptor, dwFlags, _hWnd, pStreamInfo) {
  */
 export NCryptStreamOpenToUnprotect(pStreamInfo, dwFlags, _hWnd) {
     phStream := NCRYPT_STREAM_HANDLE()
-    result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotect", NCRYPT_PROTECT_STREAM_INFO.Ptr, pStreamInfo, "uint", dwFlags, HWND, _hWnd, NCRYPT_STREAM_HANDLE.Ptr, phStream, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotect", NCRYPT_PROTECT_STREAM_INFO.Ptr, pStreamInfo, UInt32, dwFlags, HWND, _hWnd, NCRYPT_STREAM_HANDLE.Ptr, phStream, "HRESULT")
     return phStream
 }
 
@@ -34018,7 +34028,7 @@ export NCryptStreamOpenToUnprotect(pStreamInfo, dwFlags, _hWnd) {
  */
 export NCryptStreamOpenToUnprotectEx(pStreamInfo, dwFlags, _hWnd) {
     phStream := NCRYPT_STREAM_HANDLE()
-    result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotectEx", NCRYPT_PROTECT_STREAM_INFO_EX.Ptr, pStreamInfo, "uint", dwFlags, HWND, _hWnd, NCRYPT_STREAM_HANDLE.Ptr, phStream, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotectEx", NCRYPT_PROTECT_STREAM_INFO_EX.Ptr, pStreamInfo, UInt32, dwFlags, HWND, _hWnd, NCRYPT_STREAM_HANDLE.Ptr, phStream, "HRESULT")
     return phStream
 }
 
@@ -34143,7 +34153,7 @@ export NCryptStreamOpenToUnprotectEx(pStreamInfo, dwFlags, _hWnd) {
  * @since windows8.0
  */
 export NCryptStreamUpdate(hStream, pbData, cbData, fFinal) {
-    result := DllCall("ncrypt.dll\NCryptStreamUpdate", NCRYPT_STREAM_HANDLE, hStream, "ptr", pbData, "ptr", cbData, BOOL, fFinal, "HRESULT")
+    result := DllCall("ncrypt.dll\NCryptStreamUpdate", NCRYPT_STREAM_HANDLE, hStream, IntPtr, pbData, IntPtr, cbData, BOOL, fFinal, "HRESULT")
     return result
 }
 
@@ -34432,7 +34442,7 @@ export SignerTimeStampEx(pSubjectInfo, pwszHttpTimeStamp, psRequest, pSipData) {
 
     pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("Mssign32.dll\SignerTimeStampEx", "uint", dwFlags, SIGNER_SUBJECT_INFO.Ptr, pSubjectInfo, "ptr", pwszHttpTimeStamp, CRYPT_ATTRIBUTES.Ptr, psRequest, pSipDataMarshal, pSipData, "ptr*", &ppSignerContext := 0, "HRESULT")
+    result := DllCall("Mssign32.dll\SignerTimeStampEx", UInt32, dwFlags, SIGNER_SUBJECT_INFO.Ptr, pSubjectInfo, "ptr", pwszHttpTimeStamp, CRYPT_ATTRIBUTES.Ptr, psRequest, pSipDataMarshal, pSipData, "ptr*", &ppSignerContext := 0, "HRESULT")
     return ppSignerContext
 }
 
@@ -34494,7 +34504,7 @@ export SignerTimeStampEx3(dwFlags, dwIndex, pSubjectInfo, pwszHttpTimeStamp, psz
 
     pSipDataMarshal := pSipData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("Mssign32.dll\SignerTimeStampEx3", SIGNER_TIMESTAMP_FLAGS, dwFlags, "uint", dwIndex, SIGNER_SUBJECT_INFO.Ptr, pSubjectInfo, "ptr", pwszHttpTimeStamp, "ptr", pszAlgorithmOid, CRYPT_ATTRIBUTES.Ptr, psRequest, pSipDataMarshal, pSipData, "ptr*", &ppSignerContext := 0, CERT_STRONG_SIGN_PARA.Ptr, pCryptoPolicy, "ptr", pReserved, "HRESULT")
+    result := DllCall("Mssign32.dll\SignerTimeStampEx3", SIGNER_TIMESTAMP_FLAGS, dwFlags, UInt32, dwIndex, SIGNER_SUBJECT_INFO.Ptr, pSubjectInfo, "ptr", pwszHttpTimeStamp, "ptr", pszAlgorithmOid, CRYPT_ATTRIBUTES.Ptr, psRequest, pSipDataMarshal, pSipData, "ptr*", &ppSignerContext := 0, CERT_STRONG_SIGN_PARA.Ptr, pCryptoPolicy, "ptr", pReserved, "HRESULT")
     return ppSignerContext
 }
 
@@ -34543,7 +34553,7 @@ export CryptXmlGetTransforms() {
 export CryptXmlOpenToEncode(pConfig, dwFlags, wszId, rgProperty, _cProperty, pEncoded) {
     wszId := wszId is String ? StrPtr(wszId) : wszId
 
-    result := DllCall("CRYPTXML.dll\CryptXmlOpenToEncode", CRYPT_XML_TRANSFORM_CHAIN_CONFIG.Ptr, pConfig, CRYPT_XML_FLAGS, dwFlags, "ptr", wszId, CRYPT_XML_PROPERTY.Ptr, rgProperty, "uint", _cProperty, CRYPT_XML_BLOB.Ptr, pEncoded, "ptr*", &phSignature := 0, "HRESULT")
+    result := DllCall("CRYPTXML.dll\CryptXmlOpenToEncode", CRYPT_XML_TRANSFORM_CHAIN_CONFIG.Ptr, pConfig, CRYPT_XML_FLAGS, dwFlags, "ptr", wszId, CRYPT_XML_PROPERTY.Ptr, rgProperty, UInt32, _cProperty, CRYPT_XML_BLOB.Ptr, pEncoded, "ptr*", &phSignature := 0, "HRESULT")
     return phSignature
 }
 
@@ -34561,7 +34571,7 @@ export CryptXmlOpenToEncode(pConfig, dwFlags, wszId, rgProperty, _cProperty, pEn
  * @since windows6.1
  */
 export CryptXmlOpenToDecode(pConfig, dwFlags, rgProperty, _cProperty, pEncoded) {
-    result := DllCall("CRYPTXML.dll\CryptXmlOpenToDecode", CRYPT_XML_TRANSFORM_CHAIN_CONFIG.Ptr, pConfig, CRYPT_XML_FLAGS, dwFlags, CRYPT_XML_PROPERTY.Ptr, rgProperty, "uint", _cProperty, CRYPT_XML_BLOB.Ptr, pEncoded, "ptr*", &phCryptXml := 0, "HRESULT")
+    result := DllCall("CRYPTXML.dll\CryptXmlOpenToDecode", CRYPT_XML_TRANSFORM_CHAIN_CONFIG.Ptr, pConfig, CRYPT_XML_FLAGS, dwFlags, CRYPT_XML_PROPERTY.Ptr, rgProperty, UInt32, _cProperty, CRYPT_XML_BLOB.Ptr, pEncoded, "ptr*", &phCryptXml := 0, "HRESULT")
     return phCryptXml
 }
 
@@ -34609,7 +34619,7 @@ export CryptXmlOpenToDecode(pConfig, dwFlags, rgProperty, _cProperty, pEncoded) 
 export CryptXmlAddObject(hSignatureOrObject, dwFlags, rgProperty, _cProperty, pEncoded) {
     hSignatureOrObjectMarshal := hSignatureOrObject is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTXML.dll\CryptXmlAddObject", hSignatureOrObjectMarshal, hSignatureOrObject, "uint", dwFlags, CRYPT_XML_PROPERTY.Ptr, rgProperty, "uint", _cProperty, CRYPT_XML_BLOB.Ptr, pEncoded, "ptr*", &ppObject := 0, "HRESULT")
+    result := DllCall("CRYPTXML.dll\CryptXmlAddObject", hSignatureOrObjectMarshal, hSignatureOrObject, UInt32, dwFlags, CRYPT_XML_PROPERTY.Ptr, rgProperty, UInt32, _cProperty, CRYPT_XML_BLOB.Ptr, pEncoded, "ptr*", &ppObject := 0, "HRESULT")
     return ppObject
 }
 
@@ -34666,7 +34676,7 @@ export CryptXmlCreateReference(hCryptXml, dwFlags, wszId, wszURI, wszType, pDige
 
     hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTXML.dll\CryptXmlCreateReference", hCryptXmlMarshal, hCryptXml, "uint", dwFlags, "ptr", wszId, "ptr", wszURI, "ptr", wszType, CRYPT_XML_ALGORITHM.Ptr, pDigestMethod, "uint", cTransform, CRYPT_XML_ALGORITHM.Ptr, rgTransform, "ptr*", &phReference := 0, "HRESULT")
+    result := DllCall("CRYPTXML.dll\CryptXmlCreateReference", hCryptXmlMarshal, hCryptXml, UInt32, dwFlags, "ptr", wszId, "ptr", wszURI, "ptr", wszType, CRYPT_XML_ALGORITHM.Ptr, pDigestMethod, UInt32, cTransform, CRYPT_XML_ALGORITHM.Ptr, rgTransform, "ptr*", &phReference := 0, "HRESULT")
     return phReference
 }
 
@@ -34715,7 +34725,7 @@ export CryptXmlCreateReference(hCryptXml, dwFlags, wszId, wszURI, wszType, pDige
 export CryptXmlDigestReference(hReference, dwFlags, pDataProviderIn) {
     hReferenceMarshal := hReference is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTXML.dll\CryptXmlDigestReference", hReferenceMarshal, hReference, "uint", dwFlags, CRYPT_XML_DATA_PROVIDER.Ptr, pDataProviderIn, "HRESULT")
+    result := DllCall("CRYPTXML.dll\CryptXmlDigestReference", hReferenceMarshal, hReference, UInt32, dwFlags, CRYPT_XML_DATA_PROVIDER.Ptr, pDataProviderIn, "HRESULT")
     return result
 }
 
@@ -34734,7 +34744,7 @@ export CryptXmlDigestReference(hReference, dwFlags, pDataProviderIn) {
 export CryptXmlSetHMACSecret(hSignature, pbSecret, cbSecret) {
     hSignatureMarshal := hSignature is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTXML.dll\CryptXmlSetHMACSecret", hSignatureMarshal, hSignature, "ptr", pbSecret, "uint", cbSecret, "HRESULT")
+    result := DllCall("CRYPTXML.dll\CryptXmlSetHMACSecret", hSignatureMarshal, hSignature, IntPtr, pbSecret, UInt32, cbSecret, "HRESULT")
     return result
 }
 
@@ -34914,7 +34924,7 @@ export CryptXmlEncode(hCryptXml, dwCharset, rgProperty, _cProperty, pvCallbackSt
     hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
     pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTXML.dll\CryptXmlEncode", hCryptXmlMarshal, hCryptXml, CRYPT_XML_CHARSET, dwCharset, CRYPT_XML_PROPERTY.Ptr, rgProperty, "uint", _cProperty, pvCallbackStateMarshal, pvCallbackState, "ptr", _pfnWrite, "HRESULT")
+    result := DllCall("CRYPTXML.dll\CryptXmlEncode", hCryptXmlMarshal, hCryptXml, CRYPT_XML_CHARSET, dwCharset, CRYPT_XML_PROPERTY.Ptr, rgProperty, UInt32, _cProperty, pvCallbackStateMarshal, pvCallbackState, PFN_CRYPT_XML_WRITE_CALLBACK, _pfnWrite, "HRESULT")
     return result
 }
 
@@ -34942,7 +34952,7 @@ export CryptXmlGetAlgorithmInfo(pXmlAlgorithm, dwFlags) {
 export CryptXmlFindAlgorithmInfo(dwFindByType, pvFindBy, dwGroupId, dwFlags) {
     pvFindByMarshal := pvFindBy is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTXML.dll\CryptXmlFindAlgorithmInfo", "uint", dwFindByType, pvFindByMarshal, pvFindBy, "uint", dwGroupId, "uint", dwFlags, CRYPT_XML_ALGORITHM_INFO.Ptr)
+    result := DllCall("CRYPTXML.dll\CryptXmlFindAlgorithmInfo", UInt32, dwFindByType, pvFindByMarshal, pvFindBy, UInt32, dwGroupId, UInt32, dwFlags, CRYPT_XML_ALGORITHM_INFO.Ptr)
     return result
 }
 
@@ -34957,7 +34967,7 @@ export CryptXmlFindAlgorithmInfo(dwFindByType, pvFindBy, dwGroupId, dwFlags) {
 export CryptXmlEnumAlgorithmInfo(dwGroupId, dwFlags, pvArg, pfnEnumAlgInfo) {
     pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("CRYPTXML.dll\CryptXmlEnumAlgorithmInfo", "uint", dwGroupId, "uint", dwFlags, pvArgMarshal, pvArg, "ptr", pfnEnumAlgInfo, "HRESULT")
+    result := DllCall("CRYPTXML.dll\CryptXmlEnumAlgorithmInfo", UInt32, dwGroupId, UInt32, dwFlags, pvArgMarshal, pvArg, PFN_CRYPT_XML_ENUM_ALG_INFO, pfnEnumAlgInfo, "HRESULT")
     return result
 }
 
@@ -34973,7 +34983,7 @@ export GetToken(cPolicyChain, pPolicyChain, securityToken, phProofTokenCrypto) {
     securityTokenMarshal := securityToken is VarRef ? "ptr*" : "ptr"
     phProofTokenCryptoMarshal := phProofTokenCrypto is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("infocardapi.dll\GetToken", "uint", cPolicyChain, POLICY_ELEMENT.Ptr, pPolicyChain, securityTokenMarshal, securityToken, phProofTokenCryptoMarshal, phProofTokenCrypto, "HRESULT")
+    result := DllCall("infocardapi.dll\GetToken", UInt32, cPolicyChain, POLICY_ELEMENT.Ptr, pPolicyChain, securityTokenMarshal, securityToken, phProofTokenCryptoMarshal, phProofTokenCrypto, "HRESULT")
     return result
 }
 
@@ -35017,7 +35027,7 @@ export ImportInformationCard(fileName) {
  * @see https://learn.microsoft.com/windows/win32/SecProv/encrypt-win32-encryptablevolume
  */
 export Encrypt(hCrypto, fOAEP, cbInData, pInData, ppOutData) {
-    result := DllCall("infocardapi.dll\Encrypt", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, BOOL, fOAEP, "uint", cbInData, "ptr", pInData, "uint*", &pcbOutData := 0, "ptr", ppOutData, "HRESULT")
+    result := DllCall("infocardapi.dll\Encrypt", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, BOOL, fOAEP, UInt32, cbInData, IntPtr, pInData, "uint*", &pcbOutData := 0, IntPtr, ppOutData, "HRESULT")
     return pcbOutData
 }
 
@@ -35040,7 +35050,7 @@ export Encrypt(hCrypto, fOAEP, cbInData, pInData, ppOutData) {
  * @see https://learn.microsoft.com/windows/win32/SecProv/decrypt-win32-encryptablevolume
  */
 export Decrypt(hCrypto, fOAEP, cbInData, pInData, ppOutData) {
-    result := DllCall("infocardapi.dll\Decrypt", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, BOOL, fOAEP, "uint", cbInData, "ptr", pInData, "uint*", &pcbOutData := 0, "ptr", ppOutData, "HRESULT")
+    result := DllCall("infocardapi.dll\Decrypt", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, BOOL, fOAEP, UInt32, cbInData, IntPtr, pInData, "uint*", &pcbOutData := 0, IntPtr, ppOutData, "HRESULT")
     return pcbOutData
 }
 
@@ -35056,7 +35066,7 @@ export Decrypt(hCrypto, fOAEP, cbInData, pInData, ppOutData) {
 export SignHash(hCrypto, cbHash, pHash, hashAlgOid, ppSig) {
     hashAlgOid := hashAlgOid is String ? StrPtr(hashAlgOid) : hashAlgOid
 
-    result := DllCall("infocardapi.dll\SignHash", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, "uint", cbHash, "ptr", pHash, "ptr", hashAlgOid, "uint*", &pcbSig := 0, "ptr", ppSig, "HRESULT")
+    result := DllCall("infocardapi.dll\SignHash", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, UInt32, cbHash, IntPtr, pHash, "ptr", hashAlgOid, "uint*", &pcbSig := 0, IntPtr, ppSig, "HRESULT")
     return pcbSig
 }
 
@@ -35073,7 +35083,7 @@ export SignHash(hCrypto, cbHash, pHash, hashAlgOid, ppSig) {
 export VerifyHash(hCrypto, cbHash, pHash, hashAlgOid, cbSig, pSig) {
     hashAlgOid := hashAlgOid is String ? StrPtr(hashAlgOid) : hashAlgOid
 
-    result := DllCall("infocardapi.dll\VerifyHash", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, "uint", cbHash, "ptr", pHash, "ptr", hashAlgOid, "uint", cbSig, "ptr", pSig, BOOL.Ptr, &pfVerified := 0, "HRESULT")
+    result := DllCall("infocardapi.dll\VerifyHash", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, UInt32, cbHash, IntPtr, pHash, "ptr", hashAlgOid, UInt32, cbSig, IntPtr, pSig, BOOL.Ptr, &pfVerified := 0, "HRESULT")
     return pfVerified
 }
 
@@ -35089,7 +35099,7 @@ export VerifyHash(hCrypto, cbHash, pHash, hashAlgOid, cbSig, pSig) {
  * @returns {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} 
  */
 export GetCryptoTransform(hSymmetricCrypto, _mode, padding, feedbackSize, _direction, cbIV, pIV) {
-    result := DllCall("infocardapi.dll\GetCryptoTransform", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hSymmetricCrypto, "uint", _mode, PaddingMode, padding, "uint", feedbackSize, Direction, _direction, "uint", cbIV, "ptr", pIV, "ptr*", &pphTransform := 0, "HRESULT")
+    result := DllCall("infocardapi.dll\GetCryptoTransform", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hSymmetricCrypto, UInt32, _mode, PaddingMode, padding, UInt32, feedbackSize, Direction, _direction, UInt32, cbIV, IntPtr, pIV, "ptr*", &pphTransform := 0, "HRESULT")
     return pphTransform
 }
 
@@ -35112,7 +35122,7 @@ export GetKeyedHash(hSymmetricCrypto) {
  * @returns {Integer} 
  */
 export TransformBlock(hCrypto, cbInData, pInData, ppOutData) {
-    result := DllCall("infocardapi.dll\TransformBlock", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, "uint", cbInData, "ptr", pInData, "uint*", &pcbOutData := 0, "ptr", ppOutData, "HRESULT")
+    result := DllCall("infocardapi.dll\TransformBlock", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, UInt32, cbInData, IntPtr, pInData, "uint*", &pcbOutData := 0, IntPtr, ppOutData, "HRESULT")
     return pcbOutData
 }
 
@@ -35125,7 +35135,7 @@ export TransformBlock(hCrypto, cbInData, pInData, ppOutData) {
  * @returns {Integer} 
  */
 export TransformFinalBlock(hCrypto, cbInData, pInData, ppOutData) {
-    result := DllCall("infocardapi.dll\TransformFinalBlock", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, "uint", cbInData, "ptr", pInData, "uint*", &pcbOutData := 0, "ptr", ppOutData, "HRESULT")
+    result := DllCall("infocardapi.dll\TransformFinalBlock", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, UInt32, cbInData, IntPtr, pInData, "uint*", &pcbOutData := 0, IntPtr, ppOutData, "HRESULT")
     return pcbOutData
 }
 
@@ -35137,7 +35147,7 @@ export TransformFinalBlock(hCrypto, cbInData, pInData, ppOutData) {
  * @returns {HRESULT} 
  */
 export HashCore(hCrypto, cbInData, pInData) {
-    result := DllCall("infocardapi.dll\HashCore", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, "uint", cbInData, "ptr", pInData, "HRESULT")
+    result := DllCall("infocardapi.dll\HashCore", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, UInt32, cbInData, IntPtr, pInData, "HRESULT")
     return result
 }
 
@@ -35150,7 +35160,7 @@ export HashCore(hCrypto, cbInData, pInData) {
  * @returns {Integer} 
  */
 export HashFinal(hCrypto, cbInData, pInData, ppOutData) {
-    result := DllCall("infocardapi.dll\HashFinal", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, "uint", cbInData, "ptr", pInData, "uint*", &pcbOutData := 0, "ptr", ppOutData, "HRESULT")
+    result := DllCall("infocardapi.dll\HashFinal", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, UInt32, cbInData, IntPtr, pInData, "uint*", &pcbOutData := 0, IntPtr, ppOutData, "HRESULT")
     return pcbOutData
 }
 
@@ -35190,7 +35200,7 @@ export CloseCryptoHandle(hCrypto) {
 export GenerateDerivedKey(hCrypto, cbLabel, pLabel, cbNonce, pNonce, derivedKeyLength, offset, algId, ppKey) {
     algId := algId is String ? StrPtr(algId) : algId
 
-    result := DllCall("infocardapi.dll\GenerateDerivedKey", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, "uint", cbLabel, "ptr", pLabel, "uint", cbNonce, "ptr", pNonce, "uint", derivedKeyLength, "uint", offset, "ptr", algId, "uint*", &pcbKey := 0, "ptr", ppKey, "HRESULT")
+    result := DllCall("infocardapi.dll\GenerateDerivedKey", INFORMATIONCARD_CRYPTO_HANDLE.Ptr, hCrypto, UInt32, cbLabel, IntPtr, pLabel, UInt32, cbNonce, IntPtr, pNonce, UInt32, derivedKeyLength, UInt32, offset, "ptr", algId, "uint*", &pcbKey := 0, IntPtr, ppKey, "HRESULT")
     return pcbKey
 }
 
@@ -35204,7 +35214,7 @@ export GenerateDerivedKey(hCrypto, cbLabel, pLabel, cbNonce, pNonce, derivedKeyL
 export GetBrowserToken(dwParamType, pParam, ppToken) {
     pParamMarshal := pParam is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("infocardapi.dll\GetBrowserToken", "uint", dwParamType, pParamMarshal, pParam, "uint*", &pcbToken := 0, "ptr", ppToken, "HRESULT")
+    result := DllCall("infocardapi.dll\GetBrowserToken", UInt32, dwParamType, pParamMarshal, pParam, "uint*", &pcbToken := 0, IntPtr, ppToken, "HRESULT")
     return pcbToken
 }
 
@@ -35222,8 +35232,8 @@ export GetCipherInterface(pszProviderName, pszAlgId, ppFunctionTable, dwFlags) {
 
     ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcryptprimitives.dll\GetCipherInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcryptprimitives.dll\GetCipherInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35241,8 +35251,8 @@ export GetHashInterface(pszProviderName, pszAlgId, ppFunctionTable, dwFlags) {
 
     ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcryptprimitives.dll\GetHashInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcryptprimitives.dll\GetHashInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35260,8 +35270,8 @@ export GetAsymmetricEncryptionInterface(pszProviderName, pszAlgId, ppFunctionTab
 
     ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcryptprimitives.dll\GetAsymmetricEncryptionInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcryptprimitives.dll\GetAsymmetricEncryptionInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35279,8 +35289,8 @@ export GetSecretAgreementInterface(pszProviderName, pszAlgId, ppFunctionTable, d
 
     ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcryptprimitives.dll\GetSecretAgreementInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcryptprimitives.dll\GetSecretAgreementInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35298,8 +35308,8 @@ export GetSignatureInterface(pszProviderName, pszAlgId, ppFunctionTable, dwFlags
 
     ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcryptprimitives.dll\GetSignatureInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcryptprimitives.dll\GetSignatureInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35315,8 +35325,8 @@ export GetRngInterface(pszProviderName, ppFunctionTable, dwFlags) {
 
     ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcryptprimitives.dll\GetRngInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcryptprimitives.dll\GetRngInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35334,8 +35344,8 @@ export GetKeyDerivationInterface(pszProviderName, pszAlgId, ppFunctionTable, dwF
 
     ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("bcryptprimitives.dll\GetKeyDerivationInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcryptprimitives.dll\GetKeyDerivationInterface", "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35349,8 +35359,8 @@ export GetKeyDerivationInterface(pszProviderName, pszAlgId, ppFunctionTable, dwF
 export BCryptRegisterProvider(pszProvider, dwFlags, pReg) {
     pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
-    result := DllCall("bcrypt.dll\BCryptRegisterProvider", "ptr", pszProvider, "uint", dwFlags, CRYPT_PROVIDER_REG.Ptr, pReg, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptRegisterProvider", "ptr", pszProvider, UInt32, dwFlags, CRYPT_PROVIDER_REG.Ptr, pReg, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35363,7 +35373,7 @@ export BCryptUnregisterProvider(pszProvider) {
     pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
     result := DllCall("bcrypt.dll\BCryptUnregisterProvider", "ptr", pszProvider, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35382,8 +35392,8 @@ export BCryptAddContextFunctionProvider(dwTable, pszContext, dwInterface, pszFun
     pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
     pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
-    result := DllCall("bcrypt.dll\BCryptAddContextFunctionProvider", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "uint", dwPosition, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptAddContextFunctionProvider", UInt32, dwTable, "ptr", pszContext, UInt32, dwInterface, "ptr", pszFunction, "ptr", pszProvider, UInt32, dwPosition, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35401,8 +35411,8 @@ export BCryptRemoveContextFunctionProvider(dwTable, pszContext, dwInterface, psz
     pszFunction := pszFunction is String ? StrPtr(pszFunction) : pszFunction
     pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
-    result := DllCall("bcrypt.dll\BCryptRemoveContextFunctionProvider", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("bcrypt.dll\BCryptRemoveContextFunctionProvider", UInt32, dwTable, "ptr", pszContext, UInt32, dwInterface, "ptr", pszFunction, "ptr", pszProvider, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35423,8 +35433,8 @@ export GetKeyStorageInterface(pszProviderName, ppFunctionTable, dwFlags) {
 
     ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\GetKeyStorageInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ncrypt.dll\GetKeyStorageInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -35436,7 +35446,7 @@ export GetKeyStorageInterface(pszProviderName, ppFunctionTable, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/SecCNG/sslchangenotify
  */
 export SslChangeNotify(hEvent, dwFlags) {
-    result := DllCall("ncrypt.dll\SslChangeNotify", HANDLE, hEvent, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslChangeNotify", HANDLE, hEvent, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35459,7 +35469,7 @@ export SslChangeNotify(hEvent, dwFlags) {
 export SslComputeClientAuthHash(hSslProvider, hMasterKey, hHandshakeHash, pszAlgId, pbOutput, cbOutput, dwFlags) {
     pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
-    result := DllCall("ncrypt.dll\SslComputeClientAuthHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHandshakeHash, "ptr", pszAlgId, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslComputeClientAuthHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHandshakeHash, "ptr", pszAlgId, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -35476,7 +35486,7 @@ export SslComputeClientAuthHash(hSslProvider, hMasterKey, hHandshakeHash, pszAlg
  * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcomputeeapkeyblock
  */
 export SslComputeEapKeyBlock(hSslProvider, hMasterKey, pbRandoms, cbRandoms, pbOutput, cbOutput, dwFlags) {
-    result := DllCall("ncrypt.dll\SslComputeEapKeyBlock", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, "ptr", pbRandoms, "uint", cbRandoms, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslComputeEapKeyBlock", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, IntPtr, pbRandoms, UInt32, cbRandoms, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -35517,7 +35527,7 @@ export SslComputeEapKeyBlock(hSslProvider, hMasterKey, pbRandoms, cbRandoms, pbO
  * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcomputefinishedhash
  */
 export SslComputeFinishedHash(hSslProvider, hMasterKey, hHandshakeHash, pbOutput, cbOutput, dwFlags) {
-    result := DllCall("ncrypt.dll\SslComputeFinishedHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHandshakeHash, "ptr", pbOutput, "uint", cbOutput, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslComputeFinishedHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHandshakeHash, IntPtr, pbOutput, UInt32, cbOutput, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35540,7 +35550,7 @@ export SslComputeFinishedHash(hSslProvider, hMasterKey, hHandshakeHash, pbOutput
  */
 export SslCreateEphemeralKey(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, dwKeyBitLen, pbParams, cbParams, dwFlags) {
     phEphemeralKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslCreateEphemeralKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE.Ptr, phEphemeralKey, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwKeyType, "uint", dwKeyBitLen, "ptr", pbParams, "uint", cbParams, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslCreateEphemeralKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE.Ptr, phEphemeralKey, UInt32, dwProtocol, UInt32, dwCipherSuite, UInt32, dwKeyType, UInt32, dwKeyBitLen, IntPtr, pbParams, UInt32, cbParams, UInt32, dwFlags, "HRESULT")
     return phEphemeralKey
 }
 
@@ -35564,7 +35574,7 @@ export SslCreateEphemeralKey(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType,
  */
 export SslCreateHandshakeHash(hSslProvider, dwProtocol, dwCipherSuite, dwFlags) {
     phHandshakeHash := NCRYPT_HASH_HANDLE()
-    result := DllCall("ncrypt.dll\SslCreateHandshakeHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE.Ptr, phHandshakeHash, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslCreateHandshakeHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE.Ptr, phHandshakeHash, UInt32, dwProtocol, UInt32, dwCipherSuite, UInt32, dwFlags, "HRESULT")
     return phHandshakeHash
 }
 
@@ -35584,7 +35594,7 @@ export SslCreateHandshakeHash(hSslProvider, dwProtocol, dwCipherSuite, dwFlags) 
  * @see https://learn.microsoft.com/windows/win32/SecCNG/ssldecryptpacket
  */
 export SslDecryptPacket(hSslProvider, _hKey, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwFlags) {
-    result := DllCall("ncrypt.dll\SslDecryptPacket", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, _hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslDecryptPacket", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, _hKey, IntPtr, pbInput, UInt32, cbInput, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, Int64, SequenceNumber, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -35612,7 +35622,7 @@ export SslDecryptPacket(hSslProvider, _hKey, pbInput, cbInput, pbOutput, cbOutpu
  * @see https://learn.microsoft.com/windows/win32/SecCNG/sslencryptpacket
  */
 export SslEncryptPacket(hSslProvider, _hKey, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwContentType, dwFlags) {
-    result := DllCall("ncrypt.dll\SslEncryptPacket", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, _hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwContentType, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslEncryptPacket", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, _hKey, IntPtr, pbInput, UInt32, cbInput, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, Int64, SequenceNumber, UInt32, dwContentType, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -35639,7 +35649,7 @@ export SslEncryptPacket(hSslProvider, _hKey, pbInput, cbInput, pbOutput, cbOutpu
 export SslEnumCipherSuites(hSslProvider, hPrivateKey, ppEnumState, dwFlags) {
     ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\SslEnumCipherSuites", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, "ptr*", &ppCipherSuite := 0, ppEnumStateMarshal, ppEnumState, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslEnumCipherSuites", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, "ptr*", &ppCipherSuite := 0, ppEnumStateMarshal, ppEnumState, UInt32, dwFlags, "HRESULT")
     return ppCipherSuite
 }
 
@@ -35654,7 +35664,7 @@ export SslEnumCipherSuites(hSslProvider, hPrivateKey, ppEnumState, dwFlags) {
 export SslEnumCipherSuitesEx(hSslProvider, hPrivateKey, ppEnumState, dwFlags) {
     ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\SslEnumCipherSuitesEx", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, "ptr*", &ppCipherSuite := 0, ppEnumStateMarshal, ppEnumState, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslEnumCipherSuitesEx", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, "ptr*", &ppCipherSuite := 0, ppEnumStateMarshal, ppEnumState, UInt32, dwFlags, "HRESULT")
     return ppCipherSuite
 }
 
@@ -35670,7 +35680,7 @@ export SslEnumEccCurves(hSslProvider, pEccCurveCount, ppEccCurve, dwFlags) {
     pEccCurveCountMarshal := pEccCurveCount is VarRef ? "uint*" : "ptr"
     ppEccCurveMarshal := ppEccCurve is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\SslEnumEccCurves", NCRYPT_PROV_HANDLE, hSslProvider, pEccCurveCountMarshal, pEccCurveCount, ppEccCurveMarshal, ppEccCurve, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslEnumEccCurves", NCRYPT_PROV_HANDLE, hSslProvider, pEccCurveCountMarshal, pEccCurveCount, ppEccCurveMarshal, ppEccCurve, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35700,7 +35710,7 @@ export SslEnumProtocolProviders(pdwProviderCount, ppProviderList, dwFlags) {
     pdwProviderCountMarshal := pdwProviderCount is VarRef ? "uint*" : "ptr"
     ppProviderListMarshal := ppProviderList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\SslEnumProtocolProviders", pdwProviderCountMarshal, pdwProviderCount, ppProviderListMarshal, ppProviderList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslEnumProtocolProviders", pdwProviderCountMarshal, pdwProviderCount, ppProviderListMarshal, ppProviderList, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35738,7 +35748,7 @@ export SslEnumProtocolProviders(pdwProviderCount, ppProviderList, dwFlags) {
 export SslExportKey(hSslProvider, _hKey, pszBlobType, pbOutput, cbOutput, dwFlags) {
     pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-    result := DllCall("ncrypt.dll\SslExportKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, _hKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExportKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, _hKey, "ptr", pszBlobType, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -35784,7 +35794,7 @@ export SslFreeBuffer(pvInput) {
  * @see https://learn.microsoft.com/windows/win32/SecCNG/sslfreeobject
  */
 export SslFreeObject(hObject, dwFlags) {
-    result := DllCall("ncrypt.dll\SslFreeObject", NCRYPT_HANDLE, hObject, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslFreeObject", NCRYPT_HANDLE, hObject, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35829,7 +35839,7 @@ export SslFreeObject(hObject, dwFlags) {
 export SslGenerateMasterKey(hSslProvider, hPrivateKey, hPublicKey, phMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ncrypt.dll\SslGenerateMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslGenerateMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, UInt32, dwProtocol, UInt32, dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35857,7 +35867,7 @@ export SslGenerateMasterKey(hSslProvider, hPrivateKey, hPublicKey, phMasterKey, 
  * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgeneratesessionkeys
  */
 export SslGenerateSessionKeys(hSslProvider, hMasterKey, phReadKey, phWriteKey, pParameterList, dwFlags) {
-    result := DllCall("ncrypt.dll\SslGenerateSessionKeys", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_KEY_HANDLE.Ptr, phReadKey, NCRYPT_KEY_HANDLE.Ptr, phWriteKey, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslGenerateSessionKeys", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_KEY_HANDLE.Ptr, phReadKey, NCRYPT_KEY_HANDLE.Ptr, phWriteKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35888,7 +35898,7 @@ export SslGetKeyProperty(_hKey, pszProperty, ppbOutput, pcbOutput, dwFlags) {
     ppbOutputMarshal := ppbOutput is VarRef ? "ptr*" : "ptr"
     pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ncrypt.dll\SslGetKeyProperty", NCRYPT_KEY_HANDLE, _hKey, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslGetKeyProperty", NCRYPT_KEY_HANDLE, _hKey, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35926,7 +35936,7 @@ export SslGetProviderProperty(hSslProvider, pszProperty, ppbOutput, pcbOutput, p
     pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
     ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\SslGetProviderProperty", NCRYPT_PROV_HANDLE, hSslProvider, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, ppEnumStateMarshal, ppEnumState, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslGetProviderProperty", NCRYPT_PROV_HANDLE, hSslProvider, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, ppEnumStateMarshal, ppEnumState, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35947,7 +35957,7 @@ export SslGetProviderProperty(hSslProvider, pszProperty, ppbOutput, pcbOutput, p
  * @see https://learn.microsoft.com/windows/win32/SecCNG/sslhashhandshake
  */
 export SslHashHandshake(hSslProvider, hHandshakeHash, pbInput, cbInput, dwFlags) {
-    result := DllCall("ncrypt.dll\SslHashHandshake", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE, hHandshakeHash, "ptr", pbInput, "uint", cbInput, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslHashHandshake", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE, hHandshakeHash, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -35976,7 +35986,7 @@ export SslImportKey(hSslProvider, pszBlobType, pbKeyBlob, cbKeyBlob, dwFlags) {
     pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
     phKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslImportKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pszBlobType, "ptr", pbKeyBlob, "uint", cbKeyBlob, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslImportKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pszBlobType, IntPtr, pbKeyBlob, UInt32, cbKeyBlob, UInt32, dwFlags, "HRESULT")
     return phKey
 }
 
@@ -36000,7 +36010,7 @@ export SslImportKey(hSslProvider, pszBlobType, pbKeyBlob, cbKeyBlob, dwFlags) {
  */
 export SslImportMasterKey(hSslProvider, hPrivateKey, dwProtocol, dwCipherSuite, pParameterList, pbEncryptedKey, cbEncryptedKey, dwFlags) {
     phMasterKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslImportMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbEncryptedKey, "uint", cbEncryptedKey, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslImportMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, UInt32, dwProtocol, UInt32, dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbEncryptedKey, UInt32, cbEncryptedKey, UInt32, dwFlags, "HRESULT")
     return phMasterKey
 }
 
@@ -36026,7 +36036,7 @@ export SslImportMasterKey(hSslProvider, hPrivateKey, dwProtocol, dwCipherSuite, 
  * @see https://learn.microsoft.com/windows/win32/SecCNG/ssllookupciphersuiteinfo
  */
 export SslLookupCipherSuiteInfo(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, pCipherSuite, dwFlags) {
-    result := DllCall("ncrypt.dll\SslLookupCipherSuiteInfo", NCRYPT_PROV_HANDLE, hSslProvider, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwKeyType, NCRYPT_SSL_CIPHER_SUITE.Ptr, pCipherSuite, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslLookupCipherSuiteInfo", NCRYPT_PROV_HANDLE, hSslProvider, UInt32, dwProtocol, UInt32, dwCipherSuite, UInt32, dwKeyType, NCRYPT_SSL_CIPHER_SUITE.Ptr, pCipherSuite, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -36044,7 +36054,7 @@ export SslLookupCipherSuiteInfo(hSslProvider, dwProtocol, dwCipherSuite, dwKeyTy
  */
 export SslOpenPrivateKey(hSslProvider, pCertContext, dwFlags) {
     phPrivateKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslOpenPrivateKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE.Ptr, phPrivateKey, CERT_CONTEXT.Ptr, pCertContext, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslOpenPrivateKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE.Ptr, phPrivateKey, CERT_CONTEXT.Ptr, pCertContext, UInt32, dwFlags, "HRESULT")
     return phPrivateKey
 }
 
@@ -36061,7 +36071,7 @@ export SslOpenProvider(pszProviderName, dwFlags) {
     pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
 
     phSslProvider := NCRYPT_PROV_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslOpenProvider", NCRYPT_PROV_HANDLE.Ptr, phSslProvider, "ptr", pszProviderName, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslOpenProvider", NCRYPT_PROV_HANDLE.Ptr, phSslProvider, "ptr", pszProviderName, UInt32, dwFlags, "HRESULT")
     return phSslProvider
 }
 
@@ -36078,7 +36088,7 @@ export SslOpenProvider(pszProviderName, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/SecCNG/sslsignhash
  */
 export SslSignHash(hSslProvider, hPrivateKey, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
-    result := DllCall("ncrypt.dll\SslSignHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslSignHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, IntPtr, pbHashValue, UInt32, cbHashValue, IntPtr, pbSignature, UInt32, cbSignature, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -36109,7 +36119,7 @@ export SslSignHash(hSslProvider, hPrivateKey, pbHashValue, cbHashValue, pbSignat
  * @see https://learn.microsoft.com/windows/win32/SecCNG/sslverifysignature
  */
 export SslVerifySignature(hSslProvider, hPublicKey, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
-    result := DllCall("ncrypt.dll\SslVerifySignature", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPublicKey, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslVerifySignature", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPublicKey, IntPtr, pbHashValue, UInt32, cbHashValue, IntPtr, pbSignature, UInt32, cbSignature, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -36140,7 +36150,7 @@ export SslVerifySignature(hSslProvider, hPublicKey, pbHashValue, cbHashValue, pb
  * @see https://learn.microsoft.com/windows/win32/SecCNG/ssllookupcipherlengths
  */
 export SslLookupCipherLengths(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, pCipherLengths, cbCipherLengths, dwFlags) {
-    result := DllCall("ncrypt.dll\SslLookupCipherLengths", NCRYPT_PROV_HANDLE, hSslProvider, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwKeyType, "ptr", pCipherLengths, "uint", cbCipherLengths, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslLookupCipherLengths", NCRYPT_PROV_HANDLE, hSslProvider, UInt32, dwProtocol, UInt32, dwCipherSuite, UInt32, dwKeyType, IntPtr, pCipherLengths, UInt32, cbCipherLengths, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -36160,7 +36170,7 @@ export SslCreateClientAuthHash(hSslProvider, dwProtocol, dwCipherSuite, pszHashA
     pszHashAlgId := pszHashAlgId is String ? StrPtr(pszHashAlgId) : pszHashAlgId
 
     phHandshakeHash := NCRYPT_HASH_HANDLE()
-    result := DllCall("ncrypt.dll\SslCreateClientAuthHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE.Ptr, phHandshakeHash, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pszHashAlgId, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslCreateClientAuthHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE.Ptr, phHandshakeHash, UInt32, dwProtocol, UInt32, dwCipherSuite, "ptr", pszHashAlgId, UInt32, dwFlags, "HRESULT")
     return phHandshakeHash
 }
 
@@ -36193,7 +36203,7 @@ export SslCreateClientAuthHash(hSslProvider, dwProtocol, dwCipherSuite, pszHashA
 export SslGetCipherSuitePRFHashAlgorithm(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, szPRFHash, dwFlags) {
     szPRFHash := szPRFHash is String ? StrPtr(szPRFHash) : szPRFHash
 
-    result := DllCall("ncrypt.dll\SslGetCipherSuitePRFHashAlgorithm", NCRYPT_PROV_HANDLE, hSslProvider, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwKeyType, "ptr", szPRFHash, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslGetCipherSuitePRFHashAlgorithm", NCRYPT_PROV_HANDLE, hSslProvider, UInt32, dwProtocol, UInt32, dwCipherSuite, UInt32, dwKeyType, "ptr", szPRFHash, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -36208,7 +36218,7 @@ export SslGetCipherSuitePRFHashAlgorithm(hSslProvider, dwProtocol, dwCipherSuite
  * @returns {Integer} 
  */
 export SslComputeSessionHash(hSslProvider, hHandshakeHash, dwProtocol, pbOutput, cbOutput, dwFlags) {
-    result := DllCall("ncrypt.dll\SslComputeSessionHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE, hHandshakeHash, "uint", dwProtocol, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslComputeSessionHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE, hHandshakeHash, UInt32, dwProtocol, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
     return pcbResult
 }
 
@@ -36229,7 +36239,7 @@ export SslComputeSessionHash(hSslProvider, hHandshakeHash, dwProtocol, pbOutput,
 export SslGeneratePreMasterKey(hSslProvider, hPublicKey, phPreMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ncrypt.dll\SslGeneratePreMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE.Ptr, phPreMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslGeneratePreMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE.Ptr, phPreMasterKey, UInt32, dwProtocol, UInt32, dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -36261,7 +36271,7 @@ export SslGeneratePreMasterKey(hSslProvider, hPublicKey, phPreMasterKey, dwProto
 export SslExportKeyingMaterial(hSslProvider, hMasterKey, sLabel, pbRandoms, cbRandoms, pbContextValue, cbContextValue, pbOutput, cbOutput, dwFlags) {
     sLabel := sLabel is String ? StrPtr(sLabel) : sLabel
 
-    result := DllCall("ncrypt.dll\SslExportKeyingMaterial", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, "ptr", sLabel, "ptr", pbRandoms, "uint", cbRandoms, "ptr", pbContextValue, "ushort", cbContextValue, "ptr", pbOutput, "uint", cbOutput, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExportKeyingMaterial", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, "ptr", sLabel, IntPtr, pbRandoms, UInt32, cbRandoms, IntPtr, pbContextValue, UInt16, cbContextValue, IntPtr, pbOutput, UInt32, cbOutput, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -36277,7 +36287,7 @@ export SslExportKeyingMaterial(hSslProvider, hMasterKey, sLabel, pbRandoms, cbRa
  */
 export SslExtractEarlyKey(hSslProvider, hPreSharedKey, dwProtocol, dwCipherSuite, pParameterList, dwFlags) {
     phEarlyKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslExtractEarlyKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPreSharedKey, NCRYPT_KEY_HANDLE.Ptr, phEarlyKey, "uint", dwProtocol, "uint", dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExtractEarlyKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPreSharedKey, NCRYPT_KEY_HANDLE.Ptr, phEarlyKey, UInt32, dwProtocol, UInt32, dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return phEarlyKey
 }
 
@@ -36293,7 +36303,7 @@ export SslExtractEarlyKey(hSslProvider, hPreSharedKey, dwProtocol, dwCipherSuite
  */
 export SslExtractHandshakeKey(hSslProvider, hPrivateKey, hPublicKey, hEarlyKey, pParameterList, dwFlags) {
     phHandshakeKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslExtractHandshakeKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE, hEarlyKey, NCRYPT_KEY_HANDLE.Ptr, phHandshakeKey, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExtractHandshakeKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE, hEarlyKey, NCRYPT_KEY_HANDLE.Ptr, phHandshakeKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return phHandshakeKey
 }
 
@@ -36307,7 +36317,7 @@ export SslExtractHandshakeKey(hSslProvider, hPrivateKey, hPublicKey, hEarlyKey, 
  */
 export SslExtractMasterKey(hSslProvider, hHandshakeKey, pParameterList, dwFlags) {
     phMasterKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslExtractMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hHandshakeKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExtractMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hHandshakeKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return phMasterKey
 }
 
@@ -36323,7 +36333,7 @@ export SslExtractMasterKey(hSslProvider, hHandshakeKey, pParameterList, dwFlags)
  * @returns {HRESULT} 
  */
 export SslExpandTrafficKeys(hSslProvider, hBaseKey, hHashValue, phClientTrafficKey, phServerTrafficKey, pParameterList, dwFlags) {
-    result := DllCall("ncrypt.dll\SslExpandTrafficKeys", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseKey, NCRYPT_HASH_HANDLE, hHashValue, NCRYPT_KEY_HANDLE.Ptr, phClientTrafficKey, NCRYPT_KEY_HANDLE.Ptr, phServerTrafficKey, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExpandTrafficKeys", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseKey, NCRYPT_HASH_HANDLE, hHashValue, NCRYPT_KEY_HANDLE.Ptr, phClientTrafficKey, NCRYPT_KEY_HANDLE.Ptr, phServerTrafficKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -36337,7 +36347,7 @@ export SslExpandTrafficKeys(hSslProvider, hBaseKey, hHashValue, phClientTrafficK
  */
 export SslExpandWriteKey(hSslProvider, hBaseTrafficKey, pParameterList, dwFlags) {
     phWriteKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslExpandWriteKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseTrafficKey, NCRYPT_KEY_HANDLE.Ptr, phWriteKey, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExpandWriteKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseTrafficKey, NCRYPT_KEY_HANDLE.Ptr, phWriteKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return phWriteKey
 }
 
@@ -36352,7 +36362,7 @@ export SslExpandWriteKey(hSslProvider, hBaseTrafficKey, pParameterList, dwFlags)
  */
 export SslExpandExporterMasterKey(hSslProvider, hBaseKey, hHashValue, pParameterList, dwFlags) {
     phExporterMasterKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslExpandExporterMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseKey, NCRYPT_HASH_HANDLE, hHashValue, NCRYPT_KEY_HANDLE.Ptr, phExporterMasterKey, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExpandExporterMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseKey, NCRYPT_HASH_HANDLE, hHashValue, NCRYPT_KEY_HANDLE.Ptr, phExporterMasterKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return phExporterMasterKey
 }
 
@@ -36367,7 +36377,7 @@ export SslExpandExporterMasterKey(hSslProvider, hBaseKey, hHashValue, pParameter
  */
 export SslExpandResumptionMasterKey(hSslProvider, hMasterKey, hHashValue, pParameterList, dwFlags) {
     phResumptionMasterKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslExpandResumptionMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHashValue, NCRYPT_KEY_HANDLE.Ptr, phResumptionMasterKey, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExpandResumptionMasterKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHashValue, NCRYPT_KEY_HANDLE.Ptr, phResumptionMasterKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return phResumptionMasterKey
 }
 
@@ -36380,7 +36390,7 @@ export SslExpandResumptionMasterKey(hSslProvider, hMasterKey, hHashValue, pParam
  */
 export SslDuplicateTranscriptHash(hSslProvider, hTranscriptHash, dwFlags) {
     phTranscriptHash := NCRYPT_HASH_HANDLE()
-    result := DllCall("ncrypt.dll\SslDuplicateTranscriptHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE, hTranscriptHash, NCRYPT_HASH_HANDLE.Ptr, phTranscriptHash, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslDuplicateTranscriptHash", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE, hTranscriptHash, NCRYPT_HASH_HANDLE.Ptr, phTranscriptHash, UInt32, dwFlags, "HRESULT")
     return phTranscriptHash
 }
 
@@ -36394,7 +36404,7 @@ export SslDuplicateTranscriptHash(hSslProvider, hTranscriptHash, dwFlags) {
  */
 export SslExpandBinderKey(hSslProvider, hEarlyKey, pParameterList, dwFlags) {
     phBinderKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslExpandBinderKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hEarlyKey, NCRYPT_KEY_HANDLE.Ptr, phBinderKey, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExpandBinderKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hEarlyKey, NCRYPT_KEY_HANDLE.Ptr, phBinderKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return phBinderKey
 }
 
@@ -36410,7 +36420,7 @@ export SslExpandBinderKey(hSslProvider, hEarlyKey, pParameterList, dwFlags) {
  */
 export SslExpandPreSharedKey(hSslProvider, hResumptionMasterKey, pbTicketNonce, cbTicketNonce, pParameterList, dwFlags) {
     phPreSharedKey := NCRYPT_KEY_HANDLE.Owned()
-    result := DllCall("ncrypt.dll\SslExpandPreSharedKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hResumptionMasterKey, "ptr", pbTicketNonce, "uint", cbTicketNonce, NCRYPT_KEY_HANDLE.Ptr, phPreSharedKey, BCryptBufferDesc.Ptr, pParameterList, "uint", dwFlags, "HRESULT")
+    result := DllCall("ncrypt.dll\SslExpandPreSharedKey", NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hResumptionMasterKey, IntPtr, pbTicketNonce, UInt32, cbTicketNonce, NCRYPT_KEY_HANDLE.Ptr, phPreSharedKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
     return phPreSharedKey
 }
 
@@ -36426,8 +36436,8 @@ export GetSChannelInterface(pszProviderName, ppFunctionTable, dwFlags) {
 
     ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ncrypt.dll\GetSChannelInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, "uint", dwFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ncrypt.dll\GetSChannelInterface", "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

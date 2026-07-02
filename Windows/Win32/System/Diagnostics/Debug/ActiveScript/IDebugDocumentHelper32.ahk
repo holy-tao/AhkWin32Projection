@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugDocumentHost.ahk" { IDebugDocumentHost }
-#Import ".\IActiveScript.ahk" { IActiveScript }
-#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDebugApplication32.ahk" { IDebugApplication32 }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
 #Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
+#Import ".\IDebugApplication32.ahk" { IDebugApplication32 }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IActiveScript.ahk" { IActiveScript }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugDocumentHost.ahk" { IDebugDocumentHost }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -72,7 +72,7 @@ export default struct IDebugDocumentHelper32 extends IUnknown {
         pszShortName := pszShortName is String ? StrPtr(pszShortName) : pszShortName
         pszLongName := pszLongName is String ? StrPtr(pszLongName) : pszLongName
 
-        result := ComCall(3, this, "ptr", pda, "ptr", pszShortName, "ptr", pszLongName, "uint", docAttr, "HRESULT")
+        result := ComCall(3, this, "ptr", pda, "ptr", pszShortName, "ptr", pszLongName, UInt32, docAttr, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IDebugDocumentHelper32 extends IUnknown {
      * @returns {HRESULT} 
      */
     AddDeferredText(cChars, dwTextStartCookie) {
-        result := ComCall(9, this, "uint", cChars, "uint", dwTextStartCookie, "HRESULT")
+        result := ComCall(9, this, UInt32, cChars, UInt32, dwTextStartCookie, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IDebugDocumentHelper32 extends IUnknown {
      * @returns {Integer} 
      */
     DefineScriptBlock(ulCharOffset, cChars, pas, fScriptlet) {
-        result := ComCall(10, this, "uint", ulCharOffset, "uint", cChars, "ptr", pas, BOOL, fScriptlet, "uint*", &pdwSourceContext := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, ulCharOffset, UInt32, cChars, "ptr", pas, BOOL, fScriptlet, "uint*", &pdwSourceContext := 0, "HRESULT")
         return pdwSourceContext
     }
 
@@ -159,7 +159,7 @@ export default struct IDebugDocumentHelper32 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDefaultTextAttr(staTextAttr) {
-        result := ComCall(11, this, "ushort", staTextAttr, "HRESULT")
+        result := ComCall(11, this, UInt16, staTextAttr, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct IDebugDocumentHelper32 extends IUnknown {
     SetTextAttributes(ulCharOffset, cChars, pstaTextAttr) {
         pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(12, this, "uint", ulCharOffset, "uint", cChars, pstaTextAttrMarshal, pstaTextAttr, "HRESULT")
+        result := ComCall(12, this, UInt32, ulCharOffset, UInt32, cChars, pstaTextAttrMarshal, pstaTextAttr, "HRESULT")
         return result
     }
 
@@ -207,7 +207,7 @@ export default struct IDebugDocumentHelper32 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDocumentAttr(pszAttributes) {
-        result := ComCall(15, this, "uint", pszAttributes, "HRESULT")
+        result := ComCall(15, this, UInt32, pszAttributes, "HRESULT")
         return result
     }
 
@@ -232,7 +232,7 @@ export default struct IDebugDocumentHelper32 extends IUnknown {
         piCharPosMarshal := piCharPos is VarRef ? "uint*" : "ptr"
         pcCharsMarshal := pcChars is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwSourceContext, IActiveScript.Ptr, ppasd, piCharPosMarshal, piCharPos, pcCharsMarshal, pcChars, "HRESULT")
+        result := ComCall(17, this, UInt32, dwSourceContext, IActiveScript.Ptr, ppasd, piCharPosMarshal, piCharPos, pcCharsMarshal, pcChars, "HRESULT")
         return result
     }
 
@@ -243,7 +243,7 @@ export default struct IDebugDocumentHelper32 extends IUnknown {
      * @returns {IDebugDocumentContext} 
      */
     CreateDebugDocumentContext(iCharPos, cChars) {
-        result := ComCall(18, this, "uint", iCharPos, "uint", cChars, "ptr*", &ppddc := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, iCharPos, UInt32, cChars, "ptr*", &ppddc := 0, "HRESULT")
         return IDebugDocumentContext(ppddc)
     }
 

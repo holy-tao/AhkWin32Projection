@@ -1,7 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IWinMLRuntime.ahk" { IWinMLRuntime }
 #Import ".\IMLOperatorRegistry.ahk" { IMLOperatorRegistry }
+#Import ".\IWinMLRuntime.ahk" { IWinMLRuntime }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

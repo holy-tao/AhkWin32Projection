@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumTfInputProcessorProfiles.ahk" { IEnumTfInputProcessorProfiles }
+#Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\TF_INPUTPROCESSORPROFILE.ahk" { TF_INPUTPROCESSORPROFILE }
+#Import ".\IEnumTfInputProcessorProfiles.ahk" { IEnumTfInputProcessorProfiles }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfInputProcessorProfileMgr interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
@@ -207,7 +207,7 @@ export default struct ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-activateprofile
      */
     ActivateProfile(dwProfileType, langid, clsid, guidProfile, _hkl, dwFlags) {
-        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, Guid.Ptr, clsid, Guid.Ptr, guidProfile, HKL, _hkl, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, dwProfileType, UInt16, langid, Guid.Ptr, clsid, Guid.Ptr, guidProfile, HKL, _hkl, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -324,7 +324,7 @@ export default struct ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-deactivateprofile
      */
     DeactivateProfile(dwProfileType, langid, clsid, guidProfile, _hkl, dwFlags) {
-        result := ComCall(4, this, "uint", dwProfileType, "ushort", langid, Guid.Ptr, clsid, Guid.Ptr, guidProfile, HKL, _hkl, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, dwProfileType, UInt16, langid, Guid.Ptr, clsid, Guid.Ptr, guidProfile, HKL, _hkl, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -367,7 +367,7 @@ export default struct ITfInputProcessorProfileMgr extends IUnknown {
      */
     GetProfile(dwProfileType, langid, clsid, guidProfile, _hkl) {
         pProfile := TF_INPUTPROCESSORPROFILE()
-        result := ComCall(5, this, "uint", dwProfileType, "ushort", langid, Guid.Ptr, clsid, Guid.Ptr, guidProfile, HKL, _hkl, TF_INPUTPROCESSORPROFILE.Ptr, pProfile, "HRESULT")
+        result := ComCall(5, this, UInt32, dwProfileType, UInt16, langid, Guid.Ptr, clsid, Guid.Ptr, guidProfile, HKL, _hkl, TF_INPUTPROCESSORPROFILE.Ptr, pProfile, "HRESULT")
         return pProfile
     }
 
@@ -378,7 +378,7 @@ export default struct ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-enumprofiles
      */
     EnumProfiles(langid) {
-        result := ComCall(6, this, "ushort", langid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, UInt16, langid, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumTfInputProcessorProfiles(ppEnum)
     }
 
@@ -447,7 +447,7 @@ export default struct ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-releaseinputprocessor
      */
     ReleaseInputProcessor(rclsid, dwFlags) {
-        result := ComCall(7, this, Guid.Ptr, rclsid, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, rclsid, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -549,7 +549,7 @@ export default struct ITfInputProcessorProfileMgr extends IUnknown {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
         pchIconFile := pchIconFile is String ? StrPtr(pchIconFile) : pchIconFile
 
-        result := ComCall(8, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, HKL, hklsubstitute, "uint", dwPreferredLayout, BOOL, bEnabledByDefault, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, "ptr", pchDesc, UInt32, cchDesc, "ptr", pchIconFile, UInt32, cchFile, UInt32, uIconIndex, HKL, hklsubstitute, UInt32, dwPreferredLayout, BOOL, bEnabledByDefault, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -640,7 +640,7 @@ export default struct ITfInputProcessorProfileMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilemgr-unregisterprofile
      */
     UnregisterProfile(rclsid, langid, guidProfile, dwFlags) {
-        result := ComCall(9, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, UInt32, dwFlags, "HRESULT")
         return result
     }
 

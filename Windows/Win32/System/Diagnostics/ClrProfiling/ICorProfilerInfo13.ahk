@@ -45,7 +45,7 @@ export default struct ICorProfilerInfo13 extends ICorProfilerInfo12 {
      * @returns {Pointer<Pointer<Void>>} 
      */
     CreateHandle(_object, type) {
-        result := ComCall(108, this, "ptr", _object, COR_PRF_HANDLE_TYPE, type, "ptr*", &pHandle := 0, "HRESULT")
+        result := ComCall(108, this, IntPtr, _object, COR_PRF_HANDLE_TYPE, type, "ptr*", &pHandle := 0, "HRESULT")
         return pHandle
     }
 

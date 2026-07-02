@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the methods for enumerating the tasks in the Scheduled Tasks folder.
@@ -109,7 +109,7 @@ export default struct IEnumWorkItems extends IUnknown {
         rgpwszNamesMarshal := rgpwszNames is VarRef ? "ptr*" : "ptr"
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, rgpwszNamesMarshal, rgpwszNames, pceltFetchedMarshal, pceltFetched, Int32)
+        result := ComCall(3, this, UInt32, celt, rgpwszNamesMarshal, rgpwszNames, pceltFetchedMarshal, pceltFetched, Int32)
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IEnumWorkItems extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ienumworkitems-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, Int32)
+        result := ComCall(4, this, UInt32, celt, Int32)
         return result
     }
 

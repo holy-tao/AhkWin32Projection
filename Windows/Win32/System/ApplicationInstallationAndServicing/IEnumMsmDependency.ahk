@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMsmDependency.ahk" { IMsmDependency }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -48,7 +48,7 @@ export default struct IEnumMsmDependency extends IUnknown {
     Next(cFetch, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cFetch, "ptr*", &rgmsmDependencies := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cFetch, "ptr*", &rgmsmDependencies := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return IMsmDependency(rgmsmDependencies)
     }
 
@@ -58,7 +58,7 @@ export default struct IEnumMsmDependency extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(cSkip) {
-        result := ComCall(4, this, "uint", cSkip, "HRESULT")
+        result := ComCall(4, this, UInt32, cSkip, "HRESULT")
         return result
     }
 

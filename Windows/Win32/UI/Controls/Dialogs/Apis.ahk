@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CHOOSEFONTW.ahk" { CHOOSEFONTW as CHOOSEFONTW_type }
-#Import ".\COMMON_DLG_ERRORS.ahk" { COMMON_DLG_ERRORS }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\FINDREPLACEW.ahk" { FINDREPLACEW }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PRINTDLGW.ahk" { PRINTDLGW as PRINTDLGW_type }
+#Import ".\OPENFILENAMEA.ahk" { OPENFILENAMEA }
+#Import ".\CHOOSEFONTA.ahk" { CHOOSEFONTA as CHOOSEFONTA_type }
+#Import ".\CHOOSECOLORA.ahk" { CHOOSECOLORA as CHOOSECOLORA_type }
+#Import ".\PRINTDLGA.ahk" { PRINTDLGA as PRINTDLGA_type }
+#Import ".\PAGESETUPDLGW.ahk" { PAGESETUPDLGW as PAGESETUPDLGW_type }
+#Import ".\FINDREPLACEA.ahk" { FINDREPLACEA }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\OPENFILENAMEW.ahk" { OPENFILENAMEW }
+#Import ".\COMMON_DLG_ERRORS.ahk" { COMMON_DLG_ERRORS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CHOOSEFONTW.ahk" { CHOOSEFONTW as CHOOSEFONTW_type }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\PRINTDLGW.ahk" { PRINTDLGW as PRINTDLGW_type }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OPENFILENAMEW.ahk" { OPENFILENAMEW }
+#Import ".\PRINTDLGEXW.ahk" { PRINTDLGEXW as PRINTDLGEXW_type }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PAGESETUPDLGA.ahk" { PAGESETUPDLGA as PAGESETUPDLGA_type }
+#Import ".\FINDREPLACEW.ahk" { FINDREPLACEW }
 #Import ".\PRINTDLGEXA.ahk" { PRINTDLGEXA as PRINTDLGEXA_type }
 #Import ".\CHOOSECOLORW.ahk" { CHOOSECOLORW as CHOOSECOLORW_type }
-#Import ".\OPENFILENAMEA.ahk" { OPENFILENAMEA }
-#Import ".\PAGESETUPDLGW.ahk" { PAGESETUPDLGW as PAGESETUPDLGW_type }
-#Import ".\PAGESETUPDLGA.ahk" { PAGESETUPDLGA as PAGESETUPDLGA_type }
-#Import ".\PRINTDLGEXW.ahk" { PRINTDLGEXW as PRINTDLGEXW_type }
-#Import ".\CHOOSECOLORA.ahk" { CHOOSECOLORA as CHOOSECOLORA_type }
-#Import ".\CHOOSEFONTA.ahk" { CHOOSEFONTA as CHOOSEFONTA_type }
-#Import ".\PRINTDLGA.ahk" { PRINTDLGA as PRINTDLGA_type }
-#Import ".\FINDREPLACEA.ahk" { FINDREPLACEA }
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
@@ -41,7 +41,9 @@
  * <li>ANSI: 32k limit</li>
  * <li>Unicode: no restriction </li>
  * </ul>
- * @param {Pointer<OPENFILENAMEA>} param0 
+ * @param {Pointer<OPENFILENAMEA>} param0 Type: <b>LPOPENFILENAME</b>
+ * 
+ * A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure that contains information used to initialize the dialog box. When <b>GetOpenFileName</b> returns, this structure contains information about the user's file selection.
  * @returns {BOOL} Type: <b>BOOL</b>
  * 
  * If the user specifies a file name and clicks the <b>OK</b> button, the return value is nonzero. The buffer pointed to by the <b>lpstrFile</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure contains the full path and file name specified by the user.
@@ -70,7 +72,9 @@ export GetOpenFileNameA(param0) {
  * <li>ANSI: 32k limit</li>
  * <li>Unicode: no restriction </li>
  * </ul>
- * @param {Pointer<OPENFILENAMEW>} param0 
+ * @param {Pointer<OPENFILENAMEW>} param0 Type: <b>LPOPENFILENAME</b>
+ * 
+ * A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure that contains information used to initialize the dialog box. When <b>GetOpenFileName</b> returns, this structure contains information about the user's file selection.
  * @returns {BOOL} Type: <b>BOOL</b>
  * 
  * If the user specifies a file name and clicks the <b>OK</b> button, the return value is nonzero. The buffer pointed to by the <b>lpstrFile</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure contains the full path and file name specified by the user.
@@ -90,7 +94,9 @@ export GetOpenFileNameW(param0) {
  * The Explorer-style <b>Save</b> dialog box that provides user-interface features that are similar to the Windows Explorer. You can provide an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpofnhookproc">OFNHookProc</a> hook procedure for an Explorer-style <b>Save</b> dialog box. To enable the hook procedure, set the <b>OFN_EXPLORER</b> and <b>OFN_ENABLEHOOK</b> flags in the  <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure and specify the address of the hook procedure in the  <b>lpfnHook</b> member.
  * 
  * Windows continues to support old-style <b>Save</b> dialog boxes for applications that want to maintain a user-interface consistent with the old-style user-interface. To display the old-style <b>Save</b> dialog box, enable an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646932(v=vs.85)">OFNHookProcOldStyle</a> hook procedure and ensure that the <b>OFN_EXPLORER</b> flag is not set.
- * @param {Pointer<OPENFILENAMEA>} param0 
+ * @param {Pointer<OPENFILENAMEA>} param0 Type: <b>LPOPENFILENAME</b>
+ * 
+ * A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure that contains information used to initialize the dialog box. When <b>GetSaveFileName</b> returns, this structure contains information about the user's file selection.
  * @returns {BOOL} Type: <b>BOOL</b>
  * 
  * If the user specifies a file name and clicks the 
@@ -113,7 +119,9 @@ export GetSaveFileNameA(param0) {
  * The Explorer-style <b>Save</b> dialog box that provides user-interface features that are similar to the Windows Explorer. You can provide an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpofnhookproc">OFNHookProc</a> hook procedure for an Explorer-style <b>Save</b> dialog box. To enable the hook procedure, set the <b>OFN_EXPLORER</b> and <b>OFN_ENABLEHOOK</b> flags in the  <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure and specify the address of the hook procedure in the  <b>lpfnHook</b> member.
  * 
  * Windows continues to support old-style <b>Save</b> dialog boxes for applications that want to maintain a user-interface consistent with the old-style user-interface. To display the old-style <b>Save</b> dialog box, enable an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646932(v=vs.85)">OFNHookProcOldStyle</a> hook procedure and ensure that the <b>OFN_EXPLORER</b> flag is not set.
- * @param {Pointer<OPENFILENAMEW>} param0 
+ * @param {Pointer<OPENFILENAMEW>} param0 Type: <b>LPOPENFILENAME</b>
+ * 
+ * A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure that contains information used to initialize the dialog box. When <b>GetSaveFileName</b> returns, this structure contains information about the user's file selection.
  * @returns {BOOL} Type: <b>BOOL</b>
  * 
  * If the user specifies a file name and clicks the 
@@ -147,7 +155,9 @@ export GetSaveFileNameW(param0) {
  * 
  * > [!NOTE]
  * > The commdlg.h header defines GetFileTitle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PSTR} param0 
+ * @param {PSTR} param0 Type: <b>LPCTSTR</b>
+ * 
+ * The name and location of a file.
  * @param {PSTR} Buf Type: <b>LPTSTR</b>
  * 
  * The buffer that receives the name of the file.
@@ -169,7 +179,7 @@ export GetFileTitleA(param0, Buf, cchSize) {
     param0 := param0 is String ? StrPtr(param0) : param0
     Buf := Buf is String ? StrPtr(Buf) : Buf
 
-    result := DllCall("COMDLG32.dll\GetFileTitleA", "ptr", param0, "ptr", Buf, "ushort", cchSize, Int16)
+    result := DllCall("COMDLG32.dll\GetFileTitleA", "ptr", param0, "ptr", Buf, UInt16, cchSize, Int16)
     return result
 }
 
@@ -190,7 +200,9 @@ export GetFileTitleA(param0, Buf, cchSize) {
  * 
  * > [!NOTE]
  * > The commdlg.h header defines GetFileTitle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {PWSTR} param0 
+ * @param {PWSTR} param0 Type: <b>LPCTSTR</b>
+ * 
+ * The name and location of a file.
  * @param {PWSTR} Buf Type: <b>LPTSTR</b>
  * 
  * The buffer that receives the name of the file.
@@ -212,7 +224,7 @@ export GetFileTitleW(param0, Buf, cchSize) {
     param0 := param0 is String ? StrPtr(param0) : param0
     Buf := Buf is String ? StrPtr(Buf) : Buf
 
-    result := DllCall("COMDLG32.dll\GetFileTitleW", "ptr", param0, "ptr", Buf, "ushort", cchSize, Int16)
+    result := DllCall("COMDLG32.dll\GetFileTitleW", "ptr", param0, "ptr", Buf, UInt16, cchSize, Int16)
     return result
 }
 
@@ -247,7 +259,9 @@ export ChooseColorW(param0) {
  * If you create a <b>Find</b> dialog box, you must also use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-isdialogmessagea">IsDialogMessage</a> function in the main message loop of your application to ensure that the dialog box correctly processes keyboard input, such as the TAB and ESC keys. <b>IsDialogMessage</b> returns a value that indicates whether the <b>Find</b> dialog box processed the message.
  * 
  * You can provide an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpfrhookproc">FRHookProc</a> hook procedure for a <b>Find</b> dialog box. The hook procedure can process messages sent to the dialog box. To enable a hook procedure, set the <b>FR_ENABLEHOOK</b> flag in the  <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure and specify the address of the hook procedure in the  <b>lpfnHook</b> member.
- * @param {Pointer<FINDREPLACEA>} param0 
+ * @param {Pointer<FINDREPLACEA>} param0 Type: <b>LPFINDREPLACE</b>
+ * 
+ * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure that contains information used to initialize the dialog box. The dialog box uses this structure to send information about the user's input to your application. For more information, see the following Remarks section.
  * @returns {HWND} Type: <b>HWND</b>
  * 
  * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with or to close the dialog box.
@@ -271,7 +285,9 @@ export FindTextA(param0) {
  * If you create a <b>Find</b> dialog box, you must also use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-isdialogmessagea">IsDialogMessage</a> function in the main message loop of your application to ensure that the dialog box correctly processes keyboard input, such as the TAB and ESC keys. <b>IsDialogMessage</b> returns a value that indicates whether the <b>Find</b> dialog box processed the message.
  * 
  * You can provide an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpfrhookproc">FRHookProc</a> hook procedure for a <b>Find</b> dialog box. The hook procedure can process messages sent to the dialog box. To enable a hook procedure, set the <b>FR_ENABLEHOOK</b> flag in the  <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure and specify the address of the hook procedure in the  <b>lpfnHook</b> member.
- * @param {Pointer<FINDREPLACEW>} param0 
+ * @param {Pointer<FINDREPLACEW>} param0 Type: <b>LPFINDREPLACE</b>
+ * 
+ * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure that contains information used to initialize the dialog box. The dialog box uses this structure to send information about the user's input to your application. For more information, see the following Remarks section.
  * @returns {HWND} Type: <b>HWND</b>
  * 
  * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with or to close the dialog box.
@@ -302,7 +318,9 @@ export FindTextW(param0) {
  * 
  * > [!NOTE]
  * > The commdlg.h header defines ReplaceText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<FINDREPLACEA>} param0 
+ * @param {Pointer<FINDREPLACEA>} param0 Type: <b>LPFINDREPLACE</b>
+ * 
+ * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure that contains information used to initialize the dialog box. The dialog box uses this structure to send information about the user's input to your application. For more information, see the following Remarks section.
  * @returns {HWND} Type: <b>HWND</b>
  * 
  * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with the dialog box or close it.
@@ -333,7 +351,9 @@ export ReplaceTextA(param0) {
  * 
  * > [!NOTE]
  * > The commdlg.h header defines ReplaceText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @param {Pointer<FINDREPLACEW>} param0 
+ * @param {Pointer<FINDREPLACEW>} param0 Type: <b>LPFINDREPLACE</b>
+ * 
+ * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure that contains information used to initialize the dialog box. The dialog box uses this structure to send information about the user's input to your application. For more information, see the following Remarks section.
  * @returns {HWND} Type: <b>HWND</b>
  * 
  * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with the dialog box or close it.

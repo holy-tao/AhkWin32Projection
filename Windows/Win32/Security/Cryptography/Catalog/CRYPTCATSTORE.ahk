@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CRYPTCAT_OPEN_FLAGS.ahk" { CRYPTCAT_OPEN_FLAGS }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPTCAT_OPEN_FLAGS.ahk" { CRYPTCAT_OPEN_FLAGS }
 
 /**
  * Represents a catalog file.

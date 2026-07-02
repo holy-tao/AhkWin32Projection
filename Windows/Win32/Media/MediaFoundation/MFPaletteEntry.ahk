@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MFARGB.ahk" { MFARGB }
 #Import ".\MFAYUVSample.ahk" { MFAYUVSample }
+#Import ".\MFARGB.ahk" { MFARGB }
 
 /**
  * Contains one palette entry in a color table.

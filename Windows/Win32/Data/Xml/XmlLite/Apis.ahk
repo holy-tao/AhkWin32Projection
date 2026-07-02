@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
@@ -35,7 +35,7 @@ export CreateXmlReader(riid, pMalloc) {
 export CreateXmlReaderInputWithEncodingCodePage(pInputStream, pMalloc, nEncodingCodePage, fEncodingHint, pwszBaseUri) {
     pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
 
-    result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingCodePage", "ptr", pInputStream, "ptr", pMalloc, "uint", nEncodingCodePage, BOOL, fEncodingHint, "ptr", pwszBaseUri, "ptr*", &ppInput := 0, "HRESULT")
+    result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingCodePage", "ptr", pInputStream, "ptr", pMalloc, UInt32, nEncodingCodePage, BOOL, fEncodingHint, "ptr", pwszBaseUri, "ptr*", &ppInput := 0, "HRESULT")
     return IUnknown(ppInput)
 }
 
@@ -75,7 +75,7 @@ export CreateXmlWriter(riid, pMalloc) {
  * @returns {IUnknown} 
  */
 export CreateXmlWriterOutputWithEncodingCodePage(pOutputStream, pMalloc, nEncodingCodePage) {
-    result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingCodePage", "ptr", pOutputStream, "ptr", pMalloc, "uint", nEncodingCodePage, "ptr*", &ppOutput := 0, "HRESULT")
+    result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingCodePage", "ptr", pOutputStream, "ptr", pMalloc, UInt32, nEncodingCodePage, "ptr*", &ppOutput := 0, "HRESULT")
     return IUnknown(ppOutput)
 }
 

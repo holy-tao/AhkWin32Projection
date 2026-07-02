@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509SCEPEnrollment.ahk" { IX509SCEPEnrollment }
+#Import ".\DelayRetryAction.ahk" { DelayRetryAction }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\X509SCEPDisposition.ahk" { X509SCEPDisposition }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\DelayRetryAction.ahk" { DelayRetryAction }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\X509SCEPProcessMessageFlags.ahk" { X509SCEPProcessMessageFlags }
-#Import ".\IX509SCEPEnrollment.ahk" { IX509SCEPEnrollment }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates

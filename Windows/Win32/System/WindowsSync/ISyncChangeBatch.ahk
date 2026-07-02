@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
-#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 #Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
+#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 
 /**
  * Represents metadata for a set of changes. (ISyncChangeBatch)
@@ -163,7 +163,7 @@ export default struct ISyncChangeBatch extends ISyncChangeBatchBase {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwFlags, UInt32, dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 

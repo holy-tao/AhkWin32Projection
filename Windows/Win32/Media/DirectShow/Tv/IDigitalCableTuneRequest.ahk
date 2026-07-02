@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IATSCChannelTuneRequest.ahk" { IATSCChannelTuneRequest }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDigitalCableTuneRequest interface provides methods for tuning to a channel in a digital cable network.
@@ -92,7 +92,7 @@ export default struct IDigitalCableTuneRequest extends IATSCChannelTuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletunerequest-put_majorchannel
      */
     put_MajorChannel(MajorChannel) {
-        result := ComCall(17, this, "int", MajorChannel, "HRESULT")
+        result := ComCall(17, this, Int32, MajorChannel, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IDigitalCableTuneRequest extends IATSCChannelTuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletunerequest-put_sourceid
      */
     put_SourceID(SourceID) {
-        result := ComCall(19, this, "int", SourceID, "HRESULT")
+        result := ComCall(19, this, Int32, SourceID, "HRESULT")
         return result
     }
 

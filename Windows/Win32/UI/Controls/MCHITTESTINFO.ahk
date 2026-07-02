@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\MCHITTESTINFO_HIT_FLAGS.ahk" { MCHITTESTINFO_HIT_FLAGS }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**

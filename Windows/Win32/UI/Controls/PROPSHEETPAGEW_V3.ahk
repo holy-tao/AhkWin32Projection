@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\WindowsAndMessaging\DLGTEMPLATE.ahk" { DLGTEMPLATE }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\WindowsAndMessaging\DLGTEMPLATE.ahk" { DLGTEMPLATE }
+#Import "..\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\LPFNPSPCALLBACKW.ahk" { LPFNPSPCALLBACKW }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * The PROPSHEETPAGEW_V3 (Unicode) structure defines a page in a property sheet.
@@ -28,11 +30,11 @@ export default struct PROPSHEETPAGEW_V3 {
 
     pszTitle : PWSTR
 
-    pfnDlgProc : IntPtr
+    pfnDlgProc : DLGPROC
 
     lParam : LPARAM
 
-    pfnCallback : IntPtr
+    pfnCallback : LPFNPSPCALLBACKW
 
     pcRefParent : IntPtr
 

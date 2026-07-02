@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IConsole.ahk" { IConsole }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IConsole.ahk" { IConsole }
 
 /**
  * The IConsole2 interface is introduced in MMC 1.1.
@@ -67,7 +67,7 @@ export default struct IConsole2 extends IConsole {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole2-expand
      */
     Expand(hItem, bExpand) {
-        result := ComCall(14, this, "ptr", hItem, BOOL, bExpand, "HRESULT")
+        result := ComCall(14, this, IntPtr, hItem, BOOL, bExpand, "HRESULT")
         return result
     }
 

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RemoteActionType.ahk" { RemoteActionType }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\SnapshotFormatType.ahk" { SnapshotFormatType }
 #Import ".\SnapshotEncodingType.ahk" { SnapshotEncodingType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RemoteActionType.ahk" { RemoteActionType }
 
 /**
  * Provides the methods used to interact with the Remote Desktop Protocol (RDP) app container client control.
@@ -86,7 +86,7 @@ export default struct IRemoteDesktopClientActions extends IDispatch {
      */
     GetSnapshot(snapshotEncoding, snapshotFormat, snapshotWidth, snapshotHeight) {
         snapshotData := BSTR.Owned()
-        result := ComCall(10, this, SnapshotEncodingType, snapshotEncoding, SnapshotFormatType, snapshotFormat, "uint", snapshotWidth, "uint", snapshotHeight, BSTR.Ptr, snapshotData, "HRESULT")
+        result := ComCall(10, this, SnapshotEncodingType, snapshotEncoding, SnapshotFormatType, snapshotFormat, UInt32, snapshotWidth, UInt32, snapshotHeight, BSTR.Ptr, snapshotData, "HRESULT")
         return snapshotData
     }
 

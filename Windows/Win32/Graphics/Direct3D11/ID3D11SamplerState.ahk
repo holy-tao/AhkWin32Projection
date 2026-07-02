@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 #Import ".\D3D11_SAMPLER_DESC.ahk" { D3D11_SAMPLER_DESC }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 
 /**
  * The sampler-state interface holds a description for sampler state that you can bind to any shader stage of the pipeline for reference by texture sample operations.

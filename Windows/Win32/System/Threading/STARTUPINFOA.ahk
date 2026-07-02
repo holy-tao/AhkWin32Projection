@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\STARTUPINFOW_FLAGS.ahk" { STARTUPINFOW_FLAGS }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\STARTUPINFOW_FLAGS.ahk" { STARTUPINFOW_FLAGS }
 
 /**
  * Specifies the window station, desktop, standard handles, and appearance of the main window for a process at creation time. (ANSI)

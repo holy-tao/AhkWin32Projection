@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VMRALLOCATIONINFO.ahk" { VMRALLOCATIONINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVMRSurfaceAllocatorNotify.ahk" { IVMRSurfaceAllocatorNotify }
 
 /**
@@ -58,7 +58,7 @@ export default struct IVMRSurfaceAllocator extends IUnknown {
     AllocateSurface(dwUserID, lpAllocInfo, lpdwActualBuffers) {
         lpdwActualBuffersMarshal := lpdwActualBuffers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", dwUserID, VMRALLOCATIONINFO.Ptr, lpAllocInfo, lpdwActualBuffersMarshal, lpdwActualBuffers, "ptr*", &lplpSurface := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, dwUserID, VMRALLOCATIONINFO.Ptr, lpAllocInfo, lpdwActualBuffersMarshal, lpdwActualBuffers, "ptr*", &lplpSurface := 0, "HRESULT")
         return IDirectDrawSurface7(lplpSurface)
     }
 
@@ -69,7 +69,7 @@ export default struct IVMRSurfaceAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocator-freesurface
      */
     FreeSurface(dwID) {
-        result := ComCall(4, this, "ptr", dwID, "HRESULT")
+        result := ComCall(4, this, IntPtr, dwID, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IVMRSurfaceAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocator-preparesurface
      */
     PrepareSurface(dwUserID, lpSurface, dwSurfaceFlags) {
-        result := ComCall(5, this, "ptr", dwUserID, "ptr", lpSurface, "uint", dwSurfaceFlags, "HRESULT")
+        result := ComCall(5, this, IntPtr, dwUserID, "ptr", lpSurface, UInt32, dwSurfaceFlags, "HRESULT")
         return result
     }
 

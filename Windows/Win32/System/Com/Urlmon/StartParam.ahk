@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\IBindCtx.ahk" { IBindCtx }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**

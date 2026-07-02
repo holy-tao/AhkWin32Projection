@@ -2,17 +2,17 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\RTC_LISTEN_MODE.ahk" { RTC_LISTEN_MODE }
-#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IRTCClient.ahk" { IRTCClient }
-#Import ".\IRTCSession2.ahk" { IRTCSession2 }
-#Import ".\IRTCSessionDescriptionManager.ahk" { IRTCSessionDescriptionManager }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RTC_ANSWER_MODE.ahk" { RTC_ANSWER_MODE }
-#Import ".\IRTCProfile.ahk" { IRTCProfile }
-#Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\RTC_SECURITY_TYPE.ahk" { RTC_SECURITY_TYPE }
+#Import ".\IRTCSessionDescriptionManager.ahk" { IRTCSessionDescriptionManager }
+#Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RTC_ANSWER_MODE.ahk" { RTC_ANSWER_MODE }
+#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import ".\IRTCSession2.ahk" { IRTCSession2 }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -107,7 +107,7 @@ export default struct IRTCClient2 extends IRTCClient {
      * @returns {HRESULT} 
      */
     InvokeTuningWizardEx(hwndParent, fAllowAudio, fAllowVideo) {
-        result := ComCall(47, this, "ptr", hwndParent, VARIANT_BOOL, fAllowAudio, VARIANT_BOOL, fAllowVideo, "HRESULT")
+        result := ComCall(47, this, IntPtr, hwndParent, VARIANT_BOOL, fAllowAudio, VARIANT_BOOL, fAllowVideo, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct IRTCClient2 extends IRTCClient {
      * @returns {HRESULT} 
      */
     InitializeEx(lFlags) {
-        result := ComCall(51, this, "int", lFlags, "HRESULT")
+        result := ComCall(51, this, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct IRTCClient2 extends IRTCClient {
         bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
         bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
 
-        result := ComCall(52, this, BSTR, bstrContentType, BSTR, bstrSessionDescription, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession2 := 0, "HRESULT")
+        result := ComCall(52, this, BSTR, bstrContentType, BSTR, bstrSessionDescription, "ptr", pProfile, Int32, lFlags, "ptr*", &ppSession2 := 0, "HRESULT")
         return IRTCSession2(ppSession2)
     }
 
@@ -208,7 +208,7 @@ export default struct IRTCClient2 extends IRTCClient {
      * @returns {HRESULT} 
      */
     put_AllowedPorts(lTransport, enListenMode) {
-        result := ComCall(56, this, "int", lTransport, RTC_LISTEN_MODE, enListenMode, "HRESULT")
+        result := ComCall(56, this, Int32, lTransport, RTC_LISTEN_MODE, enListenMode, "HRESULT")
         return result
     }
 
@@ -218,7 +218,7 @@ export default struct IRTCClient2 extends IRTCClient {
      * @returns {RTC_LISTEN_MODE} 
      */
     get_AllowedPorts(lTransport) {
-        result := ComCall(57, this, "int", lTransport, "int*", &penListenMode := 0, "HRESULT")
+        result := ComCall(57, this, Int32, lTransport, "int*", &penListenMode := 0, "HRESULT")
         return penListenMode
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Base interface containing properties common to both file and directory items.
@@ -177,7 +177,7 @@ export default struct IFsiItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-put_creationtime
      */
     put_CreationTime(newVal) {
-        result := ComCall(10, this, "double", newVal, "HRESULT")
+        result := ComCall(10, this, Float64, newVal, "HRESULT")
         return result
     }
 
@@ -239,7 +239,7 @@ export default struct IFsiItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-put_lastaccessedtime
      */
     put_LastAccessedTime(newVal) {
-        result := ComCall(12, this, "double", newVal, "HRESULT")
+        result := ComCall(12, this, Float64, newVal, "HRESULT")
         return result
     }
 
@@ -307,7 +307,7 @@ export default struct IFsiItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-put_lastmodifiedtime
      */
     put_LastModifiedTime(newVal) {
-        result := ComCall(14, this, "double", newVal, "HRESULT")
+        result := ComCall(14, this, Float64, newVal, "HRESULT")
         return result
     }
 

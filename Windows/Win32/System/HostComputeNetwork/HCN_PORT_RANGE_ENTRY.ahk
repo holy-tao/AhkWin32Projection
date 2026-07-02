@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HCN_PORT_PROTOCOL.ahk" { HCN_PORT_PROTOCOL }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\HCN_PORT_PROTOCOL.ahk" { HCN_PORT_PROTOCOL }
 
 /**
  * HCN_PORT_RANGE_ENTRY

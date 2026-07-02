@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRowsetScroll.ahk" { IRowsetScroll }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -49,7 +49,7 @@ export default struct IRowsetExactScroll extends IRowsetScroll {
         pulPositionMarshal := pulPosition is VarRef ? "ptr*" : "ptr"
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "HRESULT")
+        result := ComCall(14, this, IntPtr, hChapter, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 

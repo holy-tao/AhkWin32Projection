@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXblIdpAuthTokenResult.ahk" { IXblIdpAuthTokenResult }
 
 /**
@@ -148,7 +148,7 @@ export default struct IXblIdpAuthManager extends IUnknown {
 
         bodyMarshal := body is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "ptr", msaAccountId, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, "uint", bodySize, BOOL, forceRefresh, "ptr*", &result := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", msaAccountId, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, UInt32, bodySize, BOOL, forceRefresh, "ptr*", &result := 0, "HRESULT")
         return IXblIdpAuthTokenResult(result)
     }
 

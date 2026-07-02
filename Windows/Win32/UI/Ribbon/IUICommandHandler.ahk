@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UI_EXECUTIONVERB.ahk" { UI_EXECUTIONVERB }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import ".\IUISimplePropertySet.ahk" { IUISimplePropertySet }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_EXECUTIONVERB.ahk" { UI_EXECUTIONVERB }
 
 /**
  * The IUICommandHandler interface is implemented by the application and defines the methods for gathering Command information and handling Command events from the Windows Ribbon framework.
@@ -78,7 +78,7 @@ export default struct IUICommandHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicommandhandler-execute
      */
     Execute(commandId, verb, key, currentValue, commandExecutionProperties) {
-        result := ComCall(3, this, "uint", commandId, UI_EXECUTIONVERB, verb, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, currentValue, "ptr", commandExecutionProperties, "HRESULT")
+        result := ComCall(3, this, UInt32, commandId, UI_EXECUTIONVERB, verb, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, currentValue, "ptr", commandExecutionProperties, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct IUICommandHandler extends IUnknown {
      */
     UpdateProperty(commandId, key, currentValue) {
         newValue := PROPVARIANT()
-        result := ComCall(4, this, "uint", commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, currentValue, PROPVARIANT.Ptr, newValue, "HRESULT")
+        result := ComCall(4, this, UInt32, commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, currentValue, PROPVARIANT.Ptr, newValue, "HRESULT")
         return newValue
     }
 

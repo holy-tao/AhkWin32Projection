@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\PFNPROPSHEETCALLBACK.ahk" { PFNPROPSHEETCALLBACK }
+#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * The PROPSHEETHEADERA_V2 (ANSI) structure defines the frame and pages of a property sheet.
@@ -59,7 +60,7 @@ export default struct PROPSHEETHEADERA_V2 {
 
     ppsp : PROPSHEETPAGEA.Ptr
 
-    pfnCallback : IntPtr
+    pfnCallback : PFNPROPSHEETCALLBACK
 
     hbmWatermark : HBITMAP
 

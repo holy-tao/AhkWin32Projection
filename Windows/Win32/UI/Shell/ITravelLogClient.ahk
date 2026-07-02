@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WINDOWDATA.ahk" { WINDOWDATA }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -46,7 +46,7 @@ export default struct ITravelLogClient extends IUnknown {
      * @returns {IUnknown} 
      */
     FindWindowByIndex(dwID) {
-        result := ComCall(3, this, "uint", dwID, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwID, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -70,7 +70,7 @@ export default struct ITravelLogClient extends IUnknown {
     LoadHistoryPosition(pszUrlLocation, dwPosition) {
         pszUrlLocation := pszUrlLocation is String ? StrPtr(pszUrlLocation) : pszUrlLocation
 
-        result := ComCall(5, this, "ptr", pszUrlLocation, "uint", dwPosition, "HRESULT")
+        result := ComCall(5, this, "ptr", pszUrlLocation, UInt32, dwPosition, "HRESULT")
         return result
     }
 

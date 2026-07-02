@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IApplicationDebugger.ahk" { IApplicationDebugger }
-#Import ".\IEnumRemoteDebugApplicationThreads.ahk" { IEnumRemoteDebugApplicationThreads }
-#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
-#Import ".\IEnumDebugExpressionContexts.ahk" { IEnumDebugExpressionContexts }
-#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
+#Import ".\IEnumDebugExpressionContexts.ahk" { IEnumDebugExpressionContexts }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IApplicationDebugger.ahk" { IApplicationDebugger }
+#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
+#Import ".\IEnumRemoteDebugApplicationThreads.ahk" { IEnumRemoteDebugApplicationThreads }
+#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -111,7 +111,7 @@ export default struct IRemoteDebugApplication extends IUnknown {
      * @returns {IUnknown} 
      */
     CreateInstanceAtApplication(rclsid, pUnkOuter, dwClsContext, riid) {
-        result := ComCall(8, this, Guid.Ptr, rclsid, "ptr", pUnkOuter, "uint", dwClsContext, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rclsid, "ptr", pUnkOuter, UInt32, dwClsContext, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return IUnknown(ppvObject)
     }
 

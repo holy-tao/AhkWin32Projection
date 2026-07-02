@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY.ahk" { IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY }
 #Import ".\UNWIND_HISTORY_TABLE_ENTRY.ahk" { UNWIND_HISTORY_TABLE_ENTRY }
+#Import ".\IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY.ahk" { IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

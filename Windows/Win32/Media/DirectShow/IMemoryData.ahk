@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Note  This interface is deprecated.
@@ -52,7 +52,7 @@ export default struct IMemoryData extends IUnknown {
     SetBuffer(cbSize, pbData, dwFlags) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", cbSize, pbDataMarshal, pbData, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, cbSize, pbDataMarshal, pbData, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IMemoryData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-imemorydata-setactual
      */
     SetActual(cbDataValid) {
-        result := ComCall(5, this, "uint", cbDataValid, "HRESULT")
+        result := ComCall(5, this, UInt32, cbDataValid, "HRESULT")
         return result
     }
 

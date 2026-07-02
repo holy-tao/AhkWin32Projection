@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
 #Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information that describes a MAC layer drop failure.

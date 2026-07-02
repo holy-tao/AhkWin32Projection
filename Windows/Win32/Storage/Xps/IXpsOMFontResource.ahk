@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
 #Import ".\XPS_FONT_EMBEDDING.ahk" { XPS_FONT_EMBEDDING }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Provides an IStream interface to a font resource.

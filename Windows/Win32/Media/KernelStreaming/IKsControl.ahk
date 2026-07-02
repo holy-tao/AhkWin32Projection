@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -49,7 +49,7 @@ export default struct IKsControl extends IUnknown {
     KsProperty(_Property, PropertyLength, PropertyData, DataLength) {
         PropertyDataMarshal := PropertyData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, KSIDENTIFIER.Ptr, _Property, "uint", PropertyLength, PropertyDataMarshal, PropertyData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        result := ComCall(3, this, KSIDENTIFIER.Ptr, _Property, UInt32, PropertyLength, PropertyDataMarshal, PropertyData, UInt32, DataLength, "uint*", &BytesReturned := 0, "HRESULT")
         return BytesReturned
     }
 
@@ -64,7 +64,7 @@ export default struct IKsControl extends IUnknown {
     KsMethod(Method, MethodLength, _MethodData, DataLength) {
         _MethodDataMarshal := _MethodData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, KSIDENTIFIER.Ptr, Method, "uint", MethodLength, _MethodDataMarshal, _MethodData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        result := ComCall(4, this, KSIDENTIFIER.Ptr, Method, UInt32, MethodLength, _MethodDataMarshal, _MethodData, UInt32, DataLength, "uint*", &BytesReturned := 0, "HRESULT")
         return BytesReturned
     }
 
@@ -79,7 +79,7 @@ export default struct IKsControl extends IUnknown {
     KsEvent(Event, EventLength, EventData, DataLength) {
         EventDataMarshal := EventData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, KSIDENTIFIER.Ptr, Event, "uint", EventLength, EventDataMarshal, EventData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        result := ComCall(5, this, KSIDENTIFIER.Ptr, Event, UInt32, EventLength, EventDataMarshal, EventData, UInt32, DataLength, "uint*", &BytesReturned := 0, "HRESULT")
         return BytesReturned
     }
 

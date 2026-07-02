@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemProviderIdentity interface is implemented by an event provider if the provider registers itself using more than one Name (multiple instances of __Win32Provider) with the same CLSID value.
@@ -49,7 +49,7 @@ export default struct IWbemProviderIdentity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemprovideridentity-setregistrationobject
      */
     SetRegistrationObject(lFlags, pProvReg) {
-        result := ComCall(3, this, "int", lFlags, "ptr", pProvReg, "HRESULT")
+        result := ComCall(3, this, Int32, lFlags, "ptr", pProvReg, "HRESULT")
         return result
     }
 

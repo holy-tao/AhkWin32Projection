@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LVFINDINFOW_FLAGS.ahk" { LVFINDINFOW_FLAGS }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\LVFINDINFOW_FLAGS.ahk" { LVFINDINFOW_FLAGS }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IEventTarget.ahk" { IEventTarget }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -335,7 +335,7 @@ export default struct IDOMMouseEvent extends IDispatch {
     initMouseEvent(eventType, canBubble, cancelable, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, ctrlKeyArg, altKeyArg, shiftKeyArg, metaKeyArg, buttonArg, relatedTargetArg) {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
 
-        result := ComCall(17, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, VARIANT_BOOL, ctrlKeyArg, VARIANT_BOOL, altKeyArg, VARIANT_BOOL, shiftKeyArg, VARIANT_BOOL, metaKeyArg, "ushort", buttonArg, "ptr", relatedTargetArg, "HRESULT")
+        result := ComCall(17, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, Int32, detailArg, Int32, screenXArg, Int32, screenYArg, Int32, clientXArg, Int32, clientYArg, VARIANT_BOOL, ctrlKeyArg, VARIANT_BOOL, altKeyArg, VARIANT_BOOL, shiftKeyArg, VARIANT_BOOL, metaKeyArg, UInt16, buttonArg, "ptr", relatedTargetArg, "HRESULT")
         return result
     }
 

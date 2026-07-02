@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumIDList.ahk" { IEnumIDList }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\IEnumReadyCallback.ahk" { IEnumReadyCallback }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumIDList.ahk" { IEnumIDList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that enumerate the contents of a view and receive notification from callback upon enumeration completion. This interface enables clients of a view to attempt to share the view's list of folder contents.
@@ -74,7 +74,7 @@ export default struct IEnumerableView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ienumerableview-createenumidlistfromcontents
      */
     CreateEnumIDListFromContents(pidlFolder, dwEnumFlags) {
-        result := ComCall(4, this, ITEMIDLIST.Ptr, pidlFolder, "uint", dwEnumFlags, "ptr*", &ppEnumIDList := 0, "HRESULT")
+        result := ComCall(4, this, ITEMIDLIST.Ptr, pidlFolder, UInt32, dwEnumFlags, "ptr*", &ppEnumIDList := 0, "HRESULT")
         return IEnumIDList(ppEnumIDList)
     }
 

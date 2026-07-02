@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for posting a cancel window message to the process thread from the Progress Dialog.
@@ -54,7 +54,7 @@ export default struct IIOCancelInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iiocancelinformation-setcancelinformation
      */
     SetCancelInformation(dwThreadID, uMsgCancel) {
-        result := ComCall(3, this, "uint", dwThreadID, "uint", uMsgCancel, "HRESULT")
+        result := ComCall(3, this, UInt32, dwThreadID, UInt32, uMsgCancel, "HRESULT")
         return result
     }
 

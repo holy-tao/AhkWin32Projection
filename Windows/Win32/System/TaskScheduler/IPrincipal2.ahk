@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TASK_PROCESSTOKENSID_TYPE.ahk" { TASK_PROCESSTOKENSID_TYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TASK_PROCESSTOKENSID_TYPE.ahk" { TASK_PROCESSTOKENSID_TYPE }
 
 /**
  * Provides the extended settings applied to security credentials for a principal.
@@ -104,7 +104,7 @@ export default struct IPrincipal2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal2-get_requiredprivilege
      */
     get_RequiredPrivilege(index, pPrivilege) {
-        result := ComCall(10, this, "int", index, BSTR.Ptr, pPrivilege, "HRESULT")
+        result := ComCall(10, this, Int32, index, BSTR.Ptr, pPrivilege, "HRESULT")
         return result
     }
 

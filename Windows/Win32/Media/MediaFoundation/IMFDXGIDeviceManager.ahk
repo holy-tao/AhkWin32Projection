@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables two threads to share the same Microsoft Direct3D 11 device.
@@ -180,7 +180,7 @@ export default struct IMFDXGIDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgidevicemanager-resetdevice
      */
     ResetDevice(pUnkDevice, resetToken) {
-        result := ComCall(7, this, "ptr", pUnkDevice, "uint", resetToken, "HRESULT")
+        result := ComCall(7, this, "ptr", pUnkDevice, UInt32, resetToken, "HRESULT")
         return result
     }
 

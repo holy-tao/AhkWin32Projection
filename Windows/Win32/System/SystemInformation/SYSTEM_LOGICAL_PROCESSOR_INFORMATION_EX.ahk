@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GROUP_AFFINITY.ahk" { GROUP_AFFINITY }
-#Import ".\CACHE_RELATIONSHIP.ahk" { CACHE_RELATIONSHIP }
-#Import ".\GROUP_RELATIONSHIP.ahk" { GROUP_RELATIONSHIP }
 #Import ".\PROCESSOR_GROUP_INFO.ahk" { PROCESSOR_GROUP_INFO }
-#Import ".\PROCESSOR_CACHE_TYPE.ahk" { PROCESSOR_CACHE_TYPE }
-#Import ".\NUMA_NODE_RELATIONSHIP.ahk" { NUMA_NODE_RELATIONSHIP }
-#Import ".\PROCESSOR_RELATIONSHIP.ahk" { PROCESSOR_RELATIONSHIP }
 #Import ".\LOGICAL_PROCESSOR_RELATIONSHIP.ahk" { LOGICAL_PROCESSOR_RELATIONSHIP }
+#Import ".\CACHE_RELATIONSHIP.ahk" { CACHE_RELATIONSHIP }
+#Import ".\GROUP_AFFINITY.ahk" { GROUP_AFFINITY }
+#Import ".\PROCESSOR_RELATIONSHIP.ahk" { PROCESSOR_RELATIONSHIP }
+#Import ".\GROUP_RELATIONSHIP.ahk" { GROUP_RELATIONSHIP }
+#Import ".\NUMA_NODE_RELATIONSHIP.ahk" { NUMA_NODE_RELATIONSHIP }
+#Import ".\PROCESSOR_CACHE_TYPE.ahk" { PROCESSOR_CACHE_TYPE }
 
 /**
  * Contains information about the relationships of logical processors and related hardware. The GetLogicalProcessorInformationEx function uses this structure.

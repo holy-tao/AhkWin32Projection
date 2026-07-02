@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if an object's method has been called, returned, or generated an exception. (IComMethod2Events)
@@ -52,7 +52,7 @@ export default struct IComMethod2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icommethod2events-onmethodcall2
      */
     OnMethodCall2(pInfo, oid, guidCid, guidRid, dwThread, iMeth) {
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", oid, Guid.Ptr, guidCid, Guid.Ptr, guidRid, "uint", dwThread, "uint", iMeth, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, oid, Guid.Ptr, guidCid, Guid.Ptr, guidRid, UInt32, dwThread, UInt32, iMeth, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct IComMethod2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icommethod2events-onmethodreturn2
      */
     OnMethodReturn2(pInfo, oid, guidCid, guidRid, dwThread, iMeth, _hresult) {
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", oid, Guid.Ptr, guidCid, Guid.Ptr, guidRid, "uint", dwThread, "uint", iMeth, "int", _hresult, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, oid, Guid.Ptr, guidCid, Guid.Ptr, guidRid, UInt32, dwThread, UInt32, iMeth, "int", _hresult, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IComMethod2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icommethod2events-onmethodexception2
      */
     OnMethodException2(pInfo, oid, guidCid, guidRid, dwThread, iMeth) {
-        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", oid, Guid.Ptr, guidCid, Guid.Ptr, guidRid, "uint", dwThread, "uint", iMeth, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, oid, Guid.Ptr, guidCid, Guid.Ptr, guidRid, UInt32, dwThread, UInt32, iMeth, "HRESULT")
         return result
     }
 

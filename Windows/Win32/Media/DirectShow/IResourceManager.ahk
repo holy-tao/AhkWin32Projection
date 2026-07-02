@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IResourceConsumer.ahk" { IResourceConsumer }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.
@@ -59,7 +59,7 @@ export default struct IResourceManager extends IUnknown {
     Register(pName, cResource) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(3, this, "ptr", pName, "int", cResource, "int*", &plToken := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pName, Int32, cResource, "int*", &plToken := 0, "HRESULT")
         return plToken
     }
 
@@ -76,7 +76,7 @@ export default struct IResourceManager extends IUnknown {
 
         palTokensMarshal := palTokens is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pName, "int", cResource, palTokensMarshal, palTokens, "int*", &plToken := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pName, Int32, cResource, palTokensMarshal, palTokens, "int*", &plToken := 0, "HRESULT")
         return plToken
     }
 
@@ -104,7 +104,7 @@ export default struct IResourceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourcemanager-requestresource
      */
     RequestResource(idResource, pFocusObject, pConsumer) {
-        result := ComCall(5, this, "int", idResource, "ptr", pFocusObject, "ptr", pConsumer, "HRESULT")
+        result := ComCall(5, this, Int32, idResource, "ptr", pFocusObject, "ptr", pConsumer, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ export default struct IResourceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourcemanager-notifyacquire
      */
     NotifyAcquire(idResource, pConsumer, hr) {
-        result := ComCall(6, this, "int", idResource, "ptr", pConsumer, "int", hr, "HRESULT")
+        result := ComCall(6, this, Int32, idResource, "ptr", pConsumer, "int", hr, "HRESULT")
         return result
     }
 
@@ -258,7 +258,7 @@ export default struct IResourceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourcemanager-notifyrelease
      */
     NotifyRelease(idResource, pConsumer, bStillWant) {
-        result := ComCall(7, this, "int", idResource, "ptr", pConsumer, BOOL, bStillWant, "HRESULT")
+        result := ComCall(7, this, Int32, idResource, "ptr", pConsumer, BOOL, bStillWant, "HRESULT")
         return result
     }
 
@@ -334,7 +334,7 @@ export default struct IResourceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourcemanager-cancelrequest
      */
     CancelRequest(idResource, pConsumer) {
-        result := ComCall(8, this, "int", idResource, "ptr", pConsumer, "HRESULT")
+        result := ComCall(8, this, Int32, idResource, "ptr", pConsumer, "HRESULT")
         return result
     }
 

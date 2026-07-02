@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SENSORPROFILEID.ahk" { SENSORPROFILEID }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\SENSORPROFILEID.ahk" { SENSORPROFILEID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Describes a media foundation sensor profile.
@@ -65,7 +65,7 @@ export default struct IMFSensorProfile extends IUnknown {
     AddProfileFilter(StreamId, wzFilterSetString) {
         wzFilterSetString := wzFilterSetString is String ? StrPtr(wzFilterSetString) : wzFilterSetString
 
-        result := ComCall(4, this, "uint", StreamId, "ptr", wzFilterSetString, "HRESULT")
+        result := ComCall(4, this, UInt32, StreamId, "ptr", wzFilterSetString, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IMFSensorProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofile-ismediatypesupported
      */
     IsMediaTypeSupported(StreamId, pMediaType) {
-        result := ComCall(5, this, "uint", StreamId, "ptr", pMediaType, BOOL.Ptr, &pfSupported := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, StreamId, "ptr", pMediaType, BOOL.Ptr, &pfSupported := 0, "HRESULT")
         return pfSupported
     }
 

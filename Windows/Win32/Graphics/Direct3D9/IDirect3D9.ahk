@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
 #Import ".\D3DADAPTER_IDENTIFIER9.ahk" { D3DADAPTER_IDENTIFIER9 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
-#Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
-#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
-#Import ".\D3DDEVTYPE.ahk" { D3DDEVTYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\D3DRESOURCETYPE.ahk" { D3DRESOURCETYPE }
-#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Gdi\HMONITOR.ahk" { HMONITOR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3DCAPS9.ahk" { D3DCAPS9 }
 
 /**
@@ -131,7 +131,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadapteridentifier
      */
     GetAdapterIdentifier(_Adapter, Flags, pIdentifier) {
-        result := ComCall(5, this, "uint", _Adapter, "uint", Flags, D3DADAPTER_IDENTIFIER9.Ptr, pIdentifier, "HRESULT")
+        result := ComCall(5, this, UInt32, _Adapter, UInt32, Flags, D3DADAPTER_IDENTIFIER9.Ptr, pIdentifier, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadaptermodecount
      */
     GetAdapterModeCount(_Adapter, Format) {
-        result := ComCall(6, this, "uint", _Adapter, D3DFORMAT, Format, UInt32)
+        result := ComCall(6, this, UInt32, _Adapter, D3DFORMAT, Format, UInt32)
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-enumadaptermodes
      */
     EnumAdapterModes(_Adapter, Format, _Mode, pMode) {
-        result := ComCall(7, this, "uint", _Adapter, D3DFORMAT, Format, "uint", _Mode, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
+        result := ComCall(7, this, UInt32, _Adapter, D3DFORMAT, Format, UInt32, _Mode, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
         return result
     }
 
@@ -215,7 +215,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadapterdisplaymode
      */
     GetAdapterDisplayMode(_Adapter, pMode) {
-        result := ComCall(8, this, "uint", _Adapter, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
+        result := ComCall(8, this, UInt32, _Adapter, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
         return result
     }
 
@@ -278,7 +278,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdevicetype
      */
     CheckDeviceType(_Adapter, DevType, AdapterFormat, BackBufferFormat, bWindowed) {
-        result := ComCall(9, this, "uint", _Adapter, D3DDEVTYPE, DevType, D3DFORMAT, AdapterFormat, D3DFORMAT, BackBufferFormat, BOOL, bWindowed, "HRESULT")
+        result := ComCall(9, this, UInt32, _Adapter, D3DDEVTYPE, DevType, D3DFORMAT, AdapterFormat, D3DFORMAT, BackBufferFormat, BOOL, bWindowed, "HRESULT")
         return result
     }
 
@@ -365,7 +365,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdeviceformat
      */
     CheckDeviceFormat(_Adapter, DeviceType, AdapterFormat, Usage, RType, CheckFormat) {
-        result := ComCall(10, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, AdapterFormat, "uint", Usage, D3DRESOURCETYPE, RType, D3DFORMAT, CheckFormat, "HRESULT")
+        result := ComCall(10, this, UInt32, _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, AdapterFormat, UInt32, Usage, D3DRESOURCETYPE, RType, D3DFORMAT, CheckFormat, "HRESULT")
         return result
     }
 
@@ -420,7 +420,7 @@ export default struct IDirect3D9 extends IUnknown {
     CheckDeviceMultiSampleType(_Adapter, DeviceType, SurfaceFormat, Windowed, MultiSampleType, pQualityLevels) {
         pQualityLevelsMarshal := pQualityLevels is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, SurfaceFormat, BOOL, Windowed, D3DMULTISAMPLE_TYPE, MultiSampleType, pQualityLevelsMarshal, pQualityLevels, "HRESULT")
+        result := ComCall(11, this, UInt32, _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, SurfaceFormat, BOOL, Windowed, D3DMULTISAMPLE_TYPE, MultiSampleType, pQualityLevelsMarshal, pQualityLevels, "HRESULT")
         return result
     }
 
@@ -487,7 +487,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdepthstencilmatch
      */
     CheckDepthStencilMatch(_Adapter, DeviceType, AdapterFormat, RenderTargetFormat, DepthStencilFormat) {
-        result := ComCall(12, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, AdapterFormat, D3DFORMAT, RenderTargetFormat, D3DFORMAT, DepthStencilFormat, "HRESULT")
+        result := ComCall(12, this, UInt32, _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, AdapterFormat, D3DFORMAT, RenderTargetFormat, D3DFORMAT, DepthStencilFormat, "HRESULT")
         return result
     }
 
@@ -558,7 +558,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdeviceformatconversion
      */
     CheckDeviceFormatConversion(_Adapter, DeviceType, SourceFormat, TargetFormat) {
-        result := ComCall(13, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, SourceFormat, D3DFORMAT, TargetFormat, "HRESULT")
+        result := ComCall(13, this, UInt32, _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, SourceFormat, D3DFORMAT, TargetFormat, "HRESULT")
         return result
     }
 
@@ -581,7 +581,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getdevicecaps
      */
     GetDeviceCaps(_Adapter, DeviceType, pCaps) {
-        result := ComCall(14, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, D3DCAPS9.Ptr, pCaps, "HRESULT")
+        result := ComCall(14, this, UInt32, _Adapter, D3DDEVTYPE, DeviceType, D3DCAPS9.Ptr, pCaps, "HRESULT")
         return result
     }
 
@@ -613,7 +613,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-getadaptermonitor
      */
     GetAdapterMonitor(_Adapter) {
-        result := ComCall(15, this, "uint", _Adapter, HMONITOR)
+        result := ComCall(15, this, UInt32, _Adapter, HMONITOR)
         return result
     }
 
@@ -688,7 +688,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-createdevice
      */
     CreateDevice(_Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters) {
-        result := ComCall(16, this, "uint", _Adapter, D3DDEVTYPE, DeviceType, HWND, hFocusWindow, "uint", BehaviorFlags, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, _Adapter, D3DDEVTYPE, DeviceType, HWND, hFocusWindow, UInt32, BehaviorFlags, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
         return IDirect3DDevice9(ppReturnedDeviceInterface)
     }
 

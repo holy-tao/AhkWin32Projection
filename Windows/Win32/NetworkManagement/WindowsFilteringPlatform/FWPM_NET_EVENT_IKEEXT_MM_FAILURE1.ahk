@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\IPSEC_FAILURE_POINT.ahk" { IPSEC_FAILURE_POINT }
-#Import ".\IKEEXT_MM_SA_STATE.ahk" { IKEEXT_MM_SA_STATE }
-#Import ".\IKEEXT_KEY_MODULE_TYPE.ahk" { IKEEXT_KEY_MODULE_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk" { IKEEXT_AUTHENTICATION_METHOD_TYPE }
 #Import ".\IKEEXT_SA_ROLE.ahk" { IKEEXT_SA_ROLE }
+#Import ".\IKEEXT_MM_SA_STATE.ahk" { IKEEXT_MM_SA_STATE }
+#Import ".\IKEEXT_KEY_MODULE_TYPE.ahk" { IKEEXT_KEY_MODULE_TYPE }
 
 /**
  * Contains information that describes an IKE/AuthIP Main Mode (MM) failure. (FWPM_NET_EVENT_IKEEXT_MM_FAILURE1)

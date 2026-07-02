@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\pCryptSIPCreateIndirectData.ahk" { pCryptSIPCreateIndirectData }
+#Import ".\pCryptSIPRemoveSignedDataMsg.ahk" { pCryptSIPRemoveSignedDataMsg }
+#Import ".\pCryptSIPPutSignedDataMsg.ahk" { pCryptSIPPutSignedDataMsg }
+#Import ".\pCryptSIPGetSignedDataMsg.ahk" { pCryptSIPGetSignedDataMsg }
+#Import ".\pCryptSIPVerifyIndirectData.ahk" { pCryptSIPVerifyIndirectData }
 
 /**
  * Contains a set of function pointers assigned by the CryptSIPLoad function that your application uses to perform subject interface package (SIP) operations.
@@ -24,26 +29,26 @@ export default struct SIP_DISPATCH_INFO {
     /**
      * A pointer to the function that retrieves the signed data for the subject. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipgetsigneddatamsg">CryptSIPGetSignedDataMsg</a>.
      */
-    pfGet : IntPtr
+    pfGet : pCryptSIPGetSignedDataMsg
 
     /**
      * A pointer to the function that stores the signed data for the subject. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipputsigneddatamsg">CryptSIPPutSignedDataMsg</a>.
      */
-    pfPut : IntPtr
+    pfPut : pCryptSIPPutSignedDataMsg
 
     /**
      * A pointer to the function that returns a [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data)  structure that contains the subject data. This structure contains the hash of the target. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipcreateindirectdata">CryptSIPCreateIndirectData</a>.
      */
-    pfCreate : IntPtr
+    pfCreate : pCryptSIPCreateIndirectData
 
     /**
      * A pointer to the function that verifies the [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data)  structure that contains the subject data. This structure contains the hash of the target. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipverifyindirectdata">CryptSIPVerifyIndirectData</a>.
      */
-    pfVerify : IntPtr
+    pfVerify : pCryptSIPVerifyIndirectData
 
     /**
      * A pointer to the function that removes the signed data for the subject. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipremovesigneddatamsg">CryptSIPRemoveSignedDataMsg</a>.
      */
-    pfRemove : IntPtr
+    pfRemove : pCryptSIPRemoveSignedDataMsg
 
 }

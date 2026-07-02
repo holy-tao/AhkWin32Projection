@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NVCACHE_PRIORITY_LEVEL_DESCRIPTOR.ahk" { NVCACHE_PRIORITY_LEVEL_DESCRIPTOR }
-#Import ".\NVCACHE_STATUS.ahk" { NVCACHE_STATUS }
-#Import ".\NVCACHE_TYPE.ahk" { NVCACHE_TYPE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\NVCACHE_STATUS.ahk" { NVCACHE_STATUS }
+#Import ".\NVCACHE_PRIORITY_LEVEL_DESCRIPTOR.ahk" { NVCACHE_PRIORITY_LEVEL_DESCRIPTOR }
+#Import ".\NVCACHE_TYPE.ahk" { NVCACHE_TYPE }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

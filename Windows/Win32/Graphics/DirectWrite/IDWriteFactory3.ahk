@@ -1,27 +1,27 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontDownloadQueue.ahk" { IDWriteFontDownloadQueue }
-#Import ".\DWRITE_RENDERING_MODE1.ahk" { DWRITE_RENDERING_MODE1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\DWRITE_TEXT_ANTIALIAS_MODE.ahk" { DWRITE_TEXT_ANTIALIAS_MODE }
-#Import ".\IDWriteFontSetBuilder.ahk" { IDWriteFontSetBuilder }
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import ".\IDWriteFactory2.ahk" { IDWriteFactory2 }
-#Import ".\IDWriteFontCollection1.ahk" { IDWriteFontCollection1 }
-#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
 #Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import ".\DWRITE_TEXT_ANTIALIAS_MODE.ahk" { DWRITE_TEXT_ANTIALIAS_MODE }
+#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
+#Import ".\DWRITE_RENDERING_MODE1.ahk" { DWRITE_RENDERING_MODE1 }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\IDWriteFontCollection1.ahk" { IDWriteFontCollection1 }
 #Import ".\IDWriteGlyphRunAnalysis.ahk" { IDWriteGlyphRunAnalysis }
 #Import ".\IDWriteRenderingParams3.ahk" { IDWriteRenderingParams3 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteFontSetBuilder.ahk" { IDWriteFontSetBuilder }
+#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\IDWriteFactory2.ahk" { IDWriteFactory2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
+#Import ".\IDWriteFontDownloadQueue.ahk" { IDWriteFontDownloadQueue }
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory3)
@@ -96,7 +96,7 @@ export default struct IDWriteFactory3 extends IDWriteFactory2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createglyphrunanalysis
      */
     CreateGlyphRunAnalysis(_glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(31, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE1, renderingMode, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GRID_FIT_MODE, gridFitMode, DWRITE_TEXT_ANTIALIAS_MODE, antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        result := ComCall(31, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE1, renderingMode, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GRID_FIT_MODE, gridFitMode, DWRITE_TEXT_ANTIALIAS_MODE, antialiasMode, Float32, baselineOriginX, Float32, baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 
@@ -129,7 +129,7 @@ export default struct IDWriteFactory3 extends IDWriteFactory2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, grayscaleEnhancedContrast, clearTypeLevel, pixelGeometry, renderingMode, gridFitMode) {
-        result := ComCall(32, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE1, renderingMode, DWRITE_GRID_FIT_MODE, gridFitMode, "ptr*", &renderingParams := 0, "HRESULT")
+        result := ComCall(32, this, Float32, gamma, Float32, enhancedContrast, Float32, grayscaleEnhancedContrast, Float32, clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE1, renderingMode, DWRITE_GRID_FIT_MODE, gridFitMode, "ptr*", &renderingParams := 0, "HRESULT")
         return IDWriteRenderingParams3(renderingParams)
     }
 
@@ -149,7 +149,7 @@ export default struct IDWriteFactory3 extends IDWriteFactory2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createfontfacereference(wcharconst_filetimeconst_uint32_dwrite_font_simulations_idwritefontfacereference)
      */
     CreateFontFaceReference(fontFile, faceIndex, fontSimulations) {
-        result := ComCall(33, this, "ptr", fontFile, "uint", faceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
+        result := ComCall(33, this, "ptr", fontFile, UInt32, faceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference(fontFaceReference)
     }
 
@@ -179,7 +179,7 @@ export default struct IDWriteFactory3 extends IDWriteFactory2 {
     CreateFontFaceReference1(filePath, lastWriteTime, faceIndex, fontSimulations) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := ComCall(34, this, "ptr", filePath, FILETIME.Ptr, lastWriteTime, "uint", faceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
+        result := ComCall(34, this, "ptr", filePath, FILETIME.Ptr, lastWriteTime, UInt32, faceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference(fontFaceReference)
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAudioClient2.ahk" { IAudioClient2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioClient2.ahk" { IAudioClient2 }
 
 /**
  * The IAudioClient3 interface is derived from the IAudioClient2 interface, with a set of additional methods that enable a Windows Audio Session API (WASAPI) audio client to query for the audio engine's supported periodicities and current periodicity as well as request initialization of a shared audio stream with a specified periodicity.
@@ -331,7 +331,7 @@ export default struct IAudioClient3 extends IAudioClient2 {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient3-initializesharedaudiostream
      */
     InitializeSharedAudioStream(StreamFlags, PeriodInFrames, pFormat, AudioSessionGuid) {
-        result := ComCall(20, this, "uint", StreamFlags, "uint", PeriodInFrames, WAVEFORMATEX.Ptr, pFormat, Guid.Ptr, AudioSessionGuid, "HRESULT")
+        result := ComCall(20, this, UInt32, StreamFlags, UInt32, PeriodInFrames, WAVEFORMATEX.Ptr, pFormat, Guid.Ptr, AudioSessionGuid, "HRESULT")
         return result
     }
 

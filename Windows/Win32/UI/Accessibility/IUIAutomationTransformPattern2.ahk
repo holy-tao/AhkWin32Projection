@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ZoomUnit.ahk" { ZoomUnit }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IUIAutomationTransformPattern.ahk" { IUIAutomationTransformPattern }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IUIAutomationTransformPattern interface to enable Microsoft UI Automation clients to programmatically access the viewport zooming functionality of a control.
@@ -115,7 +115,7 @@ export default struct IUIAutomationTransformPattern2 extends IUIAutomationTransf
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-zoom
      */
     Zoom(zoomValue) {
-        result := ComCall(12, this, "double", zoomValue, "HRESULT")
+        result := ComCall(12, this, Float64, zoomValue, "HRESULT")
         return result
     }
 

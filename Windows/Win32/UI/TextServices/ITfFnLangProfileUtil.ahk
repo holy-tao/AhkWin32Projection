@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfFunction.ahk" { ITfFunction }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ITfFnLangProfileUtil interface is implemented by the speech text service and used to provide utility methods for the speech text service.
@@ -96,7 +96,7 @@ export default struct ITfFnLangProfileUtil extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlangprofileutil-isprofileavailableforlang
      */
     IsProfileAvailableForLang(langid) {
-        result := ComCall(5, this, "ushort", langid, BOOL.Ptr, &pfAvailable := 0, "HRESULT")
+        result := ComCall(5, this, UInt16, langid, BOOL.Ptr, &pfAvailable := 0, "HRESULT")
         return pfAvailable
     }
 

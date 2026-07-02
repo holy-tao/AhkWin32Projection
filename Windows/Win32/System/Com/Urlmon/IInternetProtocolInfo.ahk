@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PARSEACTION.ahk" { PARSEACTION }
 #Import ".\QUERYOPTION.ahk" { QUERYOPTION }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PARSEACTION.ahk" { PARSEACTION }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -55,7 +55,7 @@ export default struct IInternetProtocolInfo extends IUnknown {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := ComCall(3, this, "ptr", pwzUrl, PARSEACTION, _ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzUrl, PARSEACTION, _ParseAction, UInt32, dwParseFlags, "ptr", pwzResult, UInt32, cchResult, "uint*", &pcchResult := 0, UInt32, dwReserved, "HRESULT")
         return pcchResult
     }
 
@@ -74,7 +74,7 @@ export default struct IInternetProtocolInfo extends IUnknown {
         pwzRelativeUrl := pwzRelativeUrl is String ? StrPtr(pwzRelativeUrl) : pwzRelativeUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := ComCall(4, this, "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, UInt32, dwCombineFlags, "ptr", pwzResult, UInt32, cchResult, "uint*", &pcchResult := 0, UInt32, dwReserved, "HRESULT")
         return pcchResult
     }
 
@@ -89,7 +89,7 @@ export default struct IInternetProtocolInfo extends IUnknown {
         pwzUrl1 := pwzUrl1 is String ? StrPtr(pwzUrl1) : pwzUrl1
         pwzUrl2 := pwzUrl2 is String ? StrPtr(pwzUrl2) : pwzUrl2
 
-        result := ComCall(5, this, "ptr", pwzUrl1, "ptr", pwzUrl2, "uint", dwCompareFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pwzUrl1, "ptr", pwzUrl2, UInt32, dwCompareFlags, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct IInternetProtocolInfo extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pcbBufMarshal := pcbBuf is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwzUrl, QUERYOPTION, OueryOption, "uint", dwQueryFlags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufMarshal, pcbBuf, "uint", dwReserved, "HRESULT")
+        result := ComCall(6, this, "ptr", pwzUrl, QUERYOPTION, OueryOption, UInt32, dwQueryFlags, pBufferMarshal, pBuffer, UInt32, cbBuffer, pcbBufMarshal, pcbBuf, UInt32, dwReserved, "HRESULT")
         return result
     }
 

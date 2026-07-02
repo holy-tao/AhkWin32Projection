@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
 #Import ".\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk" { IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
 
 /**
  * Use this interface to write raw images to a disc device using Disc At Once (DAO) mode (also known as uninterrupted recording).
@@ -1359,7 +1359,7 @@ export default struct IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-writemedia2
      */
     WriteMedia2(data, streamLeadInSectors) {
-        result := ComCall(14, this, "ptr", data, "int", streamLeadInSectors, "HRESULT")
+        result := ComCall(14, this, "ptr", data, Int32, streamLeadInSectors, "HRESULT")
         return result
     }
 
@@ -1850,7 +1850,7 @@ export default struct IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-setwritespeed
      */
     SetWriteSpeed(RequestedSectorsPerSecond, RotationTypeIsPureCAV) {
-        result := ComCall(17, this, "int", RequestedSectorsPerSecond, VARIANT_BOOL, RotationTypeIsPureCAV, "HRESULT")
+        result := ComCall(17, this, Int32, RequestedSectorsPerSecond, VARIANT_BOOL, RotationTypeIsPureCAV, "HRESULT")
         return result
     }
 

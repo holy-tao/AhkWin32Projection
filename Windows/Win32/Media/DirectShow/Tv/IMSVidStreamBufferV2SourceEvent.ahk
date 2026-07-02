@@ -66,7 +66,7 @@ export default struct IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlayback
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferv2sourceevent-timehole
      */
     TimeHole(StreamOffsetMS, SizeMS) {
-        result := ComCall(9, this, "int", StreamOffsetMS, "int", SizeMS, "HRESULT")
+        result := ComCall(9, this, Int32, StreamOffsetMS, Int32, SizeMS, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlayback
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferv2sourceevent-ratechange
      */
     RateChange(qwNewRate, qwOldRate) {
-        result := ComCall(13, this, "double", qwNewRate, "double", qwOldRate, "HRESULT")
+        result := ComCall(13, this, Float64, qwNewRate, Float64, qwOldRate, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlayback
     BroadcastEventEx(Guid, Param1, Param2, Param3, Param4) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
 
-        result := ComCall(15, this, BSTR, Guid, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
+        result := ComCall(15, this, BSTR, Guid, UInt32, Param1, UInt32, Param2, UInt32, Param3, UInt32, Param4, "HRESULT")
         return result
     }
 

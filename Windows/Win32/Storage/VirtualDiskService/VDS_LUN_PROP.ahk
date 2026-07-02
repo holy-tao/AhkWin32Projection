@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
-#Import ".\VDS_LUN_STATUS.ahk" { VDS_LUN_STATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\VDS_TRANSITION_STATE.ahk" { VDS_TRANSITION_STATE }
-#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
+#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
+#Import ".\VDS_LUN_STATUS.ahk" { VDS_LUN_STATUS }
 
 /**
  * The VDS_LUN_PROP structure (vdshwprv.h) defines the properties of a LUN object.

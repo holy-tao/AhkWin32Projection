@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWICBitmapEncoderInfo.ahk" { IWICBitmapEncoderInfo }
 #Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
-#Import ".\WICBitmapEncoderCacheOption.ahk" { WICBitmapEncoderCacheOption }
 #Import ".\IWICPalette.ahk" { IWICPalette }
-#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import ".\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
 #Import ".\IWICColorContext.ahk" { IWICColorContext }
+#Import ".\IWICBitmapEncoderInfo.ahk" { IWICBitmapEncoderInfo }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
+#Import ".\WICBitmapEncoderCacheOption.ahk" { WICBitmapEncoderCacheOption }
 
 /**
  * Defines methods for setting an encoder's properties such as thumbnails, frames, and palettes.
@@ -155,7 +155,7 @@ export default struct IWICBitmapEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-setcolorcontexts
      */
     SetColorContexts(cCount, ppIColorContext) {
-        result := ComCall(6, this, "uint", cCount, IWICColorContext.Ptr, ppIColorContext, "HRESULT")
+        result := ComCall(6, this, UInt32, cCount, IWICColorContext.Ptr, ppIColorContext, "HRESULT")
         return result
     }
 

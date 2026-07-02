@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPartsList.ahk" { IPartsList }
-#Import ".\ISubunit.ahk" { ISubunit }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IConnector.ahk" { IConnector }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPartsList.ahk" { IPartsList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISubunit.ahk" { ISubunit }
 #Import ".\IPart.ahk" { IPart }
 
 /**
@@ -74,7 +74,7 @@ export default struct IDeviceTopology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getconnector
      */
     GetConnector(nIndex) {
-        result := ComCall(4, this, "uint", nIndex, "ptr*", &ppConnector := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, nIndex, "ptr*", &ppConnector := 0, "HRESULT")
         return IConnector(ppConnector)
     }
 
@@ -95,7 +95,7 @@ export default struct IDeviceTopology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getsubunit
      */
     GetSubunit(nIndex) {
-        result := ComCall(6, this, "uint", nIndex, "ptr*", &ppSubunit := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, nIndex, "ptr*", &ppSubunit := 0, "HRESULT")
         return ISubunit(ppSubunit)
     }
 
@@ -108,7 +108,7 @@ export default struct IDeviceTopology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getpartbyid
      */
     GetPartById(nId) {
-        result := ComCall(7, this, "uint", nId, "ptr*", &ppPart := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, nId, "ptr*", &ppPart := 0, "HRESULT")
         return IPart(ppPart)
     }
 

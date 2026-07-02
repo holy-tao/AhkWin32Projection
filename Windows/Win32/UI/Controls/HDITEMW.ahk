@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\HDI_MASK.ahk" { HDI_MASK }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HEADER_CONTROL_FORMAT_TYPE.ahk" { HEADER_CONTROL_FORMAT_TYPE }
 #Import ".\HEADER_CONTROL_FORMAT_FLAGS.ahk" { HEADER_CONTROL_FORMAT_FLAGS }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HEADER_CONTROL_FORMAT_STATE.ahk" { HEADER_CONTROL_FORMAT_STATE }
+#Import ".\HEADER_CONTROL_FORMAT_TYPE.ahk" { HEADER_CONTROL_FORMAT_TYPE }
+#Import ".\HDI_MASK.ahk" { HDI_MASK }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * Contains information about an item in a header control. This structure supersedes the HD_ITEM structure. (Unicode)

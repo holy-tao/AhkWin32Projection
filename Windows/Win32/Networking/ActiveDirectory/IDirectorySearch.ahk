@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ADS_SEARCH_COLUMN.ahk" { ADS_SEARCH_COLUMN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ADS_SEARCHPREF_INFO.ahk" { ADS_SEARCHPREF_INFO }
 #Import ".\ADS_SEARCH_HANDLE.ahk" { ADS_SEARCH_HANDLE }
+#Import ".\ADS_SEARCHPREF_INFO.ahk" { ADS_SEARCHPREF_INFO }
+#Import ".\ADS_SEARCH_COLUMN.ahk" { ADS_SEARCH_COLUMN }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirectorySearch interface is a pure COM interface that provides a low overhead method that non-Automation clients can use to perform queries in the underlying directory.
@@ -60,7 +60,7 @@ export default struct IDirectorySearch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-setsearchpreference
      */
     SetSearchPreference(pSearchPrefs, dwNumPrefs) {
-        result := ComCall(3, this, ADS_SEARCHPREF_INFO.Ptr, pSearchPrefs, "uint", dwNumPrefs, "HRESULT")
+        result := ComCall(3, this, ADS_SEARCHPREF_INFO.Ptr, pSearchPrefs, UInt32, dwNumPrefs, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IDirectorySearch extends IUnknown {
         pAttributeNamesMarshal := pAttributeNames is VarRef ? "ptr*" : "ptr"
 
         phSearchResult := ADS_SEARCH_HANDLE()
-        result := ComCall(4, this, "ptr", pszSearchFilter, pAttributeNamesMarshal, pAttributeNames, "uint", dwNumberAttributes, ADS_SEARCH_HANDLE.Ptr, phSearchResult, "HRESULT")
+        result := ComCall(4, this, "ptr", pszSearchFilter, pAttributeNamesMarshal, pAttributeNames, UInt32, dwNumberAttributes, ADS_SEARCH_HANDLE.Ptr, phSearchResult, "HRESULT")
         return phSearchResult
     }
 

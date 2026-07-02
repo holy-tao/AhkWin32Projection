@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\InkRasterOperation.ahk" { InkRasterOperation }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
 #Import ".\InkPenTip.ahk" { InkPenTip }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InkRasterOperation.ahk" { InkRasterOperation }
 
 /**
  * . (IInkDrawingAttributes)
@@ -168,7 +168,7 @@ export default struct IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_color
      */
     put_Color(NewColor) {
-        result := ComCall(8, this, "int", NewColor, "HRESULT")
+        result := ComCall(8, this, Int32, NewColor, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_width
      */
     put_Width(NewWidth) {
-        result := ComCall(10, this, "float", NewWidth, "HRESULT")
+        result := ComCall(10, this, Float32, NewWidth, "HRESULT")
         return result
     }
 
@@ -226,7 +226,7 @@ export default struct IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_height
      */
     put_Height(NewHeight) {
-        result := ComCall(12, this, "float", NewHeight, "HRESULT")
+        result := ComCall(12, this, Float32, NewHeight, "HRESULT")
         return result
     }
 
@@ -336,7 +336,7 @@ export default struct IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_transparency
      */
     put_Transparency(NewTransparency) {
-        result := ComCall(20, this, "int", NewTransparency, "HRESULT")
+        result := ComCall(20, this, Int32, NewTransparency, "HRESULT")
         return result
     }
 

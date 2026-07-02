@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
+#Import ".\LPDDHALMOCOMPCB_DESTROY.ahk" { LPDDHALMOCOMPCB_DESTROY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -15,6 +16,6 @@ export default struct DDHAL_DESTROYMOCOMPDATA {
 
     ddRVal : HRESULT
 
-    DestroyMoComp : IntPtr
+    DestroyMoComp : LPDDHALMOCOMPCB_DESTROY
 
 }

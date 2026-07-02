@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\OBO_TOKEN.ahk" { OBO_TOKEN }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INetCfgComponent.ahk" { INetCfgComponent }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OBO_TOKEN.ahk" { OBO_TOKEN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -73,7 +73,7 @@ export default struct INetCfgClassSetup extends IUnknown {
         pszwAnswerFile := pszwAnswerFile is String ? StrPtr(pszwAnswerFile) : pszwAnswerFile
         pszwAnswerSections := pszwAnswerSections is String ? StrPtr(pszwAnswerSections) : pszwAnswerSections
 
-        result := ComCall(4, this, "ptr", pszwInfId, OBO_TOKEN.Ptr, pOboToken, "uint", dwSetupFlags, "uint", dwUpgradeFromBuildNo, "ptr", pszwAnswerFile, "ptr", pszwAnswerSections, "ptr*", &ppnccItem := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszwInfId, OBO_TOKEN.Ptr, pOboToken, UInt32, dwSetupFlags, UInt32, dwUpgradeFromBuildNo, "ptr", pszwAnswerFile, "ptr", pszwAnswerSections, "ptr*", &ppnccItem := 0, "HRESULT")
         return INetCfgComponent(ppnccItem)
     }
 

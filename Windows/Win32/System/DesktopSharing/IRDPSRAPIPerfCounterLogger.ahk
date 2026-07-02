@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables a client application to implement custom performance logging.
@@ -44,7 +44,7 @@ export default struct IRDPSRAPIPerfCounterLogger extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterlogger-logvalue
      */
     LogValue(lValue) {
-        result := ComCall(3, this, "int64", lValue, "HRESULT")
+        result := ComCall(3, this, Int64, lValue, "HRESULT")
         return result
     }
 

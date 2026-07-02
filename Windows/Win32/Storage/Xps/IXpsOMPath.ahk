@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMDashCollection.ahk" { IXpsOMDashCollection }
 #Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\XPS_LINE_JOIN.ahk" { XPS_LINE_JOIN }
+#Import ".\IXpsOMDashCollection.ahk" { IXpsOMDashCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
 #Import ".\XPS_DASH_CAP.ahk" { XPS_DASH_CAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\XPS_LINE_CAP.ahk" { XPS_LINE_CAP }
 
 /**
@@ -1171,7 +1171,7 @@ export default struct IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokedashoffset
      */
     SetStrokeDashOffset(strokeDashOffset) {
-        result := ComCall(50, this, "float", strokeDashOffset, "HRESULT")
+        result := ComCall(50, this, Float32, strokeDashOffset, "HRESULT")
         return result
     }
 
@@ -1391,7 +1391,7 @@ export default struct IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokemiterlimit
      */
     SetStrokeMiterLimit(strokeMiterLimit) {
-        result := ComCall(58, this, "float", strokeMiterLimit, "HRESULT")
+        result := ComCall(58, this, Float32, strokeMiterLimit, "HRESULT")
         return result
     }
 
@@ -1449,7 +1449,7 @@ export default struct IXpsOMPath extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokethickness
      */
     SetStrokeThickness(strokeThickness) {
-        result := ComCall(60, this, "float", strokeThickness, "HRESULT")
+        result := ComCall(60, this, Float32, strokeThickness, "HRESULT")
         return result
     }
 

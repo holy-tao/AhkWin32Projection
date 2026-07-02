@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MFVideoTransferFunction.ahk" { MFVideoTransferFunction }
-#Import ".\MFVideoArea.ahk" { MFVideoArea }
-#Import ".\MFOffset.ahk" { MFOffset }
 #Import ".\MFVideoPrimaries.ahk" { MFVideoPrimaries }
-#Import ".\MFVideoChromaSubsampling.ahk" { MFVideoChromaSubsampling }
+#Import ".\MFVideoArea.ahk" { MFVideoArea }
 #Import ".\MFRatio.ahk" { MFRatio }
 #Import ".\MFVideoLighting.ahk" { MFVideoLighting }
 #Import ".\MFVideoTransferMatrix.ahk" { MFVideoTransferMatrix }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import ".\MFNominalRange.ahk" { MFNominalRange }
+#Import ".\MFOffset.ahk" { MFOffset }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\MFVideoChromaSubsampling.ahk" { MFVideoChromaSubsampling }
 #Import ".\MFVideoInterlaceMode.ahk" { MFVideoInterlaceMode }
+#Import ".\MFVideoTransferFunction.ahk" { MFVideoTransferFunction }
 
 /**
  * Contains video format information that applies to both compressed and uncompressed formats.This structure is used in the MFVIDEOFORMAT structure.

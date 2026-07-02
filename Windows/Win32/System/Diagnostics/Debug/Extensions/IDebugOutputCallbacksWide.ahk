@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -45,7 +45,7 @@ export default struct IDebugOutputCallbacksWide extends IUnknown {
     Output(Mask, Text) {
         Text := Text is String ? StrPtr(Text) : Text
 
-        result := ComCall(3, this, "uint", Mask, "ptr", Text, "HRESULT")
+        result := ComCall(3, this, UInt32, Mask, "ptr", Text, "HRESULT")
         return result
     }
 

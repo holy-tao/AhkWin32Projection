@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_HINTS2.ahk" { VDS_HINTS2 }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\VDS_POOL_ATTRIBUTES.ahk" { VDS_POOL_ATTRIBUTES }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_HINTS2.ahk" { VDS_HINTS2 }
+#Import ".\VDS_LUN_TYPE.ahk" { VDS_LUN_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 
 /**
  * The IVdsHwProviderStoragePools interface (vdshwprv.h) provides methods to create LUNs in a storage pool and enumerate the storage pools managed by a hardware provider.
@@ -60,7 +60,7 @@ export default struct IVdsHwProviderStoragePools extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwproviderstoragepools-querystoragepools
      */
     QueryStoragePools(ulFlags, ullRemainingFreeSpace, pPoolAttributes) {
-        result := ComCall(3, this, "uint", ulFlags, "uint", ullRemainingFreeSpace, VDS_POOL_ATTRIBUTES.Ptr, pPoolAttributes, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, ulFlags, Int64, ullRemainingFreeSpace, VDS_POOL_ATTRIBUTES.Ptr, pPoolAttributes, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumVdsObject(ppEnum)
     }
 
@@ -135,7 +135,7 @@ export default struct IVdsHwProviderStoragePools extends IUnknown {
     CreateLunInStoragePool(type, ullSizeInBytes, StoragePoolId, pwszUnmaskingList, pHints2) {
         pwszUnmaskingList := pwszUnmaskingList is String ? StrPtr(pwszUnmaskingList) : pwszUnmaskingList
 
-        result := ComCall(4, this, VDS_LUN_TYPE, type, "uint", ullSizeInBytes, Guid, StoragePoolId, "ptr", pwszUnmaskingList, VDS_HINTS2.Ptr, pHints2, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(4, this, VDS_LUN_TYPE, type, Int64, ullSizeInBytes, Guid, StoragePoolId, "ptr", pwszUnmaskingList, VDS_HINTS2.Ptr, pHints2, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

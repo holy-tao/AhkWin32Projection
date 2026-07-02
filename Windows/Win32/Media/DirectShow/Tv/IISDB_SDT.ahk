@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDVB_SDT.ahk" { IDVB_SDT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get information from an Integrated Services Digital Broadcasting (ISDB) service description table (SDT). An SDT lists the names and other parameters of the services in an MPEG-2 transport stream.
@@ -45,7 +45,7 @@ export default struct IISDB_SDT extends IDVB_SDT {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdt-getrecordeituserdefinedflags
      */
     GetRecordEITUserDefinedFlags(dwRecordIndex) {
-        result := ComCall(21, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(21, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 

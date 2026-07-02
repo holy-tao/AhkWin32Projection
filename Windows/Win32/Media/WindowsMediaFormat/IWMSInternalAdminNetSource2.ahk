@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\NETSOURCE_URLCREDPOLICY_SETTINGS.ahk" { NETSOURCE_URLCREDPOLICY_SETTINGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\NETSOURCE_URLCREDPOLICY_SETTINGS.ahk" { NETSOURCE_URLCREDPOLICY_SETTINGS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMSInternalAdminNetSource2 interface provides improved methods for password caching.

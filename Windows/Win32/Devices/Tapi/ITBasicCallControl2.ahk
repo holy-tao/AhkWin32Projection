@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITTerminal.ahk" { ITTerminal }
 #Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITTerminal.ahk" { ITTerminal }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITBasicCallControl.ahk" { ITBasicCallControl }
 
@@ -60,7 +60,7 @@ export default struct ITBasicCallControl2 extends ITBasicCallControl {
     RequestTerminal(bstrTerminalClassGUID, lMediaType, _Direction) {
         bstrTerminalClassGUID := bstrTerminalClassGUID is String ? BSTR.Alloc(bstrTerminalClassGUID).Value : bstrTerminalClassGUID
 
-        result := ComCall(25, this, BSTR, bstrTerminalClassGUID, "int", lMediaType, TERMINAL_DIRECTION, _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrTerminalClassGUID, Int32, lMediaType, TERMINAL_DIRECTION, _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 

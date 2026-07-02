@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BIND_OPTS.ahk" { BIND_OPTS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\BIND_OPTS2.ahk" { BIND_OPTS2 }
+#Import ".\BIND_OPTS.ahk" { BIND_OPTS }
 #Import ".\COSERVERINFO.ahk" { COSERVERINFO }
+#Import ".\BIND_OPTS2.ahk" { BIND_OPTS2 }
 
 /**
  * The BIND_OPTS3 structure contains parameters used during a moniker-binding operation.

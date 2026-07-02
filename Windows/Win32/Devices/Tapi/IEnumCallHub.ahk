@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITCallHub.ahk" { ITCallHub }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumCallHub interface provides COM-standard enumeration methods for the ITCallHub interface. The ITTAPI::EnumerateCallHubs method returns a pointer to IEnumCallHub.
@@ -56,7 +56,7 @@ export default struct IEnumCallHub extends IUnknown {
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return ITCallHub(ppElements)
     }
 
@@ -146,7 +146,7 @@ export default struct IEnumCallHub extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumcallhub-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMsmDependencies.ahk" { IMsmDependencies }
+#Import ".\IMsmErrors.ahk" { IMsmErrors }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IMsmErrors.ahk" { IMsmErrors }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMsmMerge interface and the IMsmMerge2 interface provide interfaces to the Merge object.
@@ -212,7 +212,7 @@ export default struct IMsmMerge extends IDispatch {
     OpenModule(_Path, Language) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(8, this, BSTR, _Path, "short", Language, "HRESULT")
+        result := ComCall(8, this, BSTR, _Path, Int16, Language, "HRESULT")
         return result
     }
 

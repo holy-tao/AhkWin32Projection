@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPADAPTATIONSETTINGS.ahk" { SPADAPTATIONSETTINGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
-#Import ".\SPADAPTATIONRELEVANCE.ahk" { SPADAPTATIONRELEVANCE }
-#Import ".\ISpPhrase.ahk" { ISpPhrase }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
+#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
 #Import ".\ISpSREngine.ahk" { ISpSREngine }
+#Import ".\SPADAPTATIONSETTINGS.ahk" { SPADAPTATIONSETTINGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SPADAPTATIONRELEVANCE.ahk" { SPADAPTATIONRELEVANCE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -67,7 +67,7 @@ export default struct ISpSREngine2 extends ISpSREngine {
         ppvCoMemResponseMarshal := ppvCoMemResponse is VarRef ? "ptr*" : "ptr"
         pulResponseSizeMarshal := pulResponseSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(32, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, "uint", ulInCallFrameSize, ppvCoMemResponseMarshal, ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
+        result := ComCall(32, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, UInt32, ulInCallFrameSize, ppvCoMemResponseMarshal, ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct ISpSREngine2 extends ISpSREngine {
 
         pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(33, this, pvEngineContextMarshal, pvEngineContext, "ptr", pAdaptationData, "uint", cch, "ptr", pTopicName, SPADAPTATIONSETTINGS, eSettings, SPADAPTATIONRELEVANCE, eRelevance, "HRESULT")
+        result := ComCall(33, this, pvEngineContextMarshal, pvEngineContext, "ptr", pAdaptationData, UInt32, cch, "ptr", pTopicName, SPADAPTATIONSETTINGS, eSettings, SPADAPTATIONRELEVANCE, eRelevance, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct ISpSREngine2 extends ISpSREngine {
     SetRulePriority(hRule, pvClientRuleContext, nRulePriority) {
         pvClientRuleContextMarshal := pvClientRuleContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(35, this, SPRULEHANDLE, hRule, pvClientRuleContextMarshal, pvClientRuleContext, "int", nRulePriority, "HRESULT")
+        result := ComCall(35, this, SPRULEHANDLE, hRule, pvClientRuleContextMarshal, pvClientRuleContext, Int32, nRulePriority, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct ISpSREngine2 extends ISpSREngine {
      * @returns {HRESULT} 
      */
     EmulateRecognition(pPhrase, dwCompareFlags) {
-        result := ComCall(36, this, "ptr", pPhrase, "uint", dwCompareFlags, "HRESULT")
+        result := ComCall(36, this, "ptr", pPhrase, UInt32, dwCompareFlags, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct ISpSREngine2 extends ISpSREngine {
     SetSLMWeight(pvEngineGrammar, flWeight) {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(37, this, pvEngineGrammarMarshal, pvEngineGrammar, "float", flWeight, "HRESULT")
+        result := ComCall(37, this, pvEngineGrammarMarshal, pvEngineGrammar, Float32, flWeight, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct ISpSREngine2 extends ISpSREngine {
     SetRuleWeight(hRule, pvClientRuleContext, flWeight) {
         pvClientRuleContextMarshal := pvClientRuleContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(38, this, SPRULEHANDLE, hRule, pvClientRuleContextMarshal, pvClientRuleContext, "float", flWeight, "HRESULT")
+        result := ComCall(38, this, SPRULEHANDLE, hRule, pvClientRuleContextMarshal, pvClientRuleContext, Float32, flWeight, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct ISpSREngine2 extends ISpSREngine {
     OnLoadCFG(pvEngineGrammar, pGrammarData, ulGrammarID) {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(41, this, pvEngineGrammarMarshal, pvEngineGrammar, SPBINARYGRAMMAR.Ptr, pGrammarData, "uint", ulGrammarID, "HRESULT")
+        result := ComCall(41, this, pvEngineGrammarMarshal, pvEngineGrammar, SPBINARYGRAMMAR.Ptr, pGrammarData, UInt32, ulGrammarID, "HRESULT")
         return result
     }
 
@@ -202,7 +202,7 @@ export default struct ISpSREngine2 extends ISpSREngine {
     OnUnloadCFG(pvEngineGrammar, ulGrammarID) {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(42, this, pvEngineGrammarMarshal, pvEngineGrammar, "uint", ulGrammarID, "HRESULT")
+        result := ComCall(42, this, pvEngineGrammarMarshal, pvEngineGrammar, UInt32, ulGrammarID, "HRESULT")
         return result
     }
 

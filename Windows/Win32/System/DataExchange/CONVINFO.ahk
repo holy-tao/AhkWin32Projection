@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CONVINFO_CONVERSATION_STATE.ahk" { CONVINFO_CONVERSATION_STATE }
+#Import ".\CONVCONTEXT.ahk" { CONVCONTEXT }
+#Import ".\DDE_CLIENT_TRANSACTION_TYPE.ahk" { DDE_CLIENT_TRANSACTION_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
+#Import ".\HCONV.ahk" { HCONV }
 #Import ".\CONVINFO_STATUS.ahk" { CONVINFO_STATUS }
 #Import "..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
-#Import ".\HSZ.ahk" { HSZ }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\HCONVLIST.ahk" { HCONVLIST }
-#Import ".\HCONV.ahk" { HCONV }
-#Import ".\CONVCONTEXT.ahk" { CONVCONTEXT }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\DDE_CLIENT_TRANSACTION_TYPE.ahk" { DDE_CLIENT_TRANSACTION_TYPE }
-#Import "..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
-#Import ".\CONVINFO_CONVERSATION_STATE.ahk" { CONVINFO_CONVERSATION_STATE }
+#Import ".\HSZ.ahk" { HSZ }
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) conversation.

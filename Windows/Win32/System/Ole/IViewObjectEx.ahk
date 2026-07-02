@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\DVEXTENTINFO.ahk" { DVEXTENTINFO }
+#Import "..\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IViewObject2.ahk" { IViewObject2 }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\Com\DVASPECT.ahk" { DVASPECT }
-#Import ".\DVEXTENTINFO.ahk" { DVEXTENTINFO }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * An extension derived from IViewObject2 to provide support for Enhanced, flicker-free drawing for non-rectangular objects and transparent objects, hit testing for non-rectangular objects, and Control sizing
@@ -98,7 +98,7 @@ export default struct IViewObjectEx extends IViewObject2 {
      */
     GetRect(dwAspect) {
         pRect := RECTL()
-        result := ComCall(10, this, "uint", dwAspect, RECTL.Ptr, pRect, "HRESULT")
+        result := ComCall(10, this, UInt32, dwAspect, RECTL.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -198,7 +198,7 @@ export default struct IViewObjectEx extends IViewObject2 {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-queryhitpoint
      */
     QueryHitPoint(dwAspect, pRectBounds, ptlLoc, lCloseHint) {
-        result := ComCall(12, this, "uint", dwAspect, RECT.Ptr, pRectBounds, POINT, ptlLoc, "int", lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwAspect, RECT.Ptr, pRectBounds, POINT, ptlLoc, Int32, lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
         return pHitResult
     }
 
@@ -219,7 +219,7 @@ export default struct IViewObjectEx extends IViewObject2 {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-queryhitrect
      */
     QueryHitRect(dwAspect, pRectBounds, pRectLoc, lCloseHint) {
-        result := ComCall(13, this, "uint", dwAspect, RECT.Ptr, pRectBounds, RECT.Ptr, pRectLoc, "int", lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwAspect, RECT.Ptr, pRectBounds, RECT.Ptr, pRectLoc, Int32, lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
         return pHitResult
     }
 
@@ -255,7 +255,7 @@ export default struct IViewObjectEx extends IViewObject2 {
      */
     GetNaturalExtent(dwAspect, lindex, ptd, hicTargetDev, pExtentInfo) {
         pSizel := SIZE()
-        result := ComCall(14, this, DVASPECT, dwAspect, "int", lindex, DVTARGETDEVICE.Ptr, ptd, HDC, hicTargetDev, DVEXTENTINFO.Ptr, pExtentInfo, SIZE.Ptr, pSizel, "HRESULT")
+        result := ComCall(14, this, DVASPECT, dwAspect, Int32, lindex, DVTARGETDEVICE.Ptr, ptd, HDC, hicTargetDev, DVEXTENTINFO.Ptr, pExtentInfo, SIZE.Ptr, pSizel, "HRESULT")
         return pSizel
     }
 

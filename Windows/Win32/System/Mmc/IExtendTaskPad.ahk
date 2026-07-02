@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import ".\MMC_TASK_DISPLAY_OBJECT.ahk" { MMC_TASK_DISPLAY_OBJECT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumTASK.ahk" { IEnumTASK }
+#Import ".\MMC_TASK_DISPLAY_OBJECT.ahk" { MMC_TASK_DISPLAY_OBJECT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\MMC_LISTPAD_INFO.ahk" { MMC_LISTPAD_INFO }

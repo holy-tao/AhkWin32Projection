@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -65,7 +65,7 @@ export default struct IXFeedsEnum extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(uiIndex, riid) {
-        result := ComCall(4, this, "uint", uiIndex, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, uiIndex, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

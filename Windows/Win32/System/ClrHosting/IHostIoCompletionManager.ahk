@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICLRIoCompletionManager.ahk" { ICLRIoCompletionManager }
 
 /**
@@ -165,7 +165,7 @@ export default struct IHostIoCompletionManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMaxThreads(dwMaxIOCompletionThreads) {
-        result := ComCall(5, this, "uint", dwMaxIOCompletionThreads, "HRESULT")
+        result := ComCall(5, this, UInt32, dwMaxIOCompletionThreads, "HRESULT")
         return result
     }
 
@@ -263,7 +263,7 @@ export default struct IHostIoCompletionManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMinThreads(dwMinIOCompletionThreads) {
-        result := ComCall(12, this, "uint", dwMinIOCompletionThreads, "HRESULT")
+        result := ComCall(12, this, UInt32, dwMinIOCompletionThreads, "HRESULT")
         return result
     }
 

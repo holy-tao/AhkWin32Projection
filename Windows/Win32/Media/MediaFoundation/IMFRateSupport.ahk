@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MFRATE_DIRECTION.ahk" { MFRATE_DIRECTION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFRATE_DIRECTION.ahk" { MFRATE_DIRECTION }
 
 /**
  * Queries the range of playback rates that are supported, including reverse playback.
@@ -145,7 +145,7 @@ export default struct IMFRateSupport extends IUnknown {
     IsRateSupported(fThin, flRate, pflNearestSupportedRate) {
         pflNearestSupportedRateMarshal := pflNearestSupportedRate is VarRef ? "float*" : "ptr"
 
-        result := ComCall(5, this, BOOL, fThin, "float", flRate, pflNearestSupportedRateMarshal, pflNearestSupportedRate, "HRESULT")
+        result := ComCall(5, this, BOOL, fThin, Float32, flRate, pflNearestSupportedRateMarshal, pflNearestSupportedRate, "HRESULT")
         return result
     }
 

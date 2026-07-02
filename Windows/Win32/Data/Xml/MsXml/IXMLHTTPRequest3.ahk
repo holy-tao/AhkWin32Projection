@@ -76,7 +76,7 @@ export default struct IXMLHTTPRequest3 extends IXMLHTTPRequest2 {
 
         pbClientCertificateHashMarshal := pbClientCertificateHash is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "uint", cbClientCertificateHash, pbClientCertificateHashMarshal, pbClientCertificateHash, "ptr", pwszPin, "HRESULT")
+        result := ComCall(13, this, UInt32, cbClientCertificateHash, pbClientCertificateHashMarshal, pbClientCertificateHash, "ptr", pwszPin, "HRESULT")
         return result
     }
 

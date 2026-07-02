@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RdcBufferPointer.ahk" { RdcBufferPointer }
 #Import ".\RDC_ErrorCode.ahk" { RDC_ErrorCode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RdcNeedPointer.ahk" { RdcNeedPointer }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RdcBufferPointer.ahk" { RdcBufferPointer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RdcNeedPointer.ahk" { RdcNeedPointer }
 
 /**
  * Used to compare two signature streams (seed and source) and produce the list of source and seed file data chunks needed to create the target file.

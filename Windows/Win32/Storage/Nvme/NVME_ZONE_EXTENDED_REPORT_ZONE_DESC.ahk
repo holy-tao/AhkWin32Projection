@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NVME_ZONE_DESCRIPTOR.ahk" { NVME_ZONE_DESCRIPTOR }
 #Import ".\NVME_ZONE_DESCRIPTOR_EXTENSION.ahk" { NVME_ZONE_DESCRIPTOR_EXTENSION }
+#Import ".\NVME_ZONE_DESCRIPTOR.ahk" { NVME_ZONE_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme

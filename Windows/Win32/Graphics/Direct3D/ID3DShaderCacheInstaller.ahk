@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3DShaderCacheApplication.ahk" { ID3DShaderCacheApplication }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\D3D_SHADER_CACHE_APPLICATION_DESC.ahk" { D3D_SHADER_CACHE_APPLICATION_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk" { D3D_SHADER_CACHE_COMPILER_PROPERTIES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\D3D_SHADER_CACHE_TARGET_FLAGS.ahk" { D3D_SHADER_CACHE_TARGET_FLAGS }
+#Import ".\ID3DShaderCacheApplication.ahk" { ID3DShaderCacheApplication }
 #Import "..\..\System\Services\SC_HANDLE.ahk" { SC_HANDLE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk" { D3D_SHADER_CACHE_COMPILER_PROPERTIES }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
@@ -129,7 +129,7 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     GetApplication(index, riid) {
-        result := ComCall(10, this, "uint", index, Guid.Ptr, riid, "ptr*", &ppvApp := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, index, Guid.Ptr, riid, "ptr*", &ppvApp := 0, "HRESULT")
         return ppvApp
     }
 

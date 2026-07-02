@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SignatureComparison.ahk" { SignatureComparison }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDebugHostType.ahk" { IDebugHostType }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
 
 /**

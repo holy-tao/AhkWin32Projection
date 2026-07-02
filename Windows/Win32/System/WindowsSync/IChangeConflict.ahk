@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncChange.ahk" { ISyncChange }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SYNC_RESOLVE_ACTION.ahk" { SYNC_RESOLVE_ACTION }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
 
 /**
  * Represents a conflict between two items.

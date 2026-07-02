@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables two threads to share the same Direct3D 9 device, and provides access to the DirectX Video Acceleration (DXVA) features of the device.
@@ -110,7 +110,7 @@ export default struct IDirect3DDeviceManager9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-resetdevice
      */
     ResetDevice(pDevice, resetToken) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", resetToken, "HRESULT")
+        result := ComCall(3, this, "ptr", pDevice, UInt32, resetToken, "HRESULT")
         return result
     }
 

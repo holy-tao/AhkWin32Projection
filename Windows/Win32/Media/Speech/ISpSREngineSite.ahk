@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPTRANSITIONPROPERTY.ahk" { SPTRANSITIONPROPERTY }
-#Import ".\SPRECOCONTEXTHANDLE.ahk" { SPRECOCONTEXTHANDLE }
-#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
-#Import ".\SPEVENT.ahk" { SPEVENT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SPSTATEINFO.ahk" { SPSTATEINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPRULEINFOOPT.ahk" { SPRULEINFOOPT }
+#Import ".\SPWORDINFOOPT.ahk" { SPWORDINFOOPT }
 #Import ".\SPRECORESULTINFO.ahk" { SPRECORESULTINFO }
 #Import ".\ISpPhraseBuilder.ahk" { ISpPhraseBuilder }
-#Import ".\SPWORDENTRY.ahk" { SPWORDENTRY }
-#Import ".\SPWORDINFOOPT.ahk" { SPWORDINFOOPT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SPPARSEINFO.ahk" { SPPARSEINFO }
-#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
-#Import ".\SPRULEENTRY.ahk" { SPRULEENTRY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPRECOCONTEXTHANDLE.ahk" { SPRECOCONTEXTHANDLE }
+#Import ".\SPRULEINFOOPT.ahk" { SPRULEINFOOPT }
+#Import ".\SPTRANSITIONPROPERTY.ahk" { SPTRANSITIONPROPERTY }
 #Import ".\SPWORDHANDLE.ahk" { SPWORDHANDLE }
+#Import ".\SPRULEENTRY.ahk" { SPRULEENTRY }
+#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPEVENT.ahk" { SPEVENT }
+#Import ".\SPWORDENTRY.ahk" { SPWORDENTRY }
+#Import ".\SPSTATEINFO.ahk" { SPSTATEINFO }
+#Import ".\SPPARSEINFO.ahk" { SPPARSEINFO }
+#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
 #Import ".\SPSTATEHANDLE.ahk" { SPSTATEHANDLE }
 
 /**
@@ -77,7 +77,7 @@ export default struct ISpSREngineSite extends IUnknown {
     Read(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pvMarshal, pv, "uint", cb, "uint*", &pcbRead := 0, "HRESULT")
+        result := ComCall(3, this, pvMarshal, pv, UInt32, cb, "uint*", &pcbRead := 0, "HRESULT")
         return pcbRead
     }
 
@@ -96,7 +96,7 @@ export default struct ISpSREngineSite extends IUnknown {
      * @returns {HRESULT} 
      */
     SetBufferNotifySize(cbSize) {
-        result := ComCall(5, this, "uint", cbSize, "HRESULT")
+        result := ComCall(5, this, UInt32, cbSize, "HRESULT")
         return result
     }
 
@@ -137,7 +137,7 @@ export default struct ISpSREngineSite extends IUnknown {
      * @returns {HRESULT} 
      */
     Synchronize(ullProcessedThruPos) {
-        result := ComCall(9, this, "uint", ullProcessedThruPos, "HRESULT")
+        result := ComCall(9, this, Int64, ullProcessedThruPos, "HRESULT")
         return result
     }
 
@@ -260,7 +260,7 @@ export default struct ISpSREngineSite extends IUnknown {
      * @returns {HRESULT} 
      */
     UpdateRecoPos(ullCurrentRecoPos) {
-        result := ComCall(20, this, "uint", ullCurrentRecoPos, "HRESULT")
+        result := ComCall(20, this, Int64, ullCurrentRecoPos, "HRESULT")
         return result
     }
 

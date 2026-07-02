@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XACTSTAT.ahk" { XACTSTAT }
 #Import ".\IResourceManager2.ahk" { IResourceManager2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XACTSTAT.ahk" { XACTSTAT }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -46,7 +46,7 @@ export default struct IResourceManagerRejoinable extends IResourceManager2 {
     Rejoin(pPrepInfo, cbPrepInfo, lTimeout) {
         pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, "int*", &pXactStat := 0, "HRESULT")
+        result := ComCall(9, this, pPrepInfoMarshal, pPrepInfo, UInt32, cbPrepInfo, UInt32, lTimeout, "int*", &pXactStat := 0, "HRESULT")
         return pXactStat
     }
 

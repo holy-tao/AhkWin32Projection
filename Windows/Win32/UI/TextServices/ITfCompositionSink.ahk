@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITfComposition.ahk" { ITfComposition }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfCompositionSink interface is implemented by a text service to receive a notification when a composition is terminated.
@@ -48,7 +48,7 @@ export default struct ITfCompositionSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompositionsink-oncompositionterminated
      */
     OnCompositionTerminated(ecWrite, pComposition) {
-        result := ComCall(3, this, "uint", ecWrite, "ptr", pComposition, "HRESULT")
+        result := ComCall(3, this, UInt32, ecWrite, "ptr", pComposition, "HRESULT")
         return result
     }
 

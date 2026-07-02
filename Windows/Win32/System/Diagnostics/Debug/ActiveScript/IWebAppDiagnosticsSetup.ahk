@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -55,7 +55,7 @@ export default struct IWebAppDiagnosticsSetup extends IUnknown {
      * @returns {HRESULT} 
      */
     CreateObjectWithSiteAtWebApp(rclsid, dwClsContext, riid, hPassToObject) {
-        result := ComCall(4, this, Guid.Ptr, rclsid, "uint", dwClsContext, Guid.Ptr, riid, "ptr", hPassToObject, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rclsid, UInt32, dwClsContext, Guid.Ptr, riid, IntPtr, hPassToObject, "HRESULT")
         return result
     }
 

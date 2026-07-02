@@ -45,7 +45,7 @@ export default struct ID3D12VideoProcessCommandList3 extends ID3D12VideoProcessC
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoprocesscommandlist3-barrier
      */
     Barrier(NumBarrierGroups, pBarrierGroups) {
-        ComCall(27, this, "uint", NumBarrierGroups, D3D12_BARRIER_GROUP.Ptr, pBarrierGroups)
+        ComCall(27, this, UInt32, NumBarrierGroups, D3D12_BARRIER_GROUP.Ptr, pBarrierGroups)
     }
 
     Query(iid) {

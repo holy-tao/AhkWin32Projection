@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RTC_SESSION_REFER_STATUS.ahk" { RTC_SESSION_REFER_STATUS }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IRTCSession2.ahk" { IRTCSession2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RTC_SESSION_REFER_STATUS.ahk" { RTC_SESSION_REFER_STATUS }
+#Import ".\IRTCSession2.ahk" { IRTCSession2 }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

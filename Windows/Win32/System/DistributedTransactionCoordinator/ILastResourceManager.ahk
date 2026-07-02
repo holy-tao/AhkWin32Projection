@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -45,7 +45,7 @@ export default struct ILastResourceManager extends IUnknown {
     TransactionCommitted(pPrepInfo, cbPrepInfo) {
         pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "HRESULT")
+        result := ComCall(3, this, pPrepInfoMarshal, pPrepInfo, UInt32, cbPrepInfo, "HRESULT")
         return result
     }
 

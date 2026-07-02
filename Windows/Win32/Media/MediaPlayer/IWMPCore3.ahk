@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
 #Import ".\IWMPCore2.ahk" { IWMPCore2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWMPMedia.ahk" { IWMPMedia }
-#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
 
 /**
  * The IWMPCore3 interface provides methods that supplement the IWMPCore2 interface.

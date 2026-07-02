@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows a browser or host to ask IShellView what kind of view behavior is supported.
@@ -50,7 +50,7 @@ export default struct IBrowserFrameOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ibrowserframeoptions-getframeoptions
      */
     GetFrameOptions(dwMask) {
-        result := ComCall(3, this, "uint", dwMask, "uint*", &pdwOptions := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwMask, "uint*", &pdwOptions := 0, "HRESULT")
         return pdwOptions
     }
 

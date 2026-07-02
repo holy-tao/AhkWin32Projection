@@ -1,7 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SLIST_ENTRY.ahk" { SLIST_ENTRY }
 #Import ".\SLIST_HEADER.ahk" { SLIST_HEADER }
+#Import ".\SLIST_ENTRY.ahk" { SLIST_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Kernel
@@ -74,7 +74,7 @@ export RtlInterlockedPushEntrySList(ListHead, ListEntry) {
  * @returns {Pointer<SLIST_ENTRY>} 
  */
 export RtlInterlockedPushListSListEx(ListHead, List, ListEnd, Count) {
-    result := DllCall("ntdll.dll\RtlInterlockedPushListSListEx", SLIST_HEADER.Ptr, ListHead, SLIST_ENTRY.Ptr, List, SLIST_ENTRY.Ptr, ListEnd, "uint", Count, SLIST_ENTRY.Ptr)
+    result := DllCall("ntdll.dll\RtlInterlockedPushListSListEx", SLIST_HEADER.Ptr, ListHead, SLIST_ENTRY.Ptr, List, SLIST_ENTRY.Ptr, ListEnd, UInt32, Count, SLIST_ENTRY.Ptr)
     return result
 }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumEventObject.ahk" { IEnumEventObject }
 
 /**

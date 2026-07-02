@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DKMT_VAD_ESCAPE_COMMAND.ahk" { D3DKMT_VAD_ESCAPE_COMMAND }
-#Import ".\D3DKMT_DEFRAG_ESCAPE_OPERATION.ahk" { D3DKMT_DEFRAG_ESCAPE_OPERATION }
-#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3DKMT_VIDMMESCAPETYPE.ahk" { D3DKMT_VIDMMESCAPETYPE }
-#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\D3DKMT_DEFRAG_ESCAPE_OPERATION.ahk" { D3DKMT_DEFRAG_ESCAPE_OPERATION }
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DKMT_VAD_ESCAPE_COMMAND.ahk" { D3DKMT_VAD_ESCAPE_COMMAND }
+#Import ".\D3DKMT_VIDMMESCAPETYPE.ahk" { D3DKMT_VIDMMESCAPETYPE }
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

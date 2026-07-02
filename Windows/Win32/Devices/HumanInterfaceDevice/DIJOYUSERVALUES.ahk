@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JOYPOS.ahk" { JOYPOS }
 #Import ".\JOYRANGE.ahk" { JOYRANGE }
 #Import ".\JOYREGUSERVALUES.ahk" { JOYREGUSERVALUES }
-#Import ".\JOYPOS.ahk" { JOYPOS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

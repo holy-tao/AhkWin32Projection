@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RD_FARM_TYPE.ahk" { RD_FARM_TYPE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITsSbClientConnectionPropertySet.ahk" { ITsSbClientConnectionPropertySet }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITsSbSession.ahk" { ITsSbSession }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RD_FARM_TYPE.ahk" { RD_FARM_TYPE }
+#Import ".\ITsSbClientConnectionPropertySet.ahk" { ITsSbClientConnectionPropertySet }
 #Import ".\ITsSbLoadBalanceResult.ahk" { ITsSbLoadBalanceResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
 
 /**
  * Exposes methods and properties that store state information about an incoming connection request from a Remote Desktop Connection (RDC) client.

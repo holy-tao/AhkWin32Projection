@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLDocumentCompatibleInfo.ahk" { IHTMLDocumentCompatibleInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -65,7 +65,7 @@ export default struct IHTMLDocumentCompatibleInfoCollection extends IDispatch {
      * @returns {IHTMLDocumentCompatibleInfo} 
      */
     item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &compatibleInfo := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "ptr*", &compatibleInfo := 0, "HRESULT")
         return IHTMLDocumentCompatibleInfo(compatibleInfo)
     }
 

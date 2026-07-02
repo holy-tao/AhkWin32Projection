@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -120,7 +120,7 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
      * @returns {HRESULT} 
      */
     put_FormatTag(FormatTag) {
-        result := ComCall(8, this, "short", FormatTag, "HRESULT")
+        result := ComCall(8, this, Int16, FormatTag, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Channels(Channels) {
-        result := ComCall(10, this, "short", Channels, "HRESULT")
+        result := ComCall(10, this, Int16, Channels, "HRESULT")
         return result
     }
 
@@ -158,7 +158,7 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SamplesPerSec(SamplesPerSec) {
-        result := ComCall(12, this, "int", SamplesPerSec, "HRESULT")
+        result := ComCall(12, this, Int32, SamplesPerSec, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AvgBytesPerSec(AvgBytesPerSec) {
-        result := ComCall(14, this, "int", AvgBytesPerSec, "HRESULT")
+        result := ComCall(14, this, Int32, AvgBytesPerSec, "HRESULT")
         return result
     }
 
@@ -196,7 +196,7 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
      * @returns {HRESULT} 
      */
     put_BlockAlign(BlockAlign) {
-        result := ComCall(16, this, "short", BlockAlign, "HRESULT")
+        result := ComCall(16, this, Int16, BlockAlign, "HRESULT")
         return result
     }
 
@@ -215,7 +215,7 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
      * @returns {HRESULT} 
      */
     put_BitsPerSample(BitsPerSample) {
-        result := ComCall(18, this, "short", BitsPerSample, "HRESULT")
+        result := ComCall(18, this, Int16, BitsPerSample, "HRESULT")
         return result
     }
 

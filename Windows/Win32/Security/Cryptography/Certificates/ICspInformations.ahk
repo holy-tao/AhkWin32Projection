@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\X509KeySpec.ahk" { X509KeySpec }
-#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
+#Import ".\ICspStatus.ahk" { ICspStatus }
 #Import ".\ICspStatuses.ahk" { ICspStatuses }
+#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ICspInformation.ahk" { ICspInformation }
-#Import ".\IObjectIds.ahk" { IObjectIds }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ICspAlgorithms.ahk" { ICspAlgorithms }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ICspStatus.ahk" { ICspStatus }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ICspInformations interface defines the following methods and properties to manage a collection of ICspInformation objects.
@@ -78,7 +78,7 @@ export default struct ICspInformations extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-get_itembyindex
      */
     get_ItemByIndex(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Index, "ptr*", &pVal := 0, "HRESULT")
         return ICspInformation(pVal)
     }
 
@@ -124,7 +124,7 @@ export default struct ICspInformations extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-remove
      */
     Remove(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, Int32, Index, "HRESULT")
         return result
     }
 

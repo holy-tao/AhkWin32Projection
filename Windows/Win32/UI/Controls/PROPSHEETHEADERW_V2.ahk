@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\PFNPROPSHEETCALLBACK.ahk" { PFNPROPSHEETCALLBACK }
+#Import ".\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
+#Import ".\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
@@ -59,7 +60,7 @@ export default struct PROPSHEETHEADERW_V2 {
 
     ppsp : PROPSHEETPAGEW.Ptr
 
-    pfnCallback : IntPtr
+    pfnCallback : PFNPROPSHEETCALLBACK
 
     hbmWatermark : HBITMAP
 

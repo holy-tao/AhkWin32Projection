@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IObjectId.ahk" { IObjectId }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectId.ahk" { IObjectId }
 
 /**
  * Represents an SMIMECapabilities extension that identifies the decryption capabilities of an email recipient.
@@ -180,7 +180,7 @@ export default struct ISmimeCapability extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapability-initialize
      */
     Initialize(pObjectId, BitCount) {
-        result := ComCall(7, this, "ptr", pObjectId, "int", BitCount, "HRESULT")
+        result := ComCall(7, this, "ptr", pObjectId, Int32, BitCount, "HRESULT")
         return result
     }
 

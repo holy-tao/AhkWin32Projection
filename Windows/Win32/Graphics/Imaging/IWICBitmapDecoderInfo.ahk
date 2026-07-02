@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICBitmapCodecInfo.ahk" { IWICBitmapCodecInfo }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IWICBitmapDecoder.ahk" { IWICBitmapDecoder }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWICBitmapCodecInfo.ahk" { IWICBitmapCodecInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Exposes methods that provide information about a decoder.
@@ -68,7 +68,7 @@ export default struct IWICBitmapDecoderInfo extends IWICBitmapCodecInfo {
         pcPatternsMarshal := pcPatterns is VarRef ? "uint*" : "ptr"
         pcbPatternsActualMarshal := pcbPatternsActual is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "uint", cbSizePatterns, "ptr", pPatterns, pcPatternsMarshal, pcPatterns, pcbPatternsActualMarshal, pcbPatternsActual, "HRESULT")
+        result := ComCall(23, this, UInt32, cbSizePatterns, IntPtr, pPatterns, pcPatternsMarshal, pcPatterns, pcbPatternsActualMarshal, pcbPatternsActual, "HRESULT")
         return result
     }
 

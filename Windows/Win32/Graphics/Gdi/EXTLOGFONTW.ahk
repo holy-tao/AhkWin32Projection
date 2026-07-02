@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
-#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
-#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
-#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
-#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
-#Import ".\LOGFONTW.ahk" { LOGFONTW }
-#Import ".\PANOSE.ahk" { PANOSE }
-#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
-#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
-#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
 #Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
-#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
-#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
-#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
-#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
 #Import ".\PAN_WEIGHT.ahk" { PAN_WEIGHT }
+#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import ".\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
+#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
+#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\PANOSE.ahk" { PANOSE }
+#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

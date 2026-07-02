@@ -89,7 +89,7 @@ export default struct ISVGAngle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_unitType(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, Int16, v, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct ISVGAngle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_value(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct ISVGAngle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_valueInSpecifiedUnits(v) {
-        result := ComCall(11, this, "float", v, "HRESULT")
+        result := ComCall(11, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -169,7 +169,7 @@ export default struct ISVGAngle extends IDispatch {
      * @returns {HRESULT} 
      */
     newValueSpecifiedUnits(unitType, valueInSpecifiedUnits) {
-        result := ComCall(15, this, "short", unitType, "float", valueInSpecifiedUnits, "HRESULT")
+        result := ComCall(15, this, Int16, unitType, Float32, valueInSpecifiedUnits, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct ISVGAngle extends IDispatch {
      * @returns {HRESULT} 
      */
     convertToSpecifiedUnits(unitType) {
-        result := ComCall(16, this, "short", unitType, "HRESULT")
+        result := ComCall(16, this, Int16, unitType, "HRESULT")
         return result
     }
 

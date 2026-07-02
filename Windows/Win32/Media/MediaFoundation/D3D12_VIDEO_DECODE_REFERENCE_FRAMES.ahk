@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID3D12VideoDecoderHeap.ahk" { ID3D12VideoDecoderHeap }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\ID3D12VideoDecoderHeap.ahk" { ID3D12VideoDecoderHeap }
 
 /**
  * Contains the list of reference frames for the current decode operation.

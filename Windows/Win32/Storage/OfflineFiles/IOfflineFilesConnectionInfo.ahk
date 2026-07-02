@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\OFFLINEFILES_OFFLINE_REASON.ahk" { OFFLINEFILES_OFFLINE_REASON }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\OFFLINEFILES_CONNECT_STATE.ahk" { OFFLINEFILES_CONNECT_STATE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Presents query and action capabilities associated with the online-offline transition behavior of Offline Files.
@@ -78,7 +78,7 @@ export default struct IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-setconnectstate
      */
     SetConnectState(hwndParent, dwFlags, ConnectState) {
-        result := ComCall(4, this, HWND, hwndParent, "uint", dwFlags, OFFLINEFILES_CONNECT_STATE, ConnectState, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, UInt32, dwFlags, OFFLINEFILES_CONNECT_STATE, ConnectState, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-transitiononline
      */
     TransitionOnline(hwndParent, dwFlags) {
-        result := ComCall(5, this, HWND, hwndParent, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, HWND, hwndParent, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-transitionoffline
      */
     TransitionOffline(hwndParent, dwFlags, bForceOpenFilesClosed) {
-        result := ComCall(6, this, HWND, hwndParent, "uint", dwFlags, BOOL, bForceOpenFilesClosed, BOOL.Ptr, &pbOpenFilesPreventedTransition := 0, "HRESULT")
+        result := ComCall(6, this, HWND, hwndParent, UInt32, dwFlags, BOOL, bForceOpenFilesClosed, BOOL.Ptr, &pbOpenFilesPreventedTransition := 0, "HRESULT")
         return pbOpenFilesPreventedTransition
     }
 

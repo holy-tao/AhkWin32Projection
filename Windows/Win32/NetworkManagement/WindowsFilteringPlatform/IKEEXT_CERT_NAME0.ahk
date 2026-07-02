@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IKEEXT_CERT_CRITERIA_NAME_TYPE.ahk" { IKEEXT_CERT_CRITERIA_NAME_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Specifies certificate selection &quot;subject&quot; criteria for an authentication method.

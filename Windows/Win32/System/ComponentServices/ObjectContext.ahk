@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ContextInfo.ahk" { ContextInfo }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SecurityProperty.ahk" { SecurityProperty }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to the current object's context. An object's context is primarily used when working with transactions or dealing with the security of an object. (ObjectContext)

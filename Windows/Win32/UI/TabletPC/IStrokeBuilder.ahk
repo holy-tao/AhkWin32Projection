@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkDisp.ahk" { IInkDisp }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
 
 /**
@@ -89,7 +89,7 @@ export default struct IStrokeBuilder extends IUnknown {
     CreateStroke(cPktBuffLength, pPackets, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
         pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPktBuffLength, pPacketsMarshal, pPackets, "uint", cPacketProperties, PACKET_PROPERTY.Ptr, pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, IInkStrokeDisp.Ptr, ppIInkStroke, "HRESULT")
+        result := ComCall(3, this, UInt32, cPktBuffLength, pPacketsMarshal, pPackets, UInt32, cPacketProperties, PACKET_PROPERTY.Ptr, pPacketProperties, Float32, fInkToDeviceScaleX, Float32, fInkToDeviceScaleY, IInkStrokeDisp.Ptr, ppIInkStroke, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IStrokeBuilder extends IUnknown {
     BeginStroke(tcid, _sid, pPacket, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
         pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", tcid, "uint", _sid, pPacketMarshal, pPacket, "uint", cPacketProperties, PACKET_PROPERTY.Ptr, pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, IInkStrokeDisp.Ptr, ppIInkStroke, "HRESULT")
+        result := ComCall(4, this, UInt32, tcid, UInt32, _sid, pPacketMarshal, pPacket, UInt32, cPacketProperties, PACKET_PROPERTY.Ptr, pPacketProperties, Float32, fInkToDeviceScaleX, Float32, fInkToDeviceScaleY, IInkStrokeDisp.Ptr, ppIInkStroke, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IStrokeBuilder extends IUnknown {
     AppendPackets(tcid, _sid, cPktBuffLength, pPackets) {
         pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", tcid, "uint", _sid, "uint", cPktBuffLength, pPacketsMarshal, pPackets, "HRESULT")
+        result := ComCall(5, this, UInt32, tcid, UInt32, _sid, UInt32, cPktBuffLength, pPacketsMarshal, pPackets, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IStrokeBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-endstroke
      */
     EndStroke(tcid, _sid, ppIInkStroke, pDirtyRect) {
-        result := ComCall(6, this, "uint", tcid, "uint", _sid, IInkStrokeDisp.Ptr, ppIInkStroke, RECT.Ptr, pDirtyRect, "HRESULT")
+        result := ComCall(6, this, UInt32, tcid, UInt32, _sid, IInkStrokeDisp.Ptr, ppIInkStroke, RECT.Ptr, pDirtyRect, "HRESULT")
         return result
     }
 

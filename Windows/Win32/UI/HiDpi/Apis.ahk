@@ -1,24 +1,24 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\WindowsAndMessaging\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
-#Import ".\DIALOG_DPI_CHANGE_BEHAVIORS.ahk" { DIALOG_DPI_CHANGE_BEHAVIORS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\WindowsAndMessaging\WINDOW_STYLE.ahk" { WINDOW_STYLE }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PROCESS_DPI_AWARENESS.ahk" { PROCESS_DPI_AWARENESS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DPI_HOSTING_BEHAVIOR.ahk" { DPI_HOSTING_BEHAVIOR }
-#Import ".\MONITOR_DPI_TYPE.ahk" { MONITOR_DPI_TYPE }
-#Import "..\Controls\HTHEME.ahk" { HTHEME }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DPI_AWARENESS.ahk" { DPI_AWARENESS }
-#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
-#Import ".\DPI_AWARENESS_CONTEXT.ahk" { DPI_AWARENESS_CONTEXT }
-#Import ".\DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS.ahk" { DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS }
+#Import "..\Controls\HTHEME.ahk" { HTHEME }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\WindowsAndMessaging\SYSTEM_METRICS_INDEX.ahk" { SYSTEM_METRICS_INDEX }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\DIALOG_DPI_CHANGE_BEHAVIORS.ahk" { DIALOG_DPI_CHANGE_BEHAVIORS }
+#Import "..\WindowsAndMessaging\WINDOW_STYLE.ahk" { WINDOW_STYLE }
+#Import ".\MONITOR_DPI_TYPE.ahk" { MONITOR_DPI_TYPE }
+#Import ".\PROCESS_DPI_AWARENESS.ahk" { PROCESS_DPI_AWARENESS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import ".\DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS.ahk" { DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS }
+#Import "..\WindowsAndMessaging\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
+#Import ".\DPI_AWARENESS_CONTEXT.ahk" { DPI_AWARENESS_CONTEXT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DPI_AWARENESS.ahk" { DPI_AWARENESS }
+#Import ".\DPI_HOSTING_BEHAVIOR.ahk" { DPI_HOSTING_BEHAVIOR }
 
 /**
  * @namespace Windows.Win32.UI.HiDpi
@@ -43,7 +43,7 @@
 export OpenThemeDataForDpi(_hwnd, pszClassList, dpi) {
     pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
-    result := DllCall("UxTheme.dll\OpenThemeDataForDpi", HWND, _hwnd, "ptr", pszClassList, "uint", dpi, HTHEME.Owned)
+    result := DllCall("UxTheme.dll\OpenThemeDataForDpi", HWND, _hwnd, "ptr", pszClassList, UInt32, dpi, HTHEME.Owned)
     return result
 }
 
@@ -154,7 +154,7 @@ export GetDialogDpiChangeBehavior(hDlg) {
 export GetSystemMetricsForDpi(nIndex, dpi) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetSystemMetricsForDpi", SYSTEM_METRICS_INDEX, nIndex, "uint", dpi, Int32)
+    result := DllCall("USER32.dll\GetSystemMetricsForDpi", SYSTEM_METRICS_INDEX, nIndex, UInt32, dpi, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -180,7 +180,7 @@ export GetSystemMetricsForDpi(nIndex, dpi) {
 export AdjustWindowRectExForDpi(lpRect, dwStyle, bMenu, dwExStyle, dpi) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\AdjustWindowRectExForDpi", RECT.Ptr, lpRect, WINDOW_STYLE, dwStyle, BOOL, bMenu, WINDOW_EX_STYLE, dwExStyle, "uint", dpi, BOOL)
+    result := DllCall("USER32.dll\AdjustWindowRectExForDpi", RECT.Ptr, lpRect, WINDOW_STYLE, dwStyle, BOOL, bMenu, WINDOW_EX_STYLE, dwExStyle, UInt32, dpi, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -255,7 +255,7 @@ export SystemParametersInfoForDpi(uiAction, uiParam, pvParam, fWinIni, dpi) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SystemParametersInfoForDpi", "uint", uiAction, "uint", uiParam, pvParamMarshal, pvParam, "uint", fWinIni, "uint", dpi, BOOL)
+    result := DllCall("USER32.dll\SystemParametersInfoForDpi", UInt32, uiAction, UInt32, uiParam, pvParamMarshal, pvParam, UInt32, fWinIni, UInt32, dpi, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

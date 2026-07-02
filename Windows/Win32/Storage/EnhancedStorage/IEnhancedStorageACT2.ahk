@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnhancedStorageACT.ahk" { IEnhancedStorageACT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * IEnhancedStorageACT2 interface is used to obtain information for a 1667 Addressable Contact Target (ACT).

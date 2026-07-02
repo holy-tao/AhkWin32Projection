@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBackgroundCopyGroup.ahk" { IBackgroundCopyGroup }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IBackgroundCopyJob1.ahk" { IBackgroundCopyJob1 }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IBackgroundCopyGroup.ahk" { IBackgroundCopyGroup }
 
 /**
  * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.
@@ -54,7 +54,7 @@ export default struct IBackgroundCopyCallback1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus
      */
     OnStatus(pGroup, pJob, dwFileIndex, dwStatus, dwNumOfRetries, dwWin32Result, dwTransportResult) {
-        result := ComCall(3, this, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwStatus, "uint", dwNumOfRetries, "uint", dwWin32Result, "uint", dwTransportResult, "HRESULT")
+        result := ComCall(3, this, "ptr", pGroup, "ptr", pJob, UInt32, dwFileIndex, UInt32, dwStatus, UInt32, dwNumOfRetries, UInt32, dwWin32Result, UInt32, dwTransportResult, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct IBackgroundCopyCallback1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopycallback1
      */
     OnProgress(ProgressType, pGroup, pJob, dwFileIndex, dwProgressValue) {
-        result := ComCall(4, this, "uint", ProgressType, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwProgressValue, "HRESULT")
+        result := ComCall(4, this, UInt32, ProgressType, "ptr", pGroup, "ptr", pJob, UInt32, dwFileIndex, UInt32, dwProgressValue, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IBackgroundCopyCallback1 extends IUnknown {
     OnProgressEx(ProgressType, pGroup, pJob, dwFileIndex, dwProgressValue, dwByteArraySize, pByte) {
         pByteMarshal := pByte is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", ProgressType, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwProgressValue, "uint", dwByteArraySize, pByteMarshal, pByte, "HRESULT")
+        result := ComCall(5, this, UInt32, ProgressType, "ptr", pGroup, "ptr", pJob, UInt32, dwFileIndex, UInt32, dwProgressValue, UInt32, dwByteArraySize, pByteMarshal, pByte, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ICspStatus.ahk" { ICspStatus }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICspStatus.ahk" { ICspStatus }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains information about a cryptographic provider/algorithm pair. (ICspStatuses)
@@ -71,7 +71,7 @@ export default struct ICspStatuses extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get_itembyindex
      */
     get_ItemByIndex(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Index, "ptr*", &pVal := 0, "HRESULT")
         return ICspStatus(pVal)
     }
 
@@ -117,7 +117,7 @@ export default struct ICspStatuses extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-remove
      */
     Remove(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, Int32, Index, "HRESULT")
         return result
     }
 
@@ -178,7 +178,7 @@ export default struct ICspStatuses extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get_itembyordinal
      */
     get_ItemByOrdinal(Ordinal) {
-        result := ComCall(14, this, "int", Ordinal, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(14, this, Int32, Ordinal, "ptr*", &ppValue := 0, "HRESULT")
         return ICspStatus(ppValue)
     }
 

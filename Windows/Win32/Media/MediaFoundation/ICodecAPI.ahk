@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * The ICodecAPI interface (strmif.h) sets and retrieves settings on an encoder or decoder filter.
@@ -499,7 +499,7 @@ export default struct ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-registerforevent
      */
     RegisterForEvent(Api, _userData) {
-        result := ComCall(10, this, Guid.Ptr, Api, "ptr", _userData, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, Api, IntPtr, _userData, "HRESULT")
         return result
     }
 

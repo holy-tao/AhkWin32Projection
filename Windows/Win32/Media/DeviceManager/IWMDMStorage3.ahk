@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
 #Import ".\WMDMMetadataView.ahk" { WMDMMetadataView }
 #Import ".\WMDM_STORAGE_ENUM_MODE.ahk" { WMDM_STORAGE_ENUM_MODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
 #Import ".\IWMDMStorage2.ahk" { IWMDMStorage2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMDMStorage3 interface extends IWMDMStorage2 by exposing metadata.
@@ -197,7 +197,7 @@ export default struct IWMDMStorage3 extends IWMDMStorage2 {
     SetEnumPreference(pMode, nViews, pViews) {
         pModeMarshal := pMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, pModeMarshal, pMode, "uint", nViews, WMDMMetadataView.Ptr, pViews, "HRESULT")
+        result := ComCall(18, this, pModeMarshal, pMode, UInt32, nViews, WMDMMetadataView.Ptr, pViews, "HRESULT")
         return result
     }
 

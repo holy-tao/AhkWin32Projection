@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
 #Import ".\WS_SECURITY_BINDING_PROPERTY_ID.ahk" { WS_SECURITY_BINDING_PROPERTY_ID }
+#Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
 
 /**
  * This structure is used to specify a set of constraints for a particular security binding property. Any property constraints that are not specified will use the default constraints.

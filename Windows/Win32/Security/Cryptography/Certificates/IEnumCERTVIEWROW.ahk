@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IEnumCERTVIEWEXTENSION.ahk" { IEnumCERTVIEWEXTENSION }
-#Import ".\IEnumCERTVIEWATTRIBUTE.ahk" { IEnumCERTVIEWATTRIBUTE }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumCERTVIEWATTRIBUTE.ahk" { IEnumCERTVIEWATTRIBUTE }
 #Import ".\IEnumCERTVIEWCOLUMN.ahk" { IEnumCERTVIEWCOLUMN }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a row-enumeration sequence that contains the data in the rows of the Certificate Services view, allowing further access to the columns, attributes, and extensions associated with each row.
@@ -142,7 +142,7 @@ export default struct IEnumCERTVIEWROW extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewrow-enumcertviewattribute
      */
     EnumCertViewAttribute(Flags) {
-        result := ComCall(9, this, "int", Flags, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(9, this, Int32, Flags, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumCERTVIEWATTRIBUTE(ppenum)
     }
 
@@ -182,7 +182,7 @@ export default struct IEnumCERTVIEWROW extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewrow-enumcertviewextension
      */
     EnumCertViewExtension(Flags) {
-        result := ComCall(10, this, "int", Flags, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(10, this, Int32, Flags, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumCERTVIEWEXTENSION(ppenum)
     }
 
@@ -219,7 +219,7 @@ export default struct IEnumCERTVIEWROW extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewrow-skip
      */
     Skip(celt) {
-        result := ComCall(11, this, "int", celt, "HRESULT")
+        result := ComCall(11, this, Int32, celt, "HRESULT")
         return result
     }
 

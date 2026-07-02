@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
+#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
 
 /**
  * @namespace Windows.Win32.Media.Speech

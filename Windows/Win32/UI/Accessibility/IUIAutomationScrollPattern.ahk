@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ScrollAmount.ahk" { ScrollAmount }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to a control that acts as a scrollable container for a collection of child elements.
@@ -138,8 +138,12 @@ export default struct IUIAutomationScrollPattern extends IUnknown {
 
     /**
      * Scrolls the visible region of the content area horizontally and vertically. (IUIAutomationScrollPattern.Scroll)
-     * @param {ScrollAmount} horizontalAmount 
-     * @param {ScrollAmount} verticalAmount 
+     * @param {ScrollAmount} horizontalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
+     * 
+     * A value indicating the size of the horizontal scroll increment, or <b>UIA_ScrollPatternNoScroll</b> if the horizontal position is not to be set.
+     * @param {ScrollAmount} verticalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
+     * 
+     * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a> enumerated type indicating the size of the vertical scroll increment, or <b>UIA_ScrollPatternNoScroll</b> if the vertical position is not to be set.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -166,7 +170,7 @@ export default struct IUIAutomationScrollPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-setscrollpercent
      */
     SetScrollPercent(horizontalPercent, verticalPercent) {
-        result := ComCall(4, this, "double", horizontalPercent, "double", verticalPercent, "HRESULT")
+        result := ComCall(4, this, Float64, horizontalPercent, Float64, verticalPercent, "HRESULT")
         return result
     }
 

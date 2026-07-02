@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\DWRITE_FONT_FEATURE_TAG.ahk" { DWRITE_FONT_FEATURE_TAG }
+#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteTextAnalyzer1.ahk" { IDWriteTextAnalyzer1 }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteTextAnalyzer1.ahk" { IDWriteTextAnalyzer1 }
-#Import ".\DWRITE_FONT_FEATURE_TAG.ahk" { DWRITE_FONT_FEATURE_TAG }
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
 
 /**
  * Analyzes various text properties for complex script processing.
@@ -68,7 +68,7 @@ export default struct IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
      */
     GetGlyphOrientationTransform(glyphOrientationAngle, isSideways, originX, originY) {
         transform := DWRITE_MATRIX()
-        result := ComCall(19, this, DWRITE_GLYPH_ORIENTATION_ANGLE, glyphOrientationAngle, BOOL, isSideways, "float", originX, "float", originY, DWRITE_MATRIX.Ptr, transform, "HRESULT")
+        result := ComCall(19, this, DWRITE_GLYPH_ORIENTATION_ANGLE, glyphOrientationAngle, BOOL, isSideways, Float32, originX, Float32, originY, DWRITE_MATRIX.Ptr, transform, "HRESULT")
         return transform
     }
 
@@ -103,7 +103,7 @@ export default struct IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
         actualTagCountMarshal := actualTagCount is VarRef ? "uint*" : "ptr"
         tagsMarshal := tags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, "uint", maxTagCount, actualTagCountMarshal, actualTagCount, tagsMarshal, tags, "HRESULT")
+        result := ComCall(20, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, UInt32, maxTagCount, actualTagCountMarshal, actualTagCount, tagsMarshal, tags, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
 
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(21, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, DWRITE_FONT_FEATURE_TAG, featureTag, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "char*", &featureApplies := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, DWRITE_FONT_FEATURE_TAG, featureTag, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "char*", &featureApplies := 0, "HRESULT")
         return featureApplies
     }
 

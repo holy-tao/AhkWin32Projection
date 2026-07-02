@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Storage\Xps\IXpsOMObjectFactory1.ahk" { IXpsOMObjectFactory1 }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IPrintWorkflowXpsReceiver.ahk" { IPrintWorkflowXpsReceiver }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing

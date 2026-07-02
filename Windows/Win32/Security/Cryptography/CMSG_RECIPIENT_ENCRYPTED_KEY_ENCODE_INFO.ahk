@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_ID.ahk" { CERT_ID }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CERT_ID_OPTION.ahk" { CERT_ID_OPTION }
-#Import ".\CRYPT_ATTRIBUTE_TYPE_VALUE.ahk" { CRYPT_ATTRIBUTE_TYPE_VALUE }
 #Import ".\CERT_ISSUER_SERIAL_NUMBER.ahk" { CERT_ISSUER_SERIAL_NUMBER }
-#Import ".\CERT_ID.ahk" { CERT_ID }
 #Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\CRYPT_ATTRIBUTE_TYPE_VALUE.ahk" { CRYPT_ATTRIBUTE_TYPE_VALUE }
 
 /**
  * Contains information on a message receiver used to decrypt the session key needed to decrypt the message contents.

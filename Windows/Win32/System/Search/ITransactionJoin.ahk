@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\DistributedTransactionCoordinator\ITransactionOptions.ahk" { ITransactionOptions }
 
 /**
@@ -55,7 +55,7 @@ export default struct ITransactionJoin extends IUnknown {
      * @returns {HRESULT} 
      */
     JoinTransaction(punkTransactionCoord, isoLevel, isoFlags, pOtherOptions) {
-        result := ComCall(4, this, "ptr", punkTransactionCoord, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, "HRESULT")
+        result := ComCall(4, this, "ptr", punkTransactionCoord, Int32, isoLevel, UInt32, isoFlags, "ptr", pOtherOptions, "HRESULT")
         return result
     }
 

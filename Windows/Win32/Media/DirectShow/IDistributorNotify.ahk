@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\IReferenceClock.ahk" { IReferenceClock }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDistributorNotify interface enables a plug-in distributor to be notified when the filter graph changes.Applications never use this interface.
@@ -133,7 +133,7 @@ export default struct IDistributorNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idistributornotify-run
      */
     Run(tStart) {
-        result := ComCall(5, this, "int64", tStart, "HRESULT")
+        result := ComCall(5, this, Int64, tStart, "HRESULT")
         return result
     }
 

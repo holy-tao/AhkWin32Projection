@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUpdateDownloadContent.ahk" { IUpdateDownloadContent }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a collection of download contents for an update.
@@ -62,7 +62,7 @@ export default struct IUpdateDownloadContentCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadcontentcollection-get_item
      */
     get_Item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, Int32, index, "ptr*", &retval := 0, "HRESULT")
         return IUpdateDownloadContent(retval)
     }
 

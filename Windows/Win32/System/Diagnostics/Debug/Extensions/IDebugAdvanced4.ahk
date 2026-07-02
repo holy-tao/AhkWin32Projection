@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYMBOL_INFO_EX.ahk" { SYMBOL_INFO_EX }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYMBOL_INFO_EX.ahk" { SYMBOL_INFO_EX }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -64,7 +64,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(_Context, ContextSize) {
-        result := ComCall(3, this, "ptr", _Context, "uint", ContextSize, "HRESULT")
+        result := ComCall(3, this, IntPtr, _Context, UInt32, ContextSize, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadcontext
      */
     SetThreadContext(_Context, ContextSize) {
-        result := ComCall(4, this, "ptr", _Context, "uint", ContextSize, "HRESULT")
+        result := ComCall(4, this, IntPtr, _Context, UInt32, ContextSize, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
      * @returns {Integer} 
      */
     Request(Request, InBuffer, InBufferSize, OutBuffer, OutBufferSize) {
-        result := ComCall(5, this, "uint", Request, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, "uint*", &OutSize := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, Request, IntPtr, InBuffer, UInt32, InBufferSize, IntPtr, OutBuffer, UInt32, OutBufferSize, "uint*", &OutSize := 0, "HRESULT")
         return OutSize
     }
 
@@ -118,7 +118,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
     GetSourceFileInformation(Which, _SourceFile, Arg64, Arg32, _Buffer, BufferSize) {
         _SourceFile := _SourceFile is String ? StrPtr(_SourceFile) : _SourceFile
 
-        result := ComCall(6, this, "uint", Which, "ptr", _SourceFile, "uint", Arg64, "uint", Arg32, "ptr", _Buffer, "uint", BufferSize, "uint*", &InfoSize := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, Which, "ptr", _SourceFile, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &InfoSize := 0, "HRESULT")
         return InfoSize
     }
 
@@ -143,7 +143,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
         FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
         FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", StartElement, "uint", ModAddr, "ptr", _File, "uint", Flags, "ptr", FileToken, "uint", FileTokenSize, FoundElementMarshal, FoundElement, "ptr", _Buffer, "uint", BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
+        result := ComCall(7, this, UInt32, StartElement, Int64, ModAddr, "ptr", _File, UInt32, Flags, IntPtr, FileToken, UInt32, FileTokenSize, FoundElementMarshal, FoundElement, "ptr", _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
         InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
         StringSizeMarshal := StringSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", _Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, "uint", StringBufferSize, StringSizeMarshal, StringSize, "HRESULT")
+        result := ComCall(8, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, UInt32, StringBufferSize, StringSizeMarshal, StringSize, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
      * @returns {Integer} 
      */
     GetSystemObjectInformation(Which, Arg64, Arg32, _Buffer, BufferSize) {
-        result := ComCall(9, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", _Buffer, "uint", BufferSize, "uint*", &InfoSize := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &InfoSize := 0, "HRESULT")
         return InfoSize
     }
 
@@ -197,7 +197,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
     GetSourceFileInformationWide(Which, _SourceFile, Arg64, Arg32, _Buffer, BufferSize) {
         _SourceFile := _SourceFile is String ? StrPtr(_SourceFile) : _SourceFile
 
-        result := ComCall(10, this, "uint", Which, "ptr", _SourceFile, "uint", Arg64, "uint", Arg32, "ptr", _Buffer, "uint", BufferSize, "uint*", &InfoSize := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, Which, "ptr", _SourceFile, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &InfoSize := 0, "HRESULT")
         return InfoSize
     }
 
@@ -222,7 +222,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
         FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
         FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", StartElement, "uint", ModAddr, "ptr", _File, "uint", Flags, "ptr", FileToken, "uint", FileTokenSize, FoundElementMarshal, FoundElement, "ptr", _Buffer, "uint", BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
+        result := ComCall(11, this, UInt32, StartElement, Int64, ModAddr, "ptr", _File, UInt32, Flags, IntPtr, FileToken, UInt32, FileTokenSize, FoundElementMarshal, FoundElement, "ptr", _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
@@ -245,7 +245,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
         InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
         StringSizeMarshal := StringSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", _Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, "uint", StringBufferSize, StringSizeMarshal, StringSize, "HRESULT")
+        result := ComCall(12, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, UInt32, StringBufferSize, StringSizeMarshal, StringSize, "HRESULT")
         return result
     }
 
@@ -269,7 +269,7 @@ export default struct IDebugAdvanced4 extends IUnknown {
         InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
         StringSizeMarshal := StringSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", _Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, "uint", StringBufferSize, StringSizeMarshal, StringSize, SYMBOL_INFO_EX.Ptr, pInfoEx, "HRESULT")
+        result := ComCall(13, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, UInt32, StringBufferSize, StringSizeMarshal, StringSize, SYMBOL_INFO_EX.Ptr, pInfoEx, "HRESULT")
         return result
     }
 

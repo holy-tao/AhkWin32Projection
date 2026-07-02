@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PKU2U_LOGON_SUBMIT_TYPE.ahk" { PKU2U_LOGON_SUBMIT_TYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Specifies a certificate used for S4U logon.

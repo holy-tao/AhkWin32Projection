@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_ISCSI_PORTAL_PROP.ahk" { VDS_ISCSI_PORTAL_PROP }
-#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
 #Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_ISCSI_PORTAL_STATUS.ahk" { VDS_ISCSI_PORTAL_STATUS }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
+#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
+#Import ".\VDS_ISCSI_PORTAL_STATUS.ahk" { VDS_ISCSI_PORTAL_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_ISCSI_PORTAL_PROP.ahk" { VDS_ISCSI_PORTAL_PROP }
 
 /**
  * The IVdsIscsiPortal interface (vdshwprv.h) provides methods for performing query and configuration operations on an iSCSI portal.
@@ -228,7 +228,7 @@ export default struct IVdsIscsiPortal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-setipsecsecurity
      */
     SetIpsecSecurity(pInitiatorPortalAddress, ullSecurityFlags, pIpsecKey) {
-        result := ComCall(9, this, VDS_IPADDRESS.Ptr, pInitiatorPortalAddress, "uint", ullSecurityFlags, VDS_ISCSI_IPSEC_KEY.Ptr, pIpsecKey, "HRESULT")
+        result := ComCall(9, this, VDS_IPADDRESS.Ptr, pInitiatorPortalAddress, Int64, ullSecurityFlags, VDS_ISCSI_IPSEC_KEY.Ptr, pIpsecKey, "HRESULT")
         return result
     }
 

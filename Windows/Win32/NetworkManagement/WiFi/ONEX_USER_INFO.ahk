@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
 #Import ".\ONEX_AUTH_IDENTITY.ahk" { ONEX_AUTH_IDENTITY }
+#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

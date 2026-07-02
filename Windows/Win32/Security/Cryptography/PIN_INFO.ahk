@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PIN_CACHE_POLICY_TYPE.ahk" { PIN_CACHE_POLICY_TYPE }
 #Import ".\PIN_CACHE_POLICY.ahk" { PIN_CACHE_POLICY }
-#Import ".\SECRET_PURPOSE.ahk" { SECRET_PURPOSE }
 #Import ".\SECRET_TYPE.ahk" { SECRET_TYPE }
+#Import ".\PIN_CACHE_POLICY_TYPE.ahk" { PIN_CACHE_POLICY_TYPE }
+#Import ".\SECRET_PURPOSE.ahk" { SECRET_PURPOSE }
 
 /**
  * The PIN_INFO structure contains information about a pin.

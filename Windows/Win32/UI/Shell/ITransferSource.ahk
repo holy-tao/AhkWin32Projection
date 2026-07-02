@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITransferAdviseSink.ahk" { ITransferAdviseSink }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "PropertiesSystem\IPropertyChangeArray.ahk" { IPropertyChangeArray }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITransferAdviseSink.ahk" { ITransferAdviseSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
 
 /**
  * Exposes methods to manipulate IShellItem, including copy, move, recycle, and others. This interface is offered to provide more control over file operations by providing an ITransferSource::Advise method.
@@ -112,7 +112,7 @@ export default struct ITransferSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-unadvise
      */
     Unadvise(dwCookie) {
-        result := ComCall(4, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct ITransferSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-openitem
      */
     OpenItem(psi, flags, riid) {
-        result := ComCall(6, this, "ptr", psi, "uint", flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", psi, UInt32, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -174,7 +174,7 @@ export default struct ITransferSource extends IUnknown {
     MoveItem(psi, psiParentDst, pszNameDst, flags) {
         pszNameDst := pszNameDst is String ? StrPtr(pszNameDst) : pszNameDst
 
-        result := ComCall(7, this, "ptr", psi, "ptr", psiParentDst, "ptr", pszNameDst, "uint", flags, "ptr*", &ppsiNew := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", psi, "ptr", psiParentDst, "ptr", pszNameDst, UInt32, flags, "ptr*", &ppsiNew := 0, "HRESULT")
         return IShellItem(ppsiNew)
     }
 
@@ -195,7 +195,7 @@ export default struct ITransferSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-recycleitem
      */
     RecycleItem(psiSource, psiParentDest, flags) {
-        result := ComCall(8, this, "ptr", psiSource, "ptr", psiParentDest, "uint", flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", psiSource, "ptr", psiParentDest, UInt32, flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
         return IShellItem(ppsiNewDest)
     }
 
@@ -319,7 +319,7 @@ export default struct ITransferSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-removeitem
      */
     RemoveItem(psiSource, flags) {
-        result := ComCall(9, this, "ptr", psiSource, "uint", flags, "HRESULT")
+        result := ComCall(9, this, "ptr", psiSource, UInt32, flags, "HRESULT")
         return result
     }
 
@@ -342,7 +342,7 @@ export default struct ITransferSource extends IUnknown {
     RenameItem(psiSource, pszNewName, flags) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(10, this, "ptr", psiSource, "ptr", pszNewName, "uint", flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", psiSource, "ptr", pszNewName, UInt32, flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
         return IShellItem(ppsiNewDest)
     }
 
@@ -368,7 +368,7 @@ export default struct ITransferSource extends IUnknown {
     LinkItem(psiSource, psiParentDest, pszNewName, flags) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(11, this, "ptr", psiSource, "ptr", psiParentDest, "ptr", pszNewName, "uint", flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", psiSource, "ptr", psiParentDest, "ptr", pszNewName, UInt32, flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
         return IShellItem(ppsiNewDest)
     }
 

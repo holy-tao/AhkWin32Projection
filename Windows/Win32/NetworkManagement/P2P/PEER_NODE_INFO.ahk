@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PEER_ADDRESS.ahk" { PEER_ADDRESS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The PEER_NODE_INFO structure contains information that is specific to a particular node in a peer graph.

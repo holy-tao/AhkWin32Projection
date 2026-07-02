@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID3D11VideoDevice1.ahk" { ID3D11VideoDevice1 }
 #Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
-#Import ".\D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS.ahk" { D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D11_FEATURE_VIDEO.ahk" { D3D11_FEATURE_VIDEO }
+#Import ".\D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS.ahk" { D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS }
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device.
@@ -50,7 +50,7 @@ export default struct ID3D11VideoDevice2 extends ID3D11VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videodevice2-checkfeaturesupport
      */
     CheckFeatureSupport(Feature, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(24, this, D3D11_FEATURE_VIDEO, Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(24, this, D3D11_FEATURE_VIDEO, Feature, IntPtr, pFeatureSupportData, UInt32, FeatureSupportDataSize, "HRESULT")
         return result
     }
 
@@ -63,7 +63,7 @@ export default struct ID3D11VideoDevice2 extends ID3D11VideoDevice1 {
      * @returns {HRESULT} 
      */
     NegotiateCryptoSessionKeyExchangeMT(pCryptoSession, flags, DataSize, pData) {
-        result := ComCall(25, this, "ptr", pCryptoSession, D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS, flags, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(25, this, "ptr", pCryptoSession, D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS, flags, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Polarisation.ahk" { Polarisation }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IDigitalLocator.ahk" { IDigitalLocator }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Polarisation.ahk" { Polarisation }
 
 /**
  * The IDVBSLocator interface is implemented on the DVBSLocator object.
@@ -159,7 +159,7 @@ export default struct IDVBSLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-put_orbitalposition
      */
     put_OrbitalPosition(longitude) {
-        result := ComCall(27, this, "int", longitude, "HRESULT")
+        result := ComCall(27, this, Int32, longitude, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct IDVBSLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-put_azimuth
      */
     put_Azimuth(Azimuth) {
-        result := ComCall(29, this, "int", Azimuth, "HRESULT")
+        result := ComCall(29, this, Int32, Azimuth, "HRESULT")
         return result
     }
 
@@ -201,7 +201,7 @@ export default struct IDVBSLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-put_elevation
      */
     put_Elevation(Elevation) {
-        result := ComCall(31, this, "int", Elevation, "HRESULT")
+        result := ComCall(31, this, Int32, Elevation, "HRESULT")
         return result
     }
 

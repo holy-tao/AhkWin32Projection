@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if an object is created or released by a client.
@@ -52,7 +52,7 @@ export default struct IComInstance2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstance2events-onobjectcreate2
      */
     OnObjectCreate2(pInfo, guidActivity, clsid, tsid, CtxtID, _ObjectID, guidPartition) {
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, clsid, Guid.Ptr, tsid, "uint", CtxtID, "uint", _ObjectID, Guid.Ptr, guidPartition, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, clsid, Guid.Ptr, tsid, Int64, CtxtID, Int64, _ObjectID, Guid.Ptr, guidPartition, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IComInstance2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstance2events-onobjectdestroy2
      */
     OnObjectDestroy2(pInfo, CtxtID) {
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", CtxtID, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, CtxtID, "HRESULT")
         return result
     }
 

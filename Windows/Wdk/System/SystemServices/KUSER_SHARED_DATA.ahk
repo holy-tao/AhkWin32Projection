@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\ALTERNATIVE_ARCHITECTURE_TYPE.ahk" { ALTERNATIVE_ARCHITECTURE_TYPE }
-#Import "..\..\..\Win32\System\Kernel\NT_PRODUCT_TYPE.ahk" { NT_PRODUCT_TYPE }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\System\Kernel\NT_PRODUCT_TYPE.ahk" { NT_PRODUCT_TYPE }
 #Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

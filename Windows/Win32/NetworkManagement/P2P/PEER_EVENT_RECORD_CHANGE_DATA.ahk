@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_RECORD_CHANGE_TYPE.ahk" { PEER_RECORD_CHANGE_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PEER_RECORD_CHANGE_TYPE.ahk" { PEER_RECORD_CHANGE_TYPE }
 
 /**
  * Points to the PEER_EVENT_RECORD_CHANGE_DATA structure if one of the following peer events is triggered.

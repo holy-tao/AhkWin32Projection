@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPin.ahk" { IPin }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMVideoControl interface controls certain video capture operations such as enumerating available frame rates and image orientation.
@@ -69,7 +69,7 @@ export default struct IAMVideoControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-setmode
      */
     SetMode(pPin, _Mode) {
-        result := ComCall(4, this, "ptr", pPin, "int", _Mode, "HRESULT")
+        result := ComCall(4, this, "ptr", pPin, Int32, _Mode, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IAMVideoControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-getmaxavailableframerate
      */
     GetMaxAvailableFrameRate(pPin, iIndex, Dimensions) {
-        result := ComCall(7, this, "ptr", pPin, "int", iIndex, SIZE, Dimensions, "int64*", &MaxAvailableFrameRate := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pPin, Int32, iIndex, SIZE, Dimensions, "int64*", &MaxAvailableFrameRate := 0, "HRESULT")
         return MaxAvailableFrameRate
     }
 
@@ -126,7 +126,7 @@ export default struct IAMVideoControl extends IUnknown {
         ListSizeMarshal := ListSize is VarRef ? "int*" : "ptr"
         FrameRatesMarshal := FrameRates is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pPin, "int", iIndex, SIZE, Dimensions, ListSizeMarshal, ListSize, FrameRatesMarshal, FrameRates, "HRESULT")
+        result := ComCall(8, this, "ptr", pPin, Int32, iIndex, SIZE, Dimensions, ListSizeMarshal, ListSize, FrameRatesMarshal, FrameRates, "HRESULT")
         return result
     }
 

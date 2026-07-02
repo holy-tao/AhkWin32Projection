@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The ITunerCap interface provides information about the capabilities of a BDA device filter that represents a TV tuner.
@@ -49,7 +49,7 @@ export default struct ITunerCap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercap-get_supportednetworktypes
      */
     get_SupportedNetworkTypes(ulcNetworkTypesMax, pguidNetworkTypes) {
-        result := ComCall(3, this, "uint", ulcNetworkTypesMax, "uint*", &pulcNetworkTypes := 0, Guid.Ptr, pguidNetworkTypes, "HRESULT")
+        result := ComCall(3, this, UInt32, ulcNetworkTypesMax, "uint*", &pulcNetworkTypes := 0, Guid.Ptr, pguidNetworkTypes, "HRESULT")
         return pulcNetworkTypes
     }
 

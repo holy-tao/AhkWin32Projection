@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ISectionList.ahk" { ISectionList }
 #Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
+#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -193,7 +193,7 @@ export default struct IDVB_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit-getrecordeventid
      */
     GetRecordEventId(dwRecordIndex) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -205,7 +205,7 @@ export default struct IDVB_EIT extends IUnknown {
      */
     GetRecordStartTime(dwRecordIndex) {
         pmdtVal := MPEG_DATE_AND_TIME()
-        result := ComCall(12, this, "uint", dwRecordIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
+        result := ComCall(12, this, UInt32, dwRecordIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
         return pmdtVal
     }
 
@@ -217,7 +217,7 @@ export default struct IDVB_EIT extends IUnknown {
      */
     GetRecordDuration(dwRecordIndex) {
         pmdVal := MPEG_TIME()
-        result := ComCall(13, this, "uint", dwRecordIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
+        result := ComCall(13, this, UInt32, dwRecordIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
         return pmdVal
     }
 
@@ -228,7 +228,7 @@ export default struct IDVB_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit-getrecordrunningstatus
      */
     GetRecordRunningStatus(dwRecordIndex) {
-        result := ComCall(14, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -239,7 +239,7 @@ export default struct IDVB_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit-getrecordfreecamode
      */
     GetRecordFreeCAMode(dwRecordIndex) {
-        result := ComCall(15, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -250,7 +250,7 @@ export default struct IDVB_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
-        result := ComCall(16, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -262,7 +262,7 @@ export default struct IDVB_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
-        result := ComCall(17, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, dwRecordIndex, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -279,7 +279,7 @@ export default struct IDVB_EIT extends IUnknown {
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

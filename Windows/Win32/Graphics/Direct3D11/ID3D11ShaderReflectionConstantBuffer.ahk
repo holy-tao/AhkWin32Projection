@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\ID3D11ShaderReflectionVariable.ahk" { ID3D11ShaderReflectionVariable }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D11_SHADER_BUFFER_DESC.ahk" { D3D11_SHADER_BUFFER_DESC }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * This shader-reflection interface provides access to a constant buffer. (ID3D11ShaderReflectionConstantBuffer)
@@ -73,7 +73,7 @@ export default struct ID3D11ShaderReflectionConstantBuffer extends Win32ComInter
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionconstantbuffer-getvariablebyindex
      */
     GetVariableByIndex(Index) {
-        result := ComCall(1, this, "uint", Index, ID3D11ShaderReflectionVariable)
+        result := ComCall(1, this, UInt32, Index, ID3D11ShaderReflectionVariable)
         return result
     }
 

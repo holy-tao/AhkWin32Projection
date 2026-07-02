@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_XML_TEXT_TYPE.ahk" { WS_XML_TEXT_TYPE }
 #Import ".\WS_DATETIME.ahk" { WS_DATETIME }
+#Import ".\WS_XML_TEXT_TYPE.ahk" { WS_XML_TEXT_TYPE }
 #Import ".\WS_XML_TEXT.ahk" { WS_XML_TEXT }
 #Import ".\WS_DATETIME_FORMAT.ahk" { WS_DATETIME_FORMAT }
 

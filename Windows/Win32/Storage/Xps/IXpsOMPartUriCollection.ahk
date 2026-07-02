@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A collection of IOpcPartUri interface pointers.
@@ -66,7 +66,7 @@ export default struct IXpsOMPartUriCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &partUri := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &partUri := 0, "HRESULT")
         return IOpcPartUri(partUri)
     }
 
@@ -82,7 +82,7 @@ export default struct IXpsOMPartUriCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-insertat
      */
     InsertAt(index, partUri) {
-        result := ComCall(5, this, "uint", index, "ptr", partUri, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr", partUri, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IXpsOMPartUriCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(6, this, "uint", index, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IXpsOMPartUriCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomparturicollection-setat
      */
     SetAt(index, partUri) {
-        result := ComCall(7, this, "uint", index, "ptr", partUri, "HRESULT")
+        result := ComCall(7, this, UInt32, index, "ptr", partUri, "HRESULT")
         return result
     }
 

@@ -1,4 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPCI_EXPRESS_WAKE_CONTROL.ahk" { PPCI_EXPRESS_WAKE_CONTROL }
+#Import ".\PPCI_LINE_TO_PIN.ahk" { PPCI_LINE_TO_PIN }
+#Import ".\PPCI_PREPARE_MULTISTAGE_RESUME.ahk" { PPCI_PREPARE_MULTISTAGE_RESUME }
+#Import ".\PPCI_READ_WRITE_CONFIG.ahk" { PPCI_READ_WRITE_CONFIG }
+#Import ".\PPCI_ROOT_BUS_CAPABILITY.ahk" { PPCI_ROOT_BUS_CAPABILITY }
+#Import ".\PPCI_PIN_TO_LINE.ahk" { PPCI_PIN_TO_LINE }
+#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
+#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -12,22 +20,22 @@ export default struct PCI_BUS_INTERFACE_STANDARD {
 
     Context : IntPtr
 
-    InterfaceReference : IntPtr
+    InterfaceReference : PINTERFACE_REFERENCE
 
-    InterfaceDereference : IntPtr
+    InterfaceDereference : PINTERFACE_DEREFERENCE
 
-    ReadConfig : IntPtr
+    ReadConfig : PPCI_READ_WRITE_CONFIG
 
-    WriteConfig : IntPtr
+    WriteConfig : PPCI_READ_WRITE_CONFIG
 
-    PinToLine : IntPtr
+    PinToLine : PPCI_PIN_TO_LINE
 
-    LineToPin : IntPtr
+    LineToPin : PPCI_LINE_TO_PIN
 
-    RootBusCapability : IntPtr
+    RootBusCapability : PPCI_ROOT_BUS_CAPABILITY
 
-    ExpressWakeControl : IntPtr
+    ExpressWakeControl : PPCI_EXPRESS_WAKE_CONTROL
 
-    PrepareMultistageResume : IntPtr
+    PrepareMultistageResume : PPCI_PREPARE_MULTISTAGE_RESUME
 
 }

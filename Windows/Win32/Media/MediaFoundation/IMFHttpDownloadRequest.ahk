@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation. (IMFHttpDownloadRequest)
@@ -143,7 +143,7 @@ export default struct IMFHttpDownloadRequest extends IUnknown {
     BeginSendRequest(pbPayload, cbPayload, pCallback, punkState) {
         pbPayloadMarshal := pbPayload is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pbPayloadMarshal, pbPayload, "uint", cbPayload, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(4, this, pbPayloadMarshal, pbPayload, UInt32, cbPayload, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return result
     }
 
@@ -251,7 +251,7 @@ export default struct IMFHttpDownloadRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreadpayload
      */
     BeginReadPayload(cb, pCallback, punkState) {
-        result := ComCall(8, this, "char*", &pb := 0, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(8, this, "char*", &pb := 0, UInt32, cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return pb
     }
 
@@ -300,7 +300,7 @@ export default struct IMFHttpDownloadRequest extends IUnknown {
     QueryHeader(szHeaderName, dwIndex) {
         szHeaderName := szHeaderName is String ? StrPtr(szHeaderName) : szHeaderName
 
-        result := ComCall(10, this, "ptr", szHeaderName, "uint", dwIndex, PWSTR.Ptr, &ppszHeaderValue := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", szHeaderName, UInt32, dwIndex, PWSTR.Ptr, &ppszHeaderValue := 0, "HRESULT")
         return ppszHeaderValue
     }
 

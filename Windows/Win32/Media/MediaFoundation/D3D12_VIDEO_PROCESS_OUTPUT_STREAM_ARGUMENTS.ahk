@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM }
 
 /**
  * Specifies output stream arguments for the output passed to ID3D12VideoCommandList::ProcessFrames.

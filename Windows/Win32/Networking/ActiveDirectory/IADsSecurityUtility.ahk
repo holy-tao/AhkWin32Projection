@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsSecurityUtility interface is used to get, set, or retrieve the security descriptor on a file, fileshare, or registry key.
@@ -70,7 +70,7 @@ export default struct IADsSecurityUtility extends IDispatch {
      */
     GetSecurityDescriptor(varPath, lPathFormat, lFormat) {
         pVariant := VARIANT()
-        result := ComCall(7, this, VARIANT, varPath, "int", lPathFormat, "int", lFormat, VARIANT.Ptr, pVariant, "HRESULT")
+        result := ComCall(7, this, VARIANT, varPath, Int32, lPathFormat, Int32, lFormat, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -94,7 +94,7 @@ export default struct IADsSecurityUtility extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-setsecuritydescriptor
      */
     SetSecurityDescriptor(varPath, lPathFormat, varData, lDataFormat) {
-        result := ComCall(8, this, VARIANT, varPath, "int", lPathFormat, VARIANT, varData, "int", lDataFormat, "HRESULT")
+        result := ComCall(8, this, VARIANT, varPath, Int32, lPathFormat, VARIANT, varData, Int32, lDataFormat, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct IADsSecurityUtility extends IDispatch {
      */
     ConvertSecurityDescriptor(varSD, lDataFormat, lOutFormat) {
         pResult := VARIANT()
-        result := ComCall(9, this, VARIANT, varSD, "int", lDataFormat, "int", lOutFormat, VARIANT.Ptr, pResult, "HRESULT")
+        result := ComCall(9, this, VARIANT, varSD, Int32, lDataFormat, Int32, lOutFormat, VARIANT.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -129,7 +129,7 @@ export default struct IADsSecurityUtility extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-put_securitymask
      */
     put_SecurityMask(lnSecurityMask) {
-        result := ComCall(11, this, "int", lnSecurityMask, "HRESULT")
+        result := ComCall(11, this, Int32, lnSecurityMask, "HRESULT")
         return result
     }
 

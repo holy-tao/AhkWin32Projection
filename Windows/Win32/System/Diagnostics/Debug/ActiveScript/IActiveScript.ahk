@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IActiveScriptSite.ahk" { IActiveScriptSite }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\SCRIPTSTATE.ahk" { SCRIPTSTATE }
-#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
 #Import ".\SCRIPTTHREADSTATE.ahk" { SCRIPTTHREADSTATE }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IActiveScriptSite.ahk" { IActiveScriptSite }
+#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
+#Import ".\SCRIPTSTATE.ahk" { SCRIPTSTATE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -110,7 +110,7 @@ export default struct IActiveScript extends IUnknown {
     AddNamedItem(pstrName, dwFlags) {
         pstrName := pstrName is String ? StrPtr(pstrName) : pstrName
 
-        result := ComCall(8, this, "ptr", pstrName, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", pstrName, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IActiveScript extends IUnknown {
      * @returns {HRESULT} 
      */
     AddTypeLib(rguidTypeLib, dwMajor, dwMinor, dwFlags) {
-        result := ComCall(9, this, Guid.Ptr, rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rguidTypeLib, UInt32, dwMajor, UInt32, dwMinor, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IActiveScript extends IUnknown {
      * @returns {Integer} 
      */
     GetScriptThreadID(dwWin32ThreadId) {
-        result := ComCall(12, this, "uint", dwWin32ThreadId, "uint*", &pstidThread := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwWin32ThreadId, "uint*", &pstidThread := 0, "HRESULT")
         return pstidThread
     }
 
@@ -164,7 +164,7 @@ export default struct IActiveScript extends IUnknown {
      * @returns {SCRIPTTHREADSTATE} 
      */
     GetScriptThreadState(stidThread) {
-        result := ComCall(13, this, "uint", stidThread, "int*", &pstsState := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, stidThread, "int*", &pstsState := 0, "HRESULT")
         return pstsState
     }
 
@@ -176,7 +176,7 @@ export default struct IActiveScript extends IUnknown {
      * @returns {HRESULT} 
      */
     InterruptScriptThread(stidThread, pexcepinfo, dwFlags) {
-        result := ComCall(14, this, "uint", stidThread, EXCEPINFO.Ptr, pexcepinfo, "uint", dwFlags, "HRESULT")
+        result := ComCall(14, this, UInt32, stidThread, EXCEPINFO.Ptr, pexcepinfo, UInt32, dwFlags, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IAppxManifestPackageId.ahk" { IAppxManifestPackageId }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAppxManifestQualifiedResourcesEnumerator.ahk" { IAppxManifestQualifiedResourcesEnumerator }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE.ahk" { APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE }
+#Import ".\IAppxManifestQualifiedResourcesEnumerator.ahk" { IAppxManifestQualifiedResourcesEnumerator }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a read-only object model for a &lt;Package&gt; element in a bundle package manifest. (IAppxBundleManifestPackageInfo)

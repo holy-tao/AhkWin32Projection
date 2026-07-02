@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMWriterPostViewCallback interface manages the receiving of uncompressed samples from the writer. Postview can be used only for video streams.This interface must be implemented by the application and passed to IWMWriterPostView::SetPostViewCallback.
@@ -80,7 +80,7 @@ export default struct IWMWriterPostViewCallback extends IWMStatusCallback {
     OnPostViewSample(wStreamNumber, cnsSampleTime, cnsSampleDuration, dwFlags, pSample, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ushort", wStreamNumber, "uint", cnsSampleTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(4, this, UInt16, wStreamNumber, Int64, cnsSampleTime, Int64, cnsSampleDuration, UInt32, dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IWMWriterPostViewCallback extends IWMStatusCallback {
     AllocateForPostView(wStreamNum, cbBuffer, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(5, this, UInt16, wStreamNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
     }
 

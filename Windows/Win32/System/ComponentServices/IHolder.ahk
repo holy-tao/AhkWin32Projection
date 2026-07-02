@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allocates or frees resources for an installed Resource Dispenser.
@@ -104,7 +104,7 @@ export default struct IHolder extends IUnknown {
     AllocResource(__MIDL__IHolder0000, __MIDL__IHolder0001) {
         __MIDL__IHolder0001Marshal := __MIDL__IHolder0001 is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", __MIDL__IHolder0000, __MIDL__IHolder0001Marshal, __MIDL__IHolder0001, "HRESULT")
+        result := ComCall(3, this, IntPtr, __MIDL__IHolder0000, __MIDL__IHolder0001Marshal, __MIDL__IHolder0001, "HRESULT")
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct IHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-freeresource
      */
     FreeResource(__MIDL__IHolder0002) {
-        result := ComCall(4, this, "ptr", __MIDL__IHolder0002, "HRESULT")
+        result := ComCall(4, this, IntPtr, __MIDL__IHolder0002, "HRESULT")
         return result
     }
 
@@ -223,7 +223,7 @@ export default struct IHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-trackresource
      */
     TrackResource(__MIDL__IHolder0003) {
-        result := ComCall(5, this, "ptr", __MIDL__IHolder0003, "HRESULT")
+        result := ComCall(5, this, IntPtr, __MIDL__IHolder0003, "HRESULT")
         return result
     }
 
@@ -328,7 +328,7 @@ export default struct IHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-untrackresource
      */
     UntrackResource(__MIDL__IHolder0005, __MIDL__IHolder0006) {
-        result := ComCall(7, this, "ptr", __MIDL__IHolder0005, BOOL, __MIDL__IHolder0006, "HRESULT")
+        result := ComCall(7, this, IntPtr, __MIDL__IHolder0005, BOOL, __MIDL__IHolder0006, "HRESULT")
         return result
     }
 
@@ -473,7 +473,7 @@ export default struct IHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-requestdestroyresource
      */
     RequestDestroyResource(__MIDL__IHolder0009) {
-        result := ComCall(10, this, "ptr", __MIDL__IHolder0009, "HRESULT")
+        result := ComCall(10, this, IntPtr, __MIDL__IHolder0009, "HRESULT")
         return result
     }
 

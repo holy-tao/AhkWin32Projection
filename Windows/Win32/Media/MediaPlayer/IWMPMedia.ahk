@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use the IWMPMedia interface to set and retrieve the properties of a media item.
@@ -377,7 +377,7 @@ export default struct IWMPMedia extends IDispatch {
     getMarkerTime(MarkerNum, pMarkerTime) {
         pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : "ptr"
 
-        result := ComCall(14, this, "int", MarkerNum, pMarkerTimeMarshal, pMarkerTime, "HRESULT")
+        result := ComCall(14, this, Int32, MarkerNum, pMarkerTimeMarshal, pMarkerTime, "HRESULT")
         return result
     }
 
@@ -415,7 +415,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getmarkername
      */
     getMarkerName(MarkerNum, pbstrMarkerName) {
-        result := ComCall(15, this, "int", MarkerNum, BSTR.Ptr, pbstrMarkerName, "HRESULT")
+        result := ComCall(15, this, Int32, MarkerNum, BSTR.Ptr, pbstrMarkerName, "HRESULT")
         return result
     }
 
@@ -562,7 +562,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getattributename
      */
     getAttributeName(lIndex, pbstrItemName) {
-        result := ComCall(19, this, "int", lIndex, BSTR.Ptr, pbstrItemName, "HRESULT")
+        result := ComCall(19, this, Int32, lIndex, BSTR.Ptr, pbstrItemName, "HRESULT")
         return result
     }
 
@@ -733,7 +733,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getiteminfobyatom
      */
     getItemInfoByAtom(lAtom, pbstrVal) {
-        result := ComCall(22, this, "int", lAtom, BSTR.Ptr, pbstrVal, "HRESULT")
+        result := ComCall(22, this, Int32, lAtom, BSTR.Ptr, pbstrVal, "HRESULT")
         return result
     }
 

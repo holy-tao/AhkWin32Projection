@@ -51,7 +51,7 @@ export default struct IRowsetLocate extends IRowset {
         pBookmark1Marshal := pBookmark1 is VarRef ? "char*" : "ptr"
         pBookmark2Marshal := pBookmark2 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "ptr", hReserved, "ptr", cbBookmark1, pBookmark1Marshal, pBookmark1, "ptr", cbBookmark2, pBookmark2Marshal, pBookmark2, "uint*", &pComparison := 0, "HRESULT")
+        result := ComCall(8, this, IntPtr, hReserved, IntPtr, cbBookmark1, pBookmark1Marshal, pBookmark1, IntPtr, cbBookmark2, pBookmark2Marshal, pBookmark2, "uint*", &pComparison := 0, "HRESULT")
         return pComparison
     }
 
@@ -72,7 +72,7 @@ export default struct IRowsetLocate extends IRowset {
         pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
         prghRowsMarshal := prghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", hReserved1, "ptr", hReserved2, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
+        result := ComCall(9, this, IntPtr, hReserved1, IntPtr, hReserved2, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, IntPtr, lRowsOffset, IntPtr, cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IRowsetLocate extends IRowset {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
         rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, rgcbBookmarksMarshal, rgcbBookmarks, rgpBookmarksMarshal, rgpBookmarks, rghRowsMarshal, rghRows, rgRowStatusMarshal, rgRowStatus, "HRESULT")
+        result := ComCall(10, this, IntPtr, hReserved, IntPtr, cRows, rgcbBookmarksMarshal, rgcbBookmarks, rgpBookmarksMarshal, rgpBookmarks, rghRowsMarshal, rghRows, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IRowsetLocate extends IRowset {
         rgHashedValuesMarshal := rgHashedValues is VarRef ? "ptr*" : "ptr"
         rgBookmarkStatusMarshal := rgBookmarkStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", hReserved, "ptr", cBookmarks, rgcbBookmarksMarshal, rgcbBookmarks, rgpBookmarksMarshal, rgpBookmarks, rgHashedValuesMarshal, rgHashedValues, rgBookmarkStatusMarshal, rgBookmarkStatus, "HRESULT")
+        result := ComCall(11, this, IntPtr, hReserved, IntPtr, cBookmarks, rgcbBookmarksMarshal, rgcbBookmarks, rgpBookmarksMarshal, rgpBookmarks, rgHashedValuesMarshal, rgHashedValues, rgBookmarkStatusMarshal, rgBookmarkStatus, "HRESULT")
         return result
     }
 

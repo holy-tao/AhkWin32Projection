@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the Media Engine with a list of media resources.
@@ -71,7 +71,7 @@ export default struct IMFMediaEngineSrcElements extends IUnknown {
      */
     GetURL(index) {
         pURL := BSTR.Owned()
-        result := ComCall(4, this, "uint", index, BSTR.Ptr, pURL, "HRESULT")
+        result := ComCall(4, this, UInt32, index, BSTR.Ptr, pURL, "HRESULT")
         return pURL
     }
 
@@ -83,7 +83,7 @@ export default struct IMFMediaEngineSrcElements extends IUnknown {
      */
     GetType(index) {
         pType := BSTR.Owned()
-        result := ComCall(5, this, "uint", index, BSTR.Ptr, pType, "HRESULT")
+        result := ComCall(5, this, UInt32, index, BSTR.Ptr, pType, "HRESULT")
         return pType
     }
 
@@ -97,7 +97,7 @@ export default struct IMFMediaEngineSrcElements extends IUnknown {
      */
     GetMedia(index) {
         pMedia := BSTR.Owned()
-        result := ComCall(6, this, "uint", index, BSTR.Ptr, pMedia, "HRESULT")
+        result := ComCall(6, this, UInt32, index, BSTR.Ptr, pMedia, "HRESULT")
         return pMedia
     }
 

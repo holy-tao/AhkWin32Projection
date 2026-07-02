@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContext.ahk" { ITfContext }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumTfContexts.ahk" { IEnumTfContexts }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfContext.ahk" { ITfContext }
 
 /**
  * The ITfDocumentMgr interface is implemented by the TSF manager and used by an application or text service to create and manage text contexts. To obtain an instance of this interface call ITfThreadMgr::CreateDocumentMgr.
@@ -110,7 +110,7 @@ export default struct ITfDocumentMgr extends IUnknown {
     CreateContext(tidOwner, dwFlags, punk, ppic, pecTextStore) {
         pecTextStoreMarshal := pecTextStore is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", tidOwner, "uint", dwFlags, "ptr", punk, ITfContext.Ptr, ppic, pecTextStoreMarshal, pecTextStore, "HRESULT")
+        result := ComCall(3, this, UInt32, tidOwner, UInt32, dwFlags, "ptr", punk, ITfContext.Ptr, ppic, pecTextStoreMarshal, pecTextStore, "HRESULT")
         return result
     }
 
@@ -249,7 +249,7 @@ export default struct ITfDocumentMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdocumentmgr-pop
      */
     Pop(dwFlags) {
-        result := ComCall(5, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

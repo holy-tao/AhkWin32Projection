@@ -47,7 +47,7 @@ export default struct IEnumACString extends IEnumString {
     NextItem(pszUrl, cchMax) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(7, this, "ptr", pszUrl, "uint", cchMax, "uint*", &pulSortIndex := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pszUrl, UInt32, cchMax, "uint*", &pulSortIndex := 0, "HRESULT")
         return pulSortIndex
     }
 
@@ -57,7 +57,7 @@ export default struct IEnumACString extends IEnumString {
      * @returns {HRESULT} 
      */
     SetEnumOptions(dwOptions) {
-        result := ComCall(8, this, "uint", dwOptions, "HRESULT")
+        result := ComCall(8, this, UInt32, dwOptions, "HRESULT")
         return result
     }
 

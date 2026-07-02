@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SOCKADDR.ahk" { SOCKADDR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Used by the GetAddrInfoEx function to hold host address information. (ANSI)

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IFiringControl.ahk" { IFiringControl }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IUnknown.ahk" { IUnknown }
 #Import ".\IMultiInterfaceEventControl.ahk" { IMultiInterfaceEventControl }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Manages a filtered subscription cache for an event method.

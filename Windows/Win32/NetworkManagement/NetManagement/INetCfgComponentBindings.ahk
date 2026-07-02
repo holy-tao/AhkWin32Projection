@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\INetCfgBindingPath.ahk" { INetCfgBindingPath }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INetCfgComponent.ahk" { INetCfgComponent }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumNetCfgBindingPath.ahk" { IEnumNetCfgBindingPath }
 
 /**
@@ -75,7 +75,7 @@ export default struct INetCfgComponentBindings extends IUnknown {
     SupportsBindingInterface(dwFlags, pszwInterfaceName) {
         pszwInterfaceName := pszwInterfaceName is String ? StrPtr(pszwInterfaceName) : pszwInterfaceName
 
-        result := ComCall(5, this, "uint", dwFlags, "ptr", pszwInterfaceName, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, "ptr", pszwInterfaceName, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct INetCfgComponentBindings extends IUnknown {
      * @returns {IEnumNetCfgBindingPath} 
      */
     EnumBindingPaths(dwFlags) {
-        result := ComCall(8, this, "uint", dwFlags, "ptr*", &ppIEnum := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFlags, "ptr*", &ppIEnum := 0, "HRESULT")
         return IEnumNetCfgBindingPath(ppIEnum)
     }
 

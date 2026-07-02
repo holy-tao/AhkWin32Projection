@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFileSinkFilter.ahk" { IFileSinkFilter }
-#Import ".\IAMCopyCaptureFileProgress.ahk" { IAMCopyCaptureFileProgress }
-#Import ".\IPin.ahk" { IPin }
 #Import ".\IBaseFilter.ahk" { IBaseFilter }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\PIN_DIRECTION.ahk" { PIN_DIRECTION }
 #Import ".\IGraphBuilder.ahk" { IGraphBuilder }
+#Import ".\PIN_DIRECTION.ahk" { PIN_DIRECTION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAMCopyCaptureFileProgress.ahk" { IAMCopyCaptureFileProgress }
+#Import ".\IFileSinkFilter.ahk" { IFileSinkFilter }
 
 /**
  * The ICaptureGraphBuilder2 interface builds capture graphs and other custom filter graphs.
@@ -528,7 +528,7 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
         pstartMarshal := pstart is VarRef ? "int64*" : "ptr"
         pstopMarshal := pstop is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(8, this, Guid.Ptr, pCategory, Guid.Ptr, pType, "ptr", pFilter, pstartMarshal, pstart, pstopMarshal, pstop, "ushort", wStartCookie, "ushort", wStopCookie, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pCategory, Guid.Ptr, pType, "ptr", pFilter, pstartMarshal, pstart, pstopMarshal, pstop, UInt16, wStartCookie, UInt16, wStopCookie, "HRESULT")
         return result
     }
 
@@ -548,7 +548,7 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
     AllocCapFile(lpstr, dwlSize) {
         lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
-        result := ComCall(9, this, "ptr", lpstr, "uint", dwlSize, "HRESULT")
+        result := ComCall(9, this, "ptr", lpstr, Int64, dwlSize, "HRESULT")
         return result
     }
 
@@ -644,7 +644,7 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
         lpwstrOld := lpwstrOld is String ? StrPtr(lpwstrOld) : lpwstrOld
         lpwstrNew := lpwstrNew is String ? StrPtr(lpwstrNew) : lpwstrNew
 
-        result := ComCall(10, this, "ptr", lpwstrOld, "ptr", lpwstrNew, "int", fAllowEscAbort, "ptr", pCallback, "HRESULT")
+        result := ComCall(10, this, "ptr", lpwstrOld, "ptr", lpwstrNew, Int32, fAllowEscAbort, "ptr", pCallback, "HRESULT")
         return result
     }
 
@@ -668,7 +668,7 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder2-findpin
      */
     FindPin(pSource, pindir, pCategory, pType, fUnconnected, num) {
-        result := ComCall(11, this, "ptr", pSource, PIN_DIRECTION, pindir, Guid.Ptr, pCategory, Guid.Ptr, pType, BOOL, fUnconnected, "int", num, "ptr*", &ppPin := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pSource, PIN_DIRECTION, pindir, Guid.Ptr, pCategory, Guid.Ptr, pType, BOOL, fUnconnected, Int32, num, "ptr*", &ppPin := 0, "HRESULT")
         return IPin(ppPin)
     }
 

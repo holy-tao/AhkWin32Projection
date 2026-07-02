@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMILBitmapEffect.ahk" { IMILBitmapEffect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MilRectD.ahk" { MilRectD }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMILBitmapEffect.ahk" { IMILBitmapEffect }
+#Import ".\MilRectD.ahk" { MilRectD }
 
 /**
  * Exposes methods that define an effect event.

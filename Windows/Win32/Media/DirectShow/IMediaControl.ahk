@@ -198,7 +198,7 @@ export default struct IMediaControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediacontrol-getstate
      */
     GetState(msTimeout) {
-        result := ComCall(10, this, "int", msTimeout, "int*", &pfs := 0, "HRESULT")
+        result := ComCall(10, this, Int32, msTimeout, "int*", &pfs := 0, "HRESULT")
         return pfs
     }
 

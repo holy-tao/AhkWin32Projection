@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfCompositionView.ahk" { ITfCompositionView }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumITfCompositionView interface is implemented by the TSF manager to provide an enumeration of composition view objects.
@@ -102,7 +102,7 @@ export default struct IEnumITfCompositionView extends IUnknown {
     Next(ulCount, rgCompositionView, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, ITfCompositionView.Ptr, rgCompositionView, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, ITfCompositionView.Ptr, rgCompositionView, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IEnumITfCompositionView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumitfcompositionview-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

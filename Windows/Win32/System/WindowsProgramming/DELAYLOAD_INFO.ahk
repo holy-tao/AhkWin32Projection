@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IMAGE_DELAYLOAD_DESCRIPTOR.ahk" { IMAGE_DELAYLOAD_DESCRIPTOR }
 #Import ".\DELAYLOAD_PROC_DESCRIPTOR.ahk" { DELAYLOAD_PROC_DESCRIPTOR }
 #Import ".\IMAGE_THUNK_DATA64.ahk" { IMAGE_THUNK_DATA64 }
-#Import ".\IMAGE_DELAYLOAD_DESCRIPTOR.ahk" { IMAGE_DELAYLOAD_DESCRIPTOR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming

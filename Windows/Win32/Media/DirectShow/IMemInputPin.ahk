@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMemAllocator.ahk" { IMemAllocator }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMediaSample.ahk" { IMediaSample }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMemAllocator.ahk" { IMemAllocator }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
+#Import ".\IMediaSample.ahk" { IMediaSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMemInputPin interface delivers media data to an input pin.
@@ -201,7 +201,7 @@ export default struct IMemInputPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imeminputpin-receivemultiple
      */
     ReceiveMultiple(pSamples, nSamples) {
-        result := ComCall(7, this, IMediaSample.Ptr, pSamples, "int", nSamples, "int*", &nSamplesProcessed := 0, "HRESULT")
+        result := ComCall(7, this, IMediaSample.Ptr, pSamples, Int32, nSamples, "int*", &nSamplesProcessed := 0, "HRESULT")
         return nSamplesProcessed
     }
 

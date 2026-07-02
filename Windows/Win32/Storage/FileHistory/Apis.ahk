@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FH_SERVICE_PIPE_HANDLE.ahk" { FH_SERVICE_PIPE_HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FH_SERVICE_PIPE_HANDLE.ahk" { FH_SERVICE_PIPE_HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Storage.FileHistory

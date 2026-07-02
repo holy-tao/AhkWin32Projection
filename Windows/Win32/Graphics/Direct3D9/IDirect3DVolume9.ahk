@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3DBOX.ahk" { D3DBOX }
 #Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
 #Import ".\D3DVOLUME_DESC.ahk" { D3DVOLUME_DESC }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3DLOCKED_BOX.ahk" { D3DLOCKED_BOX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DBOX.ahk" { D3DBOX }
 
 /**
  * The IDirect3DVolume9 (d3d9.h) interface is used by applications to manipulate volume resources.
@@ -135,7 +135,7 @@ export default struct IDirect3DVolume9 extends IUnknown {
     SetPrivateData(refguid, pData, SizeOfData, Flags) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, Guid.Ptr, refguid, pDataMarshal, pData, "uint", SizeOfData, "uint", Flags, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, refguid, pDataMarshal, pData, UInt32, SizeOfData, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -262,7 +262,7 @@ export default struct IDirect3DVolume9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-lockbox
      */
     LockBox(pLockedVolume, pBox, Flags) {
-        result := ComCall(9, this, D3DLOCKED_BOX.Ptr, pLockedVolume, D3DBOX.Ptr, pBox, "uint", Flags, "HRESULT")
+        result := ComCall(9, this, D3DLOCKED_BOX.Ptr, pLockedVolume, D3DBOX.Ptr, pBox, UInt32, Flags, "HRESULT")
         return result
     }
 

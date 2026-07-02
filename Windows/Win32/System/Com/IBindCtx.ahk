@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IEnumString.ahk" { IEnumString }
-#Import ".\IRunningObjectTable.ahk" { IRunningObjectTable }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\BIND_OPTS.ahk" { BIND_OPTS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BIND_OPTS.ahk" { BIND_OPTS }
+#Import ".\IRunningObjectTable.ahk" { IRunningObjectTable }
 
 /**
  * Provides access to a bind context, which is an object that stores information about a particular moniker binding operation.

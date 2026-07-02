@@ -133,7 +133,7 @@ export default struct ITScriptableAudioFormat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_channels
      */
     put_Channels(nNewVal) {
-        result := ComCall(8, this, "int", nNewVal, "HRESULT")
+        result := ComCall(8, this, Int32, nNewVal, "HRESULT")
         return result
     }
 
@@ -174,7 +174,7 @@ export default struct ITScriptableAudioFormat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_samplespersec
      */
     put_SamplesPerSec(nNewVal) {
-        result := ComCall(10, this, "int", nNewVal, "HRESULT")
+        result := ComCall(10, this, Int32, nNewVal, "HRESULT")
         return result
     }
 
@@ -215,7 +215,7 @@ export default struct ITScriptableAudioFormat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_avgbytespersec
      */
     put_AvgBytesPerSec(nNewVal) {
-        result := ComCall(12, this, "int", nNewVal, "HRESULT")
+        result := ComCall(12, this, Int32, nNewVal, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct ITScriptableAudioFormat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_blockalign
      */
     put_BlockAlign(nNewVal) {
-        result := ComCall(14, this, "int", nNewVal, "HRESULT")
+        result := ComCall(14, this, Int32, nNewVal, "HRESULT")
         return result
     }
 
@@ -297,7 +297,7 @@ export default struct ITScriptableAudioFormat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_bitspersample
      */
     put_BitsPerSample(nNewVal) {
-        result := ComCall(16, this, "int", nNewVal, "HRESULT")
+        result := ComCall(16, this, Int32, nNewVal, "HRESULT")
         return result
     }
 
@@ -338,7 +338,7 @@ export default struct ITScriptableAudioFormat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-put_formattag
      */
     put_FormatTag(nNewVal) {
-        result := ComCall(18, this, "int", nNewVal, "HRESULT")
+        result := ComCall(18, this, Int32, nNewVal, "HRESULT")
         return result
     }
 

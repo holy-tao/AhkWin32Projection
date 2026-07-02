@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPropertyVault interface provides methods to store and retrieve properties.
@@ -308,7 +308,7 @@ export default struct IWMPropertyVault extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszName, WMT_ATTR_DATATYPE, pType, pValueMarshal, pValue, "uint", dwSize, "HRESULT")
+        result := ComCall(5, this, "ptr", pszName, WMT_ATTR_DATATYPE, pType, pValueMarshal, pValue, UInt32, dwSize, "HRESULT")
         return result
     }
 
@@ -377,7 +377,7 @@ export default struct IWMPropertyVault extends IUnknown {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwIndex, "ptr", pszName, pdwNameLenMarshal, pdwNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(6, this, UInt32, dwIndex, "ptr", pszName, pdwNameLenMarshal, pdwNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 

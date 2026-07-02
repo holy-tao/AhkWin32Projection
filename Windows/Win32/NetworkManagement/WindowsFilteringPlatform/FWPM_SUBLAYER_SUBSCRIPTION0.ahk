@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk" { FWPM_SUBLAYER_ENUM_TEMPLATE0 }
 #Import ".\FWPM_SUBSCRIPTION_FLAGS.ahk" { FWPM_SUBSCRIPTION_FLAGS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FWPM_SUBLAYER_ENUM_TEMPLATE0.ahk" { FWPM_SUBLAYER_ENUM_TEMPLATE0 }
 
 /**
  * Used to subscribe for change notifications. (FWPM_SUBLAYER_SUBSCRIPTION0)

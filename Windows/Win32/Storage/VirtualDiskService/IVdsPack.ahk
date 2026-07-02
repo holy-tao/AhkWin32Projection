@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
 #Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\VDS_PACK_PROP.ahk" { VDS_PACK_PROP }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 #Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import ".\IVdsProvider.ahk" { IVdsProvider }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\VDS_PACK_PROP.ahk" { VDS_PACK_PROP }
 
 /**
  * Provides methods to query and perform management operations on a pack containing disks and volumes.
@@ -164,7 +164,7 @@ export default struct IVdsPack extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-createvolume
      */
     CreateVolume(type, pInputDiskArray, lNumberOfDisks, ulStripeSize) {
-        result := ComCall(7, this, VDS_VOLUME_TYPE, type, VDS_INPUT_DISK.Ptr, pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(7, this, VDS_VOLUME_TYPE, type, VDS_INPUT_DISK.Ptr, pInputDiskArray, Int32, lNumberOfDisks, UInt32, ulStripeSize, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -493,7 +493,7 @@ export default struct IVdsPack extends IUnknown {
         pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
         pbRebootNeededMarshal := pbRebootNeeded is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, Guid.Ptr, pDiskArray, "int", lNumberOfDisks, Guid, TargetPack, BOOL, bForce, BOOL, bQueryOnly, pResultsMarshal, pResults, pbRebootNeededMarshal, pbRebootNeeded, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pDiskArray, Int32, lNumberOfDisks, Guid, TargetPack, BOOL, bForce, BOOL, bQueryOnly, pResultsMarshal, pResults, pbRebootNeededMarshal, pbRebootNeeded, "HRESULT")
         return result
     }
 

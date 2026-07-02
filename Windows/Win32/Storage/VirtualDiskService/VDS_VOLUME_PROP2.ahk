@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\VDS_FILE_SYSTEM_TYPE.ahk" { VDS_FILE_SYSTEM_TYPE }
+#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\VDS_TRANSITION_STATE.ahk" { VDS_TRANSITION_STATE }
-#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
-#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VDS_VOLUME_STATUS.ahk" { VDS_VOLUME_STATUS }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
 
 /**
  * Defines the properties of a volume object. This structure is identical to the VDS_VOLUME_PROP structure, except that it also includes the volume GUIDs.

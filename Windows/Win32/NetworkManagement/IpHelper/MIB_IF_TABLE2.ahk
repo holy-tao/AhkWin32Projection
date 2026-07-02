@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk" { NET_IF_MEDIA_CONNECT_STATE }
-#Import "..\Ndis\NET_IF_CONNECTION_TYPE.ahk" { NET_IF_CONNECTION_TYPE }
-#Import "..\Ndis\NET_IF_ACCESS_TYPE.ahk" { NET_IF_ACCESS_TYPE }
+#Import "..\Ndis\NET_IF_DIRECTION_TYPE.ahk" { NET_IF_DIRECTION_TYPE }
 #Import "..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk" { NDIS_PHYSICAL_MEDIUM }
-#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
-#Import ".\MIB_IF_ROW2.ahk" { MIB_IF_ROW2 }
+#Import "..\Ndis\NET_IF_ACCESS_TYPE.ahk" { NET_IF_ACCESS_TYPE }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk" { NET_IF_MEDIA_CONNECT_STATE }
 #Import "..\Ndis\NET_IF_ADMIN_STATUS.ahk" { NET_IF_ADMIN_STATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Ndis\NET_IF_DIRECTION_TYPE.ahk" { NET_IF_DIRECTION_TYPE }
-#Import "..\Ndis\TUNNEL_TYPE.ahk" { TUNNEL_TYPE }
+#Import ".\MIB_IF_ROW2.ahk" { MIB_IF_ROW2 }
+#Import "..\Ndis\NET_IF_CONNECTION_TYPE.ahk" { NET_IF_CONNECTION_TYPE }
 #Import "..\Ndis\NDIS_MEDIUM.ahk" { NDIS_MEDIUM }
-#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\Ndis\TUNNEL_TYPE.ahk" { TUNNEL_TYPE }
+#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

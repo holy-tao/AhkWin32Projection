@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugHostFunctionLocalDetailsEnumerator.ahk" { IDebugHostFunctionLocalDetailsEnumerator }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugHostFunctionIntrospection.ahk" { IDebugHostFunctionIntrospection }
+#Import ".\IDebugHostFunctionLocalDetailsEnumerator.ahk" { IDebugHostFunctionLocalDetailsEnumerator }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -42,7 +42,7 @@ export default struct IDebugHostFunctionIntrospection2 extends IDebugHostFunctio
      * @returns {IDebugHostFunctionLocalDetailsEnumerator} 
      */
     EnumerateLocalsDetailsEx(enumerateInlinedLocals) {
-        result := ComCall(7, this, "char", enumerateInlinedLocals, "ptr*", &localsEnum := 0, "HRESULT")
+        result := ComCall(7, this, Int8, enumerateInlinedLocals, "ptr*", &localsEnum := 0, "HRESULT")
         return IDebugHostFunctionLocalDetailsEnumerator(localsEnum)
     }
 

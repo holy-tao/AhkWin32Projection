@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MIRROR_VIRTUAL_DISK_VERSION.ahk" { MIRROR_VIRTUAL_DISK_VERSION }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MIRROR_VIRTUAL_DISK_VERSION.ahk" { MIRROR_VIRTUAL_DISK_VERSION }
 
 /**
  * Contains virtual hard disk (VHD) mirror request parameters.

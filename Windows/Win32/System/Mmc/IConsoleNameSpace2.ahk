@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IConsoleNameSpace.ahk" { IConsoleNameSpace }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IConsoleNameSpace2 interface is introduced in MMC 1.1.
@@ -54,7 +54,7 @@ export default struct IConsoleNameSpace2 extends IConsoleNameSpace {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace2-expand
      */
     Expand(hItem) {
-        result := ComCall(10, this, "ptr", hItem, "HRESULT")
+        result := ComCall(10, this, IntPtr, hItem, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IConsoleNameSpace2 extends IConsoleNameSpace {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace2-addextension
      */
     AddExtension(hItem, lpClsid) {
-        result := ComCall(11, this, "ptr", hItem, Guid.Ptr, lpClsid, "HRESULT")
+        result := ComCall(11, this, IntPtr, hItem, Guid.Ptr, lpClsid, "HRESULT")
         return result
     }
 

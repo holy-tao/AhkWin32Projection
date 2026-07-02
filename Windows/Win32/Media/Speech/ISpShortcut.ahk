@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SPSHORTCUTPAIRLIST.ahk" { SPSHORTCUTPAIRLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SPSHORTCUTTYPE.ahk" { SPSHORTCUTTYPE }
-#Import ".\SPWORDLIST.ahk" { SPWORDLIST }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPWORDLIST.ahk" { SPWORDLIST }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -64,7 +64,7 @@ export default struct ISpShortcut extends IUnknown {
         pszDisplay := pszDisplay is String ? StrPtr(pszDisplay) : pszDisplay
         pszSpoken := pszSpoken is String ? StrPtr(pszSpoken) : pszSpoken
 
-        result := ComCall(3, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, SPSHORTCUTTYPE, shType, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDisplay, UInt16, LangID, "ptr", pszSpoken, SPSHORTCUTTYPE, shType, "HRESULT")
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct ISpShortcut extends IUnknown {
         pszDisplay := pszDisplay is String ? StrPtr(pszDisplay) : pszDisplay
         pszSpoken := pszSpoken is String ? StrPtr(pszSpoken) : pszSpoken
 
-        result := ComCall(4, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, SPSHORTCUTTYPE, shType, "HRESULT")
+        result := ComCall(4, this, "ptr", pszDisplay, UInt16, LangID, "ptr", pszSpoken, SPSHORTCUTTYPE, shType, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct ISpShortcut extends IUnknown {
      * @returns {HRESULT} 
      */
     GetShortcuts(LangID, pShortcutpairList) {
-        result := ComCall(5, this, "ushort", LangID, SPSHORTCUTPAIRLIST.Ptr, pShortcutpairList, "HRESULT")
+        result := ComCall(5, this, UInt16, LangID, SPSHORTCUTPAIRLIST.Ptr, pShortcutpairList, "HRESULT")
         return result
     }
 

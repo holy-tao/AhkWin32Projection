@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LDAP_BERVAL.ahk" { LDAP_BERVAL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\LDAP_BERVAL.ahk" { LDAP_BERVAL }
 
 /**
  * Holds data required to perform a modification operation. (ANSI)

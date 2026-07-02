@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DSCANLINEORDERING.ahk" { D3DSCANLINEORDERING }
 #Import ".\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\D3DSCANLINEORDERING.ahk" { D3DSCANLINEORDERING }
 
 /**
  * Information about the properties of a display mode.

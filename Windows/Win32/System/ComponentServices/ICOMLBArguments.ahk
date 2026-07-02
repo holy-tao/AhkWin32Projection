@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to activate the COM+ component load balancing service.
@@ -73,7 +73,7 @@ export default struct ICOMLBArguments extends IUnknown {
     GetMachineName(cchSvr, szServerName) {
         szServerName := szServerName is String ? StrPtr(szServerName) : szServerName
 
-        result := ComCall(5, this, "uint", cchSvr, "ptr", szServerName, "HRESULT")
+        result := ComCall(5, this, UInt32, cchSvr, "ptr", szServerName, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct ICOMLBArguments extends IUnknown {
     SetMachineName(cchSvr, szServerName) {
         szServerName := szServerName is String ? StrPtr(szServerName) : szServerName
 
-        result := ComCall(6, this, "uint", cchSvr, "ptr", szServerName, "HRESULT")
+        result := ComCall(6, this, UInt32, cchSvr, "ptr", szServerName, "HRESULT")
         return result
     }
 

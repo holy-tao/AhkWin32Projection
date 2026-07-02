@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\CMINVOKECOMMANDINFO.ahk" { CMINVOKECOMMANDINFO }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CMINVOKECOMMANDINFO.ahk" { CMINVOKECOMMANDINFO }
 
 /**
  * Contains additional arguments used by DFM_INVOKECOMMANDEX.

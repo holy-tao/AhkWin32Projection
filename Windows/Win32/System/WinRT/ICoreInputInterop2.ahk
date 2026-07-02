@@ -61,7 +61,7 @@ export default struct ICoreInputInterop2 extends IInspectable {
      * @returns {HRESULT} 
      */
     ChangeHostingContext(newParentWindow, newViewInstanceId) {
-        result := ComCall(7, this, HWND, newParentWindow, "uint", newViewInstanceId, "HRESULT")
+        result := ComCall(7, this, HWND, newParentWindow, UInt32, newViewInstanceId, "HRESULT")
         return result
     }
 

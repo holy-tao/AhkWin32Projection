@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXVA2_VideoSample.ahk" { DXVA2_VideoSample }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
-#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
-#Import ".\DXVA2_VideoProcessBltParams.ahk" { DXVA2_VideoProcessBltParams }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
 #Import ".\DXVA2_ValueRange.ahk" { DXVA2_ValueRange }
+#Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\DXVA2_VideoSample.ahk" { DXVA2_VideoSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
 #Import ".\IDirectXVideoProcessorService.ahk" { IDirectXVideoProcessorService }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DXVA2_VideoProcessBltParams.ahk" { DXVA2_VideoProcessBltParams }
 
 /**
  * Represents a DirectX Video Acceleration (DXVA) video processor device.
@@ -128,7 +128,7 @@ export default struct IDirectXVideoProcessor extends IUnknown {
      */
     GetProcAmpRange(ProcAmpCap) {
         pRange := DXVA2_ValueRange()
-        result := ComCall(6, this, "uint", ProcAmpCap, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
+        result := ComCall(6, this, UInt32, ProcAmpCap, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
         return pRange
     }
 
@@ -140,7 +140,7 @@ export default struct IDirectXVideoProcessor extends IUnknown {
      */
     GetFilterPropertyRange(FilterSetting) {
         pRange := DXVA2_ValueRange()
-        result := ComCall(7, this, "uint", FilterSetting, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
+        result := ComCall(7, this, UInt32, FilterSetting, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
         return pRange
     }
 
@@ -234,7 +234,7 @@ export default struct IDirectXVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-videoprocessblt
      */
     VideoProcessBlt(pRenderTarget, pBltParams, pSamples, NumSamples, pHandleComplete) {
-        result := ComCall(8, this, "ptr", pRenderTarget, DXVA2_VideoProcessBltParams.Ptr, pBltParams, DXVA2_VideoSample.Ptr, pSamples, "uint", NumSamples, HANDLE.Ptr, pHandleComplete, "HRESULT")
+        result := ComCall(8, this, "ptr", pRenderTarget, DXVA2_VideoProcessBltParams.Ptr, pBltParams, DXVA2_VideoSample.Ptr, pSamples, UInt32, NumSamples, HANDLE.Ptr, pHandleComplete, "HRESULT")
         return result
     }
 

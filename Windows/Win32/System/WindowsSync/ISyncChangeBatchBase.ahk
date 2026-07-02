@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IForgottenKnowledge.ahk" { IForgottenKnowledge }
 #Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
-#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumSyncChanges.ahk" { IEnumSyncChanges }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IForgottenKnowledge.ahk" { IForgottenKnowledge }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
+#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
+#Import ".\IEnumSyncChanges.ahk" { IEnumSyncChanges }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents metadata for a set of changes. (ISyncChangeBatchBase)
@@ -355,7 +355,7 @@ export default struct ISyncChangeBatchBase extends IUnknown {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        result := ComCall(9, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwFlags, UInt32, dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 
@@ -450,7 +450,7 @@ export default struct ISyncChangeBatchBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-setworkestimateforbatch
      */
     SetWorkEstimateForBatch(dwWorkForBatch) {
-        result := ComCall(14, this, "uint", dwWorkForBatch, "HRESULT")
+        result := ComCall(14, this, UInt32, dwWorkForBatch, "HRESULT")
         return result
     }
 
@@ -483,7 +483,7 @@ export default struct ISyncChangeBatchBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-setremainingworkestimateforsession
      */
     SetRemainingWorkEstimateForSession(dwRemainingWorkForSession) {
-        result := ComCall(15, this, "uint", dwRemainingWorkForSession, "HRESULT")
+        result := ComCall(15, this, UInt32, dwRemainingWorkForSession, "HRESULT")
         return result
     }
 

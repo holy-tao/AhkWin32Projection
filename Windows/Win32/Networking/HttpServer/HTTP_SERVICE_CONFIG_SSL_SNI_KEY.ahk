@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 

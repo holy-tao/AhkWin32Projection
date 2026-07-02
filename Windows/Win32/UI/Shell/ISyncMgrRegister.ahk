@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods so that an application can register with the synchronization manager. This can be achieved either through the ISyncMgrRegister interface or by registering directly in the registry.
@@ -77,7 +77,7 @@ export default struct ISyncMgrRegister extends IUnknown {
     RegisterSyncMgrHandler(clsidHandler, pwszDescription, dwSyncMgrRegisterFlags) {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        result := ComCall(3, this, Guid.Ptr, clsidHandler, "ptr", pwszDescription, "uint", dwSyncMgrRegisterFlags, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, clsidHandler, "ptr", pwszDescription, UInt32, dwSyncMgrRegisterFlags, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct ISyncMgrRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrregister-unregistersyncmgrhandler
      */
     UnregisterSyncMgrHandler(clsidHandler, dwReserved) {
-        result := ComCall(4, this, Guid.Ptr, clsidHandler, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, clsidHandler, UInt32, dwReserved, "HRESULT")
         return result
     }
 

@@ -53,7 +53,7 @@ export default struct IOfflineFilesEvents4 extends IOfflineFilesEvents3 {
      * @returns {HRESULT} 
      */
     PrefetchCloseHandleEnd(dwClosedHandleCount, dwOpenHandleCount, hrResult) {
-        result := ComCall(41, this, "uint", dwClosedHandleCount, "uint", dwOpenHandleCount, "int", hrResult, "HRESULT")
+        result := ComCall(41, this, UInt32, dwClosedHandleCount, UInt32, dwOpenHandleCount, "int", hrResult, "HRESULT")
         return result
     }
 

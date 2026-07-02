@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D11_OMAC.ahk" { D3D11_OMAC }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains the response from the ID3D11VideoContext::ConfigureAuthenticatedChannel method.

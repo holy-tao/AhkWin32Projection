@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TCPSTATE.ahk" { TCPSTATE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\TCPSTATE.ahk" { TCPSTATE }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

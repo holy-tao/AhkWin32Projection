@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Provides information about the input streams passed into the ID3DVideoContext1::VideoProcessorGetBehaviorHints method.

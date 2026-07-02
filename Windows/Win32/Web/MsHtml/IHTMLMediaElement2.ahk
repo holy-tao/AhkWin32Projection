@@ -96,7 +96,7 @@ export default struct IHTMLMediaElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_currentTimeDouble(v) {
-        result := ComCall(7, this, "double", v, "HRESULT")
+        result := ComCall(7, this, Float64, v, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IHTMLMediaElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_defaultPlaybackRateDouble(v) {
-        result := ComCall(11, this, "double", v, "HRESULT")
+        result := ComCall(11, this, Float64, v, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IHTMLMediaElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_playbackRateDouble(v) {
-        result := ComCall(13, this, "double", v, "HRESULT")
+        result := ComCall(13, this, Float64, v, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct IHTMLMediaElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_volumeDouble(v) {
-        result := ComCall(15, this, "double", v, "HRESULT")
+        result := ComCall(15, this, Float64, v, "HRESULT")
         return result
     }
 

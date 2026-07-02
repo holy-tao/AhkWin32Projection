@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContextView.ahk" { ITfContextView }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfContextView.ahk" { ITfContextView }
 
 /**
  * Not implemented. (IEnumTfContextViews)
@@ -60,7 +60,7 @@ export default struct IEnumTfContextViews extends IUnknown {
     Next(ulCount, rgViews, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, ITfContextView.Ptr, rgViews, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, ITfContextView.Ptr, rgViews, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct IEnumTfContextViews extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

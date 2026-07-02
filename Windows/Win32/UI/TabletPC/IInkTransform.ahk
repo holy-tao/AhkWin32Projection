@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Graphics\Gdi\XFORM.ahk" { XFORM }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * . (IInkTransform)
@@ -196,7 +196,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-translate
      */
     Translate(HorizontalComponent, VerticalComponent) {
-        result := ComCall(8, this, "float", HorizontalComponent, "float", VerticalComponent, "HRESULT")
+        result := ComCall(8, this, Float32, HorizontalComponent, Float32, VerticalComponent, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-rotate
      */
     Rotate(Degrees, x, y) {
-        result := ComCall(9, this, "float", Degrees, "float", x, "float", y, "HRESULT")
+        result := ComCall(9, this, Float32, Degrees, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -338,7 +338,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-shear
      */
     Shear(HorizontalComponent, VerticalComponent) {
-        result := ComCall(11, this, "float", HorizontalComponent, "float", VerticalComponent, "HRESULT")
+        result := ComCall(11, this, Float32, HorizontalComponent, Float32, VerticalComponent, "HRESULT")
         return result
     }
 
@@ -381,7 +381,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-scaletransform
      */
     ScaleTransform(HorizontalMultiplier, VerticalMultiplier) {
-        result := ComCall(12, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "HRESULT")
+        result := ComCall(12, this, Float32, HorizontalMultiplier, Float32, VerticalMultiplier, "HRESULT")
         return result
     }
 
@@ -491,7 +491,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-settransform
      */
     SetTransform(eM11, eM12, eM21, eM22, eDx, eDy) {
-        result := ComCall(14, this, "float", eM11, "float", eM12, "float", eM21, "float", eM22, "float", eDx, "float", eDy, "HRESULT")
+        result := ComCall(14, this, Float32, eM11, Float32, eM12, Float32, eM21, Float32, eM22, Float32, eDx, Float32, eDy, "HRESULT")
         return result
     }
 
@@ -512,7 +512,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-put_em11
      */
     put_eM11(Value) {
-        result := ComCall(16, this, "float", Value, "HRESULT")
+        result := ComCall(16, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -533,7 +533,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-put_em12
      */
     put_eM12(Value) {
-        result := ComCall(18, this, "float", Value, "HRESULT")
+        result := ComCall(18, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -554,7 +554,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-put_em21
      */
     put_eM21(Value) {
-        result := ComCall(20, this, "float", Value, "HRESULT")
+        result := ComCall(20, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -575,7 +575,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-put_em22
      */
     put_eM22(Value) {
-        result := ComCall(22, this, "float", Value, "HRESULT")
+        result := ComCall(22, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -596,7 +596,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-put_edx
      */
     put_eDx(Value) {
-        result := ComCall(24, this, "float", Value, "HRESULT")
+        result := ComCall(24, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -617,7 +617,7 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-put_edy
      */
     put_eDy(Value) {
-        result := ComCall(26, this, "float", Value, "HRESULT")
+        result := ComCall(26, this, Float32, Value, "HRESULT")
         return result
     }
 

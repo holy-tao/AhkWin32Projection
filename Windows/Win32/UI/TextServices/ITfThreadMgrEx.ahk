@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfThreadMgr.ahk" { ITfThreadMgr }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfThreadMgrEx interface is used by the application to activate the textservices with some flags. ITfThreadMgrEx can be obtained by QI from ITfThreadMgr.
@@ -100,7 +100,7 @@ export default struct ITfThreadMgrEx extends ITfThreadMgr {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgrex-activateex
      */
     ActivateEx(dwFlags) {
-        result := ComCall(14, this, "uint*", &ptid := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(14, this, "uint*", &ptid := 0, UInt32, dwFlags, "HRESULT")
         return ptid
     }
 

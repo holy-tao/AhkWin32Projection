@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -102,7 +102,7 @@ export default struct IWiaDrvItem extends IUnknown {
      * @returns {HRESULT} 
      */
     UnlinkItemTree(__MIDL__IWiaDrvItem0005) {
-        result := ComCall(8, this, "int", __MIDL__IWiaDrvItem0005, "HRESULT")
+        result := ComCall(8, this, Int32, __MIDL__IWiaDrvItem0005, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IWiaDrvItem extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveItemFromFolder(__MIDL__IWiaDrvItem0006) {
-        result := ComCall(9, this, "int", __MIDL__IWiaDrvItem0006, "HRESULT")
+        result := ComCall(9, this, Int32, __MIDL__IWiaDrvItem0006, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IWiaDrvItem extends IUnknown {
     FindItemByName(__MIDL__IWiaDrvItem0007, __MIDL__IWiaDrvItem0008) {
         __MIDL__IWiaDrvItem0008 := __MIDL__IWiaDrvItem0008 is String ? BSTR.Alloc(__MIDL__IWiaDrvItem0008).Value : __MIDL__IWiaDrvItem0008
 
-        result := ComCall(10, this, "int", __MIDL__IWiaDrvItem0007, BSTR, __MIDL__IWiaDrvItem0008, "ptr*", &__MIDL__IWiaDrvItem0009 := 0, "HRESULT")
+        result := ComCall(10, this, Int32, __MIDL__IWiaDrvItem0007, BSTR, __MIDL__IWiaDrvItem0008, "ptr*", &__MIDL__IWiaDrvItem0009 := 0, "HRESULT")
         return IWiaDrvItem(__MIDL__IWiaDrvItem0009)
     }
 

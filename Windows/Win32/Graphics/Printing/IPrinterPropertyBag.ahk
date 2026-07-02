@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -93,7 +93,7 @@ export default struct IPrinterPropertyBag extends IDispatch {
     SetInt32(bstrName, nValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(10, this, BSTR, bstrName, "int", nValue, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrName, Int32, nValue, "HRESULT")
         return result
     }
 
@@ -153,7 +153,7 @@ export default struct IPrinterPropertyBag extends IDispatch {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(14, this, BSTR, bstrName, "uint", cbValue, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrName, UInt32, cbValue, pValueMarshal, pValue, "HRESULT")
         return result
     }
 

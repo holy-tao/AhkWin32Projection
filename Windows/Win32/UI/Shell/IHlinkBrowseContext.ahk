@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HLBWINFO.ahk" { HLBWINFO }
-#Import ".\IEnumHLITEM.ahk" { IEnumHLITEM }
-#Import ".\IHlink.ahk" { IHlink }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumHLITEM.ahk" { IEnumHLITEM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HLBWINFO.ahk" { HLBWINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHlink.ahk" { IHlink }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -65,7 +65,7 @@ export default struct IHlinkBrowseContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/register-expert
      */
     Register(reserved, piunk, pimk) {
-        result := ComCall(3, this, "uint", reserved, "ptr", piunk, "ptr", pimk, "uint*", &pdwRegister := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, reserved, "ptr", piunk, "ptr", pimk, "uint*", &pdwRegister := 0, "HRESULT")
         return pdwRegister
     }
 
@@ -97,7 +97,7 @@ export default struct IHlinkBrowseContext extends IUnknown {
      * @returns {HRESULT} 
      */
     Revoke(dwRegister) {
-        result := ComCall(5, this, "uint", dwRegister, "HRESULT")
+        result := ComCall(5, this, UInt32, dwRegister, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IHlinkBrowseContext extends IUnknown {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := ComCall(9, this, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "uint*", &puHLID := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "uint*", &puHLID := 0, "HRESULT")
         return puHLID
     }
 
@@ -164,7 +164,7 @@ export default struct IHlinkBrowseContext extends IUnknown {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := ComCall(10, this, "uint", uHLID, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "HRESULT")
+        result := ComCall(10, this, UInt32, uHLID, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IHlinkBrowseContext extends IUnknown {
      * @returns {IEnumHLITEM} 
      */
     EnumNavigationStack(dwReserved, grfHLFNAMEF) {
-        result := ComCall(11, this, "uint", dwReserved, "uint", grfHLFNAMEF, "ptr*", &ppienumhlitem := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwReserved, UInt32, grfHLFNAMEF, "ptr*", &ppienumhlitem := 0, "HRESULT")
         return IEnumHLITEM(ppienumhlitem)
     }
 
@@ -186,7 +186,7 @@ export default struct IHlinkBrowseContext extends IUnknown {
      * @returns {HRESULT} 
      */
     QueryHlink(grfHLQF, uHLID) {
-        result := ComCall(12, this, "uint", grfHLQF, "uint", uHLID, "HRESULT")
+        result := ComCall(12, this, UInt32, grfHLQF, UInt32, uHLID, "HRESULT")
         return result
     }
 
@@ -196,7 +196,7 @@ export default struct IHlinkBrowseContext extends IUnknown {
      * @returns {IHlink} 
      */
     GetHlink(uHLID) {
-        result := ComCall(13, this, "uint", uHLID, "ptr*", &ppihl := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, uHLID, "ptr*", &ppihl := 0, "HRESULT")
         return IHlink(ppihl)
     }
 
@@ -206,7 +206,7 @@ export default struct IHlinkBrowseContext extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCurrentHlink(uHLID) {
-        result := ComCall(14, this, "uint", uHLID, "HRESULT")
+        result := ComCall(14, this, UInt32, uHLID, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IHlinkBrowseContext extends IUnknown {
      * @returns {HRESULT} 
      */
     Close(reserved) {
-        result := ComCall(16, this, "uint", reserved, "HRESULT")
+        result := ComCall(16, this, UInt32, reserved, "HRESULT")
         return result
     }
 

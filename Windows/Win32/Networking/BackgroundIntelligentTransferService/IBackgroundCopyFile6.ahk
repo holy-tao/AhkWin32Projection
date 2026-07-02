@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IBackgroundCopyFile5.ahk" { IBackgroundCopyFile5 }
 #Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
+#Import ".\IBackgroundCopyFile5.ahk" { IBackgroundCopyFile5 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to request file ranges for On Demand download jobs.
@@ -55,7 +55,7 @@ export default struct IBackgroundCopyFile6 extends IBackgroundCopyFile5 {
      * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopyfile6-updatedownloadposition
      */
     UpdateDownloadPosition(offset) {
-        result := ComCall(15, this, "uint", offset, "HRESULT")
+        result := ComCall(15, this, Int64, offset, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct IBackgroundCopyFile6 extends IBackgroundCopyFile5 {
      * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopyfile6-requestfileranges
      */
     RequestFileRanges(rangeCount, ranges) {
-        result := ComCall(16, this, "uint", rangeCount, BG_FILE_RANGE.Ptr, ranges, "HRESULT")
+        result := ComCall(16, this, UInt32, rangeCount, BG_FILE_RANGE.Ptr, ranges, "HRESULT")
         return result
     }
 

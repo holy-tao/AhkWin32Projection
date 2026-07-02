@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WM_STREAM_PRIORITY_RECORD.ahk" { WM_STREAM_PRIORITY_RECORD }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMStreamPrioritization interface provides methods to set and read priority records for a file.Stream prioritization allows content creators to specify the priority of the streams in an ASF file.
@@ -117,7 +117,7 @@ export default struct IWMStreamPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-setpriorityrecords
      */
     SetPriorityRecords(pRecordArray, cRecords) {
-        result := ComCall(4, this, WM_STREAM_PRIORITY_RECORD.Ptr, pRecordArray, "ushort", cRecords, "HRESULT")
+        result := ComCall(4, this, WM_STREAM_PRIORITY_RECORD.Ptr, pRecordArray, UInt16, cRecords, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import ".\DBBINDING.ahk" { DBBINDING }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -82,7 +82,7 @@ export default struct IViewFilter extends IUnknown {
         CompareOpsMarshal := CompareOps is VarRef ? "uint*" : "ptr"
         pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, HACCESSOR, _hAccessor, "ptr", cRows, CompareOpsMarshal, CompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
+        result := ComCall(5, this, HACCESSOR, _hAccessor, IntPtr, cRows, CompareOpsMarshal, CompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
         return result
     }
 

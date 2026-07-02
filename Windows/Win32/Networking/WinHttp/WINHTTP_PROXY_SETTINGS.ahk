@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\WINHTTP_PROXY_NETWORKING_KEY.ahk" { WINHTTP_PROXY_NETWORKING_KEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp

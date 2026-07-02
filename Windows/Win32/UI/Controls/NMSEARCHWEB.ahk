@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMHDR.ahk" { NMHDR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\EC_SEARCHWEB_ENTRYPOINT.ahk" { EC_SEARCHWEB_ENTRYPOINT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information used to handle an [EN_SEARCHWEB](/windows/win32/controls/en-searchweb) notification code.

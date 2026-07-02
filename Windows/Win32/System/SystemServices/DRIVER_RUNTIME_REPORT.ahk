@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RUNTIME_REPORT_HEADER.ahk" { RUNTIME_REPORT_HEADER }
 #Import ".\DRIVER_INFO_ENTRY.ahk" { DRIVER_INFO_ENTRY }
+#Import ".\RUNTIME_REPORT_HEADER.ahk" { RUNTIME_REPORT_HEADER }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

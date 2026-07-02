@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_PSOURCE_ALGORITHM.ahk" { CRYPT_PSOURCE_ALGORITHM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CRYPT_MASK_GEN_ALGORITHM.ahk" { CRYPT_MASK_GEN_ALGORITHM }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import ".\CRYPT_PSOURCE_ALGORITHM.ahk" { CRYPT_PSOURCE_ALGORITHM }
-#Import ".\CRYPT_MASK_GEN_ALGORITHM.ahk" { CRYPT_MASK_GEN_ALGORITHM }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains the parameters for an RSAES-OAEP key encryption.

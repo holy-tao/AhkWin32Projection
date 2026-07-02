@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DHCP_IP_RESERVATION_V6.ahk" { DHCP_IP_RESERVATION_V6 }
 #Import ".\DHCP_IP_RANGE_V6.ahk" { DHCP_IP_RANGE_V6 }
 #Import ".\DHCP_SUBNET_ELEMENT_TYPE_V6.ahk" { DHCP_SUBNET_ELEMENT_TYPE_V6 }
+#Import ".\DHCP_IP_RESERVATION_V6.ahk" { DHCP_IP_RESERVATION_V6 }
 
 /**
  * Contains definitions for the elements of the IPv6 prefix, such as IPv6 reservation, IPv6 exclusion range, and IPv6 range.

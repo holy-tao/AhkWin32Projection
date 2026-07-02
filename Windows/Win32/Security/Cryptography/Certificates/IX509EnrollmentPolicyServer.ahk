@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IX509CertificateTemplates.ahk" { IX509CertificateTemplates }
-#Import ".\ICertificationAuthorities.ahk" { ICertificationAuthorities }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IObjectIds.ahk" { IObjectIds }
-#Import ".\X509EnrollmentPolicyLoadOption.ahk" { X509EnrollmentPolicyLoadOption }
-#Import ".\X509EnrollmentPolicyExportFlags.ahk" { X509EnrollmentPolicyExportFlags }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
 #Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
+#Import ".\ICertificationAuthorities.ahk" { ICertificationAuthorities }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\X509EnrollmentPolicyExportFlags.ahk" { X509EnrollmentPolicyExportFlags }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IX509CertificateTemplates.ahk" { IX509CertificateTemplates }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\X509EnrollmentPolicyLoadOption.ahk" { X509EnrollmentPolicyLoadOption }
 
 /**
  * The IX509EnrollmentPolicyServer interface represents a certificate enrollment policy (CEP) server.
@@ -462,7 +462,7 @@ export default struct IX509EnrollmentPolicyServer extends IDispatch {
         strCredential := strCredential is String ? BSTR.Alloc(strCredential).Value : strCredential
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(25, this, "int", hWndParent, X509EnrollmentAuthFlags, flag, BSTR, strCredential, BSTR, strPassword, "HRESULT")
+        result := ComCall(25, this, Int32, hWndParent, X509EnrollmentAuthFlags, flag, BSTR, strCredential, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -564,7 +564,7 @@ export default struct IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-put_cost
      */
     put_Cost(value) {
-        result := ComCall(30, this, "uint", value, "HRESULT")
+        result := ComCall(30, this, UInt32, value, "HRESULT")
         return result
     }
 

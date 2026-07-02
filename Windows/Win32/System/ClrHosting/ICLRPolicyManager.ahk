@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EClrOperation.ahk" { EClrOperation }
-#Import ".\EClrUnhandledException.ahk" { EClrUnhandledException }
-#Import ".\EPolicyAction.ahk" { EPolicyAction }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\EClrOperation.ahk" { EClrOperation }
+#Import ".\EPolicyAction.ahk" { EPolicyAction }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EClrFailure.ahk" { EClrFailure }
+#Import ".\EClrUnhandledException.ahk" { EClrUnhandledException }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -62,7 +62,7 @@ export default struct ICLRPolicyManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetTimeout(operation, dwMilliseconds) {
-        result := ComCall(4, this, EClrOperation, operation, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(4, this, EClrOperation, operation, UInt32, dwMilliseconds, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct ICLRPolicyManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetTimeoutAndAction(operation, dwMilliseconds, action) {
-        result := ComCall(6, this, EClrOperation, operation, "uint", dwMilliseconds, EPolicyAction, action, "HRESULT")
+        result := ComCall(6, this, EClrOperation, operation, UInt32, dwMilliseconds, EPolicyAction, action, "HRESULT")
         return result
     }
 

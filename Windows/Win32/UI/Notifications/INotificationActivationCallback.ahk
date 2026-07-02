@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\NOTIFICATION_USER_INPUT_DATA.ahk" { NOTIFICATION_USER_INPUT_DATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Receives notification messages when an app is triggered through a toast from the action center.
@@ -58,7 +58,7 @@ export default struct INotificationActivationCallback extends IUnknown {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
         invokedArgs := invokedArgs is String ? StrPtr(invokedArgs) : invokedArgs
 
-        result := ComCall(3, this, "ptr", appUserModelId, "ptr", invokedArgs, NOTIFICATION_USER_INPUT_DATA.Ptr, data, "uint", count, "HRESULT")
+        result := ComCall(3, this, "ptr", appUserModelId, "ptr", invokedArgs, NOTIFICATION_USER_INPUT_DATA.Ptr, data, UInt32, count, "HRESULT")
         return result
     }
 

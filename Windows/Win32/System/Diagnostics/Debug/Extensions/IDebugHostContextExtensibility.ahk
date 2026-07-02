@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugHostContext.ahk" { IDebugHostContext }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDebugHostContextExtension.ahk" { IDebugHostContextExtension }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -46,7 +46,7 @@ export default struct IDebugHostContextExtensibility extends IUnknown {
      * @returns {Boolean} 
      */
     HasExtensionData(blobId) {
-        result := ComCall(3, this, "uint", blobId, Int32)
+        result := ComCall(3, this, UInt32, blobId, Int32)
         return result
     }
 
@@ -57,7 +57,7 @@ export default struct IDebugHostContextExtensibility extends IUnknown {
      * @returns {Void} 
      */
     ReadExtensionData(blobId, bufferSize) {
-        result := ComCall(4, this, "uint", blobId, "uint", bufferSize, "ptr", &_buffer := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, blobId, UInt32, bufferSize, "ptr", &_buffer := 0, "HRESULT")
         return _buffer
     }
 
@@ -80,7 +80,7 @@ export default struct IDebugHostContextExtensibility extends IUnknown {
     CloneContextWithModification(blobId, dataSize, data) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "ptr*", &clonedContext := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, blobId, UInt32, dataSize, dataMarshal, data, "ptr*", &clonedContext := 0, "HRESULT")
         return IDebugHostContext(clonedContext)
     }
 

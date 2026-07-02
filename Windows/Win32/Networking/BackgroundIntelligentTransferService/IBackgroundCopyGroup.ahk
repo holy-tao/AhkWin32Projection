@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\GROUPPROP.ahk" { GROUPPROP }
 #Import ".\IEnumBackgroundCopyJobs1.ahk" { IEnumBackgroundCopyJobs1 }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IBackgroundCopyJob1.ahk" { IBackgroundCopyJob1 }
-#Import ".\GROUPPROP.ahk" { GROUPPROP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Use the IBackgroundCopyGroup interface to manage a group. A group contains download jobs. For example, add a job to the group, set the properties of the group, and start and stop the group in the download queue.
@@ -177,7 +177,7 @@ export default struct IBackgroundCopyGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getprogress
      */
     GetProgress(dwFlags) {
-        result := ComCall(5, this, "uint", dwFlags, "uint*", &pdwProgress := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, "uint*", &pdwProgress := 0, "HRESULT")
         return pdwProgress
     }
 
@@ -395,7 +395,7 @@ export default struct IBackgroundCopyGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-enumjobs
      */
     EnumJobs(dwFlags) {
-        result := ComCall(14, this, "uint", dwFlags, "ptr*", &ppEnumJobs := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwFlags, "ptr*", &ppEnumJobs := 0, "HRESULT")
         return IEnumBackgroundCopyJobs1(ppEnumJobs)
     }
 

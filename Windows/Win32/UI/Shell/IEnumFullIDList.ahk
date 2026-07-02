@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a standard set of methods that enumerate the pointers to item identifier lists (PIDLs) of the items in a Shell folder.
@@ -67,7 +67,7 @@ export default struct IEnumFullIDList extends IUnknown {
         rgeltMarshal := rgelt is VarRef ? "ptr*" : "ptr"
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, rgeltMarshal, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
+        result := ComCall(3, this, UInt32, celt, rgeltMarshal, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IEnumFullIDList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumfullidlist-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

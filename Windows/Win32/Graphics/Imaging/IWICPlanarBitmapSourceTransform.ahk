@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WICBitmapPlaneDescription.ahk" { WICBitmapPlaneDescription }
-#Import ".\WICRect.ahk" { WICRect }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICRect.ahk" { WICRect }
+#Import ".\WICPlanarOptions.ahk" { WICPlanarOptions }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WICBitmapPlane.ahk" { WICBitmapPlane }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WICPlanarOptions.ahk" { WICPlanarOptions }
 #Import ".\WICBitmapTransformOptions.ahk" { WICBitmapTransformOptions }
 
 /**
@@ -92,7 +92,7 @@ export default struct IWICPlanarBitmapSourceTransform extends IUnknown {
         puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
         pfIsSupportedMarshal := pfIsSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, WICBitmapTransformOptions, dstTransform, WICPlanarOptions, dstPlanarOptions, Guid.Ptr, pguidDstFormats, WICBitmapPlaneDescription.Ptr, pPlaneDescriptions, "uint", cPlanes, pfIsSupportedMarshal, pfIsSupported, "HRESULT")
+        result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, WICBitmapTransformOptions, dstTransform, WICPlanarOptions, dstPlanarOptions, Guid.Ptr, pguidDstFormats, WICBitmapPlaneDescription.Ptr, pPlaneDescriptions, UInt32, cPlanes, pfIsSupportedMarshal, pfIsSupported, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct IWICPlanarBitmapSourceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-copypixels
      */
     CopyPixels(prcSource, uiWidth, uiHeight, dstTransform, dstPlanarOptions, pDstPlanes, cPlanes) {
-        result := ComCall(4, this, WICRect.Ptr, prcSource, "uint", uiWidth, "uint", uiHeight, WICBitmapTransformOptions, dstTransform, WICPlanarOptions, dstPlanarOptions, WICBitmapPlane.Ptr, pDstPlanes, "uint", cPlanes, "HRESULT")
+        result := ComCall(4, this, WICRect.Ptr, prcSource, UInt32, uiWidth, UInt32, uiHeight, WICBitmapTransformOptions, dstTransform, WICPlanarOptions, dstPlanarOptions, WICBitmapPlane.Ptr, pDstPlanes, UInt32, cPlanes, "HRESULT")
         return result
     }
 

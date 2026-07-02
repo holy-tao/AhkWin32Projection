@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITACDGroup.ahk" { ITACDGroup }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumACDGroup interface (tapi3cc.h) provides COM-standard enumeration methods for the ITACDGroup interface.
@@ -108,7 +108,7 @@ export default struct IEnumACDGroup extends IUnknown {
     Next(celt, ppElements, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, ITACDGroup.Ptr, ppElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, ITACDGroup.Ptr, ppElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IEnumACDGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumacdgroup-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -56,7 +56,7 @@ export default struct IDataFilter extends IUnknown {
         plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : "ptr"
         plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "int", lInBufferSize, pbInBufferMarshal, pbInBuffer, "int", lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, "int", lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, Int32, lInBufferSize, pbInBufferMarshal, pbInBuffer, Int32, lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, Int32, lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct IDataFilter extends IUnknown {
         plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : "ptr"
         plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwFlags, "int", lInBufferSize, pbInBufferMarshal, pbInBuffer, "int", lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, "int", lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, Int32, lInBufferSize, pbInBufferMarshal, pbInBuffer, Int32, lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, Int32, lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IDataFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     SetEncodingLevel(dwEncLevel) {
-        result := ComCall(5, this, "uint", dwEncLevel, "HRESULT")
+        result := ComCall(5, this, UInt32, dwEncLevel, "HRESULT")
         return result
     }
 

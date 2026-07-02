@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_STRING.ahk" { WS_STRING }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WS_ENDPOINT_IDENTITY_TYPE.ahk" { WS_ENDPOINT_IDENTITY_TYPE }
 #Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
+#Import ".\WS_ENDPOINT_IDENTITY_TYPE.ahk" { WS_ENDPOINT_IDENTITY_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_STRING.ahk" { WS_STRING }
 
 /**
  * Type for specifying an endpoint identity represented by a UPN (user principal name).

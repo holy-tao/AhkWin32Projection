@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls the work queues created by the Media Session.
@@ -238,7 +238,7 @@ export default struct IMFWorkQueueServices extends IUnknown {
 
         pcchClassMarshal := pcchClass is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwTopologyWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
+        result := ComCall(7, this, UInt32, dwTopologyWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
         return result
     }
 
@@ -249,7 +249,7 @@ export default struct IMFWorkQueueServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-gettopologyworkqueuemmcsstaskid
      */
     GetTopologyWorkQueueMMCSSTaskId(dwTopologyWorkQueueId) {
-        result := ComCall(8, this, "uint", dwTopologyWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwTopologyWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
         return pdwTaskId
     }
 
@@ -271,7 +271,7 @@ export default struct IMFWorkQueueServices extends IUnknown {
     BeginRegisterPlatformWorkQueueWithMMCSS(dwPlatformWorkQueue, wszClass, dwTaskId, pCallback, pState) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := ComCall(9, this, "uint", dwPlatformWorkQueue, "ptr", wszClass, "uint", dwTaskId, "ptr", pCallback, "ptr", pState, "HRESULT")
+        result := ComCall(9, this, UInt32, dwPlatformWorkQueue, "ptr", wszClass, UInt32, dwTaskId, "ptr", pCallback, "ptr", pState, "HRESULT")
         return result
     }
 
@@ -319,7 +319,7 @@ export default struct IMFWorkQueueServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-beginunregisterplatformworkqueuewithmmcss
      */
     BeginUnregisterPlatformWorkQueueWithMMCSS(dwPlatformWorkQueue, pCallback, pState) {
-        result := ComCall(11, this, "uint", dwPlatformWorkQueue, "ptr", pCallback, "ptr", pState, "HRESULT")
+        result := ComCall(11, this, UInt32, dwPlatformWorkQueue, "ptr", pCallback, "ptr", pState, "HRESULT")
         return result
     }
 
@@ -396,7 +396,7 @@ export default struct IMFWorkQueueServices extends IUnknown {
 
         pcchClassMarshal := pcchClass is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwPlatformWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
+        result := ComCall(13, this, UInt32, dwPlatformWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
         return result
     }
 
@@ -407,7 +407,7 @@ export default struct IMFWorkQueueServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservices-getplatformworkqueuemmcsstaskid
      */
     GetPlatformWorkQueueMMCSSTaskId(dwPlatformWorkQueueId) {
-        result := ComCall(14, this, "uint", dwPlatformWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwPlatformWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
         return pdwTaskId
     }
 

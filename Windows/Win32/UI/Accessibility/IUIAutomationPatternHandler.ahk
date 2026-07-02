@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIAutomationParameter.ahk" { UIAutomationParameter }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAutomationPatternInstance.ahk" { IUIAutomationPatternInstance }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UIAutomationParameter.ahk" { UIAutomationParameter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Returns a client API wrapper object and to unmarshal property and method requests to an actual provider instance.
@@ -77,7 +77,7 @@ export default struct IUIAutomationPatternHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatternhandler-dispatch
      */
     Dispatch(pTarget, index, pParams, cParams) {
-        result := ComCall(4, this, "ptr", pTarget, "uint", index, UIAutomationParameter.Ptr, pParams, "uint", cParams, "HRESULT")
+        result := ComCall(4, this, "ptr", pTarget, UInt32, index, UIAutomationParameter.Ptr, pParams, UInt32, cParams, "HRESULT")
         return result
     }
 

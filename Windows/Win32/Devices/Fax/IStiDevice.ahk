@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\STI_DIAG.ahk" { STI_DIAG }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }
-#Import ".\STI_DEV_CAPS.ahk" { STI_DEV_CAPS }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\STISUBSCRIBE.ahk" { STISUBSCRIBE }
-#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\STI_DIAG.ahk" { STI_DIAG }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\STINOTIFY.ahk" { STINOTIFY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
+#Import ".\STI_DEV_CAPS.ahk" { STI_DEV_CAPS }
+#Import ".\STINOTIFY.ahk" { STINOTIFY }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -95,7 +95,7 @@ export default struct IStiDevice extends IUnknown {
     Initialize(hinst, pwszDeviceName, dwVersion, dwMode) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(3, this, HINSTANCE, hinst, "ptr", pwszDeviceName, "uint", dwVersion, "uint", dwMode, "HRESULT")
+        result := ComCall(3, this, HINSTANCE, hinst, "ptr", pwszDeviceName, UInt32, dwVersion, UInt32, dwMode, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IStiDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
      */
     Escape(EscapeFunction, lpInData, cbInDataSize, pOutData, dwOutDataSize) {
-        result := ComCall(8, this, "uint", EscapeFunction, "ptr", lpInData, "uint", cbInDataSize, "ptr", pOutData, "uint", dwOutDataSize, "uint*", &pdwActualData := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, EscapeFunction, IntPtr, lpInData, UInt32, cbInDataSize, IntPtr, pOutData, UInt32, dwOutDataSize, "uint*", &pdwActualData := 0, "HRESULT")
         return pdwActualData
     }
 
@@ -223,7 +223,7 @@ export default struct IStiDevice extends IUnknown {
      * @returns {HRESULT} 
      */
     LockDevice(dwTimeOut) {
-        result := ComCall(10, this, "uint", dwTimeOut, "HRESULT")
+        result := ComCall(10, this, UInt32, dwTimeOut, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IStiDevice extends IUnknown {
     RawReadData(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(12, this, IntPtr, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -258,7 +258,7 @@ export default struct IStiDevice extends IUnknown {
      * @returns {HRESULT} 
      */
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(13, this, "ptr", lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(13, this, IntPtr, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -272,7 +272,7 @@ export default struct IStiDevice extends IUnknown {
     RawReadCommand(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(14, this, IntPtr, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -284,7 +284,7 @@ export default struct IStiDevice extends IUnknown {
      * @returns {HRESULT} 
      */
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(15, this, "ptr", lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(15, this, IntPtr, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 

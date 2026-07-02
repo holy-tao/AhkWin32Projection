@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -69,7 +69,7 @@ export default struct IRTCCollection extends IDispatch {
      */
     get_Item(Index) {
         pVariant := VARIANT()
-        result := ComCall(8, this, "int", Index, VARIANT.Ptr, pVariant, "HRESULT")
+        result := ComCall(8, this, Int32, Index, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 

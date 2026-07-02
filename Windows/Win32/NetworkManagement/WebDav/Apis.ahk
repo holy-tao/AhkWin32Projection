@@ -1,8 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PFNDAVAUTHCALLBACK.ahk" { PFNDAVAUTHCALLBACK }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WebDav
@@ -32,7 +33,7 @@ export DavAddConnection(ConnectionHandle, RemoteName, UserName, Password, Client
     UserName := UserName is String ? StrPtr(UserName) : UserName
     Password := Password is String ? StrPtr(Password) : Password
 
-    result := DllCall("NETAPI32.dll\DavAddConnection", HANDLE.Ptr, ConnectionHandle, "ptr", RemoteName, "ptr", UserName, "ptr", Password, "ptr", ClientCert, "uint", CertSize, UInt32)
+    result := DllCall("NETAPI32.dll\DavAddConnection", HANDLE.Ptr, ConnectionHandle, "ptr", RemoteName, "ptr", UserName, "ptr", Password, IntPtr, ClientCert, UInt32, CertSize, UInt32)
     return result
 }
 
@@ -205,7 +206,7 @@ export DavGetTheLockOwnerOfTheFile(FileName, LockOwnerName, LockOwnerNameLengthI
 
     LockOwnerNameLengthInBytesMarshal := LockOwnerNameLengthInBytes is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("davclnt.dll\DavGetTheLockOwnerOfTheFile", "ptr", FileName, "ptr", LockOwnerName, LockOwnerNameLengthInBytesMarshal, LockOwnerNameLengthInBytes, UInt32)
+    result := DllCall("davclnt.dll\DavGetTheLockOwnerOfTheFile", "ptr", FileName, IntPtr, LockOwnerName, LockOwnerNameLengthInBytesMarshal, LockOwnerNameLengthInBytes, UInt32)
     return result
 }
 
@@ -395,7 +396,7 @@ export DavCancelConnectionsToServer(lpName, fForce) {
  * @since windows6.0.6000
  */
 export DavRegisterAuthCallback(CallBack, _Version) {
-    result := DllCall("davclnt.dll\DavRegisterAuthCallback", "ptr", CallBack, "uint", _Version, UInt32)
+    result := DllCall("davclnt.dll\DavRegisterAuthCallback", PFNDAVAUTHCALLBACK, CallBack, UInt32, _Version, UInt32)
     return result
 }
 
@@ -409,7 +410,7 @@ export DavRegisterAuthCallback(CallBack, _Version) {
  * @since windows6.0.6000
  */
 export DavUnregisterAuthCallback(hCallback) {
-    DllCall("davclnt.dll\DavUnregisterAuthCallback", "uint", hCallback)
+    DllCall("davclnt.dll\DavUnregisterAuthCallback", UInt32, hCallback)
 }
 
 ;@endregion Functions

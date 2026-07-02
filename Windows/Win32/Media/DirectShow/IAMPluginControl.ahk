@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls the preferred and blocked filter lists.
@@ -96,7 +96,7 @@ export default struct IAMPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-getpreferredclsidbyindex
      */
     GetPreferredClsidByIndex(index, subType, clsid) {
-        result := ComCall(4, this, "uint", index, Guid.Ptr, subType, Guid.Ptr, clsid, "HRESULT")
+        result := ComCall(4, this, UInt32, index, Guid.Ptr, subType, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IAMPluginControl extends IUnknown {
      */
     GetDisabledByIndex(index) {
         clsid := Guid()
-        result := ComCall(7, this, "uint", index, Guid.Ptr, clsid, "HRESULT")
+        result := ComCall(7, this, UInt32, index, Guid.Ptr, clsid, "HRESULT")
         return clsid
     }
 

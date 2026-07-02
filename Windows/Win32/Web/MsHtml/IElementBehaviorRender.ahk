@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -50,7 +50,7 @@ export default struct IElementBehaviorRender extends IUnknown {
      * @returns {HRESULT} 
      */
     Draw(_hdc, lLayer, pRect, pReserved) {
-        result := ComCall(3, this, HDC, _hdc, "int", lLayer, RECT.Ptr, pRect, "ptr", pReserved, "HRESULT")
+        result := ComCall(3, this, HDC, _hdc, Int32, lLayer, RECT.Ptr, pRect, "ptr", pReserved, "HRESULT")
         return result
     }
 

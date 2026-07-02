@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IQueryContinueWithStatus.ahk" { IQueryContinueWithStatus }
 #Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
+#Import ".\IQueryContinueWithStatus.ahk" { IQueryContinueWithStatus }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for connecting and disconnecting IConnectableCredentialProviderCredential objects.

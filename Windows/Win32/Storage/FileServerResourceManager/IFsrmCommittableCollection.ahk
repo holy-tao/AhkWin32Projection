@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\FsrmCommitOptions.ahk" { FsrmCommitOptions }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 #Import ".\IFsrmMutableCollection.ahk" { IFsrmMutableCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 
 /**
  * Defines a collection of FSRM objects that can have the same type of objects added to or removed from the collection. All objects in the collection can also be committed in a single batch operation.

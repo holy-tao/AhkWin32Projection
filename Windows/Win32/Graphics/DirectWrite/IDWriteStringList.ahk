@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a collection of strings indexed by number.
@@ -65,7 +65,7 @@ export default struct IDWriteStringList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getlocalenamelength
      */
     GetLocaleNameLength(listIndex) {
-        result := ComCall(4, this, "uint", listIndex, "uint*", &length := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, listIndex, "uint*", &length := 0, "HRESULT")
         return length
     }
 
@@ -88,7 +88,7 @@ export default struct IDWriteStringList extends IUnknown {
     GetLocaleName(listIndex, localeName, _size) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(5, this, "uint", listIndex, "ptr", localeName, "uint", _size, "HRESULT")
+        result := ComCall(5, this, UInt32, listIndex, "ptr", localeName, UInt32, _size, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IDWriteStringList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getstringlength
      */
     GetStringLength(listIndex) {
-        result := ComCall(6, this, "uint", listIndex, "uint*", &length := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, listIndex, "uint*", &length := 0, "HRESULT")
         return length
     }
 
@@ -126,7 +126,7 @@ export default struct IDWriteStringList extends IUnknown {
     GetString(listIndex, stringBuffer, stringBufferSize) {
         stringBuffer := stringBuffer is String ? StrPtr(stringBuffer) : stringBuffer
 
-        result := ComCall(7, this, "uint", listIndex, "ptr", stringBuffer, "uint", stringBufferSize, "HRESULT")
+        result := ComCall(7, this, UInt32, listIndex, "ptr", stringBuffer, UInt32, stringBufferSize, "HRESULT")
         return result
     }
 

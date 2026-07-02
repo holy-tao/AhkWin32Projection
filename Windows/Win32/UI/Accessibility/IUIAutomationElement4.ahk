@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationElement3.ahk" { IUIAutomationElement3 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import ".\IUIAutomationElement3.ahk" { IUIAutomationElement3 }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IUIAutomationElement3 interface.

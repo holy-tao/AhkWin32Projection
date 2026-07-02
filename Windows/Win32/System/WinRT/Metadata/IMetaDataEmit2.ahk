@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Com\IStream.ahk" { IStream }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMetaDataEmit.ahk" { IMetaDataEmit }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IStream.ahk" { IStream }
+#Import ".\IMetaDataEmit.ahk" { IMetaDataEmit }
 #Import ".\CorSaveSize.ahk" { CorSaveSize }
 
 /**
@@ -57,7 +57,7 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmiMarshal := pmi is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(52, this, "uint", tkParent, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmiMarshal, pmi, "HRESULT")
+        result := ComCall(52, this, UInt32, tkParent, pvSigBlobMarshal, pvSigBlob, UInt32, cbSigBlob, pmiMarshal, pmi, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
     SaveDelta(szFile, dwSaveFlags) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := ComCall(54, this, "ptr", szFile, "uint", dwSaveFlags, "HRESULT")
+        result := ComCall(54, this, "ptr", szFile, UInt32, dwSaveFlags, "HRESULT")
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
      * @returns {HRESULT} 
      */
     SaveDeltaToStream(pIStream, dwSaveFlags) {
-        result := ComCall(55, this, "ptr", pIStream, "uint", dwSaveFlags, "HRESULT")
+        result := ComCall(55, this, "ptr", pIStream, UInt32, dwSaveFlags, "HRESULT")
         return result
     }
 
@@ -107,7 +107,7 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
     SaveDeltaToMemory(pbData, cbData) {
         pbDataMarshal := pbData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(56, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
+        result := ComCall(56, this, pbDataMarshal, pbData, UInt32, cbData, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
         rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : "ptr"
         pgpMarshal := pgp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(57, this, "uint", tk, "uint", ulParamSeq, "uint", dwParamFlags, "ptr", szname, "uint", reserved, rtkConstraintsMarshal, rtkConstraints, pgpMarshal, pgp, "HRESULT")
+        result := ComCall(57, this, UInt32, tk, UInt32, ulParamSeq, UInt32, dwParamFlags, "ptr", szname, UInt32, reserved, rtkConstraintsMarshal, rtkConstraints, pgpMarshal, pgp, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
 
         rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(58, this, "uint", gp, "uint", dwParamFlags, "ptr", szName, "uint", reserved, rtkConstraintsMarshal, rtkConstraints, "HRESULT")
+        result := ComCall(58, this, UInt32, gp, UInt32, dwParamFlags, "ptr", szName, UInt32, reserved, rtkConstraintsMarshal, rtkConstraints, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WinHttpRequestAutoLogonPolicy.ahk" { WinHttpRequestAutoLogonPolicy }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WinHttpRequestOption.ahk" { WinHttpRequestOption }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\WinHttpRequestAutoLogonPolicy.ahk" { WinHttpRequestAutoLogonPolicy }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWinHttpRequest interface provides all of the nonevent methods for Microsoft Windows HTTP Services (WinHTTP).
@@ -137,7 +137,7 @@ export default struct IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-setproxy
      */
     SetProxy(ProxySetting, ProxyServer, BypassList) {
-        result := ComCall(7, this, "int", ProxySetting, VARIANT, ProxyServer, VARIANT, BypassList, "HRESULT")
+        result := ComCall(7, this, Int32, ProxySetting, VARIANT, ProxyServer, VARIANT, BypassList, "HRESULT")
         return result
     }
 
@@ -169,7 +169,7 @@ export default struct IWinHttpRequest extends IDispatch {
         UserName := UserName is String ? BSTR.Alloc(UserName).Value : UserName
         Password := Password is String ? BSTR.Alloc(Password).Value : Password
 
-        result := ComCall(8, this, BSTR, UserName, BSTR, Password, "int", Flags, "HRESULT")
+        result := ComCall(8, this, BSTR, UserName, BSTR, Password, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -447,7 +447,7 @@ export default struct IWinHttpRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-settimeouts
      */
     SetTimeouts(ResolveTimeout, ConnectTimeout, SendTimeout, ReceiveTimeout) {
-        result := ComCall(23, this, "int", ResolveTimeout, "int", ConnectTimeout, "int", SendTimeout, "int", ReceiveTimeout, "HRESULT")
+        result := ComCall(23, this, Int32, ResolveTimeout, Int32, ConnectTimeout, Int32, SendTimeout, Int32, ReceiveTimeout, "HRESULT")
         return result
     }
 

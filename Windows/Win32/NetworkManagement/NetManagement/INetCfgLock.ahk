@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -47,7 +47,7 @@ export default struct INetCfgLock extends IUnknown {
     AcquireWriteLock(cmsTimeout, pszwClientDescription) {
         pszwClientDescription := pszwClientDescription is String ? StrPtr(pszwClientDescription) : pszwClientDescription
 
-        result := ComCall(3, this, "uint", cmsTimeout, "ptr", pszwClientDescription, PWSTR.Ptr, &ppszwClientDescription := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, cmsTimeout, "ptr", pszwClientDescription, PWSTR.Ptr, &ppszwClientDescription := 0, "HRESULT")
         return ppszwClientDescription
     }
 

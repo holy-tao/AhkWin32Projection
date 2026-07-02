@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISVGPoint.ahk" { ISVGPoint }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -64,7 +64,7 @@ export default struct ISVGPointList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_numberOfItems(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct ISVGPointList extends IDispatch {
      * @returns {ISVGPoint} 
      */
     getItem(index) {
-        result := ComCall(11, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(11, this, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGPoint(ppResult)
     }
 
@@ -113,7 +113,7 @@ export default struct ISVGPointList extends IDispatch {
      * @returns {ISVGPoint} 
      */
     insertItemBefore(pNewItem, index) {
-        result := ComCall(12, this, "ptr", pNewItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pNewItem, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGPoint(ppResult)
     }
 
@@ -124,7 +124,7 @@ export default struct ISVGPointList extends IDispatch {
      * @returns {ISVGPoint} 
      */
     replaceItem(pNewItem, index) {
-        result := ComCall(13, this, "ptr", pNewItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pNewItem, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGPoint(ppResult)
     }
 
@@ -134,7 +134,7 @@ export default struct ISVGPointList extends IDispatch {
      * @returns {ISVGPoint} 
      */
     removeItem(index) {
-        result := ComCall(14, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(14, this, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGPoint(ppResult)
     }
 

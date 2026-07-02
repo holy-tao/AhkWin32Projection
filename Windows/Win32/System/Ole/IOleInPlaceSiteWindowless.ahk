@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import ".\IOleInPlaceSiteEx.ahk" { IOleInPlaceSiteEx }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IOleInPlaceSiteEx.ahk" { IOleInPlaceSiteEx }
+#Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * Extends the IOleInPlaceSiteEx interface.
@@ -285,7 +285,7 @@ export default struct IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      */
     GetDC(pRect, grfFlags) {
         phDC := HDC()
-        result := ComCall(23, this, RECT.Ptr, pRect, "uint", grfFlags, HDC.Ptr, phDC, "HRESULT")
+        result := ComCall(23, this, RECT.Ptr, pRect, UInt32, grfFlags, HDC.Ptr, phDC, "HRESULT")
         return phDC
     }
 
@@ -364,7 +364,7 @@ export default struct IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-scrollrect
      */
     ScrollRect(dx, dy, pRectScroll, pRectClip) {
-        result := ComCall(27, this, "int", dx, "int", dy, RECT.Ptr, pRectScroll, RECT.Ptr, pRectClip, "HRESULT")
+        result := ComCall(27, this, Int32, dx, Int32, dy, RECT.Ptr, pRectScroll, RECT.Ptr, pRectClip, "HRESULT")
         return result
     }
 
@@ -442,7 +442,7 @@ export default struct IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-ondefwindowmessage
      */
     OnDefWindowMessage(_msg, _wParam, _lParam) {
-        result := ComCall(29, this, "uint", _msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
+        result := ComCall(29, this, UInt32, _msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 

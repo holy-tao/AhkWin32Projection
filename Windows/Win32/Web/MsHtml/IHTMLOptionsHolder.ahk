@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLFontNamesCollection.ahk" { IHTMLFontNamesCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IHTMLObjectElement.ahk" { IHTMLObjectElement }
-#Import ".\IHTMLFontSizesCollection.ahk" { IHTMLFontSizesCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLFontNamesCollection.ahk" { IHTMLFontNamesCollection }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLFontSizesCollection.ahk" { IHTMLFontSizesCollection }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -205,7 +205,7 @@ export default struct IHTMLOptionsHolder extends IDispatch {
      * @returns {HRESULT} 
      */
     put_errorLine(v) {
-        result := ComCall(11, this, "int", v, "HRESULT")
+        result := ComCall(11, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -224,7 +224,7 @@ export default struct IHTMLOptionsHolder extends IDispatch {
      * @returns {HRESULT} 
      */
     put_errorCharacter(v) {
-        result := ComCall(13, this, "int", v, "HRESULT")
+        result := ComCall(13, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -243,7 +243,7 @@ export default struct IHTMLOptionsHolder extends IDispatch {
      * @returns {HRESULT} 
      */
     put_errorCode(v) {
-        result := ComCall(15, this, "int", v, "HRESULT")
+        result := ComCall(15, this, Int32, v, "HRESULT")
         return result
     }
 

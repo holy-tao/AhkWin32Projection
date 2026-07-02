@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SIGNER_SUBJECT_CHOICE.ahk" { SIGNER_SUBJECT_CHOICE }
 #Import ".\SIGNER_FILE_INFO.ahk" { SIGNER_FILE_INFO }
+#Import ".\SIGNER_SUBJECT_CHOICE.ahk" { SIGNER_SUBJECT_CHOICE }
 #Import ".\SIGNER_BLOB_INFO.ahk" { SIGNER_BLOB_INFO }
 
 /**

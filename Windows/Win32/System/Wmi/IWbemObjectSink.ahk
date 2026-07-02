@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemObjectSink interface creates a sink interface that can receive all types of notifications within the WMI programming model.
@@ -64,7 +64,7 @@ export default struct IWbemObjectSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsink-indicate
      */
     Indicate(lObjectCount, apObjArray) {
-        result := ComCall(3, this, "int", lObjectCount, IWbemClassObject.Ptr, apObjArray, "HRESULT")
+        result := ComCall(3, this, Int32, lObjectCount, IWbemClassObject.Ptr, apObjArray, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IWbemObjectSink extends IUnknown {
     SetStatus(lFlags, _hResult, strParam, pObjParam) {
         strParam := strParam is String ? BSTR.Alloc(strParam).Value : strParam
 
-        result := ComCall(4, this, "int", lFlags, "int", _hResult, BSTR, strParam, "ptr", pObjParam, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, "int", _hResult, BSTR, strParam, "ptr", pObjParam, "HRESULT")
         return result
     }
 

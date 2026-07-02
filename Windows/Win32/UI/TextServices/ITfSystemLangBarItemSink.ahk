@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITfMenu.ahk" { ITfMenu }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfSystemLangBarItemSink interface is implemented by a system language bar menu extension and used by a system language bar menu (host) to allow menu items to be added to an existing system language bar menu.
@@ -117,7 +117,7 @@ export default struct ITfSystemLangBarItemSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritemsink-onmenuselect
      */
     OnMenuSelect(wID) {
-        result := ComCall(4, this, "uint", wID, "HRESULT")
+        result := ComCall(4, this, UInt32, wID, "HRESULT")
         return result
     }
 

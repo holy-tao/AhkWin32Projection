@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICorProfilerCallback6.ahk" { ICorProfilerCallback6 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -41,7 +41,7 @@ export default struct ICorProfilerCallback7 extends ICorProfilerCallback6 {
      * @returns {HRESULT} 
      */
     ModuleInMemorySymbolsUpdated(moduleId) {
-        result := ComCall(91, this, "ptr", moduleId, "HRESULT")
+        result := ComCall(91, this, IntPtr, moduleId, "HRESULT")
         return result
     }
 

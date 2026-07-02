@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COLORKEY.ahk" { COLORKEY }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COLORKEY.ahk" { COLORKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDDrawExclModeVideoCallback interface is a callback interface for the IDDrawExclModeVideo interface.This callback interface enables applications to get synchronous notification about changes to the overlay position, size, visibility, and so on, so that the application can adjust its video visibility, size, and position. This avoids any color key flash at the beginning, end, or during playback. The application must implement the interface. It is important that none of the methods block or slow down the video processing, because this will cause problems with playback.Use this interface if you are writing a filter that supports IDDrawExclModeVideo or needs to generate callbacks to enable an application to draw color keys at the right time.
@@ -87,7 +87,7 @@ export default struct IDDrawExclModeVideoCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideocallback-onupdateoverlay
      */
     OnUpdateOverlay(bBefore, dwFlags, bOldVisible, prcOldSrc, prcOldDest, bNewVisible, prcNewSrc, prcNewDest) {
-        result := ComCall(3, this, BOOL, bBefore, "uint", dwFlags, BOOL, bOldVisible, RECT.Ptr, prcOldSrc, RECT.Ptr, prcOldDest, BOOL, bNewVisible, RECT.Ptr, prcNewSrc, RECT.Ptr, prcNewDest, "HRESULT")
+        result := ComCall(3, this, BOOL, bBefore, UInt32, dwFlags, BOOL, bOldVisible, RECT.Ptr, prcOldSrc, RECT.Ptr, prcOldDest, BOOL, bNewVisible, RECT.Ptr, prcNewSrc, RECT.Ptr, prcNewDest, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IDDrawExclModeVideoCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideocallback-onupdatecolorkey
      */
     OnUpdateColorKey(pKey, dwColor) {
-        result := ComCall(4, this, COLORKEY.Ptr, pKey, "uint", dwColor, "HRESULT")
+        result := ComCall(4, this, COLORKEY.Ptr, pKey, UInt32, dwColor, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IDDrawExclModeVideoCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideocallback-onupdatesize
      */
     OnUpdateSize(dwWidth, dwHeight, dwARWidth, dwARHeight) {
-        result := ComCall(5, this, "uint", dwWidth, "uint", dwHeight, "uint", dwARWidth, "uint", dwARHeight, "HRESULT")
+        result := ComCall(5, this, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwARWidth, UInt32, dwARHeight, "HRESULT")
         return result
     }
 

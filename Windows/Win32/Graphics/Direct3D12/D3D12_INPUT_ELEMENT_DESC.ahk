@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\D3D12_INPUT_CLASSIFICATION.ahk" { D3D12_INPUT_CLASSIFICATION }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Describes a single element for the input-assembler stage of the graphics pipeline.

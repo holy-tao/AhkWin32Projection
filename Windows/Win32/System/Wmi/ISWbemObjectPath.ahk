@@ -4,9 +4,9 @@
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ISWbemNamedValueSet.ahk" { ISWbemNamedValueSet }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi

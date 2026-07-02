@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
 #Import ".\WSDUdpMessageType.ahk" { WSDUdpMessageType }
 #Import ".\IWSDTransportAddress.ahk" { IWSDTransportAddress }
-#Import "..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides access to the individual components of a UDP address.
@@ -297,7 +297,7 @@ export default struct IWSDUdpAddress extends IWSDTransportAddress {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-setttl
      */
     SetTTL(dwTTL) {
-        result := ComCall(16, this, "uint", dwTTL, "HRESULT")
+        result := ComCall(16, this, UInt32, dwTTL, "HRESULT")
         return result
     }
 

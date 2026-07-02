@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\PDH_COUNTER_PATH_ELEMENTS_A.ahk" { PDH_COUNTER_PATH_ELEMENTS_A }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\PDH_DATA_ITEM_PATH_ELEMENTS_A.ahk" { PDH_DATA_ITEM_PATH_ELEMENTS_A }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The PDH_COUNTER_INFO structure contains information describing the properties of a counter. This information also includes the counter path. (ANSI)

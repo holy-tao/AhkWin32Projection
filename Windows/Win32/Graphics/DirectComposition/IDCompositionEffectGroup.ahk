@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 #Import ".\IDCompositionEffect.ahk" { IDCompositionEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 
 /**
  * Represents a group of bitmap effects that are applied together to modify the rasterization of a visual's subtree.
@@ -77,7 +77,7 @@ export default struct IDCompositionEffectGroup extends IDCompositionEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioneffectgroup-setopacity(idcompositionanimation)
      */
     SetOpacity1(opacity) {
-        result := ComCall(4, this, "float", opacity, "HRESULT")
+        result := ComCall(4, this, Float32, opacity, "HRESULT")
         return result
     }
 

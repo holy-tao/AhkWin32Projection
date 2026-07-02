@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables the management of stream configurations for a multiplexed media source. A stream configuration defines a set of substreams that can be included the multiplexed output.
@@ -60,7 +60,7 @@ export default struct IMFMuxStreamMediaTypeManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getmediatype
      */
     GetMediaType(dwMuxStreamIndex) {
-        result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMuxStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
         return IMFMediaType(ppMediaType)
     }
 
@@ -137,7 +137,7 @@ export default struct IMFMuxStreamMediaTypeManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-addstreamconfiguration
      */
     AddStreamConfiguration(ullStreamMask) {
-        result := ComCall(6, this, "uint", ullStreamMask, "HRESULT")
+        result := ComCall(6, this, Int64, ullStreamMask, "HRESULT")
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct IMFMuxStreamMediaTypeManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-removestreamconfiguration
      */
     RemoveStreamConfiguration(ullStreamMask) {
-        result := ComCall(7, this, "uint", ullStreamMask, "HRESULT")
+        result := ComCall(7, this, Int64, ullStreamMask, "HRESULT")
         return result
     }
 
@@ -204,7 +204,7 @@ export default struct IMFMuxStreamMediaTypeManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamconfiguration
      */
     GetStreamConfiguration(ulIndex) {
-        result := ComCall(8, this, "uint", ulIndex, "uint*", &pullStreamMask := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, ulIndex, "uint*", &pullStreamMask := 0, "HRESULT")
         return pullStreamMask
     }
 

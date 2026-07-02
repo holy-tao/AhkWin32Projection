@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -44,7 +44,7 @@ export default struct IDBAsynchStatus extends IUnknown {
      * @returns {HRESULT} 
      */
     Abort(hChapter, eOperation) {
-        result := ComCall(3, this, "ptr", hChapter, "uint", eOperation, "HRESULT")
+        result := ComCall(3, this, IntPtr, hChapter, UInt32, eOperation, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IDBAsynchStatus extends IUnknown {
         peAsynchPhaseMarshal := peAsynchPhase is VarRef ? "uint*" : "ptr"
         ppwszStatusTextMarshal := ppwszStatusText is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hChapter, "uint", eOperation, pulProgressMarshal, pulProgress, pulProgressMaxMarshal, pulProgressMax, peAsynchPhaseMarshal, peAsynchPhase, ppwszStatusTextMarshal, ppwszStatusText, "HRESULT")
+        result := ComCall(4, this, IntPtr, hChapter, UInt32, eOperation, pulProgressMarshal, pulProgress, pulProgressMaxMarshal, pulProgressMax, peAsynchPhaseMarshal, peAsynchPhase, ppwszStatusTextMarshal, ppwszStatusText, "HRESULT")
         return result
     }
 

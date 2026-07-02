@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
-#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
 
 /**
  * The DDSURFACEDESC2 structure contains a description of a surface to be created by the driver.

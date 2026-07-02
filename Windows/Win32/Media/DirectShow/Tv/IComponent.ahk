@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IComponentType.ahk" { IComponentType }
+#Import "..\ComponentStatus.ahk" { ComponentStatus }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\ComponentStatus.ahk" { ComponentStatus }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComponentType.ahk" { IComponentType }
 
 /**
  * The IComponent interface a base class for all derived interfaces such as IMPEG2Component and it describes the general characteristics of a component, which is an elementary stream within the program stream.
@@ -134,7 +134,7 @@ export default struct IComponent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-put_desclangid
      */
     put_DescLangID(LangID) {
-        result := ComCall(10, this, "int", LangID, "HRESULT")
+        result := ComCall(10, this, Int32, LangID, "HRESULT")
         return result
     }
 

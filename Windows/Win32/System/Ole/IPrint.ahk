@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IContinueCallback.ahk" { IContinueCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
 #Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
 #Import ".\PAGESET.ahk" { PAGESET }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables compound documents in general and active documents in particular to support programmatic printing.
@@ -66,7 +66,7 @@ export default struct IPrint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iprint-setinitialpagenum
      */
     SetInitialPageNum(nFirstPage) {
-        result := ComCall(3, this, "int", nFirstPage, "HRESULT")
+        result := ComCall(3, this, Int32, nFirstPage, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct IPrint extends IUnknown {
         pcPagesPrintedMarshal := pcPagesPrinted is VarRef ? "int*" : "ptr"
         pnLastPageMarshal := pnLastPage is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", grfFlags, pptdMarshal, pptd, ppPageSetMarshal, ppPageSet, STGMEDIUM.Ptr, pstgmOptions, "ptr", pcallback, "int", nFirstPage, pcPagesPrintedMarshal, pcPagesPrinted, pnLastPageMarshal, pnLastPage, "HRESULT")
+        result := ComCall(5, this, UInt32, grfFlags, pptdMarshal, pptd, ppPageSetMarshal, ppPageSet, STGMEDIUM.Ptr, pstgmOptions, "ptr", pcallback, Int32, nFirstPage, pcPagesPrintedMarshal, pcPagesPrinted, pnLastPageMarshal, pnLastPage, "HRESULT")
         return result
     }
 

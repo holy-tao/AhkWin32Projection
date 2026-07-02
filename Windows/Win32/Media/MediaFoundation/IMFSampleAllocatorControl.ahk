@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MFSampleAllocatorUsage.ahk" { MFSampleAllocatorUsage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by video capture sources and transforms. Allows the system to provide components with a sample allocator to allocate samples using memory that is accessible from within a container.
@@ -54,7 +54,7 @@ export default struct IMFSampleAllocatorControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleallocatorcontrol-setdefaultallocator
      */
     SetDefaultAllocator(dwOutputStreamID, pAllocator) {
-        result := ComCall(3, this, "uint", dwOutputStreamID, "ptr", pAllocator, "HRESULT")
+        result := ComCall(3, this, UInt32, dwOutputStreamID, "ptr", pAllocator, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IMFSampleAllocatorControl extends IUnknown {
         pdwInputStreamIDMarshal := pdwInputStreamID is VarRef ? "uint*" : "ptr"
         peUsageMarshal := peUsage is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwOutputStreamID, pdwInputStreamIDMarshal, pdwInputStreamID, peUsageMarshal, peUsage, "HRESULT")
+        result := ComCall(4, this, UInt32, dwOutputStreamID, pdwInputStreamIDMarshal, pdwInputStreamID, peUsageMarshal, peUsage, "HRESULT")
         return result
     }
 

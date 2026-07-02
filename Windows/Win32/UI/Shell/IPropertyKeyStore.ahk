@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -57,7 +57,7 @@ export default struct IPropertyKeyStore extends IUnknown {
      */
     GetKeyAt(index) {
         pkey := PROPERTYKEY()
-        result := ComCall(4, this, "int", index, PROPERTYKEY.Ptr, pkey, "HRESULT")
+        result := ComCall(4, this, Int32, index, PROPERTYKEY.Ptr, pkey, "HRESULT")
         return pkey
     }
 
@@ -77,7 +77,7 @@ export default struct IPropertyKeyStore extends IUnknown {
      * @returns {HRESULT} 
      */
     DeleteKey(index) {
-        result := ComCall(6, this, "int", index, "HRESULT")
+        result := ComCall(6, this, Int32, index, "HRESULT")
         return result
     }
 

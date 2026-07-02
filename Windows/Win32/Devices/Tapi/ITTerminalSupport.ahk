@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ITTerminal.ahk" { ITTerminal }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
 #Import ".\IEnumTerminalClass.ahk" { IEnumTerminalClass }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumTerminal.ahk" { IEnumTerminal }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITTerminalSupport interface is exposed on an Address object only if an MSP exists. The methods of this interface allow an application to discover available terminals and/or create one, and get pointers to required Terminal objects.
@@ -152,7 +152,7 @@ export default struct ITTerminalSupport extends IDispatch {
     CreateTerminal(pTerminalClass, lMediaType, _Direction) {
         pTerminalClass := pTerminalClass is String ? BSTR.Alloc(pTerminalClass).Value : pTerminalClass
 
-        result := ComCall(11, this, BSTR, pTerminalClass, "int", lMediaType, TERMINAL_DIRECTION, _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, pTerminalClass, Int32, lMediaType, TERMINAL_DIRECTION, _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 
@@ -175,7 +175,7 @@ export default struct ITTerminalSupport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-getdefaultstaticterminal
      */
     GetDefaultStaticTerminal(lMediaType, _Direction) {
-        result := ComCall(12, this, "int", lMediaType, TERMINAL_DIRECTION, _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(12, this, Int32, lMediaType, TERMINAL_DIRECTION, _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 

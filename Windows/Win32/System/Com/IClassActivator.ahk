@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Specifies a method that retrieves a class object.
@@ -47,7 +47,7 @@ export default struct IClassActivator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iclassactivator-getclassobject
      */
     GetClassObject(rclsid, dwClassContext, locale, riid) {
-        result := ComCall(3, this, Guid.Ptr, rclsid, "uint", dwClassContext, "uint", locale, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, UInt32, dwClassContext, UInt32, locale, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

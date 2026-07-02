@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that determines whether a window that is launched by another window should be displayed or blocked, allowing control of pop-up windows.
@@ -118,7 +118,7 @@ export default struct INewWindowManager extends IUnknown {
         pszUrlContext := pszUrlContext is String ? StrPtr(pszUrlContext) : pszUrlContext
         pszFeatures := pszFeatures is String ? StrPtr(pszFeatures) : pszFeatures
 
-        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszName, "ptr", pszUrlContext, "ptr", pszFeatures, BOOL, fReplace, "uint", dwFlags, "uint", dwUserActionTime, "HRESULT")
+        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszName, "ptr", pszUrlContext, "ptr", pszFeatures, BOOL, fReplace, UInt32, dwFlags, UInt32, dwUserActionTime, "HRESULT")
         return result
     }
 

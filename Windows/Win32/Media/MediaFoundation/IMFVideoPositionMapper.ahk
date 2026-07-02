@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Maps a position on an input video stream to the corresponding position on an output video stream.
@@ -116,7 +116,7 @@ export default struct IMFVideoPositionMapper extends IUnknown {
         pxInMarshal := pxIn is VarRef ? "float*" : "ptr"
         pyInMarshal := pyIn is VarRef ? "float*" : "ptr"
 
-        result := ComCall(3, this, "float", xOut, "float", yOut, "uint", dwOutputStreamIndex, "uint", dwInputStreamIndex, pxInMarshal, pxIn, pyInMarshal, pyIn, "HRESULT")
+        result := ComCall(3, this, Float32, xOut, Float32, yOut, UInt32, dwOutputStreamIndex, UInt32, dwInputStreamIndex, pxInMarshal, pxIn, pyInMarshal, pyIn, "HRESULT")
         return result
     }
 

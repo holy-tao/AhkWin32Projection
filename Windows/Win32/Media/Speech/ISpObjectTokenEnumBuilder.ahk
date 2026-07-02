@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISpObjectToken.ahk" { ISpObjectToken }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IEnumSpObjectTokens.ahk" { IEnumSpObjectTokens }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumSpObjectTokens.ahk" { IEnumSpObjectTokens }
 #Import ".\ISpDataKey.ahk" { ISpDataKey }
 
 /**
@@ -63,7 +63,7 @@ export default struct ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
      * @returns {HRESULT} 
      */
     AddTokens(cTokens, pToken) {
-        result := ComCall(10, this, "uint", cTokens, ISpObjectToken.Ptr, pToken, "HRESULT")
+        result := ComCall(10, this, UInt32, cTokens, ISpObjectToken.Ptr, pToken, "HRESULT")
         return result
     }
 

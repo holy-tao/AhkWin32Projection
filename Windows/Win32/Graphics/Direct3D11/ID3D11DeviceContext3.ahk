@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\D3D11_CONTEXT_TYPE.ahk" { D3D11_CONTEXT_TYPE }
-#Import ".\ID3D11DeviceContext2.ahk" { ID3D11DeviceContext2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID3D11DeviceContext2.ahk" { ID3D11DeviceContext2 }
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext3 adds new methods to those in ID3D11DeviceContext2.

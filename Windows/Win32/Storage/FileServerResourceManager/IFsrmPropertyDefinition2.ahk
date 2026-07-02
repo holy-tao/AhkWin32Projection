@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsrmPropertyDefinition.ahk" { IFsrmPropertyDefinition }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmPropertyDefinition.ahk" { IFsrmPropertyDefinition }
 
 /**
  * Defines a property that you want to use to classify files. (IFsrmPropertyDefinition2)

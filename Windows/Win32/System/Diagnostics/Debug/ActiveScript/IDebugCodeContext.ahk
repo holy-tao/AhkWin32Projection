@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\BREAKPOINT_STATE.ahk" { BREAKPOINT_STATE }
 
 /**

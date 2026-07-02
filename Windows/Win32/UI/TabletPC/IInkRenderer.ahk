@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import ".\IInkTransform.ahk" { IInkTransform }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
-#Import ".\IInkRectangle.ahk" { IInkRectangle }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
+#Import ".\IInkTransform.ahk" { IInkTransform }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
 
 /**
  * . (IInkRenderer)
@@ -418,7 +418,7 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-draw
      */
     Draw(_hDC, Strokes) {
-        result := ComCall(11, this, "ptr", _hDC, "ptr", Strokes, "HRESULT")
+        result := ComCall(11, this, IntPtr, _hDC, "ptr", Strokes, "HRESULT")
         return result
     }
 
@@ -523,7 +523,7 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-drawstroke
      */
     DrawStroke(_hDC, Stroke, DrawingAttributes) {
-        result := ComCall(12, this, "ptr", _hDC, "ptr", Stroke, "ptr", DrawingAttributes, "HRESULT")
+        result := ComCall(12, this, IntPtr, _hDC, "ptr", Stroke, "ptr", DrawingAttributes, "HRESULT")
         return result
     }
 
@@ -592,7 +592,7 @@ export default struct IInkRenderer extends IDispatch {
         xMarshal := x is VarRef ? "int*" : "ptr"
         yMarshal := y is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, "ptr", _hDC, xMarshal, x, yMarshal, y, "HRESULT")
+        result := ComCall(13, this, IntPtr, _hDC, xMarshal, x, yMarshal, y, "HRESULT")
         return result
     }
 
@@ -672,7 +672,7 @@ export default struct IInkRenderer extends IDispatch {
         xMarshal := x is VarRef ? "int*" : "ptr"
         yMarshal := y is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, "ptr", hdcDisplay, xMarshal, x, yMarshal, y, "HRESULT")
+        result := ComCall(14, this, IntPtr, hdcDisplay, xMarshal, x, yMarshal, y, "HRESULT")
         return result
     }
 
@@ -739,7 +739,7 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-pixeltoinkspacefrompoints
      */
     PixelToInkSpaceFromPoints(_hDC, _Points) {
-        result := ComCall(15, this, "ptr", _hDC, VARIANT.Ptr, _Points, "HRESULT")
+        result := ComCall(15, this, IntPtr, _hDC, VARIANT.Ptr, _Points, "HRESULT")
         return result
     }
 
@@ -804,7 +804,7 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-inkspacetopixelfrompoints
      */
     InkSpaceToPixelFromPoints(_hDC, _Points) {
-        result := ComCall(16, this, "ptr", _hDC, VARIANT.Ptr, _Points, "HRESULT")
+        result := ComCall(16, this, IntPtr, _hDC, VARIANT.Ptr, _Points, "HRESULT")
         return result
     }
 
@@ -851,7 +851,7 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-move
      */
     Move(HorizontalComponent, VerticalComponent) {
-        result := ComCall(19, this, "float", HorizontalComponent, "float", VerticalComponent, "HRESULT")
+        result := ComCall(19, this, Float32, HorizontalComponent, Float32, VerticalComponent, "HRESULT")
         return result
     }
 
@@ -895,7 +895,7 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-rotate
      */
     Rotate(Degrees, x, y) {
-        result := ComCall(20, this, "float", Degrees, "float", x, "float", y, "HRESULT")
+        result := ComCall(20, this, Float32, Degrees, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -937,7 +937,7 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-scaletransform
      */
     ScaleTransform(HorizontalMultiplier, VerticalMultiplier, ApplyOnPenWidth) {
-        result := ComCall(21, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, VARIANT_BOOL, ApplyOnPenWidth, "HRESULT")
+        result := ComCall(21, this, Float32, HorizontalMultiplier, Float32, VerticalMultiplier, VARIANT_BOOL, ApplyOnPenWidth, "HRESULT")
         return result
     }
 

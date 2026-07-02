@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IADsAccessControlList interface is a dual interface that manages individual access-control entries (ACEs).
@@ -106,7 +106,7 @@ export default struct IADsAccessControlList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AclRevision(lnAclRevision) {
-        result := ComCall(8, this, "int", lnAclRevision, "HRESULT")
+        result := ComCall(8, this, Int32, lnAclRevision, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IADsAccessControlList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AceCount(lnAceCount) {
-        result := ComCall(10, this, "int", lnAceCount, "HRESULT")
+        result := ComCall(10, this, Int32, lnAceCount, "HRESULT")
         return result
     }
 

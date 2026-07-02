@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPersistStream.ahk" { IPersistStream }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IBindCtx.ahk" { IBindCtx }
 #Import ".\IEnumMoniker.ahk" { IEnumMoniker }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPersistStream.ahk" { IPersistStream }
 
 /**
  * Enables you to use a moniker object, which contains information that uniquely identifies a COM object.
@@ -571,7 +571,7 @@ export default struct IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-reduce
      */
     Reduce(pbc, dwReduceHowFar, ppmkToLeft) {
-        result := ComCall(10, this, "ptr", pbc, "uint", dwReduceHowFar, IMoniker.Ptr, ppmkToLeft, "ptr*", &ppmkReduced := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pbc, UInt32, dwReduceHowFar, IMoniker.Ptr, ppmkToLeft, "ptr*", &ppmkReduced := 0, "HRESULT")
         return IMoniker(ppmkReduced)
     }
 

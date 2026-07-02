@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INetwork.ahk" { INetwork }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetwork.ahk" { INetwork }
 
 /**
  * The IEnumNetworks interface is a standard enumerator for networks. It enumerates all networks available on the local machine. This interface can be obtained from the INetworkListManager interface.
@@ -74,7 +74,7 @@ export default struct IEnumNetworks extends IDispatch {
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(8, this, UInt32, celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return INetwork(rgelt)
     }
 
@@ -114,7 +114,7 @@ export default struct IEnumNetworks extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworks-skip
      */
     Skip(celt) {
-        result := ComCall(9, this, "uint", celt, "HRESULT")
+        result := ComCall(9, this, UInt32, celt, "HRESULT")
         return result
     }
 

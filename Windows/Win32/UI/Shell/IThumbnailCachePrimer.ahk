@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WTS_FLAGS.ahk" { WTS_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IShellItem.ahk" { IShellItem }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WTS_FLAGS.ahk" { WTS_FLAGS }
+#Import ".\IShellItem.ahk" { IShellItem }
 
 /**
  * . (IThumbnailCachePrimer)
@@ -48,7 +48,7 @@ export default struct IThumbnailCachePrimer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailcacheprimer-pageinthumbnail
      */
     PageInThumbnail(psi, wtsFlags, cxyRequestedThumbSize) {
-        result := ComCall(3, this, "ptr", psi, WTS_FLAGS, wtsFlags, "uint", cxyRequestedThumbSize, "HRESULT")
+        result := ComCall(3, this, "ptr", psi, WTS_FLAGS, wtsFlags, UInt32, cxyRequestedThumbSize, "HRESULT")
         return result
     }
 

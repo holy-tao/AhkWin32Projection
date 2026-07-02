@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VSS_SNAPSHOT_PROPERTY_ID.ahk" { VSS_SNAPSHOT_PROPERTY_ID }
-#Import ".\VSS_SNAPSHOT_PROP.ahk" { VSS_SNAPSHOT_PROP }
 #Import ".\VSS_OBJECT_TYPE.ahk" { VSS_OBJECT_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVssEnumObject.ahk" { IVssEnumObject }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVssEnumObject.ahk" { IVssEnumObject }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VSS_SNAPSHOT_PROP.ahk" { VSS_SNAPSHOT_PROP }
+#Import ".\VSS_SNAPSHOT_PROPERTY_ID.ahk" { VSS_SNAPSHOT_PROPERTY_ID }
 
 /**
  * . (IVssFileShareSnapshotProvider)
@@ -136,7 +136,7 @@ export default struct IVssFileShareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-setcontext
      */
     SetContext(lContext) {
-        result := ComCall(3, this, "int", lContext, "HRESULT")
+        result := ComCall(3, this, Int32, lContext, "HRESULT")
         return result
     }
 
@@ -398,7 +398,7 @@ export default struct IVssFileShareSnapshotProvider extends IUnknown {
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, pwszSharePath, lNewContext, ProviderId) {
         pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, Guid, SnapshotSetId, Guid, SnapshotId, pwszSharePathMarshal, pwszSharePath, "int", lNewContext, Guid, ProviderId, "HRESULT")
+        result := ComCall(7, this, Guid, SnapshotSetId, Guid, SnapshotId, pwszSharePathMarshal, pwszSharePath, Int32, lNewContext, Guid, ProviderId, "HRESULT")
         return result
     }
 

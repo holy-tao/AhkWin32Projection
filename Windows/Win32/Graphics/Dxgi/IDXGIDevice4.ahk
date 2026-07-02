@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DXGI_OFFER_RESOURCE_PRIORITY.ahk" { DXGI_OFFER_RESOURCE_PRIORITY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDXGIResource.ahk" { IDXGIResource }
-#Import ".\DXGI_RECLAIM_RESOURCE_RESULTS.ahk" { DXGI_RECLAIM_RESOURCE_RESULTS }
 #Import ".\IDXGIDevice3.ahk" { IDXGIDevice3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_RECLAIM_RESOURCE_RESULTS.ahk" { DXGI_RECLAIM_RESOURCE_RESULTS }
 
 /**
  * This interface provides updated methods to offer and reclaim resources.
@@ -85,7 +85,7 @@ export default struct IDXGIDevice4 extends IDXGIDevice3 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgidevice4-offerresources1
      */
     OfferResources1(NumResources, ppResources, _Priority, Flags) {
-        result := ComCall(18, this, "uint", NumResources, IDXGIResource.Ptr, ppResources, DXGI_OFFER_RESOURCE_PRIORITY, _Priority, "uint", Flags, "HRESULT")
+        result := ComCall(18, this, UInt32, NumResources, IDXGIResource.Ptr, ppResources, DXGI_OFFER_RESOURCE_PRIORITY, _Priority, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -107,7 +107,7 @@ export default struct IDXGIDevice4 extends IDXGIDevice3 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgidevice4-reclaimresources1
      */
     ReclaimResources1(NumResources, ppResources) {
-        result := ComCall(19, this, "uint", NumResources, IDXGIResource.Ptr, ppResources, "int*", &pResults := 0, "HRESULT")
+        result := ComCall(19, this, UInt32, NumResources, IDXGIResource.Ptr, ppResources, "int*", &pResults := 0, "HRESULT")
         return pResults
     }
 

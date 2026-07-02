@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Describes an event class that notifies subscribers whenever a method on the object that implements it either is called or returns from a call.
@@ -59,7 +59,7 @@ export default struct ISendMethodEvents extends IUnknown {
     SendMethodCall(pIdentity, riid, dwMeth) {
         pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pIdentityMarshal, pIdentity, Guid.Ptr, riid, "uint", dwMeth, "HRESULT")
+        result := ComCall(3, this, pIdentityMarshal, pIdentity, Guid.Ptr, riid, UInt32, dwMeth, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct ISendMethodEvents extends IUnknown {
     SendMethodReturn(pIdentity, riid, dwMeth, hrCall, hrServer) {
         pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, pIdentityMarshal, pIdentity, Guid.Ptr, riid, "uint", dwMeth, "int", hrCall, "int", hrServer, "HRESULT")
+        result := ComCall(4, this, pIdentityMarshal, pIdentity, Guid.Ptr, riid, UInt32, dwMeth, "int", hrCall, "int", hrServer, "HRESULT")
         return result
     }
 

@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D2D1_RENDERING_PRIORITY.ahk" { D2D1_RENDERING_PRIORITY }
 #Import ".\ID2D1Device.ahk" { ID2D1Device }
-#Import ".\ID2D1DeviceContext1.ahk" { ID2D1DeviceContext1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D2D1_DEVICE_CONTEXT_OPTIONS.ahk" { D2D1_DEVICE_CONTEXT_OPTIONS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1DeviceContext1.ahk" { ID2D1DeviceContext1 }
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. (ID2D1Device1)

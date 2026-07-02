@@ -79,7 +79,7 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
      * @returns {HRESULT} 
      */
     put_MinNotification(MinNotification) {
-        result := ComCall(8, this, "int", MinNotification, "HRESULT")
+        result := ComCall(8, this, Int32, MinNotification, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
      * @returns {HRESULT} 
      */
     put_BufferSize(BufferSize) {
-        result := ComCall(10, this, "int", BufferSize, "HRESULT")
+        result := ComCall(10, this, Int32, BufferSize, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
      * @returns {HRESULT} 
      */
     put_EventBias(EventBias) {
-        result := ComCall(12, this, "int", EventBias, "HRESULT")
+        result := ComCall(12, this, Int32, EventBias, "HRESULT")
         return result
     }
 

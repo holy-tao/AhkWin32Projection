@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
-#Import ".\XPS_THUMBNAIL_SIZE.ahk" { XPS_THUMBNAIL_SIZE }
-#Import ".\IXpsOMPage.ahk" { IXpsOMPage }
-#Import ".\XPS_IMAGE_TYPE.ahk" { XPS_IMAGE_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\XPS_IMAGE_TYPE.ahk" { XPS_IMAGE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMPage.ahk" { IXpsOMPage }
+#Import ".\XPS_THUMBNAIL_SIZE.ahk" { XPS_THUMBNAIL_SIZE }
+#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
 
 /**
  * Generates a thumbnail image resource.

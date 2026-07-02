@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWordSink.ahk" { IWordSink }
-#Import "..\..\Storage\IndexServer\IPhraseSink.ahk" { IPhraseSink }
-#Import ".\TEXT_SOURCE.ahk" { TEXT_SOURCE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWordSink.ahk" { IWordSink }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TEXT_SOURCE.ahk" { TEXT_SOURCE }
+#Import "..\..\Storage\IndexServer\IPhraseSink.ahk" { IPhraseSink }
 
 /**
  * Parses text and identifies individual words and phrases. This interface is a language-specific language resource component. It is used in background processes and must be optimized for both throughput and minimal use of resources.
@@ -122,7 +122,7 @@ export default struct IWordBreaker extends IUnknown {
     Init(fQuery, ulMaxTokenSize, pfLicense) {
         pfLicenseMarshal := pfLicense is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, BOOL, fQuery, "uint", ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
+        result := ComCall(3, this, BOOL, fQuery, UInt32, ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
         return result
     }
 
@@ -203,7 +203,7 @@ export default struct IWordBreaker extends IUnknown {
 
         pcwcPhraseMarshal := pcwcPhrase is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pwcNoun, "uint", cwcNoun, "ptr", pwcModifier, "uint", cwcModifier, "uint", ulAttachmentType, "ptr", pwcPhrase, pcwcPhraseMarshal, pcwcPhrase, "HRESULT")
+        result := ComCall(5, this, "ptr", pwcNoun, UInt32, cwcNoun, "ptr", pwcModifier, UInt32, cwcModifier, UInt32, ulAttachmentType, "ptr", pwcPhrase, pcwcPhraseMarshal, pcwcPhrase, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXMLHTTPRequest2Callback.ahk" { IXMLHTTPRequest2Callback }
 #Import ".\IXMLHTTPRequest3.ahk" { IXMLHTTPRequest3 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXMLHTTPRequest2Callback.ahk" { IXMLHTTPRequest2Callback }
 #Import ".\XHR_CERT.ahk" { XHR_CERT }
 
 /**
@@ -63,7 +63,7 @@ export default struct IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback 
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest3callback-onservercertificatereceived
      */
     OnServerCertificateReceived(pXHR, dwCertificateErrors, cServerCertificateChain, rgServerCertificateChain) {
-        result := ComCall(8, this, "ptr", pXHR, "uint", dwCertificateErrors, "uint", cServerCertificateChain, XHR_CERT.Ptr, rgServerCertificateChain, "HRESULT")
+        result := ComCall(8, this, "ptr", pXHR, UInt32, dwCertificateErrors, UInt32, cServerCertificateChain, XHR_CERT.Ptr, rgServerCertificateChain, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback 
     OnClientCertificateRequested(pXHR, cIssuerList, rgpwszIssuerList) {
         rgpwszIssuerListMarshal := rgpwszIssuerList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pXHR, "uint", cIssuerList, rgpwszIssuerListMarshal, rgpwszIssuerList, "HRESULT")
+        result := ComCall(9, this, "ptr", pXHR, UInt32, cIssuerList, rgpwszIssuerListMarshal, rgpwszIssuerList, "HRESULT")
         return result
     }
 

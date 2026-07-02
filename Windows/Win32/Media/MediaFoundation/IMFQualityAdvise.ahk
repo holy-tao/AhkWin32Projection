@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MF_QUALITY_LEVEL.ahk" { MF_QUALITY_LEVEL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MF_QUALITY_DROP_MODE.ahk" { MF_QUALITY_DROP_MODE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MF_QUALITY_DROP_MODE.ahk" { MF_QUALITY_DROP_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables the quality manager to adjust the audio or video quality of a component in the pipeline.
@@ -189,7 +189,7 @@ export default struct IMFQualityAdvise extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadvise-droptime
      */
     DropTime(hnsAmountToDrop) {
-        result := ComCall(7, this, "int64", hnsAmountToDrop, "HRESULT")
+        result := ComCall(7, this, Int64, hnsAmountToDrop, "HRESULT")
         return result
     }
 

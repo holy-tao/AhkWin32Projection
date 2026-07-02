@@ -1,25 +1,26 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HDDEDATA.ahk" { HDDEDATA }
-#Import ".\CONVINFO.ahk" { CONVINFO }
-#Import ".\HSZ.ahk" { HSZ }
-#Import ".\HCONVLIST.ahk" { HCONVLIST }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DDE_ENABLE_CALLBACK_CMD.ahk" { DDE_ENABLE_CALLBACK_CMD }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DDE_NAME_SERVICE_CMD.ahk" { DDE_NAME_SERVICE_CMD }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DDE_INITIALIZE_COMMAND.ahk" { DDE_INITIALIZE_COMMAND }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\METAFILEPICT.ahk" { METAFILEPICT }
-#Import ".\HCONV.ahk" { HCONV }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import ".\CONVCONTEXT.ahk" { CONVCONTEXT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\DDE_CLIENT_TRANSACTION_TYPE.ahk" { DDE_CLIENT_TRANSACTION_TYPE }
+#Import ".\DDE_INITIALIZE_COMMAND.ahk" { DDE_INITIALIZE_COMMAND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk" { SECURITY_QUALITY_OF_SERVICE }
+#Import ".\HCONV.ahk" { HCONV }
+#Import ".\CONVINFO.ahk" { CONVINFO }
+#Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
+#Import ".\DDE_ENABLE_CALLBACK_CMD.ahk" { DDE_ENABLE_CALLBACK_CMD }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HDDEDATA.ahk" { HDDEDATA }
+#Import ".\PFNCALLBACK.ahk" { PFNCALLBACK }
+#Import ".\HCONVLIST.ahk" { HCONVLIST }
+#Import ".\HSZ.ahk" { HSZ }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\METAFILEPICT.ahk" { METAFILEPICT }
 
 /**
  * @namespace Windows.Win32.System.DataExchange
@@ -137,7 +138,7 @@ export ImpersonateDdeClientWindow(hWndClient, hWndServer) {
  * @since windows5.0
  */
 export PackDDElParam(_msg, uiLo, uiHi) {
-    result := DllCall("USER32.dll\PackDDElParam", "uint", _msg, "ptr", uiLo, "ptr", uiHi, LPARAM)
+    result := DllCall("USER32.dll\PackDDElParam", UInt32, _msg, IntPtr, uiLo, IntPtr, uiHi, LPARAM)
     return result
 }
 
@@ -173,7 +174,7 @@ export UnpackDDElParam(_msg, _lParam, puiLo, puiHi) {
     puiLoMarshal := puiLo is VarRef ? "ptr*" : "ptr"
     puiHiMarshal := puiHi is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("USER32.dll\UnpackDDElParam", "uint", _msg, LPARAM, _lParam, puiLoMarshal, puiLo, puiHiMarshal, puiHi, BOOL)
+    result := DllCall("USER32.dll\UnpackDDElParam", UInt32, _msg, LPARAM, _lParam, puiLoMarshal, puiLo, puiHiMarshal, puiHi, BOOL)
     return result
 }
 
@@ -201,7 +202,7 @@ export UnpackDDElParam(_msg, _lParam, puiLo, puiHi) {
  * @since windows5.0
  */
 export FreeDDElParam(_msg, _lParam) {
-    result := DllCall("USER32.dll\FreeDDElParam", "uint", _msg, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\FreeDDElParam", UInt32, _msg, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -245,7 +246,7 @@ export FreeDDElParam(_msg, _lParam) {
  * @since windows5.0
  */
 export ReuseDDElParam(_lParam, msgIn, msgOut, uiLo, uiHi) {
-    result := DllCall("USER32.dll\ReuseDDElParam", LPARAM, _lParam, "uint", msgIn, "uint", msgOut, "ptr", uiLo, "ptr", uiHi, LPARAM)
+    result := DllCall("USER32.dll\ReuseDDElParam", LPARAM, _lParam, UInt32, msgIn, UInt32, msgOut, IntPtr, uiLo, IntPtr, uiHi, LPARAM)
     return result
 }
 
@@ -297,7 +298,7 @@ export DdeInitializeA(pidInst, _pfnCallback, afCmd) {
 
     pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, "ptr", _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, "uint", ulRes, UInt32)
+    result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, PFNCALLBACK, _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
     return result
 }
 
@@ -349,7 +350,7 @@ export DdeInitializeW(pidInst, _pfnCallback, afCmd) {
 
     pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, "ptr", _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, "uint", ulRes, UInt32)
+    result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, PFNCALLBACK, _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
     return result
 }
 
@@ -369,7 +370,7 @@ export DdeInitializeW(pidInst, _pfnCallback, afCmd) {
  * @since windows5.0
  */
 export DdeUninitialize(idInst) {
-    result := DllCall("USER32.dll\DdeUninitialize", "uint", idInst, BOOL)
+    result := DllCall("USER32.dll\DdeUninitialize", UInt32, idInst, BOOL)
     return result
 }
 
@@ -409,7 +410,7 @@ export DdeUninitialize(idInst) {
  * @since windows5.0
  */
 export DdeConnectList(idInst, hszService, hszTopic, _hConvList, pCC) {
-    result := DllCall("USER32.dll\DdeConnectList", "uint", idInst, HSZ, hszService, HSZ, hszTopic, HCONVLIST, _hConvList, CONVCONTEXT.Ptr, pCC, HCONVLIST.Owned)
+    result := DllCall("USER32.dll\DdeConnectList", UInt32, idInst, HSZ, hszService, HSZ, hszTopic, HCONVLIST, _hConvList, CONVCONTEXT.Ptr, pCC, HCONVLIST.Owned)
     return result
 }
 
@@ -488,7 +489,7 @@ export DdeDisconnectList(_hConvList) {
  * @since windows5.0
  */
 export DdeConnect(idInst, hszService, hszTopic, pCC) {
-    result := DllCall("USER32.dll\DdeConnect", "uint", idInst, HSZ, hszService, HSZ, hszTopic, CONVCONTEXT.Ptr, pCC, HCONV.Owned)
+    result := DllCall("USER32.dll\DdeConnect", UInt32, idInst, HSZ, hszService, HSZ, hszTopic, CONVCONTEXT.Ptr, pCC, HCONV.Owned)
     return result
 }
 
@@ -565,7 +566,7 @@ export DdeReconnect(_hConv) {
  * @since windows5.0
  */
 export DdeQueryConvInfo(_hConv, idTransaction, pConvInfo) {
-    result := DllCall("USER32.dll\DdeQueryConvInfo", HCONV, _hConv, "uint", idTransaction, CONVINFO.Ptr, pConvInfo, UInt32)
+    result := DllCall("USER32.dll\DdeQueryConvInfo", HCONV, _hConv, UInt32, idTransaction, CONVINFO.Ptr, pConvInfo, UInt32)
     return result
 }
 
@@ -594,7 +595,7 @@ export DdeQueryConvInfo(_hConv, idTransaction, pConvInfo) {
  * @since windows5.0
  */
 export DdeSetUserHandle(_hConv, id, hUser) {
-    result := DllCall("USER32.dll\DdeSetUserHandle", HCONV, _hConv, "uint", id, "ptr", hUser, BOOL)
+    result := DllCall("USER32.dll\DdeSetUserHandle", HCONV, _hConv, UInt32, id, IntPtr, hUser, BOOL)
     return result
 }
 
@@ -623,7 +624,7 @@ export DdeSetUserHandle(_hConv, id, hUser) {
  * @since windows5.0
  */
 export DdeAbandonTransaction(idInst, _hConv, idTransaction) {
-    result := DllCall("USER32.dll\DdeAbandonTransaction", "uint", idInst, HCONV, _hConv, "uint", idTransaction, BOOL)
+    result := DllCall("USER32.dll\DdeAbandonTransaction", UInt32, idInst, HCONV, _hConv, UInt32, idTransaction, BOOL)
     return result
 }
 
@@ -655,7 +656,7 @@ export DdeAbandonTransaction(idInst, _hConv, idTransaction) {
  * @since windows5.0
  */
 export DdePostAdvise(idInst, hszTopic, hszItem) {
-    result := DllCall("USER32.dll\DdePostAdvise", "uint", idInst, HSZ, hszTopic, HSZ, hszItem, BOOL)
+    result := DllCall("USER32.dll\DdePostAdvise", UInt32, idInst, HSZ, hszTopic, HSZ, hszItem, BOOL)
     return result
 }
 
@@ -688,7 +689,7 @@ export DdePostAdvise(idInst, hszTopic, hszItem) {
  * @since windows5.0
  */
 export DdeEnableCallback(idInst, _hConv, wCmd) {
-    result := DllCall("USER32.dll\DdeEnableCallback", "uint", idInst, HCONV, _hConv, DDE_ENABLE_CALLBACK_CMD, wCmd, BOOL)
+    result := DllCall("USER32.dll\DdeEnableCallback", UInt32, idInst, HCONV, _hConv, DDE_ENABLE_CALLBACK_CMD, wCmd, BOOL)
     return result
 }
 
@@ -751,7 +752,7 @@ export DdeImpersonateClient(_hConv) {
  * @since windows5.0
  */
 export DdeNameService(idInst, hsz1, hsz2, afCmd) {
-    result := DllCall("USER32.dll\DdeNameService", "uint", idInst, HSZ, hsz1, HSZ, hsz2, DDE_NAME_SERVICE_CMD, afCmd, HDDEDATA.Owned)
+    result := DllCall("USER32.dll\DdeNameService", UInt32, idInst, HSZ, hsz1, HSZ, hsz2, DDE_NAME_SERVICE_CMD, afCmd, HDDEDATA.Owned)
     return result
 }
 
@@ -819,7 +820,7 @@ export DdeClientTransaction(pData, cbData, _hConv, hszItem, wFmt, wType, dwTimeo
     pDataMarshal := pData is VarRef ? "char*" : "ptr"
     pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, "uint", cbData, HCONV, _hConv, HSZ, hszItem, "uint", wFmt, DDE_CLIENT_TRANSACTION_TYPE, wType, "uint", dwTimeout, pdwResultMarshal, pdwResult, HDDEDATA.Owned)
+    result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, UInt32, cbData, HCONV, _hConv, HSZ, hszItem, UInt32, wFmt, DDE_CLIENT_TRANSACTION_TYPE, wType, UInt32, dwTimeout, pdwResultMarshal, pdwResult, HDDEDATA.Owned)
     return result
 }
 
@@ -864,7 +865,7 @@ export DdeClientTransaction(pData, cbData, _hConv, hszItem, wFmt, wType, dwTimeo
  * @since windows5.0
  */
 export DdeCreateDataHandle(idInst, pSrc, cb, cbOff, hszItem, wFmt, afCmd) {
-    result := DllCall("USER32.dll\DdeCreateDataHandle", "uint", idInst, "ptr", pSrc, "uint", cb, "uint", cbOff, HSZ, hszItem, "uint", wFmt, "uint", afCmd, HDDEDATA.Owned)
+    result := DllCall("USER32.dll\DdeCreateDataHandle", UInt32, idInst, IntPtr, pSrc, UInt32, cb, UInt32, cbOff, HSZ, hszItem, UInt32, wFmt, UInt32, afCmd, HDDEDATA.Owned)
     return result
 }
 
@@ -897,7 +898,7 @@ export DdeCreateDataHandle(idInst, pSrc, cb, cbOff, hszItem, wFmt, afCmd) {
  * @since windows5.0
  */
 export DdeAddData(hData, pSrc, cb, cbOff) {
-    result := DllCall("USER32.dll\DdeAddData", HDDEDATA, hData, "ptr", pSrc, "uint", cb, "uint", cbOff, HDDEDATA.Owned)
+    result := DllCall("USER32.dll\DdeAddData", HDDEDATA, hData, IntPtr, pSrc, UInt32, cb, UInt32, cbOff, HDDEDATA.Owned)
     return result
 }
 
@@ -931,7 +932,7 @@ export DdeAddData(hData, pSrc, cb, cbOff) {
  * @since windows5.0
  */
 export DdeGetData(hData, pDst, cbMax, cbOff) {
-    result := DllCall("USER32.dll\DdeGetData", HDDEDATA, hData, "ptr", pDst, "uint", cbMax, "uint", cbOff, UInt32)
+    result := DllCall("USER32.dll\DdeGetData", HDDEDATA, hData, IntPtr, pDst, UInt32, cbMax, UInt32, cbOff, UInt32)
     return result
 }
 
@@ -1260,7 +1261,7 @@ export DdeFreeDataHandle(hData) {
  * @since windows5.0
  */
 export DdeGetLastError(idInst) {
-    result := DllCall("USER32.dll\DdeGetLastError", "uint", idInst, UInt32)
+    result := DllCall("USER32.dll\DdeGetLastError", UInt32, idInst, UInt32)
     return result
 }
 
@@ -1314,7 +1315,7 @@ export DdeGetLastError(idInst) {
 export DdeCreateStringHandleA(idInst, psz, iCodePage) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("USER32.dll\DdeCreateStringHandleA", "uint", idInst, "ptr", psz, "int", iCodePage, HSZ)
+    result := DllCall("USER32.dll\DdeCreateStringHandleA", UInt32, idInst, "ptr", psz, Int32, iCodePage, HSZ)
     return result
 }
 
@@ -1368,7 +1369,7 @@ export DdeCreateStringHandleA(idInst, psz, iCodePage) {
 export DdeCreateStringHandleW(idInst, psz, iCodePage) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("USER32.dll\DdeCreateStringHandleW", "uint", idInst, "ptr", psz, "int", iCodePage, HSZ)
+    result := DllCall("USER32.dll\DdeCreateStringHandleW", UInt32, idInst, "ptr", psz, Int32, iCodePage, HSZ)
     return result
 }
 
@@ -1420,7 +1421,7 @@ export DdeCreateStringHandleW(idInst, psz, iCodePage) {
 export DdeQueryStringA(idInst, _hsz, psz, cchMax, iCodePage) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("USER32.dll\DdeQueryStringA", "uint", idInst, HSZ, _hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, UInt32)
+    result := DllCall("USER32.dll\DdeQueryStringA", UInt32, idInst, HSZ, _hsz, "ptr", psz, UInt32, cchMax, Int32, iCodePage, UInt32)
     return result
 }
 
@@ -1472,7 +1473,7 @@ export DdeQueryStringA(idInst, _hsz, psz, cchMax, iCodePage) {
 export DdeQueryStringW(idInst, _hsz, psz, cchMax, iCodePage) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("USER32.dll\DdeQueryStringW", "uint", idInst, HSZ, _hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, UInt32)
+    result := DllCall("USER32.dll\DdeQueryStringW", UInt32, idInst, HSZ, _hsz, "ptr", psz, UInt32, cchMax, Int32, iCodePage, UInt32)
     return result
 }
 
@@ -1495,7 +1496,7 @@ export DdeQueryStringW(idInst, _hsz, psz, cchMax, iCodePage) {
  * @since windows5.0
  */
 export DdeFreeStringHandle(idInst, _hsz) {
-    result := DllCall("USER32.dll\DdeFreeStringHandle", "uint", idInst, HSZ, _hsz, BOOL)
+    result := DllCall("USER32.dll\DdeFreeStringHandle", UInt32, idInst, HSZ, _hsz, BOOL)
     return result
 }
 
@@ -1516,7 +1517,7 @@ export DdeFreeStringHandle(idInst, _hsz) {
  * @since windows5.0
  */
 export DdeKeepStringHandle(idInst, _hsz) {
-    result := DllCall("USER32.dll\DdeKeepStringHandle", "uint", idInst, HSZ, _hsz, BOOL)
+    result := DllCall("USER32.dll\DdeKeepStringHandle", UInt32, idInst, HSZ, _hsz, BOOL)
     return result
 }
 
@@ -1604,7 +1605,7 @@ export DdeCmpStringHandles(hsz1, hsz2) {
  * @since windows5.0
  */
 export SetWinMetaFileBits(nSize, lpMeta16Data, hdcRef, lpMFP) {
-    result := DllCall("GDI32.dll\SetWinMetaFileBits", "uint", nSize, "ptr", lpMeta16Data, HDC, hdcRef, METAFILEPICT.Ptr, lpMFP, HENHMETAFILE.Owned)
+    result := DllCall("GDI32.dll\SetWinMetaFileBits", UInt32, nSize, IntPtr, lpMeta16Data, HDC, hdcRef, METAFILEPICT.Ptr, lpMFP, HENHMETAFILE.Owned)
     return result
 }
 
@@ -1810,7 +1811,7 @@ export ChangeClipboardChain(hWndRemove, hWndNewNext) {
 export SetClipboardData(uFormat, hMem) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetClipboardData", "uint", uFormat, HANDLE, hMem, HANDLE.Owned)
+    result := DllCall("USER32.dll\SetClipboardData", UInt32, uFormat, HANDLE, hMem, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1842,7 +1843,7 @@ export SetClipboardData(uFormat, hMem) {
 export GetClipboardData(uFormat) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetClipboardData", "uint", uFormat, HANDLE)
+    result := DllCall("USER32.dll\GetClipboardData", UInt32, uFormat, HANDLE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1969,7 +1970,7 @@ export CountClipboardFormats() {
 export EnumClipboardFormats(format) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumClipboardFormats", "uint", format, UInt32)
+    result := DllCall("USER32.dll\EnumClipboardFormats", UInt32, format, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2006,7 +2007,7 @@ export GetClipboardFormatNameA(format, lpszFormatName, cchMaxCount) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetClipboardFormatNameA", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount, Int32)
+    result := DllCall("USER32.dll\GetClipboardFormatNameA", UInt32, format, "ptr", lpszFormatName, Int32, cchMaxCount, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2043,7 +2044,7 @@ export GetClipboardFormatNameW(format, lpszFormatName, cchMaxCount) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetClipboardFormatNameW", "uint", format, "ptr", lpszFormatName, "int", cchMaxCount, Int32)
+    result := DllCall("USER32.dll\GetClipboardFormatNameW", UInt32, format, "ptr", lpszFormatName, Int32, cchMaxCount, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2092,7 +2093,7 @@ export EmptyClipboard() {
 export IsClipboardFormatAvailable(format) {
     A_LastError := 0
 
-    result := DllCall("USER32.dll\IsClipboardFormatAvailable", "uint", format, BOOL)
+    result := DllCall("USER32.dll\IsClipboardFormatAvailable", UInt32, format, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2120,7 +2121,7 @@ export GetPriorityClipboardFormat(paFormatPriorityList, cFormats) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetPriorityClipboardFormat", paFormatPriorityListMarshal, paFormatPriorityList, "int", cFormats, Int32)
+    result := DllCall("USER32.dll\GetPriorityClipboardFormat", paFormatPriorityListMarshal, paFormatPriorityList, Int32, cFormats, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2220,7 +2221,7 @@ export GetUpdatedClipboardFormats(lpuiFormats, cFormats, pcFormatsOut) {
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetUpdatedClipboardFormats", lpuiFormatsMarshal, lpuiFormats, "uint", cFormats, pcFormatsOutMarshal, pcFormatsOut, BOOL)
+    result := DllCall("USER32.dll\GetUpdatedClipboardFormats", lpuiFormatsMarshal, lpuiFormats, UInt32, cFormats, pcFormatsOutMarshal, pcFormatsOut, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2250,7 +2251,7 @@ export GetUpdatedClipboardFormats(lpuiFormats, cFormats, pcFormatsOut) {
 export GlobalDeleteAtom(nAtom) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalDeleteAtom", "ushort", nAtom, UInt16)
+    result := DllCall("KERNEL32.dll\GlobalDeleteAtom", UInt16, nAtom, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2281,7 +2282,7 @@ export GlobalDeleteAtom(nAtom) {
  * @since windows5.0
  */
 export InitAtomTable(nSize) {
-    result := DllCall("KERNEL32.dll\InitAtomTable", "uint", nSize, BOOL)
+    result := DllCall("KERNEL32.dll\InitAtomTable", UInt32, nSize, BOOL)
     return result
 }
 
@@ -2308,7 +2309,7 @@ export InitAtomTable(nSize) {
 export DeleteAtom(nAtom) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\DeleteAtom", "ushort", nAtom, UInt16)
+    result := DllCall("KERNEL32.dll\DeleteAtom", UInt16, nAtom, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2431,7 +2432,7 @@ export GlobalAddAtomExA(lpString, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalAddAtomExA", "ptr", lpString, "uint", Flags, UInt16)
+    result := DllCall("KERNEL32.dll\GlobalAddAtomExA", "ptr", lpString, UInt32, Flags, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2458,7 +2459,7 @@ export GlobalAddAtomExW(lpString, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalAddAtomExW", "ptr", lpString, "uint", Flags, UInt16)
+    result := DllCall("KERNEL32.dll\GlobalAddAtomExW", "ptr", lpString, UInt32, Flags, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2584,7 +2585,7 @@ export GlobalGetAtomNameA(nAtom, lpBuffer, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalGetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GlobalGetAtomNameA", UInt16, nAtom, "ptr", lpBuffer, Int32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2630,7 +2631,7 @@ export GlobalGetAtomNameW(nAtom, lpBuffer, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalGetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GlobalGetAtomNameW", UInt16, nAtom, "ptr", lpBuffer, Int32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2844,7 +2845,7 @@ export GetAtomNameA(nAtom, lpBuffer, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetAtomNameA", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetAtomNameA", UInt16, nAtom, "ptr", lpBuffer, Int32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2890,7 +2891,7 @@ export GetAtomNameW(nAtom, lpBuffer, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetAtomNameW", "ushort", nAtom, "ptr", lpBuffer, "int", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetAtomNameW", UInt16, nAtom, "ptr", lpBuffer, Int32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\IESEvent.ahk" { IESEvent }
 
 /**
@@ -59,7 +59,7 @@ export default struct IESEventFactory extends IUnknown {
 
         pEventDataMarshal := pEventData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pServiceProvider, "uint", dwEventId, Guid, guidEventType, "uint", dwEventDataLength, pEventDataMarshal, pEventData, BSTR, bstrBaseUrl, "ptr", pInitContext, "ptr*", &ppESEvent := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pServiceProvider, UInt32, dwEventId, Guid, guidEventType, UInt32, dwEventDataLength, pEventDataMarshal, pEventData, BSTR, bstrBaseUrl, "ptr", pInitContext, "ptr*", &ppESEvent := 0, "HRESULT")
         return IESEvent(ppESEvent)
     }
 

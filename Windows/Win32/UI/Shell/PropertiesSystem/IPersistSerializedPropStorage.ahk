@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SERIALIZEDPROPSTORAGE.ahk" { SERIALIZEDPROPSTORAGE }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SERIALIZEDPROPSTORAGE.ahk" { SERIALIZEDPROPSTORAGE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods to persist serialized property storage data for later use and to restore persisted data to a new property store instance. (IPersistSerializedPropStorage)
@@ -61,7 +61,7 @@ export default struct IPersistSerializedPropStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage-setflags
      */
     SetFlags(flags) {
-        result := ComCall(3, this, "int", flags, "HRESULT")
+        result := ComCall(3, this, Int32, flags, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IPersistSerializedPropStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage-setpropertystorage
      */
     SetPropertyStorage(psps, cb) {
-        result := ComCall(4, this, "ptr", psps, "uint", cb, "HRESULT")
+        result := ComCall(4, this, IntPtr, psps, UInt32, cb, "HRESULT")
         return result
     }
 

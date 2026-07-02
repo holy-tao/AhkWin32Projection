@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DEBUG_STACK_FRAME.ahk" { DEBUG_STACK_FRAME }
 #Import ".\IDebugSymbolGroup.ahk" { IDebugSymbolGroup }
 #Import ".\DEBUG_MODULE_PARAMETERS.ahk" { DEBUG_MODULE_PARAMETERS }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -102,7 +102,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {HRESULT} 
      */
     AddSymbolOptions(Options) {
-        result := ComCall(4, this, "uint", Options, "HRESULT")
+        result := ComCall(4, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveSymbolOptions(Options) {
-        result := ComCall(5, this, "uint", Options, "HRESULT")
+        result := ComCall(5, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSymbolOptions(Options) {
-        result := ComCall(6, this, "uint", Options, "HRESULT")
+        result := ComCall(6, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct IDebugSymbols extends IUnknown {
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
         DisplacementMarshal := Displacement is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", Offset, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
+        result := ComCall(7, this, Int64, Offset, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct IDebugSymbols extends IUnknown {
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
         DisplacementMarshal := Displacement is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", Offset, "int", Delta, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
+        result := ComCall(9, this, Int64, Offset, Int32, Delta, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct IDebugSymbols extends IUnknown {
         FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
         DisplacementMarshal := Displacement is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", Offset, LineMarshal, Line, "ptr", FileBuffer, "uint", FileBufferSize, FileSizeMarshal, FileSize, DisplacementMarshal, Displacement, "HRESULT")
+        result := ComCall(10, this, Int64, Offset, LineMarshal, Line, "ptr", FileBuffer, UInt32, FileBufferSize, FileSizeMarshal, FileSize, DisplacementMarshal, Displacement, "HRESULT")
         return result
     }
 
@@ -207,7 +207,7 @@ export default struct IDebugSymbols extends IUnknown {
     GetOffsetByLine(Line, _File) {
         _File := _File is String ? StrPtr(_File) : _File
 
-        result := ComCall(11, this, "uint", Line, "ptr", _File, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, Line, "ptr", _File, "uint*", &Offset := 0, "HRESULT")
         return Offset
     }
 
@@ -231,7 +231,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {Integer} 
      */
     GetModuleByIndex(Index) {
-        result := ComCall(13, this, "uint", Index, "uint*", &Base := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, Index, "uint*", &Base := 0, "HRESULT")
         return Base
     }
 
@@ -249,7 +249,7 @@ export default struct IDebugSymbols extends IUnknown {
         IndexMarshal := Index is VarRef ? "uint*" : "ptr"
         BaseMarshal := Base is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", Name, "uint", StartIndex, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
+        result := ComCall(14, this, "ptr", Name, UInt32, StartIndex, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct IDebugSymbols extends IUnknown {
         IndexMarshal := Index is VarRef ? "uint*" : "ptr"
         BaseMarshal := Base is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", Offset, "uint", StartIndex, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
+        result := ComCall(15, this, Int64, Offset, UInt32, StartIndex, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
         return result
     }
 
@@ -293,7 +293,7 @@ export default struct IDebugSymbols extends IUnknown {
         ModuleNameSizeMarshal := ModuleNameSize is VarRef ? "uint*" : "ptr"
         LoadedImageNameSizeMarshal := LoadedImageNameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", Index, "uint", Base, "ptr", ImageNameBuffer, "uint", ImageNameBufferSize, ImageNameSizeMarshal, ImageNameSize, "ptr", ModuleNameBuffer, "uint", ModuleNameBufferSize, ModuleNameSizeMarshal, ModuleNameSize, "ptr", LoadedImageNameBuffer, "uint", LoadedImageNameBufferSize, LoadedImageNameSizeMarshal, LoadedImageNameSize, "HRESULT")
+        result := ComCall(16, this, UInt32, Index, Int64, Base, "ptr", ImageNameBuffer, UInt32, ImageNameBufferSize, ImageNameSizeMarshal, ImageNameSize, "ptr", ModuleNameBuffer, UInt32, ModuleNameBufferSize, ModuleNameSizeMarshal, ModuleNameSize, "ptr", LoadedImageNameBuffer, UInt32, LoadedImageNameBufferSize, LoadedImageNameSizeMarshal, LoadedImageNameSize, "HRESULT")
         return result
     }
 
@@ -308,7 +308,7 @@ export default struct IDebugSymbols extends IUnknown {
         BasesMarshal := Bases is VarRef ? "uint*" : "ptr"
 
         Params := DEBUG_MODULE_PARAMETERS()
-        result := ComCall(17, this, "uint", Count, BasesMarshal, Bases, "uint", Start, DEBUG_MODULE_PARAMETERS.Ptr, Params, "HRESULT")
+        result := ComCall(17, this, UInt32, Count, BasesMarshal, Bases, UInt32, Start, DEBUG_MODULE_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -335,7 +335,7 @@ export default struct IDebugSymbols extends IUnknown {
     GetTypeName(Module, TypeId, NameBuffer, NameBufferSize) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        result := ComCall(19, this, "uint", Module, "uint", TypeId, "ptr", NameBuffer, "uint", NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(19, this, Int64, Module, UInt32, TypeId, "ptr", NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
@@ -348,7 +348,7 @@ export default struct IDebugSymbols extends IUnknown {
     GetTypeId(Module, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(20, this, "uint", Module, "ptr", Name, "uint*", &TypeId := 0, "HRESULT")
+        result := ComCall(20, this, Int64, Module, "ptr", Name, "uint*", &TypeId := 0, "HRESULT")
         return TypeId
     }
 
@@ -359,7 +359,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {Integer} 
      */
     GetTypeSize(Module, TypeId) {
-        result := ComCall(21, this, "uint", Module, "uint", TypeId, "uint*", &_Size := 0, "HRESULT")
+        result := ComCall(21, this, Int64, Module, UInt32, TypeId, "uint*", &_Size := 0, "HRESULT")
         return _Size
     }
 
@@ -373,7 +373,7 @@ export default struct IDebugSymbols extends IUnknown {
     GetFieldOffset(Module, TypeId, Field) {
         Field := Field is String ? StrPtr(Field) : Field
 
-        result := ComCall(22, this, "uint", Module, "uint", TypeId, "ptr", Field, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(22, this, Int64, Module, UInt32, TypeId, "ptr", Field, "uint*", &Offset := 0, "HRESULT")
         return Offset
     }
 
@@ -405,7 +405,7 @@ export default struct IDebugSymbols extends IUnknown {
         TypeIdMarshal := TypeId is VarRef ? "uint*" : "ptr"
         ModuleMarshal := Module is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, "uint", Offset, TypeIdMarshal, TypeId, ModuleMarshal, Module, "HRESULT")
+        result := ComCall(24, this, Int64, Offset, TypeIdMarshal, TypeId, ModuleMarshal, Module, "HRESULT")
         return result
     }
 
@@ -419,7 +419,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {Integer} 
      */
     ReadTypedDataVirtual(Offset, Module, TypeId, _Buffer, BufferSize) {
-        result := ComCall(25, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+        result := ComCall(25, this, Int64, Offset, Int64, Module, UInt32, TypeId, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -433,7 +433,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {Integer} 
      */
     WriteTypedDataVirtual(Offset, Module, TypeId, _Buffer, BufferSize) {
-        result := ComCall(26, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+        result := ComCall(26, this, Int64, Offset, Int64, Module, UInt32, TypeId, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -447,7 +447,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputTypedDataVirtual(OutputControl, Offset, Module, TypeId, Flags) {
-        result := ComCall(27, this, "uint", OutputControl, "uint", Offset, "uint", Module, "uint", TypeId, "uint", Flags, "HRESULT")
+        result := ComCall(27, this, UInt32, OutputControl, Int64, Offset, Int64, Module, UInt32, TypeId, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -461,7 +461,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {Integer} 
      */
     ReadTypedDataPhysical(Offset, Module, TypeId, _Buffer, BufferSize) {
-        result := ComCall(28, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+        result := ComCall(28, this, Int64, Offset, Int64, Module, UInt32, TypeId, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -475,7 +475,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {Integer} 
      */
     WriteTypedDataPhysical(Offset, Module, TypeId, _Buffer, BufferSize) {
-        result := ComCall(29, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", _Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+        result := ComCall(29, this, Int64, Offset, Int64, Module, UInt32, TypeId, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -489,7 +489,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputTypedDataPhysical(OutputControl, Offset, Module, TypeId, Flags) {
-        result := ComCall(30, this, "uint", OutputControl, "uint", Offset, "uint", Module, "uint", TypeId, "uint", Flags, "HRESULT")
+        result := ComCall(30, this, UInt32, OutputControl, Int64, Offset, Int64, Module, UInt32, TypeId, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -504,7 +504,7 @@ export default struct IDebugSymbols extends IUnknown {
     GetScope(InstructionOffset, ScopeFrame, ScopeContext, ScopeContextSize) {
         InstructionOffsetMarshal := InstructionOffset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, InstructionOffsetMarshal, InstructionOffset, DEBUG_STACK_FRAME.Ptr, ScopeFrame, "ptr", ScopeContext, "uint", ScopeContextSize, "HRESULT")
+        result := ComCall(31, this, InstructionOffsetMarshal, InstructionOffset, DEBUG_STACK_FRAME.Ptr, ScopeFrame, IntPtr, ScopeContext, UInt32, ScopeContextSize, "HRESULT")
         return result
     }
 
@@ -517,7 +517,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {HRESULT} 
      */
     SetScope(InstructionOffset, ScopeFrame, ScopeContext, ScopeContextSize) {
-        result := ComCall(32, this, "uint", InstructionOffset, DEBUG_STACK_FRAME.Ptr, ScopeFrame, "ptr", ScopeContext, "uint", ScopeContextSize, "HRESULT")
+        result := ComCall(32, this, Int64, InstructionOffset, DEBUG_STACK_FRAME.Ptr, ScopeFrame, IntPtr, ScopeContext, UInt32, ScopeContextSize, "HRESULT")
         return result
     }
 
@@ -537,7 +537,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {IDebugSymbolGroup} 
      */
     GetScopeSymbolGroup(Flags, Update) {
-        result := ComCall(34, this, "uint", Flags, "ptr", Update, "ptr*", &Symbols := 0, "HRESULT")
+        result := ComCall(34, this, UInt32, Flags, "ptr", Update, "ptr*", &Symbols := 0, "HRESULT")
         return IDebugSymbolGroup(Symbols)
     }
 
@@ -577,7 +577,7 @@ export default struct IDebugSymbols extends IUnknown {
         MatchSizeMarshal := MatchSize is VarRef ? "uint*" : "ptr"
         OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(37, this, "uint", _Handle, "ptr", _Buffer, "uint", BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
+        result := ComCall(37, this, Int64, _Handle, "ptr", _Buffer, UInt32, BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -587,7 +587,7 @@ export default struct IDebugSymbols extends IUnknown {
      * @returns {HRESULT} 
      */
     EndSymbolMatch(_Handle) {
-        result := ComCall(38, this, "uint", _Handle, "HRESULT")
+        result := ComCall(38, this, Int64, _Handle, "HRESULT")
         return result
     }
 
@@ -612,7 +612,7 @@ export default struct IDebugSymbols extends IUnknown {
     GetSymbolPath(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(40, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        result := ComCall(40, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
@@ -649,7 +649,7 @@ export default struct IDebugSymbols extends IUnknown {
     GetImagePath(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(43, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
@@ -686,7 +686,7 @@ export default struct IDebugSymbols extends IUnknown {
     GetSourcePath(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(46, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        result := ComCall(46, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
@@ -700,7 +700,7 @@ export default struct IDebugSymbols extends IUnknown {
     GetSourcePathElement(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(47, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &ElementSize := 0, "HRESULT")
+        result := ComCall(47, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ElementSize := 0, "HRESULT")
         return ElementSize
     }
 
@@ -746,7 +746,7 @@ export default struct IDebugSymbols extends IUnknown {
         FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
         FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(50, this, "uint", StartElement, "ptr", _File, "uint", Flags, FoundElementMarshal, FoundElement, "ptr", _Buffer, "uint", BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
+        result := ComCall(50, this, UInt32, StartElement, "ptr", _File, UInt32, Flags, FoundElementMarshal, FoundElement, "ptr", _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
@@ -764,7 +764,7 @@ export default struct IDebugSymbols extends IUnknown {
         _BufferMarshal := _Buffer is VarRef ? "uint*" : "ptr"
         FileLinesMarshal := FileLines is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(51, this, "ptr", _File, _BufferMarshal, _Buffer, "uint", BufferLines, FileLinesMarshal, FileLines, "HRESULT")
+        result := ComCall(51, this, "ptr", _File, _BufferMarshal, _Buffer, UInt32, BufferLines, FileLinesMarshal, FileLines, "HRESULT")
         return result
     }
 

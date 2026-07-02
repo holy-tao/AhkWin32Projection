@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_ISCSI_PORTALGROUP_PROP.ahk" { VDS_ISCSI_PORTALGROUP_PROP }
 #Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import ".\IVdsIscsiTarget.ahk" { IVdsIscsiTarget }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsIscsiTarget.ahk" { IVdsIscsiTarget }
+#Import ".\VDS_ISCSI_PORTALGROUP_PROP.ahk" { VDS_ISCSI_PORTALGROUP_PROP }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**

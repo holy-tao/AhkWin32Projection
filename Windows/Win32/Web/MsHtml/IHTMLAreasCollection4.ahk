@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHTMLElement2.ahk" { IHTMLElement2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLElement2.ahk" { IHTMLElement2 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -61,7 +61,7 @@ export default struct IHTMLAreasCollection4 extends IDispatch {
      * @returns {IHTMLElement2} 
      */
     item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &pNode := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "ptr*", &pNode := 0, "HRESULT")
         return IHTMLElement2(pNode)
     }
 

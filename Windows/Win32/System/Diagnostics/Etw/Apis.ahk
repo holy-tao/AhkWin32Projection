@@ -1,46 +1,50 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Security\PSID.ahk" { PSID }
-#Import ".\PROPERTY_DATA_DESCRIPTOR.ahk" { PROPERTY_DATA_DESCRIPTOR }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TDH_CONTEXT.ahk" { TDH_CONTEXT }
-#Import ".\CLASSIC_EVENT_ID.ahk" { CLASSIC_EVENT_ID }
-#Import ".\REGHANDLE.ahk" { REGHANDLE }
-#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\EVENT_TRACE_CONTROL.ahk" { EVENT_TRACE_CONTROL }
-#Import ".\EVENT_INSTANCE_HEADER.ahk" { EVENT_INSTANCE_HEADER }
-#Import ".\TRACE_MESSAGE_FLAGS.ahk" { TRACE_MESSAGE_FLAGS }
-#Import ".\ETW_PROCESS_HANDLE_INFO_TYPE.ahk" { ETW_PROCESS_HANDLE_INFO_TYPE }
-#Import ".\TRACE_GUID_REGISTRATION.ahk" { TRACE_GUID_REGISTRATION }
-#Import ".\EVENT_TRACE_HEADER.ahk" { EVENT_TRACE_HEADER }
-#Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
-#Import ".\EVENT_INSTANCE_INFO.ahk" { EVENT_INSTANCE_INFO }
-#Import ".\EVENT_TRACE_PROPERTIES.ahk" { EVENT_TRACE_PROPERTIES }
-#Import ".\PAYLOAD_FILTER_PREDICATE.ahk" { PAYLOAD_FILTER_PREDICATE }
-#Import ".\EVENT_INFO_CLASS.ahk" { EVENT_INFO_CLASS }
-#Import ".\TRACE_LOGFILE_HEADER.ahk" { TRACE_LOGFILE_HEADER }
-#Import ".\EVENT_FIELD_TYPE.ahk" { EVENT_FIELD_TYPE }
-#Import ".\EVENT_MAP_INFO.ahk" { EVENT_MAP_INFO }
-#Import ".\EVENT_TRACE_LOGFILEA.ahk" { EVENT_TRACE_LOGFILEA }
-#Import ".\TRACE_GUID_PROPERTIES.ahk" { TRACE_GUID_PROPERTIES }
-#Import ".\ETW_BUFFER_HEADER.ahk" { ETW_BUFFER_HEADER }
-#Import ".\TRACE_QUERY_INFO_CLASS.ahk" { TRACE_QUERY_INFO_CLASS }
-#Import ".\ENABLE_TRACE_PARAMETERS.ahk" { ENABLE_TRACE_PARAMETERS }
-#Import ".\EVENT_DATA_DESCRIPTOR.ahk" { EVENT_DATA_DESCRIPTOR }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ETW_OPEN_TRACE_OPTIONS.ahk" { ETW_OPEN_TRACE_OPTIONS }
-#Import ".\EVENT_TRACE_LOGFILEW.ahk" { EVENT_TRACE_LOGFILEW }
-#Import ".\EVENT_RECORD.ahk" { EVENT_RECORD }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\TRACE_EVENT_INFO.ahk" { TRACE_EVENT_INFO }
-#Import ".\PROCESSTRACE_HANDLE.ahk" { PROCESSTRACE_HANDLE }
+#Import ".\ETW_OPEN_TRACE_OPTIONS.ahk" { ETW_OPEN_TRACE_OPTIONS }
 #Import ".\TRACE_LBR_CONFIGURATION.ahk" { TRACE_LBR_CONFIGURATION }
-#Import ".\DECODING_SOURCE.ahk" { DECODING_SOURCE }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\TRACE_QUERY_INFO_CLASS.ahk" { TRACE_QUERY_INFO_CLASS }
+#Import "..\..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\EVENT_RECORD.ahk" { EVENT_RECORD }
+#Import ".\EVENT_TRACE_LOGFILEA.ahk" { EVENT_TRACE_LOGFILEA }
+#Import ".\EVENT_TRACE_LOGFILEW.ahk" { EVENT_TRACE_LOGFILEW }
+#Import ".\EVENT_INSTANCE_INFO.ahk" { EVENT_INSTANCE_INFO }
+#Import ".\ETW_BUFFER_HEADER.ahk" { ETW_BUFFER_HEADER }
+#Import ".\EVENT_FIELD_TYPE.ahk" { EVENT_FIELD_TYPE }
+#Import ".\EVENT_TRACE_HEADER.ahk" { EVENT_TRACE_HEADER }
+#Import ".\EVENT_DATA_DESCRIPTOR.ahk" { EVENT_DATA_DESCRIPTOR }
+#Import ".\EVENT_INFO_CLASS.ahk" { EVENT_INFO_CLASS }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\TRACE_LOGFILE_HEADER.ahk" { TRACE_LOGFILE_HEADER }
 #Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
+#Import ".\PETW_BUFFER_COMPLETION_CALLBACK.ahk" { PETW_BUFFER_COMPLETION_CALLBACK }
+#Import ".\TRACE_MESSAGE_FLAGS.ahk" { TRACE_MESSAGE_FLAGS }
+#Import ".\TRACE_EVENT_INFO.ahk" { TRACE_EVENT_INFO }
 #Import ".\TDH_HANDLE.ahk" { TDH_HANDLE }
+#Import ".\PENABLECALLBACK.ahk" { PENABLECALLBACK }
+#Import ".\PAYLOAD_FILTER_PREDICATE.ahk" { PAYLOAD_FILTER_PREDICATE }
+#Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ENABLE_TRACE_PARAMETERS.ahk" { ENABLE_TRACE_PARAMETERS }
+#Import ".\CLASSIC_EVENT_ID.ahk" { CLASSIC_EVENT_ID }
+#Import ".\EVENT_TRACE_PROPERTIES.ahk" { EVENT_TRACE_PROPERTIES }
+#Import ".\ETW_PROCESS_HANDLE_INFO_TYPE.ahk" { ETW_PROCESS_HANDLE_INFO_TYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\PEVENT_CALLBACK.ahk" { PEVENT_CALLBACK }
+#Import ".\TRACE_GUID_PROPERTIES.ahk" { TRACE_GUID_PROPERTIES }
+#Import ".\PROPERTY_DATA_DESCRIPTOR.ahk" { PROPERTY_DATA_DESCRIPTOR }
+#Import ".\REGHANDLE.ahk" { REGHANDLE }
+#Import ".\EVENT_TRACE_CONTROL.ahk" { EVENT_TRACE_CONTROL }
+#Import ".\PROCESSTRACE_HANDLE.ahk" { PROCESSTRACE_HANDLE }
+#Import ".\WMIDPREQUEST.ahk" { WMIDPREQUEST }
+#Import ".\TDH_CONTEXT.ahk" { TDH_CONTEXT }
+#Import ".\TRACE_GUID_REGISTRATION.ahk" { TRACE_GUID_REGISTRATION }
+#Import ".\EVENT_INSTANCE_HEADER.ahk" { EVENT_INSTANCE_HEADER }
+#Import ".\EVENT_MAP_INFO.ahk" { EVENT_MAP_INFO }
+#Import ".\DECODING_SOURCE.ahk" { DECODING_SOURCE }
+#Import "..\..\..\Security\PSID.ahk" { PSID }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
@@ -466,7 +470,7 @@ export StartTraceA(TraceId, InstanceName, _Properties) {
 export StopTraceW(TraceId, InstanceName, _Properties) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\StopTraceW", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\StopTraceW", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
     return result
 }
 
@@ -553,7 +557,7 @@ export StopTraceW(TraceId, InstanceName, _Properties) {
 export StopTraceA(TraceId, InstanceName, _Properties) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\StopTraceA", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\StopTraceA", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
     return result
 }
 
@@ -640,7 +644,7 @@ export StopTraceA(TraceId, InstanceName, _Properties) {
 export QueryTraceW(TraceId, InstanceName, _Properties) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\QueryTraceW", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\QueryTraceW", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
     return result
 }
 
@@ -727,7 +731,7 @@ export QueryTraceW(TraceId, InstanceName, _Properties) {
 export QueryTraceA(TraceId, InstanceName, _Properties) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\QueryTraceA", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\QueryTraceA", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
     return result
 }
 
@@ -837,7 +841,7 @@ export QueryTraceA(TraceId, InstanceName, _Properties) {
 export UpdateTraceW(TraceId, InstanceName, _Properties) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\UpdateTraceW", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\UpdateTraceW", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
     return result
 }
 
@@ -947,7 +951,7 @@ export UpdateTraceW(TraceId, InstanceName, _Properties) {
 export UpdateTraceA(TraceId, InstanceName, _Properties) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\UpdateTraceA", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\UpdateTraceA", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
     return result
 }
 
@@ -1032,7 +1036,7 @@ export UpdateTraceA(TraceId, InstanceName, _Properties) {
 export FlushTraceW(TraceId, InstanceName, _Properties) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\FlushTraceW", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\FlushTraceW", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
     return result
 }
 
@@ -1117,7 +1121,7 @@ export FlushTraceW(TraceId, InstanceName, _Properties) {
 export FlushTraceA(TraceId, InstanceName, _Properties) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\FlushTraceA", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\FlushTraceA", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, WIN32_ERROR)
     return result
 }
 
@@ -1278,7 +1282,7 @@ export FlushTraceA(TraceId, InstanceName, _Properties) {
 export ControlTraceW(TraceId, InstanceName, _Properties, ControlCode) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\ControlTraceW", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, EVENT_TRACE_CONTROL, ControlCode, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\ControlTraceW", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, EVENT_TRACE_CONTROL, ControlCode, WIN32_ERROR)
     return result
 }
 
@@ -1434,7 +1438,7 @@ export ControlTraceW(TraceId, InstanceName, _Properties, ControlCode) {
 export ControlTraceA(TraceId, InstanceName, _Properties, ControlCode) {
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    result := DllCall("ADVAPI32.dll\ControlTraceA", "uint", TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, EVENT_TRACE_CONTROL, ControlCode, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\ControlTraceA", Int64, TraceId, "ptr", InstanceName, EVENT_TRACE_PROPERTIES.Ptr, _Properties, EVENT_TRACE_CONTROL, ControlCode, WIN32_ERROR)
     return result
 }
 
@@ -1494,7 +1498,7 @@ export QueryAllTracesW(PropertyArray, PropertyArrayCount, LoggerCount) {
     PropertyArrayMarshal := PropertyArray is VarRef ? "ptr*" : "ptr"
     LoggerCountMarshal := LoggerCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\QueryAllTracesW", PropertyArrayMarshal, PropertyArray, "uint", PropertyArrayCount, LoggerCountMarshal, LoggerCount, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\QueryAllTracesW", PropertyArrayMarshal, PropertyArray, UInt32, PropertyArrayCount, LoggerCountMarshal, LoggerCount, WIN32_ERROR)
     return result
 }
 
@@ -1556,7 +1560,7 @@ export QueryAllTracesA(PropertyArray, PropertyArrayCount, LoggerCount) {
     PropertyArrayMarshal := PropertyArray is VarRef ? "ptr*" : "ptr"
     LoggerCountMarshal := LoggerCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\QueryAllTracesA", PropertyArrayMarshal, PropertyArray, "uint", PropertyArrayCount, LoggerCountMarshal, LoggerCount, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\QueryAllTracesA", PropertyArrayMarshal, PropertyArray, UInt32, PropertyArrayCount, LoggerCountMarshal, LoggerCount, WIN32_ERROR)
     return result
 }
 
@@ -1674,7 +1678,7 @@ export QueryAllTracesA(PropertyArray, PropertyArrayCount, LoggerCount) {
  * @since windows5.0
  */
 export EnableTrace(Enable, EnableFlag, EnableLevel, ControlGuid, TraceId) {
-    result := DllCall("ADVAPI32.dll\EnableTrace", "uint", Enable, "uint", EnableFlag, "uint", EnableLevel, Guid.Ptr, ControlGuid, "uint", TraceId, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\EnableTrace", UInt32, Enable, UInt32, EnableFlag, UInt32, EnableLevel, Guid.Ptr, ControlGuid, Int64, TraceId, WIN32_ERROR)
     return result
 }
 
@@ -1870,7 +1874,7 @@ export EnableTrace(Enable, EnableFlag, EnableLevel, ControlGuid, TraceId) {
  * @since windows6.0.6000
  */
 export EnableTraceEx(ProviderId, SourceId, TraceId, IsEnabled, Level, MatchAnyKeyword, MatchAllKeyword, EnableProperty, EnableFilterDesc) {
-    result := DllCall("ADVAPI32.dll\EnableTraceEx", Guid.Ptr, ProviderId, Guid.Ptr, SourceId, "uint", TraceId, "uint", IsEnabled, "char", Level, "uint", MatchAnyKeyword, "uint", MatchAllKeyword, "uint", EnableProperty, EVENT_FILTER_DESCRIPTOR.Ptr, EnableFilterDesc, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\EnableTraceEx", Guid.Ptr, ProviderId, Guid.Ptr, SourceId, Int64, TraceId, UInt32, IsEnabled, Int8, Level, Int64, MatchAnyKeyword, Int64, MatchAllKeyword, UInt32, EnableProperty, EVENT_FILTER_DESCRIPTOR.Ptr, EnableFilterDesc, WIN32_ERROR)
     return result
 }
 
@@ -2241,7 +2245,7 @@ export EnableTraceEx(ProviderId, SourceId, TraceId, IsEnabled, Level, MatchAnyKe
  * @since windows6.1
  */
 export EnableTraceEx2(TraceId, ProviderId, ControlCode, Level, MatchAnyKeyword, MatchAllKeyword, Timeout, EnableParameters) {
-    result := DllCall("ADVAPI32.dll\EnableTraceEx2", "uint", TraceId, Guid.Ptr, ProviderId, "uint", ControlCode, "char", Level, "uint", MatchAnyKeyword, "uint", MatchAllKeyword, "uint", Timeout, ENABLE_TRACE_PARAMETERS.Ptr, EnableParameters, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\EnableTraceEx2", Int64, TraceId, Guid.Ptr, ProviderId, UInt32, ControlCode, Int8, Level, Int64, MatchAnyKeyword, Int64, MatchAllKeyword, UInt32, Timeout, ENABLE_TRACE_PARAMETERS.Ptr, EnableParameters, WIN32_ERROR)
     return result
 }
 
@@ -2303,7 +2307,7 @@ export EnableTraceEx2(TraceId, ProviderId, ControlCode, Level, MatchAnyKeyword, 
 export EnumerateTraceGuidsEx(TraceQueryInfoClass, InBuffer, InBufferSize, OutBuffer, OutBufferSize, ReturnLength) {
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\EnumerateTraceGuidsEx", TRACE_QUERY_INFO_CLASS, TraceQueryInfoClass, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, ReturnLengthMarshal, ReturnLength, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\EnumerateTraceGuidsEx", TRACE_QUERY_INFO_CLASS, TraceQueryInfoClass, IntPtr, InBuffer, UInt32, InBufferSize, IntPtr, OutBuffer, UInt32, OutBufferSize, ReturnLengthMarshal, ReturnLength, WIN32_ERROR)
     return result
 }
 
@@ -2365,7 +2369,7 @@ export EnumerateTraceGuidsEx(TraceQueryInfoClass, InBuffer, InBufferSize, OutBuf
  * @since windows6.1
  */
 export TraceSetInformation(TraceId, InformationClass, TraceInformation, InformationLength) {
-    result := DllCall("ADVAPI32.dll\TraceSetInformation", "uint", TraceId, TRACE_QUERY_INFO_CLASS, InformationClass, "ptr", TraceInformation, "uint", InformationLength, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TraceSetInformation", Int64, TraceId, TRACE_QUERY_INFO_CLASS, InformationClass, IntPtr, TraceInformation, UInt32, InformationLength, WIN32_ERROR)
     return result
 }
 
@@ -2418,7 +2422,7 @@ export TraceSetInformation(TraceId, InformationClass, TraceInformation, Informat
 export TraceQueryInformation(TraceId, InformationClass, TraceInformation, InformationLength, ReturnLength) {
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TraceQueryInformation", "uint", TraceId, TRACE_QUERY_INFO_CLASS, InformationClass, "ptr", TraceInformation, "uint", InformationLength, ReturnLengthMarshal, ReturnLength, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TraceQueryInformation", Int64, TraceId, TRACE_QUERY_INFO_CLASS, InformationClass, IntPtr, TraceInformation, UInt32, InformationLength, ReturnLengthMarshal, ReturnLength, WIN32_ERROR)
     return result
 }
 
@@ -2431,7 +2435,7 @@ export TraceQueryInformation(TraceId, InformationClass, TraceInformation, Inform
  * @returns {Integer} 
  */
 export TraceConfigureLastBranchRecord(TraceId, LbrConfiguration, Events, EventCount) {
-    result := DllCall("ADVAPI32.dll\TraceConfigureLastBranchRecord", "uint", TraceId, TRACE_LBR_CONFIGURATION, LbrConfiguration, CLASSIC_EVENT_ID.Ptr, Events, "uint", EventCount, UInt32)
+    result := DllCall("ADVAPI32.dll\TraceConfigureLastBranchRecord", Int64, TraceId, TRACE_LBR_CONFIGURATION, LbrConfiguration, CLASSIC_EVENT_ID.Ptr, Events, UInt32, EventCount, UInt32)
     return result
 }
 
@@ -2579,7 +2583,7 @@ export CreateTraceInstanceId(_RegHandle, InstInfo) {
  * @since windows5.0
  */
 export TraceEvent(TraceHandle, EventTrace) {
-    result := DllCall("ADVAPI32.dll\TraceEvent", "uint", TraceHandle, EVENT_TRACE_HEADER.Ptr, EventTrace, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TraceEvent", Int64, TraceHandle, EVENT_TRACE_HEADER.Ptr, EventTrace, WIN32_ERROR)
     return result
 }
 
@@ -2708,7 +2712,7 @@ export TraceEvent(TraceHandle, EventTrace) {
  * @since windows5.0
  */
 export TraceEventInstance(TraceHandle, EventTrace, InstInfo, ParentInstInfo) {
-    result := DllCall("ADVAPI32.dll\TraceEventInstance", "uint", TraceHandle, EVENT_INSTANCE_HEADER.Ptr, EventTrace, EVENT_INSTANCE_INFO.Ptr, InstInfo, EVENT_INSTANCE_INFO.Ptr, ParentInstInfo, UInt32)
+    result := DllCall("ADVAPI32.dll\TraceEventInstance", Int64, TraceHandle, EVENT_INSTANCE_HEADER.Ptr, EventTrace, EVENT_INSTANCE_INFO.Ptr, InstInfo, EVENT_INSTANCE_INFO.Ptr, ParentInstInfo, UInt32)
     return result
 }
 
@@ -2850,7 +2854,7 @@ export RegisterTraceGuidsW(RequestAddress, RequestContext, ControlGuid, GuidCoun
     RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
     RegistrationHandleMarshal := RegistrationHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", "ptr", RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, "uint", GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", WMIDPREQUEST, RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
     return result
 }
 
@@ -2992,7 +2996,7 @@ export RegisterTraceGuidsA(RequestAddress, RequestContext, ControlGuid, GuidCoun
     RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
     RegistrationHandleMarshal := RegistrationHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", "ptr", RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, "uint", GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", WMIDPREQUEST, RequestAddress, RequestContextMarshal, RequestContext, Guid.Ptr, ControlGuid, UInt32, GuidCount, TRACE_GUID_REGISTRATION.Ptr, TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, RegistrationHandleMarshal, RegistrationHandle, UInt32)
     return result
 }
 
@@ -3049,7 +3053,7 @@ export EnumerateTraceGuids(GuidPropertiesArray, PropertyArrayCount, GuidCount) {
     GuidPropertiesArrayMarshal := GuidPropertiesArray is VarRef ? "ptr*" : "ptr"
     GuidCountMarshal := GuidCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\EnumerateTraceGuids", GuidPropertiesArrayMarshal, GuidPropertiesArray, "uint", PropertyArrayCount, GuidCountMarshal, GuidCount, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\EnumerateTraceGuids", GuidPropertiesArrayMarshal, GuidPropertiesArray, UInt32, PropertyArrayCount, GuidCountMarshal, GuidCount, WIN32_ERROR)
     return result
 }
 
@@ -3082,7 +3086,7 @@ export EnumerateTraceGuids(GuidPropertiesArray, PropertyArrayCount, GuidCount) {
  * @since windows5.0
  */
 export UnregisterTraceGuids(RegistrationHandle) {
-    result := DllCall("ADVAPI32.dll\UnregisterTraceGuids", "uint", RegistrationHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\UnregisterTraceGuids", Int64, RegistrationHandle, UInt32)
     return result
 }
 
@@ -3153,7 +3157,7 @@ export GetTraceLoggerHandle(_Buffer) {
 export GetTraceEnableLevel(TraceHandle) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetTraceEnableLevel", "uint", TraceHandle, Int8)
+    result := DllCall("ADVAPI32.dll\GetTraceEnableLevel", Int64, TraceHandle, Int8)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3191,7 +3195,7 @@ export GetTraceEnableLevel(TraceHandle) {
 export GetTraceEnableFlags(TraceHandle) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetTraceEnableFlags", "uint", TraceHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\GetTraceEnableFlags", Int64, TraceHandle, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3376,7 +3380,7 @@ export OpenTraceW(Logfile) {
  * @since windows5.0
  */
 export ProcessTrace(HandleArray, HandleCount, StartTime, EndTime) {
-    result := DllCall("ADVAPI32.dll\ProcessTrace", PROCESSTRACE_HANDLE.Ptr, HandleArray, "uint", HandleCount, FILETIME.Ptr, StartTime, FILETIME.Ptr, EndTime, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\ProcessTrace", PROCESSTRACE_HANDLE.Ptr, HandleArray, UInt32, HandleCount, FILETIME.Ptr, StartTime, FILETIME.Ptr, EndTime, WIN32_ERROR)
     return result
 }
 
@@ -3460,7 +3464,7 @@ export CloseTrace(TraceHandle) {
 export OpenTraceFromBufferStream(Options, BufferCompletionCallback, BufferCompletionContext) {
     BufferCompletionContextMarshal := BufferCompletionContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", ETW_OPEN_TRACE_OPTIONS.Ptr, Options, "ptr", BufferCompletionCallback, BufferCompletionContextMarshal, BufferCompletionContext, PROCESSTRACE_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", ETW_OPEN_TRACE_OPTIONS.Ptr, Options, PETW_BUFFER_COMPLETION_CALLBACK, BufferCompletionCallback, BufferCompletionContextMarshal, BufferCompletionContext, PROCESSTRACE_HANDLE.Owned)
     return result
 }
 
@@ -3508,7 +3512,7 @@ export OpenTraceFromRealTimeLogger(LoggerName, Options, LogFileHeader) {
 export OpenTraceFromRealTimeLoggerWithAllocationOptions(LoggerName, Options, AllocationSize, MemoryPartitionHandle, LogFileHeader) {
     LoggerName := LoggerName is String ? StrPtr(LoggerName) : LoggerName
 
-    result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLoggerWithAllocationOptions", "ptr", LoggerName, ETW_OPEN_TRACE_OPTIONS.Ptr, Options, "ptr", AllocationSize, HANDLE, MemoryPartitionHandle, TRACE_LOGFILE_HEADER.Ptr, LogFileHeader, PROCESSTRACE_HANDLE.Owned)
+    result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLoggerWithAllocationOptions", "ptr", LoggerName, ETW_OPEN_TRACE_OPTIONS.Ptr, Options, IntPtr, AllocationSize, HANDLE, MemoryPartitionHandle, TRACE_LOGFILE_HEADER.Ptr, LogFileHeader, PROCESSTRACE_HANDLE.Owned)
     return result
 }
 
@@ -3571,7 +3575,7 @@ export ProcessTraceBufferDecrementReference(_Buffer) {
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtraceaddbuffertobufferstream
  */
 export ProcessTraceAddBufferToBufferStream(TraceHandle, _Buffer, BufferSize) {
-    result := DllCall("ADVAPI32.dll\ProcessTraceAddBufferToBufferStream", PROCESSTRACE_HANDLE, TraceHandle, "ptr", _Buffer, "uint", BufferSize, UInt32)
+    result := DllCall("ADVAPI32.dll\ProcessTraceAddBufferToBufferStream", PROCESSTRACE_HANDLE, TraceHandle, IntPtr, _Buffer, UInt32, BufferSize, UInt32)
     return result
 }
 
@@ -3601,7 +3605,7 @@ export QueryTraceProcessingHandle(ProcessingHandle, InformationClass, InBuffer, 
     OutBufferMarshal := OutBuffer is VarRef ? "ptr" : "ptr"
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\QueryTraceProcessingHandle", PROCESSTRACE_HANDLE, ProcessingHandle, ETW_PROCESS_HANDLE_INFO_TYPE, InformationClass, InBufferMarshal, InBuffer, "uint", InBufferSize, OutBufferMarshal, OutBuffer, "uint", OutBufferSize, ReturnLengthMarshal, ReturnLength, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\QueryTraceProcessingHandle", PROCESSTRACE_HANDLE, ProcessingHandle, ETW_PROCESS_HANDLE_INFO_TYPE, InformationClass, InBufferMarshal, InBuffer, UInt32, InBufferSize, OutBufferMarshal, OutBuffer, UInt32, OutBufferSize, ReturnLengthMarshal, ReturnLength, WIN32_ERROR)
     return result
 }
 
@@ -3719,7 +3723,7 @@ export OpenTraceA(Logfile) {
  * @since windows5.0
  */
 export SetTraceCallback(pGuid, EventCallback) {
-    result := DllCall("ADVAPI32.dll\SetTraceCallback", Guid.Ptr, pGuid, "ptr", EventCallback, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\SetTraceCallback", Guid.Ptr, pGuid, PEVENT_CALLBACK, EventCallback, WIN32_ERROR)
     return result
 }
 
@@ -3875,7 +3879,7 @@ export TraceMessage(LoggerHandle, MessageFlags, MessageGuid, MessageNumber, args
     varArgs := [args*]
     varArgs.Push(WIN32_ERROR)
 
-    result := DllCall("ADVAPI32.dll\TraceMessage", "uint", LoggerHandle, TRACE_MESSAGE_FLAGS, MessageFlags, Guid.Ptr, MessageGuid, "ushort", MessageNumber, varArgs*)
+    result := DllCall("ADVAPI32.dll\TraceMessage", Int64, LoggerHandle, TRACE_MESSAGE_FLAGS, MessageFlags, Guid.Ptr, MessageGuid, UInt16, MessageNumber, varArgs*)
     return result
 }
 
@@ -3993,7 +3997,7 @@ export TraceMessage(LoggerHandle, MessageFlags, MessageGuid, MessageNumber, args
 export TraceMessageVa(LoggerHandle, MessageFlags, MessageGuid, MessageNumber, MessageArgList) {
     MessageArgListMarshal := MessageArgList is VarRef ? "char*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\TraceMessageVa", "uint", LoggerHandle, TRACE_MESSAGE_FLAGS, MessageFlags, Guid.Ptr, MessageGuid, "ushort", MessageNumber, MessageArgListMarshal, MessageArgList, WIN32_ERROR)
+    result := DllCall("ADVAPI32.dll\TraceMessageVa", Int64, LoggerHandle, TRACE_MESSAGE_FLAGS, MessageFlags, Guid.Ptr, MessageGuid, UInt16, MessageNumber, MessageArgListMarshal, MessageArgList, WIN32_ERROR)
     return result
 }
 
@@ -4087,7 +4091,7 @@ export TraceMessageVa(LoggerHandle, MessageFlags, MessageGuid, MessageNumber, Me
 export EventRegister(ProviderId, EnableCallback, CallbackContext, _RegHandle) {
     CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\EventRegister", Guid.Ptr, ProviderId, "ptr", EnableCallback, CallbackContextMarshal, CallbackContext, REGHANDLE.Ptr, _RegHandle, UInt32)
+    result := DllCall("ADVAPI32.dll\EventRegister", Guid.Ptr, ProviderId, PENABLECALLBACK, EnableCallback, CallbackContextMarshal, CallbackContext, REGHANDLE.Ptr, _RegHandle, UInt32)
     return result
 }
 
@@ -4141,7 +4145,7 @@ export EventUnregister(_RegHandle) {
  * @since windows8.0
  */
 export EventSetInformation(_RegHandle, InformationClass, EventInformation, InformationLength) {
-    result := DllCall("ADVAPI32.dll\EventSetInformation", REGHANDLE, _RegHandle, EVENT_INFO_CLASS, InformationClass, "ptr", EventInformation, "uint", InformationLength, UInt32)
+    result := DllCall("ADVAPI32.dll\EventSetInformation", REGHANDLE, _RegHandle, EVENT_INFO_CLASS, InformationClass, IntPtr, EventInformation, UInt32, InformationLength, UInt32)
     return result
 }
 
@@ -4241,7 +4245,7 @@ export EventEnabled(_RegHandle, EventDescriptor) {
  * @since windows6.0.6000
  */
 export EventProviderEnabled(_RegHandle, Level, Keyword) {
-    result := DllCall("ADVAPI32.dll\EventProviderEnabled", REGHANDLE, _RegHandle, "char", Level, "uint", Keyword, BOOLEAN)
+    result := DllCall("ADVAPI32.dll\EventProviderEnabled", REGHANDLE, _RegHandle, Int8, Level, Int64, Keyword, BOOLEAN)
     return result
 }
 
@@ -4327,7 +4331,7 @@ export EventProviderEnabled(_RegHandle, Level, Keyword) {
  * @since windows6.0.6000
  */
 export EventWrite(_RegHandle, EventDescriptor, UserDataCount, _UserData) {
-    result := DllCall("ADVAPI32.dll\EventWrite", REGHANDLE, _RegHandle, EVENT_DESCRIPTOR.Ptr, EventDescriptor, "uint", UserDataCount, EVENT_DATA_DESCRIPTOR.Ptr, _UserData, UInt32)
+    result := DllCall("ADVAPI32.dll\EventWrite", REGHANDLE, _RegHandle, EVENT_DESCRIPTOR.Ptr, EventDescriptor, UInt32, UserDataCount, EVENT_DATA_DESCRIPTOR.Ptr, _UserData, UInt32)
     return result
 }
 
@@ -4427,7 +4431,7 @@ export EventWrite(_RegHandle, EventDescriptor, UserDataCount, _UserData) {
  * @since windows6.0.6000
  */
 export EventWriteTransfer(_RegHandle, EventDescriptor, ActivityId, RelatedActivityId, UserDataCount, _UserData) {
-    result := DllCall("ADVAPI32.dll\EventWriteTransfer", REGHANDLE, _RegHandle, EVENT_DESCRIPTOR.Ptr, EventDescriptor, Guid.Ptr, ActivityId, Guid.Ptr, RelatedActivityId, "uint", UserDataCount, EVENT_DATA_DESCRIPTOR.Ptr, _UserData, UInt32)
+    result := DllCall("ADVAPI32.dll\EventWriteTransfer", REGHANDLE, _RegHandle, EVENT_DESCRIPTOR.Ptr, EventDescriptor, Guid.Ptr, ActivityId, Guid.Ptr, RelatedActivityId, UInt32, UserDataCount, EVENT_DATA_DESCRIPTOR.Ptr, _UserData, UInt32)
     return result
 }
 
@@ -4549,7 +4553,7 @@ export EventWriteTransfer(_RegHandle, EventDescriptor, ActivityId, RelatedActivi
  * @since windows6.1
  */
 export EventWriteEx(_RegHandle, EventDescriptor, Filter, Flags, ActivityId, RelatedActivityId, UserDataCount, _UserData) {
-    result := DllCall("ADVAPI32.dll\EventWriteEx", REGHANDLE, _RegHandle, EVENT_DESCRIPTOR.Ptr, EventDescriptor, "uint", Filter, "uint", Flags, Guid.Ptr, ActivityId, Guid.Ptr, RelatedActivityId, "uint", UserDataCount, EVENT_DATA_DESCRIPTOR.Ptr, _UserData, UInt32)
+    result := DllCall("ADVAPI32.dll\EventWriteEx", REGHANDLE, _RegHandle, EVENT_DESCRIPTOR.Ptr, EventDescriptor, Int64, Filter, UInt32, Flags, Guid.Ptr, ActivityId, Guid.Ptr, RelatedActivityId, UInt32, UserDataCount, EVENT_DATA_DESCRIPTOR.Ptr, _UserData, UInt32)
     return result
 }
 
@@ -4655,7 +4659,7 @@ export EventWriteEx(_RegHandle, EventDescriptor, Filter, Flags, ActivityId, Rela
 export EventWriteString(_RegHandle, Level, Keyword, _String) {
     _String := _String is String ? StrPtr(_String) : _String
 
-    result := DllCall("ADVAPI32.dll\EventWriteString", REGHANDLE, _RegHandle, "char", Level, "uint", Keyword, "ptr", _String, UInt32)
+    result := DllCall("ADVAPI32.dll\EventWriteString", REGHANDLE, _RegHandle, Int8, Level, Int64, Keyword, "ptr", _String, UInt32)
     return result
 }
 
@@ -4739,7 +4743,7 @@ export EventWriteString(_RegHandle, Level, Keyword, _String) {
  * @since windows6.0.6000
  */
 export EventActivityIdControl(ControlCode, ActivityId) {
-    result := DllCall("ADVAPI32.dll\EventActivityIdControl", "uint", ControlCode, Guid.Ptr, ActivityId, UInt32)
+    result := DllCall("ADVAPI32.dll\EventActivityIdControl", UInt32, ControlCode, Guid.Ptr, ActivityId, UInt32)
     return result
 }
 
@@ -4875,7 +4879,7 @@ export EventActivityIdControl(ControlCode, ActivityId) {
  * @since windows6.0.6000
  */
 export EventAccessControl(Guid, Operation, _Sid, Rights, AllowOrDeny) {
-    result := DllCall("ADVAPI32.dll\EventAccessControl", Guid.Ptr, Guid, "uint", Operation, PSID, _Sid, "uint", Rights, BOOLEAN, AllowOrDeny, UInt32)
+    result := DllCall("ADVAPI32.dll\EventAccessControl", Guid.Ptr, Guid, UInt32, Operation, PSID, _Sid, UInt32, Rights, BOOLEAN, AllowOrDeny, UInt32)
     return result
 }
 
@@ -4915,7 +4919,7 @@ export EventAccessControl(Guid, Operation, _Sid, Rights, AllowOrDeny) {
 export EventAccessQuery(Guid, _Buffer, BufferSize) {
     BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\EventAccessQuery", Guid.Ptr, Guid, "ptr", _Buffer, BufferSizeMarshal, BufferSize, UInt32)
+    result := DllCall("ADVAPI32.dll\EventAccessQuery", Guid.Ptr, Guid, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, UInt32)
     return result
 }
 
@@ -5033,7 +5037,7 @@ export EventAccessRemove(Guid) {
 export TdhCreatePayloadFilter(ProviderGuid, EventDescriptor, EventMatchANY, PayloadPredicateCount, PayloadPredicates, PayloadFilter) {
     PayloadFilterMarshal := PayloadFilter is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("tdh.dll\TdhCreatePayloadFilter", Guid.Ptr, ProviderGuid, EVENT_DESCRIPTOR.Ptr, EventDescriptor, BOOLEAN, EventMatchANY, "uint", PayloadPredicateCount, PAYLOAD_FILTER_PREDICATE.Ptr, PayloadPredicates, PayloadFilterMarshal, PayloadFilter, UInt32)
+    result := DllCall("tdh.dll\TdhCreatePayloadFilter", Guid.Ptr, ProviderGuid, EVENT_DESCRIPTOR.Ptr, EventDescriptor, BOOLEAN, EventMatchANY, UInt32, PayloadPredicateCount, PAYLOAD_FILTER_PREDICATE.Ptr, PayloadPredicates, PayloadFilterMarshal, PayloadFilter, UInt32)
     return result
 }
 
@@ -5126,7 +5130,7 @@ export TdhAggregatePayloadFilters(PayloadFilterCount, PayloadFilterPtrs, EventMa
     PayloadFilterPtrsMarshal := PayloadFilterPtrs is VarRef ? "ptr*" : "ptr"
     EventMatchALLFlagsMarshal := EventMatchALLFlags is VarRef ? "char*" : "ptr"
 
-    result := DllCall("tdh.dll\TdhAggregatePayloadFilters", "uint", PayloadFilterCount, PayloadFilterPtrsMarshal, PayloadFilterPtrs, EventMatchALLFlagsMarshal, EventMatchALLFlags, EVENT_FILTER_DESCRIPTOR.Ptr, EventFilterDescriptor, UInt32)
+    result := DllCall("tdh.dll\TdhAggregatePayloadFilters", UInt32, PayloadFilterCount, PayloadFilterPtrsMarshal, PayloadFilterPtrs, EventMatchALLFlagsMarshal, EventMatchALLFlags, EVENT_FILTER_DESCRIPTOR.Ptr, EventFilterDescriptor, UInt32)
     return result
 }
 
@@ -5244,7 +5248,7 @@ export TdhCleanupPayloadEventFilterDescriptor(EventFilterDescriptor) {
 export TdhGetEventInformation(Event, TdhContextCount, TdhContext, _Buffer, BufferSize) {
     BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TDH.dll\TdhGetEventInformation", EVENT_RECORD.Ptr, Event, "uint", TdhContextCount, TDH_CONTEXT.Ptr, TdhContext, "ptr", _Buffer, BufferSizeMarshal, BufferSize, UInt32)
+    result := DllCall("TDH.dll\TdhGetEventInformation", EVENT_RECORD.Ptr, Event, UInt32, TdhContextCount, TDH_CONTEXT.Ptr, TdhContext, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, UInt32)
     return result
 }
 
@@ -5329,7 +5333,7 @@ export TdhGetEventMapInformation(pEvent, pMapName, pBuffer, pBufferSize) {
 
     pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TDH.dll\TdhGetEventMapInformation", EVENT_RECORD.Ptr, pEvent, "ptr", pMapName, "ptr", pBuffer, pBufferSizeMarshal, pBufferSize, UInt32)
+    result := DllCall("TDH.dll\TdhGetEventMapInformation", EVENT_RECORD.Ptr, pEvent, "ptr", pMapName, IntPtr, pBuffer, pBufferSizeMarshal, pBufferSize, UInt32)
     return result
 }
 
@@ -5407,7 +5411,7 @@ export TdhGetEventMapInformation(pEvent, pMapName, pBuffer, pBufferSize) {
 export TdhGetPropertySize(pEvent, TdhContextCount, pTdhContext, PropertyDataCount, pPropertyData, pPropertySize) {
     pPropertySizeMarshal := pPropertySize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TDH.dll\TdhGetPropertySize", EVENT_RECORD.Ptr, pEvent, "uint", TdhContextCount, TDH_CONTEXT.Ptr, pTdhContext, "uint", PropertyDataCount, PROPERTY_DATA_DESCRIPTOR.Ptr, pPropertyData, pPropertySizeMarshal, pPropertySize, UInt32)
+    result := DllCall("TDH.dll\TdhGetPropertySize", EVENT_RECORD.Ptr, pEvent, UInt32, TdhContextCount, TDH_CONTEXT.Ptr, pTdhContext, UInt32, PropertyDataCount, PROPERTY_DATA_DESCRIPTOR.Ptr, pPropertyData, pPropertySizeMarshal, pPropertySize, UInt32)
     return result
 }
 
@@ -5495,7 +5499,7 @@ export TdhGetPropertySize(pEvent, TdhContextCount, pTdhContext, PropertyDataCoun
  * @since windows6.0.6000
  */
 export TdhGetProperty(pEvent, TdhContextCount, pTdhContext, PropertyDataCount, pPropertyData, BufferSize, pBuffer) {
-    result := DllCall("TDH.dll\TdhGetProperty", EVENT_RECORD.Ptr, pEvent, "uint", TdhContextCount, TDH_CONTEXT.Ptr, pTdhContext, "uint", PropertyDataCount, PROPERTY_DATA_DESCRIPTOR.Ptr, pPropertyData, "uint", BufferSize, "ptr", pBuffer, UInt32)
+    result := DllCall("TDH.dll\TdhGetProperty", EVENT_RECORD.Ptr, pEvent, UInt32, TdhContextCount, TDH_CONTEXT.Ptr, pTdhContext, UInt32, PropertyDataCount, PROPERTY_DATA_DESCRIPTOR.Ptr, pPropertyData, UInt32, BufferSize, IntPtr, pBuffer, UInt32)
     return result
 }
 
@@ -5519,7 +5523,7 @@ export TdhGetProperty(pEvent, TdhContextCount, pTdhContext, PropertyDataCount, p
 export TdhEnumerateProviders(pBuffer, pBufferSize) {
     pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TDH.dll\TdhEnumerateProviders", "ptr", pBuffer, pBufferSizeMarshal, pBufferSize, UInt32)
+    result := DllCall("TDH.dll\TdhEnumerateProviders", IntPtr, pBuffer, pBufferSizeMarshal, pBufferSize, UInt32)
     return result
 }
 
@@ -5542,7 +5546,7 @@ export TdhEnumerateProviders(pBuffer, pBufferSize) {
 export TdhEnumerateProvidersForDecodingSource(filter, _buffer, bufferSize, bufferRequired) {
     bufferRequiredMarshal := bufferRequired is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("tdh.dll\TdhEnumerateProvidersForDecodingSource", DECODING_SOURCE, filter, "ptr", _buffer, "uint", bufferSize, bufferRequiredMarshal, bufferRequired, UInt32)
+    result := DllCall("tdh.dll\TdhEnumerateProvidersForDecodingSource", DECODING_SOURCE, filter, IntPtr, _buffer, UInt32, bufferSize, bufferRequiredMarshal, bufferRequired, UInt32)
     return result
 }
 
@@ -5624,7 +5628,7 @@ export TdhEnumerateProvidersForDecodingSource(filter, _buffer, bufferSize, buffe
 export TdhQueryProviderFieldInformation(pGuid, EventFieldValue, EventFieldType, pBuffer, pBufferSize) {
     pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TDH.dll\TdhQueryProviderFieldInformation", Guid.Ptr, pGuid, "uint", EventFieldValue, EVENT_FIELD_TYPE, EventFieldType, "ptr", pBuffer, pBufferSizeMarshal, pBufferSize, UInt32)
+    result := DllCall("TDH.dll\TdhQueryProviderFieldInformation", Guid.Ptr, pGuid, Int64, EventFieldValue, EVENT_FIELD_TYPE, EventFieldType, IntPtr, pBuffer, pBufferSizeMarshal, pBufferSize, UInt32)
     return result
 }
 
@@ -5705,7 +5709,7 @@ export TdhQueryProviderFieldInformation(pGuid, EventFieldValue, EventFieldType, 
 export TdhEnumerateProviderFieldInformation(pGuid, EventFieldType, pBuffer, pBufferSize) {
     pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TDH.dll\TdhEnumerateProviderFieldInformation", Guid.Ptr, pGuid, EVENT_FIELD_TYPE, EventFieldType, "ptr", pBuffer, pBufferSizeMarshal, pBufferSize, UInt32)
+    result := DllCall("TDH.dll\TdhEnumerateProviderFieldInformation", Guid.Ptr, pGuid, EVENT_FIELD_TYPE, EventFieldType, IntPtr, pBuffer, pBufferSizeMarshal, pBufferSize, UInt32)
     return result
 }
 
@@ -5778,7 +5782,7 @@ export TdhEnumerateProviderFilters(Guid, TdhContextCount, TdhContext, FilterCoun
     FilterCountMarshal := FilterCount is VarRef ? "uint*" : "ptr"
     BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("tdh.dll\TdhEnumerateProviderFilters", Guid.Ptr, Guid, "uint", TdhContextCount, TDH_CONTEXT.Ptr, TdhContext, FilterCountMarshal, FilterCount, "ptr", _Buffer, BufferSizeMarshal, BufferSize, UInt32)
+    result := DllCall("tdh.dll\TdhEnumerateProviderFilters", Guid.Ptr, Guid, UInt32, TdhContextCount, TDH_CONTEXT.Ptr, TdhContext, FilterCountMarshal, FilterCount, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, UInt32)
     return result
 }
 
@@ -5859,7 +5863,7 @@ export TdhLoadManifest(Manifest) {
  * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhloadmanifestfrommemory
  */
 export TdhLoadManifestFromMemory(pData, cbData) {
-    result := DllCall("TDH.dll\TdhLoadManifestFromMemory", "ptr", pData, "uint", cbData, UInt32)
+    result := DllCall("TDH.dll\TdhLoadManifestFromMemory", IntPtr, pData, UInt32, cbData, UInt32)
     return result
 }
 
@@ -5938,7 +5942,7 @@ export TdhUnloadManifest(Manifest) {
  * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhunloadmanifestfrommemory
  */
 export TdhUnloadManifestFromMemory(pData, cbData) {
-    result := DllCall("TDH.dll\TdhUnloadManifestFromMemory", "ptr", pData, "uint", cbData, UInt32)
+    result := DllCall("TDH.dll\TdhUnloadManifestFromMemory", IntPtr, pData, UInt32, cbData, UInt32)
     return result
 }
 
@@ -5981,7 +5985,7 @@ export TdhFormatProperty(EventInfo, MapInfo, PointerSize, PropertyInType, Proper
     BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
     UserDataConsumedMarshal := UserDataConsumed is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("TDH.dll\TdhFormatProperty", TRACE_EVENT_INFO.Ptr, EventInfo, EVENT_MAP_INFO.Ptr, MapInfo, "uint", PointerSize, "ushort", PropertyInType, "ushort", PropertyOutType, "ushort", PropertyLength, "ushort", UserDataLength, "ptr", _UserData, BufferSizeMarshal, BufferSize, "ptr", _Buffer, UserDataConsumedMarshal, UserDataConsumed, UInt32)
+    result := DllCall("TDH.dll\TdhFormatProperty", TRACE_EVENT_INFO.Ptr, EventInfo, EVENT_MAP_INFO.Ptr, MapInfo, UInt32, PointerSize, UInt16, PropertyInType, UInt16, PropertyOutType, UInt16, PropertyLength, UInt16, UserDataLength, IntPtr, _UserData, BufferSizeMarshal, BufferSize, IntPtr, _Buffer, UserDataConsumedMarshal, UserDataConsumed, UInt32)
     return result
 }
 
@@ -6200,7 +6204,7 @@ export TdhGetWppProperty(_Handle, EventRecord, PropertyName, BufferSize, _Buffer
 
     BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("tdh.dll\TdhGetWppProperty", TDH_HANDLE, _Handle, EVENT_RECORD.Ptr, EventRecord, "ptr", PropertyName, BufferSizeMarshal, BufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("tdh.dll\TdhGetWppProperty", TDH_HANDLE, _Handle, EVENT_RECORD.Ptr, EventRecord, "ptr", PropertyName, BufferSizeMarshal, BufferSize, IntPtr, _Buffer, UInt32)
     return result
 }
 
@@ -6269,7 +6273,7 @@ export TdhGetWppProperty(_Handle, EventRecord, PropertyName, BufferSize, _Buffer
 export TdhGetWppMessage(_Handle, EventRecord, BufferSize, _Buffer) {
     BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("tdh.dll\TdhGetWppMessage", TDH_HANDLE, _Handle, EVENT_RECORD.Ptr, EventRecord, BufferSizeMarshal, BufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("tdh.dll\TdhGetWppMessage", TDH_HANDLE, _Handle, EVENT_RECORD.Ptr, EventRecord, BufferSizeMarshal, BufferSize, IntPtr, _Buffer, UInt32)
     return result
 }
 
@@ -6395,7 +6399,7 @@ export TdhLoadManifestFromBinary(BinaryPath) {
 export TdhEnumerateManifestProviderEvents(ProviderGuid, _Buffer, BufferSize) {
     BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TDH.dll\TdhEnumerateManifestProviderEvents", Guid.Ptr, ProviderGuid, "ptr", _Buffer, BufferSizeMarshal, BufferSize, UInt32)
+    result := DllCall("TDH.dll\TdhEnumerateManifestProviderEvents", Guid.Ptr, ProviderGuid, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, UInt32)
     return result
 }
 
@@ -6474,7 +6478,7 @@ export TdhEnumerateManifestProviderEvents(ProviderGuid, _Buffer, BufferSize) {
 export TdhGetManifestEventInformation(ProviderGuid, EventDescriptor, _Buffer, BufferSize) {
     BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TDH.dll\TdhGetManifestEventInformation", Guid.Ptr, ProviderGuid, EVENT_DESCRIPTOR.Ptr, EventDescriptor, "ptr", _Buffer, BufferSizeMarshal, BufferSize, UInt32)
+    result := DllCall("TDH.dll\TdhGetManifestEventInformation", Guid.Ptr, ProviderGuid, EVENT_DESCRIPTOR.Ptr, EventDescriptor, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, UInt32)
     return result
 }
 

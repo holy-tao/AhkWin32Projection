@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\..\System\WinRT\IInspectable.ahk" { IInspectable }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a XAML Diagnostics session.
@@ -87,7 +87,7 @@ export default struct IXamlDiagnostics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getiinspectablefromhandle
      */
     GetIInspectableFromHandle(instanceHandle) {
-        result := ComCall(6, this, "uint", instanceHandle, "ptr*", &ppInstance := 0, "HRESULT")
+        result := ComCall(6, this, Int64, instanceHandle, "ptr*", &ppInstance := 0, "HRESULT")
         return IInspectable(ppInstance)
     }
 

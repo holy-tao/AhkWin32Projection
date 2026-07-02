@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IReconcileInitiator.ahk" { IReconcileInitiator }
-#Import "..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import ".\IReconcileInitiator.ahk" { IReconcileInitiator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that reconcile a given document. The briefcase reconciler is responsible for implementing this interface.
@@ -78,7 +78,7 @@ export default struct IReconcilableObject extends IUnknown {
     Reconcile(pInitiator, dwFlags, hwndOwner, hwndProgressFeedback, ulcInput, rgpmkOtherInput, pstgNewResidues) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(3, this, "ptr", pInitiator, "uint", dwFlags, HWND, hwndOwner, HWND, hwndProgressFeedback, "uint", ulcInput, IMoniker.Ptr, rgpmkOtherInput, "int*", &plOutIndex := 0, "ptr", pstgNewResidues, "ptr", pvReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pInitiator, UInt32, dwFlags, HWND, hwndOwner, HWND, hwndProgressFeedback, UInt32, ulcInput, IMoniker.Ptr, rgpmkOtherInput, "int*", &plOutIndex := 0, "ptr", pstgNewResidues, "ptr", pvReserved, "HRESULT")
         return plOutIndex
     }
 

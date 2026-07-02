@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\RECO_LATTICE_PROPERTIES.ahk" { RECO_LATTICE_PROPERTIES }
-#Import ".\RECO_LATTICE_PROPERTY.ahk" { RECO_LATTICE_PROPERTY }
 #Import ".\RECO_LATTICE_ELEMENT.ahk" { RECO_LATTICE_ELEMENT }
+#Import ".\RECO_LATTICE_PROPERTY.ahk" { RECO_LATTICE_PROPERTY }
 
 /**
  * Represents a column in the lattice.

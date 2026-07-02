@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IDispenserManager.ahk" { IDispenserManager }
 #Import "..\Com\APTTYPE.ahk" { APTTYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDispenserManager.ahk" { IDispenserManager }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
@@ -338,7 +338,7 @@ export SafeRef(rid, pUnk) {
  * @since windows5.0
  */
 export RecycleSurrogate(lReasonCode) {
-    result := DllCall("comsvcs.dll\RecycleSurrogate", "int", lReasonCode, "HRESULT")
+    result := DllCall("comsvcs.dll\RecycleSurrogate", Int32, lReasonCode, "HRESULT")
     return result
 }
 
@@ -363,7 +363,7 @@ export MTSCreateActivity(riid, ppobj) {
 
 /**
  * Retrieves the dispenser manager's IDispenserManager interface.
- * @returns {IDispenserManager} 
+ * @returns {IDispenserManager} A pointer to the location that receives the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-idispensermanager">IDispenserManager</a> interface pointer.
  * @see https://learn.microsoft.com/windows/win32/api/mtxdm/nf-mtxdm-getdispensermanager
  * @since windows5.0
  */

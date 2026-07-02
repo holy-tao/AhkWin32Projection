@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SCRIPTTRACEINFO.ahk" { SCRIPTTRACEINFO }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SCRIPTTRACEINFO.ahk" { SCRIPTTRACEINFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -47,7 +47,7 @@ export default struct IActiveScriptSiteTraceInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     SendScriptTraceInfo(stiEventType, guidContextID, dwScriptContextCookie, lScriptStatementStart, lScriptStatementEnd, dwReserved) {
-        result := ComCall(3, this, SCRIPTTRACEINFO, stiEventType, Guid, guidContextID, "uint", dwScriptContextCookie, "int", lScriptStatementStart, "int", lScriptStatementEnd, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, SCRIPTTRACEINFO, stiEventType, Guid, guidContextID, UInt32, dwScriptContextCookie, Int32, lScriptStatementStart, Int32, lScriptStatementEnd, Int64, dwReserved, "HRESULT")
         return result
     }
 

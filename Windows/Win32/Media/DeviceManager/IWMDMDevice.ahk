@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WMDMID.ahk" { WMDMID }
-#Import ".\IWMDMEnumStorage.ahk" { IWMDMEnumStorage }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMDMEnumStorage.ahk" { IWMDMEnumStorage }
 
 /**
  * The IWMDMDevice interface provides methods to examine and explore a single portable device. The interface can be used to get information about a device and enumerate its storages. IWMDMDevice2 extends the capabilities of this interface.
@@ -75,7 +75,7 @@ export default struct IWMDMDevice extends IUnknown {
     GetName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(3, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IWMDMDevice extends IUnknown {
     GetManufacturer(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(4, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 

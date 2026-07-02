@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
 #Import ".\DXVAHD_FILTER_RANGE_DATA.ahk" { DXVAHD_FILTER_RANGE_DATA }
-#Import ".\IDXVAHD_VideoProcessor.ahk" { IDXVAHD_VideoProcessor }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
-#Import ".\DXVAHD_CUSTOM_RATE_DATA.ahk" { DXVAHD_CUSTOM_RATE_DATA }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import ".\DXVAHD_FILTER.ahk" { DXVAHD_FILTER }
 #Import ".\DXVAHD_SURFACE_TYPE.ahk" { DXVAHD_SURFACE_TYPE }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\IDXVAHD_VideoProcessor.ahk" { IDXVAHD_VideoProcessor }
+#Import ".\DXVAHD_CUSTOM_RATE_DATA.ahk" { DXVAHD_CUSTOM_RATE_DATA }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DXVAHD_VPDEVCAPS.ahk" { DXVAHD_VPDEVCAPS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DXVAHD_FILTER.ahk" { DXVAHD_FILTER }
+#Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
 #Import ".\DXVAHD_VPCAPS.ahk" { DXVAHD_VPCAPS }
 
 /**
@@ -69,7 +69,7 @@ export default struct IDXVAHD_Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-createvideosurface
      */
     CreateVideoSurface(Width, Height, Format, Pool, Usage, Type, NumSurfaces, pSharedHandle) {
-        result := ComCall(3, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DPOOL, Pool, "uint", Usage, DXVAHD_SURFACE_TYPE, Type, "uint", NumSurfaces, "ptr*", &ppSurfaces := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(3, this, UInt32, Width, UInt32, Height, D3DFORMAT, Format, D3DPOOL, Pool, UInt32, Usage, DXVAHD_SURFACE_TYPE, Type, UInt32, NumSurfaces, "ptr*", &ppSurfaces := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurfaces)
     }
 
@@ -93,7 +93,7 @@ export default struct IDXVAHD_Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessoroutputformats
      */
     GetVideoProcessorOutputFormats(Count) {
-        result := ComCall(5, this, "uint", Count, "uint*", &pFormats := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, Count, "uint*", &pFormats := 0, "HRESULT")
         return pFormats
     }
 
@@ -106,7 +106,7 @@ export default struct IDXVAHD_Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorinputformats
      */
     GetVideoProcessorInputFormats(Count) {
-        result := ComCall(6, this, "uint", Count, "uint*", &pFormats := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, Count, "uint*", &pFormats := 0, "HRESULT")
         return pFormats
     }
 
@@ -118,7 +118,7 @@ export default struct IDXVAHD_Device extends IUnknown {
      */
     GetVideoProcessorCaps(Count) {
         pCaps := DXVAHD_VPCAPS()
-        result := ComCall(7, this, "uint", Count, DXVAHD_VPCAPS.Ptr, pCaps, "HRESULT")
+        result := ComCall(7, this, UInt32, Count, DXVAHD_VPCAPS.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -131,7 +131,7 @@ export default struct IDXVAHD_Device extends IUnknown {
      */
     GetVideoProcessorCustomRates(pVPGuid, Count) {
         pRates := DXVAHD_CUSTOM_RATE_DATA()
-        result := ComCall(8, this, Guid.Ptr, pVPGuid, "uint", Count, DXVAHD_CUSTOM_RATE_DATA.Ptr, pRates, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pVPGuid, UInt32, Count, DXVAHD_CUSTOM_RATE_DATA.Ptr, pRates, "HRESULT")
         return pRates
     }
 

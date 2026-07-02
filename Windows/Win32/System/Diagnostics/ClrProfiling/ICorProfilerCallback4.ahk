@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ICorProfilerFunctionControl.ahk" { ICorProfilerFunctionControl }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ICorProfilerCallback3.ahk" { ICorProfilerCallback3 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -50,7 +50,7 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
      * @returns {HRESULT} 
      */
     ReJITCompilationStarted(functionId, rejitId, fIsSafeToBlock) {
-        result := ComCall(83, this, "ptr", functionId, "ptr", rejitId, BOOL, fIsSafeToBlock, "HRESULT")
+        result := ComCall(83, this, IntPtr, functionId, IntPtr, rejitId, BOOL, fIsSafeToBlock, "HRESULT")
         return result
     }
 
@@ -62,7 +62,7 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
      * @returns {HRESULT} 
      */
     GetReJITParameters(moduleId, methodId, pFunctionControl) {
-        result := ComCall(84, this, "ptr", moduleId, "uint", methodId, "ptr", pFunctionControl, "HRESULT")
+        result := ComCall(84, this, IntPtr, moduleId, UInt32, methodId, "ptr", pFunctionControl, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
      * @returns {HRESULT} 
      */
     ReJITCompilationFinished(functionId, rejitId, hrStatus, fIsSafeToBlock) {
-        result := ComCall(85, this, "ptr", functionId, "ptr", rejitId, "int", hrStatus, BOOL, fIsSafeToBlock, "HRESULT")
+        result := ComCall(85, this, IntPtr, functionId, IntPtr, rejitId, "int", hrStatus, BOOL, fIsSafeToBlock, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
      * @returns {HRESULT} 
      */
     ReJITError(moduleId, methodId, functionId, hrStatus) {
-        result := ComCall(86, this, "ptr", moduleId, "uint", methodId, "ptr", functionId, "int", hrStatus, "HRESULT")
+        result := ComCall(86, this, IntPtr, moduleId, UInt32, methodId, IntPtr, functionId, "int", hrStatus, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
         newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
         cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(87, this, "uint", cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
+        result := ComCall(87, this, UInt32, cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 
@@ -120,7 +120,7 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
         objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : "ptr"
         cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(88, this, "uint", cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
+        result := ComCall(88, this, UInt32, cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 

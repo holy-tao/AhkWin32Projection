@@ -1,0 +1,149 @@
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+
+/**
+ * The TaskDialogCallbackProc function is an application-defined function used with the TaskDialogIndirect function.
+ * @remarks
+ * An application must register this callback function by passing its address in the <b>pfCallback</b> member of  the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialogconfig">TASKDIALOGCONFIG</a> structure that is passed via pointer through <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-taskdialogindirect">TaskDialogIndirect</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/nc-commctrl-pftaskdialogcallback
+ * @namespace Windows.Win32.UI.Controls
+ */
+export default struct PFTASKDIALOGCALLBACK {
+    value : IntPtr
+
+    __value {
+        set {
+            if (value is PFTASKDIALOGCALLBACK) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * 
+     * Handle to the TaskDialog window. Do not continue sending messages to hwnd after the callback procedure returns from having been called with <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-destroyed">TDN_DESTROYED</a>.
+     * @param {Integer} _msg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * One of the following notifications.
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Notification</th>
+     * <th>Usage</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-button-clicked">TDN_BUTTON_CLICKED</a>
+     * </td>
+     * <td>Indicates that a button has been selected. The command ID of the button is specified by <i>wParam</i>.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-created">TDN_CREATED</a>
+     * </td>
+     * <td>Indicates that the Task Dialog has been created.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-destroyed">TDN_DESTROYED</a>
+     * </td>
+     * <td>Indicates that the Task Dialog has been destroyed.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-dialog-constructed">TDN_DIALOG_CONSTRUCTED</a>
+     * </td>
+     * <td>Indicates that the Task Dialog has been created but has not been displayed yet.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-expando-button-clicked">TDN_EXPANDO_BUTTON_CLICKED</a>
+     * </td>
+     * <td>Indicates that the expando button has been selected.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-help">TDN_HELP</a>
+     * </td>
+     * <td>Indicates that the F1 key has been pressed while the Task Dialog has focus.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-hyperlink-clicked">TDN_HYPERLINK_CLICKED</a>
+     * </td>
+     * <td>Indicates that a hyperlink has been selected. A pointer to the link text is specified by <i>lParam</i>.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-navigated">TDN_NAVIGATED</a>
+     * </td>
+     * <td>Indicates that navigation has occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-radio-button-clicked">TDN_RADIO_BUTTON_CLICKED</a>
+     * </td>
+     * <td>Indicates that a radio button has been selected. The command ID of the radio button is specified by <i>wParam</i>.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-timer">TDN_TIMER</a>
+     * </td>
+     * <td>Indicates that the Task Dialog timer has fired. The total elapsed time is specified by <i>wParam</i>. You can update the progress bar by sending a <a href="https://docs.microsoft.com/windows/desktop/Controls/tdm-set-progress-bar-pos">TDM_SET_PROGRESS_BAR_POS</a> message to the window specified by the <i>hwnd</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-verification-clicked">TDN_VERIFICATION_CLICKED</a>
+     * </td>
+     * <td>Indicates that the Task Dialog verification check box has been selected.</td>
+     * </tr>
+     * </table>
+     * @param {WPARAM} _wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
+     * 
+     * Specifies additional notification information.  The contents of this parameter depend on the value of the <i>uNotification</i> parameter.
+     * @param {LPARAM} _lParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
+     * 
+     * Specifies additional notification information.  The contents of this parameter depend on the value of the <i>uNotification</i> parameter.
+     * @param {Pointer} lpRefData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG_PTR</a></b>
+     * 
+     * Pointer to application specific data. This is the data pointed to by the <b>lpCallbackData</b> member of structure <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialogconfig">TASKDIALOGCONFIG</a> used to create the task dialog.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * The return value is specific to the notification being processed. When responding to a button click, your implementation should return S_FALSE if the Task Dialog is not to close. Otherwise return S_OK.
+     */
+    Call(_hwnd, _msg, _wParam, _lParam, lpRefData) {
+        result := DllCall(this.value, HWND, _hwnd, UInt32, _msg, WPARAM, _wParam, LPARAM, _lParam, IntPtr, lpRefData, "HRESULT")
+        return result
+    }
+
+    /**
+     * A PFTASKDIALOGCALLBACK that invokes the given AHK function when called.
+     * This callback is owned by the script and cleaned up automatically.
+     */
+    struct From extends PFTASKDIALOGCALLBACK {
+        /**
+         * Creates a PFTASKDIALOGCALLBACK pointer that invokes the given AHK function when called.
+         * @param {Func(HWND, UInt32, WPARAM, LPARAM, IntPtr) => "int"} fn the function to invoke.
+         */
+        __New(fn) {
+            if (!HasMethod(fn, , 5)) {
+                throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
+            }
+            this.value := CallbackCreate(fn, , [HWND, UInt32, WPARAM, LPARAM, IntPtr, "int"])
+        }
+
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
+    }
+}

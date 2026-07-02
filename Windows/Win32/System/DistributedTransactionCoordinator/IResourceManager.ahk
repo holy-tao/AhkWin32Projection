@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITransaction.ahk" { ITransaction }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITransactionEnlistmentAsync.ahk" { ITransactionEnlistmentAsync }
+#Import ".\XACTSTAT.ahk" { XACTSTAT }
 #Import ".\BOID.ahk" { BOID }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\XACTSTAT.ahk" { XACTSTAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITransactionResourceAsync.ahk" { ITransactionResourceAsync }
 
 /**
@@ -71,7 +71,7 @@ export default struct IResourceManager extends IUnknown {
     Reenlist(pPrepInfo, cbPrepInfo, lTimeout) {
         pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, "int*", &pXactStat := 0, "HRESULT")
+        result := ComCall(4, this, pPrepInfoMarshal, pPrepInfo, UInt32, cbPrepInfo, UInt32, lTimeout, "int*", &pXactStat := 0, "HRESULT")
         return pXactStat
     }
 

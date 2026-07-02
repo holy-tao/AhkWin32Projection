@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
-#Import ".\IPresentationBuffer.ahk" { IPresentationBuffer }
-#Import ".\IPresentationContent.ahk" { IPresentationContent }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import ".\IPresentationContent.ahk" { IPresentationContent }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IPresentationBuffer.ahk" { IPresentationBuffer }
 #Import ".\PresentationTransform.ahk" { PresentationTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Describes an `IPresentationContent` with a single bound buffer, that can be shared with the system compositor and displayed as content in the global visual tree.
@@ -153,7 +153,7 @@ export default struct IPresentationSurface extends IPresentationContent {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationsurface-setdisablereadback
      */
     SetDisableReadback(value) {
-        result := ComCall(10, this, "char", value, "HRESULT")
+        result := ComCall(10, this, Int8, value, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IPresentationSurface extends IPresentationContent {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationsurface-setletterboxingmargins
      */
     SetLetterboxingMargins(leftLetterboxSize, topLetterboxSize, rightLetterboxSize, bottomLetterboxSize) {
-        result := ComCall(11, this, "float", leftLetterboxSize, "float", topLetterboxSize, "float", rightLetterboxSize, "float", bottomLetterboxSize, "HRESULT")
+        result := ComCall(11, this, Float32, leftLetterboxSize, Float32, topLetterboxSize, Float32, rightLetterboxSize, Float32, bottomLetterboxSize, "HRESULT")
         return result
     }
 

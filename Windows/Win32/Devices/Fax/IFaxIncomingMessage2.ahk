@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFaxIncomingMessage.ahk" { IFaxIncomingMessage }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFaxIncomingMessage.ahk" { IFaxIncomingMessage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used by a fax client application to retrieve information about a received fax message in the archive of inbound faxes. (IFaxIncomingMessage2)

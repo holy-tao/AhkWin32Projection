@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\OFFLINEFILES_SETTING_VALUE_TYPE.ahk" { OFFLINEFILES_SETTING_VALUE_TYPE }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a setting that controls the behavior the Offline Files service.
@@ -85,7 +85,7 @@ export default struct IOfflineFilesSetting extends IUnknown {
      */
     GetPreference(dwScope) {
         pvarValue := VARIANT()
-        result := ComCall(5, this, VARIANT.Ptr, pvarValue, "uint", dwScope, "HRESULT")
+        result := ComCall(5, this, VARIANT.Ptr, pvarValue, UInt32, dwScope, "HRESULT")
         return pvarValue
     }
 
@@ -121,7 +121,7 @@ export default struct IOfflineFilesSetting extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-setpreference
      */
     SetPreference(pvarValue, dwScope) {
-        result := ComCall(7, this, VARIANT.Ptr, pvarValue, "uint", dwScope, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, pvarValue, UInt32, dwScope, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct IOfflineFilesSetting extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-deletepreference
      */
     DeletePreference(dwScope) {
-        result := ComCall(8, this, "uint", dwScope, "HRESULT")
+        result := ComCall(8, this, UInt32, dwScope, "HRESULT")
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct IOfflineFilesSetting extends IUnknown {
      */
     GetPolicy(dwScope) {
         pvarValue := VARIANT()
-        result := ComCall(9, this, VARIANT.Ptr, pvarValue, "uint", dwScope, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, pvarValue, UInt32, dwScope, "HRESULT")
         return pvarValue
     }
 

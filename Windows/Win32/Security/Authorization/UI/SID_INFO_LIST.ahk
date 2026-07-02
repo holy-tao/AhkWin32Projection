@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SID_INFO.ahk" { SID_INFO }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\PSID.ahk" { PSID }
-#Import ".\SID_INFO.ahk" { SID_INFO }
 
 /**
  * Contains a list of SID_INFO structures.

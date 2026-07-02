@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\AsnObjectIdentifier.ahk" { AsnObjectIdentifier }
-#Import ".\AsnAny.ahk" { AsnAny }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\AsnOctetString.ahk" { AsnOctetString }
+#Import ".\AsnAny.ahk" { AsnAny }
 
 /**
  * The SnmpVarBind structure represents an SNMP variable binding. This structure is used by multiple SNMP functions. This structure is not used by the WinSNMP API functions.

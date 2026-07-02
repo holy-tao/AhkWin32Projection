@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -45,7 +45,7 @@ export default struct IGetRow extends IUnknown {
      * @returns {IUnknown} 
      */
     GetRowFromHROW(pUnkOuter, hRow, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", hRow, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, IntPtr, hRow, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
     }
 
@@ -55,7 +55,7 @@ export default struct IGetRow extends IUnknown {
      * @returns {PWSTR} 
      */
     GetURLFromHROW(hRow) {
-        result := ComCall(4, this, "ptr", hRow, PWSTR.Ptr, &ppwszURL := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, hRow, PWSTR.Ptr, &ppwszURL := 0, "HRESULT")
         return ppwszURL
     }
 

@@ -1,59 +1,68 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\ACMDRIVERDETAILSW.ahk" { ACMDRIVERDETAILSW as ACMDRIVERDETAILSW_struct }
-#Import ".\IActivateAudioInterfaceAsyncOperation.ahk" { IActivateAudioInterfaceAsyncOperation }
-#Import ".\HWAVEOUT.ahk" { HWAVEOUT }
-#Import ".\HMIDIOUT.ahk" { HMIDIOUT }
-#Import ".\ACMFILTERCHOOSEW.ahk" { ACMFILTERCHOOSEW as ACMFILTERCHOOSEW_struct }
-#Import ".\MIDI_WAVE_OPEN_TYPE.ahk" { MIDI_WAVE_OPEN_TYPE }
-#Import ".\WAVEOUTCAPSA.ahk" { WAVEOUTCAPSA }
-#Import ".\HACMDRIVER.ahk" { HACMDRIVER }
-#Import ".\HMIDISTRM.ahk" { HMIDISTRM }
-#Import ".\MIXERLINEW.ahk" { MIXERLINEW }
-#Import ".\HWAVEIN.ahk" { HWAVEIN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HMIXER.ahk" { HMIXER }
-#Import ".\MIXERLINEA.ahk" { MIXERLINEA }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\IAudioStateMonitor.ahk" { IAudioStateMonitor }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ACMFILTERDETAILSA.ahk" { ACMFILTERDETAILSA as ACMFILTERDETAILSA_struct }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\ERole.ahk" { ERole }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ACMFORMATDETAILSA.ahk" { ACMFORMATDETAILSA as ACMFORMATDETAILSA_struct }
-#Import ".\ACMFORMATTAGDETAILSA.ahk" { ACMFORMATTAGDETAILSA as ACMFORMATTAGDETAILSA_struct }
-#Import ".\HMIDIIN.ahk" { HMIDIIN }
-#Import ".\ACMFILTERDETAILSW.ahk" { ACMFILTERDETAILSW as ACMFILTERDETAILSW_struct }
-#Import ".\ACMSTREAMHEADER.ahk" { ACMSTREAMHEADER }
-#Import ".\HACMSTREAM.ahk" { HACMSTREAM }
 #Import ".\ACMFILTERTAGDETAILSW.ahk" { ACMFILTERTAGDETAILSW as ACMFILTERTAGDETAILSW_struct }
-#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\HACMOBJ.ahk" { HACMOBJ }
-#Import ".\SND_FLAGS.ahk" { SND_FLAGS }
-#Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
-#Import ".\MIXERCONTROLDETAILS.ahk" { MIXERCONTROLDETAILS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ACMFILTERTAGDETAILSA.ahk" { ACMFILTERTAGDETAILSA as ACMFILTERTAGDETAILSA_struct }
-#Import ".\HMIXEROBJ.ahk" { HMIXEROBJ }
-#Import ".\ACMFORMATCHOOSEW.ahk" { ACMFORMATCHOOSEW as ACMFORMATCHOOSEW_struct }
-#Import ".\WAVEFILTER.ahk" { WAVEFILTER }
-#Import ".\HMIDI.ahk" { HMIDI }
-#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
-#Import ".\WAVEOUTCAPSW.ahk" { WAVEOUTCAPSW }
-#Import ".\MIXERLINECONTROLSW.ahk" { MIXERLINECONTROLSW }
-#Import ".\ACMFORMATCHOOSEA.ahk" { ACMFORMATCHOOSEA as ACMFORMATCHOOSEA_struct }
-#Import ".\tACMFORMATDETAILSW.ahk" { tACMFORMATDETAILSW }
-#Import ".\ACMDRIVERDETAILSA.ahk" { ACMDRIVERDETAILSA as ACMDRIVERDETAILSA_struct }
-#Import ".\MIXERLINECONTROLSA.ahk" { MIXERLINECONTROLSA }
-#Import ".\ACMFORMATTAGDETAILSW.ahk" { ACMFORMATTAGDETAILSW as ACMFORMATTAGDETAILSW_struct }
+#Import ".\ACMFILTERTAGENUMCBA.ahk" { ACMFILTERTAGENUMCBA }
+#Import ".\IAudioStateMonitor.ahk" { IAudioStateMonitor }
+#Import ".\ACMSTREAMHEADER.ahk" { ACMSTREAMHEADER }
 #Import ".\IActivateAudioInterfaceCompletionHandler.ahk" { IActivateAudioInterfaceCompletionHandler }
+#Import ".\HACMDRIVER.ahk" { HACMDRIVER }
+#Import ".\HWAVEIN.ahk" { HWAVEIN }
+#Import ".\ACMFORMATTAGENUMCBA.ahk" { ACMFORMATTAGENUMCBA }
+#Import ".\MIXERLINEW.ahk" { MIXERLINEW }
+#Import ".\HMIXER.ahk" { HMIXER }
+#Import ".\HACMSTREAM.ahk" { HACMSTREAM }
 #Import ".\ACMFILTERCHOOSEA.ahk" { ACMFILTERCHOOSEA as ACMFILTERCHOOSEA_struct }
-#Import ".\IMessageFilter.ahk" { IMessageFilter }
+#Import ".\ACMDRIVERENUMCB.ahk" { ACMDRIVERENUMCB }
+#Import ".\WAVEOUTCAPSW.ahk" { WAVEOUTCAPSW }
+#Import ".\HWAVEOUT.ahk" { HWAVEOUT }
+#Import ".\HMIDI.ahk" { HMIDI }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\HMIDIOUT.ahk" { HMIDIOUT }
+#Import ".\MIDI_WAVE_OPEN_TYPE.ahk" { MIDI_WAVE_OPEN_TYPE }
+#Import ".\ACMFILTERCHOOSEW.ahk" { ACMFILTERCHOOSEW as ACMFILTERCHOOSEW_struct }
+#Import ".\MIXERLINEA.ahk" { MIXERLINEA }
+#Import ".\ACMDRIVERDETAILSA.ahk" { ACMDRIVERDETAILSA as ACMDRIVERDETAILSA_struct }
+#Import ".\HACMDRIVERID.ahk" { HACMDRIVERID }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\ACMFORMATCHOOSEA.ahk" { ACMFORMATCHOOSEA as ACMFORMATCHOOSEA_struct }
+#Import ".\HMIDIIN.ahk" { HMIDIIN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ACMFORMATENUMCBA.ahk" { ACMFORMATENUMCBA }
+#Import ".\HACMOBJ.ahk" { HACMOBJ }
+#Import ".\IMessageFilter.ahk" { IMessageFilter }
+#Import ".\HMIDISTRM.ahk" { HMIDISTRM }
+#Import ".\ACMFILTERTAGDETAILSA.ahk" { ACMFILTERTAGDETAILSA as ACMFILTERTAGDETAILSA_struct }
+#Import ".\MIXERLINECONTROLSA.ahk" { MIXERLINECONTROLSA }
+#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
+#Import ".\HMIXEROBJ.ahk" { HMIXEROBJ }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ACMDRIVERDETAILSW.ahk" { ACMDRIVERDETAILSW as ACMDRIVERDETAILSW_struct }
+#Import ".\ACMFORMATTAGDETAILSW.ahk" { ACMFORMATTAGDETAILSW as ACMFORMATTAGDETAILSW_struct }
+#Import ".\IActivateAudioInterfaceAsyncOperation.ahk" { IActivateAudioInterfaceAsyncOperation }
+#Import ".\ACMFORMATDETAILSA.ahk" { ACMFORMATDETAILSA as ACMFORMATDETAILSA_struct }
+#Import ".\MIXERCONTROLDETAILS.ahk" { MIXERCONTROLDETAILS }
+#Import ".\ACMFORMATENUMCBW.ahk" { ACMFORMATENUMCBW }
+#Import ".\tACMFORMATDETAILSW.ahk" { tACMFORMATDETAILSW }
+#Import ".\ACMFILTERENUMCBW.ahk" { ACMFILTERENUMCBW }
+#Import ".\ERole.ahk" { ERole }
+#Import ".\SND_FLAGS.ahk" { SND_FLAGS }
+#Import ".\ACMFILTERDETAILSW.ahk" { ACMFILTERDETAILSW as ACMFILTERDETAILSW_struct }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\ACMFORMATTAGDETAILSA.ahk" { ACMFORMATTAGDETAILSA as ACMFORMATTAGDETAILSA_struct }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import ".\WAVEOUTCAPSA.ahk" { WAVEOUTCAPSA }
+#Import ".\MIXERLINECONTROLSW.ahk" { MIXERLINECONTROLSW }
+#Import ".\WAVEFILTER.ahk" { WAVEFILTER }
+#Import ".\ACMFILTERENUMCBA.ahk" { ACMFILTERENUMCBA }
+#Import ".\ACMFILTERDETAILSA.ahk" { ACMFILTERDETAILSA as ACMFILTERDETAILSA_struct }
+#Import ".\ACMFORMATTAGENUMCBW.ahk" { ACMFORMATTAGENUMCBW }
+#Import ".\ACMFORMATCHOOSEW.ahk" { ACMFORMATCHOOSEW as ACMFORMATCHOOSEW_struct }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ACMFILTERTAGENUMCBW.ahk" { ACMFILTERTAGENUMCBW }
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -85,7 +94,7 @@ export CoRegisterMessageFilter(lpMessageFilter) {
 export sndPlaySoundA(pszSound, fuSound) {
     pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-    result := DllCall("WINMM.dll\sndPlaySoundA", "ptr", pszSound, "uint", fuSound, BOOL)
+    result := DllCall("WINMM.dll\sndPlaySoundA", "ptr", pszSound, UInt32, fuSound, BOOL)
     return result
 }
 
@@ -98,7 +107,7 @@ export sndPlaySoundA(pszSound, fuSound) {
 export sndPlaySoundW(pszSound, fuSound) {
     pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-    result := DllCall("WINMM.dll\sndPlaySoundW", "ptr", pszSound, "uint", fuSound, BOOL)
+    result := DllCall("WINMM.dll\sndPlaySoundW", "ptr", pszSound, UInt32, fuSound, BOOL)
     return result
 }
 
@@ -149,7 +158,7 @@ export waveOutGetNumDevs() {
  * @returns {Integer} 
  */
 export waveOutGetDevCapsA(uDeviceID, pwoc, cbwoc) {
-    result := DllCall("WINMM.dll\waveOutGetDevCapsA", "ptr", uDeviceID, WAVEOUTCAPSA.Ptr, pwoc, "uint", cbwoc, UInt32)
+    result := DllCall("WINMM.dll\waveOutGetDevCapsA", IntPtr, uDeviceID, WAVEOUTCAPSA.Ptr, pwoc, UInt32, cbwoc, UInt32)
     return result
 }
 
@@ -161,7 +170,7 @@ export waveOutGetDevCapsA(uDeviceID, pwoc, cbwoc) {
  * @returns {Integer} 
  */
 export waveOutGetDevCapsW(uDeviceID, pwoc, cbwoc) {
-    result := DllCall("WINMM.dll\waveOutGetDevCapsW", "ptr", uDeviceID, WAVEOUTCAPSW.Ptr, pwoc, "uint", cbwoc, UInt32)
+    result := DllCall("WINMM.dll\waveOutGetDevCapsW", IntPtr, uDeviceID, WAVEOUTCAPSW.Ptr, pwoc, UInt32, cbwoc, UInt32)
     return result
 }
 
@@ -313,7 +322,7 @@ export waveOutGetVolume(hwo, pdwVolume) {
  * @since windows5.0
  */
 export waveOutSetVolume(hwo, dwVolume) {
-    result := DllCall("WINMM.dll\waveOutSetVolume", HWAVEOUT, hwo, "uint", dwVolume, UInt32)
+    result := DllCall("WINMM.dll\waveOutSetVolume", HWAVEOUT, hwo, UInt32, dwVolume, UInt32)
     return result
 }
 
@@ -327,7 +336,7 @@ export waveOutSetVolume(hwo, dwVolume) {
 export waveOutGetErrorTextA(mmrError, pszText, cchText) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("WINMM.dll\waveOutGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, UInt32)
+    result := DllCall("WINMM.dll\waveOutGetErrorTextA", UInt32, mmrError, "ptr", pszText, UInt32, cchText, UInt32)
     return result
 }
 
@@ -341,7 +350,7 @@ export waveOutGetErrorTextA(mmrError, pszText, cchText) {
 export waveOutGetErrorTextW(mmrError, pszText, cchText) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("WINMM.dll\waveOutGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, UInt32)
+    result := DllCall("WINMM.dll\waveOutGetErrorTextW", UInt32, mmrError, "ptr", pszText, UInt32, cchText, UInt32)
     return result
 }
 
@@ -553,7 +562,7 @@ export waveOutGetErrorTextW(mmrError, pszText, cchText) {
  * @since windows5.0
  */
 export waveOutOpen(phwo, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\waveOutOpen", HWAVEOUT.Ptr, phwo, "uint", uDeviceID, WAVEFORMATEX.Ptr, pwfx, "ptr", dwCallback, "ptr", dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
+    result := DllCall("WINMM.dll\waveOutOpen", HWAVEOUT.Ptr, phwo, UInt32, uDeviceID, WAVEFORMATEX.Ptr, pwfx, IntPtr, dwCallback, IntPtr, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
     return result
 }
 
@@ -680,7 +689,7 @@ export waveOutClose(hwo) {
  * @since windows5.0
  */
 export waveOutPrepareHeader(hwo, pwh, cbwh) {
-    result := DllCall("WINMM.dll\waveOutPrepareHeader", HWAVEOUT, hwo, "ptr", pwh, "uint", cbwh, UInt32)
+    result := DllCall("WINMM.dll\waveOutPrepareHeader", HWAVEOUT, hwo, IntPtr, pwh, UInt32, cbwh, UInt32)
     return result
 }
 
@@ -749,7 +758,7 @@ export waveOutPrepareHeader(hwo, pwh, cbwh) {
  * @since windows5.0
  */
 export waveOutUnprepareHeader(hwo, pwh, cbwh) {
-    result := DllCall("WINMM.dll\waveOutUnprepareHeader", HWAVEOUT, hwo, "ptr", pwh, "uint", cbwh, UInt32)
+    result := DllCall("WINMM.dll\waveOutUnprepareHeader", HWAVEOUT, hwo, IntPtr, pwh, UInt32, cbwh, UInt32)
     return result
 }
 
@@ -818,7 +827,7 @@ export waveOutUnprepareHeader(hwo, pwh, cbwh) {
  * @since windows5.0
  */
 export waveOutWrite(hwo, pwh, cbwh) {
-    result := DllCall("WINMM.dll\waveOutWrite", HWAVEOUT, hwo, "ptr", pwh, "uint", cbwh, UInt32)
+    result := DllCall("WINMM.dll\waveOutWrite", HWAVEOUT, hwo, IntPtr, pwh, UInt32, cbwh, UInt32)
     return result
 }
 
@@ -1127,7 +1136,7 @@ export waveOutBreakLoop(hwo) {
  * @since windows5.0
  */
 export waveOutGetPosition(hwo, pmmt, cbmmt) {
-    result := DllCall("WINMM.dll\waveOutGetPosition", HWAVEOUT, hwo, "ptr", pmmt, "uint", cbmmt, UInt32)
+    result := DllCall("WINMM.dll\waveOutGetPosition", HWAVEOUT, hwo, IntPtr, pmmt, UInt32, cbmmt, UInt32)
     return result
 }
 
@@ -1265,7 +1274,7 @@ export waveOutGetPitch(hwo, pdwPitch) {
  * @since windows5.0
  */
 export waveOutSetPitch(hwo, dwPitch) {
-    result := DllCall("WINMM.dll\waveOutSetPitch", HWAVEOUT, hwo, "uint", dwPitch, UInt32)
+    result := DllCall("WINMM.dll\waveOutSetPitch", HWAVEOUT, hwo, UInt32, dwPitch, UInt32)
     return result
 }
 
@@ -1403,7 +1412,7 @@ export waveOutGetPlaybackRate(hwo, pdwRate) {
  * @since windows5.0
  */
 export waveOutSetPlaybackRate(hwo, dwRate) {
-    result := DllCall("WINMM.dll\waveOutSetPlaybackRate", HWAVEOUT, hwo, "uint", dwRate, UInt32)
+    result := DllCall("WINMM.dll\waveOutSetPlaybackRate", HWAVEOUT, hwo, UInt32, dwRate, UInt32)
     return result
 }
 
@@ -1559,7 +1568,7 @@ export waveOutGetID(hwo, puDeviceID) {
  * @since windows5.0
  */
 export waveOutMessage(hwo, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\waveOutMessage", HWAVEOUT, hwo, "uint", uMsg, "ptr", dw1, "ptr", dw2, UInt32)
+    result := DllCall("WINMM.dll\waveOutMessage", HWAVEOUT, hwo, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
     return result
 }
 
@@ -1582,7 +1591,7 @@ export waveInGetNumDevs() {
  * @returns {Integer} 
  */
 export waveInGetDevCapsA(uDeviceID, pwic, cbwic) {
-    result := DllCall("WINMM.dll\waveInGetDevCapsA", "ptr", uDeviceID, "ptr", pwic, "uint", cbwic, UInt32)
+    result := DllCall("WINMM.dll\waveInGetDevCapsA", IntPtr, uDeviceID, IntPtr, pwic, UInt32, cbwic, UInt32)
     return result
 }
 
@@ -1594,7 +1603,7 @@ export waveInGetDevCapsA(uDeviceID, pwic, cbwic) {
  * @returns {Integer} 
  */
 export waveInGetDevCapsW(uDeviceID, pwic, cbwic) {
-    result := DllCall("WINMM.dll\waveInGetDevCapsW", "ptr", uDeviceID, "ptr", pwic, "uint", cbwic, UInt32)
+    result := DllCall("WINMM.dll\waveInGetDevCapsW", IntPtr, uDeviceID, IntPtr, pwic, UInt32, cbwic, UInt32)
     return result
 }
 
@@ -1608,7 +1617,7 @@ export waveInGetDevCapsW(uDeviceID, pwic, cbwic) {
 export waveInGetErrorTextA(mmrError, pszText, cchText) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("WINMM.dll\waveInGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, UInt32)
+    result := DllCall("WINMM.dll\waveInGetErrorTextA", UInt32, mmrError, "ptr", pszText, UInt32, cchText, UInt32)
     return result
 }
 
@@ -1622,7 +1631,7 @@ export waveInGetErrorTextA(mmrError, pszText, cchText) {
 export waveInGetErrorTextW(mmrError, pszText, cchText) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("WINMM.dll\waveInGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, UInt32)
+    result := DllCall("WINMM.dll\waveInGetErrorTextW", UInt32, mmrError, "ptr", pszText, UInt32, cchText, UInt32)
     return result
 }
 
@@ -1776,7 +1785,7 @@ export waveInGetErrorTextW(mmrError, pszText, cchText) {
  * @since windows5.0
  */
 export waveInOpen(phwi, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\waveInOpen", HWAVEIN.Ptr, phwi, "uint", uDeviceID, WAVEFORMATEX.Ptr, pwfx, "ptr", dwCallback, "ptr", dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
+    result := DllCall("WINMM.dll\waveInOpen", HWAVEIN.Ptr, phwi, UInt32, uDeviceID, WAVEFORMATEX.Ptr, pwfx, IntPtr, dwCallback, IntPtr, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
     return result
 }
 
@@ -1897,7 +1906,7 @@ export waveInClose(hwi) {
  * @since windows5.0
  */
 export waveInPrepareHeader(hwi, pwh, cbwh) {
-    result := DllCall("WINMM.dll\waveInPrepareHeader", HWAVEIN, hwi, "ptr", pwh, "uint", cbwh, UInt32)
+    result := DllCall("WINMM.dll\waveInPrepareHeader", HWAVEIN, hwi, IntPtr, pwh, UInt32, cbwh, UInt32)
     return result
 }
 
@@ -1966,7 +1975,7 @@ export waveInPrepareHeader(hwi, pwh, cbwh) {
  * @since windows5.0
  */
 export waveInUnprepareHeader(hwi, pwh, cbwh) {
-    result := DllCall("WINMM.dll\waveInUnprepareHeader", HWAVEIN, hwi, "ptr", pwh, "uint", cbwh, UInt32)
+    result := DllCall("WINMM.dll\waveInUnprepareHeader", HWAVEIN, hwi, IntPtr, pwh, UInt32, cbwh, UInt32)
     return result
 }
 
@@ -2035,7 +2044,7 @@ export waveInUnprepareHeader(hwi, pwh, cbwh) {
  * @since windows5.0
  */
 export waveInAddBuffer(hwi, pwh, cbwh) {
-    result := DllCall("WINMM.dll\waveInAddBuffer", HWAVEIN, hwi, "ptr", pwh, "uint", cbwh, UInt32)
+    result := DllCall("WINMM.dll\waveInAddBuffer", HWAVEIN, hwi, IntPtr, pwh, UInt32, cbwh, UInt32)
     return result
 }
 
@@ -2258,7 +2267,7 @@ export waveInReset(hwi) {
  * @since windows5.0
  */
 export waveInGetPosition(hwi, pmmt, cbmmt) {
-    result := DllCall("WINMM.dll\waveInGetPosition", HWAVEIN, hwi, "ptr", pmmt, "uint", cbmmt, UInt32)
+    result := DllCall("WINMM.dll\waveInGetPosition", HWAVEIN, hwi, IntPtr, pmmt, UInt32, cbmmt, UInt32)
     return result
 }
 
@@ -2414,7 +2423,7 @@ export waveInGetID(hwi, puDeviceID) {
  * @since windows5.0
  */
 export waveInMessage(hwi, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\waveInMessage", HWAVEIN, hwi, "uint", uMsg, "ptr", dw1, "ptr", dw2, UInt32)
+    result := DllCall("WINMM.dll\waveInMessage", HWAVEIN, hwi, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
     return result
 }
 
@@ -2513,7 +2522,7 @@ export midiOutGetNumDevs() {
 export midiStreamOpen(phms, puDeviceID, cMidi, dwCallback, dwInstance, fdwOpen) {
     puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WINMM.dll\midiStreamOpen", HMIDISTRM.Ptr, phms, puDeviceIDMarshal, puDeviceID, "uint", cMidi, "ptr", dwCallback, "ptr", dwInstance, "uint", fdwOpen, UInt32)
+    result := DllCall("WINMM.dll\midiStreamOpen", HMIDISTRM.Ptr, phms, puDeviceIDMarshal, puDeviceID, UInt32, cMidi, IntPtr, dwCallback, IntPtr, dwInstance, UInt32, fdwOpen, UInt32)
     return result
 }
 
@@ -2615,7 +2624,7 @@ export midiStreamClose(hms) {
 export midiStreamProperty(hms, lppropdata, dwProperty) {
     lppropdataMarshal := lppropdata is VarRef ? "char*" : "ptr"
 
-    result := DllCall("WINMM.dll\midiStreamProperty", HMIDISTRM, hms, lppropdataMarshal, lppropdata, "uint", dwProperty, UInt32)
+    result := DllCall("WINMM.dll\midiStreamProperty", HMIDISTRM, hms, lppropdataMarshal, lppropdata, UInt32, dwProperty, UInt32)
     return result
 }
 
@@ -2662,7 +2671,7 @@ export midiStreamProperty(hms, lppropdata, dwProperty) {
  * @since windows5.0
  */
 export midiStreamPosition(hms, lpmmt, cbmmt) {
-    result := DllCall("WINMM.dll\midiStreamPosition", HMIDISTRM, hms, "ptr", lpmmt, "uint", cbmmt, UInt32)
+    result := DllCall("WINMM.dll\midiStreamPosition", HMIDISTRM, hms, IntPtr, lpmmt, UInt32, cbmmt, UInt32)
     return result
 }
 
@@ -2746,7 +2755,7 @@ export midiStreamPosition(hms, lpmmt, cbmmt) {
  * @since windows5.0
  */
 export midiStreamOut(hms, pmh, cbmh) {
-    result := DllCall("WINMM.dll\midiStreamOut", HMIDISTRM, hms, "ptr", pmh, "uint", cbmh, UInt32)
+    result := DllCall("WINMM.dll\midiStreamOut", HMIDISTRM, hms, IntPtr, pmh, UInt32, cbmh, UInt32)
     return result
 }
 
@@ -3007,7 +3016,7 @@ export midiDisconnect(hmi, hmo, pReserved) {
  * @since windows5.0
  */
 export midiOutGetDevCapsA(uDeviceID, pmoc, cbmoc) {
-    result := DllCall("WINMM.dll\midiOutGetDevCapsA", "ptr", uDeviceID, "ptr", pmoc, "uint", cbmoc, UInt32)
+    result := DllCall("WINMM.dll\midiOutGetDevCapsA", IntPtr, uDeviceID, IntPtr, pmoc, UInt32, cbmoc, UInt32)
     return result
 }
 
@@ -3083,7 +3092,7 @@ export midiOutGetDevCapsA(uDeviceID, pmoc, cbmoc) {
  * @since windows5.0
  */
 export midiOutGetDevCapsW(uDeviceID, pmoc, cbmoc) {
-    result := DllCall("WINMM.dll\midiOutGetDevCapsW", "ptr", uDeviceID, "ptr", pmoc, "uint", cbmoc, UInt32)
+    result := DllCall("WINMM.dll\midiOutGetDevCapsW", IntPtr, uDeviceID, IntPtr, pmoc, UInt32, cbmoc, UInt32)
     return result
 }
 
@@ -3224,7 +3233,7 @@ export midiOutGetVolume(hmo, pdwVolume) {
  * @since windows5.0
  */
 export midiOutSetVolume(hmo, dwVolume) {
-    result := DllCall("WINMM.dll\midiOutSetVolume", HMIDIOUT, hmo, "uint", dwVolume, UInt32)
+    result := DllCall("WINMM.dll\midiOutSetVolume", HMIDIOUT, hmo, UInt32, dwVolume, UInt32)
     return result
 }
 
@@ -3278,7 +3287,7 @@ export midiOutSetVolume(hmo, dwVolume) {
 export midiOutGetErrorTextA(mmrError, pszText, cchText) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("WINMM.dll\midiOutGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, UInt32)
+    result := DllCall("WINMM.dll\midiOutGetErrorTextA", UInt32, mmrError, "ptr", pszText, UInt32, cchText, UInt32)
     return result
 }
 
@@ -3332,7 +3341,7 @@ export midiOutGetErrorTextA(mmrError, pszText, cchText) {
 export midiOutGetErrorTextW(mmrError, pszText, cchText) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("WINMM.dll\midiOutGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, UInt32)
+    result := DllCall("WINMM.dll\midiOutGetErrorTextW", UInt32, mmrError, "ptr", pszText, UInt32, cchText, UInt32)
     return result
 }
 
@@ -3445,7 +3454,7 @@ export midiOutGetErrorTextW(mmrError, pszText, cchText) {
  * @since windows5.0
  */
 export midiOutOpen(phmo, uDeviceID, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\midiOutOpen", HMIDIOUT.Ptr, phmo, "uint", uDeviceID, "ptr", dwCallback, "ptr", dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
+    result := DllCall("WINMM.dll\midiOutOpen", HMIDIOUT.Ptr, phmo, UInt32, uDeviceID, IntPtr, dwCallback, IntPtr, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
     return result
 }
 
@@ -3565,7 +3574,7 @@ export midiOutClose(hmo) {
  * @since windows5.0
  */
 export midiOutPrepareHeader(hmo, pmh, cbmh) {
-    result := DllCall("WINMM.dll\midiOutPrepareHeader", HMIDIOUT, hmo, "ptr", pmh, "uint", cbmh, UInt32)
+    result := DllCall("WINMM.dll\midiOutPrepareHeader", HMIDIOUT, hmo, IntPtr, pmh, UInt32, cbmh, UInt32)
     return result
 }
 
@@ -3623,7 +3632,7 @@ export midiOutPrepareHeader(hmo, pmh, cbmh) {
  * @since windows5.0
  */
 export midiOutUnprepareHeader(hmo, pmh, cbmh) {
-    result := DllCall("WINMM.dll\midiOutUnprepareHeader", HMIDIOUT, hmo, "ptr", pmh, "uint", cbmh, UInt32)
+    result := DllCall("WINMM.dll\midiOutUnprepareHeader", HMIDIOUT, hmo, IntPtr, pmh, UInt32, cbmh, UInt32)
     return result
 }
 
@@ -3745,7 +3754,7 @@ export midiOutUnprepareHeader(hmo, pmh, cbmh) {
  * @since windows5.0
  */
 export midiOutShortMsg(hmo, dwMsg) {
-    result := DllCall("WINMM.dll\midiOutShortMsg", HMIDIOUT, hmo, "uint", dwMsg, UInt32)
+    result := DllCall("WINMM.dll\midiOutShortMsg", HMIDIOUT, hmo, UInt32, dwMsg, UInt32)
     return result
 }
 
@@ -3812,7 +3821,7 @@ export midiOutShortMsg(hmo, dwMsg) {
  * @since windows5.0
  */
 export midiOutLongMsg(hmo, pmh, cbmh) {
-    result := DllCall("WINMM.dll\midiOutLongMsg", HMIDIOUT, hmo, "ptr", pmh, "uint", cbmh, UInt32)
+    result := DllCall("WINMM.dll\midiOutLongMsg", HMIDIOUT, hmo, IntPtr, pmh, UInt32, cbmh, UInt32)
     return result
 }
 
@@ -3958,7 +3967,7 @@ export midiOutReset(hmo) {
 export midiOutCachePatches(hmo, uBank, pwpa, fuCache) {
     pwpaMarshal := pwpa is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("WINMM.dll\midiOutCachePatches", HMIDIOUT, hmo, "uint", uBank, pwpaMarshal, pwpa, "uint", fuCache, UInt32)
+    result := DllCall("WINMM.dll\midiOutCachePatches", HMIDIOUT, hmo, UInt32, uBank, pwpaMarshal, pwpa, UInt32, fuCache, UInt32)
     return result
 }
 
@@ -4068,7 +4077,7 @@ export midiOutCachePatches(hmo, uBank, pwpa, fuCache) {
 export midiOutCacheDrumPatches(hmo, uPatch, pwkya, fuCache) {
     pwkyaMarshal := pwkya is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("WINMM.dll\midiOutCacheDrumPatches", HMIDIOUT, hmo, "uint", uPatch, pwkyaMarshal, pwkya, "uint", fuCache, UInt32)
+    result := DllCall("WINMM.dll\midiOutCacheDrumPatches", HMIDIOUT, hmo, UInt32, uPatch, pwkyaMarshal, pwkya, UInt32, fuCache, UInt32)
     return result
 }
 
@@ -4224,7 +4233,7 @@ export midiOutGetID(hmo, puDeviceID) {
  * @since windows5.0
  */
 export midiOutMessage(hmo, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\midiOutMessage", HMIDIOUT, hmo, "uint", uMsg, "ptr", dw1, "ptr", dw2, UInt32)
+    result := DllCall("WINMM.dll\midiOutMessage", HMIDIOUT, hmo, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
     return result
 }
 
@@ -4309,7 +4318,7 @@ export midiInGetNumDevs() {
  * @since windows5.0
  */
 export midiInGetDevCapsA(uDeviceID, pmic, cbmic) {
-    result := DllCall("WINMM.dll\midiInGetDevCapsA", "ptr", uDeviceID, "ptr", pmic, "uint", cbmic, UInt32)
+    result := DllCall("WINMM.dll\midiInGetDevCapsA", IntPtr, uDeviceID, IntPtr, pmic, UInt32, cbmic, UInt32)
     return result
 }
 
@@ -4383,7 +4392,7 @@ export midiInGetDevCapsA(uDeviceID, pmic, cbmic) {
  * @since windows5.0
  */
 export midiInGetDevCapsW(uDeviceID, pmic, cbmic) {
-    result := DllCall("WINMM.dll\midiInGetDevCapsW", "ptr", uDeviceID, "ptr", pmic, "uint", cbmic, UInt32)
+    result := DllCall("WINMM.dll\midiInGetDevCapsW", IntPtr, uDeviceID, IntPtr, pmic, UInt32, cbmic, UInt32)
     return result
 }
 
@@ -4448,7 +4457,7 @@ export midiInGetDevCapsW(uDeviceID, pmic, cbmic) {
 export midiInGetErrorTextA(mmrError, pszText, cchText) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("WINMM.dll\midiInGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, UInt32)
+    result := DllCall("WINMM.dll\midiInGetErrorTextA", UInt32, mmrError, "ptr", pszText, UInt32, cchText, UInt32)
     return result
 }
 
@@ -4513,7 +4522,7 @@ export midiInGetErrorTextA(mmrError, pszText, cchText) {
 export midiInGetErrorTextW(mmrError, pszText, cchText) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("WINMM.dll\midiInGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, UInt32)
+    result := DllCall("WINMM.dll\midiInGetErrorTextW", UInt32, mmrError, "ptr", pszText, UInt32, cchText, UInt32)
     return result
 }
 
@@ -4629,7 +4638,7 @@ export midiInGetErrorTextW(mmrError, pszText, cchText) {
  * @since windows5.0
  */
 export midiInOpen(phmi, uDeviceID, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\midiInOpen", HMIDIIN.Ptr, phmi, "uint", uDeviceID, "ptr", dwCallback, "ptr", dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
+    result := DllCall("WINMM.dll\midiInOpen", HMIDIIN.Ptr, phmi, UInt32, uDeviceID, IntPtr, dwCallback, IntPtr, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
     return result
 }
 
@@ -4747,7 +4756,7 @@ export midiInClose(hmi) {
  * @since windows5.0
  */
 export midiInPrepareHeader(hmi, pmh, cbmh) {
-    result := DllCall("WINMM.dll\midiInPrepareHeader", HMIDIIN, hmi, "ptr", pmh, "uint", cbmh, UInt32)
+    result := DllCall("WINMM.dll\midiInPrepareHeader", HMIDIIN, hmi, IntPtr, pmh, UInt32, cbmh, UInt32)
     return result
 }
 
@@ -4803,7 +4812,7 @@ export midiInPrepareHeader(hmi, pmh, cbmh) {
  * @since windows5.0
  */
 export midiInUnprepareHeader(hmi, pmh, cbmh) {
-    result := DllCall("WINMM.dll\midiInUnprepareHeader", HMIDIIN, hmi, "ptr", pmh, "uint", cbmh, UInt32)
+    result := DllCall("WINMM.dll\midiInUnprepareHeader", HMIDIIN, hmi, IntPtr, pmh, UInt32, cbmh, UInt32)
     return result
 }
 
@@ -4883,7 +4892,7 @@ export midiInUnprepareHeader(hmi, pmh, cbmh) {
  * @since windows5.0
  */
 export midiInAddBuffer(hmi, pmh, cbmh) {
-    result := DllCall("WINMM.dll\midiInAddBuffer", HMIDIIN, hmi, "ptr", pmh, "uint", cbmh, UInt32)
+    result := DllCall("WINMM.dll\midiInAddBuffer", HMIDIIN, hmi, IntPtr, pmh, UInt32, cbmh, UInt32)
     return result
 }
 
@@ -5143,7 +5152,7 @@ export midiInGetID(hmi, puDeviceID) {
  * @since windows5.0
  */
 export midiInMessage(hmi, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\midiInMessage", HMIDIIN, hmi, "uint", uMsg, "ptr", dw1, "ptr", dw2, UInt32)
+    result := DllCall("WINMM.dll\midiInMessage", HMIDIIN, hmi, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
     return result
 }
 
@@ -5208,7 +5217,7 @@ export auxGetNumDevs() {
  * @since windows5.0
  */
 export auxGetDevCapsA(uDeviceID, pac, cbac) {
-    result := DllCall("WINMM.dll\auxGetDevCapsA", "ptr", uDeviceID, "ptr", pac, "uint", cbac, UInt32)
+    result := DllCall("WINMM.dll\auxGetDevCapsA", IntPtr, uDeviceID, IntPtr, pac, UInt32, cbac, UInt32)
     return result
 }
 
@@ -5262,7 +5271,7 @@ export auxGetDevCapsA(uDeviceID, pac, cbac) {
  * @since windows5.0
  */
 export auxGetDevCapsW(uDeviceID, pac, cbac) {
-    result := DllCall("WINMM.dll\auxGetDevCapsW", "ptr", uDeviceID, "ptr", pac, "uint", cbac, UInt32)
+    result := DllCall("WINMM.dll\auxGetDevCapsW", IntPtr, uDeviceID, IntPtr, pac, UInt32, cbac, UInt32)
     return result
 }
 
@@ -5303,7 +5312,7 @@ export auxGetDevCapsW(uDeviceID, pac, cbac) {
  * @since windows5.0
  */
 export auxSetVolume(uDeviceID, dwVolume) {
-    result := DllCall("WINMM.dll\auxSetVolume", "uint", uDeviceID, "uint", dwVolume, UInt32)
+    result := DllCall("WINMM.dll\auxSetVolume", UInt32, uDeviceID, UInt32, dwVolume, UInt32)
     return result
 }
 
@@ -5344,7 +5353,7 @@ export auxSetVolume(uDeviceID, dwVolume) {
 export auxGetVolume(uDeviceID, pdwVolume) {
     pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WINMM.dll\auxGetVolume", "uint", uDeviceID, pdwVolumeMarshal, pdwVolume, UInt32)
+    result := DllCall("WINMM.dll\auxGetVolume", UInt32, uDeviceID, pdwVolumeMarshal, pdwVolume, UInt32)
     return result
 }
 
@@ -5445,7 +5454,7 @@ export auxGetVolume(uDeviceID, pdwVolume) {
  * @since windows5.0
  */
 export auxOutMessage(uDeviceID, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\auxOutMessage", "uint", uDeviceID, "uint", uMsg, "ptr", dw1, "ptr", dw2, UInt32)
+    result := DllCall("WINMM.dll\auxOutMessage", UInt32, uDeviceID, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
     return result
 }
 
@@ -5523,7 +5532,7 @@ export mixerGetNumDevs() {
  * @since windows5.0
  */
 export mixerGetDevCapsA(uMxId, pmxcaps, cbmxcaps) {
-    result := DllCall("WINMM.dll\mixerGetDevCapsA", "ptr", uMxId, "ptr", pmxcaps, "uint", cbmxcaps, UInt32)
+    result := DllCall("WINMM.dll\mixerGetDevCapsA", IntPtr, uMxId, IntPtr, pmxcaps, UInt32, cbmxcaps, UInt32)
     return result
 }
 
@@ -5590,7 +5599,7 @@ export mixerGetDevCapsA(uMxId, pmxcaps, cbmxcaps) {
  * @since windows5.0
  */
 export mixerGetDevCapsW(uMxId, pmxcaps, cbmxcaps) {
-    result := DllCall("WINMM.dll\mixerGetDevCapsW", "ptr", uMxId, "ptr", pmxcaps, "uint", cbmxcaps, UInt32)
+    result := DllCall("WINMM.dll\mixerGetDevCapsW", IntPtr, uMxId, IntPtr, pmxcaps, UInt32, cbmxcaps, UInt32)
     return result
 }
 
@@ -5755,7 +5764,7 @@ export mixerGetDevCapsW(uMxId, pmxcaps, cbmxcaps) {
  * @since windows5.0
  */
 export mixerOpen(phmx, uMxId, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\mixerOpen", HMIXER.Ptr, phmx, "uint", uMxId, "ptr", dwCallback, "ptr", dwInstance, "uint", fdwOpen, UInt32)
+    result := DllCall("WINMM.dll\mixerOpen", HMIXER.Ptr, phmx, UInt32, uMxId, IntPtr, dwCallback, IntPtr, dwInstance, UInt32, fdwOpen, UInt32)
     return result
 }
 
@@ -5939,7 +5948,7 @@ export mixerClose(hmx) {
  * @since windows5.0
  */
 export mixerMessage(hmx, uMsg, dwParam1, dwParam2) {
-    result := DllCall("WINMM.dll\mixerMessage", HMIXER, hmx, "uint", uMsg, "ptr", dwParam1, "ptr", dwParam2, UInt32)
+    result := DllCall("WINMM.dll\mixerMessage", HMIXER, hmx, UInt32, uMsg, IntPtr, dwParam1, IntPtr, dwParam2, UInt32)
     return result
 }
 
@@ -6109,7 +6118,7 @@ export mixerMessage(hmx, uMsg, dwParam1, dwParam2) {
  * @since windows5.0
  */
 export mixerGetLineInfoA(hmxobj, pmxl, fdwInfo) {
-    result := DllCall("WINMM.dll\mixerGetLineInfoA", HMIXEROBJ, hmxobj, MIXERLINEA.Ptr, pmxl, "uint", fdwInfo, UInt32)
+    result := DllCall("WINMM.dll\mixerGetLineInfoA", HMIXEROBJ, hmxobj, MIXERLINEA.Ptr, pmxl, UInt32, fdwInfo, UInt32)
     return result
 }
 
@@ -6279,7 +6288,7 @@ export mixerGetLineInfoA(hmxobj, pmxl, fdwInfo) {
  * @since windows5.0
  */
 export mixerGetLineInfoW(hmxobj, pmxl, fdwInfo) {
-    result := DllCall("WINMM.dll\mixerGetLineInfoW", HMIXEROBJ, hmxobj, MIXERLINEW.Ptr, pmxl, "uint", fdwInfo, UInt32)
+    result := DllCall("WINMM.dll\mixerGetLineInfoW", HMIXEROBJ, hmxobj, MIXERLINEW.Ptr, pmxl, UInt32, fdwInfo, UInt32)
     return result
 }
 
@@ -6410,7 +6419,7 @@ export mixerGetLineInfoW(hmxobj, pmxl, fdwInfo) {
 export mixerGetID(hmxobj, puMxId, fdwId) {
     puMxIdMarshal := puMxId is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WINMM.dll\mixerGetID", HMIXEROBJ, hmxobj, puMxIdMarshal, puMxId, "uint", fdwId, UInt32)
+    result := DllCall("WINMM.dll\mixerGetID", HMIXEROBJ, hmxobj, puMxIdMarshal, puMxId, UInt32, fdwId, UInt32)
     return result
 }
 
@@ -6578,7 +6587,7 @@ export mixerGetID(hmxobj, puMxId, fdwId) {
  * @since windows5.0
  */
 export mixerGetLineControlsA(hmxobj, pmxlc, fdwControls) {
-    result := DllCall("WINMM.dll\mixerGetLineControlsA", HMIXEROBJ, hmxobj, MIXERLINECONTROLSA.Ptr, pmxlc, "uint", fdwControls, UInt32)
+    result := DllCall("WINMM.dll\mixerGetLineControlsA", HMIXEROBJ, hmxobj, MIXERLINECONTROLSA.Ptr, pmxlc, UInt32, fdwControls, UInt32)
     return result
 }
 
@@ -6746,7 +6755,7 @@ export mixerGetLineControlsA(hmxobj, pmxlc, fdwControls) {
  * @since windows5.0
  */
 export mixerGetLineControlsW(hmxobj, pmxlc, fdwControls) {
-    result := DllCall("WINMM.dll\mixerGetLineControlsW", HMIXEROBJ, hmxobj, MIXERLINECONTROLSW.Ptr, pmxlc, "uint", fdwControls, UInt32)
+    result := DllCall("WINMM.dll\mixerGetLineControlsW", HMIXEROBJ, hmxobj, MIXERLINECONTROLSW.Ptr, pmxlc, UInt32, fdwControls, UInt32)
     return result
 }
 
@@ -6903,7 +6912,7 @@ export mixerGetLineControlsW(hmxobj, pmxlc, fdwControls) {
  * @since windows5.0
  */
 export mixerGetControlDetailsA(hmxobj, pmxcd, fdwDetails) {
-    result := DllCall("WINMM.dll\mixerGetControlDetailsA", HMIXEROBJ, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, "uint", fdwDetails, UInt32)
+    result := DllCall("WINMM.dll\mixerGetControlDetailsA", HMIXEROBJ, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -7060,7 +7069,7 @@ export mixerGetControlDetailsA(hmxobj, pmxcd, fdwDetails) {
  * @since windows5.0
  */
 export mixerGetControlDetailsW(hmxobj, pmxcd, fdwDetails) {
-    result := DllCall("WINMM.dll\mixerGetControlDetailsW", HMIXEROBJ, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, "uint", fdwDetails, UInt32)
+    result := DllCall("WINMM.dll\mixerGetControlDetailsW", HMIXEROBJ, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -7212,7 +7221,7 @@ export mixerGetControlDetailsW(hmxobj, pmxcd, fdwDetails) {
  * @since windows5.0
  */
 export mixerSetControlDetails(hmxobj, pmxcd, fdwDetails) {
-    result := DllCall("WINMM.dll\mixerSetControlDetails", HMIXEROBJ, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, "uint", fdwDetails, UInt32)
+    result := DllCall("WINMM.dll\mixerSetControlDetails", HMIXEROBJ, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -7516,7 +7525,7 @@ export acmGetVersion() {
 export acmMetrics(hao, uMetric, pMetric) {
     pMetricMarshal := pMetric is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("MSACM32.dll\acmMetrics", HACMOBJ, hao, "uint", uMetric, pMetricMarshal, pMetric, UInt32)
+    result := DllCall("MSACM32.dll\acmMetrics", HACMOBJ, hao, UInt32, uMetric, pMetricMarshal, pMetric, UInt32)
     return result
 }
 
@@ -7578,7 +7587,7 @@ export acmMetrics(hao, uMetric, pMetric) {
  * @since windows5.0
  */
 export acmDriverEnum(fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmDriverEnum", "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverEnum", ACMDRIVERENUMCB, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -7632,7 +7641,7 @@ export acmDriverEnum(fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmDriverID(hao, phadid, fdwDriverID) {
-    result := DllCall("MSACM32.dll\acmDriverID", HACMOBJ, hao, HACMDRIVERID.Ptr, phadid, "uint", fdwDriverID, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverID", HACMOBJ, hao, HACMDRIVERID.Ptr, phadid, UInt32, fdwDriverID, UInt32)
     return result
 }
 
@@ -7720,7 +7729,7 @@ export acmDriverID(hao, phadid, fdwDriverID) {
  * @since windows5.0
  */
 export acmDriverAddA(phadid, hinstModule, _lParam, dwPriority, fdwAdd) {
-    result := DllCall("MSACM32.dll\acmDriverAddA", HACMDRIVERID.Ptr, phadid, HINSTANCE, hinstModule, LPARAM, _lParam, "uint", dwPriority, "uint", fdwAdd, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverAddA", HACMDRIVERID.Ptr, phadid, HINSTANCE, hinstModule, LPARAM, _lParam, UInt32, dwPriority, UInt32, fdwAdd, UInt32)
     return result
 }
 
@@ -7808,7 +7817,7 @@ export acmDriverAddA(phadid, hinstModule, _lParam, dwPriority, fdwAdd) {
  * @since windows5.0
  */
 export acmDriverAddW(phadid, hinstModule, _lParam, dwPriority, fdwAdd) {
-    result := DllCall("MSACM32.dll\acmDriverAddW", HACMDRIVERID.Ptr, phadid, HINSTANCE, hinstModule, LPARAM, _lParam, "uint", dwPriority, "uint", fdwAdd, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverAddW", HACMDRIVERID.Ptr, phadid, HINSTANCE, hinstModule, LPARAM, _lParam, UInt32, dwPriority, UInt32, fdwAdd, UInt32)
     return result
 }
 
@@ -7861,7 +7870,7 @@ export acmDriverAddW(phadid, hinstModule, _lParam, dwPriority, fdwAdd) {
  * @since windows5.0
  */
 export acmDriverRemove(hadid, fdwRemove) {
-    result := DllCall("MSACM32.dll\acmDriverRemove", HACMDRIVERID, hadid, "uint", fdwRemove, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverRemove", HACMDRIVERID, hadid, UInt32, fdwRemove, UInt32)
     return result
 }
 
@@ -7937,7 +7946,7 @@ export acmDriverRemove(hadid, fdwRemove) {
  * @since windows5.0
  */
 export acmDriverOpen(phad, hadid, fdwOpen) {
-    result := DllCall("MSACM32.dll\acmDriverOpen", HACMDRIVER.Ptr, phad, HACMDRIVERID, hadid, "uint", fdwOpen, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverOpen", HACMDRIVER.Ptr, phad, HACMDRIVERID, hadid, UInt32, fdwOpen, UInt32)
     return result
 }
 
@@ -7990,7 +7999,7 @@ export acmDriverOpen(phad, hadid, fdwOpen) {
  * @since windows5.0
  */
 export acmDriverClose(had, fdwClose) {
-    result := DllCall("MSACM32.dll\acmDriverClose", HACMDRIVER, had, "uint", fdwClose, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverClose", HACMDRIVER, had, UInt32, fdwClose, UInt32)
     return result
 }
 
@@ -8051,7 +8060,7 @@ export acmDriverClose(had, fdwClose) {
  * @since windows5.0
  */
 export acmDriverMessage(had, uMsg, lParam1, lParam2) {
-    result := DllCall("MSACM32.dll\acmDriverMessage", HACMDRIVER, had, "uint", uMsg, LPARAM, lParam1, LPARAM, lParam2, LRESULT)
+    result := DllCall("MSACM32.dll\acmDriverMessage", HACMDRIVER, had, UInt32, uMsg, LPARAM, lParam1, LPARAM, lParam2, LRESULT)
     return result
 }
 
@@ -8162,7 +8171,7 @@ export acmDriverMessage(had, uMsg, lParam1, lParam2) {
  * @since windows5.0
  */
 export acmDriverPriority(hadid, dwPriority, fdwPriority) {
-    result := DllCall("MSACM32.dll\acmDriverPriority", HACMDRIVERID, hadid, "uint", dwPriority, "uint", fdwPriority, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverPriority", HACMDRIVERID, hadid, UInt32, dwPriority, UInt32, fdwPriority, UInt32)
     return result
 }
 
@@ -8219,7 +8228,7 @@ export acmDriverPriority(hadid, dwPriority, fdwPriority) {
  * @since windows5.0
  */
 export acmDriverDetailsA(hadid, padd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmDriverDetailsA", HACMDRIVERID, hadid, ACMDRIVERDETAILSA_struct.Ptr, padd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverDetailsA", HACMDRIVERID, hadid, ACMDRIVERDETAILSA_struct.Ptr, padd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -8276,7 +8285,7 @@ export acmDriverDetailsA(hadid, padd, fdwDetails) {
  * @since windows5.0
  */
 export acmDriverDetailsW(hadid, padd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmDriverDetailsW", HACMDRIVERID, hadid, ACMDRIVERDETAILSW_struct.Ptr, padd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmDriverDetailsW", HACMDRIVERID, hadid, ACMDRIVERDETAILSW_struct.Ptr, padd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -8365,7 +8374,7 @@ export acmDriverDetailsW(hadid, padd, fdwDetails) {
  * @since windows5.0
  */
 export acmFormatTagDetailsA(had, paftd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmFormatTagDetailsA", HACMDRIVER, had, ACMFORMATTAGDETAILSA_struct.Ptr, paftd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatTagDetailsA", HACMDRIVER, had, ACMFORMATTAGDETAILSA_struct.Ptr, paftd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -8454,7 +8463,7 @@ export acmFormatTagDetailsA(had, paftd, fdwDetails) {
  * @since windows5.0
  */
 export acmFormatTagDetailsW(had, paftd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmFormatTagDetailsW", HACMDRIVER, had, ACMFORMATTAGDETAILSW_struct.Ptr, paftd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatTagDetailsW", HACMDRIVER, had, ACMFORMATTAGDETAILSW_struct.Ptr, paftd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -8519,7 +8528,7 @@ export acmFormatTagDetailsW(had, paftd, fdwDetails) {
  * @since windows5.0
  */
 export acmFormatTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatTagEnumA", HACMDRIVER, had, ACMFORMATTAGDETAILSA_struct.Ptr, paftd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatTagEnumA", HACMDRIVER, had, ACMFORMATTAGDETAILSA_struct.Ptr, paftd, ACMFORMATTAGENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -8584,7 +8593,7 @@ export acmFormatTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFormatTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatTagEnumW", HACMDRIVER, had, ACMFORMATTAGDETAILSW_struct.Ptr, paftd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatTagEnumW", HACMDRIVER, had, ACMFORMATTAGDETAILSW_struct.Ptr, paftd, ACMFORMATTAGENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -8669,7 +8678,7 @@ export acmFormatTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFormatDetailsA(had, pafd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmFormatDetailsA", HACMDRIVER, had, ACMFORMATDETAILSA_struct.Ptr, pafd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatDetailsA", HACMDRIVER, had, ACMFORMATDETAILSA_struct.Ptr, pafd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -8754,7 +8763,7 @@ export acmFormatDetailsA(had, pafd, fdwDetails) {
  * @since windows5.0
  */
 export acmFormatDetailsW(had, pafd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmFormatDetailsW", HACMDRIVER, had, tACMFORMATDETAILSW.Ptr, pafd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatDetailsW", HACMDRIVER, had, tACMFORMATDETAILSW.Ptr, pafd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -8878,7 +8887,7 @@ export acmFormatDetailsW(had, pafd, fdwDetails) {
  * @since windows5.0
  */
 export acmFormatEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatEnumA", HACMDRIVER, had, ACMFORMATDETAILSA_struct.Ptr, pafd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatEnumA", HACMDRIVER, had, ACMFORMATDETAILSA_struct.Ptr, pafd, ACMFORMATENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9002,7 +9011,7 @@ export acmFormatEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFormatEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFormatEnumW", HACMDRIVER, had, tACMFORMATDETAILSW.Ptr, pafd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatEnumW", HACMDRIVER, had, tACMFORMATDETAILSW.Ptr, pafd, ACMFORMATENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9083,7 +9092,7 @@ export acmFormatEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFormatSuggest(had, pwfxSrc, pwfxDst, cbwfxDst, fdwSuggest) {
-    result := DllCall("MSACM32.dll\acmFormatSuggest", HACMDRIVER, had, WAVEFORMATEX.Ptr, pwfxSrc, WAVEFORMATEX.Ptr, pwfxDst, "uint", cbwfxDst, "uint", fdwSuggest, UInt32)
+    result := DllCall("MSACM32.dll\acmFormatSuggest", HACMDRIVER, had, WAVEFORMATEX.Ptr, pwfxSrc, WAVEFORMATEX.Ptr, pwfxDst, UInt32, cbwfxDst, UInt32, fdwSuggest, UInt32)
     return result
 }
 
@@ -9352,7 +9361,7 @@ export acmFormatChooseW(pafmtc) {
  * @since windows5.0
  */
 export acmFilterTagDetailsA(had, paftd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmFilterTagDetailsA", HACMDRIVER, had, ACMFILTERTAGDETAILSA_struct.Ptr, paftd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterTagDetailsA", HACMDRIVER, had, ACMFILTERTAGDETAILSA_struct.Ptr, paftd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -9441,7 +9450,7 @@ export acmFilterTagDetailsA(had, paftd, fdwDetails) {
  * @since windows5.0
  */
 export acmFilterTagDetailsW(had, paftd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmFilterTagDetailsW", HACMDRIVER, had, ACMFILTERTAGDETAILSW_struct.Ptr, paftd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterTagDetailsW", HACMDRIVER, had, ACMFILTERTAGDETAILSW_struct.Ptr, paftd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -9506,7 +9515,7 @@ export acmFilterTagDetailsW(had, paftd, fdwDetails) {
  * @since windows5.0
  */
 export acmFilterTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterTagEnumA", HACMDRIVER, had, ACMFILTERTAGDETAILSA_struct.Ptr, paftd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterTagEnumA", HACMDRIVER, had, ACMFILTERTAGDETAILSA_struct.Ptr, paftd, ACMFILTERTAGENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9571,7 +9580,7 @@ export acmFilterTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFilterTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterTagEnumW", HACMDRIVER, had, ACMFILTERTAGDETAILSW_struct.Ptr, paftd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterTagEnumW", HACMDRIVER, had, ACMFILTERTAGDETAILSW_struct.Ptr, paftd, ACMFILTERTAGENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9656,7 +9665,7 @@ export acmFilterTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFilterDetailsA(had, pafd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmFilterDetailsA", HACMDRIVER, had, ACMFILTERDETAILSA_struct.Ptr, pafd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterDetailsA", HACMDRIVER, had, ACMFILTERDETAILSA_struct.Ptr, pafd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -9741,7 +9750,7 @@ export acmFilterDetailsA(had, pafd, fdwDetails) {
  * @since windows5.0
  */
 export acmFilterDetailsW(had, pafd, fdwDetails) {
-    result := DllCall("MSACM32.dll\acmFilterDetailsW", HACMDRIVER, had, ACMFILTERDETAILSW_struct.Ptr, pafd, "uint", fdwDetails, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterDetailsW", HACMDRIVER, had, ACMFILTERDETAILSW_struct.Ptr, pafd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -9832,7 +9841,7 @@ export acmFilterDetailsW(had, pafd, fdwDetails) {
  * @since windows5.0
  */
 export acmFilterEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterEnumA", HACMDRIVER, had, ACMFILTERDETAILSA_struct.Ptr, pafd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterEnumA", HACMDRIVER, had, ACMFILTERDETAILSA_struct.Ptr, pafd, ACMFILTERENUMCBA, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -9923,7 +9932,7 @@ export acmFilterEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
  * @since windows5.0
  */
 export acmFilterEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
-    result := DllCall("MSACM32.dll\acmFilterEnumW", HACMDRIVER, had, ACMFILTERDETAILSW_struct.Ptr, pafd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, UInt32)
+    result := DllCall("MSACM32.dll\acmFilterEnumW", HACMDRIVER, had, ACMFILTERDETAILSW_struct.Ptr, pafd, ACMFILTERENUMCBW, fnCallback, IntPtr, dwInstance, UInt32, fdwEnum, UInt32)
     return result
 }
 
@@ -10225,7 +10234,7 @@ export acmFilterChooseW(pafltrc) {
  * @since windows5.0
  */
 export acmStreamOpen(phas, had, pwfxSrc, pwfxDst, pwfltr, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("MSACM32.dll\acmStreamOpen", HACMSTREAM.Ptr, phas, HACMDRIVER, had, WAVEFORMATEX.Ptr, pwfxSrc, WAVEFORMATEX.Ptr, pwfxDst, WAVEFILTER.Ptr, pwfltr, "ptr", dwCallback, "ptr", dwInstance, "uint", fdwOpen, UInt32)
+    result := DllCall("MSACM32.dll\acmStreamOpen", HACMSTREAM.Ptr, phas, HACMDRIVER, had, WAVEFORMATEX.Ptr, pwfxSrc, WAVEFORMATEX.Ptr, pwfxDst, WAVEFILTER.Ptr, pwfltr, IntPtr, dwCallback, IntPtr, dwInstance, UInt32, fdwOpen, UInt32)
     return result
 }
 
@@ -10278,7 +10287,7 @@ export acmStreamOpen(phas, had, pwfxSrc, pwfxDst, pwfltr, dwCallback, dwInstance
  * @since windows5.0
  */
 export acmStreamClose(has, fdwClose) {
-    result := DllCall("MSACM32.dll\acmStreamClose", HACMSTREAM, has, "uint", fdwClose, UInt32)
+    result := DllCall("MSACM32.dll\acmStreamClose", HACMSTREAM, has, UInt32, fdwClose, UInt32)
     return result
 }
 
@@ -10367,7 +10376,7 @@ export acmStreamClose(has, fdwClose) {
 export acmStreamSize(has, cbInput, pdwOutputBytes, fdwSize) {
     pdwOutputBytesMarshal := pdwOutputBytes is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MSACM32.dll\acmStreamSize", HACMSTREAM, has, "uint", cbInput, pdwOutputBytesMarshal, pdwOutputBytes, "uint", fdwSize, UInt32)
+    result := DllCall("MSACM32.dll\acmStreamSize", HACMSTREAM, has, UInt32, cbInput, pdwOutputBytesMarshal, pdwOutputBytes, UInt32, fdwSize, UInt32)
     return result
 }
 
@@ -10411,7 +10420,7 @@ export acmStreamSize(has, cbInput, pdwOutputBytes, fdwSize) {
  * @since windows5.0
  */
 export acmStreamReset(has, fdwReset) {
-    result := DllCall("MSACM32.dll\acmStreamReset", HACMSTREAM, has, "uint", fdwReset, UInt32)
+    result := DllCall("MSACM32.dll\acmStreamReset", HACMSTREAM, has, UInt32, fdwReset, UInt32)
     return result
 }
 
@@ -10426,7 +10435,7 @@ export acmStreamReset(has, fdwReset) {
  * @since windows5.0
  */
 export acmStreamMessage(has, uMsg, lParam1, lParam2) {
-    result := DllCall("MSACM32.dll\acmStreamMessage", HACMSTREAM, has, "uint", uMsg, LPARAM, lParam1, LPARAM, lParam2, UInt32)
+    result := DllCall("MSACM32.dll\acmStreamMessage", HACMSTREAM, has, UInt32, uMsg, LPARAM, lParam1, LPARAM, lParam2, UInt32)
     return result
 }
 
@@ -10527,7 +10536,7 @@ export acmStreamMessage(has, uMsg, lParam1, lParam2) {
  * @since windows5.0
  */
 export acmStreamConvert(has, pash, fdwConvert) {
-    result := DllCall("MSACM32.dll\acmStreamConvert", HACMSTREAM, has, ACMSTREAMHEADER.Ptr, pash, "uint", fdwConvert, UInt32)
+    result := DllCall("MSACM32.dll\acmStreamConvert", HACMSTREAM, has, ACMSTREAMHEADER.Ptr, pash, UInt32, fdwConvert, UInt32)
     return result
 }
 
@@ -10594,7 +10603,7 @@ export acmStreamConvert(has, pash, fdwConvert) {
  * @since windows5.0
  */
 export acmStreamPrepareHeader(has, pash, fdwPrepare) {
-    result := DllCall("MSACM32.dll\acmStreamPrepareHeader", HACMSTREAM, has, ACMSTREAMHEADER.Ptr, pash, "uint", fdwPrepare, UInt32)
+    result := DllCall("MSACM32.dll\acmStreamPrepareHeader", HACMSTREAM, has, ACMSTREAMHEADER.Ptr, pash, UInt32, fdwPrepare, UInt32)
     return result
 }
 
@@ -10674,7 +10683,7 @@ export acmStreamPrepareHeader(has, pash, fdwPrepare) {
  * @since windows5.0
  */
 export acmStreamUnprepareHeader(has, pash, fdwUnprepare) {
-    result := DllCall("MSACM32.dll\acmStreamUnprepareHeader", HACMSTREAM, has, ACMSTREAMHEADER.Ptr, pash, "uint", fdwUnprepare, UInt32)
+    result := DllCall("MSACM32.dll\acmStreamUnprepareHeader", HACMSTREAM, has, ACMSTREAMHEADER.Ptr, pash, UInt32, fdwUnprepare, UInt32)
     return result
 }
 

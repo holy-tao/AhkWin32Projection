@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CLR_DEBUGGING_VERSION.ahk" { CLR_DEBUGGING_VERSION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICLRDebuggingLibraryProvider.ahk" { ICLRDebuggingLibraryProvider }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CLR_DEBUGGING_VERSION.ahk" { CLR_DEBUGGING_VERSION }
+#Import ".\ICLRDebuggingLibraryProvider.ahk" { ICLRDebuggingLibraryProvider }
 #Import ".\CLR_DEBUGGING_PROCESS_FLAGS.ahk" { CLR_DEBUGGING_PROCESS_FLAGS }
 
 /**
@@ -55,7 +55,7 @@ export default struct ICLRDebugging extends IUnknown {
     OpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, pMaxDebuggerSupportedVersion, riidProcess, ppProcess, pVersion, pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", moduleBaseAddress, "ptr", pDataTarget, "ptr", pLibraryProvider, CLR_DEBUGGING_VERSION.Ptr, pMaxDebuggerSupportedVersion, Guid.Ptr, riidProcess, IUnknown.Ptr, ppProcess, CLR_DEBUGGING_VERSION.Ptr, pVersion, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(3, this, Int64, moduleBaseAddress, "ptr", pDataTarget, "ptr", pLibraryProvider, CLR_DEBUGGING_VERSION.Ptr, pMaxDebuggerSupportedVersion, Guid.Ptr, riidProcess, IUnknown.Ptr, ppProcess, CLR_DEBUGGING_VERSION.Ptr, pVersion, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 

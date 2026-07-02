@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) service list descriptor. A service list descriptor is part of the DVB network information table (NIT) or bouquet association table (BAT) that lists services by service ID and type.
@@ -79,7 +79,7 @@ export default struct IDvbServiceListDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicelistdescriptor-getrecordserviceid
      */
     GetRecordServiceId(bRecordIndex) {
-        result := ComCall(6, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(6, this, Int8, bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -91,7 +91,7 @@ export default struct IDvbServiceListDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicelistdescriptor-getrecordservicetype
      */
     GetRecordServiceType(bRecordIndex) {
-        result := ComCall(7, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 

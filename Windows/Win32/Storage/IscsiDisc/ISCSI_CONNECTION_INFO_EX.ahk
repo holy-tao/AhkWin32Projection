@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ISCSI_AUTH_TYPES.ahk" { ISCSI_AUTH_TYPES }
 #Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
+#Import ".\ISCSI_AUTH_TYPES.ahk" { ISCSI_AUTH_TYPES }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

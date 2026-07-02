@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISearchJob.ahk" { ISearchJob }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISearchResult.ahk" { ISearchResult }
 #Import ".\ServerSelection.ahk" { ServerSelection }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IUpdateHistoryEntryCollection.ahk" { IUpdateHistoryEntryCollection }
+#Import ".\ISearchResult.ahk" { ISearchResult }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISearchJob.ahk" { ISearchJob }
 
 /**
  * Searches for updates on a server. (IUpdateSearcher)
@@ -278,7 +278,7 @@ export default struct IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-queryhistory
      */
     QueryHistory(startIndex, count) {
-        result := ComCall(18, this, "int", startIndex, "int", count, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(18, this, Int32, startIndex, Int32, count, "ptr*", &retval := 0, "HRESULT")
         return IUpdateHistoryEntryCollection(retval)
     }
 

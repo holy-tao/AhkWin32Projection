@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DHCP_POL_EXPR_ARRAY.ahk" { DHCP_POL_EXPR_ARRAY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DHCP_POL_COND_ARRAY.ahk" { DHCP_POL_COND_ARRAY }
 #Import ".\DHCP_IP_RANGE_ARRAY.ahk" { DHCP_IP_RANGE_ARRAY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DHCP_POL_COND_ARRAY.ahk" { DHCP_POL_COND_ARRAY }
+#Import ".\DHCP_POL_EXPR_ARRAY.ahk" { DHCP_POL_EXPR_ARRAY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The DHCP_POLICY structure defines a DHCP server policy.

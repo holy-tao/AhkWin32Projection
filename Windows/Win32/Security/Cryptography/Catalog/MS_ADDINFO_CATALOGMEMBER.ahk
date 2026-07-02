@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPTCATSTORE.ahk" { CRYPTCATSTORE }
 #Import ".\CRYPTCATMEMBER.ahk" { CRYPTCATMEMBER }
+#Import ".\CRYPTCATSTORE.ahk" { CRYPTCATSTORE }
 
 /**
  * Provides additional information for catalog member subject types.

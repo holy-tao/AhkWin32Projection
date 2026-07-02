@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\SHELLDETAILS.ahk" { SHELLDETAILS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\SHELLDETAILS.ahk" { SHELLDETAILS }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposed by Shell folders to provide detailed information about the items in a folder.
@@ -98,7 +98,7 @@ export default struct IShellDetails extends IUnknown {
      */
     GetDetailsOf(pidl, iColumn) {
         pDetails := SHELLDETAILS()
-        result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, "uint", iColumn, SHELLDETAILS.Ptr, pDetails, "HRESULT")
+        result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, UInt32, iColumn, SHELLDETAILS.Ptr, pDetails, "HRESULT")
         return pDetails
     }
 
@@ -118,7 +118,7 @@ export default struct IShellDetails extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelldetails-columnclick
      */
     ColumnClick(iColumn) {
-        result := ComCall(4, this, "uint", iColumn, "HRESULT")
+        result := ComCall(4, this, UInt32, iColumn, "HRESULT")
         return result
     }
 

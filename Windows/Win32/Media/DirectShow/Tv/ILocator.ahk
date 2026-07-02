@@ -135,7 +135,7 @@ export default struct ILocator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_carrierfrequency
      */
     put_CarrierFrequency(Frequency) {
-        result := ComCall(8, this, "int", Frequency, "HRESULT")
+        result := ComCall(8, this, Int32, Frequency, "HRESULT")
         return result
     }
 
@@ -263,7 +263,7 @@ export default struct ILocator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilocator-put_symbolrate
      */
     put_SymbolRate(Rate) {
-        result := ComCall(20, this, "int", Rate, "HRESULT")
+        result := ComCall(20, this, Int32, Rate, "HRESULT")
         return result
     }
 

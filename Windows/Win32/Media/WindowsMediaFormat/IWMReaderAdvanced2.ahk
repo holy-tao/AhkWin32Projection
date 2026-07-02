@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWMReaderCallback.ahk" { IWMReaderCallback }
 #Import ".\IWMReaderAdvanced.ahk" { IWMReaderAdvanced }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WMT_PLAY_MODE.ahk" { WMT_PLAY_MODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWMReaderCallback.ahk" { IWMReaderCallback }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * The IWMReaderAdvanced2 interface provides additional advanced methods for a reader object.
@@ -375,7 +375,7 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
     StartAtMarker(wMarkerIndex, cnsDuration, fRate, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(30, this, "ushort", wMarkerIndex, "uint", cnsDuration, "float", fRate, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(30, this, UInt16, wMarkerIndex, Int64, cnsDuration, Float32, fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -398,7 +398,7 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(31, this, "uint", dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(31, this, UInt32, dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -417,7 +417,7 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(32, this, "uint", dwOutputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(32, this, UInt32, dwOutputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
     }
 
@@ -434,7 +434,7 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-preroll
      */
     Preroll(cnsStart, cnsDuration, fRate) {
-        result := ComCall(33, this, "uint", cnsStart, "uint", cnsDuration, "float", fRate, "HRESULT")
+        result := ComCall(33, this, Int64, cnsStart, Int64, cnsDuration, Float32, fRate, "HRESULT")
         return result
     }
 

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11BlendState1.ahk" { ID3D11BlendState1 }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D11_BLEND_DESC1.ahk" { D3D11_BLEND_DESC1 }
-#Import ".\ID3D11Device.ahk" { ID3D11Device }
+#Import ".\ID3D11BlendState1.ahk" { ID3D11BlendState1 }
 #Import ".\D3D11_RASTERIZER_DESC1.ahk" { D3D11_RASTERIZER_DESC1 }
+#Import ".\ID3D11Device.ahk" { ID3D11Device }
+#Import ".\D3D11_BLEND_DESC1.ahk" { D3D11_BLEND_DESC1 }
 #Import ".\ID3DDeviceContextState.ahk" { ID3DDeviceContextState }
-#Import ".\ID3D11DeviceContext1.ahk" { ID3D11DeviceContext1 }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\ID3D11RasterizerState1.ahk" { ID3D11RasterizerState1 }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import ".\ID3D11DeviceContext1.ahk" { ID3D11DeviceContext1 }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device1 adds new methods to those in ID3D11Device.
@@ -92,7 +92,7 @@ export default struct ID3D11Device1 extends ID3D11Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-createdeferredcontext1
      */
     CreateDeferredContext1(ContextFlags) {
-        result := ComCall(44, this, "uint", ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
+        result := ComCall(44, this, UInt32, ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
         return ID3D11DeviceContext1(ppDeferredContext)
     }
 
@@ -1715,7 +1715,7 @@ export default struct ID3D11Device1 extends ID3D11Device {
         pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
         pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : "ptr"
 
-        result := ComCall(47, this, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, Guid.Ptr, EmulatedInterface, pChosenFeatureLevelMarshal, pChosenFeatureLevel, ID3DDeviceContextState.Ptr, ppContextState, "HRESULT")
+        result := ComCall(47, this, UInt32, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, UInt32, SDKVersion, Guid.Ptr, EmulatedInterface, pChosenFeatureLevelMarshal, pChosenFeatureLevel, ID3DDeviceContextState.Ptr, ppContextState, "HRESULT")
         return result
     }
 
@@ -1770,7 +1770,7 @@ export default struct ID3D11Device1 extends ID3D11Device {
     OpenSharedResourceByName(lpName, dwDesiredAccess, returnedInterface) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := ComCall(49, this, "ptr", lpName, "uint", dwDesiredAccess, Guid.Ptr, returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        result := ComCall(49, this, "ptr", lpName, UInt32, dwDesiredAccess, Guid.Ptr, returnedInterface, "ptr*", &ppResource := 0, "HRESULT")
         return ppResource
     }
 

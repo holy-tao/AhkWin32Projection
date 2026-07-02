@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
 
 /**
  * Contains process creation information that can be used by a debugger.
@@ -64,7 +65,7 @@ export default struct CREATE_PROCESS_DEBUG_INFO {
      *       starting address, because any application with appropriate access to the thread can change the thread's context 
      *       by using the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadcontext">SetThreadContext</a> function.
      */
-    lpStartAddress : IntPtr
+    lpStartAddress : LPTHREAD_START_ROUTINE
 
     /**
      * A pointer to the file name associated with the <b>hFile</b> member. This parameter may be 

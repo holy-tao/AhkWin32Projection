@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\TRACKMOUSEEVENT_FLAGS.ahk" { TRACKMOUSEEVENT_FLAGS }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Used by the TrackMouseEvent function to track when the mouse pointer leaves a window or hovers over a window for a specified amount of time.

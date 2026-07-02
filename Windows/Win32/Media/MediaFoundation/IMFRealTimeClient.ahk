@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies a pipeline object to register itself with the Multimedia Class Scheduler Service (MMCSS). (IMFRealTimeClient)
@@ -64,7 +64,7 @@ export default struct IMFRealTimeClient extends IUnknown {
     RegisterThreads(dwTaskIndex, wszClass) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := ComCall(3, this, "uint", dwTaskIndex, "ptr", wszClass, "HRESULT")
+        result := ComCall(3, this, UInt32, dwTaskIndex, "ptr", wszClass, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IMFRealTimeClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrealtimeclient-setworkqueue
      */
     SetWorkQueue(dwWorkQueueId) {
-        result := ComCall(5, this, "uint", dwWorkQueueId, "HRESULT")
+        result := ComCall(5, this, UInt32, dwWorkQueueId, "HRESULT")
         return result
     }
 

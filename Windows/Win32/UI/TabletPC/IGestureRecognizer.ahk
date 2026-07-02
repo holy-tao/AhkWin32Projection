@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Reacts to events by recognizing gestures and adding gesture data to the input queue.
@@ -113,7 +113,7 @@ export default struct IGestureRecognizer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-put_maxstrokecount
      */
     put_MaxStrokeCount(cStrokes) {
-        result := ComCall(6, this, "int", cStrokes, "HRESULT")
+        result := ComCall(6, this, Int32, cStrokes, "HRESULT")
         return result
     }
 
@@ -129,7 +129,7 @@ export default struct IGestureRecognizer extends IUnknown {
     EnableGestures(cGestures, pGestures) {
         pGesturesMarshal := pGestures is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "uint", cGestures, pGesturesMarshal, pGestures, "HRESULT")
+        result := ComCall(7, this, UInt32, cGestures, pGesturesMarshal, pGestures, "HRESULT")
         return result
     }
 

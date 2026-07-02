@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -104,7 +104,7 @@ export default struct ICLRRuntimeInfo extends IUnknown {
 
         pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", iResourceID, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "int", iLocaleID, "HRESULT")
+        result := ComCall(6, this, UInt32, iResourceID, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, Int32, iLocaleID, "HRESULT")
         return result
     }
 
@@ -314,7 +314,7 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     SetDefaultStartupFlags(dwStartupFlags, pwzHostConfigFile) {
         pwzHostConfigFile := pwzHostConfigFile is String ? StrPtr(pwzHostConfigFile) : pwzHostConfigFile
 
-        result := ComCall(11, this, "uint", dwStartupFlags, "ptr", pwzHostConfigFile, "HRESULT")
+        result := ComCall(11, this, UInt32, dwStartupFlags, "ptr", pwzHostConfigFile, "HRESULT")
         return result
     }
 

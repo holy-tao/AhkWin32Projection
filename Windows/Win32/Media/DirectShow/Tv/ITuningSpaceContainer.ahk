@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITuningSpace.ahk" { ITuningSpace }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumTuningSpaces.ahk" { IEnumTuningSpaces }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ITuningSpaces.ahk" { ITuningSpaces }
+#Import ".\IEnumTuningSpaces.ahk" { IEnumTuningSpaces }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
 
 /**
  * The ITuningSpaceContainer interface is implemented on the SystemTuningSpaces object.
@@ -287,7 +287,7 @@ export default struct ITuningSpaceContainer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspacecontainer-put_maxcount
      */
     put_MaxCount(MaxCount) {
-        result := ComCall(19, this, "int", MaxCount, "HRESULT")
+        result := ComCall(19, this, Int32, MaxCount, "HRESULT")
         return result
     }
 

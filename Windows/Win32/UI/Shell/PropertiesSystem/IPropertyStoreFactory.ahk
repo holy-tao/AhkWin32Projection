@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods to get an IPropertyStore object.
@@ -89,7 +89,7 @@ export default struct IPropertyStoreFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorefactory-getpropertystoreforkeys
      */
     GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid) {
-        result := ComCall(4, this, PROPERTYKEY.Ptr, rgKeys, "uint", cKeys, GETPROPERTYSTOREFLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, PROPERTYKEY.Ptr, rgKeys, UInt32, cKeys, GETPROPERTYSTOREFLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

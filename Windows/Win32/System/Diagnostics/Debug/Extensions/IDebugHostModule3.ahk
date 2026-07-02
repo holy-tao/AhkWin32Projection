@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugHostModule2.ahk" { IDebugHostModule2 }
-#Import ".\Location.ahk" { Location }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Location.ahk" { Location }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

@@ -2,20 +2,20 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
-#Import "..\..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\IDirectMusicBuffer.ahk" { IDirectMusicBuffer }
+#Import "..\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
 #Import ".\DMUS_SYNTHSTATS.ahk" { DMUS_SYNTHSTATS }
+#Import ".\IDirectMusicInstrument.ahk" { IDirectMusicInstrument }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
+#Import ".\IDirectMusicBuffer.ahk" { IDirectMusicBuffer }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
+#Import "..\..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import ".\DMUS_NOTERANGE.ahk" { DMUS_NOTERANGE }
 #Import ".\IDirectMusicDownloadedInstrument.ahk" { IDirectMusicDownloadedInstrument }
-#Import "..\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDirectMusicInstrument.ahk" { IDirectMusicInstrument }
+#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -102,7 +102,7 @@ export default struct IDirectMusicPort extends IUnknown {
      * @returns {IDirectMusicDownloadedInstrument} 
      */
     DownloadInstrument(pInstrument, pNoteRanges, dwNumNoteRanges) {
-        result := ComCall(6, this, "ptr", pInstrument, "ptr*", &ppDownloadedInstrument := 0, DMUS_NOTERANGE.Ptr, pNoteRanges, "uint", dwNumNoteRanges, "HRESULT")
+        result := ComCall(6, this, "ptr", pInstrument, "ptr*", &ppDownloadedInstrument := 0, DMUS_NOTERANGE.Ptr, pNoteRanges, UInt32, dwNumNoteRanges, "HRESULT")
         return IDirectMusicDownloadedInstrument(ppDownloadedInstrument)
     }
 
@@ -284,7 +284,7 @@ export default struct IDirectMusicPort extends IUnknown {
         lpOutBufferMarshal := lpOutBuffer is VarRef ? "ptr" : "ptr"
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, lpOutBufferMarshal, lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(12, this, UInt32, dwIoControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -294,7 +294,7 @@ export default struct IDirectMusicPort extends IUnknown {
      * @returns {HRESULT} 
      */
     SetNumChannelGroups(dwChannelGroups) {
-        result := ComCall(13, this, "uint", dwChannelGroups, "HRESULT")
+        result := ComCall(13, this, UInt32, dwChannelGroups, "HRESULT")
         return result
     }
 
@@ -328,7 +328,7 @@ export default struct IDirectMusicPort extends IUnknown {
      * @returns {HRESULT} 
      */
     SetChannelPriority(dwChannelGroup, dwChannel, dwPriority) {
-        result := ComCall(16, this, "uint", dwChannelGroup, "uint", dwChannel, "uint", dwPriority, "HRESULT")
+        result := ComCall(16, this, UInt32, dwChannelGroup, UInt32, dwChannel, UInt32, dwPriority, "HRESULT")
         return result
     }
 
@@ -342,7 +342,7 @@ export default struct IDirectMusicPort extends IUnknown {
     GetChannelPriority(dwChannelGroup, dwChannel, pdwPriority) {
         pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwChannelGroup, "uint", dwChannel, pdwPriorityMarshal, pdwPriority, "HRESULT")
+        result := ComCall(17, this, UInt32, dwChannelGroup, UInt32, dwChannel, pdwPriorityMarshal, pdwPriority, "HRESULT")
         return result
     }
 

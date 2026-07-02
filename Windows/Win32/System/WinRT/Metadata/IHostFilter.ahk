@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -41,7 +41,7 @@ export default struct IHostFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     MarkToken(tk) {
-        result := ComCall(3, this, "uint", tk, "HRESULT")
+        result := ComCall(3, this, UInt32, tk, "HRESULT")
         return result
     }
 

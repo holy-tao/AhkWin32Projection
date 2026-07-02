@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDiskQuotaUser.ahk" { IDiskQuotaUser }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Adds multiple quota user objects to a container that is then submitted for update in a single call.

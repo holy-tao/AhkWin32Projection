@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PresentStatus.ahk" { PresentStatus }
 #Import ".\IPresentStatistics.ahk" { IPresentStatistics }
+#Import ".\PresentStatus.ahk" { PresentStatus }
 
 /**
  * Describes how a present was processed during a DWM-composed frame.

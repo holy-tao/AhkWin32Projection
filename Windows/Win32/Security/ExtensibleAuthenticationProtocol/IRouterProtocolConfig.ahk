@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -52,7 +52,7 @@ export default struct IRouterProtocolConfig extends IUnknown {
     AddProtocol(pszMachineName, dwTransportId, dwProtocolId, _hWnd, dwFlags, pRouter, uReserved1) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
 
-        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, HWND, _hWnd, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "HRESULT")
+        result := ComCall(3, this, "ptr", pszMachineName, UInt32, dwTransportId, UInt32, dwProtocolId, HWND, _hWnd, UInt32, dwFlags, "ptr", pRouter, IntPtr, uReserved1, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IRouterProtocolConfig extends IUnknown {
     RemoveProtocol(pszMachineName, dwTransportId, dwProtocolId, _hWnd, dwFlags, pRouter, uReserved1) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
 
-        result := ComCall(4, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, HWND, _hWnd, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "HRESULT")
+        result := ComCall(4, this, "ptr", pszMachineName, UInt32, dwTransportId, UInt32, dwProtocolId, HWND, _hWnd, UInt32, dwFlags, "ptr", pRouter, IntPtr, uReserved1, "HRESULT")
         return result
     }
 

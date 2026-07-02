@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\UConverter.ahk" { UConverter }
 #Import "..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\UConverter.ahk" { UConverter }
 
 /**
  * @namespace Windows.Win32.Globalization

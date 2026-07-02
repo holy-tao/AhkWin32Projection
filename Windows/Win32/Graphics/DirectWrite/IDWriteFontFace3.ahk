@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
-#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
-#Import ".\DWRITE_RENDERING_MODE1.ahk" { DWRITE_RENDERING_MODE1 }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
-#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
-#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import ".\DWRITE_INFORMATIONAL_STRING_ID.ahk" { DWRITE_INFORMATIONAL_STRING_ID }
 #Import ".\DWRITE_PANOSE.ahk" { DWRITE_PANOSE }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import ".\DWRITE_RENDERING_MODE1.ahk" { DWRITE_RENDERING_MODE1 }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
 #Import ".\IDWriteFontFace2.ahk" { IDWriteFontFace2 }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import ".\DWRITE_INFORMATIONAL_STRING_ID.ahk" { DWRITE_INFORMATIONAL_STRING_ID }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace3)
@@ -185,7 +185,7 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-hascharacter
      */
     HasCharacter(unicodeValue) {
-        result := ComCall(43, this, "uint", unicodeValue, BOOL)
+        result := ComCall(43, this, UInt32, unicodeValue, BOOL)
         return result
     }
 
@@ -230,7 +230,7 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
         renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
         gridFitModeMarshal := gridFitMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(44, this, "float", fontEmSize, "float", dpiX, "float", dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
+        result := ComCall(44, this, Float32, fontEmSize, Float32, dpiX, Float32, dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-ischaracterlocal
      */
     IsCharacterLocal(unicodeValue) {
-        result := ComCall(45, this, "uint", unicodeValue, BOOL)
+        result := ComCall(45, this, UInt32, unicodeValue, BOOL)
         return result
     }
 
@@ -261,7 +261,7 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-isglyphlocal
      */
     IsGlyphLocal(glyphId) {
-        result := ComCall(46, this, "ushort", glyphId, BOOL)
+        result := ComCall(46, this, UInt16, glyphId, BOOL)
         return result
     }
 
@@ -286,7 +286,7 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
     AreCharactersLocal(characters, characterCount, enqueueIfNotLocal) {
         characters := characters is String ? StrPtr(characters) : characters
 
-        result := ComCall(47, this, "ptr", characters, "uint", characterCount, BOOL, enqueueIfNotLocal, BOOL.Ptr, &isLocal := 0, "HRESULT")
+        result := ComCall(47, this, "ptr", characters, UInt32, characterCount, BOOL, enqueueIfNotLocal, BOOL.Ptr, &isLocal := 0, "HRESULT")
         return isLocal
     }
 
@@ -311,7 +311,7 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
     AreGlyphsLocal(glyphIndices, glyphCount, enqueueIfNotLocal) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(48, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, BOOL, enqueueIfNotLocal, BOOL.Ptr, &isLocal := 0, "HRESULT")
+        result := ComCall(48, this, glyphIndicesMarshal, glyphIndices, UInt32, glyphCount, BOOL, enqueueIfNotLocal, BOOL.Ptr, &isLocal := 0, "HRESULT")
         return isLocal
     }
 

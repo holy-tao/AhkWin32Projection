@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IPersist.ahk" { IPersist }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IPersist.ahk" { IPersist }
 
 /**
  * Used to store and retrieve query parameters to and from persistent storage.
@@ -75,7 +75,7 @@ export default struct IPersistQuery extends IPersist {
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
         pBuffer := pBuffer is String ? StrPtr(pBuffer) : pBuffer
 
-        result := ComCall(5, this, "ptr", pSection, "ptr", pValueName, "ptr", pBuffer, "int", cchBuffer, "HRESULT")
+        result := ComCall(5, this, "ptr", pSection, "ptr", pValueName, "ptr", pBuffer, Int32, cchBuffer, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct IPersistQuery extends IPersist {
         pSection := pSection is String ? StrPtr(pSection) : pSection
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        result := ComCall(6, this, "ptr", pSection, "ptr", pValueName, "int", value, "HRESULT")
+        result := ComCall(6, this, "ptr", pSection, "ptr", pValueName, Int32, value, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IPersistQuery extends IPersist {
 
         pStructMarshal := pStruct is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", pSection, "ptr", pValueName, pStructMarshal, pStruct, "uint", cbStruct, "HRESULT")
+        result := ComCall(8, this, "ptr", pSection, "ptr", pValueName, pStructMarshal, pStruct, UInt32, cbStruct, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IPersistQuery extends IPersist {
 
         pStructMarshal := pStruct is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", pSection, "ptr", pValueName, pStructMarshal, pStruct, "uint", cbStruct, "HRESULT")
+        result := ComCall(9, this, "ptr", pSection, "ptr", pValueName, pStructMarshal, pStruct, UInt32, cbStruct, "HRESULT")
         return result
     }
 

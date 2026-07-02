@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISpeechLexiconWord.ahk" { ISpeechLexiconWord }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -74,7 +74,7 @@ export default struct ISpeechLexiconWords extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &Word := 0, "HRESULT")
+        result := ComCall(8, this, Int32, Index, "ptr*", &Word := 0, "HRESULT")
         return ISpeechLexiconWord(Word)
     }
 

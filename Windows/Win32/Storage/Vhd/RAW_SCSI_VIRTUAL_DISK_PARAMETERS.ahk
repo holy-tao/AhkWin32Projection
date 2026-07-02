@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RAW_SCSI_VIRTUAL_DISK_VERSION.ahk" { RAW_SCSI_VIRTUAL_DISK_VERSION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RAW_SCSI_VIRTUAL_DISK_VERSION.ahk" { RAW_SCSI_VIRTUAL_DISK_VERSION }
 
 /**
  * Contains raw SCSI virtual disk request parameters.

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IConnectionPoint.ahk" { IConnectionPoint }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates connection points.
@@ -69,7 +69,7 @@ export default struct IEnumConnectionPoints extends IUnknown {
     Next(cConnections, ppCP, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cConnections, IConnectionPoint.Ptr, ppCP, pcFetchedMarshal, pcFetched, Int32)
+        result := ComCall(3, this, UInt32, cConnections, IConnectionPoint.Ptr, ppCP, pcFetchedMarshal, pcFetched, Int32)
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct IEnumConnectionPoints extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ienumconnectionpoints-skip
      */
     Skip(cConnections) {
-        result := ComCall(4, this, "uint", cConnections, "HRESULT")
+        result := ComCall(4, this, UInt32, cConnections, "HRESULT")
         return result
     }
 

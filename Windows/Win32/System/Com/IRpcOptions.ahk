@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RPCOPT_PROPERTIES.ahk" { RPCOPT_PROPERTIES }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RPCOPT_PROPERTIES.ahk" { RPCOPT_PROPERTIES }
 
 /**
  * The IRpcOptions (objidlbase.h) interface enables callers to set or query the values of various properties that control how COM handles remote procedure calls (RPC).
@@ -80,7 +80,7 @@ export default struct IRpcOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcoptions-set
      */
     Set(pPrx, dwProperty, dwValue) {
-        result := ComCall(3, this, "ptr", pPrx, RPCOPT_PROPERTIES, dwProperty, "ptr", dwValue, "HRESULT")
+        result := ComCall(3, this, "ptr", pPrx, RPCOPT_PROPERTIES, dwProperty, IntPtr, dwValue, "HRESULT")
         return result
     }
 

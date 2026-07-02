@@ -107,7 +107,7 @@ export default struct IATSCTuningSpace extends IAnalogTVTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-put_minminorchannel
      */
     put_MinMinorChannel(NewMinMinorChannelVal) {
-        result := ComCall(35, this, "int", NewMinMinorChannelVal, "HRESULT")
+        result := ComCall(35, this, Int32, NewMinMinorChannelVal, "HRESULT")
         return result
     }
 
@@ -130,7 +130,7 @@ export default struct IATSCTuningSpace extends IAnalogTVTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-put_maxminorchannel
      */
     put_MaxMinorChannel(NewMaxMinorChannelVal) {
-        result := ComCall(37, this, "int", NewMaxMinorChannelVal, "HRESULT")
+        result := ComCall(37, this, Int32, NewMaxMinorChannelVal, "HRESULT")
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct IATSCTuningSpace extends IAnalogTVTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-put_minphysicalchannel
      */
     put_MinPhysicalChannel(NewMinPhysicalChannelVal) {
-        result := ComCall(39, this, "int", NewMinPhysicalChannelVal, "HRESULT")
+        result := ComCall(39, this, Int32, NewMinPhysicalChannelVal, "HRESULT")
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IATSCTuningSpace extends IAnalogTVTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsctuningspace-put_maxphysicalchannel
      */
     put_MaxPhysicalChannel(NewMaxPhysicalChannelVal) {
-        result := ComCall(41, this, "int", NewMaxPhysicalChannelVal, "HRESULT")
+        result := ComCall(41, this, Int32, NewMaxPhysicalChannelVal, "HRESULT")
         return result
     }
 

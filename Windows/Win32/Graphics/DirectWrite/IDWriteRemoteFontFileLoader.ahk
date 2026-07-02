@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
-#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
 #Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
 #Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
+#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteRemoteFontFileStream.ahk" { IDWriteRemoteFontFileStream }
 
@@ -62,7 +62,7 @@ export default struct IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-createremotestreamfromkey
      */
     CreateRemoteStreamFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
-        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, fontFileReferenceKey, UInt32, fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "HRESULT")
         return IDWriteRemoteFontFileStream(fontFileStream)
     }
 
@@ -80,7 +80,7 @@ export default struct IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-getlocalityfromkey
      */
     GetLocalityFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
-        result := ComCall(5, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "int*", &locality := 0, "HRESULT")
+        result := ComCall(5, this, IntPtr, fontFileReferenceKey, UInt32, fontFileReferenceKeySize, "int*", &locality := 0, "HRESULT")
         return locality
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPrintJobCollection.ahk" { IPrintJobCollection }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IPrintJobCollection.ahk" { IPrintJobCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -45,7 +45,7 @@ export default struct IPrinterQueueViewEvent extends IDispatch {
      * @returns {HRESULT} 
      */
     OnChanged(pCollection, ulViewOffset, ulViewSize, ulCountJobsInPrintQueue) {
-        result := ComCall(7, this, "ptr", pCollection, "uint", ulViewOffset, "uint", ulViewSize, "uint", ulCountJobsInPrintQueue, "HRESULT")
+        result := ComCall(7, this, "ptr", pCollection, UInt32, ulViewOffset, UInt32, ulViewSize, UInt32, ulCountJobsInPrintQueue, "HRESULT")
         return result
     }
 

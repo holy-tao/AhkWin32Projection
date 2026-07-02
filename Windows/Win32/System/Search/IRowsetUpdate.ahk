@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import ".\IRowsetChange.ahk" { IRowsetChange }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -47,7 +47,7 @@ export default struct IRowsetUpdate extends IRowsetChange {
      * @returns {Void} 
      */
     GetOriginalData(hRow, _hAccessor) {
-        result := ComCall(6, this, "ptr", hRow, HACCESSOR, _hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(6, this, IntPtr, hRow, HACCESSOR, _hAccessor, "ptr", &pData := 0, "HRESULT")
         return pData
     }
 
@@ -65,7 +65,7 @@ export default struct IRowsetUpdate extends IRowsetChange {
         prgPendingRowsMarshal := prgPendingRows is VarRef ? "ptr*" : "ptr"
         prgPendingStatusMarshal := prgPendingStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", hReserved, "uint", dwRowStatus, pcPendingRowsMarshal, pcPendingRows, prgPendingRowsMarshal, prgPendingRows, prgPendingStatusMarshal, prgPendingStatus, "HRESULT")
+        result := ComCall(7, this, IntPtr, hReserved, UInt32, dwRowStatus, pcPendingRowsMarshal, pcPendingRows, prgPendingRowsMarshal, prgPendingRows, prgPendingStatusMarshal, prgPendingStatus, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct IRowsetUpdate extends IRowsetChange {
     GetRowStatus(hReserved, cRows, rghRows) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint*", &rgPendingStatus := 0, "HRESULT")
+        result := ComCall(8, this, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, "uint*", &rgPendingStatus := 0, "HRESULT")
         return rgPendingStatus
     }
 
@@ -118,7 +118,7 @@ export default struct IRowsetUpdate extends IRowsetChange {
         prgRowsUndoneMarshal := prgRowsUndone is VarRef ? "ptr*" : "ptr"
         prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsUndoneMarshal, pcRowsUndone, prgRowsUndoneMarshal, prgRowsUndone, prgRowStatusMarshal, prgRowStatus, "HRESULT")
+        result := ComCall(9, this, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, pcRowsUndoneMarshal, pcRowsUndone, prgRowsUndoneMarshal, prgRowsUndone, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IRowsetUpdate extends IRowsetChange {
         prgRowsMarshal := prgRows is VarRef ? "ptr*" : "ptr"
         prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsMarshal, pcRows, prgRowsMarshal, prgRows, prgRowStatusMarshal, prgRowStatus, "HRESULT")
+        result := ComCall(10, this, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, pcRowsMarshal, pcRows, prgRowsMarshal, prgRows, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
     }
 

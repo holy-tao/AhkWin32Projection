@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOfflineFilesEvents.ahk" { IOfflineFilesEvents }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to report additional events associated with Offline Files.
@@ -92,7 +92,7 @@ export default struct IOfflineFilesEvents2 extends IOfflineFilesEvents {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-backgroundsyncbegin
      */
     BackgroundSyncBegin(dwSyncControlFlags) {
-        result := ComCall(32, this, "uint", dwSyncControlFlags, "HRESULT")
+        result := ComCall(32, this, UInt32, dwSyncControlFlags, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IOfflineFilesEvents2 extends IOfflineFilesEvents {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-backgroundsyncend
      */
     BackgroundSyncEnd(dwSyncControlFlags) {
-        result := ComCall(33, this, "uint", dwSyncControlFlags, "HRESULT")
+        result := ComCall(33, this, UInt32, dwSyncControlFlags, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -52,7 +52,7 @@ export default struct IViewChapter extends IUnknown {
      * @returns {Pointer} 
      */
     OpenViewChapter(hSource) {
-        result := ComCall(4, this, "ptr", hSource, "ptr*", &phViewChapter := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, hSource, "ptr*", &phViewChapter := 0, "HRESULT")
         return phViewChapter
     }
 

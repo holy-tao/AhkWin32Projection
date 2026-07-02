@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DEV_CONSOLE_MESSAGE_LEVEL.ahk" { DEV_CONSOLE_MESSAGE_LEVEL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DEV_CONSOLE_MESSAGE_LEVEL.ahk" { DEV_CONSOLE_MESSAGE_LEVEL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -52,7 +52,7 @@ export default struct IDeveloperConsoleMessageReceiver extends IUnknown {
         source := source is String ? StrPtr(source) : source
         messageText := messageText is String ? StrPtr(messageText) : messageText
 
-        result := ComCall(3, this, "ptr", source, DEV_CONSOLE_MESSAGE_LEVEL, level, "int", messageId, "ptr", messageText, "HRESULT")
+        result := ComCall(3, this, "ptr", source, DEV_CONSOLE_MESSAGE_LEVEL, level, Int32, messageId, "ptr", messageText, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IDeveloperConsoleMessageReceiver extends IUnknown {
         messageText := messageText is String ? StrPtr(messageText) : messageText
         fileUrl := fileUrl is String ? StrPtr(fileUrl) : fileUrl
 
-        result := ComCall(4, this, "ptr", source, DEV_CONSOLE_MESSAGE_LEVEL, level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "HRESULT")
+        result := ComCall(4, this, "ptr", source, DEV_CONSOLE_MESSAGE_LEVEL, level, Int32, messageId, "ptr", messageText, "ptr", fileUrl, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IDeveloperConsoleMessageReceiver extends IUnknown {
         messageText := messageText is String ? StrPtr(messageText) : messageText
         fileUrl := fileUrl is String ? StrPtr(fileUrl) : fileUrl
 
-        result := ComCall(5, this, "ptr", source, DEV_CONSOLE_MESSAGE_LEVEL, level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "uint", line, "HRESULT")
+        result := ComCall(5, this, "ptr", source, DEV_CONSOLE_MESSAGE_LEVEL, level, Int32, messageId, "ptr", messageText, "ptr", fileUrl, UInt32, line, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct IDeveloperConsoleMessageReceiver extends IUnknown {
         messageText := messageText is String ? StrPtr(messageText) : messageText
         fileUrl := fileUrl is String ? StrPtr(fileUrl) : fileUrl
 
-        result := ComCall(6, this, "ptr", source, DEV_CONSOLE_MESSAGE_LEVEL, level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "uint", line, "uint", _column, "HRESULT")
+        result := ComCall(6, this, "ptr", source, DEV_CONSOLE_MESSAGE_LEVEL, level, Int32, messageId, "ptr", messageText, "ptr", fileUrl, UInt32, line, UInt32, _column, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -56,7 +56,7 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     onInsertText(cCharacterPosition, cNumToInsert) {
-        result := ComCall(4, this, "uint", cCharacterPosition, "uint", cNumToInsert, "HRESULT")
+        result := ComCall(4, this, UInt32, cCharacterPosition, UInt32, cNumToInsert, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     onRemoveText(cCharacterPosition, cNumToRemove) {
-        result := ComCall(5, this, "uint", cCharacterPosition, "uint", cNumToRemove, "HRESULT")
+        result := ComCall(5, this, UInt32, cCharacterPosition, UInt32, cNumToRemove, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     onReplaceText(cCharacterPosition, cNumToReplace) {
-        result := ComCall(6, this, "uint", cCharacterPosition, "uint", cNumToReplace, "HRESULT")
+        result := ComCall(6, this, UInt32, cCharacterPosition, UInt32, cNumToReplace, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     onUpdateTextAttributes(cCharacterPosition, cNumToUpdate) {
-        result := ComCall(7, this, "uint", cCharacterPosition, "uint", cNumToUpdate, "HRESULT")
+        result := ComCall(7, this, UInt32, cCharacterPosition, UInt32, cNumToUpdate, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     onUpdateDocumentAttributes(textdocattr) {
-        result := ComCall(8, this, "uint", textdocattr, "HRESULT")
+        result := ComCall(8, this, UInt32, textdocattr, "HRESULT")
         return result
     }
 

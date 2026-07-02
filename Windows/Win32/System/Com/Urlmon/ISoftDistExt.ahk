@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IBindCtx.ahk" { IBindCtx }
-#Import ".\SOFTDISTINFO.ahk" { SOFTDISTINFO }
 #Import ".\CODEBASEHOLD.ahk" { CODEBASEHOLD }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Data\Xml\MsXml\IXMLElement.ahk" { IXMLElement }
+#Import ".\SOFTDISTINFO.ahk" { SOFTDISTINFO }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Data\Xml\MsXml\IXMLElement.ahk" { IXMLElement }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -96,7 +96,7 @@ export default struct ISoftDistExt extends IUnknown {
     AsyncInstallDistributionUnit(pbc, pvReserved, flags, lpcbh) {
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", pbc, pvReservedMarshal, pvReserved, "uint", flags, CODEBASEHOLD.Ptr, lpcbh, "HRESULT")
+        result := ComCall(6, this, "ptr", pbc, pvReservedMarshal, pvReserved, UInt32, flags, CODEBASEHOLD.Ptr, lpcbh, "HRESULT")
         return result
     }
 

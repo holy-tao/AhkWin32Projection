@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFCLOCK_PROPERTIES.ahk" { MFCLOCK_PROPERTIES }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MFCLOCK_STATE.ahk" { MFCLOCK_STATE }
+#Import ".\MFCLOCK_PROPERTIES.ahk" { MFCLOCK_PROPERTIES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides timing information from a clock in Microsoft Media Foundation.
@@ -120,7 +120,7 @@ export default struct IMFClock extends IUnknown {
         pllClockTimeMarshal := pllClockTime is VarRef ? "int64*" : "ptr"
         phnsSystemTimeMarshal := phnsSystemTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwReserved, pllClockTimeMarshal, pllClockTime, phnsSystemTimeMarshal, phnsSystemTime, "HRESULT")
+        result := ComCall(4, this, UInt32, dwReserved, pllClockTimeMarshal, pllClockTime, phnsSystemTimeMarshal, phnsSystemTime, "HRESULT")
         return result
     }
 
@@ -143,7 +143,7 @@ export default struct IMFClock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getstate
      */
     GetState(dwReserved) {
-        result := ComCall(6, this, "uint", dwReserved, "int*", &peClockState := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwReserved, "int*", &peClockState := 0, "HRESULT")
         return peClockState
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WTS_ALPHATYPE.ahk" { WTS_ALPHATYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WTS_ALPHATYPE.ahk" { WTS_ALPHATYPE }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * Exposes memory-efficient methods for accessing bitmaps. This interface is used as a thin wrapper around HBITMAP objects, allowing those objects to be reference counted and protected from having their underlying data changed.

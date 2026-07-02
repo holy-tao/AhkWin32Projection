@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EXCLUSIVE_ACCESS_REQUEST_TYPE.ahk" { EXCLUSIVE_ACCESS_REQUEST_TYPE }
 #Import ".\CDROM_EXCLUSIVE_ACCESS.ahk" { CDROM_EXCLUSIVE_ACCESS }
+#Import ".\EXCLUSIVE_ACCESS_REQUEST_TYPE.ahk" { EXCLUSIVE_ACCESS_REQUEST_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom

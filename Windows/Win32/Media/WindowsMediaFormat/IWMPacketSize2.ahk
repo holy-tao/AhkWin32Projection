@@ -59,7 +59,7 @@ export default struct IWMPacketSize2 extends IWMPacketSize {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpacketsize2-setminpacketsize
      */
     SetMinPacketSize(dwMinPacketSize) {
-        result := ComCall(6, this, "uint", dwMinPacketSize, "HRESULT")
+        result := ComCall(6, this, UInt32, dwMinPacketSize, "HRESULT")
         return result
     }
 

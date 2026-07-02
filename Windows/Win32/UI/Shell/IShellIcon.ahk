@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that obtains an icon index for an IShellFolder object.
@@ -71,7 +71,7 @@ export default struct IShellIcon extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellicon-geticonof
      */
     GetIconOf(pidl, flags) {
-        result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, "uint", flags, "int*", &pIconIndex := 0, "HRESULT")
+        result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, UInt32, flags, "int*", &pIconIndex := 0, "HRESULT")
         return pIconIndex
     }
 

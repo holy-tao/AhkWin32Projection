@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IReferenceTrackerHost.ahk" { IReferenceTrackerHost }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IReferenceTrackerHost.ahk" { IReferenceTrackerHost }
 
 /**
  * Defines the interface for a XAML object reference manager. Implement this interface to manage instances of IReferenceTracker on XAML objects.
@@ -64,7 +64,7 @@ export default struct IReferenceTrackerManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nf-windows-ui-xaml-hosting-referencetracker-ireferencetrackermanager-findtrackertargetscompleted
      */
     FindTrackerTargetsCompleted(findFailed) {
-        result := ComCall(4, this, "char", findFailed, "HRESULT")
+        result := ComCall(4, this, Int8, findFailed, "HRESULT")
         return result
     }
 

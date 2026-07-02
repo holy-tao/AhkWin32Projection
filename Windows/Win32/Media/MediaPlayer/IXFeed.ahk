@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FEEDS_XML_FILTER_FLAGS.ahk" { FEEDS_XML_FILTER_FLAGS }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
-#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
-#Import ".\FEEDS_XML_INCLUDE_FLAGS.ahk" { FEEDS_XML_INCLUDE_FLAGS }
+#Import ".\IXFeedsEnum.ahk" { IXFeedsEnum }
 #Import ".\FEEDS_XML_SORT_PROPERTY.ahk" { FEEDS_XML_SORT_PROPERTY }
+#Import ".\FEEDS_XML_FILTER_FLAGS.ahk" { FEEDS_XML_FILTER_FLAGS }
+#Import ".\FEEDS_XML_INCLUDE_FLAGS.ahk" { FEEDS_XML_INCLUDE_FLAGS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\FEEDS_XML_SORT_ORDER.ahk" { FEEDS_XML_SORT_ORDER }
-#Import ".\IXFeedsEnum.ahk" { IXFeedsEnum }
-#Import ".\FEEDS_DOWNLOAD_STATUS.ahk" { FEEDS_DOWNLOAD_STATUS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FEEDS_EVENTS_MASK.ahk" { FEEDS_EVENTS_MASK }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FEEDS_DOWNLOAD_STATUS.ahk" { FEEDS_DOWNLOAD_STATUS }
+#Import ".\FEEDS_EVENTS_SCOPE.ahk" { FEEDS_EVENTS_SCOPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import ".\FEEDS_SYNC_SETTING.ahk" { FEEDS_SYNC_SETTING }
 
 /**
@@ -102,7 +102,7 @@ export default struct IXFeed extends IUnknown {
      * @returns {IStream} 
      */
     Xml(uiItemCount, sortProperty, sortOrder, filterFlags, includeFlags) {
-        result := ComCall(3, this, "uint", uiItemCount, FEEDS_XML_SORT_PROPERTY, sortProperty, FEEDS_XML_SORT_ORDER, sortOrder, FEEDS_XML_FILTER_FLAGS, filterFlags, FEEDS_XML_INCLUDE_FLAGS, includeFlags, "ptr*", &pps := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, uiItemCount, FEEDS_XML_SORT_PROPERTY, sortProperty, FEEDS_XML_SORT_ORDER, sortOrder, FEEDS_XML_FILTER_FLAGS, filterFlags, FEEDS_XML_INCLUDE_FLAGS, includeFlags, "ptr*", &pps := 0, "HRESULT")
         return IStream(pps)
     }
 
@@ -278,7 +278,7 @@ export default struct IXFeed extends IUnknown {
      * @returns {HRESULT} 
      */
     SetInterval(uiInterval) {
-        result := ComCall(20, this, "uint", uiInterval, "HRESULT")
+        result := ComCall(20, this, UInt32, uiInterval, "HRESULT")
         return result
     }
 
@@ -317,7 +317,7 @@ export default struct IXFeed extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     GetItem(uiId, riid) {
-        result := ComCall(24, this, "uint", uiId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(24, this, UInt32, uiId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -345,7 +345,7 @@ export default struct IXFeed extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMaxItemCount(uiMaxItemCount) {
-        result := ComCall(27, this, "uint", uiMaxItemCount, "HRESULT")
+        result := ComCall(27, this, UInt32, uiMaxItemCount, "HRESULT")
         return result
     }
 

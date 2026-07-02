@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_READING_DIRECTION.ahk" { DWRITE_READING_DIRECTION }
-#Import ".\DWRITE_FLOW_DIRECTION.ahk" { DWRITE_FLOW_DIRECTION }
-#Import ".\DWRITE_LINE_SPACING_METHOD.ahk" { DWRITE_LINE_SPACING_METHOD }
-#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
-#Import ".\DWRITE_TRIMMING.ahk" { DWRITE_TRIMMING }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
-#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_WORD_WRAPPING.ahk" { DWRITE_WORD_WRAPPING }
-#Import ".\DWRITE_TEXT_ALIGNMENT.ahk" { DWRITE_TEXT_ALIGNMENT }
 #Import ".\DWRITE_PARAGRAPH_ALIGNMENT.ahk" { DWRITE_PARAGRAPH_ALIGNMENT }
+#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FLOW_DIRECTION.ahk" { DWRITE_FLOW_DIRECTION }
+#Import ".\DWRITE_TEXT_ALIGNMENT.ahk" { DWRITE_TEXT_ALIGNMENT }
+#Import ".\DWRITE_TRIMMING.ahk" { DWRITE_TRIMMING }
+#Import ".\DWRITE_LINE_SPACING_METHOD.ahk" { DWRITE_LINE_SPACING_METHOD }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
 #Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import ".\DWRITE_READING_DIRECTION.ahk" { DWRITE_READING_DIRECTION }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\DWRITE_WORD_WRAPPING.ahk" { DWRITE_WORD_WRAPPING }
 
 /**
  * The IDWriteTextFormat interface describes the font and paragraph properties used to format text, and it describes locale information.
@@ -240,7 +240,7 @@ export default struct IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setincrementaltabstop
      */
     SetIncrementalTabStop(incrementalTabStop) {
-        result := ComCall(8, this, "float", incrementalTabStop, "HRESULT")
+        result := ComCall(8, this, Float32, incrementalTabStop, "HRESULT")
         return result
     }
 
@@ -282,7 +282,7 @@ export default struct IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setlinespacing
      */
     SetLineSpacing(lineSpacingMethod, lineSpacing, baseline) {
-        result := ComCall(10, this, DWRITE_LINE_SPACING_METHOD, lineSpacingMethod, "float", lineSpacing, "float", baseline, "HRESULT")
+        result := ComCall(10, this, DWRITE_LINE_SPACING_METHOD, lineSpacingMethod, Float32, lineSpacing, Float32, baseline, "HRESULT")
         return result
     }
 
@@ -441,7 +441,7 @@ export default struct IDWriteTextFormat extends IUnknown {
     GetFontFamilyName(fontFamilyName, nameSize) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
 
-        result := ComCall(21, this, "ptr", fontFamilyName, "uint", nameSize, "HRESULT")
+        result := ComCall(21, this, "ptr", fontFamilyName, UInt32, nameSize, "HRESULT")
         return result
     }
 
@@ -521,7 +521,7 @@ export default struct IDWriteTextFormat extends IUnknown {
     GetLocaleName(localeName, nameSize) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(27, this, "ptr", localeName, "uint", nameSize, "HRESULT")
+        result := ComCall(27, this, "ptr", localeName, UInt32, nameSize, "HRESULT")
         return result
     }
 

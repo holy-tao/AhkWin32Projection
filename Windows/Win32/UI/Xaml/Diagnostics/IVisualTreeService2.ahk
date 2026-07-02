@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RenderTargetBitmapOptions.ahk" { RenderTargetBitmapOptions }
 #Import ".\IBitmapData.ahk" { IBitmapData }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IVisualTreeService.ahk" { IVisualTreeService }
+#Import ".\RenderTargetBitmapOptions.ahk" { RenderTargetBitmapOptions }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents additional capabilities of an IVisualTreeService object.
@@ -55,7 +55,7 @@ export default struct IVisualTreeService2 extends IVisualTreeService {
     GetPropertyIndex(_object, propertyName) {
         propertyName := propertyName is String ? StrPtr(propertyName) : propertyName
 
-        result := ComCall(15, this, "uint", _object, "ptr", propertyName, "uint*", &pPropertyIndex := 0, "HRESULT")
+        result := ComCall(15, this, Int64, _object, "ptr", propertyName, "uint*", &pPropertyIndex := 0, "HRESULT")
         return pPropertyIndex
     }
 
@@ -67,7 +67,7 @@ export default struct IVisualTreeService2 extends IVisualTreeService {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-getproperty
      */
     GetProperty(_object, propertyIndex) {
-        result := ComCall(16, this, "uint", _object, "uint", propertyIndex, "uint*", &pValue := 0, "HRESULT")
+        result := ComCall(16, this, Int64, _object, UInt32, propertyIndex, "uint*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -80,7 +80,7 @@ export default struct IVisualTreeService2 extends IVisualTreeService {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-replaceresource
      */
     ReplaceResource(resourceDictionary, key, newValue) {
-        result := ComCall(17, this, "uint", resourceDictionary, "uint", key, "uint", newValue, "HRESULT")
+        result := ComCall(17, this, Int64, resourceDictionary, Int64, key, Int64, newValue, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IVisualTreeService2 extends IVisualTreeService {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-rendertargetbitmap
      */
     RenderTargetBitmap(_handle, options, maxPixelWidth, maxPixelHeight) {
-        result := ComCall(18, this, "uint", _handle, RenderTargetBitmapOptions, options, "uint", maxPixelWidth, "uint", maxPixelHeight, "ptr*", &ppBitmapData := 0, "HRESULT")
+        result := ComCall(18, this, Int64, _handle, RenderTargetBitmapOptions, options, UInt32, maxPixelWidth, UInt32, maxPixelHeight, "ptr*", &ppBitmapData := 0, "HRESULT")
         return IBitmapData(ppBitmapData)
     }
 

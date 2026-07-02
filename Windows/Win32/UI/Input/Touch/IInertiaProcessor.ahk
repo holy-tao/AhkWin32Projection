@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IInertiaProcessor interface handles calculations regarding object motion for Windows Touch.
@@ -305,7 +305,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_initialoriginx
      */
     put_InitialOriginX(x) {
-        result := ComCall(4, this, "float", x, "HRESULT")
+        result := ComCall(4, this, Float32, x, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_initialoriginy
      */
     put_InitialOriginY(y) {
-        result := ComCall(6, this, "float", y, "HRESULT")
+        result := ComCall(6, this, Float32, y, "HRESULT")
         return result
     }
 
@@ -385,7 +385,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_initialvelocityx
      */
     put_InitialVelocityX(x) {
-        result := ComCall(8, this, "float", x, "HRESULT")
+        result := ComCall(8, this, Float32, x, "HRESULT")
         return result
     }
 
@@ -416,7 +416,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_initialvelocityy
      */
     put_InitialVelocityY(y) {
-        result := ComCall(10, this, "float", y, "HRESULT")
+        result := ComCall(10, this, Float32, y, "HRESULT")
         return result
     }
 
@@ -455,7 +455,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_initialangularvelocity
      */
     put_InitialAngularVelocity(velocity) {
-        result := ComCall(12, this, "float", velocity, "HRESULT")
+        result := ComCall(12, this, Float32, velocity, "HRESULT")
         return result
     }
 
@@ -492,7 +492,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_initialexpansionvelocity
      */
     put_InitialExpansionVelocity(velocity) {
-        result := ComCall(14, this, "float", velocity, "HRESULT")
+        result := ComCall(14, this, Float32, velocity, "HRESULT")
         return result
     }
 
@@ -523,7 +523,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_initialradius
      */
     put_InitialRadius(radius) {
-        result := ComCall(16, this, "float", radius, "HRESULT")
+        result := ComCall(16, this, Float32, radius, "HRESULT")
         return result
     }
 
@@ -544,7 +544,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_boundaryleft
      */
     put_BoundaryLeft(left) {
-        result := ComCall(18, this, "float", left, "HRESULT")
+        result := ComCall(18, this, Float32, left, "HRESULT")
         return result
     }
 
@@ -565,7 +565,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_boundarytop
      */
     put_BoundaryTop(top) {
-        result := ComCall(20, this, "float", top, "HRESULT")
+        result := ComCall(20, this, Float32, top, "HRESULT")
         return result
     }
 
@@ -586,7 +586,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_boundaryright
      */
     put_BoundaryRight(right) {
-        result := ComCall(22, this, "float", right, "HRESULT")
+        result := ComCall(22, this, Float32, right, "HRESULT")
         return result
     }
 
@@ -607,7 +607,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_boundarybottom
      */
     put_BoundaryBottom(bottom) {
-        result := ComCall(24, this, "float", bottom, "HRESULT")
+        result := ComCall(24, this, Float32, bottom, "HRESULT")
         return result
     }
 
@@ -628,7 +628,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_elasticmarginleft
      */
     put_ElasticMarginLeft(left) {
-        result := ComCall(26, this, "float", left, "HRESULT")
+        result := ComCall(26, this, Float32, left, "HRESULT")
         return result
     }
 
@@ -649,7 +649,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_elasticmargintop
      */
     put_ElasticMarginTop(top) {
-        result := ComCall(28, this, "float", top, "HRESULT")
+        result := ComCall(28, this, Float32, top, "HRESULT")
         return result
     }
 
@@ -670,7 +670,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_elasticmarginright
      */
     put_ElasticMarginRight(right) {
-        result := ComCall(30, this, "float", right, "HRESULT")
+        result := ComCall(30, this, Float32, right, "HRESULT")
         return result
     }
 
@@ -691,7 +691,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_elasticmarginbottom
      */
     put_ElasticMarginBottom(bottom) {
-        result := ComCall(32, this, "float", bottom, "HRESULT")
+        result := ComCall(32, this, Float32, bottom, "HRESULT")
         return result
     }
 
@@ -726,7 +726,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_desireddisplacement
      */
     put_DesiredDisplacement(displacement) {
-        result := ComCall(34, this, "float", displacement, "HRESULT")
+        result := ComCall(34, this, Float32, displacement, "HRESULT")
         return result
     }
 
@@ -761,7 +761,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_desiredrotation
      */
     put_DesiredRotation(rotation) {
-        result := ComCall(36, this, "float", rotation, "HRESULT")
+        result := ComCall(36, this, Float32, rotation, "HRESULT")
         return result
     }
 
@@ -796,7 +796,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_desiredexpansion
      */
     put_DesiredExpansion(expansion) {
-        result := ComCall(38, this, "float", expansion, "HRESULT")
+        result := ComCall(38, this, Float32, expansion, "HRESULT")
         return result
     }
 
@@ -831,7 +831,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_desireddeceleration
      */
     put_DesiredDeceleration(deceleration) {
-        result := ComCall(40, this, "float", deceleration, "HRESULT")
+        result := ComCall(40, this, Float32, deceleration, "HRESULT")
         return result
     }
 
@@ -868,7 +868,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_desiredangulardeceleration
      */
     put_DesiredAngularDeceleration(deceleration) {
-        result := ComCall(42, this, "float", deceleration, "HRESULT")
+        result := ComCall(42, this, Float32, deceleration, "HRESULT")
         return result
     }
 
@@ -903,7 +903,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_desiredexpansiondeceleration
      */
     put_DesiredExpansionDeceleration(deceleration) {
-        result := ComCall(44, this, "float", deceleration, "HRESULT")
+        result := ComCall(44, this, Float32, deceleration, "HRESULT")
         return result
     }
 
@@ -924,7 +924,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-put_initialtimestamp
      */
     put_InitialTimestamp(_timestamp) {
-        result := ComCall(46, this, "uint", _timestamp, "HRESULT")
+        result := ComCall(46, this, UInt32, _timestamp, "HRESULT")
         return result
     }
 
@@ -957,7 +957,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-processtime
      */
     ProcessTime(_timestamp) {
-        result := ComCall(49, this, "uint", _timestamp, BOOL.Ptr, &completed := 0, "HRESULT")
+        result := ComCall(49, this, UInt32, _timestamp, BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 
@@ -982,7 +982,7 @@ export default struct IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-completetime
      */
     CompleteTime(_timestamp) {
-        result := ComCall(51, this, "uint", _timestamp, "HRESULT")
+        result := ComCall(51, this, UInt32, _timestamp, "HRESULT")
         return result
     }
 

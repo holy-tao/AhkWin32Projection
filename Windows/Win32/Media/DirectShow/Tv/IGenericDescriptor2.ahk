@@ -69,7 +69,7 @@ export default struct IGenericDescriptor2 extends IGenericDescriptor {
     Initialize(pbDesc, wCount) {
         pbDescMarshal := pbDesc is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, pbDescMarshal, pbDesc, "ushort", wCount, "HRESULT")
+        result := ComCall(7, this, pbDescMarshal, pbDesc, UInt16, wCount, "HRESULT")
         return result
     }
 

@@ -41,7 +41,7 @@ export default struct ICorProfilerCallback9 extends ICorProfilerCallback8 {
      * @returns {HRESULT} 
      */
     DynamicMethodUnloaded(functionId) {
-        result := ComCall(94, this, "ptr", functionId, "HRESULT")
+        result := ComCall(94, this, IntPtr, functionId, "HRESULT")
         return result
     }
 

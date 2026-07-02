@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\XAPO_LOCKFORPROCESS_PARAMETERS.ahk" { XAPO_LOCKFORPROCESS_PARAMETERS }
-#Import ".\XAPO_PROCESS_BUFFER_PARAMETERS.ahk" { XAPO_PROCESS_BUFFER_PARAMETERS }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\XAPO_REGISTRATION_PROPERTIES.ahk" { XAPO_REGISTRATION_PROPERTIES }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\XAPO_LOCKFORPROCESS_PARAMETERS.ahk" { XAPO_LOCKFORPROCESS_PARAMETERS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XAPO_PROCESS_BUFFER_PARAMETERS.ahk" { XAPO_PROCESS_BUFFER_PARAMETERS }
 
 /**
  * The interface for an Audio Processing Object which be used in an XAudio2 effect chain.
@@ -120,7 +120,7 @@ export default struct IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-initialize
      */
     Initialize(pData, DataByteSize) {
-        result := ComCall(6, this, "ptr", pData, "uint", DataByteSize, "HRESULT")
+        result := ComCall(6, this, IntPtr, pData, UInt32, DataByteSize, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-lockforprocess
      */
     LockForProcess(InputLockedParameterCount, pInputLockedParameters, OutputLockedParameterCount, pOutputLockedParameters) {
-        result := ComCall(8, this, "uint", InputLockedParameterCount, XAPO_LOCKFORPROCESS_PARAMETERS.Ptr, pInputLockedParameters, "uint", OutputLockedParameterCount, XAPO_LOCKFORPROCESS_PARAMETERS.Ptr, pOutputLockedParameters, "HRESULT")
+        result := ComCall(8, this, UInt32, InputLockedParameterCount, XAPO_LOCKFORPROCESS_PARAMETERS.Ptr, pInputLockedParameters, UInt32, OutputLockedParameterCount, XAPO_LOCKFORPROCESS_PARAMETERS.Ptr, pOutputLockedParameters, "HRESULT")
         return result
     }
 
@@ -250,7 +250,7 @@ export default struct IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-process
      */
     Process(InputProcessParameterCount, pInputProcessParameters, OutputProcessParameterCount, pOutputProcessParameters, IsEnabled) {
-        ComCall(10, this, "uint", InputProcessParameterCount, XAPO_PROCESS_BUFFER_PARAMETERS.Ptr, pInputProcessParameters, "uint", OutputProcessParameterCount, XAPO_PROCESS_BUFFER_PARAMETERS.Ptr, pOutputProcessParameters, BOOL, IsEnabled)
+        ComCall(10, this, UInt32, InputProcessParameterCount, XAPO_PROCESS_BUFFER_PARAMETERS.Ptr, pInputProcessParameters, UInt32, OutputProcessParameterCount, XAPO_PROCESS_BUFFER_PARAMETERS.Ptr, pOutputProcessParameters, BOOL, IsEnabled)
     }
 
     /**
@@ -271,7 +271,7 @@ export default struct IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-calcinputframes
      */
     CalcInputFrames(OutputFrameCount) {
-        result := ComCall(11, this, "uint", OutputFrameCount, UInt32)
+        result := ComCall(11, this, UInt32, OutputFrameCount, UInt32)
         return result
     }
 
@@ -293,7 +293,7 @@ export default struct IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-calcoutputframes
      */
     CalcOutputFrames(InputFrameCount) {
-        result := ComCall(12, this, "uint", InputFrameCount, UInt32)
+        result := ComCall(12, this, UInt32, InputFrameCount, UInt32)
         return result
     }
 

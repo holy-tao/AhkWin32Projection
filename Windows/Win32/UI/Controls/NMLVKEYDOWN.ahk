@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information used in processing the LVN_KEYDOWN notification code. This structure is the same as the NMLVKEYDOWN structure but has been renamed to fit standard naming conventions.

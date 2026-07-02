@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumMediaTypes interface enumerates a pin's preferred media types.
@@ -119,7 +119,7 @@ export default struct IEnumMediaTypes extends IUnknown {
         ppMediaTypesMarshal := ppMediaTypes is VarRef ? "ptr*" : "ptr"
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cMediaTypes, ppMediaTypesMarshal, ppMediaTypes, pcFetchedMarshal, pcFetched, Int32)
+        result := ComCall(3, this, UInt32, cMediaTypes, ppMediaTypesMarshal, ppMediaTypes, pcFetchedMarshal, pcFetched, Int32)
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IEnumMediaTypes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienummediatypes-skip
      */
     Skip(cMediaTypes) {
-        result := ComCall(4, this, "uint", cMediaTypes, "HRESULT")
+        result := ComCall(4, this, UInt32, cMediaTypes, "HRESULT")
         return result
     }
 

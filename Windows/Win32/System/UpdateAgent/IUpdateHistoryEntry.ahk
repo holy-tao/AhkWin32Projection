@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUpdateIdentity.ahk" { IUpdateIdentity }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\OperationResultCode.ahk" { OperationResultCode }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IStringCollection.ahk" { IStringCollection }
-#Import ".\UpdateOperation.ahk" { UpdateOperation }
 #Import ".\ServerSelection.ahk" { ServerSelection }
+#Import ".\OperationResultCode.ahk" { OperationResultCode }
+#Import ".\UpdateOperation.ahk" { UpdateOperation }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IStringCollection.ahk" { IStringCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateIdentity.ahk" { IUpdateIdentity }
 
 /**
  * Represents the recorded history of an update. (IUpdateHistoryEntry)

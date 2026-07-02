@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import ".\IEmptyVolumeCache.ahk" { IEmptyVolumeCache }
 #Import ".\EMPTY_VOLUME_CACHE_FLAGS.ahk" { EMPTY_VOLUME_CACHE_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEmptyVolumeCache.ahk" { IEmptyVolumeCache }
 
 /**
  * Extends IEmptyVolumeCache. This interface defines one additional method, InitializeEx, that provides better localization support than IEmptyVolumeCache::Initialize.

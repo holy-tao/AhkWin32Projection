@@ -58,7 +58,7 @@ export default struct IMFSourceReaderCallback2 extends IMFSourceReaderCallback {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback2-onstreamerror
      */
     OnStreamError(dwStreamIndex, hrStatus) {
-        result := ComCall(7, this, "uint", dwStreamIndex, "int", hrStatus, "HRESULT")
+        result := ComCall(7, this, UInt32, dwStreamIndex, "int", hrStatus, "HRESULT")
         return result
     }
 

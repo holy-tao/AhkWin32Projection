@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfTextInputProcessor.ahk" { ITfTextInputProcessor }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfThreadMgr.ahk" { ITfThreadMgr }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfTextInputProcessor.ahk" { ITfTextInputProcessor }
 
 /**
  * The ITfTextInputProcessorEx interface is implemented by a text service and used by the TSF manager to activate and deactivate the text service.
@@ -94,7 +94,7 @@ export default struct ITfTextInputProcessorEx extends ITfTextInputProcessor {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftextinputprocessorex-activateex
      */
     ActivateEx(ptim, tid, dwFlags) {
-        result := ComCall(5, this, "ptr", ptim, "uint", tid, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", ptim, UInt32, tid, UInt32, dwFlags, "HRESULT")
         return result
     }
 

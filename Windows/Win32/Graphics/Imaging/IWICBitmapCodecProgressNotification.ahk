@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PFNProgressNotification.ahk" { PFNProgressNotification }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods used for progress notification for encoders and decoders.
@@ -68,7 +69,7 @@ export default struct IWICBitmapCodecProgressNotification extends IUnknown {
     RegisterProgressNotification(_pfnProgressNotification, pvData, dwProgressFlags) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", _pfnProgressNotification, pvDataMarshal, pvData, "uint", dwProgressFlags, "HRESULT")
+        result := ComCall(3, this, PFNProgressNotification, _pfnProgressNotification, pvDataMarshal, pvData, UInt32, dwProgressFlags, "HRESULT")
         return result
     }
 

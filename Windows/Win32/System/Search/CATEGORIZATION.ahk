@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Storage\IndexServer\FULLPROPSPEC.ahk" { FULLPROPSPEC }
-#Import ".\COLUMNSET.ahk" { COLUMNSET }
+#Import ".\RANGECATEGORIZE.ahk" { RANGECATEGORIZE }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import ".\BUCKETCATEGORIZE.ahk" { BUCKETCATEGORIZE }
-#Import ".\RANGECATEGORIZE.ahk" { RANGECATEGORIZE }
+#Import ".\COLUMNSET.ahk" { COLUMNSET }
+#Import "..\..\Storage\IndexServer\FULLPROPSPEC.ahk" { FULLPROPSPEC }
 
 /**
  * @namespace Windows.Win32.System.Search

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IInkDivisionUnit.ahk" { IInkDivisionUnit }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains a collection of IInkDivisionUnit objects that are contained in an IInkDivisionResult object.
@@ -89,7 +89,7 @@ export default struct IInkDivisionUnits extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionunits-item
      */
     Item(Index) {
-        result := ComCall(9, this, "int", Index, "ptr*", &InkDivisionUnit := 0, "HRESULT")
+        result := ComCall(9, this, Int32, Index, "ptr*", &InkDivisionUnit := 0, "HRESULT")
         return IInkDivisionUnit(InkDivisionUnit)
     }
 

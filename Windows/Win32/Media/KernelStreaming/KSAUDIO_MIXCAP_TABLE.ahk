@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSAUDIO_MIX_CAPS.ahk" { KSAUDIO_MIX_CAPS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\KSAUDIO_MIX_CAPS.ahk" { KSAUDIO_MIX_CAPS }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

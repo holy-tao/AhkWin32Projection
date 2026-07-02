@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXAudio2Voice.ahk" { IXAudio2Voice }
+#Import ".\XAUDIO2_BUFFER.ahk" { XAUDIO2_BUFFER }
+#Import ".\XAUDIO2_BUFFER_WMA.ahk" { XAUDIO2_BUFFER_WMA }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\XAUDIO2_VOICE_STATE.ahk" { XAUDIO2_VOICE_STATE }
-#Import ".\XAUDIO2_BUFFER_WMA.ahk" { XAUDIO2_BUFFER_WMA }
-#Import ".\XAUDIO2_BUFFER.ahk" { XAUDIO2_BUFFER }
-#Import ".\IXAudio2Voice.ahk" { IXAudio2Voice }
 
 /**
  * Use a source voice to submit audio data to the XAudio2 processing pipeline.
@@ -68,7 +68,7 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-start
      */
     Start(Flags, OperationSet) {
-        result := ComCall(19, this, "uint", Flags, "uint", OperationSet, "HRESULT")
+        result := ComCall(19, this, UInt32, Flags, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-stop
      */
     Stop(Flags, OperationSet) {
-        result := ComCall(20, this, "uint", Flags, "uint", OperationSet, "HRESULT")
+        result := ComCall(20, this, UInt32, Flags, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-exitloop
      */
     ExitLoop(OperationSet) {
-        result := ComCall(24, this, "uint", OperationSet, "HRESULT")
+        result := ComCall(24, this, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -287,7 +287,7 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-getstate
      */
     GetState(pVoiceState, Flags) {
-        ComCall(25, this, XAUDIO2_VOICE_STATE.Ptr, pVoiceState, "uint", Flags)
+        ComCall(25, this, XAUDIO2_VOICE_STATE.Ptr, pVoiceState, UInt32, Flags)
     }
 
     /**
@@ -311,7 +311,7 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-setfrequencyratio
      */
     SetFrequencyRatio(Ratio, OperationSet) {
-        result := ComCall(26, this, "float", Ratio, "uint", OperationSet, "HRESULT")
+        result := ComCall(26, this, Float32, Ratio, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-setsourcesamplerate
      */
     SetSourceSampleRate(NewSourceSampleRate) {
-        result := ComCall(28, this, "uint", NewSourceSampleRate, "HRESULT")
+        result := ComCall(28, this, UInt32, NewSourceSampleRate, "HRESULT")
         return result
     }
 

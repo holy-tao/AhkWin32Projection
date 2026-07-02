@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DxcBuffer.ahk" { DxcBuffer }
-#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDxcValidator.ahk" { IDxcValidator }
 #Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
+#Import ".\IDxcValidator.ahk" { IDxcValidator }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DxcBuffer.ahk" { DxcBuffer }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -46,7 +46,7 @@ export default struct IDxcValidator2 extends IDxcValidator {
      * @returns {IDxcOperationResult} 
      */
     ValidateWithDebug(pShader, Flags, pOptDebugBitcode) {
-        result := ComCall(4, this, "ptr", pShader, "uint", Flags, DxcBuffer.Ptr, pOptDebugBitcode, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pShader, UInt32, Flags, DxcBuffer.Ptr, pOptDebugBitcode, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
     }
 

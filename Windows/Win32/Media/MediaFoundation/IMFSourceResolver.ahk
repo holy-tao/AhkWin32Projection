@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFByteStream.ahk" { IMFByteStream }
-#Import ".\MF_OBJECT_TYPE.ahk" { MF_OBJECT_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import ".\MF_OBJECT_TYPE.ahk" { MF_OBJECT_TYPE }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
 
 /**
  * Creates a media source from a URL or a byte stream.
@@ -117,7 +117,7 @@ export default struct IMFSourceResolver extends IUnknown {
 
         pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszURL, UInt32, dwFlags, "ptr", pProps, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct IMFSourceResolver extends IUnknown {
 
         pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pByteStream, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
+        result := ComCall(4, this, "ptr", pByteStream, "ptr", pwszURL, UInt32, dwFlags, "ptr", pProps, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
         return result
     }
 
@@ -219,7 +219,7 @@ export default struct IMFSourceResolver extends IUnknown {
     BeginCreateObjectFromURL(pwszURL, dwFlags, pProps, pCallback, punkState) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(5, this, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszURL, UInt32, dwFlags, "ptr", pProps, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return IUnknown(ppIUnknownCancelCookie)
     }
 
@@ -292,7 +292,7 @@ export default struct IMFSourceResolver extends IUnknown {
     BeginCreateObjectFromByteStream(pByteStream, pwszURL, dwFlags, pProps, pCallback, punkState) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(7, this, "ptr", pByteStream, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(7, this, "ptr", pByteStream, "ptr", pwszURL, UInt32, dwFlags, "ptr", pProps, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return IUnknown(ppIUnknownCancelCookie)
     }
 

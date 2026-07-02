@@ -4,8 +4,8 @@
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\RTC_ROAMING_EVENT_TYPE.ahk" { RTC_ROAMING_EVENT_TYPE }
-#Import ".\IRTCProfile2.ahk" { IRTCProfile2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRTCProfile2.ahk" { IRTCProfile2 }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

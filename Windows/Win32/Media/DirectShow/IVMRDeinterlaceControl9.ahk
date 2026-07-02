@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VMR9VideoDesc.ahk" { VMR9VideoDesc }
-#Import ".\VMR9DeinterlaceCaps.ahk" { VMR9DeinterlaceCaps }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VMR9DeinterlaceCaps.ahk" { VMR9DeinterlaceCaps }
 
 /**
  * The IVMRDeinterlaceControl9 interface supports hardware-accelerated deinterlacing using the Video Mixing Renderer Filter 9 (VMR-9).
@@ -118,7 +118,7 @@ export default struct IVMRDeinterlaceControl9 extends IUnknown {
      */
     GetDeinterlaceMode(dwStreamID) {
         lpDeinterlaceMode := Guid()
-        result := ComCall(5, this, "uint", dwStreamID, Guid.Ptr, lpDeinterlaceMode, "HRESULT")
+        result := ComCall(5, this, UInt32, dwStreamID, Guid.Ptr, lpDeinterlaceMode, "HRESULT")
         return lpDeinterlaceMode
     }
 
@@ -192,7 +192,7 @@ export default struct IVMRDeinterlaceControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-setdeinterlacemode
      */
     SetDeinterlaceMode(dwStreamID, lpDeinterlaceMode) {
-        result := ComCall(6, this, "uint", dwStreamID, Guid.Ptr, lpDeinterlaceMode, "HRESULT")
+        result := ComCall(6, this, UInt32, dwStreamID, Guid.Ptr, lpDeinterlaceMode, "HRESULT")
         return result
     }
 
@@ -257,7 +257,7 @@ export default struct IVMRDeinterlaceControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-setdeinterlaceprefs
      */
     SetDeinterlacePrefs(dwDeinterlacePrefs) {
-        result := ComCall(8, this, "uint", dwDeinterlacePrefs, "HRESULT")
+        result := ComCall(8, this, UInt32, dwDeinterlacePrefs, "HRESULT")
         return result
     }
 
@@ -269,7 +269,7 @@ export default struct IVMRDeinterlaceControl9 extends IUnknown {
      */
     GetActualDeinterlaceMode(dwStreamID) {
         lpDeinterlaceMode := Guid()
-        result := ComCall(9, this, "uint", dwStreamID, Guid.Ptr, lpDeinterlaceMode, "HRESULT")
+        result := ComCall(9, this, UInt32, dwStreamID, Guid.Ptr, lpDeinterlaceMode, "HRESULT")
         return lpDeinterlaceMode
     }
 

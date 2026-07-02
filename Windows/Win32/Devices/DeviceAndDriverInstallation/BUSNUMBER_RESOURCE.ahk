@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BUSNUMBER_RANGE.ahk" { BUSNUMBER_RANGE }
 #Import ".\BUSNUMBER_DES.ahk" { BUSNUMBER_DES }
+#Import ".\BUSNUMBER_RANGE.ahk" { BUSNUMBER_RANGE }
 
 /**
  * The BUSNUMBER_RESOURCE structure specifies either a resource list or a resource requirements list that describes bus number usage for a device instance. For more information about resource lists and resource requirements lists, see Hardware Resources.

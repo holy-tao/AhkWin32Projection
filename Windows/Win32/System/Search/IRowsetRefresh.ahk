@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -55,7 +55,7 @@ export default struct IRowsetRefresh extends IUnknown {
         prghRowsRefreshedMarshal := prghRowsRefreshed is VarRef ? "ptr*" : "ptr"
         prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cRows, rghRowsMarshal, rghRows, BOOL, fOverWrite, pcRowsRefreshedMarshal, pcRowsRefreshed, prghRowsRefreshedMarshal, prghRowsRefreshed, prgRowStatusMarshal, prgRowStatus, "HRESULT")
+        result := ComCall(3, this, IntPtr, hChapter, IntPtr, cRows, rghRowsMarshal, rghRows, BOOL, fOverWrite, pcRowsRefreshedMarshal, pcRowsRefreshed, prghRowsRefreshedMarshal, prghRowsRefreshed, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct IRowsetRefresh extends IUnknown {
      * @returns {Void} 
      */
     GetLastVisibleData(hRow, _hAccessor) {
-        result := ComCall(4, this, "ptr", hRow, HACCESSOR, _hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, hRow, HACCESSOR, _hAccessor, "ptr", &pData := 0, "HRESULT")
         return pData
     }
 

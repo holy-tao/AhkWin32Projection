@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPMT.ahk" { IPMT }
-#Import ".\IATSC_EIT.ahk" { IATSC_EIT }
-#Import ".\IATSC_VCT.ahk" { IATSC_VCT }
-#Import ".\ICAT.ahk" { ICAT }
-#Import ".\IATSC_ETT.ahk" { IATSC_ETT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IATSC_STT.ahk" { IATSC_STT }
+#Import ".\ITSDT.ahk" { ITSDT }
 #Import ".\IATSC_MGT.ahk" { IATSC_MGT }
+#Import ".\ICAT.ahk" { ICAT }
+#Import ".\IATSC_VCT.ahk" { IATSC_VCT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IATSC_STT.ahk" { IATSC_STT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISCTE_EAS.ahk" { ISCTE_EAS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IATSC_EIT.ahk" { IATSC_EIT }
 #Import ".\IPAT.ahk" { IPAT }
-#Import ".\ITSDT.ahk" { ITSDT }
+#Import ".\IPMT.ahk" { IPMT }
+#Import ".\IATSC_ETT.ahk" { IATSC_ETT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAtscPsipParser interface retrieves ATSC Program and System Information Protocol (PSIP) tables.
@@ -144,7 +144,7 @@ export default struct IAtscPsipParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getcat
      */
     GetCAT(dwTimeout) {
-        result := ComCall(5, this, "uint", dwTimeout, "ptr*", &ppCAT := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwTimeout, "ptr*", &ppCAT := 0, "HRESULT")
         return ICAT(ppCAT)
     }
 
@@ -160,7 +160,7 @@ export default struct IAtscPsipParser extends IUnknown {
     GetPMT(pid, pwProgramNumber) {
         pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ushort", pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", &ppPMT := 0, "HRESULT")
+        result := ComCall(6, this, UInt16, pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", &ppPMT := 0, "HRESULT")
         return IPMT(ppPMT)
     }
 
@@ -198,7 +198,7 @@ export default struct IAtscPsipParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getvct
      */
     GetVCT(tableId, fGetNextTable) {
-        result := ComCall(9, this, "char", tableId, BOOL, fGetNextTable, "ptr*", &ppVCT := 0, "HRESULT")
+        result := ComCall(9, this, Int8, tableId, BOOL, fGetNextTable, "ptr*", &ppVCT := 0, "HRESULT")
         return IATSC_VCT(ppVCT)
     }
 
@@ -213,7 +213,7 @@ export default struct IAtscPsipParser extends IUnknown {
     GetEIT(pid, pwSourceId, dwTimeout) {
         pwSourceIdMarshal := pwSourceId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(10, this, "ushort", pid, pwSourceIdMarshal, pwSourceId, "uint", dwTimeout, "ptr*", &ppEIT := 0, "HRESULT")
+        result := ComCall(10, this, UInt16, pid, pwSourceIdMarshal, pwSourceId, UInt32, dwTimeout, "ptr*", &ppEIT := 0, "HRESULT")
         return IATSC_EIT(ppEIT)
     }
 
@@ -231,7 +231,7 @@ export default struct IAtscPsipParser extends IUnknown {
         wSourceIdMarshal := wSourceId is VarRef ? "ushort*" : "ptr"
         pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(11, this, "ushort", pid, wSourceIdMarshal, wSourceId, pwEventIdMarshal, pwEventId, "ptr*", &ppETT := 0, "HRESULT")
+        result := ComCall(11, this, UInt16, pid, wSourceIdMarshal, wSourceId, pwEventIdMarshal, pwEventId, "ptr*", &ppETT := 0, "HRESULT")
         return IATSC_ETT(ppETT)
     }
 
@@ -259,7 +259,7 @@ export default struct IAtscPsipParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-geteas
      */
     GetEAS(pid) {
-        result := ComCall(13, this, "ushort", pid, "ptr*", &ppEAS := 0, "HRESULT")
+        result := ComCall(13, this, UInt16, pid, "ptr*", &ppEAS := 0, "HRESULT")
         return ISCTE_EAS(ppEAS)
     }
 

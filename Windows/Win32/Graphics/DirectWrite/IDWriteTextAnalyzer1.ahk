@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteTextAnalysisSink1.ahk" { IDWriteTextAnalysisSink1 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
+#Import ".\IDWriteTextAnalyzer.ahk" { IDWriteTextAnalyzer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
-#Import ".\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk" { DWRITE_SHAPING_GLYPH_PROPERTIES }
-#Import ".\IDWriteTextAnalysisSink1.ahk" { IDWriteTextAnalysisSink1 }
-#Import ".\DWRITE_BASELINE.ahk" { DWRITE_BASELINE }
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import ".\DWRITE_SCRIPT_PROPERTIES.ahk" { DWRITE_SCRIPT_PROPERTIES }
-#Import ".\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk" { DWRITE_JUSTIFICATION_OPPORTUNITY }
-#Import ".\IDWriteTextAnalysisSource1.ahk" { IDWriteTextAnalysisSource1 }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteTextAnalyzer.ahk" { IDWriteTextAnalyzer }
-#Import ".\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk" { DWRITE_GLYPH_ORIENTATION_ANGLE }
+#Import ".\DWRITE_SCRIPT_PROPERTIES.ahk" { DWRITE_SCRIPT_PROPERTIES }
+#Import ".\DWRITE_SHAPING_GLYPH_PROPERTIES.ahk" { DWRITE_SHAPING_GLYPH_PROPERTIES }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteTextAnalysisSource1.ahk" { IDWriteTextAnalysisSource1 }
 #Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_BASELINE.ahk" { DWRITE_BASELINE }
+#Import ".\DWRITE_JUSTIFICATION_OPPORTUNITY.ahk" { DWRITE_JUSTIFICATION_OPPORTUNITY }
 
 /**
  * Analyzes various text properties for complex script processing. (IDWriteTextAnalyzer1)
@@ -83,7 +83,7 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
         modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(10, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "uint", textLength, "uint", glyphCount, clusterMapMarshal, clusterMap, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, modifiedGlyphOffsets, "HRESULT")
+        result := ComCall(10, this, Float32, leadingSpacing, Float32, trailingSpacing, Float32, minimumAdvanceWidth, UInt32, textLength, UInt32, glyphCount, clusterMapMarshal, clusterMap, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, modifiedGlyphOffsets, "HRESULT")
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-analyzeverticalglyphorientation
      */
     AnalyzeVerticalGlyphOrientation(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(12, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(12, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, "ptr", analysisSink, "HRESULT")
         return result
     }
 
@@ -248,7 +248,7 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         textLengthReadMarshal := textLengthRead is VarRef ? "uint*" : "ptr"
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(15, this, "ptr", textString, "uint", textLength, "ptr", fontFace, isTextSimpleMarshal, isTextSimple, textLengthReadMarshal, textLengthRead, glyphIndicesMarshal, glyphIndices, "HRESULT")
+        result := ComCall(15, this, "ptr", textString, UInt32, textLength, "ptr", fontFace, isTextSimpleMarshal, isTextSimple, textLengthReadMarshal, textLengthRead, glyphIndicesMarshal, glyphIndices, "HRESULT")
         return result
     }
 
@@ -298,7 +298,7 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
 
         justificationOpportunities := DWRITE_JUSTIFICATION_OPPORTUNITY()
-        result := ComCall(16, this, "ptr", fontFace, "float", fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "uint", textLength, "uint", glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, "HRESULT")
+        result := ComCall(16, this, "ptr", fontFace, Float32, fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, UInt32, textLength, UInt32, glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, "HRESULT")
         return justificationOpportunities
     }
 
@@ -338,7 +338,7 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
         justifiedGlyphAdvancesMarshal := justifiedGlyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(17, this, "float", lineWidth, "uint", glyphCount, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, justifiedGlyphOffsets, "HRESULT")
+        result := ComCall(17, this, Float32, lineWidth, UInt32, glyphCount, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, justifiedGlyphOffsets, "HRESULT")
         return result
     }
 
@@ -427,7 +427,7 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
         modifiedGlyphIndicesMarshal := modifiedGlyphIndices is VarRef ? "ushort*" : "ptr"
         modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(18, this, "ptr", fontFace, "float", fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "uint", textLength, "uint", glyphCount, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, justifiedGlyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, actualGlyphCountMarshal, actualGlyphCount, modifiedClusterMapMarshal, modifiedClusterMap, modifiedGlyphIndicesMarshal, modifiedGlyphIndices, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, modifiedGlyphOffsets, "HRESULT")
+        result := ComCall(18, this, "ptr", fontFace, Float32, fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, UInt32, textLength, UInt32, glyphCount, UInt32, maxGlyphCount, clusterMapMarshal, clusterMap, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, justifiedGlyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, actualGlyphCountMarshal, actualGlyphCount, modifiedClusterMapMarshal, modifiedClusterMap, modifiedGlyphIndicesMarshal, modifiedGlyphIndices, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, modifiedGlyphOffsets, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\SOUNDSENTRY_TEXT_EFFECT.ahk" { SOUNDSENTRY_TEXT_EFFECT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SOUND_SENTRY_GRAPHICS_EFFECT.ahk" { SOUND_SENTRY_GRAPHICS_EFFECT }
-#Import ".\SOUNDSENTRY_WINDOWS_EFFECT.ahk" { SOUNDSENTRY_WINDOWS_EFFECT }
 #Import ".\SOUNDSENTRY_FLAGS.ahk" { SOUNDSENTRY_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SOUNDSENTRY_WINDOWS_EFFECT.ahk" { SOUNDSENTRY_WINDOWS_EFFECT }
+#Import ".\SOUND_SENTRY_GRAPHICS_EFFECT.ahk" { SOUND_SENTRY_GRAPHICS_EFFECT }
 
 /**
  * Contains information about the SoundSentry accessibility feature. When the SoundSentry feature is on, the computer displays a visual indication only when a sound is generated. (Unicode)

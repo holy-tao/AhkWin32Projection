@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IEventObjectCollection.ahk" { IEventObjectCollection }
-#Import ".\IMultiInterfacePublisherFilter.ahk" { IMultiInterfacePublisherFilter }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMultiInterfacePublisherFilter.ahk" { IMultiInterfacePublisherFilter }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEventObjectCollection.ahk" { IEventObjectCollection }
 
 /**
  * Controls the behavior of an event object, the object that fires an event to its subscribers. (IMultiInterfaceEventControl)

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCSI_LUN_LIST.ahk" { SCSI_LUN_LIST }
 #Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
+#Import ".\SCSI_LUN_LIST.ahk" { SCSI_LUN_LIST }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

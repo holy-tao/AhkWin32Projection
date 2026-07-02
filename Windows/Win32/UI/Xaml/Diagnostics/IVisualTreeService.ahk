@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CollectionElementValue.ahk" { CollectionElementValue }
+#Import ".\IVisualTreeServiceCallback.ahk" { IVisualTreeServiceCallback }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\PropertyChainSource.ahk" { PropertyChainSource }
-#Import ".\EnumType.ahk" { EnumType }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EnumType.ahk" { EnumType }
 #Import ".\PropertyChainValue.ahk" { PropertyChainValue }
-#Import ".\CollectionElementValue.ahk" { CollectionElementValue }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IVisualTreeServiceCallback.ahk" { IVisualTreeServiceCallback }
 
 /**
  * Provides methods to manage a XAML visual tree.
@@ -136,7 +136,7 @@ export default struct IVisualTreeService extends IUnknown {
         pPropertyCountMarshal := pPropertyCount is VarRef ? "uint*" : "ptr"
         ppPropertyValuesMarshal := ppPropertyValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", instanceHandle, pSourceCountMarshal, pSourceCount, ppPropertySourcesMarshal, ppPropertySources, pPropertyCountMarshal, pPropertyCount, ppPropertyValuesMarshal, ppPropertyValues, "HRESULT")
+        result := ComCall(7, this, Int64, instanceHandle, pSourceCountMarshal, pSourceCount, ppPropertySourcesMarshal, ppPropertySources, pPropertyCountMarshal, pPropertyCount, ppPropertyValuesMarshal, ppPropertyValues, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IVisualTreeService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-setproperty
      */
     SetProperty(instanceHandle, value, propertyIndex) {
-        result := ComCall(8, this, "uint", instanceHandle, "uint", value, "uint", propertyIndex, "HRESULT")
+        result := ComCall(8, this, Int64, instanceHandle, Int64, value, UInt32, propertyIndex, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct IVisualTreeService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-clearproperty
      */
     ClearProperty(instanceHandle, propertyIndex) {
-        result := ComCall(9, this, "uint", instanceHandle, "uint", propertyIndex, "HRESULT")
+        result := ComCall(9, this, Int64, instanceHandle, UInt32, propertyIndex, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct IVisualTreeService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getcollectioncount
      */
     GetCollectionCount(instanceHandle) {
-        result := ComCall(10, this, "uint", instanceHandle, "uint*", &pCollectionSize := 0, "HRESULT")
+        result := ComCall(10, this, Int64, instanceHandle, "uint*", &pCollectionSize := 0, "HRESULT")
         return pCollectionSize
     }
 
@@ -198,7 +198,7 @@ export default struct IVisualTreeService extends IUnknown {
     GetCollectionElements(instanceHandle, startIndex, pElementCount) {
         pElementCountMarshal := pElementCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", instanceHandle, "uint", startIndex, pElementCountMarshal, pElementCount, "ptr*", &ppElementValues := 0, "HRESULT")
+        result := ComCall(11, this, Int64, instanceHandle, UInt32, startIndex, pElementCountMarshal, pElementCount, "ptr*", &ppElementValues := 0, "HRESULT")
         return ppElementValues
     }
 
@@ -214,7 +214,7 @@ export default struct IVisualTreeService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-addchild
      */
     AddChild(parent, child, index) {
-        result := ComCall(12, this, "uint", parent, "uint", child, "uint", index, "HRESULT")
+        result := ComCall(12, this, Int64, parent, Int64, child, UInt32, index, "HRESULT")
         return result
     }
 
@@ -230,7 +230,7 @@ export default struct IVisualTreeService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-removechild
      */
     RemoveChild(parent, index) {
-        result := ComCall(13, this, "uint", parent, "uint", index, "HRESULT")
+        result := ComCall(13, this, Int64, parent, UInt32, index, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct IVisualTreeService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-clearchildren
      */
     ClearChildren(parent) {
-        result := ComCall(14, this, "uint", parent, "HRESULT")
+        result := ComCall(14, this, Int64, parent, "HRESULT")
         return result
     }
 

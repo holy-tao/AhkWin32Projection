@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\SID.ahk" { SID }
-#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_CLASSIFY_OPTION_TYPE.ahk" { FWP_CLASSIFY_OPTION_TYPE }
 #Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
 #Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 #Import ".\FWP_VALUE0.ahk" { FWP_VALUE0 }
-#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SID.ahk" { SID }
 #Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
-#Import ".\FWP_CLASSIFY_OPTION_TYPE.ahk" { FWP_CLASSIFY_OPTION_TYPE }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
 
 /**
  * The FWPM_CLASSIFY_OPTION0 structure.

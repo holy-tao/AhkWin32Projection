@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\LVHITTESTINFO_FLAGS.ahk" { LVHITTESTINFO_FLAGS }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Contains information about a hit test.

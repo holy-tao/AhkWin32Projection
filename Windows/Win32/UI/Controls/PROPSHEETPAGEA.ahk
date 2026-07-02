@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\WindowsAndMessaging\DLGTEMPLATE.ahk" { DLGTEMPLATE }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\WindowsAndMessaging\DLGPROC.ahk" { DLGPROC }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LPFNPSPCALLBACKA.ahk" { LPFNPSPCALLBACKA }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -26,11 +28,11 @@ export default struct PROPSHEETPAGEA {
 
     pszTitle : PSTR
 
-    pfnDlgProc : IntPtr
+    pfnDlgProc : DLGPROC
 
     lParam : LPARAM
 
-    pfnCallback : IntPtr
+    pfnCallback : LPFNPSPCALLBACKA
 
     pcRefParent : IntPtr
 

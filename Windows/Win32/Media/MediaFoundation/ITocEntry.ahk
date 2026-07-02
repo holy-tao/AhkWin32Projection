@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\TOC_ENTRY_DESCRIPTOR.ahk" { TOC_ENTRY_DESCRIPTOR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITocEntry interface represents an individual entry in a table of contents. It provides methods for setting and retrieving descriptive information for the entry.
@@ -208,7 +208,7 @@ export default struct ITocEntry extends IUnknown {
     SetSubEntries(dwNumSubEntries, pwSubEntryIndices) {
         pwSubEntryIndicesMarshal := pwSubEntryIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "HRESULT")
+        result := ComCall(7, this, UInt32, dwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "HRESULT")
         return result
     }
 
@@ -289,7 +289,7 @@ export default struct ITocEntry extends IUnknown {
     SetDescriptionData(dwDescriptionDataSize, pbtDescriptionData, pguidType) {
         pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, Guid.Ptr, pguidType, "HRESULT")
+        result := ComCall(9, this, UInt32, dwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, Guid.Ptr, pguidType, "HRESULT")
         return result
     }
 

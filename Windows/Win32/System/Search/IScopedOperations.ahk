@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IAuthenticate.ahk" { IAuthenticate }
-#Import ".\IBindResource.ahk" { IBindResource }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import ".\IBindResource.ahk" { IBindResource }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IAuthenticate.ahk" { IAuthenticate }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -62,7 +62,7 @@ export default struct IScopedOperations extends IBindResource {
         rgpwszNewURLsMarshal := rgpwszNewURLs is VarRef ? "ptr*" : "ptr"
         ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, "uint", dwCopyFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
+        result := ComCall(4, this, IntPtr, cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, UInt32, dwCopyFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IScopedOperations extends IBindResource {
         rgpwszNewURLsMarshal := rgpwszNewURLs is VarRef ? "ptr*" : "ptr"
         ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, "uint", dwMoveFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
+        result := ComCall(5, this, IntPtr, cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, UInt32, dwMoveFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IScopedOperations extends IBindResource {
     Delete(cRows, rgpwszURLs, dwDeleteFlags) {
         rgpwszURLsMarshal := rgpwszURLs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", cRows, rgpwszURLsMarshal, rgpwszURLs, "uint", dwDeleteFlags, "uint*", &rgdwStatus := 0, "HRESULT")
+        result := ComCall(6, this, IntPtr, cRows, rgpwszURLsMarshal, rgpwszURLs, UInt32, dwDeleteFlags, "uint*", &rgdwStatus := 0, "HRESULT")
         return rgdwStatus
     }
 
@@ -114,7 +114,7 @@ export default struct IScopedOperations extends IBindResource {
      * @returns {IUnknown} 
      */
     OpenRowset(pUnkOuter, pTableID, pIndexID, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(7, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, Guid.Ptr, riid, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
         return IUnknown(ppRowset)
     }
 

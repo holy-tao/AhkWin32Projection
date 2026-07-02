@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A collection of IXpsOMRemoteDictionaryResource interface pointers.
@@ -68,7 +68,7 @@ export default struct IXpsOMRemoteDictionaryResourceCollection extends IUnknown 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresourcecollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &_object := 0, "HRESULT")
         return IXpsOMRemoteDictionaryResource(_object)
     }
 
@@ -84,7 +84,7 @@ export default struct IXpsOMRemoteDictionaryResourceCollection extends IUnknown 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresourcecollection-insertat
      */
     InsertAt(index, _object) {
-        result := ComCall(5, this, "uint", index, "ptr", _object, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr", _object, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IXpsOMRemoteDictionaryResourceCollection extends IUnknown 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresourcecollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(6, this, "uint", index, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IXpsOMRemoteDictionaryResourceCollection extends IUnknown 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresourcecollection-setat
      */
     SetAt(index, _object) {
-        result := ComCall(7, this, "uint", index, "ptr", _object, "HRESULT")
+        result := ComCall(7, this, UInt32, index, "ptr", _object, "HRESULT")
         return result
     }
 

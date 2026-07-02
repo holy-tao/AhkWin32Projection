@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICastingEventHandler.ahk" { ICastingEventHandler }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ICastingEventHandler.ahk" { ICastingEventHandler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WinRT
@@ -112,7 +112,7 @@ export default struct ICastingController extends IUnknown {
      * @returns {HRESULT} 
      */
     UnAdvise(cookie) {
-        result := ComCall(7, this, "uint", cookie, "HRESULT")
+        result := ComCall(7, this, UInt32, cookie, "HRESULT")
         return result
     }
 

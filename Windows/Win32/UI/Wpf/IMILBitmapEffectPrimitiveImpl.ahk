@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that report the state of a bitmap effect. This interface must be implemented to create third party Windows Presentation Foundation (WPF) bitmap effects.
@@ -50,7 +50,7 @@ export default struct IMILBitmapEffectPrimitiveImpl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isdirty
      */
     IsDirty(uiOutputIndex) {
-        result := ComCall(3, this, "uint", uiOutputIndex, VARIANT_BOOL.Ptr, &pfDirty := 0, Int32)
+        result := ComCall(3, this, UInt32, uiOutputIndex, VARIANT_BOOL.Ptr, &pfDirty := 0, Int32)
         return pfDirty
     }
 
@@ -65,7 +65,7 @@ export default struct IMILBitmapEffectPrimitiveImpl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isvolatile
      */
     IsVolatile(uiOutputIndex) {
-        result := ComCall(4, this, "uint", uiOutputIndex, VARIANT_BOOL.Ptr, &pfVolatile := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, uiOutputIndex, VARIANT_BOOL.Ptr, &pfVolatile := 0, "HRESULT")
         return pfVolatile
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHostSemaphore.ahk" { IHostSemaphore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICLRSyncManager.ahk" { ICLRSyncManager }
+#Import ".\IHostSemaphore.ahk" { IHostSemaphore }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IHostAutoEvent.ahk" { IHostAutoEvent }
-#Import ".\IHostManualEvent.ahk" { IHostManualEvent }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IHostManualEvent.ahk" { IHostManualEvent }
 #Import ".\IHostCrst.ahk" { IHostCrst }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -74,7 +74,7 @@ export default struct IHostSyncManager extends IUnknown {
      * @returns {IHostCrst} 
      */
     CreateCrstWithSpinCount(dwSpinCount) {
-        result := ComCall(5, this, "uint", dwSpinCount, "ptr*", &ppCrst := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwSpinCount, "ptr*", &ppCrst := 0, "HRESULT")
         return IHostCrst(ppCrst)
     }
 
@@ -103,7 +103,7 @@ export default struct IHostSyncManager extends IUnknown {
      * @returns {IHostAutoEvent} 
      */
     CreateMonitorEvent(Cookie) {
-        result := ComCall(8, this, "ptr", Cookie, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(8, this, IntPtr, Cookie, "ptr*", &ppEvent := 0, "HRESULT")
         return IHostAutoEvent(ppEvent)
     }
 
@@ -113,7 +113,7 @@ export default struct IHostSyncManager extends IUnknown {
      * @returns {IHostAutoEvent} 
      */
     CreateRWLockWriterEvent(Cookie) {
-        result := ComCall(9, this, "ptr", Cookie, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(9, this, IntPtr, Cookie, "ptr*", &ppEvent := 0, "HRESULT")
         return IHostAutoEvent(ppEvent)
     }
 
@@ -124,7 +124,7 @@ export default struct IHostSyncManager extends IUnknown {
      * @returns {IHostManualEvent} 
      */
     CreateRWLockReaderEvent(bInitialState, Cookie) {
-        result := ComCall(10, this, BOOL, bInitialState, "ptr", Cookie, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(10, this, BOOL, bInitialState, IntPtr, Cookie, "ptr*", &ppEvent := 0, "HRESULT")
         return IHostManualEvent(ppEvent)
     }
 
@@ -157,7 +157,7 @@ export default struct IHostSyncManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createsemaphorea
      */
     CreateSemaphoreA(dwInitial, dwMax) {
-        result := ComCall(11, this, "uint", dwInitial, "uint", dwMax, "ptr*", &ppSemaphore := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwInitial, UInt32, dwMax, "ptr*", &ppSemaphore := 0, "HRESULT")
         return IHostSemaphore(ppSemaphore)
     }
 

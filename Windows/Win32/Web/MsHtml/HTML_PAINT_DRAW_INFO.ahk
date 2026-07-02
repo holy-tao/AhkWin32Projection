@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTML_PAINT_XFORM.ahk" { HTML_PAINT_XFORM }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\HTML_PAINT_XFORM.ahk" { HTML_PAINT_XFORM }
 #Import "..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
 
 /**

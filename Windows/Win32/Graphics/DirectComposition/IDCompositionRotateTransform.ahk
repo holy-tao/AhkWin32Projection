@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
 
 /**
  * Represents a 2D transformation that affects the rotation of a visual around the z-axis. The coordinate system is rotated around the specified center point.
@@ -85,7 +85,7 @@ export default struct IDCompositionRotateTransform extends IDCompositionTransfor
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform-setangle(idcompositionanimation)
      */
     SetAngle1(angle) {
-        result := ComCall(4, this, "float", angle, "HRESULT")
+        result := ComCall(4, this, Float32, angle, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IDCompositionRotateTransform extends IDCompositionTransfor
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform-setcenterx(idcompositionanimation)
      */
     SetCenterX1(centerX) {
-        result := ComCall(6, this, "float", centerX, "HRESULT")
+        result := ComCall(6, this, Float32, centerX, "HRESULT")
         return result
     }
 
@@ -165,7 +165,7 @@ export default struct IDCompositionRotateTransform extends IDCompositionTransfor
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrotatetransform-setcentery(float)
      */
     SetCenterY1(centerY) {
-        result := ComCall(8, this, "float", centerY, "HRESULT")
+        result := ComCall(8, this, Float32, centerY, "HRESULT")
         return result
     }
 

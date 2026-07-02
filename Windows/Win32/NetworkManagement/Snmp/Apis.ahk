@@ -1,25 +1,26 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SNMP_ERROR.ahk" { SNMP_ERROR }
 #Import ".\smiVENDORINFO.ahk" { smiVENDORINFO }
-#Import ".\SnmpVarBind.ahk" { SnmpVarBind }
-#Import ".\SNMP_API_TRANSLATE_MODE.ahk" { SNMP_API_TRANSLATE_MODE }
-#Import ".\SnmpVarBindList.ahk" { SnmpVarBindList }
+#Import ".\smiVALUE.ahk" { smiVALUE }
+#Import ".\smiOCTETS.ahk" { smiOCTETS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\AsnObjectIdentifier.ahk" { AsnObjectIdentifier }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\AsnOctetString.ahk" { AsnOctetString }
-#Import ".\smiVALUE.ahk" { smiVALUE }
-#Import ".\SNMP_PDU_TYPE.ahk" { SNMP_PDU_TYPE }
-#Import ".\SNMP_GENERICTRAP.ahk" { SNMP_GENERICTRAP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\SNMP_LOG.ahk" { SNMP_LOG }
-#Import ".\SNMP_STATUS.ahk" { SNMP_STATUS }
 #Import ".\SNMP_ERROR_STATUS.ahk" { SNMP_ERROR_STATUS }
-#Import ".\AsnAny.ahk" { AsnAny }
+#Import ".\SnmpVarBind.ahk" { SnmpVarBind }
 #Import ".\smiOID.ahk" { smiOID }
-#Import ".\smiOCTETS.ahk" { smiOCTETS }
+#Import ".\SNMP_PDU_TYPE.ahk" { SNMP_PDU_TYPE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SNMP_STATUS.ahk" { SNMP_STATUS }
+#Import ".\AsnAny.ahk" { AsnAny }
+#Import ".\SNMPAPI_CALLBACK.ahk" { SNMPAPI_CALLBACK }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\SNMP_API_TRANSLATE_MODE.ahk" { SNMP_API_TRANSLATE_MODE }
+#Import ".\SNMP_ERROR.ahk" { SNMP_ERROR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\AsnOctetString.ahk" { AsnOctetString }
+#Import ".\SNMP_GENERICTRAP.ahk" { SNMP_GENERICTRAP }
+#Import ".\SnmpVarBindList.ahk" { SnmpVarBindList }
+#Import ".\SNMP_LOG.ahk" { SNMP_LOG }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp
@@ -121,7 +122,7 @@ export SnmpUtilOidAppend(pOidDst, pOidSrc) {
  * @since windows5.0
  */
 export SnmpUtilOidNCmp(pOid1, pOid2, nSubIds) {
-    result := DllCall("snmpapi.dll\SnmpUtilOidNCmp", AsnObjectIdentifier.Ptr, pOid1, AsnObjectIdentifier.Ptr, pOid2, "uint", nSubIds, Int32)
+    result := DllCall("snmpapi.dll\SnmpUtilOidNCmp", AsnObjectIdentifier.Ptr, pOid1, AsnObjectIdentifier.Ptr, pOid2, UInt32, nSubIds, Int32)
     return result
 }
 
@@ -191,7 +192,7 @@ export SnmpUtilOctetsCmp(pOctets1, pOctets2) {
  * @since windows5.0
  */
 export SnmpUtilOctetsNCmp(pOctets1, pOctets2, nChars) {
-    result := DllCall("snmpapi.dll\SnmpUtilOctetsNCmp", AsnOctetString.Ptr, pOctets1, AsnOctetString.Ptr, pOctets2, "uint", nChars, Int32)
+    result := DllCall("snmpapi.dll\SnmpUtilOctetsNCmp", AsnOctetString.Ptr, pOctets1, AsnOctetString.Ptr, pOctets2, UInt32, nChars, Int32)
     return result
 }
 
@@ -365,7 +366,7 @@ export SnmpUtilMemFree(pMem) {
  * @since windows5.0
  */
 export SnmpUtilMemAlloc(nBytes) {
-    result := DllCall("snmpapi.dll\SnmpUtilMemAlloc", "uint", nBytes, IntPtr)
+    result := DllCall("snmpapi.dll\SnmpUtilMemAlloc", UInt32, nBytes, IntPtr)
     return result
 }
 
@@ -386,7 +387,7 @@ export SnmpUtilMemAlloc(nBytes) {
 export SnmpUtilMemReAlloc(pMem, nBytes) {
     pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("snmpapi.dll\SnmpUtilMemReAlloc", pMemMarshal, pMem, "uint", nBytes, IntPtr)
+    result := DllCall("snmpapi.dll\SnmpUtilMemReAlloc", pMemMarshal, pMem, UInt32, nBytes, IntPtr)
     return result
 }
 
@@ -444,7 +445,7 @@ export SnmpUtilOidToA(Oid) {
 export SnmpUtilIdsToA(Ids, IdLength) {
     IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("snmpapi.dll\SnmpUtilIdsToA", IdsMarshal, Ids, "uint", IdLength, PSTR)
+    result := DllCall("snmpapi.dll\SnmpUtilIdsToA", IdsMarshal, Ids, UInt32, IdLength, PSTR)
     return result
 }
 
@@ -528,7 +529,7 @@ export SnmpSvcSetLogLevel(nLogLevel) {
  * @since windows5.0
  */
 export SnmpSvcSetLogType(nLogType) {
-    DllCall("snmpapi.dll\SnmpSvcSetLogType", "int", nLogType)
+    DllCall("snmpapi.dll\SnmpSvcSetLogType", Int32, nLogType)
 }
 
 /**
@@ -612,7 +613,7 @@ export SnmpMgrOpen(lpAgentAddress, lpAgentCommunity, nTimeOut, nRetries) {
 
     A_LastError := 0
 
-    result := DllCall("mgmtapi.dll\SnmpMgrOpen", "ptr", lpAgentAddress, "ptr", lpAgentCommunity, "int", nTimeOut, "int", nRetries, IntPtr)
+    result := DllCall("mgmtapi.dll\SnmpMgrOpen", "ptr", lpAgentAddress, "ptr", lpAgentCommunity, Int32, nTimeOut, Int32, nRetries, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -699,7 +700,7 @@ export SnmpMgrCtl(session, dwCtlCode, lpvInBuffer, cbInBuffer, lpvOUTBuffer, cbO
 
     A_LastError := 0
 
-    result := DllCall("mgmtapi.dll\SnmpMgrCtl", sessionMarshal, session, "uint", dwCtlCode, lpvInBufferMarshal, lpvInBuffer, "uint", cbInBuffer, lpvOUTBufferMarshal, lpvOUTBuffer, "uint", cbOUTBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, BOOL)
+    result := DllCall("mgmtapi.dll\SnmpMgrCtl", sessionMarshal, session, UInt32, dwCtlCode, lpvInBufferMarshal, lpvInBuffer, UInt32, cbInBuffer, lpvOUTBufferMarshal, lpvOUTBuffer, UInt32, cbOUTBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -806,7 +807,7 @@ export SnmpMgrRequest(session, requestType, variableBindings, errorStatus, error
 
     A_LastError := 0
 
-    result := DllCall("mgmtapi.dll\SnmpMgrRequest", sessionMarshal, session, "char", requestType, SnmpVarBindList.Ptr, variableBindings, errorStatusMarshal, errorStatus, errorIndexMarshal, errorIndex, Int32)
+    result := DllCall("mgmtapi.dll\SnmpMgrRequest", sessionMarshal, session, Int8, requestType, SnmpVarBindList.Ptr, variableBindings, errorStatusMarshal, errorStatus, errorIndexMarshal, errorIndex, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1485,7 +1486,7 @@ export SnmpGetTimeout(hEntity, nPolicyTimeout, nActualTimeout) {
     nPolicyTimeoutMarshal := nPolicyTimeout is VarRef ? "uint*" : "ptr"
     nActualTimeoutMarshal := nActualTimeout is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpGetTimeout", "ptr", hEntity, nPolicyTimeoutMarshal, nPolicyTimeout, nActualTimeoutMarshal, nActualTimeout, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpGetTimeout", IntPtr, hEntity, nPolicyTimeoutMarshal, nPolicyTimeout, nActualTimeoutMarshal, nActualTimeout, UInt32)
     return result
 }
 
@@ -1566,7 +1567,7 @@ export SnmpGetTimeout(hEntity, nPolicyTimeout, nActualTimeout) {
  * @since windows5.0
  */
 export SnmpSetTimeout(hEntity, nPolicyTimeout) {
-    result := DllCall("wsnmp32.dll\SnmpSetTimeout", "ptr", hEntity, "uint", nPolicyTimeout, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpSetTimeout", IntPtr, hEntity, UInt32, nPolicyTimeout, UInt32)
     return result
 }
 
@@ -1660,7 +1661,7 @@ export SnmpGetRetry(hEntity, nPolicyRetry, nActualRetry) {
     nPolicyRetryMarshal := nPolicyRetry is VarRef ? "uint*" : "ptr"
     nActualRetryMarshal := nActualRetry is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpGetRetry", "ptr", hEntity, nPolicyRetryMarshal, nPolicyRetry, nActualRetryMarshal, nActualRetry, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpGetRetry", IntPtr, hEntity, nPolicyRetryMarshal, nPolicyRetry, nActualRetryMarshal, nActualRetry, UInt32)
     return result
 }
 
@@ -1741,7 +1742,7 @@ export SnmpGetRetry(hEntity, nPolicyRetry, nActualRetry) {
  * @since windows5.0
  */
 export SnmpSetRetry(hEntity, nPolicyRetry) {
-    result := DllCall("wsnmp32.dll\SnmpSetRetry", "ptr", hEntity, "uint", nPolicyRetry, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpSetRetry", IntPtr, hEntity, UInt32, nPolicyRetry, UInt32)
     return result
 }
 
@@ -2076,7 +2077,7 @@ export SnmpCleanup() {
  * @since windows5.0
  */
 export SnmpOpen(_hWnd, wMsg) {
-    result := DllCall("wsnmp32.dll\SnmpOpen", HWND, _hWnd, "uint", wMsg, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpOpen", HWND, _hWnd, UInt32, wMsg, IntPtr)
     return result
 }
 
@@ -2155,7 +2156,7 @@ export SnmpOpen(_hWnd, wMsg) {
  * @since windows5.0
  */
 export SnmpClose(session) {
-    result := DllCall("wsnmp32.dll\SnmpClose", "ptr", session, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpClose", IntPtr, session, UInt32)
     return result
 }
 
@@ -2381,7 +2382,7 @@ export SnmpClose(session) {
  * @since windows5.0
  */
 export SnmpSendMsg(session, srcEntity, dstEntity, _context, PDU) {
-    result := DllCall("wsnmp32.dll\SnmpSendMsg", "ptr", session, "ptr", srcEntity, "ptr", dstEntity, "ptr", _context, "ptr", PDU, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpSendMsg", IntPtr, session, IntPtr, srcEntity, IntPtr, dstEntity, IntPtr, _context, IntPtr, PDU, UInt32)
     return result
 }
 
@@ -2595,7 +2596,7 @@ export SnmpRecvMsg(session, srcEntity, dstEntity, _context, PDU) {
     _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
     PDUMarshal := PDU is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpRecvMsg", "ptr", session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, _contextMarshal, _context, PDUMarshal, PDU, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpRecvMsg", IntPtr, session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, _contextMarshal, _context, PDUMarshal, PDU, UInt32)
     return result
 }
 
@@ -2790,7 +2791,7 @@ export SnmpRecvMsg(session, srcEntity, dstEntity, _context, PDU) {
  * @since windows5.0
  */
 export SnmpRegister(session, srcEntity, dstEntity, _context, _notification, state) {
-    result := DllCall("wsnmp32.dll\SnmpRegister", "ptr", session, "ptr", srcEntity, "ptr", dstEntity, "ptr", _context, smiOID.Ptr, _notification, SNMP_STATUS, state, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpRegister", IntPtr, session, IntPtr, srcEntity, IntPtr, dstEntity, IntPtr, _context, smiOID.Ptr, _notification, SNMP_STATUS, state, UInt32)
     return result
 }
 
@@ -2933,7 +2934,7 @@ export SnmpRegister(session, srcEntity, dstEntity, _context, _notification, stat
 export SnmpCreateSession(_hWnd, wMsg, fCallBack, lpClientData) {
     lpClientDataMarshal := lpClientData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpCreateSession", HWND, _hWnd, "uint", wMsg, "ptr", fCallBack, lpClientDataMarshal, lpClientData, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpCreateSession", HWND, _hWnd, UInt32, wMsg, SNMPAPI_CALLBACK, fCallBack, lpClientDataMarshal, lpClientData, IntPtr)
     return result
 }
 
@@ -3066,7 +3067,7 @@ export SnmpCreateSession(_hWnd, wMsg, fCallBack, lpClientData) {
  * @since windows5.0
  */
 export SnmpListen(hEntity, lStatus) {
-    result := DllCall("wsnmp32.dll\SnmpListen", "ptr", hEntity, SNMP_STATUS, lStatus, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpListen", IntPtr, hEntity, SNMP_STATUS, lStatus, UInt32)
     return result
 }
 
@@ -3078,7 +3079,7 @@ export SnmpListen(hEntity, lStatus) {
  * @returns {Integer} 
  */
 export SnmpListenEx(hEntity, lStatus, nUseEntityAddr) {
-    result := DllCall("wsnmp32.dll\SnmpListenEx", "ptr", hEntity, "uint", lStatus, "uint", nUseEntityAddr, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpListenEx", IntPtr, hEntity, UInt32, lStatus, UInt32, nUseEntityAddr, UInt32)
     return result
 }
 
@@ -3167,7 +3168,7 @@ export SnmpListenEx(hEntity, lStatus, nUseEntityAddr) {
  * @since windows5.0
  */
 export SnmpCancelMsg(session, reqId) {
-    result := DllCall("wsnmp32.dll\SnmpCancelMsg", "ptr", session, "int", reqId, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpCancelMsg", IntPtr, session, Int32, reqId, UInt32)
     return result
 }
 
@@ -3492,7 +3493,7 @@ export SnmpCleanupEx() {
 export SnmpStrToEntity(session, _string) {
     _string := _string is String ? StrPtr(_string) : _string
 
-    result := DllCall("wsnmp32.dll\SnmpStrToEntity", "ptr", session, "ptr", _string, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpStrToEntity", IntPtr, session, "ptr", _string, IntPtr)
     return result
 }
 
@@ -3586,7 +3587,7 @@ export SnmpStrToEntity(session, _string) {
 export SnmpEntityToStr(entity, _size, _string) {
     _string := _string is String ? StrPtr(_string) : _string
 
-    result := DllCall("wsnmp32.dll\SnmpEntityToStr", "ptr", entity, "uint", _size, "ptr", _string, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpEntityToStr", IntPtr, entity, UInt32, _size, "ptr", _string, UInt32)
     return result
 }
 
@@ -3663,7 +3664,7 @@ export SnmpEntityToStr(entity, _size, _string) {
  * @since windows5.0
  */
 export SnmpFreeEntity(entity) {
-    result := DllCall("wsnmp32.dll\SnmpFreeEntity", "ptr", entity, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpFreeEntity", IntPtr, entity, UInt32)
     return result
 }
 
@@ -3814,7 +3815,7 @@ export SnmpFreeEntity(entity) {
  * @since windows5.0
  */
 export SnmpStrToContext(session, _string) {
-    result := DllCall("wsnmp32.dll\SnmpStrToContext", "ptr", session, smiOCTETS.Ptr, _string, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpStrToContext", IntPtr, session, smiOCTETS.Ptr, _string, IntPtr)
     return result
 }
 
@@ -3898,7 +3899,7 @@ export SnmpStrToContext(session, _string) {
  * @since windows5.0
  */
 export SnmpContextToStr(_context, _string) {
-    result := DllCall("wsnmp32.dll\SnmpContextToStr", "ptr", _context, smiOCTETS.Ptr, _string, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpContextToStr", IntPtr, _context, smiOCTETS.Ptr, _string, UInt32)
     return result
 }
 
@@ -3975,7 +3976,7 @@ export SnmpContextToStr(_context, _string) {
  * @since windows5.0
  */
 export SnmpFreeContext(_context) {
-    result := DllCall("wsnmp32.dll\SnmpFreeContext", "ptr", _context, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpFreeContext", IntPtr, _context, UInt32)
     return result
 }
 
@@ -4082,7 +4083,7 @@ export SnmpFreeContext(_context) {
  * @since windows5.0
  */
 export SnmpSetPort(hEntity, nPort) {
-    result := DllCall("wsnmp32.dll\SnmpSetPort", "ptr", hEntity, "uint", nPort, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpSetPort", IntPtr, hEntity, UInt32, nPort, UInt32)
     return result
 }
 
@@ -4216,7 +4217,7 @@ export SnmpSetPort(hEntity, nPort) {
  * @since windows5.0
  */
 export SnmpCreatePdu(session, PDU_type, request_id, error_status, error_index, varbindlist) {
-    result := DllCall("wsnmp32.dll\SnmpCreatePdu", "ptr", session, SNMP_PDU_TYPE, PDU_type, "int", request_id, "int", error_status, "int", error_index, "ptr", varbindlist, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpCreatePdu", IntPtr, session, SNMP_PDU_TYPE, PDU_type, Int32, request_id, Int32, error_status, Int32, error_index, IntPtr, varbindlist, IntPtr)
     return result
 }
 
@@ -4329,7 +4330,7 @@ export SnmpGetPduData(PDU, PDU_type, request_id, error_status, error_index, varb
     error_indexMarshal := error_index is VarRef ? "int*" : "ptr"
     varbindlistMarshal := varbindlist is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpGetPduData", "ptr", PDU, PDU_typeMarshal, PDU_type, request_idMarshal, request_id, error_statusMarshal, error_status, error_indexMarshal, error_index, varbindlistMarshal, varbindlist, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpGetPduData", IntPtr, PDU, PDU_typeMarshal, PDU_type, request_idMarshal, request_id, error_statusMarshal, error_status, error_indexMarshal, error_index, varbindlistMarshal, varbindlist, UInt32)
     return result
 }
 
@@ -4442,7 +4443,7 @@ export SnmpSetPduData(PDU, PDU_type, request_id, non_repeaters, max_repetitions,
     max_repetitionsMarshal := max_repetitions is VarRef ? "int*" : "ptr"
     varbindlistMarshal := varbindlist is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpSetPduData", "ptr", PDU, PDU_typeMarshal, PDU_type, request_idMarshal, request_id, non_repeatersMarshal, non_repeaters, max_repetitionsMarshal, max_repetitions, varbindlistMarshal, varbindlist, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpSetPduData", IntPtr, PDU, PDU_typeMarshal, PDU_type, request_idMarshal, request_id, non_repeatersMarshal, non_repeaters, max_repetitionsMarshal, max_repetitions, varbindlistMarshal, varbindlist, UInt32)
     return result
 }
 
@@ -4527,7 +4528,7 @@ export SnmpSetPduData(PDU, PDU_type, request_id, non_repeaters, max_repetitions,
  * @since windows5.0
  */
 export SnmpDuplicatePdu(session, PDU) {
-    result := DllCall("wsnmp32.dll\SnmpDuplicatePdu", "ptr", session, "ptr", PDU, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpDuplicatePdu", IntPtr, session, IntPtr, PDU, IntPtr)
     return result
 }
 
@@ -4603,7 +4604,7 @@ export SnmpDuplicatePdu(session, PDU) {
  * @since windows5.0
  */
 export SnmpFreePdu(PDU) {
-    result := DllCall("wsnmp32.dll\SnmpFreePdu", "ptr", PDU, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpFreePdu", IntPtr, PDU, UInt32)
     return result
 }
 
@@ -4712,7 +4713,7 @@ export SnmpFreePdu(PDU) {
  * @since windows5.0
  */
 export SnmpCreateVbl(session, name, value) {
-    result := DllCall("wsnmp32.dll\SnmpCreateVbl", "ptr", session, smiOID.Ptr, name, smiVALUE.Ptr, value, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpCreateVbl", IntPtr, session, smiOID.Ptr, name, smiVALUE.Ptr, value, IntPtr)
     return result
 }
 
@@ -4807,7 +4808,7 @@ export SnmpCreateVbl(session, name, value) {
  * @since windows5.0
  */
 export SnmpDuplicateVbl(session, vbl) {
-    result := DllCall("wsnmp32.dll\SnmpDuplicateVbl", "ptr", session, "ptr", vbl, IntPtr)
+    result := DllCall("wsnmp32.dll\SnmpDuplicateVbl", IntPtr, session, IntPtr, vbl, IntPtr)
     return result
 }
 
@@ -4889,7 +4890,7 @@ export SnmpDuplicateVbl(session, vbl) {
  * @since windows5.0
  */
 export SnmpFreeVbl(vbl) {
-    result := DllCall("wsnmp32.dll\SnmpFreeVbl", "ptr", vbl, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpFreeVbl", IntPtr, vbl, UInt32)
     return result
 }
 
@@ -4974,7 +4975,7 @@ export SnmpFreeVbl(vbl) {
  * @since windows5.0
  */
 export SnmpCountVbl(vbl) {
-    result := DllCall("wsnmp32.dll\SnmpCountVbl", "ptr", vbl, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpCountVbl", IntPtr, vbl, UInt32)
     return result
 }
 
@@ -5253,7 +5254,7 @@ export SnmpCountVbl(vbl) {
  * @since windows5.0
  */
 export SnmpGetVb(vbl, index, name, value) {
-    result := DllCall("wsnmp32.dll\SnmpGetVb", "ptr", vbl, "uint", index, smiOID.Ptr, name, smiVALUE.Ptr, value, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpGetVb", IntPtr, vbl, UInt32, index, smiOID.Ptr, name, smiVALUE.Ptr, value, UInt32)
     return result
 }
 
@@ -5369,7 +5370,7 @@ export SnmpGetVb(vbl, index, name, value) {
  * @since windows5.0
  */
 export SnmpSetVb(vbl, index, name, value) {
-    result := DllCall("wsnmp32.dll\SnmpSetVb", "ptr", vbl, "uint", index, smiOID.Ptr, name, smiVALUE.Ptr, value, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpSetVb", IntPtr, vbl, UInt32, index, smiOID.Ptr, name, smiVALUE.Ptr, value, UInt32)
     return result
 }
 
@@ -5478,7 +5479,7 @@ export SnmpSetVb(vbl, index, name, value) {
  * @since windows5.0
  */
 export SnmpDeleteVb(vbl, index) {
-    result := DllCall("wsnmp32.dll\SnmpDeleteVb", "ptr", vbl, "uint", index, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpDeleteVb", IntPtr, vbl, UInt32, index, UInt32)
     return result
 }
 
@@ -5526,7 +5527,7 @@ export SnmpDeleteVb(vbl, index) {
  * @since windows5.0
  */
 export SnmpGetLastError(session) {
-    result := DllCall("wsnmp32.dll\SnmpGetLastError", "ptr", session, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpGetLastError", IntPtr, session, UInt32)
     return result
 }
 
@@ -5717,7 +5718,7 @@ export SnmpStrToOid(_string, dstOID) {
 export SnmpOidToStr(srcOID, _size, _string) {
     _string := _string is String ? StrPtr(_string) : _string
 
-    result := DllCall("wsnmp32.dll\SnmpOidToStr", smiOID.Ptr, srcOID, "uint", _size, "ptr", _string, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpOidToStr", smiOID.Ptr, srcOID, UInt32, _size, "ptr", _string, UInt32)
     return result
 }
 
@@ -5948,7 +5949,7 @@ export SnmpOidCopy(srcOID, dstOID) {
 export SnmpOidCompare(xOID, yOID, maxlen, result) {
     resultMarshal := result is VarRef ? "int*" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpOidCompare", smiOID.Ptr, xOID, smiOID.Ptr, yOID, "uint", maxlen, resultMarshal, result, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpOidCompare", smiOID.Ptr, xOID, smiOID.Ptr, yOID, UInt32, maxlen, resultMarshal, result, UInt32)
     return result
 }
 
@@ -6072,7 +6073,7 @@ export SnmpOidCompare(xOID, yOID, maxlen, result) {
  * @since windows5.0
  */
 export SnmpEncodeMsg(session, srcEntity, dstEntity, _context, pdu, msgBufDesc) {
-    result := DllCall("wsnmp32.dll\SnmpEncodeMsg", "ptr", session, "ptr", srcEntity, "ptr", dstEntity, "ptr", _context, "ptr", pdu, smiOCTETS.Ptr, msgBufDesc, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpEncodeMsg", IntPtr, session, IntPtr, srcEntity, IntPtr, dstEntity, IntPtr, _context, IntPtr, pdu, smiOCTETS.Ptr, msgBufDesc, UInt32)
     return result
 }
 
@@ -6215,7 +6216,7 @@ export SnmpDecodeMsg(session, srcEntity, dstEntity, _context, pdu, msgBufDesc) {
     _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
     pduMarshal := pdu is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("wsnmp32.dll\SnmpDecodeMsg", "ptr", session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, _contextMarshal, _context, pduMarshal, pdu, smiOCTETS.Ptr, msgBufDesc, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpDecodeMsg", IntPtr, session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, _contextMarshal, _context, pduMarshal, pdu, smiOCTETS.Ptr, msgBufDesc, UInt32)
     return result
 }
 
@@ -6302,7 +6303,7 @@ export SnmpDecodeMsg(session, srcEntity, dstEntity, _context, pdu, msgBufDesc) {
  * @since windows5.0
  */
 export SnmpFreeDescriptor(syntax, descriptor) {
-    result := DllCall("wsnmp32.dll\SnmpFreeDescriptor", "uint", syntax, smiOCTETS.Ptr, descriptor, UInt32)
+    result := DllCall("wsnmp32.dll\SnmpFreeDescriptor", UInt32, syntax, smiOCTETS.Ptr, descriptor, UInt32)
     return result
 }
 

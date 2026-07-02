@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Note  This interface has been deprecated. Note  Microsoft does not provide an implementation of this interface.
@@ -91,7 +91,7 @@ export default struct IAMAnalogVideoEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-put_tvformat
      */
     put_TVFormat(lAnalogVideoStandard) {
-        result := ComCall(4, this, "int", lAnalogVideoStandard, "HRESULT")
+        result := ComCall(4, this, Int32, lAnalogVideoStandard, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IAMAnalogVideoEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-put_copyprotection
      */
     put_CopyProtection(lVideoCopyProtection) {
-        result := ComCall(6, this, "int", lVideoCopyProtection, "HRESULT")
+        result := ComCall(6, this, Int32, lVideoCopyProtection, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IAMAnalogVideoEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamanalogvideoencoder-put_ccenable
      */
     put_CCEnable(lCCEnable) {
-        result := ComCall(8, this, "int", lCCEnable, "HRESULT")
+        result := ComCall(8, this, Int32, lCCEnable, "HRESULT")
         return result
     }
 

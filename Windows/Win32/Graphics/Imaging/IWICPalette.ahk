@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICBitmapPaletteType.ahk" { WICBitmapPaletteType }
 #Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICBitmapPaletteType.ahk" { WICBitmapPaletteType }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for accessing and building a color table, primarily for indexed pixel formats.
@@ -99,7 +99,7 @@ export default struct IWICPalette extends IUnknown {
     InitializeCustom(pColors, cCount) {
         pColorsMarshal := pColors is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pColorsMarshal, pColors, "uint", cCount, "HRESULT")
+        result := ComCall(4, this, pColorsMarshal, pColors, UInt32, cCount, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct IWICPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-initializefrombitmap
      */
     InitializeFromBitmap(pISurface, cCount, fAddTransparentColor) {
-        result := ComCall(5, this, "ptr", pISurface, "uint", cCount, BOOL, fAddTransparentColor, "HRESULT")
+        result := ComCall(5, this, "ptr", pISurface, UInt32, cCount, BOOL, fAddTransparentColor, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IWICPalette extends IUnknown {
         pColorsMarshal := pColors is VarRef ? "uint*" : "ptr"
         pcActualColorsMarshal := pcActualColors is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", cCount, pColorsMarshal, pColors, pcActualColorsMarshal, pcActualColors, "HRESULT")
+        result := ComCall(9, this, UInt32, cCount, pColorsMarshal, pColors, pcActualColorsMarshal, pcActualColors, "HRESULT")
         return result
     }
 

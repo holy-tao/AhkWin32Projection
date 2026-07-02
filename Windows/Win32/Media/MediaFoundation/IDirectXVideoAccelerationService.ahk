@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
 
 /**
  * Provides DirectX Video Acceleration (DXVA) services from a Direct3D device.
@@ -66,7 +66,7 @@ export default struct IDirectXVideoAccelerationService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoaccelerationservice-createsurface
      */
     CreateSurface(Width, Height, BackBuffers, Format, Pool, Usage, DxvaType, pSharedHandle) {
-        result := ComCall(3, this, "uint", Width, "uint", Height, "uint", BackBuffers, D3DFORMAT, Format, D3DPOOL, Pool, "uint", Usage, "uint", DxvaType, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        result := ComCall(3, this, UInt32, Width, UInt32, Height, UInt32, BackBuffers, D3DFORMAT, Format, D3DPOOL, Pool, UInt32, Usage, UInt32, DxvaType, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 

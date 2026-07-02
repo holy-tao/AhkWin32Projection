@@ -66,7 +66,7 @@ export default struct ISVGPreserveAspectRatio extends IDispatch {
      * @returns {HRESULT} 
      */
     put_align(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, Int16, v, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct ISVGPreserveAspectRatio extends IDispatch {
      * @returns {HRESULT} 
      */
     put_meetOrSlice(v) {
-        result := ComCall(9, this, "short", v, "HRESULT")
+        result := ComCall(9, this, Int16, v, "HRESULT")
         return result
     }
 

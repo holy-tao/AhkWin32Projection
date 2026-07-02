@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\OLEUIOBJECTPROPSA.ahk" { OLEUIOBJECTPROPSA }
 #Import ".\VIEW_OBJECT_PROPERTIES_FLAGS.ahk" { VIEW_OBJECT_PROPERTIES_FLAGS }
+#Import ".\OLEUIOBJECTPROPSA.ahk" { OLEUIOBJECTPROPSA }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
 
 /**
  * Contains information that is used to initialize the View tab of the Object properties dialog box. (ANSI)
@@ -70,7 +71,7 @@ export default struct OLEUIVIEWPROPSA {
     /**
      * Pointer to a hook callback (not used in this dialog box).
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPFNOLEUIHOOK
 
     /**
      * Custom data to pass to the hook (not used in this dialog box).

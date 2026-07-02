@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechPhraseProperties.ahk" { ISpeechPhraseProperties }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\SpeechEngineConfidence.ahk" { SpeechEngineConfidence }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpeechEngineConfidence.ahk" { SpeechEngineConfidence }
+#Import ".\ISpeechPhraseProperties.ahk" { ISpeechPhraseProperties }
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IPortableDeviceConnector.ahk" { IPortableDeviceConnector }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Supports the enumeration of IPortableDeviceConnector interfaces, representing MTP/Bluetooth devices that were paired with the PC.
@@ -51,7 +51,7 @@ export default struct IEnumPortableDeviceConnectors extends IUnknown {
     Next(cRequested, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cRequested, "ptr*", &pConnectors := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cRequested, "ptr*", &pConnectors := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return IPortableDeviceConnector(pConnectors)
     }
 
@@ -69,7 +69,7 @@ export default struct IEnumPortableDeviceConnectors extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors-skip
      */
     Skip(cConnectors) {
-        result := ComCall(4, this, "uint", cConnectors, "HRESULT")
+        result := ComCall(4, this, UInt32, cConnectors, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Composition
@@ -55,7 +55,7 @@ export default struct ICompositorDesktopInterop extends IUnknown {
      * @returns {HRESULT} 
      */
     EnsureOnThread(threadId) {
-        result := ComCall(4, this, "uint", threadId, "HRESULT")
+        result := ComCall(4, this, UInt32, threadId, "HRESULT")
         return result
     }
 

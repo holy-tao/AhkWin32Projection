@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_CERT_CREDENTIAL.ahk" { WS_CERT_CREDENTIAL }
 #Import ".\WS_CERT_CREDENTIAL_TYPE.ahk" { WS_CERT_CREDENTIAL_TYPE }
+#Import ".\WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK.ahk" { WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK }
+#Import ".\WS_CERT_CREDENTIAL.ahk" { WS_CERT_CREDENTIAL }
+#Import ".\WS_GET_CERT_CALLBACK.ahk" { WS_GET_CERT_CALLBACK }
 
 /**
  * The type for specifying a certificate credential that is to be supplied by a callback to the application.
@@ -18,14 +20,14 @@ export default struct WS_CUSTOM_CERT_CREDENTIAL {
     /**
      * The Callback to get the certificate.
      */
-    getCertCallback : IntPtr
+    getCertCallback : WS_GET_CERT_CALLBACK
 
     /**
      * The state to be passed when invoking the callback.
      */
     getCertCallbackState : IntPtr
 
-    certIssuerListNotificationCallback : IntPtr
+    certIssuerListNotificationCallback : WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK
 
     certIssuerListNotificationCallbackState : IntPtr
 

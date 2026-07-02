@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDebugDocumentText.ahk" { IDebugDocumentText }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -48,7 +48,7 @@ export default struct IDebugDocumentTextAuthor extends IDebugDocumentText {
     InsertText(cCharacterPosition, cNumToInsert, pcharText) {
         pcharText := pcharText is String ? StrPtr(pcharText) : pcharText
 
-        result := ComCall(12, this, "uint", cCharacterPosition, "uint", cNumToInsert, "ptr", pcharText, "HRESULT")
+        result := ComCall(12, this, UInt32, cCharacterPosition, UInt32, cNumToInsert, "ptr", pcharText, "HRESULT")
         return result
     }
 
@@ -59,7 +59,7 @@ export default struct IDebugDocumentTextAuthor extends IDebugDocumentText {
      * @returns {HRESULT} 
      */
     RemoveText(cCharacterPosition, cNumToRemove) {
-        result := ComCall(13, this, "uint", cCharacterPosition, "uint", cNumToRemove, "HRESULT")
+        result := ComCall(13, this, UInt32, cCharacterPosition, UInt32, cNumToRemove, "HRESULT")
         return result
     }
 
@@ -80,7 +80,9 @@ export default struct IDebugDocumentTextAuthor extends IDebugDocumentText {
      * 
      * > [!NOTE]
      * > The commdlg.h header defines ReplaceText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} cCharacterPosition 
+     * @param {Integer} cCharacterPosition Type: <b>LPFINDREPLACE</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure that contains information used to initialize the dialog box. The dialog box uses this structure to send information about the user's input to your application. For more information, see the following Remarks section.
      * @param {Integer} cNumToReplace 
      * @param {PWSTR} pcharText 
      * @returns {HRESULT} Type: <b>HWND</b>
@@ -93,7 +95,7 @@ export default struct IDebugDocumentTextAuthor extends IDebugDocumentText {
     ReplaceText(cCharacterPosition, cNumToReplace, pcharText) {
         pcharText := pcharText is String ? StrPtr(pcharText) : pcharText
 
-        result := ComCall(14, this, "uint", cCharacterPosition, "uint", cNumToReplace, "ptr", pcharText, "HRESULT")
+        result := ComCall(14, this, UInt32, cCharacterPosition, UInt32, cNumToReplace, "ptr", pcharText, "HRESULT")
         return result
     }
 

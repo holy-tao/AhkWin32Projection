@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\TDIEntityID.ahk" { TDIEntityID }
-#Import ".\TDIObjectID.ahk" { TDIObjectID }
 #Import ".\TDIENTITY_ENTITY_TYPE.ahk" { TDIENTITY_ENTITY_TYPE }
+#Import ".\TDIObjectID.ahk" { TDIObjectID }
 
 /**
  * The TCP_REQUEST_QUERY_INFORMATION_EX_XP structure (tdiinfo.h) contains the input for the IOCTL_TCP_QUERY_INFORMATION_EX control code.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by the default folder view created using SHCreateShellFolderView.
@@ -68,7 +68,7 @@ export default struct IContextMenuSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenusite-docontextmenupopup
      */
     DoContextMenuPopup(punkContextMenu, fFlags, pt) {
-        result := ComCall(3, this, "ptr", punkContextMenu, "uint", fFlags, POINT, pt, "HRESULT")
+        result := ComCall(3, this, "ptr", punkContextMenu, UInt32, fFlags, POINT, pt, "HRESULT")
         return result
     }
 

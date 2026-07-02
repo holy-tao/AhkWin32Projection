@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ASSOCDATA.ahk" { ASSOCDATA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\ASSOCSTR.ahk" { ASSOCSTR }
-#Import ".\ASSOCF.ahk" { ASSOCF }
-#Import ".\ASSOCKEY.ahk" { ASSOCKEY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ASSOCENUM.ahk" { ASSOCENUM }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ASSOCF.ahk" { ASSOCF }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ASSOCSTR.ahk" { ASSOCSTR }
+#Import ".\ASSOCDATA.ahk" { ASSOCDATA }
+#Import ".\ASSOCKEY.ahk" { ASSOCKEY }
 
 /**
  * Exposes methods that simplify the process of retrieving information stored in the registry in association with defining a file type or protocol and associating it with an application.
@@ -234,7 +234,7 @@ export default struct IQueryAssociations extends IUnknown {
 
         pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, ASSOCF, flags, ASSOCDATA, data, "ptr", pszExtra, "ptr", pvOut, pcbOutMarshal, pcbOut, "HRESULT")
+        result := ComCall(6, this, ASSOCF, flags, ASSOCDATA, data, "ptr", pszExtra, IntPtr, pvOut, pcbOutMarshal, pcbOut, "HRESULT")
         return result
     }
 

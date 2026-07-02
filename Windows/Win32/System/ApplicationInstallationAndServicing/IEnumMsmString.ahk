@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -49,7 +49,7 @@ export default struct IEnumMsmString extends IUnknown {
     Next(cFetch, rgbstrStrings, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cFetch, BSTR.Ptr, rgbstrStrings, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cFetch, BSTR.Ptr, rgbstrStrings, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -59,7 +59,7 @@ export default struct IEnumMsmString extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(cSkip) {
-        result := ComCall(4, this, "uint", cSkip, "HRESULT")
+        result := ComCall(4, this, UInt32, cSkip, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
 #Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
 
 /**
  * Stores a single Windows Internet Name Service (WINS) server address in a linked list of WINS server addresses for a particular adapter.

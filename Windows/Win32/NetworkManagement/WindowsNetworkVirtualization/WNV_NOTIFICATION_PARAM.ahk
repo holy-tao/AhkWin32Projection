@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WNV_OBJECT_HEADER.ahk" { WNV_OBJECT_HEADER }
 #Import ".\WNV_NOTIFICATION_TYPE.ahk" { WNV_NOTIFICATION_TYPE }
+#Import ".\WNV_OBJECT_HEADER.ahk" { WNV_OBJECT_HEADER }
 
 /**
  * Specifies the version, notification type, and the buffer location in a WnvRequestNotification function call.

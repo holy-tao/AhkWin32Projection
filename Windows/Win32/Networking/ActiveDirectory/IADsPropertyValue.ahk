@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to represent the value of an IADsPropertyEntry object in a predefined data type.
@@ -186,7 +186,7 @@ export default struct IADsPropertyValue extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ADsType(lnADsType) {
-        result := ComCall(9, this, "int", lnADsType, "HRESULT")
+        result := ComCall(9, this, Int32, lnADsType, "HRESULT")
         return result
     }
 
@@ -315,7 +315,7 @@ export default struct IADsPropertyValue extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Boolean(lnBoolean) {
-        result := ComCall(21, this, "int", lnBoolean, "HRESULT")
+        result := ComCall(21, this, Int32, lnBoolean, "HRESULT")
         return result
     }
 
@@ -334,7 +334,7 @@ export default struct IADsPropertyValue extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Integer(lnInteger) {
-        result := ComCall(23, this, "int", lnInteger, "HRESULT")
+        result := ComCall(23, this, Int32, lnInteger, "HRESULT")
         return result
     }
 
@@ -411,7 +411,7 @@ export default struct IADsPropertyValue extends IDispatch {
      * @returns {HRESULT} 
      */
     put_UTCTime(daUTCTime) {
-        result := ComCall(31, this, "double", daUTCTime, "HRESULT")
+        result := ComCall(31, this, Float64, daUTCTime, "HRESULT")
         return result
     }
 

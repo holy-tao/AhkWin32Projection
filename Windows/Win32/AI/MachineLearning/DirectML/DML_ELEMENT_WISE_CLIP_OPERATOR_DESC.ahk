@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 #Import ".\DML_SCALE_BIAS.ahk" { DML_SCALE_BIAS }
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**
  * Performs the following operation for each element of *InputTensor*, placing the result into the corresponding element of *OutputTensor*. This operator clamps (or limits) every element in the input within the closed interval [Min, Max].

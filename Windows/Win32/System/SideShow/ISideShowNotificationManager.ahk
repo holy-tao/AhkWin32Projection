@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISideShowNotification.ahk" { ISideShowNotification }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISideShowNotification.ahk" { ISideShowNotification }
 
 /**
  * @namespace Windows.Win32.System.SideShow
@@ -54,7 +54,7 @@ export default struct ISideShowNotificationManager extends IUnknown {
      * @returns {HRESULT} 
      */
     Revoke(in_notificationId) {
-        result := ComCall(4, this, "uint", in_notificationId, "HRESULT")
+        result := ComCall(4, this, UInt32, in_notificationId, "HRESULT")
         return result
     }
 

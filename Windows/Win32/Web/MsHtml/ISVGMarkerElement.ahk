@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISVGAngle.ahk" { ISVGAngle }
+#Import ".\ISVGAnimatedAngle.ahk" { ISVGAnimatedAngle }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ISVGAnimatedEnumeration.ahk" { ISVGAnimatedEnumeration }
 #Import ".\ISVGAnimatedLength.ahk" { ISVGAnimatedLength }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISVGAnimatedAngle.ahk" { ISVGAnimatedAngle }
+#Import ".\ISVGAngle.ahk" { ISVGAngle }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

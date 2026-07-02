@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\POINTS.ahk" { POINTS }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import ".\EMR.ahk" { EMR }
 #Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\EMR.ahk" { EMR }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * The EMRPOLYDRAW16 structure contains members for the PolyDraw enhanced metafile record.

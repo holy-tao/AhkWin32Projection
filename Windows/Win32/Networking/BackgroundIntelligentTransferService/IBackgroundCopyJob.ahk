@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\BG_FILE_INFO.ahk" { BG_FILE_INFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
 #Import ".\BG_JOB_TIMES.ahk" { BG_JOB_TIMES }
-#Import ".\IEnumBackgroundCopyFiles.ahk" { IEnumBackgroundCopyFiles }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\BG_JOB_PROGRESS.ahk" { BG_JOB_PROGRESS }
 #Import ".\BG_JOB_PROXY_USAGE.ahk" { BG_JOB_PROXY_USAGE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\BG_JOB_TYPE.ahk" { BG_JOB_TYPE }
+#Import ".\BG_JOB_PROGRESS.ahk" { BG_JOB_PROGRESS }
 #Import ".\BG_JOB_PRIORITY.ahk" { BG_JOB_PRIORITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumBackgroundCopyFiles.ahk" { IEnumBackgroundCopyFiles }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
+#Import ".\BG_JOB_TYPE.ahk" { BG_JOB_TYPE }
+#Import ".\BG_FILE_INFO.ahk" { BG_FILE_INFO }
 #Import ".\BG_JOB_STATE.ahk" { BG_JOB_STATE }
 #Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
@@ -181,7 +181,7 @@ export default struct IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-addfileset
      */
     AddFileSet(cFileCount, pFileSet) {
-        result := ComCall(3, this, "uint", cFileCount, BG_FILE_INFO.Ptr, pFileSet, "HRESULT")
+        result := ComCall(3, this, UInt32, cFileCount, BG_FILE_INFO.Ptr, pFileSet, "HRESULT")
         return result
     }
 
@@ -1039,7 +1039,7 @@ export default struct IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-setnotifyflags
      */
     SetNotifyFlags(_Val) {
-        result := ComCall(23, this, "uint", _Val, "HRESULT")
+        result := ComCall(23, this, UInt32, _Val, "HRESULT")
         return result
     }
 
@@ -1212,7 +1212,7 @@ export default struct IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-setminimumretrydelay
      */
     SetMinimumRetryDelay(Seconds) {
-        result := ComCall(27, this, "uint", Seconds, "HRESULT")
+        result := ComCall(27, this, UInt32, Seconds, "HRESULT")
         return result
     }
 
@@ -1267,7 +1267,7 @@ export default struct IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-setnoprogresstimeout
      */
     SetNoProgressTimeout(Seconds) {
-        result := ComCall(29, this, "uint", Seconds, "HRESULT")
+        result := ComCall(29, this, UInt32, Seconds, "HRESULT")
         return result
     }
 

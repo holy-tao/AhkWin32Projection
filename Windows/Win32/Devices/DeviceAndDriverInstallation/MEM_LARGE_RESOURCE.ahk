@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MEM_LARGE_RANGE.ahk" { MEM_LARGE_RANGE }
 #Import ".\MEM_LARGE_DES.ahk" { MEM_LARGE_DES }
+#Import ".\MEM_LARGE_RANGE.ahk" { MEM_LARGE_RANGE }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation

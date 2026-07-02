@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_VIDEO_FRAME_FORMAT.ahk" { D3D11_VIDEO_FRAME_FORMAT }
-#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
 #Import ".\D3D11_VIDEO_USAGE.ahk" { D3D11_VIDEO_USAGE }
+#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import ".\D3D11_VIDEO_FRAME_FORMAT.ahk" { D3D11_VIDEO_FRAME_FORMAT }
 
 /**
  * Describes a video stream for a video processor.

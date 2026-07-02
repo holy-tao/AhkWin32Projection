@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CHANNEL_PRIORITY.ahk" { CHANNEL_PRIORITY }
+#Import ".\CHANNEL_ACCESS_ENUM.ahk" { CHANNEL_ACCESS_ENUM }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CHANNEL_PRIORITY.ahk" { CHANNEL_PRIORITY }
-#Import ".\CHANNEL_ACCESS_ENUM.ahk" { CHANNEL_ACCESS_ENUM }
 
 /**
  * Manages the virtual channel.
@@ -84,7 +84,7 @@ export default struct IRDPSRAPIVirtualChannel extends IDispatch {
     SendData(bstrData, lAttendeeId, ChannelSendFlags) {
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(7, this, BSTR, bstrData, "int", lAttendeeId, "uint", ChannelSendFlags, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrData, Int32, lAttendeeId, UInt32, ChannelSendFlags, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IRDPSRAPIVirtualChannel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-setaccess
      */
     SetAccess(lAttendeeId, AccessType) {
-        result := ComCall(8, this, "int", lAttendeeId, CHANNEL_ACCESS_ENUM, AccessType, "HRESULT")
+        result := ComCall(8, this, Int32, lAttendeeId, CHANNEL_ACCESS_ENUM, AccessType, "HRESULT")
         return result
     }
 

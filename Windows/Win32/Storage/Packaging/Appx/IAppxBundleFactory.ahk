@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAppxBundleWriter.ahk" { IAppxBundleWriter }
-#Import ".\IAppxBundleManifestReader.ahk" { IAppxBundleManifestReader }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAppxBundleReader.ahk" { IAppxBundleReader }
+#Import ".\IAppxBundleManifestReader.ahk" { IAppxBundleManifestReader }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IAppxBundleWriter.ahk" { IAppxBundleWriter }
 
 /**
  * Creates objects for reading and writing bundle packages.
@@ -74,7 +74,7 @@ export default struct IAppxBundleFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlewriter
      */
     CreateBundleWriter(outputStream, bundleVersion) {
-        result := ComCall(3, this, "ptr", outputStream, "uint", bundleVersion, "ptr*", &bundleWriter := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", outputStream, Int64, bundleVersion, "ptr*", &bundleWriter := 0, "HRESULT")
         return IAppxBundleWriter(bundleWriter)
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KERB_NET_ADDRESS.ahk" { KERB_NET_ADDRESS }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\KERB_NET_ADDRESS.ahk" { KERB_NET_ADDRESS }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

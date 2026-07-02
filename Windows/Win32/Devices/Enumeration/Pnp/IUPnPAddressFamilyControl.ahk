@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUPnPAddressFamilyControl interface accesses the address family flag of the Device Finder object.
@@ -125,7 +125,7 @@ export default struct IUPnPAddressFamilyControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpaddressfamilycontrol-setaddressfamily
      */
     SetAddressFamily(dwFlags) {
-        result := ComCall(3, this, "int", dwFlags, "HRESULT")
+        result := ComCall(3, this, Int32, dwFlags, "HRESULT")
         return result
     }
 

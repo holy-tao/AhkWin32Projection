@@ -1,11 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\Authorization\UI\ISecurityInformation.ahk" { ISecurityInformation }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PFNWRITEOBJECTSECURITY.ahk" { PFNWRITEOBJECTSECURITY }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Authorization\UI\ISecurityInformation.ahk" { ISecurityInformation }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import ".\PFNREADOBJECTSECURITY.ahk" { PFNREADOBJECTSECURITY }
 
 /**
  * @namespace Windows.Win32.Security.DirectoryServices
@@ -112,7 +114,7 @@ export DSCreateISecurityInfoObject(pwszObjectPath, pwszObjectClass, dwFlags, pfn
     pwszObjectPath := pwszObjectPath is String ? StrPtr(pwszObjectPath) : pwszObjectPath
     pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
 
-    result := DllCall("DSSEC.dll\DSCreateISecurityInfoObject", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr*", &ppSI := 0, "ptr", pfnReadSD, "ptr", pfnWriteSD, LPARAM, lpContext, "HRESULT")
+    result := DllCall("DSSEC.dll\DSCreateISecurityInfoObject", "ptr", pwszObjectPath, "ptr", pwszObjectClass, UInt32, dwFlags, "ptr*", &ppSI := 0, PFNREADOBJECTSECURITY, pfnReadSD, PFNWRITEOBJECTSECURITY, pfnWriteSD, LPARAM, lpContext, "HRESULT")
     return ISecurityInformation(ppSI)
 }
 
@@ -222,7 +224,7 @@ export DSCreateISecurityInfoObjectEx(pwszObjectPath, pwszObjectClass, pwszServer
     pwszUserName := pwszUserName is String ? StrPtr(pwszUserName) : pwszUserName
     pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-    result := DllCall("DSSEC.dll\DSCreateISecurityInfoObjectEx", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "ptr", pwszServer, "ptr", pwszUserName, "ptr", pwszPassword, "uint", dwFlags, "ptr*", &ppSI := 0, "ptr", pfnReadSD, "ptr", pfnWriteSD, LPARAM, lpContext, "HRESULT")
+    result := DllCall("DSSEC.dll\DSCreateISecurityInfoObjectEx", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "ptr", pwszServer, "ptr", pwszUserName, "ptr", pwszPassword, UInt32, dwFlags, "ptr*", &ppSI := 0, PFNREADOBJECTSECURITY, pfnReadSD, PFNWRITEOBJECTSECURITY, pfnWriteSD, LPARAM, lpContext, "HRESULT")
     return ISecurityInformation(ppSI)
 }
 
@@ -332,7 +334,7 @@ export DSCreateSecurityPage(pwszObjectPath, pwszObjectClass, dwFlags, pfnReadSD,
     pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
 
     phPage := HPROPSHEETPAGE.Owned()
-    result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, HPROPSHEETPAGE.Ptr, phPage, "ptr", pfnReadSD, "ptr", pfnWriteSD, LPARAM, lpContext, "HRESULT")
+    result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, UInt32, dwFlags, HPROPSHEETPAGE.Ptr, phPage, PFNREADOBJECTSECURITY, pfnReadSD, PFNWRITEOBJECTSECURITY, pfnWriteSD, LPARAM, lpContext, "HRESULT")
     return phPage
 }
 
@@ -357,7 +359,7 @@ export DSEditSecurity(hwndOwner, pwszObjectPath, pwszObjectClass, dwFlags, pwszC
     pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
     pwszCaption := pwszCaption is String ? StrPtr(pwszCaption) : pwszCaption
 
-    result := DllCall("DSSEC.dll\DSEditSecurity", HWND, hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", pwszCaption, "ptr", pfnReadSD, "ptr", pfnWriteSD, LPARAM, lpContext, "HRESULT")
+    result := DllCall("DSSEC.dll\DSEditSecurity", HWND, hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, UInt32, dwFlags, "ptr", pwszCaption, PFNREADOBJECTSECURITY, pfnReadSD, PFNWRITEOBJECTSECURITY, pfnWriteSD, LPARAM, lpContext, "HRESULT")
     return result
 }
 

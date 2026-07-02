@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_ClassDecl.ahk" { MI_ClassDecl }
 #Import ".\MI_QualifierDecl.ahk" { MI_QualifierDecl }
+#Import ".\MI_ClassDecl.ahk" { MI_ClassDecl }
 
 /**
  * Represents the schema objects in a CIM schema, which include CIM classes and CIM qualifier declarations.

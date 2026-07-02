@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NDR64_REPEAT_FORMAT.ahk" { NDR64_REPEAT_FORMAT }
 #Import ".\NDR64_POINTER_REPEAT_FLAGS.ahk" { NDR64_POINTER_REPEAT_FLAGS }
+#Import ".\NDR64_REPEAT_FORMAT.ahk" { NDR64_REPEAT_FORMAT }
 
 /**
  * @namespace Windows.Win32.System.Rpc

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
 #Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls the photo sink.

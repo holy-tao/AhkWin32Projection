@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MF_ATTRIBUTE_TYPE.ahk" { MF_ATTRIBUTE_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_ATTRIBUTE_TYPE.ahk" { MF_ATTRIBUTE_TYPE }
 
 /**
  * Specifies a new attribute value for a topology node.

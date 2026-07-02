@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DIRECTMANIPULATION_HORIZONTALALIGNMENT.ahk" { DIRECTMANIPULATION_HORIZONTALALIGNMENT }
-#Import ".\DIRECTMANIPULATION_SNAPPOINT_TYPE.ahk" { DIRECTMANIPULATION_SNAPPOINT_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
 #Import ".\DIRECTMANIPULATION_SNAPPOINT_COORDINATE.ahk" { DIRECTMANIPULATION_SNAPPOINT_COORDINATE }
 #Import ".\DIRECTMANIPULATION_VERTICALALIGNMENT.ahk" { DIRECTMANIPULATION_VERTICALALIGNMENT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
+#Import ".\DIRECTMANIPULATION_SNAPPOINT_TYPE.ahk" { DIRECTMANIPULATION_SNAPPOINT_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Encapsulates the primary content inside a viewport.
@@ -75,7 +75,7 @@ export default struct IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnapinterval
      */
     SetSnapInterval(motion, _interval, offset) {
-        result := ComCall(3, this, DIRECTMANIPULATION_MOTION_TYPES, motion, "float", _interval, "float", offset, "HRESULT")
+        result := ComCall(3, this, DIRECTMANIPULATION_MOTION_TYPES, motion, Float32, _interval, Float32, offset, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IDirectManipulationPrimaryContent extends IUnknown {
     SetSnapPoints(motion, _points, pointCount) {
         _pointsMarshal := _points is VarRef ? "float*" : "ptr"
 
-        result := ComCall(4, this, DIRECTMANIPULATION_MOTION_TYPES, motion, _pointsMarshal, _points, "uint", pointCount, "HRESULT")
+        result := ComCall(4, this, DIRECTMANIPULATION_MOTION_TYPES, motion, _pointsMarshal, _points, UInt32, pointCount, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnapcoordinate
      */
     SetSnapCoordinate(motion, coordinate, origin) {
-        result := ComCall(6, this, DIRECTMANIPULATION_MOTION_TYPES, motion, DIRECTMANIPULATION_SNAPPOINT_COORDINATE, coordinate, "float", origin, "HRESULT")
+        result := ComCall(6, this, DIRECTMANIPULATION_MOTION_TYPES, motion, DIRECTMANIPULATION_SNAPPOINT_COORDINATE, coordinate, Float32, origin, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setzoomboundaries
      */
     SetZoomBoundaries(zoomMinimum, zoomMaximum) {
-        result := ComCall(7, this, "float", zoomMinimum, "float", zoomMaximum, "HRESULT")
+        result := ComCall(7, this, Float32, zoomMinimum, Float32, zoomMaximum, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-getinertiaendtransform
      */
     GetInertiaEndTransform(pointCount) {
-        result := ComCall(10, this, "float*", &_matrix := 0, "uint", pointCount, "HRESULT")
+        result := ComCall(10, this, "float*", &_matrix := 0, UInt32, pointCount, "HRESULT")
         return _matrix
     }
 

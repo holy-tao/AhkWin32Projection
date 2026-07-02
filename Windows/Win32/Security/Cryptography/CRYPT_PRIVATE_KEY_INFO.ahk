@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains a clear-text private key in the PrivateKey field (DER encoded). CRYPT_PRIVATE_KEY_INFO contains the information in a PKCS

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
 
 /**
  * Contains information that defines a split button (BS_SPLITBUTTON and BS_DEFSPLITBUTTON styles). Used with the BCM_GETSPLITINFO and BCM_SETSPLITINFO messages.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\SUBSCRIPTIONSCHEDULE.ahk" { SUBSCRIPTIONSCHEDULE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\SUBSCRIPTIONTYPE.ahk" { SUBSCRIPTIONTYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SUBSCRIPTIONSCHEDULE.ahk" { SUBSCRIPTIONSCHEDULE }
 
 /**
  * @namespace Windows.Win32.System.Search

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MAPIUID.ahk" { MAPIUID }
 #Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\MAPIUID.ahk" { MAPIUID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMAPITable.ahk" { IMAPITable }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IProfSect.ahk" { IProfSect }
 #Import ".\MAPIERROR.ahk" { MAPIERROR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes the properties and vtable order of members for IProviderAdmin IUnknown, which works with service providers in a message service.
@@ -57,7 +57,7 @@ export default struct IProviderAdmin extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-getlasterror
      */
     GetLastError(_hResult, ulFlags) {
-        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")
+        result := ComCall(3, this, "int", _hResult, UInt32, ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")
         return lppMAPIError
     }
 
@@ -86,7 +86,7 @@ export default struct IProviderAdmin extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-getprovidertable
      */
     GetProviderTable(ulFlags) {
-        result := ComCall(4, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, ulFlags, "ptr*", &lppTable := 0, "HRESULT")
         return IMAPITable(lppTable)
     }
 
@@ -112,7 +112,7 @@ export default struct IProviderAdmin extends IUnknown {
         lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
 
         lpUID := MAPIUID()
-        result := ComCall(5, this, lpszProviderMarshal, lpszProvider, "uint", cValues, SPropValue.Ptr, lpProps, "ptr", ulUIParam, "uint", ulFlags, MAPIUID.Ptr, lpUID, "HRESULT")
+        result := ComCall(5, this, lpszProviderMarshal, lpszProvider, UInt32, cValues, SPropValue.Ptr, lpProps, IntPtr, ulUIParam, UInt32, ulFlags, MAPIUID.Ptr, lpUID, "HRESULT")
         return lpUID
     }
 
@@ -172,7 +172,7 @@ export default struct IProviderAdmin extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-openprofilesection
      */
     OpenProfileSection(lpUID, lpInterface, ulFlags) {
-        result := ComCall(7, this, MAPIUID.Ptr, lpUID, Guid.Ptr, lpInterface, "uint", ulFlags, "ptr*", &lppProfSect := 0, "HRESULT")
+        result := ComCall(7, this, MAPIUID.Ptr, lpUID, Guid.Ptr, lpInterface, UInt32, ulFlags, "ptr*", &lppProfSect := 0, "HRESULT")
         return IProfSect(lppProfSect)
     }
 

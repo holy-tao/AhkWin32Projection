@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INPUT_MESSAGE_ORIGIN_ID.ahk" { INPUT_MESSAGE_ORIGIN_ID }
 #Import ".\INPUT_MESSAGE_DEVICE_TYPE.ahk" { INPUT_MESSAGE_DEVICE_TYPE }
+#Import ".\INPUT_MESSAGE_ORIGIN_ID.ahk" { INPUT_MESSAGE_ORIGIN_ID }
 
 /**
  * Contains information about the source of the input message.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DBPARAMINFO.ahk" { DBPARAMINFO }
-#Import ".\DBPARAMBINDINFO.ahk" { DBPARAMBINDINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBPARAMBINDINFO.ahk" { DBPARAMBINDINFO }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -65,7 +65,7 @@ export default struct ICommandWithParameters extends IUnknown {
     MapParameterNames(cParamNames, rgParamNames) {
         rgParamNamesMarshal := rgParamNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cParamNames, rgParamNamesMarshal, rgParamNames, "ptr*", &rgParamOrdinals := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, cParamNames, rgParamNamesMarshal, rgParamNames, "ptr*", &rgParamOrdinals := 0, "HRESULT")
         return rgParamOrdinals
     }
 
@@ -79,7 +79,7 @@ export default struct ICommandWithParameters extends IUnknown {
     SetParameterInfo(cParams, rgParamOrdinals, rgParamBindInfo) {
         rgParamOrdinalsMarshal := rgParamOrdinals is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", cParams, rgParamOrdinalsMarshal, rgParamOrdinals, DBPARAMBINDINFO.Ptr, rgParamBindInfo, "HRESULT")
+        result := ComCall(5, this, IntPtr, cParams, rgParamOrdinalsMarshal, rgParamOrdinals, DBPARAMBINDINFO.Ptr, rgParamBindInfo, "HRESULT")
         return result
     }
 

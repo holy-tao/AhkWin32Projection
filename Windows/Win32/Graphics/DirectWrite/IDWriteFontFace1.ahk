@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_CARET_METRICS.ahk" { DWRITE_CARET_METRICS }
-#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
+#Import ".\DWRITE_FONT_METRICS1.ahk" { DWRITE_FONT_METRICS1 }
 #Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
 #Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
 #Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
-#Import ".\DWRITE_FONT_METRICS1.ahk" { DWRITE_FONT_METRICS1 }
+#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 
 /**
@@ -87,7 +87,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
      */
     GetGdiCompatibleMetrics(emSize, pixelsPerDip, transform) {
         fontMetrics := DWRITE_FONT_METRICS1()
-        result := ComCall(19, this, "float", emSize, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_FONT_METRICS1.Ptr, fontMetrics, "HRESULT")
+        result := ComCall(19, this, Float32, emSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_FONT_METRICS1.Ptr, fontMetrics, "HRESULT")
         return fontMetrics
     }
 
@@ -169,7 +169,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
         actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", maxRangeCount, DWRITE_UNICODE_RANGE.Ptr, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
+        result := ComCall(21, this, UInt32, maxRangeCount, DWRITE_UNICODE_RANGE.Ptr, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
         return result
     }
 
@@ -209,7 +209,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
     GetDesignGlyphAdvances(glyphCount, glyphIndices, isSideways) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(23, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, BOOL, isSideways, "HRESULT")
+        result := ComCall(23, this, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, BOOL, isSideways, "HRESULT")
         return glyphAdvances
     }
 
@@ -260,7 +260,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
     GetGdiCompatibleGlyphAdvances(emSize, pixelsPerDip, transform, useGdiNatural, isSideways, glyphCount, glyphIndices) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(24, this, "float", emSize, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, BOOL, isSideways, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, "HRESULT")
+        result := ComCall(24, this, Float32, emSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, BOOL, isSideways, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, "HRESULT")
         return glyphAdvances
     }
 
@@ -295,7 +295,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
     GetKerningPairAdjustments(glyphCount, glyphIndices) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(25, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvanceAdjustments := 0, "HRESULT")
+        result := ComCall(25, this, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvanceAdjustments := 0, "HRESULT")
         return glyphAdvanceAdjustments
     }
 
@@ -358,7 +358,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode) {
-        result := ComCall(27, this, "float", fontEmSize, "float", dpiX, "float", dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "int*", &renderingMode := 0, "HRESULT")
+        result := ComCall(27, this, Float32, fontEmSize, Float32, dpiX, Float32, dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "int*", &renderingMode := 0, "HRESULT")
         return renderingMode
     }
 
@@ -385,7 +385,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
     GetVerticalGlyphVariants(glyphCount, nominalGlyphIndices) {
         nominalGlyphIndicesMarshal := nominalGlyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(28, this, "uint", glyphCount, nominalGlyphIndicesMarshal, nominalGlyphIndices, "ushort*", &verticalGlyphIndices := 0, "HRESULT")
+        result := ComCall(28, this, UInt32, glyphCount, nominalGlyphIndicesMarshal, nominalGlyphIndices, "ushort*", &verticalGlyphIndices := 0, "HRESULT")
         return verticalGlyphIndices
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import ".\AM_MPEGSTREAMTYPE.ahk" { AM_MPEGSTREAMTYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AM_MPEGSTREAMTYPE.ahk" { AM_MPEGSTREAMTYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**

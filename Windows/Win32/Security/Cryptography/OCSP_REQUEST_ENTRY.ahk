@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\OCSP_CERT_ID.ahk" { OCSP_CERT_ID }
 #Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import ".\OCSP_CERT_ID.ahk" { OCSP_CERT_ID }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about a single certificate in an online certificate status protocol (OCSP) request.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
-#Import ".\DWRITE_READING_DIRECTION.ahk" { DWRITE_READING_DIRECTION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_READING_DIRECTION.ahk" { DWRITE_READING_DIRECTION }
 
 /**
  * Implemented by the text analyzer's client to provide text to the analyzer.
@@ -74,7 +74,7 @@ export default struct IDWriteTextAnalysisSource extends IUnknown {
         textStringMarshal := textString is VarRef ? "ptr*" : "ptr"
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
+        result := ComCall(3, this, UInt32, textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
         return result
     }
 
@@ -107,7 +107,7 @@ export default struct IDWriteTextAnalysisSource extends IUnknown {
         textStringMarshal := textString is VarRef ? "ptr*" : "ptr"
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
+        result := ComCall(4, this, UInt32, textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IDWriteTextAnalysisSource extends IUnknown {
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
         localeNameMarshal := localeName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", textPosition, textLengthMarshal, textLength, localeNameMarshal, localeName, "HRESULT")
+        result := ComCall(6, this, UInt32, textPosition, textLengthMarshal, textLength, localeNameMarshal, localeName, "HRESULT")
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IDWriteTextAnalysisSource extends IUnknown {
     GetNumberSubstitution(textPosition, textLength, numberSubstitution) {
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", textPosition, textLengthMarshal, textLength, IDWriteNumberSubstitution.Ptr, numberSubstitution, "HRESULT")
+        result := ComCall(7, this, UInt32, textPosition, textLengthMarshal, textLength, IDWriteNumberSubstitution.Ptr, numberSubstitution, "HRESULT")
         return result
     }
 

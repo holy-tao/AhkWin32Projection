@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DIEFFECT.ahk" { DIEFFECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DIEFFECT.ahk" { DIEFFECT }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -79,7 +79,7 @@ export default struct IDirectInputEffect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1, param2) {
-        result := ComCall(3, this, HINSTANCE, param0, "uint", param1, Guid.Ptr, param2, "HRESULT")
+        result := ComCall(3, this, HINSTANCE, param0, UInt32, param1, Guid.Ptr, param2, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IDirectInputEffect extends IUnknown {
      * @returns {HRESULT} 
      */
     GetParameters(param0, param1) {
-        result := ComCall(5, this, DIEFFECT.Ptr, param0, "uint", param1, "HRESULT")
+        result := ComCall(5, this, DIEFFECT.Ptr, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IDirectInputEffect extends IUnknown {
      * @returns {HRESULT} 
      */
     SetParameters(param0, param1) {
-        result := ComCall(6, this, DIEFFECT.Ptr, param0, "uint", param1, "HRESULT")
+        result := ComCall(6, this, DIEFFECT.Ptr, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct IDirectInputEffect extends IUnknown {
      * @returns {HRESULT} 
      */
     Start(param0, param1) {
-        result := ComCall(7, this, "uint", param0, "uint", param1, "HRESULT")
+        result := ComCall(7, this, UInt32, param0, UInt32, param1, "HRESULT")
         return result
     }
 

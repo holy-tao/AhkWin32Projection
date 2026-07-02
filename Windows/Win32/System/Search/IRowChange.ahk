@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DBCOLUMNACCESS.ahk" { DBCOLUMNACCESS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -43,7 +43,7 @@ export default struct IRowChange extends IUnknown {
      * @returns {HRESULT} 
      */
     SetColumns(cColumns, rgColumns) {
-        result := ComCall(3, this, "ptr", cColumns, DBCOLUMNACCESS.Ptr, rgColumns, "HRESULT")
+        result := ComCall(3, this, IntPtr, cColumns, DBCOLUMNACCESS.Ptr, rgColumns, "HRESULT")
         return result
     }
 

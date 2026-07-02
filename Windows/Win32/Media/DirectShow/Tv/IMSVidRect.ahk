@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -122,7 +122,7 @@ export default struct IMSVidRect extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-put_top
      */
     put_Top(TopVal) {
-        result := ComCall(8, this, "int", TopVal, "HRESULT")
+        result := ComCall(8, this, Int32, TopVal, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IMSVidRect extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-put_left
      */
     put_Left(LeftVal) {
-        result := ComCall(10, this, "int", LeftVal, "HRESULT")
+        result := ComCall(10, this, Int32, LeftVal, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct IMSVidRect extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-put_width
      */
     put_Width(WidthVal) {
-        result := ComCall(12, this, "int", WidthVal, "HRESULT")
+        result := ComCall(12, this, Int32, WidthVal, "HRESULT")
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct IMSVidRect extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-put_height
      */
     put_Height(HeightVal) {
-        result := ComCall(14, this, "int", HeightVal, "HRESULT")
+        result := ComCall(14, this, Int32, HeightVal, "HRESULT")
         return result
     }
 

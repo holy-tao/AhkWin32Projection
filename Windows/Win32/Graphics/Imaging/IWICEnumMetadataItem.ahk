@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide enumeration services for individual metadata items.
@@ -61,7 +61,7 @@ export default struct IWICEnumMetadataItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-next
      */
     Next(celt, rgeltSchema, rgeltId, rgeltValue) {
-        result := ComCall(3, this, "uint", celt, PROPVARIANT.Ptr, rgeltSchema, PROPVARIANT.Ptr, rgeltId, PROPVARIANT.Ptr, rgeltValue, "uint*", &pceltFetched := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, PROPVARIANT.Ptr, rgeltSchema, PROPVARIANT.Ptr, rgeltId, PROPVARIANT.Ptr, rgeltValue, "uint*", &pceltFetched := 0, "HRESULT")
         return pceltFetched
     }
 
@@ -76,7 +76,7 @@ export default struct IWICEnumMetadataItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

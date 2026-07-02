@@ -44,7 +44,7 @@ export default struct INetCfgClassSetup2 extends INetCfgClassSetup {
     UpdateNonEnumeratedComponent(pIComp) {
         static dwSetupFlags := 0, dwUpgradeFromBuildNo := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(6, this, "ptr", pIComp, "uint", dwSetupFlags, "uint", dwUpgradeFromBuildNo, "HRESULT")
+        result := ComCall(6, this, "ptr", pIComp, UInt32, dwSetupFlags, UInt32, dwUpgradeFromBuildNo, "HRESULT")
         return result
     }
 

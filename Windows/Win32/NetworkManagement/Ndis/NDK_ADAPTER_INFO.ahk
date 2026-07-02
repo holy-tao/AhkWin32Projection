@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NDK_RDMA_TECHNOLOGY.ahk" { NDK_RDMA_TECHNOLOGY }
 #Import ".\NDK_VERSION.ahk" { NDK_VERSION }
+#Import ".\NDK_RDMA_TECHNOLOGY.ahk" { NDK_RDMA_TECHNOLOGY }
 
 /**
  * The NDK_ADAPTER_INFO structure specifies information about limits and capabilities of an NDK adapter.

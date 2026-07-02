@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SHCOLUMNINFO.ahk" { SHCOLUMNINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\SHCOLUMNDATA.ahk" { SHCOLUMNDATA }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SHCOLUMNINIT.ahk" { SHCOLUMNINIT }
 #Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\SHCOLUMNINFO.ahk" { SHCOLUMNINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that enable the addition of custom columns in the Windows Explorer Details view.
@@ -100,7 +100,7 @@ export default struct IColumnProvider extends IUnknown {
      */
     GetColumnInfo(dwIndex) {
         psci := SHCOLUMNINFO()
-        result := ComCall(4, this, "uint", dwIndex, SHCOLUMNINFO.Ptr, psci, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, SHCOLUMNINFO.Ptr, psci, "HRESULT")
         return psci
     }
 

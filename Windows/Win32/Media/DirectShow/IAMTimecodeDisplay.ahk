@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMTimecodeDisplay interface controls an external SMPTE/MIDI timecode display device.DirectShow currently does not provide any filters that implement this interface.
@@ -61,7 +61,7 @@ export default struct IAMTimecodeDisplay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodedisplay-settcdisplayenable
      */
     SetTCDisplayEnable(State) {
-        result := ComCall(4, this, "int", State, "HRESULT")
+        result := ComCall(4, this, Int32, State, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct IAMTimecodeDisplay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodedisplay-gettcdisplay
      */
     GetTCDisplay(Param) {
-        result := ComCall(5, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(5, this, Int32, Param, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -311,7 +311,7 @@ export default struct IAMTimecodeDisplay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodedisplay-settcdisplay
      */
     SetTCDisplay(Param, Value) {
-        result := ComCall(6, this, "int", Param, "int", Value, "HRESULT")
+        result := ComCall(6, this, Int32, Param, Int32, Value, "HRESULT")
         return result
     }
 

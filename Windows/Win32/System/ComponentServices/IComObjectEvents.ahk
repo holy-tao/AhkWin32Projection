@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if an instance of a just-in-time (JIT) activated object has been created or freed.
@@ -52,7 +52,7 @@ export default struct IComObjectEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectevents-onobjectactivate
      */
     OnObjectActivate(pInfo, CtxtID, _ObjectID) {
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", CtxtID, "uint", _ObjectID, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, CtxtID, Int64, _ObjectID, "HRESULT")
         return result
     }
 
@@ -65,7 +65,7 @@ export default struct IComObjectEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectevents-onobjectdeactivate
      */
     OnObjectDeactivate(pInfo, CtxtID, _ObjectID) {
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", CtxtID, "uint", _ObjectID, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, CtxtID, Int64, _ObjectID, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IComObjectEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectevents-ondisablecommit
      */
     OnDisableCommit(pInfo, CtxtID) {
-        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", CtxtID, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, CtxtID, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IComObjectEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectevents-onenablecommit
      */
     OnEnableCommit(pInfo, CtxtID) {
-        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", CtxtID, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, CtxtID, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct IComObjectEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectevents-onsetcomplete
      */
     OnSetComplete(pInfo, CtxtID) {
-        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", CtxtID, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, CtxtID, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IComObjectEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     OnSetAbort(pInfo, CtxtID) {
-        result := ComCall(8, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", CtxtID, "HRESULT")
+        result := ComCall(8, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, CtxtID, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D12FunctionParameterReflection.ahk" { ID3D12FunctionParameterReflection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D12ShaderReflectionVariable.ahk" { ID3D12ShaderReflectionVariable }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\D3D12_FUNCTION_DESC.ahk" { D3D12_FUNCTION_DESC }
 #Import ".\ID3D12ShaderReflectionConstantBuffer.ahk" { ID3D12ShaderReflectionConstantBuffer }
 #Import ".\D3D12_SHADER_INPUT_BIND_DESC.ahk" { D3D12_SHADER_INPUT_BIND_DESC }
-#Import ".\ID3D12ShaderReflectionVariable.ahk" { ID3D12ShaderReflectionVariable }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12FunctionParameterReflection.ahk" { ID3D12FunctionParameterReflection }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * A function-reflection interface accesses function info. (ID3D12FunctionReflection)
@@ -83,7 +83,7 @@ export default struct ID3D12FunctionReflection extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(BufferIndex) {
-        result := ComCall(1, this, "uint", BufferIndex, ID3D12ShaderReflectionConstantBuffer)
+        result := ComCall(1, this, UInt32, BufferIndex, ID3D12ShaderReflectionConstantBuffer)
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct ID3D12FunctionReflection extends Win32ComInterface {
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D12_SHADER_INPUT_BIND_DESC()
-        result := ComCall(3, this, "uint", ResourceIndex, D3D12_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(3, this, UInt32, ResourceIndex, D3D12_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -173,7 +173,7 @@ export default struct ID3D12FunctionReflection extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getfunctionparameter
      */
     GetFunctionParameter(ParameterIndex) {
-        result := ComCall(6, this, "int", ParameterIndex, ID3D12FunctionParameterReflection)
+        result := ComCall(6, this, Int32, ParameterIndex, ID3D12FunctionParameterReflection)
         return result
     }
 

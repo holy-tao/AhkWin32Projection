@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_COLLAB_EVENT_TYPE.ahk" { PEER_COLLAB_EVENT_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PEER_COLLAB_EVENT_TYPE.ahk" { PEER_COLLAB_EVENT_TYPE }
 
 /**
  * The PEER_COLLAB_EVENT_REGISTRATION structure contains the data used by a peer to register for specific peer collaboration network events.

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
-#Import ".\IDirectDrawVideoPort.ahk" { IDirectDrawVideoPort }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDVIDEOPORTSTATUS.ahk" { DDVIDEOPORTSTATUS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DDVIDEOPORTCAPS.ahk" { DDVIDEOPORTCAPS }
+#Import ".\IDirectDrawVideoPort.ahk" { IDirectDrawVideoPort }
 #Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\LPDDENUMVIDEOCALLBACK.ahk" { LPDDENUMVIDEOCALLBACK }
+#Import ".\DDVIDEOPORTSTATUS.ahk" { DDVIDEOPORTSTATUS }
+#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -51,7 +52,7 @@ export default struct IDDVideoPortContainer extends IUnknown {
      * @returns {IDirectDrawVideoPort} 
      */
     CreateVideoPort(param0, param1, param3) {
-        result := ComCall(3, this, "uint", param0, DDVIDEOPORTDESC.Ptr, param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        result := ComCall(3, this, UInt32, param0, DDVIDEOPORTDESC.Ptr, param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
         return IDirectDrawVideoPort(param2)
     }
 
@@ -66,7 +67,7 @@ export default struct IDDVideoPortContainer extends IUnknown {
     EnumVideoPorts(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", param0, DDVIDEOPORTCAPS.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(4, this, UInt32, param0, DDVIDEOPORTCAPS.Ptr, param1, param2Marshal, param2, LPDDENUMVIDEOCALLBACK, param3, "HRESULT")
         return result
     }
 
@@ -80,7 +81,7 @@ export default struct IDDVideoPortContainer extends IUnknown {
         pcInfoMarshal := pcInfo is VarRef ? "uint*" : "ptr"
 
         param2 := DDVIDEOPORTCONNECT()
-        result := ComCall(5, this, "uint", param0, pcInfoMarshal, pcInfo, DDVIDEOPORTCONNECT.Ptr, param2, "HRESULT")
+        result := ComCall(5, this, UInt32, param0, pcInfoMarshal, pcInfo, DDVIDEOPORTCONNECT.Ptr, param2, "HRESULT")
         return param2
     }
 
@@ -91,7 +92,7 @@ export default struct IDDVideoPortContainer extends IUnknown {
      * @returns {HRESULT} 
      */
     QueryVideoPortStatus(param0, param1) {
-        result := ComCall(6, this, "uint", param0, DDVIDEOPORTSTATUS.Ptr, param1, "HRESULT")
+        result := ComCall(6, this, UInt32, param0, DDVIDEOPORTSTATUS.Ptr, param1, "HRESULT")
         return result
     }
 

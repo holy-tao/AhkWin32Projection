@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -58,7 +58,7 @@ export default struct ISniffStream extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pnBytesReadMarshal := pnBytesRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pBufferMarshal, pBuffer, "uint", nBytes, pnBytesReadMarshal, pnBytesRead, "HRESULT")
+        result := ComCall(4, this, pBufferMarshal, pBuffer, UInt32, nBytes, pnBytesReadMarshal, pnBytesRead, "HRESULT")
         return result
     }
 

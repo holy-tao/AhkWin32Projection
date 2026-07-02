@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsRasterizer.ahk" { IXpsRasterizer }
+#Import ".\XPSRAS_PIXEL_FORMAT.ahk" { XPSRAS_PIXEL_FORMAT }
 #Import ".\XPSRAS_RENDERING_MODE.ahk" { XPSRAS_RENDERING_MODE }
+#Import ".\IXpsRasterizer.ahk" { IXpsRasterizer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Storage\Xps\IXpsOMPage.ahk" { IXpsOMPage }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\XPSRAS_PIXEL_FORMAT.ahk" { XPSRAS_PIXEL_FORMAT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -49,7 +49,7 @@ export default struct IXpsRasterizationFactory1 extends IUnknown {
      * @returns {IXpsRasterizer} 
      */
     CreateRasterizer(xpsPage, DPI, nonTextRenderingMode, textRenderingMode, pixelFormat) {
-        result := ComCall(3, this, "ptr", xpsPage, "float", DPI, XPSRAS_RENDERING_MODE, nonTextRenderingMode, XPSRAS_RENDERING_MODE, textRenderingMode, XPSRAS_PIXEL_FORMAT, pixelFormat, "ptr*", &ppIXPSRasterizer := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", xpsPage, Float32, DPI, XPSRAS_RENDERING_MODE, nonTextRenderingMode, XPSRAS_RENDERING_MODE, textRenderingMode, XPSRAS_PIXEL_FORMAT, pixelFormat, "ptr*", &ppIXPSRasterizer := 0, "HRESULT")
         return IXpsRasterizer(ppIXPSRasterizer)
     }
 

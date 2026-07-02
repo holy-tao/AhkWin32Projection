@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\HEADER_HITTEST_INFO_FLAGS.ahk" { HEADER_HITTEST_INFO_FLAGS }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Contains information about a hit test. This structure is used with the HDM_HITTEST message and it supersedes the HD_HITTESTINFO structure.

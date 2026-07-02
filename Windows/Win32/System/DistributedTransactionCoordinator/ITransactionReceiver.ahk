@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITransaction.ahk" { ITransaction }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -48,7 +48,7 @@ export default struct ITransactionReceiver extends IUnknown {
     UnmarshalPropagationToken(cbToken, rgbToken) {
         rgbTokenMarshal := rgbToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", cbToken, rgbTokenMarshal, rgbToken, "ptr*", &ppTransaction := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, cbToken, rgbTokenMarshal, rgbToken, "ptr*", &ppTransaction := 0, "HRESULT")
         return ITransaction(ppTransaction)
     }
 
@@ -72,7 +72,7 @@ export default struct ITransactionReceiver extends IUnknown {
         rgbReturnTokenMarshal := rgbReturnToken is VarRef ? "char*" : "ptr"
         pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", cbReturnToken, rgbReturnTokenMarshal, rgbReturnToken, pcbUsedMarshal, pcbUsed, "HRESULT")
+        result := ComCall(5, this, UInt32, cbReturnToken, rgbReturnTokenMarshal, rgbReturnToken, pcbUsedMarshal, pcbUsed, "HRESULT")
         return result
     }
 

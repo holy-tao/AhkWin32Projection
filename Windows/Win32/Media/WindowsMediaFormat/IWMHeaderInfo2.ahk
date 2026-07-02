@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMHeaderInfo.ahk" { IWMHeaderInfo }
 #Import ".\WMT_CODEC_INFO_TYPE.ahk" { WMT_CODEC_INFO_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMHeaderInfo.ahk" { IWMHeaderInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMHeaderInfo2 interface exposes information about the codecs used to create the content in a file.The IWMHeaderInfo2 interface is implemented by the metadata editor object, the writer object, the reader object, and the synchronous reader object.
@@ -81,7 +81,7 @@ export default struct IWMHeaderInfo2 extends IWMHeaderInfo {
         pcbCodecInfoMarshal := pcbCodecInfo is VarRef ? "ushort*" : "ptr"
         pbCodecInfoMarshal := pbCodecInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, "uint", wIndex, pcchNameMarshal, pcchName, "ptr", pwszName, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pCodecTypeMarshal, pCodecType, pcbCodecInfoMarshal, pcbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
+        result := ComCall(16, this, UInt32, wIndex, pcchNameMarshal, pcchName, "ptr", pwszName, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pCodecTypeMarshal, pCodecType, pcbCodecInfoMarshal, pcbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
         return result
     }
 

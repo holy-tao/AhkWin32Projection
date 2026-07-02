@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SBE2_STREAM_DESC.ahk" { SBE2_STREAM_DESC }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enumerates a collection of streams. This is a utility interface, which you can use to enumerate the streams discovered in a WTV file. The Stream Buffer Source filter implements this interface.
@@ -51,7 +51,7 @@ export default struct ISBE2EnumStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2enumstream-next
      */
     Next(cRequest, pStreamDesc) {
-        result := ComCall(3, this, "uint", cRequest, SBE2_STREAM_DESC.Ptr, pStreamDesc, "uint*", &pcReceived := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, cRequest, SBE2_STREAM_DESC.Ptr, pStreamDesc, "uint*", &pcReceived := 0, "HRESULT")
         return pcReceived
     }
 
@@ -91,7 +91,7 @@ export default struct ISBE2EnumStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2enumstream-skip
      */
     Skip(cRecords) {
-        result := ComCall(4, this, "uint", cRecords, "HRESULT")
+        result := ComCall(4, this, UInt32, cRecords, "HRESULT")
         return result
     }
 

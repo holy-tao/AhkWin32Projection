@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables applications and other objects to receive notifications of changes in the progress of a downloading operation.
@@ -106,7 +106,7 @@ export default struct IProgressNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iprogressnotify-onprogress
      */
     OnProgress(dwProgressCurrent, dwProgressMaximum, fAccurate, fOwner) {
-        result := ComCall(3, this, "uint", dwProgressCurrent, "uint", dwProgressMaximum, BOOL, fAccurate, BOOL, fOwner, "HRESULT")
+        result := ComCall(3, this, UInt32, dwProgressCurrent, UInt32, dwProgressMaximum, BOOL, fAccurate, BOOL, fOwner, "HRESULT")
         return result
     }
 

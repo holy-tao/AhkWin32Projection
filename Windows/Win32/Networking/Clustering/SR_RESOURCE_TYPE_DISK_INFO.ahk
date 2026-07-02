@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SR_DISK_REPLICATION_ELIGIBLE.ahk" { SR_DISK_REPLICATION_ELIGIBLE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SR_DISK_REPLICATION_ELIGIBLE.ahk" { SR_DISK_REPLICATION_ELIGIBLE }
 
 /**
  * Describes a set of information that indicates whether a disk is eligible for replication.

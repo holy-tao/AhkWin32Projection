@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\PSID.ahk" { PSID }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * Contains extended information about a process running on a Remote Desktop Session Host (RD Session Host) server. (ANSI)

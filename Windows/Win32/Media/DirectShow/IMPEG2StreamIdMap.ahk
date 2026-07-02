@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumStreamIdMap.ahk" { IEnumStreamIdMap }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is implemented on each output pin of the MPEG-2 Demultiplexer filter (Demux) and is used in program stream mode only.
@@ -52,7 +52,7 @@ export default struct IMPEG2StreamIdMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2streamidmap-mapstreamid
      */
     MapStreamId(ulStreamId, MediaSampleContent, ulSubstreamFilterValue, iDataOffset) {
-        result := ComCall(3, this, "uint", ulStreamId, "uint", MediaSampleContent, "uint", ulSubstreamFilterValue, "int", iDataOffset, "HRESULT")
+        result := ComCall(3, this, UInt32, ulStreamId, UInt32, MediaSampleContent, UInt32, ulSubstreamFilterValue, Int32, iDataOffset, "HRESULT")
         return result
     }
 
@@ -68,7 +68,7 @@ export default struct IMPEG2StreamIdMap extends IUnknown {
     UnmapStreamId(culStreamId, pulStreamId) {
         pulStreamIdMarshal := pulStreamId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", culStreamId, pulStreamIdMarshal, pulStreamId, "HRESULT")
+        result := ComCall(4, this, UInt32, culStreamId, pulStreamIdMarshal, pulStreamId, "HRESULT")
         return result
     }
 

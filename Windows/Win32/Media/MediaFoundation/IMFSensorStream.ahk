@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
 
 /**
  * . (IMFSensorStream)
@@ -57,7 +57,7 @@ export default struct IMFSensorStream extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorstream-getmediatype
      */
     GetMediaType(dwIndex) {
-        result := ComCall(34, this, "uint", dwIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(34, this, UInt32, dwIndex, "ptr*", &ppMediaType := 0, "HRESULT")
         return IMFMediaType(ppMediaType)
     }
 

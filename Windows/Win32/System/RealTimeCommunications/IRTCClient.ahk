@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RTC_AUDIO_DEVICE.ahk" { RTC_AUDIO_DEVICE }
-#Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RTC_LISTEN_MODE.ahk" { RTC_LISTEN_MODE }
+#Import ".\RTC_RING_TYPE.ahk" { RTC_RING_TYPE }
 #Import "..\..\Media\DirectShow\IVideoWindow.ahk" { IVideoWindow }
 #Import ".\RTC_VIDEO_DEVICE.ahk" { RTC_VIDEO_DEVICE }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IRTCSession.ahk" { IRTCSession }
-#Import ".\RTC_T120_APPLET.ahk" { RTC_T120_APPLET }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\RTC_DTMF.ahk" { RTC_DTMF }
-#Import ".\RTC_RING_TYPE.ahk" { RTC_RING_TYPE }
 #Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\RTC_LISTEN_MODE.ahk" { RTC_LISTEN_MODE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RTC_T120_APPLET.ahk" { RTC_T120_APPLET }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\RTC_AUDIO_DEVICE.ahk" { RTC_AUDIO_DEVICE }
+#Import ".\RTC_DTMF.ahk" { RTC_DTMF }
+#Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -255,7 +255,7 @@ export default struct IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_EventFilter(lFilter) {
-        result := ComCall(6, this, "int", lFilter, "HRESULT")
+        result := ComCall(6, this, Int32, lFilter, "HRESULT")
         return result
     }
 
@@ -275,7 +275,7 @@ export default struct IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPreferredMediaTypes(lMediaTypes, fPersistent) {
-        result := ComCall(8, this, "int", lMediaTypes, VARIANT_BOOL, fPersistent, "HRESULT")
+        result := ComCall(8, this, Int32, lMediaTypes, VARIANT_BOOL, fPersistent, "HRESULT")
         return result
     }
 
@@ -308,7 +308,7 @@ export default struct IRTCClient extends IUnknown {
     CreateSession(enType, bstrLocalPhoneURI, pProfile, lFlags) {
         bstrLocalPhoneURI := bstrLocalPhoneURI is String ? BSTR.Alloc(bstrLocalPhoneURI).Value : bstrLocalPhoneURI
 
-        result := ComCall(11, this, RTC_SESSION_TYPE, enType, BSTR, bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(11, this, RTC_SESSION_TYPE, enType, BSTR, bstrLocalPhoneURI, "ptr", pProfile, Int32, lFlags, "ptr*", &ppSession := 0, "HRESULT")
         return IRTCSession(ppSession)
     }
 
@@ -350,7 +350,7 @@ export default struct IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Volume(enDevice, lVolume) {
-        result := ComCall(15, this, RTC_AUDIO_DEVICE, enDevice, "int", lVolume, "HRESULT")
+        result := ComCall(15, this, RTC_AUDIO_DEVICE, enDevice, Int32, lVolume, "HRESULT")
         return result
     }
 
@@ -426,7 +426,7 @@ export default struct IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_PreferredVolume(enDevice, lVolume) {
-        result := ComCall(22, this, RTC_AUDIO_DEVICE, enDevice, "int", lVolume, "HRESULT")
+        result := ComCall(22, this, RTC_AUDIO_DEVICE, enDevice, Int32, lVolume, "HRESULT")
         return result
     }
 
@@ -496,7 +496,7 @@ export default struct IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_MaxBitrate(lMaxBitrate) {
-        result := ComCall(29, this, "int", lMaxBitrate, "HRESULT")
+        result := ComCall(29, this, Int32, lMaxBitrate, "HRESULT")
         return result
     }
 
@@ -515,7 +515,7 @@ export default struct IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     put_TemporalSpatialTradeOff(lValue) {
-        result := ComCall(31, this, "int", lValue, "HRESULT")
+        result := ComCall(31, this, Int32, lValue, "HRESULT")
         return result
     }
 
@@ -637,7 +637,7 @@ export default struct IRTCClient extends IUnknown {
      * @returns {HRESULT} 
      */
     InvokeTuningWizard(hwndParent) {
-        result := ComCall(43, this, "ptr", hwndParent, "HRESULT")
+        result := ComCall(43, this, IntPtr, hwndParent, "HRESULT")
         return result
     }
 

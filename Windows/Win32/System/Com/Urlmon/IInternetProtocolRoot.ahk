@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IInternetProtocolSink.ahk" { IInternetProtocolSink }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PROTOCOLDATA.ahk" { PROTOCOLDATA }
-#Import ".\IInternetBindInfo.ahk" { IInternetBindInfo }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IInternetBindInfo.ahk" { IInternetBindInfo }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInternetProtocolSink.ahk" { IInternetProtocolSink }
 #Import "..\..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 
 /**
@@ -57,7 +57,7 @@ export default struct IInternetProtocolRoot extends IUnknown {
     Start(szUrl, pOIProtSink, pOIBindInfo, grfPI, dwReserved) {
         szUrl := szUrl is String ? StrPtr(szUrl) : szUrl
 
-        result := ComCall(3, this, "ptr", szUrl, "ptr", pOIProtSink, "ptr", pOIBindInfo, "uint", grfPI, HANDLE_PTR, dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", szUrl, "ptr", pOIProtSink, "ptr", pOIBindInfo, UInt32, grfPI, HANDLE_PTR, dwReserved, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct IInternetProtocolRoot extends IUnknown {
      * @returns {HRESULT} 
      */
     Abort(hrReason, dwOptions) {
-        result := ComCall(5, this, "int", hrReason, "uint", dwOptions, "HRESULT")
+        result := ComCall(5, this, "int", hrReason, UInt32, dwOptions, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IInternetProtocolRoot extends IUnknown {
      * @returns {HRESULT} 
      */
     Terminate(dwOptions) {
-        result := ComCall(6, this, "uint", dwOptions, "HRESULT")
+        result := ComCall(6, this, UInt32, dwOptions, "HRESULT")
         return result
     }
 

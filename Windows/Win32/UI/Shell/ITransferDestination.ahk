@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITransferAdviseSink.ahk" { ITransferAdviseSink }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITransferAdviseSink.ahk" { ITransferAdviseSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that create a destination Shell item for a copy or move operation. This interface is provided to allow more control over file operations by providing an ITransferDestination::Advise method.
@@ -100,7 +100,7 @@ export default struct ITransferDestination extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferdestination-unadvise
      */
     Unadvise(dwCookie) {
-        result := ComCall(4, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct ITransferDestination extends IUnknown {
         ppvItemMarshal := ppvItem is VarRef ? "ptr*" : "ptr"
         ppvResourcesMarshal := ppvResources is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszName, "uint", dwAttributes, "uint", ullSize, "uint", flags, Guid.Ptr, riidItem, ppvItemMarshal, ppvItem, Guid.Ptr, riidResources, ppvResourcesMarshal, ppvResources, "HRESULT")
+        result := ComCall(5, this, "ptr", pszName, UInt32, dwAttributes, Int64, ullSize, UInt32, flags, Guid.Ptr, riidItem, ppvItemMarshal, ppvItem, Guid.Ptr, riidResources, ppvResourcesMarshal, ppvResources, "HRESULT")
         return result
     }
 

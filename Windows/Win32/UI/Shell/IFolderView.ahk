@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView)
@@ -73,7 +73,7 @@ export default struct IFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-setcurrentviewmode
      */
     SetCurrentViewMode(ViewMode) {
-        result := ComCall(4, this, "uint", ViewMode, "HRESULT")
+        result := ComCall(4, this, UInt32, ViewMode, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct IFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-item
      */
     Item(iItemIndex) {
-        result := ComCall(6, this, "int", iItemIndex, "ptr*", &ppidl := 0, "HRESULT")
+        result := ComCall(6, this, Int32, iItemIndex, "ptr*", &ppidl := 0, "HRESULT")
         return ppidl
     }
 
@@ -120,7 +120,7 @@ export default struct IFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-itemcount
      */
     ItemCount(uFlags) {
-        result := ComCall(7, this, "uint", uFlags, "int*", &pcItems := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, uFlags, "int*", &pcItems := 0, "HRESULT")
         return pcItems
     }
 
@@ -139,7 +139,7 @@ export default struct IFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-items
      */
     Items(uFlags, riid) {
-        result := ComCall(8, this, "uint", uFlags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, uFlags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -239,7 +239,7 @@ export default struct IFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-selectitem
      */
     SelectItem(iItem, dwFlags) {
-        result := ComCall(15, this, "int", iItem, "uint", dwFlags, "HRESULT")
+        result := ComCall(15, this, Int32, iItem, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct IFolderView extends IUnknown {
     SelectAndPositionItems(cidl, apidl, apt, dwFlags) {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(16, this, "uint", cidl, apidlMarshal, apidl, POINT.Ptr, apt, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, UInt32, cidl, apidlMarshal, apidl, POINT.Ptr, apt, UInt32, dwFlags, "HRESULT")
         return result
     }
 

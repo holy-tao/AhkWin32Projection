@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import ".\GLYPHBITS.ahk" { GLYPHBITS }
 #Import ".\GLYPHDEF.ahk" { GLYPHDEF }
 #Import ".\POINTQF.ahk" { POINTQF }
 #Import ".\PATHOBJ.ahk" { PATHOBJ }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * The GLYPHDATA structure contains information about an individual glyph.

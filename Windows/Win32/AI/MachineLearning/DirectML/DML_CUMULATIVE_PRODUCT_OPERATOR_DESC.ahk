@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
-#Import ".\DML_AXIS_DIRECTION.ahk" { DML_AXIS_DIRECTION }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DML_AXIS_DIRECTION.ahk" { DML_AXIS_DIRECTION }
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**
  * Multiplies the elements of a tensor along an axis, writing the running tally of the product into the output tensor.

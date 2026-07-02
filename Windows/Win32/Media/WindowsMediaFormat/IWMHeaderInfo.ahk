@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMHeaderInfo interface sets and retrieves information in the header section of an ASF file.
@@ -87,7 +87,7 @@ export default struct IWMHeaderInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getattributecount
      */
     GetAttributeCount(wStreamNum) {
-        result := ComCall(3, this, "ushort", wStreamNum, "ushort*", &pcAttributes := 0, "HRESULT")
+        result := ComCall(3, this, UInt16, wStreamNum, "ushort*", &pcAttributes := 0, "HRESULT")
         return pcAttributes
     }
 
@@ -204,7 +204,7 @@ export default struct IWMHeaderInfo extends IUnknown {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, "ushort", wIndex, pwStreamNumMarshal, pwStreamNum, "ptr", pwszName, pcchNameLenMarshal, pcchNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(4, this, UInt16, wIndex, pwStreamNumMarshal, pwStreamNum, "ptr", pwszName, pcchNameLenMarshal, pcchNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -404,7 +404,7 @@ export default struct IWMHeaderInfo extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(6, this, UInt16, wStreamNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
     }
 
@@ -433,7 +433,7 @@ export default struct IWMHeaderInfo extends IUnknown {
 
         pcchMarkerNameLenMarshal := pcchMarkerNameLen is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, "ushort", wIndex, "ptr", pwszMarkerName, pcchMarkerNameLenMarshal, pcchMarkerNameLen, "uint*", &pcnsMarkerTime := 0, "HRESULT")
+        result := ComCall(8, this, UInt16, wIndex, "ptr", pwszMarkerName, pcchMarkerNameLenMarshal, pcchMarkerNameLen, "uint*", &pcnsMarkerTime := 0, "HRESULT")
         return pcnsMarkerTime
     }
 
@@ -500,7 +500,7 @@ export default struct IWMHeaderInfo extends IUnknown {
     AddMarker(pwszMarkerName, cnsMarkerTime) {
         pwszMarkerName := pwszMarkerName is String ? StrPtr(pwszMarkerName) : pwszMarkerName
 
-        result := ComCall(9, this, "ptr", pwszMarkerName, "uint", cnsMarkerTime, "HRESULT")
+        result := ComCall(9, this, "ptr", pwszMarkerName, Int64, cnsMarkerTime, "HRESULT")
         return result
     }
 
@@ -564,7 +564,7 @@ export default struct IWMHeaderInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-removemarker
      */
     RemoveMarker(wIndex) {
-        result := ComCall(10, this, "ushort", wIndex, "HRESULT")
+        result := ComCall(10, this, UInt16, wIndex, "HRESULT")
         return result
     }
 
@@ -597,7 +597,7 @@ export default struct IWMHeaderInfo extends IUnknown {
         pcchTypeLenMarshal := pcchTypeLen is VarRef ? "ushort*" : "ptr"
         pcchCommandLenMarshal := pcchCommandLen is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(12, this, "ushort", wIndex, "ptr", pwszType, pcchTypeLenMarshal, pcchTypeLen, "ptr", pwszCommand, pcchCommandLenMarshal, pcchCommandLen, "uint*", &pcnsScriptTime := 0, "HRESULT")
+        result := ComCall(12, this, UInt16, wIndex, "ptr", pwszType, pcchTypeLenMarshal, pcchTypeLen, "ptr", pwszCommand, pcchCommandLenMarshal, pcchCommandLen, "uint*", &pcnsScriptTime := 0, "HRESULT")
         return pcnsScriptTime
     }
 
@@ -681,7 +681,7 @@ export default struct IWMHeaderInfo extends IUnknown {
         pwszType := pwszType is String ? StrPtr(pwszType) : pwszType
         pwszCommand := pwszCommand is String ? StrPtr(pwszCommand) : pwszCommand
 
-        result := ComCall(13, this, "ptr", pwszType, "ptr", pwszCommand, "uint", cnsScriptTime, "HRESULT")
+        result := ComCall(13, this, "ptr", pwszType, "ptr", pwszCommand, Int64, cnsScriptTime, "HRESULT")
         return result
     }
 
@@ -734,7 +734,7 @@ export default struct IWMHeaderInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-removescript
      */
     RemoveScript(wIndex) {
-        result := ComCall(14, this, "ushort", wIndex, "HRESULT")
+        result := ComCall(14, this, UInt16, wIndex, "HRESULT")
         return result
     }
 

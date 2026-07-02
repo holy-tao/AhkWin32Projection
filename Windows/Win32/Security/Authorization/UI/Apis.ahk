@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\ISecurityInformation.ahk" { ISecurityInformation }
-#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
+#Import ".\ISecurityInformation.ahk" { ISecurityInformation }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Security.Authorization.UI

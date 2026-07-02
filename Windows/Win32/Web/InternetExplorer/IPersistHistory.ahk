@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IPersist.ahk" { IPersist }
 #Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IPersist.ahk" { IPersist }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -67,7 +67,7 @@ export default struct IPersistHistory extends IPersist {
      * @returns {HRESULT} 
      */
     SetPositionCookie(dwPositioncookie) {
-        result := ComCall(6, this, "uint", dwPositioncookie, "HRESULT")
+        result := ComCall(6, this, UInt32, dwPositioncookie, "HRESULT")
         return result
     }
 

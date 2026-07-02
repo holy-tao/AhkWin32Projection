@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SystemVisibilityFlags.ahk" { SystemVisibilityFlags }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SystemVisibilityFlags.ahk" { SystemVisibilityFlags }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IFunctionInstance.ahk" { IFunctionInstance }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Is implemented by a discovery provider to enable a client program to add and remove function instances.

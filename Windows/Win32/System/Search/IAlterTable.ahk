@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DBCOLUMNDESC.ahk" { DBCOLUMNDESC }
-#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -48,7 +48,7 @@ export default struct IAlterTable extends IUnknown {
      * @returns {HRESULT} 
      */
     AlterColumn(pTableId, pColumnId, dwColumnDescFlags, pColumnDesc) {
-        result := ComCall(3, this, DBID.Ptr, pTableId, DBID.Ptr, pColumnId, "uint", dwColumnDescFlags, DBCOLUMNDESC.Ptr, pColumnDesc, "HRESULT")
+        result := ComCall(3, this, DBID.Ptr, pTableId, DBID.Ptr, pColumnId, UInt32, dwColumnDescFlags, DBCOLUMNDESC.Ptr, pColumnDesc, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct IAlterTable extends IUnknown {
      * @returns {HRESULT} 
      */
     AlterTable(pTableId, pNewTableId, cPropertySets, rgPropertySets) {
-        result := ComCall(4, this, DBID.Ptr, pTableId, DBID.Ptr, pNewTableId, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
+        result := ComCall(4, this, DBID.Ptr, pTableId, DBID.Ptr, pNewTableId, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
         return result
     }
 

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
-#Import "..\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 
 /**
  * Encapsulates a 32-bit device independent bitmap and device context, which can be used for rendering glyphs.
@@ -174,7 +174,7 @@ export default struct IDWriteBitmapRenderTarget extends IUnknown {
      */
     DrawGlyphRun(baselineOriginX, baselineOriginY, measuringMode, _glyphRun, renderingParams, textColor) {
         blackBoxRect := RECT()
-        result := ComCall(3, this, "float", baselineOriginX, "float", baselineOriginY, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", renderingParams, COLORREF, textColor, RECT.Ptr, blackBoxRect, "HRESULT")
+        result := ComCall(3, this, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", renderingParams, COLORREF, textColor, RECT.Ptr, blackBoxRect, "HRESULT")
         return blackBoxRect
     }
 
@@ -232,7 +232,7 @@ export default struct IDWriteBitmapRenderTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-setpixelsperdip
      */
     SetPixelsPerDip(pixelsPerDip) {
-        result := ComCall(6, this, "float", pixelsPerDip, "HRESULT")
+        result := ComCall(6, this, Float32, pixelsPerDip, "HRESULT")
         return result
     }
 
@@ -292,7 +292,7 @@ export default struct IDWriteBitmapRenderTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-resize
      */
     Resize(width, height) {
-        result := ComCall(10, this, "uint", width, "uint", height, "HRESULT")
+        result := ComCall(10, this, UInt32, width, UInt32, height, "HRESULT")
         return result
     }
 

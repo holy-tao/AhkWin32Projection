@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXpsOMPackage.ahk" { IXpsOMPackage }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
 
 /**
  * Inherits from IXpsOMPackage.
@@ -98,7 +98,7 @@ export default struct IXpsOMPackage1 extends IXpsOMPackage {
     WriteToFile1(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, documentType) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(14, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, BOOL, optimizeMarkupSize, XPS_DOCUMENT_TYPE, documentType, "HRESULT")
+        result := ComCall(14, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, UInt32, flagsAndAttributes, BOOL, optimizeMarkupSize, XPS_DOCUMENT_TYPE, documentType, "HRESULT")
         return result
     }
 

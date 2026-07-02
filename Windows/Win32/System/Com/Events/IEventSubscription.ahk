@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\IDispatch.ahk" { IDispatch }
-#Import ".\IEventObjectCollection.ahk" { IEventObjectCollection }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEventObjectCollection.ahk" { IEventObjectCollection }
 
 /**
  * Specifies information about the relationship between an event subscriber and an event to which it is subscribing. It is used by publisher filters.

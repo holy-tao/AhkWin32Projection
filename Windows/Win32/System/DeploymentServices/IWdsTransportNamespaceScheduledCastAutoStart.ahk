@@ -79,7 +79,7 @@ export default struct IWdsTransportNamespaceScheduledCastAutoStart extends IWdsT
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-put_minimumclients
      */
     put_MinimumClients(ulMinimumClients) {
-        result := ComCall(30, this, "uint", ulMinimumClients, "HRESULT")
+        result := ComCall(30, this, UInt32, ulMinimumClients, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IWdsTransportNamespaceScheduledCastAutoStart extends IWdsT
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-put_starttime
      */
     put_StartTime(StartTime) {
-        result := ComCall(32, this, "double", StartTime, "HRESULT")
+        result := ComCall(32, this, Float64, StartTime, "HRESULT")
         return result
     }
 

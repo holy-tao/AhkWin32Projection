@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\TF_PROPERTYVAL.ahk" { TF_PROPERTYVAL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumTfPropertyValue interface is implemented by the TSF manager to provide an enumeration of property values.
@@ -102,7 +102,7 @@ export default struct IEnumTfPropertyValue extends IUnknown {
     Next(ulCount, rgValues, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, TF_PROPERTYVAL.Ptr, rgValues, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, TF_PROPERTYVAL.Ptr, rgValues, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IEnumTfPropertyValue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfpropertyvalue-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

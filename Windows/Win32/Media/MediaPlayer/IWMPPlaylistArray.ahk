@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -87,7 +87,7 @@ export default struct IWMPPlaylistArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistarray-item
      */
     item(lIndex) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, "ptr*", &ppItem := 0, "HRESULT")
         return IWMPPlaylist(ppItem)
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXGI_OUTDUPL_FRAME_INFO.ahk" { DXGI_OUTDUPL_FRAME_INFO }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import ".\DXGI_MAPPED_RECT.ahk" { DXGI_MAPPED_RECT }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DXGI_OUTDUPL_POINTER_SHAPE_INFO.ahk" { DXGI_OUTDUPL_POINTER_SHAPE_INFO }
-#Import ".\IDXGIObject.ahk" { IDXGIObject }
-#Import ".\IDXGIResource.ahk" { IDXGIResource }
 #Import ".\DXGI_OUTDUPL_DESC.ahk" { DXGI_OUTDUPL_DESC }
-#Import ".\DXGI_MAPPED_RECT.ahk" { DXGI_MAPPED_RECT }
-#Import ".\DXGI_OUTDUPL_FRAME_INFO.ahk" { DXGI_OUTDUPL_FRAME_INFO }
 
 /**
  * The IDXGIOutputDuplication interface accesses and manipulates the duplicated desktop image.
@@ -135,7 +135,7 @@ export default struct IDXGIOutputDuplication extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-acquirenextframe
      */
     AcquireNextFrame(TimeoutInMilliseconds, pFrameInfo, ppDesktopResource) {
-        result := ComCall(8, this, "uint", TimeoutInMilliseconds, DXGI_OUTDUPL_FRAME_INFO.Ptr, pFrameInfo, IDXGIResource.Ptr, ppDesktopResource, "HRESULT")
+        result := ComCall(8, this, UInt32, TimeoutInMilliseconds, DXGI_OUTDUPL_FRAME_INFO.Ptr, pFrameInfo, IDXGIResource.Ptr, ppDesktopResource, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IDXGIOutputDuplication extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframedirtyrects
      */
     GetFrameDirtyRects(DirtyRectsBufferSize, pDirtyRectsBuffer) {
-        result := ComCall(9, this, "uint", DirtyRectsBufferSize, "ptr", pDirtyRectsBuffer, "uint*", &pDirtyRectsBufferSizeRequired := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, DirtyRectsBufferSize, IntPtr, pDirtyRectsBuffer, "uint*", &pDirtyRectsBufferSizeRequired := 0, "HRESULT")
         return pDirtyRectsBufferSizeRequired
     }
 
@@ -208,7 +208,7 @@ export default struct IDXGIOutputDuplication extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframemoverects
      */
     GetFrameMoveRects(MoveRectsBufferSize, pMoveRectBuffer) {
-        result := ComCall(10, this, "uint", MoveRectsBufferSize, "ptr", pMoveRectBuffer, "uint*", &pMoveRectsBufferSizeRequired := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, MoveRectsBufferSize, IntPtr, pMoveRectBuffer, "uint*", &pMoveRectsBufferSizeRequired := 0, "HRESULT")
         return pMoveRectsBufferSizeRequired
     }
 
@@ -247,7 +247,7 @@ export default struct IDXGIOutputDuplication extends IDXGIObject {
     GetFramePointerShape(PointerShapeBufferSize, pPointerShapeBuffer, pPointerShapeBufferSizeRequired, pPointerShapeInfo) {
         pPointerShapeBufferSizeRequiredMarshal := pPointerShapeBufferSizeRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", PointerShapeBufferSize, "ptr", pPointerShapeBuffer, pPointerShapeBufferSizeRequiredMarshal, pPointerShapeBufferSizeRequired, DXGI_OUTDUPL_POINTER_SHAPE_INFO.Ptr, pPointerShapeInfo, "HRESULT")
+        result := ComCall(11, this, UInt32, PointerShapeBufferSize, IntPtr, pPointerShapeBuffer, pPointerShapeBufferSizeRequiredMarshal, pPointerShapeBufferSizeRequired, DXGI_OUTDUPL_POINTER_SHAPE_INFO.Ptr, pPointerShapeInfo, "HRESULT")
         return result
     }
 

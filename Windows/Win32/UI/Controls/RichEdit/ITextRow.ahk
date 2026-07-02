@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\tomConstants.ahk" { tomConstants }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\tomConstants.ahk" { tomConstants }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -119,7 +119,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setalignment
      */
     SetAlignment(Value) {
-        result := ComCall(8, this, "int", Value, "HRESULT")
+        result := ComCall(8, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellcount
      */
     SetCellCount(Value) {
-        result := ComCall(10, this, "int", Value, "HRESULT")
+        result := ComCall(10, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellcountcache
      */
     SetCellCountCache(Value) {
-        result := ComCall(12, this, "int", Value, "HRESULT")
+        result := ComCall(12, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellindex
      */
     SetCellIndex(Value) {
-        result := ComCall(14, this, "int", Value, "HRESULT")
+        result := ComCall(14, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -235,7 +235,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellmargin
      */
     SetCellMargin(Value) {
-        result := ComCall(16, this, "int", Value, "HRESULT")
+        result := ComCall(16, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -262,7 +262,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setheight
      */
     SetHeight(Value) {
-        result := ComCall(18, this, "int", Value, "HRESULT")
+        result := ComCall(18, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -289,7 +289,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setindent
      */
     SetIndent(Value) {
-        result := ComCall(20, this, "int", Value, "HRESULT")
+        result := ComCall(20, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -316,7 +316,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setkeeptogether
      */
     SetKeepTogether(Value) {
-        result := ComCall(22, this, "int", Value, "HRESULT")
+        result := ComCall(22, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -343,7 +343,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setkeepwithnext
      */
     SetKeepWithNext(Value) {
-        result := ComCall(24, this, "int", Value, "HRESULT")
+        result := ComCall(24, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -424,7 +424,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setrtl
      */
     SetRTL(Value) {
-        result := ComCall(27, this, "int", Value, "HRESULT")
+        result := ComCall(27, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -451,7 +451,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellalignment
      */
     SetCellAlignment(Value) {
-        result := ComCall(29, this, "int", Value, "HRESULT")
+        result := ComCall(29, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -480,7 +480,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellcolorback
      */
     SetCellColorBack(Value) {
-        result := ComCall(31, this, "int", Value, "HRESULT")
+        result := ComCall(31, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -509,7 +509,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellcolorfore
      */
     SetCellColorFore(Value) {
-        result := ComCall(33, this, "int", Value, "HRESULT")
+        result := ComCall(33, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -545,7 +545,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellmergeflags
      */
     SetCellMergeFlags(Value) {
-        result := ComCall(35, this, "int", Value, "HRESULT")
+        result := ComCall(35, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -576,7 +576,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellshading
      */
     SetCellShading(Value) {
-        result := ComCall(37, this, "int", Value, "HRESULT")
+        result := ComCall(37, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -605,7 +605,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellverticaltext
      */
     SetCellVerticalText(Value) {
-        result := ComCall(39, this, "int", Value, "HRESULT")
+        result := ComCall(39, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -636,7 +636,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellwidth
      */
     SetCellWidth(Value) {
-        result := ComCall(41, this, "int", Value, "HRESULT")
+        result := ComCall(41, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -718,7 +718,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellbordercolors
      */
     SetCellBorderColors(crLeft, crTop, crRight, crBottom) {
-        result := ComCall(44, this, "int", crLeft, "int", crTop, "int", crRight, "int", crBottom, "HRESULT")
+        result := ComCall(44, this, Int32, crLeft, Int32, crTop, Int32, crRight, Int32, crBottom, "HRESULT")
         return result
     }
 
@@ -742,7 +742,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setcellborderwidths
      */
     SetCellBorderWidths(duLeft, duTop, duRight, duBottom) {
-        result := ComCall(45, this, "int", duLeft, "int", duTop, "int", duRight, "int", duBottom, "HRESULT")
+        result := ComCall(45, this, Int32, duLeft, Int32, duTop, Int32, duRight, Int32, duBottom, "HRESULT")
         return result
     }
 
@@ -758,7 +758,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-apply
      */
     Apply(cRow, Flags) {
-        result := ComCall(46, this, "int", cRow, tomConstants, Flags, "HRESULT")
+        result := ComCall(46, this, Int32, cRow, tomConstants, Flags, "HRESULT")
         return result
     }
 
@@ -789,7 +789,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getproperty
      */
     GetProperty(Type) {
-        result := ComCall(48, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(48, this, Int32, Type, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -804,7 +804,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-insert
      */
     Insert(cRow) {
-        result := ComCall(49, this, "int", cRow, "HRESULT")
+        result := ComCall(49, this, Int32, cRow, "HRESULT")
         return result
     }
 
@@ -863,7 +863,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-reset
      */
     Reset(Value) {
-        result := ComCall(51, this, "int", Value, "HRESULT")
+        result := ComCall(51, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -881,7 +881,7 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-setproperty
      */
     SetProperty(Type, Value) {
-        result := ComCall(52, this, "int", Type, "int", Value, "HRESULT")
+        result := ComCall(52, this, Int32, Type, Int32, Value, "HRESULT")
         return result
     }
 

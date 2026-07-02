@@ -40,7 +40,7 @@ export default struct IMemoryAllocator extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/Stg/imemoryallocator-allocate
      */
     Allocate(cbSize) {
-        result := ComCall(0, this, "uint", cbSize, IntPtr)
+        result := ComCall(0, this, UInt32, cbSize, IntPtr)
         return result
     }
 

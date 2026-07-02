@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfRange.ahk" { ITfRange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfComposition interface is implemented by the TSF manager and is used by a text service to obtain data about and terminate a composition. An instance of this interface is provided by the ITfContextComposition::StartComposition method.
@@ -123,7 +123,7 @@ export default struct ITfComposition extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcomposition-shiftstart
      */
     ShiftStart(ecWrite, pNewStart) {
-        result := ComCall(4, this, "uint", ecWrite, "ptr", pNewStart, "HRESULT")
+        result := ComCall(4, this, UInt32, ecWrite, "ptr", pNewStart, "HRESULT")
         return result
     }
 
@@ -199,7 +199,7 @@ export default struct ITfComposition extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcomposition-shiftend
      */
     ShiftEnd(ecWrite, pNewEnd) {
-        result := ComCall(5, this, "uint", ecWrite, "ptr", pNewEnd, "HRESULT")
+        result := ComCall(5, this, UInt32, ecWrite, "ptr", pNewEnd, "HRESULT")
         return result
     }
 
@@ -261,7 +261,7 @@ export default struct ITfComposition extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcomposition-endcomposition
      */
     EndComposition(ecWrite) {
-        result := ComCall(6, this, "uint", ecWrite, "HRESULT")
+        result := ComCall(6, this, UInt32, ecWrite, "HRESULT")
         return result
     }
 

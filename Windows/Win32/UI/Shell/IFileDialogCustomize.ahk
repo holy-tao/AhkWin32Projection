@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CDCONTROLSTATEF.ahk" { CDCONTROLSTATEF }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that allow an application to add controls to a common file dialog.
@@ -93,7 +93,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-enableopendropdown
      */
     EnableOpenDropDown(dwIDCtl) {
-        result := ComCall(3, this, "uint", dwIDCtl, "HRESULT")
+        result := ComCall(3, this, UInt32, dwIDCtl, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     AddMenu(dwIDCtl, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(4, this, "uint", dwIDCtl, "ptr", pszLabel, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIDCtl, "ptr", pszLabel, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     AddPushButton(dwIDCtl, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(5, this, "uint", dwIDCtl, "ptr", pszLabel, "HRESULT")
+        result := ComCall(5, this, UInt32, dwIDCtl, "ptr", pszLabel, "HRESULT")
         return result
     }
 
@@ -156,7 +156,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addcombobox
      */
     AddComboBox(dwIDCtl) {
-        result := ComCall(6, this, "uint", dwIDCtl, "HRESULT")
+        result := ComCall(6, this, UInt32, dwIDCtl, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addradiobuttonlist
      */
     AddRadioButtonList(dwIDCtl) {
-        result := ComCall(7, this, "uint", dwIDCtl, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIDCtl, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     AddCheckButton(dwIDCtl, pszLabel, bChecked) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(8, this, "uint", dwIDCtl, "ptr", pszLabel, BOOL, bChecked, "HRESULT")
+        result := ComCall(8, this, UInt32, dwIDCtl, "ptr", pszLabel, BOOL, bChecked, "HRESULT")
         return result
     }
 
@@ -222,7 +222,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     AddEditBox(dwIDCtl, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(9, this, "uint", dwIDCtl, "ptr", pszText, "HRESULT")
+        result := ComCall(9, this, UInt32, dwIDCtl, "ptr", pszText, "HRESULT")
         return result
     }
 
@@ -239,7 +239,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addseparator
      */
     AddSeparator(dwIDCtl) {
-        result := ComCall(10, this, "uint", dwIDCtl, "HRESULT")
+        result := ComCall(10, this, UInt32, dwIDCtl, "HRESULT")
         return result
     }
 
@@ -261,7 +261,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     AddText(dwIDCtl, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(11, this, "uint", dwIDCtl, "ptr", pszText, "HRESULT")
+        result := ComCall(11, this, UInt32, dwIDCtl, "ptr", pszText, "HRESULT")
         return result
     }
 
@@ -283,7 +283,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     SetControlLabel(dwIDCtl, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(12, this, "uint", dwIDCtl, "ptr", pszLabel, "HRESULT")
+        result := ComCall(12, this, UInt32, dwIDCtl, "ptr", pszLabel, "HRESULT")
         return result
     }
 
@@ -298,7 +298,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolstate
      */
     GetControlState(dwIDCtl) {
-        result := ComCall(13, this, "uint", dwIDCtl, "int*", &pdwState := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwIDCtl, "int*", &pdwState := 0, "HRESULT")
         return pdwState
     }
 
@@ -318,7 +318,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolstate
      */
     SetControlState(dwIDCtl, dwState) {
-        result := ComCall(14, this, "uint", dwIDCtl, CDCONTROLSTATEF, dwState, "HRESULT")
+        result := ComCall(14, this, UInt32, dwIDCtl, CDCONTROLSTATEF, dwState, "HRESULT")
         return result
     }
 
@@ -335,7 +335,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-geteditboxtext
      */
     GetEditBoxText(dwIDCtl) {
-        result := ComCall(15, this, "uint", dwIDCtl, "ptr*", &ppszText := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwIDCtl, "ptr*", &ppszText := 0, "HRESULT")
         return ppszText
     }
 
@@ -355,7 +355,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     SetEditBoxText(dwIDCtl, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(16, this, "uint", dwIDCtl, "ptr", pszText, "HRESULT")
+        result := ComCall(16, this, UInt32, dwIDCtl, "ptr", pszText, "HRESULT")
         return result
     }
 
@@ -370,7 +370,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcheckbuttonstate
      */
     GetCheckButtonState(dwIDCtl) {
-        result := ComCall(17, this, "uint", dwIDCtl, BOOL.Ptr, &pbChecked := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, dwIDCtl, BOOL.Ptr, &pbChecked := 0, "HRESULT")
         return pbChecked
     }
 
@@ -388,7 +388,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcheckbuttonstate
      */
     SetCheckButtonState(dwIDCtl, bChecked) {
-        result := ComCall(18, this, "uint", dwIDCtl, BOOL, bChecked, "HRESULT")
+        result := ComCall(18, this, UInt32, dwIDCtl, BOOL, bChecked, "HRESULT")
         return result
     }
 
@@ -415,7 +415,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     AddControlItem(dwIDCtl, dwIDItem, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(19, this, "uint", dwIDCtl, "uint", dwIDItem, "ptr", pszLabel, "HRESULT")
+        result := ComCall(19, this, UInt32, dwIDCtl, UInt32, dwIDItem, "ptr", pszLabel, "HRESULT")
         return result
     }
 
@@ -435,7 +435,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-removecontrolitem
      */
     RemoveControlItem(dwIDCtl, dwIDItem) {
-        result := ComCall(20, this, "uint", dwIDCtl, "uint", dwIDItem, "HRESULT")
+        result := ComCall(20, this, UInt32, dwIDCtl, UInt32, dwIDItem, "HRESULT")
         return result
     }
 
@@ -450,7 +450,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-removeallcontrolitems
      */
     RemoveAllControlItems(dwIDCtl) {
-        result := ComCall(21, this, "uint", dwIDCtl, "HRESULT")
+        result := ComCall(21, this, UInt32, dwIDCtl, "HRESULT")
         return result
     }
 
@@ -472,7 +472,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolitemstate
      */
     GetControlItemState(dwIDCtl, dwIDItem) {
-        result := ComCall(22, this, "uint", dwIDCtl, "uint", dwIDItem, "int*", &pdwState := 0, "HRESULT")
+        result := ComCall(22, this, UInt32, dwIDCtl, UInt32, dwIDItem, "int*", &pdwState := 0, "HRESULT")
         return pdwState
     }
 
@@ -497,7 +497,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolitemstate
      */
     SetControlItemState(dwIDCtl, dwIDItem, dwState) {
-        result := ComCall(23, this, "uint", dwIDCtl, "uint", dwIDItem, CDCONTROLSTATEF, dwState, "HRESULT")
+        result := ComCall(23, this, UInt32, dwIDCtl, UInt32, dwIDItem, CDCONTROLSTATEF, dwState, "HRESULT")
         return result
     }
 
@@ -516,7 +516,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getselectedcontrolitem
      */
     GetSelectedControlItem(dwIDCtl) {
-        result := ComCall(24, this, "uint", dwIDCtl, "uint*", &pdwIDItem := 0, "HRESULT")
+        result := ComCall(24, this, UInt32, dwIDCtl, "uint*", &pdwIDItem := 0, "HRESULT")
         return pdwIDItem
     }
 
@@ -534,7 +534,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setselectedcontrolitem
      */
     SetSelectedControlItem(dwIDCtl, dwIDItem) {
-        result := ComCall(25, this, "uint", dwIDCtl, "uint", dwIDItem, "HRESULT")
+        result := ComCall(25, this, UInt32, dwIDCtl, UInt32, dwIDItem, "HRESULT")
         return result
     }
 
@@ -559,7 +559,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     StartVisualGroup(dwIDCtl, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(26, this, "uint", dwIDCtl, "ptr", pszLabel, "HRESULT")
+        result := ComCall(26, this, UInt32, dwIDCtl, "ptr", pszLabel, "HRESULT")
         return result
     }
 
@@ -592,7 +592,7 @@ export default struct IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-makeprominent
      */
     MakeProminent(dwIDCtl) {
-        result := ComCall(28, this, "uint", dwIDCtl, "HRESULT")
+        result := ComCall(28, this, UInt32, dwIDCtl, "HRESULT")
         return result
     }
 
@@ -619,7 +619,7 @@ export default struct IFileDialogCustomize extends IUnknown {
     SetControlItemText(dwIDCtl, dwIDItem, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(29, this, "uint", dwIDCtl, "uint", dwIDItem, "ptr", pszLabel, "HRESULT")
+        result := ComCall(29, this, UInt32, dwIDCtl, UInt32, dwIDItem, "ptr", pszLabel, "HRESULT")
         return result
     }
 

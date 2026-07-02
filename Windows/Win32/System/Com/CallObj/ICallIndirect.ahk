@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CALLFRAMEINFO.ahk" { CALLFRAMEINFO }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import ".\CALLFRAMEINFO.ahk" { CALLFRAMEINFO }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Invokes an object with an indirect reference to the invocations arguments, rather than the traditional direct call.
@@ -88,7 +88,7 @@ export default struct ICallIndirect extends IUnknown {
         pvArgsMarshal := pvArgs is VarRef ? "ptr" : "ptr"
         cbArgsMarshal := cbArgs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, phrReturnMarshal, phrReturn, "uint", iMethod, pvArgsMarshal, pvArgs, cbArgsMarshal, cbArgs, "HRESULT")
+        result := ComCall(3, this, phrReturnMarshal, phrReturn, UInt32, iMethod, pvArgsMarshal, pvArgs, cbArgsMarshal, cbArgs, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct ICallIndirect extends IUnknown {
     GetMethodInfo(iMethod, pInfo, pwszMethod) {
         pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", iMethod, CALLFRAMEINFO.Ptr, pInfo, pwszMethodMarshal, pwszMethod, "HRESULT")
+        result := ComCall(4, this, UInt32, iMethod, CALLFRAMEINFO.Ptr, pInfo, pwszMethodMarshal, pwszMethod, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct ICallIndirect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getstacksize
      */
     GetStackSize(iMethod) {
-        result := ComCall(5, this, "uint", iMethod, "uint*", &cbArgs := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, iMethod, "uint*", &cbArgs := 0, "HRESULT")
         return cbArgs
     }
 

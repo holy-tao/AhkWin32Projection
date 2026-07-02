@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ENTRYID.ahk" { ENTRYID }
 #Import ".\IMAPIProp.ahk" { IMAPIProp }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ENTRYID.ahk" { ENTRYID }
 
 /**
  * Provides status information about the MAPI subsystem, the integrated address book, and the MAPI spooler.
@@ -111,7 +111,7 @@ export default struct IMAPIStatus extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapistatus-validatestate
      */
     ValidateState(ulUIParam, ulFlags) {
-        result := ComCall(14, this, "ptr", ulUIParam, "uint", ulFlags, "HRESULT")
+        result := ComCall(14, this, IntPtr, ulUIParam, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IMAPIStatus extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapistatus-settingsdialog
      */
     SettingsDialog(ulUIParam, ulFlags) {
-        result := ComCall(15, this, "ptr", ulUIParam, "uint", ulFlags, "HRESULT")
+        result := ComCall(15, this, IntPtr, ulUIParam, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -169,7 +169,7 @@ export default struct IMAPIStatus extends IMAPIProp {
         lpOldPassMarshal := lpOldPass is VarRef ? "char*" : "ptr"
         lpNewPassMarshal := lpNewPass is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, lpOldPassMarshal, lpOldPass, lpNewPassMarshal, lpNewPass, "uint", ulFlags, "HRESULT")
+        result := ComCall(16, this, lpOldPassMarshal, lpOldPass, lpNewPassMarshal, lpNewPass, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -219,7 +219,7 @@ export default struct IMAPIStatus extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapistatus-flushqueues
      */
     FlushQueues(ulUIParam, cbTargetTransport, lpTargetTransport, ulFlags) {
-        result := ComCall(17, this, "ptr", ulUIParam, "uint", cbTargetTransport, ENTRYID.Ptr, lpTargetTransport, "uint", ulFlags, "HRESULT")
+        result := ComCall(17, this, IntPtr, ulUIParam, UInt32, cbTargetTransport, ENTRYID.Ptr, lpTargetTransport, UInt32, ulFlags, "HRESULT")
         return result
     }
 

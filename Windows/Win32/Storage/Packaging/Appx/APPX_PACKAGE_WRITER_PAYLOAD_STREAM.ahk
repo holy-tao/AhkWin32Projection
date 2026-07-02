@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\APPX_COMPRESSION_OPTION.ahk" { APPX_COMPRESSION_OPTION }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\APPX_COMPRESSION_OPTION.ahk" { APPX_COMPRESSION_OPTION }
 
 /**
  * Contains the data and metadata of files to write into the app package.

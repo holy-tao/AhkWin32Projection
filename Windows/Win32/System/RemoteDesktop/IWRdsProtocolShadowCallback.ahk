@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods called by the protocol to notify the Remote Desktop Services service to start or stop the target side of a shadow.
@@ -80,7 +80,7 @@ export default struct IWRdsProtocolShadowCallback extends IUnknown {
         pParam3Marshal := pParam3 is VarRef ? "char*" : "ptr"
         pParam4Marshal := pParam4 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pTargetServerName, "uint", TargetSessionId, pParam1Marshal, pParam1, "uint", Param1Size, pParam2Marshal, pParam2, "uint", Param2Size, pParam3Marshal, pParam3, "uint", Param3Size, pParam4Marshal, pParam4, "uint", Param4Size, "ptr", pClientName, "HRESULT")
+        result := ComCall(4, this, "ptr", pTargetServerName, UInt32, TargetSessionId, pParam1Marshal, pParam1, UInt32, Param1Size, pParam2Marshal, pParam2, UInt32, Param2Size, pParam3Marshal, pParam3, UInt32, Param3Size, pParam4Marshal, pParam4, UInt32, Param4Size, "ptr", pClientName, "HRESULT")
         return result
     }
 

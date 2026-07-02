@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\ITfRange.ahk" { ITfRange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfPropertyStore.ahk" { ITfPropertyStore }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfPropertyStore.ahk" { ITfPropertyStore }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfCreatePropertyStore interface is implemented by a text service to support persistence of property store data.
@@ -67,7 +67,7 @@ export default struct ITfCreatePropertyStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcreatepropertystore-createpropertystore
      */
     CreatePropertyStore(guidProp, pRange, cb, pStream) {
-        result := ComCall(4, this, Guid.Ptr, guidProp, "ptr", pRange, "uint", cb, "ptr", pStream, "ptr*", &ppStore := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidProp, "ptr", pRange, UInt32, cb, "ptr", pStream, "ptr*", &ppStore := 0, "HRESULT")
         return ITfPropertyStore(ppStore)
     }
 

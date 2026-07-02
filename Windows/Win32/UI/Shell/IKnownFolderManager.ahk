@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\KNOWNFOLDER_DEFINITION.ahk" { KNOWNFOLDER_DEFINITION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\IKnownFolder.ahk" { IKnownFolder }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FFFP_MODE.ahk" { FFFP_MODE }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\FFFP_MODE.ahk" { FFFP_MODE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that create, enumerate or manage existing known folders.
@@ -72,7 +72,7 @@ export default struct IKnownFolderManager extends IUnknown {
      */
     FolderIdFromCsidl(nCsidl) {
         pfid := Guid()
-        result := ComCall(3, this, "int", nCsidl, Guid.Ptr, pfid, "HRESULT")
+        result := ComCall(3, this, Int32, nCsidl, Guid.Ptr, pfid, "HRESULT")
         return pfid
     }
 
@@ -288,7 +288,7 @@ export default struct IKnownFolderManager extends IUnknown {
     Redirect(rfid, _hwnd, flags, pszTargetPath, cFolders, pExclusion) {
         pszTargetPath := pszTargetPath is String ? StrPtr(pszTargetPath) : pszTargetPath
 
-        result := ComCall(12, this, Guid.Ptr, rfid, HWND, _hwnd, "uint", flags, "ptr", pszTargetPath, "uint", cFolders, Guid.Ptr, pExclusion, PWSTR.Ptr, &ppszError := 0, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, rfid, HWND, _hwnd, UInt32, flags, "ptr", pszTargetPath, UInt32, cFolders, Guid.Ptr, pExclusion, PWSTR.Ptr, &ppszError := 0, "HRESULT")
         return ppszError
     }
 

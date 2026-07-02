@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IFsiDirectoryItem.ahk" { IFsiDirectoryItem }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to add a directory tree, which includes all sub-directories, files, and associated named streams to a file system image.

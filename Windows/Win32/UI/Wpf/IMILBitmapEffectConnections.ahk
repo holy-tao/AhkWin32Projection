@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMILBitmapEffectInputConnector.ahk" { IMILBitmapEffectInputConnector }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMILBitmapEffectOutputConnector.ahk" { IMILBitmapEffectOutputConnector }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMILBitmapEffectInputConnector.ahk" { IMILBitmapEffectInputConnector }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods used to retrieve input and output connectors exposed by the bitmap effect.
@@ -51,7 +51,7 @@ export default struct IMILBitmapEffectConnections extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnections-getinputconnector
      */
     GetInputConnector(uiIndex) {
-        result := ComCall(3, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
         return IMILBitmapEffectInputConnector(ppConnector)
     }
 
@@ -66,7 +66,7 @@ export default struct IMILBitmapEffectConnections extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnections-getoutputconnector
      */
     GetOutputConnector(uiIndex) {
-        result := ComCall(4, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
         return IMILBitmapEffectOutputConnector(ppConnector)
     }
 

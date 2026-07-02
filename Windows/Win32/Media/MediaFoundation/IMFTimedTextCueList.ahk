@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFTimedTextCue.ahk" { IMFTimedTextCue }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFTimedTextCue.ahk" { IMFTimedTextCue }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -58,7 +58,7 @@ export default struct IMFTimedTextCueList extends IUnknown {
      * @returns {IMFTimedTextCue} 
      */
     GetCueByIndex(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &cue := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &cue := 0, "HRESULT")
         return IMFTimedTextCue(cue)
     }
 
@@ -68,7 +68,7 @@ export default struct IMFTimedTextCueList extends IUnknown {
      * @returns {IMFTimedTextCue} 
      */
     GetCueById(id) {
-        result := ComCall(5, this, "uint", id, "ptr*", &cue := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, id, "ptr*", &cue := 0, "HRESULT")
         return IMFTimedTextCue(cue)
     }
 
@@ -94,7 +94,7 @@ export default struct IMFTimedTextCueList extends IUnknown {
     AddTextCue(start, duration, text) {
         text := text is String ? StrPtr(text) : text
 
-        result := ComCall(7, this, "double", start, "double", duration, "ptr", text, "ptr*", &cue := 0, "HRESULT")
+        result := ComCall(7, this, Float64, start, Float64, duration, "ptr", text, "ptr*", &cue := 0, "HRESULT")
         return IMFTimedTextCue(cue)
     }
 
@@ -107,7 +107,7 @@ export default struct IMFTimedTextCueList extends IUnknown {
      * @returns {IMFTimedTextCue} 
      */
     AddDataCue(start, duration, data, dataSize) {
-        result := ComCall(8, this, "double", start, "double", duration, "ptr", data, "uint", dataSize, "ptr*", &cue := 0, "HRESULT")
+        result := ComCall(8, this, Float64, start, Float64, duration, IntPtr, data, UInt32, dataSize, "ptr*", &cue := 0, "HRESULT")
         return IMFTimedTextCue(cue)
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * Implements methods that get information from an Integrated Services Digital Broadcasting (ISDB) linked description table (LDT). An LDT contains data used to collect reference information from other tables.
@@ -121,7 +121,7 @@ export default struct IISDB_LDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getrecorddescriptionid
      */
     GetRecordDescriptionId(dwRecordIndex) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -133,7 +133,7 @@ export default struct IISDB_LDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -149,7 +149,7 @@ export default struct IISDB_LDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_ldt-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwRecordIndex, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -172,7 +172,7 @@ export default struct IISDB_LDT extends IUnknown {
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOpcCertificateSet.ahk" { IOpcCertificateSet }
-#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
-#Import ".\IOpcSignatureRelationshipReferenceSet.ahk" { IOpcSignatureRelationshipReferenceSet }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IOpcSignatureReferenceSet.ahk" { IOpcSignatureReferenceSet }
+#Import ".\IOpcCertificateSet.ahk" { IOpcCertificateSet }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IOpcSignatureCustomObjectSet.ahk" { IOpcSignatureCustomObjectSet }
-#Import ".\OPC_CERTIFICATE_EMBEDDING_OPTION.ahk" { OPC_CERTIFICATE_EMBEDDING_OPTION }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcSignatureReferenceSet.ahk" { IOpcSignatureReferenceSet }
 #Import ".\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
+#Import ".\IOpcSignatureCustomObjectSet.ahk" { IOpcSignatureCustomObjectSet }
 #Import ".\IOpcSignaturePartReferenceSet.ahk" { IOpcSignaturePartReferenceSet }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OPC_CERTIFICATE_EMBEDDING_OPTION.ahk" { OPC_CERTIFICATE_EMBEDDING_OPTION }
+#Import ".\IOpcSignatureRelationshipReferenceSet.ahk" { IOpcSignatureRelationshipReferenceSet }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
 
 /**
  * Provides methods to set and access information required to generate a signature.

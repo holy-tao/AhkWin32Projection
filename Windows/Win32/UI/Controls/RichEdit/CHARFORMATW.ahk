@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CFE_EFFECTS.ahk" { CFE_EFFECTS }
-#Import ".\CFM_MASK.ahk" { CFM_MASK }
 #Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\CFM_MASK.ahk" { CFM_MASK }
 #Import "..\..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 

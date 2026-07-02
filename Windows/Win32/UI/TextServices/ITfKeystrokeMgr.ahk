@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContext.ahk" { ITfContext }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\TF_PRESERVEDKEY.ahk" { TF_PRESERVEDKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITfKeyEventSink.ahk" { ITfKeyEventSink }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TF_PRESERVEDKEY.ahk" { TF_PRESERVEDKEY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ITfKeyEventSink.ahk" { ITfKeyEventSink }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\ITfContext.ahk" { ITfContext }
 
 /**
  * The ITfKeystrokeMgr interface is implemented by the TSF manager and used by applications and text services to interact with the keyboard manager.
@@ -109,7 +109,7 @@ export default struct ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-advisekeyeventsink
      */
     AdviseKeyEventSink(tid, pSink, fForeground) {
-        result := ComCall(3, this, "uint", tid, "ptr", pSink, BOOL, fForeground, "HRESULT")
+        result := ComCall(3, this, UInt32, tid, "ptr", pSink, BOOL, fForeground, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct ITfKeystrokeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfkeystrokemgr-unadvisekeyeventsink
      */
     UnadviseKeyEventSink(tid) {
-        result := ComCall(4, this, "uint", tid, "HRESULT")
+        result := ComCall(4, this, UInt32, tid, "HRESULT")
         return result
     }
 
@@ -429,7 +429,7 @@ export default struct ITfKeystrokeMgr extends IUnknown {
     PreserveKey(tid, rguid, prekey, pchDesc, cchDesc) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
 
-        result := ComCall(12, this, "uint", tid, Guid.Ptr, rguid, TF_PRESERVEDKEY.Ptr, prekey, "ptr", pchDesc, "uint", cchDesc, "HRESULT")
+        result := ComCall(12, this, UInt32, tid, Guid.Ptr, rguid, TF_PRESERVEDKEY.Ptr, prekey, "ptr", pchDesc, UInt32, cchDesc, "HRESULT")
         return result
     }
 
@@ -540,7 +540,7 @@ export default struct ITfKeystrokeMgr extends IUnknown {
     SetPreservedKeyDescription(rguid, pchDesc, cchDesc) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
 
-        result := ComCall(14, this, Guid.Ptr, rguid, "ptr", pchDesc, "uint", cchDesc, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, rguid, "ptr", pchDesc, UInt32, cchDesc, "HRESULT")
         return result
     }
 

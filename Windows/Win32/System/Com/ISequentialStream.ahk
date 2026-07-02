@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ISequentialStream interface supports simplified sequential access to stream objects. The IStream interface inherits its Read and Write methods from ISequentialStream.
@@ -58,7 +58,7 @@ export default struct ISequentialStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-read
      */
     Read(pv, cb) {
-        result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, Int32)
+        result := ComCall(3, this, IntPtr, pv, UInt32, cb, "uint*", &pcbRead := 0, Int32)
         return pcbRead
     }
 
@@ -81,7 +81,7 @@ export default struct ISequentialStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-write
      */
     Write(pv, cb) {
-        result := ComCall(4, this, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, Int32)
+        result := ComCall(4, this, IntPtr, pv, UInt32, cb, "uint*", &pcbWritten := 0, Int32)
         return pcbWritten
     }
 

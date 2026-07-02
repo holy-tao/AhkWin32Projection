@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IStream.ahk" { IStream }
 #Import "..\CO_MARSHALING_CONTEXT_ATTRIBUTES.ahk" { CO_MARSHALING_CONTEXT_ATTRIBUTES }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IStream.ahk" { IStream }
 
 /**
  * The IMarshalingStream (objidlbase.h) interface provides additional information about the marshaling context to custom-marshaled objects and unmarshalers.

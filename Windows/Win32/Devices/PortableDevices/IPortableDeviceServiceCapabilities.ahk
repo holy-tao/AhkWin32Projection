@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 #Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
-#Import ".\IPortableDeviceValuesCollection.ahk" { IPortableDeviceValuesCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPortableDeviceValuesCollection.ahk" { IPortableDeviceValuesCollection }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
 
 /**
  * Retrieves information describing the capabilities of a service.
@@ -209,7 +209,7 @@ export default struct IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getinheritedservices
      */
     GetInheritedServices(dwInheritanceType) {
-        result := ComCall(14, this, "uint", dwInheritanceType, "ptr*", &ppServices := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwInheritanceType, "ptr*", &ppServices := 0, "HRESULT")
         return IPortableDevicePropVariantCollection(ppServices)
     }
 

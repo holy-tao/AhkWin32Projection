@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NDIS_802_11_NETWORK_INFRASTRUCTURE.ahk" { NDIS_802_11_NETWORK_INFRASTRUCTURE }
 #Import ".\NDIS_802_11_NETWORK_TYPE.ahk" { NDIS_802_11_NETWORK_TYPE }
+#Import ".\NDIS_802_11_NETWORK_INFRASTRUCTURE.ahk" { NDIS_802_11_NETWORK_INFRASTRUCTURE }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis

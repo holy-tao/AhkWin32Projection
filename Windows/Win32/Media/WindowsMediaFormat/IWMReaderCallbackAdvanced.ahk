@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WM_MEDIA_TYPE.ahk" { WM_MEDIA_TYPE }
-#Import ".\INSSBuffer.ahk" { INSSBuffer }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMReaderCallback interface is implemented by the application to handle data being read from a file.
@@ -96,7 +96,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
     OnStreamSample(wStreamNum, cnsSampleTime, cnsSampleDuration, dwFlags, pSample, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ushort", wStreamNum, "uint", cnsSampleTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, UInt16, wStreamNum, Int64, cnsSampleTime, Int64, cnsSampleDuration, UInt32, dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
     OnTime(cnsCurrentTime, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", cnsCurrentTime, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(4, this, Int64, cnsCurrentTime, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
         pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ushort", wStreamCount, pStreamNumbersMarshal, pStreamNumbers, pSelectionsMarshal, pSelections, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(5, this, UInt16, wStreamCount, pStreamNumbersMarshal, pStreamNumbers, pSelectionsMarshal, pSelections, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
     OnOutputPropsChanged(dwOutputNum, pMediaType, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "uint", dwOutputNum, WM_MEDIA_TYPE.Ptr, pMediaType, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(6, this, UInt32, dwOutputNum, WM_MEDIA_TYPE.Ptr, pMediaType, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
     AllocateForStream(wStreamNum, cbBuffer, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(7, this, UInt16, wStreamNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
     }
 
@@ -199,7 +199,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
     AllocateForOutput(dwOutputNum, cbBuffer, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", dwOutputNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(8, this, UInt32, dwOutputNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\VDS_ASYNC_OUTPUT_TYPE.ahk" { VDS_ASYNC_OUTPUT_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The VDS_ASYNC_OUTPUT structure (vdshwprv.h) defines the output of an async object. Output elements vary depending on the operation type.

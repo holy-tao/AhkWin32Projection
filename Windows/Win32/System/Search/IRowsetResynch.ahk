@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -44,7 +44,7 @@ export default struct IRowsetResynch extends IUnknown {
      * @returns {Void} 
      */
     GetVisibleData(hRow, _hAccessor) {
-        result := ComCall(3, this, "ptr", hRow, HACCESSOR, _hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, hRow, HACCESSOR, _hAccessor, "ptr", &pData := 0, "HRESULT")
         return pData
     }
 
@@ -63,7 +63,7 @@ export default struct IRowsetResynch extends IUnknown {
         prghRowsResynchedMarshal := prghRowsResynched is VarRef ? "ptr*" : "ptr"
         prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsResynchedMarshal, pcRowsResynched, prghRowsResynchedMarshal, prghRowsResynched, prgRowStatusMarshal, prgRowStatus, "HRESULT")
+        result := ComCall(4, this, IntPtr, cRows, rghRowsMarshal, rghRows, pcRowsResynchedMarshal, pcRowsResynched, prghRowsResynchedMarshal, prghRowsResynched, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
     }
 

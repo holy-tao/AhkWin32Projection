@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * Provides a mechanism for notifying the app about information regarding the media key session.
@@ -50,7 +50,7 @@ export default struct IMFMediaKeySessionNotify extends IUnknown {
     KeyMessage(destinationURL, message, cb) {
         destinationURL := destinationURL is String ? BSTR.Alloc(destinationURL).Value : destinationURL
 
-        ComCall(3, this, BSTR, destinationURL, "ptr", message, "uint", cb)
+        ComCall(3, this, BSTR, destinationURL, IntPtr, message, UInt32, cb)
     }
 
     /**
@@ -72,7 +72,7 @@ export default struct IMFMediaKeySessionNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keyerror
      */
     KeyError(code, systemCode) {
-        ComCall(5, this, "ushort", code, "uint", systemCode)
+        ComCall(5, this, UInt16, code, UInt32, systemCode)
     }
 
     Query(iid) {

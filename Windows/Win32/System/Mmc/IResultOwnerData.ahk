@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\RESULTFINDINFO.ahk" { RESULTFINDINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RESULTFINDINFO.ahk" { RESULTFINDINFO }
 
 /**
  * The IResultOwnerData interface supports the use of virtual lists, which are list-view controls that have the LVS_OWNERDATA style set.
@@ -73,7 +73,7 @@ export default struct IResultOwnerData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultownerdata-cachehint
      */
     CacheHint(nStartIndex, nEndIndex) {
-        result := ComCall(4, this, "int", nStartIndex, "int", nEndIndex, "HRESULT")
+        result := ComCall(4, this, Int32, nStartIndex, Int32, nEndIndex, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IResultOwnerData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultownerdata-sortitems
      */
     SortItems(nColumn, dwSortOptions, lUserParam) {
-        result := ComCall(5, this, "int", nColumn, "uint", dwSortOptions, LPARAM, lUserParam, "HRESULT")
+        result := ComCall(5, this, Int32, nColumn, UInt32, dwSortOptions, LPARAM, lUserParam, "HRESULT")
         return result
     }
 

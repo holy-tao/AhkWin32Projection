@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ACTRL_ACCESS_ENTRY_LISTA.ahk" { ACTRL_ACCESS_ENTRY_LISTA }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ACTRL_ACCESS_ENTRY_LISTA.ahk" { ACTRL_ACCESS_ENTRY_LISTA }
 
 /**
  * Contains a list of access-control entries for an object or a specified property on an object. (ANSI)

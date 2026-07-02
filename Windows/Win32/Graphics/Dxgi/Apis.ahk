@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import ".\DXGI_CREATE_FACTORY_FLAGS.ahk" { DXGI_CREATE_FACTORY_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi
@@ -119,7 +119,7 @@ export CreateDXGIFactory2(Flags, riid) {
  * @since windows8.1
  */
 export DXGIGetDebugInterface1(Flags, riid) {
-    result := DllCall("dxgi.dll\DXGIGetDebugInterface1", "uint", Flags, Guid.Ptr, riid, "ptr*", &pDebug := 0, "HRESULT")
+    result := DllCall("dxgi.dll\DXGIGetDebugInterface1", UInt32, Flags, Guid.Ptr, riid, "ptr*", &pDebug := 0, "HRESULT")
     return pDebug
 }
 

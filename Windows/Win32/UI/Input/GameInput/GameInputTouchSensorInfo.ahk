@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GameInputKind.ahk" { GameInputKind }
-#Import ".\GameInputTouchShape.ahk" { GameInputTouchShape }
 #Import ".\GameInputLocation.ahk" { GameInputLocation }
+#Import ".\GameInputKind.ahk" { GameInputKind }
 #Import ".\GameInputLabel.ahk" { GameInputLabel }
+#Import ".\GameInputTouchShape.ahk" { GameInputTouchShape }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

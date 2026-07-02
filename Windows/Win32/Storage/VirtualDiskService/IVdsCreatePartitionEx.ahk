@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CREATE_PARTITION_PARAMETERS.ahk" { CREATE_PARTITION_PARAMETERS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 
 /**
  * Creates a partition on a basic disk.
@@ -82,7 +82,7 @@ export default struct IVdsCreatePartitionEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdscreatepartitionex-createpartitionex
      */
     CreatePartitionEx(ullOffset, ullSize, ulAlign, para) {
-        result := ComCall(3, this, "uint", ullOffset, "uint", ullSize, "uint", ulAlign, CREATE_PARTITION_PARAMETERS.Ptr, para, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(3, this, Int64, ullOffset, Int64, ullSize, UInt32, ulAlign, CREATE_PARTITION_PARAMETERS.Ptr, para, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

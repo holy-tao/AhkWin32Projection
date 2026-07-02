@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVssComponentEx.ahk" { IVssComponentEx }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVssComponentEx.ahk" { IVssComponentEx }
 
 /**
  * Defines additional methods for reporting and retrieving component-level writer errors.
@@ -133,7 +133,7 @@ export default struct IVssComponentEx2 extends IVssComponentEx {
     SetFailure(hr, hrApplication, wszApplicationMessage, dwReserved) {
         wszApplicationMessage := wszApplicationMessage is String ? StrPtr(wszApplicationMessage) : wszApplicationMessage
 
-        result := ComCall(48, this, "int", hr, "int", hrApplication, "ptr", wszApplicationMessage, "uint", dwReserved, "HRESULT")
+        result := ComCall(48, this, "int", hr, "int", hrApplication, "ptr", wszApplicationMessage, UInt32, dwReserved, "HRESULT")
         return result
     }
 

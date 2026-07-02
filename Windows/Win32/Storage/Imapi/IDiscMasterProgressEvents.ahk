@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDiscMasterProgressEvents interface provides a single interface for all callbacks that can be made from IMAPI to an application.
@@ -76,7 +76,7 @@ export default struct IDiscMasterProgressEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyaddprogress
      */
     NotifyAddProgress(nCompletedSteps, nTotalSteps) {
-        result := ComCall(5, this, "int", nCompletedSteps, "int", nTotalSteps, "HRESULT")
+        result := ComCall(5, this, Int32, nCompletedSteps, Int32, nTotalSteps, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IDiscMasterProgressEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyblockprogress
      */
     NotifyBlockProgress(nCompleted, nTotal) {
-        result := ComCall(6, this, "int", nCompleted, "int", nTotal, "HRESULT")
+        result := ComCall(6, this, Int32, nCompleted, Int32, nTotal, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IDiscMasterProgressEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifytrackprogress
      */
     NotifyTrackProgress(nCurrentTrack, nTotalTracks) {
-        result := ComCall(7, this, "int", nCurrentTrack, "int", nTotalTracks, "HRESULT")
+        result := ComCall(7, this, Int32, nCurrentTrack, Int32, nTotalTracks, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IDiscMasterProgressEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifypreparingburn
      */
     NotifyPreparingBurn(nEstimatedSeconds) {
-        result := ComCall(8, this, "int", nEstimatedSeconds, "HRESULT")
+        result := ComCall(8, this, Int32, nEstimatedSeconds, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct IDiscMasterProgressEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmasterprogressevents-notifyclosingdisc
      */
     NotifyClosingDisc(nEstimatedSeconds) {
-        result := ComCall(9, this, "int", nEstimatedSeconds, "HRESULT")
+        result := ComCall(9, this, Int32, nEstimatedSeconds, "HRESULT")
         return result
     }
 

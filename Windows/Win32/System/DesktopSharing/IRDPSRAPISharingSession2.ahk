@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRDPSRAPITransportStream.ahk" { IRDPSRAPITransportStream }
 #Import ".\IRDPSRAPIAttendee.ahk" { IRDPSRAPIAttendee }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CTRL_LEVEL.ahk" { CTRL_LEVEL }
 #Import ".\IRDPSRAPIFrameBuffer.ahk" { IRDPSRAPIFrameBuffer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IRDPSRAPISharingSession.ahk" { IRDPSRAPISharingSession }
+#Import ".\CTRL_LEVEL.ahk" { CTRL_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRDPSRAPITransportStream.ahk" { IRDPSRAPITransportStream }
 
 /**
  * The main object that an application must create to start a collaboration session. (IRDPSRAPISharingSession2)
@@ -86,7 +86,7 @@ export default struct IRDPSRAPISharingSession2 extends IRDPSRAPISharingSession {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession2-sendcontrollevelchangeresponse
      */
     SendControlLevelChangeResponse(pAttendee, RequestedLevel, ReasonCode) {
-        result := ComCall(23, this, "ptr", pAttendee, CTRL_LEVEL, RequestedLevel, "int", ReasonCode, "HRESULT")
+        result := ComCall(23, this, "ptr", pAttendee, CTRL_LEVEL, RequestedLevel, Int32, ReasonCode, "HRESULT")
         return result
     }
 

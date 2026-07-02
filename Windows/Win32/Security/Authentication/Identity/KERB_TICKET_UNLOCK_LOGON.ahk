@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 #Import ".\KERB_LOGON_SUBMIT_TYPE.ahk" { KERB_LOGON_SUBMIT_TYPE }
 #Import ".\KERB_TICKET_LOGON.ahk" { KERB_TICKET_LOGON }
-#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Contains information to unlock a workstation.

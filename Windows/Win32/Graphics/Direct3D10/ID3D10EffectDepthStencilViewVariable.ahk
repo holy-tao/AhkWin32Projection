@@ -85,7 +85,7 @@ export default struct ID3D10EffectDepthStencilViewVariable extends ID3D10EffectV
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-setdepthstencilarray
      */
     SetDepthStencilArray(ppResources, Offset, Count) {
-        result := ComCall(27, this, ID3D10DepthStencilView.Ptr, ppResources, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(27, this, ID3D10DepthStencilView.Ptr, ppResources, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct ID3D10EffectDepthStencilViewVariable extends ID3D10EffectV
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-getdepthstencilarray
      */
     GetDepthStencilArray(Offset, Count) {
-        result := ComCall(28, this, "ptr*", &ppResources := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(28, this, "ptr*", &ppResources := 0, UInt32, Offset, UInt32, Count, "HRESULT")
         return ID3D10DepthStencilView(ppResources)
     }
 

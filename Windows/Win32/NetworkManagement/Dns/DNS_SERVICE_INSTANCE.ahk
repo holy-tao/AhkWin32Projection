@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IP6_ADDRESS.ahk" { IP6_ADDRESS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents a DNS service running on the network.

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HTTP_REQUEST_HEADERS.ahk" { HTTP_REQUEST_HEADERS }
+#Import ".\HTTP_DATA_CHUNK.ahk" { HTTP_DATA_CHUNK }
 #Import ".\HTTP_TRANSPORT_ADDRESS.ahk" { HTTP_TRANSPORT_ADDRESS }
+#Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
 #Import ".\HTTP_VERSION.ahk" { HTTP_VERSION }
 #Import ".\HTTP_SSL_INFO.ahk" { HTTP_SSL_INFO }
-#Import ".\HTTP_REQUEST_HEADERS.ahk" { HTTP_REQUEST_HEADERS }
-#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
-#Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_VERB.ahk" { HTTP_VERB }
 #Import ".\HTTP_COOKED_URL.ahk" { HTTP_COOKED_URL }
 #Import "..\WinSock\SOCKADDR.ahk" { SOCKADDR }
-#Import ".\HTTP_VERB.ahk" { HTTP_VERB }
-#Import ".\HTTP_DATA_CHUNK.ahk" { HTTP_DATA_CHUNK }
 
 /**
  * Uses the HTTP_REQUEST structure to return data associated with a specific request.

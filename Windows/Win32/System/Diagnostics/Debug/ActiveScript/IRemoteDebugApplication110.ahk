@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SCRIPT_DEBUGGER_OPTIONS.ahk" { SCRIPT_DEBUGGER_OPTIONS }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SCRIPT_DEBUGGER_OPTIONS.ahk" { SCRIPT_DEBUGGER_OPTIONS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

@@ -41,7 +41,7 @@ export default struct IActiveScriptProfilerCallback3 extends IActiveScriptProfil
      * @returns {HRESULT} 
      */
     SetWebWorkerId(webWorkerId) {
-        result := ComCall(11, this, "uint", webWorkerId, "HRESULT")
+        result := ComCall(11, this, UInt32, webWorkerId, "HRESULT")
         return result
     }
 

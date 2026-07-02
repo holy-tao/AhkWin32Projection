@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFaxServer.ahk" { IFaxServer }
 #Import ".\FAX_COVERPAGE_TYPE_ENUM.ahk" { FAX_COVERPAGE_TYPE_ENUM }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFaxSender.ahk" { IFaxSender }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\FAX_SCHEDULE_TYPE_ENUM.ahk" { FAX_SCHEDULE_TYPE_ENUM }
-#Import ".\FAX_PRIORITY_TYPE_ENUM.ahk" { FAX_PRIORITY_TYPE_ENUM }
-#Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FAX_PRIORITY_TYPE_ENUM.ahk" { FAX_PRIORITY_TYPE_ENUM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
+#Import ".\IFaxSender.ahk" { IFaxSender }
+#Import ".\IFaxServer.ahk" { IFaxServer }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IFaxRecipients.ahk" { IFaxRecipients }
+#Import ".\FAX_SCHEDULE_TYPE_ENUM.ahk" { FAX_SCHEDULE_TYPE_ENUM }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IFaxDocument interface defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.
@@ -388,7 +388,7 @@ export default struct IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_scheduletime
      */
     put_ScheduleTime(dateScheduleTime) {
-        result := ComCall(18, this, "double", dateScheduleTime, "HRESULT")
+        result := ComCall(18, this, Float64, dateScheduleTime, "HRESULT")
         return result
     }
 
@@ -459,7 +459,7 @@ export default struct IFaxDocument extends IDispatch {
      * @returns {HRESULT} 
      */
     put_CallHandle(lCallHandle) {
-        result := ComCall(24, this, "int", lCallHandle, "HRESULT")
+        result := ComCall(24, this, Int32, lCallHandle, "HRESULT")
         return result
     }
 

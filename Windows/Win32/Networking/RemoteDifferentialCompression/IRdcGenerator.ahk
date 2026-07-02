@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RdcBufferPointer.ahk" { RdcBufferPointer }
 #Import ".\RDC_ErrorCode.ahk" { RDC_ErrorCode }
-#Import ".\IRdcGeneratorParameters.ahk" { IRdcGeneratorParameters }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RdcBufferPointer.ahk" { RdcBufferPointer }
+#Import ".\IRdcGeneratorParameters.ahk" { IRdcGeneratorParameters }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to process the input data and read the parameters used by the generator.
@@ -58,7 +58,7 @@ export default struct IRdcGenerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgenerator-getgeneratorparameters
      */
     GetGeneratorParameters(level) {
-        result := ComCall(3, this, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
         return IRdcGeneratorParameters(iGeneratorParameters)
     }
 
@@ -89,7 +89,7 @@ export default struct IRdcGenerator extends IUnknown {
         outputBuffersMarshal := outputBuffers is VarRef ? "ptr*" : "ptr"
         _rdc_ErrorCodeMarshal := _rdc_ErrorCode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, BOOL, endOfInput, endOfOutputMarshal, endOfOutput, RdcBufferPointer.Ptr, inputBuffer, "uint", depth, outputBuffersMarshal, outputBuffers, _rdc_ErrorCodeMarshal, _rdc_ErrorCode, "HRESULT")
+        result := ComCall(4, this, BOOL, endOfInput, endOfOutputMarshal, endOfOutput, RdcBufferPointer.Ptr, inputBuffer, UInt32, depth, outputBuffersMarshal, outputBuffers, _rdc_ErrorCodeMarshal, _rdc_ErrorCode, "HRESULT")
         return result
     }
 

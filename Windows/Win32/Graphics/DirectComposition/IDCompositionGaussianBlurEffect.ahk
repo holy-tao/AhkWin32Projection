@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import "..\Direct2D\Common\D2D1_BORDER_MODE.ahk" { D2D1_BORDER_MODE }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
@@ -66,7 +66,7 @@ export default struct IDCompositionGaussianBlurEffect extends IDCompositionFilte
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiongaussianblureffect-setstandarddeviation(float)
      */
     SetStandardDeviation1(amount) {
-        result := ComCall(5, this, "float", amount, "HRESULT")
+        result := ComCall(5, this, Float32, amount, "HRESULT")
         return result
     }
 

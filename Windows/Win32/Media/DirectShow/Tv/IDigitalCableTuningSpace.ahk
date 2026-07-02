@@ -107,7 +107,7 @@ export default struct IDigitalCableTuningSpace extends IATSCTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-put_minmajorchannel
      */
     put_MinMajorChannel(NewMinMajorChannelVal) {
-        result := ComCall(43, this, "int", NewMinMajorChannelVal, "HRESULT")
+        result := ComCall(43, this, Int32, NewMinMajorChannelVal, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IDigitalCableTuningSpace extends IATSCTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-put_maxmajorchannel
      */
     put_MaxMajorChannel(NewMaxMajorChannelVal) {
-        result := ComCall(45, this, "int", NewMaxMajorChannelVal, "HRESULT")
+        result := ComCall(45, this, Int32, NewMaxMajorChannelVal, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IDigitalCableTuningSpace extends IATSCTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-put_minsourceid
      */
     put_MinSourceID(NewMinSourceIDVal) {
-        result := ComCall(47, this, "int", NewMinSourceIDVal, "HRESULT")
+        result := ComCall(47, this, Int32, NewMinSourceIDVal, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IDigitalCableTuningSpace extends IATSCTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-put_maxsourceid
      */
     put_MaxSourceID(NewMaxSourceIDVal) {
-        result := ComCall(49, this, "int", NewMaxSourceIDVal, "HRESULT")
+        result := ComCall(49, this, Int32, NewMaxSourceIDVal, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\IDockingWindow.ahk" { IDockingWindow }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
 
 /**

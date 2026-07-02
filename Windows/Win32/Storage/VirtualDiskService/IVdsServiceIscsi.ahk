@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_ISCSI_SHARED_SECRET.ahk" { VDS_ISCSI_SHARED_SECRET }
 #Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
-#Import ".\VDS_ISCSI_SHARED_SECRET.ahk" { VDS_ISCSI_SHARED_SECRET }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods to interface with the local initiator service, including the ability to set CHAP security settings and to log into targets.
@@ -156,7 +156,7 @@ export default struct IVdsServiceIscsi extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-setallipsecsecurity
      */
     SetAllIpsecSecurity(targetPortalId, ullSecurityFlags, pIpsecKey) {
-        result := ComCall(7, this, Guid, targetPortalId, "uint", ullSecurityFlags, VDS_ISCSI_IPSEC_KEY.Ptr, pIpsecKey, "HRESULT")
+        result := ComCall(7, this, Guid, targetPortalId, Int64, ullSecurityFlags, VDS_ISCSI_IPSEC_KEY.Ptr, pIpsecKey, "HRESULT")
         return result
     }
 

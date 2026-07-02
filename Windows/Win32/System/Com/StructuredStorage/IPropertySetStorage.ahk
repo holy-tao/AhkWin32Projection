@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPropertyStorage.ahk" { IPropertyStorage }
-#Import "..\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumSTATPROPSETSTG.ahk" { IEnumSTATPROPSETSTG }
 
 /**
@@ -94,7 +94,7 @@ export default struct IPropertySetStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-create
      */
     Create(rfmtid, pclsid, grfFlags, grfMode) {
-        result := ComCall(3, this, Guid.Ptr, rfmtid, Guid.Ptr, pclsid, "uint", grfFlags, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rfmtid, Guid.Ptr, pclsid, UInt32, grfFlags, UInt32, grfMode, "ptr*", &ppprstg := 0, "HRESULT")
         return IPropertyStorage(ppprstg)
     }
 
@@ -161,7 +161,7 @@ export default struct IPropertySetStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-ipropertysetstorage-open
      */
     Open(rfmtid, grfMode) {
-        result := ComCall(4, this, Guid.Ptr, rfmtid, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rfmtid, UInt32, grfMode, "ptr*", &ppprstg := 0, "HRESULT")
         return IPropertyStorage(ppprstg)
     }
 

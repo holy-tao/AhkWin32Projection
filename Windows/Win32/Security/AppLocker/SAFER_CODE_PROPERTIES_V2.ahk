@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Cryptography\ALG_ID.ahk" { ALG_ID }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains code image information and criteria to be checked on the code image.S

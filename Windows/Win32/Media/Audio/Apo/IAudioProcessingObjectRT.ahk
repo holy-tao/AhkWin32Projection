@@ -58,7 +58,7 @@ export default struct IAudioProcessingObjectRT extends IUnknown {
         ppInputConnectionsMarshal := ppInputConnections is VarRef ? "ptr*" : "ptr"
         ppOutputConnectionsMarshal := ppOutputConnections is VarRef ? "ptr*" : "ptr"
 
-        ComCall(3, this, "uint", u32NumInputConnections, ppInputConnectionsMarshal, ppInputConnections, "uint", u32NumOutputConnections, ppOutputConnectionsMarshal, ppOutputConnections)
+        ComCall(3, this, UInt32, u32NumInputConnections, ppInputConnectionsMarshal, ppInputConnections, UInt32, u32NumOutputConnections, ppOutputConnectionsMarshal, ppOutputConnections)
     }
 
     /**
@@ -77,7 +77,7 @@ export default struct IAudioProcessingObjectRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcinputframes
      */
     CalcInputFrames(u32OutputFrameCount) {
-        result := ComCall(4, this, "uint", u32OutputFrameCount, UInt32)
+        result := ComCall(4, this, UInt32, u32OutputFrameCount, UInt32)
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IAudioProcessingObjectRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcoutputframes
      */
     CalcOutputFrames(u32InputFrameCount) {
-        result := ComCall(5, this, "uint", u32InputFrameCount, UInt32)
+        result := ComCall(5, this, UInt32, u32InputFrameCount, UInt32)
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMVfwCompressDialogs interface displays a dialog box provided by a Video for Windows (VFW) codec.
@@ -56,7 +56,7 @@ export default struct IAMVfwCompressDialogs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-showdialog
      */
     ShowDialog(iDialog, _hwnd) {
-        result := ComCall(3, this, "int", iDialog, HWND, _hwnd, "HRESULT")
+        result := ComCall(3, this, Int32, iDialog, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -72,7 +72,7 @@ export default struct IAMVfwCompressDialogs extends IUnknown {
     GetState(pState, pcbState) {
         pcbStateMarshal := pcbState is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pState, pcbStateMarshal, pcbState, "HRESULT")
+        result := ComCall(4, this, IntPtr, pState, pcbStateMarshal, pcbState, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct IAMVfwCompressDialogs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-setstate
      */
     SetState(pState, cbState) {
-        result := ComCall(5, this, "ptr", pState, "int", cbState, "HRESULT")
+        result := ComCall(5, this, IntPtr, pState, Int32, cbState, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IAMVfwCompressDialogs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-senddrivermessage
      */
     SendDriverMessage(uMsg, dw1, dw2) {
-        result := ComCall(6, this, "int", uMsg, "int", dw1, "int", dw2, "HRESULT")
+        result := ComCall(6, this, Int32, uMsg, Int32, dw1, Int32, dw2, "HRESULT")
         return result
     }
 

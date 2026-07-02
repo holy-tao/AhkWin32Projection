@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IUPnPAsyncResult.ahk" { IUPnPAsyncResult }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUPnPAsyncResult.ahk" { IUPnPAsyncResult }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to asynchronously query state variables and invoke actions on an instance of a service .
@@ -171,7 +171,7 @@ export default struct IUPnPServiceAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-endinvokeaction
      */
     EndInvokeAction(ullRequestID, pvOutActionArgs, pvRetVal) {
-        result := ComCall(4, this, "uint", ullRequestID, VARIANT.Ptr, pvOutActionArgs, VARIANT.Ptr, pvRetVal, "HRESULT")
+        result := ComCall(4, this, Int64, ullRequestID, VARIANT.Ptr, pvOutActionArgs, VARIANT.Ptr, pvRetVal, "HRESULT")
         return result
     }
 
@@ -295,7 +295,7 @@ export default struct IUPnPServiceAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-endquerystatevariable
      */
     EndQueryStateVariable(ullRequestID, pValue) {
-        result := ComCall(6, this, "uint", ullRequestID, VARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(6, this, Int64, ullRequestID, VARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -380,7 +380,7 @@ export default struct IUPnPServiceAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-endsubscribetoevents
      */
     EndSubscribeToEvents(ullRequestID) {
-        result := ComCall(8, this, "uint", ullRequestID, "HRESULT")
+        result := ComCall(8, this, Int64, ullRequestID, "HRESULT")
         return result
     }
 
@@ -405,7 +405,7 @@ export default struct IUPnPServiceAsync extends IUnknown {
      */
     EndSCPDDownload(ullRequestID) {
         pbstrSCPDDoc := BSTR.Owned()
-        result := ComCall(10, this, "uint", ullRequestID, BSTR.Ptr, pbstrSCPDDoc, "HRESULT")
+        result := ComCall(10, this, Int64, ullRequestID, BSTR.Ptr, pbstrSCPDDoc, "HRESULT")
         return pbstrSCPDDoc
     }
 
@@ -447,7 +447,7 @@ export default struct IUPnPServiceAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpserviceasync-cancelasyncoperation
      */
     CancelAsyncOperation(ullRequestID) {
-        result := ComCall(11, this, "uint", ullRequestID, "HRESULT")
+        result := ComCall(11, this, Int64, ullRequestID, "HRESULT")
         return result
     }
 

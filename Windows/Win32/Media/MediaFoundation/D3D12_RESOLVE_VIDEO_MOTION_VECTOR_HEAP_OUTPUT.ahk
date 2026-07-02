@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_RESOURCE_COORDINATE.ahk" { D3D12_RESOURCE_COORDINATE }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_RESOURCE_COORDINATE.ahk" { D3D12_RESOURCE_COORDINATE }
 
 /**
  * Receives output data from calls to ID3D12VideoEncodeCommandList::ResolveMotionVectorHeap.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\FolderItem.ahk" { FolderItem }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FolderItems.ahk" { FolderItems }
 #Import ".\Folder.ahk" { Folder }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\FolderItem.ahk" { FolderItem }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\FolderItems.ahk" { FolderItems }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that modify the view and select items in the current folder. (IShellFolderViewDual)
@@ -166,7 +166,7 @@ export default struct IShellFolderViewDual extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-selectitem
      */
     SelectItem(pvfi, dwFlags) {
-        result := ComCall(12, this, VARIANT.Ptr, pvfi, "int", dwFlags, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, pvfi, Int32, dwFlags, "HRESULT")
         return result
     }
 

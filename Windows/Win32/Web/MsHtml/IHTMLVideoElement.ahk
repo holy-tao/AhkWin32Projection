@@ -93,7 +93,7 @@ export default struct IHTMLVideoElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IHTMLVideoElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, Int32, v, "HRESULT")
         return result
     }
 

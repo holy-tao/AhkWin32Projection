@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DSTATUS.ahk" { D3DSTATUS }
 #Import ".\D3DRECT.ahk" { D3DRECT }
+#Import ".\D3DSTATUS.ahk" { D3DSTATUS }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9

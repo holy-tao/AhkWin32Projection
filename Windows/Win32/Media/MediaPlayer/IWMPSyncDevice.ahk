@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\WMPDeviceStatus.ahk" { WMPDeviceStatus }
 #Import ".\WMPSyncState.ahk" { WMPSyncState }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WMPDeviceStatus.ahk" { WMPDeviceStatus }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPSyncDevice interface represents a device to which Windows Media Player 10 or later can copy digital media files.

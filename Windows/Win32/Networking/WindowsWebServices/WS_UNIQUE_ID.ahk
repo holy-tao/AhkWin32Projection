@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_STRING.ahk" { WS_STRING }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WS_STRING.ahk" { WS_STRING }
 
 /**
  * Represents a unique ID URI.

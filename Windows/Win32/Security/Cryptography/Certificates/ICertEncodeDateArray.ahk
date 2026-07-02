@@ -78,7 +78,7 @@ export default struct ICertEncodeDateArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-getvalue
      */
     GetValue(Index) {
-        result := ComCall(9, this, "int", Index, "double*", &pValue := 0, "HRESULT")
+        result := ComCall(9, this, Int32, Index, "double*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -92,7 +92,7 @@ export default struct ICertEncodeDateArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-reset
      */
     Reset(Count) {
-        result := ComCall(10, this, "int", Count, "HRESULT")
+        result := ComCall(10, this, Int32, Count, "HRESULT")
         return result
     }
 
@@ -107,7 +107,7 @@ export default struct ICertEncodeDateArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-setvalue
      */
     SetValue(Index, Value) {
-        result := ComCall(11, this, "int", Index, "double", Value, "HRESULT")
+        result := ComCall(11, this, Int32, Index, Float64, Value, "HRESULT")
         return result
     }
 

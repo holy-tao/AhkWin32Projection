@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVdsVolume.ahk" { IVdsVolume }
-#Import ".\VDS_DISK_EXTENT.ahk" { VDS_DISK_EXTENT }
 #Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_DISK_EXTENT.ahk" { VDS_DISK_EXTENT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsVolume.ahk" { IVdsVolume }
 #Import ".\VDS_VOLUME_PLEX_PROP.ahk" { VDS_VOLUME_PLEX_PROP }
+#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
 
 /**
  * Provides methods for maintaining volume plexes.
@@ -121,7 +121,7 @@ export default struct IVdsVolumePlex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeplex-repair
      */
     Repair(pInputDiskArray, lNumberOfDisks) {
-        result := ComCall(6, this, VDS_INPUT_DISK.Ptr, pInputDiskArray, "int", lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, VDS_INPUT_DISK.Ptr, pInputDiskArray, Int32, lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

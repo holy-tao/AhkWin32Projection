@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IAudioProcessingObjectNotifications.ahk" { IAudioProcessingObjectNotifications }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\APO_NOTIFICATION_DESCRIPTOR.ahk" { APO_NOTIFICATION_DESCRIPTOR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\APO_NOTIFICATION_TYPE.ahk" { APO_NOTIFICATION_TYPE }
 
 /**

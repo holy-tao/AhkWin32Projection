@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IKeyStore.ahk" { IKeyStore }
 #Import ".\IModelObject.ahk" { IModelObject }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -47,7 +47,7 @@ export default struct IModelMethod extends IUnknown {
      * @returns {HRESULT} 
      */
     Call(pContextObject, argCount, ppArguments, ppResult, ppMetadata) {
-        result := ComCall(3, this, "ptr", pContextObject, "uint", argCount, IModelObject.Ptr, ppArguments, IModelObject.Ptr, ppResult, IKeyStore.Ptr, ppMetadata, "HRESULT")
+        result := ComCall(3, this, "ptr", pContextObject, Int64, argCount, IModelObject.Ptr, ppArguments, IModelObject.Ptr, ppResult, IKeyStore.Ptr, ppMetadata, "HRESULT")
         return result
     }
 

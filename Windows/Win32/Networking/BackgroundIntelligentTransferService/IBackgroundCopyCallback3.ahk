@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
-#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
+#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IBackgroundCopyCallback2.ahk" { IBackgroundCopyCallback2 }
-#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
+#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
 
 /**
  * Clients implement the IBackgroundCopyCallback3 interface to receive notification that ranges of a file have completed downloading.
@@ -61,7 +61,7 @@ export default struct IBackgroundCopyCallback3 extends IBackgroundCopyCallback2 
      * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopycallback3-filerangestransferred
      */
     FileRangesTransferred(job, _file, rangeCount, ranges) {
-        result := ComCall(7, this, "ptr", job, "ptr", _file, "uint", rangeCount, BG_FILE_RANGE.Ptr, ranges, "HRESULT")
+        result := ComCall(7, this, "ptr", job, "ptr", _file, UInt32, rangeCount, BG_FILE_RANGE.Ptr, ranges, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HistogramGrid.ahk" { HistogramGrid }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\HistogramGrid.ahk" { HistogramGrid }
 
 /**
  * The HistogramHeader structure describes the blob format for MF_CAPTURE_METADATA_HISTOGRAM.

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\CERT_RDN_ATTR_VALUE_TYPE.ahk" { CERT_RDN_ATTR_VALUE_TYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for handling string arrays used in certificate extensions.
@@ -144,7 +144,7 @@ export default struct ICertEncodeStringArray extends IDispatch {
      */
     GetValue(Index) {
         _pstr := BSTR.Owned()
-        result := ComCall(10, this, "int", Index, BSTR.Ptr, _pstr, "HRESULT")
+        result := ComCall(10, this, Int32, Index, BSTR.Ptr, _pstr, "HRESULT")
         return _pstr
     }
 
@@ -159,7 +159,7 @@ export default struct ICertEncodeStringArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-reset
      */
     Reset(Count, StringType) {
-        result := ComCall(11, this, "int", Count, CERT_RDN_ATTR_VALUE_TYPE, StringType, "HRESULT")
+        result := ComCall(11, this, Int32, Count, CERT_RDN_ATTR_VALUE_TYPE, StringType, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct ICertEncodeStringArray extends IDispatch {
     SetValue(Index, str) {
         str := str is String ? BSTR.Alloc(str).Value : str
 
-        result := ComCall(12, this, "int", Index, BSTR, str, "HRESULT")
+        result := ComCall(12, this, Int32, Index, BSTR, str, "HRESULT")
         return result
     }
 

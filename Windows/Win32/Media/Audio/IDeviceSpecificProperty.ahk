@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDeviceSpecificProperty interface provides access to the control value of a device-specific hardware control.
@@ -118,7 +118,7 @@ export default struct IDeviceSpecificProperty extends IUnknown {
     SetValue(pvValue, cbValue, pguidEventContext) {
         pvValueMarshal := pvValue is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pvValueMarshal, pvValue, "uint", cbValue, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(5, this, pvValueMarshal, pvValue, UInt32, cbValue, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 

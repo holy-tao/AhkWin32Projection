@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPinConnection.ahk" { IPinConnection }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IGraphConfigCallback.ahk" { IGraphConfigCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 #Import ".\IEnumFilters.ahk" { IEnumFilters }
-#Import ".\IBaseFilter.ahk" { IBaseFilter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPin.ahk" { IPin }
+#Import ".\IPinConnection.ahk" { IPinConnection }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IPin.ahk" { IPin }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import ".\IGraphConfigCallback.ahk" { IGraphConfigCallback }
 
 /**
  * The Filter Graph Manager exposes IGraphConfig to support dynamic graph building.
@@ -129,7 +129,7 @@ export default struct IGraphConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-reconnect
      */
     Reconnect(pOutputPin, pInputPin, pmtFirstConnection, pUsingFilter, hAbortEvent, dwFlags) {
-        result := ComCall(3, this, "ptr", pOutputPin, "ptr", pInputPin, AM_MEDIA_TYPE.Ptr, pmtFirstConnection, "ptr", pUsingFilter, HANDLE, hAbortEvent, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pOutputPin, "ptr", pInputPin, AM_MEDIA_TYPE.Ptr, pmtFirstConnection, "ptr", pUsingFilter, HANDLE, hAbortEvent, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct IGraphConfig extends IUnknown {
     Reconfigure(pCallback, pvContext, dwFlags, hAbortEvent) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", pCallback, pvContextMarshal, pvContext, "uint", dwFlags, HANDLE, hAbortEvent, "HRESULT")
+        result := ComCall(4, this, "ptr", pCallback, pvContextMarshal, pvContext, UInt32, dwFlags, HANDLE, hAbortEvent, "HRESULT")
         return result
     }
 
@@ -410,7 +410,7 @@ export default struct IGraphConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-setfilterflags
      */
     SetFilterFlags(pFilter, dwFlags) {
-        result := ComCall(10, this, "ptr", pFilter, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", pFilter, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -437,7 +437,7 @@ export default struct IGraphConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-removefilterex
      */
     RemoveFilterEx(pFilter, Flags) {
-        result := ComCall(12, this, "ptr", pFilter, "uint", Flags, "HRESULT")
+        result := ComCall(12, this, "ptr", pFilter, UInt32, Flags, "HRESULT")
         return result
     }
 

@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IStiDevice.ahk" { IStiDevice }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\STINOTIFY.ahk" { STINOTIFY }
 #Import ".\STI_DEVICE_INFORMATIONW.ahk" { STI_DEVICE_INFORMATIONW }
-#Import ".\IStiDevice.ahk" { IStiDevice }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -86,7 +86,7 @@ export default struct IStillImageW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(hinst, dwVersion) {
-        result := ComCall(3, this, HINSTANCE, hinst, "uint", dwVersion, "HRESULT")
+        result := ComCall(3, this, HINSTANCE, hinst, UInt32, dwVersion, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IStillImageW extends IUnknown {
         pdwItemsReturnedMarshal := pdwItemsReturned is VarRef ? "uint*" : "ptr"
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwType, "uint", dwFlags, pdwItemsReturnedMarshal, pdwItemsReturned, ppBufferMarshal, ppBuffer, "HRESULT")
+        result := ComCall(4, this, UInt32, dwType, UInt32, dwFlags, pdwItemsReturnedMarshal, pdwItemsReturned, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IStillImageW extends IUnknown {
     CreateDevice(pwszDeviceName, dwMode, punkOuter) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(6, this, "ptr", pwszDeviceName, "uint", dwMode, "ptr*", &pDevice := 0, "ptr", punkOuter, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszDeviceName, UInt32, dwMode, "ptr*", &pDevice := 0, "ptr", punkOuter, "HRESULT")
         return IStiDevice(pDevice)
     }
 
@@ -146,7 +146,7 @@ export default struct IStillImageW extends IUnknown {
 
         cbDataMarshal := cbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint*", &pType := 0, "ptr", pData, cbDataMarshal, cbData, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint*", &pType := 0, IntPtr, pData, cbDataMarshal, cbData, "HRESULT")
         return pType
     }
 
@@ -163,7 +163,7 @@ export default struct IStillImageW extends IUnknown {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        result := ComCall(8, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszDeviceName, "ptr", pValueName, UInt32, Type, IntPtr, pData, UInt32, cbData, "HRESULT")
         return result
     }
 
@@ -278,7 +278,7 @@ export default struct IStillImageW extends IUnknown {
     WriteToErrorLog(dwMessageType, pszMessage) {
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        result := ComCall(17, this, "uint", dwMessageType, "ptr", pszMessage, "HRESULT")
+        result := ComCall(17, this, UInt32, dwMessageType, "ptr", pszMessage, "HRESULT")
         return result
     }
 

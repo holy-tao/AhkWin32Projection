@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
 
 /**
  * Exposes methods that allow drop targets to display a drag image while the image is over the target window.

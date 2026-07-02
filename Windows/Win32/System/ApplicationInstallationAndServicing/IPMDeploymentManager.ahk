@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\PM_INSTALLINFO.ahk" { PM_INSTALLINFO }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PM_UPDATEINFO.ahk" { PM_UPDATEINFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PM_UPDATEINFO.ahk" { PM_UPDATEINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PM_UPDATEINFO_LEGACY.ahk" { PM_UPDATEINFO_LEGACY }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PM_INSTALLINFO.ahk" { PM_INSTALLINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -93,7 +93,7 @@ export default struct IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     ReportDownloadProgress(productID, usProgress) {
-        result := ComCall(4, this, Guid, productID, "ushort", usProgress, "HRESULT")
+        result := ComCall(4, this, Guid, productID, UInt16, usProgress, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IPMDeploymentManager extends IUnknown {
     BeginUpdateLicense(productID, offerID, pbLicense, cbLicense) {
         pbLicenseMarshal := pbLicense is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, Guid, productID, Guid, offerID, pbLicenseMarshal, pbLicense, "uint", cbLicense, "HRESULT")
+        result := ComCall(13, this, Guid, productID, Guid, offerID, pbLicenseMarshal, pbLicense, UInt32, cbLicense, "HRESULT")
         return result
     }
 
@@ -364,7 +364,7 @@ export default struct IPMDeploymentManager extends IUnknown {
      * @returns {Integer} 
      */
     SetApplicationsNeedMaintenance(RequiredMaintenanceOperations) {
-        result := ComCall(25, this, "uint", RequiredMaintenanceOperations, "uint*", &pcApplications := 0, "HRESULT")
+        result := ComCall(25, this, UInt32, RequiredMaintenanceOperations, "uint*", &pcApplications := 0, "HRESULT")
         return pcApplications
     }
 
@@ -450,7 +450,7 @@ export default struct IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginUninstallWithOptions(productID, removalOptions) {
-        result := ComCall(33, this, Guid, productID, "uint", removalOptions, "HRESULT")
+        result := ComCall(33, this, Guid, productID, UInt32, removalOptions, "HRESULT")
         return result
     }
 
@@ -488,7 +488,7 @@ export default struct IPMDeploymentManager extends IUnknown {
         pbLicenseMarshal := pbLicense is VarRef ? "char*" : "ptr"
         pbPlayReadyHeaderMarshal := pbPlayReadyHeader is VarRef ? "char*" : "ptr"
 
-        result := ComCall(36, this, Guid, productID, pbLicenseMarshal, pbLicense, "uint", cbLicense, pbPlayReadyHeaderMarshal, pbPlayReadyHeader, "uint", cbPlayReadyHeader, "HRESULT")
+        result := ComCall(36, this, Guid, productID, pbLicenseMarshal, pbLicense, UInt32, cbLicense, pbPlayReadyHeaderMarshal, pbPlayReadyHeader, UInt32, cbPlayReadyHeader, "HRESULT")
         return result
     }
 

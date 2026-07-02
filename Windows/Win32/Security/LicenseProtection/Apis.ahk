@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\LicenseProtectionStatus.ahk" { LicenseProtectionStatus }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.LicenseProtection
@@ -19,7 +19,7 @@
 export RegisterLicenseKeyWithExpiration(licenseKey, validityInDays) {
     licenseKey := licenseKey is String ? StrPtr(licenseKey) : licenseKey
 
-    result := DllCall("licenseprotection.dll\RegisterLicenseKeyWithExpiration", "ptr", licenseKey, "uint", validityInDays, "int*", &_status := 0, "HRESULT")
+    result := DllCall("licenseprotection.dll\RegisterLicenseKeyWithExpiration", "ptr", licenseKey, UInt32, validityInDays, "int*", &_status := 0, "HRESULT")
     return _status
 }
 

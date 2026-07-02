@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
 #Import ".\D3D12_META_COMMAND_PARAMETER_TYPE.ahk" { D3D12_META_COMMAND_PARAMETER_TYPE }
+#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\D3D12_META_COMMAND_PARAMETER_FLAGS.ahk" { D3D12_META_COMMAND_PARAMETER_FLAGS }
 
 /**

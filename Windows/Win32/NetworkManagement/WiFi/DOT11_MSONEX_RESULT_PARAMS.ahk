@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ONEX_AUTH_STATUS.ahk" { ONEX_AUTH_STATUS }
 #Import ".\DOT11_EAP_RESULT.ahk" { DOT11_EAP_RESULT }
 #Import ".\ONEX_REASON_CODE.ahk" { ONEX_REASON_CODE }
-#Import ".\ONEX_AUTH_STATUS.ahk" { ONEX_AUTH_STATUS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

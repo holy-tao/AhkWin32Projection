@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Configures the &quot;leaky bucket&quot; parameters on a video encoder.
@@ -71,7 +71,7 @@ export default struct IWMCodecLeakyBucket extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-setbuffersizebits
      */
     SetBufferSizeBits(ulBufferSize) {
-        result := ComCall(3, this, "uint", ulBufferSize, "HRESULT")
+        result := ComCall(3, this, UInt32, ulBufferSize, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IWMCodecLeakyBucket extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-setbufferfullnessbits
      */
     SetBufferFullnessBits(ulBufferFullness) {
-        result := ComCall(5, this, "uint", ulBufferFullness, "HRESULT")
+        result := ComCall(5, this, UInt32, ulBufferFullness, "HRESULT")
         return result
     }
 

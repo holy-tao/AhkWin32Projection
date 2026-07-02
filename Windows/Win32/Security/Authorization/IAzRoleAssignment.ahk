@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAzRole.ahk" { IAzRole }
+#Import ".\IAzRoleDefinitions.ahk" { IAzRoleDefinitions }
 #Import ".\IAzScope.ahk" { IAzScope }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzRole.ahk" { IAzRole }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAzRoleDefinitions.ahk" { IAzRoleDefinitions }
 
 /**
  * Represents a role to which users and groups can be assigned.

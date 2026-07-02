@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUPnPServices.ahk" { IUPnPServices }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IUPnPDevices.ahk" { IUPnPDevices }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUPnPDevice interface enables an application to retrieve information about a specific device.
@@ -428,7 +428,7 @@ export default struct IUPnPDevice extends IDispatch {
         bstrEncodingFormat := bstrEncodingFormat is String ? BSTR.Alloc(bstrEncodingFormat).Value : bstrEncodingFormat
 
         pbstrIconURL := BSTR.Owned()
-        result := ComCall(24, this, BSTR, bstrEncodingFormat, "int", lSizeX, "int", lSizeY, "int", lBitDepth, BSTR.Ptr, pbstrIconURL, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrEncodingFormat, Int32, lSizeX, Int32, lSizeY, Int32, lBitDepth, BSTR.Ptr, pbstrIconURL, "HRESULT")
         return pbstrIconURL
     }
 

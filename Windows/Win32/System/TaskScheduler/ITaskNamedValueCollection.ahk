@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ITaskNamedValuePair.ahk" { ITaskNamedValuePair }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains a collection of ITaskNamedValuePair interface name-value pairs.
@@ -78,7 +78,7 @@ export default struct ITaskNamedValueCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasknamedvaluecollection-get_item
      */
     get_Item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &ppPair := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "ptr*", &ppPair := 0, "HRESULT")
         return ITaskNamedValuePair(ppPair)
     }
 
@@ -116,7 +116,7 @@ export default struct ITaskNamedValueCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasknamedvaluecollection-remove
      */
     Remove(index) {
-        result := ComCall(11, this, "int", index, "HRESULT")
+        result := ComCall(11, this, Int32, index, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAutomationProxyFactoryEntry.ahk" { IUIAutomationProxyFactoryEntry }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes properties and methods for a table of proxy factories. Each table entry is represented by an IUIAutomationProxyFactoryEntry interface. The entries are in the order in which the system will attempt to use the proxies.
@@ -87,7 +87,7 @@ export default struct IUIAutomationProxyFactoryMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-getentry
      */
     GetEntry(index) {
-        result := ComCall(5, this, "uint", index, "ptr*", &entry := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr*", &entry := 0, "HRESULT")
         return IUIAutomationProxyFactoryEntry(entry)
     }
 
@@ -120,7 +120,7 @@ export default struct IUIAutomationProxyFactoryMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-insertentries
      */
     InsertEntries(before, factoryList) {
-        result := ComCall(7, this, "uint", before, SAFEARRAY.Ptr, factoryList, "HRESULT")
+        result := ComCall(7, this, UInt32, before, SAFEARRAY.Ptr, factoryList, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct IUIAutomationProxyFactoryMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-insertentry
      */
     InsertEntry(before, factory) {
-        result := ComCall(8, this, "uint", before, "ptr", factory, "HRESULT")
+        result := ComCall(8, this, UInt32, before, "ptr", factory, "HRESULT")
         return result
     }
 
@@ -153,7 +153,7 @@ export default struct IUIAutomationProxyFactoryMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-removeentry
      */
     RemoveEntry(index) {
-        result := ComCall(9, this, "uint", index, "HRESULT")
+        result := ComCall(9, this, UInt32, index, "HRESULT")
         return result
     }
 

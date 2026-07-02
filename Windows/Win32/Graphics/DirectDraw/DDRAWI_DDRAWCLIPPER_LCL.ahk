@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDRAWI_DDRAWCLIPPER_GBL.ahk" { DDRAWI_DDRAWCLIPPER_GBL }
-#Import ".\DDRAWI_DIRECTDRAW_INT.ahk" { DDRAWI_DIRECTDRAW_INT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DDRAWI_DIRECTDRAW_INT.ahk" { DDRAWI_DIRECTDRAW_INT }
+#Import ".\DDRAWI_DDRAWCLIPPER_GBL.ahk" { DDRAWI_DDRAWCLIPPER_GBL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

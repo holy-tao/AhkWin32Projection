@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\AMVAUncompBufferInfo.ahk" { AMVAUncompBufferInfo }
 
 /**
@@ -189,7 +189,7 @@ export default struct IAMVideoAcceleratorNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoacceleratornotify-setuncompsurfacesinfo
      */
     SetUncompSurfacesInfo(dwActualUncompSurfacesAllocated) {
-        result := ComCall(4, this, "uint", dwActualUncompSurfacesAllocated, "HRESULT")
+        result := ComCall(4, this, UInt32, dwActualUncompSurfacesAllocated, "HRESULT")
         return result
     }
 

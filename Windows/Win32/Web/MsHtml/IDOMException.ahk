@@ -65,7 +65,7 @@ export default struct IDOMException extends IDispatch {
      * @returns {HRESULT} 
      */
     put_code(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 

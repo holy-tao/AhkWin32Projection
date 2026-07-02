@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IModelObject.ahk" { IModelObject }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ScriptChangeKind.ahk" { ScriptChangeKind }
 #Import ".\IDataModelScript.ahk" { IDataModelScript }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ScriptChangeKind.ahk" { ScriptChangeKind }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMT_NET_PROTOCOL.ahk" { WMT_NET_PROTOCOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMWriterSink.ahk" { IWMWriterSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMWriterNetworkSink interface is used to deliver streams to the network.
@@ -82,7 +82,7 @@ export default struct IWMWriterNetworkSink extends IWMWriterSink {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-setmaximumclients
      */
     SetMaximumClients(dwMaxClients) {
-        result := ComCall(8, this, "uint", dwMaxClients, "HRESULT")
+        result := ComCall(8, this, UInt32, dwMaxClients, "HRESULT")
         return result
     }
 

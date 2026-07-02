@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDVB_BAT.ahk" { IDVB_BAT }
-#Import ".\IDVB_ST.ahk" { IDVB_ST }
-#Import ".\IPMT.ahk" { IPMT }
+#Import ".\IDVB_RST.ahk" { IDVB_RST }
+#Import ".\ITSDT.ahk" { ITSDT }
+#Import ".\IDVB_SIT.ahk" { IDVB_SIT }
+#Import ".\IDVB_DIT.ahk" { IDVB_DIT }
 #Import ".\IDVB_TDT.ahk" { IDVB_TDT }
 #Import ".\ICAT.ahk" { ICAT }
-#Import ".\IDVB_DIT.ahk" { IDVB_DIT }
-#Import ".\IDVB_NIT.ahk" { IDVB_NIT }
-#Import ".\IDVB_SDT.ahk" { IDVB_SDT }
-#Import ".\IDVB_RST.ahk" { IDVB_RST }
+#Import ".\IDVB_ST.ahk" { IDVB_ST }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDVB_EIT.ahk" { IDVB_EIT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDVB_SIT.ahk" { IDVB_SIT }
-#Import ".\IPAT.ahk" { IPAT }
-#Import ".\ITSDT.ahk" { ITSDT }
+#Import ".\IDVB_SDT.ahk" { IDVB_SDT }
 #Import ".\IDVB_TOT.ahk" { IDVB_TOT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDVB_NIT.ahk" { IDVB_NIT }
+#Import ".\IDVB_BAT.ahk" { IDVB_BAT }
+#Import ".\IPAT.ahk" { IPAT }
+#Import ".\IPMT.ahk" { IPMT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IDvbSiParser retrieves program specific information (PSI) and service information (SI) tables from a DVB transport stream.
@@ -141,7 +141,7 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getcat
      */
     GetCAT(dwTimeout) {
-        result := ComCall(5, this, "uint", dwTimeout, "ptr*", &ppCAT := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwTimeout, "ptr*", &ppCAT := 0, "HRESULT")
         return ICAT(ppCAT)
     }
 
@@ -157,7 +157,7 @@ export default struct IDvbSiParser extends IUnknown {
     GetPMT(pid, pwProgramNumber) {
         pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ushort", pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", &ppPMT := 0, "HRESULT")
+        result := ComCall(6, this, UInt16, pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", &ppPMT := 0, "HRESULT")
         return IPMT(ppPMT)
     }
 
@@ -202,7 +202,7 @@ export default struct IDvbSiParser extends IUnknown {
     GetNIT(tableId, pwNetworkId) {
         pwNetworkIdMarshal := pwNetworkId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, "char", tableId, pwNetworkIdMarshal, pwNetworkId, "ptr*", &ppNIT := 0, "HRESULT")
+        result := ComCall(8, this, Int8, tableId, pwNetworkIdMarshal, pwNetworkId, "ptr*", &ppNIT := 0, "HRESULT")
         return IDVB_NIT(ppNIT)
     }
 
@@ -235,7 +235,7 @@ export default struct IDvbSiParser extends IUnknown {
     GetSDT(tableId, pwTransportStreamId) {
         pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(9, this, "char", tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", &ppSDT := 0, "HRESULT")
+        result := ComCall(9, this, Int8, tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", &ppSDT := 0, "HRESULT")
         return IDVB_SDT(ppSDT)
     }
 
@@ -276,7 +276,7 @@ export default struct IDvbSiParser extends IUnknown {
     GetEIT(tableId, pwServiceId) {
         pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(10, this, "char", tableId, pwServiceIdMarshal, pwServiceId, "ptr*", &ppEIT := 0, "HRESULT")
+        result := ComCall(10, this, Int8, tableId, pwServiceIdMarshal, pwServiceId, "ptr*", &ppEIT := 0, "HRESULT")
         return IDVB_EIT(ppEIT)
     }
 
@@ -302,7 +302,7 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getrst
      */
     GetRST(dwTimeout) {
-        result := ComCall(12, this, "uint", dwTimeout, "ptr*", &ppRST := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwTimeout, "ptr*", &ppRST := 0, "HRESULT")
         return IDVB_RST(ppRST)
     }
 
@@ -314,7 +314,7 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getst
      */
     GetST(pid, dwTimeout) {
-        result := ComCall(13, this, "ushort", pid, "uint", dwTimeout, "ptr*", &ppST := 0, "HRESULT")
+        result := ComCall(13, this, UInt16, pid, UInt32, dwTimeout, "ptr*", &ppST := 0, "HRESULT")
         return IDVB_ST(ppST)
     }
 
@@ -349,7 +349,7 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getdit
      */
     GetDIT(dwTimeout) {
-        result := ComCall(16, this, "uint", dwTimeout, "ptr*", &ppDIT := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, dwTimeout, "ptr*", &ppDIT := 0, "HRESULT")
         return IDVB_DIT(ppDIT)
     }
 
@@ -360,7 +360,7 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getsit
      */
     GetSIT(dwTimeout) {
-        result := ComCall(17, this, "uint", dwTimeout, "ptr*", &ppSIT := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, dwTimeout, "ptr*", &ppSIT := 0, "HRESULT")
         return IDVB_SIT(ppSIT)
     }
 

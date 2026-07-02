@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a buffer that contains a two-dimensional surface, such as a video frame. (IMF2DBuffer)
@@ -264,7 +264,7 @@ export default struct IMF2DBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-contiguouscopyto
      */
     ContiguousCopyTo(pbDestBuffer, cbDestBuffer) {
-        result := ComCall(8, this, "ptr", pbDestBuffer, "uint", cbDestBuffer, "HRESULT")
+        result := ComCall(8, this, IntPtr, pbDestBuffer, UInt32, cbDestBuffer, "HRESULT")
         return result
     }
 
@@ -298,7 +298,7 @@ export default struct IMF2DBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-contiguouscopyfrom
      */
     ContiguousCopyFrom(pbSrcBuffer, cbSrcBuffer) {
-        result := ComCall(9, this, "ptr", pbSrcBuffer, "uint", cbSrcBuffer, "HRESULT")
+        result := ComCall(9, this, IntPtr, pbSrcBuffer, UInt32, cbSrcBuffer, "HRESULT")
         return result
     }
 

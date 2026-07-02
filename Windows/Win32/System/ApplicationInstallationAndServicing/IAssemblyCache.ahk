@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ASSEMBLY_INFO.ahk" { ASSEMBLY_INFO }
-#Import ".\IAssemblyCacheItem.ahk" { IAssemblyCacheItem }
-#Import ".\IASSEMBLYCACHE_UNINSTALL_DISPOSITION.ahk" { IASSEMBLYCACHE_UNINSTALL_DISPOSITION }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FUSION_INSTALL_REFERENCE.ahk" { FUSION_INSTALL_REFERENCE }
-#Import ".\QUERYASMINFO_FLAGS.ahk" { QUERYASMINFO_FLAGS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ASSEMBLY_INFO.ahk" { ASSEMBLY_INFO }
+#Import ".\IASSEMBLYCACHE_UNINSTALL_DISPOSITION.ahk" { IASSEMBLYCACHE_UNINSTALL_DISPOSITION }
+#Import ".\QUERYASMINFO_FLAGS.ahk" { QUERYASMINFO_FLAGS }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAssemblyCacheItem.ahk" { IAssemblyCacheItem }
+#Import ".\FUSION_INSTALL_REFERENCE.ahk" { FUSION_INSTALL_REFERENCE }
 
 /**
  * The IAssemblyCache interface can be used to install, uninstall, or query a side-by-side assembly. An instance of IAssemblyCache is obtained by calling the CreateAssemblyCache function.
@@ -93,7 +93,7 @@ export default struct IAssemblyCache extends IUnknown {
 
         pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszAssemblyName, FUSION_INSTALL_REFERENCE.Ptr, pRefData, pulDispositionMarshal, pulDisposition, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "ptr", pszAssemblyName, FUSION_INSTALL_REFERENCE.Ptr, pRefData, pulDispositionMarshal, pulDisposition, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IAssemblyCache extends IUnknown {
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr*", &ppAsmItem := 0, "ptr", pszAssemblyName, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, pvReservedMarshal, pvReserved, "ptr*", &ppAsmItem := 0, "ptr", pszAssemblyName, "HRESULT")
         return IAssemblyCacheItem(ppAsmItem)
     }
 
@@ -240,7 +240,7 @@ export default struct IAssemblyCache extends IUnknown {
     InstallAssembly(dwFlags, pszManifestFilePath, pRefData) {
         pszManifestFilePath := pszManifestFilePath is String ? StrPtr(pszManifestFilePath) : pszManifestFilePath
 
-        result := ComCall(7, this, "uint", dwFlags, "ptr", pszManifestFilePath, FUSION_INSTALL_REFERENCE.Ptr, pRefData, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, "ptr", pszManifestFilePath, FUSION_INSTALL_REFERENCE.Ptr, pRefData, "HRESULT")
         return result
     }
 

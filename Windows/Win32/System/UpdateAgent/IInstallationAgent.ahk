@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IStringCollection.ahk" { IStringCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Records the result for an update.
@@ -50,7 +50,7 @@ export default struct IInstallationAgent extends IDispatch {
     RecordInstallationResult(installationResultCookie, _hresult, extendedReportingData) {
         installationResultCookie := installationResultCookie is String ? BSTR.Alloc(installationResultCookie).Value : installationResultCookie
 
-        result := ComCall(7, this, BSTR, installationResultCookie, "int", _hresult, "ptr", extendedReportingData, "HRESULT")
+        result := ComCall(7, this, BSTR, installationResultCookie, Int32, _hresult, "ptr", extendedReportingData, "HRESULT")
         return result
     }
 

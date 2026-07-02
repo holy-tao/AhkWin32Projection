@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISCluster.ahk" { ISCluster }
+#Import ".\CLUSTER_NODE_STATE.ahk" { CLUSTER_NODE_STATE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ISClusNodeNetInterfaces.ahk" { ISClusNodeNetInterfaces }
 #Import ".\ISClusResGroups.ahk" { ISClusResGroups }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISCluster.ahk" { ISCluster }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ISClusProperties.ahk" { ISClusProperties }
-#Import ".\CLUSTER_NODE_STATE.ahk" { CLUSTER_NODE_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

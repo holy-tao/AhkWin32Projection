@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if a transactional or non-transactional object is added to or obtained from the object pool.
@@ -52,7 +52,7 @@ export default struct IComObjectPool2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpool2events-onobjpoolputobject2
      */
     OnObjPoolPutObject2(pInfo, guidObject, nReason, dwAvailable, oid) {
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, "int", nReason, "uint", dwAvailable, "uint", oid, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, Int32, nReason, UInt32, dwAvailable, Int64, oid, "HRESULT")
         return result
     }
 
@@ -68,7 +68,7 @@ export default struct IComObjectPool2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpool2events-onobjpoolgetobject2
      */
     OnObjPoolGetObject2(pInfo, guidActivity, guidObject, dwAvailable, oid, guidPartition) {
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, guidObject, "uint", dwAvailable, "uint", oid, Guid.Ptr, guidPartition, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, guidObject, UInt32, dwAvailable, Int64, oid, Guid.Ptr, guidPartition, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IComObjectPool2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpool2events-onobjpoolrecycletotx2
      */
     OnObjPoolRecycleToTx2(pInfo, guidActivity, guidObject, guidTx, objid) {
-        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, guidObject, Guid.Ptr, guidTx, "uint", objid, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, guidObject, Guid.Ptr, guidTx, Int64, objid, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IComObjectPool2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpool2events-onobjpoolgetfromtx2
      */
     OnObjPoolGetFromTx2(pInfo, guidActivity, guidObject, guidTx, objid, guidPartition) {
-        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, guidObject, Guid.Ptr, guidTx, "uint", objid, Guid.Ptr, guidPartition, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, guidObject, Guid.Ptr, guidTx, Int64, objid, Guid.Ptr, guidPartition, "HRESULT")
         return result
     }
 

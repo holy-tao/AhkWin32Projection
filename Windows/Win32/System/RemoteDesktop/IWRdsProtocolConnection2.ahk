@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WTS_SERIALIZED_USER_CREDENTIAL.ahk" { WTS_SERIALIZED_USER_CREDENTIAL }
 #Import ".\IWRdsProtocolConnection.ahk" { IWRdsProtocolConnection }
+#Import ".\WTS_SERIALIZED_USER_CREDENTIAL.ahk" { WTS_SERIALIZED_USER_CREDENTIAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop

@@ -65,7 +65,7 @@ export default struct IHTMLTimeRanges extends IDispatch {
      * @returns {Float} 
      */
     start(index) {
-        result := ComCall(8, this, "int", index, "float*", &startTime := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "float*", &startTime := 0, "HRESULT")
         return startTime
     }
 
@@ -75,7 +75,7 @@ export default struct IHTMLTimeRanges extends IDispatch {
      * @returns {Float} 
      */
     end(index) {
-        result := ComCall(9, this, "int", index, "float*", &endTime := 0, "HRESULT")
+        result := ComCall(9, this, Int32, index, "float*", &endTime := 0, "HRESULT")
         return endTime
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_VOLUME_PLEX_TYPE.ahk" { VDS_VOLUME_PLEX_TYPE }
 #Import ".\VDS_TRANSITION_STATE.ahk" { VDS_TRANSITION_STATE }
-#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
 #Import ".\VDS_VOLUME_PLEX_STATUS.ahk" { VDS_VOLUME_PLEX_STATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_VOLUME_PLEX_TYPE.ahk" { VDS_VOLUME_PLEX_TYPE }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
 
 /**
  * Defines the properties of a volume plex object.

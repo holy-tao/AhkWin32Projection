@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IConnectionPoint.ahk" { IConnectionPoint }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -46,7 +46,7 @@ export default struct CIE4ConnectionPoint extends IConnectionPoint {
         pfMarshal := pf is VarRef ? "int*" : "ptr"
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, pfMarshal, pf, ppvMarshal, ppv, "int", dispid, DISPPARAMS.Ptr, pdispparams, "HRESULT")
+        result := ComCall(8, this, pfMarshal, pf, ppvMarshal, ppv, Int32, dispid, DISPPARAMS.Ptr, pdispparams, "HRESULT")
         return result
     }
 
@@ -58,7 +58,7 @@ export default struct CIE4ConnectionPoint extends IConnectionPoint {
      * @returns {HRESULT} 
      */
     DoInvokePIDLIE4(dispid, pidl, fCanCancel) {
-        result := ComCall(9, this, "int", dispid, ITEMIDLIST.Ptr, pidl, BOOL, fCanCancel, "HRESULT")
+        result := ComCall(9, this, Int32, dispid, ITEMIDLIST.Ptr, pidl, BOOL, fCanCancel, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
 #Import ".\KERB_S4U2PROXY_CRED.ahk" { KERB_S4U2PROXY_CRED }
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

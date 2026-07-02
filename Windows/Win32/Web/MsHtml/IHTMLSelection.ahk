@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
 #Import ".\IHTMLDOMRange.ahk" { IHTMLDOMRange }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -148,7 +148,7 @@ export default struct IHTMLSelection extends IDispatch {
      * @returns {HRESULT} 
      */
     collapse(parentNode, offfset) {
-        result := ComCall(12, this, "ptr", parentNode, "int", offfset, "HRESULT")
+        result := ComCall(12, this, "ptr", parentNode, Int32, offfset, "HRESULT")
         return result
     }
 
@@ -204,7 +204,7 @@ export default struct IHTMLSelection extends IDispatch {
      * @returns {IHTMLDOMRange} 
      */
     getRangeAt(index) {
-        result := ComCall(18, this, "int", index, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(18, this, Int32, index, "ptr*", &ppRange := 0, "HRESULT")
         return IHTMLDOMRange(ppRange)
     }
 

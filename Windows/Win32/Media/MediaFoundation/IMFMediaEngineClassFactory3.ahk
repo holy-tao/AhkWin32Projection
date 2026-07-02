@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaKeySystemAccess.ahk" { IMFMediaKeySystemAccess }
 
 /**
@@ -48,7 +48,7 @@ export default struct IMFMediaEngineClassFactory3 extends IUnknown {
     CreateMediaKeySystemAccess(keySystem, ppSupportedConfigurationsArray, uSize) {
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
 
-        result := ComCall(3, this, BSTR, keySystem, IPropertyStore.Ptr, ppSupportedConfigurationsArray, "uint", uSize, "ptr*", &ppKeyAccess := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, keySystem, IPropertyStore.Ptr, ppSupportedConfigurationsArray, UInt32, uSize, "ptr*", &ppKeyAccess := 0, "HRESULT")
         return IMFMediaKeySystemAccess(ppKeyAccess)
     }
 

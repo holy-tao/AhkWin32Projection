@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods to set default icons associated with an object.
@@ -55,7 +55,7 @@ export default struct IDefaultExtractIconInit extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setflags
      */
     SetFlags(uFlags) {
-        result := ComCall(3, this, "uint", uFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, uFlags, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IDefaultExtractIconInit extends IUnknown {
     SetNormalIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(5, this, "ptr", pszFile, "int", iIcon, "HRESULT")
+        result := ComCall(5, this, "ptr", pszFile, Int32, iIcon, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IDefaultExtractIconInit extends IUnknown {
     SetOpenIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(6, this, "ptr", pszFile, "int", iIcon, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFile, Int32, iIcon, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IDefaultExtractIconInit extends IUnknown {
     SetShortcutIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(7, this, "ptr", pszFile, "int", iIcon, "HRESULT")
+        result := ComCall(7, this, "ptr", pszFile, Int32, iIcon, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IDefaultExtractIconInit extends IUnknown {
     SetDefaultIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(8, this, "ptr", pszFile, "int", iIcon, "HRESULT")
+        result := ComCall(8, this, "ptr", pszFile, Int32, iIcon, "HRESULT")
         return result
     }
 

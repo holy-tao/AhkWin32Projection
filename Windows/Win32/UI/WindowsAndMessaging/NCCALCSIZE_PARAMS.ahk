@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINDOWPOS.ahk" { WINDOWPOS }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\WINDOWPOS.ahk" { WINDOWPOS }
 
 /**
  * Contains information that an application can use while processing the WM_NCCALCSIZE message to calculate the size, position, and valid contents of the client area of a window.

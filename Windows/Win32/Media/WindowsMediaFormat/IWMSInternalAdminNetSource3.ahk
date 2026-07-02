@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWMSInternalAdminNetSource2.ahk" { IWMSInternalAdminNetSource2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\NETSOURCE_URLCREDPOLICY_SETTINGS.ahk" { NETSOURCE_URLCREDPOLICY_SETTINGS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\NETSOURCE_URLCREDPOLICY_SETTINGS.ahk" { NETSOURCE_URLCREDPOLICY_SETTINGS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
@@ -121,7 +121,7 @@ export default struct IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSo
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
      */
     RegisterProxyFailure2(hrParam, qwProxyContext) {
-        result := ComCall(9, this, "int", hrParam, "uint", qwProxyContext, "HRESULT")
+        result := ComCall(9, this, "int", hrParam, Int64, qwProxyContext, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSo
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-shutdownproxycontext2
      */
     ShutdownProxyContext2(qwProxyContext) {
-        result := ComCall(10, this, "uint", qwProxyContext, "HRESULT")
+        result := ComCall(10, this, Int64, qwProxyContext, "HRESULT")
         return result
     }
 
@@ -143,7 +143,7 @@ export default struct IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSo
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
      */
     IsUsingIE2(qwProxyContext) {
-        result := ComCall(11, this, "uint", qwProxyContext, BOOL.Ptr, &pfIsUsingIE := 0, "HRESULT")
+        result := ComCall(11, this, Int64, qwProxyContext, BOOL.Ptr, &pfIsUsingIE := 0, "HRESULT")
         return pfIsUsingIE
     }
 

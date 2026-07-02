@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DxcDefine.ahk" { DxcDefine }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 #Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDxcCompiler.ahk" { IDxcCompiler }
 #Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDxcCompiler.ahk" { IDxcCompiler }
-#Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import ".\DxcDefine.ahk" { DxcDefine }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -64,7 +64,7 @@ export default struct IDxcCompiler2 extends IDxcCompiler {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
         ppDebugBlobNameMarshal := ppDebugBlobName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, DxcDefine.Ptr, pDefines, "uint", defineCount, "ptr", pIncludeHandler, IDxcOperationResult.Ptr, ppResult, ppDebugBlobNameMarshal, ppDebugBlobName, IDxcBlob.Ptr, ppDebugBlob, "HRESULT")
+        result := ComCall(6, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, "ptr", pIncludeHandler, IDxcOperationResult.Ptr, ppResult, ppDebugBlobNameMarshal, ppDebugBlobName, IDxcBlob.Ptr, ppDebugBlob, "HRESULT")
         return result
     }
 

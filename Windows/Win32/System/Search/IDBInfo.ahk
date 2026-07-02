@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DBLITERALINFO.ahk" { DBLITERALINFO }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBLITERALINFO.ahk" { DBLITERALINFO }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -62,7 +62,7 @@ export default struct IDBInfo extends IUnknown {
         prgLiteralInfoMarshal := prgLiteralInfo is VarRef ? "ptr*" : "ptr"
         ppCharBufferMarshal := ppCharBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", cLiterals, rgLiteralsMarshal, rgLiterals, pcLiteralInfoMarshal, pcLiteralInfo, prgLiteralInfoMarshal, prgLiteralInfo, ppCharBufferMarshal, ppCharBuffer, "HRESULT")
+        result := ComCall(4, this, UInt32, cLiterals, rgLiteralsMarshal, rgLiterals, pcLiteralInfoMarshal, pcLiteralInfo, prgLiteralInfoMarshal, prgLiteralInfo, ppCharBufferMarshal, ppCharBuffer, "HRESULT")
         return result
     }
 

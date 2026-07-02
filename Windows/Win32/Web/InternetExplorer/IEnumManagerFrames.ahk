@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -51,7 +51,7 @@ export default struct IEnumManagerFrames extends IUnknown {
         ppWindowsMarshal := ppWindows is VarRef ? "ptr*" : "ptr"
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, ppWindowsMarshal, ppWindows, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, ppWindowsMarshal, ppWindows, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IEnumManagerFrames extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

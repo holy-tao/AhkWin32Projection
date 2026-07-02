@@ -94,7 +94,7 @@ export default struct IADsHold extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Amount(lnAmount) {
-        result := ComCall(10, this, "int", lnAmount, "HRESULT")
+        result := ComCall(10, this, Int32, lnAmount, "HRESULT")
         return result
     }
 

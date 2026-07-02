@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VSS_SOURCE_TYPE.ahk" { VSS_SOURCE_TYPE }
 #Import ".\IVssWMComponent.ahk" { IVssWMComponent }
-#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
-#Import ".\VSS_USAGE_TYPE.ahk" { VSS_USAGE_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VSS_RESTOREMETHOD_ENUM.ahk" { VSS_RESTOREMETHOD_ENUM }
 #Import ".\IVssWMFiledesc.ahk" { IVssWMFiledesc }
+#Import ".\VSS_USAGE_TYPE.ahk" { VSS_USAGE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VSS_SOURCE_TYPE.ahk" { VSS_SOURCE_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
+#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
+#Import ".\VSS_RESTOREMETHOD_ENUM.ahk" { VSS_RESTOREMETHOD_ENUM }
 
 /**
  * The IVssExamineWriterMetadata interface is a C++ (not COM) interface that allows a requester to examine the metadata of a specific writer instance.
@@ -242,7 +242,7 @@ export default struct IVssExamineWriterMetadata extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getincludefile
      */
     GetIncludeFile(iFile) {
-        result := ComCall(5, this, "uint", iFile, "ptr*", &ppFiledesc := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, iFile, "ptr*", &ppFiledesc := 0, "HRESULT")
         return IVssWMFiledesc(ppFiledesc)
     }
 
@@ -262,7 +262,7 @@ export default struct IVssExamineWriterMetadata extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getexcludefile
      */
     GetExcludeFile(iFile) {
-        result := ComCall(6, this, "uint", iFile, "ptr*", &ppFiledesc := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, iFile, "ptr*", &ppFiledesc := 0, "HRESULT")
         return IVssWMFiledesc(ppFiledesc)
     }
 
@@ -279,7 +279,7 @@ export default struct IVssExamineWriterMetadata extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getcomponent
      */
     GetComponent(_iComponent) {
-        result := ComCall(7, this, "uint", _iComponent, "ptr*", &ppComponent := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, _iComponent, "ptr*", &ppComponent := 0, "HRESULT")
         return IVssWMComponent(ppComponent)
     }
 
@@ -447,7 +447,7 @@ export default struct IVssExamineWriterMetadata extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getalternatelocationmapping
      */
     GetAlternateLocationMapping(iMapping) {
-        result := ComCall(9, this, "uint", iMapping, "ptr*", &ppFiledesc := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, iMapping, "ptr*", &ppFiledesc := 0, "HRESULT")
         return IVssWMFiledesc(ppFiledesc)
     }
 

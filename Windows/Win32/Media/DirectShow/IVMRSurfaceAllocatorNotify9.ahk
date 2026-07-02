@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VMR9AllocationInfo.ahk" { VMR9AllocationInfo }
 #Import ".\IVMRSurfaceAllocator9.ahk" { IVMRSurfaceAllocator9 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
 
 /**
@@ -82,7 +82,7 @@ export default struct IVMRSurfaceAllocatorNotify9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator
      */
     AdviseSurfaceAllocator(dwUserID, lpIVRMSurfaceAllocator) {
-        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpIVRMSurfaceAllocator, "HRESULT")
+        result := ComCall(3, this, IntPtr, dwUserID, "ptr", lpIVRMSurfaceAllocator, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct IVMRSurfaceAllocatorNotify9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-notifyevent
      */
     NotifyEvent(EventCode, Param1, Param2) {
-        result := ComCall(7, this, "int", EventCode, "ptr", Param1, "ptr", Param2, "HRESULT")
+        result := ComCall(7, this, Int32, EventCode, IntPtr, Param1, IntPtr, Param2, "HRESULT")
         return result
     }
 

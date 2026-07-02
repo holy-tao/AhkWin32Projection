@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a collection of strings indexed by locale name.
@@ -187,7 +187,7 @@ export default struct IDWriteLocalizedStrings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getlocalenamelength
      */
     GetLocaleNameLength(index) {
-        result := ComCall(5, this, "uint", index, "uint*", &length := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "uint*", &length := 0, "HRESULT")
         return length
     }
 
@@ -211,7 +211,7 @@ export default struct IDWriteLocalizedStrings extends IUnknown {
     GetLocaleName(index, localeName, _size) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(6, this, "uint", index, "ptr", localeName, "uint", _size, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "ptr", localeName, UInt32, _size, "HRESULT")
         return result
     }
 
@@ -253,7 +253,7 @@ export default struct IDWriteLocalizedStrings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength
      */
     GetStringLength(index) {
-        result := ComCall(7, this, "uint", index, "uint*", &length := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, index, "uint*", &length := 0, "HRESULT")
         return length
     }
 
@@ -304,7 +304,7 @@ export default struct IDWriteLocalizedStrings extends IUnknown {
     GetString(index, stringBuffer, _size) {
         stringBuffer := stringBuffer is String ? StrPtr(stringBuffer) : stringBuffer
 
-        result := ComCall(8, this, "uint", index, "ptr", stringBuffer, "uint", _size, "HRESULT")
+        result := ComCall(8, this, UInt32, index, "ptr", stringBuffer, UInt32, _size, "HRESULT")
         return result
     }
 

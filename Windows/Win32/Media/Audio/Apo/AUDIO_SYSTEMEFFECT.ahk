@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\AUDIO_SYSTEMEFFECT_STATE.ahk" { AUDIO_SYSTEMEFFECT_STATE }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AUDIO_SYSTEMEFFECT_STATE.ahk" { AUDIO_SYSTEMEFFECT_STATE }
 
 /**
  * Represents a System Effects Audio Processing Object (sAPO) audio effect.

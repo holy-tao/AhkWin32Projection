@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -59,7 +59,7 @@ export default struct IObjectSafety extends IUnknown {
      * @returns {HRESULT} 
      */
     SetInterfaceSafetyOptions(riid, dwOptionSetMask, dwEnabledOptions) {
-        result := ComCall(4, this, Guid.Ptr, riid, "uint", dwOptionSetMask, "uint", dwEnabledOptions, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, riid, UInt32, dwOptionSetMask, UInt32, dwEnabledOptions, "HRESULT")
         return result
     }
 

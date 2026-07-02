@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPhotoAcquireSource.ahk" { IPhotoAcquireSource }
-#Import ".\ERROR_ADVISE_RESULT.ahk" { ERROR_ADVISE_RESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ERROR_ADVISE_MESSAGE_TYPE.ahk" { ERROR_ADVISE_MESSAGE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ERROR_ADVISE_RESULT.ahk" { ERROR_ADVISE_RESULT }
+#Import ".\ERROR_ADVISE_MESSAGE_TYPE.ahk" { ERROR_ADVISE_MESSAGE_TYPE }
+#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IPhotoAcquireSource.ahk" { IPhotoAcquireSource }
 
 /**
  * The IPhotoAcquireProgressCB interface may be implemented if you wish to do extra processing at various stages in the acquisition process.
@@ -273,7 +273,7 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startitemtransfer
      */
     StartItemTransfer(nItemIndex, pPhotoAcquireItem) {
-        result := ComCall(8, this, "uint", nItemIndex, "ptr", pPhotoAcquireItem, "HRESULT")
+        result := ComCall(8, this, UInt32, nItemIndex, "ptr", pPhotoAcquireItem, "HRESULT")
         return result
     }
 
@@ -356,7 +356,7 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-updatetransferpercent
      */
     UpdateTransferPercent(fOverall, nPercent) {
-        result := ComCall(10, this, BOOL, fOverall, "uint", nPercent, "HRESULT")
+        result := ComCall(10, this, BOOL, fOverall, UInt32, nPercent, "HRESULT")
         return result
     }
 
@@ -398,7 +398,7 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-enditemtransfer
      */
     EndItemTransfer(nItemIndex, pPhotoAcquireItem, hr) {
-        result := ComCall(11, this, "uint", nItemIndex, "ptr", pPhotoAcquireItem, "int", hr, "HRESULT")
+        result := ComCall(11, this, UInt32, nItemIndex, "ptr", pPhotoAcquireItem, "int", hr, "HRESULT")
         return result
     }
 
@@ -519,7 +519,7 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startitemdelete
      */
     StartItemDelete(nItemIndex, pPhotoAcquireItem) {
-        result := ComCall(14, this, "uint", nItemIndex, "ptr", pPhotoAcquireItem, "HRESULT")
+        result := ComCall(14, this, UInt32, nItemIndex, "ptr", pPhotoAcquireItem, "HRESULT")
         return result
     }
 
@@ -559,7 +559,7 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-updatedeletepercent
      */
     UpdateDeletePercent(nPercent) {
-        result := ComCall(15, this, "uint", nPercent, "HRESULT")
+        result := ComCall(15, this, UInt32, nPercent, "HRESULT")
         return result
     }
 
@@ -601,7 +601,7 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-enditemdelete
      */
     EndItemDelete(nItemIndex, pPhotoAcquireItem, hr) {
-        result := ComCall(16, this, "uint", nItemIndex, "ptr", pPhotoAcquireItem, "int", hr, "HRESULT")
+        result := ComCall(16, this, UInt32, nItemIndex, "ptr", pPhotoAcquireItem, "int", hr, "HRESULT")
         return result
     }
 

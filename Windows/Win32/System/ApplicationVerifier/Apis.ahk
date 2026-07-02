@@ -2,6 +2,7 @@
 
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\VERIFIER_ENUM_RESOURCE_FLAGS.ahk" { VERIFIER_ENUM_RESOURCE_FLAGS }
+#Import ".\AVRF_RESOURCE_ENUMERATE_CALLBACK.ahk" { AVRF_RESOURCE_ENUMERATE_CALLBACK }
 
 /**
  * @namespace Windows.Win32.System.ApplicationVerifier
@@ -29,7 +30,7 @@
 export VerifierEnumerateResource(Process, Flags, _ResourceType, ResourceCallback, EnumerationContext) {
     EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("verifier.dll\VerifierEnumerateResource", HANDLE, Process, VERIFIER_ENUM_RESOURCE_FLAGS, Flags, "uint", _ResourceType, "ptr", ResourceCallback, EnumerationContextMarshal, EnumerationContext, UInt32)
+    result := DllCall("verifier.dll\VerifierEnumerateResource", HANDLE, Process, VERIFIER_ENUM_RESOURCE_FLAGS, Flags, UInt32, _ResourceType, AVRF_RESOURCE_ENUMERATE_CALLBACK, ResourceCallback, EnumerationContextMarshal, EnumerationContext, UInt32)
     return result
 }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EMR.ahk" { EMR }
-#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import ".\EMR.ahk" { EMR }
 
 /**
  * The EMRANGLEARC structure contains members for the AngleArc enhanced metafile record.

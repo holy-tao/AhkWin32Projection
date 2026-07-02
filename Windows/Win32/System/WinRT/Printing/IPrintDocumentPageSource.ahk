@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Storage\Xps\Printing\IPrintDocumentPackageTarget.ahk" { IPrintDocumentPackageTarget }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPrintPreviewPageCollection.ahk" { IPrintPreviewPageCollection }
-#Import "..\IInspectable.ahk" { IInspectable }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPrintPreviewPageCollection.ahk" { IPrintPreviewPageCollection }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IInspectable.ahk" { IInspectable }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing

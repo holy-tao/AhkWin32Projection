@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PARTITION_INFORMATION_MBR.ahk" { PARTITION_INFORMATION_MBR }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\PARTITION_INFORMATION_EX.ahk" { PARTITION_INFORMATION_EX }
+#Import ".\GPT_ATTRIBUTES.ahk" { GPT_ATTRIBUTES }
 #Import ".\DRIVE_LAYOUT_INFORMATION_MBR.ahk" { DRIVE_LAYOUT_INFORMATION_MBR }
+#Import ".\PARTITION_INFORMATION_EX.ahk" { PARTITION_INFORMATION_EX }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\PARTITION_INFORMATION_GPT.ahk" { PARTITION_INFORMATION_GPT }
 #Import ".\DRIVE_LAYOUT_INFORMATION_GPT.ahk" { DRIVE_LAYOUT_INFORMATION_GPT }
 #Import ".\PARTITION_STYLE.ahk" { PARTITION_STYLE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\GPT_ATTRIBUTES.ahk" { GPT_ATTRIBUTES }
+#Import ".\PARTITION_INFORMATION_MBR.ahk" { PARTITION_INFORMATION_MBR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

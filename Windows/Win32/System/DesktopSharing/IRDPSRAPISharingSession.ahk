@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRDPSRAPIAttendeeManager.ahk" { IRDPSRAPIAttendeeManager }
+#Import ".\IRDPSRAPIVirtualChannelManager.ahk" { IRDPSRAPIVirtualChannelManager }
+#Import ".\IRDPSRAPIInvitationManager.ahk" { IRDPSRAPIInvitationManager }
+#Import ".\IRDPSRAPISessionProperties.ahk" { IRDPSRAPISessionProperties }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRDPSRAPIVirtualChannelManager.ahk" { IRDPSRAPIVirtualChannelManager }
 #Import ".\IRDPSRAPIApplicationFilter.ahk" { IRDPSRAPIApplicationFilter }
-#Import ".\IRDPSRAPIAttendeeManager.ahk" { IRDPSRAPIAttendeeManager }
-#Import ".\IRDPSRAPISessionProperties.ahk" { IRDPSRAPISessionProperties }
-#Import ".\IRDPSRAPIInvitationManager.ahk" { IRDPSRAPIInvitationManager }
 
 /**
  * The main object that an application must create to start a collaboration session. (IRDPSRAPISharingSession)
@@ -126,7 +126,7 @@ export default struct IRDPSRAPISharingSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-put_colordepth
      */
     put_ColorDepth(colorDepth) {
-        result := ComCall(9, this, "int", colorDepth, "HRESULT")
+        result := ComCall(9, this, Int32, colorDepth, "HRESULT")
         return result
     }
 
@@ -247,7 +247,7 @@ export default struct IRDPSRAPISharingSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-setdesktopsharedrect
      */
     SetDesktopSharedRect(left, top, right, bottom) {
-        result := ComCall(19, this, "int", left, "int", top, "int", right, "int", bottom, "HRESULT")
+        result := ComCall(19, this, Int32, left, Int32, top, Int32, right, Int32, bottom, "HRESULT")
         return result
     }
 

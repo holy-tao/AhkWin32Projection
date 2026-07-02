@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Exposes a method that creates a copy hook handler. (Unicode)
@@ -90,7 +90,7 @@ export default struct ICopyHookW extends IUnknown {
         pszSrcFile := pszSrcFile is String ? StrPtr(pszSrcFile) : pszSrcFile
         pszDestFile := pszDestFile is String ? StrPtr(pszDestFile) : pszDestFile
 
-        result := ComCall(3, this, HWND, _hwnd, "uint", wFunc, "uint", wFlags, "ptr", pszSrcFile, "uint", dwSrcAttribs, "ptr", pszDestFile, "uint", dwDestAttribs, UInt32)
+        result := ComCall(3, this, HWND, _hwnd, UInt32, wFunc, UInt32, wFlags, "ptr", pszSrcFile, UInt32, dwSrcAttribs, "ptr", pszDestFile, UInt32, dwDestAttribs, UInt32)
         return result
     }
 

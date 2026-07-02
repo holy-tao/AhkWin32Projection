@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import ".\EMR.ahk" { EMR }
 #Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\EMR.ahk" { EMR }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * The EMRELLIPSE and EMRRECTANGLE structures contain members for the Ellipse and Rectangle enhanced metafile records.

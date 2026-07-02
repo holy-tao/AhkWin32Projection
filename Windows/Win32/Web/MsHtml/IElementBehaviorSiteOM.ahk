@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHTMLEventObj.ahk" { IHTMLEventObj }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IHTMLEventObj.ahk" { IHTMLEventObj }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -51,7 +51,7 @@ export default struct IElementBehaviorSiteOM extends IUnknown {
     RegisterEvent(pchEvent, lFlags) {
         pchEvent := pchEvent is String ? StrPtr(pchEvent) : pchEvent
 
-        result := ComCall(3, this, "ptr", pchEvent, "int", lFlags, "int*", &plCookie := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pchEvent, Int32, lFlags, "int*", &plCookie := 0, "HRESULT")
         return plCookie
     }
 
@@ -74,7 +74,7 @@ export default struct IElementBehaviorSiteOM extends IUnknown {
      * @returns {HRESULT} 
      */
     FireEvent(lCookie, pEventObject) {
-        result := ComCall(5, this, "int", lCookie, "ptr", pEventObject, "HRESULT")
+        result := ComCall(5, this, Int32, lCookie, "ptr", pEventObject, "HRESULT")
         return result
     }
 

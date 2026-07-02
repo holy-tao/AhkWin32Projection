@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\UI\Controls\NMHDR.ahk" { NMHDR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\UI\Controls\NMHDR.ahk" { NMHDR }
 
 /**
  * Use this structure to return the file name of the topic that has been navigated to, or to return the window type name of the help window that has been created.

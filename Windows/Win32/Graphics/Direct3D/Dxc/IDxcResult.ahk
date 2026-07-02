@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXC_OUT_KIND.ahk" { DXC_OUT_KIND }
-#Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
 #Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXC_OUT_KIND.ahk" { DXC_OUT_KIND }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -82,7 +82,7 @@ export default struct IDxcResult extends IDxcOperationResult {
      * @returns {DXC_OUT_KIND} 
      */
     GetOutputByIndex(Index) {
-        result := ComCall(9, this, "uint", Index, DXC_OUT_KIND)
+        result := ComCall(9, this, UInt32, Index, DXC_OUT_KIND)
         return result
     }
 

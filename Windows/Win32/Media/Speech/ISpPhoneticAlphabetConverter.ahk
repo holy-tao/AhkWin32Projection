@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -61,7 +61,7 @@ export default struct ISpPhoneticAlphabetConverter extends IUnknown {
      * @returns {HRESULT} 
      */
     SetLangId(LangID) {
-        result := ComCall(4, this, "ushort", LangID, "HRESULT")
+        result := ComCall(4, this, UInt16, LangID, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct ISpPhoneticAlphabetConverter extends IUnknown {
     SAPI2UPS(pszSAPIId, cMaxLength) {
         pszSAPIIdMarshal := pszSAPIId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(5, this, pszSAPIIdMarshal, pszSAPIId, "ushort*", &pszUPSId := 0, "uint", cMaxLength, "HRESULT")
+        result := ComCall(5, this, pszSAPIIdMarshal, pszSAPIId, "ushort*", &pszUPSId := 0, UInt32, cMaxLength, "HRESULT")
         return pszUPSId
     }
 
@@ -87,7 +87,7 @@ export default struct ISpPhoneticAlphabetConverter extends IUnknown {
     UPS2SAPI(pszUPSId, cMaxLength) {
         pszUPSIdMarshal := pszUPSId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, pszUPSIdMarshal, pszUPSId, "ushort*", &pszSAPIId := 0, "uint", cMaxLength, "HRESULT")
+        result := ComCall(6, this, pszUPSIdMarshal, pszUPSId, "ushort*", &pszSAPIId := 0, UInt32, cMaxLength, "HRESULT")
         return pszSAPIId
     }
 
@@ -98,7 +98,7 @@ export default struct ISpPhoneticAlphabetConverter extends IUnknown {
      * @returns {Integer} 
      */
     GetMaxConvertLength(cSrcLength, bSAPI2UPS) {
-        result := ComCall(7, this, "uint", cSrcLength, BOOL, bSAPI2UPS, "uint*", &pcMaxDestLength := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, cSrcLength, BOOL, bSAPI2UPS, "uint*", &pcMaxDestLength := 0, "HRESULT")
         return pcMaxDestLength
     }
 

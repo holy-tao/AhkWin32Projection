@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to the IMFAttributes of the substreams of a multiplexed media source.
@@ -56,7 +56,7 @@ export default struct IMFMuxStreamAttributesManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamattributesmanager-getattributes
      */
     GetAttributes(dwMuxStreamIndex) {
-        result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", &ppStreamAttributes := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMuxStreamIndex, "ptr*", &ppStreamAttributes := 0, "HRESULT")
         return IMFAttributes(ppStreamAttributes)
     }
 

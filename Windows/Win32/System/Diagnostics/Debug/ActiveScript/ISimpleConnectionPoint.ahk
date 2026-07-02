@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -62,7 +62,7 @@ export default struct ISimpleConnectionPoint extends IUnknown {
         prgidMarshal := prgid is VarRef ? "int*" : "ptr"
         pcEventsFetchedMarshal := pcEventsFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", iEvent, "uint", cEvents, prgidMarshal, prgid, BSTR.Ptr, prgbstr, pcEventsFetchedMarshal, pcEventsFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, iEvent, UInt32, cEvents, prgidMarshal, prgid, BSTR.Ptr, prgbstr, pcEventsFetchedMarshal, pcEventsFetched, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct ISimpleConnectionPoint extends IUnknown {
      * @returns {HRESULT} 
      */
     Unadvise(dwCookie) {
-        result := ComCall(6, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(6, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 

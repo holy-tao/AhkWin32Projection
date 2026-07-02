@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\IShellItem2.ahk" { IShellItem2 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SYNCMGR_CONFLICT_ITEM_TYPE.ahk" { SYNCMGR_CONFLICT_ITEM_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Defines conflict item structure.

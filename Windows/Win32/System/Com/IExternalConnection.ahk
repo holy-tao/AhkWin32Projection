@@ -71,7 +71,7 @@ export default struct IExternalConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iexternalconnection-addconnection
      */
     AddConnection(_extconn, reserved) {
-        result := ComCall(3, this, "uint", _extconn, "uint", reserved, UInt32)
+        result := ComCall(3, this, UInt32, _extconn, UInt32, reserved, UInt32)
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct IExternalConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iexternalconnection-releaseconnection
      */
     ReleaseConnection(_extconn, reserved, fLastReleaseCloses) {
-        result := ComCall(4, this, "uint", _extconn, "uint", reserved, BOOL, fLastReleaseCloses, UInt32)
+        result := ComCall(4, this, UInt32, _extconn, UInt32, reserved, BOOL, fLastReleaseCloses, UInt32)
         return result
     }
 

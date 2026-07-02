@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IAzClientContext2.ahk" { IAzClientContext2 }
-#Import ".\IAzBizRuleParameters.ahk" { IAzBizRuleParameters }
-#Import ".\IAzTasks.ahk" { IAzTasks }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAzBizRuleInterfaces.ahk" { IAzBizRuleInterfaces }
+#Import ".\IAzBizRuleParameters.ahk" { IAzBizRuleParameters }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IAzTasks.ahk" { IAzTasks }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzBizRuleInterfaces.ahk" { IAzBizRuleInterfaces }
 #Import ".\IAzOperations.ahk" { IAzOperations }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Extends the IAzClientContext2 interface.
@@ -86,7 +86,7 @@ export default struct IAzClientContext3 extends IAzClientContext2 {
         bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(26, this, BSTR, bstrObjectName, BSTR, bstrScopeName, "int", lOperation, "uint*", &plResult := 0, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrObjectName, BSTR, bstrScopeName, Int32, lOperation, "uint*", &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -164,7 +164,7 @@ export default struct IAzClientContext3 extends IAzClientContext2 {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
         pGroupArray := VARIANT()
-        result := ComCall(32, this, BSTR, bstrScopeName, "uint", ulOptions, VARIANT.Ptr, pGroupArray, "HRESULT")
+        result := ComCall(32, this, BSTR, bstrScopeName, UInt32, ulOptions, VARIANT.Ptr, pGroupArray, "HRESULT")
         return pGroupArray
     }
 

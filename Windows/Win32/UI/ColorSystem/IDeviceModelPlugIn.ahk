@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\GamutShellTriangle.ahk" { GamutShellTriangle }
-#Import ".\BlackInformation.ahk" { BlackInformation }
-#Import ".\XYZColorF.ahk" { XYZColorF }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\PrimaryXYZColors.ahk" { PrimaryXYZColors }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BlackInformation.ahk" { BlackInformation }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GamutShellTriangle.ahk" { GamutShellTriangle }
+#Import ".\XYZColorF.ahk" { XYZColorF }
 
 /**
  * Describes the methods that are defined for the IDeviceModelPlugIn Component Object Model (COM) interface.
@@ -67,7 +67,7 @@ export default struct IDeviceModelPlugIn extends IUnknown {
     Initialize(bstrXml, cNumModels, iModelPosition) {
         bstrXml := bstrXml is String ? BSTR.Alloc(bstrXml).Value : bstrXml
 
-        result := ComCall(3, this, BSTR, bstrXml, "uint", cNumModels, "uint", iModelPosition, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrXml, UInt32, cNumModels, UInt32, iModelPosition, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IDeviceModelPlugIn extends IUnknown {
         pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : "ptr"
 
         pXYZColors := XYZColorF()
-        result := ComCall(5, this, "uint", cColors, "uint", cChannels, pDeviceValuesMarshal, pDeviceValues, XYZColorF.Ptr, pXYZColors, "HRESULT")
+        result := ComCall(5, this, UInt32, cColors, UInt32, cChannels, pDeviceValuesMarshal, pDeviceValues, XYZColorF.Ptr, pXYZColors, "HRESULT")
         return pXYZColors
     }
 
@@ -110,7 +110,7 @@ export default struct IDeviceModelPlugIn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-colorimetrictodevicecolors
      */
     ColorimetricToDeviceColors(cColors, cChannels, pXYZColors) {
-        result := ComCall(6, this, "uint", cColors, "uint", cChannels, XYZColorF.Ptr, pXYZColors, "float*", &pDeviceValues := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, cColors, UInt32, cChannels, XYZColorF.Ptr, pXYZColors, "float*", &pDeviceValues := 0, "HRESULT")
         return pDeviceValues
     }
 
@@ -126,7 +126,7 @@ export default struct IDeviceModelPlugIn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-colorimetrictodevicecolorswithblack
      */
     ColorimetricToDeviceColorsWithBlack(cColors, cChannels, pXYZColors, pBlackInformation) {
-        result := ComCall(7, this, "uint", cColors, "uint", cChannels, XYZColorF.Ptr, pXYZColors, BlackInformation.Ptr, pBlackInformation, "float*", &pDeviceValues := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, cColors, UInt32, cChannels, XYZColorF.Ptr, pXYZColors, BlackInformation.Ptr, pBlackInformation, "float*", &pDeviceValues := 0, "HRESULT")
         return pDeviceValues
     }
 
@@ -144,7 +144,7 @@ export default struct IDeviceModelPlugIn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-settransformdevicemodelinfo
      */
     SetTransformDeviceModelInfo(iModelPosition, pIDeviceModelOther) {
-        result := ComCall(8, this, "uint", iModelPosition, "ptr", pIDeviceModelOther, "HRESULT")
+        result := ComCall(8, this, UInt32, iModelPosition, "ptr", pIDeviceModelOther, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct IDeviceModelPlugIn extends IUnknown {
     GetGamutBoundaryMesh(cChannels, cVertices, cTriangles, pVertices, pTriangles) {
         pVerticesMarshal := pVertices is VarRef ? "float*" : "ptr"
 
-        result := ComCall(11, this, "uint", cChannels, "uint", cVertices, "uint", cTriangles, pVerticesMarshal, pVertices, GamutShellTriangle.Ptr, pTriangles, "HRESULT")
+        result := ComCall(11, this, UInt32, cChannels, UInt32, cVertices, UInt32, cTriangles, pVerticesMarshal, pVertices, GamutShellTriangle.Ptr, pTriangles, "HRESULT")
         return result
     }
 
@@ -223,7 +223,7 @@ export default struct IDeviceModelPlugIn extends IUnknown {
      */
     GetNeutralAxis(cColors) {
         pXYZColors := XYZColorF()
-        result := ComCall(13, this, "uint", cColors, XYZColorF.Ptr, pXYZColors, "HRESULT")
+        result := ComCall(13, this, UInt32, cColors, XYZColorF.Ptr, pXYZColors, "HRESULT")
         return pXYZColors
     }
 

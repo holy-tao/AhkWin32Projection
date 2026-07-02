@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D2D1_COLOR_INTERPOLATION_MODE.ahk" { D2D1_COLOR_INTERPOLATION_MODE }
-#Import "Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
-#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
 #Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
 #Import ".\ID2D1GradientStopCollection.ahk" { ID2D1GradientStopCollection }
+#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
+#Import "Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
 
 /**
  * Represents a collection of D2D1_GRADIENT_STOP objects for linear and radial gradient brushes. It provides get methods for all the new parameters added to the gradient stop collection.
@@ -60,7 +60,7 @@ export default struct ID2D1GradientStopCollection1 extends ID2D1GradientStopColl
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gradientstopcollection1-getgradientstops1
      */
     GetGradientStops1(gradientStops, gradientStopsCount) {
-        ComCall(8, this, D2D1_GRADIENT_STOP.Ptr, gradientStops, "uint", gradientStopsCount)
+        ComCall(8, this, D2D1_GRADIENT_STOP.Ptr, gradientStops, UInt32, gradientStopsCount)
     }
 
     /**

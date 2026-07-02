@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMPDownloadCollection.ahk" { IWMPDownloadCollection }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMPDownloadCollection.ahk" { IWMPDownloadCollection }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -43,7 +43,7 @@ export default struct IWMPDownloadManager extends IDispatch {
      * @returns {IWMPDownloadCollection} 
      */
     getDownloadCollection(lCollectionId) {
-        result := ComCall(7, this, "int", lCollectionId, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(7, this, Int32, lCollectionId, "ptr*", &ppCollection := 0, "HRESULT")
         return IWMPDownloadCollection(ppCollection)
     }
 

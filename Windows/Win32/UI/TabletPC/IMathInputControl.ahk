@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkDisp.ahk" { IInkDisp }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Exposes methods that turn ink input into interpreted math output.
@@ -177,7 +177,7 @@ export default struct IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-setposition
      */
     SetPosition(Left, Top, Right, Bottom) {
-        result := ComCall(11, this, "int", Left, "int", Top, "int", Right, "int", Bottom, "HRESULT")
+        result := ComCall(11, this, Int32, Left, Int32, Top, Int32, Right, Int32, Bottom, "HRESULT")
         return result
     }
 
@@ -201,7 +201,7 @@ export default struct IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-setcustompaint
      */
     SetCustomPaint(Element, Paint) {
-        result := ComCall(13, this, "int", Element, VARIANT_BOOL, Paint, "HRESULT")
+        result := ComCall(13, this, Int32, Element, VARIANT_BOOL, Paint, "HRESULT")
         return result
     }
 
@@ -241,7 +241,7 @@ export default struct IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-setownerwindow
      */
     SetOwnerWindow(OwnerWindow) {
-        result := ComCall(16, this, "ptr", OwnerWindow, "HRESULT")
+        result := ComCall(16, this, IntPtr, OwnerWindow, "HRESULT")
         return result
     }
 
@@ -333,7 +333,7 @@ export default struct IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-setpreviewheight
      */
     SetPreviewHeight(Height) {
-        result := ComCall(19, this, "int", Height, "HRESULT")
+        result := ComCall(19, this, Int32, Height, "HRESULT")
         return result
     }
 

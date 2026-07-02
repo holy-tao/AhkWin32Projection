@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import ".\ACCOUNT_STATE.ahk" { ACCOUNT_STATE }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDENTITY_URL.ahk" { IDENTITY_URL }
+#Import "..\..\..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDENTITY_URL.ahk" { IDENTITY_URL }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
@@ -65,7 +65,7 @@ export default struct AsyncIConnectedIdentityProvider extends IUnknown {
     Begin_ConnectIdentity(AuthBuffer, AuthBufferSize) {
         AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, "uint", AuthBufferSize, "HRESULT")
+        result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, UInt32, AuthBufferSize, "HRESULT")
         return result
     }
 

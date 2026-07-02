@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SimilarityFileId.ahk" { SimilarityFileId }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
 #Import ".\IRdcFileWriter.ahk" { IRdcFileWriter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SimilarityFileId.ahk" { SimilarityFileId }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Defines methods for storing and retrieving similarity file ID information.
@@ -70,7 +70,7 @@ export default struct ISimilarityFileIdTable extends IUnknown {
 
         _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", _path, BOOL, truncate, _securityDescriptorMarshal, _securityDescriptor, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _path, BOOL, truncate, _securityDescriptorMarshal, _securityDescriptor, UInt32, recordSize, "int*", &isNew := 0, "HRESULT")
         return isNew
     }
 
@@ -86,7 +86,7 @@ export default struct ISimilarityFileIdTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-createtableindirect
      */
     CreateTableIndirect(fileIdFile, truncate, recordSize) {
-        result := ComCall(4, this, "ptr", fileIdFile, BOOL, truncate, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", fileIdFile, BOOL, truncate, UInt32, recordSize, "int*", &isNew := 0, "HRESULT")
         return isNew
     }
 
@@ -126,7 +126,7 @@ export default struct ISimilarityFileIdTable extends IUnknown {
      */
     Lookup(similarityFileIndex) {
         _similarityFileId := SimilarityFileId()
-        result := ComCall(7, this, "uint", similarityFileIndex, SimilarityFileId.Ptr, _similarityFileId, "HRESULT")
+        result := ComCall(7, this, UInt32, similarityFileIndex, SimilarityFileId.Ptr, _similarityFileId, "HRESULT")
         return _similarityFileId
     }
 
@@ -139,7 +139,7 @@ export default struct ISimilarityFileIdTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-invalidate
      */
     Invalidate(similarityFileIndex) {
-        result := ComCall(8, this, "uint", similarityFileIndex, "HRESULT")
+        result := ComCall(8, this, UInt32, similarityFileIndex, "HRESULT")
         return result
     }
 

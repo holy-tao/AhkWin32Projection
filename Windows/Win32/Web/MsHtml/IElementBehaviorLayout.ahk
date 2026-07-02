@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -51,7 +51,7 @@ export default struct IElementBehaviorLayout extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSize(dwFlags, sizeContent, pptTranslateBy, pptTopLeft, psizeProposed) {
-        result := ComCall(3, this, "int", dwFlags, SIZE, sizeContent, POINT.Ptr, pptTranslateBy, POINT.Ptr, pptTopLeft, SIZE.Ptr, psizeProposed, "HRESULT")
+        result := ComCall(3, this, Int32, dwFlags, SIZE, sizeContent, POINT.Ptr, pptTranslateBy, POINT.Ptr, pptTopLeft, SIZE.Ptr, psizeProposed, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IElementBehaviorLayout extends IUnknown {
      * @returns {HRESULT} 
      */
     GetPosition(lFlags, pptTopLeft) {
-        result := ComCall(5, this, "int", lFlags, POINT.Ptr, pptTopLeft, "HRESULT")
+        result := ComCall(5, this, Int32, lFlags, POINT.Ptr, pptTopLeft, "HRESULT")
         return result
     }
 

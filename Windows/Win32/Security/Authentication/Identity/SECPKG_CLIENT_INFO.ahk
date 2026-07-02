@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
 
 /**

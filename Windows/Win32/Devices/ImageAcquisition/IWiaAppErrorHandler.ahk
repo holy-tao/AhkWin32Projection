@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWiaItem2.ahk" { IWiaItem2 }
 
 /**
@@ -106,7 +106,7 @@ export default struct IWiaAppErrorHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaapperrorhandler-reportstatus
      */
     ReportStatus(lFlags, pWiaItem2, hrStatus, lPercentComplete) {
-        result := ComCall(4, this, "int", lFlags, "ptr", pWiaItem2, "int", hrStatus, "int", lPercentComplete, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, "ptr", pWiaItem2, "int", hrStatus, Int32, lPercentComplete, "HRESULT")
         return result
     }
 

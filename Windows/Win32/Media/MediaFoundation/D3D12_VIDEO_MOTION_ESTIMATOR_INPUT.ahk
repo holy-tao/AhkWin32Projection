@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID3D12VideoMotionVectorHeap.ahk" { ID3D12VideoMotionVectorHeap }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\ID3D12VideoMotionVectorHeap.ahk" { ID3D12VideoMotionVectorHeap }
 
 /**
  * Specifies the input parameters for calls to ID3D12VideoEncodeCommandList::EstimateMotion.

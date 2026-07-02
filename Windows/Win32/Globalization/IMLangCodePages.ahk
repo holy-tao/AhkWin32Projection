@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -45,7 +45,7 @@ export default struct IMLangCodePages extends IUnknown {
      * @returns {Integer} 
      */
     GetCharCodePages(chSrc) {
-        result := ComCall(3, this, "char", chSrc, "uint*", &pdwCodePages := 0, "HRESULT")
+        result := ComCall(3, this, Int8, chSrc, "uint*", &pdwCodePages := 0, "HRESULT")
         return pdwCodePages
     }
 
@@ -64,7 +64,7 @@ export default struct IMLangCodePages extends IUnknown {
         pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
         pcchCodePagesMarshal := pcchCodePages is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszSrc, "int", cchSrc, "uint", dwPriorityCodePages, pdwCodePagesMarshal, pdwCodePages, pcchCodePagesMarshal, pcchCodePages, "HRESULT")
+        result := ComCall(4, this, "ptr", pszSrc, Int32, cchSrc, UInt32, dwPriorityCodePages, pdwCodePagesMarshal, pdwCodePages, pcchCodePagesMarshal, pcchCodePages, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IMLangCodePages extends IUnknown {
      * @returns {Integer} 
      */
     CodePageToCodePages(uCodePage) {
-        result := ComCall(5, this, "uint", uCodePage, "uint*", &pdwCodePages := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, uCodePage, "uint*", &pdwCodePages := 0, "HRESULT")
         return pdwCodePages
     }
 
@@ -85,7 +85,7 @@ export default struct IMLangCodePages extends IUnknown {
      * @returns {Integer} 
      */
     CodePagesToCodePage(dwCodePages, uDefaultCodePage) {
-        result := ComCall(6, this, "uint", dwCodePages, "uint", uDefaultCodePage, "uint*", &puCodePage := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwCodePages, UInt32, uDefaultCodePage, "uint*", &puCodePage := 0, "HRESULT")
         return puCodePage
     }
 

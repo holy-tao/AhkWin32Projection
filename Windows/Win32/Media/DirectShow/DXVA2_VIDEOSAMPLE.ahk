@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\MediaFoundation\DXVA2_AYUVSample8.ahk" { DXVA2_AYUVSample8 }
-#Import "..\MediaFoundation\DXVA2_ExtendedFormat.ahk" { DXVA2_ExtendedFormat }
 #Import "..\MediaFoundation\DXVA2_Fixed32.ahk" { DXVA2_Fixed32 }
+#Import "..\MediaFoundation\DXVA2_AYUVSample8.ahk" { DXVA2_AYUVSample8 }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\MediaFoundation\DXVA2_ExtendedFormat.ahk" { DXVA2_ExtendedFormat }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow

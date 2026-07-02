@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
 #Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
+#Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

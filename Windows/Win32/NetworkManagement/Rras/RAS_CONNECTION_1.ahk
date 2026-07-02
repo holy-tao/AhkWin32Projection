@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PPP_NBFCP_INFO.ahk" { PPP_NBFCP_INFO }
 #Import ".\PPP_IPCP_INFO.ahk" { PPP_IPCP_INFO }
-#Import ".\PPP_ATCP_INFO.ahk" { PPP_ATCP_INFO }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\PPP_INFO.ahk" { PPP_INFO }
+#Import ".\PPP_NBFCP_INFO.ahk" { PPP_NBFCP_INFO }
+#Import ".\PPP_ATCP_INFO.ahk" { PPP_ATCP_INFO }
 #Import ".\PPP_IPXCP_INFO.ahk" { PPP_IPXCP_INFO }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 

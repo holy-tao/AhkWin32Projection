@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Is called by the holder of the COM+ Resource Dispenser to create, enlist, evaluate, prepare, and destroy a resource.
@@ -62,7 +62,7 @@ export default struct IDispenserDriver extends IUnknown {
         pResIdMarshal := pResId is VarRef ? "ptr*" : "ptr"
         pSecsFreeBeforeDestroyMarshal := pSecsFreeBeforeDestroy is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ResTypId, pResIdMarshal, pResId, pSecsFreeBeforeDestroyMarshal, pSecsFreeBeforeDestroy, "HRESULT")
+        result := ComCall(3, this, IntPtr, ResTypId, pResIdMarshal, pResId, pSecsFreeBeforeDestroyMarshal, pSecsFreeBeforeDestroy, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct IDispenserDriver extends IUnknown {
     RateResource(ResTypId, ResId, fRequiresTransactionEnlistment, pRating) {
         pRatingMarshal := pRating is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", ResTypId, "ptr", ResId, BOOL, fRequiresTransactionEnlistment, pRatingMarshal, pRating, "HRESULT")
+        result := ComCall(4, this, IntPtr, ResTypId, IntPtr, ResId, BOOL, fRequiresTransactionEnlistment, pRatingMarshal, pRating, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IDispenserDriver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispenserdriver-enlistresource
      */
     EnlistResource(ResId, TransId) {
-        result := ComCall(5, this, "ptr", ResId, "ptr", TransId, "HRESULT")
+        result := ComCall(5, this, IntPtr, ResId, IntPtr, TransId, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IDispenserDriver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispenserdriver-resetresource
      */
     ResetResource(ResId) {
-        result := ComCall(6, this, "ptr", ResId, "HRESULT")
+        result := ComCall(6, this, IntPtr, ResId, "HRESULT")
         return result
     }
 
@@ -249,7 +249,7 @@ export default struct IDispenserDriver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispenserdriver-destroyresource
      */
     DestroyResource(ResId) {
-        result := ComCall(7, this, "ptr", ResId, "HRESULT")
+        result := ComCall(7, this, IntPtr, ResId, "HRESULT")
         return result
     }
 

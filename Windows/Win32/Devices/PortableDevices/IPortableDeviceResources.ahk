@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 
 /**
  * The IPortableDeviceResources interface provides access to an object's raw data. Use this interface to read or write resources in an object. To get this interface, call IPortableDeviceContent::Transfer.
@@ -104,7 +104,7 @@ export default struct IPortableDeviceResources extends IUnknown {
 
         pdwOptimalBufferSizeMarshal := pdwOptimalBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszObjectID, PROPERTYKEY.Ptr, Key, "uint", dwMode, pdwOptimalBufferSizeMarshal, pdwOptimalBufferSize, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszObjectID, PROPERTYKEY.Ptr, Key, UInt32, dwMode, pdwOptimalBufferSizeMarshal, pdwOptimalBufferSize, "ptr*", &ppStream := 0, "HRESULT")
         return IStream(ppStream)
     }
 

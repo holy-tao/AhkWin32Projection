@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "PropertiesSystem\PDOPSTATUS.ahk" { PDOPSTATUS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\SPACTION.ahk" { SPACTION }
+#Import "PropertiesSystem\PDOPSTATUS.ahk" { PDOPSTATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SPACTION.ahk" { SPACTION }
 
 /**
  * Exposes methods to get, set, and query a progress dialog.
@@ -67,7 +67,7 @@ export default struct IOperationsProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-startprogressdialog
      */
     StartProgressDialog(hwndOwner, flags) {
-        result := ComCall(3, this, HWND, hwndOwner, "uint", flags, "HRESULT")
+        result := ComCall(3, this, HWND, hwndOwner, UInt32, flags, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct IOperationsProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-setmode
      */
     SetMode(_mode) {
-        result := ComCall(6, this, "uint", _mode, "HRESULT")
+        result := ComCall(6, this, UInt32, _mode, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IOperationsProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-updateprogress
      */
     UpdateProgress(ullPointsCurrent, ullPointsTotal, ullSizeCurrent, ullSizeTotal, ullItemsCurrent, ullItemsTotal) {
-        result := ComCall(7, this, "uint", ullPointsCurrent, "uint", ullPointsTotal, "uint", ullSizeCurrent, "uint", ullSizeTotal, "uint", ullItemsCurrent, "uint", ullItemsTotal, "HRESULT")
+        result := ComCall(7, this, Int64, ullPointsCurrent, Int64, ullPointsTotal, Int64, ullSizeCurrent, Int64, ullSizeTotal, Int64, ullItemsCurrent, Int64, ullItemsTotal, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAttributeSet interface sets key/value pairs on an object, where the key is a GUID and the value is any binary data.
@@ -79,7 +79,7 @@ export default struct IAttributeSet extends IUnknown {
     SetAttrib(_guidAttribute, pbAttribute, dwAttributeLength) {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, Guid, _guidAttribute, pbAttributeMarshal, pbAttribute, "uint", dwAttributeLength, "HRESULT")
+        result := ComCall(3, this, Guid, _guidAttribute, pbAttributeMarshal, pbAttribute, UInt32, dwAttributeLength, "HRESULT")
         return result
     }
 

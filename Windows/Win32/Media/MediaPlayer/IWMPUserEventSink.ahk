@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPUserEventSink interface receives event notifications from a custom video presenter.
@@ -63,7 +63,7 @@ export default struct IWMPUserEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpusereventsink-notifyuserevent
      */
     NotifyUserEvent(EventCode) {
-        result := ComCall(3, this, "int", EventCode, "HRESULT")
+        result := ComCall(3, this, Int32, EventCode, "HRESULT")
         return result
     }
 

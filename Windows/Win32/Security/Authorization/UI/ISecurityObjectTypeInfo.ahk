@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\INHERITED_FROMA.ahk" { INHERITED_FROMA }
 #Import "..\..\ACL.ahk" { ACL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\INHERITED_FROMA.ahk" { INHERITED_FROMA }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a means of determining the source of inherited access control entries (ACEs) in discretionary access control lists (DACLs) and system access control lists (SACLs).
@@ -53,7 +53,7 @@ export default struct ISecurityObjectTypeInfo extends IUnknown {
     GetInheritSource(si, pACL, ppInheritArray) {
         ppInheritArrayMarshal := ppInheritArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", si, ACL.Ptr, pACL, ppInheritArrayMarshal, ppInheritArray, "HRESULT")
+        result := ComCall(3, this, UInt32, si, ACL.Ptr, pACL, ppInheritArrayMarshal, ppInheritArray, "HRESULT")
         return result
     }
 

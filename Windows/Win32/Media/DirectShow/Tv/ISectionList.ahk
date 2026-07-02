@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\MPEG_CONTEXT.ahk" { MPEG_CONTEXT }
 #Import ".\MPEG_PACKET_LIST.ahk" { MPEG_PACKET_LIST }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SECTION.ahk" { SECTION }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 #Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
-#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import ".\SECTION.ahk" { SECTION }
 
 /**
  * The ISectionList interface represents a list of MPEG-2 table sections.
@@ -125,7 +125,7 @@ export default struct ISectionList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-initialize
      */
     Initialize(requestType, pMpeg2Data, pContext, pid, tid, pFilter, timeout, hDoneEvent) {
-        result := ComCall(3, this, MPEG_REQUEST_TYPE, requestType, "ptr", pMpeg2Data, MPEG_CONTEXT.Ptr, pContext, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, "uint", timeout, HANDLE, hDoneEvent, "HRESULT")
+        result := ComCall(3, this, MPEG_REQUEST_TYPE, requestType, "ptr", pMpeg2Data, MPEG_CONTEXT.Ptr, pContext, UInt16, pid, Int8, tid, MPEG2_FILTER.Ptr, pFilter, UInt32, timeout, HANDLE, hDoneEvent, "HRESULT")
         return result
     }
 
@@ -292,7 +292,7 @@ export default struct ISectionList extends IUnknown {
         pdwRawPacketLengthMarshal := pdwRawPacketLength is VarRef ? "uint*" : "ptr"
         ppSectionMarshal := ppSection is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ushort", sectionNumber, pdwRawPacketLengthMarshal, pdwRawPacketLength, ppSectionMarshal, ppSection, "HRESULT")
+        result := ComCall(7, this, UInt16, sectionNumber, pdwRawPacketLengthMarshal, pdwRawPacketLength, ppSectionMarshal, ppSection, "HRESULT")
         return result
     }
 

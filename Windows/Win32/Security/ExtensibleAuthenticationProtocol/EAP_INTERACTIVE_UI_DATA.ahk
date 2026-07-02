@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\EAP_INTERACTIVE_UI_DATA_TYPE.ahk" { EAP_INTERACTIVE_UI_DATA_TYPE }
+#Import ".\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk" { EAP_CONFIG_INPUT_FIELD_ARRAY }
 #Import ".\EAP_UI_DATA_FORMAT.ahk" { EAP_UI_DATA_FORMAT }
 #Import ".\EAP_CRED_EXPIRY_REQ.ahk" { EAP_CRED_EXPIRY_REQ }
-#Import ".\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk" { EAP_CONFIG_INPUT_FIELD_ARRAY }
 
 /**
  * Contains configuration information for interactive UI components raised on an EAP supplicant.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_AUTOMATIC_FONT_AXES.ahk" { DWRITE_AUTOMATIC_FONT_AXES }
 #Import ".\IDWriteTextLayout3.ahk" { IDWriteTextLayout3 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import ".\DWRITE_TEXT_RANGE.ahk" { DWRITE_TEXT_RANGE }
-#Import ".\DWRITE_AUTOMATIC_FONT_AXES.ahk" { DWRITE_AUTOMATIC_FONT_AXES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted.
@@ -52,7 +52,7 @@ export default struct IDWriteTextLayout4 extends IDWriteTextLayout3 {
      * @returns {HRESULT} 
      */
     SetFontAxisValues(fontAxisValues, fontAxisValueCount, textRange) {
-        result := ComCall(84, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, DWRITE_TEXT_RANGE, textRange, "HRESULT")
+        result := ComCall(84, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -62,7 +62,7 @@ export default struct IDWriteTextLayout4 extends IDWriteTextLayout3 {
      * @returns {Integer} 
      */
     GetFontAxisValueCount(currentPosition) {
-        result := ComCall(85, this, "uint", currentPosition, UInt32)
+        result := ComCall(85, this, UInt32, currentPosition, UInt32)
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct IDWriteTextLayout4 extends IDWriteTextLayout3 {
      * @returns {HRESULT} 
      */
     GetFontAxisValues(currentPosition, fontAxisValues, fontAxisValueCount, textRange) {
-        result := ComCall(86, this, "uint", currentPosition, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
+        result := ComCall(86, this, UInt32, currentPosition, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 

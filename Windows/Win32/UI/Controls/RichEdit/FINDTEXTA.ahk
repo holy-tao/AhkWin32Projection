@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CHARRANGE.ahk" { CHARRANGE }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CHARRANGE.ahk" { CHARRANGE }
 
 /**
  * Contains information about a search operation in a rich edit control. This structure is used with the EM_FINDTEXT message. (ANSI)

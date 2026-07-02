@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\Urlmon\IInternetSecurityManager.ahk" { IInternetSecurityManager }
-#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SPRULE.ahk" { SPRULE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\Urlmon\IInternetSecurityManager.ahk" { IInternetSecurityManager }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
 #Import ".\ISpeechResourceLoader.ahk" { ISpeechResourceLoader }
 
 /**
@@ -105,7 +105,7 @@ export default struct ISpRecoGrammar2 extends IUnknown {
     SetRulePriority(pszRuleName, ulRuleId, nRulePriority) {
         pszRuleName := pszRuleName is String ? StrPtr(pszRuleName) : pszRuleName
 
-        result := ComCall(6, this, "ptr", pszRuleName, "uint", ulRuleId, "int", nRulePriority, "HRESULT")
+        result := ComCall(6, this, "ptr", pszRuleName, UInt32, ulRuleId, Int32, nRulePriority, "HRESULT")
         return result
     }
 
@@ -119,7 +119,7 @@ export default struct ISpRecoGrammar2 extends IUnknown {
     SetRuleWeight(pszRuleName, ulRuleId, flWeight) {
         pszRuleName := pszRuleName is String ? StrPtr(pszRuleName) : pszRuleName
 
-        result := ComCall(7, this, "ptr", pszRuleName, "uint", ulRuleId, "float", flWeight, "HRESULT")
+        result := ComCall(7, this, "ptr", pszRuleName, UInt32, ulRuleId, Float32, flWeight, "HRESULT")
         return result
     }
 
@@ -129,7 +129,7 @@ export default struct ISpRecoGrammar2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDictationWeight(flWeight) {
-        result := ComCall(8, this, "float", flWeight, "HRESULT")
+        result := ComCall(8, this, Float32, flWeight, "HRESULT")
         return result
     }
 

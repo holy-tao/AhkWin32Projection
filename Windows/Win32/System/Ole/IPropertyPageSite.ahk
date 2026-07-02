@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
@@ -53,7 +53,7 @@ export default struct IPropertyPageSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-onstatuschange
      */
     OnStatusChange(dwFlags) {
-        result := ComCall(3, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

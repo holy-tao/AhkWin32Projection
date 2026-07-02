@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UI_ANIMATION_DEPENDENCIES.ahk" { UI_ANIMATION_DEPENDENCIES }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UI_ANIMATION_DEPENDENCIES.ahk" { UI_ANIMATION_DEPENDENCIES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods for creating a custom interpolator.
@@ -62,7 +62,7 @@ export default struct IUIAnimationInterpolator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-setinitialvalueandvelocity
      */
     SetInitialValueAndVelocity(initialValue, initialVelocity) {
-        result := ComCall(3, this, "double", initialValue, "double", initialVelocity, "HRESULT")
+        result := ComCall(3, this, Float64, initialValue, Float64, initialVelocity, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IUIAnimationInterpolator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-setduration
      */
     SetDuration(duration) {
-        result := ComCall(4, this, "double", duration, "HRESULT")
+        result := ComCall(4, this, Float64, duration, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct IUIAnimationInterpolator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-interpolatevalue
      */
     InterpolateValue(offset) {
-        result := ComCall(7, this, "double", offset, "double*", &value := 0, "HRESULT")
+        result := ComCall(7, this, Float64, offset, "double*", &value := 0, "HRESULT")
         return value
     }
 
@@ -143,7 +143,7 @@ export default struct IUIAnimationInterpolator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-interpolatevelocity
      */
     InterpolateVelocity(offset) {
-        result := ComCall(8, this, "double", offset, "double*", &velocity := 0, "HRESULT")
+        result := ComCall(8, this, Float64, offset, "double*", &velocity := 0, "HRESULT")
         return velocity
     }
 

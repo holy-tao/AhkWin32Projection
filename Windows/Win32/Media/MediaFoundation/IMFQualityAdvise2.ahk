@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFQualityAdvise.ahk" { IMFQualityAdvise }
 #Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables a pipeline object to adjust its own audio or video quality, in response to quality messages.

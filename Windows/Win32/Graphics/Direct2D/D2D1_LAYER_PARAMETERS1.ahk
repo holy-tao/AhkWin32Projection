@@ -2,9 +2,9 @@
 #Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 #Import ".\D2D1_LAYER_OPTIONS1.ahk" { D2D1_LAYER_OPTIONS1 }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 
 /**
  * Contains the content bounds, mask information, opacity settings, and other options for a layer resource. (D2D1_LAYER_PARAMETERS1)

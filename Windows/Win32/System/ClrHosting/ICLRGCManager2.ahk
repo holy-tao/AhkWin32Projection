@@ -42,7 +42,7 @@ export default struct ICLRGCManager2 extends ICLRGCManager {
      * @returns {HRESULT} 
      */
     SetGCStartupLimitsEx(SegmentSize, MaxGen0Size) {
-        result := ComCall(6, this, "ptr", SegmentSize, "ptr", MaxGen0Size, "HRESULT")
+        result := ComCall(6, this, IntPtr, SegmentSize, IntPtr, MaxGen0Size, "HRESULT")
         return result
     }
 

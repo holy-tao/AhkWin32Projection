@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IRTCPresenceContact.ahk" { IRTCPresenceContact }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\RTC_PRESENCE_STATUS.ahk" { RTC_PRESENCE_STATUS }
+#Import ".\IRTCPresenceContact.ahk" { IRTCPresenceContact }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

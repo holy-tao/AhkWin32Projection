@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IParseDisplayName.ahk" { IParseDisplayName }
+#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates objects in a compound document or lock a container in the running state. Container and object applications both implement this interface.
@@ -49,7 +49,7 @@ export default struct IOleContainer extends IParseDisplayName {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecontainer-enumobjects
      */
     EnumObjects(grfFlags) {
-        result := ComCall(4, this, "uint", grfFlags, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, grfFlags, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumUnknown(ppenum)
     }
 

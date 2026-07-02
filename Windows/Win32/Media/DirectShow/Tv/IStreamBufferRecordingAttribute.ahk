@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IEnumStreamBufferRecordingAttrib.ahk" { IEnumStreamBufferRecordingAttrib }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\STREAMBUFFER_ATTR_DATATYPE.ahk" { STREAMBUFFER_ATTR_DATATYPE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IStreamBufferRecordingAttribute interface sets and retrieves attributes on a stream buffer recording.
@@ -65,7 +65,7 @@ export default struct IStreamBufferRecordingAttribute extends IUnknown {
 
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulReserved, "ptr", pszAttributeName, STREAMBUFFER_ATTR_DATATYPE, StreamBufferAttributeType, pbAttributeMarshal, pbAttribute, "ushort", cbAttributeLength, "HRESULT")
+        result := ComCall(3, this, UInt32, ulReserved, "ptr", pszAttributeName, STREAMBUFFER_ATTR_DATATYPE, StreamBufferAttributeType, pbAttributeMarshal, pbAttribute, UInt16, cbAttributeLength, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IStreamBufferRecordingAttribute extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordingattribute-getattributecount
      */
     GetAttributeCount(ulReserved) {
-        result := ComCall(4, this, "uint", ulReserved, "ushort*", &pcAttributes := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, ulReserved, "ushort*", &pcAttributes := 0, "HRESULT")
         return pcAttributes
     }
 
@@ -181,7 +181,7 @@ export default struct IStreamBufferRecordingAttribute extends IUnknown {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ushort", wIndex, pulReservedMarshal, pulReserved, "ptr", pszAttributeName, pcchNameLengthMarshal, pcchNameLength, pStreamBufferAttributeTypeMarshal, pStreamBufferAttributeType, pbAttributeMarshal, pbAttribute, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(6, this, UInt16, wIndex, pulReservedMarshal, pulReserved, "ptr", pszAttributeName, pcchNameLengthMarshal, pcchNameLength, pStreamBufferAttributeTypeMarshal, pStreamBufferAttributeType, pbAttributeMarshal, pbAttribute, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 

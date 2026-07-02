@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FEEDS_BACKGROUNDSYNC_STATUS.ahk" { FEEDS_BACKGROUNDSYNC_STATUS }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\FEEDS_BACKGROUNDSYNC_ACTION.ahk" { FEEDS_BACKGROUNDSYNC_ACTION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\FEEDS_BACKGROUNDSYNC_ACTION.ahk" { FEEDS_BACKGROUNDSYNC_ACTION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FEEDS_BACKGROUNDSYNC_STATUS.ahk" { FEEDS_BACKGROUNDSYNC_STATUS }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -198,7 +198,7 @@ export default struct IXFeedsManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDefaultInterval(uiInterval) {
-        result := ComCall(15, this, "uint", uiInterval, "HRESULT")
+        result := ComCall(15, this, UInt32, uiInterval, "HRESULT")
         return result
     }
 

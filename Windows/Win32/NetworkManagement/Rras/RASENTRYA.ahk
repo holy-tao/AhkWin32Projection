@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\IKEV2_ID_PAYLOAD_TYPE.ahk" { IKEV2_ID_PAYLOAD_TYPE }
-#Import ".\RASENTRY_DIAL_MODE.ahk" { RASENTRY_DIAL_MODE }
-#Import ".\RASIPADDR.ahk" { RASIPADDR }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RASIPADDR.ahk" { RASIPADDR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\RASENTRY_DIAL_MODE.ahk" { RASENTRY_DIAL_MODE }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

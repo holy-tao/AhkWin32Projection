@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ICLRTask.ahk" { ICLRTask }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -66,7 +66,7 @@ export default struct IHostTask extends IUnknown {
      * @returns {HRESULT} 
      */
     Join(dwMilliseconds, option) {
-        result := ComCall(5, this, "uint", dwMilliseconds, "uint", option, "HRESULT")
+        result := ComCall(5, this, UInt32, dwMilliseconds, UInt32, option, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IHostTask extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPriority(newPriority) {
-        result := ComCall(6, this, "int", newPriority, "HRESULT")
+        result := ComCall(6, this, Int32, newPriority, "HRESULT")
         return result
     }
 

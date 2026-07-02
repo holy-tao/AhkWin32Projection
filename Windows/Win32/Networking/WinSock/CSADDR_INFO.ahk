@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SOCKADDR.ahk" { SOCKADDR }
 #Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
 
 /**
  * The CSADDR_INFO structure (nspapi.h) contains Windows Sockets address information for a socket, network service, or namespace provider.

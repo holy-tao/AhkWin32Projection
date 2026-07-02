@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Media\MediaFoundation\IMF2DBuffer2.ahk" { IMF2DBuffer2 }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\Graphics\Imaging\IWICBitmap.ahk" { IWICBitmap }
 #Import "..\..\..\..\Media\MediaFoundation\MFVideoArea.ahk" { MFVideoArea }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\Media\MediaFoundation\IMF2DBuffer2.ahk" { IMF2DBuffer2 }
 #Import "..\..\IInspectable.ahk" { IInspectable }
-#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Creates instances of ISoftwareBitmapNative.
@@ -98,7 +98,7 @@ export default struct ISoftwareBitmapNativeFactory extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.imaging.interop/nf-windows-graphics-imaging-interop-isoftwarebitmapnativefactory-createfrommf2dbuffer2
      */
     CreateFromMF2DBuffer2(data, subtype, width, height, forceReadOnly, minDisplayAperture, riid) {
-        result := ComCall(7, this, "ptr", data, Guid.Ptr, subtype, "uint", width, "uint", height, BOOL, forceReadOnly, MFVideoArea.Ptr, minDisplayAperture, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", data, Guid.Ptr, subtype, UInt32, width, UInt32, height, BOOL, forceReadOnly, MFVideoArea.Ptr, minDisplayAperture, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

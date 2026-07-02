@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\InkRecognitionConfidence.ahk" { InkRecognitionConfidence }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the ability to query particular properties of a gesture returned from a gesture recognition.

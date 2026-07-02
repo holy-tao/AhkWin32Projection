@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWinMLModel.ahk" { IWinMLModel }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
 #Import ".\IWinMLEvaluationContext.ahk" { IWinMLEvaluationContext }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWinMLModel.ahk" { IWinMLModel }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the runtime to load and evaluate a WinML model.

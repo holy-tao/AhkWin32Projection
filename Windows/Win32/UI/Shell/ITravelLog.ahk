@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ITravelEntry.ahk" { ITravelEntry }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITravelEntry.ahk" { ITravelEntry }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Deprecated. Exposes methods that maintain and manipulate a record of travel in the browser.
@@ -122,7 +122,7 @@ export default struct ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-travel
      */
     Travel(punk, iOffset) {
-        result := ComCall(6, this, "ptr", punk, "int", iOffset, "HRESULT")
+        result := ComCall(6, this, "ptr", punk, Int32, iOffset, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-gettravelentry
      */
     GetTravelEntry(punk, iOffset) {
-        result := ComCall(7, this, "ptr", punk, "int", iOffset, "ptr*", &ppte := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", punk, Int32, iOffset, "ptr*", &ppte := 0, "HRESULT")
         return ITravelEntry(ppte)
     }
 
@@ -189,7 +189,7 @@ export default struct ITravelLog extends IUnknown {
     GetToolTipText(punk, iOffset, idsTemplate, pwzText, cchText) {
         pwzText := pwzText is String ? StrPtr(pwzText) : pwzText
 
-        result := ComCall(9, this, "ptr", punk, "int", iOffset, "int", idsTemplate, "ptr", pwzText, "uint", cchText, "HRESULT")
+        result := ComCall(9, this, "ptr", punk, Int32, iOffset, Int32, idsTemplate, "ptr", pwzText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -219,7 +219,7 @@ export default struct ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-insertmenuentries
      */
     InsertMenuEntries(punk, _hmenu, nPos, idFirst, idLast, dwFlags) {
-        result := ComCall(10, this, "ptr", punk, HMENU, _hmenu, "int", nPos, "int", idFirst, "int", idLast, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", punk, HMENU, _hmenu, Int32, nPos, Int32, idFirst, Int32, idLast, UInt32, dwFlags, "HRESULT")
         return result
     }
 

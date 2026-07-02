@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DHCP_SEARCH_INFO_TYPE.ahk" { DHCP_SEARCH_INFO_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_SEARCH_INFO_TYPE.ahk" { DHCP_SEARCH_INFO_TYPE }
 
 /**
  * The DHCP_SEARCH_INFO structure defines the DHCP client record data used to search against for particular server operations.

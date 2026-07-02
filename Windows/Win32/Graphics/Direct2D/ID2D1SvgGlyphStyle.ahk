@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 
 /**
@@ -97,7 +97,7 @@ export default struct ID2D1SvgGlyphStyle extends ID2D1Resource {
     SetStroke(brush, strokeWidth, dashes, dashesCount, dashOffset) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(6, this, "ptr", brush, "float", strokeWidth, dashesMarshal, dashes, "uint", dashesCount, "float", dashOffset, "HRESULT")
+        result := ComCall(6, this, "ptr", brush, Float32, strokeWidth, dashesMarshal, dashes, UInt32, dashesCount, Float32, dashOffset, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct ID2D1SvgGlyphStyle extends ID2D1Resource {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
         dashOffsetMarshal := dashOffset is VarRef ? "float*" : "ptr"
 
-        ComCall(8, this, ID2D1Brush.Ptr, brush, strokeWidthMarshal, strokeWidth, dashesMarshal, dashes, "uint", dashesCount, dashOffsetMarshal, dashOffset)
+        ComCall(8, this, ID2D1Brush.Ptr, brush, strokeWidthMarshal, strokeWidth, dashesMarshal, dashes, UInt32, dashesCount, dashOffsetMarshal, dashOffset)
     }
 
     Query(iid) {

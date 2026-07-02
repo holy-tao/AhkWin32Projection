@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IDataCollector.ahk" { IDataCollector }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Monitors performance counters and performs actions each time a counter value crosses the specified threshold.To create the alert data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method. For details on the XML that you pass to CreateDataCollectorFromXml, see Remarks.
@@ -219,7 +219,7 @@ export default struct IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-put_sampleinterval
      */
     put_SampleInterval(_interval) {
-        result := ComCall(37, this, "uint", _interval, "HRESULT")
+        result := ComCall(37, this, UInt32, _interval, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IShellIconOverlayManager may be altered or unavailable.
@@ -68,7 +68,7 @@ export default struct IShellIconOverlayManager extends IUnknown {
     GetFileOverlayInfo(pwszPath, dwAttrib, dwflags) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(3, this, "ptr", pwszPath, "uint", dwAttrib, "int*", &pIndex := 0, "uint", dwflags, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszPath, UInt32, dwAttrib, "int*", &pIndex := 0, UInt32, dwflags, "HRESULT")
         return pIndex
     }
 
@@ -94,7 +94,7 @@ export default struct IShellIconOverlayManager extends IUnknown {
     GetReservedOverlayInfo(pwszPath, dwAttrib, dwflags, iReservedID) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(4, this, "ptr", pwszPath, "uint", dwAttrib, "int*", &pIndex := 0, "uint", dwflags, "int", iReservedID, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszPath, UInt32, dwAttrib, "int*", &pIndex := 0, UInt32, dwflags, Int32, iReservedID, "HRESULT")
         return pIndex
     }
 
@@ -109,7 +109,7 @@ export default struct IShellIconOverlayManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-refreshoverlayimages
      */
     RefreshOverlayImages(dwFlags) {
-        result := ComCall(5, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct IShellIconOverlayManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-overlayindexfromimageindex
      */
     OverlayIndexFromImageIndex(iImage, fAdd) {
-        result := ComCall(7, this, "int", iImage, "int*", &piIndex := 0, BOOL, fAdd, "HRESULT")
+        result := ComCall(7, this, Int32, iImage, "int*", &piIndex := 0, BOOL, fAdd, "HRESULT")
         return piIndex
     }
 

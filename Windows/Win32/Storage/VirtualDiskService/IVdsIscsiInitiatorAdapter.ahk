@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_ISCSI_LOGIN_TYPE.ahk" { VDS_ISCSI_LOGIN_TYPE }
-#Import ".\VDS_ISCSI_AUTH_TYPE.ahk" { VDS_ISCSI_AUTH_TYPE }
 #Import ".\VDS_ISCSI_INITIATOR_ADAPTER_PROP.ahk" { VDS_ISCSI_INITIATOR_ADAPTER_PROP }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_ISCSI_LOGIN_TYPE.ahk" { VDS_ISCSI_LOGIN_TYPE }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\VDS_ISCSI_AUTH_TYPE.ahk" { VDS_ISCSI_AUTH_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 
 /**
  * Provides methods to query and interact with iSCSI initiator adapters on the local system.
@@ -96,7 +96,7 @@ export default struct IVdsIscsiInitiatorAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatoradapter-logintotarget
      */
     LoginToTarget(loginType, targetId, targetPortalId, initiatorPortalId, ulLoginFlags, bHeaderDigest, bDataDigest, authType) {
-        result := ComCall(5, this, VDS_ISCSI_LOGIN_TYPE, loginType, Guid, targetId, Guid, targetPortalId, Guid, initiatorPortalId, "uint", ulLoginFlags, BOOL, bHeaderDigest, BOOL, bDataDigest, VDS_ISCSI_AUTH_TYPE, authType, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(5, this, VDS_ISCSI_LOGIN_TYPE, loginType, Guid, targetId, Guid, targetPortalId, Guid, initiatorPortalId, UInt32, ulLoginFlags, BOOL, bHeaderDigest, BOOL, bDataDigest, VDS_ISCSI_AUTH_TYPE, authType, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import ".\IMFSensorDevice.ahk" { IMFSensorDevice }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFSensorDevice.ahk" { IMFSensorDevice }
 
 /**
  * Represents a group of sensor devices from which an IMFMediaSource can be created.
@@ -58,7 +58,7 @@ export default struct IMFSensorGroup extends IUnknown {
     GetSymbolicLink(SymbolicLink, cchSymbolicLink) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
 
-        result := ComCall(3, this, "ptr", SymbolicLink, "int", cchSymbolicLink, "int*", &pcchWritten := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", SymbolicLink, Int32, cchSymbolicLink, "int*", &pcchWritten := 0, "HRESULT")
         return pcchWritten
     }
 
@@ -110,7 +110,7 @@ export default struct IMFSensorGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-getsensordevice
      */
     GetSensorDevice(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppDevice := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "ptr*", &ppDevice := 0, "HRESULT")
         return IMFSensorDevice(ppDevice)
     }
 
@@ -167,7 +167,7 @@ export default struct IMFSensorGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorgroup-setdefaultsensordeviceindex
      */
     SetDefaultSensorDeviceIndex(dwIndex) {
-        result := ComCall(8, this, "uint", dwIndex, "HRESULT")
+        result := ComCall(8, this, UInt32, dwIndex, "HRESULT")
         return result
     }
 

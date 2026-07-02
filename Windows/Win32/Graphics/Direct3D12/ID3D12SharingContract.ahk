@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Part of a contract between D3D11On12 diagnostic layers and graphics diagnostics tools.
@@ -55,7 +55,7 @@ export default struct ID3D12SharingContract extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12sharingcontract-present
      */
     Present(pResource, Subresource, window) {
-        ComCall(3, this, "ptr", pResource, "uint", Subresource, HWND, window)
+        ComCall(3, this, "ptr", pResource, UInt32, Subresource, HWND, window)
     }
 
     /**
@@ -70,7 +70,7 @@ export default struct ID3D12SharingContract extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12sharingcontract-sharedfencesignal
      */
     SharedFenceSignal(pFence, FenceValue) {
-        ComCall(4, this, "ptr", pFence, "uint", FenceValue)
+        ComCall(4, this, "ptr", pFence, Int64, FenceValue)
     }
 
     /**

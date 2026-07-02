@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\DISPATCH_FLAGS.ahk" { DISPATCH_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\EXCEPINFO.ahk" { EXCEPINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITypeInfo.ahk" { ITypeInfo }
-#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\DISPPARAMS.ahk" { DISPPARAMS }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EXCEPINFO.ahk" { EXCEPINFO }
 
 /**
  * Exposes objects, methods and properties to programming tools and other applications that support Automation.
@@ -66,7 +66,7 @@ export default struct IDispatch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-gettypeinfo
      */
     GetTypeInfo(iTInfo, lcid) {
-        result := ComCall(4, this, "uint", iTInfo, "uint", lcid, "ptr*", &ppTInfo := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, iTInfo, UInt32, lcid, "ptr*", &ppTInfo := 0, "HRESULT")
         return ITypeInfo(ppTInfo)
     }
 
@@ -97,7 +97,7 @@ export default struct IDispatch extends IUnknown {
     GetIDsOfNames(riid, rgszNames, cNames, lcid) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgDispId := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, UInt32, cNames, UInt32, lcid, "int*", &rgDispId := 0, "HRESULT")
         return rgDispId
     }
 
@@ -335,7 +335,7 @@ export default struct IDispatch extends IUnknown {
     Invoke(dispIdMember, riid, lcid, wFlags, pDispParams, pVarResult, pExcepInfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "int", dispIdMember, Guid.Ptr, riid, "uint", lcid, DISPATCH_FLAGS, wFlags, DISPPARAMS.Ptr, pDispParams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(6, this, Int32, dispIdMember, Guid.Ptr, riid, UInt32, lcid, DISPATCH_FLAGS, wFlags, DISPPARAMS.Ptr, pDispParams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 

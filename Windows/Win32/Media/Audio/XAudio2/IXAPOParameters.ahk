@@ -59,7 +59,7 @@ export default struct IXAPOParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapoparameters-setparameters
      */
     SetParameters(pParameters, ParameterByteSize) {
-        ComCall(3, this, "ptr", pParameters, "uint", ParameterByteSize)
+        ComCall(3, this, IntPtr, pParameters, UInt32, ParameterByteSize)
     }
 
     /**
@@ -87,7 +87,7 @@ export default struct IXAPOParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapoparameters-getparameters
      */
     GetParameters(pParameters, ParameterByteSize) {
-        ComCall(4, this, "ptr", pParameters, "uint", ParameterByteSize)
+        ComCall(4, this, IntPtr, pParameters, UInt32, ParameterByteSize)
     }
 
     Query(iid) {

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\RDPSRAPI_MOUSE_BUTTON_TYPE.ahk" { RDPSRAPI_MOUSE_BUTTON_TYPE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\RDPSRAPI_KBD_CODE_TYPE.ahk" { RDPSRAPI_KBD_CODE_TYPE }
 
 /**
@@ -57,7 +57,7 @@ export default struct IRDPViewerInputSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousebuttonevent
      */
     SendMouseButtonEvent(buttonType, vbButtonDown, xPos, yPos) {
-        result := ComCall(3, this, RDPSRAPI_MOUSE_BUTTON_TYPE, buttonType, VARIANT_BOOL, vbButtonDown, "uint", xPos, "uint", yPos, "HRESULT")
+        result := ComCall(3, this, RDPSRAPI_MOUSE_BUTTON_TYPE, buttonType, VARIANT_BOOL, vbButtonDown, UInt32, xPos, UInt32, yPos, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct IRDPViewerInputSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousemoveevent
      */
     SendMouseMoveEvent(xPos, yPos) {
-        result := ComCall(4, this, "uint", xPos, "uint", yPos, "HRESULT")
+        result := ComCall(4, this, UInt32, xPos, UInt32, yPos, "HRESULT")
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct IRDPViewerInputSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousewheelevent
      */
     SendMouseWheelEvent(wheelRotation) {
-        result := ComCall(5, this, "ushort", wheelRotation, "HRESULT")
+        result := ComCall(5, this, UInt16, wheelRotation, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IRDPViewerInputSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendkeyboardevent
      */
     SendKeyboardEvent(codeType, keycode, vbKeyUp, vbRepeat, vbExtended) {
-        result := ComCall(6, this, RDPSRAPI_KBD_CODE_TYPE, codeType, "ushort", keycode, VARIANT_BOOL, vbKeyUp, VARIANT_BOOL, vbRepeat, VARIANT_BOOL, vbExtended, "HRESULT")
+        result := ComCall(6, this, RDPSRAPI_KBD_CODE_TYPE, codeType, UInt16, keycode, VARIANT_BOOL, vbKeyUp, VARIANT_BOOL, vbRepeat, VARIANT_BOOL, vbExtended, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IRDPViewerInputSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendsyncevent
      */
     SendSyncEvent(syncFlags) {
-        result := ComCall(7, this, "uint", syncFlags, "HRESULT")
+        result := ComCall(7, this, UInt32, syncFlags, "HRESULT")
         return result
     }
 
@@ -130,7 +130,7 @@ export default struct IRDPViewerInputSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-addtouchinput
      */
     AddTouchInput(contactId, event, x, y) {
-        result := ComCall(9, this, "uint", contactId, "uint", event, "int", x, "int", y, "HRESULT")
+        result := ComCall(9, this, UInt32, contactId, UInt32, event, Int32, x, Int32, y, "HRESULT")
         return result
     }
 

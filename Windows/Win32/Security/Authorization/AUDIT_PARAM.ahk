@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\AUDIT_OBJECT_TYPES.ahk" { AUDIT_OBJECT_TYPES }
-#Import "..\SID.ahk" { SID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\AUDIT_IP_ADDRESS.ahk" { AUDIT_IP_ADDRESS }
+#Import "..\SID.ahk" { SID }
 #Import ".\AUDIT_PARAM_TYPE.ahk" { AUDIT_PARAM_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AUDIT_OBJECT_TYPES.ahk" { AUDIT_OBJECT_TYPES }
 
 /**
  * @namespace Windows.Win32.Security.Authorization

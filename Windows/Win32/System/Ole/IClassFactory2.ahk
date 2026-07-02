@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\LICINFO.ahk" { LICINFO }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IClassFactory.ahk" { IClassFactory }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\LICINFO.ahk" { LICINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables a class factory object, in any sort of object server, to control object creation through licensing.
@@ -103,7 +103,7 @@ export default struct IClassFactory2 extends IClassFactory {
      */
     RequestLicKey(dwReserved) {
         pBstrKey := BSTR.Owned()
-        result := ComCall(6, this, "uint", dwReserved, BSTR.Ptr, pBstrKey, "HRESULT")
+        result := ComCall(6, this, UInt32, dwReserved, BSTR.Ptr, pBstrKey, "HRESULT")
         return pBstrKey
     }
 

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OSPCOMP.ahk" { OSPCOMP }
 #Import ".\OSPFIND.ahk" { OSPFIND }
 #Import ".\OSPFORMAT.ahk" { OSPFORMAT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\OLEDBSimpleProviderListener.ahk" { OLEDBSimpleProviderListener }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\OSPRW.ahk" { OSPRW }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\OSPCOMP.ahk" { OSPCOMP }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\OSPRW.ahk" { OSPRW }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -87,7 +87,7 @@ export default struct OLEDBSimpleProvider extends IUnknown {
      * @returns {OSPRW} 
      */
     getRWStatus(_iRow, iColumn) {
-        result := ComCall(5, this, "ptr", _iRow, "ptr", iColumn, "int*", &prwStatus := 0, "HRESULT")
+        result := ComCall(5, this, IntPtr, _iRow, IntPtr, iColumn, "int*", &prwStatus := 0, "HRESULT")
         return prwStatus
     }
 
@@ -100,7 +100,7 @@ export default struct OLEDBSimpleProvider extends IUnknown {
      */
     getVariant(_iRow, iColumn, format) {
         pVar := VARIANT()
-        result := ComCall(6, this, "ptr", _iRow, "ptr", iColumn, OSPFORMAT, format, VARIANT.Ptr, pVar, "HRESULT")
+        result := ComCall(6, this, IntPtr, _iRow, IntPtr, iColumn, OSPFORMAT, format, VARIANT.Ptr, pVar, "HRESULT")
         return pVar
     }
 
@@ -113,7 +113,7 @@ export default struct OLEDBSimpleProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     setVariant(_iRow, iColumn, format, Var) {
-        result := ComCall(7, this, "ptr", _iRow, "ptr", iColumn, OSPFORMAT, format, VARIANT, Var, "HRESULT")
+        result := ComCall(7, this, IntPtr, _iRow, IntPtr, iColumn, OSPFORMAT, format, VARIANT, Var, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct OLEDBSimpleProvider extends IUnknown {
      * @returns {Pointer} 
      */
     deleteRows(_iRow, cRows) {
-        result := ComCall(9, this, "ptr", _iRow, "ptr", cRows, "ptr*", &pcRowsDeleted := 0, "HRESULT")
+        result := ComCall(9, this, IntPtr, _iRow, IntPtr, cRows, "ptr*", &pcRowsDeleted := 0, "HRESULT")
         return pcRowsDeleted
     }
 
@@ -145,7 +145,7 @@ export default struct OLEDBSimpleProvider extends IUnknown {
      * @returns {Pointer} 
      */
     insertRows(_iRow, cRows) {
-        result := ComCall(10, this, "ptr", _iRow, "ptr", cRows, "ptr*", &pcRowsInserted := 0, "HRESULT")
+        result := ComCall(10, this, IntPtr, _iRow, IntPtr, cRows, "ptr*", &pcRowsInserted := 0, "HRESULT")
         return pcRowsInserted
     }
 
@@ -159,7 +159,7 @@ export default struct OLEDBSimpleProvider extends IUnknown {
      * @returns {Pointer} 
      */
     find(iRowStart, iColumn, _val, findFlags, compType) {
-        result := ComCall(11, this, "ptr", iRowStart, "ptr", iColumn, VARIANT, _val, OSPFIND, findFlags, OSPCOMP, compType, "ptr*", &piRowFound := 0, "HRESULT")
+        result := ComCall(11, this, IntPtr, iRowStart, IntPtr, iColumn, VARIANT, _val, OSPFIND, findFlags, OSPCOMP, compType, "ptr*", &piRowFound := 0, "HRESULT")
         return piRowFound
     }
 

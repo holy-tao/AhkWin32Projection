@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFTimedTextTrackList.ahk" { IMFTimedTextTrackList }
-#Import ".\IMFTimedTextNotify.ahk" { IMFTimedTextNotify }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MF_TIMED_TEXT_TRACK_KIND.ahk" { MF_TIMED_TEXT_TRACK_KIND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFTimedTextTrack.ahk" { IMFTimedTextTrack }
-#Import ".\IMFByteStream.ahk" { IMFByteStream }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import ".\IMFTimedTextNotify.ahk" { IMFTimedTextNotify }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFTimedTextTrack.ahk" { IMFTimedTextTrack }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A timed-text object represents a component of timed text.
@@ -86,7 +86,7 @@ export default struct IMFTimedText extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-selecttrack
      */
     SelectTrack(trackId, selected) {
-        result := ComCall(4, this, "uint", trackId, BOOL, selected, "HRESULT")
+        result := ComCall(4, this, UInt32, trackId, BOOL, selected, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct IMFTimedText extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-setcuetimeoffset
      */
     SetCueTimeOffset(offset) {
-        result := ComCall(10, this, "double", offset, "HRESULT")
+        result := ComCall(10, this, Float64, offset, "HRESULT")
         return result
     }
 

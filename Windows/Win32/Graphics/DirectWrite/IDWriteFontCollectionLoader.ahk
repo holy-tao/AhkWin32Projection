@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDWriteFactory.ahk" { IDWriteFactory }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDWriteFontFileEnumerator.ahk" { IDWriteFontFileEnumerator }
 
 /**
@@ -59,7 +59,7 @@ export default struct IDWriteFontCollectionLoader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollectionloader-createenumeratorfromkey
      */
     CreateEnumeratorFromKey(factory, collectionKey, collectionKeySize) {
-        result := ComCall(3, this, "ptr", factory, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", &fontFileEnumerator := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", factory, IntPtr, collectionKey, UInt32, collectionKeySize, "ptr*", &fontFileEnumerator := 0, "HRESULT")
         return IDWriteFontFileEnumerator(fontFileEnumerator)
     }
 

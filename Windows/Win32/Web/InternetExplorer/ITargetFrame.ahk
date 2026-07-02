@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Ole\IOleContainer.ahk" { IOleContainer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Ole\IOleContainer.ahk" { IOleContainer }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -90,7 +90,7 @@ export default struct ITargetFrame extends IUnknown {
     FindFrame(pszTargetName, ppunkContextFrame, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(6, this, "ptr", pszTargetName, "ptr", ppunkContextFrame, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszTargetName, "ptr", ppunkContextFrame, UInt32, dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
         return IUnknown(ppunkTargetFrame)
     }
 
@@ -130,7 +130,7 @@ export default struct ITargetFrame extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFrameOptions(dwFlags) {
-        result := ComCall(10, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct ITargetFrame extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFrameMargins(dwWidth, dwHeight) {
-        result := ComCall(12, this, "uint", dwWidth, "uint", dwHeight, "HRESULT")
+        result := ComCall(12, this, UInt32, dwWidth, UInt32, dwHeight, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct ITargetFrame extends IUnknown {
     RemoteNavigate(cLength, pulData) {
         pulDataMarshal := pulData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", cLength, pulDataMarshal, pulData, "HRESULT")
+        result := ComCall(14, this, UInt32, cLength, pulDataMarshal, pulData, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DVD_KARAOKE_ASSIGNMENT.ahk" { DVD_KARAOKE_ASSIGNMENT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DVD_KARAOKE_ASSIGNMENT.ahk" { DVD_KARAOKE_ASSIGNMENT }
 
 /**
  * The DVD_KaraokeAttributes structure contains information about a karaoke audio stream. The IDvdInfo2::GetKaraokeAttributes method fills in a DVD_KaraokeAttributes structure for a specified stream.

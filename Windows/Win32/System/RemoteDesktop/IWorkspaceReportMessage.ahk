@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that support error message handling for remote workspaces.
@@ -67,7 +67,7 @@ export default struct IWorkspaceReportMessage extends IUnknown {
         bstrWkspId := bstrWkspId is String ? BSTR.Alloc(bstrWkspId).Value : bstrWkspId
         bstrErrorMessageType := bstrErrorMessageType is String ? BSTR.Alloc(bstrErrorMessageType).Value : bstrErrorMessageType
 
-        result := ComCall(4, this, BSTR, bstrWkspId, "uint", dwErrorType, BSTR, bstrErrorMessageType, "uint", dwErrorCode, VARIANT_BOOL.Ptr, &pfErrorExist := 0, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrWkspId, UInt32, dwErrorType, BSTR, bstrErrorMessageType, UInt32, dwErrorCode, VARIANT_BOOL.Ptr, &pfErrorExist := 0, "HRESULT")
         return pfErrorExist
     }
 
@@ -84,7 +84,7 @@ export default struct IWorkspaceReportMessage extends IUnknown {
         bstrWkspId := bstrWkspId is String ? BSTR.Alloc(bstrWkspId).Value : bstrWkspId
         bstrErrorMessageType := bstrErrorMessageType is String ? BSTR.Alloc(bstrErrorMessageType).Value : bstrErrorMessageType
 
-        result := ComCall(5, this, BSTR, bstrWkspId, "uint", dwErrorType, BSTR, bstrErrorMessageType, "uint", dwErrorCode, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrWkspId, UInt32, dwErrorType, BSTR, bstrErrorMessageType, UInt32, dwErrorCode, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DVINFO.ahk" { DVINFO }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVINFO.ahk" { DVINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDVEnc interface sets and retrieves properties on the DV Video Encoder filter.
@@ -54,7 +54,7 @@ export default struct IDVEnc extends IUnknown {
         DVFormatMarshal := DVFormat is VarRef ? "int*" : "ptr"
         ResolutionMarshal := Resolution is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, VideoFormatMarshal, VideoFormat, DVFormatMarshal, DVFormat, ResolutionMarshal, Resolution, "char", fDVInfo, DVINFO.Ptr, sDVInfo, "HRESULT")
+        result := ComCall(3, this, VideoFormatMarshal, VideoFormat, DVFormatMarshal, DVFormat, ResolutionMarshal, Resolution, Int8, fDVInfo, DVINFO.Ptr, sDVInfo, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct IDVEnc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvenc-put_iformatresolution
      */
     put_IFormatResolution(VideoFormat, DVFormat, Resolution, fDVInfo, sDVInfo) {
-        result := ComCall(4, this, "int", VideoFormat, "int", DVFormat, "int", Resolution, "char", fDVInfo, DVINFO.Ptr, sDVInfo, "HRESULT")
+        result := ComCall(4, this, Int32, VideoFormat, Int32, DVFormat, Int32, Resolution, Int8, fDVInfo, DVINFO.Ptr, sDVInfo, "HRESULT")
         return result
     }
 

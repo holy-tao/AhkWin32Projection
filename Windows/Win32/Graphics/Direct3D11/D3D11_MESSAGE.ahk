@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_MESSAGE_SEVERITY.ahk" { D3D11_MESSAGE_SEVERITY }
-#Import ".\D3D11_MESSAGE_CATEGORY.ahk" { D3D11_MESSAGE_CATEGORY }
 #Import ".\D3D11_MESSAGE_ID.ahk" { D3D11_MESSAGE_ID }
+#Import ".\D3D11_MESSAGE_CATEGORY.ahk" { D3D11_MESSAGE_CATEGORY }
+#Import ".\D3D11_MESSAGE_SEVERITY.ahk" { D3D11_MESSAGE_SEVERITY }
 
 /**
  * A debug message in the Information Queue. (D3D11_MESSAGE)

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -2536,7 +2536,7 @@ export default struct IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pixelTop(v) {
-        result := ComCall(160, this, "int", v, "HRESULT")
+        result := ComCall(160, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -2555,7 +2555,7 @@ export default struct IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pixelLeft(v) {
-        result := ComCall(162, this, "int", v, "HRESULT")
+        result := ComCall(162, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -2574,7 +2574,7 @@ export default struct IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pixelWidth(v) {
-        result := ComCall(164, this, "int", v, "HRESULT")
+        result := ComCall(164, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -2593,7 +2593,7 @@ export default struct IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pixelHeight(v) {
-        result := ComCall(166, this, "int", v, "HRESULT")
+        result := ComCall(166, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -2612,7 +2612,7 @@ export default struct IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_posTop(v) {
-        result := ComCall(168, this, "float", v, "HRESULT")
+        result := ComCall(168, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -2631,7 +2631,7 @@ export default struct IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_posLeft(v) {
-        result := ComCall(170, this, "float", v, "HRESULT")
+        result := ComCall(170, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -2650,7 +2650,7 @@ export default struct IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_posWidth(v) {
-        result := ComCall(172, this, "float", v, "HRESULT")
+        result := ComCall(172, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -2669,7 +2669,7 @@ export default struct IHTMLStyle extends IDispatch {
      * @returns {HRESULT} 
      */
     put_posHeight(v) {
-        result := ComCall(174, this, "float", v, "HRESULT")
+        result := ComCall(174, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -2758,7 +2758,7 @@ export default struct IHTMLStyle extends IDispatch {
     setAttribute(strAttributeName, AttributeValue, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(182, this, BSTR, strAttributeName, VARIANT, AttributeValue, "int", lFlags, "HRESULT")
+        result := ComCall(182, this, BSTR, strAttributeName, VARIANT, AttributeValue, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -2772,7 +2772,7 @@ export default struct IHTMLStyle extends IDispatch {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
         AttributeValue := VARIANT()
-        result := ComCall(183, this, BSTR, strAttributeName, "int", lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
+        result := ComCall(183, this, BSTR, strAttributeName, Int32, lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
         return AttributeValue
     }
 
@@ -2785,7 +2785,7 @@ export default struct IHTMLStyle extends IDispatch {
     removeAttribute(strAttributeName, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(184, this, BSTR, strAttributeName, "int", lFlags, VARIANT_BOOL.Ptr, &pfSuccess := 0, "HRESULT")
+        result := ComCall(184, this, BSTR, strAttributeName, Int32, lFlags, VARIANT_BOOL.Ptr, &pfSuccess := 0, "HRESULT")
         return pfSuccess
     }
 

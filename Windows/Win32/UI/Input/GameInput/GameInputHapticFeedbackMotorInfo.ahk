@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputHapticWaveformInfo.ahk" { GameInputHapticWaveformInfo }
 #Import ".\GameInputLocation.ahk" { GameInputLocation }
 #Import ".\GameInputRumbleMotors.ahk" { GameInputRumbleMotors }
-#Import ".\GameInputHapticWaveformInfo.ahk" { GameInputHapticWaveformInfo }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

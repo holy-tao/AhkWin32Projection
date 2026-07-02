@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Graphics\Dxgi\IDXGISurface.ahk" { IDXGISurface }
 #Import ".\PDF_RENDER_PARAMS.ahk" { PDF_RENDER_PARAMS }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Graphics\Dxgi\IDXGISurface.ahk" { IDXGISurface }
 #Import "..\..\..\Graphics\Direct2D\ID2D1DeviceContext.ahk" { ID2D1DeviceContext }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a high-performance API for displaying a single page of a Portable Document Format (PDF) file.

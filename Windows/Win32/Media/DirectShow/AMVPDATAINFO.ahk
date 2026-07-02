@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\AMVPDIMINFO.ahk" { AMVPDIMINFO }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\AMVPDIMINFO.ahk" { AMVPDIMINFO }
 
 /**
  * The AMVPDATAINFO structure specifies the data-specific characteristics of the VP input stream.

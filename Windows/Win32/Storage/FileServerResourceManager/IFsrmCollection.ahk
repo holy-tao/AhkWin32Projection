@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FsrmCollectionState.ahk" { FsrmCollectionState }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\FsrmCollectionState.ahk" { FsrmCollectionState }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Defines a collection of FSRM objects.
@@ -111,7 +111,7 @@ export default struct IFsrmCollection extends IDispatch {
      */
     get_Item(index) {
         item := VARIANT()
-        result := ComCall(8, this, "int", index, VARIANT.Ptr, item, "HRESULT")
+        result := ComCall(8, this, Int32, index, VARIANT.Ptr, item, "HRESULT")
         return item
     }
 
@@ -152,7 +152,7 @@ export default struct IFsrmCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-waitforcompletion
      */
     WaitForCompletion(waitSeconds) {
-        result := ComCall(12, this, "int", waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
+        result := ComCall(12, this, Int32, waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 

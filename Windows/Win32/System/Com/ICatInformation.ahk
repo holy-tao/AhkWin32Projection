@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumCATEGORYINFO.ahk" { IEnumCATEGORYINFO }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumGUID.ahk" { IEnumGUID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumGUID.ahk" { IEnumGUID }
-#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumCATEGORYINFO.ahk" { IEnumCATEGORYINFO }
 
 /**
  * Obtains information about the categories implemented or required by a certain class, as well as information about the categories registered on the specified computer.
@@ -52,7 +52,7 @@ export default struct ICatInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatinformation-enumcategories
      */
     EnumCategories(lcid) {
-        result := ComCall(3, this, "uint", lcid, "ptr*", &ppenumCategoryInfo := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, lcid, "ptr*", &ppenumCategoryInfo := 0, "HRESULT")
         return IEnumCATEGORYINFO(ppenumCategoryInfo)
     }
 
@@ -64,7 +64,7 @@ export default struct ICatInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatinformation-getcategorydesc
      */
     GetCategoryDesc(rcatid, lcid) {
-        result := ComCall(4, this, Guid.Ptr, rcatid, "uint", lcid, PWSTR.Ptr, &pszDesc := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rcatid, UInt32, lcid, PWSTR.Ptr, &pszDesc := 0, "HRESULT")
         return pszDesc
     }
 
@@ -80,7 +80,7 @@ export default struct ICatInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatinformation-enumclassesofcategories
      */
     EnumClassesOfCategories(cImplemented, rgcatidImpl, cRequired, rgcatidReq) {
-        result := ComCall(5, this, "uint", cImplemented, Guid.Ptr, rgcatidImpl, "uint", cRequired, Guid.Ptr, rgcatidReq, "ptr*", &ppenumClsid := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, cImplemented, Guid.Ptr, rgcatidImpl, UInt32, cRequired, Guid.Ptr, rgcatidReq, "ptr*", &ppenumClsid := 0, "HRESULT")
         return IEnumGUID(ppenumClsid)
     }
 
@@ -97,7 +97,7 @@ export default struct ICatInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatinformation-isclassofcategories
      */
     IsClassOfCategories(rclsid, cImplemented, rgcatidImpl, cRequired, rgcatidReq) {
-        result := ComCall(6, this, Guid.Ptr, rclsid, "uint", cImplemented, Guid.Ptr, rgcatidImpl, "uint", cRequired, Guid.Ptr, rgcatidReq, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rclsid, UInt32, cImplemented, Guid.Ptr, rgcatidImpl, UInt32, cRequired, Guid.Ptr, rgcatidReq, "HRESULT")
         return result
     }
 

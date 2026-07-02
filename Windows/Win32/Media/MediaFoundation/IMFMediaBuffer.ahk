@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a block of memory that contains media data.
@@ -290,7 +290,7 @@ export default struct IMFMediaBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-setcurrentlength
      */
     SetCurrentLength(cbCurrentLength) {
-        result := ComCall(6, this, "uint", cbCurrentLength, "HRESULT")
+        result := ComCall(6, this, UInt32, cbCurrentLength, "HRESULT")
         return result
     }
 

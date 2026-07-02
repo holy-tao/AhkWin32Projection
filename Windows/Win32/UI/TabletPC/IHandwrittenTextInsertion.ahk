@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used by the application's custom text entry code to insert the text into both the text field and the Text Services backing-store.
@@ -60,7 +60,7 @@ export default struct IHandwrittenTextInsertion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ihandwrittentextinsertion-insertrecognitionresultsarray
      */
     InsertRecognitionResultsArray(psaAlternates, locale, fAlternateContainsAutoSpacingInformation) {
-        result := ComCall(3, this, SAFEARRAY.Ptr, psaAlternates, "uint", locale, BOOL, fAlternateContainsAutoSpacingInformation, "HRESULT")
+        result := ComCall(3, this, SAFEARRAY.Ptr, psaAlternates, UInt32, locale, BOOL, fAlternateContainsAutoSpacingInformation, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct IHandwrittenTextInsertion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ihandwrittentextinsertion-insertinkrecognitionresult
      */
     InsertInkRecognitionResult(pIInkRecoResult, locale, fAlternateContainsAutoSpacingInformation) {
-        result := ComCall(4, this, "ptr", pIInkRecoResult, "uint", locale, BOOL, fAlternateContainsAutoSpacingInformation, "HRESULT")
+        result := ComCall(4, this, "ptr", pIInkRecoResult, UInt32, locale, BOOL, fAlternateContainsAutoSpacingInformation, "HRESULT")
         return result
     }
 

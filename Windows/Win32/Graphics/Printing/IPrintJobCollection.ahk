@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IPrintJob.ahk" { IPrintJob }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -68,7 +68,7 @@ export default struct IPrintJobCollection extends IDispatch {
      * @returns {IPrintJob} 
      */
     GetAt(ulIndex) {
-        result := ComCall(8, this, "uint", ulIndex, "ptr*", &ppJob := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, ulIndex, "ptr*", &ppJob := 0, "HRESULT")
         return IPrintJob(ppJob)
     }
 

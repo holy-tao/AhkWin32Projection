@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRegistrationInfo.ahk" { IRegistrationInfo }
+#Import ".\ITriggerCollection.ahk" { ITriggerCollection }
 #Import ".\IPrincipal.ahk" { IPrincipal }
 #Import ".\IActionCollection.ahk" { IActionCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITriggerCollection.ahk" { ITriggerCollection }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IRegistrationInfo.ahk" { IRegistrationInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITaskSettings.ahk" { ITaskSettings }
 
 /**

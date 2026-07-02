@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -56,7 +56,7 @@ export default struct ICLRStrongName2 extends IUnknown {
         ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : "ptr"
         pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, ppbPublicKeyBlobMarshal, ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "uint", uHashAlgId, "uint", uReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, ppbPublicKeyBlobMarshal, ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, UInt32, uHashAlgId, UInt32, uReserved, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct ICLRStrongName2 extends IUnknown {
 
         pbEcmaPublicKeyMarshal := pbEcmaPublicKey is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", wszFilePath, BOOLEAN, fForceVerification, pbEcmaPublicKeyMarshal, pbEcmaPublicKey, "uint", cbEcmaPublicKey, "char*", &pfWasVerified := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", wszFilePath, BOOLEAN, fForceVerification, pbEcmaPublicKeyMarshal, pbEcmaPublicKey, UInt32, cbEcmaPublicKey, "char*", &pfWasVerified := 0, "HRESULT")
         return pfWasVerified
     }
 

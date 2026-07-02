@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IEnumString.ahk" { IEnumString }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\System\Com\IEnumString.ahk" { IEnumString }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for retrieving metadata blocks and items from a decoder or its image frames using a metadata query expression.
@@ -87,7 +87,7 @@ export default struct IWICMetadataQueryReader extends IUnknown {
     GetLocation(cchMaxLength, wzNamespace) {
         wzNamespace := wzNamespace is String ? StrPtr(wzNamespace) : wzNamespace
 
-        result := ComCall(4, this, "uint", cchMaxLength, "ptr", wzNamespace, "uint*", &pcchActualLength := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, cchMaxLength, "ptr", wzNamespace, "uint*", &pcchActualLength := 0, "HRESULT")
         return pcchActualLength
     }
 

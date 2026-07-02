@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Encapsulates forward and inverse FFTs.
@@ -57,7 +57,7 @@ export default struct ID3DX11FFT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11fft-setforwardscale
      */
     SetForwardScale(ForwardScale) {
-        result := ComCall(3, this, "float", ForwardScale, "HRESULT")
+        result := ComCall(3, this, Float32, ForwardScale, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct ID3DX11FFT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11fft-setinversescale
      */
     SetInverseScale(InverseScale) {
-        result := ComCall(5, this, "float", InverseScale, "HRESULT")
+        result := ComCall(5, this, Float32, InverseScale, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct ID3DX11FFT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11fft-attachbuffersandprecompute
      */
     AttachBuffersAndPrecompute(NumTempBuffers, ppTempBuffers, NumPrecomputeBuffers, ppPrecomputeBufferSizes) {
-        result := ComCall(7, this, "uint", NumTempBuffers, ID3D11UnorderedAccessView.Ptr, ppTempBuffers, "uint", NumPrecomputeBuffers, ID3D11UnorderedAccessView.Ptr, ppPrecomputeBufferSizes, "HRESULT")
+        result := ComCall(7, this, UInt32, NumTempBuffers, ID3D11UnorderedAccessView.Ptr, ppTempBuffers, UInt32, NumPrecomputeBuffers, ID3D11UnorderedAccessView.Ptr, ppPrecomputeBufferSizes, "HRESULT")
         return result
     }
 

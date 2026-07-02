@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\ISynchronize.ahk" { ISynchronize }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ISynchronizeContainer (objidlbase.h) interface manages a group of unsignaled synchronization objects.
@@ -91,7 +91,7 @@ export default struct ISynchronizeContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isynchronizecontainer-waitmultiple
      */
     WaitMultiple(dwFlags, dwTimeOut) {
-        result := ComCall(4, this, "uint", dwFlags, "uint", dwTimeOut, "ptr*", &ppSync := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, UInt32, dwTimeOut, "ptr*", &ppSync := 0, "HRESULT")
         return ISynchronize(ppSync)
     }
 

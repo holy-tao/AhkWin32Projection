@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICJpegFrameHeader.ahk" { WICJpegFrameHeader }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WICJpegScanHeader.ahk" { WICJpegScanHeader }
-#Import ".\WICJpegIndexingOptions.ahk" { WICJpegIndexingOptions }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_AC_HUFFMAN_TABLE }
 #Import "..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_DC_HUFFMAN_TABLE }
 #Import "..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk" { DXGI_JPEG_QUANTIZATION_TABLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICJpegScanHeader.ahk" { WICJpegScanHeader }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WICJpegFrameHeader.ahk" { WICJpegFrameHeader }
+#Import ".\WICJpegIndexingOptions.ahk" { WICJpegIndexingOptions }
+#Import "..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk" { DXGI_JPEG_AC_HUFFMAN_TABLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods for decoding JPEG images. Provides access to the Start Of Frame (SOF) header, Start of Scan (SOS) header, the Huffman and Quantization tables, and the compressed JPEG JPEG data. Also enables indexing for efficient random access.
@@ -93,7 +93,7 @@ export default struct IWICJpegFrameDecode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-setindexing
      */
     SetIndexing(options, horizontalIntervalSize) {
-        result := ComCall(4, this, WICJpegIndexingOptions, options, "uint", horizontalIntervalSize, "HRESULT")
+        result := ComCall(4, this, WICJpegIndexingOptions, options, UInt32, horizontalIntervalSize, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct IWICJpegFrameDecode extends IUnknown {
      */
     GetAcHuffmanTable(scanIndex, tableIndex) {
         pAcHuffmanTable := DXGI_JPEG_AC_HUFFMAN_TABLE()
-        result := ComCall(6, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_AC_HUFFMAN_TABLE.Ptr, pAcHuffmanTable, "HRESULT")
+        result := ComCall(6, this, UInt32, scanIndex, UInt32, tableIndex, DXGI_JPEG_AC_HUFFMAN_TABLE.Ptr, pAcHuffmanTable, "HRESULT")
         return pAcHuffmanTable
     }
 
@@ -143,7 +143,7 @@ export default struct IWICJpegFrameDecode extends IUnknown {
      */
     GetDcHuffmanTable(scanIndex, tableIndex) {
         pDcHuffmanTable := DXGI_JPEG_DC_HUFFMAN_TABLE()
-        result := ComCall(7, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_DC_HUFFMAN_TABLE.Ptr, pDcHuffmanTable, "HRESULT")
+        result := ComCall(7, this, UInt32, scanIndex, UInt32, tableIndex, DXGI_JPEG_DC_HUFFMAN_TABLE.Ptr, pDcHuffmanTable, "HRESULT")
         return pDcHuffmanTable
     }
 
@@ -162,7 +162,7 @@ export default struct IWICJpegFrameDecode extends IUnknown {
      */
     GetQuantizationTable(scanIndex, tableIndex) {
         pQuantizationTable := DXGI_JPEG_QUANTIZATION_TABLE()
-        result := ComCall(8, this, "uint", scanIndex, "uint", tableIndex, DXGI_JPEG_QUANTIZATION_TABLE.Ptr, pQuantizationTable, "HRESULT")
+        result := ComCall(8, this, UInt32, scanIndex, UInt32, tableIndex, DXGI_JPEG_QUANTIZATION_TABLE.Ptr, pQuantizationTable, "HRESULT")
         return pQuantizationTable
     }
 
@@ -191,7 +191,7 @@ export default struct IWICJpegFrameDecode extends IUnknown {
      */
     GetScanHeader(scanIndex) {
         pScanHeader := WICJpegScanHeader()
-        result := ComCall(10, this, "uint", scanIndex, WICJpegScanHeader.Ptr, pScanHeader, "HRESULT")
+        result := ComCall(10, this, UInt32, scanIndex, WICJpegScanHeader.Ptr, pScanHeader, "HRESULT")
         return pScanHeader
     }
 
@@ -250,7 +250,7 @@ export default struct IWICJpegFrameDecode extends IUnknown {
         pbScanDataMarshal := pbScanData is VarRef ? "char*" : "ptr"
         pcbScanDataActualMarshal := pcbScanDataActual is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", scanIndex, "uint", scanOffset, "uint", cbScanData, pbScanDataMarshal, pbScanData, pcbScanDataActualMarshal, pcbScanDataActual, "HRESULT")
+        result := ComCall(11, this, UInt32, scanIndex, UInt32, scanOffset, UInt32, cbScanData, pbScanDataMarshal, pbScanData, pcbScanDataActualMarshal, pcbScanDataActual, "HRESULT")
         return result
     }
 
@@ -266,7 +266,7 @@ export default struct IWICJpegFrameDecode extends IUnknown {
         pbStreamDataMarshal := pbStreamData is VarRef ? "char*" : "ptr"
         pcbStreamDataActualMarshal := pcbStreamDataActual is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", streamOffset, "uint", cbStreamData, pbStreamDataMarshal, pbStreamData, pcbStreamDataActualMarshal, pcbStreamDataActual, "HRESULT")
+        result := ComCall(12, this, UInt32, streamOffset, UInt32, cbStreamData, pbStreamDataMarshal, pbStreamData, pcbStreamDataActualMarshal, pcbStreamDataActual, "HRESULT")
         return result
     }
 

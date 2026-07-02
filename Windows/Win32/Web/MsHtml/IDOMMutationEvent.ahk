@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -149,7 +149,7 @@ export default struct IDOMMutationEvent extends IDispatch {
         newValueArg := newValueArg is String ? BSTR.Alloc(newValueArg).Value : newValueArg
         attrNameArg := attrNameArg is String ? BSTR.Alloc(attrNameArg).Value : attrNameArg
 
-        result := ComCall(12, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", relatedNodeArg, BSTR, prevValueArg, BSTR, newValueArg, BSTR, attrNameArg, "ushort", attrChangeArg, "HRESULT")
+        result := ComCall(12, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", relatedNodeArg, BSTR, prevValueArg, BSTR, newValueArg, BSTR, attrNameArg, UInt16, attrChangeArg, "HRESULT")
         return result
     }
 

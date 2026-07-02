@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\COMPRESS_ALGORITHM.ahk" { COMPRESS_ALGORITHM }
-#Import ".\DECOMPRESSOR_HANDLE.ahk" { DECOMPRESSOR_HANDLE }
-#Import ".\COMPRESSOR_HANDLE.ahk" { COMPRESSOR_HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\COMPRESS_INFORMATION_CLASS.ahk" { COMPRESS_INFORMATION_CLASS }
 #Import ".\COMPRESS_ALLOCATION_ROUTINES.ahk" { COMPRESS_ALLOCATION_ROUTINES }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\COMPRESSOR_HANDLE.ahk" { COMPRESSOR_HANDLE }
+#Import ".\DECOMPRESSOR_HANDLE.ahk" { DECOMPRESSOR_HANDLE }
+#Import ".\COMPRESS_ALGORITHM.ahk" { COMPRESS_ALGORITHM }
 
 /**
  * @namespace Windows.Win32.Storage.Compression
@@ -49,7 +49,7 @@ export CreateCompressor(Algorithm, AllocationRoutines, CompressorHandle) {
 export SetCompressorInformation(CompressorHandle, CompressInformationClass, CompressInformation, CompressInformationSize) {
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\SetCompressorInformation", COMPRESSOR_HANDLE, CompressorHandle, COMPRESS_INFORMATION_CLASS, CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, BOOL)
+    result := DllCall("Cabinet.dll\SetCompressorInformation", COMPRESSOR_HANDLE, CompressorHandle, COMPRESS_INFORMATION_CLASS, CompressInformationClass, IntPtr, CompressInformation, IntPtr, CompressInformationSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -72,7 +72,7 @@ export SetCompressorInformation(CompressorHandle, CompressInformationClass, Comp
 export QueryCompressorInformation(CompressorHandle, CompressInformationClass, CompressInformation, CompressInformationSize) {
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\QueryCompressorInformation", COMPRESSOR_HANDLE, CompressorHandle, COMPRESS_INFORMATION_CLASS, CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, BOOL)
+    result := DllCall("Cabinet.dll\QueryCompressorInformation", COMPRESSOR_HANDLE, CompressorHandle, COMPRESS_INFORMATION_CLASS, CompressInformationClass, IntPtr, CompressInformation, IntPtr, CompressInformationSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -101,7 +101,7 @@ export Compress(CompressorHandle, UncompressedData, UncompressedDataSize, Compre
 
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\Compress", COMPRESSOR_HANDLE, CompressorHandle, "ptr", UncompressedData, "ptr", UncompressedDataSize, "ptr", CompressedBuffer, "ptr", CompressedBufferSize, CompressedDataSizeMarshal, CompressedDataSize, BOOL)
+    result := DllCall("Cabinet.dll\Compress", COMPRESSOR_HANDLE, CompressorHandle, IntPtr, UncompressedData, IntPtr, UncompressedDataSize, IntPtr, CompressedBuffer, IntPtr, CompressedBufferSize, CompressedDataSizeMarshal, CompressedDataSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -186,7 +186,7 @@ export CreateDecompressor(Algorithm, AllocationRoutines, DecompressorHandle) {
 export SetDecompressorInformation(DecompressorHandle, CompressInformationClass, CompressInformation, CompressInformationSize) {
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\SetDecompressorInformation", DECOMPRESSOR_HANDLE, DecompressorHandle, COMPRESS_INFORMATION_CLASS, CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, BOOL)
+    result := DllCall("Cabinet.dll\SetDecompressorInformation", DECOMPRESSOR_HANDLE, DecompressorHandle, COMPRESS_INFORMATION_CLASS, CompressInformationClass, IntPtr, CompressInformation, IntPtr, CompressInformationSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -209,7 +209,7 @@ export SetDecompressorInformation(DecompressorHandle, CompressInformationClass, 
 export QueryDecompressorInformation(DecompressorHandle, CompressInformationClass, CompressInformation, CompressInformationSize) {
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\QueryDecompressorInformation", DECOMPRESSOR_HANDLE, DecompressorHandle, COMPRESS_INFORMATION_CLASS, CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, BOOL)
+    result := DllCall("Cabinet.dll\QueryDecompressorInformation", DECOMPRESSOR_HANDLE, DecompressorHandle, COMPRESS_INFORMATION_CLASS, CompressInformationClass, IntPtr, CompressInformation, IntPtr, CompressInformationSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -250,7 +250,7 @@ export Decompress(DecompressorHandle, CompressedData, CompressedDataSize, Uncomp
 
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\Decompress", DECOMPRESSOR_HANDLE, DecompressorHandle, "ptr", CompressedData, "ptr", CompressedDataSize, "ptr", UncompressedBuffer, "ptr", UncompressedBufferSize, UncompressedDataSizeMarshal, UncompressedDataSize, BOOL)
+    result := DllCall("Cabinet.dll\Decompress", DECOMPRESSOR_HANDLE, DecompressorHandle, IntPtr, CompressedData, IntPtr, CompressedDataSize, IntPtr, UncompressedBuffer, IntPtr, UncompressedBufferSize, UncompressedDataSizeMarshal, UncompressedDataSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

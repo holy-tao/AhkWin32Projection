@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISCPSecureQuery.ahk" { ISCPSecureQuery }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
-#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
+#Import ".\ISCPSecureQuery.ahk" { ISCPSecureQuery }
 
 /**
  * The ISCPSecureQuery2 interface extends ISCPSecureQuery through functionality that determines whether the secure content provider is responsible for the content, and if so, providing a URL for updating revoked components and determining which components have been revoked.
@@ -139,7 +139,7 @@ export default struct ISCPSecureQuery2 extends ISCPSecureQuery {
         pqwFileSizeMarshal := pqwFileSize is VarRef ? "uint*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", fuFlags, pDataMarshal, pData, "uint", dwSize, "uint", dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, pAppCertAppMarshal, pAppCertApp, "uint", dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, "uint", dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, "ptr", pUnknown, ISCPSecureExchange.Ptr, ppExchange, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(7, this, UInt32, fuFlags, pDataMarshal, pData, UInt32, dwSize, UInt32, dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStorageGlobals, pAppCertAppMarshal, pAppCertApp, UInt32, dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, UInt32, dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, "ptr", pUnknown, ISCPSecureExchange.Ptr, ppExchange, abMacMarshal, abMac, "HRESULT")
         return result
     }
 

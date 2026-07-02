@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\BDA_CONDITIONALACCESS_REQUESTTYPE.ahk" { BDA_CONDITIONALACCESS_REQUESTTYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\BDA_CONDITIONALACCESS_MMICLOSEREASON.ahk" { BDA_CONDITIONALACCESS_MMICLOSEREASON }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\BDA_CONDITIONALACCESS_MMICLOSEREASON.ahk" { BDA_CONDITIONALACCESS_MMICLOSEREASON }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to a device's Conditional Access Service (CAS), which manages access to protected content.
@@ -61,7 +61,7 @@ export default struct IBDA_ConditionalAccessEx extends IUnknown {
 
         pbEntitlementTokenMarshal := pbEntitlementToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulDialogRequest, BSTR, bstrLanguage, BDA_CONDITIONALACCESS_REQUESTTYPE, RequestType, "uint", ulcbEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, ulDialogRequest, BSTR, bstrLanguage, BDA_CONDITIONALACCESS_REQUESTTYPE, RequestType, UInt32, ulcbEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, "HRESULT")
         return pulDescrambleStatus
     }
 
@@ -75,7 +75,7 @@ export default struct IBDA_ConditionalAccessEx extends IUnknown {
     SetCaptureToken(ulcbCaptureTokenLen, pbCaptureToken) {
         pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulcbCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
+        result := ComCall(4, this, UInt32, ulcbCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IBDA_ConditionalAccessEx extends IUnknown {
     OpenBroadcastMmi(ulDialogRequest, bstrLanguage, EventId) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(5, this, "uint", ulDialogRequest, BSTR, bstrLanguage, "uint", EventId, "HRESULT")
+        result := ComCall(5, this, UInt32, ulDialogRequest, BSTR, bstrLanguage, UInt32, EventId, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IBDA_ConditionalAccessEx extends IUnknown {
     CloseMmiDialog(ulDialogRequest, bstrLanguage, ulDialogNumber, ReasonCode) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(6, this, "uint", ulDialogRequest, BSTR, bstrLanguage, "uint", ulDialogNumber, BDA_CONDITIONALACCESS_MMICLOSEREASON, ReasonCode, "uint*", &pulSessionResult := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, ulDialogRequest, BSTR, bstrLanguage, UInt32, ulDialogNumber, BDA_CONDITIONALACCESS_MMICLOSEREASON, ReasonCode, "uint*", &pulSessionResult := 0, "HRESULT")
         return pulSessionResult
     }
 

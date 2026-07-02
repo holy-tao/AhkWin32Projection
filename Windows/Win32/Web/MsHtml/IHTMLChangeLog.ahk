@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -44,7 +44,7 @@ export default struct IHTMLChangeLog extends IUnknown {
     GetNextChange(pbBuffer, nBufferSize) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pbBufferMarshal, pbBuffer, "int", nBufferSize, "int*", &pnRecordLength := 0, "HRESULT")
+        result := ComCall(3, this, pbBufferMarshal, pbBuffer, Int32, nBufferSize, "int*", &pnRecordLength := 0, "HRESULT")
         return pnRecordLength
     }
 

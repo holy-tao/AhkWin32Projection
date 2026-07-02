@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FixupState.ahk" { FixupState }
 #Import ".\ResultCodes.ahk" { ResultCodes }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FixupState.ahk" { FixupState }
 
 /**
  * Contains fix-up information for the Sysytem Health Agent (SHA).

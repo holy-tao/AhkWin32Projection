@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PEER_DATA.ahk" { PEER_DATA }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PEER_DATA.ahk" { PEER_DATA }
 
 /**
  * The PEER_OBJECT structure contains application-specific run-time information that can be shared with trusted contacts within a peer collaboration network.

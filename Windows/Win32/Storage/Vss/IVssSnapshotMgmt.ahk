@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVssEnumObject.ahk" { IVssEnumObject }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVssEnumObject.ahk" { IVssEnumObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVssEnumMgmtObject.ahk" { IVssEnumMgmtObject }
 
 /**
@@ -72,7 +72,7 @@ export default struct IVssSnapshotMgmt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivsssnapshotmgmt-queryvolumessupportedforsnapshots
      */
     QueryVolumesSupportedForSnapshots(ProviderId, lContext) {
-        result := ComCall(4, this, Guid, ProviderId, "int", lContext, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(4, this, Guid, ProviderId, Int32, lContext, "ptr*", &ppEnum := 0, "HRESULT")
         return IVssEnumMgmtObject(ppEnum)
     }
 

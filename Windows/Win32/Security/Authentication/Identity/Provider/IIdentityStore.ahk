@@ -2,12 +2,12 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDENTITY_TYPE.ahk" { IDENTITY_TYPE }
 #Import "..\..\..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDENTITY_TYPE.ahk" { IDENTITY_TYPE }
 #Import "..\..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods to enumerate and manage identities and identity providers.
@@ -65,7 +65,7 @@ export default struct IIdentityStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-getat
      */
     GetAt(dwProvider, pProvGuid) {
-        result := ComCall(4, this, "uint", dwProvider, Guid.Ptr, pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwProvider, Guid.Ptr, pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
         return IUnknown(ppIdentityProvider)
     }
 
@@ -99,7 +99,7 @@ export default struct IIdentityStore extends IUnknown {
 
         _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpszUniqueID, Guid.Ptr, ProviderGUID, "ushort", cbSid, _pSidMarshal, _pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", lpszUniqueID, Guid.Ptr, ProviderGUID, UInt16, cbSid, _pSidMarshal, _pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
         return pcbRequiredSid
     }
 

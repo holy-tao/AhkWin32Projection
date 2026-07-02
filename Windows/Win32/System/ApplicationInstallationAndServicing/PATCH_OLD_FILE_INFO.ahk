@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PATCH_RETAIN_RANGE.ahk" { PATCH_RETAIN_RANGE }
-#Import ".\PATCH_IGNORE_RANGE.ahk" { PATCH_IGNORE_RANGE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\PATCH_RETAIN_RANGE.ahk" { PATCH_RETAIN_RANGE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PATCH_IGNORE_RANGE.ahk" { PATCH_IGNORE_RANGE }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

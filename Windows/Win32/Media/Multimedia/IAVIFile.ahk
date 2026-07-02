@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAVIStream.ahk" { IAVIStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\AVISTREAMINFOW.ahk" { AVISTREAMINFOW }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAVIFile interface supports opening and manipulating files and file headers, and creating and obtaining stream interfaces. Uses IUnknown::QueryInterface, IUnknown::AddRef, and IUnknown::Release in addition to the following custom methods:\_
@@ -65,7 +65,7 @@ export default struct IAVIFile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-info
      */
     Info(pfi, lSize) {
-        result := ComCall(3, this, "ptr", pfi, "int", lSize, "HRESULT")
+        result := ComCall(3, this, IntPtr, pfi, Int32, lSize, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IAVIFile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-getstream
      */
     GetStream(fccType, _lParam) {
-        result := ComCall(4, this, "ptr*", &ppStream := 0, "uint", fccType, "int", _lParam, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppStream := 0, UInt32, fccType, Int32, _lParam, "HRESULT")
         return IAVIStream(ppStream)
     }
 
@@ -137,7 +137,7 @@ export default struct IAVIFile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-writedata
      */
     WriteData(ckid, lpData, cbData) {
-        result := ComCall(6, this, "uint", ckid, "ptr", lpData, "int", cbData, "HRESULT")
+        result := ComCall(6, this, UInt32, ckid, IntPtr, lpData, Int32, cbData, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IAVIFile extends IUnknown {
     ReadData(ckid, lpData, lpcbData) {
         lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "uint", ckid, "ptr", lpData, lpcbDataMarshal, lpcbData, "HRESULT")
+        result := ComCall(7, this, UInt32, ckid, IntPtr, lpData, lpcbDataMarshal, lpcbData, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct IAVIFile extends IUnknown {
      * @returns {HRESULT} 
      */
     DeleteStream(fccType, _lParam) {
-        result := ComCall(9, this, "uint", fccType, "int", _lParam, "HRESULT")
+        result := ComCall(9, this, UInt32, fccType, Int32, _lParam, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PEER_GROUP_AUTHENTICATION_SCHEME.ahk" { PEER_GROUP_AUTHENTICATION_SCHEME }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\PEER_GROUP_AUTHENTICATION_SCHEME.ahk" { PEER_GROUP_AUTHENTICATION_SCHEME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
 
 /**
  * The PEER_INVITATION_INFO structure defines information about an invitation to join a peer group.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontFace3.ahk" { IDWriteFontFace3 }
 #Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontFace3.ahk" { IDWriteFontFace3 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a reference to a font face.
@@ -220,7 +220,7 @@ export default struct IDWriteFontFaceReference extends IUnknown {
     EnqueueCharacterDownloadRequest(characters, characterCount) {
         characters := characters is String ? StrPtr(characters) : characters
 
-        result := ComCall(14, this, "ptr", characters, "uint", characterCount, "HRESULT")
+        result := ComCall(14, this, "ptr", characters, UInt32, characterCount, "HRESULT")
         return result
     }
 
@@ -242,7 +242,7 @@ export default struct IDWriteFontFaceReference extends IUnknown {
     EnqueueGlyphDownloadRequest(glyphIndices, glyphCount) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(15, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "HRESULT")
+        result := ComCall(15, this, glyphIndicesMarshal, glyphIndices, UInt32, glyphCount, "HRESULT")
         return result
     }
 
@@ -260,7 +260,7 @@ export default struct IDWriteFontFaceReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueuefilefragmentdownloadrequest
      */
     EnqueueFileFragmentDownloadRequest(fileOffset, fragmentSize) {
-        result := ComCall(16, this, "uint", fileOffset, "uint", fragmentSize, "HRESULT")
+        result := ComCall(16, this, Int64, fileOffset, Int64, fragmentSize, "HRESULT")
         return result
     }
 

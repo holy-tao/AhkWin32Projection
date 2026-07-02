@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemServices.ahk" { IWbemServices }
-#Import ".\IWbemContext.ahk" { IWbemContext }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -56,7 +56,7 @@ export default struct IWbemLevel1Login extends IUnknown {
     EstablishPosition(wszLocaleList, dwNumLocales) {
         wszLocaleList := wszLocaleList is String ? StrPtr(wszLocaleList) : wszLocaleList
 
-        result := ComCall(3, this, "ptr", wszLocaleList, "uint", dwNumLocales, "uint*", &reserved := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", wszLocaleList, UInt32, dwNumLocales, "uint*", &reserved := 0, "HRESULT")
         return reserved
     }
 
@@ -87,7 +87,7 @@ export default struct IWbemLevel1Login extends IUnknown {
 
         AccessTokenMarshal := AccessToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "ptr", wszPreferredLocale, AccessTokenMarshal, AccessToken, "int", lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", wszPreferredLocale, AccessTokenMarshal, AccessToken, Int32, lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
         return IWbemServices(ppNamespace)
     }
 
@@ -103,7 +103,7 @@ export default struct IWbemLevel1Login extends IUnknown {
         wszNetworkResource := wszNetworkResource is String ? StrPtr(wszNetworkResource) : wszNetworkResource
         wszPreferredLocale := wszPreferredLocale is String ? StrPtr(wszPreferredLocale) : wszPreferredLocale
 
-        result := ComCall(6, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, "int", lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, Int32, lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
         return IWbemServices(ppNamespace)
     }
 

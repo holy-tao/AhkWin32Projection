@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NCPNP_RECONFIG_LAYER.ahk" { NCPNP_RECONFIG_LAYER }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\NCPNP_RECONFIG_LAYER.ahk" { NCPNP_RECONFIG_LAYER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -50,7 +50,7 @@ export default struct INetCfgPnpReconfigCallback extends IUnknown {
         pszwUpper := pszwUpper is String ? StrPtr(pszwUpper) : pszwUpper
         pszwLower := pszwLower is String ? StrPtr(pszwLower) : pszwLower
 
-        result := ComCall(3, this, NCPNP_RECONFIG_LAYER, Layer, "ptr", pszwUpper, "ptr", pszwLower, "ptr", pvData, "uint", dwSizeOfData, "HRESULT")
+        result := ComCall(3, this, NCPNP_RECONFIG_LAYER, Layer, "ptr", pszwUpper, "ptr", pszwLower, IntPtr, pvData, UInt32, dwSizeOfData, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IInspectable.ahk" { IInspectable }
-#Import "..\..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\HSTRING.ahk" { HSTRING }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Display
@@ -84,7 +84,7 @@ export default struct IDisplayDeviceInterop extends IUnknown {
      */
     CreateSharedHandle(pObject, pSecurityAttributes, Access, Name) {
         pHandle := HANDLE.Owned()
-        result := ComCall(3, this, "ptr", pObject, SECURITY_ATTRIBUTES.Ptr, pSecurityAttributes, "uint", Access, HSTRING, Name, HANDLE.Ptr, pHandle, "HRESULT")
+        result := ComCall(3, this, "ptr", pObject, SECURITY_ATTRIBUTES.Ptr, pSecurityAttributes, UInt32, Access, HSTRING, Name, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 

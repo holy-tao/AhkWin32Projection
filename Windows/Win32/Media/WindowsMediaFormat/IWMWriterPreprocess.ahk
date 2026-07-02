@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMWriterPreprocess interface handles multi-pass encoding.
@@ -52,7 +52,7 @@ export default struct IWMWriterPreprocess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-getmaxpreprocessingpasses
      */
     GetMaxPreprocessingPasses(dwInputNum, dwFlags) {
-        result := ComCall(3, this, "uint", dwInputNum, "uint", dwFlags, "uint*", &pdwMaxNumPasses := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwInputNum, UInt32, dwFlags, "uint*", &pdwMaxNumPasses := 0, "HRESULT")
         return pdwMaxNumPasses
     }
 
@@ -117,7 +117,7 @@ export default struct IWMWriterPreprocess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-setnumpreprocessingpasses
      */
     SetNumPreprocessingPasses(dwInputNum, dwFlags, dwNumPasses) {
-        result := ComCall(4, this, "uint", dwInputNum, "uint", dwFlags, "uint", dwNumPasses, "HRESULT")
+        result := ComCall(4, this, UInt32, dwInputNum, UInt32, dwFlags, UInt32, dwNumPasses, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct IWMWriterPreprocess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-beginpreprocessingpass
      */
     BeginPreprocessingPass(dwInputNum, dwFlags) {
-        result := ComCall(5, this, "uint", dwInputNum, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, dwInputNum, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -257,7 +257,7 @@ export default struct IWMWriterPreprocess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-preprocesssample
      */
     PreprocessSample(dwInputNum, cnsSampleTime, dwFlags, pSample) {
-        result := ComCall(6, this, "uint", dwInputNum, "uint", cnsSampleTime, "uint", dwFlags, "ptr", pSample, "HRESULT")
+        result := ComCall(6, this, UInt32, dwInputNum, Int64, cnsSampleTime, UInt32, dwFlags, "ptr", pSample, "HRESULT")
         return result
     }
 
@@ -324,7 +324,7 @@ export default struct IWMWriterPreprocess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-endpreprocessingpass
      */
     EndPreprocessingPass(dwInputNum, dwFlags) {
-        result := ComCall(7, this, "uint", dwInputNum, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, UInt32, dwInputNum, UInt32, dwFlags, "HRESULT")
         return result
     }
 

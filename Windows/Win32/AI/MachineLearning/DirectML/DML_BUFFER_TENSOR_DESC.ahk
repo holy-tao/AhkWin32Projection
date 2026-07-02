@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_TENSOR_FLAGS.ahk" { DML_TENSOR_FLAGS }
 #Import ".\DML_TENSOR_DATA_TYPE.ahk" { DML_TENSOR_DATA_TYPE }
+#Import ".\DML_TENSOR_FLAGS.ahk" { DML_TENSOR_FLAGS }
 
 /**
  * Describes a tensor that will be stored in a Direct3D 12 buffer resource.

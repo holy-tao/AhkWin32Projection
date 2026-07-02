@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMWriterFileSink2.ahk" { IWMWriterFileSink2 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\WMT_FILESINK_DATA_UNIT.ahk" { WMT_FILESINK_DATA_UNIT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWMWriterFileSink2.ahk" { IWMWriterFileSink2 }
 
 /**
  * The IWMWriterFileSink3 interface provides additional functionality to the file sink object. To obtain a pointer to this interface, call QueryInterface on the file sink object.
@@ -143,7 +143,7 @@ export default struct IWMWriterFileSink3 extends IWMWriterFileSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-setcontrolstream
      */
     SetControlStream(wStreamNumber, fShouldControlStartAndStop) {
-        result := ComCall(18, this, "ushort", wStreamNumber, BOOL, fShouldControlStartAndStop, "HRESULT")
+        result := ComCall(18, this, UInt16, wStreamNumber, BOOL, fShouldControlStartAndStop, "HRESULT")
         return result
     }
 

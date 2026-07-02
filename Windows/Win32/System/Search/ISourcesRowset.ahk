@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -45,7 +45,7 @@ export default struct ISourcesRowset extends IUnknown {
      * @returns {IUnknown} 
      */
     GetSourcesRowset(pUnkOuter, riid, cPropertySets, rgProperties) {
-        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, "uint", cPropertySets, DBPROPSET.Ptr, rgProperties, "ptr*", &ppSourcesRowset := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgProperties, "ptr*", &ppSourcesRowset := 0, "HRESULT")
         return IUnknown(ppSourcesRowset)
     }
 

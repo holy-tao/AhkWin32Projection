@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FAX_SMTP_AUTHENTICATION_TYPE_ENUM.ahk" { FAX_SMTP_AUTHENTICATION_TYPE_ENUM }
+#Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
 
 /**
  * The IFaxReceiptOptions interface defines a FaxReceiptOptions configuration object used by a fax client application to set and retrieve the receipt configuration that the fax service uses to send delivery receipts for fax transmissions.
@@ -204,7 +204,7 @@ export default struct IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-put_smtpport
      */
     put_SMTPPort(lSMTPPort) {
-        result := ComCall(12, this, "int", lSMTPPort, "HRESULT")
+        result := ComCall(12, this, Int32, lSMTPPort, "HRESULT")
         return result
     }
 

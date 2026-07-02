@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_FONT_PROPERTY_ID.ahk" { DWRITE_FONT_PROPERTY_ID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Font property used for filtering font sets and building a font set with explicit properties.

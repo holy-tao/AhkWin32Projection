@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a fence, an object used for synchronization of the CPU and one or more GPUs. (ID3D11Fence)
@@ -96,7 +96,7 @@ export default struct ID3D11Fence extends ID3D11DeviceChild {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         pHandle := HANDLE.Owned()
-        result := ComCall(7, this, SECURITY_ATTRIBUTES.Ptr, pAttributes, "uint", dwAccess, "ptr", lpName, HANDLE.Ptr, pHandle, "HRESULT")
+        result := ComCall(7, this, SECURITY_ATTRIBUTES.Ptr, pAttributes, UInt32, dwAccess, "ptr", lpName, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 
@@ -126,7 +126,7 @@ export default struct ID3D11Fence extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11fence-seteventoncompletion
      */
     SetEventOnCompletion(Value, hEvent) {
-        result := ComCall(9, this, "uint", Value, HANDLE, hEvent, "HRESULT")
+        result := ComCall(9, this, Int64, Value, HANDLE, hEvent, "HRESULT")
         return result
     }
 

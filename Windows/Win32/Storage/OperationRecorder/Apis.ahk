@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\OPERATION_END_PARAMETERS.ahk" { OPERATION_END_PARAMETERS }
 #Import ".\OPERATION_START_PARAMETERS.ahk" { OPERATION_START_PARAMETERS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Storage.OperationRecorder

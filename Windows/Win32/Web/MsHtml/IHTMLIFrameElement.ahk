@@ -71,7 +71,7 @@ export default struct IHTMLIFrameElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_vspace(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IHTMLIFrameElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_hspace(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, Int32, v, "HRESULT")
         return result
     }
 

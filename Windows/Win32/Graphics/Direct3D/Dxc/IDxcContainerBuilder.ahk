@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -123,7 +123,7 @@ export default struct IDxcContainerBuilder extends IUnknown {
      * @returns {HRESULT} 
      */
     AddPart(fourCC, pSource) {
-        result := ComCall(4, this, "uint", fourCC, "ptr", pSource, "HRESULT")
+        result := ComCall(4, this, UInt32, fourCC, "ptr", pSource, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IDxcContainerBuilder extends IUnknown {
      * @returns {HRESULT} 
      */
     RemovePart(fourCC) {
-        result := ComCall(5, this, "uint", fourCC, "HRESULT")
+        result := ComCall(5, this, UInt32, fourCC, "HRESULT")
         return result
     }
 

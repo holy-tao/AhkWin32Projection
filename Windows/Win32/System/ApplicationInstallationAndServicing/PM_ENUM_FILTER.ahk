@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PM_TILE_HUBTYPE.ahk" { PM_TILE_HUBTYPE }
-#Import ".\PM_APPLICATION_HUBTYPE.ahk" { PM_APPLICATION_HUBTYPE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\PM_APP_GENRE.ahk" { PM_APP_GENRE }
-#Import ".\PM_BSATASKID.ahk" { PM_BSATASKID }
-#Import ".\PM_BWTASKID.ahk" { PM_BWTASKID }
 #Import ".\PM_EXTENSIONCONSUMER.ahk" { PM_EXTENSIONCONSUMER }
-#Import ".\PM_TASK_TYPE.ahk" { PM_TASK_TYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PM_BWTASKID.ahk" { PM_BWTASKID }
+#Import ".\PM_APPLICATION_HUBTYPE.ahk" { PM_APPLICATION_HUBTYPE }
 #Import ".\PM_APPTASKTYPE.ahk" { PM_APPTASKTYPE }
+#Import ".\PM_BSATASKID.ahk" { PM_BSATASKID }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PM_TASK_TYPE.ahk" { PM_TASK_TYPE }
+#Import ".\PM_APP_GENRE.ahk" { PM_APP_GENRE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PM_TILE_HUBTYPE.ahk" { PM_TILE_HUBTYPE }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

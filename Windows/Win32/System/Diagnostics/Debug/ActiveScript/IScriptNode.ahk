@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\ITypeInfo.ahk" { ITypeInfo }
 #Import ".\IScriptEntry.ahk" { IScriptEntry }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -111,7 +111,7 @@ export default struct IScriptNode extends IUnknown {
      * @returns {IScriptNode} 
      */
     GetChild(isn) {
-        result := ComCall(9, this, "uint", isn, "ptr*", &ppsn := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, isn, "ptr*", &ppsn := 0, "HRESULT")
         return IScriptNode(ppsn)
     }
 
@@ -135,7 +135,7 @@ export default struct IScriptNode extends IUnknown {
     CreateChildEntry(isn, dwCookie, pszDelimiter) {
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(11, this, "uint", isn, "uint", dwCookie, "ptr", pszDelimiter, "ptr*", &ppse := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, isn, UInt32, dwCookie, "ptr", pszDelimiter, "ptr*", &ppse := 0, "HRESULT")
         return IScriptEntry(ppse)
     }
 
@@ -159,7 +159,7 @@ export default struct IScriptNode extends IUnknown {
 
         prgpszNamesMarshal := prgpszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pszDefaultName, prgpszNamesMarshal, prgpszNames, "uint", cpszNames, "ptr", pszEvent, "ptr", pszDelimiter, "ptr", ptiSignature, "uint", iMethodSignature, "uint", isn, "uint", dwCookie, "ptr*", &ppse := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pszDefaultName, prgpszNamesMarshal, prgpszNames, UInt32, cpszNames, "ptr", pszEvent, "ptr", pszDelimiter, "ptr", ptiSignature, UInt32, iMethodSignature, UInt32, isn, UInt32, dwCookie, "ptr*", &ppse := 0, "HRESULT")
         return IScriptEntry(ppse)
     }
 

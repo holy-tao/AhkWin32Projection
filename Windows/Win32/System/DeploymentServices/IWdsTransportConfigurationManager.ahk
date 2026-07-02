@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWdsTransportDiagnosticsPolicy.ahk" { IWdsTransportDiagnosticsPolicy }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\WDSTRANSPORT_SERVICE_NOTIFICATION.ahk" { WDSTRANSPORT_SERVICE_NOTIFICATION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWdsTransportServicePolicy.ahk" { IWdsTransportServicePolicy }
+#Import ".\IWdsTransportDiagnosticsPolicy.ahk" { IWdsTransportDiagnosticsPolicy }
 
 /**
  * Manages the configuration of a WDS transport server.

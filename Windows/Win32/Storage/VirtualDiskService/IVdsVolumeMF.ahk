@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VDS_FILE_SYSTEM_TYPE.ahk" { VDS_FILE_SYSTEM_TYPE }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_FILE_SYSTEM_PROP.ahk" { VDS_FILE_SYSTEM_PROP }
 #Import ".\VDS_REPARSE_POINT_PROP.ahk" { VDS_REPARSE_POINT_PROP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VDS_FILE_SYSTEM_PROP.ahk" { VDS_FILE_SYSTEM_PROP }
 
 /**
  * Provides methods to perform access-path and file-system activities on the volume object.
@@ -96,7 +96,7 @@ export default struct IVdsVolumeMF extends IUnknown {
     Format(type, pwszLabel, dwUnitAllocationSize, bForce, bQuickFormat, bEnableCompression) {
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(4, this, VDS_FILE_SYSTEM_TYPE, type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(4, this, VDS_FILE_SYSTEM_TYPE, type, "ptr", pwszLabel, UInt32, dwUnitAllocationSize, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -594,7 +594,7 @@ export default struct IVdsVolumeMF extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf-setfilesystemflags
      */
     SetFileSystemFlags(ulFlags) {
-        result := ComCall(11, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(11, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -659,7 +659,7 @@ export default struct IVdsVolumeMF extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf-clearfilesystemflags
      */
     ClearFileSystemFlags(ulFlags) {
-        result := ComCall(12, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(12, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 

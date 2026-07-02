@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XPS_SIGN_FLAGS.ahk" { XPS_SIGN_FLAGS }
 #Import "..\Packaging\Opc\IOpcCertificateSet.ahk" { IOpcCertificateSet }
-#Import ".\XPS_SIGN_POLICY.ahk" { XPS_SIGN_POLICY }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\Packaging\Opc\IOpcSignatureCustomObjectSet.ahk" { IOpcSignatureCustomObjectSet }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Packaging\Opc\IOpcSignatureReferenceSet.ahk" { IOpcSignatureReferenceSet }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Packaging\Opc\IOpcSignatureCustomObjectSet.ahk" { IOpcSignatureCustomObjectSet }
-#Import ".\XPS_SIGN_FLAGS.ahk" { XPS_SIGN_FLAGS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\XPS_SIGN_POLICY.ahk" { XPS_SIGN_POLICY }
 #Import "..\Packaging\Opc\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
 
 /**

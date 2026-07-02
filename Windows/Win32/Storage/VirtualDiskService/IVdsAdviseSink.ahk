@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VDS_NOTIFICATION.ahk" { VDS_NOTIFICATION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVdsAdviseSink (vdshwprv.h) interface receives VDS notifications.
@@ -92,7 +92,7 @@ export default struct IVdsAdviseSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsadvisesink-onnotify
      */
     OnNotify(lNumberOfNotifications, pNotificationArray) {
-        result := ComCall(3, this, "int", lNumberOfNotifications, VDS_NOTIFICATION.Ptr, pNotificationArray, "HRESULT")
+        result := ComCall(3, this, Int32, lNumberOfNotifications, VDS_NOTIFICATION.Ptr, pNotificationArray, "HRESULT")
         return result
     }
 

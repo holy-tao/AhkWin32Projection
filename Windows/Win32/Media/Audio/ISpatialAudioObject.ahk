@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpatialAudioObjectBase.ahk" { ISpatialAudioObjectBase }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an object that provides audio data to be rendered from a position in 3D space, relative to the user.
@@ -98,7 +98,7 @@ export default struct ISpatialAudioObject extends ISpatialAudioObjectBase {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobject-setposition
      */
     SetPosition(x, y, z) {
-        result := ComCall(7, this, "float", x, "float", y, "float", z, "HRESULT")
+        result := ComCall(7, this, Float32, x, Float32, y, Float32, z, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct ISpatialAudioObject extends ISpatialAudioObjectBase {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobject-setvolume
      */
     SetVolume(volume) {
-        result := ComCall(8, this, "float", volume, "HRESULT")
+        result := ComCall(8, this, Float32, volume, "HRESULT")
         return result
     }
 

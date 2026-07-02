@@ -63,7 +63,7 @@ export default struct IWMVideoMediaProps extends IWMMediaProps {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-setmaxkeyframespacing
      */
     SetMaxKeyFrameSpacing(llTime) {
-        result := ComCall(7, this, "int64", llTime, "HRESULT")
+        result := ComCall(7, this, Int64, llTime, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct IWMVideoMediaProps extends IWMMediaProps {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-setquality
      */
     SetQuality(dwQuality) {
-        result := ComCall(9, this, "uint", dwQuality, "HRESULT")
+        result := ComCall(9, this, UInt32, dwQuality, "HRESULT")
         return result
     }
 

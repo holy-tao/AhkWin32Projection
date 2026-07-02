@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IRSOPInformation interface provides methods for Microsoft Management Console (MMC) extension snap-ins to communicate with the main Resultant Set of Policy (RSoP) snap-in. For more information about MMC, see the Microsoft Management Console.
@@ -51,7 +51,7 @@ export default struct IRSOPInformation extends IUnknown {
     GetNamespace(dwSection, pszName, cchMaxLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(3, this, "uint", dwSection, "ptr", pszName, "int", cchMaxLength, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSection, "ptr", pszName, Int32, cchMaxLength, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IRSOPInformation extends IUnknown {
         pszEventLogName := pszEventLogName is String ? StrPtr(pszEventLogName) : pszEventLogName
         pszEventTime := pszEventTime is String ? StrPtr(pszEventTime) : pszEventTime
 
-        result := ComCall(5, this, "ptr", pszEventSource, "ptr", pszEventLogName, "ptr", pszEventTime, "uint", dwEventID, PWSTR.Ptr, &ppszText := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszEventSource, "ptr", pszEventLogName, "ptr", pszEventTime, UInt32, dwEventID, PWSTR.Ptr, &ppszText := 0, "HRESULT")
         return ppszText
     }
 

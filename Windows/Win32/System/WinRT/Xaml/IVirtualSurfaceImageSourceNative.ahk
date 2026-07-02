@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISurfaceImageSourceNative.ahk" { ISurfaceImageSourceNative }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVirtualSurfaceUpdatesCallbackNative.ahk" { IVirtualSurfaceUpdatesCallbackNative }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\ISurfaceImageSourceNative.ahk" { ISurfaceImageSourceNative }
 
 /**
  * Provides the implementation of a large (greater than the screen size) shared surface for DirectX drawing.
@@ -85,7 +85,7 @@ export default struct IVirtualSurfaceImageSourceNative extends ISurfaceImageSour
      */
     GetUpdateRects(count) {
         updates := RECT()
-        result := ComCall(8, this, RECT.Ptr, updates, "uint", count, "HRESULT")
+        result := ComCall(8, this, RECT.Ptr, updates, UInt32, count, "HRESULT")
         return updates
     }
 
@@ -119,7 +119,7 @@ export default struct IVirtualSurfaceImageSourceNative extends ISurfaceImageSour
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-resize
      */
     Resize(newWidth, newHeight) {
-        result := ComCall(11, this, "int", newWidth, "int", newHeight, "HRESULT")
+        result := ComCall(11, this, Int32, newWidth, Int32, newHeight, "HRESULT")
         return result
     }
 

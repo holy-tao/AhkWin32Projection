@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IRTCEnumProfiles.ahk" { IRTCEnumProfiles }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRTCCollection.ahk" { IRTCCollection }
-#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import ".\IRTCEnumProfiles.ahk" { IRTCEnumProfiles }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -81,7 +81,7 @@ export default struct IRTCClientProvisioning extends IUnknown {
      * @returns {HRESULT} 
      */
     EnableProfile(pProfile, lRegisterFlags) {
-        result := ComCall(4, this, "ptr", pProfile, "int", lRegisterFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", pProfile, Int32, lRegisterFlags, "HRESULT")
         return result
     }
 
@@ -129,7 +129,7 @@ export default struct IRTCClientProvisioning extends IUnknown {
         bstrUserURI := bstrUserURI is String ? BSTR.Alloc(bstrUserURI).Value : bstrUserURI
         bstrServer := bstrServer is String ? BSTR.Alloc(bstrServer).Value : bstrServer
 
-        result := ComCall(8, this, BSTR, bstrUserAccount, BSTR, bstrUserPassword, BSTR, bstrUserURI, BSTR, bstrServer, "int", lTransport, "ptr", lCookie, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrUserAccount, BSTR, bstrUserPassword, BSTR, bstrUserURI, BSTR, bstrServer, Int32, lTransport, IntPtr, lCookie, "HRESULT")
         return result
     }
 

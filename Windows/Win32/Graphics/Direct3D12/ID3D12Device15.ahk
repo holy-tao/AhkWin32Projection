@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_SHADER_RESOURCE_VIEW_DESC.ahk" { D3D12_SHADER_RESOURCE_VIEW_DESC }
-#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
-#Import ".\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
-#Import ".\D3D12_UNORDERED_ACCESS_VIEW_DESC.ahk" { D3D12_UNORDERED_ACCESS_VIEW_DESC }
 #Import ".\D3D12_CONSTANT_BUFFER_VIEW_DESC.ahk" { D3D12_CONSTANT_BUFFER_VIEW_DESC }
-#Import ".\D3D12_QUERY_HEAP_DESC.ahk" { D3D12_QUERY_HEAP_DESC }
-#Import ".\D3D12_RENDER_TARGET_VIEW_DESC.ahk" { D3D12_RENDER_TARGET_VIEW_DESC }
-#Import ".\ID3D12Device14.ahk" { ID3D12Device14 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
-#Import ".\D3D12_QUERY_HEAP_FLAGS.ahk" { D3D12_QUERY_HEAP_FLAGS }
-#Import ".\D3D12_SAMPLER_DESC2.ahk" { D3D12_SAMPLER_DESC2 }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
-#Import ".\D3D12_DEPTH_STENCIL_VIEW_DESC.ahk" { D3D12_DEPTH_STENCIL_VIEW_DESC }
 #Import ".\D3D12_REGISTER_TRIM_NOTIFICATION.ahk" { D3D12_REGISTER_TRIM_NOTIFICATION }
+#Import ".\D3D12_QUERY_HEAP_DESC.ahk" { D3D12_QUERY_HEAP_DESC }
+#Import ".\D3D12_DEPTH_STENCIL_VIEW_DESC.ahk" { D3D12_DEPTH_STENCIL_VIEW_DESC }
+#Import ".\D3D12_SAMPLER_DESC2.ahk" { D3D12_SAMPLER_DESC2 }
+#Import ".\D3D12_QUERY_HEAP_FLAGS.ahk" { D3D12_QUERY_HEAP_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_RENDER_TARGET_VIEW_DESC.ahk" { D3D12_RENDER_TARGET_VIEW_DESC }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
+#Import ".\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
+#Import ".\ID3D12Device14.ahk" { ID3D12Device14 }
+#Import ".\D3D12_SHADER_RESOURCE_VIEW_DESC.ahk" { D3D12_SHADER_RESOURCE_VIEW_DESC }
+#Import ".\D3D12_UNORDERED_ACCESS_VIEW_DESC.ahk" { D3D12_UNORDERED_ACCESS_VIEW_DESC }
+#Import ".\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -74,7 +74,7 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
      * @returns {HRESULT} 
      */
     UnregisterTrimNotificationCallback(CallbackCookie) {
-        result := ComCall(84, this, "uint", CallbackCookie, "HRESULT")
+        result := ComCall(84, this, UInt32, CallbackCookie, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
     ResolveQueryData(pQueryHeap, Type, StartIndex, NumQueries, pResolvedQueryData) {
         pResolvedQueryDataMarshal := pResolvedQueryData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(93, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", StartIndex, "uint", NumQueries, pResolvedQueryDataMarshal, pResolvedQueryData, "HRESULT")
+        result := ComCall(93, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, StartIndex, UInt32, NumQueries, pResolvedQueryDataMarshal, pResolvedQueryData, "HRESULT")
         return result
     }
 

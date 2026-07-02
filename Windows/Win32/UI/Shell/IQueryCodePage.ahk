@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Gets and sets the numeric value (Code Page identifier) of the ANSI code page.
@@ -61,7 +61,7 @@ export default struct IQueryCodePage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iquerycodepage-setcodepage
      */
     SetCodePage(uiCodePage) {
-        result := ComCall(4, this, "uint", uiCodePage, "HRESULT")
+        result := ComCall(4, this, UInt32, uiCodePage, "HRESULT")
         return result
     }
 

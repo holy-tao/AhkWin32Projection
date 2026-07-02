@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D2D1_GRADIENT_MESH_PATCH.ahk" { D2D1_GRADIENT_MESH_PATCH }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a device-dependent representation of a gradient mesh composed of patches. Use the ID2D1DeviceContext2::CreateGradientMesh method to create an instance of ID2D1GradientMesh.
@@ -66,7 +66,7 @@ export default struct ID2D1GradientMesh extends ID2D1Resource {
      */
     GetPatches(startIndex, patchesCount) {
         patches := D2D1_GRADIENT_MESH_PATCH()
-        result := ComCall(5, this, "uint", startIndex, D2D1_GRADIENT_MESH_PATCH.Ptr, patches, "uint", patchesCount, "HRESULT")
+        result := ComCall(5, this, UInt32, startIndex, D2D1_GRADIENT_MESH_PATCH.Ptr, patches, UInt32, patchesCount, "HRESULT")
         return patches
     }
 

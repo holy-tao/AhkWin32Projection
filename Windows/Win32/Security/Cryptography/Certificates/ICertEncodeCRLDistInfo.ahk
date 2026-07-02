@@ -82,7 +82,7 @@ export default struct ICertEncodeCRLDistInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodecrldistinfo-getnamecount
      */
     GetNameCount(DistPointIndex) {
-        result := ComCall(9, this, "int", DistPointIndex, "int*", &pNameCount := 0, "HRESULT")
+        result := ComCall(9, this, Int32, DistPointIndex, "int*", &pNameCount := 0, "HRESULT")
         return pNameCount
     }
 
@@ -94,7 +94,7 @@ export default struct ICertEncodeCRLDistInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodecrldistinfo-getnamechoice
      */
     GetNameChoice(DistPointIndex, NameIndex) {
-        result := ComCall(10, this, "int", DistPointIndex, "int", NameIndex, "int*", &pNameChoice := 0, "HRESULT")
+        result := ComCall(10, this, Int32, DistPointIndex, Int32, NameIndex, "int*", &pNameChoice := 0, "HRESULT")
         return pNameChoice
     }
 
@@ -107,7 +107,7 @@ export default struct ICertEncodeCRLDistInfo extends IDispatch {
      */
     GetName(DistPointIndex, NameIndex) {
         pstrName := BSTR.Owned()
-        result := ComCall(11, this, "int", DistPointIndex, "int", NameIndex, BSTR.Ptr, pstrName, "HRESULT")
+        result := ComCall(11, this, Int32, DistPointIndex, Int32, NameIndex, BSTR.Ptr, pstrName, "HRESULT")
         return pstrName
     }
 
@@ -121,7 +121,7 @@ export default struct ICertEncodeCRLDistInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodecrldistinfo-reset
      */
     Reset(DistPointCount) {
-        result := ComCall(12, this, "int", DistPointCount, "HRESULT")
+        result := ComCall(12, this, Int32, DistPointCount, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct ICertEncodeCRLDistInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodecrldistinfo-setnamecount
      */
     SetNameCount(DistPointIndex, NameCount) {
-        result := ComCall(13, this, "int", DistPointIndex, "int", NameCount, "HRESULT")
+        result := ComCall(13, this, Int32, DistPointIndex, Int32, NameCount, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct ICertEncodeCRLDistInfo extends IDispatch {
     SetNameEntry(DistPointIndex, NameIndex, NameChoice, strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(14, this, "int", DistPointIndex, "int", NameIndex, CERT_ALT_NAME, NameChoice, BSTR, strName, "HRESULT")
+        result := ComCall(14, this, Int32, DistPointIndex, Int32, NameIndex, CERT_ALT_NAME, NameChoice, BSTR, strName, "HRESULT")
         return result
     }
 

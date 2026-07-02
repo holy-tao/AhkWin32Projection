@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLDataTransfer.ahk" { IHTMLDataTransfer }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLDataTransfer.ahk" { IHTMLDataTransfer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -141,7 +141,7 @@ export default struct IHTMLWindow3 extends IDispatch {
      * @returns {Integer} 
      */
     setTimeout(expression, msec, language) {
-        result := ComCall(11, this, VARIANT.Ptr, expression, "int", msec, VARIANT.Ptr, language, "int*", &timerID := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, expression, Int32, msec, VARIANT.Ptr, language, "int*", &timerID := 0, "HRESULT")
         return timerID
     }
 
@@ -153,7 +153,7 @@ export default struct IHTMLWindow3 extends IDispatch {
      * @returns {Integer} 
      */
     setInterval(expression, msec, language) {
-        result := ComCall(12, this, VARIANT.Ptr, expression, "int", msec, VARIANT.Ptr, language, "int*", &timerID := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, expression, Int32, msec, VARIANT.Ptr, language, "int*", &timerID := 0, "HRESULT")
         return timerID
     }
 

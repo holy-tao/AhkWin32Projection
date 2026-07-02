@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_DESCRIPTOR_HEAP_TYPE.ahk" { D3D12_DESCRIPTOR_HEAP_TYPE }
 #Import ".\D3D12_DESCRIPTOR_HEAP_FLAGS.ahk" { D3D12_DESCRIPTOR_HEAP_FLAGS }
+#Import ".\D3D12_DESCRIPTOR_HEAP_TYPE.ahk" { D3D12_DESCRIPTOR_HEAP_TYPE }
 
 /**
  * Describes the descriptor heap.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a semaphore that can be used to provide temporarily exclusive access to a shared resource such as a file.
@@ -45,7 +45,7 @@ export default struct IBlockingLock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iblockinglock-lock
      */
     Lock(dwTimeout) {
-        result := ComCall(3, this, "uint", dwTimeout, "HRESULT")
+        result := ComCall(3, this, UInt32, dwTimeout, "HRESULT")
         return result
     }
 

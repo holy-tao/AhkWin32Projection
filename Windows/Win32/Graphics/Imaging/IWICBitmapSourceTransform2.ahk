@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWICColorContext.ahk" { IWICColorContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWICBitmapSourceTransform.ahk" { IWICBitmapSourceTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
@@ -44,7 +44,7 @@ export default struct IWICBitmapSourceTransform2 extends IWICBitmapSourceTransfo
      * @returns {Integer} 
      */
     GetColorContextsForPixelFormat(pPixelFormat, cCount, ppIColorContexts) {
-        result := ComCall(7, this, Guid.Ptr, pPixelFormat, "uint", cCount, IWICColorContext.Ptr, ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pPixelFormat, UInt32, cCount, IWICColorContext.Ptr, ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
         return pcActualCount
     }
 

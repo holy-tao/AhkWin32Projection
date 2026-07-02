@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COLORKEY.ahk" { COLORKEY }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\IOverlayNotify.ahk" { IOverlayNotify }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOverlayNotify.ahk" { IOverlayNotify }
+#Import ".\COLORKEY.ahk" { COLORKEY }
 #Import "..\..\Graphics\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IOverlay interface provides information so that a filter can write directly to video memory while placing the video in the correct window position.
@@ -79,7 +79,7 @@ export default struct IOverlay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-setpalette
      */
     SetPalette(dwColors, pPalette) {
-        result := ComCall(4, this, "uint", dwColors, PALETTEENTRY.Ptr, pPalette, "HRESULT")
+        result := ComCall(4, this, UInt32, dwColors, PALETTEENTRY.Ptr, pPalette, "HRESULT")
         return result
     }
 
@@ -219,7 +219,7 @@ export default struct IOverlay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-advise
      */
     Advise(pOverlayNotify, dwInterests) {
-        result := ComCall(11, this, "ptr", pOverlayNotify, "uint", dwInterests, "HRESULT")
+        result := ComCall(11, this, "ptr", pOverlayNotify, UInt32, dwInterests, "HRESULT")
         return result
     }
 

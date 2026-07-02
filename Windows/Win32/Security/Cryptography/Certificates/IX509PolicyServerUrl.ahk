@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
 #Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import ".\PolicyServerUrlPropertyID.ahk" { PolicyServerUrlPropertyID }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\PolicyServerUrlFlags.ahk" { PolicyServerUrlFlags }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
+#Import ".\PolicyServerUrlFlags.ahk" { PolicyServerUrlFlags }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PolicyServerUrlPropertyID.ahk" { PolicyServerUrlPropertyID }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The IX509PolicyServerUrl interface can be used to set or retrieve property values associated with the certificate enrollment policy (CEP) server and to update associated registry values.
@@ -236,7 +236,7 @@ export default struct IX509PolicyServerUrl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509policyserverurl-put_cost
      */
     put_Cost(value) {
-        result := ComCall(17, this, "uint", value, "HRESULT")
+        result := ComCall(17, this, UInt32, value, "HRESULT")
         return result
     }
 

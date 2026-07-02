@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IPSEC_TUNNEL_ENDPOINT0.ahk" { IPSEC_TUNNEL_ENDPOINT0 }
-#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 
 /**
  * Is used to store end points of a tunnel mode SA. (IPSEC_TUNNEL_ENDPOINTS2)

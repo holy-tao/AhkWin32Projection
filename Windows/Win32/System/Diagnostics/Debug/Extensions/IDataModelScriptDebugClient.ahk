@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ScriptDebugEventInformation.ahk" { ScriptDebugEventInformation }
+#Import ".\ScriptExecutionKind.ahk" { ScriptExecutionKind }
 #Import ".\IModelObject.ahk" { IModelObject }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDataModelScript.ahk" { IDataModelScript }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ScriptExecutionKind.ahk" { ScriptExecutionKind }
+#Import ".\ScriptDebugEventInformation.ahk" { ScriptDebugEventInformation }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

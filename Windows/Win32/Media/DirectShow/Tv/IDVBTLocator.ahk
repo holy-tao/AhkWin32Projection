@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\GuardInterval.ahk" { GuardInterval }
-#Import "..\FECMethod.ahk" { FECMethod }
-#Import "..\HierarchyAlpha.ahk" { HierarchyAlpha }
-#Import "..\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
-#Import "..\TransmissionMode.ahk" { TransmissionMode }
 #Import ".\IDigitalLocator.ahk" { IDigitalLocator }
+#Import "..\HierarchyAlpha.ahk" { HierarchyAlpha }
+#Import "..\TransmissionMode.ahk" { TransmissionMode }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\FECMethod.ahk" { FECMethod }
+#Import "..\GuardInterval.ahk" { GuardInterval }
+#Import "..\BinaryConvolutionCodeRate.ahk" { BinaryConvolutionCodeRate }
 
 /**
  * The IDVBTLocator interface is implemented on the DVBTLocator object.
@@ -139,7 +139,7 @@ export default struct IDVBTLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtlocator-put_bandwidth
      */
     put_Bandwidth(BandwidthVal) {
-        result := ComCall(23, this, "int", BandwidthVal, "HRESULT")
+        result := ComCall(23, this, Int32, BandwidthVal, "HRESULT")
         return result
     }
 

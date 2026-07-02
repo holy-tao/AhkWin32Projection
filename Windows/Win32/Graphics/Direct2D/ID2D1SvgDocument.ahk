@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_SVG_LENGTH.ahk" { D2D1_SVG_LENGTH }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D2D1_SVG_PAINT_TYPE.ahk" { D2D1_SVG_PAINT_TYPE }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
-#Import ".\ID2D1SvgPointCollection.ahk" { ID2D1SvgPointCollection }
-#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
-#Import ".\ID2D1SvgPaint.ahk" { ID2D1SvgPaint }
 #Import ".\ID2D1SvgElement.ahk" { ID2D1SvgElement }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\D2D1_SVG_PATH_COMMAND.ahk" { D2D1_SVG_PATH_COMMAND }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import ".\ID2D1SvgPaint.ahk" { ID2D1SvgPaint }
+#Import ".\D2D1_SVG_PAINT_TYPE.ahk" { D2D1_SVG_PAINT_TYPE }
+#Import ".\D2D1_SVG_LENGTH.ahk" { D2D1_SVG_LENGTH }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\ID2D1SvgStrokeDashArray.ahk" { ID2D1SvgStrokeDashArray }
+#Import ".\D2D1_SVG_PATH_COMMAND.ahk" { D2D1_SVG_PATH_COMMAND }
+#Import ".\ID2D1SvgPointCollection.ahk" { ID2D1SvgPointCollection }
 #Import ".\ID2D1SvgPathData.ahk" { ID2D1SvgPathData }
 
 /**
@@ -193,7 +193,7 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createstrokedasharray
      */
     CreateStrokeDashArray(dashes, dashesCount) {
-        result := ComCall(12, this, D2D1_SVG_LENGTH.Ptr, dashes, "uint", dashesCount, "ptr*", &strokeDashArray := 0, "HRESULT")
+        result := ComCall(12, this, D2D1_SVG_LENGTH.Ptr, dashes, UInt32, dashesCount, "ptr*", &strokeDashArray := 0, "HRESULT")
         return ID2D1SvgStrokeDashArray(strokeDashArray)
     }
 
@@ -211,7 +211,7 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpointcollection
      */
     CreatePointCollection(_points, pointsCount) {
-        result := ComCall(13, this, D2D_POINT_2F.Ptr, _points, "uint", pointsCount, "ptr*", &pointCollection := 0, "HRESULT")
+        result := ComCall(13, this, D2D_POINT_2F.Ptr, _points, UInt32, pointsCount, "ptr*", &pointCollection := 0, "HRESULT")
         return ID2D1SvgPointCollection(pointCollection)
     }
 
@@ -238,7 +238,7 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
         segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
         commandsMarshal := commands is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, segmentDataMarshal, segmentData, "uint", segmentDataCount, commandsMarshal, commands, "uint", commandsCount, "ptr*", &_pathData := 0, "HRESULT")
+        result := ComCall(14, this, segmentDataMarshal, segmentData, UInt32, segmentDataCount, commandsMarshal, commands, UInt32, commandsCount, "ptr*", &_pathData := 0, "HRESULT")
         return ID2D1SvgPathData(_pathData)
     }
 

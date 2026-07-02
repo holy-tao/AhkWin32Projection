@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\D3D11_TEXTURE3D_DESC.ahk" { D3D11_TEXTURE3D_DESC }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 
 /**
  * A 3D texture interface accesses texel data, which is structured memory. (ID3D11Texture3D)

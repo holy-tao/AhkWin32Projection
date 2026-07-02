@@ -66,7 +66,7 @@ export default struct ISVGAnimatedNumber extends IDispatch {
      * @returns {HRESULT} 
      */
     put_baseVal(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct ISVGAnimatedNumber extends IDispatch {
      * @returns {HRESULT} 
      */
     put_animVal(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, Float32, v, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumItemIds.ahk" { IEnumItemIds }
-#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNC_FILTER_CHANGE.ahk" { SYNC_FILTER_CHANGE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumItemIds.ahk" { IEnumItemIds }
+#Import ".\SYNC_FILTER_CHANGE.ahk" { SYNC_FILTER_CHANGE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
@@ -66,7 +66,7 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
      * @returns {HRESULT} 
      */
     GetFilterChange(dwFilterKey, pFilterChange) {
-        result := ComCall(4, this, "uint", dwFilterKey, SYNC_FILTER_CHANGE.Ptr, pFilterChange, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFilterKey, SYNC_FILTER_CHANGE.Ptr, pFilterChange, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
      * @returns {ISyncKnowledge} 
      */
     GetFilterForgottenKnowledge(dwFilterKey) {
-        result := ComCall(6, this, "uint", dwFilterKey, "ptr*", &ppIFilterForgottenKnowledge := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFilterKey, "ptr*", &ppIFilterForgottenKnowledge := 0, "HRESULT")
         return ISyncKnowledge(ppIFilterForgottenKnowledge)
     }
 
@@ -111,7 +111,7 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
      * @returns {ISyncKnowledge} 
      */
     GetLearnedFilterForgottenKnowledge(pDestinationKnowledge, pNewMoveins, dwFilterKey) {
-        result := ComCall(8, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, UInt32, dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
         return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
     }
 
@@ -145,7 +145,7 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
      * @returns {ISyncKnowledge} 
      */
     GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins, dwFilterKey) {
-        result := ComCall(11, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, UInt32, dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
         return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
     }
 

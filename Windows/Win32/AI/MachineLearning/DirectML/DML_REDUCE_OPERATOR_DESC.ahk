@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 #Import ".\DML_REDUCE_FUNCTION.ahk" { DML_REDUCE_FUNCTION }
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**
  * Outputs the reduction of elements (sum, product, minimum, and so on) within one or more dimensions of the input tensor.

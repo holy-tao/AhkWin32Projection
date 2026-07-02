@@ -1,29 +1,29 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DVD_VideoAttributes.ahk" { DVD_VideoAttributes }
-#Import ".\DVD_AudioAttributes.ahk" { DVD_AudioAttributes }
-#Import ".\DVD_DOMAIN.ahk" { DVD_DOMAIN }
-#Import ".\DVD_MenuAttributes.ahk" { DVD_MenuAttributes }
+#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
 #Import ".\DVD_HMSF_TIMECODE.ahk" { DVD_HMSF_TIMECODE }
-#Import ".\DVD_TitleAttributes.ahk" { DVD_TitleAttributes }
-#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
-#Import ".\DVD_TextStringType.ahk" { DVD_TextStringType }
+#Import ".\IDvdState.ahk" { IDvdState }
+#Import ".\DVD_DISC_SIDE.ahk" { DVD_DISC_SIDE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DVD_PLAYBACK_LOCATION2.ahk" { DVD_PLAYBACK_LOCATION2 }
-#Import ".\DVD_DISC_SIDE.ahk" { DVD_DISC_SIDE }
-#Import ".\DVD_DECODER_CAPS.ahk" { DVD_DECODER_CAPS }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\IDvdCmd.ahk" { IDvdCmd }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DVD_SubpictureAttributes.ahk" { DVD_SubpictureAttributes }
-#Import ".\IDvdState.ahk" { IDvdState }
+#Import ".\DVD_TextStringType.ahk" { DVD_TextStringType }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DVD_KaraokeAttributes.ahk" { DVD_KaraokeAttributes }
-#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DVD_TextCharSet.ahk" { DVD_TextCharSet }
+#Import ".\DVD_SubpictureAttributes.ahk" { DVD_SubpictureAttributes }
+#Import ".\DVD_MenuAttributes.ahk" { DVD_MenuAttributes }
+#Import ".\DVD_TitleAttributes.ahk" { DVD_TitleAttributes }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVD_AudioAttributes.ahk" { DVD_AudioAttributes }
+#Import ".\DVD_DOMAIN.ahk" { DVD_DOMAIN }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
+#Import ".\DVD_VideoAttributes.ahk" { DVD_VideoAttributes }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DVD_DECODER_CAPS.ahk" { DVD_DECODER_CAPS }
+#Import ".\DVD_TextCharSet.ahk" { DVD_TextCharSet }
+#Import ".\DVD_KaraokeAttributes.ahk" { DVD_KaraokeAttributes }
 
 /**
  * The IDvdInfo2 interface reports attributes of a DVD disc or the current state of DVD playback and navigation.
@@ -581,7 +581,7 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getaudiolanguage
      */
     GetAudioLanguage(ulStream) {
-        result := ComCall(13, this, "uint", ulStream, "uint*", &pLanguage := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, ulStream, "uint*", &pLanguage := 0, "HRESULT")
         return pLanguage
     }
 
@@ -619,7 +619,7 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getsubpicturelanguage
      */
     GetSubpictureLanguage(ulStream) {
-        result := ComCall(14, this, "uint", ulStream, "uint*", &pLanguage := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, ulStream, "uint*", &pLanguage := 0, "HRESULT")
         return pLanguage
     }
 
@@ -694,7 +694,7 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-gettitleattributes
      */
     GetTitleAttributes(ulTitle, pMenu, pTitle) {
-        result := ComCall(15, this, "uint", ulTitle, DVD_MenuAttributes.Ptr, pMenu, DVD_TitleAttributes.Ptr, pTitle, "HRESULT")
+        result := ComCall(15, this, UInt32, ulTitle, DVD_MenuAttributes.Ptr, pMenu, DVD_TitleAttributes.Ptr, pTitle, "HRESULT")
         return result
     }
 
@@ -762,7 +762,7 @@ export default struct IDvdInfo2 extends IUnknown {
      */
     GetAudioAttributes(ulStream) {
         pATR := DVD_AudioAttributes()
-        result := ComCall(18, this, "uint", ulStream, DVD_AudioAttributes.Ptr, pATR, "HRESULT")
+        result := ComCall(18, this, UInt32, ulStream, DVD_AudioAttributes.Ptr, pATR, "HRESULT")
         return pATR
     }
 
@@ -795,7 +795,7 @@ export default struct IDvdInfo2 extends IUnknown {
      */
     GetKaraokeAttributes(ulStream) {
         pAttributes := DVD_KaraokeAttributes()
-        result := ComCall(19, this, "uint", ulStream, DVD_KaraokeAttributes.Ptr, pAttributes, "HRESULT")
+        result := ComCall(19, this, UInt32, ulStream, DVD_KaraokeAttributes.Ptr, pAttributes, "HRESULT")
         return pAttributes
     }
 
@@ -833,7 +833,7 @@ export default struct IDvdInfo2 extends IUnknown {
      */
     GetSubpictureAttributes(ulStream) {
         pATR := DVD_SubpictureAttributes()
-        result := ComCall(20, this, "uint", ulStream, DVD_SubpictureAttributes.Ptr, pATR, "HRESULT")
+        result := ComCall(20, this, UInt32, ulStream, DVD_SubpictureAttributes.Ptr, pATR, "HRESULT")
         return pATR
     }
 
@@ -968,7 +968,7 @@ export default struct IDvdInfo2 extends IUnknown {
         pLangCodeMarshal := pLangCode is VarRef ? "uint*" : "ptr"
         pbCharacterSetMarshal := pbCharacterSet is VarRef ? "int*" : "ptr"
 
-        result := ComCall(23, this, "uint", ulLangIndex, pulNumOfStringsMarshal, pulNumOfStrings, pLangCodeMarshal, pLangCode, pbCharacterSetMarshal, pbCharacterSet, "HRESULT")
+        result := ComCall(23, this, UInt32, ulLangIndex, pulNumOfStringsMarshal, pulNumOfStrings, pLangCodeMarshal, pLangCode, pbCharacterSetMarshal, pbCharacterSet, "HRESULT")
         return result
     }
 
@@ -1034,7 +1034,7 @@ export default struct IDvdInfo2 extends IUnknown {
         pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : "ptr"
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, "uint", ulLangIndex, "uint", ulStringIndex, pbBufferMarshal, pbBuffer, "uint", ulMaxBufferSize, pulActualSizeMarshal, pulActualSize, pTypeMarshal, pType, "HRESULT")
+        result := ComCall(24, this, UInt32, ulLangIndex, UInt32, ulStringIndex, pbBufferMarshal, pbBuffer, UInt32, ulMaxBufferSize, pulActualSizeMarshal, pulActualSize, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -1110,7 +1110,7 @@ export default struct IDvdInfo2 extends IUnknown {
         pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : "ptr"
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(25, this, "uint", ulLangIndex, "uint", ulStringIndex, "ptr", pchwBuffer, "uint", ulMaxBufferSize, pulActualSizeMarshal, pulActualSize, pTypeMarshal, pType, "HRESULT")
+        result := ComCall(25, this, UInt32, ulLangIndex, UInt32, ulStringIndex, "ptr", pchwBuffer, UInt32, ulMaxBufferSize, pulActualSizeMarshal, pulActualSize, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -1169,7 +1169,7 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getnumberofchapters
      */
     GetNumberOfChapters(ulTitle) {
-        result := ComCall(27, this, "uint", ulTitle, "uint*", &pulNumOfChapters := 0, "HRESULT")
+        result := ComCall(27, this, UInt32, ulTitle, "uint*", &pulNumOfChapters := 0, "HRESULT")
         return pulNumOfChapters
     }
 
@@ -1182,7 +1182,7 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-gettitleparentallevels
      */
     GetTitleParentalLevels(ulTitle) {
-        result := ComCall(28, this, "uint", ulTitle, "uint*", &pulParentalLevels := 0, "HRESULT")
+        result := ComCall(28, this, UInt32, ulTitle, "uint*", &pulParentalLevels := 0, "HRESULT")
         return pulParentalLevels
     }
 
@@ -1198,7 +1198,7 @@ export default struct IDvdInfo2 extends IUnknown {
     GetDVDDirectory(pszwPath, ulMaxSize) {
         pszwPath := pszwPath is String ? StrPtr(pszwPath) : pszwPath
 
-        result := ComCall(29, this, "ptr", pszwPath, "uint", ulMaxSize, "uint*", &pulActualSize := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", pszwPath, UInt32, ulMaxSize, "uint*", &pulActualSize := 0, "HRESULT")
         return pulActualSize
     }
 
@@ -1211,7 +1211,7 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-isaudiostreamenabled
      */
     IsAudioStreamEnabled(ulStreamNum) {
-        result := ComCall(30, this, "uint", ulStreamNum, BOOL.Ptr, &pbEnabled := 0, "HRESULT")
+        result := ComCall(30, this, UInt32, ulStreamNum, BOOL.Ptr, &pbEnabled := 0, "HRESULT")
         return pbEnabled
     }
 
@@ -1298,7 +1298,7 @@ export default struct IDvdInfo2 extends IUnknown {
         pLanguagesMarshal := pLanguages is VarRef ? "uint*" : "ptr"
         pulActualLanguagesMarshal := pulActualLanguages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(33, this, pLanguagesMarshal, pLanguages, "uint", ulMaxLanguages, pulActualLanguagesMarshal, pulActualLanguages, "HRESULT")
+        result := ComCall(33, this, pLanguagesMarshal, pLanguages, UInt32, ulMaxLanguages, pulActualLanguagesMarshal, pulActualLanguages, "HRESULT")
         return result
     }
 
@@ -1324,7 +1324,7 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcmdfromevent
      */
     GetCmdFromEvent(lParam1) {
-        result := ComCall(35, this, "ptr", lParam1, "ptr*", &pCmdObj := 0, "HRESULT")
+        result := ComCall(35, this, IntPtr, lParam1, "ptr*", &pCmdObj := 0, "HRESULT")
         return IDvdCmd(pCmdObj)
     }
 
@@ -1511,7 +1511,7 @@ export default struct IDvdInfo2 extends IUnknown {
      */
     GetButtonRect(ulButton) {
         pRect := RECT()
-        result := ComCall(40, this, "uint", ulButton, RECT.Ptr, pRect, "HRESULT")
+        result := ComCall(40, this, UInt32, ulButton, RECT.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -1524,7 +1524,7 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-issubpicturestreamenabled
      */
     IsSubpictureStreamEnabled(ulStreamNum) {
-        result := ComCall(41, this, "uint", ulStreamNum, BOOL.Ptr, &pbEnabled := 0, "HRESULT")
+        result := ComCall(41, this, UInt32, ulStreamNum, BOOL.Ptr, &pbEnabled := 0, "HRESULT")
         return pbEnabled
     }
 

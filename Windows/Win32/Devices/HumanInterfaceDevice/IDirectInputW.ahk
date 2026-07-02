@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\LPDIENUMDEVICESCALLBACKW.ahk" { LPDIENUMDEVICESCALLBACKW }
+#Import ".\IDirectInputDeviceW.ahk" { IDirectInputDeviceW }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\IDirectInputDeviceW.ahk" { IDirectInputDeviceW }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -65,7 +66,7 @@ export default struct IDirectInputW extends IUnknown {
     EnumDevices(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", param0, "ptr", param1, param2Marshal, param2, "uint", param3, "HRESULT")
+        result := ComCall(4, this, UInt32, param0, LPDIENUMDEVICESCALLBACKW, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
@@ -86,7 +87,7 @@ export default struct IDirectInputW extends IUnknown {
      * @returns {HRESULT} 
      */
     RunControlPanel(param0, param1) {
-        result := ComCall(6, this, HWND, param0, "uint", param1, "HRESULT")
+        result := ComCall(6, this, HWND, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -121,7 +122,7 @@ export default struct IDirectInputW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1) {
-        result := ComCall(7, this, HINSTANCE, param0, "uint", param1, "HRESULT")
+        result := ComCall(7, this, HINSTANCE, param0, UInt32, param1, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import ".\ENUM_CONTROLS_WHICH_FLAGS.ahk" { ENUM_CONTROLS_WHICH_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to all the controls on a Visual Basic container.
@@ -117,7 +117,7 @@ export default struct IVBGetControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nf-vbinterf-ivbgetcontrol-enumcontrols
      */
     EnumControls(dwOleContF, dwWhich) {
-        result := ComCall(3, this, "uint", dwOleContF, ENUM_CONTROLS_WHICH_FLAGS, dwWhich, "ptr*", &ppenumUnk := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwOleContF, ENUM_CONTROLS_WHICH_FLAGS, dwWhich, "ptr*", &ppenumUnk := 0, "HRESULT")
         return IEnumUnknown(ppenumUnk)
     }
 

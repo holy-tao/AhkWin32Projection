@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TOKEN_PRIVILEGES_ATTRIBUTES.ahk" { TOKEN_PRIVILEGES_ATTRIBUTES }
 #Import "..\Foundation\LUID.ahk" { LUID }
+#Import ".\TOKEN_PRIVILEGES_ATTRIBUTES.ahk" { TOKEN_PRIVILEGES_ATTRIBUTES }
 
 /**
  * Represents a locally unique identifier (LUID) and its attributes.

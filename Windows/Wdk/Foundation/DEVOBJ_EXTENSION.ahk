@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\_DEVICE_OBJECT_POWER_EXTENSION.ahk" { _DEVICE_OBJECT_POWER_EXTENSION }
-#Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import ".\VPB.ahk" { VPB }
+#Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\_DEVICE_OBJECT_POWER_EXTENSION.ahk" { _DEVICE_OBJECT_POWER_EXTENSION }
 
 /**
  * @namespace Windows.Wdk.Foundation

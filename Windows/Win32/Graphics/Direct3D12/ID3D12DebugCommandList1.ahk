@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE.ahk" { D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE.ahk" { D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE }
 
 /**
  * This interface enables modification of additional command list debug layer settings.
@@ -67,7 +67,7 @@ export default struct ID3D12DebugCommandList1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist1-assertresourcestate
      */
     AssertResourceState(pResource, Subresource, State) {
-        result := ComCall(3, this, "ptr", pResource, "uint", Subresource, "uint", State, BOOL)
+        result := ComCall(3, this, "ptr", pResource, UInt32, Subresource, UInt32, State, BOOL)
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct ID3D12DebugCommandList1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist1-setdebugparameter
      */
     SetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(4, this, D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(4, this, D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, Type, IntPtr, pData, UInt32, DataSize, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct ID3D12DebugCommandList1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist1-getdebugparameter
      */
     GetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(5, this, D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(5, this, D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, Type, IntPtr, pData, UInt32, DataSize, "HRESULT")
         return result
     }
 

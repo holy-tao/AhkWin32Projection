@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that initializes the network data source CLSID_NetworkPlaces as specified.
@@ -65,7 +65,7 @@ export default struct IInitializeNetworkFolder extends IUnknown {
         pszResName := pszResName is String ? StrPtr(pszResName) : pszResName
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
-        result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, ITEMIDLIST.Ptr, pidlTarget, "uint", uDisplayType, "ptr", pszResName, "ptr", pszProvider, "HRESULT")
+        result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, ITEMIDLIST.Ptr, pidlTarget, UInt32, uDisplayType, "ptr", pszResName, "ptr", pszProvider, "HRESULT")
         return result
     }
 

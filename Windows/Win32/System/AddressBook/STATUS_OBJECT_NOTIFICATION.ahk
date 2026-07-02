@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPropValue.ahk" { SPropValue }
 #Import ".\ENTRYID.ahk" { ENTRYID }
+#Import ".\SPropValue.ahk" { SPropValue }
 
 /**
  * Describes a status object that has been affected by a change.

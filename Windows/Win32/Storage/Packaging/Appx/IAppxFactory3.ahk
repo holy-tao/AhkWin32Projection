@@ -3,11 +3,11 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IAppxAppInstallerReader.ahk" { IAppxAppInstallerReader }
 #Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IAppxPackageReader.ahk" { IAppxPackageReader }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAppxPackageReader.ahk" { IAppxPackageReader }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Creates objects for reading and writing app packages, manifests, and app installer files.

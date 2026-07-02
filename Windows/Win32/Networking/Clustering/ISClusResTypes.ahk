@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISClusResType.ahk" { ISClusResType }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISClusResType.ahk" { ISClusResType }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -109,7 +109,7 @@ export default struct ISClusResTypes extends IDispatch {
         bstrDisplayName := bstrDisplayName is String ? BSTR.Alloc(bstrDisplayName).Value : bstrDisplayName
         bstrResourceTypeDll := bstrResourceTypeDll is String ? BSTR.Alloc(bstrResourceTypeDll).Value : bstrResourceTypeDll
 
-        result := ComCall(11, this, BSTR, bstrResourceTypeName, BSTR, bstrDisplayName, BSTR, bstrResourceTypeDll, "int", dwLooksAlivePollInterval, "int", dwIsAlivePollInterval, "ptr*", &ppResourceType := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrResourceTypeName, BSTR, bstrDisplayName, BSTR, bstrResourceTypeDll, Int32, dwLooksAlivePollInterval, Int32, dwIsAlivePollInterval, "ptr*", &ppResourceType := 0, "HRESULT")
         return ISClusResType(ppResourceType)
     }
 

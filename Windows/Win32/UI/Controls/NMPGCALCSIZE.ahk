@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\NMHDR.ahk" { NMHDR }
 #Import ".\NMPGCALCSIZE_FLAGS.ahk" { NMPGCALCSIZE_FLAGS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains and receives information that the pager control uses to calculate the scrollable area of the contained window. It is used with the PGN_CALCSIZE notification.

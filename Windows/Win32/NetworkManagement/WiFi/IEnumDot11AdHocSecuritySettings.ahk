@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDot11AdHocSecuritySettings.ahk" { IDot11AdHocSecuritySettings }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the collection of security settings associated with each visible wireless ad hoc network.
@@ -125,7 +125,7 @@ export default struct IEnumDot11AdHocSecuritySettings extends IUnknown {
     Next(cElt, rgElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cElt, IDot11AdHocSecuritySettings.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cElt, IDot11AdHocSecuritySettings.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
         return result
     }
 
@@ -165,7 +165,7 @@ export default struct IEnumDot11AdHocSecuritySettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocsecuritysettings-skip
      */
     Skip(cElt) {
-        result := ComCall(4, this, "uint", cElt, "HRESULT")
+        result := ComCall(4, this, UInt32, cElt, "HRESULT")
         return result
     }
 

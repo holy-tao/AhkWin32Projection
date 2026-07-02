@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfLangBarItemSink.ahk" { ITfLangBarItemSink }
-#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
-#Import ".\IEnumTfLangBarItems.ahk" { IEnumTfLangBarItems }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TF_LANGBARITEMINFO.ahk" { TF_LANGBARITEMINFO }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TF_LANGBARITEMINFO.ahk" { TF_LANGBARITEMINFO }
+#Import ".\ITfLangBarItemSink.ahk" { ITfLangBarItemSink }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTfLangBarItems.ahk" { IEnumTfLangBarItems }
 
 /**
  * The ITfLangBarItemMgr interface is implemented by the language bar and used by a text service to manage items in the language bar.
@@ -237,7 +237,7 @@ export default struct ITfLangBarItemMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemsink
      */
     UnadviseItemSink(dwCookie) {
-        result := ComCall(8, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(8, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -250,7 +250,7 @@ export default struct ITfLangBarItemMgr extends IUnknown {
      */
     GetItemFloatingRect(dwThreadId, rguid) {
         prc := RECT()
-        result := ComCall(9, this, "uint", dwThreadId, Guid.Ptr, rguid, RECT.Ptr, prc, "HRESULT")
+        result := ComCall(9, this, UInt32, dwThreadId, Guid.Ptr, rguid, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 
@@ -266,7 +266,7 @@ export default struct ITfLangBarItemMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemsstatus
      */
     GetItemsStatus(ulCount, prgguid) {
-        result := ComCall(10, this, "uint", ulCount, Guid.Ptr, prgguid, "uint*", &pdwStatus := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, ulCount, Guid.Ptr, prgguid, "uint*", &pdwStatus := 0, "HRESULT")
         return pdwStatus
     }
 
@@ -334,7 +334,7 @@ export default struct ITfLangBarItemMgr extends IUnknown {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", ulCount, ITfLangBarItem.Ptr, ppItem, TF_LANGBARITEMINFO.Ptr, pInfo, pdwStatusMarshal, pdwStatus, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(12, this, UInt32, ulCount, ITfLangBarItem.Ptr, ppItem, TF_LANGBARITEMINFO.Ptr, pInfo, pdwStatusMarshal, pdwStatus, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -347,7 +347,7 @@ export default struct ITfLangBarItemMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemssink
      */
     AdviseItemsSink(ulCount, ppunk, pguidItem) {
-        result := ComCall(13, this, "uint", ulCount, ITfLangBarItemSink.Ptr, ppunk, Guid.Ptr, pguidItem, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, ulCount, ITfLangBarItemSink.Ptr, ppunk, Guid.Ptr, pguidItem, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -361,7 +361,7 @@ export default struct ITfLangBarItemMgr extends IUnknown {
     UnadviseItemsSink(ulCount, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", ulCount, pdwCookieMarshal, pdwCookie, "HRESULT")
+        result := ComCall(14, this, UInt32, ulCount, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 

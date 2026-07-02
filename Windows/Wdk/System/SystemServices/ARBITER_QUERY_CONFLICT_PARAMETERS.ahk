@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IO_RESOURCE_DESCRIPTOR.ahk" { IO_RESOURCE_DESCRIPTOR }
 #Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import ".\ARBITER_CONFLICT_INFO.ahk" { ARBITER_CONFLICT_INFO }
-#Import ".\IO_RESOURCE_DESCRIPTOR.ahk" { IO_RESOURCE_DESCRIPTOR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

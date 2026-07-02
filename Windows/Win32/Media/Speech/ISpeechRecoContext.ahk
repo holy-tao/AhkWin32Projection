@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SpeechRetainedAudioOptions.ahk" { SpeechRetainedAudioOptions }
+#Import ".\SpeechRecoContextState.ahk" { SpeechRecoContextState }
+#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechRecoResult.ahk" { ISpeechRecoResult }
+#Import ".\SpeechInterference.ahk" { SpeechInterference }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISpeechVoice.ahk" { ISpeechVoice }
+#Import ".\SpeechRecoEvents.ahk" { SpeechRecoEvents }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ISpeechRecognizer.ahk" { ISpeechRecognizer }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
-#Import ".\SpeechInterference.ahk" { SpeechInterference }
-#Import ".\ISpeechRecoGrammar.ahk" { ISpeechRecoGrammar }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SpeechRecoEvents.ahk" { SpeechRecoEvents }
-#Import ".\ISpeechVoice.ahk" { ISpeechVoice }
-#Import ".\ISpeechRecoResult.ahk" { ISpeechRecoResult }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\SpeechRecoContextState.ahk" { SpeechRecoContextState }
-#Import ".\SpeechBookmarkOptions.ahk" { SpeechBookmarkOptions }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISpeechRecoGrammar.ahk" { ISpeechRecoGrammar }
+#Import ".\SpeechBookmarkOptions.ahk" { SpeechBookmarkOptions }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\SpeechRetainedAudioOptions.ahk" { SpeechRetainedAudioOptions }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -265,7 +265,7 @@ export default struct ISpeechRecoContext extends IDispatch {
      * @returns {HRESULT} 
      */
     put_CmdMaxAlternates(MaxAlternates) {
-        result := ComCall(18, this, "int", MaxAlternates, "HRESULT")
+        result := ComCall(18, this, Int32, MaxAlternates, "HRESULT")
         return result
     }
 

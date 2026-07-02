@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

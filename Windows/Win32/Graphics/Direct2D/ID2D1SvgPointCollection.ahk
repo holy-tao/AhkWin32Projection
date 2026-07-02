@@ -52,7 +52,7 @@ export default struct ID2D1SvgPointCollection extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-removepointsatend
      */
     RemovePointsAtEnd(pointsCount) {
-        result := ComCall(6, this, "uint", pointsCount, "HRESULT")
+        result := ComCall(6, this, UInt32, pointsCount, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct ID2D1SvgPointCollection extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-updatepoints
      */
     UpdatePoints(_points, pointsCount, startIndex) {
-        result := ComCall(7, this, D2D_POINT_2F.Ptr, _points, "uint", pointsCount, "uint", startIndex, "HRESULT")
+        result := ComCall(7, this, D2D_POINT_2F.Ptr, _points, UInt32, pointsCount, UInt32, startIndex, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct ID2D1SvgPointCollection extends ID2D1SvgAttribute {
      */
     GetPoints(pointsCount, startIndex) {
         _points := D2D_POINT_2F()
-        result := ComCall(8, this, D2D_POINT_2F.Ptr, _points, "uint", pointsCount, "uint", startIndex, "HRESULT")
+        result := ComCall(8, this, D2D_POINT_2F.Ptr, _points, UInt32, pointsCount, UInt32, startIndex, "HRESULT")
         return _points
     }
 

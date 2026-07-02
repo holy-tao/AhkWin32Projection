@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DML_OPERATOR_DESC.ahk" { DML_OPERATOR_DESC }
-#Import ".\IDMLOperator.ahk" { IDMLOperator }
-#Import ".\DML_FEATURE.ahk" { DML_FEATURE }
-#Import ".\IDMLCompiledOperator.ahk" { IDMLCompiledOperator }
-#Import ".\IDMLObject.ahk" { IDMLObject }
-#Import ".\DML_EXECUTION_FLAGS.ahk" { DML_EXECUTION_FLAGS }
-#Import ".\IDMLPageable.ahk" { IDMLPageable }
 #Import ".\DML_BINDING_TABLE_DESC.ahk" { DML_BINDING_TABLE_DESC }
+#Import ".\DML_FEATURE.ahk" { DML_FEATURE }
+#Import ".\IDMLObject.ahk" { IDMLObject }
+#Import ".\DML_OPERATOR_DESC.ahk" { DML_OPERATOR_DESC }
+#Import ".\IDMLCompiledOperator.ahk" { IDMLCompiledOperator }
+#Import ".\IDMLPageable.ahk" { IDMLPageable }
+#Import ".\DML_EXECUTION_FLAGS.ahk" { DML_EXECUTION_FLAGS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDMLOperator.ahk" { IDMLOperator }
 
 /**
  * Represents a DirectML device, which is used to create operators, binding tables, command recorders, and other objects. (IDMLDevice)
@@ -76,7 +76,7 @@ export default struct IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport
      */
     CheckFeatureSupport(feature, featureQueryDataSize, featureQueryData, featureSupportDataSize, featureSupportData) {
-        result := ComCall(7, this, DML_FEATURE, feature, "uint", featureQueryDataSize, "ptr", featureQueryData, "uint", featureSupportDataSize, "ptr", featureSupportData, "HRESULT")
+        result := ComCall(7, this, DML_FEATURE, feature, UInt32, featureQueryDataSize, IntPtr, featureQueryData, UInt32, featureSupportDataSize, IntPtr, featureSupportData, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperatorinitializer
      */
     CreateOperatorInitializer(operatorCount, operators, riid) {
-        result := ComCall(10, this, "uint", operatorCount, IDMLCompiledOperator.Ptr, operators, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, operatorCount, IDMLCompiledOperator.Ptr, operators, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -189,7 +189,7 @@ export default struct IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-evict
      */
     Evict(count, ppObjects) {
-        result := ComCall(13, this, "uint", count, IDMLPageable.Ptr, ppObjects, "HRESULT")
+        result := ComCall(13, this, UInt32, count, IDMLPageable.Ptr, ppObjects, "HRESULT")
         return result
     }
 
@@ -207,7 +207,7 @@ export default struct IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-makeresident
      */
     MakeResident(count, ppObjects) {
-        result := ComCall(14, this, "uint", count, IDMLPageable.Ptr, ppObjects, "HRESULT")
+        result := ComCall(14, this, UInt32, count, IDMLPageable.Ptr, ppObjects, "HRESULT")
         return result
     }
 

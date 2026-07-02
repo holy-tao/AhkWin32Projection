@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWMMutualExclusion.ahk" { IWMMutualExclusion }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMT_VERSION.ahk" { WMT_VERSION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
+#Import ".\WMT_VERSION.ahk" { WMT_VERSION }
 
 /**
  * The IWMProfile interface is the primary interface for a profile object.
@@ -315,7 +315,7 @@ export default struct IWMProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getstream
      */
     GetStream(dwStreamIndex) {
-        result := ComCall(9, this, "uint", dwStreamIndex, "ptr*", &ppConfig := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwStreamIndex, "ptr*", &ppConfig := 0, "HRESULT")
         return IWMStreamConfig(ppConfig)
     }
 
@@ -328,7 +328,7 @@ export default struct IWMProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getstreambynumber
      */
     GetStreamByNumber(wStreamNum) {
-        result := ComCall(10, this, "ushort", wStreamNum, "ptr*", &ppConfig := 0, "HRESULT")
+        result := ComCall(10, this, UInt16, wStreamNum, "ptr*", &ppConfig := 0, "HRESULT")
         return IWMStreamConfig(ppConfig)
     }
 
@@ -434,7 +434,7 @@ export default struct IWMProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-removestreambynumber
      */
     RemoveStreamByNumber(wStreamNum) {
-        result := ComCall(12, this, "ushort", wStreamNum, "HRESULT")
+        result := ComCall(12, this, UInt16, wStreamNum, "HRESULT")
         return result
     }
 
@@ -604,7 +604,7 @@ export default struct IWMProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getmutualexclusion
      */
     GetMutualExclusion(dwMEIndex) {
-        result := ComCall(17, this, "uint", dwMEIndex, "ptr*", &ppME := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, dwMEIndex, "ptr*", &ppME := 0, "HRESULT")
         return IWMMutualExclusion(ppME)
     }
 

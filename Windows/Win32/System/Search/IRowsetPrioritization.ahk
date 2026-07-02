@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PRIORITY_LEVEL.ahk" { PRIORITY_LEVEL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PRIORITY_LEVEL.ahk" { PRIORITY_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Sets or retrieves the current indexer prioritization level for the scope specified by this query.
@@ -66,7 +66,7 @@ export default struct IRowsetPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-setscopepriority
      */
     SetScopePriority(_priority, scopeStatisticsEventFrequency) {
-        result := ComCall(3, this, PRIORITY_LEVEL, _priority, "uint", scopeStatisticsEventFrequency, "HRESULT")
+        result := ComCall(3, this, PRIORITY_LEVEL, _priority, UInt32, scopeStatisticsEventFrequency, "HRESULT")
         return result
     }
 

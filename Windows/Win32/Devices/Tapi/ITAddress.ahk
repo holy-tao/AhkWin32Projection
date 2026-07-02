@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ADDRESS_STATE.ahk" { ADDRESS_STATE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ITForwardInformation.ahk" { ITForwardInformation }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IEnumCall.ahk" { IEnumCall }
-#Import ".\ITBasicCallControl.ahk" { ITBasicCallControl }
-#Import ".\ITTAPI.ahk" { ITTAPI }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITTAPI.ahk" { ITTAPI }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ADDRESS_STATE.ahk" { ADDRESS_STATE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITBasicCallControl.ahk" { ITBasicCallControl }
+#Import ".\IEnumCall.ahk" { IEnumCall }
 
 /**
  * The ITAddress interface is the base interface for the Address object. Applications use this interface to get information about and use the Address object.
@@ -214,7 +214,7 @@ export default struct ITAddress extends IDispatch {
     CreateCall(pDestAddress, lAddressType, lMediaTypes) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
 
-        result := ComCall(11, this, BSTR, pDestAddress, "int", lAddressType, "int", lMediaTypes, "ptr*", &ppCall := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, pDestAddress, Int32, lAddressType, Int32, lMediaTypes, "ptr*", &ppCall := 0, "HRESULT")
         return ITBasicCallControl(ppCall)
     }
 

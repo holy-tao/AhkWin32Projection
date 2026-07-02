@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIAutomationType.ahk" { UIAutomationType }
-#Import ".\UIAutomationParameter.ahk" { UIAutomationParameter }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UIAutomationType.ahk" { UIAutomationType }
+#Import ".\UIAutomationParameter.ahk" { UIAutomationParameter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a control pattern object. The client API wrapper uses this interface to implement all property and method calls in terms of the GetProperty and CallMethod methods.
@@ -51,14 +51,16 @@ export default struct IUIAutomationPatternInstance extends IUnknown {
      * @param {BOOL} cached Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the property should be retrieved from the cache, otherwise <b>FALSE</b>.
-     * @param {UIAutomationType} type 
+     * @param {UIAutomationType} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType</a></b>
+     * 
+     * A value indicating the data type of the property.
      * @returns {Void} Type: <b>void*</b>
      * 
      * Receives the value of the property.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatterninstance-getproperty
      */
     GetProperty(index, cached, type) {
-        result := ComCall(3, this, "uint", index, BOOL, cached, UIAutomationType, type, "ptr", &pPtr := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, index, BOOL, cached, UIAutomationType, type, "ptr", &pPtr := 0, "HRESULT")
         return pPtr
     }
 
@@ -79,7 +81,7 @@ export default struct IUIAutomationPatternInstance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatterninstance-callmethod
      */
     CallMethod(index, pParams, cParams) {
-        result := ComCall(4, this, "uint", index, UIAutomationParameter.Ptr, pParams, "uint", cParams, "HRESULT")
+        result := ComCall(4, this, UInt32, index, UIAutomationParameter.Ptr, pParams, UInt32, cParams, "HRESULT")
         return result
     }
 

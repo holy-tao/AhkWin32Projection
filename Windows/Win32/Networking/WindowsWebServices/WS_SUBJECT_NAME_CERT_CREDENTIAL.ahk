@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_CERT_CREDENTIAL_TYPE.ahk" { WS_CERT_CREDENTIAL_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WS_CERT_CREDENTIAL.ahk" { WS_CERT_CREDENTIAL }
 #Import ".\WS_STRING.ahk" { WS_STRING }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WS_CERT_CREDENTIAL_TYPE.ahk" { WS_CERT_CREDENTIAL_TYPE }
 
 /**
  * The type for specifying a certificate credential using the certificate's subject name, store location and store name. The specified credential is loaded when the containing channel or listener is opened.

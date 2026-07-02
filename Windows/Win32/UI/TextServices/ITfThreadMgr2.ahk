@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumTfFunctionProviders.ahk" { IEnumTfFunctionProviders }
-#Import ".\ITfFunctionProvider.ahk" { ITfFunctionProvider }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IEnumTfDocumentMgrs.ahk" { IEnumTfDocumentMgrs }
+#Import ".\ITfFunctionProvider.ahk" { ITfFunctionProvider }
+#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumTfDocumentMgrs.ahk" { IEnumTfDocumentMgrs }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfCompartmentMgr.ahk" { ITfCompartmentMgr }
+#Import ".\IEnumTfFunctionProviders.ahk" { IEnumTfFunctionProviders }
 
 /**
  * The ITfThreadMgr2 defines the primary object implemented by the TSF manager. ITfThreadMgr2 is used by applications and text services to activate and deactivate text services, create document managers, and maintain the document context focus.
@@ -321,7 +321,7 @@ export default struct ITfThreadMgr2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr2-activateex
      */
     ActivateEx(dwFlags) {
-        result := ComCall(13, this, "uint*", &ptid := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(13, this, "uint*", &ptid := 0, UInt32, dwFlags, "HRESULT")
         return ptid
     }
 

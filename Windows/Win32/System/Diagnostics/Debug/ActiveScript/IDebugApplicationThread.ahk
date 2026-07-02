@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugThreadCall32.ahk" { IDebugThreadCall32 }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -50,7 +50,7 @@ export default struct IDebugApplicationThread extends IRemoteDebugApplicationThr
      * @returns {HRESULT} 
      */
     SynchronousCallIntoThread32(pstcb, dwParam1, dwParam2, dwParam3) {
-        result := ComCall(12, this, "ptr", pstcb, "uint", dwParam1, "uint", dwParam2, "uint", dwParam3, "HRESULT")
+        result := ComCall(12, this, "ptr", pstcb, UInt32, dwParam1, UInt32, dwParam2, UInt32, dwParam3, "HRESULT")
         return result
     }
 

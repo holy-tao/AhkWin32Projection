@@ -1,22 +1,22 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS.ahk" { WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS }
-#Import ".\WEBAUTHN_RP_ENTITY_INFORMATION.ahk" { WEBAUTHN_RP_ENTITY_INFORMATION }
-#Import ".\WEBAUTHN_ASSERTION.ahk" { WEBAUTHN_ASSERTION }
-#Import ".\WEBAUTHN_CREDENTIAL_ATTESTATION.ahk" { WEBAUTHN_CREDENTIAL_ATTESTATION }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\WEBAUTHN_AUTHENTICATOR_DETAILS_LIST.ahk" { WEBAUTHN_AUTHENTICATOR_DETAILS_LIST }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WEBAUTHN_CLIENT_DATA.ahk" { WEBAUTHN_CLIENT_DATA }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WEBAUTHN_USER_ENTITY_INFORMATION.ahk" { WEBAUTHN_USER_ENTITY_INFORMATION }
-#Import ".\WEBAUTHN_COSE_CREDENTIAL_PARAMETERS.ahk" { WEBAUTHN_COSE_CREDENTIAL_PARAMETERS }
-#Import ".\WEBAUTHN_CREDENTIAL_DETAILS_LIST.ahk" { WEBAUTHN_CREDENTIAL_DETAILS_LIST }
-#Import ".\WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS.ahk" { WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WEBAUTHN_GET_CREDENTIALS_OPTIONS.ahk" { WEBAUTHN_GET_CREDENTIALS_OPTIONS }
+#Import ".\WEBAUTHN_AUTHENTICATOR_DETAILS_LIST.ahk" { WEBAUTHN_AUTHENTICATOR_DETAILS_LIST }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\WEBAUTHN_ASSERTION.ahk" { WEBAUTHN_ASSERTION }
 #Import ".\WEBAUTHN_AUTHENTICATOR_DETAILS_OPTIONS.ahk" { WEBAUTHN_AUTHENTICATOR_DETAILS_OPTIONS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WEBAUTHN_CLIENT_DATA.ahk" { WEBAUTHN_CLIENT_DATA }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS.ahk" { WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS }
+#Import ".\WEBAUTHN_COSE_CREDENTIAL_PARAMETERS.ahk" { WEBAUTHN_COSE_CREDENTIAL_PARAMETERS }
+#Import ".\WEBAUTHN_USER_ENTITY_INFORMATION.ahk" { WEBAUTHN_USER_ENTITY_INFORMATION }
+#Import ".\WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS.ahk" { WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS }
+#Import ".\WEBAUTHN_GET_CREDENTIALS_OPTIONS.ahk" { WEBAUTHN_GET_CREDENTIALS_OPTIONS }
+#Import ".\WEBAUTHN_CREDENTIAL_DETAILS_LIST.ahk" { WEBAUTHN_CREDENTIAL_DETAILS_LIST }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WEBAUTHN_RP_ENTITY_INFORMATION.ahk" { WEBAUTHN_RP_ENTITY_INFORMATION }
+#Import ".\WEBAUTHN_CREDENTIAL_ATTESTATION.ahk" { WEBAUTHN_CREDENTIAL_ATTESTATION }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
@@ -153,7 +153,7 @@ export WebAuthNFreePlatformCredentialList(pCredentialDetailsList) {
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthndeleteplatformcredential
  */
 export WebAuthNDeletePlatformCredential(cbCredentialId, pbCredentialId) {
-    result := DllCall("webauthn.dll\WebAuthNDeletePlatformCredential", "uint", cbCredentialId, "ptr", pbCredentialId, "HRESULT")
+    result := DllCall("webauthn.dll\WebAuthNDeletePlatformCredential", UInt32, cbCredentialId, IntPtr, pbCredentialId, "HRESULT")
     return result
 }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsReplicaPointer interface provides methods for an ADSI client to access the Replica Pointer attribute.
@@ -125,7 +125,7 @@ export default struct IADsReplicaPointer extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ReplicaType(lnReplicaType) {
-        result := ComCall(10, this, "int", lnReplicaType, "HRESULT")
+        result := ComCall(10, this, Int32, lnReplicaType, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IADsReplicaPointer extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ReplicaNumber(lnReplicaNumber) {
-        result := ComCall(12, this, "int", lnReplicaNumber, "HRESULT")
+        result := ComCall(12, this, Int32, lnReplicaNumber, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IADsReplicaPointer extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Count(lnCount) {
-        result := ComCall(14, this, "int", lnCount, "HRESULT")
+        result := ComCall(14, this, Int32, lnCount, "HRESULT")
         return result
     }
 

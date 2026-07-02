@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_RLDO_FLAGS.ahk" { D3D12_RLDO_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_DEBUG_DEVICE_PARAMETER_TYPE.ahk" { D3D12_DEBUG_DEVICE_PARAMETER_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3D12_DEBUG_DEVICE_PARAMETER_TYPE.ahk" { D3D12_DEBUG_DEVICE_PARAMETER_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Specifies device-wide debug layer settings.
@@ -60,7 +60,7 @@ export default struct ID3D12DebugDevice1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-setdebugparameter
      */
     SetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(3, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(3, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, IntPtr, pData, UInt32, DataSize, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct ID3D12DebugDevice1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-getdebugparameter
      */
     GetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(4, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(4, this, D3D12_DEBUG_DEVICE_PARAMETER_TYPE, Type, IntPtr, pData, UInt32, DataSize, "HRESULT")
         return result
     }
 

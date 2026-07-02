@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPTNET_URL_CACHE_RESPONSE_INFO.ahk" { CRYPTNET_URL_CACHE_RESPONSE_INFO }
-#Import ".\CRYPTNET_URL_CACHE_PRE_FETCH_INFO.ahk" { CRYPTNET_URL_CACHE_PRE_FETCH_INFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPTNET_URL_CACHE_FLUSH_INFO.ahk" { CRYPTNET_URL_CACHE_FLUSH_INFO }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPTNET_URL_CACHE_RESPONSE_INFO.ahk" { CRYPTNET_URL_CACHE_RESPONSE_INFO }
+#Import ".\CRYPTNET_URL_CACHE_PRE_FETCH_INFO.ahk" { CRYPTNET_URL_CACHE_PRE_FETCH_INFO }
 
 /**
  * Contains optional information to pass to the CryptRetrieveObjectByUrl function.

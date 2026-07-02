@@ -92,7 +92,7 @@ export default struct ICertEncodeBitString extends IDispatch {
         strBitString := strBitString is String ? BSTR.Alloc(strBitString).Value : strBitString
 
         pstrBinary := BSTR.Owned()
-        result := ComCall(10, this, "int", BitCount, BSTR, strBitString, BSTR.Ptr, pstrBinary, "HRESULT")
+        result := ComCall(10, this, Int32, BitCount, BSTR, strBitString, BSTR.Ptr, pstrBinary, "HRESULT")
         return pstrBinary
     }
 

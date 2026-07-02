@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDtcLuRmEnlistmentSink.ahk" { IDtcLuRmEnlistmentSink }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDtcLuRmEnlistment.ahk" { IDtcLuRmEnlistment }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITransaction.ahk" { ITransaction }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDtcLuRmEnlistmentSink.ahk" { IDtcLuRmEnlistmentSink }
+#Import ".\IDtcLuRmEnlistment.ahk" { IDtcLuRmEnlistment }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -53,7 +53,7 @@ export default struct IDtcLuRmEnlistmentFactory extends IUnknown {
         pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
         pTransIdMarshal := pTransId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr", pITransaction, pTransIdMarshal, pTransId, "uint", cbTransId, "ptr", pRmEnlistmentSink, "ptr*", &ppRmEnlistment := 0, "HRESULT")
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, UInt32, cbLuPair, "ptr", pITransaction, pTransIdMarshal, pTransId, UInt32, cbTransId, "ptr", pRmEnlistmentSink, "ptr*", &ppRmEnlistment := 0, "HRESULT")
         return IDtcLuRmEnlistment(ppRmEnlistment)
     }
 

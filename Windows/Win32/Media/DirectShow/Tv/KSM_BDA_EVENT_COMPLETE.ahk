@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

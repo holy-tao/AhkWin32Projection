@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -263,7 +263,7 @@ export default struct ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Year(iYear) {
-        result := ComCall(10, this, "int", iYear, "HRESULT")
+        result := ComCall(10, this, Int32, iYear, "HRESULT")
         return result
     }
 
@@ -301,7 +301,7 @@ export default struct ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Month(iMonth) {
-        result := ComCall(14, this, "int", iMonth, "HRESULT")
+        result := ComCall(14, this, Int32, iMonth, "HRESULT")
         return result
     }
 
@@ -339,7 +339,7 @@ export default struct ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Day(iDay) {
-        result := ComCall(18, this, "int", iDay, "HRESULT")
+        result := ComCall(18, this, Int32, iDay, "HRESULT")
         return result
     }
 
@@ -377,7 +377,7 @@ export default struct ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Hours(iHours) {
-        result := ComCall(22, this, "int", iHours, "HRESULT")
+        result := ComCall(22, this, Int32, iHours, "HRESULT")
         return result
     }
 
@@ -415,7 +415,7 @@ export default struct ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Minutes(iMinutes) {
-        result := ComCall(26, this, "int", iMinutes, "HRESULT")
+        result := ComCall(26, this, Int32, iMinutes, "HRESULT")
         return result
     }
 
@@ -453,7 +453,7 @@ export default struct ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Seconds(iSeconds) {
-        result := ComCall(30, this, "int", iSeconds, "HRESULT")
+        result := ComCall(30, this, Int32, iSeconds, "HRESULT")
         return result
     }
 
@@ -491,7 +491,7 @@ export default struct ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Microseconds(iMicroseconds) {
-        result := ComCall(34, this, "int", iMicroseconds, "HRESULT")
+        result := ComCall(34, this, Int32, iMicroseconds, "HRESULT")
         return result
     }
 
@@ -529,7 +529,7 @@ export default struct ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     put_UTC(iUTC) {
-        result := ComCall(38, this, "int", iUTC, "HRESULT")
+        result := ComCall(38, this, Int32, iUTC, "HRESULT")
         return result
     }
 
@@ -588,7 +588,7 @@ export default struct ISWbemDateTime extends IDispatch {
      * @returns {HRESULT} 
      */
     SetVarDate(dVarDate, bIsLocal) {
-        result := ComCall(44, this, "double", dVarDate, VARIANT_BOOL, bIsLocal, "HRESULT")
+        result := ComCall(44, this, Float64, dVarDate, VARIANT_BOOL, bIsLocal, "HRESULT")
         return result
     }
 

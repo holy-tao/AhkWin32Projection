@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\LNB_Source.ahk" { LNB_Source }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Pilot.ahk" { Pilot }
 #Import "..\SpectralInversion.ahk" { SpectralInversion }
-#Import ".\IDVBSLocator.ahk" { IDVBSLocator }
+#Import "..\Pilot.ahk" { Pilot }
+#Import "..\LNB_Source.ahk" { LNB_Source }
 #Import "..\RollOff.ahk" { RollOff }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDVBSLocator.ahk" { IDVBSLocator }
 
 /**
  * Provides information to enable a tuner to acquire a Digital Video Broadcasting-Satellite (DVB-S) transmission.
@@ -150,7 +150,7 @@ export default struct IDVBSLocator2 extends IDVBSLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_localoscillatoroverridelow
      */
     put_LocalOscillatorOverrideLow(LocalOscillatorOverrideLowVal) {
-        result := ComCall(35, this, "int", LocalOscillatorOverrideLowVal, "HRESULT")
+        result := ComCall(35, this, Int32, LocalOscillatorOverrideLowVal, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct IDVBSLocator2 extends IDVBSLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_localoscillatoroverridehigh
      */
     put_LocalOscillatorOverrideHigh(LocalOscillatorOverrideHighVal) {
-        result := ComCall(37, this, "int", LocalOscillatorOverrideHighVal, "HRESULT")
+        result := ComCall(37, this, Int32, LocalOscillatorOverrideHighVal, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct IDVBSLocator2 extends IDVBSLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_locallnbswitchoverride
      */
     put_LocalLNBSwitchOverride(LocalLNBSwitchOverrideVal) {
-        result := ComCall(39, this, "int", LocalLNBSwitchOverrideVal, "HRESULT")
+        result := ComCall(39, this, Int32, LocalLNBSwitchOverrideVal, "HRESULT")
         return result
     }
 

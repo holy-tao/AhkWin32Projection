@@ -3,12 +3,12 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFsrmPropertyBag.ahk" { IFsrmPropertyBag }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 #Import ".\IFsrmPipelineModuleImplementation.ahk" { IFsrmPipelineModuleImplementation }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Classifier modules implement this interface. FSRM calls the module's implementation when it runs classification.

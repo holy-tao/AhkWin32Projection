@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPrintAsyncNotifyChannel.ahk" { IPrintAsyncNotifyChannel }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPrintAsyncNotifyDataObject.ahk" { IPrintAsyncNotifyDataObject }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPrintAsyncNotifyChannel.ahk" { IPrintAsyncNotifyChannel }
 
 /**
  * Creates and manages a communication channel used by applications and components that are hosted by the print spooler.

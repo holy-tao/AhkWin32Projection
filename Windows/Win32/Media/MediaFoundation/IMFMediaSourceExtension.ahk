@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFSourceBuffer.ahk" { IMFSourceBuffer }
-#Import ".\IMFSourceBufferList.ahk" { IMFSourceBufferList }
-#Import ".\MF_MSE_READY.ahk" { MF_MSE_READY }
 #Import ".\IMFSourceBufferNotify.ahk" { IMFSourceBufferNotify }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\MF_MSE_ERROR.ahk" { MF_MSE_ERROR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MF_MSE_ERROR.ahk" { MF_MSE_ERROR }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\MF_MSE_READY.ahk" { MF_MSE_READY }
+#Import ".\IMFSourceBufferList.ahk" { IMFSourceBufferList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFSourceBuffer.ahk" { IMFSourceBuffer }
 
 /**
  * Provides functionality for the Media Source Extension (MSE).
@@ -104,7 +104,7 @@ export default struct IMFMediaSourceExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-setduration
      */
     SetDuration(duration) {
-        result := ComCall(7, this, "double", duration, "HRESULT")
+        result := ComCall(7, this, Float64, duration, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IMFMediaSourceExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextension-getsourcebuffer
      */
     GetSourceBuffer(dwStreamIndex) {
-        result := ComCall(12, this, "uint", dwStreamIndex, IMFSourceBuffer)
+        result := ComCall(12, this, UInt32, dwStreamIndex, IMFSourceBuffer)
         return result
     }
 

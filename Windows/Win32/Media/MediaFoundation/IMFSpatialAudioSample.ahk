@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFSpatialAudioObjectBuffer.ahk" { IMFSpatialAudioObjectBuffer }
 #Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\IMFSpatialAudioObjectBuffer.ahk" { IMFSpatialAudioObjectBuffer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -97,7 +97,7 @@ export default struct IMFSpatialAudioSample extends IMFSample {
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getspatialaudioobjectbyindex
      */
     GetSpatialAudioObjectByIndex(dwIndex) {
-        result := ComCall(49, this, "uint", dwIndex, "ptr*", &ppAudioObjBuffer := 0, "HRESULT")
+        result := ComCall(49, this, UInt32, dwIndex, "ptr*", &ppAudioObjBuffer := 0, "HRESULT")
         return IMFSpatialAudioObjectBuffer(ppAudioObjBuffer)
     }
 

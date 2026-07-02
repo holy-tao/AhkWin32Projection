@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NET_VALIDATE_PASSWORD_HASH.ahk" { NET_VALIDATE_PASSWORD_HASH }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\NET_VALIDATE_PASSWORD_HASH.ahk" { NET_VALIDATE_PASSWORD_HASH }
 
 /**
  * The NET_VALIDATE_PERSISTED_FIELDS structure contains information about a user's password properties.

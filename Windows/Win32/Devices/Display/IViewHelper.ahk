@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -135,7 +135,7 @@ export default struct IViewHelper extends IUnknown {
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
         pulIDMarshal := pulID is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wszAdaptorName, pulCountMarshal, pulCount, pulIDMarshal, pulID, "uint", ulFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", wszAdaptorName, pulCountMarshal, pulCount, pulIDMarshal, pulID, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -230,7 +230,7 @@ export default struct IViewHelper extends IUnknown {
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
         pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", wszAdaptorName, "uint", ulSourceID, pulCountMarshal, pulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
+        result := ComCall(4, this, "ptr", wszAdaptorName, UInt32, ulSourceID, pulCountMarshal, pulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
         return result
     }
 
@@ -335,7 +335,7 @@ export default struct IViewHelper extends IUnknown {
 
         pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", wszAdaptorName, "uint", ulSourceID, "uint", ulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
+        result := ComCall(5, this, "ptr", wszAdaptorName, UInt32, ulSourceID, UInt32, ulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
         return result
     }
 

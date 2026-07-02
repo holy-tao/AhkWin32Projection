@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 
 /**
  * Provides a method to create aligned volumes on a pack.
@@ -63,7 +63,7 @@ export default struct IVdsPack2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack2-createvolume2
      */
     CreateVolume2(type, pInputDiskArray, lNumberOfDisks, ulStripeSize, ulAlign) {
-        result := ComCall(3, this, VDS_VOLUME_TYPE, type, VDS_INPUT_DISK.Ptr, pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "uint", ulAlign, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(3, this, VDS_VOLUME_TYPE, type, VDS_INPUT_DISK.Ptr, pInputDiskArray, Int32, lNumberOfDisks, UInt32, ulStripeSize, UInt32, ulAlign, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

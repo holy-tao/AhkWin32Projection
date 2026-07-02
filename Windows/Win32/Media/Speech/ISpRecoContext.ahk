@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPSERIALIZEDRESULT.ahk" { SPSERIALIZEDRESULT }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\SPCONTEXTSTATE.ahk" { SPCONTEXTSTATE }
-#Import ".\ISpRecoResult.ahk" { ISpRecoResult }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\ISpRecoGrammar.ahk" { ISpRecoGrammar }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ISpRecognizer.ahk" { ISpRecognizer }
-#Import ".\SPRECOCONTEXTSTATUS.ahk" { SPRECOCONTEXTSTATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISpEventSource.ahk" { ISpEventSource }
-#Import ".\SPBOOKMARKOPTIONS.ahk" { SPBOOKMARKOPTIONS }
 #Import ".\SPAUDIOOPTIONS.ahk" { SPAUDIOOPTIONS }
+#Import ".\SPSERIALIZEDRESULT.ahk" { SPSERIALIZEDRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\SPCONTEXTSTATE.ahk" { SPCONTEXTSTATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpEventSource.ahk" { ISpEventSource }
 #Import ".\ISpVoice.ahk" { ISpVoice }
+#Import ".\SPRECOCONTEXTSTATUS.ahk" { SPRECOCONTEXTSTATUS }
+#Import ".\ISpRecoResult.ahk" { ISpRecoResult }
+#Import ".\SPBOOKMARKOPTIONS.ahk" { SPBOOKMARKOPTIONS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ISpRecoGrammar.ahk" { ISpRecoGrammar }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -80,7 +80,7 @@ export default struct ISpRecoContext extends ISpEventSource {
      * @returns {ISpRecoGrammar} 
      */
     CreateGrammar(ullGrammarId) {
-        result := ComCall(14, this, "uint", ullGrammarId, "ptr*", &ppGrammar := 0, "HRESULT")
+        result := ComCall(14, this, Int64, ullGrammarId, "ptr*", &ppGrammar := 0, "HRESULT")
         return ISpRecoGrammar(ppGrammar)
     }
 
@@ -112,7 +112,7 @@ export default struct ISpRecoContext extends ISpEventSource {
      * @returns {HRESULT} 
      */
     SetMaxAlternates(cAlternates) {
-        result := ComCall(17, this, "uint", cAlternates, "HRESULT")
+        result := ComCall(17, this, UInt32, cAlternates, "HRESULT")
         return result
     }
 
@@ -161,7 +161,7 @@ export default struct ISpRecoContext extends ISpEventSource {
      * @returns {HRESULT} 
      */
     Bookmark(Options, ullStreamPosition, lparamEvent) {
-        result := ComCall(21, this, SPBOOKMARKOPTIONS, Options, "uint", ullStreamPosition, LPARAM, lparamEvent, "HRESULT")
+        result := ComCall(21, this, SPBOOKMARKOPTIONS, Options, Int64, ullStreamPosition, LPARAM, lparamEvent, "HRESULT")
         return result
     }
 
@@ -174,7 +174,7 @@ export default struct ISpRecoContext extends ISpEventSource {
     SetAdaptationData(pAdaptationData, cch) {
         pAdaptationData := pAdaptationData is String ? StrPtr(pAdaptationData) : pAdaptationData
 
-        result := ComCall(22, this, "ptr", pAdaptationData, "uint", cch, "HRESULT")
+        result := ComCall(22, this, "ptr", pAdaptationData, UInt32, cch, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct ISpRecoContext extends ISpEventSource {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/pause-method
      */
     Pause(dwReserved) {
-        result := ComCall(23, this, "uint", dwReserved, "HRESULT")
+        result := ComCall(23, this, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct ISpRecoContext extends ISpEventSource {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/resume-method
      */
     Resume(dwReserved) {
-        result := ComCall(24, this, "uint", dwReserved, "HRESULT")
+        result := ComCall(24, this, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -228,7 +228,7 @@ export default struct ISpRecoContext extends ISpEventSource {
      * @returns {HRESULT} 
      */
     SetVoicePurgeEvent(ullEventInterest) {
-        result := ComCall(27, this, "uint", ullEventInterest, "HRESULT")
+        result := ComCall(27, this, Int64, ullEventInterest, "HRESULT")
         return result
     }
 

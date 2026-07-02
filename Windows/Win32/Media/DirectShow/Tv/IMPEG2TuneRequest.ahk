@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
 
 /**
  * The IMPEG2TuneRequest interface represents a tune request for a basic MPEG-2 transport stream containing the minimal tables.Use the IMPEG2TuneRequestFactory::CreateTuneRequest method to obtain this interface.
@@ -81,7 +81,7 @@ export default struct IMPEG2TuneRequest extends ITuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequest-put_tsid
      */
     put_TSID(TSID) {
-        result := ComCall(13, this, "int", TSID, "HRESULT")
+        result := ComCall(13, this, Int32, TSID, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IMPEG2TuneRequest extends ITuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequest-put_progno
      */
     put_ProgNo(ProgNo) {
-        result := ComCall(15, this, "int", ProgNo, "HRESULT")
+        result := ComCall(15, this, Int32, ProgNo, "HRESULT")
         return result
     }
 

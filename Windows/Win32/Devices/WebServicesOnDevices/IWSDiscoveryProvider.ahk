@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
-#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
-#Import ".\IWSDiscoveryProviderNotify.ahk" { IWSDiscoveryProviderNotify }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSDiscoveryProviderNotify.ahk" { IWSDiscoveryProviderNotify }
 
 /**
  * Used to discover services on the network advertised by WS-Discovery.
@@ -152,7 +152,7 @@ export default struct IWSDiscoveryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveryprovider-setaddressfamily
      */
     SetAddressFamily(dwAddressFamily) {
-        result := ComCall(3, this, "uint", dwAddressFamily, "HRESULT")
+        result := ComCall(3, this, UInt32, dwAddressFamily, "HRESULT")
         return result
     }
 

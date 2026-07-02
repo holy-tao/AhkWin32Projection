@@ -1,57 +1,57 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\ID3D11HullShader.ahk" { ID3D11HullShader }
-#Import ".\D3D11_DEPTH_STENCIL_VIEW_DESC.ahk" { D3D11_DEPTH_STENCIL_VIEW_DESC }
-#Import ".\ID3D11SamplerState.ahk" { ID3D11SamplerState }
-#Import ".\ID3D11GeometryShader.ahk" { ID3D11GeometryShader }
-#Import ".\D3D11_TEXTURE1D_DESC.ahk" { D3D11_TEXTURE1D_DESC }
 #Import ".\ID3D11Texture1D.ahk" { ID3D11Texture1D }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import ".\D3D11_INPUT_ELEMENT_DESC.ahk" { D3D11_INPUT_ELEMENT_DESC }
-#Import ".\D3D11_SHADER_RESOURCE_VIEW_DESC.ahk" { D3D11_SHADER_RESOURCE_VIEW_DESC }
 #Import ".\ID3D11PixelShader.ahk" { ID3D11PixelShader }
-#Import ".\D3D11_TEXTURE3D_DESC.ahk" { D3D11_TEXTURE3D_DESC }
-#Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
-#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
-#Import ".\D3D11_COUNTER_INFO.ahk" { D3D11_COUNTER_INFO }
-#Import ".\D3D11_RASTERIZER_DESC.ahk" { D3D11_RASTERIZER_DESC }
+#Import ".\D3D11_SAMPLER_DESC.ahk" { D3D11_SAMPLER_DESC }
+#Import ".\D3D11_UNORDERED_ACCESS_VIEW_DESC.ahk" { D3D11_UNORDERED_ACCESS_VIEW_DESC }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D11HullShader.ahk" { ID3D11HullShader }
 #Import ".\ID3D11RasterizerState.ahk" { ID3D11RasterizerState }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D11ComputeShader.ahk" { ID3D11ComputeShader }
-#Import ".\D3D11_SO_DECLARATION_ENTRY.ahk" { D3D11_SO_DECLARATION_ENTRY }
-#Import ".\ID3D11Counter.ahk" { ID3D11Counter }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\D3D11_COUNTER_TYPE.ahk" { D3D11_COUNTER_TYPE }
 #Import ".\D3D11_QUERY_DESC.ahk" { D3D11_QUERY_DESC }
-#Import ".\D3D11_SUBRESOURCE_DATA.ahk" { D3D11_SUBRESOURCE_DATA }
-#Import ".\D3D11_COUNTER_DESC.ahk" { D3D11_COUNTER_DESC }
-#Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
-#Import ".\ID3D11ClassLinkage.ahk" { ID3D11ClassLinkage }
+#Import ".\D3D11_TEXTURE3D_DESC.ahk" { D3D11_TEXTURE3D_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ID3D11Texture2D.ahk" { ID3D11Texture2D }
 #Import ".\D3D11_BLEND_DESC.ahk" { D3D11_BLEND_DESC }
-#Import ".\D3D11_RENDER_TARGET_VIEW_DESC.ahk" { D3D11_RENDER_TARGET_VIEW_DESC }
-#Import ".\D3D11_SAMPLER_DESC.ahk" { D3D11_SAMPLER_DESC }
+#Import ".\D3D11_COUNTER_TYPE.ahk" { D3D11_COUNTER_TYPE }
+#Import ".\ID3D11BlendState.ahk" { ID3D11BlendState }
 #Import ".\ID3D11ShaderResourceView.ahk" { ID3D11ShaderResourceView }
 #Import ".\ID3D11Query.ahk" { ID3D11Query }
-#Import ".\D3D11_FEATURE.ahk" { D3D11_FEATURE }
-#Import ".\ID3D11Predicate.ahk" { ID3D11Predicate }
-#Import ".\ID3D11DepthStencilState.ahk" { ID3D11DepthStencilState }
-#Import ".\D3D11_UNORDERED_ACCESS_VIEW_DESC.ahk" { D3D11_UNORDERED_ACCESS_VIEW_DESC }
-#Import ".\D3D11_BUFFER_DESC.ahk" { D3D11_BUFFER_DESC }
-#Import ".\ID3D11RenderTargetView.ahk" { ID3D11RenderTargetView }
-#Import ".\D3D11_TEXTURE2D_DESC.ahk" { D3D11_TEXTURE2D_DESC }
+#Import ".\ID3D11SamplerState.ahk" { ID3D11SamplerState }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\ID3D11Texture3D.ahk" { ID3D11Texture3D }
+#Import ".\ID3D11ComputeShader.ahk" { ID3D11ComputeShader }
+#Import ".\D3D11_SHADER_RESOURCE_VIEW_DESC.ahk" { D3D11_SHADER_RESOURCE_VIEW_DESC }
+#Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
+#Import ".\ID3D11ClassLinkage.ahk" { ID3D11ClassLinkage }
+#Import ".\D3D11_RENDER_TARGET_VIEW_DESC.ahk" { D3D11_RENDER_TARGET_VIEW_DESC }
+#Import ".\D3D11_SO_DECLARATION_ENTRY.ahk" { D3D11_SO_DECLARATION_ENTRY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_FEATURE.ahk" { D3D11_FEATURE }
+#Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
+#Import ".\ID3D11DepthStencilView.ahk" { ID3D11DepthStencilView }
+#Import ".\D3D11_SUBRESOURCE_DATA.ahk" { D3D11_SUBRESOURCE_DATA }
+#Import ".\ID3D11RenderTargetView.ahk" { ID3D11RenderTargetView }
 #Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
 #Import ".\ID3D11VertexShader.ahk" { ID3D11VertexShader }
-#Import ".\ID3D11DepthStencilView.ahk" { ID3D11DepthStencilView }
 #Import ".\ID3D11DomainShader.ahk" { ID3D11DomainShader }
-#Import ".\ID3D11BlendState.ahk" { ID3D11BlendState }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import ".\ID3D11DepthStencilState.ahk" { ID3D11DepthStencilState }
 #Import ".\D3D11_DEPTH_STENCIL_DESC.ahk" { D3D11_DEPTH_STENCIL_DESC }
+#Import ".\D3D11_COUNTER_INFO.ahk" { D3D11_COUNTER_INFO }
+#Import ".\ID3D11Counter.ahk" { ID3D11Counter }
+#Import ".\ID3D11Predicate.ahk" { ID3D11Predicate }
+#Import ".\D3D11_DEPTH_STENCIL_VIEW_DESC.ahk" { D3D11_DEPTH_STENCIL_VIEW_DESC }
+#Import ".\D3D11_INPUT_ELEMENT_DESC.ahk" { D3D11_INPUT_ELEMENT_DESC }
+#Import ".\D3D11_RASTERIZER_DESC.ahk" { D3D11_RASTERIZER_DESC }
 #Import ".\ID3D11InputLayout.ahk" { ID3D11InputLayout }
+#Import ".\D3D11_COUNTER_DESC.ahk" { D3D11_COUNTER_DESC }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\D3D11_BUFFER_DESC.ahk" { D3D11_BUFFER_DESC }
+#Import ".\D3D11_TEXTURE1D_DESC.ahk" { D3D11_TEXTURE1D_DESC }
+#Import ".\D3D11_TEXTURE2D_DESC.ahk" { D3D11_TEXTURE2D_DESC }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\ID3D11GeometryShader.ahk" { ID3D11GeometryShader }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources.
@@ -453,7 +453,7 @@ export default struct ID3D11Device extends IUnknown {
     CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength) {
         pShaderBytecodeWithInputSignatureMarshal := pShaderBytecodeWithInputSignature is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, D3D11_INPUT_ELEMENT_DESC.Ptr, pInputElementDescs, "uint", NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", &ppInputLayout := 0, "HRESULT")
+        result := ComCall(11, this, D3D11_INPUT_ELEMENT_DESC.Ptr, pInputElementDescs, UInt32, NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, IntPtr, BytecodeLength, "ptr*", &ppInputLayout := 0, "HRESULT")
         return ID3D11InputLayout(ppInputLayout)
     }
 
@@ -518,7 +518,7 @@ export default struct ID3D11Device extends IUnknown {
     CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppVertexShader := 0, "HRESULT")
+        result := ComCall(12, this, pShaderBytecodeMarshal, pShaderBytecode, IntPtr, BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppVertexShader := 0, "HRESULT")
         return ID3D11VertexShader(ppVertexShader)
     }
 
@@ -586,7 +586,7 @@ export default struct ID3D11Device extends IUnknown {
     CreateGeometryShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppGeometryShader := 0, "HRESULT")
+        result := ComCall(13, this, pShaderBytecodeMarshal, pShaderBytecode, IntPtr, BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppGeometryShader := 0, "HRESULT")
         return ID3D11GeometryShader(ppGeometryShader)
     }
 
@@ -680,7 +680,7 @@ export default struct ID3D11Device extends IUnknown {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
         pBufferStridesMarshal := pBufferStrides is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, D3D11_SO_DECLARATION_ENTRY.Ptr, pSODeclaration, "uint", NumEntries, pBufferStridesMarshal, pBufferStrides, "uint", NumStrides, "uint", RasterizedStream, "ptr", pClassLinkage, "ptr*", &ppGeometryShader := 0, "HRESULT")
+        result := ComCall(14, this, pShaderBytecodeMarshal, pShaderBytecode, IntPtr, BytecodeLength, D3D11_SO_DECLARATION_ENTRY.Ptr, pSODeclaration, UInt32, NumEntries, pBufferStridesMarshal, pBufferStrides, UInt32, NumStrides, UInt32, RasterizedStream, "ptr", pClassLinkage, "ptr*", &ppGeometryShader := 0, "HRESULT")
         return ID3D11GeometryShader(ppGeometryShader)
     }
 
@@ -705,7 +705,7 @@ export default struct ID3D11Device extends IUnknown {
     CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(15, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppPixelShader := 0, "HRESULT")
+        result := ComCall(15, this, pShaderBytecodeMarshal, pShaderBytecode, IntPtr, BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppPixelShader := 0, "HRESULT")
         return ID3D11PixelShader(ppPixelShader)
     }
 
@@ -770,7 +770,7 @@ export default struct ID3D11Device extends IUnknown {
     CreateHullShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(16, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppHullShader := 0, "HRESULT")
+        result := ComCall(16, this, pShaderBytecodeMarshal, pShaderBytecode, IntPtr, BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppHullShader := 0, "HRESULT")
         return ID3D11HullShader(ppHullShader)
     }
 
@@ -835,7 +835,7 @@ export default struct ID3D11Device extends IUnknown {
     CreateDomainShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(17, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppDomainShader := 0, "HRESULT")
+        result := ComCall(17, this, pShaderBytecodeMarshal, pShaderBytecode, IntPtr, BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppDomainShader := 0, "HRESULT")
         return ID3D11DomainShader(ppDomainShader)
     }
 
@@ -861,7 +861,7 @@ export default struct ID3D11Device extends IUnknown {
     CreateComputeShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(18, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppComputeShader := 0, "HRESULT")
+        result := ComCall(18, this, pShaderBytecodeMarshal, pShaderBytecode, IntPtr, BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppComputeShader := 0, "HRESULT")
         return ID3D11ComputeShader(ppComputeShader)
     }
 
@@ -1033,7 +1033,7 @@ export default struct ID3D11Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createdeferredcontext
      */
     CreateDeferredContext(ContextFlags) {
-        result := ComCall(27, this, "uint", ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
+        result := ComCall(27, this, UInt32, ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
         return ID3D11DeviceContext(ppDeferredContext)
     }
 
@@ -1150,7 +1150,7 @@ export default struct ID3D11Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkmultisamplequalitylevels
      */
     CheckMultisampleQualityLevels(Format, SampleCount) {
-        result := ComCall(30, this, DXGI_FORMAT, Format, "uint", SampleCount, "uint*", &pNumQualityLevels := 0, "HRESULT")
+        result := ComCall(30, this, DXGI_FORMAT, Format, UInt32, SampleCount, "uint*", &pNumQualityLevels := 0, "HRESULT")
         return pNumQualityLevels
     }
 
@@ -1246,7 +1246,7 @@ export default struct ID3D11Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkfeaturesupport
      */
     CheckFeatureSupport(Feature, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(33, this, D3D11_FEATURE, Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(33, this, D3D11_FEATURE, Feature, IntPtr, pFeatureSupportData, UInt32, FeatureSupportDataSize, "HRESULT")
         return result
     }
 
@@ -1271,7 +1271,7 @@ export default struct ID3D11Device extends IUnknown {
     GetPrivateData(guid, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(34, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
+        result := ComCall(34, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, IntPtr, pData, "HRESULT")
         return result
     }
 
@@ -1306,7 +1306,7 @@ export default struct ID3D11Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(35, this, Guid.Ptr, guid, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(35, this, Guid.Ptr, guid, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 
@@ -1409,7 +1409,7 @@ export default struct ID3D11Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-setexceptionmode
      */
     SetExceptionMode(RaiseFlags) {
-        result := ComCall(41, this, "uint", RaiseFlags, "HRESULT")
+        result := ComCall(41, this, UInt32, RaiseFlags, "HRESULT")
         return result
     }
 

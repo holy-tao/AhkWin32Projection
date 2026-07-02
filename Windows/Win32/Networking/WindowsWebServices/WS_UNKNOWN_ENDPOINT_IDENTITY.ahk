@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
 #Import ".\WS_ENDPOINT_IDENTITY_TYPE.ahk" { WS_ENDPOINT_IDENTITY_TYPE }
 #Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
-#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
 
 /**
  * Type for unknown endpoint identity. This type is only used to represent an endpoint identity type that was deserialized but was not understood.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SIP_DISPATCH_INFO.ahk" { SIP_DISPATCH_INFO }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SIP_INDIRECT_DATA.ahk" { SIP_INDIRECT_DATA }
+#Import ".\SIP_ADD_NEWPROVIDER.ahk" { SIP_ADD_NEWPROVIDER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\SIP_CAP_SET_V3.ahk" { SIP_CAP_SET_V3 }
+#Import ".\SIP_DISPATCH_INFO.ahk" { SIP_DISPATCH_INFO }
+#Import ".\SIP_SUBJECTINFO.ahk" { SIP_SUBJECTINFO }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SIP_SUBJECTINFO.ahk" { SIP_SUBJECTINFO }
-#Import ".\SIP_ADD_NEWPROVIDER.ahk" { SIP_ADD_NEWPROVIDER }
-#Import ".\SIP_CAP_SET_V3.ahk" { SIP_CAP_SET_V3 }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Sip
@@ -105,7 +105,7 @@ export CryptSIPGetSignedDataMsg(pSubjectInfo, pdwEncodingType, dwIndex, pcbSigne
 
     A_LastError := 0
 
-    result := DllCall("WINTRUST.dll\CryptSIPGetSignedDataMsg", SIP_SUBJECTINFO.Ptr, pSubjectInfo, pdwEncodingTypeMarshal, pdwEncodingType, "uint", dwIndex, pcbSignedDataMsgMarshal, pcbSignedDataMsg, pbSignedDataMsgMarshal, pbSignedDataMsg, BOOL)
+    result := DllCall("WINTRUST.dll\CryptSIPGetSignedDataMsg", SIP_SUBJECTINFO.Ptr, pSubjectInfo, pdwEncodingTypeMarshal, pdwEncodingType, UInt32, dwIndex, pcbSignedDataMsgMarshal, pcbSignedDataMsg, pbSignedDataMsgMarshal, pbSignedDataMsg, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -184,7 +184,7 @@ export CryptSIPPutSignedDataMsg(pSubjectInfo, dwEncodingType, pdwIndex, cbSigned
 
     A_LastError := 0
 
-    result := DllCall("WINTRUST.dll\CryptSIPPutSignedDataMsg", SIP_SUBJECTINFO.Ptr, pSubjectInfo, CERT_QUERY_ENCODING_TYPE, dwEncodingType, pdwIndexMarshal, pdwIndex, "uint", cbSignedDataMsg, pbSignedDataMsgMarshal, pbSignedDataMsg, BOOL)
+    result := DllCall("WINTRUST.dll\CryptSIPPutSignedDataMsg", SIP_SUBJECTINFO.Ptr, pSubjectInfo, CERT_QUERY_ENCODING_TYPE, dwEncodingType, pdwIndexMarshal, pdwIndex, UInt32, cbSignedDataMsg, pbSignedDataMsgMarshal, pbSignedDataMsg, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -352,7 +352,7 @@ export CryptSIPVerifyIndirectData(pSubjectInfo, pIndirectData) {
 export CryptSIPRemoveSignedDataMsg(pSubjectInfo, dwIndex) {
     A_LastError := 0
 
-    result := DllCall("WINTRUST.dll\CryptSIPRemoveSignedDataMsg", SIP_SUBJECTINFO.Ptr, pSubjectInfo, "uint", dwIndex, BOOL)
+    result := DllCall("WINTRUST.dll\CryptSIPRemoveSignedDataMsg", SIP_SUBJECTINFO.Ptr, pSubjectInfo, UInt32, dwIndex, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -374,7 +374,7 @@ export CryptSIPRemoveSignedDataMsg(pSubjectInfo, dwIndex) {
 export CryptSIPLoad(pgSubject, dwFlags, pSipDispatch) {
     A_LastError := 0
 
-    result := DllCall("CRYPT32.dll\CryptSIPLoad", Guid.Ptr, pgSubject, "uint", dwFlags, SIP_DISPATCH_INFO.Ptr, pSipDispatch, BOOL)
+    result := DllCall("CRYPT32.dll\CryptSIPLoad", Guid.Ptr, pgSubject, UInt32, dwFlags, SIP_DISPATCH_INFO.Ptr, pSipDispatch, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -524,7 +524,7 @@ export CryptSIPGetSealedDigest(pSubjectInfo, pSig, dwSig, pbDigest, pcbDigest) {
     pbDigestMarshal := pbDigest is VarRef ? "char*" : "ptr"
     pcbDigestMarshal := pcbDigest is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", SIP_SUBJECTINFO.Ptr, pSubjectInfo, pSigMarshal, pSig, "uint", dwSig, pbDigestMarshal, pbDigest, pcbDigestMarshal, pcbDigest, BOOL)
+    result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", SIP_SUBJECTINFO.Ptr, pSubjectInfo, pSigMarshal, pSig, UInt32, dwSig, pbDigestMarshal, pbDigest, pcbDigestMarshal, pcbDigest, BOOL)
     return result
 }
 

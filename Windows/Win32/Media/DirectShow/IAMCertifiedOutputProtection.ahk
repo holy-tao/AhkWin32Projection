@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AMCOPPCommand.ahk" { AMCOPPCommand }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\AMCOPPStatusInput.ahk" { AMCOPPStatusInput }
-#Import ".\AMCOPPStatusOutput.ahk" { AMCOPPStatusOutput }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\AMCOPPSignature.ahk" { AMCOPPSignature }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AMCOPPCommand.ahk" { AMCOPPCommand }
+#Import ".\AMCOPPStatusOutput.ahk" { AMCOPPStatusOutput }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMCertifiedOutputProtection interface sends Certified Output Protection Protocol (COPP) messages to the graphics driver.

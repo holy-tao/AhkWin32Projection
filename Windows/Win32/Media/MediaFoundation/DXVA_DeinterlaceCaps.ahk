@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVA_VideoProcessCaps.ahk" { DXVA_VideoProcessCaps }
-#Import ".\DXVA_DeinterlaceTech.ahk" { DXVA_DeinterlaceTech }
 #Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\DXVA_DeinterlaceTech.ahk" { DXVA_DeinterlaceTech }
+#Import ".\DXVA_VideoProcessCaps.ahk" { DXVA_VideoProcessCaps }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

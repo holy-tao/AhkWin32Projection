@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IPhotoAcquireSettings interface is used to work with image acquisition settings, such as file name format.
@@ -122,7 +122,7 @@ export default struct IPhotoAcquireSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setflags
      */
     SetFlags(dwPhotoAcquireFlags) {
-        result := ComCall(4, this, "uint", dwPhotoAcquireFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, dwPhotoAcquireFlags, "HRESULT")
         return result
     }
 
@@ -263,7 +263,7 @@ export default struct IPhotoAcquireSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setsequencepaddingwidth
      */
     SetSequencePaddingWidth(dwWidth) {
-        result := ComCall(6, this, "uint", dwWidth, "HRESULT")
+        result := ComCall(6, this, UInt32, dwWidth, "HRESULT")
         return result
     }
 

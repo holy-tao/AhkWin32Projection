@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITACDGroup.ahk" { ITACDGroup }
-#Import "..\..\System\Com\CY.ahk" { CY }
-#Import ".\ITAddress.ahk" { ITAddress }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IEnumAgentSession.ahk" { IEnumAgentSession }
 #Import ".\AGENT_STATE.ahk" { AGENT_STATE }
+#Import ".\ITACDGroup.ahk" { ITACDGroup }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IEnumAgentSession.ahk" { IEnumAgentSession }
+#Import ".\ITAddress.ahk" { ITAddress }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITAgentSession.ahk" { ITAgentSession }
 
 /**
@@ -379,7 +379,7 @@ export default struct ITAgent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-put_measurementperiod
      */
     put_MeasurementPeriod(lPeriod) {
-        result := ComCall(14, this, "int", lPeriod, "HRESULT")
+        result := ComCall(14, this, Int32, lPeriod, "HRESULT")
         return result
     }
 

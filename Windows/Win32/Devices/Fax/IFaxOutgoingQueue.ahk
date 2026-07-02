@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxOutgoingJob.ahk" { IFaxOutgoingJob }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFaxOutgoingJobs.ahk" { IFaxOutgoingJobs }
-#Import ".\IFaxOutgoingJob.ahk" { IFaxOutgoingJob }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IFaxOutgoingQueue interface defines a FaxOutgoingQueue configuration object used by a fax client application to set and retrieve the configuration parameters on the outbound fax queue on a fax server.
@@ -289,7 +289,7 @@ export default struct IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_retries
      */
     put_Retries(lRetries) {
-        result := ComCall(16, this, "int", lRetries, "HRESULT")
+        result := ComCall(16, this, Int32, lRetries, "HRESULT")
         return result
     }
 
@@ -314,7 +314,7 @@ export default struct IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_retrydelay
      */
     put_RetryDelay(lRetryDelay) {
-        result := ComCall(18, this, "int", lRetryDelay, "HRESULT")
+        result := ComCall(18, this, Int32, lRetryDelay, "HRESULT")
         return result
     }
 
@@ -339,7 +339,7 @@ export default struct IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_discountratestart
      */
     put_DiscountRateStart(dateDiscountRateStart) {
-        result := ComCall(20, this, "double", dateDiscountRateStart, "HRESULT")
+        result := ComCall(20, this, Float64, dateDiscountRateStart, "HRESULT")
         return result
     }
 
@@ -364,7 +364,7 @@ export default struct IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_discountrateend
      */
     put_DiscountRateEnd(dateDiscountRateEnd) {
-        result := ComCall(22, this, "double", dateDiscountRateEnd, "HRESULT")
+        result := ComCall(22, this, Float64, dateDiscountRateEnd, "HRESULT")
         return result
     }
 
@@ -393,7 +393,7 @@ export default struct IFaxOutgoingQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-put_agelimit
      */
     put_AgeLimit(lAgeLimit) {
-        result := ComCall(24, this, "int", lAgeLimit, "HRESULT")
+        result := ComCall(24, this, Int32, lAgeLimit, "HRESULT")
         return result
     }
 

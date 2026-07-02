@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MF_TOPOLOGY_TYPE.ahk" { MF_TOPOLOGY_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a node in a topology.
@@ -189,7 +189,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-settoponodeid
      */
     SetTopoNodeID(ullTopoID) {
-        result := ComCall(37, this, "uint", ullTopoID, "HRESULT")
+        result := ComCall(37, this, Int64, ullTopoID, "HRESULT")
         return result
     }
 
@@ -290,7 +290,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-connectoutput
      */
     ConnectOutput(dwOutputIndex, pDownstreamNode, dwInputIndexOnDownstreamNode) {
-        result := ComCall(40, this, "uint", dwOutputIndex, "ptr", pDownstreamNode, "uint", dwInputIndexOnDownstreamNode, "HRESULT")
+        result := ComCall(40, this, UInt32, dwOutputIndex, "ptr", pDownstreamNode, UInt32, dwInputIndexOnDownstreamNode, "HRESULT")
         return result
     }
 
@@ -343,7 +343,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-disconnectoutput
      */
     DisconnectOutput(dwOutputIndex) {
-        result := ComCall(41, this, "uint", dwOutputIndex, "HRESULT")
+        result := ComCall(41, this, UInt32, dwOutputIndex, "HRESULT")
         return result
     }
 
@@ -398,7 +398,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
     GetInput(dwInputIndex, ppUpstreamNode, pdwOutputIndexOnUpstreamNode) {
         pdwOutputIndexOnUpstreamNodeMarshal := pdwOutputIndexOnUpstreamNode is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(42, this, "uint", dwInputIndex, IMFTopologyNode.Ptr, ppUpstreamNode, pdwOutputIndexOnUpstreamNodeMarshal, pdwOutputIndexOnUpstreamNode, "HRESULT")
+        result := ComCall(42, this, UInt32, dwInputIndex, IMFTopologyNode.Ptr, ppUpstreamNode, pdwOutputIndexOnUpstreamNodeMarshal, pdwOutputIndexOnUpstreamNode, "HRESULT")
         return result
     }
 
@@ -453,7 +453,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
     GetOutput(dwOutputIndex, ppDownstreamNode, pdwInputIndexOnDownstreamNode) {
         pdwInputIndexOnDownstreamNodeMarshal := pdwInputIndexOnDownstreamNode is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(43, this, "uint", dwOutputIndex, IMFTopologyNode.Ptr, ppDownstreamNode, pdwInputIndexOnDownstreamNodeMarshal, pdwInputIndexOnDownstreamNode, "HRESULT")
+        result := ComCall(43, this, UInt32, dwOutputIndex, IMFTopologyNode.Ptr, ppDownstreamNode, pdwInputIndexOnDownstreamNodeMarshal, pdwInputIndexOnDownstreamNode, "HRESULT")
         return result
     }
 
@@ -502,7 +502,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-setoutputpreftype
      */
     SetOutputPrefType(dwOutputIndex, pType) {
-        result := ComCall(44, this, "uint", dwOutputIndex, "ptr", pType, "HRESULT")
+        result := ComCall(44, this, UInt32, dwOutputIndex, "ptr", pType, "HRESULT")
         return result
     }
 
@@ -517,7 +517,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getoutputpreftype
      */
     GetOutputPrefType(dwOutputIndex) {
-        result := ComCall(45, this, "uint", dwOutputIndex, "ptr*", &ppType := 0, "HRESULT")
+        result := ComCall(45, this, UInt32, dwOutputIndex, "ptr*", &ppType := 0, "HRESULT")
         return IMFMediaType(ppType)
     }
 
@@ -566,7 +566,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-setinputpreftype
      */
     SetInputPrefType(dwInputIndex, pType) {
-        result := ComCall(46, this, "uint", dwInputIndex, "ptr", pType, "HRESULT")
+        result := ComCall(46, this, UInt32, dwInputIndex, "ptr", pType, "HRESULT")
         return result
     }
 
@@ -581,7 +581,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getinputpreftype
      */
     GetInputPrefType(dwInputIndex) {
-        result := ComCall(47, this, "uint", dwInputIndex, "ptr*", &ppType := 0, "HRESULT")
+        result := ComCall(47, this, UInt32, dwInputIndex, "ptr*", &ppType := 0, "HRESULT")
         return IMFMediaType(ppType)
     }
 

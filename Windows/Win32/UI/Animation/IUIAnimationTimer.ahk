@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UI_ANIMATION_IDLE_BEHAVIOR.ahk" { UI_ANIMATION_IDLE_BEHAVIOR }
-#Import ".\IUIAnimationTimerEventHandler.ahk" { IUIAnimationTimerEventHandler }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationTimerUpdateHandler.ahk" { IUIAnimationTimerUpdateHandler }
+#Import ".\IUIAnimationTimerEventHandler.ahk" { IUIAnimationTimerEventHandler }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_ANIMATION_IDLE_BEHAVIOR.ahk" { UI_ANIMATION_IDLE_BEHAVIOR }
 
 /**
  * Defines an animation timer, which provides services for managing animation timing.
@@ -149,7 +149,7 @@ export default struct IUIAnimationTimer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-setframeratethreshold
      */
     SetFrameRateThreshold(framesPerSecond) {
-        result := ComCall(9, this, "uint", framesPerSecond, "HRESULT")
+        result := ComCall(9, this, UInt32, framesPerSecond, "HRESULT")
         return result
     }
 

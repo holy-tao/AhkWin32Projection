@@ -3,11 +3,11 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\IDCompositionTarget.ahk" { IDCompositionTarget }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDCompositionDevice2.ahk" { IDCompositionDevice2 }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionDevice2.ahk" { IDCompositionDevice2 }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * An application must use the IDCompositionDesktopDevice interface in order to use DirectComposition in a Win32 desktop application.

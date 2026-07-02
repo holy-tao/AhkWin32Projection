@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\InkCollectorEventInterest.ahk" { InkCollectorEventInterest }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInkCursors.ahk" { IInkCursors }
-#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
-#Import ".\InkMousePointer.ahk" { InkMousePointer }
-#Import ".\IInkRenderer.ahk" { IInkRenderer }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
 #Import ".\IInkRectangle.ahk" { IInkRectangle }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\InkCollectionMode.ahk" { InkCollectionMode }
-#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
 #Import ".\IInkDisp.ahk" { IInkDisp }
+#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
+#Import ".\IInkRenderer.ahk" { IInkRenderer }
 #Import ".\IInkTablet.ahk" { IInkTablet }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IInkCursors.ahk" { IInkCursors }
+#Import ".\InkMousePointer.ahk" { InkMousePointer }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import ".\InkCollectorEventInterest.ahk" { InkCollectorEventInterest }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * . (IInkCollector)
@@ -250,7 +250,7 @@ export default struct IInkCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_hwnd
      */
     put_hWnd(NewWindow) {
-        result := ComCall(8, this, "ptr", NewWindow, "HRESULT")
+        result := ComCall(8, this, IntPtr, NewWindow, "HRESULT")
         return result
     }
 
@@ -942,7 +942,7 @@ export default struct IInkCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_marginx
      */
     put_MarginX(MarginX) {
-        result := ComCall(33, this, "int", MarginX, "HRESULT")
+        result := ComCall(33, this, Int32, MarginX, "HRESULT")
         return result
     }
 
@@ -981,7 +981,7 @@ export default struct IInkCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_marginy
      */
     put_MarginY(MarginY) {
-        result := ComCall(35, this, "int", MarginY, "HRESULT")
+        result := ComCall(35, this, Int32, MarginY, "HRESULT")
         return result
     }
 

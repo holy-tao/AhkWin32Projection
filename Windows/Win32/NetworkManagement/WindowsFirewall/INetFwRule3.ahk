@@ -238,7 +238,7 @@ export default struct INetFwRule3 extends INetFwRule2 {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-put_secureflags
      */
     put_SecureFlags(lOptions) {
-        result := ComCall(56, this, "int", lOptions, "HRESULT")
+        result := ComCall(56, this, Int32, lOptions, "HRESULT")
         return result
     }
 

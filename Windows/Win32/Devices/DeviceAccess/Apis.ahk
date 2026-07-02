@@ -23,7 +23,7 @@
 export CreateDeviceAccessInstance(deviceInterfacePath, desiredAccess) {
     deviceInterfacePath := deviceInterfacePath is String ? StrPtr(deviceInterfacePath) : deviceInterfacePath
 
-    result := DllCall("deviceaccess.dll\CreateDeviceAccessInstance", "ptr", deviceInterfacePath, "uint", desiredAccess, "ptr*", &createAsync := 0, "HRESULT")
+    result := DllCall("deviceaccess.dll\CreateDeviceAccessInstance", "ptr", deviceInterfacePath, UInt32, desiredAccess, "ptr*", &createAsync := 0, "HRESULT")
     return ICreateDeviceAccessAsync(createAsync)
 }
 

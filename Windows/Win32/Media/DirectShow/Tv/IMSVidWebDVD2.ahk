@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidWebDVD.ahk" { IMSVidWebDVD }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidWebDVD.ahk" { IMSVidWebDVD }
 
 /**
  * Contains methods that save and load the current location and state for DVD playback.
@@ -65,7 +65,7 @@ export default struct IMSVidWebDVD2 extends IMSVidWebDVD {
     put_Bookmark(pData, dwDataLength) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(128, this, pDataMarshal, pData, "uint", dwDataLength, "HRESULT")
+        result := ComCall(128, this, pDataMarshal, pData, UInt32, dwDataLength, "HRESULT")
         return result
     }
 

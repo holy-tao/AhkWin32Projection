@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VMR9AllocationInfo.ahk" { VMR9AllocationInfo }
 #Import ".\IVMRSurfaceAllocatorNotify9.ahk" { IVMRSurfaceAllocatorNotify9 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VMR9AllocationInfo.ahk" { VMR9AllocationInfo }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRSurfaceAllocator9 interface is implemented by the default allocator-presenter for the Video Mixing Renderer Filter 9 (VMR-9).
@@ -78,7 +78,7 @@ export default struct IVMRSurfaceAllocator9 extends IUnknown {
     InitializeDevice(dwUserID, lpAllocInfo, lpNumBuffers) {
         lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", dwUserID, VMR9AllocationInfo.Ptr, lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "HRESULT")
+        result := ComCall(3, this, IntPtr, dwUserID, VMR9AllocationInfo.Ptr, lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct IVMRSurfaceAllocator9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocator9-terminatedevice
      */
     TerminateDevice(dwID) {
-        result := ComCall(4, this, "ptr", dwID, "HRESULT")
+        result := ComCall(4, this, IntPtr, dwID, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct IVMRSurfaceAllocator9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocator9-getsurface
      */
     GetSurface(dwUserID, SurfaceIndex, SurfaceFlags) {
-        result := ComCall(5, this, "ptr", dwUserID, "uint", SurfaceIndex, "uint", SurfaceFlags, "ptr*", &lplpSurface := 0, "HRESULT")
+        result := ComCall(5, this, IntPtr, dwUserID, UInt32, SurfaceIndex, UInt32, SurfaceFlags, "ptr*", &lplpSurface := 0, "HRESULT")
         return IDirect3DSurface9(lplpSurface)
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WM_MEDIA_TYPE.ahk" { WM_MEDIA_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMReaderAccelerator interface is implemented on the reader object only when it is in decoding mode. It is called by a player or a player source filter to obtain interfaces from the decoder DMO.
@@ -47,7 +47,7 @@ export default struct IWMReaderAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderaccelerator-getcodecinterface
      */
     GetCodecInterface(dwOutputNum, riid) {
-        result := ComCall(3, this, "uint", dwOutputNum, Guid.Ptr, riid, "ptr*", &ppvCodecInterface := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwOutputNum, Guid.Ptr, riid, "ptr*", &ppvCodecInterface := 0, "HRESULT")
         return ppvCodecInterface
     }
 
@@ -61,7 +61,7 @@ export default struct IWMReaderAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderaccelerator-notify
      */
     Notify(dwOutputNum, pSubtype) {
-        result := ComCall(4, this, "uint", dwOutputNum, WM_MEDIA_TYPE.Ptr, pSubtype, "HRESULT")
+        result := ComCall(4, this, UInt32, dwOutputNum, WM_MEDIA_TYPE.Ptr, pSubtype, "HRESULT")
         return result
     }
 

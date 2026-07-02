@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GameInputUsage.ahk" { GameInputUsage }
 #Import ".\GameInputRawDeviceItemCollectionKind.ahk" { GameInputRawDeviceItemCollectionKind }
+#Import ".\GameInputUsage.ahk" { GameInputUsage }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

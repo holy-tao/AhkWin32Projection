@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
 
 /**
  * Use this interface to receives notifications regarding the current file system import operation.
@@ -84,7 +84,7 @@ export default struct DFileSystemImageImportEvents extends IDispatch {
     UpdateImport(_object, fileSystem, currentItem, importedDirectoryItems, totalDirectoryItems, importedFileItems, totalFileItems) {
         currentItem := currentItem is String ? BSTR.Alloc(currentItem).Value : currentItem
 
-        result := ComCall(7, this, "ptr", _object, FsiFileSystems, fileSystem, BSTR, currentItem, "int", importedDirectoryItems, "int", totalDirectoryItems, "int", importedFileItems, "int", totalFileItems, "HRESULT")
+        result := ComCall(7, this, "ptr", _object, FsiFileSystems, fileSystem, BSTR, currentItem, Int32, importedDirectoryItems, Int32, totalDirectoryItems, Int32, importedFileItems, Int32, totalFileItems, "HRESULT")
         return result
     }
 

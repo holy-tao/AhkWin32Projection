@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides methods and properties used to manage a list of IDispatch interfaces that can be called by business rule (BizRule) scripts.
@@ -64,7 +64,7 @@ export default struct IAzBizRuleInterfaces extends IDispatch {
     AddInterface(bstrInterfaceName, lInterfaceFlag, varInterface) {
         bstrInterfaceName := bstrInterfaceName is String ? BSTR.Alloc(bstrInterfaceName).Value : bstrInterfaceName
 
-        result := ComCall(7, this, BSTR, bstrInterfaceName, "int", lInterfaceFlag, VARIANT, varInterface, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrInterfaceName, Int32, lInterfaceFlag, VARIANT, varInterface, "HRESULT")
         return result
     }
 

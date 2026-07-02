@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FILTER_STATE.ahk" { FILTER_STATE }
-#Import ".\IFilterGraph.ahk" { IFilterGraph }
 #Import ".\IAMMultiMediaStream.ahk" { IAMMultiMediaStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
-#Import ".\IMediaStreamFilter.ahk" { IMediaStreamFilter }
-#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import ".\IFilterGraph.ahk" { IFilterGraph }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import ".\IMediaStreamFilter.ahk" { IMediaStreamFilter }
+#Import ".\FILTER_STATE.ahk" { FILTER_STATE }
 
 /**
  * Note  This interface is deprecated.
@@ -86,7 +86,7 @@ export default struct IAMMediaStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediastream-initialize
      */
     Initialize(pSourceObject, dwFlags, PurposeId, StreamType) {
-        result := ComCall(9, this, "ptr", pSourceObject, "uint", dwFlags, Guid.Ptr, PurposeId, STREAM_TYPE, StreamType, "HRESULT")
+        result := ComCall(9, this, "ptr", pSourceObject, UInt32, dwFlags, Guid.Ptr, PurposeId, STREAM_TYPE, StreamType, "HRESULT")
         return result
     }
 

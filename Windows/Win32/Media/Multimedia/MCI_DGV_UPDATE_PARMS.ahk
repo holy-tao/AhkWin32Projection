@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * The MCI_DGV_UPDATE_PARMS structure contains parameters for the MCI_UPDATE command.

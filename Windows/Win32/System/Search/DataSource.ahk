@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DataSourceListener.ahk" { DataSourceListener }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DataSourceListener.ahk" { DataSourceListener }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -65,7 +65,7 @@ export default struct DataSource extends IUnknown {
      * @returns {Pointer<Integer>} 
      */
     getDataMemberName(lIndex) {
-        result := ComCall(4, this, "int", lIndex, "ptr*", &pbstrDM := 0, "HRESULT")
+        result := ComCall(4, this, Int32, lIndex, "ptr*", &pbstrDM := 0, "HRESULT")
         return pbstrDM
     }
 

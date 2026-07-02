@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D2D1_INK_NIB_SHAPE.ahk" { D2D1_INK_NIB_SHAPE }
 #Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\D2D1_INK_NIB_SHAPE.ahk" { D2D1_INK_NIB_SHAPE }
 
 /**
  * Defines the general pen tip shape and the transform used in an ID2D1InkStyle object.

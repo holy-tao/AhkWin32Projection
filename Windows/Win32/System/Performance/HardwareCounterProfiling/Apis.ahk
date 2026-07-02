@@ -24,7 +24,7 @@
  * @since windows6.1
  */
 export EnableThreadProfiling(ThreadHandle, Flags, HardwareCounters, PerformanceDataHandle) {
-    result := DllCall("KERNEL32.dll\EnableThreadProfiling", HANDLE, ThreadHandle, "uint", Flags, "uint", HardwareCounters, HANDLE.Ptr, PerformanceDataHandle, UInt32)
+    result := DllCall("KERNEL32.dll\EnableThreadProfiling", HANDLE, ThreadHandle, UInt32, Flags, Int64, HardwareCounters, HANDLE.Ptr, PerformanceDataHandle, UInt32)
     return result
 }
 
@@ -96,7 +96,7 @@ export QueryThreadProfiling(ThreadHandle, Enabled) {
  * @since windows6.1
  */
 export ReadThreadProfilingData(PerformanceDataHandle, Flags, PerformanceData) {
-    result := DllCall("KERNEL32.dll\ReadThreadProfilingData", HANDLE, PerformanceDataHandle, "uint", Flags, PERFORMANCE_DATA.Ptr, PerformanceData, UInt32)
+    result := DllCall("KERNEL32.dll\ReadThreadProfilingData", HANDLE, PerformanceDataHandle, UInt32, Flags, PERFORMANCE_DATA.Ptr, PerformanceData, UInt32)
     return result
 }
 

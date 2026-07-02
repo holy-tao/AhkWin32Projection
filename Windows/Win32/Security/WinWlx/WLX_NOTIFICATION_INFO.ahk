@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PFNMSGECALLBACK.ahk" { PFNMSGECALLBACK }
 #Import "..\..\System\StationsAndDesktops\HDESK.ahk" { HDESK }
 
 /**
@@ -50,6 +51,6 @@ export default struct WLX_NOTIFICATION_INFO {
     /**
      * Reserved for internal use.
      */
-    pStatusCallback : IntPtr
+    pStatusCallback : PFNMSGECALLBACK
 
 }

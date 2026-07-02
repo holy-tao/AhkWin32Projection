@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections. (IWorkspaceScriptable)
@@ -75,7 +75,7 @@ export default struct IWorkspaceScriptable extends IDispatch {
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
         bstrWorkspaceParams := bstrWorkspaceParams is String ? BSTR.Alloc(bstrWorkspaceParams).Value : bstrWorkspaceParams
 
-        result := ComCall(8, this, BSTR, bstrWorkspaceId, BSTR, bstrUserName, BSTR, bstrPassword, BSTR, bstrWorkspaceParams, "int", lTimeout, "int", lFlags, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrWorkspaceId, BSTR, bstrUserName, BSTR, bstrPassword, BSTR, bstrWorkspaceParams, Int32, lTimeout, Int32, lFlags, "HRESULT")
         return result
     }
 

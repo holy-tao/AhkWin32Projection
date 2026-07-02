@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
-#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMDSPStorage3.ahk" { IMDSPStorage3 }
+#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
 
 /**
  * The IMDSPStorage4 interface extends IMDSPStorage3 for supporting virtual storages (such as playlists and albums) and metadata.Note  Unless the service provider has added the device parameter UseExtendedWmdm with a value of 1, Windows Media Device Manager will not call this interface. See Device Parameters for more information about this. .
@@ -69,7 +69,7 @@ export default struct IMDSPStorage4 extends IMDSPStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage4-setreferences
      */
     SetReferences(dwRefs, ppISPStorage) {
-        result := ComCall(19, this, "uint", dwRefs, IMDSPStorage.Ptr, ppISPStorage, "HRESULT")
+        result := ComCall(19, this, UInt32, dwRefs, IMDSPStorage.Ptr, ppISPStorage, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct IMDSPStorage4 extends IMDSPStorage3 {
     CreateStorageWithMetadata(dwAttributes, pwszName, pMetadata, qwFileSize) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(21, this, "uint", dwAttributes, "ptr", pwszName, "ptr", pMetadata, "uint", qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
+        result := ComCall(21, this, UInt32, dwAttributes, "ptr", pwszName, "ptr", pMetadata, Int64, qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
         return IMDSPStorage(ppNewStorage)
     }
 
@@ -270,7 +270,7 @@ export default struct IMDSPStorage4 extends IMDSPStorage3 {
     GetSpecifiedMetadata(cProperties, ppwszPropNames, pMetadata) {
         ppwszPropNamesMarshal := ppwszPropNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(22, this, "uint", cProperties, ppwszPropNamesMarshal, ppwszPropNames, "ptr", pMetadata, "HRESULT")
+        result := ComCall(22, this, UInt32, cProperties, ppwszPropNamesMarshal, ppwszPropNames, "ptr", pMetadata, "HRESULT")
         return result
     }
 

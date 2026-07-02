@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
@@ -69,7 +69,7 @@ export default struct IInputPanelWindowHandle extends IUnknown {
      * @returns {HRESULT} 
      */
     put_AttachedEditWindow32(AttachedEditWindow) {
-        result := ComCall(4, this, "int", AttachedEditWindow, "HRESULT")
+        result := ComCall(4, this, Int32, AttachedEditWindow, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IInputPanelWindowHandle extends IUnknown {
      * @returns {HRESULT} 
      */
     put_AttachedEditWindow64(AttachedEditWindow) {
-        result := ComCall(6, this, "int64", AttachedEditWindow, "HRESULT")
+        result := ComCall(6, this, Int64, AttachedEditWindow, "HRESULT")
         return result
     }
 

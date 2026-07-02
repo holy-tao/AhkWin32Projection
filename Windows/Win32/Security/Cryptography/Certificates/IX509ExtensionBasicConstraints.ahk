@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IX509Extension.ahk" { IX509Extension }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables you to specify whether the certificate subject is a certification authority and, if so, the depth of the subordinate certification authority chain that can exist beneath the certification authority for which this extension ID is defined.
@@ -97,7 +97,7 @@ export default struct IX509ExtensionBasicConstraints extends IX509Extension {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionbasicconstraints-initializeencode
      */
     InitializeEncode(IsCA, PathLenConstraint) {
-        result := ComCall(12, this, VARIANT_BOOL, IsCA, "int", PathLenConstraint, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, IsCA, Int32, PathLenConstraint, "HRESULT")
         return result
     }
 

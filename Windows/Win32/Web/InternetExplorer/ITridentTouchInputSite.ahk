@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\MsHtml\styleMsTouchAction.ahk" { styleMsTouchAction }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\MsHtml\styleMsTouchAction.ahk" { styleMsTouchAction }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -54,7 +54,7 @@ export default struct ITridentTouchInputSite extends IUnknown {
      * @returns {HRESULT} 
      */
     ZoomToPoint(x, y) {
-        result := ComCall(4, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(4, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 

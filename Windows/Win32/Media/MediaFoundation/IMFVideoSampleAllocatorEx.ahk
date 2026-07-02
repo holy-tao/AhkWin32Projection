@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFVideoSampleAllocator.ahk" { IMFVideoSampleAllocator }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFVideoSampleAllocator.ahk" { IMFVideoSampleAllocator }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Allocates video samples that contain Microsoft Direct3D 11 texture surfaces.
@@ -80,7 +80,7 @@ export default struct IMFVideoSampleAllocatorEx extends IMFVideoSampleAllocator 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocatorex-initializesampleallocatorex
      */
     InitializeSampleAllocatorEx(cInitialSamples, cMaximumSamples, pAttributes, pMediaType) {
-        result := ComCall(7, this, "uint", cInitialSamples, "uint", cMaximumSamples, "ptr", pAttributes, "ptr", pMediaType, "HRESULT")
+        result := ComCall(7, this, UInt32, cInitialSamples, UInt32, cMaximumSamples, "ptr", pAttributes, "ptr", pMediaType, "HRESULT")
         return result
     }
 

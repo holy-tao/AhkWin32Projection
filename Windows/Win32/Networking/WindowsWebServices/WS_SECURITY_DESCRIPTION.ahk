@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_SECURITY_PROPERTY.ahk" { WS_SECURITY_PROPERTY }
 #Import ".\WS_SECURITY_BINDING.ahk" { WS_SECURITY_BINDING }
+#Import ".\WS_SECURITY_PROPERTY.ahk" { WS_SECURITY_PROPERTY }
 
 /**
  * The top-level structure used to specify the security requirements for a channel (on the client side) or a listener (on the server side).

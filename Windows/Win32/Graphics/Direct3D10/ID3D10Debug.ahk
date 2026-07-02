@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A debug interface controls debug settings, validates pipeline state and can only be used if the debug layer is turned on. (ID3D10Debug)
@@ -118,7 +118,7 @@ export default struct ID3D10Debug extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10debug-setfeaturemask
      */
     SetFeatureMask(Mask) {
-        result := ComCall(3, this, "uint", Mask, "HRESULT")
+        result := ComCall(3, this, UInt32, Mask, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct ID3D10Debug extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10debug-setpresentperrenderopdelay
      */
     SetPresentPerRenderOpDelay(Milliseconds) {
-        result := ComCall(5, this, "uint", Milliseconds, "HRESULT")
+        result := ComCall(5, this, UInt32, Milliseconds, "HRESULT")
         return result
     }
 

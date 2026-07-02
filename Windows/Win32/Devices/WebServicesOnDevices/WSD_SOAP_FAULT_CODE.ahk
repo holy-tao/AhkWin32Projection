@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSD_SOAP_FAULT_SUBCODE.ahk" { WSD_SOAP_FAULT_SUBCODE }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\WSD_SOAP_FAULT_SUBCODE.ahk" { WSD_SOAP_FAULT_SUBCODE }
 
 /**
  * Represents a generated SOAP fault code.

@@ -3,12 +3,12 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\IComponent.ahk" { IComponent }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SCOPEDATAITEM.ahk" { SCOPEDATAITEM }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
 #Import ".\MMC_NOTIFY_TYPE.ahk" { MMC_NOTIFY_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComponent.ahk" { IComponent }
+#Import ".\SCOPEDATAITEM.ahk" { SCOPEDATAITEM }
 
 /**
  * The IComponentData interface enables MMC to communicate with snap-ins. Similar to the IComponent interface, IComponentData is typically implemented at the document level and is closely associated with items (folders) being displayed in the scope pane.
@@ -156,7 +156,7 @@ export default struct IComponentData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-querydataobject
      */
     QueryDataObject(cookie, type) {
-        result := ComCall(7, this, "ptr", cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDataObject := 0, "HRESULT")
+        result := ComCall(7, this, IntPtr, cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDataObject := 0, "HRESULT")
         return IDataObject(ppDataObject)
     }
 

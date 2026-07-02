@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ACMFORMATCHOOSEHOOKPROCA.ahk" { ACMFORMATCHOOSEHOOKPROCA }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
@@ -43,6 +44,6 @@ export default struct ACMFORMATCHOOSEA {
 
     lCustData : LPARAM
 
-    pfnHook : IntPtr
+    pfnHook : ACMFORMATCHOOSEHOOKPROCA
 
 }

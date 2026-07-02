@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IInkCursor.ahk" { IInkCursor }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IInkCursor.ahk" { IInkCursor }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a collection of IInkCursor objects.
@@ -93,7 +93,7 @@ export default struct IInkCursors extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursors-item
      */
     Item(Index) {
-        result := ComCall(9, this, "int", Index, "ptr*", &Cursor := 0, "HRESULT")
+        result := ComCall(9, this, Int32, Index, "ptr*", &Cursor := 0, "HRESULT")
         return IInkCursor(Cursor)
     }
 

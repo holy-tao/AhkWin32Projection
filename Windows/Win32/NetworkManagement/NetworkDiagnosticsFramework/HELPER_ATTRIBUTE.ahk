@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LIFE_TIME.ahk" { LIFE_TIME }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\OCTET_STRING.ahk" { OCTET_STRING }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DIAG_SOCKADDR.ahk" { DIAG_SOCKADDR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ATTRIBUTE_TYPE.ahk" { ATTRIBUTE_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OCTET_STRING.ahk" { OCTET_STRING }
+#Import ".\DIAG_SOCKADDR.ahk" { DIAG_SOCKADDR }
+#Import ".\LIFE_TIME.ahk" { LIFE_TIME }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

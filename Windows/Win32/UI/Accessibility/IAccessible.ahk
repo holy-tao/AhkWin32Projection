@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes methods and properties that make a user interface element and its children accessible to client applications.
@@ -1019,7 +1019,7 @@ export default struct IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-accselect
      */
     accSelect(flagsSelect, varChild) {
-        result := ComCall(21, this, "int", flagsSelect, VARIANT, varChild, "HRESULT")
+        result := ComCall(21, this, Int32, flagsSelect, VARIANT, varChild, "HRESULT")
         return result
     }
 
@@ -1380,7 +1380,7 @@ export default struct IAccessible extends IDispatch {
      */
     accNavigate(navDir, varStart) {
         pvarEndUpAt := VARIANT()
-        result := ComCall(23, this, "int", navDir, VARIANT, varStart, VARIANT.Ptr, pvarEndUpAt, "HRESULT")
+        result := ComCall(23, this, Int32, navDir, VARIANT, varStart, VARIANT.Ptr, pvarEndUpAt, "HRESULT")
         return pvarEndUpAt
     }
 
@@ -1509,7 +1509,7 @@ export default struct IAccessible extends IDispatch {
      */
     accHitTest(xLeft, yTop) {
         pvarChild := VARIANT()
-        result := ComCall(24, this, "int", xLeft, "int", yTop, VARIANT.Ptr, pvarChild, "HRESULT")
+        result := ComCall(24, this, Int32, xLeft, Int32, yTop, VARIANT.Ptr, pvarChild, "HRESULT")
         return pvarChild
     }
 

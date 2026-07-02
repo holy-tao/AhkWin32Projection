@@ -1,44 +1,44 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CREATE_RESTRICTED_TOKEN_FLAGS.ahk" { CREATE_RESTRICTED_TOKEN_FLAGS }
-#Import ".\TOKEN_PRIVILEGES.ahk" { TOKEN_PRIVILEGES }
-#Import ".\SECURITY_AUTO_INHERIT_FLAGS.ahk" { SECURITY_AUTO_INHERIT_FLAGS }
 #Import "..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import ".\LOGON32_PROVIDER.ahk" { LOGON32_PROVIDER }
-#Import ".\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
-#Import ".\TOKEN_ACCESS_MASK.ahk" { TOKEN_ACCESS_MASK }
-#Import "..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ACL_INFORMATION_CLASS.ahk" { ACL_INFORMATION_CLASS }
-#Import "..\Foundation\LUID.ahk" { LUID }
-#Import ".\CLAIM_SECURITY_ATTRIBUTES_INFORMATION.ahk" { CLAIM_SECURITY_ATTRIBUTES_INFORMATION }
-#Import "..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\ACE_FLAGS.ahk" { ACE_FLAGS }
-#Import "..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\..\Guid.ahk" { Guid }
-#Import ".\TOKEN_TYPE.ahk" { TOKEN_TYPE }
-#Import ".\TOKEN_INFORMATION_CLASS.ahk" { TOKEN_INFORMATION_CLASS }
 #Import "..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\AUDIT_EVENT_TYPE.ahk" { AUDIT_EVENT_TYPE }
-#Import "..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ACL.ahk" { ACL }
-#Import ".\WELL_KNOWN_SID_TYPE.ahk" { WELL_KNOWN_SID_TYPE }
 #Import ".\SID_IDENTIFIER_AUTHORITY.ahk" { SID_IDENTIFIER_AUTHORITY }
-#Import ".\OBJECT_TYPE_LIST.ahk" { OBJECT_TYPE_LIST }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PSID.ahk" { PSID }
 #Import ".\LUID_AND_ATTRIBUTES.ahk" { LUID_AND_ATTRIBUTES }
-#Import ".\ACE_REVISION.ahk" { ACE_REVISION }
-#Import ".\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
-#Import ".\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
+#Import "..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WELL_KNOWN_SID_TYPE.ahk" { WELL_KNOWN_SID_TYPE }
 #Import ".\SECURITY_DESCRIPTOR_CONTROL.ahk" { SECURITY_DESCRIPTOR_CONTROL }
-#Import ".\PRIVILEGE_SET.ahk" { PRIVILEGE_SET }
-#Import ".\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\SID_NAME_USE.ahk" { SID_NAME_USE }
-#Import ".\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
-#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 #Import ".\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
-#Import ".\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\GENERIC_MAPPING.ahk" { GENERIC_MAPPING }
+#Import ".\PRIVILEGE_SET.ahk" { PRIVILEGE_SET }
+#Import "..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
+#Import ".\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 #Import ".\LOGON32_LOGON.ahk" { LOGON32_LOGON }
+#Import "..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CLAIM_SECURITY_ATTRIBUTES_INFORMATION.ahk" { CLAIM_SECURITY_ATTRIBUTES_INFORMATION }
+#Import "..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\LOGON32_PROVIDER.ahk" { LOGON32_PROVIDER }
+#Import ".\TOKEN_PRIVILEGES.ahk" { TOKEN_PRIVILEGES }
+#Import ".\ACL_INFORMATION_CLASS.ahk" { ACL_INFORMATION_CLASS }
+#Import ".\TOKEN_ACCESS_MASK.ahk" { TOKEN_ACCESS_MASK }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import ".\AUDIT_EVENT_TYPE.ahk" { AUDIT_EVENT_TYPE }
+#Import ".\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
+#Import "..\Foundation\LUID.ahk" { LUID }
+#Import ".\TOKEN_INFORMATION_CLASS.ahk" { TOKEN_INFORMATION_CLASS }
+#Import ".\CREATE_RESTRICTED_TOKEN_FLAGS.ahk" { CREATE_RESTRICTED_TOKEN_FLAGS }
+#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import ".\SECURITY_AUTO_INHERIT_FLAGS.ahk" { SECURITY_AUTO_INHERIT_FLAGS }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
+#Import ".\TOKEN_TYPE.ahk" { TOKEN_TYPE }
+#Import ".\ACE_REVISION.ahk" { ACE_REVISION }
+#Import ".\ACE_FLAGS.ahk" { ACE_FLAGS }
+#Import ".\OBJECT_TYPE_LIST.ahk" { OBJECT_TYPE_LIST }
+#Import ".\SID_NAME_USE.ahk" { SID_NAME_USE }
+#Import ".\PSID.ahk" { PSID }
+#Import ".\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.Security
@@ -90,7 +90,7 @@ export AccessCheck(pSecurityDescriptor, ClientToken, DesiredAccess, GenericMappi
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheck", PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, "uint", DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, "ptr", PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheck", PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, UInt32, DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, IntPtr, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -137,7 +137,7 @@ export AccessCheckAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, Object
     AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
     pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, "uint", DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, UInt32, DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     return result
 }
 
@@ -208,7 +208,7 @@ export AccessCheckByType(pSecurityDescriptor, PrincipalSelfSid, ClientToken, Des
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByType", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, PrincipalSelfSid, HANDLE, ClientToken, "uint", DesiredAccess, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, "uint", ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, "ptr", PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByType", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, PrincipalSelfSid, HANDLE, ClientToken, UInt32, DesiredAccess, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, IntPtr, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -279,7 +279,7 @@ export AccessCheckByTypeResultList(pSecurityDescriptor, PrincipalSelfSid, Client
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultList", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, PrincipalSelfSid, HANDLE, ClientToken, "uint", DesiredAccess, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, "uint", ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, "ptr", PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultList", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, PrincipalSelfSid, HANDLE, ClientToken, UInt32, DesiredAccess, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, IntPtr, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -343,7 +343,7 @@ export AccessCheckByTypeAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, 
     AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
     pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, "uint", DesiredAccess, AUDIT_EVENT_TYPE, AuditType, "uint", Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, "uint", ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     return result
 }
 
@@ -411,7 +411,7 @@ export AccessCheckByTypeResultListAndAuditAlarmW(SubsystemName, HandleId, Object
     AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : "ptr"
     pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, "uint", DesiredAccess, AUDIT_EVENT_TYPE, AuditType, "uint", Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, "uint", ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     return result
 }
 
@@ -475,7 +475,7 @@ export AccessCheckByTypeResultListAndAuditAlarmByHandleW(SubsystemName, HandleId
     AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : "ptr"
     pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleW", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, "uint", DesiredAccess, AUDIT_EVENT_TYPE, AuditType, "uint", Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, "uint", ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleW", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     return result
 }
 
@@ -570,7 +570,7 @@ export AccessCheckByTypeResultListAndAuditAlarmByHandleW(SubsystemName, HandleId
 export AddAccessAllowedAce(pAcl, dwAceRevision, AccessMask, _pSid) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAccessAllowedAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, "uint", AccessMask, PSID, _pSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAccessAllowedAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, UInt32, AccessMask, PSID, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -674,7 +674,7 @@ export AddAccessAllowedAce(pAcl, dwAceRevision, AccessMask, _pSid) {
 export AddAccessAllowedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAccessAllowedAceEx", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "uint", AccessMask, PSID, _pSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAccessAllowedAceEx", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, PSID, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -786,7 +786,7 @@ export AddAccessAllowedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid) {
 export AddAccessAllowedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, _pSid) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAccessAllowedObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "uint", AccessMask, Guid.Ptr, ObjectTypeGuid, Guid.Ptr, InheritedObjectTypeGuid, PSID, _pSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAccessAllowedObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, Guid.Ptr, ObjectTypeGuid, Guid.Ptr, InheritedObjectTypeGuid, PSID, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -885,7 +885,7 @@ export AddAccessAllowedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, Obje
 export AddAccessDeniedAce(pAcl, dwAceRevision, AccessMask, _pSid) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAccessDeniedAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, "uint", AccessMask, PSID, _pSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAccessDeniedAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, UInt32, AccessMask, PSID, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -989,7 +989,7 @@ export AddAccessDeniedAce(pAcl, dwAceRevision, AccessMask, _pSid) {
 export AddAccessDeniedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAccessDeniedAceEx", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "uint", AccessMask, PSID, _pSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAccessDeniedAceEx", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, PSID, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1101,7 +1101,7 @@ export AddAccessDeniedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid) {
 export AddAccessDeniedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, _pSid) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAccessDeniedObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "uint", AccessMask, Guid.Ptr, ObjectTypeGuid, Guid.Ptr, InheritedObjectTypeGuid, PSID, _pSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAccessDeniedObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, Guid.Ptr, ObjectTypeGuid, Guid.Ptr, InheritedObjectTypeGuid, PSID, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1177,7 +1177,7 @@ export AddAccessDeniedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, Objec
 export AddAce(pAcl, dwAceRevision, dwStartingAceIndex, pAceList, nAceListLength) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, "uint", dwStartingAceIndex, "ptr", pAceList, "uint", nAceListLength, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, UInt32, dwStartingAceIndex, IntPtr, pAceList, UInt32, nAceListLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1274,7 +1274,7 @@ export AddAce(pAcl, dwAceRevision, dwStartingAceIndex, pAceList, nAceListLength)
 export AddAuditAccessAce(pAcl, dwAceRevision, dwAccessMask, _pSid, bAuditSuccess, bAuditFailure) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAuditAccessAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, "uint", dwAccessMask, PSID, _pSid, BOOL, bAuditSuccess, BOOL, bAuditFailure, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAuditAccessAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, UInt32, dwAccessMask, PSID, _pSid, BOOL, bAuditSuccess, BOOL, bAuditFailure, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1377,7 +1377,7 @@ export AddAuditAccessAce(pAcl, dwAceRevision, dwAccessMask, _pSid, bAuditSuccess
 export AddAuditAccessAceEx(pAcl, dwAceRevision, AceFlags, dwAccessMask, _pSid, bAuditSuccess, bAuditFailure) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAuditAccessAceEx", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "uint", dwAccessMask, PSID, _pSid, BOOL, bAuditSuccess, BOOL, bAuditFailure, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAuditAccessAceEx", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, dwAccessMask, PSID, _pSid, BOOL, bAuditSuccess, BOOL, bAuditFailure, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1488,7 +1488,7 @@ export AddAuditAccessAceEx(pAcl, dwAceRevision, AceFlags, dwAccessMask, _pSid, b
 export AddAuditAccessObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, _pSid, bAuditSuccess, bAuditFailure) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAuditAccessObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "uint", AccessMask, Guid.Ptr, ObjectTypeGuid, Guid.Ptr, InheritedObjectTypeGuid, PSID, _pSid, BOOL, bAuditSuccess, BOOL, bAuditFailure, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAuditAccessObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, Guid.Ptr, ObjectTypeGuid, Guid.Ptr, InheritedObjectTypeGuid, PSID, _pSid, BOOL, bAuditSuccess, BOOL, bAuditFailure, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1578,7 +1578,7 @@ export AddAuditAccessObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, Object
 export AddMandatoryAce(pAcl, dwAceRevision, AceFlags, MandatoryPolicy, pLabelSid) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddMandatoryAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "uint", MandatoryPolicy, PSID, pLabelSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AddMandatoryAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, MandatoryPolicy, PSID, pLabelSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1609,7 +1609,7 @@ export AddResourceAttributeAce(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid,
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\AddResourceAttributeAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "uint", AccessMask, PSID, _pSid, CLAIM_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAttributeInfo, pReturnLengthMarshal, pReturnLength, BOOL)
+    result := DllCall("KERNEL32.dll\AddResourceAttributeAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, PSID, _pSid, CLAIM_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAttributeInfo, pReturnLengthMarshal, pReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1636,7 +1636,7 @@ export AddResourceAttributeAce(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid,
 export AddScopedPolicyIDAce(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\AddScopedPolicyIDAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "uint", AccessMask, PSID, _pSid, BOOL)
+    result := DllCall("KERNEL32.dll\AddScopedPolicyIDAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, PSID, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1680,7 +1680,7 @@ export AdjustTokenGroups(TokenHandle, ResetToDefault, NewState, BufferLength, Pr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AdjustTokenGroups", HANDLE, TokenHandle, BOOL, ResetToDefault, TOKEN_GROUPS.Ptr, NewState, "uint", BufferLength, "ptr", PreviousState, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ADVAPI32.dll\AdjustTokenGroups", HANDLE, TokenHandle, BOOL, ResetToDefault, TOKEN_GROUPS.Ptr, NewState, UInt32, BufferLength, IntPtr, PreviousState, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1805,7 +1805,7 @@ export AdjustTokenPrivileges(TokenHandle, DisableAllPrivileges, NewState, Buffer
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AdjustTokenPrivileges", HANDLE, TokenHandle, BOOL, DisableAllPrivileges, TOKEN_PRIVILEGES.Ptr, NewState, "uint", BufferLength, "ptr", PreviousState, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ADVAPI32.dll\AdjustTokenPrivileges", HANDLE, TokenHandle, BOOL, DisableAllPrivileges, TOKEN_PRIVILEGES.Ptr, NewState, UInt32, BufferLength, IntPtr, PreviousState, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1850,7 +1850,7 @@ export AllocateAndInitializeSid(pIdentifierAuthority, nSubAuthorityCount, nSubAu
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AllocateAndInitializeSid", SID_IDENTIFIER_AUTHORITY.Ptr, pIdentifierAuthority, "char", nSubAuthorityCount, "uint", nSubAuthority0, "uint", nSubAuthority1, "uint", nSubAuthority2, "uint", nSubAuthority3, "uint", nSubAuthority4, "uint", nSubAuthority5, "uint", nSubAuthority6, "uint", nSubAuthority7, _pSidMarshal, _pSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AllocateAndInitializeSid", SID_IDENTIFIER_AUTHORITY.Ptr, pIdentifierAuthority, Int8, nSubAuthorityCount, UInt32, nSubAuthority0, UInt32, nSubAuthority1, UInt32, nSubAuthority2, UInt32, nSubAuthority3, UInt32, nSubAuthority4, UInt32, nSubAuthority5, UInt32, nSubAuthority6, UInt32, nSubAuthority7, _pSidMarshal, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1897,7 +1897,7 @@ export AllocateLocallyUniqueId(_Luid) {
  * @since windows5.1.2600
  */
 export AreAllAccessesGranted(GrantedAccess, DesiredAccess) {
-    result := DllCall("ADVAPI32.dll\AreAllAccessesGranted", "uint", GrantedAccess, "uint", DesiredAccess, BOOL)
+    result := DllCall("ADVAPI32.dll\AreAllAccessesGranted", UInt32, GrantedAccess, UInt32, DesiredAccess, BOOL)
     return result
 }
 
@@ -1915,7 +1915,7 @@ export AreAllAccessesGranted(GrantedAccess, DesiredAccess) {
  * @since windows5.1.2600
  */
 export AreAnyAccessesGranted(GrantedAccess, DesiredAccess) {
-    result := DllCall("ADVAPI32.dll\AreAnyAccessesGranted", "uint", GrantedAccess, "uint", DesiredAccess, BOOL)
+    result := DllCall("ADVAPI32.dll\AreAnyAccessesGranted", UInt32, GrantedAccess, UInt32, DesiredAccess, BOOL)
     return result
 }
 
@@ -1999,7 +1999,7 @@ export GetAppContainerAce(_Acl, StartingAceIndex, AppContainerAce, AppContainerA
     AppContainerAceMarshal := AppContainerAce is VarRef ? "ptr*" : "ptr"
     AppContainerAceIndexMarshal := AppContainerAceIndex is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetAppContainerAce", ACL.Ptr, _Acl, "uint", StartingAceIndex, AppContainerAceMarshal, AppContainerAce, AppContainerAceIndexMarshal, AppContainerAceIndex, BOOL)
+    result := DllCall("KERNEL32.dll\GetAppContainerAce", ACL.Ptr, _Acl, UInt32, StartingAceIndex, AppContainerAceMarshal, AppContainerAce, AppContainerAceIndexMarshal, AppContainerAceIndex, BOOL)
     return result
 }
 
@@ -2020,7 +2020,7 @@ export CheckTokenMembershipEx(TokenHandle, SidToCheck, Flags, IsMember) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CheckTokenMembershipEx", HANDLE, TokenHandle, PSID, SidToCheck, "uint", Flags, IsMemberMarshal, IsMember, BOOL)
+    result := DllCall("KERNEL32.dll\CheckTokenMembershipEx", HANDLE, TokenHandle, PSID, SidToCheck, UInt32, Flags, IsMemberMarshal, IsMember, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2095,7 +2095,7 @@ export ConvertToAutoInheritPrivateObjectSecurity(ParentDescriptor, CurrentSecuri
 export CopySid(nDestinationSidLength, pDestinationSid, pSourceSid) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CopySid", "uint", nDestinationSidLength, "ptr", pDestinationSid, PSID, pSourceSid, BOOL)
+    result := DllCall("ADVAPI32.dll\CopySid", UInt32, nDestinationSidLength, IntPtr, pDestinationSid, PSID, pSourceSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2441,7 +2441,7 @@ export CreatePrivateObjectSecurityWithMultipleInheritance(ParentDescriptor, Crea
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityWithMultipleInheritance", PSECURITY_DESCRIPTOR, ParentDescriptor, PSECURITY_DESCRIPTOR, CreatorDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, ObjectTypesMarshal, ObjectTypes, "uint", GuidCount, BOOL, IsContainerObject, SECURITY_AUTO_INHERIT_FLAGS, AutoInheritFlags, HANDLE, Token, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
+    result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityWithMultipleInheritance", PSECURITY_DESCRIPTOR, ParentDescriptor, PSECURITY_DESCRIPTOR, CreatorDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, ObjectTypesMarshal, ObjectTypes, UInt32, GuidCount, BOOL, IsContainerObject, SECURITY_AUTO_INHERIT_FLAGS, AutoInheritFlags, HANDLE, Token, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2521,7 +2521,7 @@ export CreatePrivateObjectSecurityWithMultipleInheritance(ParentDescriptor, Crea
 export CreateRestrictedToken(ExistingTokenHandle, Flags, DisableSidCount, SidsToDisable, DeletePrivilegeCount, PrivilegesToDelete, RestrictedSidCount, SidsToRestrict, NewTokenHandle) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateRestrictedToken", HANDLE, ExistingTokenHandle, CREATE_RESTRICTED_TOKEN_FLAGS, Flags, "uint", DisableSidCount, SID_AND_ATTRIBUTES.Ptr, SidsToDisable, "uint", DeletePrivilegeCount, LUID_AND_ATTRIBUTES.Ptr, PrivilegesToDelete, "uint", RestrictedSidCount, SID_AND_ATTRIBUTES.Ptr, SidsToRestrict, HANDLE.Ptr, NewTokenHandle, BOOL)
+    result := DllCall("ADVAPI32.dll\CreateRestrictedToken", HANDLE, ExistingTokenHandle, CREATE_RESTRICTED_TOKEN_FLAGS, Flags, UInt32, DisableSidCount, SID_AND_ATTRIBUTES.Ptr, SidsToDisable, UInt32, DeletePrivilegeCount, LUID_AND_ATTRIBUTES.Ptr, PrivilegesToDelete, UInt32, RestrictedSidCount, SID_AND_ATTRIBUTES.Ptr, SidsToRestrict, HANDLE.Ptr, NewTokenHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2547,7 +2547,7 @@ export CreateWellKnownSid(WellKnownSidType, DomainSid, _pSid, cbSid) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateWellKnownSid", WELL_KNOWN_SID_TYPE, WellKnownSidType, PSID, DomainSid, "ptr", _pSid, cbSidMarshal, cbSid, BOOL)
+    result := DllCall("ADVAPI32.dll\CreateWellKnownSid", WELL_KNOWN_SID_TYPE, WellKnownSidType, PSID, DomainSid, IntPtr, _pSid, cbSidMarshal, cbSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2599,7 +2599,7 @@ export EqualDomainSid(pSid1, pSid2, pfEqual) {
 export DeleteAce(pAcl, dwAceIndex) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\DeleteAce", ACL.Ptr, pAcl, "uint", dwAceIndex, BOOL)
+    result := DllCall("ADVAPI32.dll\DeleteAce", ACL.Ptr, pAcl, UInt32, dwAceIndex, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2817,7 +2817,7 @@ export GetAce(pAcl, dwAceIndex, pAce) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetAce", ACL.Ptr, pAcl, "uint", dwAceIndex, pAceMarshal, pAce, BOOL)
+    result := DllCall("ADVAPI32.dll\GetAce", ACL.Ptr, pAcl, UInt32, dwAceIndex, pAceMarshal, pAce, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2851,7 +2851,7 @@ export GetAce(pAcl, dwAceIndex, pAce) {
 export GetAclInformation(pAcl, pAclInformation, nAclInformationLength, dwAclInformationClass) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetAclInformation", ACL.Ptr, pAcl, "ptr", pAclInformation, "uint", nAclInformationLength, ACL_INFORMATION_CLASS, dwAclInformationClass, BOOL)
+    result := DllCall("ADVAPI32.dll\GetAclInformation", ACL.Ptr, pAcl, IntPtr, pAclInformation, UInt32, nAclInformationLength, ACL_INFORMATION_CLASS, dwAclInformationClass, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2885,7 +2885,7 @@ export GetFileSecurityW(lpFileName, RequestedInformation, pSecurityDescriptor, n
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetFileSecurityW", "ptr", lpFileName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\GetFileSecurityW", "ptr", lpFileName, UInt32, RequestedInformation, IntPtr, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2918,7 +2918,7 @@ export GetKernelObjectSecurity(_Handle, RequestedInformation, pSecurityDescripto
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetKernelObjectSecurity", HANDLE, _Handle, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\GetKernelObjectSecurity", HANDLE, _Handle, UInt32, RequestedInformation, IntPtr, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2973,7 +2973,7 @@ export GetPrivateObjectSecurity(_ObjectDescriptor, SecurityInformation, Resultan
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetPrivateObjectSecurity", PSECURITY_DESCRIPTOR, _ObjectDescriptor, OBJECT_SECURITY_INFORMATION, SecurityInformation, "ptr", ResultantDescriptor, "uint", DescriptorLength, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ADVAPI32.dll\GetPrivateObjectSecurity", PSECURITY_DESCRIPTOR, _ObjectDescriptor, OBJECT_SECURITY_INFORMATION, SecurityInformation, IntPtr, ResultantDescriptor, UInt32, DescriptorLength, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3245,7 +3245,7 @@ export GetSidIdentifierAuthority(_pSid) {
  * @since windows5.1.2600
  */
 export GetSidLengthRequired(nSubAuthorityCount) {
-    result := DllCall("ADVAPI32.dll\GetSidLengthRequired", "char", nSubAuthorityCount, UInt32)
+    result := DllCall("ADVAPI32.dll\GetSidLengthRequired", Int8, nSubAuthorityCount, UInt32)
     return result
 }
 
@@ -3269,7 +3269,7 @@ export GetSidLengthRequired(nSubAuthorityCount) {
 export GetSidSubAuthority(_pSid, nSubAuthority) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetSidSubAuthority", PSID, _pSid, "uint", nSubAuthority, IntPtr)
+    result := DllCall("ADVAPI32.dll\GetSidSubAuthority", PSID, _pSid, UInt32, nSubAuthority, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3326,7 +3326,7 @@ export GetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation,
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetTokenInformation", HANDLE, TokenHandle, TOKEN_INFORMATION_CLASS, TokenInformationClass, "ptr", TokenInformation, "uint", TokenInformationLength, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ADVAPI32.dll\GetTokenInformation", HANDLE, TokenHandle, TOKEN_INFORMATION_CLASS, TokenInformationClass, IntPtr, TokenInformation, UInt32, TokenInformationLength, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3351,7 +3351,7 @@ export GetWindowsAccountDomainSid(_pSid, pDomainSid, cbDomainSid) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetWindowsAccountDomainSid", PSID, _pSid, "ptr", pDomainSid, cbDomainSidMarshal, cbDomainSid, BOOL)
+    result := DllCall("ADVAPI32.dll\GetWindowsAccountDomainSid", PSID, _pSid, IntPtr, pDomainSid, cbDomainSidMarshal, cbDomainSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3499,7 +3499,7 @@ export ImpersonateSelf(ImpersonationLevel) {
 export InitializeAcl(pAcl, nAclLength, dwAclRevision) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\InitializeAcl", "ptr", pAcl, "uint", nAclLength, ACE_REVISION, dwAclRevision, BOOL)
+    result := DllCall("ADVAPI32.dll\InitializeAcl", IntPtr, pAcl, UInt32, nAclLength, ACE_REVISION, dwAclRevision, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3527,7 +3527,7 @@ export InitializeAcl(pAcl, nAclLength, dwAclRevision) {
 export InitializeSecurityDescriptor(pSecurityDescriptor, dwRevision) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\InitializeSecurityDescriptor", PSECURITY_DESCRIPTOR, pSecurityDescriptor, "uint", dwRevision, BOOL)
+    result := DllCall("ADVAPI32.dll\InitializeSecurityDescriptor", PSECURITY_DESCRIPTOR, pSecurityDescriptor, UInt32, dwRevision, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3560,7 +3560,7 @@ export InitializeSecurityDescriptor(pSecurityDescriptor, dwRevision) {
 export InitializeSid(_Sid, pIdentifierAuthority, nSubAuthorityCount) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\InitializeSid", PSID, _Sid, SID_IDENTIFIER_AUTHORITY.Ptr, pIdentifierAuthority, "char", nSubAuthorityCount, BOOL)
+    result := DllCall("ADVAPI32.dll\InitializeSid", PSID, _Sid, SID_IDENTIFIER_AUTHORITY.Ptr, pIdentifierAuthority, Int8, nSubAuthorityCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3722,7 +3722,7 @@ export MakeAbsoluteSD(pSelfRelativeSecurityDescriptor, pAbsoluteSecurityDescript
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\MakeAbsoluteSD", PSECURITY_DESCRIPTOR, pSelfRelativeSecurityDescriptor, "ptr", pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSizeMarshal, lpdwAbsoluteSecurityDescriptorSize, "ptr", pDacl, lpdwDaclSizeMarshal, lpdwDaclSize, "ptr", pSacl, lpdwSaclSizeMarshal, lpdwSaclSize, "ptr", pOwner, lpdwOwnerSizeMarshal, lpdwOwnerSize, "ptr", pPrimaryGroup, lpdwPrimaryGroupSizeMarshal, lpdwPrimaryGroupSize, BOOL)
+    result := DllCall("ADVAPI32.dll\MakeAbsoluteSD", PSECURITY_DESCRIPTOR, pSelfRelativeSecurityDescriptor, IntPtr, pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSizeMarshal, lpdwAbsoluteSecurityDescriptorSize, IntPtr, pDacl, lpdwDaclSizeMarshal, lpdwDaclSize, IntPtr, pSacl, lpdwSaclSizeMarshal, lpdwSaclSize, IntPtr, pOwner, lpdwOwnerSizeMarshal, lpdwOwnerSize, IntPtr, pPrimaryGroup, lpdwPrimaryGroupSizeMarshal, lpdwPrimaryGroupSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3775,7 +3775,7 @@ export MakeSelfRelativeSD(pAbsoluteSecurityDescriptor, pSelfRelativeSecurityDesc
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\MakeSelfRelativeSD", PSECURITY_DESCRIPTOR, pAbsoluteSecurityDescriptor, "ptr", pSelfRelativeSecurityDescriptor, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
+    result := DllCall("ADVAPI32.dll\MakeSelfRelativeSD", PSECURITY_DESCRIPTOR, pAbsoluteSecurityDescriptor, IntPtr, pSelfRelativeSecurityDescriptor, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3876,7 +3876,7 @@ export ObjectOpenAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName
     HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
     GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "int*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, ObjectCreation, BOOL, AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, UInt32, DesiredAccess, UInt32, GrantedAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, ObjectCreation, BOOL, AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, BOOL)
     return result
 }
 
@@ -3902,7 +3902,7 @@ export ObjectPrivilegeAuditAlarmW(SubsystemName, HandleId, ClientToken, DesiredA
 
     HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\ObjectPrivilegeAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "uint", DesiredAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, AccessGranted, BOOL)
+    result := DllCall("ADVAPI32.dll\ObjectPrivilegeAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, UInt32, DesiredAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, AccessGranted, BOOL)
     return result
 }
 
@@ -4037,7 +4037,7 @@ export RevertToSelf() {
 export SetAclInformation(pAcl, pAclInformation, nAclInformationLength, dwAclInformationClass) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetAclInformation", ACL.Ptr, pAcl, "ptr", pAclInformation, "uint", nAclInformationLength, ACL_INFORMATION_CLASS, dwAclInformationClass, BOOL)
+    result := DllCall("ADVAPI32.dll\SetAclInformation", ACL.Ptr, pAcl, IntPtr, pAclInformation, UInt32, nAclInformationLength, ACL_INFORMATION_CLASS, dwAclInformationClass, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4460,7 +4460,7 @@ export SetSecurityDescriptorSacl(pSecurityDescriptor, bSaclPresent, pSacl, bSacl
 export SetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation, TokenInformationLength) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetTokenInformation", HANDLE, TokenHandle, TOKEN_INFORMATION_CLASS, TokenInformationClass, "ptr", TokenInformation, "uint", TokenInformationLength, BOOL)
+    result := DllCall("ADVAPI32.dll\SetTokenInformation", HANDLE, TokenHandle, TOKEN_INFORMATION_CLASS, TokenInformationClass, IntPtr, TokenInformation, UInt32, TokenInformationLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4487,7 +4487,7 @@ export SetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation,
  * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setcachedsigninglevel
  */
 export SetCachedSigningLevel(SourceFiles, SourceFileCount, Flags, TargetFile) {
-    result := DllCall("KERNEL32.dll\SetCachedSigningLevel", HANDLE.Ptr, SourceFiles, "uint", SourceFileCount, "uint", Flags, HANDLE, TargetFile, BOOL)
+    result := DllCall("KERNEL32.dll\SetCachedSigningLevel", HANDLE.Ptr, SourceFiles, UInt32, SourceFileCount, UInt32, Flags, HANDLE, TargetFile, BOOL)
     return result
 }
 
@@ -4517,7 +4517,7 @@ export GetCachedSigningLevel(_File, Flags, SigningLevel, Thumbprint, ThumbprintS
     ThumbprintSizeMarshal := ThumbprintSize is VarRef ? "uint*" : "ptr"
     ThumbprintAlgorithmMarshal := ThumbprintAlgorithm is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetCachedSigningLevel", HANDLE, _File, FlagsMarshal, Flags, SigningLevelMarshal, SigningLevel, "ptr", Thumbprint, ThumbprintSizeMarshal, ThumbprintSize, ThumbprintAlgorithmMarshal, ThumbprintAlgorithm, BOOL)
+    result := DllCall("KERNEL32.dll\GetCachedSigningLevel", HANDLE, _File, FlagsMarshal, Flags, SigningLevelMarshal, SigningLevel, IntPtr, Thumbprint, ThumbprintSizeMarshal, ThumbprintSize, ThumbprintAlgorithmMarshal, ThumbprintAlgorithm, BOOL)
     return result
 }
 
@@ -4568,7 +4568,7 @@ export DeriveCapabilitySidsFromName(CapName, CapabilityGroupSids, CapabilityGrou
 export RtlNormalizeSecurityDescriptor(_SecurityDescriptor, SecurityDescriptorLength, NewSecurityDescriptor, NewSecurityDescriptorLength, CheckOnly) {
     NewSecurityDescriptorLengthMarshal := NewSecurityDescriptorLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\RtlNormalizeSecurityDescriptor", PSECURITY_DESCRIPTOR.Ptr, _SecurityDescriptor, "uint", SecurityDescriptorLength, PSECURITY_DESCRIPTOR.Ptr, NewSecurityDescriptor, NewSecurityDescriptorLengthMarshal, NewSecurityDescriptorLength, BOOLEAN, CheckOnly, BOOLEAN)
+    result := DllCall("ntdll.dll\RtlNormalizeSecurityDescriptor", PSECURITY_DESCRIPTOR.Ptr, _SecurityDescriptor, UInt32, SecurityDescriptorLength, PSECURITY_DESCRIPTOR.Ptr, NewSecurityDescriptor, NewSecurityDescriptorLengthMarshal, NewSecurityDescriptorLength, BOOLEAN, CheckOnly, BOOLEAN)
     return result
 }
 
@@ -4632,7 +4632,7 @@ export GetUserObjectSecurity(hObj, pSIRequested, _pSID, nLength, lpnLengthNeeded
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetUserObjectSecurity", HANDLE, hObj, pSIRequestedMarshal, pSIRequested, "ptr", _pSID, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("USER32.dll\GetUserObjectSecurity", HANDLE, hObj, pSIRequestedMarshal, pSIRequested, IntPtr, _pSID, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4687,7 +4687,7 @@ export AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, Object
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, "uint", DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, UInt32, DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4774,7 +4774,7 @@ export AccessCheckByTypeAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, 
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, "uint", DesiredAccess, AUDIT_EVENT_TYPE, AuditType, "uint", Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, "uint", ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4851,7 +4851,7 @@ export AccessCheckByTypeResultListAndAuditAlarmA(SubsystemName, HandleId, Object
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, "uint", DesiredAccess, AUDIT_EVENT_TYPE, AuditType, "uint", Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, "uint", ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4930,7 +4930,7 @@ export AccessCheckByTypeResultListAndAuditAlarmByHandleA(SubsystemName, HandleId
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleA", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, "uint", DesiredAccess, AUDIT_EVENT_TYPE, AuditType, "uint", Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, "uint", ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleA", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4979,7 +4979,7 @@ export ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, "uint", DesiredAccess, "uint", GrantedAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, ObjectCreation, BOOL, AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, UInt32, DesiredAccess, UInt32, GrantedAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, ObjectCreation, BOOL, AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5017,7 +5017,7 @@ export ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredA
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ObjectPrivilegeAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "uint", DesiredAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, AccessGranted, BOOL)
+    result := DllCall("ADVAPI32.dll\ObjectPrivilegeAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, UInt32, DesiredAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, AccessGranted, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5169,7 +5169,7 @@ export AddConditionalAce(pAcl, dwAceRevision, AceFlags, AceType, AccessMask, _pS
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddConditionalAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, "char", AceType, "uint", AccessMask, PSID, _pSid, "ptr", ConditionStr, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ADVAPI32.dll\AddConditionalAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, Int8, AceType, UInt32, AccessMask, PSID, _pSid, "ptr", ConditionStr, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5239,7 +5239,7 @@ export GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, n
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetFileSecurityA", "ptr", lpFileName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\GetFileSecurityA", "ptr", lpFileName, UInt32, RequestedInformation, IntPtr, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5391,7 +5391,7 @@ export LookupAccountNameA(lpSystemName, lpAccountName, _Sid, cbSid, ReferencedDo
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupAccountNameA", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", _Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupAccountNameA", "ptr", lpSystemName, "ptr", lpAccountName, IntPtr, _Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5443,7 +5443,7 @@ export LookupAccountNameW(lpSystemName, lpAccountName, _Sid, cbSid, ReferencedDo
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupAccountNameW", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", _Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupAccountNameW", "ptr", lpSystemName, "ptr", lpAccountName, IntPtr, _Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5952,7 +5952,7 @@ export LogonUserExW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogon
  */
 export RtlConvertSidToUnicodeString(UnicodeString, _Sid, AllocateDestinationString) {
     result := DllCall("ntdll.dll\RtlConvertSidToUnicodeString", UNICODE_STRING.Ptr, UnicodeString, PSID, _Sid, BOOLEAN, AllocateDestinationString, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

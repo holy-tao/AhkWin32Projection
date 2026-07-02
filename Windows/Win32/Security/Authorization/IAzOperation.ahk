@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines a low-level operation supported by an application.
@@ -193,7 +193,7 @@ export default struct IAzOperation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-put_operationid
      */
     put_OperationID(lProp) {
-        result := ComCall(14, this, "int", lProp, "HRESULT")
+        result := ComCall(14, this, Int32, lProp, "HRESULT")
         return result
     }
 
@@ -283,7 +283,7 @@ export default struct IAzOperation extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(16, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
+        result := ComCall(16, this, Int32, lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -396,7 +396,7 @@ export default struct IAzOperation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(17, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
+        result := ComCall(17, this, Int32, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -410,7 +410,7 @@ export default struct IAzOperation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(18, this, "int", lFlags, VARIANT, varReserved, "HRESULT")
+        result := ComCall(18, this, Int32, lFlags, VARIANT, varReserved, "HRESULT")
         return result
     }
 

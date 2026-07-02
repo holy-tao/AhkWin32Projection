@@ -72,7 +72,7 @@ export default struct IADsBackLink extends IDispatch {
      * @returns {HRESULT} 
      */
     put_RemoteID(lnRemoteID) {
-        result := ComCall(8, this, "int", lnRemoteID, "HRESULT")
+        result := ComCall(8, this, Int32, lnRemoteID, "HRESULT")
         return result
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\TIMECODE_SAMPLE.ahk" { TIMECODE_SAMPLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMTimecodeReader interface reads SMPTE or MIDI timecode from an external device. The MSDV and MSTape drivers support this interface for reading timecode from an external DV or MPEG-2 camcorder.
@@ -117,7 +117,7 @@ export default struct IAMTimecodeReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-gettcrmode
      */
     GetTCRMode(Param) {
-        result := ComCall(3, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(3, this, Int32, Param, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -162,7 +162,7 @@ export default struct IAMTimecodeReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-settcrmode
      */
     SetTCRMode(Param, Value) {
-        result := ComCall(4, this, "int", Param, "int", Value, "HRESULT")
+        result := ComCall(4, this, Int32, Param, Int32, Value, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IAMTimecodeReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-put_vitcline
      */
     put_VITCLine(Line) {
-        result := ComCall(5, this, "int", Line, "HRESULT")
+        result := ComCall(5, this, Int32, Line, "HRESULT")
         return result
     }
 

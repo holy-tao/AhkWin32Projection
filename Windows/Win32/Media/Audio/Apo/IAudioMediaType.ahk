@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UNCOMPRESSEDAUDIOFORMAT.ahk" { UNCOMPRESSEDAUDIOFORMAT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UNCOMPRESSEDAUDIOFORMAT.ahk" { UNCOMPRESSEDAUDIOFORMAT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAudioMediaType interface exposes methods that allow an sAPO to get information that is used to negotiate with the audio engine for the appropriate audio data format.

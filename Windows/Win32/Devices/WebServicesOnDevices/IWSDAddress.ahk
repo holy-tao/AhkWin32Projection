@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to the individual components of a transport address.
@@ -91,7 +91,7 @@ export default struct IWSDAddress extends IUnknown {
     Serialize(pszBuffer, cchLength, fSafe) {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(3, this, "ptr", pszBuffer, "uint", cchLength, BOOL, fSafe, "HRESULT")
+        result := ComCall(3, this, "ptr", pszBuffer, UInt32, cchLength, BOOL, fSafe, "HRESULT")
         return result
     }
 

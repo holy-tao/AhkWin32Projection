@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
-#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import "..\Direct3D\D3DMATRIX.ahk" { D3DMATRIX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 
 /**
  * Represents an arbitrary 3D transformation defined by a 4-by-4 matrix.
@@ -87,7 +87,7 @@ export default struct IDCompositionMatrixTransform3D extends IDCompositionTransf
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrixelement(int_int_idcompositionanimation)
      */
     SetMatrixElement(row, _column, animation) {
-        result := ComCall(4, this, "int", row, "int", _column, "ptr", animation, "HRESULT")
+        result := ComCall(4, this, Int32, row, Int32, _column, "ptr", animation, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct IDCompositionMatrixTransform3D extends IDCompositionTransf
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform3d-setmatrixelement(int_int_idcompositionanimation)
      */
     SetMatrixElement1(row, _column, value) {
-        result := ComCall(5, this, "int", row, "int", _column, "float", value, "HRESULT")
+        result := ComCall(5, this, Int32, row, Int32, _column, Float32, value, "HRESULT")
         return result
     }
 

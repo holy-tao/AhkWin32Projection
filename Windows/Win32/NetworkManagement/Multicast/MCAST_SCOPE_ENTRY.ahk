@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import ".\IPNG_ADDRESS.ahk" { IPNG_ADDRESS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPNG_ADDRESS.ahk" { IPNG_ADDRESS }
 #Import ".\MCAST_SCOPE_CTX.ahk" { MCAST_SCOPE_CTX }
 
 /**

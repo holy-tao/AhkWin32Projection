@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IResourceManager.ahk" { IResourceManager }
-#Import ".\ITransactionEnlistmentAsync.ahk" { ITransactionEnlistmentAsync }
 #Import ".\ITransactionResourceAsync.ahk" { ITransactionResourceAsync }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XID.ahk" { XID }
 #Import ".\XACTSTAT.ahk" { XACTSTAT }
-#Import ".\ITransaction.ahk" { ITransaction }
 #Import ".\BOID.ahk" { BOID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITransactionEnlistmentAsync.ahk" { ITransactionEnlistmentAsync }
+#Import ".\ITransaction.ahk" { ITransaction }
+#Import ".\XID.ahk" { XID }
+#Import ".\IResourceManager.ahk" { IResourceManager }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -66,7 +66,7 @@ export default struct IResourceManager2 extends IResourceManager {
      * @returns {XACTSTAT} 
      */
     Reenlist2(pXid, dwTimeout) {
-        result := ComCall(8, this, XID.Ptr, pXid, "uint", dwTimeout, "int*", &pXactStat := 0, "HRESULT")
+        result := ComCall(8, this, XID.Ptr, pXid, UInt32, dwTimeout, "int*", &pXactStat := 0, "HRESULT")
         return pXactStat
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The DD_GETMOCOMPFORMATSDATA structure contains the uncompressed format information.

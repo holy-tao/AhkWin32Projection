@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BG_AUTH_CREDENTIALS_UNION.ahk" { BG_AUTH_CREDENTIALS_UNION }
 #Import ".\BG_AUTH_TARGET.ahk" { BG_AUTH_TARGET }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\BG_AUTH_CREDENTIALS_UNION.ahk" { BG_AUTH_CREDENTIALS_UNION }
-#Import ".\BG_BASIC_CREDENTIALS.ahk" { BG_BASIC_CREDENTIALS }
 #Import ".\BG_AUTH_SCHEME.ahk" { BG_AUTH_SCHEME }
+#Import ".\BG_BASIC_CREDENTIALS.ahk" { BG_BASIC_CREDENTIALS }
 
 /**
  * Identifies the target (proxy or server), authentication scheme, and the user's credentials to use for user authentication requests. The structure is passed to the IBackgroundCopyJob2::SetCredentials method.

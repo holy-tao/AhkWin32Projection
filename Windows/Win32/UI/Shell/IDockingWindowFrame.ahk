@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that support the addition of IDockingWindow objects to a frame. Implemented by the browser.
@@ -83,7 +83,7 @@ export default struct IDockingWindowFrame extends IOleWindow {
     AddToolbar(punkSrc, pwszItem, dwAddFlags) {
         pwszItem := pwszItem is String ? StrPtr(pwszItem) : pwszItem
 
-        result := ComCall(5, this, "ptr", punkSrc, "ptr", pwszItem, "uint", dwAddFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", punkSrc, "ptr", pwszItem, UInt32, dwAddFlags, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IDockingWindowFrame extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-idockingwindowframe-removetoolbar
      */
     RemoveToolbar(punkSrc, dwRemoveFlags) {
-        result := ComCall(6, this, "ptr", punkSrc, "uint", dwRemoveFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", punkSrc, UInt32, dwRemoveFlags, "HRESULT")
         return result
     }
 

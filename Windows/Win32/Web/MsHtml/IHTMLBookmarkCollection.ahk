@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -78,7 +78,7 @@ export default struct IHTMLBookmarkCollection extends IDispatch {
      */
     item(index) {
         pVarBookmark := VARIANT()
-        result := ComCall(9, this, "int", index, VARIANT.Ptr, pVarBookmark, "HRESULT")
+        result := ComCall(9, this, Int32, index, VARIANT.Ptr, pVarBookmark, "HRESULT")
         return pVarBookmark
     }
 

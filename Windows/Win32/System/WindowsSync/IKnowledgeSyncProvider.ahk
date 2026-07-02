@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISyncCallback.ahk" { ISyncCallback }
+#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISyncProvider.ahk" { ISyncProvider }
+#Import ".\ISyncChangeBatch.ahk" { ISyncChangeBatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CONFLICT_RESOLUTION_POLICY.ahk" { CONFLICT_RESOLUTION_POLICY }
 #Import ".\SYNC_SESSION_STATISTICS.ahk" { SYNC_SESSION_STATISTICS }
-#Import ".\ISyncCallback.ahk" { ISyncCallback }
-#Import ".\ISyncFullEnumerationChangeBatch.ahk" { ISyncFullEnumerationChangeBatch }
 #Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
-#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
+#Import ".\ISyncFullEnumerationChangeBatch.ahk" { ISyncFullEnumerationChangeBatch }
 #Import ".\ISyncSessionState.ahk" { ISyncSessionState }
-#Import ".\ISyncChangeBatch.ahk" { ISyncChangeBatch }
-#Import ".\ISyncProvider.ahk" { ISyncProvider }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a synchronization provider that uses knowledge to perform synchronization.
@@ -151,7 +151,7 @@ export default struct IKnowledgeSyncProvider extends ISyncProvider {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-getchangebatch
      */
     GetChangeBatch(dwBatchSize, pSyncKnowledge, ppSyncChangeBatch, ppUnkDataRetriever) {
-        result := ComCall(6, this, "uint", dwBatchSize, "ptr", pSyncKnowledge, ISyncChangeBatch.Ptr, ppSyncChangeBatch, IUnknown.Ptr, ppUnkDataRetriever, "HRESULT")
+        result := ComCall(6, this, UInt32, dwBatchSize, "ptr", pSyncKnowledge, ISyncChangeBatch.Ptr, ppSyncChangeBatch, IUnknown.Ptr, ppUnkDataRetriever, "HRESULT")
         return result
     }
 
@@ -201,7 +201,7 @@ export default struct IKnowledgeSyncProvider extends ISyncProvider {
     GetFullEnumerationChangeBatch(dwBatchSize, pbLowerEnumerationBound, pSyncKnowledge, ppSyncChangeBatch, ppUnkDataRetriever) {
         pbLowerEnumerationBoundMarshal := pbLowerEnumerationBound is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwBatchSize, pbLowerEnumerationBoundMarshal, pbLowerEnumerationBound, "ptr", pSyncKnowledge, ISyncFullEnumerationChangeBatch.Ptr, ppSyncChangeBatch, IUnknown.Ptr, ppUnkDataRetriever, "HRESULT")
+        result := ComCall(7, this, UInt32, dwBatchSize, pbLowerEnumerationBoundMarshal, pbLowerEnumerationBound, "ptr", pSyncKnowledge, ISyncFullEnumerationChangeBatch.Ptr, ppSyncChangeBatch, IUnknown.Ptr, ppUnkDataRetriever, "HRESULT")
         return result
     }
 

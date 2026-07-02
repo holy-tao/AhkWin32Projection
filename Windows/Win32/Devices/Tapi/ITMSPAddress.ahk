@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITMSPAddress (msp.h) interface is implemented by the MSP and represents a media service provider to the TAPI DLL.
@@ -143,7 +143,7 @@ export default struct ITMSPAddress extends IUnknown {
     CreateMSPCall(hCall, dwReserved, dwMediaType, pOuterUnknown) {
         hCallMarshal := hCall is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, hCallMarshal, hCall, "uint", dwReserved, "uint", dwMediaType, "ptr", pOuterUnknown, "ptr*", &ppStreamControl := 0, "HRESULT")
+        result := ComCall(5, this, hCallMarshal, hCall, UInt32, dwReserved, UInt32, dwMediaType, "ptr", pOuterUnknown, "ptr*", &ppStreamControl := 0, "HRESULT")
         return IUnknown(ppStreamControl)
     }
 
@@ -279,7 +279,7 @@ export default struct ITMSPAddress extends IUnknown {
     ReceiveTSPData(pMSPCall, pBuffer, dwSize) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pMSPCall, pBufferMarshal, pBuffer, "uint", dwSize, "HRESULT")
+        result := ComCall(7, this, "ptr", pMSPCall, pBufferMarshal, pBuffer, UInt32, dwSize, "HRESULT")
         return result
     }
 

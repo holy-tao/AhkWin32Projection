@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Variant\VARENUM.ahk" { VARENUM }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -46,7 +46,7 @@ export default struct IVariantChangeType extends IUnknown {
      * @returns {HRESULT} 
      */
     ChangeType(pvarDst, pvarSrc, lcid, vtNew) {
-        result := ComCall(3, this, VARIANT.Ptr, pvarDst, VARIANT.Ptr, pvarSrc, "uint", lcid, VARENUM, vtNew, "HRESULT")
+        result := ComCall(3, this, VARIANT.Ptr, pvarDst, VARIANT.Ptr, pvarSrc, UInt32, lcid, VARENUM, vtNew, "HRESULT")
         return result
     }
 

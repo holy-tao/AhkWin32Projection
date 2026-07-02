@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SEARCH_INDEXING_PHASE.ahk" { SEARCH_INDEXING_PHASE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SEARCH_ITEM_INDEXING_STATUS.ahk" { SEARCH_ITEM_INDEXING_STATUS }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SEARCH_INDEXING_PHASE.ahk" { SEARCH_INDEXING_PHASE }
 
 /**
  * Provides methods the Search service uses to send updates on catalog and index status to notification providers.
@@ -57,7 +57,7 @@ export default struct ISearchNotifyInlineSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchnotifyinlinesite-onitemindexedstatuschange
      */
     OnItemIndexedStatusChange(sipStatus, dwNumEntries, rgItemStatusEntries) {
-        result := ComCall(3, this, SEARCH_INDEXING_PHASE, sipStatus, "uint", dwNumEntries, SEARCH_ITEM_INDEXING_STATUS.Ptr, rgItemStatusEntries, "HRESULT")
+        result := ComCall(3, this, SEARCH_INDEXING_PHASE, sipStatus, UInt32, dwNumEntries, SEARCH_ITEM_INDEXING_STATUS.Ptr, rgItemStatusEntries, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct ISearchNotifyInlineSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchnotifyinlinesite-oncatalogstatuschange
      */
     OnCatalogStatusChange(guidCatalogResetSignature, guidCheckPointSignature, dwLastCheckPointNumber) {
-        result := ComCall(4, this, Guid.Ptr, guidCatalogResetSignature, Guid.Ptr, guidCheckPointSignature, "uint", dwLastCheckPointNumber, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidCatalogResetSignature, Guid.Ptr, guidCheckPointSignature, UInt32, dwLastCheckPointNumber, "HRESULT")
         return result
     }
 

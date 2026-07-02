@@ -1,4 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PCRYPT_RESOLVE_HCRYPTPROV_FUNC.ahk" { PCRYPT_RESOLVE_HCRYPTPROV_FUNC }
+#Import ".\PCRYPT_DECRYPT_PRIVATE_KEY_FUNC.ahk" { PCRYPT_DECRYPT_PRIVATE_KEY_FUNC }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
@@ -17,7 +19,7 @@ export default struct CRYPT_PKCS8_IMPORT_PARAMS {
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pcrypt_resolve_hcryptprov_func">PCRYPT_RESOLVE_HCRYPTPROV_FUNC</a> pointer  that points to data used by a user-defined function that retrieves a handle to a CSP.
      */
-    pResolvehCryptProvFunc : IntPtr
+    pResolvehCryptProvFunc : PCRYPT_RESOLVE_HCRYPTPROV_FUNC
 
     /**
      * An  <b>LPVOID</b>  value that identifies the function used to retrieve the CSP provider handle.
@@ -27,7 +29,7 @@ export default struct CRYPT_PKCS8_IMPORT_PARAMS {
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pcrypt_decrypt_private_key_func">PCRYPT_DECRYPT_PRIVATE_KEY_FUNC</a> pointer that points to  a callback function used to decrypt the private key.
      */
-    pDecryptPrivateKeyFunc : IntPtr
+    pDecryptPrivateKeyFunc : PCRYPT_DECRYPT_PRIVATE_KEY_FUNC
 
     /**
      * An <b>LPVOID</b> value that provides data used for encryption, such as key, initialization vector, and password.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 #Import ".\DDBLTFX.ahk" { DDBLTFX }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 
 /**
  * The DDBLTBATCH structure passes bit block transfer (bitblt) operations to the IDirectDrawSurface7::BltBatch method.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMediaStream.ahk" { IMediaStream }
-#Import ".\IAudioData.ahk" { IAudioData }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\IAudioStreamSample.ahk" { IAudioStreamSample }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioData.ahk" { IAudioData }
 
 /**
  * Note  This interface is deprecated.
@@ -127,7 +127,7 @@ export default struct IAudioMediaStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiomediastream-createsample
      */
     CreateSample(pAudioData, dwFlags) {
-        result := ComCall(11, this, "ptr", pAudioData, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pAudioData, UInt32, dwFlags, "ptr*", &ppSample := 0, "HRESULT")
         return IAudioStreamSample(ppSample)
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\KSJACK_DESCRIPTION.ahk" { KSJACK_DESCRIPTION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IKsJackDescription interface provides information about the jacks or internal connectors that provide a physical connection between a device on an audio adapter and an external or internal endpoint device (for example, a microphone or CD player).
@@ -102,7 +102,7 @@ export default struct IKsJackDescription extends IUnknown {
      */
     GetJackDescription(nJack) {
         pDescription := KSJACK_DESCRIPTION()
-        result := ComCall(4, this, "uint", nJack, KSJACK_DESCRIPTION.Ptr, pDescription, "HRESULT")
+        result := ComCall(4, this, UInt32, nJack, KSJACK_DESCRIPTION.Ptr, pDescription, "HRESULT")
         return pDescription
     }
 

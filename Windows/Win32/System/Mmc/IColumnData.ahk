@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SColumnSetID.ahk" { SColumnSetID }
+#Import ".\MMC_COLUMN_SET_DATA.ahk" { MMC_COLUMN_SET_DATA }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MMC_SORT_SET_DATA.ahk" { MMC_SORT_SET_DATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SColumnSetID.ahk" { SColumnSetID }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MMC_COLUMN_SET_DATA.ahk" { MMC_COLUMN_SET_DATA }
 
 /**
  * The IColumnData interface is introduced in MMC 1.2.

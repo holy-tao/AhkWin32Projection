@@ -100,7 +100,7 @@ export default struct IDVB_EIT2 extends IDVB_EIT {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit2-getrecordsection
      */
     GetRecordSection(dwRecordIndex) {
-        result := ComCall(25, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(25, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 

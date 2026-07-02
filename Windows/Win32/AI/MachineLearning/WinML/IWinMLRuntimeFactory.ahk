@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWinMLRuntime.ahk" { IWinMLRuntime }
 #Import ".\WINML_RUNTIME_TYPE.ahk" { WINML_RUNTIME_TYPE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWinMLRuntime.ahk" { IWinMLRuntime }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the factory that creates the WinML runtime for model loading and evaluation.

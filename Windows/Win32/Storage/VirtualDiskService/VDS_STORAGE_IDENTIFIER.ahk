@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_STORAGE_IDENTIFIER_TYPE.ahk" { VDS_STORAGE_IDENTIFIER_TYPE }
 #Import ".\VDS_STORAGE_IDENTIFIER_CODE_SET.ahk" { VDS_STORAGE_IDENTIFIER_CODE_SET }
+#Import ".\VDS_STORAGE_IDENTIFIER_TYPE.ahk" { VDS_STORAGE_IDENTIFIER_TYPE }
 
 /**
  * Defines a storage device using a particular code set and type.

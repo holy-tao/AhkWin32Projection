@@ -114,7 +114,7 @@ export default struct IWICPixelFormatInfo extends IWICComponentInfo {
     GetChannelMask(uiChannelIndex, cbMaskBuffer, pbMaskBuffer) {
         pbMaskBufferMarshal := pbMaskBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, "uint", uiChannelIndex, "uint", cbMaskBuffer, pbMaskBufferMarshal, pbMaskBuffer, "uint*", &pcbActual := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, uiChannelIndex, UInt32, cbMaskBuffer, pbMaskBufferMarshal, pbMaskBuffer, "uint*", &pcbActual := 0, "HRESULT")
         return pcbActual
     }
 

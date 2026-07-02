@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TCP_CONNECTION_OFFLOAD_STATE.ahk" { TCP_CONNECTION_OFFLOAD_STATE }
 #Import ".\MIB_TCPROW2.ahk" { MIB_TCPROW2 }
+#Import ".\TCP_CONNECTION_OFFLOAD_STATE.ahk" { TCP_CONNECTION_OFFLOAD_STATE }
 
 /**
  * Contains a table of IPv4 TCP connections on the local computer.

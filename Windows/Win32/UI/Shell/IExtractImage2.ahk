@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IExtractImage.ahk" { IExtractImage }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\IExtractImage.ahk" { IExtractImage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the capabilities of IExtractImage.

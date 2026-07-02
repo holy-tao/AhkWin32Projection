@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TfLBBalloonStyle.ahk" { TfLBBalloonStyle }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TfLBBalloonStyle.ahk" { TfLBBalloonStyle }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfSpeechUIServer interface manages the speech-related user interface on the TSF language bar.
@@ -151,7 +151,7 @@ export default struct ITfSpeechUIServer extends IUnknown {
     UpdateBalloon(style, pch, cch) {
         pch := pch is String ? StrPtr(pch) : pch
 
-        result := ComCall(5, this, TfLBBalloonStyle, style, "ptr", pch, "uint", cch, "HRESULT")
+        result := ComCall(5, this, TfLBBalloonStyle, style, "ptr", pch, UInt32, cch, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IObjectId.ahk" { IObjectId }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\IX509CertificateRequestPkcs10V2.ahk" { IX509CertificateRequestPkcs10V2 }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IX509NameValuePairs.ahk" { IX509NameValuePairs }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\IX509CertificateRequestPkcs10V2.ahk" { IX509CertificateRequestPkcs10V2 }
 
 /**
  * The IX509CertificateRequestPkcs10V3 interface represents a PKCS
@@ -176,7 +176,7 @@ export default struct IX509CertificateRequestPkcs10V3 extends IX509CertificateRe
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-put_encryptionstrength
      */
     put_EncryptionStrength(Value) {
-        result := ComCall(72, this, "int", Value, "HRESULT")
+        result := ComCall(72, this, Int32, Value, "HRESULT")
         return result
     }
 

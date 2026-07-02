@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\COMPLUS_APPTYPE.ahk" { COMPLUS_APPTYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMPLUS_APPTYPE.ahk" { COMPLUS_APPTYPE }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices

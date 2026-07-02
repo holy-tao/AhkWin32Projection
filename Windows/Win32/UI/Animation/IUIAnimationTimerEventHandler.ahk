@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods for handling timing events.
@@ -101,7 +101,7 @@ export default struct IUIAnimationTimerEventHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimereventhandler-onrenderingtooslow
      */
     OnRenderingTooSlow(framesPerSecond) {
-        result := ComCall(5, this, "uint", framesPerSecond, "HRESULT")
+        result := ComCall(5, this, UInt32, framesPerSecond, "HRESULT")
         return result
     }
 

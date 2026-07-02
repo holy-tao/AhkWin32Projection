@@ -65,7 +65,7 @@ export default struct ISVGPathSeg extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pathSegType(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, Int16, v, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a single user quota entry in the volume quota information file.
@@ -111,7 +111,7 @@ export default struct IDiskQuotaUser extends IUnknown {
         pszLogonName := pszLogonName is String ? StrPtr(pszLogonName) : pszLogonName
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        result := ComCall(4, this, "ptr", pszAccountContainer, "uint", cchAccountContainer, "ptr", pszLogonName, "uint", cchLogonName, "ptr", pszDisplayName, "uint", cchDisplayName, "HRESULT")
+        result := ComCall(4, this, "ptr", pszAccountContainer, UInt32, cchAccountContainer, "ptr", pszLogonName, UInt32, cchLogonName, "ptr", pszDisplayName, UInt32, cchDisplayName, "HRESULT")
         return result
     }
 
@@ -252,7 +252,7 @@ export default struct IDiskQuotaUser extends IUnknown {
     GetSid(pbSidBuffer, cbSidBuffer) {
         pbSidBufferMarshal := pbSidBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, pbSidBufferMarshal, pbSidBuffer, "uint", cbSidBuffer, "HRESULT")
+        result := ComCall(6, this, pbSidBufferMarshal, pbSidBuffer, UInt32, cbSidBuffer, "HRESULT")
         return result
     }
 
@@ -447,7 +447,7 @@ export default struct IDiskQuotaUser extends IUnknown {
     GetQuotaThresholdText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(8, this, "ptr", pszText, "uint", cchText, "HRESULT")
+        result := ComCall(8, this, "ptr", pszText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -642,7 +642,7 @@ export default struct IDiskQuotaUser extends IUnknown {
     GetQuotaLimitText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(10, this, "ptr", pszText, "uint", cchText, "HRESULT")
+        result := ComCall(10, this, "ptr", pszText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -837,7 +837,7 @@ export default struct IDiskQuotaUser extends IUnknown {
     GetQuotaUsedText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(12, this, "ptr", pszText, "uint", cchText, "HRESULT")
+        result := ComCall(12, this, "ptr", pszText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -936,7 +936,7 @@ export default struct IDiskQuotaUser extends IUnknown {
     GetQuotaInformation(pbQuotaInfo, cbQuotaInfo) {
         pbQuotaInfoMarshal := pbQuotaInfo is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, pbQuotaInfoMarshal, pbQuotaInfo, "uint", cbQuotaInfo, "HRESULT")
+        result := ComCall(13, this, pbQuotaInfoMarshal, pbQuotaInfo, UInt32, cbQuotaInfo, "HRESULT")
         return result
     }
 
@@ -1000,7 +1000,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-setquotathreshold
      */
     SetQuotaThreshold(llThreshold, fWriteThrough) {
-        result := ComCall(14, this, "int64", llThreshold, BOOL, fWriteThrough, "HRESULT")
+        result := ComCall(14, this, Int64, llThreshold, BOOL, fWriteThrough, "HRESULT")
         return result
     }
 
@@ -1064,7 +1064,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-setquotalimit
      */
     SetQuotaLimit(llLimit, fWriteThrough) {
-        result := ComCall(15, this, "int64", llLimit, BOOL, fWriteThrough, "HRESULT")
+        result := ComCall(15, this, Int64, llLimit, BOOL, fWriteThrough, "HRESULT")
         return result
     }
 

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
-#Import ".\IMFSample.ahk" { IMFSample }
 #Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
-#Import ".\IMFByteStream.ahk" { IMFByteStream }
-#Import ".\ASF_INDEX_IDENTIFIER.ahk" { ASF_INDEX_IDENTIFIER }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\ASF_INDEX_IDENTIFIER.ahk" { ASF_INDEX_IDENTIFIER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
 
 /**
  * Provides methods to work with indexes in Systems Format (ASF) files.
@@ -148,7 +148,7 @@ export default struct IMFASFIndexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setflags
      */
     SetFlags(dwFlags) {
-        result := ComCall(3, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -276,7 +276,7 @@ export default struct IMFASFIndexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexbytestreams
      */
     SetIndexByteStreams(ppIByteStreams, cByteStreams) {
-        result := ComCall(7, this, IMFByteStream.Ptr, ppIByteStreams, "uint", cByteStreams, "HRESULT")
+        result := ComCall(7, this, IMFByteStream.Ptr, ppIByteStreams, UInt32, cByteStreams, "HRESULT")
         return result
     }
 
@@ -389,7 +389,7 @@ export default struct IMFASFIndexer extends IUnknown {
     SetIndexStatus(pbIndexDescriptor, cbIndexDescriptor, fGenerateIndex) {
         pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, pbIndexDescriptorMarshal, pbIndexDescriptor, "uint", cbIndexDescriptor, BOOL, fGenerateIndex, "HRESULT")
+        result := ComCall(10, this, pbIndexDescriptorMarshal, pbIndexDescriptor, UInt32, cbIndexDescriptor, BOOL, fGenerateIndex, "HRESULT")
         return result
     }
 
@@ -595,7 +595,7 @@ export default struct IMFASFIndexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getcompletedindex
      */
     GetCompletedIndex(pIIndexBuffer, cbOffsetWithinIndex) {
-        result := ComCall(15, this, "ptr", pIIndexBuffer, "uint", cbOffsetWithinIndex, "HRESULT")
+        result := ComCall(15, this, "ptr", pIIndexBuffer, Int64, cbOffsetWithinIndex, "HRESULT")
         return result
     }
 

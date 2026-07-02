@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
-#Import ".\DVD_AUDIO_FORMAT.ahk" { DVD_AUDIO_FORMAT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DVD_AUDIO_APPMODE.ahk" { DVD_AUDIO_APPMODE }
+#Import ".\DVD_AUDIO_FORMAT.ahk" { DVD_AUDIO_FORMAT }
+#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
 
 /**
  * The DVD_AudioAttributes structure is used in IDvdInfo2::GetAudioAttributes to receive the various audio attributes of the disc.

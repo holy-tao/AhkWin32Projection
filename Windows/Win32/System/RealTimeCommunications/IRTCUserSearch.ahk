@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IRTCUserSearchQuery.ahk" { IRTCUserSearchQuery }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRTCProfile.ahk" { IRTCProfile }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -55,7 +55,7 @@ export default struct IRTCUserSearch extends IUnknown {
      * @returns {HRESULT} 
      */
     ExecuteSearch(pQuery, pProfile, lCookie) {
-        result := ComCall(4, this, "ptr", pQuery, "ptr", pProfile, "ptr", lCookie, "HRESULT")
+        result := ComCall(4, this, "ptr", pQuery, "ptr", pProfile, IntPtr, lCookie, "HRESULT")
         return result
     }
 

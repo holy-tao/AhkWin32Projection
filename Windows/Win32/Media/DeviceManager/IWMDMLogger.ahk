@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMDMLogger interface is used by Windows Media Device Manager applications and service providers to log entries in a common log file.
@@ -102,7 +102,7 @@ export default struct IWMDMLogger extends IUnknown {
     GetLogFileName(pszFilename, nMaxChars) {
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := ComCall(5, this, "ptr", pszFilename, "uint", nMaxChars, "HRESULT")
+        result := ComCall(5, this, "ptr", pszFilename, UInt32, nMaxChars, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IWMDMLogger extends IUnknown {
         pszSrcName := pszSrcName is String ? StrPtr(pszSrcName) : pszSrcName
         pszLog := pszLog is String ? StrPtr(pszLog) : pszLog
 
-        result := ComCall(7, this, "uint", dwFlags, "ptr", pszSrcName, "ptr", pszLog, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, "ptr", pszSrcName, "ptr", pszLog, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct IWMDMLogger extends IUnknown {
         pszSrcName := pszSrcName is String ? StrPtr(pszSrcName) : pszSrcName
         pszLogFormat := pszLogFormat is String ? StrPtr(pszLogFormat) : pszLogFormat
 
-        result := ComCall(8, this, "uint", dwFlags, "ptr", pszSrcName, "ptr", pszLogFormat, "uint", dwLog, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFlags, "ptr", pszSrcName, "ptr", pszLogFormat, UInt32, dwLog, "HRESULT")
         return result
     }
 
@@ -231,7 +231,7 @@ export default struct IWMDMLogger extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-setsizeparams
      */
     SetSizeParams(dwMaxSize, dwShrinkToSize) {
-        result := ComCall(11, this, "uint", dwMaxSize, "uint", dwShrinkToSize, "HRESULT")
+        result := ComCall(11, this, UInt32, dwMaxSize, UInt32, dwShrinkToSize, "HRESULT")
         return result
     }
 

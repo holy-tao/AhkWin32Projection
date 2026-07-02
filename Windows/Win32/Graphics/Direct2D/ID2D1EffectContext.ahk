@@ -1,31 +1,31 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
-#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
-#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
-#Import ".\ID2D1VertexBuffer.ahk" { ID2D1VertexBuffer }
-#Import ".\D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
-#Import ".\ID2D1BoundsAdjustmentTransform.ahk" { ID2D1BoundsAdjustmentTransform }
-#Import ".\ID2D1BlendTransform.ahk" { ID2D1BlendTransform }
-#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
-#Import ".\D2D1_BLEND_DESCRIPTION.ahk" { D2D1_BLEND_DESCRIPTION }
-#Import ".\ID2D1OffsetTransform.ahk" { ID2D1OffsetTransform }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\D2D1_FEATURE.ahk" { D2D1_FEATURE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ID2D1BorderTransform.ahk" { ID2D1BorderTransform }
-#Import ".\D2D1_RESOURCE_TEXTURE_PROPERTIES.ahk" { D2D1_RESOURCE_TEXTURE_PROPERTIES }
 #Import "..\Imaging\IWICColorContext.ahk" { IWICColorContext }
+#Import ".\D2D1_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_VERTEX_BUFFER_PROPERTIES }
 #Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
+#Import ".\ID2D1BorderTransform.ahk" { ID2D1BorderTransform }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D2D1_BLEND_DESCRIPTION.ahk" { D2D1_BLEND_DESCRIPTION }
+#Import ".\ID2D1BlendTransform.ahk" { ID2D1BlendTransform }
 #Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
-#Import ".\D2D1_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_VERTEX_BUFFER_PROPERTIES }
-#Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ID2D1VertexBuffer.ahk" { ID2D1VertexBuffer }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import ".\ID2D1BoundsAdjustmentTransform.ahk" { ID2D1BoundsAdjustmentTransform }
+#Import ".\D2D1_FEATURE.ahk" { D2D1_FEATURE }
+#Import ".\ID2D1OffsetTransform.ahk" { ID2D1OffsetTransform }
+#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
+#Import ".\D2D1_RESOURCE_TEXTURE_PROPERTIES.ahk" { D2D1_RESOURCE_TEXTURE_PROPERTIES }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
 
 /**
  * Provides factory methods and other state management for effect and transform authors. (ID2D1EffectContext)
@@ -137,7 +137,7 @@ export default struct ID2D1EffectContext extends IUnknown {
     GetMaximumSupportedFeatureLevel(featureLevels, featureLevelsCount) {
         featureLevelsMarshal := featureLevels is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, featureLevelsMarshal, featureLevels, "uint", featureLevelsCount, "int*", &maximumSupportedFeatureLevel := 0, "HRESULT")
+        result := ComCall(5, this, featureLevelsMarshal, featureLevels, UInt32, featureLevelsCount, "int*", &maximumSupportedFeatureLevel := 0, "HRESULT")
         return maximumSupportedFeatureLevel
     }
 
@@ -170,7 +170,7 @@ export default struct ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createblendtransform
      */
     CreateBlendTransform(numInputs, blendDescription) {
-        result := ComCall(7, this, "uint", numInputs, D2D1_BLEND_DESCRIPTION.Ptr, blendDescription, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, numInputs, D2D1_BLEND_DESCRIPTION.Ptr, blendDescription, "ptr*", &transform := 0, "HRESULT")
         return ID2D1BlendTransform(transform)
     }
 
@@ -274,7 +274,7 @@ export default struct ID2D1EffectContext extends IUnknown {
     LoadPixelShader(shaderId, shaderBuffer, shaderBufferCount) {
         shaderBufferMarshal := shaderBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, Guid.Ptr, shaderId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, shaderId, shaderBufferMarshal, shaderBuffer, UInt32, shaderBufferCount, "HRESULT")
         return result
     }
 
@@ -318,7 +318,7 @@ export default struct ID2D1EffectContext extends IUnknown {
     LoadVertexShader(resourceId, shaderBuffer, shaderBufferCount) {
         shaderBufferMarshal := shaderBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(12, this, Guid.Ptr, resourceId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, resourceId, shaderBufferMarshal, shaderBuffer, UInt32, shaderBufferCount, "HRESULT")
         return result
     }
 
@@ -362,7 +362,7 @@ export default struct ID2D1EffectContext extends IUnknown {
     LoadComputeShader(resourceId, shaderBuffer, shaderBufferCount) {
         shaderBufferMarshal := shaderBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, Guid.Ptr, resourceId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, resourceId, shaderBufferMarshal, shaderBuffer, UInt32, shaderBufferCount, "HRESULT")
         return result
     }
 
@@ -407,7 +407,7 @@ export default struct ID2D1EffectContext extends IUnknown {
         dataMarshal := data is VarRef ? "char*" : "ptr"
         stridesMarshal := strides is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, Guid.Ptr, resourceId, D2D1_RESOURCE_TEXTURE_PROPERTIES.Ptr, resourceTextureProperties, dataMarshal, data, stridesMarshal, strides, "uint", dataSize, "ptr*", &resourceTexture := 0, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, resourceId, D2D1_RESOURCE_TEXTURE_PROPERTIES.Ptr, resourceTextureProperties, dataMarshal, data, stridesMarshal, strides, UInt32, dataSize, "ptr*", &resourceTexture := 0, "HRESULT")
         return ID2D1ResourceTexture(resourceTexture)
     }
 
@@ -481,7 +481,7 @@ export default struct ID2D1EffectContext extends IUnknown {
     CreateColorContext(space, _profile, profileSize) {
         _profileMarshal := _profile is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, D2D1_COLOR_SPACE, space, _profileMarshal, _profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
+        result := ComCall(19, this, D2D1_COLOR_SPACE, space, _profileMarshal, _profile, UInt32, profileSize, "ptr*", &colorContext := 0, "HRESULT")
         return ID2D1ColorContext(colorContext)
     }
 
@@ -555,7 +555,7 @@ export default struct ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-checkfeaturesupport
      */
     CheckFeatureSupport(feature, featureSupportData, featureSupportDataSize) {
-        result := ComCall(22, this, D2D1_FEATURE, feature, "ptr", featureSupportData, "uint", featureSupportDataSize, "HRESULT")
+        result := ComCall(22, this, D2D1_FEATURE, feature, IntPtr, featureSupportData, UInt32, featureSupportDataSize, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This optional, application-implemented IWMDMOperation interface allows the application to control how data is read from or written to the computer during a file transfer.
@@ -204,7 +204,7 @@ export default struct IWMDMOperation extends IUnknown {
     GetObjectName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(5, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 
@@ -260,7 +260,7 @@ export default struct IWMDMOperation extends IUnknown {
     SetObjectName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(6, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 
@@ -327,7 +327,7 @@ export default struct IWMDMOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-setobjectattributes
      */
     SetObjectAttributes(dwAttributes, pFormat) {
-        result := ComCall(8, this, "uint", dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
+        result := ComCall(8, this, UInt32, dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
         return result
     }
 
@@ -438,7 +438,7 @@ export default struct IWMDMOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-setobjecttotalsize
      */
     SetObjectTotalSize(dwSize, dwSizeHigh) {
-        result := ComCall(10, this, "uint", dwSize, "uint", dwSizeHigh, "HRESULT")
+        result := ComCall(10, this, UInt32, dwSize, UInt32, dwSizeHigh, "HRESULT")
         return result
     }
 

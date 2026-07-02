@@ -60,7 +60,7 @@ export default struct IUrlAccessor2 extends IUrlAccessor {
     GetDisplayUrl(wszDocUrl, dwSize) {
         wszDocUrl := wszDocUrl is String ? StrPtr(wszDocUrl) : wszDocUrl
 
-        result := ComCall(16, this, "ptr", wszDocUrl, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", wszDocUrl, UInt32, dwSize, "uint*", &pdwLength := 0, "HRESULT")
         return pdwLength
     }
 
@@ -95,7 +95,7 @@ export default struct IUrlAccessor2 extends IUrlAccessor {
     GetCodePage(wszCodePage, dwSize) {
         wszCodePage := wszCodePage is String ? StrPtr(wszCodePage) : wszCodePage
 
-        result := ComCall(18, this, "ptr", wszCodePage, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", wszCodePage, UInt32, dwSize, "uint*", &pdwLength := 0, "HRESULT")
         return pdwLength
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWCNConnectNotify.ahk" { IWCNConnectNotify }
 #Import ".\WCN_ATTRIBUTE_TYPE.ahk" { WCN_ATTRIBUTE_TYPE }
 #Import ".\WCN_PASSWORD_TYPE.ahk" { WCN_PASSWORD_TYPE }
-#Import ".\WCN_VENDOR_EXTENSION_SPEC.ahk" { WCN_VENDOR_EXTENSION_SPEC }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWCNConnectNotify.ahk" { IWCNConnectNotify }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WCN_VENDOR_EXTENSION_SPEC.ahk" { WCN_VENDOR_EXTENSION_SPEC }
 
 /**
  * Use this interface to configure the device and initiate the session.
@@ -123,7 +123,7 @@ export default struct IWCNDevice extends IUnknown {
     SetPassword(Type, dwPasswordLength, pbPassword) {
         pbPasswordMarshal := pbPassword is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, WCN_PASSWORD_TYPE, Type, "uint", dwPasswordLength, pbPasswordMarshal, pbPassword, "HRESULT")
+        result := ComCall(3, this, WCN_PASSWORD_TYPE, Type, UInt32, dwPasswordLength, pbPasswordMarshal, pbPassword, "HRESULT")
         return result
     }
 
@@ -237,7 +237,7 @@ export default struct IWCNDevice extends IUnknown {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, WCN_ATTRIBUTE_TYPE, AttributeType, "uint", dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
+        result := ComCall(5, this, WCN_ATTRIBUTE_TYPE, AttributeType, UInt32, dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
         return result
     }
 
@@ -314,7 +314,7 @@ export default struct IWCNDevice extends IUnknown {
     GetStringAttribute(AttributeType, cchMaxString, wszString) {
         wszString := wszString is String ? StrPtr(wszString) : wszString
 
-        result := ComCall(7, this, WCN_ATTRIBUTE_TYPE, AttributeType, "uint", cchMaxString, "ptr", wszString, "HRESULT")
+        result := ComCall(7, this, WCN_ATTRIBUTE_TYPE, AttributeType, UInt32, cchMaxString, "ptr", wszString, "HRESULT")
         return result
     }
 
@@ -348,7 +348,7 @@ export default struct IWCNDevice extends IUnknown {
     GetNetworkProfile(cchMaxStringLength, wszProfile) {
         wszProfile := wszProfile is String ? StrPtr(wszProfile) : wszProfile
 
-        result := ComCall(8, this, "uint", cchMaxStringLength, "ptr", wszProfile, "HRESULT")
+        result := ComCall(8, this, UInt32, cchMaxStringLength, "ptr", wszProfile, "HRESULT")
         return result
     }
 
@@ -467,7 +467,7 @@ export default struct IWCNDevice extends IUnknown {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, WCN_VENDOR_EXTENSION_SPEC.Ptr, pVendorExtSpec, "uint", dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
+        result := ComCall(10, this, WCN_VENDOR_EXTENSION_SPEC.Ptr, pVendorExtSpec, UInt32, dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
         return result
     }
 
@@ -522,7 +522,7 @@ export default struct IWCNDevice extends IUnknown {
     SetVendorExtension(pVendorExtSpec, cbBuffer, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, WCN_VENDOR_EXTENSION_SPEC.Ptr, pVendorExtSpec, "uint", cbBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
+        result := ComCall(11, this, WCN_VENDOR_EXTENSION_SPEC.Ptr, pVendorExtSpec, UInt32, cbBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -557,7 +557,7 @@ export default struct IWCNDevice extends IUnknown {
         pbRemotePublicKeyHashMarshal := pbRemotePublicKeyHash is VarRef ? "char*" : "ptr"
         pbDHKeyBlobMarshal := pbDHKeyBlob is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, WCN_PASSWORD_TYPE, Type, "uint", dwOOBPasswordID, "uint", dwPasswordLength, pbPasswordMarshal, pbPassword, "uint", dwRemotePublicKeyHashLength, pbRemotePublicKeyHashMarshal, pbRemotePublicKeyHash, "uint", dwDHKeyBlobLength, pbDHKeyBlobMarshal, pbDHKeyBlob, "HRESULT")
+        result := ComCall(13, this, WCN_PASSWORD_TYPE, Type, UInt32, dwOOBPasswordID, UInt32, dwPasswordLength, pbPasswordMarshal, pbPassword, UInt32, dwRemotePublicKeyHashLength, pbRemotePublicKeyHashMarshal, pbRemotePublicKeyHash, UInt32, dwDHKeyBlobLength, pbDHKeyBlobMarshal, pbDHKeyBlob, "HRESULT")
         return result
     }
 

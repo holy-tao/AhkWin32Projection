@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains the methods used by VSS to map volumes to LUNs, discover LUNs created during the shadow copy process, and transport LUNs on a SAN.
@@ -69,7 +69,7 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
     AreLunsSupported(lLunCount, lContext, rgwszDevices, pLunInformation) {
         rgwszDevicesMarshal := rgwszDevices is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", lLunCount, "int", lContext, rgwszDevicesMarshal, rgwszDevices, VDS_LUN_INFORMATION.Ptr, pLunInformation, BOOL.Ptr, &pbIsSupported := 0, "HRESULT")
+        result := ComCall(3, this, Int32, lLunCount, Int32, lContext, rgwszDevicesMarshal, rgwszDevices, VDS_LUN_INFORMATION.Ptr, pLunInformation, BOOL.Ptr, &pbIsSupported := 0, "HRESULT")
         return pbIsSupported
     }
 
@@ -237,7 +237,7 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, lContext, lLunCount, rgDeviceNames, rgLunInformation) {
         rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, Guid, SnapshotSetId, Guid, SnapshotId, "int", lContext, "int", lLunCount, rgDeviceNamesMarshal, rgDeviceNames, VDS_LUN_INFORMATION.Ptr, rgLunInformation, "HRESULT")
+        result := ComCall(5, this, Guid, SnapshotSetId, Guid, SnapshotId, Int32, lContext, Int32, lLunCount, rgDeviceNamesMarshal, rgDeviceNames, VDS_LUN_INFORMATION.Ptr, rgLunInformation, "HRESULT")
         return result
     }
 
@@ -340,7 +340,7 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
     GetTargetLuns(lLunCount, rgDeviceNames, rgSourceLuns, rgDestinationLuns) {
         rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "int", lLunCount, rgDeviceNamesMarshal, rgDeviceNames, VDS_LUN_INFORMATION.Ptr, rgSourceLuns, VDS_LUN_INFORMATION.Ptr, rgDestinationLuns, "HRESULT")
+        result := ComCall(6, this, Int32, lLunCount, rgDeviceNamesMarshal, rgDeviceNames, VDS_LUN_INFORMATION.Ptr, rgSourceLuns, VDS_LUN_INFORMATION.Ptr, rgDestinationLuns, "HRESULT")
         return result
     }
 
@@ -426,7 +426,7 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-locateluns
      */
     LocateLuns(lLunCount, rgSourceLuns) {
-        result := ComCall(7, this, "int", lLunCount, VDS_LUN_INFORMATION.Ptr, rgSourceLuns, "HRESULT")
+        result := ComCall(7, this, Int32, lLunCount, VDS_LUN_INFORMATION.Ptr, rgSourceLuns, "HRESULT")
         return result
     }
 

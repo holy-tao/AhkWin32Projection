@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IImageInformation.ahk" { IImageInformation }
+#Import ".\UpdateType.ahk" { UpdateType }
+#Import ".\DownloadPriority.ahk" { DownloadPriority }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IUpdateIdentity.ahk" { IUpdateIdentity }
 #Import ".\DeploymentAction.ahk" { DeploymentAction }
-#Import ".\IInstallationBehavior.ahk" { IInstallationBehavior }
-#Import ".\ICategoryCollection.ahk" { ICategoryCollection }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IUpdateDownloadContentCollection.ahk" { IUpdateDownloadContentCollection }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IStringCollection.ahk" { IStringCollection }
+#Import ".\IUpdateDownloadContentCollection.ahk" { IUpdateDownloadContentCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IInstallationBehavior.ahk" { IInstallationBehavior }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
 #Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\DownloadPriority.ahk" { DownloadPriority }
-#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
-#Import ".\UpdateType.ahk" { UpdateType }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IImageInformation.ahk" { IImageInformation }
+#Import ".\ICategoryCollection.ahk" { ICategoryCollection }
 
 /**
  * Contains the properties and methods that are available to an update. (IUpdate)

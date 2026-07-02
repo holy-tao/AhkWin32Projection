@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUPnPDevice.ahk" { IUPnPDevice }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPDeviceFinderAddCallbackWithInterface interface allows the UPnP framework to communicate to an application
@@ -52,7 +52,7 @@ export default struct IUPnPDeviceFinderAddCallbackWithInterface extends IUnknown
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefinderaddcallbackwithinterface-deviceaddedwithinterface
      */
     DeviceAddedWithInterface(lFindData, pDevice, pguidInterface) {
-        result := ComCall(3, this, "int", lFindData, "ptr", pDevice, Guid.Ptr, pguidInterface, "HRESULT")
+        result := ComCall(3, this, Int32, lFindData, "ptr", pDevice, Guid.Ptr, pguidInterface, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DCINFO.ahk" { DCINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -46,7 +46,7 @@ export default struct IDCInfo extends IUnknown {
     GetInfo(cInfo, rgeInfoType) {
         rgeInfoTypeMarshal := rgeInfoType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cInfo, rgeInfoTypeMarshal, rgeInfoType, "ptr*", &prgInfo := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, cInfo, rgeInfoTypeMarshal, rgeInfoType, "ptr*", &prgInfo := 0, "HRESULT")
         return prgInfo
     }
 
@@ -57,7 +57,7 @@ export default struct IDCInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetInfo(cInfo, rgInfo) {
-        result := ComCall(4, this, "uint", cInfo, DCINFO.Ptr, rgInfo, "HRESULT")
+        result := ComCall(4, this, UInt32, cInfo, DCINFO.Ptr, rgInfo, "HRESULT")
         return result
     }
 

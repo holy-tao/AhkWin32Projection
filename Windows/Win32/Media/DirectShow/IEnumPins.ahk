@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPin.ahk" { IPin }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates pins on a filter.The IBaseFilter::EnumPins method returns this interface.
@@ -120,7 +120,7 @@ export default struct IEnumPins extends IUnknown {
     Next(cPins, ppPins, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPins, IPin.Ptr, ppPins, pcFetchedMarshal, pcFetched, Int32)
+        result := ComCall(3, this, UInt32, cPins, IPin.Ptr, ppPins, pcFetchedMarshal, pcFetched, Int32)
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct IEnumPins extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumpins-skip
      */
     Skip(cPins) {
-        result := ComCall(4, this, "uint", cPins, "HRESULT")
+        result := ComCall(4, this, UInt32, cPins, "HRESULT")
         return result
     }
 

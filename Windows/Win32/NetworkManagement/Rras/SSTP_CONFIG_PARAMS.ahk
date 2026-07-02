@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\SSTP_CERT_INFO.ahk" { SSTP_CERT_INFO }
 #Import "..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Used to get and set the device configuration for Secure Socket Tunneling Protocol (SSTP) on a RAS Server.

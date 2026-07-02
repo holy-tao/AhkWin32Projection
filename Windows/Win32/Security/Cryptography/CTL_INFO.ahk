@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
-#Import ".\CTL_ENTRY.ahk" { CTL_ENTRY }
-#Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
+#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CTL_ENTRY.ahk" { CTL_ENTRY }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
 
 /**
  * Contains the information stored in a Certificate Trust List (CTL).

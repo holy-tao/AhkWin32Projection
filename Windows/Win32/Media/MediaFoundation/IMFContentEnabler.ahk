@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MF_URL_TRUST_STATUS.ahk" { MF_URL_TRUST_STATUS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MF_URL_TRUST_STATUS.ahk" { MF_URL_TRUST_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements one step that must be performed for the user to access media content.

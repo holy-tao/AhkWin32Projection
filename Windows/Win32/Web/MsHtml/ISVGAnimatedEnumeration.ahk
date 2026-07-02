@@ -66,7 +66,7 @@ export default struct ISVGAnimatedEnumeration extends IDispatch {
      * @returns {HRESULT} 
      */
     put_baseVal(v) {
-        result := ComCall(7, this, "ushort", v, "HRESULT")
+        result := ComCall(7, this, UInt16, v, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct ISVGAnimatedEnumeration extends IDispatch {
      * @returns {HRESULT} 
      */
     put_animVal(v) {
-        result := ComCall(9, this, "ushort", v, "HRESULT")
+        result := ComCall(9, this, UInt16, v, "HRESULT")
         return result
     }
 

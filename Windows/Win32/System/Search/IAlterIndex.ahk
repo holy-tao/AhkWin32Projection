@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -47,7 +47,7 @@ export default struct IAlterIndex extends IUnknown {
      * @returns {HRESULT} 
      */
     AlterIndex(pTableId, pIndexId, pNewIndexId, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, DBID.Ptr, pTableId, DBID.Ptr, pIndexId, DBID.Ptr, pNewIndexId, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
+        result := ComCall(3, this, DBID.Ptr, pTableId, DBID.Ptr, pIndexId, DBID.Ptr, pNewIndexId, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
         return result
     }
 

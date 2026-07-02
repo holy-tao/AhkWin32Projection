@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -624,7 +624,7 @@ export default struct IHTMLElement7 extends IDispatch {
      * @returns {HRESULT} 
      */
     msSetPointerCapture(pointerId) {
-        result := ComCall(39, this, "int", pointerId, "HRESULT")
+        result := ComCall(39, this, Int32, pointerId, "HRESULT")
         return result
     }
 
@@ -634,7 +634,7 @@ export default struct IHTMLElement7 extends IDispatch {
      * @returns {HRESULT} 
      */
     msReleasePointerCapture(pointerId) {
-        result := ComCall(40, this, "int", pointerId, "HRESULT")
+        result := ComCall(40, this, Int32, pointerId, "HRESULT")
         return result
     }
 

@@ -1,23 +1,23 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IWSDUdpMessageParameters.ahk" { IWSDUdpMessageParameters }
+#Import ".\IWSDiscoveryProvider.ahk" { IWSDiscoveryProvider }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSD_LOCALIZED_STRING_LIST.ahk" { WSD_LOCALIZED_STRING_LIST }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWSDDeviceHost.ahk" { IWSDDeviceHost }
-#Import ".\IWSDHttpAddress.ahk" { IWSDHttpAddress }
 #Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\IWSDHttpMessageParameters.ahk" { IWSDHttpMessageParameters }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSD_CONFIG_PARAM.ahk" { WSD_CONFIG_PARAM }
+#Import ".\IWSDHttpAddress.ahk" { IWSDHttpAddress }
+#Import ".\IWSDiscoveryPublisher.ahk" { IWSDiscoveryPublisher }
+#Import ".\IWSDDeviceHost.ahk" { IWSDDeviceHost }
+#Import ".\WSD_SOAP_FAULT.ahk" { WSD_SOAP_FAULT }
+#Import ".\IWSDAddress.ahk" { IWSDAddress }
 #Import ".\IWSDUdpAddress.ahk" { IWSDUdpAddress }
 #Import ".\IWSDDeviceProxy.ahk" { IWSDDeviceProxy }
-#Import ".\IWSDHttpMessageParameters.ahk" { IWSDHttpMessageParameters }
-#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
-#Import ".\WSD_SOAP_FAULT.ahk" { WSD_SOAP_FAULT }
-#Import ".\IWSDiscoveryProvider.ahk" { IWSDiscoveryProvider }
-#Import ".\WSD_LOCALIZED_STRING_LIST.ahk" { WSD_LOCALIZED_STRING_LIST }
-#Import ".\IWSDiscoveryPublisher.ahk" { IWSDiscoveryPublisher }
+#Import ".\IWSDUdpMessageParameters.ahk" { IWSDUdpMessageParameters }
 #Import ".\IWSDOutboundAttachment.ahk" { IWSDOutboundAttachment }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWSDAddress.ahk" { IWSDAddress }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 
 /**
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
@@ -134,7 +134,7 @@ export WSDCreateDiscoveryProvider(pContext) {
  * @since windows6.1
  */
 export WSDCreateDiscoveryProvider2(pContext, pConfigParams, dwConfigParamCount) {
-    result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppProvider := 0, "HRESULT")
+    result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppProvider := 0, "HRESULT")
     return IWSDiscoveryProvider(ppProvider)
 }
 
@@ -164,7 +164,7 @@ export WSDCreateDiscoveryPublisher(pContext) {
  * @since windows6.1
  */
 export WSDCreateDiscoveryPublisher2(pContext, pConfigParams, dwConfigParamCount) {
-    result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppPublisher := 0, "HRESULT")
+    result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppPublisher := 0, "HRESULT")
     return IWSDiscoveryPublisher(ppPublisher)
 }
 
@@ -258,7 +258,7 @@ export WSDCreateDeviceProxy2(pszDeviceId, pszLocalId, pContext, pConfigParams, d
     pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
     pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-    result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppDeviceProxy := 0, "HRESULT")
+    result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppDeviceProxy := 0, "HRESULT")
     return IWSDDeviceProxy(ppDeviceProxy)
 }
 
@@ -355,7 +355,7 @@ export WSDCreateDeviceHost(pszLocalId, pContext) {
 export WSDCreateDeviceHostAdvanced(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount) {
     pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-    result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, IWSDAddress.Ptr, ppHostAddresses, "uint", dwHostAddressCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
+    result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, IWSDAddress.Ptr, ppHostAddresses, UInt32, dwHostAddressCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
     return IWSDDeviceHost(ppDeviceHost)
 }
 
@@ -401,7 +401,7 @@ export WSDCreateDeviceHostAdvanced(pszLocalId, pContext, ppHostAddresses, dwHost
 export WSDCreateDeviceHost2(pszLocalId, pContext, pConfigParams, dwConfigParamCount) {
     pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-    result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
+    result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
     return IWSDDeviceHost(ppDeviceHost)
 }
 
@@ -462,7 +462,7 @@ export WSDCreateDeviceHost2(pszLocalId, pContext, pConfigParams, dwConfigParamCo
  * @since windows6.0.6000
  */
 export WSDSetConfigurationOption(dwOption, pVoid, cbInBuffer) {
-    result := DllCall("wsdapi.dll\WSDSetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbInBuffer, "HRESULT")
+    result := DllCall("wsdapi.dll\WSDSetConfigurationOption", UInt32, dwOption, IntPtr, pVoid, UInt32, cbInBuffer, "HRESULT")
     return result
 }
 
@@ -534,7 +534,7 @@ export WSDSetConfigurationOption(dwOption, pVoid, cbInBuffer) {
  * @since windows6.0.6000
  */
 export WSDGetConfigurationOption(dwOption, pVoid, cbOutBuffer) {
-    result := DllCall("wsdapi.dll\WSDGetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbOutBuffer, "HRESULT")
+    result := DllCall("wsdapi.dll\WSDGetConfigurationOption", UInt32, dwOption, IntPtr, pVoid, UInt32, cbOutBuffer, "HRESULT")
     return result
 }
 
@@ -556,7 +556,7 @@ export WSDGetConfigurationOption(dwOption, pVoid, cbOutBuffer) {
 export WSDAllocateLinkedMemory(pParent, cbSize) {
     pParentMarshal := pParent is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("wsdapi.dll\WSDAllocateLinkedMemory", pParentMarshal, pParent, "ptr", cbSize, IntPtr)
+    result := DllCall("wsdapi.dll\WSDAllocateLinkedMemory", pParentMarshal, pParent, IntPtr, cbSize, IntPtr)
     return result
 }
 
@@ -914,7 +914,7 @@ export WSDUriEncode(source, cchSource, destOut, cchDestOut) {
     destOutMarshal := destOut is VarRef ? "ptr*" : "ptr"
     cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "HRESULT")
+    result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, UInt32, cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "HRESULT")
     return result
 }
 
@@ -987,7 +987,7 @@ export WSDUriDecode(source, cchSource, destOut, cchDestOut) {
     destOutMarshal := destOut is VarRef ? "ptr*" : "ptr"
     cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "HRESULT")
+    result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, UInt32, cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "HRESULT")
     return result
 }
 

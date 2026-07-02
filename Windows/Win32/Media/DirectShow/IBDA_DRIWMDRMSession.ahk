@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -64,7 +64,7 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
         pdwcbLicenseResponseMarshal := pdwcbLicenseResponse is VarRef ? "uint*" : "ptr"
         ppbLicenseResponseMarshal := ppbLicenseResponse is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwcbLicenseMessage, pbLicenseMessageMarshal, pbLicenseMessage, pdwcbLicenseResponseMarshal, pdwcbLicenseResponse, ppbLicenseResponseMarshal, ppbLicenseResponse, "HRESULT")
+        result := ComCall(4, this, UInt32, dwcbLicenseMessage, pbLicenseMessageMarshal, pbLicenseMessage, pdwcbLicenseResponseMarshal, pdwcbLicenseResponse, ppbLicenseResponseMarshal, ppbLicenseResponse, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
         pdwcbRegistrationResponseMarshal := pdwcbRegistrationResponse is VarRef ? "uint*" : "ptr"
         ppbRegistrationResponseMarshal := ppbRegistrationResponse is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwcbRegistrationMessage, pbRegistrationMessageMarshal, pbRegistrationMessage, pdwcbRegistrationResponseMarshal, pdwcbRegistrationResponse, ppbRegistrationResponseMarshal, ppbRegistrationResponse, "HRESULT")
+        result := ComCall(5, this, UInt32, dwcbRegistrationMessage, pbRegistrationMessageMarshal, pbRegistrationMessage, pdwcbRegistrationResponseMarshal, pdwcbRegistrationResponse, ppbRegistrationResponseMarshal, ppbRegistrationResponse, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
         pbRevInfoMarshal := pbRevInfo is VarRef ? "char*" : "ptr"
         pdwResponseMarshal := pdwResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwRevInfoLen, pbRevInfoMarshal, pbRevInfo, pdwResponseMarshal, pdwResponse, "HRESULT")
+        result := ComCall(6, this, UInt32, dwRevInfoLen, pbRevInfoMarshal, pbRevInfo, pdwResponseMarshal, pdwResponse, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
         pbCrlLenMarshal := pbCrlLen is VarRef ? "char*" : "ptr"
         pdwResponseMarshal := pdwResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwCrlLen, pbCrlLenMarshal, pbCrlLen, pdwResponseMarshal, pdwResponse, "HRESULT")
+        result := ComCall(7, this, UInt32, dwCrlLen, pbCrlLenMarshal, pbCrlLen, pdwResponseMarshal, pdwResponse, "HRESULT")
         return result
     }
 

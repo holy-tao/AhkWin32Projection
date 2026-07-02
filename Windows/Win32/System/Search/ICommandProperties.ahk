@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DBPROPIDSET.ahk" { DBPROPIDSET }
 
 /**
@@ -50,7 +50,7 @@ export default struct ICommandProperties extends IUnknown {
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
         prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
+        result := ComCall(3, this, UInt32, cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct ICommandProperties extends IUnknown {
      * @returns {HRESULT} 
      */
     SetProperties(cPropertySets, rgPropertySets) {
-        result := ComCall(4, this, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
+        result := ComCall(4, this, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
         return result
     }
 

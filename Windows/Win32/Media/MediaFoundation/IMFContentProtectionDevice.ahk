@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows a decryptor to communicate with the security processor that implements the hardware decryption for a protection system.
@@ -51,7 +51,7 @@ export default struct IMFContentProtectionDevice extends IUnknown {
     InvokeFunction(FunctionId, InputBufferByteCount, InputBuffer, OutputBufferByteCount, OutputBuffer) {
         OutputBufferByteCountMarshal := OutputBufferByteCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", FunctionId, "uint", InputBufferByteCount, "ptr", InputBuffer, OutputBufferByteCountMarshal, OutputBufferByteCount, "ptr", OutputBuffer, "HRESULT")
+        result := ComCall(3, this, UInt32, FunctionId, UInt32, InputBufferByteCount, IntPtr, InputBuffer, OutputBufferByteCountMarshal, OutputBufferByteCount, IntPtr, OutputBuffer, "HRESULT")
         return result
     }
 

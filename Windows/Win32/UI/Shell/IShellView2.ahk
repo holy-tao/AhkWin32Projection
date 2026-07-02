@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import ".\SV2CVW2_PARAMS.ahk" { SV2CVW2_PARAMS }
 #Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SV2CVW2_PARAMS.ahk" { SV2CVW2_PARAMS }
 
 /**
  * Extends the capabilities of IShellView.
@@ -80,7 +80,7 @@ export default struct IShellView2 extends IShellView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview2-getview
      */
     GetView(pvid, uView) {
-        result := ComCall(16, this, Guid.Ptr, pvid, "uint", uView, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, pvid, UInt32, uView, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IShellView2 extends IShellView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview2-selectandpositionitem
      */
     SelectAndPositionItem(pidlItem, uFlags, ppt) {
-        result := ComCall(19, this, ITEMIDLIST.Ptr, pidlItem, "uint", uFlags, POINT.Ptr, ppt, "HRESULT")
+        result := ComCall(19, this, ITEMIDLIST.Ptr, pidlItem, UInt32, uFlags, POINT.Ptr, ppt, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WinRT.ML
@@ -46,7 +46,7 @@ export default struct ITensorStaticsNative extends IUnknown {
     CreateFromD3D12Resource(value, shape, shapeCount) {
         shapeMarshal := shape is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(3, this, "ptr", value, shapeMarshal, shape, "int", shapeCount, "ptr*", &result := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", value, shapeMarshal, shape, Int32, shapeCount, "ptr*", &result := 0, "HRESULT")
         return IUnknown(result)
     }
 

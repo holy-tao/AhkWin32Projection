@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISpatialAudioObjectRenderStreamNotify.ahk" { ISpatialAudioObjectRenderStreamNotify }
 #Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
-#Import ".\SPATIAL_AUDIO_STREAM_OPTIONS.ahk" { SPATIAL_AUDIO_STREAM_OPTIONS }
 #Import ".\AudioObjectType.ahk" { AudioObjectType }
+#Import ".\ISpatialAudioObjectRenderStreamNotify.ahk" { ISpatialAudioObjectRenderStreamNotify }
+#Import ".\SPATIAL_AUDIO_STREAM_OPTIONS.ahk" { SPATIAL_AUDIO_STREAM_OPTIONS }
+#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
 
 /**
  * Represents activation parameters for a spatial audio render stream, extending SpatialAudioObjectRenderStreamActivationParams with the ability to specify stream options.

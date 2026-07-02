@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Binds a managed object to an application domain, which is an isolated environment where applications execute.
@@ -56,7 +56,7 @@ export default struct IAppDomainHelper extends IDispatch {
     Initialize(pUnkAD, __MIDL__IAppDomainHelper0000, pPool) {
         pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0000, pPoolMarshal, pPool, "HRESULT")
+        result := ComCall(7, this, "ptr", pUnkAD, IntPtr, __MIDL__IAppDomainHelper0000, pPoolMarshal, pPool, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IAppDomainHelper extends IDispatch {
     DoCallback(pUnkAD, __MIDL__IAppDomainHelper0001, pPool) {
         pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0001, pPoolMarshal, pPool, "HRESULT")
+        result := ComCall(8, this, "ptr", pUnkAD, IntPtr, __MIDL__IAppDomainHelper0001, pPoolMarshal, pPool, "HRESULT")
         return result
     }
 

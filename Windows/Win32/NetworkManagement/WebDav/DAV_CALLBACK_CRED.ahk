@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DAV_CALLBACK_AUTH_BLOB.ahk" { DAV_CALLBACK_AUTH_BLOB }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DAV_CALLBACK_AUTH_UNP.ahk" { DAV_CALLBACK_AUTH_UNP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Stores user credential information that was retrieved by the DavAuthCallback callback function.

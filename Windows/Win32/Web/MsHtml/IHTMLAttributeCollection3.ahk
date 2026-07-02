@@ -88,7 +88,7 @@ export default struct IHTMLAttributeCollection3 extends IDispatch {
      * @returns {IHTMLDOMAttribute} 
      */
     item(index) {
-        result := ComCall(10, this, "int", index, "ptr*", &ppNodeOut := 0, "HRESULT")
+        result := ComCall(10, this, Int32, index, "ptr*", &ppNodeOut := 0, "HRESULT")
         return IHTMLDOMAttribute(ppNodeOut)
     }
 

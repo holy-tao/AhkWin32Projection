@@ -120,7 +120,7 @@ export default struct IAudioInputEndpointRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-releaseinputdatapointer
      */
     ReleaseInputDataPointer(u32FrameCount, pDataPointer) {
-        ComCall(4, this, "uint", u32FrameCount, "ptr", pDataPointer)
+        ComCall(4, this, UInt32, u32FrameCount, IntPtr, pDataPointer)
     }
 
     /**

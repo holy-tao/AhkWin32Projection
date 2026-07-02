@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Use this interface to combine several data streams into a single stream.
@@ -175,7 +175,7 @@ export default struct IStreamConcatenate extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreamconcatenate-initialize2
      */
     Initialize2(streams, streamCount) {
-        result := ComCall(15, this, IStream.Ptr, streams, "uint", streamCount, "HRESULT")
+        result := ComCall(15, this, IStream.Ptr, streams, UInt32, streamCount, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IStreamConcatenate extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreamconcatenate-append2
      */
     Append2(streams, streamCount) {
-        result := ComCall(17, this, IStream.Ptr, streams, "uint", streamCount, "HRESULT")
+        result := ComCall(17, this, IStream.Ptr, streams, UInt32, streamCount, "HRESULT")
         return result
     }
 

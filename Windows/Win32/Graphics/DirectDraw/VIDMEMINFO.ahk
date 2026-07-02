@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VIDMEM.ahk" { VIDMEM }
 #Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\VIDMEM.ahk" { VIDMEM }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

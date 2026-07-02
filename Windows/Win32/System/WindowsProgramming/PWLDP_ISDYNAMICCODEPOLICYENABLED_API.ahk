@@ -1,0 +1,53 @@
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+
+/**
+ * @namespace Windows.Win32.System.WindowsProgramming
+ */
+export default struct PWLDP_ISDYNAMICCODEPOLICYENABLED_API {
+    value : IntPtr
+
+    __value {
+        set {
+            if (value is PWLDP_ISDYNAMICCODEPOLICYENABLED_API) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
+
+    /**
+     * 
+     * @returns {BOOL} 
+     */
+    Call() {
+        result := DllCall(this.value, BOOL.Ptr, &pbEnabled := 0, "HRESULT")
+        return pbEnabled
+    }
+
+    /**
+     * A PWLDP_ISDYNAMICCODEPOLICYENABLED_API that invokes the given AHK function when called.
+     * This callback is owned by the script and cleaned up automatically.
+     */
+    struct From extends PWLDP_ISDYNAMICCODEPOLICYENABLED_API {
+        /**
+         * Creates a PWLDP_ISDYNAMICCODEPOLICYENABLED_API pointer that invokes the given AHK function when called.
+         * @param {Func() => "int"} fn the function to invoke.
+         */
+        __New(fn) {
+            if (!HasMethod(fn, , 0)) {
+                throw MethodError("Object of type " Type(fn) " is not callable with 0 parameters.", -1, fn)
+            }
+            this.value := CallbackCreate(fn, , ["int"])
+        }
+
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
+    }
+}

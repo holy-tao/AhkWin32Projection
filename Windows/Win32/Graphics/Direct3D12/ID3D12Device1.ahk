@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_RESIDENCY_PRIORITY.ahk" { D3D12_RESIDENCY_PRIORITY }
-#Import ".\D3D12_MULTIPLE_FENCE_WAIT_FLAGS.ahk" { D3D12_MULTIPLE_FENCE_WAIT_FLAGS }
-#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12Device.ahk" { ID3D12Device }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\D3D12_MULTIPLE_FENCE_WAIT_FLAGS.ahk" { D3D12_MULTIPLE_FENCE_WAIT_FLAGS }
 #Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import ".\D3D12_RESIDENCY_PRIORITY.ahk" { D3D12_RESIDENCY_PRIORITY }
+#Import ".\ID3D12Device.ahk" { ID3D12Device }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a virtual adapter, and expands on the range of methods provided by ID3D12Device.
@@ -76,7 +76,7 @@ export default struct ID3D12Device1 extends ID3D12Device {
     CreatePipelineLibrary(pLibraryBlob, BlobLength, riid) {
         pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, "ptr", BlobLength, Guid.Ptr, riid, "ptr*", &ppPipelineLibrary := 0, "HRESULT")
+        result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, IntPtr, BlobLength, Guid.Ptr, riid, "ptr*", &ppPipelineLibrary := 0, "HRESULT")
         return ppPipelineLibrary
     }
 
@@ -109,7 +109,7 @@ export default struct ID3D12Device1 extends ID3D12Device {
     SetEventOnMultipleFenceCompletion(ppFences, pFenceValues, NumFences, Flags, hEvent) {
         pFenceValuesMarshal := pFenceValues is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(45, this, ID3D12Fence.Ptr, ppFences, pFenceValuesMarshal, pFenceValues, "uint", NumFences, D3D12_MULTIPLE_FENCE_WAIT_FLAGS, Flags, HANDLE, hEvent, "HRESULT")
+        result := ComCall(45, this, ID3D12Fence.Ptr, ppFences, pFenceValuesMarshal, pFenceValues, UInt32, NumFences, D3D12_MULTIPLE_FENCE_WAIT_FLAGS, Flags, HANDLE, hEvent, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct ID3D12Device1 extends ID3D12Device {
     SetResidencyPriority(NumObjects, ppObjects, pPriorities) {
         pPrioritiesMarshal := pPriorities is VarRef ? "int*" : "ptr"
 
-        result := ComCall(46, this, "uint", NumObjects, ID3D12Pageable.Ptr, ppObjects, pPrioritiesMarshal, pPriorities, "HRESULT")
+        result := ComCall(46, this, UInt32, NumObjects, ID3D12Pageable.Ptr, ppObjects, pPrioritiesMarshal, pPriorities, "HRESULT")
         return result
     }
 

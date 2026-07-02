@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * The ICDRAWBEGIN structure contains decompression parameters used with the ICM_DRAW_BEGIN message.

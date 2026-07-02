@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISWbemQualifier.ahk" { ISWbemQualifier }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISWbemQualifier.ahk" { ISWbemQualifier }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -88,7 +88,7 @@ export default struct ISWbemQualifierSet extends IDispatch {
     Item(name, iFlags) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, BSTR, name, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, name, Int32, iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
         return ISWbemQualifier(objWbemQualifier)
     }
 
@@ -114,7 +114,7 @@ export default struct ISWbemQualifierSet extends IDispatch {
     Add(strName, varVal, bPropagatesToSubclass, bPropagatesToInstance, bIsOverridable, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(10, this, BSTR, strName, VARIANT.Ptr, varVal, VARIANT_BOOL, bPropagatesToSubclass, VARIANT_BOOL, bPropagatesToInstance, VARIANT_BOOL, bIsOverridable, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, strName, VARIANT.Ptr, varVal, VARIANT_BOOL, bPropagatesToSubclass, VARIANT_BOOL, bPropagatesToInstance, VARIANT_BOOL, bIsOverridable, Int32, iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
         return ISWbemQualifier(objWbemQualifier)
     }
 
@@ -127,7 +127,7 @@ export default struct ISWbemQualifierSet extends IDispatch {
     Remove(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(11, this, BSTR, strName, "int", iFlags, "HRESULT")
+        result := ComCall(11, this, BSTR, strName, Int32, iFlags, "HRESULT")
         return result
     }
 

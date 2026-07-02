@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_EXPORT_DESC.ahk" { D3D12_EXPORT_DESC }
 #Import ".\ID3D12CompilerStateObject.ahk" { ID3D12CompilerStateObject }
+#Import ".\D3D12_EXPORT_DESC.ahk" { D3D12_EXPORT_DESC }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

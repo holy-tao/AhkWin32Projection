@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import ".\IUIAutomationTextRange2.ahk" { IUIAutomationTextRange2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIA_TEXTATTRIBUTE_ID.ahk" { UIA_TEXTATTRIBUTE_ID }
 #Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
 #Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\UIA_TEXTATTRIBUTE_ID.ahk" { UIA_TEXTATTRIBUTE_ID }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationTextRange2.ahk" { IUIAutomationTextRange2 }
 
 /**
  * Extends the IUIAutomationTextRange2 interface to support faster access to the underlying rich text data on a text range.
@@ -93,7 +93,7 @@ export default struct IUIAutomationTextRange3 extends IUIAutomationTextRange2 {
     GetAttributeValues(attributeIds, attributeIdCount) {
         attributeIdsMarshal := attributeIds is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, attributeIdsMarshal, attributeIds, "int", attributeIdCount, "ptr*", &attributeValues := 0, "HRESULT")
+        result := ComCall(24, this, attributeIdsMarshal, attributeIds, Int32, attributeIdCount, "ptr*", &attributeValues := 0, "HRESULT")
         return attributeValues
     }
 

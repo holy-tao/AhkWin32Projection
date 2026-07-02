@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IRQ_DES_64.ahk" { IRQ_DES_64 }
 #Import ".\IRQ_RANGE.ahk" { IRQ_RANGE }
+#Import ".\IRQ_DES_64.ahk" { IRQ_DES_64 }
 #Import ".\IRQD_FLAGS.ahk" { IRQD_FLAGS }
 
 /**

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\EncodingType.ahk" { EncodingType }
-#Import ".\ICertEncodeBitString.ahk" { ICertEncodeBitString }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICertEncodeBitString.ahk" { ICertEncodeBitString }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -64,7 +64,7 @@ export default struct ICertEncodeBitString2 extends ICertEncodeBitString {
         strBitString := strBitString is String ? BSTR.Alloc(strBitString).Value : strBitString
 
         pstrEncodedData := BSTR.Owned()
-        result := ComCall(12, this, "int", BitCount, BSTR, strBitString, EncodingType, EncodingIn, EncodingType, Encoding, BSTR.Ptr, pstrEncodedData, "HRESULT")
+        result := ComCall(12, this, Int32, BitCount, BSTR, strBitString, EncodingType, EncodingIn, EncodingType, Encoding, BSTR.Ptr, pstrEncodedData, "HRESULT")
         return pstrEncodedData
     }
 

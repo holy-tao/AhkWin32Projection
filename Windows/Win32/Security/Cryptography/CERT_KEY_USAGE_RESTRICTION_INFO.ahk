@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
 #Import ".\CERT_POLICY_ID.ahk" { CERT_POLICY_ID }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
 
 /**
  * The CERT_KEY_USAGE_RESTRICTION_INFO structure contains restrictions imposed on the usage of a certificate's public key. This includes purposes for use of the key and policies under which the key can be used.

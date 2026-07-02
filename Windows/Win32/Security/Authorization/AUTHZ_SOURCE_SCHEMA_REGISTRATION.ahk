@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET.ahk" { AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**

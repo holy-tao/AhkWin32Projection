@@ -2,19 +2,20 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DEBUG_STACK_FRAME_EX.ahk" { DEBUG_STACK_FRAME_EX }
-#Import ".\WINDBG_EXTENSION_APIS32.ahk" { WINDBG_EXTENSION_APIS32 }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DEBUG_SPECIFIC_FILTER_PARAMETERS.ahk" { DEBUG_SPECIFIC_FILTER_PARAMETERS }
-#Import ".\DEBUG_EXCEPTION_FILTER_PARAMETERS.ahk" { DEBUG_EXCEPTION_FILTER_PARAMETERS }
-#Import ".\WINDBG_EXTENSION_APIS64.ahk" { WINDBG_EXTENSION_APIS64 }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDebugBreakpoint2.ahk" { IDebugBreakpoint2 }
-#Import ".\DEBUG_STACK_FRAME.ahk" { DEBUG_STACK_FRAME }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DEBUG_BREAKPOINT_PARAMETERS.ahk" { DEBUG_BREAKPOINT_PARAMETERS }
+#Import "..\..\..\..\Foundation\FARPROC.ahk" { FARPROC }
+#Import ".\IDebugBreakpoint2.ahk" { IDebugBreakpoint2 }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\WINDBG_EXTENSION_APIS32.ahk" { WINDBG_EXTENSION_APIS32 }
+#Import ".\DEBUG_BREAKPOINT_PARAMETERS.ahk" { DEBUG_BREAKPOINT_PARAMETERS }
 #Import ".\IDebugBreakpoint3.ahk" { IDebugBreakpoint3 }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEBUG_EXCEPTION_FILTER_PARAMETERS.ahk" { DEBUG_EXCEPTION_FILTER_PARAMETERS }
+#Import ".\DEBUG_SPECIFIC_FILTER_PARAMETERS.ahk" { DEBUG_SPECIFIC_FILTER_PARAMETERS }
+#Import ".\WINDBG_EXTENSION_APIS64.ahk" { WINDBG_EXTENSION_APIS64 }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DEBUG_STACK_FRAME.ahk" { DEBUG_STACK_FRAME }
 #Import ".\IDebugBreakpoint.ahk" { IDebugBreakpoint }
 #Import ".\DEBUG_VALUE.ahk" { DEBUG_VALUE }
 
@@ -237,7 +238,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetInterrupt(Flags) {
-        result := ComCall(4, this, "uint", Flags, "HRESULT")
+        result := ComCall(4, this, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -256,7 +257,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetInterruptTimeout(Seconds) {
-        result := ComCall(6, this, "uint", Seconds, "HRESULT")
+        result := ComCall(6, this, UInt32, Seconds, "HRESULT")
         return result
     }
 
@@ -274,7 +275,7 @@ export default struct IDebugControl7 extends IUnknown {
         FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
         AppendMarshal := Append is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", _Buffer, "uint", BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
+        result := ComCall(7, this, "ptr", _Buffer, UInt32, BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
         return result
     }
 
@@ -315,7 +316,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetLogMask(Mask) {
-        result := ComCall(11, this, "uint", Mask, "HRESULT")
+        result := ComCall(11, this, UInt32, Mask, "HRESULT")
         return result
     }
 
@@ -329,7 +330,7 @@ export default struct IDebugControl7 extends IUnknown {
     Input(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(12, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &InputSize := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &InputSize := 0, "HRESULT")
         return InputSize
     }
 
@@ -354,7 +355,7 @@ export default struct IDebugControl7 extends IUnknown {
     Output(Mask, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(14, this, "uint", Mask, "ptr", Format, "HRESULT")
+        result := ComCall(14, this, UInt32, Mask, "ptr", Format, "HRESULT")
         return result
     }
 
@@ -370,7 +371,7 @@ export default struct IDebugControl7 extends IUnknown {
 
         ArgsMarshal := Args is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, "uint", Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
+        result := ComCall(15, this, UInt32, Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
         return result
     }
 
@@ -384,7 +385,7 @@ export default struct IDebugControl7 extends IUnknown {
     ControlledOutput(OutputControl, Mask, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(16, this, "uint", OutputControl, "uint", Mask, "ptr", Format, "HRESULT")
+        result := ComCall(16, this, UInt32, OutputControl, UInt32, Mask, "ptr", Format, "HRESULT")
         return result
     }
 
@@ -401,7 +402,7 @@ export default struct IDebugControl7 extends IUnknown {
 
         ArgsMarshal := Args is VarRef ? "char*" : "ptr"
 
-        result := ComCall(17, this, "uint", OutputControl, "uint", Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
+        result := ComCall(17, this, UInt32, OutputControl, UInt32, Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
         return result
     }
 
@@ -414,7 +415,7 @@ export default struct IDebugControl7 extends IUnknown {
     OutputPrompt(OutputControl, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(18, this, "uint", OutputControl, "ptr", Format, "HRESULT")
+        result := ComCall(18, this, UInt32, OutputControl, "ptr", Format, "HRESULT")
         return result
     }
 
@@ -430,7 +431,7 @@ export default struct IDebugControl7 extends IUnknown {
 
         ArgsMarshal := Args is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, "uint", OutputControl, "ptr", Format, ArgsMarshal, Args, "HRESULT")
+        result := ComCall(19, this, UInt32, OutputControl, "ptr", Format, ArgsMarshal, Args, "HRESULT")
         return result
     }
 
@@ -443,7 +444,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetPromptText(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(20, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
@@ -454,7 +455,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputCurrentState(OutputControl, Flags) {
-        result := ComCall(21, this, "uint", OutputControl, "uint", Flags, "HRESULT")
+        result := ComCall(21, this, UInt32, OutputControl, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -464,7 +465,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputVersionInformation(OutputControl) {
-        result := ComCall(22, this, "uint", OutputControl, "HRESULT")
+        result := ComCall(22, this, UInt32, OutputControl, "HRESULT")
         return result
     }
 
@@ -484,7 +485,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetNotifyEventHandle(_Handle) {
-        result := ComCall(24, this, "uint", _Handle, "HRESULT")
+        result := ComCall(24, this, Int64, _Handle, "HRESULT")
         return result
     }
 
@@ -497,7 +498,7 @@ export default struct IDebugControl7 extends IUnknown {
     Assemble(Offset, Instr) {
         Instr := Instr is String ? StrPtr(Instr) : Instr
 
-        result := ComCall(25, this, "uint", Offset, "ptr", Instr, "uint*", &EndOffset := 0, "HRESULT")
+        result := ComCall(25, this, Int64, Offset, "ptr", Instr, "uint*", &EndOffset := 0, "HRESULT")
         return EndOffset
     }
 
@@ -517,7 +518,7 @@ export default struct IDebugControl7 extends IUnknown {
         DisassemblySizeMarshal := DisassemblySize is VarRef ? "uint*" : "ptr"
         EndOffsetMarshal := EndOffset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, "uint", Offset, "uint", Flags, "ptr", _Buffer, "uint", BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
+        result := ComCall(26, this, Int64, Offset, UInt32, Flags, "ptr", _Buffer, UInt32, BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
         return result
     }
 
@@ -538,7 +539,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {Integer} 
      */
     OutputDisassembly(OutputControl, Offset, Flags) {
-        result := ComCall(28, this, "uint", OutputControl, "uint", Offset, "uint", Flags, "uint*", &EndOffset := 0, "HRESULT")
+        result := ComCall(28, this, UInt32, OutputControl, Int64, Offset, UInt32, Flags, "uint*", &EndOffset := 0, "HRESULT")
         return EndOffset
     }
 
@@ -561,7 +562,7 @@ export default struct IDebugControl7 extends IUnknown {
         EndOffsetMarshal := EndOffset is VarRef ? "uint*" : "ptr"
         LineOffsetsMarshal := LineOffsets is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(29, this, "uint", OutputControl, "uint", PreviousLines, "uint", TotalLines, "uint", Offset, "uint", Flags, OffsetLineMarshal, OffsetLine, StartOffsetMarshal, StartOffset, EndOffsetMarshal, EndOffset, LineOffsetsMarshal, LineOffsets, "HRESULT")
+        result := ComCall(29, this, UInt32, OutputControl, UInt32, PreviousLines, UInt32, TotalLines, Int64, Offset, UInt32, Flags, OffsetLineMarshal, OffsetLine, StartOffsetMarshal, StartOffset, EndOffsetMarshal, EndOffset, LineOffsetsMarshal, LineOffsets, "HRESULT")
         return result
     }
 
@@ -572,7 +573,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {Integer} 
      */
     GetNearInstruction(Offset, Delta) {
-        result := ComCall(30, this, "uint", Offset, "int", Delta, "uint*", &NearOffset := 0, "HRESULT")
+        result := ComCall(30, this, Int64, Offset, Int32, Delta, "uint*", &NearOffset := 0, "HRESULT")
         return NearOffset
     }
 
@@ -589,7 +590,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetStackTrace(FrameOffset, StackOffset, InstructionOffset, Frames, FramesSize, FramesFilled) {
         FramesFilledMarshal := FramesFilled is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "uint", FrameOffset, "uint", StackOffset, "uint", InstructionOffset, DEBUG_STACK_FRAME.Ptr, Frames, "uint", FramesSize, FramesFilledMarshal, FramesFilled, "HRESULT")
+        result := ComCall(31, this, Int64, FrameOffset, Int64, StackOffset, Int64, InstructionOffset, DEBUG_STACK_FRAME.Ptr, Frames, UInt32, FramesSize, FramesFilledMarshal, FramesFilled, "HRESULT")
         return result
     }
 
@@ -611,7 +612,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputStackTrace(OutputControl, Frames, FramesSize, Flags) {
-        result := ComCall(33, this, "uint", OutputControl, DEBUG_STACK_FRAME.Ptr, Frames, "uint", FramesSize, "uint", Flags, "HRESULT")
+        result := ComCall(33, this, UInt32, OutputControl, DEBUG_STACK_FRAME.Ptr, Frames, UInt32, FramesSize, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -663,7 +664,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {Integer} 
      */
     GetPossibleExecutingProcessorTypes(Start, Count) {
-        result := ComCall(38, this, "uint", Start, "uint", Count, "uint*", &Types := 0, "HRESULT")
+        result := ComCall(38, this, UInt32, Start, UInt32, Count, "uint*", &Types := 0, "HRESULT")
         return Types
     }
 
@@ -701,7 +702,7 @@ export default struct IDebugControl7 extends IUnknown {
         ServicePackNumberMarshal := ServicePackNumber is VarRef ? "uint*" : "ptr"
         BuildStringUsedMarshal := BuildStringUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, _PlatformIdMarshal, _PlatformId, MajorMarshal, Major, MinorMarshal, Minor, "ptr", ServicePackString, "uint", ServicePackStringSize, ServicePackStringUsedMarshal, ServicePackStringUsed, ServicePackNumberMarshal, ServicePackNumber, "ptr", BuildString, "uint", BuildStringSize, BuildStringUsedMarshal, BuildStringUsed, "HRESULT")
+        result := ComCall(40, this, _PlatformIdMarshal, _PlatformId, MajorMarshal, Major, MinorMarshal, Minor, "ptr", ServicePackString, UInt32, ServicePackStringSize, ServicePackStringUsedMarshal, ServicePackStringUsed, ServicePackNumberMarshal, ServicePackNumber, "ptr", BuildString, UInt32, BuildStringSize, BuildStringUsedMarshal, BuildStringUsed, "HRESULT")
         return result
     }
 
@@ -759,7 +760,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {Integer} 
      */
     GetSupportedProcessorTypes(Start, Count) {
-        result := ComCall(45, this, "uint", Start, "uint", Count, "uint*", &Types := 0, "HRESULT")
+        result := ComCall(45, this, UInt32, Start, UInt32, Count, "uint*", &Types := 0, "HRESULT")
         return Types
     }
 
@@ -781,7 +782,7 @@ export default struct IDebugControl7 extends IUnknown {
         FullNameSizeMarshal := FullNameSize is VarRef ? "uint*" : "ptr"
         AbbrevNameSizeMarshal := AbbrevNameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(46, this, "uint", Type, "ptr", FullNameBuffer, "uint", FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, "uint", AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
+        result := ComCall(46, this, UInt32, Type, "ptr", FullNameBuffer, UInt32, FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, UInt32, AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
         return result
     }
 
@@ -800,7 +801,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetEffectiveProcessorType(Type) {
-        result := ComCall(48, this, "uint", Type, "HRESULT")
+        result := ComCall(48, this, UInt32, Type, "HRESULT")
         return result
     }
 
@@ -819,7 +820,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetExecutionStatus(_Status) {
-        result := ComCall(50, this, "uint", _Status, "HRESULT")
+        result := ComCall(50, this, UInt32, _Status, "HRESULT")
         return result
     }
 
@@ -838,7 +839,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCodeLevel(Level) {
-        result := ComCall(52, this, "uint", Level, "HRESULT")
+        result := ComCall(52, this, UInt32, Level, "HRESULT")
         return result
     }
 
@@ -857,7 +858,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     AddEngineOptions(Options) {
-        result := ComCall(54, this, "uint", Options, "HRESULT")
+        result := ComCall(54, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -867,7 +868,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveEngineOptions(Options) {
-        result := ComCall(55, this, "uint", Options, "HRESULT")
+        result := ComCall(55, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -877,7 +878,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetEngineOptions(Options) {
-        result := ComCall(56, this, "uint", Options, "HRESULT")
+        result := ComCall(56, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -902,7 +903,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSystemErrorControl(OutputLevel, BreakLevel) {
-        result := ComCall(58, this, "uint", OutputLevel, "uint", BreakLevel, "HRESULT")
+        result := ComCall(58, this, UInt32, OutputLevel, UInt32, BreakLevel, "HRESULT")
         return result
     }
 
@@ -916,7 +917,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetTextMacro(Slot, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(59, this, "uint", Slot, "ptr", _Buffer, "uint", BufferSize, "uint*", &MacroSize := 0, "HRESULT")
+        result := ComCall(59, this, UInt32, Slot, "ptr", _Buffer, UInt32, BufferSize, "uint*", &MacroSize := 0, "HRESULT")
         return MacroSize
     }
 
@@ -929,7 +930,7 @@ export default struct IDebugControl7 extends IUnknown {
     SetTextMacro(Slot, Macro) {
         Macro := Macro is String ? StrPtr(Macro) : Macro
 
-        result := ComCall(60, this, "uint", Slot, "ptr", Macro, "HRESULT")
+        result := ComCall(60, this, UInt32, Slot, "ptr", Macro, "HRESULT")
         return result
     }
 
@@ -948,7 +949,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetRadix(Radix) {
-        result := ComCall(62, this, "uint", Radix, "HRESULT")
+        result := ComCall(62, this, UInt32, Radix, "HRESULT")
         return result
     }
 
@@ -965,7 +966,7 @@ export default struct IDebugControl7 extends IUnknown {
 
         RemainderIndexMarshal := RemainderIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(63, this, "ptr", Expression, "uint", DesiredType, DEBUG_VALUE.Ptr, Value, RemainderIndexMarshal, RemainderIndex, "HRESULT")
+        result := ComCall(63, this, "ptr", Expression, UInt32, DesiredType, DEBUG_VALUE.Ptr, Value, RemainderIndexMarshal, RemainderIndex, "HRESULT")
         return result
     }
 
@@ -977,7 +978,7 @@ export default struct IDebugControl7 extends IUnknown {
      */
     CoerceValue(_In, OutType) {
         Out := DEBUG_VALUE()
-        result := ComCall(64, this, DEBUG_VALUE.Ptr, _In, "uint", OutType, DEBUG_VALUE.Ptr, Out, "HRESULT")
+        result := ComCall(64, this, DEBUG_VALUE.Ptr, _In, UInt32, OutType, DEBUG_VALUE.Ptr, Out, "HRESULT")
         return Out
     }
 
@@ -992,7 +993,7 @@ export default struct IDebugControl7 extends IUnknown {
         OutTypesMarshal := OutTypes is VarRef ? "uint*" : "ptr"
 
         Out := DEBUG_VALUE()
-        result := ComCall(65, this, "uint", Count, DEBUG_VALUE.Ptr, _In, OutTypesMarshal, OutTypes, DEBUG_VALUE.Ptr, Out, "HRESULT")
+        result := ComCall(65, this, UInt32, Count, DEBUG_VALUE.Ptr, _In, OutTypesMarshal, OutTypes, DEBUG_VALUE.Ptr, Out, "HRESULT")
         return Out
     }
 
@@ -1006,7 +1007,7 @@ export default struct IDebugControl7 extends IUnknown {
     Execute(OutputControl, Command, Flags) {
         Command := Command is String ? StrPtr(Command) : Command
 
-        result := ComCall(66, this, "uint", OutputControl, "ptr", Command, "uint", Flags, "HRESULT")
+        result := ComCall(66, this, UInt32, OutputControl, "ptr", Command, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -1020,7 +1021,7 @@ export default struct IDebugControl7 extends IUnknown {
     ExecuteCommandFile(OutputControl, CommandFile, Flags) {
         CommandFile := CommandFile is String ? StrPtr(CommandFile) : CommandFile
 
-        result := ComCall(67, this, "uint", OutputControl, "ptr", CommandFile, "uint", Flags, "HRESULT")
+        result := ComCall(67, this, UInt32, OutputControl, "ptr", CommandFile, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -1039,7 +1040,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {IDebugBreakpoint} 
      */
     GetBreakpointByIndex(Index) {
-        result := ComCall(69, this, "uint", Index, "ptr*", &Bp := 0, "HRESULT")
+        result := ComCall(69, this, UInt32, Index, "ptr*", &Bp := 0, "HRESULT")
         return IDebugBreakpoint(Bp)
     }
 
@@ -1049,7 +1050,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {IDebugBreakpoint} 
      */
     GetBreakpointById(Id) {
-        result := ComCall(70, this, "uint", Id, "ptr*", &Bp := 0, "HRESULT")
+        result := ComCall(70, this, UInt32, Id, "ptr*", &Bp := 0, "HRESULT")
         return IDebugBreakpoint(Bp)
     }
 
@@ -1064,7 +1065,7 @@ export default struct IDebugControl7 extends IUnknown {
         IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
 
         Params := DEBUG_BREAKPOINT_PARAMETERS()
-        result := ComCall(71, this, "uint", Count, IdsMarshal, Ids, "uint", Start, DEBUG_BREAKPOINT_PARAMETERS.Ptr, Params, "HRESULT")
+        result := ComCall(71, this, UInt32, Count, IdsMarshal, Ids, UInt32, Start, DEBUG_BREAKPOINT_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -1075,7 +1076,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {IDebugBreakpoint} 
      */
     AddBreakpoint(Type, DesiredId) {
-        result := ComCall(72, this, "uint", Type, "uint", DesiredId, "ptr*", &Bp := 0, "HRESULT")
+        result := ComCall(72, this, UInt32, Type, UInt32, DesiredId, "ptr*", &Bp := 0, "HRESULT")
         return IDebugBreakpoint(Bp)
     }
 
@@ -1098,7 +1099,7 @@ export default struct IDebugControl7 extends IUnknown {
     AddExtension(_Path, Flags) {
         _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(74, this, "ptr", _Path, "uint", Flags, "uint*", &_Handle := 0, "HRESULT")
+        result := ComCall(74, this, "ptr", _Path, UInt32, Flags, "uint*", &_Handle := 0, "HRESULT")
         return _Handle
     }
 
@@ -1108,7 +1109,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveExtension(_Handle) {
-        result := ComCall(75, this, "uint", _Handle, "HRESULT")
+        result := ComCall(75, this, Int64, _Handle, "HRESULT")
         return result
     }
 
@@ -1135,7 +1136,7 @@ export default struct IDebugControl7 extends IUnknown {
         Function := Function is String ? StrPtr(Function) : Function
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        result := ComCall(77, this, "uint", _Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
+        result := ComCall(77, this, Int64, _Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
         return result
     }
 
@@ -1148,7 +1149,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetExtensionFunction(_Handle, FuncName) {
         FuncName := FuncName is String ? StrPtr(FuncName) : FuncName
 
-        result := ComCall(78, this, "uint", _Handle, "ptr", FuncName, "ptr*", &Function := 0, "HRESULT")
+        result := ComCall(78, this, Int64, _Handle, "ptr", FuncName, "ptr*", &Function := 0, "HRESULT")
         return Function
     }
 
@@ -1198,7 +1199,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetEventFilterText(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(82, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        result := ComCall(82, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
@@ -1212,7 +1213,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetEventFilterCommand(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(83, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(83, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -1225,7 +1226,7 @@ export default struct IDebugControl7 extends IUnknown {
     SetEventFilterCommand(Index, Command) {
         Command := Command is String ? StrPtr(Command) : Command
 
-        result := ComCall(84, this, "uint", Index, "ptr", Command, "HRESULT")
+        result := ComCall(84, this, UInt32, Index, "ptr", Command, "HRESULT")
         return result
     }
 
@@ -1237,7 +1238,7 @@ export default struct IDebugControl7 extends IUnknown {
      */
     GetSpecificFilterParameters(Start, Count) {
         Params := DEBUG_SPECIFIC_FILTER_PARAMETERS()
-        result := ComCall(85, this, "uint", Start, "uint", Count, DEBUG_SPECIFIC_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
+        result := ComCall(85, this, UInt32, Start, UInt32, Count, DEBUG_SPECIFIC_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -1249,7 +1250,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSpecificFilterParameters(Start, Count, Params) {
-        result := ComCall(86, this, "uint", Start, "uint", Count, DEBUG_SPECIFIC_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
+        result := ComCall(86, this, UInt32, Start, UInt32, Count, DEBUG_SPECIFIC_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
         return result
     }
 
@@ -1263,7 +1264,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetSpecificFilterArgument(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(87, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
+        result := ComCall(87, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
         return ArgumentSize
     }
 
@@ -1276,7 +1277,7 @@ export default struct IDebugControl7 extends IUnknown {
     SetSpecificFilterArgument(Index, Argument) {
         Argument := Argument is String ? StrPtr(Argument) : Argument
 
-        result := ComCall(88, this, "uint", Index, "ptr", Argument, "HRESULT")
+        result := ComCall(88, this, UInt32, Index, "ptr", Argument, "HRESULT")
         return result
     }
 
@@ -1291,7 +1292,7 @@ export default struct IDebugControl7 extends IUnknown {
         CodesMarshal := Codes is VarRef ? "uint*" : "ptr"
 
         Params := DEBUG_EXCEPTION_FILTER_PARAMETERS()
-        result := ComCall(89, this, "uint", Count, CodesMarshal, Codes, "uint", Start, DEBUG_EXCEPTION_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
+        result := ComCall(89, this, UInt32, Count, CodesMarshal, Codes, UInt32, Start, DEBUG_EXCEPTION_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -1302,7 +1303,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetExceptionFilterParameters(Count, Params) {
-        result := ComCall(90, this, "uint", Count, DEBUG_EXCEPTION_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
+        result := ComCall(90, this, UInt32, Count, DEBUG_EXCEPTION_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
         return result
     }
 
@@ -1316,7 +1317,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetExceptionFilterSecondCommand(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(91, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(91, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -1329,7 +1330,7 @@ export default struct IDebugControl7 extends IUnknown {
     SetExceptionFilterSecondCommand(Index, Command) {
         Command := Command is String ? StrPtr(Command) : Command
 
-        result := ComCall(92, this, "uint", Index, "ptr", Command, "HRESULT")
+        result := ComCall(92, this, UInt32, Index, "ptr", Command, "HRESULT")
         return result
     }
 
@@ -1340,7 +1341,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     WaitForEvent(Flags, Timeout) {
-        result := ComCall(93, this, "uint", Flags, "uint", Timeout, "HRESULT")
+        result := ComCall(93, this, UInt32, Flags, UInt32, Timeout, "HRESULT")
         return result
     }
 
@@ -1366,7 +1367,7 @@ export default struct IDebugControl7 extends IUnknown {
         ExtraInformationUsedMarshal := ExtraInformationUsed is VarRef ? "uint*" : "ptr"
         DescriptionUsedMarshal := DescriptionUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(94, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "ptr", ExtraInformation, "uint", ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, "ptr", Description, "uint", DescriptionSize, DescriptionUsedMarshal, DescriptionUsed, "HRESULT")
+        result := ComCall(94, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, IntPtr, ExtraInformation, UInt32, ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, "ptr", Description, UInt32, DescriptionSize, DescriptionUsedMarshal, DescriptionUsed, "HRESULT")
         return result
     }
 
@@ -1426,7 +1427,7 @@ export default struct IDebugControl7 extends IUnknown {
         SrcSizeMarshal := SrcSize is VarRef ? "uint*" : "ptr"
         DstSizeMarshal := DstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(99, this, "ptr", SrcText, "uint", Index, "ptr", SrcBuffer, "uint", SrcBufferSize, SrcSizeMarshal, SrcSize, "ptr", DstBuffer, "uint", DstBufferSize, DstSizeMarshal, DstSize, "HRESULT")
+        result := ComCall(99, this, "ptr", SrcText, UInt32, Index, "ptr", SrcBuffer, UInt32, SrcBufferSize, SrcSizeMarshal, SrcSize, "ptr", DstBuffer, UInt32, DstBufferSize, DstSizeMarshal, DstSize, "HRESULT")
         return result
     }
 
@@ -1460,7 +1461,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputTextReplacements(OutputControl, Flags) {
-        result := ComCall(102, this, "uint", OutputControl, "uint", Flags, "HRESULT")
+        result := ComCall(102, this, UInt32, OutputControl, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -1479,7 +1480,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     AddAssemblyOptions(Options) {
-        result := ComCall(104, this, "uint", Options, "HRESULT")
+        result := ComCall(104, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -1489,7 +1490,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveAssemblyOptions(Options) {
-        result := ComCall(105, this, "uint", Options, "HRESULT")
+        result := ComCall(105, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -1499,7 +1500,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetAssemblyOptions(Options) {
-        result := ComCall(106, this, "uint", Options, "HRESULT")
+        result := ComCall(106, this, UInt32, Options, "HRESULT")
         return result
     }
 
@@ -1518,7 +1519,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetExpressionSyntax(Flags) {
-        result := ComCall(108, this, "uint", Flags, "HRESULT")
+        result := ComCall(108, this, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -1561,7 +1562,7 @@ export default struct IDebugControl7 extends IUnknown {
         FullNameSizeMarshal := FullNameSize is VarRef ? "uint*" : "ptr"
         AbbrevNameSizeMarshal := AbbrevNameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(111, this, "uint", Index, "ptr", FullNameBuffer, "uint", FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, "uint", AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
+        result := ComCall(111, this, UInt32, Index, "ptr", FullNameBuffer, UInt32, FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, UInt32, AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
         return result
     }
 
@@ -1585,7 +1586,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetEventIndexDescription(Index, Which, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(113, this, "uint", Index, "uint", Which, "ptr", _Buffer, "uint", BufferSize, "uint*", &DescSize := 0, "HRESULT")
+        result := ComCall(113, this, UInt32, Index, UInt32, Which, "ptr", _Buffer, UInt32, BufferSize, "uint*", &DescSize := 0, "HRESULT")
         return DescSize
     }
 
@@ -1605,7 +1606,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {Integer} 
      */
     SetNextEventIndex(Relation, Value) {
-        result := ComCall(115, this, "uint", Relation, "uint", Value, "uint*", &NextIndex := 0, "HRESULT")
+        result := ComCall(115, this, UInt32, Relation, UInt32, Value, "uint*", &NextIndex := 0, "HRESULT")
         return NextIndex
     }
 
@@ -1623,7 +1624,7 @@ export default struct IDebugControl7 extends IUnknown {
         FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
         AppendMarshal := Append is VarRef ? "int*" : "ptr"
 
-        result := ComCall(116, this, "ptr", _Buffer, "uint", BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
+        result := ComCall(116, this, "ptr", _Buffer, UInt32, BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
         return result
     }
 
@@ -1649,7 +1650,7 @@ export default struct IDebugControl7 extends IUnknown {
     InputWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(118, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &InputSize := 0, "HRESULT")
+        result := ComCall(118, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &InputSize := 0, "HRESULT")
         return InputSize
     }
 
@@ -1674,7 +1675,7 @@ export default struct IDebugControl7 extends IUnknown {
     OutputWide(Mask, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(120, this, "uint", Mask, "ptr", Format, "HRESULT")
+        result := ComCall(120, this, UInt32, Mask, "ptr", Format, "HRESULT")
         return result
     }
 
@@ -1690,7 +1691,7 @@ export default struct IDebugControl7 extends IUnknown {
 
         ArgsMarshal := Args is VarRef ? "char*" : "ptr"
 
-        result := ComCall(121, this, "uint", Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
+        result := ComCall(121, this, UInt32, Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
         return result
     }
 
@@ -1704,7 +1705,7 @@ export default struct IDebugControl7 extends IUnknown {
     ControlledOutputWide(OutputControl, Mask, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(122, this, "uint", OutputControl, "uint", Mask, "ptr", Format, "HRESULT")
+        result := ComCall(122, this, UInt32, OutputControl, UInt32, Mask, "ptr", Format, "HRESULT")
         return result
     }
 
@@ -1721,7 +1722,7 @@ export default struct IDebugControl7 extends IUnknown {
 
         ArgsMarshal := Args is VarRef ? "char*" : "ptr"
 
-        result := ComCall(123, this, "uint", OutputControl, "uint", Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
+        result := ComCall(123, this, UInt32, OutputControl, UInt32, Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
         return result
     }
 
@@ -1734,7 +1735,7 @@ export default struct IDebugControl7 extends IUnknown {
     OutputPromptWide(OutputControl, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(124, this, "uint", OutputControl, "ptr", Format, "HRESULT")
+        result := ComCall(124, this, UInt32, OutputControl, "ptr", Format, "HRESULT")
         return result
     }
 
@@ -1750,7 +1751,7 @@ export default struct IDebugControl7 extends IUnknown {
 
         ArgsMarshal := Args is VarRef ? "char*" : "ptr"
 
-        result := ComCall(125, this, "uint", OutputControl, "ptr", Format, ArgsMarshal, Args, "HRESULT")
+        result := ComCall(125, this, UInt32, OutputControl, "ptr", Format, ArgsMarshal, Args, "HRESULT")
         return result
     }
 
@@ -1763,7 +1764,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetPromptTextWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(126, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        result := ComCall(126, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
@@ -1776,7 +1777,7 @@ export default struct IDebugControl7 extends IUnknown {
     AssembleWide(Offset, Instr) {
         Instr := Instr is String ? StrPtr(Instr) : Instr
 
-        result := ComCall(127, this, "uint", Offset, "ptr", Instr, "uint*", &EndOffset := 0, "HRESULT")
+        result := ComCall(127, this, Int64, Offset, "ptr", Instr, "uint*", &EndOffset := 0, "HRESULT")
         return EndOffset
     }
 
@@ -1796,7 +1797,7 @@ export default struct IDebugControl7 extends IUnknown {
         DisassemblySizeMarshal := DisassemblySize is VarRef ? "uint*" : "ptr"
         EndOffsetMarshal := EndOffset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(128, this, "uint", Offset, "uint", Flags, "ptr", _Buffer, "uint", BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
+        result := ComCall(128, this, Int64, Offset, UInt32, Flags, "ptr", _Buffer, UInt32, BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
         return result
     }
 
@@ -1818,7 +1819,7 @@ export default struct IDebugControl7 extends IUnknown {
         FullNameSizeMarshal := FullNameSize is VarRef ? "uint*" : "ptr"
         AbbrevNameSizeMarshal := AbbrevNameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(129, this, "uint", Type, "ptr", FullNameBuffer, "uint", FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, "uint", AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
+        result := ComCall(129, this, UInt32, Type, "ptr", FullNameBuffer, UInt32, FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, UInt32, AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
         return result
     }
 
@@ -1832,7 +1833,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetTextMacroWide(Slot, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(130, this, "uint", Slot, "ptr", _Buffer, "uint", BufferSize, "uint*", &MacroSize := 0, "HRESULT")
+        result := ComCall(130, this, UInt32, Slot, "ptr", _Buffer, UInt32, BufferSize, "uint*", &MacroSize := 0, "HRESULT")
         return MacroSize
     }
 
@@ -1845,7 +1846,7 @@ export default struct IDebugControl7 extends IUnknown {
     SetTextMacroWide(Slot, Macro) {
         Macro := Macro is String ? StrPtr(Macro) : Macro
 
-        result := ComCall(131, this, "uint", Slot, "ptr", Macro, "HRESULT")
+        result := ComCall(131, this, UInt32, Slot, "ptr", Macro, "HRESULT")
         return result
     }
 
@@ -1862,7 +1863,7 @@ export default struct IDebugControl7 extends IUnknown {
 
         RemainderIndexMarshal := RemainderIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(132, this, "ptr", Expression, "uint", DesiredType, DEBUG_VALUE.Ptr, Value, RemainderIndexMarshal, RemainderIndex, "HRESULT")
+        result := ComCall(132, this, "ptr", Expression, UInt32, DesiredType, DEBUG_VALUE.Ptr, Value, RemainderIndexMarshal, RemainderIndex, "HRESULT")
         return result
     }
 
@@ -1876,7 +1877,7 @@ export default struct IDebugControl7 extends IUnknown {
     ExecuteWide(OutputControl, Command, Flags) {
         Command := Command is String ? StrPtr(Command) : Command
 
-        result := ComCall(133, this, "uint", OutputControl, "ptr", Command, "uint", Flags, "HRESULT")
+        result := ComCall(133, this, UInt32, OutputControl, "ptr", Command, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -1890,7 +1891,7 @@ export default struct IDebugControl7 extends IUnknown {
     ExecuteCommandFileWide(OutputControl, CommandFile, Flags) {
         CommandFile := CommandFile is String ? StrPtr(CommandFile) : CommandFile
 
-        result := ComCall(134, this, "uint", OutputControl, "ptr", CommandFile, "uint", Flags, "HRESULT")
+        result := ComCall(134, this, UInt32, OutputControl, "ptr", CommandFile, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -1900,7 +1901,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {IDebugBreakpoint2} 
      */
     GetBreakpointByIndex2(Index) {
-        result := ComCall(135, this, "uint", Index, "ptr*", &Bp := 0, "HRESULT")
+        result := ComCall(135, this, UInt32, Index, "ptr*", &Bp := 0, "HRESULT")
         return IDebugBreakpoint2(Bp)
     }
 
@@ -1910,7 +1911,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {IDebugBreakpoint2} 
      */
     GetBreakpointById2(Id) {
-        result := ComCall(136, this, "uint", Id, "ptr*", &Bp := 0, "HRESULT")
+        result := ComCall(136, this, UInt32, Id, "ptr*", &Bp := 0, "HRESULT")
         return IDebugBreakpoint2(Bp)
     }
 
@@ -1921,7 +1922,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {IDebugBreakpoint2} 
      */
     AddBreakpoint2(Type, DesiredId) {
-        result := ComCall(137, this, "uint", Type, "uint", DesiredId, "ptr*", &Bp := 0, "HRESULT")
+        result := ComCall(137, this, UInt32, Type, UInt32, DesiredId, "ptr*", &Bp := 0, "HRESULT")
         return IDebugBreakpoint2(Bp)
     }
 
@@ -1944,7 +1945,7 @@ export default struct IDebugControl7 extends IUnknown {
     AddExtensionWide(_Path, Flags) {
         _Path := _Path is String ? StrPtr(_Path) : _Path
 
-        result := ComCall(139, this, "ptr", _Path, "uint", Flags, "uint*", &_Handle := 0, "HRESULT")
+        result := ComCall(139, this, "ptr", _Path, UInt32, Flags, "uint*", &_Handle := 0, "HRESULT")
         return _Handle
     }
 
@@ -1971,7 +1972,7 @@ export default struct IDebugControl7 extends IUnknown {
         Function := Function is String ? StrPtr(Function) : Function
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        result := ComCall(141, this, "uint", _Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
+        result := ComCall(141, this, Int64, _Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
         return result
     }
 
@@ -1984,7 +1985,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetExtensionFunctionWide(_Handle, FuncName) {
         FuncName := FuncName is String ? StrPtr(FuncName) : FuncName
 
-        result := ComCall(142, this, "uint", _Handle, "ptr", FuncName, "ptr*", &Function := 0, "HRESULT")
+        result := ComCall(142, this, Int64, _Handle, "ptr", FuncName, "ptr*", &Function := 0, "HRESULT")
         return Function
     }
 
@@ -1998,7 +1999,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetEventFilterTextWide(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(143, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        result := ComCall(143, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
@@ -2012,7 +2013,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetEventFilterCommandWide(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(144, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(144, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -2025,7 +2026,7 @@ export default struct IDebugControl7 extends IUnknown {
     SetEventFilterCommandWide(Index, Command) {
         Command := Command is String ? StrPtr(Command) : Command
 
-        result := ComCall(145, this, "uint", Index, "ptr", Command, "HRESULT")
+        result := ComCall(145, this, UInt32, Index, "ptr", Command, "HRESULT")
         return result
     }
 
@@ -2039,7 +2040,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetSpecificFilterArgumentWide(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(146, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
+        result := ComCall(146, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
         return ArgumentSize
     }
 
@@ -2052,7 +2053,7 @@ export default struct IDebugControl7 extends IUnknown {
     SetSpecificFilterArgumentWide(Index, Argument) {
         Argument := Argument is String ? StrPtr(Argument) : Argument
 
-        result := ComCall(147, this, "uint", Index, "ptr", Argument, "HRESULT")
+        result := ComCall(147, this, UInt32, Index, "ptr", Argument, "HRESULT")
         return result
     }
 
@@ -2066,7 +2067,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetExceptionFilterSecondCommandWide(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(148, this, "uint", Index, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(148, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -2079,7 +2080,7 @@ export default struct IDebugControl7 extends IUnknown {
     SetExceptionFilterSecondCommandWide(Index, Command) {
         Command := Command is String ? StrPtr(Command) : Command
 
-        result := ComCall(149, this, "uint", Index, "ptr", Command, "HRESULT")
+        result := ComCall(149, this, UInt32, Index, "ptr", Command, "HRESULT")
         return result
     }
 
@@ -2105,7 +2106,7 @@ export default struct IDebugControl7 extends IUnknown {
         ExtraInformationUsedMarshal := ExtraInformationUsed is VarRef ? "uint*" : "ptr"
         DescriptionUsedMarshal := DescriptionUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(150, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "ptr", ExtraInformation, "uint", ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, "ptr", Description, "uint", DescriptionSize, DescriptionUsedMarshal, DescriptionUsed, "HRESULT")
+        result := ComCall(150, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, IntPtr, ExtraInformation, UInt32, ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, "ptr", Description, UInt32, DescriptionSize, DescriptionUsedMarshal, DescriptionUsed, "HRESULT")
         return result
     }
 
@@ -2129,7 +2130,7 @@ export default struct IDebugControl7 extends IUnknown {
         SrcSizeMarshal := SrcSize is VarRef ? "uint*" : "ptr"
         DstSizeMarshal := DstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(151, this, "ptr", SrcText, "uint", Index, "ptr", SrcBuffer, "uint", SrcBufferSize, SrcSizeMarshal, SrcSize, "ptr", DstBuffer, "uint", DstBufferSize, DstSizeMarshal, DstSize, "HRESULT")
+        result := ComCall(151, this, "ptr", SrcText, UInt32, Index, "ptr", SrcBuffer, UInt32, SrcBufferSize, SrcSizeMarshal, SrcSize, "ptr", DstBuffer, UInt32, DstBufferSize, DstSizeMarshal, DstSize, "HRESULT")
         return result
     }
 
@@ -2177,7 +2178,7 @@ export default struct IDebugControl7 extends IUnknown {
         FullNameSizeMarshal := FullNameSize is VarRef ? "uint*" : "ptr"
         AbbrevNameSizeMarshal := AbbrevNameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(154, this, "uint", Index, "ptr", FullNameBuffer, "uint", FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, "uint", AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
+        result := ComCall(154, this, UInt32, Index, "ptr", FullNameBuffer, UInt32, FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, UInt32, AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
         return result
     }
 
@@ -2192,7 +2193,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetEventIndexDescriptionWide(Index, Which, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(155, this, "uint", Index, "uint", Which, "ptr", _Buffer, "uint", BufferSize, "uint*", &DescSize := 0, "HRESULT")
+        result := ComCall(155, this, UInt32, Index, UInt32, Which, "ptr", _Buffer, UInt32, BufferSize, "uint*", &DescSize := 0, "HRESULT")
         return DescSize
     }
 
@@ -2210,7 +2211,7 @@ export default struct IDebugControl7 extends IUnknown {
         FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(156, this, "ptr", _Buffer, "uint", BufferSize, FileSizeMarshal, FileSize, FlagsMarshal, Flags, "HRESULT")
+        result := ComCall(156, this, "ptr", _Buffer, UInt32, BufferSize, FileSizeMarshal, FileSize, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 
@@ -2223,7 +2224,7 @@ export default struct IDebugControl7 extends IUnknown {
     OpenLogFile2(_File, Flags) {
         _File := _File is String ? StrPtr(_File) : _File
 
-        result := ComCall(157, this, "ptr", _File, "uint", Flags, "HRESULT")
+        result := ComCall(157, this, "ptr", _File, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -2241,7 +2242,7 @@ export default struct IDebugControl7 extends IUnknown {
         FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(158, this, "ptr", _Buffer, "uint", BufferSize, FileSizeMarshal, FileSize, FlagsMarshal, Flags, "HRESULT")
+        result := ComCall(158, this, "ptr", _Buffer, UInt32, BufferSize, FileSizeMarshal, FileSize, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 
@@ -2254,7 +2255,7 @@ export default struct IDebugControl7 extends IUnknown {
     OpenLogFile2Wide(_File, Flags) {
         _File := _File is String ? StrPtr(_File) : _File
 
-        result := ComCall(159, this, "ptr", _File, "uint", Flags, "HRESULT")
+        result := ComCall(159, this, "ptr", _File, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -2288,7 +2289,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetSystemVersionString(Which, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(161, this, "uint", Which, "ptr", _Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(161, this, UInt32, Which, "ptr", _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
@@ -2302,7 +2303,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetSystemVersionStringWide(Which, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(162, this, "uint", Which, "ptr", _Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(162, this, UInt32, Which, "ptr", _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
@@ -2321,7 +2322,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetContextStackTrace(StartContext, StartContextSize, Frames, FramesSize, FrameContexts, FrameContextsSize, FrameContextsEntrySize, FramesFilled) {
         FramesFilledMarshal := FramesFilled is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(163, this, "ptr", StartContext, "uint", StartContextSize, DEBUG_STACK_FRAME.Ptr, Frames, "uint", FramesSize, "ptr", FrameContexts, "uint", FrameContextsSize, "uint", FrameContextsEntrySize, FramesFilledMarshal, FramesFilled, "HRESULT")
+        result := ComCall(163, this, IntPtr, StartContext, UInt32, StartContextSize, DEBUG_STACK_FRAME.Ptr, Frames, UInt32, FramesSize, IntPtr, FrameContexts, UInt32, FrameContextsSize, UInt32, FrameContextsEntrySize, FramesFilledMarshal, FramesFilled, "HRESULT")
         return result
     }
 
@@ -2337,7 +2338,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputContextStackTrace(OutputControl, Frames, FramesSize, FrameContexts, FrameContextsSize, FrameContextsEntrySize, Flags) {
-        result := ComCall(164, this, "uint", OutputControl, DEBUG_STACK_FRAME.Ptr, Frames, "uint", FramesSize, "ptr", FrameContexts, "uint", FrameContextsSize, "uint", FrameContextsEntrySize, "uint", Flags, "HRESULT")
+        result := ComCall(164, this, UInt32, OutputControl, DEBUG_STACK_FRAME.Ptr, Frames, UInt32, FramesSize, IntPtr, FrameContexts, UInt32, FrameContextsSize, UInt32, FrameContextsEntrySize, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -2361,7 +2362,7 @@ export default struct IDebugControl7 extends IUnknown {
         ContextUsedMarshal := ContextUsed is VarRef ? "uint*" : "ptr"
         ExtraInformationUsedMarshal := ExtraInformationUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(165, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "ptr", _Context, "uint", ContextSize, ContextUsedMarshal, ContextUsed, "ptr", ExtraInformation, "uint", ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, "HRESULT")
+        result := ComCall(165, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, IntPtr, _Context, UInt32, ContextSize, ContextUsedMarshal, ContextUsed, IntPtr, ExtraInformation, UInt32, ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, "HRESULT")
         return result
     }
 
@@ -2380,7 +2381,7 @@ export default struct IDebugControl7 extends IUnknown {
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
         StringNeededMarshal := StringNeeded is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(166, this, FlagsMarshal, Flags, "uint", WhichString, "ptr", _String, "uint", StringSize, StringNeededMarshal, StringNeeded, "HRESULT")
+        result := ComCall(166, this, FlagsMarshal, Flags, UInt32, WhichString, "ptr", _String, UInt32, StringSize, StringNeededMarshal, StringNeeded, "HRESULT")
         return result
     }
 
@@ -2399,7 +2400,7 @@ export default struct IDebugControl7 extends IUnknown {
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
         StringNeededMarshal := StringNeeded is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(167, this, FlagsMarshal, Flags, "uint", WhichString, "ptr", _String, "uint", StringSize, StringNeededMarshal, StringNeeded, "HRESULT")
+        result := ComCall(167, this, FlagsMarshal, Flags, UInt32, WhichString, "ptr", _String, UInt32, StringSize, StringNeededMarshal, StringNeeded, "HRESULT")
         return result
     }
 
@@ -2409,7 +2410,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     ResetManagedStatus(Flags) {
-        result := ComCall(168, this, "uint", Flags, "HRESULT")
+        result := ComCall(168, this, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -2426,7 +2427,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetStackTraceEx(FrameOffset, StackOffset, InstructionOffset, Frames, FramesSize, FramesFilled) {
         FramesFilledMarshal := FramesFilled is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(169, this, "uint", FrameOffset, "uint", StackOffset, "uint", InstructionOffset, DEBUG_STACK_FRAME_EX.Ptr, Frames, "uint", FramesSize, FramesFilledMarshal, FramesFilled, "HRESULT")
+        result := ComCall(169, this, Int64, FrameOffset, Int64, StackOffset, Int64, InstructionOffset, DEBUG_STACK_FRAME_EX.Ptr, Frames, UInt32, FramesSize, FramesFilledMarshal, FramesFilled, "HRESULT")
         return result
     }
 
@@ -2439,7 +2440,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputStackTraceEx(OutputControl, Frames, FramesSize, Flags) {
-        result := ComCall(170, this, "uint", OutputControl, DEBUG_STACK_FRAME_EX.Ptr, Frames, "uint", FramesSize, "uint", Flags, "HRESULT")
+        result := ComCall(170, this, UInt32, OutputControl, DEBUG_STACK_FRAME_EX.Ptr, Frames, UInt32, FramesSize, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -2458,7 +2459,7 @@ export default struct IDebugControl7 extends IUnknown {
     GetContextStackTraceEx(StartContext, StartContextSize, Frames, FramesSize, FrameContexts, FrameContextsSize, FrameContextsEntrySize, FramesFilled) {
         FramesFilledMarshal := FramesFilled is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(171, this, "ptr", StartContext, "uint", StartContextSize, DEBUG_STACK_FRAME_EX.Ptr, Frames, "uint", FramesSize, "ptr", FrameContexts, "uint", FrameContextsSize, "uint", FrameContextsEntrySize, FramesFilledMarshal, FramesFilled, "HRESULT")
+        result := ComCall(171, this, IntPtr, StartContext, UInt32, StartContextSize, DEBUG_STACK_FRAME_EX.Ptr, Frames, UInt32, FramesSize, IntPtr, FrameContexts, UInt32, FrameContextsSize, UInt32, FrameContextsEntrySize, FramesFilledMarshal, FramesFilled, "HRESULT")
         return result
     }
 
@@ -2474,7 +2475,7 @@ export default struct IDebugControl7 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputContextStackTraceEx(OutputControl, Frames, FramesSize, FrameContexts, FrameContextsSize, FrameContextsEntrySize, Flags) {
-        result := ComCall(172, this, "uint", OutputControl, DEBUG_STACK_FRAME_EX.Ptr, Frames, "uint", FramesSize, "ptr", FrameContexts, "uint", FrameContextsSize, "uint", FrameContextsEntrySize, "uint", Flags, "HRESULT")
+        result := ComCall(172, this, UInt32, OutputControl, DEBUG_STACK_FRAME_EX.Ptr, Frames, UInt32, FramesSize, IntPtr, FrameContexts, UInt32, FrameContextsSize, UInt32, FrameContextsEntrySize, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -2522,7 +2523,7 @@ export default struct IDebugControl7 extends IUnknown {
         _ClassMarshal := _Class is VarRef ? "uint*" : "ptr"
         QualifierMarshal := Qualifier is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(176, this, "uint", Flags, _ClassMarshal, _Class, QualifierMarshal, Qualifier, "HRESULT")
+        result := ComCall(176, this, UInt32, Flags, _ClassMarshal, _Class, QualifierMarshal, Qualifier, "HRESULT")
         return result
     }
 

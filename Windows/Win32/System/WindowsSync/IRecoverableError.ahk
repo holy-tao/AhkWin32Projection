@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SYNC_PROGRESS_STAGE.ahk" { SYNC_PROGRESS_STAGE }
-#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
 #Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncChange.ahk" { ISyncChange }
-#Import ".\IRecoverableErrorData.ahk" { IRecoverableErrorData }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRecoverableErrorData.ahk" { IRecoverableErrorData }
+#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
 
 /**
  * Represents a recoverable error that occurred when an item was loaded or when an item was saved.

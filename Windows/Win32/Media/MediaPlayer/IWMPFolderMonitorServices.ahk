@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\WMPFolderScanState.ahk" { WMPFolderScanState }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPFolderMonitorServices interface is deprecated.The IWMPFolderMonitorServices interface provides methods to enumerate, scan, and modify file folders that Windows Media Player monitors for digital media content.To use this interface, you must create a remoted instance of the Windows Media Player 11 control. For more information about remoting, see Remoting the Windows Media Player Control.
@@ -146,7 +146,7 @@ export default struct IWMPFolderMonitorServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-item
      */
     item(lIndex, pbstrFolder) {
-        result := ComCall(4, this, "int", lIndex, BSTR.Ptr, pbstrFolder, "HRESULT")
+        result := ComCall(4, this, Int32, lIndex, BSTR.Ptr, pbstrFolder, "HRESULT")
         return result
     }
 
@@ -210,7 +210,7 @@ export default struct IWMPFolderMonitorServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-remove
      */
     remove(lIndex) {
-        result := ComCall(6, this, "int", lIndex, "HRESULT")
+        result := ComCall(6, this, Int32, lIndex, "HRESULT")
         return result
     }
 

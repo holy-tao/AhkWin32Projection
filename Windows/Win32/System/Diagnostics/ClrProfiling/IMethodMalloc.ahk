@@ -40,7 +40,7 @@ export default struct IMethodMalloc extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     Alloc(cb) {
-        result := ComCall(3, this, "uint", cb, IntPtr)
+        result := ComCall(3, this, UInt32, cb, IntPtr)
         return result
     }
 

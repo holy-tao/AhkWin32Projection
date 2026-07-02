@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a collection of properties associated with a file or folder.
@@ -67,7 +67,7 @@ export default struct IStorageProviderPropertyHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderpropertyhandler-retrieveproperties
      */
     RetrieveProperties(propertiesToRetrieve, propertiesToRetrieveCount) {
-        result := ComCall(3, this, PROPERTYKEY.Ptr, propertiesToRetrieve, "uint", propertiesToRetrieveCount, "ptr*", &retrievedProperties := 0, "HRESULT")
+        result := ComCall(3, this, PROPERTYKEY.Ptr, propertiesToRetrieve, UInt32, propertiesToRetrieveCount, "ptr*", &retrievedProperties := 0, "HRESULT")
         return IPropertyStore(retrievedProperties)
     }
 

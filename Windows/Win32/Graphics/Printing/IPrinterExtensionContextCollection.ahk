@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IPrinterExtensionContext.ahk" { IPrinterExtensionContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -68,7 +68,7 @@ export default struct IPrinterExtensionContextCollection extends IDispatch {
      * @returns {IPrinterExtensionContext} 
      */
     GetAt(ulIndex) {
-        result := ComCall(8, this, "uint", ulIndex, "ptr*", &ppContext := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, ulIndex, "ptr*", &ppContext := 0, "HRESULT")
         return IPrinterExtensionContext(ppContext)
     }
 

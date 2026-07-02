@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D3D12_DRED_BREADCRUMB_CONTEXT.ahk" { D3D12_DRED_BREADCRUMB_CONTEXT }
-#Import ".\ID3D12GraphicsCommandList.ahk" { ID3D12GraphicsCommandList }
-#Import ".\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
 #Import ".\D3D12_AUTO_BREADCRUMB_OP.ahk" { D3D12_AUTO_BREADCRUMB_OP }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import ".\ID3D12GraphicsCommandList.ahk" { ID3D12GraphicsCommandList }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

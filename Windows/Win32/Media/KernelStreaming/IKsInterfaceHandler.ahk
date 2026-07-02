@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IKsDataTypeHandler.ahk" { IKsDataTypeHandler }
-#Import ".\KSSTREAM_SEGMENT.ahk" { KSSTREAM_SEGMENT }
-#Import ".\IKsPin.ahk" { IKsPin }
-#Import ".\KSIOOPERATION.ahk" { KSIOOPERATION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\DirectShow\IMediaSample.ahk" { IMediaSample }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IKsPin.ahk" { IKsPin }
+#Import "..\DirectShow\IMediaSample.ahk" { IMediaSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSIOOPERATION.ahk" { KSIOOPERATION }
+#Import ".\KSSTREAM_SEGMENT.ahk" { KSSTREAM_SEGMENT }
+#Import ".\IKsDataTypeHandler.ahk" { IKsDataTypeHandler }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

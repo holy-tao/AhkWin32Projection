@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMPDownloadItem2.ahk" { IWMPDownloadItem2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -84,7 +84,7 @@ export default struct IWMPDownloadCollection extends IDispatch {
      * @returns {IWMPDownloadItem2} 
      */
     item(_lItem) {
-        result := ComCall(9, this, "int", _lItem, "ptr*", &ppDownload := 0, "HRESULT")
+        result := ComCall(9, this, Int32, _lItem, "ptr*", &ppDownload := 0, "HRESULT")
         return IWMPDownloadItem2(ppDownload)
     }
 
@@ -108,7 +108,7 @@ export default struct IWMPDownloadCollection extends IDispatch {
      * @returns {HRESULT} 
      */
     removeItem(_lItem) {
-        result := ComCall(11, this, "int", _lItem, "HRESULT")
+        result := ComCall(11, this, Int32, _lItem, "HRESULT")
         return result
     }
 

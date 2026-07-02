@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\IEnroll.ahk" { IEnroll }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IEnroll.ahk" { IEnroll }
 
 /**
  * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll2)
@@ -169,7 +169,7 @@ export default struct IEnroll2 extends IEnroll {
     EnumAlgs(dwIndex, algClass, pdwAlgID) {
         pdwAlgIDMarshal := pdwAlgID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(77, this, "int", dwIndex, "int", algClass, pdwAlgIDMarshal, pdwAlgID, "HRESULT")
+        result := ComCall(77, this, Int32, dwIndex, Int32, algClass, pdwAlgIDMarshal, pdwAlgID, "HRESULT")
         return result
     }
 
@@ -188,7 +188,7 @@ export default struct IEnroll2 extends IEnroll {
     GetAlgNameWStr(algID, ppwsz) {
         ppwszMarshal := ppwsz is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(78, this, "int", algID, ppwszMarshal, ppwsz, "HRESULT")
+        result := ComCall(78, this, Int32, algID, ppwszMarshal, ppwsz, "HRESULT")
         return result
     }
 
@@ -231,7 +231,7 @@ export default struct IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-put_hashalgid
      */
     put_HashAlgID(hashAlgID) {
-        result := ComCall(81, this, "int", hashAlgID, "HRESULT")
+        result := ComCall(81, this, Int32, hashAlgID, "HRESULT")
         return result
     }
 

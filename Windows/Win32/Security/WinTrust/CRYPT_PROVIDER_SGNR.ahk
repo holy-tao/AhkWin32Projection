@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
 #Import "..\Cryptography\CMSG_SIGNER_INFO.ahk" { CMSG_SIGNER_INFO }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\Cryptography\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
 #Import ".\CRYPT_PROVIDER_CERT.ahk" { CRYPT_PROVIDER_CERT }
 
 /**

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MILMatrixF.ahk" { MILMatrixF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MilRectD.ahk" { MilRectD }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that define a IMILBitmapEffectRenderContext object.
@@ -134,7 +134,7 @@ export default struct IMILBitmapEffectRenderContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-setoutputdpi
      */
     SetOutputDPI(dblDpiX, dblDpiY) {
-        result := ComCall(8, this, "double", dblDpiX, "double", dblDpiY, "HRESULT")
+        result := ComCall(8, this, Float64, dblDpiX, Float64, dblDpiY, "HRESULT")
         return result
     }
 

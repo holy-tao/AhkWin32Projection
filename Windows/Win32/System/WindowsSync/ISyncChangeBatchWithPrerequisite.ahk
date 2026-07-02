@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IForgottenKnowledge.ahk" { IForgottenKnowledge }
-#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 
 /**
  * Represents metadata about a change batch that is based on the prerequisite knowledge associated with the change batch.

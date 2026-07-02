@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITableDefinition.ahk" { ITableDefinition }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import ".\ITableDefinition.ahk" { ITableDefinition }
+#Import ".\DBCOLUMNDESC.ahk" { DBCOLUMNDESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DBCONSTRAINTDESC.ahk" { DBCONSTRAINTDESC }
-#Import ".\DBCOLUMNDESC.ahk" { DBCOLUMNDESC }
-#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 
 /**
  * @namespace Windows.Win32.System.Search

@@ -1,81 +1,89 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\MIB_UDPSTATS2.ahk" { MIB_UDPSTATS2 }
-#Import ".\MIB_IF_TABLE2.ahk" { MIB_IF_TABLE2 }
-#Import ".\PFADDRESSTYPE.ahk" { PFADDRESSTYPE }
-#Import ".\MIB_IF_ENTRY_LEVEL.ahk" { MIB_IF_ENTRY_LEVEL }
-#Import ".\MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES.ahk" { MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES }
-#Import ".\MIB_IPFORWARDROW.ahk" { MIB_IPFORWARDROW }
 #Import ".\MIB_IFROW.ahk" { MIB_IFROW }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
-#Import ".\MIB_IPNET_TABLE2.ahk" { MIB_IPNET_TABLE2 }
-#Import ".\MIB_UDPSTATS.ahk" { MIB_UDPSTATS }
-#Import ".\MIB_UDP6ROW_OWNER_MODULE.ahk" { MIB_UDP6ROW_OWNER_MODULE }
-#Import ".\MIB_TCP6ROW.ahk" { MIB_TCP6ROW }
-#Import ".\MIB_TCPSTATS2.ahk" { MIB_TCPSTATS2 }
-#Import ".\PF_LATEBIND_INFO.ahk" { PF_LATEBIND_INFO }
-#Import ".\MIB_IPFORWARD_TABLE2.ahk" { MIB_IPFORWARD_TABLE2 }
-#Import ".\IP_OPTION_INFORMATION.ahk" { IP_OPTION_INFORMATION }
-#Import ".\GLOBAL_FILTER.ahk" { GLOBAL_FILTER }
-#Import "..\..\Networking\WinSock\SOCKADDR_IN6_PAIR.ahk" { SOCKADDR_IN6_PAIR }
-#Import ".\MIB_UDPROW_OWNER_MODULE.ahk" { MIB_UDPROW_OWNER_MODULE }
-#Import ".\MIB_IPNET_ROW2.ahk" { MIB_IPNET_ROW2 }
-#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
-#Import ".\INTERFACE_HARDWARE_CROSSTIMESTAMP.ahk" { INTERFACE_HARDWARE_CROSSTIMESTAMP }
-#Import ".\MIB_IPINTERFACE_ROW.ahk" { MIB_IPINTERFACE_ROW }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\MIB_IF_TABLE_LEVEL.ahk" { MIB_IF_TABLE_LEVEL }
-#Import ".\MIB_TCPSTATS_LH.ahk" { MIB_TCPSTATS_LH }
-#Import ".\DNS_SETTINGS.ahk" { DNS_SETTINGS }
-#Import ".\PF_INTERFACE_STATS.ahk" { PF_INTERFACE_STATS }
-#Import ".\MIB_IFSTACK_TABLE.ahk" { MIB_IFSTACK_TABLE }
-#Import ".\MIB_IPINTERFACE_TABLE.ahk" { MIB_IPINTERFACE_TABLE }
-#Import ".\PF_FILTER_DESCRIPTOR.ahk" { PF_FILTER_DESCRIPTOR }
-#Import ".\MIB_IF_ROW2.ahk" { MIB_IF_ROW2 }
-#Import ".\IP_ADAPTER_INDEX_MAP.ahk" { IP_ADAPTER_INDEX_MAP }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MIB_ANYCASTIPADDRESS_ROW.ahk" { MIB_ANYCASTIPADDRESS_ROW }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\TCP_TABLE_CLASS.ahk" { TCP_TABLE_CLASS }
-#Import ".\MIB_UNICASTIPADDRESS_ROW.ahk" { MIB_UNICASTIPADDRESS_ROW }
-#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
-#Import ".\IP_ADAPTER_ORDER_MAP.ahk" { IP_ADAPTER_ORDER_MAP }
-#Import ".\TCP_ESTATS_TYPE.ahk" { TCP_ESTATS_TYPE }
+#Import ".\PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK.ahk" { PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
 #Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\HIFTIMESTAMPCHANGE.ahk" { HIFTIMESTAMPCHANGE }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\MIB_IF_TABLE2.ahk" { MIB_IF_TABLE2 }
+#Import ".\TCP_TABLE_CLASS.ahk" { TCP_TABLE_CLASS }
+#Import ".\GET_ADAPTERS_ADDRESSES_FLAGS.ahk" { GET_ADAPTERS_ADDRESSES_FLAGS }
+#Import ".\MIB_IPNETROW_LH.ahk" { MIB_IPNETROW_LH }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import ".\MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES.ahk" { MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES }
+#Import ".\DNS_INTERFACE_SETTINGS.ahk" { DNS_INTERFACE_SETTINGS }
+#Import ".\PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK.ahk" { PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\PF_FILTER_DESCRIPTOR.ahk" { PF_FILTER_DESCRIPTOR }
+#Import ".\MIB_TCP6ROW_OWNER_MODULE.ahk" { MIB_TCP6ROW_OWNER_MODULE }
+#Import ".\MIB_ICMP_EX_XPSP1.ahk" { MIB_ICMP_EX_XPSP1 }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import ".\MIB_INVERTEDIFSTACK_TABLE.ahk" { MIB_INVERTEDIFSTACK_TABLE }
 #Import ".\MIB_TCPROW_OWNER_MODULE.ahk" { MIB_TCPROW_OWNER_MODULE }
 #Import ".\INTERFACE_TIMESTAMP_CAPABILITIES.ahk" { INTERFACE_TIMESTAMP_CAPABILITIES }
-#Import ".\MIB_IPNETROW_LH.ahk" { MIB_IPNETROW_LH }
-#Import ".\MIB_UNICASTIPADDRESS_TABLE.ahk" { MIB_UNICASTIPADDRESS_TABLE }
-#Import ".\MIB_INVERTEDIFSTACK_TABLE.ahk" { MIB_INVERTEDIFSTACK_TABLE }
+#Import ".\MIB_IPFORWARDROW.ahk" { MIB_IPFORWARDROW }
+#Import ".\IP_ADAPTER_ORDER_MAP.ahk" { IP_ADAPTER_ORDER_MAP }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IP_OPTION_INFORMATION.ahk" { IP_OPTION_INFORMATION }
+#Import ".\MIB_ICMP.ahk" { MIB_ICMP }
+#Import ".\MIB_IF_TABLE_LEVEL.ahk" { MIB_IF_TABLE_LEVEL }
+#Import ".\HIFTIMESTAMPCHANGE.ahk" { HIFTIMESTAMPCHANGE }
+#Import ".\MIB_UDPSTATS.ahk" { MIB_UDPSTATS }
+#Import ".\MIB_UDPSTATS2.ahk" { MIB_UDPSTATS2 }
+#Import "..\Ndis\NET_IF_COMPARTMENT_ID.ahk" { NET_IF_COMPARTMENT_ID }
 #Import ".\MIB_IPPATH_TABLE.ahk" { MIB_IPPATH_TABLE }
 #Import ".\UDP_TABLE_CLASS.ahk" { UDP_TABLE_CLASS }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import "..\Ndis\NET_IF_COMPARTMENT_ID.ahk" { NET_IF_COMPARTMENT_ID }
-#Import ".\IP_INTERFACE_NAME_INFO_W2KSP1.ahk" { IP_INTERFACE_NAME_INFO_W2KSP1 }
-#Import "..\..\Networking\WinSock\NL_NETWORK_CONNECTIVITY_HINT.ahk" { NL_NETWORK_CONNECTIVITY_HINT }
-#Import ".\MIB_FL_VIRTUAL_INTERFACE_ROW.ahk" { MIB_FL_VIRTUAL_INTERFACE_ROW }
-#Import ".\MIB_IPPATH_ROW.ahk" { MIB_IPPATH_ROW }
-#Import ".\MIB_ICMP_EX_XPSP1.ahk" { MIB_ICMP_EX_XPSP1 }
-#Import ".\GET_ADAPTERS_ADDRESSES_FLAGS.ahk" { GET_ADAPTERS_ADDRESSES_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PFFORWARD_ACTION.ahk" { PFFORWARD_ACTION }
-#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
-#Import ".\TCPIP_OWNER_MODULE_INFO_CLASS.ahk" { TCPIP_OWNER_MODULE_INFO_CLASS }
-#Import ".\MIB_IPFORWARD_ROW2.ahk" { MIB_IPFORWARD_ROW2 }
-#Import ".\MIB_TCP6ROW_OWNER_MODULE.ahk" { MIB_TCP6ROW_OWNER_MODULE }
 #Import ".\MIB_MULTICASTIPADDRESS_ROW.ahk" { MIB_MULTICASTIPADDRESS_ROW }
-#Import ".\MIB_ICMP.ahk" { MIB_ICMP }
-#Import ".\DNS_INTERFACE_SETTINGS.ahk" { DNS_INTERFACE_SETTINGS }
+#Import ".\PIPINTERFACE_CHANGE_CALLBACK.ahk" { PIPINTERFACE_CHANGE_CALLBACK }
+#Import ".\IP_ADAPTER_INDEX_MAP.ahk" { IP_ADAPTER_INDEX_MAP }
+#Import ".\PFADDRESSTYPE.ahk" { PFADDRESSTYPE }
+#Import ".\PFFORWARD_ACTION.ahk" { PFFORWARD_ACTION }
+#Import ".\MIB_IPFORWARD_ROW2.ahk" { MIB_IPFORWARD_ROW2 }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import ".\MIB_IPPATH_ROW.ahk" { MIB_IPPATH_ROW }
+#Import ".\TCPIP_OWNER_MODULE_INFO_CLASS.ahk" { TCPIP_OWNER_MODULE_INFO_CLASS }
+#Import ".\MIB_UDP6ROW_OWNER_MODULE.ahk" { MIB_UDP6ROW_OWNER_MODULE }
+#Import ".\TCP_ESTATS_TYPE.ahk" { TCP_ESTATS_TYPE }
+#Import ".\MIB_IPFORWARD_TABLE2.ahk" { MIB_IPFORWARD_TABLE2 }
+#Import ".\MIB_TCPSTATS_LH.ahk" { MIB_TCPSTATS_LH }
+#Import ".\PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK.ahk" { PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK }
+#Import ".\MIB_IPINTERFACE_TABLE.ahk" { MIB_IPINTERFACE_TABLE }
+#Import ".\MIB_IPNET_ROW2.ahk" { MIB_IPNET_ROW2 }
+#Import ".\MIB_FL_VIRTUAL_INTERFACE_ROW.ahk" { MIB_FL_VIRTUAL_INTERFACE_ROW }
+#Import ".\MIB_IF_ENTRY_LEVEL.ahk" { MIB_IF_ENTRY_LEVEL }
+#Import ".\PUNICAST_IPADDRESS_CHANGE_CALLBACK.ahk" { PUNICAST_IPADDRESS_CHANGE_CALLBACK }
 #Import ".\MIB_MULTICASTIPADDRESS_TABLE.ahk" { MIB_MULTICASTIPADDRESS_TABLE }
-#Import ".\MIB_IPSTATS_LH.ahk" { MIB_IPSTATS_LH }
+#Import ".\MIB_TCPSTATS2.ahk" { MIB_TCPSTATS2 }
+#Import ".\MIB_IPINTERFACE_ROW.ahk" { MIB_IPINTERFACE_ROW }
+#Import ".\GLOBAL_FILTER.ahk" { GLOBAL_FILTER }
+#Import ".\IP_INTERFACE_NAME_INFO_W2KSP1.ahk" { IP_INTERFACE_NAME_INFO_W2KSP1 }
+#Import ".\MIB_UNICASTIPADDRESS_ROW.ahk" { MIB_UNICASTIPADDRESS_ROW }
+#Import "..\..\Networking\WinSock\NL_NETWORK_CONNECTIVITY_HINT.ahk" { NL_NETWORK_CONNECTIVITY_HINT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\MIB_TCP6ROW.ahk" { MIB_TCP6ROW }
+#Import ".\PF_LATEBIND_INFO.ahk" { PF_LATEBIND_INFO }
+#Import ".\INTERFACE_HARDWARE_CROSSTIMESTAMP.ahk" { INTERFACE_HARDWARE_CROSSTIMESTAMP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\MIB_FL_VIRTUAL_INTERFACE_TABLE.ahk" { MIB_FL_VIRTUAL_INTERFACE_TABLE }
-#Import ".\MIB_ANYCASTIPADDRESS_TABLE.ahk" { MIB_ANYCASTIPADDRESS_TABLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\NET_ADDRESS_INFO.ahk" { NET_ADDRESS_INFO }
-#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import ".\MIB_IF_ROW2.ahk" { MIB_IF_ROW2 }
+#Import ".\MIB_UNICASTIPADDRESS_TABLE.ahk" { MIB_UNICASTIPADDRESS_TABLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\MIB_UDPROW_OWNER_MODULE.ahk" { MIB_UDPROW_OWNER_MODULE }
+#Import ".\PTEREDO_PORT_CHANGE_CALLBACK.ahk" { PTEREDO_PORT_CHANGE_CALLBACK }
+#Import ".\MIB_IPSTATS_LH.ahk" { MIB_IPSTATS_LH }
+#Import ".\MIB_ANYCASTIPADDRESS_TABLE.ahk" { MIB_ANYCASTIPADDRESS_TABLE }
+#Import ".\PIPFORWARD_CHANGE_CALLBACK.ahk" { PIPFORWARD_CHANGE_CALLBACK }
+#Import "..\..\System\IO\PIO_APC_ROUTINE.ahk" { PIO_APC_ROUTINE }
+#Import ".\MIB_ANYCASTIPADDRESS_ROW.ahk" { MIB_ANYCASTIPADDRESS_ROW }
+#Import ".\MIB_IFSTACK_TABLE.ahk" { MIB_IFSTACK_TABLE }
+#Import ".\MIB_IPNET_TABLE2.ahk" { MIB_IPNET_TABLE2 }
 #Import ".\MIB_TCPROW_LH.ahk" { MIB_TCPROW_LH }
+#Import ".\PF_INTERFACE_STATS.ahk" { PF_INTERFACE_STATS }
+#Import ".\DNS_SETTINGS.ahk" { DNS_SETTINGS }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6_PAIR.ahk" { SOCKADDR_IN6_PAIR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -273,7 +281,7 @@ export IcmpCloseHandle(IcmpHandle) {
 export IcmpSendEcho(IcmpHandle, DestinationAddress, RequestData, RequestSize, RequestOptions, ReplyBuffer, ReplySize, Timeout) {
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\IcmpSendEcho", HANDLE, IcmpHandle, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\IcmpSendEcho", HANDLE, IcmpHandle, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -369,7 +377,7 @@ export IcmpSendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, DestinationAddre
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", HANDLE, IcmpHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", HANDLE, IcmpHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -581,7 +589,7 @@ export IcmpSendEcho2Ex(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress,
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", HANDLE, IcmpHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, "uint", SourceAddress, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", HANDLE, IcmpHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, UInt32, SourceAddress, UInt32, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -850,7 +858,7 @@ export Icmp6SendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress, 
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", HANDLE, IcmpHandle, HANDLE, Event, "ptr", ApcRoutine, ApcContextMarshal, ApcContext, SOCKADDR_IN6.Ptr, SourceAddress, SOCKADDR_IN6.Ptr, DestinationAddress, "ptr", RequestData, "ushort", RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, UInt32)
+    result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", HANDLE, IcmpHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, SOCKADDR_IN6.Ptr, SourceAddress, SOCKADDR_IN6.Ptr, DestinationAddress, IntPtr, RequestData, UInt16, RequestSize, IP_OPTION_INFORMATION.Ptr, RequestOptions, IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32, Timeout, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -884,7 +892,7 @@ export Icmp6SendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress, 
 export IcmpParseReplies(ReplyBuffer, ReplySize) {
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\IcmpParseReplies", "ptr", ReplyBuffer, "uint", ReplySize, UInt32)
+    result := DllCall("IPHLPAPI.dll\IcmpParseReplies", IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -949,7 +957,7 @@ export IcmpParseReplies(ReplyBuffer, ReplySize) {
 export Icmp6ParseReplies(ReplyBuffer, ReplySize) {
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\Icmp6ParseReplies", "ptr", ReplyBuffer, "uint", ReplySize, UInt32)
+    result := DllCall("IPHLPAPI.dll\Icmp6ParseReplies", IntPtr, ReplyBuffer, UInt32, ReplySize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1153,7 +1161,7 @@ export GetIfEntry(pIfRow) {
 export GetIfTable(pIfTable, pdwSize, bOrder) {
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetIfTable", "ptr", pIfTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetIfTable", IntPtr, pIfTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, UInt32)
     return result
 }
 
@@ -1250,7 +1258,7 @@ export GetIfTable(pIfTable, pdwSize, bOrder) {
 export GetIpAddrTable(pIpAddrTable, pdwSize, bOrder) {
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetIpAddrTable", "ptr", pIpAddrTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetIpAddrTable", IntPtr, pIpAddrTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, UInt32)
     return result
 }
 
@@ -1346,7 +1354,7 @@ export GetIpAddrTable(pIpAddrTable, pdwSize, bOrder) {
 export GetIpNetTable(IpNetTable, SizePointer, Order) {
     SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetIpNetTable", "ptr", IpNetTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetIpNetTable", IntPtr, IpNetTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
     return result
 }
 
@@ -1466,7 +1474,7 @@ export GetIpNetTable(IpNetTable, SizePointer, Order) {
 export GetIpForwardTable(pIpForwardTable, pdwSize, bOrder) {
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetIpForwardTable", "ptr", pIpForwardTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetIpForwardTable", IntPtr, pIpForwardTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, UInt32)
     return result
 }
 
@@ -1565,7 +1573,7 @@ export GetIpForwardTable(pIpForwardTable, pdwSize, bOrder) {
 export GetTcpTable(TcpTable, SizePointer, Order) {
     SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetTcpTable", "ptr", TcpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetTcpTable", IntPtr, TcpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
     return result
 }
 
@@ -1779,7 +1787,7 @@ export GetTcpTable(TcpTable, SizePointer, Order) {
 export GetExtendedTcpTable(pTcpTable, pdwSize, bOrder, ulAf, TableClass, Reserved) {
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetExtendedTcpTable", "ptr", pTcpTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, "uint", ulAf, TCP_TABLE_CLASS, TableClass, "uint", Reserved, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetExtendedTcpTable", IntPtr, pTcpTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, UInt32, ulAf, TCP_TABLE_CLASS, TableClass, UInt32, Reserved, UInt32)
     return result
 }
 
@@ -1887,7 +1895,7 @@ export GetExtendedTcpTable(pTcpTable, pdwSize, bOrder, ulAf, TableClass, Reserve
 export GetOwnerModuleFromTcpEntry(pTcpEntry, _Class, pBuffer, pdwSize) {
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", MIB_TCPROW_OWNER_MODULE.Ptr, pTcpEntry, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", MIB_TCPROW_OWNER_MODULE.Ptr, pTcpEntry, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, IntPtr, pBuffer, pdwSizeMarshal, pdwSize, UInt32)
     return result
 }
 
@@ -1976,7 +1984,7 @@ export GetOwnerModuleFromTcpEntry(pTcpEntry, _Class, pBuffer, pdwSize) {
 export GetUdpTable(UdpTable, SizePointer, Order) {
     SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetUdpTable", "ptr", UdpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetUdpTable", IntPtr, UdpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
     return result
 }
 
@@ -2135,7 +2143,7 @@ export GetUdpTable(UdpTable, SizePointer, Order) {
 export GetExtendedUdpTable(pUdpTable, pdwSize, bOrder, ulAf, TableClass, Reserved) {
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetExtendedUdpTable", "ptr", pUdpTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, "uint", ulAf, UDP_TABLE_CLASS, TableClass, "uint", Reserved, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetExtendedUdpTable", IntPtr, pUdpTable, pdwSizeMarshal, pdwSize, BOOL, bOrder, UInt32, ulAf, UDP_TABLE_CLASS, TableClass, UInt32, Reserved, UInt32)
     return result
 }
 
@@ -2191,7 +2199,7 @@ export GetExtendedUdpTable(pUdpTable, pdwSize, bOrder, ulAf, TableClass, Reserve
 export GetOwnerModuleFromUdpEntry(pUdpEntry, _Class, pBuffer, pdwSize) {
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", MIB_UDPROW_OWNER_MODULE.Ptr, pUdpEntry, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", MIB_UDPROW_OWNER_MODULE.Ptr, pUdpEntry, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, IntPtr, pBuffer, pdwSizeMarshal, pdwSize, UInt32)
     return result
 }
 
@@ -2284,7 +2292,7 @@ export GetOwnerModuleFromUdpEntry(pUdpEntry, _Class, pBuffer, pdwSize) {
 export GetTcpTable2(TcpTable, SizePointer, Order) {
     SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetTcpTable2", "ptr", TcpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetTcpTable2", IntPtr, TcpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
     return result
 }
 
@@ -2372,7 +2380,7 @@ export GetTcpTable2(TcpTable, SizePointer, Order) {
 export GetTcp6Table(TcpTable, SizePointer, Order) {
     SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetTcp6Table", "ptr", TcpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetTcp6Table", IntPtr, TcpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
     return result
 }
 
@@ -2464,7 +2472,7 @@ export GetTcp6Table(TcpTable, SizePointer, Order) {
 export GetTcp6Table2(TcpTable, SizePointer, Order) {
     SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetTcp6Table2", "ptr", TcpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetTcp6Table2", IntPtr, TcpTable, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
     return result
 }
 
@@ -2751,7 +2759,7 @@ export GetTcp6Table2(TcpTable, SizePointer, Order) {
  * @since windows6.0.6000
  */
 export GetPerTcpConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Ros, RosVersion, RosSize, Rod, RodVersion, RodSize) {
-    result := DllCall("IPHLPAPI.dll\GetPerTcpConnectionEStats", MIB_TCPROW_LH.Ptr, Row, TCP_ESTATS_TYPE, EstatsType, "ptr", Rw, "uint", RwVersion, "uint", RwSize, "ptr", Ros, "uint", RosVersion, "uint", RosSize, "ptr", Rod, "uint", RodVersion, "uint", RodSize, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetPerTcpConnectionEStats", MIB_TCPROW_LH.Ptr, Row, TCP_ESTATS_TYPE, EstatsType, IntPtr, Rw, UInt32, RwVersion, UInt32, RwSize, IntPtr, Ros, UInt32, RosVersion, UInt32, RosSize, IntPtr, Rod, UInt32, RodVersion, UInt32, RodSize, UInt32)
     return result
 }
 
@@ -2935,7 +2943,7 @@ export GetPerTcpConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Ros, Ro
  * @since windows6.0.6000
  */
 export SetPerTcpConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Offset) {
-    result := DllCall("IPHLPAPI.dll\SetPerTcpConnectionEStats", MIB_TCPROW_LH.Ptr, Row, TCP_ESTATS_TYPE, EstatsType, "ptr", Rw, "uint", RwVersion, "uint", RwSize, "uint", Offset, UInt32)
+    result := DllCall("IPHLPAPI.dll\SetPerTcpConnectionEStats", MIB_TCPROW_LH.Ptr, Row, TCP_ESTATS_TYPE, EstatsType, IntPtr, Rw, UInt32, RwVersion, UInt32, RwSize, UInt32, Offset, UInt32)
     return result
 }
 
@@ -3222,7 +3230,7 @@ export SetPerTcpConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Offset)
  * @since windows6.0.6000
  */
 export GetPerTcp6ConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Ros, RosVersion, RosSize, Rod, RodVersion, RodSize) {
-    result := DllCall("IPHLPAPI.dll\GetPerTcp6ConnectionEStats", MIB_TCP6ROW.Ptr, Row, TCP_ESTATS_TYPE, EstatsType, "ptr", Rw, "uint", RwVersion, "uint", RwSize, "ptr", Ros, "uint", RosVersion, "uint", RosSize, "ptr", Rod, "uint", RodVersion, "uint", RodSize, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetPerTcp6ConnectionEStats", MIB_TCP6ROW.Ptr, Row, TCP_ESTATS_TYPE, EstatsType, IntPtr, Rw, UInt32, RwVersion, UInt32, RwSize, IntPtr, Ros, UInt32, RosVersion, UInt32, RosSize, IntPtr, Rod, UInt32, RodVersion, UInt32, RodSize, UInt32)
     return result
 }
 
@@ -3509,7 +3517,7 @@ export GetPerTcp6ConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Ros, R
  * @since windows6.0.6000
  */
 export SetPerTcp6ConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Offset) {
-    result := DllCall("IPHLPAPI.dll\SetPerTcp6ConnectionEStats", MIB_TCP6ROW.Ptr, Row, TCP_ESTATS_TYPE, EstatsType, "ptr", Rw, "uint", RwVersion, "uint", RwSize, "uint", Offset, UInt32)
+    result := DllCall("IPHLPAPI.dll\SetPerTcp6ConnectionEStats", MIB_TCP6ROW.Ptr, Row, TCP_ESTATS_TYPE, EstatsType, IntPtr, Rw, UInt32, RwVersion, UInt32, RwSize, UInt32, Offset, UInt32)
     return result
 }
 
@@ -3617,7 +3625,7 @@ export SetPerTcp6ConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Offset
 export GetOwnerModuleFromTcp6Entry(pTcpEntry, _Class, pBuffer, pdwSize) {
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", MIB_TCP6ROW_OWNER_MODULE.Ptr, pTcpEntry, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", MIB_TCP6ROW_OWNER_MODULE.Ptr, pTcpEntry, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, IntPtr, pBuffer, pdwSizeMarshal, pdwSize, UInt32)
     return result
 }
 
@@ -3703,7 +3711,7 @@ export GetOwnerModuleFromTcp6Entry(pTcpEntry, _Class, pBuffer, pdwSize) {
 export GetUdp6Table(Udp6Table, SizePointer, Order) {
     SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetUdp6Table", "ptr", Udp6Table, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetUdp6Table", IntPtr, Udp6Table, SizePointerMarshal, SizePointer, BOOL, Order, UInt32)
     return result
 }
 
@@ -3759,7 +3767,7 @@ export GetUdp6Table(Udp6Table, SizePointer, Order) {
 export GetOwnerModuleFromUdp6Entry(pUdpEntry, _Class, pBuffer, pdwSize) {
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", MIB_UDP6ROW_OWNER_MODULE.Ptr, pUdpEntry, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", MIB_UDP6ROW_OWNER_MODULE.Ptr, pUdpEntry, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, IntPtr, pBuffer, pdwSizeMarshal, pdwSize, UInt32)
     return result
 }
 
@@ -3776,7 +3784,7 @@ export GetOwnerModuleFromPidAndInfo(ulPid, pInfo, _Class, pBuffer, pdwSize) {
     pInfoMarshal := pInfo is VarRef ? "uint*" : "ptr"
     pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", "uint", ulPid, pInfoMarshal, pInfo, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, "ptr", pBuffer, pdwSizeMarshal, pdwSize, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", UInt32, ulPid, pInfoMarshal, pInfo, TCPIP_OWNER_MODULE_INFO_CLASS, _Class, IntPtr, pBuffer, pdwSizeMarshal, pdwSize, UInt32)
     return result
 }
 
@@ -4052,7 +4060,7 @@ export GetUdpStatistics(Stats) {
  * @since windows6.0.6000
  */
 export SetIpStatisticsEx(Statistics, Family) {
-    result := DllCall("IPHLPAPI.dll\SetIpStatisticsEx", MIB_IPSTATS_LH.Ptr, Statistics, "uint", Family, UInt32)
+    result := DllCall("IPHLPAPI.dll\SetIpStatisticsEx", MIB_IPSTATS_LH.Ptr, Statistics, UInt32, Family, UInt32)
     return result
 }
 
@@ -4114,7 +4122,7 @@ export SetIpStatisticsEx(Statistics, Family) {
  * @since windows5.1.2600
  */
 export GetIpStatisticsEx(Statistics, Family) {
-    result := DllCall("IPHLPAPI.dll\GetIpStatisticsEx", MIB_IPSTATS_LH.Ptr, Statistics, "uint", Family, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetIpStatisticsEx", MIB_IPSTATS_LH.Ptr, Statistics, UInt32, Family, UInt32)
     return result
 }
 
@@ -4205,7 +4213,7 @@ export GetIpStatisticsEx(Statistics, Family) {
  * @since windows5.1.2600
  */
 export GetIcmpStatisticsEx(Statistics, Family) {
-    result := DllCall("IPHLPAPI.dll\GetIcmpStatisticsEx", MIB_ICMP_EX_XPSP1.Ptr, Statistics, "uint", Family, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetIcmpStatisticsEx", MIB_ICMP_EX_XPSP1.Ptr, Statistics, UInt32, Family, UInt32)
     return result
 }
 
@@ -4262,7 +4270,7 @@ export GetIcmpStatisticsEx(Statistics, Family) {
  * @since windows5.1.2600
  */
 export GetTcpStatisticsEx(Statistics, Family) {
-    result := DllCall("IPHLPAPI.dll\GetTcpStatisticsEx", MIB_TCPSTATS_LH.Ptr, Statistics, "uint", Family, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetTcpStatisticsEx", MIB_TCPSTATS_LH.Ptr, Statistics, UInt32, Family, UInt32)
     return result
 }
 
@@ -4319,7 +4327,7 @@ export GetTcpStatisticsEx(Statistics, Family) {
  * @since windows5.1.2600
  */
 export GetUdpStatisticsEx(Statistics, Family) {
-    result := DllCall("IPHLPAPI.dll\GetUdpStatisticsEx", MIB_UDPSTATS.Ptr, Statistics, "uint", Family, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetUdpStatisticsEx", MIB_UDPSTATS.Ptr, Statistics, UInt32, Family, UInt32)
     return result
 }
 
@@ -4376,7 +4384,7 @@ export GetUdpStatisticsEx(Statistics, Family) {
  * @since windows10.0.16299
  */
 export GetTcpStatisticsEx2(Statistics, Family) {
-    result := DllCall("IPHLPAPI.dll\GetTcpStatisticsEx2", MIB_TCPSTATS2.Ptr, Statistics, "uint", Family, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetTcpStatisticsEx2", MIB_TCPSTATS2.Ptr, Statistics, UInt32, Family, UInt32)
     return result
 }
 
@@ -4433,7 +4441,7 @@ export GetTcpStatisticsEx2(Statistics, Family) {
  * @since windows10.0.16299
  */
 export GetUdpStatisticsEx2(Statistics, Family) {
-    result := DllCall("IPHLPAPI.dll\GetUdpStatisticsEx2", MIB_UDPSTATS2.Ptr, Statistics, "uint", Family, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetUdpStatisticsEx2", MIB_UDPSTATS2.Ptr, Statistics, UInt32, Family, UInt32)
     return result
 }
 
@@ -4973,7 +4981,7 @@ export SetIpStatistics(pIpStats) {
  * @since windows5.0
  */
 export SetIpTTL(nTTL) {
-    result := DllCall("IPHLPAPI.dll\SetIpTTL", "uint", nTTL, UInt32)
+    result := DllCall("IPHLPAPI.dll\SetIpTTL", UInt32, nTTL, UInt32)
     return result
 }
 
@@ -5284,7 +5292,7 @@ export DeleteIpNetEntry(pArpEntry) {
  * @since windows5.0
  */
 export FlushIpNetTable(dwIfIndex) {
-    result := DllCall("IPHLPAPI.dll\FlushIpNetTable", "uint", dwIfIndex, UInt32)
+    result := DllCall("IPHLPAPI.dll\FlushIpNetTable", UInt32, dwIfIndex, UInt32)
     return result
 }
 
@@ -5361,7 +5369,7 @@ export FlushIpNetTable(dwIfIndex) {
  * @since windows5.0
  */
 export CreateProxyArpEntry(dwAddress, dwMask, dwIfIndex) {
-    result := DllCall("IPHLPAPI.dll\CreateProxyArpEntry", "uint", dwAddress, "uint", dwMask, "uint", dwIfIndex, UInt32)
+    result := DllCall("IPHLPAPI.dll\CreateProxyArpEntry", UInt32, dwAddress, UInt32, dwMask, UInt32, dwIfIndex, UInt32)
     return result
 }
 
@@ -5438,7 +5446,7 @@ export CreateProxyArpEntry(dwAddress, dwMask, dwIfIndex) {
  * @since windows5.0
  */
 export DeleteProxyArpEntry(dwAddress, dwMask, dwIfIndex) {
-    result := DllCall("IPHLPAPI.dll\DeleteProxyArpEntry", "uint", dwAddress, "uint", dwMask, "uint", dwIfIndex, UInt32)
+    result := DllCall("IPHLPAPI.dll\DeleteProxyArpEntry", UInt32, dwAddress, UInt32, dwMask, UInt32, dwIfIndex, UInt32)
     return result
 }
 
@@ -5618,7 +5626,7 @@ export SetTcpEntry(pTcpRow) {
 export GetInterfaceInfo(pIfTable, dwOutBufLen) {
     dwOutBufLenMarshal := dwOutBufLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetInterfaceInfo", "ptr", pIfTable, dwOutBufLenMarshal, dwOutBufLen, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetInterfaceInfo", IntPtr, pIfTable, dwOutBufLenMarshal, dwOutBufLen, UInt32)
     return result
 }
 
@@ -5636,7 +5644,7 @@ export GetInterfaceInfo(pIfTable, dwOutBufLen) {
 export GetUniDirectionalAdapterInfo(pIPIfInfo, dwOutBufLen) {
     dwOutBufLenMarshal := dwOutBufLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetUniDirectionalAdapterInfo", "ptr", pIPIfInfo, dwOutBufLenMarshal, dwOutBufLen, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetUniDirectionalAdapterInfo", IntPtr, pIPIfInfo, dwOutBufLenMarshal, dwOutBufLen, UInt32)
     return result
 }
 
@@ -5657,7 +5665,7 @@ export NhpAllocateAndGetInterfaceInfoFromStack(ppTable, pdwCount, bOrder, hHeap,
     ppTableMarshal := ppTable is VarRef ? "ptr*" : "ptr"
     pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NhpAllocateAndGetInterfaceInfoFromStack", ppTableMarshal, ppTable, pdwCountMarshal, pdwCount, BOOL, bOrder, HANDLE, hHeap, "uint", dwFlags, UInt32)
+    result := DllCall("IPHLPAPI.dll\NhpAllocateAndGetInterfaceInfoFromStack", ppTableMarshal, ppTable, pdwCountMarshal, pdwCount, BOOL, bOrder, HANDLE, hHeap, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -5735,7 +5743,7 @@ export NhpAllocateAndGetInterfaceInfoFromStack(ppTable, pdwCount, bOrder, hHeap,
 export GetBestInterface(dwDestAddr, pdwBestIfIndex) {
     pdwBestIfIndexMarshal := pdwBestIfIndex is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetBestInterface", "uint", dwDestAddr, pdwBestIfIndexMarshal, pdwBestIfIndex, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetBestInterface", UInt32, dwDestAddr, pdwBestIfIndexMarshal, pdwBestIfIndex, UInt32)
     return result
 }
 
@@ -5833,7 +5841,7 @@ export GetBestInterfaceEx(pDestAddr, pdwBestIfIndex) {
  * @since windows5.0
  */
 export GetBestRoute(dwDestAddr, dwSourceAddr, pBestRoute) {
-    result := DllCall("IPHLPAPI.dll\GetBestRoute", "uint", dwDestAddr, "uint", dwSourceAddr, MIB_IPFORWARDROW.Ptr, pBestRoute, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetBestRoute", UInt32, dwDestAddr, UInt32, dwSourceAddr, MIB_IPFORWARDROW.Ptr, pBestRoute, UInt32)
     return result
 }
 
@@ -6219,7 +6227,7 @@ export AddIPAddress(_Address, IpMask, IfIndex, NTEContext, NTEInstance) {
     NTEContextMarshal := NTEContext is VarRef ? "uint*" : "ptr"
     NTEInstanceMarshal := NTEInstance is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\AddIPAddress", "uint", _Address, "uint", IpMask, "uint", IfIndex, NTEContextMarshal, NTEContext, NTEInstanceMarshal, NTEInstance, UInt32)
+    result := DllCall("IPHLPAPI.dll\AddIPAddress", UInt32, _Address, UInt32, IpMask, UInt32, IfIndex, NTEContextMarshal, NTEContext, NTEInstanceMarshal, NTEInstance, UInt32)
     return result
 }
 
@@ -6293,7 +6301,7 @@ export AddIPAddress(_Address, IpMask, IfIndex, NTEContext, NTEInstance) {
  * @since windows5.0
  */
 export DeleteIPAddress(NTEContext) {
-    result := DllCall("IPHLPAPI.dll\DeleteIPAddress", "uint", NTEContext, UInt32)
+    result := DllCall("IPHLPAPI.dll\DeleteIPAddress", UInt32, NTEContext, UInt32)
     return result
 }
 
@@ -6388,7 +6396,7 @@ export DeleteIPAddress(NTEContext) {
 export GetNetworkParams(pFixedInfo, pOutBufLen) {
     pOutBufLenMarshal := pOutBufLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetNetworkParams", "ptr", pFixedInfo, pOutBufLenMarshal, pOutBufLen, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\GetNetworkParams", IntPtr, pFixedInfo, pOutBufLenMarshal, pOutBufLen, WIN32_ERROR)
     return result
 }
 
@@ -6494,7 +6502,7 @@ export GetNetworkParams(pFixedInfo, pOutBufLen) {
 export GetAdaptersInfo(AdapterInfo, SizePointer) {
     SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetAdaptersInfo", "ptr", AdapterInfo, SizePointerMarshal, SizePointer, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetAdaptersInfo", IntPtr, AdapterInfo, SizePointerMarshal, SizePointer, UInt32)
     return result
 }
 
@@ -6632,7 +6640,7 @@ export GetAdaptersAddresses(Family, Flags, AdapterAddresses, SizePointer) {
 
     SizePointerMarshal := SizePointer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetAdaptersAddresses", "uint", Family, GET_ADAPTERS_ADDRESSES_FLAGS, Flags, "ptr", Reserved, "ptr", AdapterAddresses, SizePointerMarshal, SizePointer, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetAdaptersAddresses", UInt32, Family, GET_ADAPTERS_ADDRESSES_FLAGS, Flags, "ptr", Reserved, IntPtr, AdapterAddresses, SizePointerMarshal, SizePointer, UInt32)
     return result
 }
 
@@ -6713,7 +6721,7 @@ export GetAdaptersAddresses(Family, Flags, AdapterAddresses, SizePointer) {
 export GetPerAdapterInfo(IfIndex, pPerAdapterInfo, pOutBufLen) {
     pOutBufLenMarshal := pOutBufLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetPerAdapterInfo", "uint", IfIndex, "ptr", pPerAdapterInfo, pOutBufLenMarshal, pOutBufLen, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetPerAdapterInfo", UInt32, IfIndex, IntPtr, pPerAdapterInfo, pOutBufLenMarshal, pOutBufLen, UInt32)
     return result
 }
 
@@ -6790,7 +6798,7 @@ export CaptureInterfaceHardwareCrossTimestamp(InterfaceLuid, CrossTimestamp) {
 export RegisterInterfaceTimestampConfigChange(Callback, CallerContext, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\RegisterInterfaceTimestampConfigChange", "ptr", Callback, CallerContextMarshal, CallerContext, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
+    result := DllCall("IPHLPAPI.dll\RegisterInterfaceTimestampConfigChange", PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
     return result
 }
 
@@ -6841,7 +6849,7 @@ export GetInterfaceHardwareTimestampCapabilities(InterfaceLuid, TimestampCapabil
 export NotifyIfTimestampConfigChange(CallerContext, Callback, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.DLL\NotifyIfTimestampConfigChange", CallerContextMarshal, CallerContext, "ptr", Callback, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
+    result := DllCall("IPHLPAPI.DLL\NotifyIfTimestampConfigChange", CallerContextMarshal, CallerContext, PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK, Callback, HIFTIMESTAMPCHANGE.Ptr, NotificationHandle, UInt32)
     return result
 }
 
@@ -7149,7 +7157,7 @@ export IpRenewAddress(AdapterInfo) {
 export SendARP(DestIP, SrcIP, pMacAddr, PhyAddrLen) {
     PhyAddrLenMarshal := PhyAddrLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\SendARP", "uint", DestIP, "uint", SrcIP, "ptr", pMacAddr, PhyAddrLenMarshal, PhyAddrLen, UInt32)
+    result := DllCall("IPHLPAPI.dll\SendARP", UInt32, DestIP, UInt32, SrcIP, IntPtr, pMacAddr, PhyAddrLenMarshal, PhyAddrLen, UInt32)
     return result
 }
 
@@ -7177,7 +7185,7 @@ export GetRTTAndHopCount(DestIpAddress, HopCount, MaxHops, RTT) {
 
     A_LastError := 0
 
-    result := DllCall("IPHLPAPI.dll\GetRTTAndHopCount", "uint", DestIpAddress, HopCountMarshal, HopCount, "uint", MaxHops, RTTMarshal, RTT, BOOL)
+    result := DllCall("IPHLPAPI.dll\GetRTTAndHopCount", UInt32, DestIpAddress, HopCountMarshal, HopCount, UInt32, MaxHops, RTTMarshal, RTT, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7193,7 +7201,7 @@ export GetRTTAndHopCount(DestIpAddress, HopCount, MaxHops, RTT) {
  * @since windows5.0
  */
 export GetFriendlyIfIndex(IfIndex) {
-    result := DllCall("IPHLPAPI.dll\GetFriendlyIfIndex", "uint", IfIndex, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetFriendlyIfIndex", UInt32, IfIndex, UInt32)
     return result
 }
 
@@ -7530,7 +7538,7 @@ export GetIpErrorString(ErrorCode, _Buffer, _Size) {
 
     _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", _Buffer, _SizeMarshal, _Size, UInt32)
+    result := DllCall("IPHLPAPI.dll\GetIpErrorString", UInt32, ErrorCode, "ptr", _Buffer, _SizeMarshal, _Size, UInt32)
     return result
 }
 
@@ -7565,7 +7573,7 @@ export GetIpErrorString(ErrorCode, _Buffer, _Size) {
 export ResolveNeighbor(NetworkAddress, PhysicalAddress, PhysicalAddressLength) {
     PhysicalAddressLengthMarshal := PhysicalAddressLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\ResolveNeighbor", SOCKADDR.Ptr, NetworkAddress, "ptr", PhysicalAddress, PhysicalAddressLengthMarshal, PhysicalAddressLength, UInt32)
+    result := DllCall("IPHLPAPI.dll\ResolveNeighbor", SOCKADDR.Ptr, NetworkAddress, IntPtr, PhysicalAddress, PhysicalAddressLengthMarshal, PhysicalAddressLength, UInt32)
     return result
 }
 
@@ -7663,7 +7671,7 @@ export ResolveNeighbor(NetworkAddress, PhysicalAddress, PhysicalAddressLength) {
 export CreatePersistentTcpPortReservation(StartPort, NumberOfPorts, Token) {
     TokenMarshal := Token is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\CreatePersistentTcpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, TokenMarshal, Token, UInt32)
+    result := DllCall("IPHLPAPI.dll\CreatePersistentTcpPortReservation", UInt16, StartPort, UInt16, NumberOfPorts, TokenMarshal, Token, UInt32)
     return result
 }
 
@@ -7761,7 +7769,7 @@ export CreatePersistentTcpPortReservation(StartPort, NumberOfPorts, Token) {
 export CreatePersistentUdpPortReservation(StartPort, NumberOfPorts, Token) {
     TokenMarshal := Token is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\CreatePersistentUdpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, TokenMarshal, Token, UInt32)
+    result := DllCall("IPHLPAPI.dll\CreatePersistentUdpPortReservation", UInt16, StartPort, UInt16, NumberOfPorts, TokenMarshal, Token, UInt32)
     return result
 }
 
@@ -7834,7 +7842,7 @@ export CreatePersistentUdpPortReservation(StartPort, NumberOfPorts, Token) {
  * @since windows6.0.6000
  */
 export DeletePersistentTcpPortReservation(StartPort, NumberOfPorts) {
-    result := DllCall("IPHLPAPI.dll\DeletePersistentTcpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, UInt32)
+    result := DllCall("IPHLPAPI.dll\DeletePersistentTcpPortReservation", UInt16, StartPort, UInt16, NumberOfPorts, UInt32)
     return result
 }
 
@@ -7907,7 +7915,7 @@ export DeletePersistentTcpPortReservation(StartPort, NumberOfPorts) {
  * @since windows6.0.6000
  */
 export DeletePersistentUdpPortReservation(StartPort, NumberOfPorts) {
-    result := DllCall("IPHLPAPI.dll\DeletePersistentUdpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, UInt32)
+    result := DllCall("IPHLPAPI.dll\DeletePersistentUdpPortReservation", UInt16, StartPort, UInt16, NumberOfPorts, UInt32)
     return result
 }
 
@@ -7978,7 +7986,7 @@ export DeletePersistentUdpPortReservation(StartPort, NumberOfPorts) {
 export LookupPersistentTcpPortReservation(StartPort, NumberOfPorts, Token) {
     TokenMarshal := Token is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\LookupPersistentTcpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, TokenMarshal, Token, UInt32)
+    result := DllCall("IPHLPAPI.dll\LookupPersistentTcpPortReservation", UInt16, StartPort, UInt16, NumberOfPorts, TokenMarshal, Token, UInt32)
     return result
 }
 
@@ -8049,7 +8057,7 @@ export LookupPersistentTcpPortReservation(StartPort, NumberOfPorts, Token) {
 export LookupPersistentUdpPortReservation(StartPort, NumberOfPorts, Token) {
     TokenMarshal := Token is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\LookupPersistentUdpPortReservation", "ushort", StartPort, "ushort", NumberOfPorts, TokenMarshal, Token, UInt32)
+    result := DllCall("IPHLPAPI.dll\LookupPersistentUdpPortReservation", UInt16, StartPort, UInt16, NumberOfPorts, TokenMarshal, Token, UInt32)
     return result
 }
 
@@ -8408,7 +8416,7 @@ export ParseNetworkString(NetworkString, Types, AddressInfo, PortNumber, PrefixL
     PortNumberMarshal := PortNumber is VarRef ? "ushort*" : "ptr"
     PrefixLengthMarshal := PrefixLength is VarRef ? "char*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\ParseNetworkString", "ptr", NetworkString, "uint", Types, NET_ADDRESS_INFO.Ptr, AddressInfo, PortNumberMarshal, PortNumber, PrefixLengthMarshal, PrefixLength, UInt32)
+    result := DllCall("IPHLPAPI.dll\ParseNetworkString", "ptr", NetworkString, UInt32, Types, NET_ADDRESS_INFO.Ptr, AddressInfo, PortNumberMarshal, PortNumber, PrefixLengthMarshal, PrefixLength, UInt32)
     return result
 }
 
@@ -9308,7 +9316,7 @@ export InitializeIpInterfaceEntry(Row) {
 export NotifyIpInterfaceChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", ADDRESS_FAMILY, Family, "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", ADDRESS_FAMILY, Family, PIPINTERFACE_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -9532,7 +9540,7 @@ export SetIpInterfaceEntry(Row) {
  * @since windows8.0
  */
 export GetIpNetworkConnectionBandwidthEstimates(InterfaceIndex, AddressFamily, BandwidthEstimates) {
-    result := DllCall("IPHLPAPI.dll\GetIpNetworkConnectionBandwidthEstimates", "uint", InterfaceIndex, ADDRESS_FAMILY, AddressFamily, MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES.Ptr, BandwidthEstimates, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\GetIpNetworkConnectionBandwidthEstimates", UInt32, InterfaceIndex, ADDRESS_FAMILY, AddressFamily, MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES.Ptr, BandwidthEstimates, WIN32_ERROR)
     return result
 }
 
@@ -10182,7 +10190,7 @@ export InitializeUnicastIpAddressEntry(Row) {
 export NotifyUnicastIpAddressChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", ADDRESS_FAMILY, Family, "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", ADDRESS_FAMILY, Family, PUNICAST_IPADDRESS_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -10370,7 +10378,7 @@ export NotifyStableUnicastIpAddressTable(Family, Table, CallerCallback, CallerCo
     TableMarshal := Table is VarRef ? "ptr*" : "ptr"
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", ADDRESS_FAMILY, Family, TableMarshal, Table, "ptr", CallerCallback, CallerContextMarshal, CallerContext, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", ADDRESS_FAMILY, Family, TableMarshal, Table, PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK, CallerCallback, CallerContextMarshal, CallerContext, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -11404,7 +11412,7 @@ export DeleteIpForwardEntry2(Row) {
  * @since windows6.0.6000
  */
 export GetBestRoute2(InterfaceLuid, InterfaceIndex, SourceAddress, DestinationAddress, AddressSortOptions, BestRoute, BestSourceAddress) {
-    result := DllCall("IPHLPAPI.dll\GetBestRoute2", NET_LUID_LH.Ptr, InterfaceLuid, "uint", InterfaceIndex, SOCKADDR_INET.Ptr, SourceAddress, SOCKADDR_INET.Ptr, DestinationAddress, "uint", AddressSortOptions, MIB_IPFORWARD_ROW2.Ptr, BestRoute, SOCKADDR_INET.Ptr, BestSourceAddress, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\GetBestRoute2", NET_LUID_LH.Ptr, InterfaceLuid, UInt32, InterfaceIndex, SOCKADDR_INET.Ptr, SourceAddress, SOCKADDR_INET.Ptr, DestinationAddress, UInt32, AddressSortOptions, MIB_IPFORWARD_ROW2.Ptr, BestRoute, SOCKADDR_INET.Ptr, BestSourceAddress, WIN32_ERROR)
     return result
 }
 
@@ -11825,7 +11833,7 @@ export InitializeIpForwardEntry(Row) {
 export NotifyRouteChange2(AddressFamily, Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", ADDRESS_FAMILY, AddressFamily, "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", ADDRESS_FAMILY, AddressFamily, PIPFORWARD_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -12576,7 +12584,7 @@ export DeleteIpNetEntry2(Row) {
  * @since windows6.0.6000
  */
 export FlushIpNetTable2(Family, InterfaceIndex) {
-    result := DllCall("IPHLPAPI.dll\FlushIpNetTable2", ADDRESS_FAMILY, Family, "uint", InterfaceIndex, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\FlushIpNetTable2", ADDRESS_FAMILY, Family, UInt32, InterfaceIndex, WIN32_ERROR)
     return result
 }
 
@@ -13137,7 +13145,7 @@ export SetIpNetEntry2(Row) {
 export NotifyTeredoPortChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", PTEREDO_PORT_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -13375,7 +13383,7 @@ export CreateSortedAddressPairs(SourceAddressList, SourceAddressCount, Destinati
     SortedAddressPairListMarshal := SortedAddressPairList is VarRef ? "ptr*" : "ptr"
     SortedAddressPairCountMarshal := SortedAddressPairCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\CreateSortedAddressPairs", SOCKADDR_IN6.Ptr, SourceAddressList, "uint", SourceAddressCount, SOCKADDR_IN6.Ptr, DestinationAddressList, "uint", DestinationAddressCount, "uint", AddressSortOptions, SortedAddressPairListMarshal, SortedAddressPairList, SortedAddressPairCountMarshal, SortedAddressPairCount, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\CreateSortedAddressPairs", SOCKADDR_IN6.Ptr, SourceAddressList, UInt32, SourceAddressCount, SOCKADDR_IN6.Ptr, DestinationAddressList, UInt32, DestinationAddressCount, UInt32, AddressSortOptions, SortedAddressPairListMarshal, SortedAddressPairList, SortedAddressPairCountMarshal, SortedAddressPairCount, WIN32_ERROR)
     return result
 }
 
@@ -13572,7 +13580,7 @@ export ConvertInterfaceNameToLuidW(InterfaceName, InterfaceLuid) {
 export ConvertInterfaceLuidToNameA(InterfaceLuid, InterfaceName, Length) {
     InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
-    result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToNameA", NET_LUID_LH.Ptr, InterfaceLuid, "ptr", InterfaceName, "ptr", Length, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToNameA", NET_LUID_LH.Ptr, InterfaceLuid, "ptr", InterfaceName, IntPtr, Length, WIN32_ERROR)
     return result
 }
 
@@ -13628,7 +13636,7 @@ export ConvertInterfaceLuidToNameA(InterfaceLuid, InterfaceName, Length) {
 export ConvertInterfaceLuidToNameW(InterfaceLuid, InterfaceName, Length) {
     InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
-    result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToNameW", NET_LUID_LH.Ptr, InterfaceLuid, "ptr", InterfaceName, "ptr", Length, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToNameW", NET_LUID_LH.Ptr, InterfaceLuid, "ptr", InterfaceName, IntPtr, Length, WIN32_ERROR)
     return result
 }
 
@@ -13713,7 +13721,7 @@ export ConvertInterfaceLuidToIndex(InterfaceLuid, InterfaceIndex) {
  * @since windows6.0.6000
  */
 export ConvertInterfaceIndexToLuid(InterfaceIndex, InterfaceLuid) {
-    result := DllCall("IPHLPAPI.dll\ConvertInterfaceIndexToLuid", "uint", InterfaceIndex, NET_LUID_LH.Ptr, InterfaceLuid, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\ConvertInterfaceIndexToLuid", UInt32, InterfaceIndex, NET_LUID_LH.Ptr, InterfaceLuid, WIN32_ERROR)
     return result
 }
 
@@ -13766,7 +13774,7 @@ export ConvertInterfaceIndexToLuid(InterfaceIndex, InterfaceLuid) {
 export ConvertInterfaceLuidToAlias(InterfaceLuid, InterfaceAlias, Length) {
     InterfaceAlias := InterfaceAlias is String ? StrPtr(InterfaceAlias) : InterfaceAlias
 
-    result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToAlias", NET_LUID_LH.Ptr, InterfaceLuid, "ptr", InterfaceAlias, "ptr", Length, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToAlias", NET_LUID_LH.Ptr, InterfaceLuid, "ptr", InterfaceAlias, IntPtr, Length, WIN32_ERROR)
     return result
 }
 
@@ -13928,7 +13936,7 @@ export if_nametoindex(InterfaceName) {
 export if_indextoname(InterfaceIndex, InterfaceName) {
     InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
-    result := DllCall("IPHLPAPI.dll\if_indextoname", "uint", InterfaceIndex, "ptr", InterfaceName, PSTR)
+    result := DllCall("IPHLPAPI.dll\if_indextoname", UInt32, InterfaceIndex, "ptr", InterfaceName, PSTR)
     return result
 }
 
@@ -13972,7 +13980,7 @@ export GetCurrentThreadCompartmentScope(CompartmentScope, CompartmentId) {
  * @returns {WIN32_ERROR} 
  */
 export SetCurrentThreadCompartmentScope(CompartmentScope) {
-    result := DllCall("IPHLPAPI.dll\SetCurrentThreadCompartmentScope", "uint", CompartmentScope, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\SetCurrentThreadCompartmentScope", UInt32, CompartmentScope, WIN32_ERROR)
     return result
 }
 
@@ -14004,7 +14012,7 @@ export SetJobCompartmentId(JobHandle, CompartmentId) {
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getsessioncompartmentid
  */
 export GetSessionCompartmentId(SessionId) {
-    result := DllCall("IPHLPAPI.dll\GetSessionCompartmentId", "uint", SessionId, NET_IF_COMPARTMENT_ID)
+    result := DllCall("IPHLPAPI.dll\GetSessionCompartmentId", UInt32, SessionId, NET_IF_COMPARTMENT_ID)
     return result
 }
 
@@ -14016,7 +14024,7 @@ export GetSessionCompartmentId(SessionId) {
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setsessioncompartmentid
  */
 export SetSessionCompartmentId(SessionId, CompartmentId) {
-    result := DllCall("IPHLPAPI.dll\SetSessionCompartmentId", "uint", SessionId, NET_IF_COMPARTMENT_ID, CompartmentId, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\SetSessionCompartmentId", UInt32, SessionId, NET_IF_COMPARTMENT_ID, CompartmentId, WIN32_ERROR)
     return result
 }
 
@@ -14067,7 +14075,7 @@ export GetNetworkInformation(NetworkGuid, CompartmentId, SiteId, NetworkName, Le
     CompartmentIdMarshal := CompartmentId is VarRef ? "uint*" : "ptr"
     SiteIdMarshal := SiteId is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\GetNetworkInformation", Guid.Ptr, NetworkGuid, CompartmentIdMarshal, CompartmentId, SiteIdMarshal, SiteId, "ptr", NetworkName, "uint", Length, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\GetNetworkInformation", Guid.Ptr, NetworkGuid, CompartmentIdMarshal, CompartmentId, SiteIdMarshal, SiteId, "ptr", NetworkName, UInt32, Length, WIN32_ERROR)
     return result
 }
 
@@ -14118,7 +14126,7 @@ export SetNetworkInformation(NetworkGuid, CompartmentId, NetworkName) {
 export ConvertLengthToIpv4Mask(MaskLength, Mask) {
     MaskMarshal := Mask is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\ConvertLengthToIpv4Mask", "uint", MaskLength, MaskMarshal, Mask, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\ConvertLengthToIpv4Mask", UInt32, MaskLength, MaskMarshal, Mask, WIN32_ERROR)
     return result
 }
 
@@ -14154,7 +14162,7 @@ export ConvertLengthToIpv4Mask(MaskLength, Mask) {
 export ConvertIpv4MaskToLength(Mask, MaskLength) {
     MaskLengthMarshal := MaskLength is VarRef ? "char*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\ConvertIpv4MaskToLength", "uint", Mask, MaskLengthMarshal, MaskLength, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\ConvertIpv4MaskToLength", UInt32, Mask, MaskLengthMarshal, MaskLength, WIN32_ERROR)
     return result
 }
 
@@ -14262,7 +14270,7 @@ export GetNetworkConnectivityHint(ConnectivityHint) {
  * @since windows10.0.19041
  */
 export GetNetworkConnectivityHintForInterface(InterfaceIndex, ConnectivityHint) {
-    result := DllCall("IPHLPAPI.dll\GetNetworkConnectivityHintForInterface", "uint", InterfaceIndex, NL_NETWORK_CONNECTIVITY_HINT.Ptr, ConnectivityHint, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\GetNetworkConnectivityHintForInterface", UInt32, InterfaceIndex, NL_NETWORK_CONNECTIVITY_HINT.Ptr, ConnectivityHint, WIN32_ERROR)
     return result
 }
 
@@ -14281,7 +14289,7 @@ export GetNetworkConnectivityHintForInterface(InterfaceIndex, ConnectivityHint) 
 export NotifyNetworkConnectivityHintChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
     CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", "ptr", Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
+    result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK, Callback, CallerContextMarshal, CallerContext, BOOLEAN, InitialNotification, HANDLE.Ptr, NotificationHandle, WIN32_ERROR)
     return result
 }
 
@@ -14360,7 +14368,7 @@ export GetFlVirtualInterfaceTable(Family, Table) {
 export PfCreateInterface(dwName, inAction, outAction, bUseLog, bMustBeUnique, ppInterface) {
     ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\PfCreateInterface", "uint", dwName, PFFORWARD_ACTION, inAction, PFFORWARD_ACTION, outAction, BOOL, bUseLog, BOOL, bMustBeUnique, ppInterfaceMarshal, ppInterface, UInt32)
+    result := DllCall("IPHLPAPI.dll\PfCreateInterface", UInt32, dwName, PFFORWARD_ACTION, inAction, PFFORWARD_ACTION, outAction, BOOL, bUseLog, BOOL, bMustBeUnique, ppInterfaceMarshal, ppInterface, UInt32)
     return result
 }
 
@@ -14390,7 +14398,7 @@ export PfAddFiltersToInterface(ih, cInFilters, pfiltIn, cOutFilters, pfiltOut, p
     ihMarshal := ih is VarRef ? "ptr" : "ptr"
     pfHandleMarshal := pfHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\PfAddFiltersToInterface", ihMarshal, ih, "uint", cInFilters, PF_FILTER_DESCRIPTOR.Ptr, pfiltIn, "uint", cOutFilters, PF_FILTER_DESCRIPTOR.Ptr, pfiltOut, pfHandleMarshal, pfHandle, UInt32)
+    result := DllCall("IPHLPAPI.dll\PfAddFiltersToInterface", ihMarshal, ih, UInt32, cInFilters, PF_FILTER_DESCRIPTOR.Ptr, pfiltIn, UInt32, cOutFilters, PF_FILTER_DESCRIPTOR.Ptr, pfiltOut, pfHandleMarshal, pfHandle, UInt32)
     return result
 }
 
@@ -14406,7 +14414,7 @@ export PfAddFiltersToInterface(ih, cInFilters, pfiltIn, cOutFilters, pfiltOut, p
 export PfRemoveFiltersFromInterface(ih, cInFilters, pfiltIn, cOutFilters, pfiltOut) {
     ihMarshal := ih is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\PfRemoveFiltersFromInterface", ihMarshal, ih, "uint", cInFilters, PF_FILTER_DESCRIPTOR.Ptr, pfiltIn, "uint", cOutFilters, PF_FILTER_DESCRIPTOR.Ptr, pfiltOut, UInt32)
+    result := DllCall("IPHLPAPI.dll\PfRemoveFiltersFromInterface", ihMarshal, ih, UInt32, cInFilters, PF_FILTER_DESCRIPTOR.Ptr, pfiltIn, UInt32, cOutFilters, PF_FILTER_DESCRIPTOR.Ptr, pfiltOut, UInt32)
     return result
 }
 
@@ -14421,7 +14429,7 @@ export PfRemoveFilterHandles(pInterface, cFilters, pvHandles) {
     pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
     pvHandlesMarshal := pvHandles is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\PfRemoveFilterHandles", pInterfaceMarshal, pInterface, "uint", cFilters, pvHandlesMarshal, pvHandles, UInt32)
+    result := DllCall("IPHLPAPI.dll\PfRemoveFilterHandles", pInterfaceMarshal, pInterface, UInt32, cFilters, pvHandlesMarshal, pvHandles, UInt32)
     return result
 }
 
@@ -14449,7 +14457,7 @@ export PfBindInterfaceToIndex(pInterface, dwIndex, pfatLinkType, LinkIPAddress) 
     pInterfaceMarshal := pInterface is VarRef ? "ptr" : "ptr"
     LinkIPAddressMarshal := LinkIPAddress is VarRef ? "char*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\PfBindInterfaceToIndex", pInterfaceMarshal, pInterface, "uint", dwIndex, PFADDRESSTYPE, pfatLinkType, LinkIPAddressMarshal, LinkIPAddress, UInt32)
+    result := DllCall("IPHLPAPI.dll\PfBindInterfaceToIndex", pInterfaceMarshal, pInterface, UInt32, dwIndex, PFADDRESSTYPE, pfatLinkType, LinkIPAddressMarshal, LinkIPAddress, UInt32)
     return result
 }
 
@@ -14534,7 +14542,7 @@ export PfSetLogBuffer(pbBuffer, dwSize, dwThreshold, dwEntries, pdwLoggedEntries
     pdwLostEntriesMarshal := pdwLostEntries is VarRef ? "uint*" : "ptr"
     pdwSizeUsedMarshal := pdwSizeUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\PfSetLogBuffer", pbBufferMarshal, pbBuffer, "uint", dwSize, "uint", dwThreshold, "uint", dwEntries, pdwLoggedEntriesMarshal, pdwLoggedEntries, pdwLostEntriesMarshal, pdwLostEntries, pdwSizeUsedMarshal, pdwSizeUsed, UInt32)
+    result := DllCall("IPHLPAPI.dll\PfSetLogBuffer", pbBufferMarshal, pbBuffer, UInt32, dwSize, UInt32, dwThreshold, UInt32, dwEntries, pdwLoggedEntriesMarshal, pdwLoggedEntries, pdwLostEntriesMarshal, pdwLostEntries, pdwSizeUsedMarshal, pdwSizeUsed, UInt32)
     return result
 }
 
@@ -14578,7 +14586,7 @@ export PfTestPacket(pInInterface, pOutInterface, cBytes, pbPacket, ppAction) {
     pbPacketMarshal := pbPacket is VarRef ? "char*" : "ptr"
     ppActionMarshal := ppAction is VarRef ? "int*" : "ptr"
 
-    result := DllCall("IPHLPAPI.dll\PfTestPacket", pInInterfaceMarshal, pInInterface, pOutInterfaceMarshal, pOutInterface, "uint", cBytes, pbPacketMarshal, pbPacket, ppActionMarshal, ppAction, UInt32)
+    result := DllCall("IPHLPAPI.dll\PfTestPacket", pInInterfaceMarshal, pInInterface, pOutInterfaceMarshal, pOutInterface, UInt32, cBytes, pbPacketMarshal, pbPacket, ppActionMarshal, ppAction, UInt32)
     return result
 }
 

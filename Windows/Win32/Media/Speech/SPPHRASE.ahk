@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPHRASEPROPERTY.ahk" { SPPHRASEPROPERTY }
 #Import ".\SPPHRASERULE.ahk" { SPPHRASERULE }
+#Import ".\SPPHRASEREPLACEMENT.ahk" { SPPHRASEREPLACEMENT }
+#Import ".\SPPHRASE_50.ahk" { SPPHRASE_50 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
 #Import ".\SPSEMANTICERRORINFO.ahk" { SPSEMANTICERRORINFO }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPPHRASE_50.ahk" { SPPHRASE_50 }
-#Import ".\SPPHRASEREPLACEMENT.ahk" { SPPHRASEREPLACEMENT }
-#Import ".\SPPHRASEPROPERTY.ahk" { SPPHRASEPROPERTY }
 
 /**
  * @namespace Windows.Win32.Media.Speech

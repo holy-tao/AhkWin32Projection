@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FOLDERLOGICALVIEWMODE.ahk" { FOLDERLOGICALVIEWMODE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Search\ICondition.ahk" { ICondition }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
+#Import "..\..\System\Search\ICondition.ahk" { ICondition }
+#Import ".\FOLDERLOGICALVIEWMODE.ahk" { FOLDERLOGICALVIEWMODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that create and modify search folders.
@@ -123,7 +123,7 @@ export default struct ISearchFolderItemFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-seticonsize
      */
     SetIconSize(iIconSize) {
-        result := ComCall(6, this, "int", iIconSize, "HRESULT")
+        result := ComCall(6, this, Int32, iIconSize, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct ISearchFolderItemFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setvisiblecolumns
      */
     SetVisibleColumns(cVisibleColumns, rgKey) {
-        result := ComCall(7, this, "uint", cVisibleColumns, PROPERTYKEY.Ptr, rgKey, "HRESULT")
+        result := ComCall(7, this, UInt32, cVisibleColumns, PROPERTYKEY.Ptr, rgKey, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct ISearchFolderItemFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setsortcolumns
      */
     SetSortColumns(cSortColumns, rgSortColumns) {
-        result := ComCall(8, this, "uint", cSortColumns, SORTCOLUMN.Ptr, rgSortColumns, "HRESULT")
+        result := ComCall(8, this, UInt32, cSortColumns, SORTCOLUMN.Ptr, rgSortColumns, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct ISearchFolderItemFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setstacks
      */
     SetStacks(cStackKeys, rgStackKeys) {
-        result := ComCall(10, this, "uint", cStackKeys, PROPERTYKEY.Ptr, rgStackKeys, "HRESULT")
+        result := ComCall(10, this, UInt32, cStackKeys, PROPERTYKEY.Ptr, rgStackKeys, "HRESULT")
         return result
     }
 

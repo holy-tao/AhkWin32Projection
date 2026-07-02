@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 
 /**
  * Represents knowledge that has been forgotten because of tombstone cleanup.

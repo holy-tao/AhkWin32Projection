@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMAGEHLP_CBA_EVENT_SEVERITY.ahk" { IMAGEHLP_CBA_EVENT_SEVERITY }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The IMAGEHLP_CBA_EVENTW (Unicode) structure (dbghelp.h) contains information about a debugging event.

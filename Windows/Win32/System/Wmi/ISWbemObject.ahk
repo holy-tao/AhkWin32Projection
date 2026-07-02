@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
+#Import ".\ISWbemQualifierSet.ahk" { ISWbemQualifierSet }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISWbemObjectSet.ahk" { ISWbemObjectSet }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\ISWbemPropertySet.ahk" { ISWbemPropertySet }
+#Import ".\ISWbemObjectPath.ahk" { ISWbemObjectPath }
+#Import ".\ISWbemMethodSet.ahk" { ISWbemMethodSet }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISWbemObjectPath.ahk" { ISWbemObjectPath }
-#Import ".\ISWbemQualifierSet.ahk" { ISWbemQualifierSet }
-#Import ".\ISWbemMethodSet.ahk" { ISWbemMethodSet }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -123,7 +123,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {ISWbemObjectPath} 
      */
     Put_(iFlags, objWbemNamedValueSet) {
-        result := ComCall(7, this, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectPath := 0, "HRESULT")
+        result := ComCall(7, this, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectPath := 0, "HRESULT")
         return ISWbemObjectPath(objWbemObjectPath)
     }
 
@@ -136,7 +136,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {HRESULT} 
      */
     PutAsync_(objWbemSink, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
-        result := ComCall(8, this, "ptr", objWbemSink, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(8, this, "ptr", objWbemSink, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {HRESULT} 
      */
     Delete_(iFlags, objWbemNamedValueSet) {
-        result := ComCall(9, this, "int", iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
+        result := ComCall(9, this, Int32, iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {HRESULT} 
      */
     DeleteAsync_(objWbemSink, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
-        result := ComCall(10, this, "ptr", objWbemSink, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(10, this, "ptr", objWbemSink, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {ISWbemObjectSet} 
      */
     Instances_(iFlags, objWbemNamedValueSet) {
-        result := ComCall(11, this, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(11, this, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
@@ -184,7 +184,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {HRESULT} 
      */
     InstancesAsync_(objWbemSink, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
-        result := ComCall(12, this, "ptr", objWbemSink, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(12, this, "ptr", objWbemSink, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {ISWbemObjectSet} 
      */
     Subclasses_(iFlags, objWbemNamedValueSet) {
-        result := ComCall(13, this, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(13, this, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
@@ -208,7 +208,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {HRESULT} 
      */
     SubclassesAsync_(objWbemSink, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
-        result := ComCall(14, this, "ptr", objWbemSink, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(14, this, "ptr", objWbemSink, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -234,7 +234,7 @@ export default struct ISWbemObject extends IDispatch {
         strRequiredAssocQualifier := strRequiredAssocQualifier is String ? BSTR.Alloc(strRequiredAssocQualifier).Value : strRequiredAssocQualifier
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(15, this, BSTR, strAssocClass, BSTR, strResultClass, BSTR, strResultRole, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredAssocQualifier, BSTR, strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, strAssocClass, BSTR, strResultClass, BSTR, strResultRole, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredAssocQualifier, BSTR, strRequiredQualifier, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
@@ -262,7 +262,7 @@ export default struct ISWbemObject extends IDispatch {
         strRequiredAssocQualifier := strRequiredAssocQualifier is String ? BSTR.Alloc(strRequiredAssocQualifier).Value : strRequiredAssocQualifier
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(16, this, "ptr", objWbemSink, BSTR, strAssocClass, BSTR, strResultClass, BSTR, strResultRole, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredAssocQualifier, BSTR, strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(16, this, "ptr", objWbemSink, BSTR, strAssocClass, BSTR, strResultClass, BSTR, strResultRole, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredAssocQualifier, BSTR, strRequiredQualifier, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -282,7 +282,7 @@ export default struct ISWbemObject extends IDispatch {
         strRole := strRole is String ? BSTR.Alloc(strRole).Value : strRole
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(17, this, BSTR, strResultClass, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, strResultClass, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredQualifier, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
@@ -304,7 +304,7 @@ export default struct ISWbemObject extends IDispatch {
         strRole := strRole is String ? BSTR.Alloc(strRole).Value : strRole
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(18, this, "ptr", objWbemSink, BSTR, strResultClass, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(18, this, "ptr", objWbemSink, BSTR, strResultClass, BSTR, strRole, VARIANT_BOOL, bClassesOnly, VARIANT_BOOL, bSchemaOnly, BSTR, strRequiredQualifier, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -319,7 +319,7 @@ export default struct ISWbemObject extends IDispatch {
     ExecMethod_(strMethodName, objWbemInParameters, iFlags, objWbemNamedValueSet) {
         strMethodName := strMethodName is String ? BSTR.Alloc(strMethodName).Value : strMethodName
 
-        result := ComCall(19, this, BSTR, strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemOutParameters := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, strMethodName, "ptr", objWbemInParameters, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemOutParameters := 0, "HRESULT")
         return ISWbemObject(objWbemOutParameters)
     }
 
@@ -336,7 +336,7 @@ export default struct ISWbemObject extends IDispatch {
     ExecMethodAsync_(objWbemSink, strMethodName, objWbemInParameters, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
         strMethodName := strMethodName is String ? BSTR.Alloc(strMethodName).Value : strMethodName
 
-        result := ComCall(20, this, "ptr", objWbemSink, BSTR, strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(20, this, "ptr", objWbemSink, BSTR, strMethodName, "ptr", objWbemInParameters, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
         return result
     }
 
@@ -356,7 +356,7 @@ export default struct ISWbemObject extends IDispatch {
      */
     GetObjectText_(iFlags) {
         strObjectText := BSTR.Owned()
-        result := ComCall(22, this, "int", iFlags, BSTR.Ptr, strObjectText, "HRESULT")
+        result := ComCall(22, this, Int32, iFlags, BSTR.Ptr, strObjectText, "HRESULT")
         return strObjectText
     }
 
@@ -366,7 +366,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {ISWbemObject} 
      */
     SpawnDerivedClass_(iFlags) {
-        result := ComCall(23, this, "int", iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(23, this, Int32, iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
         return ISWbemObject(objWbemObject)
     }
 
@@ -376,7 +376,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {ISWbemObject} 
      */
     SpawnInstance_(iFlags) {
-        result := ComCall(24, this, "int", iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(24, this, Int32, iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
         return ISWbemObject(objWbemObject)
     }
 
@@ -387,7 +387,7 @@ export default struct ISWbemObject extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     CompareTo_(objWbemObject, iFlags) {
-        result := ComCall(25, this, "ptr", objWbemObject, "int", iFlags, VARIANT_BOOL.Ptr, &bResult := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", objWbemObject, Int32, iFlags, VARIANT_BOOL.Ptr, &bResult := 0, "HRESULT")
         return bResult
     }
 

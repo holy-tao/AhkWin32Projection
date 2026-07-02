@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSANSCLASSINFOA.ahk" { WSANSCLASSINFOA }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSANSCLASSINFOA.ahk" { WSANSCLASSINFOA }
 
 /**
  * The WSASERVICECLASSINFO structure contains information about a specified service class. For each service class in Windows Sockets 2, there is a single WSASERVICECLASSINFO structure. (ANSI)

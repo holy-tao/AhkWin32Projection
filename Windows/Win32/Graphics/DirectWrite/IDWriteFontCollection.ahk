@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteFontFamily.ahk" { IDWriteFontFamily }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFont.ahk" { IDWriteFont }
 #Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontFamily.ahk" { IDWriteFontFamily }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
 
 /**
  * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. (IDWriteFontCollection)
@@ -91,7 +91,7 @@ export default struct IDWriteFontCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfamily
      */
     GetFontFamily(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &_fontFamily := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &_fontFamily := 0, "HRESULT")
         return IDWriteFontFamily(_fontFamily)
     }
 

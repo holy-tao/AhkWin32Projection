@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugHostMemory3.ahk" { IDebugHostMemory3 }
-#Import ".\Location.ahk" { Location }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Location.ahk" { Location }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -44,7 +44,7 @@ export default struct IDebugHostMemory4 extends IDebugHostMemory3 {
      */
     GetPhysicalAddressLocation(physAddr) {
         pPhysicalAddressLocation := Location()
-        result := ComCall(10, this, "uint", physAddr, Location.Ptr, pPhysicalAddressLocation, "HRESULT")
+        result := ComCall(10, this, Int64, physAddr, Location.Ptr, pPhysicalAddressLocation, "HRESULT")
         return pPhysicalAddressLocation
     }
 

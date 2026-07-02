@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies a pipeline object to register itself with the Multimedia Class Scheduler Service (MMCSS). (IMFRealTimeClientEx)
@@ -64,7 +64,7 @@ export default struct IMFRealTimeClientEx extends IUnknown {
 
         pdwTaskIndexMarshal := pdwTaskIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwTaskIndexMarshal, pdwTaskIndex, "ptr", wszClassName, "int", lBasePriority, "HRESULT")
+        result := ComCall(3, this, pdwTaskIndexMarshal, pdwTaskIndex, "ptr", wszClassName, Int32, lBasePriority, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IMFRealTimeClientEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrealtimeclientex-setworkqueueex
      */
     SetWorkQueueEx(dwMultithreadedWorkQueueId, lWorkItemBasePriority) {
-        result := ComCall(5, this, "uint", dwMultithreadedWorkQueueId, "int", lWorkItemBasePriority, "HRESULT")
+        result := ComCall(5, this, UInt32, dwMultithreadedWorkQueueId, Int32, lWorkItemBasePriority, "HRESULT")
         return result
     }
 

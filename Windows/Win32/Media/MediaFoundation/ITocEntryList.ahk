@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITocEntry.ahk" { ITocEntry }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITocEntryList interface represents a list of entries in a table of contents. It provides methods for adding entries to, and removing entries from the list.
@@ -80,7 +80,7 @@ export default struct ITocEntryList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-getentrybyindex
      */
     GetEntryByIndex(dwEntryIndex) {
-        result := ComCall(4, this, "uint", dwEntryIndex, "ptr*", &ppEntry := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwEntryIndex, "ptr*", &ppEntry := 0, "HRESULT")
         return ITocEntry(ppEntry)
     }
 
@@ -142,7 +142,7 @@ export default struct ITocEntryList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-addentrybyindex
      */
     AddEntryByIndex(dwEntryIndex, pEntry) {
-        result := ComCall(6, this, "uint", dwEntryIndex, "ptr", pEntry, "HRESULT")
+        result := ComCall(6, this, UInt32, dwEntryIndex, "ptr", pEntry, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct ITocEntryList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-removeentrybyindex
      */
     RemoveEntryByIndex(dwEntryIndex) {
-        result := ComCall(7, this, "uint", dwEntryIndex, "HRESULT")
+        result := ComCall(7, this, UInt32, dwEntryIndex, "HRESULT")
         return result
     }
 

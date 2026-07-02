@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\EXCEPTION_RECORD64.ahk" { EXCEPTION_RECORD64 }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugBreakpoint.ahk" { IDebugBreakpoint }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugBreakpoint.ahk" { IDebugBreakpoint }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\EXCEPTION_RECORD64.ahk" { EXCEPTION_RECORD64 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -77,7 +77,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
      * @returns {HRESULT} 
      */
     Exception(Exception, FirstChance) {
-        result := ComCall(5, this, EXCEPTION_RECORD64.Ptr, Exception, "uint", FirstChance, "HRESULT")
+        result := ComCall(5, this, EXCEPTION_RECORD64.Ptr, Exception, UInt32, FirstChance, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createthread
      */
     CreateThread(_Handle, DataOffset, StartOffset) {
-        result := ComCall(6, this, "uint", _Handle, "uint", DataOffset, "uint", StartOffset, "HRESULT")
+        result := ComCall(6, this, Int64, _Handle, Int64, DataOffset, Int64, StartOffset, "HRESULT")
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitthread
      */
     ExitThread(ExitCode) {
-        result := ComCall(7, this, "uint", ExitCode, "HRESULT")
+        result := ComCall(7, this, UInt32, ExitCode, "HRESULT")
         return result
     }
 
@@ -277,7 +277,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        result := ComCall(8, this, "uint", ImageFileHandle, "uint", _Handle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "uint", InitialThreadHandle, "uint", ThreadDataOffset, "uint", StartOffset, "HRESULT")
+        result := ComCall(8, this, Int64, ImageFileHandle, Int64, _Handle, Int64, BaseOffset, UInt32, ModuleSize, "ptr", ModuleName, "ptr", ImageName, UInt32, CheckSum, UInt32, TimeDateStamp, Int64, InitialThreadHandle, Int64, ThreadDataOffset, Int64, StartOffset, "HRESULT")
         return result
     }
 
@@ -316,7 +316,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-exitprocess
      */
     ExitProcess(ExitCode) {
-        result := ComCall(9, this, "uint", ExitCode, "HRESULT")
+        result := ComCall(9, this, UInt32, ExitCode, "HRESULT")
         return result
     }
 
@@ -490,7 +490,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        result := ComCall(10, this, "uint", ImageFileHandle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "HRESULT")
+        result := ComCall(10, this, Int64, ImageFileHandle, Int64, BaseOffset, UInt32, ModuleSize, "ptr", ModuleName, "ptr", ImageName, UInt32, CheckSum, UInt32, TimeDateStamp, "HRESULT")
         return result
     }
 
@@ -503,7 +503,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
     UnloadModule(ImageBaseName, BaseOffset) {
         ImageBaseName := ImageBaseName is String ? StrPtr(ImageBaseName) : ImageBaseName
 
-        result := ComCall(11, this, "ptr", ImageBaseName, "uint", BaseOffset, "HRESULT")
+        result := ComCall(11, this, "ptr", ImageBaseName, Int64, BaseOffset, "HRESULT")
         return result
     }
 
@@ -514,7 +514,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
      * @returns {HRESULT} 
      */
     SystemError(_Error, Level) {
-        result := ComCall(12, this, "uint", _Error, "uint", Level, "HRESULT")
+        result := ComCall(12, this, UInt32, _Error, UInt32, Level, "HRESULT")
         return result
     }
 
@@ -524,7 +524,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
      * @returns {HRESULT} 
      */
     SessionStatus(_Status) {
-        result := ComCall(13, this, "uint", _Status, "HRESULT")
+        result := ComCall(13, this, UInt32, _Status, "HRESULT")
         return result
     }
 
@@ -535,7 +535,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
      * @returns {HRESULT} 
      */
     ChangeDebuggeeState(Flags, Argument) {
-        result := ComCall(14, this, "uint", Flags, "uint", Argument, "HRESULT")
+        result := ComCall(14, this, UInt32, Flags, Int64, Argument, "HRESULT")
         return result
     }
 
@@ -546,7 +546,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
      * @returns {HRESULT} 
      */
     ChangeEngineState(Flags, Argument) {
-        result := ComCall(15, this, "uint", Flags, "uint", Argument, "HRESULT")
+        result := ComCall(15, this, UInt32, Flags, Int64, Argument, "HRESULT")
         return result
     }
 
@@ -557,7 +557,7 @@ export default struct IDebugEventCallbacks extends IUnknown {
      * @returns {HRESULT} 
      */
     ChangeSymbolState(Flags, Argument) {
-        result := ComCall(16, this, "uint", Flags, "uint", Argument, "HRESULT")
+        result := ComCall(16, this, UInt32, Flags, Int64, Argument, "HRESULT")
         return result
     }
 

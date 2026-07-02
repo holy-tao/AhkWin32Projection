@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITransaction.ahk" { ITransaction }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITransactionOptions.ahk" { ITransactionOptions }
 
 /**
@@ -56,7 +56,7 @@ export default struct ITransactionDispenser extends IUnknown {
      * @returns {ITransaction} 
      */
     BeginTransaction(punkOuter, isoLevel, isoFlags, pOptions) {
-        result := ComCall(4, this, "ptr", punkOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", &ppTransaction := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", punkOuter, Int32, isoLevel, UInt32, isoFlags, "ptr", pOptions, "ptr*", &ppTransaction := 0, "HRESULT")
         return ITransaction(ppTransaction)
     }
 

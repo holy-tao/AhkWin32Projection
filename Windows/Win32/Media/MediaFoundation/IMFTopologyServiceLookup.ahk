@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MF_SERVICE_LOOKUP_TYPE.ahk" { MF_SERVICE_LOOKUP_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables a custom video mixer or video presenter to get interface pointers from the Enhanced Video Renderer (EVR).
@@ -122,7 +122,7 @@ export default struct IMFTopologyServiceLookup extends IUnknown {
     LookupService(Type, dwIndex, guidService, riid, pnObjects) {
         pnObjectsMarshal := pnObjects is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, MF_SERVICE_LOOKUP_TYPE, Type, "uint", dwIndex, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvObjects := 0, pnObjectsMarshal, pnObjects, "HRESULT")
+        result := ComCall(3, this, MF_SERVICE_LOOKUP_TYPE, Type, UInt32, dwIndex, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvObjects := 0, pnObjectsMarshal, pnObjects, "HRESULT")
         return ppvObjects
     }
 

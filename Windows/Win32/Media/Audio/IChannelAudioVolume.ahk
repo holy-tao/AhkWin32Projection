@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IChannelAudioVolume interface enables a client to control and monitor the volume levels for all of the channels in the audio session that the stream belongs to.
@@ -104,7 +104,7 @@ export default struct IChannelAudioVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-ichannelaudiovolume-setchannelvolume
      */
     SetChannelVolume(dwIndex, fLevel, EventContext) {
-        result := ComCall(4, this, "uint", dwIndex, "float", fLevel, Guid.Ptr, EventContext, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, Float32, fLevel, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IChannelAudioVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-ichannelaudiovolume-getchannelvolume
      */
     GetChannelVolume(dwIndex) {
-        result := ComCall(5, this, "uint", dwIndex, "float*", &pfLevel := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwIndex, "float*", &pfLevel := 0, "HRESULT")
         return pfLevel
     }
 
@@ -185,7 +185,7 @@ export default struct IChannelAudioVolume extends IUnknown {
     SetAllVolumes(dwCount, pfVolumes, EventContext) {
         pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwCount, pfVolumesMarshal, pfVolumes, Guid.Ptr, EventContext, "HRESULT")
+        result := ComCall(6, this, UInt32, dwCount, pfVolumesMarshal, pfVolumes, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IChannelAudioVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-ichannelaudiovolume-getallvolumes
      */
     GetAllVolumes(dwCount) {
-        result := ComCall(7, this, "uint", dwCount, "float*", &pfVolumes := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwCount, "float*", &pfVolumes := 0, "HRESULT")
         return pfVolumes
     }
 

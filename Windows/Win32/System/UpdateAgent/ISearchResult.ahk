@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUpdateExceptionCollection.ahk" { IUpdateExceptionCollection }
+#Import ".\ICategoryCollection.ahk" { ICategoryCollection }
 #Import ".\OperationResultCode.ahk" { OperationResultCode }
+#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUpdateCollection.ahk" { IUpdateCollection }
-#Import ".\ICategoryCollection.ahk" { ICategoryCollection }
+#Import ".\IUpdateExceptionCollection.ahk" { IUpdateExceptionCollection }
 
 /**
  * Represents the result of a search.

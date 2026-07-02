@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAVIStream.ahk" { IAVIStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAVIEditStream interface supports manipulating and modifying editable streams. Uses IUnknown::QueryInterface, IUnknown::AddRef, IUnknown::Release in addition to the following custom methods:\_
@@ -119,7 +119,7 @@ export default struct IAVIEditStream extends IUnknown {
         plPosMarshal := plPos is VarRef ? "int*" : "ptr"
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, plPosMarshal, plPos, plLengthMarshal, plLength, "ptr", pstream, "int", lStart, "int", lEnd, "HRESULT")
+        result := ComCall(5, this, plPosMarshal, plPos, plLengthMarshal, plLength, "ptr", pstream, Int32, lStart, Int32, lEnd, "HRESULT")
         return result
     }
 
@@ -161,7 +161,7 @@ export default struct IAVIEditStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-setinfo
      */
     SetInfo(lpInfo, cbInfo) {
-        result := ComCall(7, this, "ptr", lpInfo, "int", cbInfo, "HRESULT")
+        result := ComCall(7, this, IntPtr, lpInfo, Int32, cbInfo, "HRESULT")
         return result
     }
 

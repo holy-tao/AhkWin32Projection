@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ID3D12Device13.ahk" { ID3D12Device13 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D12Device13.ahk" { ID3D12Device13 }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -50,7 +50,7 @@ export default struct ID3D12Device14 extends ID3D12Device13 {
 
         pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(82, this, "uint", nodeMask, pLibraryBlobMarshal, pLibraryBlob, "ptr", blobLengthInBytes, "ptr", subobjectName, Guid.Ptr, riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        result := ComCall(82, this, UInt32, nodeMask, pLibraryBlobMarshal, pLibraryBlob, IntPtr, blobLengthInBytes, "ptr", subobjectName, Guid.Ptr, riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
         return ppvRootSignature
     }
 

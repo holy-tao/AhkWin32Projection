@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMPServices.ahk" { IWMPServices }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPPlugin interface is implemented by the plug-in. It manages the connection to Windows Media Player.Note  The interface identifier GUID for this interface changed between the beta release and the final release. .
@@ -54,7 +54,7 @@ export default struct IWMPPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpplugin-init
      */
     Init(dwPlaybackContext) {
-        result := ComCall(3, this, "ptr", dwPlaybackContext, "HRESULT")
+        result := ComCall(3, this, IntPtr, dwPlaybackContext, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import ".\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\DXGI_MODE_SCANLINE_ORDER.ahk" { DXGI_MODE_SCANLINE_ORDER }
 #Import ".\DXGI_MODE_SCALING.ahk" { DXGI_MODE_SCALING }
-#Import ".\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi.Common

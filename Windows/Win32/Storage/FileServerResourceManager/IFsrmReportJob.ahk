@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import ".\FsrmReportType.ahk" { FsrmReportType }
+#Import ".\IFsrmReport.ahk" { IFsrmReport }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
 #Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFsrmReport.ahk" { IFsrmReport }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\FsrmReportType.ahk" { FsrmReportType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
@@ -399,7 +399,7 @@ export default struct IFsrmReportJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-waitforcompletion
      */
     WaitForCompletion(waitSeconds) {
-        result := ComCall(27, this, "int", waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
+        result := ComCall(27, this, Int32, waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 

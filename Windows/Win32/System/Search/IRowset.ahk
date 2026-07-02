@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -53,7 +53,7 @@ export default struct IRowset extends IUnknown {
         rgRefCountsMarshal := rgRefCounts is VarRef ? "uint*" : "ptr"
         rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", cRows, rghRowsMarshal, rghRows, rgRefCountsMarshal, rgRefCounts, rgRowStatusMarshal, rgRowStatus, "HRESULT")
+        result := ComCall(3, this, IntPtr, cRows, rghRowsMarshal, rghRows, rgRefCountsMarshal, rgRefCounts, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IRowset extends IUnknown {
      * @returns {Void} 
      */
     GetData(hRow, _hAccessor) {
-        result := ComCall(4, this, "ptr", hRow, HACCESSOR, _hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, hRow, HACCESSOR, _hAccessor, "ptr", &pData := 0, "HRESULT")
         return pData
     }
 
@@ -81,7 +81,7 @@ export default struct IRowset extends IUnknown {
         pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
         prghRowsMarshal := prghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hReserved, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
+        result := ComCall(5, this, IntPtr, hReserved, IntPtr, lRowsOffset, IntPtr, cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IRowset extends IUnknown {
         rgRefCountsMarshal := rgRefCounts is VarRef ? "uint*" : "ptr"
         rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", cRows, rghRowsMarshal, rghRows, rgRowOptionsMarshal, rgRowOptions, rgRefCountsMarshal, rgRefCounts, rgRowStatusMarshal, rgRowStatus, "HRESULT")
+        result := ComCall(6, this, IntPtr, cRows, rghRowsMarshal, rghRows, rgRowOptionsMarshal, rgRowOptions, rgRefCountsMarshal, rgRefCounts, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct IRowset extends IUnknown {
      * @returns {HRESULT} 
      */
     RestartPosition(hReserved) {
-        result := ComCall(7, this, "ptr", hReserved, "HRESULT")
+        result := ComCall(7, this, IntPtr, hReserved, "HRESULT")
         return result
     }
 

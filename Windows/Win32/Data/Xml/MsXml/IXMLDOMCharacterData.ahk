@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -97,7 +97,7 @@ export default struct IXMLDOMCharacterData extends IXMLDOMNode {
      */
     substringData(offset, count) {
         data := BSTR.Owned()
-        result := ComCall(46, this, "int", offset, "int", count, BSTR.Ptr, data, "HRESULT")
+        result := ComCall(46, this, Int32, offset, Int32, count, BSTR.Ptr, data, "HRESULT")
         return data
     }
 
@@ -122,7 +122,7 @@ export default struct IXMLDOMCharacterData extends IXMLDOMNode {
     insertData(offset, data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(48, this, "int", offset, BSTR, data, "HRESULT")
+        result := ComCall(48, this, Int32, offset, BSTR, data, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IXMLDOMCharacterData extends IXMLDOMNode {
      * @returns {HRESULT} 
      */
     deleteData(offset, count) {
-        result := ComCall(49, this, "int", offset, "int", count, "HRESULT")
+        result := ComCall(49, this, Int32, offset, Int32, count, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IXMLDOMCharacterData extends IXMLDOMNode {
     replaceData(offset, count, data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(50, this, "int", offset, "int", count, BSTR, data, "HRESULT")
+        result := ComCall(50, this, Int32, offset, Int32, count, BSTR, data, "HRESULT")
         return result
     }
 

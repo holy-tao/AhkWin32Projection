@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IModelObject.ahk" { IModelObject }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -46,7 +46,7 @@ export default struct IConstructableConcept extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemglue/nl-wbemglue-cwbemgluefactory
      */
     CreateInstance(argCount, ppArguments) {
-        result := ComCall(3, this, "uint", argCount, IModelObject.Ptr, ppArguments, "ptr*", &ppInstance := 0, "HRESULT")
+        result := ComCall(3, this, Int64, argCount, IModelObject.Ptr, ppArguments, "ptr*", &ppInstance := 0, "HRESULT")
         return IModelObject(ppInstance)
     }
 

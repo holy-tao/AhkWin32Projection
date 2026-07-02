@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IOleInPlaceSite.ahk" { IOleInPlaceSite }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides an additional set of activation and deactivation notification methods that enable an object to avoid unnecessary flashing on the screen when the object is activated and deactivated.
@@ -56,7 +56,7 @@ export default struct IOleInPlaceSiteEx extends IOleInPlaceSite {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesiteex-oninplaceactivateex
      */
     OnInPlaceActivateEx(dwFlags) {
-        result := ComCall(15, this, BOOL.Ptr, &pfNoRedraw := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &pfNoRedraw := 0, UInt32, dwFlags, "HRESULT")
         return pfNoRedraw
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CTL_ENTRY.ahk" { CTL_ENTRY }
 #Import ".\CTL_CONTEXT.ahk" { CTL_CONTEXT }
+#Import ".\CTL_ENTRY.ahk" { CTL_ENTRY }
 
 /**
  * The CERT_TRUST_LIST_INFO structure that indicates valid usage of a CTL.

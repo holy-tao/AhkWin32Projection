@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods that detect user activity in a Protected Broadcast Driver Architecture (PBDA) media graph.
@@ -48,7 +48,7 @@ export default struct IBDA_UserActivityService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_useractivityservice-setcurrenttunerusereason
      */
     SetCurrentTunerUseReason(dwUseReason) {
-        result := ComCall(3, this, "uint", dwUseReason, "HRESULT")
+        result := ComCall(3, this, UInt32, dwUseReason, "HRESULT")
         return result
     }
 

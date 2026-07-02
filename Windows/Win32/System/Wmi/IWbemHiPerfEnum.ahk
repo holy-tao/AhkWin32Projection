@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWbemObjectAccess.ahk" { IWbemObjectAccess }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used in refresher operations to provide rapid access to enumerations of instance objects.
@@ -55,7 +55,7 @@ export default struct IWbemHiPerfEnum extends IUnknown {
     AddObjects(lFlags, uNumObjects, apIds, apObj) {
         apIdsMarshal := apIds is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", lFlags, "uint", uNumObjects, apIdsMarshal, apIds, IWbemObjectAccess.Ptr, apObj, "HRESULT")
+        result := ComCall(3, this, Int32, lFlags, UInt32, uNumObjects, apIdsMarshal, apIds, IWbemObjectAccess.Ptr, apObj, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IWbemHiPerfEnum extends IUnknown {
     RemoveObjects(lFlags, uNumObjects, apIds) {
         apIdsMarshal := apIds is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", lFlags, "uint", uNumObjects, apIdsMarshal, apIds, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, UInt32, uNumObjects, apIdsMarshal, apIds, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IWbemHiPerfEnum extends IUnknown {
     GetObjects(lFlags, uNumObjects, apObj, puReturned) {
         puReturnedMarshal := puReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", lFlags, "uint", uNumObjects, IWbemObjectAccess.Ptr, apObj, puReturnedMarshal, puReturned, "HRESULT")
+        result := ComCall(5, this, Int32, lFlags, UInt32, uNumObjects, IWbemObjectAccess.Ptr, apObj, puReturnedMarshal, puReturned, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IWbemHiPerfEnum extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemhiperfenum-removeall
      */
     RemoveAll(lFlags) {
-        result := ComCall(6, this, "int", lFlags, "HRESULT")
+        result := ComCall(6, this, Int32, lFlags, "HRESULT")
         return result
     }
 

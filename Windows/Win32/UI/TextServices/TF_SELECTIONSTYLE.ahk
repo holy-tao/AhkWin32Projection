@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TfActiveSelEnd.ahk" { TfActiveSelEnd }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\TfActiveSelEnd.ahk" { TfActiveSelEnd }
 
 /**
  * The TF_SELECTIONSTYLE structure represents the style of a selection.

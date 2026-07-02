@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an ordered list of strings.
@@ -86,7 +86,7 @@ export default struct IStringCollection extends IDispatch {
      */
     get_Item(index) {
         retval := BSTR.Owned()
-        result := ComCall(7, this, "int", index, BSTR.Ptr, retval, "HRESULT")
+        result := ComCall(7, this, Int32, index, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -100,7 +100,7 @@ export default struct IStringCollection extends IDispatch {
     put_Item(index, value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(8, this, "int", index, BSTR, value, "HRESULT")
+        result := ComCall(8, this, Int32, index, BSTR, value, "HRESULT")
         return result
     }
 
@@ -228,7 +228,7 @@ export default struct IStringCollection extends IDispatch {
     Insert(index, value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(15, this, "int", index, BSTR, value, "HRESULT")
+        result := ComCall(15, this, Int32, index, BSTR, value, "HRESULT")
         return result
     }
 
@@ -270,7 +270,7 @@ export default struct IStringCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-istringcollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(16, this, "int", index, "HRESULT")
+        result := ComCall(16, this, Int32, index, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IPersistStreamInit.ahk" { IPersistStreamInit }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CProperty.ahk" { CProperty }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IPersistStreamInit.ahk" { IPersistStreamInit }
 
 /**
  * Use this interface to set properties for build objects such as word wheels and indexes. Call these methods in the document build process to define properties for all build objects.
@@ -180,7 +180,7 @@ export default struct IITPropList extends IPersistStreamInit {
     Set(PropID, lpszwString, dwOperation) {
         lpszwString := lpszwString is String ? StrPtr(lpszwString) : lpszwString
 
-        result := ComCall(9, this, "uint", PropID, "ptr", lpszwString, "uint", dwOperation, "HRESULT")
+        result := ComCall(9, this, UInt32, PropID, "ptr", lpszwString, UInt32, dwOperation, "HRESULT")
         return result
     }
 
@@ -307,7 +307,7 @@ export default struct IITPropList extends IPersistStreamInit {
     Set1(PropID, lpvData, cbData, dwOperation) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "uint", PropID, lpvDataMarshal, lpvData, "uint", cbData, "uint", dwOperation, "HRESULT")
+        result := ComCall(10, this, UInt32, PropID, lpvDataMarshal, lpvData, UInt32, cbData, UInt32, dwOperation, "HRESULT")
         return result
     }
 
@@ -431,7 +431,7 @@ export default struct IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-set(propid_lpvoid_dword_dword)
      */
     Set2(PropID, dwData, dwOperation) {
-        result := ComCall(11, this, "uint", PropID, "uint", dwData, "uint", dwOperation, "HRESULT")
+        result := ComCall(11, this, UInt32, PropID, UInt32, dwData, UInt32, dwOperation, "HRESULT")
         return result
     }
 
@@ -486,7 +486,7 @@ export default struct IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-get
      */
     Get(PropID, _Property) {
-        result := ComCall(13, this, "uint", PropID, CProperty.Ptr, _Property, "HRESULT")
+        result := ComCall(13, this, UInt32, PropID, CProperty.Ptr, _Property, "HRESULT")
         return result
     }
 
@@ -609,7 +609,7 @@ export default struct IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-setpersist(propid_bool)
      */
     SetPersist1(PropID, fPersist) {
-        result := ComCall(16, this, "uint", PropID, BOOL, fPersist, "HRESULT")
+        result := ComCall(16, this, UInt32, PropID, BOOL, fPersist, "HRESULT")
         return result
     }
 
@@ -709,7 +709,7 @@ export default struct IITPropList extends IPersistStreamInit {
     SaveHeader(lpvData, dwHdrSize) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(20, this, lpvDataMarshal, lpvData, "uint", dwHdrSize, "HRESULT")
+        result := ComCall(20, this, lpvDataMarshal, lpvData, UInt32, dwHdrSize, "HRESULT")
         return result
     }
 
@@ -748,7 +748,7 @@ export default struct IITPropList extends IPersistStreamInit {
         lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(21, this, lpvHeaderMarshal, lpvHeader, "uint", dwHdrSize, lpvDataMarshal, lpvData, "uint", dwBufSize, "HRESULT")
+        result := ComCall(21, this, lpvHeaderMarshal, lpvHeader, UInt32, dwHdrSize, lpvDataMarshal, lpvData, UInt32, dwBufSize, "HRESULT")
         return result
     }
 
@@ -835,7 +835,7 @@ export default struct IITPropList extends IPersistStreamInit {
         lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
         dwDataSizeMarshal := dwDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, lpvHeaderMarshal, lpvHeader, "uint", dwHdrSize, dwDataSizeMarshal, dwDataSize, "HRESULT")
+        result := ComCall(23, this, lpvHeaderMarshal, lpvHeader, UInt32, dwHdrSize, dwDataSizeMarshal, dwDataSize, "HRESULT")
         return result
     }
 
@@ -849,7 +849,7 @@ export default struct IITPropList extends IPersistStreamInit {
     SaveDataToStream(lpvHeader, dwHdrSize, pStream) {
         lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(24, this, lpvHeaderMarshal, lpvHeader, "uint", dwHdrSize, "ptr", pStream, "HRESULT")
+        result := ComCall(24, this, lpvHeaderMarshal, lpvHeader, UInt32, dwHdrSize, "ptr", pStream, "HRESULT")
         return result
     }
 
@@ -862,7 +862,7 @@ export default struct IITPropList extends IPersistStreamInit {
     LoadFromMem(lpvData, dwBufSize) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(25, this, lpvDataMarshal, lpvData, "uint", dwBufSize, "HRESULT")
+        result := ComCall(25, this, lpvDataMarshal, lpvData, UInt32, dwBufSize, "HRESULT")
         return result
     }
 
@@ -875,7 +875,7 @@ export default struct IITPropList extends IPersistStreamInit {
     SaveToMem(lpvData, dwBufSize) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(26, this, lpvDataMarshal, lpvData, "uint", dwBufSize, "HRESULT")
+        result := ComCall(26, this, lpvDataMarshal, lpvData, UInt32, dwBufSize, "HRESULT")
         return result
     }
 

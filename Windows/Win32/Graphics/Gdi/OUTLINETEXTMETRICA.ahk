@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
-#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
-#Import ".\TEXTMETRICA.ahk" { TEXTMETRICA }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\PANOSE.ahk" { PANOSE }
-#Import ".\TMPF_FLAGS.ahk" { TMPF_FLAGS }
-#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
-#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
-#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
-#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
-#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
 #Import ".\PAN_WEIGHT.ahk" { PAN_WEIGHT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
+#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import ".\TMPF_FLAGS.ahk" { TMPF_FLAGS }
+#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\TEXTMETRICA.ahk" { TEXTMETRICA }
+#Import ".\PANOSE.ahk" { PANOSE }
+#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
 
 /**
  * The OUTLINETEXTMETRIC structure contains metrics describing a TrueType font. (ANSI)

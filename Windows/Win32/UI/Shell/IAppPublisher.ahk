@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumPublishedApps.ahk" { IEnumPublishedApps }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\APPCATEGORYINFOLIST.ahk" { APPCATEGORYINFOLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumPublishedApps.ahk" { IEnumPublishedApps }
 
 /**
  * Exposes methods for publishing applications through Add/Remove Programs in Control Panel. This is the principal interface implemented for this purpose.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\NMHDR.ahk" { NMHDR }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\ENDCOMPOSITIONNOTIFY_CODE.ahk" { ENDCOMPOSITIONNOTIFY_CODE }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about an EN_ENDCOMPOSITION notification code from a rich edit control.

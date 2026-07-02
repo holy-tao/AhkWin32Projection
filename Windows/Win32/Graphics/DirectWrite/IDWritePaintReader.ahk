@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct2D\Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
-#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
-#Import ".\DWRITE_PAINT_COLOR.ahk" { DWRITE_PAINT_COLOR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DWRITE_PAINT_ATTRIBUTES.ahk" { DWRITE_PAINT_ATTRIBUTES }
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct2D\Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
+#Import ".\DWRITE_PAINT_COLOR.ahk" { DWRITE_PAINT_COLOR }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
@@ -60,7 +60,7 @@ export default struct IDWritePaintReader extends IUnknown {
     SetCurrentGlyph(glyphIndex, paintElement, structSize, clipBox, glyphAttributes) {
         glyphAttributesMarshal := glyphAttributes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", glyphIndex, "ptr", paintElement, "uint", structSize, D2D_RECT_F.Ptr, clipBox, glyphAttributesMarshal, glyphAttributes, "HRESULT")
+        result := ComCall(3, this, UInt32, glyphIndex, IntPtr, paintElement, UInt32, structSize, D2D_RECT_F.Ptr, clipBox, glyphAttributesMarshal, glyphAttributes, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IDWritePaintReader extends IUnknown {
      * @returns {HRESULT} 
      */
     SetColorPaletteIndex(colorPaletteIndex) {
-        result := ComCall(5, this, "uint", colorPaletteIndex, "HRESULT")
+        result := ComCall(5, this, UInt32, colorPaletteIndex, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IDWritePaintReader extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCustomColorPalette(paletteEntries, paletteEntryCount) {
-        result := ComCall(6, this, DWRITE_COLOR_F.Ptr, paletteEntries, "uint", paletteEntryCount, "HRESULT")
+        result := ComCall(6, this, DWRITE_COLOR_F.Ptr, paletteEntries, UInt32, paletteEntryCount, "HRESULT")
         return result
     }
 
@@ -107,7 +107,7 @@ export default struct IDWritePaintReader extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveToFirstChild(paintElement, structSize) {
-        result := ComCall(7, this, "ptr", paintElement, "uint", structSize, "HRESULT")
+        result := ComCall(7, this, IntPtr, paintElement, UInt32, structSize, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct IDWritePaintReader extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveToNextSibling(paintElement, structSize) {
-        result := ComCall(8, this, "ptr", paintElement, "uint", structSize, "HRESULT")
+        result := ComCall(8, this, IntPtr, paintElement, UInt32, structSize, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IDWritePaintReader extends IUnknown {
      */
     GetGradientStops(firstGradientStopIndex, gradientStopCount) {
         gradientStops := D2D1_GRADIENT_STOP()
-        result := ComCall(10, this, "uint", firstGradientStopIndex, "uint", gradientStopCount, D2D1_GRADIENT_STOP.Ptr, gradientStops, "HRESULT")
+        result := ComCall(10, this, UInt32, firstGradientStopIndex, UInt32, gradientStopCount, D2D1_GRADIENT_STOP.Ptr, gradientStops, "HRESULT")
         return gradientStops
     }
 
@@ -151,7 +151,7 @@ export default struct IDWritePaintReader extends IUnknown {
      */
     GetGradientStopColors(firstGradientStopIndex, gradientStopCount) {
         gradientStopColors := DWRITE_PAINT_COLOR()
-        result := ComCall(11, this, "uint", firstGradientStopIndex, "uint", gradientStopCount, DWRITE_PAINT_COLOR.Ptr, gradientStopColors, "HRESULT")
+        result := ComCall(11, this, UInt32, firstGradientStopIndex, UInt32, gradientStopCount, DWRITE_PAINT_COLOR.Ptr, gradientStopColors, "HRESULT")
         return gradientStopColors
     }
 

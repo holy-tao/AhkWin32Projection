@@ -69,7 +69,7 @@ export default struct IStreamBufferConfigure2 extends IStreamBufferConfigure {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure2-setmultiplexedpacketsize
      */
     SetMultiplexedPacketSize(cbBytesPerPacket) {
-        result := ComCall(9, this, "uint", cbBytesPerPacket, "HRESULT")
+        result := ComCall(9, this, UInt32, cbBytesPerPacket, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IStreamBufferConfigure2 extends IStreamBufferConfigure {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure2-setfftransitionrates
      */
     SetFFTransitionRates(dwMaxFullFrameRate, dwMaxNonSkippingRate) {
-        result := ComCall(11, this, "uint", dwMaxFullFrameRate, "uint", dwMaxNonSkippingRate, "HRESULT")
+        result := ComCall(11, this, UInt32, dwMaxFullFrameRate, UInt32, dwMaxNonSkippingRate, "HRESULT")
         return result
     }
 

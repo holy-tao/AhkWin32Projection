@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMoniker.ahk" { IMoniker }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\STGMEDIUM.ahk" { STGMEDIUM }
 #Import ".\FORMATETC.ahk" { FORMATETC }
-#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -77,7 +77,7 @@ export default struct AsyncIAdviseSink extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     Begin_OnViewChange(dwAspect, lindex) {
-        ComCall(5, this, "uint", dwAspect, "int", lindex)
+        ComCall(5, this, UInt32, dwAspect, Int32, lindex)
     }
 
     /**

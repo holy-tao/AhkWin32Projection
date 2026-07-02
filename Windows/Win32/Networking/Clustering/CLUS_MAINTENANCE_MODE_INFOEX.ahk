@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
 #Import ".\MAINTENANCE_MODE_TYPE_ENUM.ahk" { MAINTENANCE_MODE_TYPE_ENUM }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents the extended maintenance mode settings for a storage class resource.

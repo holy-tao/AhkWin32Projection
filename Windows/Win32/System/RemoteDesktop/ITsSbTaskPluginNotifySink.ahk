@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\ITsSbBaseNotifySink.ahk" { ITsSbBaseNotifySink }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\RDV_TASK_STATUS.ahk" { RDV_TASK_STATUS }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITsSbBaseNotifySink.ahk" { ITsSbBaseNotifySink }
 
 /**
  * Exposes methods that report status and error messages about tasks to Remote Desktop Connection Broker (RD Connection Broker).
@@ -64,7 +64,7 @@ export default struct ITsSbTaskPluginNotifySink extends ITsSbBaseNotifySink {
         szTaskIdentifier := szTaskIdentifier is String ? BSTR.Alloc(szTaskIdentifier).Value : szTaskIdentifier
         szTaskPlugin := szTaskPlugin is String ? BSTR.Alloc(szTaskPlugin).Value : szTaskPlugin
 
-        result := ComCall(5, this, BSTR, szTargetName, FILETIME, TaskStartTime, FILETIME, TaskEndTime, FILETIME, TaskDeadline, BSTR, szTaskLabel, BSTR, szTaskIdentifier, BSTR, szTaskPlugin, "uint", dwTaskStatus, SAFEARRAY.Ptr, saContext, "HRESULT")
+        result := ComCall(5, this, BSTR, szTargetName, FILETIME, TaskStartTime, FILETIME, TaskEndTime, FILETIME, TaskDeadline, BSTR, szTaskLabel, BSTR, szTaskIdentifier, BSTR, szTaskPlugin, UInt32, dwTaskStatus, SAFEARRAY.Ptr, saContext, "HRESULT")
         return result
     }
 

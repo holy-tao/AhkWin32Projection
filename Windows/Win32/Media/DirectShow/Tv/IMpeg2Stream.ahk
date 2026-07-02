@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
-#Import ".\MPEG_CONTEXT.ahk" { MPEG_CONTEXT }
 #Import ".\MPEG_STREAM_BUFFER.ahk" { MPEG_STREAM_BUFFER }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
+#Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MPEG_CONTEXT.ahk" { MPEG_CONTEXT }
 
 /**
  * The IMpeg2Stream interface represents a stream of MPEG-2 data. The IMpeg2Data::GetStreamOfSections method returns a pointer to this interface.
@@ -116,7 +116,7 @@ export default struct IMpeg2Stream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2stream-initialize
      */
     Initialize(requestType, pMpeg2Data, pContext, pid, tid, pFilter, hDataReadyEvent) {
-        result := ComCall(3, this, MPEG_REQUEST_TYPE, requestType, "ptr", pMpeg2Data, MPEG_CONTEXT.Ptr, pContext, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, HANDLE, hDataReadyEvent, "HRESULT")
+        result := ComCall(3, this, MPEG_REQUEST_TYPE, requestType, "ptr", pMpeg2Data, MPEG_CONTEXT.Ptr, pContext, UInt16, pid, Int8, tid, MPEG2_FILTER.Ptr, pFilter, HANDLE, hDataReadyEvent, "HRESULT")
         return result
     }
 

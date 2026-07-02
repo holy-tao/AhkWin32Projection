@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CATEGORYINFO.ahk" { CATEGORYINFO }
 
 /**
@@ -82,7 +82,7 @@ export default struct ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-registercategories
      */
     RegisterCategories(cCategories, rgCategoryInfo) {
-        result := ComCall(3, this, "uint", cCategories, CATEGORYINFO.Ptr, rgCategoryInfo, "HRESULT")
+        result := ComCall(3, this, UInt32, cCategories, CATEGORYINFO.Ptr, rgCategoryInfo, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-unregistercategories
      */
     UnRegisterCategories(cCategories, rgcatid) {
-        result := ComCall(4, this, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
+        result := ComCall(4, this, UInt32, cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-registerclassimplcategories
      */
     RegisterClassImplCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(5, this, Guid.Ptr, rclsid, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rclsid, UInt32, cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
     }
 
@@ -215,7 +215,7 @@ export default struct ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-unregisterclassimplcategories
      */
     UnRegisterClassImplCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(6, this, Guid.Ptr, rclsid, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rclsid, UInt32, cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-registerclassreqcategories
      */
     RegisterClassReqCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(7, this, Guid.Ptr, rclsid, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, rclsid, UInt32, cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
     }
 
@@ -303,7 +303,7 @@ export default struct ICatRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatregister-unregisterclassreqcategories
      */
     UnRegisterClassReqCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(8, this, Guid.Ptr, rclsid, "uint", cCategories, Guid.Ptr, rgcatid, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rclsid, UInt32, cCategories, Guid.Ptr, rgcatid, "HRESULT")
         return result
     }
 

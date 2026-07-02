@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\MULTIPLE_TRUSTEE_OPERATION.ahk" { MULTIPLE_TRUSTEE_OPERATION }
-#Import ".\TRUSTEE_FORM.ahk" { TRUSTEE_FORM }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TRUSTEE_FORM.ahk" { TRUSTEE_FORM }
 #Import ".\TRUSTEE_TYPE.ahk" { TRUSTEE_TYPE }
 
 /**

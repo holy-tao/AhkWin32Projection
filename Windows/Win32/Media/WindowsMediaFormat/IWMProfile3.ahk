@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMT_STORAGE_FORMAT.ahk" { WMT_STORAGE_FORMAT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMProfile2.ahk" { IWMProfile2 }
 #Import ".\IWMStreamPrioritization.ahk" { IWMStreamPrioritization }
 #Import ".\IWMBandwidthSharing.ahk" { IWMBandwidthSharing }
+#Import ".\WMT_STORAGE_FORMAT.ahk" { WMT_STORAGE_FORMAT }
+#Import ".\IWMProfile2.ahk" { IWMProfile2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMProfile3 interface provides enhanced features for profiles.
@@ -95,7 +95,7 @@ export default struct IWMProfile3 extends IWMProfile2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getbandwidthsharing
      */
     GetBandwidthSharing(dwBSIndex) {
-        result := ComCall(25, this, "uint", dwBSIndex, "ptr*", &ppBS := 0, "HRESULT")
+        result := ComCall(25, this, UInt32, dwBSIndex, "ptr*", &ppBS := 0, "HRESULT")
         return IWMBandwidthSharing(ppBS)
     }
 
@@ -369,7 +369,7 @@ export default struct IWMProfile3 extends IWMProfile2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-getexpectedpacketcount
      */
     GetExpectedPacketCount(msDuration) {
-        result := ComCall(33, this, "uint", msDuration, "uint*", &pcPackets := 0, "HRESULT")
+        result := ComCall(33, this, Int64, msDuration, "uint*", &pcPackets := 0, "HRESULT")
         return pcPackets
     }
 

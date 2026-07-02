@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PRIORITIZE_FLAGS.ahk" { PRIORITIZE_FLAGS }
+#Import ".\ISearchCatalogManager.ahk" { ISearchCatalogManager }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISearchCatalogManager.ahk" { ISearchCatalogManager }
-#Import ".\PRIORITIZE_FLAGS.ahk" { PRIORITIZE_FLAGS }
 
 /**
  * Extends the ISearchCatalogManager interface to manage a search catalog, for purposes such as re-indexing or setting timeouts.

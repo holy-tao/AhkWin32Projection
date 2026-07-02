@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DHCP_PROPERTY_ARRAY.ahk" { DHCP_PROPERTY_ARRAY }
-#Import ".\DATE_TIME.ahk" { DATE_TIME }
-#Import ".\QuarantineStatus.ahk" { QuarantineStatus }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DHCP_HOST_INFO.ahk" { DHCP_HOST_INFO }
 #Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DATE_TIME.ahk" { DATE_TIME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_HOST_INFO.ahk" { DHCP_HOST_INFO }
+#Import ".\QuarantineStatus.ahk" { QuarantineStatus }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp

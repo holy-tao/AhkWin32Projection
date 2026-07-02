@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDRMWriter interface provides support for applying DRM protection to content in ASF files.
@@ -130,7 +130,7 @@ export default struct IWMDRMWriter extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ushort", wStreamNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(6, this, UInt16, wStreamNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
     }
 

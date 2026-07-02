@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWICDisplayAdaptationControl.ahk" { IWICDisplayAdaptationControl }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWICDisplayAdaptationControl.ahk" { IWICDisplayAdaptationControl }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WICBitmapToneMappingMode.ahk" { WICBitmapToneMappingMode }
 
 /**
@@ -47,7 +47,7 @@ export default struct IWICDisplayAdaptationControl2 extends IWICDisplayAdaptatio
      * @returns {HRESULT} 
      */
     SetSdrWhiteLevel(fWhiteLevelInNits) {
-        result := ComCall(6, this, "float", fWhiteLevelInNits, "HRESULT")
+        result := ComCall(6, this, Float32, fWhiteLevelInNits, "HRESULT")
         return result
     }
 

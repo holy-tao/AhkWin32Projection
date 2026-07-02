@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUPnPRegistrar interface registers the devices that run in the context of the device host.
@@ -94,7 +94,7 @@ export default struct IUPnPRegistrar extends IUnknown {
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
         pbstrDeviceIdentifier := BSTR.Owned()
-        result := ComCall(3, this, BSTR, bstrXMLDesc, BSTR, bstrProgIDDeviceControlClass, BSTR, bstrInitString, BSTR, bstrContainerId, BSTR, bstrResourcePath, "int", nLifeTime, BSTR.Ptr, pbstrDeviceIdentifier, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrXMLDesc, BSTR, bstrProgIDDeviceControlClass, BSTR, bstrInitString, BSTR, bstrContainerId, BSTR, bstrResourcePath, Int32, nLifeTime, BSTR.Ptr, pbstrDeviceIdentifier, "HRESULT")
         return pbstrDeviceIdentifier
     }
 
@@ -142,7 +142,7 @@ export default struct IUPnPRegistrar extends IUnknown {
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
         pbstrDeviceIdentifier := BSTR.Owned()
-        result := ComCall(4, this, BSTR, bstrXMLDesc, "ptr", punkDeviceControl, BSTR, bstrInitString, BSTR, bstrResourcePath, "int", nLifeTime, BSTR.Ptr, pbstrDeviceIdentifier, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrXMLDesc, "ptr", punkDeviceControl, BSTR, bstrInitString, BSTR, bstrResourcePath, Int32, nLifeTime, BSTR.Ptr, pbstrDeviceIdentifier, "HRESULT")
         return pbstrDeviceIdentifier
     }
 

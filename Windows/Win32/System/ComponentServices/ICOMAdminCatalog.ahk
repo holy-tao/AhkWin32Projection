@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COMAdminApplicationInstallOptions.ahk" { COMAdminApplicationInstallOptions }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\COMAdminApplicationExportOptions.ahk" { COMAdminApplicationExportOptions }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\COMAdminApplicationInstallOptions.ahk" { COMAdminApplicationInstallOptions }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
@@ -827,7 +827,7 @@ export default struct ICOMAdminCatalog extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-servicecheck
      */
     ServiceCheck(lService) {
-        result := ComCall(29, this, "int", lService, "int*", &plStatus := 0, "HRESULT")
+        result := ComCall(29, this, Int32, lService, "int*", &plStatus := 0, "HRESULT")
         return plStatus
     }
 

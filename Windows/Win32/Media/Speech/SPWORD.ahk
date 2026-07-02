@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPWORDTYPE.ahk" { SPWORDTYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPWORDTYPE.ahk" { SPWORDTYPE }
 #Import ".\SPWORDPRONUNCIATION.ahk" { SPWORDPRONUNCIATION }
 
 /**

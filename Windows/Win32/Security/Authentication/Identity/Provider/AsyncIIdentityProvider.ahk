@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDENTITY_TYPE.ahk" { IDENTITY_TYPE }
 #Import "..\..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IIdentityAdvise.ahk" { IIdentityAdvise }
+#Import "..\..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDENTITY_TYPE.ahk" { IDENTITY_TYPE }
+#Import "..\..\..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
@@ -193,7 +193,7 @@ export default struct AsyncIIdentityProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     Begin_Advise(pIdentityAdvise, dwIdentityUpdateEvents) {
-        result := ComCall(15, this, "ptr", pIdentityAdvise, "uint", dwIdentityUpdateEvents, "HRESULT")
+        result := ComCall(15, this, "ptr", pIdentityAdvise, UInt32, dwIdentityUpdateEvents, "HRESULT")
         return result
     }
 
@@ -212,7 +212,7 @@ export default struct AsyncIIdentityProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     Begin_UnAdvise(dwCookie) {
-        result := ComCall(17, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(17, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 

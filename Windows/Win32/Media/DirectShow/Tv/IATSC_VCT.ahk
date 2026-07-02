@@ -4,10 +4,10 @@
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISectionList.ahk" { ISectionList }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -168,7 +168,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordname
      */
     GetRecordName(dwRecordIndex) {
-        result := ComCall(8, this, "uint", dwRecordIndex, PWSTR.Ptr, &pwsName := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwRecordIndex, PWSTR.Ptr, &pwsName := 0, "HRESULT")
         return pwsName
     }
 
@@ -179,7 +179,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordmajorchannelnumber
      */
     GetRecordMajorChannelNumber(dwRecordIndex) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -190,7 +190,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordminorchannelnumber
      */
     GetRecordMinorChannelNumber(dwRecordIndex) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -201,7 +201,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordmodulationmode
      */
     GetRecordModulationMode(dwRecordIndex) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -212,7 +212,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordcarrierfrequency
      */
     GetRecordCarrierFrequency(dwRecordIndex) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -223,7 +223,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordtransportstreamid
      */
     GetRecordTransportStreamId(dwRecordIndex) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -234,7 +234,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordprogramnumber
      */
     GetRecordProgramNumber(dwRecordIndex) {
-        result := ComCall(14, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -245,7 +245,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordetmlocation
      */
     GetRecordEtmLocation(dwRecordIndex) {
-        result := ComCall(15, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -256,7 +256,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordisaccesscontrolledbitset
      */
     GetRecordIsAccessControlledBitSet(dwRecordIndex) {
-        result := ComCall(16, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -267,7 +267,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordishiddenbitset
      */
     GetRecordIsHiddenBitSet(dwRecordIndex) {
-        result := ComCall(17, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -280,7 +280,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordispathselectbitset
      */
     GetRecordIsPathSelectBitSet(dwRecordIndex) {
-        result := ComCall(18, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -293,7 +293,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordisoutofbandbitset
      */
     GetRecordIsOutOfBandBitSet(dwRecordIndex) {
-        result := ComCall(19, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(19, this, UInt32, dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -306,7 +306,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordishideguidebitset
      */
     GetRecordIsHideGuideBitSet(dwRecordIndex) {
-        result := ComCall(20, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(20, this, UInt32, dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -317,7 +317,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordservicetype
      */
     GetRecordServiceType(dwRecordIndex) {
-        result := ComCall(21, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(21, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -328,7 +328,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordsourceid
      */
     GetRecordSourceId(dwRecordIndex) {
-        result := ComCall(22, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(22, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -339,7 +339,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
-        result := ComCall(23, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(23, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -351,7 +351,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
-        result := ComCall(24, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(24, this, UInt32, dwRecordIndex, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -368,7 +368,7 @@ export default struct IATSC_VCT extends IUnknown {
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(25, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -410,7 +410,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
-        result := ComCall(27, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(27, this, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -426,7 +426,7 @@ export default struct IATSC_VCT extends IUnknown {
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(28, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(28, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

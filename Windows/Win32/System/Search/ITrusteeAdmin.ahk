@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Security\Authorization\TRUSTEE_W.ahk" { TRUSTEE_W }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DBPROPIDSET.ahk" { DBPROPIDSET }
+#Import "..\..\Security\Authorization\TRUSTEE_W.ahk" { TRUSTEE_W }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -61,7 +61,7 @@ export default struct ITrusteeAdmin extends IUnknown {
      * @returns {HRESULT} 
      */
     CreateTrustee(pTrustee, cPropertySets, rgPropertySets) {
-        result := ComCall(4, this, TRUSTEE_W.Ptr, pTrustee, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
+        result := ComCall(4, this, TRUSTEE_W.Ptr, pTrustee, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct ITrusteeAdmin extends IUnknown {
      * @returns {HRESULT} 
      */
     SetTrusteeProperties(pTrustee, cPropertySets, rgPropertySets) {
-        result := ComCall(6, this, TRUSTEE_W.Ptr, pTrustee, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
+        result := ComCall(6, this, TRUSTEE_W.Ptr, pTrustee, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct ITrusteeAdmin extends IUnknown {
     GetTrusteeProperties(pTrustee, cPropertyIDSets, rgPropertyIDSets, pcPropertySets) {
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, TRUSTEE_W.Ptr, pTrustee, "uint", cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", &prgPropertySets := 0, "HRESULT")
+        result := ComCall(7, this, TRUSTEE_W.Ptr, pTrustee, UInt32, cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", &prgPropertySets := 0, "HRESULT")
         return prgPropertySets
     }
 

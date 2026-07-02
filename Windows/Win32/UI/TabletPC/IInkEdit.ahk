@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\BorderStyleConstants.ahk" { BorderStyleConstants }
-#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
-#Import ".\InkMousePointer.ahk" { InkMousePointer }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\AppearanceConstants.ahk" { AppearanceConstants }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Ole\OLE_HANDLE.ahk" { OLE_HANDLE }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\System\Ole\IFontDisp.ahk" { IFontDisp }
-#Import ".\InkMode.ahk" { InkMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkRecognizer.ahk" { IInkRecognizer }
+#Import "..\..\System\Ole\OLE_HANDLE.ahk" { OLE_HANDLE }
 #Import ".\ScrollBarsConstants.ahk" { ScrollBarsConstants }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\InkMode.ahk" { InkMode }
+#Import ".\AppearanceConstants.ahk" { AppearanceConstants }
+#Import ".\BorderStyleConstants.ahk" { BorderStyleConstants }
 #Import ".\InkDisplayMode.ahk" { InkDisplayMode }
-#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\InkInsertMode.ahk" { InkInsertMode }
 #Import ".\InkEditStatus.ahk" { InkEditStatus }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
+#Import ".\InkMousePointer.ahk" { InkMousePointer }
+#Import "..\..\System\Ole\IFontDisp.ahk" { IFontDisp }
+#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
 
 /**
  * . (IInkEdit)
@@ -562,7 +562,7 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_recognitiontimeout
      */
     put_RecognitionTimeout(newVal) {
-        result := ComCall(17, this, "int", newVal, "HRESULT")
+        result := ComCall(17, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -888,7 +888,7 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_backcolor
      */
     put_BackColor(clr) {
-        result := ComCall(29, this, "uint", clr, "HRESULT")
+        result := ComCall(29, this, UInt32, clr, "HRESULT")
         return result
     }
 
@@ -1164,7 +1164,7 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_maxlength
      */
     put_MaxLength(lMaxLength) {
-        result := ComCall(50, this, "int", lMaxLength, "HRESULT")
+        result := ComCall(50, this, Int32, lMaxLength, "HRESULT")
         return result
     }
 
@@ -1544,7 +1544,7 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selstart
      */
     put_SelStart(plSelStart) {
-        result := ComCall(76, this, "int", plSelStart, "HRESULT")
+        result := ComCall(76, this, Int32, plSelStart, "HRESULT")
         return result
     }
 
@@ -1569,7 +1569,7 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_sellength
      */
     put_SelLength(plSelLength) {
-        result := ComCall(78, this, "int", plSelLength, "HRESULT")
+        result := ComCall(78, this, Int32, plSelLength, "HRESULT")
         return result
     }
 

@@ -2,12 +2,12 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IVBSAXAttributes.ahk" { IVBSAXAttributes }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISchema.ahk" { ISchema }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISchema.ahk" { ISchema }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SOMITEMTYPE.ahk" { SOMITEMTYPE }
 
 /**

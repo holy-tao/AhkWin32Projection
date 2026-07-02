@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICallFrame.ahk" { ICallFrame }
-#Import ".\CALLFRAME_MARSHALCONTEXT.ahk" { CALLFRAME_MARSHALCONTEXT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import ".\ICallFrame.ahk" { ICallFrame }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CALLFRAME_MARSHALCONTEXT.ahk" { CALLFRAME_MARSHALCONTEXT }
 
 /**
  * Is used on the server (receiving) side of a remote invocation.
@@ -87,7 +87,7 @@ export default struct ICallUnmarshal extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pcbUnmarshalledMarshal := pcbUnmarshalled is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, BOOL, fForceBufferCopy, "uint", dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, ICallFrame.Ptr, ppFrame, "HRESULT")
+        result := ComCall(3, this, UInt32, iMethod, pBufferMarshal, pBuffer, UInt32, cbBuffer, BOOL, fForceBufferCopy, UInt32, dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, ICallFrame.Ptr, ppFrame, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct ICallUnmarshal extends IUnknown {
     ReleaseMarshalData(iMethod, pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "HRESULT")
+        result := ComCall(4, this, UInt32, iMethod, pBufferMarshal, pBuffer, UInt32, cbBuffer, UInt32, ibFirstRelease, UInt32, dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "HRESULT")
         return result
     }
 

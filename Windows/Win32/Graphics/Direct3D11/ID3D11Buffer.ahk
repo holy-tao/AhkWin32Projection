@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\D3D11_BUFFER_DESC.ahk" { D3D11_BUFFER_DESC }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 
 /**
  * A buffer interface accesses a buffer resource, which is unstructured memory. Buffers typically store vertex or index data. (ID3D11Buffer)

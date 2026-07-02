@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_MESSAGE_ID.ahk" { D3D11_MESSAGE_ID }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D3D11_INFO_QUEUE_FILTER.ahk" { D3D11_INFO_QUEUE_FILTER }
 #Import ".\D3D11_MESSAGE_CATEGORY.ahk" { D3D11_MESSAGE_CATEGORY }
-#Import ".\D3D11_MESSAGE_ID.ahk" { D3D11_MESSAGE_ID }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D11_MESSAGE_SEVERITY.ahk" { D3D11_MESSAGE_SEVERITY }
 
 /**
@@ -96,7 +96,7 @@ export default struct ID3D11InfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-setmessagecountlimit
      */
     SetMessageCountLimit(MessageCountLimit) {
-        result := ComCall(3, this, "uint", MessageCountLimit, "HRESULT")
+        result := ComCall(3, this, Int64, MessageCountLimit, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct ID3D11InfoQueue extends IUnknown {
     GetMessage(MessageIndex, pMessage, pMessageByteLength) {
         pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", MessageIndex, "ptr", pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
+        result := ComCall(5, this, Int64, MessageIndex, IntPtr, pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
         return result
     }
 
@@ -261,7 +261,7 @@ export default struct ID3D11InfoQueue extends IUnknown {
     GetStorageFilter(pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(13, this, IntPtr, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -396,7 +396,7 @@ export default struct ID3D11InfoQueue extends IUnknown {
     GetRetrievalFilter(pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(21, this, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(21, this, IntPtr, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 

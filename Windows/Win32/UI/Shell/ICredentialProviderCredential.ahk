@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICredentialProviderCredentialEvents.ahk" { ICredentialProviderCredentialEvents }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE.ahk" { CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CREDENTIAL_PROVIDER_FIELD_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_STATE }
+#Import ".\CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE.ahk" { CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE }
 #Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CREDENTIAL_PROVIDER_STATUS_ICON.ahk" { CREDENTIAL_PROVIDER_STATUS_ICON }
 #Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
+#Import ".\ICredentialProviderCredentialEvents.ahk" { ICredentialProviderCredentialEvents }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods that enable the handling of a credential.
@@ -162,7 +162,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
         pcpfsMarshal := pcpfs is VarRef ? "int*" : "ptr"
         pcpfisMarshal := pcpfis is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwFieldID, pcpfsMarshal, pcpfs, pcpfisMarshal, pcpfis, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFieldID, pcpfsMarshal, pcpfs, pcpfisMarshal, pcpfis, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getstringvalue
      */
     GetStringValue(dwFieldID) {
-        result := ComCall(8, this, "uint", dwFieldID, PWSTR.Ptr, &ppsz := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFieldID, PWSTR.Ptr, &ppsz := 0, "HRESULT")
         return ppsz
     }
 
@@ -210,7 +210,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
      */
     GetBitmapValue(dwFieldID) {
         phbmp := HBITMAP.Owned()
-        result := ComCall(9, this, "uint", dwFieldID, HBITMAP.Ptr, phbmp, "HRESULT")
+        result := ComCall(9, this, UInt32, dwFieldID, HBITMAP.Ptr, phbmp, "HRESULT")
         return phbmp
     }
 
@@ -234,7 +234,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
         pbCheckedMarshal := pbChecked is VarRef ? "int*" : "ptr"
         ppszLabelMarshal := ppszLabel is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "uint", dwFieldID, pbCheckedMarshal, pbChecked, ppszLabelMarshal, ppszLabel, "HRESULT")
+        result := ComCall(10, this, UInt32, dwFieldID, pbCheckedMarshal, pbChecked, ppszLabelMarshal, ppszLabel, "HRESULT")
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getsubmitbuttonvalue
      */
     GetSubmitButtonValue(dwFieldID) {
-        result := ComCall(11, this, "uint", dwFieldID, "uint*", &pdwAdjacentTo := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwFieldID, "uint*", &pdwAdjacentTo := 0, "HRESULT")
         return pdwAdjacentTo
     }
 
@@ -285,7 +285,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
         pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
         pdwSelectedItemMarshal := pdwSelectedItem is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwFieldID, pcItemsMarshal, pcItems, pdwSelectedItemMarshal, pdwSelectedItem, "HRESULT")
+        result := ComCall(12, this, UInt32, dwFieldID, pcItemsMarshal, pcItems, pdwSelectedItemMarshal, pdwSelectedItem, "HRESULT")
         return result
     }
 
@@ -303,7 +303,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getcomboboxvalueat
      */
     GetComboBoxValueAt(dwFieldID, dwItem) {
-        result := ComCall(13, this, "uint", dwFieldID, "uint", dwItem, PWSTR.Ptr, &ppszItem := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwFieldID, UInt32, dwItem, PWSTR.Ptr, &ppszItem := 0, "HRESULT")
         return ppszItem
     }
 
@@ -336,7 +336,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
     SetStringValue(dwFieldID, psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := ComCall(14, this, "uint", dwFieldID, "ptr", psz, "HRESULT")
+        result := ComCall(14, this, UInt32, dwFieldID, "ptr", psz, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-setcheckboxvalue
      */
     SetCheckboxValue(dwFieldID, bChecked) {
-        result := ComCall(15, this, "uint", dwFieldID, BOOL, bChecked, "HRESULT")
+        result := ComCall(15, this, UInt32, dwFieldID, BOOL, bChecked, "HRESULT")
         return result
     }
 
@@ -372,7 +372,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-setcomboboxselectedvalue
      */
     SetComboBoxSelectedValue(dwFieldID, dwSelectedItem) {
-        result := ComCall(16, this, "uint", dwFieldID, "uint", dwSelectedItem, "HRESULT")
+        result := ComCall(16, this, UInt32, dwFieldID, UInt32, dwSelectedItem, "HRESULT")
         return result
     }
 
@@ -389,7 +389,7 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-commandlinkclicked
      */
     CommandLinkClicked(dwFieldID) {
-        result := ComCall(17, this, "uint", dwFieldID, "HRESULT")
+        result := ComCall(17, this, UInt32, dwFieldID, "HRESULT")
         return result
     }
 

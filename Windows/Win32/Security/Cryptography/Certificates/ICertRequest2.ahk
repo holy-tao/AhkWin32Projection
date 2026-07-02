@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ICertRequest.ahk" { ICertRequest }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\CERT_REQUEST_OUT_TYPE.ahk" { CERT_REQUEST_OUT_TYPE }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\FULL_RESPONSE_PROPERTY_ID.ahk" { FULL_RESPONSE_PROPERTY_ID }
-#Import ".\ICertRequest.ahk" { ICertRequest }
-#Import ".\CERT_REQUEST_OUT_TYPE.ahk" { CERT_REQUEST_OUT_TYPE }
-#Import ".\CR_DISP.ahk" { CR_DISP }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CR_DISP.ahk" { CR_DISP }
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest2)
@@ -63,7 +63,7 @@ export default struct ICertRequest2 extends ICertRequest {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        result := ComCall(14, this, BSTR, strConfig, "int", RequestId, BSTR, strSerialNumber, "uint*", &pDisposition := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, strConfig, Int32, RequestId, BSTR, strSerialNumber, "uint*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -103,7 +103,7 @@ export default struct ICertRequest2 extends ICertRequest {
      */
     GetErrorMessageText(hrMessage, Flags) {
         pstrErrorMessageText := BSTR.Owned()
-        result := ComCall(15, this, "int", hrMessage, "int", Flags, BSTR.Ptr, pstrErrorMessageText, "HRESULT")
+        result := ComCall(15, this, Int32, hrMessage, Int32, Flags, BSTR.Ptr, pstrErrorMessageText, "HRESULT")
         return pstrErrorMessageText
     }
 
@@ -269,7 +269,7 @@ export default struct ICertRequest2 extends ICertRequest {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(16, this, BSTR, strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
+        result := ComCall(16, this, BSTR, strConfig, Int32, PropId, Int32, PropIndex, Int32, PropType, Int32, Flags, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -292,7 +292,7 @@ export default struct ICertRequest2 extends ICertRequest {
     GetCAPropertyFlags(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(17, this, BSTR, strConfig, "int", PropId, "int*", &pPropFlags := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, strConfig, Int32, PropId, "int*", &pPropFlags := 0, "HRESULT")
         return pPropFlags
     }
 
@@ -316,7 +316,7 @@ export default struct ICertRequest2 extends ICertRequest {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
         pstrDisplayName := BSTR.Owned()
-        result := ComCall(18, this, BSTR, strConfig, "int", PropId, BSTR.Ptr, pstrDisplayName, "HRESULT")
+        result := ComCall(18, this, BSTR, strConfig, Int32, PropId, BSTR.Ptr, pstrDisplayName, "HRESULT")
         return pstrDisplayName
     }
 
@@ -357,7 +357,7 @@ export default struct ICertRequest2 extends ICertRequest {
      */
     GetFullResponseProperty(PropId, PropIndex, PropType, Flags) {
         pvarPropertyValue := VARIANT()
-        result := ComCall(19, this, FULL_RESPONSE_PROPERTY_ID, PropId, "int", PropIndex, CERT_PROPERTY_TYPE, PropType, CERT_REQUEST_OUT_TYPE, Flags, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
+        result := ComCall(19, this, FULL_RESPONSE_PROPERTY_ID, PropId, Int32, PropIndex, CERT_PROPERTY_TYPE, PropType, CERT_REQUEST_OUT_TYPE, Flags, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 

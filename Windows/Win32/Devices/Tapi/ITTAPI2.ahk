@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITCollection2.ahk" { ITCollection2 }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITTAPI.ahk" { ITTAPI }
 #Import ".\IEnumPhone.ahk" { IEnumPhone }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITCollection2.ahk" { ITCollection2 }
-#Import ".\ITTAPI.ahk" { ITTAPI }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITTAPI2 interface derives from the ITTAPI interface. It adds additional methods on the TAPI object to support phone devices.

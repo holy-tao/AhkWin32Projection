@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -47,7 +47,7 @@ export default struct IBaseVideoMixer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetLeadPin(_iPin) {
-        result := ComCall(3, this, "int", _iPin, "HRESULT")
+        result := ComCall(3, this, Int32, _iPin, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IBaseVideoMixer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetUsingClock(bValue) {
-        result := ComCall(7, this, "int", bValue, "HRESULT")
+        result := ComCall(7, this, Int32, bValue, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IBaseVideoMixer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetClockPeriod(bValue) {
-        result := ComCall(9, this, "int", bValue, "HRESULT")
+        result := ComCall(9, this, Int32, bValue, "HRESULT")
         return result
     }
 

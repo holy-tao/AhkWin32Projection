@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TAPI_EVENT.ahk" { TAPI_EVENT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITCallInfo.ahk" { ITCallInfo }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TAPI_EVENT.ahk" { TAPI_EVENT }
 
 /**
  * The ITCallInfo2 interface is an extension of the ITCallInfo interface. ITCallInfo2 provides additional methods that allow an application to set event filtering on a per-call basis.
@@ -49,7 +49,7 @@ export default struct ITCallInfo2 extends ITCallInfo {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo2-get_eventfilter
      */
     get_EventFilter(TapiEvent, lSubEvent) {
-        result := ComCall(20, this, TAPI_EVENT, TapiEvent, "int", lSubEvent, VARIANT_BOOL.Ptr, &pEnable := 0, "HRESULT")
+        result := ComCall(20, this, TAPI_EVENT, TapiEvent, Int32, lSubEvent, VARIANT_BOOL.Ptr, &pEnable := 0, "HRESULT")
         return pEnable
     }
 
@@ -63,7 +63,7 @@ export default struct ITCallInfo2 extends ITCallInfo {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo2-put_eventfilter
      */
     put_EventFilter(TapiEvent, lSubEvent, bEnable) {
-        result := ComCall(21, this, TAPI_EVENT, TapiEvent, "int", lSubEvent, VARIANT_BOOL, bEnable, "HRESULT")
+        result := ComCall(21, this, TAPI_EVENT, TapiEvent, Int32, lSubEvent, VARIANT_BOOL, bEnable, "HRESULT")
         return result
     }
 

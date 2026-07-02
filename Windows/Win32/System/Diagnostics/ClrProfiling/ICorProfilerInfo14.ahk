@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICorProfilerObjectEnum.ahk" { ICorProfilerObjectEnum }
+#Import ".\ICorProfilerInfo13.ahk" { ICorProfilerInfo13 }
+#Import ".\EventPipeProviderCallback.ahk" { EventPipeProviderCallback }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\COR_PRF_NONGC_HEAP_RANGE.ahk" { COR_PRF_NONGC_HEAP_RANGE }
+#Import ".\ICorProfilerObjectEnum.ahk" { ICorProfilerObjectEnum }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICorProfilerInfo13.ahk" { ICorProfilerInfo13 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -59,7 +60,7 @@ export default struct ICorProfilerInfo14 extends ICorProfilerInfo13 {
     GetNonGCHeapBounds(cObjectRanges, pcObjectRanges, ranges) {
         pcObjectRangesMarshal := pcObjectRanges is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(112, this, "uint", cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, COR_PRF_NONGC_HEAP_RANGE.Ptr, ranges, "HRESULT")
+        result := ComCall(112, this, UInt32, cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, COR_PRF_NONGC_HEAP_RANGE.Ptr, ranges, "HRESULT")
         return result
     }
 

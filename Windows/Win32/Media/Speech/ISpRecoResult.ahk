@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
-#Import ".\ISpPhraseAlt.ahk" { ISpPhraseAlt }
 #Import ".\ISpPhrase.ahk" { ISpPhrase }
-#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\SPSERIALIZEDRESULT.ahk" { SPSERIALIZEDRESULT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
 #Import ".\SPRECORESULTTIMES.ahk" { SPRECORESULTTIMES }
+#Import ".\ISpPhraseAlt.ahk" { ISpPhraseAlt }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -68,7 +68,7 @@ export default struct ISpRecoResult extends ISpPhrase {
     GetAlternates(ulStartElement, cElements, ulRequestCount, pcPhrasesReturned) {
         pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulStartElement, "uint", cElements, "uint", ulRequestCount, "ptr*", &ppPhrases := 0, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
+        result := ComCall(8, this, UInt32, ulStartElement, UInt32, cElements, UInt32, ulRequestCount, "ptr*", &ppPhrases := 0, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
         return ISpPhraseAlt(ppPhrases)
     }
 
@@ -79,7 +79,7 @@ export default struct ISpRecoResult extends ISpPhrase {
      * @returns {ISpStreamFormat} 
      */
     GetAudio(ulStartElement, cElements) {
-        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, ulStartElement, UInt32, cElements, "ptr*", &ppStream := 0, "HRESULT")
         return ISpStreamFormat(ppStream)
     }
 
@@ -94,7 +94,7 @@ export default struct ISpRecoResult extends ISpPhrase {
     SpeakAudio(ulStartElement, cElements, dwFlags, pulStreamNumber) {
         pulStreamNumberMarshal := pulStreamNumber is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", ulStartElement, "uint", cElements, "uint", dwFlags, pulStreamNumberMarshal, pulStreamNumber, "HRESULT")
+        result := ComCall(10, this, UInt32, ulStartElement, UInt32, cElements, UInt32, dwFlags, pulStreamNumberMarshal, pulStreamNumber, "HRESULT")
         return result
     }
 

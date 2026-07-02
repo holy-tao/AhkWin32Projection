@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
@@ -42,7 +42,7 @@
 export HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("hhctrl.ocx\HtmlHelpA", HWND, hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, HWND)
+    result := DllCall("hhctrl.ocx\HtmlHelpA", HWND, hwndCaller, "ptr", pszFile, UInt32, uCommand, IntPtr, dwData, HWND)
     return result
 }
 
@@ -79,7 +79,7 @@ export HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
 export HtmlHelpW(hwndCaller, pszFile, uCommand, dwData) {
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("hhctrl.ocx\HtmlHelpW", HWND, hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, HWND)
+    result := DllCall("hhctrl.ocx\HtmlHelpW", HWND, hwndCaller, "ptr", pszFile, UInt32, uCommand, IntPtr, dwData, HWND)
     return result
 }
 

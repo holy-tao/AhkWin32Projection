@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IPrintAsyncCookie.ahk" { IPrintAsyncCookie }
-#Import ".\IPrintAsyncNotifyChannel.ahk" { IPrintAsyncNotifyChannel }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPrintAsyncNotifyChannel.ahk" { IPrintAsyncNotifyChannel }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -38,7 +38,7 @@ export default struct IPrintAsyncNewChannelCookie extends IPrintAsyncCookie {
      * @returns {HRESULT} 
      */
     FinishAsyncCallWithData(param0, param1) {
-        result := ComCall(5, this, IPrintAsyncNotifyChannel.Ptr, param0, "uint", param1, "HRESULT")
+        result := ComCall(5, this, IPrintAsyncNotifyChannel.Ptr, param0, UInt32, param1, "HRESULT")
         return result
     }
 

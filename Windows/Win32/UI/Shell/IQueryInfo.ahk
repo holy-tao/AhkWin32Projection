@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that the Shell uses to retrieve flags and info tip information for an item that resides in an IShellFolder implementation. Info tips are usually displayed inside a tooltip control.
@@ -58,7 +58,7 @@ export default struct IQueryInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iqueryinfo-getinfotip
      */
     GetInfoTip(dwFlags) {
-        result := ComCall(3, this, "uint", dwFlags, PWSTR.Ptr, &ppwszTip := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, PWSTR.Ptr, &ppwszTip := 0, "HRESULT")
         return ppwszTip
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -123,7 +123,7 @@ export default struct IDVB_RST extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordtransportstreamid
      */
     GetRecordTransportStreamId(dwRecordIndex) {
-        result := ComCall(5, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -134,7 +134,7 @@ export default struct IDVB_RST extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordoriginalnetworkid
      */
     GetRecordOriginalNetworkId(dwRecordIndex) {
-        result := ComCall(6, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -145,7 +145,7 @@ export default struct IDVB_RST extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordserviceid
      */
     GetRecordServiceId(dwRecordIndex) {
-        result := ComCall(7, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -156,7 +156,7 @@ export default struct IDVB_RST extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordeventid
      */
     GetRecordEventId(dwRecordIndex) {
-        result := ComCall(8, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -202,7 +202,7 @@ export default struct IDVB_RST extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordrunningstatus
      */
     GetRecordRunningStatus(dwRecordIndex) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 

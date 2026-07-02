@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WEBAUTHN_X5C.ahk" { WEBAUTHN_X5C }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The structure containing the common data for an attestation.

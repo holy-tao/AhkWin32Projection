@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DBCOST.ahk" { DBCOST }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -115,7 +115,7 @@ export default struct ICommandCost extends IUnknown {
     SetCostGoals(pwszRowsetName, cCostGoals, rgCostGoals) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(7, this, "ptr", pwszRowsetName, "uint", cCostGoals, DBCOST.Ptr, rgCostGoals, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszRowsetName, UInt32, cCostGoals, DBCOST.Ptr, rgCostGoals, "HRESULT")
         return result
     }
 
@@ -130,7 +130,7 @@ export default struct ICommandCost extends IUnknown {
     SetCostLimits(pwszRowsetName, cCostLimits, prgCostLimits, dwExecutionFlags) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(8, this, "ptr", pwszRowsetName, "uint", cCostLimits, DBCOST.Ptr, prgCostLimits, "uint", dwExecutionFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszRowsetName, UInt32, cCostLimits, DBCOST.Ptr, prgCostLimits, UInt32, dwExecutionFlags, "HRESULT")
         return result
     }
 

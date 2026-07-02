@@ -1,24 +1,24 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\TC_GEN_FILTER.ahk" { TC_GEN_FILTER }
-#Import ".\QOS_NOTIFY_FLOW.ahk" { QOS_NOTIFY_FLOW }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Networking\WinSock\SOCKET.ahk" { SOCKET }
-#Import ".\TC_GEN_FLOW.ahk" { TC_GEN_FLOW }
 #Import ".\QOS_QUERY_FLOW.ahk" { QOS_QUERY_FLOW }
-#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
-#Import ".\QOS_VERSION.ahk" { QOS_VERSION }
-#Import ".\ENUMERATION_BUFFER.ahk" { ENUMERATION_BUFFER }
-#Import ".\QOS_TRAFFIC_TYPE.ahk" { QOS_TRAFFIC_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\QOS_SET_FLOW.ahk" { QOS_SET_FLOW }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TCI_CLIENT_FUNC_LIST.ahk" { TCI_CLIENT_FUNC_LIST }
+#Import ".\TC_GEN_FLOW.ahk" { TC_GEN_FLOW }
+#Import ".\TC_IFC_DESCRIPTOR.ahk" { TC_IFC_DESCRIPTOR }
+#Import ".\TC_GEN_FILTER.ahk" { TC_GEN_FILTER }
+#Import ".\QOS_SET_FLOW.ahk" { QOS_SET_FLOW }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ENUMERATION_BUFFER.ahk" { ENUMERATION_BUFFER }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\TCI_CLIENT_FUNC_LIST.ahk" { TCI_CLIENT_FUNC_LIST }
-#Import ".\TC_IFC_DESCRIPTOR.ahk" { TC_IFC_DESCRIPTOR }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\QOS_NOTIFY_FLOW.ahk" { QOS_NOTIFY_FLOW }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Networking\WinSock\SOCKET.ahk" { SOCKET }
+#Import ".\QOS_VERSION.ahk" { QOS_VERSION }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\QOS_TRAFFIC_TYPE.ahk" { QOS_TRAFFIC_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
@@ -280,7 +280,7 @@ export QOSCloseHandle(QOSHandle) {
 export QOSStartTrackingClient(QOSHandle, DestAddr) {
     static Flags := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("qwave.dll\QOSStartTrackingClient", HANDLE, QOSHandle, SOCKADDR.Ptr, DestAddr, "uint", Flags, BOOL)
+    result := DllCall("qwave.dll\QOSStartTrackingClient", HANDLE, QOSHandle, SOCKADDR.Ptr, DestAddr, UInt32, Flags, BOOL)
     return result
 }
 
@@ -383,7 +383,7 @@ export QOSStartTrackingClient(QOSHandle, DestAddr) {
 export QOSStopTrackingClient(QOSHandle, DestAddr) {
     static Flags := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("qwave.dll\QOSStopTrackingClient", HANDLE, QOSHandle, SOCKADDR.Ptr, DestAddr, "uint", Flags, BOOL)
+    result := DllCall("qwave.dll\QOSStopTrackingClient", HANDLE, QOSHandle, SOCKADDR.Ptr, DestAddr, UInt32, Flags, BOOL)
     return result
 }
 
@@ -497,7 +497,7 @@ export QOSStopTrackingClient(QOSHandle, DestAddr) {
 export QOSEnumerateFlows(QOSHandle, _Size, _Buffer) {
     _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("qwave.dll\QOSEnumerateFlows", HANDLE, QOSHandle, _SizeMarshal, _Size, "ptr", _Buffer, BOOL)
+    result := DllCall("qwave.dll\QOSEnumerateFlows", HANDLE, QOSHandle, _SizeMarshal, _Size, IntPtr, _Buffer, BOOL)
     return result
 }
 
@@ -681,7 +681,7 @@ export QOSEnumerateFlows(QOSHandle, _Size, _Buffer) {
 export QOSAddSocketToFlow(QOSHandle, _Socket, DestAddr, TrafficType, Flags, FlowId) {
     FlowIdMarshal := FlowId is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("qwave.dll\QOSAddSocketToFlow", HANDLE, QOSHandle, SOCKET, _Socket, SOCKADDR.Ptr, DestAddr, QOS_TRAFFIC_TYPE, TrafficType, "uint", Flags, FlowIdMarshal, FlowId, BOOL)
+    result := DllCall("qwave.dll\QOSAddSocketToFlow", HANDLE, QOSHandle, SOCKET, _Socket, SOCKADDR.Ptr, DestAddr, QOS_TRAFFIC_TYPE, TrafficType, UInt32, Flags, FlowIdMarshal, FlowId, BOOL)
     return result
 }
 
@@ -798,7 +798,7 @@ export QOSAddSocketToFlow(QOSHandle, _Socket, DestAddr, TrafficType, Flags, Flow
 export QOSRemoveSocketFromFlow(QOSHandle, _Socket, FlowId) {
     static Flags := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("qwave.dll\QOSRemoveSocketFromFlow", HANDLE, QOSHandle, SOCKET, _Socket, "uint", FlowId, "uint", Flags, BOOL)
+    result := DllCall("qwave.dll\QOSRemoveSocketFromFlow", HANDLE, QOSHandle, SOCKET, _Socket, UInt32, FlowId, UInt32, Flags, BOOL)
     return result
 }
 
@@ -1058,7 +1058,7 @@ export QOSRemoveSocketFromFlow(QOSHandle, _Socket, FlowId) {
 export QOSSetFlow(QOSHandle, FlowId, Operation, _Size, _Buffer, _Overlapped) {
     static Flags := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("qwave.dll\QOSSetFlow", HANDLE, QOSHandle, "uint", FlowId, QOS_SET_FLOW, Operation, "uint", _Size, "ptr", _Buffer, "uint", Flags, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("qwave.dll\QOSSetFlow", HANDLE, QOSHandle, UInt32, FlowId, QOS_SET_FLOW, Operation, UInt32, _Size, IntPtr, _Buffer, UInt32, Flags, OVERLAPPED.Ptr, _Overlapped, BOOL)
     return result
 }
 
@@ -1323,7 +1323,7 @@ export QOSSetFlow(QOSHandle, FlowId, Operation, _Size, _Buffer, _Overlapped) {
 export QOSQueryFlow(QOSHandle, FlowId, Operation, _Size, _Buffer, Flags, _Overlapped) {
     _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("qwave.dll\QOSQueryFlow", HANDLE, QOSHandle, "uint", FlowId, QOS_QUERY_FLOW, Operation, _SizeMarshal, _Size, "ptr", _Buffer, "uint", Flags, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("qwave.dll\QOSQueryFlow", HANDLE, QOSHandle, UInt32, FlowId, QOS_QUERY_FLOW, Operation, _SizeMarshal, _Size, IntPtr, _Buffer, UInt32, Flags, OVERLAPPED.Ptr, _Overlapped, BOOL)
     return result
 }
 
@@ -1524,7 +1524,7 @@ export QOSNotifyFlow(QOSHandle, FlowId, Operation, _Size, _Buffer, _Overlapped) 
 
     _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("qwave.dll\QOSNotifyFlow", HANDLE, QOSHandle, "uint", FlowId, QOS_NOTIFY_FLOW, Operation, _SizeMarshal, _Size, "ptr", _Buffer, "uint", Flags, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("qwave.dll\QOSNotifyFlow", HANDLE, QOSHandle, UInt32, FlowId, QOS_NOTIFY_FLOW, Operation, _SizeMarshal, _Size, IntPtr, _Buffer, UInt32, Flags, OVERLAPPED.Ptr, _Overlapped, BOOL)
     return result
 }
 
@@ -1723,7 +1723,7 @@ export QOSCancel(QOSHandle, _Overlapped) {
  * @since windows5.0
  */
 export TcRegisterClient(TciVersion, ClRegCtx, ClientHandlerList, pClientHandle) {
-    result := DllCall("TRAFFIC.dll\TcRegisterClient", "uint", TciVersion, HANDLE, ClRegCtx, TCI_CLIENT_FUNC_LIST.Ptr, ClientHandlerList, HANDLE.Ptr, pClientHandle, UInt32)
+    result := DllCall("TRAFFIC.dll\TcRegisterClient", UInt32, TciVersion, HANDLE, ClRegCtx, TCI_CLIENT_FUNC_LIST.Ptr, ClientHandlerList, HANDLE.Ptr, pClientHandle, UInt32)
     return result
 }
 
@@ -2173,7 +2173,7 @@ export TcCloseInterface(IfcHandle) {
 export TcQueryInterface(IfcHandle, pGuidParam, NotifyChange, pBufferSize, _Buffer) {
     pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TRAFFIC.dll\TcQueryInterface", HANDLE, IfcHandle, Guid.Ptr, pGuidParam, BOOLEAN, NotifyChange, pBufferSizeMarshal, pBufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("TRAFFIC.dll\TcQueryInterface", HANDLE, IfcHandle, Guid.Ptr, pGuidParam, BOOLEAN, NotifyChange, pBufferSizeMarshal, pBufferSize, IntPtr, _Buffer, UInt32)
     return result
 }
 
@@ -2266,7 +2266,7 @@ export TcQueryInterface(IfcHandle, pGuidParam, NotifyChange, pBufferSize, _Buffe
  * @since windows5.0
  */
 export TcSetInterface(IfcHandle, pGuidParam, BufferSize, _Buffer) {
-    result := DllCall("TRAFFIC.dll\TcSetInterface", HANDLE, IfcHandle, Guid.Ptr, pGuidParam, "uint", BufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("TRAFFIC.dll\TcSetInterface", HANDLE, IfcHandle, Guid.Ptr, pGuidParam, UInt32, BufferSize, IntPtr, _Buffer, UInt32)
     return result
 }
 
@@ -2367,7 +2367,7 @@ export TcQueryFlowA(pFlowName, pGuidParam, pBufferSize, _Buffer) {
 
     pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TRAFFIC.dll\TcQueryFlowA", "ptr", pFlowName, Guid.Ptr, pGuidParam, pBufferSizeMarshal, pBufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("TRAFFIC.dll\TcQueryFlowA", "ptr", pFlowName, Guid.Ptr, pGuidParam, pBufferSizeMarshal, pBufferSize, IntPtr, _Buffer, UInt32)
     return result
 }
 
@@ -2468,7 +2468,7 @@ export TcQueryFlowW(pFlowName, pGuidParam, pBufferSize, _Buffer) {
 
     pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TRAFFIC.dll\TcQueryFlowW", "ptr", pFlowName, Guid.Ptr, pGuidParam, pBufferSizeMarshal, pBufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("TRAFFIC.dll\TcQueryFlowW", "ptr", pFlowName, Guid.Ptr, pGuidParam, pBufferSizeMarshal, pBufferSize, IntPtr, _Buffer, UInt32)
     return result
 }
 
@@ -2582,7 +2582,7 @@ export TcQueryFlowW(pFlowName, pGuidParam, pBufferSize, _Buffer) {
 export TcSetFlowA(pFlowName, pGuidParam, BufferSize, _Buffer) {
     pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
-    result := DllCall("TRAFFIC.dll\TcSetFlowA", "ptr", pFlowName, Guid.Ptr, pGuidParam, "uint", BufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("TRAFFIC.dll\TcSetFlowA", "ptr", pFlowName, Guid.Ptr, pGuidParam, UInt32, BufferSize, IntPtr, _Buffer, UInt32)
     return result
 }
 
@@ -2696,7 +2696,7 @@ export TcSetFlowA(pFlowName, pGuidParam, BufferSize, _Buffer) {
 export TcSetFlowW(pFlowName, pGuidParam, BufferSize, _Buffer) {
     pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
-    result := DllCall("TRAFFIC.dll\TcSetFlowW", "ptr", pFlowName, Guid.Ptr, pGuidParam, "uint", BufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("TRAFFIC.dll\TcSetFlowW", "ptr", pFlowName, Guid.Ptr, pGuidParam, UInt32, BufferSize, IntPtr, _Buffer, UInt32)
     return result
 }
 
@@ -2937,7 +2937,7 @@ export TcSetFlowW(pFlowName, pGuidParam, BufferSize, _Buffer) {
  * @since windows5.0
  */
 export TcAddFlow(IfcHandle, ClFlowCtx, Flags, pGenericFlow, pFlowHandle) {
-    result := DllCall("TRAFFIC.dll\TcAddFlow", HANDLE, IfcHandle, HANDLE, ClFlowCtx, "uint", Flags, TC_GEN_FLOW.Ptr, pGenericFlow, HANDLE.Ptr, pFlowHandle, UInt32)
+    result := DllCall("TRAFFIC.dll\TcAddFlow", HANDLE, IfcHandle, HANDLE, ClFlowCtx, UInt32, Flags, TC_GEN_FLOW.Ptr, pGenericFlow, HANDLE.Ptr, pFlowHandle, UInt32)
     return result
 }
 
@@ -3012,7 +3012,7 @@ export TcAddFlow(IfcHandle, ClFlowCtx, Flags, pGenericFlow, pFlowHandle) {
 export TcGetFlowNameA(FlowHandle, StrSize, pFlowName) {
     pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
-    result := DllCall("TRAFFIC.dll\TcGetFlowNameA", HANDLE, FlowHandle, "uint", StrSize, "ptr", pFlowName, UInt32)
+    result := DllCall("TRAFFIC.dll\TcGetFlowNameA", HANDLE, FlowHandle, UInt32, StrSize, "ptr", pFlowName, UInt32)
     return result
 }
 
@@ -3087,7 +3087,7 @@ export TcGetFlowNameA(FlowHandle, StrSize, pFlowName) {
 export TcGetFlowNameW(FlowHandle, StrSize, pFlowName) {
     pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
-    result := DllCall("TRAFFIC.dll\TcGetFlowNameW", HANDLE, FlowHandle, "uint", StrSize, "ptr", pFlowName, UInt32)
+    result := DllCall("TRAFFIC.dll\TcGetFlowNameW", HANDLE, FlowHandle, UInt32, StrSize, "ptr", pFlowName, UInt32)
     return result
 }
 

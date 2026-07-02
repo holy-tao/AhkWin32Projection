@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RID_DEVICE_INFO_TYPE.ahk" { RID_DEVICE_INFO_TYPE }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\RID_DEVICE_INFO_TYPE.ahk" { RID_DEVICE_INFO_TYPE }
 
 /**
  * Contains information about a raw input device.

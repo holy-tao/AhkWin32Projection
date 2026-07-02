@@ -2,16 +2,16 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IGPMBackup.ahk" { IGPMBackup }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IGPMWMIFilter.ahk" { IGPMWMIFilter }
-#Import ".\IGPMDomain.ahk" { IGPMDomain }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\GPMReportType.ahk" { GPMReportType }
-#Import ".\IGPMResult.ahk" { IGPMResult }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IGPMWMIFilter.ahk" { IGPMWMIFilter }
+#Import ".\IGPMBackup.ahk" { IGPMBackup }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IGPMDomain.ahk" { IGPMDomain }
+#Import ".\GPMReportType.ahk" { GPMReportType }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
 
 /**
  * The IGPMGPO interface supports methods that enable you to manage Group Policy Objects (GPOs) in the directory service.
@@ -449,7 +449,7 @@ export default struct IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-import
      */
     Import(lFlags, pIGPMBackup, pvarMigrationTable, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(28, this, "int", lFlags, "ptr", pIGPMBackup, VARIANT.Ptr, pvarMigrationTable, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(28, this, Int32, lFlags, "ptr", pIGPMBackup, VARIANT.Ptr, pvarMigrationTable, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -515,7 +515,7 @@ export default struct IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-copyto
      */
     CopyTo(lFlags, pIGPMDomain, pvarNewDisplayName, pvarMigrationTable, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(31, this, "int", lFlags, "ptr", pIGPMDomain, VARIANT.Ptr, pvarNewDisplayName, VARIANT.Ptr, pvarMigrationTable, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(31, this, Int32, lFlags, "ptr", pIGPMDomain, VARIANT.Ptr, pvarNewDisplayName, VARIANT.Ptr, pvarMigrationTable, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -534,7 +534,7 @@ export default struct IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-setsecuritydescriptor
      */
     SetSecurityDescriptor(lFlags, pSD) {
-        result := ComCall(32, this, "int", lFlags, "ptr", pSD, "HRESULT")
+        result := ComCall(32, this, Int32, lFlags, "ptr", pSD, "HRESULT")
         return result
     }
 
@@ -547,7 +547,7 @@ export default struct IGPMGPO extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpo-getsecuritydescriptor
      */
     GetSecurityDescriptor(lFlags) {
-        result := ComCall(33, this, "int", lFlags, "ptr*", &ppSD := 0, "HRESULT")
+        result := ComCall(33, this, Int32, lFlags, "ptr*", &ppSD := 0, "HRESULT")
         return IDispatch(ppSD)
     }
 

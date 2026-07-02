@@ -1,9 +1,9 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import ".\RESTOREPOINTINFOA.ahk" { RESTOREPOINTINFOA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\RESTOREPOINTINFOW.ahk" { RESTOREPOINTINFOW }
 #Import ".\STATEMGRSTATUS.ahk" { STATEMGRSTATUS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Restore
@@ -144,7 +144,7 @@ export SRSetRestorePointW(pRestorePtSpec, pSMgrStatus) {
  * @since windows5.1.2600
  */
 export SRRemoveRestorePoint(dwRPNum) {
-    result := DllCall("SrClient.dll\SRRemoveRestorePoint", "uint", dwRPNum, UInt32)
+    result := DllCall("SrClient.dll\SRRemoveRestorePoint", UInt32, dwRPNum, UInt32)
     return result
 }
 

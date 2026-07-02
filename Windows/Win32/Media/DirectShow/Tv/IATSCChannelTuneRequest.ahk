@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IChannelTuneRequest.ahk" { IChannelTuneRequest }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IChannelTuneRequest.ahk" { IChannelTuneRequest }
 
 /**
  * The IATSCChannelTuneRequest interface provides methods for tuning to a channel in an ATSC network. The ATSCChannelTuneRequest object implements this interface.
@@ -93,7 +93,7 @@ export default struct IATSCChannelTuneRequest extends IChannelTuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatscchanneltunerequest-put_minorchannel
      */
     put_MinorChannel(MinorChannel) {
-        result := ComCall(15, this, "int", MinorChannel, "HRESULT")
+        result := ComCall(15, this, Int32, MinorChannel, "HRESULT")
         return result
     }
 

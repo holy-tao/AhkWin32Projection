@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\TYPEKIND.ahk" { TYPEKIND }
-#Import ".\ICreateTypeInfo.ahk" { ICreateTypeInfo }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ICreateTypeInfo.ahk" { ICreateTypeInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides the methods for creating and managing the component or file that contains type information. (ICreateTypeLib)
@@ -177,7 +177,7 @@ export default struct ICreateTypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setversion
      */
     SetVersion(wMajorVerNum, wMinorVerNum) {
-        result := ComCall(5, this, "ushort", wMajorVerNum, "ushort", wMinorVerNum, "HRESULT")
+        result := ComCall(5, this, UInt16, wMajorVerNum, UInt16, wMinorVerNum, "HRESULT")
         return result
     }
 
@@ -476,7 +476,7 @@ export default struct ICreateTypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-sethelpcontext
      */
     SetHelpContext(dwHelpContext) {
-        result := ComCall(9, this, "uint", dwHelpContext, "HRESULT")
+        result := ComCall(9, this, UInt32, dwHelpContext, "HRESULT")
         return result
     }
 
@@ -551,7 +551,7 @@ export default struct ICreateTypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setlcid
      */
     SetLcid(lcid) {
-        result := ComCall(10, this, "uint", lcid, "HRESULT")
+        result := ComCall(10, this, UInt32, lcid, "HRESULT")
         return result
     }
 
@@ -626,7 +626,7 @@ export default struct ICreateTypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setlibflags
      */
     SetLibFlags(uLibFlags) {
-        result := ComCall(11, this, "uint", uLibFlags, "HRESULT")
+        result := ComCall(11, this, UInt32, uLibFlags, "HRESULT")
         return result
     }
 

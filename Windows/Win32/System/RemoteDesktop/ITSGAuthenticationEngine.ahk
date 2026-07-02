@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITSGAuthenticateUserSink.ahk" { ITSGAuthenticateUserSink }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITSGAuthenticateUserSink.ahk" { ITSGAuthenticateUserSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that authenticate users for Remote Desktop Gateway (RD Gateway).
@@ -63,7 +63,7 @@ export default struct ITSGAuthenticationEngine extends IUnknown {
     AuthenticateUser(mainSessionId, cookieData, numCookieBytes, _context, pSink) {
         cookieDataMarshal := cookieData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, Guid, mainSessionId, cookieDataMarshal, cookieData, "uint", numCookieBytes, "ptr", _context, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, Guid, mainSessionId, cookieDataMarshal, cookieData, UInt32, numCookieBytes, IntPtr, _context, "ptr", pSink, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct ITSGAuthenticationEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-cancelauthentication
      */
     CancelAuthentication(mainSessionId, _context) {
-        result := ComCall(4, this, Guid, mainSessionId, "ptr", _context, "HRESULT")
+        result := ComCall(4, this, Guid, mainSessionId, IntPtr, _context, "HRESULT")
         return result
     }
 

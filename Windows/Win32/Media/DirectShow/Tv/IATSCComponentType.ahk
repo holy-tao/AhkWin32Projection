@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMPEG2ComponentType.ahk" { IMPEG2ComponentType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IATSCComponentType interface represents a component type for a component in an ATSC broadcast. The ATSCComponentType object exposes this interface. Use this interface to determine if an audio stream is in AC-3 format.
@@ -71,7 +71,7 @@ export default struct IATSCComponentType extends IMPEG2ComponentType {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsccomponenttype-put_flags
      */
     put_Flags(flags) {
-        result := ComCall(29, this, "int", flags, "HRESULT")
+        result := ComCall(29, this, Int32, flags, "HRESULT")
         return result
     }
 

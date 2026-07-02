@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MFMediaKeyStatus.ahk" { MFMediaKeyStatus }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MFMediaKeyStatus.ahk" { MFMediaKeyStatus }
 
 /**
  * Provides access to the Content Decryption Module (CDM) for encrypted media extensions support.
@@ -120,7 +120,7 @@ export default struct IMFContentDecryptionModuleSession extends IUnknown {
 
         initDataMarshal := initData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", initDataType, initDataMarshal, initData, "uint", initDataSize, "HRESULT")
+        result := ComCall(7, this, "ptr", initDataType, initDataMarshal, initData, UInt32, initDataSize, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IMFContentDecryptionModuleSession extends IUnknown {
     Update(response, responseSize) {
         responseMarshal := response is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, responseMarshal, response, "uint", responseSize, "HRESULT")
+        result := ComCall(8, this, responseMarshal, response, UInt32, responseSize, "HRESULT")
         return result
     }
 

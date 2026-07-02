@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_OVERHANG_METRICS.ahk" { DWRITE_OVERHANG_METRICS }
-#Import ".\DWRITE_INLINE_OBJECT_METRICS.ahk" { DWRITE_INLINE_OBJECT_METRICS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_BREAK_CONDITION.ahk" { DWRITE_BREAK_CONDITION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDWriteTextRenderer.ahk" { IDWriteTextRenderer }
+#Import ".\DWRITE_BREAK_CONDITION.ahk" { DWRITE_BREAK_CONDITION }
+#Import ".\DWRITE_OVERHANG_METRICS.ahk" { DWRITE_OVERHANG_METRICS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_INLINE_OBJECT_METRICS.ahk" { DWRITE_INLINE_OBJECT_METRICS }
 
 /**
  * Wraps an application-defined inline graphic, allowing DWrite to query metrics as if the graphic were a glyph inline with the text.
@@ -76,7 +76,7 @@ export default struct IDWriteInlineObject extends IUnknown {
     Draw(clientDrawingContext, renderer, originX, originY, isSideways, isRightToLeft, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, "float", originX, "float", originY, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, Float32, originX, Float32, originY, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 

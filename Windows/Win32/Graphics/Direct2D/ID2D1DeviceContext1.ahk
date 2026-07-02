@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
-#Import ".\ID2D1GeometryRealization.ahk" { ID2D1GeometryRealization }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1DeviceContext.ahk" { ID2D1DeviceContext }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 #Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1GeometryRealization.ahk" { ID2D1GeometryRealization }
+#Import ".\ID2D1DeviceContext.ahk" { ID2D1DeviceContext }
 
 /**
  * Enables creation and drawing of geometry realization objects.
@@ -61,7 +61,7 @@ export default struct ID2D1DeviceContext1 extends ID2D1DeviceContext {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1devicecontext1-createfilledgeometryrealization
      */
     CreateFilledGeometryRealization(geometry, flatteningTolerance) {
-        result := ComCall(92, this, "ptr", geometry, "float", flatteningTolerance, "ptr*", &geometryRealization := 0, "HRESULT")
+        result := ComCall(92, this, "ptr", geometry, Float32, flatteningTolerance, "ptr*", &geometryRealization := 0, "HRESULT")
         return ID2D1GeometryRealization(geometryRealization)
     }
 
@@ -89,7 +89,7 @@ export default struct ID2D1DeviceContext1 extends ID2D1DeviceContext {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1devicecontext1-createstrokedgeometryrealization
      */
     CreateStrokedGeometryRealization(geometry, flatteningTolerance, strokeWidth, strokeStyle) {
-        result := ComCall(93, this, "ptr", geometry, "float", flatteningTolerance, "float", strokeWidth, "ptr", strokeStyle, "ptr*", &geometryRealization := 0, "HRESULT")
+        result := ComCall(93, this, "ptr", geometry, Float32, flatteningTolerance, Float32, strokeWidth, "ptr", strokeStyle, "ptr*", &geometryRealization := 0, "HRESULT")
         return ID2D1GeometryRealization(geometryRealization)
     }
 

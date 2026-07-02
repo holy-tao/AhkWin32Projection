@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
+#Import ".\D2D1_SVG_PAINT_TYPE.ahk" { D2D1_SVG_PAINT_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
-#Import ".\D2D1_SVG_PAINT_TYPE.ahk" { D2D1_SVG_PAINT_TYPE }
 
 /**
  * Interface describing an SVG fill or stroke value.
@@ -127,7 +127,7 @@ export default struct ID2D1SvgPaint extends ID2D1SvgAttribute {
     GetId(id, idCount) {
         id := id is String ? StrPtr(id) : id
 
-        result := ComCall(11, this, "ptr", id, "uint", idCount, "HRESULT")
+        result := ComCall(11, this, "ptr", id, UInt32, idCount, "HRESULT")
         return result
     }
 

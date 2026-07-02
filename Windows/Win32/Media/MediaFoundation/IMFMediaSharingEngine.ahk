@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DEVICE_INFO.ahk" { DEVICE_INFO }
 #Import ".\IMFMediaEngine.ahk" { IMFMediaEngine }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DEVICE_INFO.ahk" { DEVICE_INFO }
 
 /**
  * Enables media sharing.

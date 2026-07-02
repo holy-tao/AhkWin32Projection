@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import "..\IMMDevice.ahk" { IMMDevice }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IMMDevice.ahk" { IMMDevice }
 
 /**
  * The IHardwareAudioEngineBase interface is implemented by audio endpoints for the audio stack to use to configure and retrieve information about the hardware audio engine.
@@ -55,7 +55,7 @@ export default struct IHardwareAudioEngineBase extends IUnknown {
     GetAvailableOffloadConnectorCount(_pwstrDeviceId, _uConnectorId) {
         _pwstrDeviceId := _pwstrDeviceId is String ? StrPtr(_pwstrDeviceId) : _pwstrDeviceId
 
-        result := ComCall(3, this, "ptr", _pwstrDeviceId, "uint", _uConnectorId, "uint*", &_pAvailableConnectorInstanceCount := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _pwstrDeviceId, UInt32, _uConnectorId, "uint*", &_pAvailableConnectorInstanceCount := 0, "HRESULT")
         return _pAvailableConnectorInstanceCount
     }
 

@@ -79,7 +79,7 @@ export default struct IUpdateSession2 extends IUpdateSession {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession2-put_userlocale
      */
     put_UserLocale(lcid) {
-        result := ComCall(16, this, "uint", lcid, "HRESULT")
+        result := ComCall(16, this, UInt32, lcid, "HRESULT")
         return result
     }
 

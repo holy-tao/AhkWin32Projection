@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_RAYTRACING_TIER.ahk" { D3D12_RAYTRACING_TIER }
-#Import ".\D3D12_RENDER_PASS_TIER.ahk" { D3D12_RENDER_PASS_TIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_RENDER_PASS_TIER.ahk" { D3D12_RENDER_PASS_TIER }
+#Import ".\D3D12_RAYTRACING_TIER.ahk" { D3D12_RAYTRACING_TIER }
 
 /**
  * Indicates the level of support that the adapter provides for render passes, ray tracing, and shader-resource view tier 3 tiled resources.

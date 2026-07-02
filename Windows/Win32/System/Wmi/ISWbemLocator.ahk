@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISWbemServices.ahk" { ISWbemServices }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISWbemServices.ahk" { ISWbemServices }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISWbemSecurity.ahk" { ISWbemSecurity }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -72,7 +72,7 @@ export default struct ISWbemLocator extends IDispatch {
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
         strAuthority := strAuthority is String ? BSTR.Alloc(strAuthority).Value : strAuthority
 
-        result := ComCall(7, this, BSTR, strServer, BSTR, strNamespace, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, BSTR, strAuthority, "int", iSecurityFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemServices := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, strServer, BSTR, strNamespace, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, BSTR, strAuthority, Int32, iSecurityFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemServices := 0, "HRESULT")
         return ISWbemServices(objWbemServices)
     }
 

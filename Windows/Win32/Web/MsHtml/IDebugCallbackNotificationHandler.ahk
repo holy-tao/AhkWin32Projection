@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SCRIPT_TIMER_TYPE.ahk" { SCRIPT_TIMER_TYPE }
+#Import ".\IScriptEventHandler.ahk" { IScriptEventHandler }
+#Import ".\DOM_EVENT_PHASE.ahk" { DOM_EVENT_PHASE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\DOM_EVENT_PHASE.ahk" { DOM_EVENT_PHASE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IScriptEventHandler.ahk" { IScriptEventHandler }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SCRIPT_TIMER_TYPE.ahk" { SCRIPT_TIMER_TYPE }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -72,7 +72,7 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     DispatchEventComplete(pEvent, propagationStatus) {
-        result := ComCall(5, this, "ptr", pEvent, "uint", propagationStatus, "HRESULT")
+        result := ComCall(5, this, "ptr", pEvent, UInt32, propagationStatus, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     BeforeInvokeDomCallback(pEvent, pCallback, eStage, propagationStatus) {
-        result := ComCall(6, this, "ptr", pEvent, "ptr", pCallback, DOM_EVENT_PHASE, eStage, "uint", propagationStatus, "HRESULT")
+        result := ComCall(6, this, "ptr", pEvent, "ptr", pCallback, DOM_EVENT_PHASE, eStage, UInt32, propagationStatus, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     InvokeDomCallbackComplete(pEvent, pCallback, eStage, propagationStatus) {
-        result := ComCall(7, this, "ptr", pEvent, "ptr", pCallback, DOM_EVENT_PHASE, eStage, "uint", propagationStatus, "HRESULT")
+        result := ComCall(7, this, "ptr", pEvent, "ptr", pCallback, DOM_EVENT_PHASE, eStage, UInt32, propagationStatus, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     BeforeInvokeCallback(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, _column, cchLength, pDebugDocumentContext) {
         functionName := functionName is String ? BSTR.Alloc(functionName).Value : functionName
 
-        result := ComCall(8, this, SCRIPT_TIMER_TYPE, eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, BSTR, functionName, "uint", line, "uint", _column, "uint", cchLength, "ptr", pDebugDocumentContext, "HRESULT")
+        result := ComCall(8, this, SCRIPT_TIMER_TYPE, eCallbackType, UInt32, callbackCookie, "ptr", pDispHandler, Int64, ullHandlerCookie, BSTR, functionName, UInt32, line, UInt32, _column, UInt32, cchLength, "ptr", pDebugDocumentContext, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     InvokeCallbackComplete(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, _column, cchLength, pDebugDocumentContext) {
         functionName := functionName is String ? BSTR.Alloc(functionName).Value : functionName
 
-        result := ComCall(9, this, SCRIPT_TIMER_TYPE, eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, BSTR, functionName, "uint", line, "uint", _column, "uint", cchLength, "ptr", pDebugDocumentContext, "HRESULT")
+        result := ComCall(9, this, SCRIPT_TIMER_TYPE, eCallbackType, UInt32, callbackCookie, "ptr", pDispHandler, Int64, ullHandlerCookie, BSTR, functionName, UInt32, line, UInt32, _column, UInt32, cchLength, "ptr", pDebugDocumentContext, "HRESULT")
         return result
     }
 

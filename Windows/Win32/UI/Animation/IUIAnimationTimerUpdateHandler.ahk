@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUIAnimationTimerClientEventHandler.ahk" { IUIAnimationTimerClientEventHandler }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationTimerClientEventHandler.ahk" { IUIAnimationTimerClientEventHandler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods for handling timing update events.
@@ -52,7 +52,7 @@ export default struct IUIAnimationTimerUpdateHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimerupdatehandler-onupdate
      */
     OnUpdate(timeNow) {
-        result := ComCall(3, this, "double", timeNow, "int*", &result := 0, "HRESULT")
+        result := ComCall(3, this, Float64, timeNow, "int*", &result := 0, "HRESULT")
         return result
     }
 

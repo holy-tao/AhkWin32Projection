@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFVideoSampleAllocator.ahk" { IMFVideoSampleAllocator }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFVideoSampleAllocator.ahk" { IMFVideoSampleAllocator }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Allocates video samples for a video media sink with specialized functionality for video capture devices.
@@ -64,7 +64,7 @@ export default struct IMFVideoCaptureSampleAllocator extends IMFVideoSampleAlloc
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideocapturesampleallocator-initializecapturesampleallocator
      */
     InitializeCaptureSampleAllocator(cbSampleSize, cbCaptureMetadataSize, cbAlignment, cMinimumSamples, pAttributes, pMediaType) {
-        result := ComCall(7, this, "uint", cbSampleSize, "uint", cbCaptureMetadataSize, "uint", cbAlignment, "uint", cMinimumSamples, "ptr", pAttributes, "ptr", pMediaType, "HRESULT")
+        result := ComCall(7, this, UInt32, cbSampleSize, UInt32, cbCaptureMetadataSize, UInt32, cbAlignment, UInt32, cMinimumSamples, "ptr", pAttributes, "ptr", pMediaType, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISubscriptionMgr.ahk" { ISubscriptionMgr }
 #Import ".\IEnumSubscription.ahk" { IEnumSubscription }
+#Import ".\ISubscriptionItem.ahk" { ISubscriptionItem }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISubscriptionItem.ahk" { ISubscriptionItem }
+#Import ".\ISubscriptionMgr.ahk" { ISubscriptionMgr }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -73,7 +73,7 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
      * @returns {Integer} 
      */
     GetSubscriptionRunState(dwNumCookies, pCookies) {
-        result := ComCall(13, this, "uint", dwNumCookies, Guid.Ptr, pCookies, "uint*", &pdwRunState := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwNumCookies, Guid.Ptr, pCookies, "uint*", &pdwRunState := 0, "HRESULT")
         return pdwRunState
     }
 
@@ -83,7 +83,7 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
      * @returns {IEnumSubscription} 
      */
     EnumSubscriptions(dwFlags) {
-        result := ComCall(14, this, "uint", dwFlags, "ptr*", &ppEnumSubscriptions := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwFlags, "ptr*", &ppEnumSubscriptions := 0, "HRESULT")
         return IEnumSubscription(ppEnumSubscriptions)
     }
 
@@ -95,7 +95,7 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
      * @returns {HRESULT} 
      */
     UpdateItems(dwFlags, dwNumCookies, pCookies) {
-        result := ComCall(15, this, "uint", dwFlags, "uint", dwNumCookies, Guid.Ptr, pCookies, "HRESULT")
+        result := ComCall(15, this, UInt32, dwFlags, UInt32, dwNumCookies, Guid.Ptr, pCookies, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
      * @returns {HRESULT} 
      */
     AbortItems(dwNumCookies, pCookies) {
-        result := ComCall(16, this, "uint", dwNumCookies, Guid.Ptr, pCookies, "HRESULT")
+        result := ComCall(16, this, UInt32, dwNumCookies, Guid.Ptr, pCookies, "HRESULT")
         return result
     }
 

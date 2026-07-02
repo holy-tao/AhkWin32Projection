@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import ".\UNICODERANGE.ahk" { UNICODERANGE }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import ".\IMLangCodePages.ahk" { IMLangCodePages }
 #Import ".\SCRIPTFONTINFO.ahk" { SCRIPTFONTINFO }
+#Import ".\UNICODERANGE.ahk" { UNICODERANGE }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Graphics\Gdi\HFONT.ahk" { HFONT }
+#Import "..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -84,7 +84,7 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
      */
     MapFont(_hDC, dwCodePages, chSrc) {
         pFont := HFONT.Owned()
-        result := ComCall(10, this, HDC, _hDC, "uint", dwCodePages, "char", chSrc, HFONT.Ptr, pFont, "HRESULT")
+        result := ComCall(10, this, HDC, _hDC, UInt32, dwCodePages, Int8, chSrc, HFONT.Ptr, pFont, "HRESULT")
         return pFont
     }
 
@@ -114,7 +114,7 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
         puiFontsMarshal := puiFonts is VarRef ? "uint*" : "ptr"
 
         pScriptFont := SCRIPTFONTINFO()
-        result := ComCall(12, this, "char", _sid, "uint", dwFlags, puiFontsMarshal, puiFonts, SCRIPTFONTINFO.Ptr, pScriptFont, "HRESULT")
+        result := ComCall(12, this, Int8, _sid, UInt32, dwFlags, puiFontsMarshal, puiFonts, SCRIPTFONTINFO.Ptr, pScriptFont, "HRESULT")
         return pScriptFont
     }
 
@@ -124,7 +124,7 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
      * @returns {Integer} 
      */
     CodePageToScriptID(uiCodePage) {
-        result := ComCall(13, this, "uint", uiCodePage, "char*", &_pSid := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, uiCodePage, "char*", &_pSid := 0, "HRESULT")
         return _pSid
     }
 

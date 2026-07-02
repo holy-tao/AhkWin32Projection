@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import ".\IDWriteTextFormat2.ahk" { IDWriteTextFormat2 }
 #Import ".\DWRITE_AUTOMATIC_FONT_AXES.ahk" { DWRITE_AUTOMATIC_FONT_AXES }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. (IDWriteTextFormat3)
@@ -57,7 +57,7 @@ export default struct IDWriteTextFormat3 extends IDWriteTextFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritetextformat3-setfontaxisvalues
      */
     SetFontAxisValues(fontAxisValues, fontAxisValueCount) {
-        result := ComCall(38, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
+        result := ComCall(38, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IDWriteTextFormat3 extends IDWriteTextFormat2 {
      */
     GetFontAxisValues(fontAxisValueCount) {
         fontAxisValues := DWRITE_FONT_AXIS_VALUE()
-        result := ComCall(40, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
+        result := ComCall(40, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "HRESULT")
         return fontAxisValues
     }
 

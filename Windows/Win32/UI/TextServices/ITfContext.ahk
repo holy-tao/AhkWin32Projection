@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfReadOnlyProperty.ahk" { ITfReadOnlyProperty }
-#Import ".\ITfRangeBackup.ahk" { ITfRangeBackup }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TF_SELECTION.ahk" { TF_SELECTION }
 #Import ".\ITfEditSession.ahk" { ITfEditSession }
+#Import ".\TS_STATUS.ahk" { TS_STATUS }
 #Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
-#Import ".\ITfRange.ahk" { ITfRange }
-#Import ".\ITfProperty.ahk" { ITfProperty }
-#Import ".\TF_CONTEXT_EDIT_CONTEXT_FLAGS.ahk" { TF_CONTEXT_EDIT_CONTEXT_FLAGS }
+#Import ".\ITfContextView.ahk" { ITfContextView }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfReadOnlyProperty.ahk" { ITfReadOnlyProperty }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumTfProperties.ahk" { IEnumTfProperties }
+#Import ".\TF_SELECTION.ahk" { TF_SELECTION }
+#Import ".\ITfRangeBackup.ahk" { ITfRangeBackup }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ITfContextView.ahk" { ITfContextView }
+#Import ".\ITfRange.ahk" { ITfRange }
 #Import ".\IEnumTfContextViews.ahk" { IEnumTfContextViews }
-#Import ".\TS_STATUS.ahk" { TS_STATUS }
+#Import ".\ITfProperty.ahk" { ITfProperty }
+#Import ".\TF_CONTEXT_EDIT_CONTEXT_FLAGS.ahk" { TF_CONTEXT_EDIT_CONTEXT_FLAGS }
 
 /**
  * The ITfContext interface is implemented by the TSF manager and used by applications and text services to access an edit context.
@@ -103,7 +103,7 @@ export default struct ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-requesteditsession
      */
     RequestEditSession(tid, pes, dwFlags) {
-        result := ComCall(3, this, "uint", tid, "ptr", pes, TF_CONTEXT_EDIT_CONTEXT_FLAGS, dwFlags, "int*", &phrSession := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, tid, "ptr", pes, TF_CONTEXT_EDIT_CONTEXT_FLAGS, dwFlags, "int*", &phrSession := 0, "HRESULT")
         return phrSession
     }
 
@@ -116,7 +116,7 @@ export default struct ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-inwritesession
      */
     InWriteSession(tid) {
-        result := ComCall(4, this, "uint", tid, BOOL.Ptr, &pfWriteSession := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, tid, BOOL.Ptr, &pfWriteSession := 0, "HRESULT")
         return pfWriteSession
     }
 
@@ -212,7 +212,7 @@ export default struct ITfContext extends IUnknown {
     GetSelection(ec, ulIndex, ulCount, pSelection, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", ec, "uint", ulIndex, "uint", ulCount, TF_SELECTION.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(5, this, UInt32, ec, UInt32, ulIndex, UInt32, ulCount, TF_SELECTION.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -271,7 +271,7 @@ export default struct ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-setselection
      */
     SetSelection(ec, ulCount, pSelection) {
-        result := ComCall(6, this, "uint", ec, "uint", ulCount, TF_SELECTION.Ptr, pSelection, "HRESULT")
+        result := ComCall(6, this, UInt32, ec, UInt32, ulCount, TF_SELECTION.Ptr, pSelection, "HRESULT")
         return result
     }
 
@@ -282,7 +282,7 @@ export default struct ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getstart
      */
     GetStart(ec) {
-        result := ComCall(7, this, "uint", ec, "ptr*", &ppStart := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, ec, "ptr*", &ppStart := 0, "HRESULT")
         return ITfRange(ppStart)
     }
 
@@ -293,7 +293,7 @@ export default struct ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getend
      */
     GetEnd(ec) {
-        result := ComCall(8, this, "uint", ec, "ptr*", &ppEnd := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, ec, "ptr*", &ppEnd := 0, "HRESULT")
         return ITfRange(ppEnd)
     }
 
@@ -372,7 +372,7 @@ export default struct ITfContext extends IUnknown {
         prgPropMarshal := prgProp is VarRef ? "ptr*" : "ptr"
         prgAppPropMarshal := prgAppProp is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, prgPropMarshal, prgProp, "uint", cProp, prgAppPropMarshal, prgAppProp, "uint", cAppProp, "ptr*", &ppProperty := 0, "HRESULT")
+        result := ComCall(14, this, prgPropMarshal, prgProp, UInt32, cProp, prgAppPropMarshal, prgAppProp, UInt32, cAppProp, "ptr*", &ppProperty := 0, "HRESULT")
         return ITfReadOnlyProperty(ppProperty)
     }
 
@@ -408,7 +408,7 @@ export default struct ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-createrangebackup
      */
     CreateRangeBackup(ec, pRange) {
-        result := ComCall(17, this, "uint", ec, "ptr", pRange, "ptr*", &ppBackup := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, ec, "ptr", pRange, "ptr*", &ppBackup := 0, "HRESULT")
         return ITfRangeBackup(ppBackup)
     }
 

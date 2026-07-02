@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugApplication32.ahk" { IDebugApplication32 }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugDocumentHelper32.ahk" { IDebugDocumentHelper32 }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugDocumentHelper32.ahk" { IDebugDocumentHelper32 }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -75,7 +75,7 @@ export default struct IProcessDebugManager32 extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveApplication(dwAppCookie) {
-        result := ComCall(6, this, "uint", dwAppCookie, "HRESULT")
+        result := ComCall(6, this, UInt32, dwAppCookie, "HRESULT")
         return result
     }
 

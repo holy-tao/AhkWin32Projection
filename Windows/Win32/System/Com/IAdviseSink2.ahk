@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAdviseSink.ahk" { IAdviseSink }
 #Import ".\IMoniker.ahk" { IMoniker }
+#Import ".\IAdviseSink.ahk" { IAdviseSink }
 
 /**
  * The IAdviseSink2 interface is an extension of the IAdviseSink interface, adding the method OnLinkSrcChange to the contract to handle a change in the moniker of a linked object.

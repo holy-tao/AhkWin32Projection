@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWICBitmapCodecInfo.ahk" { IWICBitmapCodecInfo }
-#Import ".\IWICBitmapEncoder.ahk" { IWICBitmapEncoder }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapEncoder.ahk" { IWICBitmapEncoder }
 
 /**
  * Exposes methods that provide information about an encoder.

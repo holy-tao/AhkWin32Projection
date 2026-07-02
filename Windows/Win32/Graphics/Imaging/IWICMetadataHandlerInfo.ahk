@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWICComponentInfo.ahk" { IWICComponentInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide basic information about the registered metadata handler.
@@ -75,7 +75,7 @@ export default struct IWICMetadataHandlerInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getcontainerformats
      */
     GetContainerFormats(cContainerFormats, pguidContainerFormats) {
-        result := ComCall(12, this, "uint", cContainerFormats, Guid.Ptr, pguidContainerFormats, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, cContainerFormats, Guid.Ptr, pguidContainerFormats, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -95,7 +95,7 @@ export default struct IWICMetadataHandlerInfo extends IWICComponentInfo {
     GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer) {
         wzDeviceManufacturer := wzDeviceManufacturer is String ? StrPtr(wzDeviceManufacturer) : wzDeviceManufacturer
 
-        result := ComCall(13, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, cchDeviceManufacturer, "ptr", wzDeviceManufacturer, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -115,7 +115,7 @@ export default struct IWICMetadataHandlerInfo extends IWICComponentInfo {
     GetDeviceModels(cchDeviceModels, wzDeviceModels) {
         wzDeviceModels := wzDeviceModels is String ? StrPtr(wzDeviceModels) : wzDeviceModels
 
-        result := ComCall(14, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, cchDeviceModels, "ptr", wzDeviceModels, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 

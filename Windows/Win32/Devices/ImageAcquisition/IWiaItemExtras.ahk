@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaItemExtras interface provides several methods that enable applications to communicate with hardware drivers.
@@ -112,7 +112,7 @@ export default struct IWiaItemExtras extends IUnknown {
         pOutDataMarshal := pOutData is VarRef ? "char*" : "ptr"
         pdwActualDataSizeMarshal := pdwActualDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwEscapeCode, lpInDataMarshal, lpInData, "uint", cbInDataSize, pOutDataMarshal, pOutData, "uint", dwOutDataSize, pdwActualDataSizeMarshal, pdwActualDataSize, "HRESULT")
+        result := ComCall(4, this, UInt32, dwEscapeCode, lpInDataMarshal, lpInData, UInt32, cbInDataSize, pOutDataMarshal, pOutData, UInt32, dwOutDataSize, pdwActualDataSizeMarshal, pdwActualDataSize, "HRESULT")
         return result
     }
 

@@ -92,7 +92,7 @@ export default struct IRTCProfile2 extends IRTCProfile {
      * @returns {HRESULT} 
      */
     put_AllowedAuth(lAllowedAuth) {
-        result := ComCall(24, this, "int", lAllowedAuth, "HRESULT")
+        result := ComCall(24, this, Int32, lAllowedAuth, "HRESULT")
         return result
     }
 

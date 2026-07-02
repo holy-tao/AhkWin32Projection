@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EVENT_FIELD_TYPE.ahk" { EVENT_FIELD_TYPE }
 #Import ".\PROVIDER_FIELD_INFO.ahk" { PROVIDER_FIELD_INFO }
+#Import ".\EVENT_FIELD_TYPE.ahk" { EVENT_FIELD_TYPE }
 
 /**
  * Defines metadata information about the requested field.

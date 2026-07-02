@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMPSyncDevice2.ahk" { IWMPSyncDevice2 }
 #Import ".\IWMPPlaylist.ahk" { IWMPPlaylist }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMPSyncDevice2.ahk" { IWMPSyncDevice2 }
 
 /**
  * The IWMPSyncDevice3 interface provides methods for estimating the size required to synchronize a playlist to a device.

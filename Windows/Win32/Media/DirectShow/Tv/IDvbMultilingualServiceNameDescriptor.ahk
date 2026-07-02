@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) multilingual service name descriptor. A multilingual service name descriptor provides the names of the service provider and service in text form in one or more languages.
@@ -82,7 +82,7 @@ export default struct IDvbMultilingualServiceNameDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordlangid
      */
     GetRecordLangId(bRecordIndex) {
-        result := ComCall(6, this, "char", bRecordIndex, "uint*", &ulVal := 0, "HRESULT")
+        result := ComCall(6, this, Int8, bRecordIndex, "uint*", &ulVal := 0, "HRESULT")
         return ulVal
     }
 
@@ -96,7 +96,7 @@ export default struct IDvbMultilingualServiceNameDescriptor extends IUnknown {
      */
     GetRecordServiceProviderNameW(bRecordIndex, convMode) {
         pbstrName := BSTR.Owned()
-        result := ComCall(7, this, "char", bRecordIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -110,7 +110,7 @@ export default struct IDvbMultilingualServiceNameDescriptor extends IUnknown {
      */
     GetRecordServiceNameW(bRecordIndex, convMode) {
         pbstrName := BSTR.Owned()
-        result := ComCall(8, this, "char", bRecordIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrName, "HRESULT")
+        result := ComCall(8, this, Int8, bRecordIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 

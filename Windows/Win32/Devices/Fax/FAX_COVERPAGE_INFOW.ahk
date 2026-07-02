@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The FAX_COVERPAGE_INFO structure contains data to display on the cover page of a fax transmission. The SizeOfStruct and CoverPageName members are required; other members are optional. (Unicode)

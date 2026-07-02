@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ThumbnailStreamCacheOptions.ahk" { ThumbnailStreamCacheOptions }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\ThumbnailStreamCacheOptions.ahk" { ThumbnailStreamCacheOptions }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Gets or sets the thumbnail stream. This interface is for internal use only and can only be called by the photos application.
@@ -62,7 +62,7 @@ export default struct IThumbnailStreamCache extends IUnknown {
     GetThumbnailStream(_path, cacheId, options, requestedThumbnailSize, thumbnailSize, thumbnailStream) {
         _path := _path is String ? StrPtr(_path) : _path
 
-        result := ComCall(3, this, "ptr", _path, "uint", cacheId, ThumbnailStreamCacheOptions, options, "uint", requestedThumbnailSize, SIZE.Ptr, thumbnailSize, IStream.Ptr, thumbnailStream, "HRESULT")
+        result := ComCall(3, this, "ptr", _path, Int64, cacheId, ThumbnailStreamCacheOptions, options, UInt32, requestedThumbnailSize, SIZE.Ptr, thumbnailSize, IStream.Ptr, thumbnailStream, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct IThumbnailStreamCache extends IUnknown {
     SetThumbnailStream(_path, cacheId, thumbnailSize, thumbnailStream) {
         _path := _path is String ? StrPtr(_path) : _path
 
-        result := ComCall(4, this, "ptr", _path, "uint", cacheId, SIZE, thumbnailSize, "ptr", thumbnailStream, "HRESULT")
+        result := ComCall(4, this, "ptr", _path, Int64, cacheId, SIZE, thumbnailSize, "ptr", thumbnailStream, "HRESULT")
         return result
     }
 

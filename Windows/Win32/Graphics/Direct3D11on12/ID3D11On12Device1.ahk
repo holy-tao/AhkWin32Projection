@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11On12Device.ahk" { ID3D11On12Device }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D11On12Device.ahk" { ID3D11On12Device }
 
 /**
  * Enables better interoperability with a component that might be handed a Direct3D 11 device, but which wants to leverage Direct3D 12 instead.

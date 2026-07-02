@@ -41,7 +41,7 @@ export default struct IHTMLDOMChildrenCollection2 extends IDispatch {
      * @returns {IDispatch} 
      */
     item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(7, this, Int32, index, "ptr*", &ppItem := 0, "HRESULT")
         return IDispatch(ppItem)
     }
 

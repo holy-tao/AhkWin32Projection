@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\IDiscRecorder2Ex.ahk" { IDiscRecorder2Ex }
 
 /**
@@ -188,7 +188,7 @@ export default struct IWriteEngine2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-writesection
      */
     WriteSection(data, startingBlockAddress, numberOfBlocks) {
-        result := ComCall(7, this, "ptr", data, "int", startingBlockAddress, "int", numberOfBlocks, "HRESULT")
+        result := ComCall(7, this, "ptr", data, Int32, startingBlockAddress, Int32, numberOfBlocks, "HRESULT")
         return result
     }
 
@@ -655,7 +655,7 @@ export default struct IWriteEngine2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-put_startingsectorspersecond
      */
     put_StartingSectorsPerSecond(value) {
-        result := ComCall(13, this, "int", value, "HRESULT")
+        result := ComCall(13, this, Int32, value, "HRESULT")
         return result
     }
 
@@ -713,7 +713,7 @@ export default struct IWriteEngine2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-put_endingsectorspersecond
      */
     put_EndingSectorsPerSecond(value) {
-        result := ComCall(15, this, "int", value, "HRESULT")
+        result := ComCall(15, this, Int32, value, "HRESULT")
         return result
     }
 
@@ -771,7 +771,7 @@ export default struct IWriteEngine2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-put_bytespersector
      */
     put_BytesPerSector(value) {
-        result := ComCall(17, this, "int", value, "HRESULT")
+        result := ComCall(17, this, Int32, value, "HRESULT")
         return result
     }
 

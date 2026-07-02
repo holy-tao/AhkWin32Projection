@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DHCP_RESERVED_SCOPE6.ahk" { DHCP_RESERVED_SCOPE6 }
 #Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
 #Import ".\DHCP_OPTION_SCOPE_TYPE6.ahk" { DHCP_OPTION_SCOPE_TYPE6 }
+#Import ".\DHCP_RESERVED_SCOPE6.ahk" { DHCP_RESERVED_SCOPE6 }
 
 /**
  * Defines the data associated with a DHCP option scope.

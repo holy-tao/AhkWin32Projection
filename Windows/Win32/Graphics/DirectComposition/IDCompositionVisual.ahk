@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Direct2D\Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DCOMPOSITION_COMPOSITE_MODE.ahk" { DCOMPOSITION_COMPOSITE_MODE }
-#Import ".\IDCompositionEffect.ahk" { IDCompositionEffect }
+#Import ".\DCOMPOSITION_BITMAP_INTERPOLATION_MODE.ahk" { DCOMPOSITION_BITMAP_INTERPOLATION_MODE }
+#Import ".\IDCompositionClip.ahk" { IDCompositionClip }
 #Import "..\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
-#Import ".\IDCompositionClip.ahk" { IDCompositionClip }
+#Import ".\DCOMPOSITION_COMPOSITE_MODE.ahk" { DCOMPOSITION_COMPOSITE_MODE }
+#Import ".\IDCompositionEffect.ahk" { IDCompositionEffect }
 #Import ".\DCOMPOSITION_BORDER_MODE.ahk" { DCOMPOSITION_BORDER_MODE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Direct2D\Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
-#Import ".\DCOMPOSITION_BITMAP_INTERPOLATION_MODE.ahk" { DCOMPOSITION_BITMAP_INTERPOLATION_MODE }
 
 /**
  * Represents a Microsoft DirectComposition visual.
@@ -95,7 +95,7 @@ export default struct IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setoffsetx(idcompositionanimation)
      */
     SetOffsetX1(offsetX) {
-        result := ComCall(4, this, "float", offsetX, "HRESULT")
+        result := ComCall(4, this, Float32, offsetX, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setoffsety(idcompositionanimation)
      */
     SetOffsetY1(offsetY) {
-        result := ComCall(6, this, "float", offsetY, "HRESULT")
+        result := ComCall(6, this, Float32, offsetY, "HRESULT")
         return result
     }
 

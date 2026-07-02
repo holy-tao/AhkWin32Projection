@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CLIENT_MESSAGE_TYPE.ahk" { CLIENT_MESSAGE_TYPE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that report status and error messages to Remote Desktop Connection Broker (RD Connection Broker).
@@ -70,7 +70,7 @@ export default struct ITsSbBaseNotifySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbbasenotifysink-onreportstatus
      */
     OnReportStatus(messageType, messageID) {
-        result := ComCall(4, this, CLIENT_MESSAGE_TYPE, messageType, "uint", messageID, "HRESULT")
+        result := ComCall(4, this, CLIENT_MESSAGE_TYPE, messageType, UInt32, messageID, "HRESULT")
         return result
     }
 

@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITextPara2.ahk" { ITextPara2 }
-#Import ".\ITextStrings.ahk" { ITextStrings }
+#Import ".\ITextDocument.ahk" { ITextDocument }
+#Import ".\ITextDisplays.ahk" { ITextDisplays }
 #Import ".\ITextSelection2.ahk" { ITextSelection2 }
-#Import ".\ITextRange2.ahk" { ITextRange2 }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ITextStory.ahk" { ITextStory }
-#Import ".\ITextStoryRanges2.ahk" { ITextStoryRanges2 }
-#Import ".\ITextFont2.ahk" { ITextFont2 }
-#Import ".\ITextDocument.ahk" { ITextDocument }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITextRange2.ahk" { ITextRange2 }
 #Import ".\tomConstants.ahk" { tomConstants }
-#Import ".\ITextDisplays.ahk" { ITextDisplays }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextStoryRanges2.ahk" { ITextStoryRanges2 }
+#Import ".\ITextStrings.ahk" { ITextStrings }
+#Import ".\ITextFont2.ahk" { ITextFont2 }
+#Import ".\ITextPara2.ahk" { ITextPara2 }
 
 /**
  * Extends the ITextDocument interface, adding methods that enable the Input Method Editor (IME) to drive the rich edit control, and methods to retrieve other interfaces such as ITextDisplays, ITextRange2, ITextFont2, ITextPara2, and so on.
@@ -110,7 +110,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setcarettype
      */
     SetCaretType(Value) {
-        result := ComCall(27, this, "int", Value, "HRESULT")
+        result := ComCall(27, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -220,7 +220,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setimeinprogress
      */
     SetIMEInProgress(Value) {
-        result := ComCall(35, this, "int", Value, "HRESULT")
+        result := ComCall(35, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -247,7 +247,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setnotificationmode
      */
     SetNotificationMode(Value) {
-        result := ComCall(37, this, "int", Value, "HRESULT")
+        result := ComCall(37, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -377,7 +377,7 @@ export default struct ITextDocument2 extends ITextDocument {
     CheckTextLimit(cch, pcch) {
         pcchMarshal := pcch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(44, this, "int", cch, pcchMarshal, pcch, "HRESULT")
+        result := ComCall(44, this, Int32, cch, pcchMarshal, pcch, "HRESULT")
         return result
     }
 
@@ -436,7 +436,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-geteffectcolor
      */
     GetEffectColor(Index) {
-        result := ComCall(47, this, "int", Index, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(47, this, Int32, Index, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -483,7 +483,7 @@ export default struct ITextDocument2 extends ITextDocument {
         pPitchAndFamilyMarshal := pPitchAndFamily is VarRef ? "int*" : "ptr"
         pNewFontSizeMarshal := pNewFontSize is VarRef ? "int*" : "ptr"
 
-        result := ComCall(49, this, "int", cp, "int", CharRep, "int", Options, "int", curCharRep, "int", curFontSize, BSTR.Ptr, pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
+        result := ComCall(49, this, Int32, cp, Int32, CharRep, Int32, Options, Int32, curCharRep, Int32, curFontSize, BSTR.Ptr, pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
         return result
     }
 
@@ -502,7 +502,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getproperty
      */
     GetProperty(Type) {
-        result := ComCall(50, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(50, this, Int32, Type, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -531,7 +531,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-notify
      */
     Notify(Notify) {
-        result := ComCall(52, this, "int", Notify, "HRESULT")
+        result := ComCall(52, this, Int32, Notify, "HRESULT")
         return result
     }
 
@@ -549,7 +549,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-range2
      */
     Range2(cpActive, cpAnchor) {
-        result := ComCall(53, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(53, this, Int32, cpActive, Int32, cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
         return ITextRange2(ppRange)
     }
 
@@ -568,7 +568,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-rangefrompoint2
      */
     RangeFromPoint2(x, y, Type) {
-        result := ComCall(54, this, "int", x, "int", y, "int", Type, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(54, this, Int32, x, Int32, y, Int32, Type, "ptr*", &ppRange := 0, "HRESULT")
         return ITextRange2(ppRange)
     }
 
@@ -598,7 +598,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-releaseimmcontext
      */
     ReleaseImmContext(_Context) {
-        result := ComCall(56, this, "int64", _Context, "HRESULT")
+        result := ComCall(56, this, Int64, _Context, "HRESULT")
         return result
     }
 
@@ -618,7 +618,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-seteffectcolor
      */
     SetEffectColor(Index, Value) {
-        result := ComCall(57, this, "int", Index, "int", Value, "HRESULT")
+        result := ComCall(57, this, Int32, Index, Int32, Value, "HRESULT")
         return result
     }
 
@@ -636,7 +636,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setproperty
      */
     SetProperty(Type, Value) {
-        result := ComCall(58, this, "int", Type, "int", Value, "HRESULT")
+        result := ComCall(58, this, Int32, Type, Int32, Value, "HRESULT")
         return result
     }
 
@@ -654,7 +654,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-settypographyoptions
      */
     SetTypographyOptions(Options, Mask) {
-        result := ComCall(59, this, "int", Options, "int", Mask, "HRESULT")
+        result := ComCall(59, this, Int32, Options, Int32, Mask, "HRESULT")
         return result
     }
 
@@ -681,7 +681,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-update
      */
     Update(Value) {
-        result := ComCall(61, this, "int", Value, "HRESULT")
+        result := ComCall(61, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -1000,7 +1000,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setmathproperties
      */
     SetMathProperties(Options, Mask) {
-        result := ComCall(64, this, "int", Options, "int", Mask, "HRESULT")
+        result := ComCall(64, this, Int32, Options, Int32, Mask, "HRESULT")
         return result
     }
 
@@ -1068,7 +1068,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getstory
      */
     GetStory(Index) {
-        result := ComCall(69, this, "int", Index, "ptr*", &ppStory := 0, "HRESULT")
+        result := ComCall(69, this, Int32, Index, "ptr*", &ppStory := 0, "HRESULT")
         return ITextStory(ppStory)
     }
 

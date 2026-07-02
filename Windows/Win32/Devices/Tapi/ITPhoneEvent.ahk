@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\PHONE_BUTTON_STATE.ahk" { PHONE_BUTTON_STATE }
-#Import ".\PHONE_HOOK_SWITCH_STATE.ahk" { PHONE_HOOK_SWITCH_STATE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PHONE_EVENT.ahk" { PHONE_EVENT }
-#Import ".\ITPhone.ahk" { ITPhone }
 #Import ".\ITCallInfo.ahk" { ITCallInfo }
+#Import ".\PHONE_BUTTON_STATE.ahk" { PHONE_BUTTON_STATE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\PHONE_HOOK_SWITCH_DEVICE.ahk" { PHONE_HOOK_SWITCH_DEVICE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\PHONE_EVENT.ahk" { PHONE_EVENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITPhone.ahk" { ITPhone }
+#Import ".\PHONE_HOOK_SWITCH_STATE.ahk" { PHONE_HOOK_SWITCH_STATE }
 
 /**
  * The ITPhoneEvent interface contains methods that retrieve the description of phone events that have occurred.

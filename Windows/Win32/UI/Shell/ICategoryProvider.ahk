@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a list of categorizers registered on an IShellFolder.
@@ -158,7 +158,7 @@ export default struct ICategoryProvider extends IUnknown {
     GetCategoryName(pguid, pszName, cch) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(7, this, Guid.Ptr, pguid, "ptr", pszName, "uint", cch, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pguid, "ptr", pszName, UInt32, cch, "HRESULT")
         return result
     }
 

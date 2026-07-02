@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVssAsync.ahk" { IVssAsync }
 #Import ".\IVssBackupComponentsEx2.ahk" { IVssBackupComponentsEx2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VSS_WRITER_STATE.ahk" { VSS_WRITER_STATE }
 
 /**
@@ -252,7 +252,7 @@ export default struct IVssBackupComponentsEx3 extends IVssBackupComponentsEx2 {
         phrFailureWriterMarshal := phrFailureWriter is VarRef ? "int*" : "ptr"
         phrApplicationMarshal := phrApplication is VarRef ? "int*" : "ptr"
 
-        result := ComCall(60, this, "uint", iWriter, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, BSTR.Ptr, pbstrWriter, pnStatusMarshal, pnStatus, phrFailureWriterMarshal, phrFailureWriter, phrApplicationMarshal, phrApplication, BSTR.Ptr, pbstrApplicationMessage, "HRESULT")
+        result := ComCall(60, this, UInt32, iWriter, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, BSTR.Ptr, pbstrWriter, pnStatusMarshal, pnStatus, phrFailureWriterMarshal, phrFailureWriter, phrApplicationMarshal, phrApplication, BSTR.Ptr, pbstrApplicationMessage, "HRESULT")
         return result
     }
 
@@ -360,7 +360,7 @@ export default struct IVssBackupComponentsEx3 extends IVssBackupComponentsEx2 {
     AddSnapshotToRecoverySet(snapshotId, dwFlags, pwszDestinationVolume) {
         pwszDestinationVolumeMarshal := pwszDestinationVolume is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(61, this, Guid, snapshotId, "uint", dwFlags, pwszDestinationVolumeMarshal, pwszDestinationVolume, "HRESULT")
+        result := ComCall(61, this, Guid, snapshotId, UInt32, dwFlags, pwszDestinationVolumeMarshal, pwszDestinationVolume, "HRESULT")
         return result
     }
 
@@ -375,7 +375,7 @@ export default struct IVssBackupComponentsEx3 extends IVssBackupComponentsEx2 {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex3-recoverset
      */
     RecoverSet(dwFlags) {
-        result := ComCall(62, this, "uint", dwFlags, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(62, this, UInt32, dwFlags, "ptr*", &ppAsync := 0, "HRESULT")
         return IVssAsync(ppAsync)
     }
 

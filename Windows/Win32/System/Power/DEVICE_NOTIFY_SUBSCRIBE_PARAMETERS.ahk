@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PDEVICE_NOTIFY_CALLBACK_ROUTINE.ahk" { PDEVICE_NOTIFY_CALLBACK_ROUTINE }
 
 /**
  * Contains parameters used when registering for a power notification.
@@ -11,7 +12,7 @@ export default struct DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS {
     /**
      * Indicates the callback function that will be called when the application receives the notification.
      */
-    Callback : IntPtr
+    Callback : PDEVICE_NOTIFY_CALLBACK_ROUTINE
 
     /**
      * The context of the application registering for the notification.

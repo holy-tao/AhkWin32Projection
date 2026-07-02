@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\INVOKEKIND.ahk" { INVOKEKIND }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICreateTypeInfo.ahk" { ICreateTypeInfo }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\INVOKEKIND.ahk" { INVOKEKIND }
+#Import ".\ICreateTypeInfo.ahk" { ICreateTypeInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo2)
@@ -104,7 +104,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deletefuncdesc
      */
     DeleteFuncDesc(index) {
-        result := ComCall(26, this, "uint", index, "HRESULT")
+        result := ComCall(26, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deletefuncdescbymemid
      */
     DeleteFuncDescByMemId(memid, invKind) {
-        result := ComCall(27, this, "int", memid, INVOKEKIND, invKind, "HRESULT")
+        result := ComCall(27, this, Int32, memid, INVOKEKIND, invKind, "HRESULT")
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deletevardesc
      */
     DeleteVarDesc(index) {
-        result := ComCall(28, this, "uint", index, "HRESULT")
+        result := ComCall(28, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -359,7 +359,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deletevardescbymemid
      */
     DeleteVarDescByMemId(memid) {
-        result := ComCall(29, this, "int", memid, "HRESULT")
+        result := ComCall(29, this, Int32, memid, "HRESULT")
         return result
     }
 
@@ -413,7 +413,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deleteimpltype
      */
     DeleteImplType(index) {
-        result := ComCall(30, this, "uint", index, "HRESULT")
+        result := ComCall(30, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -524,7 +524,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setfunccustdata
      */
     SetFuncCustData(index, guid, pVarVal) {
-        result := ComCall(32, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
+        result := ComCall(32, this, UInt32, index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -581,7 +581,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setparamcustdata
      */
     SetParamCustData(indexFunc, indexParam, guid, pVarVal) {
-        result := ComCall(33, this, "uint", indexFunc, "uint", indexParam, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
+        result := ComCall(33, this, UInt32, indexFunc, UInt32, indexParam, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -637,7 +637,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setvarcustdata
      */
     SetVarCustData(index, guid, pVarVal) {
-        result := ComCall(34, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
+        result := ComCall(34, this, UInt32, index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -693,7 +693,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setimpltypecustdata
      */
     SetImplTypeCustData(index, guid, pVarVal) {
-        result := ComCall(35, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
+        result := ComCall(35, this, UInt32, index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return result
     }
 
@@ -747,7 +747,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-sethelpstringcontext
      */
     SetHelpStringContext(dwHelpStringContext) {
-        result := ComCall(36, this, "uint", dwHelpStringContext, "HRESULT")
+        result := ComCall(36, this, UInt32, dwHelpStringContext, "HRESULT")
         return result
     }
 
@@ -802,7 +802,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setfunchelpstringcontext
      */
     SetFuncHelpStringContext(index, dwHelpStringContext) {
-        result := ComCall(37, this, "uint", index, "uint", dwHelpStringContext, "HRESULT")
+        result := ComCall(37, this, UInt32, index, UInt32, dwHelpStringContext, "HRESULT")
         return result
     }
 
@@ -857,7 +857,7 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setvarhelpstringcontext
      */
     SetVarHelpStringContext(index, dwHelpStringContext) {
-        result := ComCall(38, this, "uint", index, "uint", dwHelpStringContext, "HRESULT")
+        result := ComCall(38, this, UInt32, index, UInt32, dwHelpStringContext, "HRESULT")
         return result
     }
 

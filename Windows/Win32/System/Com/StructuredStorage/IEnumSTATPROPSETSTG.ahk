@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import ".\STATPROPSETSTG.ahk" { STATPROPSETSTG }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumSTATPROPSETSTG interface iterates through an array of STATPROPSETSTG structures containing statistical data about the property sets managed by the current IPropertySetStorage instance.
@@ -81,7 +81,7 @@ export default struct IEnumSTATPROPSETSTG extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, STATPROPSETSTG.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
+        result := ComCall(3, this, UInt32, celt, STATPROPSETSTG.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IEnumSTATPROPSETSTG extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropsetstg-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, Int32)
+        result := ComCall(4, this, UInt32, celt, Int32)
         return result
     }
 

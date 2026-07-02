@@ -171,7 +171,7 @@ export default struct IEnumCERTVIEWATTRIBUTE extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewattribute-skip
      */
     Skip(celt) {
-        result := ComCall(10, this, "int", celt, "HRESULT")
+        result := ComCall(10, this, Int32, celt, "HRESULT")
         return result
     }
 

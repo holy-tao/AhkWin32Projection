@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DMO_OUTPUT_DATA_BUFFER.ahk" { DMO_OUTPUT_DATA_BUFFER }
 #Import ".\DMO_MEDIA_TYPE.ahk" { DMO_MEDIA_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DMO_OUTPUT_DATA_BUFFER.ahk" { DMO_OUTPUT_DATA_BUFFER }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMediaBuffer.ahk" { IMediaBuffer }
 
 /**
@@ -117,7 +117,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputstreaminfo
      */
     GetInputStreamInfo(dwInputStreamIndex) {
-        result := ComCall(4, this, "uint", dwInputStreamIndex, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwInputStreamIndex, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
     }
 
@@ -128,7 +128,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getoutputstreaminfo
      */
     GetOutputStreamInfo(dwOutputStreamIndex) {
-        result := ComCall(5, this, "uint", dwOutputStreamIndex, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwOutputStreamIndex, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
     }
 
@@ -153,7 +153,7 @@ export default struct IMediaObject extends IUnknown {
      */
     GetInputType(dwInputStreamIndex, dwTypeIndex) {
         pmt := DMO_MEDIA_TYPE()
-        result := ComCall(6, this, "uint", dwInputStreamIndex, "uint", dwTypeIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
+        result := ComCall(6, this, UInt32, dwInputStreamIndex, UInt32, dwTypeIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return pmt
     }
 
@@ -178,7 +178,7 @@ export default struct IMediaObject extends IUnknown {
      */
     GetOutputType(dwOutputStreamIndex, dwTypeIndex) {
         pmt := DMO_MEDIA_TYPE()
-        result := ComCall(7, this, "uint", dwOutputStreamIndex, "uint", dwTypeIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
+        result := ComCall(7, this, UInt32, dwOutputStreamIndex, UInt32, dwTypeIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return pmt
     }
 
@@ -251,7 +251,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-setinputtype
      */
     SetInputType(dwInputStreamIndex, pmt, dwFlags) {
-        result := ComCall(8, this, "uint", dwInputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, UInt32, dwInputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -324,7 +324,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-setoutputtype
      */
     SetOutputType(dwOutputStreamIndex, pmt, dwFlags) {
-        result := ComCall(9, this, "uint", dwOutputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, dwOutputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -340,7 +340,7 @@ export default struct IMediaObject extends IUnknown {
      */
     GetInputCurrentType(dwInputStreamIndex) {
         pmt := DMO_MEDIA_TYPE()
-        result := ComCall(10, this, "uint", dwInputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
+        result := ComCall(10, this, UInt32, dwInputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return pmt
     }
 
@@ -356,7 +356,7 @@ export default struct IMediaObject extends IUnknown {
      */
     GetOutputCurrentType(dwOutputStreamIndex) {
         pmt := DMO_MEDIA_TYPE()
-        result := ComCall(11, this, "uint", dwOutputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
+        result := ComCall(11, this, UInt32, dwOutputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return pmt
     }
 
@@ -420,7 +420,7 @@ export default struct IMediaObject extends IUnknown {
         pcbMaxLookaheadMarshal := pcbMaxLookahead is VarRef ? "uint*" : "ptr"
         pcbAlignmentMarshal := pcbAlignment is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwInputStreamIndex, pcbSizeMarshal, pcbSize, pcbMaxLookaheadMarshal, pcbMaxLookahead, pcbAlignmentMarshal, pcbAlignment, "HRESULT")
+        result := ComCall(12, this, UInt32, dwInputStreamIndex, pcbSizeMarshal, pcbSize, pcbMaxLookaheadMarshal, pcbMaxLookahead, pcbAlignmentMarshal, pcbAlignment, "HRESULT")
         return result
     }
 
@@ -482,7 +482,7 @@ export default struct IMediaObject extends IUnknown {
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
         pcbAlignmentMarshal := pcbAlignment is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwOutputStreamIndex, pcbSizeMarshal, pcbSize, pcbAlignmentMarshal, pcbAlignment, "HRESULT")
+        result := ComCall(13, this, UInt32, dwOutputStreamIndex, pcbSizeMarshal, pcbSize, pcbAlignmentMarshal, pcbAlignment, "HRESULT")
         return result
     }
 
@@ -506,7 +506,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputmaxlatency
      */
     GetInputMaxLatency(dwInputStreamIndex) {
-        result := ComCall(14, this, "uint", dwInputStreamIndex, "int64*", &prtMaxLatency := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwInputStreamIndex, "int64*", &prtMaxLatency := 0, "HRESULT")
         return prtMaxLatency
     }
 
@@ -569,7 +569,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-setinputmaxlatency
      */
     SetInputMaxLatency(dwInputStreamIndex, rtMaxLatency) {
-        result := ComCall(15, this, "uint", dwInputStreamIndex, "int64", rtMaxLatency, "HRESULT")
+        result := ComCall(15, this, UInt32, dwInputStreamIndex, Int64, rtMaxLatency, "HRESULT")
         return result
     }
 
@@ -656,7 +656,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-discontinuity
      */
     Discontinuity(dwInputStreamIndex) {
-        result := ComCall(17, this, "uint", dwInputStreamIndex, "HRESULT")
+        result := ComCall(17, this, UInt32, dwInputStreamIndex, "HRESULT")
         return result
     }
 
@@ -740,7 +740,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputstatus
      */
     GetInputStatus(dwInputStreamIndex) {
-        result := ComCall(20, this, "uint", dwInputStreamIndex, "uint*", &dwFlags := 0, "HRESULT")
+        result := ComCall(20, this, UInt32, dwInputStreamIndex, "uint*", &dwFlags := 0, "HRESULT")
         return dwFlags
     }
 
@@ -814,7 +814,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-processinput
      */
     ProcessInput(dwInputStreamIndex, pBuffer, dwFlags, rtTimestamp, rtTimelength) {
-        result := ComCall(21, this, "uint", dwInputStreamIndex, "ptr", pBuffer, "uint", dwFlags, "int64", rtTimestamp, "int64", rtTimelength, "HRESULT")
+        result := ComCall(21, this, UInt32, dwInputStreamIndex, "ptr", pBuffer, UInt32, dwFlags, Int64, rtTimestamp, Int64, rtTimelength, "HRESULT")
         return result
     }
 
@@ -915,7 +915,7 @@ export default struct IMediaObject extends IUnknown {
     ProcessOutput(dwFlags, cOutputBufferCount, pOutputBuffers, pdwStatus) {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "uint", dwFlags, "uint", cOutputBufferCount, DMO_OUTPUT_DATA_BUFFER.Ptr, pOutputBuffers, pdwStatusMarshal, pdwStatus, "HRESULT")
+        result := ComCall(22, this, UInt32, dwFlags, UInt32, cOutputBufferCount, DMO_OUTPUT_DATA_BUFFER.Ptr, pOutputBuffers, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
@@ -962,7 +962,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-lock
      */
     Lock(bLock) {
-        result := ComCall(23, this, "int", bLock, "HRESULT")
+        result := ComCall(23, this, Int32, bLock, "HRESULT")
         return result
     }
 

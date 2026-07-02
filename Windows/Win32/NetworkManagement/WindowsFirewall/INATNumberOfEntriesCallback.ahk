@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The INATNumberOfEntriesCallback interface provides a method that the system calls if the number of port mappings changes.
@@ -143,7 +143,7 @@ export default struct INATNumberOfEntriesCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-inatnumberofentriescallback-newnumberofentries
      */
     NewNumberOfEntries(lNewNumberOfEntries) {
-        result := ComCall(3, this, "int", lNewNumberOfEntries, "HRESULT")
+        result := ComCall(3, this, Int32, lNewNumberOfEntries, "HRESULT")
         return result
     }
 

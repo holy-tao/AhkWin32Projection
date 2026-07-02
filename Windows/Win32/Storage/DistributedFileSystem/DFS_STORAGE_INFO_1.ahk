@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DFS_TARGET_PRIORITY.ahk" { DFS_TARGET_PRIORITY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DFS_TARGET_PRIORITY_CLASS.ahk" { DFS_TARGET_PRIORITY_CLASS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DFS_TARGET_PRIORITY.ahk" { DFS_TARGET_PRIORITY }
 
 /**
  * Contains information about a DFS target, including the DFS target server name and share name as well as the target's state and priority.

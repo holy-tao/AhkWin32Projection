@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FsrmStorageModuleType.ahk" { FsrmStorageModuleType }
 #Import ".\IFsrmPipelineModuleDefinition.ahk" { IFsrmPipelineModuleDefinition }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FsrmStorageModuleCaps.ahk" { FsrmStorageModuleCaps }
+#Import ".\FsrmStorageModuleType.ahk" { FsrmStorageModuleType }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FsrmStorageModuleCaps.ahk" { FsrmStorageModuleCaps }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a local storage module that is used to read and write property values.

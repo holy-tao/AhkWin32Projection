@@ -72,7 +72,7 @@ export default struct ISyncCallback2 extends ISyncCallback {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback2-onchangeapplied
      */
     OnChangeApplied(dwChangesApplied, dwChangesFailed) {
-        result := ComCall(8, this, "uint", dwChangesApplied, "uint", dwChangesFailed, "HRESULT")
+        result := ComCall(8, this, UInt32, dwChangesApplied, UInt32, dwChangesFailed, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct ISyncCallback2 extends ISyncCallback {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback2-onchangefailed
      */
     OnChangeFailed(dwChangesApplied, dwChangesFailed) {
-        result := ComCall(9, this, "uint", dwChangesApplied, "uint", dwChangesFailed, "HRESULT")
+        result := ComCall(9, this, UInt32, dwChangesApplied, UInt32, dwChangesFailed, "HRESULT")
         return result
     }
 

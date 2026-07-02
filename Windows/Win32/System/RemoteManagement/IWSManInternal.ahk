@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
@@ -52,7 +52,7 @@ export default struct IWSManInternal extends IDispatch {
      */
     ConfigSDDL(session, resourceUri, flags) {
         resource := BSTR.Owned()
-        result := ComCall(7, this, "ptr", session, VARIANT, resourceUri, "int", flags, BSTR.Ptr, resource, "HRESULT")
+        result := ComCall(7, this, "ptr", session, VARIANT, resourceUri, Int32, flags, BSTR.Ptr, resource, "HRESULT")
         return resource
     }
 

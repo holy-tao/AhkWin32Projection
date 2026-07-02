@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWiaItem2.ahk" { IWiaItem2 }
 
 /**
@@ -66,7 +66,7 @@ export default struct IEnumWiaItem2 extends IUnknown {
     Next(cElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cElt, "ptr*", &ppIWiaItem2 := 0, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cElt, "ptr*", &ppIWiaItem2 := 0, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
         return IWiaItem2(ppIWiaItem2)
     }
 
@@ -81,7 +81,7 @@ export default struct IEnumWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-skip
      */
     Skip(cElt) {
-        result := ComCall(4, this, "uint", cElt, "HRESULT")
+        result := ComCall(4, this, UInt32, cElt, "HRESULT")
         return result
     }
 

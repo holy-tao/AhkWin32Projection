@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMSVidPlayback.ahk" { IMSVidPlayback }
-#Import ".\IMSVidInputDeviceEvent.ahk" { IMSVidInputDeviceEvent }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidInputDeviceEvent.ahk" { IMSVidInputDeviceEvent }
 
 /**
  * This topic applies to Windows XP or later.

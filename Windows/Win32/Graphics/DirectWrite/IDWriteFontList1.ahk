@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
-#Import ".\IDWriteFont3.ahk" { IDWriteFont3 }
 #Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
 #Import ".\IDWriteFontList.ahk" { IDWriteFontList }
+#Import ".\IDWriteFont3.ahk" { IDWriteFont3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a list of fonts. (IDWriteFontList1)
@@ -55,7 +55,7 @@ export default struct IDWriteFontList1 extends IDWriteFontList {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontlist1-getfontlocality
      */
     GetFontLocality(listIndex) {
-        result := ComCall(6, this, "uint", listIndex, DWRITE_LOCALITY)
+        result := ComCall(6, this, UInt32, listIndex, DWRITE_LOCALITY)
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IDWriteFontList1 extends IDWriteFontList {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontlist1-getfont
      */
     GetFont(listIndex) {
-        result := ComCall(7, this, "uint", listIndex, "ptr*", &_font := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, listIndex, "ptr*", &_font := 0, "HRESULT")
         return IDWriteFont3(_font)
     }
 
@@ -85,7 +85,7 @@ export default struct IDWriteFontList1 extends IDWriteFontList {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontlist1-getfontfacereference
      */
     GetFontFaceReference(listIndex) {
-        result := ComCall(8, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference(fontFaceReference)
     }
 

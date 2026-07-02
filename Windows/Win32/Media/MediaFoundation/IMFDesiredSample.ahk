@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables the presenter for the enhanced video renderer (EVR) to request a specific frame from the video mixer.
@@ -93,7 +93,7 @@ export default struct IMFDesiredSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfdesiredsample-setdesiredsampletimeandduration
      */
     SetDesiredSampleTimeAndDuration(hnsSampleTime, hnsSampleDuration) {
-        ComCall(4, this, "int64", hnsSampleTime, "int64", hnsSampleDuration)
+        ComCall(4, this, Int64, hnsSampleTime, Int64, hnsSampleDuration)
     }
 
     /**

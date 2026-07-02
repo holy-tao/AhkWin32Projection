@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Com\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMetaDataDispenser.ahk" { IMetaDataDispenser }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IMetaDataDispenser interface to provide the capability to control how the metadata APIs operate on the current metadata scope.
@@ -215,7 +215,7 @@ export default struct IMetaDataDispenserEx extends IMetaDataDispenser {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenserex-openscopeonitypeinfo
      */
     OpenScopeOnITypeInfo(pITI, dwOpenFlags, riid) {
-        result := ComCall(8, this, "ptr", pITI, "uint", dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pITI, UInt32, dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return IUnknown(ppIUnk)
     }
 
@@ -232,7 +232,7 @@ export default struct IMetaDataDispenserEx extends IMetaDataDispenser {
 
         pchBufferMarshal := pchBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", szBuffer, "uint", cchBuffer, pchBufferMarshal, pchBuffer, "HRESULT")
+        result := ComCall(9, this, "ptr", szBuffer, UInt32, cchBuffer, pchBufferMarshal, pchBuffer, "HRESULT")
         return result
     }
 
@@ -257,7 +257,7 @@ export default struct IMetaDataDispenserEx extends IMetaDataDispenser {
 
         pcNameMarshal := pcName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szName, "uint", cchName, pcNameMarshal, pcName, "HRESULT")
+        result := ComCall(10, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szName, UInt32, cchName, pcNameMarshal, pcName, "HRESULT")
         return result
     }
 
@@ -284,7 +284,7 @@ export default struct IMetaDataDispenserEx extends IMetaDataDispenser {
 
         pcNameMarshal := pcName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szModuleName, "ptr", szName, "uint", cchName, pcNameMarshal, pcName, "HRESULT")
+        result := ComCall(11, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szModuleName, "ptr", szName, UInt32, cchName, pcNameMarshal, pcName, "HRESULT")
         return result
     }
 

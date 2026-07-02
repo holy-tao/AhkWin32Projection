@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MF_MEDIAKEYSESSION_MESSAGETYPE.ahk" { MF_MEDIAKEYSESSION_MESSAGETYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a callback mechanism for receiving key status change updates from an IMFContentDecryptionModuleSession.
@@ -58,7 +58,7 @@ export default struct IMFContentDecryptionModuleSessionCallbacks extends IUnknow
 
         messageMarshal := message is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, MF_MEDIAKEYSESSION_MESSAGETYPE, messageType, messageMarshal, message, "uint", messageSize, "ptr", destinationURL, "HRESULT")
+        result := ComCall(3, this, MF_MEDIAKEYSESSION_MESSAGETYPE, messageType, messageMarshal, message, UInt32, messageSize, "ptr", destinationURL, "HRESULT")
         return result
     }
 

@@ -1,26 +1,26 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\WSMAN_AUTHENTICATION_CREDENTIALS.ahk" { WSMAN_AUTHENTICATION_CREDENTIALS }
-#Import ".\WSMAN_SENDER_DETAILS.ahk" { WSMAN_SENDER_DETAILS }
-#Import ".\WSMAN_DATA.ahk" { WSMAN_DATA }
-#Import ".\WSMAN_OPTION_SET.ahk" { WSMAN_OPTION_SET }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSMAN_COMMAND_ARG_SET.ahk" { WSMAN_COMMAND_ARG_SET }
 #Import ".\WSManSessionOption.ahk" { WSManSessionOption }
-#Import ".\WSMAN_STREAM_ID_SET.ahk" { WSMAN_STREAM_ID_SET }
-#Import ".\WSMAN_PROXY_INFO.ahk" { WSMAN_PROXY_INFO }
 #Import ".\WSMAN_COMMAND_HANDLE.ahk" { WSMAN_COMMAND_HANDLE }
 #Import ".\WSMAN_AUTHZ_QUOTA.ahk" { WSMAN_AUTHZ_QUOTA }
 #Import ".\WSMAN_API_HANDLE.ahk" { WSMAN_API_HANDLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\WSMAN_SHELL_DISCONNECT_INFO.ahk" { WSMAN_SHELL_DISCONNECT_INFO }
+#Import ".\WSMAN_SENDER_DETAILS.ahk" { WSMAN_SENDER_DETAILS }
+#Import ".\WSMAN_OPTION_SET.ahk" { WSMAN_OPTION_SET }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WSMAN_SESSION_HANDLE.ahk" { WSMAN_SESSION_HANDLE }
 #Import ".\WSMAN_SHELL_ASYNC.ahk" { WSMAN_SHELL_ASYNC }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSMAN_AUTHENTICATION_CREDENTIALS.ahk" { WSMAN_AUTHENTICATION_CREDENTIALS }
+#Import ".\WSMAN_PROXY_INFO.ahk" { WSMAN_PROXY_INFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WSMAN_STREAM_ID_SET.ahk" { WSMAN_STREAM_ID_SET }
 #Import ".\WSMAN_SHELL_HANDLE.ahk" { WSMAN_SHELL_HANDLE }
 #Import ".\WSMAN_SHELL_STARTUP_INFO_V11.ahk" { WSMAN_SHELL_STARTUP_INFO_V11 }
-#Import ".\WSMAN_PLUGIN_REQUEST.ahk" { WSMAN_PLUGIN_REQUEST }
-#Import ".\WSMAN_SESSION_HANDLE.ahk" { WSMAN_SESSION_HANDLE }
 #Import ".\WSMAN_OPERATION_HANDLE.ahk" { WSMAN_OPERATION_HANDLE }
+#Import ".\WSMAN_DATA.ahk" { WSMAN_DATA }
+#Import ".\WSMAN_PLUGIN_REQUEST.ahk" { WSMAN_PLUGIN_REQUEST }
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
@@ -40,7 +40,7 @@
 export WSManInitialize(flags, apiHandle) {
     apiHandleMarshal := apiHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WsmSvc.dll\WSManInitialize", "uint", flags, apiHandleMarshal, apiHandle, UInt32)
+    result := DllCall("WsmSvc.dll\WSManInitialize", UInt32, flags, apiHandleMarshal, apiHandle, UInt32)
     return result
 }
 
@@ -53,7 +53,7 @@ export WSManInitialize(flags, apiHandle) {
  * @since windows6.1
  */
 export WSManDeinitialize(apiHandle, flags) {
-    result := DllCall("WsmSvc.dll\WSManDeinitialize", WSMAN_API_HANDLE, apiHandle, "uint", flags, UInt32)
+    result := DllCall("WsmSvc.dll\WSManDeinitialize", WSMAN_API_HANDLE, apiHandle, UInt32, flags, UInt32)
     return result
 }
 
@@ -77,7 +77,7 @@ export WSManGetErrorMessage(apiHandle, languageCode, errorCode, messageLength, m
 
     messageLengthUsedMarshal := messageLengthUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WsmSvc.dll\WSManGetErrorMessage", WSMAN_API_HANDLE, apiHandle, "uint", flags, "ptr", languageCode, "uint", errorCode, "uint", messageLength, "ptr", message, messageLengthUsedMarshal, messageLengthUsed, UInt32)
+    result := DllCall("WsmSvc.dll\WSManGetErrorMessage", WSMAN_API_HANDLE, apiHandle, UInt32, flags, "ptr", languageCode, UInt32, errorCode, UInt32, messageLength, "ptr", message, messageLengthUsedMarshal, messageLengthUsed, UInt32)
     return result
 }
 
@@ -151,7 +151,7 @@ export WSManCreateSession(apiHandle, _connection, flags, serverAuthenticationCre
 
     sessionMarshal := session is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("WsmSvc.dll\WSManCreateSession", WSMAN_API_HANDLE, apiHandle, "ptr", _connection, "uint", flags, WSMAN_AUTHENTICATION_CREDENTIALS.Ptr, serverAuthenticationCredentials, WSMAN_PROXY_INFO.Ptr, proxyInfo, sessionMarshal, session, UInt32)
+    result := DllCall("WsmSvc.dll\WSManCreateSession", WSMAN_API_HANDLE, apiHandle, "ptr", _connection, UInt32, flags, WSMAN_AUTHENTICATION_CREDENTIALS.Ptr, serverAuthenticationCredentials, WSMAN_PROXY_INFO.Ptr, proxyInfo, sessionMarshal, session, UInt32)
     return result
 }
 
@@ -166,7 +166,7 @@ export WSManCreateSession(apiHandle, _connection, flags, serverAuthenticationCre
  * @since windows6.1
  */
 export WSManCloseSession(session, flags) {
-    result := DllCall("WsmSvc.dll\WSManCloseSession", WSMAN_SESSION_HANDLE, session, "uint", flags, UInt32)
+    result := DllCall("WsmSvc.dll\WSManCloseSession", WSMAN_SESSION_HANDLE, session, UInt32, flags, UInt32)
     return result
 }
 
@@ -226,7 +226,7 @@ export WSManGetSessionOptionAsString(session, option, stringLength, _string, str
 
     stringLengthUsedMarshal := stringLengthUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsString", WSMAN_SESSION_HANDLE, session, WSManSessionOption, option, "uint", stringLength, "ptr", _string, stringLengthUsedMarshal, stringLengthUsed, UInt32)
+    result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsString", WSMAN_SESSION_HANDLE, session, WSManSessionOption, option, UInt32, stringLength, "ptr", _string, stringLengthUsedMarshal, stringLengthUsed, UInt32)
     return result
 }
 
@@ -241,7 +241,7 @@ export WSManGetSessionOptionAsString(session, option, stringLength, _string, str
  * @since windows6.1
  */
 export WSManCloseOperation(operationHandle, flags) {
-    result := DllCall("WsmSvc.dll\WSManCloseOperation", WSMAN_OPERATION_HANDLE, operationHandle, "uint", flags, UInt32)
+    result := DllCall("WsmSvc.dll\WSManCloseOperation", WSMAN_OPERATION_HANDLE, operationHandle, UInt32, flags, UInt32)
     return result
 }
 
@@ -266,7 +266,7 @@ export WSManCreateShell(session, flags, resourceUri, startupInfo, options, creat
 
     _shellMarshal := _shell is VarRef ? "ptr*" : "ptr"
 
-    DllCall("WsmSvc.dll\WSManCreateShell", WSMAN_SESSION_HANDLE, session, "uint", flags, "ptr", resourceUri, WSMAN_SHELL_STARTUP_INFO_V11.Ptr, startupInfo, WSMAN_OPTION_SET.Ptr, options, WSMAN_DATA.Ptr, createXml, WSMAN_SHELL_ASYNC.Ptr, async, _shellMarshal, _shell)
+    DllCall("WsmSvc.dll\WSManCreateShell", WSMAN_SESSION_HANDLE, session, UInt32, flags, "ptr", resourceUri, WSMAN_SHELL_STARTUP_INFO_V11.Ptr, startupInfo, WSMAN_OPTION_SET.Ptr, options, WSMAN_DATA.Ptr, createXml, WSMAN_SHELL_ASYNC.Ptr, async, _shellMarshal, _shell)
 }
 
 /**
@@ -287,7 +287,7 @@ export WSManRunShellCommand(_shell, flags, commandLine, args, options, async, co
 
     commandMarshal := command is VarRef ? "ptr*" : "ptr"
 
-    DllCall("WsmSvc.dll\WSManRunShellCommand", WSMAN_SHELL_HANDLE, _shell, "uint", flags, "ptr", commandLine, WSMAN_COMMAND_ARG_SET.Ptr, args, WSMAN_OPTION_SET.Ptr, options, WSMAN_SHELL_ASYNC.Ptr, async, commandMarshal, command)
+    DllCall("WsmSvc.dll\WSManRunShellCommand", WSMAN_SHELL_HANDLE, _shell, UInt32, flags, "ptr", commandLine, WSMAN_COMMAND_ARG_SET.Ptr, args, WSMAN_OPTION_SET.Ptr, options, WSMAN_SHELL_ASYNC.Ptr, async, commandMarshal, command)
 }
 
 /**
@@ -308,7 +308,7 @@ export WSManSignalShell(_shell, command, flags, code, async, signalOperation) {
 
     signalOperationMarshal := signalOperation is VarRef ? "ptr*" : "ptr"
 
-    DllCall("WsmSvc.dll\WSManSignalShell", WSMAN_SHELL_HANDLE, _shell, WSMAN_COMMAND_HANDLE, command, "uint", flags, "ptr", code, WSMAN_SHELL_ASYNC.Ptr, async, signalOperationMarshal, signalOperation)
+    DllCall("WsmSvc.dll\WSManSignalShell", WSMAN_SHELL_HANDLE, _shell, WSMAN_COMMAND_HANDLE, command, UInt32, flags, "ptr", code, WSMAN_SHELL_ASYNC.Ptr, async, signalOperationMarshal, signalOperation)
 }
 
 /**
@@ -326,7 +326,7 @@ export WSManSignalShell(_shell, command, flags, code, async, signalOperation) {
 export WSManReceiveShellOutput(_shell, command, flags, desiredStreamSet, async, receiveOperation) {
     receiveOperationMarshal := receiveOperation is VarRef ? "ptr*" : "ptr"
 
-    DllCall("WsmSvc.dll\WSManReceiveShellOutput", WSMAN_SHELL_HANDLE, _shell, WSMAN_COMMAND_HANDLE, command, "uint", flags, WSMAN_STREAM_ID_SET.Ptr, desiredStreamSet, WSMAN_SHELL_ASYNC.Ptr, async, receiveOperationMarshal, receiveOperation)
+    DllCall("WsmSvc.dll\WSManReceiveShellOutput", WSMAN_SHELL_HANDLE, _shell, WSMAN_COMMAND_HANDLE, command, UInt32, flags, WSMAN_STREAM_ID_SET.Ptr, desiredStreamSet, WSMAN_SHELL_ASYNC.Ptr, async, receiveOperationMarshal, receiveOperation)
 }
 
 /**
@@ -348,7 +348,7 @@ export WSManSendShellInput(_shell, command, flags, streamId, streamData, endOfSt
 
     sendOperationMarshal := sendOperation is VarRef ? "ptr*" : "ptr"
 
-    DllCall("WsmSvc.dll\WSManSendShellInput", WSMAN_SHELL_HANDLE, _shell, WSMAN_COMMAND_HANDLE, command, "uint", flags, "ptr", streamId, WSMAN_DATA.Ptr, streamData, BOOL, endOfStream, WSMAN_SHELL_ASYNC.Ptr, async, sendOperationMarshal, sendOperation)
+    DllCall("WsmSvc.dll\WSManSendShellInput", WSMAN_SHELL_HANDLE, _shell, WSMAN_COMMAND_HANDLE, command, UInt32, flags, "ptr", streamId, WSMAN_DATA.Ptr, streamData, BOOL, endOfStream, WSMAN_SHELL_ASYNC.Ptr, async, sendOperationMarshal, sendOperation)
 }
 
 /**
@@ -362,7 +362,7 @@ export WSManSendShellInput(_shell, command, flags, streamId, streamData, endOfSt
  * @since windows6.1
  */
 export WSManCloseCommand(commandHandle, flags, async) {
-    DllCall("WsmSvc.dll\WSManCloseCommand", WSMAN_COMMAND_HANDLE, commandHandle, "uint", flags, WSMAN_SHELL_ASYNC.Ptr, async)
+    DllCall("WsmSvc.dll\WSManCloseCommand", WSMAN_COMMAND_HANDLE, commandHandle, UInt32, flags, WSMAN_SHELL_ASYNC.Ptr, async)
 }
 
 /**
@@ -375,7 +375,7 @@ export WSManCloseCommand(commandHandle, flags, async) {
  * @since windows6.1
  */
 export WSManCloseShell(shellHandle, flags, async) {
-    DllCall("WsmSvc.dll\WSManCloseShell", WSMAN_SHELL_HANDLE, shellHandle, "uint", flags, WSMAN_SHELL_ASYNC.Ptr, async)
+    DllCall("WsmSvc.dll\WSManCloseShell", WSMAN_SHELL_HANDLE, shellHandle, UInt32, flags, WSMAN_SHELL_ASYNC.Ptr, async)
 }
 
 /**
@@ -399,7 +399,7 @@ export WSManCreateShellEx(session, flags, resourceUri, shellId, startupInfo, opt
 
     _shellMarshal := _shell is VarRef ? "ptr*" : "ptr"
 
-    DllCall("WsmSvc.dll\WSManCreateShellEx", WSMAN_SESSION_HANDLE, session, "uint", flags, "ptr", resourceUri, "ptr", shellId, WSMAN_SHELL_STARTUP_INFO_V11.Ptr, startupInfo, WSMAN_OPTION_SET.Ptr, options, WSMAN_DATA.Ptr, createXml, WSMAN_SHELL_ASYNC.Ptr, async, _shellMarshal, _shell)
+    DllCall("WsmSvc.dll\WSManCreateShellEx", WSMAN_SESSION_HANDLE, session, UInt32, flags, "ptr", resourceUri, "ptr", shellId, WSMAN_SHELL_STARTUP_INFO_V11.Ptr, startupInfo, WSMAN_OPTION_SET.Ptr, options, WSMAN_DATA.Ptr, createXml, WSMAN_SHELL_ASYNC.Ptr, async, _shellMarshal, _shell)
 }
 
 /**
@@ -422,7 +422,7 @@ export WSManRunShellCommandEx(_shell, flags, commandId, commandLine, args, optio
 
     commandMarshal := command is VarRef ? "ptr*" : "ptr"
 
-    DllCall("WsmSvc.dll\WSManRunShellCommandEx", WSMAN_SHELL_HANDLE, _shell, "uint", flags, "ptr", commandId, "ptr", commandLine, WSMAN_COMMAND_ARG_SET.Ptr, args, WSMAN_OPTION_SET.Ptr, options, WSMAN_SHELL_ASYNC.Ptr, async, commandMarshal, command)
+    DllCall("WsmSvc.dll\WSManRunShellCommandEx", WSMAN_SHELL_HANDLE, _shell, UInt32, flags, "ptr", commandId, "ptr", commandLine, WSMAN_COMMAND_ARG_SET.Ptr, args, WSMAN_OPTION_SET.Ptr, options, WSMAN_SHELL_ASYNC.Ptr, async, commandMarshal, command)
 }
 
 /**
@@ -474,7 +474,7 @@ export WSManRunShellCommandEx(_shell, flags, commandId, commandLine, args, optio
  * @since windows8.0
  */
 export WSManDisconnectShell(_shell, flags, disconnectInfo, async) {
-    DllCall("WsmSvc.dll\WSManDisconnectShell", WSMAN_SHELL_HANDLE, _shell, "uint", flags, WSMAN_SHELL_DISCONNECT_INFO.Ptr, disconnectInfo, WSMAN_SHELL_ASYNC.Ptr, async)
+    DllCall("WsmSvc.dll\WSManDisconnectShell", WSMAN_SHELL_HANDLE, _shell, UInt32, flags, WSMAN_SHELL_DISCONNECT_INFO.Ptr, disconnectInfo, WSMAN_SHELL_ASYNC.Ptr, async)
 }
 
 /**
@@ -487,7 +487,7 @@ export WSManDisconnectShell(_shell, flags, disconnectInfo, async) {
  * @since windows8.0
  */
 export WSManReconnectShell(_shell, flags, async) {
-    DllCall("WsmSvc.dll\WSManReconnectShell", WSMAN_SHELL_HANDLE, _shell, "uint", flags, WSMAN_SHELL_ASYNC.Ptr, async)
+    DllCall("WsmSvc.dll\WSManReconnectShell", WSMAN_SHELL_HANDLE, _shell, UInt32, flags, WSMAN_SHELL_ASYNC.Ptr, async)
 }
 
 /**
@@ -500,7 +500,7 @@ export WSManReconnectShell(_shell, flags, async) {
  * @since windows8.0
  */
 export WSManReconnectShellCommand(commandHandle, flags, async) {
-    DllCall("WsmSvc.dll\WSManReconnectShellCommand", WSMAN_COMMAND_HANDLE, commandHandle, "uint", flags, WSMAN_SHELL_ASYNC.Ptr, async)
+    DllCall("WsmSvc.dll\WSManReconnectShellCommand", WSMAN_COMMAND_HANDLE, commandHandle, UInt32, flags, WSMAN_SHELL_ASYNC.Ptr, async)
 }
 
 /**
@@ -526,7 +526,7 @@ export WSManConnectShell(session, flags, resourceUri, shellID, options, connectX
 
     _shellMarshal := _shell is VarRef ? "ptr*" : "ptr"
 
-    DllCall("WsmSvc.dll\WSManConnectShell", WSMAN_SESSION_HANDLE, session, "uint", flags, "ptr", resourceUri, "ptr", shellID, WSMAN_OPTION_SET.Ptr, options, WSMAN_DATA.Ptr, connectXml, WSMAN_SHELL_ASYNC.Ptr, async, _shellMarshal, _shell)
+    DllCall("WsmSvc.dll\WSManConnectShell", WSMAN_SESSION_HANDLE, session, UInt32, flags, "ptr", resourceUri, "ptr", shellID, WSMAN_OPTION_SET.Ptr, options, WSMAN_DATA.Ptr, connectXml, WSMAN_SHELL_ASYNC.Ptr, async, _shellMarshal, _shell)
 }
 
 /**
@@ -547,7 +547,7 @@ export WSManConnectShellCommand(_shell, flags, commandID, options, connectXml, a
 
     commandMarshal := command is VarRef ? "ptr*" : "ptr"
 
-    DllCall("WsmSvc.dll\WSManConnectShellCommand", WSMAN_SHELL_HANDLE, _shell, "uint", flags, "ptr", commandID, WSMAN_OPTION_SET.Ptr, options, WSMAN_DATA.Ptr, connectXml, WSMAN_SHELL_ASYNC.Ptr, async, commandMarshal, command)
+    DllCall("WsmSvc.dll\WSManConnectShellCommand", WSMAN_SHELL_HANDLE, _shell, UInt32, flags, "ptr", commandID, WSMAN_OPTION_SET.Ptr, options, WSMAN_DATA.Ptr, connectXml, WSMAN_SHELL_ASYNC.Ptr, async, commandMarshal, command)
 }
 
 /**
@@ -562,7 +562,7 @@ export WSManConnectShellCommand(_shell, flags, commandID, options, connectXml, a
 export WSManPluginReportContext(requestDetails, flags, _context) {
     _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WsmSvc.dll\WSManPluginReportContext", WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, "uint", flags, _contextMarshal, _context, UInt32)
+    result := DllCall("WsmSvc.dll\WSManPluginReportContext", WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, _contextMarshal, _context, UInt32)
     return result
 }
 
@@ -582,7 +582,7 @@ export WSManPluginReceiveResult(requestDetails, flags, stream, streamResult, com
     stream := stream is String ? StrPtr(stream) : stream
     commandState := commandState is String ? StrPtr(commandState) : commandState
 
-    result := DllCall("WsmSvc.dll\WSManPluginReceiveResult", WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, "uint", flags, "ptr", stream, WSMAN_DATA.Ptr, streamResult, "ptr", commandState, "uint", exitCode, UInt32)
+    result := DllCall("WsmSvc.dll\WSManPluginReceiveResult", WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, "ptr", stream, WSMAN_DATA.Ptr, streamResult, "ptr", commandState, UInt32, exitCode, UInt32)
     return result
 }
 
@@ -602,7 +602,7 @@ export WSManPluginReceiveResult(requestDetails, flags, stream, streamResult, com
 export WSManPluginOperationComplete(requestDetails, flags, errorCode, extendedInformation) {
     extendedInformation := extendedInformation is String ? StrPtr(extendedInformation) : extendedInformation
 
-    result := DllCall("WsmSvc.dll\WSManPluginOperationComplete", WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, "uint", flags, "uint", errorCode, "ptr", extendedInformation, UInt32)
+    result := DllCall("WsmSvc.dll\WSManPluginOperationComplete", WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, UInt32, errorCode, "ptr", extendedInformation, UInt32)
     return result
 }
 
@@ -616,7 +616,7 @@ export WSManPluginOperationComplete(requestDetails, flags, errorCode, extendedIn
  * @since windows6.1
  */
 export WSManPluginGetOperationParameters(requestDetails, flags, data) {
-    result := DllCall("WsmSvc.dll\WSManPluginGetOperationParameters", WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, "uint", flags, WSMAN_DATA.Ptr, data, UInt32)
+    result := DllCall("WsmSvc.dll\WSManPluginGetOperationParameters", WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, WSMAN_DATA.Ptr, data, UInt32)
     return result
 }
 
@@ -630,7 +630,7 @@ export WSManPluginGetOperationParameters(requestDetails, flags, data) {
 export WSManPluginGetConfiguration(pluginContext, flags, data) {
     pluginContextMarshal := pluginContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WsmSvc.dll\WSManPluginGetConfiguration", pluginContextMarshal, pluginContext, "uint", flags, WSMAN_DATA.Ptr, data, UInt32)
+    result := DllCall("WsmSvc.dll\WSManPluginGetConfiguration", pluginContextMarshal, pluginContext, UInt32, flags, WSMAN_DATA.Ptr, data, UInt32)
     return result
 }
 
@@ -643,7 +643,7 @@ export WSManPluginGetConfiguration(pluginContext, flags, data) {
 export WSManPluginReportCompletion(pluginContext, flags) {
     pluginContextMarshal := pluginContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WsmSvc.dll\WSManPluginReportCompletion", pluginContextMarshal, pluginContext, "uint", flags, UInt32)
+    result := DllCall("WsmSvc.dll\WSManPluginReportCompletion", pluginContextMarshal, pluginContext, UInt32, flags, UInt32)
     return result
 }
 
@@ -684,7 +684,7 @@ export WSManPluginAuthzUserComplete(senderDetails, flags, userAuthorizationConte
 
     userAuthorizationContextMarshal := userAuthorizationContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WsmSvc.dll\WSManPluginAuthzUserComplete", WSMAN_SENDER_DETAILS.Ptr, senderDetails, "uint", flags, userAuthorizationContextMarshal, userAuthorizationContext, HANDLE, impersonationToken, BOOL, userIsAdministrator, "uint", errorCode, "ptr", extendedErrorInformation, UInt32)
+    result := DllCall("WsmSvc.dll\WSManPluginAuthzUserComplete", WSMAN_SENDER_DETAILS.Ptr, senderDetails, UInt32, flags, userAuthorizationContextMarshal, userAuthorizationContext, HANDLE, impersonationToken, BOOL, userIsAdministrator, UInt32, errorCode, "ptr", extendedErrorInformation, UInt32)
     return result
 }
 
@@ -704,7 +704,7 @@ export WSManPluginAuthzOperationComplete(senderDetails, flags, userAuthorization
 
     userAuthorizationContextMarshal := userAuthorizationContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("WsmSvc.dll\WSManPluginAuthzOperationComplete", WSMAN_SENDER_DETAILS.Ptr, senderDetails, "uint", flags, userAuthorizationContextMarshal, userAuthorizationContext, "uint", errorCode, "ptr", extendedErrorInformation, UInt32)
+    result := DllCall("WsmSvc.dll\WSManPluginAuthzOperationComplete", WSMAN_SENDER_DETAILS.Ptr, senderDetails, UInt32, flags, userAuthorizationContextMarshal, userAuthorizationContext, UInt32, errorCode, "ptr", extendedErrorInformation, UInt32)
     return result
 }
 
@@ -724,7 +724,7 @@ export WSManPluginAuthzOperationComplete(senderDetails, flags, userAuthorization
 export WSManPluginAuthzQueryQuotaComplete(senderDetails, flags, quota, errorCode, extendedErrorInformation) {
     extendedErrorInformation := extendedErrorInformation is String ? StrPtr(extendedErrorInformation) : extendedErrorInformation
 
-    result := DllCall("WsmSvc.dll\WSManPluginAuthzQueryQuotaComplete", WSMAN_SENDER_DETAILS.Ptr, senderDetails, "uint", flags, WSMAN_AUTHZ_QUOTA.Ptr, quota, "uint", errorCode, "ptr", extendedErrorInformation, UInt32)
+    result := DllCall("WsmSvc.dll\WSManPluginAuthzQueryQuotaComplete", WSMAN_SENDER_DETAILS.Ptr, senderDetails, UInt32, flags, WSMAN_AUTHZ_QUOTA.Ptr, quota, UInt32, errorCode, "ptr", extendedErrorInformation, UInt32)
     return result
 }
 

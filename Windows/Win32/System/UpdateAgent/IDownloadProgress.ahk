@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DownloadPhase.ahk" { DownloadPhase }
-#Import ".\IUpdateDownloadResult.ahk" { IUpdateDownloadResult }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import ".\IUpdateDownloadResult.ahk" { IUpdateDownloadResult }
 
 /**
  * Represents the progress of an asynchronous download operation.
@@ -175,7 +175,7 @@ export default struct IDownloadProgress extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-getupdateresult
      */
     GetUpdateResult(updateIndex) {
-        result := ComCall(13, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, Int32, updateIndex, "ptr*", &retval := 0, "HRESULT")
         return IUpdateDownloadResult(retval)
     }
 

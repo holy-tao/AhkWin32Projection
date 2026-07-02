@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSMQQueueInfo.ahk" { IMSMQQueueInfo }
+#Import ".\IMSMQQueue.ahk" { IMSMQQueue }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMSMQQueue.ahk" { IMSMQQueue }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IMSMQQueueInfo.ahk" { IMSMQQueueInfo }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -330,7 +330,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_PrivLevel(lPrivLevel) {
-        result := ComCall(9, this, "int", lPrivLevel, "HRESULT")
+        result := ComCall(9, this, Int32, lPrivLevel, "HRESULT")
         return result
     }
 
@@ -349,7 +349,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AuthLevel(lAuthLevel) {
-        result := ComCall(11, this, "int", lAuthLevel, "HRESULT")
+        result := ComCall(11, this, Int32, lAuthLevel, "HRESULT")
         return result
     }
 
@@ -377,7 +377,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Delivery(lDelivery) {
-        result := ComCall(14, this, "int", lDelivery, "HRESULT")
+        result := ComCall(14, this, Int32, lDelivery, "HRESULT")
         return result
     }
 
@@ -396,7 +396,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Trace(lTrace) {
-        result := ComCall(16, this, "int", lTrace, "HRESULT")
+        result := ComCall(16, this, Int32, lTrace, "HRESULT")
         return result
     }
 
@@ -415,7 +415,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Priority(lPriority) {
-        result := ComCall(18, this, "int", lPriority, "HRESULT")
+        result := ComCall(18, this, Int32, lPriority, "HRESULT")
         return result
     }
 
@@ -434,7 +434,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Journal(lJournal) {
-        result := ComCall(20, this, "int", lJournal, "HRESULT")
+        result := ComCall(20, this, Int32, lJournal, "HRESULT")
         return result
     }
 
@@ -472,7 +472,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AppSpecific(lAppSpecific) {
-        result := ComCall(24, this, "int", lAppSpecific, "HRESULT")
+        result := ComCall(24, this, Int32, lAppSpecific, "HRESULT")
         return result
     }
 
@@ -579,7 +579,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Ack(lAck) {
-        result := ComCall(35, this, "int", lAck, "HRESULT")
+        result := ComCall(35, this, Int32, lAck, "HRESULT")
         return result
     }
 
@@ -620,7 +620,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_MaxTimeToReachQueue(lMaxTimeToReachQueue) {
-        result := ComCall(39, this, "int", lMaxTimeToReachQueue, "HRESULT")
+        result := ComCall(39, this, Int32, lMaxTimeToReachQueue, "HRESULT")
         return result
     }
 
@@ -639,7 +639,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_MaxTimeToReceive(lMaxTimeToReceive) {
-        result := ComCall(41, this, "int", lMaxTimeToReceive, "HRESULT")
+        result := ComCall(41, this, Int32, lMaxTimeToReceive, "HRESULT")
         return result
     }
 
@@ -658,7 +658,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_HashAlgorithm(lHashAlg) {
-        result := ComCall(43, this, "int", lHashAlg, "HRESULT")
+        result := ComCall(43, this, Int32, lHashAlg, "HRESULT")
         return result
     }
 
@@ -677,7 +677,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_EncryptAlgorithm(lEncryptAlg) {
-        result := ComCall(45, this, "int", lEncryptAlg, "HRESULT")
+        result := ComCall(45, this, Int32, lEncryptAlg, "HRESULT")
         return result
     }
 
@@ -755,7 +755,7 @@ export default struct IMSMQMessage extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SenderIdType(lSenderIdType) {
-        result := ComCall(53, this, "int", lSenderIdType, "HRESULT")
+        result := ComCall(53, this, Int32, lSenderIdType, "HRESULT")
         return result
     }
 

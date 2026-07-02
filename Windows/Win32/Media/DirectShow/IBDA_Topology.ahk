@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\BDANODE_DESCRIPTOR.ahk" { BDANODE_DESCRIPTOR }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import ".\REGPINMEDIUM.ahk" { REGPINMEDIUM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BDANODE_DESCRIPTOR.ahk" { BDANODE_DESCRIPTOR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\BDA_TEMPLATE_CONNECTION.ahk" { BDA_TEMPLATE_CONNECTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\REGPINMEDIUM.ahk" { REGPINMEDIUM }
 
 /**
  * The IBDA_Topology interface is implemented on BDA device filters.
@@ -67,7 +67,7 @@ export default struct IBDA_Topology extends IUnknown {
         pulcNodeTypesMarshal := pulcNodeTypes is VarRef ? "uint*" : "ptr"
         rgulNodeTypesMarshal := rgulNodeTypes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pulcNodeTypesMarshal, pulcNodeTypes, "uint", ulcNodeTypesMax, rgulNodeTypesMarshal, rgulNodeTypes, "HRESULT")
+        result := ComCall(3, this, pulcNodeTypesMarshal, pulcNodeTypes, UInt32, ulcNodeTypesMax, rgulNodeTypesMarshal, rgulNodeTypes, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct IBDA_Topology extends IUnknown {
     GetNodeDescriptors(ulcNodeDescriptors, ulcNodeDescriptorsMax, rgNodeDescriptors) {
         ulcNodeDescriptorsMarshal := ulcNodeDescriptors is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, ulcNodeDescriptorsMarshal, ulcNodeDescriptors, "uint", ulcNodeDescriptorsMax, BDANODE_DESCRIPTOR.Ptr, rgNodeDescriptors, "HRESULT")
+        result := ComCall(4, this, ulcNodeDescriptorsMarshal, ulcNodeDescriptors, UInt32, ulcNodeDescriptorsMax, BDANODE_DESCRIPTOR.Ptr, rgNodeDescriptors, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct IBDA_Topology extends IUnknown {
     GetNodeInterfaces(ulNodeType, pulcInterfaces, ulcInterfacesMax, rgguidInterfaces) {
         pulcInterfacesMarshal := pulcInterfaces is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", ulNodeType, pulcInterfacesMarshal, pulcInterfaces, "uint", ulcInterfacesMax, Guid.Ptr, rgguidInterfaces, "HRESULT")
+        result := ComCall(5, this, UInt32, ulNodeType, pulcInterfacesMarshal, pulcInterfaces, UInt32, ulcInterfacesMax, Guid.Ptr, rgguidInterfaces, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IBDA_Topology extends IUnknown {
         pulcPinTypesMarshal := pulcPinTypes is VarRef ? "uint*" : "ptr"
         rgulPinTypesMarshal := rgulPinTypes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pulcPinTypesMarshal, pulcPinTypes, "uint", ulcPinTypesMax, rgulPinTypesMarshal, rgulPinTypes, "HRESULT")
+        result := ComCall(6, this, pulcPinTypesMarshal, pulcPinTypes, UInt32, ulcPinTypesMax, rgulPinTypesMarshal, rgulPinTypes, "HRESULT")
         return result
     }
 
@@ -129,7 +129,7 @@ export default struct IBDA_Topology extends IUnknown {
     GetTemplateConnections(pulcConnections, ulcConnectionsMax, rgConnections) {
         pulcConnectionsMarshal := pulcConnections is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pulcConnectionsMarshal, pulcConnections, "uint", ulcConnectionsMax, BDA_TEMPLATE_CONNECTION.Ptr, rgConnections, "HRESULT")
+        result := ComCall(7, this, pulcConnectionsMarshal, pulcConnections, UInt32, ulcConnectionsMax, BDA_TEMPLATE_CONNECTION.Ptr, rgConnections, "HRESULT")
         return result
     }
 
@@ -143,7 +143,7 @@ export default struct IBDA_Topology extends IUnknown {
     CreatePin(ulPinType, pulPinId) {
         pulPinIdMarshal := pulPinId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulPinType, pulPinIdMarshal, pulPinId, "HRESULT")
+        result := ComCall(8, this, UInt32, ulPinType, pulPinIdMarshal, pulPinId, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-deletepin
      */
     DeletePin(ulPinId) {
-        result := ComCall(9, this, "uint", ulPinId, "HRESULT")
+        result := ComCall(9, this, UInt32, ulPinId, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-setmediatype
      */
     SetMediaType(ulPinId, pMediaType) {
-        result := ComCall(10, this, "uint", ulPinId, AM_MEDIA_TYPE.Ptr, pMediaType, "HRESULT")
+        result := ComCall(10, this, UInt32, ulPinId, AM_MEDIA_TYPE.Ptr, pMediaType, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-setmedium
      */
     SetMedium(ulPinId, pMedium) {
-        result := ComCall(11, this, "uint", ulPinId, REGPINMEDIUM.Ptr, pMedium, "HRESULT")
+        result := ComCall(11, this, UInt32, ulPinId, REGPINMEDIUM.Ptr, pMedium, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-createtopology
      */
     CreateTopology(ulInputPinId, ulOutputPinId) {
-        result := ComCall(12, this, "uint", ulInputPinId, "uint", ulOutputPinId, "HRESULT")
+        result := ComCall(12, this, UInt32, ulInputPinId, UInt32, ulOutputPinId, "HRESULT")
         return result
     }
 
@@ -206,7 +206,7 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getcontrolnode
      */
     GetControlNode(ulInputPinId, ulOutputPinId, ulNodeType, ppControlNode) {
-        result := ComCall(13, this, "uint", ulInputPinId, "uint", ulOutputPinId, "uint", ulNodeType, IUnknown.Ptr, ppControlNode, "HRESULT")
+        result := ComCall(13, this, UInt32, ulInputPinId, UInt32, ulOutputPinId, UInt32, ulNodeType, IUnknown.Ptr, ppControlNode, "HRESULT")
         return result
     }
 

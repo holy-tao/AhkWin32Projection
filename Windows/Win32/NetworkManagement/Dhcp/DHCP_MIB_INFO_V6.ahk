@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCOPE_MIB_INFO_V6.ahk" { SCOPE_MIB_INFO_V6 }
 #Import ".\DATE_TIME.ahk" { DATE_TIME }
+#Import ".\SCOPE_MIB_INFO_V6.ahk" { SCOPE_MIB_INFO_V6 }
 
 /**
  * Contains statistics for the DHCPv6 server.

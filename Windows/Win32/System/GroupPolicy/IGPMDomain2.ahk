@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IGPMStarterGPO.ahk" { IGPMStarterGPO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IGPMDomain.ahk" { IGPMDomain }
+#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import ".\IGPMStarterGPOBackup.ahk" { IGPMStarterGPOBackup }
 #Import ".\IGPMStarterGPOCollection.ahk" { IGPMStarterGPOCollection }
 #Import ".\IGPMGPO.ahk" { IGPMGPO }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IGPMStarterGPOBackup.ahk" { IGPMStarterGPOBackup }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
-#Import ".\IGPMDomain.ahk" { IGPMDomain }
-#Import ".\IGPMResult.ahk" { IGPMResult }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query Starter GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.

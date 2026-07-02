@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContext.ahk" { ITfContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfContext.ahk" { ITfContext }
 
 /**
  * The ITfStatusSink interface supports changes to the global document status. This advise sink is installed by calling ITfSource::AdviseSink with IID_ITfStatusSink. A text service can optionally implement this interface.
@@ -48,7 +48,7 @@ export default struct ITfStatusSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfstatussink-onstatuschange
      */
     OnStatusChange(pic, dwFlags) {
-        result := ComCall(3, this, "ptr", pic, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pic, UInt32, dwFlags, "HRESULT")
         return result
     }
 

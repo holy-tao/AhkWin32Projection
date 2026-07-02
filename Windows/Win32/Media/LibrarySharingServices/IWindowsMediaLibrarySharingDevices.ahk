@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IWindowsMediaLibrarySharingDevice.ahk" { IWindowsMediaLibrarySharingDevice }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -57,7 +57,7 @@ export default struct IWindowsMediaLibrarySharingDevices extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-get_item
      */
     get_Item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &device := 0, "HRESULT")
+        result := ComCall(7, this, Int32, index, "ptr*", &device := 0, "HRESULT")
         return IWindowsMediaLibrarySharingDevice(device)
     }
 

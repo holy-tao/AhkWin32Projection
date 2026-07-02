@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ISCSI_DIGEST_TYPES.ahk" { ISCSI_DIGEST_TYPES }
 #Import ".\ISCSI_AUTH_TYPES.ahk" { ISCSI_AUTH_TYPES }
 #Import ".\ISCSI_LOGIN_OPTIONS.ahk" { ISCSI_LOGIN_OPTIONS }
-#Import ".\ISCSI_DIGEST_TYPES.ahk" { ISCSI_DIGEST_TYPES }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

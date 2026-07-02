@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows projections to provide custom stack trace for that exception.
@@ -51,7 +51,7 @@ export default struct ILanguageExceptionStackBackTrace extends IUnknown {
     GetStackBackTrace(maxFramesToCapture, stackBackTrace) {
         stackBackTraceMarshal := stackBackTrace is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", maxFramesToCapture, stackBackTraceMarshal, stackBackTrace, "uint*", &framesCaptured := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, maxFramesToCapture, stackBackTraceMarshal, stackBackTrace, "uint*", &framesCaptured := 0, "HRESULT")
         return framesCaptured
     }
 

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\GPO_OPTIONS.ahk" { GPO_OPTIONS }
-#Import "..\Registry\HKEY.ahk" { HKEY }
-#Import ".\GPO_SECTION.ahk" { GPO_SECTION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GROUP_POLICY_OBJECT_TYPE.ahk" { GROUP_POLICY_OBJECT_TYPE }
 #Import "..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\GPO_OPEN_FLAGS.ahk" { GPO_OPEN_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Registry\HKEY.ahk" { HKEY }
+#Import ".\GROUP_POLICY_OBJECT_TYPE.ahk" { GROUP_POLICY_OBJECT_TYPE }
+#Import ".\GPO_OPTIONS.ahk" { GPO_OPTIONS }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\GPO_SECTION.ahk" { GPO_SECTION }
 
 /**
  * The IGroupPolicyObject interface provides methods to create and modify a GPO directly, without using the Group Policy Object Editor.
@@ -80,7 +80,7 @@ export default struct IGroupPolicyObject extends IUnknown {
         pszDomainName := pszDomainName is String ? StrPtr(pszDomainName) : pszDomainName
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        result := ComCall(3, this, "ptr", pszDomainName, "ptr", pszDisplayName, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDomainName, "ptr", pszDisplayName, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IGroupPolicyObject extends IUnknown {
     GetName(pszName, cchMaxLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(9, this, "ptr", pszName, "int", cchMaxLength, "HRESULT")
+        result := ComCall(9, this, "ptr", pszName, Int32, cchMaxLength, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct IGroupPolicyObject extends IUnknown {
     GetDisplayName(pszName, cchMaxLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(10, this, "ptr", pszName, "int", cchMaxLength, "HRESULT")
+        result := ComCall(10, this, "ptr", pszName, Int32, cchMaxLength, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IGroupPolicyObject extends IUnknown {
     GetPath(pszPath, cchMaxLength) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(12, this, "ptr", pszPath, "int", cchMaxLength, "HRESULT")
+        result := ComCall(12, this, "ptr", pszPath, Int32, cchMaxLength, "HRESULT")
         return result
     }
 
@@ -248,7 +248,7 @@ export default struct IGroupPolicyObject extends IUnknown {
     GetDSPath(dwSection, pszPath, cchMaxPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(13, this, "uint", dwSection, "ptr", pszPath, "int", cchMaxPath, "HRESULT")
+        result := ComCall(13, this, UInt32, dwSection, "ptr", pszPath, Int32, cchMaxPath, "HRESULT")
         return result
     }
 
@@ -266,7 +266,7 @@ export default struct IGroupPolicyObject extends IUnknown {
     GetFileSysPath(dwSection, pszPath, cchMaxPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(14, this, "uint", dwSection, "ptr", pszPath, "int", cchMaxPath, "HRESULT")
+        result := ComCall(14, this, UInt32, dwSection, "ptr", pszPath, Int32, cchMaxPath, "HRESULT")
         return result
     }
 
@@ -338,7 +338,7 @@ export default struct IGroupPolicyObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-setoptions
      */
     SetOptions(dwOptions, dwMask) {
-        result := ComCall(17, this, GPO_OPTIONS, dwOptions, "uint", dwMask, "HRESULT")
+        result := ComCall(17, this, GPO_OPTIONS, dwOptions, UInt32, dwMask, "HRESULT")
         return result
     }
 
@@ -365,7 +365,7 @@ export default struct IGroupPolicyObject extends IUnknown {
     GetMachineName(pszName, cchMaxLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(19, this, "ptr", pszName, "int", cchMaxLength, "HRESULT")
+        result := ComCall(19, this, "ptr", pszName, Int32, cchMaxLength, "HRESULT")
         return result
     }
 

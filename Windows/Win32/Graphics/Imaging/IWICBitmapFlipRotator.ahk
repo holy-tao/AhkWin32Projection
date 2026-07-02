@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WICBitmapTransformOptions.ahk" { WICBitmapTransformOptions }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that produce a flipped (horizontal or vertical) and/or rotated (by 90 degree increments) bitmap source. The flip is done before the rotation.

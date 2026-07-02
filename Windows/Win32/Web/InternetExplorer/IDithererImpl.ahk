@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\RGBQUAD.ahk" { RGBQUAD }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IImageDecodeEventSink.ahk" { IImageDecodeEventSink }
-#Import "..\..\Graphics\Gdi\RGBQUAD.ahk" { RGBQUAD }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -45,7 +45,7 @@ export default struct IDithererImpl extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDestColorTable(nColors, prgbColors) {
-        result := ComCall(3, this, "uint", nColors, RGBQUAD.Ptr, prgbColors, "HRESULT")
+        result := ComCall(3, this, UInt32, nColors, RGBQUAD.Ptr, prgbColors, "HRESULT")
         return result
     }
 

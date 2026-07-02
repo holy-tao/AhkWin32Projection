@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITCollection interface allows Automation client applications, such as those written in Visual Basic, to retrieve collection information.
@@ -73,7 +73,7 @@ export default struct ITCollection extends IDispatch {
      */
     get_Item(Index) {
         pVariant := VARIANT()
-        result := ComCall(8, this, "int", Index, VARIANT.Ptr, pVariant, "HRESULT")
+        result := ComCall(8, this, Int32, Index, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 

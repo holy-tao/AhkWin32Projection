@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICEnumMetadataItem.ahk" { IWICEnumMetadataItem }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import ".\IWICMetadataHandlerInfo.ahk" { IWICMetadataHandlerInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWICEnumMetadataItem.ahk" { IWICEnumMetadataItem }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide access to underlining metadata content. This interface is implemented by independent software vendors (ISVs) to create new metadata readers.
@@ -104,7 +104,7 @@ export default struct IWICMetadataReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getvaluebyindex
      */
     GetValueByIndex(nIndex, pvarSchema, pvarId, pvarValue) {
-        result := ComCall(6, this, "uint", nIndex, PROPVARIANT.Ptr, pvarSchema, PROPVARIANT.Ptr, pvarId, PROPVARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(6, this, UInt32, nIndex, PROPVARIANT.Ptr, pvarSchema, PROPVARIANT.Ptr, pvarId, PROPVARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 

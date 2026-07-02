@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GameInputSwitchKind.ahk" { GameInputSwitchKind }
 #Import ".\GameInputLabel.ahk" { GameInputLabel }
+#Import ".\GameInputSwitchKind.ahk" { GameInputSwitchKind }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

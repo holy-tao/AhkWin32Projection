@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -75,7 +75,7 @@ export default struct IBinding extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPriority(nPriority) {
-        result := ComCall(6, this, "int", nPriority, "HRESULT")
+        result := ComCall(6, this, Int32, nPriority, "HRESULT")
         return result
     }
 

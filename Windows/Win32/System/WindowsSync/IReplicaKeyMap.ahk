@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a mapping between replica keys and replica IDs.
@@ -168,7 +168,7 @@ export default struct IReplicaKeyMap extends IUnknown {
         pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwReplicaKey, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(4, this, UInt32, dwReplicaKey, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
     }
 

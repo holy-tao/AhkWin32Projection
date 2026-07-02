@@ -3,10 +3,10 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ICspInformation.ahk" { ICspInformation }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICspAlgorithm.ahk" { ICspAlgorithm }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IX509EnrollmentStatus.ahk" { IX509EnrollmentStatus }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains information about a cryptographic provider/algorithm pair. (ICspStatus)
@@ -183,7 +183,7 @@ export default struct ICspStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-put_ordinal
      */
     put_Ordinal(Value) {
-        result := ComCall(9, this, "int", Value, "HRESULT")
+        result := ComCall(9, this, Int32, Value, "HRESULT")
         return result
     }
 

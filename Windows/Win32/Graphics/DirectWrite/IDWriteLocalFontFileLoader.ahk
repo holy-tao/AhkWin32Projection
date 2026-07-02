@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\IDWriteFontFileLoader.ahk" { IDWriteFontFileLoader }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A built-in implementation of the IDWriteFontFileLoader interface, that operates on local font files and exposes local font file information from the font file reference key.
@@ -55,7 +55,7 @@ export default struct IDWriteLocalFontFileLoader extends IDWriteFontFileLoader {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathlengthfromkey
      */
     GetFilePathLengthFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
-        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "uint*", &filePathLength := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, fontFileReferenceKey, UInt32, fontFileReferenceKeySize, "uint*", &filePathLength := 0, "HRESULT")
         return filePathLength
     }
 
@@ -81,7 +81,7 @@ export default struct IDWriteLocalFontFileLoader extends IDWriteFontFileLoader {
     GetFilePathFromKey(fontFileReferenceKey, fontFileReferenceKeySize, filePath, filePathSize) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := ComCall(5, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", filePath, "uint", filePathSize, "HRESULT")
+        result := ComCall(5, this, IntPtr, fontFileReferenceKey, UInt32, fontFileReferenceKeySize, "ptr", filePath, UInt32, filePathSize, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IDWriteLocalFontFileLoader extends IDWriteFontFileLoader {
      */
     GetLastWriteTimeFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         lastWriteTime := FILETIME()
-        result := ComCall(6, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, FILETIME.Ptr, lastWriteTime, "HRESULT")
+        result := ComCall(6, this, IntPtr, fontFileReferenceKey, UInt32, fontFileReferenceKeySize, FILETIME.Ptr, lastWriteTime, "HRESULT")
         return lastWriteTime
     }
 

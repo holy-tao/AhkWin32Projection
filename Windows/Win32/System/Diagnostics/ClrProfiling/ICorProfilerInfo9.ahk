@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COR_PRF_CODE_INFO.ahk" { COR_PRF_CODE_INFO }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICorProfilerInfo8.ahk" { ICorProfilerInfo8 }
 #Import ".\COR_DEBUG_IL_TO_NATIVE_MAP.ahk" { COR_DEBUG_IL_TO_NATIVE_MAP }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COR_PRF_CODE_INFO.ahk" { COR_PRF_CODE_INFO }
+#Import ".\ICorProfilerInfo8.ahk" { ICorProfilerInfo8 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -52,7 +52,7 @@ export default struct ICorProfilerInfo9 extends ICorProfilerInfo8 {
         pcCodeStartAddressesMarshal := pcCodeStartAddresses is VarRef ? "uint*" : "ptr"
         codeStartAddressesMarshal := codeStartAddresses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(90, this, "ptr", functionID, "ptr", reJitId, "uint", cCodeStartAddresses, pcCodeStartAddressesMarshal, pcCodeStartAddresses, codeStartAddressesMarshal, codeStartAddresses, "HRESULT")
+        result := ComCall(90, this, IntPtr, functionID, IntPtr, reJitId, UInt32, cCodeStartAddresses, pcCodeStartAddressesMarshal, pcCodeStartAddresses, codeStartAddressesMarshal, codeStartAddresses, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct ICorProfilerInfo9 extends ICorProfilerInfo8 {
     GetILToNativeMapping3(pNativeCodeStartAddress, cMap, pcMap, _map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(91, this, "ptr", pNativeCodeStartAddress, "uint", cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
+        result := ComCall(91, this, IntPtr, pNativeCodeStartAddress, UInt32, cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct ICorProfilerInfo9 extends ICorProfilerInfo8 {
     GetCodeInfo4(pNativeCodeStartAddress, cCodeInfos, pcCodeInfos, codeInfos) {
         pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(92, this, "ptr", pNativeCodeStartAddress, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
+        result := ComCall(92, this, IntPtr, pNativeCodeStartAddress, UInt32, cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
         return result
     }
 

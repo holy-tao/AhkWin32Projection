@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMSVidVideoRenderer.ahk" { IMSVidVideoRenderer }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IMSVidVMR9 interface represents the Video Mixing Renderer Filter 9 (VMR-9) within the Video Control filter graph. The MSVidVMR9 object exposes this interface.
@@ -111,7 +111,7 @@ export default struct IMSVidVMR9 extends IMSVidVideoRenderer {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-setallocator
      */
     SetAllocator(AllocPresent, ID) {
-        result := ComCall(47, this, "ptr", AllocPresent, "int", ID, "HRESULT")
+        result := ComCall(47, this, "ptr", AllocPresent, Int32, ID, "HRESULT")
         return result
     }
 

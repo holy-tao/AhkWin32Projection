@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WICDdsParameters.ahk" { WICDdsParameters }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides information and functionality specific to the DDS image format.
@@ -76,7 +76,7 @@ export default struct IWICDdsDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsdecoder-getframe
      */
     GetFrame(arrayIndex, mipLevel, sliceIndex) {
-        result := ComCall(4, this, "uint", arrayIndex, "uint", mipLevel, "uint", sliceIndex, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, arrayIndex, UInt32, mipLevel, UInt32, sliceIndex, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
         return IWICBitmapFrameDecode(ppIBitmapFrame)
     }
 

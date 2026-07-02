@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
+#Import ".\VDS_POOL_CUSTOM_ATTRIBUTES.ahk" { VDS_POOL_CUSTOM_ATTRIBUTES }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\VDS_RAID_TYPE.ahk" { VDS_RAID_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\VDS_POOL_CUSTOM_ATTRIBUTES.ahk" { VDS_POOL_CUSTOM_ATTRIBUTES }
 
 /**
  * The VDS_POOL_ATTRIBUTES structure (vdshwprv.h) defines the attributes of a storage pool.

@@ -1,32 +1,32 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAutomationProxyFactoryEntry.ahk" { IUIAutomationProxyFactoryEntry }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IAccessible.ahk" { IAccessible }
-#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
-#Import ".\IUIAutomationEventHandler.ahk" { IUIAutomationEventHandler }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUIAutomationFocusChangedEventHandler.ahk" { IUIAutomationFocusChangedEventHandler }
-#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
-#Import ".\IUIAutomationStructureChangedEventHandler.ahk" { IUIAutomationStructureChangedEventHandler }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import ".\IUIAutomationTreeWalker.ahk" { IUIAutomationTreeWalker }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\TreeScope.ahk" { TreeScope }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import ".\IUIAutomationProxyFactoryMapping.ahk" { IUIAutomationProxyFactoryMapping }
-#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 #Import ".\IUIAutomationProxyFactory.ahk" { IUIAutomationProxyFactory }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\IUIAutomationTreeWalker.ahk" { IUIAutomationTreeWalker }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\IUIAutomationEventHandler.ahk" { IUIAutomationEventHandler }
+#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import ".\IUIAutomationProxyFactoryMapping.ahk" { IUIAutomationProxyFactoryMapping }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationProxyFactoryEntry.ahk" { IUIAutomationProxyFactoryEntry }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IAccessible.ahk" { IAccessible }
+#Import ".\IUIAutomationStructureChangedEventHandler.ahk" { IUIAutomationStructureChangedEventHandler }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IUIAutomationFocusChangedEventHandler.ahk" { IUIAutomationFocusChangedEventHandler }
 
 /**
  * Exposes methods that enable Microsoft UI Automation client applications to discover, access, and filter UI Automation elements.
@@ -508,7 +508,9 @@ export default struct IUIAutomation extends IUnknown {
      * @param {VARIANT} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * The property value.
-     * @param {PropertyConditionFlags} flags 
+     * @param {PropertyConditionFlags} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-propertyconditionflags">PropertyConditionFlags</a></b>
+     * 
+     * The attributes of the condition. Use <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-propertyconditionflags">PropertyConditionFlags_IgnoreCase</a> to create a property condition that is not case-sensitive
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the new condition.
@@ -575,7 +577,7 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createandconditionfromnativearray
      */
     CreateAndConditionFromNativeArray(conditions, conditionCount) {
-        result := ComCall(27, this, IUIAutomationCondition.Ptr, conditions, "int", conditionCount, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(27, this, IUIAutomationCondition.Ptr, conditions, Int32, conditionCount, "ptr*", &newCondition := 0, "HRESULT")
         return IUIAutomationCondition(newCondition)
     }
 
@@ -632,7 +634,7 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createorconditionfromnativearray
      */
     CreateOrConditionFromNativeArray(conditions, conditionCount) {
-        result := ComCall(30, this, IUIAutomationCondition.Ptr, conditions, "int", conditionCount, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(30, this, IUIAutomationCondition.Ptr, conditions, Int32, conditionCount, "ptr*", &newCondition := 0, "HRESULT")
         return IUIAutomationCondition(newCondition)
     }
 
@@ -663,7 +665,9 @@ export default struct IUIAutomation extends IUnknown {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element to associate with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -721,7 +725,9 @@ export default struct IUIAutomation extends IUnknown {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and children.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -742,7 +748,7 @@ export default struct IUIAutomation extends IUnknown {
     AddPropertyChangedEventHandlerNativeArray(element, scope, cacheRequest, handler, propertyArray, propertyCount) {
         propertyArrayMarshal := propertyArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, "ptr", element, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "HRESULT")
+        result := ComCall(34, this, "ptr", element, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, Int32, propertyCount, "HRESULT")
         return result
     }
 
@@ -756,7 +762,9 @@ export default struct IUIAutomation extends IUnknown {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and children.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -809,7 +817,9 @@ export default struct IUIAutomation extends IUnknown {
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
+     * 
+     * The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -933,7 +943,7 @@ export default struct IUIAutomation extends IUnknown {
     IntNativeArrayToSafeArray(_array, arrayCount) {
         _arrayMarshal := _array is VarRef ? "int*" : "ptr"
 
-        result := ComCall(42, this, _arrayMarshal, _array, "int", arrayCount, "ptr*", &_safeArray := 0, "HRESULT")
+        result := ComCall(42, this, _arrayMarshal, _array, Int32, arrayCount, "ptr*", &_safeArray := 0, "HRESULT")
         return _safeArray
     }
 
@@ -1195,7 +1205,7 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromiaccessible
      */
     ElementFromIAccessible(accessible, childId) {
-        result := ComCall(56, this, "ptr", accessible, "int", childId, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(56, this, "ptr", accessible, Int32, childId, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 
@@ -1222,7 +1232,7 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromiaccessiblebuildcache
      */
     ElementFromIAccessibleBuildCache(accessible, childId, cacheRequest) {
-        result := ComCall(57, this, "ptr", accessible, "int", childId, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(57, this, "ptr", accessible, Int32, childId, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITDirectory.ahk" { ITDirectory }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ITDirectoryObject.ahk" { ITDirectoryObject }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DIRECTORY_OBJECT_TYPE.ahk" { DIRECTORY_OBJECT_TYPE }
 #Import ".\IEnumDirectory.ahk" { IEnumDirectory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DIRECTORY_TYPE.ahk" { DIRECTORY_TYPE }
+#Import ".\ITDirectoryObject.ahk" { ITDirectoryObject }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DIRECTORY_OBJECT_TYPE.ahk" { DIRECTORY_OBJECT_TYPE }
+#Import ".\ITDirectory.ahk" { ITDirectory }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITRendezvous interface is the main interface for the Rendezvous control. An application calls the COM CoCreateInstance function on this interface to create the Rendezvous object.

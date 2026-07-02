@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VMR9ProcAmpControl.ahk" { VMR9ProcAmpControl }
-#Import ".\VMR9ProcAmpControlRange.ahk" { VMR9ProcAmpControlRange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\VMR9ProcAmpControlRange.ahk" { VMR9ProcAmpControlRange }
+#Import ".\VMR9ProcAmpControl.ahk" { VMR9ProcAmpControl }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VMR9NormalizedRect.ahk" { VMR9NormalizedRect }
 
 /**
@@ -98,7 +98,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-setalpha
      */
     SetAlpha(dwStreamID, Alpha) {
-        result := ComCall(3, this, "uint", dwStreamID, "float", Alpha, "HRESULT")
+        result := ComCall(3, this, UInt32, dwStreamID, Float32, Alpha, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getalpha
      */
     GetAlpha(dwStreamID) {
-        result := ComCall(4, this, "uint", dwStreamID, "float*", &pAlpha := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamID, "float*", &pAlpha := 0, "HRESULT")
         return pAlpha
     }
 
@@ -154,7 +154,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-setzorder
      */
     SetZOrder(dwStreamID, dwZ) {
-        result := ComCall(5, this, "uint", dwStreamID, "uint", dwZ, "HRESULT")
+        result := ComCall(5, this, UInt32, dwStreamID, UInt32, dwZ, "HRESULT")
         return result
     }
 
@@ -169,7 +169,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getzorder
      */
     GetZOrder(dwStreamID) {
-        result := ComCall(6, this, "uint", dwStreamID, "uint*", &pZ := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwStreamID, "uint*", &pZ := 0, "HRESULT")
         return pZ
     }
 
@@ -225,7 +225,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-setoutputrect
      */
     SetOutputRect(dwStreamID, pRect) {
-        result := ComCall(7, this, "uint", dwStreamID, VMR9NormalizedRect.Ptr, pRect, "HRESULT")
+        result := ComCall(7, this, UInt32, dwStreamID, VMR9NormalizedRect.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -241,7 +241,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      */
     GetOutputRect(dwStreamID) {
         pRect := VMR9NormalizedRect()
-        result := ComCall(8, this, "uint", dwStreamID, VMR9NormalizedRect.Ptr, pRect, "HRESULT")
+        result := ComCall(8, this, UInt32, dwStreamID, VMR9NormalizedRect.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -366,7 +366,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-setmixingprefs
      */
     SetMixingPrefs(dwMixerPrefs) {
-        result := ComCall(11, this, "uint", dwMixerPrefs, "HRESULT")
+        result := ComCall(11, this, UInt32, dwMixerPrefs, "HRESULT")
         return result
     }
 
@@ -458,7 +458,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-setprocampcontrol
      */
     SetProcAmpControl(dwStreamID, lpClrControl) {
-        result := ComCall(13, this, "uint", dwStreamID, VMR9ProcAmpControl.Ptr, lpClrControl, "HRESULT")
+        result := ComCall(13, this, UInt32, dwStreamID, VMR9ProcAmpControl.Ptr, lpClrControl, "HRESULT")
         return result
     }
 
@@ -538,7 +538,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getprocampcontrol
      */
     GetProcAmpControl(dwStreamID, lpClrControl) {
-        result := ComCall(14, this, "uint", dwStreamID, VMR9ProcAmpControl.Ptr, lpClrControl, "HRESULT")
+        result := ComCall(14, this, UInt32, dwStreamID, VMR9ProcAmpControl.Ptr, lpClrControl, "HRESULT")
         return result
     }
 
@@ -618,7 +618,7 @@ export default struct IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getprocampcontrolrange
      */
     GetProcAmpControlRange(dwStreamID, lpClrControl) {
-        result := ComCall(15, this, "uint", dwStreamID, VMR9ProcAmpControlRange.Ptr, lpClrControl, "HRESULT")
+        result := ComCall(15, this, UInt32, dwStreamID, VMR9ProcAmpControlRange.Ptr, lpClrControl, "HRESULT")
         return result
     }
 

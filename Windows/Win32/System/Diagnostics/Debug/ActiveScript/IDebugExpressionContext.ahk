@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDebugExpression.ahk" { IDebugExpression }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugExpression.ahk" { IDebugExpression }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -51,7 +51,7 @@ export default struct IDebugExpressionContext extends IUnknown {
         pstrCode := pstrCode is String ? StrPtr(pstrCode) : pstrCode
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(3, this, "ptr", pstrCode, "uint", nRadix, "ptr", pstrDelimiter, "uint", dwFlags, "ptr*", &ppe := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pstrCode, UInt32, nRadix, "ptr", pstrDelimiter, UInt32, dwFlags, "ptr*", &ppe := 0, "HRESULT")
         return IDebugExpression(ppe)
     }
 

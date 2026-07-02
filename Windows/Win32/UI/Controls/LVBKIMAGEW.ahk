@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LIST_VIEW_BACKGROUND_IMAGE_FLAGS.ahk" { LIST_VIEW_BACKGROUND_IMAGE_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LIST_VIEW_BACKGROUND_IMAGE_FLAGS.ahk" { LIST_VIEW_BACKGROUND_IMAGE_FLAGS }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**

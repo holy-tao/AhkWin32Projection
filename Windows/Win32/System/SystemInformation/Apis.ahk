@@ -1,34 +1,34 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\OSVERSIONINFOW.ahk" { OSVERSIONINFOW }
-#Import ".\USER_CET_ENVIRONMENT.ahk" { USER_CET_ENVIRONMENT }
-#Import ".\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
 #Import ".\DEP_SYSTEM_POLICY_TYPE.ahk" { DEP_SYSTEM_POLICY_TYPE }
-#Import ".\OSVERSIONINFOA.ahk" { OSVERSIONINFOA }
-#Import ".\FIRMWARE_TYPE.ahk" { FIRMWARE_TYPE }
-#Import ".\OS_DEPLOYEMENT_STATE_VALUES.ahk" { OS_DEPLOYEMENT_STATE_VALUES }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RTL_SYSTEM_GLOBAL_DATA_ID.ahk" { RTL_SYSTEM_GLOBAL_DATA_ID }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\OS_PRODUCT_TYPE.ahk" { OS_PRODUCT_TYPE }
+#Import ".\USER_CET_ENVIRONMENT.ahk" { USER_CET_ENVIRONMENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
+#Import ".\OS_DEPLOYEMENT_STATE_VALUES.ahk" { OS_DEPLOYEMENT_STATE_VALUES }
+#Import ".\FIRMWARE_TYPE.ahk" { FIRMWARE_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\OSVERSIONINFOW.ahk" { OSVERSIONINFOW }
+#Import ".\SYSTEM_INFO.ahk" { SYSTEM_INFO }
+#Import ".\OSVERSIONINFOEXA.ahk" { OSVERSIONINFOEXA }
+#Import ".\DEVICEFAMILYDEVICEFORM.ahk" { DEVICEFAMILYDEVICEFORM }
+#Import ".\VER_FLAGS.ahk" { VER_FLAGS }
+#Import ".\OSVERSIONINFOA.ahk" { OSVERSIONINFOA }
+#Import ".\LOGICAL_PROCESSOR_RELATIONSHIP.ahk" { LOGICAL_PROCESSOR_RELATIONSHIP }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MEMORYSTATUS.ahk" { MEMORYSTATUS }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\DEVICEFAMILYINFOENUM.ahk" { DEVICEFAMILYINFOENUM }
+#Import ".\OSVERSIONINFOEXW.ahk" { OSVERSIONINFOEXW }
+#Import ".\DEVELOPER_DRIVE_ENABLEMENT_STATE.ahk" { DEVELOPER_DRIVE_ENABLEMENT_STATE }
+#Import ".\FIRMWARE_TABLE_PROVIDER.ahk" { FIRMWARE_TABLE_PROVIDER }
 #Import ".\COMPUTER_NAME_FORMAT.ahk" { COMPUTER_NAME_FORMAT }
 #Import ".\MEMORYSTATUSEX.ahk" { MEMORYSTATUSEX }
-#Import ".\SYSTEM_INFO.ahk" { SYSTEM_INFO }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import ".\VER_FLAGS.ahk" { VER_FLAGS }
-#Import ".\OSVERSIONINFOEXA.ahk" { OSVERSIONINFOEXA }
-#Import ".\FIRMWARE_TABLE_PROVIDER.ahk" { FIRMWARE_TABLE_PROVIDER }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\LOGICAL_PROCESSOR_RELATIONSHIP.ahk" { LOGICAL_PROCESSOR_RELATIONSHIP }
-#Import ".\DEVELOPER_DRIVE_ENABLEMENT_STATE.ahk" { DEVELOPER_DRIVE_ENABLEMENT_STATE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\OSVERSIONINFOEXW.ahk" { OSVERSIONINFOEXW }
-#Import ".\DEVICEFAMILYDEVICEFORM.ahk" { DEVICEFAMILYDEVICEFORM }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\OS_PRODUCT_TYPE.ahk" { OS_PRODUCT_TYPE }
-#Import ".\RTL_SYSTEM_GLOBAL_DATA_ID.ahk" { RTL_SYSTEM_GLOBAL_DATA_ID }
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
@@ -342,7 +342,7 @@ export GetSystemDirectoryA(lpBuffer, uSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemDirectoryA", "ptr", lpBuffer, "uint", uSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetSystemDirectoryA", "ptr", lpBuffer, UInt32, uSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -368,7 +368,7 @@ export GetSystemDirectoryW(lpBuffer, uSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemDirectoryW", "ptr", lpBuffer, "uint", uSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetSystemDirectoryW", "ptr", lpBuffer, UInt32, uSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -422,7 +422,7 @@ export GetWindowsDirectoryA(lpBuffer, uSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetWindowsDirectoryA", "ptr", lpBuffer, UInt32, uSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -476,7 +476,7 @@ export GetWindowsDirectoryW(lpBuffer, uSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetWindowsDirectoryW", "ptr", lpBuffer, UInt32, uSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -517,7 +517,7 @@ export GetSystemWindowsDirectoryA(lpBuffer, uSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetSystemWindowsDirectoryA", "ptr", lpBuffer, UInt32, uSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -558,7 +558,7 @@ export GetSystemWindowsDirectoryW(lpBuffer, uSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetSystemWindowsDirectoryW", "ptr", lpBuffer, UInt32, uSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1151,7 +1151,7 @@ export GetLogicalProcessorInformation(_Buffer, ReturnedLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", _Buffer, ReturnedLengthMarshal, ReturnedLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", IntPtr, _Buffer, ReturnedLengthMarshal, ReturnedLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1287,7 +1287,7 @@ export GetLogicalProcessorInformationEx(RelationshipType, _Buffer, ReturnedLengt
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", LOGICAL_PROCESSOR_RELATIONSHIP, RelationshipType, "ptr", _Buffer, ReturnedLengthMarshal, ReturnedLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", LOGICAL_PROCESSOR_RELATIONSHIP, RelationshipType, IntPtr, _Buffer, ReturnedLengthMarshal, ReturnedLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1379,7 +1379,7 @@ export GetSystemTimePreciseAsFileTime(lpSystemTimeAsFileTime) {
 export GetProductInfo(dwOSMajorVersion, dwOSMinorVersion, dwSpMajorVersion, dwSpMinorVersion, pdwReturnedProductType) {
     pdwReturnedProductTypeMarshal := pdwReturnedProductType is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetProductInfo", "uint", dwOSMajorVersion, "uint", dwOSMinorVersion, "uint", dwSpMajorVersion, "uint", dwSpMinorVersion, pdwReturnedProductTypeMarshal, pdwReturnedProductType, BOOL)
+    result := DllCall("KERNEL32.dll\GetProductInfo", UInt32, dwOSMajorVersion, UInt32, dwOSMinorVersion, UInt32, dwSpMajorVersion, UInt32, dwSpMinorVersion, pdwReturnedProductTypeMarshal, pdwReturnedProductType, BOOL)
     return result
 }
 
@@ -1404,7 +1404,7 @@ export GetProductInfo(dwOSMajorVersion, dwOSMinorVersion, dwSpMajorVersion, dwSp
  * @since windows5.0
  */
 export VerSetConditionMask(ConditionMask, TypeMask, Condition) {
-    result := DllCall("KERNEL32.dll\VerSetConditionMask", "uint", ConditionMask, VER_FLAGS, TypeMask, "char", Condition, Int64)
+    result := DllCall("KERNEL32.dll\VerSetConditionMask", Int64, ConditionMask, VER_FLAGS, TypeMask, Int8, Condition, Int64)
     return result
 }
 
@@ -1457,7 +1457,7 @@ export GetOsSafeBootMode(Flags) {
 export EnumSystemFirmwareTables(FirmwareTableProviderSignature, pFirmwareTableEnumBuffer, BufferSize) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\EnumSystemFirmwareTables", FIRMWARE_TABLE_PROVIDER, FirmwareTableProviderSignature, "ptr", pFirmwareTableEnumBuffer, "uint", BufferSize, UInt32)
+    result := DllCall("KERNEL32.dll\EnumSystemFirmwareTables", FIRMWARE_TABLE_PROVIDER, FirmwareTableProviderSignature, IntPtr, pFirmwareTableEnumBuffer, UInt32, BufferSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1506,7 +1506,7 @@ export EnumSystemFirmwareTables(FirmwareTableProviderSignature, pFirmwareTableEn
 export GetSystemFirmwareTable(FirmwareTableProviderSignature, FirmwareTableID, pFirmwareTableBuffer, BufferSize) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemFirmwareTable", FIRMWARE_TABLE_PROVIDER, FirmwareTableProviderSignature, "uint", FirmwareTableID, "ptr", pFirmwareTableBuffer, "uint", BufferSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetSystemFirmwareTable", FIRMWARE_TABLE_PROVIDER, FirmwareTableProviderSignature, UInt32, FirmwareTableID, IntPtr, pFirmwareTableBuffer, UInt32, BufferSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1599,7 +1599,7 @@ export GetPhysicallyInstalledSystemMemory(TotalMemoryInKilobytes) {
 export SetComputerNameEx2W(NameType, Flags, lpBuffer) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    result := DllCall("KERNEL32.dll\SetComputerNameEx2W", COMPUTER_NAME_FORMAT, NameType, "uint", Flags, "ptr", lpBuffer, BOOL)
+    result := DllCall("KERNEL32.dll\SetComputerNameEx2W", COMPUTER_NAME_FORMAT, NameType, UInt32, Flags, "ptr", lpBuffer, BOOL)
     return result
 }
 
@@ -1674,7 +1674,7 @@ export SetComputerNameEx2W(NameType, Flags, lpBuffer) {
 export SetSystemTimeAdjustment(dwTimeAdjustment, bTimeAdjustmentDisabled) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetSystemTimeAdjustment", "uint", dwTimeAdjustment, BOOL, bTimeAdjustmentDisabled, BOOL)
+    result := DllCall("KERNEL32.dll\SetSystemTimeAdjustment", UInt32, dwTimeAdjustment, BOOL, bTimeAdjustmentDisabled, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1705,7 +1705,7 @@ export SetSystemTimeAdjustment(dwTimeAdjustment, bTimeAdjustmentDisabled) {
 export SetSystemTimeAdjustmentPrecise(dwTimeAdjustment, bTimeAdjustmentDisabled) {
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\SetSystemTimeAdjustmentPrecise", "uint", dwTimeAdjustment, BOOL, bTimeAdjustmentDisabled, BOOL)
+    result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\SetSystemTimeAdjustmentPrecise", Int64, dwTimeAdjustment, BOOL, bTimeAdjustmentDisabled, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1734,7 +1734,7 @@ export GetProcessorSystemCycleTime(Group, _Buffer, ReturnedLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", _Buffer, ReturnedLengthMarshal, ReturnedLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", UInt16, Group, IntPtr, _Buffer, ReturnedLengthMarshal, ReturnedLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1910,7 +1910,7 @@ export GetRuntimeAttestationReport(Nonce, PackageVersion, ReportTypesBitmap, Rep
     NonceMarshal := Nonce is VarRef ? "char*" : "ptr"
     ReportBufferSizeMarshal := ReportBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetRuntimeAttestationReport", NonceMarshal, Nonce, "ushort", PackageVersion, "uint", ReportTypesBitmap, "ptr", ReportBuffer, ReportBufferSizeMarshal, ReportBufferSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetRuntimeAttestationReport", NonceMarshal, Nonce, UInt16, PackageVersion, Int64, ReportTypesBitmap, IntPtr, ReportBuffer, ReportBufferSizeMarshal, ReportBufferSize, BOOL)
     return result
 }
 
@@ -1928,7 +1928,7 @@ export GetSystemCpuSetInformation(Information, BufferLength, ReturnedLength, Pro
 
     ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\GetSystemCpuSetInformation", "ptr", Information, "uint", BufferLength, ReturnedLengthMarshal, ReturnedLength, HANDLE, Process, "uint", Flags, BOOL)
+    result := DllCall("KERNEL32.dll\GetSystemCpuSetInformation", IntPtr, Information, UInt32, BufferLength, ReturnedLengthMarshal, ReturnedLength, HANDLE, Process, UInt32, Flags, BOOL)
     return result
 }
 
@@ -1965,7 +1965,7 @@ export GetSystemWow64DirectoryA(lpBuffer, uSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemWow64DirectoryA", "ptr", lpBuffer, "uint", uSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetSystemWow64DirectoryA", "ptr", lpBuffer, UInt32, uSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2006,7 +2006,7 @@ export GetSystemWow64DirectoryW(lpBuffer, uSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemWow64DirectoryW", "ptr", lpBuffer, "uint", uSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetSystemWow64DirectoryW", "ptr", lpBuffer, UInt32, uSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2045,7 +2045,7 @@ export GetSystemWow64Directory2A(lpBuffer, uSize, ImageFileMachineType) {
 
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2A", "ptr", lpBuffer, "uint", uSize, IMAGE_FILE_MACHINE, ImageFileMachineType, UInt32)
+    result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2A", "ptr", lpBuffer, UInt32, uSize, IMAGE_FILE_MACHINE, ImageFileMachineType, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2084,7 +2084,7 @@ export GetSystemWow64Directory2W(lpBuffer, uSize, ImageFileMachineType) {
 
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2W", "ptr", lpBuffer, "uint", uSize, IMAGE_FILE_MACHINE, ImageFileMachineType, UInt32)
+    result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2W", "ptr", lpBuffer, UInt32, uSize, IMAGE_FILE_MACHINE, ImageFileMachineType, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2131,7 +2131,7 @@ export IsWow64GuestMachineSupported(WowGuestMachine) {
 export RtlGetProductInfo(OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinorVersion, ReturnedProductType) {
     ReturnedProductTypeMarshal := ReturnedProductType is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\RtlGetProductInfo", "uint", OSMajorVersion, "uint", OSMinorVersion, "uint", SpMajorVersion, "uint", SpMinorVersion, ReturnedProductTypeMarshal, ReturnedProductType, BOOLEAN)
+    result := DllCall("ntdll.dll\RtlGetProductInfo", UInt32, OSMajorVersion, UInt32, OSMinorVersion, UInt32, SpMajorVersion, UInt32, SpMinorVersion, ReturnedProductTypeMarshal, ReturnedProductType, BOOLEAN)
     return result
 }
 
@@ -2141,7 +2141,7 @@ export RtlGetProductInfo(OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinor
  * @returns {OS_DEPLOYEMENT_STATE_VALUES} 
  */
 export RtlOsDeploymentState(Flags) {
-    result := DllCall("ntdll.dll\RtlOsDeploymentState", "uint", Flags, OS_DEPLOYEMENT_STATE_VALUES)
+    result := DllCall("ntdll.dll\RtlOsDeploymentState", UInt32, Flags, OS_DEPLOYEMENT_STATE_VALUES)
     return result
 }
 
@@ -2155,7 +2155,7 @@ export RtlOsDeploymentState(Flags) {
 export RtlGetSystemGlobalData(DataId, _Buffer, _Size) {
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", RTL_SYSTEM_GLOBAL_DATA_ID, DataId, _BufferMarshal, _Buffer, "uint", _Size, UInt32)
+    result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", RTL_SYSTEM_GLOBAL_DATA_ID, DataId, _BufferMarshal, _Buffer, UInt32, _Size, UInt32)
     return result
 }
 
@@ -2200,7 +2200,7 @@ export RtlConvertDeviceFamilyInfoToString(pulDeviceFamilyBufferSize, pulDeviceFo
     pulDeviceFamilyBufferSizeMarshal := pulDeviceFamilyBufferSize is VarRef ? "uint*" : "ptr"
     pulDeviceFormBufferSizeMarshal := pulDeviceFormBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\RtlConvertDeviceFamilyInfoToString", pulDeviceFamilyBufferSizeMarshal, pulDeviceFamilyBufferSize, pulDeviceFormBufferSizeMarshal, pulDeviceFormBufferSize, "ptr", DeviceFamily, "ptr", DeviceForm, UInt32)
+    result := DllCall("ntdll.dll\RtlConvertDeviceFamilyInfoToString", pulDeviceFamilyBufferSizeMarshal, pulDeviceFamilyBufferSize, pulDeviceFormBufferSizeMarshal, pulDeviceFormBufferSize, IntPtr, DeviceFamily, IntPtr, DeviceForm, UInt32)
     return result
 }
 
@@ -2212,7 +2212,7 @@ export RtlConvertDeviceFamilyInfoToString(pulDeviceFamilyBufferSize, pulDeviceFo
  * @returns {Integer} 
  */
 export RtlSwitchedVVI(VersionInfo, TypeMask, ConditionMask) {
-    result := DllCall("ntdll.dll\RtlSwitchedVVI", OSVERSIONINFOEXW.Ptr, VersionInfo, "uint", TypeMask, "uint", ConditionMask, UInt32)
+    result := DllCall("ntdll.dll\RtlSwitchedVVI", OSVERSIONINFOEXW.Ptr, VersionInfo, UInt32, TypeMask, Int64, ConditionMask, UInt32)
     return result
 }
 
@@ -2394,7 +2394,7 @@ export GetFirmwareType(FirmwareType) {
 export VerifyVersionInfoA(lpVersionInformation, dwTypeMask, dwlConditionMask) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\VerifyVersionInfoA", OSVERSIONINFOEXA.Ptr, lpVersionInformation, VER_FLAGS, dwTypeMask, "uint", dwlConditionMask, BOOL)
+    result := DllCall("KERNEL32.dll\VerifyVersionInfoA", OSVERSIONINFOEXA.Ptr, lpVersionInformation, VER_FLAGS, dwTypeMask, Int64, dwlConditionMask, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2458,7 +2458,7 @@ export VerifyVersionInfoA(lpVersionInformation, dwTypeMask, dwlConditionMask) {
 export VerifyVersionInfoW(lpVersionInformation, dwTypeMask, dwlConditionMask) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\VerifyVersionInfoW", OSVERSIONINFOEXW.Ptr, lpVersionInformation, VER_FLAGS, dwTypeMask, "uint", dwlConditionMask, BOOL)
+    result := DllCall("KERNEL32.dll\VerifyVersionInfoW", OSVERSIONINFOEXW.Ptr, lpVersionInformation, VER_FLAGS, dwTypeMask, Int64, dwlConditionMask, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\LPDDHAL_SETCOLORKEY.ahk" { LPDDHAL_SETCOLORKEY }
 #Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 
 /**
@@ -17,6 +18,6 @@ export default struct DDHAL_DRVSETCOLORKEYDATA {
 
     ddRVal : HRESULT
 
-    SetColorKey : IntPtr
+    SetColorKey : LPDDHAL_SETCOLORKEY
 
 }

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DBCONSTRAINTDESC.ahk" { DBCONSTRAINTDESC }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DBCOLUMNDESC.ahk" { DBCOLUMNDESC }
 #Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import ".\DBCOLUMNDESC.ahk" { DBCOLUMNDESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITableCreation.ahk" { ITableCreation }
+#Import ".\DBCONSTRAINTDESC.ahk" { DBCONSTRAINTDESC }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -71,7 +71,7 @@ export default struct ITableDefinitionWithConstraints extends ITableCreation {
     CreateTableWithConstraints(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, cConstraintDescs, rgConstraintDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
         ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, "ptr", cColumnDescs, DBCOLUMNDESC.Ptr, rgColumnDescs, "uint", cConstraintDescs, DBCONSTRAINTDESC.Ptr, rgConstraintDescs, Guid.Ptr, riid, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, ppTableIDMarshal, ppTableID, IUnknown.Ptr, ppRowset, "HRESULT")
+        result := ComCall(9, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, IntPtr, cColumnDescs, DBCOLUMNDESC.Ptr, rgColumnDescs, UInt32, cConstraintDescs, DBCONSTRAINTDESC.Ptr, rgConstraintDescs, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, ppTableIDMarshal, ppTableID, IUnknown.Ptr, ppRowset, "HRESULT")
         return result
     }
 

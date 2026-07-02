@@ -40,7 +40,7 @@ export default struct IPresentationSurface2 extends IPresentationSurface {
      * @returns {String} Nothing - always returns an empty string
      */
     SetIsHdrContent(isHdrContent) {
-        ComCall(12, this, "char", isHdrContent)
+        ComCall(12, this, Int8, isHdrContent)
     }
 
     Query(iid) {

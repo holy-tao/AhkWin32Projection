@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IStdMarshalInfo (objidlbase.h) interface retrieves the CLSID identifying the handler to be used in the destination process during standard marshaling.
@@ -54,7 +54,7 @@ export default struct IStdMarshalInfo extends IUnknown {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
         pClsid := Guid()
-        result := ComCall(3, this, "uint", dwDestContext, "ptr", pvDestContext, Guid.Ptr, pClsid, "HRESULT")
+        result := ComCall(3, this, UInt32, dwDestContext, "ptr", pvDestContext, Guid.Ptr, pClsid, "HRESULT")
         return pClsid
     }
 

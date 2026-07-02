@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TRACE_LOGFILE_HEADER.ahk" { TRACE_LOGFILE_HEADER }
 #Import ".\PROCESSTRACE_HANDLE.ahk" { PROCESSTRACE_HANDLE }
+#Import ".\TRACE_LOGFILE_HEADER.ahk" { TRACE_LOGFILE_HEADER }
 
 /**
  * Provided to the BufferCallback as the *ConsumerInfo* parameter and provides details on the current processing session.

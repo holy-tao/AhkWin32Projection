@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk" { CIEXYZTRIPLE }
 #Import ".\LCSCSTYPE.ahk" { LCSCSTYPE }
 #Import "..\..\Graphics\Gdi\CIEXYZ.ahk" { CIEXYZ }
-#Import "..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk" { CIEXYZTRIPLE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

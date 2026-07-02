@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFTopology.ahk" { IMFTopology }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFTopology.ahk" { IMFTopology }
 
 /**
  * Implemented by the Sequencer Source.
@@ -55,7 +55,7 @@ export default struct IMFSequencerSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-appendtopology
      */
     AppendTopology(pTopology, dwFlags) {
-        result := ComCall(3, this, "ptr", pTopology, "uint", dwFlags, "uint*", &pdwId := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pTopology, UInt32, dwFlags, "uint*", &pdwId := 0, "HRESULT")
         return pdwId
     }
 
@@ -84,7 +84,7 @@ export default struct IMFSequencerSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-deletetopology
      */
     DeleteTopology(dwId) {
-        result := ComCall(4, this, "uint", dwId, "HRESULT")
+        result := ComCall(4, this, UInt32, dwId, "HRESULT")
         return result
     }
 
@@ -184,7 +184,7 @@ export default struct IMFSequencerSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-updatetopology
      */
     UpdateTopology(dwId, pTopology) {
-        result := ComCall(6, this, "uint", dwId, "ptr", pTopology, "HRESULT")
+        result := ComCall(6, this, UInt32, dwId, "ptr", pTopology, "HRESULT")
         return result
     }
 
@@ -214,7 +214,7 @@ export default struct IMFSequencerSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-updatetopologyflags
      */
     UpdateTopologyFlags(dwId, dwFlags) {
-        result := ComCall(7, this, "uint", dwId, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, UInt32, dwId, UInt32, dwFlags, "HRESULT")
         return result
     }
 

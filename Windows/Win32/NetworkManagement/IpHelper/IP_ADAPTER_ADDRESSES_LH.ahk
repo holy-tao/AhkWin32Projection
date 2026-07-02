@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk" { IP_ADAPTER_ANYCAST_ADDRESS_XP }
-#Import ".\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk" { IP_ADAPTER_UNICAST_ADDRESS_LH }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IP_ADAPTER_PREFIX_XP.ahk" { IP_ADAPTER_PREFIX_XP }
-#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
-#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
-#Import ".\IP_ADAPTER_GATEWAY_ADDRESS_LH.ahk" { IP_ADAPTER_GATEWAY_ADDRESS_LH }
-#Import ".\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk" { IP_ADAPTER_WINS_SERVER_ADDRESS_LH }
-#Import ".\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk" { IP_ADAPTER_DNS_SERVER_ADDRESS_XP }
-#Import "..\Ndis\NET_IF_CONNECTION_TYPE.ahk" { NET_IF_CONNECTION_TYPE }
-#Import "..\Ndis\NET_IF_COMPARTMENT_ID.ahk" { NET_IF_COMPARTMENT_ID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Ndis\NET_IF_COMPARTMENT_ID.ahk" { NET_IF_COMPARTMENT_ID }
 #Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
-#Import ".\IP_ADAPTER_DNS_SUFFIX.ahk" { IP_ADAPTER_DNS_SUFFIX }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk" { IP_ADAPTER_MULTICAST_ADDRESS_XP }
 #Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
+#Import ".\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk" { IP_ADAPTER_DNS_SERVER_ADDRESS_XP }
+#Import ".\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk" { IP_ADAPTER_MULTICAST_ADDRESS_XP }
+#Import ".\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk" { IP_ADAPTER_UNICAST_ADDRESS_LH }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IP_ADAPTER_DNS_SUFFIX.ahk" { IP_ADAPTER_DNS_SUFFIX }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IP_ADAPTER_GATEWAY_ADDRESS_LH.ahk" { IP_ADAPTER_GATEWAY_ADDRESS_LH }
+#Import ".\IP_ADAPTER_PREFIX_XP.ahk" { IP_ADAPTER_PREFIX_XP }
+#Import ".\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk" { IP_ADAPTER_WINS_SERVER_ADDRESS_LH }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk" { IP_ADAPTER_ANYCAST_ADDRESS_XP }
+#Import "..\Ndis\NET_IF_CONNECTION_TYPE.ahk" { NET_IF_CONNECTION_TYPE }
 #Import "..\Ndis\TUNNEL_TYPE.ahk" { TUNNEL_TYPE }
+#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
 
 /**
  * The IP_ADAPTER_ADDRESSES_LH structure (iptypes.h) is the header node for a linked list of addresses for a particular adapter.

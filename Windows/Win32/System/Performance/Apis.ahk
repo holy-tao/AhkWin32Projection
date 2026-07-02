@@ -1,44 +1,45 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\PerfRegInfoType.ahk" { PerfRegInfoType }
+#Import ".\PDH_LOG.ahk" { PDH_LOG }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\PDH_TIME_INFO.ahk" { PDH_TIME_INFO }
 #Import ".\PDH_BROWSE_DLG_CONFIG_HW.ahk" { PDH_BROWSE_DLG_CONFIG_HW }
-#Import ".\PERF_PROVIDER_CONTEXT.ahk" { PERF_PROVIDER_CONTEXT }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PDH_FMT.ahk" { PDH_FMT }
-#Import ".\PDH_RAW_COUNTER.ahk" { PDH_RAW_COUNTER }
+#Import ".\REAL_TIME_DATA_SOURCE_ID_FLAGS.ahk" { REAL_TIME_DATA_SOURCE_ID_FLAGS }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\PDH_COUNTER_PATH_ELEMENTS_A.ahk" { PDH_COUNTER_PATH_ELEMENTS_A }
-#Import ".\PDH_COUNTER_INFO_A.ahk" { PDH_COUNTER_INFO_A }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\PDH_RAW_LOG_RECORD.ahk" { PDH_RAW_LOG_RECORD }
-#Import ".\PDH_BROWSE_DLG_CONFIG_W.ahk" { PDH_BROWSE_DLG_CONFIG_W }
-#Import ".\PDH_DLL_VERSION.ahk" { PDH_DLL_VERSION }
-#Import ".\PDH_BROWSE_DLG_CONFIG_A.ahk" { PDH_BROWSE_DLG_CONFIG_A }
-#Import ".\PDH_COUNTER_INFO_W.ahk" { PDH_COUNTER_INFO_W }
-#Import ".\PDH_BROWSE_DLG_CONFIG_HA.ahk" { PDH_BROWSE_DLG_CONFIG_HA }
+#Import ".\PDH_RAW_COUNTER.ahk" { PDH_RAW_COUNTER }
+#Import ".\PDH_STATISTICS.ahk" { PDH_STATISTICS }
+#Import ".\PERF_PROVIDER_CONTEXT.ahk" { PERF_PROVIDER_CONTEXT }
 #Import ".\PDH_COUNTER_PATH_ELEMENTS_W.ahk" { PDH_COUNTER_PATH_ELEMENTS_W }
-#Import ".\PDH_LOG.ahk" { PDH_LOG }
-#Import ".\PDH_FMT_COUNTERVALUE_ITEM_W.ahk" { PDH_FMT_COUNTERVALUE_ITEM_W }
+#Import ".\PDH_LOG_TYPE.ahk" { PDH_LOG_TYPE }
+#Import ".\PDH_RAW_LOG_RECORD.ahk" { PDH_RAW_LOG_RECORD }
+#Import ".\PDH_BROWSE_DLG_CONFIG_HA.ahk" { PDH_BROWSE_DLG_CONFIG_HA }
+#Import ".\PDH_HLOG.ahk" { PDH_HLOG }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\PDH_RAW_COUNTER_ITEM_A.ahk" { PDH_RAW_COUNTER_ITEM_A }
-#Import ".\PDH_RAW_COUNTER_ITEM_W.ahk" { PDH_RAW_COUNTER_ITEM_W }
+#Import ".\PDH_COUNTER_INFO_A.ahk" { PDH_COUNTER_INFO_A }
+#Import ".\PDH_HCOUNTER.ahk" { PDH_HCOUNTER }
+#Import ".\PDH_FMT_COUNTERVALUE.ahk" { PDH_FMT_COUNTERVALUE }
+#Import ".\PERF_DETAIL.ahk" { PERF_DETAIL }
+#Import ".\PDH_HQUERY.ahk" { PDH_HQUERY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PDH_PATH_FLAGS.ahk" { PDH_PATH_FLAGS }
+#Import ".\PDH_COUNTER_INFO_W.ahk" { PDH_COUNTER_INFO_W }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PDH_BROWSE_DLG_CONFIG_A.ahk" { PDH_BROWSE_DLG_CONFIG_A }
+#Import ".\PDH_SELECT_DATA_SOURCE_FLAGS.ahk" { PDH_SELECT_DATA_SOURCE_FLAGS }
+#Import ".\PDH_DLL_VERSION.ahk" { PDH_DLL_VERSION }
+#Import ".\PDH_COUNTER_PATH_ELEMENTS_A.ahk" { PDH_COUNTER_PATH_ELEMENTS_A }
+#Import ".\PERFLIBREQUEST.ahk" { PERFLIBREQUEST }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\PDH_FMT.ahk" { PDH_FMT }
 #Import ".\PERF_COUNTERSET_INSTANCE.ahk" { PERF_COUNTERSET_INSTANCE }
 #Import ".\PDH_FMT_COUNTERVALUE_ITEM_A.ahk" { PDH_FMT_COUNTERVALUE_ITEM_A }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\PDH_STATISTICS.ahk" { PDH_STATISTICS }
-#Import ".\PDH_FMT_COUNTERVALUE.ahk" { PDH_FMT_COUNTERVALUE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\PDH_HLOG.ahk" { PDH_HLOG }
-#Import ".\PDH_SELECT_DATA_SOURCE_FLAGS.ahk" { PDH_SELECT_DATA_SOURCE_FLAGS }
-#Import ".\PDH_PATH_FLAGS.ahk" { PDH_PATH_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PDH_HQUERY.ahk" { PDH_HQUERY }
-#Import ".\PDH_HCOUNTER.ahk" { PDH_HCOUNTER }
-#Import ".\PDH_LOG_TYPE.ahk" { PDH_LOG_TYPE }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PERF_DETAIL.ahk" { PERF_DETAIL }
-#Import ".\REAL_TIME_DATA_SOURCE_ID_FLAGS.ahk" { REAL_TIME_DATA_SOURCE_ID_FLAGS }
+#Import ".\PDH_BROWSE_DLG_CONFIG_W.ahk" { PDH_BROWSE_DLG_CONFIG_W }
+#Import ".\PDH_FMT_COUNTERVALUE_ITEM_W.ahk" { PDH_FMT_COUNTERVALUE_ITEM_W }
+#Import ".\PDH_RAW_COUNTER_ITEM_W.ahk" { PDH_RAW_COUNTER_ITEM_W }
+#Import ".\PerfRegInfoType.ahk" { PerfRegInfoType }
 
 /**
  * @namespace Windows.Win32.System.Performance
@@ -114,7 +115,7 @@ export InstallPerfDllW(szComputerName, lpIniFile, dwFlags) {
     szComputerName := szComputerName is String ? StrPtr(szComputerName) : szComputerName
     lpIniFile := lpIniFile is String ? StrPtr(lpIniFile) : lpIniFile
 
-    result := DllCall("loadperf.dll\InstallPerfDllW", "ptr", szComputerName, "ptr", lpIniFile, "ptr", dwFlags, UInt32)
+    result := DllCall("loadperf.dll\InstallPerfDllW", "ptr", szComputerName, "ptr", lpIniFile, IntPtr, dwFlags, UInt32)
     return result
 }
 
@@ -139,7 +140,7 @@ export InstallPerfDllA(szComputerName, lpIniFile, dwFlags) {
     szComputerName := szComputerName is String ? StrPtr(szComputerName) : szComputerName
     lpIniFile := lpIniFile is String ? StrPtr(lpIniFile) : lpIniFile
 
-    result := DllCall("loadperf.dll\InstallPerfDllA", "ptr", szComputerName, "ptr", lpIniFile, "ptr", dwFlags, UInt32)
+    result := DllCall("loadperf.dll\InstallPerfDllA", "ptr", szComputerName, "ptr", lpIniFile, IntPtr, dwFlags, UInt32)
     return result
 }
 
@@ -272,7 +273,7 @@ export UpdatePerfNameFilesA(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dw
     szNewHlpFilePath := szNewHlpFilePath is String ? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
     szLanguageID := szLanguageID is String ? StrPtr(szLanguageID) : szLanguageID
 
-    result := DllCall("loadperf.dll\UpdatePerfNameFilesA", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, "ptr", dwModes, UInt32)
+    result := DllCall("loadperf.dll\UpdatePerfNameFilesA", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, IntPtr, dwModes, UInt32)
     return result
 }
 
@@ -289,7 +290,7 @@ export UpdatePerfNameFilesW(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dw
     szNewHlpFilePath := szNewHlpFilePath is String ? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
     szLanguageID := szLanguageID is String ? StrPtr(szLanguageID) : szLanguageID
 
-    result := DllCall("loadperf.dll\UpdatePerfNameFilesW", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, "ptr", dwModes, UInt32)
+    result := DllCall("loadperf.dll\UpdatePerfNameFilesW", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, IntPtr, dwModes, UInt32)
     return result
 }
 
@@ -367,7 +368,7 @@ export RestorePerfRegistryFromFileW(szFileName, szLangId) {
  * @since windows6.0.6000
  */
 export PerfStartProvider(ProviderGuid, ControlCallback, phProvider) {
-    result := DllCall("ADVAPI32.dll\PerfStartProvider", Guid.Ptr, ProviderGuid, "ptr", ControlCallback, HANDLE.Ptr, phProvider, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfStartProvider", Guid.Ptr, ProviderGuid, PERFLIBREQUEST, ControlCallback, HANDLE.Ptr, phProvider, UInt32)
     return result
 }
 
@@ -435,7 +436,7 @@ export PerfStopProvider(ProviderHandle) {
  * @since windows6.0.6000
  */
 export PerfSetCounterSetInfo(ProviderHandle, Template, TemplateSize) {
-    result := DllCall("ADVAPI32.dll\PerfSetCounterSetInfo", HANDLE, ProviderHandle, "ptr", Template, "uint", TemplateSize, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfSetCounterSetInfo", HANDLE, ProviderHandle, IntPtr, Template, UInt32, TemplateSize, UInt32)
     return result
 }
 
@@ -479,7 +480,7 @@ export PerfCreateInstance(ProviderHandle, CounterSetGuid, Name, Id) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\PerfCreateInstance", HANDLE, ProviderHandle, Guid.Ptr, CounterSetGuid, "ptr", Name, "uint", Id, PERF_COUNTERSET_INSTANCE.Ptr)
+    result := DllCall("ADVAPI32.dll\PerfCreateInstance", HANDLE, ProviderHandle, Guid.Ptr, CounterSetGuid, "ptr", Name, UInt32, Id, PERF_COUNTERSET_INSTANCE.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -535,7 +536,7 @@ export PerfQueryInstance(ProviderHandle, CounterSetGuid, Name, Id) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\PerfQueryInstance", HANDLE, ProviderHandle, Guid.Ptr, CounterSetGuid, "ptr", Name, "uint", Id, PERF_COUNTERSET_INSTANCE.Ptr)
+    result := DllCall("ADVAPI32.dll\PerfQueryInstance", HANDLE, ProviderHandle, Guid.Ptr, CounterSetGuid, "ptr", Name, UInt32, Id, PERF_COUNTERSET_INSTANCE.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -572,7 +573,7 @@ export PerfQueryInstance(ProviderHandle, CounterSetGuid, Name, Id) {
 export PerfSetCounterRefValue(Provider, Instance, CounterId, _Address) {
     _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\PerfSetCounterRefValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, "uint", CounterId, _AddressMarshal, _Address, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfSetCounterRefValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, UInt32, CounterId, _AddressMarshal, _Address, UInt32)
     return result
 }
 
@@ -599,7 +600,7 @@ export PerfSetCounterRefValue(Provider, Instance, CounterId, _Address) {
  * @since windows6.0.6000
  */
 export PerfSetULongCounterValue(Provider, Instance, CounterId, Value) {
-    result := DllCall("ADVAPI32.dll\PerfSetULongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, "uint", CounterId, "uint", Value, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfSetULongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, UInt32, CounterId, UInt32, Value, UInt32)
     return result
 }
 
@@ -626,7 +627,7 @@ export PerfSetULongCounterValue(Provider, Instance, CounterId, Value) {
  * @since windows6.0.6000
  */
 export PerfSetULongLongCounterValue(Provider, Instance, CounterId, Value) {
-    result := DllCall("ADVAPI32.dll\PerfSetULongLongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, "uint", CounterId, "uint", Value, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfSetULongLongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, UInt32, CounterId, Int64, Value, UInt32)
     return result
 }
 
@@ -655,7 +656,7 @@ export PerfSetULongLongCounterValue(Provider, Instance, CounterId, Value) {
  * @since windows6.0.6000
  */
 export PerfIncrementULongCounterValue(Provider, Instance, CounterId, Value) {
-    result := DllCall("ADVAPI32.dll\PerfIncrementULongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, "uint", CounterId, "uint", Value, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfIncrementULongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, UInt32, CounterId, UInt32, Value, UInt32)
     return result
 }
 
@@ -684,7 +685,7 @@ export PerfIncrementULongCounterValue(Provider, Instance, CounterId, Value) {
  * @since windows6.0.6000
  */
 export PerfIncrementULongLongCounterValue(Provider, Instance, CounterId, Value) {
-    result := DllCall("ADVAPI32.dll\PerfIncrementULongLongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, "uint", CounterId, "uint", Value, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfIncrementULongLongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, UInt32, CounterId, Int64, Value, UInt32)
     return result
 }
 
@@ -713,7 +714,7 @@ export PerfIncrementULongLongCounterValue(Provider, Instance, CounterId, Value) 
  * @since windows6.0.6000
  */
 export PerfDecrementULongCounterValue(Provider, Instance, CounterId, Value) {
-    result := DllCall("ADVAPI32.dll\PerfDecrementULongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, "uint", CounterId, "uint", Value, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfDecrementULongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, UInt32, CounterId, UInt32, Value, UInt32)
     return result
 }
 
@@ -742,7 +743,7 @@ export PerfDecrementULongCounterValue(Provider, Instance, CounterId, Value) {
  * @since windows6.0.6000
  */
 export PerfDecrementULongLongCounterValue(Provider, Instance, CounterId, Value) {
-    result := DllCall("ADVAPI32.dll\PerfDecrementULongLongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, "uint", CounterId, "uint", Value, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfDecrementULongLongCounterValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, UInt32, CounterId, Int64, Value, UInt32)
     return result
 }
 
@@ -827,7 +828,7 @@ export PerfEnumerateCounterSet(szMachine, pCounterSetIds, cCounterSetIds, pcCoun
 
     pcCounterSetIdsActualMarshal := pcCounterSetIdsActual is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSet", "ptr", szMachine, Guid.Ptr, pCounterSetIds, "uint", cCounterSetIds, pcCounterSetIdsActualMarshal, pcCounterSetIdsActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSet", "ptr", szMachine, Guid.Ptr, pCounterSetIds, UInt32, cCounterSetIds, pcCounterSetIdsActualMarshal, pcCounterSetIdsActual, UInt32)
     return result
 }
 
@@ -923,7 +924,7 @@ export PerfEnumerateCounterSetInstances(szMachine, pCounterSetId, pInstances, cb
 
     pcbInstancesActualMarshal := pcbInstancesActual is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSetInstances", "ptr", szMachine, Guid.Ptr, pCounterSetId, "ptr", pInstances, "uint", cbInstances, pcbInstancesActualMarshal, pcbInstancesActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSetInstances", "ptr", szMachine, Guid.Ptr, pCounterSetId, IntPtr, pInstances, UInt32, cbInstances, pcbInstancesActualMarshal, pcbInstancesActual, UInt32)
     return result
 }
 
@@ -1023,7 +1024,7 @@ export PerfQueryCounterSetRegistrationInfo(szMachine, pCounterSetId, requestCode
 
     pcbRegInfoActualMarshal := pcbRegInfoActual is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\PerfQueryCounterSetRegistrationInfo", "ptr", szMachine, Guid.Ptr, pCounterSetId, PerfRegInfoType, requestCode, "uint", requestLangId, "ptr", pbRegInfo, "uint", cbRegInfo, pcbRegInfoActualMarshal, pcbRegInfoActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfQueryCounterSetRegistrationInfo", "ptr", szMachine, Guid.Ptr, pCounterSetId, PerfRegInfoType, requestCode, UInt32, requestLangId, IntPtr, pbRegInfo, UInt32, cbRegInfo, pcbRegInfoActualMarshal, pcbRegInfoActual, UInt32)
     return result
 }
 
@@ -1160,7 +1161,7 @@ export PerfCloseQueryHandle(hQuery) {
 export PerfQueryCounterInfo(hQuery, pCounters, cbCounters, pcbCountersActual) {
     pcbCountersActualMarshal := pcbCountersActual is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\PerfQueryCounterInfo", HANDLE, hQuery, "ptr", pCounters, "uint", cbCounters, pcbCountersActualMarshal, pcbCountersActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfQueryCounterInfo", HANDLE, hQuery, IntPtr, pCounters, UInt32, cbCounters, pcbCountersActualMarshal, pcbCountersActual, UInt32)
     return result
 }
 
@@ -1245,7 +1246,7 @@ export PerfQueryCounterInfo(hQuery, pCounters, cbCounters, pcbCountersActual) {
 export PerfQueryCounterData(hQuery, pCounterBlock, cbCounterBlock, pcbCounterBlockActual) {
     pcbCounterBlockActualMarshal := pcbCounterBlockActual is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\PerfQueryCounterData", HANDLE, hQuery, "ptr", pCounterBlock, "uint", cbCounterBlock, pcbCounterBlockActualMarshal, pcbCounterBlockActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfQueryCounterData", HANDLE, hQuery, IntPtr, pCounterBlock, UInt32, cbCounterBlock, pcbCounterBlockActualMarshal, pcbCounterBlockActual, UInt32)
     return result
 }
 
@@ -1298,7 +1299,7 @@ export PerfQueryCounterData(hQuery, pCounterBlock, cbCounterBlock, pcbCounterBlo
  * @since windows10.0.14393
  */
 export PerfAddCounters(hQuery, pCounters, cbCounters) {
-    result := DllCall("ADVAPI32.dll\PerfAddCounters", HANDLE, hQuery, "ptr", pCounters, "uint", cbCounters, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfAddCounters", HANDLE, hQuery, IntPtr, pCounters, UInt32, cbCounters, UInt32)
     return result
 }
 
@@ -1328,7 +1329,7 @@ export PerfAddCounters(hQuery, pCounters, cbCounters) {
  * @since windows10.0.14393
  */
 export PerfDeleteCounters(hQuery, pCounters, cbCounters) {
-    result := DllCall("ADVAPI32.dll\PerfDeleteCounters", HANDLE, hQuery, "ptr", pCounters, "uint", cbCounters, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfDeleteCounters", HANDLE, hQuery, IntPtr, pCounters, UInt32, cbCounters, UInt32)
     return result
 }
 
@@ -1374,7 +1375,7 @@ export PdhGetDllVersion(lpdwVersion) {
 export PdhOpenQueryW(szDataSource, dwUserData, phQuery) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
-    result := DllCall("pdh.dll\PdhOpenQueryW", "ptr", szDataSource, "ptr", dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
+    result := DllCall("pdh.dll\PdhOpenQueryW", "ptr", szDataSource, IntPtr, dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
     return result
 }
 
@@ -1399,7 +1400,7 @@ export PdhOpenQueryW(szDataSource, dwUserData, phQuery) {
 export PdhOpenQueryA(szDataSource, dwUserData, phQuery) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
-    result := DllCall("pdh.dll\PdhOpenQueryA", "ptr", szDataSource, "ptr", dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
+    result := DllCall("pdh.dll\PdhOpenQueryA", "ptr", szDataSource, IntPtr, dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
     return result
 }
 
@@ -1539,7 +1540,7 @@ export PdhAddCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
 
     phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhAddCounterW", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, phCounterMarshal, phCounter, UInt32)
+    result := DllCall("pdh.dll\PdhAddCounterW", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, IntPtr, dwUserData, phCounterMarshal, phCounter, UInt32)
     return result
 }
 
@@ -1679,7 +1680,7 @@ export PdhAddCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
 
     phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhAddCounterA", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, phCounterMarshal, phCounter, UInt32)
+    result := DllCall("pdh.dll\PdhAddCounterA", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, IntPtr, dwUserData, phCounterMarshal, phCounter, UInt32)
     return result
 }
 
@@ -1837,7 +1838,7 @@ export PdhAddEnglishCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
 
     phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhAddEnglishCounterW", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, phCounterMarshal, phCounter, UInt32)
+    result := DllCall("pdh.dll\PdhAddEnglishCounterW", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, IntPtr, dwUserData, phCounterMarshal, phCounter, UInt32)
     return result
 }
 
@@ -1995,7 +1996,7 @@ export PdhAddEnglishCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
 
     phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhAddEnglishCounterA", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, phCounterMarshal, phCounter, UInt32)
+    result := DllCall("pdh.dll\PdhAddEnglishCounterA", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, IntPtr, dwUserData, phCounterMarshal, phCounter, UInt32)
     return result
 }
 
@@ -2969,7 +2970,7 @@ export PdhCalculateCounterFromRawValue(hCounter, dwFormat, rawValue1, rawValue2,
  * @since windows5.1.2600
  */
 export PdhComputeCounterStatistics(hCounter, dwFormat, dwFirstEntry, dwNumEntries, lpRawValueArray, data) {
-    result := DllCall("pdh.dll\PdhComputeCounterStatistics", PDH_HCOUNTER, hCounter, PDH_FMT, dwFormat, "uint", dwFirstEntry, "uint", dwNumEntries, PDH_RAW_COUNTER.Ptr, lpRawValueArray, PDH_STATISTICS.Ptr, data, UInt32)
+    result := DllCall("pdh.dll\PdhComputeCounterStatistics", PDH_HCOUNTER, hCounter, PDH_FMT, dwFormat, UInt32, dwFirstEntry, UInt32, dwNumEntries, PDH_RAW_COUNTER.Ptr, lpRawValueArray, PDH_STATISTICS.Ptr, data, UInt32)
     return result
 }
 
@@ -3163,7 +3164,7 @@ export PdhGetCounterInfoA(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffe
  * @since windows5.1.2600
  */
 export PdhSetCounterScaleFactor(hCounter, lFactor) {
-    result := DllCall("pdh.dll\PdhSetCounterScaleFactor", PDH_HCOUNTER, hCounter, "int", lFactor, UInt32)
+    result := DllCall("pdh.dll\PdhSetCounterScaleFactor", PDH_HCOUNTER, hCounter, Int32, lFactor, UInt32)
     return result
 }
 
@@ -3717,7 +3718,7 @@ export PdhEnumObjectItemsW(szDataSource, szMachineName, szObjectName, mszCounter
     pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : "ptr"
     pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhEnumObjectItemsW", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectItemsW", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -3833,7 +3834,7 @@ export PdhEnumObjectItemsA(szDataSource, szMachineName, szObjectName, mszCounter
     pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : "ptr"
     pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhEnumObjectItemsA", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectItemsA", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -4052,7 +4053,7 @@ export PdhParseCounterPathW(szFullPathBuffer, pCounterPathElements, pdwBufferSiz
 
     pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhParseCounterPathW", "ptr", szFullPathBuffer, PDH_COUNTER_PATH_ELEMENTS_W.Ptr, pCounterPathElements, pdwBufferSizeMarshal, pdwBufferSize, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhParseCounterPathW", "ptr", szFullPathBuffer, PDH_COUNTER_PATH_ELEMENTS_W.Ptr, pCounterPathElements, pdwBufferSizeMarshal, pdwBufferSize, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -4137,7 +4138,7 @@ export PdhParseCounterPathA(szFullPathBuffer, pCounterPathElements, pdwBufferSiz
 
     pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhParseCounterPathA", "ptr", szFullPathBuffer, PDH_COUNTER_PATH_ELEMENTS_A.Ptr, pCounterPathElements, pdwBufferSizeMarshal, pdwBufferSize, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhParseCounterPathA", "ptr", szFullPathBuffer, PDH_COUNTER_PATH_ELEMENTS_A.Ptr, pCounterPathElements, pdwBufferSizeMarshal, pdwBufferSize, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -5269,7 +5270,7 @@ export PdhLookupPerfNameByIndexW(szMachineName, dwNameIndex, szNameBuffer, pcchN
 
     pcchNameBufferSizeMarshal := pcchNameBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhLookupPerfNameByIndexW", "ptr", szMachineName, "uint", dwNameIndex, "ptr", szNameBuffer, pcchNameBufferSizeMarshal, pcchNameBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhLookupPerfNameByIndexW", "ptr", szMachineName, UInt32, dwNameIndex, "ptr", szNameBuffer, pcchNameBufferSizeMarshal, pcchNameBufferSize, UInt32)
     return result
 }
 
@@ -5350,7 +5351,7 @@ export PdhLookupPerfNameByIndexA(szMachineName, dwNameIndex, szNameBuffer, pcchN
 
     pcchNameBufferSizeMarshal := pcchNameBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhLookupPerfNameByIndexA", "ptr", szMachineName, "uint", dwNameIndex, "ptr", szNameBuffer, pcchNameBufferSizeMarshal, pcchNameBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhLookupPerfNameByIndexA", "ptr", szMachineName, UInt32, dwNameIndex, "ptr", szNameBuffer, pcchNameBufferSizeMarshal, pcchNameBufferSize, UInt32)
     return result
 }
 
@@ -5623,7 +5624,7 @@ export PdhExpandWildCardPathA(szDataSource, szWildCardPath, mszExpandedPathList,
 
     pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhExpandWildCardPathA", "ptr", szDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhExpandWildCardPathA", "ptr", szDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -5805,7 +5806,7 @@ export PdhExpandWildCardPathW(szDataSource, szWildCardPath, mszExpandedPathList,
 
     pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhExpandWildCardPathW", "ptr", szDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhExpandWildCardPathW", "ptr", szDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -5859,7 +5860,7 @@ export PdhOpenLogW(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize,
 
     lpdwLogTypeMarshal := lpdwLogType is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhOpenLogW", "ptr", szLogFileName, PDH_LOG, dwAccessFlags, lpdwLogTypeMarshal, lpdwLogType, PDH_HQUERY, hQuery, "uint", dwMaxSize, "ptr", szUserCaption, PDH_HLOG.Ptr, phLog, UInt32)
+    result := DllCall("pdh.dll\PdhOpenLogW", "ptr", szLogFileName, PDH_LOG, dwAccessFlags, lpdwLogTypeMarshal, lpdwLogType, PDH_HQUERY, hQuery, UInt32, dwMaxSize, "ptr", szUserCaption, PDH_HLOG.Ptr, phLog, UInt32)
     return result
 }
 
@@ -5913,7 +5914,7 @@ export PdhOpenLogA(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize,
 
     lpdwLogTypeMarshal := lpdwLogType is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhOpenLogA", "ptr", szLogFileName, PDH_LOG, dwAccessFlags, lpdwLogTypeMarshal, lpdwLogType, PDH_HQUERY, hQuery, "uint", dwMaxSize, "ptr", szUserCaption, PDH_HLOG.Ptr, phLog, UInt32)
+    result := DllCall("pdh.dll\PdhOpenLogA", "ptr", szLogFileName, PDH_LOG, dwAccessFlags, lpdwLogTypeMarshal, lpdwLogType, PDH_HQUERY, hQuery, UInt32, dwMaxSize, "ptr", szUserCaption, PDH_HLOG.Ptr, phLog, UInt32)
     return result
 }
 
@@ -6189,7 +6190,7 @@ export PdhGetLogFileSize(_hLog, llSize) {
  * @since windows5.1.2600
  */
 export PdhCloseLog(_hLog, dwFlags) {
-    result := DllCall("pdh.dll\PdhCloseLog", PDH_HLOG, _hLog, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhCloseLog", PDH_HLOG, _hLog, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -6573,7 +6574,7 @@ export PdhGetDataSourceTimeRangeA(szDataSource, pdwNumEntries, pInfo, pdwBufferS
  * @since windows5.1.2600
  */
 export PdhCollectQueryDataEx(hQuery, dwIntervalTime, hNewDataEvent) {
-    result := DllCall("pdh.dll\PdhCollectQueryDataEx", PDH_HQUERY, hQuery, "uint", dwIntervalTime, HANDLE, hNewDataEvent, UInt32)
+    result := DllCall("pdh.dll\PdhCollectQueryDataEx", PDH_HQUERY, hQuery, UInt32, dwIntervalTime, HANDLE, hNewDataEvent, UInt32)
     return result
 }
 
@@ -6602,7 +6603,7 @@ export PdhCollectQueryDataEx(hQuery, dwIntervalTime, hNewDataEvent) {
 export PdhFormatFromRawValue(dwCounterType, dwFormat, pTimeBase, pRawValue1, pRawValue2, pFmtValue) {
     pTimeBaseMarshal := pTimeBase is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhFormatFromRawValue", "uint", dwCounterType, PDH_FMT, dwFormat, pTimeBaseMarshal, pTimeBase, PDH_RAW_COUNTER.Ptr, pRawValue1, PDH_RAW_COUNTER.Ptr, pRawValue2, PDH_FMT_COUNTERVALUE.Ptr, pFmtValue, UInt32)
+    result := DllCall("pdh.dll\PdhFormatFromRawValue", UInt32, dwCounterType, PDH_FMT, dwFormat, pTimeBaseMarshal, pTimeBase, PDH_RAW_COUNTER.Ptr, pRawValue1, PDH_RAW_COUNTER.Ptr, pRawValue2, PDH_FMT_COUNTERVALUE.Ptr, pFmtValue, UInt32)
     return result
 }
 
@@ -6856,7 +6857,7 @@ export PdhBindInputDataSourceA(phDataSource, LogFileNameList) {
  * @since windows5.1.2600
  */
 export PdhOpenQueryH(hDataSource, dwUserData, phQuery) {
-    result := DllCall("pdh.dll\PdhOpenQueryH", PDH_HLOG, hDataSource, "ptr", dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
+    result := DllCall("pdh.dll\PdhOpenQueryH", PDH_HLOG, hDataSource, IntPtr, dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
     return result
 }
 
@@ -7290,7 +7291,7 @@ export PdhEnumObjectItemsHW(hDataSource, szMachineName, szObjectName, mszCounter
     pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : "ptr"
     pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhEnumObjectItemsHW", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectItemsHW", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -7410,7 +7411,7 @@ export PdhEnumObjectItemsHA(hDataSource, szMachineName, szObjectName, mszCounter
     pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : "ptr"
     pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhEnumObjectItemsHA", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectItemsHA", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -7579,7 +7580,7 @@ export PdhExpandWildCardPathHW(hDataSource, szWildCardPath, mszExpandedPathList,
 
     pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhExpandWildCardPathHW", PDH_HLOG, hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhExpandWildCardPathHW", PDH_HLOG, hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -7748,7 +7749,7 @@ export PdhExpandWildCardPathHA(hDataSource, szWildCardPath, mszExpandedPathList,
 
     pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("pdh.dll\PdhExpandWildCardPathHA", PDH_HLOG, hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, "uint", dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhExpandWildCardPathHA", PDH_HLOG, hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -8508,7 +8509,7 @@ export PdhGetLogSetGUID(_hLog, pGuid, pRunId) {
  * @returns {Integer} 
  */
 export PdhSetLogSetRunID(_hLog, RunId) {
-    result := DllCall("pdh.dll\PdhSetLogSetRunID", PDH_HLOG, _hLog, "int", RunId, UInt32)
+    result := DllCall("pdh.dll\PdhSetLogSetRunID", PDH_HLOG, _hLog, Int32, RunId, UInt32)
     return result
 }
 

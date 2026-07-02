@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXpsOMPage.ahk" { IXpsOMPage }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\XPS_DOCUMENT_TYPE.ahk" { XPS_DOCUMENT_TYPE }
 
 /**
  * Inherits from IXpsOMPage.

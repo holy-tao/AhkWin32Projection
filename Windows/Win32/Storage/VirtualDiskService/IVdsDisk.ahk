@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_DISK_EXTENT.ahk" { VDS_DISK_EXTENT }
 #Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
-#Import ".\VDS_DISK_PROP.ahk" { VDS_DISK_PROP }
-#Import ".\IVdsPack.ahk" { IVdsPack }
-#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import ".\VDS_DISK_EXTENT.ahk" { VDS_DISK_EXTENT }
+#Import ".\IVdsPack.ahk" { IVdsPack }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_DISK_PROP.ahk" { VDS_DISK_PROP }
 
 /**
  * Provides methods to query and configure basic and dynamic disks.
@@ -242,7 +242,7 @@ export default struct IVdsDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk-setflags
      */
     SetFlags(ulFlags) {
-        result := ComCall(8, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(8, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -283,7 +283,7 @@ export default struct IVdsDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk-clearflags
      */
     ClearFlags(ulFlags) {
-        result := ComCall(9, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\Polarisation.ahk" { Polarisation }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Polarisation.ahk" { Polarisation }
 
 /**
  * The IBDA_FrequencyFilter interface is implemented on a BDA tuner device, and is used by the Network Provider to tell the tuner how to set its frequencies.
@@ -106,7 +106,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-put_autotune
      */
     put_Autotune(ulTransponder) {
-        result := ComCall(3, this, "uint", ulTransponder, "HRESULT")
+        result := ComCall(3, this, UInt32, ulTransponder, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-put_frequency
      */
     put_Frequency(ulFrequency) {
-        result := ComCall(5, this, "uint", ulFrequency, "HRESULT")
+        result := ComCall(5, this, UInt32, ulFrequency, "HRESULT")
         return result
     }
 
@@ -182,7 +182,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-put_range
      */
     put_Range(ulRange) {
-        result := ComCall(9, this, "uint", ulRange, "HRESULT")
+        result := ComCall(9, this, UInt32, ulRange, "HRESULT")
         return result
     }
 
@@ -206,7 +206,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-put_bandwidth
      */
     put_Bandwidth(ulBandwidth) {
-        result := ComCall(11, this, "uint", ulBandwidth, "HRESULT")
+        result := ComCall(11, this, UInt32, ulBandwidth, "HRESULT")
         return result
     }
 
@@ -232,7 +232,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-put_frequencymultiplier
      */
     put_FrequencyMultiplier(ulMultiplier) {
-        result := ComCall(13, this, "uint", ulMultiplier, "HRESULT")
+        result := ComCall(13, this, UInt32, ulMultiplier, "HRESULT")
         return result
     }
 

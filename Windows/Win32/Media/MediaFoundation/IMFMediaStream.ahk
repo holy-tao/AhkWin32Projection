@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
-#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMFStreamDescriptor.ahk" { IMFStreamDescriptor }
+#Import ".\IMFMediaEventGenerator.ahk" { IMFMediaEventGenerator }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents one stream in a media source.

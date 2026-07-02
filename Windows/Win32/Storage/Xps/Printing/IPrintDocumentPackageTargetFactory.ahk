@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IPrintDocumentPackageTarget.ahk" { IPrintDocumentPackageTarget }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Used with IPrintDocumentPackageTarget for starting a print job.

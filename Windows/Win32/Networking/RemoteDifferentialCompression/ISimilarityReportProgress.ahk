@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a method for RDC to report the current completion percentage of a similarity operation.
@@ -56,7 +56,7 @@ export default struct ISimilarityReportProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityreportprogress-reportprogress
      */
     ReportProgress(percentCompleted) {
-        result := ComCall(3, this, "uint", percentCompleted, "HRESULT")
+        result := ComCall(3, this, UInt32, percentCompleted, "HRESULT")
         return result
     }
 

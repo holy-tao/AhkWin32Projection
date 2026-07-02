@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
+#Import ".\VDS_ISCSI_INITIATOR_PORTAL_PROP.ahk" { VDS_ISCSI_INITIATOR_PORTAL_PROP }
 #Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVdsIscsiInitiatorAdapter.ahk" { IVdsIscsiInitiatorAdapter }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\VDS_ISCSI_INITIATOR_PORTAL_PROP.ahk" { VDS_ISCSI_INITIATOR_PORTAL_PROP }
 
 /**
  * Provides methods to query and interact with iSCSI initiator portals on the local system.
@@ -137,7 +137,7 @@ export default struct IVdsIscsiInitiatorPortal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsiscsiinitiatorportal-setipsecsecurity
      */
     SetIpsecSecurity(targetPortalId, ullSecurityFlags, pIpsecKey) {
-        result := ComCall(7, this, Guid, targetPortalId, "uint", ullSecurityFlags, VDS_ISCSI_IPSEC_KEY.Ptr, pIpsecKey, "HRESULT")
+        result := ComCall(7, this, Guid, targetPortalId, Int64, ullSecurityFlags, VDS_ISCSI_IPSEC_KEY.Ptr, pIpsecKey, "HRESULT")
         return result
     }
 

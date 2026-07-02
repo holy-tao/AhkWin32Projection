@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DIACTIONFORMATA.ahk" { DIACTIONFORMATA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\DICOLORSET.ahk" { DICOLORSET }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DIACTIONFORMATA.ahk" { DIACTIONFORMATA }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

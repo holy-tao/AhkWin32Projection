@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\COPYFILE2_COPY_PHASE.ahk" { COPYFILE2_COPY_PHASE }
 #Import ".\COPYFILE2_MESSAGE_TYPE.ahk" { COPYFILE2_MESSAGE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Passed to the CopyFile2ProgressRoutine callback function with information about a pending copy operation.

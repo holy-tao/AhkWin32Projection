@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 
 /**
@@ -53,7 +53,7 @@ export default struct IWRdsWddmIddProps extends IUnknown {
     GetHardwareId(pDisplayDriverHardwareId, Count) {
         pDisplayDriverHardwareId := pDisplayDriverHardwareId is String ? StrPtr(pDisplayDriverHardwareId) : pDisplayDriverHardwareId
 
-        result := ComCall(3, this, "ptr", pDisplayDriverHardwareId, "uint", Count, "HRESULT")
+        result := ComCall(3, this, "ptr", pDisplayDriverHardwareId, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -65,7 +65,7 @@ export default struct IWRdsWddmIddProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-ondriverload
      */
     OnDriverLoad(SessionId, DriverHandle) {
-        result := ComCall(4, this, "uint", SessionId, HANDLE_PTR, DriverHandle, "HRESULT")
+        result := ComCall(4, this, UInt32, SessionId, HANDLE_PTR, DriverHandle, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IWRdsWddmIddProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-ondriverunload
      */
     OnDriverUnload(SessionId) {
-        result := ComCall(5, this, "uint", SessionId, "HRESULT")
+        result := ComCall(5, this, UInt32, SessionId, "HRESULT")
         return result
     }
 

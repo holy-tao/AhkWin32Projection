@@ -47,7 +47,7 @@ export default struct IVBSAXErrorHandler extends IDispatch {
      * @returns {HRESULT} 
      */
     error(oLocator, strErrorMessage, nErrorCode) {
-        result := ComCall(7, this, "ptr", oLocator, BSTR.Ptr, strErrorMessage, "int", nErrorCode, "HRESULT")
+        result := ComCall(7, this, "ptr", oLocator, BSTR.Ptr, strErrorMessage, Int32, nErrorCode, "HRESULT")
         return result
     }
 
@@ -59,7 +59,7 @@ export default struct IVBSAXErrorHandler extends IDispatch {
      * @returns {HRESULT} 
      */
     fatalError(oLocator, strErrorMessage, nErrorCode) {
-        result := ComCall(8, this, "ptr", oLocator, BSTR.Ptr, strErrorMessage, "int", nErrorCode, "HRESULT")
+        result := ComCall(8, this, "ptr", oLocator, BSTR.Ptr, strErrorMessage, Int32, nErrorCode, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IVBSAXErrorHandler extends IDispatch {
      * @returns {HRESULT} 
      */
     ignorableWarning(oLocator, strErrorMessage, nErrorCode) {
-        result := ComCall(9, this, "ptr", oLocator, BSTR.Ptr, strErrorMessage, "int", nErrorCode, "HRESULT")
+        result := ComCall(9, this, "ptr", oLocator, BSTR.Ptr, strErrorMessage, Int32, nErrorCode, "HRESULT")
         return result
     }
 

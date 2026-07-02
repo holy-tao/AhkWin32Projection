@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
 
 /**
  * ISCSI_CONNECTION_INFO structure contains information about a connection. (ANSI)

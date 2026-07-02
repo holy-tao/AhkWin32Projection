@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import ".\LPDDHAL_WAITFORVERTICALBLANK.ahk" { LPDDHAL_WAITFORVERTICALBLANK }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -35,6 +36,6 @@ export default struct DDHAL_WAITFORVERTICALBLANKDATA {
     /**
      * Used by the Microsoft DirectDraw API and should not be filled in by the driver.
      */
-    WaitForVerticalBlank : IntPtr
+    WaitForVerticalBlank : LPDDHAL_WAITFORVERTICALBLANK
 
 }

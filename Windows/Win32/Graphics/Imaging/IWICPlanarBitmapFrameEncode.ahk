@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICRect.ahk" { WICRect }
 #Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WICRect.ahk" { WICRect }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WICBitmapPlane.ahk" { WICBitmapPlane }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allows planar component image pixels to be written to an encoder.
@@ -139,7 +139,7 @@ export default struct IWICPlanarBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarbitmapframeencode-writepixels
      */
     WritePixels(lineCount, pPlanes, cPlanes) {
-        result := ComCall(3, this, "uint", lineCount, WICBitmapPlane.Ptr, pPlanes, "uint", cPlanes, "HRESULT")
+        result := ComCall(3, this, UInt32, lineCount, WICBitmapPlane.Ptr, pPlanes, UInt32, cPlanes, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IWICPlanarBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarbitmapframeencode-writesource
      */
     WriteSource(ppPlanes, cPlanes, prcSource) {
-        result := ComCall(4, this, IWICBitmapSource.Ptr, ppPlanes, "uint", cPlanes, WICRect.Ptr, prcSource, "HRESULT")
+        result := ComCall(4, this, IWICBitmapSource.Ptr, ppPlanes, UInt32, cPlanes, WICRect.Ptr, prcSource, "HRESULT")
         return result
     }
 

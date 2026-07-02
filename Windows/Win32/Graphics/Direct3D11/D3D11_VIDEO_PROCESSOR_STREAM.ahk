@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID3D11VideoProcessorInputView.ahk" { ID3D11VideoProcessorInputView }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID3D11VideoProcessorInputView.ahk" { ID3D11VideoProcessorInputView }
 
 /**
  * Contains stream-level data for the ID3D11VideoContext::VideoProcessorBlt method.

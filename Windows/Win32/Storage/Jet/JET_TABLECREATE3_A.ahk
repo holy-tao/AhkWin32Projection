@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_COLUMNCREATE_A.ahk" { JET_COLUMNCREATE_A }
 #Import ".\JET_SPACEHINTS.ahk" { JET_SPACEHINTS }
 #Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
 #Import ".\JET_INDEXCREATE2_A.ahk" { JET_INDEXCREATE2_A }
-#Import ".\JET_COLUMNCREATE_A.ahk" { JET_COLUMNCREATE_A }
 
 /**
  * @namespace Windows.Win32.Storage.Jet

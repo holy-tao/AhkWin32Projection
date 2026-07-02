@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISensor.ahk" { ISensor }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SensorState.ahk" { SensorState }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISensor.ahk" { ISensor }
 
 /**
  * The callback interface for receiving sensor manager events.

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITaskFolder.ahk" { ITaskFolder }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
 #Import ".\IRunningTaskCollection.ahk" { IRunningTaskCollection }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITaskFolder.ahk" { ITaskFolder }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to the Task Scheduler service for managing registered tasks.
@@ -111,7 +111,7 @@ export default struct ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-getrunningtasks
      */
     GetRunningTasks(flags) {
-        result := ComCall(8, this, "int", flags, "ptr*", &ppRunningTasks := 0, "HRESULT")
+        result := ComCall(8, this, Int32, flags, "ptr*", &ppRunningTasks := 0, "HRESULT")
         return IRunningTaskCollection(ppRunningTasks)
     }
 
@@ -126,7 +126,7 @@ export default struct ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-newtask
      */
     NewTask(flags) {
-        result := ComCall(9, this, "uint", flags, "ptr*", &ppDefinition := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, flags, "ptr*", &ppDefinition := 0, "HRESULT")
         return ITaskDefinition(ppDefinition)
     }
 

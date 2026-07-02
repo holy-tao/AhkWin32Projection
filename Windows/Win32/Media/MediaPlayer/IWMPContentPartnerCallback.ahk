@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\WMPCallbackNotification.ahk" { WMPCallbackNotification }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Note  This section describes functionality designed for use by online stores.
@@ -146,7 +146,7 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-buycomplete
      */
     BuyComplete(hrResult, dwBuyCookie) {
-        result := ComCall(4, this, "int", hrResult, "uint", dwBuyCookie, "HRESULT")
+        result := ComCall(4, this, "int", hrResult, UInt32, dwBuyCookie, "HRESULT")
         return result
     }
 
@@ -186,7 +186,7 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
         bstrTrackURL := bstrTrackURL is String ? BSTR.Alloc(bstrTrackURL).Value : bstrTrackURL
         bstrDownloadParams := bstrDownloadParams is String ? BSTR.Alloc(bstrDownloadParams).Value : bstrDownloadParams
 
-        result := ComCall(5, this, "uint", cookie, BSTR, bstrTrackURL, "uint", dwServiceTrackID, BSTR, bstrDownloadParams, "int", hrDownload, "HRESULT")
+        result := ComCall(5, this, UInt32, cookie, BSTR, bstrTrackURL, UInt32, dwServiceTrackID, BSTR, bstrDownloadParams, "int", hrDownload, "HRESULT")
         return result
     }
 
@@ -324,7 +324,7 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
     AddListContents(dwListCookie, cItems, prgItems) {
         prgItemsMarshal := prgItems is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwListCookie, "uint", cItems, prgItemsMarshal, prgItems, "HRESULT")
+        result := ComCall(9, this, UInt32, dwListCookie, UInt32, cItems, prgItemsMarshal, prgItems, "HRESULT")
         return result
     }
 
@@ -356,7 +356,7 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-listcontentscomplete
      */
     ListContentsComplete(dwListCookie, hrSuccess) {
-        result := ComCall(10, this, "uint", dwListCookie, "int", hrSuccess, "HRESULT")
+        result := ComCall(10, this, UInt32, dwListCookie, "int", hrSuccess, "HRESULT")
         return result
     }
 
@@ -468,7 +468,7 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-refreshlicensecomplete
      */
     RefreshLicenseComplete(dwCookie, contentID, hrRefresh) {
-        result := ComCall(13, this, "uint", dwCookie, "uint", contentID, "int", hrRefresh, "HRESULT")
+        result := ComCall(13, this, UInt32, dwCookie, UInt32, contentID, "int", hrRefresh, "HRESULT")
         return result
     }
 
@@ -504,7 +504,7 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
     ShowPopup(lIndex, bstrParameters) {
         bstrParameters := bstrParameters is String ? BSTR.Alloc(bstrParameters).Value : bstrParameters
 
-        result := ComCall(14, this, "int", lIndex, BSTR, bstrParameters, "HRESULT")
+        result := ComCall(14, this, Int32, lIndex, BSTR, bstrParameters, "HRESULT")
         return result
     }
 

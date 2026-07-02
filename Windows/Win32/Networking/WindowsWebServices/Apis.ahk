@@ -1,101 +1,109 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\WS_ASYNC_STATE.ahk" { WS_ASYNC_STATE }
-#Import ".\WS_XML_WRITER_ENCODING.ahk" { WS_XML_WRITER_ENCODING }
-#Import ".\WS_FAULT_DISCLOSURE.ahk" { WS_FAULT_DISCLOSURE }
-#Import ".\WS_MESSAGE_PROPERTY.ahk" { WS_MESSAGE_PROPERTY }
-#Import ".\WS_XML_DICTIONARY.ahk" { WS_XML_DICTIONARY }
-#Import ".\WS_VALUE_TYPE.ahk" { WS_VALUE_TYPE }
-#Import ".\WS_XML_READER.ahk" { WS_XML_READER }
-#Import ".\WS_FAULT.ahk" { WS_FAULT }
-#Import ".\WS_SECURITY_KEY_HANDLE.ahk" { WS_SECURITY_KEY_HANDLE }
-#Import ".\WS_XML_SECURITY_TOKEN_PROPERTY.ahk" { WS_XML_SECURITY_TOKEN_PROPERTY }
-#Import ".\WS_TYPE.ahk" { WS_TYPE }
-#Import ".\WS_HEAP_PROPERTY.ahk" { WS_HEAP_PROPERTY }
-#Import ".\WS_DATETIME.ahk" { WS_DATETIME }
-#Import ".\WS_SERVICE_HOST.ahk" { WS_SERVICE_HOST }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WS_PROXY_PROPERTY.ahk" { WS_PROXY_PROPERTY }
-#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
-#Import ".\WS_RECEIVE_OPTION.ahk" { WS_RECEIVE_OPTION }
-#Import ".\WS_MESSAGE_DESCRIPTION.ahk" { WS_MESSAGE_DESCRIPTION }
-#Import ".\WS_SERVICE_PROPERTY.ahk" { WS_SERVICE_PROPERTY }
-#Import ".\WS_LISTENER_PROPERTY_ID.ahk" { WS_LISTENER_PROPERTY_ID }
-#Import ".\WS_ERROR.ahk" { WS_ERROR }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\WS_METADATA_ENDPOINTS.ahk" { WS_METADATA_ENDPOINTS }
-#Import ".\WS_POLICY_PROPERTY_ID.ahk" { WS_POLICY_PROPERTY_ID }
-#Import ".\WS_BINDING_TEMPLATE_TYPE.ahk" { WS_BINDING_TEMPLATE_TYPE }
-#Import ".\WS_FAULT_ERROR_PROPERTY_ID.ahk" { WS_FAULT_ERROR_PROPERTY_ID }
-#Import ".\WS_ELEMENT_DESCRIPTION.ahk" { WS_ELEMENT_DESCRIPTION }
-#Import ".\WS_SERVICE_CONTRACT.ahk" { WS_SERVICE_CONTRACT }
-#Import ".\WS_METADATA_PROPERTY.ahk" { WS_METADATA_PROPERTY }
-#Import ".\WS_SECURITY_TOKEN_PROPERTY_ID.ahk" { WS_SECURITY_TOKEN_PROPERTY_ID }
-#Import ".\WS_POLICY_CONSTRAINTS.ahk" { WS_POLICY_CONSTRAINTS }
-#Import ".\WS_CALL_PROPERTY.ahk" { WS_CALL_PROPERTY }
-#Import ".\WS_POLICY.ahk" { WS_POLICY }
-#Import ".\WS_MESSAGE_PROPERTY_ID.ahk" { WS_MESSAGE_PROPERTY_ID }
-#Import ".\WS_LISTENER.ahk" { WS_LISTENER }
-#Import ".\WS_ATTRIBUTE_DESCRIPTION.ahk" { WS_ATTRIBUTE_DESCRIPTION }
-#Import ".\WS_TYPE_MAPPING.ahk" { WS_TYPE_MAPPING }
-#Import ".\WS_ERROR_PROPERTY_ID.ahk" { WS_ERROR_PROPERTY_ID }
-#Import ".\WS_XML_WRITER.ahk" { WS_XML_WRITER }
-#Import ".\WS_OPERATION_CONTEXT_PROPERTY_ID.ahk" { WS_OPERATION_CONTEXT_PROPERTY_ID }
-#Import ".\WS_METADATA.ahk" { WS_METADATA }
-#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
-#Import ".\WS_MESSAGE.ahk" { WS_MESSAGE }
-#Import ".\WS_MOVE_TO.ahk" { WS_MOVE_TO }
-#Import ".\WS_SERVICE_PROXY.ahk" { WS_SERVICE_PROXY }
-#Import ".\WS_SECURITY_DESCRIPTION.ahk" { WS_SECURITY_DESCRIPTION }
-#Import ".\WS_HEAP.ahk" { WS_HEAP }
-#Import ".\WS_ADDRESSING_VERSION.ahk" { WS_ADDRESSING_VERSION }
-#Import ".\WS_XML_CANONICALIZATION_PROPERTY.ahk" { WS_XML_CANONICALIZATION_PROPERTY }
-#Import ".\WS_XML_BUFFER_PROPERTY.ahk" { WS_XML_BUFFER_PROPERTY }
-#Import ".\WS_XML_WRITER_OUTPUT.ahk" { WS_XML_WRITER_OUTPUT }
-#Import ".\WS_SECURITY_CONTEXT_PROPERTY_ID.ahk" { WS_SECURITY_CONTEXT_PROPERTY_ID }
-#Import ".\WS_SECURITY_CONTEXT.ahk" { WS_SECURITY_CONTEXT }
-#Import ".\WS_SECURITY_TOKEN.ahk" { WS_SECURITY_TOKEN }
-#Import ".\WS_XML_NODE_POSITION.ahk" { WS_XML_NODE_POSITION }
-#Import ".\WS_STRING.ahk" { WS_STRING }
-#Import ".\WS_CHANNEL_PROPERTY_ID.ahk" { WS_CHANNEL_PROPERTY_ID }
-#Import ".\WS_XML_READER_PROPERTY_ID.ahk" { WS_XML_READER_PROPERTY_ID }
-#Import ".\WS_URL.ahk" { WS_URL }
-#Import ".\WS_MESSAGE_INITIALIZATION.ahk" { WS_MESSAGE_INITIALIZATION }
-#Import ".\WS_ERROR_PROPERTY.ahk" { WS_ERROR_PROPERTY }
-#Import ".\WS_ENCODING.ahk" { WS_ENCODING }
-#Import ".\WS_CHANNEL_PROPERTY.ahk" { WS_CHANNEL_PROPERTY }
-#Import ".\WS_OPERATION_DESCRIPTION.ahk" { WS_OPERATION_DESCRIPTION }
-#Import ".\WS_HEADER_TYPE.ahk" { WS_HEADER_TYPE }
-#Import ".\WS_XML_WRITER_PROPERTY_ID.ahk" { WS_XML_WRITER_PROPERTY_ID }
-#Import ".\WS_SERVICE_PROPERTY_ID.ahk" { WS_SERVICE_PROPERTY_ID }
-#Import ".\WS_WRITE_OPTION.ahk" { WS_WRITE_OPTION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
-#Import ".\WS_SERVICE_ENDPOINT.ahk" { WS_SERVICE_ENDPOINT }
-#Import ".\WS_READ_OPTION.ahk" { WS_READ_OPTION }
-#Import ".\WS_XML_TEXT.ahk" { WS_XML_TEXT }
-#Import ".\WS_XML_READER_PROPERTY.ahk" { WS_XML_READER_PROPERTY }
-#Import ".\WS_PROXY_PROPERTY_ID.ahk" { WS_PROXY_PROPERTY_ID }
-#Import ".\WS_XML_READER_INPUT.ahk" { WS_XML_READER_INPUT }
-#Import ".\WS_ENDPOINT_ADDRESS_EXTENSION_TYPE.ahk" { WS_ENDPOINT_ADDRESS_EXTENSION_TYPE }
-#Import ".\WS_CHANNEL.ahk" { WS_CHANNEL }
-#Import ".\WS_REPEATING_HEADER_OPTION.ahk" { WS_REPEATING_HEADER_OPTION }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WS_METADATA_PROPERTY_ID.ahk" { WS_METADATA_PROPERTY_ID }
-#Import ".\WS_XML_WRITER_PROPERTY.ahk" { WS_XML_WRITER_PROPERTY }
-#Import ".\WS_OPERATION_CONTEXT.ahk" { WS_OPERATION_CONTEXT }
-#Import ".\WS_CALLBACK_MODEL.ahk" { WS_CALLBACK_MODEL }
-#Import ".\WS_REQUEST_SECURITY_TOKEN_PROPERTY.ahk" { WS_REQUEST_SECURITY_TOKEN_PROPERTY }
-#Import ".\WS_ENVELOPE_VERSION.ahk" { WS_ENVELOPE_VERSION }
 #Import ".\WS_FAULT_DETAIL_DESCRIPTION.ahk" { WS_FAULT_DETAIL_DESCRIPTION }
-#Import ".\WS_ENDPOINT_ADDRESS.ahk" { WS_ENDPOINT_ADDRESS }
-#Import ".\WS_XML_READER_ENCODING.ahk" { WS_XML_READER_ENCODING }
-#Import ".\WS_SERVICE_ENDPOINT_PROPERTY.ahk" { WS_SERVICE_ENDPOINT_PROPERTY }
-#Import ".\WS_LISTENER_PROPERTY.ahk" { WS_LISTENER_PROPERTY }
-#Import ".\WS_XML_NODE.ahk" { WS_XML_NODE }
+#Import ".\WS_CHANNEL_PROPERTY_ID.ahk" { WS_CHANNEL_PROPERTY_ID }
+#Import ".\WS_CHANNEL.ahk" { WS_CHANNEL }
+#Import ".\WS_OPERATION_CONTEXT_PROPERTY_ID.ahk" { WS_OPERATION_CONTEXT_PROPERTY_ID }
+#Import ".\WS_POLICY_CONSTRAINTS.ahk" { WS_POLICY_CONSTRAINTS }
+#Import ".\WS_XML_TEXT.ahk" { WS_XML_TEXT }
+#Import ".\WS_REPEATING_HEADER_OPTION.ahk" { WS_REPEATING_HEADER_OPTION }
+#Import ".\WS_PUSH_BYTES_CALLBACK.ahk" { WS_PUSH_BYTES_CALLBACK }
+#Import ".\WS_METADATA_PROPERTY_ID.ahk" { WS_METADATA_PROPERTY_ID }
+#Import ".\WS_MESSAGE_INITIALIZATION.ahk" { WS_MESSAGE_INITIALIZATION }
+#Import ".\WS_REQUEST_SECURITY_TOKEN_PROPERTY.ahk" { WS_REQUEST_SECURITY_TOKEN_PROPERTY }
+#Import ".\WS_METADATA.ahk" { WS_METADATA }
+#Import ".\WS_METADATA_ENDPOINTS.ahk" { WS_METADATA_ENDPOINTS }
+#Import ".\WS_SECURITY_CONTEXT.ahk" { WS_SECURITY_CONTEXT }
+#Import ".\WS_ENVELOPE_VERSION.ahk" { WS_ENVELOPE_VERSION }
+#Import ".\WS_XML_READER.ahk" { WS_XML_READER }
 #Import ".\WS_HEAP_PROPERTY_ID.ahk" { WS_HEAP_PROPERTY_ID }
-#Import ".\WS_CHANNEL_TYPE.ahk" { WS_CHANNEL_TYPE }
+#Import ".\WS_ENDPOINT_ADDRESS_EXTENSION_TYPE.ahk" { WS_ENDPOINT_ADDRESS_EXTENSION_TYPE }
+#Import ".\WS_SERVICE_PROPERTY.ahk" { WS_SERVICE_PROPERTY }
+#Import ".\WS_POLICY_PROPERTY_ID.ahk" { WS_POLICY_PROPERTY_ID }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
+#Import ".\WS_XML_NODE_POSITION.ahk" { WS_XML_NODE_POSITION }
+#Import ".\WS_HEAP.ahk" { WS_HEAP }
+#Import ".\WS_MESSAGE_DESCRIPTION.ahk" { WS_MESSAGE_DESCRIPTION }
+#Import ".\WS_XML_WRITER.ahk" { WS_XML_WRITER }
+#Import ".\WS_FAULT_ERROR_PROPERTY_ID.ahk" { WS_FAULT_ERROR_PROPERTY_ID }
+#Import ".\WS_SERVICE_PROXY.ahk" { WS_SERVICE_PROXY }
+#Import ".\WS_SERVICE_ENDPOINT.ahk" { WS_SERVICE_ENDPOINT }
+#Import ".\WS_OPERATION_CANCEL_CALLBACK.ahk" { WS_OPERATION_CANCEL_CALLBACK }
+#Import ".\WS_OPERATION_FREE_STATE_CALLBACK.ahk" { WS_OPERATION_FREE_STATE_CALLBACK }
+#Import ".\WS_ERROR_PROPERTY_ID.ahk" { WS_ERROR_PROPERTY_ID }
+#Import ".\WS_CALLBACK_MODEL.ahk" { WS_CALLBACK_MODEL }
+#Import ".\WS_BINDING_TEMPLATE_TYPE.ahk" { WS_BINDING_TEMPLATE_TYPE }
+#Import ".\WS_PROXY_PROPERTY.ahk" { WS_PROXY_PROPERTY }
+#Import ".\WS_HEAP_PROPERTY.ahk" { WS_HEAP_PROPERTY }
+#Import ".\WS_LISTENER_PROPERTY.ahk" { WS_LISTENER_PROPERTY }
+#Import ".\WS_XML_CANONICALIZATION_PROPERTY.ahk" { WS_XML_CANONICALIZATION_PROPERTY }
+#Import ".\WS_XML_READER_ENCODING.ahk" { WS_XML_READER_ENCODING }
+#Import ".\WS_XML_READER_PROPERTY.ahk" { WS_XML_READER_PROPERTY }
+#Import ".\WS_PULL_BYTES_CALLBACK.ahk" { WS_PULL_BYTES_CALLBACK }
+#Import ".\WS_FAULT_DISCLOSURE.ahk" { WS_FAULT_DISCLOSURE }
+#Import ".\WS_HEADER_TYPE.ahk" { WS_HEADER_TYPE }
+#Import ".\WS_WRITE_CALLBACK.ahk" { WS_WRITE_CALLBACK }
+#Import ".\WS_ENDPOINT_ADDRESS.ahk" { WS_ENDPOINT_ADDRESS }
+#Import ".\WS_SECURITY_KEY_HANDLE.ahk" { WS_SECURITY_KEY_HANDLE }
+#Import ".\WS_TYPE.ahk" { WS_TYPE }
+#Import ".\WS_SERVICE_CONTRACT.ahk" { WS_SERVICE_CONTRACT }
+#Import ".\WS_LISTENER_PROPERTY_ID.ahk" { WS_LISTENER_PROPERTY_ID }
+#Import ".\WS_OPERATION_DESCRIPTION.ahk" { WS_OPERATION_DESCRIPTION }
+#Import ".\WS_MESSAGE.ahk" { WS_MESSAGE }
+#Import ".\WS_ELEMENT_DESCRIPTION.ahk" { WS_ELEMENT_DESCRIPTION }
+#Import ".\WS_XML_WRITER_ENCODING.ahk" { WS_XML_WRITER_ENCODING }
+#Import ".\WS_FAULT.ahk" { WS_FAULT }
+#Import ".\WS_SERVICE_HOST.ahk" { WS_SERVICE_HOST }
+#Import ".\WS_MOVE_TO.ahk" { WS_MOVE_TO }
+#Import ".\WS_ERROR_PROPERTY.ahk" { WS_ERROR_PROPERTY }
+#Import ".\WS_XML_DICTIONARY.ahk" { WS_XML_DICTIONARY }
+#Import ".\WS_DATETIME.ahk" { WS_DATETIME }
+#Import ".\WS_XML_WRITER_PROPERTY_ID.ahk" { WS_XML_WRITER_PROPERTY_ID }
+#Import ".\WS_XML_READER_INPUT.ahk" { WS_XML_READER_INPUT }
+#Import ".\WS_SECURITY_TOKEN_PROPERTY_ID.ahk" { WS_SECURITY_TOKEN_PROPERTY_ID }
+#Import ".\WS_XML_NODE.ahk" { WS_XML_NODE }
+#Import ".\WS_ASYNC_STATE.ahk" { WS_ASYNC_STATE }
+#Import ".\WS_RECEIVE_OPTION.ahk" { WS_RECEIVE_OPTION }
+#Import ".\WS_READ_OPTION.ahk" { WS_READ_OPTION }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WS_VALUE_TYPE.ahk" { WS_VALUE_TYPE }
+#Import ".\WS_ADDRESSING_VERSION.ahk" { WS_ADDRESSING_VERSION }
+#Import ".\WS_URL.ahk" { WS_URL }
+#Import ".\WS_METADATA_PROPERTY.ahk" { WS_METADATA_PROPERTY }
+#Import ".\WS_MESSAGE_DONE_CALLBACK.ahk" { WS_MESSAGE_DONE_CALLBACK }
+#Import ".\WS_PROXY_PROPERTY_ID.ahk" { WS_PROXY_PROPERTY_ID }
+#Import ".\WS_ENCODING.ahk" { WS_ENCODING }
+#Import ".\WS_WRITE_OPTION.ahk" { WS_WRITE_OPTION }
+#Import ".\WS_XML_BUFFER_PROPERTY.ahk" { WS_XML_BUFFER_PROPERTY }
+#Import ".\WS_XML_WRITER_PROPERTY.ahk" { WS_XML_WRITER_PROPERTY }
+#Import ".\WS_ASYNC_FUNCTION.ahk" { WS_ASYNC_FUNCTION }
 #Import ".\WS_CHANNEL_BINDING.ahk" { WS_CHANNEL_BINDING }
+#Import ".\WS_MESSAGE_PROPERTY_ID.ahk" { WS_MESSAGE_PROPERTY_ID }
+#Import ".\WS_ASYNC_CONTEXT.ahk" { WS_ASYNC_CONTEXT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_XML_READER_PROPERTY_ID.ahk" { WS_XML_READER_PROPERTY_ID }
+#Import ".\WS_LISTENER.ahk" { WS_LISTENER }
+#Import ".\WS_SECURITY_TOKEN.ahk" { WS_SECURITY_TOKEN }
+#Import ".\WS_XML_SECURITY_TOKEN_PROPERTY.ahk" { WS_XML_SECURITY_TOKEN_PROPERTY }
+#Import ".\WS_TYPE_MAPPING.ahk" { WS_TYPE_MAPPING }
+#Import ".\WS_SECURITY_CONTEXT_PROPERTY_ID.ahk" { WS_SECURITY_CONTEXT_PROPERTY_ID }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\WS_SECURITY_DESCRIPTION.ahk" { WS_SECURITY_DESCRIPTION }
+#Import ".\WS_SERVICE_SECURITY_CALLBACK.ahk" { WS_SERVICE_SECURITY_CALLBACK }
+#Import ".\WS_CALL_PROPERTY.ahk" { WS_CALL_PROPERTY }
+#Import ".\WS_CHANNEL_TYPE.ahk" { WS_CHANNEL_TYPE }
+#Import ".\WS_XML_WRITER_OUTPUT.ahk" { WS_XML_WRITER_OUTPUT }
+#Import ".\WS_OPERATION_CONTEXT.ahk" { WS_OPERATION_CONTEXT }
+#Import ".\WS_ERROR.ahk" { WS_ERROR }
+#Import ".\WS_MESSAGE_PROPERTY.ahk" { WS_MESSAGE_PROPERTY }
+#Import ".\WS_ATTRIBUTE_DESCRIPTION.ahk" { WS_ATTRIBUTE_DESCRIPTION }
+#Import ".\WS_STRING.ahk" { WS_STRING }
+#Import ".\WS_CHANNEL_PROPERTY.ahk" { WS_CHANNEL_PROPERTY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WS_POLICY.ahk" { WS_POLICY }
+#Import ".\WS_SERVICE_ENDPOINT_PROPERTY.ahk" { WS_SERVICE_ENDPOINT_PROPERTY }
+#Import ".\WS_SERVICE_PROPERTY_ID.ahk" { WS_SERVICE_PROPERTY_ID }
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -173,7 +181,7 @@ export WsStartReaderCanonicalization(reader, writeCallback, writeCallbackState, 
     writeCallbackStateMarshal := writeCallbackState is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsStartReaderCanonicalization", readerMarshal, reader, "ptr", writeCallback, writeCallbackStateMarshal, writeCallbackState, WS_XML_CANONICALIZATION_PROPERTY.Ptr, _properties, "uint", propertyCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsStartReaderCanonicalization", readerMarshal, reader, WS_WRITE_CALLBACK, writeCallback, writeCallbackStateMarshal, writeCallbackState, WS_XML_CANONICALIZATION_PROPERTY.Ptr, _properties, UInt32, propertyCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -310,7 +318,7 @@ export WsStartWriterCanonicalization(writer, writeCallback, writeCallbackState, 
     writeCallbackStateMarshal := writeCallbackState is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsStartWriterCanonicalization", writerMarshal, writer, "ptr", writeCallback, writeCallbackStateMarshal, writeCallbackState, WS_XML_CANONICALIZATION_PROPERTY.Ptr, _properties, "uint", propertyCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsStartWriterCanonicalization", writerMarshal, writer, WS_WRITE_CALLBACK, writeCallback, writeCallbackStateMarshal, writeCallbackState, WS_XML_CANONICALIZATION_PROPERTY.Ptr, _properties, UInt32, propertyCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -384,7 +392,7 @@ export WsCreateXmlBuffer(heap, _properties, propertyCount, _error) {
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateXmlBuffer", heapMarshal, heap, WS_XML_BUFFER_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &_buffer := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateXmlBuffer", heapMarshal, heap, WS_XML_BUFFER_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &_buffer := 0, _errorMarshal, _error, "HRESULT")
     return _buffer
 }
 
@@ -456,7 +464,7 @@ export WsRemoveNode(nodePosition, _error) {
 export WsCreateReader(_properties, propertyCount, _error) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateReader", WS_XML_READER_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &reader := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateReader", WS_XML_READER_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &reader := 0, _errorMarshal, _error, "HRESULT")
     return reader
 }
 
@@ -489,7 +497,7 @@ export WsSetInput(reader, encoding, _input, _properties, propertyCount, _error) 
     readerMarshal := reader is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetInput", readerMarshal, reader, WS_XML_READER_ENCODING.Ptr, encoding, WS_XML_READER_INPUT.Ptr, _input, WS_XML_READER_PROPERTY.Ptr, _properties, "uint", propertyCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSetInput", readerMarshal, reader, WS_XML_READER_ENCODING.Ptr, encoding, WS_XML_READER_INPUT.Ptr, _input, WS_XML_READER_PROPERTY.Ptr, _properties, UInt32, propertyCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -513,7 +521,7 @@ export WsSetInputToBuffer(reader, _buffer, _properties, propertyCount, _error) {
     _bufferMarshal := _buffer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetInputToBuffer", readerMarshal, reader, _bufferMarshal, _buffer, WS_XML_READER_PROPERTY.Ptr, _properties, "uint", propertyCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSetInputToBuffer", readerMarshal, reader, _bufferMarshal, _buffer, WS_XML_READER_PROPERTY.Ptr, _properties, UInt32, propertyCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -565,7 +573,7 @@ export WsGetReaderProperty(reader, id, value, valueSize, _error) {
     readerMarshal := reader is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetReaderProperty", readerMarshal, reader, WS_XML_READER_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetReaderProperty", readerMarshal, reader, WS_XML_READER_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -661,7 +669,7 @@ export WsFillReader(reader, minSize, asyncContext, _error) {
     readerMarshal := reader is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsFillReader", readerMarshal, reader, "uint", minSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsFillReader", readerMarshal, reader, UInt32, minSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -836,7 +844,7 @@ export WsReadStartAttribute(reader, attributeIndex, _error) {
     readerMarshal := reader is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadStartAttribute", readerMarshal, reader, "uint", attributeIndex, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadStartAttribute", readerMarshal, reader, UInt32, attributeIndex, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -1178,7 +1186,7 @@ export WsReadValue(reader, valueType, value, valueSize, _error) {
     readerMarshal := reader is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadValue", readerMarshal, reader, WS_VALUE_TYPE, valueType, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadValue", readerMarshal, reader, WS_VALUE_TYPE, valueType, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -1206,7 +1214,7 @@ export WsReadChars(reader, chars, maxCharCount, _error) {
     readerMarshal := reader is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadChars", readerMarshal, reader, "ptr", chars, "uint", maxCharCount, "uint*", &actualCharCount := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadChars", readerMarshal, reader, "ptr", chars, UInt32, maxCharCount, "uint*", &actualCharCount := 0, _errorMarshal, _error, "HRESULT")
     return actualCharCount
 }
 
@@ -1264,7 +1272,7 @@ export WsReadCharsUtf8(reader, bytes, maxByteCount, actualByteCount, _error) {
     actualByteCountMarshal := actualByteCount is VarRef ? "uint*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadCharsUtf8", readerMarshal, reader, bytesMarshal, bytes, "uint", maxByteCount, actualByteCountMarshal, actualByteCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadCharsUtf8", readerMarshal, reader, bytesMarshal, bytes, UInt32, maxByteCount, actualByteCountMarshal, actualByteCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -1290,7 +1298,7 @@ export WsReadBytes(reader, bytes, maxByteCount, _error) {
     readerMarshal := reader is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadBytes", readerMarshal, reader, "ptr", bytes, "uint", maxByteCount, "uint*", &actualByteCount := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadBytes", readerMarshal, reader, IntPtr, bytes, UInt32, maxByteCount, "uint*", &actualByteCount := 0, _errorMarshal, _error, "HRESULT")
     return actualByteCount
 }
 
@@ -1321,7 +1329,7 @@ export WsReadArray(reader, localName, ns, valueType, _array, arraySize, itemOffs
     readerMarshal := reader is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadArray", readerMarshal, reader, WS_XML_STRING.Ptr, localName, WS_XML_STRING.Ptr, ns, WS_VALUE_TYPE, valueType, "ptr", _array, "uint", arraySize, "uint", itemOffset, "uint", itemCount, "uint*", &actualItemCount := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadArray", readerMarshal, reader, WS_XML_STRING.Ptr, localName, WS_XML_STRING.Ptr, ns, WS_VALUE_TYPE, valueType, IntPtr, _array, UInt32, arraySize, UInt32, itemOffset, UInt32, itemCount, "uint*", &actualItemCount := 0, _errorMarshal, _error, "HRESULT")
     return actualItemCount
 }
 
@@ -1472,7 +1480,7 @@ export WsMoveReader(reader, moveTo, _error) {
 export WsCreateWriter(_properties, propertyCount, _error) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateWriter", WS_XML_WRITER_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &writer := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateWriter", WS_XML_WRITER_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &writer := 0, _errorMarshal, _error, "HRESULT")
     return writer
 }
 
@@ -1553,7 +1561,7 @@ export WsSetOutput(writer, encoding, output, _properties, propertyCount, _error)
     writerMarshal := writer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetOutput", writerMarshal, writer, WS_XML_WRITER_ENCODING.Ptr, encoding, WS_XML_WRITER_OUTPUT.Ptr, output, WS_XML_WRITER_PROPERTY.Ptr, _properties, "uint", propertyCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSetOutput", writerMarshal, writer, WS_XML_WRITER_ENCODING.Ptr, encoding, WS_XML_WRITER_OUTPUT.Ptr, output, WS_XML_WRITER_PROPERTY.Ptr, _properties, UInt32, propertyCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -1593,7 +1601,7 @@ export WsSetOutputToBuffer(writer, _buffer, _properties, propertyCount, _error) 
     _bufferMarshal := _buffer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetOutputToBuffer", writerMarshal, writer, _bufferMarshal, _buffer, WS_XML_WRITER_PROPERTY.Ptr, _properties, "uint", propertyCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSetOutputToBuffer", writerMarshal, writer, _bufferMarshal, _buffer, WS_XML_WRITER_PROPERTY.Ptr, _properties, UInt32, propertyCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -1632,7 +1640,7 @@ export WsGetWriterProperty(writer, id, value, valueSize, _error) {
     writerMarshal := writer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetWriterProperty", writerMarshal, writer, WS_XML_WRITER_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetWriterProperty", writerMarshal, writer, WS_XML_WRITER_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -1707,7 +1715,7 @@ export WsFlushWriter(writer, minSize, asyncContext, _error) {
     writerMarshal := writer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsFlushWriter", writerMarshal, writer, "uint", minSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsFlushWriter", writerMarshal, writer, UInt32, minSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -2150,7 +2158,7 @@ export WsWriteValue(writer, valueType, value, valueSize, _error) {
     writerMarshal := writer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteValue", writerMarshal, writer, WS_VALUE_TYPE, valueType, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteValue", writerMarshal, writer, WS_VALUE_TYPE, valueType, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -2313,7 +2321,7 @@ export WsWriteXmlBufferToBytes(writer, xmlBuffer, encoding, _properties, propert
     byteCountMarshal := byteCount is VarRef ? "uint*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteXmlBufferToBytes", writerMarshal, writer, xmlBufferMarshal, xmlBuffer, WS_XML_WRITER_ENCODING.Ptr, encoding, WS_XML_WRITER_PROPERTY.Ptr, _properties, "uint", propertyCount, heapMarshal, heap, bytesMarshal, bytes, byteCountMarshal, byteCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteXmlBufferToBytes", writerMarshal, writer, xmlBufferMarshal, xmlBuffer, WS_XML_WRITER_ENCODING.Ptr, encoding, WS_XML_WRITER_PROPERTY.Ptr, _properties, UInt32, propertyCount, heapMarshal, heap, bytesMarshal, bytes, byteCountMarshal, byteCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -2343,7 +2351,7 @@ export WsReadXmlBufferFromBytes(reader, encoding, _properties, propertyCount, by
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadXmlBufferFromBytes", readerMarshal, reader, WS_XML_READER_ENCODING.Ptr, encoding, WS_XML_READER_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr", bytes, "uint", byteCount, heapMarshal, heap, "ptr*", &xmlBuffer := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadXmlBufferFromBytes", readerMarshal, reader, WS_XML_READER_ENCODING.Ptr, encoding, WS_XML_READER_PROPERTY.Ptr, _properties, UInt32, propertyCount, IntPtr, bytes, UInt32, byteCount, heapMarshal, heap, "ptr*", &xmlBuffer := 0, _errorMarshal, _error, "HRESULT")
     return xmlBuffer
 }
 
@@ -2372,7 +2380,7 @@ export WsWriteArray(writer, localName, ns, valueType, _array, arraySize, itemOff
     writerMarshal := writer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteArray", writerMarshal, writer, WS_XML_STRING.Ptr, localName, WS_XML_STRING.Ptr, ns, WS_VALUE_TYPE, valueType, "ptr", _array, "uint", arraySize, "uint", itemOffset, "uint", itemCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteArray", writerMarshal, writer, WS_XML_STRING.Ptr, localName, WS_XML_STRING.Ptr, ns, WS_VALUE_TYPE, valueType, IntPtr, _array, UInt32, arraySize, UInt32, itemOffset, UInt32, itemCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -2485,7 +2493,7 @@ export WsWriteChars(writer, chars, charCount, _error) {
     writerMarshal := writer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteChars", writerMarshal, writer, "ptr", chars, "uint", charCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteChars", writerMarshal, writer, "ptr", chars, UInt32, charCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -2535,7 +2543,7 @@ export WsWriteCharsUtf8(writer, bytes, byteCount, _error) {
     bytesMarshal := bytes is VarRef ? "char*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteCharsUtf8", writerMarshal, writer, bytesMarshal, bytes, "uint", byteCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteCharsUtf8", writerMarshal, writer, bytesMarshal, bytes, UInt32, byteCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -2607,7 +2615,7 @@ export WsWriteBytes(writer, bytes, byteCount, _error) {
     writerMarshal := writer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteBytes", writerMarshal, writer, "ptr", bytes, "uint", byteCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteBytes", writerMarshal, writer, IntPtr, bytes, UInt32, byteCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -2663,7 +2671,7 @@ export WsPushBytes(writer, callback, callbackState, _error) {
     callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsPushBytes", writerMarshal, writer, "ptr", callback, callbackStateMarshal, callbackState, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsPushBytes", writerMarshal, writer, WS_PUSH_BYTES_CALLBACK, callback, callbackStateMarshal, callbackState, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -2729,7 +2737,7 @@ export WsPullBytes(writer, callback, callbackState, _error) {
     callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsPullBytes", writerMarshal, writer, "ptr", callback, callbackStateMarshal, callbackState, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsPullBytes", writerMarshal, writer, WS_PULL_BYTES_CALLBACK, callback, callbackStateMarshal, callbackState, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -3176,7 +3184,7 @@ export WsTrimXmlWhitespace(chars, charCount, trimmedChars, trimmedCount, _error)
     trimmedCountMarshal := trimmedCount is VarRef ? "uint*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsTrimXmlWhitespace", "ptr", chars, "uint", charCount, trimmedCharsMarshal, trimmedChars, trimmedCountMarshal, trimmedCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsTrimXmlWhitespace", "ptr", chars, UInt32, charCount, trimmedCharsMarshal, trimmedChars, trimmedCountMarshal, trimmedCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -3212,7 +3220,7 @@ export WsVerifyXmlNCName(ncNameChars, ncNameCharCount, _error) {
 
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsVerifyXmlNCName", "ptr", ncNameChars, "uint", ncNameCharCount, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsVerifyXmlNCName", "ptr", ncNameChars, UInt32, ncNameCharCount, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -3502,7 +3510,7 @@ export WsAsyncExecute(asyncState, operation, callbackModel, callbackState, async
     callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsAsyncExecute", WS_ASYNC_STATE.Ptr, asyncState, "ptr", operation, WS_CALLBACK_MODEL, callbackModel, callbackStateMarshal, callbackState, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsAsyncExecute", WS_ASYNC_STATE.Ptr, asyncState, WS_ASYNC_FUNCTION, operation, WS_CALLBACK_MODEL, callbackModel, callbackStateMarshal, callbackState, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -3544,7 +3552,7 @@ export WsAsyncExecute(asyncState, operation, callbackModel, callbackState, async
 export WsCreateChannel(_channelType, channelBinding, _properties, propertyCount, securityDescription, _error) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateChannel", WS_CHANNEL_TYPE, _channelType, WS_CHANNEL_BINDING, channelBinding, WS_CHANNEL_PROPERTY.Ptr, _properties, "uint", propertyCount, WS_SECURITY_DESCRIPTION.Ptr, securityDescription, "ptr*", &channel := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateChannel", WS_CHANNEL_TYPE, _channelType, WS_CHANNEL_BINDING, channelBinding, WS_CHANNEL_PROPERTY.Ptr, _properties, UInt32, propertyCount, WS_SECURITY_DESCRIPTION.Ptr, securityDescription, "ptr*", &channel := 0, _errorMarshal, _error, "HRESULT")
     return channel
 }
 
@@ -4340,7 +4348,7 @@ export WsSendMessage(channel, message, messageDescription, writeOption, bodyValu
     messageMarshal := message is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSendMessage", channelMarshal, channel, messageMarshal, message, WS_MESSAGE_DESCRIPTION.Ptr, messageDescription, WS_WRITE_OPTION, writeOption, "ptr", bodyValue, "uint", bodyValueSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSendMessage", channelMarshal, channel, messageMarshal, message, WS_MESSAGE_DESCRIPTION.Ptr, messageDescription, WS_WRITE_OPTION, writeOption, IntPtr, bodyValue, UInt32, bodyValueSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -4426,7 +4434,7 @@ export WsReceiveMessage(channel, message, messageDescriptions, messageDescriptio
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReceiveMessage", channelMarshal, channel, messageMarshal, message, messageDescriptionsMarshal, messageDescriptions, "uint", messageDescriptionCount, WS_RECEIVE_OPTION, receiveOption, WS_READ_OPTION, readBodyOption, heapMarshal, heap, "ptr", value, "uint", valueSize, "uint*", &index := 0, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReceiveMessage", channelMarshal, channel, messageMarshal, message, messageDescriptionsMarshal, messageDescriptions, UInt32, messageDescriptionCount, WS_RECEIVE_OPTION, receiveOption, WS_READ_OPTION, readBodyOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, "uint*", &index := 0, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return index
 }
 
@@ -4900,7 +4908,7 @@ export WsRequestReply(channel, requestMessage, requestMessageDescription, writeO
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsRequestReply", channelMarshal, channel, requestMessageMarshal, requestMessage, WS_MESSAGE_DESCRIPTION.Ptr, requestMessageDescription, WS_WRITE_OPTION, writeOption, "ptr", requestBodyValue, "uint", requestBodyValueSize, replyMessageMarshal, replyMessage, WS_MESSAGE_DESCRIPTION.Ptr, replyMessageDescription, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsRequestReply", channelMarshal, channel, requestMessageMarshal, requestMessage, WS_MESSAGE_DESCRIPTION.Ptr, requestMessageDescription, WS_WRITE_OPTION, writeOption, IntPtr, requestBodyValue, UInt32, requestBodyValueSize, replyMessageMarshal, replyMessage, WS_MESSAGE_DESCRIPTION.Ptr, replyMessageDescription, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -5095,7 +5103,7 @@ export WsSendReplyMessage(channel, replyMessage, replyMessageDescription, writeO
     requestMessageMarshal := requestMessage is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSendReplyMessage", channelMarshal, channel, replyMessageMarshal, replyMessage, WS_MESSAGE_DESCRIPTION.Ptr, replyMessageDescription, WS_WRITE_OPTION, writeOption, "ptr", replyBodyValue, "uint", replyBodyValueSize, requestMessageMarshal, requestMessage, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSendReplyMessage", channelMarshal, channel, replyMessageMarshal, replyMessage, WS_MESSAGE_DESCRIPTION.Ptr, replyMessageDescription, WS_WRITE_OPTION, writeOption, IntPtr, replyBodyValue, UInt32, replyBodyValueSize, requestMessageMarshal, requestMessage, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -5376,7 +5384,7 @@ export WsGetChannelProperty(channel, id, value, valueSize, _error) {
     channelMarshal := channel is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetChannelProperty", channelMarshal, channel, WS_CHANNEL_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetChannelProperty", channelMarshal, channel, WS_CHANNEL_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -5439,7 +5447,7 @@ export WsSetChannelProperty(channel, id, value, valueSize, _error) {
     channelMarshal := channel is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetChannelProperty", channelMarshal, channel, WS_CHANNEL_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSetChannelProperty", channelMarshal, channel, WS_CHANNEL_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -7659,7 +7667,7 @@ export WsGetOperationContextProperty(_context, id, value, valueSize, _error) {
     _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetOperationContextProperty", _contextMarshal, _context, WS_OPERATION_CONTEXT_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetOperationContextProperty", _contextMarshal, _context, WS_OPERATION_CONTEXT_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -7776,7 +7784,7 @@ export WsReadEndpointAddressExtension(reader, _endpointAddress, extensionType, r
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadEndpointAddressExtension", readerMarshal, reader, WS_ENDPOINT_ADDRESS.Ptr, _endpointAddress, WS_ENDPOINT_ADDRESS_EXTENSION_TYPE, extensionType, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadEndpointAddressExtension", readerMarshal, reader, WS_ENDPOINT_ADDRESS.Ptr, _endpointAddress, WS_ENDPOINT_ADDRESS_EXTENSION_TYPE, extensionType, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -7797,7 +7805,7 @@ export WsReadEndpointAddressExtension(reader, _endpointAddress, extensionType, r
  * @since windows6.1
  */
 export WsCreateError(_properties, propertyCount) {
-    result := DllCall("webservices.dll\WsCreateError", WS_ERROR_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &_error := 0, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateError", WS_ERROR_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &_error := 0, "HRESULT")
     return _error
 }
 
@@ -7914,7 +7922,7 @@ export WsAddErrorString(_error, _string) {
 export WsGetErrorString(_error, index, _string) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetErrorString", _errorMarshal, _error, "uint", index, WS_STRING.Ptr, _string, "HRESULT")
+    result := DllCall("webservices.dll\WsGetErrorString", _errorMarshal, _error, UInt32, index, WS_STRING.Ptr, _string, "HRESULT")
     return result
 }
 
@@ -8040,7 +8048,7 @@ export WsCopyError(source, destination) {
 export WsGetErrorProperty(_error, id, _buffer, bufferSize) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetErrorProperty", _errorMarshal, _error, WS_ERROR_PROPERTY_ID, id, "ptr", _buffer, "uint", bufferSize, "HRESULT")
+    result := DllCall("webservices.dll\WsGetErrorProperty", _errorMarshal, _error, WS_ERROR_PROPERTY_ID, id, IntPtr, _buffer, UInt32, bufferSize, "HRESULT")
     return result
 }
 
@@ -8101,7 +8109,7 @@ export WsGetErrorProperty(_error, id, _buffer, bufferSize) {
 export WsSetErrorProperty(_error, id, value, valueSize) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetErrorProperty", _errorMarshal, _error, WS_ERROR_PROPERTY_ID, id, "ptr", value, "uint", valueSize, "HRESULT")
+    result := DllCall("webservices.dll\WsSetErrorProperty", _errorMarshal, _error, WS_ERROR_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, "HRESULT")
     return result
 }
 
@@ -8205,7 +8213,7 @@ export WsFreeError(_error) {
 export WsGetFaultErrorProperty(_error, id, _buffer, bufferSize) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetFaultErrorProperty", _errorMarshal, _error, WS_FAULT_ERROR_PROPERTY_ID, id, "ptr", _buffer, "uint", bufferSize, "HRESULT")
+    result := DllCall("webservices.dll\WsGetFaultErrorProperty", _errorMarshal, _error, WS_FAULT_ERROR_PROPERTY_ID, id, IntPtr, _buffer, UInt32, bufferSize, "HRESULT")
     return result
 }
 
@@ -8266,7 +8274,7 @@ export WsGetFaultErrorProperty(_error, id, _buffer, bufferSize) {
 export WsSetFaultErrorProperty(_error, id, value, valueSize) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetFaultErrorProperty", _errorMarshal, _error, WS_FAULT_ERROR_PROPERTY_ID, id, "ptr", value, "uint", valueSize, "HRESULT")
+    result := DllCall("webservices.dll\WsSetFaultErrorProperty", _errorMarshal, _error, WS_FAULT_ERROR_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, "HRESULT")
     return result
 }
 
@@ -8447,7 +8455,7 @@ export WsCreateFaultFromError(_error, faultErrorCode, faultDisclosure, heap, fau
 export WsSetFaultErrorDetail(_error, faultDetailDescription, writeOption, value, valueSize) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetFaultErrorDetail", _errorMarshal, _error, WS_FAULT_DETAIL_DESCRIPTION.Ptr, faultDetailDescription, WS_WRITE_OPTION, writeOption, "ptr", value, "uint", valueSize, "HRESULT")
+    result := DllCall("webservices.dll\WsSetFaultErrorDetail", _errorMarshal, _error, WS_FAULT_DETAIL_DESCRIPTION.Ptr, faultDetailDescription, WS_WRITE_OPTION, writeOption, IntPtr, value, UInt32, valueSize, "HRESULT")
     return result
 }
 
@@ -8566,7 +8574,7 @@ export WsGetFaultErrorDetail(_error, faultDetailDescription, readOption, heap, v
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetFaultErrorDetail", _errorMarshal, _error, WS_FAULT_DETAIL_DESCRIPTION.Ptr, faultDetailDescription, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, "HRESULT")
+    result := DllCall("webservices.dll\WsGetFaultErrorDetail", _errorMarshal, _error, WS_FAULT_DETAIL_DESCRIPTION.Ptr, faultDetailDescription, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, "HRESULT")
     return result
 }
 
@@ -8595,7 +8603,7 @@ export WsGetFaultErrorDetail(_error, faultDetailDescription, readOption, heap, v
 export WsCreateHeap(maxSize, trimSize, _properties, propertyCount, _error) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateHeap", "ptr", maxSize, "ptr", trimSize, WS_HEAP_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &heap := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateHeap", IntPtr, maxSize, IntPtr, trimSize, WS_HEAP_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &heap := 0, _errorMarshal, _error, "HRESULT")
     return heap
 }
 
@@ -8622,7 +8630,7 @@ export WsAlloc(heap, _size, _error) {
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsAlloc", heapMarshal, heap, "ptr", _size, "ptr*", &ptr := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsAlloc", heapMarshal, heap, IntPtr, _size, "ptr*", &ptr := 0, _errorMarshal, _error, "HRESULT")
     return ptr
 }
 
@@ -8643,7 +8651,7 @@ export WsGetHeapProperty(heap, id, value, valueSize, _error) {
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetHeapProperty", heapMarshal, heap, WS_HEAP_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetHeapProperty", heapMarshal, heap, WS_HEAP_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -8720,7 +8728,7 @@ export WsFreeHeap(heap) {
 export WsCreateListener(_channelType, channelBinding, _properties, propertyCount, securityDescription, _error) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateListener", WS_CHANNEL_TYPE, _channelType, WS_CHANNEL_BINDING, channelBinding, WS_LISTENER_PROPERTY.Ptr, _properties, "uint", propertyCount, WS_SECURITY_DESCRIPTION.Ptr, securityDescription, "ptr*", &listener := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateListener", WS_CHANNEL_TYPE, _channelType, WS_CHANNEL_BINDING, channelBinding, WS_LISTENER_PROPERTY.Ptr, _properties, UInt32, propertyCount, WS_SECURITY_DESCRIPTION.Ptr, securityDescription, "ptr*", &listener := 0, _errorMarshal, _error, "HRESULT")
     return listener
 }
 
@@ -9315,7 +9323,7 @@ export WsGetListenerProperty(listener, id, value, valueSize, _error) {
     listenerMarshal := listener is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetListenerProperty", listenerMarshal, listener, WS_LISTENER_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetListenerProperty", listenerMarshal, listener, WS_LISTENER_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -9378,7 +9386,7 @@ export WsSetListenerProperty(listener, id, value, valueSize, _error) {
     listenerMarshal := listener is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetListenerProperty", listenerMarshal, listener, WS_LISTENER_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSetListenerProperty", listenerMarshal, listener, WS_LISTENER_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -9415,7 +9423,7 @@ export WsCreateChannelForListener(listener, _properties, propertyCount, _error) 
     listenerMarshal := listener is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateChannelForListener", listenerMarshal, listener, WS_CHANNEL_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &channel := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateChannelForListener", listenerMarshal, listener, WS_CHANNEL_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &channel := 0, _errorMarshal, _error, "HRESULT")
     return channel
 }
 
@@ -9444,7 +9452,7 @@ export WsCreateChannelForListener(listener, _properties, propertyCount, _error) 
 export WsCreateMessage(envelopeVersion, addressingVersion, _properties, propertyCount, _error) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateMessage", WS_ENVELOPE_VERSION, envelopeVersion, WS_ADDRESSING_VERSION, addressingVersion, WS_MESSAGE_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &message := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateMessage", WS_ENVELOPE_VERSION, envelopeVersion, WS_ADDRESSING_VERSION, addressingVersion, WS_MESSAGE_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &message := 0, _errorMarshal, _error, "HRESULT")
     return message
 }
 
@@ -9470,7 +9478,7 @@ export WsCreateMessageForChannel(channel, _properties, propertyCount, _error) {
     channelMarshal := channel is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateMessageForChannel", channelMarshal, channel, WS_MESSAGE_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &message := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateMessageForChannel", channelMarshal, channel, WS_MESSAGE_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &message := 0, _errorMarshal, _error, "HRESULT")
     return message
 }
 
@@ -9733,7 +9741,7 @@ export WsGetHeader(message, headerType, valueType, readOption, heap, value, valu
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetHeader", messageMarshal, message, WS_HEADER_TYPE, headerType, WS_TYPE, valueType, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetHeader", messageMarshal, message, WS_HEADER_TYPE, headerType, WS_TYPE, valueType, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -9779,7 +9787,7 @@ export WsGetCustomHeader(message, customHeaderDescription, repeatingOption, head
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetCustomHeader", messageMarshal, message, WS_ELEMENT_DESCRIPTION.Ptr, customHeaderDescription, WS_REPEATING_HEADER_OPTION, repeatingOption, "uint", headerIndex, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, "uint*", &headerAttributes := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetCustomHeader", messageMarshal, message, WS_ELEMENT_DESCRIPTION.Ptr, customHeaderDescription, WS_REPEATING_HEADER_OPTION, repeatingOption, UInt32, headerIndex, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, "uint*", &headerAttributes := 0, _errorMarshal, _error, "HRESULT")
     return headerAttributes
 }
 
@@ -9935,7 +9943,7 @@ export WsSetHeader(message, headerType, valueType, writeOption, value, valueSize
     messageMarshal := message is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetHeader", messageMarshal, message, WS_HEADER_TYPE, headerType, WS_TYPE, valueType, WS_WRITE_OPTION, writeOption, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSetHeader", messageMarshal, message, WS_HEADER_TYPE, headerType, WS_TYPE, valueType, WS_WRITE_OPTION, writeOption, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -10093,7 +10101,7 @@ export WsAddCustomHeader(message, headerDescription, writeOption, value, valueSi
     messageMarshal := message is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsAddCustomHeader", messageMarshal, message, WS_ELEMENT_DESCRIPTION.Ptr, headerDescription, WS_WRITE_OPTION, writeOption, "ptr", value, "uint", valueSize, "uint", headerAttributes, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsAddCustomHeader", messageMarshal, message, WS_ELEMENT_DESCRIPTION.Ptr, headerDescription, WS_WRITE_OPTION, writeOption, IntPtr, value, UInt32, valueSize, UInt32, headerAttributes, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -10173,7 +10181,7 @@ export WsAddMappedHeader(message, headerName, valueType, writeOption, value, val
     messageMarshal := message is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsAddMappedHeader", messageMarshal, message, WS_XML_STRING.Ptr, headerName, WS_TYPE, valueType, WS_WRITE_OPTION, writeOption, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsAddMappedHeader", messageMarshal, message, WS_XML_STRING.Ptr, headerName, WS_TYPE, valueType, WS_WRITE_OPTION, writeOption, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -10359,7 +10367,7 @@ export WsGetMappedHeader(message, headerName, repeatingOption, headerIndex, valu
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetMappedHeader", messageMarshal, message, WS_XML_STRING.Ptr, headerName, WS_REPEATING_HEADER_OPTION, repeatingOption, "uint", headerIndex, WS_TYPE, valueType, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetMappedHeader", messageMarshal, message, WS_XML_STRING.Ptr, headerName, WS_REPEATING_HEADER_OPTION, repeatingOption, UInt32, headerIndex, WS_TYPE, valueType, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -10455,7 +10463,7 @@ export WsWriteBody(message, bodyDescription, writeOption, value, valueSize, _err
     messageMarshal := message is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteBody", messageMarshal, message, WS_ELEMENT_DESCRIPTION.Ptr, bodyDescription, WS_WRITE_OPTION, writeOption, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteBody", messageMarshal, message, WS_ELEMENT_DESCRIPTION.Ptr, bodyDescription, WS_WRITE_OPTION, writeOption, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -10551,7 +10559,7 @@ export WsReadBody(message, bodyDescription, readOption, heap, value, valueSize, 
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadBody", messageMarshal, message, WS_ELEMENT_DESCRIPTION.Ptr, bodyDescription, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadBody", messageMarshal, message, WS_ELEMENT_DESCRIPTION.Ptr, bodyDescription, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -10638,7 +10646,7 @@ export WsWriteEnvelopeStart(message, writer, doneCallback, doneCallbackState, _e
     doneCallbackStateMarshal := doneCallbackState is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteEnvelopeStart", messageMarshal, message, writerMarshal, writer, "ptr", doneCallback, doneCallbackStateMarshal, doneCallbackState, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteEnvelopeStart", messageMarshal, message, writerMarshal, writer, WS_MESSAGE_DONE_CALLBACK, doneCallback, doneCallbackStateMarshal, doneCallbackState, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -10800,7 +10808,7 @@ export WsReadEnvelopeStart(message, reader, doneCallback, doneCallbackState, _er
     doneCallbackStateMarshal := doneCallbackState is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadEnvelopeStart", messageMarshal, message, readerMarshal, reader, "ptr", doneCallback, doneCallbackStateMarshal, doneCallbackState, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadEnvelopeStart", messageMarshal, message, readerMarshal, reader, WS_MESSAGE_DONE_CALLBACK, doneCallback, doneCallbackStateMarshal, doneCallbackState, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -10932,7 +10940,7 @@ export WsGetMessageProperty(message, id, value, valueSize, _error) {
     messageMarshal := message is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetMessageProperty", messageMarshal, message, WS_MESSAGE_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetMessageProperty", messageMarshal, message, WS_MESSAGE_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -10995,7 +11003,7 @@ export WsSetMessageProperty(message, id, value, valueSize, _error) {
     messageMarshal := message is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsSetMessageProperty", messageMarshal, message, WS_MESSAGE_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsSetMessageProperty", messageMarshal, message, WS_MESSAGE_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -11385,7 +11393,7 @@ export WsFillBody(message, minSize, asyncContext, _error) {
     messageMarshal := message is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsFillBody", messageMarshal, message, "uint", minSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsFillBody", messageMarshal, message, UInt32, minSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -11486,7 +11494,7 @@ export WsFlushBody(message, minSize, asyncContext, _error) {
     messageMarshal := message is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsFlushBody", messageMarshal, message, "uint", minSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsFlushBody", messageMarshal, message, UInt32, minSize, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -11526,7 +11534,7 @@ export WsRequestSecurityToken(channel, _properties, propertyCount, asyncContext,
     channelMarshal := channel is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsRequestSecurityToken", channelMarshal, channel, WS_REQUEST_SECURITY_TOKEN_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &token := 0, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsRequestSecurityToken", channelMarshal, channel, WS_REQUEST_SECURITY_TOKEN_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &token := 0, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return token
 }
 
@@ -11591,7 +11599,7 @@ export WsGetSecurityTokenProperty(securityToken, id, value, valueSize, heap, _er
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetSecurityTokenProperty", securityTokenMarshal, securityToken, WS_SECURITY_TOKEN_PROPERTY_ID, id, "ptr", value, "uint", valueSize, heapMarshal, heap, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetSecurityTokenProperty", securityTokenMarshal, securityToken, WS_SECURITY_TOKEN_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, heapMarshal, heap, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -11642,7 +11650,7 @@ export WsCreateXmlSecurityToken(tokenXml, tokenKey, _properties, propertyCount, 
     tokenXmlMarshal := tokenXml is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateXmlSecurityToken", tokenXmlMarshal, tokenXml, WS_SECURITY_KEY_HANDLE.Ptr, tokenKey, WS_XML_SECURITY_TOKEN_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &token := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateXmlSecurityToken", tokenXmlMarshal, tokenXml, WS_SECURITY_KEY_HANDLE.Ptr, tokenKey, WS_XML_SECURITY_TOKEN_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &token := 0, _errorMarshal, _error, "HRESULT")
     return token
 }
 
@@ -11730,7 +11738,7 @@ export WsGetSecurityContextProperty(securityContext, id, value, valueSize, _erro
     securityContextMarshal := securityContext is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetSecurityContextProperty", securityContextMarshal, securityContext, WS_SECURITY_CONTEXT_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetSecurityContextProperty", securityContextMarshal, securityContext, WS_SECURITY_CONTEXT_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -11813,7 +11821,7 @@ export WsReadElement(reader, elementDescription, readOption, heap, value, valueS
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadElement", readerMarshal, reader, WS_ELEMENT_DESCRIPTION.Ptr, elementDescription, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadElement", readerMarshal, reader, WS_ELEMENT_DESCRIPTION.Ptr, elementDescription, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -11896,7 +11904,7 @@ export WsReadAttribute(reader, attributeDescription, readOption, heap, value, va
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadAttribute", readerMarshal, reader, WS_ATTRIBUTE_DESCRIPTION.Ptr, attributeDescription, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadAttribute", readerMarshal, reader, WS_ATTRIBUTE_DESCRIPTION.Ptr, attributeDescription, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -11982,7 +11990,7 @@ export WsReadType(reader, typeMapping, type, typeDescription, readOption, heap, 
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsReadType", readerMarshal, reader, WS_TYPE_MAPPING, typeMapping, WS_TYPE, type, typeDescriptionMarshal, typeDescription, WS_READ_OPTION, readOption, heapMarshal, heap, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsReadType", readerMarshal, reader, WS_TYPE_MAPPING, typeMapping, WS_TYPE, type, typeDescriptionMarshal, typeDescription, WS_READ_OPTION, readOption, heapMarshal, heap, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -12054,7 +12062,7 @@ export WsWriteElement(writer, elementDescription, writeOption, value, valueSize,
     writerMarshal := writer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteElement", writerMarshal, writer, WS_ELEMENT_DESCRIPTION.Ptr, elementDescription, WS_WRITE_OPTION, writeOption, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteElement", writerMarshal, writer, WS_ELEMENT_DESCRIPTION.Ptr, elementDescription, WS_WRITE_OPTION, writeOption, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -12125,7 +12133,7 @@ export WsWriteAttribute(writer, attributeDescription, writeOption, value, valueS
     writerMarshal := writer is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteAttribute", writerMarshal, writer, WS_ATTRIBUTE_DESCRIPTION.Ptr, attributeDescription, WS_WRITE_OPTION, writeOption, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteAttribute", writerMarshal, writer, WS_ATTRIBUTE_DESCRIPTION.Ptr, attributeDescription, WS_WRITE_OPTION, writeOption, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -12208,7 +12216,7 @@ export WsWriteType(writer, typeMapping, type, typeDescription, writeOption, valu
     typeDescriptionMarshal := typeDescription is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsWriteType", writerMarshal, writer, WS_TYPE_MAPPING, typeMapping, WS_TYPE, type, typeDescriptionMarshal, typeDescription, WS_WRITE_OPTION, writeOption, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsWriteType", writerMarshal, writer, WS_TYPE_MAPPING, typeMapping, WS_TYPE, type, typeDescriptionMarshal, typeDescription, WS_WRITE_OPTION, writeOption, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -12228,7 +12236,7 @@ export WsRegisterOperationForCancel(_context, cancelCallback, freestateCallback,
     userStateMarshal := userState is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsRegisterOperationForCancel", _contextMarshal, _context, "ptr", cancelCallback, "ptr", freestateCallback, userStateMarshal, userState, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsRegisterOperationForCancel", _contextMarshal, _context, WS_OPERATION_CANCEL_CALLBACK, cancelCallback, WS_OPERATION_FREE_STATE_CALLBACK, freestateCallback, userStateMarshal, userState, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -12267,7 +12275,7 @@ export WsGetServiceHostProperty(serviceHost, id, value, valueSize, _error) {
     serviceHostMarshal := serviceHost is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetServiceHostProperty", serviceHostMarshal, serviceHost, WS_SERVICE_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetServiceHostProperty", serviceHostMarshal, serviceHost, WS_SERVICE_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -12290,7 +12298,7 @@ export WsCreateServiceHost(endpoints, endpointCount, serviceProperties, serviceP
     endpointsMarshal := endpoints is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateServiceHost", endpointsMarshal, endpoints, "ushort", endpointCount, WS_SERVICE_PROPERTY.Ptr, serviceProperties, "uint", servicePropertyCount, "ptr*", &serviceHost := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateServiceHost", endpointsMarshal, endpoints, UInt16, endpointCount, WS_SERVICE_PROPERTY.Ptr, serviceProperties, UInt32, servicePropertyCount, "ptr*", &serviceHost := 0, _errorMarshal, _error, "HRESULT")
     return serviceHost
 }
 
@@ -12681,7 +12689,7 @@ export WsGetServiceProxyProperty(serviceProxy, id, value, valueSize, _error) {
     serviceProxyMarshal := serviceProxy is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetServiceProxyProperty", serviceProxyMarshal, serviceProxy, WS_PROXY_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetServiceProxyProperty", serviceProxyMarshal, serviceProxy, WS_PROXY_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -12710,7 +12718,7 @@ export WsGetServiceProxyProperty(serviceProxy, id, value, valueSize, _error) {
 export WsCreateServiceProxy(_channelType, channelBinding, securityDescription, _properties, propertyCount, channelProperties, channelPropertyCount, _error) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateServiceProxy", WS_CHANNEL_TYPE, _channelType, WS_CHANNEL_BINDING, channelBinding, WS_SECURITY_DESCRIPTION.Ptr, securityDescription, WS_PROXY_PROPERTY.Ptr, _properties, "uint", propertyCount, WS_CHANNEL_PROPERTY.Ptr, channelProperties, "uint", channelPropertyCount, "ptr*", &serviceProxy := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateServiceProxy", WS_CHANNEL_TYPE, _channelType, WS_CHANNEL_BINDING, channelBinding, WS_SECURITY_DESCRIPTION.Ptr, securityDescription, WS_PROXY_PROPERTY.Ptr, _properties, UInt32, propertyCount, WS_CHANNEL_PROPERTY.Ptr, channelProperties, UInt32, channelPropertyCount, "ptr*", &serviceProxy := 0, _errorMarshal, _error, "HRESULT")
     return serviceProxy
 }
 
@@ -13391,7 +13399,7 @@ export WsAbandonCall(serviceProxy, callId, _error) {
     serviceProxyMarshal := serviceProxy is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsAbandonCall", serviceProxyMarshal, serviceProxy, "uint", callId, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsAbandonCall", serviceProxyMarshal, serviceProxy, UInt32, callId, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -13514,7 +13522,7 @@ export WsCall(serviceProxy, operation, arguments, heap, callProperties, callProp
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCall", serviceProxyMarshal, serviceProxy, WS_OPERATION_DESCRIPTION.Ptr, operation, argumentsMarshal, arguments, heapMarshal, heap, WS_CALL_PROPERTY.Ptr, callProperties, "uint", callPropertyCount, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCall", serviceProxyMarshal, serviceProxy, WS_OPERATION_DESCRIPTION.Ptr, operation, argumentsMarshal, arguments, heapMarshal, heap, WS_CALL_PROPERTY.Ptr, callProperties, UInt32, callPropertyCount, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -13548,7 +13556,7 @@ export WsDecodeUrl(url, flags, heap, _error) {
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsDecodeUrl", WS_STRING.Ptr, url, "uint", flags, heapMarshal, heap, "ptr*", &outUrl := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsDecodeUrl", WS_STRING.Ptr, url, UInt32, flags, heapMarshal, heap, "ptr*", &outUrl := 0, _errorMarshal, _error, "HRESULT")
     return outUrl
 }
 
@@ -13622,7 +13630,7 @@ export WsEncodeUrl(url, flags, heap, outUrl, _error) {
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsEncodeUrl", WS_URL.Ptr, url, "uint", flags, heapMarshal, heap, WS_STRING.Ptr, outUrl, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsEncodeUrl", WS_URL.Ptr, url, UInt32, flags, heapMarshal, heap, WS_STRING.Ptr, outUrl, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -13702,7 +13710,7 @@ export WsCombineUrl(baseUrl, referenceUrl, flags, heap, resultUrl, _error) {
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCombineUrl", WS_STRING.Ptr, baseUrl, WS_STRING.Ptr, referenceUrl, "uint", flags, heapMarshal, heap, WS_STRING.Ptr, resultUrl, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCombineUrl", WS_STRING.Ptr, baseUrl, WS_STRING.Ptr, referenceUrl, UInt32, flags, heapMarshal, heap, WS_STRING.Ptr, resultUrl, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -13821,7 +13829,7 @@ export WsFileTimeToDateTime(_fileTime, _dateTime, _error) {
 export WsCreateMetadata(_properties, propertyCount, _error) {
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateMetadata", WS_METADATA_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &metadata := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateMetadata", WS_METADATA_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &metadata := 0, _errorMarshal, _error, "HRESULT")
     return metadata
 }
 
@@ -14086,7 +14094,7 @@ export WsGetMetadataProperty(metadata, id, value, valueSize, _error) {
     metadataMarshal := metadata is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetMetadataProperty", metadataMarshal, metadata, WS_METADATA_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetMetadataProperty", metadataMarshal, metadata, WS_METADATA_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -14306,7 +14314,7 @@ export WsMatchPolicyAlternative(policy, alternativeIndex, policyConstraints, mat
     heapMarshal := heap is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsMatchPolicyAlternative", policyMarshal, policy, "uint", alternativeIndex, WS_POLICY_CONSTRAINTS.Ptr, policyConstraints, BOOL, matchRequired, heapMarshal, heap, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsMatchPolicyAlternative", policyMarshal, policy, UInt32, alternativeIndex, WS_POLICY_CONSTRAINTS.Ptr, policyConstraints, BOOL, matchRequired, heapMarshal, heap, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -14370,7 +14378,7 @@ export WsGetPolicyProperty(policy, id, value, valueSize, _error) {
     policyMarshal := policy is VarRef ? "ptr*" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsGetPolicyProperty", policyMarshal, policy, WS_POLICY_PROPERTY_ID, id, "ptr", value, "uint", valueSize, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsGetPolicyProperty", policyMarshal, policy, WS_POLICY_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
     return result
 }
 
@@ -14505,7 +14513,7 @@ export WsCreateServiceProxyFromTemplate(_channelType, _properties, propertyCount
     templateDescriptionMarshal := templateDescription is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateServiceProxyFromTemplate", WS_CHANNEL_TYPE, _channelType, WS_PROXY_PROPERTY.Ptr, _properties, "uint", propertyCount, WS_BINDING_TEMPLATE_TYPE, templateType, "ptr", templateValue, "uint", templateSize, templateDescriptionMarshal, templateDescription, "uint", templateDescriptionSize, "ptr*", &serviceProxy := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateServiceProxyFromTemplate", WS_CHANNEL_TYPE, _channelType, WS_PROXY_PROPERTY.Ptr, _properties, UInt32, propertyCount, WS_BINDING_TEMPLATE_TYPE, templateType, IntPtr, templateValue, UInt32, templateSize, templateDescriptionMarshal, templateDescription, UInt32, templateDescriptionSize, "ptr*", &serviceProxy := 0, _errorMarshal, _error, "HRESULT")
     return serviceProxy
 }
 
@@ -14537,7 +14545,7 @@ export WsCreateServiceEndpointFromTemplate(_channelType, _properties, propertyCo
     templateDescriptionMarshal := templateDescription is VarRef ? "ptr" : "ptr"
     _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("webservices.dll\WsCreateServiceEndpointFromTemplate", WS_CHANNEL_TYPE, _channelType, WS_SERVICE_ENDPOINT_PROPERTY.Ptr, _properties, "uint", propertyCount, WS_STRING.Ptr, addressUrl, WS_SERVICE_CONTRACT.Ptr, contract, "ptr", authorizationCallback, heapMarshal, heap, WS_BINDING_TEMPLATE_TYPE, templateType, "ptr", templateValue, "uint", templateSize, templateDescriptionMarshal, templateDescription, "uint", templateDescriptionSize, "ptr*", &serviceEndpoint := 0, _errorMarshal, _error, "HRESULT")
+    result := DllCall("webservices.dll\WsCreateServiceEndpointFromTemplate", WS_CHANNEL_TYPE, _channelType, WS_SERVICE_ENDPOINT_PROPERTY.Ptr, _properties, UInt32, propertyCount, WS_STRING.Ptr, addressUrl, WS_SERVICE_CONTRACT.Ptr, contract, WS_SERVICE_SECURITY_CALLBACK, authorizationCallback, heapMarshal, heap, WS_BINDING_TEMPLATE_TYPE, templateType, IntPtr, templateValue, UInt32, templateSize, templateDescriptionMarshal, templateDescription, UInt32, templateDescriptionSize, "ptr*", &serviceEndpoint := 0, _errorMarshal, _error, "HRESULT")
     return serviceEndpoint
 }
 

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
-#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import ".\TS_SB_SORT_BY.ahk" { TS_SB_SORT_BY }
+#Import ".\TARGET_STATE.ahk" { TARGET_STATE }
+#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\TS_SB_SORT_BY.ahk" { TS_SB_SORT_BY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
 #Import ".\ITsSbSession.ahk" { ITsSbSession }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TARGET_STATE.ahk" { TARGET_STATE }
+#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
 
 /**
  * Exposes methods that enable resource plug-ins to store objects such as sessions and targets.
@@ -103,7 +103,7 @@ export default struct ITsSbResourcePluginStore extends IUnknown {
     QuerySessionBySessionId(dwSessionId, TargetName) {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
 
-        result := ComCall(4, this, "uint", dwSessionId, BSTR, TargetName, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSessionId, BSTR, TargetName, "ptr*", &ppSession := 0, "HRESULT")
         return ITsSbSession(ppSession)
     }
 
@@ -419,7 +419,7 @@ export default struct ITsSbResourcePluginStore extends IUnknown {
     AcquireTargetLock(targetName, dwTimeout) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
 
-        result := ComCall(25, this, BSTR, targetName, "uint", dwTimeout, "ptr*", &ppContext := 0, "HRESULT")
+        result := ComCall(25, this, BSTR, targetName, UInt32, dwTimeout, "ptr*", &ppContext := 0, "HRESULT")
         return IUnknown(ppContext)
     }
 
@@ -491,7 +491,7 @@ export default struct ITsSbResourcePluginStore extends IUnknown {
     SetServerDrainMode(ServerFQDN, DrainMode) {
         ServerFQDN := ServerFQDN is String ? BSTR.Alloc(ServerFQDN).Value : ServerFQDN
 
-        result := ComCall(30, this, BSTR, ServerFQDN, "uint", DrainMode, "HRESULT")
+        result := ComCall(30, this, BSTR, ServerFQDN, UInt32, DrainMode, "HRESULT")
         return result
     }
 

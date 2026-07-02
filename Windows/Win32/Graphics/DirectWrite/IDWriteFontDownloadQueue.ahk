@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontDownloadListener.ahk" { IDWriteFontDownloadListener }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontDownloadListener.ahk" { IDWriteFontDownloadListener }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Interface that enqueues download requests for remote fonts, characters, glyphs, and font fragments.
@@ -73,7 +73,7 @@ export default struct IDWriteFontDownloadQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-removelistener
      */
     RemoveListener(token) {
-        result := ComCall(4, this, "uint", token, "HRESULT")
+        result := ComCall(4, this, UInt32, token, "HRESULT")
         return result
     }
 

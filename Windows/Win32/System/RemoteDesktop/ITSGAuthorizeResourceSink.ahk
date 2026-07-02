@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that notify Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a resource.
@@ -59,7 +59,7 @@ export default struct ITSGAuthorizeResourceSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgauthorizeresourcesink-onchannelauthorized
      */
     OnChannelAuthorized(hrIn, mainSessionId, subSessionId, allowedResourceNames, numAllowedResourceNames, failedResourceNames, numFailedResourceNames) {
-        result := ComCall(3, this, "int", hrIn, Guid, mainSessionId, "int", subSessionId, BSTR.Ptr, allowedResourceNames, "uint", numAllowedResourceNames, BSTR.Ptr, failedResourceNames, "uint", numFailedResourceNames, "HRESULT")
+        result := ComCall(3, this, "int", hrIn, Guid, mainSessionId, Int32, subSessionId, BSTR.Ptr, allowedResourceNames, UInt32, numAllowedResourceNames, BSTR.Ptr, failedResourceNames, UInt32, numFailedResourceNames, "HRESULT")
         return result
     }
 

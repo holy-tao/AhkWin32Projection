@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
 #Import ".\IMSVidFilePlayback.ahk" { IMSVidFilePlayback }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMSVidStreamBufferSource interface represents the Stream Buffer Source filter within the Video Control.
@@ -174,7 +174,7 @@ export default struct IMSVidStreamBufferSource extends IMSVidFilePlayback {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-maxratingslevel
      */
     MaxRatingsLevel(enSystem, enRating, lbfEnAttr) {
-        result := ComCall(37, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enRating, "int", lbfEnAttr, "HRESULT")
+        result := ComCall(37, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enRating, Int32, lbfEnAttr, "HRESULT")
         return result
     }
 
@@ -232,7 +232,7 @@ export default struct IMSVidStreamBufferSource extends IMSVidFilePlayback {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-put_unrateddelay
      */
     put_UnratedDelay(dwDelay) {
-        result := ComCall(39, this, "int", dwDelay, "HRESULT")
+        result := ComCall(39, this, Int32, dwDelay, "HRESULT")
         return result
     }
 

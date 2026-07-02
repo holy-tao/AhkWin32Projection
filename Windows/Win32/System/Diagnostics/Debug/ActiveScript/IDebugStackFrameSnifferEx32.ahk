@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumDebugStackFrames.ahk" { IEnumDebugStackFrames }
 #Import ".\IDebugStackFrameSniffer.ahk" { IDebugStackFrameSniffer }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -42,7 +42,7 @@ export default struct IDebugStackFrameSnifferEx32 extends IDebugStackFrameSniffe
      * @returns {IEnumDebugStackFrames} 
      */
     EnumStackFramesEx32(dwSpMin) {
-        result := ComCall(4, this, "uint", dwSpMin, "ptr*", &ppedsf := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSpMin, "ptr*", &ppedsf := 0, "HRESULT")
         return IEnumDebugStackFrames(ppedsf)
     }
 

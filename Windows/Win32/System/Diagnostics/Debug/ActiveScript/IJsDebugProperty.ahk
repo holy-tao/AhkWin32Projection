@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\JS_PROPERTY_MEMBERS.ahk" { JS_PROPERTY_MEMBERS }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\JsDebugPropertyInfo.ahk" { JsDebugPropertyInfo }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\JS_PROPERTY_MEMBERS.ahk" { JS_PROPERTY_MEMBERS }
 #Import ".\IJsEnumDebugProperty.ahk" { IJsEnumDebugProperty }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -49,7 +49,7 @@ export default struct IJsDebugProperty extends IUnknown {
      */
     GetPropertyInfo(nRadix) {
         pPropertyInfo := JsDebugPropertyInfo()
-        result := ComCall(3, this, "uint", nRadix, JsDebugPropertyInfo.Ptr, pPropertyInfo, "HRESULT")
+        result := ComCall(3, this, UInt32, nRadix, JsDebugPropertyInfo.Ptr, pPropertyInfo, "HRESULT")
         return pPropertyInfo
     }
 

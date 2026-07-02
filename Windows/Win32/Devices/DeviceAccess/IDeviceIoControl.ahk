@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDeviceRequestCompletionCallback.ahk" { IDeviceRequestCompletionCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Sends a control code to a device driver.This action causes the device to perform the corresponding operation.
@@ -58,7 +58,7 @@ export default struct IDeviceIoControl extends IUnknown {
         outputBufferMarshal := outputBuffer is VarRef ? "char*" : "ptr"
         bytesReturnedMarshal := bytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", ioControlCode, inputBufferMarshal, inputBuffer, "uint", inputBufferSize, outputBufferMarshal, outputBuffer, "uint", outputBufferSize, bytesReturnedMarshal, bytesReturned, "HRESULT")
+        result := ComCall(3, this, UInt32, ioControlCode, inputBufferMarshal, inputBuffer, UInt32, inputBufferSize, outputBufferMarshal, outputBuffer, UInt32, outputBufferSize, bytesReturnedMarshal, bytesReturned, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IDeviceIoControl extends IUnknown {
         outputBufferMarshal := outputBuffer is VarRef ? "char*" : "ptr"
         cancelContextMarshal := cancelContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", ioControlCode, inputBufferMarshal, inputBuffer, "uint", inputBufferSize, outputBufferMarshal, outputBuffer, "uint", outputBufferSize, "ptr", requestCompletionCallback, cancelContextMarshal, cancelContext, "HRESULT")
+        result := ComCall(4, this, UInt32, ioControlCode, inputBufferMarshal, inputBuffer, UInt32, inputBufferSize, outputBufferMarshal, outputBuffer, UInt32, outputBufferSize, "ptr", requestCompletionCallback, cancelContextMarshal, cancelContext, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IDeviceIoControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-ideviceiocontrol-canceloperation
      */
     CancelOperation(cancelContext) {
-        result := ComCall(5, this, "ptr", cancelContext, "HRESULT")
+        result := ComCall(5, this, IntPtr, cancelContext, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk" { D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D_OMAC.ahk" { D3D_OMAC }
-#Import ".\D3DBUSTYPE.ahk" { D3DBUSTYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D_OMAC.ahk" { D3D_OMAC }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DBUSTYPE.ahk" { D3DBUSTYPE }
+#Import ".\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk" { D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT }
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_ACCESSIBILITYATTRIBUTES query.

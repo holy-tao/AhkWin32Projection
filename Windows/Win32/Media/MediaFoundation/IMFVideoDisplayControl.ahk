@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Controls how the Enhanced Video Renderer (EVR) displays video.
@@ -328,7 +328,7 @@ export default struct IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-setaspectratiomode
      */
     SetAspectRatioMode(dwAspectRatioMode) {
-        result := ComCall(7, this, "uint", dwAspectRatioMode, "HRESULT")
+        result := ComCall(7, this, UInt32, dwAspectRatioMode, "HRESULT")
         return result
     }
 
@@ -629,7 +629,7 @@ export default struct IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-setrenderingprefs
      */
     SetRenderingPrefs(dwRenderFlags) {
-        result := ComCall(15, this, "uint", dwRenderFlags, "HRESULT")
+        result := ComCall(15, this, UInt32, dwRenderFlags, "HRESULT")
         return result
     }
 

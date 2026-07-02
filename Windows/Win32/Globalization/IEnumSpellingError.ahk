@@ -2,8 +2,8 @@
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\ISpellingError.ahk" { ISpellingError }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * An enumeration of the spelling errors.

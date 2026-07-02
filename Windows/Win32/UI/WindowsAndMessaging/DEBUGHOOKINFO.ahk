@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * Contains debugging information passed to a WH_DEBUG hook procedure, DebugProc.

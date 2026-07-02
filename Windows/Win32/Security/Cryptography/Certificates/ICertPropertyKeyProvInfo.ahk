@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICertProperty.ahk" { ICertProperty }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
 
 /**
  * Represents a certificate property that contains information about a private key.

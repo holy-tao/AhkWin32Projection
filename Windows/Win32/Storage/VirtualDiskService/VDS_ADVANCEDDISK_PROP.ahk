@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_DISK_STATUS.ahk" { VDS_DISK_STATUS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
-#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
 #Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_DISK_STATUS.ahk" { VDS_DISK_STATUS }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService

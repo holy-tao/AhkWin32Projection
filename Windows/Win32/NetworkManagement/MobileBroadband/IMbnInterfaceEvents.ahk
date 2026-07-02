@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMbnInterface.ahk" { IMbnInterface }
 
 /**
@@ -211,7 +211,7 @@ export default struct IMbnInterfaceEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onsetpreferredproviderscomplete
      */
     OnSetPreferredProvidersComplete(newInterface, requestID, _status) {
-        result := ComCall(9, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(9, this, "ptr", newInterface, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -228,7 +228,7 @@ export default struct IMbnInterfaceEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterfaceevents-onscannetworkcomplete
      */
     OnScanNetworkComplete(newInterface, requestID, _status) {
-        result := ComCall(10, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(10, this, "ptr", newInterface, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 

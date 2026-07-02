@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Vhd\VIRTUAL_DISK_ACCESS_MASK.ahk" { VIRTUAL_DISK_ACCESS_MASK }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVdsOpenVDisk.ahk" { IVdsOpenVDisk }
-#Import ".\IVdsVolume.ahk" { IVdsVolume }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Vhd\OPEN_VIRTUAL_DISK_FLAG.ahk" { OPEN_VIRTUAL_DISK_FLAG }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\VDS_VDISK_PROPERTIES.ahk" { VDS_VDISK_PROPERTIES }
+#Import "..\Vhd\VIRTUAL_DISK_ACCESS_MASK.ahk" { VIRTUAL_DISK_ACCESS_MASK }
+#Import ".\IVdsVolume.ahk" { IVdsVolume }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Vhd\OPEN_VIRTUAL_DISK_FLAG.ahk" { OPEN_VIRTUAL_DISK_FLAG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IVdsOpenVDisk.ahk" { IVdsOpenVDisk }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods for managing a virtual disk. (IVdsVDisk)
@@ -59,7 +59,7 @@ export default struct IVdsVDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-open
      */
     Open(AccessMask, Flags, ReadWriteDepth) {
-        result := ComCall(3, this, VIRTUAL_DISK_ACCESS_MASK, AccessMask, OPEN_VIRTUAL_DISK_FLAG, Flags, "uint", ReadWriteDepth, "ptr*", &ppOpenVDisk := 0, "HRESULT")
+        result := ComCall(3, this, VIRTUAL_DISK_ACCESS_MASK, AccessMask, OPEN_VIRTUAL_DISK_FLAG, Flags, UInt32, ReadWriteDepth, "ptr*", &ppOpenVDisk := 0, "HRESULT")
         return IVdsOpenVDisk(ppOpenVDisk)
     }
 

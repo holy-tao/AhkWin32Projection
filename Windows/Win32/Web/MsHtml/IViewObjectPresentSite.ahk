@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VIEW_OBJECT_COMPOSITION_MODE.ahk" { VIEW_OBJECT_COMPOSITION_MODE }
+#Import ".\VIEW_OBJECT_ALPHA_MODE.ahk" { VIEW_OBJECT_ALPHA_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISurfacePresenter.ahk" { ISurfacePresenter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VIEW_OBJECT_ALPHA_MODE.ahk" { VIEW_OBJECT_ALPHA_MODE }
-#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -53,7 +53,7 @@ export default struct IViewObjectPresentSite extends IUnknown {
      * @returns {ISurfacePresenter} 
      */
     CreateSurfacePresenter(pDevice, width, height, backBufferCount, format, _mode) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, DXGI_FORMAT, format, VIEW_OBJECT_ALPHA_MODE, _mode, "ptr*", &ppQueue := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDevice, UInt32, width, UInt32, height, UInt32, backBufferCount, DXGI_FORMAT, format, VIEW_OBJECT_ALPHA_MODE, _mode, "ptr*", &ppQueue := 0, "HRESULT")
         return ISurfacePresenter(ppQueue)
     }
 

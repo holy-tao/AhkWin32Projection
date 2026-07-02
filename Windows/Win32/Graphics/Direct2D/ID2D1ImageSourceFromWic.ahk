@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
-#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import ".\ID2D1ImageSource.ahk" { ID2D1ImageSource }
+#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

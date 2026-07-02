@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IBaseFilter.ahk" { IBaseFilter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumFilters interface enumerates the filters in a filter graph.
@@ -83,7 +83,7 @@ export default struct IEnumFilters extends IUnknown {
     Next(cFilters, ppFilter, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cFilters, IBaseFilter.Ptr, ppFilter, pcFetchedMarshal, pcFetched, Int32)
+        result := ComCall(3, this, UInt32, cFilters, IBaseFilter.Ptr, ppFilter, pcFetchedMarshal, pcFetched, Int32)
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IEnumFilters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-skip
      */
     Skip(cFilters) {
-        result := ComCall(4, this, "uint", cFilters, "HRESULT")
+        result := ComCall(4, this, UInt32, cFilters, "HRESULT")
         return result
     }
 

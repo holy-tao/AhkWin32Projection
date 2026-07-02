@@ -3,10 +3,10 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
-#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
 
 /**
  * Use this interface to erase data from a disc.

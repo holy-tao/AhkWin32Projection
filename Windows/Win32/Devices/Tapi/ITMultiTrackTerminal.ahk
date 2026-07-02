@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
 #Import ".\ITTerminal.ahk" { ITTerminal }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
 #Import ".\IEnumTerminal.ahk" { IEnumTerminal }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This ITMultiTrackTerminal interface is exposed on all multitrack terminals. The interface includes methods for enumerating, creating, and removing tracks. The ITMultiTrackTerminal interface is created by calling QueryInterface on ITTerminal.
@@ -114,7 +114,7 @@ export default struct ITMultiTrackTerminal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-createtrackterminal
      */
     CreateTrackTerminal(_MediaType, TerminalDirection) {
-        result := ComCall(9, this, "int", _MediaType, TERMINAL_DIRECTION, TerminalDirection, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(9, this, Int32, _MediaType, TERMINAL_DIRECTION, TerminalDirection, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 

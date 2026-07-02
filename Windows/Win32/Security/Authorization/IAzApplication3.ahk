@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAzRoleDefinitions.ahk" { IAzRoleDefinitions }
-#Import ".\IAzApplication2.ahk" { IAzApplication2 }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IAzRoleDefinition.ahk" { IAzRoleDefinition }
+#Import ".\IAzRoleDefinitions.ahk" { IAzRoleDefinitions }
 #Import ".\IAzRoleAssignments.ahk" { IAzRoleAssignments }
-#Import ".\IAzScope2.ahk" { IAzScope2 }
 #Import ".\IAzRoleAssignment.ahk" { IAzRoleAssignment }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzScope2.ahk" { IAzScope2 }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAzApplication2.ahk" { IAzApplication2 }
 
 /**
  * Provides methods to manage IAzRoleAssignment, IAzRoleDefinition, and IAzScope2 objects.

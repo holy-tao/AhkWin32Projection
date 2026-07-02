@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\SEARCH_TERM_EXPANSION.ahk" { SEARCH_TERM_EXPANSION }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SEARCH_COLUMN_PROPERTIES.ahk" { SEARCH_COLUMN_PROPERTIES }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SEARCH_QUERY_SYNTAX.ahk" { SEARCH_QUERY_SYNTAX }
 
 /**
@@ -186,7 +186,7 @@ export default struct ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-put_querycontentlocale
      */
     put_QueryContentLocale(lcid) {
-        result := ComCall(4, this, "uint", lcid, "HRESULT")
+        result := ComCall(4, this, UInt32, lcid, "HRESULT")
         return result
     }
 
@@ -219,7 +219,7 @@ export default struct ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-put_querykeywordlocale
      */
     put_QueryKeywordLocale(lcid) {
-        result := ComCall(6, this, "uint", lcid, "HRESULT")
+        result := ComCall(6, this, UInt32, lcid, "HRESULT")
         return result
     }
 
@@ -519,7 +519,7 @@ export default struct ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-writeproperties
      */
     WriteProperties(itemID, dwNumberOfColumns, pColumns, pValues, pftGatherModifiedTime) {
-        result := ComCall(21, this, "int", itemID, "uint", dwNumberOfColumns, PROPERTYKEY.Ptr, pColumns, SEARCH_COLUMN_PROPERTIES.Ptr, pValues, FILETIME.Ptr, pftGatherModifiedTime, "HRESULT")
+        result := ComCall(21, this, Int32, itemID, UInt32, dwNumberOfColumns, PROPERTYKEY.Ptr, pColumns, SEARCH_COLUMN_PROPERTIES.Ptr, pValues, FILETIME.Ptr, pftGatherModifiedTime, "HRESULT")
         return result
     }
 
@@ -536,7 +536,7 @@ export default struct ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-put_querymaxresults
      */
     put_QueryMaxResults(cMaxResults) {
-        result := ComCall(22, this, "int", cMaxResults, "HRESULT")
+        result := ComCall(22, this, Int32, cMaxResults, "HRESULT")
         return result
     }
 

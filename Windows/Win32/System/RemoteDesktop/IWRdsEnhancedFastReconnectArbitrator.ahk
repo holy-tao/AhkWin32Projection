@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method called by the Remote Desktop Services service to obtain the session ID that is to be reconnected to in the enhanced fast reconnect sequence.
@@ -47,7 +47,7 @@ export default struct IWRdsEnhancedFastReconnectArbitrator extends IUnknown {
     GetSessionForEnhancedFastReconnect(pSessionIdArray, dwSessionCount) {
         pSessionIdArrayMarshal := pSessionIdArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pSessionIdArrayMarshal, pSessionIdArray, "uint", dwSessionCount, "int*", &pResultSessionId := 0, "HRESULT")
+        result := ComCall(3, this, pSessionIdArrayMarshal, pSessionIdArray, UInt32, dwSessionCount, "int*", &pResultSessionId := 0, "HRESULT")
         return pResultSessionId
     }
 

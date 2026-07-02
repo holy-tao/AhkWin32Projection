@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TF_DA_COLORTYPE.ahk" { TF_DA_COLORTYPE }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\TF_DA_COLORTYPE.ahk" { TF_DA_COLORTYPE }
 
 /**
  * The TF_DA_COLOR structure contains color data used in the display attributes for a range of text.

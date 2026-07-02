@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IKsPropertySet interface was originally designed as an efficient way to set and retrieve device properties on WDM drivers, using KSProxy to translate the user-mode COM method calls into the kernel-mode property sets used by WDM streaming class drivers. This interface is now also used to pass information strictly between software components.In some cases, software components must implement either this interface, or else the IKsControl interface (documented in the DirectShow DDK). For example, if you are writing a software MPEG-2 decoder for use with the DVD Navigator, you must implement one of these interfaces and also support the DVD-related property sets that the Navigator will send to the decoder. Pins may support one of these interfaces to allow other pins or filters to set or retrieve their properties.Note  Another interface by this name exists in the dsound.h header file. The two interfaces are not compatible. The IKsControl interface, documented in the DirectShow DDK, is now the recommended interface for passing property sets between WDM drivers and user mode components. .
@@ -73,7 +73,7 @@ export default struct IKsPropertySet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-set
      */
     Set(guidPropSet, dwPropID, pInstanceData, cbInstanceData, pPropData, cbPropData) {
-        result := ComCall(3, this, Guid.Ptr, guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guidPropSet, UInt32, dwPropID, IntPtr, pInstanceData, UInt32, cbInstanceData, IntPtr, pPropData, UInt32, cbPropData, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct IKsPropertySet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-get
      */
     Get(guidPropSet, dwPropID, pInstanceData, cbInstanceData, pPropData, cbPropData) {
-        result := ComCall(4, this, Guid.Ptr, guidPropSet, "uint", dwPropID, "ptr", pInstanceData, "uint", cbInstanceData, "ptr", pPropData, "uint", cbPropData, "uint*", &pcbReturned := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidPropSet, UInt32, dwPropID, IntPtr, pInstanceData, UInt32, cbInstanceData, IntPtr, pPropData, UInt32, cbPropData, "uint*", &pcbReturned := 0, "HRESULT")
         return pcbReturned
     }
 
@@ -124,7 +124,7 @@ export default struct IKsPropertySet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspropertyset-querysupported
      */
     QuerySupported(guidPropSet, dwPropID) {
-        result := ComCall(5, this, Guid.Ptr, guidPropSet, "uint", dwPropID, "uint*", &pTypeSupport := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guidPropSet, UInt32, dwPropID, "uint*", &pTypeSupport := 0, "HRESULT")
         return pTypeSupport
     }
 

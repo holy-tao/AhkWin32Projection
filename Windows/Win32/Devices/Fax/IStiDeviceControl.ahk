@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -83,7 +83,7 @@ export default struct IStiDeviceControl extends IUnknown {
     Initialize(dwDeviceType, dwMode, pwszPortName, dwFlags) {
         pwszPortName := pwszPortName is String ? StrPtr(pwszPortName) : pwszPortName
 
-        result := ComCall(3, this, "uint", dwDeviceType, "uint", dwMode, "ptr", pwszPortName, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, dwDeviceType, UInt32, dwMode, "ptr", pwszPortName, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IStiDeviceControl extends IUnknown {
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, lpBufferMarshal, lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(5, this, lpBufferMarshal, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct IStiDeviceControl extends IUnknown {
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, lpBufferMarshal, lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(7, this, lpBufferMarshal, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct IStiDeviceControl extends IUnknown {
         pOutDataMarshal := pOutData is VarRef ? "ptr" : "ptr"
         pdwActualDataMarshal := pdwActualData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", EscapeFunction, lpInDataMarshal, lpInData, "uint", cbInDataSize, pOutDataMarshal, pOutData, "uint", dwOutDataSize, pdwActualDataMarshal, pdwActualData, "HRESULT")
+        result := ComCall(8, this, UInt32, EscapeFunction, lpInDataMarshal, lpInData, UInt32, cbInDataSize, pOutDataMarshal, pOutData, UInt32, dwOutDataSize, pdwActualDataMarshal, pdwActualData, "HRESULT")
         return result
     }
 
@@ -204,7 +204,7 @@ export default struct IStiDeviceControl extends IUnknown {
     GetMyDevicePortName(lpszDevicePath, cwDevicePathSize) {
         lpszDevicePath := lpszDevicePath is String ? StrPtr(lpszDevicePath) : lpszDevicePath
 
-        result := ComCall(10, this, "ptr", lpszDevicePath, "uint", cwDevicePathSize, "HRESULT")
+        result := ComCall(10, this, "ptr", lpszDevicePath, UInt32, cwDevicePathSize, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct IStiDeviceControl extends IUnknown {
     WriteToErrorLog(dwMessageType, pszMessage, dwErrorCode) {
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        result := ComCall(13, this, "uint", dwMessageType, "ptr", pszMessage, "uint", dwErrorCode, "HRESULT")
+        result := ComCall(13, this, UInt32, dwMessageType, "ptr", pszMessage, UInt32, dwErrorCode, "HRESULT")
         return result
     }
 

@@ -111,7 +111,7 @@ export default struct IMFSampleGrabberSinkCallback extends IMFClockStateSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamplegrabbersinkcallback-onprocesssample
      */
     OnProcessSample(guidMajorMediaType, dwSampleFlags, llSampleTime, llSampleDuration, pSampleBuffer, dwSampleSize) {
-        result := ComCall(9, this, Guid.Ptr, guidMajorMediaType, "uint", dwSampleFlags, "int64", llSampleTime, "int64", llSampleDuration, "ptr", pSampleBuffer, "uint", dwSampleSize, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, guidMajorMediaType, UInt32, dwSampleFlags, Int64, llSampleTime, Int64, llSampleDuration, IntPtr, pSampleBuffer, UInt32, dwSampleSize, "HRESULT")
         return result
     }
 

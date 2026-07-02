@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\NLM_SOCKADDR.ahk" { NLM_SOCKADDR }
 
 /**
@@ -47,7 +47,7 @@ export default struct INetworkCostManagerEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkcostmanagerevents-costchanged
      */
     CostChanged(newCost, pDestAddr) {
-        result := ComCall(3, this, "uint", newCost, NLM_SOCKADDR.Ptr, pDestAddr, "HRESULT")
+        result := ComCall(3, this, UInt32, newCost, NLM_SOCKADDR.Ptr, pDestAddr, "HRESULT")
         return result
     }
 

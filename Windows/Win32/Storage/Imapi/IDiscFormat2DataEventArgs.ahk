@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMAPI_FORMAT2_DATA_WRITE_ACTION.ahk" { IMAPI_FORMAT2_DATA_WRITE_ACTION }
-#Import ".\IWriteEngine2EventArgs.ahk" { IWriteEngine2EventArgs }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWriteEngine2EventArgs.ahk" { IWriteEngine2EventArgs }
 
 /**
  * Use this interface to retrieve information about the current write operation. (IDiscFormat2DataEventArgs)

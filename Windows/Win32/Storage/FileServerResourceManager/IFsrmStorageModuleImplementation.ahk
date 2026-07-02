@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFsrmPipelineModuleImplementation.ahk" { IFsrmPipelineModuleImplementation }
 #Import ".\IFsrmPropertyBag.ahk" { IFsrmPropertyBag }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
 
 /**
  * Storage modules implement this interface.

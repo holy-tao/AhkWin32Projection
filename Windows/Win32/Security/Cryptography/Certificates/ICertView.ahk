@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CERT_VIEW_SEEK_OPERATOR_FLAGS.ahk" { CERT_VIEW_SEEK_OPERATOR_FLAGS }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IEnumCERTVIEWROW.ahk" { IEnumCERTVIEWROW }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CVRC_COLUMN.ahk" { CVRC_COLUMN }
+#Import ".\IEnumCERTVIEWROW.ahk" { IEnumCERTVIEWROW }
 #Import ".\CERT_VIEW_COLUMN_INDEX.ahk" { CERT_VIEW_COLUMN_INDEX }
-#Import ".\IEnumCERTVIEWCOLUMN.ahk" { IEnumCERTVIEWCOLUMN }
+#Import ".\CERT_VIEW_SEEK_OPERATOR_FLAGS.ahk" { CERT_VIEW_SEEK_OPERATOR_FLAGS }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IEnumCERTVIEWCOLUMN.ahk" { IEnumCERTVIEWCOLUMN }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allows properly authorized clients to create a customized or complete view of the Certificate Services database.
@@ -187,7 +187,7 @@ export default struct ICertView extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-setresultcolumncount
      */
     SetResultColumnCount(cResultColumn) {
-        result := ComCall(11, this, "int", cResultColumn, "HRESULT")
+        result := ComCall(11, this, Int32, cResultColumn, "HRESULT")
         return result
     }
 
@@ -219,7 +219,7 @@ export default struct ICertView extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-setresultcolumn
      */
     SetResultColumn(ColumnIndex) {
-        result := ComCall(12, this, "int", ColumnIndex, "HRESULT")
+        result := ComCall(12, this, Int32, ColumnIndex, "HRESULT")
         return result
     }
 
@@ -280,7 +280,7 @@ export default struct ICertView extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-setrestriction
      */
     SetRestriction(ColumnIndex, SeekOperator, SortOrder, pvarValue) {
-        result := ComCall(13, this, CERT_VIEW_COLUMN_INDEX, ColumnIndex, CERT_VIEW_SEEK_OPERATOR_FLAGS, SeekOperator, "int", SortOrder, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(13, this, CERT_VIEW_COLUMN_INDEX, ColumnIndex, CERT_VIEW_SEEK_OPERATOR_FLAGS, SeekOperator, Int32, SortOrder, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 

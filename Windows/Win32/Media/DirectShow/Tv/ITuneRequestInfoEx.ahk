@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITuneRequestInfo.ahk" { ITuneRequestInfo }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import ".\ITuneRequestInfo.ahk" { ITuneRequestInfo }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Security\PSID.ahk" { PSID }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStreamBufferInitialize interface is used to configure the stream buffer filters. The Stream Buffer Source filter, Stream Buffer Sink filter, and StreamBufferConfig object all expose this interface.
@@ -162,7 +162,7 @@ export default struct IStreamBufferInitialize extends IUnknown {
     SetSIDs(cSIDs, ppSID) {
         ppSIDMarshal := ppSID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", cSIDs, ppSIDMarshal, ppSID, "HRESULT")
+        result := ComCall(4, this, UInt32, cSIDs, ppSIDMarshal, ppSID, "HRESULT")
         return result
     }
 

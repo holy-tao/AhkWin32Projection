@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PSS_PROCESS_FLAGS.ahk" { PSS_PROCESS_FLAGS }
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\PSS_PROCESS_FLAGS.ahk" { PSS_PROCESS_FLAGS }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

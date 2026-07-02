@@ -2,16 +2,16 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISpeechTextSelectionInformation.ahk" { ISpeechTextSelectionInformation }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\SpeechRuleState.ahk" { SpeechRuleState }
-#Import ".\SpeechLoadOption.ahk" { SpeechLoadOption }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SpeechWordPronounceable.ahk" { SpeechWordPronounceable }
-#Import ".\ISpeechGrammarRules.ahk" { ISpeechGrammarRules }
-#Import ".\SpeechGrammarState.ahk" { SpeechGrammarState }
 #Import ".\ISpeechRecoContext.ahk" { ISpeechRecoContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpeechRuleState.ahk" { SpeechRuleState }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\SpeechLoadOption.ahk" { SpeechLoadOption }
+#Import ".\ISpeechGrammarRules.ahk" { ISpeechGrammarRules }
+#Import ".\SpeechWordPronounceable.ahk" { SpeechWordPronounceable }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\SpeechGrammarState.ahk" { SpeechGrammarState }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -144,7 +144,7 @@ export default struct ISpeechRecoGrammar extends IDispatch {
      * @returns {HRESULT} 
      */
     Reset(NewLanguage) {
-        result := ComCall(12, this, "int", NewLanguage, "HRESULT")
+        result := ComCall(12, this, Int32, NewLanguage, "HRESULT")
         return result
     }
 
@@ -186,7 +186,7 @@ export default struct ISpeechRecoGrammar extends IDispatch {
      * @returns {HRESULT} 
      */
     CmdLoadFromResource(_hModule, ResourceName, _ResourceType, LanguageId, LoadOption) {
-        result := ComCall(15, this, "int", _hModule, VARIANT, ResourceName, VARIANT, _ResourceType, "int", LanguageId, SpeechLoadOption, LoadOption, "HRESULT")
+        result := ComCall(15, this, Int32, _hModule, VARIANT, ResourceName, VARIANT, _ResourceType, Int32, LanguageId, SpeechLoadOption, LoadOption, "HRESULT")
         return result
     }
 
@@ -237,7 +237,7 @@ export default struct ISpeechRecoGrammar extends IDispatch {
      * @returns {HRESULT} 
      */
     CmdSetRuleIdState(RuleId, State) {
-        result := ComCall(19, this, "int", RuleId, SpeechRuleState, State, "HRESULT")
+        result := ComCall(19, this, Int32, RuleId, SpeechRuleState, State, "HRESULT")
         return result
     }
 
@@ -283,7 +283,7 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     SetWordSequenceData(Text, TextLength, Info) {
         Text := Text is String ? BSTR.Alloc(Text).Value : Text
 
-        result := ComCall(23, this, BSTR, Text, "int", TextLength, "ptr", Info, "HRESULT")
+        result := ComCall(23, this, BSTR, Text, Int32, TextLength, "ptr", Info, "HRESULT")
         return result
     }
 

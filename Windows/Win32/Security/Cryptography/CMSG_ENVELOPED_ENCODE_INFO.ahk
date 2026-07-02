@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
-#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import ".\CERT_INFO.ahk" { CERT_INFO }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CERT_INFO.ahk" { CERT_INFO }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
 
 /**
  * Contains information needed to encode an enveloped message. It is passed to CryptMsgOpenToEncode if the dwMsgType parameter is CMSG_ENVELOPED.

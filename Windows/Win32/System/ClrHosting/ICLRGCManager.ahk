@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COR_GC_STATS.ahk" { COR_GC_STATS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -44,7 +44,7 @@ export default struct ICLRGCManager extends IUnknown {
      * @returns {HRESULT} 
      */
     Collect(Generation) {
-        result := ComCall(3, this, "int", Generation, "HRESULT")
+        result := ComCall(3, this, Int32, Generation, "HRESULT")
         return result
     }
 
@@ -65,7 +65,7 @@ export default struct ICLRGCManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetGCStartupLimits(SegmentSize, MaxGen0Size) {
-        result := ComCall(5, this, "uint", SegmentSize, "uint", MaxGen0Size, "HRESULT")
+        result := ComCall(5, this, UInt32, SegmentSize, UInt32, MaxGen0Size, "HRESULT")
         return result
     }
 

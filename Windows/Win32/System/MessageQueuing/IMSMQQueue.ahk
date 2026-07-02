@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSMQQueueInfo.ahk" { IMSMQQueueInfo }
+#Import ".\IMSMQEvent.ahk" { IMSMQEvent }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IMSMQMessage.ahk" { IMSMQMessage }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMSMQEvent.ahk" { IMSMQEvent }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IMSMQQueueInfo.ahk" { IMSMQQueueInfo }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing

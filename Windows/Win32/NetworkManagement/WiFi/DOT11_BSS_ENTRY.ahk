@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO.ahk" { DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO }
 #Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

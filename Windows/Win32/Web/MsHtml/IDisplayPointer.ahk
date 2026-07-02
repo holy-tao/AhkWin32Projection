@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\POINTER_GRAVITY.ahk" { POINTER_GRAVITY }
 #Import ".\ILineInfo.ahk" { ILineInfo }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import ".\COORD_SYSTEM.ahk" { COORD_SYSTEM }
-#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import ".\POINTER_GRAVITY.ahk" { POINTER_GRAVITY }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\DISPLAY_MOVEUNIT.ahk" { DISPLAY_MOVEUNIT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COORD_SYSTEM.ahk" { COORD_SYSTEM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DISPLAY_GRAVITY.ahk" { DISPLAY_GRAVITY }
 
 /**
@@ -71,7 +71,7 @@ export default struct IDisplayPointer extends IUnknown {
      * @returns {Integer} 
      */
     MoveToPoint(ptPoint, eCoordSystem, pElementContext, dwHitTestOptions) {
-        result := ComCall(3, this, POINT, ptPoint, COORD_SYSTEM, eCoordSystem, "ptr", pElementContext, "uint", dwHitTestOptions, "uint*", &pdwHitTestResults := 0, "HRESULT")
+        result := ComCall(3, this, POINT, ptPoint, COORD_SYSTEM, eCoordSystem, "ptr", pElementContext, UInt32, dwHitTestOptions, "uint*", &pdwHitTestResults := 0, "HRESULT")
         return pdwHitTestResults
     }
 
@@ -82,7 +82,7 @@ export default struct IDisplayPointer extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveUnit(eMoveUnit, lXPos) {
-        result := ComCall(4, this, DISPLAY_MOVEUNIT, eMoveUnit, "int", lXPos, "HRESULT")
+        result := ComCall(4, this, DISPLAY_MOVEUNIT, eMoveUnit, Int32, lXPos, "HRESULT")
         return result
     }
 

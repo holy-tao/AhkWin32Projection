@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAppxBlockMapReader.ahk" { IAppxBlockMapReader }
-#Import ".\APPX_FOOTPRINT_FILE_TYPE.ahk" { APPX_FOOTPRINT_FILE_TYPE }
 #Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
+#Import ".\IAppxBlockMapReader.ahk" { IAppxBlockMapReader }
 #Import ".\IAppxFilesEnumerator.ahk" { IAppxFilesEnumerator }
+#Import ".\IAppxFile.ahk" { IAppxFile }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\APPX_FOOTPRINT_FILE_TYPE.ahk" { APPX_FOOTPRINT_FILE_TYPE }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IAppxFile.ahk" { IAppxFile }
 
 /**
  * Provides a read-only object model for app packages.

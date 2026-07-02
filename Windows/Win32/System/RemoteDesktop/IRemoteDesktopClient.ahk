@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRemoteDesktopClientActions.ahk" { IRemoteDesktopClientActions }
+#Import ".\IRemoteDesktopClientSettings.ahk" { IRemoteDesktopClientSettings }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IRemoteDesktopClientSettings.ahk" { IRemoteDesktopClientSettings }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRemoteDesktopClientTouchPointer.ahk" { IRemoteDesktopClientTouchPointer }
+#Import ".\IRemoteDesktopClientActions.ahk" { IRemoteDesktopClientActions }
 
 /**
  * Provides methods and properties used to configure and use the Remote Desktop Protocol (RDP) app container client control.
@@ -99,7 +99,7 @@ export default struct IRemoteDesktopClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclient-reconnect
      */
     Reconnect(width, height) {
-        result := ComCall(9, this, "uint", width, "uint", height, "HRESULT")
+        result := ComCall(9, this, UInt32, width, UInt32, height, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IRemoteDesktopClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclient-updatesessiondisplaysettings
      */
     UpdateSessionDisplaySettings(width, height) {
-        result := ComCall(14, this, "uint", width, "uint", height, "HRESULT")
+        result := ComCall(14, this, UInt32, width, UInt32, height, "HRESULT")
         return result
     }
 

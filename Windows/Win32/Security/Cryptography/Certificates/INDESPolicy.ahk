@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CERTTRANSBLOB.ahk" { CERTTRANSBLOB }
-#Import ".\X509SCEPDisposition.ahk" { X509SCEPDisposition }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\X509SCEPDisposition.ahk" { X509SCEPDisposition }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERTTRANSBLOB.ahk" { CERTTRANSBLOB }
 
 /**
  * The NDES Policy Module Interface. When installed against an enterprise CA, NDES generates a password after checking that the user has enrollment permission on the configured NDES templates, both user and machine templates.
@@ -111,7 +111,7 @@ export default struct INDESPolicy extends IUnknown {
         pwszChallenge := pwszChallenge is String ? StrPtr(pwszChallenge) : pwszChallenge
         pwszTransactionId := pwszTransactionId is String ? StrPtr(pwszTransactionId) : pwszTransactionId
 
-        result := ComCall(7, this, "ptr", pwszChallenge, "ptr", pwszTransactionId, X509SCEPDisposition, disposition, "int", lastHResult, CERTTRANSBLOB.Ptr, pctbIssuedCertEncoded, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszChallenge, "ptr", pwszTransactionId, X509SCEPDisposition, disposition, Int32, lastHResult, CERTTRANSBLOB.Ptr, pctbIssuedCertEncoded, "HRESULT")
         return result
     }
 

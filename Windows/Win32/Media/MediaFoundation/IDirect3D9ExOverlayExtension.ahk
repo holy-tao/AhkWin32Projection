@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Graphics\Direct3D9\D3DDEVTYPE.ahk" { D3DDEVTYPE }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Graphics\Direct3D9\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
+#Import ".\D3DOVERLAYCAPS.ahk" { D3DOVERLAYCAPS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Direct3D9\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3DOVERLAYCAPS.ahk" { D3DOVERLAYCAPS }
-#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * Queries the overlay hardware capabilities of a Direct3D device. (IDirect3D9ExOverlayExtension)
@@ -96,7 +96,7 @@ export default struct IDirect3D9ExOverlayExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9exoverlayextension-checkdeviceoverlaytype
      */
     CheckDeviceOverlayType(_Adapter, DevType, OverlayWidth, OverlayHeight, OverlayFormat, pDisplayMode, DisplayRotation, pOverlayCaps) {
-        result := ComCall(3, this, "uint", _Adapter, D3DDEVTYPE, DevType, "uint", OverlayWidth, "uint", OverlayHeight, D3DFORMAT, OverlayFormat, D3DDISPLAYMODEEX.Ptr, pDisplayMode, D3DDISPLAYROTATION, DisplayRotation, D3DOVERLAYCAPS.Ptr, pOverlayCaps, "HRESULT")
+        result := ComCall(3, this, UInt32, _Adapter, D3DDEVTYPE, DevType, UInt32, OverlayWidth, UInt32, OverlayHeight, D3DFORMAT, OverlayFormat, D3DDISPLAYMODEEX.Ptr, pDisplayMode, D3DDISPLAYROTATION, DisplayRotation, D3DOVERLAYCAPS.Ptr, pOverlayCaps, "HRESULT")
         return result
     }
 

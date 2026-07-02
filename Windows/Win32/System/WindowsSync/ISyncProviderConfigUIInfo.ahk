@@ -47,7 +47,7 @@ export default struct ISyncProviderConfigUIInfo extends IPropertyStore {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui
      */
     GetSyncProviderConfigUI(dwClsContext) {
-        result := ComCall(8, this, "uint", dwClsContext, "ptr*", &ppSyncProviderConfigUI := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwClsContext, "ptr*", &ppSyncProviderConfigUI := 0, "HRESULT")
         return ISyncProviderConfigUI(ppSyncProviderConfigUI)
     }
 

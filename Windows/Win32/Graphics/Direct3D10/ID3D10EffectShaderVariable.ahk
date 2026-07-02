@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10PixelShader.ahk" { ID3D10PixelShader }
 #Import ".\ID3D10VertexShader.ahk" { ID3D10VertexShader }
-#Import ".\ID3D10GeometryShader.ahk" { ID3D10GeometryShader }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
-#Import ".\D3D10_EFFECT_SHADER_DESC.ahk" { D3D10_EFFECT_SHADER_DESC }
+#Import ".\ID3D10PixelShader.ahk" { ID3D10PixelShader }
 #Import ".\D3D10_SIGNATURE_PARAMETER_DESC.ahk" { D3D10_SIGNATURE_PARAMETER_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10GeometryShader.ahk" { ID3D10GeometryShader }
+#Import ".\D3D10_EFFECT_SHADER_DESC.ahk" { D3D10_EFFECT_SHADER_DESC }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
 
 /**
  * A shader-variable interface accesses a shader variable.
@@ -59,7 +59,7 @@ export default struct ID3D10EffectShaderVariable extends ID3D10EffectVariable {
      */
     GetShaderDesc(ShaderIndex) {
         pDesc := D3D10_EFFECT_SHADER_DESC()
-        result := ComCall(25, this, "uint", ShaderIndex, D3D10_EFFECT_SHADER_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(25, this, UInt32, ShaderIndex, D3D10_EFFECT_SHADER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -74,7 +74,7 @@ export default struct ID3D10EffectShaderVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getvertexshader
      */
     GetVertexShader(ShaderIndex) {
-        result := ComCall(26, this, "uint", ShaderIndex, "ptr*", &ppVS := 0, "HRESULT")
+        result := ComCall(26, this, UInt32, ShaderIndex, "ptr*", &ppVS := 0, "HRESULT")
         return ID3D10VertexShader(ppVS)
     }
 
@@ -89,7 +89,7 @@ export default struct ID3D10EffectShaderVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getgeometryshader
      */
     GetGeometryShader(ShaderIndex) {
-        result := ComCall(27, this, "uint", ShaderIndex, "ptr*", &ppGS := 0, "HRESULT")
+        result := ComCall(27, this, UInt32, ShaderIndex, "ptr*", &ppGS := 0, "HRESULT")
         return ID3D10GeometryShader(ppGS)
     }
 
@@ -104,7 +104,7 @@ export default struct ID3D10EffectShaderVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getpixelshader
      */
     GetPixelShader(ShaderIndex) {
-        result := ComCall(28, this, "uint", ShaderIndex, "ptr*", &ppPS := 0, "HRESULT")
+        result := ComCall(28, this, UInt32, ShaderIndex, "ptr*", &ppPS := 0, "HRESULT")
         return ID3D10PixelShader(ppPS)
     }
 
@@ -125,7 +125,7 @@ export default struct ID3D10EffectShaderVariable extends ID3D10EffectVariable {
      */
     GetInputSignatureElementDesc(ShaderIndex, Element) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(29, this, "uint", ShaderIndex, "uint", Element, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(29, this, UInt32, ShaderIndex, UInt32, Element, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -146,7 +146,7 @@ export default struct ID3D10EffectShaderVariable extends ID3D10EffectVariable {
      */
     GetOutputSignatureElementDesc(ShaderIndex, Element) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(30, this, "uint", ShaderIndex, "uint", Element, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(30, this, UInt32, ShaderIndex, UInt32, Element, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 

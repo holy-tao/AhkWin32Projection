@@ -148,7 +148,7 @@ export default struct IWMPControls3 extends IWMPControls2 {
     getAudioLanguageID(lIndex, plLangID) {
         plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(25, this, "int", lIndex, plLangIDMarshal, plLangID, "HRESULT")
+        result := ComCall(25, this, Int32, lIndex, plLangIDMarshal, plLangID, "HRESULT")
         return result
     }
 
@@ -184,7 +184,7 @@ export default struct IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-getaudiolanguagedescription
      */
     getAudioLanguageDescription(lIndex, pbstrLangDesc) {
-        result := ComCall(26, this, "int", lIndex, BSTR.Ptr, pbstrLangDesc, "HRESULT")
+        result := ComCall(26, this, Int32, lIndex, BSTR.Ptr, pbstrLangDesc, "HRESULT")
         return result
     }
 
@@ -260,7 +260,7 @@ export default struct IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-put_currentaudiolanguage
      */
     put_currentAudioLanguage(lLangID) {
-        result := ComCall(28, this, "int", lLangID, "HRESULT")
+        result := ComCall(28, this, Int32, lLangID, "HRESULT")
         return result
     }
 
@@ -332,7 +332,7 @@ export default struct IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-put_currentaudiolanguageindex
      */
     put_currentAudioLanguageIndex(lIndex) {
-        result := ComCall(30, this, "int", lIndex, "HRESULT")
+        result := ComCall(30, this, Int32, lIndex, "HRESULT")
         return result
     }
 
@@ -366,7 +366,7 @@ export default struct IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-getlanguagename
      */
     getLanguageName(lLangID, pbstrLangName) {
-        result := ComCall(31, this, "int", lLangID, BSTR.Ptr, pbstrLangName, "HRESULT")
+        result := ComCall(31, this, Int32, lLangID, BSTR.Ptr, pbstrLangName, "HRESULT")
         return result
     }
 

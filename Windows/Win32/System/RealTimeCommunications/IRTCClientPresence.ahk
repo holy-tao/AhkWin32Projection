@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_OFFER_WATCHER_MODE.ahk" { RTC_OFFER_WATCHER_MODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRTCEnumWatchers.ahk" { IRTCEnumWatchers }
-#Import ".\IRTCEnumBuddies.ahk" { IRTCEnumBuddies }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\RTC_PRESENCE_STATUS.ahk" { RTC_PRESENCE_STATUS }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IRTCCollection.ahk" { IRTCCollection }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\RTC_PRIVACY_MODE.ahk" { RTC_PRIVACY_MODE }
-#Import ".\IRTCBuddy.ahk" { IRTCBuddy }
-#Import ".\IRTCWatcher.ahk" { IRTCWatcher }
+#Import ".\IRTCEnumBuddies.ahk" { IRTCEnumBuddies }
 #Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\RTC_OFFER_WATCHER_MODE.ahk" { RTC_OFFER_WATCHER_MODE }
+#Import ".\IRTCBuddy.ahk" { IRTCBuddy }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRTCCollection.ahk" { IRTCCollection }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IRTCWatcher.ahk" { IRTCWatcher }
+#Import ".\RTC_PRIVACY_MODE.ahk" { RTC_PRIVACY_MODE }
+#Import ".\IRTCEnumWatchers.ahk" { IRTCEnumWatchers }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -171,7 +171,7 @@ export default struct IRTCClientPresence extends IUnknown {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(9, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, VARIANT_BOOL, fPersistent, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrPresentityURI, BSTR, bstrUserName, BSTR, bstrData, VARIANT_BOOL, fPersistent, "ptr", pProfile, Int32, lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
         return IRTCBuddy(ppBuddy)
     }
 

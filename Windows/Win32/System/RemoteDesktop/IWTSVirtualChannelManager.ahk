@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWTSListenerCallback.ahk" { IWTSListenerCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWTSListener.ahk" { IWTSListener }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWTSListener.ahk" { IWTSListener }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWTSListenerCallback.ahk" { IWTSListenerCallback }
 
 /**
  * Manages all Remote Desktop Connection (RDC) client plug-ins and dynamic virtual channel (DVC) listeners.
@@ -51,7 +51,7 @@ export default struct IWTSVirtualChannelManager extends IUnknown {
     CreateListener(pszChannelName, uFlags, pListenerCallback) {
         pszChannelName := pszChannelName is String ? StrPtr(pszChannelName) : pszChannelName
 
-        result := ComCall(3, this, "ptr", pszChannelName, "uint", uFlags, "ptr", pListenerCallback, "ptr*", &ppListener := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszChannelName, UInt32, uFlags, "ptr", pListenerCallback, "ptr*", &ppListener := 0, "HRESULT")
         return IWTSListener(ppListener)
     }
 

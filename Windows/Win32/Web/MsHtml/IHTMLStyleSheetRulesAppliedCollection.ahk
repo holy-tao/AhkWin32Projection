@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHTMLStyleSheetRule.ahk" { IHTMLStyleSheetRule }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLStyleSheetRule.ahk" { IHTMLStyleSheetRule }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -60,7 +60,7 @@ export default struct IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
      * @returns {IHTMLStyleSheetRule} 
      */
     item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &ppHTMLStyleSheetRule := 0, "HRESULT")
+        result := ComCall(7, this, Int32, index, "ptr*", &ppHTMLStyleSheetRule := 0, "HRESULT")
         return IHTMLStyleSheetRule(ppHTMLStyleSheetRule)
     }
 
@@ -94,7 +94,7 @@ export default struct IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     propertyAppliedTrace(name, index) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(10, this, BSTR, name, "int", index, "ptr*", &ppRule := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, name, Int32, index, "ptr*", &ppRule := 0, "HRESULT")
         return IHTMLStyleSheetRule(ppRule)
     }
 

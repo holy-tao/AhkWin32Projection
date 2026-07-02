@@ -2,8 +2,8 @@
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IReferenceClock interface provides access to an external clock. This interface is provided to enable all rendering routines to be synchronized to the same clock.This interface can be obtained from a reader object.
@@ -67,7 +67,7 @@ export default struct IReferenceClock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-advisetime
      */
     AdviseTime(baseTime, streamTime, hEvent) {
-        result := ComCall(4, this, "int64", baseTime, "int64", streamTime, HANDLE, hEvent, "ptr*", &pdwAdviseCookie := 0, "HRESULT")
+        result := ComCall(4, this, Int64, baseTime, Int64, streamTime, HANDLE, hEvent, "ptr*", &pdwAdviseCookie := 0, "HRESULT")
         return pdwAdviseCookie
     }
 
@@ -80,7 +80,7 @@ export default struct IReferenceClock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-adviseperiodic
      */
     AdvisePeriodic(startTime, periodTime, _hSemaphore) {
-        result := ComCall(5, this, "int64", startTime, "int64", periodTime, HANDLE, _hSemaphore, "ptr*", &pdwAdviseCookie := 0, "HRESULT")
+        result := ComCall(5, this, Int64, startTime, Int64, periodTime, HANDLE, _hSemaphore, "ptr*", &pdwAdviseCookie := 0, "HRESULT")
         return pdwAdviseCookie
     }
 
@@ -98,7 +98,7 @@ export default struct IReferenceClock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-unadvise
      */
     Unadvise(dwAdviseCookie) {
-        result := ComCall(6, this, "ptr", dwAdviseCookie, "HRESULT")
+        result := ComCall(6, this, IntPtr, dwAdviseCookie, "HRESULT")
         return result
     }
 

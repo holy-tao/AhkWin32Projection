@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IOpcSignatureCustomObjectEnumerator.ahk" { IOpcSignatureCustomObjectEnumerator }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IOpcSignatureCustomObject.ahk" { IOpcSignatureCustomObject }
 
 /**
@@ -92,7 +92,7 @@ export default struct IOpcSignatureCustomObjectSet extends IUnknown {
     Create(xmlMarkup, count) {
         xmlMarkupMarshal := xmlMarkup is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, xmlMarkupMarshal, xmlMarkup, "uint", count, "ptr*", &customObject := 0, "HRESULT")
+        result := ComCall(3, this, xmlMarkupMarshal, xmlMarkup, UInt32, count, "ptr*", &customObject := 0, "HRESULT")
         return IOpcSignatureCustomObject(customObject)
     }
 

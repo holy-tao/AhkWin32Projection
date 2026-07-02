@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Restricts access to methods and properties of objects that implements the method of this interface.
@@ -205,7 +205,7 @@ export default struct IUpdateLockdown extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatelockdown-lockdown
      */
     LockDown(flags) {
-        result := ComCall(3, this, "int", flags, "HRESULT")
+        result := ComCall(3, this, Int32, flags, "HRESULT")
         return result
     }
 

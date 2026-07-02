@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 #Import ".\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\LPDDHALVPORTCB_GETVPORTCONNECT.ahk" { LPDDHALVPORTCB_GETVPORTCONNECT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -19,6 +20,6 @@ export default struct DDHAL_GETVPORTCONNECTDATA {
 
     ddRVal : HRESULT
 
-    GetVideoPortConnectInfo : IntPtr
+    GetVideoPortConnectInfo : LPDDHALVPORTCB_GETVPORTCONNECT
 
 }

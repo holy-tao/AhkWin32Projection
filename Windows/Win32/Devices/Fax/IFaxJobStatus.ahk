@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FAX_JOB_TYPE_ENUM.ahk" { FAX_JOB_TYPE_ENUM }
+#Import ".\FAX_JOB_STATUS_ENUM.ahk" { FAX_JOB_STATUS_ENUM }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FAX_JOB_TYPE_ENUM.ahk" { FAX_JOB_TYPE_ENUM }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FAX_JOB_EXTENDED_STATUS_ENUM.ahk" { FAX_JOB_EXTENDED_STATUS_ENUM }
 #Import ".\FAX_JOB_OPERATIONS_ENUM.ahk" { FAX_JOB_OPERATIONS_ENUM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FAX_JOB_STATUS_ENUM.ahk" { FAX_JOB_STATUS_ENUM }
 
 /**
  * The IFaxJobStatus interface is used for notifications and to hold the dynamic information of the job.

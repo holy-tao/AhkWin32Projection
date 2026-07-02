@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MFARGB.ahk" { MFARGB }
-#Import ".\IMFContentProtectionManager.ahk" { IMFContentProtectionManager }
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFContentProtectionManager.ahk" { IMFContentProtectionManager }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
 
 /**
  * Enables the Media Engine to play protected video content.
@@ -124,7 +124,7 @@ export default struct IMFMediaEngineProtectedContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-setapplicationcertificate
      */
     SetApplicationCertificate(pbBlob, cbBlob) {
-        result := ComCall(8, this, "ptr", pbBlob, "uint", cbBlob, "HRESULT")
+        result := ComCall(8, this, IntPtr, pbBlob, UInt32, cbBlob, "HRESULT")
         return result
     }
 

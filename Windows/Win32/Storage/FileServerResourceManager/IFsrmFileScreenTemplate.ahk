@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmDerivedObjectsResult.ahk" { IFsrmDerivedObjectsResult }
+#Import ".\FsrmTemplateApplyOptions.ahk" { FsrmTemplateApplyOptions }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\FsrmCommitOptions.ahk" { FsrmCommitOptions }
+#Import ".\IFsrmDerivedObjectsResult.ahk" { IFsrmDerivedObjectsResult }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FsrmTemplateApplyOptions.ahk" { FsrmTemplateApplyOptions }
 #Import ".\IFsrmFileScreenBase.ahk" { IFsrmFileScreenBase }
 
 /**

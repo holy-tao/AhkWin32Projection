@@ -53,7 +53,7 @@ export default struct IWMReaderAdvanced6 extends IWMReaderAdvanced5 {
         pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
         pcbInitializationVectorMarshal := pcbInitializationVector is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(50, this, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "uint", dwCertificateType, "uint", dwFlags, "char*", &pbInitializationVector := 0, pcbInitializationVectorMarshal, pcbInitializationVector, "HRESULT")
+        result := ComCall(50, this, pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, UInt32, dwCertificateType, UInt32, dwFlags, "char*", &pbInitializationVector := 0, pcbInitializationVectorMarshal, pcbInitializationVector, "HRESULT")
         return pbInitializationVector
     }
 

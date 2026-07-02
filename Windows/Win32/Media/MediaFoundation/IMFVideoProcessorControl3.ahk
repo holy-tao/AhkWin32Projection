@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MFVideoSphericalFormat.ahk" { MFVideoSphericalFormat }
 #Import ".\MFVideoSphericalProjectionMode.ahk" { MFVideoSphericalProjectionMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFVideoProcessorControl2.ahk" { IMFVideoProcessorControl2 }
 
 /**
@@ -74,7 +74,7 @@ export default struct IMFVideoProcessorControl3 extends IMFVideoProcessorControl
      * @returns {HRESULT} 
      */
     SetSphericalVideoProperties(X, Y, Z, W, fieldOfView) {
-        result := ComCall(14, this, "float", X, "float", Y, "float", Z, "float", W, "float", fieldOfView, "HRESULT")
+        result := ComCall(14, this, Float32, X, Float32, Y, Float32, Z, Float32, W, Float32, fieldOfView, "HRESULT")
         return result
     }
 

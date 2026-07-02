@@ -95,7 +95,7 @@ export default struct IWMPCdromCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromcollection-item
      */
     item(lIndex) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, "ptr*", &ppItem := 0, "HRESULT")
         return IWMPCdrom(ppItem)
     }
 

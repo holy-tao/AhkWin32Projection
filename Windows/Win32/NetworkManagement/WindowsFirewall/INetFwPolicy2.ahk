@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\INetFwServiceRestriction.ahk" { INetFwServiceRestriction }
-#Import ".\INetFwRules.ahk" { INetFwRules }
 #Import ".\NET_FW_ACTION.ahk" { NET_FW_ACTION }
+#Import ".\INetFwRules.ahk" { INetFwRules }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\NET_FW_PROFILE_TYPE2.ahk" { NET_FW_PROFILE_TYPE2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\NET_FW_MODIFY_STATE.ahk" { NET_FW_MODIFY_STATE }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NET_FW_PROFILE_TYPE2.ahk" { NET_FW_PROFILE_TYPE2 }
 
 /**
  * To access the firewall policy.
@@ -390,7 +390,7 @@ export default struct INetFwPolicy2 extends IDispatch {
     EnableRuleGroup(profileTypesBitmask, group, enable) {
         group := group is String ? BSTR.Alloc(group).Value : group
 
-        result := ComCall(20, this, "int", profileTypesBitmask, BSTR, group, VARIANT_BOOL, enable, "HRESULT")
+        result := ComCall(20, this, Int32, profileTypesBitmask, BSTR, group, VARIANT_BOOL, enable, "HRESULT")
         return result
     }
 
@@ -408,7 +408,7 @@ export default struct INetFwPolicy2 extends IDispatch {
     IsRuleGroupEnabled(profileTypesBitmask, group) {
         group := group is String ? BSTR.Alloc(group).Value : group
 
-        result := ComCall(21, this, "int", profileTypesBitmask, BSTR, group, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
+        result := ComCall(21, this, Int32, profileTypesBitmask, BSTR, group, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 

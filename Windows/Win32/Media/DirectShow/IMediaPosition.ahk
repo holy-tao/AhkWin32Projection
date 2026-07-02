@@ -162,7 +162,7 @@ export default struct IMediaPosition extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-put_currentposition
      */
     put_CurrentPosition(llTime) {
-        result := ComCall(8, this, "double", llTime, "HRESULT")
+        result := ComCall(8, this, Float64, llTime, "HRESULT")
         return result
     }
 
@@ -241,7 +241,7 @@ export default struct IMediaPosition extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-put_stoptime
      */
     put_StopTime(llTime) {
-        result := ComCall(11, this, "double", llTime, "HRESULT")
+        result := ComCall(11, this, Float64, llTime, "HRESULT")
         return result
     }
 
@@ -297,7 +297,7 @@ export default struct IMediaPosition extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-put_prerolltime
      */
     put_PrerollTime(llTime) {
-        result := ComCall(13, this, "double", llTime, "HRESULT")
+        result := ComCall(13, this, Float64, llTime, "HRESULT")
         return result
     }
 
@@ -352,7 +352,7 @@ export default struct IMediaPosition extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-put_rate
      */
     put_Rate(dRate) {
-        result := ComCall(14, this, "double", dRate, "HRESULT")
+        result := ComCall(14, this, Float64, dRate, "HRESULT")
         return result
     }
 

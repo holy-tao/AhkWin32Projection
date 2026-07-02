@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SHARINGCONNECTION_ENUM_FLAGS.ahk" { SHARINGCONNECTION_ENUM_FLAGS }
 #Import ".\INetSharingPortMapping.ahk" { INetSharingPortMapping }
+#Import ".\ICS_TARGETTYPE.ahk" { ICS_TARGETTYPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\SHARINGCONNECTIONTYPE.ahk" { SHARINGCONNECTIONTYPE }
 #Import ".\INetSharingPortMappingCollection.ahk" { INetSharingPortMappingCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICS_TARGETTYPE.ahk" { ICS_TARGETTYPE }
-#Import ".\SHARINGCONNECTION_ENUM_FLAGS.ahk" { SHARINGCONNECTION_ENUM_FLAGS }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The INetSharingConfiguration interface provides methods to manage connection sharing, port mapping, and Internet Connection Firewall.
@@ -642,7 +642,7 @@ export default struct INetSharingConfiguration extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrTargetNameOrIPAddress := bstrTargetNameOrIPAddress is String ? BSTR.Alloc(bstrTargetNameOrIPAddress).Value : bstrTargetNameOrIPAddress
 
-        result := ComCall(15, this, BSTR, bstrName, "char", ucIPProtocol, "ushort", usExternalPort, "ushort", usInternalPort, "uint", dwOptions, BSTR, bstrTargetNameOrIPAddress, ICS_TARGETTYPE, eTargetType, "ptr*", &ppMapping := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrName, Int8, ucIPProtocol, UInt16, usExternalPort, UInt16, usInternalPort, UInt32, dwOptions, BSTR, bstrTargetNameOrIPAddress, ICS_TARGETTYPE, eTargetType, "ptr*", &ppMapping := 0, "HRESULT")
         return INetSharingPortMapping(ppMapping)
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Variant\VARENUM.ahk" { VARENUM }
-#Import "..\Com\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
 #Import "..\Com\TYPEDESC.ahk" { TYPEDESC }
+#Import "..\Com\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
 
 /**
  * Describes an array, its element type, and its dimension.

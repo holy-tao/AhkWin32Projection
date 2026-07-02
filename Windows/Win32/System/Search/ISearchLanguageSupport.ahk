@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for accessing thesaurus information.
@@ -95,7 +95,7 @@ export default struct ISearchLanguageSupport extends IUnknown {
         ppWordBreakerMarshal := ppWordBreaker is VarRef ? "ptr*" : "ptr"
         pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", lcid, Guid.Ptr, riid, ppWordBreakerMarshal, ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "HRESULT")
+        result := ComCall(5, this, UInt32, lcid, Guid.Ptr, riid, ppWordBreakerMarshal, ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct ISearchLanguageSupport extends IUnknown {
         ppStemmerMarshal := ppStemmer is VarRef ? "ptr*" : "ptr"
         pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", lcid, Guid.Ptr, riid, ppStemmerMarshal, ppStemmer, pLcidUsedMarshal, pLcidUsed, "HRESULT")
+        result := ComCall(6, this, UInt32, lcid, Guid.Ptr, riid, ppStemmerMarshal, ppStemmer, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct ISearchLanguageSupport extends IUnknown {
         pwcsQueryToken := pwcsQueryToken is String ? StrPtr(pwcsQueryToken) : pwcsQueryToken
         pwcsDocumentToken := pwcsDocumentToken is String ? StrPtr(pwcsDocumentToken) : pwcsDocumentToken
 
-        result := ComCall(7, this, "ptr", pwcsQueryToken, "uint", cwcQueryToken, "ptr", pwcsDocumentToken, "uint", cwcDocumentToken, "uint*", &pulPrefixLength := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pwcsQueryToken, UInt32, cwcQueryToken, "ptr", pwcsDocumentToken, UInt32, cwcDocumentToken, "uint*", &pulPrefixLength := 0, "HRESULT")
         return pulPrefixLength
     }
 

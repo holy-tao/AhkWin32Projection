@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12GraphicsCommandList.ahk" { ID3D12GraphicsCommandList }
-#Import ".\D3D12_RESOLVE_MODE.ahk" { D3D12_RESOLVE_MODE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3D12_RESOLVE_MODE.ahk" { D3D12_RESOLVE_MODE }
 #Import ".\D3D12_SAMPLE_POSITION.ahk" { D3D12_SAMPLE_POSITION }
 #Import ".\D3D12_SUBRESOURCE_RANGE_UINT64.ahk" { D3D12_SUBRESOURCE_RANGE_UINT64 }
+#Import ".\ID3D12GraphicsCommandList.ahk" { ID3D12GraphicsCommandList }
 
 /**
  * Encapsulates a list of graphics commands for rendering, extending the interface to support programmable sample positions, atomic copies for implementing late-latch techniques, and optional depth-bounds testing.
@@ -84,7 +84,7 @@ export default struct ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-atomiccopybufferuint
      */
     AtomicCopyBufferUINT(pDstBuffer, DstOffset, pSrcBuffer, SrcOffset, Dependencies, ppDependentResources, pDependentSubresourceRanges) {
-        ComCall(60, this, "ptr", pDstBuffer, "uint", DstOffset, "ptr", pSrcBuffer, "uint", SrcOffset, "uint", Dependencies, ID3D12Resource.Ptr, ppDependentResources, D3D12_SUBRESOURCE_RANGE_UINT64.Ptr, pDependentSubresourceRanges)
+        ComCall(60, this, "ptr", pDstBuffer, Int64, DstOffset, "ptr", pSrcBuffer, Int64, SrcOffset, UInt32, Dependencies, ID3D12Resource.Ptr, ppDependentResources, D3D12_SUBRESOURCE_RANGE_UINT64.Ptr, pDependentSubresourceRanges)
     }
 
     /**
@@ -124,7 +124,7 @@ export default struct ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-atomiccopybufferuint64
      */
     AtomicCopyBufferUINT64(pDstBuffer, DstOffset, pSrcBuffer, SrcOffset, Dependencies, ppDependentResources, pDependentSubresourceRanges) {
-        ComCall(61, this, "ptr", pDstBuffer, "uint", DstOffset, "ptr", pSrcBuffer, "uint", SrcOffset, "uint", Dependencies, ID3D12Resource.Ptr, ppDependentResources, D3D12_SUBRESOURCE_RANGE_UINT64.Ptr, pDependentSubresourceRanges)
+        ComCall(61, this, "ptr", pDstBuffer, Int64, DstOffset, "ptr", pSrcBuffer, Int64, SrcOffset, UInt32, Dependencies, ID3D12Resource.Ptr, ppDependentResources, D3D12_SUBRESOURCE_RANGE_UINT64.Ptr, pDependentSubresourceRanges)
     }
 
     /**
@@ -149,7 +149,7 @@ export default struct ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-omsetdepthbounds
      */
     OMSetDepthBounds(Min, Max) {
-        ComCall(62, this, "float", Min, "float", Max)
+        ComCall(62, this, Float32, Min, Float32, Max)
     }
 
     /**
@@ -225,7 +225,7 @@ export default struct ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-setsamplepositions
      */
     SetSamplePositions(NumSamplesPerPixel, NumPixels, pSamplePositions) {
-        ComCall(63, this, "uint", NumSamplesPerPixel, "uint", NumPixels, D3D12_SAMPLE_POSITION.Ptr, pSamplePositions)
+        ComCall(63, this, UInt32, NumSamplesPerPixel, UInt32, NumPixels, D3D12_SAMPLE_POSITION.Ptr, pSamplePositions)
     }
 
     /**
@@ -285,7 +285,7 @@ export default struct ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-resolvesubresourceregion
      */
     ResolveSubresourceRegion(pDstResource, DstSubresource, DstX, DstY, pSrcResource, SrcSubresource, pSrcRect, Format, ResolveMode) {
-        ComCall(64, this, "ptr", pDstResource, "uint", DstSubresource, "uint", DstX, "uint", DstY, "ptr", pSrcResource, "uint", SrcSubresource, RECT.Ptr, pSrcRect, DXGI_FORMAT, Format, D3D12_RESOLVE_MODE, ResolveMode)
+        ComCall(64, this, "ptr", pDstResource, UInt32, DstSubresource, UInt32, DstX, UInt32, DstY, "ptr", pSrcResource, UInt32, SrcSubresource, RECT.Ptr, pSrcRect, DXGI_FORMAT, Format, D3D12_RESOLVE_MODE, ResolveMode)
     }
 
     /**
@@ -305,7 +305,7 @@ export default struct ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-setviewinstancemask
      */
     SetViewInstanceMask(Mask) {
-        ComCall(65, this, "uint", Mask)
+        ComCall(65, this, UInt32, Mask)
     }
 
     Query(iid) {

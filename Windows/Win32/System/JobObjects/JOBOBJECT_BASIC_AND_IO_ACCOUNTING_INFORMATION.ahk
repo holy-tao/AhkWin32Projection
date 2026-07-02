@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\JOBOBJECT_BASIC_ACCOUNTING_INFORMATION.ahk" { JOBOBJECT_BASIC_ACCOUNTING_INFORMATION }
 #Import "..\Threading\IO_COUNTERS.ahk" { IO_COUNTERS }
+#Import ".\JOBOBJECT_BASIC_ACCOUNTING_INFORMATION.ahk" { JOBOBJECT_BASIC_ACCOUNTING_INFORMATION }
 
 /**
  * Contains basic accounting and I/O accounting information for a job object.

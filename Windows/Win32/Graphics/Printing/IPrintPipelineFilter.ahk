@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IInterFilterCommunicator.ahk" { IInterFilterCommunicator }
+#Import ".\IPrintPipelineManagerControl.ahk" { IPrintPipelineManagerControl }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPrintPipelinePropertyBag.ahk" { IPrintPipelinePropertyBag }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPrintPipelineManagerControl.ahk" { IPrintPipelineManagerControl }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

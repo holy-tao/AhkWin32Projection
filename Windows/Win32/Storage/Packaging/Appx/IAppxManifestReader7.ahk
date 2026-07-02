@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IAppxManifestOSPackageDependenciesEnumerator.ahk" { IAppxManifestOSPackageDependenciesEnumerator }
-#Import ".\IAppxManifestHostRuntimeDependenciesEnumerator.ahk" { IAppxManifestHostRuntimeDependenciesEnumerator }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAppxManifestDriverDependenciesEnumerator.ahk" { IAppxManifestDriverDependenciesEnumerator }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxManifestHostRuntimeDependenciesEnumerator.ahk" { IAppxManifestHostRuntimeDependenciesEnumerator }
+#Import ".\IAppxManifestDriverDependenciesEnumerator.ahk" { IAppxManifestDriverDependenciesEnumerator }
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx

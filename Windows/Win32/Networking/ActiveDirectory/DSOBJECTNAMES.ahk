@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DSOBJECT.ahk" { DSOBJECT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DSOBJECT.ahk" { DSOBJECT }
 
 /**
  * The DSOBJECTNAMES structure is used to contain directory object data for use by an Active Directory property sheet or context menu extension.

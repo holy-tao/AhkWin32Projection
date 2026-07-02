@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOleUndoManager.ahk" { IOleUndoManager }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IOleUndoManager.ahk" { IOleUndoManager }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Serves as the main interface on an undo unit. An undo unit encapsulates the information necessary to undo or redo a single action.

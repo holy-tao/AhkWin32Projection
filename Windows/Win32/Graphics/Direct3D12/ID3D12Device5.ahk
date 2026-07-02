@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_SERIALIZED_DATA_TYPE.ahk" { D3D12_SERIALIZED_DATA_TYPE }
-#Import ".\ID3D12LifetimeOwner.ahk" { ID3D12LifetimeOwner }
 #Import ".\D3D12_META_COMMAND_PARAMETER_STAGE.ahk" { D3D12_META_COMMAND_PARAMETER_STAGE }
+#Import ".\ID3D12Device4.ahk" { ID3D12Device4 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS.ahk" { D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS }
+#Import ".\D3D12_SERIALIZED_DATA_TYPE.ahk" { D3D12_SERIALIZED_DATA_TYPE }
+#Import ".\D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER.ahk" { D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER }
+#Import ".\ID3D12LifetimeOwner.ahk" { ID3D12LifetimeOwner }
 #Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO }
+#Import ".\D3D12_META_COMMAND_DESC.ahk" { D3D12_META_COMMAND_DESC }
+#Import ".\D3D12_META_COMMAND_PARAMETER_DESC.ahk" { D3D12_META_COMMAND_PARAMETER_DESC }
 #Import ".\D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS.ahk" { D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS }
 #Import ".\D3D12_STATE_OBJECT_DESC.ahk" { D3D12_STATE_OBJECT_DESC }
-#Import ".\D3D12_META_COMMAND_DESC.ahk" { D3D12_META_COMMAND_DESC }
-#Import ".\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS.ahk" { D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS }
-#Import ".\D3D12_META_COMMAND_PARAMETER_DESC.ahk" { D3D12_META_COMMAND_PARAMETER_DESC }
-#Import ".\ID3D12Device4.ahk" { ID3D12Device4 }
-#Import ".\D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER.ahk" { D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER }
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device4](../d3d12/nn-d3d12-id3d12device4.md).
@@ -177,7 +177,7 @@ export default struct ID3D12Device5 extends ID3D12Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createmetacommand
      */
     CreateMetaCommand(CommandId, NodeMask, pCreationParametersData, CreationParametersDataSizeInBytes, riid) {
-        result := ComCall(61, this, Guid.Ptr, CommandId, "uint", NodeMask, "ptr", pCreationParametersData, "ptr", CreationParametersDataSizeInBytes, Guid.Ptr, riid, "ptr*", &ppMetaCommand := 0, "HRESULT")
+        result := ComCall(61, this, Guid.Ptr, CommandId, UInt32, NodeMask, IntPtr, pCreationParametersData, IntPtr, CreationParametersDataSizeInBytes, Guid.Ptr, riid, "ptr*", &ppMetaCommand := 0, "HRESULT")
         return ppMetaCommand
     }
 

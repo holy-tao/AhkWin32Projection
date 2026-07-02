@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNCMGR_HANDLER_POLICIES.ahk" { SYNCMGR_HANDLER_POLICIES }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISyncMgrHandlerInfo.ahk" { ISyncMgrHandlerInfo }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SYNCMGR_HANDLER_CAPABILITIES.ahk" { SYNCMGR_HANDLER_CAPABILITIES }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISyncMgrSessionCreator.ahk" { ISyncMgrSessionCreator }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\SYNCMGR_HANDLER_POLICIES.ahk" { SYNCMGR_HANDLER_POLICIES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncMgrHandlerInfo.ahk" { ISyncMgrHandlerInfo }
 
 /**
  * Exposes methods that make up the primary interface implemented by a sync handler.
@@ -248,7 +248,7 @@ export default struct ISyncMgrHandler extends IUnknown {
     Synchronize(ppszItemIDs, cItems, hwndOwner, pSessionCreator, punk) {
         ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, HWND, hwndOwner, "ptr", pSessionCreator, "ptr", punk, "HRESULT")
+        result := ComCall(10, this, ppszItemIDsMarshal, ppszItemIDs, UInt32, cItems, HWND, hwndOwner, "ptr", pSessionCreator, "ptr", punk, "HRESULT")
         return result
     }
 

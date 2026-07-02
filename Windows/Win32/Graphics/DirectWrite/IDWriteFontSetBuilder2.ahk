@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
 #Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
-#Import ".\IDWriteFontSetBuilder1.ahk" { IDWriteFontSetBuilder1 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\IDWriteFontSetBuilder1.ahk" { IDWriteFontSetBuilder1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
 
 /**
  * Contains methods for building a font set. (IDWriteFontSetBuilder2)
@@ -81,7 +81,7 @@ export default struct IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder2-addfont
      */
     AddFont(fontFile, fontFaceIndex, fontSimulations, fontAxisValues, fontAxisValueCount, fontAxisRanges, fontAxisRangeCount, _properties, propertyCount) {
-        result := ComCall(8, this, "ptr", fontFile, "uint", fontFaceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", fontAxisRangeCount, DWRITE_FONT_PROPERTY.Ptr, _properties, "uint", propertyCount, "HRESULT")
+        result := ComCall(8, this, "ptr", fontFile, UInt32, fontFaceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, UInt32, fontAxisRangeCount, DWRITE_FONT_PROPERTY.Ptr, _properties, UInt32, propertyCount, "HRESULT")
         return result
     }
 

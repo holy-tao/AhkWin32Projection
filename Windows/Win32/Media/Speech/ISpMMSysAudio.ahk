@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpAudio.ahk" { ISpAudio }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -57,7 +57,7 @@ export default struct ISpMMSysAudio extends ISpAudio {
      * @returns {HRESULT} 
      */
     SetDeviceId(uDeviceId) {
-        result := ComCall(27, this, "uint", uDeviceId, "HRESULT")
+        result := ComCall(27, this, UInt32, uDeviceId, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct ISpMMSysAudio extends ISpAudio {
      * @returns {HRESULT} 
      */
     SetLineId(uLineId) {
-        result := ComCall(30, this, "uint", uLineId, "HRESULT")
+        result := ComCall(30, this, UInt32, uLineId, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
-#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
 #Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
 
 /**
  * Represents a single group of sprites with their associated drawing properties.
@@ -117,7 +117,7 @@ export default struct ID2D1SpriteBatch extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-addsprites
      */
     AddSprites(spriteCount, destinationRectangles, sourceRectangles, colors, transforms, destinationRectanglesStride, sourceRectanglesStride, colorsStride, transformsStride) {
-        result := ComCall(4, this, "uint", spriteCount, D2D_RECT_F.Ptr, destinationRectangles, D2D_RECT_U.Ptr, sourceRectangles, D2D1_COLOR_F.Ptr, colors, D2D_MATRIX_3X2_F.Ptr, transforms, "uint", destinationRectanglesStride, "uint", sourceRectanglesStride, "uint", colorsStride, "uint", transformsStride, "HRESULT")
+        result := ComCall(4, this, UInt32, spriteCount, D2D_RECT_F.Ptr, destinationRectangles, D2D_RECT_U.Ptr, sourceRectangles, D2D1_COLOR_F.Ptr, colors, D2D_MATRIX_3X2_F.Ptr, transforms, UInt32, destinationRectanglesStride, UInt32, sourceRectanglesStride, UInt32, colorsStride, UInt32, transformsStride, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct ID2D1SpriteBatch extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-setsprites
      */
     SetSprites(startIndex, spriteCount, destinationRectangles, sourceRectangles, colors, transforms, destinationRectanglesStride, sourceRectanglesStride, colorsStride, transformsStride) {
-        result := ComCall(5, this, "uint", startIndex, "uint", spriteCount, D2D_RECT_F.Ptr, destinationRectangles, D2D_RECT_U.Ptr, sourceRectangles, D2D1_COLOR_F.Ptr, colors, D2D_MATRIX_3X2_F.Ptr, transforms, "uint", destinationRectanglesStride, "uint", sourceRectanglesStride, "uint", colorsStride, "uint", transformsStride, "HRESULT")
+        result := ComCall(5, this, UInt32, startIndex, UInt32, spriteCount, D2D_RECT_F.Ptr, destinationRectangles, D2D_RECT_U.Ptr, sourceRectangles, D2D1_COLOR_F.Ptr, colors, D2D_MATRIX_3X2_F.Ptr, transforms, UInt32, destinationRectanglesStride, UInt32, sourceRectanglesStride, UInt32, colorsStride, UInt32, transformsStride, "HRESULT")
         return result
     }
 
@@ -221,7 +221,7 @@ export default struct ID2D1SpriteBatch extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-getsprites
      */
     GetSprites(startIndex, spriteCount, destinationRectangles, sourceRectangles, colors, transforms) {
-        result := ComCall(6, this, "uint", startIndex, "uint", spriteCount, D2D_RECT_F.Ptr, destinationRectangles, D2D_RECT_U.Ptr, sourceRectangles, D2D1_COLOR_F.Ptr, colors, D2D_MATRIX_3X2_F.Ptr, transforms, "HRESULT")
+        result := ComCall(6, this, UInt32, startIndex, UInt32, spriteCount, D2D_RECT_F.Ptr, destinationRectangles, D2D_RECT_U.Ptr, sourceRectangles, D2D1_COLOR_F.Ptr, colors, D2D_MATRIX_3X2_F.Ptr, transforms, "HRESULT")
         return result
     }
 

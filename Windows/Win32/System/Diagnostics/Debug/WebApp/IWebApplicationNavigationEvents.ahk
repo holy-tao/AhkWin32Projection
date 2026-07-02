@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Web\MsHtml\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
@@ -67,7 +67,7 @@ export default struct IWebApplicationNavigationEvents extends IUnknown {
         url := url is String ? StrPtr(url) : url
         targetFrameName := targetFrameName is String ? StrPtr(targetFrameName) : targetFrameName
 
-        result := ComCall(3, this, "ptr", htmlWindow, "ptr", url, "uint", navigationFlags, "ptr", targetFrameName, "HRESULT")
+        result := ComCall(3, this, "ptr", htmlWindow, "ptr", url, UInt32, navigationFlags, "ptr", targetFrameName, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IWebApplicationNavigationEvents extends IUnknown {
         url := url is String ? StrPtr(url) : url
         targetFrameName := targetFrameName is String ? StrPtr(targetFrameName) : targetFrameName
 
-        result := ComCall(5, this, "ptr", htmlWindow, "ptr", url, "ptr", targetFrameName, "uint", _statusCode, "HRESULT")
+        result := ComCall(5, this, "ptr", htmlWindow, "ptr", url, "ptr", targetFrameName, UInt32, _statusCode, "HRESULT")
         return result
     }
 

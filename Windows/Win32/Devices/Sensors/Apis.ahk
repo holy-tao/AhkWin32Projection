@@ -1,16 +1,16 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SENSOR_PROPERTY_LIST.ahk" { SENSOR_PROPERTY_LIST }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SENSOR_COLLECTION_LIST.ahk" { SENSOR_COLLECTION_LIST }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
+#Import ".\SENSOR_PROPERTY_LIST.ahk" { SENSOR_PROPERTY_LIST }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
@@ -26,7 +26,7 @@ export GetPerformanceTime(TimeMs) {
     TimeMsMarshal := TimeMs is VarRef ? "uint*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\GetPerformanceTime", TimeMsMarshal, TimeMs, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -37,7 +37,7 @@ export GetPerformanceTime(TimeMs) {
  * @returns {HRESULT} 
  */
 export InitPropVariantFromFloat(fltVal, ppropvar) {
-    result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromFloat", "float", fltVal, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromFloat", Float32, fltVal, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -51,7 +51,7 @@ export InitPropVariantFromFloat(fltVal, ppropvar) {
  */
 export PropKeyFindKeyGetPropVariant(pList, pKey, TypeCheck, pValue) {
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetPropVariant", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, BOOLEAN, TypeCheck, PROPVARIANT.Ptr, pValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -65,7 +65,7 @@ export PropKeyFindKeyGetPropVariant(pList, pKey, TypeCheck, pValue) {
  */
 export PropKeyFindKeySetPropVariant(pList, pKey, TypeCheck, pValue) {
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeySetPropVariant", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, BOOLEAN, TypeCheck, PROPVARIANT.Ptr, pValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -78,7 +78,7 @@ export PropKeyFindKeySetPropVariant(pList, pKey, TypeCheck, pValue) {
  */
 export PropKeyFindKeyGetFileTime(pList, pKey, pRetValue) {
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetFileTime", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, FILETIME.Ptr, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -91,7 +91,7 @@ export PropKeyFindKeyGetFileTime(pList, pKey, pRetValue) {
  */
 export PropKeyFindKeyGetGuid(pList, pKey, pRetValue) {
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetGuid", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, Guid.Ptr, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -106,7 +106,7 @@ export PropKeyFindKeyGetBool(pList, pKey, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "int*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetBool", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -121,7 +121,7 @@ export PropKeyFindKeyGetUlong(pList, pKey, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "uint*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetUlong", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -136,7 +136,7 @@ export PropKeyFindKeyGetUshort(pList, pKey, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "ushort*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetUshort", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -151,7 +151,7 @@ export PropKeyFindKeyGetFloat(pList, pKey, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "float*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetFloat", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -166,7 +166,7 @@ export PropKeyFindKeyGetDouble(pList, pKey, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "double*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetDouble", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -181,7 +181,7 @@ export PropKeyFindKeyGetInt32(pList, pKey, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "int*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetInt32", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -196,7 +196,7 @@ export PropKeyFindKeyGetInt64(pList, pKey, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "int64*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetInt64", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -211,8 +211,8 @@ export PropKeyFindKeyGetInt64(pList, pKey, pRetValue) {
 export PropKeyFindKeyGetNthUlong(pList, pKey, Occurrence, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUlong", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, "uint", Occurrence, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUlong", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, UInt32, Occurrence, pRetValueMarshal, pRetValue, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -227,8 +227,8 @@ export PropKeyFindKeyGetNthUlong(pList, pKey, Occurrence, pRetValue) {
 export PropKeyFindKeyGetNthUshort(pList, pKey, Occurrence, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUshort", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, "uint", Occurrence, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUshort", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, UInt32, Occurrence, pRetValueMarshal, pRetValue, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -243,8 +243,8 @@ export PropKeyFindKeyGetNthUshort(pList, pKey, Occurrence, pRetValue) {
 export PropKeyFindKeyGetNthInt64(pList, pKey, Occurrence, pRetValue) {
     pRetValueMarshal := pRetValue is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthInt64", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, "uint", Occurrence, pRetValueMarshal, pRetValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthInt64", SENSOR_COLLECTION_LIST.Ptr, pList, PROPERTYKEY.Ptr, pKey, UInt32, Occurrence, pRetValueMarshal, pRetValue, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -297,7 +297,7 @@ export PropVariantGetInformation(PropVariantValue, PropVariantOffset, PropVarian
     RemappedTypeMarshal := RemappedType is VarRef ? "uint*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\PropVariantGetInformation", PROPVARIANT.Ptr, PropVariantValue, PropVariantOffsetMarshal, PropVariantOffset, PropVariantSizeMarshal, PropVariantSize, PropVariantPointerMarshal, PropVariantPointer, RemappedTypeMarshal, RemappedType, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -309,7 +309,7 @@ export PropVariantGetInformation(PropVariantValue, PropVariantOffset, PropVarian
  */
 export PropertiesListCopy(Target, Source) {
     result := DllCall("SensorsUtilsV2.dll\PropertiesListCopy", SENSOR_PROPERTY_LIST.Ptr, Target, SENSOR_PROPERTY_LIST.Ptr, Source, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -319,7 +319,7 @@ export PropertiesListCopy(Target, Source) {
  * @returns {Integer} 
  */
 export PropertiesListGetFillableCount(BufferSizeBytes) {
-    result := DllCall("SensorsUtilsV2.dll\PropertiesListGetFillableCount", "uint", BufferSizeBytes, UInt32)
+    result := DllCall("SensorsUtilsV2.dll\PropertiesListGetFillableCount", UInt32, BufferSizeBytes, UInt32)
     return result
 }
 
@@ -341,7 +341,7 @@ export CollectionsListGetMarshalledSize(Collection) {
  */
 export CollectionsListCopyAndMarshall(Target, Source) {
     result := DllCall("SensorsUtilsV2.dll\CollectionsListCopyAndMarshall", SENSOR_COLLECTION_LIST.Ptr, Target, SENSOR_COLLECTION_LIST.Ptr, Source, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -352,7 +352,7 @@ export CollectionsListCopyAndMarshall(Target, Source) {
  */
 export CollectionsListMarshall(Target) {
     result := DllCall("SensorsUtilsV2.dll\CollectionsListMarshall", SENSOR_COLLECTION_LIST.Ptr, Target, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -373,7 +373,7 @@ export CollectionsListGetMarshalledSizeWithoutSerialization(Collection) {
  */
 export CollectionsListUpdateMarshalledPointer(Collection) {
     result := DllCall("SensorsUtilsV2.dll\CollectionsListUpdateMarshalledPointer", SENSOR_COLLECTION_LIST.Ptr, Collection, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -386,8 +386,8 @@ export CollectionsListUpdateMarshalledPointer(Collection) {
 export SerializationBufferAllocate(SizeInBytes, pBuffer) {
     pBufferMarshal := pBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("SensorsUtilsV2.dll\SerializationBufferAllocate", "uint", SizeInBytes, pBufferMarshal, pBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SensorsUtilsV2.dll\SerializationBufferAllocate", UInt32, SizeInBytes, pBufferMarshal, pBuffer, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -420,8 +420,8 @@ export CollectionsListGetSerializedSize(Collection) {
  * @returns {NTSTATUS} 
  */
 export CollectionsListSerializeToBuffer(SourceCollection, TargetBufferSizeInBytes, TargetBuffer) {
-    result := DllCall("SensorsUtilsV2.dll\CollectionsListSerializeToBuffer", SENSOR_COLLECTION_LIST.Ptr, SourceCollection, "uint", TargetBufferSizeInBytes, "ptr", TargetBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SensorsUtilsV2.dll\CollectionsListSerializeToBuffer", SENSOR_COLLECTION_LIST.Ptr, SourceCollection, UInt32, TargetBufferSizeInBytes, IntPtr, TargetBuffer, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -437,7 +437,7 @@ export CollectionsListAllocateBufferAndSerialize(SourceCollection, pTargetBuffer
     pTargetBufferMarshal := pTargetBuffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("SensorsUtilsV2.dll\CollectionsListAllocateBufferAndSerialize", SENSOR_COLLECTION_LIST.Ptr, SourceCollection, pTargetBufferSizeInBytesMarshal, pTargetBufferSizeInBytes, pTargetBufferMarshal, pTargetBuffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -449,8 +449,8 @@ export CollectionsListAllocateBufferAndSerialize(SourceCollection, pTargetBuffer
  * @returns {NTSTATUS} 
  */
 export CollectionsListDeserializeFromBuffer(SourceBufferSizeInBytes, SourceBuffer, TargetCollection) {
-    result := DllCall("SensorsUtilsV2.dll\CollectionsListDeserializeFromBuffer", "uint", SourceBufferSizeInBytes, "ptr", SourceBuffer, SENSOR_COLLECTION_LIST.Ptr, TargetCollection, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SensorsUtilsV2.dll\CollectionsListDeserializeFromBuffer", UInt32, SourceBufferSizeInBytes, IntPtr, SourceBuffer, SENSOR_COLLECTION_LIST.Ptr, TargetCollection, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -463,8 +463,8 @@ export CollectionsListDeserializeFromBuffer(SourceBufferSizeInBytes, SourceBuffe
  * @returns {NTSTATUS} 
  */
 export SensorCollectionGetAt(Index, pSensorsList, pKey, pValue) {
-    result := DllCall("SensorsUtilsV2.dll\SensorCollectionGetAt", "uint", Index, SENSOR_COLLECTION_LIST.Ptr, pSensorsList, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pValue, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SensorsUtilsV2.dll\SensorCollectionGetAt", UInt32, Index, SENSOR_COLLECTION_LIST.Ptr, pSensorsList, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pValue, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -474,7 +474,7 @@ export SensorCollectionGetAt(Index, pSensorsList, pKey, pValue) {
  * @returns {Integer} 
  */
 export CollectionsListGetFillableCount(BufferSizeBytes) {
-    result := DllCall("SensorsUtilsV2.dll\CollectionsListGetFillableCount", "uint", BufferSizeBytes, UInt32)
+    result := DllCall("SensorsUtilsV2.dll\CollectionsListGetFillableCount", UInt32, BufferSizeBytes, UInt32)
     return result
 }
 
@@ -498,7 +498,7 @@ export EvaluateActivityThresholds(newSample, oldSample, thresholds) {
  */
 export CollectionsListSortSubscribedActivitiesByConfidence(thresholds, pCollection) {
     result := DllCall("SensorsUtilsV2.dll\CollectionsListSortSubscribedActivitiesByConfidence", SENSOR_COLLECTION_LIST.Ptr, thresholds, SENSOR_COLLECTION_LIST.Ptr, pCollection, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -510,7 +510,7 @@ export CollectionsListSortSubscribedActivitiesByConfidence(thresholds, pCollecti
  * @returns {HRESULT} 
  */
 export InitPropVariantFromCLSIDArray(members, _size, ppropvar) {
-    result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromCLSIDArray", Guid.Ptr, members, "uint", _size, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromCLSIDArray", Guid.Ptr, members, UInt32, _size, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -533,7 +533,7 @@ export IsSensorSubscribed(subscriptionList, currentType) {
  * @returns {BOOLEAN} 
  */
 export IsGUIDPresentInList(guidArray, arrayLength, guidElem) {
-    result := DllCall("SensorsUtilsV2.dll\IsGUIDPresentInList", Guid.Ptr, guidArray, "uint", arrayLength, Guid.Ptr, guidElem, BOOLEAN)
+    result := DllCall("SensorsUtilsV2.dll\IsGUIDPresentInList", Guid.Ptr, guidArray, UInt32, arrayLength, Guid.Ptr, guidElem, BOOLEAN)
     return result
 }
 

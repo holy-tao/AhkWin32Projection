@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
 #Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
 
 /**
@@ -75,7 +75,7 @@ export default struct IDCompositionSurfaceFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createsurface
      */
     CreateSurface(width, height, pixelFormat, alphaMode) {
-        result := ComCall(3, this, "uint", width, "uint", height, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, width, UInt32, height, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &surface := 0, "HRESULT")
         return IDCompositionSurface(surface)
     }
 
@@ -107,7 +107,7 @@ export default struct IDCompositionSurfaceFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createvirtualsurface
      */
     CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode) {
-        result := ComCall(4, this, "uint", initialWidth, "uint", initialHeight, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, initialWidth, UInt32, initialHeight, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
         return IDCompositionVirtualSurface(virtualSurface)
     }
 

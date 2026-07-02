@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
-#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 
 /**
  * Contains information needed by the IOCTL_CHANGER_SET_POSITION control code to set the changer's robotic transport mechanism to the specified element address.

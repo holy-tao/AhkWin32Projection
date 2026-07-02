@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWICDevelopRawNotificationCallback.ahk" { IWICDevelopRawNotificationCallback }
-#Import ".\WICRawRenderMode.ahk" { WICRawRenderMode }
+#Import ".\WICRawParameterSet.ahk" { WICRawParameterSet }
 #Import ".\IWICColorContext.ahk" { IWICColorContext }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
+#Import ".\WICRawCapabilitiesInfo.ahk" { WICRawCapabilitiesInfo }
 #Import ".\WICNamedWhitePoint.ahk" { WICNamedWhitePoint }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WICRawParameterSet.ahk" { WICRawParameterSet }
-#Import ".\WICRawCapabilitiesInfo.ahk" { WICRawCapabilitiesInfo }
 #Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
-#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
+#Import ".\IWICDevelopRawNotificationCallback.ahk" { IWICDevelopRawNotificationCallback }
+#Import ".\WICRawRenderMode.ahk" { WICRawRenderMode }
 
 /**
  * Exposes methods that provide access to the capabilities of a raw codec format.
@@ -132,7 +132,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setexposurecompensation
      */
     SetExposureCompensation(ev) {
-        result := ComCall(14, this, "double", ev, "HRESULT")
+        result := ComCall(14, this, Float64, ev, "HRESULT")
         return result
     }
 
@@ -167,7 +167,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setwhitepointrgb
      */
     SetWhitePointRGB(Red, Green, Blue) {
-        result := ComCall(16, this, "uint", Red, "uint", Green, "uint", Blue, "HRESULT")
+        result := ComCall(16, this, UInt32, Red, UInt32, Green, UInt32, Blue, "HRESULT")
         return result
     }
 
@@ -254,7 +254,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setwhitepointkelvin
      */
     SetWhitePointKelvin(WhitePointKelvin) {
-        result := ComCall(20, this, "uint", WhitePointKelvin, "HRESULT")
+        result := ComCall(20, this, UInt32, WhitePointKelvin, "HRESULT")
         return result
     }
 
@@ -308,7 +308,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setcontrast
      */
     SetContrast(Contrast) {
-        result := ComCall(23, this, "double", Contrast, "HRESULT")
+        result := ComCall(23, this, Float64, Contrast, "HRESULT")
         return result
     }
 
@@ -335,7 +335,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setgamma
      */
     SetGamma(Gamma) {
-        result := ComCall(25, this, "double", Gamma, "HRESULT")
+        result := ComCall(25, this, Float64, Gamma, "HRESULT")
         return result
     }
 
@@ -364,7 +364,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setsharpness
      */
     SetSharpness(Sharpness) {
-        result := ComCall(27, this, "double", Sharpness, "HRESULT")
+        result := ComCall(27, this, Float64, Sharpness, "HRESULT")
         return result
     }
 
@@ -393,7 +393,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setsaturation
      */
     SetSaturation(Saturation) {
-        result := ComCall(29, this, "double", Saturation, "HRESULT")
+        result := ComCall(29, this, Float64, Saturation, "HRESULT")
         return result
     }
 
@@ -422,7 +422,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-settint
      */
     SetTint(_Tint) {
-        result := ComCall(31, this, "double", _Tint, "HRESULT")
+        result := ComCall(31, this, Float64, _Tint, "HRESULT")
         return result
     }
 
@@ -451,7 +451,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setnoisereduction
      */
     SetNoiseReduction(NoiseReduction) {
-        result := ComCall(33, this, "double", NoiseReduction, "HRESULT")
+        result := ComCall(33, this, Float64, NoiseReduction, "HRESULT")
         return result
     }
 
@@ -496,7 +496,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-settonecurve
      */
     SetToneCurve(cbToneCurveSize, pToneCurve) {
-        result := ComCall(36, this, "uint", cbToneCurveSize, "ptr", pToneCurve, "HRESULT")
+        result := ComCall(36, this, UInt32, cbToneCurveSize, IntPtr, pToneCurve, "HRESULT")
         return result
     }
 
@@ -519,7 +519,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
     GetToneCurve(cbToneCurveBufferSize, pToneCurve, pcbActualToneCurveBufferSize) {
         pcbActualToneCurveBufferSizeMarshal := pcbActualToneCurveBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(37, this, "uint", cbToneCurveBufferSize, "ptr", pToneCurve, pcbActualToneCurveBufferSizeMarshal, pcbActualToneCurveBufferSize, "HRESULT")
+        result := ComCall(37, this, UInt32, cbToneCurveBufferSize, IntPtr, pToneCurve, pcbActualToneCurveBufferSizeMarshal, pcbActualToneCurveBufferSize, "HRESULT")
         return result
     }
 
@@ -534,7 +534,7 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setrotation
      */
     SetRotation(Rotation) {
-        result := ComCall(38, this, "double", Rotation, "HRESULT")
+        result := ComCall(38, this, Float64, Rotation, "HRESULT")
         return result
     }
 

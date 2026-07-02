@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\LDAP_BERVAL.ahk" { LDAP_BERVAL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LDAP_BERVAL.ahk" { LDAP_BERVAL }
 
 /**
  * Represents both client-side and server controls. (Unicode)

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IAccessible.ahk" { IAccessible }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that are called by Microsoft UI Automation to retrieve extra information about a control that supports Microsoft Active Accessibility.
@@ -60,7 +60,7 @@ export default struct IAccessibleEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-getobjectforchild
      */
     GetObjectForChild(idChild) {
-        result := ComCall(3, this, "int", idChild, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(3, this, Int32, idChild, "ptr*", &pRetVal := 0, "HRESULT")
         return IAccessibleEx(pRetVal)
     }
 

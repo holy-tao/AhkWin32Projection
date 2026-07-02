@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
-#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
-#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
 
 /**
  * Controls the preview sink.
@@ -104,7 +104,7 @@ export default struct IMFCapturePreviewSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-setsamplecallback
      */
     SetSampleCallback(dwStreamSinkIndex, pCallback) {
-        result := ComCall(11, this, "uint", dwStreamSinkIndex, "ptr", pCallback, "HRESULT")
+        result := ComCall(11, this, UInt32, dwStreamSinkIndex, "ptr", pCallback, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IMFCapturePreviewSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-getrotation
      */
     GetRotation(dwStreamIndex) {
-        result := ComCall(14, this, "uint", dwStreamIndex, "uint*", &pdwRotationValue := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwStreamIndex, "uint*", &pdwRotationValue := 0, "HRESULT")
         return pdwRotationValue
     }
 
@@ -148,7 +148,7 @@ export default struct IMFCapturePreviewSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-setrotation
      */
     SetRotation(dwStreamIndex, dwRotationValue) {
-        result := ComCall(15, this, "uint", dwStreamIndex, "uint", dwRotationValue, "HRESULT")
+        result := ComCall(15, this, UInt32, dwStreamIndex, UInt32, dwRotationValue, "HRESULT")
         return result
     }
 

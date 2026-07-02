@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\IEnumString.ahk" { IEnumString }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStringTable interface is introduced in MMC 1.1.
@@ -77,7 +77,7 @@ export default struct IStringTable extends IUnknown {
     GetString(StringID, cchBuffer, lpBuffer) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-        result := ComCall(4, this, "uint", StringID, "uint", cchBuffer, "ptr", lpBuffer, "uint*", &pcchOut := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, StringID, UInt32, cchBuffer, "ptr", lpBuffer, "uint*", &pcchOut := 0, "HRESULT")
         return pcchOut
     }
 
@@ -91,7 +91,7 @@ export default struct IStringTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-istringtable-getstringlength
      */
     GetStringLength(StringID) {
-        result := ComCall(5, this, "uint", StringID, "uint*", &pcchString := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, StringID, "uint*", &pcchString := 0, "HRESULT")
         return pcchString
     }
 
@@ -104,7 +104,7 @@ export default struct IStringTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-istringtable-deletestring
      */
     DeleteString(StringID) {
-        result := ComCall(6, this, "uint", StringID, "HRESULT")
+        result := ComCall(6, this, UInt32, StringID, "HRESULT")
         return result
     }
 

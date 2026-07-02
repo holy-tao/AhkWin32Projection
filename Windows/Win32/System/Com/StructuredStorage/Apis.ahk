@@ -1,40 +1,40 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ILockBytes.ahk" { ILockBytes }
-#Import ".\IPropertyStorage.ahk" { IPropertyStorage }
-#Import "..\COSERVERINFO.ahk" { COSERVERINFO }
-#Import "..\..\Variant\VARENUM.ahk" { VARENUM }
-#Import ".\PROPVAR_COMPARE_FLAGS.ahk" { PROPVAR_COMPARE_FLAGS }
-#Import ".\SERIALIZEDPROPERTYVALUE.ahk" { SERIALIZEDPROPERTYVALUE }
-#Import "..\MULTI_QI.ahk" { MULTI_QI }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\STGOPTIONS.ahk" { STGOPTIONS }
-#Import "..\STGMEDIUM.ahk" { STGMEDIUM }
-#Import "..\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
-#Import ".\IFillLockBytes.ahk" { IFillLockBytes }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\STGFMT.ahk" { STGFMT }
-#Import "..\IStream.ahk" { IStream }
-#Import ".\PROPVAR_CHANGE_FLAGS.ahk" { PROPVAR_CHANGE_FLAGS }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Variant\PSTIME_FLAGS.ahk" { PSTIME_FLAGS }
-#Import "..\..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\IPropertySetStorage.ahk" { IPropertySetStorage }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PROPVAR_COMPARE_UNIT.ahk" { PROPVAR_COMPARE_UNIT }
-#Import ".\OLESTREAM.ahk" { OLESTREAM }
-#Import "..\STGM.ahk" { STGM }
 #Import "..\CLSCTX.ahk" { CLSCTX }
-#Import ".\IStorage.ahk" { IStorage }
-#Import ".\IMemoryAllocator.ahk" { IMemoryAllocator }
+#Import "..\STGM.ahk" { STGM }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\MULTI_QI.ahk" { MULTI_QI }
+#Import "..\STGMEDIUM.ahk" { STGMEDIUM }
+#Import ".\ILockBytes.ahk" { ILockBytes }
+#Import "..\..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PROPVAR_COMPARE_FLAGS.ahk" { PROPVAR_COMPARE_FLAGS }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IPropertyStorage.ahk" { IPropertyStorage }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IStream.ahk" { IStream }
+#Import "..\COSERVERINFO.ahk" { COSERVERINFO }
+#Import ".\IMemoryAllocator.ahk" { IMemoryAllocator }
+#Import ".\IPropertySetStorage.ahk" { IPropertySetStorage }
+#Import ".\IStorage.ahk" { IStorage }
+#Import ".\PROPVAR_COMPARE_UNIT.ahk" { PROPVAR_COMPARE_UNIT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROPVAR_CHANGE_FLAGS.ahk" { PROPVAR_CHANGE_FLAGS }
+#Import ".\IFillLockBytes.ahk" { IFillLockBytes }
+#Import "..\..\Variant\VARENUM.ahk" { VARENUM }
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\SERIALIZEDPROPERTYVALUE.ahk" { SERIALIZEDPROPERTYVALUE }
+#Import ".\STGOPTIONS.ahk" { STGOPTIONS }
+#Import ".\STGFMT.ahk" { STGFMT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Variant\PSTIME_FLAGS.ahk" { PSTIME_FLAGS }
+#Import ".\OLESTREAM.ahk" { OLESTREAM }
+#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
@@ -105,7 +105,7 @@
 export CoGetInstanceFromFile(pServerInfo, pClsid, punkOuter, dwClsCtx, grfMode, pwszName, dwCount, pResults) {
     pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-    result := DllCall("OLE32.dll\CoGetInstanceFromFile", COSERVERINFO.Ptr, pServerInfo, Guid.Ptr, pClsid, "ptr", punkOuter, CLSCTX, dwClsCtx, "uint", grfMode, "ptr", pwszName, "uint", dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
+    result := DllCall("OLE32.dll\CoGetInstanceFromFile", COSERVERINFO.Ptr, pServerInfo, Guid.Ptr, pClsid, "ptr", punkOuter, CLSCTX, dwClsCtx, UInt32, grfMode, "ptr", pwszName, UInt32, dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
     return result
 }
 
@@ -173,7 +173,7 @@ export CoGetInstanceFromFile(pServerInfo, pClsid, punkOuter, dwClsCtx, grfMode, 
  * @since windows5.0
  */
 export CoGetInstanceFromIStorage(pServerInfo, pClsid, punkOuter, dwClsCtx, pstg, dwCount, pResults) {
-    result := DllCall("OLE32.dll\CoGetInstanceFromIStorage", COSERVERINFO.Ptr, pServerInfo, Guid.Ptr, pClsid, "ptr", punkOuter, CLSCTX, dwClsCtx, "ptr", pstg, "uint", dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
+    result := DllCall("OLE32.dll\CoGetInstanceFromIStorage", COSERVERINFO.Ptr, pServerInfo, Guid.Ptr, pClsid, "ptr", punkOuter, CLSCTX, dwClsCtx, "ptr", pstg, UInt32, dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
     return result
 }
 
@@ -199,7 +199,7 @@ export CoGetInstanceFromIStorage(pServerInfo, pClsid, punkOuter, dwClsCtx, pstg,
  * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-stgopenasyncdocfileonifilllockbytes
  */
 export StgOpenAsyncDocfileOnIFillLockBytes(pflb, grfMode, asyncFlags) {
-    result := DllCall("ole32.dll\StgOpenAsyncDocfileOnIFillLockBytes", "ptr", pflb, "uint", grfMode, "uint", asyncFlags, "ptr*", &ppstgOpen := 0, "HRESULT")
+    result := DllCall("ole32.dll\StgOpenAsyncDocfileOnIFillLockBytes", "ptr", pflb, UInt32, grfMode, UInt32, asyncFlags, "ptr*", &ppstgOpen := 0, "HRESULT")
     return IStorage(ppstgOpen)
 }
 
@@ -254,7 +254,7 @@ export StgGetIFillLockBytesOnFile(pwcsName) {
 export StgOpenLayoutDocfile(pwcsDfName, grfMode, reserved) {
     pwcsDfName := pwcsDfName is String ? StrPtr(pwcsDfName) : pwcsDfName
 
-    result := DllCall("dflayout.dll\StgOpenLayoutDocfile", "ptr", pwcsDfName, "uint", grfMode, "uint", reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
+    result := DllCall("dflayout.dll\StgOpenLayoutDocfile", "ptr", pwcsDfName, UInt32, grfMode, UInt32, reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
     return IStorage(ppstgOpen)
 }
 
@@ -427,7 +427,7 @@ export PropVariantClear(pvar) {
  * @since windows5.0
  */
 export FreePropVariantArray(cVariants, rgvars) {
-    result := DllCall("OLE32.dll\FreePropVariantArray", "uint", cVariants, PROPVARIANT.Ptr, rgvars, "HRESULT")
+    result := DllCall("OLE32.dll\FreePropVariantArray", UInt32, cVariants, PROPVARIANT.Ptr, rgvars, "HRESULT")
     return result
 }
 
@@ -461,7 +461,7 @@ export StgCreateDocfile(pwcsName, grfMode) {
 
     pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-    result := DllCall("OLE32.dll\StgCreateDocfile", "ptr", pwcsName, STGM, grfMode, "uint", reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
+    result := DllCall("OLE32.dll\StgCreateDocfile", "ptr", pwcsName, STGM, grfMode, UInt32, reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
     return IStorage(ppstgOpen)
 }
 
@@ -508,7 +508,7 @@ export StgCreateDocfile(pwcsName, grfMode) {
  * @since windows5.0
  */
 export StgCreateDocfileOnILockBytes(plkbyt, grfMode, reserved) {
-    result := DllCall("OLE32.dll\StgCreateDocfileOnILockBytes", "ptr", plkbyt, STGM, grfMode, "uint", reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
+    result := DllCall("OLE32.dll\StgCreateDocfileOnILockBytes", "ptr", plkbyt, STGM, grfMode, UInt32, reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
     return IStorage(ppstgOpen)
 }
 
@@ -630,7 +630,7 @@ export StgOpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved) {
 
     snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("OLE32.dll\StgOpenStorage", "ptr", pwcsName, "ptr", pstgPriority, STGM, grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
+    result := DllCall("OLE32.dll\StgOpenStorage", "ptr", pwcsName, "ptr", pstgPriority, STGM, grfMode, snbExcludeMarshal, snbExclude, UInt32, reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
     return IStorage(ppstgOpen)
 }
 
@@ -686,7 +686,7 @@ export StgOpenStorageOnILockBytes(plkbyt, pstgPriority, grfMode, snbExclude) {
 
     snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("OLE32.dll\StgOpenStorageOnILockBytes", "ptr", plkbyt, "ptr", pstgPriority, STGM, grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
+    result := DllCall("OLE32.dll\StgOpenStorageOnILockBytes", "ptr", plkbyt, "ptr", pstgPriority, STGM, grfMode, snbExcludeMarshal, snbExclude, UInt32, reserved, "ptr*", &ppstgOpen := 0, "HRESULT")
     return IStorage(ppstgOpen)
 }
 
@@ -856,7 +856,7 @@ export StgSetTimes(lpszName, pctime, patime, pmtime) {
 export StgCreateStorageEx(pwcsName, grfMode, _stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
     pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-    result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, STGM, grfMode, STGFMT, _stgfmt, "uint", grfAttrs, STGOPTIONS.Ptr, pStgOptions, PSECURITY_DESCRIPTOR, pSecurityDescriptor, Guid.Ptr, riid, "ptr*", &ppObjectOpen := 0, "HRESULT")
+    result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, STGM, grfMode, STGFMT, _stgfmt, UInt32, grfAttrs, STGOPTIONS.Ptr, pStgOptions, PSECURITY_DESCRIPTOR, pSecurityDescriptor, Guid.Ptr, riid, "ptr*", &ppObjectOpen := 0, "HRESULT")
     return ppObjectOpen
 }
 
@@ -945,7 +945,7 @@ export StgCreateStorageEx(pwcsName, grfMode, _stgfmt, grfAttrs, pStgOptions, pSe
 export StgOpenStorageEx(pwcsName, grfMode, _stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
     pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-    result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, STGM, grfMode, STGFMT, _stgfmt, "uint", grfAttrs, STGOPTIONS.Ptr, pStgOptions, PSECURITY_DESCRIPTOR, pSecurityDescriptor, Guid.Ptr, riid, "ptr*", &ppObjectOpen := 0, "HRESULT")
+    result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, STGM, grfMode, STGFMT, _stgfmt, UInt32, grfAttrs, STGOPTIONS.Ptr, pStgOptions, PSECURITY_DESCRIPTOR, pSecurityDescriptor, Guid.Ptr, riid, "ptr*", &ppObjectOpen := 0, "HRESULT")
     return ppObjectOpen
 }
 
@@ -981,7 +981,7 @@ export StgOpenStorageEx(pwcsName, grfMode, _stgfmt, grfAttrs, pStgOptions, pSecu
 export StgCreatePropStg(pUnk, fmtid, pclsid, grfFlags) {
     static dwReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("OLE32.dll\StgCreatePropStg", "ptr", pUnk, Guid.Ptr, fmtid, Guid.Ptr, pclsid, "uint", grfFlags, "uint", dwReserved, "ptr*", &ppPropStg := 0, "HRESULT")
+    result := DllCall("OLE32.dll\StgCreatePropStg", "ptr", pUnk, Guid.Ptr, fmtid, Guid.Ptr, pclsid, UInt32, grfFlags, UInt32, dwReserved, "ptr*", &ppPropStg := 0, "HRESULT")
     return IPropertyStorage(ppPropStg)
 }
 
@@ -1015,7 +1015,7 @@ export StgCreatePropStg(pUnk, fmtid, pclsid, grfFlags) {
 export StgOpenPropStg(pUnk, fmtid, grfFlags) {
     static dwReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("OLE32.dll\StgOpenPropStg", "ptr", pUnk, Guid.Ptr, fmtid, "uint", grfFlags, "uint", dwReserved, "ptr*", &ppPropStg := 0, "HRESULT")
+    result := DllCall("OLE32.dll\StgOpenPropStg", "ptr", pUnk, Guid.Ptr, fmtid, UInt32, grfFlags, UInt32, dwReserved, "ptr*", &ppPropStg := 0, "HRESULT")
     return IPropertyStorage(ppPropStg)
 }
 
@@ -1039,7 +1039,7 @@ export StgOpenPropStg(pUnk, fmtid, grfFlags) {
 export StgCreatePropSetStg(pStorage) {
     static dwReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("OLE32.dll\StgCreatePropSetStg", "ptr", pStorage, "uint", dwReserved, "ptr*", &ppPropSetStg := 0, "HRESULT")
+    result := DllCall("OLE32.dll\StgCreatePropSetStg", "ptr", pStorage, UInt32, dwReserved, "ptr*", &ppPropSetStg := 0, "HRESULT")
     return IPropertySetStorage(ppPropSetStg)
 }
 
@@ -1294,7 +1294,7 @@ export StgConvertVariantToProperty(pvar, CodePage, pprop, pcb, pid, pcIndirect) 
     pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
     pcIndirectMarshal := pcIndirect is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ole32.dll\StgConvertVariantToProperty", PROPVARIANT.Ptr, pvar, "ushort", CodePage, "ptr", pprop, pcbMarshal, pcb, "uint", pid, BOOLEAN, fReserved, pcIndirectMarshal, pcIndirect, SERIALIZEDPROPERTYVALUE.Ptr)
+    result := DllCall("ole32.dll\StgConvertVariantToProperty", PROPVARIANT.Ptr, pvar, UInt16, CodePage, IntPtr, pprop, pcbMarshal, pcb, UInt32, pid, BOOLEAN, fReserved, pcIndirectMarshal, pcIndirect, SERIALIZEDPROPERTYVALUE.Ptr)
     return result
 }
 
@@ -1311,7 +1311,7 @@ export StgConvertVariantToProperty(pvar, CodePage, pprop, pcb, pid, pcIndirect) 
  * @since windows5.0
  */
 export StgConvertPropertyToVariant(pprop, CodePage, pvar, pma) {
-    result := DllCall("ole32.dll\StgConvertPropertyToVariant", SERIALIZEDPROPERTYVALUE.Ptr, pprop, "ushort", CodePage, PROPVARIANT.Ptr, pvar, "ptr", pma, BOOLEAN)
+    result := DllCall("ole32.dll\StgConvertPropertyToVariant", SERIALIZEDPROPERTYVALUE.Ptr, pprop, UInt16, CodePage, PROPVARIANT.Ptr, pvar, "ptr", pma, BOOLEAN)
     return result
 }
 
@@ -1329,7 +1329,7 @@ export StgConvertPropertyToVariant(pprop, CodePage, pvar, pma) {
 export StgPropertyLengthAsVariant(pProp, cbProp, CodePage) {
     static bReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("ole32.dll\StgPropertyLengthAsVariant", "ptr", pProp, "uint", cbProp, "ushort", CodePage, "char", bReserved, UInt32)
+    result := DllCall("ole32.dll\StgPropertyLengthAsVariant", IntPtr, pProp, UInt32, cbProp, UInt16, CodePage, Int8, bReserved, UInt32)
     return result
 }
 
@@ -1353,7 +1353,7 @@ export StgPropertyLengthAsVariant(pProp, cbProp, CodePage) {
 export WriteFmtUserTypeStg(pstg, cf, lpszUserType) {
     lpszUserType := lpszUserType is String ? StrPtr(lpszUserType) : lpszUserType
 
-    result := DllCall("OLE32.dll\WriteFmtUserTypeStg", "ptr", pstg, "ushort", cf, "ptr", lpszUserType, "HRESULT")
+    result := DllCall("OLE32.dll\WriteFmtUserTypeStg", "ptr", pstg, UInt16, cf, "ptr", lpszUserType, "HRESULT")
     return result
 }
 
@@ -1537,7 +1537,7 @@ export SetConvertStg(pStg, fConvert) {
  * @since windows5.0
  */
 export OleConvertIStorageToOLESTREAMEx(pstg, cfFormat, lWidth, lHeight, dwSize, pmedium, polestm) {
-    result := DllCall("ole32.dll\OleConvertIStorageToOLESTREAMEx", "ptr", pstg, "ushort", cfFormat, "int", lWidth, "int", lHeight, "uint", dwSize, STGMEDIUM.Ptr, pmedium, OLESTREAM.Ptr, polestm, "HRESULT")
+    result := DllCall("ole32.dll\OleConvertIStorageToOLESTREAMEx", "ptr", pstg, UInt16, cfFormat, Int32, lWidth, Int32, lHeight, UInt32, dwSize, STGMEDIUM.Ptr, pmedium, OLESTREAM.Ptr, polestm, "HRESULT")
     return result
 }
 
@@ -1623,7 +1623,7 @@ export WinRTPropertyValueToPropVariant(punkPropertyValue, ppropvar) {
  * @since windows5.1.2600
  */
 export InitPropVariantFromResource(hinst, id, ppropvar) {
-    result := DllCall("PROPSYS.dll\InitPropVariantFromResource", HINSTANCE, hinst, "uint", id, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromResource", HINSTANCE, hinst, UInt32, id, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1647,7 +1647,7 @@ export InitPropVariantFromResource(hinst, id, ppropvar) {
  * @since windows5.1.2600
  */
 export InitPropVariantFromBuffer(pv, cb, ppropvar) {
-    result := DllCall("PROPSYS.dll\InitPropVariantFromBuffer", "ptr", pv, "uint", cb, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromBuffer", IntPtr, pv, UInt32, cb, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1762,7 +1762,7 @@ export InitPropVariantFromFileTime(pftIn, ppropvar) {
  * @since windows5.1.2600
  */
 export InitPropVariantFromPropVariantVectorElem(propvarIn, iElem, ppropvar) {
-    result := DllCall("PROPSYS.dll\InitPropVariantFromPropVariantVectorElem", PROPVARIANT.Ptr, propvarIn, "uint", iElem, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromPropVariantVectorElem", PROPVARIANT.Ptr, propvarIn, UInt32, iElem, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1833,7 +1833,7 @@ export InitPropVariantVectorFromPropVariant(propvarSingle, ppropvarVector) {
 export InitPropVariantFromBooleanVector(prgf, cElems, ppropvar) {
     prgfMarshal := prgf is VarRef ? "int*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\InitPropVariantFromBooleanVector", prgfMarshal, prgf, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromBooleanVector", prgfMarshal, prgf, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1859,7 +1859,7 @@ export InitPropVariantFromBooleanVector(prgf, cElems, ppropvar) {
 export InitPropVariantFromInt16Vector(prgn, cElems, ppropvar) {
     prgnMarshal := prgn is VarRef ? "short*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\InitPropVariantFromInt16Vector", prgnMarshal, prgn, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromInt16Vector", prgnMarshal, prgn, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1885,7 +1885,7 @@ export InitPropVariantFromInt16Vector(prgn, cElems, ppropvar) {
 export InitPropVariantFromUInt16Vector(prgn, cElems, ppropvar) {
     prgnMarshal := prgn is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\InitPropVariantFromUInt16Vector", prgnMarshal, prgn, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromUInt16Vector", prgnMarshal, prgn, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1911,7 +1911,7 @@ export InitPropVariantFromUInt16Vector(prgn, cElems, ppropvar) {
 export InitPropVariantFromInt32Vector(prgn, cElems, ppropvar) {
     prgnMarshal := prgn is VarRef ? "int*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\InitPropVariantFromInt32Vector", prgnMarshal, prgn, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromInt32Vector", prgnMarshal, prgn, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1937,7 +1937,7 @@ export InitPropVariantFromInt32Vector(prgn, cElems, ppropvar) {
 export InitPropVariantFromUInt32Vector(prgn, cElems, ppropvar) {
     prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\InitPropVariantFromUInt32Vector", prgnMarshal, prgn, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromUInt32Vector", prgnMarshal, prgn, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1963,7 +1963,7 @@ export InitPropVariantFromUInt32Vector(prgn, cElems, ppropvar) {
 export InitPropVariantFromInt64Vector(prgn, cElems, ppropvar) {
     prgnMarshal := prgn is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\InitPropVariantFromInt64Vector", prgnMarshal, prgn, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromInt64Vector", prgnMarshal, prgn, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1989,7 +1989,7 @@ export InitPropVariantFromInt64Vector(prgn, cElems, ppropvar) {
 export InitPropVariantFromUInt64Vector(prgn, cElems, ppropvar) {
     prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\InitPropVariantFromUInt64Vector", prgnMarshal, prgn, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromUInt64Vector", prgnMarshal, prgn, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -2015,7 +2015,7 @@ export InitPropVariantFromUInt64Vector(prgn, cElems, ppropvar) {
 export InitPropVariantFromDoubleVector(prgn, cElems, ppropvar) {
     prgnMarshal := prgn is VarRef ? "double*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\InitPropVariantFromDoubleVector", prgnMarshal, prgn, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromDoubleVector", prgnMarshal, prgn, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -2039,7 +2039,7 @@ export InitPropVariantFromDoubleVector(prgn, cElems, ppropvar) {
  * @since windows5.1.2600
  */
 export InitPropVariantFromFileTimeVector(prgft, cElems, ppropvar) {
-    result := DllCall("PROPSYS.dll\InitPropVariantFromFileTimeVector", FILETIME.Ptr, prgft, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromFileTimeVector", FILETIME.Ptr, prgft, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -2063,7 +2063,7 @@ export InitPropVariantFromFileTimeVector(prgft, cElems, ppropvar) {
 export InitPropVariantFromStringVector(prgsz, cElems, ppropvar) {
     prgszMarshal := prgsz is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\InitPropVariantFromStringVector", prgszMarshal, prgsz, "uint", cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\InitPropVariantFromStringVector", prgszMarshal, prgsz, UInt32, cElems, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -2134,7 +2134,7 @@ export PropVariantToBooleanWithDefault(propvarIn, fDefault) {
  * @since windows5.1.2600
  */
 export PropVariantToInt16WithDefault(propvarIn, iDefault) {
-    result := DllCall("PROPSYS.dll\PropVariantToInt16WithDefault", PROPVARIANT.Ptr, propvarIn, "short", iDefault, Int16)
+    result := DllCall("PROPSYS.dll\PropVariantToInt16WithDefault", PROPVARIANT.Ptr, propvarIn, Int16, iDefault, Int16)
     return result
 }
 
@@ -2157,7 +2157,7 @@ export PropVariantToInt16WithDefault(propvarIn, iDefault) {
  * @since windows5.1.2600
  */
 export PropVariantToUInt16WithDefault(propvarIn, uiDefault) {
-    result := DllCall("PROPSYS.dll\PropVariantToUInt16WithDefault", PROPVARIANT.Ptr, propvarIn, "ushort", uiDefault, UInt16)
+    result := DllCall("PROPSYS.dll\PropVariantToUInt16WithDefault", PROPVARIANT.Ptr, propvarIn, UInt16, uiDefault, UInt16)
     return result
 }
 
@@ -2180,7 +2180,7 @@ export PropVariantToUInt16WithDefault(propvarIn, uiDefault) {
  * @since windows5.1.2600
  */
 export PropVariantToInt32WithDefault(propvarIn, lDefault) {
-    result := DllCall("PROPSYS.dll\PropVariantToInt32WithDefault", PROPVARIANT.Ptr, propvarIn, "int", lDefault, Int32)
+    result := DllCall("PROPSYS.dll\PropVariantToInt32WithDefault", PROPVARIANT.Ptr, propvarIn, Int32, lDefault, Int32)
     return result
 }
 
@@ -2203,7 +2203,7 @@ export PropVariantToInt32WithDefault(propvarIn, lDefault) {
  * @since windows5.1.2600
  */
 export PropVariantToUInt32WithDefault(propvarIn, ulDefault) {
-    result := DllCall("PROPSYS.dll\PropVariantToUInt32WithDefault", PROPVARIANT.Ptr, propvarIn, "uint", ulDefault, UInt32)
+    result := DllCall("PROPSYS.dll\PropVariantToUInt32WithDefault", PROPVARIANT.Ptr, propvarIn, UInt32, ulDefault, UInt32)
     return result
 }
 
@@ -2226,7 +2226,7 @@ export PropVariantToUInt32WithDefault(propvarIn, ulDefault) {
  * @since windows5.1.2600
  */
 export PropVariantToInt64WithDefault(propvarIn, llDefault) {
-    result := DllCall("PROPSYS.dll\PropVariantToInt64WithDefault", PROPVARIANT.Ptr, propvarIn, "int64", llDefault, Int64)
+    result := DllCall("PROPSYS.dll\PropVariantToInt64WithDefault", PROPVARIANT.Ptr, propvarIn, Int64, llDefault, Int64)
     return result
 }
 
@@ -2249,7 +2249,7 @@ export PropVariantToInt64WithDefault(propvarIn, llDefault) {
  * @since windows5.1.2600
  */
 export PropVariantToUInt64WithDefault(propvarIn, ullDefault) {
-    result := DllCall("PROPSYS.dll\PropVariantToUInt64WithDefault", PROPVARIANT.Ptr, propvarIn, "uint", ullDefault, Int64)
+    result := DllCall("PROPSYS.dll\PropVariantToUInt64WithDefault", PROPVARIANT.Ptr, propvarIn, Int64, ullDefault, Int64)
     return result
 }
 
@@ -2272,7 +2272,7 @@ export PropVariantToUInt64WithDefault(propvarIn, ullDefault) {
  * @since windows5.1.2600
  */
 export PropVariantToDoubleWithDefault(propvarIn, dblDefault) {
-    result := DllCall("PROPSYS.dll\PropVariantToDoubleWithDefault", PROPVARIANT.Ptr, propvarIn, "double", dblDefault, Float64)
+    result := DllCall("PROPSYS.dll\PropVariantToDoubleWithDefault", PROPVARIANT.Ptr, propvarIn, Float64, dblDefault, Float64)
     return result
 }
 
@@ -2526,7 +2526,7 @@ export PropVariantToDouble(propvarIn) {
  * @since windows5.1.2600
  */
 export PropVariantToBuffer(propvar, pv, cb) {
-    result := DllCall("PROPSYS.dll\PropVariantToBuffer", PROPVARIANT.Ptr, propvar, "ptr", pv, "uint", cb, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToBuffer", PROPVARIANT.Ptr, propvar, IntPtr, pv, UInt32, cb, "HRESULT")
     return result
 }
 
@@ -2604,7 +2604,7 @@ export PropVariantToBuffer(propvar, pv, cb) {
 export PropVariantToString(propvar, psz, cch) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("PROPSYS.dll\PropVariantToString", PROPVARIANT.Ptr, propvar, "ptr", psz, "uint", cch, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToString", PROPVARIANT.Ptr, propvar, "ptr", psz, UInt32, cch, "HRESULT")
     return result
 }
 
@@ -2818,7 +2818,7 @@ export PropVariantToBooleanVector(propvar, prgf, crgf, pcElem) {
     prgfMarshal := prgf is VarRef ? "int*" : "ptr"
     pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PropVariantToBooleanVector", PROPVARIANT.Ptr, propvar, prgfMarshal, prgf, "uint", crgf, pcElemMarshal, pcElem, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToBooleanVector", PROPVARIANT.Ptr, propvar, prgfMarshal, prgf, UInt32, crgf, pcElemMarshal, pcElem, "HRESULT")
     return result
 }
 
@@ -2890,7 +2890,7 @@ export PropVariantToInt16Vector(propvar, prgn, crgn, pcElem) {
     prgnMarshal := prgn is VarRef ? "short*" : "ptr"
     pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PropVariantToInt16Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToInt16Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, UInt32, crgn, pcElemMarshal, pcElem, "HRESULT")
     return result
 }
 
@@ -2962,7 +2962,7 @@ export PropVariantToUInt16Vector(propvar, prgn, crgn, pcElem) {
     prgnMarshal := prgn is VarRef ? "ushort*" : "ptr"
     pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PropVariantToUInt16Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToUInt16Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, UInt32, crgn, pcElemMarshal, pcElem, "HRESULT")
     return result
 }
 
@@ -3034,7 +3034,7 @@ export PropVariantToInt32Vector(propvar, prgn, crgn, pcElem) {
     prgnMarshal := prgn is VarRef ? "int*" : "ptr"
     pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PropVariantToInt32Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToInt32Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, UInt32, crgn, pcElemMarshal, pcElem, "HRESULT")
     return result
 }
 
@@ -3106,7 +3106,7 @@ export PropVariantToUInt32Vector(propvar, prgn, crgn, pcElem) {
     prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
     pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PropVariantToUInt32Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToUInt32Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, UInt32, crgn, pcElemMarshal, pcElem, "HRESULT")
     return result
 }
 
@@ -3178,7 +3178,7 @@ export PropVariantToInt64Vector(propvar, prgn, crgn, pcElem) {
     prgnMarshal := prgn is VarRef ? "int64*" : "ptr"
     pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PropVariantToInt64Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToInt64Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, UInt32, crgn, pcElemMarshal, pcElem, "HRESULT")
     return result
 }
 
@@ -3250,7 +3250,7 @@ export PropVariantToUInt64Vector(propvar, prgn, crgn, pcElem) {
     prgnMarshal := prgn is VarRef ? "uint*" : "ptr"
     pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PropVariantToUInt64Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToUInt64Vector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, UInt32, crgn, pcElemMarshal, pcElem, "HRESULT")
     return result
 }
 
@@ -3282,7 +3282,7 @@ export PropVariantToDoubleVector(propvar, prgn, crgn, pcElem) {
     prgnMarshal := prgn is VarRef ? "double*" : "ptr"
     pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PropVariantToDoubleVector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, "uint", crgn, pcElemMarshal, pcElem, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToDoubleVector", PROPVARIANT.Ptr, propvar, prgnMarshal, prgn, UInt32, crgn, pcElemMarshal, pcElem, "HRESULT")
     return result
 }
 
@@ -3310,7 +3310,7 @@ export PropVariantToDoubleVector(propvar, prgn, crgn, pcElem) {
  * @since windows5.1.2600
  */
 export PropVariantToFileTimeVector(propvar, prgft, crgft) {
-    result := DllCall("PROPSYS.dll\PropVariantToFileTimeVector", PROPVARIANT.Ptr, propvar, FILETIME.Ptr, prgft, "uint", crgft, "uint*", &pcElem := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToFileTimeVector", PROPVARIANT.Ptr, propvar, FILETIME.Ptr, prgft, UInt32, crgft, "uint*", &pcElem := 0, "HRESULT")
     return pcElem
 }
 
@@ -3394,7 +3394,7 @@ export PropVariantToStringVector(propvar, prgsz, crgsz, pcElem) {
     prgszMarshal := prgsz is VarRef ? "ptr*" : "ptr"
     pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("PROPSYS.dll\PropVariantToStringVector", PROPVARIANT.Ptr, propvar, prgszMarshal, prgsz, "uint", crgsz, pcElemMarshal, pcElem, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantToStringVector", PROPVARIANT.Ptr, propvar, prgszMarshal, prgsz, UInt32, crgsz, pcElemMarshal, pcElem, "HRESULT")
     return result
 }
 
@@ -3980,7 +3980,7 @@ export PropVariantToStringVectorAlloc(propvar, pprgsz, pcElem) {
  * @since windows5.1.2600
  */
 export PropVariantGetBooleanElem(propvar, iElem) {
-    result := DllCall("PROPSYS.dll\PropVariantGetBooleanElem", PROPVARIANT.Ptr, propvar, "uint", iElem, BOOL.Ptr, &pfVal := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetBooleanElem", PROPVARIANT.Ptr, propvar, UInt32, iElem, BOOL.Ptr, &pfVal := 0, "HRESULT")
     return pfVal
 }
 
@@ -4009,7 +4009,7 @@ export PropVariantGetBooleanElem(propvar, iElem) {
  * @since windows5.1.2600
  */
 export PropVariantGetInt16Elem(propvar, iElem) {
-    result := DllCall("PROPSYS.dll\PropVariantGetInt16Elem", PROPVARIANT.Ptr, propvar, "uint", iElem, "short*", &pnVal := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetInt16Elem", PROPVARIANT.Ptr, propvar, UInt32, iElem, "short*", &pnVal := 0, "HRESULT")
     return pnVal
 }
 
@@ -4039,7 +4039,7 @@ export PropVariantGetInt16Elem(propvar, iElem) {
  * @since windows5.1.2600
  */
 export PropVariantGetUInt16Elem(propvar, iElem) {
-    result := DllCall("PROPSYS.dll\PropVariantGetUInt16Elem", PROPVARIANT.Ptr, propvar, "uint", iElem, "ushort*", &pnVal := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetUInt16Elem", PROPVARIANT.Ptr, propvar, UInt32, iElem, "ushort*", &pnVal := 0, "HRESULT")
     return pnVal
 }
 
@@ -4069,7 +4069,7 @@ export PropVariantGetUInt16Elem(propvar, iElem) {
  * @since windows5.1.2600
  */
 export PropVariantGetInt32Elem(propvar, iElem) {
-    result := DllCall("PROPSYS.dll\PropVariantGetInt32Elem", PROPVARIANT.Ptr, propvar, "uint", iElem, "int*", &pnVal := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetInt32Elem", PROPVARIANT.Ptr, propvar, UInt32, iElem, "int*", &pnVal := 0, "HRESULT")
     return pnVal
 }
 
@@ -4099,7 +4099,7 @@ export PropVariantGetInt32Elem(propvar, iElem) {
  * @since windows5.1.2600
  */
 export PropVariantGetUInt32Elem(propvar, iElem) {
-    result := DllCall("PROPSYS.dll\PropVariantGetUInt32Elem", PROPVARIANT.Ptr, propvar, "uint", iElem, "uint*", &pnVal := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetUInt32Elem", PROPVARIANT.Ptr, propvar, UInt32, iElem, "uint*", &pnVal := 0, "HRESULT")
     return pnVal
 }
 
@@ -4129,7 +4129,7 @@ export PropVariantGetUInt32Elem(propvar, iElem) {
  * @since windows5.1.2600
  */
 export PropVariantGetInt64Elem(propvar, iElem) {
-    result := DllCall("PROPSYS.dll\PropVariantGetInt64Elem", PROPVARIANT.Ptr, propvar, "uint", iElem, "int64*", &pnVal := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetInt64Elem", PROPVARIANT.Ptr, propvar, UInt32, iElem, "int64*", &pnVal := 0, "HRESULT")
     return pnVal
 }
 
@@ -4159,7 +4159,7 @@ export PropVariantGetInt64Elem(propvar, iElem) {
  * @since windows5.1.2600
  */
 export PropVariantGetUInt64Elem(propvar, iElem) {
-    result := DllCall("PROPSYS.dll\PropVariantGetUInt64Elem", PROPVARIANT.Ptr, propvar, "uint", iElem, "uint*", &pnVal := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetUInt64Elem", PROPVARIANT.Ptr, propvar, UInt32, iElem, "uint*", &pnVal := 0, "HRESULT")
     return pnVal
 }
 
@@ -4182,7 +4182,7 @@ export PropVariantGetUInt64Elem(propvar, iElem) {
  * @since windows5.1.2600
  */
 export PropVariantGetDoubleElem(propvar, iElem) {
-    result := DllCall("PROPSYS.dll\PropVariantGetDoubleElem", PROPVARIANT.Ptr, propvar, "uint", iElem, "double*", &pnVal := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetDoubleElem", PROPVARIANT.Ptr, propvar, UInt32, iElem, "double*", &pnVal := 0, "HRESULT")
     return pnVal
 }
 
@@ -4206,7 +4206,7 @@ export PropVariantGetDoubleElem(propvar, iElem) {
  * @since windows5.1.2600
  */
 export PropVariantGetFileTimeElem(propvar, iElem, pftVal) {
-    result := DllCall("PROPSYS.dll\PropVariantGetFileTimeElem", PROPVARIANT.Ptr, propvar, "uint", iElem, FILETIME.Ptr, pftVal, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetFileTimeElem", PROPVARIANT.Ptr, propvar, UInt32, iElem, FILETIME.Ptr, pftVal, "HRESULT")
     return result
 }
 
@@ -4240,7 +4240,7 @@ export PropVariantGetFileTimeElem(propvar, iElem, pftVal) {
  * @since windows5.1.2600
  */
 export PropVariantGetStringElem(propvar, iElem) {
-    result := DllCall("PROPSYS.dll\PropVariantGetStringElem", PROPVARIANT.Ptr, propvar, "uint", iElem, PWSTR.Ptr, &ppszVal := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PropVariantGetStringElem", PROPVARIANT.Ptr, propvar, UInt32, iElem, PWSTR.Ptr, &ppszVal := 0, "HRESULT")
     return ppszVal
 }
 
@@ -4261,7 +4261,7 @@ export PropVariantGetStringElem(propvar, iElem) {
  * @since windows5.1.2600
  */
 export ClearPropVariantArray(rgPropVar, cVars) {
-    DllCall("PROPSYS.dll\ClearPropVariantArray", PROPVARIANT.Ptr, rgPropVar, "uint", cVars)
+    DllCall("PROPSYS.dll\ClearPropVariantArray", PROPVARIANT.Ptr, rgPropVar, UInt32, cVars)
 }
 
 /**
@@ -4750,7 +4750,7 @@ export StgSerializePropVariant(ppropvar, ppProp, pcb) {
  * @since windows5.0
  */
 export StgDeserializePropVariant(pprop, cbMax, ppropvar) {
-    result := DllCall("PROPSYS.dll\StgDeserializePropVariant", SERIALIZEDPROPERTYVALUE.Ptr, pprop, "uint", cbMax, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    result := DllCall("PROPSYS.dll\StgDeserializePropVariant", SERIALIZEDPROPERTYVALUE.Ptr, pprop, UInt32, cbMax, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 

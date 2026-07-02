@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITSGAuthorizeConnectionSink.ahk" { ITSGAuthorizeConnectionSink }
-#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\AAAuthSchemes.ahk" { AAAuthSchemes }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITSGAuthorizeConnectionSink.ahk" { ITSGAuthorizeConnectionSink }
 #Import ".\ITSGAuthorizeResourceSink.ahk" { ITSGAuthorizeResourceSink }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 
 /**
  * Exposes methods that authorize connections and resources.
@@ -80,7 +80,7 @@ export default struct ITSGPolicyEngine extends IUnknown {
         sohDataMarshal := sohData is VarRef ? "char*" : "ptr"
         cookieDataMarshal := cookieData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, Guid, mainSessionId, BSTR, username, AAAuthSchemes, authType, BSTR, clientMachineIP, BSTR, clientMachineName, sohDataMarshal, sohData, "uint", numSOHBytes, cookieDataMarshal, cookieData, "uint", numCookieBytes, HANDLE_PTR, userToken, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, Guid, mainSessionId, BSTR, username, AAAuthSchemes, authType, BSTR, clientMachineIP, BSTR, clientMachineName, sohDataMarshal, sohData, UInt32, numSOHBytes, cookieDataMarshal, cookieData, UInt32, numCookieBytes, HANDLE_PTR, userToken, "ptr", pSink, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct ITSGPolicyEngine extends IUnknown {
 
         cookieMarshal := cookie is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, Guid, mainSessionId, "int", subSessionId, BSTR, username, BSTR.Ptr, resourceNames, "uint", numResources, BSTR.Ptr, alternateResourceNames, "uint", numAlternateResourceName, "uint", portNumber, BSTR, operation, cookieMarshal, cookie, "uint", numBytesInCookie, "ptr", pSink, "HRESULT")
+        result := ComCall(4, this, Guid, mainSessionId, Int32, subSessionId, BSTR, username, BSTR.Ptr, resourceNames, UInt32, numResources, BSTR.Ptr, alternateResourceNames, UInt32, numAlternateResourceName, UInt32, portNumber, BSTR, operation, cookieMarshal, cookie, UInt32, numBytesInCookie, "ptr", pSink, "HRESULT")
         return result
     }
 

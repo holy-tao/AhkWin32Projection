@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_RENDER_PASS_DEPTH_STENCIL_DESC.ahk" { D3D12_RENDER_PASS_DEPTH_STENCIL_DESC }
-#Import ".\D3D12_DISPATCH_RAYS_DESC.ahk" { D3D12_DISPATCH_RAYS_DESC }
-#Import ".\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.ahk" { D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC }
-#Import ".\ID3D12MetaCommand.ahk" { ID3D12MetaCommand }
 #Import ".\ID3D12StateObject.ahk" { ID3D12StateObject }
-#Import ".\D3D12_RENDER_PASS_FLAGS.ahk" { D3D12_RENDER_PASS_FLAGS }
-#Import ".\ID3D12GraphicsCommandList3.ahk" { ID3D12GraphicsCommandList3 }
-#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE }
-#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC }
 #Import ".\D3D12_RENDER_PASS_RENDER_TARGET_DESC.ahk" { D3D12_RENDER_PASS_RENDER_TARGET_DESC }
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE }
+#Import ".\ID3D12MetaCommand.ahk" { ID3D12MetaCommand }
+#Import ".\D3D12_RENDER_PASS_FLAGS.ahk" { D3D12_RENDER_PASS_FLAGS }
+#Import ".\D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.ahk" { D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC }
+#Import ".\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.ahk" { D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC }
+#Import ".\D3D12_DISPATCH_RAYS_DESC.ahk" { D3D12_DISPATCH_RAYS_DESC }
+#Import ".\ID3D12GraphicsCommandList3.ahk" { ID3D12GraphicsCommandList3 }
+#Import ".\D3D12_RENDER_PASS_DEPTH_STENCIL_DESC.ahk" { D3D12_RENDER_PASS_DEPTH_STENCIL_DESC }
 
 /**
  * Encapsulates a list of graphics commands for rendering, extending the interface to support ray tracing and render passes.
@@ -63,7 +63,7 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-beginrenderpass
      */
     BeginRenderPass(NumRenderTargets, pRenderTargets, pDepthStencil, Flags) {
-        ComCall(68, this, "uint", NumRenderTargets, D3D12_RENDER_PASS_RENDER_TARGET_DESC.Ptr, pRenderTargets, D3D12_RENDER_PASS_DEPTH_STENCIL_DESC.Ptr, pDepthStencil, D3D12_RENDER_PASS_FLAGS, Flags)
+        ComCall(68, this, UInt32, NumRenderTargets, D3D12_RENDER_PASS_RENDER_TARGET_DESC.Ptr, pRenderTargets, D3D12_RENDER_PASS_DEPTH_STENCIL_DESC.Ptr, pDepthStencil, D3D12_RENDER_PASS_FLAGS, Flags)
     }
 
     /**
@@ -84,7 +84,7 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-initializemetacommand
      */
     InitializeMetaCommand(pMetaCommand, pInitializationParametersData, InitializationParametersDataSizeInBytes) {
-        ComCall(70, this, "ptr", pMetaCommand, "ptr", pInitializationParametersData, "ptr", InitializationParametersDataSizeInBytes)
+        ComCall(70, this, "ptr", pMetaCommand, IntPtr, pInitializationParametersData, IntPtr, InitializationParametersDataSizeInBytes)
     }
 
     /**
@@ -101,7 +101,7 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-executemetacommand
      */
     ExecuteMetaCommand(pMetaCommand, pExecutionParametersData, ExecutionParametersDataSizeInBytes) {
-        ComCall(71, this, "ptr", pMetaCommand, "ptr", pExecutionParametersData, "ptr", ExecutionParametersDataSizeInBytes)
+        ComCall(71, this, "ptr", pMetaCommand, IntPtr, pExecutionParametersData, IntPtr, ExecutionParametersDataSizeInBytes)
     }
 
     /**
@@ -117,7 +117,7 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-buildraytracingaccelerationstructure
      */
     BuildRaytracingAccelerationStructure(pDesc, NumPostbuildInfoDescs, pPostbuildInfoDescs) {
-        ComCall(72, this, D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.Ptr, pDesc, "uint", NumPostbuildInfoDescs, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.Ptr, pPostbuildInfoDescs)
+        ComCall(72, this, D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.Ptr, pDesc, UInt32, NumPostbuildInfoDescs, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.Ptr, pPostbuildInfoDescs)
     }
 
     /**
@@ -137,7 +137,7 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
     EmitRaytracingAccelerationStructurePostbuildInfo(pDesc, NumSourceAccelerationStructures, pSourceAccelerationStructureData) {
         pSourceAccelerationStructureDataMarshal := pSourceAccelerationStructureData is VarRef ? "uint*" : "ptr"
 
-        ComCall(73, this, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.Ptr, pDesc, "uint", NumSourceAccelerationStructures, pSourceAccelerationStructureDataMarshal, pSourceAccelerationStructureData)
+        ComCall(73, this, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.Ptr, pDesc, UInt32, NumSourceAccelerationStructures, pSourceAccelerationStructureDataMarshal, pSourceAccelerationStructureData)
     }
 
     /**
@@ -163,7 +163,7 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-copyraytracingaccelerationstructure
      */
     CopyRaytracingAccelerationStructure(DestAccelerationStructureData, SourceAccelerationStructureData, _Mode) {
-        ComCall(74, this, "uint", DestAccelerationStructureData, "uint", SourceAccelerationStructureData, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE, _Mode)
+        ComCall(74, this, Int64, DestAccelerationStructureData, Int64, SourceAccelerationStructureData, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE, _Mode)
     }
 
     /**

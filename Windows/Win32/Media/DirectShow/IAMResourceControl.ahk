@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMResourceControl interface opens and holds an audio device resource before the device is actually needed, so that playback can be guaranteed or the application can learn in advance that a device is not available.The following filters implement this interface:Audio Capture filter.DirectSound Renderer filter.Audio Renderer (WaveOut) filter.
@@ -48,7 +48,7 @@ export default struct IAMResourceControl extends IUnknown {
     Reserve(dwFlags) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pvReserved, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "ptr", pvReserved, "HRESULT")
         return result
     }
 

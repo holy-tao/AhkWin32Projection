@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
+#Import ".\DWRITE_COLOR_GLYPH_RUN.ahk" { DWRITE_COLOR_GLYPH_RUN }
 #Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
 #Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import ".\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
 #Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_COLOR_GLYPH_RUN.ahk" { DWRITE_COLOR_GLYPH_RUN }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 
 /**
  * Represents a color glyph run. The IDWriteFactory4::TranslateColorGlyphRun method returns an ordered collection of color glyph runs of varying types depending on what the font supports.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWbemEventProviderQuerySink interface is optionally implemented by event providers who want to know what kinds of event query filters are currently active to optimize performance.
@@ -79,7 +79,7 @@ export default struct IWbemEventProviderQuerySink extends IUnknown {
         wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : "ptr"
         wszQueryMarshal := wszQuery is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwId, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, "HRESULT")
+        result := ComCall(3, this, UInt32, dwId, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IWbemEventProviderQuerySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventproviderquerysink-cancelquery
      */
     CancelQuery(dwId) {
-        result := ComCall(4, this, "uint", dwId, "HRESULT")
+        result := ComCall(4, this, UInt32, dwId, "HRESULT")
         return result
     }
 

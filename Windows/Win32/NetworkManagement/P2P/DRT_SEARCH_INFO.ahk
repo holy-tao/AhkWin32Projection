@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DRT_DATA.ahk" { DRT_DATA }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DRT_DATA.ahk" { DRT_DATA }
 
 /**
  * DRT_SEARCH_INFO structure represents a search query issued with DrtStartSearch.

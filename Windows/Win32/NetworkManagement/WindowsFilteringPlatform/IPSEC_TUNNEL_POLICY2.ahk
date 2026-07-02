@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_POLICY_FLAG.ahk" { IPSEC_POLICY_FLAG }
-#Import ".\IPSEC_TUNNEL_ENDPOINT0.ahk" { IPSEC_TUNNEL_ENDPOINT0 }
-#Import ".\IKEEXT_EM_POLICY2.ahk" { IKEEXT_EM_POLICY2 }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPSEC_TUNNEL_ENDPOINTS2.ahk" { IPSEC_TUNNEL_ENDPOINTS2 }
 #Import ".\IPSEC_SA_IDLE_TIMEOUT0.ahk" { IPSEC_SA_IDLE_TIMEOUT0 }
-#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\IKEEXT_EM_POLICY2.ahk" { IKEEXT_EM_POLICY2 }
+#Import ".\IPSEC_TUNNEL_ENDPOINT0.ahk" { IPSEC_TUNNEL_ENDPOINT0 }
 #Import ".\IPSEC_PROPOSAL0.ahk" { IPSEC_PROPOSAL0 }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\IPSEC_POLICY_FLAG.ahk" { IPSEC_POLICY_FLAG }
+#Import ".\IPSEC_TUNNEL_ENDPOINTS2.ahk" { IPSEC_TUNNEL_ENDPOINTS2 }
 
 /**
  * Stores the quick mode negotiation policy for tunnel mode IPsec. (IPSEC_TUNNEL_POLICY2)

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SDP_LARGE_INTEGER_16.ahk" { SDP_LARGE_INTEGER_16 }
-#Import ".\SDP_ULARGE_INTEGER_16.ahk" { SDP_ULARGE_INTEGER_16 }
-#Import ".\SDP_TYPE.ahk" { SDP_TYPE }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\SDP_TYPE.ahk" { SDP_TYPE }
+#Import ".\SDP_ULARGE_INTEGER_16.ahk" { SDP_ULARGE_INTEGER_16 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SDP_SPECIFICTYPE.ahk" { SDP_SPECIFICTYPE }
+#Import ".\SDP_LARGE_INTEGER_16.ahk" { SDP_LARGE_INTEGER_16 }
 
 /**
  * The SDP_ELEMENT_DATA structure stores SDP element data.

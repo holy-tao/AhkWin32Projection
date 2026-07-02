@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEventTarget.ahk" { IEventTarget }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
@@ -83,7 +83,7 @@ export default struct IDOMMouseWheelEvent extends IDispatch {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
         modifiersListArg := modifiersListArg is String ? BSTR.Alloc(modifiersListArg).Value : modifiersListArg
 
-        result := ComCall(8, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "ushort", buttonArg, "ptr", relatedTargetArg, BSTR, modifiersListArg, "int", wheelDeltaArg, "HRESULT")
+        result := ComCall(8, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, Int32, detailArg, Int32, screenXArg, Int32, screenYArg, Int32, clientXArg, Int32, clientYArg, UInt16, buttonArg, "ptr", relatedTargetArg, BSTR, modifiersListArg, Int32, wheelDeltaArg, "HRESULT")
         return result
     }
 

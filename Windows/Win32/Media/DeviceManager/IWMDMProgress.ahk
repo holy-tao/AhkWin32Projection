@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The optional, application-implemented IWMDMProgress allows an application to track the progress of operations, such as formatting media or file transfers.
@@ -79,7 +79,7 @@ export default struct IWMDMProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress-begin
      */
     Begin(dwEstimatedTicks) {
-        result := ComCall(3, this, "uint", dwEstimatedTicks, "HRESULT")
+        result := ComCall(3, this, UInt32, dwEstimatedTicks, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IWMDMProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress-progress
      */
     Progress(dwTranspiredTicks) {
-        result := ComCall(4, this, "uint", dwTranspiredTicks, "HRESULT")
+        result := ComCall(4, this, UInt32, dwTranspiredTicks, "HRESULT")
         return result
     }
 

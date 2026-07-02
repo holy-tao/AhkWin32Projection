@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D2D1_THREADING_MODE.ahk" { D2D1_THREADING_MODE }
 #Import ".\D2D1_DEBUG_LEVEL.ahk" { D2D1_DEBUG_LEVEL }
 #Import ".\D2D1_DEVICE_CONTEXT_OPTIONS.ahk" { D2D1_DEVICE_CONTEXT_OPTIONS }
+#Import ".\D2D1_THREADING_MODE.ahk" { D2D1_THREADING_MODE }
 
 /**
  * Specifies the options with which the Direct2D device, factory, and device context are created.

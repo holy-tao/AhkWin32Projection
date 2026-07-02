@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide access to writing metadata content. This is implemented by independent software vendors (ISVs) to create new metadata writers.
@@ -86,7 +86,7 @@ export default struct IWICMetadataWriter extends IWICMetadataReader {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvaluebyindex
      */
     SetValueByIndex(nIndex, pvarSchema, pvarId, pvarValue) {
-        result := ComCall(10, this, "uint", nIndex, PROPVARIANT.Ptr, pvarSchema, PROPVARIANT.Ptr, pvarId, PROPVARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(10, this, UInt32, nIndex, PROPVARIANT.Ptr, pvarSchema, PROPVARIANT.Ptr, pvarId, PROPVARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct IWICMetadataWriter extends IWICMetadataReader {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevaluebyindex
      */
     RemoveValueByIndex(nIndex) {
-        result := ComCall(12, this, "uint", nIndex, "HRESULT")
+        result := ComCall(12, this, UInt32, nIndex, "HRESULT")
         return result
     }
 

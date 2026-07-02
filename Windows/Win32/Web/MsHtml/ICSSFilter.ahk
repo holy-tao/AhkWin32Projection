@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ICSSFilterSite.ahk" { ICSSFilterSite }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -53,7 +53,7 @@ export default struct ICSSFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     OnAmbientPropertyChange(dispid) {
-        result := ComCall(4, this, "int", dispid, "HRESULT")
+        result := ComCall(4, this, Int32, dispid, "HRESULT")
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\RepairInfoEx.ahk" { RepairInfoEx }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains detailed information about the root cause of an incident.

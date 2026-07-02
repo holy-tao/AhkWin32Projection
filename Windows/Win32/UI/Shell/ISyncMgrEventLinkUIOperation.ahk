@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISyncMgrEvent.ahk" { ISyncMgrEvent }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncMgrUIOperation.ahk" { ISyncMgrUIOperation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a method that is called when event links are clicked in the sync results folder.

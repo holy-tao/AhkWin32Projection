@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that are used by a disk cleanup handler to communicate with the disk cleanup manager.
@@ -91,7 +91,7 @@ export default struct IEmptyVolumeCacheCallBack extends IUnknown {
     ScanProgress(dwlSpaceUsed, dwFlags, pcwszStatus) {
         pcwszStatus := pcwszStatus is String ? StrPtr(pcwszStatus) : pcwszStatus
 
-        result := ComCall(3, this, "uint", dwlSpaceUsed, "uint", dwFlags, "ptr", pcwszStatus, "HRESULT")
+        result := ComCall(3, this, Int64, dwlSpaceUsed, UInt32, dwFlags, "ptr", pcwszStatus, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IEmptyVolumeCacheCallBack extends IUnknown {
     PurgeProgress(dwlSpaceFreed, dwlSpaceToFree, dwFlags, pcwszStatus) {
         pcwszStatus := pcwszStatus is String ? StrPtr(pcwszStatus) : pcwszStatus
 
-        result := ComCall(4, this, "uint", dwlSpaceFreed, "uint", dwlSpaceToFree, "uint", dwFlags, "ptr", pcwszStatus, "HRESULT")
+        result := ComCall(4, this, Int64, dwlSpaceFreed, Int64, dwlSpaceToFree, UInt32, dwFlags, "ptr", pcwszStatus, "HRESULT")
         return result
     }
 

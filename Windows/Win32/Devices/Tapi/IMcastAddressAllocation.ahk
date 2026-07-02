@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMcastLeaseInfo.ahk" { IMcastLeaseInfo }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMcastLeaseInfo.ahk" { IMcastLeaseInfo }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumMcastScope.ahk" { IEnumMcastScope }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMcastScope.ahk" { IMcastScope }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IMcastScope.ahk" { IMcastScope }
 
 /**
  * IMcastAddressAllocation is the main interface for multicast address allocation. An application calls the COM CoCreateInstance function on this interface to create the multicast client interface object.
@@ -122,7 +122,7 @@ export default struct IMcastAddressAllocation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-requestaddress
      */
     RequestAddress(pScope, LeaseStartTime, LeaseStopTime, NumAddresses) {
-        result := ComCall(9, this, "ptr", pScope, "double", LeaseStartTime, "double", LeaseStopTime, "int", NumAddresses, "ptr*", &ppLeaseResponse := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pScope, Float64, LeaseStartTime, Float64, LeaseStopTime, Int32, NumAddresses, "ptr*", &ppLeaseResponse := 0, "HRESULT")
         return IMcastLeaseInfo(ppLeaseResponse)
     }
 
@@ -138,7 +138,7 @@ export default struct IMcastAddressAllocation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-renewaddress
      */
     RenewAddress(lReserved, pRenewRequest) {
-        result := ComCall(10, this, "int", lReserved, "ptr", pRenewRequest, "ptr*", &ppRenewResponse := 0, "HRESULT")
+        result := ComCall(10, this, Int32, lReserved, "ptr", pRenewRequest, "ptr*", &ppRenewResponse := 0, "HRESULT")
         return IMcastLeaseInfo(ppRenewResponse)
     }
 
@@ -222,7 +222,7 @@ export default struct IMcastAddressAllocation extends IDispatch {
 
         ppAddressesMarshal := ppAddresses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "double", LeaseStartTime, "double", LeaseStopTime, "uint", dwNumAddresses, ppAddressesMarshal, ppAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
+        result := ComCall(12, this, Float64, LeaseStartTime, Float64, LeaseStopTime, UInt32, dwNumAddresses, ppAddressesMarshal, ppAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
         return IMcastLeaseInfo(ppReleaseRequest)
     }
 
@@ -256,7 +256,7 @@ export default struct IMcastAddressAllocation extends IDispatch {
         pRequestID := pRequestID is String ? BSTR.Alloc(pRequestID).Value : pRequestID
         pServerAddress := pServerAddress is String ? BSTR.Alloc(pServerAddress).Value : pServerAddress
 
-        result := ComCall(13, this, "double", LeaseStartTime, "double", LeaseStopTime, VARIANT, vAddresses, BSTR, pRequestID, BSTR, pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
+        result := ComCall(13, this, Float64, LeaseStartTime, Float64, LeaseStopTime, VARIANT, vAddresses, BSTR, pRequestID, BSTR, pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
         return IMcastLeaseInfo(ppReleaseRequest)
     }
 

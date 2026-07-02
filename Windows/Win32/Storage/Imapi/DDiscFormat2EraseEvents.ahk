@@ -60,7 +60,7 @@ export default struct DDiscFormat2EraseEvents extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscformat2eraseevents-update
      */
     Update(_object, elapsedSeconds, estimatedTotalSeconds) {
-        result := ComCall(7, this, "ptr", _object, "int", elapsedSeconds, "int", estimatedTotalSeconds, "HRESULT")
+        result := ComCall(7, this, "ptr", _object, Int32, elapsedSeconds, Int32, estimatedTotalSeconds, "HRESULT")
         return result
     }
 

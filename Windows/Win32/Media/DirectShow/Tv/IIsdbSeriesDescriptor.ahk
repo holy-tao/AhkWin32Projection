@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
+#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) series descriptor.

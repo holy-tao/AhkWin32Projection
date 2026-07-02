@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Handles manipulation and inertia events.
@@ -57,7 +57,7 @@ export default struct _IManipulationEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-_imanipulationevents-manipulationstarted
      */
     ManipulationStarted(x, y) {
-        result := ComCall(3, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(3, this, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct _IManipulationEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-_imanipulationevents-manipulationdelta
      */
     ManipulationDelta(x, y, translationDeltaX, translationDeltaY, scaleDelta, expansionDelta, rotationDelta, cumulativeTranslationX, cumulativeTranslationY, cumulativeScale, cumulativeExpansion, cumulativeRotation) {
-        result := ComCall(4, this, "float", x, "float", y, "float", translationDeltaX, "float", translationDeltaY, "float", scaleDelta, "float", expansionDelta, "float", rotationDelta, "float", cumulativeTranslationX, "float", cumulativeTranslationY, "float", cumulativeScale, "float", cumulativeExpansion, "float", cumulativeRotation, "HRESULT")
+        result := ComCall(4, this, Float32, x, Float32, y, Float32, translationDeltaX, Float32, translationDeltaY, Float32, scaleDelta, Float32, expansionDelta, Float32, rotationDelta, Float32, cumulativeTranslationX, Float32, cumulativeTranslationY, Float32, cumulativeScale, Float32, cumulativeExpansion, Float32, cumulativeRotation, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct _IManipulationEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-_imanipulationevents-manipulationcompleted
      */
     ManipulationCompleted(x, y, cumulativeTranslationX, cumulativeTranslationY, cumulativeScale, cumulativeExpansion, cumulativeRotation) {
-        result := ComCall(5, this, "float", x, "float", y, "float", cumulativeTranslationX, "float", cumulativeTranslationY, "float", cumulativeScale, "float", cumulativeExpansion, "float", cumulativeRotation, "HRESULT")
+        result := ComCall(5, this, Float32, x, Float32, y, Float32, cumulativeTranslationX, Float32, cumulativeTranslationY, Float32, cumulativeScale, Float32, cumulativeExpansion, Float32, cumulativeRotation, "HRESULT")
         return result
     }
 

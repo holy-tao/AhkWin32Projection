@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -69,7 +69,7 @@ export default struct IDxcLinker extends IUnknown {
         pLibNamesMarshal := pLibNames is VarRef ? "ptr*" : "ptr"
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pEntryName, "ptr", pTargetProfile, pLibNamesMarshal, pLibNames, "uint", libCount, pArgumentsMarshal, pArguments, "uint", argCount, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pEntryName, "ptr", pTargetProfile, pLibNamesMarshal, pLibNames, UInt32, libCount, pArgumentsMarshal, pArguments, UInt32, argCount, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
     }
 

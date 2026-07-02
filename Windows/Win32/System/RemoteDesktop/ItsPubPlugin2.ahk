@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TSPUB_PLUGIN_PD_RESOLUTION_TYPE.ahk" { TSPUB_PLUGIN_PD_RESOLUTION_TYPE }
-#Import ".\ItsPubPlugin.ahk" { ItsPubPlugin }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE.ahk" { TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\pluginResource2.ahk" { pluginResource2 }
+#Import ".\TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE.ahk" { TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ItsPubPlugin.ahk" { ItsPubPlugin }
+#Import ".\TSPUB_PLUGIN_PD_RESOLUTION_TYPE.ahk" { TSPUB_PLUGIN_PD_RESOLUTION_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Specifies methods that provide information about resources available to users of RemoteApp and Desktop Connections.
@@ -73,7 +73,7 @@ export default struct ItsPubPlugin2 extends ItsPubPlugin {
         alias := alias is String ? StrPtr(alias) : alias
 
         resource := pluginResource2()
-        result := ComCall(10, this, "ptr", alias, "int", flags, pluginResource2.Ptr, resource, "HRESULT")
+        result := ComCall(10, this, "ptr", alias, Int32, flags, pluginResource2.Ptr, resource, "HRESULT")
         return resource
     }
 

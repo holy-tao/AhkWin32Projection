@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 #Import ".\DOT11_MSSECURITY_SETTINGS.ahk" { DOT11_MSSECURITY_SETTINGS }
 #Import ".\DOT11EXT_IHV_SSID_LIST.ahk" { DOT11EXT_IHV_SSID_LIST }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

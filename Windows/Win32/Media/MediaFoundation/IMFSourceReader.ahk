@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\IMFSample.ahk" { IMFSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\IMFSample.ahk" { IMFSample }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by the Microsoft Media Foundation source reader object.
@@ -118,7 +118,7 @@ export default struct IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getstreamselection
      */
     GetStreamSelection(dwStreamIndex) {
-        result := ComCall(3, this, "uint", dwStreamIndex, BOOL.Ptr, &pfSelected := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwStreamIndex, BOOL.Ptr, &pfSelected := 0, "HRESULT")
         return pfSelected
     }
 
@@ -195,7 +195,7 @@ export default struct IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-setstreamselection
      */
     SetStreamSelection(dwStreamIndex, fSelected) {
-        result := ComCall(4, this, "uint", dwStreamIndex, BOOL, fSelected, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamIndex, BOOL, fSelected, "HRESULT")
         return result
     }
 
@@ -284,7 +284,7 @@ export default struct IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getnativemediatype
      */
     GetNativeMediaType(dwStreamIndex, dwMediaTypeIndex) {
-        result := ComCall(5, this, "uint", dwStreamIndex, "uint", dwMediaTypeIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwStreamIndex, UInt32, dwMediaTypeIndex, "ptr*", &ppMediaType := 0, "HRESULT")
         return IMFMediaType(ppMediaType)
     }
 
@@ -337,7 +337,7 @@ export default struct IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getcurrentmediatype
      */
     GetCurrentMediaType(dwStreamIndex) {
-        result := ComCall(6, this, "uint", dwStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
         return IMFMediaType(ppMediaType)
     }
 
@@ -465,7 +465,7 @@ export default struct IMFSourceReader extends IUnknown {
     SetCurrentMediaType(dwStreamIndex, pMediaType) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(7, this, "uint", dwStreamIndex, "uint*", pdwReserved, "ptr", pMediaType, "HRESULT")
+        result := ComCall(7, this, UInt32, dwStreamIndex, "uint*", pdwReserved, "ptr", pMediaType, "HRESULT")
         return result
     }
 
@@ -694,7 +694,7 @@ export default struct IMFSourceReader extends IUnknown {
         pdwStreamFlagsMarshal := pdwStreamFlags is VarRef ? "uint*" : "ptr"
         pllTimestampMarshal := pllTimestamp is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwStreamIndex, "uint", dwControlFlags, pdwActualStreamIndexMarshal, pdwActualStreamIndex, pdwStreamFlagsMarshal, pdwStreamFlags, pllTimestampMarshal, pllTimestamp, IMFSample.Ptr, ppSample, "HRESULT")
+        result := ComCall(9, this, UInt32, dwStreamIndex, UInt32, dwControlFlags, pdwActualStreamIndexMarshal, pdwActualStreamIndex, pdwStreamFlagsMarshal, pdwStreamFlags, pllTimestampMarshal, pllTimestamp, IMFSample.Ptr, ppSample, "HRESULT")
         return result
     }
 
@@ -770,7 +770,7 @@ export default struct IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-flush
      */
     Flush(dwStreamIndex) {
-        result := ComCall(10, this, "uint", dwStreamIndex, "HRESULT")
+        result := ComCall(10, this, UInt32, dwStreamIndex, "HRESULT")
         return result
     }
 
@@ -837,7 +837,7 @@ export default struct IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getserviceforstream
      */
     GetServiceForStream(dwStreamIndex, guidService, riid) {
-        result := ComCall(11, this, "uint", dwStreamIndex, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwStreamIndex, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -911,7 +911,7 @@ export default struct IMFSourceReader extends IUnknown {
      */
     GetPresentationAttribute(dwStreamIndex, _guidAttribute) {
         pvarAttribute := PROPVARIANT()
-        result := ComCall(12, this, "uint", dwStreamIndex, Guid.Ptr, _guidAttribute, PROPVARIANT.Ptr, pvarAttribute, "HRESULT")
+        result := ComCall(12, this, UInt32, dwStreamIndex, Guid.Ptr, _guidAttribute, PROPVARIANT.Ptr, pvarAttribute, "HRESULT")
         return pvarAttribute
     }
 

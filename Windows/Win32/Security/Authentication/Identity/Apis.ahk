@@ -1,79 +1,80 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SLDATATYPE.ahk" { SLDATATYPE }
-#Import ".\SecurityFunctionTableA.ahk" { SecurityFunctionTableA }
-#Import ".\CENTRAL_ACCESS_POLICY.ahk" { CENTRAL_ACCESS_POLICY }
-#Import ".\SCH_EXTENSION_DATA.ahk" { SCH_EXTENSION_DATA }
-#Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
-#Import ".\TRUSTED_INFORMATION_CLASS.ahk" { TRUSTED_INFORMATION_CLASS }
-#Import ".\SL_ACTIVATION_INFO_HEADER.ahk" { SL_ACTIVATION_INFO_HEADER }
-#Import ".\SECURITY_PACKAGE_OPTIONS.ahk" { SECURITY_PACKAGE_OPTIONS }
-#Import ".\LSA_TRANSLATED_SID.ahk" { LSA_TRANSLATED_SID }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ASC_REQ_FLAGS.ahk" { ASC_REQ_FLAGS }
-#Import ".\POLICY_NOTIFICATION_INFORMATION_CLASS.ahk" { POLICY_NOTIFICATION_INFORMATION_CLASS }
-#Import ".\TRUSTED_DOMAIN_INFORMATION_EX.ahk" { TRUSTED_DOMAIN_INFORMATION_EX }
-#Import ".\LSA_REFERENCED_DOMAIN_LIST.ahk" { LSA_REFERENCED_DOMAIN_LIST }
-#Import ".\ISC_REQ_FLAGS.ahk" { ISC_REQ_FLAGS }
-#Import ".\POLICY_INFORMATION_CLASS.ahk" { POLICY_INFORMATION_CLASS }
-#Import ".\SecurityFunctionTableW.ahk" { SecurityFunctionTableW }
-#Import "..\..\Credentials\CREDENTIAL_TARGET_INFORMATIONW.ahk" { CREDENTIAL_TARGET_INFORMATIONW }
-#Import ".\X509Certificate.ahk" { X509Certificate }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SecPkgInfoA.ahk" { SecPkgInfoA }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\TOKENBINDING_EXTENSION_FORMAT.ahk" { TOKENBINDING_EXTENSION_FORMAT }
-#Import ".\TOKENBINDING_KEY_TYPES.ahk" { TOKENBINDING_KEY_TYPES }
-#Import ".\TRUSTED_DOMAIN_AUTH_INFORMATION.ahk" { TRUSTED_DOMAIN_AUTH_INFORMATION }
-#Import ".\SECPKG_ATTR.ahk" { SECPKG_ATTR }
-#Import ".\SLREFERRALTYPE.ahk" { SLREFERRALTYPE }
-#Import ".\TOKENBINDING_RESULT_LIST.ahk" { TOKENBINDING_RESULT_LIST }
-#Import "..\..\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
-#Import "..\..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\SLIDTYPE.ahk" { SLIDTYPE }
 #Import ".\EXPORT_SECURITY_CONTEXT_FLAGS.ahk" { EXPORT_SECURITY_CONTEXT_FLAGS }
+#Import ".\TRUSTED_INFORMATION_CLASS.ahk" { TRUSTED_INFORMATION_CLASS }
+#Import ".\SECURITY_PACKAGE_OPTIONS.ahk" { SECURITY_PACKAGE_OPTIONS }
+#Import "..\..\TOKEN_SOURCE.ahk" { TOKEN_SOURCE }
+#Import ".\CENTRAL_ACCESS_POLICY.ahk" { CENTRAL_ACCESS_POLICY }
+#Import "..\..\PSID.ahk" { PSID }
+#Import ".\SL_GENUINE_STATE.ahk" { SL_GENUINE_STATE }
+#Import ".\TRUSTED_DOMAIN_AUTH_INFORMATION.ahk" { TRUSTED_DOMAIN_AUTH_INFORMATION }
+#Import ".\LSA_TRANSLATED_SID.ahk" { LSA_TRANSLATED_SID }
+#Import ".\POLICY_INFORMATION_CLASS.ahk" { POLICY_INFORMATION_CLASS }
+#Import ".\LSA_FOREST_TRUST_COLLISION_INFORMATION.ahk" { LSA_FOREST_TRUST_COLLISION_INFORMATION }
+#Import "..\..\ACL.ahk" { ACL }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\AUDIT_POLICY_INFORMATION.ahk" { AUDIT_POLICY_INFORMATION }
+#Import ".\SecurityFunctionTableA.ahk" { SecurityFunctionTableA }
+#Import ".\POLICY_AUDIT_SID_ARRAY.ahk" { POLICY_AUDIT_SID_ARRAY }
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\Credentials\CREDENTIAL_TARGET_INFORMATIONW.ahk" { CREDENTIAL_TARGET_INFORMATIONW }
+#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
+#Import ".\LSA_REFERENCED_DOMAIN_LIST.ahk" { LSA_REFERENCED_DOMAIN_LIST }
+#Import ".\ASC_REQ_FLAGS.ahk" { ASC_REQ_FLAGS }
+#Import ".\LSA_OBJECT_ATTRIBUTES.ahk" { LSA_OBJECT_ATTRIBUTES }
+#Import "..\..\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import ".\SecurityFunctionTableW.ahk" { SecurityFunctionTableW }
+#Import ".\TOKENBINDING_RESULT_LIST.ahk" { TOKENBINDING_RESULT_LIST }
 #Import ".\LSA_HANDLE.ahk" { LSA_HANDLE }
 #Import ".\SL_NONGENUINE_UI_OPTIONS.ahk" { SL_NONGENUINE_UI_OPTIONS }
-#Import "..\..\PSID.ahk" { PSID }
-#Import ".\SecPkgContext_Bindings.ahk" { SecPkgContext_Bindings }
-#Import ".\SECPKG_CRED.ahk" { SECPKG_CRED }
-#Import ".\EXTENDED_NAME_FORMAT.ahk" { EXTENDED_NAME_FORMAT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\LSA_FOREST_TRUST_INFORMATION2.ahk" { LSA_FOREST_TRUST_INFORMATION2 }
-#Import "..\..\TOKEN_SOURCE.ahk" { TOKEN_SOURCE }
-#Import ".\LSA_FOREST_TRUST_INFORMATION.ahk" { LSA_FOREST_TRUST_INFORMATION }
-#Import "..\..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
-#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\AUDIT_POLICY_INFORMATION.ahk" { AUDIT_POLICY_INFORMATION }
-#Import ".\LSA_TRANSLATED_NAME.ahk" { LSA_TRANSLATED_NAME }
-#Import ".\POLICY_AUDIT_SID_ARRAY.ahk" { POLICY_AUDIT_SID_ARRAY }
-#Import ".\LSA_FOREST_TRUST_RECORD_TYPE.ahk" { LSA_FOREST_TRUST_RECORD_TYPE }
-#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import "..\..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\SecPkgInfoW.ahk" { SecPkgInfoW }
-#Import ".\SecBufferDesc.ahk" { SecBufferDesc }
-#Import ".\TOKENBINDING_KEY_PARAMETERS_TYPE.ahk" { TOKENBINDING_KEY_PARAMETERS_TYPE }
-#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\POLICY_DOMAIN_INFORMATION_CLASS.ahk" { POLICY_DOMAIN_INFORMATION_CLASS }
-#Import "..\..\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
-#Import ".\SecBuffer.ahk" { SecBuffer }
-#Import ".\SECURITY_LOGON_SESSION_DATA.ahk" { SECURITY_LOGON_SESSION_DATA }
-#Import ".\TOKENBINDING_RESULT_DATA.ahk" { TOKENBINDING_RESULT_DATA }
 #Import ".\TOKENBINDING_TYPE.ahk" { TOKENBINDING_TYPE }
-#Import ".\POLICY_AUDIT_EVENT_TYPE.ahk" { POLICY_AUDIT_EVENT_TYPE }
-#Import ".\LSA_TRANSLATED_SID2.ahk" { LSA_TRANSLATED_SID2 }
-#Import ".\SL_LICENSING_STATUS.ahk" { SL_LICENSING_STATUS }
-#Import ".\LSA_OBJECT_ATTRIBUTES.ahk" { LSA_OBJECT_ATTRIBUTES }
-#Import ".\LSA_FOREST_TRUST_COLLISION_INFORMATION.ahk" { LSA_FOREST_TRUST_COLLISION_INFORMATION }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LSA_FOREST_TRUST_RECORD_TYPE.ahk" { LSA_FOREST_TRUST_RECORD_TYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SLDATATYPE.ahk" { SLDATATYPE }
+#Import ".\LSA_FOREST_TRUST_INFORMATION.ahk" { LSA_FOREST_TRUST_INFORMATION }
+#Import ".\TOKENBINDING_KEY_PARAMETERS_TYPE.ahk" { TOKENBINDING_KEY_PARAMETERS_TYPE }
+#Import ".\SEC_GET_KEY_FN.ahk" { SEC_GET_KEY_FN }
+#Import "..\..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\SecPkgInfoW.ahk" { SecPkgInfoW }
+#Import "..\..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
+#Import ".\SCH_EXTENSION_DATA.ahk" { SCH_EXTENSION_DATA }
+#Import ".\SECURITY_LOGON_SESSION_DATA.ahk" { SECURITY_LOGON_SESSION_DATA }
+#Import ".\SECURITY_LOGON_TYPE.ahk" { SECURITY_LOGON_TYPE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 #Import ".\LSA_STRING.ahk" { LSA_STRING }
+#Import ".\TOKENBINDING_RESULT_DATA.ahk" { TOKENBINDING_RESULT_DATA }
+#Import ".\SLREFERRALTYPE.ahk" { SLREFERRALTYPE }
+#Import ".\POLICY_DOMAIN_INFORMATION_CLASS.ahk" { POLICY_DOMAIN_INFORMATION_CLASS }
+#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SecPkgInfoA.ahk" { SecPkgInfoA }
+#Import "..\..\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\LSA_TRANSLATED_NAME.ahk" { LSA_TRANSLATED_NAME }
+#Import ".\SecPkgContext_Bindings.ahk" { SecPkgContext_Bindings }
+#Import "..\..\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
+#Import ".\SECPKG_CRED.ahk" { SECPKG_CRED }
 #Import ".\SchGetExtensionsOptions.ahk" { SchGetExtensionsOptions }
-#Import "..\..\ACL.ahk" { ACL }
-#Import "..\..\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\SL_GENUINE_STATE.ahk" { SL_GENUINE_STATE }
+#Import ".\SecBuffer.ahk" { SecBuffer }
+#Import ".\TOKENBINDING_KEY_TYPES.ahk" { TOKENBINDING_KEY_TYPES }
+#Import ".\EXTENDED_NAME_FORMAT.ahk" { EXTENDED_NAME_FORMAT }
+#Import ".\X509Certificate.ahk" { X509Certificate }
+#Import ".\POLICY_AUDIT_EVENT_TYPE.ahk" { POLICY_AUDIT_EVENT_TYPE }
+#Import ".\SLIDTYPE.ahk" { SLIDTYPE }
+#Import ".\ISC_REQ_FLAGS.ahk" { ISC_REQ_FLAGS }
+#Import ".\SECPKG_ATTR.ahk" { SECPKG_ATTR }
+#Import ".\TRUSTED_DOMAIN_INFORMATION_EX.ahk" { TRUSTED_DOMAIN_INFORMATION_EX }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SL_ACTIVATION_INFO_HEADER.ahk" { SL_ACTIVATION_INFO_HEADER }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LSA_TRANSLATED_SID2.ahk" { LSA_TRANSLATED_SID2 }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\LSA_FOREST_TRUST_INFORMATION2.ahk" { LSA_FOREST_TRUST_INFORMATION2 }
+#Import ".\TOKENBINDING_EXTENSION_FORMAT.ahk" { TOKENBINDING_EXTENSION_FORMAT }
+#Import ".\POLICY_NOTIFICATION_INFORMATION_CLASS.ahk" { POLICY_NOTIFICATION_INFORMATION_CLASS }
+#Import "..\..\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SL_LICENSING_STATUS.ahk" { SL_LICENSING_STATUS }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -92,7 +93,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-rtlgenrandom
  */
 export RtlGenRandom(RandomBuffer, RandomBufferLength) {
-    result := DllCall("ADVAPI32.dll\SystemFunction036", "ptr", RandomBuffer, "uint", RandomBufferLength, BOOLEAN)
+    result := DllCall("ADVAPI32.dll\SystemFunction036", IntPtr, RandomBuffer, UInt32, RandomBufferLength, BOOLEAN)
     return result
 }
 
@@ -107,8 +108,8 @@ export RtlGenRandom(RandomBuffer, RandomBufferLength) {
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-rtlencryptmemory
  */
 export RtlEncryptMemory(Memory, MemorySize, OptionFlags) {
-    result := DllCall("ADVAPI32.dll\SystemFunction040", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\SystemFunction040", IntPtr, Memory, UInt32, MemorySize, UInt32, OptionFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -123,8 +124,8 @@ export RtlEncryptMemory(Memory, MemorySize, OptionFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/nf-ntsecapi-rtldecryptmemory
  */
 export RtlDecryptMemory(Memory, MemorySize, OptionFlags) {
-    result := DllCall("ADVAPI32.dll\SystemFunction041", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\SystemFunction041", IntPtr, Memory, UInt32, MemorySize, UInt32, OptionFlags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -198,7 +199,7 @@ export LsaRegisterLogonProcess(LogonProcessName, LsaHandle, SecurityMode) {
     SecurityModeMarshal := SecurityMode is VarRef ? "uint*" : "ptr"
 
     result := DllCall("SECUR32.dll\LsaRegisterLogonProcess", LSA_STRING.Ptr, LogonProcessName, HANDLE.Ptr, LsaHandle, SecurityModeMarshal, SecurityMode, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -616,8 +617,8 @@ export LsaLogonUser(LsaHandle, OriginName, LogonType, AuthenticationPackage, Aut
     ProfileBufferLengthMarshal := ProfileBufferLength is VarRef ? "uint*" : "ptr"
     SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
 
-    result := DllCall("SECUR32.dll\LsaLogonUser", HANDLE, LsaHandle, LSA_STRING.Ptr, OriginName, SECURITY_LOGON_TYPE, LogonType, "uint", AuthenticationPackage, "ptr", AuthenticationInformation, "uint", AuthenticationInformationLength, TOKEN_GROUPS.Ptr, LocalGroups, TOKEN_SOURCE.Ptr, SourceContext, ProfileBufferMarshal, ProfileBuffer, ProfileBufferLengthMarshal, ProfileBufferLength, LUID.Ptr, LogonId, HANDLE.Ptr, Token, QUOTA_LIMITS.Ptr, Quotas, SubStatusMarshal, SubStatus, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SECUR32.dll\LsaLogonUser", HANDLE, LsaHandle, LSA_STRING.Ptr, OriginName, SECURITY_LOGON_TYPE, LogonType, UInt32, AuthenticationPackage, IntPtr, AuthenticationInformation, UInt32, AuthenticationInformationLength, TOKEN_GROUPS.Ptr, LocalGroups, TOKEN_SOURCE.Ptr, SourceContext, ProfileBufferMarshal, ProfileBuffer, ProfileBufferLengthMarshal, ProfileBufferLength, LUID.Ptr, LogonId, HANDLE.Ptr, Token, QUOTA_LIMITS.Ptr, Quotas, SubStatusMarshal, SubStatus, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -716,7 +717,7 @@ export LsaLookupAuthenticationPackage(LsaHandle, PackageName, AuthenticationPack
     AuthenticationPackageMarshal := AuthenticationPackage is VarRef ? "uint*" : "ptr"
 
     result := DllCall("SECUR32.dll\LsaLookupAuthenticationPackage", HANDLE, LsaHandle, LSA_STRING.Ptr, PackageName, AuthenticationPackageMarshal, AuthenticationPackage, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -741,7 +742,7 @@ export LsaFreeReturnBuffer(_Buffer) {
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("SECUR32.dll\LsaFreeReturnBuffer", _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -842,8 +843,8 @@ export LsaCallAuthenticationPackage(LsaHandle, AuthenticationPackage, ProtocolSu
     ReturnBufferLengthMarshal := ReturnBufferLength is VarRef ? "uint*" : "ptr"
     ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : "ptr"
 
-    result := DllCall("SECUR32.dll\LsaCallAuthenticationPackage", HANDLE, LsaHandle, "uint", AuthenticationPackage, "ptr", ProtocolSubmitBuffer, "uint", SubmitBufferLength, ProtocolReturnBufferMarshal, ProtocolReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, ProtocolStatusMarshal, ProtocolStatus, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SECUR32.dll\LsaCallAuthenticationPackage", HANDLE, LsaHandle, UInt32, AuthenticationPackage, IntPtr, ProtocolSubmitBuffer, UInt32, SubmitBufferLength, ProtocolReturnBufferMarshal, ProtocolReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, ProtocolStatusMarshal, ProtocolStatus, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -866,7 +867,7 @@ export LsaCallAuthenticationPackage(LsaHandle, AuthenticationPackage, ProtocolSu
  */
 export LsaDeregisterLogonProcess(LsaHandle) {
     result := DllCall("SECUR32.dll\LsaDeregisterLogonProcess", HANDLE, LsaHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -895,7 +896,7 @@ export LsaDeregisterLogonProcess(LsaHandle) {
  */
 export LsaConnectUntrusted(LsaHandle) {
     result := DllCall("SECUR32.dll\LsaConnectUntrusted", HANDLE.Ptr, LsaHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -935,7 +936,7 @@ export LsaFreeMemory(_Buffer) {
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaFreeMemory", _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -956,7 +957,7 @@ export LsaFreeMemory(_Buffer) {
  */
 export LsaClose(ObjectHandle) {
     result := DllCall("ADVAPI32.dll\LsaClose", LSA_HANDLE, ObjectHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -979,7 +980,7 @@ export LsaEnumerateLogonSessions(LogonSessionCount, LogonSessionList) {
     LogonSessionListMarshal := LogonSessionList is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("SECUR32.dll\LsaEnumerateLogonSessions", LogonSessionCountMarshal, LogonSessionCount, LogonSessionListMarshal, LogonSessionList, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1004,7 +1005,7 @@ export LsaGetLogonSessionData(LogonId, ppLogonSessionData) {
     ppLogonSessionDataMarshal := ppLogonSessionData is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("SECUR32.dll\LsaGetLogonSessionData", LUID.Ptr, LogonId, ppLogonSessionDataMarshal, ppLogonSessionData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1037,8 +1038,8 @@ export LsaGetLogonSessionData(LogonId, ppLogonSessionData) {
  * @since windows5.1.2600
  */
 export LsaOpenPolicy(SystemName, ObjectAttributes, DesiredAccess, PolicyHandle) {
-    result := DllCall("ADVAPI32.dll\LsaOpenPolicy", LSA_UNICODE_STRING.Ptr, SystemName, LSA_OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, "uint", DesiredAccess, LSA_HANDLE.Ptr, PolicyHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaOpenPolicy", LSA_UNICODE_STRING.Ptr, SystemName, LSA_OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UInt32, DesiredAccess, LSA_HANDLE.Ptr, PolicyHandle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1050,8 +1051,8 @@ export LsaOpenPolicy(SystemName, ObjectAttributes, DesiredAccess, PolicyHandle) 
  * @returns {NTSTATUS} 
  */
 export LsaSetCAPs(CAPDNs, CAPDNCount, Flags) {
-    result := DllCall("ADVAPI32.dll\LsaSetCAPs", LSA_UNICODE_STRING.Ptr, CAPDNs, "uint", CAPDNCount, "uint", Flags, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaSetCAPs", LSA_UNICODE_STRING.Ptr, CAPDNs, UInt32, CAPDNCount, UInt32, Flags, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1073,7 +1074,7 @@ export LsaGetAppliedCAPIDs(SystemName, CAPIDs, CAPIDCount) {
     CAPIDCountMarshal := CAPIDCount is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaGetAppliedCAPIDs", LSA_UNICODE_STRING.Ptr, SystemName, CAPIDsMarshal, CAPIDs, CAPIDCountMarshal, CAPIDCount, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1094,8 +1095,8 @@ export LsaQueryCAPs(CAPIDs, CAPIDCount, CAPs, CAPCount) {
     CAPsMarshal := CAPs is VarRef ? "ptr*" : "ptr"
     CAPCountMarshal := CAPCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\LsaQueryCAPs", CAPIDsMarshal, CAPIDs, "uint", CAPIDCount, CAPsMarshal, CAPs, CAPCountMarshal, CAPCount, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaQueryCAPs", CAPIDsMarshal, CAPIDs, UInt32, CAPIDCount, CAPsMarshal, CAPs, CAPCountMarshal, CAPCount, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1128,7 +1129,7 @@ export LsaQueryInformationPolicy(PolicyHandle, InformationClass, _Buffer) {
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaQueryInformationPolicy", LSA_HANDLE, PolicyHandle, POLICY_INFORMATION_CLASS, InformationClass, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1152,7 +1153,7 @@ export LsaSetInformationPolicy(PolicyHandle, InformationClass, _Buffer) {
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaSetInformationPolicy", LSA_HANDLE, PolicyHandle, POLICY_INFORMATION_CLASS, InformationClass, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1221,7 +1222,7 @@ export LsaQueryDomainInformationPolicy(PolicyHandle, InformationClass, _Buffer) 
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaQueryDomainInformationPolicy", LSA_HANDLE, PolicyHandle, POLICY_DOMAIN_INFORMATION_CLASS, InformationClass, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1290,7 +1291,7 @@ export LsaSetDomainInformationPolicy(PolicyHandle, InformationClass, _Buffer) {
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaSetDomainInformationPolicy", LSA_HANDLE, PolicyHandle, POLICY_DOMAIN_INFORMATION_CLASS, InformationClass, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1316,7 +1317,7 @@ export LsaSetDomainInformationPolicy(PolicyHandle, InformationClass, _Buffer) {
  */
 export LsaRegisterPolicyChangeNotification(InformationClass, NotificationEventHandle) {
     result := DllCall("SECUR32.dll\LsaRegisterPolicyChangeNotification", POLICY_NOTIFICATION_INFORMATION_CLASS, InformationClass, HANDLE, NotificationEventHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1339,7 +1340,7 @@ export LsaRegisterPolicyChangeNotification(InformationClass, NotificationEventHa
  */
 export LsaUnregisterPolicyChangeNotification(InformationClass, NotificationEventHandle) {
     result := DllCall("SECUR32.dll\LsaUnregisterPolicyChangeNotification", POLICY_NOTIFICATION_INFORMATION_CLASS, InformationClass, HANDLE, NotificationEventHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1422,8 +1423,8 @@ export LsaEnumerateTrustedDomains(PolicyHandle, EnumerationContext, _Buffer, Pre
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
     CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", LSA_HANDLE, PolicyHandle, EnumerationContextMarshal, EnumerationContext, _BufferMarshal, _Buffer, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", LSA_HANDLE, PolicyHandle, EnumerationContextMarshal, EnumerationContext, _BufferMarshal, _Buffer, UInt32, PreferedMaximumLength, CountReturnedMarshal, CountReturned, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1555,8 +1556,8 @@ export LsaLookupNames(PolicyHandle, Count, Names, ReferencedDomains, Sids) {
     ReferencedDomainsMarshal := ReferencedDomains is VarRef ? "ptr*" : "ptr"
     SidsMarshal := Sids is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\LsaLookupNames", LSA_HANDLE, PolicyHandle, "uint", Count, LSA_UNICODE_STRING.Ptr, Names, ReferencedDomainsMarshal, ReferencedDomains, SidsMarshal, Sids, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaLookupNames", LSA_HANDLE, PolicyHandle, UInt32, Count, LSA_UNICODE_STRING.Ptr, Names, ReferencedDomainsMarshal, ReferencedDomains, SidsMarshal, Sids, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1688,8 +1689,8 @@ export LsaLookupNames2(PolicyHandle, Flags, Count, Names, ReferencedDomains, Sid
     ReferencedDomainsMarshal := ReferencedDomains is VarRef ? "ptr*" : "ptr"
     SidsMarshal := Sids is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\LsaLookupNames2", LSA_HANDLE, PolicyHandle, "uint", Flags, "uint", Count, LSA_UNICODE_STRING.Ptr, Names, ReferencedDomainsMarshal, ReferencedDomains, SidsMarshal, Sids, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaLookupNames2", LSA_HANDLE, PolicyHandle, UInt32, Flags, UInt32, Count, LSA_UNICODE_STRING.Ptr, Names, ReferencedDomainsMarshal, ReferencedDomains, SidsMarshal, Sids, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1802,8 +1803,8 @@ export LsaLookupSids(PolicyHandle, Count, Sids, ReferencedDomains, Names) {
     ReferencedDomainsMarshal := ReferencedDomains is VarRef ? "ptr*" : "ptr"
     NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\LsaLookupSids", LSA_HANDLE, PolicyHandle, "uint", Count, SidsMarshal, Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaLookupSids", LSA_HANDLE, PolicyHandle, UInt32, Count, SidsMarshal, Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -1960,8 +1961,8 @@ export LsaLookupSids2(PolicyHandle, LookupOptions, Count, Sids, ReferencedDomain
     ReferencedDomainsMarshal := ReferencedDomains is VarRef ? "ptr*" : "ptr"
     NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\LsaLookupSids2", LSA_HANDLE, PolicyHandle, "uint", LookupOptions, "uint", Count, SidsMarshal, Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaLookupSids2", LSA_HANDLE, PolicyHandle, UInt32, LookupOptions, UInt32, Count, SidsMarshal, Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2032,7 +2033,7 @@ export LsaEnumerateAccountsWithUserRight(PolicyHandle, UserRight, _Buffer, Count
     CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaEnumerateAccountsWithUserRight", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, UserRight, _BufferMarshal, _Buffer, CountReturnedMarshal, CountReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2061,7 +2062,7 @@ export LsaEnumerateAccountRights(PolicyHandle, AccountSid, UserRights, CountOfRi
     CountOfRightsMarshal := CountOfRights is VarRef ? "uint*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaEnumerateAccountRights", LSA_HANDLE, PolicyHandle, PSID, AccountSid, UserRightsMarshal, UserRights, CountOfRightsMarshal, CountOfRights, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2109,8 +2110,8 @@ export LsaEnumerateAccountRights(PolicyHandle, AccountSid, UserRights, CountOfRi
  * @since windows5.1.2600
  */
 export LsaAddAccountRights(PolicyHandle, AccountSid, UserRights, CountOfRights) {
-    result := DllCall("ADVAPI32.dll\LsaAddAccountRights", LSA_HANDLE, PolicyHandle, PSID, AccountSid, LSA_UNICODE_STRING.Ptr, UserRights, "uint", CountOfRights, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaAddAccountRights", LSA_HANDLE, PolicyHandle, PSID, AccountSid, LSA_UNICODE_STRING.Ptr, UserRights, UInt32, CountOfRights, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2165,8 +2166,8 @@ export LsaAddAccountRights(PolicyHandle, AccountSid, UserRights, CountOfRights) 
  * @since windows5.1.2600
  */
 export LsaRemoveAccountRights(PolicyHandle, AccountSid, AllRights, UserRights, CountOfRights) {
-    result := DllCall("ADVAPI32.dll\LsaRemoveAccountRights", LSA_HANDLE, PolicyHandle, PSID, AccountSid, BOOLEAN, AllRights, LSA_UNICODE_STRING.Ptr, UserRights, "uint", CountOfRights, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaRemoveAccountRights", LSA_HANDLE, PolicyHandle, PSID, AccountSid, BOOLEAN, AllRights, LSA_UNICODE_STRING.Ptr, UserRights, UInt32, CountOfRights, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2225,8 +2226,8 @@ export LsaRemoveAccountRights(PolicyHandle, AccountSid, AllRights, UserRights, C
  * @since windows5.1.2600
  */
 export LsaOpenTrustedDomainByName(PolicyHandle, TrustedDomainName, DesiredAccess, TrustedDomainHandle) {
-    result := DllCall("ADVAPI32.dll\LsaOpenTrustedDomainByName", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, TrustedDomainName, "uint", DesiredAccess, LSA_HANDLE.Ptr, TrustedDomainHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaOpenTrustedDomainByName", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, TrustedDomainName, UInt32, DesiredAccess, LSA_HANDLE.Ptr, TrustedDomainHandle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2257,7 +2258,7 @@ export LsaQueryTrustedDomainInfo(PolicyHandle, TrustedDomainSid, InformationClas
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfo", LSA_HANDLE, PolicyHandle, PSID, TrustedDomainSid, TRUSTED_INFORMATION_CLASS, InformationClass, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2282,7 +2283,7 @@ export LsaSetTrustedDomainInformation(PolicyHandle, TrustedDomainSid, Informatio
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInformation", LSA_HANDLE, PolicyHandle, PSID, TrustedDomainSid, TRUSTED_INFORMATION_CLASS, InformationClass, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2303,7 +2304,7 @@ export LsaSetTrustedDomainInformation(PolicyHandle, TrustedDomainSid, Informatio
  */
 export LsaDeleteTrustedDomain(PolicyHandle, TrustedDomainSid) {
     result := DllCall("ADVAPI32.dll\LsaDeleteTrustedDomain", LSA_HANDLE, PolicyHandle, PSID, TrustedDomainSid, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2366,7 +2367,7 @@ export LsaQueryTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, Informat
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfoByName", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, TrustedDomainName, TRUSTED_INFORMATION_CLASS, InformationClass, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2391,7 +2392,7 @@ export LsaSetTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, Informatio
     _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInfoByName", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, TrustedDomainName, TRUSTED_INFORMATION_CLASS, InformationClass, _BufferMarshal, _Buffer, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2466,8 +2467,8 @@ export LsaEnumerateTrustedDomainsEx(PolicyHandle, EnumerationContext, _Buffer, P
     _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
     CountReturnedMarshal := CountReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", LSA_HANDLE, PolicyHandle, EnumerationContextMarshal, EnumerationContext, _BufferMarshal, _Buffer, "uint", PreferedMaximumLength, CountReturnedMarshal, CountReturned, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", LSA_HANDLE, PolicyHandle, EnumerationContextMarshal, EnumerationContext, _BufferMarshal, _Buffer, UInt32, PreferedMaximumLength, CountReturnedMarshal, CountReturned, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2542,8 +2543,8 @@ export LsaEnumerateTrustedDomainsEx(PolicyHandle, EnumerationContext, _Buffer, P
  * @since windows5.1.2600
  */
 export LsaCreateTrustedDomainEx(PolicyHandle, TrustedDomainInformation, AuthenticationInformation, DesiredAccess, TrustedDomainHandle) {
-    result := DllCall("ADVAPI32.dll\LsaCreateTrustedDomainEx", LSA_HANDLE, PolicyHandle, TRUSTED_DOMAIN_INFORMATION_EX.Ptr, TrustedDomainInformation, TRUSTED_DOMAIN_AUTH_INFORMATION.Ptr, AuthenticationInformation, "uint", DesiredAccess, LSA_HANDLE.Ptr, TrustedDomainHandle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ADVAPI32.dll\LsaCreateTrustedDomainEx", LSA_HANDLE, PolicyHandle, TRUSTED_DOMAIN_INFORMATION_EX.Ptr, TrustedDomainInformation, TRUSTED_DOMAIN_AUTH_INFORMATION.Ptr, AuthenticationInformation, UInt32, DesiredAccess, LSA_HANDLE.Ptr, TrustedDomainHandle, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2621,7 +2622,7 @@ export LsaQueryForestTrustInformation(PolicyHandle, TrustedDomainName, ForestTru
     ForestTrustInfoMarshal := ForestTrustInfo is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, TrustedDomainName, ForestTrustInfoMarshal, ForestTrustInfo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2675,7 +2676,7 @@ export LsaSetForestTrustInformation(PolicyHandle, TrustedDomainName, ForestTrust
     CollisionInfoMarshal := CollisionInfo is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, TrustedDomainName, LSA_FOREST_TRUST_INFORMATION.Ptr, ForestTrustInfo, BOOLEAN, CheckOnly, CollisionInfoMarshal, CollisionInfo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2714,7 +2715,7 @@ export LsaSetForestTrustInformation(PolicyHandle, TrustedDomainName, ForestTrust
  */
 export LsaStorePrivateData(PolicyHandle, KeyName, _PrivateData) {
     result := DllCall("ADVAPI32.dll\LsaStorePrivateData", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, KeyName, LSA_UNICODE_STRING.Ptr, _PrivateData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2810,7 +2811,7 @@ export LsaRetrievePrivateData(PolicyHandle, KeyName, _PrivateData) {
     _PrivateDataMarshal := _PrivateData is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaRetrievePrivateData", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, KeyName, _PrivateDataMarshal, _PrivateData, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2839,7 +2840,7 @@ export LsaQueryForestTrustInformation2(PolicyHandle, TrustedDomainName, HighestR
     ForestTrustInfoMarshal := ForestTrustInfo is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation2", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, TrustedDomainName, LSA_FOREST_TRUST_RECORD_TYPE, HighestRecordType, ForestTrustInfoMarshal, ForestTrustInfo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2857,7 +2858,7 @@ export LsaSetForestTrustInformation2(PolicyHandle, TrustedDomainName, HighestRec
     CollisionInfoMarshal := CollisionInfo is VarRef ? "ptr*" : "ptr"
 
     result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation2", LSA_HANDLE, PolicyHandle, LSA_UNICODE_STRING.Ptr, TrustedDomainName, LSA_FOREST_TRUST_RECORD_TYPE, HighestRecordType, LSA_FOREST_TRUST_INFORMATION2.Ptr, ForestTrustInfo, BOOLEAN, CheckOnly, CollisionInfoMarshal, CollisionInfo, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -2910,7 +2911,7 @@ export LsaSetForestTrustInformation2(PolicyHandle, TrustedDomainName, HighestRec
 export AuditSetSystemPolicy(pAuditPolicy, dwPolicyCount) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AuditSetSystemPolicy", AUDIT_POLICY_INFORMATION.Ptr, pAuditPolicy, "uint", dwPolicyCount, BOOLEAN)
+    result := DllCall("ADVAPI32.dll\AuditSetSystemPolicy", AUDIT_POLICY_INFORMATION.Ptr, pAuditPolicy, UInt32, dwPolicyCount, BOOLEAN)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2980,7 +2981,7 @@ export AuditSetSystemPolicy(pAuditPolicy, dwPolicyCount) {
 export AuditSetPerUserPolicy(_pSid, pAuditPolicy, dwPolicyCount) {
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AuditSetPerUserPolicy", PSID, _pSid, AUDIT_POLICY_INFORMATION.Ptr, pAuditPolicy, "uint", dwPolicyCount, BOOLEAN)
+    result := DllCall("ADVAPI32.dll\AuditSetPerUserPolicy", PSID, _pSid, AUDIT_POLICY_INFORMATION.Ptr, pAuditPolicy, UInt32, dwPolicyCount, BOOLEAN)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3052,7 +3053,7 @@ export AuditQuerySystemPolicy(pSubCategoryGuids, dwPolicyCount, ppAuditPolicy) {
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AuditQuerySystemPolicy", Guid.Ptr, pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, BOOLEAN)
+    result := DllCall("ADVAPI32.dll\AuditQuerySystemPolicy", Guid.Ptr, pSubCategoryGuids, UInt32, dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, BOOLEAN)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3125,7 +3126,7 @@ export AuditQueryPerUserPolicy(_pSid, pSubCategoryGuids, dwPolicyCount, ppAuditP
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AuditQueryPerUserPolicy", PSID, _pSid, Guid.Ptr, pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, BOOLEAN)
+    result := DllCall("ADVAPI32.dll\AuditQueryPerUserPolicy", PSID, _pSid, Guid.Ptr, pSubCategoryGuids, UInt32, dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, BOOLEAN)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3256,7 +3257,7 @@ export AuditComputeEffectivePolicyBySid(_pSid, pSubCategoryGuids, dwPolicyCount,
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyBySid", PSID, _pSid, Guid.Ptr, pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, BOOLEAN)
+    result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyBySid", PSID, _pSid, Guid.Ptr, pSubCategoryGuids, UInt32, dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, BOOLEAN)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3329,7 +3330,7 @@ export AuditComputeEffectivePolicyByToken(hTokenHandle, pSubCategoryGuids, dwPol
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyByToken", HANDLE, hTokenHandle, Guid.Ptr, pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, BOOLEAN)
+    result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyByToken", HANDLE, hTokenHandle, Guid.Ptr, pSubCategoryGuids, UInt32, dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, BOOLEAN)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3980,7 +3981,7 @@ export AcquireCredentialsHandleW(pszPrincipal, pszPackage, fCredentialUse, pvLog
     pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
     pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, SECPKG_CRED, fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, SecHandle.Ptr, phCredential, "int64*", &ptsExpiry := 0, "HRESULT")
+    result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, SECPKG_CRED, fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, SEC_GET_KEY_FN, pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, SecHandle.Ptr, phCredential, "int64*", &ptsExpiry := 0, "HRESULT")
     return ptsExpiry
 }
 
@@ -4036,7 +4037,7 @@ export AcquireCredentialsHandleA(pszPrincipal, pszPackage, fCredentialUse, pvLog
     pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
     pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, SECPKG_CRED, fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, SecHandle.Ptr, phCredential, "int64*", &ptsExpiry := 0, "HRESULT")
+    result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, SECPKG_CRED, fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, SEC_GET_KEY_FN, pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, SecHandle.Ptr, phCredential, "int64*", &ptsExpiry := 0, "HRESULT")
     return ptsExpiry
 }
 
@@ -4092,7 +4093,7 @@ export AddCredentialsW(hCredentials, pszPrincipal, pszPackage, fCredentialUse, p
     pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
     pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SECUR32.dll\AddCredentialsW", SecHandle.Ptr, hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "HRESULT")
+    result := DllCall("SECUR32.dll\AddCredentialsW", SecHandle.Ptr, hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, UInt32, fCredentialUse, pAuthDataMarshal, pAuthData, SEC_GET_KEY_FN, pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "HRESULT")
     return ptsExpiry
 }
 
@@ -4115,7 +4116,7 @@ export AddCredentialsA(hCredentials, pszPrincipal, pszPackage, fCredentialUse, p
     pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
     pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SECUR32.dll\AddCredentialsA", SecHandle.Ptr, hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "HRESULT")
+    result := DllCall("SECUR32.dll\AddCredentialsA", SecHandle.Ptr, hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, UInt32, fCredentialUse, pAuthDataMarshal, pAuthData, SEC_GET_KEY_FN, pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "HRESULT")
     return ptsExpiry
 }
 
@@ -4145,7 +4146,7 @@ export ChangeAccountPasswordW(pszPackageName, pszDomainName, pszAccountName, psz
     pszOldPasswordMarshal := pszOldPassword is VarRef ? "ushort*" : "ptr"
     pszNewPasswordMarshal := pszNewPassword is VarRef ? "ushort*" : "ptr"
 
-    result := DllCall("SECUR32.dll\ChangeAccountPasswordW", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, BOOLEAN, bImpersonating, "uint", dwReserved, SecBufferDesc.Ptr, pOutput, "HRESULT")
+    result := DllCall("SECUR32.dll\ChangeAccountPasswordW", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, BOOLEAN, bImpersonating, UInt32, dwReserved, SecBufferDesc.Ptr, pOutput, "HRESULT")
     return result
 }
 
@@ -4175,7 +4176,7 @@ export ChangeAccountPasswordA(pszPackageName, pszDomainName, pszAccountName, psz
     pszOldPasswordMarshal := pszOldPassword is VarRef ? "char*" : "ptr"
     pszNewPasswordMarshal := pszNewPassword is VarRef ? "char*" : "ptr"
 
-    result := DllCall("SECUR32.dll\ChangeAccountPasswordA", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, BOOLEAN, bImpersonating, "uint", dwReserved, SecBufferDesc.Ptr, pOutput, "HRESULT")
+    result := DllCall("SECUR32.dll\ChangeAccountPasswordA", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, BOOLEAN, bImpersonating, UInt32, dwReserved, SecBufferDesc.Ptr, pOutput, "HRESULT")
     return result
 }
 
@@ -4658,7 +4659,7 @@ export InitializeSecurityContextW(phCredential, phContext, pszTargetName, fConte
     pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
     ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("SECUR32.dll\InitializeSecurityContextW", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, pszTargetNameMarshal, pszTargetName, ISC_REQ_FLAGS, fContextReq, "uint", Reserved1, "uint", TargetDataRep, SecBufferDesc.Ptr, pInput, "uint", Reserved2, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
+    result := DllCall("SECUR32.dll\InitializeSecurityContextW", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, pszTargetNameMarshal, pszTargetName, ISC_REQ_FLAGS, fContextReq, UInt32, Reserved1, UInt32, TargetDataRep, SecBufferDesc.Ptr, pInput, UInt32, Reserved2, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
     return result
 }
 
@@ -5141,7 +5142,7 @@ export InitializeSecurityContextA(phCredential, phContext, pszTargetName, fConte
     pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
     ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("SECUR32.dll\InitializeSecurityContextA", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, pszTargetNameMarshal, pszTargetName, ISC_REQ_FLAGS, fContextReq, "uint", Reserved1, "uint", TargetDataRep, SecBufferDesc.Ptr, pInput, "uint", Reserved2, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
+    result := DllCall("SECUR32.dll\InitializeSecurityContextA", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, pszTargetNameMarshal, pszTargetName, ISC_REQ_FLAGS, fContextReq, UInt32, Reserved1, UInt32, TargetDataRep, SecBufferDesc.Ptr, pInput, UInt32, Reserved2, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
     return result
 }
 
@@ -5363,7 +5364,7 @@ export AcceptSecurityContext(phCredential, phContext, pInput, fContextReq, Targe
     pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
     ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("SECUR32.dll\AcceptSecurityContext", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, SecBufferDesc.Ptr, pInput, ASC_REQ_FLAGS, fContextReq, "uint", TargetDataRep, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
+    result := DllCall("SECUR32.dll\AcceptSecurityContext", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, SecBufferDesc.Ptr, pInput, ASC_REQ_FLAGS, fContextReq, UInt32, TargetDataRep, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
     return result
 }
 
@@ -5700,7 +5701,7 @@ export QueryContextAttributesW(phContext, ulAttribute) {
  * @since windows5.1.2600
  */
 export QueryContextAttributesExW(phContext, ulAttribute, pBuffer, cbBuffer) {
-    result := DllCall("SspiCli.dll\QueryContextAttributesExW", SecHandle.Ptr, phContext, SECPKG_ATTR, ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
+    result := DllCall("SspiCli.dll\QueryContextAttributesExW", SecHandle.Ptr, phContext, SECPKG_ATTR, ulAttribute, IntPtr, pBuffer, UInt32, cbBuffer, "HRESULT")
     return result
 }
 
@@ -5744,7 +5745,7 @@ export QueryContextAttributesA(phContext, ulAttribute) {
  * @since windows5.1.2600
  */
 export QueryContextAttributesExA(phContext, ulAttribute, pBuffer, cbBuffer) {
-    result := DllCall("SspiCli.dll\QueryContextAttributesExA", SecHandle.Ptr, phContext, SECPKG_ATTR, ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
+    result := DllCall("SspiCli.dll\QueryContextAttributesExA", SecHandle.Ptr, phContext, SECPKG_ATTR, ulAttribute, IntPtr, pBuffer, UInt32, cbBuffer, "HRESULT")
     return result
 }
 
@@ -5782,7 +5783,7 @@ export QueryContextAttributesExA(phContext, ulAttribute, pBuffer, cbBuffer) {
  * @since windows5.1.2600
  */
 export SetContextAttributesW(phContext, ulAttribute, pBuffer, cbBuffer) {
-    result := DllCall("SECUR32.dll\SetContextAttributesW", SecHandle.Ptr, phContext, SECPKG_ATTR, ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
+    result := DllCall("SECUR32.dll\SetContextAttributesW", SecHandle.Ptr, phContext, SECPKG_ATTR, ulAttribute, IntPtr, pBuffer, UInt32, cbBuffer, "HRESULT")
     return result
 }
 
@@ -5820,7 +5821,7 @@ export SetContextAttributesW(phContext, ulAttribute, pBuffer, cbBuffer) {
  * @since windows5.1.2600
  */
 export SetContextAttributesA(phContext, ulAttribute, pBuffer, cbBuffer) {
-    result := DllCall("SECUR32.dll\SetContextAttributesA", SecHandle.Ptr, phContext, SECPKG_ATTR, ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
+    result := DllCall("SECUR32.dll\SetContextAttributesA", SecHandle.Ptr, phContext, SECPKG_ATTR, ulAttribute, IntPtr, pBuffer, UInt32, cbBuffer, "HRESULT")
     return result
 }
 
@@ -5982,7 +5983,7 @@ export SetContextAttributesA(phContext, ulAttribute, pBuffer, cbBuffer) {
 export QueryCredentialsAttributesW(phCredential, ulAttribute, pBuffer) {
     pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SECUR32.dll\QueryCredentialsAttributesW", SecHandle.Ptr, phCredential, "uint", ulAttribute, pBufferMarshal, pBuffer, "HRESULT")
+    result := DllCall("SECUR32.dll\QueryCredentialsAttributesW", SecHandle.Ptr, phCredential, UInt32, ulAttribute, pBufferMarshal, pBuffer, "HRESULT")
     return result
 }
 
@@ -5996,7 +5997,7 @@ export QueryCredentialsAttributesW(phCredential, ulAttribute, pBuffer) {
  * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycredentialsattributesexw
  */
 export QueryCredentialsAttributesExW(phCredential, ulAttribute, pBuffer, cbBuffer) {
-    result := DllCall("SspiCli.dll\QueryCredentialsAttributesExW", SecHandle.Ptr, phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
+    result := DllCall("SspiCli.dll\QueryCredentialsAttributesExW", SecHandle.Ptr, phCredential, UInt32, ulAttribute, IntPtr, pBuffer, UInt32, cbBuffer, "HRESULT")
     return result
 }
 
@@ -6158,7 +6159,7 @@ export QueryCredentialsAttributesExW(phCredential, ulAttribute, pBuffer, cbBuffe
 export QueryCredentialsAttributesA(phCredential, ulAttribute, pBuffer) {
     pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SECUR32.dll\QueryCredentialsAttributesA", SecHandle.Ptr, phCredential, "uint", ulAttribute, pBufferMarshal, pBuffer, "HRESULT")
+    result := DllCall("SECUR32.dll\QueryCredentialsAttributesA", SecHandle.Ptr, phCredential, UInt32, ulAttribute, pBufferMarshal, pBuffer, "HRESULT")
     return result
 }
 
@@ -6172,7 +6173,7 @@ export QueryCredentialsAttributesA(phCredential, ulAttribute, pBuffer) {
  * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycredentialsattributesexa
  */
 export QueryCredentialsAttributesExA(phCredential, ulAttribute, pBuffer, cbBuffer) {
-    result := DllCall("SspiCli.dll\QueryCredentialsAttributesExA", SecHandle.Ptr, phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
+    result := DllCall("SspiCli.dll\QueryCredentialsAttributesExA", SecHandle.Ptr, phCredential, UInt32, ulAttribute, IntPtr, pBuffer, UInt32, cbBuffer, "HRESULT")
     return result
 }
 
@@ -6304,7 +6305,7 @@ export QueryCredentialsAttributesExA(phCredential, ulAttribute, pBuffer, cbBuffe
  * @since windows5.1.2600
  */
 export SetCredentialsAttributesW(phCredential, ulAttribute, pBuffer, cbBuffer) {
-    result := DllCall("SECUR32.dll\SetCredentialsAttributesW", SecHandle.Ptr, phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
+    result := DllCall("SECUR32.dll\SetCredentialsAttributesW", SecHandle.Ptr, phCredential, UInt32, ulAttribute, IntPtr, pBuffer, UInt32, cbBuffer, "HRESULT")
     return result
 }
 
@@ -6436,7 +6437,7 @@ export SetCredentialsAttributesW(phCredential, ulAttribute, pBuffer, cbBuffer) {
  * @since windows5.1.2600
  */
 export SetCredentialsAttributesA(phCredential, ulAttribute, pBuffer, cbBuffer) {
-    result := DllCall("SECUR32.dll\SetCredentialsAttributesA", SecHandle.Ptr, phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
+    result := DllCall("SECUR32.dll\SetCredentialsAttributesA", SecHandle.Ptr, phCredential, UInt32, ulAttribute, IntPtr, pBuffer, UInt32, cbBuffer, "HRESULT")
     return result
 }
 
@@ -6467,7 +6468,7 @@ export FreeContextBuffer(pvContextBuffer) {
  * @returns {Integer} 
  */
 export SecAllocateAndSetIPAddress(lpIpAddress, cchIpAddress) {
-    result := DllCall("SspiCli.dll\SecAllocateAndSetIPAddress", "ptr", lpIpAddress, "uint", cchIpAddress, "int*", &FreeCallContext := 0, "HRESULT")
+    result := DllCall("SspiCli.dll\SecAllocateAndSetIPAddress", IntPtr, lpIpAddress, UInt32, cchIpAddress, "int*", &FreeCallContext := 0, "HRESULT")
     return FreeCallContext
 }
 
@@ -6481,7 +6482,7 @@ export SecAllocateAndSetIPAddress(lpIpAddress, cchIpAddress) {
 export SecAllocateAndSetCallTarget(lpIpAddress, cchIpAddress, TargetName) {
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", "ptr", lpIpAddress, "uint", cchIpAddress, "ptr", TargetName, "int*", &FreeCallContext := 0, "HRESULT")
+    result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", IntPtr, lpIpAddress, UInt32, cchIpAddress, "ptr", TargetName, "int*", &FreeCallContext := 0, "HRESULT")
     return FreeCallContext
 }
 
@@ -6716,7 +6717,7 @@ export SecFreeCallContext() {
  * @since windows5.1.2600
  */
 export MakeSignature(phContext, fQOP, pMessage, MessageSeqNo) {
-    result := DllCall("SECUR32.dll\MakeSignature", SecHandle.Ptr, phContext, "uint", fQOP, SecBufferDesc.Ptr, pMessage, "uint", MessageSeqNo, "HRESULT")
+    result := DllCall("SECUR32.dll\MakeSignature", SecHandle.Ptr, phContext, UInt32, fQOP, SecBufferDesc.Ptr, pMessage, UInt32, MessageSeqNo, "HRESULT")
     return result
 }
 
@@ -6739,7 +6740,7 @@ export MakeSignature(phContext, fQOP, pMessage, MessageSeqNo) {
  * @since windows5.1.2600
  */
 export VerifySignature(phContext, pMessage, MessageSeqNo) {
-    result := DllCall("SECUR32.dll\VerifySignature", SecHandle.Ptr, phContext, SecBufferDesc.Ptr, pMessage, "uint", MessageSeqNo, "uint*", &pfQOP := 0, "HRESULT")
+    result := DllCall("SECUR32.dll\VerifySignature", SecHandle.Ptr, phContext, SecBufferDesc.Ptr, pMessage, UInt32, MessageSeqNo, "uint*", &pfQOP := 0, "HRESULT")
     return pfQOP
 }
 
@@ -6918,7 +6919,7 @@ export VerifySignature(phContext, pMessage, MessageSeqNo) {
  * @since windows5.1.2600
  */
 export EncryptMessage(phContext, fQOP, pMessage, MessageSeqNo) {
-    result := DllCall("SECUR32.dll\EncryptMessage", SecHandle.Ptr, phContext, "uint", fQOP, SecBufferDesc.Ptr, pMessage, "uint", MessageSeqNo, Int32)
+    result := DllCall("SECUR32.dll\EncryptMessage", SecHandle.Ptr, phContext, UInt32, fQOP, SecBufferDesc.Ptr, pMessage, UInt32, MessageSeqNo, Int32)
     return result
 }
 
@@ -6976,7 +6977,7 @@ export EncryptMessage(phContext, fQOP, pMessage, MessageSeqNo) {
  * @since windows5.1.2600
  */
 export DecryptMessage(phContext, pMessage, MessageSeqNo) {
-    result := DllCall("SECUR32.dll\DecryptMessage", SecHandle.Ptr, phContext, SecBufferDesc.Ptr, pMessage, "uint", MessageSeqNo, "uint*", &pfQOP := 0, Int32)
+    result := DllCall("SECUR32.dll\DecryptMessage", SecHandle.Ptr, phContext, SecBufferDesc.Ptr, pMessage, UInt32, MessageSeqNo, "uint*", &pfQOP := 0, Int32)
     return pfQOP
 }
 
@@ -7708,7 +7709,7 @@ export SaslInitializeSecurityContextW(phCredential, phContext, pszTargetName, fC
     pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
     ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("SECUR32.dll\SaslInitializeSecurityContextW", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, "ptr", pszTargetName, ISC_REQ_FLAGS, fContextReq, "uint", Reserved1, "uint", TargetDataRep, SecBufferDesc.Ptr, pInput, "uint", Reserved2, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
+    result := DllCall("SECUR32.dll\SaslInitializeSecurityContextW", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, "ptr", pszTargetName, ISC_REQ_FLAGS, fContextReq, UInt32, Reserved1, UInt32, TargetDataRep, SecBufferDesc.Ptr, pInput, UInt32, Reserved2, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
     return result
 }
 
@@ -7888,7 +7889,7 @@ export SaslInitializeSecurityContextA(phCredential, phContext, pszTargetName, fC
     pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
     ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("SECUR32.dll\SaslInitializeSecurityContextA", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, "ptr", pszTargetName, ISC_REQ_FLAGS, fContextReq, "uint", Reserved1, "uint", TargetDataRep, SecBufferDesc.Ptr, pInput, "uint", Reserved2, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
+    result := DllCall("SECUR32.dll\SaslInitializeSecurityContextA", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, "ptr", pszTargetName, ISC_REQ_FLAGS, fContextReq, UInt32, Reserved1, UInt32, TargetDataRep, SecBufferDesc.Ptr, pInput, UInt32, Reserved2, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
     return result
 }
 
@@ -7998,7 +7999,7 @@ export SaslAcceptSecurityContext(phCredential, phContext, pInput, fContextReq, T
     pfContextAttrMarshal := pfContextAttr is VarRef ? "uint*" : "ptr"
     ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-    result := DllCall("SECUR32.dll\SaslAcceptSecurityContext", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, SecBufferDesc.Ptr, pInput, ASC_REQ_FLAGS, fContextReq, "uint", TargetDataRep, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
+    result := DllCall("SECUR32.dll\SaslAcceptSecurityContext", SecHandle.Ptr, phCredential, SecHandle.Ptr, phContext, SecBufferDesc.Ptr, pInput, ASC_REQ_FLAGS, fContextReq, UInt32, TargetDataRep, SecHandle.Ptr, phNewContext, SecBufferDesc.Ptr, pOutput, pfContextAttrMarshal, pfContextAttr, ptsExpiryMarshal, ptsExpiry, Int32)
     return result
 }
 
@@ -8110,7 +8111,7 @@ export SaslAcceptSecurityContext(phCredential, phContext, pInput, fContextReq, T
 export SaslSetContextOption(ContextHandle, Option, Value, _Size) {
     ValueMarshal := Value is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SECUR32.dll\SaslSetContextOption", SecHandle.Ptr, ContextHandle, "uint", Option, ValueMarshal, Value, "uint", _Size, "HRESULT")
+    result := DllCall("SECUR32.dll\SaslSetContextOption", SecHandle.Ptr, ContextHandle, UInt32, Option, ValueMarshal, Value, UInt32, _Size, "HRESULT")
     return result
 }
 
@@ -8224,7 +8225,7 @@ export SaslGetContextOption(ContextHandle, Option, Value, _Size, Needed) {
     ValueMarshal := Value is VarRef ? "ptr" : "ptr"
     NeededMarshal := Needed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("SECUR32.dll\SaslGetContextOption", SecHandle.Ptr, ContextHandle, "uint", Option, ValueMarshal, Value, "uint", _Size, NeededMarshal, Needed, "HRESULT")
+    result := DllCall("SECUR32.dll\SaslGetContextOption", SecHandle.Ptr, ContextHandle, UInt32, Option, ValueMarshal, Value, UInt32, _Size, NeededMarshal, Needed, "HRESULT")
     return result
 }
 
@@ -8299,7 +8300,7 @@ export SspiPromptForCredentialsW(pszTargetName, pUiInfo, dwAuthError, pszPackage
     ppAuthIdentityMarshal := ppAuthIdentity is VarRef ? "ptr*" : "ptr"
     pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
 
-    result := DllCall("credui.dll\SspiPromptForCredentialsW", "ptr", pszTargetName, pUiInfoMarshal, pUiInfo, "uint", dwAuthError, "ptr", pszPackage, pInputAuthIdentityMarshal, pInputAuthIdentity, ppAuthIdentityMarshal, ppAuthIdentity, pfSaveMarshal, pfSave, "uint", dwFlags, UInt32)
+    result := DllCall("credui.dll\SspiPromptForCredentialsW", "ptr", pszTargetName, pUiInfoMarshal, pUiInfo, UInt32, dwAuthError, "ptr", pszPackage, pInputAuthIdentityMarshal, pInputAuthIdentity, ppAuthIdentityMarshal, ppAuthIdentity, pfSaveMarshal, pfSave, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -8374,7 +8375,7 @@ export SspiPromptForCredentialsA(pszTargetName, pUiInfo, dwAuthError, pszPackage
     ppAuthIdentityMarshal := ppAuthIdentity is VarRef ? "ptr*" : "ptr"
     pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
 
-    result := DllCall("credui.dll\SspiPromptForCredentialsA", "ptr", pszTargetName, pUiInfoMarshal, pUiInfo, "uint", dwAuthError, "ptr", pszPackage, pInputAuthIdentityMarshal, pInputAuthIdentity, ppAuthIdentityMarshal, ppAuthIdentity, pfSaveMarshal, pfSave, "uint", dwFlags, UInt32)
+    result := DllCall("credui.dll\SspiPromptForCredentialsA", "ptr", pszTargetName, pUiInfoMarshal, pUiInfo, UInt32, dwAuthError, "ptr", pszPackage, pInputAuthIdentityMarshal, pInputAuthIdentity, ppAuthIdentityMarshal, ppAuthIdentity, pfSaveMarshal, pfSave, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -8464,7 +8465,7 @@ export SspiEncryptAuthIdentity(AuthData) {
 export SspiEncryptAuthIdentityEx(Options, AuthData) {
     AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SspiCli.dll\SspiEncryptAuthIdentityEx", "uint", Options, AuthDataMarshal, AuthData, "HRESULT")
+    result := DllCall("SspiCli.dll\SspiEncryptAuthIdentityEx", UInt32, Options, AuthDataMarshal, AuthData, "HRESULT")
     return result
 }
 
@@ -8497,7 +8498,7 @@ export SspiDecryptAuthIdentity(EncryptedAuthData) {
 export SspiDecryptAuthIdentityEx(Options, EncryptedAuthData) {
     EncryptedAuthDataMarshal := EncryptedAuthData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SspiCli.dll\SspiDecryptAuthIdentityEx", "uint", Options, EncryptedAuthDataMarshal, EncryptedAuthData, "HRESULT")
+    result := DllCall("SspiCli.dll\SspiDecryptAuthIdentityEx", UInt32, Options, EncryptedAuthDataMarshal, EncryptedAuthData, "HRESULT")
     return result
 }
 
@@ -8702,7 +8703,7 @@ export SspiMarshalAuthIdentity(AuthIdentity, AuthIdentityLength, AuthIdentityByt
  * @since windows6.1
  */
 export SspiUnmarshalAuthIdentity(AuthIdentityLength, AuthIdentityByteArray) {
-    result := DllCall("SECUR32.dll\SspiUnmarshalAuthIdentity", "uint", AuthIdentityLength, "ptr", AuthIdentityByteArray, "ptr*", &ppAuthIdentity := 0, "HRESULT")
+    result := DllCall("SECUR32.dll\SspiUnmarshalAuthIdentity", UInt32, AuthIdentityLength, IntPtr, AuthIdentityByteArray, "ptr*", &ppAuthIdentity := 0, "HRESULT")
     return ppAuthIdentity
 }
 
@@ -8714,7 +8715,7 @@ export SspiUnmarshalAuthIdentity(AuthIdentityLength, AuthIdentityByteArray) {
  * @since windows6.1
  */
 export SspiIsPromptingNeeded(ErrorOrNtStatus) {
-    result := DllCall("credui.dll\SspiIsPromptingNeeded", "uint", ErrorOrNtStatus, BOOLEAN)
+    result := DllCall("credui.dll\SspiIsPromptingNeeded", UInt32, ErrorOrNtStatus, BOOLEAN)
     return result
 }
 
@@ -8756,7 +8757,7 @@ export SspiExcludePackage(AuthIdentity, pszPackageName) {
  * @returns {HRESULT} 
  */
 export SspiSetChannelBindingFlags(pBindings, flags) {
-    result := DllCall("SspiCli.dll\SspiSetChannelBindingFlags", SecPkgContext_Bindings.Ptr, pBindings, "uint", flags, "HRESULT")
+    result := DllCall("SspiCli.dll\SspiSetChannelBindingFlags", SecPkgContext_Bindings.Ptr, pBindings, UInt32, flags, "HRESULT")
     return result
 }
 
@@ -8854,7 +8855,7 @@ export CredMarshalTargetInfo(InTargetInfo, _Buffer, BufferSize) {
     BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
     result := DllCall("SECUR32.dll\CredMarshalTargetInfo", CREDENTIAL_TARGET_INFORMATIONW.Ptr, InTargetInfo, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8870,8 +8871,8 @@ export CredUnmarshalTargetInfo(_Buffer, BufferSize, RetTargetInfo, RetActualSize
     RetTargetInfoMarshal := RetTargetInfo is VarRef ? "ptr*" : "ptr"
     RetActualSizeMarshal := RetActualSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", "ptr", _Buffer, "uint", BufferSize, RetTargetInfoMarshal, RetTargetInfo, RetActualSizeMarshal, RetActualSize, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", IntPtr, _Buffer, UInt32, BufferSize, RetTargetInfoMarshal, RetTargetInfo, RetActualSizeMarshal, RetActualSize, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -8889,7 +8890,7 @@ export CredUnmarshalTargetInfo(_Buffer, BufferSize, RetTargetInfo, RetActualSize
 export SslEmptyCacheA(pszTargetName, dwFlags) {
     pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-    result := DllCall("SCHANNEL.dll\SslEmptyCacheA", "ptr", pszTargetName, "uint", dwFlags, BOOL)
+    result := DllCall("SCHANNEL.dll\SslEmptyCacheA", "ptr", pszTargetName, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -8907,7 +8908,7 @@ export SslEmptyCacheA(pszTargetName, dwFlags) {
 export SslEmptyCacheW(pszTargetName, dwFlags) {
     pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-    result := DllCall("SCHANNEL.dll\SslEmptyCacheW", "ptr", pszTargetName, "uint", dwFlags, BOOL)
+    result := DllCall("SCHANNEL.dll\SslEmptyCacheW", "ptr", pszTargetName, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -8920,7 +8921,7 @@ export SslEmptyCacheW(pszTargetName, dwFlags) {
 export SslGenerateRandomBits(pRandomData, cRandomData) {
     pRandomDataMarshal := pRandomData is VarRef ? "char*" : "ptr"
 
-    DllCall("SCHANNEL.dll\SslGenerateRandomBits", pRandomDataMarshal, pRandomData, "int", cRandomData)
+    DllCall("SCHANNEL.dll\SslGenerateRandomBits", pRandomDataMarshal, pRandomData, Int32, cRandomData)
 }
 
 /**
@@ -8939,7 +8940,7 @@ export SslCrackCertificate(pbCertificate, cbCertificate, dwFlags, ppCertificate)
     pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
     ppCertificateMarshal := ppCertificate is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("SCHANNEL.dll\SslCrackCertificate", pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "uint", dwFlags, ppCertificateMarshal, ppCertificate, BOOL)
+    result := DllCall("SCHANNEL.dll\SslCrackCertificate", pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, UInt32, dwFlags, ppCertificateMarshal, ppCertificate, BOOL)
     return result
 }
 
@@ -8960,7 +8961,7 @@ export SslFreeCertificate(pCertificate) {
  * @returns {Integer} 
  */
 export SslGetMaximumKeySize(Reserved) {
-    result := DllCall("SCHANNEL.dll\SslGetMaximumKeySize", "uint", Reserved, UInt32)
+    result := DllCall("SCHANNEL.dll\SslGetMaximumKeySize", UInt32, Reserved, UInt32)
     return result
 }
 
@@ -9019,7 +9020,7 @@ export SslGetServerIdentity(ClientHello, ClientHelloSize, ServerIdentity, Server
     ServerIdentityMarshal := ServerIdentity is VarRef ? "ptr*" : "ptr"
     ServerIdentitySizeMarshal := ServerIdentitySize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("SCHANNEL.dll\SslGetServerIdentity", "ptr", ClientHello, "uint", ClientHelloSize, ServerIdentityMarshal, ServerIdentity, ServerIdentitySizeMarshal, ServerIdentitySize, "uint", Flags, "HRESULT")
+    result := DllCall("SCHANNEL.dll\SslGetServerIdentity", IntPtr, ClientHello, UInt32, ClientHelloSize, ServerIdentityMarshal, ServerIdentity, ServerIdentitySizeMarshal, ServerIdentitySize, UInt32, Flags, "HRESULT")
     return result
 }
 
@@ -9035,7 +9036,7 @@ export SslGetServerIdentity(ClientHello, ClientHelloSize, ServerIdentity, Server
 export SslGetExtensions(clientHello, clientHelloByteSize, genericExtensions, genericExtensionsCount, flags) {
     clientHelloMarshal := clientHello is VarRef ? "char*" : "ptr"
 
-    result := DllCall("SCHANNEL.dll\SslGetExtensions", clientHelloMarshal, clientHello, "uint", clientHelloByteSize, SCH_EXTENSION_DATA.Ptr, genericExtensions, "char", genericExtensionsCount, "uint*", &bytesToRead := 0, SchGetExtensionsOptions, flags, "HRESULT")
+    result := DllCall("SCHANNEL.dll\SslGetExtensions", clientHelloMarshal, clientHello, UInt32, clientHelloByteSize, SCH_EXTENSION_DATA.Ptr, genericExtensions, Int8, genericExtensionsCount, "uint*", &bytesToRead := 0, SchGetExtensionsOptions, flags, "HRESULT")
     return bytesToRead
 }
 
@@ -9075,7 +9076,7 @@ export TokenBindingGenerateBinding(keyType, targetURL, bindingType, tlsEKM, tlsE
     tokenBindingSizeMarshal := tokenBindingSize is VarRef ? "uint*" : "ptr"
     resultDataMarshal := resultData is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("TOKENBINDING.dll\TokenBindingGenerateBinding", TOKENBINDING_KEY_PARAMETERS_TYPE, keyType, "ptr", targetURL, TOKENBINDING_TYPE, bindingType, "ptr", tlsEKM, "uint", tlsEKMSize, TOKENBINDING_EXTENSION_FORMAT, extensionFormat, extensionDataMarshal, extensionData, tokenBindingMarshal, tokenBinding, tokenBindingSizeMarshal, tokenBindingSize, resultDataMarshal, resultData, "HRESULT")
+    result := DllCall("TOKENBINDING.dll\TokenBindingGenerateBinding", TOKENBINDING_KEY_PARAMETERS_TYPE, keyType, "ptr", targetURL, TOKENBINDING_TYPE, bindingType, IntPtr, tlsEKM, UInt32, tlsEKMSize, TOKENBINDING_EXTENSION_FORMAT, extensionFormat, extensionDataMarshal, extensionData, tokenBindingMarshal, tokenBinding, tokenBindingSizeMarshal, tokenBindingSize, resultDataMarshal, resultData, "HRESULT")
     return result
 }
 
@@ -9098,7 +9099,7 @@ export TokenBindingGenerateMessage(tokenBindings, tokenBindingsSize, tokenBindin
     tokenBindingMessageMarshal := tokenBindingMessage is VarRef ? "ptr*" : "ptr"
     tokenBindingMessageSizeMarshal := tokenBindingMessageSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TOKENBINDING.dll\TokenBindingGenerateMessage", tokenBindingsMarshal, tokenBindings, tokenBindingsSizeMarshal, tokenBindingsSize, "uint", tokenBindingsCount, tokenBindingMessageMarshal, tokenBindingMessage, tokenBindingMessageSizeMarshal, tokenBindingMessageSize, "HRESULT")
+    result := DllCall("TOKENBINDING.dll\TokenBindingGenerateMessage", tokenBindingsMarshal, tokenBindings, tokenBindingsSizeMarshal, tokenBindingsSize, UInt32, tokenBindingsCount, tokenBindingMessageMarshal, tokenBindingMessage, tokenBindingMessageSizeMarshal, tokenBindingMessageSize, "HRESULT")
     return result
 }
 
@@ -9118,7 +9119,7 @@ export TokenBindingGenerateMessage(tokenBindings, tokenBindingsSize, tokenBindin
  * @since windows10.0.10240
  */
 export TokenBindingVerifyMessage(tokenBindingMessage, tokenBindingMessageSize, keyType, tlsEKM, tlsEKMSize) {
-    result := DllCall("TOKENBINDING.dll\TokenBindingVerifyMessage", "ptr", tokenBindingMessage, "uint", tokenBindingMessageSize, TOKENBINDING_KEY_PARAMETERS_TYPE, keyType, "ptr", tlsEKM, "uint", tlsEKMSize, "ptr*", &resultList := 0, "HRESULT")
+    result := DllCall("TOKENBINDING.dll\TokenBindingVerifyMessage", IntPtr, tokenBindingMessage, UInt32, tokenBindingMessageSize, TOKENBINDING_KEY_PARAMETERS_TYPE, keyType, IntPtr, tlsEKM, UInt32, tlsEKMSize, "ptr*", &resultList := 0, "HRESULT")
     return resultList
 }
 
@@ -9193,7 +9194,7 @@ export TokenBindingDeleteAllBindings() {
  * @since windows10.0.10240
  */
 export TokenBindingGenerateID(keyType, publicKey, publicKeySize) {
-    result := DllCall("TOKENBINDING.dll\TokenBindingGenerateID", TOKENBINDING_KEY_PARAMETERS_TYPE, keyType, "ptr", publicKey, "uint", publicKeySize, "ptr*", &resultData := 0, "HRESULT")
+    result := DllCall("TOKENBINDING.dll\TokenBindingGenerateID", TOKENBINDING_KEY_PARAMETERS_TYPE, keyType, IntPtr, publicKey, UInt32, publicKeySize, "ptr*", &resultData := 0, "HRESULT")
     return resultData
 }
 
@@ -9705,7 +9706,7 @@ export SLInstallProofOfPurchase(hSLC, pwszPKeyAlgorithm, pwszPKeyString, cbPKeyS
 
     hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SLC.dll\SLInstallProofOfPurchase", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, Guid.Ptr, pPkeyId, "HRESULT")
+    result := DllCall("SLC.dll\SLInstallProofOfPurchase", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, UInt32, cbPKeySpecificData, IntPtr, pbPKeySpecificData, Guid.Ptr, pPkeyId, "HRESULT")
     return result
 }
 
@@ -9863,7 +9864,7 @@ export SLUninstallProofOfPurchase(hSLC, pPKeyId) {
 export SLInstallLicense(hSLC, cbLicenseBlob, pbLicenseBlob, pLicenseFileId) {
     hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SLC.dll\SLInstallLicense", hSLCMarshal, hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, Guid.Ptr, pLicenseFileId, "HRESULT")
+    result := DllCall("SLC.dll\SLInstallLicense", hSLCMarshal, hSLC, UInt32, cbLicenseBlob, IntPtr, pbLicenseBlob, Guid.Ptr, pLicenseFileId, "HRESULT")
     return result
 }
 
@@ -11352,7 +11353,7 @@ export SLActivateProduct(hSLC, pProductSkuId, cbAppSpecificData, pvAppSpecificDa
     hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
     pvAppSpecificDataMarshal := pvAppSpecificData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("slcext.dll\SLActivateProduct", hSLCMarshal, hSLC, Guid.Ptr, pProductSkuId, "uint", cbAppSpecificData, pvAppSpecificDataMarshal, pvAppSpecificData, SL_ACTIVATION_INFO_HEADER.Ptr, pActivationInfo, "ptr", pwszProxyServer, "ushort", wProxyPort, "HRESULT")
+    result := DllCall("slcext.dll\SLActivateProduct", hSLCMarshal, hSLC, Guid.Ptr, pProductSkuId, UInt32, cbAppSpecificData, pvAppSpecificDataMarshal, pvAppSpecificData, SL_ACTIVATION_INFO_HEADER.Ptr, pActivationInfo, "ptr", pwszProxyServer, UInt16, wProxyPort, "HRESULT")
     return result
 }
 
@@ -11385,7 +11386,7 @@ export SLGetServerStatus(pwszServerURL, pwszAcquisitionType, pwszProxyServer, wP
     pwszAcquisitionType := pwszAcquisitionType is String ? StrPtr(pwszAcquisitionType) : pwszAcquisitionType
     pwszProxyServer := pwszProxyServer is String ? StrPtr(pwszProxyServer) : pwszProxyServer
 
-    result := DllCall("slcext.dll\SLGetServerStatus", "ptr", pwszServerURL, "ptr", pwszAcquisitionType, "ptr", pwszProxyServer, "ushort", wProxyPort, "int*", &phrStatus := 0, "HRESULT")
+    result := DllCall("slcext.dll\SLGetServerStatus", "ptr", pwszServerURL, "ptr", pwszAcquisitionType, "ptr", pwszProxyServer, UInt16, wProxyPort, "int*", &phrStatus := 0, "HRESULT")
     return phrStatus
 }
 
@@ -11634,7 +11635,7 @@ export SLGetPKeyId(hSLC, pwszPKeyAlgorithm, pwszPKeyString, cbPKeySpecificData, 
 
     hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SLC.dll\SLGetPKeyId", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, Guid.Ptr, pPKeyId, "HRESULT")
+    result := DllCall("SLC.dll\SLGetPKeyId", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, UInt32, cbPKeySpecificData, IntPtr, pbPKeySpecificData, Guid.Ptr, pPKeyId, "HRESULT")
     return result
 }
 
@@ -12085,7 +12086,7 @@ export SLGetSLIDList(hSLC, eQueryIdType, pQueryId, eReturnIdType, pnReturnIds, p
 export SLGetLicenseFileId(hSLC, cbLicenseBlob, pbLicenseBlob, pLicenseFileId) {
     hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("SLC.dll\SLGetLicenseFileId", hSLCMarshal, hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, Guid.Ptr, pLicenseFileId, "HRESULT")
+    result := DllCall("SLC.dll\SLGetLicenseFileId", hSLCMarshal, hSLC, UInt32, cbLicenseBlob, IntPtr, pbLicenseBlob, Guid.Ptr, pLicenseFileId, "HRESULT")
     return result
 }
 
@@ -12578,7 +12579,7 @@ export SLAcquireGenuineTicket(ppTicketBlob, pcbTicketBlob, pwszTemplateId, pwszS
 export SLSetGenuineInformation(pQueryId, pwszValueName, eDataType, cbValue, pbValue) {
     pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-    result := DllCall("SLC.dll\SLSetGenuineInformation", Guid.Ptr, pQueryId, "ptr", pwszValueName, SLDATATYPE, eDataType, "uint", cbValue, "ptr", pbValue, "HRESULT")
+    result := DllCall("SLC.dll\SLSetGenuineInformation", Guid.Ptr, pQueryId, "ptr", pwszValueName, SLDATATYPE, eDataType, UInt32, cbValue, IntPtr, pbValue, "HRESULT")
     return result
 }
 
@@ -12906,7 +12907,7 @@ export SLQueryLicenseValueFromApp(_valueName, valueType, dataBuffer, dataSize, r
     valueTypeMarshal := valueType is VarRef ? "uint*" : "ptr"
     resultDataSizeMarshal := resultDataSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", _valueName, valueTypeMarshal, valueType, "ptr", dataBuffer, "uint", dataSize, resultDataSizeMarshal, resultDataSize, "HRESULT")
+    result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", _valueName, valueTypeMarshal, valueType, IntPtr, dataBuffer, UInt32, dataSize, resultDataSizeMarshal, resultDataSize, "HRESULT")
     return result
 }
 

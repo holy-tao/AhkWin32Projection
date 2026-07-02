@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a session with the Digital Rights Management (DRM) key system.
@@ -101,7 +101,7 @@ export default struct IMFMediaKeySession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-update
      */
     Update(key, cb) {
-        result := ComCall(6, this, "ptr", key, "uint", cb, "HRESULT")
+        result := ComCall(6, this, IntPtr, key, UInt32, cb, "HRESULT")
         return result
     }
 

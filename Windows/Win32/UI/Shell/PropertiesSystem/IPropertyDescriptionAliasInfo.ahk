@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
 
 /**
  * Exposes methods to get the &quot;sort by&quot; columns properties for an item. This interface is used by UI objects that want to retrieve the primary or secondary sort columns for a given property.

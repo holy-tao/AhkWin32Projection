@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFSample.ahk" { IMFSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFVideoSampleAllocatorNotify.ahk" { IMFVideoSampleAllocatorNotify }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The callback for the IMFVideoSampleAllocatorCallback interface. (IMFVideoSampleAllocatorNotifyEx)

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) download content descriptor.
@@ -185,7 +185,7 @@ export default struct IIsdbDownloadContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmoduleid
      */
     GetRecordModuleId(wRecordIndex) {
-        result := ComCall(14, this, "ushort", wRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(14, this, UInt16, wRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -197,7 +197,7 @@ export default struct IIsdbDownloadContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmodulesize
      */
     GetRecordModuleSize(wRecordIndex) {
-        result := ComCall(15, this, "ushort", wRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(15, this, UInt16, wRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -209,7 +209,7 @@ export default struct IIsdbDownloadContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmoduleinfolength
      */
     GetRecordModuleInfoLength(wRecordIndex) {
-        result := ComCall(16, this, "ushort", wRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(16, this, UInt16, wRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -221,7 +221,7 @@ export default struct IIsdbDownloadContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmoduleinfo
      */
     GetRecordModuleInfo(wRecordIndex) {
-        result := ComCall(17, this, "ushort", wRecordIndex, "ptr*", &ppbData := 0, "HRESULT")
+        result := ComCall(17, this, UInt16, wRecordIndex, "ptr*", &ppbData := 0, "HRESULT")
         return ppbData
     }
 

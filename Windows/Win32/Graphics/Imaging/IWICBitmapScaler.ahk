@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WICBitmapInterpolationMode.ahk" { WICBitmapInterpolationMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a resized version of the input bitmap using a resampling or filtering algorithm.
@@ -76,7 +76,7 @@ export default struct IWICBitmapScaler extends IWICBitmapSource {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapscaler-initialize
      */
     Initialize(pISource, uiWidth, uiHeight, _mode) {
-        result := ComCall(8, this, "ptr", pISource, "uint", uiWidth, "uint", uiHeight, WICBitmapInterpolationMode, _mode, "HRESULT")
+        result := ComCall(8, this, "ptr", pISource, UInt32, uiWidth, UInt32, uiHeight, WICBitmapInterpolationMode, _mode, "HRESULT")
         return result
     }
 

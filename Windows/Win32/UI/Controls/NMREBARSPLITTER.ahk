@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMHDR.ahk" { NMHDR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information used to handle an RBN_SPLITTERDRAG notification code.

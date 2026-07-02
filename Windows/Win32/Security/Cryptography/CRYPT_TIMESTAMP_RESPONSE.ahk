@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_TIMESTAMP_RESPONSE_STATUS.ahk" { CRYPT_TIMESTAMP_RESPONSE_STATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import ".\CRYPT_TIMESTAMP_RESPONSE_STATUS.ahk" { CRYPT_TIMESTAMP_RESPONSE_STATUS }
 #Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
 
 /**

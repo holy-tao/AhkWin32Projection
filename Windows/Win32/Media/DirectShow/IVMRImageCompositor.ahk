@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
-#Import ".\VMRVIDEOSTREAMINFO.ahk" { VMRVIDEOSTREAMINFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VMRVIDEOSTREAMINFO.ahk" { VMRVIDEOSTREAMINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVMRImageCompositor interface is implemented by the default compositor for the Video Mixing Renderer Filter 7 (VMR-7).
@@ -77,7 +77,7 @@ export default struct IVMRImageCompositor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagecompositor-setstreammediatype
      */
     SetStreamMediaType(dwStrmID, pmt, fTexture) {
-        result := ComCall(5, this, "uint", dwStrmID, AM_MEDIA_TYPE.Ptr, pmt, BOOL, fTexture, "HRESULT")
+        result := ComCall(5, this, UInt32, dwStrmID, AM_MEDIA_TYPE.Ptr, pmt, BOOL, fTexture, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IVMRImageCompositor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagecompositor-compositeimage
      */
     CompositeImage(pD3DDevice, pddsRenderTarget, pmtRenderTarget, rtStart, rtEnd, dwClrBkGnd, pVideoStreamInfo, cStreams) {
-        result := ComCall(6, this, "ptr", pD3DDevice, "ptr", pddsRenderTarget, AM_MEDIA_TYPE.Ptr, pmtRenderTarget, "int64", rtStart, "int64", rtEnd, "uint", dwClrBkGnd, VMRVIDEOSTREAMINFO.Ptr, pVideoStreamInfo, "uint", cStreams, "HRESULT")
+        result := ComCall(6, this, "ptr", pD3DDevice, "ptr", pddsRenderTarget, AM_MEDIA_TYPE.Ptr, pmtRenderTarget, Int64, rtStart, Int64, rtEnd, UInt32, dwClrBkGnd, VMRVIDEOSTREAMINFO.Ptr, pVideoStreamInfo, UInt32, cStreams, "HRESULT")
         return result
     }
 

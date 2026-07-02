@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpatialAudioObject.ahk" { ISpatialAudioObject }
 #Import ".\ISpatialAudioObjectRenderStreamBase.ahk" { ISpatialAudioObjectRenderStreamBase }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpatialAudioObject.ahk" { ISpatialAudioObject }
 #Import ".\AudioObjectType.ahk" { AudioObjectType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for controlling a spatial audio object render stream, including starting, stopping, and resetting the stream.

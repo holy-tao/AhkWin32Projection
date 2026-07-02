@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\System\Com\IUri.ahk" { IUri }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
 
 /**
  * Represents package settings used to create a package.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IExplorerCommand.ahk" { IExplorerCommand }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provided by an IExplorerCommandProvider. This interface contains the enumeration of commands to be put into the command bar.
@@ -62,7 +62,7 @@ export default struct IEnumExplorerCommand extends IUnknown {
     Next(celt, pUICommand, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, IExplorerCommand.Ptr, pUICommand, pceltFetchedMarshal, pceltFetched, Int32)
+        result := ComCall(3, this, UInt32, celt, IExplorerCommand.Ptr, pUICommand, pceltFetchedMarshal, pceltFetched, Int32)
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IEnumExplorerCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumexplorercommand-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

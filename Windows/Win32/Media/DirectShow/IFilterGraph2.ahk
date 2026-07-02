@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import ".\IPin.ahk" { IPin }
 #Import ".\IBaseFilter.ahk" { IBaseFilter }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
 #Import ".\IGraphBuilder.ahk" { IGraphBuilder }
 
 /**
@@ -150,7 +150,7 @@ export default struct IFilterGraph2 extends IGraphBuilder {
     RenderEx(pPinOut, dwFlags) {
         static pvContext := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(20, this, "ptr", pPinOut, "uint", dwFlags, "uint*", pvContext, "HRESULT")
+        result := ComCall(20, this, "ptr", pPinOut, UInt32, dwFlags, "uint*", pvContext, "HRESULT")
         return result
     }
 

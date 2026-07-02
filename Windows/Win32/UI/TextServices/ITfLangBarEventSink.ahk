@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfLangBarEventSink interface is implemented by an application or text service and used by the language bar to supply notifications of certain events that occur in the language bar.
@@ -52,7 +52,7 @@ export default struct ITfLangBarEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onsetfocus
      */
     OnSetFocus(dwThreadId) {
-        result := ComCall(3, this, "uint", dwThreadId, "HRESULT")
+        result := ComCall(3, this, UInt32, dwThreadId, "HRESULT")
         return result
     }
 
@@ -63,7 +63,7 @@ export default struct ITfLangBarEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onthreadterminate
      */
     OnThreadTerminate(dwThreadId) {
-        result := ComCall(4, this, "uint", dwThreadId, "HRESULT")
+        result := ComCall(4, this, UInt32, dwThreadId, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct ITfLangBarEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onthreaditemchange
      */
     OnThreadItemChange(dwThreadId) {
-        result := ComCall(5, this, "uint", dwThreadId, "HRESULT")
+        result := ComCall(5, this, UInt32, dwThreadId, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct ITfLangBarEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onmodalinput
      */
     OnModalInput(dwThreadId, uMsg, _wParam, _lParam) {
-        result := ComCall(6, this, "uint", dwThreadId, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(6, this, UInt32, dwThreadId, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct ITfLangBarEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-showfloating
      */
     ShowFloating(dwFlags) {
-        result := ComCall(7, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct ITfLangBarEventSink extends IUnknown {
      */
     GetItemFloatingRect(dwThreadId, rguid) {
         prc := RECT()
-        result := ComCall(8, this, "uint", dwThreadId, Guid.Ptr, rguid, RECT.Ptr, prc, "HRESULT")
+        result := ComCall(8, this, UInt32, dwThreadId, Guid.Ptr, rguid, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 

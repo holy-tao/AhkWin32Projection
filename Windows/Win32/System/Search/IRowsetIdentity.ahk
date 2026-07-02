@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -42,7 +42,7 @@ export default struct IRowsetIdentity extends IUnknown {
      * @returns {HRESULT} 
      */
     IsSameRow(hThisRow, hThatRow) {
-        result := ComCall(3, this, "ptr", hThisRow, "ptr", hThatRow, "HRESULT")
+        result := ComCall(3, this, IntPtr, hThisRow, IntPtr, hThatRow, "HRESULT")
         return result
     }
 

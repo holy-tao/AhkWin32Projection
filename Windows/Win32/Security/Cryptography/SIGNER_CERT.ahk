@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\SIGNER_SPC_CHAIN_INFO.ahk" { SIGNER_SPC_CHAIN_INFO }
-#Import ".\SIGNER_CERT_CHOICE.ahk" { SIGNER_CERT_CHOICE }
 #Import ".\SIGNER_CERT_STORE_INFO.ahk" { SIGNER_CERT_STORE_INFO }
+#Import ".\SIGNER_SPC_CHAIN_INFO.ahk" { SIGNER_SPC_CHAIN_INFO }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SIGNER_CERT_CHOICE.ahk" { SIGNER_CERT_CHOICE }
 
 /**
  * Specifies a certificate used to sign a document. The certificate can be stored in a Software Publisher Certificate (SPC) file or in a certificate store.

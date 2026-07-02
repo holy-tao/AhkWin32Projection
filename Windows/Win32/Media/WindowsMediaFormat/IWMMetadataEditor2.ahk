@@ -105,7 +105,7 @@ export default struct IWMMetadataEditor2 extends IWMMetadataEditor {
     OpenEx(pwszFilename, dwDesiredAccess, dwShareMode) {
         pwszFilename := pwszFilename is String ? StrPtr(pwszFilename) : pwszFilename
 
-        result := ComCall(6, this, "ptr", pwszFilename, "uint", dwDesiredAccess, "uint", dwShareMode, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszFilename, UInt32, dwDesiredAccess, UInt32, dwShareMode, "HRESULT")
         return result
     }
 

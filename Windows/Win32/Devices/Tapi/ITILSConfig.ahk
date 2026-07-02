@@ -107,7 +107,7 @@ export default struct ITILSConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itilsconfig-put_port
      */
     put_Port(Port) {
-        result := ComCall(8, this, "int", Port, "HRESULT")
+        result := ComCall(8, this, Int32, Port, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -96,7 +96,7 @@ export default struct IDvbFrequencyListDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbfrequencylistdescriptor-getrecordcentrefrequency
      */
     GetRecordCentreFrequency(bRecordIndex) {
-        result := ComCall(7, this, "char", bRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 

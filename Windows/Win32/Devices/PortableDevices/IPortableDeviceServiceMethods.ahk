@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IPortableDeviceServiceMethodCallback.ahk" { IPortableDeviceServiceMethodCallback }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 
 /**
  * Invokes, or cancels invocation of, a method on a service.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if an activity is created, destroyed, or timed out.
@@ -78,7 +78,7 @@ export default struct IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivityenter
      */
     OnActivityEnter(pInfo, guidCurrent, guidEntered, dwThread) {
-        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, Guid.Ptr, guidEntered, "uint", dwThread, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, Guid.Ptr, guidEntered, UInt32, dwThread, "HRESULT")
         return result
     }
 
@@ -93,7 +93,7 @@ export default struct IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivitytimeout
      */
     OnActivityTimeout(pInfo, guidCurrent, guidEntered, dwThread, dwTimeout) {
-        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, Guid.Ptr, guidEntered, "uint", dwThread, "uint", dwTimeout, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, Guid.Ptr, guidEntered, UInt32, dwThread, UInt32, dwTimeout, "HRESULT")
         return result
     }
 
@@ -107,7 +107,7 @@ export default struct IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivityreenter
      */
     OnActivityReenter(pInfo, guidCurrent, dwThread, dwCallDepth) {
-        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, "uint", dwThread, "uint", dwCallDepth, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, UInt32, dwThread, UInt32, dwCallDepth, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IComActivityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomactivityevents-onactivityleavesame
      */
     OnActivityLeaveSame(pInfo, guidCurrent, dwCallDepth) {
-        result := ComCall(9, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, "uint", dwCallDepth, "HRESULT")
+        result := ComCall(9, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidCurrent, UInt32, dwCallDepth, "HRESULT")
         return result
     }
 

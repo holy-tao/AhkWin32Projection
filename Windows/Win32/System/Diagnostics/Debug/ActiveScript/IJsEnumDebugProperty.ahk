@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IJsDebugProperty.ahk" { IJsDebugProperty }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IJsDebugProperty.ahk" { IJsDebugProperty }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -47,7 +47,7 @@ export default struct IJsEnumDebugProperty extends IUnknown {
     Next(count, ppDebugProperty, pActualCount) {
         pActualCountMarshal := pActualCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", count, IJsDebugProperty.Ptr, ppDebugProperty, pActualCountMarshal, pActualCount, "HRESULT")
+        result := ComCall(3, this, UInt32, count, IJsDebugProperty.Ptr, ppDebugProperty, pActualCountMarshal, pActualCount, "HRESULT")
         return result
     }
 

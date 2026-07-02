@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFD_FLAGS.ahk" { PFD_FLAGS }
 #Import ".\PFD_PIXEL_TYPE.ahk" { PFD_PIXEL_TYPE }
+#Import ".\PFD_FLAGS.ahk" { PFD_FLAGS }
 
 /**
  * The PIXELFORMATDESCRIPTOR structure describes the pixel format of a drawing surface.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
-#Import ".\INSSBuffer.ahk" { INSSBuffer }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWMOutputMediaProps.ahk" { IWMOutputMediaProps }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
 
 /**
  * The IWMSyncReader interface provides the ability to read ASF files using synchronous calls.
@@ -154,7 +154,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setrange
      */
     SetRange(cnsStartTime, cnsDuration) {
-        result := ComCall(5, this, "uint", cnsStartTime, "int64", cnsDuration, "HRESULT")
+        result := ComCall(5, this, Int64, cnsStartTime, Int64, cnsDuration, "HRESULT")
         return result
     }
 
@@ -206,7 +206,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setrangebyframe
      */
     SetRangeByFrame(wStreamNum, qwFrameNumber, cFramesToRead) {
-        result := ComCall(6, this, "ushort", wStreamNum, "uint", qwFrameNumber, "int64", cFramesToRead, "HRESULT")
+        result := ComCall(6, this, UInt16, wStreamNum, Int64, qwFrameNumber, Int64, cFramesToRead, "HRESULT")
         return result
     }
 
@@ -350,7 +350,7 @@ export default struct IWMSyncReader extends IUnknown {
         pdwOutputNumMarshal := pdwOutputNum is VarRef ? "uint*" : "ptr"
         pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "ushort", wStreamNum, INSSBuffer.Ptr, ppSample, pcnsSampleTimeMarshal, pcnsSampleTime, pcnsDurationMarshal, pcnsDuration, pdwFlagsMarshal, pdwFlags, pdwOutputNumMarshal, pdwOutputNum, pwStreamNumMarshal, pwStreamNum, "HRESULT")
+        result := ComCall(7, this, UInt16, wStreamNum, INSSBuffer.Ptr, ppSample, pcnsSampleTimeMarshal, pcnsSampleTime, pcnsDurationMarshal, pcnsDuration, pdwFlagsMarshal, pdwFlags, pdwOutputNumMarshal, pdwOutputNum, pwStreamNumMarshal, pwStreamNum, "HRESULT")
         return result
     }
 
@@ -425,7 +425,7 @@ export default struct IWMSyncReader extends IUnknown {
         pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
         pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "ushort", cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "HRESULT")
+        result := ComCall(8, this, UInt16, cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "HRESULT")
         return result
     }
 
@@ -438,7 +438,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamselected
      */
     GetStreamSelected(wStreamNum) {
-        result := ComCall(9, this, "ushort", wStreamNum, "int*", &pSelection := 0, "HRESULT")
+        result := ComCall(9, this, UInt16, wStreamNum, "int*", &pSelection := 0, "HRESULT")
         return pSelection
     }
 
@@ -503,7 +503,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setreadstreamsamples
      */
     SetReadStreamSamples(wStreamNum, fCompressed) {
-        result := ComCall(10, this, "ushort", wStreamNum, BOOL, fCompressed, "HRESULT")
+        result := ComCall(10, this, UInt16, wStreamNum, BOOL, fCompressed, "HRESULT")
         return result
     }
 
@@ -516,7 +516,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getreadstreamsamples
      */
     GetReadStreamSamples(wStreamNum) {
-        result := ComCall(11, this, "ushort", wStreamNum, BOOL.Ptr, &pfCompressed := 0, "HRESULT")
+        result := ComCall(11, this, UInt16, wStreamNum, BOOL.Ptr, &pfCompressed := 0, "HRESULT")
         return pfCompressed
     }
 
@@ -611,7 +611,7 @@ export default struct IWMSyncReader extends IUnknown {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(12, this, UInt32, dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -685,7 +685,7 @@ export default struct IWMSyncReader extends IUnknown {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwOutputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(13, this, UInt32, dwOutputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
     }
 
@@ -710,7 +710,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputprops
      */
     GetOutputProps(dwOutputNum) {
-        result := ComCall(15, this, "uint", dwOutputNum, "ptr*", &ppOutput := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwOutputNum, "ptr*", &ppOutput := 0, "HRESULT")
         return IWMOutputMediaProps(ppOutput)
     }
 
@@ -770,7 +770,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setoutputprops
      */
     SetOutputProps(dwOutputNum, pOutput) {
-        result := ComCall(16, this, "uint", dwOutputNum, "ptr", pOutput, "HRESULT")
+        result := ComCall(16, this, UInt32, dwOutputNum, "ptr", pOutput, "HRESULT")
         return result
     }
 
@@ -781,7 +781,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformatcount
      */
     GetOutputFormatCount(dwOutputNum) {
-        result := ComCall(17, this, "uint", dwOutputNum, "uint*", &pcFormats := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, dwOutputNum, "uint*", &pcFormats := 0, "HRESULT")
         return pcFormats
     }
 
@@ -795,7 +795,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformat
      */
     GetOutputFormat(dwOutputNum, dwFormatNum) {
-        result := ComCall(18, this, "uint", dwOutputNum, "uint", dwFormatNum, "ptr*", &ppProps := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, dwOutputNum, UInt32, dwFormatNum, "ptr*", &ppProps := 0, "HRESULT")
         return IWMOutputMediaProps(ppProps)
     }
 
@@ -808,7 +808,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputnumberforstream
      */
     GetOutputNumberForStream(wStreamNum) {
-        result := ComCall(19, this, "ushort", wStreamNum, "uint*", &pdwOutputNum := 0, "HRESULT")
+        result := ComCall(19, this, UInt16, wStreamNum, "uint*", &pdwOutputNum := 0, "HRESULT")
         return pdwOutputNum
     }
 
@@ -821,7 +821,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamnumberforoutput
      */
     GetStreamNumberForOutput(dwOutputNum) {
-        result := ComCall(20, this, "uint", dwOutputNum, "ushort*", &pwStreamNum := 0, "HRESULT")
+        result := ComCall(20, this, UInt32, dwOutputNum, "ushort*", &pwStreamNum := 0, "HRESULT")
         return pwStreamNum
     }
 
@@ -836,7 +836,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxoutputsamplesize
      */
     GetMaxOutputSampleSize(dwOutput) {
-        result := ComCall(21, this, "uint", dwOutput, "uint*", &pcbMax := 0, "HRESULT")
+        result := ComCall(21, this, UInt32, dwOutput, "uint*", &pcbMax := 0, "HRESULT")
         return pcbMax
     }
 
@@ -849,7 +849,7 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxstreamsamplesize
      */
     GetMaxStreamSampleSize(wStream) {
-        result := ComCall(22, this, "ushort", wStream, "uint*", &pcbMax := 0, "HRESULT")
+        result := ComCall(22, this, UInt16, wStream, "uint*", &pcbMax := 0, "HRESULT")
         return pcbMax
     }
 

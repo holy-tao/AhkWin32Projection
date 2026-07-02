@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMixerPinConfig.ahk" { IMixerPinConfig }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\DirectDraw\DDCOLORCONTROL.ahk" { DDCOLORCONTROL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMixerPinConfig.ahk" { IMixerPinConfig }
 
 /**
  * The IMixerPinConfig2 interface is exposed on the input pins of the Overlay Mixer and contains methods that manipulate video color controls, if the VGA chip supports it.This interface derives from the IMixerPinConfig interface.Applications use this interface to get and set video color controls when mixing multiple video streams.

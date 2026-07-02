@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\EVENT_TRACE_FLAG.ahk" { EVENT_TRACE_FLAG }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The EVENT_TRACE_PROPERTIES structure contains information about an event tracing session and is used with APIs such as StartTrace and ControlTrace.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ISimpleAudioVolume interface enables a client to control the master volume level of an audio session.
@@ -91,7 +91,7 @@ export default struct ISimpleAudioVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-isimpleaudiovolume-setmastervolume
      */
     SetMasterVolume(fLevel, EventContext) {
-        result := ComCall(3, this, "float", fLevel, Guid.Ptr, EventContext, "HRESULT")
+        result := ComCall(3, this, Float32, fLevel, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 

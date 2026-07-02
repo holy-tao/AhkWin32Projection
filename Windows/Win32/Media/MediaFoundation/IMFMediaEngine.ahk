@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MFARGB.ahk" { MFARGB }
-#Import ".\MF_MEDIA_ENGINE_PRELOAD.ahk" { MF_MEDIA_ENGINE_PRELOAD }
-#Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMFMediaEngineSrcElements.ahk" { IMFMediaEngineSrcElements }
-#Import ".\IMFMediaError.ahk" { IMFMediaError }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MF_MEDIA_ENGINE_ERR.ahk" { MF_MEDIA_ENGINE_ERR }
-#Import ".\MF_MEDIA_ENGINE_CANPLAY.ahk" { MF_MEDIA_ENGINE_CANPLAY }
 #Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaEngineSrcElements.ahk" { IMFMediaEngineSrcElements }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\MF_MEDIA_ENGINE_CANPLAY.ahk" { MF_MEDIA_ENGINE_CANPLAY }
+#Import ".\MF_MEDIA_ENGINE_ERR.ahk" { MF_MEDIA_ENGINE_ERR }
+#Import ".\IMFMediaError.ahk" { IMFMediaError }
+#Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
+#Import ".\MF_MEDIA_ENGINE_PRELOAD.ahk" { MF_MEDIA_ENGINE_PRELOAD }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Enables an application to play audio or video files.
@@ -358,7 +358,7 @@ export default struct IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setcurrenttime
      */
     SetCurrentTime(seekTime) {
-        result := ComCall(17, this, "double", seekTime, "HRESULT")
+        result := ComCall(17, this, Float64, seekTime, "HRESULT")
         return result
     }
 
@@ -423,7 +423,7 @@ export default struct IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setdefaultplaybackrate
      */
     SetDefaultPlaybackRate(Rate) {
-        result := ComCall(22, this, "double", Rate, "HRESULT")
+        result := ComCall(22, this, Float64, Rate, "HRESULT")
         return result
     }
 
@@ -448,7 +448,7 @@ export default struct IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setplaybackrate
      */
     SetPlaybackRate(Rate) {
-        result := ComCall(24, this, "double", Rate, "HRESULT")
+        result := ComCall(24, this, Float64, Rate, "HRESULT")
         return result
     }
 
@@ -616,7 +616,7 @@ export default struct IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setvolume
      */
     SetVolume(Volume) {
-        result := ComCall(37, this, "double", Volume, "HRESULT")
+        result := ComCall(37, this, Float64, Volume, "HRESULT")
         return result
     }
 

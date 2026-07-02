@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "Common\DXGI_SAMPLE_DESC.ahk" { DXGI_SAMPLE_DESC }
+#Import "Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
+#Import ".\DXGI_SCALING.ahk" { DXGI_SCALING }
 #Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
 #Import ".\DXGI_SWAP_EFFECT.ahk" { DXGI_SWAP_EFFECT }
-#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\DXGI_SCALING.ahk" { DXGI_SCALING }
-#Import "Common\DXGI_SAMPLE_DESC.ahk" { DXGI_SAMPLE_DESC }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Describes a swap chain. (DXGI_SWAP_CHAIN_DESC1)

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TASK_TRIGGER_TYPE.ahk" { TASK_TRIGGER_TYPE }
-#Import ".\TRIGGER_TYPE_UNION.ahk" { TRIGGER_TYPE_UNION }
-#Import ".\MONTHLYDATE.ahk" { MONTHLYDATE }
 #Import ".\WEEKLY.ahk" { WEEKLY }
 #Import ".\MONTHLYDOW.ahk" { MONTHLYDOW }
+#Import ".\MONTHLYDATE.ahk" { MONTHLYDATE }
+#Import ".\TASK_TRIGGER_TYPE.ahk" { TASK_TRIGGER_TYPE }
 #Import ".\DAILY.ahk" { DAILY }
+#Import ".\TRIGGER_TYPE_UNION.ahk" { TRIGGER_TYPE_UNION }
 
 /**
  * Defines the times to run a scheduled work item.

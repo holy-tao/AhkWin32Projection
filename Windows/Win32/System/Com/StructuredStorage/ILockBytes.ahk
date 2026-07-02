@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\STATSTG.ahk" { STATSTG }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\STATSTG.ahk" { STATSTG }
 
 /**
  * The ILockBytes interface is implemented on a byte array object that is backed by some physical storage, such as a disk file, global memory, or a database.
@@ -57,7 +57,7 @@ export default struct ILockBytes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-readat
      */
     ReadAt(ulOffset, pv, cb) {
-        result := ComCall(3, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, "HRESULT")
+        result := ComCall(3, this, Int64, ulOffset, IntPtr, pv, UInt32, cb, "uint*", &pcbRead := 0, "HRESULT")
         return pcbRead
     }
 
@@ -74,7 +74,7 @@ export default struct ILockBytes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-writeat
      */
     WriteAt(ulOffset, pv, cb) {
-        result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(4, this, Int64, ulOffset, IntPtr, pv, UInt32, cb, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 
@@ -123,7 +123,7 @@ export default struct ILockBytes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-setsize
      */
     SetSize(cb) {
-        result := ComCall(6, this, "uint", cb, "HRESULT")
+        result := ComCall(6, this, Int64, cb, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct ILockBytes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-lockregion
      */
     LockRegion(libOffset, cb, dwLockType) {
-        result := ComCall(7, this, "uint", libOffset, "uint", cb, "uint", dwLockType, "HRESULT")
+        result := ComCall(7, this, Int64, libOffset, Int64, cb, UInt32, dwLockType, "HRESULT")
         return result
     }
 
@@ -196,7 +196,7 @@ export default struct ILockBytes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-unlockregion
      */
     UnlockRegion(libOffset, cb, dwLockType) {
-        result := ComCall(8, this, "uint", libOffset, "uint", cb, "uint", dwLockType, "HRESULT")
+        result := ComCall(8, this, Int64, libOffset, Int64, cb, UInt32, dwLockType, "HRESULT")
         return result
     }
 
@@ -216,7 +216,7 @@ export default struct ILockBytes extends IUnknown {
      */
     Stat(grfStatFlag) {
         pstatstg := STATSTG()
-        result := ComCall(9, this, STATSTG.Ptr, pstatstg, "uint", grfStatFlag, "HRESULT")
+        result := ComCall(9, this, STATSTG.Ptr, pstatstg, UInt32, grfStatFlag, "HRESULT")
         return pstatstg
     }
 

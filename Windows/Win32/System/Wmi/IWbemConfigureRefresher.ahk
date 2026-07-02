@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWbemRefresher.ahk" { IWbemRefresher }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWbemServices.ahk" { IWbemServices }
-#Import ".\IWbemHiPerfEnum.ahk" { IWbemHiPerfEnum }
 #Import ".\IWbemContext.ahk" { IWbemContext }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWbemHiPerfEnum.ahk" { IWbemHiPerfEnum }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemServices.ahk" { IWbemServices }
 
 /**
  * The IWbemConfigureRefresher interface is used by client code to add enumerators, objects, and nested refreshers into a refresher.
@@ -72,7 +72,7 @@ export default struct IWbemConfigureRefresher extends IUnknown {
 
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszPath, "int", lFlags, "ptr", pContext, "ptr*", &ppRefreshable := 0, plIdMarshal, plId, "HRESULT")
+        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszPath, Int32, lFlags, "ptr", pContext, "ptr*", &ppRefreshable := 0, plIdMarshal, plId, "HRESULT")
         return IWbemClassObject(ppRefreshable)
     }
 
@@ -99,7 +99,7 @@ export default struct IWbemConfigureRefresher extends IUnknown {
     AddObjectByTemplate(pNamespace, pTemplate, lFlags, pContext, plId) {
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pNamespace, "ptr", pTemplate, "int", lFlags, "ptr", pContext, "ptr*", &ppRefreshable := 0, plIdMarshal, plId, "HRESULT")
+        result := ComCall(4, this, "ptr", pNamespace, "ptr", pTemplate, Int32, lFlags, "ptr", pContext, "ptr*", &ppRefreshable := 0, plIdMarshal, plId, "HRESULT")
         return IWbemClassObject(ppRefreshable)
     }
 
@@ -118,7 +118,7 @@ export default struct IWbemConfigureRefresher extends IUnknown {
     AddRefresher(pRefresher, lFlags, plId) {
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pRefresher, "int", lFlags, plIdMarshal, plId, "HRESULT")
+        result := ComCall(5, this, "ptr", pRefresher, Int32, lFlags, plIdMarshal, plId, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IWbemConfigureRefresher extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-remove
      */
     Remove(lId, lFlags) {
-        result := ComCall(6, this, "int", lId, "int", lFlags, "HRESULT")
+        result := ComCall(6, this, Int32, lId, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IWbemConfigureRefresher extends IUnknown {
 
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClassName, "int", lFlags, "ptr", pContext, "ptr*", &ppEnum := 0, plIdMarshal, plId, "HRESULT")
+        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClassName, Int32, lFlags, "ptr", pContext, "ptr*", &ppEnum := 0, plIdMarshal, plId, "HRESULT")
         return IWbemHiPerfEnum(ppEnum)
     }
 

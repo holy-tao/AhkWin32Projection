@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
+#Import ".\XEKL_KEYSPEC.ahk" { XEKL_KEYSPEC }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\PENDING_REQUEST_DESIRED_PROPERTY.ahk" { PENDING_REQUEST_DESIRED_PROPERTY }
 #Import ".\XEKL_KEYSIZE.ahk" { XEKL_KEYSIZE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\XEKL_KEYSPEC.ahk" { XEKL_KEYSPEC }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CERT_CREATE_REQUEST_FLAGS.ahk" { CERT_CREATE_REQUEST_FLAGS }
 #Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import ".\IEnroll2.ahk" { IEnroll2 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ADDED_CERT_TYPE.ahk" { ADDED_CERT_TYPE }
+#Import ".\IEnroll2.ahk" { IEnroll2 }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IEnroll4 interface represents the Certificate Enrollment Control and is used primarily to generate certificate requests.
@@ -159,7 +159,7 @@ export default struct IEnroll4 extends IEnroll2 {
     binaryBlobToString(Flags, pblobBinary, ppwszString) {
         ppwszStringMarshal := ppwszString is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(95, this, "int", Flags, CRYPT_INTEGER_BLOB.Ptr, pblobBinary, ppwszStringMarshal, ppwszString, "HRESULT")
+        result := ComCall(95, this, Int32, Flags, CRYPT_INTEGER_BLOB.Ptr, pblobBinary, ppwszStringMarshal, ppwszString, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct IEnroll4 extends IEnroll2 {
         pdwSkipMarshal := pdwSkip is VarRef ? "int*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(96, this, "int", Flags, "ptr", pwszString, CRYPT_INTEGER_BLOB.Ptr, pblobBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(96, this, Int32, Flags, "ptr", pwszString, CRYPT_INTEGER_BLOB.Ptr, pblobBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -196,7 +196,7 @@ export default struct IEnroll4 extends IEnroll2 {
     addExtensionToRequestWStr(Flags, pwszName, pblobValue) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(97, this, "int", Flags, "ptr", pwszName, CRYPT_INTEGER_BLOB.Ptr, pblobValue, "HRESULT")
+        result := ComCall(97, this, Int32, Flags, "ptr", pwszName, CRYPT_INTEGER_BLOB.Ptr, pblobValue, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IEnroll4 extends IEnroll2 {
     addAttributeToRequestWStr(Flags, pwszName, pblobValue) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(98, this, "int", Flags, "ptr", pwszName, CRYPT_INTEGER_BLOB.Ptr, pblobValue, "HRESULT")
+        result := ComCall(98, this, Int32, Flags, "ptr", pwszName, CRYPT_INTEGER_BLOB.Ptr, pblobValue, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IEnroll4 extends IEnroll2 {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(99, this, "int", Flags, "ptr", pwszName, "ptr", pwszValue, "HRESULT")
+        result := ComCall(99, this, Int32, Flags, "ptr", pwszName, "ptr", pwszValue, "HRESULT")
         return result
     }
 
@@ -410,7 +410,7 @@ export default struct IEnroll4 extends IEnroll2 {
         pwszCAName := pwszCAName is String ? StrPtr(pwszCAName) : pwszCAName
         pwszFriendlyName := pwszFriendlyName is String ? StrPtr(pwszFriendlyName) : pwszFriendlyName
 
-        result := ComCall(110, this, "int", lRequestID, "ptr", pwszCADNS, "ptr", pwszCAName, "ptr", pwszFriendlyName, "HRESULT")
+        result := ComCall(110, this, Int32, lRequestID, "ptr", pwszCADNS, "ptr", pwszCAName, "ptr", pwszFriendlyName, "HRESULT")
         return result
     }
 
@@ -440,7 +440,7 @@ export default struct IEnroll4 extends IEnroll2 {
     enumPendingRequestWStr(lIndex, lDesiredProperty, ppProperty) {
         ppPropertyMarshal := ppProperty is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(111, this, "int", lIndex, PENDING_REQUEST_DESIRED_PROPERTY, lDesiredProperty, ppPropertyMarshal, ppProperty, "HRESULT")
+        result := ComCall(111, this, Int32, lIndex, PENDING_REQUEST_DESIRED_PROPERTY, lDesiredProperty, ppPropertyMarshal, ppProperty, "HRESULT")
         return result
     }
 
@@ -508,7 +508,7 @@ export default struct IEnroll4 extends IEnroll2 {
     AddCertTypeToRequestWStrEx(lType, pwszOIDOrName, lMajorVersion, fMinorVersion, lMinorVersion) {
         pwszOIDOrName := pwszOIDOrName is String ? StrPtr(pwszOIDOrName) : pwszOIDOrName
 
-        result := ComCall(115, this, ADDED_CERT_TYPE, lType, "ptr", pwszOIDOrName, "int", lMajorVersion, BOOL, fMinorVersion, "int", lMinorVersion, "HRESULT")
+        result := ComCall(115, this, ADDED_CERT_TYPE, lType, "ptr", pwszOIDOrName, Int32, lMajorVersion, BOOL, fMinorVersion, Int32, lMinorVersion, "HRESULT")
         return result
     }
 
@@ -537,7 +537,7 @@ export default struct IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-addblobpropertytocertificatewstr
      */
     addBlobPropertyToCertificateWStr(lPropertyId, lReserved, pBlobProperty) {
-        result := ComCall(117, this, "int", lPropertyId, "int", lReserved, CRYPT_INTEGER_BLOB.Ptr, pBlobProperty, "HRESULT")
+        result := ComCall(117, this, Int32, lPropertyId, Int32, lReserved, CRYPT_INTEGER_BLOB.Ptr, pBlobProperty, "HRESULT")
         return result
     }
 
@@ -559,7 +559,7 @@ export default struct IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-put_clientid
      */
     put_ClientId(lClientId) {
-        result := ComCall(119, this, "int", lClientId, "HRESULT")
+        result := ComCall(119, this, Int32, lClientId, "HRESULT")
         return result
     }
 

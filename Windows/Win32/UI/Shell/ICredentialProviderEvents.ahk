@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides an asynchronous callback mechanism used by a credential provider to notify it of changes in the list of credentials or their fields.
@@ -63,7 +63,7 @@ export default struct ICredentialProviderEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialproviderevents-credentialschanged
      */
     CredentialsChanged(upAdviseContext) {
-        result := ComCall(3, this, "ptr", upAdviseContext, "HRESULT")
+        result := ComCall(3, this, IntPtr, upAdviseContext, "HRESULT")
         return result
     }
 

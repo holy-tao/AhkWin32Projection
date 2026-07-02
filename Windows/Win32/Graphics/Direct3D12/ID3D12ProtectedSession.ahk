@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_PROTECTED_SESSION_STATUS.ahk" { D3D12_PROTECTED_SESSION_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D12DeviceChild.ahk" { ID3D12DeviceChild }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_PROTECTED_SESSION_STATUS.ahk" { D3D12_PROTECTED_SESSION_STATUS }
 
 /**
  * Offers base functionality that allows for a consistent way to monitor the validity of a session across the different types of sessions.

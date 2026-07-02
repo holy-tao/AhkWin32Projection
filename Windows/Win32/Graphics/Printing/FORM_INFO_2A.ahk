@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * Contains information about a localizable print form.

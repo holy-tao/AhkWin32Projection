@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPacketSize interface controls the maximum size of packets in an ASF file.
@@ -90,7 +90,7 @@ export default struct IWMPacketSize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpacketsize-setmaxpacketsize
      */
     SetMaxPacketSize(dwMaxPacketSize) {
-        result := ComCall(4, this, "uint", dwMaxPacketSize, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMaxPacketSize, "HRESULT")
         return result
     }
 

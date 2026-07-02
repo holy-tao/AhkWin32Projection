@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAudioSessionControl.ahk" { IAudioSessionControl }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioSessionEnumerator interface enumerates audio sessions on an audio device.
@@ -77,7 +77,7 @@ export default struct IAudioSessionEnumerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getsession
      */
     GetSession(SessionCount) {
-        result := ComCall(4, this, "int", SessionCount, "ptr*", &Session := 0, "HRESULT")
+        result := ComCall(4, this, Int32, SessionCount, "ptr*", &Session := 0, "HRESULT")
         return IAudioSessionControl(Session)
     }
 

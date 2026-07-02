@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SECPKG_SHORT_VECTOR.ahk" { SECPKG_SHORT_VECTOR }
 #Import ".\SECPKG_BYTE_VECTOR.ahk" { SECPKG_BYTE_VECTOR }
+#Import ".\SECPKG_SHORT_VECTOR.ahk" { SECPKG_SHORT_VECTOR }
 
 /**
  * Specifies the supplied credentials.

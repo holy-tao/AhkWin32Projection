@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGPMGPO.ahk" { IGPMGPO }
+#Import ".\GPMSOMType.ahk" { GPMSOMType }
 #Import ".\IGPMGPOLinksCollection.ahk" { IGPMGPOLinksCollection }
-#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IGPMGPOLink.ahk" { IGPMGPOLink }
+#Import ".\IGPMSecurityInfo.ahk" { IGPMSecurityInfo }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\GPMSOMType.ahk" { GPMSOMType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMGPOLink.ahk" { IGPMGPOLink }
+#Import ".\IGPMGPO.ahk" { IGPMGPO }
 
 /**
  * The IGPMSOM interface contains methods that allow you to create and retrieve GPO links for a scope of management (SOM), and to set and retrieve security attributes and various properties for a SOM. A SOM can be a site, domain or OU.
@@ -138,7 +138,7 @@ export default struct IGPMSOM extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsom-creategpolink
      */
     CreateGPOLink(lLinkPos, pGPO) {
-        result := ComCall(11, this, "int", lLinkPos, "ptr", pGPO, "ptr*", &ppNewGPOLink := 0, "HRESULT")
+        result := ComCall(11, this, Int32, lLinkPos, "ptr", pGPO, "ptr*", &ppNewGPOLink := 0, "HRESULT")
         return IGPMGPOLink(ppNewGPOLink)
     }
 

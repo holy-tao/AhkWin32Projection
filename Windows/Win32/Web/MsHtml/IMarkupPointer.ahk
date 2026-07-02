@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
-#Import ".\MOVEUNIT_ACTION.ahk" { MOVEUNIT_ACTION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MARKUP_CONTEXT_TYPE.ahk" { MARKUP_CONTEXT_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\POINTER_GRAVITY.ahk" { POINTER_GRAVITY }
-#Import ".\ELEMENT_ADJACENCY.ahk" { ELEMENT_ADJACENCY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ELEMENT_ADJACENCY.ahk" { ELEMENT_ADJACENCY }
+#Import ".\POINTER_GRAVITY.ahk" { POINTER_GRAVITY }
+#Import ".\MARKUP_CONTEXT_TYPE.ahk" { MARKUP_CONTEXT_TYPE }
+#Import ".\MOVEUNIT_ACTION.ahk" { MOVEUNIT_ACTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMarkupContainer.ahk" { IMarkupContainer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -287,7 +287,9 @@ export default struct IMarkupPointer extends IUnknown {
      * If you create a <b>Find</b> dialog box, you must also use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-isdialogmessagea">IsDialogMessage</a> function in the main message loop of your application to ensure that the dialog box correctly processes keyboard input, such as the TAB and ESC keys. <b>IsDialogMessage</b> returns a value that indicates whether the <b>Find</b> dialog box processed the message.
      * 
      * You can provide an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpfrhookproc">FRHookProc</a> hook procedure for a <b>Find</b> dialog box. The hook procedure can process messages sent to the dialog box. To enable a hook procedure, set the <b>FR_ENABLEHOOK</b> flag in the  <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure and specify the address of the hook procedure in the  <b>lpfnHook</b> member.
-     * @param {PWSTR} pchFindText 
+     * @param {PWSTR} pchFindText Type: <b>LPFINDREPLACE</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure that contains information used to initialize the dialog box. The dialog box uses this structure to send information about the user's input to your application. For more information, see the following Remarks section.
      * @param {Integer} dwFlags 
      * @param {IMarkupPointer} pIEndMatch 
      * @param {IMarkupPointer} pIEndSearch 
@@ -301,7 +303,7 @@ export default struct IMarkupPointer extends IUnknown {
     FindText(pchFindText, dwFlags, pIEndMatch, pIEndSearch) {
         pchFindText := pchFindText is String ? StrPtr(pchFindText) : pchFindText
 
-        result := ComCall(23, this, "ptr", pchFindText, "uint", dwFlags, "ptr", pIEndMatch, "ptr", pIEndSearch, "HRESULT")
+        result := ComCall(23, this, "ptr", pchFindText, UInt32, dwFlags, "ptr", pIEndMatch, "ptr", pIEndSearch, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReaderAllocatorEx interface provides expanded alternatives to the AllocateForOutput and AllocateForStream methods of the IWMReaderCallbackAdvanced interface.
@@ -74,7 +74,7 @@ export default struct IWMReaderAllocatorEx extends IUnknown {
     AllocateForStreamEx(wStreamNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, UInt16, wStreamNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, UInt32, dwFlags, Int64, cnsSampleTime, Int64, cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
     }
 
@@ -113,7 +113,7 @@ export default struct IWMReaderAllocatorEx extends IUnknown {
     AllocateForOutputEx(dwOutputNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", dwOutputNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, "uint", dwFlags, "uint", cnsSampleTime, "uint", cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(4, this, UInt32, dwOutputNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, UInt32, dwFlags, Int64, cnsSampleTime, Int64, cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
     }
 

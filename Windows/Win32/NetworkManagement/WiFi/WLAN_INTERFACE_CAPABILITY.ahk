@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
-#Import ".\WLAN_INTERFACE_TYPE.ahk" { WLAN_INTERFACE_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WLAN_INTERFACE_TYPE.ahk" { WLAN_INTERFACE_TYPE }
 
 /**
  * Contains information about the capabilities of an interface.

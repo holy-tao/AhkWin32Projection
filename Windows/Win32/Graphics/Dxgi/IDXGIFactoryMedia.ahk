@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXGI_DECODE_SWAP_CHAIN_DESC.ahk" { DXGI_DECODE_SWAP_CHAIN_DESC }
-#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDXGISwapChain1.ahk" { IDXGISwapChain1 }
-#Import ".\IDXGIResource.ahk" { IDXGIResource }
-#Import ".\IDXGIDecodeSwapChain.ahk" { IDXGIDecodeSwapChain }
+#Import ".\DXGI_DECODE_SWAP_CHAIN_DESC.ahk" { DXGI_DECODE_SWAP_CHAIN_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
+#Import ".\IDXGIDecodeSwapChain.ahk" { IDXGIDecodeSwapChain }
 
 /**
  * Creates swap chains for desktop media apps that use DirectComposition surfaces to decode and display video.

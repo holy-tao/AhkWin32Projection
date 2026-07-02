@@ -243,7 +243,7 @@ export default struct IADsPrintJob extends IADs {
      * @returns {HRESULT} 
      */
     put_Priority(lnPriority) {
-        result := ComCall(29, this, "int", lnPriority, "HRESULT")
+        result := ComCall(29, this, Int32, lnPriority, "HRESULT")
         return result
     }
 
@@ -262,7 +262,7 @@ export default struct IADsPrintJob extends IADs {
      * @returns {HRESULT} 
      */
     put_StartTime(daStartTime) {
-        result := ComCall(31, this, "double", daStartTime, "HRESULT")
+        result := ComCall(31, this, Float64, daStartTime, "HRESULT")
         return result
     }
 
@@ -281,7 +281,7 @@ export default struct IADsPrintJob extends IADs {
      * @returns {HRESULT} 
      */
     put_UntilTime(daUntilTime) {
-        result := ComCall(33, this, "double", daUntilTime, "HRESULT")
+        result := ComCall(33, this, Float64, daUntilTime, "HRESULT")
         return result
     }
 

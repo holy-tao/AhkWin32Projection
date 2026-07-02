@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -43,7 +43,7 @@ export default struct IWMInterlaceProps extends IUnknown {
      * @returns {HRESULT} 
      */
     SetProcessType(iProcessType) {
-        result := ComCall(3, this, "int", iProcessType, "HRESULT")
+        result := ComCall(3, this, Int32, iProcessType, "HRESULT")
         return result
     }
 
@@ -53,7 +53,7 @@ export default struct IWMInterlaceProps extends IUnknown {
      * @returns {HRESULT} 
      */
     SetInitInverseTeleCinePattern(iInitPattern) {
-        result := ComCall(4, this, "int", iInitPattern, "HRESULT")
+        result := ComCall(4, this, Int32, iInitPattern, "HRESULT")
         return result
     }
 

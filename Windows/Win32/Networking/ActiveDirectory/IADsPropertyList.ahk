@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsPropertyList interface is used to modify, read, and update a list of property entries in the property cache of an object.
@@ -83,7 +83,7 @@ export default struct IADsPropertyList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-skip
      */
     Skip(cElements) {
-        result := ComCall(9, this, "int", cElements, Int32)
+        result := ComCall(9, this, Int32, cElements, Int32)
         return result
     }
 
@@ -272,7 +272,7 @@ export default struct IADsPropertyList extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
         pVariant := VARIANT()
-        result := ComCall(12, this, BSTR, bstrName, "int", lnADsType, VARIANT.Ptr, pVariant, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrName, Int32, lnADsType, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 

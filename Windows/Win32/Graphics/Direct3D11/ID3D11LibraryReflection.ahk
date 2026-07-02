@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D11FunctionReflection.ahk" { ID3D11FunctionReflection }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D11_LIBRARY_DESC.ahk" { D3D11_LIBRARY_DESC }
 
 /**
@@ -71,7 +71,7 @@ export default struct ID3D11LibraryReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11libraryreflection-getfunctionbyindex
      */
     GetFunctionByIndex(FunctionIndex) {
-        result := ComCall(4, this, "int", FunctionIndex, ID3D11FunctionReflection)
+        result := ComCall(4, this, Int32, FunctionIndex, ID3D11FunctionReflection)
         return result
     }
 

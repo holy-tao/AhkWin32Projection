@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TASKDIALOG_BUTTON.ahk" { TASKDIALOG_BUTTON }
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\TASKDIALOG_FLAGS.ahk" { TASKDIALOG_FLAGS }
+#Import ".\PFTASKDIALOGCALLBACK.ahk" { PFTASKDIALOGCALLBACK }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk" { TASKDIALOG_COMMON_BUTTON_FLAGS }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk" { TASKDIALOG_COMMON_BUTTON_FLAGS }
+#Import ".\TASKDIALOG_FLAGS.ahk" { TASKDIALOG_FLAGS }
+#Import ".\TASKDIALOG_BUTTON.ahk" { TASKDIALOG_BUTTON }
 
 /**
  * The TASKDIALOGCONFIG structure contains information used to display a task dialog. The TaskDialogIndirect function uses this structure.
@@ -463,7 +464,7 @@ export default struct TASKDIALOGCONFIG {
      * 
      * Pointer to an application-defined callback function. For more information see <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-pftaskdialogcallback">TaskDialogCallbackProc</a>.
      */
-    pfCallback : IntPtr
+    pfCallback : PFTASKDIALOGCALLBACK
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG_PTR</a></b>

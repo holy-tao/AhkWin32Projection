@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPNetwork interface provides methods relating to the network connection used by Windows Media Player.
@@ -500,7 +500,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-put_bufferingtime
      */
     put_bufferingTime(lBufferingTime) {
-        result := ComCall(16, this, "int", lBufferingTime, "HRESULT")
+        result := ComCall(16, this, Int32, lBufferingTime, "HRESULT")
         return result
     }
 
@@ -671,7 +671,7 @@ export default struct IWMPNetwork extends IDispatch {
     setProxySettings(bstrProtocol, lProxySetting) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(21, this, BSTR, bstrProtocol, "int", lProxySetting, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrProtocol, Int32, lProxySetting, "HRESULT")
         return result
     }
 
@@ -822,7 +822,7 @@ export default struct IWMPNetwork extends IDispatch {
     setProxyPort(bstrProtocol, lProxyPort) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(25, this, BSTR, bstrProtocol, "int", lProxyPort, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrProtocol, Int32, lProxyPort, "HRESULT")
         return result
     }
 
@@ -1045,7 +1045,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-put_maxbandwidth
      */
     put_maxBandwidth(lMaxBandwidth) {
-        result := ComCall(31, this, "int", lMaxBandwidth, "HRESULT")
+        result := ComCall(31, this, Int32, lMaxBandwidth, "HRESULT")
         return result
     }
 

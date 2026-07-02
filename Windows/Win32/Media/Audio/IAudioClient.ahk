@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\AUDCLNT_SHAREMODE.ahk" { AUDCLNT_SHAREMODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AUDCLNT_SHAREMODE.ahk" { AUDCLNT_SHAREMODE }
 
 /**
  * The IAudioClient interface enables a client to create and initialize an audio stream between an audio application and the audio engine (for a shared-mode stream) or the hardware buffer of an audio endpoint device (for an exclusive-mode stream).
@@ -390,7 +390,7 @@ export default struct IAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-initialize
      */
     Initialize(ShareMode, StreamFlags, hnsBufferDuration, hnsPeriodicity, pFormat, AudioSessionGuid) {
-        result := ComCall(3, this, AUDCLNT_SHAREMODE, ShareMode, "uint", StreamFlags, "int64", hnsBufferDuration, "int64", hnsPeriodicity, WAVEFORMATEX.Ptr, pFormat, Guid.Ptr, AudioSessionGuid, "HRESULT")
+        result := ComCall(3, this, AUDCLNT_SHAREMODE, ShareMode, UInt32, StreamFlags, Int64, hnsBufferDuration, Int64, hnsPeriodicity, WAVEFORMATEX.Ptr, pFormat, Guid.Ptr, AudioSessionGuid, "HRESULT")
         return result
     }
 

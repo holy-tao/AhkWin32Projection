@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_HBAPORT_PROP.ahk" { VDS_HBAPORT_PROP }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\VDS_PATH_STATUS.ahk" { VDS_PATH_STATUS }
+#Import ".\VDS_HBAPORT_PROP.ahk" { VDS_HBAPORT_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods to query and interact with HBA ports on the local system.

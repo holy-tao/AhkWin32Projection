@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
@@ -87,7 +87,7 @@ export default struct IActiveIMMMessagePumpOwner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/resume-method
      */
     Resume(dwCookie) {
-        result := ComCall(7, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(7, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 

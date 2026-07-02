@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\PLUGIN_LOCK_STATUS.ahk" { PLUGIN_LOCK_STATUS }
+#Import ".\WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST.ahk" { WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST }
+#Import ".\WEBAUTHN_PLUGIN_OPERATION_REQUEST.ahk" { WEBAUTHN_PLUGIN_OPERATION_REQUEST }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WEBAUTHN_PLUGIN_OPERATION_RESPONSE.ahk" { WEBAUTHN_PLUGIN_OPERATION_RESPONSE }
-#Import ".\WEBAUTHN_PLUGIN_OPERATION_REQUEST.ahk" { WEBAUTHN_PLUGIN_OPERATION_REQUEST }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST.ahk" { WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn

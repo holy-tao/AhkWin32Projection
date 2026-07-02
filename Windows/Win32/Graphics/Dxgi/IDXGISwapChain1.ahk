@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk" { DXGI_SWAP_CHAIN_FULLSCREEN_DESC }
-#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
-#Import ".\DXGI_RGBA.ahk" { DXGI_RGBA }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
 #Import "Common\DXGI_MODE_ROTATION.ahk" { DXGI_MODE_ROTATION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\IDXGISwapChain.ahk" { IDXGISwapChain }
-#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
 #Import ".\DXGI_PRESENT_PARAMETERS.ahk" { DXGI_PRESENT_PARAMETERS }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXGI_RGBA.ahk" { DXGI_RGBA }
+#Import ".\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk" { DXGI_SWAP_CHAIN_FULLSCREEN_DESC }
 
 /**
  * Provides presentation capabilities that are enhanced from IDXGISwapChain. These presentation capabilities consist of specifying dirty rectangles and scroll rectangle to optimize the presentation.
@@ -162,7 +162,7 @@ export default struct IDXGISwapChain1 extends IDXGISwapChain {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1
      */
     Present1(SyncInterval, PresentFlags, pPresentParameters) {
-        result := ComCall(22, this, "uint", SyncInterval, DXGI_PRESENT, PresentFlags, DXGI_PRESENT_PARAMETERS.Ptr, pPresentParameters, Int32)
+        result := ComCall(22, this, UInt32, SyncInterval, DXGI_PRESENT, PresentFlags, DXGI_PRESENT_PARAMETERS.Ptr, pPresentParameters, Int32)
         return result
     }
 

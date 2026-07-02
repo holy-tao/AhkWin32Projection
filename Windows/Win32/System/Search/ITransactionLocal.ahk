@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\DistributedTransactionCoordinator\ITransactionOptions.ahk" { ITransactionOptions }
-#Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -54,7 +54,7 @@ export default struct ITransactionLocal extends ITransaction {
      * @returns {Integer} 
      */
     StartTransaction(isoLevel, isoFlags, pOtherOptions) {
-        result := ComCall(7, this, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, "uint*", &pulTransactionLevel := 0, "HRESULT")
+        result := ComCall(7, this, Int32, isoLevel, UInt32, isoFlags, "ptr", pOtherOptions, "uint*", &pulTransactionLevel := 0, "HRESULT")
         return pulTransactionLevel
     }
 

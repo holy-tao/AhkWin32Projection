@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VMRFrequency.ahk" { VMRFrequency }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VMRFrequency.ahk" { VMRFrequency }
 
 /**
  * This topic applies to Windows XP Service Pack 1 or later. The VMRVideoDesc structure describes a video stream to be deinterlaced.

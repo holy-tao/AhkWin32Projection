@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D11FunctionParameterReflection.ahk" { ID3D11FunctionParameterReflection }
-#Import ".\D3D11_SHADER_INPUT_BIND_DESC.ahk" { D3D11_SHADER_INPUT_BIND_DESC }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ID3D11ShaderReflectionConstantBuffer.ahk" { ID3D11ShaderReflectionConstantBuffer }
-#Import ".\ID3D11ShaderReflectionVariable.ahk" { ID3D11ShaderReflectionVariable }
 #Import ".\D3D11_FUNCTION_DESC.ahk" { D3D11_FUNCTION_DESC }
+#Import ".\D3D11_SHADER_INPUT_BIND_DESC.ahk" { D3D11_SHADER_INPUT_BIND_DESC }
+#Import ".\ID3D11FunctionParameterReflection.ahk" { ID3D11FunctionParameterReflection }
+#Import ".\ID3D11ShaderReflectionVariable.ahk" { ID3D11ShaderReflectionVariable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D11ShaderReflectionConstantBuffer.ahk" { ID3D11ShaderReflectionConstantBuffer }
 
 /**
  * A function-reflection interface accesses function info. (ID3D11FunctionReflection)
@@ -79,7 +79,7 @@ export default struct ID3D11FunctionReflection extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionreflection-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(BufferIndex) {
-        result := ComCall(1, this, "uint", BufferIndex, ID3D11ShaderReflectionConstantBuffer)
+        result := ComCall(1, this, UInt32, BufferIndex, ID3D11ShaderReflectionConstantBuffer)
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct ID3D11FunctionReflection extends Win32ComInterface {
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D11_SHADER_INPUT_BIND_DESC()
-        result := ComCall(3, this, "uint", ResourceIndex, D3D11_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(3, this, UInt32, ResourceIndex, D3D11_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -168,7 +168,7 @@ export default struct ID3D11FunctionReflection extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionreflection-getfunctionparameter
      */
     GetFunctionParameter(ParameterIndex) {
-        result := ComCall(6, this, "int", ParameterIndex, ID3D11FunctionParameterReflection)
+        result := ComCall(6, this, Int32, ParameterIndex, ID3D11FunctionParameterReflection)
         return result
     }
 

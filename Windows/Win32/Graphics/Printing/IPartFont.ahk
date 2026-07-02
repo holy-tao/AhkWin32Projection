@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\EXpsFontOptions.ahk" { EXpsFontOptions }
+#Import ".\IPartBase.ahk" { IPartBase }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPartBase.ahk" { IPartBase }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

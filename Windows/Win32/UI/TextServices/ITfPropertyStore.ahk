@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\ITfRange.ahk" { ITfRange }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfPropertyStore interface is implemented by a text service and used by the TSF manager to provide non-static property values. An instance of this interface is passed to ITfProperty::SetValueStore.
@@ -108,7 +108,7 @@ export default struct ITfPropertyStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-ontextupdated
      */
     OnTextUpdated(dwFlags, pRangeNew) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr", pRangeNew, BOOL.Ptr, &pfAccept := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFlags, "ptr", pRangeNew, BOOL.Ptr, &pfAccept := 0, "HRESULT")
         return pfAccept
     }
 

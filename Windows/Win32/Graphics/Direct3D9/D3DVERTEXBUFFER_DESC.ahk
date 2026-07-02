@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
 #Import ".\D3DRESOURCETYPE.ahk" { D3DRESOURCETYPE }
 #Import ".\D3DPOOL.ahk" { D3DPOOL }
-#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * Describes a vertex buffer.

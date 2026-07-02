@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TCP_CONNECTION_OFFLOAD_STATE.ahk" { TCP_CONNECTION_OFFLOAD_STATE }
 #Import ".\MIB_TCP_STATE.ahk" { MIB_TCP_STATE }
+#Import ".\TCP_CONNECTION_OFFLOAD_STATE.ahk" { TCP_CONNECTION_OFFLOAD_STATE }
 #Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**

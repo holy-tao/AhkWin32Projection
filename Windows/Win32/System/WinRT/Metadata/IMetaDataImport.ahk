@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\COR_FIELD_OFFSET.ahk" { COR_FIELD_OFFSET }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for importing and manipulating existing metadata from a portable executable (PE) file or other source, such as a type library or a stand-alone, run-time metadata binary.
@@ -142,7 +142,7 @@ export default struct IMetaDataImport extends IUnknown {
     ResetEnum(hEnum, ulPos) {
         hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, hEnumMarshal, hEnum, "uint", ulPos, "HRESULT")
+        result := ComCall(5, this, hEnumMarshal, hEnum, UInt32, ulPos, "HRESULT")
         return result
     }
 
@@ -178,7 +178,7 @@ export default struct IMetaDataImport extends IUnknown {
         rTypeDefsMarshal := rTypeDefs is VarRef ? "uint*" : "ptr"
         pcTypeDefsMarshal := pcTypeDefs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, phEnumMarshal, phEnum, rTypeDefsMarshal, rTypeDefs, "uint", cMax, pcTypeDefsMarshal, pcTypeDefs, "HRESULT")
+        result := ComCall(6, this, phEnumMarshal, phEnum, rTypeDefsMarshal, rTypeDefs, UInt32, cMax, pcTypeDefsMarshal, pcTypeDefs, "HRESULT")
         return result
     }
 
@@ -213,7 +213,7 @@ export default struct IMetaDataImport extends IUnknown {
         rImplsMarshal := rImpls is VarRef ? "uint*" : "ptr"
         pcImplsMarshal := pcImpls is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, phEnumMarshal, phEnum, "uint", td, rImplsMarshal, rImpls, "uint", cMax, pcImplsMarshal, pcImpls, "HRESULT")
+        result := ComCall(7, this, phEnumMarshal, phEnum, UInt32, td, rImplsMarshal, rImpls, UInt32, cMax, pcImplsMarshal, pcImpls, "HRESULT")
         return result
     }
 
@@ -247,7 +247,7 @@ export default struct IMetaDataImport extends IUnknown {
         rTypeRefsMarshal := rTypeRefs is VarRef ? "uint*" : "ptr"
         pcTypeRefsMarshal := pcTypeRefs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, phEnumMarshal, phEnum, rTypeRefsMarshal, rTypeRefs, "uint", cMax, pcTypeRefsMarshal, pcTypeRefs, "HRESULT")
+        result := ComCall(8, this, phEnumMarshal, phEnum, rTypeRefsMarshal, rTypeRefs, UInt32, cMax, pcTypeRefsMarshal, pcTypeRefs, "HRESULT")
         return result
     }
 
@@ -264,7 +264,7 @@ export default struct IMetaDataImport extends IUnknown {
 
         ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", szTypeDef, "uint", tkEnclosingClass, ptdMarshal, ptd, "HRESULT")
+        result := ComCall(9, this, "ptr", szTypeDef, UInt32, tkEnclosingClass, ptdMarshal, ptd, "HRESULT")
         return result
     }
 
@@ -282,7 +282,7 @@ export default struct IMetaDataImport extends IUnknown {
 
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, Guid.Ptr, pmvid, "HRESULT")
+        result := ComCall(10, this, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, Guid.Ptr, pmvid, "HRESULT")
         return result
     }
 
@@ -317,7 +317,7 @@ export default struct IMetaDataImport extends IUnknown {
         pdwTypeDefFlagsMarshal := pdwTypeDefFlags is VarRef ? "uint*" : "ptr"
         ptkExtendsMarshal := ptkExtends is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", td, "ptr", szTypeDef, "uint", cchTypeDef, pchTypeDefMarshal, pchTypeDef, pdwTypeDefFlagsMarshal, pdwTypeDefFlags, ptkExtendsMarshal, ptkExtends, "HRESULT")
+        result := ComCall(12, this, UInt32, td, "ptr", szTypeDef, UInt32, cchTypeDef, pchTypeDefMarshal, pchTypeDef, pdwTypeDefFlagsMarshal, pdwTypeDefFlags, ptkExtendsMarshal, ptkExtends, "HRESULT")
         return result
     }
 
@@ -333,7 +333,7 @@ export default struct IMetaDataImport extends IUnknown {
         pClassMarshal := pClass is VarRef ? "uint*" : "ptr"
         ptkIfaceMarshal := ptkIface is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", iiImpl, pClassMarshal, pClass, ptkIfaceMarshal, ptkIface, "HRESULT")
+        result := ComCall(13, this, UInt32, iiImpl, pClassMarshal, pClass, ptkIfaceMarshal, ptkIface, "HRESULT")
         return result
     }
 
@@ -353,7 +353,7 @@ export default struct IMetaDataImport extends IUnknown {
         ptkResolutionScopeMarshal := ptkResolutionScope is VarRef ? "uint*" : "ptr"
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", tr, ptkResolutionScopeMarshal, ptkResolutionScope, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "HRESULT")
+        result := ComCall(14, this, UInt32, tr, ptkResolutionScopeMarshal, ptkResolutionScope, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, "HRESULT")
         return result
     }
 
@@ -377,7 +377,7 @@ export default struct IMetaDataImport extends IUnknown {
     ResolveTypeRef(tr, riid, ptd) {
         ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", tr, Guid.Ptr, riid, "ptr*", &ppIScope := 0, ptdMarshal, ptd, "HRESULT")
+        result := ComCall(15, this, UInt32, tr, Guid.Ptr, riid, "ptr*", &ppIScope := 0, ptdMarshal, ptd, "HRESULT")
         return IUnknown(ppIScope)
     }
 
@@ -414,7 +414,7 @@ export default struct IMetaDataImport extends IUnknown {
         rMembersMarshal := rMembers is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, phEnumMarshal, phEnum, "uint", cl, rMembersMarshal, rMembers, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(16, this, phEnumMarshal, phEnum, UInt32, cl, rMembersMarshal, rMembers, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -454,7 +454,7 @@ export default struct IMetaDataImport extends IUnknown {
         rMembersMarshal := rMembers is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, phEnumMarshal, phEnum, "uint", cl, "ptr", szName, rMembersMarshal, rMembers, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(17, this, phEnumMarshal, phEnum, UInt32, cl, "ptr", szName, rMembersMarshal, rMembers, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -489,7 +489,7 @@ export default struct IMetaDataImport extends IUnknown {
         rMethodsMarshal := rMethods is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, phEnumMarshal, phEnum, "uint", cl, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(18, this, phEnumMarshal, phEnum, UInt32, cl, rMethodsMarshal, rMethods, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -529,7 +529,7 @@ export default struct IMetaDataImport extends IUnknown {
         rMethodsMarshal := rMethods is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, phEnumMarshal, phEnum, "uint", cl, "ptr", szName, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(19, this, phEnumMarshal, phEnum, UInt32, cl, "ptr", szName, rMethodsMarshal, rMethods, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -564,7 +564,7 @@ export default struct IMetaDataImport extends IUnknown {
         rFieldsMarshal := rFields is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, phEnumMarshal, phEnum, "uint", cl, rFieldsMarshal, rFields, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(20, this, phEnumMarshal, phEnum, UInt32, cl, rFieldsMarshal, rFields, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -604,7 +604,7 @@ export default struct IMetaDataImport extends IUnknown {
         rFieldsMarshal := rFields is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, phEnumMarshal, phEnum, "uint", cl, "ptr", szName, rFieldsMarshal, rFields, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(21, this, phEnumMarshal, phEnum, UInt32, cl, "ptr", szName, rFieldsMarshal, rFields, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -639,7 +639,7 @@ export default struct IMetaDataImport extends IUnknown {
         rParamsMarshal := rParams is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, phEnumMarshal, phEnum, "uint", mb, rParamsMarshal, rParams, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(22, this, phEnumMarshal, phEnum, UInt32, mb, rParamsMarshal, rParams, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -674,7 +674,7 @@ export default struct IMetaDataImport extends IUnknown {
         rMemberRefsMarshal := rMemberRefs is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, phEnumMarshal, phEnum, "uint", tkParent, rMemberRefsMarshal, rMemberRefs, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(23, this, phEnumMarshal, phEnum, UInt32, tkParent, rMemberRefsMarshal, rMemberRefs, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -711,7 +711,7 @@ export default struct IMetaDataImport extends IUnknown {
         rMethodDeclMarshal := rMethodDecl is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, phEnumMarshal, phEnum, "uint", td, rMethodBodyMarshal, rMethodBody, rMethodDeclMarshal, rMethodDecl, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(24, this, phEnumMarshal, phEnum, UInt32, td, rMethodBodyMarshal, rMethodBody, rMethodDeclMarshal, rMethodDecl, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -747,7 +747,7 @@ export default struct IMetaDataImport extends IUnknown {
         rPermissionMarshal := rPermission is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, phEnumMarshal, phEnum, "uint", tk, "uint", dwActions, rPermissionMarshal, rPermission, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(25, this, phEnumMarshal, phEnum, UInt32, tk, UInt32, dwActions, rPermissionMarshal, rPermission, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -766,7 +766,7 @@ export default struct IMetaDataImport extends IUnknown {
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmbMarshal := pmb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "HRESULT")
+        result := ComCall(26, this, UInt32, td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, UInt32, cbSigBlob, pmbMarshal, pmb, "HRESULT")
         return result
     }
 
@@ -785,7 +785,7 @@ export default struct IMetaDataImport extends IUnknown {
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmbMarshal := pmb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(27, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "HRESULT")
+        result := ComCall(27, this, UInt32, td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, UInt32, cbSigBlob, pmbMarshal, pmb, "HRESULT")
         return result
     }
 
@@ -804,7 +804,7 @@ export default struct IMetaDataImport extends IUnknown {
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmbMarshal := pmb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(28, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "HRESULT")
+        result := ComCall(28, this, UInt32, td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, UInt32, cbSigBlob, pmbMarshal, pmb, "HRESULT")
         return result
     }
 
@@ -830,7 +830,7 @@ export default struct IMetaDataImport extends IUnknown {
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmrMarshal := pmr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(29, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmrMarshal, pmr, "HRESULT")
+        result := ComCall(29, this, UInt32, td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, UInt32, cbSigBlob, pmrMarshal, pmr, "HRESULT")
         return result
     }
 
@@ -860,7 +860,7 @@ export default struct IMetaDataImport extends IUnknown {
         pulCodeRVAMarshal := pulCodeRVA is VarRef ? "uint*" : "ptr"
         pdwImplFlagsMarshal := pdwImplFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "uint", mb, pClassMarshal, pClass, "ptr", szMethod, "uint", cchMethod, pchMethodMarshal, pchMethod, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "HRESULT")
+        result := ComCall(30, this, UInt32, mb, pClassMarshal, pClass, "ptr", szMethod, UInt32, cchMethod, pchMethodMarshal, pchMethod, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "HRESULT")
         return result
     }
 
@@ -884,7 +884,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppvSigBlobMarshal := ppvSigBlob is VarRef ? "ptr*" : "ptr"
         pbSigMarshal := pbSig is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "uint", mr, ptkMarshal, ptk, "ptr", szMember, "uint", cchMember, pchMemberMarshal, pchMember, ppvSigBlobMarshal, ppvSigBlob, pbSigMarshal, pbSig, "HRESULT")
+        result := ComCall(31, this, UInt32, mr, ptkMarshal, ptk, "ptr", szMember, UInt32, cchMember, pchMemberMarshal, pchMember, ppvSigBlobMarshal, ppvSigBlob, pbSigMarshal, pbSig, "HRESULT")
         return result
     }
 
@@ -919,7 +919,7 @@ export default struct IMetaDataImport extends IUnknown {
         rPropertiesMarshal := rProperties is VarRef ? "uint*" : "ptr"
         pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(32, this, phEnumMarshal, phEnum, "uint", td, rPropertiesMarshal, rProperties, "uint", cMax, pcPropertiesMarshal, pcProperties, "HRESULT")
+        result := ComCall(32, this, phEnumMarshal, phEnum, UInt32, td, rPropertiesMarshal, rProperties, UInt32, cMax, pcPropertiesMarshal, pcProperties, "HRESULT")
         return result
     }
 
@@ -954,7 +954,7 @@ export default struct IMetaDataImport extends IUnknown {
         rEventsMarshal := rEvents is VarRef ? "uint*" : "ptr"
         pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(33, this, phEnumMarshal, phEnum, "uint", td, rEventsMarshal, rEvents, "uint", cMax, pcEventsMarshal, pcEvents, "HRESULT")
+        result := ComCall(33, this, phEnumMarshal, phEnum, UInt32, td, rEventsMarshal, rEvents, UInt32, cMax, pcEventsMarshal, pcEvents, "HRESULT")
         return result
     }
 
@@ -988,7 +988,7 @@ export default struct IMetaDataImport extends IUnknown {
         rmdOtherMethodMarshal := rmdOtherMethod is VarRef ? "uint*" : "ptr"
         pcOtherMethodMarshal := pcOtherMethod is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(34, this, "uint", ev, pClassMarshal, pClass, "ptr", szEvent, "uint", cchEvent, pchEventMarshal, pchEvent, pdwEventFlagsMarshal, pdwEventFlags, ptkEventTypeMarshal, ptkEventType, pmdAddOnMarshal, pmdAddOn, pmdRemoveOnMarshal, pmdRemoveOn, pmdFireMarshal, pmdFire, rmdOtherMethodMarshal, rmdOtherMethod, "uint", cMax, pcOtherMethodMarshal, pcOtherMethod, "HRESULT")
+        result := ComCall(34, this, UInt32, ev, pClassMarshal, pClass, "ptr", szEvent, UInt32, cchEvent, pchEventMarshal, pchEvent, pdwEventFlagsMarshal, pdwEventFlags, ptkEventTypeMarshal, ptkEventType, pmdAddOnMarshal, pmdAddOn, pmdRemoveOnMarshal, pmdRemoveOn, pmdFireMarshal, pmdFire, rmdOtherMethodMarshal, rmdOtherMethod, UInt32, cMax, pcOtherMethodMarshal, pcOtherMethod, "HRESULT")
         return result
     }
 
@@ -1023,7 +1023,7 @@ export default struct IMetaDataImport extends IUnknown {
         rEventPropMarshal := rEventProp is VarRef ? "uint*" : "ptr"
         pcEventPropMarshal := pcEventProp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(35, this, phEnumMarshal, phEnum, "uint", mb, rEventPropMarshal, rEventProp, "uint", cMax, pcEventPropMarshal, pcEventProp, "HRESULT")
+        result := ComCall(35, this, phEnumMarshal, phEnum, UInt32, mb, rEventPropMarshal, rEventProp, UInt32, cMax, pcEventPropMarshal, pcEventProp, "HRESULT")
         return result
     }
 
@@ -1038,7 +1038,7 @@ export default struct IMetaDataImport extends IUnknown {
     GetMethodSemantics(mb, tkEventProp, pdwSemanticsFlags) {
         pdwSemanticsFlagsMarshal := pdwSemanticsFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(36, this, "uint", mb, "uint", tkEventProp, pdwSemanticsFlagsMarshal, pdwSemanticsFlags, "HRESULT")
+        result := ComCall(36, this, UInt32, mb, UInt32, tkEventProp, pdwSemanticsFlagsMarshal, pdwSemanticsFlags, "HRESULT")
         return result
     }
 
@@ -1057,7 +1057,7 @@ export default struct IMetaDataImport extends IUnknown {
         pcFieldOffsetMarshal := pcFieldOffset is VarRef ? "uint*" : "ptr"
         pulClassSizeMarshal := pulClassSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(37, this, "uint", td, pdwPackSizeMarshal, pdwPackSize, COR_FIELD_OFFSET.Ptr, rFieldOffset, "uint", cMax, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
+        result := ComCall(37, this, UInt32, td, pdwPackSizeMarshal, pdwPackSize, COR_FIELD_OFFSET.Ptr, rFieldOffset, UInt32, cMax, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
         return result
     }
 
@@ -1073,7 +1073,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppvNativeTypeMarshal := ppvNativeType is VarRef ? "ptr*" : "ptr"
         pcbNativeTypeMarshal := pcbNativeType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(38, this, "uint", tk, ppvNativeTypeMarshal, ppvNativeType, pcbNativeTypeMarshal, pcbNativeType, "HRESULT")
+        result := ComCall(38, this, UInt32, tk, ppvNativeTypeMarshal, ppvNativeType, pcbNativeTypeMarshal, pcbNativeType, "HRESULT")
         return result
     }
 
@@ -1089,7 +1089,7 @@ export default struct IMetaDataImport extends IUnknown {
         pulCodeRVAMarshal := pulCodeRVA is VarRef ? "uint*" : "ptr"
         pdwImplFlagsMarshal := pdwImplFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(39, this, "uint", tk, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "HRESULT")
+        result := ComCall(39, this, UInt32, tk, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "HRESULT")
         return result
     }
 
@@ -1107,7 +1107,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppvPermissionMarshal := ppvPermission is VarRef ? "ptr*" : "ptr"
         pcbPermissionMarshal := pcbPermission is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, "uint", pm, pdwActionMarshal, pdwAction, ppvPermissionMarshal, ppvPermission, pcbPermissionMarshal, pcbPermission, "HRESULT")
+        result := ComCall(40, this, UInt32, pm, pdwActionMarshal, pdwAction, ppvPermissionMarshal, ppvPermission, pcbPermissionMarshal, pcbPermission, "HRESULT")
         return result
     }
 
@@ -1123,7 +1123,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppvSigMarshal := ppvSig is VarRef ? "ptr*" : "ptr"
         pcbSigMarshal := pcbSig is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(41, this, "uint", mdSig, ppvSigMarshal, ppvSig, pcbSigMarshal, pcbSig, "HRESULT")
+        result := ComCall(41, this, UInt32, mdSig, ppvSigMarshal, ppvSig, pcbSigMarshal, pcbSig, "HRESULT")
         return result
     }
 
@@ -1141,7 +1141,7 @@ export default struct IMetaDataImport extends IUnknown {
 
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(42, this, "uint", mur, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "HRESULT")
+        result := ComCall(42, this, UInt32, mur, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, "HRESULT")
         return result
     }
 
@@ -1175,7 +1175,7 @@ export default struct IMetaDataImport extends IUnknown {
         rModuleRefsMarshal := rModuleRefs is VarRef ? "uint*" : "ptr"
         pcModuleRefsMarshal := pcModuleRefs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(43, this, phEnumMarshal, phEnum, rModuleRefsMarshal, rModuleRefs, "uint", cmax, pcModuleRefsMarshal, pcModuleRefs, "HRESULT")
+        result := ComCall(43, this, phEnumMarshal, phEnum, rModuleRefsMarshal, rModuleRefs, UInt32, cmax, pcModuleRefsMarshal, pcModuleRefs, "HRESULT")
         return result
     }
 
@@ -1191,7 +1191,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppvSigMarshal := ppvSig is VarRef ? "ptr*" : "ptr"
         pcbSigMarshal := pcbSig is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(44, this, "uint", typespec, ppvSigMarshal, ppvSig, pcbSigMarshal, pcbSig, "HRESULT")
+        result := ComCall(44, this, UInt32, typespec, ppvSigMarshal, ppvSig, pcbSigMarshal, pcbSig, "HRESULT")
         return result
     }
 
@@ -1207,7 +1207,7 @@ export default struct IMetaDataImport extends IUnknown {
     GetNameFromToken(tk, pszUtf8NamePtr) {
         pszUtf8NamePtrMarshal := pszUtf8NamePtr is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(45, this, "uint", tk, pszUtf8NamePtrMarshal, pszUtf8NamePtr, "HRESULT")
+        result := ComCall(45, this, UInt32, tk, pszUtf8NamePtrMarshal, pszUtf8NamePtr, "HRESULT")
         return result
     }
 
@@ -1247,7 +1247,7 @@ export default struct IMetaDataImport extends IUnknown {
         rMethodsMarshal := rMethods is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(46, this, phEnumMarshal, phEnum, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(46, this, phEnumMarshal, phEnum, rMethodsMarshal, rMethods, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -1265,7 +1265,7 @@ export default struct IMetaDataImport extends IUnknown {
 
         pchStringMarshal := pchString is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(47, this, "uint", stk, "ptr", szString, "uint", cchString, pchStringMarshal, pchString, "HRESULT")
+        result := ComCall(47, this, UInt32, stk, "ptr", szString, UInt32, cchString, pchStringMarshal, pchString, "HRESULT")
         return result
     }
 
@@ -1287,7 +1287,7 @@ export default struct IMetaDataImport extends IUnknown {
         pchImportNameMarshal := pchImportName is VarRef ? "uint*" : "ptr"
         pmrImportDLLMarshal := pmrImportDLL is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(48, this, "uint", tk, pdwMappingFlagsMarshal, pdwMappingFlags, "ptr", szImportName, "uint", cchImportName, pchImportNameMarshal, pchImportName, pmrImportDLLMarshal, pmrImportDLL, "HRESULT")
+        result := ComCall(48, this, UInt32, tk, pdwMappingFlagsMarshal, pdwMappingFlags, "ptr", szImportName, UInt32, cchImportName, pchImportNameMarshal, pchImportName, pmrImportDLLMarshal, pmrImportDLL, "HRESULT")
         return result
     }
 
@@ -1321,7 +1321,7 @@ export default struct IMetaDataImport extends IUnknown {
         rSignaturesMarshal := rSignatures is VarRef ? "uint*" : "ptr"
         pcSignaturesMarshal := pcSignatures is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(49, this, phEnumMarshal, phEnum, rSignaturesMarshal, rSignatures, "uint", cmax, pcSignaturesMarshal, pcSignatures, "HRESULT")
+        result := ComCall(49, this, phEnumMarshal, phEnum, rSignaturesMarshal, rSignatures, UInt32, cmax, pcSignaturesMarshal, pcSignatures, "HRESULT")
         return result
     }
 
@@ -1355,7 +1355,7 @@ export default struct IMetaDataImport extends IUnknown {
         rTypeSpecsMarshal := rTypeSpecs is VarRef ? "uint*" : "ptr"
         pcTypeSpecsMarshal := pcTypeSpecs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(50, this, phEnumMarshal, phEnum, rTypeSpecsMarshal, rTypeSpecs, "uint", cmax, pcTypeSpecsMarshal, pcTypeSpecs, "HRESULT")
+        result := ComCall(50, this, phEnumMarshal, phEnum, rTypeSpecsMarshal, rTypeSpecs, UInt32, cmax, pcTypeSpecsMarshal, pcTypeSpecs, "HRESULT")
         return result
     }
 
@@ -1389,7 +1389,7 @@ export default struct IMetaDataImport extends IUnknown {
         rStringsMarshal := rStrings is VarRef ? "uint*" : "ptr"
         pcStringsMarshal := pcStrings is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(51, this, phEnumMarshal, phEnum, rStringsMarshal, rStrings, "uint", cmax, pcStringsMarshal, pcStrings, "HRESULT")
+        result := ComCall(51, this, phEnumMarshal, phEnum, rStringsMarshal, rStrings, UInt32, cmax, pcStringsMarshal, pcStrings, "HRESULT")
         return result
     }
 
@@ -1404,7 +1404,7 @@ export default struct IMetaDataImport extends IUnknown {
     GetParamForMethodIndex(md, ulParamSeq, ppd) {
         ppdMarshal := ppd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(52, this, "uint", md, "uint", ulParamSeq, ppdMarshal, ppd, "HRESULT")
+        result := ComCall(52, this, UInt32, md, UInt32, ulParamSeq, ppdMarshal, ppd, "HRESULT")
         return result
     }
 
@@ -1440,7 +1440,7 @@ export default struct IMetaDataImport extends IUnknown {
         rCustomAttributesMarshal := rCustomAttributes is VarRef ? "uint*" : "ptr"
         pcCustomAttributesMarshal := pcCustomAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(53, this, phEnumMarshal, phEnum, "uint", tk, "uint", tkType, rCustomAttributesMarshal, rCustomAttributes, "uint", cMax, pcCustomAttributesMarshal, pcCustomAttributes, "HRESULT")
+        result := ComCall(53, this, phEnumMarshal, phEnum, UInt32, tk, UInt32, tkType, rCustomAttributesMarshal, rCustomAttributes, UInt32, cMax, pcCustomAttributesMarshal, pcCustomAttributes, "HRESULT")
         return result
     }
 
@@ -1462,7 +1462,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppBlobMarshal := ppBlob is VarRef ? "ptr*" : "ptr"
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(54, this, "uint", cv, ptkObjMarshal, ptkObj, ptkTypeMarshal, ptkType, ppBlobMarshal, ppBlob, pcbSizeMarshal, pcbSize, "HRESULT")
+        result := ComCall(54, this, UInt32, cv, ptkObjMarshal, ptkObj, ptkTypeMarshal, ptkType, ppBlobMarshal, ppBlob, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -1479,7 +1479,7 @@ export default struct IMetaDataImport extends IUnknown {
 
         ptrMarshal := ptr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(55, this, "uint", tkResolutionScope, "ptr", szName, ptrMarshal, ptr, "HRESULT")
+        result := ComCall(55, this, UInt32, tkResolutionScope, "ptr", szName, ptrMarshal, ptr, "HRESULT")
         return result
     }
 
@@ -1515,7 +1515,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(56, this, "uint", mb, pClassMarshal, pClass, "ptr", szMember, "uint", cchMember, pchMemberMarshal, pchMember, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "HRESULT")
+        result := ComCall(56, this, UInt32, mb, pClassMarshal, pClass, "ptr", szMember, UInt32, cchMember, pchMemberMarshal, pchMember, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
@@ -1547,7 +1547,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(57, this, "uint", mb, pClassMarshal, pClass, "ptr", szField, "uint", cchField, pchFieldMarshal, pchField, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "HRESULT")
+        result := ComCall(57, this, UInt32, mb, pClassMarshal, pClass, "ptr", szField, UInt32, cchField, pchFieldMarshal, pchField, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
@@ -1587,7 +1587,7 @@ export default struct IMetaDataImport extends IUnknown {
         rmdOtherMethodMarshal := rmdOtherMethod is VarRef ? "uint*" : "ptr"
         pcOtherMethodMarshal := pcOtherMethod is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(58, this, "uint", prop, pClassMarshal, pClass, "ptr", szProperty, "uint", cchProperty, pchPropertyMarshal, pchProperty, pdwPropFlagsMarshal, pdwPropFlags, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppDefaultValueMarshal, ppDefaultValue, pcchDefaultValueMarshal, pcchDefaultValue, pmdSetterMarshal, pmdSetter, pmdGetterMarshal, pmdGetter, rmdOtherMethodMarshal, rmdOtherMethod, "uint", cMax, pcOtherMethodMarshal, pcOtherMethod, "HRESULT")
+        result := ComCall(58, this, UInt32, prop, pClassMarshal, pClass, "ptr", szProperty, UInt32, cchProperty, pchPropertyMarshal, pchProperty, pdwPropFlagsMarshal, pdwPropFlags, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppDefaultValueMarshal, ppDefaultValue, pcchDefaultValueMarshal, pcchDefaultValue, pmdSetterMarshal, pmdSetter, pmdGetterMarshal, pmdGetter, rmdOtherMethodMarshal, rmdOtherMethod, UInt32, cMax, pcOtherMethodMarshal, pcOtherMethod, "HRESULT")
         return result
     }
 
@@ -1617,7 +1617,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(59, this, "uint", tk, pmdMarshal, pmd, pulSequenceMarshal, pulSequence, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, pdwAttrMarshal, pdwAttr, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "HRESULT")
+        result := ComCall(59, this, UInt32, tk, pmdMarshal, pmd, pulSequenceMarshal, pulSequence, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, pdwAttrMarshal, pdwAttr, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
@@ -1638,7 +1638,7 @@ export default struct IMetaDataImport extends IUnknown {
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(60, this, "uint", tkObj, "ptr", szName, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "HRESULT")
+        result := ComCall(60, this, UInt32, tkObj, "ptr", szName, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 
@@ -1649,7 +1649,7 @@ export default struct IMetaDataImport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-isvalidtoken
      */
     IsValidToken(tk) {
-        result := ComCall(61, this, "uint", tk, BOOL)
+        result := ComCall(61, this, UInt32, tk, BOOL)
         return result
     }
 
@@ -1663,7 +1663,7 @@ export default struct IMetaDataImport extends IUnknown {
     GetNestedClassProps(tdNestedClass, ptdEnclosingClass) {
         ptdEnclosingClassMarshal := ptdEnclosingClass is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(62, this, "uint", tdNestedClass, ptdEnclosingClassMarshal, ptdEnclosingClass, "HRESULT")
+        result := ComCall(62, this, UInt32, tdNestedClass, ptdEnclosingClassMarshal, ptdEnclosingClass, "HRESULT")
         return result
     }
 
@@ -1679,7 +1679,7 @@ export default struct IMetaDataImport extends IUnknown {
         pvSigMarshal := pvSig is VarRef ? "ptr" : "ptr"
         pCallConvMarshal := pCallConv is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(63, this, pvSigMarshal, pvSig, "uint", cbSig, pCallConvMarshal, pCallConv, "HRESULT")
+        result := ComCall(63, this, pvSigMarshal, pvSig, UInt32, cbSig, pCallConvMarshal, pCallConv, "HRESULT")
         return result
     }
 
@@ -1693,7 +1693,7 @@ export default struct IMetaDataImport extends IUnknown {
     IsGlobal(pd, pbGlobal) {
         pbGlobalMarshal := pbGlobal is VarRef ? "int*" : "ptr"
 
-        result := ComCall(64, this, "uint", pd, pbGlobalMarshal, pbGlobal, "HRESULT")
+        result := ComCall(64, this, UInt32, pd, pbGlobalMarshal, pbGlobal, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Gets information from the Service Location Descriptor in an Advanced Television Systems Committee (ATSC) Virtual Channel Table (VCT).
@@ -69,7 +69,7 @@ export default struct IServiceLocationDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iservicelocationdescriptor-getelementstreamtype
      */
     GetElementStreamType(bIndex) {
-        result := ComCall(5, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, Int8, bIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -81,7 +81,7 @@ export default struct IServiceLocationDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iservicelocationdescriptor-getelementpid
      */
     GetElementPID(bIndex) {
-        result := ComCall(6, this, "char", bIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(6, this, Int8, bIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -93,7 +93,7 @@ export default struct IServiceLocationDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iservicelocationdescriptor-getelementlanguagecode
      */
     GetElementLanguageCode(bIndex) {
-        result := ComCall(7, this, "char", bIndex, "char*", &LangCode := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bIndex, "char*", &LangCode := 0, "HRESULT")
         return LangCode
     }
 

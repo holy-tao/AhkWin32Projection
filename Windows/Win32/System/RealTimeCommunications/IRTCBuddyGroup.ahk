@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IRTCProfile2.ahk" { IRTCProfile2 }
+#Import ".\IRTCEnumBuddies.ahk" { IRTCEnumBuddies }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRTCCollection.ahk" { IRTCCollection }
+#Import ".\IRTCProfile2.ahk" { IRTCProfile2 }
 #Import ".\IRTCBuddy.ahk" { IRTCBuddy }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IRTCEnumBuddies.ahk" { IRTCEnumBuddies }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRTCCollection.ahk" { IRTCCollection }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

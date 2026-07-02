@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\TS_STATUS.ahk" { TS_STATUS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\TS_ATTRVAL.ahk" { TS_ATTRVAL }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IAnchor.ahk" { IAnchor }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\FORMATETC.ahk" { FORMATETC }
-#Import ".\TS_STATUS.ahk" { TS_STATUS }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\IAnchor.ahk" { IAnchor }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TS_SELECTION_ANCHOR.ahk" { TS_SELECTION_ANCHOR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\FORMATETC.ahk" { FORMATETC }
 
 /**
  * The ITextStoreAnchor interface is implemented by a Microsoft Active Accessibility client and is used by the TSF manager to manipulate text streams.
@@ -138,7 +138,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-advisesink
      */
     AdviseSink(riid, punk, dwMask) {
-        result := ComCall(3, this, Guid.Ptr, riid, "ptr", punk, "uint", dwMask, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr", punk, UInt32, dwMask, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-requestlock
      */
     RequestLock(dwLockFlags) {
-        result := ComCall(5, this, "uint", dwLockFlags, "int*", &phrSession := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwLockFlags, "int*", &phrSession := 0, "HRESULT")
         return phrSession
     }
 
@@ -325,7 +325,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-queryinsert
      */
     QueryInsert(paTestStart, paTestEnd, cch, ppaResultStart, ppaResultEnd) {
-        result := ComCall(7, this, "ptr", paTestStart, "ptr", paTestEnd, "uint", cch, IAnchor.Ptr, ppaResultStart, IAnchor.Ptr, ppaResultEnd, "HRESULT")
+        result := ComCall(7, this, "ptr", paTestStart, "ptr", paTestEnd, UInt32, cch, IAnchor.Ptr, ppaResultStart, IAnchor.Ptr, ppaResultEnd, "HRESULT")
         return result
     }
 
@@ -403,7 +403,7 @@ export default struct ITextStoreAnchor extends IUnknown {
     GetSelection(ulIndex, ulCount, pSelection, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, TS_SELECTION_ANCHOR.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(8, this, UInt32, ulIndex, UInt32, ulCount, TS_SELECTION_ANCHOR.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -479,7 +479,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-setselection
      */
     SetSelection(ulCount, pSelection) {
-        result := ComCall(9, this, "uint", ulCount, TS_SELECTION_ANCHOR.Ptr, pSelection, "HRESULT")
+        result := ComCall(9, this, UInt32, ulCount, TS_SELECTION_ANCHOR.Ptr, pSelection, "HRESULT")
         return result
     }
 
@@ -507,7 +507,7 @@ export default struct ITextStoreAnchor extends IUnknown {
     GetText(dwFlags, paStart, paEnd, pchText, cchReq, fUpdateAnchor) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(10, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cchReq, "uint*", &pcch := 0, BOOL, fUpdateAnchor, "HRESULT")
+        result := ComCall(10, this, UInt32, dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, UInt32, cchReq, "uint*", &pcch := 0, BOOL, fUpdateAnchor, "HRESULT")
         return pcch
     }
 
@@ -607,7 +607,7 @@ export default struct ITextStoreAnchor extends IUnknown {
     SetText(dwFlags, paStart, paEnd, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(11, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cch, "HRESULT")
+        result := ComCall(11, this, UInt32, dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, UInt32, cch, "HRESULT")
         return result
     }
 
@@ -637,7 +637,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getembedded
      */
     GetEmbedded(dwFlags, paPos, rguidService, riid) {
-        result := ComCall(13, this, "uint", dwFlags, "ptr", paPos, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwFlags, "ptr", paPos, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -735,7 +735,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-insertembedded
      */
     InsertEmbedded(dwFlags, paStart, paEnd, pDataObject) {
-        result := ComCall(14, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pDataObject, "HRESULT")
+        result := ComCall(14, this, UInt32, dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pDataObject, "HRESULT")
         return result
     }
 
@@ -788,7 +788,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-requestsupportedattrs
      */
     RequestSupportedAttrs(dwFlags, cFilterAttrs, paFilterAttrs) {
-        result := ComCall(15, this, "uint", dwFlags, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "HRESULT")
+        result := ComCall(15, this, UInt32, dwFlags, UInt32, cFilterAttrs, Guid.Ptr, paFilterAttrs, "HRESULT")
         return result
     }
 
@@ -831,7 +831,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-requestattrsatposition
      */
     RequestAttrsAtPosition(paPos, cFilterAttrs, paFilterAttrs, dwFlags) {
-        result := ComCall(16, this, "ptr", paPos, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, "ptr", paPos, UInt32, cFilterAttrs, Guid.Ptr, paFilterAttrs, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -905,7 +905,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-requestattrstransitioningatposition
      */
     RequestAttrsTransitioningAtPosition(paPos, cFilterAttrs, paFilterAttrs, dwFlags) {
-        result := ComCall(17, this, "ptr", paPos, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "uint", dwFlags, "HRESULT")
+        result := ComCall(17, this, "ptr", paPos, UInt32, cFilterAttrs, Guid.Ptr, paFilterAttrs, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -1002,7 +1002,7 @@ export default struct ITextStoreAnchor extends IUnknown {
         pfFoundMarshal := pfFound is VarRef ? "int*" : "ptr"
         plFoundOffsetMarshal := plFoundOffset is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, "ptr", paStart, "ptr", paHalt, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "uint", dwFlags, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
+        result := ComCall(18, this, "ptr", paStart, "ptr", paHalt, UInt32, cFilterAttrs, Guid.Ptr, paFilterAttrs, UInt32, dwFlags, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
         return result
     }
 
@@ -1035,7 +1035,7 @@ export default struct ITextStoreAnchor extends IUnknown {
     RetrieveRequestedAttrs(ulCount, paAttrVals, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "uint", ulCount, TS_ATTRVAL.Ptr, paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(19, this, UInt32, ulCount, TS_ATTRVAL.Ptr, paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -1127,7 +1127,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getanchorfrompoint
      */
     GetAnchorFromPoint(vcView, ptScreen, dwFlags) {
-        result := ComCall(23, this, "uint", vcView, POINT.Ptr, ptScreen, "uint", dwFlags, "ptr*", &ppaSite := 0, "HRESULT")
+        result := ComCall(23, this, UInt32, vcView, POINT.Ptr, ptScreen, UInt32, dwFlags, "ptr*", &ppaSite := 0, "HRESULT")
         return IAnchor(ppaSite)
     }
 
@@ -1219,7 +1219,7 @@ export default struct ITextStoreAnchor extends IUnknown {
     GetTextExt(vcView, paStart, paEnd, prc, pfClipped) {
         pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, "uint", vcView, "ptr", paStart, "ptr", paEnd, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
+        result := ComCall(24, this, UInt32, vcView, "ptr", paStart, "ptr", paEnd, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
     }
 
@@ -1233,7 +1233,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      */
     GetScreenExt(vcView) {
         prc := RECT()
-        result := ComCall(25, this, "uint", vcView, RECT.Ptr, prc, "HRESULT")
+        result := ComCall(25, this, UInt32, vcView, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 
@@ -1247,7 +1247,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      */
     GetWnd(vcView) {
         phwnd := HWND()
-        result := ComCall(26, this, "uint", vcView, HWND.Ptr, phwnd, "HRESULT")
+        result := ComCall(26, this, UInt32, vcView, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -1358,7 +1358,7 @@ export default struct ITextStoreAnchor extends IUnknown {
     InsertTextAtSelection(dwFlags, pchText, cch, ppaStart, ppaEnd) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(28, this, "uint", dwFlags, "ptr", pchText, "uint", cch, IAnchor.Ptr, ppaStart, IAnchor.Ptr, ppaEnd, "HRESULT")
+        result := ComCall(28, this, UInt32, dwFlags, "ptr", pchText, UInt32, cch, IAnchor.Ptr, ppaStart, IAnchor.Ptr, ppaEnd, "HRESULT")
         return result
     }
 
@@ -1467,7 +1467,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-insertembeddedatselection
      */
     InsertEmbeddedAtSelection(dwFlags, pDataObject, ppaStart, ppaEnd) {
-        result := ComCall(29, this, "uint", dwFlags, "ptr", pDataObject, IAnchor.Ptr, ppaStart, IAnchor.Ptr, ppaEnd, "HRESULT")
+        result := ComCall(29, this, UInt32, dwFlags, "ptr", pDataObject, IAnchor.Ptr, ppaStart, IAnchor.Ptr, ppaEnd, "HRESULT")
         return result
     }
 

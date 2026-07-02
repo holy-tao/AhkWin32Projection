@@ -52,7 +52,7 @@ export default struct IMediaEventEx extends IMediaEvent {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaeventex-setnotifywindow
      */
     SetNotifyWindow(_hwnd, lMsg, lInstanceData) {
-        result := ComCall(13, this, "ptr", _hwnd, "int", lMsg, "ptr", lInstanceData, "HRESULT")
+        result := ComCall(13, this, IntPtr, _hwnd, Int32, lMsg, IntPtr, lInstanceData, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct IMediaEventEx extends IMediaEvent {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaeventex-setnotifyflags
      */
     SetNotifyFlags(lNoNotifyFlags) {
-        result := ComCall(14, this, "int", lNoNotifyFlags, "HRESULT")
+        result := ComCall(14, this, Int32, lNoNotifyFlags, "HRESULT")
         return result
     }
 

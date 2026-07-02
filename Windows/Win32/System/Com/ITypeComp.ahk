@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DESCKIND.ahk" { DESCKIND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITypeInfo.ahk" { ITypeInfo }
-#Import ".\BINDPTR.ahk" { BINDPTR }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BINDPTR.ahk" { BINDPTR }
 
 /**
  * The ITypeComp interface provides a fast way to access information that compilers need when binding to and instantiating structures and interfaces.
@@ -129,7 +129,7 @@ export default struct ITypeComp extends IUnknown {
 
         pDescKindMarshal := pDescKind is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", szName, "uint", lHashVal, "ushort", wFlags, ITypeInfo.Ptr, ppTInfo, pDescKindMarshal, pDescKind, BINDPTR.Ptr, pBindPtr, "HRESULT")
+        result := ComCall(3, this, "ptr", szName, UInt32, lHashVal, UInt16, wFlags, ITypeInfo.Ptr, ppTInfo, pDescKindMarshal, pDescKind, BINDPTR.Ptr, pBindPtr, "HRESULT")
         return result
     }
 
@@ -190,7 +190,7 @@ export default struct ITypeComp extends IUnknown {
     BindType(szName, lHashVal, ppTInfo, ppTComp) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(4, this, "ptr", szName, "uint", lHashVal, ITypeInfo.Ptr, ppTInfo, ITypeComp.Ptr, ppTComp, "HRESULT")
+        result := ComCall(4, this, "ptr", szName, UInt32, lHashVal, ITypeInfo.Ptr, ppTInfo, ITypeComp.Ptr, ppTComp, "HRESULT")
         return result
     }
 

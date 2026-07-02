@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFCaptureEngineOnEventCallback.ahk" { IMFCaptureEngineOnEventCallback }
 #Import ".\MF_CAPTURE_ENGINE_SINK_TYPE.ahk" { MF_CAPTURE_ENGINE_SINK_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
-#Import ".\IMFCaptureSource.ahk" { IMFCaptureSource }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFCaptureSource.ahk" { IMFCaptureSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFCaptureEngineOnEventCallback.ahk" { IMFCaptureEngineOnEventCallback }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Controls one or more capture devices.

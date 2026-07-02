@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IGPMBackupDir.ahk" { IGPMBackupDir }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
-#Import ".\IGPMDomain.ahk" { IGPMDomain }
-#Import ".\GPMRSOPMode.ahk" { GPMRSOPMode }
-#Import ".\IGPMConstants.ahk" { IGPMConstants }
-#Import ".\IGPMCSECollection.ahk" { IGPMCSECollection }
-#Import ".\IGPMRSOP.ahk" { IGPMRSOP }
-#Import ".\IGPMTrustee.ahk" { IGPMTrustee }
-#Import ".\IGPMMigrationTable.ahk" { IGPMMigrationTable }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IGPMSitesContainer.ahk" { IGPMSitesContainer }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IGPMPermission.ahk" { IGPMPermission }
+#Import ".\IGPMMigrationTable.ahk" { IGPMMigrationTable }
+#Import ".\IGPMSitesContainer.ahk" { IGPMSitesContainer }
+#Import ".\IGPMRSOP.ahk" { IGPMRSOP }
+#Import ".\IGPMBackupDir.ahk" { IGPMBackupDir }
+#Import ".\IGPMConstants.ahk" { IGPMConstants }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GPMRSOPMode.ahk" { GPMRSOPMode }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IGPMDomain.ahk" { IGPMDomain }
+#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
+#Import ".\IGPMCSECollection.ahk" { IGPMCSECollection }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMTrustee.ahk" { IGPMTrustee }
 
 /**
  * The IGPM interface provides methods that access other interfaces of the Group Policy Management Console (GPMC) and methods that create other objects on which various search operations can be performed.
@@ -90,7 +90,7 @@ export default struct IGPM extends IDispatch {
         bstrDomain := bstrDomain is String ? BSTR.Alloc(bstrDomain).Value : bstrDomain
         bstrDomainController := bstrDomainController is String ? BSTR.Alloc(bstrDomainController).Value : bstrDomainController
 
-        result := ComCall(7, this, BSTR, bstrDomain, BSTR, bstrDomainController, "int", lDCFlags, "ptr*", &pIGPMDomain := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrDomain, BSTR, bstrDomainController, Int32, lDCFlags, "ptr*", &pIGPMDomain := 0, "HRESULT")
         return IGPMDomain(pIGPMDomain)
     }
 
@@ -123,7 +123,7 @@ export default struct IGPM extends IDispatch {
         bstrDomain := bstrDomain is String ? BSTR.Alloc(bstrDomain).Value : bstrDomain
         bstrDomainController := bstrDomainController is String ? BSTR.Alloc(bstrDomainController).Value : bstrDomainController
 
-        result := ComCall(9, this, BSTR, bstrForest, BSTR, bstrDomain, BSTR, bstrDomainController, "int", lDCFlags, "ptr*", &ppIGPMSitesContainer := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrForest, BSTR, bstrDomain, BSTR, bstrDomainController, Int32, lDCFlags, "ptr*", &ppIGPMSitesContainer := 0, "HRESULT")
         return IGPMSitesContainer(ppIGPMSitesContainer)
     }
 
@@ -144,7 +144,7 @@ export default struct IGPM extends IDispatch {
     GetRSOP(_gpmRSoPMode, bstrNamespace, lFlags) {
         bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace
 
-        result := ComCall(10, this, GPMRSOPMode, _gpmRSoPMode, BSTR, bstrNamespace, "int", lFlags, "ptr*", &ppIGPMRSOP := 0, "HRESULT")
+        result := ComCall(10, this, GPMRSOPMode, _gpmRSoPMode, BSTR, bstrNamespace, Int32, lFlags, "ptr*", &ppIGPMRSOP := 0, "HRESULT")
         return IGPMRSOP(ppIGPMRSOP)
     }
 

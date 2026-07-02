@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PKINTERRUPT.ahk" { PKINTERRUPT }
-#Import ".\KINTERRUPT_POLARITY.ahk" { KINTERRUPT_POLARITY }
 #Import ".\KINTERRUPT_MODE.ahk" { KINTERRUPT_MODE }
+#Import ".\KINTERRUPT_POLARITY.ahk" { KINTERRUPT_POLARITY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

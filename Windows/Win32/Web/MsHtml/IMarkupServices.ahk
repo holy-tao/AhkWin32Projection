@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
 #Import ".\IHTMLTxtRange.ahk" { IHTMLTxtRange }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ELEMENT_TAG_ID.ahk" { ELEMENT_TAG_ID }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -171,7 +171,7 @@ export default struct IMarkupServices extends IUnknown {
     InsertText(pchText, cch, pPointerTarget) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(12, this, "ptr", pchText, "int", cch, "ptr", pPointerTarget, "HRESULT")
+        result := ComCall(12, this, "ptr", pchText, Int32, cch, "ptr", pPointerTarget, "HRESULT")
         return result
     }
 
@@ -186,7 +186,7 @@ export default struct IMarkupServices extends IUnknown {
     ParseString(pchHTML, dwFlags, ppPointerStart, ppPointerFinish) {
         pchHTML := pchHTML is String ? StrPtr(pchHTML) : pchHTML
 
-        result := ComCall(13, this, "ptr", pchHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", ppPointerStart, "ptr", ppPointerFinish, "HRESULT")
+        result := ComCall(13, this, "ptr", pchHTML, UInt32, dwFlags, "ptr*", &ppContainerResult := 0, "ptr", ppPointerStart, "ptr", ppPointerFinish, "HRESULT")
         return IMarkupContainer(ppContainerResult)
     }
 
@@ -199,7 +199,7 @@ export default struct IMarkupServices extends IUnknown {
      * @returns {IMarkupContainer} 
      */
     ParseGlobal(hglobalHTML, dwFlags, pPointerStart, pPointerFinish) {
-        result := ComCall(14, this, HGLOBAL, hglobalHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        result := ComCall(14, this, HGLOBAL, hglobalHTML, UInt32, dwFlags, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
         return IMarkupContainer(ppContainerResult)
     }
 

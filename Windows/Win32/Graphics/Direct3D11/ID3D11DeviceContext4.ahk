@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID3D11DeviceContext3.ahk" { ID3D11DeviceContext3 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D11Fence.ahk" { ID3D11Fence }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext4 adds new methods to those in ID3D11DeviceContext3.
@@ -53,7 +53,7 @@ export default struct ID3D11DeviceContext4 extends ID3D11DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11devicecontext4-signal
      */
     Signal(pFence, Value) {
-        result := ComCall(147, this, "ptr", pFence, "uint", Value, "HRESULT")
+        result := ComCall(147, this, "ptr", pFence, Int64, Value, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct ID3D11DeviceContext4 extends ID3D11DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11devicecontext4-wait
      */
     Wait(pFence, Value) {
-        result := ComCall(148, this, "ptr", pFence, "uint", Value, "HRESULT")
+        result := ComCall(148, this, "ptr", pFence, Int64, Value, "HRESULT")
         return result
     }
 

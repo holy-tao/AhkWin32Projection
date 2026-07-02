@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IConnectionRequestCallback.ahk" { IConnectionRequestCallback }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
 
 /**
  * Defines methods used for connection-management and property-retrieval for a paired MTP/Bluetooth device.
@@ -252,7 +252,7 @@ export default struct IPortableDeviceConnector extends IUnknown {
     SetProperty(pPropertyKey, PropertyType, pData, cbData) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, DEVPROPKEY.Ptr, pPropertyKey, DEVPROPTYPE, PropertyType, pDataMarshal, pData, "uint", cbData, "HRESULT")
+        result := ComCall(7, this, DEVPROPKEY.Ptr, pPropertyKey, DEVPROPTYPE, PropertyType, pDataMarshal, pData, UInt32, cbData, "HRESULT")
         return result
     }
 

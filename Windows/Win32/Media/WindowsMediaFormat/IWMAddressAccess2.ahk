@@ -54,7 +54,7 @@ export default struct IWMAddressAccess2 extends IWMAddressAccess {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess2-getaccessentryex
      */
     GetAccessEntryEx(aeType, dwEntryNum, pbstrAddress, pbstrMask) {
-        result := ComCall(7, this, WM_AETYPE, aeType, "uint", dwEntryNum, BSTR.Ptr, pbstrAddress, BSTR.Ptr, pbstrMask, "HRESULT")
+        result := ComCall(7, this, WM_AETYPE, aeType, UInt32, dwEntryNum, BSTR.Ptr, pbstrAddress, BSTR.Ptr, pbstrMask, "HRESULT")
         return result
     }
 

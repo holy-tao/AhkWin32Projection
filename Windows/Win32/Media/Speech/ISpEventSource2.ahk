@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPEVENTEX.ahk" { SPEVENTEX }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPEVENTEX.ahk" { SPEVENTEX }
 #Import ".\ISpEventSource.ahk" { ISpEventSource }
 
 /**
@@ -46,7 +46,7 @@ export default struct ISpEventSource2 extends ISpEventSource {
     GetEventsEx(ulCount, pEventArray, pulFetched) {
         pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", ulCount, SPEVENTEX.Ptr, pEventArray, pulFetchedMarshal, pulFetched, "HRESULT")
+        result := ComCall(13, this, UInt32, ulCount, SPEVENTEX.Ptr, pEventArray, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
     }
 

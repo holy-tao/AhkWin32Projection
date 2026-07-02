@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls the volume levels of individual audio channels.
@@ -95,7 +95,7 @@ export default struct IMFAudioStreamVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-setchannelvolume
      */
     SetChannelVolume(dwIndex, fLevel) {
-        result := ComCall(4, this, "uint", dwIndex, "float", fLevel, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, Float32, fLevel, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IMFAudioStreamVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-getchannelvolume
      */
     GetChannelVolume(dwIndex) {
-        result := ComCall(5, this, "uint", dwIndex, "float*", &pfLevel := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwIndex, "float*", &pfLevel := 0, "HRESULT")
         return pfLevel
     }
 
@@ -138,7 +138,7 @@ export default struct IMFAudioStreamVolume extends IUnknown {
     SetAllVolumes(dwCount, pfVolumes) {
         pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwCount, pfVolumesMarshal, pfVolumes, "HRESULT")
+        result := ComCall(6, this, UInt32, dwCount, pfVolumesMarshal, pfVolumes, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IMFAudioStreamVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-getallvolumes
      */
     GetAllVolumes(dwCount) {
-        result := ComCall(7, this, "uint", dwCount, "float*", &pfVolumes := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwCount, "float*", &pfVolumes := 0, "HRESULT")
         return pfVolumes
     }
 

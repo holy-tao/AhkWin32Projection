@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -63,7 +63,7 @@ export default struct IDiagnosticsScriptEngine extends IUnknown {
         pszNamesMarshal := pszNames is VarRef ? "ptr*" : "ptr"
         pszValuesMarshal := pszValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pszNamesMarshal, pszNames, pszValuesMarshal, pszValues, "uint", ulPropertyCount, "HRESULT")
+        result := ComCall(4, this, pszNamesMarshal, pszNames, pszValuesMarshal, pszValues, UInt32, ulPropertyCount, "HRESULT")
         return result
     }
 

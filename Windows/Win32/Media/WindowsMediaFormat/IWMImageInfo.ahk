@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMImageInfo interface retrieves images stored in ID3v2 &#0034;APIC&#0034; (attached picture) frames in a file.
@@ -137,7 +137,7 @@ export default struct IWMImageInfo extends IUnknown {
         pcbImageDataMarshal := pcbImageData is VarRef ? "uint*" : "ptr"
         pbImageDataMarshal := pbImageData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", wIndex, pcchMIMETypeMarshal, pcchMIMEType, "ptr", pwszMIMEType, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pImageTypeMarshal, pImageType, pcbImageDataMarshal, pcbImageData, pbImageDataMarshal, pbImageData, "HRESULT")
+        result := ComCall(4, this, UInt32, wIndex, pcchMIMETypeMarshal, pcchMIMEType, "ptr", pwszMIMEType, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pImageTypeMarshal, pImageType, pcbImageDataMarshal, pcbImageData, pbImageDataMarshal, pbImageData, "HRESULT")
         return result
     }
 

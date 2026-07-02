@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk" { CREDENTIAL_PROVIDER_USAGE_SCENARIO }
-#Import ".\CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR.ahk" { CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ICredentialProviderEvents.ahk" { ICredentialProviderEvents }
+#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
 #Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION }
+#Import ".\ICredentialProviderEvents.ahk" { ICredentialProviderEvents }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk" { CREDENTIAL_PROVIDER_USAGE_SCENARIO }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR.ahk" { CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR }
 
 /**
  * Exposes methods used in the setup and manipulation of a credential provider. All credential providers must implement this interface.
@@ -74,7 +74,7 @@ export default struct ICredentialProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-setusagescenario
      */
     SetUsageScenario(cpus, dwFlags) {
-        result := ComCall(3, this, CREDENTIAL_PROVIDER_USAGE_SCENARIO, cpus, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, CREDENTIAL_PROVIDER_USAGE_SCENARIO, cpus, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct ICredentialProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-advise
      */
     Advise(pcpe, upAdviseContext) {
-        result := ComCall(5, this, "ptr", pcpe, "ptr", upAdviseContext, "HRESULT")
+        result := ComCall(5, this, "ptr", pcpe, IntPtr, upAdviseContext, "HRESULT")
         return result
     }
 
@@ -180,7 +180,7 @@ export default struct ICredentialProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getfielddescriptorat
      */
     GetFieldDescriptorAt(dwIndex) {
-        result := ComCall(8, this, "uint", dwIndex, "ptr*", &ppcpfd := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwIndex, "ptr*", &ppcpfd := 0, "HRESULT")
         return ppcpfd
     }
 
@@ -246,7 +246,7 @@ export default struct ICredentialProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getcredentialat
      */
     GetCredentialAt(dwIndex) {
-        result := ComCall(10, this, "uint", dwIndex, "ptr*", &ppcpc := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwIndex, "ptr*", &ppcpc := 0, "HRESULT")
         return ICredentialProviderCredential(ppcpc)
     }
 

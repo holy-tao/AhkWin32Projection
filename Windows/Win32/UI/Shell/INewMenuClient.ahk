@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that allow manipulation of items in a Windows 7 menu.
@@ -59,7 +59,7 @@ export default struct INewMenuClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inewmenuclient-selectandedititem
      */
     SelectAndEditItem(pidlItem, flags) {
-        result := ComCall(4, this, ITEMIDLIST.Ptr, pidlItem, "int", flags, "HRESULT")
+        result := ComCall(4, this, ITEMIDLIST.Ptr, pidlItem, Int32, flags, "HRESULT")
         return result
     }
 

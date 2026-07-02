@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_RESIDENCY_FLAGS.ahk" { D3D12_RESIDENCY_FLAGS }
 #Import ".\ID3D12Device2.ahk" { ID3D12Device2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 
 /**
  * Represents a virtual adapter. This interface extends ID3D12Device2 to support the creation of special-purpose diagnostic heaps in system memory that persist even in the event of a GPU-fault or device-removed scenario.
@@ -136,7 +136,7 @@ export default struct ID3D12Device3 extends ID3D12Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device3-enqueuemakeresident
      */
     EnqueueMakeResident(Flags, NumObjects, ppObjects, pFenceToSignal, FenceValueToSignal) {
-        result := ComCall(50, this, D3D12_RESIDENCY_FLAGS, Flags, "uint", NumObjects, ID3D12Pageable.Ptr, ppObjects, "ptr", pFenceToSignal, "uint", FenceValueToSignal, "HRESULT")
+        result := ComCall(50, this, D3D12_RESIDENCY_FLAGS, Flags, UInt32, NumObjects, ID3D12Pageable.Ptr, ppObjects, "ptr", pFenceToSignal, Int64, FenceValueToSignal, "HRESULT")
         return result
     }
 

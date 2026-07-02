@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 
 /**
  * Contains information that describes a layer drop failure. (FWPM_NET_EVENT_CLASSIFY_DROP2)

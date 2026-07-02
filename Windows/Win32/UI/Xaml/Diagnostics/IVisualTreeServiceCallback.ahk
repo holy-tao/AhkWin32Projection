@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VisualElement.ahk" { VisualElement }
-#Import ".\VisualMutationType.ahk" { VisualMutationType }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ParentChildRelation.ahk" { ParentChildRelation }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VisualElement.ahk" { VisualElement }
+#Import ".\VisualMutationType.ahk" { VisualMutationType }
 
 /**
  * Communicates the state of the visual tree.

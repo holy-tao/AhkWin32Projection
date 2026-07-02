@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\AAAccountingData.ahk" { AAAccountingData }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\AAAccountingDataType.ahk" { AAAccountingDataType }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide information about the creation or closing of sessions for a connection.

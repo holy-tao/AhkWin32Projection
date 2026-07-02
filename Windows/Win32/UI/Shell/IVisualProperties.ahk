@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
-#Import ".\VPWATERMARKFLAGS.ahk" { VPWATERMARKFLAGS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VPCOLORFLAGS.ahk" { VPCOLORFLAGS }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\VPWATERMARKFLAGS.ahk" { VPWATERMARKFLAGS }
 
 /**
  * Exposes methods that set and get visual properties.
@@ -114,7 +114,7 @@ export default struct IVisualProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-setitemheight
      */
     SetItemHeight(cyItemInPixels) {
-        result := ComCall(6, this, "int", cyItemInPixels, "HRESULT")
+        result := ComCall(6, this, Int32, cyItemInPixels, "HRESULT")
         return result
     }
 

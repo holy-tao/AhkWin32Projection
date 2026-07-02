@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
 #Import ".\JET_INDEXCREATE_W.ahk" { JET_INDEXCREATE_W }
+#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
 #Import ".\JET_COLUMNCREATE_W.ahk" { JET_COLUMNCREATE_W }
 
 /**

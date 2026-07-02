@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
+#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\..\System\Ole\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Ole\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
 #Import "..\..\..\System\Ole\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
 #Import ".\CHARRANGE.ahk" { CHARRANGE }
-#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\..\System\Ole\IOleObject.ahk" { IOleObject }
-#Import "..\..\..\System\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Ole\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
 #Import ".\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk" { RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import "..\..\..\System\Ole\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
 #Import "..\..\..\System\SystemServices\RECO_FLAGS.ahk" { RECO_FLAGS }
-#Import "..\..\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import "..\..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\..\..\System\Ole\IOleObject.ahk" { IOleObject }
+#Import "..\..\..\System\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
 
 /**
  * The IRichEditOleCallback interface is used by a rich text edit control to retrieve OLE-related information from its client.
@@ -184,7 +184,7 @@ export default struct IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-queryinsertobject
      */
     QueryInsertObject(lpclsid, lpstg, cp) {
-        result := ComCall(6, this, Guid.Ptr, lpclsid, "ptr", lpstg, "int", cp, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, lpclsid, "ptr", lpstg, Int32, cp, "HRESULT")
         return result
     }
 
@@ -341,7 +341,7 @@ export default struct IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-getclipboarddata
      */
     GetClipboardData(lpchrg, reco) {
-        result := ComCall(10, this, CHARRANGE.Ptr, lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
+        result := ComCall(10, this, CHARRANGE.Ptr, lpchrg, UInt32, reco, "ptr*", &lplpdataobj := 0, "HRESULT")
         return IDataObject(lplpdataobj)
     }
 

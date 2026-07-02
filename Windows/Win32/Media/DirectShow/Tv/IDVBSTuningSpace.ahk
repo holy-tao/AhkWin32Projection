@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\SpectralInversion.ahk" { SpectralInversion }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\SpectralInversion.ahk" { SpectralInversion }
 #Import ".\IDVBTuningSpace2.ahk" { IDVBTuningSpace2 }
 
 /**
@@ -113,7 +113,7 @@ export default struct IDVBSTuningSpace extends IDVBTuningSpace2 {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-put_lowoscillator
      */
     put_LowOscillator(LowOscillator) {
-        result := ComCall(31, this, "int", LowOscillator, "HRESULT")
+        result := ComCall(31, this, Int32, LowOscillator, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct IDVBSTuningSpace extends IDVBTuningSpace2 {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-put_highoscillator
      */
     put_HighOscillator(HighOscillator) {
-        result := ComCall(33, this, "int", HighOscillator, "HRESULT")
+        result := ComCall(33, this, Int32, HighOscillator, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct IDVBSTuningSpace extends IDVBTuningSpace2 {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-put_lnbswitch
      */
     put_LNBSwitch(LNBSwitch) {
-        result := ComCall(35, this, "int", LNBSwitch, "HRESULT")
+        result := ComCall(35, this, Int32, LNBSwitch, "HRESULT")
         return result
     }
 

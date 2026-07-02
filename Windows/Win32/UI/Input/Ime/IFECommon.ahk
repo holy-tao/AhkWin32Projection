@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMEDLG.ahk" { IMEDLG }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IMEDLG.ahk" { IMEDLG }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFECommon interface provides IME-related services that are common for different languages.
@@ -58,7 +58,7 @@ export default struct IFECommon extends IUnknown {
     IsDefaultIME(szName, cszName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", szName, "int", cszName, "HRESULT")
+        result := ComCall(3, this, "ptr", szName, Int32, cszName, "HRESULT")
         return result
     }
 

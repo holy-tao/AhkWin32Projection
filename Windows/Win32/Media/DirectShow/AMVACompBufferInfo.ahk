@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\DirectDraw\DDSCAPS2.ahk" { DDSCAPS2 }
 #Import "..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import "..\..\Graphics\DirectDraw\DDSCAPS2.ahk" { DDSCAPS2 }
 
 /**
  * The AMVACompBufferInfo structure describes the allocated surfaces and compressed buffer information.

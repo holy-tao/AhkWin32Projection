@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
 #Import ".\SymbolKind.ahk" { SymbolKind }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugHostModule.ahk" { IDebugHostModule }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IDebugHostType.ahk" { IDebugHostType }
 #Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
+#Import ".\IDebugHostModule.ahk" { IDebugHostModule }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -115,7 +115,7 @@ export default struct IDebugHostSymbol extends IUnknown {
      * @returns {Boolean} 
      */
     CompareAgainst(pComparisonSymbol, comparisonFlags) {
-        result := ComCall(9, this, "ptr", pComparisonSymbol, "uint", comparisonFlags, "int*", &pMatches := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pComparisonSymbol, UInt32, comparisonFlags, "int*", &pMatches := 0, "HRESULT")
         return pMatches
     }
 

@@ -1,4 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PSET_VIRTUAL_DEVICE_DATA.ahk" { PSET_VIRTUAL_DEVICE_DATA }
+#Import ".\PGET_VIRTUAL_DEVICE_LOCATION.ahk" { PGET_VIRTUAL_DEVICE_LOCATION }
+#Import ".\PENABLE_VIRTUALIZATION.ahk" { PENABLE_VIRTUALIZATION }
+#Import ".\PGET_VIRTUAL_FUNCTION_PROBED_BARS.ahk" { PGET_VIRTUAL_FUNCTION_PROBED_BARS }
+#Import ".\PGET_VIRTUAL_DEVICE_RESOURCES.ahk" { PGET_VIRTUAL_DEVICE_RESOURCES }
+#Import ".\PGET_VIRTUAL_DEVICE_DATA.ahk" { PGET_VIRTUAL_DEVICE_DATA }
+#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
+#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -12,20 +20,20 @@ export default struct PCI_VIRTUALIZATION_INTERFACE {
 
     Context : IntPtr
 
-    InterfaceReference : IntPtr
+    InterfaceReference : PINTERFACE_REFERENCE
 
-    InterfaceDereference : IntPtr
+    InterfaceDereference : PINTERFACE_DEREFERENCE
 
-    SetVirtualFunctionData : IntPtr
+    SetVirtualFunctionData : PSET_VIRTUAL_DEVICE_DATA
 
-    GetVirtualFunctionData : IntPtr
+    GetVirtualFunctionData : PGET_VIRTUAL_DEVICE_DATA
 
-    GetLocation : IntPtr
+    GetLocation : PGET_VIRTUAL_DEVICE_LOCATION
 
-    GetResources : IntPtr
+    GetResources : PGET_VIRTUAL_DEVICE_RESOURCES
 
-    EnableVirtualization : IntPtr
+    EnableVirtualization : PENABLE_VIRTUALIZATION
 
-    GetVirtualFunctionProbedBars : IntPtr
+    GetVirtualFunctionProbedBars : PGET_VIRTUAL_FUNCTION_PROBED_BARS
 
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Establishes a one-way secure channel between two objects.
@@ -97,7 +97,7 @@ export default struct IMFSecureChannel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsecurechannel-setupsession
      */
     SetupSession(pbEncryptedSessionKey, cbSessionKey) {
-        result := ComCall(4, this, "ptr", pbEncryptedSessionKey, "uint", cbSessionKey, "HRESULT")
+        result := ComCall(4, this, IntPtr, pbEncryptedSessionKey, UInt32, cbSessionKey, "HRESULT")
         return result
     }
 

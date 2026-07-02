@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugApplication64.ahk" { IDebugApplication64 }
 #Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
+#Import ".\IDebugApplication64.ahk" { IDebugApplication64 }
 #Import ".\IActiveScriptErrorDebug.ahk" { IActiveScriptErrorDebug }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -51,7 +51,7 @@ export default struct IActiveScriptSiteDebug64 extends IUnknown {
      * @returns {IDebugDocumentContext} 
      */
     GetDocumentContextFromPosition(dwSourceContext, uCharacterOffset, uNumChars) {
-        result := ComCall(3, this, "uint", dwSourceContext, "uint", uCharacterOffset, "uint", uNumChars, "ptr*", &ppsc := 0, "HRESULT")
+        result := ComCall(3, this, Int64, dwSourceContext, UInt32, uCharacterOffset, UInt32, uNumChars, "ptr*", &ppsc := 0, "HRESULT")
         return IDebugDocumentContext(ppsc)
     }
 

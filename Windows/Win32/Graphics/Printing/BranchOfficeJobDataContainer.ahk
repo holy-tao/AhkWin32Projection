@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EBranchOfficeJobEventType.ahk" { EBranchOfficeJobEventType }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BranchOfficeJobDataPrinted.ahk" { BranchOfficeJobDataPrinted }
 #Import ".\BranchOfficeJobDataError.ahk" { BranchOfficeJobDataError }
 #Import ".\BranchOfficeLogOfflineFileFull.ahk" { BranchOfficeLogOfflineFileFull }
 #Import ".\BranchOfficeJobDataRendered.ahk" { BranchOfficeJobDataRendered }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\BranchOfficeJobDataPipelineFailed.ahk" { BranchOfficeJobDataPipelineFailed }
-#Import ".\BranchOfficeJobDataPrinted.ahk" { BranchOfficeJobDataPrinted }
+#Import ".\EBranchOfficeJobEventType.ahk" { EBranchOfficeJobEventType }
 #Import ".\BranchOfficeJobData.ahk" { BranchOfficeJobData }
 
 /**

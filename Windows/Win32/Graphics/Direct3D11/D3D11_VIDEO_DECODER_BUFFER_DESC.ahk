@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk" { D3D11_VIDEO_DECODER_BUFFER_TYPE }
-#Import ".\D3D11_ENCRYPTED_BLOCK_INFO.ahk" { D3D11_ENCRYPTED_BLOCK_INFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_ENCRYPTED_BLOCK_INFO.ahk" { D3D11_ENCRYPTED_BLOCK_INFO }
+#Import ".\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk" { D3D11_VIDEO_DECODER_BUFFER_TYPE }
 
 /**
  * Describes a compressed buffer for decoding. (D3D11_VIDEO_DECODER_BUFFER_DESC)

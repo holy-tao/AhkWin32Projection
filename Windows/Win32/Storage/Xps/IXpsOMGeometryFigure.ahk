@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import ".\XPS_SEGMENT_STROKE_PATTERN.ahk" { XPS_SEGMENT_STROKE_PATTERN }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\XPS_POINT.ahk" { XPS_POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XPS_SEGMENT_STROKE_PATTERN.ahk" { XPS_SEGMENT_STROKE_PATTERN }
 #Import ".\XPS_SEGMENT_TYPE.ahk" { XPS_SEGMENT_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes one portion of the path or clipping region that is specified by an IXpsOMGeometry interface.
@@ -1138,7 +1138,7 @@ export default struct IXpsOMGeometryFigure extends IUnknown {
         segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
         segmentStrokesMarshal := segmentStrokes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "uint", segmentCount, "uint", segmentDataCount, segmentTypesMarshal, segmentTypes, segmentDataMarshal, segmentData, segmentStrokesMarshal, segmentStrokes, "HRESULT")
+        result := ComCall(7, this, UInt32, segmentCount, UInt32, segmentDataCount, segmentTypesMarshal, segmentTypes, segmentDataMarshal, segmentData, segmentStrokesMarshal, segmentStrokes, "HRESULT")
         return result
     }
 

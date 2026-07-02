@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CMSG_SIGNER_ENCODE_INFO.ahk" { CMSG_SIGNER_ENCODE_INFO }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Contains information to be passed to CryptMsgOpenToEncode if dwMsgType is CMSG_SIGNED.

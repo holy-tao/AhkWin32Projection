@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MBN_PROVIDER2.ahk" { MBN_PROVIDER2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import ".\MBN_CELLULAR_CLASS.ahk" { MBN_CELLULAR_CLASS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MBN_PROVIDER2.ahk" { MBN_PROVIDER2 }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * This interface exposes the multi-carrier functionality of a capable Mobile Broadband device.

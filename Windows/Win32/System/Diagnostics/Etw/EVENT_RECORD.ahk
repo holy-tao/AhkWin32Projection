@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
+#Import ".\ETW_BUFFER_CONTEXT.ahk" { ETW_BUFFER_CONTEXT }
 #Import ".\EVENT_HEADER.ahk" { EVENT_HEADER }
+#Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\EVENT_HEADER_EXTENDED_DATA_ITEM.ahk" { EVENT_HEADER_EXTENDED_DATA_ITEM }
-#Import ".\ETW_BUFFER_CONTEXT.ahk" { ETW_BUFFER_CONTEXT }
 
 /**
  * The EVENT_RECORD structure (evntcons.h) defines the layout of an event that ETW delivers.

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionClip.ahk" { IDCompositionClip }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionClip.ahk" { IDCompositionClip }
 
 /**
  * Represents a clip object that restricts the rendering of a visual subtree to the specified rectangular region. Optionally, the clip object may have rounded corners specified.
@@ -98,7 +98,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrectangleclip-setleft(float)
      */
     SetLeft1(left) {
-        result := ComCall(4, this, "float", left, "HRESULT")
+        result := ComCall(4, this, Float32, left, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrectangleclip-settop(float)
      */
     SetTop1(top) {
-        result := ComCall(6, this, "float", top, "HRESULT")
+        result := ComCall(6, this, Float32, top, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrectangleclip-setright(idcompositionanimation)
      */
     SetRight1(right) {
-        result := ComCall(8, this, "float", right, "HRESULT")
+        result := ComCall(8, this, Float32, right, "HRESULT")
         return result
     }
 
@@ -222,7 +222,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionrectangleclip-setbottom(float)
      */
     SetBottom1(bottom) {
-        result := ComCall(10, this, "float", bottom, "HRESULT")
+        result := ComCall(10, this, Float32, bottom, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/directcomp/idcompositionrectangleclip-settopleftradiusx
      */
     SetTopLeftRadiusX1(radius) {
-        result := ComCall(12, this, "float", radius, "HRESULT")
+        result := ComCall(12, this, Float32, radius, "HRESULT")
         return result
     }
 
@@ -266,7 +266,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/directcomp/idcompositionrectangleclip-settopleftradiusy
      */
     SetTopLeftRadiusY1(radius) {
-        result := ComCall(14, this, "float", radius, "HRESULT")
+        result := ComCall(14, this, Float32, radius, "HRESULT")
         return result
     }
 
@@ -288,7 +288,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/directcomp/idcompositionrectangleclip-settoprightradiusx
      */
     SetTopRightRadiusX1(radius) {
-        result := ComCall(16, this, "float", radius, "HRESULT")
+        result := ComCall(16, this, Float32, radius, "HRESULT")
         return result
     }
 
@@ -310,7 +310,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/directcomp/idcompositionrectangleclip-settoprightradiusy
      */
     SetTopRightRadiusY1(radius) {
-        result := ComCall(18, this, "float", radius, "HRESULT")
+        result := ComCall(18, this, Float32, radius, "HRESULT")
         return result
     }
 
@@ -332,7 +332,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/directcomp/idcompositionrectangleclip-setbottomleftradiusx
      */
     SetBottomLeftRadiusX1(radius) {
-        result := ComCall(20, this, "float", radius, "HRESULT")
+        result := ComCall(20, this, Float32, radius, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/directcomp/idcompositionrectangleclip-setbottomleftradiusy
      */
     SetBottomLeftRadiusY1(radius) {
-        result := ComCall(22, this, "float", radius, "HRESULT")
+        result := ComCall(22, this, Float32, radius, "HRESULT")
         return result
     }
 
@@ -376,7 +376,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/directcomp/idcompositionrectangleclip-setbottomrightradiusx
      */
     SetBottomRightRadiusX1(radius) {
-        result := ComCall(24, this, "float", radius, "HRESULT")
+        result := ComCall(24, this, Float32, radius, "HRESULT")
         return result
     }
 
@@ -398,7 +398,7 @@ export default struct IDCompositionRectangleClip extends IDCompositionClip {
      * @see https://learn.microsoft.com/windows/win32/directcomp/idcompositionrectangleclip-setbottomrightradiusy
      */
     SetBottomRightRadiusY1(radius) {
-        result := ComCall(26, this, "float", radius, "HRESULT")
+        result := ComCall(26, this, Float32, radius, "HRESULT")
         return result
     }
 

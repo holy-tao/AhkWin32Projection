@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
-#Import ".\D2D1_MAPPED_RECT.ahk" { D2D1_MAPPED_RECT }
-#Import ".\D2D1_MAP_OPTIONS.ahk" { D2D1_MAP_OPTIONS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D2D1_BITMAP_OPTIONS.ahk" { D2D1_BITMAP_OPTIONS }
 #Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
+#Import ".\D2D1_MAP_OPTIONS.ahk" { D2D1_MAP_OPTIONS }
+#Import ".\D2D1_BITMAP_OPTIONS.ahk" { D2D1_BITMAP_OPTIONS }
+#Import ".\D2D1_MAPPED_RECT.ahk" { D2D1_MAPPED_RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
 #Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
 
 /**

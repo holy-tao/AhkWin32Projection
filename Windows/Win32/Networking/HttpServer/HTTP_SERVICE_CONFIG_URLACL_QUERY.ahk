@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk" { HTTP_SERVICE_CONFIG_QUERY_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk" { HTTP_SERVICE_CONFIG_URLACL_KEY }
+#Import ".\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk" { HTTP_SERVICE_CONFIG_QUERY_TYPE }
 
 /**
  * Used to specify a particular reservation record to query in the URL namespace reservation store.

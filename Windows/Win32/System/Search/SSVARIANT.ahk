@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Com\CY.ahk" { CY }
-#Import ".\DBTIMESTAMP.ahk" { DBTIMESTAMP }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DB_NUMERIC.ahk" { DB_NUMERIC }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DBOBJECT.ahk" { DBOBJECT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\CY.ahk" { CY }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBOBJECT.ahk" { DBOBJECT }
+#Import ".\DBTIMESTAMP.ahk" { DBTIMESTAMP }
+#Import ".\DB_NUMERIC.ahk" { DB_NUMERIC }
 
 /**
  * @namespace Windows.Win32.System.Search

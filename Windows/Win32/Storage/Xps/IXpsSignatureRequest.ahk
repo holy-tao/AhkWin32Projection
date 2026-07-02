@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsSignature.ahk" { IXpsSignature }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsSignature.ahk" { IXpsSignature }
 
 /**
  * Accesses the components of a signature request.
@@ -430,7 +430,7 @@ export default struct IXpsSignatureRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setspotlocation
      */
     SetSpotLocation(pageIndex, x, y) {
-        result := ComCall(12, this, "int", pageIndex, "float", x, "float", y, "HRESULT")
+        result := ComCall(12, this, Int32, pageIndex, Float32, x, Float32, y, "HRESULT")
         return result
     }
 

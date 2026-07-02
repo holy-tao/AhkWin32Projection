@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\IContactPropertyCollection.ahk" { IContactPropertyCollection }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IContactPropertyCollection.ahk" { IContactPropertyCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IStream.ahk" { IStream }
 
 /**
  * Do not use. Used to retrieve, set, create, and remove properties on an IContact. Property names and extension mechanisms are described in icontactproperties.h.
@@ -142,7 +142,7 @@ export default struct IContactProperties extends IUnknown {
 
         pdwcchPropertyValueRequiredMarshal := pdwcchPropertyValueRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszValue, "uint", cchValue, pdwcchPropertyValueRequiredMarshal, pdwcchPropertyValueRequired, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPropertyName, UInt32, dwFlags, "ptr", pszValue, UInt32, cchValue, pdwcchPropertyValueRequiredMarshal, pdwcchPropertyValueRequired, "HRESULT")
         return result
     }
 
@@ -210,7 +210,7 @@ export default struct IContactProperties extends IUnknown {
     GetDate(pszPropertyName, dwFlags, pftDateTime) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := ComCall(4, this, "ptr", pszPropertyName, "uint", dwFlags, FILETIME.Ptr, pftDateTime, "HRESULT")
+        result := ComCall(4, this, "ptr", pszPropertyName, UInt32, dwFlags, FILETIME.Ptr, pftDateTime, "HRESULT")
         return result
     }
 
@@ -248,7 +248,7 @@ export default struct IContactProperties extends IUnknown {
 
         pdwcchContentTypeRequiredMarshal := pdwcchContentTypeRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszContentType, "uint", cchContentType, pdwcchContentTypeRequiredMarshal, pdwcchContentTypeRequired, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPropertyName, UInt32, dwFlags, "ptr", pszContentType, UInt32, cchContentType, pdwcchContentTypeRequiredMarshal, pdwcchContentTypeRequired, "ptr*", &ppStream := 0, "HRESULT")
         return IStream(ppStream)
     }
 
@@ -335,7 +335,7 @@ export default struct IContactProperties extends IUnknown {
 
         pdwcchLabelsRequiredMarshal := pdwcchLabelsRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pszArrayElementName, "uint", dwFlags, "ptr", pszLabels, "uint", cchLabels, pdwcchLabelsRequiredMarshal, pdwcchLabelsRequired, "HRESULT")
+        result := ComCall(6, this, "ptr", pszArrayElementName, UInt32, dwFlags, "ptr", pszLabels, UInt32, cchLabels, pdwcchLabelsRequiredMarshal, pdwcchLabelsRequired, "HRESULT")
         return result
     }
 
@@ -404,7 +404,7 @@ export default struct IContactProperties extends IUnknown {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(7, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszValue, "HRESULT")
+        result := ComCall(7, this, "ptr", pszPropertyName, UInt32, dwFlags, "ptr", pszValue, "HRESULT")
         return result
     }
 
@@ -468,7 +468,7 @@ export default struct IContactProperties extends IUnknown {
     SetDate(pszPropertyName, dwFlags, ftDateTime) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := ComCall(8, this, "ptr", pszPropertyName, "uint", dwFlags, FILETIME, ftDateTime, "HRESULT")
+        result := ComCall(8, this, "ptr", pszPropertyName, UInt32, dwFlags, FILETIME, ftDateTime, "HRESULT")
         return result
     }
 
@@ -542,7 +542,7 @@ export default struct IContactProperties extends IUnknown {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszContentType := pszContentType is String ? StrPtr(pszContentType) : pszContentType
 
-        result := ComCall(9, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pszContentType, "ptr", pStream, "HRESULT")
+        result := ComCall(9, this, "ptr", pszPropertyName, UInt32, dwFlags, "ptr", pszContentType, "ptr", pStream, "HRESULT")
         return result
     }
 
@@ -610,7 +610,7 @@ export default struct IContactProperties extends IUnknown {
 
         ppszLabelsMarshal := ppszLabels is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", pszArrayElementName, "uint", dwFlags, "uint", dwLabelCount, ppszLabelsMarshal, ppszLabels, "HRESULT")
+        result := ComCall(10, this, "ptr", pszArrayElementName, UInt32, dwFlags, UInt32, dwLabelCount, ppszLabelsMarshal, ppszLabels, "HRESULT")
         return result
     }
 
@@ -696,7 +696,7 @@ export default struct IContactProperties extends IUnknown {
 
         pdwcchNewArrayElementNameRequiredMarshal := pdwcchNewArrayElementNameRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pszArrayName, "uint", dwFlags, BOOL, fAppend, "ptr", pszNewArrayElementName, "uint", cchNewArrayElementName, pdwcchNewArrayElementNameRequiredMarshal, pdwcchNewArrayElementNameRequired, "HRESULT")
+        result := ComCall(11, this, "ptr", pszArrayName, UInt32, dwFlags, BOOL, fAppend, "ptr", pszNewArrayElementName, UInt32, cchNewArrayElementName, pdwcchNewArrayElementNameRequiredMarshal, pdwcchNewArrayElementNameRequired, "HRESULT")
         return result
     }
 
@@ -745,7 +745,7 @@ export default struct IContactProperties extends IUnknown {
     DeleteProperty(pszPropertyName, dwFlags) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := ComCall(12, this, "ptr", pszPropertyName, "uint", dwFlags, "HRESULT")
+        result := ComCall(12, this, "ptr", pszPropertyName, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -798,7 +798,7 @@ export default struct IContactProperties extends IUnknown {
     DeleteArrayNode(pszArrayElementName, dwFlags) {
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
 
-        result := ComCall(13, this, "ptr", pszArrayElementName, "uint", dwFlags, "HRESULT")
+        result := ComCall(13, this, "ptr", pszArrayElementName, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -847,7 +847,7 @@ export default struct IContactProperties extends IUnknown {
     DeleteLabels(pszArrayElementName, dwFlags) {
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
 
-        result := ComCall(14, this, "ptr", pszArrayElementName, "uint", dwFlags, "HRESULT")
+        result := ComCall(14, this, "ptr", pszArrayElementName, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -887,7 +887,7 @@ export default struct IContactProperties extends IUnknown {
 
         ppszLabelsMarshal := ppszLabels is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(15, this, "ptr*", &ppPropertyCollection := 0, "uint", dwFlags, "ptr", pszMultiValueName, "uint", dwLabelCount, ppszLabelsMarshal, ppszLabels, BOOL, fAnyLabelMatches, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppPropertyCollection := 0, UInt32, dwFlags, "ptr", pszMultiValueName, UInt32, dwLabelCount, ppszLabelsMarshal, ppszLabels, BOOL, fAnyLabelMatches, "HRESULT")
         return IContactPropertyCollection(ppPropertyCollection)
     }
 

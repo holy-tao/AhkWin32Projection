@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ComponentHangMonitorInfo.ahk" { ComponentHangMonitorInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ApplicationProcessStatistics.ahk" { ApplicationProcessStatistics }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ComponentSummary.ahk" { ComponentSummary }
-#Import ".\ApplicationSummary.ahk" { ApplicationSummary }
 #Import ".\ApplicationProcessRecycleInfo.ahk" { ApplicationProcessRecycleInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ComponentStatistics.ahk" { ComponentStatistics }
 #Import ".\ApplicationProcessSummary.ahk" { ApplicationProcessSummary }
+#Import ".\ApplicationSummary.ahk" { ApplicationSummary }
+#Import ".\ComponentSummary.ahk" { ComponentSummary }
+#Import ".\ApplicationProcessStatistics.ahk" { ApplicationProcessStatistics }
+#Import ".\ComponentStatistics.ahk" { ComponentStatistics }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ComponentHangMonitorInfo.ahk" { ComponentHangMonitorInfo }
 
 /**
  * Enables administrative applications to retrieve statistical information about running COM+ applications.
@@ -138,7 +138,7 @@ export default struct IGetAppTrackerData extends IUnknown {
         NumApplicationProcessesMarshal := NumApplicationProcesses is VarRef ? "uint*" : "ptr"
         ApplicationProcessesMarshal := ApplicationProcesses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, Guid.Ptr, PartitionId, Guid.Ptr, ApplicationId, "uint", Flags, NumApplicationProcessesMarshal, NumApplicationProcesses, ApplicationProcessesMarshal, ApplicationProcesses, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, PartitionId, Guid.Ptr, ApplicationId, UInt32, Flags, NumApplicationProcessesMarshal, NumApplicationProcesses, ApplicationProcessesMarshal, ApplicationProcesses, "HRESULT")
         return result
     }
 
@@ -190,7 +190,7 @@ export default struct IGetAppTrackerData extends IUnknown {
     GetApplicationProcessDetails(ApplicationInstanceId, ProcessId, Flags, Summary, Statistics, RecycleInfo, AnyComponentsHangMonitored) {
         AnyComponentsHangMonitoredMarshal := AnyComponentsHangMonitored is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, Guid.Ptr, ApplicationInstanceId, "uint", ProcessId, "uint", Flags, ApplicationProcessSummary.Ptr, Summary, ApplicationProcessStatistics.Ptr, Statistics, ApplicationProcessRecycleInfo.Ptr, RecycleInfo, AnyComponentsHangMonitoredMarshal, AnyComponentsHangMonitored, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, UInt32, Flags, ApplicationProcessSummary.Ptr, Summary, ApplicationProcessStatistics.Ptr, Statistics, ApplicationProcessRecycleInfo.Ptr, RecycleInfo, AnyComponentsHangMonitoredMarshal, AnyComponentsHangMonitored, "HRESULT")
         return result
     }
 
@@ -253,7 +253,7 @@ export default struct IGetAppTrackerData extends IUnknown {
         NumApplicationsInProcessMarshal := NumApplicationsInProcess is VarRef ? "uint*" : "ptr"
         ApplicationsMarshal := Applications is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, Guid.Ptr, ApplicationInstanceId, "uint", ProcessId, Guid.Ptr, PartitionId, "uint", Flags, NumApplicationsInProcessMarshal, NumApplicationsInProcess, ApplicationsMarshal, Applications, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, Guid.Ptr, PartitionId, UInt32, Flags, NumApplicationsInProcessMarshal, NumApplicationsInProcess, ApplicationsMarshal, Applications, "HRESULT")
         return result
     }
 
@@ -319,7 +319,7 @@ export default struct IGetAppTrackerData extends IUnknown {
         NumComponentsInProcessMarshal := NumComponentsInProcess is VarRef ? "uint*" : "ptr"
         _ComponentsMarshal := _Components is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, Guid.Ptr, ApplicationInstanceId, "uint", ProcessId, Guid.Ptr, PartitionId, Guid.Ptr, ApplicationId, "uint", Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, _ComponentsMarshal, _Components, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, Guid.Ptr, PartitionId, Guid.Ptr, ApplicationId, UInt32, Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, _ComponentsMarshal, _Components, "HRESULT")
         return result
     }
 
@@ -382,7 +382,7 @@ export default struct IGetAppTrackerData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getcomponentdetails
      */
     GetComponentDetails(ApplicationInstanceId, ProcessId, Clsid, Flags, Summary, Statistics, HangMonitorInfo) {
-        result := ComCall(7, this, Guid.Ptr, ApplicationInstanceId, "uint", ProcessId, Guid.Ptr, Clsid, "uint", Flags, ComponentSummary.Ptr, Summary, ComponentStatistics.Ptr, Statistics, ComponentHangMonitorInfo.Ptr, HangMonitorInfo, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, Guid.Ptr, Clsid, UInt32, Flags, ComponentSummary.Ptr, Summary, ComponentStatistics.Ptr, Statistics, ComponentHangMonitorInfo.Ptr, HangMonitorInfo, "HRESULT")
         return result
     }
 

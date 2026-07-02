@@ -1,26 +1,26 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SelectionHitResult.ahk" { SelectionHitResult }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import ".\InkCollectionMode.ahk" { InkCollectionMode }
+#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import ".\InkOverlayEditingMode.ahk" { InkOverlayEditingMode }
+#Import ".\InkPictureSizeMode.ahk" { InkPictureSizeMode }
+#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
+#Import ".\IInkRenderer.ahk" { IInkRenderer }
+#Import ".\IInkTablet.ahk" { IInkTablet }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IInkCursors.ahk" { IInkCursors }
+#Import ".\InkMousePointer.ahk" { InkMousePointer }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
 #Import ".\InkCollectorEventInterest.ahk" { InkCollectorEventInterest }
 #Import ".\InkOverlayEraserMode.ahk" { InkOverlayEraserMode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInkCursors.ahk" { IInkCursors }
-#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
-#Import ".\InkMousePointer.ahk" { InkMousePointer }
-#Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import ".\IInkRenderer.ahk" { IInkRenderer }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
-#Import ".\InkPictureSizeMode.ahk" { InkPictureSizeMode }
-#Import ".\IInkRectangle.ahk" { IInkRectangle }
-#Import ".\InkOverlayEditingMode.ahk" { InkOverlayEditingMode }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\InkCollectionMode.ahk" { InkCollectionMode }
-#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
-#Import ".\SelectionHitResult.ahk" { SelectionHitResult }
-#Import ".\IInkDisp.ahk" { IInkDisp }
-#Import ".\IInkTablet.ahk" { IInkTablet }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * . (IInkPicture)
@@ -871,7 +871,7 @@ export default struct IInkPicture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-put_eraserwidth
      */
     put_EraserWidth(newEraserWidth) {
-        result := ComCall(35, this, "int", newEraserWidth, "HRESULT")
+        result := ComCall(35, this, Int32, newEraserWidth, "HRESULT")
         return result
     }
 
@@ -946,7 +946,7 @@ export default struct IInkPicture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-put_backcolor
      */
     put_BackColor(newColor) {
-        result := ComCall(41, this, "uint", newColor, "HRESULT")
+        result := ComCall(41, this, UInt32, newColor, "HRESULT")
         return result
     }
 
@@ -1020,7 +1020,7 @@ export default struct IInkPicture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-put_marginx
      */
     put_MarginX(MarginX) {
-        result := ComCall(45, this, "int", MarginX, "HRESULT")
+        result := ComCall(45, this, Int32, MarginX, "HRESULT")
         return result
     }
 
@@ -1059,7 +1059,7 @@ export default struct IInkPicture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-put_marginy
      */
     put_MarginY(MarginY) {
-        result := ComCall(47, this, "int", MarginY, "HRESULT")
+        result := ComCall(47, this, Int32, MarginY, "HRESULT")
         return result
     }
 
@@ -1141,7 +1141,7 @@ export default struct IInkPicture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-hittestselection
      */
     HitTestSelection(x, y) {
-        result := ComCall(53, this, "int", x, "int", y, "int*", &SelArea := 0, "HRESULT")
+        result := ComCall(53, this, Int32, x, Int32, y, "int*", &SelArea := 0, "HRESULT")
         return SelArea
     }
 

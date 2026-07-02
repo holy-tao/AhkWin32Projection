@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1LookupTable3D.ahk" { ID2D1LookupTable3D }
 #Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
 #Import ".\ID2D1EffectContext.ahk" { ID2D1EffectContext }
-#Import ".\ID2D1LookupTable3D.ahk" { ID2D1LookupTable3D }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides factory methods and other state management for effect and transform authors. (ID2D1EffectContext1)
@@ -67,7 +67,7 @@ export default struct ID2D1EffectContext1 extends ID2D1EffectContext {
         dataMarshal := data is VarRef ? "char*" : "ptr"
         stridesMarshal := strides is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, D2D1_BUFFER_PRECISION, precision, extentsMarshal, extents, dataMarshal, data, "uint", dataCount, stridesMarshal, strides, "ptr*", &lookupTable := 0, "HRESULT")
+        result := ComCall(24, this, D2D1_BUFFER_PRECISION, precision, extentsMarshal, extents, dataMarshal, data, UInt32, dataCount, stridesMarshal, strides, "ptr*", &lookupTable := 0, "HRESULT")
         return ID2D1LookupTable3D(lookupTable)
     }
 

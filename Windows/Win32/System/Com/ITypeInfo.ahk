@@ -2,20 +2,20 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VARDESC.ahk" { VARDESC }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TYPEATTR.ahk" { TYPEATTR }
-#Import ".\INVOKEKIND.ahk" { INVOKEKIND }
-#Import ".\EXCEPINFO.ahk" { EXCEPINFO }
-#Import ".\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\FUNCDESC.ahk" { FUNCDESC }
 #Import ".\ITypeLib.ahk" { ITypeLib }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DISPATCH_FLAGS.ahk" { DISPATCH_FLAGS }
 #Import ".\ITypeComp.ahk" { ITypeComp }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DISPPARAMS.ahk" { DISPPARAMS }
-#Import ".\DISPATCH_FLAGS.ahk" { DISPATCH_FLAGS }
+#Import ".\INVOKEKIND.ahk" { INVOKEKIND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TYPEATTR.ahk" { TYPEATTR }
+#Import ".\EXCEPINFO.ahk" { EXCEPINFO }
 
 /**
  * Used for reading information about objects. (ITypeInfo)
@@ -123,7 +123,7 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getfuncdesc
      */
     GetFuncDesc(index) {
-        result := ComCall(5, this, "uint", index, "ptr*", &ppFuncDesc := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr*", &ppFuncDesc := 0, "HRESULT")
         return ppFuncDesc
     }
 
@@ -136,7 +136,7 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getvardesc
      */
     GetVarDesc(index) {
-        result := ComCall(6, this, "uint", index, "ptr*", &ppVarDesc := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "ptr*", &ppVarDesc := 0, "HRESULT")
         return ppVarDesc
     }
 
@@ -209,7 +209,7 @@ export default struct ITypeInfo extends IUnknown {
     GetNames(memid, rgBstrNames, cMaxNames, pcNames) {
         pcNamesMarshal := pcNames is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "int", memid, BSTR.Ptr, rgBstrNames, "uint", cMaxNames, pcNamesMarshal, pcNames, "HRESULT")
+        result := ComCall(7, this, Int32, memid, BSTR.Ptr, rgBstrNames, UInt32, cMaxNames, pcNamesMarshal, pcNames, "HRESULT")
         return result
     }
 
@@ -222,7 +222,7 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getreftypeofimpltype
      */
     GetRefTypeOfImplType(index) {
-        result := ComCall(8, this, "uint", index, "uint*", &pRefType := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, index, "uint*", &pRefType := 0, "HRESULT")
         return pRefType
     }
 
@@ -235,7 +235,7 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getimpltypeflags
      */
     GetImplTypeFlags(index) {
-        result := ComCall(9, this, "uint", index, "int*", &pImplTypeFlags := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, index, "int*", &pImplTypeFlags := 0, "HRESULT")
         return pImplTypeFlags
     }
 
@@ -255,7 +255,7 @@ export default struct ITypeInfo extends IUnknown {
     GetIDsOfNames(rgszNames, cNames) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, rgszNamesMarshal, rgszNames, "uint", cNames, "int*", &pMemId := 0, "HRESULT")
+        result := ComCall(10, this, rgszNamesMarshal, rgszNames, UInt32, cNames, "int*", &pMemId := 0, "HRESULT")
         return pMemId
     }
 
@@ -384,7 +384,7 @@ export default struct ITypeInfo extends IUnknown {
         pvInstanceMarshal := pvInstance is VarRef ? "ptr" : "ptr"
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pvInstanceMarshal, pvInstance, "int", memid, DISPATCH_FLAGS, wFlags, DISPPARAMS.Ptr, pDispParams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(11, this, pvInstanceMarshal, pvInstance, Int32, memid, DISPATCH_FLAGS, wFlags, DISPPARAMS.Ptr, pDispParams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 
@@ -454,7 +454,7 @@ export default struct ITypeInfo extends IUnknown {
     GetDocumentation(memid, pBstrName, pBstrDocString, pdwHelpContext, pBstrHelpFile) {
         pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "int", memid, BSTR.Ptr, pBstrName, BSTR.Ptr, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, BSTR.Ptr, pBstrHelpFile, "HRESULT")
+        result := ComCall(12, this, Int32, memid, BSTR.Ptr, pBstrName, BSTR.Ptr, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, BSTR.Ptr, pBstrHelpFile, "HRESULT")
         return result
     }
 
@@ -524,7 +524,7 @@ export default struct ITypeInfo extends IUnknown {
     GetDllEntry(memid, invKind, pBstrDllName, pBstrName, pwOrdinal) {
         pwOrdinalMarshal := pwOrdinal is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(13, this, "int", memid, INVOKEKIND, invKind, BSTR.Ptr, pBstrDllName, BSTR.Ptr, pBstrName, pwOrdinalMarshal, pwOrdinal, "HRESULT")
+        result := ComCall(13, this, Int32, memid, INVOKEKIND, invKind, BSTR.Ptr, pBstrDllName, BSTR.Ptr, pBstrName, pwOrdinalMarshal, pwOrdinal, "HRESULT")
         return result
     }
 
@@ -537,7 +537,7 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getreftypeinfo
      */
     GetRefTypeInfo(hRefType) {
-        result := ComCall(14, this, "uint", hRefType, "ptr*", &ppTInfo := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, hRefType, "ptr*", &ppTInfo := 0, "HRESULT")
         return ITypeInfo(ppTInfo)
     }
 
@@ -553,7 +553,7 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-addressofmember
      */
     AddressOfMember(memid, invKind) {
-        result := ComCall(15, this, "int", memid, INVOKEKIND, invKind, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(15, this, Int32, memid, INVOKEKIND, invKind, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -585,7 +585,7 @@ export default struct ITypeInfo extends IUnknown {
      */
     GetMops(memid) {
         pBstrMops := BSTR.Owned()
-        result := ComCall(17, this, "int", memid, BSTR.Ptr, pBstrMops, "HRESULT")
+        result := ComCall(17, this, Int32, memid, BSTR.Ptr, pBstrMops, "HRESULT")
         return pBstrMops
     }
 

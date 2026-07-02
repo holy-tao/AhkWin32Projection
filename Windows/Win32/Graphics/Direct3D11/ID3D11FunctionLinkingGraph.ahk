@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D11_PARAMETER_DESC.ahk" { D3D11_PARAMETER_DESC }
-#Import ".\ID3D11LinkingNode.ahk" { ID3D11LinkingNode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
-#Import ".\ID3D11Module.ahk" { ID3D11Module }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ID3D11ModuleInstance.ahk" { ID3D11ModuleInstance }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
+#Import ".\D3D11_PARAMETER_DESC.ahk" { D3D11_PARAMETER_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D11Module.ahk" { ID3D11Module }
+#Import ".\ID3D11LinkingNode.ahk" { ID3D11LinkingNode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A function-linking-graph interface is used for constructing shaders that consist of a sequence of precompiled function calls that pass values to each other.
@@ -89,7 +89,7 @@ export default struct ID3D11FunctionLinkingGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-setinputsignature
      */
     SetInputSignature(pInputParameters, cInputParameters) {
-        result := ComCall(4, this, D3D11_PARAMETER_DESC.Ptr, pInputParameters, "uint", cInputParameters, "ptr*", &ppInputNode := 0, "HRESULT")
+        result := ComCall(4, this, D3D11_PARAMETER_DESC.Ptr, pInputParameters, UInt32, cInputParameters, "ptr*", &ppInputNode := 0, "HRESULT")
         return ID3D11LinkingNode(ppInputNode)
     }
 
@@ -107,7 +107,7 @@ export default struct ID3D11FunctionLinkingGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-setoutputsignature
      */
     SetOutputSignature(pOutputParameters, cOutputParameters) {
-        result := ComCall(5, this, D3D11_PARAMETER_DESC.Ptr, pOutputParameters, "uint", cOutputParameters, "ptr*", &ppOutputNode := 0, "HRESULT")
+        result := ComCall(5, this, D3D11_PARAMETER_DESC.Ptr, pOutputParameters, UInt32, cOutputParameters, "ptr*", &ppOutputNode := 0, "HRESULT")
         return ID3D11LinkingNode(ppOutputNode)
     }
 
@@ -155,7 +155,7 @@ export default struct ID3D11FunctionLinkingGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-passvalue
      */
     PassValue(pSrcNode, SrcParameterIndex, pDstNode, DstParameterIndex) {
-        result := ComCall(7, this, "ptr", pSrcNode, "int", SrcParameterIndex, "ptr", pDstNode, "int", DstParameterIndex, "HRESULT")
+        result := ComCall(7, this, "ptr", pSrcNode, Int32, SrcParameterIndex, "ptr", pDstNode, Int32, DstParameterIndex, "HRESULT")
         return result
     }
 
@@ -188,7 +188,7 @@ export default struct ID3D11FunctionLinkingGraph extends IUnknown {
         pSrcSwizzle := pSrcSwizzle is String ? StrPtr(pSrcSwizzle) : pSrcSwizzle
         pDstSwizzle := pDstSwizzle is String ? StrPtr(pDstSwizzle) : pDstSwizzle
 
-        result := ComCall(8, this, "ptr", pSrcNode, "int", SrcParameterIndex, "ptr", pSrcSwizzle, "ptr", pDstNode, "int", DstParameterIndex, "ptr", pDstSwizzle, "HRESULT")
+        result := ComCall(8, this, "ptr", pSrcNode, Int32, SrcParameterIndex, "ptr", pSrcSwizzle, "ptr", pDstNode, Int32, DstParameterIndex, "ptr", pDstSwizzle, "HRESULT")
         return result
     }
 
@@ -215,7 +215,7 @@ export default struct ID3D11FunctionLinkingGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-generatehlsl
      */
     GenerateHlsl(uFlags) {
-        result := ComCall(10, this, "uint", uFlags, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, uFlags, "ptr*", &ppBuffer := 0, "HRESULT")
         return ID3DBlob(ppBuffer)
     }
 

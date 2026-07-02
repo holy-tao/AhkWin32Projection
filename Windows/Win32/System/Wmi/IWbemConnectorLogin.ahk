@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemContext.ahk" { IWbemContext }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -50,7 +50,7 @@ export default struct IWbemConnectorLogin extends IUnknown {
         wszNetworkResource := wszNetworkResource is String ? StrPtr(wszNetworkResource) : wszNetworkResource
         wszPreferredLocale := wszPreferredLocale is String ? StrPtr(wszPreferredLocale) : wszPreferredLocale
 
-        result := ComCall(3, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, "int", lFlags, "ptr", pCtx, Guid.Ptr, riid, "ptr*", &pInterface := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, Int32, lFlags, "ptr", pCtx, Guid.Ptr, riid, "ptr*", &pInterface := 0, "HRESULT")
         return pInterface
     }
 

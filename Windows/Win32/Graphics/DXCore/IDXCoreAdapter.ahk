@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXCoreAdapterProperty.ahk" { DXCoreAdapterProperty }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DXCoreAdapterState.ahk" { DXCoreAdapterState }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DXCoreAdapterProperty.ahk" { DXCoreAdapterProperty }
 
 /**
  * The **IDXCoreAdapter** interface implements methods for retrieving details about an adapter item.
@@ -112,7 +112,7 @@ export default struct IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getproperty
      */
     GetProperty(_property, bufferSize, propertyData) {
-        result := ComCall(6, this, DXCoreAdapterProperty, _property, "ptr", bufferSize, "ptr", propertyData, "HRESULT")
+        result := ComCall(6, this, DXCoreAdapterProperty, _property, IntPtr, bufferSize, IntPtr, propertyData, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-querystate
      */
     QueryState(state, inputStateDetailsSize, inputStateDetails, outputBufferSize, outputBuffer) {
-        result := ComCall(9, this, DXCoreAdapterState, state, "ptr", inputStateDetailsSize, "ptr", inputStateDetails, "ptr", outputBufferSize, "ptr", outputBuffer, "HRESULT")
+        result := ComCall(9, this, DXCoreAdapterState, state, IntPtr, inputStateDetailsSize, IntPtr, inputStateDetails, IntPtr, outputBufferSize, IntPtr, outputBuffer, "HRESULT")
         return result
     }
 
@@ -221,7 +221,7 @@ export default struct IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-setstate
      */
     SetState(state, inputStateDetailsSize, inputStateDetails, inputDataSize, inputData) {
-        result := ComCall(11, this, DXCoreAdapterState, state, "ptr", inputStateDetailsSize, "ptr", inputStateDetails, "ptr", inputDataSize, "ptr", inputData, "HRESULT")
+        result := ComCall(11, this, DXCoreAdapterState, state, IntPtr, inputStateDetailsSize, IntPtr, inputStateDetails, IntPtr, inputDataSize, IntPtr, inputData, "HRESULT")
         return result
     }
 

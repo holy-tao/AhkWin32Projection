@@ -48,7 +48,7 @@ export default struct ICertConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-reset
      */
     Reset(Index) {
-        result := ComCall(7, this, "int", Index, "int*", &pCount := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Index, "int*", &pCount := 0, "HRESULT")
         return pCount
     }
 
@@ -497,7 +497,7 @@ export default struct ICertConfig extends IDispatch {
      */
     GetConfig(Flags) {
         pstrOut := BSTR.Owned()
-        result := ComCall(10, this, "int", Flags, BSTR.Ptr, pstrOut, "HRESULT")
+        result := ComCall(10, this, Int32, Flags, BSTR.Ptr, pstrOut, "HRESULT")
         return pstrOut
     }
 

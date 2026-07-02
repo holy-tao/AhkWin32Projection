@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DBINDEXCOLUMNDESC.ahk" { DBINDEXCOLUMNDESC }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -69,7 +69,7 @@ export default struct IRowsetIndex extends IUnknown {
     Seek(_hAccessor, cKeyValues, pData, dwSeekOptions) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, HACCESSOR, _hAccessor, "ptr", cKeyValues, pDataMarshal, pData, "uint", dwSeekOptions, "HRESULT")
+        result := ComCall(4, this, HACCESSOR, _hAccessor, IntPtr, cKeyValues, pDataMarshal, pData, UInt32, dwSeekOptions, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IRowsetIndex extends IUnknown {
         pStartDataMarshal := pStartData is VarRef ? "ptr" : "ptr"
         pEndDataMarshal := pEndData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, HACCESSOR, _hAccessor, "ptr", cStartKeyColumns, pStartDataMarshal, pStartData, "ptr", cEndKeyColumns, pEndDataMarshal, pEndData, "uint", dwRangeOptions, "HRESULT")
+        result := ComCall(5, this, HACCESSOR, _hAccessor, IntPtr, cStartKeyColumns, pStartDataMarshal, pStartData, IntPtr, cEndKeyColumns, pEndDataMarshal, pEndData, UInt32, dwRangeOptions, "HRESULT")
         return result
     }
 

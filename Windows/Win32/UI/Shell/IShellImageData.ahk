@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IShellImageDataAbort.ahk" { IShellImageDataAbort }
-#Import "..\..\Graphics\GdiPlus\InterpolationMode.ahk" { InterpolationMode }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import "..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk" { IPropertySetStorage }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\GdiPlus\InterpolationMode.ahk" { InterpolationMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellImageDataAbort.ahk" { IShellImageDataAbort }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * Exposes methods and properties that display, manipulate, and describe image data.
@@ -148,7 +148,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-decode
      */
     Decode(dwFlags, cxDesired, cyDesired) {
-        result := ComCall(3, this, "uint", dwFlags, "uint", cxDesired, "uint", cyDesired, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, UInt32, cxDesired, UInt32, cyDesired, "HRESULT")
         return result
     }
 
@@ -757,7 +757,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-selectpage
      */
     SelectPage(iPage) {
-        result := ComCall(17, this, "uint", iPage, "HRESULT")
+        result := ComCall(17, this, UInt32, iPage, "HRESULT")
         return result
     }
 
@@ -916,7 +916,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getproperties
      */
     GetProperties(dwMode) {
-        result := ComCall(22, this, "uint", dwMode, "ptr*", &ppPropSet := 0, "HRESULT")
+        result := ComCall(22, this, UInt32, dwMode, "ptr*", &ppPropSet := 0, "HRESULT")
         return IPropertySetStorage(ppPropSet)
     }
 
@@ -993,7 +993,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-rotate
      */
     Rotate(dwAngle) {
-        result := ComCall(23, this, "uint", dwAngle, "HRESULT")
+        result := ComCall(23, this, UInt32, dwAngle, "HRESULT")
         return result
     }
 
@@ -1065,7 +1065,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-scale
      */
     Scale(cx, _cy, hints) {
-        result := ComCall(24, this, "uint", cx, "uint", _cy, InterpolationMode, hints, "HRESULT")
+        result := ComCall(24, this, UInt32, cx, UInt32, _cy, InterpolationMode, hints, "HRESULT")
         return result
     }
 
@@ -1132,7 +1132,7 @@ export default struct IShellImageData extends IUnknown {
     DisplayName(wszName, cch) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(27, this, "ptr", wszName, "uint", cch, "HRESULT")
+        result := ComCall(27, this, "ptr", wszName, UInt32, cch, "HRESULT")
         return result
     }
 

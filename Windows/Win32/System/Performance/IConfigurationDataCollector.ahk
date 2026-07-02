@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IDataCollector.ahk" { IDataCollector }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Collects computer settings at the time of collection.
@@ -168,7 +168,7 @@ export default struct IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-put_filemaxcount
      */
     put_FileMaxCount(count) {
-        result := ComCall(33, this, "uint", count, "HRESULT")
+        result := ComCall(33, this, UInt32, count, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-put_filemaxrecursivedepth
      */
     put_FileMaxRecursiveDepth(depth) {
-        result := ComCall(35, this, "uint", depth, "HRESULT")
+        result := ComCall(35, this, UInt32, depth, "HRESULT")
         return result
     }
 
@@ -210,7 +210,7 @@ export default struct IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-put_filemaxtotalsize
      */
     put_FileMaxTotalSize(_size) {
-        result := ComCall(37, this, "uint", _size, "HRESULT")
+        result := ComCall(37, this, UInt32, _size, "HRESULT")
         return result
     }
 
@@ -444,7 +444,7 @@ export default struct IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-put_registrymaxrecursivedepth
      */
     put_RegistryMaxRecursiveDepth(depth) {
-        result := ComCall(47, this, "uint", depth, "HRESULT")
+        result := ComCall(47, this, UInt32, depth, "HRESULT")
         return result
     }
 

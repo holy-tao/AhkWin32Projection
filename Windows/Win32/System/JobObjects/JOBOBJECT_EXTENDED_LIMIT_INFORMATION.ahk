@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\JOB_OBJECT_LIMIT.ahk" { JOB_OBJECT_LIMIT }
-#Import ".\JOBOBJECT_BASIC_LIMIT_INFORMATION.ahk" { JOBOBJECT_BASIC_LIMIT_INFORMATION }
 #Import "..\Threading\IO_COUNTERS.ahk" { IO_COUNTERS }
+#Import ".\JOBOBJECT_BASIC_LIMIT_INFORMATION.ahk" { JOBOBJECT_BASIC_LIMIT_INFORMATION }
 
 /**
  * Contains basic and extended limit information for a job object.

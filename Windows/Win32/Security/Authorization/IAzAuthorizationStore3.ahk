@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAzAuthorizationStore2.ahk" { IAzAuthorizationStore2 }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IAzAuthorizationStore2 interface with methods that manage business rule (BizRule) support and caching.
@@ -73,7 +73,7 @@ export default struct IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-upgradestoresfunctionallevel
      */
     UpgradeStoresFunctionalLevel(lFunctionalLevel) {
-        result := ComCall(62, this, "int", lFunctionalLevel, "HRESULT")
+        result := ComCall(62, this, Int32, lFunctionalLevel, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-isfunctionallevelupgradesupported
      */
     IsFunctionalLevelUpgradeSupported(lFunctionalLevel) {
-        result := ComCall(63, this, "int", lFunctionalLevel, VARIANT_BOOL.Ptr, &pbSupported := 0, "HRESULT")
+        result := ComCall(63, this, Int32, lFunctionalLevel, VARIANT_BOOL.Ptr, &pbSupported := 0, "HRESULT")
         return pbSupported
     }
 

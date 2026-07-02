@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IRTCSession2.ahk" { IRTCSession2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RTC_REINVITE_STATE.ahk" { RTC_REINVITE_STATE }
 #Import ".\RTC_SECURITY_TYPE.ahk" { RTC_SECURITY_TYPE }
+#Import ".\RTC_REINVITE_STATE.ahk" { RTC_REINVITE_STATE }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\RTC_SECURITY_LEVEL.ahk" { RTC_SECURITY_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRTCSession2.ahk" { IRTCSession2 }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -106,7 +106,7 @@ export default struct IRTCMediaRequestEvent extends IDispatch {
      * @returns {HRESULT} 
      */
     Accept(lMediaTypes) {
-        result := ComCall(10, this, "int", lMediaTypes, "HRESULT")
+        result := ComCall(10, this, Int32, lMediaTypes, "HRESULT")
         return result
     }
 

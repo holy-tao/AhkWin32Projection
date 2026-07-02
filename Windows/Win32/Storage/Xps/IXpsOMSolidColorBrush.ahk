@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
 #Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
-#Import ".\XPS_COLOR.ahk" { XPS_COLOR }
+#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_COLOR.ahk" { XPS_COLOR }
 
 /**
  * A single-color brush.

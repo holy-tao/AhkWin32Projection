@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\TAPI_TONEMODE.ahk" { TAPI_TONEMODE }
-#Import ".\ITDetectTone.ahk" { ITDetectTone }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TAPI_CUSTOMTONE.ahk" { TAPI_CUSTOMTONE }
-#Import ".\ITLegacyCallMediaControl.ahk" { ITLegacyCallMediaControl }
 #Import ".\TAPI_DETECTTONE.ahk" { TAPI_DETECTTONE }
 #Import ".\ITCollection2.ahk" { ITCollection2 }
-#Import ".\ITCustomTone.ahk" { ITCustomTone }
+#Import ".\TAPI_CUSTOMTONE.ahk" { TAPI_CUSTOMTONE }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITDetectTone.ahk" { ITDetectTone }
+#Import ".\ITLegacyCallMediaControl.ahk" { ITLegacyCallMediaControl }
+#Import ".\ITCustomTone.ahk" { ITCustomTone }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITLegacyCallMediaControl2 interface is an extension of the ITLegacyCallMediaControl interface. ITLegacyCallMediaControl2 provides additional methods, primarily for tone detection and generation.
@@ -111,7 +111,7 @@ export default struct ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl
     GenerateDigits2(pDigits, DigitMode, lDuration) {
         pDigits := pDigits is String ? BSTR.Alloc(pDigits).Value : pDigits
 
-        result := ComCall(12, this, BSTR, pDigits, "int", DigitMode, "int", lDuration, "HRESULT")
+        result := ComCall(12, this, BSTR, pDigits, Int32, DigitMode, Int32, lDuration, "HRESULT")
         return result
     }
 
@@ -193,7 +193,7 @@ export default struct ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl
     GatherDigits(DigitMode, lNumDigits, pTerminationDigits, lFirstDigitTimeout, lInterDigitTimeout) {
         pTerminationDigits := pTerminationDigits is String ? BSTR.Alloc(pTerminationDigits).Value : pTerminationDigits
 
-        result := ComCall(13, this, "int", DigitMode, "int", lNumDigits, BSTR, pTerminationDigits, "int", lFirstDigitTimeout, "int", lInterDigitTimeout, "HRESULT")
+        result := ComCall(13, this, Int32, DigitMode, Int32, lNumDigits, BSTR, pTerminationDigits, Int32, lFirstDigitTimeout, Int32, lInterDigitTimeout, "HRESULT")
         return result
     }
 
@@ -252,7 +252,7 @@ export default struct ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-detecttones
      */
     DetectTones(pToneList, lNumTones) {
-        result := ComCall(14, this, TAPI_DETECTTONE.Ptr, pToneList, "int", lNumTones, "HRESULT")
+        result := ComCall(14, this, TAPI_DETECTTONE.Ptr, pToneList, Int32, lNumTones, "HRESULT")
         return result
     }
 
@@ -380,7 +380,7 @@ export default struct ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-generatetone
      */
     GenerateTone(ToneMode, lDuration) {
-        result := ComCall(16, this, TAPI_TONEMODE, ToneMode, "int", lDuration, "HRESULT")
+        result := ComCall(16, this, TAPI_TONEMODE, ToneMode, Int32, lDuration, "HRESULT")
         return result
     }
 
@@ -397,7 +397,7 @@ export default struct ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-generatecustomtones
      */
     GenerateCustomTones(pToneList, lNumTones, lDuration) {
-        result := ComCall(17, this, TAPI_CUSTOMTONE.Ptr, pToneList, "int", lNumTones, "int", lDuration, "HRESULT")
+        result := ComCall(17, this, TAPI_CUSTOMTONE.Ptr, pToneList, Int32, lNumTones, Int32, lDuration, "HRESULT")
         return result
     }
 
@@ -467,7 +467,7 @@ export default struct ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacycallmediacontrol2-generatecustomtonesbycollection
      */
     GenerateCustomTonesByCollection(pCustomToneCollection, lDuration) {
-        result := ComCall(18, this, "ptr", pCustomToneCollection, "int", lDuration, "HRESULT")
+        result := ComCall(18, this, "ptr", pCustomToneCollection, Int32, lDuration, "HRESULT")
         return result
     }
 

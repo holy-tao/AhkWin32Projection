@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * An effect-scalar-variable interface accesses scalar values.
@@ -60,7 +60,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setfloat
      */
     SetFloat(Value) {
-        result := ComCall(25, this, "float", Value, "HRESULT")
+        result := ComCall(25, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
     SetFloatArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(27, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(27, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getfloatarray
      */
     GetFloatArray(Offset, Count) {
-        result := ComCall(28, this, "float*", &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(28, this, "float*", &pData := 0, UInt32, Offset, UInt32, Count, "HRESULT")
         return pData
     }
 
@@ -128,7 +128,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setint
      */
     SetInt(Value) {
-        result := ComCall(29, this, "int", Value, "HRESULT")
+        result := ComCall(29, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
     SetIntArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(31, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(31, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getintarray
      */
     GetIntArray(Offset, Count) {
-        result := ComCall(32, this, "int*", &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(32, this, "int*", &pData := 0, UInt32, Offset, UInt32, Count, "HRESULT")
         return pData
     }
 
@@ -231,7 +231,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
     SetBoolArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(35, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(35, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -249,7 +249,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getboolarray
      */
     GetBoolArray(Offset, Count) {
-        result := ComCall(36, this, BOOL.Ptr, &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(36, this, BOOL.Ptr, &pData := 0, UInt32, Offset, UInt32, Count, "HRESULT")
         return pData
     }
 

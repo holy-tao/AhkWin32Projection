@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BIN_RANGE.ahk" { BIN_RANGE }
 #Import ".\BIN_COUNT.ahk" { BIN_COUNT }
+#Import ".\BIN_RANGE.ahk" { BIN_RANGE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl

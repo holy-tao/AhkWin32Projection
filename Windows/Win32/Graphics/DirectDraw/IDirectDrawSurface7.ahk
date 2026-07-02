@@ -1,21 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DDSURFACEDESC2.ahk" { DDSURFACEDESC2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
+#Import ".\DDBLTFX.ahk" { DDBLTFX }
 #Import ".\DDBLTBATCH.ahk" { DDBLTBATCH }
 #Import "..\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
-#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
-#Import ".\DDSURFACEDESC2.ahk" { DDSURFACEDESC2 }
-#Import ".\IDirectDraw.ahk" { IDirectDraw }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
-#Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
-#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DDBLTFX.ahk" { DDBLTFX }
+#Import ".\LPDDENUMSURFACESCALLBACK7.ahk" { LPDDENUMSURFACESCALLBACK7 }
 
 /**
  * Applications use the methods of the IDirectDrawSurface7 interface to create DirectDrawSurface objects and work with system-level variables. This section is a reference to the methods of this interface.
@@ -260,7 +261,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * <b>AddAttachedSurface</b> increments the reference count of the surface being attached. You can explicitly unattach the surface and decrement its reference count by using the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-deleteattachedsurface">IDirectDrawSurface7::DeleteAttachedSurface</a> method. Unlike complex surfaces that you create with a single call to <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdraw7-createsurface">IDirectDraw7::CreateSurface</a>, surfaces attached with this method are not automatically released. The application must release such surfaces.
      * 
      * You can attach only z-buffer surfaces with this method.
-     * @param {IDirectDrawSurface7} param0 
+     * @param {IDirectDrawSurface7} param0 Address of the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for the surface to be attached.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -285,7 +286,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * The IDirectDrawSurface7::AddOverlayDirtyRect method is not currently implemented.
-     * @param {Pointer<RECT>} param0 
+     * @param {Pointer<RECT>} param0 A pointer to a <b>RECT</b> structure for the rectangle to update.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -311,11 +312,13 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Typically, <b>Blt</b> returns immediately with an error if the bitbltter is busy and the bitblt could not be set up. Specify the DDBLT_WAIT flag to request a synchronous bitblt. When you include the DDBLT_WAIT flag, <b>Blt</b> waits until the bitblt can be set up or another error occurs before it returns.
      * 
      * RECT structures are defined so that the right and bottom members are exclusive—therefore, right minus left equals the width of the rectangle, not 1 less than the width.
-     * @param {Pointer<RECT>} param0 
-     * @param {IDirectDrawSurface7} param1 
-     * @param {Pointer<RECT>} param2 
-     * @param {Integer} param3 
-     * @param {Pointer<DDBLTFX>} param4 
+     * @param {Pointer<RECT>} param0 A pointer to a <b>RECT</b> structure that defines the upper-left and lower-right points of the rectangle to bitblt to on the destination surface. If this parameter is NULL, the entire destination surface is used.
+     * @param {IDirectDrawSurface7} param1 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for the DirectDrawSurface object that is the source of the bitblt.
+     * @param {Pointer<RECT>} param2 A pointer to a <b>RECT</b> structure that defines the upper-left and lower-right points of the rectangle to bitblt from on the source surface. If this parameter is NULL, the entire source surface is used.
+     * @param {Integer} param3 A combination of flags that determine the valid members of the associated <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddbltfx">DDBLTFX</a> structure, specify color-key information, or request special behavior from the method. The following flags are defined:
+     * 
+     * <b>Validation flags</b>
+     * @param {Pointer<DDBLTFX>} param4 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddbltfx">DDBLTFX</a> structure for the bitblt.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -345,15 +348,15 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-blt
      */
     Blt(param0, param1, param2, param3, param4) {
-        result := ComCall(5, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, "uint", param3, DDBLTFX.Ptr, param4, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, UInt32, param3, DDBLTFX.Ptr, param4, "HRESULT")
         return result
     }
 
     /**
      * The IDirectDrawSurface7::BltBatch method is not currently implemented.
-     * @param {Pointer<DDBLTBATCH>} param0 
-     * @param {Integer} param1 
-     * @param {Integer} param2 
+     * @param {Pointer<DDBLTBATCH>} param0 A pointer to the first <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddbltbatch">DDBLTBATCH</a> structure that defines the parameters for the bitblt operations.
+     * @param {Integer} param1 Number of bitblt operations to be performed.
+     * @param {Integer} param2 Currently not used and must be set to 0.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -382,7 +385,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-bltbatch
      */
     BltBatch(param0, param1, param2) {
-        result := ComCall(6, this, DDBLTBATCH.Ptr, param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(6, this, DDBLTBATCH.Ptr, param0, UInt32, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -396,11 +399,11 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * The software implementation of <b>IDirectDrawSurface7::BltFast</b> is 10 percent faster than the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-blt">IDirectDrawSurface7::Blt</a> method. However, there is no speed difference between the two if display hardware is used.
      * 
      * Typically, <b>IDirectDrawSurface7::BltFast</b> returns immediately with an error if the bitbltter is busy and the bitblt cannot be set up. You can use the DDBLTFAST_WAIT flag, however, if you want this method not to return until either the bitblt can be set up or another error occurs.
-     * @param {Integer} param0 
-     * @param {Integer} param1 
-     * @param {IDirectDrawSurface7} param2 
-     * @param {Pointer<RECT>} param3 
-     * @param {Integer} param4 
+     * @param {Integer} param0 The x-coordinate to bitblt to on the destination surface.
+     * @param {Integer} param1 The y-coordinate to bitblt to on the destination surface.
+     * @param {IDirectDrawSurface7} param2 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for the DirectDrawSurface object that is the source of the bitblt.
+     * @param {Pointer<RECT>} param3 A pointer to a <b>RECT</b> structure that defines the upper-left and lower-right points of the rectangle to bitblt from on the source surface.
+     * @param {Integer} param4 Type of transfer. The following transfers are defined:
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -422,7 +425,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-bltfast
      */
     BltFast(param0, param1, param2, param3, param4) {
-        result := ComCall(7, this, "uint", param0, "uint", param1, "ptr", param2, RECT.Ptr, param3, "uint", param4, "HRESULT")
+        result := ComCall(7, this, UInt32, param0, UInt32, param1, "ptr", param2, RECT.Ptr, param3, UInt32, param4, "HRESULT")
         return result
     }
 
@@ -432,8 +435,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * <b>DeleteAttachedSurface</b> decrements the reference count of the surface to be detached. If the reference count of the surface to be detached reaches 0, the surface is lost and removed from memory.
      * 
      * Implicit attachments, those formed by DirectDraw rather than the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-addattachedsurface">IDirectDrawSurface7::AddAttachedSurface</a> method, cannot be detached. Detaching surfaces from a flipping chain can alter other surfaces in the chain. If a front buffer is detached from a flipping chain, the next surface in the chain becomes the front buffer, and the following surface becomes the back buffer. If a back buffer is detached from a chain, the following surface becomes a back buffer. If a plain surface is detached from a chain, the chain simply becomes shorter. If a flipping chain has only two surfaces and they are detached, the chain is destroyed, and both surfaces return to their previous designations.
-     * @param {Integer} param0 
-     * @param {IDirectDrawSurface7} param1 
+     * @param {Integer} param0 Currently not used and must be set to 0.
+     * @param {IDirectDrawSurface7} param1 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for the DirectDrawSurface object to be detached. If this parameter is NULL, all attached surfaces become detached.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -450,7 +453,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-deleteattachedsurface
      */
     DeleteAttachedSurface(param0, param1) {
-        result := ComCall(8, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(8, this, UInt32, param0, "ptr", param1, "HRESULT")
         return result
     }
 
@@ -460,8 +463,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * <b>EnumAttachedSurfaces</b> enumerates only those surfaces that are directly attached to this surface. For example, in a flipping chain of three or more surfaces, only one surface is enumerated because each surface is attached only to the next surface in the flipping chain. In such a configuration, you can call <b>EnumAttachedSurfaces</b> on each successive surface to walk the entire flipping chain.
      * 
      * <b>EnumAttachedSurfaces</b> differs from its counterparts in previous interface versions in that it accepts a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback7">EnumSurfacesCallback7</a> function, rather than an <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback">EnumSurfacesCallback</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback2">EnumSurfacesCallback2</a> function.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<LPDDENUMSURFACESCALLBACK7>} param1 
+     * @param {Pointer<Void>} param0 Address of the application-defined structure that is passed to the enumeration member every time that it is called.
+     * @param {Pointer<LPDDENUMSURFACESCALLBACK7>} param1 Address of the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback7">EnumSurfacesCallback7</a> function to be called for each surface that is attached to this surface.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -478,7 +481,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
     EnumAttachedSurfaces(param0, param1) {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, param0Marshal, param0, "ptr", param1, "HRESULT")
+        result := ComCall(9, this, param0Marshal, param0, LPDDENUMSURFACESCALLBACK7, param1, "HRESULT")
         return result
     }
 
@@ -486,9 +489,9 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Enumerates the overlay surfaces on the specified destination. You can enumerate the overlays in front-to-back or back-to-front order.
      * @remarks
      * <b>EnumOverlayZOrders</b> differs from its counterparts in previous interface versions in that it accepts a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback7">EnumSurfacesCallback7</a> function, rather than an <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback">EnumSurfacesCallback</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback2">EnumSurfacesCallback2</a> function.
-     * @param {Integer} param0 
-     * @param {Pointer<Void>} param1 
-     * @param {Pointer<LPDDENUMSURFACESCALLBACK7>} param2 
+     * @param {Integer} param0 A value that can be set to one of the following flags:
+     * @param {Pointer<Void>} param1 Address of the user-defined structure to be passed to the callback function for each overlay surface.
+     * @param {Pointer<LPDDENUMSURFACESCALLBACK7>} param2 Address of the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nc-ddraw-lpddenumsurfacescallback7">EnumSurfacesCallback7</a> callback function to be called for each surface to be overlaid on this surface.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -504,7 +507,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
     EnumOverlayZOrders(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "uint", param0, param1Marshal, param1, "ptr", param2, "HRESULT")
+        result := ComCall(10, this, UInt32, param0, param1Marshal, param1, LPDDENUMSURFACESCALLBACK7, param2, "HRESULT")
         return result
     }
 
@@ -522,8 +525,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * The <i>lpDDSurfaceTargetOverride</i> parameter is used in rare cases in which the back buffer is not the buffer that should become the front buffer. Typically, this parameter is NULL.
      * 
      * <b>Flip</b> is always synchronized with the vertical blank. If the surface has been assigned to a video port, this method updates the visible overlay surface and the target surface of the video port.
-     * @param {IDirectDrawSurface7} param0 
-     * @param {Integer} param1 
+     * @param {IDirectDrawSurface7} param0 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for an arbitrary surface in the flipping chain. The default for this parameter is NULL, in which case DirectDraw cycles through the buffers in the order that they are attached to each other. If this parameter is not NULL, DirectDraw flips to the specified surface, instead of the next surface in the flipping chain. <b>Flip</b> fails if the specified surface is not a member of the flipping chain.
+     * @param {Integer} param1 A combination of flags that specify flip options. The following flags are defined:
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -544,7 +547,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-flip
      */
     Flip(param0, param1) {
-        result := ComCall(11, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(11, this, "ptr", param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -552,8 +555,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Obtains the attached surface that has the specified capabilities, and increments the reference count of the retrieved interface.
      * @remarks
      * Attachments are used to connect multiple DirectDrawSurface objects into complex structures, like the complex structures required to support 3-D page flipping with z-buffers. <b>GetAttachedSurface</b> fails if more than one surface is attached that matches the capabilities requested. In this case, the application must use the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-enumattachedsurfaces">IDirectDrawSurface7::EnumAttachedSurfaces</a> method to obtain the attached surfaces.
-     * @param {Pointer<DDSCAPS2>} param0 
-     * @returns {IDirectDrawSurface7} 
+     * @param {Pointer<DDSCAPS2>} param0 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure that indicates the hardware capabilities of the attached surface.
+     * @returns {IDirectDrawSurface7} A pointer to a variable to receive a pointer to the retrieved surface's <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface. The retrieved surface is the one that matches the description, according to the <i>lpDDSCaps</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getattachedsurface
      */
     GetAttachedSurface(param0) {
@@ -563,7 +566,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * Obtains status about a bit block transfer (bitblt) operation.
-     * @param {Integer} param0 
+     * @param {Integer} param0 A value that can be set to one of the following flags.
      * @returns {HRESULT} If the method succeeds, a bitbltter is present, and the return value is DD_OK.
      * 
      * If it fails, the method returns DDERR_WASSTILLDRAWING if the bitbltter is busy, DDERR_NOBLTHW if there is no bitbltter, or one of the following error values:
@@ -580,7 +583,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getbltstatus
      */
     GetBltStatus(param0) {
-        result := ComCall(13, this, "uint", param0, "HRESULT")
+        result := ComCall(13, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -588,7 +591,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Retrieves the capabilities of this surface. These capabilities are not necessarily related to the capabilities of the display device.
      * @remarks
      * The <b>IDirectDrawSurface7::GetCaps</b> method differs from its counterpart in the <b>IDirectDrawSurface3</b> interface in that it accepts a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure, rather than the legacy <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure.
-     * @param {Pointer<DDSCAPS2>} param0 
+     * @param {Pointer<DDSCAPS2>} param0 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure that receives the hardware capabilities of this surface.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -606,7 +609,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * Retrieves the DirectDrawClipper object that is associated with this surface, and increments the reference count of the returned clipper.
-     * @returns {IDirectDrawClipper} 
+     * @returns {IDirectDrawClipper} A pointer to a variable to receive a pointer to the clipper's <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawclipper">IDirectDrawClipper</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getclipper
      */
     GetClipper() {
@@ -616,8 +619,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * Retrieves the color key value for this surface.
-     * @param {Integer} param0 
-     * @param {Pointer<DDCOLORKEY>} param1 
+     * @param {Integer} param0 A value that can be set to one of the following flags to specify the color key to retrieve:
+     * @param {Pointer<DDCOLORKEY>} param1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddcolorkey">DDCOLORKEY</a> structure that receives the current values for the specified color key of the DirectDrawSurface object.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -635,7 +638,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getcolorkey
      */
     GetColorKey(param0, param1) {
-        result := ComCall(16, this, "uint", param0, DDCOLORKEY.Ptr, param1, "HRESULT")
+        result := ComCall(16, this, UInt32, param0, DDCOLORKEY.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -643,7 +646,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Creates a GDI-compatible handle of a device context for this surface.
      * @remarks
      * <b>GetDC</b> uses an internal version of the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-lock">IDirectDrawSurface7::Lock</a> method to lock the surface. The surface remains locked until the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-releasedc">IDirectDrawSurface7::ReleaseDC</a> method is called.
-     * @param {Pointer<HDC>} param0 
+     * @param {Pointer<HDC>} param0 A pointer to a variable that receives the handle of the device context for this surface.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -669,7 +672,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * Retrieves status about whether this surface has finished its flipping process.
-     * @param {Integer} param0 
+     * @param {Integer} param0 A value that can be set to one of the following flags:
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return DDERR_WASSTILLDRAWING if the surface has not finished its flipping process, or one of the following error values:
@@ -686,14 +689,14 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getflipstatus
      */
     GetFlipStatus(param0) {
-        result := ComCall(18, this, "uint", param0, "HRESULT")
+        result := ComCall(18, this, UInt32, param0, "HRESULT")
         return result
     }
 
     /**
      * Retrieves the display coordinates of this surface. This method is used on a visible, active overlay surface (that is, a surface that has the DDSCAPS_OVERLAY flag set).
-     * @param {Pointer<Integer>} param0 
-     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<Integer>} param0 A pointer to a variable that receives the x- display coordinate of this surface if the call succeeds.
+     * @param {Pointer<Integer>} param1 A pointer to a variable that receives the y-display coordinate of this surface if the call succeeds.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -722,7 +725,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * Retrieves the DirectDrawPalette object that is associated with this surface, and increments the reference count of the returned palette.
-     * @returns {IDirectDrawPalette} 
+     * @returns {IDirectDrawPalette} A pointer to a variable to receive a pointer to the palette object's <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawpalette">IDirectDrawPalette</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getpalette
      */
     GetPalette() {
@@ -732,7 +735,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * Retrieves the color and pixel format of this surface.
-     * @param {Pointer<DDPIXELFORMAT>} param0 
+     * @param {Pointer<DDPIXELFORMAT>} param0 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddpixelformat">DDPIXELFORMAT</a> structure that receives a detailed description of the current pixel and color space format of this surface.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -751,7 +754,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * Retrieves a description of this surface in its current condition.
-     * @param {Pointer<DDSURFACEDESC2>} param0 
+     * @param {Pointer<DDSURFACEDESC2>} param0 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure that receives the current description of this surface. You need only initialize this structure's <b>dwSize</b> member to the size, in bytes, of the structure prior to the call; no other preparation is required.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -769,8 +772,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * Initializes a DirectDrawSurface object.
-     * @param {IDirectDraw} param0 
-     * @param {Pointer<DDSURFACEDESC2>} param1 
+     * @param {IDirectDraw} param0 A pointer to the DirectDraw object to associate with the DirectDrawSurface object.
+     * @param {Pointer<DDSURFACEDESC2>} param1 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure that describes how to initialize this surface.
      * @returns {HRESULT} This method returns DDERR_ALREADYINITIALIZED.
      * 
      * This method is provided for compliance with the Component Object Model (COM). Because the DirectDrawSurface object is initialized when it is created, this method always returns DDERR_ALREADYINITIALIZED.
@@ -816,10 +819,10 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * 
      * 
      * Unless you include the DDLOCK_NOSYSLOCK flag, <b>Lock</b> causes DirectDraw to hold the Win16Mutex (also known as Win16Lock) until you call the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-unlock">IDirectDrawSurface7::Unlock</a> method. GUI debuggers cannot operate while the Win16Mutex is held.
-     * @param {Pointer<RECT>} param0 
-     * @param {Pointer<DDSURFACEDESC2>} param1 
-     * @param {Integer} param2 
-     * @param {HANDLE} param3 
+     * @param {Pointer<RECT>} param0 A pointer to a <b>RECT</b> structure that identifies the region of the surface that is being locked. If this parameter is NULL, the entire surface is locked.
+     * @param {Pointer<DDSURFACEDESC2>} param1 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure that describes relevant details about the surface and that receives information about the surface.
+     * @param {Integer} param2 A combination of flags that determine how to lock the surface. The following flags are defined:
+     * @param {HANDLE} param3 Handle of the event. This parameter is not currently used and must be set to NULL.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -837,7 +840,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-lock
      */
     Lock(param0, param1, param2, param3) {
-        result := ComCall(25, this, RECT.Ptr, param0, DDSURFACEDESC2.Ptr, param1, "uint", param2, HANDLE, param3, "HRESULT")
+        result := ComCall(25, this, RECT.Ptr, param0, DDSURFACEDESC2.Ptr, param1, UInt32, param2, HANDLE, param3, "HRESULT")
         return result
     }
 
@@ -845,7 +848,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Releases the handle of a device context that was previously obtained by using the IDirectDrawSurface7::GetDC method.
      * @remarks
      * <b>ReleaseDC</b> also unlocks the surface that was previously locked when the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getdc">IDirectDrawSurface7::GetDC</a> method was called.
-     * @param {HDC} param0 
+     * @param {HDC} param0 The handle of a device context that was previously obtained by <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getdc">IDirectDrawSurface7::GetDC</a>.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -902,7 +905,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * When you set a clipper to a surface for the first time, <b>SetClipper</b> increments the clipper's reference count; subsequent calls do not affect the clipper's reference count. If you pass NULL as the <i>lpDDClipper</i> parameter, the clipper is removed from the surface, and the clipper's reference count is decremented. If you do not delete the clipper, the surface automatically releases its reference to the clipper when the surface itself is released. According to COM rules, your application must release any references that it holds to the clipper when the object is no longer needed.
      * 
      * <b>SetClipper</b> is primarily used by surfaces that are being overlaid on or bitbltted to the primary surface. However, it can be used on any surface. After a DirectDrawClipper object has been attached and a clip list is associated with it, the DirectDrawClipper object is used for the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-blt">IDirectDrawSurface7::Blt</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-bltbatch">IDirectDrawSurface7::BltBatch</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlay">IDirectDrawSurface7::UpdateOverlay</a> operations that involve the parent DirectDrawSurface object. <b>SetClipper</b> can also detach the current DirectDrawClipper object of a DirectDrawSurface object.
-     * @param {IDirectDrawClipper} param0 
+     * @param {IDirectDrawClipper} param0 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawclipper">IDirectDrawClipper</a> interface for the DirectDrawClipper object to be attached to the DirectDrawSurface object. If you set this parameter to NULL, the current DirectDrawClipper object is detached.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -924,8 +927,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Sets the color key value for the DirectDrawSurface object if the hardware supports color keys on a per-surface basis.
      * @remarks
      * For transparent bitblt operations and overlays, set destination color on the destination surface and source color on the source surface.
-     * @param {Integer} param0 
-     * @param {Pointer<DDCOLORKEY>} param1 
+     * @param {Integer} param0 A value that can be set to one of the following flags to specify the requested color key:
+     * @param {Pointer<DDCOLORKEY>} param1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddcolorkey">DDCOLORKEY</a> structure that contains the new color key values for the DirectDrawSurface object. This value can be NULL to remove a previously set color key.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -946,14 +949,14 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setcolorkey
      */
     SetColorKey(param0, param1) {
-        result := ComCall(29, this, "uint", param0, DDCOLORKEY.Ptr, param1, "HRESULT")
+        result := ComCall(29, this, UInt32, param0, DDCOLORKEY.Ptr, param1, "HRESULT")
         return result
     }
 
     /**
      * Changes the display coordinates of an overlay surface.
-     * @param {Integer} param0 
-     * @param {Integer} param1 
+     * @param {Integer} param0 The new x- display coordinate of this surface.
+     * @param {Integer} param1 The new y-display coordinate of this surface.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -974,7 +977,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setoverlayposition
      */
     SetOverlayPosition(param0, param1) {
-        result := ComCall(30, this, "int", param0, "int", param1, "HRESULT")
+        result := ComCall(30, this, Int32, param0, Int32, param1, "HRESULT")
         return result
     }
 
@@ -982,7 +985,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Attaches a palette object to (or detaches one from) a surface. The surface uses this palette for all subsequent operations. The palette change takes place immediately, without regard to refresh timing.
      * @remarks
      * When you call <b>SetPalette</b> to  set a palette to a surface for the first time, <b>SetPalette</b> increments the palette's reference count; subsequent calls to <b>SetPalette</b> do not affect the palette's reference count. If you pass NULL as the <i>lpDDPalette</i> parameter, the palette is removed from the surface, and the palette's reference count is decremented. If you do not delete the palette, the surface automatically releases its reference to the palette when the surface itself is released. According to COM rules, your application must release any references that it holds to the palette when the object is no longer needed.
-     * @param {IDirectDrawPalette} param0 
+     * @param {IDirectDrawPalette} param0 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawpalette">IDirectDrawPalette</a> interface for the palette object to be used with this surface. If NULL, the current palette is detached.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -1011,7 +1014,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Notifies DirectDraw that the direct surface manipulations are complete.
      * @remarks
      * Because you can call <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-lock">IDirectDrawSurface7::Lock</a> multiple times for the same surface with different destination rectangles, the pointer in <i>lpRect</i> links the calls to the <b>IDirectDrawSurface7::Lock</b> and <b>IDirectDrawSurface7::Unlock</b> methods.
-     * @param {Pointer<RECT>} param0 
+     * @param {Pointer<RECT>} param0 A pointer to a <b>RECT</b> structure that was used to lock the surface in the corresponding call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-lock">IDirectDrawSurface7::Lock</a> method. This parameter can be NULL only if the entire surface was locked by passing NULL in the <i>lpDestRect</i> parameter of the corresponding call to the <b>IDirectDrawSurface7::Lock</b> method.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -1033,11 +1036,11 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     /**
      * Repositions or modifies the visual attributes of an overlay surface. These surfaces must have the DDSCAPS_OVERLAY flag set.
-     * @param {Pointer<RECT>} param0 
-     * @param {IDirectDrawSurface7} param1 
-     * @param {Pointer<RECT>} param2 
-     * @param {Integer} param3 
-     * @param {Pointer<DDOVERLAYFX>} param4 
+     * @param {Pointer<RECT>} param0 A pointer to a <b>RECT</b> structure that defines the x, y, width, and height of the region on the source surface being used as the overlay. This parameter can be NULL to hide an overlay or to indicate that the entire overlay surface is to be used and that the overlay surface conforms to any boundary and size-alignment restrictions imposed by the device driver.
+     * @param {IDirectDrawSurface7} param1 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for the DirectDrawSurface object that is being overlaid.
+     * @param {Pointer<RECT>} param2 A pointer to a <b>RECT</b> structure that defines the width, x, and height, y, of the region on the destination surface that the overlay should be moved to. This parameter can be NULL to hide the overlay.
+     * @param {Integer} param3 A combination of the following flags that determine the overlay update:
+     * @param {Pointer<DDOVERLAYFX>} param4 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddoverlayfx">DDOVERLAYFX</a> structure that describes the effects to be used. Can be NULL if the DDOVER_DDFX flag is not specified.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -1062,25 +1065,25 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlay
      */
     UpdateOverlay(param0, param1, param2, param3, param4) {
-        result := ComCall(33, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, "uint", param3, DDOVERLAYFX.Ptr, param4, "HRESULT")
+        result := ComCall(33, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, UInt32, param3, DDOVERLAYFX.Ptr, param4, "HRESULT")
         return result
     }
 
     /**
      * The IDirectDrawSurface7::UpdateOverlayDisplay method is not currently implemented.
-     * @param {Integer} param0 
+     * @param {Integer} param0 The method is not currently implemented.
      * @returns {HRESULT} The method is not currently implemented.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlaydisplay
      */
     UpdateOverlayDisplay(param0) {
-        result := ComCall(34, this, "uint", param0, "HRESULT")
+        result := ComCall(34, this, UInt32, param0, "HRESULT")
         return result
     }
 
     /**
      * Sets the z-order of an overlay.
-     * @param {Integer} param0 
-     * @param {IDirectDrawSurface7} param1 
+     * @param {Integer} param0 One of the following flags that determines the z-order of the overlay:
+     * @param {IDirectDrawSurface7} param1 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface for the DirectDraw surface to be used as a relative position in the overlay chain. This parameter is needed only for the DDOVERZ_INSERTINBACKOF and DDOVERZ_INSERTINFRONTOF flags.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -1095,13 +1098,13 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlayzorder
      */
     UpdateOverlayZOrder(param0, param1) {
-        result := ComCall(35, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(35, this, UInt32, param0, "ptr", param1, "HRESULT")
         return result
     }
 
     /**
      * Retrieves an interface to the DirectDraw object that was used to create this surface.
-     * @param {Pointer<Pointer<Void>>} param0 
+     * @param {Pointer<Pointer<Void>>} param0 A pointer to a variable that receives a valid interface pointer if the call succeeds. Cast this pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer; then query for the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdraw7">IDirectDraw7</a> interface.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -1133,7 +1136,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * <b>PageLock</b> works only on system-memory surfaces; it does not page-lock a display-memory surface or an emulated primary surface. If an application calls <b>PageLock</b> on a display memory surface, the method does nothing except return DD_OK.
      * 
      * <b>IDirectDrawSurface7::PageLock</b> was not implemented in the <b>IDirectDraw</b> interface version.
-     * @param {Integer} param0 
+     * @param {Integer} param0 Currently not used and must be set to 0.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -1147,7 +1150,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-pagelock
      */
     PageLock(param0) {
-        result := ComCall(37, this, "uint", param0, "HRESULT")
+        result := ComCall(37, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -1159,7 +1162,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * <b>PageUnlock</b> works only on system-memory surfaces; it does not page-unlock a display-memory surface or an emulated primary surface. If an application calls <b>PageUnlock</b> on a display memory surface, the method does nothing except return DD_OK.
      * 
      * <b>IDirectDrawSurface7::PageUnlock</b> was not implemented in the <b>IDirectDraw</b> interface version.
-     * @param {Integer} param0 
+     * @param {Integer} param0 Currently not used and must be set to 0.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -1174,7 +1177,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-pageunlock
      */
     PageUnlock(param0) {
-        result := ComCall(38, this, "uint", param0, "HRESULT")
+        result := ComCall(38, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -1184,8 +1187,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Currently, you can use <b>SetSurfaceDesc</b> only to set the surface data and pixel format that is used by an explicit system-memory surface. This is useful because it allows a surface to use data from a previously allocated buffer without copying. The new surface memory is allocated by the client application, and therefore the client application must also deallocate it.
      * 
      * The DirectDrawSurface object does not deallocate surface memory that it did not allocate. Therefore, when the surface memory is no longer needed, you must deallocate it. However, when you call <b>SetSurfaceDesc</b>, DirectDraw frees the original surface memory that it implicitly allocated when it created the surface.
-     * @param {Pointer<DDSURFACEDESC2>} param0 
-     * @param {Integer} param1 
+     * @param {Pointer<DDSURFACEDESC2>} param0 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure that contains the new surface characteristics.
+     * @param {Integer} param1 Currently not used and must be set to 0.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -1206,7 +1209,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setsurfacedesc
      */
     SetSurfaceDesc(param0, param1) {
-        result := ComCall(39, this, DDSURFACEDESC2.Ptr, param0, "uint", param1, "HRESULT")
+        result := ComCall(39, this, DDSURFACEDESC2.Ptr, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -1214,10 +1217,10 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Associates data with the surface that is intended for use by the application, not by DirectDraw. Data is passed by value, and multiple sets of data can be associated with a single surface.
      * @remarks
      * DirectDraw does not manage the memory at <i>lpData</i>. If this buffer was dynamically allocated, the caller must free the memory.
-     * @param {Pointer<Guid>} param0 
-     * @param {Pointer<Void>} param1 
-     * @param {Integer} param2 
-     * @param {Integer} param3 
+     * @param {Pointer<Guid>} param0 Reference to (C++) or address of (C) the globally unique identifier that identifies the private data to be set.
+     * @param {Pointer<Void>} param1 A pointer to a buffer that contains the data to be associated with the surface.
+     * @param {Integer} param2 The size value of the buffer at <i>lpData</i>, in bytes.
+     * @param {Integer} param3 A value that can be set to one of the following flags. These flags describe the type of data being passed or request that the data be invalidated when the surface changes.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -1234,15 +1237,15 @@ export default struct IDirectDrawSurface7 extends IUnknown {
     SetPrivateData(param0, param1, param2, param3) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(40, this, Guid.Ptr, param0, param1Marshal, param1, "uint", param2, "uint", param3, "HRESULT")
+        result := ComCall(40, this, Guid.Ptr, param0, param1Marshal, param1, UInt32, param2, UInt32, param3, "HRESULT")
         return result
     }
 
     /**
      * Copies the private data that is associated with this surface to a provided buffer.
-     * @param {Pointer<Guid>} param0 
-     * @param {Pointer<Void>} param1 
-     * @param {Pointer<Integer>} param2 
+     * @param {Pointer<Guid>} param0 Reference to (C++) or address of (C) the globally unique identifier that identifies the private data to be retrieved.
+     * @param {Pointer<Void>} param1 A pointer to a previously allocated buffer that receives the requested private data if the call succeeds. The application that calls this method must allocate and release this buffer.
+     * @param {Pointer<Integer>} param2 A pointer to a variable that contains the size value of the buffer at <i>lpBuffer</i>, in bytes. If this value is less than the actual size of the private data (such as 0), <b>GetPrivateData</b> sets the variable to the required buffer size, and then returns DDERR_MOREDATA.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 
@@ -1273,7 +1276,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * DirectDraw calls this method automatically when a surface is released.
      * 
      * If the private data was set by using the DDSPD_IUNKNOWNPOINTER flag, <b>FreePrivateData</b> calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the associated interface.
-     * @param {Pointer<Guid>} param0 
+     * @param {Pointer<Guid>} param0 Reference to (C++) or address of (C) the globally unique identifier that identifies the private data to be freed.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -1294,7 +1297,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Retrieves the current uniqueness value for this surface.
      * @remarks
      * The only defined uniqueness value is 0, which indicates that the surface is likely to be changing beyond the control of DirectDraw. Other uniqueness values are significant only if they differ from a previously cached uniqueness value. If the current value is different from a cached value, the contents of the surface have changed.
-     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param0 A pointer to a variable that receives the surface's current uniqueness value if the call succeeds.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -1342,14 +1345,14 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Priorities are used to determine when managed textures are to be removed from memory. A texture assigned a low priority is removed before a texture with a high priority. If two textures have the same priority, the texture that was used more recently is kept in memory; the other texture is removed.
      * 
      * Applications can set and retrieve priorities only for managed textures (those surfaces that were created with the DDSCAPS2_TEXTUREMANAGE flag). If you call <b>SetPriority</b> on a nonmanaged texture, <b>SetPriority</b> fails and returns DDERR_INVALIDOBJECT.
-     * @param {Integer} param0 
+     * @param {Integer} param0 A value that specifies the new texture-management priority for the texture.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the return value is an error. The method returns DDERR_INVALIDOBJECT if the parameter is invalid or if the texture is not managed by Direct3D.
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setpriority
      */
     SetPriority(param0) {
-        result := ComCall(45, this, "uint", param0, "HRESULT")
+        result := ComCall(45, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -1361,7 +1364,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Applications can set and retrieve priorities only for managed textures (those surfaces that were created with the DDSCAPS2_TEXTUREMANAGE flag). If you call <b>GetPriority</b> on a nonmanaged texture, <b>GetPriority</b> fails and returns DDERR_INVALIDOBJECT.
      * 
      * <b>GetPriority</b> was introduced with the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nn-ddraw-idirectdrawsurface7">IDirectDrawSurface7</a> interface.
-     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param0 A pointer to a variable that receives the texture priority if the call succeeds.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the return value is an error. The method returns DDERR_INVALIDOBJECT if the parameter is invalid or if the texture is not managed by Direct3D.
@@ -1380,7 +1383,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Applications can call this method only for managed textures (those surfaces that were created with the DDSCAPS2_TEXTUREMANAGE flag). If you call <b>SetLOD</b> on a nonmanaged texture, <b>SetLOD</b> fails and returns DDERR_INVALIDOBJECT.
      * 
      * <b>SetLOD</b> communicates to the Direct3D texture manager the most detailed mipmap in this chain that it should load into local video memory. For example, in a five-level mipmap chain, if you set <i>dwMaxLOD</i> to 2, the texture manager should load only mipmap levels 2 through 4 into local video memory at any given time. Likewise, if the most detailed mipmap in the chain has the dimensions 256×256, setting the maximum level to 2 means that the largest mipmap ever present in video memory has dimensions 64×64.
-     * @param {Integer} param0 
+     * @param {Integer} param0 The maximum LOD value to be set for the mipmap chain if the call succeeds.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * If it fails, the method can return one of the following error values:
@@ -1392,7 +1395,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setlod
      */
     SetLOD(param0) {
-        result := ComCall(47, this, "uint", param0, "HRESULT")
+        result := ComCall(47, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -1402,7 +1405,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * Applications can call this method only for managed textures (those surfaces that were created with the DDSCAPS2_TEXTUREMANAGE flag). If you call <b>GetLOD</b> on a nonmanaged texture, <b>GetLOD</b> fails and returns DDERR_INVALIDOBJECT.
      * 
      * <b>GetLOD</b> communicates to the Direct3D texture manager the most detailed mipmap in this chain that it should load into local video memory. For example, in a five-level mipmap chain, a value of 2 in the variable at <i>lpdwMaxLOD</i> indicates that the texture manager loads only mipmap levels 2 through 4 into local video memory at any given time. Likewise, if the most detailed mipmap in the chain has the dimensions 256×256, a value of 2 in <i>lpdwMaxLOD</i> means that the largest mipmap ever present in video memory has dimensions 64×64.
-     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param0 A pointer to a variable that receives the maximum LOD value if the call succeeds.
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
      * 
      * 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DEFAULTSAVEFOLDERTYPE.ahk" { DEFAULTSAVEFOLDERTYPE }
-#Import ".\LIBRARYOPTIONFLAGS.ahk" { LIBRARYOPTIONFLAGS }
-#Import ".\LIBRARYFOLDERFILTER.ahk" { LIBRARYFOLDERFILTER }
-#Import ".\LIBRARYSAVEFLAGS.ahk" { LIBRARYSAVEFLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\LIBRARYSAVEFLAGS.ahk" { LIBRARYSAVEFLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\LIBRARYFOLDERFILTER.ahk" { LIBRARYFOLDERFILTER }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\LIBRARYOPTIONFLAGS.ahk" { LIBRARYOPTIONFLAGS }
+#Import ".\DEFAULTSAVEFOLDERTYPE.ahk" { DEFAULTSAVEFOLDERTYPE }
 
 /**
  * Exposes methods for creating and managing libraries.
@@ -192,7 +192,7 @@ export default struct IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-loadlibraryfromitem
      */
     LoadLibraryFromItem(psiLibrary, grfMode) {
-        result := ComCall(3, this, "ptr", psiLibrary, "uint", grfMode, "HRESULT")
+        result := ComCall(3, this, "ptr", psiLibrary, UInt32, grfMode, "HRESULT")
         return result
     }
 
@@ -214,7 +214,7 @@ export default struct IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-loadlibraryfromknownfolder
      */
     LoadLibraryFromKnownFolder(kfidLibrary, grfMode) {
-        result := ComCall(4, this, Guid.Ptr, kfidLibrary, "uint", grfMode, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, kfidLibrary, UInt32, grfMode, "HRESULT")
         return result
     }
 
@@ -301,7 +301,7 @@ export default struct IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-resolvefolder
      */
     ResolveFolder(psiFolderToResolve, dwTimeout, riid) {
-        result := ComCall(8, this, "ptr", psiFolderToResolve, "uint", dwTimeout, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", psiFolderToResolve, UInt32, dwTimeout, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

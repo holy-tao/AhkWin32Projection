@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DHCP_ADDR_PATTERN.ahk" { DHCP_ADDR_PATTERN }
 #Import ".\DHCP_FILTER_LIST_TYPE.ahk" { DHCP_FILTER_LIST_TYPE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DHCP_ADDR_PATTERN.ahk" { DHCP_ADDR_PATTERN }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information regarding the link-layer filter to be added to the allow and deny filter list.

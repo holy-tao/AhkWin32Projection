@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\CERT_ALT_NAME_ENTRY.ahk" { CERT_ALT_NAME_ENTRY }
 #Import ".\CRL_DIST_POINT_NAME.ahk" { CRL_DIST_POINT_NAME }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\CERT_ALT_NAME_INFO.ahk" { CERT_ALT_NAME_INFO }
 #Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import ".\CERT_ALT_NAME_INFO.ahk" { CERT_ALT_NAME_INFO }
 
 /**
  * Contains information about the kinds of certificates listed in a certificate revocation list (CRL).

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DSCBUFFERDESC.ahk" { DSCBUFFERDESC }
 #Import ".\IDirectSoundBuffer8.ahk" { IDirectSoundBuffer8 }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
 #Import ".\IDirectSoundCaptureBuffer8.ahk" { IDirectSoundCaptureBuffer8 }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DSCBUFFERDESC.ahk" { DSCBUFFERDESC }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
@@ -77,7 +77,7 @@ export default struct IDirectSoundFullDuplex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pCaptureGuid, pRenderGuid, lpDscBufferDesc, lpDsBufferDesc, _hWnd, dwLevel, lplpDirectSoundCaptureBuffer8, lplpDirectSoundBuffer8) {
-        result := ComCall(3, this, Guid.Ptr, pCaptureGuid, Guid.Ptr, pRenderGuid, DSCBUFFERDESC.Ptr, lpDscBufferDesc, DSBUFFERDESC.Ptr, lpDsBufferDesc, HWND, _hWnd, "uint", dwLevel, IDirectSoundCaptureBuffer8.Ptr, lplpDirectSoundCaptureBuffer8, IDirectSoundBuffer8.Ptr, lplpDirectSoundBuffer8, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pCaptureGuid, Guid.Ptr, pRenderGuid, DSCBUFFERDESC.Ptr, lpDscBufferDesc, DSBUFFERDESC.Ptr, lpDsBufferDesc, HWND, _hWnd, UInt32, dwLevel, IDirectSoundCaptureBuffer8.Ptr, lplpDirectSoundCaptureBuffer8, IDirectSoundBuffer8.Ptr, lplpDirectSoundBuffer8, "HRESULT")
         return result
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\AutomationElementMode.ahk" { AutomationElementMode }
-#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
 #Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 #Import ".\TreeScope.ahk" { TreeScope }

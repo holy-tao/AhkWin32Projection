@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMMDevice.ahk" { IMMDevice }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMMDeviceCollection interface represents a collection of multimedia device resources.
@@ -62,7 +62,7 @@ export default struct IMMDeviceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevicecollection-item
      */
     Item(nDevice) {
-        result := ComCall(4, this, "uint", nDevice, "ptr*", &ppDevice := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, nDevice, "ptr*", &ppDevice := 0, "HRESULT")
         return IMMDevice(ppDevice)
     }
 

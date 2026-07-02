@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISyncMgrSyncCallback.ahk" { ISyncMgrSyncCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a single method through which a handler or external application can notify Sync Center that synchronization has begun, as well as report progress and events.
@@ -68,7 +68,7 @@ export default struct ISyncMgrSessionCreator extends IUnknown {
 
         ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr*", &ppCallback := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, UInt32, cItems, "ptr*", &ppCallback := 0, "HRESULT")
         return ISyncMgrSyncCallback(ppCallback)
     }
 

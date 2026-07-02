@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -61,7 +61,7 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
      */
     substringData(offset, Count) {
         pbstrsubString := BSTR.Owned()
-        result := ComCall(7, this, "int", offset, "int", Count, BSTR.Ptr, pbstrsubString, "HRESULT")
+        result := ComCall(7, this, Int32, offset, Int32, Count, BSTR.Ptr, pbstrsubString, "HRESULT")
         return pbstrsubString
     }
 
@@ -74,7 +74,7 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     insertData(offset, bstrstring) {
         bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
 
-        result := ComCall(8, this, "int", offset, BSTR, bstrstring, "HRESULT")
+        result := ComCall(8, this, Int32, offset, BSTR, bstrstring, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
      * @returns {HRESULT} 
      */
     deleteData(offset, Count) {
-        result := ComCall(9, this, "int", offset, "int", Count, "HRESULT")
+        result := ComCall(9, this, Int32, offset, Int32, Count, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     replaceData(offset, Count, bstrstring) {
         bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
 
-        result := ComCall(10, this, "int", offset, "int", Count, BSTR, bstrstring, "HRESULT")
+        result := ComCall(10, this, Int32, offset, Int32, Count, BSTR, bstrstring, "HRESULT")
         return result
     }
 
@@ -109,7 +109,7 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
      * @returns {IHTMLDOMNode} 
      */
     splitText(offset) {
-        result := ComCall(11, this, "int", offset, "ptr*", &pRetNode := 0, "HRESULT")
+        result := ComCall(11, this, Int32, offset, "ptr*", &pRetNode := 0, "HRESULT")
         return IHTMLDOMNode(pRetNode)
     }
 

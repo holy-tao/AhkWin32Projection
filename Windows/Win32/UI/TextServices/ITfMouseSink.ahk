@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfMouseSink interface is implemented by a text service to receive mouse event notifications. A mouse event sink is installed with the ITfMouseTracker::AdviseMouseSink method of one of the ITfMouseTracker interfaces.
@@ -53,7 +53,7 @@ export default struct ITfMouseSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmousesink-onmouseevent
      */
     OnMouseEvent(uEdge, uQuadrant, dwBtnStatus) {
-        result := ComCall(3, this, "uint", uEdge, "uint", uQuadrant, "uint", dwBtnStatus, BOOL.Ptr, &pfEaten := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, uEdge, UInt32, uQuadrant, UInt32, dwBtnStatus, BOOL.Ptr, &pfEaten := 0, "HRESULT")
         return pfEaten
     }
 

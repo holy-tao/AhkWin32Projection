@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\TAB_CONTROL_ITEM_STATE.ahk" { TAB_CONTROL_ITEM_STATE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\TCITEMHEADERA_MASK.ahk" { TCITEMHEADERA_MASK }
+#Import ".\TAB_CONTROL_ITEM_STATE.ahk" { TAB_CONTROL_ITEM_STATE }
 
 /**
  * Specifies or receives the attributes of a tab item. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEM structure. (ANSI)

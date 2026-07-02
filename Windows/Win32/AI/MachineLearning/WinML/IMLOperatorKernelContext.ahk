@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMLOperatorTensor.ahk" { IMLOperatorTensor }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
@@ -46,7 +46,7 @@ export default struct IMLOperatorKernelContext extends IUnknown {
      * @returns {IMLOperatorTensor} 
      */
     GetInputTensor(inputIndex) {
-        result := ComCall(3, this, "uint", inputIndex, "ptr*", &tensor := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, inputIndex, "ptr*", &tensor := 0, "HRESULT")
         return IMLOperatorTensor(tensor)
     }
 
@@ -60,7 +60,7 @@ export default struct IMLOperatorKernelContext extends IUnknown {
     GetOutputTensor(outputIndex, dimensionCount, dimensionSizes) {
         dimensionSizesMarshal := dimensionSizes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", outputIndex, "uint", dimensionCount, dimensionSizesMarshal, dimensionSizes, "ptr*", &tensor := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, outputIndex, UInt32, dimensionCount, dimensionSizesMarshal, dimensionSizes, "ptr*", &tensor := 0, "HRESULT")
         return IMLOperatorTensor(tensor)
     }
 
@@ -70,7 +70,7 @@ export default struct IMLOperatorKernelContext extends IUnknown {
      * @returns {IMLOperatorTensor} 
      */
     GetOutputTensor1(outputIndex) {
-        result := ComCall(5, this, "uint", outputIndex, "ptr*", &tensor := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, outputIndex, "ptr*", &tensor := 0, "HRESULT")
         return IMLOperatorTensor(tensor)
     }
 
@@ -80,7 +80,7 @@ export default struct IMLOperatorKernelContext extends IUnknown {
      * @returns {IUnknown} 
      */
     AllocateTemporaryData(_size) {
-        result := ComCall(6, this, "ptr", _size, "ptr*", &data := 0, "HRESULT")
+        result := ComCall(6, this, IntPtr, _size, "ptr*", &data := 0, "HRESULT")
         return IUnknown(data)
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SpatialAudioHrtfDirectivityType.ahk" { SpatialAudioHrtfDirectivityType }
 #Import ".\SpatialAudioHrtfDirectivityCone.ahk" { SpatialAudioHrtfDirectivityCone }
-#Import ".\SpatialAudioHrtfDirectivity.ahk" { SpatialAudioHrtfDirectivity }
+#Import ".\SpatialAudioHrtfDirectivityType.ahk" { SpatialAudioHrtfDirectivityType }
 #Import ".\SpatialAudioHrtfDirectivityCardioid.ahk" { SpatialAudioHrtfDirectivityCardioid }
+#Import ".\SpatialAudioHrtfDirectivity.ahk" { SpatialAudioHrtfDirectivity }
 
 /**
  * Defines a spatial audio directivity model for an ISpatialAudioObjectForHrtf.

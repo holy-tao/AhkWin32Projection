@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Defines the attributes of an image to be inserted by the EM_INSERTIMAGE message.

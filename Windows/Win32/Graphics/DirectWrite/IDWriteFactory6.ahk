@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontSetBuilder2.ahk" { IDWriteFontSetBuilder2 }
-#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import ".\IDWriteFontCollection2.ahk" { IDWriteFontCollection2 }
-#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
-#Import ".\IDWriteFactory5.ahk" { IDWriteFactory5 }
-#Import ".\IDWriteTextFormat3.ahk" { IDWriteTextFormat3 }
-#Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
-#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
 #Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFactory5.ahk" { IDWriteFactory5 }
+#Import ".\IDWriteFontCollection2.ahk" { IDWriteFontCollection2 }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
+#Import ".\IDWriteFontSetBuilder2.ahk" { IDWriteFontSetBuilder2 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import ".\IDWriteTextFormat3.ahk" { IDWriteTextFormat3 }
+#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
 
 /**
  * This interface represents a factory object from which all DirectWrite objects are created. **IDWriteFactory6** adds new facilities for working with fonts and font resources.
@@ -80,7 +80,7 @@ export default struct IDWriteFactory6 extends IDWriteFactory5 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontfacereference
      */
     CreateFontFaceReference(fontFile, faceIndex, fontSimulations, fontAxisValues, fontAxisValueCount) {
-        result := ComCall(48, this, "ptr", fontFile, "uint", faceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
+        result := ComCall(48, this, "ptr", fontFile, UInt32, faceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference1(fontFaceReference)
     }
 
@@ -98,7 +98,7 @@ export default struct IDWriteFactory6 extends IDWriteFactory5 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontresource
      */
     CreateFontResource(fontFile, faceIndex) {
-        result := ComCall(49, this, "ptr", fontFile, "uint", faceIndex, "ptr*", &fontResource := 0, "HRESULT")
+        result := ComCall(49, this, "ptr", fontFile, UInt32, faceIndex, "ptr*", &fontResource := 0, "HRESULT")
         return IDWriteFontResource(fontResource)
     }
 
@@ -196,7 +196,7 @@ export default struct IDWriteFactory6 extends IDWriteFactory5 {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(54, this, "ptr", fontFamilyName, "ptr", _fontCollection, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
+        result := ComCall(54, this, "ptr", fontFamilyName, "ptr", _fontCollection, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, Float32, fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
         return IDWriteTextFormat3(textFormat)
     }
 

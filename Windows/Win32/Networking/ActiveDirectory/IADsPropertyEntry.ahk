@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsPropertyEntry interface is used to manage a property entry in the property cache.
@@ -144,7 +144,7 @@ export default struct IADsPropertyEntry extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ADsType(lnADsType) {
-        result := ComCall(11, this, "int", lnADsType, "HRESULT")
+        result := ComCall(11, this, Int32, lnADsType, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IADsPropertyEntry extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ControlCode(lnControlCode) {
-        result := ComCall(13, this, "int", lnControlCode, "HRESULT")
+        result := ComCall(13, this, Int32, lnControlCode, "HRESULT")
         return result
     }
 

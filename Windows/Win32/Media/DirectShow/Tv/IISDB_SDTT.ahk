@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
 #Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 #Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
+#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) software download trigger table (SDTT). An SDTT contains download information such as service ID, schedule, and receiver types for revision.
@@ -142,7 +142,7 @@ export default struct IISDB_SDTT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordgroup
      */
     GetRecordGroup(dwRecordIndex) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -154,7 +154,7 @@ export default struct IISDB_SDTT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordtargetversion
      */
     GetRecordTargetVersion(dwRecordIndex) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -166,7 +166,7 @@ export default struct IISDB_SDTT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordnewversion
      */
     GetRecordNewVersion(dwRecordIndex) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -178,7 +178,7 @@ export default struct IISDB_SDTT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddownloadlevel
      */
     GetRecordDownloadLevel(dwRecordIndex) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -190,7 +190,7 @@ export default struct IISDB_SDTT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordversionindicator
      */
     GetRecordVersionIndicator(dwRecordIndex) {
-        result := ComCall(14, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -202,7 +202,7 @@ export default struct IISDB_SDTT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordscheduletimeshiftinformation
      */
     GetRecordScheduleTimeShiftInformation(dwRecordIndex) {
-        result := ComCall(15, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -214,7 +214,7 @@ export default struct IISDB_SDTT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofschedules
      */
     GetRecordCountOfSchedules(dwRecordIndex) {
-        result := ComCall(16, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -228,7 +228,7 @@ export default struct IISDB_SDTT extends IUnknown {
      */
     GetRecordStartTimeByIndex(dwRecordIndex, dwIndex) {
         pmdtVal := MPEG_DATE_AND_TIME()
-        result := ComCall(17, this, "uint", dwRecordIndex, "uint", dwIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
+        result := ComCall(17, this, UInt32, dwRecordIndex, UInt32, dwIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
         return pmdtVal
     }
 
@@ -244,7 +244,7 @@ export default struct IISDB_SDTT extends IUnknown {
      */
     GetRecordDurationByIndex(dwRecordIndex, dwIndex) {
         pmdVal := MPEG_TIME()
-        result := ComCall(18, this, "uint", dwRecordIndex, "uint", dwIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
+        result := ComCall(18, this, UInt32, dwRecordIndex, UInt32, dwIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
         return pmdVal
     }
 
@@ -256,7 +256,7 @@ export default struct IISDB_SDTT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
-        result := ComCall(19, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(19, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -272,7 +272,7 @@ export default struct IISDB_SDTT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_sdtt-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
-        result := ComCall(20, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(20, this, UInt32, dwRecordIndex, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -295,7 +295,7 @@ export default struct IISDB_SDTT extends IUnknown {
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(21, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk" { D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk" { D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER }
 
 /**
  * Represents output arguments for a call to ID3D12VideoEncodeCommandList2::ResolveEncoderOutputMetadata.

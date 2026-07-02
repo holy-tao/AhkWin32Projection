@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
@@ -47,7 +47,7 @@ export default struct IWRdsWddmIddProps1 extends IUnknown {
     GetHardwareId(pDisplayDriverHardwareId, Count) {
         pDisplayDriverHardwareId := pDisplayDriverHardwareId is String ? StrPtr(pDisplayDriverHardwareId) : pDisplayDriverHardwareId
 
-        result := ComCall(3, this, "ptr", pDisplayDriverHardwareId, "uint", Count, "HRESULT")
+        result := ComCall(3, this, "ptr", pDisplayDriverHardwareId, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -60,7 +60,7 @@ export default struct IWRdsWddmIddProps1 extends IUnknown {
     OnDriverLoad(SessionId, DeviceInstance) {
         DeviceInstance := DeviceInstance is String ? StrPtr(DeviceInstance) : DeviceInstance
 
-        result := ComCall(4, this, "uint", SessionId, "ptr", DeviceInstance, "HRESULT")
+        result := ComCall(4, this, UInt32, SessionId, "ptr", DeviceInstance, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IWRdsWddmIddProps1 extends IUnknown {
      * @returns {HRESULT} 
      */
     OnDriverUnload(SessionId) {
-        result := ComCall(5, this, "uint", SessionId, "HRESULT")
+        result := ComCall(5, this, UInt32, SessionId, "HRESULT")
         return result
     }
 

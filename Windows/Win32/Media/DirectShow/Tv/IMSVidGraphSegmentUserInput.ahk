@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -135,7 +135,7 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
     KeyDown(KeyCode, ShiftState) {
         KeyCodeMarshal := KeyCode is VarRef ? "short*" : "ptr"
 
-        result := ComCall(5, this, KeyCodeMarshal, KeyCode, "short", ShiftState, "HRESULT")
+        result := ComCall(5, this, KeyCodeMarshal, KeyCode, Int16, ShiftState, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
     KeyUp(KeyCode, ShiftState) {
         KeyCodeMarshal := KeyCode is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, KeyCodeMarshal, KeyCode, "short", ShiftState, "HRESULT")
+        result := ComCall(7, this, KeyCodeMarshal, KeyCode, Int16, ShiftState, "HRESULT")
         return result
     }
 
@@ -178,7 +178,7 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-mousedown
      */
     MouseDown(ButtonState, ShiftState, x, y) {
-        result := ComCall(8, this, "short", ButtonState, "short", ShiftState, "int", x, "int", y, "HRESULT")
+        result := ComCall(8, this, Int16, ButtonState, Int16, ShiftState, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-mousemove
      */
     MouseMove(ButtonState, ShiftState, x, y) {
-        result := ComCall(9, this, "short", ButtonState, "short", ShiftState, "int", x, "int", y, "HRESULT")
+        result := ComCall(9, this, Int16, ButtonState, Int16, ShiftState, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -206,7 +206,7 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-mouseup
      */
     MouseUp(ButtonState, ShiftState, x, y) {
-        result := ComCall(10, this, "short", ButtonState, "short", ShiftState, "int", x, "int", y, "HRESULT")
+        result := ComCall(10, this, Int16, ButtonState, Int16, ShiftState, Int32, x, Int32, y, "HRESULT")
         return result
     }
 

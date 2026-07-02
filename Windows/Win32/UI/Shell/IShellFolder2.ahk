@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "Common\SHELLDETAILS.ahk" { SHELLDETAILS }
-#Import "Common\SHCOLSTATE.ahk" { SHCOLSTATE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
 #Import ".\IEnumExtraSearch.ahk" { IEnumExtraSearch }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import ".\IShellFolder.ahk" { IShellFolder }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "Common\SHCOLSTATE.ahk" { SHCOLSTATE }
+#Import "Common\SHELLDETAILS.ahk" { SHELLDETAILS }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**
  * Extends the capabilities of IShellFolder. Its methods provide a variety of information about the contents of a Shell folder.
@@ -120,7 +120,7 @@ export default struct IShellFolder2 extends IShellFolder {
         pSortMarshal := pSort is VarRef ? "uint*" : "ptr"
         pDisplayMarshal := pDisplay is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwRes, pSortMarshal, pSort, pDisplayMarshal, pDisplay, "HRESULT")
+        result := ComCall(15, this, UInt32, dwRes, pSortMarshal, pSort, pDisplayMarshal, pDisplay, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IShellFolder2 extends IShellFolder {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumnstate
      */
     GetDefaultColumnState(iColumn) {
-        result := ComCall(16, this, "uint", iColumn, "int*", &pcsFlags := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, iColumn, "int*", &pcsFlags := 0, "HRESULT")
         return pcsFlags
     }
 
@@ -209,7 +209,7 @@ export default struct IShellFolder2 extends IShellFolder {
      */
     GetDetailsOf(pidl, iColumn) {
         psd := SHELLDETAILS()
-        result := ComCall(18, this, ITEMIDLIST.Ptr, pidl, "uint", iColumn, SHELLDETAILS.Ptr, psd, "HRESULT")
+        result := ComCall(18, this, ITEMIDLIST.Ptr, pidl, UInt32, iColumn, SHELLDETAILS.Ptr, psd, "HRESULT")
         return psd
     }
 
@@ -225,7 +225,7 @@ export default struct IShellFolder2 extends IShellFolder {
      */
     MapColumnToSCID(iColumn) {
         pscid := PROPERTYKEY()
-        result := ComCall(19, this, "uint", iColumn, PROPERTYKEY.Ptr, pscid, "HRESULT")
+        result := ComCall(19, this, UInt32, iColumn, PROPERTYKEY.Ptr, pscid, "HRESULT")
         return pscid
     }
 

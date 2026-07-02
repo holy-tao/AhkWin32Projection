@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IGPMBackupCollection.ahk" { IGPMBackupCollection }
 #Import ".\IGPMBackup.ahk" { IGPMBackup }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
 
 /**
  * The IGPMBackupDir interface supports methods that allow you to query GPMBackup and GPMBackupCollection objects when you use the Group Policy Management Console (GPMC) interfaces.

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DXGI_MATRIX_3X2_F.ahk" { DXGI_MATRIX_3X2_F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDXGISwapChain1.ahk" { IDXGISwapChain1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends IDXGISwapChain1 with methods to support swap back buffer scaling and lower-latency swap chains.
@@ -61,7 +61,7 @@ export default struct IDXGISwapChain2 extends IDXGISwapChain1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchain2-setsourcesize
      */
     SetSourceSize(Width, Height) {
-        result := ComCall(29, this, "uint", Width, "uint", Height, "HRESULT")
+        result := ComCall(29, this, UInt32, Width, UInt32, Height, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IDXGISwapChain2 extends IDXGISwapChain1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchain2-setmaximumframelatency
      */
     SetMaximumFrameLatency(MaxLatency) {
-        result := ComCall(31, this, "uint", MaxLatency, "HRESULT")
+        result := ComCall(31, this, UInt32, MaxLatency, "HRESULT")
         return result
     }
 

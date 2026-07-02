@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DFS_STORAGE_INFO_1.ahk" { DFS_STORAGE_INFO_1 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about a Distributed File System (DFS) root or link. This structure contains the name, status, GUID, time-out, namespace/root/link properties, metadata size, number of targets, and information about each target of the root or link.

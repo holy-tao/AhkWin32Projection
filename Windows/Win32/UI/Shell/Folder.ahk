@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\FolderItem.ahk" { FolderItem }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\FolderItem.ahk" { FolderItem }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FolderItems.ahk" { FolderItems }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a Shell folder. This object contains properties and methods that allow you to retrieve information about the folder.
@@ -494,7 +494,7 @@ export default struct Folder extends IDispatch {
      */
     GetDetailsOf(vItem, iColumn) {
         pbs := BSTR.Owned()
-        result := ComCall(16, this, VARIANT, vItem, "int", iColumn, BSTR.Ptr, pbs, "HRESULT")
+        result := ComCall(16, this, VARIANT, vItem, Int32, iColumn, BSTR.Ptr, pbs, "HRESULT")
         return pbs
     }
 

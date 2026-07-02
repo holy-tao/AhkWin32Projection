@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMoniker.ahk" { IMoniker }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\STGMEDIUM.ahk" { STGMEDIUM }
 #Import ".\FORMATETC.ahk" { FORMATETC }
-#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables containers and other objects to receive notifications of data changes, view changes, and compound-document changes occurring in objects of interest.
@@ -77,7 +77,7 @@ export default struct IAdviseSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iadvisesink-onviewchange
      */
     OnViewChange(dwAspect, lindex) {
-        ComCall(4, this, "uint", dwAspect, "int", lindex)
+        ComCall(4, this, UInt32, dwAspect, Int32, lindex)
     }
 
     /**

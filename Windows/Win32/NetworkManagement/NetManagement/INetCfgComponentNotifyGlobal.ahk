@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\INetCfgBindingPath.ahk" { INetCfgBindingPath }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INetCfgComponent.ahk" { INetCfgComponent }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -56,7 +56,7 @@ export default struct INetCfgComponentNotifyGlobal extends IUnknown {
      * @returns {HRESULT} 
      */
     SysQueryBindingPath(dwChangeFlag, pIPath) {
-        result := ComCall(4, this, "uint", dwChangeFlag, "ptr", pIPath, "HRESULT")
+        result := ComCall(4, this, UInt32, dwChangeFlag, "ptr", pIPath, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct INetCfgComponentNotifyGlobal extends IUnknown {
      * @returns {HRESULT} 
      */
     SysNotifyBindingPath(dwChangeFlag, pIPath) {
-        result := ComCall(5, this, "uint", dwChangeFlag, "ptr", pIPath, "HRESULT")
+        result := ComCall(5, this, UInt32, dwChangeFlag, "ptr", pIPath, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct INetCfgComponentNotifyGlobal extends IUnknown {
      * @returns {HRESULT} 
      */
     SysNotifyComponent(dwChangeFlag, pIComp) {
-        result := ComCall(6, this, "uint", dwChangeFlag, "ptr", pIComp, "HRESULT")
+        result := ComCall(6, this, UInt32, dwChangeFlag, "ptr", pIComp, "HRESULT")
         return result
     }
 

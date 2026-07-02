@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ExtensionValidationContexts.ahk" { ExtensionValidationContexts }
+#Import "..\MsHtml\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ExtensionValidationResults.ahk" { ExtensionValidationResults }
 #Import "..\MsHtml\IHTMLDocument2.ahk" { IHTMLDocument2 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\MsHtml\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\ExtensionValidationContexts.ahk" { ExtensionValidationContexts }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -56,7 +56,7 @@ export default struct IExtensionValidation extends IUnknown {
     Validate(extensionGuid, extensionModulePath, extensionFileVersionMS, extensionFileVersionLS, htmlDocumentTop, htmlDocumentSubframe, htmlElement, contexts) {
         extensionModulePath := extensionModulePath is String ? StrPtr(extensionModulePath) : extensionModulePath
 
-        result := ComCall(3, this, Guid.Ptr, extensionGuid, "ptr", extensionModulePath, "uint", extensionFileVersionMS, "uint", extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, ExtensionValidationContexts, contexts, "int*", &results := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, extensionGuid, "ptr", extensionModulePath, UInt32, extensionFileVersionMS, UInt32, extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, ExtensionValidationContexts, contexts, "int*", &results := 0, "HRESULT")
         return results
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
-#Import ".\D3D12_RANGE.ahk" { D3D12_RANGE }
-#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
-#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
 #Import ".\D3D12_BOX.ahk" { D3D12_BOX }
 #Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\D3D12_RANGE.ahk" { D3D12_RANGE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Encapsulates a generalized ability of the CPU and GPU to read and write to physical memory, or heaps. It contains abstractions for organizing and manipulating simple arrays of data as well as multidimensional data optimized for shader sampling.
@@ -126,7 +126,7 @@ export default struct ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map
      */
     Map(Subresource, pReadRange) {
-        result := ComCall(8, this, "uint", Subresource, D3D12_RANGE.Ptr, pReadRange, "ptr*", &ppData := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, Subresource, D3D12_RANGE.Ptr, pReadRange, "ptr*", &ppData := 0, "HRESULT")
         return ppData
     }
 
@@ -148,7 +148,7 @@ export default struct ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-unmap
      */
     Unmap(Subresource, pWrittenRange) {
-        ComCall(9, this, "uint", Subresource, D3D12_RANGE.Ptr, pWrittenRange)
+        ComCall(9, this, UInt32, Subresource, D3D12_RANGE.Ptr, pWrittenRange)
     }
 
     /**
@@ -234,7 +234,7 @@ export default struct ID3D12Resource extends ID3D12Pageable {
     WriteToSubresource(DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, "uint", DstSubresource, D3D12_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch, "HRESULT")
+        result := ComCall(12, this, UInt32, DstSubresource, D3D12_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, UInt32, SrcRowPitch, UInt32, SrcDepthPitch, "HRESULT")
         return result
     }
 
@@ -268,7 +268,7 @@ export default struct ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-readfromsubresource
      */
     ReadFromSubresource(DstRowPitch, DstDepthPitch, SrcSubresource, pSrcBox) {
-        result := ComCall(13, this, "ptr", &pDstData := 0, "uint", DstRowPitch, "uint", DstDepthPitch, "uint", SrcSubresource, D3D12_BOX.Ptr, pSrcBox, "HRESULT")
+        result := ComCall(13, this, "ptr", &pDstData := 0, UInt32, DstRowPitch, UInt32, DstDepthPitch, UInt32, SrcSubresource, D3D12_BOX.Ptr, pSrcBox, "HRESULT")
         return pDstData
     }
 

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFCdmSuspendNotify.ahk" { IMFCdmSuspendNotify }
+#Import ".\IMFTrustedInput.ahk" { IMFTrustedInput }
 #Import ".\MF_MEDIAKEYSESSION_TYPE.ahk" { MF_MEDIAKEYSESSION_TYPE }
-#Import ".\IMFContentDecryptionModuleSession.ahk" { IMFContentDecryptionModuleSession }
+#Import ".\IMFCdmSuspendNotify.ahk" { IMFCdmSuspendNotify }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMFContentEnabler.ahk" { IMFContentEnabler }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import ".\IMFTrustedInput.ahk" { IMFTrustedInput }
-#Import ".\IMFPMPHostApp.ahk" { IMFPMPHostApp }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMFContentDecryptionModuleSessionCallbacks.ahk" { IMFContentDecryptionModuleSessionCallbacks }
+#Import ".\IMFContentDecryptionModuleSession.ahk" { IMFContentDecryptionModuleSession }
+#Import ".\IMFPMPHostApp.ahk" { IMFPMPHostApp }
 
 /**
  * Represents a Content Decryption Module (CDM) for a DRM key system.
@@ -112,7 +112,7 @@ export default struct IMFContentDecryptionModule extends IUnknown {
     SetServerCertificate(certificate, certificateSize) {
         certificateMarshal := certificate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, certificateMarshal, certificate, "uint", certificateSize, "HRESULT")
+        result := ComCall(7, this, certificateMarshal, certificate, UInt32, certificateSize, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IMFContentDecryptionModule extends IUnknown {
     CreateTrustedInput(contentInitData, contentInitDataSize) {
         contentInitDataMarshal := contentInitData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, contentInitDataMarshal, contentInitData, "uint", contentInitDataSize, "ptr*", &trustedInput := 0, "HRESULT")
+        result := ComCall(8, this, contentInitDataMarshal, contentInitData, UInt32, contentInitDataSize, "ptr*", &trustedInput := 0, "HRESULT")
         return IMFTrustedInput(trustedInput)
     }
 

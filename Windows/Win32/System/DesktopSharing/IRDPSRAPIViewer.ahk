@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CTRL_LEVEL.ahk" { CTRL_LEVEL }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRDPSRAPIVirtualChannelManager.ahk" { IRDPSRAPIVirtualChannelManager }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IRDPSRAPIApplicationFilter.ahk" { IRDPSRAPIApplicationFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IRDPSRAPIAttendeeManager.ahk" { IRDPSRAPIAttendeeManager }
-#Import ".\IRDPSRAPISessionProperties.ahk" { IRDPSRAPISessionProperties }
 #Import ".\IRDPSRAPIInvitationManager.ahk" { IRDPSRAPIInvitationManager }
+#Import ".\CTRL_LEVEL.ahk" { CTRL_LEVEL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRDPSRAPISessionProperties.ahk" { IRDPSRAPISessionProperties }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ActiveX interface that is used on the viewer side.
@@ -277,7 +277,7 @@ export default struct IRDPSRAPIViewer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-requestcolordepthchange
      */
     RequestColorDepthChange(Bpp) {
-        result := ComCall(18, this, "int", Bpp, "HRESULT")
+        result := ComCall(18, this, Int32, Bpp, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IMAPIProgressIUnknown implements a progress object that provides client applications with a progress indicator.
@@ -49,7 +49,7 @@ export default struct IMAPIProgress extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprogress-progress
      */
     Progress(ulValue, ulCount, ulTotal) {
-        result := ComCall(3, this, "uint", ulValue, "uint", ulCount, "uint", ulTotal, "HRESULT")
+        result := ComCall(3, this, UInt32, ulValue, UInt32, ulCount, UInt32, ulTotal, "HRESULT")
         return result
     }
 

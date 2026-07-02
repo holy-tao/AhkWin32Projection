@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\KSRESOLUTION.ahk" { KSRESOLUTION }
-#Import ".\KSSTATE.ahk" { KSSTATE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\KSCORRELATED_TIME.ahk" { KSCORRELATED_TIME }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\KSRESOLUTION.ahk" { KSRESOLUTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSSTATE.ahk" { KSSTATE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -62,7 +62,7 @@ export default struct IKsClockPropertySet extends IUnknown {
      * @returns {HRESULT} 
      */
     KsSetTime(Time) {
-        result := ComCall(4, this, "int64", Time, "HRESULT")
+        result := ComCall(4, this, Int64, Time, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IKsClockPropertySet extends IUnknown {
      * @returns {HRESULT} 
      */
     KsSetPhysicalTime(Time) {
-        result := ComCall(6, this, "int64", Time, "HRESULT")
+        result := ComCall(6, this, Int64, Time, "HRESULT")
         return result
     }
 

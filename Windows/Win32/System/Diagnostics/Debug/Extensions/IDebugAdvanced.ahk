@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -52,7 +52,7 @@ export default struct IDebugAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(_Context, ContextSize) {
-        result := ComCall(3, this, "ptr", _Context, "uint", ContextSize, "HRESULT")
+        result := ComCall(3, this, IntPtr, _Context, UInt32, ContextSize, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct IDebugAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadcontext
      */
     SetThreadContext(_Context, ContextSize) {
-        result := ComCall(4, this, "ptr", _Context, "uint", ContextSize, "HRESULT")
+        result := ComCall(4, this, IntPtr, _Context, UInt32, ContextSize, "HRESULT")
         return result
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\REGFILTER.ahk" { REGFILTER }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Note  This interface has been deprecated. (IEnumRegFilters)
@@ -55,7 +55,7 @@ export default struct IEnumRegFilters extends IUnknown {
     Next(cFilters, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cFilters, "ptr*", &apRegFilter := 0, pcFetchedMarshal, pcFetched, Int32)
+        result := ComCall(3, this, UInt32, cFilters, "ptr*", &apRegFilter := 0, pcFetchedMarshal, pcFetched, Int32)
         return apRegFilter
     }
 
@@ -66,7 +66,7 @@ export default struct IEnumRegFilters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumregfilters-skip
      */
     Skip(cFilters) {
-        result := ComCall(4, this, "uint", cFilters, "HRESULT")
+        result := ComCall(4, this, UInt32, cFilters, "HRESULT")
         return result
     }
 

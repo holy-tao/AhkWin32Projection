@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IHTMLCaret.ahk" { IHTMLCaret }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import ".\IHTMLCaret.ahk" { IHTMLCaret }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COORD_SYSTEM.ahk" { COORD_SYSTEM }
 #Import ".\IHTMLComputedStyle.ahk" { IHTMLComputedStyle }
-#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDisplayPointer.ahk" { IDisplayPointer }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMessage.ahk" { IMessage }
 #Import ".\SBinaryArray.ahk" { SBinaryArray }
-#Import ".\IMAPIContainer.ahk" { IMAPIContainer }
+#Import ".\IMessage.ahk" { IMessage }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SSortOrderSet.ahk" { SSortOrderSet }
 #Import ".\IMAPIProgress.ahk" { IMAPIProgress }
+#Import ".\IMAPIContainer.ahk" { IMAPIContainer }
 
 /**
  * IMAPIFolderIMAPIContainer performs operations on the messages and subfolders in a folder. This article describes the related properties and members.
@@ -68,7 +68,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-createmessage
      */
     CreateMessage(lpInterface, ulFlags) {
-        result := ComCall(19, this, Guid.Ptr, lpInterface, "uint", ulFlags, "ptr*", &lppMessage := 0, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, lpInterface, UInt32, ulFlags, "ptr*", &lppMessage := 0, "HRESULT")
         return IMessage(lppMessage)
     }
 
@@ -112,7 +112,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
     CopyMessages(lpMsgList, lpInterface, lpDestFolder, ulUIParam, lpProgress, ulFlags) {
         lpDestFolderMarshal := lpDestFolder is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(20, this, SBinaryArray.Ptr, lpMsgList, Guid.Ptr, lpInterface, lpDestFolderMarshal, lpDestFolder, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(20, this, SBinaryArray.Ptr, lpMsgList, Guid.Ptr, lpInterface, lpDestFolderMarshal, lpDestFolder, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-deletemessages
      */
     DeleteMessages(lpMsgList, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(21, this, SBinaryArray.Ptr, lpMsgList, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(21, this, SBinaryArray.Ptr, lpMsgList, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -182,7 +182,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
         lpszFolderNameMarshal := lpszFolderName is VarRef ? "char*" : "ptr"
         lpszFolderCommentMarshal := lpszFolderComment is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, "uint", ulFolderType, lpszFolderNameMarshal, lpszFolderName, lpszFolderCommentMarshal, lpszFolderComment, Guid.Ptr, lpInterface, "uint", ulFlags, "ptr*", &lppFolder := 0, "HRESULT")
+        result := ComCall(22, this, UInt32, ulFolderType, lpszFolderNameMarshal, lpszFolderName, lpszFolderCommentMarshal, lpszFolderComment, Guid.Ptr, lpInterface, UInt32, ulFlags, "ptr*", &lppFolder := 0, "HRESULT")
         return IMAPIFolder(lppFolder)
     }
 
@@ -247,7 +247,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
         lpDestFolderMarshal := lpDestFolder is VarRef ? "ptr" : "ptr"
         lpszNewFolderNameMarshal := lpszNewFolderName is VarRef ? "char*" : "ptr"
 
-        result := ComCall(23, this, "uint", cbEntryID, "ptr", lpEntryID, Guid.Ptr, lpInterface, lpDestFolderMarshal, lpDestFolder, lpszNewFolderNameMarshal, lpszNewFolderName, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(23, this, UInt32, cbEntryID, IntPtr, lpEntryID, Guid.Ptr, lpInterface, lpDestFolderMarshal, lpDestFolder, lpszNewFolderNameMarshal, lpszNewFolderName, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -296,7 +296,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-deletefolder
      */
     DeleteFolder(cbEntryID, lpEntryID, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(24, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(24, this, UInt32, cbEntryID, IntPtr, lpEntryID, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -358,7 +358,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-setreadflags
      */
     SetReadFlags(lpMsgList, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(25, this, SBinaryArray.Ptr, lpMsgList, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(25, this, SBinaryArray.Ptr, lpMsgList, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -397,7 +397,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-getmessagestatus
      */
     GetMessageStatus(cbEntryID, lpEntryID, ulFlags) {
-        result := ComCall(26, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulFlags, "uint*", &lpulMessageStatus := 0, "HRESULT")
+        result := ComCall(26, this, UInt32, cbEntryID, IntPtr, lpEntryID, UInt32, ulFlags, "uint*", &lpulMessageStatus := 0, "HRESULT")
         return lpulMessageStatus
     }
 
@@ -437,7 +437,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-setmessagestatus
      */
     SetMessageStatus(cbEntryID, lpEntryID, ulNewStatus, ulNewStatusMask) {
-        result := ComCall(27, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulNewStatus, "uint", ulNewStatusMask, "uint*", &lpulOldStatus := 0, "HRESULT")
+        result := ComCall(27, this, UInt32, cbEntryID, IntPtr, lpEntryID, UInt32, ulNewStatus, UInt32, ulNewStatusMask, "uint*", &lpulOldStatus := 0, "HRESULT")
         return lpulOldStatus
     }
 
@@ -463,7 +463,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-savecontentssort
      */
     SaveContentsSort(lpSortCriteria, ulFlags) {
-        result := ComCall(28, this, SSortOrderSet.Ptr, lpSortCriteria, "uint", ulFlags, "HRESULT")
+        result := ComCall(28, this, SSortOrderSet.Ptr, lpSortCriteria, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -500,7 +500,7 @@ export default struct IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-emptyfolder
      */
     EmptyFolder(ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(29, this, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(29, this, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 

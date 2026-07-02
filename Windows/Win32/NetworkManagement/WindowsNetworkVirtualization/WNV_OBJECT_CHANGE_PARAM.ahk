@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\WNV_PROVIDER_ADDRESS_CHANGE_PARAM.ahk" { WNV_PROVIDER_ADDRESS_CHANGE_PARAM }
+#Import ".\WNV_CA_NOTIFICATION_TYPE.ahk" { WNV_CA_NOTIFICATION_TYPE }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Networking\WinSock\DL_OUI.ahk" { DL_OUI }
 #Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\WNV_OBJECT_TYPE.ahk" { WNV_OBJECT_TYPE }
 #Import "..\..\Networking\WinSock\DL_EUI48.ahk" { DL_EUI48 }
+#Import "..\..\Networking\WinSock\DL_EI48.ahk" { DL_EI48 }
+#Import ".\WNV_IP_ADDRESS.ahk" { WNV_IP_ADDRESS }
 #Import ".\WNV_CUSTOMER_ADDRESS_CHANGE_PARAM.ahk" { WNV_CUSTOMER_ADDRESS_CHANGE_PARAM }
 #Import "..\..\Networking\WinSock\NL_DAD_STATE.ahk" { NL_DAD_STATE }
-#Import ".\WNV_CA_NOTIFICATION_TYPE.ahk" { WNV_CA_NOTIFICATION_TYPE }
-#Import "..\..\Networking\WinSock\DL_EI48.ahk" { DL_EI48 }
-#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
-#Import ".\WNV_OBJECT_TYPE.ahk" { WNV_OBJECT_TYPE }
-#Import ".\WNV_IP_ADDRESS.ahk" { WNV_IP_ADDRESS }
-#Import "..\..\Networking\WinSock\DL_OUI.ahk" { DL_OUI }
-#Import ".\WNV_PROVIDER_ADDRESS_CHANGE_PARAM.ahk" { WNV_PROVIDER_ADDRESS_CHANGE_PARAM }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * Specifies the parameters of an event that causes the Windows Network Virtualization (WNV) driver to generate a WnvObjectChangeType type of notification.

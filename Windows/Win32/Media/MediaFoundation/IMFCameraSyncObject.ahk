@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a synchronization mechanism between an app that creates and manages a virtual camera and the virtual camera source.
@@ -51,7 +51,7 @@ export default struct IMFCameraSyncObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfcamerasyncobject-waitonsignal
      */
     WaitOnSignal(timeOutInMs) {
-        result := ComCall(3, this, "uint", timeOutInMs, "HRESULT")
+        result := ComCall(3, this, UInt32, timeOutInMs, "HRESULT")
         return result
     }
 

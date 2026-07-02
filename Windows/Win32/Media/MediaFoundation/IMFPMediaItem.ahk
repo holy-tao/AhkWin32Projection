@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a media item. (Deprecated.).
@@ -117,7 +117,7 @@ export default struct IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-setuserdata
      */
     SetUserData(dwUserData) {
-        result := ComCall(7, this, "ptr", dwUserData, "HRESULT")
+        result := ComCall(7, this, IntPtr, dwUserData, "HRESULT")
         return result
     }
 
@@ -367,7 +367,7 @@ export default struct IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getstreamselection
      */
     GetStreamSelection(dwStreamIndex) {
-        result := ComCall(15, this, "uint", dwStreamIndex, BOOL.Ptr, &pfEnabled := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwStreamIndex, BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -408,7 +408,7 @@ export default struct IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-setstreamselection
      */
     SetStreamSelection(dwStreamIndex, fEnabled) {
-        result := ComCall(16, this, "uint", dwStreamIndex, BOOL, fEnabled, "HRESULT")
+        result := ComCall(16, this, UInt32, dwStreamIndex, BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -432,7 +432,7 @@ export default struct IMFPMediaItem extends IUnknown {
      */
     GetStreamAttribute(dwStreamIndex, guidMFAttribute) {
         pvValue := PROPVARIANT()
-        result := ComCall(17, this, "uint", dwStreamIndex, Guid.Ptr, guidMFAttribute, PROPVARIANT.Ptr, pvValue, "HRESULT")
+        result := ComCall(17, this, UInt32, dwStreamIndex, Guid.Ptr, guidMFAttribute, PROPVARIANT.Ptr, pvValue, "HRESULT")
         return pvValue
     }
 
@@ -485,7 +485,7 @@ export default struct IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-setstreamsink
      */
     SetStreamSink(dwStreamIndex, pMediaSink) {
-        result := ComCall(20, this, "uint", dwStreamIndex, "ptr", pMediaSink, "HRESULT")
+        result := ComCall(20, this, UInt32, dwStreamIndex, "ptr", pMediaSink, "HRESULT")
         return result
     }
 

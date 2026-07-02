@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPWORDLIST.ahk" { SPWORDLIST }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SPPARTOFSPEECH.ahk" { SPPARTOFSPEECH }
-#Import ".\SPWORDPRONUNCIATIONLIST.ahk" { SPWORDPRONUNCIATIONLIST }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPWORDPRONUNCIATIONLIST.ahk" { SPWORDPRONUNCIATIONLIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPWORDLIST.ahk" { SPWORDLIST }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -61,7 +61,7 @@ export default struct ISpLexicon extends IUnknown {
     GetPronunciations(pszWord, LangID, dwFlags, pWordPronunciationList) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
 
-        result := ComCall(3, this, "ptr", pszWord, "ushort", LangID, "uint", dwFlags, SPWORDPRONUNCIATIONLIST.Ptr, pWordPronunciationList, "HRESULT")
+        result := ComCall(3, this, "ptr", pszWord, UInt16, LangID, UInt32, dwFlags, SPWORDPRONUNCIATIONLIST.Ptr, pWordPronunciationList, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct ISpLexicon extends IUnknown {
 
         pszPronunciationMarshal := pszPronunciation is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszWord, "ushort", LangID, SPPARTOFSPEECH, ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "HRESULT")
+        result := ComCall(4, this, "ptr", pszWord, UInt16, LangID, SPPARTOFSPEECH, ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct ISpLexicon extends IUnknown {
 
         pszPronunciationMarshal := pszPronunciation is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszWord, "ushort", LangID, SPPARTOFSPEECH, ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "HRESULT")
+        result := ComCall(5, this, "ptr", pszWord, UInt16, LangID, SPPARTOFSPEECH, ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct ISpLexicon extends IUnknown {
     GetGenerationChange(dwFlags, pdwGeneration, pWordList) {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwFlags, pdwGenerationMarshal, pdwGeneration, SPWORDLIST.Ptr, pWordList, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, pdwGenerationMarshal, pdwGeneration, SPWORDLIST.Ptr, pWordList, "HRESULT")
         return result
     }
 
@@ -137,7 +137,7 @@ export default struct ISpLexicon extends IUnknown {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwFlags, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, SPWORDLIST.Ptr, pWordList, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFlags, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, SPWORDLIST.Ptr, pWordList, "HRESULT")
         return result
     }
 

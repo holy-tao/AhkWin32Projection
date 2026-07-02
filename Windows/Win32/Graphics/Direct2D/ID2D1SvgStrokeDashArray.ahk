@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_SVG_LENGTH.ahk" { D2D1_SVG_LENGTH }
 #Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_SVG_LENGTH.ahk" { D2D1_SVG_LENGTH }
 
 /**
  * Interface describing an SVG stroke-dasharray value.
@@ -54,7 +54,7 @@ export default struct ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgstrokedasharray-removedashesatend
      */
     RemoveDashesAtEnd(dashesCount) {
-        result := ComCall(6, this, "uint", dashesCount, "HRESULT")
+        result := ComCall(6, this, UInt32, dashesCount, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-updatedashes-overload
      */
     UpdateDashes(dashes, dashesCount, startIndex) {
-        result := ComCall(7, this, D2D1_SVG_LENGTH.Ptr, dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        result := ComCall(7, this, D2D1_SVG_LENGTH.Ptr, dashes, UInt32, dashesCount, UInt32, startIndex, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute {
     UpdateDashes1(dashes, dashesCount, startIndex) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(8, this, dashesMarshal, dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        result := ComCall(8, this, dashesMarshal, dashes, UInt32, dashesCount, UInt32, startIndex, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute {
      */
     GetDashes(dashesCount, startIndex) {
         dashes := D2D1_SVG_LENGTH()
-        result := ComCall(9, this, D2D1_SVG_LENGTH.Ptr, dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        result := ComCall(9, this, D2D1_SVG_LENGTH.Ptr, dashes, UInt32, dashesCount, UInt32, startIndex, "HRESULT")
         return dashes
     }
 
@@ -107,7 +107,7 @@ export default struct ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-getdashes-overload
      */
     GetDashes1(dashesCount, startIndex) {
-        result := ComCall(10, this, "float*", &dashes := 0, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        result := ComCall(10, this, "float*", &dashes := 0, UInt32, dashesCount, UInt32, startIndex, "HRESULT")
         return dashes
     }
 

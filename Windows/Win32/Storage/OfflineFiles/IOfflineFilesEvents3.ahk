@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\OFFLINEFILES_EVENTS.ahk" { OFFLINEFILES_EVENTS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OFFLINEFILES_ITEM_TYPE.ahk" { OFFLINEFILES_ITEM_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOfflineFilesEvents2.ahk" { IOfflineFilesEvents2 }
-#Import ".\OFFLINEFILES_ITEM_TYPE.ahk" { OFFLINEFILES_ITEM_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Used to report events associated with transparently cached items.

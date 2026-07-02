@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IETFilterConfig interface configures the Encrypter/Tagger filter. Most applications will not have to use this interface.
@@ -47,7 +47,7 @@ export default struct IETFilterConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilterconfig-initlicense
      */
     InitLicense(LicenseId) {
-        result := ComCall(3, this, "int", LicenseId, "HRESULT")
+        result := ComCall(3, this, Int32, LicenseId, "HRESULT")
         return result
     }
 

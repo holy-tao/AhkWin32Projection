@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVssAsync interface is returned to calling applications by methods that initiate asynchronous operations, which run in the background and typically require a long time to complete.
@@ -184,7 +184,7 @@ export default struct IVssAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vss/nf-vss-ivssasync-wait
      */
     Wait(dwMilliseconds) {
-        result := ComCall(4, this, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMilliseconds, "HRESULT")
         return result
     }
 

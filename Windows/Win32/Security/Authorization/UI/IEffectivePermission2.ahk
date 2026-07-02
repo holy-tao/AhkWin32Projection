@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\EFFPERM_RESULT_LIST.ahk" { EFFPERM_RESULT_LIST }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SECURITY_OBJECT.ahk" { SECURITY_OBJECT }
-#Import "..\..\PSID.ahk" { PSID }
 #Import "..\AUTHZ_SID_OPERATION.ahk" { AUTHZ_SID_OPERATION }
+#Import ".\SECURITY_OBJECT.ahk" { SECURITY_OBJECT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.ahk" { AUTHZ_SECURITY_ATTRIBUTES_INFORMATION }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\AUTHZ_SECURITY_ATTRIBUTE_OPERATION.ahk" { AUTHZ_SECURITY_ATTRIBUTE_OPERATION }
+#Import "..\AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.ahk" { AUTHZ_SECURITY_ATTRIBUTES_INFORMATION }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\PSID.ahk" { PSID }
+#Import ".\EFFPERM_RESULT_LIST.ahk" { EFFPERM_RESULT_LIST }
+#Import "..\..\TOKEN_GROUPS.ahk" { TOKEN_GROUPS }
 
 /**
  * Provides a way to determine effective permission for a security principal on an object.
@@ -90,7 +90,7 @@ export default struct IEffectivePermission2 extends IUnknown {
         pAuthzUserClaimsOperationsMarshal := pAuthzUserClaimsOperations is VarRef ? "int*" : "ptr"
         pAuthzDeviceClaimsOperationsMarshal := pAuthzDeviceClaimsOperations is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, PSID, _pSid, PSID, pDeviceSid, "ptr", pszServerName, SECURITY_OBJECT.Ptr, pSecurityObjects, "uint", dwSecurityObjectCount, TOKEN_GROUPS.Ptr, pUserGroups, pAuthzUserGroupsOperationsMarshal, pAuthzUserGroupsOperations, TOKEN_GROUPS.Ptr, pDeviceGroups, pAuthzDeviceGroupsOperationsMarshal, pAuthzDeviceGroupsOperations, AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAuthzUserClaims, pAuthzUserClaimsOperationsMarshal, pAuthzUserClaimsOperations, AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAuthzDeviceClaims, pAuthzDeviceClaimsOperationsMarshal, pAuthzDeviceClaimsOperations, EFFPERM_RESULT_LIST.Ptr, pEffpermResultLists, "HRESULT")
+        result := ComCall(3, this, PSID, _pSid, PSID, pDeviceSid, "ptr", pszServerName, SECURITY_OBJECT.Ptr, pSecurityObjects, UInt32, dwSecurityObjectCount, TOKEN_GROUPS.Ptr, pUserGroups, pAuthzUserGroupsOperationsMarshal, pAuthzUserGroupsOperations, TOKEN_GROUPS.Ptr, pDeviceGroups, pAuthzDeviceGroupsOperationsMarshal, pAuthzDeviceGroupsOperations, AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAuthzUserClaims, pAuthzUserClaimsOperationsMarshal, pAuthzUserClaimsOperations, AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAuthzDeviceClaims, pAuthzDeviceClaimsOperationsMarshal, pAuthzDeviceClaimsOperations, EFFPERM_RESULT_LIST.Ptr, pEffpermResultLists, "HRESULT")
         return result
     }
 

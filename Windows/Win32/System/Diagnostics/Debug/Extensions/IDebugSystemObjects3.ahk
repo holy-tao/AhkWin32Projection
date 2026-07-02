@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -114,7 +114,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCurrentThreadId(Id) {
-        result := ComCall(6, this, "uint", Id, "HRESULT")
+        result := ComCall(6, this, UInt32, Id, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCurrentProcessId(Id) {
-        result := ComCall(8, this, "uint", Id, "HRESULT")
+        result := ComCall(8, this, UInt32, Id, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
         IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
         SysIdsMarshal := SysIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", Start, "uint", Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
+        result := ComCall(11, this, UInt32, Start, UInt32, Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
         return result
     }
 
@@ -185,7 +185,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetThreadIdByProcessor(Processor) {
-        result := ComCall(12, this, "uint", Processor, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, Processor, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -204,7 +204,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetThreadIdByDataOffset(Offset) {
-        result := ComCall(14, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(14, this, Int64, Offset, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -223,7 +223,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetThreadIdByTeb(Offset) {
-        result := ComCall(16, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(16, this, Int64, Offset, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -242,7 +242,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetThreadIdBySystemId(SysId) {
-        result := ComCall(18, this, "uint", SysId, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, SysId, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -261,7 +261,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetThreadIdByHandle(_Handle) {
-        result := ComCall(20, this, "uint", _Handle, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(20, this, Int64, _Handle, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -286,7 +286,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
         IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
         SysIdsMarshal := SysIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "uint", Start, "uint", Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
+        result := ComCall(22, this, UInt32, Start, UInt32, Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
         return result
     }
 
@@ -305,7 +305,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetProcessIdByDataOffset(Offset) {
-        result := ComCall(24, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(24, this, Int64, Offset, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -324,7 +324,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetProcessIdByPeb(Offset) {
-        result := ComCall(26, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(26, this, Int64, Offset, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -343,7 +343,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetProcessIdBySystemId(SysId) {
-        result := ComCall(28, this, "uint", SysId, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(28, this, UInt32, SysId, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -362,7 +362,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetProcessIdByHandle(_Handle) {
-        result := ComCall(30, this, "uint", _Handle, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(30, this, Int64, _Handle, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -375,7 +375,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
     GetCurrentProcessExecutableName(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(31, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &ExeSize := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ExeSize := 0, "HRESULT")
         return ExeSize
     }
 
@@ -403,7 +403,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetImplicitThreadDataOffset(Offset) {
-        result := ComCall(34, this, "uint", Offset, "HRESULT")
+        result := ComCall(34, this, Int64, Offset, "HRESULT")
         return result
     }
 
@@ -422,7 +422,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetImplicitProcessDataOffset(Offset) {
-        result := ComCall(36, this, "uint", Offset, "HRESULT")
+        result := ComCall(36, this, Int64, Offset, "HRESULT")
         return result
     }
 
@@ -450,7 +450,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCurrentSystemId(Id) {
-        result := ComCall(39, this, "uint", Id, "HRESULT")
+        result := ComCall(39, this, UInt32, Id, "HRESULT")
         return result
     }
 
@@ -470,7 +470,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetSystemIdsByIndex(Start, Count) {
-        result := ComCall(41, this, "uint", Start, "uint", Count, "uint*", &Ids := 0, "HRESULT")
+        result := ComCall(41, this, UInt32, Start, UInt32, Count, "uint*", &Ids := 0, "HRESULT")
         return Ids
     }
 
@@ -509,7 +509,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
      * @returns {Integer} 
      */
     GetSystemByServer(Server) {
-        result := ComCall(44, this, "uint", Server, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(44, this, Int64, Server, "uint*", &Id := 0, "HRESULT")
         return Id
     }
 
@@ -522,7 +522,7 @@ export default struct IDebugSystemObjects3 extends IUnknown {
     GetCurrentSystemServerName(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(45, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(45, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 

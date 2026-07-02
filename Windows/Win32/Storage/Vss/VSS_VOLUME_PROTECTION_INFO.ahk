@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VSS_PROTECTION_LEVEL.ahk" { VSS_PROTECTION_LEVEL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\VSS_PROTECTION_FAULT.ahk" { VSS_PROTECTION_FAULT }
+#Import ".\VSS_PROTECTION_LEVEL.ahk" { VSS_PROTECTION_LEVEL }
 
 /**
  * Contains information about a volume's shadow copy protection level.

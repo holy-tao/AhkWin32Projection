@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\CRYPTUI_WIZ_EXPORT_SUBJECT.ahk" { CRYPTUI_WIZ_EXPORT_SUBJECT }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\CRL_CONTEXT.ahk" { CRL_CONTEXT }
 #Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\CTL_CONTEXT.ahk" { CTL_CONTEXT }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\CRL_CONTEXT.ahk" { CRL_CONTEXT }
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function.

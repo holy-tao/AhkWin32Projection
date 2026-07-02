@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_GLYPH_IMAGE_DATA.ahk" { DWRITE_GLYPH_IMAGE_DATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteFontFace3.ahk" { IDWriteFontFace3 }
+#Import ".\DWRITE_GLYPH_IMAGE_DATA.ahk" { DWRITE_GLYPH_IMAGE_DATA }
 #Import ".\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace4)
@@ -51,7 +51,7 @@ export default struct IDWriteFontFace4 extends IDWriteFontFace3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
      */
     GetGlyphImageFormats(glyphId, pixelsPerEmFirst, pixelsPerEmLast) {
-        result := ComCall(49, this, "ushort", glyphId, "uint", pixelsPerEmFirst, "uint", pixelsPerEmLast, "int*", &glyphImageFormats := 0, "HRESULT")
+        result := ComCall(49, this, UInt16, glyphId, UInt32, pixelsPerEmFirst, UInt32, pixelsPerEmLast, "int*", &glyphImageFormats := 0, "HRESULT")
         return glyphImageFormats
     }
 
@@ -107,7 +107,7 @@ export default struct IDWriteFontFace4 extends IDWriteFontFace3 {
     GetGlyphImageData(glyphId, pixelsPerEm, glyphImageFormat, _glyphData, glyphDataContext) {
         glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(51, this, "ushort", glyphId, "uint", pixelsPerEm, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, DWRITE_GLYPH_IMAGE_DATA.Ptr, _glyphData, glyphDataContextMarshal, glyphDataContext, "HRESULT")
+        result := ComCall(51, this, UInt16, glyphId, UInt32, pixelsPerEm, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, DWRITE_GLYPH_IMAGE_DATA.Ptr, _glyphData, glyphDataContextMarshal, glyphDataContext, "HRESULT")
         return result
     }
 

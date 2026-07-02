@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\GPMDestinationOption.ahk" { GPMDestinationOption }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\GPMEntryType.ahk" { GPMEntryType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GPMDestinationOption.ahk" { GPMDestinationOption }
 
 /**
  * The IGPMMapEntry interface provides access to a map entry.

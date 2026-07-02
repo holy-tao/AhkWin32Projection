@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\LOCATION_REPORT_STATUS.ahk" { LOCATION_REPORT_STATUS }
 #Import ".\ILocationReport.ahk" { ILocationReport }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * ILocationEvents provides callback methods that you must implement if you want to receive event notifications.

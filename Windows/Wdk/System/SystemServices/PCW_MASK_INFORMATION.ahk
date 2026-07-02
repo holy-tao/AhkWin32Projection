@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\KEVENT.ahk" { KEVENT }
 #Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Foundation\PPCW_BUFFER.ahk" { PPCW_BUFFER }
+#Import "..\..\Foundation\KEVENT.ahk" { KEVENT }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

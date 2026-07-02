@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_DSV_DIMENSION.ahk" { D3D11_DSV_DIMENSION }
-#Import ".\D3D11_TEX2DMS_ARRAY_DSV.ahk" { D3D11_TEX2DMS_ARRAY_DSV }
-#Import ".\D3D11_TEX1D_DSV.ahk" { D3D11_TEX1D_DSV }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\D3D11_TEX2DMS_DSV.ahk" { D3D11_TEX2DMS_DSV }
 #Import ".\D3D11_TEX2D_ARRAY_DSV.ahk" { D3D11_TEX2D_ARRAY_DSV }
+#Import ".\D3D11_DSV_DIMENSION.ahk" { D3D11_DSV_DIMENSION }
+#Import ".\D3D11_TEX1D_DSV.ahk" { D3D11_TEX1D_DSV }
 #Import ".\D3D11_TEX2D_DSV.ahk" { D3D11_TEX2D_DSV }
 #Import ".\D3D11_TEX1D_ARRAY_DSV.ahk" { D3D11_TEX1D_ARRAY_DSV }
+#Import ".\D3D11_TEX2DMS_ARRAY_DSV.ahk" { D3D11_TEX2DMS_ARRAY_DSV }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Specifies the subresources of a texture that are accessible from a depth-stencil view.

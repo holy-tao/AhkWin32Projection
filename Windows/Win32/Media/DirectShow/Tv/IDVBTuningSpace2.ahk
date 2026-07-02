@@ -65,7 +65,7 @@ export default struct IDVBTuningSpace2 extends IDVBTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace2-put_networkid
      */
     put_NetworkID(NetworkID) {
-        result := ComCall(29, this, "int", NetworkID, "HRESULT")
+        result := ComCall(29, this, Int32, NetworkID, "HRESULT")
         return result
     }
 

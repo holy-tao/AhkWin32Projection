@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PICTYPE.ahk" { PICTYPE }
-#Import "..\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import ".\OLE_HANDLE.ahk" { OLE_HANDLE }
+#Import "..\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OLE_HANDLE.ahk" { OLE_HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PICTYPE.ahk" { PICTYPE }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * Manages a picture object and its properties. Picture objects provide a language-neutral abstraction for bitmaps, icons, and metafiles.
@@ -302,7 +302,7 @@ export default struct IPicture extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-render
      */
     Render(_hDC, x, y, cx, _cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
-        result := ComCall(8, this, HDC, _hDC, "int", x, "int", y, "int", cx, "int", _cy, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, RECT.Ptr, pRcWBounds, "HRESULT")
+        result := ComCall(8, this, HDC, _hDC, Int32, x, Int32, y, Int32, cx, Int32, _cy, Int32, xSrc, Int32, ySrc, Int32, cxSrc, Int32, cySrc, RECT.Ptr, pRcWBounds, "HRESULT")
         return result
     }
 

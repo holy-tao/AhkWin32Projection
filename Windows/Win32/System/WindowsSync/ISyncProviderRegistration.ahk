@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRegisteredSyncProvider.ahk" { IRegisteredSyncProvider }
+#Import ".\ISyncProviderConfigUI.ahk" { ISyncProviderConfigUI }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISyncProviderConfigUIInfo.ahk" { ISyncProviderConfigUIInfo }
+#Import ".\SyncProviderConfiguration.ahk" { SyncProviderConfiguration }
+#Import ".\IEnumSyncProviderInfos.ahk" { IEnumSyncProviderInfos }
+#Import ".\ISyncProviderInfo.ahk" { ISyncProviderInfo }
 #Import ".\ISyncRegistrationChange.ahk" { ISyncRegistrationChange }
+#Import ".\ISyncProviderConfigUIInfo.ahk" { ISyncProviderConfigUIInfo }
 #Import ".\IEnumSyncProviderConfigUIInfos.ahk" { IEnumSyncProviderConfigUIInfos }
 #Import ".\SyncProviderConfigUIConfiguration.ahk" { SyncProviderConfigUIConfiguration }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumSyncProviderInfos.ahk" { IEnumSyncProviderInfos }
-#Import ".\ISyncProviderConfigUI.ahk" { ISyncProviderConfigUI }
-#Import ".\IRegisteredSyncProvider.ahk" { IRegisteredSyncProvider }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ISyncProviderInfo.ahk" { ISyncProviderInfo }
-#Import ".\SyncProviderConfiguration.ahk" { SyncProviderConfiguration }
 
 /**
  * Represents synchronization provider registration.
@@ -146,7 +146,7 @@ export default struct ISyncProviderRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviderconfiguis
      */
     EnumerateSyncProviderConfigUIs(pguidContentType, dwSupportedArchitecture) {
-        result := ComCall(5, this, Guid.Ptr, pguidContentType, "uint", dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderConfigUIInfos := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pguidContentType, UInt32, dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderConfigUIInfos := 0, "HRESULT")
         return IEnumSyncProviderConfigUIInfos(ppEnumSyncProviderConfigUIInfos)
     }
 
@@ -256,7 +256,7 @@ export default struct ISyncProviderRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviders
      */
     EnumerateSyncProviders(pguidContentType, dwStateFlagsToFilterMask, dwStateFlagsToFilter, refProviderClsId, dwSupportedArchitecture) {
-        result := ComCall(9, this, Guid.Ptr, pguidContentType, "uint", dwStateFlagsToFilterMask, "uint", dwStateFlagsToFilter, Guid.Ptr, refProviderClsId, "uint", dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderInfos := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pguidContentType, UInt32, dwStateFlagsToFilterMask, UInt32, dwStateFlagsToFilter, Guid.Ptr, refProviderClsId, UInt32, dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderInfos := 0, "HRESULT")
         return IEnumSyncProviderInfos(ppEnumSyncProviderInfos)
     }
 
@@ -284,7 +284,7 @@ export default struct ISyncProviderRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderfrominstanceid
      */
     GetSyncProviderFromInstanceId(pguidInstanceId, dwClsContext) {
-        result := ComCall(11, this, Guid.Ptr, pguidInstanceId, "uint", dwClsContext, "ptr*", &ppSyncProvider := 0, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, pguidInstanceId, UInt32, dwClsContext, "ptr*", &ppSyncProvider := 0, "HRESULT")
         return IRegisteredSyncProvider(ppSyncProvider)
     }
 
@@ -311,7 +311,7 @@ export default struct ISyncProviderRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguifrominstanceid
      */
     GetSyncProviderConfigUIFromInstanceId(pguidInstanceId, dwClsContext) {
-        result := ComCall(13, this, Guid.Ptr, pguidInstanceId, "uint", dwClsContext, "ptr*", &ppConfigUI := 0, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, pguidInstanceId, UInt32, dwClsContext, "ptr*", &ppConfigUI := 0, "HRESULT")
         return ISyncProviderConfigUI(ppConfigUI)
     }
 
@@ -396,7 +396,7 @@ export default struct ISyncProviderRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-setsyncproviderstate
      */
     SetSyncProviderState(pguidInstanceId, dwStateFlagsMask, dwStateFlags) {
-        result := ComCall(15, this, Guid.Ptr, pguidInstanceId, "uint", dwStateFlagsMask, "uint", dwStateFlags, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, pguidInstanceId, UInt32, dwStateFlagsMask, UInt32, dwStateFlags, "HRESULT")
         return result
     }
 

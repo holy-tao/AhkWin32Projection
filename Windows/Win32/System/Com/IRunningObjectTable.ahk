@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumMoniker.ahk" { IEnumMoniker }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMoniker.ahk" { IMoniker }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\ROT_FLAGS.ahk" { ROT_FLAGS }
+#Import ".\IEnumMoniker.ahk" { IEnumMoniker }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\IMoniker.ahk" { IMoniker }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Manages access to the running object table (ROT), a globally accessible look-up table on each workstation.
@@ -140,7 +140,7 @@ export default struct IRunningObjectTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunningobjecttable-revoke
      */
     Revoke(dwRegister) {
-        result := ComCall(4, this, "uint", dwRegister, "HRESULT")
+        result := ComCall(4, this, UInt32, dwRegister, "HRESULT")
         return result
     }
 
@@ -199,7 +199,7 @@ export default struct IRunningObjectTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunningobjecttable-notechangetime
      */
     NoteChangeTime(dwRegister, pfiletime) {
-        result := ComCall(7, this, "uint", dwRegister, FILETIME.Ptr, pfiletime, "HRESULT")
+        result := ComCall(7, this, UInt32, dwRegister, FILETIME.Ptr, pfiletime, "HRESULT")
         return result
     }
 

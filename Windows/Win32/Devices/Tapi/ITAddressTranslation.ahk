@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IEnumLocation.ahk" { IEnumLocation }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITAddressTranslationInfo.ahk" { ITAddressTranslationInfo }
-#Import ".\IEnumCallingCard.ahk" { IEnumCallingCard }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEnumCallingCard.ahk" { IEnumCallingCard }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITAddressTranslationInfo.ahk" { ITAddressTranslationInfo }
+#Import ".\IEnumLocation.ahk" { IEnumLocation }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITAddressTranslation interface provides methods that allow translation of a calling address into a different format. For example, an application may need to translate an address from canonical to dialable prior to making a call.
@@ -86,7 +86,7 @@ export default struct ITAddressTranslation extends IDispatch {
     TranslateAddress(pAddressToTranslate, lCard, lTranslateOptions) {
         pAddressToTranslate := pAddressToTranslate is String ? BSTR.Alloc(pAddressToTranslate).Value : pAddressToTranslate
 
-        result := ComCall(7, this, BSTR, pAddressToTranslate, "int", lCard, "int", lTranslateOptions, "ptr*", &ppTranslated := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, pAddressToTranslate, Int32, lCard, Int32, lTranslateOptions, "ptr*", &ppTranslated := 0, "HRESULT")
         return ITAddressTranslationInfo(ppTranslated)
     }
 
@@ -225,7 +225,7 @@ export default struct ITAddressTranslation extends IDispatch {
     TranslateDialog(hwndOwner, pAddressIn) {
         pAddressIn := pAddressIn is String ? BSTR.Alloc(pAddressIn).Value : pAddressIn
 
-        result := ComCall(8, this, "ptr", hwndOwner, BSTR, pAddressIn, "HRESULT")
+        result := ComCall(8, this, IntPtr, hwndOwner, BSTR, pAddressIn, "HRESULT")
         return result
     }
 

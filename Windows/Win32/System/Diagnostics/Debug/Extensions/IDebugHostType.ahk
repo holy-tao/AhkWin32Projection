@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TypeKind.ahk" { TypeKind }
 #Import ".\IntrinsicKind.ahk" { IntrinsicKind }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ArrayDimension.ahk" { ArrayDimension }
+#Import ".\IDebugHostSymbol.ahk" { IDebugHostSymbol }
 #Import ".\PointerKind.ahk" { PointerKind }
 #Import ".\CallingConventionKind.ahk" { CallingConventionKind }
-#Import ".\TypeKind.ahk" { TypeKind }
-#Import ".\IDebugHostSymbol.ahk" { IDebugHostSymbol }
-#Import ".\ArrayDimension.ahk" { ArrayDimension }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -166,7 +166,7 @@ export default struct IDebugHostType extends IDebugHostSymbol {
      */
     GetArrayDimensions(dimensions) {
         pDimensions := ArrayDimension()
-        result := ComCall(20, this, "uint", dimensions, ArrayDimension.Ptr, pDimensions, "HRESULT")
+        result := ComCall(20, this, Int64, dimensions, ArrayDimension.Ptr, pDimensions, "HRESULT")
         return pDimensions
     }
 
@@ -177,7 +177,7 @@ export default struct IDebugHostType extends IDebugHostSymbol {
      * @returns {IDebugHostType} 
      */
     CreateArrayOf(dimensions, pDimensions) {
-        result := ComCall(21, this, "uint", dimensions, ArrayDimension.Ptr, pDimensions, "ptr*", &newType := 0, "HRESULT")
+        result := ComCall(21, this, Int64, dimensions, ArrayDimension.Ptr, pDimensions, "ptr*", &newType := 0, "HRESULT")
         return IDebugHostType(newType)
     }
 
@@ -214,7 +214,7 @@ export default struct IDebugHostType extends IDebugHostSymbol {
      * @returns {IDebugHostType} 
      */
     GetFunctionParameterTypeAt(i) {
-        result := ComCall(25, this, "uint", i, "ptr*", &parameterType := 0, "HRESULT")
+        result := ComCall(25, this, Int64, i, "ptr*", &parameterType := 0, "HRESULT")
         return IDebugHostType(parameterType)
     }
 
@@ -242,7 +242,7 @@ export default struct IDebugHostType extends IDebugHostSymbol {
      * @returns {IDebugHostSymbol} 
      */
     GetGenericArgumentAt(i) {
-        result := ComCall(28, this, "uint", i, "ptr*", &argument := 0, "HRESULT")
+        result := ComCall(28, this, Int64, i, "ptr*", &argument := 0, "HRESULT")
         return IDebugHostSymbol(argument)
     }
 

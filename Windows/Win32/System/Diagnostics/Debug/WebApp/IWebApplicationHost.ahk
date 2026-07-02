@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Web\MsHtml\IHTMLDocument2.ahk" { IHTMLDocument2 }
 #Import "..\..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods and properties that are implemented by the WWAHost.
@@ -125,7 +125,7 @@ export default struct IWebApplicationHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationhost-unadvise
      */
     Unadvise(cookie) {
-        result := ComCall(7, this, "uint", cookie, "HRESULT")
+        result := ComCall(7, this, UInt32, cookie, "HRESULT")
         return result
     }
 

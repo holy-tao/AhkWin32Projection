@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -42,7 +42,7 @@ export default struct IChapteredRowset extends IUnknown {
      * @returns {Integer} 
      */
     AddRefChapter(hChapter) {
-        result := ComCall(3, this, "ptr", hChapter, "uint*", &pcRefCount := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, hChapter, "uint*", &pcRefCount := 0, "HRESULT")
         return pcRefCount
     }
 
@@ -52,7 +52,7 @@ export default struct IChapteredRowset extends IUnknown {
      * @returns {Integer} 
      */
     ReleaseChapter(hChapter) {
-        result := ComCall(4, this, "ptr", hChapter, "uint*", &pcRefCount := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, hChapter, "uint*", &pcRefCount := 0, "HRESULT")
         return pcRefCount
     }
 

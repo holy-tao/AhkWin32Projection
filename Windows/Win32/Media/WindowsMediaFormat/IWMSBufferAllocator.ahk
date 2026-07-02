@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMSSBufferAllocator interface provides methods for allocating a buffer.
@@ -46,7 +46,7 @@ export default struct IWMSBufferAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatebuffer
      */
     AllocateBuffer(dwMaxBufferSize) {
-        result := ComCall(3, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")
         return INSSBuffer(ppBuffer)
     }
 
@@ -57,7 +57,7 @@ export default struct IWMSBufferAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatepagesizebuffer
      */
     AllocatePageSizeBuffer(dwMaxBufferSize) {
-        result := ComCall(4, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")
         return INSSBuffer(ppBuffer)
     }
 

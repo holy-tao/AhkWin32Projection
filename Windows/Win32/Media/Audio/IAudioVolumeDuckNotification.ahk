@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioVolumeDuckNotification interface is used to by the system to send notifications about stream attenuation changes.Stream Attenuation, or ducking, is a feature introduced in Windows 7, where the system adjusts the volume of a non-communication stream when a new communication stream is opened. For more information about this feature, see Default Ducking Experience.
@@ -65,7 +65,7 @@ export default struct IAudioVolumeDuckNotification extends IUnknown {
     OnVolumeDuckNotification(sessionID, countCommunicationSessions) {
         sessionID := sessionID is String ? StrPtr(sessionID) : sessionID
 
-        result := ComCall(3, this, "ptr", sessionID, "uint", countCommunicationSessions, "HRESULT")
+        result := ComCall(3, this, "ptr", sessionID, UInt32, countCommunicationSessions, "HRESULT")
         return result
     }
 

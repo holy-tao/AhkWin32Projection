@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_GPU_VIRTUAL_ADDRESS_RANGE.ahk" { D3D12_GPU_VIRTUAL_ADDRESS_RANGE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D12Tools.ahk" { ID3D12Tools }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -44,7 +44,7 @@ export default struct ID3D12Tools1 extends ID3D12Tools {
      * @returns {HRESULT} 
      */
     ReserveGPUVARangesAtCreate(pRanges, uiNumRanges) {
-        result := ComCall(5, this, D3D12_GPU_VIRTUAL_ADDRESS_RANGE.Ptr, pRanges, "uint", uiNumRanges, "HRESULT")
+        result := ComCall(5, this, D3D12_GPU_VIRTUAL_ADDRESS_RANGE.Ptr, pRanges, UInt32, uiNumRanges, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -50,7 +50,7 @@ export default struct IBidiSpl2 extends IUnknown {
     BindDevice(pszDeviceName, dwAccess) {
         pszDeviceName := pszDeviceName is String ? StrPtr(pszDeviceName) : pszDeviceName
 
-        result := ComCall(3, this, "ptr", pszDeviceName, "uint", dwAccess, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDeviceName, UInt32, dwAccess, "HRESULT")
         return result
     }
 

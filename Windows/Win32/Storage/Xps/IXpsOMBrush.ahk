@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines objects that are used to paint graphical objects. Classes that derive from IXpsOMBrush describe how the area is painted.
@@ -90,7 +90,7 @@ export default struct IXpsOMBrush extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-setopacity
      */
     SetOpacity(opacity) {
-        result := ComCall(6, this, "float", opacity, "HRESULT")
+        result := ComCall(6, this, Float32, opacity, "HRESULT")
         return result
     }
 

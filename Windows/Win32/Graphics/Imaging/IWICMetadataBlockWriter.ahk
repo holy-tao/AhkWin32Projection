@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWICMetadataBlockReader.ahk" { IWICMetadataBlockReader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that enable the encoding of metadata. This interface is implemented by the decoder and its image frames.
@@ -71,7 +71,7 @@ export default struct IWICMetadataBlockWriter extends IWICMetadataBlockReader {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-getwriterbyindex
      */
     GetWriterByIndex(nIndex) {
-        result := ComCall(8, this, "uint", nIndex, "ptr*", &ppIMetadataWriter := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, nIndex, "ptr*", &ppIMetadataWriter := 0, "HRESULT")
         return IWICMetadataWriter(ppIMetadataWriter)
     }
 
@@ -108,7 +108,7 @@ export default struct IWICMetadataBlockWriter extends IWICMetadataBlockReader {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-setwriterbyindex
      */
     SetWriterByIndex(nIndex, pIMetadataWriter) {
-        result := ComCall(10, this, "uint", nIndex, "ptr", pIMetadataWriter, "HRESULT")
+        result := ComCall(10, this, UInt32, nIndex, "ptr", pIMetadataWriter, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IWICMetadataBlockWriter extends IWICMetadataBlockReader {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockwriter-removewriterbyindex
      */
     RemoveWriterByIndex(nIndex) {
-        result := ComCall(11, this, "uint", nIndex, "HRESULT")
+        result := ComCall(11, this, UInt32, nIndex, "HRESULT")
         return result
     }
 

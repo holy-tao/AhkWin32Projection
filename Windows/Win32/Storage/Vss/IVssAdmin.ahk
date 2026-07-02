@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VSS_PROVIDER_TYPE.ahk" { VSS_PROVIDER_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVssEnumObject.ahk" { IVssEnumObject }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVssEnumObject.ahk" { IVssEnumObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVssAdmin interface manages providers registered with VSS.

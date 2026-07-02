@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDebugThreadCall32.ahk" { IDebugThreadCall32 }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -76,7 +76,7 @@ export default struct IDebugApplicationThread11032 extends IUnknown {
      * @returns {HRESULT} 
      */
     AsynchronousCallIntoThread(pptc, dwParam1, dwParam2, dwParam3) {
-        result := ComCall(6, this, "ptr", pptc, "ptr", dwParam1, "ptr", dwParam2, "ptr", dwParam3, "HRESULT")
+        result := ComCall(6, this, "ptr", pptc, IntPtr, dwParam1, IntPtr, dwParam2, IntPtr, dwParam3, "HRESULT")
         return result
     }
 

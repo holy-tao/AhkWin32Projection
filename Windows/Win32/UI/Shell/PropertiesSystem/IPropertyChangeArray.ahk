@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IPropertyChange.ahk" { IPropertyChange }
-#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for several multiple change operations that may be passed to IFileOperation.
@@ -73,7 +73,7 @@ export default struct IPropertyChangeArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychangearray-getat
      */
     GetAt(iIndex, riid) {
-        result := ComCall(4, this, "uint", iIndex, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, iIndex, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -91,7 +91,7 @@ export default struct IPropertyChangeArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychangearray-insertat
      */
     InsertAt(iIndex, ppropChange) {
-        result := ComCall(5, this, "uint", iIndex, "ptr", ppropChange, "HRESULT")
+        result := ComCall(5, this, UInt32, iIndex, "ptr", ppropChange, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IPropertyChangeArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychangearray-removeat
      */
     RemoveAt(iIndex) {
-        result := ComCall(8, this, "uint", iIndex, "HRESULT")
+        result := ComCall(8, this, UInt32, iIndex, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MAPIERROR.ahk" { MAPIERROR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IMAPIControlIUnknown enables and disables a button control, and performs tasks when a user of a client application clicks the enabled control.
@@ -49,7 +49,7 @@ export default struct IMAPIControl extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontrol-getlasterror
      */
     GetLastError(_hResult, ulFlags) {
-        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")
+        result := ComCall(3, this, "int", _hResult, UInt32, ulFlags, "ptr*", &lppMAPIError := 0, "HRESULT")
         return lppMAPIError
     }
 
@@ -67,7 +67,7 @@ export default struct IMAPIControl extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontrol-activate
      */
     Activate(ulFlags, ulUIParam) {
-        result := ComCall(4, this, "uint", ulFlags, "ptr", ulUIParam, "HRESULT")
+        result := ComCall(4, this, UInt32, ulFlags, IntPtr, ulUIParam, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IMAPIControl extends IUnknown {
     GetState(ulFlags, lpulState) {
         lpulStateMarshal := lpulState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", ulFlags, lpulStateMarshal, lpulState, "HRESULT")
+        result := ComCall(5, this, UInt32, ulFlags, lpulStateMarshal, lpulState, "HRESULT")
         return result
     }
 

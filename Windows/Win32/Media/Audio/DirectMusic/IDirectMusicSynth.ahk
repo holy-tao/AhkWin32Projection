@@ -2,15 +2,15 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
-#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\DMUS_PORTPARAMS8.ahk" { DMUS_PORTPARAMS8 }
 #Import ".\DMUS_SYNTHSTATS.ahk" { DMUS_SYNTHSTATS }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\IDirectMusicSynthSink.ahk" { IDirectMusicSynthSink }
-#Import ".\DMUS_PORTPARAMS8.ahk" { DMUS_PORTPARAMS8 }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\IReferenceClock.ahk" { IReferenceClock }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectMusicSynth interface is used by DirectMusic to communicate with user-mode synthesizers.
@@ -200,7 +200,7 @@ export default struct IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-setnumchannelgroups
      */
     SetNumChannelGroups(dwGroups) {
-        result := ComCall(5, this, "uint", dwGroups, "HRESULT")
+        result := ComCall(5, this, UInt32, dwGroups, "HRESULT")
         return result
     }
 
@@ -423,7 +423,7 @@ export default struct IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-unload
      */
     Unload(hDownload, lpFreeHandle, hUserData) {
-        result := ComCall(7, this, HANDLE, hDownload, "ptr", lpFreeHandle, HANDLE, hUserData, "HRESULT")
+        result := ComCall(7, this, HANDLE, hDownload, IntPtr, lpFreeHandle, HANDLE, hUserData, "HRESULT")
         return result
     }
 
@@ -508,7 +508,7 @@ export default struct IDirectMusicSynth extends IUnknown {
     PlayBuffer(rt, pbBuffer, cbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "int64", rt, pbBufferMarshal, pbBuffer, "uint", cbBuffer, "HRESULT")
+        result := ComCall(8, this, Int64, rt, pbBufferMarshal, pbBuffer, UInt32, cbBuffer, "HRESULT")
         return result
     }
 
@@ -902,7 +902,7 @@ export default struct IDirectMusicSynth extends IUnknown {
     Render(pBuffer, dwLength, llPosition) {
         pBufferMarshal := pBuffer is VarRef ? "short*" : "ptr"
 
-        result := ComCall(15, this, pBufferMarshal, pBuffer, "uint", dwLength, "int64", llPosition, "HRESULT")
+        result := ComCall(15, this, pBufferMarshal, pBuffer, UInt32, dwLength, Int64, llPosition, "HRESULT")
         return result
     }
 
@@ -919,7 +919,7 @@ export default struct IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-setchannelpriority
      */
     SetChannelPriority(dwChannelGroup, dwChannel, dwPriority) {
-        result := ComCall(16, this, "uint", dwChannelGroup, "uint", dwChannel, "uint", dwPriority, "HRESULT")
+        result := ComCall(16, this, UInt32, dwChannelGroup, UInt32, dwChannel, UInt32, dwPriority, "HRESULT")
         return result
     }
 
@@ -938,7 +938,7 @@ export default struct IDirectMusicSynth extends IUnknown {
     GetChannelPriority(dwChannelGroup, dwChannel, pdwPriority) {
         pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwChannelGroup, "uint", dwChannel, pdwPriorityMarshal, pdwPriority, "HRESULT")
+        result := ComCall(17, this, UInt32, dwChannelGroup, UInt32, dwChannel, pdwPriorityMarshal, pdwPriority, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\OSINFO.ahk" { OSINFO }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OSINFO.ahk" { OSINFO }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata

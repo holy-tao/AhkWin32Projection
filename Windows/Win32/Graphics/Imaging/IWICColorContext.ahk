@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WICColorContextType.ahk" { WICColorContextType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WICColorContextType.ahk" { WICColorContextType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for color management.
@@ -85,7 +85,7 @@ export default struct IWICColorContext extends IUnknown {
     InitializeFromMemory(pbBuffer, cbBufferSize) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pbBufferMarshal, pbBuffer, "uint", cbBufferSize, "HRESULT")
+        result := ComCall(4, this, pbBufferMarshal, pbBuffer, UInt32, cbBufferSize, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IWICColorContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-initializefromexifcolorspace
      */
     InitializeFromExifColorSpace(value) {
-        result := ComCall(5, this, "uint", value, "HRESULT")
+        result := ComCall(5, this, UInt32, value, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct IWICColorContext extends IUnknown {
     GetProfileBytes(cbBuffer, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", cbBuffer, pbBufferMarshal, pbBuffer, "uint*", &pcbActual := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, cbBuffer, pbBufferMarshal, pbBuffer, "uint*", &pcbActual := 0, "HRESULT")
         return pcbActual
     }
 

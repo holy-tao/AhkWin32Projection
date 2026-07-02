@@ -1,28 +1,28 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\GameInputVersion.ahk" { GameInputVersion }
-#Import ".\GameInputString.ahk" { GameInputString }
-#Import ".\GameInputSystemButtons.ahk" { GameInputSystemButtons }
-#Import ".\GameInputRawDeviceReportInfo.ahk" { GameInputRawDeviceReportInfo }
-#Import ".\GameInputFlightStickInfo.ahk" { GameInputFlightStickInfo }
-#Import ".\GameInputRumbleMotors.ahk" { GameInputRumbleMotors }
-#Import ".\GameInputDeviceCapabilities.ahk" { GameInputDeviceCapabilities }
-#Import ".\GameInputUiNavigationInfo.ahk" { GameInputUiNavigationInfo }
-#Import "..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk" { APP_LOCAL_DEVICE_ID }
-#Import ".\GameInputControllerButtonInfo.ahk" { GameInputControllerButtonInfo }
+#Import ".\GameInputKeyboardInfo.ahk" { GameInputKeyboardInfo }
+#Import ".\GameInputHapticFeedbackMotorInfo.ahk" { GameInputHapticFeedbackMotorInfo }
 #Import ".\GameInputUsage.ahk" { GameInputUsage }
+#Import "..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk" { APP_LOCAL_DEVICE_ID }
+#Import ".\GameInputMotionInfo.ahk" { GameInputMotionInfo }
+#Import ".\GameInputTouchSensorInfo.ahk" { GameInputTouchSensorInfo }
+#Import ".\GameInputRacingWheelInfo.ahk" { GameInputRacingWheelInfo }
+#Import ".\GameInputControllerButtonInfo.ahk" { GameInputControllerButtonInfo }
+#Import ".\GameInputArcadeStickInfo.ahk" { GameInputArcadeStickInfo }
+#Import ".\GameInputGamepadInfo.ahk" { GameInputGamepadInfo }
+#Import ".\GameInputDeviceCapabilities.ahk" { GameInputDeviceCapabilities }
+#Import ".\GameInputForceFeedbackMotorInfo.ahk" { GameInputForceFeedbackMotorInfo }
 #Import ".\GameInputDeviceFamily.ahk" { GameInputDeviceFamily }
 #Import ".\GameInputMouseInfo.ahk" { GameInputMouseInfo }
-#Import ".\GameInputGamepadInfo.ahk" { GameInputGamepadInfo }
-#Import ".\GameInputKind.ahk" { GameInputKind }
 #Import ".\GameInputControllerSwitchInfo.ahk" { GameInputControllerSwitchInfo }
+#Import ".\GameInputSystemButtons.ahk" { GameInputSystemButtons }
+#Import ".\GameInputRawDeviceReportInfo.ahk" { GameInputRawDeviceReportInfo }
 #Import ".\GameInputControllerAxisInfo.ahk" { GameInputControllerAxisInfo }
-#Import ".\GameInputArcadeStickInfo.ahk" { GameInputArcadeStickInfo }
-#Import ".\GameInputHapticFeedbackMotorInfo.ahk" { GameInputHapticFeedbackMotorInfo }
-#Import ".\GameInputForceFeedbackMotorInfo.ahk" { GameInputForceFeedbackMotorInfo }
-#Import ".\GameInputMotionInfo.ahk" { GameInputMotionInfo }
-#Import ".\GameInputRacingWheelInfo.ahk" { GameInputRacingWheelInfo }
-#Import ".\GameInputTouchSensorInfo.ahk" { GameInputTouchSensorInfo }
-#Import ".\GameInputKeyboardInfo.ahk" { GameInputKeyboardInfo }
+#Import ".\GameInputKind.ahk" { GameInputKind }
+#Import ".\GameInputRumbleMotors.ahk" { GameInputRumbleMotors }
+#Import ".\GameInputString.ahk" { GameInputString }
+#Import ".\GameInputUiNavigationInfo.ahk" { GameInputUiNavigationInfo }
+#Import ".\GameInputFlightStickInfo.ahk" { GameInputFlightStickInfo }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

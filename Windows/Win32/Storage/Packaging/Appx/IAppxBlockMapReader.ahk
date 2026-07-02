@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IAppxBlockMapFilesEnumerator.ahk" { IAppxBlockMapFilesEnumerator }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IAppxBlockMapFilesEnumerator.ahk" { IAppxBlockMapFilesEnumerator }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Com\IUri.ahk" { IUri }
 #Import ".\IAppxBlockMapFile.ahk" { IAppxBlockMapFile }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a read-only object model for block maps that provides access to the file attributes and block hashes.

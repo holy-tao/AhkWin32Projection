@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DXGI_OFFER_RESOURCE_PRIORITY.ahk" { DXGI_OFFER_RESOURCE_PRIORITY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDXGIResource.ahk" { IDXGIResource }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXGI_OFFER_RESOURCE_PRIORITY.ahk" { DXGI_OFFER_RESOURCE_PRIORITY }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
 #Import ".\IDXGIDevice1.ahk" { IDXGIDevice1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDXGIDevice2 interface implements a derived class for DXGI objects that produce image data. The interface exposes methods to block CPU processing until the GPU completes processing, and to offer resources to the operating system.
@@ -88,7 +88,7 @@ export default struct IDXGIDevice2 extends IDXGIDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-offerresources
      */
     OfferResources(NumResources, ppResources, _Priority) {
-        result := ComCall(14, this, "uint", NumResources, IDXGIResource.Ptr, ppResources, DXGI_OFFER_RESOURCE_PRIORITY, _Priority, "HRESULT")
+        result := ComCall(14, this, UInt32, NumResources, IDXGIResource.Ptr, ppResources, DXGI_OFFER_RESOURCE_PRIORITY, _Priority, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IDXGIDevice2 extends IDXGIDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-reclaimresources
      */
     ReclaimResources(NumResources, ppResources) {
-        result := ComCall(15, this, "uint", NumResources, IDXGIResource.Ptr, ppResources, BOOL.Ptr, &pDiscarded := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, NumResources, IDXGIResource.Ptr, ppResources, BOOL.Ptr, &pDiscarded := 0, "HRESULT")
         return pDiscarded
     }
 

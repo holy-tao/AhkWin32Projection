@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DXVA2_SurfaceType.ahk" { DXVA2_SurfaceType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Sets the type of video memory for uncompressed video surfaces.
@@ -46,7 +46,7 @@ export default struct IDirectXVideoMemoryConfiguration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideomemoryconfiguration-getavailablesurfacetypebyindex
      */
     GetAvailableSurfaceTypeByIndex(dwTypeIndex) {
-        result := ComCall(3, this, "uint", dwTypeIndex, "int*", &pdwType := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwTypeIndex, "int*", &pdwType := 0, "HRESULT")
         return pdwType
     }
 

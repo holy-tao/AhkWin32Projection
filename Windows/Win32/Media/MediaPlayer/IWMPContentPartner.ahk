@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMPTemplateSize.ahk" { WMPTemplateSize }
-#Import ".\WMPPartnerNotification.ahk" { WMPPartnerNotification }
-#Import ".\WMPStreamingType.ahk" { WMPStreamingType }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWMPContentContainerList.ahk" { IWMPContentContainerList }
 #Import "..\..\System\Com\BLOB.ahk" { BLOB }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\WMPTaskType.ahk" { WMPTaskType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WMPPartnerNotification.ahk" { WMPPartnerNotification }
 #Import ".\WMPContextMenuInfo.ahk" { WMPContextMenuInfo }
 #Import ".\IWMPContentPartnerCallback.ahk" { IWMPContentPartnerCallback }
+#Import ".\WMPStreamingType.ahk" { WMPStreamingType }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMPTaskType.ahk" { WMPTaskType }
 
 /**
  * Note  This section describes functionality designed for use by online stores.
@@ -364,7 +364,7 @@ export default struct IWMPContentPartner extends IUnknown {
         pcItemIDsMarshal := pcItemIDs is VarRef ? "uint*" : "ptr"
         pprgItemsMarshal := pprgItems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, BSTR, _location, VARIANT.Ptr, pLocationContext, BSTR, itemLocation, "uint", cItemIDs, prgItemIDsMarshal, prgItemIDs, pcItemIDsMarshal, pcItemIDs, pprgItemsMarshal, pprgItems, "HRESULT")
+        result := ComCall(7, this, BSTR, _location, VARIANT.Ptr, pLocationContext, BSTR, itemLocation, UInt32, cItemIDs, prgItemIDsMarshal, prgItemIDs, pcItemIDsMarshal, pcItemIDs, pprgItemsMarshal, pprgItems, "HRESULT")
         return result
     }
 
@@ -403,7 +403,7 @@ export default struct IWMPContentPartner extends IUnknown {
 
         rgItemIDsMarshal := rgItemIDs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwCommandID, BSTR, _location, VARIANT.Ptr, pLocationContext, BSTR, itemLocation, "uint", cItemIDs, rgItemIDsMarshal, rgItemIDs, "HRESULT")
+        result := ComCall(8, this, UInt32, dwCommandID, BSTR, _location, VARIANT.Ptr, pLocationContext, BSTR, itemLocation, UInt32, cItemIDs, rgItemIDsMarshal, rgItemIDs, "HRESULT")
         return result
     }
 
@@ -472,7 +472,7 @@ export default struct IWMPContentPartner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-buy
      */
     Buy(pInfo, cookie) {
-        result := ComCall(10, this, "ptr", pInfo, "uint", cookie, "HRESULT")
+        result := ComCall(10, this, "ptr", pInfo, UInt32, cookie, "HRESULT")
         return result
     }
 
@@ -517,7 +517,7 @@ export default struct IWMPContentPartner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-download
      */
     Download(pInfo, cookie) {
-        result := ComCall(12, this, "ptr", pInfo, "uint", cookie, "HRESULT")
+        result := ComCall(12, this, "ptr", pInfo, UInt32, cookie, "HRESULT")
         return result
     }
 
@@ -552,7 +552,7 @@ export default struct IWMPContentPartner extends IUnknown {
     DownloadTrackComplete(hrResult, contentID, downloadTrackParam) {
         downloadTrackParam := downloadTrackParam is String ? BSTR.Alloc(downloadTrackParam).Value : downloadTrackParam
 
-        result := ComCall(13, this, "int", hrResult, "uint", contentID, BSTR, downloadTrackParam, "HRESULT")
+        result := ComCall(13, this, "int", hrResult, UInt32, contentID, BSTR, downloadTrackParam, "HRESULT")
         return result
     }
 
@@ -594,7 +594,7 @@ export default struct IWMPContentPartner extends IUnknown {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
         bstrRefreshReason := bstrRefreshReason is String ? BSTR.Alloc(bstrRefreshReason).Value : bstrRefreshReason
 
-        result := ComCall(14, this, "uint", dwCookie, VARIANT_BOOL, fLocal, BSTR, bstrURL, WMPStreamingType, type, "uint", contentID, BSTR, bstrRefreshReason, VARIANT.Ptr, pReasonContext, "HRESULT")
+        result := ComCall(14, this, UInt32, dwCookie, VARIANT_BOOL, fLocal, BSTR, bstrURL, WMPStreamingType, type, UInt32, contentID, BSTR, bstrRefreshReason, VARIANT.Ptr, pReasonContext, "HRESULT")
         return result
     }
 
@@ -632,7 +632,7 @@ export default struct IWMPContentPartner extends IUnknown {
     GetCatalogURL(dwCatalogVersion, dwCatalogSchemaVersion, catalogLCID, pdwNewCatalogVersion, pbstrCatalogURL, pExpirationDate) {
         pdwNewCatalogVersionMarshal := pdwNewCatalogVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwCatalogVersion, "uint", dwCatalogSchemaVersion, "uint", catalogLCID, pdwNewCatalogVersionMarshal, pdwNewCatalogVersion, BSTR.Ptr, pbstrCatalogURL, VARIANT.Ptr, pExpirationDate, "HRESULT")
+        result := ComCall(15, this, UInt32, dwCatalogVersion, UInt32, dwCatalogSchemaVersion, UInt32, catalogLCID, pdwNewCatalogVersionMarshal, pdwNewCatalogVersion, BSTR.Ptr, pbstrCatalogURL, VARIANT.Ptr, pExpirationDate, "HRESULT")
         return result
     }
 
@@ -758,7 +758,7 @@ export default struct IWMPContentPartner extends IUnknown {
         bstrListType := bstrListType is String ? BSTR.Alloc(bstrListType).Value : bstrListType
         bstrParams := bstrParams is String ? BSTR.Alloc(bstrParams).Value : bstrParams
 
-        result := ComCall(18, this, BSTR, _location, VARIANT.Ptr, pContext, BSTR, bstrListType, BSTR, bstrParams, "uint", dwListCookie, "HRESULT")
+        result := ComCall(18, this, BSTR, _location, VARIANT.Ptr, pContext, BSTR, bstrListType, BSTR, bstrParams, UInt32, dwListCookie, "HRESULT")
         return result
     }
 
@@ -944,7 +944,7 @@ export default struct IWMPContentPartner extends IUnknown {
         bstrStationEventType := bstrStationEventType is String ? BSTR.Alloc(bstrStationEventType).Value : bstrStationEventType
         TrackData := TrackData is String ? BSTR.Alloc(TrackData).Value : TrackData
 
-        result := ComCall(23, this, BSTR, bstrStationEventType, "uint", StationId, "uint", PlaylistIndex, "uint", TrackID, BSTR, TrackData, "uint", dwSecondsPlayed, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrStationEventType, UInt32, StationId, UInt32, PlaylistIndex, UInt32, TrackID, BSTR, TrackData, UInt32, dwSecondsPlayed, "HRESULT")
         return result
     }
 

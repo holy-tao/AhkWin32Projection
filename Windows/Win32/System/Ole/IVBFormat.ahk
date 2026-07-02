@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides formatting support for controls on a Visual Basic container.
@@ -200,7 +200,7 @@ export default struct IVBFormat extends IUnknown {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
         rcbMarshal := rcb is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, VARIANT.Ptr, vData, BSTR, bstrFormat, lpBufferMarshal, lpBuffer, "ushort", cb, "int", lcid, "short", sFirstDayOfWeek, "ushort", sFirstWeekOfYear, rcbMarshal, rcb, "HRESULT")
+        result := ComCall(3, this, VARIANT.Ptr, vData, BSTR, bstrFormat, lpBufferMarshal, lpBuffer, UInt16, cb, Int32, lcid, Int16, sFirstDayOfWeek, UInt16, sFirstWeekOfYear, rcbMarshal, rcb, "HRESULT")
         return result
     }
 

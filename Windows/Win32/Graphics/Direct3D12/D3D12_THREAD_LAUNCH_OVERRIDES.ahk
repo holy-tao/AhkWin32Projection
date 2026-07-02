@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_NODE_ID.ahk" { D3D12_NODE_ID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_NODE_ID.ahk" { D3D12_NODE_ID }
 #Import ".\D3D12_NODE_OUTPUT_OVERRIDES.ahk" { D3D12_NODE_OUTPUT_OVERRIDES }
 
 /**

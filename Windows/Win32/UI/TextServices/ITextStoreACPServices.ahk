@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk" { TF_PERSISTENT_PROPERTY_HEADER_ACP }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\ITfPersistentPropertyLoaderACP.ahk" { ITfPersistentPropertyLoaderACP }
-#Import ".\ITfRange.ahk" { ITfRange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITfRangeACP.ahk" { ITfRangeACP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITfProperty.ahk" { ITfProperty }
+#Import ".\ITfRangeACP.ahk" { ITfRangeACP }
+#Import ".\ITfPersistentPropertyLoaderACP.ahk" { ITfPersistentPropertyLoaderACP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITextStoreACPServices interface is implemented by the TSF manager to provide various services to an ACP-based application.
@@ -203,7 +203,7 @@ export default struct ITextStoreACPServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itextstoreacpservices-createrange
      */
     CreateRange(acpStart, acpEnd) {
-        result := ComCall(6, this, "int", acpStart, "int", acpEnd, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(6, this, Int32, acpStart, Int32, acpEnd, "ptr*", &ppRange := 0, "HRESULT")
         return ITfRangeACP(ppRange)
     }
 

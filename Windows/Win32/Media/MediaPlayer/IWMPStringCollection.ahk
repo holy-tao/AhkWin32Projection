@@ -108,7 +108,7 @@ export default struct IWMPStringCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpstringcollection-item
      */
     item(lIndex, pbstrString) {
-        result := ComCall(8, this, "int", lIndex, BSTR.Ptr, pbstrString, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, BSTR.Ptr, pbstrString, "HRESULT")
         return result
     }
 

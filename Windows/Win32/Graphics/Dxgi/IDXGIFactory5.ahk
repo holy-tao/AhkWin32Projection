@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXGI_FEATURE.ahk" { DXGI_FEATURE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDXGIFactory4.ahk" { IDXGIFactory4 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_FEATURE.ahk" { DXGI_FEATURE }
 
 /**
  * This interface enables a single method to support variable refresh rate displays.
@@ -57,7 +57,7 @@ export default struct IDXGIFactory5 extends IDXGIFactory4 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgifactory5-checkfeaturesupport
      */
     CheckFeatureSupport(Feature, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(28, this, DXGI_FEATURE, Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(28, this, DXGI_FEATURE, Feature, IntPtr, pFeatureSupportData, UInt32, FeatureSupportDataSize, "HRESULT")
         return result
     }
 

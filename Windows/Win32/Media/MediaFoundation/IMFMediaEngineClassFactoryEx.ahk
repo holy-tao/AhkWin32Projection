@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IMFMediaEngineClassFactory.ahk" { IMFMediaEngineClassFactory }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFMediaSourceExtension.ahk" { IMFMediaSourceExtension }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IMFMediaKeys.ahk" { IMFMediaKeys }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import ".\IMFMediaSourceExtension.ahk" { IMFMediaSourceExtension }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Extension for the IMFMediaEngineClassFactory interface.
@@ -66,7 +66,7 @@ export default struct IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFa
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediasourceextension
      */
     CreateMediaSourceExtension(dwFlags, pAttr) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppMSE := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFlags, "ptr", pAttr, "ptr*", &ppMSE := 0, "HRESULT")
         return IMFMediaSourceExtension(ppMSE)
     }
 

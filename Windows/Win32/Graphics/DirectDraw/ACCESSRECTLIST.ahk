@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HEAPALIASINFO.ahk" { HEAPALIASINFO }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\HEAPALIASINFO.ahk" { HEAPALIASINFO }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXVAHD_COLOR.ahk" { DXVAHD_COLOR }
 #Import ".\DXVAHD_COLOR_YCbCrA.ahk" { DXVAHD_COLOR_YCbCrA }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DXVAHD_COLOR_RGBA.ahk" { DXVAHD_COLOR_RGBA }
+#Import ".\DXVAHD_COLOR.ahk" { DXVAHD_COLOR }
 
 /**
  * Specifies the background color for blit operations, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).

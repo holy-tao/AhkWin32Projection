@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Use this structure to specify or modify the attributes of a pop-up window.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IReferenceClock.ahk" { IReferenceClock }
 #Import ".\IBaseFilter.ahk" { IBaseFilter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IReferenceClock.ahk" { IReferenceClock }
 #Import ".\IFilterGraph2.ahk" { IFilterGraph2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFilterGraph3 interface extends the IFilterGraph2 interface, which contains methods for building filter graphs.The Filter Graph Manager implements this interface.

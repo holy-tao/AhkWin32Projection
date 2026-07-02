@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFContentDecryptionModuleAccess.ahk" { IMFContentDecryptionModuleAccess }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFContentDecryptionModuleAccess.ahk" { IMFContentDecryptionModuleAccess }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A factory interface for creating IMFContentDecryptionModuleAccess objects.
@@ -72,7 +72,7 @@ export default struct IMFContentDecryptionModuleFactory extends IUnknown {
     CreateContentDecryptionModuleAccess(keySystem, configurations, numConfigurations) {
         keySystem := keySystem is String ? StrPtr(keySystem) : keySystem
 
-        result := ComCall(4, this, "ptr", keySystem, IPropertyStore.Ptr, configurations, "uint", numConfigurations, "ptr*", &contentDecryptionModuleAccess := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", keySystem, IPropertyStore.Ptr, configurations, UInt32, numConfigurations, "ptr*", &contentDecryptionModuleAccess := 0, "HRESULT")
         return IMFContentDecryptionModuleAccess(contentDecryptionModuleAccess)
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -60,7 +60,7 @@ export default struct ID3D11AuthenticatedChannel extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11authenticatedchannel-getcertificate
      */
     GetCertificate(CertificateSize, pCertificate) {
-        result := ComCall(8, this, "uint", CertificateSize, "ptr", pCertificate, "HRESULT")
+        result := ComCall(8, this, UInt32, CertificateSize, IntPtr, pCertificate, "HRESULT")
         return result
     }
 

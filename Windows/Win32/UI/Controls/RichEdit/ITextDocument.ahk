@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITextRange.ahk" { ITextRange }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ITextStoryRanges.ahk" { ITextStoryRanges }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ITextSelection.ahk" { ITextSelection }
+#Import ".\ITextStoryRanges.ahk" { ITextStoryRanges }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\tomConstants.ahk" { tomConstants }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITextDocument interface is the Text Object Model (TOM) top-level interface, which retrieves the active selection and range objects for any story in the document�whether active or not.
@@ -198,7 +198,7 @@ export default struct ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-setdefaulttabstop
      */
     SetDefaultTabStop(Value) {
-        result := ComCall(14, this, "float", Value, "HRESULT")
+        result := ComCall(14, this, Float32, Value, "HRESULT")
         return result
     }
 
@@ -321,7 +321,7 @@ export default struct ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-open
      */
     Open(pVar, Flags, CodePage) {
-        result := ComCall(16, this, VARIANT.Ptr, pVar, tomConstants, Flags, "int", CodePage, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, pVar, tomConstants, Flags, Int32, CodePage, "HRESULT")
         return result
     }
 
@@ -408,7 +408,7 @@ export default struct ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-save
      */
     Save(pVar, Flags, CodePage) {
-        result := ComCall(17, this, VARIANT.Ptr, pVar, tomConstants, Flags, "int", CodePage, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, pVar, tomConstants, Flags, Int32, CodePage, "HRESULT")
         return result
     }
 
@@ -529,7 +529,7 @@ export default struct ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-undo
      */
     Undo(Count) {
-        result := ComCall(22, this, "int", Count, "int*", &pCount := 0, "HRESULT")
+        result := ComCall(22, this, Int32, Count, "int*", &pCount := 0, "HRESULT")
         return pCount
     }
 
@@ -544,7 +544,7 @@ export default struct ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-redo
      */
     Redo(Count) {
-        result := ComCall(23, this, "int", Count, "int*", &pCount := 0, "HRESULT")
+        result := ComCall(23, this, Int32, Count, "int*", &pCount := 0, "HRESULT")
         return pCount
     }
 
@@ -562,7 +562,7 @@ export default struct ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-range
      */
     Range(cpActive, cpAnchor) {
-        result := ComCall(24, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(24, this, Int32, cpActive, Int32, cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
         return ITextRange(ppRange)
     }
 
@@ -580,7 +580,7 @@ export default struct ITextDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-rangefrompoint
      */
     RangeFromPoint(x, y) {
-        result := ComCall(25, this, "int", x, "int", y, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(25, this, Int32, x, Int32, y, "ptr*", &ppRange := 0, "HRESULT")
         return ITextRange(ppRange)
     }
 

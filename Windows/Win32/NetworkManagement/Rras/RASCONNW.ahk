@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HRASCONN.ahk" { HRASCONN }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\HRASCONN.ahk" { HRASCONN }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

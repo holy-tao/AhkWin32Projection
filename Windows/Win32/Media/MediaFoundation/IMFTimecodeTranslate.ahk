@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
 #Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Converts between Society of Motion Picture and Television Engineers (SMPTE) time codes and 100-nanosecond time units.
@@ -185,7 +185,7 @@ export default struct IMFTimecodeTranslate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimecodetranslate-beginconverthnstotimecode
      */
     BeginConvertHNSToTimecode(hnsTime, pCallback, punkState) {
-        result := ComCall(5, this, "int64", hnsTime, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(5, this, Int64, hnsTime, "ptr", pCallback, "ptr", punkState, "HRESULT")
         return result
     }
 

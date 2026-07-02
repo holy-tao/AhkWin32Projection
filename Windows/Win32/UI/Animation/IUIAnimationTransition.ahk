@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a transition, which determines how an animation variable changes over time.
@@ -58,7 +58,7 @@ export default struct IUIAnimationTransition extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition-setinitialvalue
      */
     SetInitialValue(value) {
-        result := ComCall(3, this, "double", value, "HRESULT")
+        result := ComCall(3, this, Float64, value, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IUIAnimationTransition extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition-setinitialvelocity
      */
     SetInitialVelocity(velocity) {
-        result := ComCall(4, this, "double", velocity, "HRESULT")
+        result := ComCall(4, this, Float64, velocity, "HRESULT")
         return result
     }
 

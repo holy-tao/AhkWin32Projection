@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDedupDataPort.ahk" { IDedupDataPort }
 #Import ".\DedupCompressionAlgorithm.ahk" { DedupCompressionAlgorithm }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\DedupChunkingAlgorithm.ahk" { DedupChunkingAlgorithm }
-#Import ".\DedupHashingAlgorithm.ahk" { DedupHashingAlgorithm }
 #Import ".\DedupDataPortVolumeStatus.ahk" { DedupDataPortVolumeStatus }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DedupHashingAlgorithm.ahk" { DedupHashingAlgorithm }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DedupChunkingAlgorithm.ahk" { DedupChunkingAlgorithm }
+#Import ".\IDedupDataPort.ahk" { IDedupDataPort }
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
@@ -91,7 +91,7 @@ export default struct IDedupDataPortManager extends IUnknown {
     GetVolumeStatus(Options, _Path) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(4, this, "uint", Options, BSTR, _Path, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, Options, BSTR, _Path, "int*", &pStatus := 0, "HRESULT")
         return pStatus
     }
 
@@ -104,7 +104,7 @@ export default struct IDedupDataPortManager extends IUnknown {
     GetVolumeDataPort(Options, _Path) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(5, this, "uint", Options, BSTR, _Path, "ptr*", &ppDataPort := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, Options, BSTR, _Path, "ptr*", &ppDataPort := 0, "HRESULT")
         return IDedupDataPort(ppDataPort)
     }
 

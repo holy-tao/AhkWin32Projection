@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUriBuilder.ahk" { IUriBuilder }
-#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -44,7 +44,7 @@ export default struct IUriBuilderFactory extends IUnknown {
      * @returns {IUriBuilder} 
      */
     CreateIUriBuilder(dwFlags, dwReserved) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, IntPtr, dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
         return IUriBuilder(ppIUriBuilder)
     }
 
@@ -55,7 +55,7 @@ export default struct IUriBuilderFactory extends IUnknown {
      * @returns {IUriBuilder} 
      */
     CreateInitializedIUriBuilder(dwFlags, dwReserved) {
-        result := ComCall(4, this, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, IntPtr, dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
         return IUriBuilder(ppIUriBuilder)
     }
 

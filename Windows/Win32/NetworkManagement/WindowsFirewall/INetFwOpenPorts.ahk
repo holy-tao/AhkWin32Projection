@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\NET_FW_IP_PROTOCOL.ahk" { NET_FW_IP_PROTOCOL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INetFwOpenPort.ahk" { INetFwOpenPort }
+#Import ".\NET_FW_IP_PROTOCOL.ahk" { NET_FW_IP_PROTOCOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The INetFwOpenPorts interface is a standard Automation collection interface.
@@ -291,7 +291,7 @@ export default struct INetFwOpenPorts extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-remove
      */
     Remove(portNumber, ipProtocol) {
-        result := ComCall(9, this, "int", portNumber, NET_FW_IP_PROTOCOL, ipProtocol, "HRESULT")
+        result := ComCall(9, this, Int32, portNumber, NET_FW_IP_PROTOCOL, ipProtocol, "HRESULT")
         return result
     }
 
@@ -303,7 +303,7 @@ export default struct INetFwOpenPorts extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-item
      */
     Item(portNumber, ipProtocol) {
-        result := ComCall(10, this, "int", portNumber, NET_FW_IP_PROTOCOL, ipProtocol, "ptr*", &openPort := 0, "HRESULT")
+        result := ComCall(10, this, Int32, portNumber, NET_FW_IP_PROTOCOL, ipProtocol, "ptr*", &openPort := 0, "HRESULT")
         return INetFwOpenPort(openPort)
     }
 

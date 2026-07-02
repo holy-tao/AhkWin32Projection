@@ -43,7 +43,7 @@ export default struct ICorProfilerInfo7 extends ICorProfilerInfo6 {
      * @returns {HRESULT} 
      */
     ApplyMetaData(moduleId) {
-        result := ComCall(84, this, "ptr", moduleId, "HRESULT")
+        result := ComCall(84, this, IntPtr, moduleId, "HRESULT")
         return result
     }
 
@@ -53,7 +53,7 @@ export default struct ICorProfilerInfo7 extends ICorProfilerInfo6 {
      * @returns {Integer} 
      */
     GetInMemorySymbolsLength(moduleId) {
-        result := ComCall(85, this, "ptr", moduleId, "uint*", &pCountSymbolBytes := 0, "HRESULT")
+        result := ComCall(85, this, IntPtr, moduleId, "uint*", &pCountSymbolBytes := 0, "HRESULT")
         return pCountSymbolBytes
     }
 
@@ -70,7 +70,7 @@ export default struct ICorProfilerInfo7 extends ICorProfilerInfo6 {
         pSymbolBytesMarshal := pSymbolBytes is VarRef ? "char*" : "ptr"
         pCountSymbolBytesReadMarshal := pCountSymbolBytesRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(86, this, "ptr", moduleId, "uint", symbolsReadOffset, pSymbolBytesMarshal, pSymbolBytes, "uint", countSymbolBytes, pCountSymbolBytesReadMarshal, pCountSymbolBytesRead, "HRESULT")
+        result := ComCall(86, this, IntPtr, moduleId, UInt32, symbolsReadOffset, pSymbolBytesMarshal, pSymbolBytes, UInt32, countSymbolBytes, pCountSymbolBytesReadMarshal, pCountSymbolBytesRead, "HRESULT")
         return result
     }
 

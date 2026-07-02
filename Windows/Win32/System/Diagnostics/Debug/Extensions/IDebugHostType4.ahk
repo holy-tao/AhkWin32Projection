@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UDTKind.ahk" { UDTKind }
 #Import ".\IDebugHostType3.ahk" { IDebugHostType3 }
-#Import ".\ExtendedArrayDimension.ahk" { ExtendedArrayDimension }
+#Import ".\UDTKind.ahk" { UDTKind }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ExtendedArrayDimension.ahk" { ExtendedArrayDimension }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -55,7 +55,7 @@ export default struct IDebugHostType4 extends IDebugHostType3 {
      */
     GetExtendedArrayDimensions(dimensions) {
         pDimensions := ExtendedArrayDimension()
-        result := ComCall(36, this, "uint", dimensions, ExtendedArrayDimension.Ptr, pDimensions, "HRESULT")
+        result := ComCall(36, this, Int64, dimensions, ExtendedArrayDimension.Ptr, pDimensions, "HRESULT")
         return pDimensions
     }
 

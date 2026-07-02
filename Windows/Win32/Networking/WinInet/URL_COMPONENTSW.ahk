@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\INTERNET_SCHEME.ahk" { INTERNET_SCHEME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the constituent parts of a URL. This structure is used with the InternetCrackUrl and InternetCreateUrl functions. (Unicode)

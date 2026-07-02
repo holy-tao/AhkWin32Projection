@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The POLYTEXT structure describes how the PolyTextOut function should draw a string of text. (Unicode)

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMLOperatorAttributes.ahk" { IMLOperatorAttributes }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MLOperatorEdgeDescription.ahk" { MLOperatorEdgeDescription }
-#Import ".\IMLOperatorTensorShapeDescription.ahk" { IMLOperatorTensorShapeDescription }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMLOperatorTensorShapeDescription.ahk" { IMLOperatorTensorShapeDescription }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMLOperatorAttributes.ahk" { IMLOperatorAttributes }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
@@ -70,7 +70,7 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
      * @returns {Boolean} 
      */
     IsInputValid(inputIndex) {
-        result := ComCall(9, this, "uint", inputIndex, Int32)
+        result := ComCall(9, this, UInt32, inputIndex, Int32)
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
      * @returns {Boolean} 
      */
     IsOutputValid(outputIndex) {
-        result := ComCall(10, this, "uint", outputIndex, Int32)
+        result := ComCall(10, this, UInt32, outputIndex, Int32)
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
      */
     GetInputEdgeDescription(inputIndex) {
         edgeDescription := MLOperatorEdgeDescription()
-        result := ComCall(11, this, "uint", inputIndex, MLOperatorEdgeDescription.Ptr, edgeDescription, "HRESULT")
+        result := ComCall(11, this, UInt32, inputIndex, MLOperatorEdgeDescription.Ptr, edgeDescription, "HRESULT")
         return edgeDescription
     }
 
@@ -102,7 +102,7 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
      */
     GetOutputEdgeDescription(outputIndex) {
         edgeDescription := MLOperatorEdgeDescription()
-        result := ComCall(12, this, "uint", outputIndex, MLOperatorEdgeDescription.Ptr, edgeDescription, "HRESULT")
+        result := ComCall(12, this, UInt32, outputIndex, MLOperatorEdgeDescription.Ptr, edgeDescription, "HRESULT")
         return edgeDescription
     }
 

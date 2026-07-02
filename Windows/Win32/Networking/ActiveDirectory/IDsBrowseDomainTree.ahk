@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DOMAIN_TREE.ahk" { DOMAIN_TREE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DOMAIN_TREE.ahk" { DOMAIN_TREE }
 
 /**
  * The IDsBrowseDomainTree interface is used by an application to display a domain browser dialog box and/or obtain a list of trust domains related to a given computer.
@@ -74,7 +74,7 @@ export default struct IDsBrowseDomainTree extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-browseto
      */
     BrowseTo(hwndParent, dwFlags) {
-        result := ComCall(3, this, HWND, hwndParent, PWSTR.Ptr, &ppszTargetPath := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, PWSTR.Ptr, &ppszTargetPath := 0, UInt32, dwFlags, "HRESULT")
         return ppszTargetPath
     }
 
@@ -90,7 +90,7 @@ export default struct IDsBrowseDomainTree extends IUnknown {
     GetDomains(ppDomainTree, dwFlags) {
         ppDomainTreeMarshal := ppDomainTree is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, ppDomainTreeMarshal, ppDomainTree, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, ppDomainTreeMarshal, ppDomainTree, UInt32, dwFlags, "HRESULT")
         return result
     }
 

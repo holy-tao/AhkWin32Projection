@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMSyncReader.ahk" { IWMSyncReader }
+#Import ".\IWMReaderAllocatorEx.ahk" { IWMReaderAllocatorEx }
 #Import ".\WMT_TIMECODE_EXTENSION_DATA.ahk" { WMT_TIMECODE_EXTENSION_DATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMReaderAllocatorEx.ahk" { IWMReaderAllocatorEx }
-#Import ".\IWMSyncReader.ahk" { IWMSyncReader }
 
 /**
  * The IWMSyncReader2 interface provides advanced features for the synchronous reader.
@@ -57,7 +57,7 @@ export default struct IWMSyncReader2 extends IWMSyncReader {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-setrangebytimecode
      */
     SetRangeByTimecode(wStreamNum, pStart, pEnd) {
-        result := ComCall(24, this, "ushort", wStreamNum, WMT_TIMECODE_EXTENSION_DATA.Ptr, pStart, WMT_TIMECODE_EXTENSION_DATA.Ptr, pEnd, "HRESULT")
+        result := ComCall(24, this, UInt16, wStreamNum, WMT_TIMECODE_EXTENSION_DATA.Ptr, pStart, WMT_TIMECODE_EXTENSION_DATA.Ptr, pEnd, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IWMSyncReader2 extends IWMSyncReader {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-setrangebyframeex
      */
     SetRangeByFrameEx(wStreamNum, qwFrameNumber, cFramesToRead) {
-        result := ComCall(25, this, "ushort", wStreamNum, "uint", qwFrameNumber, "int64", cFramesToRead, "uint*", &pcnsStartTime := 0, "HRESULT")
+        result := ComCall(25, this, UInt16, wStreamNum, Int64, qwFrameNumber, Int64, cFramesToRead, "uint*", &pcnsStartTime := 0, "HRESULT")
         return pcnsStartTime
     }
 
@@ -86,7 +86,7 @@ export default struct IWMSyncReader2 extends IWMSyncReader {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-setallocateforoutput
      */
     SetAllocateForOutput(dwOutputNum, pAllocator) {
-        result := ComCall(26, this, "uint", dwOutputNum, "ptr", pAllocator, "HRESULT")
+        result := ComCall(26, this, UInt32, dwOutputNum, "ptr", pAllocator, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IWMSyncReader2 extends IWMSyncReader {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-getallocateforoutput
      */
     GetAllocateForOutput(dwOutputNum) {
-        result := ComCall(27, this, "uint", dwOutputNum, "ptr*", &ppAllocator := 0, "HRESULT")
+        result := ComCall(27, this, UInt32, dwOutputNum, "ptr*", &ppAllocator := 0, "HRESULT")
         return IWMReaderAllocatorEx(ppAllocator)
     }
 
@@ -109,7 +109,7 @@ export default struct IWMSyncReader2 extends IWMSyncReader {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-setallocateforstream
      */
     SetAllocateForStream(wStreamNum, pAllocator) {
-        result := ComCall(28, this, "ushort", wStreamNum, "ptr", pAllocator, "HRESULT")
+        result := ComCall(28, this, UInt16, wStreamNum, "ptr", pAllocator, "HRESULT")
         return result
     }
 
@@ -120,7 +120,7 @@ export default struct IWMSyncReader2 extends IWMSyncReader {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-getallocateforstream
      */
     GetAllocateForStream(dwSreamNum) {
-        result := ComCall(29, this, "ushort", dwSreamNum, "ptr*", &ppAllocator := 0, "HRESULT")
+        result := ComCall(29, this, UInt16, dwSreamNum, "ptr*", &ppAllocator := 0, "HRESULT")
         return IWMReaderAllocatorEx(ppAllocator)
     }
 

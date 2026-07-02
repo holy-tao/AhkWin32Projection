@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISBE2EnumStream.ahk" { ISBE2EnumStream }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IPin.ahk" { IPin }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISBE2EnumStream.ahk" { ISBE2EnumStream }
+#Import "..\IPin.ahk" { IPin }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISBE2MediaTypeProfile.ahk" { ISBE2MediaTypeProfile }
 
 /**
@@ -65,7 +65,7 @@ export default struct ISBE2Crossbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2crossbar-enabledefaultmode
      */
     EnableDefaultMode(DefaultFlags) {
-        result := ComCall(3, this, "uint", DefaultFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, DefaultFlags, "HRESULT")
         return result
     }
 

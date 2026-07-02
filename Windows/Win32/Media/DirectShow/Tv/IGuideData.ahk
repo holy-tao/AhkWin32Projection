@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumTuneRequests.ahk" { IEnumTuneRequests }
-#Import ".\ITuneRequest.ahk" { ITuneRequest }
 #Import ".\IEnumGuideDataProperties.ahk" { IEnumGuideDataProperties }
-#Import "..\..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import ".\IEnumTuneRequests.ahk" { IEnumTuneRequests }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
 
 /**
  * The IGuideData interface is exposed by the BDA MPEG-2 Transport Information Filter (TIF). It enables the client to get service information from the MPEG-2 transport stream. Use this interface if you are writing a guide store loader.

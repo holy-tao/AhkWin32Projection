@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables a debugging or authoring app to receive notification of user interface events and respond to events that require user interaction.
@@ -51,7 +51,7 @@ export default struct IWebApplicationUIEvents extends IUnknown {
     SecurityProblem(securityProblem, result) {
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", securityProblem, resultMarshal, result, "HRESULT")
+        result := ComCall(3, this, UInt32, securityProblem, resultMarshal, result, "HRESULT")
         return result
     }
 

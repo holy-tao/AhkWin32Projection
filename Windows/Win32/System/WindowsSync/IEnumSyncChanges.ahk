@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISyncChange.ahk" { ISyncChange }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates a list of item changes.
@@ -51,7 +51,7 @@ export default struct IEnumSyncChanges extends IUnknown {
     Next(cChanges, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cChanges, "ptr*", &ppChange := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cChanges, "ptr*", &ppChange := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return ISyncChange(ppChange)
     }
 
@@ -77,7 +77,7 @@ export default struct IEnumSyncChanges extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-skip
      */
     Skip(cChanges) {
-        result := ComCall(4, this, "uint", cChanges, "HRESULT")
+        result := ComCall(4, this, UInt32, cChanges, "HRESULT")
         return result
     }
 

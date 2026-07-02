@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IPhotoAcquireItem interface provides methods for working with items as they are acquired from a device.
@@ -194,7 +194,7 @@ export default struct IPhotoAcquireItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getsubitemat
      */
     GetSubItemAt(nItemIndex) {
-        result := ComCall(11, this, "uint", nItemIndex, "ptr*", &ppPhotoAcquireItem := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, nItemIndex, "ptr*", &ppPhotoAcquireItem := 0, "HRESULT")
         return IPhotoAcquireItem(ppPhotoAcquireItem)
     }
 

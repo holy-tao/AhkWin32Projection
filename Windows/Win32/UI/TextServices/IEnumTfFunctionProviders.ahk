@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITfFunctionProvider.ahk" { ITfFunctionProvider }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumTfFunctionProviders interface is implemented by the TSF manager to provide an enumeration of function provider objects.
@@ -102,7 +102,7 @@ export default struct IEnumTfFunctionProviders extends IUnknown {
     Next(ulCount, ppCmdobj, pcFetch) {
         pcFetchMarshal := pcFetch is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, ITfFunctionProvider.Ptr, ppCmdobj, pcFetchMarshal, pcFetch, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, ITfFunctionProvider.Ptr, ppCmdobj, pcFetchMarshal, pcFetch, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IEnumTfFunctionProviders extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtffunctionproviders-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITAgent.ahk" { ITAgent }
+#Import ".\IEnumACDGroup.ahk" { IEnumACDGroup }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IEnumAddress.ahk" { IEnumAddress }
-#Import ".\IEnumACDGroup.ahk" { IEnumACDGroup }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITAgent.ahk" { ITAgent }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEnumAddress.ahk" { IEnumAddress }
 
 /**
  * The ITAgentHandler interface (tapi3cc.h) provides methods to create Agent objects and enumerate Automatic Call Distribution (ACD) groups.

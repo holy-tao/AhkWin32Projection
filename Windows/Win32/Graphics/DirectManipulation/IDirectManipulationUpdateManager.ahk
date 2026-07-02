@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\IDirectManipulationFrameInfoProvider.ahk" { IDirectManipulationFrameInfoProvider }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirectManipulationUpdateHandler.ahk" { IDirectManipulationUpdateHandler }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectManipulationFrameInfoProvider.ahk" { IDirectManipulationFrameInfoProvider }
+#Import ".\IDirectManipulationUpdateHandler.ahk" { IDirectManipulationUpdateHandler }
 
 /**
  * Manages how compositor updates are sent to Direct Manipulation.
@@ -67,7 +67,7 @@ export default struct IDirectManipulationUpdateManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-unregisterwaithandlecallback
      */
     UnregisterWaitHandleCallback(cookie) {
-        result := ComCall(4, this, "uint", cookie, "HRESULT")
+        result := ComCall(4, this, UInt32, cookie, "HRESULT")
         return result
     }
 

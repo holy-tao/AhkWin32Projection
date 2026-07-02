@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\HYPOTHESIS.ahk" { HYPOTHESIS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\REPAIR_STATUS.ahk" { REPAIR_STATUS }
-#Import ".\DIAGNOSIS_STATUS.ahk" { DIAGNOSIS_STATUS }
-#Import ".\PROBLEM_TYPE.ahk" { PROBLEM_TYPE }
-#Import ".\DiagnosticsInfo.ahk" { DiagnosticsInfo }
 #Import ".\LIFE_TIME.ahk" { LIFE_TIME }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\RepairInfo.ahk" { RepairInfo }
+#Import ".\HYPOTHESIS.ahk" { HYPOTHESIS }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
+#Import ".\DiagnosticsInfo.ahk" { DiagnosticsInfo }
+#Import ".\REPAIR_STATUS.ahk" { REPAIR_STATUS }
+#Import ".\DIAGNOSIS_STATUS.ahk" { DIAGNOSIS_STATUS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PROBLEM_TYPE.ahk" { PROBLEM_TYPE }
 
 /**
  * The INetDiagHelper interface provides methods that capture and provide information associated with diagnoses and resolution of network-related issues.
@@ -137,7 +137,7 @@ export default struct INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-initialize
      */
     Initialize(celt, rgAttributes) {
-        result := ComCall(3, this, "uint", celt, HELPER_ATTRIBUTE.Ptr, rgAttributes, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, HELPER_ATTRIBUTE.Ptr, rgAttributes, "HRESULT")
         return result
     }
 

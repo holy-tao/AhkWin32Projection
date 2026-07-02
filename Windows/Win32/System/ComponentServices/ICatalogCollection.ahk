@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
@@ -123,7 +123,7 @@ export default struct ICatalogCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_item
      */
     get_Item(lIndex) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", &ppCatalogObject := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, "ptr*", &ppCatalogObject := 0, "HRESULT")
         return IDispatch(ppCatalogObject)
     }
 
@@ -150,7 +150,7 @@ export default struct ICatalogCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-remove
      */
     Remove(lIndex) {
-        result := ComCall(10, this, "int", lIndex, "HRESULT")
+        result := ComCall(10, this, Int32, lIndex, "HRESULT")
         return result
     }
 
@@ -381,7 +381,7 @@ export default struct ICatalogCollection extends IDispatch {
     PopulateByQuery(bstrQueryString, lQueryType) {
         bstrQueryString := bstrQueryString is String ? BSTR.Alloc(bstrQueryString).Value : bstrQueryString
 
-        result := ComCall(22, this, BSTR, bstrQueryString, "int", lQueryType, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrQueryString, Int32, lQueryType, "HRESULT")
         return result
     }
 

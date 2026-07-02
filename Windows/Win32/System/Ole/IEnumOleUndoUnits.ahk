@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IOleUndoUnit.ahk" { IOleUndoUnit }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOleUndoUnit.ahk" { IOleUndoUnit }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates the undo units on the undo or redo stack.
@@ -60,7 +60,7 @@ export default struct IEnumOleUndoUnits extends IUnknown {
     Next(cElt, rgElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cElt, IOleUndoUnit.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, Int32)
+        result := ComCall(3, this, UInt32, cElt, IOleUndoUnit.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, Int32)
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IEnumOleUndoUnits extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ienumoleundounits-skip
      */
     Skip(cElt) {
-        result := ComCall(4, this, "uint", cElt, "HRESULT")
+        result := ComCall(4, this, UInt32, cElt, "HRESULT")
         return result
     }
 

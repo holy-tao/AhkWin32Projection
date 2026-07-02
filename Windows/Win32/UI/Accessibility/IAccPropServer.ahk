@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that retrieves a property value for an accessible element.
@@ -71,7 +71,7 @@ export default struct IAccPropServer extends IUnknown {
         pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
         pfHasPropMarshal := pfHasProp is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, Guid, idProp, VARIANT.Ptr, pvarValue, pfHasPropMarshal, pfHasProp, "HRESULT")
+        result := ComCall(3, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, Guid, idProp, VARIANT.Ptr, pvarValue, pfHasPropMarshal, pfHasProp, "HRESULT")
         return result
     }
 

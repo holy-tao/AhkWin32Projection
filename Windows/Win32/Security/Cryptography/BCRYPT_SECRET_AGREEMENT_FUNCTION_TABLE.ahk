@@ -1,4 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCryptSecretAgreementFn.ahk" { BCryptSecretAgreementFn }
+#Import ".\BCryptCloseAlgorithmProviderFn.ahk" { BCryptCloseAlgorithmProviderFn }
+#Import ".\BCryptImportKeyPairFn.ahk" { BCryptImportKeyPairFn }
+#Import ".\BCryptExportKeyFn.ahk" { BCryptExportKeyFn }
+#Import ".\BCryptDestroySecretFn.ahk" { BCryptDestroySecretFn }
+#Import ".\BCryptFinalizeKeyPairFn.ahk" { BCryptFinalizeKeyPairFn }
+#Import ".\BCryptSetPropertyFn.ahk" { BCryptSetPropertyFn }
+#Import ".\BCryptDeriveKeyFn.ahk" { BCryptDeriveKeyFn }
+#Import ".\BCryptGenerateKeyPairFn.ahk" { BCryptGenerateKeyPairFn }
+#Import ".\BCryptGetPropertyFn.ahk" { BCryptGetPropertyFn }
+#Import ".\BCryptOpenAlgorithmProviderFn.ahk" { BCryptOpenAlgorithmProviderFn }
+#Import ".\BCryptDestroyKeyFn.ahk" { BCryptDestroyKeyFn }
 #Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
 
 /**
@@ -9,28 +21,28 @@ export default struct BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE {
 
     Version : BCRYPT_INTERFACE_VERSION
 
-    OpenAlgorithmProvider : IntPtr
+    OpenAlgorithmProvider : BCryptOpenAlgorithmProviderFn
 
-    GetProperty : IntPtr
+    GetProperty : BCryptGetPropertyFn
 
-    SetProperty : IntPtr
+    SetProperty : BCryptSetPropertyFn
 
-    CloseAlgorithmProvider : IntPtr
+    CloseAlgorithmProvider : BCryptCloseAlgorithmProviderFn
 
-    SecretAgreement : IntPtr
+    SecretAgreement : BCryptSecretAgreementFn
 
-    DeriveKey : IntPtr
+    DeriveKey : BCryptDeriveKeyFn
 
-    DestroySecret : IntPtr
+    DestroySecret : BCryptDestroySecretFn
 
-    GenerateKeyPair : IntPtr
+    GenerateKeyPair : BCryptGenerateKeyPairFn
 
-    FinalizeKeyPair : IntPtr
+    FinalizeKeyPair : BCryptFinalizeKeyPairFn
 
-    ImportKeyPair : IntPtr
+    ImportKeyPair : BCryptImportKeyPairFn
 
-    ExportKey : IntPtr
+    ExportKey : BCryptExportKeyFn
 
-    DestroyKey : IntPtr
+    DestroyKey : BCryptDestroyKeyFn
 
 }

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXGI_ADAPTER_DESC.ahk" { DXGI_ADAPTER_DESC }
-#Import ".\IDXGIObject.ahk" { IDXGIObject }
 #Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
+#Import ".\DXGI_ADAPTER_DESC.ahk" { DXGI_ADAPTER_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDXGIAdapter interface represents a display subsystem (including one or more GPUs, DACs and video memory).
@@ -79,7 +79,7 @@ export default struct IDXGIAdapter extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiadapter-enumoutputs
      */
     EnumOutputs(Output, ppOutput) {
-        result := ComCall(7, this, "uint", Output, IDXGIOutput.Ptr, ppOutput, Int32)
+        result := ComCall(7, this, UInt32, Output, IDXGIOutput.Ptr, ppOutput, Int32)
         return result
     }
 

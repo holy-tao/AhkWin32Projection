@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_CROSS_NODE_SHARING_TIER.ahk" { D3D12_CROSS_NODE_SHARING_TIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_CROSS_NODE_SHARING_TIER.ahk" { D3D12_CROSS_NODE_SHARING_TIER }
 
 /**
  * Indicates the level of support for the sharing of resources between different adapters&mdash;for example, multiple GPUs.

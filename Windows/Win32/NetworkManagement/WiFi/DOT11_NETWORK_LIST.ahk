@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 #Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 #Import ".\DOT11_NETWORK.ahk" { DOT11_NETWORK }
-#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * Contains a list of 802.11 wireless networks.

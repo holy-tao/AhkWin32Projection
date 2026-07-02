@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UpdateExceptionContext.ahk" { UpdateExceptionContext }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UpdateExceptionContext.ahk" { UpdateExceptionContext }
 
 /**
  * Represents info about the aspects of search results returned in the ISearchResult object that were incomplete.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\StructureChangeType.ahk" { StructureChangeType }
 #Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
 #Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import ".\StructureChangeType.ahk" { StructureChangeType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
@@ -91,7 +91,9 @@ export default struct IProxyProviderWinEventSink extends IUnknown {
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * A pointer to the provider of the element that is raising the event.
-     * @param {StructureChangeType} _structureChangeType 
+     * @param {StructureChangeType} _structureChangeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-structurechangetype">StructureChangeType</a></b>
+     * 
+     * The type of structure change that occurred.
      * @param {Pointer<SAFEARRAY>} runtimeId Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * A pointer to the runtime identifiers of the elements that are affected. These IDs enable applications to identify elements that have been removed and are no longer represented by <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a> interfaces.

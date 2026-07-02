@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by a client and called by Microsoft Media Foundation to get the client Secure Sockets Layer (SSL) certificate requested by the server.
@@ -130,7 +130,7 @@ export default struct IMFSSLCertificateManager extends IUnknown {
     OnServerCertificate(pszURL, pbData, cbData) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(7, this, "ptr", pszURL, "ptr", pbData, "uint", cbData, BOOL.Ptr, &pfIsGood := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pszURL, IntPtr, pbData, UInt32, cbData, BOOL.Ptr, &pfIsGood := 0, "HRESULT")
         return pfIsGood
     }
 

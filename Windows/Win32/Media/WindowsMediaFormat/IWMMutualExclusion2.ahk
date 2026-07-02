@@ -251,7 +251,7 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-removerecord
      */
     RemoveRecord(wRecordNumber) {
-        result := ComCall(12, this, "ushort", wRecordNumber, "HRESULT")
+        result := ComCall(12, this, UInt16, wRecordNumber, "HRESULT")
         return result
     }
 
@@ -316,7 +316,7 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
 
         pcchRecordNameMarshal := pcchRecordName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(13, this, "ushort", wRecordNumber, "ptr", pwszRecordName, pcchRecordNameMarshal, pcchRecordName, "HRESULT")
+        result := ComCall(13, this, UInt16, wRecordNumber, "ptr", pwszRecordName, pcchRecordNameMarshal, pcchRecordName, "HRESULT")
         return result
     }
 
@@ -361,7 +361,7 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
     SetRecordName(wRecordNumber, pwszRecordName) {
         pwszRecordName := pwszRecordName is String ? StrPtr(pwszRecordName) : pwszRecordName
 
-        result := ComCall(14, this, "ushort", wRecordNumber, "ptr", pwszRecordName, "HRESULT")
+        result := ComCall(14, this, UInt16, wRecordNumber, "ptr", pwszRecordName, "HRESULT")
         return result
     }
 
@@ -379,7 +379,7 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
     GetStreamsForRecord(wRecordNumber, pcStreams) {
         pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(15, this, "ushort", wRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
+        result := ComCall(15, this, UInt16, wRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
         return pwStreamNumArray
     }
 
@@ -444,7 +444,7 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-addstreamforrecord
      */
     AddStreamForRecord(wRecordNumber, wStreamNumber) {
-        result := ComCall(16, this, "ushort", wRecordNumber, "ushort", wStreamNumber, "HRESULT")
+        result := ComCall(16, this, UInt16, wRecordNumber, UInt16, wStreamNumber, "HRESULT")
         return result
     }
 
@@ -509,7 +509,7 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-removestreamforrecord
      */
     RemoveStreamForRecord(wRecordNumber, wStreamNumber) {
-        result := ComCall(17, this, "ushort", wRecordNumber, "ushort", wStreamNumber, "HRESULT")
+        result := ComCall(17, this, UInt16, wRecordNumber, UInt16, wStreamNumber, "HRESULT")
         return result
     }
 

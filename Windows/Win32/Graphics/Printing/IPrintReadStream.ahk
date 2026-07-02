@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -44,7 +44,7 @@ export default struct IPrintReadStream extends IUnknown {
      * @returns {Integer} 
      */
     Seek(dlibMove, dwOrigin) {
-        result := ComCall(3, this, "int64", dlibMove, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        result := ComCall(3, this, Int64, dlibMove, UInt32, dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
         return plibNewPosition
     }
 
@@ -60,7 +60,7 @@ export default struct IPrintReadStream extends IUnknown {
         pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
         pbEndOfFileMarshal := pbEndOfFile is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pvBuffer, "uint", cbRequested, pcbReadMarshal, pcbRead, pbEndOfFileMarshal, pbEndOfFile, "HRESULT")
+        result := ComCall(4, this, IntPtr, pvBuffer, UInt32, cbRequested, pcbReadMarshal, pcbRead, pbEndOfFileMarshal, pbEndOfFile, "HRESULT")
         return result
     }
 

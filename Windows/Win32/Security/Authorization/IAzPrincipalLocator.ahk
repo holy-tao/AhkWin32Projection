@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAzObjectPicker.ahk" { IAzObjectPicker }
 #Import ".\IAzNameResolver.ahk" { IAzNameResolver }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAzObjectPicker.ahk" { IAzObjectPicker }
 
 /**
  * Locates and chooses ADAM principals in Authorization Manager.

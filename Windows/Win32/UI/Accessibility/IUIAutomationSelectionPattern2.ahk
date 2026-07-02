@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 #Import ".\IUIAutomationSelectionPattern.ahk" { IUIAutomationSelectionPattern }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 
 /**
  * Extends the IUIAutomationSelectionPattern interface to provide information about selected items.

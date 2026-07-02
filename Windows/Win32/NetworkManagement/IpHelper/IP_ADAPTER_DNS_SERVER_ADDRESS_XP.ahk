@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
 #Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
 
 /**
  * The IP_ADAPTER_DNS_SERVER_ADDRESS structure stores a single DNS server address in a linked list of DNS server addresses for a particular adapter.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE.ahk" { D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE }
 #Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE.ahk" { D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

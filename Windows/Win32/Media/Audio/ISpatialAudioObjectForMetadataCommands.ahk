@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpatialAudioObjectBase.ahk" { ISpatialAudioObjectBase }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to write metadata commands for spatial audio.
@@ -49,7 +49,7 @@ export default struct ISpatialAudioObjectForMetadataCommands extends ISpatialAud
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectformetadatacommands-writenextmetadatacommand
      */
     WriteNextMetadataCommand(commandID, valueBuffer, valueBufferLength) {
-        result := ComCall(7, this, "char", commandID, "ptr", valueBuffer, "uint", valueBufferLength, "HRESULT")
+        result := ComCall(7, this, Int8, commandID, IntPtr, valueBuffer, UInt32, valueBufferLength, "HRESULT")
         return result
     }
 

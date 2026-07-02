@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
-#Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
 
 /**
  * Contains the information of a certificate.

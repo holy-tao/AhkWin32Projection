@@ -42,7 +42,7 @@ export default struct ID3D12GraphicsCommandList6 extends ID3D12GraphicsCommandLi
      * @returns {String} Nothing - always returns an empty string
      */
     DispatchMesh(ThreadGroupCountX, ThreadGroupCountY, ThreadGroupCountZ) {
-        ComCall(79, this, "uint", ThreadGroupCountX, "uint", ThreadGroupCountY, "uint", ThreadGroupCountZ)
+        ComCall(79, this, UInt32, ThreadGroupCountX, UInt32, ThreadGroupCountY, UInt32, ThreadGroupCountZ)
     }
 
     Query(iid) {

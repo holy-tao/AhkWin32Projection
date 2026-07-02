@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\KS_ANALOGVIDEOINFO.ahk" { KS_ANALOGVIDEOINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**

@@ -80,7 +80,7 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ActiveOffset(ActiveOffset) {
-        result := ComCall(7, this, "int", ActiveOffset, "HRESULT")
+        result := ComCall(7, this, Int32, ActiveOffset, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ActiveLength(ActiveLength) {
-        result := ComCall(9, this, "int", ActiveLength, "HRESULT")
+        result := ComCall(9, this, Int32, ActiveLength, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SelectionOffset(SelectionOffset) {
-        result := ComCall(11, this, "int", SelectionOffset, "HRESULT")
+        result := ComCall(11, this, Int32, SelectionOffset, "HRESULT")
         return result
     }
 
@@ -137,7 +137,7 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SelectionLength(SelectionLength) {
-        result := ComCall(13, this, "int", SelectionLength, "HRESULT")
+        result := ComCall(13, this, Int32, SelectionLength, "HRESULT")
         return result
     }
 

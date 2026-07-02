@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This section describes functionality designed for use by online stores.
@@ -147,7 +147,7 @@ export default struct IWMPContentContainer extends IUnknown {
      */
     GetContentPrice(idxContent) {
         pbstrPrice := BSTR.Owned()
-        result := ComCall(7, this, "uint", idxContent, BSTR.Ptr, pbstrPrice, "HRESULT")
+        result := ComCall(7, this, UInt32, idxContent, BSTR.Ptr, pbstrPrice, "HRESULT")
         return pbstrPrice
     }
 
@@ -158,7 +158,7 @@ export default struct IWMPContentContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentid
      */
     GetContentID(idxContent) {
-        result := ComCall(8, this, "uint", idxContent, "uint*", &pContentID := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, idxContent, "uint*", &pContentID := 0, "HRESULT")
         return pContentID
     }
 

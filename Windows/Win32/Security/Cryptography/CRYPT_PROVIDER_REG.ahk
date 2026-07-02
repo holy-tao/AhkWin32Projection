@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CRYPT_IMAGE_REG.ahk" { CRYPT_IMAGE_REG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Used to contain registration information for a CNG provider.

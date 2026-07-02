@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReaderPlaylistBurn interface verifies that the files in a playlist can be copied to CD, in the order in which they are specified.
@@ -77,7 +77,7 @@ export default struct IWMReaderPlaylistBurn extends IUnknown {
         ppwszFilenamesMarshal := ppwszFilenames is VarRef ? "ptr*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", cFiles, ppwszFilenamesMarshal, ppwszFilenames, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, UInt32, cFiles, ppwszFilenamesMarshal, ppwszFilenames, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IWMReaderPlaylistBurn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-getinitresults
      */
     GetInitResults(cFiles) {
-        result := ComCall(4, this, "uint", cFiles, "int*", &phrStati := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, cFiles, "int*", &phrStati := 0, "HRESULT")
         return phrStati
     }
 

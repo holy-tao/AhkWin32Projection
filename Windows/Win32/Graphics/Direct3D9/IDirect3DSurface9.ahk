@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3DLOCKED_RECT.ahk" { D3DLOCKED_RECT }
-#Import "..\Gdi\HDC.ahk" { HDC }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\D3DSURFACE_DESC.ahk" { D3DSURFACE_DESC }
+#Import ".\D3DLOCKED_RECT.ahk" { D3DLOCKED_RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Gdi\HDC.ahk" { HDC }
 
 /**
  * The IDirect3DSurface9 (d3d9.h) interface is used by applications to query and prepare surfaces.
@@ -156,7 +156,7 @@ export default struct IDirect3DSurface9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-lockrect
      */
     LockRect(pLockedRect, pRect, Flags) {
-        result := ComCall(13, this, D3DLOCKED_RECT.Ptr, pLockedRect, RECT.Ptr, pRect, "uint", Flags, "HRESULT")
+        result := ComCall(13, this, D3DLOCKED_RECT.Ptr, pLockedRect, RECT.Ptr, pRect, UInt32, Flags, "HRESULT")
         return result
     }
 

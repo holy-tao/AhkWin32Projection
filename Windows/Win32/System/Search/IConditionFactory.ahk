@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IRichChunk.ahk" { IRichChunk }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICondition.ahk" { ICondition }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "Common\CONDITION_TYPE.ahk" { CONDITION_TYPE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\STRUCTURED_QUERY_RESOLVE_OPTION.ahk" { STRUCTURED_QUERY_RESOLVE_OPTION }
 #Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "Common\CONDITION_TYPE.ahk" { CONDITION_TYPE }
 #Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
-#Import ".\ICondition.ahk" { ICondition }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for creating or resolving a condition tree that was obtained by parsing a query string.

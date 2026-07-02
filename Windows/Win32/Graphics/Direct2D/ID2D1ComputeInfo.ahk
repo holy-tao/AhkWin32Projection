@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1RenderInfo.ahk" { ID2D1RenderInfo }
 #Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
+#Import ".\ID2D1RenderInfo.ahk" { ID2D1RenderInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -58,7 +58,7 @@ export default struct ID2D1ComputeInfo extends ID2D1RenderInfo {
     SetComputeShaderConstantBuffer(_buffer, bufferCount) {
         _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, _bufferMarshal, _buffer, "uint", bufferCount, "HRESULT")
+        result := ComCall(7, this, _bufferMarshal, _buffer, UInt32, bufferCount, "HRESULT")
         return result
     }
 
@@ -129,7 +129,7 @@ export default struct ID2D1ComputeInfo extends ID2D1RenderInfo {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setresourcetexture
      */
     SetResourceTexture(textureIndex, resourceTexture) {
-        result := ComCall(9, this, "uint", textureIndex, "ptr", resourceTexture, "HRESULT")
+        result := ComCall(9, this, UInt32, textureIndex, "ptr", resourceTexture, "HRESULT")
         return result
     }
 

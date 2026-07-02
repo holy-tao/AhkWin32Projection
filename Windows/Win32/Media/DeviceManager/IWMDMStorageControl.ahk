@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWMDMOperation.ahk" { IWMDMOperation }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
 
 /**
  * The IWMDMStorageControl interface is used to insert, delete, or move files within a storage, a device, or between a device and the computer.
@@ -67,7 +67,7 @@ export default struct IWMDMStorageControl extends IUnknown {
     Insert(fuMode, pwszFile, pOperation, pProgress) {
         pwszFile := pwszFile is String ? StrPtr(pwszFile) : pwszFile
 
-        result := ComCall(3, this, "uint", fuMode, "ptr", pwszFile, "ptr", pOperation, "ptr", pProgress, "ptr*", &ppNewObject := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, fuMode, "ptr", pwszFile, "ptr", pOperation, "ptr", pProgress, "ptr*", &ppNewObject := 0, "HRESULT")
         return IWMDMStorage(ppNewObject)
     }
 
@@ -116,7 +116,7 @@ export default struct IWMDMStorageControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstoragecontrol-delete
      */
     Delete(fuMode, pProgress) {
-        result := ComCall(4, this, "uint", fuMode, "ptr", pProgress, "HRESULT")
+        result := ComCall(4, this, UInt32, fuMode, "ptr", pProgress, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct IWMDMStorageControl extends IUnknown {
     Rename(fuMode, pwszNewName, pProgress) {
         pwszNewName := pwszNewName is String ? StrPtr(pwszNewName) : pwszNewName
 
-        result := ComCall(5, this, "uint", fuMode, "ptr", pwszNewName, "ptr", pProgress, "HRESULT")
+        result := ComCall(5, this, UInt32, fuMode, "ptr", pwszNewName, "ptr", pProgress, "HRESULT")
         return result
     }
 
@@ -219,7 +219,7 @@ export default struct IWMDMStorageControl extends IUnknown {
     Read(fuMode, pwszFile, pProgress, pOperation) {
         pwszFile := pwszFile is String ? StrPtr(pwszFile) : pwszFile
 
-        result := ComCall(6, this, "uint", fuMode, "ptr", pwszFile, "ptr", pProgress, "ptr", pOperation, "HRESULT")
+        result := ComCall(6, this, UInt32, fuMode, "ptr", pwszFile, "ptr", pProgress, "ptr", pOperation, "HRESULT")
         return result
     }
 
@@ -286,7 +286,7 @@ export default struct IWMDMStorageControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstoragecontrol-move
      */
     Move(fuMode, pTargetObject, pProgress) {
-        result := ComCall(7, this, "uint", fuMode, "ptr", pTargetObject, "ptr", pProgress, "HRESULT")
+        result := ComCall(7, this, UInt32, fuMode, "ptr", pTargetObject, "ptr", pProgress, "HRESULT")
         return result
     }
 

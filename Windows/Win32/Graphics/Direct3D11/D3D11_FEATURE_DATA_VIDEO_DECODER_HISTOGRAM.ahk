@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS.ahk" { D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS }
+#Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS.ahk" { D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS }
 
 /**
  * Provides data for calls to ID3D11VideoDevice2::CheckFeatureSupport when the feature specified is D3D11_FEATURE_VIDEO_DECODER_HISTOGRAM.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IADs.ahk" { IADs }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsPrintQueue interface represents a printer on a network.
@@ -348,7 +348,7 @@ export default struct IADsPrintQueue extends IADs {
      * @returns {HRESULT} 
      */
     put_StartTime(daStartTime) {
-        result := ComCall(33, this, "double", daStartTime, "HRESULT")
+        result := ComCall(33, this, Float64, daStartTime, "HRESULT")
         return result
     }
 
@@ -367,7 +367,7 @@ export default struct IADsPrintQueue extends IADs {
      * @returns {HRESULT} 
      */
     put_UntilTime(daUntilTime) {
-        result := ComCall(35, this, "double", daUntilTime, "HRESULT")
+        result := ComCall(35, this, Float64, daUntilTime, "HRESULT")
         return result
     }
 
@@ -386,7 +386,7 @@ export default struct IADsPrintQueue extends IADs {
      * @returns {HRESULT} 
      */
     put_DefaultJobPriority(lnDefaultJobPriority) {
-        result := ComCall(37, this, "int", lnDefaultJobPriority, "HRESULT")
+        result := ComCall(37, this, Int32, lnDefaultJobPriority, "HRESULT")
         return result
     }
 
@@ -405,7 +405,7 @@ export default struct IADsPrintQueue extends IADs {
      * @returns {HRESULT} 
      */
     put_Priority(lnPriority) {
-        result := ComCall(39, this, "int", lnPriority, "HRESULT")
+        result := ComCall(39, this, Int32, lnPriority, "HRESULT")
         return result
     }
 

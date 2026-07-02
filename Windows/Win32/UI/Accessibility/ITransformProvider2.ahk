@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ZoomUnit.ahk" { ZoomUnit }
 #Import ".\ITransformProvider.ahk" { ITransformProvider }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the ITransformProvider interface to enable Microsoft UI Automation providers to expose properties to support the viewport zooming functionality of a control.
@@ -83,7 +83,7 @@ export default struct ITransformProvider2 extends ITransformProvider {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-zoom
      */
     Zoom(zoom) {
-        result := ComCall(9, this, "double", zoom, "HRESULT")
+        result := ComCall(9, this, Float64, zoom, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFileSinkFilter.ahk" { IFileSinkFilter }
-#Import ".\IAMCopyCaptureFileProgress.ahk" { IAMCopyCaptureFileProgress }
 #Import ".\IBaseFilter.ahk" { IBaseFilter }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IGraphBuilder.ahk" { IGraphBuilder }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAMCopyCaptureFileProgress.ahk" { IAMCopyCaptureFileProgress }
+#Import ".\IFileSinkFilter.ahk" { IFileSinkFilter }
 
 /**
  * Note  This interface has been deprecated. (ICaptureGraphBuilder)
@@ -254,7 +254,7 @@ export default struct ICaptureGraphBuilder extends IUnknown {
         pstartMarshal := pstart is VarRef ? "int64*" : "ptr"
         pstopMarshal := pstop is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(8, this, Guid.Ptr, pCategory, "ptr", pFilter, pstartMarshal, pstart, pstopMarshal, pstop, "ushort", wStartCookie, "ushort", wStopCookie, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pCategory, "ptr", pFilter, pstartMarshal, pstart, pstopMarshal, pstop, UInt16, wStartCookie, UInt16, wStopCookie, "HRESULT")
         return result
     }
 
@@ -270,7 +270,7 @@ export default struct ICaptureGraphBuilder extends IUnknown {
     AllocCapFile(lpstr, dwlSize) {
         lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
-        result := ComCall(9, this, "ptr", lpstr, "uint", dwlSize, "HRESULT")
+        result := ComCall(9, this, "ptr", lpstr, Int64, dwlSize, "HRESULT")
         return result
     }
 
@@ -291,7 +291,7 @@ export default struct ICaptureGraphBuilder extends IUnknown {
         lpwstrOld := lpwstrOld is String ? StrPtr(lpwstrOld) : lpwstrOld
         lpwstrNew := lpwstrNew is String ? StrPtr(lpwstrNew) : lpwstrNew
 
-        result := ComCall(10, this, "ptr", lpwstrOld, "ptr", lpwstrNew, "int", fAllowEscAbort, "ptr", pCallback, "HRESULT")
+        result := ComCall(10, this, "ptr", lpwstrOld, "ptr", lpwstrNew, Int32, fAllowEscAbort, "ptr", pCallback, "HRESULT")
         return result
     }
 

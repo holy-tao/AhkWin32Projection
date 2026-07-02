@@ -1,0 +1,66 @@
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
+
+/**
+ * @namespace Windows.Win32.Security.Cryptography
+ */
+export default struct BCryptExportKeyFn {
+    value : IntPtr
+
+    __value {
+        set {
+            if (value is BCryptExportKeyFn) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {BCRYPT_KEY_HANDLE} _hKey 
+     * @param {BCRYPT_KEY_HANDLE} hExportKey 
+     * @param {PWSTR} pszBlobType 
+     * @param {Integer} pbOutput 
+     * @param {Integer} cbOutput 
+     * @param {Pointer<Integer>} pcbResult 
+     * @param {Integer} dwFlags 
+     * @returns {NTSTATUS} 
+     */
+    Call(_hKey, hExportKey, pszBlobType, pbOutput, cbOutput, pcbResult, dwFlags) {
+        pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
+
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, BCRYPT_KEY_HANDLE, hExportKey, "ptr", pszBlobType, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+        NTSTATUS.ThrowIfError(result.value)
+        return result
+    }
+
+    /**
+     * A BCryptExportKeyFn that invokes the given AHK function when called.
+     * This callback is owned by the script and cleaned up automatically.
+     */
+    struct From extends BCryptExportKeyFn {
+        /**
+         * Creates a BCryptExportKeyFn pointer that invokes the given AHK function when called.
+         * @param {Func(BCRYPT_KEY_HANDLE, BCRYPT_KEY_HANDLE, PWSTR, IntPtr, UInt32, "uint*", UInt32) => NTSTATUS} fn the function to invoke.
+         */
+        __New(fn) {
+            if (!HasMethod(fn, , 7)) {
+                throw MethodError("Object of type " Type(fn) " is not callable with 7 parameters.", -1, fn)
+            }
+            this.value := CallbackCreate(fn, , [BCRYPT_KEY_HANDLE, BCRYPT_KEY_HANDLE, PWSTR, IntPtr, UInt32, "uint*", UInt32, NTSTATUS])
+        }
+
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
+    }
+}

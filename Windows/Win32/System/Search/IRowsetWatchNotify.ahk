@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IRowset.ahk" { IRowset }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -43,7 +43,7 @@ export default struct IRowsetWatchNotify extends IUnknown {
      * @returns {HRESULT} 
      */
     OnChange(pRowset, eChangeReason) {
-        result := ComCall(3, this, "ptr", pRowset, "uint", eChangeReason, "HRESULT")
+        result := ComCall(3, this, "ptr", pRowset, UInt32, eChangeReason, "HRESULT")
         return result
     }
 

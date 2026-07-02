@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRTCBuddyEvent.ahk" { IRTCBuddyEvent }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\RTC_BUDDY_EVENT_TYPE.ahk" { RTC_BUDDY_EVENT_TYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRTCBuddyEvent.ahk" { IRTCBuddyEvent }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**

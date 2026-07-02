@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
-#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
 #Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
 #Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
 
 /**
  * Allows you to access fallback fonts from the font list.
@@ -62,7 +62,7 @@ export default struct IDWriteFontFallback1 extends IDWriteFontFallback {
         mappedLengthMarshal := mappedLength is VarRef ? "uint*" : "ptr"
         scaleMarshal := scale is VarRef ? "float*" : "ptr"
 
-        result := ComCall(4, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, mappedLengthMarshal, mappedLength, scaleMarshal, scale, IDWriteFontFace5.Ptr, mappedFontFace, "HRESULT")
+        result := ComCall(4, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, mappedLengthMarshal, mappedLength, scaleMarshal, scale, IDWriteFontFace5.Ptr, mappedFontFace, "HRESULT")
         return result
     }
 

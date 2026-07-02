@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\TOOLTIP_FLAGS.ahk" { TOOLTIP_FLAGS }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The TOOLINFO structure contains information about a tool in a tooltip control. (ANSI)

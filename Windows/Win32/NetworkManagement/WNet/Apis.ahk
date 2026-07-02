@@ -1,25 +1,25 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CONNECTDLGSTRUCTW.ahk" { CONNECTDLGSTRUCTW }
+#Import ".\NETINFOSTRUCT.ahk" { NETINFOSTRUCT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\NETRESOURCEA.ahk" { NETRESOURCEA }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
 #Import ".\DISCDLGSTRUCTW.ahk" { DISCDLGSTRUCTW }
+#Import ".\CONNECTDLGSTRUCTW.ahk" { CONNECTDLGSTRUCTW }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\NETRESOURCEW.ahk" { NETRESOURCEW }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\NET_CONNECT_FLAGS.ahk" { NET_CONNECT_FLAGS }
+#Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
+#Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WNET_OPEN_ENUM_USAGE.ahk" { WNET_OPEN_ENUM_USAGE }
 #Import ".\UNC_INFO_LEVEL.ahk" { UNC_INFO_LEVEL }
-#Import ".\NETWORK_NAME_FORMAT_FLAGS.ahk" { NETWORK_NAME_FORMAT_FLAGS }
 #Import ".\NETCONNECTINFOSTRUCT.ahk" { NETCONNECTINFOSTRUCT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import ".\DISCDLGSTRUCTA.ahk" { DISCDLGSTRUCTA }
-#Import ".\NETINFOSTRUCT.ahk" { NETINFOSTRUCT }
-#Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
 #Import ".\CONNECTDLGSTRUCTA.ahk" { CONNECTDLGSTRUCTA }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\NET_CONNECT_FLAGS.ahk" { NET_CONNECT_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\NETRESOURCEW.ahk" { NETRESOURCEW }
-#Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
+#Import ".\DISCDLGSTRUCTA.ahk" { DISCDLGSTRUCTA }
+#Import ".\NETWORK_NAME_FORMAT_FLAGS.ahk" { NETWORK_NAME_FORMAT_FLAGS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
@@ -2310,7 +2310,7 @@ export WNetAddConnection3W(hwndOwner, lpNetResource, lpPassword, lpUserName, dwF
  * @returns {WIN32_ERROR} 
  */
 export WNetAddConnection4A(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions) {
-    result := DllCall("MPR.dll\WNetAddConnection4A", HWND, hwndOwner, NETRESOURCEA.Ptr, lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, NET_CONNECT_FLAGS, dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetAddConnection4A", HWND, hwndOwner, NETRESOURCEA.Ptr, lpNetResource, IntPtr, pAuthBuffer, UInt32, cbAuthBuffer, NET_CONNECT_FLAGS, dwFlags, IntPtr, lpUseOptions, UInt32, cbUseOptions, WIN32_ERROR)
     return result
 }
 
@@ -2326,7 +2326,7 @@ export WNetAddConnection4A(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, 
  * @returns {WIN32_ERROR} 
  */
 export WNetAddConnection4W(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions) {
-    result := DllCall("MPR.dll\WNetAddConnection4W", HWND, hwndOwner, NETRESOURCEW.Ptr, lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, NET_CONNECT_FLAGS, dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetAddConnection4W", HWND, hwndOwner, NETRESOURCEW.Ptr, lpNetResource, IntPtr, pAuthBuffer, UInt32, cbAuthBuffer, NET_CONNECT_FLAGS, dwFlags, IntPtr, lpUseOptions, UInt32, cbUseOptions, WIN32_ERROR)
     return result
 }
 
@@ -3780,7 +3780,7 @@ export WNetUseConnection4A(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, 
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
     lpResultMarshal := lpResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetUseConnection4A", HWND, hwndOwner, NETRESOURCEA.Ptr, lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, lpBufferSizeMarshal, lpBufferSize, lpResultMarshal, lpResult, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetUseConnection4A", HWND, hwndOwner, NETRESOURCEA.Ptr, lpNetResource, IntPtr, pAuthBuffer, UInt32, cbAuthBuffer, UInt32, dwFlags, IntPtr, lpUseOptions, UInt32, cbUseOptions, "ptr", lpAccessName, lpBufferSizeMarshal, lpBufferSize, lpResultMarshal, lpResult, WIN32_ERROR)
     return result
 }
 
@@ -3804,7 +3804,7 @@ export WNetUseConnection4W(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, 
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
     lpResultMarshal := lpResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetUseConnection4W", HWND, hwndOwner, NETRESOURCEW.Ptr, lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, lpBufferSizeMarshal, lpBufferSize, lpResultMarshal, lpResult, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetUseConnection4W", HWND, hwndOwner, NETRESOURCEW.Ptr, lpNetResource, IntPtr, pAuthBuffer, UInt32, cbAuthBuffer, UInt32, dwFlags, IntPtr, lpUseOptions, UInt32, cbUseOptions, "ptr", lpAccessName, lpBufferSizeMarshal, lpBufferSize, lpResultMarshal, lpResult, WIN32_ERROR)
     return result
 }
 
@@ -3896,7 +3896,7 @@ export WNetUseConnection4W(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, 
  * @since windows5.0
  */
 export WNetConnectionDialog(_hwnd, dwType) {
-    result := DllCall("MPR.dll\WNetConnectionDialog", HWND, _hwnd, "uint", dwType, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetConnectionDialog", HWND, _hwnd, UInt32, dwType, WIN32_ERROR)
     return result
 }
 
@@ -3977,7 +3977,7 @@ export WNetConnectionDialog(_hwnd, dwType) {
  * @since windows5.0
  */
 export WNetDisconnectDialog(_hwnd, dwType) {
-    result := DllCall("MPR.dll\WNetDisconnectDialog", HWND, _hwnd, "uint", dwType, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetDisconnectDialog", HWND, _hwnd, UInt32, dwType, WIN32_ERROR)
     return result
 }
 
@@ -4757,7 +4757,7 @@ export WNetEnumResourceA(hEnum, lpcCount, lpBuffer, lpBufferSize) {
     lpcCountMarshal := lpcCount is VarRef ? "uint*" : "ptr"
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetEnumResourceA", HANDLE, hEnum, lpcCountMarshal, lpcCount, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetEnumResourceA", HANDLE, hEnum, lpcCountMarshal, lpcCount, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
     return result
 }
 
@@ -4881,7 +4881,7 @@ export WNetEnumResourceW(hEnum, lpcCount, lpBuffer, lpBufferSize) {
     lpcCountMarshal := lpcCount is VarRef ? "uint*" : "ptr"
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetEnumResourceW", HANDLE, hEnum, lpcCountMarshal, lpcCount, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetEnumResourceW", HANDLE, hEnum, lpcCountMarshal, lpcCount, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
     return result
 }
 
@@ -5106,7 +5106,7 @@ export WNetCloseEnum(hEnum) {
 export WNetGetResourceParentA(lpNetResource, lpBuffer, lpcbBuffer) {
     lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetGetResourceParentA", NETRESOURCEA.Ptr, lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetResourceParentA", NETRESOURCEA.Ptr, lpNetResource, IntPtr, lpBuffer, lpcbBufferMarshal, lpcbBuffer, WIN32_ERROR)
     return result
 }
 
@@ -5274,7 +5274,7 @@ export WNetGetResourceParentA(lpNetResource, lpBuffer, lpcbBuffer) {
 export WNetGetResourceParentW(lpNetResource, lpBuffer, lpcbBuffer) {
     lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetGetResourceParentW", NETRESOURCEW.Ptr, lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetResourceParentW", NETRESOURCEW.Ptr, lpNetResource, IntPtr, lpBuffer, lpcbBufferMarshal, lpcbBuffer, WIN32_ERROR)
     return result
 }
 
@@ -5390,7 +5390,7 @@ export WNetGetResourceInformationA(lpNetResource, lpBuffer, lpcbBuffer, lplpSyst
     lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
     lplpSystemMarshal := lplpSystem is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetGetResourceInformationA", NETRESOURCEA.Ptr, lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, lplpSystemMarshal, lplpSystem, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetResourceInformationA", NETRESOURCEA.Ptr, lpNetResource, IntPtr, lpBuffer, lpcbBufferMarshal, lpcbBuffer, lplpSystemMarshal, lplpSystem, WIN32_ERROR)
     return result
 }
 
@@ -5506,7 +5506,7 @@ export WNetGetResourceInformationW(lpNetResource, lpBuffer, lpcbBuffer, lplpSyst
     lpcbBufferMarshal := lpcbBuffer is VarRef ? "uint*" : "ptr"
     lplpSystemMarshal := lplpSystem is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetGetResourceInformationW", NETRESOURCEW.Ptr, lpNetResource, "ptr", lpBuffer, lpcbBufferMarshal, lpcbBuffer, lplpSystemMarshal, lplpSystem, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetResourceInformationW", NETRESOURCEW.Ptr, lpNetResource, IntPtr, lpBuffer, lpcbBufferMarshal, lpcbBuffer, lplpSystemMarshal, lplpSystem, WIN32_ERROR)
     return result
 }
 
@@ -5669,7 +5669,7 @@ export WNetGetUniversalNameA(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
 
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetGetUniversalNameA", "ptr", lpLocalPath, UNC_INFO_LEVEL, dwInfoLevel, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetUniversalNameA", "ptr", lpLocalPath, UNC_INFO_LEVEL, dwInfoLevel, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
     return result
 }
 
@@ -5832,7 +5832,7 @@ export WNetGetUniversalNameW(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
 
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetGetUniversalNameW", "ptr", lpLocalPath, UNC_INFO_LEVEL, dwInfoLevel, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetUniversalNameW", "ptr", lpLocalPath, UNC_INFO_LEVEL, dwInfoLevel, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
     return result
 }
 
@@ -6084,7 +6084,7 @@ export WNetGetProviderNameA(dwNetType, lpProviderName, lpBufferSize) {
 
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetGetProviderNameA", "uint", dwNetType, "ptr", lpProviderName, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetProviderNameA", UInt32, dwNetType, "ptr", lpProviderName, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
     return result
 }
 
@@ -6158,7 +6158,7 @@ export WNetGetProviderNameW(dwNetType, lpProviderName, lpBufferSize) {
 
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("MPR.dll\WNetGetProviderNameW", "uint", dwNetType, "ptr", lpProviderName, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetProviderNameW", UInt32, dwNetType, "ptr", lpProviderName, lpBufferSizeMarshal, lpBufferSize, WIN32_ERROR)
     return result
 }
 
@@ -6307,7 +6307,7 @@ export WNetGetLastErrorA(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBuf
 
     A_LastError := 0
 
-    result := DllCall("MPR.dll\WNetGetLastErrorA", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetLastErrorA", lpErrorMarshal, lpError, "ptr", lpErrorBuf, UInt32, nErrorBufSize, "ptr", lpNameBuf, UInt32, nNameBufSize, WIN32_ERROR)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6356,7 +6356,7 @@ export WNetGetLastErrorW(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBuf
 
     A_LastError := 0
 
-    result := DllCall("MPR.dll\WNetGetLastErrorW", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, WIN32_ERROR)
+    result := DllCall("MPR.dll\WNetGetLastErrorW", lpErrorMarshal, lpError, "ptr", lpErrorBuf, UInt32, nErrorBufSize, "ptr", lpNameBuf, UInt32, nNameBufSize, WIN32_ERROR)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7039,7 +7039,7 @@ export NPAddConnection3(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlag
  * @returns {Integer} 
  */
 export NPAddConnection4(hwndOwner, lpNetResource, lpAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions) {
-    result := DllCall("NTLANMAN.dll\NPAddConnection4", HWND, hwndOwner, NETRESOURCEW.Ptr, lpNetResource, "ptr", lpAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, UInt32)
+    result := DllCall("NTLANMAN.dll\NPAddConnection4", HWND, hwndOwner, NETRESOURCEW.Ptr, lpNetResource, IntPtr, lpAuthBuffer, UInt32, cbAuthBuffer, UInt32, dwFlags, IntPtr, lpUseOptions, UInt32, cbUseOptions, UInt32)
     return result
 }
 
@@ -7097,7 +7097,7 @@ export NPCancelConnection(lpName, fForce) {
 export NPCancelConnection2(lpName, fForce, dwFlags) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
-    result := DllCall("NTLANMAN.dll\NPCancelConnection2", "ptr", lpName, BOOL, fForce, "uint", dwFlags, UInt32)
+    result := DllCall("NTLANMAN.dll\NPCancelConnection2", "ptr", lpName, BOOL, fForce, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -7250,7 +7250,7 @@ export NPGetConnection3(lpLocalName, dwLevel, lpBuffer, lpBufferSize) {
 
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NTLANMAN.dll\NPGetConnection3", "ptr", lpLocalName, "uint", dwLevel, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
+    result := DllCall("NTLANMAN.dll\NPGetConnection3", "ptr", lpLocalName, UInt32, dwLevel, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
     return result
 }
 
@@ -7320,7 +7320,7 @@ export NPGetUniversalName(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
 
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("davclnt.dll\NPGetUniversalName", "ptr", lpLocalPath, UNC_INFO_LEVEL, dwInfoLevel, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
+    result := DllCall("davclnt.dll\NPGetUniversalName", "ptr", lpLocalPath, UNC_INFO_LEVEL, dwInfoLevel, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
     return result
 }
 
@@ -7555,7 +7555,7 @@ export NPGetConnectionPerformance(lpRemoteName, lpNetConnectInfo) {
  * @since windows5.1.2600
  */
 export NPOpenEnum(dwScope, dwType, dwUsage, lpNetResource, lphEnum) {
-    result := DllCall("davclnt.dll\NPOpenEnum", "uint", dwScope, "uint", dwType, "uint", dwUsage, NETRESOURCEW.Ptr, lpNetResource, HANDLE.Ptr, lphEnum, UInt32)
+    result := DllCall("davclnt.dll\NPOpenEnum", UInt32, dwScope, UInt32, dwType, UInt32, dwUsage, NETRESOURCEW.Ptr, lpNetResource, HANDLE.Ptr, lphEnum, UInt32)
     return result
 }
 
@@ -7629,7 +7629,7 @@ export NPEnumResource(hEnum, lpcCount, lpBuffer, lpBufferSize) {
     lpcCountMarshal := lpcCount is VarRef ? "uint*" : "ptr"
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("davclnt.dll\NPEnumResource", HANDLE, hEnum, lpcCountMarshal, lpcCount, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
+    result := DllCall("davclnt.dll\NPEnumResource", HANDLE, hEnum, lpcCountMarshal, lpcCount, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
     return result
 }
 
@@ -7687,7 +7687,7 @@ export NPCloseEnum(hEnum) {
  * @since windows5.1.2600
  */
 export NPGetCaps(ndex) {
-    result := DllCall("davclnt.dll\NPGetCaps", "uint", ndex, UInt32)
+    result := DllCall("davclnt.dll\NPGetCaps", UInt32, ndex, UInt32)
     return result
 }
 
@@ -7766,7 +7766,7 @@ export NPGetPersistentUseOptionsForConnection(lpRemotePath, lpReadUseOptions, cb
 
     lpSizeWriteUseOptionsMarshal := lpSizeWriteUseOptions is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("NTLANMAN.dll\NPGetPersistentUseOptionsForConnection", "ptr", lpRemotePath, "ptr", lpReadUseOptions, "uint", cbReadUseOptions, "ptr", lpWriteUseOptions, lpSizeWriteUseOptionsMarshal, lpSizeWriteUseOptions, UInt32)
+    result := DllCall("NTLANMAN.dll\NPGetPersistentUseOptionsForConnection", "ptr", lpRemotePath, IntPtr, lpReadUseOptions, UInt32, cbReadUseOptions, IntPtr, lpWriteUseOptions, lpSizeWriteUseOptionsMarshal, lpSizeWriteUseOptions, UInt32)
     return result
 }
 
@@ -7866,7 +7866,7 @@ export NPGetPersistentUseOptionsForConnection(lpRemotePath, lpReadUseOptions, cb
 export NPGetResourceParent(lpNetResource, lpBuffer, lpBufferSize) {
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("davclnt.dll\NPGetResourceParent", NETRESOURCEW.Ptr, lpNetResource, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
+    result := DllCall("davclnt.dll\NPGetResourceParent", NETRESOURCEW.Ptr, lpNetResource, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
     return result
 }
 
@@ -7979,7 +7979,7 @@ export NPGetResourceInformation(lpNetResource, lpBuffer, lpBufferSize, lplpSyste
     lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
     lplpSystemMarshal := lplpSystem is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("davclnt.dll\NPGetResourceInformation", NETRESOURCEW.Ptr, lpNetResource, "ptr", lpBuffer, lpBufferSizeMarshal, lpBufferSize, lplpSystemMarshal, lplpSystem, UInt32)
+    result := DllCall("davclnt.dll\NPGetResourceInformation", NETRESOURCEW.Ptr, lpNetResource, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, lplpSystemMarshal, lplpSystem, UInt32)
     return result
 }
 
@@ -8139,7 +8139,7 @@ export NPFormatNetworkName(lpRemoteName, lpFormattedName, lpnLength, dwFlags, dw
 
     lpnLengthMarshal := lpnLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("davclnt.dll\NPFormatNetworkName", "ptr", lpRemoteName, "ptr", lpFormattedName, lpnLengthMarshal, lpnLength, NETWORK_NAME_FORMAT_FLAGS, dwFlags, "uint", dwAveCharPerLine, UInt32)
+    result := DllCall("davclnt.dll\NPFormatNetworkName", "ptr", lpRemoteName, "ptr", lpFormattedName, lpnLengthMarshal, lpnLength, NETWORK_NAME_FORMAT_FLAGS, dwFlags, UInt32, dwAveCharPerLine, UInt32)
     return result
 }
 
@@ -8188,7 +8188,7 @@ export WNetSetLastErrorA(err, lpError, lpProviders) {
     lpError := lpError is String ? StrPtr(lpError) : lpError
     lpProviders := lpProviders is String ? StrPtr(lpProviders) : lpProviders
 
-    DllCall("MPR.dll\WNetSetLastErrorA", "uint", err, "ptr", lpError, "ptr", lpProviders)
+    DllCall("MPR.dll\WNetSetLastErrorA", UInt32, err, "ptr", lpError, "ptr", lpProviders)
 }
 
 /**
@@ -8229,7 +8229,7 @@ export WNetSetLastErrorW(err, lpError, lpProviders) {
     lpError := lpError is String ? StrPtr(lpError) : lpError
     lpProviders := lpProviders is String ? StrPtr(lpProviders) : lpProviders
 
-    DllCall("MPR.dll\WNetSetLastErrorW", "uint", err, "ptr", lpError, "ptr", lpProviders)
+    DllCall("MPR.dll\WNetSetLastErrorW", UInt32, err, "ptr", lpError, "ptr", lpProviders)
 }
 
 ;@endregion Functions

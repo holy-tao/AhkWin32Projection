@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\ID3D12SDKConfiguration.ahk" { ID3D12SDKConfiguration }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -47,7 +47,7 @@ export default struct ID3D12SDKConfiguration1 extends ID3D12SDKConfiguration {
     CreateDeviceFactory(SDKVersion, SDKPath, riid) {
         SDKPath := SDKPath is String ? StrPtr(SDKPath) : SDKPath
 
-        result := ComCall(4, this, "uint", SDKVersion, "ptr", SDKPath, Guid.Ptr, riid, "ptr*", &ppvFactory := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, SDKVersion, "ptr", SDKPath, Guid.Ptr, riid, "ptr*", &ppvFactory := 0, "HRESULT")
         return ppvFactory
     }
 

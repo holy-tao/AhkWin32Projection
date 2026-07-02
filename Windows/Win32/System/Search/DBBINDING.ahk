@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DBOBJECT.ahk" { DBOBJECT }
-#Import ".\DBBINDEXT.ahk" { DBBINDEXT }
 #Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\DBBINDEXT.ahk" { DBBINDEXT }
 
 /**
  * @namespace Windows.Win32.System.Search

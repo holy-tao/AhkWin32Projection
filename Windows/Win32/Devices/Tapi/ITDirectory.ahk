@@ -2,14 +2,14 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumDirectoryObject.ahk" { IEnumDirectoryObject }
+#Import ".\DIRECTORY_TYPE.ahk" { DIRECTORY_TYPE }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ITDirectoryObject.ahk" { ITDirectoryObject }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DIRECTORY_OBJECT_TYPE.ahk" { DIRECTORY_OBJECT_TYPE }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\DIRECTORY_TYPE.ahk" { DIRECTORY_TYPE }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ITDirectoryObject.ahk" { ITDirectoryObject }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IEnumDirectoryObject.ahk" { IEnumDirectoryObject }
 
 /**
  * The ITDirectory interface is exposed by the Directory object, which corresponds to a particular directory.
@@ -199,7 +199,7 @@ export default struct ITDirectory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-put_defaultobjectttl
      */
     put_DefaultObjectTTL(TTL) {
-        result := ComCall(11, this, "int", TTL, "HRESULT")
+        result := ComCall(11, this, Int32, TTL, "HRESULT")
         return result
     }
 
@@ -407,7 +407,7 @@ export default struct ITDirectory extends IDispatch {
         pUserName := pUserName is String ? BSTR.Alloc(pUserName).Value : pUserName
         pPassword := pPassword is String ? BSTR.Alloc(pPassword).Value : pPassword
 
-        result := ComCall(14, this, BSTR, pDomainName, BSTR, pUserName, BSTR, pPassword, "int", lFlags, "HRESULT")
+        result := ComCall(14, this, BSTR, pDomainName, BSTR, pUserName, BSTR, pPassword, Int32, lFlags, "HRESULT")
         return result
     }
 

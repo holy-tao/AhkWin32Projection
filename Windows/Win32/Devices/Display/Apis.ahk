@@ -1,65 +1,65 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import ".\DHSURF.ahk" { DHSURF }
-#Import ".\QUERY_DISPLAY_CONFIG_FLAGS.ahk" { QUERY_DISPLAY_CONFIG_FLAGS }
-#Import ".\FONTINFO.ahk" { FONTINFO }
-#Import "..\..\Foundation\POINTL.ahk" { POINTL }
-#Import ".\EMFINFO.ahk" { EMFINFO }
-#Import ".\MC_TIMING_REPORT.ahk" { MC_TIMING_REPORT }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import ".\CLIPLINE.ahk" { CLIPLINE }
-#Import ".\SET_DISPLAY_CONFIG_FLAGS.ahk" { SET_DISPLAY_CONFIG_FLAGS }
-#Import ".\POINTQF.ahk" { POINTQF }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\BLENDOBJ.ahk" { BLENDOBJ }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HSEMAPHORE.ahk" { HSEMAPHORE }
-#Import ".\MC_DISPLAY_TECHNOLOGY_TYPE.ahk" { MC_DISPLAY_TECHNOLOGY_TYPE }
-#Import "..\..\Graphics\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
-#Import ".\FD_GLYPHSET.ahk" { FD_GLYPHSET }
-#Import ".\PHYSICAL_MONITOR.ahk" { PHYSICAL_MONITOR }
 #Import ".\XLATEOBJ.ahk" { XLATEOBJ }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ORIENTATION_PREFERENCE.ahk" { ORIENTATION_PREFERENCE }
-#Import ".\MC_POSITION_TYPE.ahk" { MC_POSITION_TYPE }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import ".\RECTFX.ahk" { RECTFX }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SURFOBJ.ahk" { SURFOBJ }
+#Import ".\MC_DRIVE_TYPE.ahk" { MC_DRIVE_TYPE }
+#Import ".\FONTOBJ.ahk" { FONTOBJ }
 #Import ".\GLYPHPOS.ahk" { GLYPHPOS }
-#Import ".\IFIMETRICS.ahk" { IFIMETRICS }
-#Import ".\STROBJ.ahk" { STROBJ }
-#Import ".\XFORML.ahk" { XFORML }
+#Import ".\RECTFX.ahk" { RECTFX }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\BRUSHOBJ.ahk" { BRUSHOBJ }
+#Import ".\DISPLAYCONFIG_MODE_INFO.ahk" { DISPLAYCONFIG_MODE_INFO }
+#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import ".\FD_GLYPHATTR.ahk" { FD_GLYPHATTR }
+#Import ".\POINTQF.ahk" { POINTQF }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\MC_VCP_CODE_TYPE.ahk" { MC_VCP_CODE_TYPE }
+#Import ".\MC_TIMING_REPORT.ahk" { MC_TIMING_REPORT }
+#Import ".\DHSURF.ahk" { DHSURF }
+#Import ".\PATHOBJ.ahk" { PATHOBJ }
 #Import ".\DISPLAYCONFIG_TOPOLOGY_ID.ahk" { DISPLAYCONFIG_TOPOLOGY_ID }
 #Import ".\MC_SIZE_TYPE.ahk" { MC_SIZE_TYPE }
-#Import ".\LINEATTRS.ahk" { LINEATTRS }
-#Import ".\MC_GAIN_TYPE.ahk" { MC_GAIN_TYPE }
-#Import ".\MC_DRIVE_TYPE.ahk" { MC_DRIVE_TYPE }
-#Import ".\BRUSHOBJ.ahk" { BRUSHOBJ }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import ".\POINTFIX.ahk" { POINTFIX }
-#Import ".\DISPLAYCONFIG_PATH_INFO.ahk" { DISPLAYCONFIG_PATH_INFO }
-#Import ".\PATHDATA.ahk" { PATHDATA }
-#Import ".\XFORMOBJ.ahk" { XFORMOBJ }
 #Import ".\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk" { DISPLAYCONFIG_DEVICE_INFO_HEADER }
-#Import ".\SURFOBJ.ahk" { SURFOBJ }
-#Import ".\ENG_TIME_FIELDS.ahk" { ENG_TIME_FIELDS }
-#Import "..\..\Graphics\Gdi\TRIVERTEX.ahk" { TRIVERTEX }
-#Import ".\FONTOBJ.ahk" { FONTOBJ }
-#Import ".\HSURF.ahk" { HSURF }
-#Import ".\MC_COLOR_TEMPERATURE.ahk" { MC_COLOR_TEMPERATURE }
-#Import ".\CLIPOBJ.ahk" { CLIPOBJ }
-#Import ".\FD_GLYPHATTR.ahk" { FD_GLYPHATTR }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import ".\DISPLAYCONFIG_MODE_INFO.ahk" { DISPLAYCONFIG_MODE_INFO }
-#Import ".\AR_STATE.ahk" { AR_STATE }
-#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\COLORADJUSTMENT.ahk" { COLORADJUSTMENT }
-#Import ".\PATHOBJ.ahk" { PATHOBJ }
+#Import "..\..\Graphics\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Graphics\Gdi\TRIVERTEX.ahk" { TRIVERTEX }
+#Import ".\HSEMAPHORE.ahk" { HSEMAPHORE }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import ".\PHYSICAL_MONITOR.ahk" { PHYSICAL_MONITOR }
+#Import "..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FD_GLYPHSET.ahk" { FD_GLYPHSET }
+#Import ".\MC_GAIN_TYPE.ahk" { MC_GAIN_TYPE }
+#Import ".\ENG_TIME_FIELDS.ahk" { ENG_TIME_FIELDS }
+#Import ".\QUERY_DISPLAY_CONFIG_FLAGS.ahk" { QUERY_DISPLAY_CONFIG_FLAGS }
+#Import ".\LINEATTRS.ahk" { LINEATTRS }
+#Import ".\CLIPLINE.ahk" { CLIPLINE }
+#Import ".\MC_DISPLAY_TECHNOLOGY_TYPE.ahk" { MC_DISPLAY_TECHNOLOGY_TYPE }
+#Import ".\FONTINFO.ahk" { FONTINFO }
+#Import ".\DISPLAYCONFIG_PATH_INFO.ahk" { DISPLAYCONFIG_PATH_INFO }
+#Import ".\XFORMOBJ.ahk" { XFORMOBJ }
+#Import ".\XFORML.ahk" { XFORML }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import ".\HDEV.ahk" { HDEV }
-#Import ".\MC_VCP_CODE_TYPE.ahk" { MC_VCP_CODE_TYPE }
+#Import ".\POINTFIX.ahk" { POINTFIX }
+#Import ".\SET_DISPLAY_CONFIG_FLAGS.ahk" { SET_DISPLAY_CONFIG_FLAGS }
+#Import ".\CLIPOBJ.ahk" { CLIPOBJ }
+#Import ".\PATHDATA.ahk" { PATHDATA }
+#Import ".\AR_STATE.ahk" { AR_STATE }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\MC_POSITION_TYPE.ahk" { MC_POSITION_TYPE }
+#Import ".\EMFINFO.ahk" { EMFINFO }
+#Import ".\ORIENTATION_PREFERENCE.ahk" { ORIENTATION_PREFERENCE }
+#Import ".\MC_COLOR_TEMPERATURE.ahk" { MC_COLOR_TEMPERATURE }
+#Import ".\HSURF.ahk" { HSURF }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\BLENDOBJ.ahk" { BLENDOBJ }
+#Import ".\IFIMETRICS.ahk" { IFIMETRICS }
+#Import ".\STROBJ.ahk" { STROBJ }
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -116,7 +116,7 @@ export GetNumberOfPhysicalMonitorsFromIDirect3DDevice9(pDirect3DDevice9) {
 export GetPhysicalMonitorsFromHMONITOR(_hMonitor, dwPhysicalMonitorArraySize, pPhysicalMonitorArray) {
     A_LastError := 0
 
-    result := DllCall("dxva2.dll\GetPhysicalMonitorsFromHMONITOR", HMONITOR, _hMonitor, "uint", dwPhysicalMonitorArraySize, PHYSICAL_MONITOR.Ptr, pPhysicalMonitorArray, BOOL)
+    result := DllCall("dxva2.dll\GetPhysicalMonitorsFromHMONITOR", HMONITOR, _hMonitor, UInt32, dwPhysicalMonitorArraySize, PHYSICAL_MONITOR.Ptr, pPhysicalMonitorArray, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -139,7 +139,7 @@ export GetPhysicalMonitorsFromHMONITOR(_hMonitor, dwPhysicalMonitorArraySize, pP
  * @since windows6.0.6000
  */
 export GetPhysicalMonitorsFromIDirect3DDevice9(pDirect3DDevice9, dwPhysicalMonitorArraySize, pPhysicalMonitorArray) {
-    result := DllCall("dxva2.dll\GetPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, "uint", dwPhysicalMonitorArraySize, PHYSICAL_MONITOR.Ptr, pPhysicalMonitorArray, "HRESULT")
+    result := DllCall("dxva2.dll\GetPhysicalMonitorsFromIDirect3DDevice9", "ptr", pDirect3DDevice9, UInt32, dwPhysicalMonitorArraySize, PHYSICAL_MONITOR.Ptr, pPhysicalMonitorArray, "HRESULT")
     return result
 }
 
@@ -172,7 +172,7 @@ export DestroyPhysicalMonitor(_hMonitor) {
 export DestroyPhysicalMonitors(dwPhysicalMonitorArraySize, pPhysicalMonitorArray) {
     A_LastError := 0
 
-    result := DllCall("dxva2.dll\DestroyPhysicalMonitors", "uint", dwPhysicalMonitorArraySize, PHYSICAL_MONITOR.Ptr, pPhysicalMonitorArray, BOOL)
+    result := DllCall("dxva2.dll\DestroyPhysicalMonitors", UInt32, dwPhysicalMonitorArraySize, PHYSICAL_MONITOR.Ptr, pPhysicalMonitorArray, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -203,7 +203,7 @@ export GetVCPFeatureAndVCPFeatureReply(_hMonitor, bVCPCode, pvct, pdwCurrentValu
 
     A_LastError := 0
 
-    result := DllCall("dxva2.dll\GetVCPFeatureAndVCPFeatureReply", HANDLE, _hMonitor, "char", bVCPCode, pvctMarshal, pvct, pdwCurrentValueMarshal, pdwCurrentValue, pdwMaximumValueMarshal, pdwMaximumValue, Int32)
+    result := DllCall("dxva2.dll\GetVCPFeatureAndVCPFeatureReply", HANDLE, _hMonitor, Int8, bVCPCode, pvctMarshal, pvct, pdwCurrentValueMarshal, pdwCurrentValue, pdwMaximumValueMarshal, pdwMaximumValue, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -226,7 +226,7 @@ export GetVCPFeatureAndVCPFeatureReply(_hMonitor, bVCPCode, pvct, pdwCurrentValu
  * @since windows6.0.6000
  */
 export SetVCPFeature(_hMonitor, bVCPCode, dwNewValue) {
-    result := DllCall("dxva2.dll\SetVCPFeature", HANDLE, _hMonitor, "char", bVCPCode, "uint", dwNewValue, Int32)
+    result := DllCall("dxva2.dll\SetVCPFeature", HANDLE, _hMonitor, Int8, bVCPCode, UInt32, dwNewValue, Int32)
     return result
 }
 
@@ -310,7 +310,7 @@ export CapabilitiesRequestAndCapabilitiesReply(_hMonitor, pszASCIICapabilitiesSt
 
     A_LastError := 0
 
-    result := DllCall("dxva2.dll\CapabilitiesRequestAndCapabilitiesReply", HANDLE, _hMonitor, "ptr", pszASCIICapabilitiesString, "uint", dwCapabilitiesStringLengthInCharacters, Int32)
+    result := DllCall("dxva2.dll\CapabilitiesRequestAndCapabilitiesReply", HANDLE, _hMonitor, "ptr", pszASCIICapabilitiesString, UInt32, dwCapabilitiesStringLengthInCharacters, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -702,7 +702,7 @@ export GetMonitorRedGreenOrBlueGain(_hMonitor, gtGainType, pdwMinimumGain, pdwCu
 export SetMonitorBrightness(_hMonitor, dwNewBrightness) {
     A_LastError := 0
 
-    result := DllCall("dxva2.dll\SetMonitorBrightness", HANDLE, _hMonitor, "uint", dwNewBrightness, Int32)
+    result := DllCall("dxva2.dll\SetMonitorBrightness", HANDLE, _hMonitor, UInt32, dwNewBrightness, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -729,7 +729,7 @@ export SetMonitorBrightness(_hMonitor, dwNewBrightness) {
 export SetMonitorContrast(_hMonitor, dwNewContrast) {
     A_LastError := 0
 
-    result := DllCall("dxva2.dll\SetMonitorContrast", HANDLE, _hMonitor, "uint", dwNewContrast, Int32)
+    result := DllCall("dxva2.dll\SetMonitorContrast", HANDLE, _hMonitor, UInt32, dwNewContrast, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -788,7 +788,7 @@ export SetMonitorColorTemperature(_hMonitor, ctCurrentColorTemperature) {
  * @since windows6.0.6000
  */
 export SetMonitorRedGreenOrBlueDrive(_hMonitor, dtDriveType, dwNewDrive) {
-    result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueDrive", HANDLE, _hMonitor, MC_DRIVE_TYPE, dtDriveType, "uint", dwNewDrive, Int32)
+    result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueDrive", HANDLE, _hMonitor, MC_DRIVE_TYPE, dtDriveType, UInt32, dwNewDrive, Int32)
     return result
 }
 
@@ -816,7 +816,7 @@ export SetMonitorRedGreenOrBlueDrive(_hMonitor, dtDriveType, dwNewDrive) {
  * @since windows6.0.6000
  */
 export SetMonitorRedGreenOrBlueGain(_hMonitor, gtGainType, dwNewGain) {
-    result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueGain", HANDLE, _hMonitor, MC_GAIN_TYPE, gtGainType, "uint", dwNewGain, Int32)
+    result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueGain", HANDLE, _hMonitor, MC_GAIN_TYPE, gtGainType, UInt32, dwNewGain, Int32)
     return result
 }
 
@@ -934,7 +934,7 @@ export GetMonitorDisplayAreaPosition(_hMonitor, ptPositionType, pdwMinimumPositi
 export SetMonitorDisplayAreaSize(_hMonitor, stSizeType, dwNewDisplayAreaWidthOrHeight) {
     A_LastError := 0
 
-    result := DllCall("dxva2.dll\SetMonitorDisplayAreaSize", HANDLE, _hMonitor, MC_SIZE_TYPE, stSizeType, "uint", dwNewDisplayAreaWidthOrHeight, Int32)
+    result := DllCall("dxva2.dll\SetMonitorDisplayAreaSize", HANDLE, _hMonitor, MC_SIZE_TYPE, stSizeType, UInt32, dwNewDisplayAreaWidthOrHeight, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -962,7 +962,7 @@ export SetMonitorDisplayAreaSize(_hMonitor, stSizeType, dwNewDisplayAreaWidthOrH
 export SetMonitorDisplayAreaPosition(_hMonitor, ptPositionType, dwNewPosition) {
     A_LastError := 0
 
-    result := DllCall("dxva2.dll\SetMonitorDisplayAreaPosition", HANDLE, _hMonitor, MC_POSITION_TYPE, ptPositionType, "uint", dwNewPosition, Int32)
+    result := DllCall("dxva2.dll\SetMonitorDisplayAreaPosition", HANDLE, _hMonitor, MC_POSITION_TYPE, ptPositionType, UInt32, dwNewPosition, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1047,7 +1047,7 @@ export RestoreMonitorFactoryDefaults(_hMonitor) {
  * @since windows5.0
  */
 export BRUSHOBJ_pvAllocRbrush(pbo, cj) {
-    result := DllCall("GDI32.dll\BRUSHOBJ_pvAllocRbrush", BRUSHOBJ.Ptr, pbo, "uint", cj, IntPtr)
+    result := DllCall("GDI32.dll\BRUSHOBJ_pvAllocRbrush", BRUSHOBJ.Ptr, pbo, UInt32, cj, IntPtr)
     return result
 }
 
@@ -1172,7 +1172,7 @@ export BRUSHOBJ_hGetColorTransform(pbo) {
  * @since windows5.0
  */
 export CLIPOBJ_cEnumStart(pco, bAll, iType, iDirection, cLimit) {
-    result := DllCall("GDI32.dll\CLIPOBJ_cEnumStart", CLIPOBJ.Ptr, pco, BOOL, bAll, "uint", iType, "uint", iDirection, "uint", cLimit, UInt32)
+    result := DllCall("GDI32.dll\CLIPOBJ_cEnumStart", CLIPOBJ.Ptr, pco, BOOL, bAll, UInt32, iType, UInt32, iDirection, UInt32, cLimit, UInt32)
     return result
 }
 
@@ -1205,7 +1205,7 @@ export CLIPOBJ_cEnumStart(pco, bAll, iType, iDirection, cLimit) {
 export CLIPOBJ_bEnum(pco, cj, pul) {
     pulMarshal := pul is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("GDI32.dll\CLIPOBJ_bEnum", CLIPOBJ.Ptr, pco, "uint", cj, pulMarshal, pul, BOOL)
+    result := DllCall("GDI32.dll\CLIPOBJ_bEnum", CLIPOBJ.Ptr, pco, UInt32, cj, pulMarshal, pul, BOOL)
     return result
 }
 
@@ -1256,7 +1256,7 @@ export FONTOBJ_cGetAllGlyphHandles(pfo, phg) {
  * @since windows5.0
  */
 export FONTOBJ_vGetInfo(pfo, cjSize, pfi) {
-    DllCall("GDI32.dll\FONTOBJ_vGetInfo", FONTOBJ.Ptr, pfo, "uint", cjSize, FONTINFO.Ptr, pfi)
+    DllCall("GDI32.dll\FONTOBJ_vGetInfo", FONTOBJ.Ptr, pfo, UInt32, cjSize, FONTINFO.Ptr, pfi)
 }
 
 /**
@@ -1276,7 +1276,7 @@ export FONTOBJ_cGetGlyphs(pfo, iMode, cGlyph, phg, ppvGlyph) {
     phgMarshal := phg is VarRef ? "uint*" : "ptr"
     ppvGlyphMarshal := ppvGlyph is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("GDI32.dll\FONTOBJ_cGetGlyphs", FONTOBJ.Ptr, pfo, "uint", iMode, "uint", cGlyph, phgMarshal, phg, ppvGlyphMarshal, ppvGlyph, UInt32)
+    result := DllCall("GDI32.dll\FONTOBJ_cGetGlyphs", FONTOBJ.Ptr, pfo, UInt32, iMode, UInt32, cGlyph, phgMarshal, phg, ppvGlyphMarshal, ppvGlyph, UInt32)
     return result
 }
 
@@ -1377,7 +1377,7 @@ export FONTOBJ_pvTrueTypeFontFile(pfo, pcjFile) {
  * @since windows5.0
  */
 export FONTOBJ_pQueryGlyphAttrs(pfo, iMode) {
-    result := DllCall("GDI32.dll\FONTOBJ_pQueryGlyphAttrs", FONTOBJ.Ptr, pfo, "uint", iMode, FD_GLYPHATTR.Ptr)
+    result := DllCall("GDI32.dll\FONTOBJ_pQueryGlyphAttrs", FONTOBJ.Ptr, pfo, UInt32, iMode, FD_GLYPHATTR.Ptr)
     return result
 }
 
@@ -1449,7 +1449,7 @@ export PATHOBJ_vEnumStartClipLines(ppo, pco, pso, pla) {
  * @since windows5.0
  */
 export PATHOBJ_bEnumClipLines(ppo, cb, pcl) {
-    result := DllCall("GDI32.dll\PATHOBJ_bEnumClipLines", PATHOBJ.Ptr, ppo, "uint", cb, CLIPLINE.Ptr, pcl, BOOL)
+    result := DllCall("GDI32.dll\PATHOBJ_bEnumClipLines", PATHOBJ.Ptr, ppo, UInt32, cb, CLIPLINE.Ptr, pcl, BOOL)
     return result
 }
 
@@ -1573,7 +1573,7 @@ export STROBJ_dwGetCodePage(pstro) {
  * @since windows5.0
  */
 export STROBJ_bGetAdvanceWidths(pso, iFirst, c, pptqD) {
-    result := DllCall("GDI32.dll\STROBJ_bGetAdvanceWidths", STROBJ.Ptr, pso, "uint", iFirst, "uint", c, POINTQF.Ptr, pptqD, BOOL)
+    result := DllCall("GDI32.dll\STROBJ_bGetAdvanceWidths", STROBJ.Ptr, pso, UInt32, iFirst, UInt32, c, POINTQF.Ptr, pptqD, BOOL)
     return result
 }
 
@@ -1703,7 +1703,7 @@ export XFORMOBJ_bApplyXform(pxo, iMode, cPoints, pvIn, pvOut) {
     pvInMarshal := pvIn is VarRef ? "ptr" : "ptr"
     pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("GDI32.dll\XFORMOBJ_bApplyXform", XFORMOBJ.Ptr, pxo, "uint", iMode, "uint", cPoints, pvInMarshal, pvIn, pvOutMarshal, pvOut, BOOL)
+    result := DllCall("GDI32.dll\XFORMOBJ_bApplyXform", XFORMOBJ.Ptr, pxo, UInt32, iMode, UInt32, cPoints, pvInMarshal, pvIn, pvOutMarshal, pvOut, BOOL)
     return result
 }
 
@@ -1716,7 +1716,7 @@ export XFORMOBJ_bApplyXform(pxo, iMode, cPoints, pvIn, pvOut) {
  * @since windows5.0
  */
 export XLATEOBJ_iXlate(pxlo, iColor) {
-    result := DllCall("GDI32.dll\XLATEOBJ_iXlate", XLATEOBJ.Ptr, pxlo, "uint", iColor, UInt32)
+    result := DllCall("GDI32.dll\XLATEOBJ_iXlate", XLATEOBJ.Ptr, pxlo, UInt32, iColor, UInt32)
     return result
 }
 
@@ -1751,7 +1751,7 @@ export XLATEOBJ_piVector(pxlo) {
 export XLATEOBJ_cGetPalette(pxlo, iPal, cPal, pPal) {
     pPalMarshal := pPal is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("GDI32.dll\XLATEOBJ_cGetPalette", XLATEOBJ.Ptr, pxlo, "uint", iPal, "uint", cPal, pPalMarshal, pPal, UInt32)
+    result := DllCall("GDI32.dll\XLATEOBJ_cGetPalette", XLATEOBJ.Ptr, pxlo, UInt32, iPal, UInt32, cPal, pPalMarshal, pPal, UInt32)
     return result
 }
 
@@ -1795,7 +1795,7 @@ export XLATEOBJ_hGetColorTransform(pxlo) {
 export EngCreateBitmap(sizl, lWidth, iFormat, fl, pvBits) {
     pvBitsMarshal := pvBits is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("GDI32.dll\EngCreateBitmap", SIZE, sizl, "int", lWidth, "uint", iFormat, "uint", fl, pvBitsMarshal, pvBits, HBITMAP.Owned)
+    result := DllCall("GDI32.dll\EngCreateBitmap", SIZE, sizl, Int32, lWidth, UInt32, iFormat, UInt32, fl, pvBitsMarshal, pvBits, HBITMAP.Owned)
     return result
 }
 
@@ -1811,7 +1811,7 @@ export EngCreateBitmap(sizl, lWidth, iFormat, fl, pvBits) {
  * @since windows5.0
  */
 export EngCreateDeviceSurface(_dhsurf, sizl, iFormatCompat) {
-    result := DllCall("GDI32.dll\EngCreateDeviceSurface", DHSURF, _dhsurf, SIZE, sizl, "uint", iFormatCompat, HSURF)
+    result := DllCall("GDI32.dll\EngCreateDeviceSurface", DHSURF, _dhsurf, SIZE, sizl, UInt32, iFormatCompat, HSURF)
     return result
 }
 
@@ -1827,7 +1827,7 @@ export EngCreateDeviceSurface(_dhsurf, sizl, iFormatCompat) {
  * @since windows5.0
  */
 export EngCreateDeviceBitmap(_dhsurf, sizl, iFormatCompat) {
-    result := DllCall("GDI32.dll\EngCreateDeviceBitmap", DHSURF, _dhsurf, SIZE, sizl, "uint", iFormatCompat, HBITMAP.Owned)
+    result := DllCall("GDI32.dll\EngCreateDeviceBitmap", DHSURF, _dhsurf, SIZE, sizl, UInt32, iFormatCompat, HBITMAP.Owned)
     return result
 }
 
@@ -1884,7 +1884,7 @@ export EngUnlockSurface(pso) {
  * @since windows5.0
  */
 export EngEraseSurface(pso, prcl, iColor) {
-    result := DllCall("GDI32.dll\EngEraseSurface", SURFOBJ.Ptr, pso, RECTL.Ptr, prcl, "uint", iColor, BOOL)
+    result := DllCall("GDI32.dll\EngEraseSurface", SURFOBJ.Ptr, pso, RECTL.Ptr, prcl, UInt32, iColor, BOOL)
     return result
 }
 
@@ -1908,7 +1908,7 @@ export EngEraseSurface(pso, prcl, iColor) {
  * @since windows5.0
  */
 export EngAssociateSurface(_hsurf, _hdev, flHooks) {
-    result := DllCall("GDI32.dll\EngAssociateSurface", HSURF, _hsurf, HDEV, _hdev, "uint", flHooks, BOOL)
+    result := DllCall("GDI32.dll\EngAssociateSurface", HSURF, _hsurf, HDEV, _hdev, UInt32, flHooks, BOOL)
     return result
 }
 
@@ -1974,7 +1974,7 @@ export EngDeletePath(ppo) {
 export EngCreatePalette(iMode, cColors, pulColors, flRed, flGreen, flBlue) {
     pulColorsMarshal := pulColors is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("GDI32.dll\EngCreatePalette", "uint", iMode, "uint", cColors, pulColorsMarshal, pulColors, "uint", flRed, "uint", flGreen, "uint", flBlue, HPALETTE.Owned)
+    result := DllCall("GDI32.dll\EngCreatePalette", UInt32, iMode, UInt32, cColors, pulColorsMarshal, pulColors, UInt32, flRed, UInt32, flGreen, UInt32, flBlue, HPALETTE.Owned)
     return result
 }
 
@@ -2044,7 +2044,7 @@ export EngDeleteClip(pco) {
  * @since windows5.0
  */
 export EngBitBlt(psoTrg, psoSrc, psoMask, pco, pxlo, prclTrg, pptlSrc, pptlMask, pbo, pptlBrush, rop4) {
-    result := DllCall("GDI32.dll\EngBitBlt", SURFOBJ.Ptr, psoTrg, SURFOBJ.Ptr, psoSrc, SURFOBJ.Ptr, psoMask, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, RECTL.Ptr, prclTrg, POINTL.Ptr, pptlSrc, POINTL.Ptr, pptlMask, BRUSHOBJ.Ptr, pbo, POINTL.Ptr, pptlBrush, "uint", rop4, BOOL)
+    result := DllCall("GDI32.dll\EngBitBlt", SURFOBJ.Ptr, psoTrg, SURFOBJ.Ptr, psoSrc, SURFOBJ.Ptr, psoMask, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, RECTL.Ptr, prclTrg, POINTL.Ptr, pptlSrc, POINTL.Ptr, pptlMask, BRUSHOBJ.Ptr, pbo, POINTL.Ptr, pptlBrush, UInt32, rop4, BOOL)
     return result
 }
 
@@ -2066,7 +2066,7 @@ export EngBitBlt(psoTrg, psoSrc, psoMask, pco, pxlo, prclTrg, pptlSrc, pptlMask,
  * @since windows5.0
  */
 export EngLineTo(pso, pco, pbo, x1, y1, x2, y2, prclBounds, mix) {
-    result := DllCall("GDI32.dll\EngLineTo", SURFOBJ.Ptr, pso, CLIPOBJ.Ptr, pco, BRUSHOBJ.Ptr, pbo, "int", x1, "int", y1, "int", x2, "int", y2, RECTL.Ptr, prclBounds, "uint", mix, BOOL)
+    result := DllCall("GDI32.dll\EngLineTo", SURFOBJ.Ptr, pso, CLIPOBJ.Ptr, pco, BRUSHOBJ.Ptr, pbo, Int32, x1, Int32, y1, Int32, x2, Int32, y2, RECTL.Ptr, prclBounds, UInt32, mix, BOOL)
     return result
 }
 
@@ -2153,7 +2153,7 @@ export EngLineTo(pso, pco, pbo, x1, y1, x2, y2, prclBounds, mix) {
  * @since windows5.0
  */
 export EngStretchBlt(psoDest, psoSrc, psoMask, pco, pxlo, pca, pptlHTOrg, prclDest, prclSrc, pptlMask, iMode) {
-    result := DllCall("GDI32.dll\EngStretchBlt", SURFOBJ.Ptr, psoDest, SURFOBJ.Ptr, psoSrc, SURFOBJ.Ptr, psoMask, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, COLORADJUSTMENT.Ptr, pca, POINTL.Ptr, pptlHTOrg, RECTL.Ptr, prclDest, RECTL.Ptr, prclSrc, POINTL.Ptr, pptlMask, "uint", iMode, BOOL)
+    result := DllCall("GDI32.dll\EngStretchBlt", SURFOBJ.Ptr, psoDest, SURFOBJ.Ptr, psoSrc, SURFOBJ.Ptr, psoMask, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, COLORADJUSTMENT.Ptr, pca, POINTL.Ptr, pptlHTOrg, RECTL.Ptr, prclDest, RECTL.Ptr, prclSrc, POINTL.Ptr, pptlMask, UInt32, iMode, BOOL)
     return result
 }
 
@@ -2197,7 +2197,7 @@ export EngStretchBlt(psoDest, psoSrc, psoMask, pco, pxlo, pca, pptlHTOrg, prclDe
  * @since windows5.0
  */
 export EngStretchBltROP(psoDest, psoSrc, psoMask, pco, pxlo, pca, pptlHTOrg, prclDest, prclSrc, pptlMask, iMode, pbo, rop4) {
-    result := DllCall("GDI32.dll\EngStretchBltROP", SURFOBJ.Ptr, psoDest, SURFOBJ.Ptr, psoSrc, SURFOBJ.Ptr, psoMask, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, COLORADJUSTMENT.Ptr, pca, POINTL.Ptr, pptlHTOrg, RECTL.Ptr, prclDest, RECTL.Ptr, prclSrc, POINTL.Ptr, pptlMask, "uint", iMode, BRUSHOBJ.Ptr, pbo, "uint", rop4, BOOL)
+    result := DllCall("GDI32.dll\EngStretchBltROP", SURFOBJ.Ptr, psoDest, SURFOBJ.Ptr, psoSrc, SURFOBJ.Ptr, psoMask, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, COLORADJUSTMENT.Ptr, pca, POINTL.Ptr, pptlHTOrg, RECTL.Ptr, prclDest, RECTL.Ptr, prclSrc, POINTL.Ptr, pptlMask, UInt32, iMode, BRUSHOBJ.Ptr, pbo, UInt32, rop4, BOOL)
     return result
 }
 
@@ -2363,7 +2363,7 @@ export EngAlphaBlend(psoDest, psoSrc, pco, pxlo, prclDest, prclSrc, pBlendObj) {
 export EngGradientFill(psoDest, pco, pxlo, pVertex, nVertex, pMesh, nMesh, prclExtents, pptlDitherOrg, ulMode) {
     pMeshMarshal := pMesh is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("GDI32.dll\EngGradientFill", SURFOBJ.Ptr, psoDest, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, TRIVERTEX.Ptr, pVertex, "uint", nVertex, pMeshMarshal, pMesh, "uint", nMesh, RECTL.Ptr, prclExtents, POINTL.Ptr, pptlDitherOrg, "uint", ulMode, BOOL)
+    result := DllCall("GDI32.dll\EngGradientFill", SURFOBJ.Ptr, psoDest, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, TRIVERTEX.Ptr, pVertex, UInt32, nVertex, pMeshMarshal, pMesh, UInt32, nMesh, RECTL.Ptr, prclExtents, POINTL.Ptr, pptlDitherOrg, UInt32, ulMode, BOOL)
     return result
 }
 
@@ -2394,7 +2394,7 @@ export EngGradientFill(psoDest, pco, pxlo, pVertex, nVertex, pMesh, nMesh, prclE
  * @since windows5.0
  */
 export EngTransparentBlt(psoDst, psoSrc, pco, pxlo, prclDst, prclSrc, TransColor, bCalledFromBitBlt) {
-    result := DllCall("GDI32.dll\EngTransparentBlt", SURFOBJ.Ptr, psoDst, SURFOBJ.Ptr, psoSrc, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, RECTL.Ptr, prclDst, RECTL.Ptr, prclSrc, "uint", TransColor, "uint", bCalledFromBitBlt, BOOL)
+    result := DllCall("GDI32.dll\EngTransparentBlt", SURFOBJ.Ptr, psoDst, SURFOBJ.Ptr, psoSrc, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, RECTL.Ptr, prclDst, RECTL.Ptr, prclSrc, UInt32, TransColor, UInt32, bCalledFromBitBlt, BOOL)
     return result
 }
 
@@ -2429,7 +2429,7 @@ export EngTransparentBlt(psoDst, psoSrc, pco, pxlo, prclDst, prclSrc, TransColor
  * @since windows5.0
  */
 export EngTextOut(pso, pstro, pfo, pco, prclExtra, prclOpaque, pboFore, pboOpaque, pptlOrg, mix) {
-    result := DllCall("GDI32.dll\EngTextOut", SURFOBJ.Ptr, pso, STROBJ.Ptr, pstro, FONTOBJ.Ptr, pfo, CLIPOBJ.Ptr, pco, RECTL.Ptr, prclExtra, RECTL.Ptr, prclOpaque, BRUSHOBJ.Ptr, pboFore, BRUSHOBJ.Ptr, pboOpaque, POINTL.Ptr, pptlOrg, "uint", mix, BOOL)
+    result := DllCall("GDI32.dll\EngTextOut", SURFOBJ.Ptr, pso, STROBJ.Ptr, pstro, FONTOBJ.Ptr, pfo, CLIPOBJ.Ptr, pco, RECTL.Ptr, prclExtra, RECTL.Ptr, prclOpaque, BRUSHOBJ.Ptr, pboFore, BRUSHOBJ.Ptr, pboOpaque, POINTL.Ptr, pptlOrg, UInt32, mix, BOOL)
     return result
 }
 
@@ -2452,7 +2452,7 @@ export EngTextOut(pso, pstro, pfo, pco, prclExtra, prclOpaque, pboFore, pboOpaqu
  * @since windows5.0
  */
 export EngStrokePath(pso, ppo, pco, pxo, pbo, pptlBrushOrg, plineattrs, mix) {
-    result := DllCall("GDI32.dll\EngStrokePath", SURFOBJ.Ptr, pso, PATHOBJ.Ptr, ppo, CLIPOBJ.Ptr, pco, XFORMOBJ.Ptr, pxo, BRUSHOBJ.Ptr, pbo, POINTL.Ptr, pptlBrushOrg, LINEATTRS.Ptr, plineattrs, "uint", mix, BOOL)
+    result := DllCall("GDI32.dll\EngStrokePath", SURFOBJ.Ptr, pso, PATHOBJ.Ptr, ppo, CLIPOBJ.Ptr, pco, XFORMOBJ.Ptr, pxo, BRUSHOBJ.Ptr, pbo, POINTL.Ptr, pptlBrushOrg, LINEATTRS.Ptr, plineattrs, UInt32, mix, BOOL)
     return result
 }
 
@@ -2472,7 +2472,7 @@ export EngStrokePath(pso, ppo, pco, pxo, pbo, pptlBrushOrg, plineattrs, mix) {
  * @since windows5.0
  */
 export EngFillPath(pso, ppo, pco, pbo, pptlBrushOrg, mix, flOptions) {
-    result := DllCall("GDI32.dll\EngFillPath", SURFOBJ.Ptr, pso, PATHOBJ.Ptr, ppo, CLIPOBJ.Ptr, pco, BRUSHOBJ.Ptr, pbo, POINTL.Ptr, pptlBrushOrg, "uint", mix, "uint", flOptions, BOOL)
+    result := DllCall("GDI32.dll\EngFillPath", SURFOBJ.Ptr, pso, PATHOBJ.Ptr, ppo, CLIPOBJ.Ptr, pco, BRUSHOBJ.Ptr, pbo, POINTL.Ptr, pptlBrushOrg, UInt32, mix, UInt32, flOptions, BOOL)
     return result
 }
 
@@ -2497,7 +2497,7 @@ export EngFillPath(pso, ppo, pco, pbo, pptlBrushOrg, mix, flOptions) {
  * @since windows5.0
  */
 export EngStrokeAndFillPath(pso, ppo, pco, pxo, pboStroke, plineattrs, pboFill, pptlBrushOrg, mixFill, flOptions) {
-    result := DllCall("GDI32.dll\EngStrokeAndFillPath", SURFOBJ.Ptr, pso, PATHOBJ.Ptr, ppo, CLIPOBJ.Ptr, pco, XFORMOBJ.Ptr, pxo, BRUSHOBJ.Ptr, pboStroke, LINEATTRS.Ptr, plineattrs, BRUSHOBJ.Ptr, pboFill, POINTL.Ptr, pptlBrushOrg, "uint", mixFill, "uint", flOptions, BOOL)
+    result := DllCall("GDI32.dll\EngStrokeAndFillPath", SURFOBJ.Ptr, pso, PATHOBJ.Ptr, ppo, CLIPOBJ.Ptr, pco, XFORMOBJ.Ptr, pxo, BRUSHOBJ.Ptr, pboStroke, LINEATTRS.Ptr, plineattrs, BRUSHOBJ.Ptr, pboFill, POINTL.Ptr, pptlBrushOrg, UInt32, mixFill, UInt32, flOptions, BOOL)
     return result
 }
 
@@ -2517,7 +2517,7 @@ export EngStrokeAndFillPath(pso, ppo, pco, pxo, pboStroke, plineattrs, pboFill, 
  * @since windows5.0
  */
 export EngPaint(pso, pco, pbo, pptlBrushOrg, mix) {
-    result := DllCall("GDI32.dll\EngPaint", SURFOBJ.Ptr, pso, CLIPOBJ.Ptr, pco, BRUSHOBJ.Ptr, pbo, POINTL.Ptr, pptlBrushOrg, "uint", mix, BOOL)
+    result := DllCall("GDI32.dll\EngPaint", SURFOBJ.Ptr, pso, CLIPOBJ.Ptr, pco, BRUSHOBJ.Ptr, pbo, POINTL.Ptr, pptlBrushOrg, UInt32, mix, BOOL)
     return result
 }
 
@@ -2590,7 +2590,7 @@ export EngCopyBits(psoDest, psoSrc, pco, pxlo, prclDest, pptlSrc) {
  * @since windows5.0
  */
 export EngPlgBlt(psoTrg, psoSrc, psoMsk, pco, pxlo, pca, pptlBrushOrg, pptfx, prcl, pptl, iMode) {
-    result := DllCall("GDI32.dll\EngPlgBlt", SURFOBJ.Ptr, psoTrg, SURFOBJ.Ptr, psoSrc, SURFOBJ.Ptr, psoMsk, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, COLORADJUSTMENT.Ptr, pca, POINTL.Ptr, pptlBrushOrg, POINTFIX.Ptr, pptfx, RECTL.Ptr, prcl, POINTL.Ptr, pptl, "uint", iMode, BOOL)
+    result := DllCall("GDI32.dll\EngPlgBlt", SURFOBJ.Ptr, psoTrg, SURFOBJ.Ptr, psoSrc, SURFOBJ.Ptr, psoMsk, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, COLORADJUSTMENT.Ptr, pca, POINTL.Ptr, pptlBrushOrg, POINTFIX.Ptr, pptfx, RECTL.Ptr, prcl, POINTL.Ptr, pptl, UInt32, iMode, BOOL)
     return result
 }
 
@@ -2607,7 +2607,7 @@ export EngPlgBlt(psoTrg, psoSrc, psoMsk, pco, pxlo, pca, pptlBrushOrg, pptfx, pr
  * @since windows5.0
  */
 export HT_Get8BPPFormatPalette(pPaletteEntry, RedGamma, GreenGamma, BlueGamma) {
-    result := DllCall("GDI32.dll\HT_Get8BPPFormatPalette", PALETTEENTRY.Ptr, pPaletteEntry, "ushort", RedGamma, "ushort", GreenGamma, "ushort", BlueGamma, Int32)
+    result := DllCall("GDI32.dll\HT_Get8BPPFormatPalette", PALETTEENTRY.Ptr, pPaletteEntry, UInt16, RedGamma, UInt16, GreenGamma, UInt16, BlueGamma, Int32)
     return result
 }
 
@@ -2642,7 +2642,7 @@ export HT_Get8BPPFormatPalette(pPaletteEntry, RedGamma, GreenGamma, BlueGamma) {
  * @since windows5.0
  */
 export HT_Get8BPPMaskPalette(pPaletteEntry, Use8BPPMaskPal, CMYMask, RedGamma, GreenGamma, BlueGamma) {
-    result := DllCall("GDI32.dll\HT_Get8BPPMaskPalette", PALETTEENTRY.Ptr, pPaletteEntry, BOOL, Use8BPPMaskPal, "char", CMYMask, "ushort", RedGamma, "ushort", GreenGamma, "ushort", BlueGamma, Int32)
+    result := DllCall("GDI32.dll\HT_Get8BPPMaskPalette", PALETTEENTRY.Ptr, pPaletteEntry, BOOL, Use8BPPMaskPal, Int8, CMYMask, UInt16, RedGamma, UInt16, GreenGamma, UInt16, BlueGamma, Int32)
     return result
 }
 
@@ -2705,7 +2705,7 @@ export EngLoadModule(pwsz) {
 export EngFindResource(h, iName, iType, pulSize) {
     pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("GDI32.dll\EngFindResource", HANDLE, h, "int", iName, "int", iType, pulSizeMarshal, pulSize, IntPtr)
+    result := DllCall("GDI32.dll\EngFindResource", HANDLE, h, Int32, iName, Int32, iType, pulSizeMarshal, pulSize, IntPtr)
     return result
 }
 
@@ -2801,7 +2801,7 @@ export EngDeleteSemaphore(hsem) {
 export EngMultiByteToUnicodeN(UnicodeString, MaxBytesInUnicodeString, BytesInUnicodeString, MultiByteString, BytesInMultiByteString) {
     BytesInUnicodeStringMarshal := BytesInUnicodeString is VarRef ? "uint*" : "ptr"
 
-    DllCall("GDI32.dll\EngMultiByteToUnicodeN", "ptr", UnicodeString, "uint", MaxBytesInUnicodeString, BytesInUnicodeStringMarshal, BytesInUnicodeString, "ptr", MultiByteString, "uint", BytesInMultiByteString)
+    DllCall("GDI32.dll\EngMultiByteToUnicodeN", IntPtr, UnicodeString, UInt32, MaxBytesInUnicodeString, BytesInUnicodeStringMarshal, BytesInUnicodeString, IntPtr, MultiByteString, UInt32, BytesInMultiByteString)
 }
 
 /**
@@ -2818,14 +2818,14 @@ export EngMultiByteToUnicodeN(UnicodeString, MaxBytesInUnicodeString, BytesInUni
 export EngUnicodeToMultiByteN(MultiByteString, MaxBytesInMultiByteString, BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
     BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
 
-    DllCall("GDI32.dll\EngUnicodeToMultiByteN", "ptr", MultiByteString, "uint", MaxBytesInMultiByteString, BytesInMultiByteStringMarshal, BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString)
+    DllCall("GDI32.dll\EngUnicodeToMultiByteN", IntPtr, MultiByteString, UInt32, MaxBytesInMultiByteString, BytesInMultiByteStringMarshal, BytesInMultiByteString, IntPtr, UnicodeString, UInt32, BytesInUnicodeString)
 }
 
 /**
  * The EngQueryLocalTime function queries the local time.
  * @remarks
  * <b>EngQueryLocalTime</b> returns the time at the current locale in the ENG_TIME_FIELDS structure.
- * @param {Pointer<ENG_TIME_FIELDS>} param0 
+ * @param {Pointer<ENG_TIME_FIELDS>} param0 Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-eng_time_fields">ENG_TIME_FIELDS</a> structure that receives the local time.
  * @returns {String} Nothing - always returns an empty string
  * @see https://learn.microsoft.com/windows/win32/api/winddi/nf-winddi-engquerylocaltime
  * @since windows5.0
@@ -2848,7 +2848,7 @@ export EngQueryLocalTime(param0) {
  * @since windows5.0
  */
 export EngComputeGlyphSet(nCodePage, nFirstChar, cChars) {
-    result := DllCall("GDI32.dll\EngComputeGlyphSet", "int", nCodePage, "int", nFirstChar, "int", cChars, FD_GLYPHSET.Ptr)
+    result := DllCall("GDI32.dll\EngComputeGlyphSet", Int32, nCodePage, Int32, nFirstChar, Int32, cChars, FD_GLYPHSET.Ptr)
     return result
 }
 
@@ -2864,7 +2864,7 @@ export EngComputeGlyphSet(nCodePage, nFirstChar, cChars) {
  * @since windows5.0
  */
 export EngMultiByteToWideChar(CodePage, WideCharString, BytesInWideCharString, MultiByteString, BytesInMultiByteString) {
-    result := DllCall("GDI32.dll\EngMultiByteToWideChar", "uint", CodePage, "ptr", WideCharString, "int", BytesInWideCharString, "ptr", MultiByteString, "int", BytesInMultiByteString, Int32)
+    result := DllCall("GDI32.dll\EngMultiByteToWideChar", UInt32, CodePage, IntPtr, WideCharString, Int32, BytesInWideCharString, IntPtr, MultiByteString, Int32, BytesInMultiByteString, Int32)
     return result
 }
 
@@ -2880,7 +2880,7 @@ export EngMultiByteToWideChar(CodePage, WideCharString, BytesInWideCharString, M
  * @since windows5.0
  */
 export EngWideCharToMultiByte(CodePage, WideCharString, BytesInWideCharString, MultiByteString, BytesInMultiByteString) {
-    result := DllCall("GDI32.dll\EngWideCharToMultiByte", "uint", CodePage, "ptr", WideCharString, "int", BytesInWideCharString, "ptr", MultiByteString, "int", BytesInMultiByteString, Int32)
+    result := DllCall("GDI32.dll\EngWideCharToMultiByte", UInt32, CodePage, IntPtr, WideCharString, Int32, BytesInWideCharString, IntPtr, MultiByteString, Int32, BytesInMultiByteString, Int32)
     return result
 }
 
@@ -3195,7 +3195,7 @@ export GetDisplayConfigBufferSizes(flags, numPathArrayElements, numModeInfoArray
  * @since windows6.1
  */
 export SetDisplayConfig(numPathArrayElements, pathArray, numModeInfoArrayElements, modeInfoArray, flags) {
-    result := DllCall("USER32.dll\SetDisplayConfig", "uint", numPathArrayElements, DISPLAYCONFIG_PATH_INFO.Ptr, pathArray, "uint", numModeInfoArrayElements, DISPLAYCONFIG_MODE_INFO.Ptr, modeInfoArray, SET_DISPLAY_CONFIG_FLAGS, flags, Int32)
+    result := DllCall("USER32.dll\SetDisplayConfig", UInt32, numPathArrayElements, DISPLAYCONFIG_PATH_INFO.Ptr, pathArray, UInt32, numModeInfoArrayElements, DISPLAYCONFIG_MODE_INFO.Ptr, modeInfoArray, SET_DISPLAY_CONFIG_FLAGS, flags, Int32)
     return result
 }
 

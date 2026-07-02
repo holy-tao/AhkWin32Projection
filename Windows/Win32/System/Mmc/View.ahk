@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\Document.ahk" { Document }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\_ExportListOptions.ahk" { _ExportListOptions }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\Columns.ahk" { Columns }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\_ListViewMode.ahk" { _ListViewMode }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\Nodes.ahk" { Nodes }
 #Import ".\Frame.ahk" { Frame }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\Columns.ahk" { Columns }
+#Import ".\Nodes.ahk" { Nodes }
 #Import ".\Node.ahk" { Node }
-#Import ".\ContextMenu.ahk" { ContextMenu }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\_ListViewMode.ahk" { _ListViewMode }
+#Import ".\_ExportListOptions.ahk" { _ExportListOptions }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\Document.ahk" { Document }
+#Import ".\ContextMenu.ahk" { ContextMenu }
 
 /**
  * The View object represents a result set obtained when processing a query using the OpenView method of the Database object.
@@ -573,7 +573,7 @@ export default struct View extends IDispatch {
      */
     get_CellContents(_Node, _Column) {
         CellContents := BSTR.Owned()
-        result := ComCall(44, this, "ptr", _Node, "int", _Column, BSTR.Ptr, CellContents, "HRESULT")
+        result := ComCall(44, this, "ptr", _Node, Int32, _Column, BSTR.Ptr, CellContents, "HRESULT")
         return CellContents
     }
 

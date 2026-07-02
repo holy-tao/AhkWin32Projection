@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Represents a Windows Imaging Component (WIC) stream for referencing imaging and metadata content.
@@ -109,7 +109,7 @@ export default struct IWICStream extends IStream {
     InitializeFromFilename(wzFileName, dwDesiredAccess) {
         wzFileName := wzFileName is String ? StrPtr(wzFileName) : wzFileName
 
-        result := ComCall(15, this, "ptr", wzFileName, "uint", dwDesiredAccess, "HRESULT")
+        result := ComCall(15, this, "ptr", wzFileName, UInt32, dwDesiredAccess, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IWICStream extends IStream {
     InitializeFromMemory(pbBuffer, cbBufferSize) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, pbBufferMarshal, pbBuffer, "uint", cbBufferSize, "HRESULT")
+        result := ComCall(16, this, pbBufferMarshal, pbBuffer, UInt32, cbBufferSize, "HRESULT")
         return result
     }
 
@@ -156,7 +156,7 @@ export default struct IWICStream extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicstream-initializefromistreamregion
      */
     InitializeFromIStreamRegion(pIStream, ulOffset, ulMaxSize) {
-        result := ComCall(17, this, "ptr", pIStream, "uint", ulOffset, "uint", ulMaxSize, "HRESULT")
+        result := ComCall(17, this, "ptr", pIStream, Int64, ulOffset, Int64, ulMaxSize, "HRESULT")
         return result
     }
 

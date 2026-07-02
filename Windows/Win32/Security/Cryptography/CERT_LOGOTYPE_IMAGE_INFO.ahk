@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_LOGOTYPE_IMAGE_INFO_TYPE.ahk" { CERT_LOGOTYPE_IMAGE_INFO_TYPE }
 #Import ".\CERT_LOGOTYPE_CHOICE.ahk" { CERT_LOGOTYPE_CHOICE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CERT_LOGOTYPE_IMAGE_INFO_TYPE.ahk" { CERT_LOGOTYPE_IMAGE_INFO_TYPE }
 
 /**
  * Contains more detailed information about an image logotype.

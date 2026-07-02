@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D12DeviceChild.ahk" { ID3D12DeviceChild }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_SHADER_CACHE_SESSION_DESC.ahk" { D3D12_SHADER_CACHE_SESSION_DESC }
-#Import ".\ID3D12DeviceChild.ahk" { ID3D12DeviceChild }
 
 /**
  * Represents a shader cache session.
@@ -68,7 +68,7 @@ export default struct ID3D12ShaderCacheSession extends ID3D12DeviceChild {
     FindValue(pKey, KeySize, pValue, pValueSize) {
         pValueSizeMarshal := pValueSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pKey, "uint", KeySize, "ptr", pValue, pValueSizeMarshal, pValueSize, "HRESULT")
+        result := ComCall(8, this, IntPtr, pKey, UInt32, KeySize, IntPtr, pValue, pValueSizeMarshal, pValueSize, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct ID3D12ShaderCacheSession extends ID3D12DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12shadercachesession-storevalue
      */
     StoreValue(pKey, KeySize, pValue, ValueSize) {
-        result := ComCall(9, this, "ptr", pKey, "uint", KeySize, "ptr", pValue, "uint", ValueSize, "HRESULT")
+        result := ComCall(9, this, IntPtr, pKey, UInt32, KeySize, IntPtr, pValue, UInt32, ValueSize, "HRESULT")
         return result
     }
 

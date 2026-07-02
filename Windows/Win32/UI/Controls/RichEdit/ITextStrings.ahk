@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextRange2.ahk" { ITextRange2 }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITextRange2.ahk" { ITextRange2 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -68,7 +68,7 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-item
      */
     Item(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Index, "ptr*", &ppRange := 0, "HRESULT")
         return ITextRange2(ppRange)
     }
 
@@ -177,7 +177,7 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-append
      */
     Append(pRange, iString) {
-        result := ComCall(10, this, "ptr", pRange, "int", iString, "HRESULT")
+        result := ComCall(10, this, "ptr", pRange, Int32, iString, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-cat2
      */
     Cat2(iString) {
-        result := ComCall(11, this, "int", iString, "HRESULT")
+        result := ComCall(11, this, Int32, iString, "HRESULT")
         return result
     }
 
@@ -296,7 +296,7 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-encodefunction
      */
     EncodeFunction(Type, Align, _Char, Char1, Char2, Count, TeXStyle, cCol, pRange) {
-        result := ComCall(14, this, "int", Type, "int", Align, "int", _Char, "int", Char1, "int", Char2, "int", Count, "int", TeXStyle, "int", cCol, "ptr", pRange, "HRESULT")
+        result := ComCall(14, this, Int32, Type, Int32, Align, Int32, _Char, Int32, Char1, Int32, Char2, Int32, Count, Int32, TeXStyle, Int32, cCol, "ptr", pRange, "HRESULT")
         return result
     }
 
@@ -313,7 +313,7 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-getcch
      */
     GetCch(iString) {
-        result := ComCall(15, this, "int", iString, "int*", &pcch := 0, "HRESULT")
+        result := ComCall(15, this, Int32, iString, "int*", &pcch := 0, "HRESULT")
         return pcch
     }
 
@@ -330,7 +330,7 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-insertnullstr
      */
     InsertNullStr(iString) {
-        result := ComCall(16, this, "int", iString, "HRESULT")
+        result := ComCall(16, this, Int32, iString, "HRESULT")
         return result
     }
 
@@ -350,7 +350,7 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-moveboundary
      */
     MoveBoundary(iString, cch) {
-        result := ComCall(17, this, "int", iString, "int", cch, "HRESULT")
+        result := ComCall(17, this, Int32, iString, Int32, cch, "HRESULT")
         return result
     }
 
@@ -423,7 +423,7 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-remove
      */
     Remove(iString, _cString) {
-        result := ComCall(19, this, "int", iString, "int", _cString, "HRESULT")
+        result := ComCall(19, this, Int32, iString, Int32, _cString, "HRESULT")
         return result
     }
 
@@ -506,7 +506,7 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-setopcp
      */
     SetOpCp(iString, cp) {
-        result := ComCall(21, this, "int", iString, "int", cp, "HRESULT")
+        result := ComCall(21, this, Int32, iString, Int32, cp, "HRESULT")
         return result
     }
 

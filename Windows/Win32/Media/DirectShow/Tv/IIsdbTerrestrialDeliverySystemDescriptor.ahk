@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) terrestrial delivery system descriptor.
@@ -110,7 +110,7 @@ export default struct IIsdbTerrestrialDeliverySystemDescriptor extends IUnknown 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getrecordfrequency
      */
     GetRecordFrequency(bRecordIndex) {
-        result := ComCall(9, this, "char", bRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(9, this, Int8, bRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 

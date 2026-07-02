@@ -135,7 +135,7 @@ export default struct IADsOpenDSObject extends IDispatch {
         lpszUserName := lpszUserName is String ? BSTR.Alloc(lpszUserName).Value : lpszUserName
         lpszPassword := lpszPassword is String ? BSTR.Alloc(lpszPassword).Value : lpszPassword
 
-        result := ComCall(7, this, BSTR, lpszDNName, BSTR, lpszUserName, BSTR, lpszPassword, "int", lnReserved, "ptr*", &ppOleDsObj := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, lpszDNName, BSTR, lpszUserName, BSTR, lpszPassword, Int32, lnReserved, "ptr*", &ppOleDsObj := 0, "HRESULT")
         return IDispatch(ppOleDsObj)
     }
 

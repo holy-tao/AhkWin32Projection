@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsSignatureBlock.ahk" { IXpsSignatureBlock }
-#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsSignature.ahk" { IXpsSignature }
 #Import ".\IXpsSignatureBlockCollection.ahk" { IXpsSignatureBlockCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsSignatureBlock.ahk" { IXpsSignatureBlock }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
 #Import ".\IXpsSigningOptions.ahk" { IXpsSigningOptions }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IXpsSignatureCollection.ahk" { IXpsSignatureCollection }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsSignature.ahk" { IXpsSignature }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Manages the digital signatures and digital signature requests of an XPS document.
@@ -333,7 +333,7 @@ export default struct IXpsSignatureManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-addsignatureblock
      */
     AddSignatureBlock(partName, fixedDocumentIndex) {
-        result := ComCall(9, this, "ptr", partName, "uint", fixedDocumentIndex, "ptr*", &signatureBlock := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", partName, UInt32, fixedDocumentIndex, "ptr*", &signatureBlock := 0, "HRESULT")
         return IXpsSignatureBlock(signatureBlock)
     }
 
@@ -422,7 +422,7 @@ export default struct IXpsSignatureManager extends IUnknown {
     SavePackageToFile(fileName, securityAttributes, flagsAndAttributes) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(12, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, "HRESULT")
+        result := ComCall(12, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, UInt32, flagsAndAttributes, "HRESULT")
         return result
     }
 

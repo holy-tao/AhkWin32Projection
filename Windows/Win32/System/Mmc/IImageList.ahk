@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that manipulate and interact with image lists.
@@ -80,7 +80,7 @@ export default struct IImageList extends IUnknown {
     ImageListSetIcon(pIcon, nLoc) {
         pIconMarshal := pIcon is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pIconMarshal, pIcon, "int", nLoc, "HRESULT")
+        result := ComCall(3, this, pIconMarshal, pIcon, Int32, nLoc, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct IImageList extends IUnknown {
         pBMapSmMarshal := pBMapSm is VarRef ? "ptr*" : "ptr"
         pBMapLgMarshal := pBMapLg is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pBMapSmMarshal, pBMapSm, pBMapLgMarshal, pBMapLg, "int", nStartLoc, COLORREF, cMask, "HRESULT")
+        result := ComCall(4, this, pBMapSmMarshal, pBMapSm, pBMapLgMarshal, pBMapLg, Int32, nStartLoc, COLORREF, cMask, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaSeeking interface contains methods for seeking to a position within a stream, and for setting the playback rate.
@@ -487,7 +487,7 @@ export default struct IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-converttimeformat
      */
     ConvertTimeFormat(pTargetFormat, Source, pSourceFormat) {
-        result := ComCall(13, this, "int64*", &pTarget := 0, Guid.Ptr, pTargetFormat, "int64", Source, Guid.Ptr, pSourceFormat, "HRESULT")
+        result := ComCall(13, this, "int64*", &pTarget := 0, Guid.Ptr, pTargetFormat, Int64, Source, Guid.Ptr, pSourceFormat, "HRESULT")
         return pTarget
     }
 
@@ -660,7 +660,7 @@ export default struct IMediaSeeking extends IUnknown {
         pCurrentMarshal := pCurrent is VarRef ? "int64*" : "ptr"
         pStopMarshal := pStop is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(14, this, pCurrentMarshal, pCurrent, "uint", dwCurrentFlags, pStopMarshal, pStop, "uint", dwStopFlags, "HRESULT")
+        result := ComCall(14, this, pCurrentMarshal, pCurrent, UInt32, dwCurrentFlags, pStopMarshal, pStop, UInt32, dwStopFlags, "HRESULT")
         return result
     }
 
@@ -874,7 +874,7 @@ export default struct IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-setrate
      */
     SetRate(dRate) {
-        result := ComCall(17, this, "double", dRate, "HRESULT")
+        result := ComCall(17, this, Float64, dRate, "HRESULT")
         return result
     }
 

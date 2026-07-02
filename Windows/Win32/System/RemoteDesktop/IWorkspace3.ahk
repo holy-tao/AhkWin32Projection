@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWorkspace2.ahk" { IWorkspace2 }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\IWorkspace2.ahk" { IWorkspace2 }
 
 /**
  * Exposes methods that provide information about a connection in RemoteApp and Desktop Connection, and adds the ability to retrieve or set a claims token.
@@ -55,7 +55,7 @@ export default struct IWorkspace3 extends IWorkspace2 {
         bstrUserHint := bstrUserHint is String ? BSTR.Alloc(bstrUserHint).Value : bstrUserHint
 
         pbstrAccessToken := BSTR.Owned()
-        result := ComCall(7, this, BSTR, bstrClaimsHint, BSTR, bstrUserHint, "uint", claimCookie, "uint", hwndCredUiParent, RECT, rectCredUiParent, BSTR.Ptr, pbstrAccessToken, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrClaimsHint, BSTR, bstrUserHint, UInt32, claimCookie, UInt32, hwndCredUiParent, RECT, rectCredUiParent, BSTR.Ptr, pbstrAccessToken, "HRESULT")
         return pbstrAccessToken
     }
 
@@ -71,7 +71,7 @@ export default struct IWorkspace3 extends IWorkspace2 {
         bstrAccessToken := bstrAccessToken is String ? BSTR.Alloc(bstrAccessToken).Value : bstrAccessToken
         bstrRefreshToken := bstrRefreshToken is String ? BSTR.Alloc(bstrRefreshToken).Value : bstrRefreshToken
 
-        result := ComCall(8, this, BSTR, bstrAccessToken, "uint", ullAccessTokenExpiration, BSTR, bstrRefreshToken, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrAccessToken, Int64, ullAccessTokenExpiration, BSTR, bstrRefreshToken, "HRESULT")
         return result
     }
 

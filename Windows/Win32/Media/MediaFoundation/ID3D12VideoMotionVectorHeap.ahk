@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC.ahk" { D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Direct3D12\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC.ahk" { D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC }
 
 /**
  * Represents a heap in which estimated motion vectors are stored.

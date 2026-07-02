@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\SpeechGrammarRuleStateTransitionType.ahk" { SpeechGrammarRuleStateTransitionType }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ISpeechGrammarRule.ahk" { ISpeechGrammarRule }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\ISpeechGrammarRuleState.ahk" { ISpeechGrammarRuleState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechGrammarRule.ahk" { ISpeechGrammarRule }
 
 /**
  * @namespace Windows.Win32.Media.Speech

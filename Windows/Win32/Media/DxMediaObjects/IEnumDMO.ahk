@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumDMO interface provides methods for enumerating Microsoft DirectX Media Objects (DMOs). It is based on the OLE enumeration interfaces. For more information, see the IEnumXXXX topic in the Platform SDK.
@@ -122,7 +122,7 @@ export default struct IEnumDMO extends IUnknown {
         NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
         pcItemsFetchedMarshal := pcItemsFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cItemsToFetch, Guid.Ptr, pCLSID, NamesMarshal, Names, pcItemsFetchedMarshal, pcItemsFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cItemsToFetch, Guid.Ptr, pCLSID, NamesMarshal, Names, pcItemsFetchedMarshal, pcItemsFetched, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IEnumDMO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-ienumdmo-skip
      */
     Skip(cItemsToSkip) {
-        result := ComCall(4, this, "uint", cItemsToSkip, "HRESULT")
+        result := ComCall(4, this, UInt32, cItemsToSkip, "HRESULT")
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Gdi\DEVMODEW.ahk" { DEVMODEW }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PRINTER_ACCESS_RIGHTS.ahk" { PRINTER_ACCESS_RIGHTS }
-#Import "..\Gdi\DEVMODEW.ahk" { DEVMODEW }
 
 /**
  * The PRINTER\_DEFAULTS structure specifies the default data type, environment, initialization data, and access rights for a printer.

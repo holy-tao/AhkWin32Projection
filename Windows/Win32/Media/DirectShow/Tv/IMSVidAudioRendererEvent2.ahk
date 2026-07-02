@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidAudioRendererEvent.ahk" { IMSVidAudioRendererEvent }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidAudioRendererEvent.ahk" { IMSVidAudioRendererEvent }
 
 /**
  * Implements an event system for the audio renderer associated with a Video Control.

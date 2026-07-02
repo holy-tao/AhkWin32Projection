@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DHCP_HOST_INFO_V6.ahk" { DHCP_HOST_INFO_V6 }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
 #Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
 #Import ".\DATE_TIME.ahk" { DATE_TIME }
-#Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
+#Import ".\DHCP_HOST_INFO_V6.ahk" { DHCP_HOST_INFO_V6 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The DHCP_CLIENT_INFO_V6 structure contains information on DHCPv6 clients.

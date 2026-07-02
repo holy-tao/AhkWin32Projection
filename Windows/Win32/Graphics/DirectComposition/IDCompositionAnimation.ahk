@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a function for animating one or more properties of one or more Microsoft DirectComposition objects.
@@ -81,7 +81,7 @@ export default struct IDCompositionAnimation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcompanimation/nf-dcompanimation-idcompositionanimation-setabsolutebegintime
      */
     SetAbsoluteBeginTime(beginTime) {
-        result := ComCall(4, this, "int64", beginTime, "HRESULT")
+        result := ComCall(4, this, Int64, beginTime, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct IDCompositionAnimation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcompanimation/nf-dcompanimation-idcompositionanimation-addcubic
      */
     AddCubic(beginOffset, constantCoefficient, linearCoefficient, quadraticCoefficient, cubicCoefficient) {
-        result := ComCall(5, this, "double", beginOffset, "float", constantCoefficient, "float", linearCoefficient, "float", quadraticCoefficient, "float", cubicCoefficient, "HRESULT")
+        result := ComCall(5, this, Float64, beginOffset, Float32, constantCoefficient, Float32, linearCoefficient, Float32, quadraticCoefficient, Float32, cubicCoefficient, "HRESULT")
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct IDCompositionAnimation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcompanimation/nf-dcompanimation-idcompositionanimation-addsinusoidal
      */
     AddSinusoidal(beginOffset, bias, amplitude, frequency, phase) {
-        result := ComCall(6, this, "double", beginOffset, "float", bias, "float", amplitude, "float", frequency, "float", phase, "HRESULT")
+        result := ComCall(6, this, Float64, beginOffset, Float32, bias, Float32, amplitude, Float32, frequency, Float32, phase, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ export default struct IDCompositionAnimation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcompanimation/nf-dcompanimation-idcompositionanimation-addrepeat
      */
     AddRepeat(beginOffset, durationToRepeat) {
-        result := ComCall(7, this, "double", beginOffset, "double", durationToRepeat, "HRESULT")
+        result := ComCall(7, this, Float64, beginOffset, Float64, durationToRepeat, "HRESULT")
         return result
     }
 
@@ -205,7 +205,7 @@ export default struct IDCompositionAnimation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcompanimation/nf-dcompanimation-idcompositionanimation-end
      */
     End(endOffset, endValue) {
-        result := ComCall(8, this, "double", endOffset, "float", endValue, "HRESULT")
+        result := ComCall(8, this, Float64, endOffset, Float32, endValue, "HRESULT")
         return result
     }
 

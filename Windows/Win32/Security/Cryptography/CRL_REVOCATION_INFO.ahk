@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
-#Import ".\CRL_ENTRY.ahk" { CRL_ENTRY }
 #Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
+#Import ".\CRL_ENTRY.ahk" { CRL_ENTRY }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

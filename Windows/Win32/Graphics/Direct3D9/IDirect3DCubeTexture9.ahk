@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3DLOCKED_RECT.ahk" { D3DLOCKED_RECT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\D3DSURFACE_DESC.ahk" { D3DSURFACE_DESC }
 #Import ".\D3DCUBEMAP_FACES.ahk" { D3DCUBEMAP_FACES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3DLOCKED_RECT.ahk" { D3DLOCKED_RECT }
+#Import ".\D3DSURFACE_DESC.ahk" { D3DSURFACE_DESC }
 #Import ".\IDirect3DBaseTexture9.ahk" { IDirect3DBaseTexture9 }
 
 /**
@@ -80,7 +80,7 @@ export default struct IDirect3DCubeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcubetexture9-getleveldesc
      */
     GetLevelDesc(Level, pDesc) {
-        result := ComCall(17, this, "uint", Level, D3DSURFACE_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(17, this, UInt32, Level, D3DSURFACE_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IDirect3DCubeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcubetexture9-getcubemapsurface
      */
     GetCubeMapSurface(FaceType, Level) {
-        result := ComCall(18, this, D3DCUBEMAP_FACES, FaceType, "uint", Level, "ptr*", &ppCubeMapSurface := 0, "HRESULT")
+        result := ComCall(18, this, D3DCUBEMAP_FACES, FaceType, UInt32, Level, "ptr*", &ppCubeMapSurface := 0, "HRESULT")
         return IDirect3DSurface9(ppCubeMapSurface)
     }
 
@@ -143,7 +143,7 @@ export default struct IDirect3DCubeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcubetexture9-lockrect
      */
     LockRect(FaceType, Level, pLockedRect, pRect, Flags) {
-        result := ComCall(19, this, D3DCUBEMAP_FACES, FaceType, "uint", Level, D3DLOCKED_RECT.Ptr, pLockedRect, RECT.Ptr, pRect, "uint", Flags, "HRESULT")
+        result := ComCall(19, this, D3DCUBEMAP_FACES, FaceType, UInt32, Level, D3DLOCKED_RECT.Ptr, pLockedRect, RECT.Ptr, pRect, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -161,7 +161,7 @@ export default struct IDirect3DCubeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcubetexture9-unlockrect
      */
     UnlockRect(FaceType, Level) {
-        result := ComCall(20, this, D3DCUBEMAP_FACES, FaceType, "uint", Level, "HRESULT")
+        result := ComCall(20, this, D3DCUBEMAP_FACES, FaceType, UInt32, Level, "HRESULT")
         return result
     }
 

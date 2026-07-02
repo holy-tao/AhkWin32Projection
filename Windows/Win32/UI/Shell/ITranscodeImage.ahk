@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Exposes a method that allows conversion to JPEG or bitmap (BMP) image formats from any image type supported by Windows.
@@ -79,7 +79,7 @@ export default struct ITranscodeImage extends IUnknown {
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
         puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pShellItem, "uint", uiMaxWidth, "uint", uiMaxHeight, "uint", flags, "ptr", pvImage, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
+        result := ComCall(3, this, "ptr", pShellItem, UInt32, uiMaxWidth, UInt32, uiMaxHeight, UInt32, flags, "ptr", pvImage, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
         return result
     }
 

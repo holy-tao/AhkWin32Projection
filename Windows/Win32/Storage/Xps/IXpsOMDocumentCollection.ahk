@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXpsOMDocument.ahk" { IXpsOMDocument }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A collection of IXpsOMDocument interface pointers.
@@ -66,7 +66,7 @@ export default struct IXpsOMDocumentCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &_document := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &_document := 0, "HRESULT")
         return IXpsOMDocument(_document)
     }
 
@@ -82,7 +82,7 @@ export default struct IXpsOMDocumentCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-insertat
      */
     InsertAt(index, _document) {
-        result := ComCall(5, this, "uint", index, "ptr", _document, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr", _document, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IXpsOMDocumentCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(6, this, "uint", index, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IXpsOMDocumentCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-setat
      */
     SetAt(index, _document) {
-        result := ComCall(7, this, "uint", index, "ptr", _document, "HRESULT")
+        result := ComCall(7, this, UInt32, index, "ptr", _document, "HRESULT")
         return result
     }
 

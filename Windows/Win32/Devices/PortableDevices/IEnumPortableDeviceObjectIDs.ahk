@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumPortableDeviceObjectIDs interface enumerates the objects on a portable device. Get this interface initially by calling IPortableDeviceContent::EnumObjects on a device.
@@ -54,7 +54,7 @@ export default struct IEnumPortableDeviceObjectIDs extends IUnknown {
     Next(cObjects, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cObjects, PWSTR.Ptr, &pObjIDs := 0, pcFetchedMarshal, pcFetched, Int32)
+        result := ComCall(3, this, UInt32, cObjects, PWSTR.Ptr, &pObjIDs := 0, pcFetchedMarshal, pcFetched, Int32)
         return pObjIDs
     }
 
@@ -95,7 +95,7 @@ export default struct IEnumPortableDeviceObjectIDs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-skip
      */
     Skip(cObjects) {
-        result := ComCall(4, this, "uint", cObjects, Int32)
+        result := ComCall(4, this, UInt32, cObjects, Int32)
         return result
     }
 

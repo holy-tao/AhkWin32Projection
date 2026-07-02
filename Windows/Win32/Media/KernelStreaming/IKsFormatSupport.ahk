@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IKsFormatSupport interface provides information about the audio data formats that are supported by a software-configured I/O connection (typically a DMA channel) between an audio adapter device and system memory.
@@ -48,7 +48,7 @@ export default struct IKsFormatSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksformatsupport-isformatsupported
      */
     IsFormatSupported(pKsFormat, cbFormat) {
-        result := ComCall(3, this, KSDATAFORMAT.Ptr, pKsFormat, "uint", cbFormat, BOOL.Ptr, &pbSupported := 0, "HRESULT")
+        result := ComCall(3, this, KSDATAFORMAT.Ptr, pKsFormat, UInt32, cbFormat, BOOL.Ptr, &pbSupported := 0, "HRESULT")
         return pbSupported
     }
 

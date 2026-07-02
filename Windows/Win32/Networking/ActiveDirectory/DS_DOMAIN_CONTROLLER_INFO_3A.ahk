@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The DS_DOMAIN_CONTROLLER_INFO_3 structure contains data about a domain controller. This structure is returned by the DsGetDomainControllerInfo function. (ANSI)

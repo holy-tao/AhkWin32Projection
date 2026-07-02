@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3DTEXTUREFILTERTYPE.ahk" { D3DTEXTUREFILTERTYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirect3DBaseTexture9 (d3d9.h) interface applications use the methods of the IDirect3DBaseTexture9 interface to manipulate texture resources.
@@ -88,7 +88,7 @@ export default struct IDirect3DBaseTexture9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dbasetexture9-setlod
      */
     SetLOD(LODNew) {
-        result := ComCall(11, this, "uint", LODNew, UInt32)
+        result := ComCall(11, this, UInt32, LODNew, UInt32)
         return result
     }
 

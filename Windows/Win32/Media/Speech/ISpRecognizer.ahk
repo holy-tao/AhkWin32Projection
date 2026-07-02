@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPRECOGNIZERSTATUS.ahk" { SPRECOGNIZERSTATUS }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\ISpPhrase.ahk" { ISpPhrase }
-#Import ".\ISpProperties.ahk" { ISpProperties }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ISpObjectToken.ahk" { ISpObjectToken }
-#Import ".\SPSTREAMFORMATTYPE.ahk" { SPSTREAMFORMATTYPE }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpRecoContext.ahk" { ISpRecoContext }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISpProperties.ahk" { ISpProperties }
 #Import ".\SPRECOSTATE.ahk" { SPRECOSTATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPSTREAMFORMATTYPE.ahk" { SPSTREAMFORMATTYPE }
+#Import ".\SPRECOGNIZERSTATUS.ahk" { SPRECOGNIZERSTATUS }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\ISpObjectToken.ahk" { ISpObjectToken }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -204,7 +204,7 @@ export default struct ISpRecognizer extends ISpProperties {
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
         pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(20, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
+        result := ComCall(20, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
         return result
     }
 
@@ -223,7 +223,7 @@ export default struct ISpRecognizer extends ISpProperties {
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(21, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "HRESULT")
+        result := ComCall(21, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "HRESULT")
         return result
     }
 

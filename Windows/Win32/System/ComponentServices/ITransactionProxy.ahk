@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\DistributedTransactionCoordinator\ITransactionVoterNotifyAsync2.ahk" { ITransactionVoterNotifyAsync2 }
-#Import "..\DistributedTransactionCoordinator\ITransactionVoterBallotAsync2.ahk" { ITransactionVoterBallotAsync2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\DistributedTransactionCoordinator\ITransactionVoterNotifyAsync2.ahk" { ITransactionVoterNotifyAsync2 }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\DistributedTransactionCoordinator\ITransactionVoterBallotAsync2.ahk" { ITransactionVoterBallotAsync2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a way for a COM+ transaction context to work with a non-DTC transaction.

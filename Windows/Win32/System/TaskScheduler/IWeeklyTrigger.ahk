@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITrigger.ahk" { ITrigger }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITrigger.ahk" { ITrigger }
 
 /**
  * Represents a trigger that starts a task based on a weekly schedule.
@@ -187,7 +187,7 @@ export default struct IWeeklyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-put_daysofweek
      */
     put_DaysOfWeek(days) {
-        result := ComCall(21, this, "short", days, "HRESULT")
+        result := ComCall(21, this, Int16, days, "HRESULT")
         return result
     }
 
@@ -219,7 +219,7 @@ export default struct IWeeklyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-put_weeksinterval
      */
     put_WeeksInterval(weeks) {
-        result := ComCall(23, this, "short", weeks, "HRESULT")
+        result := ComCall(23, this, Int16, weeks, "HRESULT")
         return result
     }
 

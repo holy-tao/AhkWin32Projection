@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHTMLBookmarkCollection.ahk" { IHTMLBookmarkCollection }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IHTMLDataTransfer.ahk" { IHTMLDataTransfer }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
-#Import ".\IHTMLBookmarkCollection.ahk" { IHTMLBookmarkCollection }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLDataTransfer.ahk" { IHTMLDataTransfer }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -315,7 +315,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
     setAttribute(strAttributeName, AttributeValue, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(7, this, BSTR, strAttributeName, VARIANT, AttributeValue, "int", lFlags, "HRESULT")
+        result := ComCall(7, this, BSTR, strAttributeName, VARIANT, AttributeValue, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -329,7 +329,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
         AttributeValue := VARIANT()
-        result := ComCall(8, this, BSTR, strAttributeName, "int", lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
+        result := ComCall(8, this, BSTR, strAttributeName, Int32, lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
         return AttributeValue
     }
 
@@ -342,7 +342,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
     removeAttribute(strAttributeName, lFlags) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(9, this, BSTR, strAttributeName, "int", lFlags, VARIANT_BOOL.Ptr, &pfSuccess := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, strAttributeName, Int32, lFlags, VARIANT_BOOL.Ptr, &pfSuccess := 0, "HRESULT")
         return pfSuccess
     }
 
@@ -608,7 +608,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_button(v) {
-        result := ComCall(36, this, "int", v, "HRESULT")
+        result := ComCall(36, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -671,7 +671,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_reason(v) {
-        result := ComCall(42, this, "int", v, "HRESULT")
+        result := ComCall(42, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -690,7 +690,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_x(v) {
-        result := ComCall(44, this, "int", v, "HRESULT")
+        result := ComCall(44, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -709,7 +709,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_y(v) {
-        result := ComCall(46, this, "int", v, "HRESULT")
+        result := ComCall(46, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -728,7 +728,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_clientX(v) {
-        result := ComCall(48, this, "int", v, "HRESULT")
+        result := ComCall(48, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -747,7 +747,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_clientY(v) {
-        result := ComCall(50, this, "int", v, "HRESULT")
+        result := ComCall(50, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -766,7 +766,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_offsetX(v) {
-        result := ComCall(52, this, "int", v, "HRESULT")
+        result := ComCall(52, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -785,7 +785,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_offsetY(v) {
-        result := ComCall(54, this, "int", v, "HRESULT")
+        result := ComCall(54, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -804,7 +804,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_screenX(v) {
-        result := ComCall(56, this, "int", v, "HRESULT")
+        result := ComCall(56, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -823,7 +823,7 @@ export default struct IHTMLEventObj2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_screenY(v) {
-        result := ComCall(58, this, "int", v, "HRESULT")
+        result := ComCall(58, this, Int32, v, "HRESULT")
         return result
     }
 

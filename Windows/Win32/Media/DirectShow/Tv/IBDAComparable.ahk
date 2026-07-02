@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -78,7 +78,7 @@ export default struct IBDAComparable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-compareequivalent
      */
     CompareEquivalent(CompareTo, dwFlags) {
-        result := ComCall(4, this, "ptr", CompareTo, "uint", dwFlags, "int*", &Result := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", CompareTo, UInt32, dwFlags, "int*", &Result := 0, "HRESULT")
         return Result
     }
 
@@ -107,7 +107,7 @@ export default struct IBDAComparable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-hashexactincremental
      */
     HashExactIncremental(PartialResult) {
-        result := ComCall(6, this, "int64", PartialResult, "int64*", &Result := 0, "HRESULT")
+        result := ComCall(6, this, Int64, PartialResult, "int64*", &Result := 0, "HRESULT")
         return Result
     }
 
@@ -122,7 +122,7 @@ export default struct IBDAComparable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-hashequivalent
      */
     HashEquivalent(dwFlags) {
-        result := ComCall(7, this, "uint", dwFlags, "int64*", &Result := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwFlags, "int64*", &Result := 0, "HRESULT")
         return Result
     }
 
@@ -138,7 +138,7 @@ export default struct IBDAComparable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacomparable-hashequivalentincremental
      */
     HashEquivalentIncremental(PartialResult, dwFlags) {
-        result := ComCall(8, this, "int64", PartialResult, "uint", dwFlags, "int64*", &Result := 0, "HRESULT")
+        result := ComCall(8, this, Int64, PartialResult, UInt32, dwFlags, "int64*", &Result := 0, "HRESULT")
         return Result
     }
 

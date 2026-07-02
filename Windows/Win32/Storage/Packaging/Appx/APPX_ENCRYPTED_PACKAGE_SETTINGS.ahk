@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\System\Com\IUri.ahk" { IUri }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Settings for encrypted Windows app packages.

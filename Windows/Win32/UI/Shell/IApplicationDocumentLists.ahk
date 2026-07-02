@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\APPDOCLISTTYPE.ahk" { APPDOCLISTTYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that allow an application to retrieve the contents of the Recent or Frequent categories in a Jump List.
@@ -98,7 +98,7 @@ export default struct IApplicationDocumentLists extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdocumentlists-getlist
      */
     GetList(listtype, cItemsDesired, riid) {
-        result := ComCall(4, this, APPDOCLISTTYPE, listtype, "uint", cItemsDesired, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, APPDOCLISTTYPE, listtype, UInt32, cItemsDesired, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

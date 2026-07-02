@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITDirectoryObject.ahk" { ITDirectoryObject }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumDirectoryObject interface provides COM-standard enumeration methods for the ITDirectoryObject interface. The ITDirectory::EnumerateDirectoryObjects method returns a pointer to IEnumDirectoryObject.
@@ -56,7 +56,7 @@ export default struct IEnumDirectoryObject extends IUnknown {
     Next(celt, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", &pVal := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, "ptr*", &pVal := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return ITDirectoryObject(pVal)
     }
 
@@ -124,7 +124,7 @@ export default struct IEnumDirectoryObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdirectoryobject-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

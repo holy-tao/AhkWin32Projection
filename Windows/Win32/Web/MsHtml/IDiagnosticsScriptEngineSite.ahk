@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Diagnostics\Debug\ActiveScript\IActiveScriptError.ahk" { IActiveScriptError }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Diagnostics\Debug\ActiveScript\IActiveScriptError.ahk" { IActiveScriptError }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -47,7 +47,7 @@ export default struct IDiagnosticsScriptEngineSite extends IUnknown {
     OnMessage(pszData, ulDataCount) {
         pszDataMarshal := pszData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pszDataMarshal, pszData, "uint", ulDataCount, "HRESULT")
+        result := ComCall(3, this, pszDataMarshal, pszData, UInt32, ulDataCount, "HRESULT")
         return result
     }
 

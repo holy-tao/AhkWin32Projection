@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpatialAudioMetadataReader.ahk" { ISpatialAudioMetadataReader }
-#Import ".\SpatialAudioMetadataWriterOverflowMode.ahk" { SpatialAudioMetadataWriterOverflowMode }
 #Import ".\ISpatialAudioMetadataWriter.ahk" { ISpatialAudioMetadataWriter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISpatialAudioMetadataItemsBuffer.ahk" { ISpatialAudioMetadataItemsBuffer }
-#Import ".\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
 #Import ".\ISpatialAudioMetadataCopier.ahk" { ISpatialAudioMetadataCopier }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpatialAudioMetadataWriterOverflowMode.ahk" { SpatialAudioMetadataWriterOverflowMode }
+#Import ".\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
+#Import ".\ISpatialAudioMetadataReader.ahk" { ISpatialAudioMetadataReader }
 
 /**
  * Provides a class factory for creating ISpatialAudioMetadataItems, ISpatialAudioMetadataWriter, ISpatialAudioMetadataReader, and ISpatialAudioMetadataCopier objects.
@@ -77,7 +77,7 @@ export default struct ISpatialAudioMetadataClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadataitems
      */
     ActivateSpatialAudioMetadataItems(maxItemCount, frameCount, metadataItemsBuffer, metadataItems) {
-        result := ComCall(3, this, "ushort", maxItemCount, "ushort", frameCount, ISpatialAudioMetadataItemsBuffer.Ptr, metadataItemsBuffer, ISpatialAudioMetadataItems.Ptr, metadataItems, "HRESULT")
+        result := ComCall(3, this, UInt16, maxItemCount, UInt16, frameCount, ISpatialAudioMetadataItemsBuffer.Ptr, metadataItemsBuffer, ISpatialAudioMetadataItems.Ptr, metadataItems, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct ISpatialAudioMetadataClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-getspatialaudiometadataitemsbufferlength
      */
     GetSpatialAudioMetadataItemsBufferLength(maxItemCount) {
-        result := ComCall(4, this, "ushort", maxItemCount, "uint*", &bufferLength := 0, "HRESULT")
+        result := ComCall(4, this, UInt16, maxItemCount, "uint*", &bufferLength := 0, "HRESULT")
         return bufferLength
     }
 

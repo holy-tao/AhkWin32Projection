@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SUBSCRIPTIONINFO.ahk" { SUBSCRIPTIONINFO }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SUBSCRIPTIONTYPE.ahk" { SUBSCRIPTIONTYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SUBSCRIPTIONINFO.ahk" { SUBSCRIPTIONINFO }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -150,7 +150,7 @@ export default struct ISubscriptionMgr extends IUnknown {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
         pwszFriendlyName := pwszFriendlyName is String ? StrPtr(pwszFriendlyName) : pwszFriendlyName
 
-        result := ComCall(10, this, HWND, _hwnd, "ptr", pwszURL, "ptr", pwszFriendlyName, "uint", dwFlags, SUBSCRIPTIONTYPE, subsType, SUBSCRIPTIONINFO.Ptr, pInfo, "HRESULT")
+        result := ComCall(10, this, HWND, _hwnd, "ptr", pwszURL, "ptr", pwszFriendlyName, UInt32, dwFlags, SUBSCRIPTIONTYPE, subsType, SUBSCRIPTIONINFO.Ptr, pInfo, "HRESULT")
         return result
     }
 

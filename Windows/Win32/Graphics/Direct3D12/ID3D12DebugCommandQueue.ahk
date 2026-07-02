@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Provides methods to monitor and debug a command queue.
@@ -58,7 +58,7 @@ export default struct ID3D12DebugCommandQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandqueue-assertresourcestate
      */
     AssertResourceState(pResource, Subresource, State) {
-        result := ComCall(3, this, "ptr", pResource, "uint", Subresource, "uint", State, BOOL)
+        result := ComCall(3, this, "ptr", pResource, UInt32, Subresource, UInt32, State, BOOL)
         return result
     }
 

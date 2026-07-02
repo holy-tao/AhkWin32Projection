@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLUSTER_REG_COMMAND.ahk" { CLUSTER_REG_COMMAND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents a result for a single command in a read batch.

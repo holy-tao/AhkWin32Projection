@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDTFilter interface is exposed by the Decrypter/Detagger filter. Applications can use this interface to set the ratings permissions.
@@ -159,7 +159,7 @@ export default struct IDTFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-put_blockedratingattributes
      */
     put_BlockedRatingAttributes(enSystem, enLevel, lbfAttrs) {
-        result := ComCall(6, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enLevel, "int", lbfAttrs, "HRESULT")
+        result := ComCall(6, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enLevel, Int32, lbfAttrs, "HRESULT")
         return result
     }
 
@@ -267,7 +267,7 @@ export default struct IDTFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-put_blockunrateddelay
      */
     put_BlockUnRatedDelay(msecsDelayBeforeBlock) {
-        result := ComCall(10, this, "int", msecsDelayBeforeBlock, "HRESULT")
+        result := ComCall(10, this, Int32, msecsDelayBeforeBlock, "HRESULT")
         return result
     }
 

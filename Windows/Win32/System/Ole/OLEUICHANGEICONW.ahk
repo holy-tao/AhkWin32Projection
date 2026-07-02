@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CHANGE_ICON_FLAGS.ahk" { CHANGE_ICON_FLAGS }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\LPFNOLEUIHOOK.ahk" { LPFNOLEUIHOOK }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\CHANGE_ICON_FLAGS.ahk" { CHANGE_ICON_FLAGS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
@@ -52,7 +53,7 @@ export default struct OLEUICHANGEICONW {
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPFNOLEUIHOOK
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the **lpfnHook** member. The library passes a pointer to the **OLEUICHANGEICON** structure in the lParam parameter of the WM\_INITDIALOG message; this pointer can be used to retrieve the **lCustData** member.

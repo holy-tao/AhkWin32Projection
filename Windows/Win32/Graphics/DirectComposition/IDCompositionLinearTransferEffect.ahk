@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
@@ -83,7 +83,7 @@ export default struct IDCompositionLinearTransferEffect extends IDCompositionFil
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredyintercept(float)
      */
     SetRedYIntercept1(redYIntercept) {
-        result := ComCall(5, this, "float", redYIntercept, "HRESULT")
+        result := ComCall(5, this, Float32, redYIntercept, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IDCompositionLinearTransferEffect extends IDCompositionFil
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredslope(float)
      */
     SetRedSlope1(redSlope) {
-        result := ComCall(7, this, "float", redSlope, "HRESULT")
+        result := ComCall(7, this, Float32, redSlope, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct IDCompositionLinearTransferEffect extends IDCompositionFil
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenyintercept(idcompositionanimation)
      */
     SetGreenYIntercept1(greenYIntercept) {
-        result := ComCall(10, this, "float", greenYIntercept, "HRESULT")
+        result := ComCall(10, this, Float32, greenYIntercept, "HRESULT")
         return result
     }
 
@@ -183,7 +183,7 @@ export default struct IDCompositionLinearTransferEffect extends IDCompositionFil
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenslope(float)
      */
     SetGreenSlope1(greenSlope) {
-        result := ComCall(12, this, "float", greenSlope, "HRESULT")
+        result := ComCall(12, this, Float32, greenSlope, "HRESULT")
         return result
     }
 
@@ -227,7 +227,7 @@ export default struct IDCompositionLinearTransferEffect extends IDCompositionFil
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueyintercept(idcompositionanimation)
      */
     SetBlueYIntercept1(blueYIntercept) {
-        result := ComCall(15, this, "float", blueYIntercept, "HRESULT")
+        result := ComCall(15, this, Float32, blueYIntercept, "HRESULT")
         return result
     }
 
@@ -255,7 +255,7 @@ export default struct IDCompositionLinearTransferEffect extends IDCompositionFil
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueslope(float)
      */
     SetBlueSlope1(blueSlope) {
-        result := ComCall(17, this, "float", blueSlope, "HRESULT")
+        result := ComCall(17, this, Float32, blueSlope, "HRESULT")
         return result
     }
 
@@ -299,7 +299,7 @@ export default struct IDCompositionLinearTransferEffect extends IDCompositionFil
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphayintercept(float)
      */
     SetAlphaYIntercept1(alphaYIntercept) {
-        result := ComCall(20, this, "float", alphaYIntercept, "HRESULT")
+        result := ComCall(20, this, Float32, alphaYIntercept, "HRESULT")
         return result
     }
 
@@ -327,7 +327,7 @@ export default struct IDCompositionLinearTransferEffect extends IDCompositionFil
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphaslope(float)
      */
     SetAlphaSlope1(alphaSlope) {
-        result := ComCall(22, this, "float", alphaSlope, "HRESULT")
+        result := ComCall(22, this, Float32, alphaSlope, "HRESULT")
         return result
     }
 

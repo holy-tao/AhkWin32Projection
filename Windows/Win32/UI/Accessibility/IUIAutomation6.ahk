@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ConnectionRecoveryBehaviorOptions.ahk" { ConnectionRecoveryBehaviorOptions }
-#Import ".\CoalesceEventsOptions.ahk" { CoalesceEventsOptions }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 #Import ".\IUIAutomation5.ahk" { IUIAutomation5 }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 #Import ".\IUIAutomationEventHandlerGroup.ahk" { IUIAutomationEventHandlerGroup }
 #Import ".\TreeScope.ahk" { TreeScope }
+#Import ".\CoalesceEventsOptions.ahk" { CoalesceEventsOptions }
+#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IUIAutomation5 interface to expose additional methods for controlling Microsoft UI Automation functionality.
@@ -208,7 +208,7 @@ export default struct IUIAutomation6 extends IUIAutomation5 {
      * 
      * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, if the event is received simultaneously with the request to unsubscribe the event. The best practice is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an access violation if an event is delivered late.
      * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope The scope of events to be handled; that is, whether they are on the element itself, or on its ancestors and descendants.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or NULL if no caching is wanted.
      * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler A pointer to the object that handles the active text position changed event.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.

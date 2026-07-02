@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWMPMedia.ahk" { IWMPMedia }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
 
 /**
  * The IWMPControls interface provides a way to manipulate the playback of a media item.
@@ -337,7 +337,7 @@ export default struct IWMPControls extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-put_currentposition
      */
     put_currentPosition(dCurrentPosition) {
-        result := ComCall(14, this, "double", dCurrentPosition, "HRESULT")
+        result := ComCall(14, this, Float64, dCurrentPosition, "HRESULT")
         return result
     }
 
@@ -543,7 +543,7 @@ export default struct IWMPControls extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-put_currentmarker
      */
     put_currentMarker(lMarker) {
-        result := ComCall(21, this, "int", lMarker, "HRESULT")
+        result := ComCall(21, this, Int32, lMarker, "HRESULT")
         return result
     }
 

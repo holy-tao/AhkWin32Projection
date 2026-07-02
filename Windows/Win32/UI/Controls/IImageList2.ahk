@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMAGELISTSTATS.ahk" { IMAGELISTSTATS }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import ".\IMAGELIST_CREATION_FLAGS.ahk" { IMAGELIST_CREATION_FLAGS }
+#Import ".\IMAGELISTSTATS.ahk" { IMAGELISTSTATS }
+#Import ".\IImageList.ahk" { IImageList }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
-#Import ".\IImageList.ahk" { IImageList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * Extends IImageList by providing additional methods for manipulating and interacting with image lists.
@@ -67,7 +67,7 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-resize
      */
     Resize(cxNewIconSize, cyNewIconSize) {
-        result := ComCall(32, this, "int", cxNewIconSize, "int", cyNewIconSize, "HRESULT")
+        result := ComCall(32, this, Int32, cxNewIconSize, Int32, cyNewIconSize, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct IImageList2 extends IImageList {
         pcxMarshal := pcx is VarRef ? "int*" : "ptr"
         pcyMarshal := pcy is VarRef ? "int*" : "ptr"
 
-        result := ComCall(33, this, "int", iImage, "uint", dwFlags, pcxMarshal, pcx, pcyMarshal, pcy, "HRESULT")
+        result := ComCall(33, this, Int32, iImage, UInt32, dwFlags, pcxMarshal, pcx, pcyMarshal, pcy, "HRESULT")
         return result
     }
 
@@ -144,7 +144,7 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-setoriginalsize
      */
     SetOriginalSize(iImage, cx, _cy) {
-        result := ComCall(34, this, "int", iImage, "int", cx, "int", _cy, "HRESULT")
+        result := ComCall(34, this, Int32, iImage, Int32, cx, Int32, _cy, "HRESULT")
         return result
     }
 
@@ -221,7 +221,7 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-forceimagepresent
      */
     ForceImagePresent(iImage, dwFlags) {
-        result := ComCall(37, this, "int", iImage, "uint", dwFlags, "HRESULT")
+        result := ComCall(37, this, Int32, iImage, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -293,7 +293,7 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-discardimages
      */
     DiscardImages(iFirstImage, iLastImage, dwFlags) {
-        result := ComCall(38, this, "int", iFirstImage, "int", iLastImage, "uint", dwFlags, "HRESULT")
+        result := ComCall(38, this, Int32, iFirstImage, Int32, iLastImage, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -350,7 +350,7 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-initialize
      */
     Initialize(cx, _cy, flags, cInitial, cGrow) {
-        result := ComCall(41, this, "int", cx, "int", _cy, IMAGELIST_CREATION_FLAGS, flags, "int", cInitial, "int", cGrow, "HRESULT")
+        result := ComCall(41, this, Int32, cx, Int32, _cy, IMAGELIST_CREATION_FLAGS, flags, Int32, cInitial, Int32, cGrow, "HRESULT")
         return result
     }
 
@@ -483,7 +483,7 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-replace2
      */
     Replace2(i, hbmImage, hbmMask, punk, dwFlags) {
-        result := ComCall(42, this, "int", i, HBITMAP, hbmImage, HBITMAP, hbmMask, "ptr", punk, "uint", dwFlags, "HRESULT")
+        result := ComCall(42, this, Int32, i, HBITMAP, hbmImage, HBITMAP, hbmMask, "ptr", punk, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -510,7 +510,7 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-replacefromimagelist
      */
     ReplaceFromImageList(i, pil, iSrc, punk, dwFlags) {
-        result := ComCall(43, this, "int", i, "ptr", pil, "int", iSrc, "ptr", punk, "uint", dwFlags, "HRESULT")
+        result := ComCall(43, this, Int32, i, "ptr", pil, Int32, iSrc, "ptr", punk, UInt32, dwFlags, "HRESULT")
         return result
     }
 

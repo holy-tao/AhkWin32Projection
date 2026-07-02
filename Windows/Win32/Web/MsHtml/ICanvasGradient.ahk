@@ -51,7 +51,7 @@ export default struct ICanvasGradient extends IDispatch {
     addColorStop(offset, _color) {
         _color := _color is String ? BSTR.Alloc(_color).Value : _color
 
-        result := ComCall(7, this, "float", offset, BSTR, _color, "HRESULT")
+        result := ComCall(7, this, Float32, offset, BSTR, _color, "HRESULT")
         return result
     }
 

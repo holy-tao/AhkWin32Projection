@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import ".\IMLangCodePages.ahk" { IMLangCodePages }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Graphics\Gdi\HFONT.ahk" { HFONT }
+#Import "..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -60,7 +60,7 @@ export default struct IMLangFontLink extends IMLangCodePages {
      */
     MapFont(_hDC, dwCodePages, hSrcFont) {
         phDestFont := HFONT.Owned()
-        result := ComCall(8, this, HDC, _hDC, "uint", dwCodePages, HFONT, hSrcFont, HFONT.Ptr, phDestFont, "HRESULT")
+        result := ComCall(8, this, HDC, _hDC, UInt32, dwCodePages, HFONT, hSrcFont, HFONT.Ptr, phDestFont, "HRESULT")
         return phDestFont
     }
 

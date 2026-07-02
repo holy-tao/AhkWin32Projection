@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERACTION_ID.ahk" { INTERACTION_ID }
 #Import ".\INTERACTION_CONFIGURATION_FLAGS.ahk" { INTERACTION_CONFIGURATION_FLAGS }
+#Import ".\INTERACTION_ID.ahk" { INTERACTION_ID }
 
 /**
  * Defines the configuration of an Interaction Context object that enables, disables, or modifies the behavior of an interaction.

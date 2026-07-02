@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReaderStreamClock interface provides access to the clock used by the reader.This interface exists for every reader object.
@@ -102,7 +102,7 @@ export default struct IWMReaderStreamClock extends IUnknown {
     SetTimer(cnsWhen, pvParam) {
         pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", cnsWhen, pvParamMarshal, pvParam, "uint*", &pdwTimerId := 0, "HRESULT")
+        result := ComCall(4, this, Int64, cnsWhen, pvParamMarshal, pvParam, "uint*", &pdwTimerId := 0, "HRESULT")
         return pdwTimerId
     }
 
@@ -113,7 +113,7 @@ export default struct IWMReaderStreamClock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-killtimer
      */
     KillTimer(dwTimerId) {
-        result := ComCall(5, this, "uint", dwTimerId, "HRESULT")
+        result := ComCall(5, this, UInt32, dwTimerId, "HRESULT")
         return result
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICorProfilerInfo10.ahk" { ICorProfilerInfo10 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -51,7 +51,7 @@ export default struct ICorProfilerInfo11 extends ICorProfilerInfo10 {
         szName := szName is String ? StrPtr(szName) : szName
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        result := ComCall(99, this, "ptr", szName, "uint", cchValue, "uint*", &pcchValue := 0, "ptr", szValue, "HRESULT")
+        result := ComCall(99, this, "ptr", szName, UInt32, cchValue, "uint*", &pcchValue := 0, "ptr", szValue, "HRESULT")
         return pcchValue
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IContextMenuCallback.ahk" { IContextMenuCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import ".\IContextMenuCallback.ahk" { IContextMenuCallback }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IContextMenuProvider interface implements methods that create new context menus, for the purpose of adding items to those menus, to enable extensions to extend those menus, and to display the resulting context menus.
@@ -99,7 +99,7 @@ export default struct IContextMenuProvider extends IContextMenuCallback {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icontextmenuprovider-showcontextmenu
      */
     ShowContextMenu(hwndParent, xPos, yPos) {
-        result := ComCall(7, this, HWND, hwndParent, "int", xPos, "int", yPos, "int*", &plSelected := 0, "HRESULT")
+        result := ComCall(7, this, HWND, hwndParent, Int32, xPos, Int32, yPos, "int*", &plSelected := 0, "HRESULT")
         return plSelected
     }
 

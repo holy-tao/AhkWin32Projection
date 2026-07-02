@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfRange.ahk" { ITfRange }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfRangeACP interface is implemented by the TSF manager and is used by an application character position (ACP)-based application to access and manipulate range objects.
@@ -145,7 +145,7 @@ export default struct ITfRangeACP extends ITfRange {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrangeacp-setextent
      */
     SetExtent(acpAnchor, cch) {
-        result := ComCall(26, this, "int", acpAnchor, "int", cch, "HRESULT")
+        result := ComCall(26, this, Int32, acpAnchor, Int32, cch, "HRESULT")
         return result
     }
 

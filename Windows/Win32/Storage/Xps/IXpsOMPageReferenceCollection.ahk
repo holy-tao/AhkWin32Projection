@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IXpsOMPageReference.ahk" { IXpsOMPageReference }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A collection of IXpsOMPageReference interface pointers.
@@ -66,7 +66,7 @@ export default struct IXpsOMPageReferenceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &pageReference := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &pageReference := 0, "HRESULT")
         return IXpsOMPageReference(pageReference)
     }
 
@@ -82,7 +82,7 @@ export default struct IXpsOMPageReferenceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-insertat
      */
     InsertAt(index, pageReference) {
-        result := ComCall(5, this, "uint", index, "ptr", pageReference, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr", pageReference, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IXpsOMPageReferenceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(6, this, "uint", index, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IXpsOMPageReferenceCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-setat
      */
     SetAt(index, pageReference) {
-        result := ComCall(7, this, "uint", index, "ptr", pageReference, "HRESULT")
+        result := ComCall(7, this, UInt32, index, "ptr", pageReference, "HRESULT")
         return result
     }
 

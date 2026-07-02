@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
@@ -51,7 +51,7 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMinThreadCount(minThreads) {
-        result := ComCall(3, this, "uint", minThreads, "HRESULT")
+        result := ComCall(3, this, UInt32, minThreads, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMaxThreadCount(maxThreads) {
-        result := ComCall(5, this, "uint", maxThreads, "HRESULT")
+        result := ComCall(5, this, UInt32, maxThreads, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
      * @returns {HRESULT} 
      */
     SetActivityPerThread(activitiesPerThread) {
-        result := ComCall(7, this, "uint", activitiesPerThread, "HRESULT")
+        result := ComCall(7, this, UInt32, activitiesPerThread, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
      * @returns {HRESULT} 
      */
     SetActivityRatio(activityRatio) {
-        result := ComCall(9, this, "double", activityRatio, "HRESULT")
+        result := ComCall(9, this, Float64, activityRatio, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
      * @returns {HRESULT} 
      */
     SetQueueDepth(dwQDepth) {
-        result := ComCall(13, this, "int", dwQDepth, "HRESULT")
+        result := ComCall(13, this, Int32, dwQDepth, "HRESULT")
         return result
     }
 

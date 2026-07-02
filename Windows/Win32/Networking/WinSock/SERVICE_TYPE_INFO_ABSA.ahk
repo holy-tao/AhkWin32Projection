@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SERVICE_TYPE_VALUE_ABSA.ahk" { SERVICE_TYPE_VALUE_ABSA }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SERVICE_TYPE_VALUE_ABSA.ahk" { SERVICE_TYPE_VALUE_ABSA }
 
 /**
  * The SERVICE_TYPE_INFO_ABS structure contains information about a network service type. Use SERVICE_TYPE_INFO_ABS to add a network service type to a namespace. (ANSI)

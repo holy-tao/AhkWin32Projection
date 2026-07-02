@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The DD_CREATESURFACEEXDATA structure contains information required for the driver to create a surface and associate with it a supplied texture handle.

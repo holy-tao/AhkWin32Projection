@@ -1,18 +1,19 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\GLYPHMETRICSFLOAT.ahk" { GLYPHMETRICSFLOAT }
-#Import "..\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Gdi\HDC.ahk" { HDC }
+#Import ".\GLYPHMETRICSFLOAT.ahk" { GLYPHMETRICSFLOAT }
+#Import ".\GLUtesselator.ahk" { GLUtesselator }
+#Import ".\GLUnurbs.ahk" { GLUnurbs }
 #Import ".\GLUquadric.ahk" { GLUquadric }
 #Import ".\LAYERPLANEDESCRIPTOR.ahk" { LAYERPLANEDESCRIPTOR }
-#Import ".\GLUnurbs.ahk" { GLUnurbs }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PROC.ahk" { PROC }
 #Import ".\HGLRC.ahk" { HGLRC }
-#Import ".\PIXELFORMATDESCRIPTOR.ahk" { PIXELFORMATDESCRIPTOR }
-#Import ".\GLUtesselator.ahk" { GLUtesselator }
+#Import "..\Gdi\HDC.ahk" { HDC }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\PIXELFORMATDESCRIPTOR.ahk" { PIXELFORMATDESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Graphics.OpenGL
@@ -167,7 +168,7 @@ export ChoosePixelFormat(_hdc, ppfd) {
 export DescribePixelFormat(_hdc, iPixelFormat, nBytes, ppfd) {
     A_LastError := 0
 
-    result := DllCall("GDI32.dll\DescribePixelFormat", HDC, _hdc, "int", iPixelFormat, "uint", nBytes, "ptr", ppfd, Int32)
+    result := DllCall("GDI32.dll\DescribePixelFormat", HDC, _hdc, Int32, iPixelFormat, UInt32, nBytes, IntPtr, ppfd, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -215,7 +216,7 @@ export GetPixelFormat(_hdc) {
 export SetPixelFormat(_hdc, format, ppfd) {
     A_LastError := 0
 
-    result := DllCall("GDI32.dll\SetPixelFormat", HDC, _hdc, "int", format, PIXELFORMATDESCRIPTOR.Ptr, ppfd, BOOL)
+    result := DllCall("GDI32.dll\SetPixelFormat", HDC, _hdc, Int32, format, PIXELFORMATDESCRIPTOR.Ptr, ppfd, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -243,7 +244,7 @@ export SetPixelFormat(_hdc, format, ppfd) {
 export GetEnhMetaFilePixelFormat(hemf, cbBuffer, ppfd) {
     A_LastError := 0
 
-    result := DllCall("GDI32.dll\GetEnhMetaFilePixelFormat", HENHMETAFILE, hemf, "uint", cbBuffer, "ptr", ppfd, UInt32)
+    result := DllCall("GDI32.dll\GetEnhMetaFilePixelFormat", HENHMETAFILE, hemf, UInt32, cbBuffer, IntPtr, ppfd, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -257,9 +258,9 @@ export GetEnhMetaFilePixelFormat(hemf, cbBuffer, ppfd) {
  * Using the <b>wglCopyContext</b> function, you can synchronize the rendering state of two rendering contexts. You can only copy the rendering state between two rendering contexts within the same process. The rendering contexts must be from the same OpenGL implementation. For example, you can always copy a rendering state between two rendering contexts with identical pixel format in the same process.
  * 
  * You can copy the same state information available only with the <b>glPushAttrib</b> function. You cannot copy some state information, such as pixel pack/unpack state, render mode state, select state, and feedback state. When you call <b>wglCopyContext</b>, make sure that the destination rendering context, <i>hglrcDst</i>, is not current to any thread.
- * @param {HGLRC} param0 
- * @param {HGLRC} param1 
- * @param {Integer} param2 
+ * @param {HGLRC} param0 Specifies the source OpenGL rendering context whose state information is to be copied.
+ * @param {HGLRC} param1 Specifies the destination OpenGL rendering context to which state information is to be copied.
+ * @param {Integer} param2 Specifies which groups of the <i>hglrcSrc</i> rendering state are to be copied to <i>hglrcDst</i>. It contains the bitwise-OR of the same symbolic names that are passed to the <b>glPushAttrib</b> function. You can use GL_ALL_ATTRIB_BITS to copy all the rendering state information.
  * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-wglcopycontext
  * @since windows5.0
@@ -267,7 +268,7 @@ export GetEnhMetaFilePixelFormat(hemf, cbBuffer, ppfd) {
 export wglCopyContext(param0, param1, param2) {
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglCopyContext", HGLRC, param0, HGLRC, param1, "uint", param2, BOOL)
+    result := DllCall("OPENGL32.dll\wglCopyContext", HGLRC, param0, HGLRC, param1, UInt32, param2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -305,7 +306,7 @@ export wglCopyContext(param0, param1, param2) {
  * // delete the rendering context  
  * wglDeleteContext (hglrc);
  * ```
- * @param {HDC} param0 
+ * @param {HDC} param0 Typically named `handleToDeviceContext`. Handle to a device context for which the function creates a suitable OpenGL rendering context.
  * @returns {HGLRC} If the function succeeds, the return value is a valid handle to an OpenGL rendering context.
  * 
  * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -331,8 +332,8 @@ export wglCreateContext(param0) {
  * Before you create a rendering context, set the pixel format of the device context with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setpixelformat">SetPixelFormat</a> function. You can use a rendering context in a specified layer plane of a window with identical pixel formats only.
  * 
  * With OpenGL applications that use multiple threads, you create a rendering context, select it as the current rendering context of a thread, and make OpenGL calls for the specified thread. When you are finished with the rendering context of the thread, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-wgldeletecontext">wglDeleteContext</a> function.
- * @param {HDC} param0 
- * @param {Integer} param1 
+ * @param {HDC} param0 Specifies the device context for a new rendering context.
+ * @param {Integer} param1 Specifies the layer plane to which you want to bind a rendering context. The value 0 identifies the main plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
  * @returns {HGLRC} If the function succeeds, the return value is a handle to an OpenGL rendering context.
  * 
  * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -342,7 +343,7 @@ export wglCreateContext(param0) {
 export wglCreateLayerContext(param0, param1) {
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglCreateLayerContext", HDC, param0, "int", param1, HGLRC.Owned)
+    result := DllCall("OPENGL32.dll\wglCreateLayerContext", HDC, param0, Int32, param1, HGLRC.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -356,7 +357,7 @@ export wglCreateLayerContext(param0, param1) {
  * It is an error to delete an OpenGL rendering context that is the current context of another thread. However, if a rendering context is the calling thread's current context, the <b>wglDeleteContext</b> function changes the rendering context to being not current before deleting it.
  * 
  * The <b>wglDeleteContext</b> function does not delete the device context associated with the OpenGL rendering context when you call the <b>wglMakeCurrent</b> function. After calling <b>wglDeleteContext</b>, you must call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> to delete the associated device context.
- * @param {HGLRC} param0 
+ * @param {HGLRC} param0 Handle to an OpenGL rendering context that the function will delete.
  * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
  * 
  * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -408,7 +409,7 @@ export wglGetCurrentDC() {
  * The spelling and the case of the extension function pointed to by <i>lpszProc</i> must be identical to that of a function supported and implemented by OpenGL. Because extension functions are not exported by OpenGL, you must use <b>wglGetProcAddress</b> to get the addresses of vendor-specific extension functions.
  * 
  * The extension function addresses are unique for each pixel format. All rendering contexts of a given pixel format share the same extension function addresses.
- * @param {PSTR} param0 
+ * @param {PSTR} param0 Points to a <b>null</b>-terminated string that is the name of the extension function. The name of the extension function must be identical to a corresponding function implemented by OpenGL.
  * @returns {Pointer<PROC>} When the function succeeds, the return value is the address of the extension function.
  * 
  * When no current rendering context exists or the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -420,7 +421,7 @@ export wglGetProcAddress(param0) {
 
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglGetProcAddress", "ptr", param0, IntPtr)
+    result := DllCall("OPENGL32.dll\wglGetProcAddress", "ptr", param0, PROC)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -442,8 +443,10 @@ export wglGetProcAddress(param0) {
  * An application can perform multithread drawing by making different rendering contexts current to different threads, supplying each thread with its own rendering context and device context.
  * 
  * If an error occurs, the <b>wglMakeCurrent</b> function makes the thread's current rendering context not current before returning.
- * @param {HDC} param0 
- * @param {HGLRC} param1 
+ * @param {HDC} param0 Handle to a device context. Subsequent OpenGL calls made by the calling thread are drawn on the device identified by <i>hdc</i>.
+ * @param {HGLRC} param1 Handle to an OpenGL rendering context that the function sets as the calling thread's rendering context.
+ * 
+ * If <i>hglrc</i> is <b>NULL</b>, the function makes the calling thread's current rendering context no longer current, and releases the device context that is used by the rendering context. In this case, <i>hdc</i> is ignored.
  * @returns {BOOL} When the <b>wglMakeCurrent</b> function succeeds, the return value is <b>TRUE</b>; otherwise the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-wglmakecurrent
  * @since windows5.0
@@ -470,8 +473,8 @@ export wglMakeCurrent(param0, param1) {
  * 
  * <div class="alert"><b>Note</b>  The <b>wglShareLists</b> function is only available with OpenGL version 1.01 or later. To determine the version number of the implementation of OpenGL, call <b>glGetString</b>.</div>
  * <div> </div>
- * @param {HGLRC} param0 
- * @param {HGLRC} param1 
+ * @param {HGLRC} param0 Specifies the OpenGL rendering context with which to share display lists.
+ * @param {HGLRC} param1 Specifies the OpenGL rendering context to share display lists with <i>hglrc1</i>. The <i>hglrc2</i> parameter should not contain any existing display lists when <b>wglShareLists</b> is called.
  * @returns {BOOL} When the function succeeds, the return value is <b>TRUE</b>.
  * 
  * When the function fails, the return value is <b>FALSE</b> and the display lists are not shared. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -534,10 +537,10 @@ export wglShareLists(param0, param1) {
  * <td>The bitmap for the glyph, as returned by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getglyphoutlinea">GetGlyphOutline</a> with <i>uFormat</i> equal to 1.</td>
  * </tr>
  * </table>
- * @param {HDC} param0 
- * @param {Integer} param1 
- * @param {Integer} param2 
- * @param {Integer} param3 
+ * @param {HDC} param0 Specifies the device context whose currently selected font will be used to form the glyph bitmap display lists in the current OpenGL rendering context.
+ * @param {Integer} param1 Specifies the first glyph in the run of glyphs that will be used to form glyph bitmap display lists.
+ * @param {Integer} param2 Specifies the number of glyphs in the run of glyphs that will be used to form glyph bitmap display lists. The function creates <i>count</i> display lists, one for each glyph in the run.
+ * @param {Integer} param3 Specifies a starting display list.
  * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
  * 
  * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -547,7 +550,7 @@ export wglShareLists(param0, param1) {
 export wglUseFontBitmapsA(param0, param1, param2, param3) {
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglUseFontBitmapsA", HDC, param0, "uint", param1, "uint", param2, "uint", param3, BOOL)
+    result := DllCall("OPENGL32.dll\wglUseFontBitmapsA", HDC, param0, UInt32, param1, UInt32, param2, UInt32, param3, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -600,10 +603,10 @@ export wglUseFontBitmapsA(param0, param1, param2, param3) {
  * <td>The bitmap for the glyph, as returned by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getglyphoutlinea">GetGlyphOutline</a> with <i>uFormat</i> equal to 1.</td>
  * </tr>
  * </table>
- * @param {HDC} param0 
- * @param {Integer} param1 
- * @param {Integer} param2 
- * @param {Integer} param3 
+ * @param {HDC} param0 Specifies the device context whose currently selected font will be used to form the glyph bitmap display lists in the current OpenGL rendering context.
+ * @param {Integer} param1 Specifies the first glyph in the run of glyphs that will be used to form glyph bitmap display lists.
+ * @param {Integer} param2 Specifies the number of glyphs in the run of glyphs that will be used to form glyph bitmap display lists. The function creates <i>count</i> display lists, one for each glyph in the run.
+ * @param {Integer} param3 Specifies a starting display list.
  * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
  * 
  * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -613,7 +616,7 @@ export wglUseFontBitmapsA(param0, param1, param2, param3) {
 export wglUseFontBitmapsW(param0, param1, param2, param3) {
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglUseFontBitmapsW", HDC, param0, "uint", param1, "uint", param2, "uint", param3, BOOL)
+    result := DllCall("OPENGL32.dll\wglUseFontBitmapsW", HDC, param0, UInt32, param1, UInt32, param2, UInt32, param3, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -627,7 +630,7 @@ export wglUseFontBitmapsW(param0, param1, param2, param3) {
  * If the current pixel format for the window referenced by the device context does not include a back buffer, this call has no effect and the content of the back buffer is undefined when the function returns.
  * 
  * With multithread applications, flush the drawing commands in any other threads drawing to the same window before calling <b>SwapBuffers</b>.
- * @param {HDC} param0 
+ * @param {HDC} param0 Specifies a device context. If the current pixel format for the window referenced by this device context includes a back buffer, the function exchanges the front and back buffers.
  * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
  * 
  * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -665,14 +668,14 @@ export SwapBuffers(param0) {
  * 
  * <div class="alert"><b>Note</b>  With OpenGL for Windows, you cannot make GDI calls to a device context when a pixel format is double-buffered. You can work around this limitation by using <b>wglUseFontOutlines</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-wglusefontbitmapsa">wglUseFontBitmaps</a>, when using double-buffered device contexts.</div>
  * <div> </div>
- * @param {HDC} param0 
- * @param {Integer} param1 
- * @param {Integer} param2 
- * @param {Integer} param3 
- * @param {Float} param4 
- * @param {Float} param5 
- * @param {Integer} param6 
- * @param {Pointer<GLYPHMETRICSFLOAT>} param7 
+ * @param {HDC} param0 Specifies the device context with the desired outline font. The outline font of <i>hdc</i> is used to create the display lists in the current rendering context.
+ * @param {Integer} param1 Specifies the first of the set of glyphs that form the font outline display lists.
+ * @param {Integer} param2 Specifies the number of glyphs in the set of glyphs used to form the font outline display lists. The <b>wglUseFontOutlines</b> function creates <i>count</i> display lists, one display list for each glyph in a set of glyphs.
+ * @param {Integer} param3 Specifies a starting display list.
+ * @param {Float} param4 Specifies the maximum chordal deviation from the original outlines. When deviation is zero, the chordal deviation is equivalent to one design unit of the original font. The value of <i>deviation</i> must be equal to or greater than 0.
+ * @param {Float} param5 Specifies how much a font is extruded in the negative <i>z</i> direction. The value must be equal to or greater than 0. When <i>extrusion</i> is 0, the display lists are not extruded.
+ * @param {Integer} param6 Specifies the format, either WGL_FONT_LINES or WGL_FONT_POLYGONS, to use in the display lists. When <i>format</i> is WGL_FONT_LINES, the <b>wglUseFontOutlines</b> function creates fonts with line segments. When <i>format</i> is WGL_FONT_POLYGONS, <b>wglUseFontOutlines</b> creates fonts with polygons.
+ * @param {Pointer<GLYPHMETRICSFLOAT>} param7 Points to an array of <i>count</i><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-glyphmetricsfloat">GLYPHMETRICSFLOAT</a> structures that is to receive the metrics of the glyphs. When <i>lpgmf</i> is <b>NULL</b>, no glyph metrics are returned.
  * @returns {BOOL} When the function succeeds, the return value is <b>TRUE</b>.
  * 
  * When the function fails, the return value is <b>FALSE</b> and no display lists are generated. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -682,7 +685,7 @@ export SwapBuffers(param0) {
 export wglUseFontOutlinesA(param0, param1, param2, param3, param4, param5, param6, param7) {
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglUseFontOutlinesA", HDC, param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, GLYPHMETRICSFLOAT.Ptr, param7, BOOL)
+    result := DllCall("OPENGL32.dll\wglUseFontOutlinesA", HDC, param0, UInt32, param1, UInt32, param2, UInt32, param3, Float32, param4, Float32, param5, Int32, param6, GLYPHMETRICSFLOAT.Ptr, param7, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -710,14 +713,14 @@ export wglUseFontOutlinesA(param0, param1, param2, param3, param4, param5, param
  * 
  * <div class="alert"><b>Note</b>  With OpenGL for Windows, you cannot make GDI calls to a device context when a pixel format is double-buffered. You can work around this limitation by using <b>wglUseFontOutlines</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-wglusefontbitmapsa">wglUseFontBitmaps</a>, when using double-buffered device contexts.</div>
  * <div> </div>
- * @param {HDC} param0 
- * @param {Integer} param1 
- * @param {Integer} param2 
- * @param {Integer} param3 
- * @param {Float} param4 
- * @param {Float} param5 
- * @param {Integer} param6 
- * @param {Pointer<GLYPHMETRICSFLOAT>} param7 
+ * @param {HDC} param0 Specifies the device context with the desired outline font. The outline font of <i>hdc</i> is used to create the display lists in the current rendering context.
+ * @param {Integer} param1 Specifies the first of the set of glyphs that form the font outline display lists.
+ * @param {Integer} param2 Specifies the number of glyphs in the set of glyphs used to form the font outline display lists. The <b>wglUseFontOutlines</b> function creates <i>count</i> display lists, one display list for each glyph in a set of glyphs.
+ * @param {Integer} param3 Specifies a starting display list.
+ * @param {Float} param4 Specifies the maximum chordal deviation from the original outlines. When deviation is zero, the chordal deviation is equivalent to one design unit of the original font. The value of <i>deviation</i> must be equal to or greater than 0.
+ * @param {Float} param5 Specifies how much a font is extruded in the negative <i>z</i> direction. The value must be equal to or greater than 0. When <i>extrusion</i> is 0, the display lists are not extruded.
+ * @param {Integer} param6 Specifies the format, either WGL_FONT_LINES or WGL_FONT_POLYGONS, to use in the display lists. When <i>format</i> is WGL_FONT_LINES, the <b>wglUseFontOutlines</b> function creates fonts with line segments. When <i>format</i> is WGL_FONT_POLYGONS, <b>wglUseFontOutlines</b> creates fonts with polygons.
+ * @param {Pointer<GLYPHMETRICSFLOAT>} param7 Points to an array of <i>count</i><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-glyphmetricsfloat">GLYPHMETRICSFLOAT</a> structures that is to receive the metrics of the glyphs. When <i>lpgmf</i> is <b>NULL</b>, no glyph metrics are returned.
  * @returns {BOOL} When the function succeeds, the return value is <b>TRUE</b>.
  * 
  * When the function fails, the return value is <b>FALSE</b> and no display lists are generated. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -727,7 +730,7 @@ export wglUseFontOutlinesA(param0, param1, param2, param3, param4, param5, param
 export wglUseFontOutlinesW(param0, param1, param2, param3, param4, param5, param6, param7) {
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglUseFontOutlinesW", HDC, param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, GLYPHMETRICSFLOAT.Ptr, param7, BOOL)
+    result := DllCall("OPENGL32.dll\wglUseFontOutlinesW", HDC, param0, UInt32, param1, UInt32, param2, UInt32, param3, Float32, param4, Float32, param5, Int32, param6, GLYPHMETRICSFLOAT.Ptr, param7, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -739,11 +742,11 @@ export wglUseFontOutlinesW(param0, param1, param2, param3, param4, param5, param
  * The wglDescribeLayerPlane function obtains information about the layer planes of a given pixel format.
  * @remarks
  * The numbering of planes (<i>iLayerPlane</i> ) determines their order. Higher-numbered planes overlay lower-numbered planes.
- * @param {HDC} param0 
- * @param {Integer} param1 
- * @param {Integer} param2 
- * @param {Integer} param3 
- * @param {Pointer<LAYERPLANEDESCRIPTOR>} param4 
+ * @param {HDC} param0 Specifies the device context of a window whose layer planes are to be described.
+ * @param {Integer} param1 Specifies which layer planes of a pixel format are being described.
+ * @param {Integer} param2 Specifies the overlay or underlay plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
+ * @param {Integer} param3 Specifies the size, in bytes, of the structure pointed to by <i>plpd</i>. The <b>wglDescribeLayerPlane</b> function stores layer plane data in a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-layerplanedescriptor">LAYERPLANEDESCRIPTOR</a> structure, and stores no more than <i>nBytes</i> of data. Set the value of <i>nBytes</i> to the size of <b>LAYERPLANEDESCRIPTOR</b>.
+ * @param {Pointer<LAYERPLANEDESCRIPTOR>} param4 Points to a <b>LAYERPLANEDESCRIPTOR</b> structure. The <b>wglDescribeLayerPlane</b> function sets the value of the structure's data members. The function stores the number of bytes of data copied to the structure in the <b>nSize</b> member.
  * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. In addition, the <b>wglDescribeLayerPlane</b> function sets the members of the <b>LAYERPLANEDESCRIPTOR</b> structure pointed to by <i>plpd</i> according to the specified layer plane (<i>iLayerPlane</i> ) of the specified pixel format (<i>iPixelFormat</i> ).
  * 
  * If the function fails, the return value is <b>FALSE</b>.
@@ -751,7 +754,7 @@ export wglUseFontOutlinesW(param0, param1, param2, param3, param4, param5, param
  * @since windows5.0
  */
 export wglDescribeLayerPlane(param0, param1, param2, param3, param4) {
-    result := DllCall("OPENGL32.dll\wglDescribeLayerPlane", HDC, param0, "int", param1, "int", param2, "uint", param3, LAYERPLANEDESCRIPTOR.Ptr, param4, BOOL)
+    result := DllCall("OPENGL32.dll\wglDescribeLayerPlane", HDC, param0, Int32, param1, Int32, param2, UInt32, param3, LAYERPLANEDESCRIPTOR.Ptr, param4, BOOL)
     return result
 }
 
@@ -763,11 +766,21 @@ export wglDescribeLayerPlane(param0, param1, param2, param3, param4) {
  * Use the <b>wglRealizeLayerPalette</b> function to realize the layer palette. Initially the layer palette contains only entries for white.
  * 
  * The <b>wglSetLayerPaletteEntries</b> function doesn't set the palette entries of the main plane palette. To update the main plane palette, use GDI palette functions.
- * @param {HDC} param0 
- * @param {Integer} param1 
- * @param {Integer} param2 
- * @param {Integer} param3 
- * @param {Pointer<COLORREF>} param4 
+ * @param {HDC} param0 Type: <b>HDC</b>
+ * 
+ * The device context of a window whose layer palette is to be set.
+ * @param {Integer} param1 Type: <b>int</b>
+ * 
+ * An overlay or underlay plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
+ * @param {Integer} param2 Type: <b>int</b>
+ * 
+ * The first palette entry to be set.
+ * @param {Integer} param3 Type: <b>int</b>
+ * 
+ * The number of palette entries to be set.
+ * @param {Pointer<COLORREF>} param4 Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
+ * 
+ * A pointer to the first member of an array of <i>cEntries</i> structures that contain RGB color information.
  * @returns {Integer} Type: <b>int</b>
  * 
  * If the function succeeds, the return value is the number of entries that were set in the palette in the specified layer plane of the window. If the function fails or no pixel format is selected, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -779,7 +792,7 @@ export wglSetLayerPaletteEntries(param0, param1, param2, param3, param4) {
 
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglSetLayerPaletteEntries", HDC, param0, "int", param1, "int", param2, "int", param3, param4Marshal, param4, Int32)
+    result := DllCall("OPENGL32.dll\wglSetLayerPaletteEntries", HDC, param0, Int32, param1, Int32, param2, Int32, param3, param4Marshal, param4, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -793,11 +806,21 @@ export wglSetLayerPaletteEntries(param0, param1, param2, param3, param4) {
  * Each color-index layer plane in a window has a palette with a size 2^<i>n</i>, where <i>n</i> is the number of bit planes in the layer plane. You cannot modify the transparent index of a palette.
  * 
  * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-wglrealizelayerpalette">wglRealizeLayerPalette</a> function to realize the layer palette. Initially the layer palette contains only entries for white.
- * @param {HDC} param0 
- * @param {Integer} param1 
- * @param {Integer} param2 
- * @param {Integer} param3 
- * @param {Pointer<COLORREF>} param4 
+ * @param {HDC} param0 Type: <b>HDC</b>
+ * 
+ * The device context of a window whose layer planes are to be described.
+ * @param {Integer} param1 Type: <b>int</b>
+ * 
+ * The overlay or underlay plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
+ * @param {Integer} param2 Type: <b>int</b>
+ * 
+ * The first palette entry to be retrieved.
+ * @param {Integer} param3 Type: <b>int</b>
+ * 
+ * The number of palette entries to be retrieved.
+ * @param {Pointer<COLORREF>} param4 Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
+ * 
+ * An array of structures that contain palette RGB color values. The array must contain at least as many structures as specified by <i>cEntries</i>.
  * @returns {Integer} Type: <b>int</b>
  * 
  * If the function succeeds, the return value is the number of entries that were set in the palette in the specified layer plane of the window.
@@ -811,7 +834,7 @@ export wglGetLayerPaletteEntries(param0, param1, param2, param3, param4) {
 
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglGetLayerPaletteEntries", HDC, param0, "int", param1, "int", param2, "int", param3, param4Marshal, param4, Int32)
+    result := DllCall("OPENGL32.dll\wglGetLayerPaletteEntries", HDC, param0, Int32, param1, Int32, param2, Int32, param3, param4Marshal, param4, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -829,9 +852,9 @@ export wglGetLayerPaletteEntries(param0, param1, param2, param3, param4) {
  * Whenever a window becomes the foreground window, call <b>wglRealizeLayerPalette</b> to realize its layer palettes again, even if the pixel type of the layer plane is RGBA.
  * 
  * Because <b>wglRealizeLayerPalette</b> doesn't realize the palette of the main plane, use GDI palette functions to realize the main plane palette.
- * @param {HDC} param0 
- * @param {Integer} param1 
- * @param {BOOL} param2 
+ * @param {HDC} param0 Specifies the device context of a window whose layer plane palette is to be realized into the physical palette.
+ * @param {Integer} param1 Specifies the overlay or underlay plane. Positive values of <i>iLayerPlane</i> identify overlay planes, where 1 is the first overlay plane over the main plane, 2 is the second overlay plane over the first overlay plane, and so on. Negative values identify underlay planes, where 1 is the first underlay plane under the main plane, 2 is the second underlay plane under the first underlay plane, and so on. The number of overlay and underlay planes is given in the <b>bReserved</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure.
+ * @param {BOOL} param2 Indicates whether the palette is to be realized into the physical palette. When <i>bRealize</i> is <b>TRUE</b>, the palette entries are mapped into the physical palette where available. When <i>bRealize</i> is <b>FALSE</b>, the palette entries for the layer plane of the window are no longer needed and might be released for use by another foreground window.
  * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>, even if <i>bRealize</i> is <b>TRUE</b> and the physical palette is not available. If the function fails or when no pixel format is selected, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-wglrealizelayerpalette
  * @since windows5.0
@@ -839,7 +862,7 @@ export wglGetLayerPaletteEntries(param0, param1, param2, param3, param4) {
 export wglRealizeLayerPalette(param0, param1, param2) {
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglRealizeLayerPalette", HDC, param0, "int", param1, BOOL, param2, BOOL)
+    result := DllCall("OPENGL32.dll\wglRealizeLayerPalette", HDC, param0, Int32, param1, BOOL, param2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -855,7 +878,7 @@ export wglRealizeLayerPalette(param0, param1, param2) {
  * Some devices don't support swapping layer planes individually; they swap all layer planes as a group. When the PFD_SWAP_LAYER_BUFFERS flag of the <b>PIXELFORMATDESCRIPTOR</b> structure is set, it indicates that a device can swap individual layer planes and that you can call <b>wglSwapLayerBuffers</b>.
  * 
  * With applications that use multiple threads, before calling <b>wglSwapLayerBuffers</b>, clear all drawing commands in all threads drawing to the same window.
- * @param {HDC} param0 
+ * @param {HDC} param0 Specifies the device context of a window whose layer plane palette is to be realized into the physical palette.
  * @param {Integer} param1 
  * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-wglswaplayerbuffers
@@ -864,7 +887,7 @@ export wglRealizeLayerPalette(param0, param1, param2) {
 export wglSwapLayerBuffers(param0, param1) {
     A_LastError := 0
 
-    result := DllCall("OPENGL32.dll\wglSwapLayerBuffers", HDC, param0, "uint", param1, BOOL)
+    result := DllCall("OPENGL32.dll\wglSwapLayerBuffers", HDC, param0, UInt32, param1, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -912,7 +935,7 @@ export wglSwapLayerBuffers(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glaccum
  */
 export glAccum(op, value) {
-    DllCall("OPENGL32.dll\glAccum", "uint", op, "float", value)
+    DllCall("OPENGL32.dll\glAccum", UInt32, op, Float32, value)
 }
 
 /**
@@ -952,7 +975,7 @@ export glAccum(op, value) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glalphafunc
  */
 export glAlphaFunc(_func, ref) {
-    DllCall("OPENGL32.dll\glAlphaFunc", "uint", _func, "float", ref)
+    DllCall("OPENGL32.dll\glAlphaFunc", UInt32, _func, Float32, ref)
 }
 
 /**
@@ -984,7 +1007,7 @@ export glAreTexturesResident(n, textures, residences) {
     texturesMarshal := textures is VarRef ? "uint*" : "ptr"
     residencesMarshal := residences is VarRef ? "char*" : "ptr"
 
-    result := DllCall("OPENGL32.dll\glAreTexturesResident", "int", n, texturesMarshal, textures, residencesMarshal, residences, Int8)
+    result := DllCall("OPENGL32.dll\glAreTexturesResident", Int32, n, texturesMarshal, textures, residencesMarshal, residences, Int8)
     return result
 }
 
@@ -1008,7 +1031,7 @@ export glAreTexturesResident(n, textures, residences) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glarrayelement
  */
 export glArrayElement(i) {
-    DllCall("OPENGL32.dll\glArrayElement", "int", i)
+    DllCall("OPENGL32.dll\glArrayElement", Int32, i)
 }
 
 /**
@@ -1090,7 +1113,7 @@ export glArrayElement(i) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glbegin
  */
 export glBegin(_mode) {
-    DllCall("OPENGL32.dll\glBegin", "uint", _mode)
+    DllCall("OPENGL32.dll\glBegin", UInt32, _mode)
 }
 
 /**
@@ -1124,7 +1147,7 @@ export glBegin(_mode) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glbindtexture
  */
 export glBindTexture(target, texture) {
-    DllCall("OPENGL32.dll\glBindTexture", "uint", target, "uint", texture)
+    DllCall("OPENGL32.dll\glBindTexture", UInt32, target, UInt32, texture)
 }
 
 /**
@@ -1176,7 +1199,7 @@ export glBindTexture(target, texture) {
 export glBitmap(width, height, xorig, yorig, xmove, ymove, _bitmap) {
     _bitmapMarshal := _bitmap is VarRef ? "char*" : "ptr"
 
-    DllCall("OPENGL32.dll\glBitmap", "int", width, "int", height, "float", xorig, "float", yorig, "float", xmove, "float", ymove, _bitmapMarshal, _bitmap)
+    DllCall("OPENGL32.dll\glBitmap", Int32, width, Int32, height, Float32, xorig, Float32, yorig, Float32, xmove, Float32, ymove, _bitmapMarshal, _bitmap)
 }
 
 /**
@@ -1249,7 +1272,7 @@ export glBitmap(width, height, xorig, yorig, xmove, ymove, _bitmap) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glblendfunc
  */
 export glBlendFunc(sfactor, dfactor) {
-    DllCall("OPENGL32.dll\glBlendFunc", "uint", sfactor, "uint", dfactor)
+    DllCall("OPENGL32.dll\glBlendFunc", UInt32, sfactor, UInt32, dfactor)
 }
 
 /**
@@ -1273,7 +1296,7 @@ export glBlendFunc(sfactor, dfactor) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcalllist
  */
 export glCallList(list) {
-    DllCall("OPENGL32.dll\glCallList", "uint", list)
+    DllCall("OPENGL32.dll\glCallList", UInt32, list)
 }
 
 /**
@@ -1324,7 +1347,7 @@ export glCallList(list) {
 export glCallLists(n, type, lists) {
     listsMarshal := lists is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glCallLists", "int", n, "uint", type, listsMarshal, lists)
+    DllCall("OPENGL32.dll\glCallLists", Int32, n, UInt32, type, listsMarshal, lists)
 }
 
 /**
@@ -1365,7 +1388,7 @@ export glCallLists(n, type, lists) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glclear
  */
 export glClear(mask) {
-    DllCall("OPENGL32.dll\glClear", "uint", mask)
+    DllCall("OPENGL32.dll\glClear", UInt32, mask)
 }
 
 /**
@@ -1386,7 +1409,7 @@ export glClear(mask) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearaccum
  */
 export glClearAccum(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glClearAccum", "float", red, "float", green, "float", blue, "float", alpha)
+    DllCall("OPENGL32.dll\glClearAccum", Float32, red, Float32, green, Float32, blue, Float32, alpha)
 }
 
 /**
@@ -1407,7 +1430,7 @@ export glClearAccum(red, green, blue, alpha) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearcolor
  */
 export glClearColor(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glClearColor", "float", red, "float", green, "float", blue, "float", alpha)
+    DllCall("OPENGL32.dll\glClearColor", Float32, red, Float32, green, Float32, blue, Float32, alpha)
 }
 
 /**
@@ -1423,7 +1446,7 @@ export glClearColor(red, green, blue, alpha) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcleardepth
  */
 export glClearDepth(depth) {
-    DllCall("OPENGL32.dll\glClearDepth", "double", depth)
+    DllCall("OPENGL32.dll\glClearDepth", Float64, depth)
 }
 
 /**
@@ -1441,7 +1464,7 @@ export glClearDepth(depth) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearindex
  */
 export glClearIndex(c) {
-    DllCall("OPENGL32.dll\glClearIndex", "float", c)
+    DllCall("OPENGL32.dll\glClearIndex", Float32, c)
 }
 
 /**
@@ -1459,7 +1482,7 @@ export glClearIndex(c) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glclearstencil
  */
 export glClearStencil(s) {
-    DllCall("OPENGL32.dll\glClearStencil", "int", s)
+    DllCall("OPENGL32.dll\glClearStencil", Int32, s)
 }
 
 /**
@@ -1488,7 +1511,7 @@ export glClearStencil(s) {
 export glClipPlane(plane, equation) {
     equationMarshal := equation is VarRef ? "double*" : "ptr"
 
-    DllCall("OPENGL32.dll\glClipPlane", "uint", plane, equationMarshal, equation)
+    DllCall("OPENGL32.dll\glClipPlane", UInt32, plane, equationMarshal, equation)
 }
 
 /**
@@ -1508,7 +1531,7 @@ export glClipPlane(plane, equation) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3b
  */
 export glColor3b(red, green, blue) {
-    DllCall("OPENGL32.dll\glColor3b", "char", red, "char", green, "char", blue)
+    DllCall("OPENGL32.dll\glColor3b", Int8, red, Int8, green, Int8, blue)
 }
 
 /**
@@ -1548,7 +1571,7 @@ export glColor3bv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3d
  */
 export glColor3d(red, green, blue) {
-    DllCall("OPENGL32.dll\glColor3d", "double", red, "double", green, "double", blue)
+    DllCall("OPENGL32.dll\glColor3d", Float64, red, Float64, green, Float64, blue)
 }
 
 /**
@@ -1588,7 +1611,7 @@ export glColor3dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3f
  */
 export glColor3f(red, green, blue) {
-    DllCall("OPENGL32.dll\glColor3f", "float", red, "float", green, "float", blue)
+    DllCall("OPENGL32.dll\glColor3f", Float32, red, Float32, green, Float32, blue)
 }
 
 /**
@@ -1628,7 +1651,7 @@ export glColor3fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3i
  */
 export glColor3i(red, green, blue) {
-    DllCall("OPENGL32.dll\glColor3i", "int", red, "int", green, "int", blue)
+    DllCall("OPENGL32.dll\glColor3i", Int32, red, Int32, green, Int32, blue)
 }
 
 /**
@@ -1668,7 +1691,7 @@ export glColor3iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3s
  */
 export glColor3s(red, green, blue) {
-    DllCall("OPENGL32.dll\glColor3s", "short", red, "short", green, "short", blue)
+    DllCall("OPENGL32.dll\glColor3s", Int16, red, Int16, green, Int16, blue)
 }
 
 /**
@@ -1708,7 +1731,7 @@ export glColor3sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3ub
  */
 export glColor3ub(red, green, blue) {
-    DllCall("OPENGL32.dll\glColor3ub", "char", red, "char", green, "char", blue)
+    DllCall("OPENGL32.dll\glColor3ub", Int8, red, Int8, green, Int8, blue)
 }
 
 /**
@@ -1748,7 +1771,7 @@ export glColor3ubv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3ui
  */
 export glColor3ui(red, green, blue) {
-    DllCall("OPENGL32.dll\glColor3ui", "uint", red, "uint", green, "uint", blue)
+    DllCall("OPENGL32.dll\glColor3ui", UInt32, red, UInt32, green, UInt32, blue)
 }
 
 /**
@@ -1788,7 +1811,7 @@ export glColor3uiv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor3us
  */
 export glColor3us(red, green, blue) {
-    DllCall("OPENGL32.dll\glColor3us", "ushort", red, "ushort", green, "ushort", blue)
+    DllCall("OPENGL32.dll\glColor3us", UInt16, red, UInt16, green, UInt16, blue)
 }
 
 /**
@@ -1829,7 +1852,7 @@ export glColor3usv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4b
  */
 export glColor4b(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glColor4b", "char", red, "char", green, "char", blue, "char", alpha)
+    DllCall("OPENGL32.dll\glColor4b", Int8, red, Int8, green, Int8, blue, Int8, alpha)
 }
 
 /**
@@ -1870,7 +1893,7 @@ export glColor4bv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4d
  */
 export glColor4d(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glColor4d", "double", red, "double", green, "double", blue, "double", alpha)
+    DllCall("OPENGL32.dll\glColor4d", Float64, red, Float64, green, Float64, blue, Float64, alpha)
 }
 
 /**
@@ -1911,7 +1934,7 @@ export glColor4dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4f
  */
 export glColor4f(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glColor4f", "float", red, "float", green, "float", blue, "float", alpha)
+    DllCall("OPENGL32.dll\glColor4f", Float32, red, Float32, green, Float32, blue, Float32, alpha)
 }
 
 /**
@@ -1952,7 +1975,7 @@ export glColor4fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4i
  */
 export glColor4i(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glColor4i", "int", red, "int", green, "int", blue, "int", alpha)
+    DllCall("OPENGL32.dll\glColor4i", Int32, red, Int32, green, Int32, blue, Int32, alpha)
 }
 
 /**
@@ -1993,7 +2016,7 @@ export glColor4iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4s
  */
 export glColor4s(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glColor4s", "short", red, "short", green, "short", blue, "short", alpha)
+    DllCall("OPENGL32.dll\glColor4s", Int16, red, Int16, green, Int16, blue, Int16, alpha)
 }
 
 /**
@@ -2034,7 +2057,7 @@ export glColor4sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4ub
  */
 export glColor4ub(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glColor4ub", "char", red, "char", green, "char", blue, "char", alpha)
+    DllCall("OPENGL32.dll\glColor4ub", Int8, red, Int8, green, Int8, blue, Int8, alpha)
 }
 
 /**
@@ -2075,7 +2098,7 @@ export glColor4ubv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4ui
  */
 export glColor4ui(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glColor4ui", "uint", red, "uint", green, "uint", blue, "uint", alpha)
+    DllCall("OPENGL32.dll\glColor4ui", UInt32, red, UInt32, green, UInt32, blue, UInt32, alpha)
 }
 
 /**
@@ -2116,7 +2139,7 @@ export glColor4uiv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolor4us
  */
 export glColor4us(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glColor4us", "ushort", red, "ushort", green, "ushort", blue, "ushort", alpha)
+    DllCall("OPENGL32.dll\glColor4us", UInt16, red, UInt16, green, UInt16, blue, UInt16, alpha)
 }
 
 /**
@@ -2159,7 +2182,7 @@ export glColor4usv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolormask
  */
 export glColorMask(red, green, blue, alpha) {
-    DllCall("OPENGL32.dll\glColorMask", "char", red, "char", green, "char", blue, "char", alpha)
+    DllCall("OPENGL32.dll\glColorMask", Int8, red, Int8, green, Int8, blue, Int8, alpha)
 }
 
 /**
@@ -2182,7 +2205,7 @@ export glColorMask(red, green, blue, alpha) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcolormaterial
  */
 export glColorMaterial(face, _mode) {
-    DllCall("OPENGL32.dll\glColorMaterial", "uint", face, "uint", _mode)
+    DllCall("OPENGL32.dll\glColorMaterial", UInt32, face, UInt32, _mode)
 }
 
 /**
@@ -2219,7 +2242,7 @@ export glColorMaterial(face, _mode) {
 export glColorPointer(_size, type, stride, pointer) {
     pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glColorPointer", "int", _size, "uint", type, "int", stride, pointerMarshal, pointer)
+    DllCall("OPENGL32.dll\glColorPointer", Int32, _size, UInt32, type, Int32, stride, pointerMarshal, pointer)
 }
 
 /**
@@ -2274,7 +2297,7 @@ export glColorPointer(_size, type, stride, pointer) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopypixels
  */
 export glCopyPixels(x, y, width, height, type) {
-    DllCall("OPENGL32.dll\glCopyPixels", "int", x, "int", y, "int", width, "int", height, "uint", type)
+    DllCall("OPENGL32.dll\glCopyPixels", Int32, x, Int32, y, Int32, width, Int32, height, UInt32, type)
 }
 
 /**
@@ -2352,7 +2375,7 @@ export glCopyPixels(x, y, width, height, type) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopyteximage1d
  */
 export glCopyTexImage1D(target, level, internalFormat, x, y, width, border) {
-    DllCall("OPENGL32.dll\glCopyTexImage1D", "uint", target, "int", level, "uint", internalFormat, "int", x, "int", y, "int", width, "int", border)
+    DllCall("OPENGL32.dll\glCopyTexImage1D", UInt32, target, Int32, level, UInt32, internalFormat, Int32, x, Int32, y, Int32, width, Int32, border)
 }
 
 /**
@@ -2431,7 +2454,7 @@ export glCopyTexImage1D(target, level, internalFormat, x, y, width, border) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopyteximage2d
  */
 export glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border) {
-    DllCall("OPENGL32.dll\glCopyTexImage2D", "uint", target, "int", level, "uint", internalFormat, "int", x, "int", y, "int", width, "int", height, "int", border)
+    DllCall("OPENGL32.dll\glCopyTexImage2D", UInt32, target, Int32, level, UInt32, internalFormat, Int32, x, Int32, y, Int32, width, Int32, height, Int32, border)
 }
 
 /**
@@ -2469,7 +2492,7 @@ export glCopyTexImage2D(target, level, internalFormat, x, y, width, height, bord
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopytexsubimage1d
  */
 export glCopyTexSubImage1D(target, level, xoffset, x, y, width) {
-    DllCall("OPENGL32.dll\glCopyTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", x, "int", y, "int", width)
+    DllCall("OPENGL32.dll\glCopyTexSubImage1D", UInt32, target, Int32, level, Int32, xoffset, Int32, x, Int32, y, Int32, width)
 }
 
 /**
@@ -2509,7 +2532,7 @@ export glCopyTexSubImage1D(target, level, xoffset, x, y, width) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcopytexsubimage2d
  */
 export glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height) {
-    DllCall("OPENGL32.dll\glCopyTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", x, "int", y, "int", width, "int", height)
+    DllCall("OPENGL32.dll\glCopyTexSubImage2D", UInt32, target, Int32, level, Int32, xoffset, Int32, yoffset, Int32, x, Int32, y, Int32, width, Int32, height)
 }
 
 /**
@@ -2531,7 +2554,7 @@ export glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height)
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glcullface
  */
 export glCullFace(_mode) {
-    DllCall("OPENGL32.dll\glCullFace", "uint", _mode)
+    DllCall("OPENGL32.dll\glCullFace", UInt32, _mode)
 }
 
 /**
@@ -2546,7 +2569,7 @@ export glCullFace(_mode) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gldeletelists
  */
 export glDeleteLists(list, range) {
-    DllCall("OPENGL32.dll\glDeleteLists", "uint", list, "int", range)
+    DllCall("OPENGL32.dll\glDeleteLists", UInt32, list, Int32, range)
 }
 
 /**
@@ -2574,7 +2597,7 @@ export glDeleteLists(list, range) {
 export glDeleteTextures(n, textures) {
     texturesMarshal := textures is VarRef ? "uint*" : "ptr"
 
-    DllCall("OPENGL32.dll\glDeleteTextures", "int", n, texturesMarshal, textures)
+    DllCall("OPENGL32.dll\glDeleteTextures", Int32, n, texturesMarshal, textures)
 }
 
 /**
@@ -2607,7 +2630,7 @@ export glDeleteTextures(n, textures) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gldepthfunc
  */
 export glDepthFunc(_func) {
-    DllCall("OPENGL32.dll\glDepthFunc", "uint", _func)
+    DllCall("OPENGL32.dll\glDepthFunc", UInt32, _func)
 }
 
 /**
@@ -2621,7 +2644,7 @@ export glDepthFunc(_func) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gldepthmask
  */
 export glDepthMask(flag) {
-    DllCall("OPENGL32.dll\glDepthMask", "char", flag)
+    DllCall("OPENGL32.dll\glDepthMask", Int8, flag)
 }
 
 /**
@@ -2642,7 +2665,7 @@ export glDepthMask(flag) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gldepthrange
  */
 export glDepthRange(zNear, zFar) {
-    DllCall("OPENGL32.dll\glDepthRange", "double", zNear, "double", zFar)
+    DllCall("OPENGL32.dll\glDepthRange", Float64, zNear, Float64, zFar)
 }
 
 /**
@@ -2712,7 +2735,7 @@ export glDepthRange(zNear, zFar) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gldisable
  */
 export glDisable(cap) {
-    DllCall("OPENGL32.dll\glDisable", "uint", cap)
+    DllCall("OPENGL32.dll\glDisable", UInt32, cap)
 }
 
 /**
@@ -2740,7 +2763,7 @@ export glDisable(cap) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gldisableclientstate
  */
 export glDisableClientState(_array) {
-    DllCall("OPENGL32.dll\glDisableClientState", "uint", _array)
+    DllCall("OPENGL32.dll\glDisableClientState", UInt32, _array)
 }
 
 /**
@@ -2764,7 +2787,7 @@ export glDisableClientState(_array) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawarrays
  */
 export glDrawArrays(_mode, first, count) {
-    DllCall("OPENGL32.dll\glDrawArrays", "uint", _mode, "int", first, "int", count)
+    DllCall("OPENGL32.dll\glDrawArrays", UInt32, _mode, Int32, first, Int32, count)
 }
 
 /**
@@ -2810,7 +2833,7 @@ export glDrawArrays(_mode, first, count) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gldrawbuffer
  */
 export glDrawBuffer(_mode) {
-    DllCall("OPENGL32.dll\glDrawBuffer", "uint", _mode)
+    DllCall("OPENGL32.dll\glDrawBuffer", UInt32, _mode)
 }
 
 /**
@@ -2836,7 +2859,7 @@ export glDrawBuffer(_mode) {
 export glDrawElements(_mode, count, type, indices) {
     indicesMarshal := indices is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glDrawElements", "uint", _mode, "int", count, "uint", type, indicesMarshal, indices)
+    DllCall("OPENGL32.dll\glDrawElements", UInt32, _mode, Int32, count, UInt32, type, indicesMarshal, indices)
 }
 
 /**
@@ -2906,7 +2929,7 @@ export glDrawElements(_mode, count, type, indices) {
 export glDrawPixels(width, height, format, type, pixels) {
     pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glDrawPixels", "int", width, "int", height, "uint", format, "uint", type, pixelsMarshal, pixels)
+    DllCall("OPENGL32.dll\glDrawPixels", Int32, width, Int32, height, UInt32, format, UInt32, type, pixelsMarshal, pixels)
 }
 
 /**
@@ -2930,7 +2953,7 @@ export glDrawPixels(width, height, format, type, pixels) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gledgeflag
  */
 export glEdgeFlag(flag) {
-    DllCall("OPENGL32.dll\glEdgeFlag", "char", flag)
+    DllCall("OPENGL32.dll\glEdgeFlag", Int8, flag)
 }
 
 /**
@@ -2965,7 +2988,7 @@ export glEdgeFlag(flag) {
 export glEdgeFlagPointer(stride, pointer) {
     pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glEdgeFlagPointer", "int", stride, pointerMarshal, pointer)
+    DllCall("OPENGL32.dll\glEdgeFlagPointer", Int32, stride, pointerMarshal, pointer)
 }
 
 /**
@@ -3061,7 +3084,7 @@ export glEdgeFlagv(flag) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glenable
  */
 export glEnable(cap) {
-    DllCall("OPENGL32.dll\glEnable", "uint", cap)
+    DllCall("OPENGL32.dll\glEnable", UInt32, cap)
 }
 
 /**
@@ -3089,7 +3112,7 @@ export glEnable(cap) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glenableclientstate
  */
 export glEnableClientState(_array) {
-    DllCall("OPENGL32.dll\glEnableClientState", "uint", _array)
+    DllCall("OPENGL32.dll\glEnableClientState", UInt32, _array)
 }
 
 /**
@@ -3212,7 +3235,7 @@ export glEndList() {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1d
  */
 export glEvalCoord1d(u) {
-    DllCall("OPENGL32.dll\glEvalCoord1d", "double", u)
+    DllCall("OPENGL32.dll\glEvalCoord1d", Float64, u)
 }
 
 /**
@@ -3326,7 +3349,7 @@ export glEvalCoord1dv(u) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord1f
  */
 export glEvalCoord1f(u) {
-    DllCall("OPENGL32.dll\glEvalCoord1f", "float", u)
+    DllCall("OPENGL32.dll\glEvalCoord1f", Float32, u)
 }
 
 /**
@@ -3449,7 +3472,7 @@ export glEvalCoord1fv(u) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2d
  */
 export glEvalCoord2d(u, v) {
-    DllCall("OPENGL32.dll\glEvalCoord2d", "double", u, "double", v)
+    DllCall("OPENGL32.dll\glEvalCoord2d", Float64, u, Float64, v)
 }
 
 /**
@@ -3580,7 +3603,7 @@ export glEvalCoord2dv(u) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalcoord2f
  */
 export glEvalCoord2f(u, v) {
-    DllCall("OPENGL32.dll\glEvalCoord2f", "float", u, "float", v)
+    DllCall("OPENGL32.dll\glEvalCoord2f", Float32, u, Float32, v)
 }
 
 /**
@@ -3680,7 +3703,7 @@ export glEvalCoord2fv(u) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalmesh1
  */
 export glEvalMesh1(_mode, i1, i2) {
-    DllCall("OPENGL32.dll\glEvalMesh1", "uint", _mode, "int", i1, "int", i2)
+    DllCall("OPENGL32.dll\glEvalMesh1", UInt32, _mode, Int32, i1, Int32, i2)
 }
 
 /**
@@ -3790,7 +3813,7 @@ export glEvalMesh1(_mode, i1, i2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalmesh2
  */
 export glEvalMesh2(_mode, i1, i2, j1, j2) {
-    DllCall("OPENGL32.dll\glEvalMesh2", "uint", _mode, "int", i1, "int", i2, "int", j1, "int", j2)
+    DllCall("OPENGL32.dll\glEvalMesh2", UInt32, _mode, Int32, i1, Int32, i2, Int32, j1, Int32, j2)
 }
 
 /**
@@ -3832,7 +3855,7 @@ export glEvalMesh2(_mode, i1, i2, j1, j2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalpoint1
  */
 export glEvalPoint1(i) {
-    DllCall("OPENGL32.dll\glEvalPoint1", "int", i)
+    DllCall("OPENGL32.dll\glEvalPoint1", Int32, i)
 }
 
 /**
@@ -3875,7 +3898,7 @@ export glEvalPoint1(i) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glevalpoint2
  */
 export glEvalPoint2(i, j) {
-    DllCall("OPENGL32.dll\glEvalPoint2", "int", i, "int", j)
+    DllCall("OPENGL32.dll\glEvalPoint2", Int32, i, Int32, j)
 }
 
 /**
@@ -3971,7 +3994,7 @@ export glEvalPoint2(i, j) {
 export glFeedbackBuffer(_size, type, _buffer) {
     _bufferMarshal := _buffer is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glFeedbackBuffer", "int", _size, "uint", type, _bufferMarshal, _buffer)
+    DllCall("OPENGL32.dll\glFeedbackBuffer", Int32, _size, UInt32, type, _bufferMarshal, _buffer)
 }
 
 /**
@@ -4062,7 +4085,7 @@ export glFlush() {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogf
  */
 export glFogf(pname, param1) {
-    DllCall("OPENGL32.dll\glFogf", "uint", pname, "float", param1)
+    DllCall("OPENGL32.dll\glFogf", UInt32, pname, Float32, param1)
 }
 
 /**
@@ -4128,7 +4151,7 @@ export glFogf(pname, param1) {
 export glFogfv(pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glFogfv", "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glFogfv", UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -4191,7 +4214,7 @@ export glFogfv(pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glfogi
  */
 export glFogi(pname, param1) {
-    DllCall("OPENGL32.dll\glFogi", "uint", pname, "int", param1)
+    DllCall("OPENGL32.dll\glFogi", UInt32, pname, Int32, param1)
 }
 
 /**
@@ -4257,7 +4280,7 @@ export glFogi(pname, param1) {
 export glFogiv(pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glFogiv", "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glFogiv", UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -4275,7 +4298,7 @@ export glFogiv(pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glfrontface
  */
 export glFrontFace(_mode) {
-    DllCall("OPENGL32.dll\glFrontFace", "uint", _mode)
+    DllCall("OPENGL32.dll\glFrontFace", UInt32, _mode)
 }
 
 /**
@@ -4314,7 +4337,7 @@ export glFrontFace(_mode) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glfrustum
  */
 export glFrustum(left, right, bottom, top, zNear, zFar) {
-    DllCall("OPENGL32.dll\glFrustum", "double", left, "double", right, "double", bottom, "double", top, "double", zNear, "double", zFar)
+    DllCall("OPENGL32.dll\glFrustum", Float64, left, Float64, right, Float64, bottom, Float64, top, Float64, zNear, Float64, zFar)
 }
 
 /**
@@ -4330,7 +4353,7 @@ export glFrustum(left, right, bottom, top, zNear, zFar) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glgenlists
  */
 export glGenLists(range) {
-    result := DllCall("OPENGL32.dll\glGenLists", "int", range, UInt32)
+    result := DllCall("OPENGL32.dll\glGenLists", Int32, range, UInt32)
     return result
 }
 
@@ -4357,7 +4380,7 @@ export glGenLists(range) {
 export glGenTextures(n, textures) {
     texturesMarshal := textures is VarRef ? "uint*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGenTextures", "int", n, texturesMarshal, textures)
+    DllCall("OPENGL32.dll\glGenTextures", Int32, n, texturesMarshal, textures)
 }
 
 /**
@@ -4609,7 +4632,7 @@ export glGenTextures(n, textures) {
 export glGetBooleanv(pname, params) {
     paramsMarshal := params is VarRef ? "char*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetBooleanv", "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetBooleanv", UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -4628,7 +4651,7 @@ export glGetBooleanv(pname, params) {
 export glGetClipPlane(plane, equation) {
     equationMarshal := equation is VarRef ? "double*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetClipPlane", "uint", plane, equationMarshal, equation)
+    DllCall("OPENGL32.dll\glGetClipPlane", UInt32, plane, equationMarshal, equation)
 }
 
 /**
@@ -4880,7 +4903,7 @@ export glGetClipPlane(plane, equation) {
 export glGetDoublev(pname, params) {
     paramsMarshal := params is VarRef ? "double*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetDoublev", "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetDoublev", UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5171,7 +5194,7 @@ export glGetError() {
 export glGetFloatv(pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetFloatv", "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetFloatv", UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5423,7 +5446,7 @@ export glGetFloatv(pname, params) {
 export glGetIntegerv(pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetIntegerv", "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetIntegerv", UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5458,7 +5481,7 @@ export glGetIntegerv(pname, params) {
 export glGetLightfv(light, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetLightfv", "uint", light, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetLightfv", UInt32, light, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5493,7 +5516,7 @@ export glGetLightfv(light, pname, params) {
 export glGetLightiv(light, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetLightiv", "uint", light, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetLightiv", UInt32, light, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5521,7 +5544,7 @@ export glGetLightiv(light, pname, params) {
 export glGetMapdv(target, query, v) {
     vMarshal := v is VarRef ? "double*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetMapdv", "uint", target, "uint", query, vMarshal, v)
+    DllCall("OPENGL32.dll\glGetMapdv", UInt32, target, UInt32, query, vMarshal, v)
 }
 
 /**
@@ -5549,7 +5572,7 @@ export glGetMapdv(target, query, v) {
 export glGetMapfv(target, query, v) {
     vMarshal := v is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetMapfv", "uint", target, "uint", query, vMarshal, v)
+    DllCall("OPENGL32.dll\glGetMapfv", UInt32, target, UInt32, query, vMarshal, v)
 }
 
 /**
@@ -5577,7 +5600,7 @@ export glGetMapfv(target, query, v) {
 export glGetMapiv(target, query, v) {
     vMarshal := v is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetMapiv", "uint", target, "uint", query, vMarshal, v)
+    DllCall("OPENGL32.dll\glGetMapiv", UInt32, target, UInt32, query, vMarshal, v)
 }
 
 /**
@@ -5606,7 +5629,7 @@ export glGetMapiv(target, query, v) {
 export glGetMaterialfv(face, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetMaterialfv", "uint", face, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetMaterialfv", UInt32, face, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5635,7 +5658,7 @@ export glGetMaterialfv(face, pname, params) {
 export glGetMaterialiv(face, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetMaterialiv", "uint", face, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetMaterialiv", UInt32, face, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5680,7 +5703,7 @@ export glGetMaterialiv(face, pname, params) {
 export glGetPixelMapfv(_map, values) {
     valuesMarshal := values is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetPixelMapfv", "uint", _map, valuesMarshal, values)
+    DllCall("OPENGL32.dll\glGetPixelMapfv", UInt32, _map, valuesMarshal, values)
 }
 
 /**
@@ -5725,7 +5748,7 @@ export glGetPixelMapfv(_map, values) {
 export glGetPixelMapuiv(_map, values) {
     valuesMarshal := values is VarRef ? "uint*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetPixelMapuiv", "uint", _map, valuesMarshal, values)
+    DllCall("OPENGL32.dll\glGetPixelMapuiv", UInt32, _map, valuesMarshal, values)
 }
 
 /**
@@ -5770,7 +5793,7 @@ export glGetPixelMapuiv(_map, values) {
 export glGetPixelMapusv(_map, values) {
     valuesMarshal := values is VarRef ? "ushort*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetPixelMapusv", "uint", _map, valuesMarshal, values)
+    DllCall("OPENGL32.dll\glGetPixelMapusv", UInt32, _map, valuesMarshal, values)
 }
 
 /**
@@ -5785,7 +5808,7 @@ export glGetPixelMapusv(_map, values) {
 export glGetPointerv(pname, params) {
     paramsMarshal := params is VarRef ? "ptr*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetPointerv", "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetPointerv", UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5838,7 +5861,7 @@ export glGetPolygonStipple(mask) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glgetstring
  */
 export glGetString(name) {
-    result := DllCall("OPENGL32.dll\glGetString", "uint", name, IntPtr)
+    result := DllCall("OPENGL32.dll\glGetString", UInt32, name, IntPtr)
     return result
 }
 
@@ -5866,7 +5889,7 @@ export glGetString(name) {
 export glGetTexEnvfv(target, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexEnvfv", "uint", target, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetTexEnvfv", UInt32, target, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5893,7 +5916,7 @@ export glGetTexEnvfv(target, pname, params) {
 export glGetTexEnviv(target, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexEnviv", "uint", target, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetTexEnviv", UInt32, target, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5919,7 +5942,7 @@ export glGetTexEnviv(target, pname, params) {
 export glGetTexGendv(_coord, pname, params) {
     paramsMarshal := params is VarRef ? "double*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexGendv", "uint", _coord, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetTexGendv", UInt32, _coord, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5945,7 +5968,7 @@ export glGetTexGendv(_coord, pname, params) {
 export glGetTexGenfv(_coord, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexGenfv", "uint", _coord, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetTexGenfv", UInt32, _coord, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -5971,7 +5994,7 @@ export glGetTexGenfv(_coord, pname, params) {
 export glGetTexGeniv(_coord, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexGeniv", "uint", _coord, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetTexGeniv", UInt32, _coord, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -6013,7 +6036,7 @@ export glGetTexGeniv(_coord, pname, params) {
 export glGetTexImage(target, level, format, type, pixels) {
     pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexImage", "uint", target, "int", level, "uint", format, "uint", type, pixelsMarshal, pixels)
+    DllCall("OPENGL32.dll\glGetTexImage", UInt32, target, Int32, level, UInt32, format, UInt32, type, pixelsMarshal, pixels)
 }
 
 /**
@@ -6048,7 +6071,7 @@ export glGetTexImage(target, level, format, type, pixels) {
 export glGetTexLevelParameterfv(target, level, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexLevelParameterfv", "uint", target, "int", level, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetTexLevelParameterfv", UInt32, target, Int32, level, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -6083,7 +6106,7 @@ export glGetTexLevelParameterfv(target, level, pname, params) {
 export glGetTexLevelParameteriv(target, level, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexLevelParameteriv", "uint", target, "int", level, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetTexLevelParameteriv", UInt32, target, Int32, level, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -6113,7 +6136,7 @@ export glGetTexLevelParameteriv(target, level, pname, params) {
 export glGetTexParameterfv(target, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexParameterfv", "uint", target, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetTexParameterfv", UInt32, target, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -6143,7 +6166,7 @@ export glGetTexParameterfv(target, pname, params) {
 export glGetTexParameteriv(target, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glGetTexParameteriv", "uint", target, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glGetTexParameteriv", UInt32, target, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -6178,7 +6201,7 @@ export glGetTexParameteriv(target, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glhint
  */
 export glHint(target, _mode) {
-    DllCall("OPENGL32.dll\glHint", "uint", target, "uint", _mode)
+    DllCall("OPENGL32.dll\glHint", UInt32, target, UInt32, _mode)
 }
 
 /**
@@ -6196,7 +6219,7 @@ export glHint(target, _mode) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexmask
  */
 export glIndexMask(mask) {
-    DllCall("OPENGL32.dll\glIndexMask", "uint", mask)
+    DllCall("OPENGL32.dll\glIndexMask", UInt32, mask)
 }
 
 /**
@@ -6234,7 +6257,7 @@ export glIndexMask(mask) {
 export glIndexPointer(type, stride, pointer) {
     pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glIndexPointer", "uint", type, "int", stride, pointerMarshal, pointer)
+    DllCall("OPENGL32.dll\glIndexPointer", UInt32, type, Int32, stride, pointerMarshal, pointer)
 }
 
 /**
@@ -6256,7 +6279,7 @@ export glIndexPointer(type, stride, pointer) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexd
  */
 export glIndexd(c) {
-    DllCall("OPENGL32.dll\glIndexd", "double", c)
+    DllCall("OPENGL32.dll\glIndexd", Float64, c)
 }
 
 /**
@@ -6302,7 +6325,7 @@ export glIndexdv(c) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexf
  */
 export glIndexf(c) {
-    DllCall("OPENGL32.dll\glIndexf", "float", c)
+    DllCall("OPENGL32.dll\glIndexf", Float32, c)
 }
 
 /**
@@ -6348,7 +6371,7 @@ export glIndexfv(c) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexi
  */
 export glIndexi(c) {
-    DllCall("OPENGL32.dll\glIndexi", "int", c)
+    DllCall("OPENGL32.dll\glIndexi", Int32, c)
 }
 
 /**
@@ -6394,7 +6417,7 @@ export glIndexiv(c) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glindexs
  */
 export glIndexs(c) {
-    DllCall("OPENGL32.dll\glIndexs", "short", c)
+    DllCall("OPENGL32.dll\glIndexs", Int16, c)
 }
 
 /**
@@ -6427,7 +6450,7 @@ export glIndexsv(c) {
  * @returns {String} Nothing - always returns an empty string
  */
 export glIndexub(c) {
-    DllCall("OPENGL32.dll\glIndexub", "char", c)
+    DllCall("OPENGL32.dll\glIndexub", Int8, c)
 }
 
 /**
@@ -6496,7 +6519,7 @@ export glInitNames() {
 export glInterleavedArrays(format, stride, pointer) {
     pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glInterleavedArrays", "uint", format, "int", stride, pointerMarshal, pointer)
+    DllCall("OPENGL32.dll\glInterleavedArrays", UInt32, format, Int32, stride, pointerMarshal, pointer)
 }
 
 /**
@@ -6566,7 +6589,7 @@ export glInterleavedArrays(format, stride, pointer) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glisenabled
  */
 export glIsEnabled(cap) {
-    result := DllCall("OPENGL32.dll\glIsEnabled", "uint", cap, Int8)
+    result := DllCall("OPENGL32.dll\glIsEnabled", UInt32, cap, Int8)
     return result
 }
 
@@ -6579,7 +6602,7 @@ export glIsEnabled(cap) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glislist
  */
 export glIsList(list) {
-    result := DllCall("OPENGL32.dll\glIsList", "uint", list, Int8)
+    result := DllCall("OPENGL32.dll\glIsList", UInt32, list, Int8)
     return result
 }
 
@@ -6597,7 +6620,7 @@ export glIsList(list) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glistexture
  */
 export glIsTexture(texture) {
-    result := DllCall("OPENGL32.dll\glIsTexture", "uint", texture, Int8)
+    result := DllCall("OPENGL32.dll\glIsTexture", UInt32, texture, Int8)
     return result
 }
 
@@ -6638,7 +6661,7 @@ export glIsTexture(texture) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodelf
  */
 export glLightModelf(pname, param1) {
-    DllCall("OPENGL32.dll\glLightModelf", "uint", pname, "float", param1)
+    DllCall("OPENGL32.dll\glLightModelf", UInt32, pname, Float32, param1)
 }
 
 /**
@@ -6681,7 +6704,7 @@ export glLightModelf(pname, param1) {
 export glLightModelfv(pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glLightModelfv", "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glLightModelfv", UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -6721,7 +6744,7 @@ export glLightModelfv(pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightmodeli
  */
 export glLightModeli(pname, param1) {
-    DllCall("OPENGL32.dll\glLightModeli", "uint", pname, "int", param1)
+    DllCall("OPENGL32.dll\glLightModeli", UInt32, pname, Int32, param1)
 }
 
 /**
@@ -6764,7 +6787,7 @@ export glLightModeli(pname, param1) {
 export glLightModeliv(pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glLightModeliv", "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glLightModeliv", UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -6798,7 +6821,7 @@ export glLightModeliv(pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gllightf
  */
 export glLightf(light, pname, param2) {
-    DllCall("OPENGL32.dll\glLightf", "uint", light, "uint", pname, "float", param2)
+    DllCall("OPENGL32.dll\glLightf", UInt32, light, UInt32, pname, Float32, param2)
 }
 
 /**
@@ -6839,7 +6862,7 @@ export glLightf(light, pname, param2) {
 export glLightfv(light, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glLightfv", "uint", light, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glLightfv", UInt32, light, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -6873,7 +6896,7 @@ export glLightfv(light, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gllighti
  */
 export glLighti(light, pname, param2) {
-    DllCall("OPENGL32.dll\glLighti", "uint", light, "uint", pname, "int", param2)
+    DllCall("OPENGL32.dll\glLighti", UInt32, light, UInt32, pname, Int32, param2)
 }
 
 /**
@@ -6914,7 +6937,7 @@ export glLighti(light, pname, param2) {
 export glLightiv(light, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glLightiv", "uint", light, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glLightiv", UInt32, light, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -6941,7 +6964,7 @@ export glLightiv(light, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gllinestipple
  */
 export glLineStipple(factor, pattern) {
-    DllCall("OPENGL32.dll\glLineStipple", "int", factor, "ushort", pattern)
+    DllCall("OPENGL32.dll\glLineStipple", Int32, factor, UInt16, pattern)
 }
 
 /**
@@ -6973,7 +6996,7 @@ export glLineStipple(factor, pattern) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gllinewidth
  */
 export glLineWidth(width) {
-    DllCall("OPENGL32.dll\glLineWidth", "float", width)
+    DllCall("OPENGL32.dll\glLineWidth", Float32, width)
 }
 
 /**
@@ -6989,7 +7012,7 @@ export glLineWidth(width) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gllistbase
  */
 export glListBase(base) {
-    DllCall("OPENGL32.dll\glListBase", "uint", base)
+    DllCall("OPENGL32.dll\glListBase", UInt32, base)
 }
 
 /**
@@ -7090,7 +7113,7 @@ export glLoadMatrixf(m) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glloadname
  */
 export glLoadName(name) {
-    DllCall("OPENGL32.dll\glLoadName", "uint", name)
+    DllCall("OPENGL32.dll\glLoadName", UInt32, name)
 }
 
 /**
@@ -7137,7 +7160,7 @@ export glLoadName(name) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gllogicop
  */
 export glLogicOp(opcode) {
-    DllCall("OPENGL32.dll\glLogicOp", "uint", opcode)
+    DllCall("OPENGL32.dll\glLogicOp", UInt32, opcode)
 }
 
 /**
@@ -7216,7 +7239,7 @@ export glLogicOp(opcode) {
 export glMap1d(target, u1, u2, stride, order, _points) {
     _pointsMarshal := _points is VarRef ? "double*" : "ptr"
 
-    DllCall("OPENGL32.dll\glMap1d", "uint", target, "double", u1, "double", u2, "int", stride, "int", order, _pointsMarshal, _points)
+    DllCall("OPENGL32.dll\glMap1d", UInt32, target, Float64, u1, Float64, u2, Int32, stride, Int32, order, _pointsMarshal, _points)
 }
 
 /**
@@ -7295,7 +7318,7 @@ export glMap1d(target, u1, u2, stride, order, _points) {
 export glMap1f(target, u1, u2, stride, order, _points) {
     _pointsMarshal := _points is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glMap1f", "uint", target, "float", u1, "float", u2, "int", stride, "int", order, _pointsMarshal, _points)
+    DllCall("OPENGL32.dll\glMap1f", UInt32, target, Float32, u1, Float32, u2, Int32, stride, Int32, order, _pointsMarshal, _points)
 }
 
 /**
@@ -7390,7 +7413,7 @@ export glMap1f(target, u1, u2, stride, order, _points) {
 export glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, _points) {
     _pointsMarshal := _points is VarRef ? "double*" : "ptr"
 
-    DllCall("OPENGL32.dll\glMap2d", "uint", target, "double", u1, "double", u2, "int", ustride, "int", uorder, "double", v1, "double", v2, "int", vstride, "int", vorder, _pointsMarshal, _points)
+    DllCall("OPENGL32.dll\glMap2d", UInt32, target, Float64, u1, Float64, u2, Int32, ustride, Int32, uorder, Float64, v1, Float64, v2, Int32, vstride, Int32, vorder, _pointsMarshal, _points)
 }
 
 /**
@@ -7485,7 +7508,7 @@ export glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, _points
 export glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, _points) {
     _pointsMarshal := _points is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glMap2f", "uint", target, "float", u1, "float", u2, "int", ustride, "int", uorder, "float", v1, "float", v2, "int", vstride, "int", vorder, _pointsMarshal, _points)
+    DllCall("OPENGL32.dll\glMap2f", UInt32, target, Float32, u1, Float32, u2, Int32, ustride, Int32, uorder, Float32, v1, Float32, v2, Int32, vstride, Int32, vorder, _pointsMarshal, _points)
 }
 
 /**
@@ -7523,7 +7546,7 @@ export glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, _points
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid1d
  */
 export glMapGrid1d(un, u1, u2) {
-    DllCall("OPENGL32.dll\glMapGrid1d", "int", un, "double", u1, "double", u2)
+    DllCall("OPENGL32.dll\glMapGrid1d", Int32, un, Float64, u1, Float64, u2)
 }
 
 /**
@@ -7561,7 +7584,7 @@ export glMapGrid1d(un, u1, u2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid1f
  */
 export glMapGrid1f(un, u1, u2) {
-    DllCall("OPENGL32.dll\glMapGrid1f", "int", un, "float", u1, "float", u2)
+    DllCall("OPENGL32.dll\glMapGrid1f", Int32, un, Float32, u1, Float32, u2)
 }
 
 /**
@@ -7602,7 +7625,7 @@ export glMapGrid1f(un, u1, u2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid2d
  */
 export glMapGrid2d(un, u1, u2, vn, v1, v2) {
-    DllCall("OPENGL32.dll\glMapGrid2d", "int", un, "double", u1, "double", u2, "int", vn, "double", v1, "double", v2)
+    DllCall("OPENGL32.dll\glMapGrid2d", Int32, un, Float64, u1, Float64, u2, Int32, vn, Float64, v1, Float64, v2)
 }
 
 /**
@@ -7643,7 +7666,7 @@ export glMapGrid2d(un, u1, u2, vn, v1, v2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glmapgrid2f
  */
 export glMapGrid2f(un, u1, u2, vn, v1, v2) {
-    DllCall("OPENGL32.dll\glMapGrid2f", "int", un, "float", u1, "float", u2, "int", vn, "float", v1, "float", v2)
+    DllCall("OPENGL32.dll\glMapGrid2f", Int32, un, Float32, u1, Float32, u2, Int32, vn, Float32, v1, Float32, v2)
 }
 
 /**
@@ -7673,7 +7696,7 @@ export glMapGrid2f(un, u1, u2, vn, v1, v2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glmaterialf
  */
 export glMaterialf(face, pname, param2) {
-    DllCall("OPENGL32.dll\glMaterialf", "uint", face, "uint", pname, "float", param2)
+    DllCall("OPENGL32.dll\glMaterialf", UInt32, face, UInt32, pname, Float32, param2)
 }
 
 /**
@@ -7711,7 +7734,7 @@ export glMaterialf(face, pname, param2) {
 export glMaterialfv(face, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glMaterialfv", "uint", face, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glMaterialfv", UInt32, face, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -7741,7 +7764,7 @@ export glMaterialfv(face, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glmateriali
  */
 export glMateriali(face, pname, param2) {
-    DllCall("OPENGL32.dll\glMateriali", "uint", face, "uint", pname, "int", param2)
+    DllCall("OPENGL32.dll\glMateriali", UInt32, face, UInt32, pname, Int32, param2)
 }
 
 /**
@@ -7779,7 +7802,7 @@ export glMateriali(face, pname, param2) {
 export glMaterialiv(face, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glMaterialiv", "uint", face, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glMaterialiv", UInt32, face, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -7803,7 +7826,7 @@ export glMaterialiv(face, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glmatrixmode
  */
 export glMatrixMode(_mode) {
-    DllCall("OPENGL32.dll\glMatrixMode", "uint", _mode)
+    DllCall("OPENGL32.dll\glMatrixMode", UInt32, _mode)
 }
 
 /**
@@ -7897,7 +7920,7 @@ export glMultMatrixf(m) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glnewlist
  */
 export glNewList(list, _mode) {
-    DllCall("OPENGL32.dll\glNewList", "uint", list, "uint", _mode)
+    DllCall("OPENGL32.dll\glNewList", UInt32, list, UInt32, _mode)
 }
 
 /**
@@ -7919,7 +7942,7 @@ export glNewList(list, _mode) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3b
  */
 export glNormal3b(nx, ny, nz) {
-    DllCall("OPENGL32.dll\glNormal3b", "char", nx, "char", ny, "char", nz)
+    DllCall("OPENGL32.dll\glNormal3b", Int8, nx, Int8, ny, Int8, nz)
 }
 
 /**
@@ -7963,7 +7986,7 @@ export glNormal3bv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3d
  */
 export glNormal3d(nx, ny, nz) {
-    DllCall("OPENGL32.dll\glNormal3d", "double", nx, "double", ny, "double", nz)
+    DllCall("OPENGL32.dll\glNormal3d", Float64, nx, Float64, ny, Float64, nz)
 }
 
 /**
@@ -8007,7 +8030,7 @@ export glNormal3dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3f
  */
 export glNormal3f(nx, ny, nz) {
-    DllCall("OPENGL32.dll\glNormal3f", "float", nx, "float", ny, "float", nz)
+    DllCall("OPENGL32.dll\glNormal3f", Float32, nx, Float32, ny, Float32, nz)
 }
 
 /**
@@ -8051,7 +8074,7 @@ export glNormal3fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3i
  */
 export glNormal3i(nx, ny, nz) {
-    DllCall("OPENGL32.dll\glNormal3i", "int", nx, "int", ny, "int", nz)
+    DllCall("OPENGL32.dll\glNormal3i", Int32, nx, Int32, ny, Int32, nz)
 }
 
 /**
@@ -8095,7 +8118,7 @@ export glNormal3iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glnormal3s
  */
 export glNormal3s(nx, ny, nz) {
-    DllCall("OPENGL32.dll\glNormal3s", "short", nx, "short", ny, "short", nz)
+    DllCall("OPENGL32.dll\glNormal3s", Int16, nx, Int16, ny, Int16, nz)
 }
 
 /**
@@ -8153,7 +8176,7 @@ export glNormal3sv(v) {
 export glNormalPointer(type, stride, pointer) {
     pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glNormalPointer", "uint", type, "int", stride, pointerMarshal, pointer)
+    DllCall("OPENGL32.dll\glNormalPointer", UInt32, type, Int32, stride, pointerMarshal, pointer)
 }
 
 /**
@@ -8190,7 +8213,7 @@ export glNormalPointer(type, stride, pointer) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glortho
  */
 export glOrtho(left, right, bottom, top, zNear, zFar) {
-    DllCall("OPENGL32.dll\glOrtho", "double", left, "double", right, "double", bottom, "double", top, "double", zNear, "double", zFar)
+    DllCall("OPENGL32.dll\glOrtho", Float64, left, Float64, right, Float64, bottom, Float64, top, Float64, zNear, Float64, zFar)
 }
 
 /**
@@ -8216,7 +8239,7 @@ export glOrtho(left, right, bottom, top, zNear, zFar) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpassthrough
  */
 export glPassThrough(token) {
-    DllCall("OPENGL32.dll\glPassThrough", "float", token)
+    DllCall("OPENGL32.dll\glPassThrough", Float32, token)
 }
 
 /**
@@ -8298,7 +8321,7 @@ export glPassThrough(token) {
 export glPixelMapfv(_map, mapsize, values) {
     valuesMarshal := values is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glPixelMapfv", "uint", _map, "int", mapsize, valuesMarshal, values)
+    DllCall("OPENGL32.dll\glPixelMapfv", UInt32, _map, Int32, mapsize, valuesMarshal, values)
 }
 
 /**
@@ -8380,7 +8403,7 @@ export glPixelMapfv(_map, mapsize, values) {
 export glPixelMapuiv(_map, mapsize, values) {
     valuesMarshal := values is VarRef ? "uint*" : "ptr"
 
-    DllCall("OPENGL32.dll\glPixelMapuiv", "uint", _map, "int", mapsize, valuesMarshal, values)
+    DllCall("OPENGL32.dll\glPixelMapuiv", UInt32, _map, Int32, mapsize, valuesMarshal, values)
 }
 
 /**
@@ -8462,7 +8485,7 @@ export glPixelMapuiv(_map, mapsize, values) {
 export glPixelMapusv(_map, mapsize, values) {
     valuesMarshal := values is VarRef ? "ushort*" : "ptr"
 
-    DllCall("OPENGL32.dll\glPixelMapusv", "uint", _map, "int", mapsize, valuesMarshal, values)
+    DllCall("OPENGL32.dll\glPixelMapusv", UInt32, _map, Int32, mapsize, valuesMarshal, values)
 }
 
 /**
@@ -8556,7 +8579,7 @@ export glPixelMapusv(_map, mapsize, values) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelstoref
  */
 export glPixelStoref(pname, param1) {
-    DllCall("OPENGL32.dll\glPixelStoref", "uint", pname, "float", param1)
+    DllCall("OPENGL32.dll\glPixelStoref", UInt32, pname, Float32, param1)
 }
 
 /**
@@ -8650,7 +8673,7 @@ export glPixelStoref(pname, param1) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelstorei
  */
 export glPixelStorei(pname, param1) {
-    DllCall("OPENGL32.dll\glPixelStorei", "uint", pname, "int", param1)
+    DllCall("OPENGL32.dll\glPixelStorei", UInt32, pname, Int32, param1)
 }
 
 /**
@@ -8735,7 +8758,7 @@ export glPixelStorei(pname, param1) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixeltransferf
  */
 export glPixelTransferf(pname, param1) {
-    DllCall("OPENGL32.dll\glPixelTransferf", "uint", pname, "float", param1)
+    DllCall("OPENGL32.dll\glPixelTransferf", UInt32, pname, Float32, param1)
 }
 
 /**
@@ -8820,7 +8843,7 @@ export glPixelTransferf(pname, param1) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixeltransferi
  */
 export glPixelTransferi(pname, param1) {
-    DllCall("OPENGL32.dll\glPixelTransferi", "uint", pname, "int", param1)
+    DllCall("OPENGL32.dll\glPixelTransferi", UInt32, pname, Int32, param1)
 }
 
 /**
@@ -8845,7 +8868,7 @@ export glPixelTransferi(pname, param1) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpixelzoom
  */
 export glPixelZoom(xfactor, yfactor) {
-    DllCall("OPENGL32.dll\glPixelZoom", "float", xfactor, "float", yfactor)
+    DllCall("OPENGL32.dll\glPixelZoom", Float32, xfactor, Float32, yfactor)
 }
 
 /**
@@ -8885,7 +8908,7 @@ export glPixelZoom(xfactor, yfactor) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpointsize
  */
 export glPointSize(_size) {
-    DllCall("OPENGL32.dll\glPointSize", "float", _size)
+    DllCall("OPENGL32.dll\glPointSize", Float32, _size)
 }
 
 /**
@@ -8916,7 +8939,7 @@ export glPointSize(_size) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonmode
  */
 export glPolygonMode(face, _mode) {
-    DllCall("OPENGL32.dll\glPolygonMode", "uint", face, "uint", _mode)
+    DllCall("OPENGL32.dll\glPolygonMode", UInt32, face, UInt32, _mode)
 }
 
 /**
@@ -8944,7 +8967,7 @@ export glPolygonMode(face, _mode) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpolygonoffset
  */
 export glPolygonOffset(factor, units) {
-    DllCall("OPENGL32.dll\glPolygonOffset", "float", factor, "float", units)
+    DllCall("OPENGL32.dll\glPolygonOffset", Float32, factor, Float32, units)
 }
 
 /**
@@ -9113,7 +9136,7 @@ export glPrioritizeTextures(n, textures, priorities) {
     texturesMarshal := textures is VarRef ? "uint*" : "ptr"
     prioritiesMarshal := priorities is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glPrioritizeTextures", "int", n, texturesMarshal, textures, prioritiesMarshal, priorities)
+    DllCall("OPENGL32.dll\glPrioritizeTextures", Int32, n, texturesMarshal, textures, prioritiesMarshal, priorities)
 }
 
 /**
@@ -9471,7 +9494,7 @@ export glPrioritizeTextures(n, textures, priorities) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushattrib
  */
 export glPushAttrib(mask) {
-    DllCall("OPENGL32.dll\glPushAttrib", "uint", mask)
+    DllCall("OPENGL32.dll\glPushAttrib", UInt32, mask)
 }
 
 /**
@@ -9510,7 +9533,7 @@ export glPushAttrib(mask) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushclientattrib
  */
 export glPushClientAttrib(mask) {
-    DllCall("OPENGL32.dll\glPushClientAttrib", "uint", mask)
+    DllCall("OPENGL32.dll\glPushClientAttrib", UInt32, mask)
 }
 
 /**
@@ -9565,7 +9588,7 @@ export glPushMatrix() {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glpushname
  */
 export glPushName(name) {
-    DllCall("OPENGL32.dll\glPushName", "uint", name)
+    DllCall("OPENGL32.dll\glPushName", UInt32, name)
 }
 
 /**
@@ -9610,7 +9633,7 @@ export glPushName(name) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2d
  */
 export glRasterPos2d(x, y) {
-    DllCall("OPENGL32.dll\glRasterPos2d", "double", x, "double", y)
+    DllCall("OPENGL32.dll\glRasterPos2d", Float64, x, Float64, y)
 }
 
 /**
@@ -9701,7 +9724,7 @@ export glRasterPos2dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2f
  */
 export glRasterPos2f(x, y) {
-    DllCall("OPENGL32.dll\glRasterPos2f", "float", x, "float", y)
+    DllCall("OPENGL32.dll\glRasterPos2f", Float32, x, Float32, y)
 }
 
 /**
@@ -9792,7 +9815,7 @@ export glRasterPos2fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2i
  */
 export glRasterPos2i(x, y) {
-    DllCall("OPENGL32.dll\glRasterPos2i", "int", x, "int", y)
+    DllCall("OPENGL32.dll\glRasterPos2i", Int32, x, Int32, y)
 }
 
 /**
@@ -9883,7 +9906,7 @@ export glRasterPos2iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos2s
  */
 export glRasterPos2s(x, y) {
-    DllCall("OPENGL32.dll\glRasterPos2s", "short", x, "short", y)
+    DllCall("OPENGL32.dll\glRasterPos2s", Int16, x, Int16, y)
 }
 
 /**
@@ -9975,7 +9998,7 @@ export glRasterPos2sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3d
  */
 export glRasterPos3d(x, y, z) {
-    DllCall("OPENGL32.dll\glRasterPos3d", "double", x, "double", y, "double", z)
+    DllCall("OPENGL32.dll\glRasterPos3d", Float64, x, Float64, y, Float64, z)
 }
 
 /**
@@ -10067,7 +10090,7 @@ export glRasterPos3dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3f
  */
 export glRasterPos3f(x, y, z) {
-    DllCall("OPENGL32.dll\glRasterPos3f", "float", x, "float", y, "float", z)
+    DllCall("OPENGL32.dll\glRasterPos3f", Float32, x, Float32, y, Float32, z)
 }
 
 /**
@@ -10159,7 +10182,7 @@ export glRasterPos3fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3i
  */
 export glRasterPos3i(x, y, z) {
-    DllCall("OPENGL32.dll\glRasterPos3i", "int", x, "int", y, "int", z)
+    DllCall("OPENGL32.dll\glRasterPos3i", Int32, x, Int32, y, Int32, z)
 }
 
 /**
@@ -10251,7 +10274,7 @@ export glRasterPos3iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos3s
  */
 export glRasterPos3s(x, y, z) {
-    DllCall("OPENGL32.dll\glRasterPos3s", "short", x, "short", y, "short", z)
+    DllCall("OPENGL32.dll\glRasterPos3s", Int16, x, Int16, y, Int16, z)
 }
 
 /**
@@ -10344,7 +10367,7 @@ export glRasterPos3sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4d
  */
 export glRasterPos4d(x, y, z, w) {
-    DllCall("OPENGL32.dll\glRasterPos4d", "double", x, "double", y, "double", z, "double", w)
+    DllCall("OPENGL32.dll\glRasterPos4d", Float64, x, Float64, y, Float64, z, Float64, w)
 }
 
 /**
@@ -10437,7 +10460,7 @@ export glRasterPos4dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4f
  */
 export glRasterPos4f(x, y, z, w) {
-    DllCall("OPENGL32.dll\glRasterPos4f", "float", x, "float", y, "float", z, "float", w)
+    DllCall("OPENGL32.dll\glRasterPos4f", Float32, x, Float32, y, Float32, z, Float32, w)
 }
 
 /**
@@ -10530,7 +10553,7 @@ export glRasterPos4fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4i
  */
 export glRasterPos4i(x, y, z, w) {
-    DllCall("OPENGL32.dll\glRasterPos4i", "int", x, "int", y, "int", z, "int", w)
+    DllCall("OPENGL32.dll\glRasterPos4i", Int32, x, Int32, y, Int32, z, Int32, w)
 }
 
 /**
@@ -10623,7 +10646,7 @@ export glRasterPos4iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrasterpos4s
  */
 export glRasterPos4s(x, y, z, w) {
-    DllCall("OPENGL32.dll\glRasterPos4s", "short", x, "short", y, "short", z, "short", w)
+    DllCall("OPENGL32.dll\glRasterPos4s", Int16, x, Int16, y, Int16, z, Int16, w)
 }
 
 /**
@@ -10689,7 +10712,7 @@ export glRasterPos4sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glreadbuffer
  */
 export glReadBuffer(_mode) {
-    DllCall("OPENGL32.dll\glReadBuffer", "uint", _mode)
+    DllCall("OPENGL32.dll\glReadBuffer", UInt32, _mode)
 }
 
 /**
@@ -10749,7 +10772,7 @@ export glReadBuffer(_mode) {
 export glReadPixels(x, y, width, height, format, type, pixels) {
     pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glReadPixels", "int", x, "int", y, "int", width, "int", height, "uint", format, "uint", type, pixelsMarshal, pixels)
+    DllCall("OPENGL32.dll\glReadPixels", Int32, x, Int32, y, Int32, width, Int32, height, UInt32, format, UInt32, type, pixelsMarshal, pixels)
 }
 
 /**
@@ -10780,7 +10803,7 @@ export glReadPixels(x, y, width, height, format, type, pixels) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectd
  */
 export glRectd(x1, y1, x2, y2) {
-    DllCall("OPENGL32.dll\glRectd", "double", x1, "double", y1, "double", x2, "double", y2)
+    DllCall("OPENGL32.dll\glRectd", Float64, x1, Float64, y1, Float64, x2, Float64, y2)
 }
 
 /**
@@ -10843,7 +10866,7 @@ export glRectdv(v1, v2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrectf
  */
 export glRectf(x1, y1, x2, y2) {
-    DllCall("OPENGL32.dll\glRectf", "float", x1, "float", y1, "float", x2, "float", y2)
+    DllCall("OPENGL32.dll\glRectf", Float32, x1, Float32, y1, Float32, x2, Float32, y2)
 }
 
 /**
@@ -10906,7 +10929,7 @@ export glRectfv(v1, v2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrecti
  */
 export glRecti(x1, y1, x2, y2) {
-    DllCall("OPENGL32.dll\glRecti", "int", x1, "int", y1, "int", x2, "int", y2)
+    DllCall("OPENGL32.dll\glRecti", Int32, x1, Int32, y1, Int32, x2, Int32, y2)
 }
 
 /**
@@ -10969,7 +10992,7 @@ export glRectiv(v1, v2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrects
  */
 export glRects(x1, y1, x2, y2) {
-    DllCall("OPENGL32.dll\glRects", "short", x1, "short", y1, "short", x2, "short", y2)
+    DllCall("OPENGL32.dll\glRects", Int16, x1, Int16, y1, Int16, x2, Int16, y2)
 }
 
 /**
@@ -11043,7 +11066,7 @@ export glRectsv(v1, v2) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrendermode
  */
 export glRenderMode(_mode) {
-    result := DllCall("OPENGL32.dll\glRenderMode", "uint", _mode, Int32)
+    result := DllCall("OPENGL32.dll\glRenderMode", UInt32, _mode, Int32)
     return result
 }
 
@@ -11075,7 +11098,7 @@ export glRenderMode(_mode) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrotated
  */
 export glRotated(angle, x, y, z) {
-    DllCall("OPENGL32.dll\glRotated", "double", angle, "double", x, "double", y, "double", z)
+    DllCall("OPENGL32.dll\glRotated", Float64, angle, Float64, x, Float64, y, Float64, z)
 }
 
 /**
@@ -11106,7 +11129,7 @@ export glRotated(angle, x, y, z) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glrotatef
  */
 export glRotatef(angle, x, y, z) {
-    DllCall("OPENGL32.dll\glRotatef", "float", angle, "float", x, "float", y, "float", z)
+    DllCall("OPENGL32.dll\glRotatef", Float32, angle, Float32, x, Float32, y, Float32, z)
 }
 
 /**
@@ -11138,7 +11161,7 @@ export glRotatef(angle, x, y, z) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glscaled
  */
 export glScaled(x, y, z) {
-    DllCall("OPENGL32.dll\glScaled", "double", x, "double", y, "double", z)
+    DllCall("OPENGL32.dll\glScaled", Float64, x, Float64, y, Float64, z)
 }
 
 /**
@@ -11170,7 +11193,7 @@ export glScaled(x, y, z) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glscalef
  */
 export glScalef(x, y, z) {
-    DllCall("OPENGL32.dll\glScalef", "float", x, "float", y, "float", z)
+    DllCall("OPENGL32.dll\glScalef", Float32, x, Float32, y, Float32, z)
 }
 
 /**
@@ -11195,7 +11218,7 @@ export glScalef(x, y, z) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glscissor
  */
 export glScissor(x, y, width, height) {
-    DllCall("OPENGL32.dll\glScissor", "int", x, "int", y, "int", width, "int", height)
+    DllCall("OPENGL32.dll\glScissor", Int32, x, Int32, y, Int32, width, Int32, height)
 }
 
 /**
@@ -11228,7 +11251,7 @@ export glScissor(x, y, width, height) {
 export glSelectBuffer(_size, _buffer) {
     _bufferMarshal := _buffer is VarRef ? "uint*" : "ptr"
 
-    DllCall("OPENGL32.dll\glSelectBuffer", "int", _size, _bufferMarshal, _buffer)
+    DllCall("OPENGL32.dll\glSelectBuffer", Int32, _size, _bufferMarshal, _buffer)
 }
 
 /**
@@ -11263,7 +11286,7 @@ export glSelectBuffer(_size, _buffer) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glshademodel
  */
 export glShadeModel(_mode) {
-    DllCall("OPENGL32.dll\glShadeModel", "uint", _mode)
+    DllCall("OPENGL32.dll\glShadeModel", UInt32, _mode)
 }
 
 /**
@@ -11310,7 +11333,7 @@ export glShadeModel(_mode) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glstencilfunc
  */
 export glStencilFunc(_func, ref, mask) {
-    DllCall("OPENGL32.dll\glStencilFunc", "uint", _func, "int", ref, "uint", mask)
+    DllCall("OPENGL32.dll\glStencilFunc", UInt32, _func, Int32, ref, UInt32, mask)
 }
 
 /**
@@ -11328,7 +11351,7 @@ export glStencilFunc(_func, ref, mask) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glstencilmask
  */
 export glStencilMask(mask) {
-    DllCall("OPENGL32.dll\glStencilMask", "uint", mask)
+    DllCall("OPENGL32.dll\glStencilMask", UInt32, mask)
 }
 
 /**
@@ -11375,7 +11398,7 @@ export glStencilMask(mask) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glstencilop
  */
 export glStencilOp(fail, zfail, zpass) {
-    DllCall("OPENGL32.dll\glStencilOp", "uint", fail, "uint", zfail, "uint", zpass)
+    DllCall("OPENGL32.dll\glStencilOp", UInt32, fail, UInt32, zfail, UInt32, zpass)
 }
 
 /**
@@ -11389,7 +11412,7 @@ export glStencilOp(fail, zfail, zpass) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1d
  */
 export glTexCoord1d(s) {
-    DllCall("OPENGL32.dll\glTexCoord1d", "double", s)
+    DllCall("OPENGL32.dll\glTexCoord1d", Float64, s)
 }
 
 /**
@@ -11419,7 +11442,7 @@ export glTexCoord1dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1f
  */
 export glTexCoord1f(s) {
-    DllCall("OPENGL32.dll\glTexCoord1f", "float", s)
+    DllCall("OPENGL32.dll\glTexCoord1f", Float32, s)
 }
 
 /**
@@ -11449,7 +11472,7 @@ export glTexCoord1fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1i
  */
 export glTexCoord1i(s) {
-    DllCall("OPENGL32.dll\glTexCoord1i", "int", s)
+    DllCall("OPENGL32.dll\glTexCoord1i", Int32, s)
 }
 
 /**
@@ -11479,7 +11502,7 @@ export glTexCoord1iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord1s
  */
 export glTexCoord1s(s) {
-    DllCall("OPENGL32.dll\glTexCoord1s", "short", s)
+    DllCall("OPENGL32.dll\glTexCoord1s", Int16, s)
 }
 
 /**
@@ -11510,7 +11533,7 @@ export glTexCoord1sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2d
  */
 export glTexCoord2d(s, t) {
-    DllCall("OPENGL32.dll\glTexCoord2d", "double", s, "double", t)
+    DllCall("OPENGL32.dll\glTexCoord2d", Float64, s, Float64, t)
 }
 
 /**
@@ -11536,7 +11559,7 @@ export glTexCoord2dv(v) {
  * @returns {String} Nothing - always returns an empty string
  */
 export glTexCoord2f(s, t) {
-    DllCall("OPENGL32.dll\glTexCoord2f", "float", s, "float", t)
+    DllCall("OPENGL32.dll\glTexCoord2f", Float32, s, Float32, t)
 }
 
 /**
@@ -11567,7 +11590,7 @@ export glTexCoord2fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2i
  */
 export glTexCoord2i(s, t) {
-    DllCall("OPENGL32.dll\glTexCoord2i", "int", s, "int", t)
+    DllCall("OPENGL32.dll\glTexCoord2i", Int32, s, Int32, t)
 }
 
 /**
@@ -11598,7 +11621,7 @@ export glTexCoord2iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2s
  */
 export glTexCoord2s(s, t) {
-    DllCall("OPENGL32.dll\glTexCoord2s", "short", s, "short", t)
+    DllCall("OPENGL32.dll\glTexCoord2s", Int16, s, Int16, t)
 }
 
 /**
@@ -11630,7 +11653,7 @@ export glTexCoord2sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3d
  */
 export glTexCoord3d(s, t, r) {
-    DllCall("OPENGL32.dll\glTexCoord3d", "double", s, "double", t, "double", r)
+    DllCall("OPENGL32.dll\glTexCoord3d", Float64, s, Float64, t, Float64, r)
 }
 
 /**
@@ -11657,7 +11680,7 @@ export glTexCoord3dv(v) {
  * @returns {String} Nothing - always returns an empty string
  */
 export glTexCoord3f(s, t, r) {
-    DllCall("OPENGL32.dll\glTexCoord3f", "float", s, "float", t, "float", r)
+    DllCall("OPENGL32.dll\glTexCoord3f", Float32, s, Float32, t, Float32, r)
 }
 
 /**
@@ -11689,7 +11712,7 @@ export glTexCoord3fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3i
  */
 export glTexCoord3i(s, t, r) {
-    DllCall("OPENGL32.dll\glTexCoord3i", "int", s, "int", t, "int", r)
+    DllCall("OPENGL32.dll\glTexCoord3i", Int32, s, Int32, t, Int32, r)
 }
 
 /**
@@ -11721,7 +11744,7 @@ export glTexCoord3iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3s
  */
 export glTexCoord3s(s, t, r) {
-    DllCall("OPENGL32.dll\glTexCoord3s", "short", s, "short", t, "short", r)
+    DllCall("OPENGL32.dll\glTexCoord3s", Int16, s, Int16, t, Int16, r)
 }
 
 /**
@@ -11754,7 +11777,7 @@ export glTexCoord3sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4d
  */
 export glTexCoord4d(s, t, r, q) {
-    DllCall("OPENGL32.dll\glTexCoord4d", "double", s, "double", t, "double", r, "double", q)
+    DllCall("OPENGL32.dll\glTexCoord4d", Float64, s, Float64, t, Float64, r, Float64, q)
 }
 
 /**
@@ -11787,7 +11810,7 @@ export glTexCoord4dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4f
  */
 export glTexCoord4f(s, t, r, q) {
-    DllCall("OPENGL32.dll\glTexCoord4f", "float", s, "float", t, "float", r, "float", q)
+    DllCall("OPENGL32.dll\glTexCoord4f", Float32, s, Float32, t, Float32, r, Float32, q)
 }
 
 /**
@@ -11820,7 +11843,7 @@ export glTexCoord4fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4i
  */
 export glTexCoord4i(s, t, r, q) {
-    DllCall("OPENGL32.dll\glTexCoord4i", "int", s, "int", t, "int", r, "int", q)
+    DllCall("OPENGL32.dll\glTexCoord4i", Int32, s, Int32, t, Int32, r, Int32, q)
 }
 
 /**
@@ -11853,7 +11876,7 @@ export glTexCoord4iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord4s
  */
 export glTexCoord4s(s, t, r, q) {
-    DllCall("OPENGL32.dll\glTexCoord4s", "short", s, "short", t, "short", r, "short", q)
+    DllCall("OPENGL32.dll\glTexCoord4s", Int16, s, Int16, t, Int16, r, Int16, q)
 }
 
 /**
@@ -11908,7 +11931,7 @@ export glTexCoord4sv(v) {
 export glTexCoordPointer(_size, type, stride, pointer) {
     pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexCoordPointer", "int", _size, "uint", type, "int", stride, pointerMarshal, pointer)
+    DllCall("OPENGL32.dll\glTexCoordPointer", Int32, _size, UInt32, type, Int32, stride, pointerMarshal, pointer)
 }
 
 /**
@@ -12007,7 +12030,7 @@ export glTexCoordPointer(_size, type, stride, pointer) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenvf
  */
 export glTexEnvf(target, pname, param2) {
-    DllCall("OPENGL32.dll\glTexEnvf", "uint", target, "uint", pname, "float", param2)
+    DllCall("OPENGL32.dll\glTexEnvf", UInt32, target, UInt32, pname, Float32, param2)
 }
 
 /**
@@ -12112,7 +12135,7 @@ export glTexEnvf(target, pname, param2) {
 export glTexEnvfv(target, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexEnvfv", "uint", target, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glTexEnvfv", UInt32, target, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -12211,7 +12234,7 @@ export glTexEnvfv(target, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexenvi
  */
 export glTexEnvi(target, pname, param2) {
-    DllCall("OPENGL32.dll\glTexEnvi", "uint", target, "uint", pname, "int", param2)
+    DllCall("OPENGL32.dll\glTexEnvi", UInt32, target, UInt32, pname, Int32, param2)
 }
 
 /**
@@ -12316,7 +12339,7 @@ export glTexEnvi(target, pname, param2) {
 export glTexEnviv(target, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexEnviv", "uint", target, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glTexEnviv", UInt32, target, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -12373,7 +12396,7 @@ export glTexEnviv(target, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgend
  */
 export glTexGend(_coord, pname, param2) {
-    DllCall("OPENGL32.dll\glTexGend", "uint", _coord, "uint", pname, "double", param2)
+    DllCall("OPENGL32.dll\glTexGend", UInt32, _coord, UInt32, pname, Float64, param2)
 }
 
 /**
@@ -12432,7 +12455,7 @@ export glTexGend(_coord, pname, param2) {
 export glTexGendv(_coord, pname, params) {
     paramsMarshal := params is VarRef ? "double*" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexGendv", "uint", _coord, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glTexGendv", UInt32, _coord, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -12489,7 +12512,7 @@ export glTexGendv(_coord, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgenf
  */
 export glTexGenf(_coord, pname, param2) {
-    DllCall("OPENGL32.dll\glTexGenf", "uint", _coord, "uint", pname, "float", param2)
+    DllCall("OPENGL32.dll\glTexGenf", UInt32, _coord, UInt32, pname, Float32, param2)
 }
 
 /**
@@ -12552,7 +12575,7 @@ export glTexGenf(_coord, pname, param2) {
 export glTexGenfv(_coord, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexGenfv", "uint", _coord, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glTexGenfv", UInt32, _coord, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -12609,7 +12632,7 @@ export glTexGenfv(_coord, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexgeni
  */
 export glTexGeni(_coord, pname, param2) {
-    DllCall("OPENGL32.dll\glTexGeni", "uint", _coord, "uint", pname, "int", param2)
+    DllCall("OPENGL32.dll\glTexGeni", UInt32, _coord, UInt32, pname, Int32, param2)
 }
 
 /**
@@ -12668,7 +12691,7 @@ export glTexGeni(_coord, pname, param2) {
 export glTexGeniv(_coord, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexGeniv", "uint", _coord, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glTexGeniv", UInt32, _coord, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -12723,7 +12746,7 @@ export glTexGeniv(_coord, pname, params) {
 export glTexImage1D(target, level, internalformat, width, border, format, type, pixels) {
     pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexImage1D", "uint", target, "int", level, "int", internalformat, "int", width, "int", border, "uint", format, "uint", type, pixelsMarshal, pixels)
+    DllCall("OPENGL32.dll\glTexImage1D", UInt32, target, Int32, level, Int32, internalformat, Int32, width, Int32, border, UInt32, format, UInt32, type, pixelsMarshal, pixels)
 }
 
 /**
@@ -12779,7 +12802,7 @@ export glTexImage1D(target, level, internalformat, width, border, format, type, 
 export glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels) {
     pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexImage2D", "uint", target, "int", level, "int", internalformat, "int", width, "int", height, "int", border, "uint", format, "uint", type, pixelsMarshal, pixels)
+    DllCall("OPENGL32.dll\glTexImage2D", UInt32, target, Int32, level, Int32, internalformat, Int32, width, Int32, height, Int32, border, UInt32, format, UInt32, type, pixelsMarshal, pixels)
 }
 
 /**
@@ -12808,7 +12831,7 @@ export glTexImage2D(target, level, internalformat, width, height, border, format
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameterf
  */
 export glTexParameterf(target, pname, param2) {
-    DllCall("OPENGL32.dll\glTexParameterf", "uint", target, "uint", pname, "float", param2)
+    DllCall("OPENGL32.dll\glTexParameterf", UInt32, target, UInt32, pname, Float32, param2)
 }
 
 /**
@@ -12867,7 +12890,7 @@ export glTexParameterf(target, pname, param2) {
 export glTexParameterfv(target, pname, params) {
     paramsMarshal := params is VarRef ? "float*" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexParameterfv", "uint", target, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glTexParameterfv", UInt32, target, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -12898,7 +12921,7 @@ export glTexParameterfv(target, pname, params) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexparameteri
  */
 export glTexParameteri(target, pname, param2) {
-    DllCall("OPENGL32.dll\glTexParameteri", "uint", target, "uint", pname, "int", param2)
+    DllCall("OPENGL32.dll\glTexParameteri", UInt32, target, UInt32, pname, Int32, param2)
 }
 
 /**
@@ -12957,7 +12980,7 @@ export glTexParameteri(target, pname, param2) {
 export glTexParameteriv(target, pname, params) {
     paramsMarshal := params is VarRef ? "int*" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexParameteriv", "uint", target, "uint", pname, paramsMarshal, params)
+    DllCall("OPENGL32.dll\glTexParameteriv", UInt32, target, UInt32, pname, paramsMarshal, params)
 }
 
 /**
@@ -13005,7 +13028,7 @@ export glTexParameteriv(target, pname, params) {
 export glTexSubImage1D(target, level, xoffset, width, format, type, pixels) {
     pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexSubImage1D", "uint", target, "int", level, "int", xoffset, "int", width, "uint", format, "uint", type, pixelsMarshal, pixels)
+    DllCall("OPENGL32.dll\glTexSubImage1D", UInt32, target, Int32, level, Int32, xoffset, Int32, width, UInt32, format, UInt32, type, pixelsMarshal, pixels)
 }
 
 /**
@@ -13055,7 +13078,7 @@ export glTexSubImage1D(target, level, xoffset, width, format, type, pixels) {
 export glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels) {
     pixelsMarshal := pixels is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glTexSubImage2D", "uint", target, "int", level, "int", xoffset, "int", yoffset, "int", width, "int", height, "uint", format, "uint", type, pixelsMarshal, pixels)
+    DllCall("OPENGL32.dll\glTexSubImage2D", UInt32, target, Int32, level, Int32, xoffset, Int32, yoffset, Int32, width, Int32, height, UInt32, format, UInt32, type, pixelsMarshal, pixels)
 }
 
 /**
@@ -13085,7 +13108,7 @@ export glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, t
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltranslated
  */
 export glTranslated(x, y, z) {
-    DllCall("OPENGL32.dll\glTranslated", "double", x, "double", y, "double", z)
+    DllCall("OPENGL32.dll\glTranslated", Float64, x, Float64, y, Float64, z)
 }
 
 /**
@@ -13115,7 +13138,7 @@ export glTranslated(x, y, z) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gltranslatef
  */
 export glTranslatef(x, y, z) {
-    DllCall("OPENGL32.dll\glTranslatef", "float", x, "float", y, "float", z)
+    DllCall("OPENGL32.dll\glTranslatef", Float32, x, Float32, y, Float32, z)
 }
 
 /**
@@ -13128,7 +13151,7 @@ export glTranslatef(x, y, z) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2d
  */
 export glVertex2d(x, y) {
-    DllCall("OPENGL32.dll\glVertex2d", "double", x, "double", y)
+    DllCall("OPENGL32.dll\glVertex2d", Float64, x, Float64, y)
 }
 
 /**
@@ -13153,7 +13176,7 @@ export glVertex2dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2f
  */
 export glVertex2f(x, y) {
-    DllCall("OPENGL32.dll\glVertex2f", "float", x, "float", y)
+    DllCall("OPENGL32.dll\glVertex2f", Float32, x, Float32, y)
 }
 
 /**
@@ -13178,7 +13201,7 @@ export glVertex2fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2i
  */
 export glVertex2i(x, y) {
-    DllCall("OPENGL32.dll\glVertex2i", "int", x, "int", y)
+    DllCall("OPENGL32.dll\glVertex2i", Int32, x, Int32, y)
 }
 
 /**
@@ -13203,7 +13226,7 @@ export glVertex2iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex2s
  */
 export glVertex2s(x, y) {
-    DllCall("OPENGL32.dll\glVertex2s", "short", x, "short", y)
+    DllCall("OPENGL32.dll\glVertex2s", Int16, x, Int16, y)
 }
 
 /**
@@ -13229,7 +13252,7 @@ export glVertex2sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3d
  */
 export glVertex3d(x, y, z) {
-    DllCall("OPENGL32.dll\glVertex3d", "double", x, "double", y, "double", z)
+    DllCall("OPENGL32.dll\glVertex3d", Float64, x, Float64, y, Float64, z)
 }
 
 /**
@@ -13255,7 +13278,7 @@ export glVertex3dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3f
  */
 export glVertex3f(x, y, z) {
-    DllCall("OPENGL32.dll\glVertex3f", "float", x, "float", y, "float", z)
+    DllCall("OPENGL32.dll\glVertex3f", Float32, x, Float32, y, Float32, z)
 }
 
 /**
@@ -13281,7 +13304,7 @@ export glVertex3fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3i
  */
 export glVertex3i(x, y, z) {
-    DllCall("OPENGL32.dll\glVertex3i", "int", x, "int", y, "int", z)
+    DllCall("OPENGL32.dll\glVertex3i", Int32, x, Int32, y, Int32, z)
 }
 
 /**
@@ -13307,7 +13330,7 @@ export glVertex3iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex3s
  */
 export glVertex3s(x, y, z) {
-    DllCall("OPENGL32.dll\glVertex3s", "short", x, "short", y, "short", z)
+    DllCall("OPENGL32.dll\glVertex3s", Int16, x, Int16, y, Int16, z)
 }
 
 /**
@@ -13334,7 +13357,7 @@ export glVertex3sv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4d
  */
 export glVertex4d(x, y, z, w) {
-    DllCall("OPENGL32.dll\glVertex4d", "double", x, "double", y, "double", z, "double", w)
+    DllCall("OPENGL32.dll\glVertex4d", Float64, x, Float64, y, Float64, z, Float64, w)
 }
 
 /**
@@ -13361,7 +13384,7 @@ export glVertex4dv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4f
  */
 export glVertex4f(x, y, z, w) {
-    DllCall("OPENGL32.dll\glVertex4f", "float", x, "float", y, "float", z, "float", w)
+    DllCall("OPENGL32.dll\glVertex4f", Float32, x, Float32, y, Float32, z, Float32, w)
 }
 
 /**
@@ -13388,7 +13411,7 @@ export glVertex4fv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4i
  */
 export glVertex4i(x, y, z, w) {
-    DllCall("OPENGL32.dll\glVertex4i", "int", x, "int", y, "int", z, "int", w)
+    DllCall("OPENGL32.dll\glVertex4i", Int32, x, Int32, y, Int32, z, Int32, w)
 }
 
 /**
@@ -13415,7 +13438,7 @@ export glVertex4iv(v) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glvertex4s
  */
 export glVertex4s(x, y, z, w) {
-    DllCall("OPENGL32.dll\glVertex4s", "short", x, "short", y, "short", z, "short", w)
+    DllCall("OPENGL32.dll\glVertex4s", Int16, x, Int16, y, Int16, z, Int16, w)
 }
 
 /**
@@ -13466,7 +13489,7 @@ export glVertex4sv(v) {
 export glVertexPointer(_size, type, stride, pointer) {
     pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
 
-    DllCall("OPENGL32.dll\glVertexPointer", "int", _size, "uint", type, "int", stride, pointerMarshal, pointer)
+    DllCall("OPENGL32.dll\glVertexPointer", Int32, _size, UInt32, type, Int32, stride, pointerMarshal, pointer)
 }
 
 /**
@@ -13491,7 +13514,7 @@ export glVertexPointer(_size, type, stride, pointer) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glviewport
  */
 export glViewport(x, y, width, height) {
-    DllCall("OPENGL32.dll\glViewport", "int", x, "int", y, "int", width, "int", height)
+    DllCall("OPENGL32.dll\glViewport", Int32, x, Int32, y, Int32, width, Int32, height)
 }
 
 /**
@@ -13507,7 +13530,7 @@ export glViewport(x, y, width, height) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gluerrorstring
  */
 export gluErrorString(errCode) {
-    result := DllCall("GLU32.dll\gluErrorString", "uint", errCode, IntPtr)
+    result := DllCall("GLU32.dll\gluErrorString", UInt32, errCode, IntPtr)
     return result
 }
 
@@ -13517,7 +13540,7 @@ export gluErrorString(errCode) {
  * @returns {PWSTR} 
  */
 export gluErrorUnicodeStringEXT(errCode) {
-    result := DllCall("GLU32.dll\gluErrorUnicodeStringEXT", "uint", errCode, PWSTR)
+    result := DllCall("GLU32.dll\gluErrorUnicodeStringEXT", UInt32, errCode, PWSTR)
     return result
 }
 
@@ -13548,7 +13571,7 @@ export gluErrorUnicodeStringEXT(errCode) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glugetstring
  */
 export gluGetString(name) {
-    result := DllCall("GLU32.dll\gluGetString", "uint", name, IntPtr)
+    result := DllCall("GLU32.dll\gluGetString", UInt32, name, IntPtr)
     return result
 }
 
@@ -13564,7 +13587,7 @@ export gluGetString(name) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gluortho2d
  */
 export gluOrtho2D(left, right, bottom, top) {
-    DllCall("GLU32.dll\gluOrtho2D", "double", left, "double", right, "double", bottom, "double", top)
+    DllCall("GLU32.dll\gluOrtho2D", Float64, left, Float64, right, Float64, bottom, Float64, top)
 }
 
 /**
@@ -13581,7 +13604,7 @@ export gluOrtho2D(left, right, bottom, top) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/gluperspective
  */
 export gluPerspective(fovy, aspect, zNear, zFar) {
-    DllCall("GLU32.dll\gluPerspective", "double", fovy, "double", aspect, "double", zNear, "double", zFar)
+    DllCall("GLU32.dll\gluPerspective", Float64, fovy, Float64, aspect, Float64, zNear, Float64, zFar)
 }
 
 /**
@@ -13612,7 +13635,7 @@ export gluPerspective(fovy, aspect, zNear, zFar) {
 export gluPickMatrix(x, y, width, height, viewport) {
     viewportMarshal := viewport is VarRef ? "int*" : "ptr"
 
-    DllCall("GLU32.dll\gluPickMatrix", "double", x, "double", y, "double", width, "double", height, viewportMarshal, viewport)
+    DllCall("GLU32.dll\gluPickMatrix", Float64, x, Float64, y, Float64, width, Float64, height, viewportMarshal, viewport)
 }
 
 /**
@@ -13634,7 +13657,7 @@ export gluPickMatrix(x, y, width, height, viewport) {
  * @see https://learn.microsoft.com/windows/win32/OpenGL/glulookat
  */
 export gluLookAt(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz) {
-    DllCall("GLU32.dll\gluLookAt", "double", eyex, "double", eyey, "double", eyez, "double", centerx, "double", centery, "double", centerz, "double", upx, "double", upy, "double", upz)
+    DllCall("GLU32.dll\gluLookAt", Float64, eyex, Float64, eyey, Float64, eyez, Float64, centerx, Float64, centery, Float64, centerz, Float64, upx, Float64, upy, Float64, upz)
 }
 
 /**
@@ -13663,7 +13686,7 @@ export gluProject(objx, objy, objz, modelMatrix, projMatrix, viewport, winx, win
     winyMarshal := winy is VarRef ? "double*" : "ptr"
     winzMarshal := winz is VarRef ? "double*" : "ptr"
 
-    result := DllCall("GLU32.dll\gluProject", "double", objx, "double", objy, "double", objz, modelMatrixMarshal, modelMatrix, projMatrixMarshal, projMatrix, viewportMarshal, viewport, winxMarshal, winx, winyMarshal, winy, winzMarshal, winz, Int32)
+    result := DllCall("GLU32.dll\gluProject", Float64, objx, Float64, objy, Float64, objz, modelMatrixMarshal, modelMatrix, projMatrixMarshal, projMatrix, viewportMarshal, viewport, winxMarshal, winx, winyMarshal, winy, winzMarshal, winz, Int32)
     return result
 }
 
@@ -13693,7 +13716,7 @@ export gluUnProject(winx, winy, winz, modelMatrix, projMatrix, viewport, objx, o
     objyMarshal := objy is VarRef ? "double*" : "ptr"
     objzMarshal := objz is VarRef ? "double*" : "ptr"
 
-    result := DllCall("GLU32.dll\gluUnProject", "double", winx, "double", winy, "double", winz, modelMatrixMarshal, modelMatrix, projMatrixMarshal, projMatrix, viewportMarshal, viewport, objxMarshal, objx, objyMarshal, objy, objzMarshal, objz, Int32)
+    result := DllCall("GLU32.dll\gluUnProject", Float64, winx, Float64, winy, Float64, winz, modelMatrixMarshal, modelMatrix, projMatrixMarshal, projMatrix, viewportMarshal, viewport, objxMarshal, objx, objyMarshal, objy, objzMarshal, objz, Int32)
     return result
 }
 
@@ -13723,7 +13746,7 @@ export gluScaleImage(format, widthin, heightin, typein, datain, widthout, height
     datainMarshal := datain is VarRef ? "ptr" : "ptr"
     dataoutMarshal := dataout is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("GLU32.dll\gluScaleImage", "uint", format, "int", widthin, "int", heightin, "uint", typein, datainMarshal, datain, "int", widthout, "int", heightout, "uint", typeout, dataoutMarshal, dataout, Int32)
+    result := DllCall("GLU32.dll\gluScaleImage", UInt32, format, Int32, widthin, Int32, heightin, UInt32, typein, datainMarshal, datain, Int32, widthout, Int32, heightout, UInt32, typeout, dataoutMarshal, dataout, Int32)
     return result
 }
 
@@ -13747,7 +13770,7 @@ export gluScaleImage(format, widthin, heightin, typein, datain, widthout, height
 export gluBuild1DMipmaps(target, _components, width, format, type, data) {
     dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("GLU32.dll\gluBuild1DMipmaps", "uint", target, "int", _components, "int", width, "uint", format, "uint", type, dataMarshal, data, Int32)
+    result := DllCall("GLU32.dll\gluBuild1DMipmaps", UInt32, target, Int32, _components, Int32, width, UInt32, format, UInt32, type, dataMarshal, data, Int32)
     return result
 }
 
@@ -13772,7 +13795,7 @@ export gluBuild1DMipmaps(target, _components, width, format, type, data) {
 export gluBuild2DMipmaps(target, _components, width, height, format, type, data) {
     dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("GLU32.dll\gluBuild2DMipmaps", "uint", target, "int", _components, "int", width, "int", height, "uint", format, "uint", type, dataMarshal, data, Int32)
+    result := DllCall("GLU32.dll\gluBuild2DMipmaps", UInt32, target, Int32, _components, Int32, width, Int32, height, UInt32, format, UInt32, type, dataMarshal, data, Int32)
     return result
 }
 
@@ -13825,7 +13848,7 @@ export gluDeleteQuadric(state) {
 export gluQuadricNormals(quadObject, normals) {
     quadObjectMarshal := quadObject is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluQuadricNormals", quadObjectMarshal, quadObject, "uint", normals)
+    DllCall("GLU32.dll\gluQuadricNormals", quadObjectMarshal, quadObject, UInt32, normals)
 }
 
 /**
@@ -13849,7 +13872,7 @@ export gluQuadricNormals(quadObject, normals) {
 export gluQuadricTexture(quadObject, textureCoords) {
     quadObjectMarshal := quadObject is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluQuadricTexture", quadObjectMarshal, quadObject, "char", textureCoords)
+    DllCall("GLU32.dll\gluQuadricTexture", quadObjectMarshal, quadObject, Int8, textureCoords)
 }
 
 /**
@@ -13871,7 +13894,7 @@ export gluQuadricTexture(quadObject, textureCoords) {
 export gluQuadricOrientation(quadObject, orientation) {
     quadObjectMarshal := quadObject is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluQuadricOrientation", quadObjectMarshal, quadObject, "uint", orientation)
+    DllCall("GLU32.dll\gluQuadricOrientation", quadObjectMarshal, quadObject, UInt32, orientation)
 }
 
 /**
@@ -13895,7 +13918,7 @@ export gluQuadricOrientation(quadObject, orientation) {
 export gluQuadricDrawStyle(quadObject, drawStyle) {
     quadObjectMarshal := quadObject is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluQuadricDrawStyle", quadObjectMarshal, quadObject, "uint", drawStyle)
+    DllCall("GLU32.dll\gluQuadricDrawStyle", quadObjectMarshal, quadObject, UInt32, drawStyle)
 }
 
 /**
@@ -13920,7 +13943,7 @@ export gluQuadricDrawStyle(quadObject, drawStyle) {
 export gluCylinder(qobj, baseRadius, topRadius, height, slices, stacks) {
     qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluCylinder", qobjMarshal, qobj, "double", baseRadius, "double", topRadius, "double", height, "int", slices, "int", stacks)
+    DllCall("GLU32.dll\gluCylinder", qobjMarshal, qobj, Float64, baseRadius, Float64, topRadius, Float64, height, Int32, slices, Int32, stacks)
 }
 
 /**
@@ -13942,7 +13965,7 @@ export gluCylinder(qobj, baseRadius, topRadius, height, slices, stacks) {
 export gluDisk(qobj, innerRadius, outerRadius, slices, loops) {
     qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluDisk", qobjMarshal, qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops)
+    DllCall("GLU32.dll\gluDisk", qobjMarshal, qobj, Float64, innerRadius, Float64, outerRadius, Int32, slices, Int32, loops)
 }
 
 /**
@@ -13968,7 +13991,7 @@ export gluDisk(qobj, innerRadius, outerRadius, slices, loops) {
 export gluPartialDisk(qobj, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle) {
     qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluPartialDisk", qobjMarshal, qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops, "double", startAngle, "double", sweepAngle)
+    DllCall("GLU32.dll\gluPartialDisk", qobjMarshal, qobj, Float64, innerRadius, Float64, outerRadius, Int32, slices, Int32, loops, Float64, startAngle, Float64, sweepAngle)
 }
 
 /**
@@ -13989,7 +14012,7 @@ export gluPartialDisk(qobj, innerRadius, outerRadius, slices, loops, startAngle,
 export gluSphere(qobj, radius, slices, stacks) {
     qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluSphere", qobjMarshal, qobj, "double", radius, "int", slices, "int", stacks)
+    DllCall("GLU32.dll\gluSphere", qobjMarshal, qobj, Float64, radius, Int32, slices, Int32, stacks)
 }
 
 /**
@@ -14011,7 +14034,7 @@ export gluSphere(qobj, radius, slices, stacks) {
 export gluQuadricCallback(qobj, which, fn) {
     qobjMarshal := qobj is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluQuadricCallback", qobjMarshal, qobj, "uint", which, "ptr", fn)
+    DllCall("GLU32.dll\gluQuadricCallback", qobjMarshal, qobj, UInt32, which, IntPtr, fn)
 }
 
 /**
@@ -14155,7 +14178,7 @@ export gluTessEndPolygon(tess) {
 export gluTessProperty(tess, which, value) {
     tessMarshal := tess is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluTessProperty", tessMarshal, tess, "uint", which, "double", value)
+    DllCall("GLU32.dll\gluTessProperty", tessMarshal, tess, UInt32, which, Float64, value)
 }
 
 /**
@@ -14179,7 +14202,7 @@ export gluTessProperty(tess, which, value) {
 export gluTessNormal(tess, x, y, z) {
     tessMarshal := tess is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluTessNormal", tessMarshal, tess, "double", x, "double", y, "double", z)
+    DllCall("GLU32.dll\gluTessNormal", tessMarshal, tess, Float64, x, Float64, y, Float64, z)
 }
 
 /**
@@ -14221,7 +14244,7 @@ export gluTessNormal(tess, x, y, z) {
 export gluTessCallback(tess, which, fn) {
     tessMarshal := tess is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluTessCallback", tessMarshal, tess, "uint", which, "ptr", fn)
+    DllCall("GLU32.dll\gluTessCallback", tessMarshal, tess, UInt32, which, IntPtr, fn)
 }
 
 /**
@@ -14238,7 +14261,7 @@ export gluGetTessProperty(tess, which, value) {
     tessMarshal := tess is VarRef ? "ptr*" : "ptr"
     valueMarshal := value is VarRef ? "double*" : "ptr"
 
-    DllCall("GLU32.dll\gluGetTessProperty", tessMarshal, tess, "uint", which, valueMarshal, value)
+    DllCall("GLU32.dll\gluGetTessProperty", tessMarshal, tess, UInt32, which, valueMarshal, value)
 }
 
 /**
@@ -14422,7 +14445,7 @@ export gluPwlCurve(nobj, count, _array, stride, type) {
     nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
     _arrayMarshal := _array is VarRef ? "float*" : "ptr"
 
-    DllCall("GLU32.dll\gluPwlCurve", nobjMarshal, nobj, "int", count, _arrayMarshal, _array, "int", stride, "uint", type)
+    DllCall("GLU32.dll\gluPwlCurve", nobjMarshal, nobj, Int32, count, _arrayMarshal, _array, Int32, stride, UInt32, type)
 }
 
 /**
@@ -14446,7 +14469,7 @@ export gluNurbsCurve(nobj, nknots, knot, stride, ctlarray, order, type) {
     knotMarshal := knot is VarRef ? "float*" : "ptr"
     ctlarrayMarshal := ctlarray is VarRef ? "float*" : "ptr"
 
-    DllCall("GLU32.dll\gluNurbsCurve", nobjMarshal, nobj, "int", nknots, knotMarshal, knot, "int", stride, ctlarrayMarshal, ctlarray, "int", order, "uint", type)
+    DllCall("GLU32.dll\gluNurbsCurve", nobjMarshal, nobj, Int32, nknots, knotMarshal, knot, Int32, stride, ctlarrayMarshal, ctlarray, Int32, order, UInt32, type)
 }
 
 /**
@@ -14499,7 +14522,7 @@ export gluNurbsSurface(nobj, sknot_count, sknot, tknot_count, tknot, s_stride, t
     tknotMarshal := tknot is VarRef ? "float*" : "ptr"
     ctlarrayMarshal := ctlarray is VarRef ? "float*" : "ptr"
 
-    DllCall("GLU32.dll\gluNurbsSurface", nobjMarshal, nobj, "int", sknot_count, sknotMarshal, sknot, "int", tknot_count, tknotMarshal, tknot, "int", s_stride, "int", t_stride, ctlarrayMarshal, ctlarray, "int", sorder, "int", torder, "uint", type)
+    DllCall("GLU32.dll\gluNurbsSurface", nobjMarshal, nobj, Int32, sknot_count, sknotMarshal, sknot, Int32, tknot_count, tknotMarshal, tknot, Int32, s_stride, Int32, t_stride, ctlarrayMarshal, ctlarray, Int32, sorder, Int32, torder, UInt32, type)
 }
 
 /**
@@ -14558,7 +14581,7 @@ export gluLoadSamplingMatrices(nobj, modelMatrix, projMatrix, viewport) {
 export gluNurbsProperty(nobj, _property, value) {
     nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluNurbsProperty", nobjMarshal, nobj, "uint", _property, "float", value)
+    DllCall("GLU32.dll\gluNurbsProperty", nobjMarshal, nobj, UInt32, _property, Float32, value)
 }
 
 /**
@@ -14575,7 +14598,7 @@ export gluGetNurbsProperty(nobj, _property, value) {
     nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
     valueMarshal := value is VarRef ? "float*" : "ptr"
 
-    DllCall("GLU32.dll\gluGetNurbsProperty", nobjMarshal, nobj, "uint", _property, valueMarshal, value)
+    DllCall("GLU32.dll\gluGetNurbsProperty", nobjMarshal, nobj, UInt32, _property, valueMarshal, value)
 }
 
 /**
@@ -14591,7 +14614,7 @@ export gluGetNurbsProperty(nobj, _property, value) {
 export gluNurbsCallback(nobj, which, fn) {
     nobjMarshal := nobj is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluNurbsCallback", nobjMarshal, nobj, "uint", which, "ptr", fn)
+    DllCall("GLU32.dll\gluNurbsCallback", nobjMarshal, nobj, UInt32, which, IntPtr, fn)
 }
 
 /**
@@ -14639,7 +14662,7 @@ export gluBeginPolygon(tess) {
 export gluNextContour(tess, type) {
     tessMarshal := tess is VarRef ? "ptr*" : "ptr"
 
-    DllCall("GLU32.dll\gluNextContour", tessMarshal, tess, "uint", type)
+    DllCall("GLU32.dll\gluNextContour", tessMarshal, tess, UInt32, type)
 }
 
 /**

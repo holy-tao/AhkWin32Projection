@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellFolderViewDual.ahk" { IShellFolderViewDual }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that modify the view and select items in the current folder. (IShellFolderViewDual2)
@@ -72,7 +72,7 @@ export default struct IShellFolderViewDual2 extends IShellFolderViewDual {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual2-put_currentviewmode
      */
     put_CurrentViewMode(ViewMode) {
-        result := ComCall(17, this, "uint", ViewMode, "HRESULT")
+        result := ComCall(17, this, UInt32, ViewMode, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IShellFolderViewDual2 extends IShellFolderViewDual {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual2-selectitemrelative
      */
     SelectItemRelative(iRelative) {
-        result := ComCall(18, this, "int", iRelative, "HRESULT")
+        result := ComCall(18, this, Int32, iRelative, "HRESULT")
         return result
     }
 

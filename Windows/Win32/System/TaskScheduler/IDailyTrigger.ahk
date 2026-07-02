@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITrigger.ahk" { ITrigger }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITrigger.ahk" { ITrigger }
 
 /**
  * Represents a trigger that starts a task based on a daily schedule.
@@ -91,7 +91,7 @@ export default struct IDailyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-idailytrigger-put_daysinterval
      */
     put_DaysInterval(days) {
-        result := ComCall(21, this, "short", days, "HRESULT")
+        result := ComCall(21, this, Int16, days, "HRESULT")
         return result
     }
 

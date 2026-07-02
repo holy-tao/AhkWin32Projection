@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The MCI_DGV_WINDOW_PARMSW (Unicode) structure contains parameters for MCI_WINDOW command for digital-video devices.

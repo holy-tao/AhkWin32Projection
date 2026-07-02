@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import ".\SILO_MONITOR_CREATE_CALLBACK.ahk" { SILO_MONITOR_CREATE_CALLBACK }
 #Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SILO_MONITOR_TERMINATE_CALLBACK.ahk" { SILO_MONITOR_TERMINATE_CALLBACK }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -18,9 +20,9 @@ export default struct SILO_MONITOR_REGISTRATION {
 
     DriverObjectName : UNICODE_STRING.Ptr
 
-    CreateCallback : IntPtr
+    CreateCallback : SILO_MONITOR_CREATE_CALLBACK
 
-    TerminateCallback : IntPtr
+    TerminateCallback : SILO_MONITOR_TERMINATE_CALLBACK
 
     static __New() {
         DefineProp(this.Prototype, 'ComponentName', { type: UNICODE_STRING.Ptr, offset: 8 })

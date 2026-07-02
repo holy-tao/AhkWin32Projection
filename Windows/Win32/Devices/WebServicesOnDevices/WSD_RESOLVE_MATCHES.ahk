@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSD_RESOLVE_MATCH.ahk" { WSD_RESOLVE_MATCH }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 
 /**
  * Represents a ResolveMatches message.

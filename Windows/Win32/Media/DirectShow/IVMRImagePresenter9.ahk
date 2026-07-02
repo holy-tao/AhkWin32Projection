@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VMR9PresentationInfo.ahk" { VMR9PresentationInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVMRImagePresenter9 interface is implemented by the default allocator-presenter for the Video Mixing Renderer Filter 9 (VMR-9).
@@ -71,7 +71,7 @@ export default struct IVMRImagePresenter9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrimagepresenter9-startpresenting
      */
     StartPresenting(dwUserID) {
-        result := ComCall(3, this, "ptr", dwUserID, "HRESULT")
+        result := ComCall(3, this, IntPtr, dwUserID, "HRESULT")
         return result
     }
 
@@ -104,7 +104,7 @@ export default struct IVMRImagePresenter9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrimagepresenter9-stoppresenting
      */
     StopPresenting(dwUserID) {
-        result := ComCall(4, this, "ptr", dwUserID, "HRESULT")
+        result := ComCall(4, this, IntPtr, dwUserID, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct IVMRImagePresenter9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrimagepresenter9-presentimage
      */
     PresentImage(dwUserID, lpPresInfo) {
-        result := ComCall(5, this, "ptr", dwUserID, VMR9PresentationInfo.Ptr, lpPresInfo, "HRESULT")
+        result := ComCall(5, this, IntPtr, dwUserID, VMR9PresentationInfo.Ptr, lpPresInfo, "HRESULT")
         return result
     }
 

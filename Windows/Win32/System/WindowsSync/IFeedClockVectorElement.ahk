@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SYNC_TIME.ahk" { SYNC_TIME }
 #Import ".\IClockVectorElement.ahk" { IClockVectorElement }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a clock vector element that contains FeedSync information.

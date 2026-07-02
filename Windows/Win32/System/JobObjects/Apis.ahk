@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\JOBOBJECTINFOCLASS.ahk" { JOBOBJECTINFOCLASS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\JOBOBJECT_IO_RATE_CONTROL_INFORMATION.ahk" { JOBOBJECT_IO_RATE_CONTROL_INFORMATION }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\JOB_SET_ARRAY.ahk" { JOB_SET_ARRAY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\JOBOBJECTINFOCLASS.ahk" { JOBOBJECTINFOCLASS }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\JOB_SET_ARRAY.ahk" { JOB_SET_ARRAY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.JobObjects
@@ -143,7 +143,7 @@ export OpenJobObjectW(dwDesiredAccess, bInheritHandle, lpName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\OpenJobObjectW", "uint", dwDesiredAccess, BOOL, bInheritHandle, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\OpenJobObjectW", UInt32, dwDesiredAccess, BOOL, bInheritHandle, "ptr", lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -241,7 +241,7 @@ export AssignProcessToJobObject(hJob, hProcess) {
 export TerminateJobObject(hJob, uExitCode) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\TerminateJobObject", HANDLE, hJob, "uint", uExitCode, BOOL)
+    result := DllCall("KERNEL32.dll\TerminateJobObject", HANDLE, hJob, UInt32, uExitCode, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -287,7 +287,7 @@ export TerminateJobObject(hJob, uExitCode) {
 export SetInformationJobObject(hJob, JobObjectInformationClass, lpJobObjectInformation, cbJobObjectInformationLength) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetInformationJobObject", HANDLE, hJob, JOBOBJECTINFOCLASS, JobObjectInformationClass, "ptr", lpJobObjectInformation, "uint", cbJobObjectInformationLength, BOOL)
+    result := DllCall("KERNEL32.dll\SetInformationJobObject", HANDLE, hJob, JOBOBJECTINFOCLASS, JobObjectInformationClass, IntPtr, lpJobObjectInformation, UInt32, cbJobObjectInformationLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -354,7 +354,7 @@ export QueryInformationJobObject(hJob, JobObjectInformationClass, lpJobObjectInf
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\QueryInformationJobObject", HANDLE, hJob, JOBOBJECTINFOCLASS, JobObjectInformationClass, "ptr", lpJobObjectInformation, "uint", cbJobObjectInformationLength, lpReturnLengthMarshal, lpReturnLength, BOOL)
+    result := DllCall("KERNEL32.dll\QueryInformationJobObject", HANDLE, hJob, JOBOBJECTINFOCLASS, JobObjectInformationClass, IntPtr, lpJobObjectInformation, UInt32, cbJobObjectInformationLength, lpReturnLengthMarshal, lpReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -509,7 +509,7 @@ export OpenJobObjectA(dwDesiredAccess, bInheritHandle, lpName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\OpenJobObjectA", "uint", dwDesiredAccess, BOOL, bInheritHandle, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\OpenJobObjectA", UInt32, dwDesiredAccess, BOOL, bInheritHandle, "ptr", lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -525,7 +525,7 @@ export OpenJobObjectA(dwDesiredAccess, bInheritHandle, lpName) {
  * @returns {BOOL} 
  */
 export CreateJobSet(NumJob, UserJobSet, Flags) {
-    result := DllCall("KERNEL32.dll\CreateJobSet", "uint", NumJob, JOB_SET_ARRAY.Ptr, UserJobSet, "uint", Flags, BOOL)
+    result := DllCall("KERNEL32.dll\CreateJobSet", UInt32, NumJob, JOB_SET_ARRAY.Ptr, UserJobSet, UInt32, Flags, BOOL)
     return result
 }
 

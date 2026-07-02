@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPlayerTimestampHook interface is implemented on a player's source filter.
@@ -44,7 +44,7 @@ export default struct IWMPlayerTimestampHook extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmdxva/nf-wmdxva-iwmplayertimestamphook-maptimestamp
      */
     MapTimestamp(rtIn) {
-        result := ComCall(3, this, "int64", rtIn, "int64*", &prtOut := 0, "HRESULT")
+        result := ComCall(3, this, Int64, rtIn, "int64*", &prtOut := 0, "HRESULT")
         return prtOut
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMbnRadio.ahk" { IMbnRadio }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMbnRadio.ahk" { IMbnRadio }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notification interface used to indicate a change in the radio state as well as the completion of a programmatic change in the state .
@@ -72,7 +72,7 @@ export default struct IMbnRadioEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradioevents-onsetsoftwareradiostatecomplete
      */
     OnSetSoftwareRadioStateComplete(newInterface, requestID, _status) {
-        result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(4, this, "ptr", newInterface, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IAMTunerNotification.ahk" { IAMTunerNotification }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMTVAudio interface controls audio from a television source. The TV Audio filter implements this interface. Applications can use it to control television audio settings, including secondary audio program (SAP) and stereo or mono selection.
@@ -150,7 +150,7 @@ export default struct IAMTVAudio extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-put_tvaudiomode
      */
     put_TVAudioMode(lMode) {
-        result := ComCall(6, this, "int", lMode, "HRESULT")
+        result := ComCall(6, this, Int32, lMode, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IAMTVAudio extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudio-registernotificationcallback
      */
     RegisterNotificationCallBack(pNotify, lEvents) {
-        result := ComCall(7, this, "ptr", pNotify, "int", lEvents, "HRESULT")
+        result := ComCall(7, this, "ptr", pNotify, Int32, lEvents, "HRESULT")
         return result
     }
 

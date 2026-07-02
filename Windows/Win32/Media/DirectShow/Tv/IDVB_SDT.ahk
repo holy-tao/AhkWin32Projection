@@ -2,12 +2,12 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ISectionList.ahk" { ISectionList }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -158,7 +158,7 @@ export default struct IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecordserviceid
      */
     GetRecordServiceId(dwRecordIndex) {
-        result := ComCall(8, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -169,7 +169,7 @@ export default struct IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecordeitscheduleflag
      */
     GetRecordEITScheduleFlag(dwRecordIndex) {
-        result := ComCall(9, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -180,7 +180,7 @@ export default struct IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecordeitpresentfollowingflag
      */
     GetRecordEITPresentFollowingFlag(dwRecordIndex) {
-        result := ComCall(10, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -191,7 +191,7 @@ export default struct IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecordrunningstatus
      */
     GetRecordRunningStatus(dwRecordIndex) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -202,7 +202,7 @@ export default struct IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecordfreecamode
      */
     GetRecordFreeCAMode(dwRecordIndex) {
-        result := ComCall(12, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -213,7 +213,7 @@ export default struct IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -225,7 +225,7 @@ export default struct IDVB_SDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_sdt-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
-        result := ComCall(14, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwRecordIndex, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -242,7 +242,7 @@ export default struct IDVB_SDT extends IUnknown {
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

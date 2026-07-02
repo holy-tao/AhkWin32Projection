@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * Provides simple frame controls that act as simple containers for other nested controls.
@@ -110,7 +110,7 @@ export default struct ISimpleFrameSite extends IUnknown {
         plResultMarshal := plResult is VarRef ? "ptr*" : "ptr"
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, HWND, _hWnd, "uint", _msg, WPARAM, wp, LPARAM, lp, plResultMarshal, plResult, pdwCookieMarshal, pdwCookie, "HRESULT")
+        result := ComCall(3, this, HWND, _hWnd, UInt32, _msg, WPARAM, wp, LPARAM, lp, plResultMarshal, plResult, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct ISimpleFrameSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-isimpleframesite-postmessagefilter
      */
     PostMessageFilter(_hWnd, _msg, wp, lp, dwCookie) {
-        result := ComCall(4, this, HWND, _hWnd, "uint", _msg, WPARAM, wp, LPARAM, lp, LRESULT.Ptr, &plResult := 0, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, HWND, _hWnd, UInt32, _msg, WPARAM, wp, LPARAM, lp, LRESULT.Ptr, &plResult := 0, UInt32, dwCookie, "HRESULT")
         return plResult
     }
 

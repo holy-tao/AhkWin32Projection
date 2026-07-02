@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWdsTransportCacheable.ahk" { IWdsTransportCacheable }
 #Import ".\WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE.ahk" { WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWdsTransportCacheable.ahk" { IWdsTransportCacheable }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface represents the multicast session policy portion of a WDS Transport server’s configuration.
@@ -122,7 +122,7 @@ export default struct IWdsTransportMulticastSessionPolicy extends IWdsTransportC
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmulticastsessionpolicy-put_autodisconnectthreshold
      */
     put_AutoDisconnectThreshold(ulThreshold) {
-        result := ComCall(14, this, "uint", ulThreshold, "HRESULT")
+        result := ComCall(14, this, UInt32, ulThreshold, "HRESULT")
         return result
     }
 
@@ -143,7 +143,7 @@ export default struct IWdsTransportMulticastSessionPolicy extends IWdsTransportC
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmulticastsessionpolicy-put_multistreamstreamcount
      */
     put_MultistreamStreamCount(ulStreamCount) {
-        result := ComCall(16, this, "uint", ulStreamCount, "HRESULT")
+        result := ComCall(16, this, UInt32, ulStreamCount, "HRESULT")
         return result
     }
 

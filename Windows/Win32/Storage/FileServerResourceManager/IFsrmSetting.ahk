@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FsrmActionType.ahk" { FsrmActionType }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\FsrmActionType.ahk" { FsrmActionType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to configure FSRM.
@@ -296,7 +296,7 @@ export default struct IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-setactionrunlimitinterval
      */
     SetActionRunLimitInterval(actionType, delayTimeMinutes) {
-        result := ComCall(18, this, FsrmActionType, actionType, "int", delayTimeMinutes, "HRESULT")
+        result := ComCall(18, this, FsrmActionType, actionType, Int32, delayTimeMinutes, "HRESULT")
         return result
     }
 

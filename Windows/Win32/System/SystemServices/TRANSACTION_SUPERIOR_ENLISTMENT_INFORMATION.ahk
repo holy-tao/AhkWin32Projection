@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TRANSACTION_ENLISTMENT_PAIR.ahk" { TRANSACTION_ENLISTMENT_PAIR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TRANSACTION_ENLISTMENT_PAIR.ahk" { TRANSACTION_ENLISTMENT_PAIR }
 
 /**
  * @namespace Windows.Win32.System.SystemServices

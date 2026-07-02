@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Use this interface to generate a read-only data stream whose data is initialized with pseudo-random data (not cryptographically safe). You must call the SetSize method to set the requested size of the stream.
@@ -57,7 +57,7 @@ export default struct IStreamPseudoRandomBased extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-put_seed
      */
     put_Seed(value) {
-        result := ComCall(14, this, "uint", value, "HRESULT")
+        result := ComCall(14, this, UInt32, value, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IStreamPseudoRandomBased extends IStream {
     put_ExtendedSeed(values, eCount) {
         valuesMarshal := values is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, valuesMarshal, values, "uint", eCount, "HRESULT")
+        result := ComCall(16, this, valuesMarshal, values, UInt32, eCount, "HRESULT")
         return result
     }
 

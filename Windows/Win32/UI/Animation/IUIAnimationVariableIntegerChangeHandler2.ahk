@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
-#Import ".\IUIAnimationVariable2.ahk" { IUIAnimationVariable2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAnimationVariable2.ahk" { IUIAnimationVariable2 }
 
 /**
  * Defines a method for handling animation variable update events. IUIAnimationVariableIntegerChangeHandler2 handles events that occur in a specified dimension.
@@ -102,7 +102,7 @@ export default struct IUIAnimationVariableIntegerChangeHandler2 extends IUnknown
         newValueMarshal := newValue is VarRef ? "int*" : "ptr"
         previousValueMarshal := previousValue is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, newValueMarshal, newValue, previousValueMarshal, previousValue, "uint", cDimension, "HRESULT")
+        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, newValueMarshal, newValue, previousValueMarshal, previousValue, UInt32, cDimension, "HRESULT")
         return result
     }
 

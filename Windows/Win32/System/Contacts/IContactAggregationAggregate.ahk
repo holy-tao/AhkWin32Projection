@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CONTACT_AGGREGATION_COLLECTION_OPTIONS.ahk" { CONTACT_AGGREGATION_COLLECTION_OPTIONS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IContactAggregationContactCollection.ahk" { IContactAggregationContactCollection }
 #Import ".\IContactAggregationGroupCollection.ahk" { IContactAggregationGroupCollection }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Contacts
@@ -146,7 +146,7 @@ export default struct IContactAggregationAggregate extends IUnknown {
      * @returns {HRESULT} 
      */
     put_FavoriteOrder(favoriteOrder) {
-        result := ComCall(10, this, "uint", favoriteOrder, "HRESULT")
+        result := ComCall(10, this, UInt32, favoriteOrder, "HRESULT")
         return result
     }
 

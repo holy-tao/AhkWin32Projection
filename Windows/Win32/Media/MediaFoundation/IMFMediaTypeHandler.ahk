@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Gets and sets media types on an object, such as a media source or media sink.
@@ -127,7 +127,7 @@ export default struct IMFMediaTypeHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediatypehandler-getmediatypebyindex
      */
     GetMediaTypeByIndex(dwIndex) {
-        result := ComCall(5, this, "uint", dwIndex, "ptr*", &ppType := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwIndex, "ptr*", &ppType := 0, "HRESULT")
         return IMFMediaType(ppType)
     }
 

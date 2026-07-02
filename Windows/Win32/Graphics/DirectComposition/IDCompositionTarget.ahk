@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a binding between a Microsoft DirectComposition visual tree and a destination on top of which the visual tree should be composed.

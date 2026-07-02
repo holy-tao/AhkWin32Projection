@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWTSBitmapRendererCallback.ahk" { IWTSBitmapRendererCallback }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWTSBitmapRenderer.ahk" { IWTSBitmapRenderer }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWTSBitmapRenderer.ahk" { IWTSBitmapRenderer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This service is used to create a visual mapping on the client corresponding to a mapped window on the server.
@@ -47,7 +47,7 @@ export default struct IWTSBitmapRenderService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderservice-getmappedrenderer
      */
     GetMappedRenderer(mappingId, pMappedRendererCallback) {
-        result := ComCall(3, this, "uint", mappingId, "ptr", pMappedRendererCallback, "ptr*", &ppMappedRenderer := 0, "HRESULT")
+        result := ComCall(3, this, Int64, mappingId, "ptr", pMappedRendererCallback, "ptr*", &ppMappedRenderer := 0, "HRESULT")
         return IWTSBitmapRenderer(ppMappedRenderer)
     }
 

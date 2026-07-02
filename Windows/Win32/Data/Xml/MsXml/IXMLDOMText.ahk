@@ -41,7 +41,7 @@ export default struct IXMLDOMText extends IXMLDOMCharacterData {
      * @returns {IXMLDOMText} 
      */
     splitText(offset) {
-        result := ComCall(51, this, "int", offset, "ptr*", &rightHandTextNode := 0, "HRESULT")
+        result := ComCall(51, this, Int32, offset, "ptr*", &rightHandTextNode := 0, "HRESULT")
         return IXMLDOMText(rightHandTextNode)
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\PARAFORMAT_NUMBERING.ahk" { PARAFORMAT_NUMBERING }
-#Import ".\PARAFORMAT_MASK.ahk" { PARAFORMAT_MASK }
 #Import ".\PARAFORMAT_ALIGNMENT.ahk" { PARAFORMAT_ALIGNMENT }
+#Import ".\PARAFORMAT_MASK.ahk" { PARAFORMAT_MASK }
 
 /**
  * Contains information about paragraph formatting attributes in a rich edit control. (PARAFORMAT)

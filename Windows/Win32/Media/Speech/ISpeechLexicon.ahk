@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechLexiconPronunciations.ahk" { ISpeechLexiconPronunciations }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\SpeechLexiconType.ahk" { SpeechLexiconType }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISpeechLexiconWords.ahk" { ISpeechLexiconWords }
 #Import ".\SpeechPartOfSpeech.ahk" { SpeechPartOfSpeech }
+#Import ".\ISpeechLexiconWords.ahk" { ISpeechLexiconWords }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SpeechLexiconType.ahk" { SpeechLexiconType }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISpeechLexiconPronunciations.ahk" { ISpeechLexiconPronunciations }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -90,7 +90,7 @@ export default struct ISpeechLexicon extends IDispatch {
         bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
         bstrPronunciation := bstrPronunciation is String ? BSTR.Alloc(bstrPronunciation).Value : bstrPronunciation
 
-        result := ComCall(9, this, BSTR, bstrWord, "int", LangId, SpeechPartOfSpeech, PartOfSpeech, BSTR, bstrPronunciation, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrWord, Int32, LangId, SpeechPartOfSpeech, PartOfSpeech, BSTR, bstrPronunciation, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct ISpeechLexicon extends IDispatch {
     AddPronunciationByPhoneIds(bstrWord, LangId, PartOfSpeech, PhoneIds) {
         bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
 
-        result := ComCall(10, this, BSTR, bstrWord, "int", LangId, SpeechPartOfSpeech, PartOfSpeech, VARIANT.Ptr, PhoneIds, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrWord, Int32, LangId, SpeechPartOfSpeech, PartOfSpeech, VARIANT.Ptr, PhoneIds, "HRESULT")
         return result
     }
 
@@ -121,7 +121,7 @@ export default struct ISpeechLexicon extends IDispatch {
         bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
         bstrPronunciation := bstrPronunciation is String ? BSTR.Alloc(bstrPronunciation).Value : bstrPronunciation
 
-        result := ComCall(11, this, BSTR, bstrWord, "int", LangId, SpeechPartOfSpeech, PartOfSpeech, BSTR, bstrPronunciation, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrWord, Int32, LangId, SpeechPartOfSpeech, PartOfSpeech, BSTR, bstrPronunciation, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct ISpeechLexicon extends IDispatch {
     RemovePronunciationByPhoneIds(bstrWord, LangId, PartOfSpeech, PhoneIds) {
         bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
 
-        result := ComCall(12, this, BSTR, bstrWord, "int", LangId, SpeechPartOfSpeech, PartOfSpeech, VARIANT.Ptr, PhoneIds, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrWord, Int32, LangId, SpeechPartOfSpeech, PartOfSpeech, VARIANT.Ptr, PhoneIds, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct ISpeechLexicon extends IDispatch {
     GetPronunciations(bstrWord, LangId, _TypeFlags) {
         bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
 
-        result := ComCall(13, this, BSTR, bstrWord, "int", LangId, SpeechLexiconType, _TypeFlags, "ptr*", &ppPronunciations := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrWord, Int32, LangId, SpeechLexiconType, _TypeFlags, "ptr*", &ppPronunciations := 0, "HRESULT")
         return ISpeechLexiconPronunciations(ppPronunciations)
     }
 

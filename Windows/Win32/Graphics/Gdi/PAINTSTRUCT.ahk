@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HDC.ahk" { HDC }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\HDC.ahk" { HDC }
 
 /**
  * The PAINTSTRUCT structure contains information for an application. This information can be used to paint the client area of a window owned by that application.

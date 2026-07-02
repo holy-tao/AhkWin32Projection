@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INKMETRIC.ahk" { INKMETRIC }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IInkLineInfo interface provides access to the display properties and recognition result list of a text ink object (tInk).
@@ -253,7 +253,7 @@ export default struct IInkLineInfo extends IUnknown {
 
         pcwcRecogWordMarshal := pcwcRecogWord is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", nCandidateNum, "ptr", pwcRecogWord, pcwcRecogWordMarshal, pcwcRecogWord, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, UInt32, nCandidateNum, "ptr", pwcRecogWord, pcwcRecogWordMarshal, pcwcRecogWord, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -309,7 +309,7 @@ export default struct IInkLineInfo extends IUnknown {
     SetCandidate(nCandidateNum, strRecogWord) {
         strRecogWord := strRecogWord is String ? StrPtr(strRecogWord) : strRecogWord
 
-        result := ComCall(7, this, "uint", nCandidateNum, "ptr", strRecogWord, "HRESULT")
+        result := ComCall(7, this, UInt32, nCandidateNum, "ptr", strRecogWord, "HRESULT")
         return result
     }
 

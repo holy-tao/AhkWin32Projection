@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_REVOCATION_STATUS_REASON.ahk" { CERT_REVOCATION_STATUS_REASON }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CERT_REVOCATION_STATUS_REASON.ahk" { CERT_REVOCATION_STATUS_REASON }
 
 /**
  * Contains information on the revocation status of the certificate.

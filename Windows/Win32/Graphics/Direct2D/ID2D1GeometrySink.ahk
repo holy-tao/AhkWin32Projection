@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D2D1_QUADRATIC_BEZIER_SEGMENT.ahk" { D2D1_QUADRATIC_BEZIER_SEGMENT }
 #Import ".\D2D1_ARC_SEGMENT.ahk" { D2D1_ARC_SEGMENT }
 #Import "Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
 #Import "Common\D2D1_BEZIER_SEGMENT.ahk" { D2D1_BEZIER_SEGMENT }
+#Import ".\D2D1_QUADRATIC_BEZIER_SEGMENT.ahk" { D2D1_QUADRATIC_BEZIER_SEGMENT }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 
 /**
@@ -92,7 +92,7 @@ export default struct ID2D1GeometrySink extends ID2D1SimplifiedGeometrySink {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrysink-addquadraticbeziers
      */
     AddQuadraticBeziers(beziers, beziersCount) {
-        ComCall(13, this, D2D1_QUADRATIC_BEZIER_SEGMENT.Ptr, beziers, "uint", beziersCount)
+        ComCall(13, this, D2D1_QUADRATIC_BEZIER_SEGMENT.Ptr, beziers, UInt32, beziersCount)
     }
 
     /**

@@ -1,14 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COR_PRF_FUNCTION_ARGUMENT_INFO.ahk" { COR_PRF_FUNCTION_ARGUMENT_INFO }
-#Import ".\ICorProfilerModuleEnum.ahk" { ICorProfilerModuleEnum }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
 #Import ".\COR_PRF_FUNCTION_ARGUMENT_RANGE.ahk" { COR_PRF_FUNCTION_ARGUMENT_RANGE }
-#Import ".\COR_PRF_RUNTIME_TYPE.ahk" { COR_PRF_RUNTIME_TYPE }
 #Import ".\ICorProfilerInfo2.ahk" { ICorProfilerInfo2 }
+#Import ".\ICorProfilerModuleEnum.ahk" { ICorProfilerModuleEnum }
+#Import ".\COR_PRF_RUNTIME_TYPE.ahk" { COR_PRF_RUNTIME_TYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FunctionLeave3.ahk" { FunctionLeave3 }
+#Import ".\FunctionTailcall3WithInfo.ahk" { FunctionTailcall3WithInfo }
+#Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
+#Import ".\FunctionTailcall3.ahk" { FunctionTailcall3 }
+#Import ".\FunctionEnter3.ahk" { FunctionEnter3 }
+#Import ".\COR_PRF_FUNCTION_ARGUMENT_INFO.ahk" { COR_PRF_FUNCTION_ARGUMENT_INFO }
+#Import ".\FunctionIDMapper2.ahk" { FunctionIDMapper2 }
+#Import ".\FunctionEnter3WithInfo.ahk" { FunctionEnter3WithInfo }
+#Import ".\FunctionLeave3WithInfo.ahk" { FunctionLeave3WithInfo }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -69,7 +76,7 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
      * @returns {HRESULT} 
      */
     RequestProfilerDetach(dwExpectedCompletionMilliseconds) {
-        result := ComCall(58, this, "uint", dwExpectedCompletionMilliseconds, "HRESULT")
+        result := ComCall(58, this, UInt32, dwExpectedCompletionMilliseconds, "HRESULT")
         return result
     }
 
@@ -146,7 +153,7 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
         pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
         pcbArgumentInfoMarshal := pcbArgumentInfo is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(63, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, pcbArgumentInfoMarshal, pcbArgumentInfo, COR_PRF_FUNCTION_ARGUMENT_INFO.Ptr, pArgumentInfo, "HRESULT")
+        result := ComCall(63, this, IntPtr, functionId, IntPtr, eltInfo, pFrameInfoMarshal, pFrameInfo, pcbArgumentInfoMarshal, pcbArgumentInfo, COR_PRF_FUNCTION_ARGUMENT_INFO.Ptr, pArgumentInfo, "HRESULT")
         return result
     }
 
@@ -161,7 +168,7 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     GetFunctionLeave3Info(functionId, eltInfo, pFrameInfo, pRetvalRange) {
         pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(64, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, COR_PRF_FUNCTION_ARGUMENT_RANGE.Ptr, pRetvalRange, "HRESULT")
+        result := ComCall(64, this, IntPtr, functionId, IntPtr, eltInfo, pFrameInfoMarshal, pFrameInfo, COR_PRF_FUNCTION_ARGUMENT_RANGE.Ptr, pRetvalRange, "HRESULT")
         return result
     }
 
@@ -172,7 +179,7 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
      * @returns {Pointer} 
      */
     GetFunctionTailcall3Info(functionId, eltInfo) {
-        result := ComCall(65, this, "ptr", functionId, "ptr", eltInfo, "ptr*", &pFrameInfo := 0, "HRESULT")
+        result := ComCall(65, this, IntPtr, functionId, IntPtr, eltInfo, "ptr*", &pFrameInfo := 0, "HRESULT")
         return pFrameInfo
     }
 
@@ -209,7 +216,7 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
         pQFEVersionMarshal := pQFEVersion is VarRef ? "ushort*" : "ptr"
         pcchVersionStringMarshal := pcchVersionString is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(67, this, pClrInstanceIdMarshal, pClrInstanceId, pRuntimeTypeMarshal, pRuntimeType, pMajorVersionMarshal, pMajorVersion, pMinorVersionMarshal, pMinorVersion, pBuildNumberMarshal, pBuildNumber, pQFEVersionMarshal, pQFEVersion, "uint", cchVersionString, pcchVersionStringMarshal, pcchVersionString, "ptr", szVersionString, "HRESULT")
+        result := ComCall(67, this, pClrInstanceIdMarshal, pClrInstanceId, pRuntimeTypeMarshal, pRuntimeType, pMajorVersionMarshal, pMajorVersion, pMinorVersionMarshal, pMinorVersion, pBuildNumberMarshal, pBuildNumber, pQFEVersionMarshal, pQFEVersion, UInt32, cchVersionString, pcchVersionStringMarshal, pcchVersionString, "ptr", szVersionString, "HRESULT")
         return result
     }
 
@@ -222,7 +229,7 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
      * @returns {Pointer<Void>} 
      */
     GetThreadStaticAddress2(classId, fieldToken, appDomainId, threadId) {
-        result := ComCall(68, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, "ptr", threadId, "ptr*", &ppAddress := 0, "HRESULT")
+        result := ComCall(68, this, IntPtr, classId, UInt32, fieldToken, IntPtr, appDomainId, IntPtr, threadId, "ptr*", &ppAddress := 0, "HRESULT")
         return ppAddress
     }
 
@@ -238,7 +245,7 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
         pcAppDomainIdsMarshal := pcAppDomainIds is VarRef ? "uint*" : "ptr"
         appDomainIdsMarshal := appDomainIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(69, this, "ptr", moduleId, "uint", cAppDomainIds, pcAppDomainIdsMarshal, pcAppDomainIds, appDomainIdsMarshal, appDomainIds, "HRESULT")
+        result := ComCall(69, this, IntPtr, moduleId, UInt32, cAppDomainIds, pcAppDomainIdsMarshal, pcAppDomainIds, appDomainIdsMarshal, appDomainIds, "HRESULT")
         return result
     }
 
@@ -261,7 +268,7 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
         pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : "ptr"
         pdwModuleFlagsMarshal := pdwModuleFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(70, this, "ptr", moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, pdwModuleFlagsMarshal, pdwModuleFlags, "HRESULT")
+        result := ComCall(70, this, IntPtr, moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, pdwModuleFlagsMarshal, pdwModuleFlags, "HRESULT")
         return result
     }
 

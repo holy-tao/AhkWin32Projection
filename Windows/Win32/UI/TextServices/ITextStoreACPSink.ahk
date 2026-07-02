@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TEXT_STORE_LOCK_FLAGS.ahk" { TEXT_STORE_LOCK_FLAGS }
-#Import ".\TEXT_STORE_TEXT_CHANGE_FLAGS.ahk" { TEXT_STORE_TEXT_CHANGE_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\TS_TEXTCHANGE.ahk" { TS_TEXTCHANGE }
+#Import ".\TEXT_STORE_LOCK_FLAGS.ahk" { TEXT_STORE_LOCK_FLAGS }
 #Import ".\TsLayoutCode.ahk" { TsLayoutCode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TEXT_STORE_TEXT_CHANGE_FLAGS.ahk" { TEXT_STORE_TEXT_CHANGE_FLAGS }
+#Import ".\TS_TEXTCHANGE.ahk" { TS_TEXTCHANGE }
 
 /**
  * The ITextStoreACPSink interface is implemented by the TSF manager and is used by an ACP-based application to notify the manager when certain events occur. The manager installs this advise sink by calling ITextStoreACP::AdviseSink.
@@ -188,7 +188,7 @@ export default struct ITextStoreACPSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacpsink-onlayoutchange
      */
     OnLayoutChange(lcode, vcView) {
-        result := ComCall(5, this, TsLayoutCode, lcode, "uint", vcView, "HRESULT")
+        result := ComCall(5, this, TsLayoutCode, lcode, UInt32, vcView, "HRESULT")
         return result
     }
 
@@ -217,7 +217,7 @@ export default struct ITextStoreACPSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacpsink-onstatuschange
      */
     OnStatusChange(dwFlags) {
-        result := ComCall(6, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -271,7 +271,7 @@ export default struct ITextStoreACPSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacpsink-onattrschange
      */
     OnAttrsChange(acpStart, acpEnd, cAttrs, paAttrs) {
-        result := ComCall(7, this, "int", acpStart, "int", acpEnd, "uint", cAttrs, Guid.Ptr, paAttrs, "HRESULT")
+        result := ComCall(7, this, Int32, acpStart, Int32, acpEnd, UInt32, cAttrs, Guid.Ptr, paAttrs, "HRESULT")
         return result
     }
 

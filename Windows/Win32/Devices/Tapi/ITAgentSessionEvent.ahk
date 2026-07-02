@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\AGENT_SESSION_EVENT.ahk" { AGENT_SESSION_EVENT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ITAgentSession.ahk" { ITAgentSession }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITAgentSession.ahk" { ITAgentSession }
 
 /**
  * The ITAgentSessionEvent interface (tapi3cc.h) contains methods that retrieve the description of agent session events.

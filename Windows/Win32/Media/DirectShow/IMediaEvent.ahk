@@ -122,7 +122,7 @@ export default struct IMediaEvent extends IDispatch {
         lParam1Marshal := lParam1 is VarRef ? "ptr*" : "ptr"
         lParam2Marshal := lParam2 is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, lEventCodeMarshal, lEventCode, lParam1Marshal, lParam1, lParam2Marshal, lParam2, "int", msTimeout, "HRESULT")
+        result := ComCall(8, this, lEventCodeMarshal, lEventCode, lParam1Marshal, lParam1, lParam2Marshal, lParam2, Int32, msTimeout, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct IMediaEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaevent-waitforcompletion
      */
     WaitForCompletion(msTimeout) {
-        result := ComCall(9, this, "int", msTimeout, "int*", &pEvCode := 0, "HRESULT")
+        result := ComCall(9, this, Int32, msTimeout, "int*", &pEvCode := 0, "HRESULT")
         return pEvCode
     }
 
@@ -192,7 +192,7 @@ export default struct IMediaEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaevent-canceldefaulthandling
      */
     CancelDefaultHandling(lEvCode) {
-        result := ComCall(10, this, "int", lEvCode, "HRESULT")
+        result := ComCall(10, this, Int32, lEvCode, "HRESULT")
         return result
     }
 
@@ -234,7 +234,7 @@ export default struct IMediaEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaevent-restoredefaulthandling
      */
     RestoreDefaultHandling(lEvCode) {
-        result := ComCall(11, this, "int", lEvCode, "HRESULT")
+        result := ComCall(11, this, Int32, lEvCode, "HRESULT")
         return result
     }
 
@@ -249,7 +249,7 @@ export default struct IMediaEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaevent-freeeventparams
      */
     FreeEventParams(lEvCode, lParam1, lParam2) {
-        result := ComCall(12, this, "int", lEvCode, "ptr", lParam1, "ptr", lParam2, "HRESULT")
+        result := ComCall(12, this, Int32, lEvCode, IntPtr, lParam1, IntPtr, lParam2, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXGI_ADAPTER_FLAG3.ahk" { DXGI_ADAPTER_FLAG3 }
 #Import ".\DXGI_GRAPHICS_PREEMPTION_GRANULARITY.ahk" { DXGI_GRAPHICS_PREEMPTION_GRANULARITY }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
 #Import ".\DXGI_COMPUTE_PREEMPTION_GRANULARITY.ahk" { DXGI_COMPUTE_PREEMPTION_GRANULARITY }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\DXGI_ADAPTER_FLAG3.ahk" { DXGI_ADAPTER_FLAG3 }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

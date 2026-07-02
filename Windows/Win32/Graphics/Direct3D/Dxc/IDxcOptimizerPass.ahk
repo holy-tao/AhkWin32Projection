@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -74,7 +74,7 @@ export default struct IDxcOptimizerPass extends IUnknown {
      * @returns {PWSTR} 
      */
     GetOptionArgName(argIndex) {
-        result := ComCall(6, this, "uint", argIndex, PWSTR.Ptr, &ppResult := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, argIndex, PWSTR.Ptr, &ppResult := 0, "HRESULT")
         return ppResult
     }
 
@@ -84,7 +84,7 @@ export default struct IDxcOptimizerPass extends IUnknown {
      * @returns {PWSTR} 
      */
     GetOptionArgDescription(argIndex) {
-        result := ComCall(7, this, "uint", argIndex, PWSTR.Ptr, &ppResult := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, argIndex, PWSTR.Ptr, &ppResult := 0, "HRESULT")
         return ppResult
     }
 

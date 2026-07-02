@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls cable television satellite equipment, using Digital Satellite Equipment Control (DiSEqC) commands.
@@ -143,7 +143,7 @@ export default struct IBDA_DiseqCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqlnbsource
      */
     put_DiseqLNBSource(ulLNBSource) {
-        result := ComCall(4, this, "uint", ulLNBSource, "HRESULT")
+        result := ComCall(4, this, UInt32, ulLNBSource, "HRESULT")
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IBDA_DiseqCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqrepeats
      */
     put_DiseqRepeats(ulRepeats) {
-        result := ComCall(6, this, "uint", ulRepeats, "HRESULT")
+        result := ComCall(6, this, UInt32, ulRepeats, "HRESULT")
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct IBDA_DiseqCommand extends IUnknown {
     put_DiseqSendCommand(ulRequestId, ulcbCommandLen, pbCommand) {
         pbCommandMarshal := pbCommand is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", ulRequestId, "uint", ulcbCommandLen, pbCommandMarshal, pbCommand, "HRESULT")
+        result := ComCall(7, this, UInt32, ulRequestId, UInt32, ulcbCommandLen, pbCommandMarshal, pbCommand, "HRESULT")
         return result
     }
 
@@ -236,7 +236,7 @@ export default struct IBDA_DiseqCommand extends IUnknown {
         pulcbResponseLenMarshal := pulcbResponseLen is VarRef ? "uint*" : "ptr"
         pbResponseMarshal := pbResponse is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulRequestId, pulcbResponseLenMarshal, pulcbResponseLen, pbResponseMarshal, pbResponse, "HRESULT")
+        result := ComCall(8, this, UInt32, ulRequestId, pulcbResponseLenMarshal, pulcbResponseLen, pbResponseMarshal, pbResponse, "HRESULT")
         return result
     }
 

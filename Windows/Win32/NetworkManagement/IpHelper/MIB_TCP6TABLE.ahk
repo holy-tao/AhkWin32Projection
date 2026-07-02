@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\MIB_TCP_STATE.ahk" { MIB_TCP_STATE }
-#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 #Import ".\MIB_TCP6ROW.ahk" { MIB_TCP6ROW }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * Contains a table of TCP connections for IPv6 on the local computer.

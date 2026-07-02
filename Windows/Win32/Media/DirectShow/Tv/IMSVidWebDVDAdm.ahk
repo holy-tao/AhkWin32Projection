@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -153,7 +153,7 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(8, this, "int", level, BSTR, strUserName, BSTR, strPassword, "HRESULT")
+        result := ComCall(8, this, Int32, level, BSTR, strUserName, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(9, this, "int", country, BSTR, strUserName, BSTR, strPassword, "HRESULT")
+        result := ComCall(9, this, Int32, country, BSTR, strUserName, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -247,7 +247,7 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
      * @returns {HRESULT} 
      */
     put_DefaultAudioLCID(newVal) {
-        result := ComCall(14, this, "int", newVal, "HRESULT")
+        result := ComCall(14, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -266,7 +266,7 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
      * @returns {HRESULT} 
      */
     put_DefaultSubpictureLCID(newVal) {
-        result := ComCall(16, this, "int", newVal, "HRESULT")
+        result := ComCall(16, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -285,7 +285,7 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
      * @returns {HRESULT} 
      */
     put_DefaultMenuLCID(newVal) {
-        result := ComCall(18, this, "int", newVal, "HRESULT")
+        result := ComCall(18, this, Int32, newVal, "HRESULT")
         return result
     }
 

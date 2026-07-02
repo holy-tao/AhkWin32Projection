@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMPControls.ahk" { IWMPControls }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPControls2 interface provides a method that supplements the IWMPControls interface.
@@ -66,7 +66,7 @@ export default struct IWMPControls2 extends IWMPControls {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols2-step
      */
     step(lStep) {
-        result := ComCall(23, this, "int", lStep, "HRESULT")
+        result := ComCall(23, this, Int32, lStep, "HRESULT")
         return result
     }
 

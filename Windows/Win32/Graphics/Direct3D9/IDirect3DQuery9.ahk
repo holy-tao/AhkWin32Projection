@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3DQUERYTYPE.ahk" { D3DQUERYTYPE }
 #Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3DQUERYTYPE.ahk" { D3DQUERYTYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirect3DQuery9 (d3d9.h) interface applications use the methods of the IDirect3DQuery9 interface to perform asynchronous queries on a driver.
@@ -101,7 +101,7 @@ export default struct IDirect3DQuery9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dquery9-issue
      */
     Issue(dwIssueFlags) {
-        result := ComCall(6, this, "uint", dwIssueFlags, "HRESULT")
+        result := ComCall(6, this, UInt32, dwIssueFlags, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IDirect3DQuery9 extends IUnknown {
     GetData(pData, dwSize, dwGetDataFlags) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, pDataMarshal, pData, "uint", dwSize, "uint", dwGetDataFlags, "HRESULT")
+        result := ComCall(7, this, pDataMarshal, pData, UInt32, dwSize, UInt32, dwGetDataFlags, "HRESULT")
         return result
     }
 

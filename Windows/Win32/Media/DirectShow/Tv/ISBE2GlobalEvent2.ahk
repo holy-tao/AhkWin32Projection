@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ISBE2GlobalEvent.ahk" { ISBE2GlobalEvent }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Offers access to global spanning events and their data from the Stream Buffer Source filters. A global spanning event contains state information that applies to all the streams in a pipeline. This interface extends the ISBE2GlobalEvent interface.
@@ -61,7 +61,7 @@ export default struct ISBE2GlobalEvent2 extends ISBE2GlobalEvent {
         pbMarshal := pb is VarRef ? "char*" : "ptr"
         pStreamTimeMarshal := pStreamTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, Guid.Ptr, idEvt, "uint", param1, "uint", param2, "uint", param3, "uint", param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, pStreamTimeMarshal, pStreamTime, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, idEvt, UInt32, param1, UInt32, param2, UInt32, param3, UInt32, param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, pStreamTimeMarshal, pStreamTime, "HRESULT")
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\LVCOLUMNW_MASK.ahk" { LVCOLUMNW_MASK }
-#Import ".\LVCOLUMNW_FORMAT.ahk" { LVCOLUMNW_FORMAT }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\LVCOLUMNW_FORMAT.ahk" { LVCOLUMNW_FORMAT }
 
 /**
  * Contains information about a column in report view. This structure is used both for creating and manipulating columns. This structure supersedes the LV_COLUMN structure. (ANSI)

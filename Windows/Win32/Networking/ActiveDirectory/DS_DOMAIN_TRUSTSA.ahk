@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\PSID.ahk" { PSID }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * Used with the DsEnumerateDomainTrusts function to contain trust data for a domain. (ANSI)

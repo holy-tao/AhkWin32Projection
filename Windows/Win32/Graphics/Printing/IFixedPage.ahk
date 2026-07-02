@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPrintWriteStream.ahk" { IPrintWriteStream }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPartBase.ahk" { IPartBase }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXpsPartIterator.ahk" { IXpsPartIterator }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPartBase.ahk" { IPartBase }
 #Import ".\IPartPrintTicket.ahk" { IPartPrintTicket }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPrintWriteStream.ahk" { IPrintWriteStream }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

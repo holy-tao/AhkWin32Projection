@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -63,7 +63,7 @@ export default struct IViewSort extends IUnknown {
         rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
         rgOrdersMarshal := rgOrders is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cValues, rgColumnsMarshal, rgColumns, rgOrdersMarshal, rgOrders, "HRESULT")
+        result := ComCall(4, this, IntPtr, cValues, rgColumnsMarshal, rgColumns, rgOrdersMarshal, rgOrders, "HRESULT")
         return result
     }
 

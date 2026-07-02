@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPPHRASE.ahk" { SPPHRASE }
-#Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
-#Import ".\SPPHRASEPROPERTYHANDLE.ahk" { SPPHRASEPROPERTYHANDLE }
-#Import ".\SPPHRASERULEHANDLE.ahk" { SPPHRASERULEHANDLE }
-#Import ".\ISpPhrase.ahk" { ISpPhrase }
-#Import ".\SPSERIALIZEDPHRASE.ahk" { SPSERIALIZEDPHRASE }
+#Import ".\SPPHRASEPROPERTY.ahk" { SPPHRASEPROPERTY }
 #Import ".\SPPHRASERULE.ahk" { SPPHRASERULE }
 #Import ".\SPPHRASEREPLACEMENT.ahk" { SPPHRASEREPLACEMENT }
-#Import ".\SPPHRASEPROPERTY.ahk" { SPPHRASEPROPERTY }
+#Import ".\ISpPhrase.ahk" { ISpPhrase }
+#Import ".\SPPHRASEPROPERTYHANDLE.ahk" { SPPHRASEPROPERTYHANDLE }
+#Import ".\SPPHRASERULEHANDLE.ahk" { SPPHRASERULEHANDLE }
+#Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPSERIALIZEDPHRASE.ahk" { SPSERIALIZEDPHRASE }
+#Import ".\SPPHRASE.ahk" { SPPHRASE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -81,7 +81,7 @@ export default struct ISpPhraseBuilder extends ISpPhrase {
      * @returns {HRESULT} 
      */
     AddElements(cElements, pElement) {
-        result := ComCall(9, this, "uint", cElements, SPPHRASEELEMENT.Ptr, pElement, "HRESULT")
+        result := ComCall(9, this, UInt32, cElements, SPPHRASEELEMENT.Ptr, pElement, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct ISpPhraseBuilder extends ISpPhrase {
      * @returns {HRESULT} 
      */
     AddReplacements(cReplacements, pReplacements) {
-        result := ComCall(12, this, "uint", cReplacements, SPPHRASEREPLACEMENT.Ptr, pReplacements, "HRESULT")
+        result := ComCall(12, this, UInt32, cReplacements, SPPHRASEREPLACEMENT.Ptr, pReplacements, "HRESULT")
         return result
     }
 

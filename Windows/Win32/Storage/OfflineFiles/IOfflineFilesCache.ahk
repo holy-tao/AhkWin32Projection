@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOfflineFilesSimpleProgress.ahk" { IOfflineFilesSimpleProgress }
-#Import ".\IOfflineFilesItemFilter.ahk" { IOfflineFilesItemFilter }
 #Import ".\IOfflineFilesItem.ahk" { IOfflineFilesItem }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOfflineFilesItemFilter.ahk" { IOfflineFilesItemFilter }
 #Import ".\IOfflineFilesSetting.ahk" { IOfflineFilesSetting }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumOfflineFilesSettings.ahk" { IEnumOfflineFilesSettings }
+#Import ".\IOfflineFilesSimpleProgress.ahk" { IOfflineFilesSimpleProgress }
 #Import ".\IOfflineFilesSyncProgress.ahk" { IOfflineFilesSyncProgress }
-#Import ".\IOfflineFilesSyncConflictHandler.ahk" { IOfflineFilesSyncConflictHandler }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOfflineFilesSyncConflictHandler.ahk" { IOfflineFilesSyncConflictHandler }
+#Import ".\IEnumOfflineFilesSettings.ahk" { IEnumOfflineFilesSettings }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\OFFLINEFILES_CACHING_MODE.ahk" { OFFLINEFILES_CACHING_MODE }
 
 /**
@@ -171,7 +171,7 @@ export default struct IOfflineFilesCache extends IUnknown {
     Synchronize(hwndParent, rgpszPaths, cPaths, bAsync, dwSyncControl, pISyncConflictHandler, pIProgress, pSyncId) {
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, BOOL, bAsync, "uint", dwSyncControl, "ptr", pISyncConflictHandler, "ptr", pIProgress, Guid.Ptr, pSyncId, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, BOOL, bAsync, UInt32, dwSyncControl, "ptr", pISyncConflictHandler, "ptr", pIProgress, Guid.Ptr, pSyncId, "HRESULT")
         return result
     }
 
@@ -256,7 +256,7 @@ export default struct IOfflineFilesCache extends IUnknown {
     DeleteItems(rgpszPaths, cPaths, dwFlags, bAsync, pIProgress) {
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "uint", dwFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
+        result := ComCall(4, this, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, UInt32, dwFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -344,7 +344,7 @@ export default struct IOfflineFilesCache extends IUnknown {
 
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszUser, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, "uint", dwFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
+        result := ComCall(5, this, "ptr", pszUser, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, UInt32, dwFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -422,7 +422,7 @@ export default struct IOfflineFilesCache extends IUnknown {
     Pin(hwndParent, rgpszPaths, cPaths, bDeep, bAsync, dwPinControlFlags, pIProgress) {
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, BOOL, bDeep, BOOL, bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
+        result := ComCall(6, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, BOOL, bDeep, BOOL, bAsync, UInt32, dwPinControlFlags, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -500,7 +500,7 @@ export default struct IOfflineFilesCache extends IUnknown {
     Unpin(hwndParent, rgpszPaths, cPaths, bDeep, bAsync, dwPinControlFlags, pIProgress) {
         rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, "uint", cPaths, BOOL, bDeep, BOOL, bAsync, "uint", dwPinControlFlags, "ptr", pIProgress, "HRESULT")
+        result := ComCall(7, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, BOOL, bDeep, BOOL, bAsync, UInt32, dwPinControlFlags, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -618,7 +618,7 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-encrypt
      */
     Encrypt(hwndParent, bEncrypt, dwEncryptionControlFlags, bAsync, pIProgress) {
-        result := ComCall(9, this, HWND, hwndParent, BOOL, bEncrypt, "uint", dwEncryptionControlFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
+        result := ComCall(9, this, HWND, hwndParent, BOOL, bEncrypt, UInt32, dwEncryptionControlFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
         return result
     }
 
@@ -634,7 +634,7 @@ export default struct IOfflineFilesCache extends IUnknown {
     FindItem(pszPath, dwQueryFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(10, this, "ptr", pszPath, "uint", dwQueryFlags, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pszPath, UInt32, dwQueryFlags, "ptr*", &ppItem := 0, "HRESULT")
         return IOfflineFilesItem(ppItem)
     }
 
@@ -654,7 +654,7 @@ export default struct IOfflineFilesCache extends IUnknown {
     FindItemEx(pszPath, pIncludeFileFilter, pIncludeDirFilter, pExcludeFileFilter, pExcludeDirFilter, dwQueryFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(11, this, "ptr", pszPath, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, "uint", dwQueryFlags, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pszPath, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, UInt32, dwQueryFlags, "ptr*", &ppItem := 0, "HRESULT")
         return IOfflineFilesItem(ppItem)
     }
 
@@ -727,7 +727,7 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-setdiskspacelimits
      */
     SetDiskSpaceLimits(cbLimit, cbUnpinnedLimit) {
-        result := ComCall(15, this, "uint", cbLimit, "uint", cbUnpinnedLimit, "HRESULT")
+        result := ComCall(15, this, Int64, cbLimit, Int64, cbUnpinnedLimit, "HRESULT")
         return result
     }
 

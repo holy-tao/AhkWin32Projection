@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Apo\APO_CONNECTION_PROPERTY.ahk" { APO_CONNECTION_PROPERTY }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Apo\APO_CONNECTION_PROPERTY.ahk" { APO_CONNECTION_PROPERTY }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**

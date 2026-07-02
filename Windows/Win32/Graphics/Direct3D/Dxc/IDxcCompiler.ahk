@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DxcDefine.ahk" { DxcDefine }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 #Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
 #Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import ".\DxcDefine.ahk" { DxcDefine }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -63,7 +63,7 @@ export default struct IDxcCompiler extends IUnknown {
 
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, DxcDefine.Ptr, pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
     }
 
@@ -83,7 +83,7 @@ export default struct IDxcCompiler extends IUnknown {
 
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pSource, "ptr", pSourceName, pArgumentsMarshal, pArguments, "uint", argCount, DxcDefine.Ptr, pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pSource, "ptr", pSourceName, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
     }
 

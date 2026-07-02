@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ASSOCIATIONTYPE.ahk" { ASSOCIATIONTYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ASSOCIATIONLEVEL.ahk" { ASSOCIATIONLEVEL }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ASSOCIATIONLEVEL.ahk" { ASSOCIATIONLEVEL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ASSOCIATIONTYPE.ahk" { ASSOCIATIONTYPE }
 
 /**
  * Exposes methods that query and set default applications for specific file Association Type, and protocols at a specific Association Level.

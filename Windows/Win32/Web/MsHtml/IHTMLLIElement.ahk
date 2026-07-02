@@ -89,7 +89,7 @@ export default struct IHTMLLIElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_value(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, Int32, v, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
 #Import "..\..\Security\SECURITY_DESCRIPTOR_CONTROL.ahk" { SECURITY_DESCRIPTOR_CONTROL }
-#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
 #Import "..\..\Security\SECURITY_DESCRIPTOR_RELATIVE.ahk" { SECURITY_DESCRIPTOR_RELATIVE }
+#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
+#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
 
 /**
  * Describes a security descriptor.

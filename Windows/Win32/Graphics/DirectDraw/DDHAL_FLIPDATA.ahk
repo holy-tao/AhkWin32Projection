@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPDDHALSURFCB_FLIP.ahk" { LPDDHALSURFCB_FLIP }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
@@ -19,7 +20,7 @@ export default struct DDHAL_FLIPDATA {
 
     ddRVal : HRESULT
 
-    Flip : IntPtr
+    Flip : LPDDHALSURFCB_FLIP
 
     lpSurfCurrLeft : DDRAWI_DDRAWSURFACE_LCL.Ptr
 

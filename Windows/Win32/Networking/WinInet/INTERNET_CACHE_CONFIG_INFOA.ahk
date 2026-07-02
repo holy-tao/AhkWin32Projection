@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERNET_CACHE_CONFIG_PATH_ENTRYA.ahk" { INTERNET_CACHE_CONFIG_PATH_ENTRYA }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\INTERNET_CACHE_CONFIG_PATH_ENTRYA.ahk" { INTERNET_CACHE_CONFIG_PATH_ENTRYA }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

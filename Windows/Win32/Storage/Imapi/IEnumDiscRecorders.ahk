@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDiscRecorder.ahk" { IDiscRecorder }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDiscRecorder.ahk" { IDiscRecorder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Storage.Imapi
@@ -49,7 +49,7 @@ export default struct IEnumDiscRecorders extends IUnknown {
     Next(cRecorders, ppRecorder, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cRecorders, IDiscRecorder.Ptr, ppRecorder, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cRecorders, IDiscRecorder.Ptr, ppRecorder, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -59,7 +59,7 @@ export default struct IEnumDiscRecorders extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(cRecorders) {
-        result := ComCall(4, this, "uint", cRecorders, "HRESULT")
+        result := ComCall(4, this, UInt32, cRecorders, "HRESULT")
         return result
     }
 

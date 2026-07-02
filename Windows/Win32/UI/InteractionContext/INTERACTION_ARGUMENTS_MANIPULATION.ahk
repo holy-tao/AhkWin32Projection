@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MANIPULATION_VELOCITY.ahk" { MANIPULATION_VELOCITY }
 #Import ".\MANIPULATION_TRANSFORM.ahk" { MANIPULATION_TRANSFORM }
 #Import ".\MANIPULATION_RAILS_STATE.ahk" { MANIPULATION_RAILS_STATE }
-#Import ".\MANIPULATION_VELOCITY.ahk" { MANIPULATION_VELOCITY }
 
 /**
  * Defines the state of a manipulation.

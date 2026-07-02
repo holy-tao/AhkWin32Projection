@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EncoderParameter.ahk" { EncoderParameter }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EncoderParameter.ahk" { EncoderParameter }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus

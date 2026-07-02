@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDataObject.ahk" { IDataObject }
 #Import ".\IContextMenuCallback.ahk" { IContextMenuCallback }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IExtendContextMenu interface enables a snap-in to add items to an existing context menu.
@@ -102,7 +102,7 @@ export default struct IExtendContextMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendcontextmenu-command
      */
     Command(lCommandID, piDataObject) {
-        result := ComCall(4, this, "int", lCommandID, "ptr", piDataObject, "HRESULT")
+        result := ComCall(4, this, Int32, lCommandID, "ptr", piDataObject, "HRESULT")
         return result
     }
 

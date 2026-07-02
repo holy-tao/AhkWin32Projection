@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) data content descriptor.
@@ -110,7 +110,7 @@ export default struct IIsdbDataContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getselectorbytes
      */
     GetSelectorBytes(bBufLength) {
-        result := ComCall(8, this, "char", bBufLength, "char*", &pbBuf := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bBufLength, "char*", &pbBuf := 0, "HRESULT")
         return pbBuf
     }
 
@@ -131,7 +131,7 @@ export default struct IIsdbDataContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getrecordcomponentref
      */
     GetRecordComponentRef(bRecordIndex) {
-        result := ComCall(10, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(10, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 

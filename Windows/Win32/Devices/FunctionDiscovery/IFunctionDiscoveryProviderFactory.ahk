@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFunctionDiscoveryProvider.ahk" { IFunctionDiscoveryProvider }
-#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFunctionDiscoveryProvider.ahk" { IFunctionDiscoveryProvider }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IFunctionInstanceCollection.ahk" { IFunctionInstanceCollection }
 #Import ".\IFunctionInstance.ahk" { IFunctionInstance }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides factory methods to create Function Discovery objects.
@@ -84,7 +84,7 @@ export default struct IFunctionDiscoveryProviderFactory extends IUnknown {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
         pszProviderInstanceIdentity := pszProviderInstanceIdentity is String ? StrPtr(pszProviderInstanceIdentity) : pszProviderInstanceIdentity
 
-        result := ComCall(4, this, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, "ptr", iProviderInstanceContext, "ptr", pIPropertyStore, "ptr", pIFunctionDiscoveryProvider, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, IntPtr, iProviderInstanceContext, "ptr", pIPropertyStore, "ptr", pIFunctionDiscoveryProvider, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
         return IFunctionInstance(ppIFunctionInstance)
     }
 

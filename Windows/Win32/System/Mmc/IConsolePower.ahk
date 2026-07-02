@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IConsolePower interface controls the execution state and idle timers on operating systems that support power management.
@@ -64,7 +64,7 @@ export default struct IConsolePower extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolepower-setexecutionstate
      */
     SetExecutionState(dwAdd, dwRemove) {
-        result := ComCall(3, this, "uint", dwAdd, "uint", dwRemove, "HRESULT")
+        result := ComCall(3, this, UInt32, dwAdd, UInt32, dwRemove, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IConsolePower extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolepower-resetidletimer
      */
     ResetIdleTimer(dwFlags) {
-        result := ComCall(4, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

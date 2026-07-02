@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\MULTI_QI.ahk" { MULTI_QI }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -50,7 +50,7 @@ export default struct AsyncIMultiQI extends IUnknown {
      * @returns {HRESULT} 
      */
     Begin_QueryMultipleInterfaces(cMQIs, pMQIs) {
-        result := ComCall(3, this, "uint", cMQIs, MULTI_QI.Ptr, pMQIs, "HRESULT")
+        result := ComCall(3, this, UInt32, cMQIs, MULTI_QI.Ptr, pMQIs, "HRESULT")
         return result
     }
 

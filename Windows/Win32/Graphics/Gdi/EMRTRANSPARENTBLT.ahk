@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\XFORM.ahk" { XFORM }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import ".\EMR.ahk" { EMR }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\EMR.ahk" { EMR }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * The EMRTRANSPARENTBLT structure contains members for the TransparentBLT enhanced metafile record.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import "Common\DXGI_MODE_SCANLINE_ORDER.ahk" { DXGI_MODE_SCANLINE_ORDER }
 #Import "Common\DXGI_MODE_SCALING.ahk" { DXGI_MODE_SCALING }
-#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes a display mode and whether the display mode supports stereo.

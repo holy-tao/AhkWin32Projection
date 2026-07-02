@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPSettings interface provides methods that get or set the values of Windows Media Player settings.
@@ -589,7 +589,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-put_playcount
      */
     put_playCount(lCount) {
-        result := ComCall(19, this, "int", lCount, "HRESULT")
+        result := ComCall(19, this, Int32, lCount, "HRESULT")
         return result
     }
 
@@ -701,7 +701,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-put_rate
      */
     put_rate(dRate) {
-        result := ComCall(21, this, "double", dRate, "HRESULT")
+        result := ComCall(21, this, Float64, dRate, "HRESULT")
         return result
     }
 
@@ -765,7 +765,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-put_balance
      */
     put_balance(lBalance) {
-        result := ComCall(23, this, "int", lBalance, "HRESULT")
+        result := ComCall(23, this, Int32, lBalance, "HRESULT")
         return result
     }
 
@@ -829,7 +829,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-put_volume
      */
     put_volume(lVolume) {
-        result := ComCall(25, this, "int", lVolume, "HRESULT")
+        result := ComCall(25, this, Int32, lVolume, "HRESULT")
         return result
     }
 

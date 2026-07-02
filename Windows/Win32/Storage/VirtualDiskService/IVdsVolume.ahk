@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VDS_VOLUME_PROP.ahk" { VDS_VOLUME_PROP }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IVdsPack.ahk" { IVdsPack }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 #Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import ".\VDS_VOLUME_PROP.ahk" { VDS_VOLUME_PROP }
+#Import ".\IVdsPack.ahk" { IVdsPack }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 
 /**
  * Provides methods to manage volumes.
@@ -144,7 +144,7 @@ export default struct IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-extend
      */
     Extend(pInputDiskArray, lNumberOfDisks) {
-        result := ComCall(6, this, VDS_INPUT_DISK.Ptr, pInputDiskArray, "int", lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, VDS_INPUT_DISK.Ptr, pInputDiskArray, Int32, lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -182,7 +182,7 @@ export default struct IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-shrink
      */
     Shrink(ullNumberOfBytesToRemove) {
-        result := ComCall(7, this, "uint", ullNumberOfBytesToRemove, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(7, this, Int64, ullNumberOfBytesToRemove, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -491,7 +491,7 @@ export default struct IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-setflags
      */
     SetFlags(ulFlags, bRevertOnClose) {
-        result := ComCall(12, this, "uint", ulFlags, BOOL, bRevertOnClose, "HRESULT")
+        result := ComCall(12, this, UInt32, ulFlags, BOOL, bRevertOnClose, "HRESULT")
         return result
     }
 
@@ -541,7 +541,7 @@ export default struct IVdsVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolume-clearflags
      */
     ClearFlags(ulFlags) {
-        result := ComCall(13, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(13, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 

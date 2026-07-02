@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDXGIDevice.ahk" { IDXGIDevice }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * An IDXGIDevice1 interface implements a derived class for DXGI objects that produce image data.
@@ -84,7 +84,7 @@ export default struct IDXGIDevice1 extends IDXGIDevice {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice1-setmaximumframelatency
      */
     SetMaximumFrameLatency(MaxLatency) {
-        result := ComCall(12, this, "uint", MaxLatency, "HRESULT")
+        result := ComCall(12, this, UInt32, MaxLatency, "HRESULT")
         return result
     }
 

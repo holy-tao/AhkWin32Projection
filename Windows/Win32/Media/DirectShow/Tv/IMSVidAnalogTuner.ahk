@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidTuner.ahk" { IMSVidTuner }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidTuner.ahk" { IMSVidTuner }
 
 /**
  * The IMSVidAnalogTuner interface represents an analog-only tuner card that does not support the Broadcast Driver Architecture (BDA). This interface provides Automation access to the IAMTVTuner and IAMTVAudio interfaces.
@@ -103,7 +103,7 @@ export default struct IMSVidAnalogTuner extends IMSVidTuner {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-put_channel
      */
     put_Channel(Channel) {
-        result := ComCall(23, this, "int", Channel, "HRESULT")
+        result := ComCall(23, this, Int32, Channel, "HRESULT")
         return result
     }
 
@@ -152,7 +152,7 @@ export default struct IMSVidAnalogTuner extends IMSVidTuner {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-put_countrycode
      */
     put_CountryCode(lcc) {
-        result := ComCall(27, this, "int", lcc, "HRESULT")
+        result := ComCall(27, this, Int32, lcc, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IMSVidAnalogTuner extends IMSVidTuner {
     ChannelAvailable(nChannel, SignalStrength) {
         SignalStrengthMarshal := SignalStrength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(30, this, "int", nChannel, SignalStrengthMarshal, SignalStrength, VARIANT_BOOL.Ptr, &fSignalPresent := 0, "HRESULT")
+        result := ComCall(30, this, Int32, nChannel, SignalStrengthMarshal, SignalStrength, VARIANT_BOOL.Ptr, &fSignalPresent := 0, "HRESULT")
         return fSignalPresent
     }
 

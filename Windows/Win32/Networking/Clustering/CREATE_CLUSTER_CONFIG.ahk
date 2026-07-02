@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CLUSTER_IP_ENTRY.ahk" { CLUSTER_IP_ENTRY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\CLUSTER_MGMT_POINT_RESTYPE.ahk" { CLUSTER_MGMT_POINT_RESTYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLUSTER_MGMT_POINT_TYPE.ahk" { CLUSTER_MGMT_POINT_TYPE }
+#Import ".\CLUSTER_MGMT_POINT_RESTYPE.ahk" { CLUSTER_MGMT_POINT_RESTYPE }
 
 /**
  * Defines the initial cluster configuration.

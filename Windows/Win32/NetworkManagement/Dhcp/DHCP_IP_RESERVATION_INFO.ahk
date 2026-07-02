@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The DHCP_IP_RESERVATION_INFO structure defines an IPv4 reservation for a DHCPv4 client.

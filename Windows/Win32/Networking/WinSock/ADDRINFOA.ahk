@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SOCKADDR.ahk" { SOCKADDR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
 
 /**
  * Used by the getaddrinfo function to hold host address information.

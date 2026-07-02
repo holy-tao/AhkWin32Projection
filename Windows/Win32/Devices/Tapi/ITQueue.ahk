@@ -202,7 +202,7 @@ export default struct ITQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-put_measurementperiod
      */
     put_MeasurementPeriod(lPeriod) {
-        result := ComCall(7, this, "int", lPeriod, "HRESULT")
+        result := ComCall(7, this, Int32, lPeriod, "HRESULT")
         return result
     }
 

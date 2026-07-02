@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to enumerate the CD and DVD devices installed on the computer.
@@ -101,7 +101,7 @@ export default struct IDiscMaster2 extends IDispatch {
      */
     get_Item(index) {
         value := BSTR.Owned()
-        result := ComCall(8, this, "int", index, BSTR.Ptr, value, "HRESULT")
+        result := ComCall(8, this, Int32, index, BSTR.Ptr, value, "HRESULT")
         return value
     }
 

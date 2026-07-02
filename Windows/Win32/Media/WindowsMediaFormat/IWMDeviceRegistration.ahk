@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMRegisteredDevice.ahk" { IWMRegisteredDevice }
-#Import ".\DRM_VAL16.ahk" { DRM_VAL16 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DRM_VAL16.ahk" { DRM_VAL16 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMDeviceRegistration interface registers playback devices for secure data delivery.You can create a device registration object and retrieve a pointer to its IWMDeviceRegistration interface by calling the WMCreateDeviceRegistration function.
@@ -70,7 +70,7 @@ export default struct IWMDeviceRegistration extends IUnknown {
     RegisterDevice(dwRegisterType, pbCertificate, cbCertificate, SerialNumber) {
         pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, DRM_VAL16, SerialNumber, "ptr*", &ppDevice := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwRegisterType, pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, DRM_VAL16, SerialNumber, "ptr*", &ppDevice := 0, "HRESULT")
         return IWMRegisteredDevice(ppDevice)
     }
 
@@ -117,7 +117,7 @@ export default struct IWMDeviceRegistration extends IUnknown {
     UnregisterDevice(dwRegisterType, pbCertificate, cbCertificate, SerialNumber) {
         pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, DRM_VAL16, SerialNumber, "HRESULT")
+        result := ComCall(4, this, UInt32, dwRegisterType, pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, DRM_VAL16, SerialNumber, "HRESULT")
         return result
     }
 
@@ -130,7 +130,7 @@ export default struct IWMDeviceRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-getregistrationstats
      */
     GetRegistrationStats(dwRegisterType) {
-        result := ComCall(5, this, "uint", dwRegisterType, "uint*", &pcRegisteredDevices := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwRegisterType, "uint*", &pcRegisteredDevices := 0, "HRESULT")
         return pcRegisteredDevices
     }
 
@@ -145,7 +145,7 @@ export default struct IWMDeviceRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-getfirstregistereddevice
      */
     GetFirstRegisteredDevice(dwRegisterType) {
-        result := ComCall(6, this, "uint", dwRegisterType, "ptr*", &ppDevice := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwRegisterType, "ptr*", &ppDevice := 0, "HRESULT")
         return IWMRegisteredDevice(ppDevice)
     }
 
@@ -177,7 +177,7 @@ export default struct IWMDeviceRegistration extends IUnknown {
     GetRegisteredDeviceByID(dwRegisterType, pbCertificate, cbCertificate, SerialNumber) {
         pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, DRM_VAL16, SerialNumber, "ptr*", &ppDevice := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwRegisterType, pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, DRM_VAL16, SerialNumber, "ptr*", &ppDevice := 0, "HRESULT")
         return IWMRegisteredDevice(ppDevice)
     }
 

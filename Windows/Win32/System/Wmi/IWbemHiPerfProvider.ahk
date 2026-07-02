@@ -3,13 +3,13 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWbemObjectAccess.ahk" { IWbemObjectAccess }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWbemRefresher.ahk" { IWbemRefresher }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWbemServices.ahk" { IWbemServices }
 #Import ".\IWbemHiPerfEnum.ahk" { IWbemHiPerfEnum }
-#Import ".\IWbemContext.ahk" { IWbemContext }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWbemServices.ahk" { IWbemServices }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
+#Import ".\IWbemRefresher.ahk" { IWbemRefresher }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWbemContext.ahk" { IWbemContext }
 
 /**
  * Enables providers to supply refreshable objects and enumerators.
@@ -83,7 +83,7 @@ export default struct IWbemHiPerfProvider extends IUnknown {
     QueryInstances(pNamespace, wszClass, lFlags, pCtx, pSink) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszClass, "int", lFlags, "ptr", pCtx, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszClass, Int32, lFlags, "ptr", pCtx, "ptr", pSink, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IWbemHiPerfProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefresher
      */
     CreateRefresher(pNamespace, lFlags) {
-        result := ComCall(4, this, "ptr", pNamespace, "int", lFlags, "ptr*", &ppRefresher := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pNamespace, Int32, lFlags, "ptr*", &ppRefresher := 0, "HRESULT")
         return IWbemRefresher(ppRefresher)
     }
 
@@ -130,7 +130,7 @@ export default struct IWbemHiPerfProvider extends IUnknown {
     CreateRefreshableObject(pNamespace, pTemplate, pRefresher, lFlags, pContext, ppRefreshable, plId) {
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pNamespace, "ptr", pTemplate, "ptr", pRefresher, "int", lFlags, "ptr", pContext, IWbemObjectAccess.Ptr, ppRefreshable, plIdMarshal, plId, "HRESULT")
+        result := ComCall(5, this, "ptr", pNamespace, "ptr", pTemplate, "ptr", pRefresher, Int32, lFlags, "ptr", pContext, IWbemObjectAccess.Ptr, ppRefreshable, plIdMarshal, plId, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IWbemHiPerfProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemhiperfprovider-stoprefreshing
      */
     StopRefreshing(pRefresher, lId, lFlags) {
-        result := ComCall(6, this, "ptr", pRefresher, "int", lId, "int", lFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", pRefresher, Int32, lId, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IWbemHiPerfProvider extends IUnknown {
     CreateRefreshableEnum(pNamespace, wszClass, pRefresher, lFlags, pContext, pHiPerfEnum) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClass, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr", pHiPerfEnum, "int*", &plId := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClass, "ptr", pRefresher, Int32, lFlags, "ptr", pContext, "ptr", pHiPerfEnum, "int*", &plId := 0, "HRESULT")
         return plId
     }
 
@@ -197,7 +197,7 @@ export default struct IWbemHiPerfProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemhiperfprovider-getobjects
      */
     GetObjects(pNamespace, lNumObjects, lFlags, pContext) {
-        result := ComCall(8, this, "ptr", pNamespace, "int", lNumObjects, "ptr*", &apObj := 0, "int", lFlags, "ptr", pContext, "HRESULT")
+        result := ComCall(8, this, "ptr", pNamespace, Int32, lNumObjects, "ptr*", &apObj := 0, Int32, lFlags, "ptr", pContext, "HRESULT")
         return IWbemObjectAccess(apObj)
     }
 

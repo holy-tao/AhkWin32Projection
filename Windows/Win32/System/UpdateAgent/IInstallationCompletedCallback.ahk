@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IInstallationJob.ahk" { IInstallationJob }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IInstallationCompletedCallbackArgs.ahk" { IInstallationCompletedCallbackArgs }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInstallationJob.ahk" { IInstallationJob }
 
 /**
  * Handles the notification that indicates that an asynchronous installation or uninstallation is complete.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DIRECTSOUNDDEVICE_TYPE.ahk" { DIRECTSOUNDDEVICE_TYPE }
 #Import ".\DIRECTSOUNDDEVICE_DATAFLOW.ahk" { DIRECTSOUNDDEVICE_DATAFLOW }
+#Import ".\DIRECTSOUNDDEVICE_TYPE.ahk" { DIRECTSOUNDDEVICE_TYPE }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 #Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }

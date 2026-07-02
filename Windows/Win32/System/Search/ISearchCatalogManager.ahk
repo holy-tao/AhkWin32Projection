@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISearchQueryHelper.ahk" { ISearchQueryHelper }
-#Import ".\ISearchViewChangedSink.ahk" { ISearchViewChangedSink }
-#Import ".\ISearchPersistentItemsChangedSink.ahk" { ISearchPersistentItemsChangedSink }
-#Import ".\ISearchCrawlScopeManager.ahk" { ISearchCrawlScopeManager }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IEnumString.ahk" { IEnumString }
-#Import ".\CatalogStatus.ahk" { CatalogStatus }
 #Import ".\CatalogPausedReason.ahk" { CatalogPausedReason }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISearchQueryHelper.ahk" { ISearchQueryHelper }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISearchCrawlScopeManager.ahk" { ISearchCrawlScopeManager }
+#Import ".\CatalogStatus.ahk" { CatalogStatus }
 #Import ".\ISearchNotifyInlineSite.ahk" { ISearchNotifyInlineSite }
+#Import ".\ISearchViewChangedSink.ahk" { ISearchViewChangedSink }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ISearchPersistentItemsChangedSink.ahk" { ISearchPersistentItemsChangedSink }
 
 /**
  * Provides methods to manage a search catalog for purposes such as re-indexing or setting timeouts.
@@ -255,7 +255,7 @@ export default struct ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-put_connecttimeout
      */
     put_ConnectTimeout(dwConnectTimeout) {
-        result := ComCall(11, this, "uint", dwConnectTimeout, "HRESULT")
+        result := ComCall(11, this, UInt32, dwConnectTimeout, "HRESULT")
         return result
     }
 
@@ -286,7 +286,7 @@ export default struct ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-put_datatimeout
      */
     put_DataTimeout(dwDataTimeout) {
-        result := ComCall(13, this, "uint", dwDataTimeout, "HRESULT")
+        result := ComCall(13, this, UInt32, dwDataTimeout, "HRESULT")
         return result
     }
 
@@ -438,7 +438,7 @@ export default struct ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-unregisterviewfornotification
      */
     UnregisterViewForNotification(dwCookie) {
-        result := ComCall(22, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(22, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 

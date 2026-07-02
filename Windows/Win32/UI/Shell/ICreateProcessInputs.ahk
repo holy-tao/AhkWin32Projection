@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used by the ICreatingProcess interface to alter some parameters of the process that is being created.
@@ -67,7 +67,7 @@ export default struct ICreateProcessInputs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-setcreateflags
      */
     SetCreateFlags(dwCreationFlags) {
-        result := ComCall(4, this, "uint", dwCreationFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, dwCreationFlags, "HRESULT")
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct ICreateProcessInputs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-addcreateflags
      */
     AddCreateFlags(dwCreationFlags) {
-        result := ComCall(5, this, "uint", dwCreationFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, dwCreationFlags, "HRESULT")
         return result
     }
 
@@ -93,7 +93,7 @@ export default struct ICreateProcessInputs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-sethotkey
      */
     SetHotKey(wHotKey) {
-        result := ComCall(6, this, "ushort", wHotKey, "HRESULT")
+        result := ComCall(6, this, UInt16, wHotKey, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct ICreateProcessInputs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-addstartupflags
      */
     AddStartupFlags(dwStartupInfoFlags) {
-        result := ComCall(7, this, "uint", dwStartupInfoFlags, "HRESULT")
+        result := ComCall(7, this, UInt32, dwStartupInfoFlags, "HRESULT")
         return result
     }
 

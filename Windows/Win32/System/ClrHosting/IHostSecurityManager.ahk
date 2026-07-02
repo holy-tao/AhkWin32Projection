@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\EContextType.ahk" { EContextType }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IHostSecurityContext.ahk" { IHostSecurityContext }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IHostSecurityContext.ahk" { IHostSecurityContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EContextType.ahk" { EContextType }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -123,7 +123,7 @@ export default struct IHostSecurityManager extends IUnknown {
      */
     OpenThreadToken(dwDesiredAccess, bOpenAsSelf) {
         phThreadToken := HANDLE.Owned()
-        result := ComCall(5, this, "uint", dwDesiredAccess, BOOL, bOpenAsSelf, HANDLE.Ptr, phThreadToken, "HRESULT")
+        result := ComCall(5, this, UInt32, dwDesiredAccess, BOOL, bOpenAsSelf, HANDLE.Ptr, phThreadToken, "HRESULT")
         return phThreadToken
     }
 

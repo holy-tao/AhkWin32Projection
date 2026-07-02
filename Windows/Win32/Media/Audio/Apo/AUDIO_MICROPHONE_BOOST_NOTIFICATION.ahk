@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\IMMDevice.ahk" { IMMDevice }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IMMDevice.ahk" { IMMDevice }
 
 /**
  * Represents an audio microphone boost APO notification.

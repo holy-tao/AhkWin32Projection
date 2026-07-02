@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
 #Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\D3DRASTER_STATUS.ahk" { D3DRASTER_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
-#Import ".\D3DBACKBUFFER_TYPE.ahk" { D3DBACKBUFFER_TYPE }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import ".\D3DBACKBUFFER_TYPE.ahk" { D3DBACKBUFFER_TYPE }
+#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DRASTER_STATUS.ahk" { D3DRASTER_STATUS }
 
 /**
  * The IDirect3DSwapChain9 (d3d9.h) interface is used by applications to manipulate a swap chain.
@@ -111,7 +111,7 @@ export default struct IDirect3DSwapChain9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9-present
      */
     Present(pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags) {
-        result := ComCall(3, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestRect, HWND, hDestWindowOverride, RGNDATA.Ptr, pDirtyRegion, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestRect, HWND, hDestWindowOverride, RGNDATA.Ptr, pDirtyRegion, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IDirect3DSwapChain9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9-getbackbuffer
      */
     GetBackBuffer(iBackBuffer, Type) {
-        result := ComCall(5, this, "uint", iBackBuffer, D3DBACKBUFFER_TYPE, Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, iBackBuffer, D3DBACKBUFFER_TYPE, Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
         return IDirect3DSurface9(ppBackBuffer)
     }
 

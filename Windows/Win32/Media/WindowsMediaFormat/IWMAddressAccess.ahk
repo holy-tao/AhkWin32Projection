@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WM_AETYPE.ahk" { WM_AETYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WM_ADDRESS_ACCESSENTRY.ahk" { WM_ADDRESS_ACCESSENTRY }
+#Import ".\WM_AETYPE.ahk" { WM_AETYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMAddressAccess interface controls IP access lists on the writer network sink object.
@@ -62,7 +62,7 @@ export default struct IWMAddressAccess extends IUnknown {
      */
     GetAccessEntry(aeType, dwEntryNum) {
         pAddrAccessEntry := WM_ADDRESS_ACCESSENTRY()
-        result := ComCall(4, this, WM_AETYPE, aeType, "uint", dwEntryNum, WM_ADDRESS_ACCESSENTRY.Ptr, pAddrAccessEntry, "HRESULT")
+        result := ComCall(4, this, WM_AETYPE, aeType, UInt32, dwEntryNum, WM_ADDRESS_ACCESSENTRY.Ptr, pAddrAccessEntry, "HRESULT")
         return pAddrAccessEntry
     }
 
@@ -126,7 +126,7 @@ export default struct IWMAddressAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess-removeaccessentry
      */
     RemoveAccessEntry(aeType, dwEntryNum) {
-        result := ComCall(6, this, WM_AETYPE, aeType, "uint", dwEntryNum, "HRESULT")
+        result := ComCall(6, this, WM_AETYPE, aeType, UInt32, dwEntryNum, "HRESULT")
         return result
     }
 

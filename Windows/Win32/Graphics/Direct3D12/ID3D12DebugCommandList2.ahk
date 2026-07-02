@@ -45,7 +45,7 @@ export default struct ID3D12DebugCommandList2 extends ID3D12DebugCommandList {
      * @returns {HRESULT} 
      */
     SetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(6, this, D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(6, this, D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, Type, IntPtr, pData, UInt32, DataSize, "HRESULT")
         return result
     }
 
@@ -57,7 +57,7 @@ export default struct ID3D12DebugCommandList2 extends ID3D12DebugCommandList {
      * @returns {HRESULT} 
      */
     GetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(7, this, D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(7, this, D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, Type, IntPtr, pData, UInt32, DataSize, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide access to all of the codec's top level metadata blocks.
@@ -84,7 +84,7 @@ export default struct IWICMetadataBlockReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getreaderbyindex
      */
     GetReaderByIndex(nIndex) {
-        result := ComCall(5, this, "uint", nIndex, "ptr*", &ppIMetadataReader := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, nIndex, "ptr*", &ppIMetadataReader := 0, "HRESULT")
         return IWICMetadataReader(ppIMetadataReader)
     }
 

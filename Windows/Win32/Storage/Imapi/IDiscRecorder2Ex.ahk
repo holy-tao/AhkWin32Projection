@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMAPI_FEATURE_PAGE_TYPE.ahk" { IMAPI_FEATURE_PAGE_TYPE }
+#Import ".\IMAPI_MODE_PAGE_TYPE.ahk" { IMAPI_MODE_PAGE_TYPE }
 #Import ".\IMAPI_READ_TRACK_ADDRESS_TYPE.ahk" { IMAPI_READ_TRACK_ADDRESS_TYPE }
-#Import ".\IMAPI_PROFILE_TYPE.ahk" { IMAPI_PROFILE_TYPE }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMAPI_MODE_PAGE_REQUEST_TYPE.ahk" { IMAPI_MODE_PAGE_REQUEST_TYPE }
-#Import ".\IMAPI_MODE_PAGE_TYPE.ahk" { IMAPI_MODE_PAGE_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\IMAPI_PROFILE_TYPE.ahk" { IMAPI_PROFILE_TYPE }
 
 /**
  * This interface represents a physical device.
@@ -132,7 +132,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
     SendCommandNoData(Cdb, CdbSize, Timeout) {
         CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, "HRESULT")
+        result := ComCall(3, this, CdbMarshal, Cdb, UInt32, CdbSize, "char*", &SenseBuffer := 0, UInt32, Timeout, "HRESULT")
         return SenseBuffer
     }
 
@@ -209,7 +209,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
         CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
         _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, _BufferMarshal, _Buffer, "uint", BufferSize, "HRESULT")
+        result := ComCall(4, this, CdbMarshal, Cdb, UInt32, CdbSize, "char*", &SenseBuffer := 0, UInt32, Timeout, _BufferMarshal, _Buffer, UInt32, BufferSize, "HRESULT")
         return SenseBuffer
     }
 
@@ -617,7 +617,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
         _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
         BufferFetchedMarshal := BufferFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, _BufferMarshal, _Buffer, "uint", BufferSize, BufferFetchedMarshal, BufferFetched, "HRESULT")
+        result := ComCall(5, this, CdbMarshal, Cdb, UInt32, CdbSize, SenseBufferMarshal, SenseBuffer, UInt32, Timeout, _BufferMarshal, _Buffer, UInt32, BufferSize, BufferFetchedMarshal, BufferFetched, "HRESULT")
         return result
     }
 
@@ -964,7 +964,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
         dataMarshal := data is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", format, "uint", _address, "uint", layer, "uint", agid, dataMarshal, data, countMarshal, count, "HRESULT")
+        result := ComCall(6, this, UInt32, format, UInt32, _address, UInt32, layer, UInt32, agid, dataMarshal, data, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -1287,7 +1287,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
     SendDvdStructure(format, data, count) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", format, dataMarshal, data, "uint", count, "HRESULT")
+        result := ComCall(7, this, UInt32, format, dataMarshal, data, UInt32, count, "HRESULT")
         return result
     }
 
@@ -2011,7 +2011,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
         trackInformationMarshal := trackInformation is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", _address, IMAPI_READ_TRACK_ADDRESS_TYPE, addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(11, this, UInt32, _address, IMAPI_READ_TRACK_ADDRESS_TYPE, addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "HRESULT")
         return result
     }
 
@@ -2975,7 +2975,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
     SetModePage(requestType, data, byteSize) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(14, this, IMAPI_MODE_PAGE_REQUEST_TYPE, requestType, dataMarshal, data, "uint", byteSize, "HRESULT")
+        result := ComCall(14, this, IMAPI_MODE_PAGE_REQUEST_TYPE, requestType, dataMarshal, data, UInt32, byteSize, "HRESULT")
         return result
     }
 

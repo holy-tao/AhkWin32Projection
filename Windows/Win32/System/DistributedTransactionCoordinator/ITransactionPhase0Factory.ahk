@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITransactionPhase0NotifyAsync.ahk" { ITransactionPhase0NotifyAsync }
 #Import ".\ITransactionPhase0EnlistmentAsync.ahk" { ITransactionPhase0EnlistmentAsync }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

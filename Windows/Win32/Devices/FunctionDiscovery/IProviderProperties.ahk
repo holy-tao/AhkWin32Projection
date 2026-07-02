@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import ".\IFunctionInstance.ahk" { IFunctionInstance }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Is optionally implemented by discovery providers to directly create and manage their own property store.
@@ -56,7 +56,7 @@ export default struct IProviderProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-getcount
      */
     GetCount(pIFunctionInstance, iProviderInstanceContext) {
-        result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint*", &pdwCount := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pIFunctionInstance, IntPtr, iProviderInstanceContext, "uint*", &pdwCount := 0, "HRESULT")
         return pdwCount
     }
 
@@ -70,7 +70,7 @@ export default struct IProviderProperties extends IUnknown {
      */
     GetAt(pIFunctionInstance, iProviderInstanceContext, dwIndex) {
         pKey := PROPERTYKEY()
-        result := ComCall(4, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, "uint", dwIndex, PROPERTYKEY.Ptr, pKey, "HRESULT")
+        result := ComCall(4, this, "ptr", pIFunctionInstance, IntPtr, iProviderInstanceContext, UInt32, dwIndex, PROPERTYKEY.Ptr, pKey, "HRESULT")
         return pKey
     }
 
@@ -88,7 +88,7 @@ export default struct IProviderProperties extends IUnknown {
      */
     GetValue(pIFunctionInstance, iProviderInstanceContext, Key) {
         ppropVar := PROPVARIANT()
-        result := ComCall(5, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, PROPERTYKEY.Ptr, Key, PROPVARIANT.Ptr, ppropVar, "HRESULT")
+        result := ComCall(5, this, "ptr", pIFunctionInstance, IntPtr, iProviderInstanceContext, PROPERTYKEY.Ptr, Key, PROPVARIANT.Ptr, ppropVar, "HRESULT")
         return ppropVar
     }
 
@@ -131,7 +131,7 @@ export default struct IProviderProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderproperties-setvalue
      */
     SetValue(pIFunctionInstance, iProviderInstanceContext, Key, ppropVar) {
-        result := ComCall(6, this, "ptr", pIFunctionInstance, "ptr", iProviderInstanceContext, PROPERTYKEY.Ptr, Key, PROPVARIANT.Ptr, ppropVar, "HRESULT")
+        result := ComCall(6, this, "ptr", pIFunctionInstance, IntPtr, iProviderInstanceContext, PROPERTYKEY.Ptr, Key, PROPVARIANT.Ptr, ppropVar, "HRESULT")
         return result
     }
 

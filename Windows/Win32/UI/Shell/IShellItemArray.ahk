@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
+#Import "..\..\System\SystemServices\SFGAO_FLAGS.ahk" { SFGAO_FLAGS }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SIATTRIBFLAGS.ahk" { SIATTRIBFLAGS }
 #Import ".\IEnumShellItems.ahk" { IEnumShellItems }
-#Import "..\..\System\SystemServices\SFGAO_FLAGS.ahk" { SFGAO_FLAGS }
-#Import "PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that create and manipulate Shell item arrays.
@@ -213,7 +213,7 @@ export default struct IShellItemArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getitemat
      */
     GetItemAt(dwIndex) {
-        result := ComCall(8, this, "uint", dwIndex, "ptr*", &ppsi := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwIndex, "ptr*", &ppsi := 0, "HRESULT")
         return IShellItem(ppsi)
     }
 

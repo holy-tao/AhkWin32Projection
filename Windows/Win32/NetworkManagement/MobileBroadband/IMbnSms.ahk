@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MBN_SMS_FILTER.ahk" { MBN_SMS_FILTER }
-#Import ".\MBN_SMS_CDMA_ENCODING.ahk" { MBN_SMS_CDMA_ENCODING }
-#Import ".\MBN_SMS_CDMA_LANG.ahk" { MBN_SMS_CDMA_LANG }
-#Import ".\MBN_SMS_FORMAT.ahk" { MBN_SMS_FORMAT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMbnSmsConfiguration.ahk" { IMbnSmsConfiguration }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MBN_SMS_STATUS_INFO.ahk" { MBN_SMS_STATUS_INFO }
+#Import ".\MBN_SMS_FILTER.ahk" { MBN_SMS_FILTER }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MBN_SMS_CDMA_LANG.ahk" { MBN_SMS_CDMA_LANG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MBN_SMS_CDMA_ENCODING.ahk" { MBN_SMS_CDMA_ENCODING }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MBN_SMS_FORMAT.ahk" { MBN_SMS_FORMAT }
+#Import ".\IMbnSmsConfiguration.ahk" { IMbnSmsConfiguration }
 
 /**
  * SMS interface for sending and receiving messages as well as controlling the messaging configuration.
@@ -134,7 +134,7 @@ export default struct IMbnSms extends IUnknown {
     SmsSendPdu(pduData, _size) {
         pduData := pduData is String ? StrPtr(pduData) : pduData
 
-        result := ComCall(5, this, "ptr", pduData, "char", _size, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pduData, Int8, _size, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -166,7 +166,7 @@ export default struct IMbnSms extends IUnknown {
     SmsSendCdma(_address, encoding, language, sizeInCharacters, message) {
         _address := _address is String ? StrPtr(_address) : _address
 
-        result := ComCall(6, this, "ptr", _address, MBN_SMS_CDMA_ENCODING, encoding, MBN_SMS_CDMA_LANG, language, "uint", sizeInCharacters, SAFEARRAY.Ptr, message, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _address, MBN_SMS_CDMA_ENCODING, encoding, MBN_SMS_CDMA_LANG, language, UInt32, sizeInCharacters, SAFEARRAY.Ptr, message, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 

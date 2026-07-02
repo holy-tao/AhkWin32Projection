@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ADSTYPE.ahk" { ADSTYPE }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DSCLASSCREATIONINFO.ahk" { DSCLASSCREATIONINFO }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\LPDSENUMATTRIBUTES.ahk" { LPDSENUMATTRIBUTES }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ADSTYPE.ahk" { ADSTYPE }
 
 /**
  * Provides access to Active Directory Domain Service objects of the displaySpecifier class.
@@ -69,7 +70,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := ComCall(3, this, "ptr", pszServer, "ptr", pszUserName, "ptr", pszPassword, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszServer, "ptr", pszUserName, "ptr", pszPassword, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -83,7 +84,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsdisplayspecifier-setlanguageid
      */
     SetLanguageID(langid) {
-        result := ComCall(4, this, "ushort", langid, "HRESULT")
+        result := ComCall(4, this, UInt16, langid, "HRESULT")
         return result
     }
 
@@ -123,7 +124,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(6, this, "ptr", pszObjectClass, "uint", dwFlags, "ptr", pszBuffer, "int", cchBuffer, "int*", &presid := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszObjectClass, UInt32, dwFlags, "ptr", pszBuffer, Int32, cchBuffer, "int*", &presid := 0, "HRESULT")
         return presid
     }
 
@@ -139,7 +140,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
     GetIcon(pszObjectClass, dwFlags, cxIcon, cyIcon) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        result := ComCall(7, this, "ptr", pszObjectClass, "uint", dwFlags, "int", cxIcon, "int", cyIcon, HICON.Owned)
+        result := ComCall(7, this, "ptr", pszObjectClass, UInt32, dwFlags, Int32, cxIcon, Int32, cyIcon, HICON.Owned)
         return result
     }
 
@@ -157,7 +158,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(8, this, "ptr", pszObjectClass, "ptr", pszBuffer, "int", cchBuffer, "HRESULT")
+        result := ComCall(8, this, "ptr", pszObjectClass, "ptr", pszBuffer, Int32, cchBuffer, "HRESULT")
         return result
     }
 
@@ -177,7 +178,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(9, this, "ptr", pszObjectClass, "ptr", pszAttributeName, "ptr", pszBuffer, "uint", cchBuffer, "HRESULT")
+        result := ComCall(9, this, "ptr", pszObjectClass, "ptr", pszAttributeName, "ptr", pszBuffer, UInt32, cchBuffer, "HRESULT")
         return result
     }
 
@@ -195,7 +196,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
         pszADsPath := pszADsPath is String ? StrPtr(pszADsPath) : pszADsPath
 
-        result := ComCall(10, this, "ptr", pszObjectClass, "ptr", pszADsPath, "uint", dwFlags, BOOL)
+        result := ComCall(10, this, "ptr", pszObjectClass, "ptr", pszADsPath, UInt32, dwFlags, BOOL)
         return result
     }
 
@@ -226,7 +227,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
     EnumClassAttributes(pszObjectClass, pcbEnum, _lParam) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        result := ComCall(12, this, "ptr", pszObjectClass, "ptr", pcbEnum, LPARAM, _lParam, "HRESULT")
+        result := ComCall(12, this, "ptr", pszObjectClass, LPDSENUMATTRIBUTES, pcbEnum, LPARAM, _lParam, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWsbApplicationAsync.ahk" { IWsbApplicationAsync }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a method for checking the consistency of the application's VSS writer's components.
@@ -76,7 +76,7 @@ export default struct IWsbApplicationBackupSupport extends IUnknown {
         rgwszSourceVolumePathMarshal := rgwszSourceVolumePath is VarRef ? "ptr*" : "ptr"
         rgwszSnapshotVolumePathMarshal := rgwszSnapshotVolumePath is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wszWriterMetadata, "ptr", wszComponentName, "ptr", wszComponentLogicalPath, "uint", cVolumes, rgwszSourceVolumePathMarshal, rgwszSourceVolumePath, rgwszSnapshotVolumePathMarshal, rgwszSnapshotVolumePath, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", wszWriterMetadata, "ptr", wszComponentName, "ptr", wszComponentLogicalPath, UInt32, cVolumes, rgwszSourceVolumePathMarshal, rgwszSourceVolumePath, rgwszSnapshotVolumePathMarshal, rgwszSnapshotVolumePath, "ptr*", &ppAsync := 0, "HRESULT")
         return IWsbApplicationAsync(ppAsync)
     }
 

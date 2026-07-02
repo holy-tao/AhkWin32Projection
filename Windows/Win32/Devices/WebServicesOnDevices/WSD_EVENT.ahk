@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
-#Import ".\WSD_HANDLER_CONTEXT.ahk" { WSD_HANDLER_CONTEXT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PWSD_SOAP_MESSAGE_HANDLER.ahk" { PWSD_SOAP_MESSAGE_HANDLER }
 #Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WSD_HANDLER_CONTEXT.ahk" { WSD_HANDLER_CONTEXT }
+#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WSD_SOAP_MESSAGE.ahk" { WSD_SOAP_MESSAGE }
 
 /**

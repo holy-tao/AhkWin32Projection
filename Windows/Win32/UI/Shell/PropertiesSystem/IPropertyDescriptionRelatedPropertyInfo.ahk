@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
 
 /**
  * Provides a method that retrieves an IPropertyDescription interface.

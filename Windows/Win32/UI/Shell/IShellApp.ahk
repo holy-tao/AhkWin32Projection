@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\SLOWAPPINFO.ahk" { SLOWAPPINFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\APPINFODATA.ahk" { APPINFODATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide general information about an application to the Add/Remove Programs Application.

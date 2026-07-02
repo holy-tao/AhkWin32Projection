@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumTerminalClass interface provides COM-standard enumeration methods to discover and use the dynamic terminal classes that are available. The ITTerminalSupport::EnumerateDynamicTerminalClasses method returns a pointer to this interface.
@@ -51,7 +51,7 @@ export default struct IEnumTerminalClass extends IUnknown {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
         pElements := Guid()
-        result := ComCall(3, this, "uint", celt, Guid.Ptr, pElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, Guid.Ptr, pElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return pElements
     }
 
@@ -141,7 +141,7 @@ export default struct IEnumTerminalClass extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumterminalclass-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

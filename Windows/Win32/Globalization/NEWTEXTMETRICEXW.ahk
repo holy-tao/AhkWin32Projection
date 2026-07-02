@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Graphics\Gdi\NEWTEXTMETRICW.ahk" { NEWTEXTMETRICW }
 #Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
+#Import "..\Graphics\Gdi\NEWTEXTMETRICW.ahk" { NEWTEXTMETRICW }
 #Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
 
 /**

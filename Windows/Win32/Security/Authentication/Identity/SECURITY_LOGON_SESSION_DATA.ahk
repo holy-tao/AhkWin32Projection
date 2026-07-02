@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\LSA_LAST_INTER_LOGON_INFO.ahk" { LSA_LAST_INTER_LOGON_INFO }
-#Import "..\..\PSID.ahk" { PSID }
 #Import "..\..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\PSID.ahk" { PSID }
+#Import ".\LSA_LAST_INTER_LOGON_INFO.ahk" { LSA_LAST_INTER_LOGON_INFO }
 
 /**
  * Contains information about a logon session. (SECURITY_LOGON_SESSION_DATA)

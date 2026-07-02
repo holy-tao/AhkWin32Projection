@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber about activities of the Compensating Resource Manager (CRM) feature of Component Services.
@@ -191,7 +191,7 @@ export default struct IComCRMEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmanalyze
      */
     OnCRMAnalyze(pInfo, guidClerkCLSID, dwCrmRecordType, dwRecordSize) {
-        result := ComCall(13, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidClerkCLSID, "uint", dwCrmRecordType, "uint", dwRecordSize, "HRESULT")
+        result := ComCall(13, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidClerkCLSID, UInt32, dwCrmRecordType, UInt32, dwRecordSize, "HRESULT")
         return result
     }
 
@@ -205,7 +205,7 @@ export default struct IComCRMEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmwrite
      */
     OnCRMWrite(pInfo, guidClerkCLSID, fVariants, dwRecordSize) {
-        result := ComCall(14, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidClerkCLSID, BOOL, fVariants, "uint", dwRecordSize, "HRESULT")
+        result := ComCall(14, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidClerkCLSID, BOOL, fVariants, UInt32, dwRecordSize, "HRESULT")
         return result
     }
 
@@ -243,7 +243,7 @@ export default struct IComCRMEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmdeliver
      */
     OnCRMDeliver(pInfo, guidClerkCLSID, fVariants, dwRecordSize) {
-        result := ComCall(17, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidClerkCLSID, BOOL, fVariants, "uint", dwRecordSize, "HRESULT")
+        result := ComCall(17, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidClerkCLSID, BOOL, fVariants, UInt32, dwRecordSize, "HRESULT")
         return result
     }
 

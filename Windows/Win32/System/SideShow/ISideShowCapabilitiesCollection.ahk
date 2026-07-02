@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISideShowCapabilities.ahk" { ISideShowCapabilities }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.SideShow
@@ -52,7 +52,7 @@ export default struct ISideShowCapabilitiesCollection extends IUnknown {
      * @returns {ISideShowCapabilities} 
      */
     GetAt(in_dwIndex) {
-        result := ComCall(4, this, "uint", in_dwIndex, "ptr*", &out_ppCapabilities := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, in_dwIndex, "ptr*", &out_ppCapabilities := 0, "HRESULT")
         return ISideShowCapabilities(out_ppCapabilities)
     }
 

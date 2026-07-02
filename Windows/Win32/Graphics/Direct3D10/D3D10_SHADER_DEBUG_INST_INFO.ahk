@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D10_SHADER_DEBUG_REGTYPE.ahk" { D3D10_SHADER_DEBUG_REGTYPE }
 #Import ".\D3D10_SHADER_DEBUG_OUTPUTVAR.ahk" { D3D10_SHADER_DEBUG_OUTPUTVAR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\D3D10_SHADER_DEBUG_OUTPUTREG_INFO.ahk" { D3D10_SHADER_DEBUG_OUTPUTREG_INFO }
+#Import ".\D3D10_SHADER_DEBUG_REGTYPE.ahk" { D3D10_SHADER_DEBUG_REGTYPE }
 
 /**
  * Contains instruction data.

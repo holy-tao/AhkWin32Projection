@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 #Import ".\DML_SCALE_BIAS.ahk" { DML_SCALE_BIAS }
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**
  * Computes the arctangent for each element of *InputTensor*, placing the result into the corresponding element of *OutputTensor*.

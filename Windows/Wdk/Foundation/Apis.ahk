@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import ".\OBJECT_INFORMATION_CLASS.ahk" { OBJECT_INFORMATION_CLASS }
 #Import "..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import ".\OBJECT_INFORMATION_CLASS.ahk" { OBJECT_INFORMATION_CLASS }
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -55,8 +55,8 @@
 export NtQueryObject(_Handle, ObjectInformationClass, ObjectInformation, ObjectInformationLength, ReturnLength) {
     ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ntdll.dll\NtQueryObject", HANDLE, _Handle, OBJECT_INFORMATION_CLASS, ObjectInformationClass, "ptr", ObjectInformation, "uint", ObjectInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("ntdll.dll\NtQueryObject", HANDLE, _Handle, OBJECT_INFORMATION_CLASS, ObjectInformationClass, IntPtr, ObjectInformation, UInt32, ObjectInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
@@ -109,7 +109,7 @@ export NtQueryObject(_Handle, ObjectInformationClass, ObjectInformation, ObjectI
  */
 export NtClose(_Handle) {
     result := DllCall("ntdll.dll\NtClose", HANDLE, _Handle, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

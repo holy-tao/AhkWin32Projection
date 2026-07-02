@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Ole\CALPOLESTR.ahk" { CALPOLESTR }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Ole\CADWORD.ahk" { CADWORD }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Ole\CALPOLESTR.ahk" { CALPOLESTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -48,7 +48,7 @@ export default struct IPerPropertyBrowsing2 extends IUnknown {
      */
     GetDisplayString(dispid) {
         pBstr := BSTR.Owned()
-        result := ComCall(3, this, "int", dispid, BSTR.Ptr, pBstr, "HRESULT")
+        result := ComCall(3, this, Int32, dispid, BSTR.Ptr, pBstr, "HRESULT")
         return pBstr
     }
 
@@ -59,7 +59,7 @@ export default struct IPerPropertyBrowsing2 extends IUnknown {
      */
     MapPropertyToPage(dispid) {
         pClsidPropPage := Guid()
-        result := ComCall(4, this, "int", dispid, Guid.Ptr, pClsidPropPage, "HRESULT")
+        result := ComCall(4, this, Int32, dispid, Guid.Ptr, pClsidPropPage, "HRESULT")
         return pClsidPropPage
     }
 
@@ -71,7 +71,7 @@ export default struct IPerPropertyBrowsing2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetPredefinedStrings(dispid, pCaStrings, pCaCookies) {
-        result := ComCall(5, this, "int", dispid, CALPOLESTR.Ptr, pCaStrings, CADWORD.Ptr, pCaCookies, "HRESULT")
+        result := ComCall(5, this, Int32, dispid, CALPOLESTR.Ptr, pCaStrings, CADWORD.Ptr, pCaCookies, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct IPerPropertyBrowsing2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPredefinedValue(dispid, dwCookie) {
-        result := ComCall(6, this, "int", dispid, "uint", dwCookie, "HRESULT")
+        result := ComCall(6, this, Int32, dispid, UInt32, dwCookie, "HRESULT")
         return result
     }
 

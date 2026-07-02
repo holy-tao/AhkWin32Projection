@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HypothesisResult.ahk" { HypothesisResult }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INetDiagHelperUtilFactory.ahk" { INetDiagHelperUtilFactory }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\HypothesisResult.ahk" { HypothesisResult }
 #Import ".\DIAGNOSIS_STATUS.ahk" { DIAGNOSIS_STATUS }
 
 /**
@@ -79,7 +79,7 @@ export default struct INetDiagHelperEx extends IUnknown {
         ppwszUpdatedDescriptionMarshal := ppwszUpdatedDescription is VarRef ? "ptr*" : "ptr"
         pUpdatedStatusMarshal := pUpdatedStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, HypothesisResult.Ptr, pResults, ppwszUpdatedDescriptionMarshal, ppwszUpdatedDescription, pUpdatedStatusMarshal, pUpdatedStatus, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, HypothesisResult.Ptr, pResults, ppwszUpdatedDescriptionMarshal, ppwszUpdatedDescription, pUpdatedStatusMarshal, pUpdatedStatus, "HRESULT")
         return result
     }
 

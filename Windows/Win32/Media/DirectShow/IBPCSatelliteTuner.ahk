@@ -62,7 +62,7 @@ export default struct IBPCSatelliteTuner extends IAMTuner {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibpcsatellitetuner-put_defaultsubchanneltypes
      */
     put_DefaultSubChannelTypes(lDefaultVideoType, lDefaultAudioType) {
-        result := ComCall(19, this, "int", lDefaultVideoType, "int", lDefaultAudioType, "HRESULT")
+        result := ComCall(19, this, Int32, lDefaultVideoType, Int32, lDefaultAudioType, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUIAutomationTextPattern.ahk" { IUIAutomationTextPattern }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
-#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 
 /**
  * Extends the IUIAutomationTextPattern interface.

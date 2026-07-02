@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IQueryParser.ahk" { IQueryParser }
-#Import ".\QUERY_PARSER_MANAGER_OPTION.ahk" { QUERY_PARSER_MANAGER_OPTION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\QUERY_PARSER_MANAGER_OPTION.ahk" { QUERY_PARSER_MANAGER_OPTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IQueryParser.ahk" { IQueryParser }
 
 /**
  * Provides methods to create, initialize, and change options for an IQueryParser object.
@@ -73,7 +73,7 @@ export default struct IQueryParserManager extends IUnknown {
     CreateLoadedParser(pszCatalog, langidForKeywords, riid) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
 
-        result := ComCall(3, this, "ptr", pszCatalog, "ushort", langidForKeywords, Guid.Ptr, riid, "ptr*", &ppQueryParser := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszCatalog, UInt16, langidForKeywords, Guid.Ptr, riid, "ptr*", &ppQueryParser := 0, "HRESULT")
         return ppQueryParser
     }
 

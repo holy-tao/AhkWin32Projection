@@ -171,7 +171,7 @@ export default struct ICertPolicy extends IDispatch {
     VerifyRequest(strConfig, _Context, bNewRequest, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(8, this, BSTR, strConfig, "int", _Context, "int", bNewRequest, "int", Flags, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, strConfig, Int32, _Context, Int32, bNewRequest, Int32, Flags, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 

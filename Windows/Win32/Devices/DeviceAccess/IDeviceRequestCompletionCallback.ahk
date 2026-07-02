@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a method to handle the completion of calls to the DeviceIoControlAsyncmethod.
@@ -46,7 +46,7 @@ export default struct IDeviceRequestCompletionCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     Invoke(requestResult, bytesReturned) {
-        result := ComCall(3, this, "int", requestResult, "uint", bytesReturned, "HRESULT")
+        result := ComCall(3, this, "int", requestResult, UInt32, bytesReturned, "HRESULT")
         return result
     }
 

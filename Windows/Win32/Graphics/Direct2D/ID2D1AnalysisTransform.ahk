@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Supplies data to an analysis effect.
@@ -59,7 +59,7 @@ export default struct ID2D1AnalysisTransform extends IUnknown {
     ProcessAnalysisResults(analysisData, analysisDataCount) {
         analysisDataMarshal := analysisData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, analysisDataMarshal, analysisData, "uint", analysisDataCount, "HRESULT")
+        result := ComCall(3, this, analysisDataMarshal, analysisData, UInt32, analysisDataCount, "HRESULT")
         return result
     }
 

@@ -1,21 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
-#Import ".\DDBLTBATCH.ahk" { DDBLTBATCH }
-#Import ".\DDSCAPS.ahk" { DDSCAPS }
 #Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
-#Import ".\DDBLTFX.ahk" { DDBLTFX }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
-#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
-#Import "..\Gdi\HDC.ahk" { HDC }
-#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
+#Import ".\DDBLTFX.ahk" { DDBLTFX }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDBLTBATCH.ahk" { DDBLTBATCH }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import ".\LPDDENUMSURFACESCALLBACK.ahk" { LPDDENUMSURFACESCALLBACK }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -114,7 +115,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     Blt(param0, param1, param2, param3, param4) {
-        result := ComCall(5, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, "uint", param3, DDBLTFX.Ptr, param4, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, UInt32, param3, DDBLTFX.Ptr, param4, "HRESULT")
         return result
     }
 
@@ -126,7 +127,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     BltBatch(param0, param1, param2) {
-        result := ComCall(6, this, DDBLTBATCH.Ptr, param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(6, this, DDBLTBATCH.Ptr, param0, UInt32, param1, UInt32, param2, "HRESULT")
         return result
     }
 
@@ -140,7 +141,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     BltFast(param0, param1, param2, param3, param4) {
-        result := ComCall(7, this, "uint", param0, "uint", param1, "ptr", param2, RECT.Ptr, param3, "uint", param4, "HRESULT")
+        result := ComCall(7, this, UInt32, param0, UInt32, param1, "ptr", param2, RECT.Ptr, param3, UInt32, param4, "HRESULT")
         return result
     }
 
@@ -151,7 +152,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     DeleteAttachedSurface(param0, param1) {
-        result := ComCall(8, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(8, this, UInt32, param0, "ptr", param1, "HRESULT")
         return result
     }
 
@@ -164,7 +165,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
     EnumAttachedSurfaces(param0, param1) {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, param0Marshal, param0, "ptr", param1, "HRESULT")
+        result := ComCall(9, this, param0Marshal, param0, LPDDENUMSURFACESCALLBACK, param1, "HRESULT")
         return result
     }
 
@@ -178,7 +179,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
     EnumOverlayZOrders(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "uint", param0, param1Marshal, param1, "ptr", param2, "HRESULT")
+        result := ComCall(10, this, UInt32, param0, param1Marshal, param1, LPDDENUMSURFACESCALLBACK, param2, "HRESULT")
         return result
     }
 
@@ -189,7 +190,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     Flip(param0, param1) {
-        result := ComCall(11, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(11, this, "ptr", param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -209,7 +210,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetBltStatus(param0) {
-        result := ComCall(13, this, "uint", param0, "HRESULT")
+        result := ComCall(13, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -239,7 +240,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetColorKey(param0, param1) {
-        result := ComCall(16, this, "uint", param0, DDCOLORKEY.Ptr, param1, "HRESULT")
+        result := ComCall(16, this, UInt32, param0, DDCOLORKEY.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -268,7 +269,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetFlipStatus(param0) {
-        result := ComCall(18, this, "uint", param0, "HRESULT")
+        result := ComCall(18, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -386,7 +387,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/SecProv/lock-win32-encryptablevolume
      */
     Lock(param0, param1, param2, param3) {
-        result := ComCall(25, this, RECT.Ptr, param0, DDSURFACEDESC.Ptr, param1, "uint", param2, HANDLE, param3, "HRESULT")
+        result := ComCall(25, this, RECT.Ptr, param0, DDSURFACEDESC.Ptr, param1, UInt32, param2, HANDLE, param3, "HRESULT")
         return result
     }
 
@@ -434,7 +435,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetColorKey(param0, param1) {
-        result := ComCall(29, this, "uint", param0, DDCOLORKEY.Ptr, param1, "HRESULT")
+        result := ComCall(29, this, UInt32, param0, DDCOLORKEY.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -445,7 +446,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetOverlayPosition(param0, param1) {
-        result := ComCall(30, this, "int", param0, "int", param1, "HRESULT")
+        result := ComCall(30, this, Int32, param0, Int32, param1, "HRESULT")
         return result
     }
 
@@ -481,7 +482,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     UpdateOverlay(param0, param1, param2, param3, param4) {
-        result := ComCall(33, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, "uint", param3, DDOVERLAYFX.Ptr, param4, "HRESULT")
+        result := ComCall(33, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, UInt32, param3, DDOVERLAYFX.Ptr, param4, "HRESULT")
         return result
     }
 
@@ -491,7 +492,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     UpdateOverlayDisplay(param0) {
-        result := ComCall(34, this, "uint", param0, "HRESULT")
+        result := ComCall(34, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -502,7 +503,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     UpdateOverlayZOrder(param0, param1) {
-        result := ComCall(35, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(35, this, UInt32, param0, "ptr", param1, "HRESULT")
         return result
     }
 
@@ -524,7 +525,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     PageLock(param0) {
-        result := ComCall(37, this, "uint", param0, "HRESULT")
+        result := ComCall(37, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -534,7 +535,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     PageUnlock(param0) {
-        result := ComCall(38, this, "uint", param0, "HRESULT")
+        result := ComCall(38, this, UInt32, param0, "HRESULT")
         return result
     }
 
@@ -545,7 +546,7 @@ export default struct IDirectDrawSurface3 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSurfaceDesc(param0, param1) {
-        result := ComCall(39, this, DDSURFACEDESC.Ptr, param0, "uint", param1, "HRESULT")
+        result := ComCall(39, this, DDSURFACEDESC.Ptr, param0, UInt32, param1, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -54,7 +54,7 @@ export default struct IActiveScriptEncode extends IUnknown {
 
         pcchRetMarshal := pcchRet is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, pcchRetMarshal, pcchRet, "HRESULT")
+        result := ComCall(3, this, "ptr", pchIn, UInt32, cchIn, "ptr", pchOut, UInt32, cchOut, pcchRetMarshal, pcchRet, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct IActiveScriptEncode extends IUnknown {
 
         pcchRetMarshal := pcchRet is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, pcchRetMarshal, pcchRet, "HRESULT")
+        result := ComCall(4, this, "ptr", pchIn, UInt32, cchIn, "ptr", pchOut, UInt32, cchOut, pcchRetMarshal, pcchRet, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XHR_PROPERTY.ahk" { XHR_PROPERTY }
+#Import ".\IXMLHTTPRequest2Callback.ahk" { IXMLHTTPRequest2Callback }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\XHR_COOKIE.ahk" { XHR_COOKIE }
 #Import "..\..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IXMLHTTPRequest2Callback.ahk" { IXMLHTTPRequest2Callback }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\XHR_PROPERTY.ahk" { XHR_PROPERTY }
 
 /**
  * Provides the methods and properties needed to configure and send HTTP requests and use callbacks to receive notifications during HTTP response processing. Note  This interface is supported on Windows Phone 8.1.  .
@@ -111,7 +111,7 @@ export default struct IXMLHTTPRequest2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2-send
      */
     Send(pBody, cbBody) {
-        result := ComCall(4, this, "ptr", pBody, "uint", cbBody, "HRESULT")
+        result := ComCall(4, this, "ptr", pBody, Int64, cbBody, "HRESULT")
         return result
     }
 
@@ -496,7 +496,7 @@ export default struct IXMLHTTPRequest2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2-setproperty
      */
     SetProperty(eProperty, ullValue) {
-        result := ComCall(8, this, XHR_PROPERTY, eProperty, "uint", ullValue, "HRESULT")
+        result := ComCall(8, this, XHR_PROPERTY, eProperty, Int64, ullValue, "HRESULT")
         return result
     }
 
@@ -546,7 +546,7 @@ export default struct IXMLHTTPRequest2 extends IUnknown {
         pcCookiesMarshal := pcCookies is VarRef ? "uint*" : "ptr"
         ppCookiesMarshal := ppCookies is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pwszUrl, "ptr", pwszName, "uint", dwFlags, pcCookiesMarshal, pcCookies, ppCookiesMarshal, ppCookies, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszUrl, "ptr", pwszName, UInt32, dwFlags, pcCookiesMarshal, pcCookies, ppCookiesMarshal, ppCookies, "HRESULT")
         return result
     }
 

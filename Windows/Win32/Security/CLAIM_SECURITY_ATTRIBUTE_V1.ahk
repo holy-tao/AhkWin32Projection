@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk" { CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE }
 #Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk" { CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE }
 #Import ".\CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk" { CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE }
-#Import ".\CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk" { CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE }
 
 /**
  * Defines a security attribute that can be associated with a token or authorization context.

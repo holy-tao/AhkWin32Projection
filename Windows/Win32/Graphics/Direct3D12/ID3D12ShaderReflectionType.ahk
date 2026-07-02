@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_SHADER_TYPE_DESC.ahk" { D3D12_SHADER_TYPE_DESC }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * This shader-reflection interface provides access to variable type. (ID3D12ShaderReflectionType)
@@ -78,7 +78,7 @@ export default struct ID3D12ShaderReflectionType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getmembertypebyindex
      */
     GetMemberTypeByIndex(Index) {
-        result := ComCall(1, this, "uint", Index, ID3D12ShaderReflectionType)
+        result := ComCall(1, this, UInt32, Index, ID3D12ShaderReflectionType)
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct ID3D12ShaderReflectionType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getmembertypename
      */
     GetMemberTypeName(Index) {
-        result := ComCall(3, this, "uint", Index, PSTR)
+        result := ComCall(3, this, UInt32, Index, PSTR)
         return result
     }
 
@@ -196,7 +196,7 @@ export default struct ID3D12ShaderReflectionType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getinterfacebyindex
      */
     GetInterfaceByIndex(uIndex) {
-        result := ComCall(8, this, "uint", uIndex, ID3D12ShaderReflectionType)
+        result := ComCall(8, this, UInt32, uIndex, ID3D12ShaderReflectionType)
         return result
     }
 

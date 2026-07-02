@@ -1,7 +1,7 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.CorrelationVector
@@ -16,7 +16,7 @@
  * @returns {Integer} 
  */
 export RtlInitializeCorrelationVector(CorrelationVector, _Version, Guid) {
-    result := DllCall("ntdll.dll\RtlInitializeCorrelationVector", CORRELATION_VECTOR.Ptr, CorrelationVector, "int", _Version, Guid.Ptr, Guid, UInt32)
+    result := DllCall("ntdll.dll\RtlInitializeCorrelationVector", CORRELATION_VECTOR.Ptr, CorrelationVector, Int32, _Version, Guid.Ptr, Guid, UInt32)
     return result
 }
 

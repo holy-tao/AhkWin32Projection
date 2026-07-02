@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Memory\PAGE_PROTECTION_FLAGS.ahk" { PAGE_PROTECTION_FLAGS }
 #Import "..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
-#Import "..\..\Memory\PAGE_TYPE.ahk" { PAGE_TYPE }
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Memory\MEMORY_BASIC_INFORMATION.ahk" { MEMORY_BASIC_INFORMATION }
+#Import "..\..\Memory\PAGE_TYPE.ahk" { PAGE_TYPE }
+#Import "..\..\Memory\PAGE_PROTECTION_FLAGS.ahk" { PAGE_PROTECTION_FLAGS }
 
 /**
  * Holds auxiliary page entry information returned by PssWalkSnapshot.

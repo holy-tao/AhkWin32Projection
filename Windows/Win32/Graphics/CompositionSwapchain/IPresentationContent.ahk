@@ -47,7 +47,7 @@ export default struct IPresentationContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationcontent-settag
      */
     SetTag(tag) {
-        ComCall(3, this, "ptr", tag)
+        ComCall(3, this, IntPtr, tag)
     }
 
     Query(iid) {

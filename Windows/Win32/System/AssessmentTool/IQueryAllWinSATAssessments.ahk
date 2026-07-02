@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk" { IXMLDOMNodeList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Retrieves details about all formal WinSAT assessments.

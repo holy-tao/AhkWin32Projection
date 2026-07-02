@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10Resource.ahk" { ID3D10Resource }
-#Import ".\D3D10_MAPPED_TEXTURE2D.ahk" { D3D10_MAPPED_TEXTURE2D }
-#Import ".\D3D10_MAP.ahk" { D3D10_MAP }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D10_TEXTURE2D_DESC.ahk" { D3D10_TEXTURE2D_DESC }
+#Import ".\D3D10_MAP.ahk" { D3D10_MAP }
+#Import ".\D3D10_MAPPED_TEXTURE2D.ahk" { D3D10_MAPPED_TEXTURE2D }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10Resource.ahk" { ID3D10Resource }
 
 /**
  * A 2D texture interface manages texel data, which is structured memory. (ID3D10Texture2D)
@@ -65,7 +65,7 @@ export default struct ID3D10Texture2D extends ID3D10Resource {
      */
     Map(Subresource, MapType, MapFlags) {
         pMappedTex2D := D3D10_MAPPED_TEXTURE2D()
-        result := ComCall(10, this, "uint", Subresource, D3D10_MAP, MapType, "uint", MapFlags, D3D10_MAPPED_TEXTURE2D.Ptr, pMappedTex2D, "HRESULT")
+        result := ComCall(10, this, UInt32, Subresource, D3D10_MAP, MapType, UInt32, MapFlags, D3D10_MAPPED_TEXTURE2D.Ptr, pMappedTex2D, "HRESULT")
         return pMappedTex2D
     }
 
@@ -92,7 +92,7 @@ export default struct ID3D10Texture2D extends ID3D10Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10texture2d-unmap
      */
     Unmap(Subresource) {
-        ComCall(11, this, "uint", Subresource)
+        ComCall(11, this, UInt32, Subresource)
     }
 
     /**

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IEnumSTATDATA.ahk" { IEnumSTATDATA }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IAdviseSink.ahk" { IAdviseSink }
-#Import "..\Com\IMoniker.ahk" { IMoniker }
-#Import "..\Com\IEnumSTATDATA.ahk" { IEnumSTATDATA }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages advisory connections and compound document notifications in an object server.
@@ -91,7 +91,7 @@ export default struct IOleAdviseHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleadviseholder-unadvise
      */
     Unadvise(dwConnection) {
-        result := ComCall(4, this, "uint", dwConnection, "HRESULT")
+        result := ComCall(4, this, UInt32, dwConnection, "HRESULT")
         return result
     }
 

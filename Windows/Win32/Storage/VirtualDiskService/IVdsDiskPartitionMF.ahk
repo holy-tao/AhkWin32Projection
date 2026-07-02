@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import ".\VDS_FILE_SYSTEM_PROP.ahk" { VDS_FILE_SYSTEM_PROP }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP.ahk" { VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP.ahk" { VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 
 /**
  * Provides methods to perform file system management operations on partitions.
@@ -53,7 +53,7 @@ export default struct IVdsDiskPartitionMF extends IUnknown {
      */
     GetPartitionFileSystemProperties(ullOffset) {
         pFileSystemProp := VDS_FILE_SYSTEM_PROP()
-        result := ComCall(3, this, "uint", ullOffset, VDS_FILE_SYSTEM_PROP.Ptr, pFileSystemProp, "HRESULT")
+        result := ComCall(3, this, Int64, ullOffset, VDS_FILE_SYSTEM_PROP.Ptr, pFileSystemProp, "HRESULT")
         return pFileSystemProp
     }
 
@@ -64,7 +64,7 @@ export default struct IVdsDiskPartitionMF extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemtypename
      */
     GetPartitionFileSystemTypeName(ullOffset) {
-        result := ComCall(4, this, "uint", ullOffset, PWSTR.Ptr, &ppwszFileSystemTypeName := 0, "HRESULT")
+        result := ComCall(4, this, Int64, ullOffset, PWSTR.Ptr, &ppwszFileSystemTypeName := 0, "HRESULT")
         return ppwszFileSystemTypeName
     }
 
@@ -159,7 +159,7 @@ export default struct IVdsDiskPartitionMF extends IUnknown {
         ppFileSystemSupportPropsMarshal := ppFileSystemSupportProps is VarRef ? "ptr*" : "ptr"
         plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", ullOffset, ppFileSystemSupportPropsMarshal, ppFileSystemSupportProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
+        result := ComCall(5, this, Int64, ullOffset, ppFileSystemSupportPropsMarshal, ppFileSystemSupportProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct IVdsDiskPartitionMF extends IUnknown {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(6, this, "uint", ullOffset, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, Int64, ullOffset, "ptr", pwszFileSystemTypeName, UInt16, usFileSystemRevision, UInt32, ulDesiredUnitAllocationSize, "ptr", pwszLabel, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

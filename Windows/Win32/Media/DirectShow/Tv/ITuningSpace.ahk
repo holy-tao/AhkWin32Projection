@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ILocator.ahk" { ILocator }
-#Import "..\..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
 #Import "..\..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ILocator.ahk" { ILocator }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IComponentTypes.ahk" { IComponentTypes }
 

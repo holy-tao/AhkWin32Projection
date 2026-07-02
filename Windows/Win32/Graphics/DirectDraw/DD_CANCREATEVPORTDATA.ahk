@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
 #Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDVIDEOPORTDESC.ahk" { DDVIDEOPORTDESC }
 
 /**
  * The DD_CANCREATEVPORTDATA structure contains the information required for the driver to determine whether a video port extensions (VPE) object can be created.

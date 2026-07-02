@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "StructuredStorage\IStorage.ahk" { IStorage }
+#Import ".\IStream.ahk" { IStream }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\STGMEDIUM.ahk" { STGMEDIUM }
 #Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
-#Import ".\IStream.ahk" { IStream }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 #Import ".\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Com

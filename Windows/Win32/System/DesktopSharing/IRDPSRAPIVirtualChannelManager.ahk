@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IRDPSRAPIVirtualChannel.ahk" { IRDPSRAPIVirtualChannel }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CHANNEL_PRIORITY.ahk" { CHANNEL_PRIORITY }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRDPSRAPIVirtualChannel.ahk" { IRDPSRAPIVirtualChannel }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Manages the list of virtual channels.
@@ -93,7 +93,7 @@ export default struct IRDPSRAPIVirtualChannelManager extends IDispatch {
     CreateVirtualChannel(bstrChannelName, _Priority, ChannelFlags) {
         bstrChannelName := bstrChannelName is String ? BSTR.Alloc(bstrChannelName).Value : bstrChannelName
 
-        result := ComCall(9, this, BSTR, bstrChannelName, CHANNEL_PRIORITY, _Priority, "uint", ChannelFlags, "ptr*", &ppChannel := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrChannelName, CHANNEL_PRIORITY, _Priority, UInt32, ChannelFlags, "ptr*", &ppChannel := 0, "HRESULT")
         return IRDPSRAPIVirtualChannel(ppChannel)
     }
 

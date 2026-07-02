@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidOutputDevice.ahk" { IMSVidOutputDevice }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\MSVidSinkStreams.ahk" { MSVidSinkStreams }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMSVidOutputDevice.ahk" { IMSVidOutputDevice }
 
 /**
  * The IMSVidGenericSink interface represents a generic output device that supports streaming output. It is implemented by the MSVidGenericSink object.

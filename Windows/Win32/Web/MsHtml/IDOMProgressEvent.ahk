@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -107,7 +107,7 @@ export default struct IDOMProgressEvent extends IDispatch {
     initProgressEvent(eventType, canBubble, cancelable, lengthComputableArg, loadedArg, totalArg) {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
 
-        result := ComCall(10, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, VARIANT_BOOL, lengthComputableArg, "uint", loadedArg, "uint", totalArg, "HRESULT")
+        result := ComCall(10, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, VARIANT_BOOL, lengthComputableArg, Int64, loadedArg, Int64, totalArg, "HRESULT")
         return result
     }
 

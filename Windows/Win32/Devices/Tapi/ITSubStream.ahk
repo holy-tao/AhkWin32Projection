@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITTerminal.ahk" { ITTerminal }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITStream.ahk" { ITStream }
+#Import ".\ITTerminal.ahk" { ITTerminal }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumTerminal.ahk" { IEnumTerminal }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * An ITSubStream is a component of an ITStream, and gives an application finer control over the media streaming.

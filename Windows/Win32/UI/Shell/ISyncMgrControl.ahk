@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SYNCMGR_SYNC_CONTROL_FLAGS.ahk" { SYNCMGR_SYNC_CONTROL_FLAGS }
-#Import ".\ISyncMgrSyncResult.ahk" { ISyncMgrSyncResult }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SYNCMGR_UPDATE_REASON.ahk" { SYNCMGR_UPDATE_REASON }
-#Import ".\SYNCMGR_CONTROL_FLAGS.ahk" { SYNCMGR_CONTROL_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\ISyncMgrConflict.ahk" { ISyncMgrConflict }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNCMGR_CONTROL_FLAGS.ahk" { SYNCMGR_CONTROL_FLAGS }
+#Import ".\ISyncMgrSyncResult.ahk" { ISyncMgrSyncResult }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SYNCMGR_UPDATE_REASON.ahk" { SYNCMGR_UPDATE_REASON }
+#Import ".\SYNCMGR_SYNC_CONTROL_FLAGS.ahk" { SYNCMGR_SYNC_CONTROL_FLAGS }
 
 /**
  * Exposes methods that allow an application or handler to start or stop a synchronization, notify Sync Center of changes to the set of handlers or items, or notify of changes to property values.
@@ -135,7 +135,7 @@ export default struct ISyncMgrControl extends IUnknown {
 
         ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, HWND, hwndOwner, "ptr", punk, SYNCMGR_SYNC_CONTROL_FLAGS, nSyncControlFlags, "ptr", pResult, "HRESULT")
+        result := ComCall(4, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, UInt32, cItems, HWND, hwndOwner, "ptr", punk, SYNCMGR_SYNC_CONTROL_FLAGS, nSyncControlFlags, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct ISyncMgrControl extends IUnknown {
 
         ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "HRESULT")
+        result := ComCall(7, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, UInt32, cItems, "HRESULT")
         return result
     }
 

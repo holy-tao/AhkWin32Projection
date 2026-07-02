@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\BUTTON_IMAGELIST_ALIGN.ahk" { BUTTON_IMAGELIST_ALIGN }
-#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
 
 /**
  * Contains information about an image list that is used with a button control.

@@ -1,42 +1,43 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\DNS_MESSAGE_BUFFER.ahk" { DNS_MESSAGE_BUFFER }
-#Import ".\DNS_CONNECTION_NAME_LIST.ahk" { DNS_CONNECTION_NAME_LIST }
-#Import ".\DNS_APPLICATION_SETTINGS.ahk" { DNS_APPLICATION_SETTINGS }
-#Import ".\DNS_QUERY_CANCEL.ahk" { DNS_QUERY_CANCEL }
-#Import ".\MDNS_QUERY_HANDLE.ahk" { MDNS_QUERY_HANDLE }
-#Import ".\DNS_QUERY_RAW_CANCEL.ahk" { DNS_QUERY_RAW_CANCEL }
-#Import ".\DNS_CONNECTION_POLICY_ENTRY_LIST.ahk" { DNS_CONNECTION_POLICY_ENTRY_LIST }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import ".\DNS_SERVICE_REGISTER_REQUEST.ahk" { DNS_SERVICE_REGISTER_REQUEST }
-#Import ".\DNS_CHARSET.ahk" { DNS_CHARSET }
-#Import ".\DNS_QUERY_RAW_RESULT.ahk" { DNS_QUERY_RAW_RESULT }
-#Import ".\DNS_PROXY_INFORMATION.ahk" { DNS_PROXY_INFORMATION }
-#Import ".\DNS_CONNECTION_PROXY_TYPE.ahk" { DNS_CONNECTION_PROXY_TYPE }
-#Import ".\DNS_SERVICE_RESOLVE_REQUEST.ahk" { DNS_SERVICE_RESOLVE_REQUEST }
-#Import ".\DNS_QUERY_REQUEST.ahk" { DNS_QUERY_REQUEST }
-#Import ".\DNS_QUERY_OPTIONS.ahk" { DNS_QUERY_OPTIONS }
-#Import ".\DNS_CONFIG_TYPE.ahk" { DNS_CONFIG_TYPE }
-#Import ".\DNS_SERVICE_BROWSE_REQUEST.ahk" { DNS_SERVICE_BROWSE_REQUEST }
-#Import ".\DNS_RECORDA.ahk" { DNS_RECORDA }
-#Import ".\DNS_CONNECTION_PROXY_INFO.ahk" { DNS_CONNECTION_PROXY_INFO }
-#Import ".\DNS_FREE_TYPE.ahk" { DNS_FREE_TYPE }
-#Import ".\DNS_SERVICE_INSTANCE.ahk" { DNS_SERVICE_INSTANCE }
-#Import ".\DNS_NAME_FORMAT.ahk" { DNS_NAME_FORMAT }
 #Import ".\DNS_CONNECTION_POLICY_TAG.ahk" { DNS_CONNECTION_POLICY_TAG }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DNS_CONNECTION_PROXY_LIST.ahk" { DNS_CONNECTION_PROXY_LIST }
-#Import ".\DNS_QUERY_RESULT.ahk" { DNS_QUERY_RESULT }
-#Import ".\DNS_CONNECTION_IFINDEX_LIST.ahk" { DNS_CONNECTION_IFINDEX_LIST }
-#Import ".\IP6_ADDRESS.ahk" { IP6_ADDRESS }
-#Import ".\DNS_SERVICE_CANCEL.ahk" { DNS_SERVICE_CANCEL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DNS_CUSTOM_SERVER.ahk" { DNS_CUSTOM_SERVER }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\DNS_FREE_TYPE.ahk" { DNS_FREE_TYPE }
+#Import ".\DNS_QUERY_REQUEST.ahk" { DNS_QUERY_REQUEST }
+#Import ".\MDNS_QUERY_HANDLE.ahk" { MDNS_QUERY_HANDLE }
 #Import ".\DNS_CONNECTION_PROXY_INFO_EX.ahk" { DNS_CONNECTION_PROXY_INFO_EX }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DNS_MESSAGE_BUFFER.ahk" { DNS_MESSAGE_BUFFER }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DNS_SERVICE_RESOLVE_REQUEST.ahk" { DNS_SERVICE_RESOLVE_REQUEST }
+#Import ".\DNS_CONNECTION_IFINDEX_LIST.ahk" { DNS_CONNECTION_IFINDEX_LIST }
 #Import ".\MDNS_QUERY_REQUEST.ahk" { MDNS_QUERY_REQUEST }
+#Import ".\DNS_PROXY_COMPLETION_ROUTINE.ahk" { DNS_PROXY_COMPLETION_ROUTINE }
+#Import ".\DNS_CONNECTION_POLICY_ENTRY_LIST.ahk" { DNS_CONNECTION_POLICY_ENTRY_LIST }
+#Import ".\DNS_SERVICE_BROWSE_REQUEST.ahk" { DNS_SERVICE_BROWSE_REQUEST }
+#Import ".\DNS_QUERY_RAW_RESULT.ahk" { DNS_QUERY_RAW_RESULT }
+#Import ".\DNS_QUERY_CANCEL.ahk" { DNS_QUERY_CANCEL }
+#Import ".\DNS_CONNECTION_PROXY_LIST.ahk" { DNS_CONNECTION_PROXY_LIST }
+#Import ".\DNS_QUERY_RAW_CANCEL.ahk" { DNS_QUERY_RAW_CANCEL }
+#Import ".\DNS_CONNECTION_NAME_LIST.ahk" { DNS_CONNECTION_NAME_LIST }
+#Import ".\DNS_CONFIG_TYPE.ahk" { DNS_CONFIG_TYPE }
+#Import ".\IP6_ADDRESS.ahk" { IP6_ADDRESS }
+#Import ".\DNS_CONNECTION_PROXY_INFO.ahk" { DNS_CONNECTION_PROXY_INFO }
+#Import ".\DNS_SERVICE_INSTANCE.ahk" { DNS_SERVICE_INSTANCE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_PROXY_INFORMATION.ahk" { DNS_PROXY_INFORMATION }
+#Import ".\DNS_QUERY_OPTIONS.ahk" { DNS_QUERY_OPTIONS }
+#Import ".\DNS_RECORDA.ahk" { DNS_RECORDA }
+#Import ".\DNS_APPLICATION_SETTINGS.ahk" { DNS_APPLICATION_SETTINGS }
+#Import ".\DNS_SERVICE_REGISTER_REQUEST.ahk" { DNS_SERVICE_REGISTER_REQUEST }
+#Import ".\DNS_NAME_FORMAT.ahk" { DNS_NAME_FORMAT }
+#Import ".\DNS_QUERY_RESULT.ahk" { DNS_QUERY_RESULT }
+#Import ".\DNS_SERVICE_CANCEL.ahk" { DNS_SERVICE_CANCEL }
 #Import ".\DNS_QUERY_RAW_REQUEST.ahk" { DNS_QUERY_RAW_REQUEST }
+#Import ".\DNS_CONNECTION_PROXY_TYPE.ahk" { DNS_CONNECTION_PROXY_TYPE }
+#Import ".\DNS_CHARSET.ahk" { DNS_CHARSET }
+#Import ".\DNS_CUSTOM_SERVER.ahk" { DNS_CUSTOM_SERVER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -143,7 +144,7 @@ export DnsQueryConfig(Config, Flag, pwsAdapterName, pReserved, pBuffer, pBufLen)
     pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
     pBufLenMarshal := pBufLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsQueryConfig", DNS_CONFIG_TYPE, Config, "uint", Flag, "ptr", pwsAdapterName, pReservedMarshal, pReserved, "ptr", pBuffer, pBufLenMarshal, pBufLen, Int32)
+    result := DllCall("DNSAPI.dll\DnsQueryConfig", DNS_CONFIG_TYPE, Config, UInt32, Flag, "ptr", pwsAdapterName, pReservedMarshal, pReserved, IntPtr, pBuffer, pBufLenMarshal, pBufLen, Int32)
     return result
 }
 
@@ -253,7 +254,7 @@ export DnsFree(pData, FreeType) {
 export DnsIsFlatRecord(pRecord, ullFlags, pfFlat) {
     pfFlatMarshal := pfFlat is VarRef ? "int*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsIsFlatRecord", DNS_RECORDA.Ptr, pRecord, "uint", ullFlags, pfFlatMarshal, pfFlat, Int32)
+    result := DllCall("DNSAPI.dll\DnsIsFlatRecord", DNS_RECORDA.Ptr, pRecord, Int64, ullFlags, pfFlatMarshal, pfFlat, Int32)
     return result
 }
 
@@ -288,7 +289,7 @@ export DnsQuery_A(pszName, wType, Options, pExtra, ppQueryResults, pReserved) {
     ppQueryResultsMarshal := ppQueryResults is VarRef ? "ptr*" : "ptr"
     pReservedMarshal := pReserved is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsQuery_A", "ptr", pszName, "ushort", wType, DNS_QUERY_OPTIONS, Options, pExtraMarshal, pExtra, ppQueryResultsMarshal, ppQueryResults, pReservedMarshal, pReserved, WIN32_ERROR)
+    result := DllCall("DNSAPI.dll\DnsQuery_A", "ptr", pszName, UInt16, wType, DNS_QUERY_OPTIONS, Options, pExtraMarshal, pExtra, ppQueryResultsMarshal, ppQueryResults, pReservedMarshal, pReserved, WIN32_ERROR)
     return result
 }
 
@@ -323,7 +324,7 @@ export DnsQuery_UTF8(pszName, wType, Options, pExtra, ppQueryResults, pReserved)
     ppQueryResultsMarshal := ppQueryResults is VarRef ? "ptr*" : "ptr"
     pReservedMarshal := pReserved is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsQuery_UTF8", "ptr", pszName, "ushort", wType, DNS_QUERY_OPTIONS, Options, pExtraMarshal, pExtra, ppQueryResultsMarshal, ppQueryResults, pReservedMarshal, pReserved, WIN32_ERROR)
+    result := DllCall("DNSAPI.dll\DnsQuery_UTF8", "ptr", pszName, UInt16, wType, DNS_QUERY_OPTIONS, Options, pExtraMarshal, pExtra, ppQueryResultsMarshal, ppQueryResults, pReservedMarshal, pReserved, WIN32_ERROR)
     return result
 }
 
@@ -358,7 +359,7 @@ export DnsQuery_W(pszName, wType, Options, pExtra, ppQueryResults, pReserved) {
     ppQueryResultsMarshal := ppQueryResults is VarRef ? "ptr*" : "ptr"
     pReservedMarshal := pReserved is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsQuery_W", "ptr", pszName, "ushort", wType, DNS_QUERY_OPTIONS, Options, pExtraMarshal, pExtra, ppQueryResultsMarshal, ppQueryResults, pReservedMarshal, pReserved, WIN32_ERROR)
+    result := DllCall("DNSAPI.dll\DnsQuery_W", "ptr", pszName, UInt16, wType, DNS_QUERY_OPTIONS, Options, pExtraMarshal, pExtra, ppQueryResultsMarshal, ppQueryResults, pReservedMarshal, pReserved, WIN32_ERROR)
     return result
 }
 
@@ -425,7 +426,7 @@ export DnsGetApplicationSettings(pcServers, ppDefaultServers, pSettings) {
  * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnssetapplicationsettings
  */
 export DnsSetApplicationSettings(cServers, pServers, pSettings) {
-    result := DllCall("DNSAPI.dll\DnsSetApplicationSettings", "uint", cServers, DNS_CUSTOM_SERVER.Ptr, pServers, DNS_APPLICATION_SETTINGS.Ptr, pSettings, UInt32)
+    result := DllCall("DNSAPI.dll\DnsSetApplicationSettings", UInt32, cServers, DNS_CUSTOM_SERVER.Ptr, pServers, DNS_APPLICATION_SETTINGS.Ptr, pSettings, UInt32)
     return result
 }
 
@@ -595,7 +596,7 @@ export DnsCancelQueryRaw(cancelHandle) {
 export DnsAcquireContextHandle_W(CredentialFlags, Credentials, pContext) {
     CredentialsMarshal := Credentials is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsAcquireContextHandle_W", "uint", CredentialFlags, CredentialsMarshal, Credentials, HANDLE.Ptr, pContext, Int32)
+    result := DllCall("DNSAPI.dll\DnsAcquireContextHandle_W", UInt32, CredentialFlags, CredentialsMarshal, Credentials, HANDLE.Ptr, pContext, Int32)
     return result
 }
 
@@ -611,7 +612,7 @@ export DnsAcquireContextHandle_W(CredentialFlags, Credentials, pContext) {
 export DnsAcquireContextHandle_A(CredentialFlags, Credentials, pContext) {
     CredentialsMarshal := Credentials is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsAcquireContextHandle_A", "uint", CredentialFlags, CredentialsMarshal, Credentials, HANDLE.Ptr, pContext, Int32)
+    result := DllCall("DNSAPI.dll\DnsAcquireContextHandle_A", UInt32, CredentialFlags, CredentialsMarshal, Credentials, HANDLE.Ptr, pContext, Int32)
     return result
 }
 
@@ -655,7 +656,7 @@ export DnsModifyRecordsInSet_W(pAddRecords, pDeleteRecords, Options, hCredential
     pExtraListMarshal := pExtraList is VarRef ? "ptr" : "ptr"
     pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsModifyRecordsInSet_W", DNS_RECORDA.Ptr, pAddRecords, DNS_RECORDA.Ptr, pDeleteRecords, "uint", Options, HANDLE, hCredentials, pExtraListMarshal, pExtraList, pReservedMarshal, pReserved, Int32)
+    result := DllCall("DNSAPI.dll\DnsModifyRecordsInSet_W", DNS_RECORDA.Ptr, pAddRecords, DNS_RECORDA.Ptr, pDeleteRecords, UInt32, Options, HANDLE, hCredentials, pExtraListMarshal, pExtraList, pReservedMarshal, pReserved, Int32)
     return result
 }
 
@@ -688,7 +689,7 @@ export DnsModifyRecordsInSet_A(pAddRecords, pDeleteRecords, Options, hCredential
     pExtraListMarshal := pExtraList is VarRef ? "ptr" : "ptr"
     pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsModifyRecordsInSet_A", DNS_RECORDA.Ptr, pAddRecords, DNS_RECORDA.Ptr, pDeleteRecords, "uint", Options, HANDLE, hCredentials, pExtraListMarshal, pExtraList, pReservedMarshal, pReserved, Int32)
+    result := DllCall("DNSAPI.dll\DnsModifyRecordsInSet_A", DNS_RECORDA.Ptr, pAddRecords, DNS_RECORDA.Ptr, pDeleteRecords, UInt32, Options, HANDLE, hCredentials, pExtraListMarshal, pExtraList, pReservedMarshal, pReserved, Int32)
     return result
 }
 
@@ -721,7 +722,7 @@ export DnsModifyRecordsInSet_UTF8(pAddRecords, pDeleteRecords, Options, hCredent
     pExtraListMarshal := pExtraList is VarRef ? "ptr" : "ptr"
     pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsModifyRecordsInSet_UTF8", DNS_RECORDA.Ptr, pAddRecords, DNS_RECORDA.Ptr, pDeleteRecords, "uint", Options, HANDLE, hCredentials, pExtraListMarshal, pExtraList, pReservedMarshal, pReserved, Int32)
+    result := DllCall("DNSAPI.dll\DnsModifyRecordsInSet_UTF8", DNS_RECORDA.Ptr, pAddRecords, DNS_RECORDA.Ptr, pDeleteRecords, UInt32, Options, HANDLE, hCredentials, pExtraListMarshal, pExtraList, pReservedMarshal, pReserved, Int32)
     return result
 }
 
@@ -744,7 +745,7 @@ export DnsReplaceRecordSetW(pReplaceSet, Options, hContext, pExtraInfo, pReserve
     pExtraInfoMarshal := pExtraInfo is VarRef ? "ptr" : "ptr"
     pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsReplaceRecordSetW", DNS_RECORDA.Ptr, pReplaceSet, "uint", Options, HANDLE, hContext, pExtraInfoMarshal, pExtraInfo, pReservedMarshal, pReserved, Int32)
+    result := DllCall("DNSAPI.dll\DnsReplaceRecordSetW", DNS_RECORDA.Ptr, pReplaceSet, UInt32, Options, HANDLE, hContext, pExtraInfoMarshal, pExtraInfo, pReservedMarshal, pReserved, Int32)
     return result
 }
 
@@ -767,7 +768,7 @@ export DnsReplaceRecordSetA(pReplaceSet, Options, hContext, pExtraInfo, pReserve
     pExtraInfoMarshal := pExtraInfo is VarRef ? "ptr" : "ptr"
     pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsReplaceRecordSetA", DNS_RECORDA.Ptr, pReplaceSet, "uint", Options, HANDLE, hContext, pExtraInfoMarshal, pExtraInfo, pReservedMarshal, pReserved, Int32)
+    result := DllCall("DNSAPI.dll\DnsReplaceRecordSetA", DNS_RECORDA.Ptr, pReplaceSet, UInt32, Options, HANDLE, hContext, pExtraInfoMarshal, pExtraInfo, pReservedMarshal, pReserved, Int32)
     return result
 }
 
@@ -787,7 +788,7 @@ export DnsReplaceRecordSetUTF8(pReplaceSet, Options, hContext, pExtraInfo, pRese
     pExtraInfoMarshal := pExtraInfo is VarRef ? "ptr" : "ptr"
     pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsReplaceRecordSetUTF8", DNS_RECORDA.Ptr, pReplaceSet, "uint", Options, HANDLE, hContext, pExtraInfoMarshal, pExtraInfo, pReservedMarshal, pReserved, Int32)
+    result := DllCall("DNSAPI.dll\DnsReplaceRecordSetUTF8", DNS_RECORDA.Ptr, pReplaceSet, UInt32, Options, HANDLE, hContext, pExtraInfoMarshal, pExtraInfo, pReservedMarshal, pReserved, Int32)
     return result
 }
 
@@ -1067,7 +1068,7 @@ export DnsWriteQuestionToBuffer_W(pDnsBuffer, pdwBufferSize, pszName, wType, _Xi
 
     pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_W", DNS_MESSAGE_BUFFER.Ptr, pDnsBuffer, pdwBufferSizeMarshal, pdwBufferSize, "ptr", pszName, "ushort", wType, "ushort", _Xid, BOOL, fRecursionDesired, BOOL)
+    result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_W", DNS_MESSAGE_BUFFER.Ptr, pDnsBuffer, pdwBufferSizeMarshal, pdwBufferSize, "ptr", pszName, UInt16, wType, UInt16, _Xid, BOOL, fRecursionDesired, BOOL)
     return result
 }
 
@@ -1104,7 +1105,7 @@ export DnsWriteQuestionToBuffer_UTF8(pDnsBuffer, pdwBufferSize, pszName, wType, 
 
     pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_UTF8", DNS_MESSAGE_BUFFER.Ptr, pDnsBuffer, pdwBufferSizeMarshal, pdwBufferSize, "ptr", pszName, "ushort", wType, "ushort", _Xid, BOOL, fRecursionDesired, BOOL)
+    result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_UTF8", DNS_MESSAGE_BUFFER.Ptr, pDnsBuffer, pdwBufferSizeMarshal, pdwBufferSize, "ptr", pszName, UInt16, wType, UInt16, _Xid, BOOL, fRecursionDesired, BOOL)
     return result
 }
 
@@ -1138,7 +1139,7 @@ export DnsWriteQuestionToBuffer_UTF8(pDnsBuffer, pdwBufferSize, pszName, wType, 
 export DnsExtractRecordsFromMessage_W(pDnsBuffer, wMessageLength, ppRecord) {
     ppRecordMarshal := ppRecord is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsExtractRecordsFromMessage_W", DNS_MESSAGE_BUFFER.Ptr, pDnsBuffer, "ushort", wMessageLength, ppRecordMarshal, ppRecord, Int32)
+    result := DllCall("DNSAPI.dll\DnsExtractRecordsFromMessage_W", DNS_MESSAGE_BUFFER.Ptr, pDnsBuffer, UInt16, wMessageLength, ppRecordMarshal, ppRecord, Int32)
     return result
 }
 
@@ -1172,7 +1173,7 @@ export DnsExtractRecordsFromMessage_W(pDnsBuffer, wMessageLength, ppRecord) {
 export DnsExtractRecordsFromMessage_UTF8(pDnsBuffer, wMessageLength, ppRecord) {
     ppRecordMarshal := ppRecord is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsExtractRecordsFromMessage_UTF8", DNS_MESSAGE_BUFFER.Ptr, pDnsBuffer, "ushort", wMessageLength, ppRecordMarshal, ppRecord, Int32)
+    result := DllCall("DNSAPI.dll\DnsExtractRecordsFromMessage_UTF8", DNS_MESSAGE_BUFFER.Ptr, pDnsBuffer, UInt16, wMessageLength, ppRecordMarshal, ppRecord, Int32)
     return result
 }
 
@@ -1193,7 +1194,7 @@ export DnsGetProxyInformation(hostName, proxyInformation, defaultProxyInformatio
 
     completionContextMarshal := completionContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsGetProxyInformation", "ptr", hostName, DNS_PROXY_INFORMATION.Ptr, proxyInformation, DNS_PROXY_INFORMATION.Ptr, defaultProxyInformation, "ptr", completionRoutine, completionContextMarshal, completionContext, UInt32)
+    result := DllCall("DNSAPI.dll\DnsGetProxyInformation", "ptr", hostName, DNS_PROXY_INFORMATION.Ptr, proxyInformation, DNS_PROXY_INFORMATION.Ptr, defaultProxyInformation, DNS_PROXY_COMPLETION_ROUTINE, completionRoutine, completionContextMarshal, completionContext, UInt32)
     return result
 }
 
@@ -1224,7 +1225,7 @@ export DnsConnectionGetProxyInfoForHostUrl(pwszHostUrl, pSelectionContext, dwSel
 
     pSelectionContextMarshal := pSelectionContext is VarRef ? "char*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsConnectionGetProxyInfoForHostUrl", "ptr", pwszHostUrl, pSelectionContextMarshal, pSelectionContext, "uint", dwSelectionContextLength, "uint", dwExplicitInterfaceIndex, DNS_CONNECTION_PROXY_INFO_EX.Ptr, pProxyInfoEx, UInt32)
+    result := DllCall("DNSAPI.dll\DnsConnectionGetProxyInfoForHostUrl", "ptr", pwszHostUrl, pSelectionContextMarshal, pSelectionContext, UInt32, dwSelectionContextLength, UInt32, dwExplicitInterfaceIndex, DNS_CONNECTION_PROXY_INFO_EX.Ptr, pProxyInfoEx, UInt32)
     return result
 }
 
@@ -1244,7 +1245,7 @@ export DnsConnectionGetProxyInfoForHostUrlEx(pwszHostUrl, pSelectionContext, dwS
 
     pSelectionContextMarshal := pSelectionContext is VarRef ? "char*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsConnectionGetProxyInfoForHostUrlEx", "ptr", pwszHostUrl, pSelectionContextMarshal, pSelectionContext, "uint", dwSelectionContextLength, "uint", dwExplicitInterfaceIndex, "ptr", pwszConnectionName, DNS_CONNECTION_PROXY_INFO_EX.Ptr, pProxyInfoEx, UInt32)
+    result := DllCall("DNSAPI.dll\DnsConnectionGetProxyInfoForHostUrlEx", "ptr", pwszHostUrl, pSelectionContextMarshal, pSelectionContext, UInt32, dwSelectionContextLength, UInt32, dwExplicitInterfaceIndex, "ptr", pwszConnectionName, DNS_CONNECTION_PROXY_INFO_EX.Ptr, pProxyInfoEx, UInt32)
     return result
 }
 
@@ -1405,7 +1406,7 @@ export DnsServiceConstructInstance(pServiceName, pHostName, pIp4, pIp6, wPort, w
     keysMarshal := keys is VarRef ? "ptr*" : "ptr"
     valuesMarshal := values is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("DNSAPI.dll\DnsServiceConstructInstance", "ptr", pServiceName, "ptr", pHostName, pIp4Marshal, pIp4, IP6_ADDRESS.Ptr, pIp6, "ushort", wPort, "ushort", wPriority, "ushort", wWeight, "uint", dwPropertiesCount, keysMarshal, keys, valuesMarshal, values, DNS_SERVICE_INSTANCE.Ptr)
+    result := DllCall("DNSAPI.dll\DnsServiceConstructInstance", "ptr", pServiceName, "ptr", pHostName, pIp4Marshal, pIp4, IP6_ADDRESS.Ptr, pIp6, UInt16, wPort, UInt16, wPriority, UInt16, wWeight, UInt32, dwPropertiesCount, keysMarshal, keys, valuesMarshal, values, DNS_SERVICE_INSTANCE.Ptr)
     return result
 }
 

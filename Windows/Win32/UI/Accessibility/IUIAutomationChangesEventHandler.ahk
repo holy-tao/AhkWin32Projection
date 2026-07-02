@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\UiaChangeInfo.ahk" { UiaChangeInfo }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method to handle one or more Microsoft UI Automation change events.
@@ -52,7 +52,7 @@ export default struct IUIAutomationChangesEventHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationchangeseventhandler-handlechangesevent
      */
     HandleChangesEvent(sender, uiaChanges, changesCount) {
-        result := ComCall(3, this, "ptr", sender, UiaChangeInfo.Ptr, uiaChanges, "int", changesCount, "HRESULT")
+        result := ComCall(3, this, "ptr", sender, UiaChangeInfo.Ptr, uiaChanges, Int32, changesCount, "HRESULT")
         return result
     }
 

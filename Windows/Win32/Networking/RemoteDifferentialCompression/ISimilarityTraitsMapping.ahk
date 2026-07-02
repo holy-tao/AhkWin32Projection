@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISimilarityTraitsMappedView.ahk" { ISimilarityTraitsMappedView }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RdcMappingAccessMode.ahk" { RdcMappingAccessMode }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RdcMappingAccessMode.ahk" { RdcMappingAccessMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods that an RDC application can implement for creating and manipulating a file mapping object for a similarity traits table file.
@@ -69,7 +69,7 @@ export default struct ISimilarityTraitsMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmapping-setfilesize
      */
     SetFileSize(fileSize) {
-        result := ComCall(4, this, "uint", fileSize, "HRESULT")
+        result := ComCall(4, this, Int64, fileSize, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct ISimilarityTraitsMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmapping-openmapping
      */
     OpenMapping(accessMode, begin, end) {
-        result := ComCall(6, this, RdcMappingAccessMode, accessMode, "uint", begin, "uint", end, "uint*", &actualEnd := 0, "HRESULT")
+        result := ComCall(6, this, RdcMappingAccessMode, accessMode, Int64, begin, Int64, end, "uint*", &actualEnd := 0, "HRESULT")
         return actualEnd
     }
 
@@ -105,7 +105,7 @@ export default struct ISimilarityTraitsMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmapping-resizemapping
      */
     ResizeMapping(accessMode, begin, end) {
-        result := ComCall(7, this, RdcMappingAccessMode, accessMode, "uint", begin, "uint", end, "uint*", &actualEnd := 0, "HRESULT")
+        result := ComCall(7, this, RdcMappingAccessMode, accessMode, Int64, begin, Int64, end, "uint*", &actualEnd := 0, "HRESULT")
         return actualEnd
     }
 
@@ -131,7 +131,7 @@ export default struct ISimilarityTraitsMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmapping-createview
      */
     CreateView(minimumMappedPages, accessMode) {
-        result := ComCall(9, this, "uint", minimumMappedPages, RdcMappingAccessMode, accessMode, "ptr*", &mappedView := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, minimumMappedPages, RdcMappingAccessMode, accessMode, "ptr*", &mappedView := 0, "HRESULT")
         return ISimilarityTraitsMappedView(mappedView)
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation

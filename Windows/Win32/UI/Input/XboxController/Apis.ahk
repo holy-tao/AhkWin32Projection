@@ -1,14 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\XINPUT_STATE.ahk" { XINPUT_STATE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\XINPUT_VIBRATION.ahk" { XINPUT_VIBRATION }
 #Import ".\XINPUT_CAPABILITIES.ahk" { XINPUT_CAPABILITIES }
-#Import ".\BATTERY_DEVTYPE.ahk" { BATTERY_DEVTYPE }
-#Import ".\XINPUT_FLAG.ahk" { XINPUT_FLAG }
-#Import ".\XINPUT_BATTERY_INFORMATION.ahk" { XINPUT_BATTERY_INFORMATION }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\XINPUT_KEYSTROKE.ahk" { XINPUT_KEYSTROKE }
+#Import ".\XINPUT_VIBRATION.ahk" { XINPUT_VIBRATION }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\XINPUT_FLAG.ahk" { XINPUT_FLAG }
+#Import ".\BATTERY_DEVTYPE.ahk" { BATTERY_DEVTYPE }
+#Import ".\XINPUT_BATTERY_INFORMATION.ahk" { XINPUT_BATTERY_INFORMATION }
+#Import ".\XINPUT_STATE.ahk" { XINPUT_STATE }
 
 /**
  * @namespace Windows.Win32.UI.Input.XboxController
@@ -34,7 +34,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetstate
  */
 export XInputGetState(dwUserIndex, pState) {
-    result := DllCall("xinput1_4.dll\XInputGetState", "uint", dwUserIndex, XINPUT_STATE.Ptr, pState, UInt32)
+    result := DllCall("xinput1_4.dll\XInputGetState", UInt32, dwUserIndex, XINPUT_STATE.Ptr, pState, UInt32)
     return result
 }
 
@@ -50,7 +50,7 @@ export XInputGetState(dwUserIndex, pState) {
  * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputsetstate
  */
 export XInputSetState(dwUserIndex, pVibration) {
-    result := DllCall("xinput1_4.dll\XInputSetState", "uint", dwUserIndex, XINPUT_VIBRATION.Ptr, pVibration, UInt32)
+    result := DllCall("xinput1_4.dll\XInputSetState", UInt32, dwUserIndex, XINPUT_VIBRATION.Ptr, pVibration, UInt32)
     return result
 }
 
@@ -88,7 +88,7 @@ export XInputSetState(dwUserIndex, pVibration) {
  * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetcapabilities
  */
 export XInputGetCapabilities(dwUserIndex, dwFlags, pCapabilities) {
-    result := DllCall("xinput1_4.dll\XInputGetCapabilities", "uint", dwUserIndex, XINPUT_FLAG, dwFlags, XINPUT_CAPABILITIES.Ptr, pCapabilities, UInt32)
+    result := DllCall("xinput1_4.dll\XInputGetCapabilities", UInt32, dwUserIndex, XINPUT_FLAG, dwFlags, XINPUT_CAPABILITIES.Ptr, pCapabilities, UInt32)
     return result
 }
 
@@ -148,7 +148,7 @@ export XInputGetAudioDeviceIds(dwUserIndex, pRenderDeviceId, pRenderCount, pCapt
     pRenderCountMarshal := pRenderCount is VarRef ? "uint*" : "ptr"
     pCaptureCountMarshal := pCaptureCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("xinput1_4.dll\XInputGetAudioDeviceIds", "uint", dwUserIndex, "ptr", pRenderDeviceId, pRenderCountMarshal, pRenderCount, "ptr", pCaptureDeviceId, pCaptureCountMarshal, pCaptureCount, UInt32)
+    result := DllCall("xinput1_4.dll\XInputGetAudioDeviceIds", UInt32, dwUserIndex, "ptr", pRenderDeviceId, pRenderCountMarshal, pRenderCount, "ptr", pCaptureDeviceId, pCaptureCountMarshal, pCaptureCount, UInt32)
     return result
 }
 
@@ -161,7 +161,7 @@ export XInputGetAudioDeviceIds(dwUserIndex, pRenderDeviceId, pRenderCount, pCapt
  * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetbatteryinformation
  */
 export XInputGetBatteryInformation(dwUserIndex, devType, pBatteryInformation) {
-    result := DllCall("xinput1_4.dll\XInputGetBatteryInformation", "uint", dwUserIndex, BATTERY_DEVTYPE, devType, XINPUT_BATTERY_INFORMATION.Ptr, pBatteryInformation, UInt32)
+    result := DllCall("xinput1_4.dll\XInputGetBatteryInformation", UInt32, dwUserIndex, BATTERY_DEVTYPE, devType, XINPUT_BATTERY_INFORMATION.Ptr, pBatteryInformation, UInt32)
     return result
 }
 
@@ -188,7 +188,7 @@ export XInputGetBatteryInformation(dwUserIndex, devType, pBatteryInformation) {
 export XInputGetKeystroke(dwUserIndex, pKeystroke) {
     static dwReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("xinput1_4.dll\XInputGetKeystroke", "uint", dwUserIndex, "uint", dwReserved, XINPUT_KEYSTROKE.Ptr, pKeystroke, UInt32)
+    result := DllCall("xinput1_4.dll\XInputGetKeystroke", UInt32, dwUserIndex, UInt32, dwReserved, XINPUT_KEYSTROKE.Ptr, pKeystroke, UInt32)
     return result
 }
 

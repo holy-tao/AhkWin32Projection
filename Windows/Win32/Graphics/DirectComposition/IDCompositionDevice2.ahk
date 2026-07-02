@@ -1,29 +1,29 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\IDCompositionSurfaceFactory.ahk" { IDCompositionSurfaceFactory }
-#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
 #Import ".\IDCompositionRectangleClip.ahk" { IDCompositionRectangleClip }
-#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
-#Import ".\IDCompositionVisual2.ahk" { IDCompositionVisual2 }
-#Import ".\IDCompositionRotateTransform3D.ahk" { IDCompositionRotateTransform3D }
-#Import ".\IDCompositionMatrixTransform.ahk" { IDCompositionMatrixTransform }
-#Import ".\IDCompositionMatrixTransform3D.ahk" { IDCompositionMatrixTransform3D }
-#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
-#Import ".\IDCompositionScaleTransform.ahk" { IDCompositionScaleTransform }
-#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
-#Import ".\IDCompositionSkewTransform.ahk" { IDCompositionSkewTransform }
-#Import ".\IDCompositionRotateTransform.ahk" { IDCompositionRotateTransform }
-#Import ".\DCOMPOSITION_FRAME_STATISTICS.ahk" { DCOMPOSITION_FRAME_STATISTICS }
-#Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDCompositionEffectGroup.ahk" { IDCompositionEffectGroup }
+#Import ".\IDCompositionScaleTransform.ahk" { IDCompositionScaleTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
+#Import ".\IDCompositionVisual2.ahk" { IDCompositionVisual2 }
+#Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
 #Import ".\IDCompositionTranslateTransform3D.ahk" { IDCompositionTranslateTransform3D }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionRotateTransform.ahk" { IDCompositionRotateTransform }
+#Import ".\IDCompositionTransform.ahk" { IDCompositionTransform }
+#Import ".\IDCompositionSurfaceFactory.ahk" { IDCompositionSurfaceFactory }
 #Import ".\IDCompositionScaleTransform3D.ahk" { IDCompositionScaleTransform3D }
+#Import ".\IDCompositionRotateTransform3D.ahk" { IDCompositionRotateTransform3D }
+#Import ".\IDCompositionMatrixTransform3D.ahk" { IDCompositionMatrixTransform3D }
+#Import ".\IDCompositionMatrixTransform.ahk" { IDCompositionMatrixTransform }
+#Import ".\IDCompositionSkewTransform.ahk" { IDCompositionSkewTransform }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\IDCompositionTranslateTransform.ahk" { IDCompositionTranslateTransform }
+#Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
+#Import ".\DCOMPOSITION_FRAME_STATISTICS.ahk" { DCOMPOSITION_FRAME_STATISTICS }
+#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
 
 /**
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice2)
@@ -203,7 +203,7 @@ export default struct IDCompositionDevice2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createsurface
      */
     CreateSurface(width, height, pixelFormat, alphaMode) {
-        result := ComCall(8, this, "uint", width, "uint", height, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, width, UInt32, height, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &surface := 0, "HRESULT")
         return IDCompositionSurface(surface)
     }
 
@@ -242,7 +242,7 @@ export default struct IDCompositionDevice2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createvirtualsurface
      */
     CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode) {
-        result := ComCall(9, this, "uint", initialWidth, "uint", initialHeight, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, initialWidth, UInt32, initialHeight, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
         return IDCompositionVirtualSurface(virtualSurface)
     }
 
@@ -336,7 +336,7 @@ export default struct IDCompositionDevice2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtransformgroup
      */
     CreateTransformGroup(transforms, elements) {
-        result := ComCall(15, this, IDCompositionTransform.Ptr, transforms, "uint", elements, "ptr*", &transformGroup := 0, "HRESULT")
+        result := ComCall(15, this, IDCompositionTransform.Ptr, transforms, UInt32, elements, "ptr*", &transformGroup := 0, "HRESULT")
         return IDCompositionTransform(transformGroup)
     }
 
@@ -416,7 +416,7 @@ export default struct IDCompositionDevice2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtransform3dgroup
      */
     CreateTransform3DGroup(transforms3D, elements) {
-        result := ComCall(20, this, IDCompositionTransform3D.Ptr, transforms3D, "uint", elements, "ptr*", &transform3DGroup := 0, "HRESULT")
+        result := ComCall(20, this, IDCompositionTransform3D.Ptr, transforms3D, UInt32, elements, "ptr*", &transform3DGroup := 0, "HRESULT")
         return IDCompositionTransform3D(transform3DGroup)
     }
 

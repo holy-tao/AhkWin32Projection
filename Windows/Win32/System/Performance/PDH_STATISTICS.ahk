@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PDH_FMT_COUNTERVALUE.ahk" { PDH_FMT_COUNTERVALUE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\PDH_FMT_COUNTERVALUE.ahk" { PDH_FMT_COUNTERVALUE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The PDH_STATISTICS structure contains the minimum, maximum, and mean values for an array of raw counters values.

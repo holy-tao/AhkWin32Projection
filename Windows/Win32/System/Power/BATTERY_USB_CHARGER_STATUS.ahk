@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\USB_CHARGER_PORT.ahk" { USB_CHARGER_PORT }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\BATTERY_CHARGING_SOURCE_TYPE.ahk" { BATTERY_CHARGING_SOURCE_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Power

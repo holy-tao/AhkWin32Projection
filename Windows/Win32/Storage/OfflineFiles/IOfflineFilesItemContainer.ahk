@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IOfflineFilesItemFilter.ahk" { IOfflineFilesItemFilter }
-#Import ".\IEnumOfflineFilesItems.ahk" { IEnumOfflineFilesItems }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumOfflineFilesItems.ahk" { IEnumOfflineFilesItems }
 
 /**
  * Used to access item enumeration functionality in the Offline Files cache.
@@ -56,7 +56,7 @@ export default struct IOfflineFilesItemContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitems
      */
     EnumItems(dwQueryFlags) {
-        result := ComCall(3, this, "uint", dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumOfflineFilesItems(ppenum)
     }
 
@@ -104,7 +104,7 @@ export default struct IOfflineFilesItemContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitemsex
      */
     EnumItemsEx(pIncludeFileFilter, pIncludeDirFilter, pExcludeFileFilter, pExcludeDirFilter, dwEnumFlags, dwQueryFlags) {
-        result := ComCall(4, this, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, "uint", dwEnumFlags, "uint", dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, UInt32, dwEnumFlags, UInt32, dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumOfflineFilesItems(ppenum)
     }
 

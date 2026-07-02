@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_HEAP_DESC.ahk" { D3D12_HEAP_DESC }
 #Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import ".\D3D12_HEAP_DESC.ahk" { D3D12_HEAP_DESC }
 
 /**
  * A heap is an abstraction of contiguous memory allocation, used to manage physical memory. This heap can be used with ID3D12Resource objects to support placed resources or reserved resources.

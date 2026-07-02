@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WS_STRING.ahk" { WS_STRING }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_STRING.ahk" { WS_STRING }
 
 /**
  * A structure that is used to specify the custom proxy for the channel, using the WS_CHANNEL_PROPERTY_CUSTOM_HTTP_PROXY.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IErrorInfo.ahk" { IErrorInfo }
 #Import ".\ImgErrorInfo.ahk" { ImgErrorInfo }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -79,7 +79,7 @@ export default struct IImgErrorInfo extends IErrorInfo {
      */
     GetUserParameter(cParam) {
         pbstrParam := BSTR.Owned()
-        result := ComCall(11, this, "uint", cParam, BSTR.Ptr, pbstrParam, "HRESULT")
+        result := ComCall(11, this, UInt32, cParam, BSTR.Ptr, pbstrParam, "HRESULT")
         return pbstrParam
     }
 

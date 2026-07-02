@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Storage\IndexServer\FILTERREGION.ahk" { FILTERREGION }
-#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 #Import "..\Com\IMoniker.ahk" { IMoniker }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -46,7 +46,7 @@ export default struct ISearchQueryHits extends IUnknown {
      * @returns {Integer} 
      */
     Init(pflt, ulFlags) {
-        result := ComCall(3, this, "ptr", pflt, "uint", ulFlags, Int32)
+        result := ComCall(3, this, "ptr", pflt, UInt32, ulFlags, Int32)
         return result
     }
 

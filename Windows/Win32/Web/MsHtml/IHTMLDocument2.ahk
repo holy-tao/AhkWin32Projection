@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IHTMLStyleSheet.ahk" { IHTMLStyleSheet }
+#Import ".\IHTMLFramesCollection2.ahk" { IHTMLFramesCollection2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLLocation.ahk" { IHTMLLocation }
+#Import ".\IHTMLDocument.ahk" { IHTMLDocument }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\IHTMLStyleSheet.ahk" { IHTMLStyleSheet }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IHTMLStyleSheetsCollection.ahk" { IHTMLStyleSheetsCollection }
-#Import ".\IHTMLDocument.ahk" { IHTMLDocument }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IHTMLSelectionObject.ahk" { IHTMLSelectionObject }
+#Import ".\IHTMLStyleSheetsCollection.ahk" { IHTMLStyleSheetsCollection }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
-#Import ".\IHTMLFramesCollection2.ahk" { IHTMLFramesCollection2 }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -1668,7 +1668,7 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
      * @returns {IHTMLElement} 
      */
     elementFromPoint(x, y) {
-        result := ComCall(107, this, "int", x, "int", y, "ptr*", &elementHit := 0, "HRESULT")
+        result := ComCall(107, this, Int32, x, Int32, y, "ptr*", &elementHit := 0, "HRESULT")
         return IHTMLElement(elementHit)
     }
 
@@ -1749,7 +1749,7 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     createStyleSheet(bstrHref, lIndex) {
         bstrHref := bstrHref is String ? BSTR.Alloc(bstrHref).Value : bstrHref
 
-        result := ComCall(115, this, BSTR, bstrHref, "int", lIndex, "ptr*", &ppnewStyleSheet := 0, "HRESULT")
+        result := ComCall(115, this, BSTR, bstrHref, Int32, lIndex, "ptr*", &ppnewStyleSheet := 0, "HRESULT")
         return IHTMLStyleSheet(ppnewStyleSheet)
     }
 

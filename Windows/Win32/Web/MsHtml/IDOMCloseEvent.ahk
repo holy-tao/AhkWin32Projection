@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -74,7 +74,7 @@ export default struct IDOMCloseEvent extends IDispatch {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
         reason := reason is String ? BSTR.Alloc(reason).Value : reason
 
-        result := ComCall(8, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, VARIANT_BOOL, wasClean, "int", code, BSTR, reason, "HRESULT")
+        result := ComCall(8, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, VARIANT_BOOL, wasClean, Int32, code, BSTR, reason, "HRESULT")
         return result
     }
 

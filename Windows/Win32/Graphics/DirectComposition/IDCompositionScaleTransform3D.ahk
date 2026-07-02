@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
 
 /**
  * Represents a 3D transformation effect that affects the scale of a visual along the x-axis, y-axis, and z-axis. The coordinate system is scaled from the specified center point.
@@ -91,7 +91,7 @@ export default struct IDCompositionScaleTransform3D extends IDCompositionTransfo
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform3d-setscalex(idcompositionanimation)
      */
     SetScaleX1(scaleX) {
-        result := ComCall(4, this, "float", scaleX, "HRESULT")
+        result := ComCall(4, this, Float32, scaleX, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IDCompositionScaleTransform3D extends IDCompositionTransfo
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform3d-setscaley(float)
      */
     SetScaleY1(scaleY) {
-        result := ComCall(6, this, "float", scaleY, "HRESULT")
+        result := ComCall(6, this, Float32, scaleY, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct IDCompositionScaleTransform3D extends IDCompositionTransfo
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform3d-setscalez(idcompositionanimation)
      */
     SetScaleZ1(scaleZ) {
-        result := ComCall(8, this, "float", scaleZ, "HRESULT")
+        result := ComCall(8, this, Float32, scaleZ, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IDCompositionScaleTransform3D extends IDCompositionTransfo
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform3d-setcenterx(float)
      */
     SetCenterX1(centerX) {
-        result := ComCall(10, this, "float", centerX, "HRESULT")
+        result := ComCall(10, this, Float32, centerX, "HRESULT")
         return result
     }
 
@@ -251,7 +251,7 @@ export default struct IDCompositionScaleTransform3D extends IDCompositionTransfo
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform3d-setcentery(idcompositionanimation)
      */
     SetCenterY1(centerY) {
-        result := ComCall(12, this, "float", centerY, "HRESULT")
+        result := ComCall(12, this, Float32, centerY, "HRESULT")
         return result
     }
 
@@ -291,7 +291,7 @@ export default struct IDCompositionScaleTransform3D extends IDCompositionTransfo
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionscaletransform3d-setcenterz(idcompositionanimation)
      */
     SetCenterZ1(centerZ) {
-        result := ComCall(14, this, "float", centerZ, "HRESULT")
+        result := ComCall(14, this, Float32, centerZ, "HRESULT")
         return result
     }
 

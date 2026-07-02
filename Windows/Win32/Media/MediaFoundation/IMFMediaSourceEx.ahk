@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMFMediaSource.ahk" { IMFMediaSource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Extends the IMFMediaSource interface to provide additional capabilities for a media source.
@@ -64,7 +64,7 @@ export default struct IMFMediaSourceEx extends IMFMediaSource {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasourceex-getstreamattributes
      */
     GetStreamAttributes(dwStreamIdentifier) {
-        result := ComCall(14, this, "uint", dwStreamIdentifier, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwStreamIdentifier, "ptr*", &ppAttributes := 0, "HRESULT")
         return IMFAttributes(ppAttributes)
     }
 

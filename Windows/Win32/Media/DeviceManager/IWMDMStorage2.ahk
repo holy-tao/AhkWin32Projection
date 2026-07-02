@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
+#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
 
 /**
  * The IWMDMStorage2 interface extends IWMDMStorage by making it possible to get a child storage by name, and to get and set extended attributes. IWMDMStorage3 interface extends this interface by supporting metadata.
@@ -74,7 +74,7 @@ export default struct IWMDMStorage2 extends IWMDMStorage {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage2-setattributes2
      */
     SetAttributes2(dwAttributes, dwAttributesEx, pFormat, pVideoFormat) {
-        result := ComCall(13, this, "uint", dwAttributes, "uint", dwAttributesEx, WAVEFORMATEX.Ptr, pFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
+        result := ComCall(13, this, UInt32, dwAttributes, UInt32, dwAttributesEx, WAVEFORMATEX.Ptr, pFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
         return result
     }
 

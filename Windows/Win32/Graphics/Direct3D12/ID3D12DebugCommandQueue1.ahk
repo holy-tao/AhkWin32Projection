@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12DebugCommandQueue.ahk" { ID3D12DebugCommandQueue }
-#Import ".\D3D12_BARRIER_LAYOUT.ahk" { D3D12_BARRIER_LAYOUT }
-#Import ".\D3D12_BARRIER_ACCESS.ahk" { D3D12_BARRIER_ACCESS }
 #Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_BARRIER_LAYOUT.ahk" { D3D12_BARRIER_LAYOUT }
+#Import ".\ID3D12DebugCommandQueue.ahk" { ID3D12DebugCommandQueue }
+#Import ".\D3D12_BARRIER_ACCESS.ahk" { D3D12_BARRIER_ACCESS }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -46,7 +46,7 @@ export default struct ID3D12DebugCommandQueue1 extends ID3D12DebugCommandQueue {
      * @returns {String} Nothing - always returns an empty string
      */
     AssertResourceAccess(pResource, Subresource, Access) {
-        ComCall(4, this, "ptr", pResource, "uint", Subresource, D3D12_BARRIER_ACCESS, Access)
+        ComCall(4, this, "ptr", pResource, UInt32, Subresource, D3D12_BARRIER_ACCESS, Access)
     }
 
     /**
@@ -57,7 +57,7 @@ export default struct ID3D12DebugCommandQueue1 extends ID3D12DebugCommandQueue {
      * @returns {String} Nothing - always returns an empty string
      */
     AssertTextureLayout(pResource, Subresource, Layout) {
-        ComCall(5, this, "ptr", pResource, "uint", Subresource, D3D12_BARRIER_LAYOUT, Layout)
+        ComCall(5, this, "ptr", pResource, UInt32, Subresource, D3D12_BARRIER_LAYOUT, Layout)
     }
 
     Query(iid) {

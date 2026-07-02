@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CPOINT.ahk" { CPOINT }
 #Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
+#Import ".\CPOINT.ahk" { CPOINT }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

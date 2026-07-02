@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\INTERNET_PER_CONN.ahk" { INTERNET_PER_CONN }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\INTERNET_PER_CONN.ahk" { INTERNET_PER_CONN }
 
 /**
  * Contains the value of an option. (ANSI)

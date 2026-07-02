@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ISpeechGrammarRule.ahk" { ISpeechGrammarRule }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SpeechRuleAttributes.ahk" { SpeechRuleAttributes }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISpeechGrammarRule.ahk" { ISpeechGrammarRule }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -100,7 +100,7 @@ export default struct ISpeechGrammarRules extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(9, this, "int", Index, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(9, this, Int32, Index, "ptr*", &Rule := 0, "HRESULT")
         return ISpeechGrammarRule(Rule)
     }
 
@@ -132,7 +132,7 @@ export default struct ISpeechGrammarRules extends IDispatch {
     Add(RuleName, Attributes, RuleId) {
         RuleName := RuleName is String ? BSTR.Alloc(RuleName).Value : RuleName
 
-        result := ComCall(12, this, BSTR, RuleName, SpeechRuleAttributes, Attributes, "int", RuleId, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, RuleName, SpeechRuleAttributes, Attributes, Int32, RuleId, "ptr*", &Rule := 0, "HRESULT")
         return ISpeechGrammarRule(Rule)
     }
 

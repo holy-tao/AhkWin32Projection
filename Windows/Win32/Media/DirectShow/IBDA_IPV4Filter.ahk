@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IBDA_ IPV4Filter interface is implemented on a Network Provider.
@@ -68,7 +68,7 @@ export default struct IBDA_IPV4Filter extends IUnknown {
     PutMulticastList(ulcbAddresses, pAddressList) {
         pAddressListMarshal := pAddressList is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulcbAddresses, pAddressListMarshal, pAddressList, "HRESULT")
+        result := ComCall(4, this, UInt32, ulcbAddresses, pAddressListMarshal, pAddressList, "HRESULT")
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IBDA_IPV4Filter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv4filter-putmulticastmode
      */
     PutMulticastMode(ulModeMask) {
-        result := ComCall(6, this, "uint", ulModeMask, "HRESULT")
+        result := ComCall(6, this, UInt32, ulModeMask, "HRESULT")
         return result
     }
 

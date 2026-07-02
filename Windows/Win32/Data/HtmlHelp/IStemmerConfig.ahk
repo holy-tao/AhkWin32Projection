@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Use this interface to provide configuration information that controls stemming.
@@ -83,7 +83,7 @@ export default struct IStemmerConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-istemmerconfig-setlocaleinfo
      */
     SetLocaleInfo(dwCodePageID, lcid) {
-        result := ComCall(3, this, "uint", dwCodePageID, "uint", lcid, "HRESULT")
+        result := ComCall(3, this, UInt32, dwCodePageID, UInt32, lcid, "HRESULT")
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct IStemmerConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     SetControlInfo(grfStemFlags, dwReserved) {
-        result := ComCall(5, this, "uint", grfStemFlags, "uint", dwReserved, "HRESULT")
+        result := ComCall(5, this, UInt32, grfStemFlags, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -182,7 +182,7 @@ export default struct IStemmerConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     LoadExternalStemmerData(pStream, dwExtDataType) {
-        result := ComCall(7, this, "ptr", pStream, "uint", dwExtDataType, "HRESULT")
+        result := ComCall(7, this, "ptr", pStream, UInt32, dwExtDataType, "HRESULT")
         return result
     }
 

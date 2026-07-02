@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSAPOLL_EVENT_FLAGS.ahk" { WSAPOLL_EVENT_FLAGS }
 #Import ".\SOCKET.ahk" { SOCKET }
+#Import ".\WSAPOLL_EVENT_FLAGS.ahk" { WSAPOLL_EVENT_FLAGS }
 
 /**
  * Stores socket information used by the WSAPoll function.

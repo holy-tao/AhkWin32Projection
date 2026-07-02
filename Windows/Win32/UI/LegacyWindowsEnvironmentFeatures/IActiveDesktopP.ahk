@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that manage the Windows Desktop.
@@ -52,7 +52,7 @@ export default struct IActiveDesktopP extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-iactivedesktopp-setsafemode
      */
     SetSafeMode(dwFlags) {
-        result := ComCall(3, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IActiveDesktopP extends IUnknown {
     SetScheme(pwszSchemeName, dwFlags) {
         pwszSchemeName := pwszSchemeName is String ? StrPtr(pwszSchemeName) : pwszSchemeName
 
-        result := ComCall(5, this, "ptr", pwszSchemeName, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszSchemeName, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IActiveDesktopP extends IUnknown {
 
         pdwcchBufferMarshal := pdwcchBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszSchemeName, pdwcchBufferMarshal, pdwcchBuffer, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszSchemeName, pdwcchBufferMarshal, pdwcchBuffer, UInt32, dwFlags, "HRESULT")
         return result
     }
 

@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITfReadOnlyProperty.ahk" { ITfReadOnlyProperty }
-#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\TfAnchor.ahk" { TfAnchor }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfPropertyStore.ahk" { ITfPropertyStore }
-#Import ".\TfAnchor.ahk" { TfAnchor }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfProperty interface is implemented by the TSF manager and used by a client (application or text service) to modify a property value.
@@ -75,7 +75,7 @@ export default struct ITfProperty extends ITfReadOnlyProperty {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-findrange
      */
     FindRange(ec, pRange, aPos) {
-        result := ComCall(7, this, "uint", ec, "ptr", pRange, "ptr*", &ppRange := 0, TfAnchor, aPos, "HRESULT")
+        result := ComCall(7, this, UInt32, ec, "ptr", pRange, "ptr*", &ppRange := 0, TfAnchor, aPos, "HRESULT")
         return ITfRange(ppRange)
     }
 
@@ -145,7 +145,7 @@ export default struct ITfProperty extends ITfReadOnlyProperty {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-setvaluestore
      */
     SetValueStore(ec, pRange, pPropStore) {
-        result := ComCall(8, this, "uint", ec, "ptr", pRange, "ptr", pPropStore, "HRESULT")
+        result := ComCall(8, this, UInt32, ec, "ptr", pRange, "ptr", pPropStore, "HRESULT")
         return result
     }
 
@@ -248,7 +248,7 @@ export default struct ITfProperty extends ITfReadOnlyProperty {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-setvalue
      */
     SetValue(ec, pRange, pvarValue) {
-        result := ComCall(9, this, "uint", ec, "ptr", pRange, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(9, this, UInt32, ec, "ptr", pRange, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -324,7 +324,7 @@ export default struct ITfProperty extends ITfReadOnlyProperty {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-clear
      */
     Clear(ec, pRange) {
-        result := ComCall(10, this, "uint", ec, "ptr", pRange, "HRESULT")
+        result := ComCall(10, this, UInt32, ec, "ptr", pRange, "HRESULT")
         return result
     }
 

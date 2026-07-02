@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\FINDREPLACE_FLAGS.ahk" { FINDREPLACE_FLAGS }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\FINDREPLACE_FLAGS.ahk" { FINDREPLACE_FLAGS }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\LPFRHOOKPROC.ahk" { LPFRHOOKPROC }
 
 /**
  * Contains information that the FindText and ReplaceText functions use to initialize the Find and Replace dialog boxes. (ANSI)
@@ -88,7 +89,7 @@ export default struct FINDREPLACEA {
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpfrhookproc">FRHookProc</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>FR_ENABLEHOOK</b> flag is set in the <b>Flags</b> member. If the hook procedure returns <b>FALSE</b> in response to the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message, the hook procedure must display the dialog box or else the dialog box will not be shown. To do this, first perform any other paint operations, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-updatewindow">UpdateWindow</a> functions.
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPFRHOOKPROC
 
     /**
      * Type: <b>LPCTSTR</b>

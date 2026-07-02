@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IFaxOutgoingMessage.ahk" { IFaxOutgoingMessage }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxOutgoingMessageIterator interface describes an object that is used by a fax client application to move through the archive of fax messages that the fax service has successfully transmitted, represented by FaxOutgoingMessage objects.
@@ -115,7 +115,7 @@ export default struct IFaxOutgoingMessageIterator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessageiterator-put_prefetchsize
      */
     put_PrefetchSize(lPrefetchSize) {
-        result := ComCall(10, this, "int", lPrefetchSize, "HRESULT")
+        result := ComCall(10, this, Int32, lPrefetchSize, "HRESULT")
         return result
     }
 

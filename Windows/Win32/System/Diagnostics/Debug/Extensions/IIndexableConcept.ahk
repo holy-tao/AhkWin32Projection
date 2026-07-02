@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IKeyStore.ahk" { IKeyStore }
 #Import ".\IModelObject.ahk" { IModelObject }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -59,7 +59,7 @@ export default struct IIndexableConcept extends IUnknown {
      * @returns {HRESULT} 
      */
     GetAt(contextObject, indexerCount, indexers, _object, metadata) {
-        result := ComCall(4, this, "ptr", contextObject, "uint", indexerCount, IModelObject.Ptr, indexers, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
+        result := ComCall(4, this, "ptr", contextObject, Int64, indexerCount, IModelObject.Ptr, indexers, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
         return result
     }
 
@@ -72,7 +72,7 @@ export default struct IIndexableConcept extends IUnknown {
      * @returns {HRESULT} 
      */
     SetAt(contextObject, indexerCount, indexers, value) {
-        result := ComCall(5, this, "ptr", contextObject, "uint", indexerCount, IModelObject.Ptr, indexers, "ptr", value, "HRESULT")
+        result := ComCall(5, this, "ptr", contextObject, Int64, indexerCount, IModelObject.Ptr, indexers, "ptr", value, "HRESULT")
         return result
     }
 

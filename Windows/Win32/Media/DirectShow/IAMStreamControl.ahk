@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\AM_STREAM_INFO.ahk" { AM_STREAM_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMStreamControl interface controls individual streams on a filter.
@@ -71,7 +71,7 @@ export default struct IAMStreamControl extends IUnknown {
     StartAt(ptStart, dwCookie) {
         ptStartMarshal := ptStart is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(3, this, ptStartMarshal, ptStart, "uint", dwCookie, "HRESULT")
+        result := ComCall(3, this, ptStartMarshal, ptStart, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IAMStreamControl extends IUnknown {
     StopAt(ptStop, bSendExtra, dwCookie) {
         ptStopMarshal := ptStop is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, ptStopMarshal, ptStop, BOOL, bSendExtra, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, ptStopMarshal, ptStop, BOOL, bSendExtra, UInt32, dwCookie, "HRESULT")
         return result
     }
 

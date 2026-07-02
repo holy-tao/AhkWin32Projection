@@ -1,35 +1,35 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
-#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import ".\IWICBitmapFlipRotator.ahk" { IWICBitmapFlipRotator }
-#Import ".\IWICBitmapScaler.ahk" { IWICBitmapScaler }
-#Import ".\IWICBitmapDecoder.ahk" { IWICBitmapDecoder }
-#Import ".\IWICColorTransform.ahk" { IWICColorTransform }
+#Import ".\IWICComponentInfo.ahk" { IWICComponentInfo }
+#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import "..\Gdi\HPALETTE.ahk" { HPALETTE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WICBitmapAlphaChannelOption.ahk" { WICBitmapAlphaChannelOption }
-#Import ".\IWICPalette.ahk" { IWICPalette }
-#Import ".\IWICBitmapEncoder.ahk" { IWICBitmapEncoder }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
-#Import ".\IWICFormatConverter.ahk" { IWICFormatConverter }
 #Import ".\IWICStream.ahk" { IWICStream }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\GENERIC_ACCESS_RIGHTS.ahk" { GENERIC_ACCESS_RIGHTS }
 #Import ".\WICBitmapCreateCacheOption.ahk" { WICBitmapCreateCacheOption }
 #Import ".\IWICColorContext.ahk" { IWICColorContext }
-#Import ".\IWICBitmap.ahk" { IWICBitmap }
-#Import "..\..\Foundation\GENERIC_ACCESS_RIGHTS.ahk" { GENERIC_ACCESS_RIGHTS }
-#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
-#Import ".\IWICBitmapClipper.ahk" { IWICBitmapClipper }
-#Import "..\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import ".\IWICBitmapScaler.ahk" { IWICBitmapScaler }
 #Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
-#Import ".\IWICComponentInfo.ahk" { IWICComponentInfo }
-#Import ".\IWICFastMetadataEncoder.ahk" { IWICFastMetadataEncoder }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWICFormatConverter.ahk" { IWICFormatConverter }
 #Import ".\WICDecodeOptions.ahk" { WICDecodeOptions }
+#Import ".\IWICFastMetadataEncoder.ahk" { IWICFastMetadataEncoder }
+#Import ".\IWICBitmapDecoder.ahk" { IWICBitmapDecoder }
+#Import ".\IWICBitmap.ahk" { IWICBitmap }
+#Import ".\IWICColorTransform.ahk" { IWICColorTransform }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWICBitmapEncoder.ahk" { IWICBitmapEncoder }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
+#Import ".\IWICBitmapClipper.ahk" { IWICBitmapClipper }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\IWICPalette.ahk" { IWICPalette }
+#Import ".\IWICBitmapFlipRotator.ahk" { IWICBitmapFlipRotator }
+#Import ".\WICBitmapAlphaChannelOption.ahk" { WICBitmapAlphaChannelOption }
 
 /**
  * Exposes methods used to create components for the Windows Imaging Component (WIC) such as decoders, encoders and pixel format converters.
@@ -187,7 +187,7 @@ export default struct IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromfilehandle
      */
     CreateDecoderFromFileHandle(hFile, pguidVendor, metadataOptions) {
-        result := ComCall(5, this, "ptr", hFile, Guid.Ptr, pguidVendor, WICDecodeOptions, metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        result := ComCall(5, this, IntPtr, hFile, Guid.Ptr, pguidVendor, WICDecodeOptions, metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
         return IWICBitmapDecoder(ppIDecoder)
     }
 
@@ -649,7 +649,7 @@ export default struct IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmap
      */
     CreateBitmap(uiWidth, uiHeight, pixelFormat, option) {
-        result := ComCall(17, this, "uint", uiWidth, "uint", uiHeight, Guid.Ptr, pixelFormat, WICBitmapCreateCacheOption, option, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, uiWidth, UInt32, uiHeight, Guid.Ptr, pixelFormat, WICBitmapCreateCacheOption, option, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -738,7 +738,7 @@ export default struct IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromsourcerect
      */
     CreateBitmapFromSourceRect(pIBitmapSource, x, y, width, height) {
-        result := ComCall(19, this, "ptr", pIBitmapSource, "uint", x, "uint", y, "uint", width, "uint", height, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", pIBitmapSource, UInt32, x, UInt32, y, UInt32, width, UInt32, height, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -776,7 +776,7 @@ export default struct IWICImagingFactory extends IUnknown {
     CreateBitmapFromMemory(uiWidth, uiHeight, pixelFormat, cbStride, cbBufferSize, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, "uint", uiWidth, "uint", uiHeight, Guid.Ptr, pixelFormat, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(20, this, UInt32, uiWidth, UInt32, uiHeight, Guid.Ptr, pixelFormat, UInt32, cbStride, UInt32, cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -834,7 +834,7 @@ export default struct IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createcomponentenumerator
      */
     CreateComponentEnumerator(_componentTypes, options) {
-        result := ComCall(23, this, "uint", _componentTypes, "uint", options, "ptr*", &ppIEnumUnknown := 0, "HRESULT")
+        result := ComCall(23, this, UInt32, _componentTypes, UInt32, options, "ptr*", &ppIEnumUnknown := 0, "HRESULT")
         return IEnumUnknown(ppIEnumUnknown)
     }
 

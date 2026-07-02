@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Vhd\CREATE_VIRTUAL_DISK_FLAG.ahk" { CREATE_VIRTUAL_DISK_FLAG }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVdsVDisk.ahk" { IVdsVDisk }
-#Import ".\VDS_CREATE_VDISK_PARAMETERS.ahk" { VDS_CREATE_VDISK_PARAMETERS }
-#Import ".\IVdsDisk.ahk" { IVdsDisk }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import "..\Vhd\CREATE_VIRTUAL_DISK_FLAG.ahk" { CREATE_VIRTUAL_DISK_FLAG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
+#Import ".\VDS_CREATE_VDISK_PARAMETERS.ahk" { VDS_CREATE_VDISK_PARAMETERS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsDisk.ahk" { IVdsDisk }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
@@ -133,7 +133,7 @@ export default struct IVdsVdProvider extends IUnknown {
         pPath := pPath is String ? StrPtr(pPath) : pPath
         pStringSecurityDescriptor := pStringSecurityDescriptor is String ? StrPtr(pStringSecurityDescriptor) : pStringSecurityDescriptor
 
-        result := ComCall(4, this, VIRTUAL_STORAGE_TYPE.Ptr, VirtualDeviceType, "ptr", pPath, "ptr", pStringSecurityDescriptor, CREATE_VIRTUAL_DISK_FLAG, Flags, "uint", ProviderSpecificFlags, "uint", Reserved, VDS_CREATE_VDISK_PARAMETERS.Ptr, pCreateDiskParameters, IVdsAsync.Ptr, ppAsync, "HRESULT")
+        result := ComCall(4, this, VIRTUAL_STORAGE_TYPE.Ptr, VirtualDeviceType, "ptr", pPath, "ptr", pStringSecurityDescriptor, CREATE_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, UInt32, Reserved, VDS_CREATE_VDISK_PARAMETERS.Ptr, pCreateDiskParameters, IVdsAsync.Ptr, ppAsync, "HRESULT")
         return result
     }
 

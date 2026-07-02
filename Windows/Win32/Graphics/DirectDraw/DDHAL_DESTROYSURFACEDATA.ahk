@@ -2,6 +2,7 @@
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
+#Import ".\LPDDHALSURFCB_DESTROYSURFACE.ahk" { LPDDHALSURFCB_DESTROYSURFACE }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -15,6 +16,6 @@ export default struct DDHAL_DESTROYSURFACEDATA {
 
     ddRVal : HRESULT
 
-    DestroySurface : IntPtr
+    DestroySurface : LPDDHALSURFCB_DESTROYSURFACE
 
 }

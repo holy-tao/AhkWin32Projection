@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SCRIPTSTATE.ahk" { SCRIPTSTATE }
-#Import ".\IActiveScriptError.ahk" { IActiveScriptError }
-#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IActiveScriptError.ahk" { IActiveScriptError }
 #Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -69,7 +69,7 @@ export default struct IActiveScriptSite extends IUnknown {
     GetItemInfo(pstrName, dwReturnMask, ppiunkItem, ppti) {
         pstrName := pstrName is String ? StrPtr(pstrName) : pstrName
 
-        result := ComCall(4, this, "ptr", pstrName, "uint", dwReturnMask, IUnknown.Ptr, ppiunkItem, ITypeInfo.Ptr, ppti, "HRESULT")
+        result := ComCall(4, this, "ptr", pstrName, UInt32, dwReturnMask, IUnknown.Ptr, ppiunkItem, ITypeInfo.Ptr, ppti, "HRESULT")
         return result
     }
 

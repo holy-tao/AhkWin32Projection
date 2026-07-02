@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsrmObject.ahk" { IFsrmObject }
 #Import ".\IFsrmMutableCollection.ahk" { IFsrmMutableCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
 
 /**
  * Used to configure an exception that excludes the specified files from the file screening process.

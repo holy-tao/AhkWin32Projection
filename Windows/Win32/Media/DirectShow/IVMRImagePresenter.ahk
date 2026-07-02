@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\VMRPRESENTATIONINFO.ahk" { VMRPRESENTATIONINFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVMRImagePresenter interface is implemented by the default Allocator-Presenter for the Video Mixing Renderer Filter 7 (VMR-7).
@@ -49,7 +49,7 @@ export default struct IVMRImagePresenter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenter-startpresenting
      */
     StartPresenting(dwUserID) {
-        result := ComCall(3, this, "ptr", dwUserID, "HRESULT")
+        result := ComCall(3, this, IntPtr, dwUserID, "HRESULT")
         return result
     }
 
@@ -62,7 +62,7 @@ export default struct IVMRImagePresenter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenter-stoppresenting
      */
     StopPresenting(dwUserID) {
-        result := ComCall(4, this, "ptr", dwUserID, "HRESULT")
+        result := ComCall(4, this, IntPtr, dwUserID, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct IVMRImagePresenter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenter-presentimage
      */
     PresentImage(dwUserID, lpPresInfo) {
-        result := ComCall(5, this, "ptr", dwUserID, VMRPRESENTATIONINFO.Ptr, lpPresInfo, "HRESULT")
+        result := ComCall(5, this, IntPtr, dwUserID, VMRPRESENTATIONINFO.Ptr, lpPresInfo, "HRESULT")
         return result
     }
 

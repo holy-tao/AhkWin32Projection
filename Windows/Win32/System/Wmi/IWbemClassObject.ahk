@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWbemQualifierSet.ahk" { IWbemQualifierSet }
 #Import ".\WBEM_COMPARISON_FLAG.ahk" { WBEM_COMPARISON_FLAG }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\WBEM_CONDITION_FLAG_TYPE.ahk" { WBEM_CONDITION_FLAG_TYPE }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IWbemQualifierSet.ahk" { IWbemQualifierSet }
 
 /**
  * Contains and manipulates both class definitions and class object instances.
@@ -120,7 +120,7 @@ export default struct IWbemClassObject extends IUnknown {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
         plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
+        result := ComCall(4, this, "ptr", wszName, Int32, lFlags, VARIANT.Ptr, pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IWbemClassObject extends IUnknown {
     Put(wszName, lFlags, pVal, Type) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(5, this, "ptr", wszName, "int", lFlags, VARIANT.Ptr, pVal, "int", Type, "HRESULT")
+        result := ComCall(5, this, "ptr", wszName, Int32, lFlags, VARIANT.Ptr, pVal, Int32, Type, "HRESULT")
         return result
     }
 
@@ -315,7 +315,7 @@ export default struct IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-beginenumeration
      */
     BeginEnumeration(lEnumFlags) {
-        result := ComCall(8, this, "int", lEnumFlags, "HRESULT")
+        result := ComCall(8, this, Int32, lEnumFlags, "HRESULT")
         return result
     }
 
@@ -362,7 +362,7 @@ export default struct IWbemClassObject extends IUnknown {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
         plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "int", lFlags, BSTR.Ptr, strName, VARIANT.Ptr, pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
+        result := ComCall(9, this, Int32, lFlags, BSTR.Ptr, strName, VARIANT.Ptr, pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
         return result
     }
 
@@ -423,7 +423,7 @@ export default struct IWbemClassObject extends IUnknown {
      */
     GetObjectText(lFlags) {
         pstrObjectText := BSTR.Owned()
-        result := ComCall(13, this, "int", lFlags, BSTR.Ptr, pstrObjectText, "HRESULT")
+        result := ComCall(13, this, Int32, lFlags, BSTR.Ptr, pstrObjectText, "HRESULT")
         return pstrObjectText
     }
 
@@ -449,7 +449,7 @@ export default struct IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-spawnderivedclass
      */
     SpawnDerivedClass(lFlags) {
-        result := ComCall(14, this, "int", lFlags, "ptr*", &ppNewClass := 0, "HRESULT")
+        result := ComCall(14, this, Int32, lFlags, "ptr*", &ppNewClass := 0, "HRESULT")
         return IWbemClassObject(ppNewClass)
     }
 
@@ -460,7 +460,7 @@ export default struct IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-spawninstance
      */
     SpawnInstance(lFlags) {
-        result := ComCall(15, this, "int", lFlags, "ptr*", &ppNewInstance := 0, "HRESULT")
+        result := ComCall(15, this, Int32, lFlags, "ptr*", &ppNewInstance := 0, "HRESULT")
         return IWbemClassObject(ppNewInstance)
     }
 
@@ -547,7 +547,7 @@ export default struct IWbemClassObject extends IUnknown {
     GetMethod(wszName, lFlags, ppInSignature, ppOutSignature) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(19, this, "ptr", wszName, "int", lFlags, IWbemClassObject.Ptr, ppInSignature, IWbemClassObject.Ptr, ppOutSignature, "HRESULT")
+        result := ComCall(19, this, "ptr", wszName, Int32, lFlags, IWbemClassObject.Ptr, ppInSignature, IWbemClassObject.Ptr, ppOutSignature, "HRESULT")
         return result
     }
 
@@ -594,7 +594,7 @@ export default struct IWbemClassObject extends IUnknown {
     PutMethod(wszName, lFlags, pInSignature, pOutSignature) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(20, this, "ptr", wszName, "int", lFlags, "ptr", pInSignature, "ptr", pOutSignature, "HRESULT")
+        result := ComCall(20, this, "ptr", wszName, Int32, lFlags, "ptr", pInSignature, "ptr", pOutSignature, "HRESULT")
         return result
     }
 
@@ -623,7 +623,7 @@ export default struct IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-beginmethodenumeration
      */
     BeginMethodEnumeration(lEnumFlags) {
-        result := ComCall(22, this, "int", lEnumFlags, "HRESULT")
+        result := ComCall(22, this, Int32, lEnumFlags, "HRESULT")
         return result
     }
 
@@ -648,7 +648,7 @@ export default struct IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-nextmethod
      */
     NextMethod(lFlags, pstrName, ppInSignature, ppOutSignature) {
-        result := ComCall(23, this, "int", lFlags, BSTR.Ptr, pstrName, IWbemClassObject.Ptr, ppInSignature, IWbemClassObject.Ptr, ppOutSignature, "HRESULT")
+        result := ComCall(23, this, Int32, lFlags, BSTR.Ptr, pstrName, IWbemClassObject.Ptr, ppInSignature, IWbemClassObject.Ptr, ppOutSignature, "HRESULT")
         return result
     }
 

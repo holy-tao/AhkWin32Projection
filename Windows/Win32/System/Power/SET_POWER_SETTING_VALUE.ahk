@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SYSTEM_POWER_CONDITION.ahk" { SYSTEM_POWER_CONDITION }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYSTEM_POWER_CONDITION.ahk" { SYSTEM_POWER_CONDITION }
 
 /**
  * @namespace Windows.Win32.System.Power

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOpcSignatureReference.ahk" { IOpcSignatureReference }
+#Import ".\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcSignatureReference.ahk" { IOpcSignatureReference }
 #Import "..\..\..\System\Com\IUri.ahk" { IUri }
-#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IOpcSignatureReferenceEnumerator.ahk" { IOpcSignatureReferenceEnumerator }
 
 /**
  * An unordered set of IOpcSignatureReference interface pointers that represent references to XML elements to be signed.

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\INSNetSourceCreator.ahk" { INSNetSourceCreator }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSNetSourceCreator.ahk" { INSNetSourceCreator }
 
 /**
  * The IWMSInternalAdminNetSource interface manages cached passwords and finds proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch interface retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
@@ -147,7 +147,7 @@ export default struct IWMSInternalAdminNetSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource-setcredentialflags
      */
     SetCredentialFlags(dwFlags) {
-        result := ComCall(9, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -215,7 +215,7 @@ export default struct IWMSInternalAdminNetSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource-registerproxyfailure
      */
     RegisterProxyFailure(hrParam, dwProxyContext) {
-        result := ComCall(11, this, "int", hrParam, "uint", dwProxyContext, "HRESULT")
+        result := ComCall(11, this, "int", hrParam, UInt32, dwProxyContext, "HRESULT")
         return result
     }
 
@@ -226,7 +226,7 @@ export default struct IWMSInternalAdminNetSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource-shutdownproxycontext
      */
     ShutdownProxyContext(dwProxyContext) {
-        result := ComCall(12, this, "uint", dwProxyContext, "HRESULT")
+        result := ComCall(12, this, UInt32, dwProxyContext, "HRESULT")
         return result
     }
 
@@ -239,7 +239,7 @@ export default struct IWMSInternalAdminNetSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource
      */
     IsUsingIE(dwProxyContext) {
-        result := ComCall(13, this, "uint", dwProxyContext, BOOL.Ptr, &pfIsUsingIE := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwProxyContext, BOOL.Ptr, &pfIsUsingIE := 0, "HRESULT")
         return pfIsUsingIE
     }
 

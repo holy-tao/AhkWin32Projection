@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
 #Import "..\Direct2D\Common\ID2D1SimplifiedGeometrySink.ahk" { ID2D1SimplifiedGeometrySink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
-#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
-#Import ".\DWRITE_GLYPH_METRICS.ahk" { DWRITE_GLYPH_METRICS }
-#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_GLYPH_METRICS.ahk" { DWRITE_GLYPH_METRICS }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
 #Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\DWRITE_FONT_FACE_TYPE.ahk" { DWRITE_FONT_FACE_TYPE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
 
 /**
  * This interface exposes various font data such as metrics, names, and glyph outlines. It contains font face type, appropriate file references, and face identification data.
@@ -185,7 +185,7 @@ export default struct IDWriteFontFace extends IUnknown {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
         _glyphMetrics := DWRITE_GLYPH_METRICS()
-        result := ComCall(10, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, DWRITE_GLYPH_METRICS.Ptr, _glyphMetrics, BOOL, isSideways, "HRESULT")
+        result := ComCall(10, this, glyphIndicesMarshal, glyphIndices, UInt32, glyphCount, DWRITE_GLYPH_METRICS.Ptr, _glyphMetrics, BOOL, isSideways, "HRESULT")
         return _glyphMetrics
     }
 
@@ -213,7 +213,7 @@ export default struct IDWriteFontFace extends IUnknown {
     GetGlyphIndices(codePoints, codePointCount) {
         codePointsMarshal := codePoints is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, codePointsMarshal, codePoints, "uint", codePointCount, "ushort*", &glyphIndices := 0, "HRESULT")
+        result := ComCall(11, this, codePointsMarshal, codePoints, UInt32, codePointCount, "ushort*", &glyphIndices := 0, "HRESULT")
         return glyphIndices
     }
 
@@ -260,7 +260,7 @@ export default struct IDWriteFontFace extends IUnknown {
         tableContextMarshal := tableContext is VarRef ? "ptr*" : "ptr"
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "uint", openTypeTableTag, tableDataMarshal, tableData, tableSizeMarshal, tableSize, tableContextMarshal, tableContext, existsMarshal, exists, "HRESULT")
+        result := ComCall(12, this, UInt32, openTypeTableTag, tableDataMarshal, tableData, tableSizeMarshal, tableSize, tableContextMarshal, tableContext, existsMarshal, exists, "HRESULT")
         return result
     }
 
@@ -317,7 +317,7 @@ export default struct IDWriteFontFace extends IUnknown {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(14, this, "float", emSize, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, "uint", glyphCount, BOOL, isSideways, BOOL, isRightToLeft, "ptr", geometrySink, "HRESULT")
+        result := ComCall(14, this, Float32, emSize, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, UInt32, glyphCount, BOOL, isSideways, BOOL, isRightToLeft, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -354,7 +354,7 @@ export default struct IDWriteFontFace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(emSize, pixelsPerDip, measuringMode, renderingParams) {
-        result := ComCall(15, this, "float", emSize, "float", pixelsPerDip, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, "int*", &renderingMode := 0, "HRESULT")
+        result := ComCall(15, this, Float32, emSize, Float32, pixelsPerDip, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, "int*", &renderingMode := 0, "HRESULT")
         return renderingMode
     }
 
@@ -376,7 +376,7 @@ export default struct IDWriteFontFace extends IUnknown {
      */
     GetGdiCompatibleMetrics(emSize, pixelsPerDip, transform) {
         fontFaceMetrics := DWRITE_FONT_METRICS()
-        result := ComCall(16, this, "float", emSize, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_FONT_METRICS.Ptr, fontFaceMetrics, "HRESULT")
+        result := ComCall(16, this, Float32, emSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_FONT_METRICS.Ptr, fontFaceMetrics, "HRESULT")
         return fontFaceMetrics
     }
 
@@ -412,7 +412,7 @@ export default struct IDWriteFontFace extends IUnknown {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
         _glyphMetrics := DWRITE_GLYPH_METRICS()
-        result := ComCall(17, this, "float", emSize, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, DWRITE_GLYPH_METRICS.Ptr, _glyphMetrics, BOOL, isSideways, "HRESULT")
+        result := ComCall(17, this, Float32, emSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, glyphIndicesMarshal, glyphIndices, UInt32, glyphCount, DWRITE_GLYPH_METRICS.Ptr, _glyphMetrics, BOOL, isSideways, "HRESULT")
         return _glyphMetrics
     }
 

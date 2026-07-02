@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\DVD_SUBPICTURE_TYPE.ahk" { DVD_SUBPICTURE_TYPE }
-#Import ".\DVD_MUA_Coeff.ahk" { DVD_MUA_Coeff }
+#Import ".\DVD_TITLE_APPMODE.ahk" { DVD_TITLE_APPMODE }
 #Import ".\DVD_MultichannelAudioAttributes.ahk" { DVD_MultichannelAudioAttributes }
-#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
 #Import ".\DVD_MUA_MixingInfo.ahk" { DVD_MUA_MixingInfo }
 #Import ".\DVD_VideoAttributes.ahk" { DVD_VideoAttributes }
-#Import ".\DVD_SubpictureAttributes.ahk" { DVD_SubpictureAttributes }
-#Import ".\DVD_SUBPICTURE_CODING.ahk" { DVD_SUBPICTURE_CODING }
-#Import ".\DVD_AUDIO_FORMAT.ahk" { DVD_AUDIO_FORMAT }
-#Import ".\DVD_AudioAttributes.ahk" { DVD_AudioAttributes }
-#Import ".\DVD_TITLE_APPMODE.ahk" { DVD_TITLE_APPMODE }
-#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
 #Import ".\DVD_VIDEO_COMPRESSION.ahk" { DVD_VIDEO_COMPRESSION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DVD_SubpictureAttributes.ahk" { DVD_SubpictureAttributes }
+#Import ".\DVD_MUA_Coeff.ahk" { DVD_MUA_Coeff }
 #Import ".\DVD_AUDIO_APPMODE.ahk" { DVD_AUDIO_APPMODE }
+#Import ".\DVD_AUDIO_LANG_EXT.ahk" { DVD_AUDIO_LANG_EXT }
+#Import ".\DVD_AudioAttributes.ahk" { DVD_AudioAttributes }
+#Import ".\DVD_AUDIO_FORMAT.ahk" { DVD_AUDIO_FORMAT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DVD_HMSF_TIMECODE.ahk" { DVD_HMSF_TIMECODE }
+#Import ".\DVD_SUBPICTURE_LANG_EXT.ahk" { DVD_SUBPICTURE_LANG_EXT }
+#Import ".\DVD_SUBPICTURE_CODING.ahk" { DVD_SUBPICTURE_CODING }
 
 /**
  * The DVD_TitleAttributes structure contains information about a DVD title.

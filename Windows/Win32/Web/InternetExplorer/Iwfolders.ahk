@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -85,7 +85,7 @@ export default struct Iwfolders extends IDispatch {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
         bstrTargetFrame := bstrTargetFrame is String ? BSTR.Alloc(bstrTargetFrame).Value : bstrTargetFrame
 
-        result := ComCall(9, this, BSTR, bstrUrl, BSTR, bstrTargetFrame, "uint", dwhwnd, "ptr", pwb, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrUrl, BSTR, bstrTargetFrame, UInt32, dwhwnd, "ptr", pwb, "HRESULT")
         return result
     }
 

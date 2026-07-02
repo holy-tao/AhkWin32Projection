@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DXCoreNotificationType.ahk" { DXCoreNotificationType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PFN_DXCORE_NOTIFICATION_CALLBACK.ahk" { PFN_DXCORE_NOTIFICATION_CALLBACK }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXCoreNotificationType.ahk" { DXCoreNotificationType }
 
 /**
  * The **IDXCoreAdapterFactory** interface implements methods for generating DXCore adapter enumeration objects, and for retrieving their details.
@@ -64,7 +65,7 @@ export default struct IDXCoreAdapterFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-createadapterlist
      */
     CreateAdapterList(numAttributes, filterAttributes, riid) {
-        result := ComCall(3, this, "uint", numAttributes, Guid.Ptr, filterAttributes, Guid.Ptr, riid, "ptr*", &ppvAdapterList := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, numAttributes, Guid.Ptr, filterAttributes, Guid.Ptr, riid, "ptr*", &ppvAdapterList := 0, "HRESULT")
         return ppvAdapterList
     }
 
@@ -145,7 +146,7 @@ export default struct IDXCoreAdapterFactory extends IUnknown {
     RegisterEventNotification(dxCoreObject, notificationType, callbackFunction, callbackContext) {
         callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", dxCoreObject, DXCoreNotificationType, notificationType, "ptr", callbackFunction, callbackContextMarshal, callbackContext, "uint*", &eventCookie := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", dxCoreObject, DXCoreNotificationType, notificationType, PFN_DXCORE_NOTIFICATION_CALLBACK, callbackFunction, callbackContextMarshal, callbackContext, "uint*", &eventCookie := 0, "HRESULT")
         return eventCookie
     }
 
@@ -171,7 +172,7 @@ export default struct IDXCoreAdapterFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-unregistereventnotification
      */
     UnregisterEventNotification(eventCookie) {
-        result := ComCall(7, this, "uint", eventCookie, "HRESULT")
+        result := ComCall(7, this, UInt32, eventCookie, "HRESULT")
         return result
     }
 

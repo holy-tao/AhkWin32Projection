@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDSCAPSEX.ahk" { DDSCAPSEX }
+#Import ".\LPDDHAL_GETAVAILDRIVERMEMORY.ahk" { LPDDHAL_GETAVAILDRIVERMEMORY }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDSCAPSEX.ahk" { DDSCAPSEX }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -20,7 +21,7 @@ export default struct DDHAL_GETAVAILDRIVERMEMORYDATA {
 
     ddRVal : HRESULT
 
-    GetAvailDriverMemory : IntPtr
+    GetAvailDriverMemory : LPDDHAL_GETAVAILDRIVERMEMORY
 
     ddsCapsEx : DDSCAPSEX
 

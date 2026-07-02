@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISBE2EnumStream.ahk" { ISBE2EnumStream }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Handles the mapping between output pins and streams for the Stream Buffer Source filter.
@@ -111,7 +111,7 @@ export default struct ISBE2StreamMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2streammap-mapstream
      */
     MapStream(Stream) {
-        result := ComCall(3, this, "uint", Stream, "HRESULT")
+        result := ComCall(3, this, UInt32, Stream, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct ISBE2StreamMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2streammap-unmapstream
      */
     UnmapStream(Stream) {
-        result := ComCall(4, this, "uint", Stream, "HRESULT")
+        result := ComCall(4, this, UInt32, Stream, "HRESULT")
         return result
     }
 

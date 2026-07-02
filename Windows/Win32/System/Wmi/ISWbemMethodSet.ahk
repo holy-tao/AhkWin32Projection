@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISWbemMethod.ahk" { ISWbemMethod }
 
 /**
@@ -84,7 +84,7 @@ export default struct ISWbemMethodSet extends IDispatch {
     Item(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, BSTR, strName, "int", iFlags, "ptr*", &objWbemMethod := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, strName, Int32, iFlags, "ptr*", &objWbemMethod := 0, "HRESULT")
         return ISWbemMethod(objWbemMethod)
     }
 

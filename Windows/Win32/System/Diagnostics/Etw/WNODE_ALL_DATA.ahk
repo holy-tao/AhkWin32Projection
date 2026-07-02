@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
 #Import ".\OFFSETINSTANCEDATAANDLENGTH.ahk" { OFFSETINSTANCEDATAANDLENGTH }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 

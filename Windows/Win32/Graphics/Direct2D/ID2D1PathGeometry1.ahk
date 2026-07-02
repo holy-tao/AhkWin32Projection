@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_POINT_DESCRIPTION.ahk" { D2D1_POINT_DESCRIPTION }
 #Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 #Import ".\ID2D1PathGeometry.ahk" { ID2D1PathGeometry }
-#Import ".\D2D1_POINT_DESCRIPTION.ahk" { D2D1_POINT_DESCRIPTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ID2D1PathGeometry1 interface adds functionality to ID2D1PathGeometry. In particular, it provides the path geometry-specific ComputePointAndSegmentAtLength method.
@@ -64,7 +64,7 @@ export default struct ID2D1PathGeometry1 extends ID2D1PathGeometry {
      */
     ComputePointAndSegmentAtLength(length, startSegment, worldTransform, flatteningTolerance) {
         pointDescription := D2D1_POINT_DESCRIPTION()
-        result := ComCall(21, this, "float", length, "uint", startSegment, D2D_MATRIX_3X2_F.Ptr, worldTransform, "float", flatteningTolerance, D2D1_POINT_DESCRIPTION.Ptr, pointDescription, "HRESULT")
+        result := ComCall(21, this, Float32, length, UInt32, startSegment, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, D2D1_POINT_DESCRIPTION.Ptr, pointDescription, "HRESULT")
         return pointDescription
     }
 

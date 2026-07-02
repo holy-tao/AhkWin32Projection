@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\Data\Xml\MsXml\IXMLDOMElement.ahk" { IXMLDOMElement }
-#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
 #Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IDebugFailureAnalysis2.ahk" { IDebugFailureAnalysis2 }
-#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DEBUG_FAILURE_TYPE.ahk" { DEBUG_FAILURE_TYPE }
 #Import ".\IDebugFAEntryTags.ahk" { IDebugFAEntryTags }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugFailureAnalysis2.ahk" { IDebugFailureAnalysis2 }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DEBUG_FAILURE_TYPE.ahk" { DEBUG_FAILURE_TYPE }
+#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\..\Data\Xml\MsXml\IXMLDOMElement.ahk" { IXMLDOMElement }
 #Import ".\FA_ENTRY_TYPE.ahk" { FA_ENTRY_TYPE }
-#Import "..\..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -145,7 +145,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     GetString(Tag, Str, MaxSize) {
         Str := Str is String ? StrPtr(Str) : Str
 
-        result := ComCall(8, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Str, "uint", MaxSize, FA_ENTRY.Ptr)
+        result := ComCall(8, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Str, UInt32, MaxSize, FA_ENTRY.Ptr)
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetBuffer(Tag, Buf, _Size) {
-        result := ComCall(9, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Buf, "uint", _Size, FA_ENTRY.Ptr)
+        result := ComCall(9, this, DEBUG_FLR_PARAM_TYPE, Tag, IntPtr, Buf, UInt32, _Size, FA_ENTRY.Ptr)
         return result
     }
 
@@ -230,7 +230,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     SetUlong(Tag, Value) {
-        result := ComCall(15, this, DEBUG_FLR_PARAM_TYPE, Tag, "uint", Value, FA_ENTRY.Ptr)
+        result := ComCall(15, this, DEBUG_FLR_PARAM_TYPE, Tag, UInt32, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -241,7 +241,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     SetUlong64(Tag, Value) {
-        result := ComCall(16, this, DEBUG_FLR_PARAM_TYPE, Tag, "uint", Value, FA_ENTRY.Ptr)
+        result := ComCall(16, this, DEBUG_FLR_PARAM_TYPE, Tag, Int64, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -254,7 +254,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     SetBuffer(Tag, EntryType, Buf, _Size) {
-        result := ComCall(17, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE, EntryType, "ptr", Buf, "uint", _Size, FA_ENTRY.Ptr)
+        result := ComCall(17, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE, EntryType, IntPtr, Buf, UInt32, _Size, FA_ENTRY.Ptr)
         return result
     }
 
@@ -291,7 +291,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     AddUlong(Tag, Value) {
-        result := ComCall(20, this, DEBUG_FLR_PARAM_TYPE, Tag, "uint", Value, FA_ENTRY.Ptr)
+        result := ComCall(20, this, DEBUG_FLR_PARAM_TYPE, Tag, UInt32, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -302,7 +302,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     AddUlong64(Tag, Value) {
-        result := ComCall(21, this, DEBUG_FLR_PARAM_TYPE, Tag, "uint", Value, FA_ENTRY.Ptr)
+        result := ComCall(21, this, DEBUG_FLR_PARAM_TYPE, Tag, Int64, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -315,7 +315,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     AddBuffer(Tag, EntryType, Buf, _Size) {
-        result := ComCall(22, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE, EntryType, "ptr", Buf, "uint", _Size, FA_ENTRY.Ptr)
+        result := ComCall(22, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE, EntryType, IntPtr, Buf, UInt32, _Size, FA_ENTRY.Ptr)
         return result
     }
 
@@ -365,7 +365,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      */
     AttributeGet(nIndex) {
         pValue := VARIANT()
-        result := ComCall(27, this, "uint", nIndex, VARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(27, this, UInt32, nIndex, VARIANT.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -376,7 +376,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      */
     AttributeGetName(nIndex) {
         pName := BSTR.Owned()
-        result := ComCall(28, this, "uint", nIndex, BSTR.Ptr, pName, "HRESULT")
+        result := ComCall(28, this, UInt32, nIndex, BSTR.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -387,7 +387,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {HRESULT} 
      */
     AttributeSet(nIndex, Value) {
-        result := ComCall(29, this, "uint", nIndex, VARIANT, Value, "HRESULT")
+        result := ComCall(29, this, UInt32, nIndex, VARIANT, Value, "HRESULT")
         return result
     }
 
@@ -444,7 +444,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {HRESULT} 
      */
     BlameTEB(_Address) {
-        result := ComCall(34, this, "uint", _Address, "HRESULT")
+        result := ComCall(34, this, Int64, _Address, "HRESULT")
         return result
     }
 
@@ -454,7 +454,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {HRESULT} 
      */
     BlameETHREAD(_Address) {
-        result := ComCall(35, this, "uint", _Address, "HRESULT")
+        result := ComCall(35, this, Int64, _Address, "HRESULT")
         return result
     }
 
@@ -464,7 +464,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     ProblemClassIsSet(nIndex) {
-        result := ComCall(36, this, "uint", nIndex, VARIANT_BOOL.Ptr, &pSet := 0, "HRESULT")
+        result := ComCall(36, this, UInt32, nIndex, VARIANT_BOOL.Ptr, &pSet := 0, "HRESULT")
         return pSet
     }
 
@@ -474,7 +474,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {HRESULT} 
      */
     ProblemClassDelete(nIndex) {
-        result := ComCall(37, this, "uint", nIndex, "HRESULT")
+        result := ComCall(37, this, UInt32, nIndex, "HRESULT")
         return result
     }
 
@@ -484,7 +484,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
      * @returns {HRESULT} 
      */
     ProblemClassSet(nIndex) {
-        result := ComCall(38, this, "uint", nIndex, "HRESULT")
+        result := ComCall(38, this, UInt32, nIndex, "HRESULT")
         return result
     }
 
@@ -497,7 +497,7 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     ProblemClassSetBSTR(nIndex, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(39, this, "uint", nIndex, BSTR, Value, "HRESULT")
+        result := ComCall(39, this, UInt32, nIndex, BSTR, Value, "HRESULT")
         return result
     }
 

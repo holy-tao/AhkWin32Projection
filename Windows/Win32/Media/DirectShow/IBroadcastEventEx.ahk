@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBroadcastEvent.ahk" { IBroadcastEvent }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBroadcastEvent.ahk" { IBroadcastEvent }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
@@ -52,7 +52,7 @@ export default struct IBroadcastEventEx extends IBroadcastEvent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibroadcasteventex-fireex
      */
     FireEx(EventID, Param1, Param2, Param3, Param4) {
-        result := ComCall(4, this, Guid, EventID, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
+        result := ComCall(4, this, Guid, EventID, UInt32, Param1, UInt32, Param2, UInt32, Param3, UInt32, Param4, "HRESULT")
         return result
     }
 

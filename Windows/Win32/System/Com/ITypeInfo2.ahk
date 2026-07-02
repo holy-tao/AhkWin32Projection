@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITypeInfo.ahk" { ITypeInfo }
-#Import ".\TYPEKIND.ahk" { TYPEKIND }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\CUSTDATA.ahk" { CUSTDATA }
 #Import ".\INVOKEKIND.ahk" { INVOKEKIND }
+#Import ".\TYPEKIND.ahk" { TYPEKIND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\CUSTDATA.ahk" { CUSTDATA }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used for reading information about objects. (ITypeInfo2)
@@ -84,7 +84,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getfuncindexofmemid
      */
     GetFuncIndexOfMemId(memid, invKind) {
-        result := ComCall(24, this, "int", memid, INVOKEKIND, invKind, "uint*", &pFuncIndex := 0, "HRESULT")
+        result := ComCall(24, this, Int32, memid, INVOKEKIND, invKind, "uint*", &pFuncIndex := 0, "HRESULT")
         return pFuncIndex
     }
 
@@ -95,7 +95,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getvarindexofmemid
      */
     GetVarIndexOfMemId(memid) {
-        result := ComCall(25, this, "int", memid, "uint*", &pVarIndex := 0, "HRESULT")
+        result := ComCall(25, this, Int32, memid, "uint*", &pVarIndex := 0, "HRESULT")
         return pVarIndex
     }
 
@@ -120,7 +120,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      */
     GetFuncCustData(index, guid) {
         pVarVal := VARIANT()
-        result := ComCall(27, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
+        result := ComCall(27, this, UInt32, index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -134,7 +134,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      */
     GetParamCustData(indexFunc, indexParam, guid) {
         pVarVal := VARIANT()
-        result := ComCall(28, this, "uint", indexFunc, "uint", indexParam, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
+        result := ComCall(28, this, UInt32, indexFunc, UInt32, indexParam, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -147,7 +147,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      */
     GetVarCustData(index, guid) {
         pVarVal := VARIANT()
-        result := ComCall(29, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
+        result := ComCall(29, this, UInt32, index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -160,7 +160,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      */
     GetImplTypeCustData(index, guid) {
         pVarVal := VARIANT()
-        result := ComCall(30, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
+        result := ComCall(30, this, UInt32, index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -224,7 +224,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
     GetDocumentation2(memid, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
         pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "int", memid, "uint", lcid, BSTR.Ptr, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, BSTR.Ptr, pbstrHelpStringDll, "HRESULT")
+        result := ComCall(31, this, Int32, memid, UInt32, lcid, BSTR.Ptr, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, BSTR.Ptr, pbstrHelpStringDll, "HRESULT")
         return result
     }
 
@@ -251,7 +251,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      */
     GetAllFuncCustData(index) {
         pCustData := CUSTDATA()
-        result := ComCall(33, this, "uint", index, CUSTDATA.Ptr, pCustData, "HRESULT")
+        result := ComCall(33, this, UInt32, index, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
     }
 
@@ -264,7 +264,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      */
     GetAllParamCustData(indexFunc, indexParam) {
         pCustData := CUSTDATA()
-        result := ComCall(34, this, "uint", indexFunc, "uint", indexParam, CUSTDATA.Ptr, pCustData, "HRESULT")
+        result := ComCall(34, this, UInt32, indexFunc, UInt32, indexParam, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
     }
 
@@ -276,7 +276,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      */
     GetAllVarCustData(index) {
         pCustData := CUSTDATA()
-        result := ComCall(35, this, "uint", index, CUSTDATA.Ptr, pCustData, "HRESULT")
+        result := ComCall(35, this, UInt32, index, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
     }
 
@@ -288,7 +288,7 @@ export default struct ITypeInfo2 extends ITypeInfo {
      */
     GetAllImplTypeCustData(index) {
         pCustData := CUSTDATA()
-        result := ComCall(36, this, "uint", index, CUSTDATA.Ptr, pCustData, "HRESULT")
+        result := ComCall(36, this, UInt32, index, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
     }
 

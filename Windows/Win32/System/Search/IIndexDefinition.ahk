@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 #Import ".\DBINDEXCOLUMNDESC.ahk" { DBINDEXCOLUMNDESC }
 #Import ".\DBPROPSET.ahk" { DBPROPSET }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -50,7 +50,7 @@ export default struct IIndexDefinition extends IUnknown {
      * @returns {Pointer<DBID>} 
      */
     CreateIndex(pTableID, pIndexID, cIndexColumnDescs, rgIndexColumnDescs, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, "ptr", cIndexColumnDescs, DBINDEXCOLUMNDESC.Ptr, rgIndexColumnDescs, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppIndexID := 0, "HRESULT")
+        result := ComCall(3, this, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, IntPtr, cIndexColumnDescs, DBINDEXCOLUMNDESC.Ptr, rgIndexColumnDescs, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppIndexID := 0, "HRESULT")
         return ppIndexID
     }
 

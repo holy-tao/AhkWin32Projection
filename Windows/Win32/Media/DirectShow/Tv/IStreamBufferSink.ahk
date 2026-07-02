@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStreamBufferSink interface is exposed by the Stream Buffer Sink filter. Use this interface to lock the filter before capture and to create new recordings.
@@ -133,7 +133,7 @@ export default struct IStreamBufferSink extends IUnknown {
     CreateRecorder(pszFilename, dwRecordType) {
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := ComCall(4, this, "ptr", pszFilename, "uint", dwRecordType, "ptr*", &pRecordingIUnknown := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszFilename, UInt32, dwRecordType, "ptr*", &pRecordingIUnknown := 0, "HRESULT")
         return IUnknown(pRecordingIUnknown)
     }
 

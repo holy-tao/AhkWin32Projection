@@ -100,7 +100,7 @@ export default struct IHTMLCSSMediaList extends IDispatch {
      */
     item(index) {
         pbstrMedium := BSTR.Owned()
-        result := ComCall(10, this, "int", index, BSTR.Ptr, pbstrMedium, "HRESULT")
+        result := ComCall(10, this, Int32, index, BSTR.Ptr, pbstrMedium, "HRESULT")
         return pbstrMedium
     }
 

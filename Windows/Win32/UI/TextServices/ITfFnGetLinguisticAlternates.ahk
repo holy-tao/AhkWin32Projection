@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfRange.ahk" { ITfRange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfCandidateList.ahk" { ITfCandidateList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfFunction.ahk" { ITfFunction }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfFnGetLinguisticAlternates interface is implemented by a text service and/or by the TSF manager to provide linguistic alternates for the text within a given range passed as a parameter.

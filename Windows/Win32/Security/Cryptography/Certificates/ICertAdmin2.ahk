@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICertAdmin.ahk" { ICertAdmin }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CVRC_TABLE.ahk" { CVRC_TABLE }
+#Import ".\CERTADMIN_GET_ROLES_FLAGS.ahk" { CERTADMIN_GET_ROLES_FLAGS }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
-#Import ".\CERTADMIN_GET_ROLES_FLAGS.ahk" { CERTADMIN_GET_ROLES_FLAGS }
 #Import ".\CERT_IMPORT_FLAGS.ahk" { CERT_IMPORT_FLAGS }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\CERT_DELETE_ROW_FLAGS.ahk" { CERT_DELETE_ROW_FLAGS }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\CVRC_TABLE.ahk" { CVRC_TABLE }
+#Import ".\ICertAdmin.ahk" { ICertAdmin }
 
 /**
  * Provide administration functionality for properly authorized clients.
@@ -108,7 +108,7 @@ export default struct ICertAdmin2 extends ICertAdmin {
     PublishCRLs(strConfig, Date, CRLFlags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(17, this, BSTR, strConfig, "double", Date, "int", CRLFlags, "HRESULT")
+        result := ComCall(17, this, BSTR, strConfig, Float64, Date, Int32, CRLFlags, "HRESULT")
         return result
     }
 
@@ -552,7 +552,7 @@ export default struct ICertAdmin2 extends ICertAdmin {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(18, this, BSTR, strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
+        result := ComCall(18, this, BSTR, strConfig, Int32, PropId, Int32, PropIndex, Int32, PropType, Int32, Flags, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -664,7 +664,7 @@ export default struct ICertAdmin2 extends ICertAdmin {
     SetCAProperty(strConfig, PropId, PropIndex, PropType, pvarPropertyValue) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(19, this, BSTR, strConfig, "int", PropId, "int", PropIndex, CERT_PROPERTY_TYPE, PropType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
+        result := ComCall(19, this, BSTR, strConfig, Int32, PropId, Int32, PropIndex, CERT_PROPERTY_TYPE, PropType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return result
     }
 
@@ -684,7 +684,7 @@ export default struct ICertAdmin2 extends ICertAdmin {
     GetCAPropertyFlags(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(20, this, BSTR, strConfig, "int", PropId, "int*", &pPropFlags := 0, "HRESULT")
+        result := ComCall(20, this, BSTR, strConfig, Int32, PropId, "int*", &pPropFlags := 0, "HRESULT")
         return pPropFlags
     }
 
@@ -706,7 +706,7 @@ export default struct ICertAdmin2 extends ICertAdmin {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
         pstrDisplayName := BSTR.Owned()
-        result := ComCall(21, this, BSTR, strConfig, "int", PropId, BSTR.Ptr, pstrDisplayName, "HRESULT")
+        result := ComCall(21, this, BSTR, strConfig, Int32, PropId, BSTR.Ptr, pstrDisplayName, "HRESULT")
         return pstrDisplayName
     }
 
@@ -770,7 +770,7 @@ export default struct ICertAdmin2 extends ICertAdmin {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
         pstrArchivedKey := BSTR.Owned()
-        result := ComCall(22, this, BSTR, strConfig, "int", RequestId, "int", Flags, BSTR.Ptr, pstrArchivedKey, "HRESULT")
+        result := ComCall(22, this, BSTR, strConfig, Int32, RequestId, Int32, Flags, BSTR.Ptr, pstrArchivedKey, "HRESULT")
         return pstrArchivedKey
     }
 
@@ -860,7 +860,7 @@ export default struct ICertAdmin2 extends ICertAdmin {
         strCertHash := strCertHash is String ? BSTR.Alloc(strCertHash).Value : strCertHash
         strKey := strKey is String ? BSTR.Alloc(strKey).Value : strKey
 
-        result := ComCall(25, this, BSTR, strConfig, "int", RequestId, BSTR, strCertHash, CERT_IMPORT_FLAGS, Flags, BSTR, strKey, "HRESULT")
+        result := ComCall(25, this, BSTR, strConfig, Int32, RequestId, BSTR, strCertHash, CERT_IMPORT_FLAGS, Flags, BSTR, strKey, "HRESULT")
         return result
     }
 
@@ -903,7 +903,7 @@ export default struct ICertAdmin2 extends ICertAdmin {
     DeleteRow(strConfig, Flags, Date, Table, RowId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(27, this, BSTR, strConfig, CERT_DELETE_ROW_FLAGS, Flags, "double", Date, CVRC_TABLE, Table, "int", RowId, "int*", &pcDeleted := 0, "HRESULT")
+        result := ComCall(27, this, BSTR, strConfig, CERT_DELETE_ROW_FLAGS, Flags, Float64, Date, CVRC_TABLE, Table, Int32, RowId, "int*", &pcDeleted := 0, "HRESULT")
         return pcDeleted
     }
 

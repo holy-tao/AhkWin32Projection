@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FILESHARE_CHANGE.ahk" { FILESHARE_CHANGE }
 #Import ".\FILESHARE_CHANGE_ENUM.ahk" { FILESHARE_CHANGE_ENUM }
+#Import ".\FILESHARE_CHANGE.ahk" { FILESHARE_CHANGE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PACKMAN_RUNTIME.ahk" { PACKMAN_RUNTIME }
-#Import ".\PM_APPLICATION_INSTALL_TYPE.ahk" { PM_APPLICATION_INSTALL_TYPE }
+#Import ".\PM_TASK_TRANSITION.ahk" { PM_TASK_TRANSITION }
+#Import ".\PM_TASK_TYPE.ahk" { PM_TASK_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PM_APPLICATION_STATE.ahk" { PM_APPLICATION_STATE }
+#Import ".\PM_APPLICATION_INSTALL_TYPE.ahk" { PM_APPLICATION_INSTALL_TYPE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\PM_ACTIVATION_POLICY.ahk" { PM_ACTIVATION_POLICY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\PM_TASK_TRANSITION.ahk" { PM_TASK_TRANSITION }
-#Import ".\PM_TASK_TYPE.ahk" { PM_TASK_TYPE }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

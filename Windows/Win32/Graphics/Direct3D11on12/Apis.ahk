@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\Direct3D11\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
-#Import "..\Direct3D11\ID3D11Device.ahk" { ID3D11Device }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Direct3D11\ID3D11Device.ahk" { ID3D11Device }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11on12
@@ -70,7 +70,7 @@ export D3D11On12CreateDevice(pDevice, Flags, pFeatureLevels, FeatureLevels, ppCo
     pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
     pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : "ptr"
 
-    result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, "uint", Flags, pFeatureLevelsMarshal, pFeatureLevels, "uint", FeatureLevels, IUnknown.Ptr, ppCommandQueues, "uint", NumQueues, "uint", NodeMask, ID3D11Device.Ptr, ppDevice, ID3D11DeviceContext.Ptr, ppImmediateContext, pChosenFeatureLevelMarshal, pChosenFeatureLevel, "HRESULT")
+    result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, UInt32, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, IUnknown.Ptr, ppCommandQueues, UInt32, NumQueues, UInt32, NodeMask, ID3D11Device.Ptr, ppDevice, ID3D11DeviceContext.Ptr, ppImmediateContext, pChosenFeatureLevelMarshal, pChosenFeatureLevel, "HRESULT")
     return result
 }
 

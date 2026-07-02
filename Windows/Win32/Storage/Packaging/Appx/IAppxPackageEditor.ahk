@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
-#Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS2.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS2 }
-#Import ".\APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS.ahk" { APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION.ahk" { APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION }
+#Import ".\APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS.ahk" { APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS }
+#Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS2.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS2 }
+#Import ".\APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION.ahk" { APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Provides functionality to edit app packages.

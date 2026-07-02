@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DEVICE_SELECTION_DEVICE_TYPE.ahk" { DEVICE_SELECTION_DEVICE_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a dialog box for selecting the device to acquire images from.
@@ -182,7 +182,7 @@ export default struct IPhotoAcquireDeviceSelectionDialog extends IUnknown {
     DoModal(hWndParent, dwDeviceFlags, pbstrDeviceId, pnDeviceType) {
         pnDeviceTypeMarshal := pnDeviceType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, HWND, hWndParent, "uint", dwDeviceFlags, BSTR.Ptr, pbstrDeviceId, pnDeviceTypeMarshal, pnDeviceType, "HRESULT")
+        result := ComCall(5, this, HWND, hWndParent, UInt32, dwDeviceFlags, BSTR.Ptr, pbstrDeviceId, pnDeviceTypeMarshal, pnDeviceType, "HRESULT")
         return result
     }
 

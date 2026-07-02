@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
@@ -103,7 +103,7 @@ export default struct IDOMTextEvent extends IDispatch {
         dataArg := dataArg is String ? BSTR.Alloc(dataArg).Value : dataArg
         locale := locale is String ? BSTR.Alloc(locale).Value : locale
 
-        result := ComCall(9, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, BSTR, dataArg, "uint", inputMethod, BSTR, locale, "HRESULT")
+        result := ComCall(9, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, BSTR, dataArg, UInt32, inputMethod, BSTR, locale, "HRESULT")
         return result
     }
 

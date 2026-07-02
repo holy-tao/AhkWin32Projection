@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SysmonDataType.ahk" { SysmonDataType }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Performance
@@ -138,7 +138,7 @@ export default struct _ICounterItemUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Color(_Color) {
-        result := ComCall(4, this, "uint", _Color, "HRESULT")
+        result := ComCall(4, this, UInt32, _Color, "HRESULT")
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct _ICounterItemUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Width(iWidth) {
-        result := ComCall(6, this, "int", iWidth, "HRESULT")
+        result := ComCall(6, this, Int32, iWidth, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct _ICounterItemUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_LineStyle(iLineStyle) {
-        result := ComCall(8, this, "int", iLineStyle, "HRESULT")
+        result := ComCall(8, this, Int32, iLineStyle, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct _ICounterItemUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ScaleFactor(iScale) {
-        result := ComCall(10, this, "int", iScale, "HRESULT")
+        result := ComCall(10, this, Int32, iScale, "HRESULT")
         return result
     }
 
@@ -296,7 +296,7 @@ export default struct _ICounterItemUnion extends IUnknown {
      */
     GetDataAt(iIndex, iWhich) {
         pVariant := VARIANT()
-        result := ComCall(19, this, "int", iIndex, SysmonDataType, iWhich, VARIANT.Ptr, pVariant, "HRESULT")
+        result := ComCall(19, this, Int32, iIndex, SysmonDataType, iWhich, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DebugPropertyInfo.ahk" { DebugPropertyInfo }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -50,7 +50,7 @@ export default struct IEnumDebugPropertyInfo extends IUnknown {
     Next(celt, pi, pcEltsfetched) {
         pcEltsfetchedMarshal := pcEltsfetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, DebugPropertyInfo.Ptr, pi, pcEltsfetchedMarshal, pcEltsfetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, DebugPropertyInfo.Ptr, pi, pcEltsfetchedMarshal, pcEltsfetched, "HRESULT")
         return result
     }
 
@@ -60,7 +60,7 @@ export default struct IEnumDebugPropertyInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

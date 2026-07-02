@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
-#Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\EVENT_TRACE_FLAG.ahk" { EVENT_TRACE_FLAG }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
 
 /**
  * The EVENT_TRACE_PROPERTIES_V2 structure contains information about an event tracing session and is used with APIs such as StartTrace and ControlTrace.

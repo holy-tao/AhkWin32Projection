@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Graphics\Direct3D\D3DVECTOR.ahk" { D3DVECTOR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DS3DLISTENER.ahk" { DS3DLISTENER }
 
 /**
@@ -126,7 +126,7 @@ export default struct IDirectSound3DListener extends IUnknown {
      * @returns {HRESULT} 
      */
     SetAllParameters(pcListener, dwApply) {
-        result := ComCall(10, this, DS3DLISTENER.Ptr, pcListener, "uint", dwApply, "HRESULT")
+        result := ComCall(10, this, DS3DLISTENER.Ptr, pcListener, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -137,7 +137,7 @@ export default struct IDirectSound3DListener extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDistanceFactor(flDistanceFactor, dwApply) {
-        result := ComCall(11, this, "float", flDistanceFactor, "uint", dwApply, "HRESULT")
+        result := ComCall(11, this, Float32, flDistanceFactor, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IDirectSound3DListener extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDopplerFactor(flDopplerFactor, dwApply) {
-        result := ComCall(12, this, "float", flDopplerFactor, "uint", dwApply, "HRESULT")
+        result := ComCall(12, this, Float32, flDopplerFactor, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IDirectSound3DListener extends IUnknown {
      * @returns {HRESULT} 
      */
     SetOrientation(xFront, yFront, zFront, xTop, yTop, zTop, dwApply) {
-        result := ComCall(13, this, "float", xFront, "float", yFront, "float", zFront, "float", xTop, "float", yTop, "float", zTop, "uint", dwApply, "HRESULT")
+        result := ComCall(13, this, Float32, xFront, Float32, yFront, Float32, zFront, Float32, xTop, Float32, yTop, Float32, zTop, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IDirectSound3DListener extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPosition(x, y, z, dwApply) {
-        result := ComCall(14, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(14, this, Float32, x, Float32, y, Float32, z, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -188,7 +188,7 @@ export default struct IDirectSound3DListener extends IUnknown {
      * @returns {HRESULT} 
      */
     SetRolloffFactor(flRolloffFactor, dwApply) {
-        result := ComCall(15, this, "float", flRolloffFactor, "uint", dwApply, "HRESULT")
+        result := ComCall(15, this, Float32, flRolloffFactor, UInt32, dwApply, "HRESULT")
         return result
     }
 
@@ -201,7 +201,7 @@ export default struct IDirectSound3DListener extends IUnknown {
      * @returns {HRESULT} 
      */
     SetVelocity(x, y, z, dwApply) {
-        result := ComCall(16, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(16, this, Float32, x, Float32, y, Float32, z, UInt32, dwApply, "HRESULT")
         return result
     }
 

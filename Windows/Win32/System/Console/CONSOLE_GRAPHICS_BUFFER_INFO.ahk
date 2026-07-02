@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
 
 /**
  * @namespace Windows.Win32.System.Console

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID3D10DepthStencilState.ahk" { ID3D10DepthStencilState }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D10_DEPTH_STENCIL_DESC.ahk" { D3D10_DEPTH_STENCIL_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
 
 /**
@@ -56,7 +56,7 @@ export default struct ID3D10EffectDepthStencilVariable extends ID3D10EffectVaria
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilvariable-getdepthstencilstate
      */
     GetDepthStencilState(Index) {
-        result := ComCall(25, this, "uint", Index, "ptr*", &ppDepthStencilState := 0, "HRESULT")
+        result := ComCall(25, this, UInt32, Index, "ptr*", &ppDepthStencilState := 0, "HRESULT")
         return ID3D10DepthStencilState(ppDepthStencilState)
     }
 
@@ -74,7 +74,7 @@ export default struct ID3D10EffectDepthStencilVariable extends ID3D10EffectVaria
      */
     GetBackingStore(Index) {
         pDepthStencilDesc := D3D10_DEPTH_STENCIL_DESC()
-        result := ComCall(26, this, "uint", Index, D3D10_DEPTH_STENCIL_DESC.Ptr, pDepthStencilDesc, "HRESULT")
+        result := ComCall(26, this, UInt32, Index, D3D10_DEPTH_STENCIL_DESC.Ptr, pDepthStencilDesc, "HRESULT")
         return pDepthStencilDesc
     }
 

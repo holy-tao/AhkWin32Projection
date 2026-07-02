@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D10_TEX1D_ARRAY_DSV.ahk" { D3D10_TEX1D_ARRAY_DSV }
+#Import ".\D3D10_TEX1D_DSV.ahk" { D3D10_TEX1D_DSV }
+#Import ".\D3D10_TEX2DMS_DSV.ahk" { D3D10_TEX2DMS_DSV }
+#Import ".\D3D10_DSV_DIMENSION.ahk" { D3D10_DSV_DIMENSION }
 #Import ".\D3D10_TEX2DMS_ARRAY_DSV.ahk" { D3D10_TEX2DMS_ARRAY_DSV }
 #Import ".\D3D10_TEX2D_ARRAY_DSV.ahk" { D3D10_TEX2D_ARRAY_DSV }
-#Import ".\D3D10_TEX2DMS_DSV.ahk" { D3D10_TEX2DMS_DSV }
 #Import ".\D3D10_TEX2D_DSV.ahk" { D3D10_TEX2D_DSV }
-#Import ".\D3D10_TEX1D_ARRAY_DSV.ahk" { D3D10_TEX1D_ARRAY_DSV }
-#Import ".\D3D10_DSV_DIMENSION.ahk" { D3D10_DSV_DIMENSION }
-#Import ".\D3D10_TEX1D_DSV.ahk" { D3D10_TEX1D_DSV }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Specifies the subresource(s) from a texture that are accessible using a depth-stencil view.

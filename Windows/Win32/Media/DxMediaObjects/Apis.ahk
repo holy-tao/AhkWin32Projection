@@ -2,10 +2,10 @@
 
 #Import ".\DMO_MEDIA_TYPE.ahk" { DMO_MEDIA_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IEnumDMO.ahk" { IEnumDMO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DMO_PARTIAL_MEDIATYPE.ahk" { DMO_PARTIAL_MEDIATYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumDMO.ahk" { IEnumDMO }
 
 /**
  * @namespace Windows.Win32.Media.DxMediaObjects
@@ -73,7 +73,7 @@
 export DMORegister(szName, clsidDMO, guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes) {
     szName := szName is String ? StrPtr(szName) : szName
 
-    result := DllCall("msdmo.dll\DMORegister", "ptr", szName, Guid.Ptr, clsidDMO, Guid.Ptr, guidCategory, "uint", dwFlags, "uint", cInTypes, DMO_PARTIAL_MEDIATYPE.Ptr, pInTypes, "uint", cOutTypes, DMO_PARTIAL_MEDIATYPE.Ptr, pOutTypes, "HRESULT")
+    result := DllCall("msdmo.dll\DMORegister", "ptr", szName, Guid.Ptr, clsidDMO, Guid.Ptr, guidCategory, UInt32, dwFlags, UInt32, cInTypes, DMO_PARTIAL_MEDIATYPE.Ptr, pInTypes, UInt32, cOutTypes, DMO_PARTIAL_MEDIATYPE.Ptr, pOutTypes, "HRESULT")
     return result
 }
 
@@ -122,7 +122,7 @@ export DMOUnregister(clsidDMO, guidCategory) {
  * @see https://learn.microsoft.com/windows/win32/api/dmoreg/nf-dmoreg-dmoenum
  */
 export DMOEnum(guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes) {
-    result := DllCall("msdmo.dll\DMOEnum", Guid.Ptr, guidCategory, "uint", dwFlags, "uint", cInTypes, DMO_PARTIAL_MEDIATYPE.Ptr, pInTypes, "uint", cOutTypes, DMO_PARTIAL_MEDIATYPE.Ptr, pOutTypes, "ptr*", &ppEnum := 0, "HRESULT")
+    result := DllCall("msdmo.dll\DMOEnum", Guid.Ptr, guidCategory, UInt32, dwFlags, UInt32, cInTypes, DMO_PARTIAL_MEDIATYPE.Ptr, pInTypes, UInt32, cOutTypes, DMO_PARTIAL_MEDIATYPE.Ptr, pOutTypes, "ptr*", &ppEnum := 0, "HRESULT")
     return IEnumDMO(ppEnum)
 }
 
@@ -186,7 +186,7 @@ export DMOGetTypes(clsidDMO, ulInputTypesRequested, pulInputTypesSupplied, pInpu
     pulInputTypesSuppliedMarshal := pulInputTypesSupplied is VarRef ? "uint*" : "ptr"
     pulOutputTypesSuppliedMarshal := pulOutputTypesSupplied is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("msdmo.dll\DMOGetTypes", Guid.Ptr, clsidDMO, "uint", ulInputTypesRequested, pulInputTypesSuppliedMarshal, pulInputTypesSupplied, DMO_PARTIAL_MEDIATYPE.Ptr, pInputTypes, "uint", ulOutputTypesRequested, pulOutputTypesSuppliedMarshal, pulOutputTypesSupplied, DMO_PARTIAL_MEDIATYPE.Ptr, pOutputTypes, "HRESULT")
+    result := DllCall("msdmo.dll\DMOGetTypes", Guid.Ptr, clsidDMO, UInt32, ulInputTypesRequested, pulInputTypesSuppliedMarshal, pulInputTypesSupplied, DMO_PARTIAL_MEDIATYPE.Ptr, pInputTypes, UInt32, ulOutputTypesRequested, pulOutputTypesSuppliedMarshal, pulOutputTypesSupplied, DMO_PARTIAL_MEDIATYPE.Ptr, pOutputTypes, "HRESULT")
     return result
 }
 
@@ -302,7 +302,7 @@ export DMOGetName(clsidDMO, szName) {
  * @see https://learn.microsoft.com/windows/win32/api/dmort/nf-dmort-moinitmediatype
  */
 export MoInitMediaType(pmt, cbFormat) {
-    result := DllCall("msdmo.dll\MoInitMediaType", DMO_MEDIA_TYPE.Ptr, pmt, "uint", cbFormat, "HRESULT")
+    result := DllCall("msdmo.dll\MoInitMediaType", DMO_MEDIA_TYPE.Ptr, pmt, UInt32, cbFormat, "HRESULT")
     return result
 }
 
@@ -458,7 +458,7 @@ export MoCopyMediaType(pmtDest, pmtSrc) {
 export MoCreateMediaType(ppmt, cbFormat) {
     ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("msdmo.dll\MoCreateMediaType", ppmtMarshal, ppmt, "uint", cbFormat, "HRESULT")
+    result := DllCall("msdmo.dll\MoCreateMediaType", ppmtMarshal, ppmt, UInt32, cbFormat, "HRESULT")
     return result
 }
 

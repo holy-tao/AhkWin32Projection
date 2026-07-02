@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS.ahk" { D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS }
-#Import ".\D3D12_RESOLVE_MODE.ahk" { D3D12_RESOLVE_MODE }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS.ahk" { D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_RESOLVE_MODE.ahk" { D3D12_RESOLVE_MODE }
 
 /**
  * Describes a resource to resolve to at the conclusion of a render pass.

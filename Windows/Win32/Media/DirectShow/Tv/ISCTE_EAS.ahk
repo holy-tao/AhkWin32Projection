@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISectionList.ahk" { ISectionList }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import ".\ISectionList.ahk" { ISectionList }
 
 /**
  * The ISCTE_EAS interface enables the client to get data from an ATSC emergency alert message (EAS) table.
@@ -429,7 +429,7 @@ export default struct ISCTE_EAS extends IUnknown {
         pbCountySubdivisionMarshal := pbCountySubdivision is VarRef ? "char*" : "ptr"
         pwCountyMarshal := pwCounty is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(26, this, "char", bIndex, pbStateMarshal, pbState, pbCountySubdivisionMarshal, pbCountySubdivision, pwCountyMarshal, pwCounty, "HRESULT")
+        result := ComCall(26, this, Int8, bIndex, pbStateMarshal, pbState, pbCountySubdivisionMarshal, pbCountySubdivision, pwCountyMarshal, pwCounty, "HRESULT")
         return result
     }
 
@@ -498,7 +498,7 @@ export default struct ISCTE_EAS extends IUnknown {
         pwFirstMarshal := pwFirst is VarRef ? "ushort*" : "ptr"
         pwSecondMarshal := pwSecond is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(28, this, "char", bIndex, pbIBRefMarshal, pbIBRef, pwFirstMarshal, pwFirst, pwSecondMarshal, pwSecond, "HRESULT")
+        result := ComCall(28, this, Int8, bIndex, pbIBRefMarshal, pbIBRef, pwFirstMarshal, pwFirst, pwSecondMarshal, pwSecond, "HRESULT")
         return result
     }
 
@@ -519,7 +519,7 @@ export default struct ISCTE_EAS extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
-        result := ComCall(30, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(30, this, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -533,7 +533,7 @@ export default struct ISCTE_EAS extends IUnknown {
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(31, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

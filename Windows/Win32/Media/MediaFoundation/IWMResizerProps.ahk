@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Sets properties on the video resizer DSP.
@@ -68,7 +68,7 @@ export default struct IWMResizerProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setresizerquality
      */
     SetResizerQuality(lquality) {
-        result := ComCall(3, this, "int", lquality, "HRESULT")
+        result := ComCall(3, this, Int32, lquality, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IWMResizerProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setinterlacemode
      */
     SetInterlaceMode(lmode) {
-        result := ComCall(4, this, "int", lmode, "HRESULT")
+        result := ComCall(4, this, Int32, lmode, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct IWMResizerProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setclipregion
      */
     SetClipRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc) {
-        result := ComCall(5, this, "int", lClipOriXSrc, "int", lClipOriYSrc, "int", lClipWidthSrc, "int", lClipHeightSrc, "HRESULT")
+        result := ComCall(5, this, Int32, lClipOriXSrc, Int32, lClipOriYSrc, Int32, lClipWidthSrc, Int32, lClipHeightSrc, "HRESULT")
         return result
     }
 
@@ -217,7 +217,7 @@ export default struct IWMResizerProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setfullcropregion
      */
     SetFullCropRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc, lClipOriXDst, lClipOriYDst, lClipWidthDst, lClipHeightDst) {
-        result := ComCall(6, this, "int", lClipOriXSrc, "int", lClipOriYSrc, "int", lClipWidthSrc, "int", lClipHeightSrc, "int", lClipOriXDst, "int", lClipOriYDst, "int", lClipWidthDst, "int", lClipHeightDst, "HRESULT")
+        result := ComCall(6, this, Int32, lClipOriXSrc, Int32, lClipOriYSrc, Int32, lClipWidthSrc, Int32, lClipHeightSrc, Int32, lClipOriXDst, Int32, lClipOriYDst, Int32, lClipWidthDst, Int32, lClipHeightDst, "HRESULT")
         return result
     }
 

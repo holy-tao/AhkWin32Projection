@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SD_QUERY_STATS_OUTPUT.ahk" { SD_QUERY_STATS_OUTPUT }
 #Import ".\SD_CHANGE_MACHINE_SID_OUTPUT.ahk" { SD_CHANGE_MACHINE_SID_OUTPUT }
 #Import ".\SD_ENUM_SDS_ENTRY.ahk" { SD_ENUM_SDS_ENTRY }
 #Import ".\SD_ENUM_SDS_OUTPUT.ahk" { SD_ENUM_SDS_OUTPUT }
+#Import ".\SD_QUERY_STATS_OUTPUT.ahk" { SD_QUERY_STATS_OUTPUT }
 
 /**
  * @namespace Windows.Win32.System.Ioctl

@@ -2,16 +2,16 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
-#Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
 #Import ".\UI_ANIMATION_MODE.ahk" { UI_ANIMATION_MODE }
-#Import ".\IUIAnimationManagerEventHandler2.ahk" { IUIAnimationManagerEventHandler2 }
-#Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
-#Import ".\IUIAnimationPriorityComparison2.ahk" { IUIAnimationPriorityComparison2 }
-#Import ".\IUIAnimationVariable2.ahk" { IUIAnimationVariable2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAnimationPriorityComparison2.ahk" { IUIAnimationPriorityComparison2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
+#Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
 #Import ".\UI_ANIMATION_MANAGER_STATUS.ahk" { UI_ANIMATION_MANAGER_STATUS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationVariable2.ahk" { IUIAnimationVariable2 }
+#Import ".\IUIAnimationManagerEventHandler2.ahk" { IUIAnimationManagerEventHandler2 }
 
 /**
  * Defines an animation manager, which provides a central interface for creating and managing animations in multiple dimensions.
@@ -86,7 +86,7 @@ export default struct IUIAnimationManager2 extends IUnknown {
     CreateAnimationVectorVariable(initialValue, cDimension) {
         initialValueMarshal := initialValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(3, this, initialValueMarshal, initialValue, "uint", cDimension, "ptr*", &variable := 0, "HRESULT")
+        result := ComCall(3, this, initialValueMarshal, initialValue, UInt32, cDimension, "ptr*", &variable := 0, "HRESULT")
         return IUIAnimationVariable2(variable)
     }
 
@@ -101,7 +101,7 @@ export default struct IUIAnimationManager2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-createanimationvariable
      */
     CreateAnimationVariable(initialValue) {
-        result := ComCall(4, this, "double", initialValue, "ptr*", &variable := 0, "HRESULT")
+        result := ComCall(4, this, Float64, initialValue, "ptr*", &variable := 0, "HRESULT")
         return IUIAnimationVariable2(variable)
     }
 
@@ -116,7 +116,7 @@ export default struct IUIAnimationManager2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-scheduletransition
      */
     ScheduleTransition(variable, transition, timeNow) {
-        result := ComCall(5, this, "ptr", variable, "ptr", transition, "double", timeNow, "HRESULT")
+        result := ComCall(5, this, "ptr", variable, "ptr", transition, Float64, timeNow, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct IUIAnimationManager2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-finishallstoryboards
      */
     FinishAllStoryboards(completionDeadline) {
-        result := ComCall(7, this, "double", completionDeadline, "HRESULT")
+        result := ComCall(7, this, Float64, completionDeadline, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct IUIAnimationManager2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-update
      */
     Update(timeNow) {
-        result := ComCall(9, this, "double", timeNow, "int*", &updateResult := 0, "HRESULT")
+        result := ComCall(9, this, Float64, timeNow, "int*", &updateResult := 0, "HRESULT")
         return updateResult
     }
 
@@ -190,7 +190,7 @@ export default struct IUIAnimationManager2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-getvariablefromtag
      */
     GetVariableFromTag(_object, id) {
-        result := ComCall(10, this, "ptr", _object, "uint", id, "ptr*", &variable := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", _object, UInt32, id, "ptr*", &variable := 0, "HRESULT")
         return IUIAnimationVariable2(variable)
     }
 
@@ -207,7 +207,7 @@ export default struct IUIAnimationManager2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-getstoryboardfromtag
      */
     GetStoryboardFromTag(_object, id) {
-        result := ComCall(11, this, "ptr", _object, "uint", id, "ptr*", &storyboard := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", _object, UInt32, id, "ptr*", &storyboard := 0, "HRESULT")
         return IUIAnimationStoryboard2(storyboard)
     }
 
@@ -370,7 +370,7 @@ export default struct IUIAnimationManager2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-setdefaultlongestacceptabledelay
      */
     SetDefaultLongestAcceptableDelay(delay) {
-        result := ComCall(22, this, "double", delay, "HRESULT")
+        result := ComCall(22, this, Float64, delay, "HRESULT")
         return result
     }
 

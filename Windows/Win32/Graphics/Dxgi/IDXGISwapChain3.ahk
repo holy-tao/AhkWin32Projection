@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDXGISwapChain2.ahk" { IDXGISwapChain2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends IDXGISwapChain2 with methods to support getting the index of the swap chain's current back buffer and support for color space.
@@ -143,7 +143,7 @@ export default struct IDXGISwapChain3 extends IDXGISwapChain2 {
     ResizeBuffers1(BufferCount, Width, Height, Format, SwapChainFlags, pCreationNodeMask, ppPresentQueue) {
         pCreationNodeMaskMarshal := pCreationNodeMask is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(39, this, "uint", BufferCount, "uint", Width, "uint", Height, DXGI_FORMAT, Format, "uint", SwapChainFlags, pCreationNodeMaskMarshal, pCreationNodeMask, IUnknown.Ptr, ppPresentQueue, "HRESULT")
+        result := ComCall(39, this, UInt32, BufferCount, UInt32, Width, UInt32, Height, DXGI_FORMAT, Format, UInt32, SwapChainFlags, pCreationNodeMaskMarshal, pCreationNodeMask, IUnknown.Ptr, ppPresentQueue, "HRESULT")
         return result
     }
 

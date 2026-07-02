@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\AUTH_TYPE.ahk" { AUTH_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Describes security authentication information for content access.

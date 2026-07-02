@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CF_FS_METADATA.ahk" { CF_FS_METADATA }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\FileSystem\FILE_BASIC_INFO.ahk" { FILE_BASIC_INFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CF_PLACEHOLDER_CREATE_FLAGS.ahk" { CF_PLACEHOLDER_CREATE_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CF_FS_METADATA.ahk" { CF_FS_METADATA }
+#Import "..\FileSystem\FILE_BASIC_INFO.ahk" { FILE_BASIC_INFO }
 
 /**
  * Contains placeholder information for creating new placeholder files or directories.

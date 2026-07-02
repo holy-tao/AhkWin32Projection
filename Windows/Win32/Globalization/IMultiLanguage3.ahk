@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\System\Com\IStream.ahk" { IStream }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IMultiLanguage2.ahk" { IMultiLanguage2 }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -56,7 +56,7 @@ export default struct IMultiLanguage3 extends IMultiLanguage2 {
         puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
         pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "uint", dwFlags, "ptr", lpWideCharStr, "uint", cchWideChar, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        result := ComCall(30, this, UInt32, dwFlags, "ptr", lpWideCharStr, UInt32, cchWideChar, puiPreferredCodePagesMarshal, puiPreferredCodePages, UInt32, nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
         return puiDetectedCodePages
     }
 
@@ -76,7 +76,7 @@ export default struct IMultiLanguage3 extends IMultiLanguage2 {
         puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
         pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "uint", dwFlags, "ptr", pStrIn, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        result := ComCall(31, this, UInt32, dwFlags, "ptr", pStrIn, puiPreferredCodePagesMarshal, puiPreferredCodePages, UInt32, nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
         return puiDetectedCodePages
     }
 

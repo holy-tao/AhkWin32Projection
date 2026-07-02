@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides the status of the system setting that allows users to change location settings.
@@ -108,7 +108,7 @@ export default struct ILocationPermissions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-ilocationpermissions-checklocationcapability
      */
     CheckLocationCapability(dwClientThreadId) {
-        result := ComCall(4, this, "uint", dwClientThreadId, "HRESULT")
+        result := ComCall(4, this, UInt32, dwClientThreadId, "HRESULT")
         return result
     }
 

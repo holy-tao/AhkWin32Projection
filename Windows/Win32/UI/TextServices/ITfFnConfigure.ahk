@@ -49,7 +49,7 @@ export default struct ITfFnConfigure extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnconfigure-show
      */
     Show(hwndParent, langid, rguidProfile) {
-        result := ComCall(4, this, HWND, hwndParent, "ushort", langid, Guid.Ptr, rguidProfile, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, UInt16, langid, Guid.Ptr, rguidProfile, "HRESULT")
         return result
     }
 

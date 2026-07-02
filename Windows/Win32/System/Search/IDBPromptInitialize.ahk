@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -55,7 +55,7 @@ export default struct IDBPromptInitialize extends IUnknown {
 
         rgSourceTypeFilterMarshal := rgSourceTypeFilter is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, HWND, hWndParent, "uint", dwPromptOptions, "uint", cSourceTypeFilter, rgSourceTypeFilterMarshal, rgSourceTypeFilter, "ptr", pwszszzProviderFilter, Guid.Ptr, riid, IUnknown.Ptr, ppDataSource, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, HWND, hWndParent, UInt32, dwPromptOptions, UInt32, cSourceTypeFilter, rgSourceTypeFilterMarshal, rgSourceTypeFilter, "ptr", pwszszzProviderFilter, Guid.Ptr, riid, IUnknown.Ptr, ppDataSource, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IDBPromptInitialize extends IUnknown {
         pwszInitialDirectory := pwszInitialDirectory is String ? StrPtr(pwszInitialDirectory) : pwszInitialDirectory
         pwszInitialFile := pwszInitialFile is String ? StrPtr(pwszInitialFile) : pwszInitialFile
 
-        result := ComCall(4, this, HWND, hWndParent, "uint", dwPromptOptions, "ptr", pwszInitialDirectory, "ptr", pwszInitialFile, PWSTR.Ptr, &ppwszSelectedFile := 0, "HRESULT")
+        result := ComCall(4, this, HWND, hWndParent, UInt32, dwPromptOptions, "ptr", pwszInitialDirectory, "ptr", pwszInitialFile, PWSTR.Ptr, &ppwszSelectedFile := 0, "HRESULT")
         return ppwszSelectedFile
     }
 

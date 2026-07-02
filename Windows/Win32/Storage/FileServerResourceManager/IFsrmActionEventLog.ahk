@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import ".\FsrmEventType.ahk" { FsrmEventType }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FsrmEventType.ahk" { FsrmEventType }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
 
 /**
  * Used to log an event to the Windows Application event log in response to a quota, file screen, or file management job event.

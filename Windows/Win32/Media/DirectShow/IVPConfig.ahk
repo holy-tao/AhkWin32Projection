@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVPBaseConfig.ahk" { IVPBaseConfig }
 #Import ".\AMVPSIZE.ahk" { AMVPSIZE }
+#Import ".\IVPBaseConfig.ahk" { IVPBaseConfig }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVPConfig interface must be implemented by any filter that wraps a hardware decoder with a video port.

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * The FAX_JOB_ENTRY structure describes one fax job. (ANSI)

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDsAdminNotifyHandler interface is implemented by an Active Directory administrative notification handler.
@@ -100,7 +100,7 @@ export default struct IDsAdminNotifyHandler extends IUnknown {
     Begin(uEvent, pArg1, pArg2, puFlags, pBstr) {
         puFlagsMarshal := puFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", uEvent, "ptr", pArg1, "ptr", pArg2, puFlagsMarshal, puFlags, BSTR.Ptr, pBstr, "HRESULT")
+        result := ComCall(4, this, UInt32, uEvent, "ptr", pArg1, "ptr", pArg2, puFlagsMarshal, puFlags, BSTR.Ptr, pBstr, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IDsAdminNotifyHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-notify
      */
     Notify(nItem, uFlags) {
-        result := ComCall(5, this, "uint", nItem, "uint", uFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, nItem, UInt32, uFlags, "HRESULT")
         return result
     }
 

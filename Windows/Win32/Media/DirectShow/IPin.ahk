@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 #Import ".\PIN_INFO.ahk" { PIN_INFO }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 #Import ".\IEnumMediaTypes.ahk" { IEnumMediaTypes }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\PIN_DIRECTION.ahk" { PIN_DIRECTION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface is exposed by all input and output pins.The filter graph manager uses this interface to connect pins and perform flushing operations.
@@ -591,7 +591,7 @@ export default struct IPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-newsegment
      */
     NewSegment(tStart, tStop, dRate) {
-        result := ComCall(17, this, "int64", tStart, "int64", tStop, "double", dRate, "HRESULT")
+        result := ComCall(17, this, Int64, tStart, Int64, tStop, Float64, dRate, "HRESULT")
         return result
     }
 

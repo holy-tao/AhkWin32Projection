@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DWRITE_FONT_FEATURE.ahk" { DWRITE_FONT_FEATURE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a font typography setting.
@@ -83,7 +83,7 @@ export default struct IDWriteTypography extends IUnknown {
      */
     GetFontFeature(fontFeatureIndex) {
         fontFeature := DWRITE_FONT_FEATURE()
-        result := ComCall(5, this, "uint", fontFeatureIndex, DWRITE_FONT_FEATURE.Ptr, fontFeature, "HRESULT")
+        result := ComCall(5, this, UInt32, fontFeatureIndex, DWRITE_FONT_FEATURE.Ptr, fontFeature, "HRESULT")
         return fontFeature
     }
 

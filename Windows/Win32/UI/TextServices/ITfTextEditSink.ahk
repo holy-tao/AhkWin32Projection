@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfContext.ahk" { ITfContext }
-#Import ".\ITfEditRecord.ahk" { ITfEditRecord }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfEditRecord.ahk" { ITfEditRecord }
+#Import ".\ITfContext.ahk" { ITfContext }
 
 /**
  * The ITfTextEditSink interface supports completion of an edit session that involves read/write access.
@@ -52,7 +52,7 @@ export default struct ITfTextEditSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftexteditsink-onendedit
      */
     OnEndEdit(pic, ecReadOnly, pEditRecord) {
-        result := ComCall(3, this, "ptr", pic, "uint", ecReadOnly, "ptr", pEditRecord, "HRESULT")
+        result := ComCall(3, this, "ptr", pic, UInt32, ecReadOnly, "ptr", pEditRecord, "HRESULT")
         return result
     }
 

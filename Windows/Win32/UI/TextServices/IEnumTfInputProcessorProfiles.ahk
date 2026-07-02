@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\TF_INPUTPROCESSORPROFILE.ahk" { TF_INPUTPROCESSORPROFILE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumTfInputProcessorProfiles interface is implemented by TSF manager and used by applications or textservices. This interface can be retrieved by ITfInputProcessorProfileMgr::EnumProfiles and enumerates the registered profiles.
@@ -102,7 +102,7 @@ export default struct IEnumTfInputProcessorProfiles extends IUnknown {
     Next(ulCount, pProfile, pcFetch) {
         pcFetchMarshal := pcFetch is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, TF_INPUTPROCESSORPROFILE.Ptr, pProfile, pcFetchMarshal, pcFetch, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, TF_INPUTPROCESSORPROFILE.Ptr, pProfile, pcFetchMarshal, pcFetch, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IEnumTfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfinputprocessorprofiles-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

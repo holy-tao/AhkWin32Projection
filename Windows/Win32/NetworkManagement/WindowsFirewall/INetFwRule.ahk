@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\NET_FW_ACTION.ahk" { NET_FW_ACTION }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\NET_FW_ACTION.ahk" { NET_FW_ACTION }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\NET_FW_RULE_DIRECTION.ahk" { NET_FW_RULE_DIRECTION }
 
 /**
@@ -535,7 +535,7 @@ export default struct INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-put_protocol
      */
     put_Protocol(protocol) {
-        result := ComCall(16, this, "int", protocol, "HRESULT")
+        result := ComCall(16, this, Int32, protocol, "HRESULT")
         return result
     }
 
@@ -958,7 +958,7 @@ export default struct INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-put_profiles
      */
     put_Profiles(profileTypesBitmask) {
-        result := ComCall(38, this, "int", profileTypesBitmask, "HRESULT")
+        result := ComCall(38, this, Int32, profileTypesBitmask, "HRESULT")
         return result
     }
 

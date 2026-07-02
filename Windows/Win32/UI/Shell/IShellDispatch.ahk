@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\Folder.ahk" { Folder }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\Folder.ahk" { Folder }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents an object in the Shell.
@@ -125,7 +125,7 @@ export default struct IShellDispatch extends IDispatch {
     BrowseForFolder(_Hwnd, Title, Options, RootFolder) {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
 
-        result := ComCall(10, this, "int", _Hwnd, BSTR, Title, "int", Options, VARIANT, RootFolder, "ptr*", &ppsdf := 0, "HRESULT")
+        result := ComCall(10, this, Int32, _Hwnd, BSTR, Title, Int32, Options, VARIANT, RootFolder, "ptr*", &ppsdf := 0, "HRESULT")
         return Folder(ppsdf)
     }
 

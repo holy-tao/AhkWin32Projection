@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XAUDIO2_VOICE_DETAILS.ahk" { XAUDIO2_VOICE_DETAILS }
-#Import ".\XAUDIO2_VOICE_SENDS.ahk" { XAUDIO2_VOICE_SENDS }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\XAUDIO2_EFFECT_CHAIN.ahk" { XAUDIO2_EFFECT_CHAIN }
+#Import ".\XAUDIO2_VOICE_DETAILS.ahk" { XAUDIO2_VOICE_DETAILS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XAUDIO2_VOICE_SENDS.ahk" { XAUDIO2_VOICE_SENDS }
 #Import ".\XAUDIO2_FILTER_PARAMETERS.ahk" { XAUDIO2_FILTER_PARAMETERS }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IXAudio2Voice represents the base interface from which IXAudio2SourceVoice, IXAudio2SubmixVoice and IXAudio2MasteringVoice are derived. The methods listed below are common to all voice subclasses.
@@ -152,7 +152,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-enableeffect
      */
     EnableEffect(EffectIndex, OperationSet) {
-        result := ComCall(3, this, "uint", EffectIndex, "uint", OperationSet, "HRESULT")
+        result := ComCall(3, this, UInt32, EffectIndex, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-disableeffect
      */
     DisableEffect(EffectIndex, OperationSet) {
-        result := ComCall(4, this, "uint", EffectIndex, "uint", OperationSet, "HRESULT")
+        result := ComCall(4, this, UInt32, EffectIndex, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
     GetEffectState(EffectIndex, pEnabled) {
         pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
 
-        ComCall(5, this, "uint", EffectIndex, pEnabledMarshal, pEnabled)
+        ComCall(5, this, UInt32, EffectIndex, pEnabledMarshal, pEnabled)
     }
 
     /**
@@ -231,7 +231,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-seteffectparameters
      */
     SetEffectParameters(EffectIndex, pParameters, ParametersByteSize, OperationSet) {
-        result := ComCall(6, this, "uint", EffectIndex, "ptr", pParameters, "uint", ParametersByteSize, "uint", OperationSet, "HRESULT")
+        result := ComCall(6, this, UInt32, EffectIndex, IntPtr, pParameters, UInt32, ParametersByteSize, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -255,7 +255,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-geteffectparameters
      */
     GetEffectParameters(EffectIndex, pParameters, ParametersByteSize) {
-        result := ComCall(7, this, "uint", EffectIndex, "ptr", pParameters, "uint", ParametersByteSize, "HRESULT")
+        result := ComCall(7, this, UInt32, EffectIndex, IntPtr, pParameters, UInt32, ParametersByteSize, "HRESULT")
         return result
     }
 
@@ -278,7 +278,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-setfilterparameters
      */
     SetFilterParameters(pParameters, OperationSet) {
-        result := ComCall(8, this, XAUDIO2_FILTER_PARAMETERS.Ptr, pParameters, "uint", OperationSet, "HRESULT")
+        result := ComCall(8, this, XAUDIO2_FILTER_PARAMETERS.Ptr, pParameters, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -322,7 +322,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-setoutputfilterparameters
      */
     SetOutputFilterParameters(pDestinationVoice, pParameters, OperationSet) {
-        result := ComCall(10, this, "ptr", pDestinationVoice, XAUDIO2_FILTER_PARAMETERS.Ptr, pParameters, "uint", OperationSet, "HRESULT")
+        result := ComCall(10, this, "ptr", pDestinationVoice, XAUDIO2_FILTER_PARAMETERS.Ptr, pParameters, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -367,7 +367,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-setvolume
      */
     SetVolume(Volume, OperationSet) {
-        result := ComCall(12, this, "float", Volume, "uint", OperationSet, "HRESULT")
+        result := ComCall(12, this, Float32, Volume, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -420,7 +420,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
     SetChannelVolumes(Channels, pVolumes, OperationSet) {
         pVolumesMarshal := pVolumes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(14, this, "uint", Channels, pVolumesMarshal, pVolumes, "uint", OperationSet, "HRESULT")
+        result := ComCall(14, this, UInt32, Channels, pVolumesMarshal, pVolumes, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -447,7 +447,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
     GetChannelVolumes(Channels, pVolumes) {
         pVolumesMarshal := pVolumes is VarRef ? "float*" : "ptr"
 
-        ComCall(15, this, "uint", Channels, pVolumesMarshal, pVolumes)
+        ComCall(15, this, UInt32, Channels, pVolumesMarshal, pVolumes)
     }
 
     /**
@@ -530,7 +530,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
     SetOutputMatrix(pDestinationVoice, SourceChannels, DestinationChannels, pLevelMatrix, OperationSet) {
         pLevelMatrixMarshal := pLevelMatrix is VarRef ? "float*" : "ptr"
 
-        result := ComCall(16, this, "ptr", pDestinationVoice, "uint", SourceChannels, "uint", DestinationChannels, pLevelMatrixMarshal, pLevelMatrix, "uint", OperationSet, "HRESULT")
+        result := ComCall(16, this, "ptr", pDestinationVoice, UInt32, SourceChannels, UInt32, DestinationChannels, pLevelMatrixMarshal, pLevelMatrix, UInt32, OperationSet, "HRESULT")
         return result
     }
 
@@ -564,7 +564,7 @@ export default struct IXAudio2Voice extends Win32ComInterface {
     GetOutputMatrix(pDestinationVoice, SourceChannels, DestinationChannels, pLevelMatrix) {
         pLevelMatrixMarshal := pLevelMatrix is VarRef ? "float*" : "ptr"
 
-        ComCall(17, this, "ptr", pDestinationVoice, "uint", SourceChannels, "uint", DestinationChannels, pLevelMatrixMarshal, pLevelMatrix)
+        ComCall(17, this, "ptr", pDestinationVoice, UInt32, SourceChannels, UInt32, DestinationChannels, pLevelMatrixMarshal, pLevelMatrix)
     }
 
     /**

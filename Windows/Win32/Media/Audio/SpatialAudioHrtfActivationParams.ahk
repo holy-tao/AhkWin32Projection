@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
-#Import ".\ISpatialAudioObjectRenderStreamNotify.ahk" { ISpatialAudioObjectRenderStreamNotify }
-#Import ".\SpatialAudioHrtfDistanceDecay.ahk" { SpatialAudioHrtfDistanceDecay }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\SpatialAudioHrtfDistanceDecay.ahk" { SpatialAudioHrtfDistanceDecay }
 #Import ".\SpatialAudioHrtfDirectivityUnion.ahk" { SpatialAudioHrtfDirectivityUnion }
-#Import ".\SpatialAudioHrtfEnvironmentType.ahk" { SpatialAudioHrtfEnvironmentType }
 #Import ".\AudioObjectType.ahk" { AudioObjectType }
+#Import ".\ISpatialAudioObjectRenderStreamNotify.ahk" { ISpatialAudioObjectRenderStreamNotify }
+#Import ".\SpatialAudioHrtfEnvironmentType.ahk" { SpatialAudioHrtfEnvironmentType }
+#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
 
 /**
  * Specifies the activation parameters for an ISpatialAudioRenderStreamForHrtf.

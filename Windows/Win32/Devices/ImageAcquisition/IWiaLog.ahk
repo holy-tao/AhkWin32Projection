@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is not supported. (IWiaLog)
@@ -55,7 +55,7 @@ export default struct IWiaLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialog-initializelog
      */
     InitializeLog(_hInstance) {
-        result := ComCall(3, this, "int", _hInstance, "HRESULT")
+        result := ComCall(3, this, Int32, _hInstance, "HRESULT")
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct IWiaLog extends IUnknown {
     Log(lFlags, lResID, lDetail, bstrText) {
         bstrText := bstrText is String ? BSTR.Alloc(bstrText).Value : bstrText
 
-        result := ComCall(5, this, "int", lFlags, "int", lResID, "int", lDetail, BSTR, bstrText, "HRESULT")
+        result := ComCall(5, this, Int32, lFlags, Int32, lResID, Int32, lDetail, BSTR, bstrText, "HRESULT")
         return result
     }
 

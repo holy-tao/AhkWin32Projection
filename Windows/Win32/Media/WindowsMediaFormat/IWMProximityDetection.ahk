@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INSSBuffer.ahk" { INSSBuffer }
-#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMProximityDetection interface validates a playback device for receiving media data.
@@ -66,7 +66,7 @@ export default struct IWMProximityDetection extends IUnknown {
         pbLocalAddressMarshal := pbLocalAddress is VarRef ? "char*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pbRegistrationMsgMarshal, pbRegistrationMsg, "uint", cbRegistrationMsg, pbLocalAddressMarshal, pbLocalAddress, "uint", cbLocalAddress, "uint", dwExtraPortsAllowed, "ptr*", &ppRegistrationResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, pbRegistrationMsgMarshal, pbRegistrationMsg, UInt32, cbRegistrationMsg, pbLocalAddressMarshal, pbLocalAddress, UInt32, cbLocalAddress, UInt32, dwExtraPortsAllowed, "ptr*", &ppRegistrationResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppRegistrationResponseMsg)
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
-#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyError.ahk" { IBackgroundCopyError }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
 
 /**
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
@@ -94,7 +94,7 @@ export default struct AsyncIBackgroundCopyCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     Begin_JobModification(pJob, dwReserved) {
-        result := ComCall(7, this, "ptr", pJob, "uint", dwReserved, "HRESULT")
+        result := ComCall(7, this, "ptr", pJob, UInt32, dwReserved, "HRESULT")
         return result
     }
 

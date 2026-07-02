@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\TBS_CONTEXT_PARAMS.ahk" { TBS_CONTEXT_PARAMS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TBS_COMMAND_LOCALITY.ahk" { TBS_COMMAND_LOCALITY }
-#Import ".\TBS_COMMAND_PRIORITY.ahk" { TBS_COMMAND_PRIORITY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TBS_CONTEXT_PARAMS.ahk" { TBS_CONTEXT_PARAMS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TBS_COMMAND_PRIORITY.ahk" { TBS_COMMAND_PRIORITY }
+#Import ".\TBS_COMMAND_LOCALITY.ahk" { TBS_COMMAND_LOCALITY }
 
 /**
  * @namespace Windows.Win32.System.TpmBaseServices
@@ -360,7 +360,7 @@ export Tbsip_Submit_Command(hContext, Locality, _Priority, pabCommand, cbCommand
     hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("tbs.dll\Tbsip_Submit_Command", hContextMarshal, hContext, TBS_COMMAND_LOCALITY, Locality, TBS_COMMAND_PRIORITY, _Priority, "ptr", pabCommand, "uint", cbCommand, "ptr", pabResult, pcbResultMarshal, pcbResult, UInt32)
+    result := DllCall("tbs.dll\Tbsip_Submit_Command", hContextMarshal, hContext, TBS_COMMAND_LOCALITY, Locality, TBS_COMMAND_PRIORITY, _Priority, IntPtr, pabCommand, UInt32, cbCommand, IntPtr, pabResult, pcbResultMarshal, pcbResult, UInt32)
     return result
 }
 
@@ -529,7 +529,7 @@ export Tbsi_Physical_Presence_Command(hContext, pabInput, cbInput, pabOutput, pc
     hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
     pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("tbs.dll\Tbsi_Physical_Presence_Command", hContextMarshal, hContext, "ptr", pabInput, "uint", cbInput, "ptr", pabOutput, pcbOutputMarshal, pcbOutput, UInt32)
+    result := DllCall("tbs.dll\Tbsi_Physical_Presence_Command", hContextMarshal, hContext, IntPtr, pabInput, UInt32, cbInput, IntPtr, pabOutput, pcbOutputMarshal, pcbOutput, UInt32)
     return result
 }
 
@@ -771,7 +771,7 @@ export Tbsi_Get_TCG_Log(hContext, pOutputBuf, pOutputBufLen) {
     hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
     pOutputBufLenMarshal := pOutputBufLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("tbs.dll\Tbsi_Get_TCG_Log", hContextMarshal, hContext, "ptr", pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, UInt32)
+    result := DllCall("tbs.dll\Tbsi_Get_TCG_Log", hContextMarshal, hContext, IntPtr, pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, UInt32)
     return result
 }
 
@@ -829,7 +829,7 @@ export Tbsi_Get_TCG_Log(hContext, pOutputBuf, pOutputBufLen) {
  * @since windows8.0
  */
 export Tbsi_GetDeviceInfo(_Size, Info) {
-    result := DllCall("tbs.dll\Tbsi_GetDeviceInfo", "uint", _Size, "ptr", Info, UInt32)
+    result := DllCall("tbs.dll\Tbsi_GetDeviceInfo", UInt32, _Size, IntPtr, Info, UInt32)
     return result
 }
 
@@ -979,7 +979,7 @@ export Tbsi_Get_OwnerAuth(hContext, ownerauthType, pOutputBuf, pOutputBufLen) {
     hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
     pOutputBufLenMarshal := pOutputBufLen is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("tbs.dll\Tbsi_Get_OwnerAuth", hContextMarshal, hContext, "uint", ownerauthType, "ptr", pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, UInt32)
+    result := DllCall("tbs.dll\Tbsi_Get_OwnerAuth", hContextMarshal, hContext, UInt32, ownerauthType, IntPtr, pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, UInt32)
     return result
 }
 
@@ -1045,7 +1045,7 @@ export GetDeviceID(pbWindowsAIK, cbWindowsAIK, pcbResult, pfProtectedByTPM) {
     pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
     pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
 
-    result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, pcbResultMarshal, pcbResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "HRESULT")
+    result := DllCall("tbs.dll\GetDeviceID", IntPtr, pbWindowsAIK, UInt32, cbWindowsAIK, pcbResultMarshal, pcbResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "HRESULT")
     return result
 }
 
@@ -1063,7 +1063,7 @@ export GetDeviceIDString(pszWindowsAIK, cchWindowsAIK, pcchResult, pfProtectedBy
     pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
     pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
 
-    result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, pcchResultMarshal, pcchResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "HRESULT")
+    result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, UInt32, cchWindowsAIK, pcchResultMarshal, pcchResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "HRESULT")
     return result
 }
 
@@ -1073,7 +1073,7 @@ export GetDeviceIDString(pszWindowsAIK, cchWindowsAIK, pcchResult, pfProtectedBy
  * @returns {Integer} 
  */
 export Tbsi_Create_Windows_Key(keyHandle) {
-    result := DllCall("tbs.dll\Tbsi_Create_Windows_Key", "uint", keyHandle, UInt32)
+    result := DllCall("tbs.dll\Tbsi_Create_Windows_Key", UInt32, keyHandle, UInt32)
     return result
 }
 
@@ -1356,7 +1356,7 @@ export Tbsi_Create_Windows_Key(keyHandle) {
 export Tbsi_Get_TCG_Log_Ex(logType, pbOutput, pcbOutput) {
     pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("tbs.dll\Tbsi_Get_TCG_Log_Ex", "uint", logType, "ptr", pbOutput, pcbOutputMarshal, pcbOutput, UInt32)
+    result := DllCall("tbs.dll\Tbsi_Get_TCG_Log_Ex", UInt32, logType, IntPtr, pbOutput, pcbOutputMarshal, pcbOutput, UInt32)
     return result
 }
 

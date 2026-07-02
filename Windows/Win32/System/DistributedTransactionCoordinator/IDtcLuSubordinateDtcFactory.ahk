@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDtcLuSubordinateDtc.ahk" { IDtcLuSubordinateDtc }
-#Import ".\IDtcLuSubordinateDtcSink.ahk" { IDtcLuSubordinateDtcSink }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ITransactionOptions.ahk" { ITransactionOptions }
 #Import ".\ITransaction.ahk" { ITransaction }
+#Import ".\IDtcLuSubordinateDtc.ahk" { IDtcLuSubordinateDtc }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDtcLuSubordinateDtcSink.ahk" { IDtcLuSubordinateDtcSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITransactionOptions.ahk" { ITransactionOptions }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -59,7 +59,7 @@ export default struct IDtcLuSubordinateDtcFactory extends IUnknown {
         pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
         pTransIdMarshal := pTransId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr", punkTransactionOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, ITransaction.Ptr, ppTransaction, pTransIdMarshal, pTransId, "uint", cbTransId, "ptr", pSubordinateDtcSink, IDtcLuSubordinateDtc.Ptr, ppSubordinateDtc, "HRESULT")
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, UInt32, cbLuPair, "ptr", punkTransactionOuter, Int32, isoLevel, UInt32, isoFlags, "ptr", pOptions, ITransaction.Ptr, ppTransaction, pTransIdMarshal, pTransId, UInt32, cbTransId, "ptr", pSubordinateDtcSink, IDtcLuSubordinateDtc.Ptr, ppSubordinateDtc, "HRESULT")
         return result
     }
 

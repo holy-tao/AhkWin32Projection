@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WM_CLIENT_PROPERTIES.ahk" { WM_CLIENT_PROPERTIES }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMClientConnections interface manages the collecting of information about clients connected to a writer network sink object.The writer network sink object exposes this interface.
@@ -57,7 +57,7 @@ export default struct IWMClientConnections extends IUnknown {
      */
     GetClientProperties(dwClientNum) {
         pClientProperties := WM_CLIENT_PROPERTIES()
-        result := ComCall(4, this, "uint", dwClientNum, WM_CLIENT_PROPERTIES.Ptr, pClientProperties, "HRESULT")
+        result := ComCall(4, this, UInt32, dwClientNum, WM_CLIENT_PROPERTIES.Ptr, pClientProperties, "HRESULT")
         return pClientProperties
     }
 

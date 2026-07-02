@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
+#Import ".\AD_GUARANTEED.ahk" { AD_GUARANTEED }
 #Import ".\CONTROL_SERVICE.ahk" { CONTROL_SERVICE }
+#Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
 #Import ".\PARAM_BUFFER.ahk" { PARAM_BUFFER }
 #Import ".\AD_GENERAL_PARAMS.ahk" { AD_GENERAL_PARAMS }
-#Import ".\AD_GUARANTEED.ahk" { AD_GUARANTEED }
 
 /**
  * The QOS object RSVP_ADSPEC provides a means by which information describing network devices along the data path between sender and receiver, pertaining to RSVP functionality and available services, is provided or retrieved.

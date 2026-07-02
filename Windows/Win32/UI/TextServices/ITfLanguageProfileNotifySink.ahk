@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfLanguageProfileNotifySink interface is implemented by an application to receive notifications when the language profile changes.
@@ -46,7 +46,7 @@ export default struct ITfLanguageProfileNotifySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itflanguageprofilenotifysink-onlanguagechange
      */
     OnLanguageChange(langid) {
-        result := ComCall(3, this, "ushort", langid, BOOL.Ptr, &pfAccept := 0, "HRESULT")
+        result := ComCall(3, this, UInt16, langid, BOOL.Ptr, &pfAccept := 0, "HRESULT")
         return pfAccept
     }
 

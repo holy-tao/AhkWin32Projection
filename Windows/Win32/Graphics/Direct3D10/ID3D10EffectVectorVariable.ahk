@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * A vector-variable interface accesses a four-component vector.
@@ -170,7 +170,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
     SetBoolVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(31, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(31, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -193,7 +193,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
     SetIntVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(32, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(32, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -216,7 +216,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
     SetFloatVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(33, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(33, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -239,7 +239,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
     GetBoolVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(34, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -262,7 +262,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
     GetIntVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(35, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(35, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -285,7 +285,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
     GetFloatVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(36, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(36, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 

@@ -3,11 +3,11 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import ".\EMPTY_VOLUME_CACHE_FLAGS.ahk" { EMPTY_VOLUME_CACHE_FLAGS }
-#Import ".\IEmptyVolumeCacheCallBack.ahk" { IEmptyVolumeCacheCallBack }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEmptyVolumeCacheCallBack.ahk" { IEmptyVolumeCacheCallBack }
 
 /**
  * Used by the disk cleanup manager to communicate with a disk cleanup handler. Exposes methods that enable the manager to request information from a handler, and notify it of events such as the start of a scan or purge.
@@ -203,7 +203,7 @@ export default struct IEmptyVolumeCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache-purge
      */
     Purge(dwlSpaceToFree, picb) {
-        result := ComCall(5, this, "uint", dwlSpaceToFree, "ptr", picb, "HRESULT")
+        result := ComCall(5, this, Int64, dwlSpaceToFree, "ptr", picb, "HRESULT")
         return result
     }
 

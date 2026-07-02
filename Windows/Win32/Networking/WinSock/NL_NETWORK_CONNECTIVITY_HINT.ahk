@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NL_NETWORK_CONNECTIVITY_LEVEL_HINT.ahk" { NL_NETWORK_CONNECTIVITY_LEVEL_HINT }
 #Import ".\NL_NETWORK_CONNECTIVITY_COST_HINT.ahk" { NL_NETWORK_CONNECTIVITY_COST_HINT }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\NL_NETWORK_CONNECTIVITY_LEVEL_HINT.ahk" { NL_NETWORK_CONNECTIVITY_LEVEL_HINT }
 
 /**
  * Describes a level of network connectivity, the usage charge for a network connection, and other members reflecting cost factors.

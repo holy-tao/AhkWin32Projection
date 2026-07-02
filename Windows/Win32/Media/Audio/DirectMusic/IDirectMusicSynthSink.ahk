@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\IReferenceClock.ahk" { IReferenceClock }
+#Import ".\IDirectMusicSynth.ahk" { IDirectMusicSynth }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
 #Import "..\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirectMusicSynth.ahk" { IDirectMusicSynth }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectMusicSynthSink interface is now largely obsolete and is supported only by versions of DirectMusic before DirectX 8.
@@ -218,7 +218,7 @@ export default struct IDirectMusicSynthSink extends IUnknown {
     SampleToRefTime(llSampleTime, prfTime) {
         prfTimeMarshal := prfTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(7, this, "int64", llSampleTime, prfTimeMarshal, prfTime, "HRESULT")
+        result := ComCall(7, this, Int64, llSampleTime, prfTimeMarshal, prfTime, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct IDirectMusicSynthSink extends IUnknown {
     RefTimeToSample(rfTime, pllSampleTime) {
         pllSampleTimeMarshal := pllSampleTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(8, this, "int64", rfTime, pllSampleTimeMarshal, pllSampleTime, "HRESULT")
+        result := ComCall(8, this, Int64, rfTime, pllSampleTimeMarshal, pllSampleTime, "HRESULT")
         return result
     }
 

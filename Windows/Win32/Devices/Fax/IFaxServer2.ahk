@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IFaxAccountSet.ahk" { IFaxAccountSet }
-#Import ".\IFaxSecurity2.ahk" { IFaxSecurity2 }
 #Import ".\IFaxConfiguration.ahk" { IFaxConfiguration }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFaxServer.ahk" { IFaxServer }
 #Import ".\IFaxAccount.ahk" { IFaxAccount }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxSecurity2.ahk" { IFaxSecurity2 }
 
 /**
  * Inherits all the functionality of the IFaxServer interface and adds read-only properties for the server's configuration, account management, security objects, and the current account.

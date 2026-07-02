@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_KEY_MANAGER_DICTATE_KEY0.ahk" { IPSEC_KEY_MANAGER_DICTATE_KEY0 }
+#Import ".\IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0.ahk" { IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0 }
+#Import ".\IPSEC_KEY_MANAGER_NOTIFY_KEY0.ahk" { IPSEC_KEY_MANAGER_NOTIFY_KEY0 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
@@ -30,20 +33,20 @@ export default struct IPSEC_KEY_MANAGER_CALLBACKS0 {
      * 
      * Specifies that the Trusted Intermediary Agent (TIA) will dictate the keys for the SA being negotiated. Only used if the <b>IPSEC_DICTATE_KEY</b> flag is set.
      */
-    keyDictationCheck : IntPtr
+    keyDictationCheck : IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-ipsec_key_manager_dictate_key0">IPSEC_KEY_MANAGER_DICTATE_KEY0</a></b>
      * 
      * Allows the TIA to dictate the keys for the SA being negotiated. Only used if the <b>IPSEC_DICTATE_KEY</b> flag is set.
      */
-    keyDictation : IntPtr
+    keyDictation : IPSEC_KEY_MANAGER_DICTATE_KEY0
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-ipsec_key_manager_notify_key0">IPSEC_KEY_MANAGER_NOTIFY_KEY0</a></b>
      * 
      * Notifies the TIA of the keys for the SA being negotiated.
      */
-    keyNotify : IntPtr
+    keyNotify : IPSEC_KEY_MANAGER_NOTIFY_KEY0
 
 }

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
-#Import ".\IMessage.ahk" { IMessage }
-#Import ".\IMAPITable.ahk" { IMAPITable }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\NOTIFICATION.ahk" { NOTIFICATION }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
 #Import ".\ENTRYID.ahk" { ENTRYID }
+#Import ".\IMessage.ahk" { IMessage }
+#Import ".\IMAPIAdviseSink.ahk" { IMAPIAdviseSink }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\NOTIFICATION.ahk" { NOTIFICATION }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPITable.ahk" { IMAPITable }
 
 /**
  * Describes the properties and vtable order of members for IMsgStore IMAPIProp, which provides access to message store information and to messages and folders.
@@ -64,7 +64,7 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-advise
      */
     Advise(cbEntryID, lpEntryID, ulEventMask, lpAdviseSink) {
-        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulEventMask, "ptr", lpAdviseSink, "uint*", &lpulConnection := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, cbEntryID, IntPtr, lpEntryID, UInt32, ulEventMask, "ptr", lpAdviseSink, "uint*", &lpulConnection := 0, "HRESULT")
         return lpulConnection
     }
 
@@ -81,7 +81,7 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-unadvise
      */
     Unadvise(ulConnection) {
-        result := ComCall(15, this, "uint", ulConnection, "HRESULT")
+        result := ComCall(15, this, UInt32, ulConnection, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-compareentryids
      */
     CompareEntryIDs(cbEntryID1, lpEntryID1, cbEntryID2, lpEntryID2, ulFlags) {
-        result := ComCall(16, this, "uint", cbEntryID1, "ptr", lpEntryID1, "uint", cbEntryID2, "ptr", lpEntryID2, "uint", ulFlags, "uint*", &lpulResult := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, cbEntryID1, IntPtr, lpEntryID1, UInt32, cbEntryID2, IntPtr, lpEntryID2, UInt32, ulFlags, "uint*", &lpulResult := 0, "HRESULT")
         return lpulResult
     }
 
@@ -143,7 +143,7 @@ export default struct IMsgStore extends IMAPIProp {
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, ppUnk) {
         lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", cbEntryID, "ptr", lpEntryID, Guid.Ptr, lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, IUnknown.Ptr, ppUnk, "HRESULT")
+        result := ComCall(17, this, UInt32, cbEntryID, IntPtr, lpEntryID, Guid.Ptr, lpInterface, UInt32, ulFlags, lpulObjTypeMarshal, lpulObjType, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct IMsgStore extends IMAPIProp {
     SetReceiveFolder(lpszMessageClass, ulFlags, cbEntryID, lpEntryID) {
         lpszMessageClassMarshal := lpszMessageClass is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, lpszMessageClassMarshal, lpszMessageClass, "uint", ulFlags, "uint", cbEntryID, "ptr", lpEntryID, "HRESULT")
+        result := ComCall(18, this, lpszMessageClassMarshal, lpszMessageClass, UInt32, ulFlags, UInt32, cbEntryID, IntPtr, lpEntryID, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IMsgStore extends IMAPIProp {
         lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
         lppszExplicitClassMarshal := lppszExplicitClass is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, lpszMessageClassMarshal, lpszMessageClass, "uint", ulFlags, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, lppszExplicitClassMarshal, lppszExplicitClass, "HRESULT")
+        result := ComCall(19, this, lpszMessageClassMarshal, lpszMessageClass, UInt32, ulFlags, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, lppszExplicitClassMarshal, lppszExplicitClass, "HRESULT")
         return result
     }
 
@@ -232,7 +232,7 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-getreceivefoldertable
      */
     GetReceiveFolderTable(ulFlags) {
-        result := ComCall(20, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        result := ComCall(20, this, UInt32, ulFlags, "ptr*", &lppTable := 0, "HRESULT")
         return IMAPITable(lppTable)
     }
 
@@ -308,7 +308,7 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-abortsubmit
      */
     AbortSubmit(cbEntryID, lpEntryID, ulFlags) {
-        result := ComCall(22, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulFlags, "HRESULT")
+        result := ComCall(22, this, UInt32, cbEntryID, IntPtr, lpEntryID, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -321,7 +321,7 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-getoutgoingqueue
      */
     GetOutgoingQueue(ulFlags) {
-        result := ComCall(23, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        result := ComCall(23, this, UInt32, ulFlags, "ptr*", &lppTable := 0, "HRESULT")
         return IMAPITable(lppTable)
     }
 
@@ -347,7 +347,7 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-setlockstate
      */
     SetLockState(lpMessage, ulLockState) {
-        result := ComCall(24, this, "ptr", lpMessage, "uint", ulLockState, "HRESULT")
+        result := ComCall(24, this, "ptr", lpMessage, UInt32, ulLockState, "HRESULT")
         return result
     }
 
@@ -368,7 +368,7 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-finishedmsg
      */
     FinishedMsg(ulFlags, cbEntryID, lpEntryID) {
-        result := ComCall(25, this, "uint", ulFlags, "uint", cbEntryID, "ptr", lpEntryID, "HRESULT")
+        result := ComCall(25, this, UInt32, ulFlags, UInt32, cbEntryID, IntPtr, lpEntryID, "HRESULT")
         return result
     }
 

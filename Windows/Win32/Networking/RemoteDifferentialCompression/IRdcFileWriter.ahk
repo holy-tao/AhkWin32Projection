@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRdcFileReader.ahk" { IRdcFileReader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Abstract interface to read from and write to a file.
@@ -47,7 +47,7 @@ export default struct IRdcFileWriter extends IRdcFileReader {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilewriter-write
      */
     Write(offsetFileStart, bytesToWrite) {
-        result := ComCall(6, this, "uint", offsetFileStart, "uint", bytesToWrite, "char*", &_buffer := 0, "HRESULT")
+        result := ComCall(6, this, Int64, offsetFileStart, UInt32, bytesToWrite, "char*", &_buffer := 0, "HRESULT")
         return _buffer
     }
 

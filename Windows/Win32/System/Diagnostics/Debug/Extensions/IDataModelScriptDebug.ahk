@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ScriptDebugEventFilter.ahk" { ScriptDebugEventFilter }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IDataModelScriptDebugBreakpointEnumerator.ahk" { IDataModelScriptDebugBreakpointEnumerator }
-#Import ".\IDataModelScriptDebugClient.ahk" { IDataModelScriptDebugClient }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDataModelScriptDebugBreakpoint.ahk" { IDataModelScriptDebugBreakpoint }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ScriptDebugPosition.ahk" { ScriptDebugPosition }
-#Import ".\IDataModelScriptDebugStack.ahk" { IDataModelScriptDebugStack }
 #Import ".\ScriptDebugState.ahk" { ScriptDebugState }
+#Import ".\IDataModelScriptDebugStack.ahk" { IDataModelScriptDebugStack }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ScriptDebugEventFilter.ahk" { ScriptDebugEventFilter }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDataModelScriptDebugClient.ahk" { IDataModelScriptDebugClient }
+#Import ".\ScriptDebugPosition.ahk" { ScriptDebugPosition }
+#Import ".\IDataModelScriptDebugBreakpoint.ahk" { IDataModelScriptDebugBreakpoint }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -89,7 +89,7 @@ export default struct IDataModelScriptDebug extends IUnknown {
      * @returns {IDataModelScriptDebugBreakpoint} 
      */
     SetBreakpoint(linePosition, columnPosition) {
-        result := ComCall(6, this, "uint", linePosition, "uint", columnPosition, "ptr*", &breakpoint := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, linePosition, UInt32, columnPosition, "ptr*", &breakpoint := 0, "HRESULT")
         return IDataModelScriptDebugBreakpoint(breakpoint)
     }
 
@@ -99,7 +99,7 @@ export default struct IDataModelScriptDebug extends IUnknown {
      * @returns {IDataModelScriptDebugBreakpoint} 
      */
     FindBreakpointById(breakpointId) {
-        result := ComCall(7, this, "uint", breakpointId, "ptr*", &breakpoint := 0, "HRESULT")
+        result := ComCall(7, this, Int64, breakpointId, "ptr*", &breakpoint := 0, "HRESULT")
         return IDataModelScriptDebugBreakpoint(breakpoint)
     }
 
@@ -129,7 +129,7 @@ export default struct IDataModelScriptDebug extends IUnknown {
      * @returns {HRESULT} 
      */
     SetEventFilter(eventFilter, isBreakEnabled) {
-        result := ComCall(10, this, ScriptDebugEventFilter, eventFilter, "char", isBreakEnabled, "HRESULT")
+        result := ComCall(10, this, ScriptDebugEventFilter, eventFilter, Int8, isBreakEnabled, "HRESULT")
         return result
     }
 

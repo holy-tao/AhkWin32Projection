@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides data about the frame buffer size and format and allows the contents to be retrieved.
@@ -108,7 +108,7 @@ export default struct IRDPSRAPIFrameBuffer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-getframebufferbits
      */
     GetFrameBufferBits(x, y, Width, Heigth) {
-        result := ComCall(10, this, "int", x, "int", y, "int", Width, "int", Heigth, "ptr*", &ppBits := 0, "HRESULT")
+        result := ComCall(10, this, Int32, x, Int32, y, Int32, Width, Int32, Heigth, "ptr*", &ppBits := 0, "HRESULT")
         return ppBits
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICRect.ahk" { WICRect }
-#Import ".\IWICBitmapLock.ahk" { IWICBitmapLock }
 #Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICRect.ahk" { WICRect }
 #Import ".\IWICPalette.ahk" { IWICPalette }
+#Import ".\IWICBitmapLock.ahk" { IWICBitmapLock }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods that add the concept of writeability and static in-memory representations of bitmaps to IWICBitmapSource.
@@ -92,7 +92,7 @@ export default struct IWICBitmap extends IWICBitmapSource {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmap-lock
      */
     Lock(prcLock, flags) {
-        result := ComCall(8, this, WICRect.Ptr, prcLock, "uint", flags, "ptr*", &ppILock := 0, "HRESULT")
+        result := ComCall(8, this, WICRect.Ptr, prcLock, UInt32, flags, "ptr*", &ppILock := 0, "HRESULT")
         return IWICBitmapLock(ppILock)
     }
 
@@ -131,7 +131,7 @@ export default struct IWICBitmap extends IWICBitmapSource {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmap-setresolution
      */
     SetResolution(dpiX, dpiY) {
-        result := ComCall(10, this, "double", dpiX, "double", dpiY, "HRESULT")
+        result := ComCall(10, this, Float64, dpiX, Float64, dpiY, "HRESULT")
         return result
     }
 

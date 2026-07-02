@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The dictionary is used by an XPS package to share resources.
@@ -86,7 +86,7 @@ export default struct IXpsOMDictionary extends IUnknown {
     GetAt(index, key) {
         keyMarshal := key is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", index, keyMarshal, key, "ptr*", &entry := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, index, keyMarshal, key, "ptr*", &entry := 0, "HRESULT")
         return IXpsOMShareable(entry)
     }
 
@@ -222,7 +222,7 @@ export default struct IXpsOMDictionary extends IUnknown {
     InsertAt(index, key, entry) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(9, this, "uint", index, "ptr", key, "ptr", entry, "HRESULT")
+        result := ComCall(9, this, UInt32, index, "ptr", key, "ptr", entry, "HRESULT")
         return result
     }
 
@@ -239,7 +239,7 @@ export default struct IXpsOMDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-removeat
      */
     RemoveAt(index) {
-        result := ComCall(10, this, "uint", index, "HRESULT")
+        result := ComCall(10, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -295,7 +295,7 @@ export default struct IXpsOMDictionary extends IUnknown {
     SetAt(index, key, entry) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(11, this, "uint", index, "ptr", key, "ptr", entry, "HRESULT")
+        result := ComCall(11, this, UInt32, index, "ptr", key, "ptr", entry, "HRESULT")
         return result
     }
 

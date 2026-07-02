@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ShellCommandInfo.ahk" { ShellCommandInfo }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\UI_INFO_TYPE.ahk" { UI_INFO_TYPE }
-#Import ".\ShellCommandInfo.ahk" { ShellCommandInfo }
 
 /**
  * The UiInfo structure is used to display repair messages to the user.

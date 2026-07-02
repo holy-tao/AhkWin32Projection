@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\Properties.ahk" { Properties }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MMC_SNAPIN_PROPERTY.ahk" { MMC_SNAPIN_PROPERTY }
+#Import ".\Properties.ahk" { Properties }
 #Import ".\ISnapinPropertiesCallback.ahk" { ISnapinPropertiesCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ISnapinProperties interface enables a snap-in to initialize the snap-in's properties and receive notification when a property is added, changed, or deleted.
@@ -76,7 +76,7 @@ export default struct ISnapinProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nf-mmcobj-isnapinproperties-propertieschanged
      */
     PropertiesChanged(cProperties, pProperties) {
-        result := ComCall(5, this, "int", cProperties, MMC_SNAPIN_PROPERTY.Ptr, pProperties, "HRESULT")
+        result := ComCall(5, this, Int32, cProperties, MMC_SNAPIN_PROPERTY.Ptr, pProperties, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
-#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
 #Import ".\DOT11_ACCESSNETWORKOPTIONS.ahk" { DOT11_ACCESSNETWORKOPTIONS }
-#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
-#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
 #Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 #Import ".\DOT11_VENUEINFO.ahk" { DOT11_VENUEINFO }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

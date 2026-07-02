@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\REGISTRATION_INFORMATION_CLASS.ahk" { REGISTRATION_INFORMATION_CLASS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\MANAGEMENT_SERVICE_INFO.ahk" { MANAGEMENT_SERVICE_INFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\REGISTRATION_INFORMATION_CLASS.ahk" { REGISTRATION_INFORMATION_CLASS }
 
 /**
  * @namespace Windows.Win32.Management.MobileDeviceManagementRegistration
@@ -43,7 +43,7 @@ export GetDeviceRegistrationInfo(DeviceInformationClass) {
 export IsDeviceRegisteredWithManagement(cchUPN, pszUPN) {
     pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
-    result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", BOOL.Ptr, &pfIsDeviceRegisteredWithManagement := 0, "uint", cchUPN, "ptr", pszUPN, "HRESULT")
+    result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", BOOL.Ptr, &pfIsDeviceRegisteredWithManagement := 0, UInt32, cchUPN, "ptr", pszUPN, "HRESULT")
     return pfIsDeviceRegisteredWithManagement
 }
 
@@ -257,7 +257,7 @@ export SetDeviceManagementConfigInfo(providerID, configString) {
 export GetManagementAppHyperlink(cchHyperlink, pszHyperlink) {
     pszHyperlink := pszHyperlink is String ? StrPtr(pszHyperlink) : pszHyperlink
 
-    result := DllCall("MDMRegistration.dll\GetManagementAppHyperlink", "uint", cchHyperlink, "ptr", pszHyperlink, "HRESULT")
+    result := DllCall("MDMRegistration.dll\GetManagementAppHyperlink", UInt32, cchHyperlink, "ptr", pszHyperlink, "HRESULT")
     return result
 }
 

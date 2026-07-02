@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMailUser.ahk" { IMailUser }
-#Import ".\IAddrBook.ahk" { IAddrBook }
+#Import ".\MAPIERROR.ahk" { MAPIERROR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SBinary.ahk" { SBinary }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SBinary.ahk" { SBinary }
-#Import ".\MAPIERROR.ahk" { MAPIERROR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IAddrBook.ahk" { IAddrBook }
 
 /**
  * Do not use. This interface provides access to the Windows Address Book (WAB) object which contains function pointers to memory allocation functions and database maintenance functions.
@@ -61,7 +61,7 @@ export default struct IWABObject extends IUnknown {
     GetLastError(_hResult, ulFlags, lppMAPIError) {
         lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", _hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
+        result := ComCall(3, this, "int", _hResult, UInt32, ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-allocatebuffer
      */
     AllocateBuffer(cbSize) {
-        result := ComCall(4, this, "uint", cbSize, "ptr*", &lppBuffer := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, cbSize, "ptr*", &lppBuffer := 0, "HRESULT")
         return lppBuffer
     }
 
@@ -109,7 +109,7 @@ export default struct IWABObject extends IUnknown {
     AllocateMore(cbSize, lpObject) {
         lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "uint", cbSize, lpObjectMarshal, lpObject, "ptr*", &lppBuffer := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, cbSize, lpObjectMarshal, lpObject, "ptr*", &lppBuffer := 0, "HRESULT")
         return lppBuffer
     }
 
@@ -264,7 +264,7 @@ export default struct IWABObject extends IUnknown {
     LDAPUrl(lpIAB, _hWnd, ulFlags, lpszURL) {
         lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
-        result := ComCall(11, this, "ptr", lpIAB, HWND, _hWnd, "uint", ulFlags, "ptr", lpszURL, "ptr*", &lppMailUser := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", lpIAB, HWND, _hWnd, UInt32, ulFlags, "ptr", lpszURL, "ptr*", &lppMailUser := 0, "HRESULT")
         return IMailUser(lppMailUser)
     }
 
@@ -300,7 +300,7 @@ export default struct IWABObject extends IUnknown {
     VCardCreate(lpIAB, ulFlags, lpszVCard, lpMailUser) {
         lpszVCard := lpszVCard is String ? StrPtr(lpszVCard) : lpszVCard
 
-        result := ComCall(12, this, "ptr", lpIAB, "uint", ulFlags, "ptr", lpszVCard, "ptr", lpMailUser, "HRESULT")
+        result := ComCall(12, this, "ptr", lpIAB, UInt32, ulFlags, "ptr", lpszVCard, "ptr", lpMailUser, "HRESULT")
         return result
     }
 
@@ -340,7 +340,7 @@ export default struct IWABObject extends IUnknown {
     VCardRetrieve(lpIAB, ulFlags, lpszVCard) {
         lpszVCard := lpszVCard is String ? StrPtr(lpszVCard) : lpszVCard
 
-        result := ComCall(13, this, "ptr", lpIAB, "uint", ulFlags, "ptr", lpszVCard, "ptr*", &lppMailUser := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", lpIAB, UInt32, ulFlags, "ptr", lpszVCard, "ptr*", &lppMailUser := 0, "HRESULT")
         return IMailUser(lppMailUser)
     }
 
@@ -407,7 +407,7 @@ export default struct IWABObject extends IUnknown {
     GetMe(lpIAB, ulFlags, lpdwAction, lpsbEID, _hwnd) {
         lpdwActionMarshal := lpdwAction is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", lpIAB, "uint", ulFlags, lpdwActionMarshal, lpdwAction, SBinary.Ptr, lpsbEID, HWND, _hwnd, "HRESULT")
+        result := ComCall(14, this, "ptr", lpIAB, UInt32, ulFlags, lpdwActionMarshal, lpdwAction, SBinary.Ptr, lpsbEID, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -454,7 +454,7 @@ export default struct IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-setme
      */
     SetMe(lpIAB, ulFlags, sbEID, _hwnd) {
-        result := ComCall(15, this, "ptr", lpIAB, "uint", ulFlags, SBinary, sbEID, HWND, _hwnd, "HRESULT")
+        result := ComCall(15, this, "ptr", lpIAB, UInt32, ulFlags, SBinary, sbEID, HWND, _hwnd, "HRESULT")
         return result
     }
 

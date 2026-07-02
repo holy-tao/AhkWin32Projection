@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_FONT_AXIS_ATTRIBUTES.ahk" { DWRITE_FONT_AXIS_ATTRIBUTES }
-#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
-#Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
-#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_FONT_AXIS_RANGE.ahk" { DWRITE_FONT_AXIS_RANGE }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import ".\DWRITE_FONT_AXIS_ATTRIBUTES.ahk" { DWRITE_FONT_AXIS_ATTRIBUTES }
 
 /**
  * Provides axis information for a font resource, and is used to create specific font face instances.
@@ -107,7 +107,7 @@ export default struct IDWriteFontResource extends IUnknown {
      */
     GetDefaultFontAxisValues(fontAxisValueCount) {
         fontAxisValues := DWRITE_FONT_AXIS_VALUE()
-        result := ComCall(6, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
+        result := ComCall(6, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "HRESULT")
         return fontAxisValues
     }
 
@@ -125,7 +125,7 @@ export default struct IDWriteFontResource extends IUnknown {
      */
     GetFontAxisRanges(fontAxisRangeCount) {
         fontAxisRanges := DWRITE_FONT_AXIS_RANGE()
-        result := ComCall(7, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, "uint", fontAxisRangeCount, "HRESULT")
+        result := ComCall(7, this, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRanges, UInt32, fontAxisRangeCount, "HRESULT")
         return fontAxisRanges
     }
 
@@ -140,7 +140,7 @@ export default struct IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getfontaxisattributes
      */
     GetFontAxisAttributes(axisIndex) {
-        result := ComCall(8, this, "uint", axisIndex, DWRITE_FONT_AXIS_ATTRIBUTES)
+        result := ComCall(8, this, UInt32, axisIndex, DWRITE_FONT_AXIS_ATTRIBUTES)
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getaxisnames
      */
     GetAxisNames(axisIndex) {
-        result := ComCall(9, this, "uint", axisIndex, "ptr*", &names := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, axisIndex, "ptr*", &names := 0, "HRESULT")
         return IDWriteLocalizedStrings(names)
     }
 
@@ -172,7 +172,7 @@ export default struct IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getaxisvaluenamecount
      */
     GetAxisValueNameCount(axisIndex) {
-        result := ComCall(10, this, "uint", axisIndex, UInt32)
+        result := ComCall(10, this, UInt32, axisIndex, UInt32)
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getaxisvaluenames
      */
     GetAxisValueNames(axisIndex, axisValueIndex, fontAxisRange, names) {
-        result := ComCall(11, this, "uint", axisIndex, "uint", axisValueIndex, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRange, IDWriteLocalizedStrings.Ptr, names, "HRESULT")
+        result := ComCall(11, this, UInt32, axisIndex, UInt32, axisValueIndex, DWRITE_FONT_AXIS_RANGE.Ptr, fontAxisRange, IDWriteLocalizedStrings.Ptr, names, "HRESULT")
         return result
     }
 
@@ -233,7 +233,7 @@ export default struct IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-createfontface
      */
     CreateFontFace(fontSimulations, fontAxisValues, fontAxisValueCount) {
-        result := ComCall(13, this, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFace := 0, "HRESULT")
+        result := ComCall(13, this, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "ptr*", &fontFace := 0, "HRESULT")
         return IDWriteFontFace5(fontFace)
     }
 
@@ -256,7 +256,7 @@ export default struct IDWriteFontResource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-createfontfacereference
      */
     CreateFontFaceReference(fontSimulations, fontAxisValues, fontAxisValueCount) {
-        result := ComCall(14, this, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
+        result := ComCall(14, this, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference1(fontFaceReference)
     }
 

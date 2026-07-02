@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CONNECTDATA.ahk" { CONNECTDATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates the current connections for a connectable object.
@@ -73,7 +73,7 @@ export default struct IEnumConnections extends IUnknown {
     Next(cConnections, rgcd, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cConnections, CONNECTDATA.Ptr, rgcd, pcFetchedMarshal, pcFetched, Int32)
+        result := ComCall(3, this, UInt32, cConnections, CONNECTDATA.Ptr, rgcd, pcFetchedMarshal, pcFetched, Int32)
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IEnumConnections extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ienumconnections-skip
      */
     Skip(cConnections) {
-        result := ComCall(4, this, "uint", cConnections, "HRESULT")
+        result := ComCall(4, this, UInt32, cConnections, "HRESULT")
         return result
     }
 

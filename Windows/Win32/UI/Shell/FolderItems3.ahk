@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\FolderItems2.ahk" { FolderItems2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FolderItemVerbs.ahk" { FolderItemVerbs }
 
@@ -65,7 +65,7 @@ export default struct FolderItems3 extends FolderItems2 {
     Filter(grfFlags, bstrFileSpec) {
         bstrFileSpec := bstrFileSpec is String ? BSTR.Alloc(bstrFileSpec).Value : bstrFileSpec
 
-        result := ComCall(13, this, "int", grfFlags, BSTR, bstrFileSpec, "HRESULT")
+        result := ComCall(13, this, Int32, grfFlags, BSTR, bstrFileSpec, "HRESULT")
         return result
     }
 

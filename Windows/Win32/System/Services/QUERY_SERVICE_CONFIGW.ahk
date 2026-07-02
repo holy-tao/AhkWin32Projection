@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
-#Import ".\SERVICE_START_TYPE.ahk" { SERVICE_START_TYPE }
 #Import ".\SERVICE_ERROR.ahk" { SERVICE_ERROR }
+#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SERVICE_START_TYPE.ahk" { SERVICE_START_TYPE }
 
 /**
  * Contains configuration information for an installed service. It is used by the QueryServiceConfig function. (Unicode)

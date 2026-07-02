@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Input\KeyboardAndMouse\HKL.ahk" { HKL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface is implemented by the TSF manager and is used by an application or text service to manipulate the substitute input locale identifier (keyboard layout) of a text service profile.
@@ -48,7 +48,7 @@ export default struct ITfInputProcessorProfileSubstituteLayout extends IUnknown 
      */
     GetSubstituteKeyboardLayout(rclsid, langid, guidProfile) {
         phKL := HKL.Owned()
-        result := ComCall(3, this, Guid.Ptr, rclsid, "ushort", langid, Guid.Ptr, guidProfile, HKL.Ptr, phKL, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, UInt16, langid, Guid.Ptr, guidProfile, HKL.Ptr, phKL, "HRESULT")
         return phKL
     }
 

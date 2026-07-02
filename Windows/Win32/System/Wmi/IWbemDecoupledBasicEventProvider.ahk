@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemContext.ahk" { IWbemContext }
 #Import ".\IWbemDecoupledRegistrar.ahk" { IWbemDecoupledRegistrar }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemServices.ahk" { IWbemServices }
-#Import ".\IWbemContext.ahk" { IWbemContext }
-#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 
 /**
  * The IWbemDecoupledBasicEventProvider interface is a cocreatable interface that registers decoupled providers with WMI. The object created should be passed into the pUnknown argument of IWbemDecoupledRegistrar::Register.
@@ -56,7 +56,7 @@ export default struct IWbemDecoupledBasicEventProvider extends IWbemDecoupledReg
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getsink
      */
     GetSink(a_Flags, a_Context) {
-        result := ComCall(5, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Sink := 0, "HRESULT")
+        result := ComCall(5, this, Int32, a_Flags, "ptr", a_Context, "ptr*", &a_Sink := 0, "HRESULT")
         return IWbemObjectSink(a_Sink)
     }
 
@@ -68,7 +68,7 @@ export default struct IWbemDecoupledBasicEventProvider extends IWbemDecoupledReg
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getservice
      */
     GetService(a_Flags, a_Context) {
-        result := ComCall(6, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Service := 0, "HRESULT")
+        result := ComCall(6, this, Int32, a_Flags, "ptr", a_Context, "ptr*", &a_Service := 0, "HRESULT")
         return IWbemServices(a_Service)
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -48,7 +48,7 @@ export default struct IActiveScriptHostEncode extends IUnknown {
         bstrInFile := bstrInFile is String ? BSTR.Alloc(bstrInFile).Value : bstrInFile
         bstrDefaultLang := bstrDefaultLang is String ? BSTR.Alloc(bstrDefaultLang).Value : bstrDefaultLang
 
-        result := ComCall(3, this, BSTR, bstrInFile, BSTR.Ptr, pbstrOutFile, "uint", cFlags, BSTR, bstrDefaultLang, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrInFile, BSTR.Ptr, pbstrOutFile, UInt32, cFlags, BSTR, bstrDefaultLang, "HRESULT")
         return result
     }
 

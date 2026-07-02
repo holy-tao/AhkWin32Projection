@@ -93,7 +93,7 @@ export default struct ITDetectTone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-put_appspecific
      */
     put_AppSpecific(lAppSpecific) {
-        result := ComCall(8, this, "int", lAppSpecific, "HRESULT")
+        result := ComCall(8, this, Int32, lAppSpecific, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct ITDetectTone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-put_duration
      */
     put_Duration(lDuration) {
-        result := ComCall(10, this, "int", lDuration, "HRESULT")
+        result := ComCall(10, this, Int32, lDuration, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct ITDetectTone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_frequency
      */
     get_Frequency(Index) {
-        result := ComCall(11, this, "int", Index, "int*", &plFrequency := 0, "HRESULT")
+        result := ComCall(11, this, Int32, Index, "int*", &plFrequency := 0, "HRESULT")
         return plFrequency
     }
 
@@ -177,7 +177,7 @@ export default struct ITDetectTone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-put_frequency
      */
     put_Frequency(Index, lFrequency) {
-        result := ComCall(12, this, "int", Index, "int", lFrequency, "HRESULT")
+        result := ComCall(12, this, Int32, Index, Int32, lFrequency, "HRESULT")
         return result
     }
 

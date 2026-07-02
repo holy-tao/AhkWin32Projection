@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IPresentStatistics.ahk" { IPresentStatistics }
 #Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\IPresentStatistics.ahk" { IPresentStatistics }
 #Import ".\SystemInterruptTime.ahk" { SystemInterruptTime }
 
 /**

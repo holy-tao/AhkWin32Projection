@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWICComponentInfo.ahk" { IWICComponentInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWICFormatConverter.ahk" { IWICFormatConverter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide information about a pixel format converter.
@@ -57,7 +57,7 @@ export default struct IWICFormatConverterInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverterinfo-getpixelformats
      */
     GetPixelFormats(cFormats, pPixelFormatGUIDs) {
-        result := ComCall(11, this, "uint", cFormats, Guid.Ptr, pPixelFormatGUIDs, "uint*", &pcActual := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, cFormats, Guid.Ptr, pPixelFormatGUIDs, "uint*", &pcActual := 0, "HRESULT")
         return pcActual
     }
 

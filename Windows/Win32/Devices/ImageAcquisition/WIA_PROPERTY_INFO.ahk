@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition

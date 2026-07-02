@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaSourceEx.ahk" { IMFMediaSourceEx }
 
 /**
@@ -43,7 +43,7 @@ export default struct IMFMediaSource2 extends IMFMediaSourceEx {
      * @returns {HRESULT} 
      */
     SetMediaType(dwStreamID, pMediaType) {
-        result := ComCall(16, this, "uint", dwStreamID, "ptr", pMediaType, "HRESULT")
+        result := ComCall(16, this, UInt32, dwStreamID, "ptr", pMediaType, "HRESULT")
         return result
     }
 

@@ -1,4 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PREPLACE_SWAP.ahk" { PREPLACE_SWAP }
+#Import ".\PREPLACE_INITIATE_HARDWARE_MIRROR.ahk" { PREPLACE_INITIATE_HARDWARE_MIRROR }
+#Import ".\PREPLACE_MIRROR_PHYSICAL_MEMORY.ahk" { PREPLACE_MIRROR_PHYSICAL_MEMORY }
+#Import ".\PREPLACE_SET_PROCESSOR_ID.ahk" { PREPLACE_SET_PROCESSOR_ID }
+#Import ".\PREPLACE_END.ahk" { PREPLACE_END }
+#Import ".\PREPLACE_MIRROR_PLATFORM_MEMORY.ahk" { PREPLACE_MIRROR_PLATFORM_MEMORY }
+#Import ".\PREPLACE_BEGIN.ahk" { PREPLACE_BEGIN }
+#Import ".\PREPLACE_UNLOAD.ahk" { PREPLACE_UNLOAD }
+#Import ".\PREPLACE_ENABLE_DISABLE_HARDWARE_QUIESCE.ahk" { PREPLACE_ENABLE_DISABLE_HARDWARE_QUIESCE }
+#Import ".\PREPLACE_GET_MEMORY_DESTINATION.ahk" { PREPLACE_GET_MEMORY_DESTINATION }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -12,24 +22,24 @@ export default struct PNP_REPLACE_DRIVER_INTERFACE {
 
     Flags : UInt32
 
-    Unload : IntPtr
+    Unload : PREPLACE_UNLOAD
 
-    BeginReplace : IntPtr
+    BeginReplace : PREPLACE_BEGIN
 
-    EndReplace : IntPtr
+    EndReplace : PREPLACE_END
 
-    MirrorPhysicalMemory : IntPtr
+    MirrorPhysicalMemory : PREPLACE_MIRROR_PHYSICAL_MEMORY
 
-    SetProcessorId : IntPtr
+    SetProcessorId : PREPLACE_SET_PROCESSOR_ID
 
-    Swap : IntPtr
+    Swap : PREPLACE_SWAP
 
-    InitiateHardwareMirror : IntPtr
+    InitiateHardwareMirror : PREPLACE_INITIATE_HARDWARE_MIRROR
 
-    MirrorPlatformMemory : IntPtr
+    MirrorPlatformMemory : PREPLACE_MIRROR_PLATFORM_MEMORY
 
-    GetMemoryDestination : IntPtr
+    GetMemoryDestination : PREPLACE_GET_MEMORY_DESTINATION
 
-    EnableDisableHardwareQuiesce : IntPtr
+    EnableDisableHardwareQuiesce : PREPLACE_ENABLE_DISABLE_HARDWARE_QUIESCE
 
 }

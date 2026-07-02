@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D10_SIGNATURE_PARAMETER_DESC.ahk" { D3D10_SIGNATURE_PARAMETER_DESC }
-#Import "..\Direct3D\D3D_PRIMITIVE.ahk" { D3D_PRIMITIVE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ID3D10ShaderReflectionConstantBuffer.ahk" { ID3D10ShaderReflectionConstantBuffer }
-#Import ".\ID3D10ShaderReflectionVariable.ahk" { ID3D10ShaderReflectionVariable }
 #Import ".\D3D10_SHADER_INPUT_BIND_DESC.ahk" { D3D10_SHADER_INPUT_BIND_DESC }
 #Import ".\D3D10_SHADER_DESC.ahk" { D3D10_SHADER_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ID3D10ShaderReflectionConstantBuffer.ahk" { ID3D10ShaderReflectionConstantBuffer }
+#Import ".\D3D10_SIGNATURE_PARAMETER_DESC.ahk" { D3D10_SIGNATURE_PARAMETER_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Direct3D\D3D_PRIMITIVE.ahk" { D3D_PRIMITIVE }
+#Import ".\ID3D10ShaderReflectionVariable.ahk" { ID3D10ShaderReflectionVariable }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D10ShaderReflection1)
@@ -77,7 +77,7 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
      * @returns {ID3D10ShaderReflectionConstantBuffer} 
      */
     GetConstantBufferByIndex(Index) {
-        result := ComCall(4, this, "uint", Index, ID3D10ShaderReflectionConstantBuffer)
+        result := ComCall(4, this, UInt32, Index, ID3D10ShaderReflectionConstantBuffer)
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D10_SHADER_INPUT_BIND_DESC()
-        result := ComCall(6, this, "uint", ResourceIndex, D3D10_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(6, this, UInt32, ResourceIndex, D3D10_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -111,7 +111,7 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
      */
     GetInputParameterDesc(ParameterIndex) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(7, this, "uint", ParameterIndex, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(7, this, UInt32, ParameterIndex, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -122,7 +122,7 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
      */
     GetOutputParameterDesc(ParameterIndex) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(8, this, "uint", ParameterIndex, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(8, this, UInt32, ParameterIndex, D3D10_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 

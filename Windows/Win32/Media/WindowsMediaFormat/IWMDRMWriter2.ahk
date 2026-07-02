@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IWMDRMWriter.ahk" { IWMDRMWriter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IWMDRMWriter2 interface provides a method that enables you to write content encrypted with Windows Media DRM 10 for Network Devices.An IWMDRMWriter2 interface exists for every writer object.
@@ -73,7 +73,7 @@ export default struct IWMDRMWriter2 extends IWMDRMWriter {
     SetWMDRMNetEncryption(fSamplesEncrypted, pbKeyID, cbKeyID) {
         pbKeyIDMarshal := pbKeyID is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, BOOL, fSamplesEncrypted, pbKeyIDMarshal, pbKeyID, "uint", cbKeyID, "HRESULT")
+        result := ComCall(7, this, BOOL, fSamplesEncrypted, pbKeyIDMarshal, pbKeyID, UInt32, cbKeyID, "HRESULT")
         return result
     }
 

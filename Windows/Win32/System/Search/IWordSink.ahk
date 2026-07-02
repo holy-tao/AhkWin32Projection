@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Storage\IndexServer\WORDREP_BREAK_TYPE.ahk" { WORDREP_BREAK_TYPE }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Handles words identified by word breaks during both index time and query time.
@@ -75,7 +75,7 @@ export default struct IWordSink extends IUnknown {
     PutWord(cwc, pwcInBuf, cwcSrcLen, cwcSrcPos) {
         pwcInBuf := pwcInBuf is String ? StrPtr(pwcInBuf) : pwcInBuf
 
-        result := ComCall(3, this, "uint", cwc, "ptr", pwcInBuf, "uint", cwcSrcLen, "uint", cwcSrcPos, "HRESULT")
+        result := ComCall(3, this, UInt32, cwc, "ptr", pwcInBuf, UInt32, cwcSrcLen, UInt32, cwcSrcPos, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IWordSink extends IUnknown {
     PutAltWord(cwc, pwcInBuf, cwcSrcLen, cwcSrcPos) {
         pwcInBuf := pwcInBuf is String ? StrPtr(pwcInBuf) : pwcInBuf
 
-        result := ComCall(4, this, "uint", cwc, "ptr", pwcInBuf, "uint", cwcSrcLen, "uint", cwcSrcPos, "HRESULT")
+        result := ComCall(4, this, UInt32, cwc, "ptr", pwcInBuf, UInt32, cwcSrcLen, UInt32, cwcSrcPos, "HRESULT")
         return result
     }
 

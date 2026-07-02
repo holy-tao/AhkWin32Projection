@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaPropertyBag interface is exposed by the Media Property Bag object.
@@ -113,7 +113,7 @@ export default struct IMediaPropertyBag extends IPropertyBag {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediapropertybag-enumproperty
      */
     EnumProperty(iProperty, pvarPropertyName, pvarPropertyValue) {
-        result := ComCall(5, this, "uint", iProperty, VARIANT.Ptr, pvarPropertyName, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
+        result := ComCall(5, this, UInt32, iProperty, VARIANT.Ptr, pvarPropertyName, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return result
     }
 

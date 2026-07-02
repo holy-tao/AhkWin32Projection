@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVssExamineWriterMetadataEx.ahk" { IVssExamineWriterMetadataEx }
 #Import ".\IVssWMFiledesc.ahk" { IVssWMFiledesc }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods to retrieve version information and other basic information for a specific writer instance.
@@ -136,7 +136,7 @@ export default struct IVssExamineWriterMetadataEx2 extends IVssExamineWriterMeta
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadataex2-getexcludefromsnapshotfile
      */
     GetExcludeFromSnapshotFile(iFile) {
-        result := ComCall(17, this, "uint", iFile, "ptr*", &ppFiledesc := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, iFile, "ptr*", &ppFiledesc := 0, "HRESULT")
         return IVssWMFiledesc(ppFiledesc)
     }
 

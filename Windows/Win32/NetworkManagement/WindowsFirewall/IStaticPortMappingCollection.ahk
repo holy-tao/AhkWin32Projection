@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IStaticPortMapping.ahk" { IStaticPortMapping }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IStaticPortMapping.ahk" { IStaticPortMapping }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IStaticPortMappingCollection interface provides methods to manage the collection of static port mappings.
@@ -82,7 +82,7 @@ export default struct IStaticPortMappingCollection extends IDispatch {
     get_Item(lExternalPort, bstrProtocol) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(8, this, "int", lExternalPort, BSTR, bstrProtocol, "ptr*", &ppSPM := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lExternalPort, BSTR, bstrProtocol, "ptr*", &ppSPM := 0, "HRESULT")
         return IStaticPortMapping(ppSPM)
     }
 
@@ -205,7 +205,7 @@ export default struct IStaticPortMappingCollection extends IDispatch {
     Remove(lExternalPort, bstrProtocol) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(10, this, "int", lExternalPort, BSTR, bstrProtocol, "HRESULT")
+        result := ComCall(10, this, Int32, lExternalPort, BSTR, bstrProtocol, "HRESULT")
         return result
     }
 
@@ -229,7 +229,7 @@ export default struct IStaticPortMappingCollection extends IDispatch {
         bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(11, this, "int", lExternalPort, BSTR, bstrProtocol, "int", lInternalPort, BSTR, bstrInternalClient, VARIANT_BOOL, bEnabled, BSTR, bstrDescription, "ptr*", &ppSPM := 0, "HRESULT")
+        result := ComCall(11, this, Int32, lExternalPort, BSTR, bstrProtocol, Int32, lInternalPort, BSTR, bstrInternalClient, VARIANT_BOOL, bEnabled, BSTR, bstrDescription, "ptr*", &ppSPM := 0, "HRESULT")
         return IStaticPortMapping(ppSPM)
     }
 

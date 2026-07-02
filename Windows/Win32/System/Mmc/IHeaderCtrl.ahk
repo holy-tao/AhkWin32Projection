@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables the manipulation of columns and indicates the kind of information that is to be presented in the result view pane of the console.
@@ -62,7 +62,7 @@ export default struct IHeaderCtrl extends IUnknown {
     InsertColumn(nCol, title, nFormat, nWidth) {
         title := title is String ? StrPtr(title) : title
 
-        result := ComCall(3, this, "int", nCol, "ptr", title, "int", nFormat, "int", nWidth, "HRESULT")
+        result := ComCall(3, this, Int32, nCol, "ptr", title, Int32, nFormat, Int32, nWidth, "HRESULT")
         return result
     }
 
@@ -81,7 +81,7 @@ export default struct IHeaderCtrl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-deletecolumn
      */
     DeleteColumn(nCol) {
-        result := ComCall(4, this, "int", nCol, "HRESULT")
+        result := ComCall(4, this, Int32, nCol, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IHeaderCtrl extends IUnknown {
     SetColumnText(nCol, title) {
         title := title is String ? StrPtr(title) : title
 
-        result := ComCall(5, this, "int", nCol, "ptr", title, "HRESULT")
+        result := ComCall(5, this, Int32, nCol, "ptr", title, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct IHeaderCtrl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-getcolumntext
      */
     GetColumnText(nCol) {
-        result := ComCall(6, this, "int", nCol, PWSTR.Ptr, &pText := 0, "HRESULT")
+        result := ComCall(6, this, Int32, nCol, PWSTR.Ptr, &pText := 0, "HRESULT")
         return pText
     }
 
@@ -128,7 +128,7 @@ export default struct IHeaderCtrl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-setcolumnwidth
      */
     SetColumnWidth(nCol, nWidth) {
-        result := ComCall(7, this, "int", nCol, "int", nWidth, "HRESULT")
+        result := ComCall(7, this, Int32, nCol, Int32, nWidth, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IHeaderCtrl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-getcolumnwidth
      */
     GetColumnWidth(nCol) {
-        result := ComCall(8, this, "int", nCol, "int*", &pWidth := 0, "HRESULT")
+        result := ComCall(8, this, Int32, nCol, "int*", &pWidth := 0, "HRESULT")
         return pWidth
     }
 

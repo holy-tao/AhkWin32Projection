@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITAddress.ahk" { ITAddress }
-#Import ".\TAPI_EVENT.ahk" { TAPI_EVENT }
+#Import ".\ITTerminal.ahk" { ITTerminal }
 #Import ".\ITCallInfo.ahk" { ITCallInfo }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumPhone.ahk" { IEnumPhone }
-#Import ".\ITTerminal.ahk" { ITTerminal }
-#Import ".\ITPhone.ahk" { ITPhone }
+#Import ".\ITAddress.ahk" { ITAddress }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ITPhone.ahk" { ITPhone }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TAPI_EVENT.ahk" { TAPI_EVENT }
 
 /**
  * The ITAddress2 interface derives from the ITAddress interface. ITAddress2 adds methods to the Address object in order to support phone devices. All Address objects enumerated from TAPI 3.1 automatically implement this interface.
@@ -166,7 +166,7 @@ export default struct ITAddress2 extends ITAddress {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-get_eventfilter
      */
     get_EventFilter(TapiEvent, lSubEvent) {
-        result := ComCall(27, this, TAPI_EVENT, TapiEvent, "int", lSubEvent, VARIANT_BOOL.Ptr, &pEnable := 0, "HRESULT")
+        result := ComCall(27, this, TAPI_EVENT, TapiEvent, Int32, lSubEvent, VARIANT_BOOL.Ptr, &pEnable := 0, "HRESULT")
         return pEnable
     }
 
@@ -180,7 +180,7 @@ export default struct ITAddress2 extends ITAddress {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-put_eventfilter
      */
     put_EventFilter(TapiEvent, lSubEvent, bEnable) {
-        result := ComCall(28, this, TAPI_EVENT, TapiEvent, "int", lSubEvent, VARIANT_BOOL, bEnable, "HRESULT")
+        result := ComCall(28, this, TAPI_EVENT, TapiEvent, Int32, lSubEvent, VARIANT_BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -236,7 +236,7 @@ export default struct ITAddress2 extends ITAddress {
     DeviceSpecific(pCall, pParams, dwSize) {
         pParamsMarshal := pParams is VarRef ? "char*" : "ptr"
 
-        result := ComCall(29, this, "ptr", pCall, pParamsMarshal, pParams, "uint", dwSize, "HRESULT")
+        result := ComCall(29, this, "ptr", pCall, pParamsMarshal, pParams, UInt32, dwSize, "HRESULT")
         return result
     }
 
@@ -303,7 +303,7 @@ export default struct ITAddress2 extends ITAddress {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-negotiateextversion
      */
     NegotiateExtVersion(lLowVersion, lHighVersion) {
-        result := ComCall(31, this, "int", lLowVersion, "int", lHighVersion, "int*", &plExtVersion := 0, "HRESULT")
+        result := ComCall(31, this, Int32, lLowVersion, Int32, lHighVersion, "int*", &plExtVersion := 0, "HRESULT")
         return plExtVersion
     }
 

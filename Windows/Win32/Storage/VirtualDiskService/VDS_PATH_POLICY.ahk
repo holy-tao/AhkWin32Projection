@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_PATH_ID.ahk" { VDS_PATH_ID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VDS_PATH_ID.ahk" { VDS_PATH_ID }
 
 /**
  * The VDS_PATH_POLICY structure (vdshwprv.h) defines the load balance policy as it applies to a particular path.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AMBISONICS_PARAMS.ahk" { AMBISONICS_PARAMS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AMBISONICS_PARAMS.ahk" { AMBISONICS_PARAMS }
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -47,7 +47,7 @@ export default struct IAudioAmbisonicsControl extends IUnknown {
      * @returns {HRESULT} 
      */
     SetData(pAmbisonicsParams, cbAmbisonicsParams) {
-        result := ComCall(3, this, AMBISONICS_PARAMS.Ptr, pAmbisonicsParams, "uint", cbAmbisonicsParams, "HRESULT")
+        result := ComCall(3, this, AMBISONICS_PARAMS.Ptr, pAmbisonicsParams, UInt32, cbAmbisonicsParams, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct IAudioAmbisonicsControl extends IUnknown {
      * @returns {HRESULT} 
      */
     SetRotation(X, Y, Z, W) {
-        result := ComCall(6, this, "float", X, "float", Y, "float", Z, "float", W, "HRESULT")
+        result := ComCall(6, this, Float32, X, Float32, Y, Float32, Z, Float32, W, "HRESULT")
         return result
     }
 

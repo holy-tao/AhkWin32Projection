@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS.ahk" { HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS }
-#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS.ahk" { HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 
 /**
  * Used to enable server-side authentication on a URL group or server session.

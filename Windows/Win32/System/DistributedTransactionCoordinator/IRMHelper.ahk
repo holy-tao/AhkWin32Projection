@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\xa_switch_t.ahk" { xa_switch_t }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\xa_switch_t.ahk" { xa_switch_t }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -45,7 +45,7 @@ export default struct IRMHelper extends IUnknown {
      * @returns {HRESULT} 
      */
     RMCount(dwcTotalNumberOfRMs) {
-        result := ComCall(3, this, "uint", dwcTotalNumberOfRMs, "HRESULT")
+        result := ComCall(3, this, UInt32, dwcTotalNumberOfRMs, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\HTREEITEM.ahk" { HTREEITEM }
 
 /**

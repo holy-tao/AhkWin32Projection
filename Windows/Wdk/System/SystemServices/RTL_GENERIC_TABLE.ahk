@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\RTL_SPLAY_LINKS.ahk" { RTL_SPLAY_LINKS }
+#Import ".\PRTL_GENERIC_FREE_ROUTINE.ahk" { PRTL_GENERIC_FREE_ROUTINE }
+#Import ".\PRTL_GENERIC_ALLOCATE_ROUTINE.ahk" { PRTL_GENERIC_ALLOCATE_ROUTINE }
 #Import "..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
+#Import ".\PRTL_GENERIC_COMPARE_ROUTINE.ahk" { PRTL_GENERIC_COMPARE_ROUTINE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -18,11 +21,11 @@ export default struct RTL_GENERIC_TABLE {
 
     NumberGenericTableElements : UInt32
 
-    CompareRoutine : IntPtr
+    CompareRoutine : PRTL_GENERIC_COMPARE_ROUTINE
 
-    AllocateRoutine : IntPtr
+    AllocateRoutine : PRTL_GENERIC_ALLOCATE_ROUTINE
 
-    FreeRoutine : IntPtr
+    FreeRoutine : PRTL_GENERIC_FREE_ROUTINE
 
     TableContext : IntPtr
 

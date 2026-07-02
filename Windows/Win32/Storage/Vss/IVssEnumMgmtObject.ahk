@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VSS_MGMT_OBJECT_PROP.ahk" { VSS_MGMT_OBJECT_PROP }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains methods to iterate over and perform other operations on a list of enumerated objects. (IVssEnumMgmtObject)
@@ -53,7 +53,7 @@ export default struct IVssEnumMgmtObject extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, VSS_MGMT_OBJECT_PROP.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, VSS_MGMT_OBJECT_PROP.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IVssEnumMgmtObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssenummgmtobject-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

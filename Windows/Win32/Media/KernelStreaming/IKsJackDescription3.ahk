@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\KSJACK_DESCRIPTION3.ahk" { KSJACK_DESCRIPTION3 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -53,7 +53,7 @@ export default struct IKsJackDescription3 extends IUnknown {
      */
     GetJackDescription3(nJack) {
         pDescription3 := KSJACK_DESCRIPTION3()
-        result := ComCall(4, this, "uint", nJack, KSJACK_DESCRIPTION3.Ptr, pDescription3, "HRESULT")
+        result := ComCall(4, this, UInt32, nJack, KSJACK_DESCRIPTION3.Ptr, pDescription3, "HRESULT")
         return pDescription3
     }
 

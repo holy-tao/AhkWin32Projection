@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DEBUG_BREAKPOINT_PARAMETERS.ahk" { DEBUG_BREAKPOINT_PARAMETERS }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDebugClient.ahk" { IDebugClient }
-#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -105,7 +105,7 @@ export default struct IDebugBreakpoint extends IUnknown {
      * @returns {HRESULT} 
      */
     AddFlags(Flags) {
-        result := ComCall(7, this, "uint", Flags, "HRESULT")
+        result := ComCall(7, this, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IDebugBreakpoint extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveFlags(Flags) {
-        result := ComCall(8, this, "uint", Flags, "HRESULT")
+        result := ComCall(8, this, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -207,7 +207,7 @@ export default struct IDebugBreakpoint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setflags
      */
     SetFlags(Flags) {
-        result := ComCall(9, this, "uint", Flags, "HRESULT")
+        result := ComCall(9, this, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -226,7 +226,7 @@ export default struct IDebugBreakpoint extends IUnknown {
      * @returns {HRESULT} 
      */
     SetOffset(Offset) {
-        result := ComCall(11, this, "uint", Offset, "HRESULT")
+        result := ComCall(11, this, Int64, Offset, "HRESULT")
         return result
     }
 
@@ -251,7 +251,7 @@ export default struct IDebugBreakpoint extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDataParameters(_Size, AccessType) {
-        result := ComCall(13, this, "uint", _Size, "uint", AccessType, "HRESULT")
+        result := ComCall(13, this, UInt32, _Size, UInt32, AccessType, "HRESULT")
         return result
     }
 
@@ -270,7 +270,7 @@ export default struct IDebugBreakpoint extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPassCount(Count) {
-        result := ComCall(15, this, "uint", Count, "HRESULT")
+        result := ComCall(15, this, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -298,7 +298,7 @@ export default struct IDebugBreakpoint extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMatchThreadId(Thread) {
-        result := ComCall(18, this, "uint", Thread, "HRESULT")
+        result := ComCall(18, this, UInt32, Thread, "HRESULT")
         return result
     }
 
@@ -311,7 +311,7 @@ export default struct IDebugBreakpoint extends IUnknown {
     GetCommand(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(19, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
@@ -336,7 +336,7 @@ export default struct IDebugBreakpoint extends IUnknown {
     GetOffsetExpression(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(21, this, "ptr", _Buffer, "uint", BufferSize, "uint*", &ExpressionSize := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ExpressionSize := 0, "HRESULT")
         return ExpressionSize
     }
 

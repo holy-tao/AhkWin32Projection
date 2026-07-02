@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMOverlayFX interface controls how the video overlay appears on the user's screen. The Overlay Mixer filter implements this interface.
@@ -98,7 +98,7 @@ export default struct IAMOverlayFX extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamoverlayfx-setoverlayfx
      */
     SetOverlayFX(dwOverlayFX) {
-        result := ComCall(4, this, "uint", dwOverlayFX, "HRESULT")
+        result := ComCall(4, this, UInt32, dwOverlayFX, "HRESULT")
         return result
     }
 

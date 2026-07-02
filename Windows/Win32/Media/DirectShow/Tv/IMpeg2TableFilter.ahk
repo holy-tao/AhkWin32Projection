@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMpeg2TableFilter interface controls which tables are parsed by the MPEG-2 Sections and Tables filter. The BDA MPEG-2 Transport Information filter exposes this interface on its output pins.
@@ -51,7 +51,7 @@ export default struct IMpeg2TableFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2tablefilter-addpid
      */
     AddPID(p) {
-        result := ComCall(3, this, "ushort", p, "HRESULT")
+        result := ComCall(3, this, UInt16, p, "HRESULT")
         return result
     }
 
@@ -63,7 +63,7 @@ export default struct IMpeg2TableFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2tablefilter-addtable
      */
     AddTable(p, t) {
-        result := ComCall(4, this, "ushort", p, "char", t, "HRESULT")
+        result := ComCall(4, this, UInt16, p, Int8, t, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IMpeg2TableFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2tablefilter-addextension
      */
     AddExtension(p, t, e) {
-        result := ComCall(5, this, "ushort", p, "char", t, "ushort", e, "HRESULT")
+        result := ComCall(5, this, UInt16, p, Int8, t, UInt16, e, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IMpeg2TableFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2tablefilter-removepid
      */
     RemovePID(p) {
-        result := ComCall(6, this, "ushort", p, "HRESULT")
+        result := ComCall(6, this, UInt16, p, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IMpeg2TableFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2tablefilter-removetable
      */
     RemoveTable(p, t) {
-        result := ComCall(7, this, "ushort", p, "char", t, "HRESULT")
+        result := ComCall(7, this, UInt16, p, Int8, t, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IMpeg2TableFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2tablefilter-removeextension
      */
     RemoveExtension(p, t, e) {
-        result := ComCall(8, this, "ushort", p, "char", t, "ushort", e, "HRESULT")
+        result := ComCall(8, this, UInt16, p, Int8, t, UInt16, e, "HRESULT")
         return result
     }
 

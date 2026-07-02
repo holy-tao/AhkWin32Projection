@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import ".\IDirect3D9.ahk" { IDirect3D9 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDirect3D9Ex.ahk" { IDirect3D9Ex }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirect3D9.ahk" { IDirect3D9 }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -43,7 +43,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-direct3dcreate9
  */
 export Direct3DCreate9(SDKVersion) {
-    result := DllCall("d3d9.dll\Direct3DCreate9", "uint", SDKVersion, IDirect3D9)
+    result := DllCall("d3d9.dll\Direct3DCreate9", UInt32, SDKVersion, IDirect3D9)
     return result
 }
 
@@ -61,7 +61,7 @@ export Direct3DCreate9(SDKVersion) {
 export D3DPERF_BeginEvent(col, wszName) {
     wszName := wszName is String ? StrPtr(wszName) : wszName
 
-    result := DllCall("d3d9.dll\D3DPERF_BeginEvent", "uint", col, "ptr", wszName, Int32)
+    result := DllCall("d3d9.dll\D3DPERF_BeginEvent", UInt32, col, "ptr", wszName, Int32)
     return result
 }
 
@@ -87,7 +87,7 @@ export D3DPERF_EndEvent() {
 export D3DPERF_SetMarker(col, wszName) {
     wszName := wszName is String ? StrPtr(wszName) : wszName
 
-    DllCall("d3d9.dll\D3DPERF_SetMarker", "uint", col, "ptr", wszName)
+    DllCall("d3d9.dll\D3DPERF_SetMarker", UInt32, col, "ptr", wszName)
 }
 
 /**
@@ -102,7 +102,7 @@ export D3DPERF_SetMarker(col, wszName) {
 export D3DPERF_SetRegion(col, wszName) {
     wszName := wszName is String ? StrPtr(wszName) : wszName
 
-    DllCall("d3d9.dll\D3DPERF_SetRegion", "uint", col, "ptr", wszName)
+    DllCall("d3d9.dll\D3DPERF_SetRegion", UInt32, col, "ptr", wszName)
 }
 
 /**
@@ -124,7 +124,7 @@ export D3DPERF_QueryRepeatFrame() {
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setoptions
  */
 export D3DPERF_SetOptions(dwOptions) {
-    DllCall("d3d9.dll\D3DPERF_SetOptions", "uint", dwOptions)
+    DllCall("d3d9.dll\D3DPERF_SetOptions", UInt32, dwOptions)
 }
 
 /**
@@ -162,11 +162,14 @@ export D3DPERF_GetStatus() {
  * @param {Integer} SDKVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
  * 
  * The value of this parameter should be <b>D3D_SDK_VERSION</b>. See Remarks.
- * @returns {IDirect3D9Ex} 
+ * @returns {IDirect3D9Ex} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3d9ex">IDirect3D9Ex</a>**</b>
+ * 
+ * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3d9ex">IDirect3D9Ex</a> interface, representing the
+ *           created <b>IDirect3D9Ex</b> object. If the function fails, <b>NULL</b> is inserted here.
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-direct3dcreate9ex
  */
 export Direct3DCreate9Ex(SDKVersion) {
-    result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr*", &param1 := 0, "HRESULT")
+    result := DllCall("d3d9.dll\Direct3DCreate9Ex", UInt32, SDKVersion, "ptr*", &param1 := 0, "HRESULT")
     return IDirect3D9Ex(param1)
 }
 

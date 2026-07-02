@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Graphics\Direct3D9\D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT.ahk" { D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a communication channel with the graphics driver or the Direct3D runtime.To get a pointer to this interface, call IDirect3DDevice9Video::CreateAuthenticatedChannel.
@@ -73,7 +73,7 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
     GetCertificate(CertifacteSize, ppCertificate) {
         ppCertificateMarshal := ppCertificate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", CertifacteSize, ppCertificateMarshal, ppCertificate, "HRESULT")
+        result := ComCall(4, this, UInt32, CertifacteSize, ppCertificateMarshal, ppCertificate, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
     NegotiateKeyExchange(DataSize, pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "uint", DataSize, pDataMarshal, pData, "HRESULT")
+        result := ComCall(5, this, UInt32, DataSize, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
         pInputMarshal := pInput is VarRef ? "ptr" : "ptr"
         pOutputMarshal := pOutput is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "uint", InputSize, pInputMarshal, pInput, "uint", OutputSize, pOutputMarshal, pOutput, "HRESULT")
+        result := ComCall(6, this, UInt32, InputSize, pInputMarshal, pInput, UInt32, OutputSize, pOutputMarshal, pOutput, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
     Configure(InputSize, pInput, pOutput) {
         pInputMarshal := pInput is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "uint", InputSize, pInputMarshal, pInput, D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT.Ptr, pOutput, "HRESULT")
+        result := ComCall(7, this, UInt32, InputSize, pInputMarshal, pInput, D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT.Ptr, pOutput, "HRESULT")
         return result
     }
 

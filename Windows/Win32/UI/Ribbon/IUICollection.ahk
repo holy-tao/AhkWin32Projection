@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUICollection interface is implemented by the Ribbon framework.
@@ -66,7 +66,7 @@ export default struct IUICollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-getitem
      */
     GetItem(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &item := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &item := 0, "HRESULT")
         return IUnknown(item)
     }
 
@@ -99,7 +99,7 @@ export default struct IUICollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-insert
      */
     Insert(index, item) {
-        result := ComCall(6, this, "uint", index, "ptr", item, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "ptr", item, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IUICollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(7, this, "uint", index, "HRESULT")
+        result := ComCall(7, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IUICollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollection-replace
      */
     Replace(indexReplaced, itemReplaceWith) {
-        result := ComCall(8, this, "uint", indexReplaced, "ptr", itemReplaceWith, "HRESULT")
+        result := ComCall(8, this, UInt32, indexReplaced, "ptr", itemReplaceWith, "HRESULT")
         return result
     }
 

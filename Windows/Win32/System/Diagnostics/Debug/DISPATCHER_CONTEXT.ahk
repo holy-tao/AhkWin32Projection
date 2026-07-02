@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CONTEXT.ahk" { CONTEXT }
-#Import ".\IMAGE_RUNTIME_FUNCTION_ENTRY.ahk" { IMAGE_RUNTIME_FUNCTION_ENTRY }
 #Import ".\UNWIND_HISTORY_TABLE.ahk" { UNWIND_HISTORY_TABLE }
+#Import ".\IMAGE_RUNTIME_FUNCTION_ENTRY.ahk" { IMAGE_RUNTIME_FUNCTION_ENTRY }
+#Import ".\CONTEXT.ahk" { CONTEXT }
+#Import "..\..\Kernel\EXCEPTION_ROUTINE.ahk" { EXCEPTION_ROUTINE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -22,7 +23,7 @@ export default struct DISPATCHER_CONTEXT {
 
     ContextRecord : CONTEXT.Ptr
 
-    LanguageHandler : IntPtr
+    LanguageHandler : EXCEPTION_ROUTINE
 
     HandlerData : IntPtr
 

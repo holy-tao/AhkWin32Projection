@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\InkRecognitionStatus.ahk" { InkRecognitionStatus }
-#Import ".\InkRecognizerCharacterAutoCompletionMode.ahk" { InkRecognizerCharacterAutoCompletionMode }
-#Import ".\IInkWordList.ahk" { IInkWordList }
-#Import ".\InkRecognitionModes.ahk" { InkRecognitionModes }
-#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IInkRecognizer.ahk" { IInkRecognizer }
-#Import ".\IInkRecognizerGuide.ahk" { IInkRecognizerGuide }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InkRecognizerCharacterAutoCompletionMode.ahk" { InkRecognizerCharacterAutoCompletionMode }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
+#Import ".\InkRecognitionStatus.ahk" { InkRecognitionStatus }
+#Import ".\InkRecognitionModes.ahk" { InkRecognitionModes }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IInkWordList.ahk" { IInkWordList }
+#Import ".\IInkRecognizerGuide.ahk" { IInkRecognizerGuide }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * . (IInkRecognizerContext)

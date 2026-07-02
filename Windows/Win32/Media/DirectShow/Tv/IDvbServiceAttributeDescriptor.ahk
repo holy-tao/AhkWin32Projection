@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -74,7 +74,7 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
      * @returns {Integer} 
      */
     GetRecordServiceId(bRecordIndex) {
-        result := ComCall(6, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(6, this, Int8, bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
         return pwVal
     }
 
@@ -84,7 +84,7 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
      * @returns {BOOL} 
      */
     GetRecordNumericSelectionFlag(bRecordIndex) {
-        result := ComCall(7, this, "char", bRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -94,7 +94,7 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
      * @returns {BOOL} 
      */
     GetRecordVisibleServiceFlag(bRecordIndex) {
-        result := ComCall(8, this, "char", bRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 

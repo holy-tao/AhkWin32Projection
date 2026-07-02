@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\WLAN_INTERFACE_STATE.ahk" { WLAN_INTERFACE_STATE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WLAN_INTERFACE_INFO.ahk" { WLAN_INTERFACE_INFO }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

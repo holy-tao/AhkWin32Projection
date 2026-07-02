@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MINIDUMP_LOCATION_DESCRIPTOR.ahk" { MINIDUMP_LOCATION_DESCRIPTOR }
-#Import ".\MINIDUMP_MODULE.ahk" { MINIDUMP_MODULE }
-#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk" { VS_FIXEDFILEINFO_FILE_OS }
-#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk" { VS_FIXEDFILEINFO_FILE_FLAGS }
 #Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk" { VS_FIXEDFILEINFO }
+#Import ".\MINIDUMP_MODULE.ahk" { MINIDUMP_MODULE }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk" { VS_FIXEDFILEINFO_FILE_FLAGS }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk" { VS_FIXEDFILEINFO_FILE_OS }
+#Import ".\MINIDUMP_LOCATION_DESCRIPTOR.ahk" { MINIDUMP_LOCATION_DESCRIPTOR }
 
 /**
  * Contains a list of modules.

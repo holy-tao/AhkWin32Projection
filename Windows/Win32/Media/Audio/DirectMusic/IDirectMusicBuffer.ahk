@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -80,7 +80,7 @@ export default struct IDirectMusicBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     PackStructured(rt, dwChannelGroup, dwChannelMessage) {
-        result := ComCall(5, this, "int64", rt, "uint", dwChannelGroup, "uint", dwChannelMessage, "HRESULT")
+        result := ComCall(5, this, Int64, rt, UInt32, dwChannelGroup, UInt32, dwChannelMessage, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IDirectMusicBuffer extends IUnknown {
     PackUnstructured(rt, dwChannelGroup, cb, lpb) {
         lpbMarshal := lpb is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "int64", rt, "uint", dwChannelGroup, "uint", cb, lpbMarshal, lpb, "HRESULT")
+        result := ComCall(6, this, Int64, rt, UInt32, dwChannelGroup, UInt32, cb, lpbMarshal, lpb, "HRESULT")
         return result
     }
 
@@ -190,7 +190,7 @@ export default struct IDirectMusicBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetStartTime(rt) {
-        result := ComCall(14, this, "int64", rt, "HRESULT")
+        result := ComCall(14, this, Int64, rt, "HRESULT")
         return result
     }
 
@@ -200,7 +200,7 @@ export default struct IDirectMusicBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetUsedBytes(cb) {
-        result := ComCall(15, this, "uint", cb, "HRESULT")
+        result := ComCall(15, this, UInt32, cb, "HRESULT")
         return result
     }
 

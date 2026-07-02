@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMClockAdjust interface adjusts the reference clock. The System Reference Clock exposes this interface.
@@ -46,7 +46,7 @@ export default struct IAMClockAdjust extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamclockadjust-setclockdelta
      */
     SetClockDelta(rtDelta) {
-        result := ComCall(3, this, "int64", rtDelta, "HRESULT")
+        result := ComCall(3, this, Int64, rtDelta, "HRESULT")
         return result
     }
 

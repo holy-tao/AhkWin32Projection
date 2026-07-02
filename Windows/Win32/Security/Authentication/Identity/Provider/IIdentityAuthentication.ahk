@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
@@ -46,7 +46,7 @@ export default struct IIdentityAuthentication extends IUnknown {
     SetIdentityCredential(CredBuffer, CredBufferLength) {
         CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, CredBufferMarshal, CredBuffer, "uint", CredBufferLength, "HRESULT")
+        result := ComCall(3, this, CredBufferMarshal, CredBuffer, UInt32, CredBufferLength, "HRESULT")
         return result
     }
 
@@ -60,7 +60,7 @@ export default struct IIdentityAuthentication extends IUnknown {
     ValidateIdentityCredential(CredBuffer, CredBufferLength, ppIdentityProperties) {
         CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, CredBufferMarshal, CredBuffer, "uint", CredBufferLength, IPropertyStore.Ptr, ppIdentityProperties, "HRESULT")
+        result := ComCall(4, this, CredBufferMarshal, CredBuffer, UInt32, CredBufferLength, IPropertyStore.Ptr, ppIdentityProperties, "HRESULT")
         return result
     }
 

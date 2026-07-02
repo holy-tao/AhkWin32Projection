@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IPortableDeviceServiceMethods.ahk" { IPortableDeviceServiceMethods }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPortableDeviceContent2.ahk" { IPortableDeviceContent2 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IPortableDeviceServiceCapabilities.ahk" { IPortableDeviceServiceCapabilities }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IPortableDeviceEventCallback.ahk" { IPortableDeviceEventCallback }
+#Import ".\IPortableDeviceServiceMethods.ahk" { IPortableDeviceServiceMethods }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import ".\IPortableDeviceContent2.ahk" { IPortableDeviceContent2 }
 
 /**
  * Provides access to a service.
@@ -218,7 +218,7 @@ export default struct IPortableDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-advise
      */
     Advise(dwFlags, pCallback, pParameters) {
-        result := ComCall(11, this, "uint", dwFlags, "ptr", pCallback, "ptr", pParameters, PWSTR.Ptr, &ppszCookie := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwFlags, "ptr", pCallback, "ptr", pParameters, PWSTR.Ptr, &ppszCookie := 0, "HRESULT")
         return ppszCookie
     }
 
@@ -288,7 +288,7 @@ export default struct IPortableDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-sendcommand
      */
     SendCommand(dwFlags, pParameters) {
-        result := ComCall(13, this, "uint", dwFlags, "ptr", pParameters, "ptr*", &ppResults := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwFlags, "ptr", pParameters, "ptr*", &ppResults := 0, "HRESULT")
         return IPortableDeviceValues(ppResults)
     }
 

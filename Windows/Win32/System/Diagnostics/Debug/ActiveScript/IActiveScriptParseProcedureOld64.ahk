@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -55,7 +55,7 @@ export default struct IActiveScriptParseProcedureOld64 extends IUnknown {
         pstrItemName := pstrItemName is String ? StrPtr(pstrItemName) : pstrItemName
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(3, this, "ptr", pstrCode, "ptr", pstrFormalParams, "ptr", pstrItemName, "ptr", punkContext, "ptr", pstrDelimiter, "uint", dwSourceContextCookie, "uint", ulStartingLineNumber, "uint", dwFlags, "ptr*", &ppdisp := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pstrCode, "ptr", pstrFormalParams, "ptr", pstrItemName, "ptr", punkContext, "ptr", pstrDelimiter, Int64, dwSourceContextCookie, UInt32, ulStartingLineNumber, UInt32, dwFlags, "ptr*", &ppdisp := 0, "HRESULT")
         return IDispatch(ppdisp)
     }
 

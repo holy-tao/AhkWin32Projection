@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUIAnimationPrimitiveInterpolation.ahk" { IUIAnimationPrimitiveInterpolation }
-#Import ".\UI_ANIMATION_DEPENDENCIES.ahk" { UI_ANIMATION_DEPENDENCIES }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UI_ANIMATION_DEPENDENCIES.ahk" { UI_ANIMATION_DEPENDENCIES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IUIAnimationInterpolator interface that defines methods for creating a custom interpolator. IUIAnimationInterpolator2 supports interpolation in a given dimension.
@@ -77,7 +77,7 @@ export default struct IUIAnimationInterpolator2 extends IUnknown {
         initialValueMarshal := initialValue is VarRef ? "double*" : "ptr"
         initialVelocityMarshal := initialVelocity is VarRef ? "double*" : "ptr"
 
-        result := ComCall(4, this, initialValueMarshal, initialValue, initialVelocityMarshal, initialVelocity, "uint", cDimension, "HRESULT")
+        result := ComCall(4, this, initialValueMarshal, initialValue, initialVelocityMarshal, initialVelocity, UInt32, cDimension, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct IUIAnimationInterpolator2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-setduration
      */
     SetDuration(duration) {
-        result := ComCall(5, this, "double", duration, "HRESULT")
+        result := ComCall(5, this, Float64, duration, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IUIAnimationInterpolator2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getfinalvalue
      */
     GetFinalValue(cDimension) {
-        result := ComCall(7, this, "double*", &value := 0, "uint", cDimension, "HRESULT")
+        result := ComCall(7, this, "double*", &value := 0, UInt32, cDimension, "HRESULT")
         return value
     }
 
@@ -143,7 +143,7 @@ export default struct IUIAnimationInterpolator2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevalue
      */
     InterpolateValue(offset, cDimension) {
-        result := ComCall(8, this, "double", offset, "double*", &value := 0, "uint", cDimension, "HRESULT")
+        result := ComCall(8, this, Float64, offset, "double*", &value := 0, UInt32, cDimension, "HRESULT")
         return value
     }
 
@@ -163,7 +163,7 @@ export default struct IUIAnimationInterpolator2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevelocity
      */
     InterpolateVelocity(offset, cDimension) {
-        result := ComCall(9, this, "double", offset, "double*", &velocity := 0, "uint", cDimension, "HRESULT")
+        result := ComCall(9, this, Float64, offset, "double*", &velocity := 0, UInt32, cDimension, "HRESULT")
         return velocity
     }
 
@@ -175,7 +175,7 @@ export default struct IUIAnimationInterpolator2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getprimitiveinterpolation
      */
     GetPrimitiveInterpolation(interpolation, cDimension) {
-        result := ComCall(10, this, "ptr", interpolation, "uint", cDimension, "HRESULT")
+        result := ComCall(10, this, "ptr", interpolation, UInt32, cDimension, "HRESULT")
         return result
     }
 

@@ -3,13 +3,13 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import ".\IConsole.ahk" { IConsole }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\RESULTDATAITEM.ahk" { RESULTDATAITEM }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RESULTDATAITEM.ahk" { RESULTDATAITEM }
 #Import ".\MMC_NOTIFY_TYPE.ahk" { MMC_NOTIFY_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IConsole.ahk" { IConsole }
 
 /**
  * The IComponent interface a base class for all derived interfaces such as IMPEG2Component and it describes the general characteristics of a component, which is an elementary stream within the program stream.
@@ -195,7 +195,7 @@ export default struct IComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-destroy
      */
     Destroy(cookie) {
-        result := ComCall(5, this, "ptr", cookie, "HRESULT")
+        result := ComCall(5, this, IntPtr, cookie, "HRESULT")
         return result
     }
 
@@ -215,7 +215,7 @@ export default struct IComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-querydataobject
      */
     QueryDataObject(cookie, type) {
-        result := ComCall(6, this, "ptr", cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDataObject := 0, "HRESULT")
+        result := ComCall(6, this, IntPtr, cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDataObject := 0, "HRESULT")
         return IDataObject(ppDataObject)
     }
 
@@ -261,7 +261,7 @@ export default struct IComponent extends IUnknown {
         ppViewTypeMarshal := ppViewType is VarRef ? "ptr*" : "ptr"
         pViewOptionsMarshal := pViewOptions is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", cookie, ppViewTypeMarshal, ppViewType, pViewOptionsMarshal, pViewOptions, "HRESULT")
+        result := ComCall(7, this, IntPtr, cookie, ppViewTypeMarshal, ppViewType, pViewOptionsMarshal, pViewOptions, "HRESULT")
         return result
     }
 

@@ -68,7 +68,7 @@ export default struct IAudioOutputEndpointRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiooutputendpointrt-getoutputdatapointer
      */
     GetOutputDataPointer(u32FrameCount, pAeTimeStamp) {
-        result := ComCall(3, this, "uint", u32FrameCount, AE_CURRENT_POSITION.Ptr, pAeTimeStamp, IntPtr)
+        result := ComCall(3, this, UInt32, u32FrameCount, AE_CURRENT_POSITION.Ptr, pAeTimeStamp, IntPtr)
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDiagnosticsScriptEngineSite.ahk" { IDiagnosticsScriptEngineSite }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDiagnosticsScriptEngine.ahk" { IDiagnosticsScriptEngine }
 
 /**
@@ -46,7 +46,7 @@ export default struct IDiagnosticsScriptEngineProvider extends IUnknown {
      * @returns {IDiagnosticsScriptEngine} 
      */
     CreateDiagnosticsScriptEngine(pScriptSite, fDebuggingEnabled, ulProcessId) {
-        result := ComCall(3, this, "ptr", pScriptSite, BOOL, fDebuggingEnabled, "uint", ulProcessId, "ptr*", &ppEngine := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pScriptSite, BOOL, fDebuggingEnabled, UInt32, ulProcessId, "ptr*", &ppEngine := 0, "HRESULT")
         return IDiagnosticsScriptEngine(ppEngine)
     }
 

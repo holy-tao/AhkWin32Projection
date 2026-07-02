@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\SID.ahk" { SID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\SID.ahk" { SID }
 
 /**
  * Under WIP policy, includes a single identity that a file is protected to.

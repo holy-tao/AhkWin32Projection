@@ -46,7 +46,7 @@ export default struct IResultData2 extends IResultData {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata2-renameresultitem
      */
     RenameResultItem(itemID) {
-        result := ComCall(18, this, "ptr", itemID, "HRESULT")
+        result := ComCall(18, this, IntPtr, itemID, "HRESULT")
         return result
     }
 

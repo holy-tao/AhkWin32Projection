@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLDOMAttribute.ahk" { IHTMLDOMAttribute }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IHTMLDOMAttribute.ahk" { IHTMLDOMAttribute }
-#Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

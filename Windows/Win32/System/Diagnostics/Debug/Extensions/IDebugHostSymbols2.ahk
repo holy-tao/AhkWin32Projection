@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IDebugHostSymbols.ahk" { IDebugHostSymbols }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugHostSymbol.ahk" { IDebugHostSymbol }
 
@@ -45,7 +45,7 @@ export default struct IDebugHostSymbols2 extends IDebugHostSymbols {
      */
     DemangleSymbolName(pSymbol, flags) {
         pDemangledSymbolName := BSTR.Owned()
-        result := ComCall(10, this, "ptr", pSymbol, "uint", flags, BSTR.Ptr, pDemangledSymbolName, "HRESULT")
+        result := ComCall(10, this, "ptr", pSymbol, UInt32, flags, BSTR.Ptr, pDemangledSymbolName, "HRESULT")
         return pDemangledSymbolName
     }
 

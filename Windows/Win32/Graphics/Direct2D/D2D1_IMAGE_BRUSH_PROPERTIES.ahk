@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
 #Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
 
 /**
  * Describes image brush features.

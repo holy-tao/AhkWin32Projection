@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GameInputRawDeviceReportItemInfo.ahk" { GameInputRawDeviceReportItemInfo }
 #Import ".\GameInputRawDeviceReportKind.ahk" { GameInputRawDeviceReportKind }
+#Import ".\GameInputRawDeviceReportItemInfo.ahk" { GameInputRawDeviceReportItemInfo }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

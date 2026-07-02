@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -57,7 +57,7 @@ export default struct IPrintOemDriverUI extends IUnknown {
         pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
         pdwOptionsReturnedMarshal := pdwOptionsReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pciMarshal, pci, "ptr", Feature, pOutputMarshal, pOutput, "uint", cbSize, pcbNeededMarshal, pcbNeeded, pdwOptionsReturnedMarshal, pdwOptionsReturned, "HRESULT")
+        result := ComCall(3, this, pciMarshal, pci, "ptr", Feature, pOutputMarshal, pOutput, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, pdwOptionsReturnedMarshal, pdwOptionsReturned, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IPrintOemDriverUI extends IUnknown {
         pciMarshal := pci is VarRef ? "ptr" : "ptr"
         pOptItemMarshal := pOptItem is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pciMarshal, pci, pOptItemMarshal, pOptItem, "uint", dwPreviousSelection, "uint", dwMode, "HRESULT")
+        result := ComCall(5, this, pciMarshal, pci, pOptItemMarshal, pOptItem, UInt32, dwPreviousSelection, UInt32, dwMode, "HRESULT")
         return result
     }
 

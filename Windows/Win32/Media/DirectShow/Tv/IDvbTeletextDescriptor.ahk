@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) teletext descriptor. The teletext descriptor is the part of the DVB program map table (PMT) that identifies European Broadcasting Union (EBU) teletext streams.
@@ -81,7 +81,7 @@ export default struct IDvbTeletextDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordlangid
      */
     GetRecordLangId(bRecordIndex) {
-        result := ComCall(6, this, "char", bRecordIndex, "uint*", &pulVal := 0, "HRESULT")
+        result := ComCall(6, this, Int8, bRecordIndex, "uint*", &pulVal := 0, "HRESULT")
         return pulVal
     }
 
@@ -92,7 +92,7 @@ export default struct IDvbTeletextDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordteletexttype
      */
     GetRecordTeletextType(bRecordIndex) {
-        result := ComCall(7, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -105,7 +105,7 @@ export default struct IDvbTeletextDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordmagazinenumber
      */
     GetRecordMagazineNumber(bRecordIndex) {
-        result := ComCall(8, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -117,7 +117,7 @@ export default struct IDvbTeletextDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordpagenumber
      */
     GetRecordPageNumber(bRecordIndex) {
-        result := ComCall(9, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(9, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 

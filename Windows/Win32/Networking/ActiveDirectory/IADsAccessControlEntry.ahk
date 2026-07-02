@@ -122,7 +122,7 @@ export default struct IADsAccessControlEntry extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AccessMask(lnAccessMask) {
-        result := ComCall(8, this, "int", lnAccessMask, "HRESULT")
+        result := ComCall(8, this, Int32, lnAccessMask, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct IADsAccessControlEntry extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AceType(lnAceType) {
-        result := ComCall(10, this, "int", lnAceType, "HRESULT")
+        result := ComCall(10, this, Int32, lnAceType, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct IADsAccessControlEntry extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AceFlags(lnAceFlags) {
-        result := ComCall(12, this, "int", lnAceFlags, "HRESULT")
+        result := ComCall(12, this, Int32, lnAceFlags, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IADsAccessControlEntry extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Flags(lnFlags) {
-        result := ComCall(14, this, "int", lnFlags, "HRESULT")
+        result := ComCall(14, this, Int32, lnFlags, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\D3DDDIFORMAT.ahk" { D3DDDIFORMAT }
-#Import ".\D3DDDI_POOL.ahk" { D3DDDI_POOL }
-#Import ".\D3DDDI_ROTATION.ahk" { D3DDDI_ROTATION }
 #Import ".\D3DDDI_SURFACEINFO.ahk" { D3DDDI_SURFACEINFO }
+#Import ".\D3DDDI_ROTATION.ahk" { D3DDDI_ROTATION }
 #Import ".\D3DDDIMULTISAMPLE_TYPE.ahk" { D3DDDIMULTISAMPLE_TYPE }
+#Import ".\D3DDDI_POOL.ahk" { D3DDDI_POOL }
+#Import ".\D3DDDIFORMAT.ahk" { D3DDDIFORMAT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

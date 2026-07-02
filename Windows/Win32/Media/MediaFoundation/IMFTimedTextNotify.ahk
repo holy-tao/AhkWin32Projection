@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_TIMED_TEXT_ERROR_CODE.ahk" { MF_TIMED_TEXT_ERROR_CODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MF_TIMED_TEXT_CUE_EVENT.ahk" { MF_TIMED_TEXT_CUE_EVENT }
+#Import ".\IMFTimedTextCue.ahk" { IMFTimedTextCue }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFTimedTextCue.ahk" { IMFTimedTextCue }
+#Import ".\MF_TIMED_TEXT_CUE_EVENT.ahk" { MF_TIMED_TEXT_CUE_EVENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_TIMED_TEXT_ERROR_CODE.ahk" { MF_TIMED_TEXT_ERROR_CODE }
 
 /**
  * Interface that defines callbacks for Microsoft Media Foundation Timed Text notifications.
@@ -56,7 +56,7 @@ export default struct IMFTimedTextNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-trackadded
      */
     TrackAdded(trackId) {
-        ComCall(3, this, "uint", trackId)
+        ComCall(3, this, UInt32, trackId)
     }
 
     /**
@@ -68,7 +68,7 @@ export default struct IMFTimedTextNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-trackremoved
      */
     TrackRemoved(trackId) {
-        ComCall(4, this, "uint", trackId)
+        ComCall(4, this, UInt32, trackId)
     }
 
     /**
@@ -83,7 +83,7 @@ export default struct IMFTimedTextNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-trackselected
      */
     TrackSelected(trackId, selected) {
-        ComCall(5, this, "uint", trackId, BOOL, selected)
+        ComCall(5, this, UInt32, trackId, BOOL, selected)
     }
 
     /**
@@ -92,7 +92,7 @@ export default struct IMFTimedTextNotify extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     TrackReadyStateChanged(trackId) {
-        ComCall(6, this, "uint", trackId)
+        ComCall(6, this, UInt32, trackId)
     }
 
     /**
@@ -110,7 +110,7 @@ export default struct IMFTimedTextNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-error
      */
     Error(errorCode, extendedErrorCode, sourceTrackId) {
-        ComCall(7, this, MF_TIMED_TEXT_ERROR_CODE, errorCode, "int", extendedErrorCode, "uint", sourceTrackId)
+        ComCall(7, this, MF_TIMED_TEXT_ERROR_CODE, errorCode, "int", extendedErrorCode, UInt32, sourceTrackId)
     }
 
     /**
@@ -128,7 +128,7 @@ export default struct IMFTimedTextNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-cue
      */
     Cue(cueEvent, currentTime, cue) {
-        ComCall(8, this, MF_TIMED_TEXT_CUE_EVENT, cueEvent, "double", currentTime, "ptr", cue)
+        ComCall(8, this, MF_TIMED_TEXT_CUE_EVENT, cueEvent, Float64, currentTime, "ptr", cue)
     }
 
     /**

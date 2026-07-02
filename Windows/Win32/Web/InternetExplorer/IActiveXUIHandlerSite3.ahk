@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -82,7 +82,7 @@ export default struct IActiveXUIHandlerSite3 extends IUnknown {
         text := text is String ? StrPtr(text) : text
         caption := caption is String ? StrPtr(caption) : caption
 
-        result := ComCall(3, this, HWND, _hwnd, "ptr", text, "ptr", caption, "uint", type, "int*", &result := 0, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", text, "ptr", caption, UInt32, type, "int*", &result := 0, "HRESULT")
         return result
     }
 

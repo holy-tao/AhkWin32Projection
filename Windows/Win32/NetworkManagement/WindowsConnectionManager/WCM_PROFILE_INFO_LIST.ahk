@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WCM_PROFILE_INFO.ahk" { WCM_PROFILE_INFO }
 #Import ".\WCM_MEDIA_TYPE.ahk" { WCM_MEDIA_TYPE }
+#Import ".\WCM_PROFILE_INFO.ahk" { WCM_PROFILE_INFO }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 

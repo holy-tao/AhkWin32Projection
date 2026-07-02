@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_WAVE_MMA_TIER.ahk" { D3D12_WAVE_MMA_TIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_WAVE_MMA_TIER.ahk" { D3D12_WAVE_MMA_TIER }
 
 /**
  * Indicates whether or not support exists for mesh shaders, values of *SV_RenderTargetArrayIndex* that are 8 or greater, typed resource 64-bit integer atomics, derivative and derivative-dependent texture sample operations, and the level of support for WaveMMA (wave_matrix) operations.

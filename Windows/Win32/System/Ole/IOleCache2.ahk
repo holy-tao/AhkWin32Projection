@@ -169,7 +169,7 @@ export default struct IOleCache2 extends IOleCache {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache2-discardcache
      */
     DiscardCache(dwDiscardOptions) {
-        result := ComCall(9, this, "uint", dwDiscardOptions, "HRESULT")
+        result := ComCall(9, this, UInt32, dwDiscardOptions, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINHTTP_CREDS_AUTHSCHEME.ahk" { WINHTTP_CREDS_AUTHSCHEME }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\WINHTTP_CREDS_AUTHSCHEME.ahk" { WINHTTP_CREDS_AUTHSCHEME }
 
 /**
  * Contains user credential information used for server and proxy authentication. (WINHTTP_CREDS)

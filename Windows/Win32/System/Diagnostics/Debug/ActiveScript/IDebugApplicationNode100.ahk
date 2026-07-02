@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugDocument.ahk" { IDebugDocument }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\APPLICATION_NODE_EVENT_FILTER.ahk" { APPLICATION_NODE_EVENT_FILTER }
-#Import ".\TEXT_DOCUMENT_ARRAY.ahk" { TEXT_DOCUMENT_ARRAY }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TEXT_DOCUMENT_ARRAY.ahk" { TEXT_DOCUMENT_ARRAY }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugDocument.ahk" { IDebugDocument }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -47,7 +47,7 @@ export default struct IDebugApplicationNode100 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFilterForEventSink(dwCookie, filter) {
-        result := ComCall(3, this, "uint", dwCookie, APPLICATION_NODE_EVENT_FILTER, filter, "HRESULT")
+        result := ComCall(3, this, UInt32, dwCookie, APPLICATION_NODE_EVENT_FILTER, filter, "HRESULT")
         return result
     }
 

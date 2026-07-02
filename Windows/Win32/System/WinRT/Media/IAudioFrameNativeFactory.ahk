@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Media\MediaFoundation\IMFSample.ahk" { IMFSample }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IInspectable.ahk" { IInspectable }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Creates instances of IAudioFrameNative.

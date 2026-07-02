@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import ".\DDEML_MSG_HOOK_DATA.ahk" { DDEML_MSG_HOOK_DATA }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) message. A DDE monitoring application can use this structure to obtain information about a DDE message that was sent or posted.

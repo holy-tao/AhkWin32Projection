@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Configures an Advanced Systems Format (ASF) mutual exclusion object, which manages information about a group of streams in an ASF profile that are mutually exclusive.
@@ -115,7 +115,7 @@ export default struct IMFASFMutualExclusion extends IUnknown {
     GetStreamsForRecord(dwRecordNumber, pcStreams) {
         pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
+        result := ComCall(6, this, UInt32, dwRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
         return pwStreamNumArray
     }
 
@@ -158,7 +158,7 @@ export default struct IMFASFMutualExclusion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addstreamforrecord
      */
     AddStreamForRecord(dwRecordNumber, wStreamNumber) {
-        result := ComCall(7, this, "uint", dwRecordNumber, "ushort", wStreamNumber, "HRESULT")
+        result := ComCall(7, this, UInt32, dwRecordNumber, UInt16, wStreamNumber, "HRESULT")
         return result
     }
 
@@ -199,7 +199,7 @@ export default struct IMFASFMutualExclusion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-removestreamfromrecord
      */
     RemoveStreamFromRecord(dwRecordNumber, wStreamNumber) {
-        result := ComCall(8, this, "uint", dwRecordNumber, "ushort", wStreamNumber, "HRESULT")
+        result := ComCall(8, this, UInt32, dwRecordNumber, UInt16, wStreamNumber, "HRESULT")
         return result
     }
 
@@ -230,7 +230,7 @@ export default struct IMFASFMutualExclusion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-removerecord
      */
     RemoveRecord(dwRecordNumber) {
-        result := ComCall(9, this, "uint", dwRecordNumber, "HRESULT")
+        result := ComCall(9, this, UInt32, dwRecordNumber, "HRESULT")
         return result
     }
 

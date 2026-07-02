@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugDocument.ahk" { IDebugDocument }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugDocumentInfo.ahk" { IDebugDocumentInfo }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugDocument.ahk" { IDebugDocument }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

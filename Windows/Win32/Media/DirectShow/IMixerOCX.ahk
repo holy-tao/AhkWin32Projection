@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMixerOCXNotify.ahk" { IMixerOCXNotify }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMixerOCX interface is implemented on the Overlay Mixer.
@@ -57,7 +57,7 @@ export default struct IMixerOCX extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-ondisplaychange
      */
     OnDisplayChange(ulBitsPerPixel, ulScreenWidth, ulScreenHeight) {
-        result := ComCall(3, this, "uint", ulBitsPerPixel, "uint", ulScreenWidth, "uint", ulScreenHeight, "HRESULT")
+        result := ComCall(3, this, UInt32, ulBitsPerPixel, UInt32, ulScreenWidth, UInt32, ulScreenHeight, "HRESULT")
         return result
     }
 

@@ -61,7 +61,7 @@ export default struct INSSBuffer4 extends INSSBuffer3 {
         pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
         pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwBufferPropertyIndex, Guid.Ptr, pguidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
+        result := ComCall(13, this, UInt32, dwBufferPropertyIndex, Guid.Ptr, pguidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
         return result
     }
 

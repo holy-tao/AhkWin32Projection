@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TF_LBBALLOONINFO.ahk" { TF_LBBALLOONINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
 #Import ".\TfLBIClick.ahk" { TfLBIClick }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITfLangBarItemBalloon interface is implemented by an application or text service and is used by the language bar manager to obtain information specific to a balloon item on the language bar.

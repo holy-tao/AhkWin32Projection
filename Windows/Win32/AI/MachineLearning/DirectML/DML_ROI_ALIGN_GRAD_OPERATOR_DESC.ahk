@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_REDUCE_FUNCTION.ahk" { DML_REDUCE_FUNCTION }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DML_INTERPOLATION_MODE.ahk" { DML_INTERPOLATION_MODE }
 #Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DML_REDUCE_FUNCTION.ahk" { DML_REDUCE_FUNCTION }
 
 /**
  * Computes backpropagation gradients for [ROI_ALIGN](/windows/win32/api/directml/ns-directml-dml_roi_align_operator_desc) and [ROI_ALIGN1](/windows/win32/api/directml/ns-directml-dml_roi_align1_operator_desc).

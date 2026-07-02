@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
-#Import ".\KS_TRUECOLORINFO.ahk" { KS_TRUECOLORINFO }
 #Import ".\KS_RGBQUAD.ahk" { KS_RGBQUAD }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\KS_TRUECOLORINFO.ahk" { KS_TRUECOLORINFO }
+#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

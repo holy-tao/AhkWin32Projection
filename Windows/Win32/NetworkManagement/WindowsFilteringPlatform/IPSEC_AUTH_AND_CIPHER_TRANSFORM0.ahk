@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_AUTH_TRANSFORM_ID0.ahk" { IPSEC_AUTH_TRANSFORM_ID0 }
 #Import ".\IPSEC_AUTH_TRANSFORM0.ahk" { IPSEC_AUTH_TRANSFORM0 }
-#Import ".\IPSEC_CIPHER_TYPE.ahk" { IPSEC_CIPHER_TYPE }
-#Import ".\IPSEC_CIPHER_TRANSFORM_ID0.ahk" { IPSEC_CIPHER_TRANSFORM_ID0 }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPSEC_AUTH_TRANSFORM_ID0.ahk" { IPSEC_AUTH_TRANSFORM_ID0 }
 #Import ".\IPSEC_AUTH_TYPE.ahk" { IPSEC_AUTH_TYPE }
 #Import ".\IPSEC_CIPHER_TRANSFORM0.ahk" { IPSEC_CIPHER_TRANSFORM0 }
+#Import ".\IPSEC_CIPHER_TRANSFORM_ID0.ahk" { IPSEC_CIPHER_TRANSFORM_ID0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPSEC_CIPHER_TYPE.ahk" { IPSEC_CIPHER_TYPE }
 
 /**
  * Is used to store hash and encryption specific information together for an SA transform in an IPsec quick mode policy.

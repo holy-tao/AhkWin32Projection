@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechGrammarRule.ahk" { ISpeechGrammarRule }
-#Import ".\ISpeechGrammarRuleStateTransitions.ahk" { ISpeechGrammarRuleStateTransitions }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\SpeechSpecialTransitionType.ahk" { SpeechSpecialTransitionType }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISpeechGrammarRuleStateTransitions.ahk" { ISpeechGrammarRuleStateTransitions }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SpeechSpecialTransitionType.ahk" { SpeechSpecialTransitionType }
+#Import ".\ISpeechGrammarRule.ahk" { ISpeechGrammarRule }
 #Import ".\SpeechGrammarWordType.ahk" { SpeechGrammarWordType }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -94,7 +94,7 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
         Separators := Separators is String ? BSTR.Alloc(Separators).Value : Separators
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(9, this, "ptr", DestState, BSTR, Words, BSTR, Separators, SpeechGrammarWordType, Type, BSTR, PropertyName, "int", PropertyId, VARIANT.Ptr, _PropertyValue, "float", Weight, "HRESULT")
+        result := ComCall(9, this, "ptr", DestState, BSTR, Words, BSTR, Separators, SpeechGrammarWordType, Type, BSTR, PropertyName, Int32, PropertyId, VARIANT.Ptr, _PropertyValue, Float32, Weight, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
     AddRuleTransition(DestinationState, Rule, PropertyName, PropertyId, _PropertyValue, Weight) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(10, this, "ptr", DestinationState, "ptr", Rule, BSTR, PropertyName, "int", PropertyId, VARIANT.Ptr, _PropertyValue, "float", Weight, "HRESULT")
+        result := ComCall(10, this, "ptr", DestinationState, "ptr", Rule, BSTR, PropertyName, Int32, PropertyId, VARIANT.Ptr, _PropertyValue, Float32, Weight, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
     AddSpecialTransition(DestinationState, Type, PropertyName, PropertyId, _PropertyValue, Weight) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(11, this, "ptr", DestinationState, SpeechSpecialTransitionType, Type, BSTR, PropertyName, "int", PropertyId, VARIANT.Ptr, _PropertyValue, "float", Weight, "HRESULT")
+        result := ComCall(11, this, "ptr", DestinationState, SpeechSpecialTransitionType, Type, BSTR, PropertyName, Int32, PropertyId, VARIANT.Ptr, _PropertyValue, Float32, Weight, "HRESULT")
         return result
     }
 

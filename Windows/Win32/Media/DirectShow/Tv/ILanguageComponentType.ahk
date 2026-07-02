@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IComponentType.ahk" { IComponentType }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComponentType.ahk" { IComponentType }
 
 /**
  * The ILanguageComponentType interface is implemented on LanguageComponentType objects. It provides methods that define the language of the stream content. Not all streams have a language component.
@@ -75,7 +75,7 @@ export default struct ILanguageComponentType extends IComponentType {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilanguagecomponenttype-put_langid
      */
     put_LangID(LangID) {
-        result := ComCall(25, this, "int", LangID, "HRESULT")
+        result := ComCall(25, this, Int32, LangID, "HRESULT")
         return result
     }
 

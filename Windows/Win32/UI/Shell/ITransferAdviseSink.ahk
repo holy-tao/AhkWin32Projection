@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods supporting status collection and failure information.
@@ -79,7 +79,7 @@ export default struct ITransferAdviseSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-updateprogress
      */
     UpdateProgress(ullSizeCurrent, ullSizeTotal, nFilesCurrent, nFilesTotal, nFoldersCurrent, nFoldersTotal) {
-        result := ComCall(3, this, "uint", ullSizeCurrent, "uint", ullSizeTotal, "int", nFilesCurrent, "int", nFilesTotal, "int", nFoldersCurrent, "int", nFoldersTotal, "HRESULT")
+        result := ComCall(3, this, Int64, ullSizeCurrent, Int64, ullSizeTotal, Int32, nFilesCurrent, Int32, nFilesTotal, Int32, nFoldersCurrent, Int32, nFoldersTotal, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct ITransferAdviseSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-updatetransferstate
      */
     UpdateTransferState(ts) {
-        result := ComCall(4, this, "uint", ts, "HRESULT")
+        result := ComCall(4, this, UInt32, ts, "HRESULT")
         return result
     }
 
@@ -269,7 +269,7 @@ export default struct ITransferAdviseSink extends IUnknown {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
         pszRename := pszRename is String ? StrPtr(pszRename) : pszRename
 
-        result := ComCall(7, this, "ptr", psi, "ptr", pszItem, "int", hrError, "ptr", pszRename, "uint", cchRename, "HRESULT")
+        result := ComCall(7, this, "ptr", psi, "ptr", pszItem, "int", hrError, "ptr", pszRename, UInt32, cchRename, "HRESULT")
         return result
     }
 

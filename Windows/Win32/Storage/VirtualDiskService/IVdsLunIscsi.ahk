@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVdsLunIscsi interface (vdshwprv.h) provides methods for performing query and configuration operations on an iSCSI LUN.
@@ -144,7 +144,7 @@ export default struct IVdsLunIscsi extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsluniscsi-associatetargets
      */
     AssociateTargets(pTargetIdArray, lNumberOfTargets) {
-        result := ComCall(3, this, Guid.Ptr, pTargetIdArray, "int", lNumberOfTargets, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pTargetIdArray, Int32, lNumberOfTargets, "HRESULT")
         return result
     }
 

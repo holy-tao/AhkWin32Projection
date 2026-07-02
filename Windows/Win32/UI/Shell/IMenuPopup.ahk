@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IDeskBar.ahk" { IDeskBar }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * IMenuPopup may be altered or unavailable.
@@ -59,7 +59,7 @@ export default struct IMenuPopup extends IDeskBar {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenupopup-popup
      */
     Popup(ppt, prcExclude, dwFlags) {
-        result := ComCall(8, this, POINTL.Ptr, ppt, RECTL.Ptr, prcExclude, "int", dwFlags, "HRESULT")
+        result := ComCall(8, this, POINTL.Ptr, ppt, RECTL.Ptr, prcExclude, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -72,7 +72,7 @@ export default struct IMenuPopup extends IDeskBar {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenupopup-onselect
      */
     OnSelect(dwSelectType) {
-        result := ComCall(9, this, "uint", dwSelectType, "HRESULT")
+        result := ComCall(9, this, UInt32, dwSelectType, "HRESULT")
         return result
     }
 

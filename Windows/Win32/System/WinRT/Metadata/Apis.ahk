@@ -1,14 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ROPARAMIIDHANDLE.ahk" { ROPARAMIIDHANDLE }
-#Import ".\IRoMetaDataLocator.ahk" { IRoMetaDataLocator }
-#Import "..\HSTRING.ahk" { HSTRING }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IMetaDataDispenserEx.ahk" { IMetaDataDispenserEx }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IRoMetaDataLocator.ahk" { IRoMetaDataLocator }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\HSTRING.ahk" { HSTRING }
+#Import ".\IMetaDataDispenserEx.ahk" { IMetaDataDispenserEx }
+#Import ".\ROPARAMIIDHANDLE.ahk" { ROPARAMIIDHANDLE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IMetaDataImport2.ahk" { IMetaDataImport2 }
 
 /**
@@ -529,7 +529,7 @@ export RoResolveNamespace(name, windowsMetaDataDir, packageGraphDirsCount, packa
     subNamespacesCountMarshal := subNamespacesCount is VarRef ? "uint*" : "ptr"
     subNamespacesMarshal := subNamespaces is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", HSTRING, name, HSTRING, windowsMetaDataDir, "uint", packageGraphDirsCount, HSTRING.Ptr, packageGraphDirs, metaDataFilePathsCountMarshal, metaDataFilePathsCount, metaDataFilePathsMarshal, metaDataFilePaths, subNamespacesCountMarshal, subNamespacesCount, subNamespacesMarshal, subNamespaces, "HRESULT")
+    result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", HSTRING, name, HSTRING, windowsMetaDataDir, UInt32, packageGraphDirsCount, HSTRING.Ptr, packageGraphDirs, metaDataFilePathsCountMarshal, metaDataFilePathsCount, metaDataFilePathsMarshal, metaDataFilePaths, subNamespacesCountMarshal, subNamespacesCount, subNamespacesMarshal, subNamespaces, "HRESULT")
     return result
 }
 
@@ -555,7 +555,7 @@ export RoResolveNamespace(name, windowsMetaDataDir, packageGraphDirsCount, packa
 export RoIsApiContractPresent(name, majorVersion, minorVersion) {
     name := name is String ? StrPtr(name) : name
 
-    result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractPresent", "ptr", name, "ushort", majorVersion, "ushort", minorVersion, BOOL.Ptr, &present := 0, "HRESULT")
+    result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractPresent", "ptr", name, UInt16, majorVersion, UInt16, minorVersion, BOOL.Ptr, &present := 0, "HRESULT")
     return present
 }
 
@@ -578,7 +578,7 @@ export RoIsApiContractPresent(name, majorVersion, minorVersion) {
 export RoIsApiContractMajorVersionPresent(name, majorVersion) {
     name := name is String ? StrPtr(name) : name
 
-    result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractMajorVersionPresent", "ptr", name, "ushort", majorVersion, BOOL.Ptr, &present := 0, "HRESULT")
+    result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractMajorVersionPresent", "ptr", name, UInt16, majorVersion, BOOL.Ptr, &present := 0, "HRESULT")
     return present
 }
 
@@ -641,7 +641,7 @@ export RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDat
     nameElementsMarshal := nameElements is VarRef ? "ptr*" : "ptr"
 
     pExtra := ROPARAMIIDHANDLE.Owned()
-    result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", "uint", nameElementCount, nameElementsMarshal, nameElements, "ptr", metaDataLocator, Guid.Ptr, iid, ROPARAMIIDHANDLE.Ptr, pExtra, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", UInt32, nameElementCount, nameElementsMarshal, nameElements, "ptr", metaDataLocator, Guid.Ptr, iid, ROPARAMIIDHANDLE.Ptr, pExtra, "HRESULT")
     return pExtra
 }
 

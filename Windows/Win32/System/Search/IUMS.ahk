@@ -39,7 +39,7 @@ export default struct IUMS extends Win32ComInterface {
      * @returns {String} Nothing - always returns an empty string
      */
     SqlUmsSuspend(ticks) {
-        ComCall(0, this, "uint", ticks)
+        ComCall(0, this, UInt32, ticks)
     }
 
     /**
@@ -48,7 +48,7 @@ export default struct IUMS extends Win32ComInterface {
      * @returns {String} Nothing - always returns an empty string
      */
     SqlUmsYield(ticks) {
-        ComCall(1, this, "uint", ticks)
+        ComCall(1, this, UInt32, ticks)
     }
 
     /**

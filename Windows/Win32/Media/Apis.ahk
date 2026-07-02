@@ -1,5 +1,6 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import ".\LPTIMECALLBACK.ahk" { LPTIMECALLBACK }
 
 /**
  * @namespace Windows.Win32.Media
@@ -17,7 +18,7 @@
  * @since windows5.0
  */
 export timeGetSystemTime(pmmt, cbmmt) {
-    result := DllCall("WINMM.dll\timeGetSystemTime", "ptr", pmmt, "uint", cbmmt, UInt32)
+    result := DllCall("WINMM.dll\timeGetSystemTime", IntPtr, pmmt, UInt32, cbmmt, UInt32)
     return result
 }
 
@@ -76,7 +77,7 @@ export timeGetTime() {
  * @since windows5.0
  */
 export timeGetDevCaps(ptc, cbtc) {
-    result := DllCall("WINMM.dll\timeGetDevCaps", "ptr", ptc, "uint", cbtc, UInt32)
+    result := DllCall("WINMM.dll\timeGetDevCaps", IntPtr, ptc, UInt32, cbtc, UInt32)
     return result
 }
 
@@ -98,7 +99,7 @@ export timeGetDevCaps(ptc, cbtc) {
  * @since windows5.0
  */
 export timeBeginPeriod(uPeriod) {
-    result := DllCall("WINMM.dll\timeBeginPeriod", "uint", uPeriod, UInt32)
+    result := DllCall("WINMM.dll\timeBeginPeriod", UInt32, uPeriod, UInt32)
     return result
 }
 
@@ -114,7 +115,7 @@ export timeBeginPeriod(uPeriod) {
  * @since windows5.0
  */
 export timeEndPeriod(uPeriod) {
-    result := DllCall("WINMM.dll\timeEndPeriod", "uint", uPeriod, UInt32)
+    result := DllCall("WINMM.dll\timeEndPeriod", UInt32, uPeriod, UInt32)
     return result
 }
 
@@ -128,7 +129,7 @@ export timeEndPeriod(uPeriod) {
  * @returns {Integer} 
  */
 export timeSetEvent(uDelay, uResolution, fptc, dwUser, fuEvent) {
-    result := DllCall("WINMM.dll\timeSetEvent", "uint", uDelay, "uint", uResolution, "ptr", fptc, "ptr", dwUser, "uint", fuEvent, UInt32)
+    result := DllCall("WINMM.dll\timeSetEvent", UInt32, uDelay, UInt32, uResolution, LPTIMECALLBACK, fptc, IntPtr, dwUser, UInt32, fuEvent, UInt32)
     return result
 }
 
@@ -138,7 +139,7 @@ export timeSetEvent(uDelay, uResolution, fptc, dwUser, fuEvent) {
  * @returns {Integer} 
  */
 export timeKillEvent(uTimerID) {
-    result := DllCall("WINMM.dll\timeKillEvent", "uint", uTimerID, UInt32)
+    result := DllCall("WINMM.dll\timeKillEvent", UInt32, uTimerID, UInt32)
     return result
 }
 

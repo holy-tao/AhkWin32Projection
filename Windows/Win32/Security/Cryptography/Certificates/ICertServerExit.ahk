@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exported by the server engine and is called by exit modules.
@@ -60,7 +60,7 @@ export default struct ICertServerExit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-setcontext
      */
     SetContext(_Context) {
-        result := ComCall(7, this, "int", _Context, "HRESULT")
+        result := ComCall(7, this, Int32, _Context, "HRESULT")
         return result
     }
 
@@ -263,7 +263,7 @@ export default struct ICertServerExit extends IDispatch {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(8, this, BSTR, strPropertyName, "int", PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
+        result := ComCall(8, this, BSTR, strPropertyName, Int32, PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -482,7 +482,7 @@ export default struct ICertServerExit extends IDispatch {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(10, this, BSTR, strPropertyName, "int", PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
+        result := ComCall(10, this, BSTR, strPropertyName, Int32, PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -547,7 +547,7 @@ export default struct ICertServerExit extends IDispatch {
         strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
 
         pvarValue := VARIANT()
-        result := ComCall(11, this, BSTR, strExtensionName, "int", Type, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(11, this, BSTR, strExtensionName, Int32, Type, VARIANT.Ptr, pvarValue, "HRESULT")
         return pvarValue
     }
 
@@ -673,7 +673,7 @@ export default struct ICertServerExit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateextensionssetup
      */
     EnumerateExtensionsSetup(Flags) {
-        result := ComCall(13, this, "int", Flags, "HRESULT")
+        result := ComCall(13, this, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -714,7 +714,7 @@ export default struct ICertServerExit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateattributessetup
      */
     EnumerateAttributesSetup(Flags) {
-        result := ComCall(16, this, "int", Flags, "HRESULT")
+        result := ComCall(16, this, Int32, Flags, "HRESULT")
         return result
     }
 

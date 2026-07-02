@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\GPIOBUTTONS_BUTTON_TYPE.ahk" { GPIOBUTTONS_BUTTON_TYPE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\GPIOBUTTONS_BUTTON_TYPE.ahk" { GPIOBUTTONS_BUTTON_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice

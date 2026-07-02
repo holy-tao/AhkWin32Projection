@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\REGISTERWORDW.ahk" { REGISTERWORDW }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\REGISTERWORDW.ahk" { REGISTERWORDW }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -59,7 +59,7 @@ export default struct IEnumRegisterWordW extends IUnknown {
     Next(ulCount, rgRegisterWord, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, REGISTERWORDW.Ptr, rgRegisterWord, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, REGISTERWORDW.Ptr, rgRegisterWord, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct IEnumRegisterWordW extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

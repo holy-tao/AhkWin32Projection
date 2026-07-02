@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IXFeed.ahk" { IXFeed }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
@@ -49,7 +49,7 @@ export default struct IXFeed2 extends IXFeed {
      * @returns {Pointer<Void>} 
      */
     GetItemByEffectiveId(uiEffectiveId, riid) {
-        result := ComCall(47, this, "uint", uiEffectiveId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(47, this, UInt32, uiEffectiveId, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

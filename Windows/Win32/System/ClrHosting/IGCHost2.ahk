@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IGCHost.ahk" { IGCHost }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -42,7 +42,7 @@ export default struct IGCHost2 extends IGCHost {
      * @returns {HRESULT} 
      */
     SetGCStartupLimitsEx(SegmentSize, MaxGen0Size) {
-        result := ComCall(8, this, "ptr", SegmentSize, "ptr", MaxGen0Size, "HRESULT")
+        result := ComCall(8, this, IntPtr, SegmentSize, IntPtr, MaxGen0Size, "HRESULT")
         return result
     }
 

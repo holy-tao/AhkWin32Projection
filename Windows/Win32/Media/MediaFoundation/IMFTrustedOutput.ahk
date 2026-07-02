@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFOutputTrustAuthority.ahk" { IMFOutputTrustAuthority }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFOutputTrustAuthority.ahk" { IMFOutputTrustAuthority }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by components that provide output trust authorities (OTAs).
@@ -60,7 +60,7 @@ export default struct IMFTrustedOutput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedoutput-getoutputtrustauthoritybyindex
      */
     GetOutputTrustAuthorityByIndex(dwIndex) {
-        result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppauthority := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, "ptr*", &ppauthority := 0, "HRESULT")
         return IMFOutputTrustAuthority(ppauthority)
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Security\Authorization\TRUSTEE_W.ahk" { TRUSTEE_W }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SEC_OBJECT.ahk" { SEC_OBJECT }
-#Import "..\..\Security\Authorization\EXPLICIT_ACCESS_W.ahk" { EXPLICIT_ACCESS_W }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SEC_OBJECT.ahk" { SEC_OBJECT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Security\Authorization\EXPLICIT_ACCESS_W.ahk" { EXPLICIT_ACCESS_W }
+#Import "..\..\Security\Authorization\TRUSTEE_W.ahk" { TRUSTEE_W }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -87,7 +87,7 @@ export default struct IObjectAccessControl extends IUnknown {
      * @returns {HRESULT} 
      */
     SetObjectAccessRights(pObject, cAccessEntries, prgAccessEntries) {
-        result := ComCall(6, this, SEC_OBJECT.Ptr, pObject, "uint", cAccessEntries, EXPLICIT_ACCESS_W.Ptr, prgAccessEntries, "HRESULT")
+        result := ComCall(6, this, SEC_OBJECT.Ptr, pObject, UInt32, cAccessEntries, EXPLICIT_ACCESS_W.Ptr, prgAccessEntries, "HRESULT")
         return result
     }
 

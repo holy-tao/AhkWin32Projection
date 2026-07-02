@@ -1,23 +1,26 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\CO_SAP.ahk" { CO_SAP }
-#Import ".\NDIS_CONFIGURATION_PARAMETER.ahk" { NDIS_CONFIGURATION_PARAMETER }
-#Import ".\NDIS_TIMER.ahk" { NDIS_TIMER }
-#Import ".\LOCK_STATE.ahk" { LOCK_STATE }
-#Import ".\NDIS_DMA_DESCRIPTION.ahk" { NDIS_DMA_DESCRIPTION }
-#Import ".\VAR_STRING.ahk" { VAR_STRING }
-#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
-#Import ".\NDIS_MINIPORT_TIMER.ahk" { NDIS_MINIPORT_TIMER }
-#Import ".\NDIS_PARAMETER_TYPE.ahk" { NDIS_PARAMETER_TYPE }
-#Import ".\CO_CALL_PARAMETERS.ahk" { CO_CALL_PARAMETERS }
-#Import ".\CO_ADDRESS_FAMILY.ahk" { CO_ADDRESS_FAMILY }
-#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
 #Import ".\NDIS_EVENT.ahk" { NDIS_EVENT }
-#Import "..\..\Foundation\MDL.ahk" { MDL }
-#Import ".\NDIS_CALL_MANAGER_CHARACTERISTICS.ahk" { NDIS_CALL_MANAGER_CHARACTERISTICS }
-#Import ".\NDIS_RW_LOCK.ahk" { NDIS_RW_LOCK }
+#Import ".\TDI_REGISTER_CALLBACK.ahk" { TDI_REGISTER_CALLBACK }
+#Import ".\PNDIS_TIMER_FUNCTION.ahk" { PNDIS_TIMER_FUNCTION }
+#Import ".\NDIS_MINIPORT_TIMER.ahk" { NDIS_MINIPORT_TIMER }
+#Import ".\LOCK_STATE.ahk" { LOCK_STATE }
 #Import "..\..\System\SystemServices\CM_RESOURCE_LIST.ahk" { CM_RESOURCE_LIST }
+#Import ".\VAR_STRING.ahk" { VAR_STRING }
+#Import ".\NDIS_RW_LOCK.ahk" { NDIS_RW_LOCK }
+#Import ".\CO_ADDRESS_FAMILY.ahk" { CO_ADDRESS_FAMILY }
+#Import ".\NDIS_DMA_DESCRIPTION.ahk" { NDIS_DMA_DESCRIPTION }
+#Import "..\..\Foundation\MDL.ahk" { MDL }
+#Import ".\NDIS_TIMER.ahk" { NDIS_TIMER }
+#Import ".\TDI_PNP_HANDLER.ahk" { TDI_PNP_HANDLER }
+#Import ".\NDIS_PARAMETER_TYPE.ahk" { NDIS_PARAMETER_TYPE }
+#Import ".\NDIS_CALL_MANAGER_CHARACTERISTICS.ahk" { NDIS_CALL_MANAGER_CHARACTERISTICS }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\NDIS_CONFIGURATION_PARAMETER.ahk" { NDIS_CONFIGURATION_PARAMETER }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\CO_CALL_PARAMETERS.ahk" { CO_CALL_PARAMETERS }
+#Import ".\CO_SAP.ahk" { CO_SAP }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
@@ -110,7 +113,7 @@ export NdisOpenConfigurationKeyByIndex(_Status, ConfigurationHandle, Index, KeyN
     ConfigurationHandleMarshal := ConfigurationHandle is VarRef ? "ptr" : "ptr"
     KeyHandleMarshal := KeyHandle is VarRef ? "ptr*" : "ptr"
 
-    DllCall("NDIS.sys\NdisOpenConfigurationKeyByIndex", _StatusMarshal, _Status, ConfigurationHandleMarshal, ConfigurationHandle, "uint", Index, UNICODE_STRING.Ptr, KeyName, KeyHandleMarshal, KeyHandle)
+    DllCall("NDIS.sys\NdisOpenConfigurationKeyByIndex", _StatusMarshal, _Status, ConfigurationHandleMarshal, ConfigurationHandle, UInt32, Index, UNICODE_STRING.Ptr, KeyName, KeyHandleMarshal, KeyHandle)
 }
 
 /**
@@ -189,7 +192,7 @@ export NdisCopyBuffer(_Status, _Buffer, PoolHandle, MemoryDescriptor, Offset, Le
     PoolHandleMarshal := PoolHandle is VarRef ? "ptr" : "ptr"
     MemoryDescriptorMarshal := MemoryDescriptor is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCopyBuffer", _StatusMarshal, _Status, _BufferMarshal, _Buffer, PoolHandleMarshal, PoolHandle, MemoryDescriptorMarshal, MemoryDescriptor, "uint", Offset, "uint", Length)
+    DllCall("NDIS.sys\NdisCopyBuffer", _StatusMarshal, _Status, _BufferMarshal, _Buffer, PoolHandleMarshal, PoolHandle, MemoryDescriptorMarshal, MemoryDescriptor, UInt32, Offset, UInt32, Length)
 }
 
 /**
@@ -202,7 +205,7 @@ export NdisCopyBuffer(_Status, _Buffer, PoolHandle, MemoryDescriptor, Offset, Le
 export NdisAllocateMemoryWithTag(VirtualAddress, Length, Tag) {
     VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisAllocateMemoryWithTag", VirtualAddressMarshal, VirtualAddress, "uint", Length, "uint", Tag, Int32)
+    result := DllCall("NDIS.sys\NdisAllocateMemoryWithTag", VirtualAddressMarshal, VirtualAddress, UInt32, Length, UInt32, Tag, Int32)
     return result
 }
 
@@ -214,7 +217,7 @@ export NdisAllocateMemoryWithTag(VirtualAddress, Length, Tag) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdisFreeMemory(VirtualAddress, Length, MemoryFlags) {
-    DllCall("NDIS.sys\NdisFreeMemory", "ptr", VirtualAddress, "uint", Length, "uint", MemoryFlags)
+    DllCall("NDIS.sys\NdisFreeMemory", IntPtr, VirtualAddress, UInt32, Length, UInt32, MemoryFlags)
 }
 
 /**
@@ -251,7 +254,7 @@ export NdisResetEvent(Event) {
  * @returns {BOOLEAN} 
  */
 export NdisWaitEvent(Event, MsToWait) {
-    result := DllCall("NDIS.sys\NdisWaitEvent", NDIS_EVENT.Ptr, Event, "uint", MsToWait, BOOLEAN)
+    result := DllCall("NDIS.sys\NdisWaitEvent", NDIS_EVENT.Ptr, Event, UInt32, MsToWait, BOOLEAN)
     return result
 }
 
@@ -269,7 +272,7 @@ export NdisOpenFile(_Status, FileHandle, FileLength, FileName, HighestAcceptable
     FileHandleMarshal := FileHandle is VarRef ? "ptr*" : "ptr"
     FileLengthMarshal := FileLength is VarRef ? "uint*" : "ptr"
 
-    DllCall("NDIS.sys\NdisOpenFile", _StatusMarshal, _Status, FileHandleMarshal, FileHandle, FileLengthMarshal, FileLength, UNICODE_STRING.Ptr, FileName, "int64", HighestAcceptableAddress)
+    DllCall("NDIS.sys\NdisOpenFile", _StatusMarshal, _Status, FileHandleMarshal, FileHandle, FileLengthMarshal, FileLength, UNICODE_STRING.Ptr, FileName, Int64, HighestAcceptableAddress)
 }
 
 /**
@@ -331,7 +334,7 @@ export NdisWriteErrorLogEntry(NdisAdapterHandle, ErrorCode, NumberOfErrorValues,
 
     varArgs := [args*]
 
-    DllCall("NDIS.sys\NdisWriteErrorLogEntry", NdisAdapterHandleMarshal, NdisAdapterHandle, "uint", ErrorCode, "uint", NumberOfErrorValues, varArgs*)
+    DllCall("NDIS.sys\NdisWriteErrorLogEntry", NdisAdapterHandleMarshal, NdisAdapterHandle, UInt32, ErrorCode, UInt32, NumberOfErrorValues, varArgs*)
 }
 
 /**
@@ -356,7 +359,7 @@ export NdisInitializeString(Destination, Source) {
 export NdisInitializeTimer(Timer, TimerFunction, FunctionContext) {
     FunctionContextMarshal := FunctionContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisInitializeTimer", NDIS_TIMER.Ptr, Timer, "ptr", TimerFunction, FunctionContextMarshal, FunctionContext)
+    DllCall("NDIS.sys\NdisInitializeTimer", NDIS_TIMER.Ptr, Timer, PNDIS_TIMER_FUNCTION, TimerFunction, FunctionContextMarshal, FunctionContext)
 }
 
 /**
@@ -378,7 +381,7 @@ export NdisCancelTimer(Timer, TimerCancelled) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdisSetTimer(Timer, MillisecondsToDelay) {
-    DllCall("NDIS.sys\NdisSetTimer", NDIS_TIMER.Ptr, Timer, "uint", MillisecondsToDelay)
+    DllCall("NDIS.sys\NdisSetTimer", NDIS_TIMER.Ptr, Timer, UInt32, MillisecondsToDelay)
 }
 
 /**
@@ -388,7 +391,7 @@ export NdisSetTimer(Timer, MillisecondsToDelay) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdisSetPeriodicTimer(NdisTimer, MillisecondsPeriod) {
-    DllCall("NDIS.sys\NdisSetPeriodicTimer", NDIS_TIMER.Ptr, NdisTimer, "uint", MillisecondsPeriod)
+    DllCall("NDIS.sys\NdisSetPeriodicTimer", NDIS_TIMER.Ptr, NdisTimer, UInt32, MillisecondsPeriod)
 }
 
 /**
@@ -401,7 +404,7 @@ export NdisSetPeriodicTimer(NdisTimer, MillisecondsPeriod) {
 export NdisSetTimerEx(NdisTimer, MillisecondsToDelay, FunctionContext) {
     FunctionContextMarshal := FunctionContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisSetTimerEx", NDIS_TIMER.Ptr, NdisTimer, "uint", MillisecondsToDelay, FunctionContextMarshal, FunctionContext)
+    DllCall("NDIS.sys\NdisSetTimerEx", NDIS_TIMER.Ptr, NdisTimer, UInt32, MillisecondsToDelay, FunctionContextMarshal, FunctionContext)
 }
 
 /**
@@ -458,7 +461,7 @@ export NdisWriteEventLogEntry(LogHandle, EventCode, UniqueEventValue, NumStrings
     LogHandleMarshal := LogHandle is VarRef ? "ptr" : "ptr"
     StringsListMarshal := StringsList is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisWriteEventLogEntry", LogHandleMarshal, LogHandle, "int", EventCode, "uint", UniqueEventValue, "ushort", NumStrings, StringsListMarshal, StringsList, "uint", DataSize, "ptr", Data, Int32)
+    result := DllCall("NDIS.sys\NdisWriteEventLogEntry", LogHandleMarshal, LogHandle, Int32, EventCode, UInt32, UniqueEventValue, UInt16, NumStrings, StringsListMarshal, StringsList, UInt32, DataSize, IntPtr, Data, Int32)
     return result
 }
 
@@ -495,7 +498,7 @@ export NdisQueryBindInstanceName(pAdapterInstanceName, BindingContext) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdisRegisterTdiCallBack(RegisterCallback, PnPHandler) {
-    DllCall("NDIS.sys\NdisRegisterTdiCallBack", "ptr", RegisterCallback, "ptr", PnPHandler)
+    DllCall("NDIS.sys\NdisRegisterTdiCallBack", TDI_REGISTER_CALLBACK, RegisterCallback, TDI_PNP_HANDLER, PnPHandler)
 }
 
 /**
@@ -527,7 +530,7 @@ export NdisMAllocateSharedMemoryAsync(MiniportAdapterHandle, Length, Cached, _Co
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
     _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisMAllocateSharedMemoryAsync", MiniportAdapterHandleMarshal, MiniportAdapterHandle, "uint", Length, BOOLEAN, Cached, _ContextMarshal, _Context, Int32)
+    result := DllCall("NDIS.sys\NdisMAllocateSharedMemoryAsync", MiniportAdapterHandleMarshal, MiniportAdapterHandle, UInt32, Length, BOOLEAN, Cached, _ContextMarshal, _Context, Int32)
     return result
 }
 
@@ -545,7 +548,7 @@ export NdisSetupDmaTransfer(_Status, NdisDmaHandle, _Buffer, Offset, Length, Wri
     _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
     NdisDmaHandleMarshal := NdisDmaHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisSetupDmaTransfer", _StatusMarshal, _Status, NdisDmaHandleMarshal, NdisDmaHandle, MDL.Ptr, _Buffer, "uint", Offset, "uint", Length, BOOLEAN, WriteToDevice)
+    DllCall("NDIS.sys\NdisSetupDmaTransfer", _StatusMarshal, _Status, NdisDmaHandleMarshal, NdisDmaHandle, MDL.Ptr, _Buffer, UInt32, Offset, UInt32, Length, BOOLEAN, WriteToDevice)
 }
 
 /**
@@ -562,7 +565,7 @@ export NdisCompleteDmaTransfer(_Status, NdisDmaHandle, _Buffer, Offset, Length, 
     _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
     NdisDmaHandleMarshal := NdisDmaHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCompleteDmaTransfer", _StatusMarshal, _Status, NdisDmaHandleMarshal, NdisDmaHandle, MDL.Ptr, _Buffer, "uint", Offset, "uint", Length, BOOLEAN, WriteToDevice)
+    DllCall("NDIS.sys\NdisCompleteDmaTransfer", _StatusMarshal, _Status, NdisDmaHandleMarshal, NdisDmaHandle, MDL.Ptr, _Buffer, UInt32, Offset, UInt32, Length, BOOLEAN, WriteToDevice)
 }
 
 /**
@@ -579,7 +582,7 @@ export NdisMRegisterDmaChannel(MiniportDmaHandle, MiniportAdapterHandle, DmaChan
     MiniportDmaHandleMarshal := MiniportDmaHandle is VarRef ? "ptr*" : "ptr"
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisMRegisterDmaChannel", MiniportDmaHandleMarshal, MiniportDmaHandle, MiniportAdapterHandleMarshal, MiniportAdapterHandle, "uint", DmaChannel, BOOLEAN, Dma32BitAddresses, NDIS_DMA_DESCRIPTION.Ptr, DmaDescription, "uint", MaximumLength, Int32)
+    result := DllCall("NDIS.sys\NdisMRegisterDmaChannel", MiniportDmaHandleMarshal, MiniportDmaHandle, MiniportAdapterHandleMarshal, MiniportAdapterHandle, UInt32, DmaChannel, BOOLEAN, Dma32BitAddresses, NDIS_DMA_DESCRIPTION.Ptr, DmaDescription, UInt32, MaximumLength, Int32)
     return result
 }
 
@@ -618,7 +621,7 @@ export NdisUpdateSharedMemory(NdisAdapterHandle, Length, VirtualAddress, Physica
     NdisAdapterHandleMarshal := NdisAdapterHandle is VarRef ? "ptr" : "ptr"
     VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisUpdateSharedMemory", NdisAdapterHandleMarshal, NdisAdapterHandle, "uint", Length, VirtualAddressMarshal, VirtualAddress, "int64", PhysicalAddress)
+    DllCall("NDIS.sys\NdisUpdateSharedMemory", NdisAdapterHandleMarshal, NdisAdapterHandle, UInt32, Length, VirtualAddressMarshal, VirtualAddress, Int64, PhysicalAddress)
 }
 
 /**
@@ -646,7 +649,7 @@ export NdisMRegisterIoPortRange(PortOffset, MiniportAdapterHandle, InitialPort, 
     PortOffsetMarshal := PortOffset is VarRef ? "ptr*" : "ptr"
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisMRegisterIoPortRange", PortOffsetMarshal, PortOffset, MiniportAdapterHandleMarshal, MiniportAdapterHandle, "uint", InitialPort, "uint", NumberOfPorts, Int32)
+    result := DllCall("NDIS.sys\NdisMRegisterIoPortRange", PortOffsetMarshal, PortOffset, MiniportAdapterHandleMarshal, MiniportAdapterHandle, UInt32, InitialPort, UInt32, NumberOfPorts, Int32)
     return result
 }
 
@@ -662,7 +665,7 @@ export NdisMDeregisterIoPortRange(MiniportAdapterHandle, InitialPort, NumberOfPo
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
     PortOffsetMarshal := PortOffset is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisMDeregisterIoPortRange", MiniportAdapterHandleMarshal, MiniportAdapterHandle, "uint", InitialPort, "uint", NumberOfPorts, PortOffsetMarshal, PortOffset)
+    DllCall("NDIS.sys\NdisMDeregisterIoPortRange", MiniportAdapterHandleMarshal, MiniportAdapterHandle, UInt32, InitialPort, UInt32, NumberOfPorts, PortOffsetMarshal, PortOffset)
 }
 
 /**
@@ -677,7 +680,7 @@ export NdisMMapIoSpace(VirtualAddress, MiniportAdapterHandle, PhysicalAddress, L
     VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr*" : "ptr"
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisMMapIoSpace", VirtualAddressMarshal, VirtualAddress, MiniportAdapterHandleMarshal, MiniportAdapterHandle, "int64", PhysicalAddress, "uint", Length, Int32)
+    result := DllCall("NDIS.sys\NdisMMapIoSpace", VirtualAddressMarshal, VirtualAddress, MiniportAdapterHandleMarshal, MiniportAdapterHandle, Int64, PhysicalAddress, UInt32, Length, Int32)
     return result
 }
 
@@ -691,7 +694,7 @@ export NdisMMapIoSpace(VirtualAddress, MiniportAdapterHandle, PhysicalAddress, L
 export NdisMUnmapIoSpace(MiniportAdapterHandle, VirtualAddress, Length) {
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisMUnmapIoSpace", MiniportAdapterHandleMarshal, MiniportAdapterHandle, "ptr", VirtualAddress, "uint", Length)
+    DllCall("NDIS.sys\NdisMUnmapIoSpace", MiniportAdapterHandleMarshal, MiniportAdapterHandle, IntPtr, VirtualAddress, UInt32, Length)
 }
 
 /**
@@ -701,7 +704,7 @@ export NdisMUnmapIoSpace(MiniportAdapterHandle, VirtualAddress, Length) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdisMSetPeriodicTimer(Timer, MillisecondPeriod) {
-    DllCall("NDIS.sys\NdisMSetPeriodicTimer", NDIS_MINIPORT_TIMER.Ptr, Timer, "uint", MillisecondPeriod)
+    DllCall("NDIS.sys\NdisMSetPeriodicTimer", NDIS_MINIPORT_TIMER.Ptr, Timer, UInt32, MillisecondPeriod)
 }
 
 /**
@@ -716,7 +719,7 @@ export NdisMInitializeTimer(Timer, MiniportAdapterHandle, TimerFunction, Functio
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
     FunctionContextMarshal := FunctionContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisMInitializeTimer", NDIS_MINIPORT_TIMER.Ptr, Timer, MiniportAdapterHandleMarshal, MiniportAdapterHandle, "ptr", TimerFunction, FunctionContextMarshal, FunctionContext)
+    DllCall("NDIS.sys\NdisMInitializeTimer", NDIS_MINIPORT_TIMER.Ptr, Timer, MiniportAdapterHandleMarshal, MiniportAdapterHandle, PNDIS_TIMER_FUNCTION, TimerFunction, FunctionContextMarshal, FunctionContext)
 }
 
 /**
@@ -737,7 +740,7 @@ export NdisMCancelTimer(Timer, TimerCancelled) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdisMSleep(MicrosecondsToSleep) {
-    DllCall("NDIS.sys\NdisMSleep", "uint", MicrosecondsToSleep)
+    DllCall("NDIS.sys\NdisMSleep", UInt32, MicrosecondsToSleep)
 }
 
 /**
@@ -766,7 +769,7 @@ export NdisMAllocateSharedMemory(MiniportAdapterHandle, Length, Cached, VirtualA
     VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr*" : "ptr"
     PhysicalAddressMarshal := PhysicalAddress is VarRef ? "int64*" : "ptr"
 
-    DllCall("NDIS.sys\NdisMAllocateSharedMemory", MiniportAdapterHandleMarshal, MiniportAdapterHandle, "uint", Length, BOOLEAN, Cached, VirtualAddressMarshal, VirtualAddress, PhysicalAddressMarshal, PhysicalAddress)
+    DllCall("NDIS.sys\NdisMAllocateSharedMemory", MiniportAdapterHandleMarshal, MiniportAdapterHandle, UInt32, Length, BOOLEAN, Cached, VirtualAddressMarshal, VirtualAddress, PhysicalAddressMarshal, PhysicalAddress)
 }
 
 /**
@@ -781,7 +784,7 @@ export NdisMAllocateSharedMemory(MiniportAdapterHandle, Length, Cached, VirtualA
 export NdisMFreeSharedMemory(MiniportAdapterHandle, Length, Cached, VirtualAddress, PhysicalAddress) {
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisMFreeSharedMemory", MiniportAdapterHandleMarshal, MiniportAdapterHandle, "uint", Length, BOOLEAN, Cached, "ptr", VirtualAddress, "int64", PhysicalAddress)
+    DllCall("NDIS.sys\NdisMFreeSharedMemory", MiniportAdapterHandleMarshal, MiniportAdapterHandle, UInt32, Length, BOOLEAN, Cached, IntPtr, VirtualAddress, Int64, PhysicalAddress)
 }
 
 /**
@@ -859,7 +862,7 @@ export NdisMCreateLog(MiniportAdapterHandle, _Size, LogHandle) {
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
     LogHandleMarshal := LogHandle is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisMCreateLog", MiniportAdapterHandleMarshal, MiniportAdapterHandle, "uint", _Size, LogHandleMarshal, LogHandle, Int32)
+    result := DllCall("NDIS.sys\NdisMCreateLog", MiniportAdapterHandleMarshal, MiniportAdapterHandle, UInt32, _Size, LogHandleMarshal, LogHandle, Int32)
     return result
 }
 
@@ -884,7 +887,7 @@ export NdisMCloseLog(LogHandle) {
 export NdisMWriteLogData(LogHandle, LogBuffer, LogBufferSize) {
     LogHandleMarshal := LogHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisMWriteLogData", LogHandleMarshal, LogHandle, "ptr", LogBuffer, "uint", LogBufferSize, Int32)
+    result := DllCall("NDIS.sys\NdisMWriteLogData", LogHandleMarshal, LogHandle, IntPtr, LogBuffer, UInt32, LogBufferSize, Int32)
     return result
 }
 
@@ -944,7 +947,7 @@ export NdisMCoActivateVcComplete(_Status, NdisVcHandle, CallParameters) {
     NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : "ptr"
     CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
 
-    DllCall("NDIS.sys\NdisMCoActivateVcComplete", "int", _Status, NdisVcHandleMarshal, NdisVcHandle, CallParametersMarshal, CallParameters)
+    DllCall("NDIS.sys\NdisMCoActivateVcComplete", Int32, _Status, NdisVcHandleMarshal, NdisVcHandle, CallParametersMarshal, CallParameters)
 }
 
 /**
@@ -956,7 +959,7 @@ export NdisMCoActivateVcComplete(_Status, NdisVcHandle, CallParameters) {
 export NdisMCoDeactivateVcComplete(_Status, NdisVcHandle) {
     NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisMCoDeactivateVcComplete", "int", _Status, NdisVcHandleMarshal, NdisVcHandle)
+    DllCall("NDIS.sys\NdisMCoDeactivateVcComplete", Int32, _Status, NdisVcHandleMarshal, NdisVcHandle)
 }
 
 /**
@@ -971,7 +974,7 @@ export NdisMCmRegisterAddressFamily(MiniportAdapterHandle, AddressFamily, CmChar
     MiniportAdapterHandleMarshal := MiniportAdapterHandle is VarRef ? "ptr" : "ptr"
     CmCharacteristicsMarshal := CmCharacteristics is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisMCmRegisterAddressFamily", MiniportAdapterHandleMarshal, MiniportAdapterHandle, CO_ADDRESS_FAMILY.Ptr, AddressFamily, CmCharacteristicsMarshal, CmCharacteristics, "uint", SizeOfCmCharacteristics, Int32)
+    result := DllCall("NDIS.sys\NdisMCmRegisterAddressFamily", MiniportAdapterHandleMarshal, MiniportAdapterHandle, CO_ADDRESS_FAMILY.Ptr, AddressFamily, CmCharacteristicsMarshal, CmCharacteristics, UInt32, SizeOfCmCharacteristics, Int32)
     return result
 }
 
@@ -1159,7 +1162,7 @@ export NdisClCloseCall(NdisVcHandle, NdisPartyHandle, _Buffer, _Size) {
     NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : "ptr"
     NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisClCloseCall", NdisVcHandleMarshal, NdisVcHandle, NdisPartyHandleMarshal, NdisPartyHandle, "ptr", _Buffer, "uint", _Size, Int32)
+    result := DllCall("NDIS.sys\NdisClCloseCall", NdisVcHandleMarshal, NdisVcHandle, NdisPartyHandleMarshal, NdisPartyHandle, IntPtr, _Buffer, UInt32, _Size, Int32)
     return result
 }
 
@@ -1188,7 +1191,7 @@ export NdisClIncomingCallComplete(_Status, NdisVcHandle, CallParameters) {
     NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : "ptr"
     CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
 
-    DllCall("NDIS.sys\NdisClIncomingCallComplete", "int", _Status, NdisVcHandleMarshal, NdisVcHandle, CallParametersMarshal, CallParameters)
+    DllCall("NDIS.sys\NdisClIncomingCallComplete", Int32, _Status, NdisVcHandleMarshal, NdisVcHandle, CallParametersMarshal, CallParameters)
 }
 
 /**
@@ -1219,7 +1222,7 @@ export NdisClAddParty(NdisVcHandle, ProtocolPartyContext, CallParameters, NdisPa
 export NdisClDropParty(NdisPartyHandle, _Buffer, _Size) {
     NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("NDIS.sys\NdisClDropParty", NdisPartyHandleMarshal, NdisPartyHandle, "ptr", _Buffer, "uint", _Size, Int32)
+    result := DllCall("NDIS.sys\NdisClDropParty", NdisPartyHandleMarshal, NdisPartyHandle, IntPtr, _Buffer, UInt32, _Size, Int32)
     return result
 }
 
@@ -1247,7 +1250,7 @@ export NdisCmOpenAddressFamilyComplete(_Status, NdisAfHandle, CallMgrAfContext) 
     NdisAfHandleMarshal := NdisAfHandle is VarRef ? "ptr" : "ptr"
     CallMgrAfContextMarshal := CallMgrAfContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmOpenAddressFamilyComplete", "int", _Status, NdisAfHandleMarshal, NdisAfHandle, CallMgrAfContextMarshal, CallMgrAfContext)
+    DllCall("NDIS.sys\NdisCmOpenAddressFamilyComplete", Int32, _Status, NdisAfHandleMarshal, NdisAfHandle, CallMgrAfContextMarshal, CallMgrAfContext)
 }
 
 /**
@@ -1259,7 +1262,7 @@ export NdisCmOpenAddressFamilyComplete(_Status, NdisAfHandle, CallMgrAfContext) 
 export NdisCmCloseAddressFamilyComplete(_Status, NdisAfHandle) {
     NdisAfHandleMarshal := NdisAfHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmCloseAddressFamilyComplete", "int", _Status, NdisAfHandleMarshal, NdisAfHandle)
+    DllCall("NDIS.sys\NdisCmCloseAddressFamilyComplete", Int32, _Status, NdisAfHandleMarshal, NdisAfHandle)
 }
 
 /**
@@ -1273,7 +1276,7 @@ export NdisCmRegisterSapComplete(_Status, NdisSapHandle, CallMgrSapContext) {
     NdisSapHandleMarshal := NdisSapHandle is VarRef ? "ptr" : "ptr"
     CallMgrSapContextMarshal := CallMgrSapContext is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmRegisterSapComplete", "int", _Status, NdisSapHandleMarshal, NdisSapHandle, CallMgrSapContextMarshal, CallMgrSapContext)
+    DllCall("NDIS.sys\NdisCmRegisterSapComplete", Int32, _Status, NdisSapHandleMarshal, NdisSapHandle, CallMgrSapContextMarshal, CallMgrSapContext)
 }
 
 /**
@@ -1285,7 +1288,7 @@ export NdisCmRegisterSapComplete(_Status, NdisSapHandle, CallMgrSapContext) {
 export NdisCmDeregisterSapComplete(_Status, NdisSapHandle) {
     NdisSapHandleMarshal := NdisSapHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmDeregisterSapComplete", "int", _Status, NdisSapHandleMarshal, NdisSapHandle)
+    DllCall("NDIS.sys\NdisCmDeregisterSapComplete", Int32, _Status, NdisSapHandleMarshal, NdisSapHandle)
 }
 
 /**
@@ -1329,7 +1332,7 @@ export NdisCmMakeCallComplete(_Status, NdisVcHandle, NdisPartyHandle, CallMgrPar
     CallMgrPartyContextMarshal := CallMgrPartyContext is VarRef ? "ptr" : "ptr"
     CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmMakeCallComplete", "int", _Status, NdisVcHandleMarshal, NdisVcHandle, NdisPartyHandleMarshal, NdisPartyHandle, CallMgrPartyContextMarshal, CallMgrPartyContext, CallParametersMarshal, CallParameters)
+    DllCall("NDIS.sys\NdisCmMakeCallComplete", Int32, _Status, NdisVcHandleMarshal, NdisVcHandle, NdisPartyHandleMarshal, NdisPartyHandle, CallMgrPartyContextMarshal, CallMgrPartyContext, CallParametersMarshal, CallParameters)
 }
 
 /**
@@ -1343,7 +1346,7 @@ export NdisCmCloseCallComplete(_Status, NdisVcHandle, NdisPartyHandle) {
     NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : "ptr"
     NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmCloseCallComplete", "int", _Status, NdisVcHandleMarshal, NdisVcHandle, NdisPartyHandleMarshal, NdisPartyHandle)
+    DllCall("NDIS.sys\NdisCmCloseCallComplete", Int32, _Status, NdisVcHandleMarshal, NdisVcHandle, NdisPartyHandleMarshal, NdisPartyHandle)
 }
 
 /**
@@ -1359,7 +1362,7 @@ export NdisCmAddPartyComplete(_Status, NdisPartyHandle, CallMgrPartyContext, Cal
     CallMgrPartyContextMarshal := CallMgrPartyContext is VarRef ? "ptr" : "ptr"
     CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmAddPartyComplete", "int", _Status, NdisPartyHandleMarshal, NdisPartyHandle, CallMgrPartyContextMarshal, CallMgrPartyContext, CallParametersMarshal, CallParameters)
+    DllCall("NDIS.sys\NdisCmAddPartyComplete", Int32, _Status, NdisPartyHandleMarshal, NdisPartyHandle, CallMgrPartyContextMarshal, CallMgrPartyContext, CallParametersMarshal, CallParameters)
 }
 
 /**
@@ -1371,7 +1374,7 @@ export NdisCmAddPartyComplete(_Status, NdisPartyHandle, CallMgrPartyContext, Cal
 export NdisCmDropPartyComplete(_Status, NdisPartyHandle) {
     NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmDropPartyComplete", "int", _Status, NdisPartyHandleMarshal, NdisPartyHandle)
+    DllCall("NDIS.sys\NdisCmDropPartyComplete", Int32, _Status, NdisPartyHandleMarshal, NdisPartyHandle)
 }
 
 /**
@@ -1412,7 +1415,7 @@ export NdisCmModifyCallQoSComplete(_Status, NdisVcHandle, CallParameters) {
     NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : "ptr"
     CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmModifyCallQoSComplete", "int", _Status, NdisVcHandleMarshal, NdisVcHandle, CallParametersMarshal, CallParameters)
+    DllCall("NDIS.sys\NdisCmModifyCallQoSComplete", Int32, _Status, NdisVcHandleMarshal, NdisVcHandle, CallParametersMarshal, CallParameters)
 }
 
 /**
@@ -1439,7 +1442,7 @@ export NdisCmDispatchIncomingCallQoSChange(NdisVcHandle, CallParameters) {
 export NdisCmDispatchIncomingCloseCall(CloseStatus, NdisVcHandle, _Buffer, _Size) {
     NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmDispatchIncomingCloseCall", "int", CloseStatus, NdisVcHandleMarshal, NdisVcHandle, "ptr", _Buffer, "uint", _Size)
+    DllCall("NDIS.sys\NdisCmDispatchIncomingCloseCall", Int32, CloseStatus, NdisVcHandleMarshal, NdisVcHandle, IntPtr, _Buffer, UInt32, _Size)
 }
 
 /**
@@ -1453,7 +1456,7 @@ export NdisCmDispatchIncomingCloseCall(CloseStatus, NdisVcHandle, _Buffer, _Size
 export NdisCmDispatchIncomingDropParty(DropStatus, NdisPartyHandle, _Buffer, _Size) {
     NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : "ptr"
 
-    DllCall("NDIS.sys\NdisCmDispatchIncomingDropParty", "int", DropStatus, NdisPartyHandleMarshal, NdisPartyHandle, "ptr", _Buffer, "uint", _Size)
+    DllCall("NDIS.sys\NdisCmDispatchIncomingDropParty", Int32, DropStatus, NdisPartyHandleMarshal, NdisPartyHandle, IntPtr, _Buffer, UInt32, _Size)
 }
 
 ;@endregion Functions

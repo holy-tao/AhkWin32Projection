@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IBackgroundCopyJob3.ahk" { IBackgroundCopyJob3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to enable peer caching, restrict download time, and inspect user token characteristics.
@@ -123,7 +123,7 @@ export default struct IBackgroundCopyJob4 extends IBackgroundCopyJob3 {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-setpeercachingflags
      */
     SetPeerCachingFlags(Flags) {
-        result := ComCall(47, this, "uint", Flags, "HRESULT")
+        result := ComCall(47, this, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -229,7 +229,7 @@ export default struct IBackgroundCopyJob4 extends IBackgroundCopyJob3 {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-setmaximumdownloadtime
      */
     SetMaximumDownloadTime(Timeout) {
-        result := ComCall(51, this, "uint", Timeout, "HRESULT")
+        result := ComCall(51, this, UInt32, Timeout, "HRESULT")
         return result
     }
 

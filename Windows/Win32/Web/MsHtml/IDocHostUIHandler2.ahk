@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDocHostUIHandler.ahk" { IDocHostUIHandler }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -42,7 +42,7 @@ export default struct IDocHostUIHandler2 extends IDocHostUIHandler {
      * @returns {PWSTR} 
      */
     GetOverrideKeyPath(dw) {
-        result := ComCall(18, this, PWSTR.Ptr, &pchKey := 0, "uint", dw, "HRESULT")
+        result := ComCall(18, this, PWSTR.Ptr, &pchKey := 0, UInt32, dw, "HRESULT")
         return pchKey
     }
 

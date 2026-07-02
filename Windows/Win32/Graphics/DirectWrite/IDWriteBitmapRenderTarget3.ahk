@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteBitmapRenderTarget2.ahk" { IDWriteBitmapRenderTarget2 }
-#Import ".\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import ".\DWRITE_PAINT_FEATURE_LEVEL.ahk" { DWRITE_PAINT_FEATURE_LEVEL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
+#Import ".\IDWriteBitmapRenderTarget2.ahk" { IDWriteBitmapRenderTarget2 }
 #Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
@@ -66,7 +66,7 @@ export default struct IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarg
      */
     DrawPaintGlyphRun(baselineOriginX, baselineOriginY, measuringMode, _glyphRun, glyphImageFormat, textColor, colorPaletteIndex) {
         blackBoxRect := RECT()
-        result := ComCall(15, this, "float", baselineOriginX, "float", baselineOriginY, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, COLORREF, textColor, "uint", colorPaletteIndex, RECT.Ptr, blackBoxRect, "HRESULT")
+        result := ComCall(15, this, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, COLORREF, textColor, UInt32, colorPaletteIndex, RECT.Ptr, blackBoxRect, "HRESULT")
         return blackBoxRect
     }
 
@@ -83,7 +83,7 @@ export default struct IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarg
      */
     DrawGlyphRunWithColorSupport(baselineOriginX, baselineOriginY, measuringMode, _glyphRun, renderingParams, textColor, colorPaletteIndex) {
         blackBoxRect := RECT()
-        result := ComCall(16, this, "float", baselineOriginX, "float", baselineOriginY, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", renderingParams, COLORREF, textColor, "uint", colorPaletteIndex, RECT.Ptr, blackBoxRect, "HRESULT")
+        result := ComCall(16, this, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", renderingParams, COLORREF, textColor, UInt32, colorPaletteIndex, RECT.Ptr, blackBoxRect, "HRESULT")
         return blackBoxRect
     }
 

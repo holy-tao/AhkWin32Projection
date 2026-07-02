@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWPM_CALLOUT_ENUM_TEMPLATE0.ahk" { FWPM_CALLOUT_ENUM_TEMPLATE0 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWPM_CALLOUT_ENUM_TEMPLATE0.ahk" { FWPM_CALLOUT_ENUM_TEMPLATE0 }
 
 /**
  * Used to subscribe for change notifications. (FWPM_CALLOUT_SUBSCRIPTION0)

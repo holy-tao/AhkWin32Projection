@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\POINTER_INFO.ahk" { POINTER_INFO }
 #Import ".\POINTER_PEN_INFO.ahk" { POINTER_PEN_INFO }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\POINTER_FLAGS.ahk" { POINTER_FLAGS }
-#Import "..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
-#Import ".\POINTER_BUTTON_CHANGE_TYPE.ahk" { POINTER_BUTTON_CHANGE_TYPE }
-#Import ".\POINTER_TOUCH_INFO.ahk" { POINTER_TOUCH_INFO }
 #Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\POINTER_TOUCH_INFO.ahk" { POINTER_TOUCH_INFO }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\POINTER_BUTTON_CHANGE_TYPE.ahk" { POINTER_BUTTON_CHANGE_TYPE }
+#Import ".\POINTER_INFO.ahk" { POINTER_INFO }
+#Import "..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
 
 /**
  * Contains information about the pointer input type.

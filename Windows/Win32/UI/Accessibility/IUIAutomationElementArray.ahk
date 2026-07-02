@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a collection of UI Automation elements.
@@ -67,7 +67,7 @@ export default struct IUIAutomationElementArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-getelement
      */
     GetElement(index) {
-        result := ComCall(4, this, "int", index, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(4, this, Int32, index, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 

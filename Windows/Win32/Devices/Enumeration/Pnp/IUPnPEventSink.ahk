@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUPnPEventSink interface allows a hosted service to send event notifications to the device host.
@@ -51,7 +51,7 @@ export default struct IUPnPEventSink extends IUnknown {
     OnStateChanged(cChanges, rgdispidChanges) {
         rgdispidChangesMarshal := rgdispidChanges is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", cChanges, rgdispidChangesMarshal, rgdispidChanges, "HRESULT")
+        result := ComCall(3, this, UInt32, cChanges, rgdispidChangesMarshal, rgdispidChanges, "HRESULT")
         return result
     }
 

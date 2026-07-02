@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PROCESSENTRY32.ahk" { PROCESSENTRY32 }
-#Import ".\MODULEENTRY32W.ahk" { MODULEENTRY32W }
-#Import ".\THREADENTRY32.ahk" { THREADENTRY32 }
 #Import ".\PROCESSENTRY32W.ahk" { PROCESSENTRY32W }
 #Import ".\CREATE_TOOLHELP_SNAPSHOT_FLAGS.ahk" { CREATE_TOOLHELP_SNAPSHOT_FLAGS }
-#Import ".\HEAPENTRY32.ahk" { HEAPENTRY32 }
 #Import ".\HEAPLIST32.ahk" { HEAPLIST32 }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\MODULEENTRY32W.ahk" { MODULEENTRY32W }
+#Import ".\HEAPENTRY32.ahk" { HEAPENTRY32 }
 #Import ".\MODULEENTRY32.ahk" { MODULEENTRY32 }
+#Import ".\THREADENTRY32.ahk" { THREADENTRY32 }
+#Import ".\PROCESSENTRY32.ahk" { PROCESSENTRY32 }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
@@ -48,7 +48,7 @@
 export CreateToolhelp32Snapshot(dwFlags, th32ProcessID) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateToolhelp32Snapshot", CREATE_TOOLHELP_SNAPSHOT_FLAGS, dwFlags, "uint", th32ProcessID, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateToolhelp32Snapshot", CREATE_TOOLHELP_SNAPSHOT_FLAGS, dwFlags, UInt32, th32ProcessID, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -135,7 +135,7 @@ export Heap32ListNext(hSnapshot, lphl) {
 export Heap32First(lphe, th32ProcessID, th32HeapID) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\Heap32First", HEAPENTRY32.Ptr, lphe, "uint", th32ProcessID, "ptr", th32HeapID, BOOL)
+    result := DllCall("KERNEL32.dll\Heap32First", HEAPENTRY32.Ptr, lphe, UInt32, th32ProcessID, IntPtr, th32HeapID, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -191,7 +191,7 @@ export Toolhelp32ReadProcessMemory(th32ProcessID, lpBaseAddress, lpBuffer, cbRea
     lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
     lpNumberOfBytesReadMarshal := lpNumberOfBytesRead is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\Toolhelp32ReadProcessMemory", "uint", th32ProcessID, lpBaseAddressMarshal, lpBaseAddress, lpBufferMarshal, lpBuffer, "ptr", cbRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, BOOL)
+    result := DllCall("KERNEL32.dll\Toolhelp32ReadProcessMemory", UInt32, th32ProcessID, lpBaseAddressMarshal, lpBaseAddress, lpBufferMarshal, lpBuffer, IntPtr, cbRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, BOOL)
     return result
 }
 

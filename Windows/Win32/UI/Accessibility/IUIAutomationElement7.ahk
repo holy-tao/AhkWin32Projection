@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
-#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
-#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
-#Import ".\IUIAutomationElement6.ahk" { IUIAutomationElement6 }
-#Import ".\TreeTraversalOptions.ahk" { TreeTraversalOptions }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TreeScope.ahk" { TreeScope }
 #Import ".\UIA_METADATA_ID.ahk" { UIA_METADATA_ID }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\TreeTraversalOptions.ahk" { TreeTraversalOptions }
+#Import ".\IUIAutomationElement6.ahk" { IUIAutomationElement6 }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Extends the IUIAutomationElement6 interface.
@@ -51,9 +51,9 @@ export default struct IUIAutomationElement7 extends IUIAutomationElement6 {
 
     /**
      * Finds the first matching element in the specified order.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope A combination of values specifying the scope of the search.
      * @param {IUIAutomationCondition} condition A pointer to a condition that represents the criteria to match.
-     * @param {TreeTraversalOptions} traversalOptions 
+     * @param {TreeTraversalOptions} traversalOptions Enumeration value specifying the tree navigation order.
      * @param {IUIAutomationElement} root A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElement} Receives a pointer to the element. <b>NULL</b> is returned if no matching element is found.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptions
@@ -65,9 +65,9 @@ export default struct IUIAutomationElement7 extends IUIAutomationElement6 {
 
     /**
      * Find all matching elements in the specified order.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope A combination of values specifying the scope of the search.
      * @param {IUIAutomationCondition} condition A pointer to a condition that represents the criteria to match.
-     * @param {TreeTraversalOptions} traversalOptions 
+     * @param {TreeTraversalOptions} traversalOptions Enumeration value specifying the tree navigation order.
      * @param {IUIAutomationElement} root A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElementArray} Receives a pointer to an array of matching elements. Returns an empty array if no matching element is found.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findallwithoptions
@@ -79,10 +79,10 @@ export default struct IUIAutomationElement7 extends IUIAutomationElement6 {
 
     /**
      * Finds the first matching element in the specified order, but also caches its properties and pattern.
-     * @param {TreeScope} scope 
+     * @param {TreeScope} scope A combination of values specifying the scope of the search.
      * @param {IUIAutomationCondition} condition A pointer to a condition that represents the criteria to match.
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request that specifies the control patterns and properties to include in the cache.
-     * @param {TreeTraversalOptions} traversalOptions 
+     * @param {TreeTraversalOptions} traversalOptions Enumeration value specifying the tree navigation order.
      * @param {IUIAutomationElement} root A pointer to the element with which to begin the search.
      * @returns {IUIAutomationElement} Receives a pointer to the element. <b>NULL</b> is returned if no matching element is found.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptionsbuildcache
@@ -128,7 +128,7 @@ export default struct IUIAutomationElement7 extends IUIAutomationElement6 {
      */
     GetCurrentMetadataValue(targetId, metadataId) {
         returnVal := VARIANT()
-        result := ComCall(114, this, "int", targetId, UIA_METADATA_ID, metadataId, VARIANT.Ptr, returnVal, "HRESULT")
+        result := ComCall(114, this, Int32, targetId, UIA_METADATA_ID, metadataId, VARIANT.Ptr, returnVal, "HRESULT")
         return returnVal
     }
 

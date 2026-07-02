@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWordFormSink.ahk" { IWordFormSink }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWordFormSink.ahk" { IWordFormSink }
 
 /**
  * Provides methods for creating a language-specific stemmer. The stemmer generates inflected forms of a specified word.
@@ -116,7 +116,7 @@ export default struct IStemmer extends IUnknown {
     Init(ulMaxTokenSize, pfLicense) {
         pfLicenseMarshal := pfLicense is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
+        result := ComCall(3, this, UInt32, ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
         return result
     }
 
@@ -168,7 +168,7 @@ export default struct IStemmer extends IUnknown {
     GenerateWordForms(pwcInBuf, cwc, pStemSink) {
         pwcInBuf := pwcInBuf is String ? StrPtr(pwcInBuf) : pwcInBuf
 
-        result := ComCall(4, this, "ptr", pwcInBuf, "uint", cwc, "ptr", pStemSink, "HRESULT")
+        result := ComCall(4, this, "ptr", pwcInBuf, UInt32, cwc, "ptr", pStemSink, "HRESULT")
         return result
     }
 

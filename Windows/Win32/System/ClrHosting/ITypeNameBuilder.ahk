@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -129,7 +129,7 @@ export default struct ITypeNameBuilder extends IUnknown {
      * @returns {HRESULT} 
      */
     AddArray(rank) {
-        result := ComCall(11, this, "uint", rank, "HRESULT")
+        result := ComCall(11, this, UInt32, rank, "HRESULT")
         return result
     }
 

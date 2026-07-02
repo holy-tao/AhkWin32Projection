@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -56,7 +56,7 @@ export default struct IDebugPlmClient2 extends IUnknown {
         ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
         ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
+        result := ComCall(3, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IDebugPlmClient2 extends IUnknown {
         ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
         ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", BackgroundTaskId, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
+        result := ComCall(4, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", BackgroundTaskId, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 

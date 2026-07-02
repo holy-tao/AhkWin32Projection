@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PCRASHDUMP_POWER_ON.ahk" { PCRASHDUMP_POWER_ON }
+#Import ".\PINTERFACE_DEREFERENCE.ahk" { PINTERFACE_DEREFERENCE }
+#Import ".\PINTERFACE_REFERENCE.ahk" { PINTERFACE_REFERENCE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -12,10 +15,10 @@ export default struct CRASHDUMP_FUNCTIONS_INTERFACE {
 
     Context : IntPtr
 
-    InterfaceReference : IntPtr
+    InterfaceReference : PINTERFACE_REFERENCE
 
-    InterfaceDereference : IntPtr
+    InterfaceDereference : PINTERFACE_DEREFERENCE
 
-    PowerOn : IntPtr
+    PowerOn : PCRASHDUMP_POWER_ON
 
 }

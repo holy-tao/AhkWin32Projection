@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\FOCUS_EVENT_RECORD.ahk" { FOCUS_EVENT_RECORD }
-#Import ".\WINDOW_BUFFER_SIZE_RECORD.ahk" { WINDOW_BUFFER_SIZE_RECORD }
-#Import ".\KEY_EVENT_RECORD.ahk" { KEY_EVENT_RECORD }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
-#Import ".\COORD.ahk" { COORD }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\MENU_EVENT_RECORD.ahk" { MENU_EVENT_RECORD }
+#Import ".\COORD.ahk" { COORD }
 #Import ".\MOUSE_EVENT_RECORD.ahk" { MOUSE_EVENT_RECORD }
+#Import ".\KEY_EVENT_RECORD.ahk" { KEY_EVENT_RECORD }
+#Import ".\WINDOW_BUFFER_SIZE_RECORD.ahk" { WINDOW_BUFFER_SIZE_RECORD }
+#Import ".\MENU_EVENT_RECORD.ahk" { MENU_EVENT_RECORD }
 
 /**
  * See reference information about the INPUT_RECORD structure, which describes an input event in the console input buffer.

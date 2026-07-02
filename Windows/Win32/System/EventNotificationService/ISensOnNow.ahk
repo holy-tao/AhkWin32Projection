@@ -96,7 +96,7 @@ export default struct ISensOnNow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isensonnow-onbatterypower
      */
     OnBatteryPower(dwBatteryLifePercent) {
-        result := ComCall(8, this, "uint", dwBatteryLifePercent, "HRESULT")
+        result := ComCall(8, this, UInt32, dwBatteryLifePercent, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct ISensOnNow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isensonnow-batterylow
      */
     BatteryLow(dwBatteryLifePercent) {
-        result := ComCall(9, this, "uint", dwBatteryLifePercent, "HRESULT")
+        result := ComCall(9, this, UInt32, dwBatteryLifePercent, "HRESULT")
         return result
     }
 

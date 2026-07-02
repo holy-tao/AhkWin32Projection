@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CREATE_PARTITION_PARAMETERS.ahk" { CREATE_PARTITION_PARAMETERS }
-#Import ".\VDS_PARTITION_PROP.ahk" { VDS_PARTITION_PROP }
-#Import ".\CHANGE_ATTRIBUTES_PARAMETERS.ahk" { CHANGE_ATTRIBUTES_PARAMETERS }
-#Import ".\VDS_FILE_SYSTEM_TYPE.ahk" { VDS_FILE_SYSTEM_TYPE }
-#Import ".\IVdsAsync.ahk" { IVdsAsync }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_FILE_SYSTEM_TYPE.ahk" { VDS_FILE_SYSTEM_TYPE }
+#Import ".\CREATE_PARTITION_PARAMETERS.ahk" { CREATE_PARTITION_PARAMETERS }
+#Import ".\CHANGE_ATTRIBUTES_PARAMETERS.ahk" { CHANGE_ATTRIBUTES_PARAMETERS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_PARTITION_PROP.ahk" { VDS_PARTITION_PROP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Creates and deletes partitions, and modifies partition attributes.
@@ -75,7 +75,7 @@ export default struct IVdsAdvancedDisk extends IUnknown {
      */
     GetPartitionProperties(ullOffset) {
         pPartitionProp := VDS_PARTITION_PROP()
-        result := ComCall(3, this, "uint", ullOffset, VDS_PARTITION_PROP.Ptr, pPartitionProp, "HRESULT")
+        result := ComCall(3, this, Int64, ullOffset, VDS_PARTITION_PROP.Ptr, pPartitionProp, "HRESULT")
         return pPartitionProp
     }
 
@@ -141,7 +141,7 @@ export default struct IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-createpartition
      */
     CreatePartition(ullOffset, ullSize, para) {
-        result := ComCall(5, this, "uint", ullOffset, "uint", ullSize, CREATE_PARTITION_PARAMETERS.Ptr, para, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(5, this, Int64, ullOffset, Int64, ullSize, CREATE_PARTITION_PARAMETERS.Ptr, para, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -261,7 +261,7 @@ export default struct IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-deletepartition
      */
     DeletePartition(ullOffset, bForce, bForceProtected) {
-        result := ComCall(6, this, "uint", ullOffset, BOOL, bForce, BOOL, bForceProtected, "HRESULT")
+        result := ComCall(6, this, Int64, ullOffset, BOOL, bForce, BOOL, bForceProtected, "HRESULT")
         return result
     }
 
@@ -329,7 +329,7 @@ export default struct IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-changeattributes
      */
     ChangeAttributes(ullOffset, para) {
-        result := ComCall(7, this, "uint", ullOffset, CHANGE_ATTRIBUTES_PARAMETERS.Ptr, para, "HRESULT")
+        result := ComCall(7, this, Int64, ullOffset, CHANGE_ATTRIBUTES_PARAMETERS.Ptr, para, "HRESULT")
         return result
     }
 
@@ -397,7 +397,7 @@ export default struct IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-assigndriveletter
      */
     AssignDriveLetter(ullOffset, wcLetter) {
-        result := ComCall(8, this, "uint", ullOffset, "char", wcLetter, "HRESULT")
+        result := ComCall(8, this, Int64, ullOffset, Int8, wcLetter, "HRESULT")
         return result
     }
 
@@ -453,7 +453,7 @@ export default struct IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-deletedriveletter
      */
     DeleteDriveLetter(ullOffset, wcLetter) {
-        result := ComCall(9, this, "uint", ullOffset, "char", wcLetter, "HRESULT")
+        result := ComCall(9, this, Int64, ullOffset, Int8, wcLetter, "HRESULT")
         return result
     }
 
@@ -511,7 +511,7 @@ export default struct IVdsAdvancedDisk extends IUnknown {
     GetDriveLetter(ullOffset, pwcLetter) {
         pwcLetter := pwcLetter is String ? StrPtr(pwcLetter) : pwcLetter
 
-        result := ComCall(10, this, "uint", ullOffset, "ptr", pwcLetter, "HRESULT")
+        result := ComCall(10, this, Int64, ullOffset, "ptr", pwcLetter, "HRESULT")
         return result
     }
 
@@ -548,7 +548,7 @@ export default struct IVdsAdvancedDisk extends IUnknown {
     FormatPartition(ullOffset, type, pwszLabel, dwUnitAllocationSize, bForce, bQuickFormat, bEnableCompression) {
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(11, this, "uint", ullOffset, VDS_FILE_SYSTEM_TYPE, type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(11, this, Int64, ullOffset, VDS_FILE_SYSTEM_TYPE, type, "ptr", pwszLabel, UInt32, dwUnitAllocationSize, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\HCERTCHAINENGINE.ahk" { HCERTCHAINENGINE }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 #Import ".\CERT_CHAIN_PARA.ahk" { CERT_CHAIN_PARA }
 
 /**

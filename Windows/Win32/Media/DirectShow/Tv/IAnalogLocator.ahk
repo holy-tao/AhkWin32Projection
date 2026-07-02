@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ILocator.ahk" { ILocator }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\AnalogVideoStandard.ahk" { AnalogVideoStandard }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ILocator.ahk" { ILocator }
 
 /**
  * The IAnalogLocator interface provides tuning information for an analog television network.

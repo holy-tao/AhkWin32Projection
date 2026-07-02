@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implement this interface to receive notifications when an assessment is complete or making progress.
@@ -157,7 +157,7 @@ export default struct IWinSATInitiateEvents extends IUnknown {
     WinSATUpdate(uCurrentTick, uTickTotal, strCurrentState) {
         strCurrentState := strCurrentState is String ? StrPtr(strCurrentState) : strCurrentState
 
-        result := ComCall(4, this, "uint", uCurrentTick, "uint", uTickTotal, "ptr", strCurrentState, "HRESULT")
+        result := ComCall(4, this, UInt32, uCurrentTick, UInt32, uTickTotal, "ptr", strCurrentState, "HRESULT")
         return result
     }
 

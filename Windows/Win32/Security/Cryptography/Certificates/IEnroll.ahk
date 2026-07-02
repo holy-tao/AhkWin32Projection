@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
-#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
 #Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
-#Import "..\CERT_EXTENSIONS.ahk" { CERT_EXTENSIONS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\CERT_EXTENSIONS.ahk" { CERT_EXTENSIONS }
 
 /**
  * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll)
@@ -494,7 +494,7 @@ export default struct IEnroll extends IUnknown {
     enumProvidersWStr(dwIndex, dwFlags, pbstrProvName) {
         pbstrProvNameMarshal := pbstrProvName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "int", dwIndex, "int", dwFlags, pbstrProvNameMarshal, pbstrProvName, "HRESULT")
+        result := ComCall(11, this, Int32, dwIndex, Int32, dwFlags, pbstrProvNameMarshal, pbstrProvName, "HRESULT")
         return result
     }
 
@@ -511,7 +511,7 @@ export default struct IEnroll extends IUnknown {
     enumContainersWStr(dwIndex, pbstr) {
         pbstrMarshal := pbstr is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "int", dwIndex, pbstrMarshal, pbstr, "HRESULT")
+        result := ComCall(12, this, Int32, dwIndex, pbstrMarshal, pbstr, "HRESULT")
         return result
     }
 
@@ -672,7 +672,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_mystoreflags
      */
     put_MyStoreFlags(dwFlags) {
-        result := ComCall(19, this, "int", dwFlags, "HRESULT")
+        result := ComCall(19, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -814,7 +814,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_castoreflags
      */
     put_CAStoreFlags(dwFlags) {
-        result := ComCall(25, this, "int", dwFlags, "HRESULT")
+        result := ComCall(25, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -964,7 +964,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_rootstoreflags
      */
     put_RootStoreFlags(dwFlags) {
-        result := ComCall(31, this, "int", dwFlags, "HRESULT")
+        result := ComCall(31, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -1166,7 +1166,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_requeststoreflags
      */
     put_RequestStoreFlags(dwFlags) {
-        result := ComCall(37, this, "int", dwFlags, "HRESULT")
+        result := ComCall(37, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -1354,7 +1354,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_providertype
      */
     put_ProviderType(dwType) {
-        result := ComCall(43, this, "int", dwType, "HRESULT")
+        result := ComCall(43, this, Int32, dwType, "HRESULT")
         return result
     }
 
@@ -1416,7 +1416,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_keyspec
      */
     put_KeySpec(dw) {
-        result := ComCall(45, this, "int", dw, "HRESULT")
+        result := ComCall(45, this, Int32, dw, "HRESULT")
         return result
     }
 
@@ -1478,7 +1478,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_providerflags
      */
     put_ProviderFlags(dwFlags) {
-        result := ComCall(47, this, "int", dwFlags, "HRESULT")
+        result := ComCall(47, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -1612,7 +1612,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_genkeyflags
      */
     put_GenKeyFlags(dwFlags) {
-        result := ComCall(51, this, "int", dwFlags, "HRESULT")
+        result := ComCall(51, this, Int32, dwFlags, "HRESULT")
         return result
     }
 

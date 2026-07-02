@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IMFWorkQueueServices.ahk" { IMFWorkQueueServices }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFWorkQueueServices.ahk" { IMFWorkQueueServices }
 
 /**
  * Extends the IMFWorkQueueServices interface.
@@ -54,7 +54,7 @@ export default struct IMFWorkQueueServicesEx extends IMFWorkQueueServices {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservicesex-gettopologyworkqueuemmcsspriority
      */
     GetTopologyWorkQueueMMCSSPriority(dwTopologyWorkQueueId) {
-        result := ComCall(15, this, "uint", dwTopologyWorkQueueId, "int*", &plPriority := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwTopologyWorkQueueId, "int*", &plPriority := 0, "HRESULT")
         return plPriority
     }
 
@@ -72,7 +72,7 @@ export default struct IMFWorkQueueServicesEx extends IMFWorkQueueServices {
     BeginRegisterPlatformWorkQueueWithMMCSSEx(dwPlatformWorkQueue, wszClass, dwTaskId, lPriority, pCallback, pState) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := ComCall(16, this, "uint", dwPlatformWorkQueue, "ptr", wszClass, "uint", dwTaskId, "int", lPriority, "ptr", pCallback, "ptr", pState, "HRESULT")
+        result := ComCall(16, this, UInt32, dwPlatformWorkQueue, "ptr", wszClass, UInt32, dwTaskId, Int32, lPriority, "ptr", pCallback, "ptr", pState, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IMFWorkQueueServicesEx extends IMFWorkQueueServices {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfworkqueueservicesex-getplatformworkqueuemmcsspriority
      */
     GetPlatformWorkQueueMMCSSPriority(dwPlatformWorkQueueId) {
-        result := ComCall(17, this, "uint", dwPlatformWorkQueueId, "int*", &plPriority := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, dwPlatformWorkQueueId, "int*", &plPriority := 0, "HRESULT")
         return plPriority
     }
 

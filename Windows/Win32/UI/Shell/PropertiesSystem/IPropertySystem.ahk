@@ -2,12 +2,12 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\PROPDESC_FORMAT_FLAGS.ahk" { PROPDESC_FORMAT_FLAGS }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PROPDESC_ENUMFILTER.ahk" { PROPDESC_ENUMFILTER }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PROPDESC_FORMAT_FLAGS.ahk" { PROPDESC_FORMAT_FLAGS }
 
 /**
  * Exposes methods that get property descriptions, register and unregister property schemas, enumerate property descriptions, and format property values in a type-strict way.
@@ -440,7 +440,7 @@ export default struct IPropertySystem extends IUnknown {
     FormatForDisplay(key, propvar, pdff, pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(7, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, propvar, PROPDESC_FORMAT_FLAGS, pdff, "ptr", pszText, "uint", cchText, "HRESULT")
+        result := ComCall(7, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, propvar, PROPDESC_FORMAT_FLAGS, pdff, "ptr", pszText, UInt32, cchText, "HRESULT")
         return result
     }
 

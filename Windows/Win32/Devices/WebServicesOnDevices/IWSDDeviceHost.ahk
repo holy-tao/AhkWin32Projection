@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
-#Import ".\WSD_THIS_DEVICE_METADATA.ahk" { WSD_THIS_DEVICE_METADATA }
-#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IWSDDeviceHostNotify.ahk" { IWSDDeviceHostNotify }
-#Import ".\WSD_PORT_TYPE.ahk" { WSD_PORT_TYPE }
 #Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
+#Import ".\WSD_PORT_TYPE.ahk" { WSD_PORT_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
-#Import ".\WSD_THIS_MODEL_METADATA.ahk" { WSD_THIS_MODEL_METADATA }
-#Import ".\IWSDAddress.ahk" { IWSDAddress }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 #Import ".\WSD_HOST_METADATA.ahk" { WSD_HOST_METADATA }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\IWSDDeviceHostNotify.ahk" { IWSDDeviceHostNotify }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WSD_THIS_MODEL_METADATA.ahk" { WSD_THIS_MODEL_METADATA }
+#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
+#Import ".\WSD_THIS_DEVICE_METADATA.ahk" { WSD_THIS_DEVICE_METADATA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWSDAddress.ahk" { IWSDAddress }
 
 /**
  * Represents a DPWS-compliant device.
@@ -186,7 +186,7 @@ export default struct IWSDDeviceHost extends IUnknown {
     Init(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := ComCall(3, this, "ptr", pszLocalId, "ptr", pContext, IWSDAddress.Ptr, ppHostAddresses, "uint", dwHostAddressCount, "HRESULT")
+        result := ComCall(3, this, "ptr", pszLocalId, "ptr", pContext, IWSDAddress.Ptr, ppHostAddresses, UInt32, dwHostAddressCount, "HRESULT")
         return result
     }
 
@@ -253,7 +253,7 @@ export default struct IWSDDeviceHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-start
      */
     Start(ullInstanceId, pScopeList, pNotificationSink) {
-        result := ComCall(4, this, "uint", ullInstanceId, WSD_URI_LIST.Ptr, pScopeList, "ptr", pNotificationSink, "HRESULT")
+        result := ComCall(4, this, Int64, ullInstanceId, WSD_URI_LIST.Ptr, pScopeList, "ptr", pNotificationSink, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FWPM_CHANGE_TYPE.ahk" { FWPM_CHANGE_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWPM_CHANGE_TYPE.ahk" { FWPM_CHANGE_TYPE }
 
 /**
  * Change notification dispatched to subscribers. (FWPM_PROVIDER_CHANGE0)

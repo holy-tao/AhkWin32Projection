@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMT_INDEXER_TYPE.ahk" { WMT_INDEXER_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMIndexer.ahk" { IWMIndexer }
 
 /**
@@ -88,7 +88,7 @@ export default struct IWMIndexer2 extends IWMIndexer {
         pvIntervalMarshal := pvInterval is VarRef ? "ptr" : "ptr"
         pvIndexTypeMarshal := pvIndexType is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ushort", wStreamNum, WMT_INDEXER_TYPE, nIndexerType, pvIntervalMarshal, pvInterval, pvIndexTypeMarshal, pvIndexType, "HRESULT")
+        result := ComCall(5, this, UInt16, wStreamNum, WMT_INDEXER_TYPE, nIndexerType, pvIntervalMarshal, pvInterval, pvIndexTypeMarshal, pvIndexType, "HRESULT")
         return result
     }
 

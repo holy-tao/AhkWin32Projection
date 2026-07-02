@@ -3,11 +3,11 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\InkRecognitionConfidence.ahk" { InkRecognitionConfidence }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IInkRecognitionAlternate.ahk" { IInkRecognitionAlternate }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IInkRecognitionAlternates.ahk" { IInkRecognitionAlternates }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import ".\IInkRecognitionAlternates.ahk" { IInkRecognitionAlternates }
 
 /**
  * Represents the result of the recognition. The results of recognizing handwritten ink are returned in an IInkRecognitionResult object.
@@ -155,7 +155,7 @@ export default struct IInkRecognitionResult extends IDispatch {
      * @returns {IInkRecognitionAlternates} 
      */
     AlternatesFromSelection(selectionStart, selectionLength, maximumAlternates) {
-        result := ComCall(11, this, "int", selectionStart, "int", selectionLength, "int", maximumAlternates, "ptr*", &AlternatesFromSelection := 0, "HRESULT")
+        result := ComCall(11, this, Int32, selectionStart, Int32, selectionLength, Int32, maximumAlternates, "ptr*", &AlternatesFromSelection := 0, "HRESULT")
         return IInkRecognitionAlternates(AlternatesFromSelection)
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVMRSurfaceAllocator9.ahk" { IVMRSurfaceAllocator9 }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\IVMRSurfaceAllocator9.ahk" { IVMRSurfaceAllocator9 }
 
 /**
  * The IVMRSurfaceAllocatorEx9 interface provides a way for custom allocator-presenters to control where the Video Mixing Renderer Filter 9 (VMR-9) draws the composited image.
@@ -72,7 +72,7 @@ export default struct IVMRSurfaceAllocatorEx9 extends IVMRSurfaceAllocator9 {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatorex9-getsurfaceex
      */
     GetSurfaceEx(dwUserID, SurfaceIndex, SurfaceFlags, lplpSurface, lprcDst) {
-        result := ComCall(7, this, "ptr", dwUserID, "uint", SurfaceIndex, "uint", SurfaceFlags, IDirect3DSurface9.Ptr, lplpSurface, RECT.Ptr, lprcDst, "HRESULT")
+        result := ComCall(7, this, IntPtr, dwUserID, UInt32, SurfaceIndex, UInt32, SurfaceFlags, IDirect3DSurface9.Ptr, lplpSurface, RECT.Ptr, lprcDst, "HRESULT")
         return result
     }
 

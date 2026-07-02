@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import ".\GAMESTATS_OPEN_TYPE.ahk" { GAMESTATS_OPEN_TYPE }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\GAMESTATS_OPEN_RESULT.ahk" { GAMESTATS_OPEN_RESULT }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IGameStatistics.ahk" { IGameStatistics }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GAMESTATS_OPEN_TYPE.ahk" { GAMESTATS_OPEN_TYPE }
 
 /**
  * @namespace Windows.Win32.Gaming

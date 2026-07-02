@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 #Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
 
 /**
  * The EMRTEXT structure contains members for text output.

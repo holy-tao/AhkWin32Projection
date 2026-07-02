@@ -65,7 +65,7 @@ export default struct IAnalogRadioTuningSpace2 extends IAnalogRadioTuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace2-put_countrycode
      */
     put_CountryCode(NewCountryCodeVal) {
-        result := ComCall(33, this, "int", NewCountryCodeVal, "HRESULT")
+        result := ComCall(33, this, Int32, NewCountryCodeVal, "HRESULT")
         return result
     }
 

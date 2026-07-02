@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\IXpsOMPackageTarget.ahk" { IXpsOMPackageTarget }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IXpsPrintJob.ahk" { IXpsPrintJob }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IXpsPrintJobStream.ahk" { IXpsPrintJobStream }
+#Import "..\IXpsOMPackageTarget.ahk" { IXpsOMPackageTarget }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Storage.Xps.Printing
@@ -208,7 +208,7 @@ export StartXpsPrintJob(printerName, jobName, outputFileName, progressEvent, com
 
     printablePagesOnMarshal := printablePagesOn is VarRef ? "char*" : "ptr"
 
-    result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, HANDLE, progressEvent, HANDLE, completionEvent, printablePagesOnMarshal, printablePagesOn, "uint", printablePagesOnCount, IXpsPrintJob.Ptr, xpsPrintJob, IXpsPrintJobStream.Ptr, documentStream, IXpsPrintJobStream.Ptr, printTicketStream, "HRESULT")
+    result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, HANDLE, progressEvent, HANDLE, completionEvent, printablePagesOnMarshal, printablePagesOn, UInt32, printablePagesOnCount, IXpsPrintJob.Ptr, xpsPrintJob, IXpsPrintJobStream.Ptr, documentStream, IXpsPrintJobStream.Ptr, printTicketStream, "HRESULT")
     return result
 }
 

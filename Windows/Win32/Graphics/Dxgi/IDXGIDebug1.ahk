@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIDebug.ahk" { IDXGIDebug }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDXGIDebug.ahk" { IDXGIDebug }
 
 /**
  * Controls debug settings for Microsoft DirectX Graphics Infrastructure (DXGI). You can use the IDXGIDebug1 interface in Windows Store apps.

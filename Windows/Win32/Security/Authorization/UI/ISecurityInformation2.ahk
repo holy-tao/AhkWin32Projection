@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\ACL.ahk" { ACL }
-#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\PSID.ahk" { PSID }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\ACL.ahk" { ACL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\PSID.ahk" { PSID }
 
 /**
  * Enables the access control editor to obtain information from the client that is not provided by the ISecurityInformation interface.
@@ -79,7 +79,7 @@ export default struct ISecurityInformation2 extends IUnknown {
     LookupSids(cSids, rgpSids) {
         rgpSidsMarshal := rgpSids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", cSids, rgpSidsMarshal, rgpSids, "ptr*", &ppdo := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, cSids, rgpSidsMarshal, rgpSids, "ptr*", &ppdo := 0, "HRESULT")
         return IDataObject(ppdo)
     }
 

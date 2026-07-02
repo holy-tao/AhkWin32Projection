@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 #Import ".\DOT11_ANQP_QUERY_RESULT.ahk" { DOT11_ANQP_QUERY_RESULT }
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

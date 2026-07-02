@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
@@ -71,7 +71,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
     SetRedTable(tableValues, count) {
         tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
 
-        result := ComCall(4, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
+        result := ComCall(4, this, tableValuesMarshal, tableValues, UInt32, count, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
     SetGreenTable(tableValues, count) {
         tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
 
-        result := ComCall(5, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
+        result := ComCall(5, this, tableValuesMarshal, tableValues, UInt32, count, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
     SetBlueTable(tableValues, count) {
         tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
 
-        result := ComCall(6, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
+        result := ComCall(6, this, tableValuesMarshal, tableValues, UInt32, count, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
     SetAlphaTable(tableValues, count) {
         tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
 
-        result := ComCall(7, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
+        result := ComCall(7, this, tableValuesMarshal, tableValues, UInt32, count, "HRESULT")
         return result
     }
 
@@ -231,7 +231,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtablevalue(uint_idcompositionanimation)
      */
     SetRedTableValue(index, animation) {
-        result := ComCall(13, this, "uint", index, "ptr", animation, "HRESULT")
+        result := ComCall(13, this, UInt32, index, "ptr", animation, "HRESULT")
         return result
     }
 
@@ -247,7 +247,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtablevalue(uint_idcompositionanimation)
      */
     SetRedTableValue1(index, value) {
-        result := ComCall(14, this, "uint", index, "float", value, "HRESULT")
+        result := ComCall(14, this, UInt32, index, Float32, value, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentablevalue(uint_idcompositionanimation)
      */
     SetGreenTableValue(index, animation) {
-        result := ComCall(15, this, "uint", index, "ptr", animation, "HRESULT")
+        result := ComCall(15, this, UInt32, index, "ptr", animation, "HRESULT")
         return result
     }
 
@@ -281,7 +281,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentablevalue(uint_idcompositionanimation)
      */
     SetGreenTableValue1(index, value) {
-        result := ComCall(16, this, "uint", index, "float", value, "HRESULT")
+        result := ComCall(16, this, UInt32, index, Float32, value, "HRESULT")
         return result
     }
 
@@ -299,7 +299,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetablevalue(uint_idcompositionanimation)
      */
     SetBlueTableValue(index, animation) {
-        result := ComCall(17, this, "uint", index, "ptr", animation, "HRESULT")
+        result := ComCall(17, this, UInt32, index, "ptr", animation, "HRESULT")
         return result
     }
 
@@ -315,7 +315,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetablevalue(uint_idcompositionanimation)
      */
     SetBlueTableValue1(index, value) {
-        result := ComCall(18, this, "uint", index, "float", value, "HRESULT")
+        result := ComCall(18, this, UInt32, index, Float32, value, "HRESULT")
         return result
     }
 
@@ -333,7 +333,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatablevalue(uint_idcompositionanimation)
      */
     SetAlphaTableValue(index, animation) {
-        result := ComCall(19, this, "uint", index, "ptr", animation, "HRESULT")
+        result := ComCall(19, this, UInt32, index, "ptr", animation, "HRESULT")
         return result
     }
 
@@ -349,7 +349,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatablevalue(uint_idcompositionanimation)
      */
     SetAlphaTableValue1(index, value) {
-        result := ComCall(20, this, "uint", index, "float", value, "HRESULT")
+        result := ComCall(20, this, UInt32, index, Float32, value, "HRESULT")
         return result
     }
 

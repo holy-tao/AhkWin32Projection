@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\REGISTERWORDW.ahk" { REGISTERWORDW }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMEINFO.ahk" { IMEINFO }
-#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CANDIDATELIST.ahk" { CANDIDATELIST }
-#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IEnumRegisterWordW.ahk" { IEnumRegisterWordW }
-#Import ".\HIMC.ahk" { HIMC }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\HIMC.ahk" { HIMC }
+#Import ".\IMEINFO.ahk" { IMEINFO }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\KeyboardAndMouse\HKL.ahk" { HKL }
+#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumRegisterWordW.ahk" { IEnumRegisterWordW }
 #Import ".\STYLEBUFW.ahk" { STYLEBUFW }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CANDIDATELIST.ahk" { CANDIDATELIST }
+#Import ".\REGISTERWORDW.ahk" { REGISTERWORDW }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -75,7 +75,7 @@ export default struct IActiveIME extends IUnknown {
 
         pdwPrivateMarshal := pdwPrivate is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwSystemInfoFlags, IMEINFO.Ptr, pIMEInfo, "ptr", szWndClass, pdwPrivateMarshal, pdwPrivate, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSystemInfoFlags, IMEINFO.Ptr, pIMEInfo, "ptr", szWndClass, pdwPrivateMarshal, pdwPrivate, "HRESULT")
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IActiveIME extends IUnknown {
 
         puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, HIMC, _hIMC, "ptr", szSource, "uint", uFlag, "uint", uBufLen, CANDIDATELIST.Ptr, pDest, puCopiedMarshal, puCopied, "HRESULT")
+        result := ComCall(4, this, HIMC, _hIMC, "ptr", szSource, UInt32, uFlag, UInt32, uBufLen, CANDIDATELIST.Ptr, pDest, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct IActiveIME extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/configure
      */
     Configure(_hKL, _hWnd, dwMode, pRegisterWord) {
-        result := ComCall(5, this, HKL, _hKL, HWND, _hWnd, "uint", dwMode, REGISTERWORDW.Ptr, pRegisterWord, "HRESULT")
+        result := ComCall(5, this, HKL, _hKL, HWND, _hWnd, UInt32, dwMode, REGISTERWORDW.Ptr, pRegisterWord, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IActiveIME extends IUnknown {
      * @returns {HRESULT} 
      */
     Destroy(uReserved) {
-        result := ComCall(6, this, "uint", uReserved, "HRESULT")
+        result := ComCall(6, this, UInt32, uReserved, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ export default struct IActiveIME extends IUnknown {
     Escape(_hIMC, uEscape, pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, HIMC, _hIMC, "uint", uEscape, pDataMarshal, pData, LRESULT.Ptr, &plResult := 0, "HRESULT")
+        result := ComCall(7, this, HIMC, _hIMC, UInt32, uEscape, pDataMarshal, pData, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -207,7 +207,7 @@ export default struct IActiveIME extends IUnknown {
     ProcessKey(_hIMC, uVirKey, _lParam, pbKeyState) {
         pbKeyStateMarshal := pbKeyState is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, HIMC, _hIMC, "uint", uVirKey, "uint", _lParam, pbKeyStateMarshal, pbKeyState, "HRESULT")
+        result := ComCall(9, this, HIMC, _hIMC, UInt32, uVirKey, UInt32, _lParam, pbKeyStateMarshal, pbKeyState, "HRESULT")
         return result
     }
 
@@ -220,7 +220,7 @@ export default struct IActiveIME extends IUnknown {
      * @returns {HRESULT} 
      */
     Notify(_hIMC, dwAction, dwIndex, dwValue) {
-        result := ComCall(10, this, HIMC, _hIMC, "uint", dwAction, "uint", dwIndex, "uint", dwValue, "HRESULT")
+        result := ComCall(10, this, HIMC, _hIMC, UInt32, dwAction, UInt32, dwIndex, UInt32, dwValue, "HRESULT")
         return result
     }
 
@@ -250,7 +250,7 @@ export default struct IActiveIME extends IUnknown {
         pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
         pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, HIMC, _hIMC, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "HRESULT")
+        result := ComCall(12, this, HIMC, _hIMC, UInt32, dwIndex, pCompMarshal, pComp, UInt32, dwCompLen, pReadMarshal, pRead, UInt32, dwReadLen, "HRESULT")
         return result
     }
 
@@ -326,7 +326,7 @@ export default struct IActiveIME extends IUnknown {
         pdwTransBufMarshal := pdwTransBuf is VarRef ? "uint*" : "ptr"
         puSizeMarshal := puSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", uVirKey, "uint", uScanCode, pbKeyStateMarshal, pbKeyState, "uint", fuState, HIMC, _hIMC, pdwTransBufMarshal, pdwTransBuf, puSizeMarshal, puSize, "HRESULT")
+        result := ComCall(13, this, UInt32, uVirKey, UInt32, uScanCode, pbKeyStateMarshal, pbKeyState, UInt32, fuState, HIMC, _hIMC, pdwTransBufMarshal, pdwTransBuf, puSizeMarshal, puSize, "HRESULT")
         return result
     }
 
@@ -341,7 +341,7 @@ export default struct IActiveIME extends IUnknown {
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szString := szString is String ? StrPtr(szString) : szString
 
-        result := ComCall(14, this, "ptr", szReading, "uint", dwStyle, "ptr", szString, "HRESULT")
+        result := ComCall(14, this, "ptr", szReading, UInt32, dwStyle, "ptr", szString, "HRESULT")
         return result
     }
 
@@ -356,7 +356,7 @@ export default struct IActiveIME extends IUnknown {
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szString := szString is String ? StrPtr(szString) : szString
 
-        result := ComCall(15, this, "ptr", szReading, "uint", dwStyle, "ptr", szString, "HRESULT")
+        result := ComCall(15, this, "ptr", szReading, UInt32, dwStyle, "ptr", szString, "HRESULT")
         return result
     }
 
@@ -370,7 +370,7 @@ export default struct IActiveIME extends IUnknown {
     GetRegisterWordStyle(nItem, pStyleBuf, puBufSize) {
         puBufSizeMarshal := puBufSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", nItem, STYLEBUFW.Ptr, pStyleBuf, puBufSizeMarshal, puBufSize, "HRESULT")
+        result := ComCall(16, this, UInt32, nItem, STYLEBUFW.Ptr, pStyleBuf, puBufSizeMarshal, puBufSize, "HRESULT")
         return result
     }
 
@@ -388,7 +388,7 @@ export default struct IActiveIME extends IUnknown {
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(17, this, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", szReading, UInt32, dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumRegisterWordW(ppEnum)
     }
 

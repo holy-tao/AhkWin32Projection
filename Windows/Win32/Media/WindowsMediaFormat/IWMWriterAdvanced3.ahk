@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMWriterAdvanced2.ahk" { IWMWriterAdvanced2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WM_WRITER_STATISTICS_EX.ahk" { WM_WRITER_STATISTICS_EX }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMWriterAdvanced2.ahk" { IWMWriterAdvanced2 }
 
 /**
  * The IWMWriterAdvanced3 interface provides additional functionality for the writer object.IWMWriterAdvanced3 exists for every instance of the writer object. To obtain a pointer to this interface, call QueryInterface on the writer object.
@@ -49,7 +49,7 @@ export default struct IWMWriterAdvanced3 extends IWMWriterAdvanced2 {
      */
     GetStatisticsEx(wStreamNum) {
         pStats := WM_WRITER_STATISTICS_EX()
-        result := ComCall(16, this, "ushort", wStreamNum, WM_WRITER_STATISTICS_EX.Ptr, pStats, "HRESULT")
+        result := ComCall(16, this, UInt16, wStreamNum, WM_WRITER_STATISTICS_EX.Ptr, pStats, "HRESULT")
         return pStats
     }
 

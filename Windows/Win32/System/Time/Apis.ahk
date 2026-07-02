@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
-#Import ".\DYNAMIC_TIME_ZONE_INFORMATION.ahk" { DYNAMIC_TIME_ZONE_INFORMATION }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DYNAMIC_TIME_ZONE_INFORMATION.ahk" { DYNAMIC_TIME_ZONE_INFORMATION }
+#Import ".\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * @namespace Windows.Win32.System.Time
@@ -383,7 +383,7 @@ export GetDynamicTimeZoneInformation(pTimeZoneInformation) {
 export GetTimeZoneInformationForYear(wYear, pdtzi, ptzi) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetTimeZoneInformationForYear", "ushort", wYear, DYNAMIC_TIME_ZONE_INFORMATION.Ptr, pdtzi, TIME_ZONE_INFORMATION.Ptr, ptzi, BOOL)
+    result := DllCall("KERNEL32.dll\GetTimeZoneInformationForYear", UInt16, wYear, DYNAMIC_TIME_ZONE_INFORMATION.Ptr, pdtzi, TIME_ZONE_INFORMATION.Ptr, ptzi, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -426,7 +426,7 @@ export GetTimeZoneInformationForYear(wYear, pdtzi, ptzi) {
  * @since windows8.0
  */
 export EnumDynamicTimeZoneInformation(dwIndex, lpTimeZoneInformation) {
-    result := DllCall("ADVAPI32.dll\EnumDynamicTimeZoneInformation", "uint", dwIndex, DYNAMIC_TIME_ZONE_INFORMATION.Ptr, lpTimeZoneInformation, UInt32)
+    result := DllCall("ADVAPI32.dll\EnumDynamicTimeZoneInformation", UInt32, dwIndex, DYNAMIC_TIME_ZONE_INFORMATION.Ptr, lpTimeZoneInformation, UInt32)
     return result
 }
 

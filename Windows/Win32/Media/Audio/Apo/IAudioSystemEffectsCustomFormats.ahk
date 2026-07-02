@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IAudioMediaType.ahk" { IAudioMediaType }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioSystemEffectsCustomFormats interface is supported in Windows Vista and later versions of Windows.
@@ -62,7 +62,7 @@ export default struct IAudioSystemEffectsCustomFormats extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffectscustomformats-getformat
      */
     GetFormat(nFormat) {
-        result := ComCall(4, this, "uint", nFormat, "ptr*", &ppFormat := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, nFormat, "ptr*", &ppFormat := 0, "HRESULT")
         return IAudioMediaType(ppFormat)
     }
 
@@ -75,7 +75,7 @@ export default struct IAudioSystemEffectsCustomFormats extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffectscustomformats-getformatrepresentation
      */
     GetFormatRepresentation(nFormat) {
-        result := ComCall(5, this, "uint", nFormat, PWSTR.Ptr, &ppwstrFormatRep := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, nFormat, PWSTR.Ptr, &ppwstrFormatRep := 0, "HRESULT")
         return ppwstrFormatRep
     }
 

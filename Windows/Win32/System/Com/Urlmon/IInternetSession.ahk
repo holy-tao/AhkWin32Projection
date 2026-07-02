@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IBindCtx.ahk" { IBindCtx }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\IClassFactory.ahk" { IClassFactory }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInternetProtocol.ahk" { IInternetProtocol }
+#Import "..\IBindCtx.ahk" { IBindCtx }
 #Import "..\IUnknown.ahk" { IUnknown }
 
 /**
@@ -60,7 +60,7 @@ export default struct IInternetSession extends IUnknown {
 
         ppwzPatternsMarshal := ppwzPatterns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pCF, Guid.Ptr, rclsid, "ptr", pwzProtocol, "uint", cPatterns, ppwzPatternsMarshal, ppwzPatterns, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pCF, Guid.Ptr, rclsid, "ptr", pwzProtocol, UInt32, cPatterns, ppwzPatternsMarshal, ppwzPatterns, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IInternetSession extends IUnknown {
     CreateBinding(pBC, szUrl, pUnkOuter, ppUnk, ppOInetProt, dwOption) {
         szUrl := szUrl is String ? StrPtr(szUrl) : szUrl
 
-        result := ComCall(7, this, "ptr", pBC, "ptr", szUrl, "ptr", pUnkOuter, IUnknown.Ptr, ppUnk, IInternetProtocol.Ptr, ppOInetProt, "uint", dwOption, "HRESULT")
+        result := ComCall(7, this, "ptr", pBC, "ptr", szUrl, "ptr", pUnkOuter, IUnknown.Ptr, ppUnk, IInternetProtocol.Ptr, ppOInetProt, UInt32, dwOption, "HRESULT")
         return result
     }
 
@@ -132,7 +132,7 @@ export default struct IInternetSession extends IUnknown {
     SetSessionOption(dwOption, pBuffer, dwBufferLength, dwReserved) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", dwOption, pBufferMarshal, pBuffer, "uint", dwBufferLength, "uint", dwReserved, "HRESULT")
+        result := ComCall(8, this, UInt32, dwOption, pBufferMarshal, pBuffer, UInt32, dwBufferLength, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IInternetSession extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwOption, pBufferMarshal, pBuffer, pdwBufferLengthMarshal, pdwBufferLength, "uint", dwReserved, "HRESULT")
+        result := ComCall(9, this, UInt32, dwOption, pBufferMarshal, pBuffer, pdwBufferLengthMarshal, pdwBufferLength, UInt32, dwReserved, "HRESULT")
         return result
     }
 

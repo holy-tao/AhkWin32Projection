@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAVIStreaming interface supports preparing open data streams for playback in streaming operations. Uses IUnknown::QueryInterface, IUnknown::AddRef, IUnknown::Release in addition to the following custom methods:\_
@@ -57,7 +57,7 @@ export default struct IAVIStreaming extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistreaming-begin
      */
     Begin(lStart, lEnd, lRate) {
-        result := ComCall(3, this, "int", lStart, "int", lEnd, "int", lRate, "HRESULT")
+        result := ComCall(3, this, Int32, lStart, Int32, lEnd, Int32, lRate, "HRESULT")
         return result
     }
 

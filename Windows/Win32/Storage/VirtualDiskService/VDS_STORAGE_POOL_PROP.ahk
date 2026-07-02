@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_STORAGE_POOL_STATUS.ahk" { VDS_STORAGE_POOL_STATUS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VDS_STORAGE_POOL_TYPE.ahk" { VDS_STORAGE_POOL_TYPE }
-#Import ".\VDS_STORAGE_POOL_STATUS.ahk" { VDS_STORAGE_POOL_STATUS }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
 
 /**
  * The VDS_STORAGE_POOL_PROP structure (vdshwprv.h) defines the properties of a storage pool object.

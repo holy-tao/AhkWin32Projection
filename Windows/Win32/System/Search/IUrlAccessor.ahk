@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IStream.ahk" { IStream }
 #Import "..\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 
 /**
  * Provides methods for processing an individual item in a content source whose URL is provided by the gatherer to the filter host.
@@ -101,7 +101,7 @@ export default struct IUrlAccessor extends IUnknown {
     GetDocFormat(wszDocFormat, dwSize) {
         wszDocFormat := wszDocFormat is String ? StrPtr(wszDocFormat) : wszDocFormat
 
-        result := ComCall(4, this, "ptr", wszDocFormat, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", wszDocFormat, UInt32, dwSize, "uint*", &pdwLength := 0, "HRESULT")
         return pdwLength
     }
 
@@ -136,7 +136,7 @@ export default struct IUrlAccessor extends IUnknown {
     GetHost(wszHost, dwSize) {
         wszHost := wszHost is String ? StrPtr(wszHost) : wszHost
 
-        result := ComCall(6, this, "ptr", wszHost, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", wszHost, UInt32, dwSize, "uint*", &pdwLength := 0, "HRESULT")
         return pdwLength
     }
 
@@ -210,7 +210,7 @@ export default struct IUrlAccessor extends IUnknown {
     GetFileName(wszFileName, dwSize) {
         wszFileName := wszFileName is String ? StrPtr(wszFileName) : wszFileName
 
-        result := ComCall(10, this, "ptr", wszFileName, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", wszFileName, UInt32, dwSize, "uint*", &pdwLength := 0, "HRESULT")
         return pdwLength
     }
 
@@ -246,7 +246,7 @@ export default struct IUrlAccessor extends IUnknown {
         pSDMarshal := pSD is VarRef ? "char*" : "ptr"
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pSDMarshal, pSD, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
+        result := ComCall(11, this, pSDMarshal, pSD, UInt32, dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 
@@ -274,7 +274,7 @@ export default struct IUrlAccessor extends IUnknown {
     GetRedirectedURL(wszRedirectedURL, dwSize) {
         wszRedirectedURL := wszRedirectedURL is String ? StrPtr(wszRedirectedURL) : wszRedirectedURL
 
-        result := ComCall(12, this, "ptr", wszRedirectedURL, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", wszRedirectedURL, UInt32, dwSize, "uint*", &pdwLength := 0, "HRESULT")
         return pdwLength
     }
 

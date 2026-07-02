@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DXGI_ADAPTER_DESC2.ahk" { DXGI_ADAPTER_DESC2 }
 #Import ".\IDXGIAdapter1.ahk" { IDXGIAdapter1 }
+#Import ".\DXGI_ADAPTER_DESC2.ahk" { DXGI_ADAPTER_DESC2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDXGIAdapter2 interface represents a display subsystem, which includes one or more GPUs, DACs, and video memory.

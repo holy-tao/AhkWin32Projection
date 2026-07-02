@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\Extension.ahk" { Extension }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The X.509 version 3 certificate format identifies multiple extensions that can be added to a certificate.
@@ -77,7 +77,7 @@ export default struct Extensions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/SecCrypto/extensions-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &_Extension := 0, "HRESULT")
+        result := ComCall(8, this, Int32, Index, "ptr*", &_Extension := 0, "HRESULT")
         return Extension(_Extension)
     }
 

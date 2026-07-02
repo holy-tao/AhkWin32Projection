@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMPLibraryType.ahk" { WMPLibraryType }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWMPMediaCollection.ahk" { IWMPMediaCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPMediaCollection.ahk" { IWMPMediaCollection }
+#Import ".\WMPLibraryType.ahk" { WMPLibraryType }
 
 /**
  * The IWMPLibrary interface represents a library.

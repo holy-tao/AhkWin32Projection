@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -44,7 +44,7 @@ export default struct IDBAsynchNotify extends IUnknown {
      * @returns {HRESULT} 
      */
     OnLowResource(dwReserved) {
-        result := ComCall(3, this, "ptr", dwReserved, "HRESULT")
+        result := ComCall(3, this, IntPtr, dwReserved, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct IDBAsynchNotify extends IUnknown {
     OnProgress(hChapter, eOperation, ulProgress, ulProgressMax, eAsynchPhase, pwszStatusText) {
         pwszStatusText := pwszStatusText is String ? StrPtr(pwszStatusText) : pwszStatusText
 
-        result := ComCall(4, this, "ptr", hChapter, "uint", eOperation, "ptr", ulProgress, "ptr", ulProgressMax, "uint", eAsynchPhase, "ptr", pwszStatusText, "HRESULT")
+        result := ComCall(4, this, IntPtr, hChapter, UInt32, eOperation, IntPtr, ulProgress, IntPtr, ulProgressMax, UInt32, eAsynchPhase, "ptr", pwszStatusText, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IDBAsynchNotify extends IUnknown {
     OnStop(hChapter, eOperation, hrStatus, pwszStatusText) {
         pwszStatusText := pwszStatusText is String ? StrPtr(pwszStatusText) : pwszStatusText
 
-        result := ComCall(5, this, "ptr", hChapter, "uint", eOperation, "int", hrStatus, "ptr", pwszStatusText, "HRESULT")
+        result := ComCall(5, this, IntPtr, hChapter, UInt32, eOperation, "int", hrStatus, "ptr", pwszStatusText, "HRESULT")
         return result
     }
 

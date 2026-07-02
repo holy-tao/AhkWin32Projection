@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFileSinkFilter.ahk" { IFileSinkFilter }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFileSinkFilter.ahk" { IFileSinkFilter }
 
 /**
  * The IFileSinkFilter2 interface extends the IFileSinkFilter interface.
@@ -45,7 +45,7 @@ export default struct IFileSinkFilter2 extends IFileSinkFilter {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesinkfilter2-setmode
      */
     SetMode(dwFlags) {
-        result := ComCall(5, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

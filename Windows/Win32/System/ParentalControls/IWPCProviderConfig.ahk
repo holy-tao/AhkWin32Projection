@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes configuration methods that are implemented by third parties.
@@ -104,7 +104,7 @@ export default struct IWPCProviderConfig extends IUnknown {
     RequestOverride(_hWnd, bstrPath, dwFlags) {
         bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
 
-        result := ComCall(5, this, HWND, _hWnd, BSTR, bstrPath, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, HWND, _hWnd, BSTR, bstrPath, UInt32, dwFlags, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDiskQuotaUser.ahk" { IDiskQuotaUser }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates user quota entries on the volume.
@@ -51,7 +51,7 @@ export default struct IEnumDiskQuotaUsers extends IUnknown {
     Next(cUsers, pcUsersFetched) {
         pcUsersFetchedMarshal := pcUsersFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cUsers, "ptr*", &rgUsers := 0, pcUsersFetchedMarshal, pcUsersFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cUsers, "ptr*", &rgUsers := 0, pcUsersFetchedMarshal, pcUsersFetched, "HRESULT")
         return IDiskQuotaUser(rgUsers)
     }
 
@@ -63,7 +63,7 @@ export default struct IEnumDiskQuotaUsers extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-ienumdiskquotausers-skip
      */
     Skip(cUsers) {
-        result := ComCall(4, this, "uint", cUsers, "HRESULT")
+        result := ComCall(4, this, UInt32, cUsers, "HRESULT")
         return result
     }
 

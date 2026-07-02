@@ -4,8 +4,8 @@
 #Import "..\Dxgi\IDXGISwapChain.ahk" { IDXGISwapChain }
 #Import ".\D3D11_RLDO_FLAGS.ahk" { D3D11_RLDO_FLAGS }
 #Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A debug interface controls debug settings, validates pipeline state and can only be used if the debug layer is turned on. (ID3D11Debug)
@@ -176,7 +176,7 @@ export default struct ID3D11Debug extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11debug-setfeaturemask
      */
     SetFeatureMask(Mask) {
-        result := ComCall(3, this, "uint", Mask, "HRESULT")
+        result := ComCall(3, this, UInt32, Mask, "HRESULT")
         return result
     }
 
@@ -207,7 +207,7 @@ export default struct ID3D11Debug extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11debug-setpresentperrenderopdelay
      */
     SetPresentPerRenderOpDelay(Milliseconds) {
-        result := ComCall(5, this, "uint", Milliseconds, "HRESULT")
+        result := ComCall(5, this, UInt32, Milliseconds, "HRESULT")
         return result
     }
 

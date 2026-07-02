@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Seeks a byte stream by time position.
@@ -63,7 +63,7 @@ export default struct IMFByteStreamTimeSeek extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamtimeseek-timeseek
      */
     TimeSeek(qwTimePosition) {
-        result := ComCall(4, this, "uint", qwTimePosition, "HRESULT")
+        result := ComCall(4, this, Int64, qwTimePosition, "HRESULT")
         return result
     }
 

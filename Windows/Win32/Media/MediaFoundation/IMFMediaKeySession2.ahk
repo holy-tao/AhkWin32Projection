@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IMFMediaKeySession.ahk" { IMFMediaKeySession }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\MFMediaKeyStatus.ahk" { MFMediaKeyStatus }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaKeySession.ahk" { IMFMediaKeySession }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -87,7 +87,7 @@ export default struct IMFMediaKeySession2 extends IMFMediaKeySession {
     GenerateRequest(initDataType, pbInitData, cb) {
         initDataType := initDataType is String ? BSTR.Alloc(initDataType).Value : initDataType
 
-        result := ComCall(10, this, BSTR, initDataType, "ptr", pbInitData, "uint", cb, "HRESULT")
+        result := ComCall(10, this, BSTR, initDataType, IntPtr, pbInitData, UInt32, cb, "HRESULT")
         return result
     }
 

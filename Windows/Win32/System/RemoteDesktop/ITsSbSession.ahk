@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CLIENT_DISPLAY.ahk" { CLIENT_DISPLAY }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
-#Import ".\CLIENT_DISPLAY.ahk" { CLIENT_DISPLAY }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes properties that store information about a user session.
@@ -317,7 +317,7 @@ export default struct ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_protocoltype
      */
     put_ProtocolType(_Val) {
-        result := ComCall(19, this, "uint", _Val, "HRESULT")
+        result := ComCall(19, this, UInt32, _Val, "HRESULT")
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\smiCNTR64.ahk" { smiCNTR64 }
-#Import ".\smiOCTETS.ahk" { smiOCTETS }
 #Import ".\smiOID.ahk" { smiOID }
+#Import ".\smiOCTETS.ahk" { smiOCTETS }
 
 /**
  * The WinSNMP smiVALUE structure describes the value associated with a variable name in a variable binding entry.

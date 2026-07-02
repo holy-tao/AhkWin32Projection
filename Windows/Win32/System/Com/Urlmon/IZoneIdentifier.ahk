@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -52,7 +52,7 @@ export default struct IZoneIdentifier extends IUnknown {
      * @returns {HRESULT} 
      */
     SetId(dwZone) {
-        result := ComCall(4, this, "uint", dwZone, "HRESULT")
+        result := ComCall(4, this, UInt32, dwZone, "HRESULT")
         return result
     }
 

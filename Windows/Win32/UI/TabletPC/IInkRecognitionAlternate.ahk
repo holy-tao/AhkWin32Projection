@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\InkRecognitionConfidence.ahk" { InkRecognitionConfidence }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IInkRecognitionAlternates.ahk" { IInkRecognitionAlternates }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import ".\IInkRecognitionAlternates.ahk" { IInkRecognitionAlternates }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents the possible word matches for segments of ink that are compared to a recognizers dictionary.

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IBDA_SignalStatistics interface is implemented on a BDA device filter and provides methods by which the filter can describe the condition of a signal that is being received.
@@ -96,7 +96,7 @@ export default struct IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-put_signalstrength
      */
     put_SignalStrength(lDbStrength) {
-        result := ComCall(3, this, "int", lDbStrength, "HRESULT")
+        result := ComCall(3, this, Int32, lDbStrength, "HRESULT")
         return result
     }
 
@@ -120,7 +120,7 @@ export default struct IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-put_signalquality
      */
     put_SignalQuality(lPercentQuality) {
-        result := ComCall(5, this, "int", lPercentQuality, "HRESULT")
+        result := ComCall(5, this, Int32, lPercentQuality, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-put_sampletime
      */
     put_SampleTime(lmsSampleTime) {
-        result := ComCall(11, this, "int", lmsSampleTime, "HRESULT")
+        result := ComCall(11, this, Int32, lmsSampleTime, "HRESULT")
         return result
     }
 

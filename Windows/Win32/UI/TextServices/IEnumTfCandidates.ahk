@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITfCandidateString.ahk" { ITfCandidateString }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumTfCandidates interface is implemented by a text service and used by the TSF manager to provide an enumeration of candidate string objects.
@@ -102,7 +102,7 @@ export default struct IEnumTfCandidates extends IUnknown {
     Next(ulCount, ppCand, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, ITfCandidateString.Ptr, ppCand, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, ITfCandidateString.Ptr, ppCand, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IEnumTfCandidates extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-ienumtfcandidates-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

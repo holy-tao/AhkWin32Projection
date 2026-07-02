@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumWbemClassObject interface is used to enumerate Common Information Model (CIM) objects and is similar to a standard COM enumerator.
@@ -104,7 +104,7 @@ export default struct IEnumWbemClassObject extends IUnknown {
     Next(lTimeout, uCount, apObjects, puReturned) {
         puReturnedMarshal := puReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "int", lTimeout, "uint", uCount, IWbemClassObject.Ptr, apObjects, puReturnedMarshal, puReturned, Int32)
+        result := ComCall(4, this, Int32, lTimeout, UInt32, uCount, IWbemClassObject.Ptr, apObjects, puReturnedMarshal, puReturned, Int32)
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct IEnumWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-ienumwbemclassobject-nextasync
      */
     NextAsync(uCount, pSink) {
-        result := ComCall(5, this, "uint", uCount, "ptr", pSink, Int32)
+        result := ComCall(5, this, UInt32, uCount, "ptr", pSink, Int32)
         return result
     }
 
@@ -178,7 +178,7 @@ export default struct IEnumWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-ienumwbemclassobject-skip
      */
     Skip(lTimeout, nCount) {
-        result := ComCall(7, this, "int", lTimeout, "uint", nCount, Int32)
+        result := ComCall(7, this, Int32, lTimeout, UInt32, nCount, Int32)
         return result
     }
 

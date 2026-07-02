@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IXMLDOMParseError2.ahk" { IXMLDOMParseError2 }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -68,7 +68,7 @@ export default struct IXMLDOMParseErrorCollection extends IDispatch {
      * @returns {IXMLDOMParseError2} 
      */
     get_item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &_error := 0, "HRESULT")
+        result := ComCall(7, this, Int32, index, "ptr*", &_error := 0, "HRESULT")
         return IXMLDOMParseError2(_error)
     }
 

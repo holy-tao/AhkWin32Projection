@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\APPX_PACKAGE_WRITER_PAYLOAD_STREAM.ahk" { APPX_PACKAGE_WRITER_PAYLOAD_STREAM }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a write-only object model for encrypted app packages. (IAppxEncryptedPackageWriter2)
@@ -47,7 +47,7 @@ export default struct IAppxEncryptedPackageWriter2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter2-addpayloadfilesencrypted
      */
     AddPayloadFilesEncrypted(fileCount, payloadFiles, memoryLimit) {
-        result := ComCall(3, this, "uint", fileCount, APPX_PACKAGE_WRITER_PAYLOAD_STREAM.Ptr, payloadFiles, "uint", memoryLimit, "HRESULT")
+        result := ComCall(3, this, UInt32, fileCount, APPX_PACKAGE_WRITER_PAYLOAD_STREAM.Ptr, payloadFiles, Int64, memoryLimit, "HRESULT")
         return result
     }
 

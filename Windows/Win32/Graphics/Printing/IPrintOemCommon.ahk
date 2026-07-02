@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\OEMDMPARAM.ahk" { OEMDMPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -45,7 +45,7 @@ export default struct IPrintOemCommon extends IUnknown {
      * @returns {Integer} 
      */
     GetInfo(dwMode, pBuffer, cbSize) {
-        result := ComCall(3, this, "uint", dwMode, "ptr", pBuffer, "uint", cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwMode, IntPtr, pBuffer, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
         return pcbNeeded
     }
 
@@ -56,7 +56,7 @@ export default struct IPrintOemCommon extends IUnknown {
      * @returns {HRESULT} 
      */
     DevMode(dwMode, pOemDMParam) {
-        result := ComCall(4, this, "uint", dwMode, OEMDMPARAM.Ptr, pOemDMParam, "HRESULT")
+        result := ComCall(4, this, UInt32, dwMode, OEMDMPARAM.Ptr, pOemDMParam, "HRESULT")
         return result
     }
 

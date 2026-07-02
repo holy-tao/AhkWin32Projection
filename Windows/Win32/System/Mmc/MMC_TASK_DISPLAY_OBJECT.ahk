@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\MMC_TASK_DISPLAY_SYMBOL.ahk" { MMC_TASK_DISPLAY_SYMBOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MMC_TASK_DISPLAY_TYPE.ahk" { MMC_TASK_DISPLAY_TYPE }
 #Import ".\MMC_TASK_DISPLAY_BITMAP.ahk" { MMC_TASK_DISPLAY_BITMAP }
+#Import ".\MMC_TASK_DISPLAY_TYPE.ahk" { MMC_TASK_DISPLAY_TYPE }
 
 /**
  * Specifies the type of image and all the data required to use that image to display a task or the background on a taskpad.

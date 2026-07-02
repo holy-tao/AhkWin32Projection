@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumRegFilters.ahk" { IEnumRegFilters }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface has been deprecated. (IFilterMapper)
@@ -60,7 +60,7 @@ export default struct IFilterMapper extends IUnknown {
     RegisterFilter(clsid, Name, dwMerit) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(3, this, Guid, clsid, "ptr", Name, "uint", dwMerit, "HRESULT")
+        result := ComCall(3, this, Guid, clsid, "ptr", Name, UInt32, dwMerit, "HRESULT")
         return result
     }
 
@@ -174,7 +174,7 @@ export default struct IFilterMapper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper-enummatchingfilters
      */
     EnumMatchingFilters(dwMerit, bInputNeeded, clsInMaj, clsInSub, bRender, bOututNeeded, clsOutMaj, clsOutSub) {
-        result := ComCall(10, this, "ptr*", &ppEnum := 0, "uint", dwMerit, BOOL, bInputNeeded, Guid, clsInMaj, Guid, clsInSub, BOOL, bRender, BOOL, bOututNeeded, Guid, clsOutMaj, Guid, clsOutSub, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppEnum := 0, UInt32, dwMerit, BOOL, bInputNeeded, Guid, clsInMaj, Guid, clsInSub, BOOL, bRender, BOOL, bOututNeeded, Guid, clsOutMaj, Guid, clsOutSub, "HRESULT")
         return IEnumRegFilters(ppEnum)
     }
 

@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDxcCompilerArgs.ahk" { IDxcCompilerArgs }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DxcDefine.ahk" { DxcDefine }
 #Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
-#Import ".\DxcBuffer.ahk" { DxcBuffer }
-#Import ".\IDxcBlob.ahk" { IDxcBlob }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
-#Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
+#Import ".\DxcBuffer.ahk" { DxcBuffer }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDxcBlobUtf8.ahk" { IDxcBlobUtf8 }
 #Import ".\DXC_CP.ahk" { DXC_CP }
+#Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
+#Import ".\IDxcCompilerArgs.ahk" { IDxcCompilerArgs }
+#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -67,7 +67,7 @@ export default struct IDxcUtils extends IUnknown {
      * @returns {IDxcBlob} 
      */
     CreateBlobFromBlob(pBlob, offset, length) {
-        result := ComCall(3, this, "ptr", pBlob, "uint", offset, "uint", length, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pBlob, UInt32, offset, UInt32, length, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcBlob(ppResult)
     }
 
@@ -79,7 +79,7 @@ export default struct IDxcUtils extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobFromPinned(pData, _size, codePage) {
-        result := ComCall(4, this, "ptr", pData, "uint", _size, DXC_CP, codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+        result := ComCall(4, this, IntPtr, pData, UInt32, _size, DXC_CP, codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(ppBlobEncoding)
     }
 
@@ -92,7 +92,7 @@ export default struct IDxcUtils extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     MoveToBlob(pData, pIMalloc, _size, codePage) {
-        result := ComCall(5, this, "ptr", pData, "ptr", pIMalloc, "uint", _size, DXC_CP, codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+        result := ComCall(5, this, IntPtr, pData, "ptr", pIMalloc, UInt32, _size, DXC_CP, codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(ppBlobEncoding)
     }
 
@@ -105,7 +105,7 @@ export default struct IDxcUtils extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/createblob
      */
     CreateBlob(pData, _size, codePage) {
-        result := ComCall(6, this, "ptr", pData, "uint", _size, DXC_CP, codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
+        result := ComCall(6, this, IntPtr, pData, UInt32, _size, DXC_CP, codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(ppBlobEncoding)
     }
 
@@ -175,7 +175,7 @@ export default struct IDxcUtils extends IUnknown {
         ppPartDataMarshal := ppPartData is VarRef ? "ptr*" : "ptr"
         pPartSizeInBytesMarshal := pPartSizeInBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, DxcBuffer.Ptr, pShader, "uint", DxcPart, ppPartDataMarshal, ppPartData, pPartSizeInBytesMarshal, pPartSizeInBytes, "HRESULT")
+        result := ComCall(12, this, DxcBuffer.Ptr, pShader, UInt32, DxcPart, ppPartDataMarshal, ppPartData, pPartSizeInBytesMarshal, pPartSizeInBytes, "HRESULT")
         return result
     }
 
@@ -211,7 +211,7 @@ export default struct IDxcUtils extends IUnknown {
 
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, DxcDefine.Ptr, pDefines, "uint", defineCount, "ptr*", &ppArgs := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, "ptr*", &ppArgs := 0, "HRESULT")
         return IDxcCompilerArgs(ppArgs)
     }
 

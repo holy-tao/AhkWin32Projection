@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IVisualTreeService2.ahk" { IVisualTreeService2 }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ResourceType.ahk" { ResourceType }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents additional capabilities of an IVisualTreeService2 object.
@@ -59,7 +59,7 @@ export default struct IVisualTreeService3 extends IVisualTreeService2 {
     ResolveResource(resourceContext, resourceName, _resourceType, propertyIndex) {
         resourceName := resourceName is String ? StrPtr(resourceName) : resourceName
 
-        result := ComCall(19, this, "uint", resourceContext, "ptr", resourceName, ResourceType, _resourceType, "uint", propertyIndex, "HRESULT")
+        result := ComCall(19, this, Int64, resourceContext, "ptr", resourceName, ResourceType, _resourceType, UInt32, propertyIndex, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IVisualTreeService3 extends IVisualTreeService2 {
     GetDictionaryItem(dictionaryHandle, resourceName, resourceIsImplicitStyle) {
         resourceName := resourceName is String ? StrPtr(resourceName) : resourceName
 
-        result := ComCall(20, this, "uint", dictionaryHandle, "ptr", resourceName, BOOL, resourceIsImplicitStyle, "uint*", &resourceHandle := 0, "HRESULT")
+        result := ComCall(20, this, Int64, dictionaryHandle, "ptr", resourceName, BOOL, resourceIsImplicitStyle, "uint*", &resourceHandle := 0, "HRESULT")
         return resourceHandle
     }
 
@@ -89,7 +89,7 @@ export default struct IVisualTreeService3 extends IVisualTreeService2 {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice3-adddictionaryitem
      */
     AddDictionaryItem(dictionaryHandle, resourceKey, resourceHandle) {
-        result := ComCall(21, this, "uint", dictionaryHandle, "uint", resourceKey, "uint", resourceHandle, "HRESULT")
+        result := ComCall(21, this, Int64, dictionaryHandle, Int64, resourceKey, Int64, resourceHandle, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IVisualTreeService3 extends IVisualTreeService2 {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice3-removedictionaryitem
      */
     RemoveDictionaryItem(dictionaryHandle, resourceKey) {
-        result := ComCall(22, this, "uint", dictionaryHandle, "uint", resourceKey, "HRESULT")
+        result := ComCall(22, this, Int64, dictionaryHandle, Int64, resourceKey, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Sets and retrieves user-name and password information for authentication purposes.
@@ -69,7 +69,7 @@ export default struct IMFNetCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-setuser
      */
     SetUser(pbData, cbData, fDataIsEncrypted) {
-        result := ComCall(3, this, "ptr", pbData, "uint", cbData, BOOL, fDataIsEncrypted, "HRESULT")
+        result := ComCall(3, this, IntPtr, pbData, UInt32, cbData, BOOL, fDataIsEncrypted, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IMFNetCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-setpassword
      */
     SetPassword(pbData, cbData, fDataIsEncrypted) {
-        result := ComCall(4, this, "ptr", pbData, "uint", cbData, BOOL, fDataIsEncrypted, "HRESULT")
+        result := ComCall(4, this, IntPtr, pbData, UInt32, cbData, BOOL, fDataIsEncrypted, "HRESULT")
         return result
     }
 

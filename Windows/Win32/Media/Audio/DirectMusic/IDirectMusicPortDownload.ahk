@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectMusicDownload.ahk" { IDirectMusicDownload }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectMusicDownload.ahk" { IDirectMusicDownload }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -47,7 +47,7 @@ export default struct IDirectMusicPortDownload extends IUnknown {
      * @returns {IDirectMusicDownload} 
      */
     GetBuffer(dwDLId) {
-        result := ComCall(3, this, "uint", dwDLId, "ptr*", &ppIDMDownload := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwDLId, "ptr*", &ppIDMDownload := 0, "HRESULT")
         return IDirectMusicDownload(ppIDMDownload)
     }
 
@@ -57,7 +57,7 @@ export default struct IDirectMusicPortDownload extends IUnknown {
      * @returns {IDirectMusicDownload} 
      */
     AllocateBuffer(dwSize) {
-        result := ComCall(4, this, "uint", dwSize, "ptr*", &ppIDMDownload := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSize, "ptr*", &ppIDMDownload := 0, "HRESULT")
         return IDirectMusicDownload(ppIDMDownload)
     }
 
@@ -70,7 +70,7 @@ export default struct IDirectMusicPortDownload extends IUnknown {
     GetDLId(pdwStartDLId, dwCount) {
         pdwStartDLIdMarshal := pdwStartDLId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pdwStartDLIdMarshal, pdwStartDLId, "uint", dwCount, "HRESULT")
+        result := ComCall(5, this, pdwStartDLIdMarshal, pdwStartDLId, UInt32, dwCount, "HRESULT")
         return result
     }
 

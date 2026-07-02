@@ -2,12 +2,12 @@
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\System\Com\IEnumString.ahk" { IEnumString }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumSpellingError.ahk" { IEnumSpellingError }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IOptionDescription.ahk" { IOptionDescription }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpellCheckerChangedEventHandler.ahk" { ISpellCheckerChangedEventHandler }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOptionDescription.ahk" { IOptionDescription }
 
 /**
  * Represents a particular spell checker for a particular language.
@@ -345,7 +345,7 @@ export default struct ISpellChecker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-remove_spellcheckerchanged
      */
     remove_SpellCheckerChanged(eventCookie) {
-        result := ComCall(14, this, "uint", eventCookie, "HRESULT")
+        result := ComCall(14, this, UInt32, eventCookie, "HRESULT")
         return result
     }
 

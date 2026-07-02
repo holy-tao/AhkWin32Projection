@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAppxBlockMapReader.ahk" { IAppxBlockMapReader }
 #Import ".\IAppxFilesEnumerator.ahk" { IAppxFilesEnumerator }
-#Import ".\APPX_BUNDLE_FOOTPRINT_FILE_TYPE.ahk" { APPX_BUNDLE_FOOTPRINT_FILE_TYPE }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IAppxBundleManifestReader.ahk" { IAppxBundleManifestReader }
 #Import ".\IAppxFile.ahk" { IAppxFile }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\APPX_BUNDLE_FOOTPRINT_FILE_TYPE.ahk" { APPX_BUNDLE_FOOTPRINT_FILE_TYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a read-only object model for bundle packages.

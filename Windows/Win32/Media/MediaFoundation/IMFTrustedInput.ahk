@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by components that provide input trust authorities (ITAs). This interface is used to get the ITA for each of the component's streams.
@@ -45,7 +45,7 @@ export default struct IMFTrustedInput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftrustedinput-getinputtrustauthority
      */
     GetInputTrustAuthority(dwStreamID, riid) {
-        result := ComCall(3, this, "uint", dwStreamID, Guid.Ptr, riid, "ptr*", &ppunkObject := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwStreamID, Guid.Ptr, riid, "ptr*", &ppunkObject := 0, "HRESULT")
         return IUnknown(ppunkObject)
     }
 

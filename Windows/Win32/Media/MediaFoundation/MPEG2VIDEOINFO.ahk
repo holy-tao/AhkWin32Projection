@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MPEG2VIDEOINFO_FLAGS.ahk" { MPEG2VIDEOINFO_FLAGS }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\VIDEOINFOHEADER2.ahk" { VIDEOINFOHEADER2 }
 #Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\MPEG2VIDEOINFO_FLAGS.ahk" { MPEG2VIDEOINFO_FLAGS }
 
 /**
  * The MPEG2VIDEOINFO structure describes an MPEG-2 video stream.

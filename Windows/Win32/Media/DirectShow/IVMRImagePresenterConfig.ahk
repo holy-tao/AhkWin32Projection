@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVMRImagePresenterConfig interface provides methods for setting the rendering preferences on the allocator-presenter used by the Video Mixing Renderer Filter 7 (VMR-7).Applications should not use this interface directly.
@@ -45,7 +45,7 @@ export default struct IVMRImagePresenterConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenterconfig-setrenderingprefs
      */
     SetRenderingPrefs(dwRenderFlags) {
-        result := ComCall(3, this, "uint", dwRenderFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, dwRenderFlags, "HRESULT")
         return result
     }
 

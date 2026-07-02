@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EAP_ERROR.ahk" { EAP_ERROR }
 #Import ".\NgcTicketContext.ahk" { NgcTicketContext }
+#Import ".\EAP_ERROR.ahk" { EAP_ERROR }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\EAP_ATTRIBUTES.ahk" { EAP_ATTRIBUTES }
 

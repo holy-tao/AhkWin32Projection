@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RPC_C_IMP_LEVEL.ahk" { RPC_C_IMP_LEVEL }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\RPC_C_AUTHN_LEVEL.ahk" { RPC_C_AUTHN_LEVEL }
-#Import ".\IUnknown.ahk" { IUnknown }
-#Import ".\RPC_C_IMP_LEVEL.ahk" { RPC_C_IMP_LEVEL }
 
 /**
  * Gives the client control over the security settings for each individual interface proxy of an object.
@@ -203,7 +203,7 @@ export default struct IClientSecurity extends IUnknown {
 
         pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthInfoMarshal, pAuthInfo, "uint", dwCapabilities, "HRESULT")
+        result := ComCall(4, this, "ptr", pProxy, UInt32, dwAuthnSvc, UInt32, dwAuthzSvc, "ptr", pServerPrincName, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthInfoMarshal, pAuthInfo, UInt32, dwCapabilities, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
-#Import ".\IEnumStream.ahk" { IEnumStream }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITStream.ahk" { ITStream }
+#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IEnumStream.ahk" { IEnumStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITStreamControl interface represents the media streaming features of a call and exposes methods that allow an application to enumerate, create, or remove streams.
@@ -70,7 +70,7 @@ export default struct ITStreamControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstreamcontrol-createstream
      */
     CreateStream(lMediaType, td) {
-        result := ComCall(7, this, "int", lMediaType, TERMINAL_DIRECTION, td, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(7, this, Int32, lMediaType, TERMINAL_DIRECTION, td, "ptr*", &ppStream := 0, "HRESULT")
         return ITStream(ppStream)
     }
 

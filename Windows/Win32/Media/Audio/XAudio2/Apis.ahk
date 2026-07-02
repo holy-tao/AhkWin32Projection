@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import ".\IXAudio2.ahk" { IXAudio2 }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXAPO.ahk" { IXAPO }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\HrtfApoInit.ahk" { HrtfApoInit }
-#Import ".\IXAPO.ahk" { IXAPO }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Audio.XAudio2
@@ -32,7 +32,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/xapofx/nf-xapofx-createfx
  */
 export CreateFX(clsid, pInitDat, InitDataByteSize) {
-    result := DllCall("XAudio2_8.dll\CreateFX", Guid.Ptr, clsid, "ptr*", &pEffect := 0, "ptr", pInitDat, "uint", InitDataByteSize, "HRESULT")
+    result := DllCall("XAudio2_8.dll\CreateFX", Guid.Ptr, clsid, "ptr*", &pEffect := 0, IntPtr, pInitDat, UInt32, InitDataByteSize, "HRESULT")
     return IUnknown(pEffect)
 }
 
@@ -44,7 +44,7 @@ export CreateFX(clsid, pInitDat, InitDataByteSize) {
  * @returns {IXAudio2} 
  */
 export XAudio2CreateWithVersionInfo(Flags, XAudio2Processor, ntddiVersion) {
-    result := DllCall("XAudio2_8.dll\XAudio2CreateWithVersionInfo", "ptr*", &ppXAudio2 := 0, "uint", Flags, "uint", XAudio2Processor, "uint", ntddiVersion, "HRESULT")
+    result := DllCall("XAudio2_8.dll\XAudio2CreateWithVersionInfo", "ptr*", &ppXAudio2 := 0, UInt32, Flags, UInt32, XAudio2Processor, UInt32, ntddiVersion, "HRESULT")
     return IXAudio2(ppXAudio2)
 }
 

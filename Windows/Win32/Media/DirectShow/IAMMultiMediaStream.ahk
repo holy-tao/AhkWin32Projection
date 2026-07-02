@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
-#Import ".\IMediaStreamFilter.ahk" { IMediaStreamFilter }
-#Import ".\IMediaStream.ahk" { IMediaStream }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
 #Import ".\IMultiMediaStream.ahk" { IMultiMediaStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import ".\IMediaStreamFilter.ahk" { IMediaStreamFilter }
+#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
 
 /**
  * Note  This interface is deprecated. New applications should not use it. The IAMMultiMediaStream interface is supported by the multimedia stream object. It contains methods for creating the underlying filter graph that the object manages.
@@ -91,7 +91,7 @@ export default struct IAMMultiMediaStream extends IMultiMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammultimediastream-initialize
      */
     Initialize(StreamType, dwFlags, pFilterGraph) {
-        result := ComCall(12, this, STREAM_TYPE, StreamType, "uint", dwFlags, "ptr", pFilterGraph, "HRESULT")
+        result := ComCall(12, this, STREAM_TYPE, StreamType, UInt32, dwFlags, "ptr", pFilterGraph, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IAMMultiMediaStream extends IMultiMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammultimediastream-addmediastream
      */
     AddMediaStream(pStreamObject, PurposeId, dwFlags) {
-        result := ComCall(15, this, "ptr", pStreamObject, Guid.Ptr, PurposeId, "uint", dwFlags, "ptr*", &ppNewStream := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pStreamObject, Guid.Ptr, PurposeId, UInt32, dwFlags, "ptr*", &ppNewStream := 0, "HRESULT")
         return IMediaStream(ppNewStream)
     }
 
@@ -260,7 +260,7 @@ export default struct IAMMultiMediaStream extends IMultiMediaStream {
     OpenFile(pszFileName, dwFlags) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(16, this, "ptr", pszFileName, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, "ptr", pszFileName, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -302,7 +302,7 @@ export default struct IAMMultiMediaStream extends IMultiMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammultimediastream-openmoniker
      */
     OpenMoniker(pCtx, pMoniker, dwFlags) {
-        result := ComCall(17, this, "ptr", pCtx, "ptr", pMoniker, "uint", dwFlags, "HRESULT")
+        result := ComCall(17, this, "ptr", pCtx, "ptr", pMoniker, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -317,7 +317,7 @@ export default struct IAMMultiMediaStream extends IMultiMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammultimediastream-render
      */
     Render(dwFlags) {
-        result := ComCall(18, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(18, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -77,7 +77,7 @@ export default struct IADMEXT extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumDcomCLSIDs(pclsidDcom, dwEnumIndex) {
-        result := ComCall(4, this, Guid.Ptr, pclsidDcom, "uint", dwEnumIndex, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pclsidDcom, UInt32, dwEnumIndex, "HRESULT")
         return result
     }
 

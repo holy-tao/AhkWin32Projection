@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\SysmonBatchReason.ahk" { SysmonBatchReason }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SysmonFileType.ahk" { SysmonFileType }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISystemMonitor.ahk" { ISystemMonitor }
 
 /**
@@ -200,7 +200,7 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
      * @returns {HRESULT} 
      */
     put_DataPointCount(iNewCount) {
-        result := ComCall(87, this, "int", iNewCount, "HRESULT")
+        result := ComCall(87, this, Int32, iNewCount, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     Relog(bstrFileName, eSysmonFileType, _iFilter) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
 
-        result := ComCall(91, this, BSTR, bstrFileName, SysmonFileType, eSysmonFileType, "int", _iFilter, "HRESULT")
+        result := ComCall(91, this, BSTR, bstrFileName, SysmonFileType, eSysmonFileType, Int32, _iFilter, "HRESULT")
         return result
     }
 
@@ -284,7 +284,7 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
      * @returns {HRESULT} 
      */
     SetLogViewRange(StartTime, StopTime) {
-        result := ComCall(95, this, "double", StartTime, "double", StopTime, "HRESULT")
+        result := ComCall(95, this, Float64, StartTime, Float64, StopTime, "HRESULT")
         return result
     }
 

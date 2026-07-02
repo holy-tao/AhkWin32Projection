@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpTTSEngineSite.ahk" { ISpTTSEngineSite }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\SPVTEXTFRAG.ahk" { SPVTEXTFRAG }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISpTTSEngineSite.ahk" { ISpTTSEngineSite }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -49,7 +49,7 @@ export default struct ISpTTSEngine extends IUnknown {
      * @returns {HRESULT} 
      */
     Speak(dwSpeakFlags, rguidFormatId, pWaveFormatEx, pTextFragList, pOutputSite) {
-        result := ComCall(3, this, "uint", dwSpeakFlags, Guid.Ptr, rguidFormatId, WAVEFORMATEX.Ptr, pWaveFormatEx, SPVTEXTFRAG.Ptr, pTextFragList, "ptr", pOutputSite, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSpeakFlags, Guid.Ptr, rguidFormatId, WAVEFORMATEX.Ptr, pWaveFormatEx, SPVTEXTFRAG.Ptr, pTextFragList, "ptr", pOutputSite, "HRESULT")
         return result
     }
 

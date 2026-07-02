@@ -4,8 +4,8 @@
 #Import ".\FAX_RULE_STATUS_ENUM.ahk" { FAX_RULE_STATUS_ENUM }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxOutboundRoutingRule interface describes a configuration object that is used by a fax client application to set and retrieve information about an individual fax outbound routing rule.
@@ -193,7 +193,7 @@ export default struct IFaxOutboundRoutingRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-put_deviceid
      */
     put_DeviceId(DeviceId) {
-        result := ComCall(13, this, "int", DeviceId, "HRESULT")
+        result := ComCall(13, this, Int32, DeviceId, "HRESULT")
         return result
     }
 

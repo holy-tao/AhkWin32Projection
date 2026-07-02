@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import ".\IOleDocumentView.ahk" { IOleDocumentView }
 #Import ".\IOleInPlaceSite.ahk" { IOleInPlaceSite }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEnumOleDocumentViews.ahk" { IEnumOleDocumentViews }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumOleDocumentViews.ahk" { IEnumOleDocumentViews }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleDocumentView.ahk" { IOleDocumentView }
+#Import "..\Com\IStream.ahk" { IStream }
 
 /**
  * Enables a document object to communicate to containers its ability to create views of its data.
@@ -56,7 +56,7 @@ export default struct IOleDocument extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ioledocument-createview
      */
     CreateView(pIPSite, pstm, dwReserved) {
-        result := ComCall(3, this, "ptr", pIPSite, "ptr", pstm, "uint", dwReserved, "ptr*", &ppView := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pIPSite, "ptr", pstm, UInt32, dwReserved, "ptr*", &ppView := 0, "HRESULT")
         return IOleDocumentView(ppView)
     }
 

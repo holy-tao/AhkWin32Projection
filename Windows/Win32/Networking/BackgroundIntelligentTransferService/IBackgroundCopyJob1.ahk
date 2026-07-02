@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\FILESETINFO.ahk" { FILESETINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use the IBackgroundCopyJob1 interface to add files to the job and retrieve the job's status.
@@ -106,7 +106,7 @@ export default struct IBackgroundCopyJob1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-getprogress
      */
     GetProgress(dwFlags) {
-        result := ComCall(4, this, "uint", dwFlags, "uint*", &pdwProgress := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, "uint*", &pdwProgress := 0, "HRESULT")
         return pdwProgress
     }
 
@@ -244,7 +244,7 @@ export default struct IBackgroundCopyJob1 extends IUnknown {
     AddFiles(cFileCount, ppFileSet) {
         ppFileSetMarshal := ppFileSet is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", cFileCount, ppFileSetMarshal, ppFileSet, "HRESULT")
+        result := ComCall(6, this, UInt32, cFileCount, ppFileSetMarshal, ppFileSet, "HRESULT")
         return result
     }
 
@@ -258,7 +258,7 @@ export default struct IBackgroundCopyJob1 extends IUnknown {
      */
     GetFile(cFileIndex) {
         pFileInfo := FILESETINFO()
-        result := ComCall(7, this, "uint", cFileIndex, FILESETINFO.Ptr, pFileInfo, "HRESULT")
+        result := ComCall(7, this, UInt32, cFileIndex, FILESETINFO.Ptr, pFileInfo, "HRESULT")
         return pFileInfo
     }
 

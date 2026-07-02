@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IOD_DESFLAGS.ahk" { IOD_DESFLAGS }
 #Import ".\IO_DES.ahk" { IO_DES }
 #Import ".\IO_RANGE.ahk" { IO_RANGE }
-#Import ".\IOD_DESFLAGS.ahk" { IOD_DESFLAGS }
 
 /**
  * The IO_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes I/O port usage for a device instance.

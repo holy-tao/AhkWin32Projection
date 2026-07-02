@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITraceEvent.ahk" { ITraceEvent }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\ITraceEventCallback.ahk" { ITraceEventCallback }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to the relogging functionality, allowing you to manipulate and relog events from an ETW trace stream.
@@ -143,7 +143,7 @@ export default struct ITraceRelogger extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-createeventinstance
      */
     CreateEventInstance(TraceStreamId, Flags) {
-        result := ComCall(7, this, "uint", TraceStreamId, "uint", Flags, "ptr*", &Event := 0, "HRESULT")
+        result := ComCall(7, this, Int64, TraceStreamId, UInt32, Flags, "ptr*", &Event := 0, "HRESULT")
         return ITraceEvent(Event)
     }
 

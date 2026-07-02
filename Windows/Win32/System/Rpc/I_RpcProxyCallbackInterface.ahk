@@ -1,4 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\I_RpcProxyFilterIfFn.ahk" { I_RpcProxyFilterIfFn }
+#Import ".\I_RpcProxyGetClientAddressFn.ahk" { I_RpcProxyGetClientAddressFn }
+#Import ".\I_RpcFreeCalloutStateFn.ahk" { I_RpcFreeCalloutStateFn }
+#Import ".\I_RpcProxyUpdatePerfCounterBackendServerFn.ahk" { I_RpcProxyUpdatePerfCounterBackendServerFn }
+#Import ".\I_RpcProxyIsValidMachineFn.ahk" { I_RpcProxyIsValidMachineFn }
+#Import ".\I_RpcPerformCalloutFn.ahk" { I_RpcPerformCalloutFn }
+#Import ".\I_RpcProxyUpdatePerfCounterFn.ahk" { I_RpcProxyUpdatePerfCounterFn }
+#Import ".\I_RpcProxyGetConnectionTimeoutFn.ahk" { I_RpcProxyGetConnectionTimeoutFn }
+#Import ".\I_RpcProxyGetClientSessionAndResourceUUID.ahk" { I_RpcProxyGetClientSessionAndResourceUUID }
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -6,22 +15,22 @@
 export default struct I_RpcProxyCallbackInterface {
     #StructPack 8
 
-    IsValidMachineFn : IntPtr
+    IsValidMachineFn : I_RpcProxyIsValidMachineFn
 
-    GetClientAddressFn : IntPtr
+    GetClientAddressFn : I_RpcProxyGetClientAddressFn
 
-    GetConnectionTimeoutFn : IntPtr
+    GetConnectionTimeoutFn : I_RpcProxyGetConnectionTimeoutFn
 
-    PerformCalloutFn : IntPtr
+    PerformCalloutFn : I_RpcPerformCalloutFn
 
-    FreeCalloutStateFn : IntPtr
+    FreeCalloutStateFn : I_RpcFreeCalloutStateFn
 
-    GetClientSessionAndResourceUUIDFn : IntPtr
+    GetClientSessionAndResourceUUIDFn : I_RpcProxyGetClientSessionAndResourceUUID
 
-    ProxyFilterIfFn : IntPtr
+    ProxyFilterIfFn : I_RpcProxyFilterIfFn
 
-    RpcProxyUpdatePerfCounterFn : IntPtr
+    RpcProxyUpdatePerfCounterFn : I_RpcProxyUpdatePerfCounterFn
 
-    RpcProxyUpdatePerfCounterBackendServerFn : IntPtr
+    RpcProxyUpdatePerfCounterBackendServerFn : I_RpcProxyUpdatePerfCounterBackendServerFn
 
 }

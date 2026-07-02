@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Manages configuration settings for each listener for the dynamic virtual channel (DVC) connection.

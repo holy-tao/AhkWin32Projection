@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS.ahk" { D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS }
-#Import ".\D3D12_NODE_ID.ahk" { D3D12_NODE_ID }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D12_NODE_ID.ahk" { D3D12_NODE_ID }
+#Import ".\D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS.ahk" { D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -64,7 +64,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {PWSTR} 
      */
     GetProgramName(WorkGraphIndex) {
-        result := ComCall(4, this, "uint", WorkGraphIndex, PWSTR)
+        result := ComCall(4, this, UInt32, WorkGraphIndex, PWSTR)
         return result
     }
 
@@ -86,7 +86,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {Integer} 
      */
     GetNumNodes(WorkGraphIndex) {
-        result := ComCall(6, this, "uint", WorkGraphIndex, UInt32)
+        result := ComCall(6, this, UInt32, WorkGraphIndex, UInt32)
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {D3D12_NODE_ID} 
      */
     GetNodeID(WorkGraphIndex, NodeIndex) {
-        result := ComCall(7, this, "uint", WorkGraphIndex, "uint", NodeIndex, D3D12_NODE_ID)
+        result := ComCall(7, this, UInt32, WorkGraphIndex, UInt32, NodeIndex, D3D12_NODE_ID)
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {Integer} 
      */
     GetNodeIndex(WorkGraphIndex, NodeID) {
-        result := ComCall(8, this, "uint", WorkGraphIndex, D3D12_NODE_ID, NodeID, UInt32)
+        result := ComCall(8, this, UInt32, WorkGraphIndex, D3D12_NODE_ID, NodeID, UInt32)
         return result
     }
 
@@ -119,7 +119,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {Integer} 
      */
     GetNodeLocalRootArgumentsTableIndex(WorkGraphIndex, NodeIndex) {
-        result := ComCall(9, this, "uint", WorkGraphIndex, "uint", NodeIndex, UInt32)
+        result := ComCall(9, this, UInt32, WorkGraphIndex, UInt32, NodeIndex, UInt32)
         return result
     }
 
@@ -129,7 +129,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {Integer} 
      */
     GetNumEntrypoints(WorkGraphIndex) {
-        result := ComCall(10, this, "uint", WorkGraphIndex, UInt32)
+        result := ComCall(10, this, UInt32, WorkGraphIndex, UInt32)
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {D3D12_NODE_ID} 
      */
     GetEntrypointID(WorkGraphIndex, EntrypointIndex) {
-        result := ComCall(11, this, "uint", WorkGraphIndex, "uint", EntrypointIndex, D3D12_NODE_ID)
+        result := ComCall(11, this, UInt32, WorkGraphIndex, UInt32, EntrypointIndex, D3D12_NODE_ID)
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {Integer} 
      */
     GetEntrypointIndex(WorkGraphIndex, NodeID) {
-        result := ComCall(12, this, "uint", WorkGraphIndex, D3D12_NODE_ID, NodeID, UInt32)
+        result := ComCall(12, this, UInt32, WorkGraphIndex, D3D12_NODE_ID, NodeID, UInt32)
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {Integer} 
      */
     GetEntrypointRecordSizeInBytes(WorkGraphIndex, EntrypointIndex) {
-        result := ComCall(13, this, "uint", WorkGraphIndex, "uint", EntrypointIndex, UInt32)
+        result := ComCall(13, this, UInt32, WorkGraphIndex, UInt32, EntrypointIndex, UInt32)
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     GetWorkGraphMemoryRequirements(WorkGraphIndex, pWorkGraphMemoryRequirements) {
-        ComCall(14, this, "uint", WorkGraphIndex, D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS.Ptr, pWorkGraphMemoryRequirements)
+        ComCall(14, this, UInt32, WorkGraphIndex, D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS.Ptr, pWorkGraphMemoryRequirements)
     }
 
     /**
@@ -183,7 +183,7 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
      * @returns {Integer} 
      */
     GetEntrypointRecordAlignmentInBytes(WorkGraphIndex, EntrypointIndex) {
-        result := ComCall(15, this, "uint", WorkGraphIndex, "uint", EntrypointIndex, UInt32)
+        result := ComCall(15, this, UInt32, WorkGraphIndex, UInt32, EntrypointIndex, UInt32)
         return result
     }
 

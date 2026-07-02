@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HIC.ahk" { HIC }
 #Import "..\..\Graphics\Gdi\BITMAPINFO.ahk" { BITMAPINFO }
+#Import ".\HIC.ahk" { HIC }
 
 /**
  * The COMPVARS structure describes compressor settings for functions such as ICCompressorChoose, ICSeqCompressFrame, and ICCompressorFree.

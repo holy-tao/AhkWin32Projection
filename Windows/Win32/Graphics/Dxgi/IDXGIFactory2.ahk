@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDXGIFactory1.ahk" { IDXGIFactory1 }
-#Import ".\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk" { DXGI_SWAP_CHAIN_FULLSCREEN_DESC }
-#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDXGISwapChain1.ahk" { IDXGISwapChain1 }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import ".\IDXGIFactory1.ahk" { IDXGIFactory1 }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk" { DXGI_SWAP_CHAIN_FULLSCREEN_DESC }
 
 /**
  * The IDXGIFactory2 interface includes methods to create a newer version swap chain with more features than IDXGISwapChain and to monitor stereoscopic 3D capabilities.
@@ -225,7 +225,7 @@ export default struct IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerstereostatuswindow
      */
     RegisterStereoStatusWindow(WindowHandle, wMsg) {
-        result := ComCall(18, this, HWND, WindowHandle, "uint", wMsg, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(18, this, HWND, WindowHandle, UInt32, wMsg, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -249,7 +249,7 @@ export default struct IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-unregisterstereostatus
      */
     UnregisterStereoStatus(dwCookie) {
-        ComCall(20, this, "uint", dwCookie)
+        ComCall(20, this, UInt32, dwCookie)
     }
 
     /**
@@ -262,7 +262,7 @@ export default struct IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerocclusionstatuswindow
      */
     RegisterOcclusionStatusWindow(WindowHandle, wMsg) {
-        result := ComCall(21, this, HWND, WindowHandle, "uint", wMsg, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(21, this, HWND, WindowHandle, UInt32, wMsg, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -290,7 +290,7 @@ export default struct IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-unregisterocclusionstatus
      */
     UnregisterOcclusionStatus(dwCookie) {
-        ComCall(23, this, "uint", dwCookie)
+        ComCall(23, this, UInt32, dwCookie)
     }
 
     /**

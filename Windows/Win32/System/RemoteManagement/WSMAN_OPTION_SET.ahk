@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSMAN_OPTION.ahk" { WSMAN_OPTION }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WSMAN_OPTION.ahk" { WSMAN_OPTION }
 
 /**
  * Represents a set of options.

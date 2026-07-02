@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\HCONV.ahk" { HCONV }
 #Import ".\HSZ.ahk" { HSZ }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) conversation. A DDE monitoring application can use this structure to obtain information about a conversation that has been established or has terminated.

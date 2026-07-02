@@ -221,7 +221,7 @@ export default struct IHeaderFooter extends IDispatch {
      * @returns {HRESULT} 
      */
     put_page(v) {
-        result := ComCall(13, this, "uint", v, "HRESULT")
+        result := ComCall(13, this, UInt32, v, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct IHeaderFooter extends IDispatch {
      * @returns {HRESULT} 
      */
     put_pageTotal(v) {
-        result := ComCall(15, this, "uint", v, "HRESULT")
+        result := ComCall(15, this, UInt32, v, "HRESULT")
         return result
     }
 

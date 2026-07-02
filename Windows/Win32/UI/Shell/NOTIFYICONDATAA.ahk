@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\NOTIFY_ICON_INFOTIP_FLAGS.ahk" { NOTIFY_ICON_INFOTIP_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\NOTIFY_ICON_DATA_FLAGS.ahk" { NOTIFY_ICON_DATA_FLAGS }
 #Import ".\NOTIFY_ICON_STATE.ahk" { NOTIFY_ICON_STATE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\NOTIFY_ICON_INFOTIP_FLAGS.ahk" { NOTIFY_ICON_INFOTIP_FLAGS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

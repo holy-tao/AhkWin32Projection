@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLUSTER_RANGE.ahk" { CLUSTER_RANGE }
 #Import ".\QUERY_FILE_LAYOUT_FILTER_TYPE.ahk" { QUERY_FILE_LAYOUT_FILTER_TYPE }
 #Import ".\FILE_REFERENCE_RANGE.ahk" { FILE_REFERENCE_RANGE }
 #Import ".\STORAGE_RESERVE_ID.ahk" { STORAGE_RESERVE_ID }
+#Import ".\CLUSTER_RANGE.ahk" { CLUSTER_RANGE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl

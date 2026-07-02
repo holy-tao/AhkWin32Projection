@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
 #Import ".\INSERT_TEXT_AT_SELECTION_FLAGS.ahk" { INSERT_TEXT_AT_SELECTION_FLAGS }
-#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfRange.ahk" { ITfRange }
 
 /**
  * The ITfInsertAtSelection interface is implemented by the manager and is used by a text service to insert text or an embedded object in a context. The text service obtains this interface by calling ITfContext::QueryInterface.
@@ -56,7 +56,7 @@ export default struct ITfInsertAtSelection extends IUnknown {
     InsertTextAtSelection(ec, dwFlags, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(3, this, "uint", ec, INSERT_TEXT_AT_SELECTION_FLAGS, dwFlags, "ptr", pchText, "int", cch, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, ec, INSERT_TEXT_AT_SELECTION_FLAGS, dwFlags, "ptr", pchText, Int32, cch, "ptr*", &ppRange := 0, "HRESULT")
         return ITfRange(ppRange)
     }
 
@@ -73,7 +73,7 @@ export default struct ITfInsertAtSelection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinsertatselection-insertembeddedatselection
      */
     InsertEmbeddedAtSelection(ec, dwFlags, pDataObject) {
-        result := ComCall(4, this, "uint", ec, "uint", dwFlags, "ptr", pDataObject, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, ec, UInt32, dwFlags, "ptr", pDataObject, "ptr*", &ppRange := 0, "HRESULT")
         return ITfRange(ppRange)
     }
 

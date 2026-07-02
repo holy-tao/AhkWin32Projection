@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\BLUETOOTH_DEVICE_INFO.ahk" { BLUETOOTH_DEVICE_INFO }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BLUETOOTH_DEVICE_INFO.ahk" { BLUETOOTH_DEVICE_INFO }
 #Import ".\BLUETOOTH_COD_PAIRS.ahk" { BLUETOOTH_COD_PAIRS }
+#Import ".\PFN_DEVICE_CALLBACK.ahk" { PFN_DEVICE_CALLBACK }
 
 /**
  * Facilitates and manages the visibility, authentication, and selection of Bluetooth devices and services.
@@ -76,7 +77,7 @@ export default struct BLUETOOTH_SELECT_DEVICE_PARAMS {
     /**
      * A pointer to a callback function that is called for each device. If the callback function returns <b>TRUE</b>, the item is added. If the callback function returns <b>FALSE</b>, the item is not shown. Set <b>pfnDeviceCallback</b> to null for no callback. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nc-bluetoothapis-pfn_device_callback">PFN_DEVICE_CALLBACK</a>.
      */
-    pfnDeviceCallback : IntPtr
+    pfnDeviceCallback : PFN_DEVICE_CALLBACK
 
     /**
      * Parameter to be passed as <b>pvParam</b> to the callback function pointed to in <b>pfnDeviceCallback</b>.

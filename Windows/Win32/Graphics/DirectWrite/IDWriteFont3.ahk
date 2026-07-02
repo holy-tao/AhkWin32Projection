@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
 #Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontFace3.ahk" { IDWriteFontFace3 }
-#Import ".\IDWriteFont.ahk" { IDWriteFont }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IDWriteFont2.ahk" { IDWriteFont2 }
+#Import ".\IDWriteFontFace3.ahk" { IDWriteFontFace3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
 
 /**
  * Represents a font in a font collection.
@@ -91,7 +91,7 @@ export default struct IDWriteFont3 extends IDWriteFont2 {
      * @returns {BOOL} 
      */
     HasCharacter(unicodeValue) {
-        result := ComCall(22, this, "uint", unicodeValue, BOOL)
+        result := ComCall(22, this, UInt32, unicodeValue, BOOL)
         return result
     }
 

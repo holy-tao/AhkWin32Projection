@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER.ahk" { D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER.ahk" { D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER }
 
 /**
  * Indicates the level of support for 64KB-aligned MSAA textures, cross-API sharing, and native 16-bit shader operations.

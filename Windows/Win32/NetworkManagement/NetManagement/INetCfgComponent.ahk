@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -162,7 +162,7 @@ export default struct INetCfgComponent extends IUnknown {
      * @returns {HRESULT} 
      */
     RaisePropertyUi(hwndParent, dwFlags, punkContext) {
-        result := ComCall(14, this, HWND, hwndParent, "uint", dwFlags, "ptr", punkContext, "HRESULT")
+        result := ComCall(14, this, HWND, hwndParent, UInt32, dwFlags, "ptr", punkContext, "HRESULT")
         return result
     }
 

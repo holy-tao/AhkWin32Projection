@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DDP_FILE_EXTENT.ahk" { DDP_FILE_EXTENT }
 #Import ".\DEDUP_CONTAINER_EXTENT.ahk" { DEDUP_CONTAINER_EXTENT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A callback interface, implemented by backup applications, that enables Data Deduplication to read content from metadata and container files residing in a backup store and optionally improve restore efficiency.
@@ -61,7 +61,7 @@ export default struct IDedupReadFileCallback extends IUnknown {
         FileBufferMarshal := FileBuffer is VarRef ? "char*" : "ptr"
         ReturnedSizeMarshal := ReturnedSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, BSTR, FileFullPath, "int64", FileOffset, "uint", SizeToRead, FileBufferMarshal, FileBuffer, ReturnedSizeMarshal, ReturnedSize, "uint", Flags, "HRESULT")
+        result := ComCall(3, this, BSTR, FileFullPath, Int64, FileOffset, UInt32, SizeToRead, FileBufferMarshal, FileBuffer, ReturnedSizeMarshal, ReturnedSize, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IDedupReadFileCallback extends IUnknown {
         ReadPlanEntriesMarshal := ReadPlanEntries is VarRef ? "uint*" : "ptr"
         ReadPlanMarshal := ReadPlan is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", NumberOfContainers, BSTR.Ptr, ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, ReadPlanMarshal, ReadPlan, "HRESULT")
+        result := ComCall(4, this, UInt32, NumberOfContainers, BSTR.Ptr, ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, ReadPlanMarshal, ReadPlan, "HRESULT")
         return result
     }
 
@@ -116,7 +116,7 @@ export default struct IDedupReadFileCallback extends IUnknown {
     PreviewContainerRead(FileFullPath, NumberOfReads, ReadOffsets) {
         FileFullPath := FileFullPath is String ? BSTR.Alloc(FileFullPath).Value : FileFullPath
 
-        result := ComCall(5, this, BSTR, FileFullPath, "uint", NumberOfReads, DDP_FILE_EXTENT.Ptr, ReadOffsets, "HRESULT")
+        result := ComCall(5, this, BSTR, FileFullPath, UInt32, NumberOfReads, DDP_FILE_EXTENT.Ptr, ReadOffsets, "HRESULT")
         return result
     }
 

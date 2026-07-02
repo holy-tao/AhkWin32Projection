@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SContentRestriction.ahk" { SContentRestriction }
-#Import ".\SAndRestriction.ahk" { SAndRestriction }
-#Import ".\SExistRestriction.ahk" { SExistRestriction }
-#Import ".\SNotRestriction.ahk" { SNotRestriction }
-#Import ".\SComparePropsRestriction.ahk" { SComparePropsRestriction }
 #Import ".\SPropValue.ahk" { SPropValue }
 #Import ".\SSubRestriction.ahk" { SSubRestriction }
-#Import ".\SSizeRestriction.ahk" { SSizeRestriction }
-#Import ".\SPropertyRestriction.ahk" { SPropertyRestriction }
-#Import ".\SBitMaskRestriction.ahk" { SBitMaskRestriction }
-#Import ".\SOrRestriction.ahk" { SOrRestriction }
+#Import ".\SComparePropsRestriction.ahk" { SComparePropsRestriction }
 #Import ".\SCommentRestriction.ahk" { SCommentRestriction }
+#Import ".\SOrRestriction.ahk" { SOrRestriction }
+#Import ".\SBitMaskRestriction.ahk" { SBitMaskRestriction }
+#Import ".\SNotRestriction.ahk" { SNotRestriction }
+#Import ".\SExistRestriction.ahk" { SExistRestriction }
+#Import ".\SAndRestriction.ahk" { SAndRestriction }
+#Import ".\SPropertyRestriction.ahk" { SPropertyRestriction }
+#Import ".\SContentRestriction.ahk" { SContentRestriction }
+#Import ".\SSizeRestriction.ahk" { SSizeRestriction }
 
 /**
  * Describes a filter for limiting the view of a table to particular rows for Outlook 2013 and Outlook 2016.

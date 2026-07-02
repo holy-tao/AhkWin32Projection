@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -49,7 +49,7 @@ export default struct IValidateBinding extends IUnknown {
         ppbBlobValidationIDMarshal := ppbBlobValidationID is VarRef ? "ptr*" : "ptr"
         pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, Guid, guidLicensorID, pbEphemeronMarshal, pbEphemeron, "uint", cbEphemeron, ppbBlobValidationIDMarshal, ppbBlobValidationID, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
+        result := ComCall(3, this, Guid, guidLicensorID, pbEphemeronMarshal, pbEphemeron, UInt32, cbEphemeron, ppbBlobValidationIDMarshal, ppbBlobValidationID, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICEnroll2.ahk" { ICEnroll2 }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * One of several interfaces that represent the Certificate Enrollment Control.
@@ -162,7 +162,7 @@ export default struct ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-enumalgs
      */
     EnumAlgs(dwIndex, algClass) {
-        result := ComCall(73, this, "int", dwIndex, "int", algClass, "int*", &pdwAlgID := 0, "HRESULT")
+        result := ComCall(73, this, Int32, dwIndex, Int32, algClass, "int*", &pdwAlgID := 0, "HRESULT")
         return pdwAlgID
     }
 
@@ -179,7 +179,7 @@ export default struct ICEnroll3 extends ICEnroll2 {
      */
     GetAlgName(algID) {
         pbstr := BSTR.Owned()
-        result := ComCall(74, this, "int", algID, BSTR.Ptr, pbstr, "HRESULT")
+        result := ComCall(74, this, Int32, algID, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -219,7 +219,7 @@ export default struct ICEnroll3 extends ICEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-put_hashalgid
      */
     put_HashAlgID(hashAlgID) {
-        result := ComCall(77, this, "int", hashAlgID, "HRESULT")
+        result := ComCall(77, this, Int32, hashAlgID, "HRESULT")
         return result
     }
 

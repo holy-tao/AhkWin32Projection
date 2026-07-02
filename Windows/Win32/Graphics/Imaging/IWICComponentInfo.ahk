@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WICComponentType.ahk" { WICComponentType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide component information.
@@ -106,7 +106,7 @@ export default struct IWICComponentInfo extends IUnknown {
     GetAuthor(cchAuthor, wzAuthor) {
         wzAuthor := wzAuthor is String ? StrPtr(wzAuthor) : wzAuthor
 
-        result := ComCall(6, this, "uint", cchAuthor, "ptr", wzAuthor, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, cchAuthor, "ptr", wzAuthor, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -143,7 +143,7 @@ export default struct IWICComponentInfo extends IUnknown {
     GetVersion(cchVersion, wzVersion) {
         wzVersion := wzVersion is String ? StrPtr(wzVersion) : wzVersion
 
-        result := ComCall(8, this, "uint", cchVersion, "ptr", wzVersion, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, cchVersion, "ptr", wzVersion, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -167,7 +167,7 @@ export default struct IWICComponentInfo extends IUnknown {
     GetSpecVersion(cchSpecVersion, wzSpecVersion) {
         wzSpecVersion := wzSpecVersion is String ? StrPtr(wzSpecVersion) : wzSpecVersion
 
-        result := ComCall(9, this, "uint", cchSpecVersion, "ptr", wzSpecVersion, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, cchSpecVersion, "ptr", wzSpecVersion, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -190,7 +190,7 @@ export default struct IWICComponentInfo extends IUnknown {
     GetFriendlyName(cchFriendlyName, wzFriendlyName) {
         wzFriendlyName := wzFriendlyName is String ? StrPtr(wzFriendlyName) : wzFriendlyName
 
-        result := ComCall(10, this, "uint", cchFriendlyName, "ptr", wzFriendlyName, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, cchFriendlyName, "ptr", wzFriendlyName, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 

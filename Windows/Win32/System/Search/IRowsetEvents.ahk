@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import ".\ROWSETEVENT_ITEMSTATE.ahk" { ROWSETEVENT_ITEMSTATE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ROWSETEVENT_TYPE.ahk" { ROWSETEVENT_TYPE }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ROWSETEVENT_TYPE.ahk" { ROWSETEVENT_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods for receiving event notifications.

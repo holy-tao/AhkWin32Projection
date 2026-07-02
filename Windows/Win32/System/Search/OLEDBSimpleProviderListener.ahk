@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OSPXFER.ahk" { OSPXFER }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OSPXFER.ahk" { OSPXFER }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -56,7 +56,7 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
      * @returns {HRESULT} 
      */
     aboutToChangeCell(_iRow, iColumn) {
-        result := ComCall(3, this, "ptr", _iRow, "ptr", iColumn, "HRESULT")
+        result := ComCall(3, this, IntPtr, _iRow, IntPtr, iColumn, "HRESULT")
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
      * @returns {HRESULT} 
      */
     cellChanged(_iRow, iColumn) {
-        result := ComCall(4, this, "ptr", _iRow, "ptr", iColumn, "HRESULT")
+        result := ComCall(4, this, IntPtr, _iRow, IntPtr, iColumn, "HRESULT")
         return result
     }
 
@@ -78,7 +78,7 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
      * @returns {HRESULT} 
      */
     aboutToDeleteRows(_iRow, cRows) {
-        result := ComCall(5, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
+        result := ComCall(5, this, IntPtr, _iRow, IntPtr, cRows, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
      * @returns {HRESULT} 
      */
     deletedRows(_iRow, cRows) {
-        result := ComCall(6, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
+        result := ComCall(6, this, IntPtr, _iRow, IntPtr, cRows, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
      * @returns {HRESULT} 
      */
     aboutToInsertRows(_iRow, cRows) {
-        result := ComCall(7, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
+        result := ComCall(7, this, IntPtr, _iRow, IntPtr, cRows, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
      * @returns {HRESULT} 
      */
     insertedRows(_iRow, cRows) {
-        result := ComCall(8, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
+        result := ComCall(8, this, IntPtr, _iRow, IntPtr, cRows, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
      * @returns {HRESULT} 
      */
     rowsAvailable(_iRow, cRows) {
-        result := ComCall(9, this, "ptr", _iRow, "ptr", cRows, "HRESULT")
+        result := ComCall(9, this, IntPtr, _iRow, IntPtr, cRows, "HRESULT")
         return result
     }
 

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\DxMediaObjects\DMO_MEDIA_TYPE.ahk" { DMO_MEDIA_TYPE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WMT_PROP_DATATYPE.ahk" { WMT_PROP_DATATYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods that retrieve format-specific codec properties.
@@ -160,7 +160,7 @@ export default struct IWMCodecProps extends IUnknown {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwFormat, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFormat, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 

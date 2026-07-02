@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmAction.ahk" { IFsrmAction }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\FsrmAccountType.ahk" { FsrmAccountType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
 
 /**
  * Used to run a command or script in response to a quota, file screen, or file management job event.
@@ -286,7 +286,7 @@ export default struct IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-put_killtimeout
      */
     put_KillTimeOut(minutes) {
-        result := ComCall(23, this, "int", minutes, "HRESULT")
+        result := ComCall(23, this, Int32, minutes, "HRESULT")
         return result
     }
 

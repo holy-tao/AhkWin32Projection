@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -189,7 +189,7 @@ export default struct IPicture2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/render-method
      */
     Render(_hDC, x, y, cx, _cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
-        result := ComCall(8, this, HDC, _hDC, "int", x, "int", y, "int", cx, "int", _cy, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, RECT.Ptr, pRcWBounds, "HRESULT")
+        result := ComCall(8, this, HDC, _hDC, Int32, x, Int32, y, Int32, cx, Int32, _cy, Int32, xSrc, Int32, ySrc, Int32, cxSrc, Int32, cySrc, RECT.Ptr, pRcWBounds, "HRESULT")
         return result
     }
 
@@ -199,7 +199,7 @@ export default struct IPicture2 extends IUnknown {
      * @returns {HRESULT} 
      */
     set_hPal(hPal) {
-        result := ComCall(9, this, "ptr", hPal, "HRESULT")
+        result := ComCall(9, this, IntPtr, hPal, "HRESULT")
         return result
     }
 

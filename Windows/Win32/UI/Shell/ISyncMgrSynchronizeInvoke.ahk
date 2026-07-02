@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that enable a registered application to invoke the synchronization manager to update items.
@@ -95,7 +95,7 @@ export default struct ISyncMgrSynchronizeInvoke extends IUnknown {
     UpdateItems(dwInvokeFlags, clsid, cbCookie, pCookie) {
         pCookieMarshal := pCookie is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwInvokeFlags, Guid.Ptr, clsid, "uint", cbCookie, pCookieMarshal, pCookie, "HRESULT")
+        result := ComCall(3, this, UInt32, dwInvokeFlags, Guid.Ptr, clsid, UInt32, cbCookie, pCookieMarshal, pCookie, "HRESULT")
         return result
     }
 

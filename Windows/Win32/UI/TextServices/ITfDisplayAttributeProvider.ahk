@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITfDisplayAttributeInfo.ahk" { ITfDisplayAttributeInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEnumTfDisplayAttributeInfo.ahk" { IEnumTfDisplayAttributeInfo }
+#Import ".\ITfDisplayAttributeInfo.ahk" { ITfDisplayAttributeInfo }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfDisplayAttributeProvider interface is implemented by a text service and is used by the TSF manager to enumerate and obtain individual display attribute information objects.

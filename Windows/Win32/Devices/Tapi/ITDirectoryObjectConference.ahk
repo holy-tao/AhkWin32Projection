@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RND_ADVERTISING_SCOPE.ahk" { RND_ADVERTISING_SCOPE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\RND_ADVERTISING_SCOPE.ahk" { RND_ADVERTISING_SCOPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITDirectoryObjectConference interface provides methods that allow an application to set and get conference details. The ITDirectoryObjectConference interface is created by calling QueryInterface on ITDirectoryObject.
@@ -669,7 +669,7 @@ export default struct ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-put_starttime
      */
     put_StartTime(Date) {
-        result := ComCall(19, this, "double", Date, "HRESULT")
+        result := ComCall(19, this, Float64, Date, "HRESULT")
         return result
     }
 
@@ -754,7 +754,7 @@ export default struct ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-put_stoptime
      */
     put_StopTime(Date) {
-        result := ComCall(21, this, "double", Date, "HRESULT")
+        result := ComCall(21, this, Float64, Date, "HRESULT")
         return result
     }
 

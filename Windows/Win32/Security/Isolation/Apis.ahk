@@ -2,11 +2,11 @@
 
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\PSID.ahk" { PSID }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Security.Isolation
@@ -35,7 +35,7 @@ export GetAppContainerNamedObjectPath(Token, AppContainerSid, ObjectPathLength, 
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", HANDLE, Token, PSID, AppContainerSid, "uint", ObjectPathLength, "ptr", ObjectPath, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", HANDLE, Token, PSID, AppContainerSid, UInt32, ObjectPathLength, "ptr", ObjectPath, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -121,7 +121,7 @@ export CreateAppContainerProfile(pszAppContainerName, pszDisplayName, pszDescrip
     pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
     pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
 
-    result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, SID_AND_ATTRIBUTES.Ptr, pCapabilities, "uint", dwCapabilityCount, PSID.Ptr, &ppSidAppContainerSid := 0, "HRESULT")
+    result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, SID_AND_ATTRIBUTES.Ptr, pCapabilities, UInt32, dwCapabilityCount, PSID.Ptr, &ppSidAppContainerSid := 0, "HRESULT")
     return ppSidAppContainerSid
 }
 
@@ -200,7 +200,7 @@ export DeleteAppContainerProfile(pszAppContainerName) {
  */
 export GetAppContainerRegistryLocation(desiredAccess) {
     phAppContainerKey := HKEY.Owned()
-    result := DllCall("USERENV.dll\GetAppContainerRegistryLocation", "uint", desiredAccess, HKEY.Ptr, phAppContainerKey, "HRESULT")
+    result := DllCall("USERENV.dll\GetAppContainerRegistryLocation", UInt32, desiredAccess, HKEY.Ptr, phAppContainerKey, "HRESULT")
     return phAppContainerKey
 }
 

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for handling storyboard events.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
 #Import "..\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CRYPTUI_WIZ_DIGITAL_SIGN_SIG_TYPE.ahk" { CRYPTUI_WIZ_DIGITAL_SIGN_SIG_TYPE }
-#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Used with the CRYPTUI_WIZ_DIGITAL_SIGN_INFO structure to contain extended information about a signature.

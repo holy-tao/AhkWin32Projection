@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IContextMenu2.ahk" { IContextMenu2 }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\IContextMenu2.ahk" { IContextMenu2 }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that either create or merge a shortcut menu associated with a Shell object. Allows client objects to handle messages associated with owner-drawn menu items and extends IContextMenu2 by accepting a return value from that message handling.
@@ -77,7 +77,7 @@ export default struct IContextMenu3 extends IContextMenu2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu3-handlemenumsg2
      */
     HandleMenuMsg2(uMsg, _wParam, _lParam) {
-        result := ComCall(7, this, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 

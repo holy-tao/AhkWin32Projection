@@ -45,7 +45,7 @@ export default struct IAdviseSinkEx extends IAdviseSink {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iadvisesinkex-onviewstatuschange
      */
     OnViewStatusChange(dwViewStatus) {
-        ComCall(8, this, "uint", dwViewStatus)
+        ComCall(8, this, UInt32, dwViewStatus)
     }
 
     Query(iid) {

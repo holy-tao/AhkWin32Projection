@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\CERT_ALT_NAME_ENTRY.ahk" { CERT_ALT_NAME_ENTRY }
 #Import ".\CRL_DIST_POINT_NAME.ahk" { CRL_DIST_POINT_NAME }
-#Import ".\CERT_ALT_NAME_INFO.ahk" { CERT_ALT_NAME_INFO }
 #Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import ".\CERT_ALT_NAME_INFO.ahk" { CERT_ALT_NAME_INFO }
 
 /**
  * Identifies a single certificate revocation list (CRL) distribution point that a certificate user can reference to determine whether certificates have been revoked.

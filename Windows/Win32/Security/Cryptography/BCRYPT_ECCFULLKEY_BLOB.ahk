@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ECC_CURVE_TYPE_ENUM.ahk" { ECC_CURVE_TYPE_ENUM }
 #Import ".\ECC_CURVE_ALG_ID_ENUM.ahk" { ECC_CURVE_ALG_ID_ENUM }
+#Import ".\ECC_CURVE_TYPE_ENUM.ahk" { ECC_CURVE_TYPE_ENUM }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography

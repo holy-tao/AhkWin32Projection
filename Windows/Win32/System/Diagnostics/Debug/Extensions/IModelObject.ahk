@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IKeyStore.ahk" { IKeyStore }
-#Import ".\Location.ahk" { Location }
 #Import ".\IKeyEnumerator.ahk" { IKeyEnumerator }
-#Import "..\..\..\Variant\VARENUM.ahk" { VARENUM }
-#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import ".\SymbolKind.ahk" { SymbolKind }
-#Import ".\ModelObjectKind.ahk" { ModelObjectKind }
-#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SymbolKind.ahk" { SymbolKind }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IRawEnumerator.ahk" { IRawEnumerator }
+#Import ".\IKeyStore.ahk" { IKeyStore }
 #Import ".\IDebugHostType.ahk" { IDebugHostType }
+#Import ".\Location.ahk" { Location }
+#Import "..\..\..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ModelObjectKind.ahk" { ModelObjectKind }
+#Import ".\IRawEnumerator.ahk" { IRawEnumerator }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -163,7 +163,7 @@ export default struct IModelObject extends IUnknown {
     GetRawValue(kind, name, searchFlags) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(10, this, SymbolKind, kind, "ptr", name, "uint", searchFlags, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(10, this, SymbolKind, kind, "ptr", name, UInt32, searchFlags, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -174,7 +174,7 @@ export default struct IModelObject extends IUnknown {
      * @returns {IRawEnumerator} 
      */
     EnumerateRawValues(kind, searchFlags) {
-        result := ComCall(11, this, SymbolKind, kind, "uint", searchFlags, "ptr*", &_enumerator := 0, "HRESULT")
+        result := ComCall(11, this, SymbolKind, kind, UInt32, searchFlags, "ptr*", &_enumerator := 0, "HRESULT")
         return IRawEnumerator(_enumerator)
     }
 
@@ -255,7 +255,7 @@ export default struct IModelObject extends IUnknown {
      * @returns {HRESULT} 
      */
     GetParentModel(i, model, contextObject) {
-        result := ComCall(19, this, "uint", i, IModelObject.Ptr, model, IModelObject.Ptr, contextObject, "HRESULT")
+        result := ComCall(19, this, Int64, i, IModelObject.Ptr, model, IModelObject.Ptr, contextObject, "HRESULT")
         return result
     }
 
@@ -267,7 +267,7 @@ export default struct IModelObject extends IUnknown {
      * @returns {HRESULT} 
      */
     AddParentModel(model, contextObject, override) {
-        result := ComCall(20, this, "ptr", model, "ptr", contextObject, "char", override, "HRESULT")
+        result := ComCall(20, this, "ptr", model, "ptr", contextObject, Int8, override, "HRESULT")
         return result
     }
 
@@ -381,7 +381,7 @@ export default struct IModelObject extends IUnknown {
     GetRawReference(kind, name, searchFlags) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(30, this, SymbolKind, kind, "ptr", name, "uint", searchFlags, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(30, this, SymbolKind, kind, "ptr", name, UInt32, searchFlags, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -392,7 +392,7 @@ export default struct IModelObject extends IUnknown {
      * @returns {IRawEnumerator} 
      */
     EnumerateRawReferences(kind, searchFlags) {
-        result := ComCall(31, this, SymbolKind, kind, "uint", searchFlags, "ptr*", &_enumerator := 0, "HRESULT")
+        result := ComCall(31, this, SymbolKind, kind, UInt32, searchFlags, "ptr*", &_enumerator := 0, "HRESULT")
         return IRawEnumerator(_enumerator)
     }
 

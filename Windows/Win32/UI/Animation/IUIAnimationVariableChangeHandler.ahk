@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUIAnimationVariable.ahk" { IUIAnimationVariable }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationStoryboard.ahk" { IUIAnimationStoryboard }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a method for handling events related to animation variable updates.
@@ -102,7 +102,7 @@ export default struct IUIAnimationVariableChangeHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariablechangehandler-onvaluechanged
      */
     OnValueChanged(storyboard, variable, newValue, previousValue) {
-        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, "double", newValue, "double", previousValue, "HRESULT")
+        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, Float64, newValue, Float64, previousValue, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMbnConnection.ahk" { IMbnConnection }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This notification interface signals an application about change and completion status of asynchronous connection requests.
@@ -65,7 +65,7 @@ export default struct IMbnConnectionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-onconnectcomplete
      */
     OnConnectComplete(newConnection, requestID, _status) {
-        result := ComCall(3, this, "ptr", newConnection, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(3, this, "ptr", newConnection, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct IMbnConnectionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionevents-ondisconnectcomplete
      */
     OnDisconnectComplete(newConnection, requestID, _status) {
-        result := ComCall(4, this, "ptr", newConnection, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(4, this, "ptr", newConnection, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDot11AdHocSecuritySettings.ahk" { IDot11AdHocSecuritySettings }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\IDot11AdHocInterface.ahk" { IDot11AdHocInterface }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\DOT11_ADHOC_NETWORK_CONNECTION_STATUS.ahk" { DOT11_ADHOC_NETWORK_CONNECTION_STATUS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an available ad hoc network destination within connection range.
@@ -641,7 +641,7 @@ export default struct IDot11AdHocNetwork extends IUnknown {
     Connect(Passphrase, GeographicalId, fSaveProfile, fMakeSavedProfileUserSpecific) {
         Passphrase := Passphrase is String ? StrPtr(Passphrase) : Passphrase
 
-        result := ComCall(13, this, "ptr", Passphrase, "int", GeographicalId, BOOLEAN, fSaveProfile, BOOLEAN, fMakeSavedProfileUserSpecific, "HRESULT")
+        result := ComCall(13, this, "ptr", Passphrase, Int32, GeographicalId, BOOLEAN, fSaveProfile, BOOLEAN, fMakeSavedProfileUserSpecific, "HRESULT")
         return result
     }
 

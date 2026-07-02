@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
 #Import ".\MFVIDEOFORMAT.ahk" { MFVIDEOFORMAT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFMediaType.ahk" { IMFMediaType }
 
 /**
  * Represents a description of a video format.
@@ -69,7 +69,7 @@ export default struct IMFVideoMediaType extends IMFMediaType {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfvideomediatype-getvideorepresentation
      */
     GetVideoRepresentation(guidRepresentation, lStride) {
-        result := ComCall(39, this, Guid, guidRepresentation, "ptr*", &ppvRepresentation := 0, "int", lStride, "HRESULT")
+        result := ComCall(39, this, Guid, guidRepresentation, "ptr*", &ppvRepresentation := 0, Int32, lStride, "HRESULT")
         return ppvRepresentation
     }
 

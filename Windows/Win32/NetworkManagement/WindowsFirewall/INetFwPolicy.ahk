@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\NET_FW_PROFILE_TYPE.ahk" { NET_FW_PROFILE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INetFwProfile.ahk" { INetFwProfile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NET_FW_PROFILE_TYPE.ahk" { NET_FW_PROFILE_TYPE }
 
 /**
  * The INetFwPolicy interface provides access to a firewall policy.

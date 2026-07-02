@@ -63,7 +63,7 @@ export default struct INetFwRule2 extends INetFwRule {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule2-put_edgetraversaloptions
      */
     put_EdgeTraversalOptions(lOptions) {
-        result := ComCall(44, this, "int", lOptions, "HRESULT")
+        result := ComCall(44, this, Int32, lOptions, "HRESULT")
         return result
     }
 

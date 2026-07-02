@@ -127,7 +127,7 @@ export default struct IADsAcl extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Privileges(lnPrivileges) {
-        result := ComCall(12, this, "int", lnPrivileges, "HRESULT")
+        result := ComCall(12, this, Int32, lnPrivileges, "HRESULT")
         return result
     }
 

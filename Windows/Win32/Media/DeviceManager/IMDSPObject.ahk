@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWMDMProgress.ahk" { IWMDMProgress }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMDSPStorage.ahk" { IMDSPStorage }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMDSPObject interface manages the transfer of data to and from storage media.The Open, Read, Write, and Close methods are valid only if the storage object is a file.
@@ -82,7 +82,7 @@ export default struct IMDSPObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-open
      */
     Open(fuMode) {
-        result := ComCall(3, this, "uint", fuMode, "HRESULT")
+        result := ComCall(3, this, UInt32, fuMode, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IMDSPObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-delete
      */
     Delete(fuMode, pProgress) {
-        result := ComCall(6, this, "uint", fuMode, "ptr", pProgress, "HRESULT")
+        result := ComCall(6, this, UInt32, fuMode, "ptr", pProgress, "HRESULT")
         return result
     }
 
@@ -196,7 +196,7 @@ export default struct IMDSPObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-seek
      */
     Seek(fuFlags, dwOffset) {
-        result := ComCall(7, this, "uint", fuFlags, "uint", dwOffset, "HRESULT")
+        result := ComCall(7, this, UInt32, fuFlags, UInt32, dwOffset, "HRESULT")
         return result
     }
 
@@ -284,7 +284,7 @@ export default struct IMDSPObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-move
      */
     Move(fuMode, pProgress, pTarget) {
-        result := ComCall(9, this, "uint", fuMode, "ptr", pProgress, "ptr", pTarget, "HRESULT")
+        result := ComCall(9, this, UInt32, fuMode, "ptr", pProgress, "ptr", pTarget, "HRESULT")
         return result
     }
 

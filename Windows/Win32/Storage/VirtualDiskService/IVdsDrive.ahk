@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_DRIVE_EXTENT.ahk" { VDS_DRIVE_EXTENT }
 #Import ".\VDS_DRIVE_STATUS.ahk" { VDS_DRIVE_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\VDS_DRIVE_PROP.ahk" { VDS_DRIVE_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
+#Import ".\VDS_DRIVE_EXTENT.ahk" { VDS_DRIVE_EXTENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVdsDrive (vdshwprv.h) interface provides methods for performing query and configuration operations on a drive.
@@ -260,7 +260,7 @@ export default struct IVdsDrive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-setflags
      */
     SetFlags(ulFlags) {
-        result := ComCall(6, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(6, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -340,7 +340,7 @@ export default struct IVdsDrive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-clearflags
      */
     ClearFlags(ulFlags) {
-        result := ComCall(7, this, "uint", ulFlags, "HRESULT")
+        result := ComCall(7, this, UInt32, ulFlags, "HRESULT")
         return result
     }
 

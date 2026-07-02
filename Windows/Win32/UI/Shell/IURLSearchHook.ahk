@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that is used by the browser to translate the address of an unknown URL protocol.
@@ -109,7 +109,7 @@ export default struct IURLSearchHook extends IUnknown {
     Translate(pwszSearchURL, cchBufferSize) {
         pwszSearchURL := pwszSearchURL is String ? StrPtr(pwszSearchURL) : pwszSearchURL
 
-        result := ComCall(3, this, "ptr", pwszSearchURL, "uint", cchBufferSize, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszSearchURL, UInt32, cchBufferSize, "HRESULT")
         return result
     }
 

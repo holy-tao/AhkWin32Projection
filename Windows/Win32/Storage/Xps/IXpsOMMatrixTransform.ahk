@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\XPS_MATRIX.ahk" { XPS_MATRIX }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_MATRIX.ahk" { XPS_MATRIX }
 
 /**
  * Specifies an affine matrix transform that can be applied to other objects in the object model.

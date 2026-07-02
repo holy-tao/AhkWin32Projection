@@ -1,15 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import ".\KSNODE_CREATE.ahk" { KSNODE_CREATE }
-#Import ".\KSALLOCATOR_FRAMING.ahk" { KSALLOCATOR_FRAMING }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\KSPIN_CONNECT.ahk" { KSPIN_CONNECT }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
 #Import ".\KSMULTIPLE_ITEM.ahk" { KSMULTIPLE_ITEM }
 #Import ".\KSCLOCK_CREATE.ahk" { KSCLOCK_CREATE }
-#Import ".\KSPIN_CONNECT.ahk" { KSPIN_CONNECT }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSNODE_CREATE.ahk" { KSNODE_CREATE }
+#Import ".\KSALLOCATOR_FRAMING.ahk" { KSALLOCATOR_FRAMING }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -49,7 +49,7 @@ export KsCreateClock(ConnectionHandle, ClockCreate, ClockHandle) {
  * @returns {Integer} 
  */
 export KsCreatePin(FilterHandle, Connect, DesiredAccess, ConnectionHandle) {
-    result := DllCall("ksuser.dll\KsCreatePin", HANDLE, FilterHandle, KSPIN_CONNECT.Ptr, Connect, "uint", DesiredAccess, HANDLE.Ptr, ConnectionHandle, UInt32)
+    result := DllCall("ksuser.dll\KsCreatePin", HANDLE, FilterHandle, KSPIN_CONNECT.Ptr, Connect, UInt32, DesiredAccess, HANDLE.Ptr, ConnectionHandle, UInt32)
     return result
 }
 
@@ -62,7 +62,7 @@ export KsCreatePin(FilterHandle, Connect, DesiredAccess, ConnectionHandle) {
  * @returns {Integer} 
  */
 export KsCreateTopologyNode(ParentHandle, NodeCreate, DesiredAccess, NodeHandle) {
-    result := DllCall("ksuser.dll\KsCreateTopologyNode", HANDLE, ParentHandle, KSNODE_CREATE.Ptr, NodeCreate, "uint", DesiredAccess, HANDLE.Ptr, NodeHandle, UInt32)
+    result := DllCall("ksuser.dll\KsCreateTopologyNode", HANDLE, ParentHandle, KSNODE_CREATE.Ptr, NodeCreate, UInt32, DesiredAccess, HANDLE.Ptr, NodeHandle, UInt32)
     return result
 }
 
@@ -99,7 +99,7 @@ export KsCreateClock2(ConnectionHandle, ClockCreate) {
  */
 export KsCreatePin2(FilterHandle, Connect, DesiredAccess) {
     ConnectionHandle := HANDLE.Owned()
-    result := DllCall("ksuser.dll\KsCreatePin2", HANDLE, FilterHandle, KSPIN_CONNECT.Ptr, Connect, "uint", DesiredAccess, HANDLE.Ptr, ConnectionHandle, "HRESULT")
+    result := DllCall("ksuser.dll\KsCreatePin2", HANDLE, FilterHandle, KSPIN_CONNECT.Ptr, Connect, UInt32, DesiredAccess, HANDLE.Ptr, ConnectionHandle, "HRESULT")
     return ConnectionHandle
 }
 
@@ -112,7 +112,7 @@ export KsCreatePin2(FilterHandle, Connect, DesiredAccess) {
  */
 export KsCreateTopologyNode2(ParentHandle, NodeCreate, DesiredAccess) {
     NodeHandle := HANDLE.Owned()
-    result := DllCall("ksuser.dll\KsCreateTopologyNode2", HANDLE, ParentHandle, KSNODE_CREATE.Ptr, NodeCreate, "uint", DesiredAccess, HANDLE.Ptr, NodeHandle, "HRESULT")
+    result := DllCall("ksuser.dll\KsCreateTopologyNode2", HANDLE, ParentHandle, KSNODE_CREATE.Ptr, NodeCreate, UInt32, DesiredAccess, HANDLE.Ptr, NodeHandle, "HRESULT")
     return NodeHandle
 }
 
@@ -135,7 +135,7 @@ export KsResolveRequiredAttributes(DataRange, Attributes) {
  */
 export KsOpenDefaultDevice(Category, Access) {
     DeviceHandle := HANDLE.Owned()
-    result := DllCall("ksproxy.ax\KsOpenDefaultDevice", Guid.Ptr, Category, "uint", Access, HANDLE.Ptr, DeviceHandle, "HRESULT")
+    result := DllCall("ksproxy.ax\KsOpenDefaultDevice", Guid.Ptr, Category, UInt32, Access, HANDLE.Ptr, DeviceHandle, "HRESULT")
     return DeviceHandle
 }
 
@@ -153,7 +153,7 @@ export KsOpenDefaultDevice(Category, Access) {
 export KsSynchronousDeviceControl(_Handle, IoControl, InBuffer, InLength, OutBuffer, OutLength, BytesReturned) {
     BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", HANDLE, _Handle, "uint", IoControl, "ptr", InBuffer, "uint", InLength, "ptr", OutBuffer, "uint", OutLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
+    result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", HANDLE, _Handle, UInt32, IoControl, IntPtr, InBuffer, UInt32, InLength, IntPtr, OutBuffer, UInt32, OutLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
     return result
 }
 
@@ -165,7 +165,7 @@ export KsSynchronousDeviceControl(_Handle, IoControl, InBuffer, InLength, OutBuf
  * @returns {Pointer<Void>} 
  */
 export KsGetMultiplePinFactoryItems(FilterHandle, PinFactoryId, PropertyId) {
-    result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", HANDLE, FilterHandle, "uint", PinFactoryId, "uint", PropertyId, "ptr*", &Items := 0, "HRESULT")
+    result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", HANDLE, FilterHandle, UInt32, PinFactoryId, UInt32, PropertyId, "ptr*", &Items := 0, "HRESULT")
     return Items
 }
 
@@ -176,7 +176,7 @@ export KsGetMultiplePinFactoryItems(FilterHandle, PinFactoryId, PropertyId) {
  * @returns {Integer} 
  */
 export KsGetMediaTypeCount(FilterHandle, PinFactoryId) {
-    result := DllCall("ksproxy.ax\KsGetMediaTypeCount", HANDLE, FilterHandle, "uint", PinFactoryId, "uint*", &MediaTypeCount := 0, "HRESULT")
+    result := DllCall("ksproxy.ax\KsGetMediaTypeCount", HANDLE, FilterHandle, UInt32, PinFactoryId, "uint*", &MediaTypeCount := 0, "HRESULT")
     return MediaTypeCount
 }
 
@@ -189,7 +189,7 @@ export KsGetMediaTypeCount(FilterHandle, PinFactoryId) {
  * @returns {HRESULT} 
  */
 export KsGetMediaType(Position, AmMediaType, FilterHandle, PinFactoryId) {
-    result := DllCall("ksproxy.ax\KsGetMediaType", "int", Position, AM_MEDIA_TYPE.Ptr, AmMediaType, HANDLE, FilterHandle, "uint", PinFactoryId, "HRESULT")
+    result := DllCall("ksproxy.ax\KsGetMediaType", Int32, Position, AM_MEDIA_TYPE.Ptr, AmMediaType, HANDLE, FilterHandle, UInt32, PinFactoryId, "HRESULT")
     return result
 }
 

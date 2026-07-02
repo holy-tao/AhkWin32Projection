@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IInkCommitRequestHandler.ahk" { IInkCommitRequestHandler }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkCommitRequestHandler.ahk" { IInkCommitRequestHandler }
 
 /**
  * An IInkPresenterDesktop object represents an InkPresenter that can be configured and inserted into the DirectComposition visual tree of the Classic Windows app.
@@ -88,7 +88,7 @@ export default struct IInkPresenterDesktop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-setsize
      */
     SetSize(width, height) {
-        result := ComCall(6, this, "float", width, "float", height, "HRESULT")
+        result := ComCall(6, this, Float32, width, Float32, height, "HRESULT")
         return result
     }
 

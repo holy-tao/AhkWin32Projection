@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMFMediaEngine.ahk" { IMFMediaEngine }
 #Import ".\IMFMediaError.ahk" { IMFMediaError }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaTimeRange.ahk" { IMFMediaTimeRange }
 #Import ".\IMFAttributes.ahk" { IMFAttributes }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates an instance of the Media Engine.
@@ -212,7 +212,7 @@ export default struct IMFMediaEngineClassFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory-createinstance
      */
     CreateInstance(dwFlags, pAttr) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppPlayer := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "ptr", pAttr, "ptr*", &ppPlayer := 0, "HRESULT")
         return IMFMediaEngine(ppPlayer)
     }
 

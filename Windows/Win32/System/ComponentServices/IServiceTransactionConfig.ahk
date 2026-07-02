@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IServiceTransactionConfigBase.ahk" { IServiceTransactionConfigBase }
-#Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
 
 /**
  * Configures the transaction services for the work that is done when calling either CoCreateActivity or CoEnterServiceDomain. (IServiceTransactionConfig)

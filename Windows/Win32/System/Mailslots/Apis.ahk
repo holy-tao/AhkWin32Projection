@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Mailslots
@@ -109,7 +109,7 @@ export CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttribut
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateMailslotA", "ptr", lpName, "uint", nMaxMessageSize, "uint", lReadTimeout, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateMailslotA", "ptr", lpName, UInt32, nMaxMessageSize, UInt32, lReadTimeout, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -215,7 +215,7 @@ export CreateMailslotW(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttribut
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateMailslotW", "ptr", lpName, "uint", nMaxMessageSize, "uint", lReadTimeout, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateMailslotW", "ptr", lpName, UInt32, nMaxMessageSize, UInt32, lReadTimeout, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -326,7 +326,7 @@ export GetMailslotInfo(hMailslot, lpMaxMessageSize, lpNextSize, lpMessageCount, 
 export SetMailslotInfo(hMailslot, lReadTimeout) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetMailslotInfo", HANDLE, hMailslot, "uint", lReadTimeout, BOOL)
+    result := DllCall("KERNEL32.dll\SetMailslotInfo", HANDLE, hMailslot, UInt32, lReadTimeout, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMILBitmapEffectConnectorInfo.ahk" { IMILBitmapEffectConnectorInfo }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that retrieves information about what input and output pins are exposed by the bitmap effect.
@@ -78,7 +78,7 @@ export default struct IMILBitmapEffectConnectionsInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getinputconnectorinfo
      */
     GetInputConnectorInfo(uiIndex) {
-        result := ComCall(5, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")
         return IMILBitmapEffectConnectorInfo(ppConnectorInfo)
     }
 
@@ -93,7 +93,7 @@ export default struct IMILBitmapEffectConnectionsInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getoutputconnectorinfo
      */
     GetOutputConnectorInfo(uiIndex) {
-        result := ComCall(6, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")
         return IMILBitmapEffectConnectorInfo(ppConnectorInfo)
     }
 

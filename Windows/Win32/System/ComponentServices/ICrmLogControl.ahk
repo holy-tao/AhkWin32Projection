@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\BLOB.ahk" { BLOB }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Is the means by which the CRM Worker and CRM Compensator write records to the log and make them durable.
@@ -196,7 +196,7 @@ export default struct ICrmLogControl extends IUnknown {
         lpcwstrProgIdCompensator := lpcwstrProgIdCompensator is String ? StrPtr(lpcwstrProgIdCompensator) : lpcwstrProgIdCompensator
         lpcwstrDescription := lpcwstrDescription is String ? StrPtr(lpcwstrDescription) : lpcwstrDescription
 
-        result := ComCall(4, this, "ptr", lpcwstrProgIdCompensator, "ptr", lpcwstrDescription, "int", lCrmRegFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", lpcwstrProgIdCompensator, "ptr", lpcwstrDescription, Int32, lCrmRegFlags, "HRESULT")
         return result
     }
 
@@ -514,7 +514,7 @@ export default struct ICrmLogControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmlogcontrol-writelogrecord
      */
     WriteLogRecord(rgBlob, cBlob) {
-        result := ComCall(9, this, BLOB.Ptr, rgBlob, "uint", cBlob, "HRESULT")
+        result := ComCall(9, this, BLOB.Ptr, rgBlob, UInt32, cBlob, "HRESULT")
         return result
     }
 

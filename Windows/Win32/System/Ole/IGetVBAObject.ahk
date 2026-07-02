@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Gets access to the IVBFormat interface.
@@ -51,7 +51,7 @@ export default struct IGetVBAObject extends IUnknown {
     GetObject(riid, ppvObj, dwReserved) {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, Guid.Ptr, riid, ppvObjMarshal, ppvObj, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, ppvObjMarshal, ppvObj, UInt32, dwReserved, "HRESULT")
         return result
     }
 

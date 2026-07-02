@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITextPara.ahk" { ITextPara }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextPara.ahk" { ITextPara }
 
 /**
  * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextPara2)
@@ -153,7 +153,7 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-setfontalignment
      */
     SetFontAlignment(Value) {
-        result := ComCall(59, this, "int", Value, "HRESULT")
+        result := ComCall(59, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -226,7 +226,7 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-sethangingpunctuation
      */
     SetHangingPunctuation(Value) {
-        result := ComCall(61, this, "int", Value, "HRESULT")
+        result := ComCall(61, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -295,7 +295,7 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-setsnaptogrid
      */
     SetSnapToGrid(Value) {
-        result := ComCall(63, this, "int", Value, "HRESULT")
+        result := ComCall(63, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -339,7 +339,7 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-settrimpunctuationatstart
      */
     SetTrimPunctuationAtStart(Value) {
-        result := ComCall(65, this, "int", Value, "HRESULT")
+        result := ComCall(65, this, Int32, Value, "HRESULT")
         return result
     }
 
@@ -390,7 +390,7 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getproperty
      */
     GetProperty(Type) {
-        result := ComCall(67, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(67, this, Int32, Type, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -429,7 +429,7 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-seteffects
      */
     SetEffects(Value, Mask) {
-        result := ComCall(69, this, "int", Value, "int", Mask, "HRESULT")
+        result := ComCall(69, this, Int32, Value, Int32, Mask, "HRESULT")
         return result
     }
 
@@ -447,7 +447,7 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-setproperty
      */
     SetProperty(Type, Value) {
-        result := ComCall(70, this, "int", Type, "int", Value, "HRESULT")
+        result := ComCall(70, this, Int32, Type, Int32, Value, "HRESULT")
         return result
     }
 

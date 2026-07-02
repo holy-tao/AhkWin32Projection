@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -60,7 +60,7 @@ export default struct IMXNamespacePrefixes extends IDispatch {
      */
     get_item(index) {
         prefix := BSTR.Owned()
-        result := ComCall(7, this, "int", index, BSTR.Ptr, prefix, "HRESULT")
+        result := ComCall(7, this, Int32, index, BSTR.Ptr, prefix, "HRESULT")
         return prefix
     }
 

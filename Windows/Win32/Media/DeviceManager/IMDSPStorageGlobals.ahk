@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WMDMID.ahk" { WMDMID }
 #Import ".\IWMDMProgress.ahk" { IWMDMProgress }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
-#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WMDMID.ahk" { WMDMID }
+#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
 
 /**
  * The IMDSPStorageGlobals interface, acquired from the IMDSPStorage interface, provides methods for retrieving global information about a storage medium. This might include the amount of free space, serial number of the medium, and so on.
@@ -313,7 +313,7 @@ export default struct IMDSPStorageGlobals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-initialize
      */
     Initialize(fuMode, pProgress) {
-        result := ComCall(9, this, "uint", fuMode, "ptr", pProgress, "HRESULT")
+        result := ComCall(9, this, UInt32, fuMode, "ptr", pProgress, "HRESULT")
         return result
     }
 

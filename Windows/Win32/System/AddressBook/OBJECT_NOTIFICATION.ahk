@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SPropTagArray.ahk" { SPropTagArray }
 #Import ".\ENTRYID.ahk" { ENTRYID }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
 
 /**
  * Contains information about an object that has undergone a change, such as being copied or modified.

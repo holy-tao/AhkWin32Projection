@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -50,7 +50,7 @@ export default struct AsyncIPipeDouble extends IUnknown {
      * @returns {HRESULT} 
      */
     Begin_Pull(cRequest) {
-        result := ComCall(3, this, "uint", cRequest, "HRESULT")
+        result := ComCall(3, this, UInt32, cRequest, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct AsyncIPipeDouble extends IUnknown {
     Begin_Push(buf, cSent) {
         bufMarshal := buf is VarRef ? "double*" : "ptr"
 
-        result := ComCall(5, this, bufMarshal, buf, "uint", cSent, "HRESULT")
+        result := ComCall(5, this, bufMarshal, buf, UInt32, cSent, "HRESULT")
         return result
     }
 

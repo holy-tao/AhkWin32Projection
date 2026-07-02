@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAudioEndpointOffloadStreamMeter interface retrieves general information about the audio channels in the offloaded audio stream.
@@ -55,7 +55,7 @@ export default struct IAudioEndpointOffloadStreamMeter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreammeter-getmeteringdata
      */
     GetMeteringData(u32ChannelCount) {
-        result := ComCall(4, this, "uint", u32ChannelCount, "float*", &pf32PeakValues := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, u32ChannelCount, "float*", &pf32PeakValues := 0, "HRESULT")
         return pf32PeakValues
     }
 

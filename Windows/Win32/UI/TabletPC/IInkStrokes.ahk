@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInkTransform.ahk" { IInkTransform }
-#Import ".\IInkDisp.ahk" { IInkDisp }
-#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IInkRecognitionResult.ahk" { IInkRecognitionResult }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import ".\InkBoundingBoxMode.ahk" { InkBoundingBoxMode }
+#Import ".\IInkTransform.ahk" { IInkTransform }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * . (IInkStrokes)
@@ -167,7 +167,7 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-item
      */
     Item(Index) {
-        result := ComCall(12, this, "int", Index, "ptr*", &Stroke := 0, "HRESULT")
+        result := ComCall(12, this, Int32, Index, "ptr*", &Stroke := 0, "HRESULT")
         return IInkStrokeDisp(Stroke)
     }
 
@@ -769,7 +769,7 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-move
      */
     Move(HorizontalComponent, VerticalComponent) {
-        result := ComCall(21, this, "float", HorizontalComponent, "float", VerticalComponent, "HRESULT")
+        result := ComCall(21, this, Float32, HorizontalComponent, Float32, VerticalComponent, "HRESULT")
         return result
     }
 
@@ -811,7 +811,7 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-rotate
      */
     Rotate(Degrees, x, y) {
-        result := ComCall(22, this, "float", Degrees, "float", x, "float", y, "HRESULT")
+        result := ComCall(22, this, Float32, Degrees, Float32, x, Float32, y, "HRESULT")
         return result
     }
 
@@ -858,7 +858,7 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-shear
      */
     Shear(HorizontalMultiplier, VerticalMultiplier) {
-        result := ComCall(23, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "HRESULT")
+        result := ComCall(23, this, Float32, HorizontalMultiplier, Float32, VerticalMultiplier, "HRESULT")
         return result
     }
 
@@ -901,7 +901,7 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-scaletransform
      */
     ScaleTransform(HorizontalMultiplier, VerticalMultiplier) {
-        result := ComCall(24, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "HRESULT")
+        result := ComCall(24, this, Float32, HorizontalMultiplier, Float32, VerticalMultiplier, "HRESULT")
         return result
     }
 

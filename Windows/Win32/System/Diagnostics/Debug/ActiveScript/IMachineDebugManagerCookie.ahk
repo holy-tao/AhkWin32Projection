@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumRemoteDebugApplications.ahk" { IEnumRemoteDebugApplications }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRemoteDebugApplication.ahk" { IRemoteDebugApplication }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -46,7 +46,7 @@ export default struct IMachineDebugManagerCookie extends IUnknown {
      * @returns {Integer} 
      */
     AddApplication(pda, dwDebugAppCookie) {
-        result := ComCall(3, this, "ptr", pda, "uint", dwDebugAppCookie, "uint*", &pdwAppCookie := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pda, UInt32, dwDebugAppCookie, "uint*", &pdwAppCookie := 0, "HRESULT")
         return pdwAppCookie
     }
 
@@ -57,7 +57,7 @@ export default struct IMachineDebugManagerCookie extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveApplication(dwDebugAppCookie, dwAppCookie) {
-        result := ComCall(4, this, "uint", dwDebugAppCookie, "uint", dwAppCookie, "HRESULT")
+        result := ComCall(4, this, UInt32, dwDebugAppCookie, UInt32, dwAppCookie, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Tracks a transform-created resource texture.
@@ -90,7 +90,7 @@ export default struct ID2D1ResourceTexture extends IUnknown {
         stridesMarshal := strides is VarRef ? "uint*" : "ptr"
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, minimumExtentsMarshal, minimumExtents, maximimumExtentsMarshal, maximimumExtents, stridesMarshal, strides, "uint", dimensions, dataMarshal, data, "uint", dataCount, "HRESULT")
+        result := ComCall(3, this, minimumExtentsMarshal, minimumExtents, maximimumExtentsMarshal, maximimumExtents, stridesMarshal, strides, UInt32, dimensions, dataMarshal, data, UInt32, dataCount, "HRESULT")
         return result
     }
 

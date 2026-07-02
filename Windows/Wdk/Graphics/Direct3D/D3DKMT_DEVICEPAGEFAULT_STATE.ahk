@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DXGK_PAGE_FAULT_FLAGS.ahk" { DXGK_PAGE_FAULT_FLAGS }
 #Import ".\DXGK_RENDER_PIPELINE_STAGE.ahk" { DXGK_RENDER_PIPELINE_STAGE }
+#Import ".\DXGK_PAGE_FAULT_FLAGS.ahk" { DXGK_PAGE_FAULT_FLAGS }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

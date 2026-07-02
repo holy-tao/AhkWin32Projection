@@ -1,8 +1,8 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
@@ -23,7 +23,7 @@ export InitializeXamlDiagnostic(endPointName, pid, wszDllXamlDiagnostics, wszTAP
     wszDllXamlDiagnostics := wszDllXamlDiagnostics is String ? StrPtr(wszDllXamlDiagnostics) : wszDllXamlDiagnostics
     wszTAPDllName := wszTAPDllName is String ? StrPtr(wszTAPDllName) : wszTAPDllName
 
-    result := DllCall("Windows.UI.Xaml.dll\InitializeXamlDiagnostic", "ptr", endPointName, "uint", pid, "ptr", wszDllXamlDiagnostics, "ptr", wszTAPDllName, Guid, tapClsid, "HRESULT")
+    result := DllCall("Windows.UI.Xaml.dll\InitializeXamlDiagnostic", "ptr", endPointName, UInt32, pid, "ptr", wszDllXamlDiagnostics, "ptr", wszTAPDllName, Guid, tapClsid, "HRESULT")
     return result
 }
 
@@ -45,7 +45,7 @@ export InitializeXamlDiagnosticsEx(endPointName, pid, wszDllXamlDiagnostics, wsz
     wszTAPDllName := wszTAPDllName is String ? StrPtr(wszTAPDllName) : wszTAPDllName
     wszInitializationData := wszInitializationData is String ? StrPtr(wszInitializationData) : wszInitializationData
 
-    result := DllCall("Windows.UI.Xaml.dll\InitializeXamlDiagnosticsEx", "ptr", endPointName, "uint", pid, "ptr", wszDllXamlDiagnostics, "ptr", wszTAPDllName, Guid, tapClsid, "ptr", wszInitializationData, "HRESULT")
+    result := DllCall("Windows.UI.Xaml.dll\InitializeXamlDiagnosticsEx", "ptr", endPointName, UInt32, pid, "ptr", wszDllXamlDiagnostics, "ptr", wszTAPDllName, Guid, tapClsid, "ptr", wszInitializationData, "HRESULT")
     return result
 }
 

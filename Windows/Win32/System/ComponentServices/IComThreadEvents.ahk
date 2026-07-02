@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if a single-threaded apartment (STA) is created or terminated, and when an apartment thread is allocated.
@@ -58,7 +58,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadstart
      */
     OnThreadStart(pInfo, ThreadID, dwThread, dwTheadCnt) {
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ThreadID, "uint", dwThread, "uint", dwTheadCnt, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ThreadID, UInt32, dwThread, UInt32, dwTheadCnt, "HRESULT")
         return result
     }
 
@@ -72,7 +72,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadterminate
      */
     OnThreadTerminate(pInfo, ThreadID, dwThread, dwTheadCnt) {
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ThreadID, "uint", dwThread, "uint", dwTheadCnt, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ThreadID, UInt32, dwThread, UInt32, dwTheadCnt, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadbindtoapartment
      */
     OnThreadBindToApartment(pInfo, ThreadID, AptID, dwActCnt, dwLowCnt) {
-        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ThreadID, "uint", AptID, "uint", dwActCnt, "uint", dwLowCnt, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ThreadID, Int64, AptID, UInt32, dwActCnt, UInt32, dwLowCnt, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadunbind
      */
     OnThreadUnBind(pInfo, ThreadID, AptID, dwActCnt) {
-        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ThreadID, "uint", AptID, "uint", dwActCnt, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ThreadID, Int64, AptID, UInt32, dwActCnt, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     OnThreadWorkEnque(pInfo, ThreadID, MsgWorkID, QueueLen) {
-        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ThreadID, "uint", MsgWorkID, "uint", QueueLen, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ThreadID, Int64, MsgWorkID, UInt32, QueueLen, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     OnThreadWorkPrivate(pInfo, ThreadID, MsgWorkID) {
-        result := ComCall(8, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ThreadID, "uint", MsgWorkID, "HRESULT")
+        result := ComCall(8, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ThreadID, Int64, MsgWorkID, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     OnThreadWorkPublic(pInfo, ThreadID, MsgWorkID, QueueLen) {
-        result := ComCall(9, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ThreadID, "uint", MsgWorkID, "uint", QueueLen, "HRESULT")
+        result := ComCall(9, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ThreadID, Int64, MsgWorkID, UInt32, QueueLen, "HRESULT")
         return result
     }
 
@@ -153,7 +153,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     OnThreadWorkRedirect(pInfo, ThreadID, MsgWorkID, QueueLen, ThreadNum) {
-        result := ComCall(10, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ThreadID, "uint", MsgWorkID, "uint", QueueLen, "uint", ThreadNum, "HRESULT")
+        result := ComCall(10, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ThreadID, Int64, MsgWorkID, UInt32, QueueLen, Int64, ThreadNum, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     OnThreadWorkReject(pInfo, ThreadID, MsgWorkID, QueueLen) {
-        result := ComCall(11, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ThreadID, "uint", MsgWorkID, "uint", QueueLen, "HRESULT")
+        result := ComCall(11, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ThreadID, Int64, MsgWorkID, UInt32, QueueLen, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadassignapartment
      */
     OnThreadAssignApartment(pInfo, guidActivity, AptID) {
-        result := ComCall(12, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, "uint", AptID, "HRESULT")
+        result := ComCall(12, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Int64, AptID, "HRESULT")
         return result
     }
 
@@ -191,7 +191,7 @@ export default struct IComThreadEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomthreadevents-onthreadunassignapartment
      */
     OnThreadUnassignApartment(pInfo, AptID) {
-        result := ComCall(13, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", AptID, "HRESULT")
+        result := ComCall(13, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, AptID, "HRESULT")
         return result
     }
 

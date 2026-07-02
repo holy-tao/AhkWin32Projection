@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
-#Import ".\ID2D1DeviceContext4.ahk" { ID2D1DeviceContext4 }
 #Import ".\D2D1_SIMPLE_COLOR_PROFILE.ahk" { D2D1_SIMPLE_COLOR_PROFILE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1SvgDocument.ahk" { ID2D1SvgDocument }
+#Import ".\ID2D1DeviceContext4.ahk" { ID2D1DeviceContext4 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\ID2D1ColorContext1.ahk" { ID2D1ColorContext1 }
 
 /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IXpsOMGeometryFigure.ahk" { IXpsOMGeometryFigure }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A collection of IXpsOMGeometryFigure interface pointers.
@@ -66,7 +66,7 @@ export default struct IXpsOMGeometryFigureCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigurecollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &geometryFigure := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &geometryFigure := 0, "HRESULT")
         return IXpsOMGeometryFigure(geometryFigure)
     }
 
@@ -82,7 +82,7 @@ export default struct IXpsOMGeometryFigureCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigurecollection-insertat
      */
     InsertAt(index, geometryFigure) {
-        result := ComCall(5, this, "uint", index, "ptr", geometryFigure, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "ptr", geometryFigure, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IXpsOMGeometryFigureCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigurecollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(6, this, "uint", index, "HRESULT")
+        result := ComCall(6, this, UInt32, index, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IXpsOMGeometryFigureCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigurecollection-setat
      */
     SetAt(index, geometryFigure) {
-        result := ComCall(7, this, "uint", index, "ptr", geometryFigure, "HRESULT")
+        result := ComCall(7, this, UInt32, index, "ptr", geometryFigure, "HRESULT")
         return result
     }
 

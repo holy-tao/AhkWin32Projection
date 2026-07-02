@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D10_STENCIL_OP.ahk" { D3D10_STENCIL_OP }
 #Import ".\D3D10_COMPARISON_FUNC.ahk" { D3D10_COMPARISON_FUNC }
+#Import ".\D3D10_STENCIL_OP.ahk" { D3D10_STENCIL_OP }
 
 /**
  * Describes the stencil operations that can be performed based on the results of stencil test.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMPDVD.ahk" { IWMPDVD }
 #Import ".\IWMPCore.ahk" { IWMPCore }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPDVD.ahk" { IWMPDVD }
 
 /**
  * The IWMPCore2 interface provides a method that supplements the IWMPCore interface.

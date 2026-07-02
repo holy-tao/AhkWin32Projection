@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains methods for interacting with the file catalog.
@@ -79,7 +79,7 @@ export default struct ISimpleCommandCreator extends IUnknown {
 
         pcwcOutMarshal := pcwcOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pwszCatalogName, "uint", cwcIn, pcwcOutMarshal, pcwcOut, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszCatalogName, UInt32, cwcIn, pcwcOutMarshal, pcwcOut, "HRESULT")
         return result
     }
 

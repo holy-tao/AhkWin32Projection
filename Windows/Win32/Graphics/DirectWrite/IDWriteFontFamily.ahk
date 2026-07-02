@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\IDWriteFontList.ahk" { IDWriteFontList }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
 #Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
-#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
 #Import ".\IDWriteFont.ahk" { IDWriteFont }
-#Import ".\IDWriteFontList.ahk" { IDWriteFontList }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
 
 /**
  * Represents a family of related fonts. (IDWriteFontFamily)

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IWMWriterFileSink.ahk" { IWMWriterFileSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMWriterFileSink2 interface provides extended management of a file sink.This interface can be obtained by calling the QueryInterface method of an IWMWriterFileSink interface.
@@ -95,7 +95,7 @@ export default struct IWMWriterFileSink2 extends IWMWriterFileSink {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-start
      */
     Start(cnsStartTime) {
-        result := ComCall(9, this, "uint", cnsStartTime, "HRESULT")
+        result := ComCall(9, this, Int64, cnsStartTime, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct IWMWriterFileSink2 extends IWMWriterFileSink {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-stop
      */
     Stop(cnsStopTime) {
-        result := ComCall(10, this, "uint", cnsStopTime, "HRESULT")
+        result := ComCall(10, this, Int64, cnsStopTime, "HRESULT")
         return result
     }
 

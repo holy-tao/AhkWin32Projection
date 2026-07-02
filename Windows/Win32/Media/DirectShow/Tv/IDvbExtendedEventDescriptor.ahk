@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) extended event descriptor.
@@ -120,7 +120,7 @@ export default struct IDvbExtendedEventDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getrecorditemw
      */
     GetRecordItemW(bRecordIndex, convMode, pbstrDesc, pbstrItem) {
-        result := ComCall(9, this, "char", bRecordIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrDesc, BSTR.Ptr, pbstrItem, "HRESULT")
+        result := ComCall(9, this, Int8, bRecordIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrDesc, BSTR.Ptr, pbstrItem, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct IDvbExtendedEventDescriptor extends IUnknown {
         ppbRawItemMarshal := ppbRawItem is VarRef ? "ptr*" : "ptr"
         pbItemLengthMarshal := pbItemLength is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "char", bRecordIndex, ppbRawItemMarshal, ppbRawItem, pbItemLengthMarshal, pbItemLength, "HRESULT")
+        result := ComCall(13, this, Int8, bRecordIndex, ppbRawItemMarshal, ppbRawItem, pbItemLengthMarshal, pbItemLength, "HRESULT")
         return result
     }
 

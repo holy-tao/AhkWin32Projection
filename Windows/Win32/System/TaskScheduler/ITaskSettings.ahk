@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\INetworkSettings.ahk" { INetworkSettings }
-#Import ".\IIdleSettings.ahk" { IIdleSettings }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\TASK_INSTANCES_POLICY.ahk" { TASK_INSTANCES_POLICY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TASK_COMPATIBILITY.ahk" { TASK_COMPATIBILITY }
+#Import ".\INetworkSettings.ahk" { INetworkSettings }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IIdleSettings.ahk" { IIdleSettings }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TASK_INSTANCES_POLICY.ahk" { TASK_INSTANCES_POLICY }
 
 /**
  * Provides the settings that the Task Scheduler service uses to perform the task.
@@ -339,7 +339,7 @@ export default struct ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_restartcount
      */
     put_RestartCount(restartCount) {
-        result := ComCall(12, this, "int", restartCount, "HRESULT")
+        result := ComCall(12, this, Int32, restartCount, "HRESULT")
         return result
     }
 
@@ -842,7 +842,7 @@ export default struct ITaskSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings-put_priority
      */
     put_Priority(_priority) {
-        result := ComCall(34, this, "int", _priority, "HRESULT")
+        result := ComCall(34, this, Int32, _priority, "HRESULT")
         return result
     }
 

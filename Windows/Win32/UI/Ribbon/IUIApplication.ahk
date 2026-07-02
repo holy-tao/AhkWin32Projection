@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UI_VIEWTYPE.ahk" { UI_VIEWTYPE }
 #Import ".\IUICommandHandler.ahk" { IUICommandHandler }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\UI_COMMANDTYPE.ahk" { UI_COMMANDTYPE }
+#Import ".\UI_VIEWTYPE.ahk" { UI_VIEWTYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\UI_VIEWVERB.ahk" { UI_VIEWVERB }
+#Import ".\UI_COMMANDTYPE.ahk" { UI_COMMANDTYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUIApplication interface is implemented by the application and defines the callback entry-point methods for the Windows Ribbon framework.
@@ -74,7 +74,7 @@ export default struct IUIApplication extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-onviewchanged
      */
     OnViewChanged(viewId, typeID, _view, verb, uReasonCode) {
-        result := ComCall(3, this, "uint", viewId, UI_VIEWTYPE, typeID, "ptr", _view, UI_VIEWVERB, verb, "int", uReasonCode, "HRESULT")
+        result := ComCall(3, this, UInt32, viewId, UI_VIEWTYPE, typeID, "ptr", _view, UI_VIEWVERB, verb, Int32, uReasonCode, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct IUIApplication extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-oncreateuicommand
      */
     OnCreateUICommand(commandId, typeID) {
-        result := ComCall(4, this, "uint", commandId, UI_COMMANDTYPE, typeID, "ptr*", &commandHandler := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, commandId, UI_COMMANDTYPE, typeID, "ptr*", &commandHandler := 0, "HRESULT")
         return IUICommandHandler(commandHandler)
     }
 
@@ -126,7 +126,7 @@ export default struct IUIApplication extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-ondestroyuicommand
      */
     OnDestroyUICommand(commandId, typeID, commandHandler) {
-        result := ComCall(5, this, "uint", commandId, UI_COMMANDTYPE, typeID, "ptr", commandHandler, "HRESULT")
+        result := ComCall(5, this, UInt32, commandId, UI_COMMANDTYPE, typeID, "ptr", commandHandler, "HRESULT")
         return result
     }
 

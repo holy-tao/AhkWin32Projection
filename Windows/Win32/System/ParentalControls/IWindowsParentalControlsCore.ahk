@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWPCSettings.ahk" { IWPCSettings }
-#Import ".\IWPCWebSettings.ahk" { IWPCWebSettings }
-#Import ".\WPCFLAG_VISIBILITY.ahk" { WPCFLAG_VISIBILITY }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WPCFLAG_VISIBILITY.ahk" { WPCFLAG_VISIBILITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWPCWebSettings.ahk" { IWPCWebSettings }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**

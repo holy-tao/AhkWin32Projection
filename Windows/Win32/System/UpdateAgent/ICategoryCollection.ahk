@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ICategory.ahk" { ICategory }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an ordered read-only list of ICategory interfaces.
@@ -62,7 +62,7 @@ export default struct ICategoryCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategorycollection-get_item
      */
     get_Item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, Int32, index, "ptr*", &retval := 0, "HRESULT")
         return ICategory(retval)
     }
 

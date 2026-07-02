@@ -55,7 +55,7 @@ export default struct IXAudio2VoiceCallback extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onvoiceprocessingpassstart
      */
     OnVoiceProcessingPassStart(BytesRequired) {
-        ComCall(0, this, "uint", BytesRequired)
+        ComCall(0, this, UInt32, BytesRequired)
     }
 
     /**

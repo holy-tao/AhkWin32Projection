@@ -1,38 +1,38 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11BlendState.ahk" { ID3D11BlendState }
-#Import "..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk" { D3D_PRIMITIVE_TOPOLOGY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D11SamplerState.ahk" { ID3D11SamplerState }
-#Import ".\ID3D11ComputeShader.ahk" { ID3D11ComputeShader }
-#Import ".\ID3D11HullShader.ahk" { ID3D11HullShader }
-#Import ".\ID3D11DepthStencilView.ahk" { ID3D11DepthStencilView }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\ID3D11PixelShader.ahk" { ID3D11PixelShader }
-#Import ".\ID3D11InputLayout.ahk" { ID3D11InputLayout }
-#Import ".\ID3D11RasterizerState.ahk" { ID3D11RasterizerState }
-#Import ".\ID3D11CommandList.ahk" { ID3D11CommandList }
-#Import ".\ID3D11VertexShader.ahk" { ID3D11VertexShader }
-#Import ".\ID3D11DepthStencilState.ahk" { ID3D11DepthStencilState }
-#Import ".\D3D11_MAPPED_SUBRESOURCE.ahk" { D3D11_MAPPED_SUBRESOURCE }
-#Import ".\ID3D11DomainShader.ahk" { ID3D11DomainShader }
-#Import ".\ID3D11GeometryShader.ahk" { ID3D11GeometryShader }
-#Import ".\ID3D11Asynchronous.ahk" { ID3D11Asynchronous }
-#Import ".\D3D11_BOX.ahk" { D3D11_BOX }
-#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
-#Import ".\ID3D11ShaderResourceView.ahk" { ID3D11ShaderResourceView }
-#Import ".\ID3D11ClassInstance.ahk" { ID3D11ClassInstance }
 #Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import ".\ID3D11Predicate.ahk" { ID3D11Predicate }
-#Import ".\D3D11_MAP.ahk" { D3D11_MAP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
 #Import ".\D3D11_VIEWPORT.ahk" { D3D11_VIEWPORT }
 #Import ".\ID3D11RenderTargetView.ahk" { ID3D11RenderTargetView }
+#Import ".\D3D11_BOX.ahk" { D3D11_BOX }
+#Import ".\ID3D11DomainShader.ahk" { ID3D11DomainShader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\ID3D11SamplerState.ahk" { ID3D11SamplerState }
+#Import ".\ID3D11InputLayout.ahk" { ID3D11InputLayout }
+#Import ".\ID3D11HullShader.ahk" { ID3D11HullShader }
+#Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID3D11Asynchronous.ahk" { ID3D11Asynchronous }
+#Import ".\ID3D11Predicate.ahk" { ID3D11Predicate }
+#Import ".\ID3D11PixelShader.ahk" { ID3D11PixelShader }
 #Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
-#Import ".\D3D11_DEVICE_CONTEXT_TYPE.ahk" { D3D11_DEVICE_CONTEXT_TYPE }
+#Import ".\D3D11_MAP.ahk" { D3D11_MAP }
+#Import ".\ID3D11VertexShader.ahk" { ID3D11VertexShader }
+#Import ".\ID3D11ShaderResourceView.ahk" { ID3D11ShaderResourceView }
+#Import ".\ID3D11CommandList.ahk" { ID3D11CommandList }
+#Import ".\ID3D11BlendState.ahk" { ID3D11BlendState }
+#Import ".\ID3D11DepthStencilView.ahk" { ID3D11DepthStencilView }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\ID3D11ClassInstance.ahk" { ID3D11ClassInstance }
+#Import ".\D3D11_MAPPED_SUBRESOURCE.ahk" { D3D11_MAPPED_SUBRESOURCE }
+#Import ".\D3D11_DEVICE_CONTEXT_TYPE.ahk" { D3D11_DEVICE_CONTEXT_TYPE }
+#Import ".\ID3D11ComputeShader.ahk" { ID3D11ComputeShader }
+#Import ".\ID3D11RasterizerState.ahk" { ID3D11RasterizerState }
+#Import ".\ID3D11DepthStencilState.ahk" { ID3D11DepthStencilState }
+#Import ".\ID3D11GeometryShader.ahk" { ID3D11GeometryShader }
+#Import "..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk" { D3D_PRIMITIVE_TOPOLOGY }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 
 /**
  * The ID3D11DeviceContext interface represents a device context which generates rendering commands.
@@ -202,7 +202,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-vssetconstantbuffers
      */
     VSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(7, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(7, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -227,7 +227,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-pssetshaderresources
      */
     PSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(8, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(8, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -257,7 +257,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-pssetshader
      */
     PSSetShader(pPixelShader, ppClassInstances, NumClassInstances) {
-        ComCall(9, this, "ptr", pPixelShader, ID3D11ClassInstance.Ptr, ppClassInstances, "uint", NumClassInstances)
+        ComCall(9, this, "ptr", pPixelShader, ID3D11ClassInstance.Ptr, ppClassInstances, UInt32, NumClassInstances)
     }
 
     /**
@@ -340,7 +340,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-pssetsamplers
      */
     PSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(10, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(10, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -363,7 +363,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-vssetshader
      */
     VSSetShader(pVertexShader, ppClassInstances, NumClassInstances) {
-        ComCall(11, this, "ptr", pVertexShader, ID3D11ClassInstance.Ptr, ppClassInstances, "uint", NumClassInstances)
+        ComCall(11, this, "ptr", pVertexShader, ID3D11ClassInstance.Ptr, ppClassInstances, UInt32, NumClassInstances)
     }
 
     /**
@@ -385,7 +385,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-drawindexed
      */
     DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation) {
-        ComCall(12, this, "uint", IndexCount, "uint", StartIndexLocation, "int", BaseVertexLocation)
+        ComCall(12, this, UInt32, IndexCount, UInt32, StartIndexLocation, Int32, BaseVertexLocation)
     }
 
     /**
@@ -406,7 +406,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-draw
      */
     Draw(VertexCount, StartVertexLocation) {
-        ComCall(13, this, "uint", VertexCount, "uint", StartVertexLocation)
+        ComCall(13, this, UInt32, VertexCount, UInt32, StartVertexLocation)
     }
 
     /**
@@ -484,7 +484,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      */
     Map(pResource, Subresource, MapType, MapFlags) {
         pMappedResource := D3D11_MAPPED_SUBRESOURCE()
-        result := ComCall(14, this, "ptr", pResource, "uint", Subresource, D3D11_MAP, MapType, "uint", MapFlags, D3D11_MAPPED_SUBRESOURCE.Ptr, pMappedResource, "HRESULT")
+        result := ComCall(14, this, "ptr", pResource, UInt32, Subresource, D3D11_MAP, MapType, UInt32, MapFlags, D3D11_MAPPED_SUBRESOURCE.Ptr, pMappedResource, "HRESULT")
         return pMappedResource
     }
 
@@ -506,7 +506,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-unmap
      */
     Unmap(pResource, Subresource) {
-        ComCall(15, this, "ptr", pResource, "uint", Subresource)
+        ComCall(15, this, "ptr", pResource, UInt32, Subresource)
     }
 
     /**
@@ -537,7 +537,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-pssetconstantbuffers
      */
     PSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(16, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(16, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -596,7 +596,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
         pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
         pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
 
-        ComCall(18, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
+        ComCall(18, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -634,7 +634,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-iasetindexbuffer
      */
     IASetIndexBuffer(pIndexBuffer, Format, Offset) {
-        ComCall(19, this, "ptr", pIndexBuffer, DXGI_FORMAT, Format, "uint", Offset)
+        ComCall(19, this, "ptr", pIndexBuffer, DXGI_FORMAT, Format, UInt32, Offset)
     }
 
     /**
@@ -664,7 +664,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-drawindexedinstanced
      */
     DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation) {
-        ComCall(20, this, "uint", IndexCountPerInstance, "uint", InstanceCount, "uint", StartIndexLocation, "int", BaseVertexLocation, "uint", StartInstanceLocation)
+        ComCall(20, this, UInt32, IndexCountPerInstance, UInt32, InstanceCount, UInt32, StartIndexLocation, Int32, BaseVertexLocation, UInt32, StartInstanceLocation)
     }
 
     /**
@@ -693,7 +693,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-drawinstanced
      */
     DrawInstanced(VertexCountPerInstance, InstanceCount, StartVertexLocation, StartInstanceLocation) {
-        ComCall(21, this, "uint", VertexCountPerInstance, "uint", InstanceCount, "uint", StartVertexLocation, "uint", StartInstanceLocation)
+        ComCall(21, this, UInt32, VertexCountPerInstance, UInt32, InstanceCount, UInt32, StartVertexLocation, UInt32, StartInstanceLocation)
     }
 
     /**
@@ -720,7 +720,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-gssetconstantbuffers
      */
     GSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(22, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(22, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -743,7 +743,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-gssetshader
      */
     GSSetShader(pShader, ppClassInstances, NumClassInstances) {
-        ComCall(23, this, "ptr", pShader, ID3D11ClassInstance.Ptr, ppClassInstances, "uint", NumClassInstances)
+        ComCall(23, this, "ptr", pShader, ID3D11ClassInstance.Ptr, ppClassInstances, UInt32, NumClassInstances)
     }
 
     /**
@@ -790,7 +790,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-vssetshaderresources
      */
     VSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(25, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(25, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -835,7 +835,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-vssetsamplers
      */
     VSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(26, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(26, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -894,7 +894,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-getdata
      */
     GetData(pAsync, pData, DataSize, GetDataFlags) {
-        result := ComCall(29, this, "ptr", pAsync, "ptr", pData, "uint", DataSize, "uint", GetDataFlags, "HRESULT")
+        result := ComCall(29, this, "ptr", pAsync, IntPtr, pData, UInt32, DataSize, UInt32, GetDataFlags, "HRESULT")
         return result
     }
 
@@ -1025,7 +1025,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-gssetshaderresources
      */
     GSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(31, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(31, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -1070,7 +1070,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-gssetsamplers
      */
     GSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(32, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(32, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -1111,7 +1111,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-omsetrendertargets
      */
     OMSetRenderTargets(NumViews, ppRenderTargetViews, pDepthStencilView) {
-        ComCall(33, this, "uint", NumViews, ID3D11RenderTargetView.Ptr, ppRenderTargetViews, "ptr", pDepthStencilView)
+        ComCall(33, this, UInt32, NumViews, ID3D11RenderTargetView.Ptr, ppRenderTargetViews, "ptr", pDepthStencilView)
     }
 
     /**
@@ -1268,7 +1268,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
     OMSetRenderTargetsAndUnorderedAccessViews(NumRTVs, ppRenderTargetViews, pDepthStencilView, UAVStartSlot, NumUAVs, ppUnorderedAccessViews, pUAVInitialCounts) {
         pUAVInitialCountsMarshal := pUAVInitialCounts is VarRef ? "uint*" : "ptr"
 
-        ComCall(34, this, "uint", NumRTVs, ID3D11RenderTargetView.Ptr, ppRenderTargetViews, "ptr", pDepthStencilView, "uint", UAVStartSlot, "uint", NumUAVs, ID3D11UnorderedAccessView.Ptr, ppUnorderedAccessViews, pUAVInitialCountsMarshal, pUAVInitialCounts)
+        ComCall(34, this, UInt32, NumRTVs, ID3D11RenderTargetView.Ptr, ppRenderTargetViews, "ptr", pDepthStencilView, UInt32, UAVStartSlot, UInt32, NumUAVs, ID3D11UnorderedAccessView.Ptr, ppUnorderedAccessViews, pUAVInitialCountsMarshal, pUAVInitialCounts)
     }
 
     /**
@@ -1347,7 +1347,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
     OMSetBlendState(pBlendState, BlendFactor, SampleMask) {
         BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
 
-        ComCall(35, this, "ptr", pBlendState, BlendFactorMarshal, BlendFactor, "uint", SampleMask)
+        ComCall(35, this, "ptr", pBlendState, BlendFactorMarshal, BlendFactor, UInt32, SampleMask)
     }
 
     /**
@@ -1367,7 +1367,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-omsetdepthstencilstate
      */
     OMSetDepthStencilState(pDepthStencilState, StencilRef) {
-        ComCall(36, this, "ptr", pDepthStencilState, "uint", StencilRef)
+        ComCall(36, this, "ptr", pDepthStencilState, UInt32, StencilRef)
     }
 
     /**
@@ -1402,7 +1402,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
     SOSetTargets(NumBuffers, ppSOTargets, pOffsets) {
         pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
 
-        ComCall(37, this, "uint", NumBuffers, ID3D11Buffer.Ptr, ppSOTargets, pOffsetsMarshal, pOffsets)
+        ComCall(37, this, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppSOTargets, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -1446,7 +1446,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-drawindexedinstancedindirect
      */
     DrawIndexedInstancedIndirect(pBufferForArgs, AlignedByteOffsetForArgs) {
-        ComCall(39, this, "ptr", pBufferForArgs, "uint", AlignedByteOffsetForArgs)
+        ComCall(39, this, "ptr", pBufferForArgs, UInt32, AlignedByteOffsetForArgs)
     }
 
     /**
@@ -1463,7 +1463,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-drawinstancedindirect
      */
     DrawInstancedIndirect(pBufferForArgs, AlignedByteOffsetForArgs) {
-        ComCall(40, this, "ptr", pBufferForArgs, "uint", AlignedByteOffsetForArgs)
+        ComCall(40, this, "ptr", pBufferForArgs, UInt32, AlignedByteOffsetForArgs)
     }
 
     /**
@@ -1495,7 +1495,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dispatch
      */
     Dispatch(ThreadGroupCountX, ThreadGroupCountY, ThreadGroupCountZ) {
-        ComCall(41, this, "uint", ThreadGroupCountX, "uint", ThreadGroupCountY, "uint", ThreadGroupCountZ)
+        ComCall(41, this, UInt32, ThreadGroupCountX, UInt32, ThreadGroupCountY, UInt32, ThreadGroupCountZ)
     }
 
     /**
@@ -1514,7 +1514,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dispatchindirect
      */
     DispatchIndirect(pBufferForArgs, AlignedByteOffsetForArgs) {
-        ComCall(42, this, "ptr", pBufferForArgs, "uint", AlignedByteOffsetForArgs)
+        ComCall(42, this, "ptr", pBufferForArgs, UInt32, AlignedByteOffsetForArgs)
     }
 
     /**
@@ -1553,7 +1553,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-rssetviewports
      */
     RSSetViewports(NumViewports, pViewports) {
-        ComCall(44, this, "uint", NumViewports, D3D11_VIEWPORT.Ptr, pViewports)
+        ComCall(44, this, UInt32, NumViewports, D3D11_VIEWPORT.Ptr, pViewports)
     }
 
     /**
@@ -1581,7 +1581,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-rssetscissorrects
      */
     RSSetScissorRects(NumRects, pRects) {
-        ComCall(45, this, "uint", NumRects, RECT.Ptr, pRects)
+        ComCall(45, this, UInt32, NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1664,7 +1664,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-copysubresourceregion
      */
     CopySubresourceRegion(pDstResource, DstSubresource, DstX, DstY, DstZ, pSrcResource, SrcSubresource, pSrcBox) {
-        ComCall(46, this, "ptr", pDstResource, "uint", DstSubresource, "uint", DstX, "uint", DstY, "uint", DstZ, "ptr", pSrcResource, "uint", SrcSubresource, D3D11_BOX.Ptr, pSrcBox)
+        ComCall(46, this, "ptr", pDstResource, UInt32, DstSubresource, UInt32, DstX, UInt32, DstY, UInt32, DstZ, "ptr", pSrcResource, UInt32, SrcSubresource, D3D11_BOX.Ptr, pSrcBox)
     }
 
     /**
@@ -1872,7 +1872,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
     UpdateSubresource(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        ComCall(48, this, "ptr", pDstResource, "uint", DstSubresource, D3D11_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
+        ComCall(48, this, "ptr", pDstResource, UInt32, DstSubresource, D3D11_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, UInt32, SrcRowPitch, UInt32, SrcDepthPitch)
     }
 
     /**
@@ -1894,7 +1894,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-copystructurecount
      */
     CopyStructureCount(pDstBuffer, DstAlignedByteOffset, pSrcView) {
-        ComCall(49, this, "ptr", pDstBuffer, "uint", DstAlignedByteOffset, "ptr", pSrcView)
+        ComCall(49, this, "ptr", pDstBuffer, UInt32, DstAlignedByteOffset, "ptr", pSrcView)
     }
 
     /**
@@ -1999,7 +1999,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-cleardepthstencilview
      */
     ClearDepthStencilView(pDepthStencilView, ClearFlags, Depth, Stencil) {
-        ComCall(53, this, "ptr", pDepthStencilView, "uint", ClearFlags, "float", Depth, "char", Stencil)
+        ComCall(53, this, "ptr", pDepthStencilView, UInt32, ClearFlags, Float32, Depth, Int8, Stencil)
     }
 
     /**
@@ -2110,7 +2110,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-setresourceminlod
      */
     SetResourceMinLOD(pResource, MinLOD) {
-        ComCall(55, this, "ptr", pResource, "float", MinLOD)
+        ComCall(55, this, "ptr", pResource, Float32, MinLOD)
     }
 
     /**
@@ -2181,7 +2181,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-resolvesubresource
      */
     ResolveSubresource(pDstResource, DstSubresource, pSrcResource, SrcSubresource, Format) {
-        ComCall(57, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pSrcResource, "uint", SrcSubresource, DXGI_FORMAT, Format)
+        ComCall(57, this, "ptr", pDstResource, UInt32, DstSubresource, "ptr", pSrcResource, UInt32, SrcSubresource, DXGI_FORMAT, Format)
     }
 
     /**
@@ -2232,7 +2232,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-hssetshaderresources
      */
     HSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(59, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(59, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -2255,7 +2255,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-hssetshader
      */
     HSSetShader(pHullShader, ppClassInstances, NumClassInstances) {
-        ComCall(60, this, "ptr", pHullShader, ID3D11ClassInstance.Ptr, ppClassInstances, "uint", NumClassInstances)
+        ComCall(60, this, "ptr", pHullShader, ID3D11ClassInstance.Ptr, ppClassInstances, UInt32, NumClassInstances)
     }
 
     /**
@@ -2300,7 +2300,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-hssetsamplers
      */
     HSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(61, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(61, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -2325,7 +2325,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-hssetconstantbuffers
      */
     HSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(62, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(62, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -2350,7 +2350,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dssetshaderresources
      */
     DSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(63, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(63, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -2377,7 +2377,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dssetshader
      */
     DSSetShader(pDomainShader, ppClassInstances, NumClassInstances) {
-        ComCall(64, this, "ptr", pDomainShader, ID3D11ClassInstance.Ptr, ppClassInstances, "uint", NumClassInstances)
+        ComCall(64, this, "ptr", pDomainShader, ID3D11ClassInstance.Ptr, ppClassInstances, UInt32, NumClassInstances)
     }
 
     /**
@@ -2422,7 +2422,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dssetsamplers
      */
     DSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(65, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(65, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -2453,7 +2453,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dssetconstantbuffers
      */
     DSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(66, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(66, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -2478,7 +2478,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-cssetshaderresources
      */
     CSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(67, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(67, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -2507,7 +2507,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
     CSSetUnorderedAccessViews(StartSlot, NumUAVs, ppUnorderedAccessViews, pUAVInitialCounts) {
         pUAVInitialCountsMarshal := pUAVInitialCounts is VarRef ? "uint*" : "ptr"
 
-        ComCall(68, this, "uint", StartSlot, "uint", NumUAVs, ID3D11UnorderedAccessView.Ptr, ppUnorderedAccessViews, pUAVInitialCountsMarshal, pUAVInitialCounts)
+        ComCall(68, this, UInt32, StartSlot, UInt32, NumUAVs, ID3D11UnorderedAccessView.Ptr, ppUnorderedAccessViews, pUAVInitialCountsMarshal, pUAVInitialCounts)
     }
 
     /**
@@ -2530,7 +2530,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-cssetshader
      */
     CSSetShader(pComputeShader, ppClassInstances, NumClassInstances) {
-        ComCall(69, this, "ptr", pComputeShader, ID3D11ClassInstance.Ptr, ppClassInstances, "uint", NumClassInstances)
+        ComCall(69, this, "ptr", pComputeShader, ID3D11ClassInstance.Ptr, ppClassInstances, UInt32, NumClassInstances)
     }
 
     /**
@@ -2574,7 +2574,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-cssetsamplers
      */
     CSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(70, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(70, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -2599,7 +2599,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-cssetconstantbuffers
      */
     CSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(71, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(71, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -2619,7 +2619,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-vsgetconstantbuffers
      */
     VSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(72, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(72, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -2639,7 +2639,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-psgetshaderresources
      */
     PSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(73, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(73, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -2685,7 +2685,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-psgetsamplers
      */
     PSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(75, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(75, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -2727,7 +2727,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-psgetconstantbuffers
      */
     PSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(77, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(77, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -2772,7 +2772,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
         pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
         pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
 
-        ComCall(79, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
+        ComCall(79, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppVertexBuffers, pStridesMarshal, pStrides, pOffsetsMarshal, pOffsets)
     }
 
     /**
@@ -2818,7 +2818,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-gsgetconstantbuffers
      */
     GSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(81, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(81, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -2874,7 +2874,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-vsgetshaderresources
      */
     VSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(84, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(84, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -2894,7 +2894,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-vsgetsamplers
      */
     VSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(85, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(85, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -2933,7 +2933,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-gsgetshaderresources
      */
     GSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(87, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(87, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -2953,7 +2953,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-gsgetsamplers
      */
     GSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(88, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(88, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -2973,7 +2973,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-omgetrendertargets
      */
     OMGetRenderTargets(NumViews, ppRenderTargetViews, ppDepthStencilView) {
-        ComCall(89, this, "uint", NumViews, ID3D11RenderTargetView.Ptr, ppRenderTargetViews, ID3D11DepthStencilView.Ptr, ppDepthStencilView)
+        ComCall(89, this, UInt32, NumViews, ID3D11RenderTargetView.Ptr, ppRenderTargetViews, ID3D11DepthStencilView.Ptr, ppDepthStencilView)
     }
 
     /**
@@ -3007,7 +3007,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-omgetrendertargetsandunorderedaccessviews
      */
     OMGetRenderTargetsAndUnorderedAccessViews(NumRTVs, ppRenderTargetViews, ppDepthStencilView, UAVStartSlot, NumUAVs, ppUnorderedAccessViews) {
-        ComCall(90, this, "uint", NumRTVs, ID3D11RenderTargetView.Ptr, ppRenderTargetViews, ID3D11DepthStencilView.Ptr, ppDepthStencilView, "uint", UAVStartSlot, "uint", NumUAVs, ID3D11UnorderedAccessView.Ptr, ppUnorderedAccessViews)
+        ComCall(90, this, UInt32, NumRTVs, ID3D11RenderTargetView.Ptr, ppRenderTargetViews, ID3D11DepthStencilView.Ptr, ppDepthStencilView, UInt32, UAVStartSlot, UInt32, NumUAVs, ID3D11UnorderedAccessView.Ptr, ppUnorderedAccessViews)
     }
 
     /**
@@ -3080,7 +3080,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-sogettargets
      */
     SOGetTargets(NumBuffers, ppSOTargets) {
-        ComCall(93, this, "uint", NumBuffers, ID3D11Buffer.Ptr, ppSOTargets)
+        ComCall(93, this, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppSOTargets)
     }
 
     /**
@@ -3160,7 +3160,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-hsgetshaderresources
      */
     HSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(97, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(97, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -3202,7 +3202,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-hsgetsamplers
      */
     HSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(99, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(99, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -3222,7 +3222,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-hsgetconstantbuffers
      */
     HSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(100, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(100, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -3242,7 +3242,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dsgetshaderresources
      */
     DSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(101, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(101, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -3284,7 +3284,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dsgetsamplers
      */
     DSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(103, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(103, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -3304,7 +3304,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dsgetconstantbuffers
      */
     DSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(104, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(104, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**
@@ -3324,7 +3324,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-csgetshaderresources
      */
     CSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
-        ComCall(105, this, "uint", StartSlot, "uint", NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
+        ComCall(105, this, UInt32, StartSlot, UInt32, NumViews, ID3D11ShaderResourceView.Ptr, ppShaderResourceViews)
     }
 
     /**
@@ -3344,7 +3344,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-csgetunorderedaccessviews
      */
     CSGetUnorderedAccessViews(StartSlot, NumUAVs, ppUnorderedAccessViews) {
-        ComCall(106, this, "uint", StartSlot, "uint", NumUAVs, ID3D11UnorderedAccessView.Ptr, ppUnorderedAccessViews)
+        ComCall(106, this, UInt32, StartSlot, UInt32, NumUAVs, ID3D11UnorderedAccessView.Ptr, ppUnorderedAccessViews)
     }
 
     /**
@@ -3386,7 +3386,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-csgetsamplers
      */
     CSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
-        ComCall(108, this, "uint", StartSlot, "uint", NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
+        ComCall(108, this, UInt32, StartSlot, UInt32, NumSamplers, ID3D11SamplerState.Ptr, ppSamplers)
     }
 
     /**
@@ -3406,7 +3406,7 @@ export default struct ID3D11DeviceContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-csgetconstantbuffers
      */
     CSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
-        ComCall(109, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
+        ComCall(109, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers)
     }
 
     /**

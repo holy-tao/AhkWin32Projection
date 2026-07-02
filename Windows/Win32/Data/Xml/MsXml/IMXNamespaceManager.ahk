@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -130,7 +130,7 @@ export default struct IMXNamespaceManager extends IUnknown {
 
         pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "int", nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
+        result := ComCall(10, this, Int32, nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
         return result
     }
 
@@ -148,7 +148,7 @@ export default struct IMXNamespaceManager extends IUnknown {
 
         pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pwszNamespaceURI, "int", nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszNamespaceURI, Int32, nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
         return result
     }
 

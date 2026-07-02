@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 #Import ".\ISyncChangeBatch.ahk" { ISyncChangeBatch }
-#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
+#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
@@ -54,7 +54,7 @@ export default struct ISyncChangeBatch2 extends ISyncChangeBatch {
         pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, "uint", dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 
@@ -74,7 +74,7 @@ export default struct ISyncChangeBatch2 extends ISyncChangeBatch {
         pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(21, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        result := ComCall(21, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 

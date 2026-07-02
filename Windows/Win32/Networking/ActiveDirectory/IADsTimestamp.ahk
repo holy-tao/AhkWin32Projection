@@ -71,7 +71,7 @@ export default struct IADsTimestamp extends IDispatch {
      * @returns {HRESULT} 
      */
     put_WholeSeconds(lnWholeSeconds) {
-        result := ComCall(8, this, "int", lnWholeSeconds, "HRESULT")
+        result := ComCall(8, this, Int32, lnWholeSeconds, "HRESULT")
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IADsTimestamp extends IDispatch {
      * @returns {HRESULT} 
      */
     put_EventID(lnEventID) {
-        result := ComCall(10, this, "int", lnEventID, "HRESULT")
+        result := ComCall(10, this, Int32, lnEventID, "HRESULT")
         return result
     }
 

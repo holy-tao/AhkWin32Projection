@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk" { DXGI_INFO_QUEUE_MESSAGE_SEVERITY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk" { DXGI_INFO_QUEUE_MESSAGE_CATEGORY }
 #Import ".\DXGI_INFO_QUEUE_FILTER.ahk" { DXGI_INFO_QUEUE_FILTER }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk" { DXGI_INFO_QUEUE_MESSAGE_SEVERITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface controls the debug information queue, and can only be used if the debug layer is turned on.
@@ -96,7 +96,7 @@ export default struct IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setmessagecountlimit
      */
     SetMessageCountLimit(Producer, MessageCountLimit) {
-        result := ComCall(3, this, Guid, Producer, "uint", MessageCountLimit, "HRESULT")
+        result := ComCall(3, this, Guid, Producer, Int64, MessageCountLimit, "HRESULT")
         return result
     }
 
@@ -158,7 +158,7 @@ export default struct IDXGIInfoQueue extends IUnknown {
     GetMessage(Producer, MessageIndex, pMessage, pMessageByteLength) {
         pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, Guid, Producer, "uint", MessageIndex, "ptr", pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
+        result := ComCall(5, this, Guid, Producer, Int64, MessageIndex, IntPtr, pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
         return result
     }
 
@@ -281,7 +281,7 @@ export default struct IDXGIInfoQueue extends IUnknown {
     GetStorageFilter(Producer, pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, Guid, Producer, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(13, this, Guid, Producer, IntPtr, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -415,7 +415,7 @@ export default struct IDXGIInfoQueue extends IUnknown {
     GetRetrievalFilter(Producer, pFilter, pFilterByteLength) {
         pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(22, this, Guid, Producer, "ptr", pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(22, this, Guid, Producer, IntPtr, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -536,7 +536,7 @@ export default struct IDXGIInfoQueue extends IUnknown {
     AddMessage(Producer, Category, Severity, ID, pDescription) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
 
-        result := ComCall(30, this, Guid, Producer, DXGI_INFO_QUEUE_MESSAGE_CATEGORY, Category, DXGI_INFO_QUEUE_MESSAGE_SEVERITY, Severity, "int", ID, "ptr", pDescription, "HRESULT")
+        result := ComCall(30, this, Guid, Producer, DXGI_INFO_QUEUE_MESSAGE_CATEGORY, Category, DXGI_INFO_QUEUE_MESSAGE_SEVERITY, Severity, Int32, ID, "ptr", pDescription, "HRESULT")
         return result
     }
 
@@ -601,7 +601,7 @@ export default struct IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-setbreakonid
      */
     SetBreakOnID(Producer, ID, bEnable) {
-        result := ComCall(34, this, Guid, Producer, "int", ID, BOOL, bEnable, "HRESULT")
+        result := ComCall(34, this, Guid, Producer, Int32, ID, BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -646,7 +646,7 @@ export default struct IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getbreakonid
      */
     GetBreakOnID(Producer, ID) {
-        result := ComCall(37, this, Guid, Producer, "int", ID, BOOL)
+        result := ComCall(37, this, Guid, Producer, Int32, ID, BOOL)
         return result
     }
 

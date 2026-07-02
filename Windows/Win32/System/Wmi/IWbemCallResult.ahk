@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemServices.ahk" { IWbemServices }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used for semisynchronous calls of the IWbemServices interface. When making such calls, the called IWbemServices method returns immediately, along with an IWbemCallResult object.
@@ -50,7 +50,7 @@ export default struct IWbemCallResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcallresult-getresultobject
      */
     GetResultObject(lTimeout) {
-        result := ComCall(3, this, "int", lTimeout, "ptr*", &ppResultObject := 0, "HRESULT")
+        result := ComCall(3, this, Int32, lTimeout, "ptr*", &ppResultObject := 0, "HRESULT")
         return IWbemClassObject(ppResultObject)
     }
 
@@ -62,7 +62,7 @@ export default struct IWbemCallResult extends IUnknown {
      */
     GetResultString(lTimeout) {
         pstrResultString := BSTR.Owned()
-        result := ComCall(4, this, "int", lTimeout, BSTR.Ptr, pstrResultString, "HRESULT")
+        result := ComCall(4, this, Int32, lTimeout, BSTR.Ptr, pstrResultString, "HRESULT")
         return pstrResultString
     }
 
@@ -77,7 +77,7 @@ export default struct IWbemCallResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcallresult-getresultservices
      */
     GetResultServices(lTimeout) {
-        result := ComCall(5, this, "int", lTimeout, "ptr*", &ppServices := 0, "HRESULT")
+        result := ComCall(5, this, Int32, lTimeout, "ptr*", &ppServices := 0, "HRESULT")
         return IWbemServices(ppServices)
     }
 
@@ -125,7 +125,7 @@ export default struct IWbemCallResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcallresult-getcallstatus
      */
     GetCallStatus(lTimeout) {
-        result := ComCall(6, this, "int", lTimeout, "int*", &plStatus := 0, "HRESULT")
+        result := ComCall(6, this, Int32, lTimeout, "int*", &plStatus := 0, "HRESULT")
         return plStatus
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAVIStream interface supports creating and manipulating data streams within a file. Uses IUnknown::QueryInterface, IUnknown::AddRef, IUnknown::Release in addition to the following custom methods:\_
@@ -90,7 +90,7 @@ export default struct IAVIStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-info
      */
     Info(psi, lSize) {
-        result := ComCall(4, this, "ptr", psi, "int", lSize, "HRESULT")
+        result := ComCall(4, this, IntPtr, psi, Int32, lSize, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IAVIStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-findsample
      */
     FindSample(lPos, lFlags) {
-        result := ComCall(5, this, "int", lPos, "int", lFlags, Int32)
+        result := ComCall(5, this, Int32, lPos, Int32, lFlags, Int32)
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct IAVIStream extends IUnknown {
     ReadFormat(lPos, lpFormat, lpcbFormat) {
         lpcbFormatMarshal := lpcbFormat is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "int", lPos, "ptr", lpFormat, lpcbFormatMarshal, lpcbFormat, "HRESULT")
+        result := ComCall(6, this, Int32, lPos, IntPtr, lpFormat, lpcbFormatMarshal, lpcbFormat, "HRESULT")
         return result
     }
 
@@ -201,7 +201,7 @@ export default struct IAVIStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-setformat
      */
     SetFormat(lPos, lpFormat, cbFormat) {
-        result := ComCall(7, this, "int", lPos, "ptr", lpFormat, "int", cbFormat, "HRESULT")
+        result := ComCall(7, this, Int32, lPos, IntPtr, lpFormat, Int32, cbFormat, "HRESULT")
         return result
     }
 
@@ -232,7 +232,7 @@ export default struct IAVIStream extends IUnknown {
         plBytesMarshal := plBytes is VarRef ? "int*" : "ptr"
         plSamplesMarshal := plSamples is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, plBytesMarshal, plBytes, plSamplesMarshal, plSamples, "HRESULT")
+        result := ComCall(8, this, Int32, lStart, Int32, lSamples, IntPtr, lpBuffer, Int32, cbBuffer, plBytesMarshal, plBytes, plSamplesMarshal, plSamples, "HRESULT")
         return result
     }
 
@@ -264,7 +264,7 @@ export default struct IAVIStream extends IUnknown {
         plSampWrittenMarshal := plSampWritten is VarRef ? "int*" : "ptr"
         plBytesWrittenMarshal := plBytesWritten is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "int", lStart, "int", lSamples, "ptr", lpBuffer, "int", cbBuffer, "uint", dwFlags, plSampWrittenMarshal, plSampWritten, plBytesWrittenMarshal, plBytesWritten, "HRESULT")
+        result := ComCall(9, this, Int32, lStart, Int32, lSamples, IntPtr, lpBuffer, Int32, cbBuffer, UInt32, dwFlags, plSampWrittenMarshal, plSampWritten, plBytesWrittenMarshal, plBytesWritten, "HRESULT")
         return result
     }
 
@@ -286,7 +286,7 @@ export default struct IAVIStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-delete
      */
     Delete(lStart, lSamples) {
-        result := ComCall(10, this, "int", lStart, "int", lSamples, "HRESULT")
+        result := ComCall(10, this, Int32, lStart, Int32, lSamples, "HRESULT")
         return result
     }
 
@@ -311,7 +311,7 @@ export default struct IAVIStream extends IUnknown {
     ReadData(fcc, lp, lpcb) {
         lpcbMarshal := lpcb is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "uint", fcc, "ptr", lp, lpcbMarshal, lpcb, "HRESULT")
+        result := ComCall(11, this, UInt32, fcc, IntPtr, lp, lpcbMarshal, lpcb, "HRESULT")
         return result
     }
 
@@ -334,7 +334,7 @@ export default struct IAVIStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-writedata
      */
     WriteData(fcc, lp, cb) {
-        result := ComCall(12, this, "uint", fcc, "ptr", lp, "int", cb, "HRESULT")
+        result := ComCall(12, this, UInt32, fcc, IntPtr, lp, Int32, cb, "HRESULT")
         return result
     }
 
@@ -345,7 +345,7 @@ export default struct IAVIStream extends IUnknown {
      * @returns {HRESULT} 
      */
     SetInfo(lpInfo, cbInfo) {
-        result := ComCall(13, this, "ptr", lpInfo, "int", cbInfo, "HRESULT")
+        result := ComCall(13, this, IntPtr, lpInfo, Int32, cbInfo, "HRESULT")
         return result
     }
 

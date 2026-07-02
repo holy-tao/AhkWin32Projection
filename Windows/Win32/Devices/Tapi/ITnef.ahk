@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\AddressBook\SPropValue.ahk" { SPropValue }
-#Import "..\..\System\AddressBook\IMAPITable.ahk" { IMAPITable }
-#Import "..\..\System\AddressBook\SPropTagArray.ahk" { SPropTagArray }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\AddressBook\SPropValue.ahk" { SPropValue }
 #Import ".\STnefProblemArray.ahk" { STnefProblemArray }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\AddressBook\SPropTagArray.ahk" { SPropTagArray }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\AddressBook\IMAPITable.ahk" { IMAPITable }
 
 /**
  * Provides methods for encapsulating MAPI properties that are not supported by a messaging system into binary streams that can be attached to messages.
@@ -88,7 +88,7 @@ export default struct ITnef extends IUnknown {
     AddProps(ulFlags, ulElemID, lpvData, lpPropList) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", ulFlags, "uint", ulElemID, lpvDataMarshal, lpvData, SPropTagArray.Ptr, lpPropList, "HRESULT")
+        result := ComCall(3, this, UInt32, ulFlags, UInt32, ulElemID, lpvDataMarshal, lpvData, SPropTagArray.Ptr, lpPropList, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct ITnef extends IUnknown {
     ExtractProps(ulFlags, lpPropList, lpProblems) {
         lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulFlags, SPropTagArray.Ptr, lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
+        result := ComCall(4, this, UInt32, ulFlags, SPropTagArray.Ptr, lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct ITnef extends IUnknown {
         lpKeyMarshal := lpKey is VarRef ? "ushort*" : "ptr"
         lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", ulFlags, lpKeyMarshal, lpKey, lpProblemsMarshal, lpProblems, "HRESULT")
+        result := ComCall(5, this, UInt32, ulFlags, lpKeyMarshal, lpKey, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct ITnef extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-opentaggedbody
      */
     OpenTaggedBody(lpMessage, ulFlags) {
-        result := ComCall(6, this, "ptr", lpMessage, "uint", ulFlags, "ptr*", &lppStream := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", lpMessage, UInt32, ulFlags, "ptr*", &lppStream := 0, "HRESULT")
         return IStream(lppStream)
     }
 
@@ -221,7 +221,7 @@ export default struct ITnef extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-setprops
      */
     SetProps(ulFlags, ulElemID, cValues, lpProps) {
-        result := ComCall(7, this, "uint", ulFlags, "uint", ulElemID, "uint", cValues, SPropValue.Ptr, lpProps, "HRESULT")
+        result := ComCall(7, this, UInt32, ulFlags, UInt32, ulElemID, UInt32, cValues, SPropValue.Ptr, lpProps, "HRESULT")
         return result
     }
 
@@ -243,7 +243,7 @@ export default struct ITnef extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-encoderecips
      */
     EncodeRecips(ulFlags, lpRecipientTable) {
-        result := ComCall(8, this, "uint", ulFlags, "ptr", lpRecipientTable, "HRESULT")
+        result := ComCall(8, this, UInt32, ulFlags, "ptr", lpRecipientTable, "HRESULT")
         return result
     }
 
@@ -283,7 +283,7 @@ export default struct ITnef extends IUnknown {
     FinishComponent(ulFlags, ulComponentID, lpCustomPropList, lpCustomProps, lpPropList, lpProblems) {
         lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "uint", ulFlags, "uint", ulComponentID, SPropTagArray.Ptr, lpCustomPropList, SPropValue.Ptr, lpCustomProps, SPropTagArray.Ptr, lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
+        result := ComCall(9, this, UInt32, ulFlags, UInt32, ulComponentID, SPropTagArray.Ptr, lpCustomPropList, SPropValue.Ptr, lpCustomProps, SPropTagArray.Ptr, lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
     }
 

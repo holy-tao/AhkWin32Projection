@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
-#Import ".\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
-#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
-#Import ".\DXGI_FRAME_STATISTICS.ahk" { DXGI_FRAME_STATISTICS }
 #Import "Common\DXGI_MODE_DESC.ahk" { DXGI_MODE_DESC }
+#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
+#Import ".\DXGI_FRAME_STATISTICS.ahk" { DXGI_FRAME_STATISTICS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * An IDXGISwapChain interface implements one or more surfaces for storing rendered data before presenting it to an output.
@@ -124,7 +124,7 @@ export default struct IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-present
      */
     Present(SyncInterval, Flags) {
-        result := ComCall(8, this, "uint", SyncInterval, DXGI_PRESENT, Flags, Int32)
+        result := ComCall(8, this, UInt32, SyncInterval, DXGI_PRESENT, Flags, Int32)
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getbuffer
      */
     GetBuffer(_Buffer, riid) {
-        result := ComCall(9, this, "uint", _Buffer, Guid.Ptr, riid, "ptr*", &ppSurface := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, _Buffer, Guid.Ptr, riid, "ptr*", &ppSurface := 0, "HRESULT")
         return ppSurface
     }
 
@@ -300,7 +300,7 @@ export default struct IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-resizebuffers
      */
     ResizeBuffers(BufferCount, Width, Height, NewFormat, SwapChainFlags) {
-        result := ComCall(13, this, "uint", BufferCount, "uint", Width, "uint", Height, DXGI_FORMAT, NewFormat, "uint", SwapChainFlags, "HRESULT")
+        result := ComCall(13, this, UInt32, BufferCount, UInt32, Width, UInt32, Height, DXGI_FORMAT, NewFormat, UInt32, SwapChainFlags, "HRESULT")
         return result
     }
 

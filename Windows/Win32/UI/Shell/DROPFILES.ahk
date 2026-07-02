@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Defines the CF_HDROP clipboard format. The data that follows is a double null-terminated list of file names.

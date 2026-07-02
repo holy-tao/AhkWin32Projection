@@ -1,18 +1,18 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\HLOCAL.ahk" { HLOCAL }
-#Import ".\HRESULT.ahk" { HRESULT }
-#Import ".\BSTR.ahk" { BSTR }
-#Import ".\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import ".\HANDLE.ahk" { HANDLE }
-#Import ".\BOOL.ahk" { BOOL }
-#Import ".\DUPLICATE_HANDLE_OPTIONS.ahk" { DUPLICATE_HANDLE_OPTIONS }
 #Import ".\HGLOBAL.ahk" { HGLOBAL }
-#Import ".\PSTR.ahk" { PSTR }
-#Import ".\HANDLE_FLAGS.ahk" { HANDLE_FLAGS }
 #Import ".\PWSTR.ahk" { PWSTR }
+#Import ".\HLOCAL.ahk" { HLOCAL }
 #Import ".\NTSTATUS.ahk" { NTSTATUS }
 #Import ".\HMODULE.ahk" { HMODULE }
+#Import ".\HRESULT.ahk" { HRESULT }
+#Import ".\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\PSTR.ahk" { PSTR }
+#Import ".\BSTR.ahk" { BSTR }
+#Import ".\HANDLE.ahk" { HANDLE }
+#Import ".\BOOL.ahk" { BOOL }
+#Import ".\HANDLE_FLAGS.ahk" { HANDLE_FLAGS }
+#Import ".\DUPLICATE_HANDLE_OPTIONS.ahk" { DUPLICATE_HANDLE_OPTIONS }
 
 /**
  * @namespace Windows.Win32.Foundation
@@ -95,7 +95,7 @@ export SysReAllocString(pbstr, psz) {
 export SysAllocStringLen(strIn, ui) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\SysAllocStringLen", "ptr", strIn, "uint", ui, BSTR.Owned)
+    result := DllCall("OLEAUT32.dll\SysAllocStringLen", "ptr", strIn, UInt32, ui, BSTR.Owned)
     return result
 }
 
@@ -144,7 +144,7 @@ export SysAllocStringLen(strIn, ui) {
 export SysReAllocStringLen(pbstr, psz, len) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("OLEAUT32.dll\SysReAllocStringLen", BSTR.Ptr, pbstr, "ptr", psz, "uint", len, Int32)
+    result := DllCall("OLEAUT32.dll\SysReAllocStringLen", BSTR.Ptr, pbstr, "ptr", psz, UInt32, len, Int32)
     return result
 }
 
@@ -227,7 +227,7 @@ export SysStringByteLen(_bstr) {
 export SysAllocStringByteLen(psz, len) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", "ptr", psz, "uint", len, BSTR.Owned)
+    result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", "ptr", psz, UInt32, len, BSTR.Owned)
     return result
 }
 
@@ -525,7 +525,7 @@ export CloseHandle(hObject) {
 export DuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle, lpTargetHandle, dwDesiredAccess, bInheritHandle, dwOptions) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\DuplicateHandle", HANDLE, hSourceProcessHandle, HANDLE, hSourceHandle, HANDLE, hTargetProcessHandle, HANDLE.Ptr, lpTargetHandle, "uint", dwDesiredAccess, BOOL, bInheritHandle, DUPLICATE_HANDLE_OPTIONS, dwOptions, BOOL)
+    result := DllCall("KERNEL32.dll\DuplicateHandle", HANDLE, hSourceProcessHandle, HANDLE, hSourceHandle, HANDLE, hTargetProcessHandle, HANDLE.Ptr, lpTargetHandle, UInt32, dwDesiredAccess, BOOL, bInheritHandle, DUPLICATE_HANDLE_OPTIONS, dwOptions, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -632,7 +632,7 @@ export GetHandleInformation(hObject, lpdwFlags) {
 export SetHandleInformation(hObject, dwMask, dwFlags) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetHandleInformation", HANDLE, hObject, "uint", dwMask, HANDLE_FLAGS, dwFlags, BOOL)
+    result := DllCall("KERNEL32.dll\SetHandleInformation", HANDLE, hObject, UInt32, dwMask, HANDLE_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -761,7 +761,7 @@ export SetLastError(dwErrCode) {
 export SetLastErrorEx(dwErrCode, dwType) {
     A_LastError := 0
 
-    DllCall("USER32.dll\SetLastErrorEx", WIN32_ERROR, dwErrCode, "uint", dwType)
+    DllCall("USER32.dll\SetLastErrorEx", WIN32_ERROR, dwErrCode, UInt32, dwType)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

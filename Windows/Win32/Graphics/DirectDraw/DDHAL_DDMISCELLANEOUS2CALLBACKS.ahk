@@ -1,4 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPDDHAL_CREATESURFACEEX.ahk" { LPDDHAL_CREATESURFACEEX }
+#Import ".\LPDDHAL_GETDRIVERSTATE.ahk" { LPDDHAL_GETDRIVERSTATE }
+#Import ".\LPDDHAL_DESTROYDDLOCAL.ahk" { LPDDHAL_DESTROYDDLOCAL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -12,10 +15,10 @@ export default struct DDHAL_DDMISCELLANEOUS2CALLBACKS {
 
     Reserved : IntPtr
 
-    CreateSurfaceEx : IntPtr
+    CreateSurfaceEx : LPDDHAL_CREATESURFACEEX
 
-    GetDriverState : IntPtr
+    GetDriverState : LPDDHAL_GETDRIVERSTATE
 
-    DestroyDDLocal : IntPtr
+    DestroyDDLocal : LPDDHAL_DESTROYDDLOCAL
 
 }

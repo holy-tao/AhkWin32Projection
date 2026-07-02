@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IUPnPAsyncResult interface is used to notify the UPnP control point of a completed asynchronous I/O operation.
@@ -44,7 +44,7 @@ export default struct IUPnPAsyncResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpasyncresult-asyncoperationcomplete
      */
     AsyncOperationComplete(ullRequestID) {
-        result := ComCall(3, this, "uint", ullRequestID, "HRESULT")
+        result := ComCall(3, this, Int64, ullRequestID, "HRESULT")
         return result
     }
 

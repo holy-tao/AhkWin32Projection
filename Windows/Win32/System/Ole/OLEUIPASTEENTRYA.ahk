@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
 #Import "..\Com\FORMATETC.ahk" { FORMATETC }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * An array of entries to be specified in the OLEUIPASTESPECIAL structure for the Paste Special dialog box. (ANSI)

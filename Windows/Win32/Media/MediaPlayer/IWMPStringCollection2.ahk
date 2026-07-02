@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IWMPStringCollection.ahk" { IWMPStringCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IWMPStringCollection2 interface provides methods that supplement the IWMPStringCollection interface.
@@ -114,7 +114,7 @@ export default struct IWMPStringCollection2 extends IWMPStringCollection {
     getItemInfo(lCollectionIndex, bstrItemName, pbstrValue) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(10, this, "int", lCollectionIndex, BSTR, bstrItemName, BSTR.Ptr, pbstrValue, "HRESULT")
+        result := ComCall(10, this, Int32, lCollectionIndex, BSTR, bstrItemName, BSTR.Ptr, pbstrValue, "HRESULT")
         return result
     }
 
@@ -157,7 +157,7 @@ export default struct IWMPStringCollection2 extends IWMPStringCollection {
 
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "int", lCollectionIndex, BSTR, bstrType, BSTR, bstrLanguage, plCountMarshal, plCount, "HRESULT")
+        result := ComCall(11, this, Int32, lCollectionIndex, BSTR, bstrType, BSTR, bstrLanguage, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -203,7 +203,7 @@ export default struct IWMPStringCollection2 extends IWMPStringCollection {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(12, this, "int", lCollectionIndex, BSTR, bstrType, BSTR, bstrLanguage, "int", lAttributeIndex, VARIANT.Ptr, pvarValue, "HRESULT")
+        result := ComCall(12, this, Int32, lCollectionIndex, BSTR, bstrType, BSTR, bstrLanguage, Int32, lAttributeIndex, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 

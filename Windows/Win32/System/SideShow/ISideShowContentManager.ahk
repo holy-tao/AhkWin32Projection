@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISideShowEvents.ahk" { ISideShowEvents }
-#Import ".\ISideShowCapabilitiesCollection.ahk" { ISideShowCapabilitiesCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISideShowContent.ahk" { ISideShowContent }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISideShowContent.ahk" { ISideShowContent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISideShowCapabilitiesCollection.ahk" { ISideShowCapabilitiesCollection }
 
 /**
  * @namespace Windows.Win32.System.SideShow
@@ -58,7 +58,7 @@ export default struct ISideShowContentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     Remove(in_contentId) {
-        result := ComCall(4, this, "uint", in_contentId, "HRESULT")
+        result := ComCall(4, this, UInt32, in_contentId, "HRESULT")
         return result
     }
 

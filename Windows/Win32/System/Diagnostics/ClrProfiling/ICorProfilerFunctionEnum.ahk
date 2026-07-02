@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\COR_PRF_FUNCTION.ahk" { COR_PRF_FUNCTION }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -46,7 +46,7 @@ export default struct ICorProfilerFunctionEnum extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(celt) {
-        result := ComCall(3, this, "uint", celt, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct ICorProfilerFunctionEnum extends IUnknown {
     Next(celt, ids, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", celt, COR_PRF_FUNCTION.Ptr, ids, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(7, this, UInt32, celt, COR_PRF_FUNCTION.Ptr, ids, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 

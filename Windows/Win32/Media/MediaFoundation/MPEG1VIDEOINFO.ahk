@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import ".\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
 
 /**
  * The MPEG1VIDEOINFO structure describes an MPEG-1 video stream.

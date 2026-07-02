@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DVOLUME_DESC.ahk" { D3DVOLUME_DESC }
+#Import ".\IDirect3DBaseTexture9.ahk" { IDirect3DBaseTexture9 }
+#Import ".\IDirect3DVolume9.ahk" { IDirect3DVolume9 }
 #Import ".\D3DLOCKED_BOX.ahk" { D3DLOCKED_BOX }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirect3DVolume9.ahk" { IDirect3DVolume9 }
 #Import ".\D3DBOX.ahk" { D3DBOX }
-#Import ".\IDirect3DBaseTexture9.ahk" { IDirect3DBaseTexture9 }
-#Import ".\D3DVOLUME_DESC.ahk" { D3DVOLUME_DESC }
 
 /**
  * The IDirect3DVolumeTexture9 (d3d9.h) interface is used by applications to manipulate a volume texture resource.
@@ -77,7 +77,7 @@ export default struct IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-getleveldesc
      */
     GetLevelDesc(Level, pDesc) {
-        result := ComCall(17, this, "uint", Level, D3DVOLUME_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(17, this, UInt32, Level, D3DVOLUME_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-getvolumelevel
      */
     GetVolumeLevel(Level) {
-        result := ComCall(18, this, "uint", Level, "ptr*", &ppVolumeLevel := 0, "HRESULT")
+        result := ComCall(18, this, UInt32, Level, "ptr*", &ppVolumeLevel := 0, "HRESULT")
         return IDirect3DVolume9(ppVolumeLevel)
     }
 
@@ -130,7 +130,7 @@ export default struct IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-lockbox
      */
     LockBox(Level, pLockedVolume, pBox, Flags) {
-        result := ComCall(19, this, "uint", Level, D3DLOCKED_BOX.Ptr, pLockedVolume, D3DBOX.Ptr, pBox, "uint", Flags, "HRESULT")
+        result := ComCall(19, this, UInt32, Level, D3DLOCKED_BOX.Ptr, pLockedVolume, D3DBOX.Ptr, pBox, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-unlockbox
      */
     UnlockBox(Level) {
-        result := ComCall(20, this, "uint", Level, "HRESULT")
+        result := ComCall(20, this, UInt32, Level, "HRESULT")
         return result
     }
 

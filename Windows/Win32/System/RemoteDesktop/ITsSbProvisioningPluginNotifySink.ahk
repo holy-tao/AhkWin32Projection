@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\VM_NOTIFY_ENTRY.ahk" { VM_NOTIFY_ENTRY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\VM_HOST_NOTIFY_STATUS.ahk" { VM_HOST_NOTIFY_STATUS }
-#Import ".\VM_NOTIFY_INFO.ahk" { VM_NOTIFY_INFO }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VM_NOTIFY_STATUS.ahk" { VM_NOTIFY_STATUS }
+#Import ".\VM_NOTIFY_INFO.ahk" { VM_NOTIFY_INFO }
 
 /**
  * Exposes methods that notify Remote Desktop Connection Broker (RD Connection Broker) about the provisioning of virtual machines.

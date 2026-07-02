@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DSOP_SCOPE_INIT_INFO.ahk" { DSOP_SCOPE_INIT_INFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DSOP_SCOPE_INIT_INFO.ahk" { DSOP_SCOPE_INIT_INFO }
 
 /**
  * The DSOP_INIT_INFO structure contains data required to initialize an object picker dialog box. This structure is used with the IDsObjectPicker::Initialize method.

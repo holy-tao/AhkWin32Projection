@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\TDIEntityID.ahk" { TDIEntityID }
-#Import ".\TDIObjectID.ahk" { TDIObjectID }
 #Import ".\TDIENTITY_ENTITY_TYPE.ahk" { TDIENTITY_ENTITY_TYPE }
+#Import ".\TDIObjectID.ahk" { TDIObjectID }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_TRANSPORT_ADDRESS.ahk" { HTTP_TRANSPORT_ADDRESS }
-#Import ".\HTTP_VERSION.ahk" { HTTP_VERSION }
-#Import ".\HTTP_REQUEST_V1.ahk" { HTTP_REQUEST_V1 }
-#Import ".\HTTP_SSL_INFO.ahk" { HTTP_SSL_INFO }
-#Import ".\HTTP_REQUEST_HEADERS.ahk" { HTTP_REQUEST_HEADERS }
-#Import ".\HTTP_REQUEST_INFO.ahk" { HTTP_REQUEST_INFO }
-#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
-#Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HTTP_COOKED_URL.ahk" { HTTP_COOKED_URL }
-#Import "..\WinSock\SOCKADDR.ahk" { SOCKADDR }
-#Import ".\HTTP_VERB.ahk" { HTTP_VERB }
+#Import ".\HTTP_TRANSPORT_ADDRESS.ahk" { HTTP_TRANSPORT_ADDRESS }
+#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
+#Import ".\HTTP_REQUEST_HEADERS.ahk" { HTTP_REQUEST_HEADERS }
+#Import ".\HTTP_VERSION.ahk" { HTTP_VERSION }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HTTP_SSL_INFO.ahk" { HTTP_SSL_INFO }
+#Import ".\HTTP_KNOWN_HEADER.ahk" { HTTP_KNOWN_HEADER }
 #Import ".\HTTP_DATA_CHUNK.ahk" { HTTP_DATA_CHUNK }
+#Import "..\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\HTTP_REQUEST_V1.ahk" { HTTP_REQUEST_V1 }
+#Import ".\HTTP_COOKED_URL.ahk" { HTTP_COOKED_URL }
+#Import ".\HTTP_VERB.ahk" { HTTP_VERB }
+#Import ".\HTTP_REQUEST_INFO.ahk" { HTTP_REQUEST_INFO }
 
 /**
  * Extends the HTTP_REQUEST_V1 request structure with more information about the request.

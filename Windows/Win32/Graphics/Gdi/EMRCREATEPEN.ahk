@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\LOGPEN.ahk" { LOGPEN }
-#Import ".\EMR.ahk" { EMR }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\LOGPEN.ahk" { LOGPEN }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\EMR.ahk" { EMR }
 
 /**
  * The EMRCREATEPEN structure contains members for the CreatePen enhanced metafile record.

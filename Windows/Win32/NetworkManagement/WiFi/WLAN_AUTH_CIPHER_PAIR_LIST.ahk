@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
 #Import ".\DOT11_AUTH_CIPHER_PAIR.ahk" { DOT11_AUTH_CIPHER_PAIR }
 #Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
 
 /**
  * Contains a list of authentication and cipher algorithm pairs.

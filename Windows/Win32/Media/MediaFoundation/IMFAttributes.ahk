@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_ATTRIBUTE_TYPE.ahk" { MF_ATTRIBUTE_TYPE }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MF_ATTRIBUTES_MATCH_TYPE.ahk" { MF_ATTRIBUTES_MATCH_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MF_ATTRIBUTE_TYPE.ahk" { MF_ATTRIBUTE_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides a generic way to store key/value pairs on an object.
@@ -414,7 +414,7 @@ export default struct IMFAttributes extends IUnknown {
 
         pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, Guid.Ptr, guidKey, "ptr", pwszValue, "uint", cchBufSize, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, guidKey, "ptr", pwszValue, UInt32, cchBufSize, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -529,7 +529,7 @@ export default struct IMFAttributes extends IUnknown {
     GetBlob(guidKey, cbBufSize, pcbBlobSize) {
         pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, Guid.Ptr, guidKey, "char*", &pBuf := 0, "uint", cbBufSize, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, guidKey, "char*", &pBuf := 0, UInt32, cbBufSize, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
         return pBuf
     }
 
@@ -791,7 +791,7 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setuint32
      */
     SetUINT32(guidKey, unValue) {
-        result := ComCall(21, this, Guid.Ptr, guidKey, "uint", unValue, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, guidKey, UInt32, unValue, "HRESULT")
         return result
     }
 
@@ -830,7 +830,7 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setuint64
      */
     SetUINT64(guidKey, unValue) {
-        result := ComCall(22, this, Guid.Ptr, guidKey, "uint", unValue, "HRESULT")
+        result := ComCall(22, this, Guid.Ptr, guidKey, Int64, unValue, "HRESULT")
         return result
     }
 
@@ -869,7 +869,7 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setdouble
      */
     SetDouble(guidKey, fValue) {
-        result := ComCall(23, this, Guid.Ptr, guidKey, "double", fValue, "HRESULT")
+        result := ComCall(23, this, Guid.Ptr, guidKey, Float64, fValue, "HRESULT")
         return result
     }
 
@@ -1002,7 +1002,7 @@ export default struct IMFAttributes extends IUnknown {
     SetBlob(guidKey, pBuf, cbBufSize) {
         pBufMarshal := pBuf is VarRef ? "char*" : "ptr"
 
-        result := ComCall(26, this, Guid.Ptr, guidKey, pBufMarshal, pBuf, "uint", cbBufSize, "HRESULT")
+        result := ComCall(26, this, Guid.Ptr, guidKey, pBufMarshal, pBuf, UInt32, cbBufSize, "HRESULT")
         return result
     }
 
@@ -1174,7 +1174,7 @@ export default struct IMFAttributes extends IUnknown {
      */
     GetItemByIndex(unIndex, pValue) {
         pguidKey := Guid()
-        result := ComCall(31, this, "uint", unIndex, Guid.Ptr, pguidKey, PROPVARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(31, this, UInt32, unIndex, Guid.Ptr, pguidKey, PROPVARIANT.Ptr, pValue, "HRESULT")
         return pguidKey
     }
 

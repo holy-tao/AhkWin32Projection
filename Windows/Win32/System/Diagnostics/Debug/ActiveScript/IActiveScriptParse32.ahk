@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -73,7 +73,7 @@ export default struct IActiveScriptParse32 extends IUnknown {
         pstrEventName := pstrEventName is String ? StrPtr(pstrEventName) : pstrEventName
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(4, this, "ptr", pstrDefaultName, "ptr", pstrCode, "ptr", pstrItemName, "ptr", pstrSubItemName, "ptr", pstrEventName, "ptr", pstrDelimiter, "uint", dwSourceContextCookie, "uint", ulStartingLineNumber, "uint", dwFlags, BSTR.Ptr, pbstrName, EXCEPINFO.Ptr, pexcepinfo, "HRESULT")
+        result := ComCall(4, this, "ptr", pstrDefaultName, "ptr", pstrCode, "ptr", pstrItemName, "ptr", pstrSubItemName, "ptr", pstrEventName, "ptr", pstrDelimiter, UInt32, dwSourceContextCookie, UInt32, ulStartingLineNumber, UInt32, dwFlags, BSTR.Ptr, pbstrName, EXCEPINFO.Ptr, pexcepinfo, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IActiveScriptParse32 extends IUnknown {
         pstrItemName := pstrItemName is String ? StrPtr(pstrItemName) : pstrItemName
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(5, this, "ptr", pstrCode, "ptr", pstrItemName, "ptr", punkContext, "ptr", pstrDelimiter, "uint", dwSourceContextCookie, "uint", ulStartingLineNumber, "uint", dwFlags, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, "HRESULT")
+        result := ComCall(5, this, "ptr", pstrCode, "ptr", pstrItemName, "ptr", punkContext, "ptr", pstrDelimiter, UInt32, dwSourceContextCookie, UInt32, ulStartingLineNumber, UInt32, dwFlags, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITAgent.ahk" { ITAgent }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IEnumAgent (tapi3cc.h) is the enumerator interface for ITAgent.
@@ -108,7 +108,7 @@ export default struct IEnumAgent extends IUnknown {
     Next(celt, ppElements, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, ITAgent.Ptr, ppElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, ITAgent.Ptr, ppElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IEnumAgent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagent-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

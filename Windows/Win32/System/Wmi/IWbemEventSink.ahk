@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Initiates communication with an event provider using a restricted set of queries.
@@ -61,7 +61,7 @@ export default struct IWbemEventSink extends IWbemObjectSink {
     SetSinkSecurity(lSDLength, pSD) {
         pSDMarshal := pSD is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "int", lSDLength, pSDMarshal, pSD, "HRESULT")
+        result := ComCall(5, this, Int32, lSDLength, pSDMarshal, pSD, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IWbemEventSink extends IWbemObjectSink {
     GetRestrictedSink(lNumQueries, awszQueries, pCallback) {
         awszQueriesMarshal := awszQueries is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "int", lNumQueries, awszQueriesMarshal, awszQueries, "ptr", pCallback, "ptr*", &ppSink := 0, "HRESULT")
+        result := ComCall(7, this, Int32, lNumQueries, awszQueriesMarshal, awszQueries, "ptr", pCallback, "ptr*", &ppSink := 0, "HRESULT")
         return IWbemEventSink(ppSink)
     }
 
@@ -100,7 +100,7 @@ export default struct IWbemEventSink extends IWbemObjectSink {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-setbatchingparameters
      */
     SetBatchingParameters(lFlags, dwMaxBufferSize, dwMaxSendLatency) {
-        result := ComCall(8, this, "int", lFlags, "uint", dwMaxBufferSize, "uint", dwMaxSendLatency, "HRESULT")
+        result := ComCall(8, this, Int32, lFlags, UInt32, dwMaxBufferSize, UInt32, dwMaxSendLatency, "HRESULT")
         return result
     }
 

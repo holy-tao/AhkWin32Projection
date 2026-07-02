@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IVssBackupComponentsEx.ahk" { IVssBackupComponentsEx }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IVssAsync.ahk" { IVssAsync }
+#Import ".\IVssBackupComponentsEx.ahk" { IVssBackupComponentsEx }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\VSS_ROLLFORWARD_TYPE.ahk" { VSS_ROLLFORWARD_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
 
 /**
@@ -286,7 +286,7 @@ export default struct IVssBackupComponentsEx2 extends IVssBackupComponentsEx {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
 
-        result := ComCall(54, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "char", bAuth, "HRESULT")
+        result := ComCall(54, this, Guid, writerId, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, Int8, bAuth, "HRESULT")
         return result
     }
 
@@ -541,7 +541,7 @@ export default struct IVssBackupComponentsEx2 extends IVssBackupComponentsEx {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-breaksnapshotsetex
      */
     BreakSnapshotSetEx(SnapshotSetID, dwBreakFlags) {
-        result := ComCall(57, this, Guid, SnapshotSetID, "uint", dwBreakFlags, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(57, this, Guid, SnapshotSetID, UInt32, dwBreakFlags, "ptr*", &ppAsync := 0, "HRESULT")
         return IVssAsync(ppAsync)
     }
 
@@ -553,7 +553,7 @@ export default struct IVssBackupComponentsEx2 extends IVssBackupComponentsEx {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-prefastrecovery
      */
     PreFastRecovery(SnapshotSetID, dwPreFastRecoveryFlags) {
-        result := ComCall(58, this, Guid, SnapshotSetID, "uint", dwPreFastRecoveryFlags, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(58, this, Guid, SnapshotSetID, UInt32, dwPreFastRecoveryFlags, "ptr*", &ppAsync := 0, "HRESULT")
         return IVssAsync(ppAsync)
     }
 
@@ -565,7 +565,7 @@ export default struct IVssBackupComponentsEx2 extends IVssBackupComponentsEx {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-fastrecovery
      */
     FastRecovery(SnapshotSetID, dwFastRecoveryFlags) {
-        result := ComCall(59, this, Guid, SnapshotSetID, "uint", dwFastRecoveryFlags, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(59, this, Guid, SnapshotSetID, UInt32, dwFastRecoveryFlags, "ptr*", &ppAsync := 0, "HRESULT")
         return IVssAsync(ppAsync)
     }
 

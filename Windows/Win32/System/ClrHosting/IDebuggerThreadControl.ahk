@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -61,7 +61,7 @@ export default struct IDebuggerThreadControl extends IUnknown {
      * @returns {HRESULT} 
      */
     StartBlockingForDebugger(dwUnused) {
-        result := ComCall(5, this, "uint", dwUnused, "HRESULT")
+        result := ComCall(5, this, UInt32, dwUnused, "HRESULT")
         return result
     }
 

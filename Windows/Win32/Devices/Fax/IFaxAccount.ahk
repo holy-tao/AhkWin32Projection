@@ -4,8 +4,8 @@
 #Import ".\FAX_ACCOUNT_EVENTS_TYPE_ENUM.ahk" { FAX_ACCOUNT_EVENTS_TYPE_ENUM }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFaxAccountFolders.ahk" { IFaxAccountFolders }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a fax account on the fax server.

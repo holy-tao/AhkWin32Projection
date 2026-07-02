@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISpObjectToken.ahk" { ISpObjectToken }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -51,7 +51,7 @@ export default struct IEnumSpObjectTokens extends IUnknown {
     Next(celt, pelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, ISpObjectToken.Ptr, pelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, ISpObjectToken.Ptr, pelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct IEnumSpObjectTokens extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IEnumSpObjectTokens extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(7, this, "uint", Index, "ptr*", &ppToken := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, Index, "ptr*", &ppToken := 0, "HRESULT")
         return ISpObjectToken(ppToken)
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\System\SystemServices\SFGAO_FLAGS.ahk" { SFGAO_FLAGS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SIGDN.ahk" { SIGDN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that retrieve information about a Shell item. IShellItem and IShellItem2 are the preferred representations of items in any new code.
@@ -138,7 +138,7 @@ export default struct IShellItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-compare
      */
     Compare(psi, hint) {
-        result := ComCall(7, this, "ptr", psi, "uint", hint, "int*", &piOrder := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", psi, UInt32, hint, "int*", &piOrder := 0, "HRESULT")
         return piOrder
     }
 

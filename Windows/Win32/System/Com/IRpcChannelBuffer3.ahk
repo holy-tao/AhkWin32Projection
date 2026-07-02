@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRpcChannelBuffer2.ahk" { IRpcChannelBuffer2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAsyncManager.ahk" { IAsyncManager }
 #Import ".\RPCOLEMESSAGE.ahk" { RPCOLEMESSAGE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRpcChannelBuffer2.ahk" { IRpcChannelBuffer2 }
+#Import ".\IAsyncManager.ahk" { IAsyncManager }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -60,7 +60,7 @@ export default struct IRpcChannelBuffer3 extends IRpcChannelBuffer2 {
      * @returns {Integer} 
      */
     Receive(pMsg, ulSize) {
-        result := ComCall(10, this, RPCOLEMESSAGE.Ptr, pMsg, "uint", ulSize, "uint*", &pulStatus := 0, "HRESULT")
+        result := ComCall(10, this, RPCOLEMESSAGE.Ptr, pMsg, UInt32, ulSize, "uint*", &pulStatus := 0, "HRESULT")
         return pulStatus
     }
 

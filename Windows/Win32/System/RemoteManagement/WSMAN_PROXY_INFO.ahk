@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSMAN_USERNAME_PASSWORD_CREDS.ahk" { WSMAN_USERNAME_PASSWORD_CREDS }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSMAN_AUTHENTICATION_CREDENTIALS.ahk" { WSMAN_AUTHENTICATION_CREDENTIALS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSMAN_USERNAME_PASSWORD_CREDS.ahk" { WSMAN_USERNAME_PASSWORD_CREDS }
 
 /**
  * Specifies proxy information.

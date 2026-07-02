@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods to uninstall basic and dynamic disks.
@@ -225,7 +225,7 @@ export default struct IVdsServiceUninstallDisk extends IUnknown {
         pbRebootMarshal := pbReboot is VarRef ? "char*" : "ptr"
         pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, Guid.Ptr, pDiskIdArray, "uint", ulCount, BOOLEAN, bForce, pbRebootMarshal, pbReboot, pResultsMarshal, pResults, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pDiskIdArray, UInt32, ulCount, BOOLEAN, bForce, pbRebootMarshal, pbReboot, pResultsMarshal, pResults, "HRESULT")
         return result
     }
 

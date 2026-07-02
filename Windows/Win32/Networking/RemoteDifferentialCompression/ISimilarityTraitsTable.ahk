@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FindSimilarFileIndexResults.ahk" { FindSimilarFileIndexResults }
-#Import ".\SimilarityData.ahk" { SimilarityData }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ISimilarityTableDumpState.ahk" { ISimilarityTableDumpState }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISimilarityTraitsMapping.ahk" { ISimilarityTraitsMapping }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\RdcCreatedTables.ahk" { RdcCreatedTables }
+#Import ".\FindSimilarFileIndexResults.ahk" { FindSimilarFileIndexResults }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SimilarityData.ahk" { SimilarityData }
 
 /**
  * Defines methods for storing per-file similarity data and performing similarity lookups.
@@ -114,7 +114,7 @@ export default struct ISimilarityTraitsTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-append
      */
     Append(data, fileIndex) {
-        result := ComCall(6, this, SimilarityData.Ptr, data, "uint", fileIndex, "HRESULT")
+        result := ComCall(6, this, SimilarityData.Ptr, data, UInt32, fileIndex, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct ISimilarityTraitsTable extends IUnknown {
     FindSimilarFileIndex(_similarityData, numberOfMatchesRequired, _findSimilarFileIndexResults, resultsSize, resultsUsed) {
         resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, SimilarityData.Ptr, _similarityData, "ushort", numberOfMatchesRequired, FindSimilarFileIndexResults.Ptr, _findSimilarFileIndexResults, "uint", resultsSize, resultsUsedMarshal, resultsUsed, "HRESULT")
+        result := ComCall(7, this, SimilarityData.Ptr, _similarityData, UInt16, numberOfMatchesRequired, FindSimilarFileIndexResults.Ptr, _findSimilarFileIndexResults, UInt32, resultsSize, resultsUsedMarshal, resultsUsed, "HRESULT")
         return result
     }
 

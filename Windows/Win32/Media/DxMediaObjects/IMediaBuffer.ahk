@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMediaBuffer interface provides methods for manipulating a data buffer. Buffers passed to the IMediaObject::ProcessInput and ProcessOutput methods must implement this interface.
@@ -48,7 +48,7 @@ export default struct IMediaBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediabuffer-setlength
      */
     SetLength(cbLength) {
-        result := ComCall(3, this, "uint", cbLength, "HRESULT")
+        result := ComCall(3, this, UInt32, cbLength, "HRESULT")
         return result
     }
 

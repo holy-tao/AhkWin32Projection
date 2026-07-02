@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RESUTIL_FILETIME_DATA.ahk" { RESUTIL_FILETIME_DATA }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\RESUTIL_LARGEINT_DATA.ahk" { RESUTIL_LARGEINT_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RESUTIL_FILETIME_DATA.ahk" { RESUTIL_FILETIME_DATA }
 #Import ".\RESUTIL_ULARGEINT_DATA.ahk" { RESUTIL_ULARGEINT_DATA }
 
 /**

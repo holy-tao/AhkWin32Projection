@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MSV1_0_CREDENTIAL_KEY_TYPE.ahk" { MSV1_0_CREDENTIAL_KEY_TYPE }
 #Import ".\MSV1_0_CREDENTIAL_KEY.ahk" { MSV1_0_CREDENTIAL_KEY }
+#Import ".\MSV1_0_CREDENTIAL_KEY_TYPE.ahk" { MSV1_0_CREDENTIAL_KEY_TYPE }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

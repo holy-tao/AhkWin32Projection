@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import ".\NMPGSCROLL_KEYS.ahk" { NMPGSCROLL_KEYS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\NMPGSCROLL_DIR.ahk" { NMPGSCROLL_DIR }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains and receives information that the pager control uses when scrolling the contained window. It is used with the PGN_SCROLL notification.

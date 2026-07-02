@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IStreamSample.ahk" { IStreamSample }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Note  This interface is deprecated.
@@ -96,7 +96,7 @@ export default struct IAMMediaTypeSample extends IStreamSample {
     SetPointer(pBuffer, lSize) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, pBufferMarshal, pBuffer, "int", lSize, "HRESULT")
+        result := ComCall(8, this, pBufferMarshal, pBuffer, Int32, lSize, "HRESULT")
         return result
     }
 
@@ -278,7 +278,7 @@ export default struct IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-setactualdatalength
      */
     SetActualDataLength(__MIDL__IAMMediaTypeSample0000) {
-        result := ComCall(18, this, "int", __MIDL__IAMMediaTypeSample0000, "HRESULT")
+        result := ComCall(18, this, Int32, __MIDL__IAMMediaTypeSample0000, "HRESULT")
         return result
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WTSSBX_MACHINE_CONNECT_INFO.ahk" { WTSSBX_MACHINE_CONNECT_INFO }
-#Import ".\WTSSBX_MACHINE_INFO.ahk" { WTSSBX_MACHINE_INFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WTSSBX_NOTIFICATION_TYPE.ahk" { WTSSBX_NOTIFICATION_TYPE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WTSSBX_IP_ADDRESS.ahk" { WTSSBX_IP_ADDRESS }
+#Import ".\WTSSBX_NOTIFICATION_TYPE.ahk" { WTSSBX_NOTIFICATION_TYPE }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WTSSBX_MACHINE_CONNECT_INFO.ahk" { WTSSBX_MACHINE_CONNECT_INFO }
 #Import ".\WTSSBX_SESSION_INFO.ahk" { WTSSBX_SESSION_INFO }
+#Import ".\WTSSBX_MACHINE_INFO.ahk" { WTSSBX_MACHINE_INFO }
 
 /**
  * Used to extend the capabilities of Terminal Services Session Broker (TS�Session Broker). Implement this interface when you want to provide a plug-in that overrides the redirection logic of TS�Session Broker.
@@ -87,7 +87,7 @@ export default struct IWTSSBPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tssbx/nf-tssbx-iwtssbplugin-wtssbx_machinechangenotification
      */
     WTSSBX_MachineChangeNotification(NotificationType, MachineId, pMachineInfo) {
-        result := ComCall(4, this, WTSSBX_NOTIFICATION_TYPE, NotificationType, "int", MachineId, WTSSBX_MACHINE_INFO.Ptr, pMachineInfo, "HRESULT")
+        result := ComCall(4, this, WTSSBX_NOTIFICATION_TYPE, NotificationType, Int32, MachineId, WTSSBX_MACHINE_INFO.Ptr, pMachineInfo, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct IWTSSBPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tssbx/nf-tssbx-iwtssbplugin-wtssbx_sessionchangenotification
      */
     WTSSBX_SessionChangeNotification(NotificationType, MachineId, NumOfSessions, SessionInfo) {
-        result := ComCall(5, this, WTSSBX_NOTIFICATION_TYPE, NotificationType, "int", MachineId, "uint", NumOfSessions, WTSSBX_SESSION_INFO.Ptr, SessionInfo, "HRESULT")
+        result := ComCall(5, this, WTSSBX_NOTIFICATION_TYPE, NotificationType, Int32, MachineId, UInt32, NumOfSessions, WTSSBX_SESSION_INFO.Ptr, SessionInfo, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides an entry point through which refreshable objects such as enumerators or refresher objects, can be refreshed.
@@ -61,7 +61,7 @@ export default struct IWbemRefresher extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemrefresher-refresh
      */
     Refresh(lFlags) {
-        result := ComCall(3, this, "int", lFlags, "HRESULT")
+        result := ComCall(3, this, Int32, lFlags, "HRESULT")
         return result
     }
 

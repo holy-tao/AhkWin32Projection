@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IShellView.ahk" { IShellView }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICommDlgBrowser.ahk" { ICommDlgBrowser }
-#Import ".\IShellView.ahk" { IShellView }
 
 /**
  * Extends the capabilities of ICommDlgBrowser. This interface is exposed by the common file dialog boxes when they host a Shell browser. A pointer to ICommDlgBrowser2 can be obtained by calling QueryInterface on the IShellBrowser object.
@@ -68,7 +68,7 @@ export default struct ICommDlgBrowser2 extends ICommDlgBrowser {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser2-notify
      */
     Notify(ppshv, dwNotifyType) {
-        result := ComCall(6, this, "ptr", ppshv, "uint", dwNotifyType, "HRESULT")
+        result := ComCall(6, this, "ptr", ppshv, UInt32, dwNotifyType, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct ICommDlgBrowser2 extends ICommDlgBrowser {
     GetDefaultMenuText(ppshv, pszText, cchMax) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(7, this, "ptr", ppshv, "ptr", pszText, "int", cchMax, "HRESULT")
+        result := ComCall(7, this, "ptr", ppshv, "ptr", pszText, Int32, cchMax, "HRESULT")
         return result
     }
 

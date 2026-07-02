@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IXpsSignatureBlock.ahk" { IXpsSignatureBlock }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A collection of IXpsSignatureBlock interfaces.
@@ -65,7 +65,7 @@ export default struct IXpsSignatureBlockCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblockcollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &signatureBlock := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &signatureBlock := 0, "HRESULT")
         return IXpsSignatureBlock(signatureBlock)
     }
 
@@ -82,7 +82,7 @@ export default struct IXpsSignatureBlockCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblockcollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(5, this, "uint", index, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "HRESULT")
         return result
     }
 

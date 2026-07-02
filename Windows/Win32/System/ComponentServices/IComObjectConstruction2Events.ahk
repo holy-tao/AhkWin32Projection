@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber if a constructed object is created.
@@ -52,7 +52,7 @@ export default struct IComObjectConstruction2Events extends IUnknown {
     OnObjectConstruct2(pInfo, guidObject, sConstructString, oid, guidPartition) {
         sConstructString := sConstructString is String ? StrPtr(sConstructString) : sConstructString
 
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, "ptr", sConstructString, "uint", oid, Guid.Ptr, guidPartition, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, "ptr", sConstructString, Int64, oid, Guid.Ptr, guidPartition, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DBROWWATCHCHANGE.ahk" { DBROWWATCHCHANGE }
 #Import ".\IRowsetWatchAll.ahk" { IRowsetWatchAll }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -47,7 +47,7 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
      * @returns {Pointer} 
      */
     CreateWatchRegion(dwWatchMode) {
-        result := ComCall(6, this, "uint", dwWatchMode, "ptr*", &phRegion := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwWatchMode, "ptr*", &phRegion := 0, "HRESULT")
         return phRegion
     }
 
@@ -58,7 +58,7 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
      * @returns {HRESULT} 
      */
     ChangeWatchMode(hRegion, dwWatchMode) {
-        result := ComCall(7, this, "ptr", hRegion, "uint", dwWatchMode, "HRESULT")
+        result := ComCall(7, this, IntPtr, hRegion, UInt32, dwWatchMode, "HRESULT")
         return result
     }
 
@@ -68,7 +68,7 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
      * @returns {HRESULT} 
      */
     DeleteWatchRegion(hRegion) {
-        result := ComCall(8, this, "ptr", hRegion, "HRESULT")
+        result := ComCall(8, this, IntPtr, hRegion, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
         ppBookmarkMarshal := ppBookmark is VarRef ? "ptr*" : "ptr"
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", hRegion, pdwWatchModeMarshal, pdwWatchMode, phChapterMarshal, phChapter, pcbBookmarkMarshal, pcbBookmark, ppBookmarkMarshal, ppBookmark, pcRowsMarshal, pcRows, "HRESULT")
+        result := ComCall(9, this, IntPtr, hRegion, pdwWatchModeMarshal, pdwWatchMode, phChapterMarshal, phChapter, pcbBookmarkMarshal, pcbBookmark, ppBookmarkMarshal, ppBookmark, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
     ShrinkWatchRegion(hRegion, hChapter, cbBookmark, pBookmark, cRows) {
         pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, "ptr", hRegion, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", cRows, "HRESULT")
+        result := ComCall(11, this, IntPtr, hRegion, IntPtr, hChapter, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, IntPtr, cRows, "HRESULT")
         return result
     }
 

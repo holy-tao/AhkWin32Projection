@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
-#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 #Import ".\CHANGER_ELEMENT_LIST.ahk" { CHANGER_ELEMENT_LIST }
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 
 /**
  * Contains information that the IOCTL_CHANGER_GET_ELEMENT_STATUS control code needs to determine the elements whose status is to be retrieved.

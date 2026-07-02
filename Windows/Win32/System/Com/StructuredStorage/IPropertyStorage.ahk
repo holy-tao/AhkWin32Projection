@@ -2,13 +2,13 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\PROPSPEC.ahk" { PROPSPEC }
+#Import "..\IUnknown.ahk" { IUnknown }
 #Import ".\STATPROPSETSTG.ahk" { STATPROPSETSTG }
-#Import ".\IEnumSTATPROPSTG.ahk" { IEnumSTATPROPSTG }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import ".\PROPSPEC.ahk" { PROPSPEC }
+#Import ".\IEnumSTATPROPSTG.ahk" { IEnumSTATPROPSTG }
 
 /**
  * The IPropertyStorage interface manages the persistent properties of a single property set. (IPropertyStorage interface)
@@ -68,7 +68,7 @@ export default struct IPropertyStorage extends IUnknown {
      */
     ReadMultiple(cpspec, rgpspec) {
         rgpropvar := PROPVARIANT()
-        result := ComCall(3, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
+        result := ComCall(3, this, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
         return rgpropvar
     }
 
@@ -109,7 +109,7 @@ export default struct IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-writemultiple
      */
     WriteMultiple(cpspec, rgpspec, rgpropvar, propidNameFirst) {
-        result := ComCall(4, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "uint", propidNameFirst, "HRESULT")
+        result := ComCall(4, this, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, UInt32, propidNameFirst, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-deletemultiple
      */
     DeleteMultiple(cpspec, rgpspec) {
-        result := ComCall(5, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, "HRESULT")
+        result := ComCall(5, this, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IPropertyStorage extends IUnknown {
     ReadPropertyNames(cpropid, rgpropid) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, PWSTR.Ptr, &rglpwstrName := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, cpropid, rgpropidMarshal, rgpropid, PWSTR.Ptr, &rglpwstrName := 0, "HRESULT")
         return rglpwstrName
     }
 
@@ -176,7 +176,7 @@ export default struct IPropertyStorage extends IUnknown {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
         rglpwstrNameMarshal := rglpwstrName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", cpropid, rgpropidMarshal, rgpropid, rglpwstrNameMarshal, rglpwstrName, "HRESULT")
+        result := ComCall(7, this, UInt32, cpropid, rgpropidMarshal, rgpropid, rglpwstrNameMarshal, rglpwstrName, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct IPropertyStorage extends IUnknown {
     DeletePropertyNames(cpropid, rgpropid) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", cpropid, rgpropidMarshal, rgpropid, "HRESULT")
+        result := ComCall(8, this, UInt32, cpropid, rgpropidMarshal, rgpropid, "HRESULT")
         return result
     }
 
@@ -267,7 +267,7 @@ export default struct IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-commit
      */
     Commit(grfCommitFlags) {
-        result := ComCall(9, this, "uint", grfCommitFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, grfCommitFlags, "HRESULT")
         return result
     }
 

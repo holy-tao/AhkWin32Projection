@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\INameSpaceTreeControl.ahk" { INameSpaceTreeControl }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\NSTCSTYLE2.ahk" { NSTCSTYLE2 }
-#Import ".\INameSpaceTreeControl.ahk" { INameSpaceTreeControl }
 
 /**
  * Extends the INameSpaceTreeControl interface by providing methods that get and set the display styles of treeview controls for use with Shell namespace items.
@@ -62,7 +62,7 @@ export default struct INameSpaceTreeControl2 extends INameSpaceTreeControl {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-setcontrolstyle
      */
     SetControlStyle(nstcsMask, nstcsStyle) {
-        result := ComCall(22, this, "uint", nstcsMask, "uint", nstcsStyle, "HRESULT")
+        result := ComCall(22, this, UInt32, nstcsMask, UInt32, nstcsStyle, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct INameSpaceTreeControl2 extends INameSpaceTreeControl {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-getcontrolstyle
      */
     GetControlStyle(nstcsMask) {
-        result := ComCall(23, this, "uint", nstcsMask, "uint*", &pnstcsStyle := 0, "HRESULT")
+        result := ComCall(23, this, UInt32, nstcsMask, "uint*", &pnstcsStyle := 0, "HRESULT")
         return pnstcsStyle
     }
 

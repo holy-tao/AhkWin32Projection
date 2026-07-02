@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
 #Import ".\RASTUNNELENDPOINT.ahk" { RASTUNNELENDPOINT }
-#Import ".\RASCONNSUBSTATE.ahk" { RASCONNSUBSTATE }
-#Import ".\RASCONNSTATE.ahk" { RASCONNSTATE }
 #Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\RASCONNSTATE.ahk" { RASCONNSTATE }
+#Import ".\RASCONNSUBSTATE.ahk" { RASCONNSUBSTATE }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**

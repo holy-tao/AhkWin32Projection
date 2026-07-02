@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IGPMBackupCollection interface contains methods that enable applications to access a collection of GPMBackup objects when using the Group Policy Management Console (GPMC) interfaces.
@@ -82,7 +82,7 @@ export default struct IGPMBackupCollection extends IDispatch {
      */
     get_Item(lIndex) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", lIndex, VARIANT.Ptr, pVal, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 

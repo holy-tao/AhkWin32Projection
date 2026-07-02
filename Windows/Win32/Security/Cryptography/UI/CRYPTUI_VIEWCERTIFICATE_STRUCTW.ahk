@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
-#Import ".\CRYPTUI_VIEWCERTIFICATE_FLAGS.ahk" { CRYPTUI_VIEWCERTIFICATE_FLAGS }
-#Import "..\..\..\UI\Controls\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
-#Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\HCERTSTORE.ahk" { HCERTSTORE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\..\UI\Controls\PROPSHEETPAGEW.ahk" { PROPSHEETPAGEW }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CRYPTUI_VIEWCERTIFICATE_FLAGS.ahk" { CRYPTUI_VIEWCERTIFICATE_FLAGS }
 
 /**
  * Contains information about a certificate to view. This structure is used in the CryptUIDlgViewCertificate function. (Unicode)

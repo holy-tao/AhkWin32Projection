@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a method that allows content protection systems to perform a handshake with the protected environment. This is needed because the CreateFile and DeviceIoControl APIs are not available to Windows Store apps.
@@ -70,7 +70,7 @@ export default struct IMFProtectedEnvironmentAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfprotectedenvironmentaccess-call
      */
     Call(inputLength, _input, outputLength, output) {
-        result := ComCall(3, this, "uint", inputLength, "ptr", _input, "uint", outputLength, "ptr", output, "HRESULT")
+        result := ComCall(3, this, UInt32, inputLength, IntPtr, _input, UInt32, outputLength, IntPtr, output, "HRESULT")
         return result
     }
 

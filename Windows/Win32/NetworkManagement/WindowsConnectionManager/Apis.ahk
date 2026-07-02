@@ -1,13 +1,14 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WCM_PROFILE_INFO_LIST.ahk" { WCM_PROFILE_INFO_LIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WCM_PROPERTY.ahk" { WCM_PROPERTY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ONDEMAND_NOTIFICATION_CALLBACK.ahk" { ONDEMAND_NOTIFICATION_CALLBACK }
 #Import ".\NET_INTERFACE_CONTEXT_TABLE.ahk" { NET_INTERFACE_CONTEXT_TABLE }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WCM_PROFILE_INFO_LIST.ahk" { WCM_PROFILE_INFO_LIST }
-#Import ".\WCM_PROPERTY.ahk" { WCM_PROPERTY }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
@@ -177,7 +178,7 @@ export WcmSetProperty(pInterface, strProfileName, _Property, dwDataSize, pbData)
 
     pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-    result := DllCall("wcmapi.dll\WcmSetProperty", Guid.Ptr, pInterface, "ptr", strProfileName, WCM_PROPERTY, _Property, "ptr", pReserved, "uint", dwDataSize, pbDataMarshal, pbData, UInt32)
+    result := DllCall("wcmapi.dll\WcmSetProperty", Guid.Ptr, pInterface, "ptr", strProfileName, WCM_PROPERTY, _Property, "ptr", pReserved, UInt32, dwDataSize, pbDataMarshal, pbData, UInt32)
     return result
 }
 
@@ -221,7 +222,7 @@ export WcmGetProfileList(ppProfileList) {
 export WcmSetProfileList(pProfileList, dwPosition, fIgnoreUnknownProfiles) {
     static pReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("wcmapi.dll\WcmSetProfileList", WCM_PROFILE_INFO_LIST.Ptr, pProfileList, "uint", dwPosition, BOOL, fIgnoreUnknownProfiles, "ptr", pReserved, UInt32)
+    result := DllCall("wcmapi.dll\WcmSetProfileList", WCM_PROFILE_INFO_LIST.Ptr, pProfileList, UInt32, dwPosition, BOOL, fIgnoreUnknownProfiles, "ptr", pReserved, UInt32)
     return result
 }
 
@@ -271,7 +272,7 @@ export OnDemandRegisterNotification(callback, callbackContext) {
     callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
 
     registrationHandle := HANDLE.Owned()
-    result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, callbackContextMarshal, callbackContext, HANDLE.Ptr, registrationHandle, "HRESULT")
+    result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", ONDEMAND_NOTIFICATION_CALLBACK, callback, callbackContextMarshal, callbackContext, HANDLE.Ptr, registrationHandle, "HRESULT")
     return registrationHandle
 }
 
@@ -320,7 +321,7 @@ export GetInterfaceContextTableForHostName(HostName, ProxyName, Flags, Connectio
     HostName := HostName is String ? StrPtr(HostName) : HostName
     ProxyName := ProxyName is String ? StrPtr(ProxyName) : ProxyName
 
-    result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr*", &InterfaceContextTable := 0, "HRESULT")
+    result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, UInt32, Flags, IntPtr, ConnectionProfileFilterRawData, UInt32, ConnectionProfileFilterRawDataSize, "ptr*", &InterfaceContextTable := 0, "HRESULT")
     return InterfaceContextTable
 }
 

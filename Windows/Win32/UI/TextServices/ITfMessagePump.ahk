@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
@@ -90,7 +90,7 @@ export default struct ITfMessagePump extends IUnknown {
     PeekMessageA(pMsg, _hwnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg, pfResult) {
         pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, MSG.Ptr, pMsg, HWND, _hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, pfResultMarshal, pfResult, "HRESULT")
+        result := ComCall(3, this, MSG.Ptr, pMsg, HWND, _hwnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, UInt32, wRemoveMsg, pfResultMarshal, pfResult, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct ITfMessagePump extends IUnknown {
     GetMessageA(pMsg, _hwnd, wMsgFilterMin, wMsgFilterMax, pfResult) {
         pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, MSG.Ptr, pMsg, HWND, _hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, pfResultMarshal, pfResult, "HRESULT")
+        result := ComCall(4, this, MSG.Ptr, pMsg, HWND, _hwnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, pfResultMarshal, pfResult, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct ITfMessagePump extends IUnknown {
     PeekMessageW(pMsg, _hwnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg, pfResult) {
         pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, MSG.Ptr, pMsg, HWND, _hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, pfResultMarshal, pfResult, "HRESULT")
+        result := ComCall(5, this, MSG.Ptr, pMsg, HWND, _hwnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, UInt32, wRemoveMsg, pfResultMarshal, pfResult, "HRESULT")
         return result
     }
 
@@ -235,7 +235,7 @@ export default struct ITfMessagePump extends IUnknown {
     GetMessageW(pMsg, _hwnd, wMsgFilterMin, wMsgFilterMax, pfResult) {
         pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, MSG.Ptr, pMsg, HWND, _hwnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, pfResultMarshal, pfResult, "HRESULT")
+        result := ComCall(6, this, MSG.Ptr, pMsg, HWND, _hwnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, pfResultMarshal, pfResult, "HRESULT")
         return result
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
-#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
 #Import ".\ISCPSecureQuery2.ahk" { ISCPSecureQuery2 }
-#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
+#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
 
 /**
  * The ISCPSecureQuery3 interface extends ISCPSecureQuery2 by providing a set of new methods for retrieving the rights and making decision on a clear channel.
@@ -127,7 +127,7 @@ export default struct ISCPSecureQuery3 extends ISCPSecureQuery2 {
         ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
         pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, pDataMarshal, pData, "uint", dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStgGlobals, "ptr", pProgressCallback, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
+        result := ComCall(8, this, pDataMarshal, pData, UInt32, dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStgGlobals, "ptr", pProgressCallback, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
         return result
     }
 
@@ -285,7 +285,7 @@ export default struct ISCPSecureQuery3 extends ISCPSecureQuery2 {
         pdwRevocationBitFlagMarshal := pdwRevocationBitFlag is VarRef ? "uint*" : "ptr"
         pqwFileSizeMarshal := pqwFileSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", fuFlags, pDataMarshal, pData, "uint", dwSize, "uint", dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, "ptr", pProgressCallback, pAppCertAppMarshal, pAppCertApp, "uint", dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, "uint", dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, "ptr", pUnknown, ISCPSecureExchange.Ptr, ppExchange, "HRESULT")
+        result := ComCall(9, this, UInt32, fuFlags, pDataMarshal, pData, UInt32, dwSize, UInt32, dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStorageGlobals, "ptr", pProgressCallback, pAppCertAppMarshal, pAppCertApp, UInt32, dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, UInt32, dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, "ptr", pUnknown, ISCPSecureExchange.Ptr, ppExchange, "HRESULT")
         return result
     }
 

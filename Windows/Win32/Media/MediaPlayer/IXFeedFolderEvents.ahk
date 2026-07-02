@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -137,7 +137,7 @@ export default struct IXFeedFolderEvents extends IUnknown {
     FolderItemCountChanged(pszPath, feicfFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(9, this, "ptr", pszPath, "int", feicfFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", pszPath, Int32, feicfFlags, "HRESULT")
         return result
     }
 
@@ -253,7 +253,7 @@ export default struct IXFeedFolderEvents extends IUnknown {
     FeedItemCountChanged(pszPath, feicfFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(18, this, "ptr", pszPath, "int", feicfFlags, "HRESULT")
+        result := ComCall(18, this, "ptr", pszPath, Int32, feicfFlags, "HRESULT")
         return result
     }
 

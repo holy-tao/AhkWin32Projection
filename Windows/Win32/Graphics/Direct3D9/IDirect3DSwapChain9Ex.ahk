@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
-#Import ".\IDirect3DSwapChain9.ahk" { IDirect3DSwapChain9 }
 #Import ".\D3DPRESENTSTATS.ahk" { D3DPRESENTSTATS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
+#Import ".\IDirect3DSwapChain9.ahk" { IDirect3DSwapChain9 }
 
 /**
  * Applications use the methods of the IDirect3DSwapChain9Ex interface to manipulate a swap chain.

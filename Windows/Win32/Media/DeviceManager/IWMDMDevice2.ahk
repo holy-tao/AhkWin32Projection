@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\WMFILECAPABILITIES.ahk" { WMFILECAPABILITIES }
-#Import "..\..\System\Ole\ISpecifyPropertyPages.ahk" { ISpecifyPropertyPages }
 #Import ".\IWMDMStorage.ahk" { IWMDMStorage }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMFILECAPABILITIES.ahk" { WMFILECAPABILITIES }
+#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWMDMDevice.ahk" { IWMDMDevice }
-#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
+#Import "..\..\System\Ole\ISpecifyPropertyPages.ahk" { ISpecifyPropertyPages }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * The IWMDMDevice2 interface extends IWMDMDevice by making it possible to get the video formats supported by a device, find storage from its name, and use property pages.
@@ -112,7 +112,7 @@ export default struct IWMDMDevice2 extends IWMDMDevice {
         ppFileTypeMarshal := ppFileType is VarRef ? "ptr*" : "ptr"
         pnFileTypeCountMarshal := pnFileTypeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwFlags, ppAudioFormatExMarshal, ppAudioFormatEx, pnAudioFormatCountMarshal, pnAudioFormatCount, ppVideoFormatExMarshal, ppVideoFormatEx, pnVideoFormatCountMarshal, pnVideoFormatCount, ppFileTypeMarshal, ppFileType, pnFileTypeCountMarshal, pnFileTypeCount, "HRESULT")
+        result := ComCall(15, this, UInt32, dwFlags, ppAudioFormatExMarshal, ppAudioFormatEx, pnAudioFormatCountMarshal, pnAudioFormatCount, ppVideoFormatExMarshal, ppVideoFormatEx, pnVideoFormatCountMarshal, pnVideoFormatCount, ppFileTypeMarshal, ppFileType, pnFileTypeCountMarshal, pnFileTypeCount, "HRESULT")
         return result
     }
 
@@ -206,7 +206,7 @@ export default struct IWMDMDevice2 extends IWMDMDevice {
     GetCanonicalName(pwszPnPName, nMaxChars) {
         pwszPnPName := pwszPnPName is String ? StrPtr(pwszPnPName) : pwszPnPName
 
-        result := ComCall(17, this, "ptr", pwszPnPName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(17, this, "ptr", pwszPnPName, UInt32, nMaxChars, "HRESULT")
         return result
     }
 

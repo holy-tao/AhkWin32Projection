@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IHTMLEventObj.ahk" { IHTMLEventObj }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -46,7 +46,7 @@ export default struct IHTMLEditDesigner extends IUnknown {
      * @returns {HRESULT} 
      */
     PreHandleEvent(inEvtDispId, pIEventObj) {
-        result := ComCall(3, this, "int", inEvtDispId, "ptr", pIEventObj, "HRESULT")
+        result := ComCall(3, this, Int32, inEvtDispId, "ptr", pIEventObj, "HRESULT")
         return result
     }
 
@@ -57,7 +57,7 @@ export default struct IHTMLEditDesigner extends IUnknown {
      * @returns {HRESULT} 
      */
     PostHandleEvent(inEvtDispId, pIEventObj) {
-        result := ComCall(4, this, "int", inEvtDispId, "ptr", pIEventObj, "HRESULT")
+        result := ComCall(4, this, Int32, inEvtDispId, "ptr", pIEventObj, "HRESULT")
         return result
     }
 
@@ -97,7 +97,7 @@ export default struct IHTMLEditDesigner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-translateacceleratora
      */
     TranslateAccelerator(inEvtDispId, pIEventObj) {
-        result := ComCall(5, this, "int", inEvtDispId, "ptr", pIEventObj, "HRESULT")
+        result := ComCall(5, this, Int32, inEvtDispId, "ptr", pIEventObj, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct IHTMLEditDesigner extends IUnknown {
      * @returns {HRESULT} 
      */
     PostEditorEventNotify(inEvtDispId, pIEventObj) {
-        result := ComCall(6, this, "int", inEvtDispId, "ptr", pIEventObj, "HRESULT")
+        result := ComCall(6, this, Int32, inEvtDispId, "ptr", pIEventObj, "HRESULT")
         return result
     }
 

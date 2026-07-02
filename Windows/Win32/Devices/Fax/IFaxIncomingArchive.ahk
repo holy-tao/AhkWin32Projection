@@ -4,9 +4,9 @@
 #Import ".\IFaxIncomingMessageIterator.ahk" { IFaxIncomingMessageIterator }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFaxIncomingMessage.ahk" { IFaxIncomingMessage }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxIncomingArchive interface is used by a fax client application to access and configure the archive of inbound fax messages received successfully by the fax service.
@@ -243,7 +243,7 @@ export default struct IFaxIncomingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingarchive-put_highquotawatermark
      */
     put_HighQuotaWaterMark(lHighQuotaWaterMark) {
-        result := ComCall(14, this, "int", lHighQuotaWaterMark, "HRESULT")
+        result := ComCall(14, this, Int32, lHighQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -272,7 +272,7 @@ export default struct IFaxIncomingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingarchive-put_lowquotawatermark
      */
     put_LowQuotaWaterMark(lLowQuotaWaterMark) {
-        result := ComCall(16, this, "int", lLowQuotaWaterMark, "HRESULT")
+        result := ComCall(16, this, Int32, lLowQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -301,7 +301,7 @@ export default struct IFaxIncomingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingarchive-put_agelimit
      */
     put_AgeLimit(lAgeLimit) {
-        result := ComCall(18, this, "int", lAgeLimit, "HRESULT")
+        result := ComCall(18, this, Int32, lAgeLimit, "HRESULT")
         return result
     }
 
@@ -386,7 +386,7 @@ export default struct IFaxIncomingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingarchive-getmessages
      */
     GetMessages(lPrefetchSize) {
-        result := ComCall(23, this, "int", lPrefetchSize, "ptr*", &pFaxIncomingMessageIterator := 0, "HRESULT")
+        result := ComCall(23, this, Int32, lPrefetchSize, "ptr*", &pFaxIncomingMessageIterator := 0, "HRESULT")
         return IFaxIncomingMessageIterator(pFaxIncomingMessageIterator)
     }
 

@@ -107,7 +107,7 @@ export default struct IWMDeviceManager3 extends IWMDeviceManager2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdevicemanager3-setdeviceenumpreference
      */
     SetDeviceEnumPreference(dwEnumPref) {
-        result := ComCall(9, this, "uint", dwEnumPref, "HRESULT")
+        result := ComCall(9, this, UInt32, dwEnumPref, "HRESULT")
         return result
     }
 

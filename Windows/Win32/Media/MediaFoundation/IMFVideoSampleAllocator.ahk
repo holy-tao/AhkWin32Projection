@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFSample.ahk" { IMFSample }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\IMFSample.ahk" { IMFSample }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Allocates video samples for a video media sink.
@@ -140,7 +140,7 @@ export default struct IMFVideoSampleAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocator-initializesampleallocator
      */
     InitializeSampleAllocator(cRequestedFrames, pMediaType) {
-        result := ComCall(5, this, "uint", cRequestedFrames, "ptr", pMediaType, "HRESULT")
+        result := ComCall(5, this, UInt32, cRequestedFrames, "ptr", pMediaType, "HRESULT")
         return result
     }
 

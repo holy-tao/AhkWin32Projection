@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMReaderTimecode interface provides access to information about SMPTE (Society of Motion Picture and Television Engineers) time code ranges.
@@ -45,7 +45,7 @@ export default struct IWMReaderTimecode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangecount
      */
     GetTimecodeRangeCount(wStreamNum) {
-        result := ComCall(3, this, "ushort", wStreamNum, "ushort*", &pwRangeCount := 0, "HRESULT")
+        result := ComCall(3, this, UInt16, wStreamNum, "ushort*", &pwRangeCount := 0, "HRESULT")
         return pwRangeCount
     }
 
@@ -80,7 +80,7 @@ export default struct IWMReaderTimecode extends IUnknown {
         pStartTimecodeMarshal := pStartTimecode is VarRef ? "uint*" : "ptr"
         pEndTimecodeMarshal := pEndTimecode is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ushort", wStreamNum, "ushort", wRangeNum, pStartTimecodeMarshal, pStartTimecode, pEndTimecodeMarshal, pEndTimecode, "HRESULT")
+        result := ComCall(4, this, UInt16, wStreamNum, UInt16, wRangeNum, pStartTimecodeMarshal, pStartTimecode, pEndTimecodeMarshal, pEndTimecode, "HRESULT")
         return result
     }
 

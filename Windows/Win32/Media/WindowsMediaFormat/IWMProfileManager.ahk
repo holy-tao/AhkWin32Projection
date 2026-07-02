@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMT_VERSION.ahk" { WMT_VERSION }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWMProfile.ahk" { IWMProfile }
+#Import ".\WMT_VERSION.ahk" { WMT_VERSION }
 
 /**
  * The IWMProfileManager interface is used to create profiles, load existing profiles, and save profiles.
@@ -180,7 +180,7 @@ export default struct IWMProfileManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager-loadsystemprofile
      */
     LoadSystemProfile(dwProfileIndex) {
-        result := ComCall(8, this, "uint", dwProfileIndex, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwProfileIndex, "ptr*", &ppProfile := 0, "HRESULT")
         return IWMProfile(ppProfile)
     }
 

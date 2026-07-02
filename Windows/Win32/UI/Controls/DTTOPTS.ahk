@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\DTT_CALLBACK_PROC.ahk" { DTT_CALLBACK_PROC }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\DTTOPTS_FLAGS.ahk" { DTTOPTS_FLAGS }
 
 /**
@@ -265,7 +266,7 @@ export default struct DTTOPTS {
      * 
      * Pointer to callback function for <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-drawthemetextex">DrawThemeTextEx</a>.
      */
-    pfnDrawTextCallback : IntPtr
+    pfnDrawTextCallback : DTT_CALLBACK_PROC
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>

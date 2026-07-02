@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -49,7 +49,7 @@ export default struct ISpErrorLog extends IUnknown {
         pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
         pszHelpFile := pszHelpFile is String ? StrPtr(pszHelpFile) : pszHelpFile
 
-        result := ComCall(3, this, "int", lLineNumber, "int", hr, "ptr", pszDescription, "ptr", pszHelpFile, "uint", dwHelpContext, "HRESULT")
+        result := ComCall(3, this, Int32, lLineNumber, "int", hr, "ptr", pszDescription, "ptr", pszHelpFile, UInt32, dwHelpContext, "HRESULT")
         return result
     }
 

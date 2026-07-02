@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_POLICY_FLAG.ahk" { IPSEC_POLICY_FLAG }
-#Import ".\IPSEC_SA_IDLE_TIMEOUT0.ahk" { IPSEC_SA_IDLE_TIMEOUT0 }
-#Import ".\IPSEC_PROPOSAL0.ahk" { IPSEC_PROPOSAL0 }
 #Import ".\IKEEXT_EM_POLICY2.ahk" { IKEEXT_EM_POLICY2 }
+#Import ".\IPSEC_POLICY_FLAG.ahk" { IPSEC_POLICY_FLAG }
+#Import ".\IPSEC_PROPOSAL0.ahk" { IPSEC_PROPOSAL0 }
+#Import ".\IPSEC_SA_IDLE_TIMEOUT0.ahk" { IPSEC_SA_IDLE_TIMEOUT0 }
 
 /**
  * Stores the quick mode negotiation policy for transport mode IPsec. (IPSEC_TRANSPORT_POLICY2)

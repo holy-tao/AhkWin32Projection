@@ -45,7 +45,7 @@ export default struct IApartmentShutdown extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iapartmentshutdown-onuninitialize
      */
     OnUninitialize(ui64ApartmentIdentifier) {
-        ComCall(3, this, "uint", ui64ApartmentIdentifier)
+        ComCall(3, this, Int64, ui64ApartmentIdentifier)
     }
 
     Query(iid) {

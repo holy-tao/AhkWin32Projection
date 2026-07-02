@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
-#Import "..\Com\TYPEDESC.ahk" { TYPEDESC }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\VARDESC.ahk" { VARDESC }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Com\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
-#Import "..\Com\FUNCDESC.ahk" { FUNCDESC }
 #Import "..\Com\IDLDESC.ahk" { IDLDESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\VARDESC.ahk" { VARDESC }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\FUNCDESC.ahk" { FUNCDESC }
+#Import "..\Com\TYPEDESC.ahk" { TYPEDESC }
+#Import "..\Com\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
 
 /**
  * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo)
@@ -221,7 +221,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-settypeflags
      */
     SetTypeFlags(uTypeFlags) {
-        result := ComCall(4, this, "uint", uTypeFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, uTypeFlags, "HRESULT")
         return result
     }
 
@@ -379,7 +379,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-sethelpcontext
      */
     SetHelpContext(dwHelpContext) {
-        result := ComCall(6, this, "uint", dwHelpContext, "HRESULT")
+        result := ComCall(6, this, UInt32, dwHelpContext, "HRESULT")
         return result
     }
 
@@ -434,7 +434,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setversion
      */
     SetVersion(wMajorVerNum, wMinorVerNum) {
-        result := ComCall(7, this, "ushort", wMajorVerNum, "ushort", wMinorVerNum, "HRESULT")
+        result := ComCall(7, this, UInt16, wMajorVerNum, UInt16, wMinorVerNum, "HRESULT")
         return result
     }
 
@@ -636,7 +636,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-addfuncdesc
      */
     AddFuncDesc(index, pFuncDesc) {
-        result := ComCall(9, this, "uint", index, FUNCDESC.Ptr, pFuncDesc, "HRESULT")
+        result := ComCall(9, this, UInt32, index, FUNCDESC.Ptr, pFuncDesc, "HRESULT")
         return result
     }
 
@@ -728,7 +728,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-addimpltype
      */
     AddImplType(index, hRefType) {
-        result := ComCall(10, this, "uint", index, "uint", hRefType, "HRESULT")
+        result := ComCall(10, this, UInt32, index, UInt32, hRefType, "HRESULT")
         return result
     }
 
@@ -807,7 +807,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setimpltypeflags
      */
     SetImplTypeFlags(index, _implTypeFlags) {
-        result := ComCall(11, this, "uint", index, IMPLTYPEFLAGS, _implTypeFlags, "HRESULT")
+        result := ComCall(11, this, UInt32, index, IMPLTYPEFLAGS, _implTypeFlags, "HRESULT")
         return result
     }
 
@@ -887,7 +887,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setalignment
      */
     SetAlignment(cbAlignment) {
-        result := ComCall(12, this, "ushort", cbAlignment, "HRESULT")
+        result := ComCall(12, this, UInt16, cbAlignment, "HRESULT")
         return result
     }
 
@@ -997,7 +997,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-addvardesc
      */
     AddVarDesc(index, pVarDesc) {
-        result := ComCall(14, this, "uint", index, VARDESC.Ptr, pVarDesc, "HRESULT")
+        result := ComCall(14, this, UInt32, index, VARDESC.Ptr, pVarDesc, "HRESULT")
         return result
     }
 
@@ -1093,7 +1093,7 @@ export default struct ICreateTypeInfo extends IUnknown {
     SetFuncAndParamNames(index, rgszNames, cNames) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(15, this, "uint", index, rgszNamesMarshal, rgszNames, "uint", cNames, "HRESULT")
+        result := ComCall(15, this, UInt32, index, rgszNamesMarshal, rgszNames, UInt32, cNames, "HRESULT")
         return result
     }
 
@@ -1174,7 +1174,7 @@ export default struct ICreateTypeInfo extends IUnknown {
     SetVarName(index, szName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(16, this, "uint", index, "ptr", szName, "HRESULT")
+        result := ComCall(16, this, UInt32, index, "ptr", szName, "HRESULT")
         return result
     }
 
@@ -1361,7 +1361,7 @@ export default struct ICreateTypeInfo extends IUnknown {
         szDllName := szDllName is String ? StrPtr(szDllName) : szDllName
         szProcName := szProcName is String ? StrPtr(szProcName) : szProcName
 
-        result := ComCall(18, this, "uint", index, "ptr", szDllName, "ptr", szProcName, "HRESULT")
+        result := ComCall(18, this, UInt32, index, "ptr", szDllName, "ptr", szProcName, "HRESULT")
         return result
     }
 
@@ -1456,7 +1456,7 @@ export default struct ICreateTypeInfo extends IUnknown {
     SetFuncDocString(index, szDocString) {
         szDocString := szDocString is String ? StrPtr(szDocString) : szDocString
 
-        result := ComCall(19, this, "uint", index, "ptr", szDocString, "HRESULT")
+        result := ComCall(19, this, UInt32, index, "ptr", szDocString, "HRESULT")
         return result
     }
 
@@ -1537,7 +1537,7 @@ export default struct ICreateTypeInfo extends IUnknown {
     SetVarDocString(index, szDocString) {
         szDocString := szDocString is String ? StrPtr(szDocString) : szDocString
 
-        result := ComCall(20, this, "uint", index, "ptr", szDocString, "HRESULT")
+        result := ComCall(20, this, UInt32, index, "ptr", szDocString, "HRESULT")
         return result
     }
 
@@ -1630,7 +1630,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setfunchelpcontext
      */
     SetFuncHelpContext(index, dwHelpContext) {
-        result := ComCall(21, this, "uint", index, "uint", dwHelpContext, "HRESULT")
+        result := ComCall(21, this, UInt32, index, UInt32, dwHelpContext, "HRESULT")
         return result
     }
 
@@ -1709,7 +1709,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setvarhelpcontext
      */
     SetVarHelpContext(index, dwHelpContext) {
-        result := ComCall(22, this, "uint", index, "uint", dwHelpContext, "HRESULT")
+        result := ComCall(22, this, UInt32, index, UInt32, dwHelpContext, "HRESULT")
         return result
     }
 
@@ -1790,7 +1790,7 @@ export default struct ICreateTypeInfo extends IUnknown {
     SetMops(index, bstrMops) {
         bstrMops := bstrMops is String ? BSTR.Alloc(bstrMops).Value : bstrMops
 
-        result := ComCall(23, this, "uint", index, BSTR, bstrMops, "HRESULT")
+        result := ComCall(23, this, UInt32, index, BSTR, bstrMops, "HRESULT")
         return result
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D11Device3.ahk" { ID3D11Device3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device4 adds new methods to those in ID3D11Device3, such as RegisterDeviceRemovedEvent and UnregisterDeviceRemoved.
@@ -109,7 +109,7 @@ export default struct ID3D11Device4 extends ID3D11Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device4-unregisterdeviceremoved
      */
     UnregisterDeviceRemoved(dwCookie) {
-        ComCall(66, this, "uint", dwCookie)
+        ComCall(66, this, UInt32, dwCookie)
     }
 
     Query(iid) {

@@ -1,37 +1,39 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\WLAN_HOSTED_NETWORK_REASON.ahk" { WLAN_HOSTED_NETWORK_REASON }
-#Import ".\WLAN_FILTER_LIST_TYPE.ahk" { WLAN_FILTER_LIST_TYPE }
-#Import ".\WLAN_AVAILABLE_NETWORK_LIST_V2.ahk" { WLAN_AVAILABLE_NETWORK_LIST_V2 }
-#Import ".\WLAN_OPCODE_VALUE_TYPE.ahk" { WLAN_OPCODE_VALUE_TYPE }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
-#Import ".\WLAN_CONNECTION_PARAMETERS_V2.ahk" { WLAN_CONNECTION_PARAMETERS_V2 }
-#Import ".\WLAN_BSS_LIST.ahk" { WLAN_BSS_LIST }
 #Import ".\WLAN_INTERFACE_CAPABILITY.ahk" { WLAN_INTERFACE_CAPABILITY }
+#Import ".\WLAN_HOSTED_NETWORK_REASON.ahk" { WLAN_HOSTED_NETWORK_REASON }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import ".\WLAN_OPCODE_VALUE_TYPE.ahk" { WLAN_OPCODE_VALUE_TYPE }
+#Import ".\WLAN_CONNECTION_PARAMETERS_V2.ahk" { WLAN_CONNECTION_PARAMETERS_V2 }
 #Import ".\WLAN_SECURABLE_OBJECT.ahk" { WLAN_SECURABLE_OBJECT }
-#Import ".\WLAN_AVAILABLE_NETWORK_LIST.ahk" { WLAN_AVAILABLE_NETWORK_LIST }
-#Import ".\WLAN_INTERFACE_INFO_LIST.ahk" { WLAN_INTERFACE_INFO_LIST }
-#Import ".\WLAN_IHV_CONTROL_TYPE.ahk" { WLAN_IHV_CONTROL_TYPE }
-#Import ".\WLAN_DEVICE_SERVICE_GUID_LIST.ahk" { WLAN_DEVICE_SERVICE_GUID_LIST }
-#Import ".\WLAN_AUTOCONF_OPCODE.ahk" { WLAN_AUTOCONF_OPCODE }
-#Import ".\WLAN_CONNECTION_PARAMETERS.ahk" { WLAN_CONNECTION_PARAMETERS }
-#Import ".\DOT11_NETWORK_LIST.ahk" { DOT11_NETWORK_LIST }
-#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
-#Import ".\WLAN_NOTIFICATION_SOURCES.ahk" { WLAN_NOTIFICATION_SOURCES }
-#Import ".\WLAN_HOSTED_NETWORK_OPCODE.ahk" { WLAN_HOSTED_NETWORK_OPCODE }
-#Import ".\WLAN_HOSTED_NETWORK_STATUS.ahk" { WLAN_HOSTED_NETWORK_STATUS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk" { EAP_METHOD_TYPE }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\WLAN_INTF_OPCODE.ahk" { WLAN_INTF_OPCODE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WLAN_SET_EAPHOST_FLAGS.ahk" { WLAN_SET_EAPHOST_FLAGS }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\WLAN_RAW_DATA_LIST.ahk" { WLAN_RAW_DATA_LIST }
+#Import ".\WLAN_DEVICE_SERVICE_GUID_LIST.ahk" { WLAN_DEVICE_SERVICE_GUID_LIST }
+#Import ".\WLAN_FILTER_LIST_TYPE.ahk" { WLAN_FILTER_LIST_TYPE }
 #Import ".\WLAN_PROFILE_INFO_LIST.ahk" { WLAN_PROFILE_INFO_LIST }
-#Import ".\WL_DISPLAY_PAGES.ahk" { WL_DISPLAY_PAGES }
+#Import ".\WLAN_HOSTED_NETWORK_OPCODE.ahk" { WLAN_HOSTED_NETWORK_OPCODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WLAN_IHV_CONTROL_TYPE.ahk" { WLAN_IHV_CONTROL_TYPE }
+#Import ".\WLAN_BSS_LIST.ahk" { WLAN_BSS_LIST }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WLAN_AVAILABLE_NETWORK_LIST.ahk" { WLAN_AVAILABLE_NETWORK_LIST }
 #Import ".\WLAN_RAW_DATA.ahk" { WLAN_RAW_DATA }
+#Import ".\WLAN_INTF_OPCODE.ahk" { WLAN_INTF_OPCODE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WLAN_INTERFACE_INFO_LIST.ahk" { WLAN_INTERFACE_INFO_LIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WLAN_NOTIFICATION_SOURCES.ahk" { WLAN_NOTIFICATION_SOURCES }
+#Import ".\WLAN_CONNECTION_PARAMETERS.ahk" { WLAN_CONNECTION_PARAMETERS }
+#Import ".\WL_DISPLAY_PAGES.ahk" { WL_DISPLAY_PAGES }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\WLAN_NOTIFICATION_CALLBACK.ahk" { WLAN_NOTIFICATION_CALLBACK }
+#Import ".\WLAN_AUTOCONF_OPCODE.ahk" { WLAN_AUTOCONF_OPCODE }
+#Import ".\WFD_OPEN_SESSION_COMPLETE_CALLBACK.ahk" { WFD_OPEN_SESSION_COMPLETE_CALLBACK }
+#Import ".\WLAN_SET_EAPHOST_FLAGS.ahk" { WLAN_SET_EAPHOST_FLAGS }
+#Import "..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk" { EAP_METHOD_TYPE }
+#Import ".\DOT11_NETWORK_LIST.ahk" { DOT11_NETWORK_LIST }
+#Import ".\WLAN_HOSTED_NETWORK_STATUS.ahk" { WLAN_HOSTED_NETWORK_STATUS }
+#Import ".\WLAN_AVAILABLE_NETWORK_LIST_V2.ahk" { WLAN_AVAILABLE_NETWORK_LIST_V2 }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -138,7 +140,7 @@ export WlanOpenHandle(dwClientVersion, pdwNegotiatedVersion, phClientHandle) {
 
     pdwNegotiatedVersionMarshal := pdwNegotiatedVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanOpenHandle", "uint", dwClientVersion, "ptr", pReserved, pdwNegotiatedVersionMarshal, pdwNegotiatedVersion, HANDLE.Ptr, phClientHandle, UInt32)
+    result := DllCall("wlanapi.dll\WlanOpenHandle", UInt32, dwClientVersion, "ptr", pReserved, pdwNegotiatedVersionMarshal, pdwNegotiatedVersion, HANDLE.Ptr, phClientHandle, UInt32)
     return result
 }
 
@@ -411,7 +413,7 @@ export WlanEnumInterfaces(hClientHandle, ppInterfaceList) {
 export WlanSetAutoConfigParameter(hClientHandle, OpCode, dwDataSize, pData) {
     static pReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("wlanapi.dll\WlanSetAutoConfigParameter", HANDLE, hClientHandle, WLAN_AUTOCONF_OPCODE, OpCode, "uint", dwDataSize, "ptr", pData, "ptr", pReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanSetAutoConfigParameter", HANDLE, hClientHandle, WLAN_AUTOCONF_OPCODE, OpCode, UInt32, dwDataSize, IntPtr, pData, "ptr", pReserved, UInt32)
     return result
 }
 
@@ -764,7 +766,7 @@ export WlanGetInterfaceCapability(hClientHandle, pInterfaceGuid, ppCapability) {
 export WlanSetInterface(hClientHandle, pInterfaceGuid, OpCode, dwDataSize, pData) {
     static pReserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("wlanapi.dll\WlanSetInterface", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, WLAN_INTF_OPCODE, OpCode, "uint", dwDataSize, "ptr", pData, "ptr", pReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanSetInterface", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, WLAN_INTF_OPCODE, OpCode, UInt32, dwDataSize, IntPtr, pData, "ptr", pReserved, UInt32)
     return result
 }
 
@@ -973,7 +975,7 @@ export WlanQueryInterface(hClientHandle, pInterfaceGuid, OpCode, pdwDataSize, pp
 export WlanIhvControl(hClientHandle, pInterfaceGuid, Type, dwInBufferSize, pInBuffer, dwOutBufferSize, pOutBuffer, pdwBytesReturned) {
     pdwBytesReturnedMarshal := pdwBytesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanIhvControl", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, WLAN_IHV_CONTROL_TYPE, Type, "uint", dwInBufferSize, "ptr", pInBuffer, "uint", dwOutBufferSize, "ptr", pOutBuffer, pdwBytesReturnedMarshal, pdwBytesReturned, UInt32)
+    result := DllCall("wlanapi.dll\WlanIhvControl", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, WLAN_IHV_CONTROL_TYPE, Type, UInt32, dwInBufferSize, IntPtr, pInBuffer, UInt32, dwOutBufferSize, IntPtr, pOutBuffer, pdwBytesReturnedMarshal, pdwBytesReturned, UInt32)
     return result
 }
 
@@ -1206,7 +1208,7 @@ export WlanGetAvailableNetworkList(hClientHandle, pInterfaceGuid, dwFlags, ppAva
 
     ppAvailableNetworkListMarshal := ppAvailableNetworkList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanGetAvailableNetworkList", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "uint", dwFlags, "ptr", pReserved, ppAvailableNetworkListMarshal, ppAvailableNetworkList, UInt32)
+    result := DllCall("wlanapi.dll\WlanGetAvailableNetworkList", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, UInt32, dwFlags, "ptr", pReserved, ppAvailableNetworkListMarshal, ppAvailableNetworkList, UInt32)
     return result
 }
 
@@ -1223,7 +1225,7 @@ export WlanGetAvailableNetworkList2(hClientHandle, pInterfaceGuid, dwFlags, ppAv
 
     ppAvailableNetworkListMarshal := ppAvailableNetworkList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanGetAvailableNetworkList2", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "uint", dwFlags, "ptr", pReserved, ppAvailableNetworkListMarshal, ppAvailableNetworkList, UInt32)
+    result := DllCall("wlanapi.dll\WlanGetAvailableNetworkList2", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, UInt32, dwFlags, "ptr", pReserved, ppAvailableNetworkListMarshal, ppAvailableNetworkList, UInt32)
     return result
 }
 
@@ -1763,7 +1765,7 @@ export WlanRegisterNotification(hClientHandle, dwNotifSource, bIgnoreDuplicate, 
     pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : "ptr"
     pdwPrevNotifSourceMarshal := pdwPrevNotifSource is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanRegisterNotification", HANDLE, hClientHandle, WLAN_NOTIFICATION_SOURCES, dwNotifSource, BOOL, bIgnoreDuplicate, "ptr", funcCallback, pCallbackContextMarshal, pCallbackContext, "ptr", pReserved, pdwPrevNotifSourceMarshal, pdwPrevNotifSource, UInt32)
+    result := DllCall("wlanapi.dll\WlanRegisterNotification", HANDLE, hClientHandle, WLAN_NOTIFICATION_SOURCES, dwNotifSource, BOOL, bIgnoreDuplicate, WLAN_NOTIFICATION_CALLBACK, funcCallback, pCallbackContextMarshal, pCallbackContext, "ptr", pReserved, pdwPrevNotifSourceMarshal, pdwPrevNotifSource, UInt32)
     return result
 }
 
@@ -2137,7 +2139,7 @@ export WlanSetProfileEapUserData(hClientHandle, pInterfaceGuid, strProfileName, 
 
     strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
-    result := DllCall("wlanapi.dll\WlanSetProfileEapUserData", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "ptr", strProfileName, EAP_METHOD_TYPE, eapType, WLAN_SET_EAPHOST_FLAGS, dwFlags, "uint", dwEapUserDataSize, "ptr", pbEapUserData, "ptr", pReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanSetProfileEapUserData", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "ptr", strProfileName, EAP_METHOD_TYPE, eapType, WLAN_SET_EAPHOST_FLAGS, dwFlags, UInt32, dwEapUserDataSize, IntPtr, pbEapUserData, "ptr", pReserved, UInt32)
     return result
 }
 
@@ -2495,7 +2497,7 @@ export WlanSetProfile(hClientHandle, pInterfaceGuid, dwFlags, strProfileXml, str
 
     pdwReasonCodeMarshal := pdwReasonCode is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanSetProfile", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "uint", dwFlags, "ptr", strProfileXml, "ptr", strAllUserProfileSecurity, BOOL, bOverwrite, "ptr", pReserved, pdwReasonCodeMarshal, pdwReasonCode, UInt32)
+    result := DllCall("wlanapi.dll\WlanSetProfile", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, UInt32, dwFlags, "ptr", strProfileXml, "ptr", strAllUserProfileSecurity, BOOL, bOverwrite, "ptr", pReserved, pdwReasonCodeMarshal, pdwReasonCode, UInt32)
     return result
 }
 
@@ -2872,7 +2874,7 @@ export WlanSetProfileList(hClientHandle, pInterfaceGuid, dwItems, strProfileName
 
     strProfileNamesMarshal := strProfileNames is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanSetProfileList", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "uint", dwItems, strProfileNamesMarshal, strProfileNames, "ptr", pReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanSetProfileList", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, UInt32, dwItems, strProfileNamesMarshal, strProfileNames, "ptr", pReserved, UInt32)
     return result
 }
 
@@ -2962,7 +2964,7 @@ export WlanSetProfilePosition(hClientHandle, pInterfaceGuid, strProfileName, dwP
 
     strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
-    result := DllCall("wlanapi.dll\WlanSetProfilePosition", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "ptr", strProfileName, "uint", dwPosition, "ptr", pReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanSetProfilePosition", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "ptr", strProfileName, UInt32, dwPosition, "ptr", pReserved, UInt32)
     return result
 }
 
@@ -3050,7 +3052,7 @@ export WlanSetProfileCustomUserData(hClientHandle, pInterfaceGuid, strProfileNam
 
     strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
-    result := DllCall("wlanapi.dll\WlanSetProfileCustomUserData", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "ptr", strProfileName, "uint", dwDataSize, "ptr", pData, "ptr", pReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanSetProfileCustomUserData", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "ptr", strProfileName, UInt32, dwDataSize, IntPtr, pData, "ptr", pReserved, UInt32)
     return result
 }
 
@@ -3638,7 +3640,7 @@ export WlanSaveTemporaryProfile(hClientHandle, pInterfaceGuid, strProfileName, s
     strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
     strAllUserProfileSecurity := strAllUserProfileSecurity is String ? StrPtr(strAllUserProfileSecurity) : strAllUserProfileSecurity
 
-    result := DllCall("wlanapi.dll\WlanSaveTemporaryProfile", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "ptr", strProfileName, "ptr", strAllUserProfileSecurity, "uint", dwFlags, BOOL, bOverWrite, "ptr", pReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanSaveTemporaryProfile", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, "ptr", strProfileName, "ptr", strAllUserProfileSecurity, UInt32, dwFlags, BOOL, bOverWrite, "ptr", pReserved, UInt32)
     return result
 }
 
@@ -3679,7 +3681,7 @@ export WlanSaveTemporaryProfile(hClientHandle, pInterfaceGuid, strProfileName, s
 export WlanDeviceServiceCommand(hClientHandle, pInterfaceGuid, pDeviceServiceGuid, dwOpCode, dwInBufferSize, pInBuffer, dwOutBufferSize, pOutBuffer, pdwBytesReturned) {
     pdwBytesReturnedMarshal := pdwBytesReturned is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanDeviceServiceCommand", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, Guid.Ptr, pDeviceServiceGuid, "uint", dwOpCode, "uint", dwInBufferSize, "ptr", pInBuffer, "uint", dwOutBufferSize, "ptr", pOutBuffer, pdwBytesReturnedMarshal, pdwBytesReturned, UInt32)
+    result := DllCall("wlanapi.dll\WlanDeviceServiceCommand", HANDLE, hClientHandle, Guid.Ptr, pInterfaceGuid, Guid.Ptr, pDeviceServiceGuid, UInt32, dwOpCode, UInt32, dwInBufferSize, IntPtr, pInBuffer, UInt32, dwOutBufferSize, IntPtr, pOutBuffer, pdwBytesReturnedMarshal, pdwBytesReturned, UInt32)
     return result
 }
 
@@ -3816,7 +3818,7 @@ export WlanExtractPsdIEDataList(hClientHandle, dwIeDataSize, pRawIeData, strForm
 
     ppPsdIEDataListMarshal := ppPsdIEDataList is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanExtractPsdIEDataList", HANDLE, hClientHandle, "uint", dwIeDataSize, "ptr", pRawIeData, "ptr", strFormat, "ptr", pReserved, ppPsdIEDataListMarshal, ppPsdIEDataList, UInt32)
+    result := DllCall("wlanapi.dll\WlanExtractPsdIEDataList", HANDLE, hClientHandle, UInt32, dwIeDataSize, IntPtr, pRawIeData, "ptr", strFormat, "ptr", pReserved, ppPsdIEDataListMarshal, ppPsdIEDataList, UInt32)
     return result
 }
 
@@ -3872,7 +3874,7 @@ export WlanReasonCodeToString(dwReasonCode, dwBufferSize, pStringBuffer) {
 
     pStringBuffer := pStringBuffer is String ? StrPtr(pStringBuffer) : pStringBuffer
 
-    result := DllCall("wlanapi.dll\WlanReasonCodeToString", "uint", dwReasonCode, "uint", dwBufferSize, "ptr", pStringBuffer, "ptr", pReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanReasonCodeToString", UInt32, dwReasonCode, UInt32, dwBufferSize, "ptr", pStringBuffer, "ptr", pReserved, UInt32)
     return result
 }
 
@@ -3890,7 +3892,7 @@ export WlanReasonCodeToString(dwReasonCode, dwBufferSize, pStringBuffer) {
 export WlanAllocateMemory(dwMemorySize) {
     A_LastError := 0
 
-    result := DllCall("wlanapi.dll\WlanAllocateMemory", "uint", dwMemorySize, IntPtr)
+    result := DllCall("wlanapi.dll\WlanAllocateMemory", UInt32, dwMemorySize, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4224,7 +4226,7 @@ export WlanUIEditProfile(dwClientVersion, wstrProfileName, pInterfaceGuid, _hWnd
 
     pWlanReasonCodeMarshal := pWlanReasonCode is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wlanui.dll\WlanUIEditProfile", "uint", dwClientVersion, "ptr", wstrProfileName, Guid.Ptr, pInterfaceGuid, HWND, _hWnd, WL_DISPLAY_PAGES, wlStartPage, "ptr", pReserved, pWlanReasonCodeMarshal, pWlanReasonCode, UInt32)
+    result := DllCall("wlanui.dll\WlanUIEditProfile", UInt32, dwClientVersion, "ptr", wstrProfileName, Guid.Ptr, pInterfaceGuid, HWND, _hWnd, WL_DISPLAY_PAGES, wlStartPage, "ptr", pReserved, pWlanReasonCodeMarshal, pWlanReasonCode, UInt32)
     return result
 }
 
@@ -5017,7 +5019,7 @@ export WlanHostedNetworkSetProperty(hClientHandle, OpCode, dwDataSize, pvData, p
 
     pFailReasonMarshal := pFailReason is VarRef ? "int*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanHostedNetworkSetProperty", HANDLE, hClientHandle, WLAN_HOSTED_NETWORK_OPCODE, OpCode, "uint", dwDataSize, "ptr", pvData, pFailReasonMarshal, pFailReason, "ptr", pvReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanHostedNetworkSetProperty", HANDLE, hClientHandle, WLAN_HOSTED_NETWORK_OPCODE, OpCode, UInt32, dwDataSize, IntPtr, pvData, pFailReasonMarshal, pFailReason, "ptr", pvReserved, UInt32)
     return result
 }
 
@@ -5449,7 +5451,7 @@ export WlanHostedNetworkSetSecondaryKey(hClientHandle, dwKeyLength, pucKeyData, 
 
     pFailReasonMarshal := pFailReason is VarRef ? "int*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WlanHostedNetworkSetSecondaryKey", HANDLE, hClientHandle, "uint", dwKeyLength, "ptr", pucKeyData, BOOL, bIsPassPhrase, BOOL, bPersistent, pFailReasonMarshal, pFailReason, "ptr", pvReserved, UInt32)
+    result := DllCall("wlanapi.dll\WlanHostedNetworkSetSecondaryKey", HANDLE, hClientHandle, UInt32, dwKeyLength, IntPtr, pucKeyData, BOOL, bIsPassPhrase, BOOL, bPersistent, pFailReasonMarshal, pFailReason, "ptr", pvReserved, UInt32)
     return result
 }
 
@@ -5772,7 +5774,7 @@ export WlanRegisterVirtualStationNotification(hClientHandle, bRegister) {
 export WFDOpenHandle(dwClientVersion, pdwNegotiatedVersion, phClientHandle) {
     pdwNegotiatedVersionMarshal := pdwNegotiatedVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("wlanapi.dll\WFDOpenHandle", "uint", dwClientVersion, pdwNegotiatedVersionMarshal, pdwNegotiatedVersion, HANDLE.Ptr, phClientHandle, UInt32)
+    result := DllCall("wlanapi.dll\WFDOpenHandle", UInt32, dwClientVersion, pdwNegotiatedVersionMarshal, pdwNegotiatedVersion, HANDLE.Ptr, phClientHandle, UInt32)
     return result
 }
 
@@ -5935,7 +5937,7 @@ export WFDStartOpenSession(hClientHandle, pDeviceAddress, pvContext, _pfnCallbac
     pDeviceAddressMarshal := pDeviceAddress is VarRef ? "ptr*" : "ptr"
     pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("wlanapi.dll\WFDStartOpenSession", HANDLE, hClientHandle, pDeviceAddressMarshal, pDeviceAddress, pvContextMarshal, pvContext, "ptr", _pfnCallback, HANDLE.Ptr, phSessionHandle, UInt32)
+    result := DllCall("wlanapi.dll\WFDStartOpenSession", HANDLE, hClientHandle, pDeviceAddressMarshal, pDeviceAddress, pvContextMarshal, pvContext, WFD_OPEN_SESSION_COMPLETE_CALLBACK, _pfnCallback, HANDLE.Ptr, phSessionHandle, UInt32)
     return result
 }
 

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDWriteTextLayout.ahk" { IDWriteTextLayout }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_TEXT_RANGE.ahk" { DWRITE_TEXT_RANGE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_TEXT_RANGE.ahk" { DWRITE_TEXT_RANGE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted. (IDWriteTextLayout1)
@@ -79,7 +79,7 @@ export default struct IDWriteTextLayout1 extends IDWriteTextLayout {
     GetPairKerning(currentPosition, isPairKerningEnabled, textRange) {
         isPairKerningEnabledMarshal := isPairKerningEnabled is VarRef ? "int*" : "ptr"
 
-        result := ComCall(68, this, "uint", currentPosition, isPairKerningEnabledMarshal, isPairKerningEnabled, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
+        result := ComCall(68, this, UInt32, currentPosition, isPairKerningEnabledMarshal, isPairKerningEnabled, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -104,7 +104,7 @@ export default struct IDWriteTextLayout1 extends IDWriteTextLayout {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextlayout1-setcharacterspacing
      */
     SetCharacterSpacing(leadingSpacing, trailingSpacing, minimumAdvanceWidth, textRange) {
-        result := ComCall(69, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, DWRITE_TEXT_RANGE, textRange, "HRESULT")
+        result := ComCall(69, this, Float32, leadingSpacing, Float32, trailingSpacing, Float32, minimumAdvanceWidth, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -135,7 +135,7 @@ export default struct IDWriteTextLayout1 extends IDWriteTextLayout {
         trailingSpacingMarshal := trailingSpacing is VarRef ? "float*" : "ptr"
         minimumAdvanceWidthMarshal := minimumAdvanceWidth is VarRef ? "float*" : "ptr"
 
-        result := ComCall(70, this, "uint", currentPosition, leadingSpacingMarshal, leadingSpacing, trailingSpacingMarshal, trailingSpacing, minimumAdvanceWidthMarshal, minimumAdvanceWidth, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
+        result := ComCall(70, this, UInt32, currentPosition, leadingSpacingMarshal, leadingSpacing, trailingSpacingMarshal, trailingSpacing, minimumAdvanceWidthMarshal, minimumAdvanceWidth, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 

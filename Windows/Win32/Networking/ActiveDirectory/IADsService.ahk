@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IADs.ahk" { IADs }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsService interface is a dual interface that inherits from IADs.
@@ -243,7 +243,7 @@ export default struct IADsService extends IADs {
      * @returns {HRESULT} 
      */
     put_ServiceType(lnServiceType) {
-        result := ComCall(27, this, "int", lnServiceType, "HRESULT")
+        result := ComCall(27, this, Int32, lnServiceType, "HRESULT")
         return result
     }
 
@@ -262,7 +262,7 @@ export default struct IADsService extends IADs {
      * @returns {HRESULT} 
      */
     put_StartType(lnStartType) {
-        result := ComCall(29, this, "int", lnStartType, "HRESULT")
+        result := ComCall(29, this, Int32, lnStartType, "HRESULT")
         return result
     }
 
@@ -325,7 +325,7 @@ export default struct IADsService extends IADs {
      * @returns {HRESULT} 
      */
     put_ErrorControl(lnErrorControl) {
-        result := ComCall(35, this, "int", lnErrorControl, "HRESULT")
+        result := ComCall(35, this, Int32, lnErrorControl, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) component group descriptor.
@@ -97,7 +97,7 @@ export default struct IIsdbComponentGroupDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcomponentgroupdescriptor-getrecordgroupid
      */
     GetRecordGroupId(bRecordIndex) {
-        result := ComCall(7, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -109,7 +109,7 @@ export default struct IIsdbComponentGroupDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcomponentgroupdescriptor-getrecordnumberofcaunit
      */
     GetRecordNumberOfCAUnit(bRecordIndex) {
-        result := ComCall(8, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -123,7 +123,7 @@ export default struct IIsdbComponentGroupDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcomponentgroupdescriptor-getrecordcaunitcaunitid
      */
     GetRecordCAUnitCAUnitId(bRecordIndex, bCAUnitIndex) {
-        result := ComCall(9, this, "char", bRecordIndex, "char", bCAUnitIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(9, this, Int8, bRecordIndex, Int8, bCAUnitIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -137,7 +137,7 @@ export default struct IIsdbComponentGroupDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcomponentgroupdescriptor-getrecordcaunitnumberofcomponents
      */
     GetRecordCAUnitNumberOfComponents(bRecordIndex, bCAUnitIndex) {
-        result := ComCall(10, this, "char", bRecordIndex, "char", bCAUnitIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(10, this, Int8, bRecordIndex, Int8, bCAUnitIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -153,7 +153,7 @@ export default struct IIsdbComponentGroupDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcomponentgroupdescriptor-getrecordcaunitcomponenttag
      */
     GetRecordCAUnitComponentTag(bRecordIndex, bCAUnitIndex, bComponentIndex) {
-        result := ComCall(11, this, "char", bRecordIndex, "char", bCAUnitIndex, "char", bComponentIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(11, this, Int8, bRecordIndex, Int8, bCAUnitIndex, Int8, bComponentIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -165,7 +165,7 @@ export default struct IIsdbComponentGroupDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcomponentgroupdescriptor-getrecordtotalbitrate
      */
     GetRecordTotalBitRate(bRecordIndex) {
-        result := ComCall(12, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(12, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -179,7 +179,7 @@ export default struct IIsdbComponentGroupDescriptor extends IUnknown {
      */
     GetRecordTextW(bRecordIndex, convMode) {
         pbstrText := BSTR.Owned()
-        result := ComCall(13, this, "char", bRecordIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrText, "HRESULT")
+        result := ComCall(13, this, Int8, bRecordIndex, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrText, "HRESULT")
         return pbstrText
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmDerivedObjectsResult.ahk" { IFsrmDerivedObjectsResult }
-#Import ".\IFsrmQuotaObject.ahk" { IFsrmQuotaObject }
-#Import ".\FsrmCommitOptions.ahk" { FsrmCommitOptions }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FsrmTemplateApplyOptions.ahk" { FsrmTemplateApplyOptions }
+#Import ".\FsrmCommitOptions.ahk" { FsrmCommitOptions }
+#Import ".\IFsrmDerivedObjectsResult.ahk" { IFsrmDerivedObjectsResult }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmQuotaObject.ahk" { IFsrmQuotaObject }
 
 /**
  * Used to automatically add the quota to new and existing subdirectories of the directory on which the automatic quota is applied.

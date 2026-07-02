@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFaxIncomingJob.ahk" { IFaxIncomingJob }
+#Import ".\IFaxIncomingJobs.ahk" { IFaxIncomingJobs }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFaxIncomingJobs.ahk" { IFaxIncomingJobs }
-#Import ".\IFaxIncomingJob.ahk" { IFaxIncomingJob }
 
 /**
  * Used by a fax client application to retrieve the inbound fax jobs (FaxIncomingJobs object) in the job queue for a particular fax account.

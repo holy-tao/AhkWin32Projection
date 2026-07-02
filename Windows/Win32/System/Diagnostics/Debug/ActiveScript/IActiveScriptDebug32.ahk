@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IEnumDebugCodeContexts.ahk" { IEnumDebugCodeContexts }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumDebugCodeContexts.ahk" { IEnumDebugCodeContexts }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -54,7 +54,7 @@ export default struct IActiveScriptDebug32 extends IUnknown {
 
         pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
+        result := ComCall(3, this, "ptr", pstrCode, UInt32, uNumCodeChars, "ptr", pstrDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct IActiveScriptDebug32 extends IUnknown {
 
         pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
+        result := ComCall(4, this, "ptr", pstrCode, UInt32, uNumCodeChars, "ptr", pstrDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
@@ -85,7 +85,7 @@ export default struct IActiveScriptDebug32 extends IUnknown {
      * @returns {IEnumDebugCodeContexts} 
      */
     EnumCodeContextsOfPosition(dwSourceContext, uCharacterOffset, uNumChars) {
-        result := ComCall(5, this, "uint", dwSourceContext, "uint", uCharacterOffset, "uint", uNumChars, "ptr*", &ppescc := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwSourceContext, UInt32, uCharacterOffset, UInt32, uNumChars, "ptr*", &ppescc := 0, "HRESULT")
         return IEnumDebugCodeContexts(ppescc)
     }
 

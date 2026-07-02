@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1Image.ahk" { ID2D1Image }
-#Import ".\ID2D1Properties.ahk" { ID2D1Properties }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Properties.ahk" { ID2D1Properties }
 
 /**
  * Represents a basic image-processing construct in Direct2D.
@@ -62,7 +62,7 @@ export default struct ID2D1Effect extends ID2D1Properties {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-setinput
      */
     SetInput(index, _input, invalidate) {
-        ComCall(14, this, "uint", index, "ptr", _input, BOOL, invalidate)
+        ComCall(14, this, UInt32, index, "ptr", _input, BOOL, invalidate)
     }
 
     /**
@@ -105,7 +105,7 @@ export default struct ID2D1Effect extends ID2D1Properties {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-setinputcount
      */
     SetInputCount(inputCount) {
-        result := ComCall(15, this, "uint", inputCount, "HRESULT")
+        result := ComCall(15, this, UInt32, inputCount, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct ID2D1Effect extends ID2D1Properties {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-getinput
      */
     GetInput(index, _input) {
-        ComCall(16, this, "uint", index, ID2D1Image.Ptr, _input)
+        ComCall(16, this, UInt32, index, ID2D1Image.Ptr, _input)
     }
 
     /**

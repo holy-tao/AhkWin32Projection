@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IAzRoleAssignments.ahk" { IAzRoleAssignments }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\IAzTask.ahk" { IAzTask }
 #Import ".\IAzRoleDefinitions.ahk" { IAzRoleDefinitions }
+#Import ".\IAzRoleAssignments.ahk" { IAzRoleAssignments }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzTask.ahk" { IAzTask }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents one or more IAzRoleDefinition, IAzTask, and IAzOperation objects that specify a set of operations.

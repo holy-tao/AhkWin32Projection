@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
-#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
-#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
 #Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
 
 /**
  * The DD_UPDATEOVERLAYDATA structure contains information necessary for updating an overlay surface.

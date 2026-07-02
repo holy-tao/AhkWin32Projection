@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\tomConstants.ahk" { tomConstants }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITextRange.ahk" { ITextRange }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\tomConstants.ahk" { tomConstants }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A text selection is a text range with selection highlighting.
@@ -228,7 +228,7 @@ export default struct ITextSelection extends ITextRange {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-setflags
      */
     SetFlags(Flags) {
-        result := ComCall(59, this, "int", Flags, "HRESULT")
+        result := ComCall(59, this, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -401,7 +401,7 @@ export default struct ITextSelection extends ITextRange {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveleft
      */
     MoveLeft(_Unit, Count, Extend) {
-        result := ComCall(61, this, "int", _Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(61, this, Int32, _Unit, Int32, Count, Int32, Extend, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -492,7 +492,7 @@ export default struct ITextSelection extends ITextRange {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveright
      */
     MoveRight(_Unit, Count, Extend) {
-        result := ComCall(62, this, "int", _Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(62, this, Int32, _Unit, Int32, Count, Int32, Extend, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -546,7 +546,7 @@ export default struct ITextSelection extends ITextRange {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveup
      */
     MoveUp(_Unit, Count, Extend) {
-        result := ComCall(63, this, "int", _Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(63, this, Int32, _Unit, Int32, Count, Int32, Extend, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -602,7 +602,7 @@ export default struct ITextSelection extends ITextRange {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-movedown
      */
     MoveDown(_Unit, Count, Extend) {
-        result := ComCall(64, this, "int", _Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(64, this, Int32, _Unit, Int32, Count, Int32, Extend, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -637,7 +637,7 @@ export default struct ITextSelection extends ITextRange {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-homekey
      */
     HomeKey(_Unit, Extend) {
-        result := ComCall(65, this, tomConstants, _Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(65, this, tomConstants, _Unit, Int32, Extend, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -731,7 +731,7 @@ export default struct ITextSelection extends ITextRange {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-endkey
      */
     EndKey(_Unit, Extend) {
-        result := ComCall(66, this, "int", _Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(66, this, Int32, _Unit, Int32, Extend, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 

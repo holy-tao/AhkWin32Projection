@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFsrmObject.ahk" { IFsrmObject }
 #Import ".\IFsrmMutableCollection.ahk" { IFsrmMutableCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
 
 /**
  * Used to define a group of files based on one or more file name patterns.

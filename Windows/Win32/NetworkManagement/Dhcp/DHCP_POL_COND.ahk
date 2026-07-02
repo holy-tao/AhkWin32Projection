@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DHCP_POL_COMPARATOR.ahk" { DHCP_POL_COMPARATOR }
 #Import ".\DHCP_POL_ATTR_TYPE.ahk" { DHCP_POL_ATTR_TYPE }
+#Import ".\DHCP_POL_COMPARATOR.ahk" { DHCP_POL_COMPARATOR }
 
 /**
  * The DHCP_POL_COND structure defines the DHCP server policy condition.

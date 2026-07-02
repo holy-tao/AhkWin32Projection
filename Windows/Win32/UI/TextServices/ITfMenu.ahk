@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfMenu interface is implemented by the language bar and used by a language bar button provider to add items to the menu that the language bar will display for the button.
@@ -102,7 +102,7 @@ export default struct ITfMenu extends IUnknown {
     AddMenuItem(uId, dwFlags, hbmp, hbmpMask, pch, cch, ppMenu) {
         pch := pch is String ? StrPtr(pch) : pch
 
-        result := ComCall(3, this, "uint", uId, "uint", dwFlags, HBITMAP, hbmp, HBITMAP, hbmpMask, "ptr", pch, "uint", cch, ITfMenu.Ptr, ppMenu, "HRESULT")
+        result := ComCall(3, this, UInt32, uId, UInt32, dwFlags, HBITMAP, hbmp, HBITMAP, hbmpMask, "ptr", pch, UInt32, cch, ITfMenu.Ptr, ppMenu, "HRESULT")
         return result
     }
 

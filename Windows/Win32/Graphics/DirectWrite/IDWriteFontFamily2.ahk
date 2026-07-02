@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDWriteFontList2.ahk" { IDWriteFontList2 }
-#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import ".\IDWriteFontFamily1.ahk" { IDWriteFontFamily1 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\IDWriteFontList2.ahk" { IDWriteFontList2 }
+#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
 
 /**
  * Represents a family of related fonts. **IDWriteFontFamily2** adds new facilities, including retrieving fonts by font axis values.
@@ -55,7 +55,7 @@ export default struct IDWriteFontFamily2 extends IDWriteFontFamily1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfamily2-getmatchingfonts
      */
     GetMatchingFonts(fontAxisValues, fontAxisValueCount) {
-        result := ComCall(12, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &matchingFonts := 0, "HRESULT")
+        result := ComCall(12, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "ptr*", &matchingFonts := 0, "HRESULT")
         return IDWriteFontList2(matchingFonts)
     }
 

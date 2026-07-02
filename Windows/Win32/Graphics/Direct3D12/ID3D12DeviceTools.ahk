@@ -40,7 +40,7 @@ export default struct ID3D12DeviceTools extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     SetNextAllocationAddress(nextAllocationVirtualAddress) {
-        ComCall(3, this, "uint", nextAllocationVirtualAddress)
+        ComCall(3, this, Int64, nextAllocationVirtualAddress)
     }
 
     Query(iid) {

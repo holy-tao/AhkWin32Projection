@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USB_UNICODE_NAME.ahk" { USB_UNICODE_NAME }
 #Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
+#Import ".\USB_UNICODE_NAME.ahk" { USB_UNICODE_NAME }
 #Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 

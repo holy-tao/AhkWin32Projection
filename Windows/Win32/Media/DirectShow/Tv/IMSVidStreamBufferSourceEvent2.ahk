@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMSVidStreamBufferSourceEvent.ahk" { IMSVidStreamBufferSourceEvent }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IMSVidStreamBufferSourceEvent2 interface is used to receive events from the MSVidStreamBufferSource object.
@@ -67,7 +67,7 @@ export default struct IMSVidStreamBufferSourceEvent2 extends IMSVidStreamBufferS
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent2-ratechange
      */
     RateChange(qwNewRate, qwOldRate) {
-        result := ComCall(17, this, "double", qwNewRate, "double", qwOldRate, "HRESULT")
+        result := ComCall(17, this, Float64, qwNewRate, Float64, qwOldRate, "HRESULT")
         return result
     }
 

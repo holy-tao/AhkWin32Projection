@@ -1,18 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDSCAPS.ahk" { DDSCAPS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
-#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
-#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
-#Import ".\DDCAPS_DX7.ahk" { DDCAPS_DX7 }
+#Import ".\LPDDENUMMODESCALLBACK.ahk" { LPDDENUMMODESCALLBACK }
+#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
+#Import ".\LPDDENUMSURFACESCALLBACK.ahk" { LPDDENUMSURFACESCALLBACK }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DDCAPS_DX7.ahk" { DDCAPS_DX7 }
+#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
 #Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -81,7 +83,7 @@ export default struct IDirectDraw2 extends IUnknown {
      * @returns {IDirectDrawClipper} 
      */
     CreateClipper(param0, param2) {
-        result := ComCall(4, this, "uint", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
+        result := ComCall(4, this, UInt32, param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
         return IDirectDrawClipper(param1)
     }
 
@@ -100,7 +102,7 @@ export default struct IDirectDraw2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpalette
      */
     CreatePalette(param0, param1, param3) {
-        result := ComCall(5, this, "uint", param0, PALETTEENTRY.Ptr, param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        result := ComCall(5, this, UInt32, param0, PALETTEENTRY.Ptr, param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
         return IDirectDrawPalette(param2)
     }
 
@@ -136,7 +138,7 @@ export default struct IDirectDraw2 extends IUnknown {
     EnumDisplayModes(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(8, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, LPDDENUMMODESCALLBACK, param3, "HRESULT")
         return result
     }
 
@@ -151,7 +153,7 @@ export default struct IDirectDraw2 extends IUnknown {
     EnumSurfaces(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "uint", param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(9, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, LPDDENUMSURFACESCALLBACK, param3, "HRESULT")
         return result
     }
 
@@ -294,7 +296,7 @@ export default struct IDirectDraw2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCooperativeLevel(param0, param1) {
-        result := ComCall(20, this, HWND, param0, "uint", param1, "HRESULT")
+        result := ComCall(20, this, HWND, param0, UInt32, param1, "HRESULT")
         return result
     }
 
@@ -308,7 +310,7 @@ export default struct IDirectDraw2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetDisplayMode(param0, param1, param2, param3, param4) {
-        result := ComCall(21, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, "uint", param4, "HRESULT")
+        result := ComCall(21, this, UInt32, param0, UInt32, param1, UInt32, param2, UInt32, param3, UInt32, param4, "HRESULT")
         return result
     }
 
@@ -319,7 +321,7 @@ export default struct IDirectDraw2 extends IUnknown {
      * @returns {HRESULT} 
      */
     WaitForVerticalBlank(param0, param1) {
-        result := ComCall(22, this, "uint", param0, HANDLE, param1, "HRESULT")
+        result := ComCall(22, this, UInt32, param0, HANDLE, param1, "HRESULT")
         return result
     }
 

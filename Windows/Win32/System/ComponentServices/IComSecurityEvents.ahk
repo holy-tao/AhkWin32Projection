@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber if the authentication of a method call succeeded or failed.
@@ -59,7 +59,7 @@ export default struct IComSecurityEvents extends IUnknown {
         pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"
         pSidCurrentUserMarshal := pSidCurrentUser is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, "uint", _ObjectID, Guid.Ptr, guidIID, "uint", iMeth, "uint", cbByteOrig, pSidOriginalUserMarshal, pSidOriginalUser, "uint", cbByteCur, pSidCurrentUserMarshal, pSidCurrentUser, BOOL, bCurrentUserInpersonatingInProc, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Int64, _ObjectID, Guid.Ptr, guidIID, UInt32, iMeth, UInt32, cbByteOrig, pSidOriginalUserMarshal, pSidOriginalUser, UInt32, cbByteCur, pSidCurrentUserMarshal, pSidCurrentUser, BOOL, bCurrentUserInpersonatingInProc, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct IComSecurityEvents extends IUnknown {
         pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"
         pSidCurrentUserMarshal := pSidCurrentUser is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, "uint", _ObjectID, Guid.Ptr, guidIID, "uint", iMeth, "uint", cbByteOrig, pSidOriginalUserMarshal, pSidOriginalUser, "uint", cbByteCur, pSidCurrentUserMarshal, pSidCurrentUser, BOOL, bCurrentUserInpersonatingInProc, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Int64, _ObjectID, Guid.Ptr, guidIID, UInt32, iMeth, UInt32, cbByteOrig, pSidOriginalUserMarshal, pSidOriginalUser, UInt32, cbByteCur, pSidCurrentUserMarshal, pSidCurrentUser, BOOL, bCurrentUserInpersonatingInProc, "HRESULT")
         return result
     }
 

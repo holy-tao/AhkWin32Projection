@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\ContextProperty.ahk" { ContextProperty }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumContextProps (objidlbase.h) interface provides a mechanism for enumerating the context properties associated with a COM+ object context.
@@ -55,7 +55,7 @@ export default struct IEnumContextProps extends IUnknown {
     Next(celt, pContextProperties, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, ContextProperty.Ptr, pContextProperties, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, ContextProperty.Ptr, pContextProperties, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct IEnumContextProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumcontextprops-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IPipeLong (objidlbase.h) interface transfers data of the long integer type (which is 32 bits wide).
@@ -64,7 +64,7 @@ export default struct IPipeLong extends IUnknown {
         bufMarshal := buf is VarRef ? "int*" : "ptr"
         pcReturnedMarshal := pcReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, bufMarshal, buf, "uint", cRequest, pcReturnedMarshal, pcReturned, "HRESULT")
+        result := ComCall(3, this, bufMarshal, buf, UInt32, cRequest, pcReturnedMarshal, pcReturned, "HRESULT")
         return result
     }
 
@@ -82,7 +82,7 @@ export default struct IPipeLong extends IUnknown {
     Push(buf, cSent) {
         bufMarshal := buf is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, bufMarshal, buf, "uint", cSent, "HRESULT")
+        result := ComCall(4, this, bufMarshal, buf, UInt32, cSent, "HRESULT")
         return result
     }
 

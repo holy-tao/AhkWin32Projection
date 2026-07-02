@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
 
 /**
  * The IWMDMEnumStorage interface enumerates storages on a device.
@@ -63,7 +63,7 @@ export default struct IWMDMEnumStorage extends IUnknown {
     Next(celt, ppStorage, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, IWMDMStorage.Ptr, ppStorage, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, IWMDMStorage.Ptr, ppStorage, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IWMDMEnumStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumstorage-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "uint*", &pceltFetched := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "uint*", &pceltFetched := 0, "HRESULT")
         return pceltFetched
     }
 

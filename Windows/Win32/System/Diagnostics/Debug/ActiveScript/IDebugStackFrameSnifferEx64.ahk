@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IEnumDebugStackFrames64.ahk" { IEnumDebugStackFrames64 }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugStackFrameSniffer.ahk" { IDebugStackFrameSniffer }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -42,7 +42,7 @@ export default struct IDebugStackFrameSnifferEx64 extends IDebugStackFrameSniffe
      * @returns {IEnumDebugStackFrames64} 
      */
     EnumStackFramesEx64(dwSpMin) {
-        result := ComCall(4, this, "uint", dwSpMin, "ptr*", &ppedsf := 0, "HRESULT")
+        result := ComCall(4, this, Int64, dwSpMin, "ptr*", &ppedsf := 0, "HRESULT")
         return IEnumDebugStackFrames64(ppedsf)
     }
 

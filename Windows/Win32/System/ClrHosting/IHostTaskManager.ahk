@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Threading\LPTHREAD_START_ROUTINE.ahk" { LPTHREAD_START_ROUTINE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ICLRTaskManager.ahk" { ICLRTaskManager }
 #Import ".\IHostTask.ahk" { IHostTask }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICLRTaskManager.ahk" { ICLRTaskManager }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -74,7 +75,7 @@ export default struct IHostTaskManager extends IUnknown {
     CreateTask(dwStackSize, pStartAddress, pParameter) {
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", dwStackSize, "ptr", pStartAddress, pParameterMarshal, pParameter, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStackSize, LPTHREAD_START_ROUTINE, pStartAddress, pParameterMarshal, pParameter, "ptr*", &ppTask := 0, "HRESULT")
         return IHostTask(ppTask)
     }
 
@@ -113,7 +114,7 @@ export default struct IHostTaskManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-sleep
      */
     Sleep(dwMilliseconds, option) {
-        result := ComCall(5, this, "uint", dwMilliseconds, "uint", option, "HRESULT")
+        result := ComCall(5, this, UInt32, dwMilliseconds, UInt32, option, "HRESULT")
         return result
     }
 
@@ -123,7 +124,7 @@ export default struct IHostTaskManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SwitchToTask(option) {
-        result := ComCall(6, this, "uint", option, "HRESULT")
+        result := ComCall(6, this, UInt32, option, "HRESULT")
         return result
     }
 
@@ -133,7 +134,7 @@ export default struct IHostTaskManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetUILocale(lcid) {
-        result := ComCall(7, this, "uint", lcid, "HRESULT")
+        result := ComCall(7, this, UInt32, lcid, "HRESULT")
         return result
     }
 
@@ -143,7 +144,7 @@ export default struct IHostTaskManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetLocale(lcid) {
-        result := ComCall(8, this, "uint", lcid, "HRESULT")
+        result := ComCall(8, this, UInt32, lcid, "HRESULT")
         return result
     }
 
@@ -153,7 +154,7 @@ export default struct IHostTaskManager extends IUnknown {
      * @returns {BOOL} 
      */
     CallNeedsHostHook(target) {
-        result := ComCall(9, this, "ptr", target, BOOL.Ptr, &pbCallNeedsHostHook := 0, "HRESULT")
+        result := ComCall(9, this, IntPtr, target, BOOL.Ptr, &pbCallNeedsHostHook := 0, "HRESULT")
         return pbCallNeedsHostHook
     }
 
@@ -163,7 +164,7 @@ export default struct IHostTaskManager extends IUnknown {
      * @returns {HRESULT} 
      */
     LeaveRuntime(target) {
-        result := ComCall(10, this, "ptr", target, "HRESULT")
+        result := ComCall(10, this, IntPtr, target, "HRESULT")
         return result
     }
 
@@ -236,7 +237,7 @@ export default struct IHostTaskManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetStackGuarantee(guarantee) {
-        result := ComCall(18, this, "uint", guarantee, "HRESULT")
+        result := ComCall(18, this, UInt32, guarantee, "HRESULT")
         return result
     }
 

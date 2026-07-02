@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IPortableDeviceContent.ahk" { IPortableDeviceContent }
-#Import ".\IPortableDeviceEventCallback.ahk" { IPortableDeviceEventCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import ".\IPortableDeviceEventCallback.ahk" { IPortableDeviceEventCallback }
 #Import ".\IPortableDeviceCapabilities.ahk" { IPortableDeviceCapabilities }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
 
 /**
  * The IPortableDevice interface provides access to a portable device.
@@ -196,7 +196,7 @@ export default struct IPortableDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-sendcommand
      */
     SendCommand(dwFlags, pParameters) {
-        result := ComCall(4, this, "uint", dwFlags, "ptr", pParameters, "ptr*", &ppResults := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, "ptr", pParameters, "ptr*", &ppResults := 0, "HRESULT")
         return IPortableDeviceValues(ppResults)
     }
 
@@ -296,7 +296,7 @@ export default struct IPortableDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-advise
      */
     Advise(dwFlags, pCallback, pParameters) {
-        result := ComCall(9, this, "uint", dwFlags, "ptr", pCallback, "ptr", pParameters, PWSTR.Ptr, &ppszCookie := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwFlags, "ptr", pCallback, "ptr", pParameters, PWSTR.Ptr, &ppszCookie := 0, "HRESULT")
         return ppszCookie
     }
 

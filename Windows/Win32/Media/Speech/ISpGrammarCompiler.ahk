@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\ISpErrorLog.ahk" { ISpErrorLog }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpErrorLog.ahk" { ISpErrorLog }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -54,7 +54,7 @@ export default struct ISpGrammarCompiler extends IUnknown {
      * @returns {HRESULT} 
      */
     CompileStream(pSource, pDest, pHeader, pReserved, pErrorLog, dwFlags) {
-        result := ComCall(3, this, "ptr", pSource, "ptr", pDest, "ptr", pHeader, "ptr", pReserved, "ptr", pErrorLog, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pSource, "ptr", pDest, "ptr", pHeader, "ptr", pReserved, "ptr", pErrorLog, UInt32, dwFlags, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRowChange.ahk" { IRowChange }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DBCOLUMNINFO.ahk" { DBCOLUMNINFO }
-#Import ".\DBCOLUMNACCESS.ahk" { DBCOLUMNACCESS }
 #Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import ".\DBCOLUMNACCESS.ahk" { DBCOLUMNACCESS }
+#Import ".\DBCOLUMNINFO.ahk" { DBCOLUMNINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRowChange.ahk" { IRowChange }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -49,7 +49,7 @@ export default struct IRowSchemaChange extends IRowChange {
     DeleteColumns(cColumns, rgColumnIDs, rgdwStatus) {
         rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cColumns, DBID.Ptr, rgColumnIDs, rgdwStatusMarshal, rgdwStatus, "HRESULT")
+        result := ComCall(4, this, IntPtr, cColumns, DBID.Ptr, rgColumnIDs, rgdwStatusMarshal, rgdwStatus, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct IRowSchemaChange extends IRowChange {
      * @returns {HRESULT} 
      */
     AddColumns(cColumns, rgNewColumnInfo, rgColumns) {
-        result := ComCall(5, this, "ptr", cColumns, DBCOLUMNINFO.Ptr, rgNewColumnInfo, DBCOLUMNACCESS.Ptr, rgColumns, "HRESULT")
+        result := ComCall(5, this, IntPtr, cColumns, DBCOLUMNINFO.Ptr, rgNewColumnInfo, DBCOLUMNACCESS.Ptr, rgColumns, "HRESULT")
         return result
     }
 

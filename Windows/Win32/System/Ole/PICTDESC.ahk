@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import "..\..\Graphics\Gdi\HMETAFILE.ahk" { HMETAFILE }
 #Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
+#Import "..\..\Graphics\Gdi\HMETAFILE.ahk" { HMETAFILE }
 #Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * Contains parameters to create a picture object through the OleCreatePictureIndirect function.

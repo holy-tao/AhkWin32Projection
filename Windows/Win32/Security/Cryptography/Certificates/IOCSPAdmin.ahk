@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IOCSPPropertyCollection.ahk" { IOCSPPropertyCollection }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IOCSPPropertyCollection.ahk" { IOCSPPropertyCollection }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IOCSPCAConfigurationCollection.ahk" { IOCSPCAConfigurationCollection }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides functionality to manage an Online Certificate Status Protocol (OCSP) responder server.

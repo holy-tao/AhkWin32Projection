@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
+#Import ".\IMSVidFeatureEvent.ahk" { IMSVidFeatureEvent }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\BfEnTvRat_GenericAttributes.ahk" { BfEnTvRat_GenericAttributes }
-#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
-#Import ".\IMSVidFeatureEvent.ahk" { IMSVidFeatureEvent }
 
 /**
  * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later. The IMSVidXDSEvent interface is used to receive events from the MSVidXDS object.This interface is an outgoing connection-point interface.

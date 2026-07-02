@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Supports retrieving and updating individual properties in an instance of a WMI class.
@@ -57,7 +57,7 @@ export default struct IWbemPropertyProvider extends IUnknown {
         strPropMapping := strPropMapping is String ? BSTR.Alloc(strPropMapping).Value : strPropMapping
 
         pvValue := VARIANT()
-        result := ComCall(3, this, "int", lFlags, BSTR, strLocale, BSTR, strClassMapping, BSTR, strInstMapping, BSTR, strPropMapping, VARIANT.Ptr, pvValue, "HRESULT")
+        result := ComCall(3, this, Int32, lFlags, BSTR, strLocale, BSTR, strClassMapping, BSTR, strInstMapping, BSTR, strPropMapping, VARIANT.Ptr, pvValue, "HRESULT")
         return pvValue
     }
 
@@ -78,7 +78,7 @@ export default struct IWbemPropertyProvider extends IUnknown {
         strInstMapping := strInstMapping is String ? BSTR.Alloc(strInstMapping).Value : strInstMapping
         strPropMapping := strPropMapping is String ? BSTR.Alloc(strPropMapping).Value : strPropMapping
 
-        result := ComCall(4, this, "int", lFlags, BSTR, strLocale, BSTR, strClassMapping, BSTR, strInstMapping, BSTR, strPropMapping, VARIANT.Ptr, pvValue, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, BSTR, strLocale, BSTR, strClassMapping, BSTR, strInstMapping, BSTR, strPropMapping, VARIANT.Ptr, pvValue, "HRESULT")
         return result
     }
 

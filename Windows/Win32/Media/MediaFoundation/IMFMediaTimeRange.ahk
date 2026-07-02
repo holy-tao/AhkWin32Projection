@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a list of time ranges, where each range is defined by a start and end time.
@@ -68,7 +68,7 @@ export default struct IMFMediaTimeRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getstart
      */
     GetStart(index) {
-        result := ComCall(4, this, "uint", index, "double*", &pStart := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "double*", &pStart := 0, "HRESULT")
         return pStart
     }
 
@@ -81,7 +81,7 @@ export default struct IMFMediaTimeRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getend
      */
     GetEnd(index) {
-        result := ComCall(5, this, "uint", index, "double*", &pEnd := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "double*", &pEnd := 0, "HRESULT")
         return pEnd
     }
 
@@ -99,7 +99,7 @@ export default struct IMFMediaTimeRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-containstime
      */
     ContainsTime(time) {
-        result := ComCall(6, this, "double", time, BOOL)
+        result := ComCall(6, this, Float64, time, BOOL)
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IMFMediaTimeRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-addrange
      */
     AddRange(startTime, endTime) {
-        result := ComCall(7, this, "double", startTime, "double", endTime, "HRESULT")
+        result := ComCall(7, this, Float64, startTime, Float64, endTime, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFTimedTextStyle.ahk" { IMFTimedTextStyle }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a block of formatted timed-text.
@@ -88,7 +88,7 @@ export default struct IMFTimedTextFormattedText extends IUnknown {
         firstCharMarshal := firstChar is VarRef ? "uint*" : "ptr"
         charLengthMarshal := charLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", index, firstCharMarshal, firstChar, charLengthMarshal, charLength, IMFTimedTextStyle.Ptr, style, "HRESULT")
+        result := ComCall(5, this, UInt32, index, firstCharMarshal, firstChar, charLengthMarshal, charLength, IMFTimedTextStyle.Ptr, style, "HRESULT")
         return result
     }
 

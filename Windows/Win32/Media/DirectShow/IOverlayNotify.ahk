@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COLORKEY.ahk" { COLORKEY }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COLORKEY.ahk" { COLORKEY }
 #Import "..\..\Graphics\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IOverlayNotify interface provides an upstream filter, such as a decoder, with notifications of changes to the rendering window.
@@ -54,7 +54,7 @@ export default struct IOverlayNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify-onpalettechange
      */
     OnPaletteChange(dwColors, pPalette) {
-        result := ComCall(3, this, "uint", dwColors, PALETTEENTRY.Ptr, pPalette, "HRESULT")
+        result := ComCall(3, this, UInt32, dwColors, PALETTEENTRY.Ptr, pPalette, "HRESULT")
         return result
     }
 

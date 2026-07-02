@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRemoteDebugApplication.ahk" { IRemoteDebugApplication }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -44,7 +44,7 @@ export default struct IMachineDebugManagerEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     onAddApplication(pda, dwAppCookie) {
-        result := ComCall(3, this, "ptr", pda, "uint", dwAppCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", pda, UInt32, dwAppCookie, "HRESULT")
         return result
     }
 
@@ -55,7 +55,7 @@ export default struct IMachineDebugManagerEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     onRemoveApplication(pda, dwAppCookie) {
-        result := ComCall(4, this, "ptr", pda, "uint", dwAppCookie, "HRESULT")
+        result := ComCall(4, this, "ptr", pda, UInt32, dwAppCookie, "HRESULT")
         return result
     }
 

@@ -1,0 +1,66 @@
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PFAX_RECIPIENT_CALLBACKA.ahk" { PFAX_RECIPIENT_CALLBACKA }
+
+/**
+ * @namespace Windows.Win32.Devices.Fax
+ * @charset ANSI
+ */
+export default struct PFAXSENDDOCUMENTFORBROADCASTA {
+    value : IntPtr
+
+    __value {
+        set {
+            if (value is PFAXSENDDOCUMENTFORBROADCASTA) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {HANDLE} FaxHandle 
+     * @param {PSTR} FileName 
+     * @param {Pointer<Integer>} FaxJobId 
+     * @param {Pointer<PFAX_RECIPIENT_CALLBACKA>} FaxRecipientCallback 
+     * @param {Pointer<Void>} _Context 
+     * @returns {BOOL} 
+     */
+    Call(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, _Context) {
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+
+        result := DllCall(this.value, HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, PFAX_RECIPIENT_CALLBACKA, FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
+        return result
+    }
+
+    /**
+     * A PFAXSENDDOCUMENTFORBROADCASTA that invokes the given AHK function when called.
+     * This callback is owned by the script and cleaned up automatically.
+     */
+    struct From extends PFAXSENDDOCUMENTFORBROADCASTA {
+        /**
+         * Creates a PFAXSENDDOCUMENTFORBROADCASTA pointer that invokes the given AHK function when called.
+         * @param {Func(HANDLE, PSTR, "uint*", PFAX_RECIPIENT_CALLBACKA, "ptr") => BOOL} fn the function to invoke.
+         */
+        __New(fn) {
+            if (!HasMethod(fn, , 5)) {
+                throw MethodError("Object of type " Type(fn) " is not callable with 5 parameters.", -1, fn)
+            }
+            this.value := CallbackCreate(fn, , [HANDLE, PSTR, "uint*", PFAX_RECIPIENT_CALLBACKA, "ptr", BOOL])
+        }
+
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
+    }
+}

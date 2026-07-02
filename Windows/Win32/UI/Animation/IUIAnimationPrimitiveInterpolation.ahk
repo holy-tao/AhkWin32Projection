@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a method that allows a custom interpolator to provide transition information, in the form of a cubic polynomial curve, to the animation manager.
@@ -53,7 +53,7 @@ export default struct IUIAnimationPrimitiveInterpolation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationprimitiveinterpolation-addcubic
      */
     AddCubic(dimension, beginOffset, constantCoefficient, linearCoefficient, quadraticCoefficient, cubicCoefficient) {
-        result := ComCall(3, this, "uint", dimension, "double", beginOffset, "float", constantCoefficient, "float", linearCoefficient, "float", quadraticCoefficient, "float", cubicCoefficient, "HRESULT")
+        result := ComCall(3, this, UInt32, dimension, Float64, beginOffset, Float32, constantCoefficient, Float32, linearCoefficient, Float32, quadraticCoefficient, Float32, cubicCoefficient, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IUIAnimationPrimitiveInterpolation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationprimitiveinterpolation-addsinusoidal
      */
     AddSinusoidal(dimension, beginOffset, bias, amplitude, frequency, phase) {
-        result := ComCall(4, this, "uint", dimension, "double", beginOffset, "float", bias, "float", amplitude, "float", frequency, "float", phase, "HRESULT")
+        result := ComCall(4, this, UInt32, dimension, Float64, beginOffset, Float32, bias, Float32, amplitude, Float32, frequency, Float32, phase, "HRESULT")
         return result
     }
 

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IESEvent.ahk" { IESEvent }
-#Import "..\..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Gets information from an OpenMMI event.

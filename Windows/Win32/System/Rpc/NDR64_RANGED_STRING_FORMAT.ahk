@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NDR64_STRING_HEADER_FORMAT.ahk" { NDR64_STRING_HEADER_FORMAT }
 #Import ".\NDR64_STRING_FLAGS.ahk" { NDR64_STRING_FLAGS }
+#Import ".\NDR64_STRING_HEADER_FORMAT.ahk" { NDR64_STRING_HEADER_FORMAT }
 
 /**
  * @namespace Windows.Win32.System.Rpc

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for attaching buffers to SpatialAudioMetadataItems for in-place storage of data.
@@ -100,7 +100,7 @@ export default struct ISpatialAudioMetadataItemsBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-attachtobuffer
      */
     AttachToBuffer(_buffer, bufferLength) {
-        result := ComCall(3, this, "ptr", _buffer, "uint", bufferLength, "HRESULT")
+        result := ComCall(3, this, IntPtr, _buffer, UInt32, bufferLength, "HRESULT")
         return result
     }
 
@@ -176,7 +176,7 @@ export default struct ISpatialAudioMetadataItemsBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-attachtopopulatedbuffer
      */
     AttachToPopulatedBuffer(_buffer, bufferLength) {
-        result := ComCall(4, this, "ptr", _buffer, "uint", bufferLength, "HRESULT")
+        result := ComCall(4, this, IntPtr, _buffer, UInt32, bufferLength, "HRESULT")
         return result
     }
 

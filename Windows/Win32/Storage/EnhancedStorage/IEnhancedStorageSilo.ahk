@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IEnhancedStorageSiloAction.ahk" { IEnhancedStorageSiloAction }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Devices\PortableDevices\IPortableDevice.ahk" { IPortableDevice }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SILO_INFO.ahk" { SILO_INFO }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Devices\PortableDevices\IPortableDevice.ahk" { IPortableDevice }
 
 /**
  * IEnhancedStorageSilo interface is the point of access for an IEEE 1667 silo and is used to obtain information and perform operations at the silo level.
@@ -125,7 +125,7 @@ export default struct IEnhancedStorageSilo extends IUnknown {
         pbCommandBufferMarshal := pbCommandBuffer is VarRef ? "char*" : "ptr"
         pcbResponseBufferMarshal := pcbResponseBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "char", Command, pbCommandBufferMarshal, pbCommandBuffer, "uint", cbCommandBuffer, "char*", &pbResponseBuffer := 0, pcbResponseBufferMarshal, pcbResponseBuffer, "HRESULT")
+        result := ComCall(5, this, Int8, Command, pbCommandBufferMarshal, pbCommandBuffer, UInt32, cbCommandBuffer, "char*", &pbResponseBuffer := 0, pcbResponseBufferMarshal, pcbResponseBuffer, "HRESULT")
         return pbResponseBuffer
     }
 

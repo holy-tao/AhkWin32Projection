@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import "..\Direct2D\Common\D2D1_BORDER_MODE.ahk" { D2D1_BORDER_MODE }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import "..\Direct2D\Common\D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE.ahk" { D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE }
 #Import "..\Direct2D\Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
@@ -109,7 +109,7 @@ export default struct IDCompositionAffineTransform2DEffect extends IDComposition
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrixelement(int_int_idcompositionanimation)
      */
     SetTransformMatrixElement(row, _column, animation) {
-        result := ComCall(7, this, "int", row, "int", _column, "ptr", animation, "HRESULT")
+        result := ComCall(7, this, Int32, row, Int32, _column, "ptr", animation, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IDCompositionAffineTransform2DEffect extends IDComposition
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrixelement(int_int_idcompositionanimation)
      */
     SetTransformMatrixElement1(row, _column, value) {
-        result := ComCall(8, this, "int", row, "int", _column, "float", value, "HRESULT")
+        result := ComCall(8, this, Int32, row, Int32, _column, Float32, value, "HRESULT")
         return result
     }
 
@@ -156,7 +156,7 @@ export default struct IDCompositionAffineTransform2DEffect extends IDComposition
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setsharpness(float)
      */
     SetSharpness1(sharpness) {
-        result := ComCall(10, this, "float", sharpness, "HRESULT")
+        result := ComCall(10, this, Float32, sharpness, "HRESULT")
         return result
     }
 

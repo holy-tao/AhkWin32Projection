@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import ".\IMediaStream.ahk" { IMediaStream }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ALLOCATOR_PROPERTIES.ahk" { ALLOCATOR_PROPERTIES }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IAMMediaTypeSample.ahk" { IAMMediaTypeSample }
 
 /**
@@ -53,7 +53,7 @@ export default struct IAMMediaTypeStream extends IMediaStream {
      */
     GetFormat(dwFlags) {
         pMediaType := AM_MEDIA_TYPE()
-        result := ComCall(9, this, AM_MEDIA_TYPE.Ptr, pMediaType, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, AM_MEDIA_TYPE.Ptr, pMediaType, UInt32, dwFlags, "HRESULT")
         return pMediaType
     }
 
@@ -94,7 +94,7 @@ export default struct IAMMediaTypeStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-setformat
      */
     SetFormat(pMediaType, dwFlags) {
-        result := ComCall(10, this, AM_MEDIA_TYPE.Ptr, pMediaType, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, AM_MEDIA_TYPE.Ptr, pMediaType, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IAMMediaTypeStream extends IMediaStream {
     CreateSample(lSampleSize, pbBuffer, dwFlags, pUnkOuter) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, "int", lSampleSize, pbBufferMarshal, pbBuffer, "uint", dwFlags, "ptr", pUnkOuter, "ptr*", &ppAMMediaTypeSample := 0, "HRESULT")
+        result := ComCall(11, this, Int32, lSampleSize, pbBufferMarshal, pbBuffer, UInt32, dwFlags, "ptr", pUnkOuter, "ptr*", &ppAMMediaTypeSample := 0, "HRESULT")
         return IAMMediaTypeSample(ppAMMediaTypeSample)
     }
 

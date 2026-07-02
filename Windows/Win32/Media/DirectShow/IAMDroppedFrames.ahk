@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMDroppedFrames interface retrieves performance information from a video capture filter, including how many frames were dropped and how many were delivered. Applications can use this interface to determine capture performance at run-time.
@@ -148,7 +148,7 @@ export default struct IAMDroppedFrames extends IUnknown {
         plArrayMarshal := plArray is VarRef ? "int*" : "ptr"
         plNumCopiedMarshal := plNumCopied is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "int", lSize, plArrayMarshal, plArray, plNumCopiedMarshal, plNumCopied, "HRESULT")
+        result := ComCall(5, this, Int32, lSize, plArrayMarshal, plArray, plNumCopiedMarshal, plNumCopied, "HRESULT")
         return result
     }
 

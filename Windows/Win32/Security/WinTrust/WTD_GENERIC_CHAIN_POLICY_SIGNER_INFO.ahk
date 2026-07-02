@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Cryptography\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
 #Import "..\Cryptography\CMSG_SIGNER_INFO.ahk" { CMSG_SIGNER_INFO }
+#Import "..\Cryptography\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -117,7 +117,7 @@ export default struct ISVGPathSegArcRel extends IDispatch {
      * @returns {HRESULT} 
      */
     put_x(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct ISVGPathSegArcRel extends IDispatch {
      * @returns {HRESULT} 
      */
     put_y(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct ISVGPathSegArcRel extends IDispatch {
      * @returns {HRESULT} 
      */
     put_r1(v) {
-        result := ComCall(11, this, "float", v, "HRESULT")
+        result := ComCall(11, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -174,7 +174,7 @@ export default struct ISVGPathSegArcRel extends IDispatch {
      * @returns {HRESULT} 
      */
     put_r2(v) {
-        result := ComCall(13, this, "float", v, "HRESULT")
+        result := ComCall(13, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -193,7 +193,7 @@ export default struct ISVGPathSegArcRel extends IDispatch {
      * @returns {HRESULT} 
      */
     put_angle(v) {
-        result := ComCall(15, this, "float", v, "HRESULT")
+        result := ComCall(15, this, Float32, v, "HRESULT")
         return result
     }
 

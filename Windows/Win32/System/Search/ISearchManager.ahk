@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\PROXY_ACCESS.ahk" { PROXY_ACCESS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ISearchCatalogManager.ahk" { ISearchCatalogManager }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISearchCatalogManager.ahk" { ISearchCatalogManager }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\PROXY_ACCESS.ahk" { PROXY_ACCESS }
 
 /**
  * Provides methods for controlling the Search service. This interface manages settings and objects that affect the search engine across catalogs.
@@ -233,7 +233,7 @@ export default struct ISearchManager extends IUnknown {
         pszProxyName := pszProxyName is String ? StrPtr(pszProxyName) : pszProxyName
         pszByPassList := pszByPassList is String ? StrPtr(pszByPassList) : pszByPassList
 
-        result := ComCall(9, this, PROXY_ACCESS, sUseProxy, BOOL, fLocalByPassProxy, "uint", dwPortNumber, "ptr", pszProxyName, "ptr", pszByPassList, "HRESULT")
+        result := ComCall(9, this, PROXY_ACCESS, sUseProxy, BOOL, fLocalByPassProxy, UInt32, dwPortNumber, "ptr", pszProxyName, "ptr", pszByPassList, "HRESULT")
         return result
     }
 

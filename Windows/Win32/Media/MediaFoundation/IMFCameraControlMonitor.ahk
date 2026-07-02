@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a camera control monitor that is used to subscribe and unsubscribe to notifications when the state of a camera control changes.
@@ -104,7 +104,7 @@ export default struct IMFCameraControlMonitor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontrolmonitor-addcontrolsubscription
      */
     AddControlSubscription(controlSet, id) {
-        result := ComCall(5, this, Guid, controlSet, "uint", id, "HRESULT")
+        result := ComCall(5, this, Guid, controlSet, UInt32, id, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IMFCameraControlMonitor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontrolmonitor-removecontrolsubscription
      */
     RemoveControlSubscription(controlSet, id) {
-        result := ComCall(6, this, Guid, controlSet, "uint", id, "HRESULT")
+        result := ComCall(6, this, Guid, controlSet, UInt32, id, "HRESULT")
         return result
     }
 

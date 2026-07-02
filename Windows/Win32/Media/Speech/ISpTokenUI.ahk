@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISpObjectToken.ahk" { ISpObjectToken }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -53,7 +53,7 @@ export default struct ISpTokenUI extends IUnknown {
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, BOOL.Ptr, &pfSupported := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "ptr", punkObject, BOOL.Ptr, &pfSupported := 0, "HRESULT")
         return pfSupported
     }
 
@@ -74,7 +74,7 @@ export default struct ISpTokenUI extends IUnknown {
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", pToken, "ptr", punkObject, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "ptr", pToken, "ptr", punkObject, "HRESULT")
         return result
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IRdcSignatureReader.ahk" { IRdcSignatureReader }
 #Import ".\IRdcGenerator.ahk" { IRdcGenerator }
-#Import ".\IRdcGeneratorParameters.ahk" { IRdcGeneratorParameters }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRdcFileReader.ahk" { IRdcFileReader }
-#Import ".\IRdcComparator.ahk" { IRdcComparator }
-#Import ".\GeneratorParametersType.ahk" { GeneratorParametersType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRdcFileReader.ahk" { IRdcFileReader }
+#Import ".\IRdcSignatureReader.ahk" { IRdcSignatureReader }
+#Import ".\IRdcComparator.ahk" { IRdcComparator }
+#Import ".\IRdcGeneratorParameters.ahk" { IRdcGeneratorParameters }
+#Import ".\GeneratorParametersType.ahk" { GeneratorParametersType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Is the primary interface for using RDC.
@@ -63,7 +63,7 @@ export default struct IRdcLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-computedefaultrecursiondepth
      */
     ComputeDefaultRecursionDepth(fileSize) {
-        result := ComCall(3, this, "uint", fileSize, "uint*", &depth := 0, "HRESULT")
+        result := ComCall(3, this, Int64, fileSize, "uint*", &depth := 0, "HRESULT")
         return depth
     }
 
@@ -81,7 +81,7 @@ export default struct IRdcLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-creategeneratorparameters
      */
     CreateGeneratorParameters(parametersType, level) {
-        result := ComCall(4, this, GeneratorParametersType, parametersType, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
+        result := ComCall(4, this, GeneratorParametersType, parametersType, UInt32, level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
         return IRdcGeneratorParameters(iGeneratorParameters)
     }
 
@@ -99,7 +99,7 @@ export default struct IRdcLibrary extends IUnknown {
     OpenGeneratorParameters(_size, parametersBlob) {
         parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", _size, parametersBlobMarshal, parametersBlob, "ptr*", &iGeneratorParameters := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, _size, parametersBlobMarshal, parametersBlob, "ptr*", &iGeneratorParameters := 0, "HRESULT")
         return IRdcGeneratorParameters(iGeneratorParameters)
     }
 
@@ -119,7 +119,7 @@ export default struct IRdcLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-creategenerator
      */
     CreateGenerator(depth, iGeneratorParametersArray) {
-        result := ComCall(6, this, "uint", depth, IRdcGeneratorParameters.Ptr, iGeneratorParametersArray, "ptr*", &iGenerator := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, depth, IRdcGeneratorParameters.Ptr, iGeneratorParametersArray, "ptr*", &iGenerator := 0, "HRESULT")
         return IRdcGenerator(iGenerator)
     }
 
@@ -139,7 +139,7 @@ export default struct IRdcLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-createcomparator
      */
     CreateComparator(iSeedSignaturesFile, comparatorBufferSize) {
-        result := ComCall(7, this, "ptr", iSeedSignaturesFile, "uint", comparatorBufferSize, "ptr*", &iComparator := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", iSeedSignaturesFile, UInt32, comparatorBufferSize, "ptr*", &iComparator := 0, "HRESULT")
         return IRdcComparator(iComparator)
     }
 

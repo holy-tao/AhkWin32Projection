@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IXpsOMVisualCollection.ahk" { IXpsOMVisualCollection }
 #Import ".\IXpsOMDictionary.ahk" { IXpsOMDictionary }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IXpsOMVisualCollection.ahk" { IXpsOMVisualCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
-#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * A group of visual elements and related properties.

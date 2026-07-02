@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
-#Import ".\DROPEFFECT.ahk" { DROPEFFECT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DROPEFFECT.ahk" { DROPEFFECT }
 
 /**
  * The IDropSource interface is one of the interfaces you implement to provide drag-and-drop operations in your application.

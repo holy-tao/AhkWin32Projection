@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFTransform.ahk" { IMFTransform }
 #Import ".\IMFSinkWriter.ahk" { IMFSinkWriter }
+#Import ".\IMFTransform.ahk" { IMFTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the IMFSinkWriter interface.
@@ -48,7 +48,7 @@ export default struct IMFSinkWriterEx extends IMFSinkWriter {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriterex-gettransformforstream
      */
     GetTransformForStream(dwStreamIndex, dwTransformIndex, pGuidCategory, ppTransform) {
-        result := ComCall(14, this, "uint", dwStreamIndex, "uint", dwTransformIndex, Guid.Ptr, pGuidCategory, IMFTransform.Ptr, ppTransform, "HRESULT")
+        result := ComCall(14, this, UInt32, dwStreamIndex, UInt32, dwTransformIndex, Guid.Ptr, pGuidCategory, IMFTransform.Ptr, ppTransform, "HRESULT")
         return result
     }
 

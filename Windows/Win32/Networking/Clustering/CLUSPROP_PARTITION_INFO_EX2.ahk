@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLUS_PARTITION_INFO_EX2.ahk" { CLUS_PARTITION_INFO_EX2 }
-#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
-#Import ".\CLUSPROP_PARTITION_INFO_EX.ahk" { CLUSPROP_PARTITION_INFO_EX }
 #Import ".\CLUS_PARTITION_INFO_EX.ahk" { CLUS_PARTITION_INFO_EX }
+#Import ".\CLUSPROP_PARTITION_INFO_EX.ahk" { CLUSPROP_PARTITION_INFO_EX }
+#Import ".\CLUS_PARTITION_INFO_EX2.ahk" { CLUS_PARTITION_INFO_EX2 }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
+#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

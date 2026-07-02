@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAudioChannelConfig interface provides access to a hardware channel-configuration control.
@@ -66,7 +66,7 @@ export default struct IAudioChannelConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiochannelconfig-setchannelconfig
      */
     SetChannelConfig(dwConfig, pguidEventContext) {
-        result := ComCall(3, this, "uint", dwConfig, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(3, this, UInt32, dwConfig, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 

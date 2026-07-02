@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -162,7 +162,7 @@ export default struct IHTMLTableSection extends IDispatch {
      * @returns {IDispatch} 
      */
     insertRow(index) {
-        result := ComCall(14, this, "int", index, "ptr*", &row := 0, "HRESULT")
+        result := ComCall(14, this, Int32, index, "ptr*", &row := 0, "HRESULT")
         return IDispatch(row)
     }
 
@@ -172,7 +172,7 @@ export default struct IHTMLTableSection extends IDispatch {
      * @returns {HRESULT} 
      */
     deleteRow(index) {
-        result := ComCall(15, this, "int", index, "HRESULT")
+        result := ComCall(15, this, Int32, index, "HRESULT")
         return result
     }
 

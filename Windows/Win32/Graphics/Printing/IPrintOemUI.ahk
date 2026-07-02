@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\PROPSHEETUI_INFO.ahk" { PROPSHEETUI_INFO }
-#Import ".\IPrintOemCommon.ahk" { IPrintOemCommon }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\OEMUIOBJ.ahk" { OEMUIOBJ }
-#Import ".\OEMCUIPPARAM.ahk" { OEMCUIPPARAM }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\OEMCUIPPARAM.ahk" { OEMCUIPPARAM }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\DEVQUERYPRINT_INFO.ahk" { DEVQUERYPRINT_INFO }
+#Import ".\PROPSHEETUI_INFO.ahk" { PROPSHEETUI_INFO }
+#Import ".\IPrintOemCommon.ahk" { IPrintOemCommon }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -75,7 +75,7 @@ export default struct IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     CommonUIProp(dwMode, pOemCUIPParam) {
-        result := ComCall(6, this, "uint", dwMode, OEMCUIPPARAM.Ptr, pOemCUIPParam, "HRESULT")
+        result := ComCall(6, this, UInt32, dwMode, OEMCUIPPARAM.Ptr, pOemCUIPParam, "HRESULT")
         return result
     }
 
@@ -161,7 +161,7 @@ export default struct IPrintOemUI extends IPrintOemCommon {
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         dwResultMarshal := dwResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, OEMUIOBJ.Ptr, poemuiobj, HANDLE, hPrinter, "ptr", pDeviceName, "ushort", wCapability, pOutputMarshal, pOutput, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, "uint", dwOld, dwResultMarshal, dwResult, "HRESULT")
+        result := ComCall(10, this, OEMUIOBJ.Ptr, poemuiobj, HANDLE, hPrinter, "ptr", pDeviceName, UInt16, wCapability, pOutputMarshal, pOutput, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, UInt32, dwOld, dwResultMarshal, dwResult, "HRESULT")
         return result
     }
 
@@ -174,7 +174,7 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     UpgradePrinter(dwLevel, pDriverUpgradeInfo) {
         pDriverUpgradeInfoMarshal := pDriverUpgradeInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, "uint", dwLevel, pDriverUpgradeInfoMarshal, pDriverUpgradeInfo, "HRESULT")
+        result := ComCall(11, this, UInt32, dwLevel, pDriverUpgradeInfoMarshal, pDriverUpgradeInfo, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     PrinterEvent(pPrinterName, iDriverEvent, dwFlags, _lParam) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
-        result := ComCall(12, this, "ptr", pPrinterName, "int", iDriverEvent, "uint", dwFlags, LPARAM, _lParam, "HRESULT")
+        result := ComCall(12, this, "ptr", pPrinterName, Int32, iDriverEvent, UInt32, dwFlags, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -204,7 +204,7 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     DriverEvent(dwDriverEvent, dwLevel, pDriverInfo, _lParam) {
         pDriverInfoMarshal := pDriverInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwDriverEvent, "uint", dwLevel, pDriverInfoMarshal, pDriverInfo, LPARAM, _lParam, "HRESULT")
+        result := ComCall(13, this, UInt32, dwDriverEvent, UInt32, dwLevel, pDriverInfoMarshal, pDriverInfo, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -226,7 +226,7 @@ export default struct IPrintOemUI extends IPrintOemCommon {
         pcbProfileDataMarshal := pcbProfileData is VarRef ? "uint*" : "ptr"
         pflProfileDataMarshal := pflProfileData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, PRINTER_HANDLE, hPrinter, OEMUIOBJ.Ptr, poemuiobj, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, "uint", ulQueryMode, pvProfileDataMarshal, pvProfileData, pcbProfileDataMarshal, pcbProfileData, pflProfileDataMarshal, pflProfileData, "HRESULT")
+        result := ComCall(14, this, PRINTER_HANDLE, hPrinter, OEMUIOBJ.Ptr, poemuiobj, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, UInt32, ulQueryMode, pvProfileDataMarshal, pvProfileData, pcbProfileDataMarshal, pcbProfileData, pflProfileDataMarshal, pflProfileData, "HRESULT")
         return result
     }
 
@@ -239,7 +239,7 @@ export default struct IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     FontInstallerDlgProc(_hWnd, usMsg, _wParam, _lParam) {
-        result := ComCall(15, this, HWND, _hWnd, "uint", usMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(15, this, HWND, _hWnd, UInt32, usMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 

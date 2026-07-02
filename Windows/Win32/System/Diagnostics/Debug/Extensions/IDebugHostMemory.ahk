@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import ".\Location.ahk" { Location }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Location.ahk" { Location }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -51,7 +51,7 @@ export default struct IDebugHostMemory extends IUnknown {
      * @returns {Integer} 
      */
     ReadBytes(_context, _location, _buffer, bufferSize) {
-        result := ComCall(3, this, "ptr", _context, Location, _location, "ptr", _buffer, "uint", bufferSize, "uint*", &bytesRead := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _context, Location, _location, IntPtr, _buffer, Int64, bufferSize, "uint*", &bytesRead := 0, "HRESULT")
         return bytesRead
     }
 
@@ -64,7 +64,7 @@ export default struct IDebugHostMemory extends IUnknown {
      * @returns {Integer} 
      */
     WriteBytes(_context, _location, _buffer, bufferSize) {
-        result := ComCall(4, this, "ptr", _context, Location, _location, "ptr", _buffer, "uint", bufferSize, "uint*", &bytesWritten := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", _context, Location, _location, IntPtr, _buffer, Int64, bufferSize, "uint*", &bytesWritten := 0, "HRESULT")
         return bytesWritten
     }
 
@@ -76,7 +76,7 @@ export default struct IDebugHostMemory extends IUnknown {
      * @returns {Integer} 
      */
     ReadPointers(_context, _location, count) {
-        result := ComCall(5, this, "ptr", _context, Location, _location, "uint", count, "uint*", &pointers := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", _context, Location, _location, Int64, count, "uint*", &pointers := 0, "HRESULT")
         return pointers
     }
 
@@ -91,7 +91,7 @@ export default struct IDebugHostMemory extends IUnknown {
     WritePointers(_context, _location, count, pointers) {
         pointersMarshal := pointers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", _context, Location, _location, "uint", count, pointersMarshal, pointers, "HRESULT")
+        result := ComCall(6, this, "ptr", _context, Location, _location, Int64, count, pointersMarshal, pointers, "HRESULT")
         return result
     }
 
@@ -104,7 +104,7 @@ export default struct IDebugHostMemory extends IUnknown {
      */
     GetDisplayStringForLocation(_context, _location, verbose) {
         locationName := BSTR.Owned()
-        result := ComCall(7, this, "ptr", _context, Location, _location, "char", verbose, BSTR.Ptr, locationName, "HRESULT")
+        result := ComCall(7, this, "ptr", _context, Location, _location, Int8, verbose, BSTR.Ptr, locationName, "HRESULT")
         return locationName
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PAGERANGE.ahk" { PAGERANGE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PAGERANGE.ahk" { PAGERANGE }
 
 /**
  * Identifies one or more page-ranges to be printed and, optionally, identifies only the even or odd pages as part of a pageset.

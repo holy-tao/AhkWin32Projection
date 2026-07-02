@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SUBSCRIPTIONITEMINFO.ahk" { SUBSCRIPTIONITEMINFO }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SUBSCRIPTIONITEMINFO.ahk" { SUBSCRIPTIONITEMINFO }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IEnumItemProperties.ahk" { IEnumItemProperties }
 
@@ -85,7 +85,7 @@ export default struct ISubscriptionItem extends IUnknown {
         rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : "ptr"
 
         rgValue := VARIANT()
-        result := ComCall(6, this, "uint", nCount, rgwszNameMarshal, rgwszName, VARIANT.Ptr, rgValue, "HRESULT")
+        result := ComCall(6, this, UInt32, nCount, rgwszNameMarshal, rgwszName, VARIANT.Ptr, rgValue, "HRESULT")
         return rgValue
     }
 
@@ -99,7 +99,7 @@ export default struct ISubscriptionItem extends IUnknown {
     WriteProperties(nCount, rgwszName, rgValue) {
         rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", nCount, rgwszNameMarshal, rgwszName, VARIANT.Ptr, rgValue, "HRESULT")
+        result := ComCall(7, this, UInt32, nCount, rgwszNameMarshal, rgwszName, VARIANT.Ptr, rgValue, "HRESULT")
         return result
     }
 

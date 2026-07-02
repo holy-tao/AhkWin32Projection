@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GPMSearchOperation.ahk" { GPMSearchOperation }
-#Import ".\GPMSearchProperty.ahk" { GPMSearchProperty }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMSearchOperation.ahk" { GPMSearchOperation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GPMSearchProperty.ahk" { GPMSearchProperty }
 
 /**
  * The IGPMSearchCriteria interface allows you to define the criteria to use for search operations when using the Group Policy Management Console (GPMC) interfaces. To create a GPMSearchCriteria object, call the IGPM::CreateSearchCriteria method.

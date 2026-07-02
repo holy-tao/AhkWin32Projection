@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\D2D1_TRIANGLE.ahk" { D2D1_TRIANGLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Populates an ID2D1Mesh object with triangles.
@@ -51,7 +51,7 @@ export default struct ID2D1TessellationSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1tessellationsink-addtriangles
      */
     AddTriangles(triangles, trianglesCount) {
-        ComCall(3, this, D2D1_TRIANGLE.Ptr, triangles, "uint", trianglesCount)
+        ComCall(3, this, D2D1_TRIANGLE.Ptr, triangles, UInt32, trianglesCount)
     }
 
     /**

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\MPEG_TIME.ahk" { MPEG_TIME }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
 
 /**
  * Implements methods that enable the client to get information from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream. The IPBDASiParser::GetEIT method returns a pointer to this interface.
@@ -60,7 +60,7 @@ export default struct IPBDA_EIT extends IUnknown {
     Initialize(_size, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", _size, pBufferMarshal, pBuffer, "HRESULT")
+        result := ComCall(3, this, UInt32, _size, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IPBDA_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordeventid
      */
     GetRecordEventId(dwRecordIndex) {
-        result := ComCall(8, this, "uint", dwRecordIndex, "uint*", &plwVal := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwRecordIndex, "uint*", &plwVal := 0, "HRESULT")
         return plwVal
     }
 
@@ -125,7 +125,7 @@ export default struct IPBDA_EIT extends IUnknown {
      */
     GetRecordStartTime(dwRecordIndex) {
         pmdtVal := MPEG_DATE_AND_TIME()
-        result := ComCall(9, this, "uint", dwRecordIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
+        result := ComCall(9, this, UInt32, dwRecordIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
         return pmdtVal
     }
 
@@ -138,7 +138,7 @@ export default struct IPBDA_EIT extends IUnknown {
      */
     GetRecordDuration(dwRecordIndex) {
         pmdVal := MPEG_TIME()
-        result := ComCall(10, this, "uint", dwRecordIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
+        result := ComCall(10, this, UInt32, dwRecordIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
         return pmdVal
     }
 
@@ -150,7 +150,7 @@ export default struct IPBDA_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
         return pdwVal
     }
 
@@ -163,7 +163,7 @@ export default struct IPBDA_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, dwRecordIndex, UInt32, dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -179,7 +179,7 @@ export default struct IPBDA_EIT extends IUnknown {
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
     }
 

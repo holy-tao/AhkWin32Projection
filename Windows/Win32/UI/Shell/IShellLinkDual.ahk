@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -203,7 +203,7 @@ export default struct IShellLinkDual extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Hotkey(iHK) {
-        result := ComCall(16, this, "int", iHK, "HRESULT")
+        result := ComCall(16, this, Int32, iHK, "HRESULT")
         return result
     }
 
@@ -222,7 +222,7 @@ export default struct IShellLinkDual extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ShowCommand(iShowCommand) {
-        result := ComCall(18, this, "int", iShowCommand, "HRESULT")
+        result := ComCall(18, this, Int32, iShowCommand, "HRESULT")
         return result
     }
 
@@ -232,7 +232,7 @@ export default struct IShellLinkDual extends IDispatch {
      * @returns {HRESULT} 
      */
     Resolve(fFlags) {
-        result := ComCall(19, this, "int", fFlags, "HRESULT")
+        result := ComCall(19, this, Int32, fFlags, "HRESULT")
         return result
     }
 
@@ -255,7 +255,7 @@ export default struct IShellLinkDual extends IDispatch {
     SetIconLocation(bs, iIcon) {
         bs := bs is String ? BSTR.Alloc(bs).Value : bs
 
-        result := ComCall(21, this, BSTR, bs, "int", iIcon, "HRESULT")
+        result := ComCall(21, this, BSTR, bs, Int32, iIcon, "HRESULT")
         return result
     }
 

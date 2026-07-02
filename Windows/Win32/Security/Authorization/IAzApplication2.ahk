@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IAzApplication.ahk" { IAzApplication }
 #Import ".\IAzClientContext2.ahk" { IAzClientContext2 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAzApplication.ahk" { IAzApplication }
 
 /**
  * Inherits from the IAzApplication interface and implements additional methods to initialize IAzClientContext2 objects.
@@ -50,7 +50,7 @@ export default struct IAzApplication2 extends IAzApplication {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication2-initializeclientcontextfromtoken2
      */
     InitializeClientContextFromToken2(ulTokenHandleLowPart, ulTokenHandleHighPart, varReserved) {
-        result := ComCall(68, this, "uint", ulTokenHandleLowPart, "uint", ulTokenHandleHighPart, VARIANT, varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        result := ComCall(68, this, UInt32, ulTokenHandleLowPart, UInt32, ulTokenHandleHighPart, VARIANT, varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
         return IAzClientContext2(ppClientContext)
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
 #Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
+#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_VIDEO_SAMPLE_DESC.ahk" { D3D11_VIDEO_SAMPLE_DESC }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
 #Import ".\ID3D11VideoDevice.ahk" { ID3D11VideoDevice }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
 #Import ".\D3D11_VIDEO_DECODER_CONFIG.ahk" { D3D11_VIDEO_DECODER_CONFIG }
-#Import ".\D3D11_VIDEO_SAMPLE_DESC.ahk" { D3D11_VIDEO_SAMPLE_DESC }
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice1)
@@ -123,7 +123,7 @@ export default struct ID3D11VideoDevice1 extends ID3D11VideoDevice {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-getvideodecodercaps
      */
     GetVideoDecoderCaps(pDecoderProfile, SampleWidth, SampleHeight, pFrameRate, BitRate, pCryptoType) {
-        result := ComCall(21, this, Guid.Ptr, pDecoderProfile, "uint", SampleWidth, "uint", SampleHeight, DXGI_RATIONAL.Ptr, pFrameRate, "uint", BitRate, Guid.Ptr, pCryptoType, "uint*", &pDecoderCaps := 0, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, pDecoderProfile, UInt32, SampleWidth, UInt32, SampleHeight, DXGI_RATIONAL.Ptr, pFrameRate, UInt32, BitRate, Guid.Ptr, pCryptoType, "uint*", &pDecoderCaps := 0, "HRESULT")
         return pDecoderCaps
     }
 

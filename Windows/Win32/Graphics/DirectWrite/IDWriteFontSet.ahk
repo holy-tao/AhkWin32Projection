@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteStringList.ahk" { IDWriteStringList }
-#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
-#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
-#Import ".\DWRITE_FONT_PROPERTY_ID.ahk" { DWRITE_FONT_PROPERTY_ID }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\DWRITE_FONT_PROPERTY_ID.ahk" { DWRITE_FONT_PROPERTY_ID }
 #Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
 #Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteStringList.ahk" { IDWriteStringList }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
 
 /**
  * Represents a font set. (IDWriteFontSet)
@@ -80,7 +80,7 @@ export default struct IDWriteFontSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getfontfacereference
      */
     GetFontFaceReference(listIndex) {
-        result := ComCall(4, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference(fontFaceReference)
     }
 
@@ -183,7 +183,7 @@ export default struct IDWriteFontSet extends IUnknown {
     GetPropertyValues2(listIndex, propertyId, exists, values) {
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "uint", listIndex, DWRITE_FONT_PROPERTY_ID, propertyId, existsMarshal, exists, IDWriteLocalizedStrings.Ptr, values, "HRESULT")
+        result := ComCall(9, this, UInt32, listIndex, DWRITE_FONT_PROPERTY_ID, propertyId, existsMarshal, exists, IDWriteLocalizedStrings.Ptr, values, "HRESULT")
         return result
     }
 
@@ -240,7 +240,7 @@ export default struct IDWriteFontSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getmatchingfonts(dwrite_font_propertyconst_uint32_idwritefontset)
      */
     GetMatchingFonts1(_properties, propertyCount) {
-        result := ComCall(12, this, DWRITE_FONT_PROPERTY.Ptr, _properties, "uint", propertyCount, "ptr*", &filteredSet := 0, "HRESULT")
+        result := ComCall(12, this, DWRITE_FONT_PROPERTY.Ptr, _properties, UInt32, propertyCount, "ptr*", &filteredSet := 0, "HRESULT")
         return IDWriteFontSet(filteredSet)
     }
 

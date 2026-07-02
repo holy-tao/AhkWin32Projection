@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AdrClientErrorType.ahk" { AdrClientErrorType }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\AdrClientErrorType.ahk" { AdrClientErrorType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -63,7 +63,7 @@ export default struct IFsrmAccessDeniedRemediationClient extends IDispatch {
         windowTitle := windowTitle is String ? BSTR.Alloc(windowTitle).Value : windowTitle
         windowMessage := windowMessage is String ? BSTR.Alloc(windowMessage).Value : windowMessage
 
-        result := ComCall(7, this, "ptr", parentWnd, BSTR, accessPath, AdrClientErrorType, errorType, "int", flags, BSTR, windowTitle, BSTR, windowMessage, "int*", &result := 0, "HRESULT")
+        result := ComCall(7, this, IntPtr, parentWnd, BSTR, accessPath, AdrClientErrorType, errorType, Int32, flags, BSTR, windowTitle, BSTR, windowMessage, "int*", &result := 0, "HRESULT")
         return result
     }
 

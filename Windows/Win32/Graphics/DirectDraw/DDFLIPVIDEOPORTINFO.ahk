@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDVIDEOPORTDATA.ahk" { DDVIDEOPORTDATA }
 #Import ".\DDSURFACEDATA.ahk" { DDSURFACEDATA }
+#Import ".\DDVIDEOPORTDATA.ahk" { DDVIDEOPORTDATA }
 
 /**
  * The DDFLIPVIDEOPORTINFO structure contains the video port extensions (VPE) object and surface information.

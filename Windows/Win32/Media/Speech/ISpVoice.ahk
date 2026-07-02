@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPVOICESTATUS.ahk" { SPVOICESTATUS }
-#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\SPEVENTENUM.ahk" { SPEVENTENUM }
+#Import ".\ISpEventSource.ahk" { ISpEventSource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\SPVPRIORITY.ahk" { SPVPRIORITY }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\ISpEventSource.ahk" { ISpEventSource }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpObjectToken.ahk" { ISpObjectToken }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SPEVENTENUM.ahk" { SPEVENTENUM }
+#Import ".\SPVOICESTATUS.ahk" { SPVOICESTATUS }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -155,7 +155,7 @@ export default struct ISpVoice extends ISpEventSource {
     Speak(pwcs, dwFlags) {
         pwcs := pwcs is String ? StrPtr(pwcs) : pwcs
 
-        result := ComCall(20, this, "ptr", pwcs, "uint", dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", pwcs, UInt32, dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
         return pulStreamNumber
     }
 
@@ -166,7 +166,7 @@ export default struct ISpVoice extends ISpEventSource {
      * @returns {Integer} 
      */
     SpeakStream(pStream, dwFlags) {
-        result := ComCall(21, this, "ptr", pStream, "uint", dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", pStream, UInt32, dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
         return pulStreamNumber
     }
 
@@ -192,7 +192,7 @@ export default struct ISpVoice extends ISpEventSource {
 
         pulNumSkippedMarshal := pulNumSkipped is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "ptr", pItemType, "int", lNumItems, pulNumSkippedMarshal, pulNumSkipped, "HRESULT")
+        result := ComCall(23, this, "ptr", pItemType, Int32, lNumItems, pulNumSkippedMarshal, pulNumSkipped, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct ISpVoice extends ISpEventSource {
      * @returns {HRESULT} 
      */
     SetRate(RateAdjust) {
-        result := ComCall(28, this, "int", RateAdjust, "HRESULT")
+        result := ComCall(28, this, Int32, RateAdjust, "HRESULT")
         return result
     }
 
@@ -268,7 +268,7 @@ export default struct ISpVoice extends ISpEventSource {
      * @returns {HRESULT} 
      */
     SetVolume(usVolume) {
-        result := ComCall(30, this, "ushort", usVolume, "HRESULT")
+        result := ComCall(30, this, UInt16, usVolume, "HRESULT")
         return result
     }
 
@@ -290,7 +290,7 @@ export default struct ISpVoice extends ISpEventSource {
      * @returns {HRESULT} 
      */
     WaitUntilDone(msTimeout) {
-        result := ComCall(32, this, "uint", msTimeout, "HRESULT")
+        result := ComCall(32, this, UInt32, msTimeout, "HRESULT")
         return result
     }
 
@@ -300,7 +300,7 @@ export default struct ISpVoice extends ISpEventSource {
      * @returns {HRESULT} 
      */
     SetSyncSpeakTimeout(msTimeout) {
-        result := ComCall(33, this, "uint", msTimeout, "HRESULT")
+        result := ComCall(33, this, UInt32, msTimeout, "HRESULT")
         return result
     }
 
@@ -339,7 +339,7 @@ export default struct ISpVoice extends ISpEventSource {
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
         pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(36, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
+        result := ComCall(36, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
         return result
     }
 
@@ -358,7 +358,7 @@ export default struct ISpVoice extends ISpEventSource {
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(37, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "HRESULT")
+        result := ComCall(37, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "HRESULT")
         return result
     }
 

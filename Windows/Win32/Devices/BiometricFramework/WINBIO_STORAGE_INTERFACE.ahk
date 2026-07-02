@@ -1,6 +1,36 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PIBIO_STORAGE_PIPELINE_CLEANUP_FN.ahk" { PIBIO_STORAGE_PIPELINE_CLEANUP_FN }
+#Import ".\PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN.ahk" { PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN }
+#Import ".\PIBIO_STORAGE_DELETE_RECORD_FN.ahk" { PIBIO_STORAGE_DELETE_RECORD_FN }
+#Import ".\PIBIO_STORAGE_OPEN_DATABASE_FN.ahk" { PIBIO_STORAGE_OPEN_DATABASE_FN }
+#Import ".\PIBIO_STORAGE_CONTROL_UNIT_FN.ahk" { PIBIO_STORAGE_CONTROL_UNIT_FN }
+#Import ".\PIBIO_STORAGE_GET_RECORD_COUNT_FN.ahk" { PIBIO_STORAGE_GET_RECORD_COUNT_FN }
 #Import ".\WINBIO_ADAPTER_INTERFACE_VERSION.ahk" { WINBIO_ADAPTER_INTERFACE_VERSION }
+#Import ".\PIBIO_STORAGE_NEXT_RECORD_FN.ahk" { PIBIO_STORAGE_NEXT_RECORD_FN }
+#Import ".\PIBIO_STORAGE_CLEAR_CONTEXT_FN.ahk" { PIBIO_STORAGE_CLEAR_CONTEXT_FN }
+#Import ".\PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN.ahk" { PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN }
+#Import ".\PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN.ahk" { PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN }
+#Import ".\PIBIO_STORAGE_ADD_RECORD_FN.ahk" { PIBIO_STORAGE_ADD_RECORD_FN }
+#Import ".\PIBIO_STORAGE_QUERY_BY_SUBJECT_FN.ahk" { PIBIO_STORAGE_QUERY_BY_SUBJECT_FN }
+#Import ".\PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN.ahk" { PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PIBIO_STORAGE_DETACH_FN.ahk" { PIBIO_STORAGE_DETACH_FN }
+#Import ".\PIBIO_STORAGE_RESERVED_1_FN.ahk" { PIBIO_STORAGE_RESERVED_1_FN }
+#Import ".\PIBIO_STORAGE_ERASE_DATABASE_FN.ahk" { PIBIO_STORAGE_ERASE_DATABASE_FN }
+#Import ".\PIBIO_STORAGE_GET_CURRENT_RECORD_FN.ahk" { PIBIO_STORAGE_GET_CURRENT_RECORD_FN }
+#Import ".\PIBIO_STORAGE_FIRST_RECORD_FN.ahk" { PIBIO_STORAGE_FIRST_RECORD_FN }
+#Import ".\PIBIO_STORAGE_GET_DATA_FORMAT_FN.ahk" { PIBIO_STORAGE_GET_DATA_FORMAT_FN }
+#Import ".\PIBIO_STORAGE_PIPELINE_INIT_FN.ahk" { PIBIO_STORAGE_PIPELINE_INIT_FN }
+#Import ".\PIBIO_STORAGE_GET_DATABASE_SIZE_FN.ahk" { PIBIO_STORAGE_GET_DATABASE_SIZE_FN }
+#Import ".\PIBIO_STORAGE_QUERY_BY_CONTENT_FN.ahk" { PIBIO_STORAGE_QUERY_BY_CONTENT_FN }
+#Import ".\PIBIO_STORAGE_CONTROL_UNIT_PRIVILEGED_FN.ahk" { PIBIO_STORAGE_CONTROL_UNIT_PRIVILEGED_FN }
+#Import ".\PIBIO_STORAGE_DEACTIVATE_FN.ahk" { PIBIO_STORAGE_DEACTIVATE_FN }
+#Import ".\PIBIO_STORAGE_CLOSE_DATABASE_FN.ahk" { PIBIO_STORAGE_CLOSE_DATABASE_FN }
+#Import ".\PIBIO_STORAGE_CREATE_DATABASE_FN.ahk" { PIBIO_STORAGE_CREATE_DATABASE_FN }
+#Import ".\PIBIO_STORAGE_RESERVED_2_FN.ahk" { PIBIO_STORAGE_RESERVED_2_FN }
+#Import ".\PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN.ahk" { PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN }
+#Import ".\PIBIO_STORAGE_ATTACH_FN.ahk" { PIBIO_STORAGE_ATTACH_FN }
+#Import ".\PIBIO_STORAGE_ACTIVATE_FN.ahk" { PIBIO_STORAGE_ACTIVATE_FN }
 
 /**
  * Contains pointers to your custom storage adapter functions.
@@ -39,136 +69,136 @@ export default struct WINBIO_STORAGE_INTERFACE {
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_attach_fn">StorageAdapterAttach</a> function.
      */
-    Attach : IntPtr
+    Attach : PIBIO_STORAGE_ATTACH_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_detach_fn">StorageAdapterDetach</a> function.
      */
-    Detach : IntPtr
+    Detach : PIBIO_STORAGE_DETACH_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_clear_context_fn">StorageAdapterClearContext</a> function.
      */
-    ClearContext : IntPtr
+    ClearContext : PIBIO_STORAGE_CLEAR_CONTEXT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_create_database_fn">StorageAdapterCreateDatabase</a> function.
      */
-    CreateDatabase : IntPtr
+    CreateDatabase : PIBIO_STORAGE_CREATE_DATABASE_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_erase_database_fn">StorageAdapterEraseDatabase</a> function.
      */
-    EraseDatabase : IntPtr
+    EraseDatabase : PIBIO_STORAGE_ERASE_DATABASE_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_open_database_fn">StorageAdapterOpenDatabase</a> function.
      */
-    OpenDatabase : IntPtr
+    OpenDatabase : PIBIO_STORAGE_OPEN_DATABASE_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_close_database_fn">StorageAdapterCloseDatabase</a> function.
      */
-    CloseDatabase : IntPtr
+    CloseDatabase : PIBIO_STORAGE_CLOSE_DATABASE_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_get_data_format_fn">StorageAdapterGetDataFormat</a> function.
      */
-    GetDataFormat : IntPtr
+    GetDataFormat : PIBIO_STORAGE_GET_DATA_FORMAT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_get_database_size_fn">StorageAdapterGetDatabaseSize</a> function.
      */
-    GetDatabaseSize : IntPtr
+    GetDatabaseSize : PIBIO_STORAGE_GET_DATABASE_SIZE_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_add_record_fn">StorageAdapterAddRecord</a> function.
      */
-    AddRecord : IntPtr
+    AddRecord : PIBIO_STORAGE_ADD_RECORD_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_delete_record_fn">StorageAdapterDeleteRecord</a> function.
      */
-    DeleteRecord : IntPtr
+    DeleteRecord : PIBIO_STORAGE_DELETE_RECORD_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_query_by_subject_fn">StorageAdapterQueryBySubject</a> function.
      */
-    QueryBySubject : IntPtr
+    QueryBySubject : PIBIO_STORAGE_QUERY_BY_SUBJECT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_query_by_content_fn">StorageAdapterQueryByContent</a> function.
      */
-    QueryByContent : IntPtr
+    QueryByContent : PIBIO_STORAGE_QUERY_BY_CONTENT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_get_record_count_fn">StorageAdapterGetRecordCount</a> function.
      */
-    GetRecordCount : IntPtr
+    GetRecordCount : PIBIO_STORAGE_GET_RECORD_COUNT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_first_record_fn">StorageAdapterFirstRecord</a> function.
      */
-    FirstRecord : IntPtr
+    FirstRecord : PIBIO_STORAGE_FIRST_RECORD_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_next_record_fn">StorageAdapterNextRecord</a> function.
      */
-    NextRecord : IntPtr
+    NextRecord : PIBIO_STORAGE_NEXT_RECORD_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_get_current_record_fn">StorageAdapterGetCurrentRecord</a> function.
      */
-    GetCurrentRecord : IntPtr
+    GetCurrentRecord : PIBIO_STORAGE_GET_CURRENT_RECORD_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_control_unit_fn">StorageAdapterControlUnit</a> function.
      */
-    ControlUnit : IntPtr
+    ControlUnit : PIBIO_STORAGE_CONTROL_UNIT_FN
 
     /**
      * A pointer to your implementation of the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_control_unit_privileged_fn">StorageAdapterControlUnitPrivileged</a> function.
      */
-    ControlUnitPrivileged : IntPtr
+    ControlUnitPrivileged : PIBIO_STORAGE_CONTROL_UNIT_PRIVILEGED_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_notify_power_change_fn">StorageAdapterNotifyPowerChange</a> function. This member is supported starting in Windows 8.
      */
-    NotifyPowerChange : IntPtr
+    NotifyPowerChange : PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_pipeline_init_fn">StorageAdapterPipelineInit</a> function. This member is supported starting in Windows 10.
      */
-    PipelineInit : IntPtr
+    PipelineInit : PIBIO_STORAGE_PIPELINE_INIT_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_pipeline_cleanup_fn">StorageAdapterPipelineCleanup</a> function. This member is supported starting in Windows 10.
      */
-    PipelineCleanup : IntPtr
+    PipelineCleanup : PIBIO_STORAGE_PIPELINE_CLEANUP_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_activate_fn">StorageAdapterActivate</a> function. This member is supported starting in Windows 10.
      */
-    Activate : IntPtr
+    Activate : PIBIO_STORAGE_ACTIVATE_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_deactivate_fn">StorageAdapterDeactivate</a> function. This member is supported starting in Windows 10.
      */
-    Deactivate : IntPtr
+    Deactivate : PIBIO_STORAGE_DEACTIVATE_FN
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_storage_query_extended_info_fn">StorageAdapterQueryExtendedInfo</a> function. This member is supported starting in Windows 10.
      */
-    QueryExtendedInfo : IntPtr
+    QueryExtendedInfo : PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN
 
-    NotifyDatabaseChange : IntPtr
+    NotifyDatabaseChange : PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN
 
-    Reserved1 : IntPtr
+    Reserved1 : PIBIO_STORAGE_RESERVED_1_FN
 
-    Reserved2 : IntPtr
+    Reserved2 : PIBIO_STORAGE_RESERVED_2_FN
 
-    UpdateRecordBegin : IntPtr
+    UpdateRecordBegin : PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN
 
-    UpdateRecordCommit : IntPtr
+    UpdateRecordCommit : PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN
 
 }

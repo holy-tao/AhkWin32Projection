@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import ".\IMPEG2TuneRequest.ahk" { IMPEG2TuneRequest }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMPEG2TuneRequest.ahk" { IMPEG2TuneRequest }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
 
 /**
  * The IMPEG2TuneRequestFactory interface creates a tune request for a basic MPEG-2 transport stream containing the minimal tables. To obtain this interface, call CoCreateInstance with the class identifier CLSID_MPEG2TuneRequestFactory.

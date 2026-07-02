@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDVB_EIT2.ahk" { IDVB_EIT2 }
 
 /**
@@ -44,7 +44,7 @@ export default struct ISIInbandEPGEvent extends IUnknown {
      * @returns {HRESULT} 
      */
     SIObjectEvent(pIDVB_EIT, dwTable_ID, dwService_ID) {
-        result := ComCall(3, this, "ptr", pIDVB_EIT, "uint", dwTable_ID, "uint", dwService_ID, "HRESULT")
+        result := ComCall(3, this, "ptr", pIDVB_EIT, UInt32, dwTable_ID, UInt32, dwService_ID, "HRESULT")
         return result
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWiaTransferCallback.ahk" { IWiaTransferCallback }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IWiaPropertyStorage.ahk" { IWiaPropertyStorage }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWiaPropertyStorage.ahk" { IWiaPropertyStorage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWiaItem2.ahk" { IWiaItem2 }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * The IWiaImageFilter interface is an extension interface implemented by image processing filter developers and called by Windows Image Acquisition (WIA) 2.0.
@@ -155,7 +155,7 @@ export default struct IWiaImageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaimagefilter-filterpreviewimage
      */
     FilterPreviewImage(lFlags, pWiaChildItem2, InputImageExtents, pInputStream) {
-        result := ComCall(5, this, "int", lFlags, "ptr", pWiaChildItem2, RECT, InputImageExtents, "ptr", pInputStream, "HRESULT")
+        result := ComCall(5, this, Int32, lFlags, "ptr", pWiaChildItem2, RECT, InputImageExtents, "ptr", pInputStream, "HRESULT")
         return result
     }
 

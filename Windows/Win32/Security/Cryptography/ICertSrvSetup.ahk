@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ICertSrvSetupKeyInformation.ahk" { ICertSrvSetupKeyInformation }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ICertSrvSetupKeyInformation.ahk" { ICertSrvSetupKeyInformation }
+#Import ".\ICertSrvSetupKeyInformationCollection.ahk" { ICertSrvSetupKeyInformationCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ICertSrvSetupKeyInformationCollection.ahk" { ICertSrvSetupKeyInformationCollection }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\CASetupProperty.ahk" { CASetupProperty }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Defines functionality to install and uninstall Certification Authority (CA) and Certification Authority Web Enrollment roles on a Certificate Services computer.

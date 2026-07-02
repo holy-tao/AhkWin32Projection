@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPDDHAL_GETSCANLINE.ahk" { LPDDHAL_GETSCANLINE }
 #Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
@@ -14,6 +15,6 @@ export default struct DDHAL_GETSCANLINEDATA {
 
     ddRVal : HRESULT
 
-    GetScanLine : IntPtr
+    GetScanLine : LPDDHAL_GETSCANLINE
 
 }

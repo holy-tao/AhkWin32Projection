@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Com\IErrorInfo.ahk" { IErrorInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ERRORINFO.ahk" { ERRORINFO }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -53,7 +53,7 @@ export default struct IErrorRecords extends IUnknown {
      * @returns {HRESULT} 
      */
     AddErrorRecord(pErrorInfo, dwLookupID, pdispparams, punkCustomError, dwDynamicErrorID) {
-        result := ComCall(3, this, ERRORINFO.Ptr, pErrorInfo, "uint", dwLookupID, DISPPARAMS.Ptr, pdispparams, "ptr", punkCustomError, "uint", dwDynamicErrorID, "HRESULT")
+        result := ComCall(3, this, ERRORINFO.Ptr, pErrorInfo, UInt32, dwLookupID, DISPPARAMS.Ptr, pdispparams, "ptr", punkCustomError, UInt32, dwDynamicErrorID, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IErrorRecords extends IUnknown {
      */
     GetBasicErrorInfo(ulRecordNum) {
         pErrorInfo := ERRORINFO()
-        result := ComCall(4, this, "uint", ulRecordNum, ERRORINFO.Ptr, pErrorInfo, "HRESULT")
+        result := ComCall(4, this, UInt32, ulRecordNum, ERRORINFO.Ptr, pErrorInfo, "HRESULT")
         return pErrorInfo
     }
 
@@ -75,7 +75,7 @@ export default struct IErrorRecords extends IUnknown {
      * @returns {IUnknown} 
      */
     GetCustomErrorObject(ulRecordNum, riid) {
-        result := ComCall(5, this, "uint", ulRecordNum, Guid.Ptr, riid, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, ulRecordNum, Guid.Ptr, riid, "ptr*", &ppObject := 0, "HRESULT")
         return IUnknown(ppObject)
     }
 
@@ -91,7 +91,7 @@ export default struct IErrorRecords extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-geterrorinfo
      */
     GetErrorInfo(ulRecordNum, lcid) {
-        result := ComCall(6, this, "uint", ulRecordNum, "uint", lcid, "ptr*", &ppErrorInfo := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, ulRecordNum, UInt32, lcid, "ptr*", &ppErrorInfo := 0, "HRESULT")
         return IErrorInfo(ppErrorInfo)
     }
 
@@ -102,7 +102,7 @@ export default struct IErrorRecords extends IUnknown {
      */
     GetErrorParameters(ulRecordNum) {
         pdispparams := DISPPARAMS()
-        result := ComCall(7, this, "uint", ulRecordNum, DISPPARAMS.Ptr, pdispparams, "HRESULT")
+        result := ComCall(7, this, UInt32, ulRecordNum, DISPPARAMS.Ptr, pdispparams, "HRESULT")
         return pdispparams
     }
 

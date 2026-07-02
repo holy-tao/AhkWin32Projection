@@ -45,7 +45,7 @@ export default struct IDirectSoundBuffer8 extends IDirectSoundBuffer {
      * @returns {Integer} 
      */
     SetFX(dwEffectsCount, pDSFXDesc) {
-        result := ComCall(21, this, "uint", dwEffectsCount, DSEFFECTDESC.Ptr, pDSFXDesc, "uint*", &pdwResultCodes := 0, "HRESULT")
+        result := ComCall(21, this, UInt32, dwEffectsCount, DSEFFECTDESC.Ptr, pDSFXDesc, "uint*", &pdwResultCodes := 0, "HRESULT")
         return pdwResultCodes
     }
 
@@ -56,7 +56,7 @@ export default struct IDirectSoundBuffer8 extends IDirectSoundBuffer {
      * @returns {Integer} 
      */
     AcquireResources(dwFlags, dwEffectsCount) {
-        result := ComCall(22, this, "uint", dwFlags, "uint", dwEffectsCount, "uint*", &pdwResultCodes := 0, "HRESULT")
+        result := ComCall(22, this, UInt32, dwFlags, UInt32, dwEffectsCount, "uint*", &pdwResultCodes := 0, "HRESULT")
         return pdwResultCodes
     }
 
@@ -68,7 +68,7 @@ export default struct IDirectSoundBuffer8 extends IDirectSoundBuffer {
      * @returns {Pointer<Void>} 
      */
     GetObjectInPath(rguidObject, dwIndex, rguidInterface) {
-        result := ComCall(23, this, Guid.Ptr, rguidObject, "uint", dwIndex, Guid.Ptr, rguidInterface, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(23, this, Guid.Ptr, rguidObject, UInt32, dwIndex, Guid.Ptr, rguidInterface, "ptr*", &ppObject := 0, "HRESULT")
         return ppObject
     }
 

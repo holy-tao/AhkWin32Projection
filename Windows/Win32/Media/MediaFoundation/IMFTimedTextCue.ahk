@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFTimedTextBinary.ahk" { IMFTimedTextBinary }
 #Import ".\IMFTimedTextFormattedText.ahk" { IMFTimedTextFormattedText }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFTimedTextBinary.ahk" { IMFTimedTextBinary }
 #Import ".\MF_TIMED_TEXT_TRACK_KIND.ahk" { MF_TIMED_TEXT_TRACK_KIND }
-#Import ".\IMFTimedTextRegion.ahk" { IMFTimedTextRegion }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFTimedTextStyle.ahk" { IMFTimedTextStyle }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFTimedTextRegion.ahk" { IMFTimedTextRegion }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the timed-text-cue object.
@@ -189,7 +189,7 @@ export default struct IMFTimedTextCue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getline
      */
     GetLine(index) {
-        result := ComCall(13, this, "uint", index, "ptr*", &line := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, index, "ptr*", &line := 0, "HRESULT")
         return IMFTimedTextFormattedText(line)
     }
 

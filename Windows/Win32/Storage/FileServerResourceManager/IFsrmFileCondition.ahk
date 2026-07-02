@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\FsrmFileConditionType.ahk" { FsrmFileConditionType }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmFileConditionType.ahk" { FsrmFileConditionType }
 
 /**
  * @namespace Windows.Win32.Storage.FileServerResourceManager

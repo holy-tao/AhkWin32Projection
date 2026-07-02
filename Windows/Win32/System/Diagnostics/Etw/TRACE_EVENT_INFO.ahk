@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PROPERTY_FLAGS.ahk" { PROPERTY_FLAGS }
 #Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
+#Import ".\PROPERTY_FLAGS.ahk" { PROPERTY_FLAGS }
 #Import ".\EVENT_PROPERTY_INFO.ahk" { EVENT_PROPERTY_INFO }
-#Import ".\DECODING_SOURCE.ahk" { DECODING_SOURCE }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DECODING_SOURCE.ahk" { DECODING_SOURCE }
 #Import ".\TEMPLATE_FLAGS.ahk" { TEMPLATE_FLAGS }
 
 /**

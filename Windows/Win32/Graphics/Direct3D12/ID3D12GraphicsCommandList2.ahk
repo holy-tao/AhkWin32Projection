@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk" { D3D12_WRITEBUFFERIMMEDIATE_PARAMETER }
-#Import ".\ID3D12GraphicsCommandList1.ahk" { ID3D12GraphicsCommandList1 }
 #Import ".\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk" { D3D12_WRITEBUFFERIMMEDIATE_MODE }
+#Import ".\ID3D12GraphicsCommandList1.ahk" { ID3D12GraphicsCommandList1 }
 
 /**
  * Encapsulates a list of graphics commands for rendering, extending the interface to support writing immediate values directly to a buffer.
@@ -53,7 +53,7 @@ export default struct ID3D12GraphicsCommandList2 extends ID3D12GraphicsCommandLi
     WriteBufferImmediate(Count, pParams, pModes) {
         pModesMarshal := pModes is VarRef ? "int*" : "ptr"
 
-        ComCall(66, this, "uint", Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
+        ComCall(66, this, UInt32, Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
     }
 
     Query(iid) {

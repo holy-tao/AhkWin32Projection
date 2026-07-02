@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
 #Import ".\IXpsOMGradientBrush.ahk" { IXpsOMGradientBrush }
-#Import ".\XPS_COLOR.ahk" { XPS_COLOR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_COLOR.ahk" { XPS_COLOR }
 
 /**
  * Represents a single color and location within a gradient.
@@ -167,7 +167,7 @@ export default struct IXpsOMGradientStop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-setoffset
      */
     SetOffset(offset) {
-        result := ComCall(5, this, "float", offset, "HRESULT")
+        result := ComCall(5, this, Float32, offset, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Direct3D\D3D_RESOURCE_RETURN_TYPE.ahk" { D3D_RESOURCE_RETURN_TYPE }
-#Import "..\Direct3D\D3D_SHADER_INPUT_TYPE.ahk" { D3D_SHADER_INPUT_TYPE }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\Direct3D\D3D_SRV_DIMENSION.ahk" { D3D_SRV_DIMENSION }
+#Import "..\Direct3D\D3D_RESOURCE_RETURN_TYPE.ahk" { D3D_RESOURCE_RETURN_TYPE }
+#Import "..\Direct3D\D3D_SHADER_INPUT_TYPE.ahk" { D3D_SHADER_INPUT_TYPE }
 
 /**
  * Describes how a shader resource is bound to a shader input. (D3D10_SHADER_INPUT_BIND_DESC)

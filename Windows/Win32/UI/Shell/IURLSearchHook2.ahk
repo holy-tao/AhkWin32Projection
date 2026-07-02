@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IURLSearchHook.ahk" { IURLSearchHook }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IURLSearchHook.ahk" { IURLSearchHook }
 #Import ".\ISearchContext.ahk" { ISearchContext }
 
 /**
@@ -62,7 +62,7 @@ export default struct IURLSearchHook2 extends IURLSearchHook {
     TranslateWithSearchContext(pwszSearchURL, cchBufferSize, pSearchContext) {
         pwszSearchURL := pwszSearchURL is String ? StrPtr(pwszSearchURL) : pwszSearchURL
 
-        result := ComCall(4, this, "ptr", pwszSearchURL, "uint", cchBufferSize, "ptr", pSearchContext, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszSearchURL, UInt32, cchBufferSize, "ptr", pSearchContext, "HRESULT")
         return result
     }
 

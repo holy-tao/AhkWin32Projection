@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemServices.ahk" { IWbemServices }
-#Import ".\IWbemContext.ahk" { IWbemContext }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -62,7 +62,7 @@ export default struct IWbemClientTransport extends IUnknown {
 
         abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, BSTR, strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strNetworkResource, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, "int", lSecurityFlags, BSTR, strAuthority, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, strAddressType, UInt32, dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strNetworkResource, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, Int32, lSecurityFlags, BSTR, strAuthority, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
         return IWbemServices(ppNamespace)
     }
 

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WbemCimtypeEnum.ahk" { WbemCimtypeEnum }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\WbemCimtypeEnum.ahk" { WbemCimtypeEnum }
-#Import ".\ISWbemProperty.ahk" { ISWbemProperty }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISWbemProperty.ahk" { ISWbemProperty }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -88,7 +88,7 @@ export default struct ISWbemPropertySet extends IDispatch {
     Item(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, BSTR, strName, "int", iFlags, "ptr*", &objWbemProperty := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, strName, Int32, iFlags, "ptr*", &objWbemProperty := 0, "HRESULT")
         return ISWbemProperty(objWbemProperty)
     }
 
@@ -112,7 +112,7 @@ export default struct ISWbemPropertySet extends IDispatch {
     Add(strName, iCIMType, bIsArray, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(10, this, BSTR, strName, WbemCimtypeEnum, iCIMType, VARIANT_BOOL, bIsArray, "int", iFlags, "ptr*", &objWbemProperty := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, strName, WbemCimtypeEnum, iCIMType, VARIANT_BOOL, bIsArray, Int32, iFlags, "ptr*", &objWbemProperty := 0, "HRESULT")
         return ISWbemProperty(objWbemProperty)
     }
 
@@ -125,7 +125,7 @@ export default struct ISWbemPropertySet extends IDispatch {
     Remove(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(11, this, BSTR, strName, "int", iFlags, "HRESULT")
+        result := ComCall(11, this, BSTR, strName, Int32, iFlags, "HRESULT")
         return result
     }
 

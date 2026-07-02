@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MPEG1WAVEFORMAT.ahk" { MPEG1WAVEFORMAT }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMpegAudioDecoder interface is exposed on the MPEG-1 Audio Decoder filter and it enables applications to control decoding parameters.
@@ -140,7 +140,7 @@ export default struct IMpegAudioDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_frequencydivider
      */
     put_FrequencyDivider(Divider) {
-        result := ComCall(4, this, "uint", Divider, "HRESULT")
+        result := ComCall(4, this, UInt32, Divider, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IMpegAudioDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_decoderaccuracy
      */
     put_DecoderAccuracy(Accuracy) {
-        result := ComCall(6, this, "uint", Accuracy, "HRESULT")
+        result := ComCall(6, this, UInt32, Accuracy, "HRESULT")
         return result
     }
 
@@ -218,7 +218,7 @@ export default struct IMpegAudioDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_stereo
      */
     put_Stereo(Stereo) {
-        result := ComCall(8, this, "uint", Stereo, "HRESULT")
+        result := ComCall(8, this, UInt32, Stereo, "HRESULT")
         return result
     }
 
@@ -257,7 +257,7 @@ export default struct IMpegAudioDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_decoderwordsize
      */
     put_DecoderWordSize(WordSize) {
-        result := ComCall(10, this, "uint", WordSize, "HRESULT")
+        result := ComCall(10, this, UInt32, WordSize, "HRESULT")
         return result
     }
 
@@ -296,7 +296,7 @@ export default struct IMpegAudioDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_integerdecode
      */
     put_IntegerDecode(IntDecode) {
-        result := ComCall(12, this, "uint", IntDecode, "HRESULT")
+        result := ComCall(12, this, UInt32, IntDecode, "HRESULT")
         return result
     }
 
@@ -411,7 +411,7 @@ export default struct IMpegAudioDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-put_dualmode
      */
     put_DualMode(IntDecode) {
-        result := ComCall(14, this, "uint", IntDecode, "HRESULT")
+        result := ComCall(14, this, UInt32, IntDecode, "HRESULT")
         return result
     }
 

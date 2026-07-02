@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import ".\COLORINFO.ahk" { COLORINFO }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import ".\CIECHROMA.ahk" { CIECHROMA }
 
 /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WBEM_COMPILE_STATUS_INFO.ahk" { WBEM_COMPILE_STATUS_INFO }
 
 /**
@@ -90,7 +90,7 @@ export default struct IMofCompiler extends IUnknown {
         Authority := Authority is String ? StrPtr(Authority) : Authority
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := ComCall(3, this, "ptr", FileName, "ptr", ServerAndNamespace, "ptr", User, "ptr", Authority, "ptr", Password, "int", lOptionFlags, "int", lClassFlags, "int", lInstanceFlags, WBEM_COMPILE_STATUS_INFO.Ptr, pInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", FileName, "ptr", ServerAndNamespace, "ptr", User, "ptr", Authority, "ptr", Password, Int32, lOptionFlags, Int32, lClassFlags, Int32, lInstanceFlags, WBEM_COMPILE_STATUS_INFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IMofCompiler extends IUnknown {
         Authority := Authority is String ? StrPtr(Authority) : Authority
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := ComCall(4, this, "int", BuffSize, "ptr", pBuffer, "ptr", ServerAndNamespace, "ptr", User, "ptr", Authority, "ptr", Password, "int", lOptionFlags, "int", lClassFlags, "int", lInstanceFlags, WBEM_COMPILE_STATUS_INFO.Ptr, pInfo, "HRESULT")
+        result := ComCall(4, this, Int32, BuffSize, IntPtr, pBuffer, "ptr", ServerAndNamespace, "ptr", User, "ptr", Authority, "ptr", Password, Int32, lOptionFlags, Int32, lClassFlags, Int32, lInstanceFlags, WBEM_COMPILE_STATUS_INFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IMofCompiler extends IUnknown {
         BMOFFileName := BMOFFileName is String ? StrPtr(BMOFFileName) : BMOFFileName
         ServerAndNamespace := ServerAndNamespace is String ? StrPtr(ServerAndNamespace) : ServerAndNamespace
 
-        result := ComCall(5, this, "ptr", TextFileName, "ptr", BMOFFileName, "ptr", ServerAndNamespace, "int", lOptionFlags, "int", lClassFlags, "int", lInstanceFlags, WBEM_COMPILE_STATUS_INFO.Ptr, pInfo, "HRESULT")
+        result := ComCall(5, this, "ptr", TextFileName, "ptr", BMOFFileName, "ptr", ServerAndNamespace, Int32, lOptionFlags, Int32, lClassFlags, Int32, lInstanceFlags, WBEM_COMPILE_STATUS_INFO.Ptr, pInfo, "HRESULT")
         return result
     }
 

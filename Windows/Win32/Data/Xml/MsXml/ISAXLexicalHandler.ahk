@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -57,7 +57,7 @@ export default struct ISAXLexicalHandler extends IUnknown {
         pwchPublicId := pwchPublicId is String ? StrPtr(pwchPublicId) : pwchPublicId
         pwchSystemId := pwchSystemId is String ? StrPtr(pwchSystemId) : pwchSystemId
 
-        result := ComCall(3, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "HRESULT")
+        result := ComCall(3, this, "ptr", pwchName, Int32, cchName, "ptr", pwchPublicId, Int32, cchPublicId, "ptr", pwchSystemId, Int32, cchSystemId, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct ISAXLexicalHandler extends IUnknown {
     startEntity(pwchName, cchName) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(5, this, "ptr", pwchName, "int", cchName, "HRESULT")
+        result := ComCall(5, this, "ptr", pwchName, Int32, cchName, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct ISAXLexicalHandler extends IUnknown {
     endEntity(pwchName, cchName) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(6, this, "ptr", pwchName, "int", cchName, "HRESULT")
+        result := ComCall(6, this, "ptr", pwchName, Int32, cchName, "HRESULT")
         return result
     }
 
@@ -123,7 +123,7 @@ export default struct ISAXLexicalHandler extends IUnknown {
     comment(pwchChars, cchChars) {
         pwchChars := pwchChars is String ? StrPtr(pwchChars) : pwchChars
 
-        result := ComCall(9, this, "ptr", pwchChars, "int", cchChars, "HRESULT")
+        result := ComCall(9, this, "ptr", pwchChars, Int32, cchChars, "HRESULT")
         return result
     }
 

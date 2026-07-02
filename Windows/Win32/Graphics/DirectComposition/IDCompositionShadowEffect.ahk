@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import "..\Direct2D\Common\D2D_VECTOR_4F.ahk" { D2D_VECTOR_4F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
@@ -74,7 +74,7 @@ export default struct IDCompositionShadowEffect extends IDCompositionFilterEffec
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionshadoweffect-setstandarddeviation(float)
      */
     SetStandardDeviation1(amount) {
-        result := ComCall(5, this, "float", amount, "HRESULT")
+        result := ComCall(5, this, Float32, amount, "HRESULT")
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IDCompositionShadowEffect extends IDCompositionFilterEffec
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionshadoweffect-setred(float)
      */
     SetRed1(amount) {
-        result := ComCall(8, this, "float", amount, "HRESULT")
+        result := ComCall(8, this, Float32, amount, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IDCompositionShadowEffect extends IDCompositionFilterEffec
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionshadoweffect-setgreen(float)
      */
     SetGreen1(amount) {
-        result := ComCall(10, this, "float", amount, "HRESULT")
+        result := ComCall(10, this, Float32, amount, "HRESULT")
         return result
     }
 
@@ -173,7 +173,7 @@ export default struct IDCompositionShadowEffect extends IDCompositionFilterEffec
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionshadoweffect-setblue(idcompositionanimation)
      */
     SetBlue1(amount) {
-        result := ComCall(12, this, "float", amount, "HRESULT")
+        result := ComCall(12, this, Float32, amount, "HRESULT")
         return result
     }
 
@@ -201,7 +201,7 @@ export default struct IDCompositionShadowEffect extends IDCompositionFilterEffec
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionshadoweffect-setalpha(idcompositionanimation)
      */
     SetAlpha1(amount) {
-        result := ComCall(14, this, "float", amount, "HRESULT")
+        result := ComCall(14, this, Float32, amount, "HRESULT")
         return result
     }
 

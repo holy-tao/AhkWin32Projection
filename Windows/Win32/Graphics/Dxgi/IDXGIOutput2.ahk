@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDXGIOutput1.ahk" { IDXGIOutput1 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDXGIOutput1.ahk" { IDXGIOutput1 }
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput2 interface exposes a method to check for multiplane overlay support on the primary output adapter.

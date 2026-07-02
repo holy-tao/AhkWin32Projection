@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRowsetLocate.ahk" { IRowsetLocate }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -50,7 +50,7 @@ export default struct IRowsetScroll extends IRowsetLocate {
         pulPositionMarshal := pulPosition is VarRef ? "ptr*" : "ptr"
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", hReserved, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "HRESULT")
+        result := ComCall(12, this, IntPtr, hReserved, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 
@@ -69,7 +69,7 @@ export default struct IRowsetScroll extends IRowsetLocate {
         pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
         prghRowsMarshal := prghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", hReserved1, "ptr", hReserved2, "ptr", ulNumerator, "ptr", ulDenominator, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
+        result := ComCall(13, this, IntPtr, hReserved1, IntPtr, hReserved2, IntPtr, ulNumerator, IntPtr, ulDenominator, IntPtr, cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
         return result
     }
 

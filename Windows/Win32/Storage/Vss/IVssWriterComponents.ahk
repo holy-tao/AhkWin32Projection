@@ -164,7 +164,7 @@ export default struct IVssWriterComponents extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponent
      */
     GetComponent(_iComponent) {
-        result := ComCall(2, this, "uint", _iComponent, "ptr*", &ppComponent := 0, "HRESULT")
+        result := ComCall(2, this, UInt32, _iComponent, "ptr*", &ppComponent := 0, "HRESULT")
         return IVssComponent(ppComponent)
     }
 

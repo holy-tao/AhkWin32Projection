@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUIAnimationVariable.ahk" { IUIAnimationVariable }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationStoryboard.ahk" { IUIAnimationStoryboard }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a method for handling animation variable update events.
@@ -95,7 +95,7 @@ export default struct IUIAnimationVariableIntegerChangeHandler extends IUnknown 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariableintegerchangehandler-onintegervaluechanged
      */
     OnIntegerValueChanged(storyboard, variable, newValue, previousValue) {
-        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, "int", newValue, "int", previousValue, "HRESULT")
+        result := ComCall(3, this, "ptr", storyboard, "ptr", variable, Int32, newValue, Int32, previousValue, "HRESULT")
         return result
     }
 

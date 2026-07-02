@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWSDAttachment.ahk" { IWSDAttachment }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables applications to send attachment data in a message using a MIME container.
@@ -58,7 +58,7 @@ export default struct IWSDOutboundAttachment extends IWSDAttachment {
     Write(pBuffer, dwBytesToWrite) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pBufferMarshal, pBuffer, "uint", dwBytesToWrite, "uint*", &pdwNumberOfBytesWritten := 0, "HRESULT")
+        result := ComCall(3, this, pBufferMarshal, pBuffer, UInt32, dwBytesToWrite, "uint*", &pdwNumberOfBytesWritten := 0, "HRESULT")
         return pdwNumberOfBytesWritten
     }
 

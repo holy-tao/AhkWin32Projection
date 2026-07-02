@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\_ViewOptions.ahk" { _ViewOptions }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\View.ahk" { View }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\Node.ahk" { Node }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\_ViewOptions.ahk" { _ViewOptions }
 
 /**
  * @namespace Windows.Win32.System.Mmc
@@ -74,7 +74,7 @@ export default struct Views extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &_View := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Index, "ptr*", &_View := 0, "HRESULT")
         return View(_View)
     }
 

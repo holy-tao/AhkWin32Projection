@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\RESOURCE_MONITOR_STATE.ahk" { RESOURCE_MONITOR_STATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RESOURCE_MONITOR_STATE.ahk" { RESOURCE_MONITOR_STATE }
 
 /**
  * The MONITOR_STATE structure is part of the resapi.h header used by Windows Clustering.

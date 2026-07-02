@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\RAWINPUTDEVICE_FLAGS.ahk" { RAWINPUTDEVICE_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Defines information for the raw input devices.

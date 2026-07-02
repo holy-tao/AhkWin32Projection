@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\OEMUIOBJ.ahk" { OEMUIOBJ }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

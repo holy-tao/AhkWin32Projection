@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SPAUDIOSTATE.ahk" { SPAUDIOSTATE }
-#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import ".\SPAUDIOBUFFERINFO.ahk" { SPAUDIOBUFFERINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
 #Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\SPAUDIOSTATUS.ahk" { SPAUDIOSTATUS }
-#Import ".\SPAUDIOBUFFERINFO.ahk" { SPAUDIOBUFFERINFO }
+#Import ".\SPAUDIOSTATE.ahk" { SPAUDIOSTATE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -57,7 +57,7 @@ export default struct ISpAudio extends ISpStreamFormat {
      * @returns {HRESULT} 
      */
     SetState(NewState, ullReserved) {
-        result := ComCall(15, this, SPAUDIOSTATE, NewState, "uint", ullReserved, "HRESULT")
+        result := ComCall(15, this, SPAUDIOSTATE, NewState, Int64, ullReserved, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct ISpAudio extends ISpStreamFormat {
      * @returns {HRESULT} 
      */
     SetVolumeLevel(Level) {
-        result := ComCall(23, this, "uint", Level, "HRESULT")
+        result := ComCall(23, this, UInt32, Level, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct ISpAudio extends ISpStreamFormat {
      * @returns {HRESULT} 
      */
     SetBufferNotifySize(cbSize) {
-        result := ComCall(25, this, "uint", cbSize, "HRESULT")
+        result := ComCall(25, this, UInt32, cbSize, "HRESULT")
         return result
     }
 

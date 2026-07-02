@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Kernel\LIST_ENTRY32.ahk" { LIST_ENTRY32 }
 #Import ".\DBGKD_DEBUG_DATA_HEADER32.ahk" { DBGKD_DEBUG_DATA_HEADER32 }
+#Import "..\..\..\Kernel\LIST_ENTRY32.ahk" { LIST_ENTRY32 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

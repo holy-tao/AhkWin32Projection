@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SPDISPLAYPHRASE.ahk" { SPDISPLAYPHRASE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -49,7 +49,7 @@ export default struct ISpDisplayAlternates extends IUnknown {
         ppCoMemPhrasesMarshal := ppCoMemPhrases is VarRef ? "ptr*" : "ptr"
         pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, SPDISPLAYPHRASE.Ptr, pPhrase, "uint", cRequestCount, ppCoMemPhrasesMarshal, ppCoMemPhrases, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
+        result := ComCall(3, this, SPDISPLAYPHRASE.Ptr, pPhrase, UInt32, cRequestCount, ppCoMemPhrasesMarshal, ppCoMemPhrases, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
         return result
     }
 
@@ -59,7 +59,7 @@ export default struct ISpDisplayAlternates extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFullStopTrailSpace(ulTrailSpace) {
-        result := ComCall(4, this, "uint", ulTrailSpace, "HRESULT")
+        result := ComCall(4, this, UInt32, ulTrailSpace, "HRESULT")
         return result
     }
 

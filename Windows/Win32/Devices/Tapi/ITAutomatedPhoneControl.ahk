@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PHONE_TONE.ahk" { PHONE_TONE }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITCallInfo.ahk" { ITCallInfo }
 #Import ".\IEnumCall.ahk" { IEnumCall }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
+#Import ".\PHONE_TONE.ahk" { PHONE_TONE }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The ITAutomatedPhoneControl is a fully OLE automatable and scriptable interface exposed by the TAPI phone object.
@@ -194,7 +194,7 @@ export default struct ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-starttone
      */
     StartTone(Tone, lDuration) {
-        result := ComCall(7, this, PHONE_TONE, Tone, "int", lDuration, "HRESULT")
+        result := ComCall(7, this, PHONE_TONE, Tone, Int32, lDuration, "HRESULT")
         return result
     }
 
@@ -230,7 +230,7 @@ export default struct ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-startringer
      */
     StartRinger(lRingMode, lDuration) {
-        result := ComCall(10, this, "int", lRingMode, "int", lDuration, "HRESULT")
+        result := ComCall(10, this, Int32, lRingMode, Int32, lDuration, "HRESULT")
         return result
     }
 
@@ -312,7 +312,7 @@ export default struct ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autoendofnumbertimeout
      */
     put_AutoEndOfNumberTimeout(lTimeout) {
-        result := ComCall(15, this, "int", lTimeout, "HRESULT")
+        result := ComCall(15, this, Int32, lTimeout, "HRESULT")
         return result
     }
 
@@ -456,7 +456,7 @@ export default struct ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autokeypadtonesminimumduration
      */
     put_AutoKeypadTonesMinimumDuration(lDuration) {
-        result := ComCall(25, this, "int", lDuration, "HRESULT")
+        result := ComCall(25, this, Int32, lDuration, "HRESULT")
         return result
     }
 
@@ -508,7 +508,7 @@ export default struct ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autovolumecontrolstep
      */
     put_AutoVolumeControlStep(lStepSize) {
-        result := ComCall(29, this, "int", lStepSize, "HRESULT")
+        result := ComCall(29, this, Int32, lStepSize, "HRESULT")
         return result
     }
 
@@ -531,7 +531,7 @@ export default struct ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autovolumecontrolrepeatdelay
      */
     put_AutoVolumeControlRepeatDelay(lDelay) {
-        result := ComCall(31, this, "int", lDelay, "HRESULT")
+        result := ComCall(31, this, Int32, lDelay, "HRESULT")
         return result
     }
 
@@ -556,7 +556,7 @@ export default struct ITAutomatedPhoneControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itautomatedphonecontrol-put_autovolumecontrolrepeatperiod
      */
     put_AutoVolumeControlRepeatPeriod(lPeriod) {
-        result := ComCall(33, this, "int", lPeriod, "HRESULT")
+        result := ComCall(33, this, Int32, lPeriod, "HRESULT")
         return result
     }
 

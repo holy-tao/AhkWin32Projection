@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct3D11\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\D3D11_RESOURCE_FLAGS.ahk" { D3D11_RESOURCE_FLAGS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Direct3D12\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import "..\Direct3D11\ID3D11Resource.ahk" { ID3D11Resource }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Direct3D12\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Handles the creation, wrapping, and releasing of D3D11 resources for Direct3D11on12.
@@ -91,7 +91,7 @@ export default struct ID3D11On12Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device-releasewrappedresources
      */
     ReleaseWrappedResources(ppResources, NumResources) {
-        ComCall(4, this, ID3D11Resource.Ptr, ppResources, "uint", NumResources)
+        ComCall(4, this, ID3D11Resource.Ptr, ppResources, UInt32, NumResources)
     }
 
     /**
@@ -111,7 +111,7 @@ export default struct ID3D11On12Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device-acquirewrappedresources
      */
     AcquireWrappedResources(ppResources, NumResources) {
-        ComCall(5, this, ID3D11Resource.Ptr, ppResources, "uint", NumResources)
+        ComCall(5, this, ID3D11Resource.Ptr, ppResources, UInt32, NumResources)
     }
 
     Query(iid) {

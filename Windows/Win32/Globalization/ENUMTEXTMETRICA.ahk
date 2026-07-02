@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NEWTEXTMETRICEXA.ahk" { NEWTEXTMETRICEXA }
-#Import "..\Graphics\Gdi\AXISINFOA.ahk" { AXISINFOA }
 #Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
-#Import "..\Graphics\Gdi\NEWTEXTMETRICA.ahk" { NEWTEXTMETRICA }
 #Import "..\Graphics\Gdi\AXESLISTA.ahk" { AXESLISTA }
+#Import "..\Graphics\Gdi\NEWTEXTMETRICA.ahk" { NEWTEXTMETRICA }
+#Import "..\Graphics\Gdi\AXISINFOA.ahk" { AXISINFOA }
 #Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
+#Import ".\NEWTEXTMETRICEXA.ahk" { NEWTEXTMETRICEXA }
 
 /**
  * The ENUMTEXTMETRIC structure contains information about a physical font. (ANSI)

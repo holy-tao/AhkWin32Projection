@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IInkRecognizer.ahk" { IInkRecognizer }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * . (IInkRecognizers)
@@ -92,7 +92,7 @@ export default struct IInkRecognizers extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizers-getdefaultrecognizer
      */
     GetDefaultRecognizer(lcid) {
-        result := ComCall(9, this, "int", lcid, "ptr*", &DefaultRecognizer := 0, "HRESULT")
+        result := ComCall(9, this, Int32, lcid, "ptr*", &DefaultRecognizer := 0, "HRESULT")
         return IInkRecognizer(DefaultRecognizer)
     }
 
@@ -105,7 +105,7 @@ export default struct IInkRecognizers extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizers-item
      */
     Item(Index) {
-        result := ComCall(10, this, "int", Index, "ptr*", &InkRecognizer := 0, "HRESULT")
+        result := ComCall(10, this, Int32, Index, "ptr*", &InkRecognizer := 0, "HRESULT")
         return IInkRecognizer(InkRecognizer)
     }
 

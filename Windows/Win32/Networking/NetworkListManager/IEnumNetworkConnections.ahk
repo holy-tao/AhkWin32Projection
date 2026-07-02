@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INetworkConnection.ahk" { INetworkConnection }
+#Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumNetworkConnections interface provides a standard enumerator for network connections. It enumerates active, disconnected, or all network connections within a network. This interface can be obtained from the INetwork interface.
@@ -72,7 +72,7 @@ export default struct IEnumNetworkConnections extends IDispatch {
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(8, this, UInt32, celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return INetworkConnection(rgelt)
     }
 
@@ -112,7 +112,7 @@ export default struct IEnumNetworkConnections extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworkconnections-skip
      */
     Skip(celt) {
-        result := ComCall(9, this, "uint", celt, "HRESULT")
+        result := ComCall(9, this, UInt32, celt, "HRESULT")
         return result
     }
 

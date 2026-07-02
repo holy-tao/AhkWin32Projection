@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes methods for string manipulation.
@@ -73,7 +73,7 @@ export default struct IAccDictionary extends IUnknown {
     GetLocalizedString(Term, lcid, pResult, plcid) {
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, Guid.Ptr, Term, "uint", lcid, BSTR.Ptr, pResult, plcidMarshal, plcid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, Term, UInt32, lcid, BSTR.Ptr, pResult, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct IAccDictionary extends IUnknown {
     ConvertValueToString(Term, lcid, varValue, pbstrResult, plcid) {
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, Guid.Ptr, Term, "uint", lcid, VARIANT, varValue, BSTR.Ptr, pbstrResult, plcidMarshal, plcid, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, Term, UInt32, lcid, VARIANT, varValue, BSTR.Ptr, pbstrResult, plcidMarshal, plcid, "HRESULT")
         return result
     }
 

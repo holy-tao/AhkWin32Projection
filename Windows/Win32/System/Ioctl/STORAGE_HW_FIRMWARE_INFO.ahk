@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STORAGE_HW_FIRMWARE_SLOT_INFO.ahk" { STORAGE_HW_FIRMWARE_SLOT_INFO }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\STORAGE_HW_FIRMWARE_SLOT_INFO.ahk" { STORAGE_HW_FIRMWARE_SLOT_INFO }
 
 /**
  * STORAGE_HW_FIRMWARE_INFO structure - This structure contains information about the device firmware.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USB_DEVICE_STATE.ahk" { USB_DEVICE_STATE }
-#Import ".\USB_HUB_CAPABILITIES.ahk" { USB_HUB_CAPABILITIES }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 #Import ".\USB_HUB_DESCRIPTOR.ahk" { USB_HUB_DESCRIPTOR }
-#Import ".\USB_HUB_PORT_INFORMATION.ahk" { USB_HUB_PORT_INFORMATION }
 #Import ".\USB_CONNECTION_STATUS.ahk" { USB_CONNECTION_STATUS }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USB_DEVICE_STATE.ahk" { USB_DEVICE_STATE }
+#Import ".\USB_HUB_PORT_INFORMATION.ahk" { USB_HUB_PORT_INFORMATION }
+#Import ".\USB_HUB_CAPABILITIES.ahk" { USB_HUB_CAPABILITIES }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

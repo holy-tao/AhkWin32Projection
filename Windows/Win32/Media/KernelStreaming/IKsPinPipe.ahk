@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IKsAllocatorEx.ahk" { IKsAllocatorEx }
-#Import ".\KSALLOCATOR_FRAMING_EX.ahk" { KSALLOCATOR_FRAMING_EX }
-#Import "..\DirectShow\IPin.ahk" { IPin }
-#Import ".\FRAMING_PROP.ahk" { FRAMING_PROP }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\FRAMING_CACHE_OPS.ahk" { FRAMING_CACHE_OPS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\KSPEEKOPERATION.ahk" { KSPEEKOPERATION }
+#Import ".\KSALLOCATOR_FRAMING_EX.ahk" { KSALLOCATOR_FRAMING_EX }
+#Import ".\FRAMING_PROP.ahk" { FRAMING_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\DirectShow\IPin.ahk" { IPin }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IKsAllocatorEx.ahk" { IKsAllocatorEx }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -125,7 +125,7 @@ export default struct IKsPinPipe extends IUnknown {
      * @returns {HRESULT} 
      */
     KsSetPipeAllocatorFlag(Flag) {
-        result := ComCall(9, this, "uint", Flag, "HRESULT")
+        result := ComCall(9, this, UInt32, Flag, "HRESULT")
         return result
     }
 

@@ -41,7 +41,7 @@ export default struct IHttpSecurity extends IWindowForBindingUI {
      * @returns {HRESULT} 
      */
     OnSecurityProblem(dwProblem) {
-        result := ComCall(4, this, "uint", dwProblem, "HRESULT")
+        result := ComCall(4, this, UInt32, dwProblem, "HRESULT")
         return result
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IUIAnimationTransition.ahk" { IUIAnimationTransition }
-#Import ".\UI_ANIMATION_SCHEDULING_RESULT.ahk" { UI_ANIMATION_SCHEDULING_RESULT }
 #Import ".\IUIAnimationVariable.ahk" { IUIAnimationVariable }
-#Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAnimationStoryboardEventHandler.ahk" { IUIAnimationStoryboardEventHandler }
+#Import ".\IUIAnimationTransition.ahk" { IUIAnimationTransition }
 #Import ".\UI_ANIMATION_KEYFRAME.ahk" { UI_ANIMATION_KEYFRAME }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IUIAnimationStoryboardEventHandler.ahk" { IUIAnimationStoryboardEventHandler }
+#Import ".\UI_ANIMATION_SCHEDULING_RESULT.ahk" { UI_ANIMATION_SCHEDULING_RESULT }
+#Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines a storyboard, which contains a group of transitions that are synchronized relative to one another.
@@ -106,7 +106,7 @@ export default struct IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-addkeyframeatoffset
      */
     AddKeyframeAtOffset(existingKeyframe, offset) {
-        result := ComCall(4, this, UI_ANIMATION_KEYFRAME, existingKeyframe, "double", offset, UI_ANIMATION_KEYFRAME.Ptr, &keyframe := 0, "HRESULT")
+        result := ComCall(4, this, UI_ANIMATION_KEYFRAME, existingKeyframe, Float64, offset, UI_ANIMATION_KEYFRAME.Ptr, &keyframe := 0, "HRESULT")
         return keyframe
     }
 
@@ -285,7 +285,7 @@ export default struct IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-repeatbetweenkeyframes
      */
     RepeatBetweenKeyframes(startKeyframe, endKeyframe, repetitionCount) {
-        result := ComCall(8, this, UI_ANIMATION_KEYFRAME, startKeyframe, UI_ANIMATION_KEYFRAME, endKeyframe, "int", repetitionCount, "HRESULT")
+        result := ComCall(8, this, UI_ANIMATION_KEYFRAME, startKeyframe, UI_ANIMATION_KEYFRAME, endKeyframe, Int32, repetitionCount, "HRESULT")
         return result
     }
 
@@ -311,7 +311,7 @@ export default struct IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-setlongestacceptabledelay
      */
     SetLongestAcceptableDelay(delay) {
-        result := ComCall(10, this, "double", delay, "HRESULT")
+        result := ComCall(10, this, Float64, delay, "HRESULT")
         return result
     }
 
@@ -343,7 +343,7 @@ export default struct IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-schedule
      */
     Schedule(timeNow) {
-        result := ComCall(11, this, "double", timeNow, "int*", &schedulingResult := 0, "HRESULT")
+        result := ComCall(11, this, Float64, timeNow, "int*", &schedulingResult := 0, "HRESULT")
         return schedulingResult
     }
 
@@ -372,7 +372,7 @@ export default struct IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-finish
      */
     Finish(completionDeadline) {
-        result := ComCall(13, this, "double", completionDeadline, "HRESULT")
+        result := ComCall(13, this, Float64, completionDeadline, "HRESULT")
         return result
     }
 
@@ -419,7 +419,7 @@ export default struct IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-settag
      */
     SetTag(_object, id) {
-        result := ComCall(15, this, "ptr", _object, "uint", id, "HRESULT")
+        result := ComCall(15, this, "ptr", _object, UInt32, id, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import ".\IsolationState.ahk" { IsolationState }
 #Import ".\CountedString.ahk" { CountedString }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IsolationState.ahk" { IsolationState }
 
 /**
  * Defines the isolation status of the machine or the connection.

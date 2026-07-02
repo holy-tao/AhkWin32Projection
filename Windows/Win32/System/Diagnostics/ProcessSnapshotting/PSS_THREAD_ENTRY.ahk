@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\Debug\CONTEXT.ahk" { CONTEXT }
-#Import ".\PSS_THREAD_FLAGS.ahk" { PSS_THREAD_FLAGS }
 #Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\PSS_THREAD_FLAGS.ahk" { PSS_THREAD_FLAGS }
+#Import "..\Debug\CONTEXT.ahk" { CONTEXT }
 
 /**
  * Holds thread information returned by PssWalkSnapshotPssWalkSnapshot.

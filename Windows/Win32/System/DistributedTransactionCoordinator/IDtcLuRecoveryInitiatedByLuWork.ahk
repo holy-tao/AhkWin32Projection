@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DTCLUCOMPARESTATESCONFIRMATION.ahk" { DTCLUCOMPARESTATESCONFIRMATION }
+#Import ".\DTCLUCOMPARESTATESRESPONSE.ahk" { DTCLUCOMPARESTATESRESPONSE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DTCLUCOMPARESTATESERROR.ahk" { DTCLUCOMPARESTATESERROR }
+#Import ".\DTCLUCOMPARESTATE.ahk" { DTCLUCOMPARESTATE }
+#Import ".\DTCLUXLNRESPONSE.ahk" { DTCLUXLNRESPONSE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DTCLUXLNCONFIRMATION.ahk" { DTCLUXLNCONFIRMATION }
 #Import ".\DTCLUXLN.ahk" { DTCLUXLN }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DTCLUCOMPARESTATESRESPONSE.ahk" { DTCLUCOMPARESTATESRESPONSE }
-#Import ".\DTCLUXLNRESPONSE.ahk" { DTCLUXLNRESPONSE }
-#Import ".\DTCLUCOMPARESTATE.ahk" { DTCLUCOMPARESTATE }
-#Import ".\DTCLUCOMPARESTATESCONFIRMATION.ahk" { DTCLUCOMPARESTATESCONFIRMATION }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -66,7 +66,7 @@ export default struct IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
         pOurLogNameMarshal := pOurLogName is VarRef ? "char*" : "ptr"
         pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", lRecoverySeqNum, DTCLUXLN, Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, pOurLogNameMarshal, pOurLogName, "uint", cbOurLogName, "uint", dwProtocol, pResponseMarshal, pResponse, "HRESULT")
+        result := ComCall(3, this, Int32, lRecoverySeqNum, DTCLUXLN, Xln, pRemoteLogNameMarshal, pRemoteLogName, UInt32, cbRemoteLogName, pOurLogNameMarshal, pOurLogName, UInt32, cbOurLogName, UInt32, dwProtocol, pResponseMarshal, pResponse, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
         pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
         pCompareStateMarshal := pCompareState is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pRemoteTransIdMarshal, pRemoteTransId, "uint", cbRemoteTransId, DTCLUCOMPARESTATE, CompareState, pResponseMarshal, pResponse, pCompareStateMarshal, pCompareState, "HRESULT")
+        result := ComCall(7, this, pRemoteTransIdMarshal, pRemoteTransId, UInt32, cbRemoteTransId, DTCLUCOMPARESTATE, CompareState, pResponseMarshal, pResponse, pCompareStateMarshal, pCompareState, "HRESULT")
         return result
     }
 

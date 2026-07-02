@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\STREAM_ID_MAP.ahk" { STREAM_ID_MAP }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STREAM_ID_MAP.ahk" { STREAM_ID_MAP }
 
 /**
  * The IEnumStreamIdMap interface is implemented on a standard COM collection of Stream ID maps that have been created by the MPEG-2 Demultiplexer's IMPEG2StreamIdMap::MapStreamId method.
@@ -54,7 +54,7 @@ export default struct IEnumStreamIdMap extends IUnknown {
     Next(cRequest, pStreamIdMap, pcReceived) {
         pcReceivedMarshal := pcReceived is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cRequest, STREAM_ID_MAP.Ptr, pStreamIdMap, pcReceivedMarshal, pcReceived, "HRESULT")
+        result := ComCall(3, this, UInt32, cRequest, STREAM_ID_MAP.Ptr, pStreamIdMap, pcReceivedMarshal, pcReceived, "HRESULT")
         return result
     }
 
@@ -65,7 +65,7 @@ export default struct IEnumStreamIdMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumstreamidmap-skip
      */
     Skip(cRecords) {
-        result := ComCall(4, this, "uint", cRecords, "HRESULT")
+        result := ComCall(4, this, UInt32, cRecords, "HRESULT")
         return result
     }
 

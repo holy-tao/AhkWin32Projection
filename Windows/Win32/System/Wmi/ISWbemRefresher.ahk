@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISWbemRefreshableItem.ahk" { ISWbemRefreshableItem }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISWbemServicesEx.ahk" { ISWbemServicesEx }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISWbemServicesEx.ahk" { ISWbemServicesEx }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISWbemRefreshableItem.ahk" { ISWbemRefreshableItem }
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -98,7 +98,7 @@ export default struct ISWbemRefresher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(iIndex) {
-        result := ComCall(8, this, "int", iIndex, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
+        result := ComCall(8, this, Int32, iIndex, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
         return ISWbemRefreshableItem(objWbemRefreshableItem)
     }
 
@@ -122,7 +122,7 @@ export default struct ISWbemRefresher extends IDispatch {
     Add(objWbemServices, bsInstancePath, iFlags, objWbemNamedValueSet) {
         bsInstancePath := bsInstancePath is String ? BSTR.Alloc(bsInstancePath).Value : bsInstancePath
 
-        result := ComCall(10, this, "ptr", objWbemServices, BSTR, bsInstancePath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", objWbemServices, BSTR, bsInstancePath, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
         return ISWbemRefreshableItem(objWbemRefreshableItem)
     }
 
@@ -137,7 +137,7 @@ export default struct ISWbemRefresher extends IDispatch {
     AddEnum(objWbemServices, bsClassName, iFlags, objWbemNamedValueSet) {
         bsClassName := bsClassName is String ? BSTR.Alloc(bsClassName).Value : bsClassName
 
-        result := ComCall(11, this, "ptr", objWbemServices, BSTR, bsClassName, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", objWbemServices, BSTR, bsClassName, Int32, iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
         return ISWbemRefreshableItem(objWbemRefreshableItem)
     }
 
@@ -148,7 +148,7 @@ export default struct ISWbemRefresher extends IDispatch {
      * @returns {HRESULT} 
      */
     Remove(iIndex, iFlags) {
-        result := ComCall(12, this, "int", iIndex, "int", iFlags, "HRESULT")
+        result := ComCall(12, this, Int32, iIndex, Int32, iFlags, "HRESULT")
         return result
     }
 
@@ -158,7 +158,7 @@ export default struct ISWbemRefresher extends IDispatch {
      * @returns {HRESULT} 
      */
     Refresh(iFlags) {
-        result := ComCall(13, this, "int", iFlags, "HRESULT")
+        result := ComCall(13, this, Int32, iFlags, "HRESULT")
         return result
     }
 

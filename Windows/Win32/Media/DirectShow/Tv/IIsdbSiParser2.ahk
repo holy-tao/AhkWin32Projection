@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IISDB_NBIT.ahk" { IISDB_NBIT }
-#Import ".\IDvbSiParser2.ahk" { IDvbSiParser2 }
 #Import ".\IISDB_EMM.ahk" { IISDB_EMM }
+#Import ".\IDvbSiParser2.ahk" { IDvbSiParser2 }
 #Import ".\IISDB_SDT.ahk" { IISDB_SDT }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IISDB_BIT.ahk" { IISDB_BIT }
-#Import ".\IISDB_LDT.ahk" { IISDB_LDT }
+#Import ".\IISDB_NBIT.ahk" { IISDB_NBIT }
 #Import ".\IISDB_CDT.ahk" { IISDB_CDT }
+#Import ".\IISDB_LDT.ahk" { IISDB_LDT }
+#Import ".\IISDB_BIT.ahk" { IISDB_BIT }
 #Import ".\IISDB_SDTT.ahk" { IISDB_SDTT }
 
 /**
@@ -61,7 +61,7 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
     GetSDT(tableId, pwTransportStreamId) {
         pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(19, this, "char", tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", &ppSDT := 0, "HRESULT")
+        result := ComCall(19, this, Int8, tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", &ppSDT := 0, "HRESULT")
         return IISDB_SDT(ppSDT)
     }
 
@@ -77,7 +77,7 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
     GetBIT(tableId, pwOriginalNetworkId) {
         pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(20, this, "char", tableId, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, "ptr*", &ppBIT := 0, "HRESULT")
+        result := ComCall(20, this, Int8, tableId, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, "ptr*", &ppBIT := 0, "HRESULT")
         return IISDB_BIT(ppBIT)
     }
 
@@ -93,7 +93,7 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
     GetNBIT(tableId, pwOriginalNetworkId) {
         pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(21, this, "char", tableId, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, "ptr*", &ppNBIT := 0, "HRESULT")
+        result := ComCall(21, this, Int8, tableId, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, "ptr*", &ppNBIT := 0, "HRESULT")
         return IISDB_NBIT(ppNBIT)
     }
 
@@ -108,7 +108,7 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
     GetLDT(tableId, pwOriginalServiceId) {
         pwOriginalServiceIdMarshal := pwOriginalServiceId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(22, this, "char", tableId, pwOriginalServiceIdMarshal, pwOriginalServiceId, "ptr*", &ppLDT := 0, "HRESULT")
+        result := ComCall(22, this, Int8, tableId, pwOriginalServiceIdMarshal, pwOriginalServiceId, "ptr*", &ppLDT := 0, "HRESULT")
         return IISDB_LDT(ppLDT)
     }
 
@@ -123,7 +123,7 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
     GetSDTT(tableId, pwTableIdExt) {
         pwTableIdExtMarshal := pwTableIdExt is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(23, this, "char", tableId, pwTableIdExtMarshal, pwTableIdExt, "ptr*", &ppSDTT := 0, "HRESULT")
+        result := ComCall(23, this, Int8, tableId, pwTableIdExtMarshal, pwTableIdExt, "ptr*", &ppSDTT := 0, "HRESULT")
         return IISDB_SDTT(ppSDTT)
     }
 
@@ -139,7 +139,7 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
     GetCDT(tableId, bSectionNumber, pwDownloadDataId) {
         pwDownloadDataIdMarshal := pwDownloadDataId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(24, this, "char", tableId, "char", bSectionNumber, pwDownloadDataIdMarshal, pwDownloadDataId, "ptr*", &ppCDT := 0, "HRESULT")
+        result := ComCall(24, this, Int8, tableId, Int8, bSectionNumber, pwDownloadDataIdMarshal, pwDownloadDataId, "ptr*", &ppCDT := 0, "HRESULT")
         return IISDB_CDT(ppCDT)
     }
 
@@ -152,7 +152,7 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getemm
      */
     GetEMM(pid, wTableIdExt) {
-        result := ComCall(25, this, "ushort", pid, "ushort", wTableIdExt, "ptr*", &ppEMM := 0, "HRESULT")
+        result := ComCall(25, this, UInt16, pid, UInt16, wTableIdExt, "ptr*", &ppEMM := 0, "HRESULT")
         return IISDB_EMM(ppEMM)
     }
 

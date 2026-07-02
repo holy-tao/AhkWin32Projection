@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) digital copy control descriptor.
@@ -314,7 +314,7 @@ export default struct IIsdbDigitalCopyControlDescriptor extends IUnknown {
         pbAPSControlDataMarshal := pbAPSControlData is VarRef ? "char*" : "ptr"
         pbMaximumBitrateMarshal := pbMaximumBitrate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "char", bRecordIndex, pbComponentTagMarshal, pbComponentTag, pbDigitalRecordingControlDataMarshal, pbDigitalRecordingControlData, pbCopyControlTypeMarshal, pbCopyControlType, pbAPSControlDataMarshal, pbAPSControlData, pbMaximumBitrateMarshal, pbMaximumBitrate, "HRESULT")
+        result := ComCall(7, this, Int8, bRecordIndex, pbComponentTagMarshal, pbComponentTag, pbDigitalRecordingControlDataMarshal, pbDigitalRecordingControlData, pbCopyControlTypeMarshal, pbCopyControlType, pbAPSControlDataMarshal, pbAPSControlData, pbMaximumBitrateMarshal, pbMaximumBitrate, "HRESULT")
         return result
     }
 

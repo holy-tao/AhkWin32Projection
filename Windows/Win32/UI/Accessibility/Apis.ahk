@@ -1,53 +1,56 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
-#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
-#Import ".\AutomationIdentifierType.ahk" { AutomationIdentifierType }
-#Import ".\SupportedTextSelection.ahk" { SupportedTextSelection }
-#Import ".\NormalizeState.ahk" { NormalizeState }
-#Import ".\UiaChangeInfo.ahk" { UiaChangeInfo }
-#Import ".\TextPatternRangeEndpoint.ahk" { TextPatternRangeEndpoint }
-#Import ".\TextUnit.ahk" { TextUnit }
-#Import ".\IAccessible.ahk" { IAccessible }
-#Import ".\HUIANODE.ahk" { HUIANODE }
-#Import "..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
-#Import ".\ACC_UTILITY_STATE_FLAGS.ahk" { ACC_UTILITY_STATE_FLAGS }
 #Import ".\DockPosition.ahk" { DockPosition }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
+#Import ".\NormalizeState.ahk" { NormalizeState }
+#Import ".\IAccessible.ahk" { IAccessible }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\HUIANODE.ahk" { HUIANODE }
+#Import ".\SupportedTextSelection.ahk" { SupportedTextSelection }
+#Import ".\ACC_UTILITY_STATE_FLAGS.ahk" { ACC_UTILITY_STATE_FLAGS }
+#Import ".\UiaPoint.ahk" { UiaPoint }
+#Import ".\HWINEVENTHOOK.ahk" { HWINEVENTHOOK }
+#Import ".\StructureChangeType.ahk" { StructureChangeType }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WINEVENTPROC.ahk" { WINEVENTPROC }
 #Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
 #Import ".\NavigateDirection.ahk" { NavigateDirection }
+#Import ".\TreeScope.ahk" { TreeScope }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AsyncContentLoadedState.ahk" { AsyncContentLoadedState }
-#Import ".\UiaCacheRequest.ahk" { UiaCacheRequest }
-#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\UiaEventCallback.ahk" { UiaEventCallback }
 #Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\HWINEVENTHOOK.ahk" { HWINEVENTHOOK }
-#Import ".\UiaFindParams.ahk" { UiaFindParams }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
-#Import ".\WindowVisualState.ahk" { WindowVisualState }
-#Import ".\UiaPoint.ahk" { UiaPoint }
-#Import ".\NotificationProcessing.ahk" { NotificationProcessing }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\HUIAPATTERNOBJECT.ahk" { HUIAPATTERNOBJECT }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import ".\NotificationKind.ahk" { NotificationKind }
 #Import ".\HUIAEVENT.ahk" { HUIAEVENT }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\StructureChangeType.ahk" { StructureChangeType }
-#Import ".\ScrollAmount.ahk" { ScrollAmount }
 #Import ".\SynchronizedInputType.ahk" { SynchronizedInputType }
+#Import "..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
+#Import ".\UiaChangeInfo.ahk" { UiaChangeInfo }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\UiaCondition.ahk" { UiaCondition }
 #Import ".\HUIATEXTRANGE.ahk" { HUIATEXTRANGE }
-#Import ".\TreeScope.ahk" { TreeScope }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\AsyncContentLoadedState.ahk" { AsyncContentLoadedState }
+#Import ".\NotificationKind.ahk" { NotificationKind }
+#Import ".\UiaFindParams.ahk" { UiaFindParams }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import ".\NotificationProcessing.ahk" { NotificationProcessing }
+#Import ".\AutomationIdentifierType.ahk" { AutomationIdentifierType }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import ".\HUIAPATTERNOBJECT.ahk" { HUIAPATTERNOBJECT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WindowVisualState.ahk" { WindowVisualState }
+#Import ".\ScrollAmount.ahk" { ScrollAmount }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TextUnit.ahk" { TextUnit }
+#Import ".\TextPatternRangeEndpoint.ahk" { TextPatternRangeEndpoint }
+#Import ".\UiaCacheRequest.ahk" { UiaCacheRequest }
+#Import ".\UiaProviderCallback.ahk" { UiaProviderCallback }
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
@@ -159,7 +162,9 @@ export ObjectFromLresult(_lResult, riid, _wParam) {
 
 /**
  * Retrieves the window handle that corresponds to a particular instance of an IAccessible interface.
- * @param {IAccessible} param0 
+ * @param {IAccessible} param0 Type: <b>IAccessible*</b>
+ * 
+ * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface whose corresponding window handle will be retrieved. This parameter must not be <b>NULL</b>.
  * @returns {HWND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
  * 
  * Address of a variable that receives a handle to the window containing the object specified in <i>pacc</i>. If this value is <b>NULL</b> after the call, the object is not contained within a window; for example, the mouse pointer is not contained within a window.
@@ -229,7 +234,7 @@ export WindowFromAccessibleObject(param0) {
  * @since windows5.0
  */
 export AccessibleObjectFromWindow(_hwnd, dwId, riid) {
-    result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", HWND, _hwnd, "uint", dwId, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+    result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", HWND, _hwnd, UInt32, dwId, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
     return ppvObject
 }
 
@@ -262,7 +267,7 @@ export AccessibleObjectFromWindow(_hwnd, dwId, riid) {
  * @since windows5.0
  */
 export AccessibleObjectFromEvent(_hwnd, dwId, dwChildId, pvarChild) {
-    result := DllCall("OLEACC.dll\AccessibleObjectFromEvent", HWND, _hwnd, "uint", dwId, "uint", dwChildId, "ptr*", &ppacc := 0, VARIANT.Ptr, pvarChild, "HRESULT")
+    result := DllCall("OLEACC.dll\AccessibleObjectFromEvent", HWND, _hwnd, UInt32, dwId, UInt32, dwChildId, "ptr*", &ppacc := 0, VARIANT.Ptr, pvarChild, "HRESULT")
     return IAccessible(ppacc)
 }
 
@@ -334,7 +339,7 @@ export AccessibleObjectFromPoint(ptScreen, pvarChild) {
  * @since windows5.0
  */
 export AccessibleChildren(paccContainer, iChildStart, cChildren, rgvarChildren) {
-    result := DllCall("OLEACC.dll\AccessibleChildren", "ptr", paccContainer, "int", iChildStart, "int", cChildren, VARIANT.Ptr, rgvarChildren, "int*", &pcObtained := 0, "HRESULT")
+    result := DllCall("OLEACC.dll\AccessibleChildren", "ptr", paccContainer, Int32, iChildStart, Int32, cChildren, VARIANT.Ptr, rgvarChildren, "int*", &pcObtained := 0, "HRESULT")
     return pcObtained
 }
 
@@ -365,7 +370,7 @@ export GetRoleTextA(lRole, lpszRole, cchRoleMax) {
 
     A_LastError := 0
 
-    result := DllCall("OLEACC.dll\GetRoleTextA", "uint", lRole, "ptr", lpszRole, "uint", cchRoleMax, UInt32)
+    result := DllCall("OLEACC.dll\GetRoleTextA", UInt32, lRole, "ptr", lpszRole, UInt32, cchRoleMax, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -400,7 +405,7 @@ export GetRoleTextW(lRole, lpszRole, cchRoleMax) {
 
     A_LastError := 0
 
-    result := DllCall("OLEACC.dll\GetRoleTextW", "uint", lRole, "ptr", lpszRole, "uint", cchRoleMax, UInt32)
+    result := DllCall("OLEACC.dll\GetRoleTextW", UInt32, lRole, "ptr", lpszRole, UInt32, cchRoleMax, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -440,7 +445,7 @@ export GetStateTextA(lStateBit, lpszState, cchState) {
 
     A_LastError := 0
 
-    result := DllCall("OLEACC.dll\GetStateTextA", "uint", lStateBit, "ptr", lpszState, "uint", cchState, UInt32)
+    result := DllCall("OLEACC.dll\GetStateTextA", UInt32, lStateBit, "ptr", lpszState, UInt32, cchState, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -480,7 +485,7 @@ export GetStateTextW(lStateBit, lpszState, cchState) {
 
     A_LastError := 0
 
-    result := DllCall("OLEACC.dll\GetStateTextW", "uint", lStateBit, "ptr", lpszState, "uint", cchState, UInt32)
+    result := DllCall("OLEACC.dll\GetStateTextW", UInt32, lStateBit, "ptr", lpszState, UInt32, cchState, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -531,7 +536,7 @@ export GetOleaccVersionInfo(pVer, pBuild) {
  * @since windows5.0
  */
 export CreateStdAccessibleObject(_hwnd, idObject, riid) {
-    result := DllCall("OLEACC.dll\CreateStdAccessibleObject", HWND, _hwnd, "int", idObject, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+    result := DllCall("OLEACC.dll\CreateStdAccessibleObject", HWND, _hwnd, Int32, idObject, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
     return ppvObject
 }
 
@@ -571,7 +576,7 @@ export CreateStdAccessibleObject(_hwnd, idObject, riid) {
 export CreateStdAccessibleProxyA(_hwnd, pClassName, idObject, riid) {
     pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
-    result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", HWND, _hwnd, "ptr", pClassName, "int", idObject, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+    result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", HWND, _hwnd, "ptr", pClassName, Int32, idObject, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
     return ppvObject
 }
 
@@ -611,7 +616,7 @@ export CreateStdAccessibleProxyA(_hwnd, pClassName, idObject, riid) {
 export CreateStdAccessibleProxyW(_hwnd, pClassName, idObject, riid) {
     pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
-    result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", HWND, _hwnd, "ptr", pClassName, "int", idObject, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+    result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", HWND, _hwnd, "ptr", pClassName, Int32, idObject, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
     return ppvObject
 }
 
@@ -638,7 +643,7 @@ export CreateStdAccessibleProxyW(_hwnd, pClassName, idObject, riid) {
  * @since windows8.0
  */
 export AccSetRunningUtilityState(hwndApp, dwUtilityStateMask, dwUtilityState) {
-    result := DllCall("OLEACC.dll\AccSetRunningUtilityState", HWND, hwndApp, "uint", dwUtilityStateMask, ACC_UTILITY_STATE_FLAGS, dwUtilityState, "HRESULT")
+    result := DllCall("OLEACC.dll\AccSetRunningUtilityState", HWND, hwndApp, UInt32, dwUtilityStateMask, ACC_UTILITY_STATE_FLAGS, dwUtilityState, "HRESULT")
     return result
 }
 
@@ -773,7 +778,7 @@ export UiaNodeRelease(_hnode) {
  * @since windows5.1.2600
  */
 export UiaGetPropertyValue(_hnode, propertyId, pValue) {
-    result := DllCall("UIAutomationCore.dll\UiaGetPropertyValue", HUIANODE, _hnode, "int", propertyId, VARIANT.Ptr, pValue, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaGetPropertyValue", HUIANODE, _hnode, Int32, propertyId, VARIANT.Ptr, pValue, "HRESULT")
     return result
 }
 
@@ -796,7 +801,7 @@ export UiaGetPropertyValue(_hnode, propertyId, pValue) {
  * @since windows5.1.2600
  */
 export UiaGetPatternProvider(_hnode, patternId, phobj) {
-    result := DllCall("UIAutomationCore.dll\UiaGetPatternProvider", HUIANODE, _hnode, "int", patternId, HUIAPATTERNOBJECT.Ptr, phobj, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaGetPatternProvider", HUIANODE, _hnode, Int32, patternId, HUIAPATTERNOBJECT.Ptr, phobj, "HRESULT")
     return result
 }
 
@@ -1011,7 +1016,7 @@ export UiaFind(_hnode, pParams, pRequest, ppRequestedData, ppOffsets, ppTreeStru
 export UiaNodeFromPoint(x, y, pRequest, ppRequestedData, ppTreeStructure) {
     ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("UIAutomationCore.dll\UiaNodeFromPoint", "double", x, "double", y, UiaCacheRequest.Ptr, pRequest, ppRequestedDataMarshal, ppRequestedData, BSTR.Ptr, ppTreeStructure, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaNodeFromPoint", Float64, x, Float64, y, UiaCacheRequest.Ptr, pRequest, ppRequestedDataMarshal, ppRequestedData, BSTR.Ptr, ppTreeStructure, "HRESULT")
     return result
 }
 
@@ -1258,7 +1263,7 @@ export UiaRaiseAutomationEvent(pProvider, id) {
 export UiaRaiseStructureChangedEvent(pProvider, _structureChangeType, pRuntimeId, cRuntimeIdLen) {
     pRuntimeIdMarshal := pRuntimeId is VarRef ? "int*" : "ptr"
 
-    result := DllCall("UIAutomationCore.dll\UiaRaiseStructureChangedEvent", "ptr", pProvider, StructureChangeType, _structureChangeType, pRuntimeIdMarshal, pRuntimeId, "int", cRuntimeIdLen, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaRaiseStructureChangedEvent", "ptr", pProvider, StructureChangeType, _structureChangeType, pRuntimeIdMarshal, pRuntimeId, Int32, cRuntimeIdLen, "HRESULT")
     return result
 }
 
@@ -1280,7 +1285,7 @@ export UiaRaiseStructureChangedEvent(pProvider, _structureChangeType, pRuntimeId
  * @since windows5.1.2600
  */
 export UiaRaiseAsyncContentLoadedEvent(pProvider, _asyncContentLoadedState, percentComplete) {
-    result := DllCall("UIAutomationCore.dll\UiaRaiseAsyncContentLoadedEvent", "ptr", pProvider, AsyncContentLoadedState, _asyncContentLoadedState, "double", percentComplete, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaRaiseAsyncContentLoadedEvent", "ptr", pProvider, AsyncContentLoadedState, _asyncContentLoadedState, Float64, percentComplete, "HRESULT")
     return result
 }
 
@@ -1332,7 +1337,7 @@ export UiaRaiseTextEditTextChangedEvent(pProvider, _textEditChangeType, pChanged
  * @since windows10.0.10240
  */
 export UiaRaiseChangesEvent(pProvider, eventIdCount, pUiaChanges) {
-    result := DllCall("UIAutomationCore.dll\UiaRaiseChangesEvent", "ptr", pProvider, "int", eventIdCount, UiaChangeInfo.Ptr, pUiaChanges, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaRaiseChangesEvent", "ptr", pProvider, Int32, eventIdCount, UiaChangeInfo.Ptr, pUiaChanges, "HRESULT")
     return result
 }
 
@@ -1412,7 +1417,7 @@ export UiaAddEvent(_hnode, eventId, pCallback, scope, pProperties, cProperties, 
     pCallbackMarshal := pCallback is VarRef ? "ptr*" : "ptr"
     pPropertiesMarshal := pProperties is VarRef ? "int*" : "ptr"
 
-    result := DllCall("UIAutomationCore.dll\UiaAddEvent", HUIANODE, _hnode, "int", eventId, pCallbackMarshal, pCallback, TreeScope, scope, pPropertiesMarshal, pProperties, "int", cProperties, UiaCacheRequest.Ptr, pRequest, HUIAEVENT.Ptr, phEvent, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaAddEvent", HUIANODE, _hnode, Int32, eventId, pCallbackMarshal, pCallback, TreeScope, scope, pPropertiesMarshal, pProperties, Int32, cProperties, UiaCacheRequest.Ptr, pRequest, HUIAEVENT.Ptr, phEvent, "HRESULT")
     return result
 }
 
@@ -1548,7 +1553,7 @@ export ExpandCollapsePattern_Expand(hobj) {
  * @since windows5.1.2600
  */
 export GridPattern_GetItem(hobj, row, _column, pResult) {
-    result := DllCall("UIAutomationCore.dll\GridPattern_GetItem", HUIAPATTERNOBJECT, hobj, "int", row, "int", _column, HUIANODE.Ptr, pResult, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\GridPattern_GetItem", HUIAPATTERNOBJECT, hobj, Int32, row, Int32, _column, HUIANODE.Ptr, pResult, "HRESULT")
     return result
 }
 
@@ -1587,7 +1592,7 @@ export InvokePattern_Invoke(hobj) {
  * @since windows5.1.2600
  */
 export MultipleViewPattern_GetViewName(hobj, viewId, ppStr) {
-    result := DllCall("UIAutomationCore.dll\MultipleViewPattern_GetViewName", HUIAPATTERNOBJECT, hobj, "int", viewId, BSTR.Ptr, ppStr, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\MultipleViewPattern_GetViewName", HUIAPATTERNOBJECT, hobj, Int32, viewId, BSTR.Ptr, ppStr, "HRESULT")
     return result
 }
 
@@ -1606,7 +1611,7 @@ export MultipleViewPattern_GetViewName(hobj, viewId, ppStr) {
  * @since windows5.1.2600
  */
 export MultipleViewPattern_SetCurrentView(hobj, viewId) {
-    result := DllCall("UIAutomationCore.dll\MultipleViewPattern_SetCurrentView", HUIAPATTERNOBJECT, hobj, "int", viewId, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\MultipleViewPattern_SetCurrentView", HUIAPATTERNOBJECT, hobj, Int32, viewId, "HRESULT")
     return result
 }
 
@@ -1625,7 +1630,7 @@ export MultipleViewPattern_SetCurrentView(hobj, viewId) {
  * @since windows5.1.2600
  */
 export RangeValuePattern_SetValue(hobj, _val) {
-    result := DllCall("UIAutomationCore.dll\RangeValuePattern_SetValue", HUIAPATTERNOBJECT, hobj, "double", _val, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\RangeValuePattern_SetValue", HUIAPATTERNOBJECT, hobj, Float64, _val, "HRESULT")
     return result
 }
 
@@ -1693,7 +1698,7 @@ export ScrollPattern_Scroll(hobj, horizontalAmount, verticalAmount) {
  * @since windows5.1.2600
  */
 export ScrollPattern_SetScrollPercent(hobj, horizontalPercent, verticalPercent) {
-    result := DllCall("UIAutomationCore.dll\ScrollPattern_SetScrollPercent", HUIAPATTERNOBJECT, hobj, "double", horizontalPercent, "double", verticalPercent, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\ScrollPattern_SetScrollPercent", HUIAPATTERNOBJECT, hobj, Float64, horizontalPercent, Float64, verticalPercent, "HRESULT")
     return result
 }
 
@@ -1788,7 +1793,7 @@ export TogglePattern_Toggle(hobj) {
  * @since windows5.1.2600
  */
 export TransformPattern_Move(hobj, x, y) {
-    result := DllCall("UIAutomationCore.dll\TransformPattern_Move", HUIAPATTERNOBJECT, hobj, "double", x, "double", y, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\TransformPattern_Move", HUIAPATTERNOBJECT, hobj, Float64, x, Float64, y, "HRESULT")
     return result
 }
 
@@ -1810,7 +1815,7 @@ export TransformPattern_Move(hobj, x, y) {
  * @since windows5.1.2600
  */
 export TransformPattern_Resize(hobj, width, height) {
-    result := DllCall("UIAutomationCore.dll\TransformPattern_Resize", HUIAPATTERNOBJECT, hobj, "double", width, "double", height, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\TransformPattern_Resize", HUIAPATTERNOBJECT, hobj, Float64, width, Float64, height, "HRESULT")
     return result
 }
 
@@ -1830,7 +1835,7 @@ export TransformPattern_Resize(hobj, width, height) {
  * @since windows5.1.2600
  */
 export TransformPattern_Rotate(hobj, degrees) {
-    result := DllCall("UIAutomationCore.dll\TransformPattern_Rotate", HUIAPATTERNOBJECT, hobj, "double", degrees, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\TransformPattern_Rotate", HUIAPATTERNOBJECT, hobj, Float64, degrees, "HRESULT")
     return result
 }
 
@@ -1917,7 +1922,7 @@ export WindowPattern_SetWindowVisualState(hobj, state) {
 export WindowPattern_WaitForInputIdle(hobj, milliseconds, pResult) {
     pResultMarshal := pResult is VarRef ? "int*" : "ptr"
 
-    result := DllCall("UIAutomationCore.dll\WindowPattern_WaitForInputIdle", HUIAPATTERNOBJECT, hobj, "int", milliseconds, pResultMarshal, pResult, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\WindowPattern_WaitForInputIdle", HUIAPATTERNOBJECT, hobj, Int32, milliseconds, pResultMarshal, pResult, "HRESULT")
     return result
 }
 
@@ -2201,7 +2206,7 @@ export TextRange_ExpandToEnclosingUnit(hobj, _unit) {
  * @since windows5.1.2600
  */
 export TextRange_GetAttributeValue(hobj, _attributeId, pRetVal) {
-    result := DllCall("UIAutomationCore.dll\TextRange_GetAttributeValue", HUIATEXTRANGE, hobj, "int", _attributeId, VARIANT.Ptr, pRetVal, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\TextRange_GetAttributeValue", HUIATEXTRANGE, hobj, Int32, _attributeId, VARIANT.Ptr, pRetVal, "HRESULT")
     return result
 }
 
@@ -2231,7 +2236,7 @@ export TextRange_GetAttributeValue(hobj, _attributeId, pRetVal) {
  * @since windows5.1.2600
  */
 export TextRange_FindAttribute(hobj, _attributeId, _val, backward, pRetVal) {
-    result := DllCall("UIAutomationCore.dll\TextRange_FindAttribute", HUIATEXTRANGE, hobj, "int", _attributeId, VARIANT, _val, BOOL, backward, HUIATEXTRANGE.Ptr, pRetVal, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\TextRange_FindAttribute", HUIATEXTRANGE, hobj, Int32, _attributeId, VARIANT, _val, BOOL, backward, HUIATEXTRANGE.Ptr, pRetVal, "HRESULT")
     return result
 }
 
@@ -2338,7 +2343,7 @@ export TextRange_GetEnclosingElement(hobj, pRetVal) {
  * @since windows5.1.2600
  */
 export TextRange_GetText(hobj, maxLength, pRetVal) {
-    result := DllCall("UIAutomationCore.dll\TextRange_GetText", HUIATEXTRANGE, hobj, "int", maxLength, BSTR.Ptr, pRetVal, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\TextRange_GetText", HUIATEXTRANGE, hobj, Int32, maxLength, BSTR.Ptr, pRetVal, "HRESULT")
     return result
 }
 
@@ -2368,7 +2373,7 @@ export TextRange_GetText(hobj, maxLength, pRetVal) {
 export TextRange_Move(hobj, _unit, count, pRetVal) {
     pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
-    result := DllCall("UIAutomationCore.dll\TextRange_Move", HUIATEXTRANGE, hobj, TextUnit, _unit, "int", count, pRetValMarshal, pRetVal, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\TextRange_Move", HUIATEXTRANGE, hobj, TextUnit, _unit, Int32, count, pRetValMarshal, pRetVal, "HRESULT")
     return result
 }
 
@@ -2401,7 +2406,7 @@ export TextRange_Move(hobj, _unit, count, pRetVal) {
 export TextRange_MoveEndpointByUnit(hobj, endpoint, _unit, count, pRetVal) {
     pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
-    result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByUnit", HUIATEXTRANGE, hobj, TextPatternRangeEndpoint, endpoint, TextUnit, _unit, "int", count, pRetValMarshal, pRetVal, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByUnit", HUIATEXTRANGE, hobj, TextPatternRangeEndpoint, endpoint, TextUnit, _unit, Int32, count, pRetValMarshal, pRetVal, "HRESULT")
     return result
 }
 
@@ -2550,7 +2555,7 @@ export TextRange_GetChildren(hobj, pRetVal) {
  * @since windows6.1
  */
 export ItemContainerPattern_FindItemByProperty(hobj, hnodeStartAfter, propertyId, value, pFound) {
-    result := DllCall("UIAutomationCore.dll\ItemContainerPattern_FindItemByProperty", HUIAPATTERNOBJECT, hobj, HUIANODE, hnodeStartAfter, "int", propertyId, VARIANT, value, HUIANODE.Ptr, pFound, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\ItemContainerPattern_FindItemByProperty", HUIAPATTERNOBJECT, hobj, HUIANODE, hnodeStartAfter, Int32, propertyId, VARIANT, value, HUIANODE.Ptr, pFound, "HRESULT")
     return result
 }
 
@@ -2569,7 +2574,7 @@ export ItemContainerPattern_FindItemByProperty(hobj, hnodeStartAfter, propertyId
  * @since windows6.1
  */
 export LegacyIAccessiblePattern_Select(hobj, flagsSelect) {
-    result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_Select", HUIAPATTERNOBJECT, hobj, "int", flagsSelect, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_Select", HUIAPATTERNOBJECT, hobj, Int32, flagsSelect, "HRESULT")
     return result
 }
 
@@ -2784,7 +2789,7 @@ export UiaHostProviderFromHwnd(_hwnd) {
  * @since windows8.0
  */
 export UiaProviderForNonClient(_hwnd, idObject, idChild) {
-    result := DllCall("UIAutomationCore.dll\UiaProviderForNonClient", HWND, _hwnd, "int", idObject, "int", idChild, "ptr*", &ppProvider := 0, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaProviderForNonClient", HWND, _hwnd, Int32, idObject, Int32, idChild, "ptr*", &ppProvider := 0, "HRESULT")
     return IRawElementProviderSimple(ppProvider)
 }
 
@@ -2806,7 +2811,7 @@ export UiaProviderForNonClient(_hwnd, idObject, idChild) {
  * @since windows8.0
  */
 export UiaIAccessibleFromProvider(pProvider, dwFlags, pvarChild) {
-    result := DllCall("UIAutomationCore.dll\UiaIAccessibleFromProvider", "ptr", pProvider, "uint", dwFlags, "ptr*", &ppAccessible := 0, VARIANT.Ptr, pvarChild, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaIAccessibleFromProvider", "ptr", pProvider, UInt32, dwFlags, "ptr*", &ppAccessible := 0, VARIANT.Ptr, pvarChild, "HRESULT")
     return IAccessible(ppAccessible)
 }
 
@@ -2830,7 +2835,7 @@ export UiaIAccessibleFromProvider(pProvider, dwFlags, pvarChild) {
  * @since windows8.0
  */
 export UiaProviderFromIAccessible(pAccessible, idChild, dwFlags) {
-    result := DllCall("UIAutomationCore.dll\UiaProviderFromIAccessible", "ptr", pAccessible, "int", idChild, "uint", dwFlags, "ptr*", &ppProvider := 0, "HRESULT")
+    result := DllCall("UIAutomationCore.dll\UiaProviderFromIAccessible", "ptr", pAccessible, Int32, idChild, UInt32, dwFlags, "ptr*", &ppProvider := 0, "HRESULT")
     return IRawElementProviderSimple(ppProvider)
 }
 
@@ -3026,7 +3031,7 @@ export UnregisterPointerInputTargetEx(_hwnd, pointerType) {
  * @since windows5.0
  */
 export NotifyWinEvent(event, _hwnd, idObject, idChild) {
-    DllCall("USER32.dll\NotifyWinEvent", "uint", event, HWND, _hwnd, "int", idObject, "int", idChild)
+    DllCall("USER32.dll\NotifyWinEvent", UInt32, event, HWND, _hwnd, Int32, idObject, Int32, idChild)
 }
 
 /**
@@ -3145,7 +3150,7 @@ export NotifyWinEvent(event, _hwnd, idObject, idChild) {
  * @since windows5.0
  */
 export SetWinEventHook(eventMin, eventMax, hmodWinEventProc, pfnWinEventProc, idProcess, idThread, dwFlags) {
-    result := DllCall("USER32.dll\SetWinEventHook", "uint", eventMin, "uint", eventMax, HMODULE, hmodWinEventProc, "ptr", pfnWinEventProc, "uint", idProcess, "uint", idThread, "uint", dwFlags, HWINEVENTHOOK.Owned)
+    result := DllCall("USER32.dll\SetWinEventHook", UInt32, eventMin, UInt32, eventMax, HMODULE, hmodWinEventProc, WINEVENTPROC, pfnWinEventProc, UInt32, idProcess, UInt32, idThread, UInt32, dwFlags, HWINEVENTHOOK.Owned)
     return result
 }
 
@@ -3167,7 +3172,7 @@ export SetWinEventHook(eventMin, eventMax, hmodWinEventProc, pfnWinEventProc, id
  * @since windows5.1.2600
  */
 export IsWinEventHookInstalled(event) {
-    result := DllCall("USER32.dll\IsWinEventHookInstalled", "uint", event, BOOL)
+    result := DllCall("USER32.dll\IsWinEventHookInstalled", UInt32, event, BOOL)
     return result
 }
 

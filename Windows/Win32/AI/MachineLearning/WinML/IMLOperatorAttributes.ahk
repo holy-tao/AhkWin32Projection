@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MLOperatorAttributeType.ahk" { MLOperatorAttributeType }
 #Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\MLOperatorAttributeType.ahk" { MLOperatorAttributeType }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
@@ -64,7 +64,7 @@ export default struct IMLOperatorAttributes extends IUnknown {
     GetAttribute(name, type, elementCount, elementByteSize) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "ptr", name, MLOperatorAttributeType, type, "uint", elementCount, "ptr", elementByteSize, "ptr", &value := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", name, MLOperatorAttributeType, type, UInt32, elementCount, IntPtr, elementByteSize, "ptr", &value := 0, "HRESULT")
         return value
     }
 
@@ -77,7 +77,7 @@ export default struct IMLOperatorAttributes extends IUnknown {
     GetStringAttributeElementLength(name, elementIndex) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(5, this, "ptr", name, "uint", elementIndex, "uint*", &attributeElementByteSize := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", name, UInt32, elementIndex, "uint*", &attributeElementByteSize := 0, "HRESULT")
         return attributeElementByteSize
     }
 
@@ -93,7 +93,7 @@ export default struct IMLOperatorAttributes extends IUnknown {
         name := name is String ? StrPtr(name) : name
         attributeElement := attributeElement is String ? StrPtr(attributeElement) : attributeElement
 
-        result := ComCall(6, this, "ptr", name, "uint", elementIndex, "uint", attributeElementByteSize, "ptr", attributeElement, "HRESULT")
+        result := ComCall(6, this, "ptr", name, UInt32, elementIndex, UInt32, attributeElementByteSize, "ptr", attributeElement, "HRESULT")
         return result
     }
 

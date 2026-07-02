@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpObjectTokenCategory.ahk" { ISpObjectTokenCategory }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpDataKey.ahk" { ISpDataKey }
+#Import ".\ISpObjectTokenCategory.ahk" { ISpObjectTokenCategory }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -102,7 +102,7 @@ export default struct ISpObjectToken extends ISpDataKey {
     CreateInstance(pUnkOuter, dwClsContext, riid, ppvObject) {
         ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pUnkOuter, "uint", dwClsContext, Guid.Ptr, riid, ppvObjectMarshal, ppvObject, "HRESULT")
+        result := ComCall(18, this, "ptr", pUnkOuter, UInt32, dwClsContext, Guid.Ptr, riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct ISpObjectToken extends ISpDataKey {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszFileNameSpecifier := pszFileNameSpecifier is String ? StrPtr(pszFileNameSpecifier) : pszFileNameSpecifier
 
-        result := ComCall(19, this, Guid.Ptr, clsidCaller, "ptr", pszValueName, "ptr", pszFileNameSpecifier, "uint", nFolder, PWSTR.Ptr, &ppszFilePath := 0, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, clsidCaller, "ptr", pszValueName, "ptr", pszFileNameSpecifier, UInt32, nFolder, PWSTR.Ptr, &ppszFilePath := 0, "HRESULT")
         return ppszFilePath
     }
 
@@ -161,7 +161,7 @@ export default struct ISpObjectToken extends ISpDataKey {
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
         pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, pfSupportedMarshal, pfSupported, "HRESULT")
+        result := ComCall(22, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "ptr", punkObject, pfSupportedMarshal, pfSupported, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ export default struct ISpObjectToken extends ISpDataKey {
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, "HRESULT")
+        result := ComCall(23, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "ptr", punkObject, "HRESULT")
         return result
     }
 

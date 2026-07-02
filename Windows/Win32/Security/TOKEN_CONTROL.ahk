@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TOKEN_SOURCE.ahk" { TOKEN_SOURCE }
 #Import "..\Foundation\LUID.ahk" { LUID }
+#Import ".\TOKEN_SOURCE.ahk" { TOKEN_SOURCE }
 #Import "..\Foundation\CHAR.ahk" { CHAR }
 
 /**

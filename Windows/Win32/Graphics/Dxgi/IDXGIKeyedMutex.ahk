@@ -100,7 +100,7 @@ export default struct IDXGIKeyedMutex extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgikeyedmutex-acquiresync
      */
     AcquireSync(Key, dwMilliseconds) {
-        result := ComCall(8, this, "uint", Key, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(8, this, Int64, Key, UInt32, dwMilliseconds, "HRESULT")
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct IDXGIKeyedMutex extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgikeyedmutex-releasesync
      */
     ReleaseSync(Key) {
-        result := ComCall(9, this, "uint", Key, "HRESULT")
+        result := ComCall(9, this, Int64, Key, "HRESULT")
         return result
     }
 

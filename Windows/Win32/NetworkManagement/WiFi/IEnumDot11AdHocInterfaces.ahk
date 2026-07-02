@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDot11AdHocInterface.ahk" { IDot11AdHocInterface }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the collection of currently visible 802.11 ad hoc network interfaces.
@@ -125,7 +125,7 @@ export default struct IEnumDot11AdHocInterfaces extends IUnknown {
     Next(cElt, rgElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cElt, IDot11AdHocInterface.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cElt, IDot11AdHocInterface.Ptr, rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
         return result
     }
 
@@ -165,7 +165,7 @@ export default struct IEnumDot11AdHocInterfaces extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocinterfaces-skip
      */
     Skip(cElt) {
-        result := ComCall(4, this, "uint", cElt, "HRESULT")
+        result := ComCall(4, this, UInt32, cElt, "HRESULT")
         return result
     }
 

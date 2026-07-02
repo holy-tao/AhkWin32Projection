@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IMFPMediaItem.ahk" { IMFPMediaItem }
-#Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * Contains methods to play media files. (Deprecated.).
@@ -514,7 +514,7 @@ export default struct IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-setrate
      */
     SetRate(flRate) {
-        result := ComCall(10, this, "float", flRate, "HRESULT")
+        result := ComCall(10, this, Float32, flRate, "HRESULT")
         return result
     }
 
@@ -623,7 +623,7 @@ export default struct IMFPMediaPlayer extends IUnknown {
     CreateMediaItemFromURL(pwszURL, fSync, dwUserData) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(14, this, "ptr", pwszURL, BOOL, fSync, "ptr", dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pwszURL, BOOL, fSync, IntPtr, dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
         return IMFPMediaItem(ppMediaItem)
     }
 
@@ -666,7 +666,7 @@ export default struct IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-createmediaitemfromobject
      */
     CreateMediaItemFromObject(pIUnknownObj, fSync, dwUserData) {
-        result := ComCall(15, this, "ptr", pIUnknownObj, BOOL, fSync, "ptr", dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pIUnknownObj, BOOL, fSync, IntPtr, dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
         return IMFPMediaItem(ppMediaItem)
     }
 
@@ -825,7 +825,7 @@ export default struct IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-setvolume
      */
     SetVolume(flVolume) {
-        result := ComCall(20, this, "float", flVolume, "HRESULT")
+        result := ComCall(20, this, Float32, flVolume, "HRESULT")
         return result
     }
 
@@ -941,7 +941,7 @@ export default struct IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-setbalance
      */
     SetBalance(flBalance) {
-        result := ComCall(22, this, "float", flBalance, "HRESULT")
+        result := ComCall(22, this, Float32, flBalance, "HRESULT")
         return result
     }
 
@@ -1209,7 +1209,7 @@ export default struct IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-setaspectratiomode
      */
     SetAspectRatioMode(dwAspectRatioMode) {
-        result := ComCall(29, this, "uint", dwAspectRatioMode, "HRESULT")
+        result := ComCall(29, this, UInt32, dwAspectRatioMode, "HRESULT")
         return result
     }
 

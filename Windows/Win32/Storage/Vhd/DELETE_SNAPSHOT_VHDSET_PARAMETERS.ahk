@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DELETE_SNAPSHOT_VHDSET_VERSION.ahk" { DELETE_SNAPSHOT_VHDSET_VERSION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains snapshot deletion parameters, designating which snapshot to delete from the VHD Set.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWiaEventCallback.ahk" { IWiaEventCallback }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IEnumWIA_DEV_INFO.ahk" { IEnumWIA_DEV_INFO }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IWiaItem.ahk" { IWiaItem }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWiaEventCallback.ahk" { IWiaEventCallback }
+#Import ".\IEnumWIA_DEV_INFO.ahk" { IEnumWIA_DEV_INFO }
 
 /**
  * Applications use the IWiaDevMgr interface to create and manage image acquisition devices.
@@ -98,7 +98,7 @@ export default struct IWiaDevMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-enumdeviceinfo
      */
     EnumDeviceInfo(lFlag) {
-        result := ComCall(3, this, "int", lFlag, "ptr*", &ppIEnum := 0, "HRESULT")
+        result := ComCall(3, this, Int32, lFlag, "ptr*", &ppIEnum := 0, "HRESULT")
         return IEnumWIA_DEV_INFO(ppIEnum)
     }
 
@@ -153,7 +153,7 @@ export default struct IWiaDevMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-selectdevicedlg
      */
     SelectDeviceDlg(hwndParent, lDeviceType, lFlags, pbstrDeviceID) {
-        result := ComCall(5, this, HWND, hwndParent, "int", lDeviceType, "int", lFlags, BSTR.Ptr, pbstrDeviceID, "ptr*", &ppItemRoot := 0, "HRESULT")
+        result := ComCall(5, this, HWND, hwndParent, Int32, lDeviceType, Int32, lFlags, BSTR.Ptr, pbstrDeviceID, "ptr*", &ppItemRoot := 0, "HRESULT")
         return IWiaItem(ppItemRoot)
     }
 
@@ -204,7 +204,7 @@ export default struct IWiaDevMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-selectdevicedlgid
      */
     SelectDeviceDlgID(hwndParent, lDeviceType, lFlags, pbstrDeviceID) {
-        result := ComCall(6, this, HWND, hwndParent, "int", lDeviceType, "int", lFlags, BSTR.Ptr, pbstrDeviceID, "HRESULT")
+        result := ComCall(6, this, HWND, hwndParent, Int32, lDeviceType, Int32, lFlags, BSTR.Ptr, pbstrDeviceID, "HRESULT")
         return result
     }
 
@@ -278,7 +278,7 @@ export default struct IWiaDevMgr extends IUnknown {
     GetImageDlg(hwndParent, lDeviceType, lFlags, lIntent, pItemRoot, bstrFilename, pguidFormat) {
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename
 
-        result := ComCall(7, this, HWND, hwndParent, "int", lDeviceType, "int", lFlags, "int", lIntent, "ptr", pItemRoot, BSTR, bstrFilename, Guid.Ptr, pguidFormat, "HRESULT")
+        result := ComCall(7, this, HWND, hwndParent, Int32, lDeviceType, Int32, lFlags, Int32, lIntent, "ptr", pItemRoot, BSTR, bstrFilename, Guid.Ptr, pguidFormat, "HRESULT")
         return result
     }
 
@@ -348,7 +348,7 @@ export default struct IWiaDevMgr extends IUnknown {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
         bstrIcon := bstrIcon is String ? BSTR.Alloc(bstrIcon).Value : bstrIcon
 
-        result := ComCall(8, this, "int", lFlags, BSTR, bstrDeviceID, Guid.Ptr, pEventGUID, BSTR, bstrCommandline, BSTR, bstrName, BSTR, bstrDescription, BSTR, bstrIcon, "HRESULT")
+        result := ComCall(8, this, Int32, lFlags, BSTR, bstrDeviceID, Guid.Ptr, pEventGUID, BSTR, bstrCommandline, BSTR, bstrName, BSTR, bstrDescription, BSTR, bstrIcon, "HRESULT")
         return result
     }
 
@@ -387,7 +387,7 @@ export default struct IWiaDevMgr extends IUnknown {
     RegisterEventCallbackInterface(lFlags, bstrDeviceID, pEventGUID, pIWiaEventCallback) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
 
-        result := ComCall(9, this, "int", lFlags, BSTR, bstrDeviceID, Guid.Ptr, pEventGUID, "ptr", pIWiaEventCallback, "ptr*", &pEventObject := 0, "HRESULT")
+        result := ComCall(9, this, Int32, lFlags, BSTR, bstrDeviceID, Guid.Ptr, pEventGUID, "ptr", pIWiaEventCallback, "ptr*", &pEventObject := 0, "HRESULT")
         return IUnknown(pEventObject)
     }
 
@@ -459,7 +459,7 @@ export default struct IWiaDevMgr extends IUnknown {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
         bstrIcon := bstrIcon is String ? BSTR.Alloc(bstrIcon).Value : bstrIcon
 
-        result := ComCall(10, this, "int", lFlags, BSTR, bstrDeviceID, Guid.Ptr, pEventGUID, Guid.Ptr, pClsID, BSTR, bstrName, BSTR, bstrDescription, BSTR, bstrIcon, "HRESULT")
+        result := ComCall(10, this, Int32, lFlags, BSTR, bstrDeviceID, Guid.Ptr, pEventGUID, Guid.Ptr, pClsID, BSTR, bstrName, BSTR, bstrDescription, BSTR, bstrIcon, "HRESULT")
         return result
     }
 
@@ -473,7 +473,7 @@ export default struct IWiaDevMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadevmgr-adddevicedlg
      */
     AddDeviceDlg(hwndParent, lFlags) {
-        result := ComCall(11, this, HWND, hwndParent, "int", lFlags, "HRESULT")
+        result := ComCall(11, this, HWND, hwndParent, Int32, lFlags, "HRESULT")
         return result
     }
 

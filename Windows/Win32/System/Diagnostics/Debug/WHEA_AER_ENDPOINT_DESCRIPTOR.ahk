@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk" { AER_ENDPOINT_DESCRIPTOR_FLAGS }
-#Import ".\WHEA_PCI_SLOT_NUMBER.ahk" { WHEA_PCI_SLOT_NUMBER }
 #Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WHEA_PCI_SLOT_NUMBER.ahk" { WHEA_PCI_SLOT_NUMBER }
+#Import ".\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk" { AER_ENDPOINT_DESCRIPTOR_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

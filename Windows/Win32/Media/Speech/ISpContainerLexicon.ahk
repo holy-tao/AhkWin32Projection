@@ -42,7 +42,7 @@ export default struct ISpContainerLexicon extends ISpLexicon {
      * @returns {HRESULT} 
      */
     AddLexicon(pAddLexicon, dwFlags) {
-        result := ComCall(9, this, "ptr", pAddLexicon, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", pAddLexicon, UInt32, dwFlags, "HRESULT")
         return result
     }
 

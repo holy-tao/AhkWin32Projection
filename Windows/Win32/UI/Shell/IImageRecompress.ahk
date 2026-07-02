@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Exposes a method that recompress images.
@@ -70,7 +70,7 @@ export default struct IImageRecompress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iimagerecompress-recompressimage
      */
     RecompressImage(psi, cx, _cy, iQuality, pstg) {
-        result := ComCall(3, this, "ptr", psi, "int", cx, "int", _cy, "int", iQuality, "ptr", pstg, "ptr*", &ppstrmOut := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", psi, Int32, cx, Int32, _cy, Int32, iQuality, "ptr", pstg, "ptr*", &ppstrmOut := 0, "HRESULT")
         return IStream(ppstrmOut)
     }
 

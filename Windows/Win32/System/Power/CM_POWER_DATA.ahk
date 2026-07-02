@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
 #Import ".\DEVICE_POWER_STATE.ahk" { DEVICE_POWER_STATE }
+#Import ".\SYSTEM_POWER_STATE.ahk" { SYSTEM_POWER_STATE }
 
 /**
  * @namespace Windows.Win32.System.Power

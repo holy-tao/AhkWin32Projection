@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\UI_ANIMATION_SLOPE.ahk" { UI_ANIMATION_SLOPE }
 #Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines a library of standard transitions for a specified dimension.
@@ -81,7 +81,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createinstantaneoustransition
      */
     CreateInstantaneousTransition(finalValue) {
-        result := ComCall(3, this, "double", finalValue, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(3, this, Float64, finalValue, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -102,7 +102,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
     CreateInstantaneousVectorTransition(finalValue, cDimension) {
         finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(4, this, finalValueMarshal, finalValue, "uint", cDimension, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(4, this, finalValueMarshal, finalValue, UInt32, cDimension, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -119,7 +119,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createconstanttransition
      */
     CreateConstantTransition(duration) {
-        result := ComCall(5, this, "double", duration, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(5, this, Float64, duration, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -138,7 +138,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-creatediscretetransition
      */
     CreateDiscreteTransition(delay, finalValue, _hold) {
-        result := ComCall(6, this, "double", delay, "double", finalValue, "double", _hold, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(6, this, Float64, delay, Float64, finalValue, Float64, _hold, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -160,7 +160,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
     CreateDiscreteVectorTransition(delay, finalValue, cDimension, _hold) {
         finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(7, this, "double", delay, finalValueMarshal, finalValue, "uint", cDimension, "double", _hold, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(7, this, Float64, delay, finalValueMarshal, finalValue, UInt32, cDimension, Float64, _hold, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -178,7 +178,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createlineartransition
      */
     CreateLinearTransition(duration, finalValue) {
-        result := ComCall(8, this, "double", duration, "double", finalValue, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(8, this, Float64, duration, Float64, finalValue, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -199,7 +199,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
     CreateLinearVectorTransition(duration, finalValue, cDimension) {
         finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(9, this, "double", duration, finalValueMarshal, finalValue, "uint", cDimension, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(9, this, Float64, duration, finalValueMarshal, finalValue, UInt32, cDimension, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -217,7 +217,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createlineartransitionfromspeed
      */
     CreateLinearTransitionFromSpeed(speed, finalValue) {
-        result := ComCall(10, this, "double", speed, "double", finalValue, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(10, this, Float64, speed, Float64, finalValue, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -238,7 +238,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
     CreateLinearVectorTransitionFromSpeed(speed, finalValue, cDimension) {
         finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(11, this, "double", speed, finalValueMarshal, finalValue, "uint", cDimension, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(11, this, Float64, speed, finalValueMarshal, finalValue, UInt32, cDimension, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -256,7 +256,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createsinusoidaltransitionfromvelocity
      */
     CreateSinusoidalTransitionFromVelocity(duration, period) {
-        result := ComCall(12, this, "double", duration, "double", period, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(12, this, Float64, duration, Float64, period, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -277,7 +277,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createsinusoidaltransitionfromrange
      */
     CreateSinusoidalTransitionFromRange(duration, minimumValue, maximumValue, period, slope) {
-        result := ComCall(13, this, "double", duration, "double", minimumValue, "double", maximumValue, "double", period, UI_ANIMATION_SLOPE, slope, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(13, this, Float64, duration, Float64, minimumValue, Float64, maximumValue, Float64, period, UI_ANIMATION_SLOPE, slope, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -302,7 +302,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createacceleratedeceleratetransition
      */
     CreateAccelerateDecelerateTransition(duration, finalValue, accelerationRatio, decelerationRatio) {
-        result := ComCall(14, this, "double", duration, "double", finalValue, "double", accelerationRatio, "double", decelerationRatio, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(14, this, Float64, duration, Float64, finalValue, Float64, accelerationRatio, Float64, decelerationRatio, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -317,7 +317,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createreversaltransition
      */
     CreateReversalTransition(duration) {
-        result := ComCall(15, this, "double", duration, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(15, this, Float64, duration, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -336,7 +336,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createcubictransition
      */
     CreateCubicTransition(duration, finalValue, finalVelocity) {
-        result := ComCall(16, this, "double", duration, "double", finalValue, "double", finalVelocity, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(16, this, Float64, duration, Float64, finalValue, Float64, finalVelocity, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -359,7 +359,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
         finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
         finalVelocityMarshal := finalVelocity is VarRef ? "double*" : "ptr"
 
-        result := ComCall(17, this, "double", duration, finalValueMarshal, finalValue, finalVelocityMarshal, finalVelocity, "uint", cDimension, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(17, this, Float64, duration, finalValueMarshal, finalValue, finalVelocityMarshal, finalVelocity, UInt32, cDimension, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -377,7 +377,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createsmoothstoptransition
      */
     CreateSmoothStopTransition(maximumDuration, finalValue) {
-        result := ComCall(18, this, "double", maximumDuration, "double", finalValue, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(18, this, Float64, maximumDuration, Float64, finalValue, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -396,7 +396,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createparabolictransitionfromacceleration
      */
     CreateParabolicTransitionFromAcceleration(finalValue, finalVelocity, acceleration) {
-        result := ComCall(19, this, "double", finalValue, "double", finalVelocity, "double", acceleration, "ptr*", &transition := 0, "HRESULT")
+        result := ComCall(19, this, Float64, finalValue, Float64, finalVelocity, Float64, acceleration, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
     }
 
@@ -418,7 +418,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createcubicbezierlineartransition
      */
     CreateCubicBezierLinearTransition(duration, finalValue, x1, y1, x2, y2) {
-        result := ComCall(20, this, "double", duration, "double", finalValue, "double", x1, "double", y1, "double", x2, "double", y2, "ptr*", &ppTransition := 0, "HRESULT")
+        result := ComCall(20, this, Float64, duration, Float64, finalValue, Float64, x1, Float64, y1, Float64, x2, Float64, y2, "ptr*", &ppTransition := 0, "HRESULT")
         return IUIAnimationTransition2(ppTransition)
     }
 
@@ -443,7 +443,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
     CreateCubicBezierLinearVectorTransition(duration, finalValue, cDimension, x1, y1, x2, y2) {
         finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(21, this, "double", duration, finalValueMarshal, finalValue, "uint", cDimension, "double", x1, "double", y1, "double", x2, "double", y2, "ptr*", &ppTransition := 0, "HRESULT")
+        result := ComCall(21, this, Float64, duration, finalValueMarshal, finalValue, UInt32, cDimension, Float64, x1, Float64, y1, Float64, x2, Float64, y2, "ptr*", &ppTransition := 0, "HRESULT")
         return IUIAnimationTransition2(ppTransition)
     }
 

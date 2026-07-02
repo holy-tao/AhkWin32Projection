@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_UNDERLINE.ahk" { DWRITE_UNDERLINE }
-#Import ".\IDWritePixelSnapping.ahk" { IDWritePixelSnapping }
 #Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DWRITE_STRIKETHROUGH.ahk" { DWRITE_STRIKETHROUGH }
+#Import ".\IDWritePixelSnapping.ahk" { IDWritePixelSnapping }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
 #Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_STRIKETHROUGH.ahk" { DWRITE_STRIKETHROUGH }
+#Import ".\DWRITE_UNDERLINE.ahk" { DWRITE_UNDERLINE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 
 /**
  * Represents a set of application-defined callbacks that perform rendering of text, inline objects, and decorations such as underlines. (IDWriteTextRenderer)
@@ -83,7 +83,7 @@ export default struct IDWriteTextRenderer extends IDWritePixelSnapping {
     DrawGlyphRun(clientDrawingContext, baselineOriginX, baselineOriginY, measuringMode, _glyphRun, glyphRunDescription, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(6, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IDWriteTextRenderer extends IDWritePixelSnapping {
     DrawUnderline(clientDrawingContext, baselineOriginX, baselineOriginY, underline, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, DWRITE_UNDERLINE.Ptr, underline, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(7, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_UNDERLINE.Ptr, underline, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -163,7 +163,7 @@ export default struct IDWriteTextRenderer extends IDWritePixelSnapping {
     DrawStrikethrough(clientDrawingContext, baselineOriginX, baselineOriginY, strikethrough, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, DWRITE_STRIKETHROUGH.Ptr, strikethrough, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(8, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_STRIKETHROUGH.Ptr, strikethrough, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IDWriteTextRenderer extends IDWritePixelSnapping {
     DrawInlineObject(clientDrawingContext, originX, originY, inlineObject, isSideways, isRightToLeft, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, clientDrawingContextMarshal, clientDrawingContext, "float", originX, "float", originY, "ptr", inlineObject, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(9, this, clientDrawingContextMarshal, clientDrawingContext, Float32, originX, Float32, originY, "ptr", inlineObject, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
         return result
     }
 

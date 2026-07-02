@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DWRITE_FONT_PROPERTY.ahk" { DWRITE_FONT_PROPERTY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains methods for building a font set. (IDWriteFontSetBuilder)
@@ -56,7 +56,7 @@ export default struct IDWriteFontSetBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder-addfontfacereference(idwritefontfacereference)
      */
     AddFontFaceReference(fontFaceReference, _properties, propertyCount) {
-        result := ComCall(3, this, "ptr", fontFaceReference, DWRITE_FONT_PROPERTY.Ptr, _properties, "uint", propertyCount, "HRESULT")
+        result := ComCall(3, this, "ptr", fontFaceReference, DWRITE_FONT_PROPERTY.Ptr, _properties, UInt32, propertyCount, "HRESULT")
         return result
     }
 

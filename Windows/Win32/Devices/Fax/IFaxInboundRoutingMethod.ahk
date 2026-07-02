@@ -189,7 +189,7 @@ export default struct IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-put_priority
      */
     put_Priority(lPriority) {
-        result := ComCall(13, this, "int", lPriority, "HRESULT")
+        result := ComCall(13, this, Int32, lPriority, "HRESULT")
         return result
     }
 

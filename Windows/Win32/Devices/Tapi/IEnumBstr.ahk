@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumBstr interface provides COM-standard methods to enumerate BSTR strings.
@@ -55,7 +55,7 @@ export default struct IEnumBstr extends IUnknown {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
         ppStrings := BSTR.Owned()
-        result := ComCall(3, this, "uint", celt, BSTR.Ptr, ppStrings, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, BSTR.Ptr, ppStrings, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return ppStrings
     }
 
@@ -123,7 +123,7 @@ export default struct IEnumBstr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumbstr-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

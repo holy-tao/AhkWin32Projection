@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IProvideClassInfo2.ahk" { IProvideClassInfo2 }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MULTICLASSINFO_FLAGS.ahk" { MULTICLASSINFO_FLAGS }
-#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
 
 /**
  * An extension to IProvideClassInfo2 that makes it faster and easier to retrieve type information from a component that may have multiple coclasses that determine its behavior.
@@ -66,7 +66,7 @@ export default struct IProvideMultipleClassInfo extends IProvideClassInfo2 {
         pdwTIFlagsMarshal := pdwTIFlags is VarRef ? "uint*" : "ptr"
         pcdispidReservedMarshal := pcdispidReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", iti, MULTICLASSINFO_FLAGS, dwFlags, ITypeInfo.Ptr, pptiCoClass, pdwTIFlagsMarshal, pdwTIFlags, pcdispidReservedMarshal, pcdispidReserved, Guid.Ptr, piidPrimary, Guid.Ptr, piidSource, "HRESULT")
+        result := ComCall(6, this, UInt32, iti, MULTICLASSINFO_FLAGS, dwFlags, ITypeInfo.Ptr, pptiCoClass, pdwTIFlagsMarshal, pdwTIFlags, pcdispidReservedMarshal, pcdispidReserved, Guid.Ptr, piidPrimary, Guid.Ptr, piidSource, "HRESULT")
         return result
     }
 

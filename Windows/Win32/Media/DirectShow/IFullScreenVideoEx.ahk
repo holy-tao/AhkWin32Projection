@@ -73,7 +73,7 @@ export default struct IFullScreenVideoEx extends IFullScreenVideo {
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-ifullscreenvideoex-keeppixelaspectratio
      */
     KeepPixelAspectRatio(KeepAspect) {
-        result := ComCall(22, this, "int", KeepAspect, "HRESULT")
+        result := ComCall(22, this, Int32, KeepAspect, "HRESULT")
         return result
     }
 

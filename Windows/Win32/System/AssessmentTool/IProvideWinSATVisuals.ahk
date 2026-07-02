@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\WINSAT_ASSESSMENT_STATE.ahk" { WINSAT_ASSESSMENT_STATE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WINSAT_BITMAP_SIZE.ahk" { WINSAT_BITMAP_SIZE }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * Retrieves elements that can be used in a user interface to graphically represent the WinSAT assessment.
@@ -52,7 +52,7 @@ export default struct IProvideWinSATVisuals extends IUnknown {
      */
     get_Bitmap(bitmapSize, state, rating) {
         pBitmap := HBITMAP.Owned()
-        result := ComCall(3, this, WINSAT_BITMAP_SIZE, bitmapSize, WINSAT_ASSESSMENT_STATE, state, "float", rating, HBITMAP.Ptr, pBitmap, "HRESULT")
+        result := ComCall(3, this, WINSAT_BITMAP_SIZE, bitmapSize, WINSAT_ASSESSMENT_STATE, state, Float32, rating, HBITMAP.Ptr, pBitmap, "HRESULT")
         return pBitmap
     }
 

@@ -305,7 +305,7 @@ export default struct ICertRequest extends IDispatch {
         strAttributes := strAttributes is String ? BSTR.Alloc(strAttributes).Value : strAttributes
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(7, this, "int", Flags, BSTR, strRequest, BSTR, strAttributes, BSTR, strConfig, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Flags, BSTR, strRequest, BSTR, strAttributes, BSTR, strConfig, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -326,7 +326,7 @@ export default struct ICertRequest extends IDispatch {
     RetrievePending(RequestId, strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(8, this, "int", RequestId, BSTR, strConfig, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(8, this, Int32, RequestId, BSTR, strConfig, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -457,7 +457,7 @@ export default struct ICertRequest extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
         pstrCertificate := BSTR.Owned()
-        result := ComCall(12, this, "int", fExchangeCertificate, BSTR, strConfig, "int", Flags, BSTR.Ptr, pstrCertificate, "HRESULT")
+        result := ComCall(12, this, Int32, fExchangeCertificate, BSTR, strConfig, Int32, Flags, BSTR.Ptr, pstrCertificate, "HRESULT")
         return pstrCertificate
     }
 
@@ -562,7 +562,7 @@ export default struct ICertRequest extends IDispatch {
      */
     GetCertificate(Flags) {
         pstrCertificate := BSTR.Owned()
-        result := ComCall(13, this, "int", Flags, BSTR.Ptr, pstrCertificate, "HRESULT")
+        result := ComCall(13, this, Int32, Flags, BSTR.Ptr, pstrCertificate, "HRESULT")
         return pstrCertificate
     }
 

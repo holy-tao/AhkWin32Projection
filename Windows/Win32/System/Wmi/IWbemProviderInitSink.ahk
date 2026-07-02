@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWbemProviderInitSink interface is implemented by WMI and called by providers to report initialization status.
@@ -50,7 +50,7 @@ export default struct IWbemProviderInitSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemproviderinitsink-setstatus
      */
     SetStatus(lStatus, lFlags) {
-        result := ComCall(3, this, "int", lStatus, "int", lFlags, "HRESULT")
+        result := ComCall(3, this, Int32, lStatus, Int32, lFlags, "HRESULT")
         return result
     }
 

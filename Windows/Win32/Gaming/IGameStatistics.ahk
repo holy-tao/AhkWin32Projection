@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Gaming
@@ -108,7 +108,7 @@ export default struct IGameStatistics extends IUnknown {
     SetCategoryTitle(categoryIndex, title) {
         title := title is String ? StrPtr(title) : title
 
-        result := ComCall(8, this, "ushort", categoryIndex, "ptr", title, "HRESULT")
+        result := ComCall(8, this, UInt16, categoryIndex, "ptr", title, "HRESULT")
         return result
     }
 
@@ -118,7 +118,7 @@ export default struct IGameStatistics extends IUnknown {
      * @returns {PWSTR} 
      */
     GetCategoryTitle(categoryIndex) {
-        result := ComCall(9, this, "ushort", categoryIndex, PWSTR.Ptr, &pTitle := 0, "HRESULT")
+        result := ComCall(9, this, UInt16, categoryIndex, PWSTR.Ptr, &pTitle := 0, "HRESULT")
         return pTitle
     }
 
@@ -134,7 +134,7 @@ export default struct IGameStatistics extends IUnknown {
         pNameMarshal := pName is VarRef ? "ptr*" : "ptr"
         pValueMarshal := pValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ushort", categoryIndex, "ushort", statIndex, pNameMarshal, pName, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(10, this, UInt16, categoryIndex, UInt16, statIndex, pNameMarshal, pName, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct IGameStatistics extends IUnknown {
         name := name is String ? StrPtr(name) : name
         value := value is String ? StrPtr(value) : value
 
-        result := ComCall(11, this, "ushort", categoryIndex, "ushort", statIndex, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(11, this, UInt16, categoryIndex, UInt16, statIndex, "ptr", name, "ptr", value, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IGameStatistics extends IUnknown {
      * @returns {HRESULT} 
      */
     SetLastPlayedCategory(categoryIndex) {
-        result := ComCall(13, this, "uint", categoryIndex, "HRESULT")
+        result := ComCall(13, this, UInt32, categoryIndex, "HRESULT")
         return result
     }
 

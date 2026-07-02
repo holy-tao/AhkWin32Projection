@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_HTTP_REDIRECT_CALLBACK.ahk" { WS_HTTP_REDIRECT_CALLBACK }
 
 /**
  * Specifies the callback function and state for controlling the HTTP auto redirection behavior.
@@ -11,7 +12,7 @@ export default struct WS_HTTP_REDIRECT_CALLBACK_CONTEXT {
     /**
      * Application specific callback for controlling HTTP auto redirections.
      */
-    callback : IntPtr
+    callback : WS_HTTP_REDIRECT_CALLBACK
 
     /**
      * Application specific state that would be made available to the callback upon its invocation.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IModelObject.ahk" { IModelObject }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -67,7 +67,7 @@ export default struct IDeconstructableConcept extends IUnknown {
      * @returns {IModelObject} 
      */
     GetConstructorArguments(contextObject, argCount) {
-        result := ComCall(5, this, "ptr", contextObject, "uint", argCount, "ptr*", &constructorArguments := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", contextObject, Int64, argCount, "ptr*", &constructorArguments := 0, "HRESULT")
         return IModelObject(constructorArguments)
     }
 

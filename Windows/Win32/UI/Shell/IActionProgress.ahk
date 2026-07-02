@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SPTEXT.ahk" { SPTEXT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\SPACTION.ahk" { SPACTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPTEXT.ahk" { SPTEXT }
 
 /**
  * Represents the abstract base class from which progress-driven operations can inherit.
@@ -68,7 +68,7 @@ export default struct IActionProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iactionprogress-begin
      */
     Begin(action, flags) {
-        result := ComCall(3, this, SPACTION, action, "uint", flags, "HRESULT")
+        result := ComCall(3, this, SPACTION, action, UInt32, flags, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IActionProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iactionprogress-updateprogress
      */
     UpdateProgress(ulCompleted, ulTotal) {
-        result := ComCall(4, this, "uint", ulCompleted, "uint", ulTotal, "HRESULT")
+        result := ComCall(4, this, Int64, ulCompleted, Int64, ulTotal, "HRESULT")
         return result
     }
 

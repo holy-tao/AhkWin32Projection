@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MIB_IPINTERFACE_ROW.ahk" { MIB_IPINTERFACE_ROW }
-#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk" { NL_ROUTER_DISCOVERY_BEHAVIOR }
-#Import "..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk" { NL_LINK_LOCAL_ADDRESS_BEHAVIOR }
-#Import "..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk" { NL_INTERFACE_OFFLOAD_ROD }
 #Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk" { NL_ROUTER_DISCOVERY_BEHAVIOR }
+#Import "..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk" { NL_INTERFACE_OFFLOAD_ROD }
+#Import ".\MIB_IPINTERFACE_ROW.ahk" { MIB_IPINTERFACE_ROW }
 #Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk" { NL_LINK_LOCAL_ADDRESS_BEHAVIOR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains a table of IP interface entries.

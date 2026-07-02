@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IImePadApplet.ahk" { IImePadApplet }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IImePad interface inserts text into apps from IMEPadApplets that implement the IImePadApplet interface.
@@ -209,7 +209,7 @@ export default struct IImePad extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepad-request
      */
     Request(pIImePadApplet, reqId, _wParam, _lParam) {
-        result := ComCall(3, this, "ptr", pIImePadApplet, "int", reqId, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        result := ComCall(3, this, "ptr", pIImePadApplet, Int32, reqId, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\Data\Xml\MsXml\IXMLDOMElement.ahk" { IXMLDOMElement }
-#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
 #Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
+#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\DEBUG_FAILURE_TYPE.ahk" { DEBUG_FAILURE_TYPE }
 #Import ".\IDebugFAEntryTags.ahk" { IDebugFAEntryTags }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEBUG_FAILURE_TYPE.ahk" { DEBUG_FAILURE_TYPE }
+#Import "..\..\..\..\Data\Xml\MsXml\IXMLDOMElement.ahk" { IXMLDOMElement }
 #Import ".\FA_ENTRY_TYPE.ahk" { FA_ENTRY_TYPE }
 
 /**
@@ -124,7 +124,7 @@ export default struct IDebugFailureAnalysis2 extends IUnknown {
     GetString(Tag, Str, MaxSize) {
         Str := Str is String ? StrPtr(Str) : Str
 
-        result := ComCall(8, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Str, "uint", MaxSize, FA_ENTRY.Ptr)
+        result := ComCall(8, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Str, UInt32, MaxSize, FA_ENTRY.Ptr)
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct IDebugFailureAnalysis2 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetBuffer(Tag, Buf, _Size) {
-        result := ComCall(9, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Buf, "uint", _Size, FA_ENTRY.Ptr)
+        result := ComCall(9, this, DEBUG_FLR_PARAM_TYPE, Tag, IntPtr, Buf, UInt32, _Size, FA_ENTRY.Ptr)
         return result
     }
 
@@ -209,7 +209,7 @@ export default struct IDebugFailureAnalysis2 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     SetUlong(Tag, Value) {
-        result := ComCall(15, this, DEBUG_FLR_PARAM_TYPE, Tag, "uint", Value, FA_ENTRY.Ptr)
+        result := ComCall(15, this, DEBUG_FLR_PARAM_TYPE, Tag, UInt32, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -220,7 +220,7 @@ export default struct IDebugFailureAnalysis2 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     SetUlong64(Tag, Value) {
-        result := ComCall(16, this, DEBUG_FLR_PARAM_TYPE, Tag, "uint", Value, FA_ENTRY.Ptr)
+        result := ComCall(16, this, DEBUG_FLR_PARAM_TYPE, Tag, Int64, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -233,7 +233,7 @@ export default struct IDebugFailureAnalysis2 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     SetBuffer(Tag, EntryType, Buf, _Size) {
-        result := ComCall(17, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE, EntryType, "ptr", Buf, "uint", _Size, FA_ENTRY.Ptr)
+        result := ComCall(17, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE, EntryType, IntPtr, Buf, UInt32, _Size, FA_ENTRY.Ptr)
         return result
     }
 
@@ -270,7 +270,7 @@ export default struct IDebugFailureAnalysis2 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     AddUlong(Tag, Value) {
-        result := ComCall(20, this, DEBUG_FLR_PARAM_TYPE, Tag, "uint", Value, FA_ENTRY.Ptr)
+        result := ComCall(20, this, DEBUG_FLR_PARAM_TYPE, Tag, UInt32, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -281,7 +281,7 @@ export default struct IDebugFailureAnalysis2 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     AddUlong64(Tag, Value) {
-        result := ComCall(21, this, DEBUG_FLR_PARAM_TYPE, Tag, "uint", Value, FA_ENTRY.Ptr)
+        result := ComCall(21, this, DEBUG_FLR_PARAM_TYPE, Tag, Int64, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -294,7 +294,7 @@ export default struct IDebugFailureAnalysis2 extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     AddBuffer(Tag, EntryType, Buf, _Size) {
-        result := ComCall(22, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE, EntryType, "ptr", Buf, "uint", _Size, FA_ENTRY.Ptr)
+        result := ComCall(22, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE, EntryType, IntPtr, Buf, UInt32, _Size, FA_ENTRY.Ptr)
         return result
     }
 

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
-#Import ".\STI_USD_CAPS.ahk" { STI_USD_CAPS }
-#Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\STINOTIFY.ahk" { STINOTIFY }
-#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
 #Import ".\IStiDeviceControl.ahk" { IStiDeviceControl }
 #Import ".\STI_DIAG.ahk" { STI_DIAG }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import ".\STI_USD_CAPS.ahk" { STI_USD_CAPS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
+#Import ".\STINOTIFY.ahk" { STINOTIFY }
+#Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -91,7 +91,7 @@ export default struct IStiUSD extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pHelDcb, dwStiVersion, hParametersKey) {
-        result := ComCall(3, this, "ptr", pHelDcb, "uint", dwStiVersion, HKEY, hParametersKey, "HRESULT")
+        result := ComCall(3, this, "ptr", pHelDcb, UInt32, dwStiVersion, HKEY, hParametersKey, "HRESULT")
         return result
     }
 
@@ -183,7 +183,7 @@ export default struct IStiUSD extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
      */
     Escape(EscapeFunction, lpInData, cbInDataSize, pOutData, cbOutDataSize) {
-        result := ComCall(8, this, "uint", EscapeFunction, "ptr", lpInData, "uint", cbInDataSize, "ptr", pOutData, "uint", cbOutDataSize, "uint*", &pdwActualData := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, EscapeFunction, IntPtr, lpInData, UInt32, cbInDataSize, IntPtr, pOutData, UInt32, cbOutDataSize, "uint*", &pdwActualData := 0, "HRESULT")
         return pdwActualData
     }
 
@@ -241,7 +241,7 @@ export default struct IStiUSD extends IUnknown {
     RawReadData(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(12, this, IntPtr, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -253,7 +253,7 @@ export default struct IStiUSD extends IUnknown {
      * @returns {HRESULT} 
      */
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(13, this, "ptr", lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(13, this, IntPtr, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -267,7 +267,7 @@ export default struct IStiUSD extends IUnknown {
     RawReadCommand(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(14, this, IntPtr, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -279,7 +279,7 @@ export default struct IStiUSD extends IUnknown {
      * @returns {HRESULT} 
      */
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(15, this, "ptr", lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(15, this, IntPtr, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 

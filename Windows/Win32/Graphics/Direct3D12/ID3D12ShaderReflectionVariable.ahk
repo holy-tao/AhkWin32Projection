@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12ShaderReflectionConstantBuffer.ahk" { ID3D12ShaderReflectionConstantBuffer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D12ShaderReflectionType.ahk" { ID3D12ShaderReflectionType }
 #Import ".\D3D12_SHADER_VARIABLE_DESC.ahk" { D3D12_SHADER_VARIABLE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D12ShaderReflectionConstantBuffer.ahk" { ID3D12ShaderReflectionConstantBuffer }
 
 /**
  * This shader-reflection interface provides access to a variable. (ID3D12ShaderReflectionVariable)
@@ -107,7 +107,7 @@ export default struct ID3D12ShaderReflectionVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-getinterfaceslot
      */
     GetInterfaceSlot(uArrayIndex) {
-        result := ComCall(3, this, "uint", uArrayIndex, UInt32)
+        result := ComCall(3, this, UInt32, uArrayIndex, UInt32)
         return result
     }
 

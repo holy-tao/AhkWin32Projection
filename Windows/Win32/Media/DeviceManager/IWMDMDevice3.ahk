@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMDM_FORMATCODE.ahk" { WMDM_FORMATCODE }
-#Import ".\IWMDMDevice2.ahk" { IWMDMDevice2 }
 #Import ".\IWMDMStorage.ahk" { IWMDMStorage }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
 #Import ".\WMDM_FORMAT_CAPABILITY.ahk" { WMDM_FORMAT_CAPABILITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\WMDM_FORMATCODE.ahk" { WMDM_FORMATCODE }
+#Import ".\IWMDMDevice2.ahk" { IWMDMDevice2 }
 
 /**
  * The IWMDMDevice3 interface extends IWMDMDevice2 by providing methods to query a device for properties, send device I/O control codes, and also providing upgraded methods to search for storages and retrieve device format capabilities.
@@ -131,7 +131,7 @@ export default struct IWMDMDevice3 extends IWMDMDevice2 {
         lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : "ptr"
         pnOutBufferSizeMarshal := pnOutBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, "char*", &lpOutBuffer := 0, pnOutBufferSizeMarshal, pnOutBufferSize, "HRESULT")
+        result := ComCall(21, this, UInt32, dwIoControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, "char*", &lpOutBuffer := 0, pnOutBufferSizeMarshal, pnOutBufferSize, "HRESULT")
         return lpOutBuffer
     }
 

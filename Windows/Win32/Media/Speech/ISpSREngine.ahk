@@ -1,26 +1,26 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpSREngineSite.ahk" { ISpSREngineSite }
-#Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\SPRECOCONTEXTHANDLE.ahk" { SPRECOCONTEXTHANDLE }
-#Import ".\SPRULESTATE.ahk" { SPRULESTATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SPWORDENTRY.ahk" { SPWORDENTRY }
-#Import ".\SPCONTEXTSTATE.ahk" { SPCONTEXTSTATE }
-#Import ".\SPTEXTSELECTIONINFO.ahk" { SPTEXTSELECTIONINFO }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\SPPROPSRC.ahk" { SPPROPSRC }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\SPWORDPRONOUNCEABLE.ahk" { SPWORDPRONOUNCEABLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\ISpObjectToken.ahk" { ISpObjectToken }
-#Import ".\SPRULEENTRY.ahk" { SPRULEENTRY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SPGRAMMARSTATE.ahk" { SPGRAMMARSTATE }
+#Import ".\SPTEXTSELECTIONINFO.ahk" { SPTEXTSELECTIONINFO }
 #Import ".\SPGRAMMARHANDLE.ahk" { SPGRAMMARHANDLE }
+#Import ".\ISpSREngineSite.ahk" { ISpSREngineSite }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SPCONTEXTSTATE.ahk" { SPCONTEXTSTATE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPWORDPRONOUNCEABLE.ahk" { SPWORDPRONOUNCEABLE }
 #Import ".\SPCFGNOTIFY.ahk" { SPCFGNOTIFY }
+#Import ".\SPGRAMMARSTATE.ahk" { SPGRAMMARSTATE }
+#Import ".\SPRULESTATE.ahk" { SPRULESTATE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPROPSRC.ahk" { SPPROPSRC }
+#Import ".\SPRULEENTRY.ahk" { SPRULEENTRY }
+#Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -174,7 +174,7 @@ export default struct ISpSREngine extends IUnknown {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
         pvDataParamMarshal := pvDataParam is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, pvEngineGrammarMarshal, pvEngineGrammar, Guid.Ptr, rguidParam, "ptr", pszStringParam, pvDataParamMarshal, pvDataParam, "uint", ulDataSize, SPLOADOPTIONS, Options, "HRESULT")
+        result := ComCall(9, this, pvEngineGrammarMarshal, pvEngineGrammar, Guid.Ptr, rguidParam, "ptr", pszStringParam, pvDataParamMarshal, pvDataParam, UInt32, ulDataSize, SPLOADOPTIONS, Options, "HRESULT")
         return result
     }
 
@@ -218,7 +218,7 @@ export default struct ISpSREngine extends IUnknown {
     SetProprietaryRuleIdState(pvEngineGrammar, dwRuleId, NewState) {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, pvEngineGrammarMarshal, pvEngineGrammar, "uint", dwRuleId, SPRULESTATE, NewState, "HRESULT")
+        result := ComCall(12, this, pvEngineGrammarMarshal, pvEngineGrammar, UInt32, dwRuleId, SPRULESTATE, NewState, "HRESULT")
         return result
     }
 
@@ -275,7 +275,7 @@ export default struct ISpSREngine extends IUnknown {
 
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(16, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pText, "uint", cchText, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
+        result := ComCall(16, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pText, UInt32, cchText, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
@@ -340,7 +340,7 @@ export default struct ISpSREngine extends IUnknown {
         pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
         pCallFrameMarshal := pCallFrame is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(21, this, pvEngineContextMarshal, pvEngineContext, pCallFrameMarshal, pCallFrame, "uint", ulCallFrameSize, "HRESULT")
+        result := ComCall(21, this, pvEngineContextMarshal, pvEngineContext, pCallFrameMarshal, pCallFrame, UInt32, ulCallFrameSize, "HRESULT")
         return result
     }
 
@@ -356,7 +356,7 @@ export default struct ISpSREngine extends IUnknown {
 
         pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(22, this, pvEngineContextMarshal, pvEngineContext, "ptr", pAdaptationData, "uint", cch, "HRESULT")
+        result := ComCall(22, this, pvEngineContextMarshal, pvEngineContext, "ptr", pAdaptationData, UInt32, cch, "HRESULT")
         return result
     }
 
@@ -373,7 +373,7 @@ export default struct ISpSREngine extends IUnknown {
 
         pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "int", lValue, "HRESULT")
+        result := ComCall(23, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, Int32, lValue, "HRESULT")
         return result
     }
 
@@ -448,7 +448,7 @@ export default struct ISpSREngine extends IUnknown {
      * @returns {HRESULT} 
      */
     WordNotify(Action, cWords, pWords) {
-        result := ComCall(28, this, SPCFGNOTIFY, Action, "uint", cWords, SPWORDENTRY.Ptr, pWords, "HRESULT")
+        result := ComCall(28, this, SPCFGNOTIFY, Action, UInt32, cWords, SPWORDENTRY.Ptr, pWords, "HRESULT")
         return result
     }
 
@@ -460,7 +460,7 @@ export default struct ISpSREngine extends IUnknown {
      * @returns {HRESULT} 
      */
     RuleNotify(Action, cRules, pRules) {
-        result := ComCall(29, this, SPCFGNOTIFY, Action, "uint", cRules, SPRULEENTRY.Ptr, pRules, "HRESULT")
+        result := ComCall(29, this, SPCFGNOTIFY, Action, UInt32, cRules, SPRULEENTRY.Ptr, pRules, "HRESULT")
         return result
     }
 
@@ -479,7 +479,7 @@ export default struct ISpSREngine extends IUnknown {
         ppvCoMemResponseMarshal := ppvCoMemResponse is VarRef ? "ptr*" : "ptr"
         pulResponseSizeMarshal := pulResponseSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, "uint", ulInCallFrameSize, ppvCoMemResponseMarshal, ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
+        result := ComCall(30, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, UInt32, ulInCallFrameSize, ppvCoMemResponseMarshal, ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
         return result
     }
 

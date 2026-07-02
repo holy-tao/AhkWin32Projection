@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAudioPeakMeter interface provides access to a hardware peak-meter control.
@@ -55,7 +55,7 @@ export default struct IAudioPeakMeter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiopeakmeter-getlevel
      */
     GetLevel(nChannel) {
-        result := ComCall(4, this, "uint", nChannel, "float*", &pfLevel := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, nChannel, "float*", &pfLevel := 0, "HRESULT")
         return pfLevel
     }
 

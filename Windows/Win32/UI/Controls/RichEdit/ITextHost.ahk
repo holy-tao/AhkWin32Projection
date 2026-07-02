@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\TXTBACKSTYLE.ahk" { TXTBACKSTYLE }
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PARAFORMAT.ahk" { PARAFORMAT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\WindowsAndMessaging\SCROLL_WINDOW_FLAGS.ahk" { SCROLL_WINDOW_FLAGS }
 #Import "..\..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk" { SCROLLBAR_CONSTANTS }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Graphics\Gdi\SYS_COLOR_INDEX.ahk" { SYS_COLOR_INDEX }
-#Import ".\PARAFORMAT.ahk" { PARAFORMAT }
 #Import "..\..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Input\Ime\HIMC.ahk" { HIMC }
-#Import ".\CHARFORMATW.ahk" { CHARFORMATW }
-#Import ".\TXTBACKSTYLE.ahk" { TXTBACKSTYLE }
 #Import "..\..\..\Graphics\Gdi\HRGN.ahk" { HRGN }
-#Import "..\..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CHARFORMATW.ahk" { CHARFORMATW }
 #Import "..\..\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
-#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
-#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\Graphics\Gdi\SYS_COLOR_INDEX.ahk" { SYS_COLOR_INDEX }
+#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Input\Ime\HIMC.ahk" { HIMC }
 
 /**
  * The ITextHost interface is used by a text services object to obtain text host services.
@@ -142,7 +142,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txshowscrollbar
      */
     TxShowScrollBar(fnBar, fShow) {
-        result := ComCall(5, this, "int", fnBar, BOOL, fShow, BOOL)
+        result := ComCall(5, this, Int32, fnBar, BOOL, fShow, BOOL)
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txenablescrollbar
      */
     TxEnableScrollBar(fuSBFlags, fuArrowflags) {
-        result := ComCall(6, this, SCROLLBAR_CONSTANTS, fuSBFlags, "int", fuArrowflags, BOOL)
+        result := ComCall(6, this, SCROLLBAR_CONSTANTS, fuSBFlags, Int32, fuArrowflags, BOOL)
         return result
     }
 
@@ -188,7 +188,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsetscrollrange
      */
     TxSetScrollRange(fnBar, nMinPos, nMaxPos, fRedraw) {
-        result := ComCall(7, this, "int", fnBar, "int", nMinPos, "int", nMaxPos, BOOL, fRedraw, BOOL)
+        result := ComCall(7, this, Int32, fnBar, Int32, nMinPos, Int32, nMaxPos, BOOL, fRedraw, BOOL)
         return result
     }
 
@@ -213,7 +213,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsetscrollpos
      */
     TxSetScrollPos(fnBar, nPos, fRedraw) {
-        result := ComCall(8, this, "int", fnBar, "int", nPos, BOOL, fRedraw, BOOL)
+        result := ComCall(8, this, Int32, fnBar, Int32, nPos, BOOL, fRedraw, BOOL)
         return result
     }
 
@@ -277,7 +277,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txcreatecaret
      */
     TxCreateCaret(hbmp, xWidth, yHeight) {
-        result := ComCall(11, this, HBITMAP, hbmp, "int", xWidth, "int", yHeight, BOOL)
+        result := ComCall(11, this, HBITMAP, hbmp, Int32, xWidth, Int32, yHeight, BOOL)
         return result
     }
 
@@ -318,7 +318,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsetcaretpos
      */
     TxSetCaretPos(x, y) {
-        result := ComCall(13, this, "int", x, "int", y, BOOL)
+        result := ComCall(13, this, Int32, x, Int32, y, BOOL)
         return result
     }
 
@@ -340,7 +340,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txsettimer
      */
     TxSetTimer(idTimer, uTimeout) {
-        result := ComCall(14, this, "uint", idTimer, "uint", uTimeout, BOOL)
+        result := ComCall(14, this, UInt32, idTimer, UInt32, uTimeout, BOOL)
         return result
     }
 
@@ -355,7 +355,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txkilltimer
      */
     TxKillTimer(idTimer) {
-        ComCall(15, this, "uint", idTimer)
+        ComCall(15, this, UInt32, idTimer)
     }
 
     /**
@@ -385,7 +385,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txscrollwindowex
      */
     TxScrollWindowEx(dx, dy, lprcScroll, lprcClip, hrgnUpdate, lprcUpdate, fuScroll) {
-        ComCall(16, this, "int", dx, "int", dy, RECT.Ptr, lprcScroll, RECT.Ptr, lprcClip, HRGN, hrgnUpdate, RECT.Ptr, lprcUpdate, SCROLL_WINDOW_FLAGS, fuScroll)
+        ComCall(16, this, Int32, dx, Int32, dy, RECT.Ptr, lprcScroll, RECT.Ptr, lprcClip, HRGN, hrgnUpdate, RECT.Ptr, lprcUpdate, SCROLL_WINDOW_FLAGS, fuScroll)
     }
 
     /**
@@ -549,7 +549,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txdeactivate
      */
     TxDeactivate(lNewState) {
-        result := ComCall(23, this, "int", lNewState, "HRESULT")
+        result := ComCall(23, this, Int32, lNewState, "HRESULT")
         return result
     }
 
@@ -1033,7 +1033,7 @@ export default struct ITextHost extends IUnknown {
     TxGetPropertyBits(dwMask, pdwBits) {
         pdwBitsMarshal := pdwBits is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(37, this, "uint", dwMask, pdwBitsMarshal, pdwBits, "HRESULT")
+        result := ComCall(37, this, UInt32, dwMask, pdwBitsMarshal, pdwBits, "HRESULT")
         return result
     }
 
@@ -1180,7 +1180,7 @@ export default struct ITextHost extends IUnknown {
     TxNotify(iNotify, pv) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(38, this, "uint", iNotify, pvMarshal, pv, "HRESULT")
+        result := ComCall(38, this, UInt32, iNotify, pvMarshal, pv, "HRESULT")
         return result
     }
 

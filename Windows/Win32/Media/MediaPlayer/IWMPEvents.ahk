@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WMPPlaylistChangeEventType.ahk" { WMPPlaylistChangeEventType }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPEvents interface provides events that originate from the Windows Media Player control. An embedding program can respond to these events. The events exposed by IWMPEvents are also exposed by the _WMPOCXEvents interface.
@@ -95,7 +95,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-openstatechange
      */
     OpenStateChange(NewState) {
-        ComCall(3, this, "int", NewState)
+        ComCall(3, this, Int32, NewState)
     }
 
     /**
@@ -107,7 +107,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-playstatechange
      */
     PlayStateChange(NewState) {
-        ComCall(4, this, "int", NewState)
+        ComCall(4, this, Int32, NewState)
     }
 
     /**
@@ -121,7 +121,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-audiolanguagechange
      */
     AudioLanguageChange(LangID) {
-        ComCall(5, this, "int", LangID)
+        ComCall(5, this, Int32, LangID)
     }
 
     /**
@@ -243,7 +243,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-disconnect
      */
     Disconnect(Result) {
-        ComCall(9, this, "int", Result)
+        ComCall(9, this, Int32, Result)
     }
 
     /**
@@ -282,7 +282,7 @@ export default struct IWMPEvents extends IUnknown {
     Warning(WarningType, Param, Description) {
         Description := Description is String ? BSTR.Alloc(Description).Value : Description
 
-        ComCall(12, this, "int", WarningType, "int", Param, BSTR, Description)
+        ComCall(12, this, Int32, WarningType, Int32, Param, BSTR, Description)
     }
 
     /**
@@ -294,7 +294,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-endofstream
      */
     EndOfStream(Result) {
-        ComCall(13, this, "int", Result)
+        ComCall(13, this, Int32, Result)
     }
 
     /**
@@ -309,7 +309,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-positionchange
      */
     PositionChange(oldPosition, newPosition) {
-        ComCall(14, this, "double", oldPosition, "double", newPosition)
+        ComCall(14, this, Float64, oldPosition, Float64, newPosition)
     }
 
     /**
@@ -319,7 +319,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-markerhit
      */
     MarkerHit(MarkerNum) {
-        ComCall(15, this, "int", MarkerNum)
+        ComCall(15, this, Int32, MarkerNum)
     }
 
     /**
@@ -333,7 +333,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-durationunitchange
      */
     DurationUnitChange(NewDurationUnit) {
-        ComCall(16, this, "int", NewDurationUnit)
+        ComCall(16, this, Int32, NewDurationUnit)
     }
 
     /**
@@ -347,7 +347,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-cdrommediachange
      */
     CdromMediaChange(CdromNum) {
-        ComCall(17, this, "int", CdromNum)
+        ComCall(17, this, Int32, CdromNum)
     }
 
     /**
@@ -665,7 +665,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-click
      */
     Click(nButton, nShiftState, fX, fY) {
-        ComCall(40, this, "short", nButton, "short", nShiftState, "int", fX, "int", fY)
+        ComCall(40, this, Int16, nButton, Int16, nShiftState, Int32, fX, Int32, fY)
     }
 
     /**
@@ -680,7 +680,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-doubleclick
      */
     DoubleClick(nButton, nShiftState, fX, fY) {
-        ComCall(41, this, "short", nButton, "short", nShiftState, "int", fX, "int", fY)
+        ComCall(41, this, Int16, nButton, Int16, nShiftState, Int32, fX, Int32, fY)
     }
 
     /**
@@ -863,7 +863,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-keydown
      */
     KeyDown(nKeyCode, nShiftState) {
-        ComCall(42, this, "short", nKeyCode, "short", nShiftState)
+        ComCall(42, this, Int16, nKeyCode, Int16, nShiftState)
     }
 
     /**
@@ -875,7 +875,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-keypress
      */
     KeyPress(nKeyAscii) {
-        ComCall(43, this, "short", nKeyAscii)
+        ComCall(43, this, Int16, nKeyAscii)
     }
 
     /**
@@ -888,7 +888,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-keyup
      */
     KeyUp(nKeyCode, nShiftState) {
-        ComCall(44, this, "short", nKeyCode, "short", nShiftState)
+        ComCall(44, this, Int16, nKeyCode, Int16, nShiftState)
     }
 
     /**
@@ -903,7 +903,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-mousedown
      */
     MouseDown(nButton, nShiftState, fX, fY) {
-        ComCall(45, this, "short", nButton, "short", nShiftState, "int", fX, "int", fY)
+        ComCall(45, this, Int16, nButton, Int16, nShiftState, Int32, fX, Int32, fY)
     }
 
     /**
@@ -918,7 +918,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-mousemove
      */
     MouseMove(nButton, nShiftState, fX, fY) {
-        ComCall(46, this, "short", nButton, "short", nShiftState, "int", fX, "int", fY)
+        ComCall(46, this, Int16, nButton, Int16, nShiftState, Int32, fX, Int32, fY)
     }
 
     /**
@@ -933,7 +933,7 @@ export default struct IWMPEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents-mouseup
      */
     MouseUp(nButton, nShiftState, fX, fY) {
-        ComCall(47, this, "short", nButton, "short", nShiftState, "int", fX, "int", fY)
+        ComCall(47, this, Int16, nButton, Int16, nShiftState, Int32, fX, Int32, fY)
     }
 
     Query(iid) {

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 #Import ".\DWRITE_COLOR_COMPOSITE_MODE.ahk" { DWRITE_COLOR_COMPOSITE_MODE }
-#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
-#Import ".\DWRITE_PAINT_COLOR.ahk" { DWRITE_PAINT_COLOR }
 #Import "..\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import ".\DWRITE_PAINT_TYPE.ahk" { DWRITE_PAINT_TYPE }
 #Import ".\DWRITE_PAINT_ATTRIBUTES.ahk" { DWRITE_PAINT_ATTRIBUTES }
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
+#Import ".\DWRITE_PAINT_TYPE.ahk" { DWRITE_PAINT_TYPE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_PAINT_COLOR.ahk" { DWRITE_PAINT_COLOR }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

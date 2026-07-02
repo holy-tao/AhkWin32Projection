@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D_VERSION_NUMBER.ahk" { D3D_VERSION_NUMBER }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D_VERSION_NUMBER.ahk" { D3D_VERSION_NUMBER }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D

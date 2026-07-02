@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -73,7 +73,7 @@ export default struct IAMCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(_lItem) {
-        result := ComCall(8, this, "int", _lItem, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(8, this, Int32, _lItem, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
     }
 

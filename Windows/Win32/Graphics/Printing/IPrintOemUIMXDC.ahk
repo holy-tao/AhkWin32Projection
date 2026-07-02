@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
-#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -53,7 +53,7 @@ export default struct IPrintOemUIMXDC extends IUnknown {
     AdjustImageableArea(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, prclImageableArea) {
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, PRINTER_HANDLE, hPrinter, "uint", cbDevMode, DEVMODEA.Ptr, pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, RECTL.Ptr, prclImageableArea, "HRESULT")
+        result := ComCall(3, this, PRINTER_HANDLE, hPrinter, UInt32, cbDevMode, DEVMODEA.Ptr, pDevMode, UInt32, cbOEMDM, pOEMDMMarshal, pOEMDM, RECTL.Ptr, prclImageableArea, "HRESULT")
         return result
     }
 
@@ -71,7 +71,7 @@ export default struct IPrintOemUIMXDC extends IUnknown {
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         pCompressionModeMarshal := pCompressionMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, PRINTER_HANDLE, hPrinter, "uint", cbDevMode, DEVMODEA.Ptr, pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pCompressionModeMarshal, pCompressionMode, "HRESULT")
+        result := ComCall(4, this, PRINTER_HANDLE, hPrinter, UInt32, cbDevMode, DEVMODEA.Ptr, pDevMode, UInt32, cbOEMDM, pOEMDMMarshal, pOEMDM, pCompressionModeMarshal, pCompressionMode, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct IPrintOemUIMXDC extends IUnknown {
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         pDPIMarshal := pDPI is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, PRINTER_HANDLE, hPrinter, "uint", cbDevMode, DEVMODEA.Ptr, pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pDPIMarshal, pDPI, "HRESULT")
+        result := ComCall(5, this, PRINTER_HANDLE, hPrinter, UInt32, cbDevMode, DEVMODEA.Ptr, pDevMode, UInt32, cbOEMDM, pOEMDMMarshal, pOEMDM, pDPIMarshal, pDPI, "HRESULT")
         return result
     }
 

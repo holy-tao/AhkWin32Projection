@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWRdsProtocolSettings.ahk" { IWRdsProtocolSettings }
-#Import ".\IWRdsProtocolListener.ahk" { IWRdsProtocolListener }
 #Import ".\WTS_SESSION_ID.ahk" { WTS_SESSION_ID }
-#Import ".\WRDS_SETTINGS.ahk" { WRDS_SETTINGS }
-#Import ".\WTS_SERVICE_STATE.ahk" { WTS_SERVICE_STATE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWRdsProtocolSettings.ahk" { IWRdsProtocolSettings }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WRDS_SETTINGS.ahk" { WRDS_SETTINGS }
+#Import ".\IWRdsProtocolListener.ahk" { IWRdsProtocolListener }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WTS_SERVICE_STATE.ahk" { WTS_SERVICE_STATE }
 
 /**
  * Exposes methods that the Remote Desktop Services service uses to communicate with the protocol provider.
@@ -133,7 +133,7 @@ export default struct IWRdsProtocolManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifysessionstatechange
      */
     NotifySessionStateChange(SessionId, EventId) {
-        result := ComCall(8, this, WTS_SESSION_ID.Ptr, SessionId, "uint", EventId, "HRESULT")
+        result := ComCall(8, this, WTS_SESSION_ID.Ptr, SessionId, UInt32, EventId, "HRESULT")
         return result
     }
 

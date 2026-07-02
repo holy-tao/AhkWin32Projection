@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -51,7 +51,7 @@ export default struct INetCfgComponentSetup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/install-element
      */
     Install(dwSetupFlags) {
-        result := ComCall(3, this, "uint", dwSetupFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSetupFlags, "HRESULT")
         return result
     }
 
@@ -62,7 +62,7 @@ export default struct INetCfgComponentSetup extends IUnknown {
      * @returns {HRESULT} 
      */
     Upgrade(dwSetupFlags, dwUpgradeFomBuildNo) {
-        result := ComCall(4, this, "uint", dwSetupFlags, "uint", dwUpgradeFomBuildNo, "HRESULT")
+        result := ComCall(4, this, UInt32, dwSetupFlags, UInt32, dwUpgradeFomBuildNo, "HRESULT")
         return result
     }
 

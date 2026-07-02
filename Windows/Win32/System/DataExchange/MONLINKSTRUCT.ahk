@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\HCONV.ahk" { HCONV }
 #Import ".\HSZ.ahk" { HSZ }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) advise loop. A DDE monitoring application can use this structure to obtain information about an advise loop that has started or ended.

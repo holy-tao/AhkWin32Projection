@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemServices.ahk" { IWbemServices }
-#Import ".\IWbemContext.ahk" { IWbemContext }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use the IWbemLocator interface to obtain the initial namespace pointer to the IWbemServices interface for WMI on a specific host computer.
@@ -107,7 +107,7 @@ export default struct IWbemLocator extends IUnknown {
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
         strAuthority := strAuthority is String ? BSTR.Alloc(strAuthority).Value : strAuthority
 
-        result := ComCall(3, this, BSTR, strNetworkResource, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, "int", lSecurityFlags, BSTR, strAuthority, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, strNetworkResource, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, Int32, lSecurityFlags, BSTR, strAuthority, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
         return IWbemServices(ppNamespace)
     }
 

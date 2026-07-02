@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\XPS_GLYPH_MAPPING.ahk" { XPS_GLYPH_MAPPING }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\XPS_GLYPH_INDEX.ahk" { XPS_GLYPH_INDEX }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allows batch modification of properties that affect the text content in an IXpsOMGlyphs interface.
@@ -308,7 +308,7 @@ export default struct IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-setglyphindices
      */
     SetGlyphIndices(indexCount, glyphIndices) {
-        result := ComCall(8, this, "uint", indexCount, XPS_GLYPH_INDEX.Ptr, glyphIndices, "HRESULT")
+        result := ComCall(8, this, UInt32, indexCount, XPS_GLYPH_INDEX.Ptr, glyphIndices, "HRESULT")
         return result
     }
 
@@ -400,7 +400,7 @@ export default struct IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-setglyphmappings
      */
     SetGlyphMappings(glyphMappingCount, glyphMappings) {
-        result := ComCall(11, this, "uint", glyphMappingCount, XPS_GLYPH_MAPPING.Ptr, glyphMappings, "HRESULT")
+        result := ComCall(11, this, UInt32, glyphMappingCount, XPS_GLYPH_MAPPING.Ptr, glyphMappings, "HRESULT")
         return result
     }
 
@@ -490,7 +490,7 @@ export default struct IXpsOMGlyphsEditor extends IUnknown {
     SetProhibitedCaretStops(count, prohibitedCaretStops) {
         prohibitedCaretStopsMarshal := prohibitedCaretStops is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", count, prohibitedCaretStopsMarshal, prohibitedCaretStops, "HRESULT")
+        result := ComCall(14, this, UInt32, count, prohibitedCaretStopsMarshal, prohibitedCaretStops, "HRESULT")
         return result
     }
 
@@ -552,7 +552,7 @@ export default struct IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-setbidilevel
      */
     SetBidiLevel(bidiLevel) {
-        result := ComCall(16, this, "uint", bidiLevel, "HRESULT")
+        result := ComCall(16, this, UInt32, bidiLevel, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DWRITE_LINE_METRICS.ahk" { DWRITE_LINE_METRICS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_LINE_METRICS.ahk" { DWRITE_LINE_METRICS }
 
 /**
  * Contains information about a formatted line of text. (DWRITE_LINE_METRICS1)

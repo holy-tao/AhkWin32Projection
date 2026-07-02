@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\HRESOURCE.ahk" { HRESOURCE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about a resource.
@@ -92,7 +92,7 @@ export default struct IGetClusterResourceInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterresourceinfo-getresourcehandle
      */
     GetResourceHandle(lObjIndex) {
-        result := ComCall(3, this, "int", lObjIndex, HRESOURCE)
+        result := ComCall(3, this, Int32, lObjIndex, HRESOURCE)
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct IGetClusterResourceInfo extends IUnknown {
 
         pcchResTypeNameMarshal := pcchResTypeName is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", lObjIndex, BSTR, lpszResTypeName, pcchResTypeNameMarshal, pcchResTypeName, "HRESULT")
+        result := ComCall(4, this, Int32, lObjIndex, BSTR, lpszResTypeName, pcchResTypeNameMarshal, pcchResTypeName, "HRESULT")
         return result
     }
 
@@ -236,7 +236,7 @@ export default struct IGetClusterResourceInfo extends IUnknown {
 
         pcchNetNameMarshal := pcchNetName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", lObjIndex, BSTR, lpszNetName, pcchNetNameMarshal, pcchNetName, BOOL)
+        result := ComCall(5, this, Int32, lObjIndex, BSTR, lpszNetName, pcchNetNameMarshal, pcchNetName, BOOL)
         return result
     }
 

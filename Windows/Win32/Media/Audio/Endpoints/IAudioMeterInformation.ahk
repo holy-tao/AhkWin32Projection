@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAudioMeterInformation interface represents a peak meter on an audio stream to or from an audio endpoint device.
@@ -75,7 +75,7 @@ export default struct IAudioMeterInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudiometerinformation-getchannelspeakvalues
      */
     GetChannelsPeakValues(u32ChannelCount) {
-        result := ComCall(5, this, "uint", u32ChannelCount, "float*", &afPeakValues := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, u32ChannelCount, "float*", &afPeakValues := 0, "HRESULT")
         return afPeakValues
     }
 

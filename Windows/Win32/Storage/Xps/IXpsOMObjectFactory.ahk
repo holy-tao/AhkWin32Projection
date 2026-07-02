@@ -1,52 +1,52 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMGeometryFigure.ahk" { IXpsOMGeometryFigure }
-#Import ".\IXpsOMSolidColorBrush.ahk" { IXpsOMSolidColorBrush }
-#Import ".\IXpsOMRadialGradientBrush.ahk" { IXpsOMRadialGradientBrush }
-#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
-#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
-#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
-#Import ".\IXpsOMStoryFragmentsResource.ahk" { IXpsOMStoryFragmentsResource }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\IXpsOMDocument.ahk" { IXpsOMDocument }
-#Import ".\XPS_IMAGE_TYPE.ahk" { XPS_IMAGE_TYPE }
-#Import ".\XPS_COLOR.ahk" { XPS_COLOR }
-#Import ".\XPS_POINT.ahk" { XPS_POINT }
 #Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
-#Import ".\IXpsOMPartUriCollection.ahk" { IXpsOMPartUriCollection }
-#Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\XPS_RECT.ahk" { XPS_RECT }
-#Import ".\IXpsOMSignatureBlockResource.ahk" { IXpsOMSignatureBlockResource }
-#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
-#Import ".\IXpsOMVisualBrush.ahk" { IXpsOMVisualBrush }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IXpsOMGradientStop.ahk" { IXpsOMGradientStop }
-#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
-#Import ".\IXpsOMGlyphs.ahk" { IXpsOMGlyphs }
-#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
-#Import ".\IXpsOMLinearGradientBrush.ahk" { IXpsOMLinearGradientBrush }
-#Import ".\IXpsOMDictionary.ahk" { IXpsOMDictionary }
-#Import ".\XPS_MATRIX.ahk" { XPS_MATRIX }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
 #Import ".\IXpsOMDocumentSequence.ahk" { IXpsOMDocumentSequence }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
-#Import ".\IXpsOMDocumentStructureResource.ahk" { IXpsOMDocumentStructureResource }
-#Import ".\IXpsOMCanvas.ahk" { IXpsOMCanvas }
+#Import ".\XPS_POINT.ahk" { XPS_POINT }
+#Import ".\XPS_IMAGE_TYPE.ahk" { XPS_IMAGE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\XPS_FONT_EMBEDDING.ahk" { XPS_FONT_EMBEDDING }
-#Import ".\IXpsOMPageReference.ahk" { IXpsOMPageReference }
-#Import ".\IXpsOMPackage.ahk" { IXpsOMPackage }
-#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
-#Import ".\IXpsOMPage.ahk" { IXpsOMPage }
-#Import ".\XPS_INTERLEAVING.ahk" { XPS_INTERLEAVING }
 #Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\IXpsOMSignatureBlockResource.ahk" { IXpsOMSignatureBlockResource }
+#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IXpsOMPageReference.ahk" { IXpsOMPageReference }
+#Import ".\IXpsOMLinearGradientBrush.ahk" { IXpsOMLinearGradientBrush }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMCanvas.ahk" { IXpsOMCanvas }
+#Import ".\IXpsOMPackage.ahk" { IXpsOMPackage }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
 #Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
-#Import ".\IXpsOMImageBrush.ahk" { IXpsOMImageBrush }
 #Import ".\IXpsOMPath.ahk" { IXpsOMPath }
+#Import ".\IXpsOMSolidColorBrush.ahk" { IXpsOMSolidColorBrush }
+#Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
+#Import ".\IXpsOMDocumentStructureResource.ahk" { IXpsOMDocumentStructureResource }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\XPS_COLOR.ahk" { XPS_COLOR }
+#Import ".\IXpsOMPartUriCollection.ahk" { IXpsOMPartUriCollection }
+#Import ".\IXpsOMImageBrush.ahk" { IXpsOMImageBrush }
+#Import ".\IXpsOMGradientStop.ahk" { IXpsOMGradientStop }
+#Import ".\IXpsOMVisualBrush.ahk" { IXpsOMVisualBrush }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMGeometryFigure.ahk" { IXpsOMGeometryFigure }
+#Import ".\IXpsOMDictionary.ahk" { IXpsOMDictionary }
+#Import ".\IXpsOMPage.ahk" { IXpsOMPage }
+#Import ".\IXpsOMRadialGradientBrush.ahk" { IXpsOMRadialGradientBrush }
+#Import ".\IXpsOMGlyphs.ahk" { IXpsOMGlyphs }
+#Import ".\IXpsOMDocument.ahk" { IXpsOMDocument }
+#Import ".\XPS_RECT.ahk" { XPS_RECT }
+#Import ".\XPS_INTERLEAVING.ahk" { XPS_INTERLEAVING }
+#Import ".\IXpsOMStoryFragmentsResource.ahk" { IXpsOMStoryFragmentsResource }
+#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\XPS_MATRIX.ahk" { XPS_MATRIX }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
 
 /**
  * Creates objects in the XPS document object model.
@@ -1607,7 +1607,7 @@ export default struct IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creategradientstop
      */
     CreateGradientStop(_color, colorProfile, offset) {
-        result := ComCall(30, this, XPS_COLOR.Ptr, _color, "ptr", colorProfile, "float", offset, "ptr*", &gradientStop := 0, "HRESULT")
+        result := ComCall(30, this, XPS_COLOR.Ptr, _color, "ptr", colorProfile, Float32, offset, "ptr*", &gradientStop := 0, "HRESULT")
         return IXpsOMGradientStop(gradientStop)
     }
 
@@ -1870,7 +1870,7 @@ export default struct IXpsOMObjectFactory extends IUnknown {
     CreatePackageWriterOnFile(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(36, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, BOOL, optimizeMarkupSize, XPS_INTERLEAVING, interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
+        result := ComCall(36, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, UInt32, flagsAndAttributes, BOOL, optimizeMarkupSize, XPS_INTERLEAVING, interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
         return IXpsOMPackageWriter(packageWriter)
     }
 

@@ -2,12 +2,12 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITAgent.ahk" { ITAgent }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITACDGroup.ahk" { ITACDGroup }
 #Import "..\..\System\Com\CY.ahk" { CY }
 #Import ".\ITAddress.ahk" { ITAddress }
-#Import ".\AGENT_SESSION_STATE.ahk" { AGENT_SESSION_STATE }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\AGENT_SESSION_STATE.ahk" { AGENT_SESSION_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITAgentSession interface (tapi3cc.h) handles agent session, which represent an association between an agent, group, and address.

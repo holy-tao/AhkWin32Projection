@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\UIAutomationEventInfo.ahk" { UIAutomationEventInfo }
 #Import ".\UIAutomationPatternInfo.ahk" { UIAutomationPatternInfo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\UIAutomationPropertyInfo.ahk" { UIAutomationPropertyInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for registering new control patterns, properties, and events.
@@ -114,7 +114,7 @@ export default struct IUIAutomationRegistrar extends IUnknown {
         pPropertyIdsMarshal := pPropertyIds is VarRef ? "int*" : "ptr"
         pEventIdsMarshal := pEventIds is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, UIAutomationPatternInfo.Ptr, pattern, pPatternIdMarshal, pPatternId, pPatternAvailablePropertyIdMarshal, pPatternAvailablePropertyId, "uint", propertyIdCount, pPropertyIdsMarshal, pPropertyIds, "uint", eventIdCount, pEventIdsMarshal, pEventIds, "HRESULT")
+        result := ComCall(5, this, UIAutomationPatternInfo.Ptr, pattern, pPatternIdMarshal, pPatternId, pPatternAvailablePropertyIdMarshal, pPatternAvailablePropertyId, UInt32, propertyIdCount, pPropertyIdsMarshal, pPropertyIds, UInt32, eventIdCount, pEventIdsMarshal, pEventIds, "HRESULT")
         return result
     }
 

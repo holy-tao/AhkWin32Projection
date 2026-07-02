@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WHV_TRIGGER_TYPE.ahk" { WHV_TRIGGER_TYPE }
-#Import ".\WHV_SYNIC_EVENT_PARAMETERS.ahk" { WHV_SYNIC_EVENT_PARAMETERS }
 #Import ".\WHV_INTERRUPT_CONTROL.ahk" { WHV_INTERRUPT_CONTROL }
+#Import ".\WHV_SYNIC_EVENT_PARAMETERS.ahk" { WHV_SYNIC_EVENT_PARAMETERS }
+#Import ".\WHV_TRIGGER_TYPE.ahk" { WHV_TRIGGER_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

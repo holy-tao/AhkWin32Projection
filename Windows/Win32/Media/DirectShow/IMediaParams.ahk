@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MP_ENVELOPE_SEGMENT.ahk" { MP_ENVELOPE_SEGMENT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MP_ENVELOPE_SEGMENT.ahk" { MP_ENVELOPE_SEGMENT }
 
 /**
  * The IMediaParams interface sets and retrieves envelope-following parameters on an object.
@@ -51,7 +51,7 @@ export default struct IMediaParams extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparams-getparam
      */
     GetParam(dwParamIndex) {
-        result := ComCall(3, this, "uint", dwParamIndex, "float*", &pValue := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwParamIndex, "float*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -96,7 +96,7 @@ export default struct IMediaParams extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparams-setparam
      */
     SetParam(dwParamIndex, value) {
-        result := ComCall(4, this, "uint", dwParamIndex, "float", value, "HRESULT")
+        result := ComCall(4, this, UInt32, dwParamIndex, Float32, value, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IMediaParams extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparams-addenvelope
      */
     AddEnvelope(dwParamIndex, cSegments, pEnvelopeSegments) {
-        result := ComCall(5, this, "uint", dwParamIndex, "uint", cSegments, MP_ENVELOPE_SEGMENT.Ptr, pEnvelopeSegments, "HRESULT")
+        result := ComCall(5, this, UInt32, dwParamIndex, UInt32, cSegments, MP_ENVELOPE_SEGMENT.Ptr, pEnvelopeSegments, "HRESULT")
         return result
     }
 
@@ -216,7 +216,7 @@ export default struct IMediaParams extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparams-flushenvelope
      */
     FlushEnvelope(dwParamIndex, refTimeStart, refTimeEnd) {
-        result := ComCall(6, this, "uint", dwParamIndex, "int64", refTimeStart, "int64", refTimeEnd, "HRESULT")
+        result := ComCall(6, this, UInt32, dwParamIndex, Int64, refTimeStart, Int64, refTimeEnd, "HRESULT")
         return result
     }
 
@@ -287,7 +287,7 @@ export default struct IMediaParams extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparams-settimeformat
      */
     SetTimeFormat(guidTimeFormat, mpTimeData) {
-        result := ComCall(7, this, Guid, guidTimeFormat, "uint", mpTimeData, "HRESULT")
+        result := ComCall(7, this, Guid, guidTimeFormat, UInt32, mpTimeData, "HRESULT")
         return result
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D12DeviceConfiguration.ahk" { ID3D12DeviceConfiguration }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -47,7 +47,7 @@ export default struct ID3D12DeviceConfiguration1 extends ID3D12DeviceConfigurati
     CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary(pLibraryBlob, _Size, RootSignatureSubobjectName, riid) {
         RootSignatureSubobjectName := RootSignatureSubobjectName is String ? StrPtr(RootSignatureSubobjectName) : RootSignatureSubobjectName
 
-        result := ComCall(7, this, "ptr", pLibraryBlob, "ptr", _Size, "ptr", RootSignatureSubobjectName, Guid.Ptr, riid, "ptr*", &ppvDeserializer := 0, "HRESULT")
+        result := ComCall(7, this, IntPtr, pLibraryBlob, IntPtr, _Size, "ptr", RootSignatureSubobjectName, Guid.Ptr, riid, "ptr*", &ppvDeserializer := 0, "HRESULT")
         return ppvDeserializer
     }
 

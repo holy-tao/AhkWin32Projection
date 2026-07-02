@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
-#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
-#Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
 #Import ".\IX509PublicKey.ahk" { IX509PublicKey }
 #Import ".\IX509CertificateRequestPkcs10.ahk" { IX509CertificateRequestPkcs10 }
+#Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509PrivateKey.ahk" { IX509PrivateKey }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
 
 /**
  * The IX509CertificateRequestPkcs10V2 interface represents a PKCS

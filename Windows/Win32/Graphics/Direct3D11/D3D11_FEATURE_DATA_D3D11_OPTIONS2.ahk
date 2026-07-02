@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D3D11_TILED_RESOURCES_TIER.ahk" { D3D11_TILED_RESOURCES_TIER }
-#Import ".\D3D11_CONSERVATIVE_RASTERIZATION_TIER.ahk" { D3D11_CONSERVATIVE_RASTERIZATION_TIER }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_CONSERVATIVE_RASTERIZATION_TIER.ahk" { D3D11_CONSERVATIVE_RASTERIZATION_TIER }
 
 /**
  * Describes Direct3D 11.3 feature options in the current graphics driver. (D3D11_FEATURE_DATA_D3D11_OPTIONS2)

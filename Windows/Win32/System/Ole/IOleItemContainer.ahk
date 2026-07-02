@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\IBindCtx.ahk" { IBindCtx }
 #Import ".\IOleContainer.ahk" { IOleContainer }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -64,7 +64,7 @@ export default struct IOleItemContainer extends IOleContainer {
     GetObject(pszItem, dwSpeedNeeded, pbc, riid) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-        result := ComCall(6, this, "ptr", pszItem, "uint", dwSpeedNeeded, "ptr", pbc, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszItem, UInt32, dwSpeedNeeded, "ptr", pbc, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 

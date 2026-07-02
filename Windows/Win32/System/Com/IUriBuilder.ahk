@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUri.ahk" { IUri }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -67,7 +67,7 @@ export default struct IUriBuilder extends IUnknown {
      * @returns {IUri} 
      */
     CreateUriSimple(dwAllowEncodingPropertyMask, dwReserved) {
-        result := ComCall(3, this, "uint", dwAllowEncodingPropertyMask, "ptr", dwReserved, "ptr*", &ppIUri := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwAllowEncodingPropertyMask, IntPtr, dwReserved, "ptr*", &ppIUri := 0, "HRESULT")
         return IUri(ppIUri)
     }
 
@@ -79,7 +79,7 @@ export default struct IUriBuilder extends IUnknown {
      * @returns {IUri} 
      */
     CreateUri(dwCreateFlags, dwAllowEncodingPropertyMask, dwReserved) {
-        result := ComCall(4, this, "uint", dwCreateFlags, "uint", dwAllowEncodingPropertyMask, "ptr", dwReserved, "ptr*", &ppIUri := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwCreateFlags, UInt32, dwAllowEncodingPropertyMask, IntPtr, dwReserved, "ptr*", &ppIUri := 0, "HRESULT")
         return IUri(ppIUri)
     }
 
@@ -92,7 +92,7 @@ export default struct IUriBuilder extends IUnknown {
      * @returns {IUri} 
      */
     CreateUriWithFlags(dwCreateFlags, dwUriBuilderFlags, dwAllowEncodingPropertyMask, dwReserved) {
-        result := ComCall(5, this, "uint", dwCreateFlags, "uint", dwUriBuilderFlags, "uint", dwAllowEncodingPropertyMask, "ptr", dwReserved, "ptr*", &ppIUri := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwCreateFlags, UInt32, dwUriBuilderFlags, UInt32, dwAllowEncodingPropertyMask, IntPtr, dwReserved, "ptr*", &ppIUri := 0, "HRESULT")
         return IUri(ppIUri)
     }
 
@@ -312,7 +312,7 @@ export default struct IUriBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/printdocs/setport
      */
     SetPort(fHasPort, dwNewValue) {
-        result := ComCall(20, this, BOOL, fHasPort, "uint", dwNewValue, "HRESULT")
+        result := ComCall(20, this, BOOL, fHasPort, UInt32, dwNewValue, "HRESULT")
         return result
     }
 
@@ -358,7 +358,7 @@ export default struct IUriBuilder extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveProperties(dwPropertyMask) {
-        result := ComCall(24, this, "uint", dwPropertyMask, "HRESULT")
+        result := ComCall(24, this, UInt32, dwPropertyMask, "HRESULT")
         return result
     }
 

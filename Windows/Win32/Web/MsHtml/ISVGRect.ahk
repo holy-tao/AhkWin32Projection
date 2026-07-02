@@ -86,7 +86,7 @@ export default struct ISVGRect extends IDispatch {
      * @returns {HRESULT} 
      */
     put_x(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -105,7 +105,7 @@ export default struct ISVGRect extends IDispatch {
      * @returns {HRESULT} 
      */
     put_y(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct ISVGRect extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(11, this, "float", v, "HRESULT")
+        result := ComCall(11, this, Float32, v, "HRESULT")
         return result
     }
 
@@ -143,7 +143,7 @@ export default struct ISVGRect extends IDispatch {
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(13, this, "float", v, "HRESULT")
+        result := ComCall(13, this, Float32, v, "HRESULT")
         return result
     }
 

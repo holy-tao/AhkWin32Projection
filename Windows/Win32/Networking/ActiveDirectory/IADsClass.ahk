@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IADsCollection.ahk" { IADsCollection }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IADs.ahk" { IADs }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsClass interface is designed for managing schema class objects that provide class definitions for any ADSI object. Other schema management interfaces include IADsProperty for attribute definitions and IADsSyntax for attribute syntax.
@@ -479,7 +479,7 @@ export default struct IADsClass extends IADs {
      * @returns {HRESULT} 
      */
     put_HelpFileContext(lnHelpFileContext) {
-        result := ComCall(48, this, "int", lnHelpFileContext, "HRESULT")
+        result := ComCall(48, this, Int32, lnHelpFileContext, "HRESULT")
         return result
     }
 

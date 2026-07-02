@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ITfComposition.ahk" { ITfComposition }
-#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumITfCompositionView.ahk" { IEnumITfCompositionView }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfCompositionView.ahk" { ITfCompositionView }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfRange.ahk" { ITfRange }
 #Import ".\ITfCompositionSink.ahk" { ITfCompositionSink }
 
 /**
@@ -58,7 +58,7 @@ export default struct ITfContextComposition extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-startcomposition
      */
     StartComposition(ecWrite, pCompositionRange, pSink) {
-        result := ComCall(3, this, "uint", ecWrite, "ptr", pCompositionRange, "ptr", pSink, "ptr*", &ppComposition := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, ecWrite, "ptr", pCompositionRange, "ptr", pSink, "ptr*", &ppComposition := 0, "HRESULT")
         return ITfComposition(ppComposition)
     }
 
@@ -80,7 +80,7 @@ export default struct ITfContextComposition extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-findcomposition
      */
     FindComposition(ecRead, pTestRange) {
-        result := ComCall(5, this, "uint", ecRead, "ptr", pTestRange, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, ecRead, "ptr", pTestRange, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumITfCompositionView(ppEnum)
     }
 
@@ -93,7 +93,7 @@ export default struct ITfContextComposition extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextcomposition-takeownership
      */
     TakeOwnership(ecWrite, pComposition, pSink) {
-        result := ComCall(6, this, "uint", ecWrite, "ptr", pComposition, "ptr", pSink, "ptr*", &ppComposition := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, ecWrite, "ptr", pComposition, "ptr", pSink, "ptr*", &ppComposition := 0, "HRESULT")
         return ITfComposition(ppComposition)
     }
 

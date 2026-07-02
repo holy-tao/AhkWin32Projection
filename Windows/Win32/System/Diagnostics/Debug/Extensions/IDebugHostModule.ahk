@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDebugHostType.ahk" { IDebugHostType }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\Location.ahk" { Location }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugHostSymbol.ahk" { IDebugHostSymbol }
-#Import ".\IDebugHostType.ahk" { IDebugHostType }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -51,7 +51,7 @@ export default struct IDebugHostModule extends IDebugHostSymbol {
      */
     GetImageName(allowPath) {
         imageName := BSTR.Owned()
-        result := ComCall(10, this, "char", allowPath, BSTR.Ptr, imageName, "HRESULT")
+        result := ComCall(10, this, Int8, allowPath, BSTR.Ptr, imageName, "HRESULT")
         return imageName
     }
 
@@ -106,7 +106,7 @@ export default struct IDebugHostModule extends IDebugHostSymbol {
      * @returns {IDebugHostSymbol} 
      */
     FindSymbolByRVA(rva) {
-        result := ComCall(14, this, "uint", rva, "ptr*", &symbol := 0, "HRESULT")
+        result := ComCall(14, this, Int64, rva, "ptr*", &symbol := 0, "HRESULT")
         return IDebugHostSymbol(symbol)
     }
 

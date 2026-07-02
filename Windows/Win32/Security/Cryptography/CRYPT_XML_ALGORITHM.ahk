@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
 #Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
+#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
 
 /**
  * Specifies the algorithm used to sign or transform the message.

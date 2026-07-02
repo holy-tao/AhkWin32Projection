@@ -2,9 +2,9 @@
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
 #Import ".\IMLangStringBufA.ahk" { IMLangStringBufA }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMLangString.ahk" { IMLangString }
 #Import "..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IMLangString.ahk" { IMLangString }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -61,7 +61,7 @@ export default struct IMLangStringAStr extends IMLangString {
         pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
         plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "int", lDestPos, "int", lDestLen, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
+        result := ComCall(7, this, Int32, lDestPos, Int32, lDestLen, UInt32, uCodePage, "ptr", pszSrc, Int32, cchSrc, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct IMLangStringAStr extends IMLangString {
         pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
         plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "int", lDestPos, "int", lDestLen, "uint", uCodePage, "ptr", pSrcBuf, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
+        result := ComCall(8, this, Int32, lDestPos, Int32, lDestLen, UInt32, uCodePage, "ptr", pSrcBuf, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct IMLangStringAStr extends IMLangString {
         pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
         plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "int", lSrcPos, "int", lSrcLen, "uint", uCodePageIn, "uint*", puCodePageOut, "ptr", pszDest, "int", cchDest, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
+        result := ComCall(9, this, Int32, lSrcPos, Int32, lSrcLen, UInt32, uCodePageIn, "uint*", puCodePageOut, "ptr", pszDest, Int32, cchDest, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
@@ -119,7 +119,7 @@ export default struct IMLangStringAStr extends IMLangString {
         puDestCodePageMarshal := puDestCodePage is VarRef ? "uint*" : "ptr"
         plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "int", lSrcPos, "int", lSrcMaxLen, puDestCodePageMarshal, puDestCodePage, IMLangStringBufA.Ptr, ppDestBuf, plDestLenMarshal, plDestLen, "HRESULT")
+        result := ComCall(10, this, Int32, lSrcPos, Int32, lSrcMaxLen, puDestCodePageMarshal, puDestCodePage, IMLangStringBufA.Ptr, ppDestBuf, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct IMLangStringAStr extends IMLangString {
         pcchDestMarshal := pcchDest is VarRef ? "int*" : "ptr"
         plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "int", lSrcPos, "int", lSrcLen, "int", lFlags, "uint", uCodePageIn, "int", cchRequest, puCodePageOutMarshal, puCodePageOut, ppszDestMarshal, ppszDest, pcchDestMarshal, pcchDest, plDestLenMarshal, plDestLen, "HRESULT")
+        result := ComCall(11, this, Int32, lSrcPos, Int32, lSrcLen, Int32, lFlags, UInt32, uCodePageIn, Int32, cchRequest, puCodePageOutMarshal, puCodePageOut, ppszDestMarshal, ppszDest, pcchDestMarshal, pcchDest, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct IMLangStringAStr extends IMLangString {
         pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
         plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pszSrc, "int", cchSrc, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
+        result := ComCall(12, this, "ptr", pszSrc, Int32, cchSrc, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
@@ -172,7 +172,7 @@ export default struct IMLangStringAStr extends IMLangString {
      * @returns {HRESULT} 
      */
     SetLocale(lDestPos, lDestLen, locale) {
-        result := ComCall(13, this, "int", lDestPos, "int", lDestLen, "uint", locale, "HRESULT")
+        result := ComCall(13, this, Int32, lDestPos, Int32, lDestLen, UInt32, locale, "HRESULT")
         return result
     }
 
@@ -190,7 +190,7 @@ export default struct IMLangStringAStr extends IMLangString {
         plLocalePosMarshal := plLocalePos is VarRef ? "int*" : "ptr"
         plLocaleLenMarshal := plLocaleLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, "int", lSrcPos, "int", lSrcMaxLen, plocaleMarshal, plocale, plLocalePosMarshal, plLocalePos, plLocaleLenMarshal, plLocaleLen, "HRESULT")
+        result := ComCall(14, this, Int32, lSrcPos, Int32, lSrcMaxLen, plocaleMarshal, plocale, plLocalePosMarshal, plLocalePos, plLocaleLenMarshal, plLocaleLen, "HRESULT")
         return result
     }
 

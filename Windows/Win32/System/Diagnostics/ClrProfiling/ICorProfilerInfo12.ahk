@@ -2,12 +2,12 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\COR_PRF_EVENTPIPE_PROVIDER_CONFIG.ahk" { COR_PRF_EVENTPIPE_PROVIDER_CONFIG }
-#Import ".\COR_PRF_EVENTPIPE_PARAM_DESC.ahk" { COR_PRF_EVENTPIPE_PARAM_DESC }
+#Import ".\COR_PRF_EVENT_DATA.ahk" { COR_PRF_EVENT_DATA }
 #Import ".\ICorProfilerInfo11.ahk" { ICorProfilerInfo11 }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COR_PRF_EVENT_DATA.ahk" { COR_PRF_EVENT_DATA }
+#Import ".\COR_PRF_EVENTPIPE_PARAM_DESC.ahk" { COR_PRF_EVENTPIPE_PARAM_DESC }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\COR_PRF_EVENTPIPE_PROVIDER_CONFIG.ahk" { COR_PRF_EVENTPIPE_PROVIDER_CONFIG }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -54,7 +54,7 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
      * @returns {Integer} 
      */
     EventPipeStartSession(cProviderConfigs, pProviderConfigs, requestRundown) {
-        result := ComCall(101, this, "uint", cProviderConfigs, COR_PRF_EVENTPIPE_PROVIDER_CONFIG.Ptr, pProviderConfigs, BOOL, requestRundown, "uint*", &pSession := 0, "HRESULT")
+        result := ComCall(101, this, UInt32, cProviderConfigs, COR_PRF_EVENTPIPE_PROVIDER_CONFIG.Ptr, pProviderConfigs, BOOL, requestRundown, "uint*", &pSession := 0, "HRESULT")
         return pSession
     }
 
@@ -65,7 +65,7 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
      * @returns {HRESULT} 
      */
     EventPipeAddProviderToSession(session, providerConfig) {
-        result := ComCall(102, this, "uint", session, COR_PRF_EVENTPIPE_PROVIDER_CONFIG, providerConfig, "HRESULT")
+        result := ComCall(102, this, Int64, session, COR_PRF_EVENTPIPE_PROVIDER_CONFIG, providerConfig, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
      * @returns {HRESULT} 
      */
     EventPipeStopSession(session) {
-        result := ComCall(103, this, "uint", session, "HRESULT")
+        result := ComCall(103, this, Int64, session, "HRESULT")
         return result
     }
 
@@ -101,7 +101,7 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     EventPipeGetProviderInfo(provider, cchName, providerName) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
-        result := ComCall(105, this, "ptr", provider, "uint", cchName, "uint*", &pcchName := 0, "ptr", providerName, "HRESULT")
+        result := ComCall(105, this, IntPtr, provider, UInt32, cchName, "uint*", &pcchName := 0, "ptr", providerName, "HRESULT")
         return pcchName
     }
 
@@ -122,7 +122,7 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     EventPipeDefineEvent(provider, eventName, eventID, keywords, eventVersion, level, opcode, needStack, cParamDescs, pParamDescs) {
         eventName := eventName is String ? StrPtr(eventName) : eventName
 
-        result := ComCall(106, this, "ptr", provider, "ptr", eventName, "uint", eventID, "uint", keywords, "uint", eventVersion, "uint", level, "char", opcode, BOOL, needStack, "uint", cParamDescs, COR_PRF_EVENTPIPE_PARAM_DESC.Ptr, pParamDescs, "ptr*", &pEvent := 0, "HRESULT")
+        result := ComCall(106, this, IntPtr, provider, "ptr", eventName, UInt32, eventID, Int64, keywords, UInt32, eventVersion, UInt32, level, Int8, opcode, BOOL, needStack, UInt32, cParamDescs, COR_PRF_EVENTPIPE_PARAM_DESC.Ptr, pParamDescs, "ptr*", &pEvent := 0, "HRESULT")
         return pEvent
     }
 
@@ -136,7 +136,7 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
      * @returns {HRESULT} 
      */
     EventPipeWriteEvent(event, cData, data, pActivityId, pRelatedActivityId) {
-        result := ComCall(107, this, "ptr", event, "uint", cData, COR_PRF_EVENT_DATA.Ptr, data, Guid.Ptr, pActivityId, Guid.Ptr, pRelatedActivityId, "HRESULT")
+        result := ComCall(107, this, IntPtr, event, UInt32, cData, COR_PRF_EVENT_DATA.Ptr, data, Guid.Ptr, pActivityId, Guid.Ptr, pRelatedActivityId, "HRESULT")
         return result
     }
 

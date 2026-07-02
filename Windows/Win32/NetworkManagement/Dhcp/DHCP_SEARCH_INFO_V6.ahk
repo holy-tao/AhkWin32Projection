@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
+#Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\DHCP_SEARCH_INFO_TYPE_V6.ahk" { DHCP_SEARCH_INFO_TYPE_V6 }
-#Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
-#Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
 
 /**
  * Contains the term or value on which the DHCPv6 server database will be searched.

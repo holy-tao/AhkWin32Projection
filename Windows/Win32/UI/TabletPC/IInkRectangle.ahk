@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * . (IInkRectangle)
@@ -114,7 +114,7 @@ export default struct IInkRectangle extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-put_top
      */
     put_Top(Units) {
-        result := ComCall(8, this, "int", Units, "HRESULT")
+        result := ComCall(8, this, Int32, Units, "HRESULT")
         return result
     }
 
@@ -139,7 +139,7 @@ export default struct IInkRectangle extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-put_left
      */
     put_Left(Units) {
-        result := ComCall(10, this, "int", Units, "HRESULT")
+        result := ComCall(10, this, Int32, Units, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IInkRectangle extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-put_bottom
      */
     put_Bottom(Units) {
-        result := ComCall(12, this, "int", Units, "HRESULT")
+        result := ComCall(12, this, Int32, Units, "HRESULT")
         return result
     }
 
@@ -193,7 +193,7 @@ export default struct IInkRectangle extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-put_right
      */
     put_Right(Units) {
-        result := ComCall(14, this, "int", Units, "HRESULT")
+        result := ComCall(14, this, Int32, Units, "HRESULT")
         return result
     }
 
@@ -331,7 +331,7 @@ export default struct IInkRectangle extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-setrectangle
      */
     SetRectangle(Top, Left, Bottom, Right) {
-        result := ComCall(18, this, "int", Top, "int", Left, "int", Bottom, "int", Right, "HRESULT")
+        result := ComCall(18, this, Int32, Top, Int32, Left, Int32, Bottom, Int32, Right, "HRESULT")
         return result
     }
 

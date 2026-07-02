@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
 #Import ".\ISpPhrase.ahk" { ISpPhrase }
+#Import ".\ISpRecoContext.ahk" { ISpRecoContext }
 
 /**
  * @namespace Windows.Win32.Media.Speech

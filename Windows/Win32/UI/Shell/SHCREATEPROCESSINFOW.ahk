@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\System\Threading\STARTUPINFOW.ahk" { STARTUPINFOW }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Threading\STARTUPINFOW.ahk" { STARTUPINFOW }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Threading\PROCESS_INFORMATION.ahk" { PROCESS_INFORMATION }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains the information needed by SHCreateProcessAsUserW to create a process.

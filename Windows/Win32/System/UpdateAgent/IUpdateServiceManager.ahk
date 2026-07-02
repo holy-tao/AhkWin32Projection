@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IUpdateService.ahk" { IUpdateService }
-#Import ".\IUpdateServiceCollection.ahk" { IUpdateServiceCollection }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IUpdateServiceCollection.ahk" { IUpdateServiceCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateService.ahk" { IUpdateService }
 
 /**
  * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates. (IUpdateServiceManager)
@@ -385,7 +385,7 @@ export default struct IUpdateServiceManager extends IDispatch {
         serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
         scanFileLocation := scanFileLocation is String ? BSTR.Alloc(scanFileLocation).Value : scanFileLocation
 
-        result := ComCall(12, this, BSTR, serviceName, BSTR, scanFileLocation, "int", flags, "ptr*", &ppService := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, serviceName, BSTR, scanFileLocation, Int32, flags, "ptr*", &ppService := 0, "HRESULT")
         return IUpdateService(ppService)
     }
 

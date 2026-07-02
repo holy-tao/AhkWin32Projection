@@ -1,26 +1,26 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D11_SUBRESOURCE_DATA.ahk" { D3D11_SUBRESOURCE_DATA }
-#Import ".\ID3D11ShaderResourceView1.ahk" { ID3D11ShaderResourceView1 }
-#Import ".\ID3D11UnorderedAccessView1.ahk" { ID3D11UnorderedAccessView1 }
-#Import ".\ID3D11Texture2D1.ahk" { ID3D11Texture2D1 }
-#Import ".\D3D11_BOX.ahk" { D3D11_BOX }
-#Import ".\ID3D11RasterizerState2.ahk" { ID3D11RasterizerState2 }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\D3D11_QUERY_DESC1.ahk" { D3D11_QUERY_DESC1 }
-#Import ".\ID3D11DeviceContext3.ahk" { ID3D11DeviceContext3 }
-#Import ".\D3D11_RASTERIZER_DESC2.ahk" { D3D11_RASTERIZER_DESC2 }
+#Import ".\ID3D11Query1.ahk" { ID3D11Query1 }
+#Import ".\D3D11_SUBRESOURCE_DATA.ahk" { D3D11_SUBRESOURCE_DATA }
+#Import ".\D3D11_TEXTURE3D_DESC1.ahk" { D3D11_TEXTURE3D_DESC1 }
+#Import ".\ID3D11RasterizerState2.ahk" { ID3D11RasterizerState2 }
 #Import ".\D3D11_SHADER_RESOURCE_VIEW_DESC1.ahk" { D3D11_SHADER_RESOURCE_VIEW_DESC1 }
 #Import ".\ID3D11Device2.ahk" { ID3D11Device2 }
-#Import ".\ID3D11Texture3D1.ahk" { ID3D11Texture3D1 }
 #Import ".\D3D11_RENDER_TARGET_VIEW_DESC1.ahk" { D3D11_RENDER_TARGET_VIEW_DESC1 }
-#Import ".\D3D11_TEXTURE3D_DESC1.ahk" { D3D11_TEXTURE3D_DESC1 }
-#Import ".\ID3D11RenderTargetView1.ahk" { ID3D11RenderTargetView1 }
+#Import ".\D3D11_BOX.ahk" { D3D11_BOX }
 #Import ".\D3D11_TEXTURE2D_DESC1.ahk" { D3D11_TEXTURE2D_DESC1 }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import ".\ID3D11Query1.ahk" { ID3D11Query1 }
+#Import ".\ID3D11UnorderedAccessView1.ahk" { ID3D11UnorderedAccessView1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_RASTERIZER_DESC2.ahk" { D3D11_RASTERIZER_DESC2 }
+#Import ".\ID3D11RenderTargetView1.ahk" { ID3D11RenderTargetView1 }
+#Import ".\ID3D11Texture3D1.ahk" { ID3D11Texture3D1 }
+#Import ".\ID3D11DeviceContext3.ahk" { ID3D11DeviceContext3 }
 #Import ".\D3D11_UNORDERED_ACCESS_VIEW_DESC1.ahk" { D3D11_UNORDERED_ACCESS_VIEW_DESC1 }
+#Import ".\ID3D11Texture2D1.ahk" { ID3D11Texture2D1 }
+#Import ".\ID3D11ShaderResourceView1.ahk" { ID3D11ShaderResourceView1 }
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device3 adds new methods to those in ID3D11Device2.
@@ -271,7 +271,7 @@ export default struct ID3D11Device3 extends ID3D11Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createdeferredcontext3
      */
     CreateDeferredContext3(ContextFlags) {
-        result := ComCall(62, this, "uint", ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
+        result := ComCall(62, this, UInt32, ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
         return ID3D11DeviceContext3(ppDeferredContext)
     }
 
@@ -332,7 +332,7 @@ export default struct ID3D11Device3 extends ID3D11Device2 {
     WriteToSubresource(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        ComCall(63, this, "ptr", pDstResource, "uint", DstSubresource, D3D11_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch)
+        ComCall(63, this, "ptr", pDstResource, UInt32, DstSubresource, D3D11_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, UInt32, SrcRowPitch, UInt32, SrcDepthPitch)
     }
 
     /**
@@ -392,7 +392,7 @@ export default struct ID3D11Device3 extends ID3D11Device2 {
     ReadFromSubresource(pDstData, DstRowPitch, DstDepthPitch, pSrcResource, SrcSubresource, pSrcBox) {
         pDstDataMarshal := pDstData is VarRef ? "ptr" : "ptr"
 
-        ComCall(64, this, pDstDataMarshal, pDstData, "uint", DstRowPitch, "uint", DstDepthPitch, "ptr", pSrcResource, "uint", SrcSubresource, D3D11_BOX.Ptr, pSrcBox)
+        ComCall(64, this, pDstDataMarshal, pDstData, UInt32, DstRowPitch, UInt32, DstDepthPitch, "ptr", pSrcResource, UInt32, SrcSubresource, D3D11_BOX.Ptr, pSrcBox)
     }
 
     Query(iid) {

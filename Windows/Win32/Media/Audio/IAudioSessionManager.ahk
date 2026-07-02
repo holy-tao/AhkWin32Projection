@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IAudioSessionControl.ahk" { IAudioSessionControl }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ISimpleAudioVolume.ahk" { ISimpleAudioVolume }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioSessionControl.ahk" { IAudioSessionControl }
 
 /**
  * The IAudioSessionManager interface enables a client to access the session controls and volume controls for both cross-process and process-specific audio sessions.
@@ -50,7 +50,7 @@ export default struct IAudioSessionManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager-getaudiosessioncontrol
      */
     GetAudioSessionControl(AudioSessionGuid, StreamFlags) {
-        result := ComCall(3, this, Guid.Ptr, AudioSessionGuid, "uint", StreamFlags, "ptr*", &SessionControl := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, AudioSessionGuid, UInt32, StreamFlags, "ptr*", &SessionControl := 0, "HRESULT")
         return IAudioSessionControl(SessionControl)
     }
 
@@ -62,7 +62,7 @@ export default struct IAudioSessionManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager-getsimpleaudiovolume
      */
     GetSimpleAudioVolume(AudioSessionGuid, StreamFlags) {
-        result := ComCall(4, this, Guid.Ptr, AudioSessionGuid, "uint", StreamFlags, "ptr*", &AudioVolume := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, AudioSessionGuid, UInt32, StreamFlags, "ptr*", &AudioVolume := 0, "HRESULT")
         return ISimpleAudioVolume(AudioVolume)
     }
 

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFaxIncomingMessage.ahk" { IFaxIncomingMessage }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFaxIncomingMessage.ahk" { IFaxIncomingMessage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxIncomingMessageIterator interface is used by a fax client application to move through the archive of inbound fax messages that the fax service has successfully received.
@@ -119,7 +119,7 @@ export default struct IFaxIncomingMessageIterator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessageiterator-put_prefetchsize
      */
     put_PrefetchSize(lPrefetchSize) {
-        result := ComCall(9, this, "int", lPrefetchSize, "HRESULT")
+        result := ComCall(9, this, Int32, lPrefetchSize, "HRESULT")
         return result
     }
 

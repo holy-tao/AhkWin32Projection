@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechPhraseInfo.ahk" { ISpeechPhraseInfo }
-#Import ".\ISpeechMemoryStream.ahk" { ISpeechMemoryStream }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
 #Import ".\SpeechVoiceSpeakFlags.ahk" { SpeechVoiceSpeakFlags }
-#Import ".\ISpeechPhraseAlternates.ahk" { ISpeechPhraseAlternates }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpeechRecoResultTimes.ahk" { ISpeechRecoResultTimes }
-#Import ".\SpeechDiscardType.ahk" { SpeechDiscardType }
-#Import ".\ISpeechRecoContext.ahk" { ISpeechRecoContext }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\SpeechDiscardType.ahk" { SpeechDiscardType }
+#Import ".\ISpeechRecoResultTimes.ahk" { ISpeechRecoResultTimes }
+#Import ".\ISpeechPhraseInfo.ahk" { ISpeechPhraseInfo }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechRecoContext.ahk" { ISpeechRecoContext }
+#Import ".\ISpeechMemoryStream.ahk" { ISpeechMemoryStream }
+#Import ".\ISpeechPhraseAlternates.ahk" { ISpeechPhraseAlternates }
+#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -135,7 +135,7 @@ export default struct ISpeechRecoResult extends IDispatch {
      * @returns {ISpeechPhraseAlternates} 
      */
     Alternates(RequestCount, StartElement, Elements) {
-        result := ComCall(12, this, "int", RequestCount, "int", StartElement, "int", Elements, "ptr*", &Alternates := 0, "HRESULT")
+        result := ComCall(12, this, Int32, RequestCount, Int32, StartElement, Int32, Elements, "ptr*", &Alternates := 0, "HRESULT")
         return ISpeechPhraseAlternates(Alternates)
     }
 
@@ -147,7 +147,7 @@ export default struct ISpeechRecoResult extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/medfound/audioresampler
      */
     Audio(StartElement, Elements) {
-        result := ComCall(13, this, "int", StartElement, "int", Elements, "ptr*", &Stream := 0, "HRESULT")
+        result := ComCall(13, this, Int32, StartElement, Int32, Elements, "ptr*", &Stream := 0, "HRESULT")
         return ISpeechMemoryStream(Stream)
     }
 
@@ -159,7 +159,7 @@ export default struct ISpeechRecoResult extends IDispatch {
      * @returns {Integer} 
      */
     SpeakAudio(StartElement, Elements, Flags) {
-        result := ComCall(14, this, "int", StartElement, "int", Elements, SpeechVoiceSpeakFlags, Flags, "int*", &StreamNumber := 0, "HRESULT")
+        result := ComCall(14, this, Int32, StartElement, Int32, Elements, SpeechVoiceSpeakFlags, Flags, "int*", &StreamNumber := 0, "HRESULT")
         return StreamNumber
     }
 

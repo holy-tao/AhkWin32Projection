@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 #Import ".\IMDSPStorage.ahk" { IMDSPStorage }
+#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
 
 /**
  * The IMDSPStorage2 interface extends IMDSPStorage by providing methods for getting and setting extended attributes and making it possible to get a pointer to a storage medium from its name.
@@ -92,7 +92,7 @@ export default struct IMDSPStorage2 extends IMDSPStorage {
     CreateStorage2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat, pwszName, qwFileSize) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(14, this, "uint", dwAttributes, "uint", dwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "ptr", pwszName, "uint", qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, dwAttributes, UInt32, dwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "ptr", pwszName, Int64, qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
         return IMDSPStorage(ppNewStorage)
     }
 
@@ -117,7 +117,7 @@ export default struct IMDSPStorage2 extends IMDSPStorage {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-setattributes2
      */
     SetAttributes2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat) {
-        result := ComCall(15, this, "uint", dwAttributes, "uint", dwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
+        result := ComCall(15, this, UInt32, dwAttributes, UInt32, dwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
         return result
     }
 

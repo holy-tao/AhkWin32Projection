@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAccessibilityDockingServiceCallback.ahk" { IAccessibilityDockingServiceCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IAccessibilityDockingServiceCallback.ahk" { IAccessibilityDockingServiceCallback }
 #Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
 
 /**
@@ -158,7 +158,7 @@ export default struct IAccessibilityDockingService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iaccessibilitydockingservice-dockwindow
      */
     DockWindow(_hwnd, _hMonitor, cyRequested, pCallback) {
-        result := ComCall(4, this, HWND, _hwnd, HMONITOR, _hMonitor, "uint", cyRequested, "ptr", pCallback, "HRESULT")
+        result := ComCall(4, this, HWND, _hwnd, HMONITOR, _hMonitor, UInt32, cyRequested, "ptr", pCallback, "HRESULT")
         return result
     }
 

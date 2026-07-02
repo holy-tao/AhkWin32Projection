@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\NMHDR.ahk" { NMHDR }
-#Import ".\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk" { RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk" { RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE }
 #Import ".\CHARRANGE.ahk" { CHARRANGE }
+#Import "..\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains information about the selected text to be corrected.

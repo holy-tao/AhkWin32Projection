@@ -64,7 +64,7 @@ export default struct ISVGStringList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_numberOfItems(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct ISVGStringList extends IDispatch {
      */
     getItem(index) {
         ppResult := BSTR.Owned()
-        result := ComCall(11, this, "int", index, BSTR.Ptr, ppResult, "HRESULT")
+        result := ComCall(11, this, Int32, index, BSTR.Ptr, ppResult, "HRESULT")
         return ppResult
     }
 
@@ -120,7 +120,7 @@ export default struct ISVGStringList extends IDispatch {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
         ppResult := BSTR.Owned()
-        result := ComCall(12, this, BSTR, newItem, "int", index, BSTR.Ptr, ppResult, "HRESULT")
+        result := ComCall(12, this, BSTR, newItem, Int32, index, BSTR.Ptr, ppResult, "HRESULT")
         return ppResult
     }
 
@@ -134,7 +134,7 @@ export default struct ISVGStringList extends IDispatch {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
         ppResult := BSTR.Owned()
-        result := ComCall(13, this, BSTR, newItem, "int", index, BSTR.Ptr, ppResult, "HRESULT")
+        result := ComCall(13, this, BSTR, newItem, Int32, index, BSTR.Ptr, ppResult, "HRESULT")
         return ppResult
     }
 
@@ -145,7 +145,7 @@ export default struct ISVGStringList extends IDispatch {
      */
     removeItem(index) {
         ppResult := BSTR.Owned()
-        result := ComCall(14, this, "int", index, BSTR.Ptr, ppResult, "HRESULT")
+        result := ComCall(14, this, Int32, index, BSTR.Ptr, ppResult, "HRESULT")
         return ppResult
     }
 

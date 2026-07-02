@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TRACE_PROVIDER_INFO.ahk" { TRACE_PROVIDER_INFO }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TRACE_PROVIDER_INFO.ahk" { TRACE_PROVIDER_INFO }
 
 /**
  * Defines the array of providers that have registered a MOF or manifest on the computer.

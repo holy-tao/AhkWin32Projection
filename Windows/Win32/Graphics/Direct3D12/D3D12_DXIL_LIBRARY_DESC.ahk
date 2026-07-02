@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_SHADER_BYTECODE.ahk" { D3D12_SHADER_BYTECODE }
 #Import ".\D3D12_EXPORT_DESC.ahk" { D3D12_EXPORT_DESC }
+#Import ".\D3D12_SHADER_BYTECODE.ahk" { D3D12_SHADER_BYTECODE }
 
 /**
  * Describes a DXIL library state subobject that can be included in a state object.

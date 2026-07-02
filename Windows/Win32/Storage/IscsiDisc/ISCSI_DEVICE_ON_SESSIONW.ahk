@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\SCSI_ADDRESS.ahk" { SCSI_ADDRESS }
-#Import "..\..\System\Ioctl\STORAGE_DEVICE_NUMBER.ahk" { STORAGE_DEVICE_NUMBER }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Ioctl\STORAGE_DEVICE_NUMBER.ahk" { STORAGE_DEVICE_NUMBER }
+#Import ".\SCSI_ADDRESS.ahk" { SCSI_ADDRESS }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

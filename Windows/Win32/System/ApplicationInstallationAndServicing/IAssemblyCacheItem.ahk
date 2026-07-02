@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IStream.ahk" { IStream }
 
 /**
  * The IAssemblyCacheItem interface can be used to install side-by-side assemblies into the side-by-side store using a stream-based installation.
@@ -103,7 +103,7 @@ export default struct IAssemblyCacheItem extends IUnknown {
 
         puliMaxSizeMarshal := puliMaxSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszStreamName, "uint", dwFormat, "uint", dwFormatFlags, "ptr*", &ppIStream := 0, puliMaxSizeMarshal, puliMaxSize, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "ptr", pszStreamName, UInt32, dwFormat, UInt32, dwFormatFlags, "ptr*", &ppIStream := 0, puliMaxSizeMarshal, puliMaxSize, "HRESULT")
         return IStream(ppIStream)
     }
 
@@ -208,7 +208,7 @@ export default struct IAssemblyCacheItem extends IUnknown {
     Commit(dwFlags, pulDisposition) {
         pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwFlags, pulDispositionMarshal, pulDisposition, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, pulDispositionMarshal, pulDisposition, "HRESULT")
         return result
     }
 

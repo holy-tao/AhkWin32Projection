@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\CrmLogRecordRead.ahk" { CrmLogRecordRead }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CrmTransactionState.ahk" { CrmTransactionState }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\CrmTransactionState.ahk" { CrmTransactionState }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Monitors the individual log records maintained by a specific CRM clerk for a given transaction.
@@ -167,7 +167,7 @@ export default struct ICrmMonitorLogRecords extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmmonitorlogrecords-getlogrecord
      */
     GetLogRecord(dwIndex, pCrmLogRec) {
-        result := ComCall(6, this, "uint", dwIndex, CrmLogRecordRead.Ptr, pCrmLogRec, "HRESULT")
+        result := ComCall(6, this, UInt32, dwIndex, CrmLogRecordRead.Ptr, pCrmLogRec, "HRESULT")
         return result
     }
 

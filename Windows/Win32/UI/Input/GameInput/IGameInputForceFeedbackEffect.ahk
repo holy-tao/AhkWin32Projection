@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
 #Import ".\GameInputForceFeedbackParams.ahk" { GameInputForceFeedbackParams }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\GameInputFeedbackEffectState.ahk" { GameInputFeedbackEffectState }
+#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
@@ -77,7 +77,7 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     SetGain(gain) {
-        ComCall(6, this, "float", gain)
+        ComCall(6, this, Float32, gain)
     }
 
     /**

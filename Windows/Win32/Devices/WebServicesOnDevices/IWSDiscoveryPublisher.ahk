@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
-#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
-#Import ".\IWSDScopeMatchingRule.ahk" { IWSDScopeMatchingRule }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
-#Import ".\IWSDiscoveryPublisherNotify.ahk" { IWSDiscoveryPublisherNotify }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WSD_SOAP_MESSAGE.ahk" { WSD_SOAP_MESSAGE }
+#Import ".\IWSDiscoveryPublisherNotify.ahk" { IWSDiscoveryPublisherNotify }
+#Import ".\IWSDScopeMatchingRule.ahk" { IWSDScopeMatchingRule }
 
 /**
  * Provides methods for announcing hosts and managing incoming queries to hosts.
@@ -157,7 +157,7 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-setaddressfamily
      */
     SetAddressFamily(dwAddressFamily) {
-        result := ComCall(3, this, "uint", dwAddressFamily, "HRESULT")
+        result := ComCall(3, this, UInt32, dwAddressFamily, "HRESULT")
         return result
     }
 
@@ -368,7 +368,7 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(6, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
+        result := ComCall(6, this, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
         return result
     }
 
@@ -452,7 +452,7 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(7, this, "ptr", pszId, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
+        result := ComCall(7, this, "ptr", pszId, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
         return result
     }
 
@@ -551,7 +551,7 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(8, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
+        result := ComCall(8, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
         return result
     }
 
@@ -646,7 +646,7 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(9, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
+        result := ComCall(9, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
         return result
     }
 
@@ -754,7 +754,7 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(10, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
+        result := ComCall(10, this, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
         return result
     }
 
@@ -860,7 +860,7 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(11, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
+        result := ComCall(11, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
         return result
     }
 
@@ -962,7 +962,7 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(12, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
+        result := ComCall(12, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
         return result
     }
 

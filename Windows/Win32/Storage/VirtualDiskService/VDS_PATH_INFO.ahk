@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VDS_HBAPORT_PROP.ahk" { VDS_HBAPORT_PROP }
-#Import ".\VDS_HWPROVIDER_TYPE.ahk" { VDS_HWPROVIDER_TYPE }
-#Import ".\VDS_PATH_ID.ahk" { VDS_PATH_ID }
-#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_HBAPORT_PROP.ahk" { VDS_HBAPORT_PROP }
+#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
 #Import ".\VDS_PATH_STATUS.ahk" { VDS_PATH_STATUS }
+#Import ".\VDS_PATH_ID.ahk" { VDS_PATH_ID }
+#Import ".\VDS_HWPROVIDER_TYPE.ahk" { VDS_HWPROVIDER_TYPE }
 
 /**
  * The VDS_PATH_INFO structure (vdshwprv.h) defines the information for a LUN path and is returned in the ppPaths parameter of the IVdsLunMpio::GetPathInfo method.

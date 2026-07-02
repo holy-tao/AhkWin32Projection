@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMCredentialCallback interface is a callback interface used by the reader object to acquire user credentials.
@@ -60,7 +60,7 @@ export default struct IWMCredentialCallback extends IUnknown {
         pwszUser := pwszUser is String ? StrPtr(pwszUser) : pwszUser
         pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-        result := ComCall(3, this, "ptr", pwszRealm, "ptr", pwszSite, "ptr", pwszUser, "uint", cchUser, "ptr", pwszPassword, "uint", cchPassword, "int", hrStatus, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszRealm, "ptr", pwszSite, "ptr", pwszUser, UInt32, cchUser, "ptr", pwszPassword, UInt32, cchPassword, "int", hrStatus, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
     }
 

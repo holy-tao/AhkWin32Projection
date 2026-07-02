@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\SPFILEMODE.ahk" { SPFILEMODE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
-#Import ".\SPFILEMODE.ahk" { SPFILEMODE }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -81,7 +81,7 @@ export default struct ISpStream extends ISpStreamFormat {
     BindToFile(pszFileName, eMode, pFormatId, pWaveFormatEx, ullEventInterest) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(17, this, "ptr", pszFileName, SPFILEMODE, eMode, Guid.Ptr, pFormatId, WAVEFORMATEX.Ptr, pWaveFormatEx, "uint", ullEventInterest, "HRESULT")
+        result := ComCall(17, this, "ptr", pszFileName, SPFILEMODE, eMode, Guid.Ptr, pFormatId, WAVEFORMATEX.Ptr, pWaveFormatEx, Int64, ullEventInterest, "HRESULT")
         return result
     }
 

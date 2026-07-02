@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IDebugHostFunctionLocalDetailsEnumerator.ahk" { IDebugHostFunctionLocalDetailsEnumerator }
 #Import ".\Location.ahk" { Location }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugHostFunctionLocalDetailsEnumerator.ahk" { IDebugHostFunctionLocalDetailsEnumerator }
 #Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
 
 /**
@@ -57,7 +57,7 @@ export default struct IDebugHostFunctionIntrospection extends IUnknown {
      * @returns {IDebugHostSymbolEnumerator} 
      */
     EnumerateInlineFunctionsByRVA(rva) {
-        result := ComCall(4, this, "uint", rva, "ptr*", &inlinesEnum := 0, "HRESULT")
+        result := ComCall(4, this, Int64, rva, "ptr*", &inlinesEnum := 0, "HRESULT")
         return IDebugHostSymbolEnumerator(inlinesEnum)
     }
 
@@ -69,7 +69,7 @@ export default struct IDebugHostFunctionIntrospection extends IUnknown {
      * @returns {HRESULT} 
      */
     FindContainingCodeRangeByRVA(rva, rangeStart, rangeEnd) {
-        result := ComCall(5, this, "uint", rva, Location.Ptr, rangeStart, Location.Ptr, rangeEnd, "HRESULT")
+        result := ComCall(5, this, Int64, rva, Location.Ptr, rangeStart, Location.Ptr, rangeEnd, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IDebugHostFunctionIntrospection extends IUnknown {
     FindSourceLocationByRVA(rva, _sourceFile, sourceLine) {
         sourceLineMarshal := sourceLine is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", rva, BSTR.Ptr, _sourceFile, sourceLineMarshal, sourceLine, "HRESULT")
+        result := ComCall(6, this, Int64, rva, BSTR.Ptr, _sourceFile, sourceLineMarshal, sourceLine, "HRESULT")
         return result
     }
 

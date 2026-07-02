@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\GeneratorParametersType.ahk" { GeneratorParametersType }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Is the generic interface for all types of generator parameters. All generator parameter objects must support this interface.
@@ -100,7 +100,7 @@ export default struct IRdcGeneratorParameters extends IUnknown {
         parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
         bytesWrittenMarshal := bytesWritten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", _size, parametersBlobMarshal, parametersBlob, bytesWrittenMarshal, bytesWritten, "HRESULT")
+        result := ComCall(6, this, UInt32, _size, parametersBlobMarshal, parametersBlob, bytesWrittenMarshal, bytesWritten, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
@@ -42,7 +42,7 @@ export default struct IAudioProcessingObjectVBR extends IUnknown {
      * @returns {Integer} 
      */
     CalcMaxInputFrames(u32MaxOutputFrameCount) {
-        result := ComCall(3, this, "uint", u32MaxOutputFrameCount, "uint*", &pu32InputFrameCount := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, u32MaxOutputFrameCount, "uint*", &pu32InputFrameCount := 0, "HRESULT")
         return pu32InputFrameCount
     }
 
@@ -52,7 +52,7 @@ export default struct IAudioProcessingObjectVBR extends IUnknown {
      * @returns {Integer} 
      */
     CalcMaxOutputFrames(u32MaxInputFrameCount) {
-        result := ComCall(4, this, "uint", u32MaxInputFrameCount, "uint*", &pu32OutputFrameCount := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, u32MaxInputFrameCount, "uint*", &pu32OutputFrameCount := 0, "HRESULT")
         return pu32OutputFrameCount
     }
 

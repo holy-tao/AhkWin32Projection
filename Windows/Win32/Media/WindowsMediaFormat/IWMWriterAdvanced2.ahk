@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IWMWriterAdvanced.ahk" { IWMWriterAdvanced }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import ".\IWMWriterAdvanced.ahk" { IWMWriterAdvanced }
 
 /**
  * The IWMWriterAdvanced2 interface provides the ability to set and retrieve named settings for an input.IWMWriterAdvanced2 exists for every instance of the writer object. To obtain a pointer to this interface, call QueryInterface on the writer object.
@@ -103,7 +103,7 @@ export default struct IWMWriterAdvanced2 extends IWMWriterAdvanced {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(14, this, "uint", dwInputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(14, this, UInt32, dwInputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct IWMWriterAdvanced2 extends IWMWriterAdvanced {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwInputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(15, this, UInt32, dwInputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
     }
 

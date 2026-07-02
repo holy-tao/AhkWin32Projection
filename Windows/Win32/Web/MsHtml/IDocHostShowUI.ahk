@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -63,7 +63,7 @@ export default struct IDocHostShowUI extends IUnknown {
         lpstrCaption := lpstrCaption is String ? StrPtr(lpstrCaption) : lpstrCaption
         lpstrHelpFile := lpstrHelpFile is String ? StrPtr(lpstrHelpFile) : lpstrHelpFile
 
-        result := ComCall(3, this, HWND, _hwnd, "ptr", lpstrText, "ptr", lpstrCaption, "uint", dwType, "ptr", lpstrHelpFile, "uint", dwHelpContext, LRESULT.Ptr, &plResult := 0, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", lpstrText, "ptr", lpstrCaption, UInt32, dwType, "ptr", lpstrHelpFile, UInt32, dwHelpContext, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -80,7 +80,7 @@ export default struct IDocHostShowUI extends IUnknown {
     ShowHelp(_hwnd, pszHelpFile, uCommand, dwData, ptMouse, pDispatchObjectHit) {
         pszHelpFile := pszHelpFile is String ? StrPtr(pszHelpFile) : pszHelpFile
 
-        result := ComCall(4, this, HWND, _hwnd, "ptr", pszHelpFile, "uint", uCommand, "uint", dwData, POINT, ptMouse, "ptr", pDispatchObjectHit, "HRESULT")
+        result := ComCall(4, this, HWND, _hwnd, "ptr", pszHelpFile, UInt32, uCommand, UInt32, dwData, POINT, ptMouse, "ptr", pDispatchObjectHit, "HRESULT")
         return result
     }
 

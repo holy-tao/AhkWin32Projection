@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CERTTRANSBLOB.ahk" { CERTTRANSBLOB }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CERTTRANSBLOB.ahk" { CERTTRANSBLOB }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -59,7 +59,7 @@ export default struct ICertRequestD extends IUnknown {
         pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : "ptr"
         pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pwszAuthority, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, CERTTRANSBLOB.Ptr, pctbRequest, CERTTRANSBLOB.Ptr, pctbCertChain, CERTTRANSBLOB.Ptr, pctbEncodedCert, CERTTRANSBLOB.Ptr, pctbDispositionMessage, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "ptr", pwszAuthority, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, CERTTRANSBLOB.Ptr, pctbRequest, CERTTRANSBLOB.Ptr, pctbCertChain, CERTTRANSBLOB.Ptr, pctbEncodedCert, CERTTRANSBLOB.Ptr, pctbDispositionMessage, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct ICertRequestD extends IUnknown {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
         pctbOut := CERTTRANSBLOB()
-        result := ComCall(4, this, "uint", fchain, "ptr", pwszAuthority, CERTTRANSBLOB.Ptr, pctbOut, "HRESULT")
+        result := ComCall(4, this, UInt32, fchain, "ptr", pwszAuthority, CERTTRANSBLOB.Ptr, pctbOut, "HRESULT")
         return pctbOut
     }
 

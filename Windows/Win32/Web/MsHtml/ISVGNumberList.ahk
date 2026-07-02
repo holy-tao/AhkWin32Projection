@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISVGNumber.ahk" { ISVGNumber }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISVGNumber.ahk" { ISVGNumber }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -64,7 +64,7 @@ export default struct ISVGNumberList extends IDispatch {
      * @returns {HRESULT} 
      */
     put_numberOfItems(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -102,7 +102,7 @@ export default struct ISVGNumberList extends IDispatch {
      * @returns {ISVGNumber} 
      */
     getItem(index) {
-        result := ComCall(11, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(11, this, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGNumber(ppResult)
     }
 
@@ -113,7 +113,7 @@ export default struct ISVGNumberList extends IDispatch {
      * @returns {ISVGNumber} 
      */
     insertItemBefore(newItem, index) {
-        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", newItem, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGNumber(ppResult)
     }
 
@@ -124,7 +124,7 @@ export default struct ISVGNumberList extends IDispatch {
      * @returns {ISVGNumber} 
      */
     replaceItem(newItem, index) {
-        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", newItem, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGNumber(ppResult)
     }
 
@@ -134,7 +134,7 @@ export default struct ISVGNumberList extends IDispatch {
      * @returns {ISVGNumber} 
      */
     removeItem(index) {
-        result := ComCall(14, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(14, this, Int32, index, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGNumber(ppResult)
     }
 

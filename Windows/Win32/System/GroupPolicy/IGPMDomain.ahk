@@ -2,18 +2,18 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGPMGPO.ahk" { IGPMGPO }
-#Import ".\IGPMGPOCollection.ahk" { IGPMGPOCollection }
-#Import ".\IGPMSOM.ahk" { IGPMSOM }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IGPMBackup.ahk" { IGPMBackup }
-#Import ".\IGPMSOMCollection.ahk" { IGPMSOMCollection }
 #Import ".\IGPMWMIFilter.ahk" { IGPMWMIFilter }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
+#Import ".\IGPMBackup.ahk" { IGPMBackup }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IGPMWMIFilterCollection.ahk" { IGPMWMIFilterCollection }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\IGPMResult.ahk" { IGPMResult }
+#Import ".\IGPMGPOCollection.ahk" { IGPMGPOCollection }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMSOMCollection.ahk" { IGPMSOMCollection }
+#Import ".\IGPMGPO.ahk" { IGPMGPO }
+#Import ".\IGPMSOM.ahk" { IGPMSOM }
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.
@@ -160,7 +160,7 @@ export default struct IGPMDomain extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-restoregpo
      */
     RestoreGPO(pIGPMBackup, lDCFlags, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(12, this, "ptr", pIGPMBackup, "int", lDCFlags, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pIGPMBackup, Int32, lDCFlags, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 

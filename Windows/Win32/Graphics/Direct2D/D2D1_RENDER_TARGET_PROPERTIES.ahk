@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
 #Import ".\D2D1_FEATURE_LEVEL.ahk" { D2D1_FEATURE_LEVEL }
 #Import ".\D2D1_RENDER_TARGET_TYPE.ahk" { D2D1_RENDER_TARGET_TYPE }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\D2D1_RENDER_TARGET_USAGE.ahk" { D2D1_RENDER_TARGET_USAGE }
+#Import "Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
 #Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
 
 /**

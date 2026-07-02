@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISpatialAudioObjectRenderStreamBase.ahk" { ISpatialAudioObjectRenderStreamBase }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISpatialAudioObjectForMetadataItems.ahk" { ISpatialAudioObjectForMetadataItems }
-#Import ".\ISpatialAudioObjectForMetadataCommands.ahk" { ISpatialAudioObjectForMetadataCommands }
 #Import ".\AudioObjectType.ahk" { AudioObjectType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpatialAudioObjectForMetadataCommands.ahk" { ISpatialAudioObjectForMetadataCommands }
 
 /**
  * Provides methods for controlling a spatial audio object render stream for metadata, including starting, stopping, and resetting the stream.

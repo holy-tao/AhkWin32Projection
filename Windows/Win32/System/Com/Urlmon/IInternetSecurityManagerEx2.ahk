@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IInternetSecurityManagerEx.ahk" { IInternetSecurityManagerEx }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUri.ahk" { IUri }
 
@@ -54,7 +54,7 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
         ppwszMappedUrlMarshal := ppwszMappedUrl is VarRef ? "ptr*" : "ptr"
         pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pUri, pdwZoneMarshal, pdwZone, "uint", dwFlags, ppwszMappedUrlMarshal, ppwszMappedUrl, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
+        result := ComCall(12, this, "ptr", pUri, pdwZoneMarshal, pdwZone, UInt32, dwFlags, ppwszMappedUrlMarshal, ppwszMappedUrl, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
     }
 
@@ -76,7 +76,7 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
         pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pUri, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "ptr", dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
+        result := ComCall(13, this, "ptr", pUri, UInt32, dwAction, pPolicyMarshal, pPolicy, UInt32, cbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwFlags, IntPtr, dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
     GetSecurityIdEx2(pUri, pcbSecurityId, dwReserved) {
         pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pUri, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        result := ComCall(14, this, "ptr", pUri, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, IntPtr, dwReserved, "HRESULT")
         return pbSecurityId
     }
 
@@ -110,7 +110,7 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pUri, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "ptr", dwReserved, "HRESULT")
+        result := ComCall(15, this, "ptr", pUri, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, UInt32, cbContext, IntPtr, dwReserved, "HRESULT")
         return result
     }
 

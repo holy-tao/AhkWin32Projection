@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IGraphBuilder.ahk" { IGraphBuilder }
 #Import ".\AM_DVD_RENDERSTATUS.ahk" { AM_DVD_RENDERSTATUS }
 
 /**
@@ -117,7 +117,7 @@ export default struct IDvdGraphBuilder extends IUnknown {
         lpcwszPathName := lpcwszPathName is String ? StrPtr(lpcwszPathName) : lpcwszPathName
 
         pStatus := AM_DVD_RENDERSTATUS()
-        result := ComCall(5, this, "ptr", lpcwszPathName, "uint", dwFlags, AM_DVD_RENDERSTATUS.Ptr, pStatus, "HRESULT")
+        result := ComCall(5, this, "ptr", lpcwszPathName, UInt32, dwFlags, AM_DVD_RENDERSTATUS.Ptr, pStatus, "HRESULT")
         return pStatus
     }
 

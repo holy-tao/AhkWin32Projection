@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\StructuredStorage\STATPROPSETSTG.ahk" { STATPROPSETSTG }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import "..\..\System\Com\StructuredStorage\IEnumSTATPROPSTG.ahk" { IEnumSTATPROPSTG }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaPropertyStorage interface is used to access information about the IWiaItem object's properties. Applications must query an item to obtain its IWiaPropertyStorage interface.
@@ -179,7 +179,7 @@ export default struct IWiaPropertyStorage extends IUnknown {
      */
     ReadMultiple(cpspec, rgpspec) {
         rgpropvar := PROPVARIANT()
-        result := ComCall(3, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
+        result := ComCall(3, this, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
         return rgpropvar
     }
 
@@ -192,7 +192,7 @@ export default struct IWiaPropertyStorage extends IUnknown {
      * @returns {HRESULT} 
      */
     WriteMultiple(cpspec, rgpspec, rgpropvar, propidNameFirst) {
-        result := ComCall(4, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, "uint", propidNameFirst, "HRESULT")
+        result := ComCall(4, this, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgpropvar, UInt32, propidNameFirst, "HRESULT")
         return result
     }
 
@@ -203,7 +203,7 @@ export default struct IWiaPropertyStorage extends IUnknown {
      * @returns {HRESULT} 
      */
     DeleteMultiple(cpspec, rgpspec) {
-        result := ComCall(5, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, "HRESULT")
+        result := ComCall(5, this, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, "HRESULT")
         return result
     }
 
@@ -216,7 +216,7 @@ export default struct IWiaPropertyStorage extends IUnknown {
     ReadPropertyNames(cpropid, rgpropid) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", cpropid, rgpropidMarshal, rgpropid, PWSTR.Ptr, &rglpwstrName := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, cpropid, rgpropidMarshal, rgpropid, PWSTR.Ptr, &rglpwstrName := 0, "HRESULT")
         return rglpwstrName
     }
 
@@ -231,7 +231,7 @@ export default struct IWiaPropertyStorage extends IUnknown {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
         rglpwstrNameMarshal := rglpwstrName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", cpropid, rgpropidMarshal, rgpropid, rglpwstrNameMarshal, rglpwstrName, "HRESULT")
+        result := ComCall(7, this, UInt32, cpropid, rgpropidMarshal, rgpropid, rglpwstrNameMarshal, rglpwstrName, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct IWiaPropertyStorage extends IUnknown {
     DeletePropertyNames(cpropid, rgpropid) {
         rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", cpropid, rgpropidMarshal, rgpropid, "HRESULT")
+        result := ComCall(8, this, UInt32, cpropid, rgpropidMarshal, rgpropid, "HRESULT")
         return result
     }
 
@@ -254,7 +254,7 @@ export default struct IWiaPropertyStorage extends IUnknown {
      * @returns {HRESULT} 
      */
     Commit(grfCommitFlags) {
-        result := ComCall(9, this, "uint", grfCommitFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, grfCommitFlags, "HRESULT")
         return result
     }
 
@@ -458,7 +458,7 @@ export default struct IWiaPropertyStorage extends IUnknown {
     GetPropertyAttributes(cpspec, rgpspec, rgflags, rgpropvar) {
         rgflagsMarshal := rgflags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", cpspec, PROPSPEC.Ptr, rgpspec, rgflagsMarshal, rgflags, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
+        result := ComCall(15, this, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, rgflagsMarshal, rgflags, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
         return result
     }
 

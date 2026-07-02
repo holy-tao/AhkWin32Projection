@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\RPCOLEMESSAGE.ahk" { RPCOLEMESSAGE }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IRpcChannelBuffer (objidlbase.h) interface marshals data between a COM client proxy and a COM server stub.

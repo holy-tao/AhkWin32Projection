@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\EnrollmentCAProperty.ahk" { EnrollmentCAProperty }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ICertificationAuthority interface represents a single certification authority. A collection of certification authorities is represented by the ICertificationAuthorities interface.

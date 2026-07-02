@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IHTMLStyleSheetsCollection.ahk" { IHTMLStyleSheetsCollection }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\IHTMLStyleSheetRulesCollection.ahk" { IHTMLStyleSheetRulesCollection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -283,7 +283,7 @@ export default struct IHTMLStyleSheet extends IDispatch {
     addImport(bstrURL, lIndex) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(19, this, BSTR, bstrURL, "int", lIndex, "int*", &plIndex := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrURL, Int32, lIndex, "int*", &plIndex := 0, "HRESULT")
         return plIndex
     }
 
@@ -298,7 +298,7 @@ export default struct IHTMLStyleSheet extends IDispatch {
         bstrSelector := bstrSelector is String ? BSTR.Alloc(bstrSelector).Value : bstrSelector
         bstrStyle := bstrStyle is String ? BSTR.Alloc(bstrStyle).Value : bstrStyle
 
-        result := ComCall(20, this, BSTR, bstrSelector, BSTR, bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrSelector, BSTR, bstrStyle, Int32, lIndex, "int*", &plNewIndex := 0, "HRESULT")
         return plNewIndex
     }
 
@@ -308,7 +308,7 @@ export default struct IHTMLStyleSheet extends IDispatch {
      * @returns {HRESULT} 
      */
     removeImport(lIndex) {
-        result := ComCall(21, this, "int", lIndex, "HRESULT")
+        result := ComCall(21, this, Int32, lIndex, "HRESULT")
         return result
     }
 
@@ -318,7 +318,7 @@ export default struct IHTMLStyleSheet extends IDispatch {
      * @returns {HRESULT} 
      */
     removeRule(lIndex) {
-        result := ComCall(22, this, "int", lIndex, "HRESULT")
+        result := ComCall(22, this, Int32, lIndex, "HRESULT")
         return result
     }
 

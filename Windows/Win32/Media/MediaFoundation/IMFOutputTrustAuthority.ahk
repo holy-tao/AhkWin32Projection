@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFOutputPolicy.ahk" { IMFOutputPolicy }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MFPOLICYMANAGER_ACTION.ahk" { MFPOLICYMANAGER_ACTION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IMFOutputPolicy.ahk" { IMFOutputPolicy }
 
 /**
  * Encapsulates the functionality of one or more output protection systems that a trusted output supports.
@@ -111,7 +111,7 @@ export default struct IMFOutputTrustAuthority extends IUnknown {
         ppbTicketMarshal := ppbTicket is VarRef ? "ptr*" : "ptr"
         pcbTicketMarshal := pcbTicket is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, IMFOutputPolicy.Ptr, ppPolicy, "uint", nPolicy, ppbTicketMarshal, ppbTicket, pcbTicketMarshal, pcbTicket, "HRESULT")
+        result := ComCall(4, this, IMFOutputPolicy.Ptr, ppPolicy, UInt32, nPolicy, ppbTicketMarshal, ppbTicket, pcbTicketMarshal, pcbTicket, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\OLECMDTEXT.ahk" { OLECMDTEXT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OLECMD.ahk" { OLECMD }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OLECMD.ahk" { OLECMD }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OLECMDTEXT.ahk" { OLECMDTEXT }
 
 /**
  * Enables objects and their containers to dispatch commands to each other. For example, an object's toolbars may contain buttons for commands such as Print, Print Preview, Save, New, and Zoom.
@@ -104,7 +104,7 @@ export default struct IOleCommandTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iolecommandtarget-querystatus
      */
     QueryStatus(pguidCmdGroup, cCmds, prgCmds, pCmdText) {
-        result := ComCall(3, this, Guid.Ptr, pguidCmdGroup, "uint", cCmds, OLECMD.Ptr, prgCmds, OLECMDTEXT.Ptr, pCmdText, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidCmdGroup, UInt32, cCmds, OLECMD.Ptr, prgCmds, OLECMDTEXT.Ptr, pCmdText, "HRESULT")
         return result
     }
 
@@ -195,7 +195,7 @@ export default struct IOleCommandTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iolecommandtarget-exec
      */
     Exec(pguidCmdGroup, nCmdID, nCmdexecopt, pvaIn, pvaOut) {
-        result := ComCall(4, this, Guid.Ptr, pguidCmdGroup, "uint", nCmdID, "uint", nCmdexecopt, VARIANT.Ptr, pvaIn, VARIANT.Ptr, pvaOut, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pguidCmdGroup, UInt32, nCmdID, UInt32, nCmdexecopt, VARIANT.Ptr, pvaIn, VARIANT.Ptr, pvaOut, "HRESULT")
         return result
     }
 

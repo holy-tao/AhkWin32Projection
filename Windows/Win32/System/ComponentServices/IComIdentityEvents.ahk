@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber about an activity that is part of an Internet Information Services (IIS) Active Server Pages (ASP) page. For example, if a COM+ object is invoked in an ASP page, the user would be notified of this activity.
@@ -54,7 +54,7 @@ export default struct IComIdentityEvents extends IUnknown {
         pszServerIP := pszServerIP is String ? StrPtr(pszServerIP) : pszServerIP
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", ObjId, "ptr", pszClientIP, "ptr", pszServerIP, "ptr", pszURL, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, ObjId, "ptr", pszClientIP, "ptr", pszServerIP, "ptr", pszURL, "HRESULT")
         return result
     }
 

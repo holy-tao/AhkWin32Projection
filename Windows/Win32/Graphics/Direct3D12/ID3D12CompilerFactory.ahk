@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D12CompilerCacheSession.ahk" { ID3D12CompilerCacheSession }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_ADAPTER_FAMILY.ahk" { D3D12_ADAPTER_FAMILY }
-#Import ".\D3D12_COMPILER_DATABASE_PATH.ahk" { D3D12_COMPILER_DATABASE_PATH }
 #Import ".\D3D12_VERSION_NUMBER.ahk" { D3D12_VERSION_NUMBER }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3D12_COMPILER_DATABASE_PATH.ahk" { D3D12_COMPILER_DATABASE_PATH }
 #Import ".\D3D12_APPLICATION_DESC.ahk" { D3D12_APPLICATION_DESC }
 #Import ".\D3D12_COMPILER_TARGET.ahk" { D3D12_COMPILER_TARGET }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D12CompilerCacheSession.ahk" { ID3D12CompilerCacheSession }
+#Import ".\D3D12_ADAPTER_FAMILY.ahk" { D3D12_ADAPTER_FAMILY }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -53,7 +53,7 @@ export default struct ID3D12CompilerFactory extends IUnknown {
      */
     EnumerateAdapterFamilies(AdapterFamilyIndex) {
         pAdapterFamily := D3D12_ADAPTER_FAMILY()
-        result := ComCall(3, this, "uint", AdapterFamilyIndex, D3D12_ADAPTER_FAMILY.Ptr, pAdapterFamily, "HRESULT")
+        result := ComCall(3, this, UInt32, AdapterFamilyIndex, D3D12_ADAPTER_FAMILY.Ptr, pAdapterFamily, "HRESULT")
         return pAdapterFamily
     }
 
@@ -66,7 +66,7 @@ export default struct ID3D12CompilerFactory extends IUnknown {
     EnumerateAdapterFamilyABIVersions(AdapterFamilyIndex, pNumABIVersions) {
         pNumABIVersionsMarshal := pNumABIVersions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", AdapterFamilyIndex, pNumABIVersionsMarshal, pNumABIVersions, "uint*", &pABIVersions := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, AdapterFamilyIndex, pNumABIVersionsMarshal, pNumABIVersions, "uint*", &pABIVersions := 0, "HRESULT")
         return pABIVersions
     }
 
@@ -77,7 +77,7 @@ export default struct ID3D12CompilerFactory extends IUnknown {
      */
     EnumerateAdapterFamilyCompilerVersion(AdapterFamilyIndex) {
         pCompilerVersion := D3D12_VERSION_NUMBER()
-        result := ComCall(5, this, "uint", AdapterFamilyIndex, D3D12_VERSION_NUMBER.Ptr, pCompilerVersion, "HRESULT")
+        result := ComCall(5, this, UInt32, AdapterFamilyIndex, D3D12_VERSION_NUMBER.Ptr, pCompilerVersion, "HRESULT")
         return pCompilerVersion
     }
 
@@ -103,7 +103,7 @@ export default struct ID3D12CompilerFactory extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     CreateCompilerCacheSession(pPaths, NumPaths, pTarget, pApplicationDesc, riid) {
-        result := ComCall(7, this, D3D12_COMPILER_DATABASE_PATH.Ptr, pPaths, "uint", NumPaths, D3D12_COMPILER_TARGET.Ptr, pTarget, D3D12_APPLICATION_DESC.Ptr, pApplicationDesc, Guid.Ptr, riid, "ptr*", &ppCompilerCacheSession := 0, "HRESULT")
+        result := ComCall(7, this, D3D12_COMPILER_DATABASE_PATH.Ptr, pPaths, UInt32, NumPaths, D3D12_COMPILER_TARGET.Ptr, pTarget, D3D12_APPLICATION_DESC.Ptr, pApplicationDesc, Guid.Ptr, riid, "ptr*", &ppCompilerCacheSession := 0, "HRESULT")
         return ppCompilerCacheSession
     }
 

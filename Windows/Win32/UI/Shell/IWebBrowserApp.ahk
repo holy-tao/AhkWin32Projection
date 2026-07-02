@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\SHANDLE_PTR.ahk" { SHANDLE_PTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWebBrowser.ahk" { IWebBrowser }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\SHANDLE_PTR.ahk" { SHANDLE_PTR }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -315,7 +315,7 @@ export default struct IWebBrowserApp extends IWebBrowser {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-put_toolbar
      */
     put_ToolBar(Value) {
-        result := ComCall(47, this, "int", Value, "HRESULT")
+        result := ComCall(47, this, Int32, Value, "HRESULT")
         return result
     }
 

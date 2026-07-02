@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMILBitmapEffect.ahk" { IMILBitmapEffect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMILBitmapEffect.ahk" { IMILBitmapEffect }
 #Import ".\IMILBitmapEffectGroup.ahk" { IMILBitmapEffectGroup }
 
 /**
@@ -91,7 +91,7 @@ export default struct IMILBitmapEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-item
      */
     Item(uindex) {
-        result := ComCall(5, this, "uint", uindex, "ptr*", &ppEffect := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, uindex, "ptr*", &ppEffect := 0, "HRESULT")
         return IMILBitmapEffect(ppEffect)
     }
 

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\FILEOPENDIALOGOPTIONS.ahk" { FILEOPENDIALOGOPTIONS }
-#Import "Common\COMDLG_FILTERSPEC.ahk" { COMDLG_FILTERSPEC }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IModalWindow.ahk" { IModalWindow }
 #Import ".\IShellItem.ahk" { IShellItem }
-#Import ".\IFileDialogEvents.ahk" { IFileDialogEvents }
-#Import ".\IShellItemFilter.ahk" { IShellItemFilter }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\FDAP.ahk" { FDAP }
+#Import ".\IFileDialogEvents.ahk" { IFileDialogEvents }
+#Import "Common\COMDLG_FILTERSPEC.ahk" { COMDLG_FILTERSPEC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FILEOPENDIALOGOPTIONS.ahk" { FILEOPENDIALOGOPTIONS }
+#Import ".\IShellItemFilter.ahk" { IShellItemFilter }
+#Import ".\IModalWindow.ahk" { IModalWindow }
 
 /**
  * Exposes methods that initialize, show, and get results from the common file dialog.
@@ -129,7 +129,7 @@ export default struct IFileDialog extends IModalWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-setfiletypes
      */
     SetFileTypes(cFileTypes, rgFilterSpec) {
-        result := ComCall(4, this, "uint", cFileTypes, COMDLG_FILTERSPEC.Ptr, rgFilterSpec, "HRESULT")
+        result := ComCall(4, this, UInt32, cFileTypes, COMDLG_FILTERSPEC.Ptr, rgFilterSpec, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IFileDialog extends IModalWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-setfiletypeindex
      */
     SetFileTypeIndex(iFileType) {
-        result := ComCall(5, this, "uint", iFileType, "HRESULT")
+        result := ComCall(5, this, UInt32, iFileType, "HRESULT")
         return result
     }
 
@@ -193,7 +193,7 @@ export default struct IFileDialog extends IModalWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-unadvise
      */
     Unadvise(dwCookie) {
-        result := ComCall(8, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(8, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 

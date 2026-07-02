@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IColumnsInfo.ahk" { IColumnsInfo }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DBCOLUMNINFO.ahk" { DBCOLUMNINFO }
 #Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import ".\IColumnsInfo.ahk" { IColumnsInfo }
+#Import ".\DBCOLUMNINFO.ahk" { DBCOLUMNINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -54,7 +54,7 @@ export default struct IColumnsInfo2 extends IColumnsInfo {
         prgColumnInfoMarshal := prgColumnInfo is VarRef ? "ptr*" : "ptr"
         ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", cColumnIDMasks, DBID.Ptr, rgColumnIDMasks, "uint", dwFlags, pcColumnsMarshal, pcColumns, prgColumnIDsMarshal, prgColumnIDs, prgColumnInfoMarshal, prgColumnInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
+        result := ComCall(5, this, IntPtr, cColumnIDMasks, DBID.Ptr, rgColumnIDMasks, UInt32, dwFlags, pcColumnsMarshal, pcColumns, prgColumnIDsMarshal, prgColumnIDs, prgColumnInfoMarshal, prgColumnInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 

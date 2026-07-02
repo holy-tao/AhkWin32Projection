@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumDialableAddrs interface provides COM-standard enumeration methods to discover and use the available dialable addresses in a directory. The ITDirectoryObject::EnumerateDialableAddrs method returns a pointer to this interface.
@@ -55,7 +55,7 @@ export default struct IEnumDialableAddrs extends IUnknown {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
         ppElements := BSTR.Owned()
-        result := ComCall(3, this, "uint", celt, BSTR.Ptr, ppElements, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, BSTR.Ptr, ppElements, pcFetchedMarshal, pcFetched, "HRESULT")
         return ppElements
     }
 
@@ -123,7 +123,7 @@ export default struct IEnumDialableAddrs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdialableaddrs-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, UInt32, celt, "HRESULT")
         return result
     }
 

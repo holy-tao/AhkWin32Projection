@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID3D12CompilerFactoryChild.ahk" { ID3D12CompilerFactoryChild }
-#Import ".\D3D12_COMPILER_CACHE_GROUP_KEY.ahk" { D3D12_COMPILER_CACHE_GROUP_KEY }
+#Import ".\ID3D12CompilerStateObject.ahk" { ID3D12CompilerStateObject }
 #Import ".\D3D12_PIPELINE_STATE_STREAM_DESC.ahk" { D3D12_PIPELINE_STATE_STREAM_DESC }
 #Import ".\D3D12_STATE_OBJECT_DESC.ahk" { D3D12_STATE_OBJECT_DESC }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12CompilerStateObject.ahk" { ID3D12CompilerStateObject }
+#Import ".\D3D12_COMPILER_CACHE_GROUP_KEY.ahk" { D3D12_COMPILER_CACHE_GROUP_KEY }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -50,7 +50,7 @@ export default struct ID3D12Compiler extends ID3D12CompilerFactoryChild {
      * @returns {HRESULT} 
      */
     CompilePipelineState(pGroupKey, GroupVersion, pDesc) {
-        result := ComCall(4, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, "uint", GroupVersion, D3D12_PIPELINE_STATE_STREAM_DESC.Ptr, pDesc, "HRESULT")
+        result := ComCall(4, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, UInt32, GroupVersion, D3D12_PIPELINE_STATE_STREAM_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -63,7 +63,7 @@ export default struct ID3D12Compiler extends ID3D12CompilerFactoryChild {
      * @returns {Pointer<Void>} 
      */
     CompileStateObject(pGroupKey, GroupVersion, pDesc, riid) {
-        result := ComCall(5, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, "uint", GroupVersion, D3D12_STATE_OBJECT_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppCompilerStateObject := 0, "HRESULT")
+        result := ComCall(5, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, UInt32, GroupVersion, D3D12_STATE_OBJECT_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppCompilerStateObject := 0, "HRESULT")
         return ppCompilerStateObject
     }
 
@@ -77,7 +77,7 @@ export default struct ID3D12Compiler extends ID3D12CompilerFactoryChild {
      * @returns {Pointer<Void>} 
      */
     CompileAddToStateObject(pGroupKey, GroupVersion, pAddition, pCompilerStateObjectToGrowFrom, riid) {
-        result := ComCall(6, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, "uint", GroupVersion, D3D12_STATE_OBJECT_DESC.Ptr, pAddition, "ptr", pCompilerStateObjectToGrowFrom, Guid.Ptr, riid, "ptr*", &ppNewCompilerStateObject := 0, "HRESULT")
+        result := ComCall(6, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, UInt32, GroupVersion, D3D12_STATE_OBJECT_DESC.Ptr, pAddition, "ptr", pCompilerStateObjectToGrowFrom, Guid.Ptr, riid, "ptr*", &ppNewCompilerStateObject := 0, "HRESULT")
         return ppNewCompilerStateObject
     }
 

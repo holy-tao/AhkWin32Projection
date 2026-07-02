@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\USB_DEVICE_STATE.ahk" { USB_DEVICE_STATE }
 #Import ".\USB_CONNECTION_STATUS.ahk" { USB_CONNECTION_STATUS }
+#Import ".\USB_DEVICE_STATE.ahk" { USB_DEVICE_STATE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb

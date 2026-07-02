@@ -72,7 +72,7 @@ export default struct ISensLogon2 extends IDispatch {
     Logon(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(7, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrUserName, UInt32, dwSessionId, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct ISensLogon2 extends IDispatch {
     Logoff(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(8, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrUserName, UInt32, dwSessionId, "HRESULT")
         return result
     }
 
@@ -140,7 +140,7 @@ export default struct ISensLogon2 extends IDispatch {
     SessionDisconnect(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(9, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrUserName, UInt32, dwSessionId, "HRESULT")
         return result
     }
 
@@ -174,7 +174,7 @@ export default struct ISensLogon2 extends IDispatch {
     SessionReconnect(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(10, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrUserName, UInt32, dwSessionId, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct ISensLogon2 extends IDispatch {
     PostShell(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(11, this, BSTR, bstrUserName, "uint", dwSessionId, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrUserName, UInt32, dwSessionId, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DEVPRIVATE_RANGE.ahk" { DEVPRIVATE_RANGE }
 #Import ".\DEVPRIVATE_DES.ahk" { DEVPRIVATE_DES }
+#Import ".\DEVPRIVATE_RANGE.ahk" { DEVPRIVATE_RANGE }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation

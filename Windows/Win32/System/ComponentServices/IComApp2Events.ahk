@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Notifies the subscriber if a COM+ server application is loaded, shut down, or paused.
@@ -176,7 +176,7 @@ export default struct IComApp2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onapprecycle2
      */
     OnAppRecycle2(pInfo, guidApp, guidProcess, lReason) {
-        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidApp, Guid, guidProcess, "int", lReason, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidApp, Guid, guidProcess, Int32, lReason, "HRESULT")
         return result
     }
 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDirectSound.ahk" { IDirectSound }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
 #Import ".\DSBCAPS.ahk" { DSBCAPS }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectSound.ahk" { IDirectSound }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
@@ -87,7 +87,7 @@ export default struct IDirectSoundBuffer extends IUnknown {
      * @returns {Integer} 
      */
     GetFormat(pwfxFormat, dwSizeAllocated) {
-        result := ComCall(5, this, "ptr", pwfxFormat, "uint", dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
+        result := ComCall(5, this, IntPtr, pwfxFormat, UInt32, dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
         return pdwSizeWritten
     }
 
@@ -194,7 +194,7 @@ export default struct IDirectSoundBuffer extends IUnknown {
         ppvAudioPtr2Marshal := ppvAudioPtr2 is VarRef ? "ptr*" : "ptr"
         pdwAudioBytes2Marshal := pdwAudioBytes2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", dwOffset, "uint", dwBytes, ppvAudioPtr1Marshal, ppvAudioPtr1, pdwAudioBytes1Marshal, pdwAudioBytes1, ppvAudioPtr2Marshal, ppvAudioPtr2, pdwAudioBytes2Marshal, pdwAudioBytes2, "uint", dwFlags, "HRESULT")
+        result := ComCall(11, this, UInt32, dwOffset, UInt32, dwBytes, ppvAudioPtr1Marshal, ppvAudioPtr1, pdwAudioBytes1Marshal, pdwAudioBytes1, ppvAudioPtr2Marshal, ppvAudioPtr2, pdwAudioBytes2Marshal, pdwAudioBytes2, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -209,7 +209,7 @@ export default struct IDirectSoundBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/play-method
      */
     Play(dwReserved1, dwPriority, dwFlags) {
-        result := ComCall(12, this, "uint", dwReserved1, "uint", dwPriority, "uint", dwFlags, "HRESULT")
+        result := ComCall(12, this, UInt32, dwReserved1, UInt32, dwPriority, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -219,7 +219,7 @@ export default struct IDirectSoundBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCurrentPosition(dwNewPosition) {
-        result := ComCall(13, this, "uint", dwNewPosition, "HRESULT")
+        result := ComCall(13, this, UInt32, dwNewPosition, "HRESULT")
         return result
     }
 
@@ -239,7 +239,7 @@ export default struct IDirectSoundBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetVolume(lVolume) {
-        result := ComCall(15, this, "int", lVolume, "HRESULT")
+        result := ComCall(15, this, Int32, lVolume, "HRESULT")
         return result
     }
 
@@ -249,7 +249,7 @@ export default struct IDirectSoundBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPan(lPan) {
-        result := ComCall(16, this, "int", lPan, "HRESULT")
+        result := ComCall(16, this, Int32, lPan, "HRESULT")
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct IDirectSoundBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFrequency(dwFrequency) {
-        result := ComCall(17, this, "uint", dwFrequency, "HRESULT")
+        result := ComCall(17, this, UInt32, dwFrequency, "HRESULT")
         return result
     }
 
@@ -281,7 +281,7 @@ export default struct IDirectSoundBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     Unlock(pvAudioPtr1, dwAudioBytes1, pvAudioPtr2, dwAudioBytes2) {
-        result := ComCall(19, this, "ptr", pvAudioPtr1, "uint", dwAudioBytes1, "ptr", pvAudioPtr2, "uint", dwAudioBytes2, "HRESULT")
+        result := ComCall(19, this, IntPtr, pvAudioPtr1, UInt32, dwAudioBytes1, IntPtr, pvAudioPtr2, UInt32, dwAudioBytes2, "HRESULT")
         return result
     }
 

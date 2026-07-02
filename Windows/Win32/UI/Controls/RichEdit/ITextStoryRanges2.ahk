@@ -51,7 +51,7 @@ export default struct ITextStoryRanges2 extends ITextStoryRanges {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges2-item2
      */
     Item2(Index) {
-        result := ComCall(10, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(10, this, Int32, Index, "ptr*", &ppRange := 0, "HRESULT")
         return ITextRange2(ppRange)
     }
 

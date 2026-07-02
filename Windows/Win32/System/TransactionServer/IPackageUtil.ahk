@@ -55,7 +55,7 @@ export default struct IPackageUtil extends IDispatch {
         bstrPackageFile := bstrPackageFile is String ? BSTR.Alloc(bstrPackageFile).Value : bstrPackageFile
         bstrInstallPath := bstrInstallPath is String ? BSTR.Alloc(bstrInstallPath).Value : bstrInstallPath
 
-        result := ComCall(7, this, BSTR, bstrPackageFile, BSTR, bstrInstallPath, "int", lOptions, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrPackageFile, BSTR, bstrInstallPath, Int32, lOptions, "HRESULT")
         return result
     }
 
@@ -70,7 +70,7 @@ export default struct IPackageUtil extends IDispatch {
         bstrPackageID := bstrPackageID is String ? BSTR.Alloc(bstrPackageID).Value : bstrPackageID
         bstrPackageFile := bstrPackageFile is String ? BSTR.Alloc(bstrPackageFile).Value : bstrPackageFile
 
-        result := ComCall(8, this, BSTR, bstrPackageID, BSTR, bstrPackageFile, "int", lOptions, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrPackageID, BSTR, bstrPackageFile, Int32, lOptions, "HRESULT")
         return result
     }
 

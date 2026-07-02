@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IEnumDebugExtendedPropertyInfo.ahk" { IEnumDebugExtendedPropertyInfo }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ExtendedDebugPropertyInfo.ahk" { ExtendedDebugPropertyInfo }
+#Import ".\IEnumDebugExtendedPropertyInfo.ahk" { IEnumDebugExtendedPropertyInfo }
 #Import ".\IDebugProperty.ahk" { IDebugProperty }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -46,7 +46,7 @@ export default struct IDebugExtendedProperty extends IDebugProperty {
      */
     GetExtendedPropertyInfo(dwFieldSpec, nRadix) {
         pExtendedPropertyInfo := ExtendedDebugPropertyInfo()
-        result := ComCall(8, this, "uint", dwFieldSpec, "uint", nRadix, ExtendedDebugPropertyInfo.Ptr, pExtendedPropertyInfo, "HRESULT")
+        result := ComCall(8, this, UInt32, dwFieldSpec, UInt32, nRadix, ExtendedDebugPropertyInfo.Ptr, pExtendedPropertyInfo, "HRESULT")
         return pExtendedPropertyInfo
     }
 
@@ -57,7 +57,7 @@ export default struct IDebugExtendedProperty extends IDebugProperty {
      * @returns {IEnumDebugExtendedPropertyInfo} 
      */
     EnumExtendedMembers(dwFieldSpec, nRadix) {
-        result := ComCall(9, this, "uint", dwFieldSpec, "uint", nRadix, "ptr*", &ppeepi := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwFieldSpec, UInt32, nRadix, "ptr*", &ppeepi := 0, "HRESULT")
         return IEnumDebugExtendedPropertyInfo(ppeepi)
     }
 

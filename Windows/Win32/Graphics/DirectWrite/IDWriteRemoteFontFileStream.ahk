@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteAsyncResult.ahk" { IDWriteAsyncResult }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
 #Import ".\IDWriteFontFileStream.ahk" { IDWriteFontFileStream }
 #Import ".\DWRITE_FILE_FRAGMENT.ahk" { DWRITE_FILE_FRAGMENT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteAsyncResult.ahk" { IDWriteAsyncResult }
 
 /**
  * Represents a font file stream, parts of which may be non-local.
@@ -77,7 +77,7 @@ export default struct IDWriteRemoteFontFileStream extends IDWriteFontFileStream 
     GetFileFragmentLocality(fileOffset, fragmentSize, partialSize) {
         partialSizeMarshal := partialSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", fileOffset, "uint", fragmentSize, BOOL.Ptr, &isLocal := 0, partialSizeMarshal, partialSize, "HRESULT")
+        result := ComCall(8, this, Int64, fileOffset, Int64, fragmentSize, BOOL.Ptr, &isLocal := 0, partialSizeMarshal, partialSize, "HRESULT")
         return isLocal
     }
 
@@ -110,7 +110,7 @@ export default struct IDWriteRemoteFontFileStream extends IDWriteFontFileStream 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload
      */
     BeginDownload(downloadOperationID, fileFragments, fragmentCount) {
-        result := ComCall(10, this, Guid.Ptr, downloadOperationID, DWRITE_FILE_FRAGMENT.Ptr, fileFragments, "uint", fragmentCount, "ptr*", &asyncResult := 0, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, downloadOperationID, DWRITE_FILE_FRAGMENT.Ptr, fileFragments, UInt32, fragmentCount, "ptr*", &asyncResult := 0, "HRESULT")
         return IDWriteAsyncResult(asyncResult)
     }
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWSManConnectionOptionsEx.ahk" { IWSManConnectionOptionsEx }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWSManConnectionOptionsEx2 object is passed to the IWSMan::CreateSession method to provide the authentication mechanism, access type, and credentials to connect to a proxy server.
@@ -60,7 +60,7 @@ export default struct IWSManConnectionOptionsEx2 extends IWSManConnectionOptions
         userName := userName is String ? BSTR.Alloc(userName).Value : userName
         password := password is String ? BSTR.Alloc(password).Value : password
 
-        result := ComCall(12, this, "int", accessType, "int", authenticationMechanism, BSTR, userName, BSTR, password, "HRESULT")
+        result := ComCall(12, this, Int32, accessType, Int32, authenticationMechanism, BSTR, userName, BSTR, password, "HRESULT")
         return result
     }
 

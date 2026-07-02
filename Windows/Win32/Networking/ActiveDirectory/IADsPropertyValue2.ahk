@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to represent the value of an IADsPropertyEntry object in any data format.
@@ -365,7 +365,7 @@ export default struct IADsPropertyValue2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertyvalue2-putobjectproperty
      */
     PutObjectProperty(lnADsType, vProp) {
-        result := ComCall(8, this, "int", lnADsType, VARIANT, vProp, "HRESULT")
+        result := ComCall(8, this, Int32, lnADsType, VARIANT, vProp, "HRESULT")
         return result
     }
 

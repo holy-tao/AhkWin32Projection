@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface exposes methods used to enumerate and manipulate property values.
@@ -69,7 +69,7 @@ export default struct IPropertyStore extends IUnknown {
      */
     GetAt(iProp) {
         pkey := PROPERTYKEY()
-        result := ComCall(4, this, "uint", iProp, PROPERTYKEY.Ptr, pkey, "HRESULT")
+        result := ComCall(4, this, UInt32, iProp, PROPERTYKEY.Ptr, pkey, "HRESULT")
         return pkey
     }
 

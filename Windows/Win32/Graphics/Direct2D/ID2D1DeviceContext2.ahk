@@ -1,29 +1,29 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\D2D1_IMAGE_SOURCE_LOADING_OPTIONS.ahk" { D2D1_IMAGE_SOURCE_LOADING_OPTIONS }
+#Import "Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID2D1ImageSource.ahk" { ID2D1ImageSource }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D2D1_INK_STYLE_PROPERTIES.ahk" { D2D1_INK_STYLE_PROPERTIES }
-#Import ".\D2D1_GRADIENT_MESH_PATCH.ahk" { D2D1_GRADIENT_MESH_PATCH }
-#Import ".\ID2D1ImageSourceFromWic.ahk" { ID2D1ImageSourceFromWic }
-#Import ".\D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS.ahk" { D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS }
-#Import ".\ID2D1TransformedImageSource.ahk" { ID2D1TransformedImageSource }
-#Import ".\D2D1_INK_POINT.ahk" { D2D1_INK_POINT }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
-#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
-#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
-#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
-#Import ".\D2D1_IMAGE_SOURCE_LOADING_OPTIONS.ahk" { D2D1_IMAGE_SOURCE_LOADING_OPTIONS }
-#Import ".\ID2D1LookupTable3D.ahk" { ID2D1LookupTable3D }
-#Import "Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
-#Import ".\ID2D1Ink.ahk" { ID2D1Ink }
 #Import ".\ID2D1InkStyle.ahk" { ID2D1InkStyle }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
+#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
+#Import ".\ID2D1TransformedImageSource.ahk" { ID2D1TransformedImageSource }
+#Import ".\ID2D1Ink.ahk" { ID2D1Ink }
+#Import ".\D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS.ahk" { D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS }
+#Import ".\D2D1_INK_POINT.ahk" { D2D1_INK_POINT }
 #Import ".\D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES.ahk" { D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES }
-#Import ".\ID2D1GradientMesh.ahk" { ID2D1GradientMesh }
-#Import ".\ID2D1DeviceContext1.ahk" { ID2D1DeviceContext1 }
+#Import ".\ID2D1ImageSourceFromWic.ahk" { ID2D1ImageSourceFromWic }
 #Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\ID2D1DeviceContext1.ahk" { ID2D1DeviceContext1 }
+#Import ".\D2D1_GRADIENT_MESH_PATCH.ahk" { D2D1_GRADIENT_MESH_PATCH }
+#Import ".\ID2D1LookupTable3D.ahk" { ID2D1LookupTable3D }
+#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\D2D1_INK_STYLE_PROPERTIES.ahk" { D2D1_INK_STYLE_PROPERTIES }
+#Import ".\ID2D1GradientMesh.ahk" { ID2D1GradientMesh }
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext1 interface, plus it enables functionality such as ink rendering, gradient mesh rendering, and improved image loading.
@@ -112,7 +112,7 @@ export default struct ID2D1DeviceContext2 extends ID2D1DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-creategradientmesh
      */
     CreateGradientMesh(patches, patchesCount) {
-        result := ComCall(97, this, D2D1_GRADIENT_MESH_PATCH.Ptr, patches, "uint", patchesCount, "ptr*", &gradientMesh := 0, "HRESULT")
+        result := ComCall(97, this, D2D1_GRADIENT_MESH_PATCH.Ptr, patches, UInt32, patchesCount, "ptr*", &gradientMesh := 0, "HRESULT")
         return ID2D1GradientMesh(gradientMesh)
     }
 
@@ -178,7 +178,7 @@ export default struct ID2D1DeviceContext2 extends ID2D1DeviceContext1 {
         dataMarshal := data is VarRef ? "char*" : "ptr"
         stridesMarshal := strides is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(99, this, D2D1_BUFFER_PRECISION, precision, extentsMarshal, extents, dataMarshal, data, "uint", dataCount, stridesMarshal, strides, "ptr*", &lookupTable := 0, "HRESULT")
+        result := ComCall(99, this, D2D1_BUFFER_PRECISION, precision, extentsMarshal, extents, dataMarshal, data, UInt32, dataCount, stridesMarshal, strides, "ptr*", &lookupTable := 0, "HRESULT")
         return ID2D1LookupTable3D(lookupTable)
     }
 
@@ -308,7 +308,7 @@ export default struct ID2D1DeviceContext2 extends ID2D1DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createimagesourcefromdxgi
      */
     CreateImageSourceFromDxgi(surfaces, surfaceCount, colorSpace, options) {
-        result := ComCall(100, this, IDXGISurface.Ptr, surfaces, "uint", surfaceCount, DXGI_COLOR_SPACE_TYPE, colorSpace, D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS, options, "ptr*", &imageSource := 0, "HRESULT")
+        result := ComCall(100, this, IDXGISurface.Ptr, surfaces, UInt32, surfaceCount, DXGI_COLOR_SPACE_TYPE, colorSpace, D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS, options, "ptr*", &imageSource := 0, "HRESULT")
         return ID2D1ImageSource(imageSource)
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -314,7 +314,7 @@ export default struct IWebBrowser extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Left(Left) {
-        result := ComCall(22, this, "int", Left, "HRESULT")
+        result := ComCall(22, this, Int32, Left, "HRESULT")
         return result
     }
 
@@ -333,7 +333,7 @@ export default struct IWebBrowser extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Top(Top) {
-        result := ComCall(24, this, "int", Top, "HRESULT")
+        result := ComCall(24, this, Int32, Top, "HRESULT")
         return result
     }
 
@@ -352,7 +352,7 @@ export default struct IWebBrowser extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Width(Width) {
-        result := ComCall(26, this, "int", Width, "HRESULT")
+        result := ComCall(26, this, Int32, Width, "HRESULT")
         return result
     }
 
@@ -371,7 +371,7 @@ export default struct IWebBrowser extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Height(Height) {
-        result := ComCall(28, this, "int", Height, "HRESULT")
+        result := ComCall(28, this, Int32, Height, "HRESULT")
         return result
     }
 

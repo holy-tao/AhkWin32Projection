@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -194,7 +194,7 @@ export default struct IHTMLTxtRange extends IDispatch {
     move(_Unit, Count) {
         _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(17, this, BSTR, _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, _Unit, Int32, Count, "int*", &ActualCount := 0, "HRESULT")
         return ActualCount
     }
 
@@ -207,7 +207,7 @@ export default struct IHTMLTxtRange extends IDispatch {
     moveStart(_Unit, Count) {
         _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(18, this, BSTR, _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        result := ComCall(18, this, BSTR, _Unit, Int32, Count, "int*", &ActualCount := 0, "HRESULT")
         return ActualCount
     }
 
@@ -220,7 +220,7 @@ export default struct IHTMLTxtRange extends IDispatch {
     moveEnd(_Unit, Count) {
         _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(19, this, BSTR, _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, _Unit, Int32, Count, "int*", &ActualCount := 0, "HRESULT")
         return ActualCount
     }
 
@@ -476,7 +476,7 @@ export default struct IHTMLTxtRange extends IDispatch {
     findText(_String, count, Flags) {
         _String := _String is String ? BSTR.Alloc(_String).Value : _String
 
-        result := ComCall(25, this, BSTR, _String, "int", count, "int", Flags, VARIANT_BOOL.Ptr, &Success := 0, "HRESULT")
+        result := ComCall(25, this, BSTR, _String, Int32, count, Int32, Flags, VARIANT_BOOL.Ptr, &Success := 0, "HRESULT")
         return Success
     }
 
@@ -487,7 +487,7 @@ export default struct IHTMLTxtRange extends IDispatch {
      * @returns {HRESULT} 
      */
     moveToPoint(x, y) {
-        result := ComCall(26, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(26, this, Int32, x, Int32, y, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber of an object's creation or release.
@@ -51,7 +51,7 @@ export default struct IComInstanceEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstanceevents-onobjectcreate
      */
     OnObjectCreate(pInfo, guidActivity, clsid, tsid, CtxtID, _ObjectID) {
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, clsid, Guid.Ptr, tsid, "uint", CtxtID, "uint", _ObjectID, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Guid.Ptr, clsid, Guid.Ptr, tsid, Int64, CtxtID, Int64, _ObjectID, "HRESULT")
         return result
     }
 
@@ -63,7 +63,7 @@ export default struct IComInstanceEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstanceevents-onobjectdestroy
      */
     OnObjectDestroy(pInfo, CtxtID) {
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", CtxtID, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Int64, CtxtID, "HRESULT")
         return result
     }
 

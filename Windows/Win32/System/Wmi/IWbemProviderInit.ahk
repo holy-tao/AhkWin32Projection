@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IWbemProviderInitSink.ahk" { IWbemProviderInitSink }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemServices.ahk" { IWbemServices }
-#Import ".\IWbemContext.ahk" { IWbemContext }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemProviderInit interface is called by Windows Management to initialize providers. All providers are required to implement IWbemProviderInit.
@@ -160,7 +160,7 @@ export default struct IWbemProviderInit extends IUnknown {
         wszNamespace := wszNamespace is String ? StrPtr(wszNamespace) : wszNamespace
         wszLocale := wszLocale is String ? StrPtr(wszLocale) : wszLocale
 
-        result := ComCall(3, this, "ptr", wszUser, "int", lFlags, "ptr", wszNamespace, "ptr", wszLocale, "ptr", pNamespace, "ptr", pCtx, "ptr", pInitSink, "HRESULT")
+        result := ComCall(3, this, "ptr", wszUser, Int32, lFlags, "ptr", wszNamespace, "ptr", wszLocale, "ptr", pNamespace, "ptr", pCtx, "ptr", pInitSink, "HRESULT")
         return result
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMVideoProcAmp interface adjusts the qualities of an incoming video signal, such as brightness, contrast, hue, saturation, gamma, and sharpness.The WDM Video Capture filter exposes this interface if the hardware supports image adjustment.
@@ -110,7 +110,7 @@ export default struct IAMVideoProcAmp extends IUnknown {
         pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
         pCapsFlagsMarshal := pCapsFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", _Property, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagsMarshal, pCapsFlags, "HRESULT")
+        result := ComCall(3, this, Int32, _Property, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagsMarshal, pCapsFlags, "HRESULT")
         return result
     }
 
@@ -126,7 +126,7 @@ export default struct IAMVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideoprocamp-set
      */
     Set(_Property, lValue, Flags) {
-        result := ComCall(4, this, "int", _Property, "int", lValue, "int", Flags, "HRESULT")
+        result := ComCall(4, this, Int32, _Property, Int32, lValue, Int32, Flags, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct IAMVideoProcAmp extends IUnknown {
         lValueMarshal := lValue is VarRef ? "int*" : "ptr"
         FlagsMarshal := Flags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "int", _Property, lValueMarshal, lValue, FlagsMarshal, Flags, "HRESULT")
+        result := ComCall(5, this, Int32, _Property, lValueMarshal, lValue, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 

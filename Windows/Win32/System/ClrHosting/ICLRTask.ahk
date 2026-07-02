@@ -3,9 +3,9 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\COR_GC_THREAD_STATS.ahk" { COR_GC_THREAD_STATS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -147,7 +147,7 @@ export default struct ICLRTask extends IUnknown {
      * @returns {HRESULT} 
      */
     SetTaskIdentifier(asked) {
-        result := ComCall(13, this, "uint", asked, "HRESULT")
+        result := ComCall(13, this, Int64, asked, "HRESULT")
         return result
     }
 

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IEnumSyncMgrConflict.ahk" { IEnumSyncMgrConflict }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SYNCMGR_CONFLICT_ID_INFO.ahk" { SYNCMGR_CONFLICT_ID_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that allow a handler to provide conflicts that appear in the Conflicts folder.
@@ -110,7 +110,7 @@ export default struct ISyncMgrConflictStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-removeconflicts
      */
     RemoveConflicts(rgConflictIdInfo, cConflicts) {
-        result := ComCall(5, this, SYNCMGR_CONFLICT_ID_INFO.Ptr, rgConflictIdInfo, "uint", cConflicts, "HRESULT")
+        result := ComCall(5, this, SYNCMGR_CONFLICT_ID_INFO.Ptr, rgConflictIdInfo, UInt32, cConflicts, "HRESULT")
         return result
     }
 

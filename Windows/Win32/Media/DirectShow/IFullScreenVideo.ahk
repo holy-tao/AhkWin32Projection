@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -75,7 +75,7 @@ export default struct IFullScreenVideo extends IUnknown {
         pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
         pDepthMarshal := pDepth is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", _Mode, pWidthMarshal, pWidth, pHeightMarshal, pHeight, pDepthMarshal, pDepth, "HRESULT")
+        result := ComCall(4, this, Int32, _Mode, pWidthMarshal, pWidth, pHeightMarshal, pHeight, pDepthMarshal, pDepth, "HRESULT")
         return result
     }
 
@@ -94,7 +94,7 @@ export default struct IFullScreenVideo extends IUnknown {
      * @returns {HRESULT} 
      */
     IsModeAvailable(_Mode) {
-        result := ComCall(6, this, "int", _Mode, "HRESULT")
+        result := ComCall(6, this, Int32, _Mode, "HRESULT")
         return result
     }
 
@@ -104,7 +104,7 @@ export default struct IFullScreenVideo extends IUnknown {
      * @returns {HRESULT} 
      */
     IsModeEnabled(_Mode) {
-        result := ComCall(7, this, "int", _Mode, "HRESULT")
+        result := ComCall(7, this, Int32, _Mode, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IFullScreenVideo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetEnabled(_Mode, bEnabled) {
-        result := ComCall(8, this, "int", _Mode, "int", bEnabled, "HRESULT")
+        result := ComCall(8, this, Int32, _Mode, Int32, bEnabled, "HRESULT")
         return result
     }
 
@@ -134,7 +134,7 @@ export default struct IFullScreenVideo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetClipFactor(ClipFactor) {
-        result := ComCall(10, this, "int", ClipFactor, "HRESULT")
+        result := ComCall(10, this, Int32, ClipFactor, "HRESULT")
         return result
     }
 
@@ -164,7 +164,7 @@ export default struct IFullScreenVideo extends IUnknown {
      * @returns {HRESULT} 
      */
     SetMonitor(_Monitor) {
-        result := ComCall(13, this, "int", _Monitor, "HRESULT")
+        result := ComCall(13, this, Int32, _Monitor, "HRESULT")
         return result
     }
 
@@ -183,7 +183,7 @@ export default struct IFullScreenVideo extends IUnknown {
      * @returns {HRESULT} 
      */
     HideOnDeactivate(Hide) {
-        result := ComCall(15, this, "int", Hide, "HRESULT")
+        result := ComCall(15, this, Int32, Hide, "HRESULT")
         return result
     }
 

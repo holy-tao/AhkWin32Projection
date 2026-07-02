@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxRecipient.ahk" { IFaxRecipient }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IFaxRecipient.ahk" { IFaxRecipient }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFaxRecipients interface defines a FaxRecipients messaging collection is used by a fax client application to manage the fax recipient objects (FaxRecipient) that represent the recipients of a single fax document.
@@ -91,7 +91,7 @@ export default struct IFaxRecipients extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-get_item
      */
     get_Item(lIndex) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", &ppFaxRecipient := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lIndex, "ptr*", &ppFaxRecipient := 0, "HRESULT")
         return IFaxRecipient(ppFaxRecipient)
     }
 
@@ -137,7 +137,7 @@ export default struct IFaxRecipients extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-remove
      */
     Remove(lIndex) {
-        result := ComCall(11, this, "int", lIndex, "HRESULT")
+        result := ComCall(11, this, Int32, lIndex, "HRESULT")
         return result
     }
 

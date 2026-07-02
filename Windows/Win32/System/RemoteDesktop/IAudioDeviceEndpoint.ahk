@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Initializes a device endpoint object and gets the capabilities of the device that it represents.
@@ -62,7 +62,7 @@ export default struct IAudioDeviceEndpoint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-setbuffer
      */
     SetBuffer(MaxPeriod, u32LatencyCoefficient) {
-        result := ComCall(3, this, "int64", MaxPeriod, "uint", u32LatencyCoefficient, "HRESULT")
+        result := ComCall(3, this, Int64, MaxPeriod, UInt32, u32LatencyCoefficient, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IAudioDeviceEndpoint extends IUnknown {
         pu32SharedMemorySizeMarshal := pu32SharedMemorySize is VarRef ? "uint*" : "ptr"
         phSharedMemoryMarshal := phSharedMemory is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", hTargetProcess, "int64", hnsPeriod, "int64", hnsBufferDuration, "uint", u32LatencyCoefficient, pu32SharedMemorySizeMarshal, pu32SharedMemorySize, phSharedMemoryMarshal, phSharedMemory, "HRESULT")
+        result := ComCall(6, this, IntPtr, hTargetProcess, Int64, hnsPeriod, Int64, hnsBufferDuration, UInt32, u32LatencyCoefficient, pu32SharedMemorySizeMarshal, pu32SharedMemorySize, phSharedMemoryMarshal, phSharedMemory, "HRESULT")
         return result
     }
 

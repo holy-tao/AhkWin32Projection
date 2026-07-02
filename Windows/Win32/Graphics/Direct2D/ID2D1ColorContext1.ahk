@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D2D1_COLOR_CONTEXT_TYPE.ahk" { D2D1_COLOR_CONTEXT_TYPE }
-#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
 #Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D2D1_SIMPLE_COLOR_PROFILE.ahk" { D2D1_SIMPLE_COLOR_PROFILE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
 
 /**
  * Represents a color context to be used with the Color Management Effect.

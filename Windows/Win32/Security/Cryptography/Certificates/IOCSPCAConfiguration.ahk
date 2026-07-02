@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a set of definitions that enable an Online Certificate Status Protocol (OCSP) service to respond to a certificate status request for a specific certification authority (CA).
@@ -376,7 +376,7 @@ export default struct IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_signingflags
      */
     put_SigningFlags(newVal) {
-        result := ComCall(12, this, "uint", newVal, "HRESULT")
+        result := ComCall(12, this, UInt32, newVal, "HRESULT")
         return result
     }
 
@@ -423,7 +423,7 @@ export default struct IOCSPCAConfiguration extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_reminderduration
      */
     put_ReminderDuration(newVal) {
-        result := ComCall(16, this, "uint", newVal, "HRESULT")
+        result := ComCall(16, this, UInt32, newVal, "HRESULT")
         return result
     }
 

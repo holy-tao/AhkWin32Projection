@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFsrmActionEmail.ahk" { IFsrmActionEmail }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to limit the number of expired files listed in the email notification.
@@ -69,7 +69,7 @@ export default struct IFsrmActionEmail2 extends IFsrmActionEmail {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail2-put_attachmentfilelistsize
      */
     put_AttachmentFileListSize(attachmentFileListSize) {
-        result := ComCall(27, this, "int", attachmentFileListSize, "HRESULT")
+        result := ComCall(27, this, Int32, attachmentFileListSize, "HRESULT")
         return result
     }
 

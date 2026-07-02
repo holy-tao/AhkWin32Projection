@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITuningSpace.ahk" { ITuningSpace }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
 
 /**
  * The IAnalogRadioTuningSpace interface provides methods for getting and setting parameters associated with tuning spaces for analog radio transmissions.
@@ -91,7 +91,7 @@ export default struct IAnalogRadioTuningSpace extends ITuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-put_minfrequency
      */
     put_MinFrequency(NewMinFrequencyVal) {
-        result := ComCall(27, this, "int", NewMinFrequencyVal, "HRESULT")
+        result := ComCall(27, this, Int32, NewMinFrequencyVal, "HRESULT")
         return result
     }
 
@@ -112,7 +112,7 @@ export default struct IAnalogRadioTuningSpace extends ITuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-put_maxfrequency
      */
     put_MaxFrequency(NewMaxFrequencyVal) {
-        result := ComCall(29, this, "int", NewMaxFrequencyVal, "HRESULT")
+        result := ComCall(29, this, Int32, NewMaxFrequencyVal, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IAnalogRadioTuningSpace extends ITuningSpace {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-put_step
      */
     put_Step(NewStepVal) {
-        result := ComCall(31, this, "int", NewStepVal, "HRESULT")
+        result := ComCall(31, this, Int32, NewStepVal, "HRESULT")
         return result
     }
 

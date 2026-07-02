@@ -1,26 +1,26 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION.ahk" { DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION }
-#Import ".\DIAGNOSTIC_DATA_EVENT_BINARY_STATS.ahk" { DIAGNOSTIC_DATA_EVENT_BINARY_STATS }
-#Import ".\HDIAGNOSTIC_REPORT.ahk" { HDIAGNOSTIC_REPORT }
-#Import ".\HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION.ahk" { HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION }
-#Import ".\HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION.ahk" { HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DIAGNOSTIC_DATA_RECORD.ahk" { DIAGNOSTIC_DATA_RECORD }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DIAGNOSTIC_REPORT_DATA.ahk" { DIAGNOSTIC_REPORT_DATA }
-#Import ".\DIAGNOSTIC_DATA_EVENT_TAG_STATS.ahk" { DIAGNOSTIC_DATA_EVENT_TAG_STATS }
 #Import ".\DdqAccessLevel.ahk" { DdqAccessLevel }
-#Import ".\DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION.ahk" { DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION }
-#Import ".\DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION.ahk" { DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\HDIAGNOSTIC_DATA_QUERY_SESSION.ahk" { HDIAGNOSTIC_DATA_QUERY_SESSION }
-#Import ".\HDIAGNOSTIC_RECORD.ahk" { HDIAGNOSTIC_RECORD }
-#Import ".\DIAGNOSTIC_DATA_GENERAL_STATS.ahk" { DIAGNOSTIC_DATA_GENERAL_STATS }
-#Import ".\DIAGNOSTIC_DATA_SEARCH_CRITERIA.ahk" { DIAGNOSTIC_DATA_SEARCH_CRITERIA }
-#Import ".\DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION.ahk" { DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION }
 #Import ".\HDIAGNOSTIC_EVENT_TAG_DESCRIPTION.ahk" { HDIAGNOSTIC_EVENT_TAG_DESCRIPTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIAGNOSTIC_DATA_EVENT_BINARY_STATS.ahk" { DIAGNOSTIC_DATA_EVENT_BINARY_STATS }
+#Import ".\DIAGNOSTIC_DATA_EVENT_TAG_STATS.ahk" { DIAGNOSTIC_DATA_EVENT_TAG_STATS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\HDIAGNOSTIC_DATA_QUERY_SESSION.ahk" { HDIAGNOSTIC_DATA_QUERY_SESSION }
+#Import ".\DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION.ahk" { DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION }
+#Import ".\DIAGNOSTIC_DATA_SEARCH_CRITERIA.ahk" { DIAGNOSTIC_DATA_SEARCH_CRITERIA }
+#Import ".\DIAGNOSTIC_REPORT_DATA.ahk" { DIAGNOSTIC_REPORT_DATA }
+#Import ".\HDIAGNOSTIC_RECORD.ahk" { HDIAGNOSTIC_RECORD }
+#Import ".\DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION.ahk" { DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION }
+#Import ".\DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION.ahk" { DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\HDIAGNOSTIC_REPORT.ahk" { HDIAGNOSTIC_REPORT }
+#Import ".\HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION.ahk" { HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DIAGNOSTIC_DATA_GENERAL_STATS.ahk" { DIAGNOSTIC_DATA_GENERAL_STATS }
+#Import ".\DIAGNOSTIC_DATA_RECORD.ahk" { DIAGNOSTIC_DATA_RECORD }
+#Import ".\HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION.ahk" { HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION }
+#Import ".\DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION.ahk" { DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION }
 
 /**
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
@@ -120,7 +120,7 @@ export DdqGetDiagnosticRecordStats(hSession, searchCriteria, recordCount, minRow
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticRecordPayload(hSession, rowId) {
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordPayload", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, "int64", rowId, PWSTR.Ptr, &payload := 0, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordPayload", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, Int64, rowId, PWSTR.Ptr, &payload := 0, "HRESULT")
     return payload
 }
 
@@ -175,7 +175,7 @@ export DdqFreeDiagnosticRecordLocaleTags(hTagDescription) {
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticRecordLocaleTagAtIndex(hTagDescription, index, tagDescription) {
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordLocaleTagAtIndex", HDIAGNOSTIC_EVENT_TAG_DESCRIPTION, hTagDescription, "uint", index, DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION.Ptr, tagDescription, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordLocaleTagAtIndex", HDIAGNOSTIC_EVENT_TAG_DESCRIPTION, hTagDescription, UInt32, index, DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION.Ptr, tagDescription, "HRESULT")
     return result
 }
 
@@ -245,7 +245,7 @@ export DdqFreeDiagnosticRecordProducers(hProducerDescription) {
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticRecordProducerAtIndex(hProducerDescription, index, producerDescription) {
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducerAtIndex", HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION, hProducerDescription, "uint", index, DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION.Ptr, producerDescription, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducerAtIndex", HDIAGNOSTIC_EVENT_PRODUCER_DESCRIPTION, hProducerDescription, UInt32, index, DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION.Ptr, producerDescription, "HRESULT")
     return result
 }
 
@@ -318,7 +318,7 @@ export DdqFreeDiagnosticRecordProducerCategories(hCategoryDescription) {
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticRecordCategoryAtIndex(hCategoryDescription, index, categoryDescription) {
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCategoryAtIndex", HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION, hCategoryDescription, "uint", index, DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION.Ptr, categoryDescription, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordCategoryAtIndex", HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION, hCategoryDescription, UInt32, index, DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION.Ptr, categoryDescription, "HRESULT")
     return result
 }
 
@@ -394,7 +394,7 @@ export DdqIsDiagnosticRecordSampledIn(hSession, providerGroup, providerId, provi
  */
 export DdqGetDiagnosticRecordPage(hSession, searchCriteria, offset, pageRecordCount, baseRowId) {
     hRecord := HDIAGNOSTIC_RECORD.Owned()
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordPage", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, DIAGNOSTIC_DATA_SEARCH_CRITERIA.Ptr, searchCriteria, "uint", offset, "uint", pageRecordCount, "int64", baseRowId, HDIAGNOSTIC_RECORD.Ptr, hRecord, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordPage", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, DIAGNOSTIC_DATA_SEARCH_CRITERIA.Ptr, searchCriteria, UInt32, offset, UInt32, pageRecordCount, Int64, baseRowId, HDIAGNOSTIC_RECORD.Ptr, hRecord, "HRESULT")
     return hRecord
 }
 
@@ -428,7 +428,7 @@ export DdqFreeDiagnosticRecordPage(hRecord) {
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticRecordAtIndex(hRecord, index, record) {
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordAtIndex", HDIAGNOSTIC_RECORD, hRecord, "uint", index, DIAGNOSTIC_DATA_RECORD.Ptr, record, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordAtIndex", HDIAGNOSTIC_RECORD, hRecord, UInt32, index, DIAGNOSTIC_DATA_RECORD.Ptr, record, "HRESULT")
     return result
 }
 
@@ -460,7 +460,7 @@ export DdqGetDiagnosticRecordCount(hRecord) {
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticReportStoreReportCount(hSession, reportStoreType) {
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportStoreReportCount", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, "uint", reportStoreType, "uint*", &reportCount := 0, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportStoreReportCount", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, UInt32, reportStoreType, "uint*", &reportCount := 0, "HRESULT")
     return reportCount
 }
 
@@ -493,7 +493,7 @@ export DdqCancelDiagnosticRecordOperation(hSession) {
  */
 export DdqGetDiagnosticReport(hSession, reportStoreType) {
     _hReport := HDIAGNOSTIC_REPORT.Owned()
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReport", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, "uint", reportStoreType, HDIAGNOSTIC_REPORT.Ptr, _hReport, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReport", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, UInt32, reportStoreType, HDIAGNOSTIC_REPORT.Ptr, _hReport, "HRESULT")
     return _hReport
 }
 
@@ -527,7 +527,7 @@ export DdqFreeDiagnosticReport(_hReport) {
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticReportAtIndex(_hReport, index, report) {
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportAtIndex", HDIAGNOSTIC_REPORT, _hReport, "uint", index, DIAGNOSTIC_REPORT_DATA.Ptr, report, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticReportAtIndex", HDIAGNOSTIC_REPORT, _hReport, UInt32, index, DIAGNOSTIC_REPORT_DATA.Ptr, report, "HRESULT")
     return result
 }
 
@@ -567,7 +567,7 @@ export DdqExtractDiagnosticReport(hSession, reportStoreType, reportKey, destinat
     reportKey := reportKey is String ? StrPtr(reportKey) : reportKey
     destinationPath := destinationPath is String ? StrPtr(destinationPath) : destinationPath
 
-    result := DllCall("DiagnosticDataQuery.dll\DdqExtractDiagnosticReport", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, "uint", reportStoreType, "ptr", reportKey, "ptr", destinationPath, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqExtractDiagnosticReport", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, UInt32, reportStoreType, "ptr", reportKey, "ptr", destinationPath, "HRESULT")
     return result
 }
 
@@ -596,7 +596,7 @@ export DdqGetDiagnosticRecordTagDistribution(hSession, producerNames, producerNa
     tagStatsMarshal := tagStats is VarRef ? "ptr*" : "ptr"
     statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordTagDistribution", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, producerNamesMarshal, producerNames, "uint", producerNameCount, tagStatsMarshal, tagStats, statCountMarshal, statCount, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordTagDistribution", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, producerNamesMarshal, producerNames, UInt32, producerNameCount, tagStatsMarshal, tagStats, statCountMarshal, statCount, "HRESULT")
     return result
 }
 
@@ -624,7 +624,7 @@ export DdqGetDiagnosticRecordBinaryDistribution(hSession, producerNames, produce
     binaryStatsMarshal := binaryStats is VarRef ? "ptr*" : "ptr"
     statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordBinaryDistribution", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, producerNamesMarshal, producerNames, "uint", producerNameCount, "uint", topNBinaries, binaryStatsMarshal, binaryStats, statCountMarshal, statCount, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordBinaryDistribution", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, producerNamesMarshal, producerNames, UInt32, producerNameCount, UInt32, topNBinaries, binaryStatsMarshal, binaryStats, statCountMarshal, statCount, "HRESULT")
     return result
 }
 
@@ -646,7 +646,7 @@ export DdqGetDiagnosticRecordBinaryDistribution(hSession, producerNames, produce
 export DdqGetDiagnosticRecordSummary(hSession, producerNames, producerNameCount, generalStats) {
     producerNamesMarshal := producerNames is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordSummary", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, producerNamesMarshal, producerNames, "uint", producerNameCount, DIAGNOSTIC_DATA_GENERAL_STATS.Ptr, generalStats, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordSummary", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, producerNamesMarshal, producerNames, UInt32, producerNameCount, DIAGNOSTIC_DATA_GENERAL_STATS.Ptr, generalStats, "HRESULT")
     return result
 }
 

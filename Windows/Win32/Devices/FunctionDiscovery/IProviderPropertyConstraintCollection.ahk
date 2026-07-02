@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface is accessible to the provider through IFunctionDiscoveryProviderQuery::GetPropertyConstraints.
@@ -150,7 +150,7 @@ export default struct IProviderPropertyConstraintCollection extends IUnknown {
     Item(dwIndex, pKey, pPropVar, pdwPropertyConstraint) {
         pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwIndex, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
+        result := ComCall(5, this, UInt32, dwIndex, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
     }
 

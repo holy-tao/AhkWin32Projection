@@ -65,7 +65,7 @@ export default struct IATSCLocator2 extends IATSCLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator2-put_programnumber
      */
     put_ProgramNumber(ProgramNumber) {
-        result := ComCall(27, this, "int", ProgramNumber, "HRESULT")
+        result := ComCall(27, this, Int32, ProgramNumber, "HRESULT")
         return result
     }
 

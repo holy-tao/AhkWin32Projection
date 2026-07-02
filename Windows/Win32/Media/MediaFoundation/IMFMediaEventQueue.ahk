@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
 #Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFMediaEvent.ahk" { IMFMediaEvent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides an event queue for applications that need to implement the IMFMediaEventGenerator interface.
@@ -68,7 +68,7 @@ export default struct IMFMediaEventQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaeventqueue-getevent
      */
     GetEvent(dwFlags) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, "ptr*", &ppEvent := 0, "HRESULT")
         return IMFMediaEvent(ppEvent)
     }
 
@@ -233,7 +233,7 @@ export default struct IMFMediaEventQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaeventqueue-queueeventparamvar
      */
     QueueEventParamVar(met, guidExtendedType, hrStatus, pvValue) {
-        result := ComCall(7, this, "uint", met, Guid.Ptr, guidExtendedType, "int", hrStatus, PROPVARIANT.Ptr, pvValue, "HRESULT")
+        result := ComCall(7, this, UInt32, met, Guid.Ptr, guidExtendedType, "int", hrStatus, PROPVARIANT.Ptr, pvValue, "HRESULT")
         return result
     }
 
@@ -285,7 +285,7 @@ export default struct IMFMediaEventQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediaeventqueue-queueeventparamunk
      */
     QueueEventParamUnk(met, guidExtendedType, hrStatus, pUnk) {
-        result := ComCall(8, this, "uint", met, Guid.Ptr, guidExtendedType, "int", hrStatus, "ptr", pUnk, "HRESULT")
+        result := ComCall(8, this, UInt32, met, Guid.Ptr, guidExtendedType, "int", hrStatus, "ptr", pUnk, "HRESULT")
         return result
     }
 

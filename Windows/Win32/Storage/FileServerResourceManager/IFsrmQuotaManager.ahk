@@ -4,11 +4,11 @@
 #Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IFsrmQuota.ahk" { IFsrmQuota }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IFsrmAutoApplyQuota.ahk" { IFsrmAutoApplyQuota }
 #Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to manage quotas.

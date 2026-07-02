@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IChangeUnitException.ahk" { IChangeUnitException }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IChangeUnitException.ahk" { IChangeUnitException }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates change unit exceptions that are stored in a knowledge object.
@@ -51,7 +51,7 @@ export default struct IEnumChangeUnitExceptions extends IUnknown {
     Next(cExceptions, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cExceptions, "ptr*", &ppChangeUnitException := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, cExceptions, "ptr*", &ppChangeUnitException := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return IChangeUnitException(ppChangeUnitException)
     }
 
@@ -99,7 +99,7 @@ export default struct IEnumChangeUnitExceptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumchangeunitexceptions-skip
      */
     Skip(cExceptions) {
-        result := ComCall(4, this, "uint", cExceptions, "HRESULT")
+        result := ComCall(4, this, UInt32, cExceptions, "HRESULT")
         return result
     }
 

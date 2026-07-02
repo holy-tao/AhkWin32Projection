@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * The MCI_DGV_OPEN_PARMSA (ANSI) structure (digitalv.h) contains information for the MCI_OPEN command for digital-video devices.

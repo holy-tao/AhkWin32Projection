@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRDPSRAPITransportStreamBuffer.ahk" { IRDPSRAPITransportStreamBuffer }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IRDPSRAPITransportStreamEvents.ahk" { IRDPSRAPITransportStreamEvents }
+#Import ".\IRDPSRAPITransportStreamBuffer.ahk" { IRDPSRAPITransportStreamBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that perform operations with streams.
@@ -55,7 +55,7 @@ export default struct IRDPSRAPITransportStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-allocbuffer
      */
     AllocBuffer(maxPayload) {
-        result := ComCall(3, this, "int", maxPayload, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(3, this, Int32, maxPayload, "ptr*", &ppBuffer := 0, "HRESULT")
         return IRDPSRAPITransportStreamBuffer(ppBuffer)
     }
 

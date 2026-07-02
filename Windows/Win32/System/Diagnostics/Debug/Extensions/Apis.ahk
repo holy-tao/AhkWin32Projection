@@ -1,11 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\IDebugHost.ahk" { IDebugHost }
-#Import ".\IDataModelManager.ahk" { IDataModelManager }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IDataModelManager.ahk" { IDataModelManager }
+#Import ".\IDebugHost.ahk" { IDebugHost }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -55,7 +55,7 @@ export DebugCreate(InterfaceId) {
  * @returns {Pointer<Void>} 
  */
 export DebugCreateEx(InterfaceId, DbgEngOptions) {
-    result := DllCall("dbgeng.dll\DebugCreateEx", Guid.Ptr, InterfaceId, "uint", DbgEngOptions, "ptr*", &_Interface := 0, "HRESULT")
+    result := DllCall("dbgeng.dll\DebugCreateEx", Guid.Ptr, InterfaceId, UInt32, DbgEngOptions, "ptr*", &_Interface := 0, "HRESULT")
     return _Interface
 }
 

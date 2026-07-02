@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRTCClient.ahk" { IRTCClient }
-#Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\RTC_MESSAGING_USER_STATUS.ahk" { RTC_MESSAGING_USER_STATUS }
-#Import ".\IRTCCollection.ahk" { IRTCCollection }
 #Import ".\RTC_SESSION_STATE.ahk" { RTC_SESSION_STATE }
-#Import ".\IRTCEnumParticipants.ahk" { IRTCEnumParticipants }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IRTCParticipant.ahk" { IRTCParticipant }
 #Import ".\RTC_TERMINATE_REASON.ahk" { RTC_TERMINATE_REASON }
 #Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IRTCParticipant.ahk" { IRTCParticipant }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRTCEnumParticipants.ahk" { IRTCEnumParticipants }
+#Import ".\IRTCCollection.ahk" { IRTCCollection }
+#Import ".\RTC_MESSAGING_USER_STATUS.ahk" { RTC_MESSAGING_USER_STATUS }
+#Import ".\IRTCClient.ahk" { IRTCClient }
+#Import ".\RTC_SESSION_TYPE.ahk" { RTC_SESSION_TYPE }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -196,7 +196,7 @@ export default struct IRTCSession extends IUnknown {
     Redirect(enType, bstrLocalPhoneURI, pProfile, lFlags) {
         bstrLocalPhoneURI := bstrLocalPhoneURI is String ? BSTR.Alloc(bstrLocalPhoneURI).Value : bstrLocalPhoneURI
 
-        result := ComCall(10, this, RTC_SESSION_TYPE, enType, BSTR, bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "HRESULT")
+        result := ComCall(10, this, RTC_SESSION_TYPE, enType, BSTR, bstrLocalPhoneURI, "ptr", pProfile, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -295,7 +295,7 @@ export default struct IRTCSession extends IUnknown {
         bstrMessageHeader := bstrMessageHeader is String ? BSTR.Alloc(bstrMessageHeader).Value : bstrMessageHeader
         bstrMessage := bstrMessage is String ? BSTR.Alloc(bstrMessage).Value : bstrMessage
 
-        result := ComCall(18, this, BSTR, bstrMessageHeader, BSTR, bstrMessage, "ptr", lCookie, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrMessageHeader, BSTR, bstrMessage, IntPtr, lCookie, "HRESULT")
         return result
     }
 
@@ -306,7 +306,7 @@ export default struct IRTCSession extends IUnknown {
      * @returns {HRESULT} 
      */
     SendMessageStatus(enUserStatus, lCookie) {
-        result := ComCall(19, this, RTC_MESSAGING_USER_STATUS, enUserStatus, "ptr", lCookie, "HRESULT")
+        result := ComCall(19, this, RTC_MESSAGING_USER_STATUS, enUserStatus, IntPtr, lCookie, "HRESULT")
         return result
     }
 
@@ -317,7 +317,7 @@ export default struct IRTCSession extends IUnknown {
      * @returns {HRESULT} 
      */
     AddStream(lMediaType, lCookie) {
-        result := ComCall(20, this, "int", lMediaType, "ptr", lCookie, "HRESULT")
+        result := ComCall(20, this, Int32, lMediaType, IntPtr, lCookie, "HRESULT")
         return result
     }
 
@@ -328,7 +328,7 @@ export default struct IRTCSession extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveStream(lMediaType, lCookie) {
-        result := ComCall(21, this, "int", lMediaType, "ptr", lCookie, "HRESULT")
+        result := ComCall(21, this, Int32, lMediaType, IntPtr, lCookie, "HRESULT")
         return result
     }
 
@@ -341,7 +341,7 @@ export default struct IRTCSession extends IUnknown {
     put_EncryptionKey(lMediaType, EncryptionKey) {
         EncryptionKey := EncryptionKey is String ? BSTR.Alloc(EncryptionKey).Value : EncryptionKey
 
-        result := ComCall(22, this, "int", lMediaType, BSTR, EncryptionKey, "HRESULT")
+        result := ComCall(22, this, Int32, lMediaType, BSTR, EncryptionKey, "HRESULT")
         return result
     }
 

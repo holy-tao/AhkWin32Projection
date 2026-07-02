@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -44,7 +44,7 @@ export default struct IAudioSourceProvider extends IUnknown {
     ProvideInput(dwSampleCount, pdwChannelCount) {
         pdwChannelCountMarshal := pdwChannelCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwSampleCount, pdwChannelCountMarshal, pdwChannelCount, "float*", &pInterleavedAudioData := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwSampleCount, pdwChannelCountMarshal, pdwChannelCount, "float*", &pInterleavedAudioData := 0, "HRESULT")
         return pInterleavedAudioData
     }
 

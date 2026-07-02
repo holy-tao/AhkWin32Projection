@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMStreamConfig interface sets the output format on certain capture and compression filters, for both audio and video.
@@ -335,7 +335,7 @@ export default struct IAMStreamConfig extends IUnknown {
         ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
         pSCCMarshal := pSCC is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "int", iIndex, ppmtMarshal, ppmt, pSCCMarshal, pSCC, "HRESULT")
+        result := ComCall(6, this, Int32, iIndex, ppmtMarshal, ppmt, pSCCMarshal, pSCC, "HRESULT")
         return result
     }
 

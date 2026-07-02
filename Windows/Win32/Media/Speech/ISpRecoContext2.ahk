@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPADAPTATIONRELEVANCE.ahk" { SPADAPTATIONRELEVANCE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPADAPTATIONRELEVANCE.ahk" { SPADAPTATIONRELEVANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -45,7 +45,7 @@ export default struct ISpRecoContext2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetGrammarOptions(eGrammarOptions) {
-        result := ComCall(3, this, "uint", eGrammarOptions, "HRESULT")
+        result := ComCall(3, this, UInt32, eGrammarOptions, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct ISpRecoContext2 extends IUnknown {
         pAdaptationData := pAdaptationData is String ? StrPtr(pAdaptationData) : pAdaptationData
         pTopicName := pTopicName is String ? StrPtr(pTopicName) : pTopicName
 
-        result := ComCall(5, this, "ptr", pAdaptationData, "uint", cch, "ptr", pTopicName, "uint", eAdaptationSettings, SPADAPTATIONRELEVANCE, eRelevance, "HRESULT")
+        result := ComCall(5, this, "ptr", pAdaptationData, UInt32, cch, "ptr", pTopicName, UInt32, eAdaptationSettings, SPADAPTATIONRELEVANCE, eRelevance, "HRESULT")
         return result
     }
 

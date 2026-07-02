@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MLOperatorTensorDataType.ahk" { MLOperatorTensorDataType }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MLOperatorTensorDataType.ahk" { MLOperatorTensorDataType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
@@ -57,7 +57,7 @@ export default struct IMLOperatorTensor extends IUnknown {
      * @returns {Integer} 
      */
     GetShape(dimensionCount) {
-        result := ComCall(4, this, "uint", dimensionCount, "uint*", &dimensions := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dimensionCount, "uint*", &dimensions := 0, "HRESULT")
         return dimensions
     }
 

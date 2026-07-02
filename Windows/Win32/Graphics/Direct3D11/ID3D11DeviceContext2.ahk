@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
-#Import ".\D3D11_TILE_REGION_SIZE.ahk" { D3D11_TILE_REGION_SIZE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D11_TILED_RESOURCE_COORDINATE.ahk" { D3D11_TILED_RESOURCE_COORDINATE }
 #Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
-#Import ".\ID3D11DeviceContext1.ahk" { ID3D11DeviceContext1 }
+#Import ".\D3D11_TILE_REGION_SIZE.ahk" { D3D11_TILE_REGION_SIZE }
+#Import ".\D3D11_TILED_RESOURCE_COORDINATE.ahk" { D3D11_TILED_RESOURCE_COORDINATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID3D11DeviceContext1.ahk" { ID3D11DeviceContext1 }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext2 adds new methods to those in ID3D11DeviceContext1.
@@ -148,7 +148,7 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
         pTilePoolStartOffsetsMarshal := pTilePoolStartOffsets is VarRef ? "uint*" : "ptr"
         pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(134, this, "ptr", pTiledResource, "uint", NumTiledResourceRegions, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pTiledResourceRegionStartCoordinates, D3D11_TILE_REGION_SIZE.Ptr, pTiledResourceRegionSizes, "ptr", pTilePool, "uint", NumRanges, pRangeFlagsMarshal, pRangeFlags, pTilePoolStartOffsetsMarshal, pTilePoolStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, "uint", Flags, "HRESULT")
+        result := ComCall(134, this, "ptr", pTiledResource, UInt32, NumTiledResourceRegions, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pTiledResourceRegionStartCoordinates, D3D11_TILE_REGION_SIZE.Ptr, pTiledResourceRegionSizes, "ptr", pTilePool, UInt32, NumRanges, pRangeFlagsMarshal, pRangeFlags, pTilePoolStartOffsetsMarshal, pTilePoolStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -196,7 +196,7 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-copytilemappings
      */
     CopyTileMappings(pDestTiledResource, pDestRegionStartCoordinate, pSourceTiledResource, pSourceRegionStartCoordinate, pTileRegionSize, Flags) {
-        result := ComCall(135, this, "ptr", pDestTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pDestRegionStartCoordinate, "ptr", pSourceTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pSourceRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pTileRegionSize, "uint", Flags, "HRESULT")
+        result := ComCall(135, this, "ptr", pDestTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pDestRegionStartCoordinate, "ptr", pSourceTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pSourceRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pTileRegionSize, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -237,7 +237,7 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-copytiles
      */
     CopyTiles(pTiledResource, pTileRegionStartCoordinate, pTileRegionSize, pBuffer, BufferStartOffsetInBytes, Flags) {
-        ComCall(136, this, "ptr", pTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pTileRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pTileRegionSize, "ptr", pBuffer, "uint", BufferStartOffsetInBytes, "uint", Flags)
+        ComCall(136, this, "ptr", pTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pTileRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pTileRegionSize, "ptr", pBuffer, Int64, BufferStartOffsetInBytes, UInt32, Flags)
     }
 
     /**
@@ -275,7 +275,7 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
     UpdateTiles(pDestTiledResource, pDestTileRegionStartCoordinate, pDestTileRegionSize, pSourceTileData, Flags) {
         pSourceTileDataMarshal := pSourceTileData is VarRef ? "ptr" : "ptr"
 
-        ComCall(137, this, "ptr", pDestTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pDestTileRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pDestTileRegionSize, pSourceTileDataMarshal, pSourceTileData, "uint", Flags)
+        ComCall(137, this, "ptr", pDestTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pDestTileRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pDestTileRegionSize, pSourceTileDataMarshal, pSourceTileData, UInt32, Flags)
     }
 
     /**
@@ -311,7 +311,7 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-resizetilepool
      */
     ResizeTilePool(pTilePool, NewSizeInBytes) {
-        result := ComCall(138, this, "ptr", pTilePool, "uint", NewSizeInBytes, "HRESULT")
+        result := ComCall(138, this, "ptr", pTilePool, Int64, NewSizeInBytes, "HRESULT")
         return result
     }
 
@@ -376,7 +376,7 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
     SetMarkerInt(pLabel, Data) {
         pLabel := pLabel is String ? StrPtr(pLabel) : pLabel
 
-        ComCall(141, this, "ptr", pLabel, "int", Data)
+        ComCall(141, this, "ptr", pLabel, Int32, Data)
     }
 
     /**
@@ -391,7 +391,7 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
     BeginEventInt(pLabel, Data) {
         pLabel := pLabel is String ? StrPtr(pLabel) : pLabel
 
-        ComCall(142, this, "ptr", pLabel, "int", Data)
+        ComCall(142, this, "ptr", pLabel, Int32, Data)
     }
 
     /**

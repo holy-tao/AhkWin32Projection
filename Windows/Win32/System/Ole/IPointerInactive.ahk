@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\POINTERINACTIVE.ahk" { POINTERINACTIVE }
 
 /**
@@ -79,7 +79,7 @@ export default struct IPointerInactive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipointerinactive-oninactivemousemove
      */
     OnInactiveMouseMove(pRectBounds, x, y, grfKeyState) {
-        result := ComCall(4, this, RECT.Ptr, pRectBounds, "int", x, "int", y, "uint", grfKeyState, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, pRectBounds, Int32, x, Int32, y, UInt32, grfKeyState, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IPointerInactive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipointerinactive-oninactivesetcursor
      */
     OnInactiveSetCursor(pRectBounds, x, y, dwMouseMsg, fSetAlways) {
-        result := ComCall(5, this, RECT.Ptr, pRectBounds, "int", x, "int", y, "uint", dwMouseMsg, BOOL, fSetAlways, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, pRectBounds, Int32, x, Int32, y, UInt32, dwMouseMsg, BOOL, fSetAlways, "HRESULT")
         return result
     }
 

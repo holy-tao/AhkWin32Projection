@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY.ahk" { STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY }
 #Import ".\STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY.ahk" { STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY.ahk" { STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Ioctl

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
 #Import ".\GameInputRawDeviceReportInfo.ahk" { GameInputRawDeviceReportInfo }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IGameInputDevice.ahk" { IGameInputDevice }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
@@ -80,7 +80,7 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
     GetRawData(bufferSize, _buffer) {
         _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", bufferSize, _bufferMarshal, _buffer, IntPtr)
+        result := ComCall(6, this, IntPtr, bufferSize, _bufferMarshal, _buffer, IntPtr)
         return result
     }
 
@@ -93,7 +93,7 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
     SetRawData(bufferSize, _buffer) {
         _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", bufferSize, _bufferMarshal, _buffer, Int32)
+        result := ComCall(7, this, IntPtr, bufferSize, _bufferMarshal, _buffer, Int32)
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
     GetItemValue(itemIndex, value) {
         valueMarshal := value is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(8, this, "uint", itemIndex, valueMarshal, value, Int32)
+        result := ComCall(8, this, UInt32, itemIndex, valueMarshal, value, Int32)
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
      * @returns {Boolean} 
      */
     SetItemValue(itemIndex, value) {
-        result := ComCall(9, this, "uint", itemIndex, "int64", value, Int32)
+        result := ComCall(9, this, UInt32, itemIndex, Int64, value, Int32)
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
      * @returns {Boolean} 
      */
     ResetItemValue(itemIndex) {
-        result := ComCall(10, this, "uint", itemIndex, Int32)
+        result := ComCall(10, this, UInt32, itemIndex, Int32)
         return result
     }
 

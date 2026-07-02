@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IShellLinkA.ahk" { IShellLinkA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains data used by SHAddToRecentDocs to identify both an item, in this case through an IShellLink, and the process that it is associated with.

@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IDebugThreadCall64.ahk" { IDebugThreadCall64 }
 #Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IRemoteDebugApplication110.ahk" { IRemoteDebugApplication110 }
-#Import ".\IDebugThreadCall64.ahk" { IDebugThreadCall64 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -48,7 +48,7 @@ export default struct IDebugApplication11064 extends IRemoteDebugApplication110 
      * @returns {HRESULT} 
      */
     SynchronousCallInMainThread(pptc, dwParam1, dwParam2, dwParam3) {
-        result := ComCall(6, this, "ptr", pptc, "ptr", dwParam1, "ptr", dwParam2, "ptr", dwParam3, "HRESULT")
+        result := ComCall(6, this, "ptr", pptc, IntPtr, dwParam1, IntPtr, dwParam2, IntPtr, dwParam3, "HRESULT")
         return result
     }
 
@@ -61,7 +61,7 @@ export default struct IDebugApplication11064 extends IRemoteDebugApplication110 
      * @returns {HRESULT} 
      */
     AsynchronousCallInMainThread(pptc, dwParam1, dwParam2, dwParam3) {
-        result := ComCall(7, this, "ptr", pptc, "ptr", dwParam1, "ptr", dwParam2, "ptr", dwParam3, "HRESULT")
+        result := ComCall(7, this, "ptr", pptc, IntPtr, dwParam1, IntPtr, dwParam2, IntPtr, dwParam3, "HRESULT")
         return result
     }
 
@@ -72,7 +72,7 @@ export default struct IDebugApplication11064 extends IRemoteDebugApplication110 
      * @returns {Integer} 
      */
     CallableWaitForHandles(handleCount, pHandles) {
-        result := ComCall(8, this, "uint", handleCount, HANDLE.Ptr, pHandles, "uint*", &pIndex := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, handleCount, HANDLE.Ptr, pHandles, "uint*", &pIndex := 0, "HRESULT")
         return pIndex
     }
 

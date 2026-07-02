@@ -119,7 +119,7 @@ export default struct IWSMan extends IDispatch {
     CreateSession(_connection, flags, connectionOptions) {
         _connection := _connection is String ? BSTR.Alloc(_connection).Value : _connection
 
-        result := ComCall(7, this, BSTR, _connection, "int", flags, "ptr", connectionOptions, "ptr*", &session := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, _connection, Int32, flags, "ptr", connectionOptions, "ptr*", &session := 0, "HRESULT")
         return IDispatch(session)
     }
 

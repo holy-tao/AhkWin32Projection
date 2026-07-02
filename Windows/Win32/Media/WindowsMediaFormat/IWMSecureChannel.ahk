@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWMAuthorizer.ahk" { IWMAuthorizer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMSecureChannel interface provides methods that allow two DLLs to validate each other and perform secure communication.
@@ -69,7 +69,7 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
     WMSC_AddSignature(pbCertSig, cbCertSig) {
         pbCertSigMarshal := pbCertSig is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, pbCertSigMarshal, pbCertSig, "uint", cbCertSig, "HRESULT")
+        result := ComCall(7, this, pbCertSigMarshal, pbCertSig, UInt32, cbCertSig, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
     WMSC_Encrypt(pbData, cbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(12, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
+        result := ComCall(12, this, pbDataMarshal, pbData, UInt32, cbData, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
     WMSC_Decrypt(pbData, cbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
+        result := ComCall(13, this, pbDataMarshal, pbData, UInt32, cbData, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
     WMSC_SetSharedData(dwCertIndex, pbSharedData) {
         pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, "HRESULT")
+        result := ComCall(16, this, UInt32, dwCertIndex, pbSharedDataMarshal, pbSharedData, "HRESULT")
         return result
     }
 

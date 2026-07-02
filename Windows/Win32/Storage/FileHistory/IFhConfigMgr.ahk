@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FH_PROTECTED_ITEM_CATEGORY.ahk" { FH_PROTECTED_ITEM_CATEGORY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IFhTarget.ahk" { IFhTarget }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\FH_LOCAL_POLICY_TYPE.ahk" { FH_LOCAL_POLICY_TYPE }
-#Import ".\FH_PROTECTED_ITEM_CATEGORY.ahk" { FH_PROTECTED_ITEM_CATEGORY }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FH_BACKUP_STATUS.ahk" { FH_BACKUP_STATUS }
 #Import ".\IFhScopeIterator.ahk" { IFhScopeIterator }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\FH_DEVICE_VALIDATION_RESULT.ahk" { FH_DEVICE_VALIDATION_RESULT }
+#Import ".\FH_LOCAL_POLICY_TYPE.ahk" { FH_LOCAL_POLICY_TYPE }
 
 /**
  * The IFhConfigMgr interface allows client applications to read and modify the File History configuration for the user account under which the methods of this interface are called.
@@ -184,7 +184,7 @@ export default struct IFhConfigMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-setlocalpolicy
      */
     SetLocalPolicy(LocalPolicyType, PolicyValue) {
-        result := ComCall(9, this, FH_LOCAL_POLICY_TYPE, LocalPolicyType, "uint", PolicyValue, "HRESULT")
+        result := ComCall(9, this, FH_LOCAL_POLICY_TYPE, LocalPolicyType, Int64, PolicyValue, "HRESULT")
         return result
     }
 

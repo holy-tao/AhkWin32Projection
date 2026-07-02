@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides access to the type information for an object's coclass entry in its type library.

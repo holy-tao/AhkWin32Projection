@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PFNCONTEXTCALL.ahk" { PFNCONTEXTCALL }
 #Import ".\ComCallData.ahk" { ComCallData }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a mechanism to execute a function inside a specific COM+ object context.
@@ -59,7 +60,7 @@ export default struct IContextCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctxtcall/nf-ctxtcall-icontextcallback-contextcallback
      */
     ContextCallback(_pfnCallback, pParam, riid, iMethod, pUnk) {
-        result := ComCall(3, this, "ptr", _pfnCallback, ComCallData.Ptr, pParam, Guid.Ptr, riid, "int", iMethod, "ptr", pUnk, "HRESULT")
+        result := ComCall(3, this, PFNCONTEXTCALL, _pfnCallback, ComCallData.Ptr, pParam, Guid.Ptr, riid, Int32, iMethod, "ptr", pUnk, "HRESULT")
         return result
     }
 

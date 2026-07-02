@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D2D1_PATCH_EDGE_MODE.ahk" { D2D1_PATCH_EDGE_MODE }
-#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
 #Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
 
 /**
  * Represents a tensor patch with 16 control points, 4 corner colors, and boundary flags. An ID2D1GradientMesh is made up of 1 or more gradient mesh patches. Use the GradientMeshPatch function or the GradientMeshPatchFromCoonsPatch function to create one.

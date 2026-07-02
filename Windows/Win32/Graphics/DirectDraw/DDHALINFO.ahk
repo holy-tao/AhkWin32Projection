@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DDHAL_DDSURFACECALLBACKS.ahk" { DDHAL_DDSURFACECALLBACKS }
-#Import ".\DDHAL_DDEXEBUFCALLBACKS.ahk" { DDHAL_DDEXEBUFCALLBACKS }
-#Import ".\VIDMEM.ahk" { VIDMEM }
-#Import ".\DDSCAPS.ahk" { DDSCAPS }
-#Import ".\DDCORECAPS.ahk" { DDCORECAPS }
-#Import ".\DDHALMODEINFO.ahk" { DDHALMODEINFO }
-#Import ".\DDHAL_DDCALLBACKS.ahk" { DDHAL_DDCALLBACKS }
-#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 #Import ".\VIDMEMINFO.ahk" { VIDMEMINFO }
+#Import ".\LPDDHAL_GETDRIVERINFO.ahk" { LPDDHAL_GETDRIVERINFO }
+#Import ".\DDHAL_DDCALLBACKS.ahk" { DDHAL_DDCALLBACKS }
+#Import ".\DDHALMODEINFO.ahk" { DDHALMODEINFO }
 #Import ".\DDHAL_DDPALETTECALLBACKS.ahk" { DDHAL_DDPALETTECALLBACKS }
+#Import ".\DDCORECAPS.ahk" { DDCORECAPS }
+#Import ".\VIDMEM.ahk" { VIDMEM }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDHAL_DDSURFACECALLBACKS.ahk" { DDHAL_DDSURFACECALLBACKS }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDHAL_DDEXEBUFCALLBACKS.ahk" { DDHAL_DDEXEBUFCALLBACKS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -30,7 +31,7 @@ export default struct DDHALINFO {
 
     dwMonitorFrequency : UInt32
 
-    GetDriverInfo : IntPtr
+    GetDriverInfo : LPDDHAL_GETDRIVERINFO
 
     dwModeIndex : UInt32
 

@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a graph of transform nodes.
@@ -230,7 +230,7 @@ export default struct ID2D1TransformGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transformgraph-connectnode
      */
     ConnectNode(fromNode, toNode, toNodeInputIndex) {
-        result := ComCall(8, this, "ptr", fromNode, "ptr", toNode, "uint", toNodeInputIndex, "HRESULT")
+        result := ComCall(8, this, "ptr", fromNode, "ptr", toNode, UInt32, toNodeInputIndex, "HRESULT")
         return result
     }
 
@@ -266,7 +266,7 @@ export default struct ID2D1TransformGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transformgraph-connecttoeffectinput
      */
     ConnectToEffectInput(toEffectInputIndex, _node, toNodeInputIndex) {
-        result := ComCall(9, this, "uint", toEffectInputIndex, "ptr", _node, "uint", toNodeInputIndex, "HRESULT")
+        result := ComCall(9, this, UInt32, toEffectInputIndex, "ptr", _node, UInt32, toNodeInputIndex, "HRESULT")
         return result
     }
 
@@ -303,7 +303,7 @@ export default struct ID2D1TransformGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transformgraph-setpassthroughgraph
      */
     SetPassthroughGraph(effectInputIndex) {
-        result := ComCall(11, this, "uint", effectInputIndex, "HRESULT")
+        result := ComCall(11, this, UInt32, effectInputIndex, "HRESULT")
         return result
     }
 

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\IEnumString.ahk" { IEnumString }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IInternetSecurityMgrSite.ahk" { IInternetSecurityMgrSite }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IInternetSecurityMgrSite.ahk" { IInternetSecurityMgrSite }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -73,7 +73,7 @@ export default struct IInternetSecurityManager extends IUnknown {
     MapUrlToZone(pwszUrl, dwFlags) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := ComCall(5, this, "ptr", pwszUrl, "uint*", &pdwZone := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszUrl, "uint*", &pdwZone := 0, UInt32, dwFlags, "HRESULT")
         return pdwZone
     }
 
@@ -89,7 +89,7 @@ export default struct IInternetSecurityManager extends IUnknown {
 
         pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszUrl, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszUrl, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, IntPtr, dwReserved, "HRESULT")
         return pbSecurityId
     }
 
@@ -109,7 +109,7 @@ export default struct IInternetSecurityManager extends IUnknown {
 
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pwszUrl, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszUrl, UInt32, dwAction, "char*", &pPolicy := 0, UInt32, cbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwFlags, UInt32, dwReserved, "HRESULT")
         return pPolicy
     }
 
@@ -131,7 +131,7 @@ export default struct IInternetSecurityManager extends IUnknown {
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pwszUrl, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwReserved, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszUrl, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct IInternetSecurityManager extends IUnknown {
     SetZoneMapping(dwZone, lpszPattern, dwFlags) {
         lpszPattern := lpszPattern is String ? StrPtr(lpszPattern) : lpszPattern
 
-        result := ComCall(9, this, "uint", dwZone, "ptr", lpszPattern, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, UInt32, dwZone, "ptr", lpszPattern, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -156,7 +156,7 @@ export default struct IInternetSecurityManager extends IUnknown {
      * @returns {IEnumString} 
      */
     GetZoneMappings(dwZone, dwFlags) {
-        result := ComCall(10, this, "uint", dwZone, "ptr*", &ppenumString := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, UInt32, dwZone, "ptr*", &ppenumString := 0, UInt32, dwFlags, "HRESULT")
         return IEnumString(ppenumString)
     }
 

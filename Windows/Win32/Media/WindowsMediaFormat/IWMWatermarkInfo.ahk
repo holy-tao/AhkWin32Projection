@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMT_WATERMARK_ENTRY.ahk" { WMT_WATERMARK_ENTRY }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\WMT_WATERMARK_ENTRY_TYPE.ahk" { WMT_WATERMARK_ENTRY_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WMT_WATERMARK_ENTRY.ahk" { WMT_WATERMARK_ENTRY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMWatermarkInfo interface retrieves information about available watermarking systems.
@@ -64,7 +64,7 @@ export default struct IWMWatermarkInfo extends IUnknown {
      */
     GetWatermarkEntry(wmetType, dwEntryNum) {
         pEntry := WMT_WATERMARK_ENTRY()
-        result := ComCall(4, this, WMT_WATERMARK_ENTRY_TYPE, wmetType, "uint", dwEntryNum, WMT_WATERMARK_ENTRY.Ptr, pEntry, "HRESULT")
+        result := ComCall(4, this, WMT_WATERMARK_ENTRY_TYPE, wmetType, UInt32, dwEntryNum, WMT_WATERMARK_ENTRY.Ptr, pEntry, "HRESULT")
         return pEntry
     }
 

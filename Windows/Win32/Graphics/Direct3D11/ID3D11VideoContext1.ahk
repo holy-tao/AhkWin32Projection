@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D11_CRYPTO_SESSION_STATUS.ahk" { D3D11_CRYPTO_SESSION_STATUS }
-#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT.ahk" { D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT }
-#Import ".\D3D11_VIDEO_DECODER_BUFFER_DESC1.ahk" { D3D11_VIDEO_DECODER_BUFFER_DESC1 }
 #Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
-#Import ".\ID3D11VideoContext.ahk" { ID3D11VideoContext }
-#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
-#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 #Import ".\D3D11_VIDEO_SAMPLE_DESC.ahk" { D3D11_VIDEO_SAMPLE_DESC }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
+#Import ".\D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT.ahk" { D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT }
+#Import ".\D3D11_CRYPTO_SESSION_STATUS.ahk" { D3D11_CRYPTO_SESSION_STATUS }
+#Import ".\D3D11_VIDEO_DECODER_BUFFER_DESC1.ahk" { D3D11_VIDEO_DECODER_BUFFER_DESC1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D11VideoContext.ahk" { ID3D11VideoContext }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext1)
@@ -83,7 +83,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-submitdecoderbuffers1
      */
     SubmitDecoderBuffers1(pDecoder, NumBuffers, pBufferDesc) {
-        result := ComCall(65, this, "ptr", pDecoder, "uint", NumBuffers, D3D11_VIDEO_DECODER_BUFFER_DESC1.Ptr, pBufferDesc, "HRESULT")
+        result := ComCall(65, this, "ptr", pDecoder, UInt32, NumBuffers, D3D11_VIDEO_DECODER_BUFFER_DESC1.Ptr, pBufferDesc, "HRESULT")
         return result
     }
 
@@ -106,7 +106,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
     GetDataForNewHardwareKey(pCryptoSession, PrivateInputSize, pPrivatInputData) {
         pPrivatInputDataMarshal := pPrivatInputData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(66, this, "ptr", pCryptoSession, "uint", PrivateInputSize, pPrivatInputDataMarshal, pPrivatInputData, "uint*", &pPrivateOutputData := 0, "HRESULT")
+        result := ComCall(66, this, "ptr", pCryptoSession, UInt32, PrivateInputSize, pPrivatInputDataMarshal, pPrivatInputData, "uint*", &pPrivateOutputData := 0, "HRESULT")
         return pPrivateOutputData
     }
 
@@ -162,7 +162,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderenabledownsampling
      */
     DecoderEnableDownsampling(pDecoder, InputColorSpace, pOutputDesc, ReferenceFrameCount) {
-        result := ComCall(68, this, "ptr", pDecoder, DXGI_COLOR_SPACE_TYPE, InputColorSpace, D3D11_VIDEO_SAMPLE_DESC.Ptr, pOutputDesc, "uint", ReferenceFrameCount, "HRESULT")
+        result := ComCall(68, this, "ptr", pDecoder, DXGI_COLOR_SPACE_TYPE, InputColorSpace, D3D11_VIDEO_SAMPLE_DESC.Ptr, pOutputDesc, UInt32, ReferenceFrameCount, "HRESULT")
         return result
     }
 
@@ -280,7 +280,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetstreamcolorspace1
      */
     VideoProcessorSetStreamColorSpace1(pVideoProcessor, StreamIndex, ColorSpace) {
-        ComCall(74, this, "ptr", pVideoProcessor, "uint", StreamIndex, DXGI_COLOR_SPACE_TYPE, ColorSpace)
+        ComCall(74, this, "ptr", pVideoProcessor, UInt32, StreamIndex, DXGI_COLOR_SPACE_TYPE, ColorSpace)
     }
 
     /**
@@ -312,7 +312,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetstreammirror
      */
     VideoProcessorSetStreamMirror(pVideoProcessor, StreamIndex, Enable, FlipHorizontal, FlipVertical) {
-        ComCall(75, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable, BOOL, FlipHorizontal, BOOL, FlipVertical)
+        ComCall(75, this, "ptr", pVideoProcessor, UInt32, StreamIndex, BOOL, Enable, BOOL, FlipHorizontal, BOOL, FlipVertical)
     }
 
     /**
@@ -332,7 +332,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
     VideoProcessorGetStreamColorSpace1(pVideoProcessor, StreamIndex, pColorSpace) {
         pColorSpaceMarshal := pColorSpace is VarRef ? "int*" : "ptr"
 
-        ComCall(76, this, "ptr", pVideoProcessor, "uint", StreamIndex, pColorSpaceMarshal, pColorSpace)
+        ComCall(76, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pColorSpaceMarshal, pColorSpace)
     }
 
     /**
@@ -360,7 +360,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
         pFlipHorizontalMarshal := pFlipHorizontal is VarRef ? "int*" : "ptr"
         pFlipVerticalMarshal := pFlipVertical is VarRef ? "int*" : "ptr"
 
-        ComCall(77, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnableMarshal, pEnable, pFlipHorizontalMarshal, pFlipHorizontal, pFlipVerticalMarshal, pFlipVertical)
+        ComCall(77, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnableMarshal, pEnable, pFlipHorizontalMarshal, pFlipHorizontal, pFlipVerticalMarshal, pFlipVertical)
     }
 
     /**
@@ -391,7 +391,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetbehaviorhints
      */
     VideoProcessorGetBehaviorHints(pVideoProcessor, OutputWidth, OutputHeight, OutputFormat, StreamCount, pStreams) {
-        result := ComCall(78, this, "ptr", pVideoProcessor, "uint", OutputWidth, "uint", OutputHeight, DXGI_FORMAT, OutputFormat, "uint", StreamCount, D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT.Ptr, pStreams, "uint*", &pBehaviorHints := 0, "HRESULT")
+        result := ComCall(78, this, "ptr", pVideoProcessor, UInt32, OutputWidth, UInt32, OutputHeight, DXGI_FORMAT, OutputFormat, UInt32, StreamCount, D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT.Ptr, pStreams, "uint*", &pBehaviorHints := 0, "HRESULT")
         return pBehaviorHints
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -46,7 +46,7 @@ export default struct IInternetHostSecurityManager extends IUnknown {
     GetSecurityId(pcbSecurityId, dwReserved) {
         pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        result := ComCall(3, this, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, IntPtr, dwReserved, "HRESULT")
         return pbSecurityId
     }
 
@@ -63,7 +63,7 @@ export default struct IInternetHostSecurityManager extends IUnknown {
     ProcessUrlAction(dwAction, cbPolicy, pContext, cbContext, dwFlags, dwReserved) {
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, UInt32, dwAction, "char*", &pPolicy := 0, UInt32, cbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwFlags, UInt32, dwReserved, "HRESULT")
         return pPolicy
     }
 
@@ -82,7 +82,7 @@ export default struct IInternetHostSecurityManager extends IUnknown {
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwReserved, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwReserved, "HRESULT")
         return result
     }
 

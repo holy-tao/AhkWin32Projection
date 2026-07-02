@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
-#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\IXpsOMPageReference.ahk" { IXpsOMPageReference }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
 
 /**
  * Provides access to the content of the resource stream of a page's StoryFragments part.

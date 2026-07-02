@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides encryption for media data inside the protected media path (PMP).
@@ -104,7 +104,7 @@ export default struct IMFSampleProtection extends IUnknown {
         ppCertMarshal := ppCert is VarRef ? "ptr*" : "ptr"
         pcbCertMarshal := pcbCert is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwVersion, ppCertMarshal, ppCert, pcbCertMarshal, pcbCert, "HRESULT")
+        result := ComCall(5, this, UInt32, dwVersion, ppCertMarshal, ppCert, pcbCertMarshal, pcbCert, "HRESULT")
         return result
     }
 
@@ -155,7 +155,7 @@ export default struct IMFSampleProtection extends IUnknown {
         ppbSeedMarshal := ppbSeed is VarRef ? "ptr*" : "ptr"
         pcbSeedMarshal := pcbSeed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwVersion, "uint", dwOutputId, pbCertMarshal, pbCert, "uint", cbCert, ppbSeedMarshal, ppbSeed, pcbSeedMarshal, pcbSeed, "HRESULT")
+        result := ComCall(6, this, UInt32, dwVersion, UInt32, dwOutputId, pbCertMarshal, pbCert, UInt32, cbCert, ppbSeedMarshal, ppbSeed, pcbSeedMarshal, pcbSeed, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct IMFSampleProtection extends IUnknown {
     InitInputProtection(dwVersion, dwInputId, pbSeed, cbSeed) {
         pbSeedMarshal := pbSeed is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwVersion, "uint", dwInputId, pbSeedMarshal, pbSeed, "uint", cbSeed, "HRESULT")
+        result := ComCall(7, this, UInt32, dwVersion, UInt32, dwInputId, pbSeedMarshal, pbSeed, UInt32, cbSeed, "HRESULT")
         return result
     }
 

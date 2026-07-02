@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IAccessible.ahk" { IAccessible }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that retrieves an accessible element from an object ID.
@@ -58,7 +58,7 @@ export default struct IAccessibleHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblehandler-accessibleobjectfromid
      */
     AccessibleObjectFromID(_hwnd, lObjectID) {
-        result := ComCall(3, this, "int", _hwnd, "int", lObjectID, "ptr*", &pIAccessible := 0, "HRESULT")
+        result := ComCall(3, this, Int32, _hwnd, Int32, lObjectID, "ptr*", &pIAccessible := 0, "HRESULT")
         return IAccessible(pIAccessible)
     }
 

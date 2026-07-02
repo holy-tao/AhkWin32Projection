@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CR_DISP.ahk" { CR_DISP }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICertRequest2.ahk" { ICertRequest2 }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CR_DISP.ahk" { CR_DISP }
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest3)
@@ -202,7 +202,7 @@ export default struct ICertRequest3 extends ICertRequest2 {
         strCredential := strCredential is String ? BSTR.Alloc(strCredential).Value : strCredential
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(20, this, "int", _hWnd, X509EnrollmentAuthFlags, AuthType, BSTR, strCredential, BSTR, strPassword, "HRESULT")
+        result := ComCall(20, this, Int32, _hWnd, X509EnrollmentAuthFlags, AuthType, BSTR, strCredential, BSTR, strPassword, "HRESULT")
         return result
     }
 

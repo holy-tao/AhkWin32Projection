@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
-#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
-#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
 
 /**
  * The ISCPSecureQuery interface is queried by Windows Media Device Manager to determine ownership of secured content.
@@ -271,7 +271,7 @@ export default struct ISCPSecureQuery extends IUnknown {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", fuFlags, "ptr", pwszExtension, pDataMarshal, pData, "uint", dwSize, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(4, this, UInt32, fuFlags, "ptr", pwszExtension, pDataMarshal, pData, UInt32, dwSize, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -316,7 +316,7 @@ export default struct ISCPSecureQuery extends IUnknown {
         pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", fuFlags, pDataMarshal, pData, "uint", dwSize, "uint", dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, "ptr*", &ppExchange := 0, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(5, this, UInt32, fuFlags, pDataMarshal, pData, UInt32, dwSize, UInt32, dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStorageGlobals, "ptr*", &ppExchange := 0, abMacMarshal, abMac, "HRESULT")
         return ISCPSecureExchange(ppExchange)
     }
 
@@ -404,7 +404,7 @@ export default struct ISCPSecureQuery extends IUnknown {
         pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, pDataMarshal, pData, "uint", dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStgGlobals, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(6, this, pDataMarshal, pData, UInt32, dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStgGlobals, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
         return result
     }
 

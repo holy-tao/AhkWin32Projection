@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\InkRecoGuide.ahk" { InkRecoGuide }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import ".\InkRecoGuide.ahk" { InkRecoGuide }
 
 /**
  * . (IInkRecognizerGuide)
@@ -421,7 +421,7 @@ export default struct IInkRecognizerGuide extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-put_rows
      */
     put_Rows(Units) {
-        result := ComCall(12, this, "int", Units, "HRESULT")
+        result := ComCall(12, this, Int32, Units, "HRESULT")
         return result
     }
 
@@ -690,7 +690,7 @@ export default struct IInkRecognizerGuide extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-put_columns
      */
     put_Columns(Units) {
-        result := ComCall(14, this, "int", Units, "HRESULT")
+        result := ComCall(14, this, Int32, Units, "HRESULT")
         return result
     }
 
@@ -715,7 +715,7 @@ export default struct IInkRecognizerGuide extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-put_midline
      */
     put_Midline(Units) {
-        result := ComCall(16, this, "int", Units, "HRESULT")
+        result := ComCall(16, this, Int32, Units, "HRESULT")
         return result
     }
 

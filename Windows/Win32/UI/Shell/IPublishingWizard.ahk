@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWizardExtension.ahk" { IWizardExtension }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
 
 /**
  * Exposes methods for working with the Online Print Wizard, the Web Publishing Wizard, and the Add Network Place Wizard. In Windows Vista, IPublishingWizard no longer supports the Web Publishing Wizard or Online Print Wizard.
@@ -173,7 +173,7 @@ export default struct IPublishingWizard extends IWizardExtension {
     Initialize(pdo, dwOptions, pszServiceScope) {
         pszServiceScope := pszServiceScope is String ? StrPtr(pszServiceScope) : pszServiceScope
 
-        result := ComCall(6, this, "ptr", pdo, "uint", dwOptions, "ptr", pszServiceScope, "HRESULT")
+        result := ComCall(6, this, "ptr", pdo, UInt32, dwOptions, "ptr", pszServiceScope, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSMQQueue.ahk" { IMSMQQueue }
 #Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMSMQQueue.ahk" { IMSMQQueue }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -61,7 +61,7 @@ export default struct IMSMQPrivateEvent extends IDispatch {
      * @returns {HRESULT} 
      */
     FireArrivedEvent(pq, msgcursor) {
-        result := ComCall(8, this, "ptr", pq, "int", msgcursor, "HRESULT")
+        result := ComCall(8, this, "ptr", pq, Int32, msgcursor, "HRESULT")
         return result
     }
 
@@ -73,7 +73,7 @@ export default struct IMSMQPrivateEvent extends IDispatch {
      * @returns {HRESULT} 
      */
     FireArrivedErrorEvent(pq, hrStatus, msgcursor) {
-        result := ComCall(9, this, "ptr", pq, "int", hrStatus, "int", msgcursor, "HRESULT")
+        result := ComCall(9, this, "ptr", pq, "int", hrStatus, Int32, msgcursor, "HRESULT")
         return result
     }
 

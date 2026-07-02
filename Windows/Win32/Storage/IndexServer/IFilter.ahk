@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\STAT_CHUNK.ahk" { STAT_CHUNK }
-#Import ".\FILTERREGION.ahk" { FILTERREGION }
-#Import ".\FULLPROPSPEC.ahk" { FULLPROPSPEC }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FILTERREGION.ahk" { FILTERREGION }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\STAT_CHUNK.ahk" { STAT_CHUNK }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FULLPROPSPEC.ahk" { FULLPROPSPEC }
 
 /**
  * Scans documents for text and properties (also called attributes).
@@ -135,7 +135,7 @@ export default struct IFilter extends IUnknown {
     Init(grfFlags, cAttributes, aAttributes, pFlags) {
         pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", grfFlags, "uint", cAttributes, FULLPROPSPEC.Ptr, aAttributes, pFlagsMarshal, pFlags, Int32)
+        result := ComCall(3, this, UInt32, grfFlags, UInt32, cAttributes, FULLPROPSPEC.Ptr, aAttributes, pFlagsMarshal, pFlags, Int32)
         return result
     }
 

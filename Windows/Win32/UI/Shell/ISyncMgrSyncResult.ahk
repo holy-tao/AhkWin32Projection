@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SYNCMGR_PROGRESS_STATUS.ahk" { SYNCMGR_PROGRESS_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes a method that applications calling ISyncMgrControl can use to get the result of a ISyncMgrControl::StartHandlerSync or ISyncMgrControl::StartItemSync call.
@@ -55,7 +55,7 @@ export default struct ISyncMgrSyncResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncresult-result
      */
     Result(nStatus, cError, cConflicts) {
-        result := ComCall(3, this, SYNCMGR_PROGRESS_STATUS, nStatus, "uint", cError, "uint", cConflicts, "HRESULT")
+        result := ComCall(3, this, SYNCMGR_PROGRESS_STATUS, nStatus, UInt32, cError, UInt32, cConflicts, "HRESULT")
         return result
     }
 

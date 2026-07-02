@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\TVITEMA.ahk" { TVITEMA }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
-#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
-#Import ".\HTREEITEM.ahk" { HTREEITEM }
 #Import ".\NMHDR.ahk" { NMHDR }
-#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
+#Import ".\HTREEITEM.ahk" { HTREEITEM }
 
 /**
  * Contains and receives display information for a tree-view item. This structure is identical to the TV_DISPINFO structure, but it has been renamed to follow current naming conventions. (ANSI)

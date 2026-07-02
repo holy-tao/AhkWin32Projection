@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_LIBRARY_DESC.ahk" { D3D12_LIBRARY_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ID3D12FunctionReflection.ahk" { ID3D12FunctionReflection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A library-reflection interface accesses library info. (ID3D12LibraryReflection)
@@ -71,7 +71,7 @@ export default struct ID3D12LibraryReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12libraryreflection-getfunctionbyindex
      */
     GetFunctionByIndex(FunctionIndex) {
-        result := ComCall(4, this, "int", FunctionIndex, ID3D12FunctionReflection)
+        result := ComCall(4, this, Int32, FunctionIndex, ID3D12FunctionReflection)
         return result
     }
 

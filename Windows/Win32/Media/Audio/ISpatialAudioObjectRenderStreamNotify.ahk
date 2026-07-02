@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISpatialAudioObjectRenderStreamBase.ahk" { ISpatialAudioObjectRenderStreamBase }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides notifications for spatial audio clients to respond to changes in the state of an ISpatialAudioObjectRenderStream.
@@ -51,7 +51,7 @@ export default struct ISpatialAudioObjectRenderStreamNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreamnotify-onavailabledynamicobjectcountchange
      */
     OnAvailableDynamicObjectCountChange(sender, hnsComplianceDeadlineTime, availableDynamicObjectCountChange) {
-        result := ComCall(3, this, "ptr", sender, "int64", hnsComplianceDeadlineTime, "uint", availableDynamicObjectCountChange, "HRESULT")
+        result := ComCall(3, this, "ptr", sender, Int64, hnsComplianceDeadlineTime, UInt32, availableDynamicObjectCountChange, "HRESULT")
         return result
     }
 

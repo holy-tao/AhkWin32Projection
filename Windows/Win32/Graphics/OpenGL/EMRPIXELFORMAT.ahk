@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PFD_FLAGS.ahk" { PFD_FLAGS }
-#Import "..\Gdi\EMR.ahk" { EMR }
 #Import ".\PFD_PIXEL_TYPE.ahk" { PFD_PIXEL_TYPE }
 #Import "..\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\PFD_FLAGS.ahk" { PFD_FLAGS }
 #Import ".\PIXELFORMATDESCRIPTOR.ahk" { PIXELFORMATDESCRIPTOR }
+#Import "..\Gdi\EMR.ahk" { EMR }
 
 /**
  * The EMRPIXELFORMAT structure contains the members for the SetPixelFormat enhanced metafile record. The pixel format information in ENHMETAHEADER refers to this structure.

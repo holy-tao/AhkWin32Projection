@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IAction.ahk" { IAction }
-#Import ".\ITaskNamedValueCollection.ahk" { ITaskNamedValueCollection }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITaskNamedValueCollection.ahk" { ITaskNamedValueCollection }
+#Import ".\IAction.ahk" { IAction }
 
 /**
  * Represents an action that sends an email message.

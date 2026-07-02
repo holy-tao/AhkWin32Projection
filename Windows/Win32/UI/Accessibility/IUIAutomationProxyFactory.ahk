@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes properties and methods of an object that creates a Microsoft UI Automation provider for UI elements that do not have native support for UI Automation. This interface is implemented by proxies.
@@ -67,7 +67,7 @@ export default struct IUIAutomationProxyFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-createprovider
      */
     CreateProvider(_hwnd, idObject, idChild) {
-        result := ComCall(3, this, HWND, _hwnd, "int", idObject, "int", idChild, "ptr*", &provider := 0, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, Int32, idObject, Int32, idChild, "ptr*", &provider := 0, "HRESULT")
         return IRawElementProviderSimple(provider)
     }
 

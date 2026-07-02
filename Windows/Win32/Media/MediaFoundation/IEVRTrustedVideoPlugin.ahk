@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables a plug-in component for the enhanced video renderer (EVR) to work with protected media.
@@ -118,7 +118,7 @@ export default struct IEVRTrustedVideoPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrtrustedvideoplugin-setconstriction
      */
     SetConstriction(dwKPix) {
-        result := ComCall(5, this, "uint", dwKPix, "HRESULT")
+        result := ComCall(5, this, UInt32, dwKPix, "HRESULT")
         return result
     }
 

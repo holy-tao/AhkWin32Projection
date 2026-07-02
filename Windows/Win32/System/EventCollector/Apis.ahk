@@ -1,10 +1,10 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\EC_SUBSCRIPTION_PROPERTY_ID.ahk" { EC_SUBSCRIPTION_PROPERTY_ID }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\EC_VARIANT.ahk" { EC_VARIANT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID.ahk" { EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID }
+#Import ".\EC_SUBSCRIPTION_PROPERTY_ID.ahk" { EC_SUBSCRIPTION_PROPERTY_ID }
 
 /**
  * @namespace Windows.Win32.System.EventCollector
@@ -21,7 +21,7 @@
 export EcOpenSubscriptionEnum(Flags) {
     A_LastError := 0
 
-    result := DllCall("WecApi.dll\EcOpenSubscriptionEnum", "uint", Flags, IntPtr)
+    result := DllCall("WecApi.dll\EcOpenSubscriptionEnum", UInt32, Flags, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -44,7 +44,7 @@ export EcEnumNextSubscription(SubscriptionEnum, SubscriptionNameBufferSize, Subs
 
     SubscriptionNameBufferUsedMarshal := SubscriptionNameBufferUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WecApi.dll\EcEnumNextSubscription", "ptr", SubscriptionEnum, "uint", SubscriptionNameBufferSize, "ptr", SubscriptionNameBuffer, SubscriptionNameBufferUsedMarshal, SubscriptionNameBufferUsed, BOOL)
+    result := DllCall("WecApi.dll\EcEnumNextSubscription", IntPtr, SubscriptionEnum, UInt32, SubscriptionNameBufferSize, "ptr", SubscriptionNameBuffer, SubscriptionNameBufferUsedMarshal, SubscriptionNameBufferUsed, BOOL)
     return result
 }
 
@@ -62,7 +62,7 @@ export EcOpenSubscription(SubscriptionName, AccessMask, Flags) {
 
     A_LastError := 0
 
-    result := DllCall("WecApi.dll\EcOpenSubscription", "ptr", SubscriptionName, "uint", AccessMask, "uint", Flags, IntPtr)
+    result := DllCall("WecApi.dll\EcOpenSubscription", "ptr", SubscriptionName, UInt32, AccessMask, UInt32, Flags, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -81,7 +81,7 @@ export EcOpenSubscription(SubscriptionName, AccessMask, Flags) {
  * @since windows6.0.6000
  */
 export EcSetSubscriptionProperty(Subscription, PropertyId, Flags, _PropertyValue) {
-    result := DllCall("WecApi.dll\EcSetSubscriptionProperty", "ptr", Subscription, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, "uint", Flags, EC_VARIANT.Ptr, _PropertyValue, BOOL)
+    result := DllCall("WecApi.dll\EcSetSubscriptionProperty", IntPtr, Subscription, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, UInt32, Flags, EC_VARIANT.Ptr, _PropertyValue, BOOL)
     return result
 }
 
@@ -100,7 +100,7 @@ export EcSetSubscriptionProperty(Subscription, PropertyId, Flags, _PropertyValue
 export EcGetSubscriptionProperty(Subscription, PropertyId, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
     PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WecApi.dll\EcGetSubscriptionProperty", "ptr", Subscription, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, "uint", Flags, "uint", PropertyValueBufferSize, EC_VARIANT.Ptr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
+    result := DllCall("WecApi.dll\EcGetSubscriptionProperty", IntPtr, Subscription, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, UInt32, Flags, UInt32, PropertyValueBufferSize, EC_VARIANT.Ptr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
     return result
 }
 
@@ -117,7 +117,7 @@ export EcGetSubscriptionProperty(Subscription, PropertyId, Flags, PropertyValueB
  * @since windows6.0.6000
  */
 export EcSaveSubscription(Subscription, Flags) {
-    result := DllCall("WecApi.dll\EcSaveSubscription", "ptr", Subscription, "uint", Flags, BOOL)
+    result := DllCall("WecApi.dll\EcSaveSubscription", IntPtr, Subscription, UInt32, Flags, BOOL)
     return result
 }
 
@@ -132,7 +132,7 @@ export EcSaveSubscription(Subscription, Flags) {
 export EcDeleteSubscription(SubscriptionName, Flags) {
     SubscriptionName := SubscriptionName is String ? StrPtr(SubscriptionName) : SubscriptionName
 
-    result := DllCall("WecApi.dll\EcDeleteSubscription", "ptr", SubscriptionName, "uint", Flags, BOOL)
+    result := DllCall("WecApi.dll\EcDeleteSubscription", "ptr", SubscriptionName, UInt32, Flags, BOOL)
     return result
 }
 
@@ -149,7 +149,7 @@ export EcDeleteSubscription(SubscriptionName, Flags) {
 export EcGetObjectArraySize(ObjectArray, ObjectArraySize) {
     ObjectArraySizeMarshal := ObjectArraySize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WecApi.dll\EcGetObjectArraySize", "ptr", ObjectArray, ObjectArraySizeMarshal, ObjectArraySize, BOOL)
+    result := DllCall("WecApi.dll\EcGetObjectArraySize", IntPtr, ObjectArray, ObjectArraySizeMarshal, ObjectArraySize, BOOL)
     return result
 }
 
@@ -167,7 +167,7 @@ export EcGetObjectArraySize(ObjectArray, ObjectArraySize) {
  * @since windows6.0.6000
  */
 export EcSetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, _PropertyValue) {
-    result := DllCall("WecApi.dll\EcSetObjectArrayProperty", "ptr", ObjectArray, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, "uint", ArrayIndex, "uint", Flags, EC_VARIANT.Ptr, _PropertyValue, BOOL)
+    result := DllCall("WecApi.dll\EcSetObjectArrayProperty", IntPtr, ObjectArray, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, UInt32, ArrayIndex, UInt32, Flags, EC_VARIANT.Ptr, _PropertyValue, BOOL)
     return result
 }
 
@@ -193,7 +193,7 @@ export EcSetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, _Pro
 export EcGetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
     PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WecApi.dll\EcGetObjectArrayProperty", "ptr", ObjectArray, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, "uint", ArrayIndex, "uint", Flags, "uint", PropertyValueBufferSize, EC_VARIANT.Ptr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
+    result := DllCall("WecApi.dll\EcGetObjectArrayProperty", IntPtr, ObjectArray, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, UInt32, ArrayIndex, UInt32, Flags, UInt32, PropertyValueBufferSize, EC_VARIANT.Ptr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
     return result
 }
 
@@ -210,7 +210,7 @@ export EcGetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, Prop
  * @since windows6.0.6000
  */
 export EcInsertObjectArrayElement(ObjectArray, ArrayIndex) {
-    result := DllCall("WecApi.dll\EcInsertObjectArrayElement", "ptr", ObjectArray, "uint", ArrayIndex, BOOL)
+    result := DllCall("WecApi.dll\EcInsertObjectArrayElement", IntPtr, ObjectArray, UInt32, ArrayIndex, BOOL)
     return result
 }
 
@@ -225,7 +225,7 @@ export EcInsertObjectArrayElement(ObjectArray, ArrayIndex) {
  * @since windows6.0.6000
  */
 export EcRemoveObjectArrayElement(ObjectArray, ArrayIndex) {
-    result := DllCall("WecApi.dll\EcRemoveObjectArrayElement", "ptr", ObjectArray, "uint", ArrayIndex, BOOL)
+    result := DllCall("WecApi.dll\EcRemoveObjectArrayElement", IntPtr, ObjectArray, UInt32, ArrayIndex, BOOL)
     return result
 }
 
@@ -248,7 +248,7 @@ export EcGetSubscriptionRunTimeStatus(SubscriptionName, StatusInfoId, EventSourc
 
     StatusValueBufferUsedMarshal := StatusValueBufferUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("WecApi.dll\EcGetSubscriptionRunTimeStatus", "ptr", SubscriptionName, EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID, StatusInfoId, "ptr", EventSourceName, "uint", Flags, "uint", StatusValueBufferSize, EC_VARIANT.Ptr, StatusValueBuffer, StatusValueBufferUsedMarshal, StatusValueBufferUsed, BOOL)
+    result := DllCall("WecApi.dll\EcGetSubscriptionRunTimeStatus", "ptr", SubscriptionName, EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID, StatusInfoId, "ptr", EventSourceName, UInt32, Flags, UInt32, StatusValueBufferSize, EC_VARIANT.Ptr, StatusValueBuffer, StatusValueBufferUsedMarshal, StatusValueBufferUsed, BOOL)
     return result
 }
 
@@ -267,7 +267,7 @@ export EcRetrySubscription(SubscriptionName, EventSourceName, Flags) {
     SubscriptionName := SubscriptionName is String ? StrPtr(SubscriptionName) : SubscriptionName
     EventSourceName := EventSourceName is String ? StrPtr(EventSourceName) : EventSourceName
 
-    result := DllCall("WecApi.dll\EcRetrySubscription", "ptr", SubscriptionName, "ptr", EventSourceName, "uint", Flags, BOOL)
+    result := DllCall("WecApi.dll\EcRetrySubscription", "ptr", SubscriptionName, "ptr", EventSourceName, UInt32, Flags, BOOL)
     return result
 }
 
@@ -279,7 +279,7 @@ export EcRetrySubscription(SubscriptionName, EventSourceName, Flags) {
  * @since windows6.0.6000
  */
 export EcClose(_Object) {
-    result := DllCall("WecApi.dll\EcClose", "ptr", _Object, BOOL)
+    result := DllCall("WecApi.dll\EcClose", IntPtr, _Object, BOOL)
     return result
 }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NMHDR.ahk" { NMHDR }
 #Import ".\NMTBDISPINFOW_MASK.ahk" { NMTBDISPINFOW_MASK }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NMHDR.ahk" { NMHDR }
 
 /**
  * Contains and receives display information for a toolbar item. This structure is used with the TBN_GETDISPINFO notification code. (Unicode)

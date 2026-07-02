@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains methods that support model textures and print ticket.

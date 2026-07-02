@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWMDRMTranscryptor.ahk" { IWMDRMTranscryptor }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat
@@ -48,7 +48,7 @@ export default struct IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
      * @returns {HRESULT} 
      */
     SeekEx(cnsStartTime, cnsDuration, flRate, fIncludeFileHeader) {
-        result := ComCall(7, this, "uint", cnsStartTime, "uint", cnsDuration, "float", flRate, BOOL, fIncludeFileHeader, "HRESULT")
+        result := ComCall(7, this, Int64, cnsStartTime, Int64, cnsDuration, Float32, flRate, BOOL, fIncludeFileHeader, "HRESULT")
         return result
     }
 

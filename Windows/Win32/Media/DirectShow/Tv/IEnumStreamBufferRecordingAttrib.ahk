@@ -2,8 +2,8 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\STREAMBUFFER_ATTRIBUTE.ahk" { STREAMBUFFER_ATTRIBUTE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumStreamBufferRecordingAttrib interface enumerates a collection of attributes on a stream buffer file.
@@ -53,7 +53,7 @@ export default struct IEnumStreamBufferRecordingAttrib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-ienumstreambufferrecordingattrib-next
      */
     Next(cRequest, pStreamBufferAttribute) {
-        result := ComCall(3, this, "uint", cRequest, STREAMBUFFER_ATTRIBUTE.Ptr, pStreamBufferAttribute, "uint*", &pcReceived := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, cRequest, STREAMBUFFER_ATTRIBUTE.Ptr, pStreamBufferAttribute, "uint*", &pcReceived := 0, "HRESULT")
         return pcReceived
     }
 
@@ -93,7 +93,7 @@ export default struct IEnumStreamBufferRecordingAttrib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-ienumstreambufferrecordingattrib-skip
      */
     Skip(cRecords) {
-        result := ComCall(4, this, "uint", cRecords, "HRESULT")
+        result := ComCall(4, this, UInt32, cRecords, "HRESULT")
         return result
     }
 

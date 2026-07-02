@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DXVAHD_RATIONAL.ahk" { DXVAHD_RATIONAL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies the pixel aspect ratio (PAR) for the source and destination rectangles.

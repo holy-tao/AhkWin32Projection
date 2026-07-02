@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CREDENTIAL_PROVIDER_FIELD_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_STATE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
-#Import ".\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides an asynchronous callback mechanism used by a credential to notify it of state or text change events in the Logon UI or Credential UI.
@@ -75,7 +75,7 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldstate
      */
     SetFieldState(pcpc, dwFieldID, cpfs) {
-        result := ComCall(3, this, "ptr", pcpc, "uint", dwFieldID, CREDENTIAL_PROVIDER_FIELD_STATE, cpfs, "HRESULT")
+        result := ComCall(3, this, "ptr", pcpc, UInt32, dwFieldID, CREDENTIAL_PROVIDER_FIELD_STATE, cpfs, "HRESULT")
         return result
     }
 
@@ -96,7 +96,7 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldinteractivestate
      */
     SetFieldInteractiveState(pcpc, dwFieldID, cpfis) {
-        result := ComCall(4, this, "ptr", pcpc, "uint", dwFieldID, CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE, cpfis, "HRESULT")
+        result := ComCall(4, this, "ptr", pcpc, UInt32, dwFieldID, CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE, cpfis, "HRESULT")
         return result
     }
 
@@ -119,7 +119,7 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
     SetFieldString(pcpc, dwFieldID, psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := ComCall(5, this, "ptr", pcpc, "uint", dwFieldID, "ptr", psz, "HRESULT")
+        result := ComCall(5, this, "ptr", pcpc, UInt32, dwFieldID, "ptr", psz, "HRESULT")
         return result
     }
 
@@ -145,7 +145,7 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
     SetFieldCheckbox(pcpc, dwFieldID, bChecked, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(6, this, "ptr", pcpc, "uint", dwFieldID, BOOL, bChecked, "ptr", pszLabel, "HRESULT")
+        result := ComCall(6, this, "ptr", pcpc, UInt32, dwFieldID, BOOL, bChecked, "ptr", pszLabel, "HRESULT")
         return result
     }
 
@@ -166,7 +166,7 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldbitmap
      */
     SetFieldBitmap(pcpc, dwFieldID, hbmp) {
-        result := ComCall(7, this, "ptr", pcpc, "uint", dwFieldID, HBITMAP, hbmp, "HRESULT")
+        result := ComCall(7, this, "ptr", pcpc, UInt32, dwFieldID, HBITMAP, hbmp, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldcomboboxselecteditem
      */
     SetFieldComboBoxSelectedItem(pcpc, dwFieldID, dwSelectedItem) {
-        result := ComCall(8, this, "ptr", pcpc, "uint", dwFieldID, "uint", dwSelectedItem, "HRESULT")
+        result := ComCall(8, this, "ptr", pcpc, UInt32, dwFieldID, UInt32, dwSelectedItem, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-deletefieldcomboboxitem
      */
     DeleteFieldComboBoxItem(pcpc, dwFieldID, dwItem) {
-        result := ComCall(9, this, "ptr", pcpc, "uint", dwFieldID, "uint", dwItem, "HRESULT")
+        result := ComCall(9, this, "ptr", pcpc, UInt32, dwFieldID, UInt32, dwItem, "HRESULT")
         return result
     }
 
@@ -231,7 +231,7 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
     AppendFieldComboBoxItem(pcpc, dwFieldID, pszItem) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-        result := ComCall(10, this, "ptr", pcpc, "uint", dwFieldID, "ptr", pszItem, "HRESULT")
+        result := ComCall(10, this, "ptr", pcpc, UInt32, dwFieldID, "ptr", pszItem, "HRESULT")
         return result
     }
 
@@ -252,7 +252,7 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldsubmitbutton
      */
     SetFieldSubmitButton(pcpc, dwFieldID, dwAdjacentTo) {
-        result := ComCall(11, this, "ptr", pcpc, "uint", dwFieldID, "uint", dwAdjacentTo, "HRESULT")
+        result := ComCall(11, this, "ptr", pcpc, UInt32, dwFieldID, UInt32, dwAdjacentTo, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HARDWARE_COUNTER_TYPE.ahk" { HARDWARE_COUNTER_TYPE }
 #Import ".\HARDWARE_COUNTER_DATA.ahk" { HARDWARE_COUNTER_DATA }
+#Import ".\HARDWARE_COUNTER_TYPE.ahk" { HARDWARE_COUNTER_TYPE }
 
 /**
  * Contains the thread profiling and hardware counter data that you requested.

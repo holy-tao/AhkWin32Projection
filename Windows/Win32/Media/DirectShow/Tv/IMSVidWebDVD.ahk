@@ -5,11 +5,11 @@
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\DVDMenuIDConstants.ahk" { DVDMenuIDConstants }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IMSVidPlayback.ahk" { IMSVidPlayback }
-#Import ".\DVDSPExt.ahk" { DVDSPExt }
 #Import ".\IMSVidRect.ahk" { IMSVidRect }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidPlayback.ahk" { IMSVidPlayback }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVDSPExt.ahk" { DVDSPExt }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -382,7 +382,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {HRESULT} 
      */
     OnDVDEvent(lEvent, lParam1, lParam2) {
-        result := ComCall(32, this, "int", lEvent, "ptr", lParam1, "ptr", lParam2, "HRESULT")
+        result := ComCall(32, this, Int32, lEvent, IntPtr, lParam1, IntPtr, lParam2, "HRESULT")
         return result
     }
 
@@ -399,7 +399,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playtitle-method
      */
     PlayTitle(lTitle) {
-        result := ComCall(33, this, "int", lTitle, "HRESULT")
+        result := ComCall(33, this, Int32, lTitle, "HRESULT")
         return result
     }
 
@@ -424,7 +424,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playchapterintitle-method
      */
     PlayChapterInTitle(lTitle, lChapter) {
-        result := ComCall(34, this, "int", lTitle, "int", lChapter, "HRESULT")
+        result := ComCall(34, this, Int32, lTitle, Int32, lChapter, "HRESULT")
         return result
     }
 
@@ -443,7 +443,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playchapter-method
      */
     PlayChapter(lChapter) {
-        result := ComCall(35, this, "int", lChapter, "HRESULT")
+        result := ComCall(35, this, Int32, lChapter, "HRESULT")
         return result
     }
 
@@ -474,7 +474,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/playchaptersautostop-method
      */
     PlayChaptersAutoStop(lTitle, lstrChapter, lChapterCount) {
-        result := ComCall(36, this, "int", lTitle, "int", lstrChapter, "int", lChapterCount, "HRESULT")
+        result := ComCall(36, this, Int32, lTitle, Int32, lstrChapter, Int32, lChapterCount, "HRESULT")
         return result
     }
 
@@ -518,7 +518,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     PlayAtTimeInTitle(lTitle, strTime) {
         strTime := strTime is String ? BSTR.Alloc(strTime).Value : strTime
 
-        result := ComCall(38, this, "int", lTitle, BSTR, strTime, "HRESULT")
+        result := ComCall(38, this, Int32, lTitle, BSTR, strTime, "HRESULT")
         return result
     }
 
@@ -550,7 +550,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
         strStartTime := strStartTime is String ? BSTR.Alloc(strStartTime).Value : strStartTime
         strEndTime := strEndTime is String ? BSTR.Alloc(strEndTime).Value : strEndTime
 
-        result := ComCall(39, this, "int", lTitle, BSTR, strStartTime, BSTR, strEndTime, "HRESULT")
+        result := ComCall(39, this, Int32, lTitle, BSTR, strStartTime, BSTR, strEndTime, "HRESULT")
         return result
     }
 
@@ -604,7 +604,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      */
     get_AudioLanguage(lStream, fFormat) {
         strAudioLang := BSTR.Owned()
-        result := ComCall(44, this, "int", lStream, VARIANT_BOOL, fFormat, BSTR.Ptr, strAudioLang, "HRESULT")
+        result := ComCall(44, this, Int32, lStream, VARIANT_BOOL, fFormat, BSTR.Ptr, strAudioLang, "HRESULT")
         return strAudioLang
     }
 
@@ -697,7 +697,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/selectandactivatebutton-method
      */
     SelectAndActivateButton(lButton) {
-        result := ComCall(50, this, "int", lButton, "HRESULT")
+        result := ComCall(50, this, Int32, lButton, "HRESULT")
         return result
     }
 
@@ -776,7 +776,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/activateatposition-method
      */
     ActivateAtPosition(xPos, yPos) {
-        result := ComCall(56, this, "int", xPos, "int", yPos, "HRESULT")
+        result := ComCall(56, this, Int32, xPos, Int32, yPos, "HRESULT")
         return result
     }
 
@@ -803,7 +803,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/selectatposition-method
      */
     SelectAtPosition(xPos, yPos) {
-        result := ComCall(57, this, "int", xPos, "int", yPos, "HRESULT")
+        result := ComCall(57, this, Int32, xPos, Int32, yPos, "HRESULT")
         return result
     }
 
@@ -814,7 +814,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {Integer} 
      */
     get_ButtonAtPosition(xPos, yPos) {
-        result := ComCall(58, this, "int", xPos, "int", yPos, "int*", &plButton := 0, "HRESULT")
+        result := ComCall(58, this, Int32, xPos, Int32, yPos, "int*", &plButton := 0, "HRESULT")
         return plButton
     }
 
@@ -824,7 +824,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {Integer} 
      */
     get_NumberOfChapters(lTitle) {
-        result := ComCall(59, this, "int", lTitle, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(59, this, Int32, lTitle, "int*", &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -921,7 +921,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      */
     DVDTimeCode2bstr(_timeCode) {
         pTimeStr := BSTR.Owned()
-        result := ComCall(69, this, "int", _timeCode, BSTR.Ptr, pTimeStr, "HRESULT")
+        result := ComCall(69, this, Int32, _timeCode, BSTR.Ptr, pTimeStr, "HRESULT")
         return pTimeStr
     }
 
@@ -956,7 +956,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/issubpicturestreamenabled-method
      */
     IsSubpictureStreamEnabled(lstream) {
-        result := ComCall(72, this, "int", lstream, VARIANT_BOOL.Ptr, &fEnabled := 0, "HRESULT")
+        result := ComCall(72, this, Int32, lstream, VARIANT_BOOL.Ptr, &fEnabled := 0, "HRESULT")
         return fEnabled
     }
 
@@ -969,7 +969,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/isaudiostreamenabled-method
      */
     IsAudioStreamEnabled(lstream) {
-        result := ComCall(73, this, "int", lstream, VARIANT_BOOL.Ptr, &fEnabled := 0, "HRESULT")
+        result := ComCall(73, this, Int32, lstream, VARIANT_BOOL.Ptr, &fEnabled := 0, "HRESULT")
         return fEnabled
     }
 
@@ -988,7 +988,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {HRESULT} 
      */
     put_CurrentSubpictureStream(newVal) {
-        result := ComCall(75, this, "int", newVal, "HRESULT")
+        result := ComCall(75, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -999,7 +999,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      */
     get_SubpictureLanguage(lStream) {
         strLanguage := BSTR.Owned()
-        result := ComCall(76, this, "int", lStream, BSTR.Ptr, strLanguage, "HRESULT")
+        result := ComCall(76, this, Int32, lStream, BSTR.Ptr, strLanguage, "HRESULT")
         return strLanguage
     }
 
@@ -1018,7 +1018,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {HRESULT} 
      */
     put_CurrentAudioStream(newVal) {
-        result := ComCall(78, this, "int", newVal, "HRESULT")
+        result := ComCall(78, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -1055,7 +1055,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {HRESULT} 
      */
     put_CurrentAngle(newVal) {
-        result := ComCall(82, this, "int", newVal, "HRESULT")
+        result := ComCall(82, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -1181,7 +1181,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(89, this, "int", lCountry, BSTR, strUserName, BSTR, strPassword, "HRESULT")
+        result := ComCall(89, this, Int32, lCountry, BSTR, strUserName, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -1215,7 +1215,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(90, this, "int", lParentalLevel, BSTR, strUserName, BSTR, strPassword, "HRESULT")
+        result := ComCall(90, this, Int32, lParentalLevel, BSTR, strUserName, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -1225,7 +1225,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {Integer} 
      */
     get_TitleParentalLevels(lTitle) {
-        result := ComCall(91, this, "int", lTitle, "int*", &plParentalLevels := 0, "HRESULT")
+        result := ComCall(91, this, Int32, lTitle, "int*", &plParentalLevels := 0, "HRESULT")
         return plParentalLevels
     }
 
@@ -1266,7 +1266,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/uopvalid-method
      */
     UOPValid(lUOP) {
-        result := ComCall(95, this, "int", lUOP, VARIANT_BOOL.Ptr, &pfValid := 0, "HRESULT")
+        result := ComCall(95, this, Int32, lUOP, VARIANT_BOOL.Ptr, &pfValid := 0, "HRESULT")
         return pfValid
     }
 
@@ -1276,7 +1276,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {Integer} 
      */
     get_SPRM(lIndex) {
-        result := ComCall(96, this, "int", lIndex, "short*", &psSPRM := 0, "HRESULT")
+        result := ComCall(96, this, Int32, lIndex, "short*", &psSPRM := 0, "HRESULT")
         return psSPRM
     }
 
@@ -1286,7 +1286,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {Integer} 
      */
     get_GPRM(lIndex) {
-        result := ComCall(97, this, "int", lIndex, "short*", &psSPRM := 0, "HRESULT")
+        result := ComCall(97, this, Int32, lIndex, "short*", &psSPRM := 0, "HRESULT")
         return psSPRM
     }
 
@@ -1297,7 +1297,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {HRESULT} 
      */
     put_GPRM(lIndex, sValue) {
-        result := ComCall(98, this, "int", lIndex, "short", sValue, "HRESULT")
+        result := ComCall(98, this, Int32, lIndex, Int16, sValue, "HRESULT")
         return result
     }
 
@@ -1308,7 +1308,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {DVDTextStringType} 
      */
     get_DVDTextStringType(lLangIndex, lStringIndex) {
-        result := ComCall(99, this, "int", lLangIndex, "int", lStringIndex, "int*", &pType := 0, "HRESULT")
+        result := ComCall(99, this, Int32, lLangIndex, Int32, lStringIndex, "int*", &pType := 0, "HRESULT")
         return pType
     }
 
@@ -1320,7 +1320,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      */
     get_DVDTextString(lLangIndex, lStringIndex) {
         pstrText := BSTR.Owned()
-        result := ComCall(100, this, "int", lLangIndex, "int", lStringIndex, BSTR.Ptr, pstrText, "HRESULT")
+        result := ComCall(100, this, Int32, lLangIndex, Int32, lStringIndex, BSTR.Ptr, pstrText, "HRESULT")
         return pstrText
     }
 
@@ -1330,7 +1330,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {Integer} 
      */
     get_DVDTextNumberOfStrings(lLangIndex) {
-        result := ComCall(101, this, "int", lLangIndex, "int*", &plNumOfStrings := 0, "HRESULT")
+        result := ComCall(101, this, Int32, lLangIndex, "int*", &plNumOfStrings := 0, "HRESULT")
         return plNumOfStrings
     }
 
@@ -1349,7 +1349,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {Integer} 
      */
     get_DVDTextLanguageLCID(lLangIndex) {
-        result := ComCall(103, this, "int", lLangIndex, "int*", &lcid := 0, "HRESULT")
+        result := ComCall(103, this, Int32, lLangIndex, "int*", &lcid := 0, "HRESULT")
         return lcid
     }
 
@@ -1441,7 +1441,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/selectdefaultaudiolanguage-method
      */
     SelectDefaultAudioLanguage(lang, ext) {
-        result := ComCall(109, this, "int", lang, "int", ext, "HRESULT")
+        result := ComCall(109, this, Int32, lang, Int32, ext, "HRESULT")
         return result
     }
 
@@ -1486,7 +1486,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/selectdefaultsubpicturelanguage-method
      */
     SelectDefaultSubpictureLanguage(lang, ext) {
-        result := ComCall(110, this, "int", lang, DVDSPExt, ext, "HRESULT")
+        result := ComCall(110, this, Int32, lang, DVDSPExt, ext, "HRESULT")
         return result
     }
 
@@ -1514,7 +1514,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {HRESULT} 
      */
     put_DefaultMenuLanguage(lang) {
-        result := ComCall(113, this, "int", lang, "HRESULT")
+        result := ComCall(113, this, Int32, lang, "HRESULT")
         return result
     }
 
@@ -1561,7 +1561,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      */
     get_LanguageFromLCID(lcid) {
         lang := BSTR.Owned()
-        result := ComCall(118, this, "int", lcid, BSTR.Ptr, lang, "HRESULT")
+        result := ComCall(118, this, Int32, lcid, BSTR.Ptr, lang, "HRESULT")
         return lang
     }
 
@@ -1580,7 +1580,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {HRESULT} 
      */
     put_KaraokeAudioPresentationMode(newVal) {
-        result := ComCall(120, this, "int", newVal, "HRESULT")
+        result := ComCall(120, this, Int32, newVal, "HRESULT")
         return result
     }
 
@@ -1591,7 +1591,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {Integer} 
      */
     get_KaraokeChannelContent(lStream, lChan) {
-        result := ComCall(121, this, "int", lStream, "int", lChan, "int*", &lContent := 0, "HRESULT")
+        result := ComCall(121, this, Int32, lStream, Int32, lChan, "int*", &lContent := 0, "HRESULT")
         return lContent
     }
 
@@ -1601,7 +1601,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {Integer} 
      */
     get_KaraokeChannelAssignment(lStream) {
-        result := ComCall(122, this, "int", lStream, "int*", &lChannelAssignment := 0, "HRESULT")
+        result := ComCall(122, this, Int32, lStream, "int*", &lChannelAssignment := 0, "HRESULT")
         return lChannelAssignment
     }
 
@@ -1620,7 +1620,7 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
      * @returns {IMSVidRect} 
      */
     get_ButtonRect(lButton) {
-        result := ComCall(124, this, "int", lButton, "ptr*", &pRect := 0, "HRESULT")
+        result := ComCall(124, this, Int32, lButton, "ptr*", &pRect := 0, "HRESULT")
         return IMSVidRect(pRect)
     }
 

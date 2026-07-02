@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\TIMECODE.ahk" { TIMECODE }
 #Import ".\TIMECODE_SAMPLE_FLAGS.ahk" { TIMECODE_SAMPLE_FLAGS }
+#Import ".\TIMECODE.ahk" { TIMECODE }
 
 /**
  * The TIMECODE_SAMPLE structure contains complete timecode information.

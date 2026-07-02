@@ -1,18 +1,18 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\COMPOSITION_TARGET_ID.ahk" { COMPOSITION_TARGET_ID }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import ".\COMPOSITION_FRAME_STATS.ahk" { COMPOSITION_FRAME_STATS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Dxgi\IDXGIDevice.ahk" { IDXGIDevice }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\COMPOSITION_TARGET_STATS.ahk" { COMPOSITION_TARGET_STATS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\COMPOSITION_FRAME_STATS.ahk" { COMPOSITION_FRAME_STATS }
 #Import ".\COMPOSITION_FRAME_ID_TYPE.ahk" { COMPOSITION_FRAME_ID_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COMPOSITION_TARGET_STATS.ahk" { COMPOSITION_TARGET_STATS }
+#Import ".\COMPOSITION_TARGET_ID.ahk" { COMPOSITION_TARGET_ID }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
@@ -115,7 +115,7 @@ export DCompositionCreateDevice3(renderingDevice, iid) {
  */
 export DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes) {
     surfaceHandle := HANDLE.Owned()
-    result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", "uint", desiredAccess, SECURITY_ATTRIBUTES.Ptr, securityAttributes, HANDLE.Ptr, surfaceHandle, "HRESULT")
+    result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", UInt32, desiredAccess, SECURITY_ATTRIBUTES.Ptr, securityAttributes, HANDLE.Ptr, surfaceHandle, "HRESULT")
     return surfaceHandle
 }
 
@@ -196,7 +196,7 @@ export DCompositionGetFrameId(frameIdType) {
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetstatistics
  */
 export DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds) {
-    result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, COMPOSITION_FRAME_STATS.Ptr, frameStats, "uint", targetIdCount, COMPOSITION_TARGET_ID.Ptr, targetIds, "uint*", &actualTargetIdCount := 0, "HRESULT")
+    result := DllCall("dcomp.dll\DCompositionGetStatistics", Int64, frameId, COMPOSITION_FRAME_STATS.Ptr, frameStats, UInt32, targetIdCount, COMPOSITION_TARGET_ID.Ptr, targetIds, "uint*", &actualTargetIdCount := 0, "HRESULT")
     return actualTargetIdCount
 }
 
@@ -208,7 +208,7 @@ export DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds) 
  * @returns {HRESULT} 
  */
 export DCompositionGetTargetStatistics(frameId, targetId, targetStats) {
-    result := DllCall("dcomp.dll\DCompositionGetTargetStatistics", "uint", frameId, COMPOSITION_TARGET_ID.Ptr, targetId, COMPOSITION_TARGET_STATS.Ptr, targetStats, "HRESULT")
+    result := DllCall("dcomp.dll\DCompositionGetTargetStatistics", Int64, frameId, COMPOSITION_TARGET_ID.Ptr, targetId, COMPOSITION_TARGET_STATS.Ptr, targetStats, "HRESULT")
     return result
 }
 
@@ -242,7 +242,7 @@ export DCompositionBoostCompositorClock(enable) {
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositionwaitforcompositorclock
  */
 export DCompositionWaitForCompositorClock(count, handles, timeoutInMs) {
-    result := DllCall("dcomp.dll\DCompositionWaitForCompositorClock", "uint", count, HANDLE.Ptr, handles, "uint", timeoutInMs, UInt32)
+    result := DllCall("dcomp.dll\DCompositionWaitForCompositorClock", UInt32, count, HANDLE.Ptr, handles, UInt32, timeoutInMs, UInt32)
     return result
 }
 

@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\CHOOSEFONT_FONT_TYPE.ahk" { CHOOSEFONT_FONT_TYPE }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\CHOOSEFONT_FLAGS.ahk" { CHOOSEFONT_FLAGS }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\CHOOSEFONT_FONT_TYPE.ahk" { CHOOSEFONT_FONT_TYPE }
+#Import ".\LPCFHOOKPROC.ahk" { LPCFHOOKPROC }
+#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 #Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
 #Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
 
@@ -83,7 +84,7 @@ export default struct CHOOSEFONTW {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpcfhookproc">CFHookProc</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>CF_ENABLEHOOK</b> flag is set in the <b>Flags</b> member.
      */
-    lpfnHook : IntPtr
+    lpfnHook : LPCFHOOKPROC
 
     /**
      * Type: <b>LPCTSTR</b>

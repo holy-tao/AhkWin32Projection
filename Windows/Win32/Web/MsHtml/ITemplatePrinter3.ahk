@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
-#Import ".\ITemplatePrinter2.ahk" { ITemplatePrinter2 }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITemplatePrinter2.ahk" { ITemplatePrinter2 }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -87,7 +87,7 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
      */
     getPageMarginTop(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(73, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
+        result := ComCall(73, this, "ptr", pageRule, Int32, pageWidth, Int32, pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
         return pMargin
     }
 
@@ -100,7 +100,7 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
      */
     getPageMarginRight(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(74, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
+        result := ComCall(74, this, "ptr", pageRule, Int32, pageWidth, Int32, pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
         return pMargin
     }
 
@@ -113,7 +113,7 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
      */
     getPageMarginBottom(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(75, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
+        result := ComCall(75, this, "ptr", pageRule, Int32, pageWidth, Int32, pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
         return pMargin
     }
 
@@ -126,7 +126,7 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
      */
     getPageMarginLeft(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(76, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
+        result := ComCall(76, this, "ptr", pageRule, Int32, pageWidth, Int32, pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
         return pMargin
     }
 

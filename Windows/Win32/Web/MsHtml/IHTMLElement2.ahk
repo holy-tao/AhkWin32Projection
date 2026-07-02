@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IHTMLRect.ahk" { IHTMLRect }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLStyle.ahk" { IHTMLStyle }
-#Import ".\IHTMLRect.ahk" { IHTMLRect }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IHTMLRectCollection.ahk" { IHTMLRectCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IHTMLCurrentStyle.ahk" { IHTMLCurrentStyle }
+#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -530,7 +530,7 @@ export default struct IHTMLElement2 extends IDispatch {
      */
     componentFromPoint(x, y) {
         _component := BSTR.Owned()
-        result := ComCall(12, this, "int", x, "int", y, BSTR.Ptr, _component, "HRESULT")
+        result := ComCall(12, this, Int32, x, Int32, y, BSTR.Ptr, _component, "HRESULT")
         return _component
     }
 
@@ -898,7 +898,7 @@ export default struct IHTMLElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_tabIndex(v) {
-        result := ComCall(48, this, "short", v, "HRESULT")
+        result := ComCall(48, this, Int16, v, "HRESULT")
         return result
     }
 
@@ -1238,7 +1238,7 @@ export default struct IHTMLElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_scrollTop(v) {
-        result := ComCall(82, this, "int", v, "HRESULT")
+        result := ComCall(82, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -1257,7 +1257,7 @@ export default struct IHTMLElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_scrollLeft(v) {
-        result := ComCall(84, this, "int", v, "HRESULT")
+        result := ComCall(84, this, Int32, v, "HRESULT")
         return result
     }
 
@@ -1391,7 +1391,7 @@ export default struct IHTMLElement2 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     removeBehavior(cookie) {
-        result := ComCall(96, this, "int", cookie, VARIANT_BOOL.Ptr, &pfResult := 0, "HRESULT")
+        result := ComCall(96, this, Int32, cookie, VARIANT_BOOL.Ptr, &pfResult := 0, "HRESULT")
         return pfResult
     }
 

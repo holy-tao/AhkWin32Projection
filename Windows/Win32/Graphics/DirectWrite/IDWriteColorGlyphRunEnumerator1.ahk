@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DWRITE_COLOR_GLYPH_RUN1.ahk" { DWRITE_COLOR_GLYPH_RUN1 }
 #Import ".\IDWriteColorGlyphRunEnumerator.ahk" { IDWriteColorGlyphRunEnumerator }
+#Import ".\DWRITE_COLOR_GLYPH_RUN1.ahk" { DWRITE_COLOR_GLYPH_RUN1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerator for an ordered collection of color glyph runs.

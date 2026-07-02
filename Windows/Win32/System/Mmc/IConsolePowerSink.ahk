@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IConsolePowerSink interface monitors and responds to power management messages.
@@ -52,7 +52,7 @@ export default struct IConsolePowerSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolepowersink-onpowerbroadcast
      */
     OnPowerBroadcast(nEvent, _lParam) {
-        result := ComCall(3, this, "uint", nEvent, LPARAM, _lParam, LRESULT.Ptr, &plReturn := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, nEvent, LPARAM, _lParam, LRESULT.Ptr, &plReturn := 0, "HRESULT")
         return plReturn
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISpeechPhraseElement.ahk" { ISpeechPhraseElement }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISpeechPhraseElement.ahk" { ISpeechPhraseElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -74,7 +74,7 @@ export default struct ISpeechPhraseElements extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &Element := 0, "HRESULT")
+        result := ComCall(8, this, Int32, Index, "ptr*", &Element := 0, "HRESULT")
         return ISpeechPhraseElement(Element)
     }
 

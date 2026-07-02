@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWCContextMenuCallback interface is called by a Failover Cluster Administrator extension to add items to a Failover Cluster Administrator context menu.
@@ -124,7 +124,7 @@ export default struct IWCContextMenuCallback extends IUnknown {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
         lpszStatusBarText := lpszStatusBarText is String ? BSTR.Alloc(lpszStatusBarText).Value : lpszStatusBarText
 
-        result := ComCall(3, this, BSTR, lpszName, BSTR, lpszStatusBarText, "uint", nCommandID, "uint", nSubmenuCommandID, "uint", uFlags, "HRESULT")
+        result := ComCall(3, this, BSTR, lpszName, BSTR, lpszStatusBarText, UInt32, nCommandID, UInt32, nSubmenuCommandID, UInt32, uFlags, "HRESULT")
         return result
     }
 

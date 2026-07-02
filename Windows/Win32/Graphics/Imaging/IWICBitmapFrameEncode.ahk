@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WICRect.ahk" { WICRect }
-#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import ".\IWICColorContext.ahk" { IWICColorContext }
 #Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import ".\WICRect.ahk" { WICRect }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
 #Import ".\IWICPalette.ahk" { IWICPalette }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWICColorContext.ahk" { IWICColorContext }
 #Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 
 /**
@@ -87,7 +87,7 @@ export default struct IWICBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-setsize
      */
     SetSize(uiWidth, uiHeight) {
-        result := ComCall(4, this, "uint", uiWidth, "uint", uiHeight, "HRESULT")
+        result := ComCall(4, this, UInt32, uiWidth, UInt32, uiHeight, "HRESULT")
         return result
     }
 
@@ -107,7 +107,7 @@ export default struct IWICBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-setresolution
      */
     SetResolution(dpiX, dpiY) {
-        result := ComCall(5, this, "double", dpiX, "double", dpiY, "HRESULT")
+        result := ComCall(5, this, Float64, dpiX, Float64, dpiY, "HRESULT")
         return result
     }
 
@@ -186,7 +186,7 @@ export default struct IWICBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-setcolorcontexts
      */
     SetColorContexts(cCount, ppIColorContext) {
-        result := ComCall(7, this, "uint", cCount, IWICColorContext.Ptr, ppIColorContext, "HRESULT")
+        result := ComCall(7, this, UInt32, cCount, IWICColorContext.Ptr, ppIColorContext, "HRESULT")
         return result
     }
 
@@ -306,7 +306,7 @@ export default struct IWICBitmapFrameEncode extends IUnknown {
     WritePixels(lineCount, cbStride, cbBufferSize, pbPixels) {
         pbPixelsMarshal := pbPixels is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, "uint", lineCount, "uint", cbStride, "uint", cbBufferSize, pbPixelsMarshal, pbPixels, "HRESULT")
+        result := ComCall(10, this, UInt32, lineCount, UInt32, cbStride, UInt32, cbBufferSize, pbPixelsMarshal, pbPixels, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\UIAutomationEventInfo.ahk" { UIAutomationEventInfo }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\UIAutomationMethodInfo.ahk" { UIAutomationMethodInfo }
-#Import ".\UIAutomationPropertyInfo.ahk" { UIAutomationPropertyInfo }
 #Import ".\IUIAutomationPatternHandler.ahk" { IUIAutomationPatternHandler }
+#Import ".\UIAutomationEventInfo.ahk" { UIAutomationEventInfo }
+#Import ".\UIAutomationPropertyInfo.ahk" { UIAutomationPropertyInfo }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UIAutomationMethodInfo.ahk" { UIAutomationMethodInfo }
 
 /**
  * Contains information about a custom control pattern.

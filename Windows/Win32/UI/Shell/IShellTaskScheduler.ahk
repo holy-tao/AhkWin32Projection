@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRunnableTask.ahk" { IRunnableTask }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IRunnableTask.ahk" { IRunnableTask }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * IShellTaskScheduler may be altered or unavailable.
@@ -66,7 +66,7 @@ export default struct IShellTaskScheduler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-addtask
      */
     AddTask(prt, rtoid, _lParam, dwPriority) {
-        result := ComCall(3, this, "ptr", prt, Guid.Ptr, rtoid, "ptr", _lParam, "uint", dwPriority, "HRESULT")
+        result := ComCall(3, this, "ptr", prt, Guid.Ptr, rtoid, IntPtr, _lParam, UInt32, dwPriority, "HRESULT")
         return result
     }
 
@@ -87,7 +87,7 @@ export default struct IShellTaskScheduler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks
      */
     RemoveTasks(rtoid, _lParam, bWaitIfRunning) {
-        result := ComCall(4, this, Guid.Ptr, rtoid, "ptr", _lParam, BOOL, bWaitIfRunning, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rtoid, IntPtr, _lParam, BOOL, bWaitIfRunning, "HRESULT")
         return result
     }
 
@@ -120,7 +120,7 @@ export default struct IShellTaskScheduler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-status
      */
     Status(dwReleaseStatus, dwThreadTimeout) {
-        result := ComCall(6, this, "uint", dwReleaseStatus, "uint", dwThreadTimeout, "HRESULT")
+        result := ComCall(6, this, UInt32, dwReleaseStatus, UInt32, dwThreadTimeout, "HRESULT")
         return result
     }
 

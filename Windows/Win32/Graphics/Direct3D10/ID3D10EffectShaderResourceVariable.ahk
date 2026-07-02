@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D10ShaderResourceView.ahk" { ID3D10ShaderResourceView }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
+#Import ".\ID3D10ShaderResourceView.ahk" { ID3D10ShaderResourceView }
 
 /**
  * A shader-resource interface accesses a shader resource.
@@ -85,7 +85,7 @@ export default struct ID3D10EffectShaderResourceVariable extends ID3D10EffectVar
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-setresourcearray
      */
     SetResourceArray(ppResources, Offset, Count) {
-        result := ComCall(27, this, ID3D10ShaderResourceView.Ptr, ppResources, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(27, this, ID3D10ShaderResourceView.Ptr, ppResources, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct ID3D10EffectShaderResourceVariable extends ID3D10EffectVar
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-getresourcearray
      */
     GetResourceArray(Offset, Count) {
-        result := ComCall(28, this, "ptr*", &ppResources := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(28, this, "ptr*", &ppResources := 0, UInt32, Offset, UInt32, Count, "HRESULT")
         return ID3D10ShaderResourceView(ppResources)
     }
 

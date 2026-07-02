@@ -3,10 +3,10 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\EnrollmentSelectionStatus.ahk" { EnrollmentSelectionStatus }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\EnrollmentEnrollStatus.ahk" { EnrollmentEnrollStatus }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\EnrollmentDisplayStatus.ahk" { EnrollmentDisplayStatus }
+#Import ".\EnrollmentEnrollStatus.ahk" { EnrollmentEnrollStatus }
 
 /**
  * The IX509EnrollmentStatus interface can be used to specify or retrieve detailed error information about a certificate enrollment transaction.

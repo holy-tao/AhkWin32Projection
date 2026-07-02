@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ICreateTypeLib.ahk" { ICreateTypeLib }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides the methods for creating and managing the component or file that contains type information. (ICreateTypeLib2)
@@ -200,7 +200,7 @@ export default struct ICreateTypeLib2 extends ICreateTypeLib {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-sethelpstringcontext
      */
     SetHelpStringContext(dwHelpStringContext) {
-        result := ComCall(15, this, "uint", dwHelpStringContext, "HRESULT")
+        result := ComCall(15, this, UInt32, dwHelpStringContext, "HRESULT")
         return result
     }
 

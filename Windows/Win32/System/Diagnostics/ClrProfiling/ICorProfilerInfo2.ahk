@@ -3,12 +3,16 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\COR_PRF_CODE_INFO.ahk" { COR_PRF_CODE_INFO }
 #Import ".\COR_PRF_EX_CLAUSE_INFO.ahk" { COR_PRF_EX_CLAUSE_INFO }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FunctionEnter2.ahk" { FunctionEnter2 }
+#Import ".\FunctionTailcall2.ahk" { FunctionTailcall2 }
+#Import ".\COR_PRF_GC_GENERATION_RANGE.ahk" { COR_PRF_GC_GENERATION_RANGE }
+#Import ".\COR_PRF_STATIC_TYPE.ahk" { COR_PRF_STATIC_TYPE }
+#Import ".\StackSnapshotCallback.ahk" { StackSnapshotCallback }
+#Import ".\FunctionLeave2.ahk" { FunctionLeave2 }
+#Import ".\ICorProfilerInfo.ahk" { ICorProfilerInfo }
 #Import "..\..\WinRT\Metadata\COR_FIELD_OFFSET.ahk" { COR_FIELD_OFFSET }
 #Import ".\ICorProfilerObjectEnum.ahk" { ICorProfilerObjectEnum }
-#Import ".\COR_PRF_GC_GENERATION_RANGE.ahk" { COR_PRF_GC_GENERATION_RANGE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COR_PRF_STATIC_TYPE.ahk" { COR_PRF_STATIC_TYPE }
-#Import ".\ICorProfilerInfo.ahk" { ICorProfilerInfo }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -76,7 +80,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
         clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
         _contextMarshal := _context is VarRef ? "char*" : "ptr"
 
-        result := ComCall(36, this, "ptr", thread, callbackMarshal, callback, "uint", infoFlags, clientDataMarshal, clientData, _contextMarshal, _context, "uint", contextSize, "HRESULT")
+        result := ComCall(36, this, IntPtr, thread, callbackMarshal, callback, UInt32, infoFlags, clientDataMarshal, clientData, _contextMarshal, _context, UInt32, contextSize, "HRESULT")
         return result
     }
 
@@ -115,7 +119,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
         pcTypeArgsMarshal := pcTypeArgs is VarRef ? "uint*" : "ptr"
         typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(38, this, "ptr", funcId, "ptr", frameInfo, pClassIdMarshal, pClassId, pModuleIdMarshal, pModuleId, pTokenMarshal, pToken, "uint", cTypeArgs, pcTypeArgsMarshal, pcTypeArgs, typeArgsMarshal, typeArgs, "HRESULT")
+        result := ComCall(38, this, IntPtr, funcId, IntPtr, frameInfo, pClassIdMarshal, pClassId, pModuleIdMarshal, pModuleId, pTokenMarshal, pToken, UInt32, cTypeArgs, pcTypeArgsMarshal, pcTypeArgs, typeArgsMarshal, typeArgs, "HRESULT")
         return result
     }
 
@@ -148,7 +152,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
         pcFieldOffsetMarshal := pcFieldOffset is VarRef ? "uint*" : "ptr"
         pulClassSizeMarshal := pulClassSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, "ptr", classID, COR_FIELD_OFFSET.Ptr, rFieldOffset, "uint", cFieldOffset, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
+        result := ComCall(40, this, IntPtr, classID, COR_FIELD_OFFSET.Ptr, rFieldOffset, UInt32, cFieldOffset, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
         return result
     }
 
@@ -170,7 +174,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
         pcNumTypeArgsMarshal := pcNumTypeArgs is VarRef ? "uint*" : "ptr"
         typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(41, this, "ptr", classId, pModuleIdMarshal, pModuleId, pTypeDefTokenMarshal, pTypeDefToken, pParentClassIdMarshal, pParentClassId, "uint", cNumTypeArgs, pcNumTypeArgsMarshal, pcNumTypeArgs, typeArgsMarshal, typeArgs, "HRESULT")
+        result := ComCall(41, this, IntPtr, classId, pModuleIdMarshal, pModuleId, pTypeDefTokenMarshal, pTypeDefToken, pParentClassIdMarshal, pParentClassId, UInt32, cNumTypeArgs, pcNumTypeArgsMarshal, pcNumTypeArgs, typeArgsMarshal, typeArgs, "HRESULT")
         return result
     }
 
@@ -185,7 +189,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
     GetCodeInfo2(functionID, cCodeInfos, pcCodeInfos, codeInfos) {
         pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(42, this, "ptr", functionID, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
+        result := ComCall(42, this, IntPtr, functionID, UInt32, cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
         return result
     }
 
@@ -200,7 +204,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
     GetClassFromTokenAndTypeArgs(moduleID, typeDef, cTypeArgs, typeArgs) {
         typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(43, this, "ptr", moduleID, "uint", typeDef, "uint", cTypeArgs, typeArgsMarshal, typeArgs, "ptr*", &pClassID := 0, "HRESULT")
+        result := ComCall(43, this, IntPtr, moduleID, UInt32, typeDef, UInt32, cTypeArgs, typeArgsMarshal, typeArgs, "ptr*", &pClassID := 0, "HRESULT")
         return pClassID
     }
 
@@ -216,7 +220,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
     GetFunctionFromTokenAndTypeArgs(moduleID, funcDef, classId, cTypeArgs, typeArgs) {
         typeArgsMarshal := typeArgs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(44, this, "ptr", moduleID, "uint", funcDef, "ptr", classId, "uint", cTypeArgs, typeArgsMarshal, typeArgs, "ptr*", &pFunctionID := 0, "HRESULT")
+        result := ComCall(44, this, IntPtr, moduleID, UInt32, funcDef, IntPtr, classId, UInt32, cTypeArgs, typeArgsMarshal, typeArgs, "ptr*", &pFunctionID := 0, "HRESULT")
         return pFunctionID
     }
 
@@ -226,7 +230,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
      * @returns {ICorProfilerObjectEnum} 
      */
     EnumModuleFrozenObjects(moduleID) {
-        result := ComCall(45, this, "ptr", moduleID, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(45, this, IntPtr, moduleID, "ptr*", &ppEnum := 0, "HRESULT")
         return ICorProfilerObjectEnum(ppEnum)
     }
 
@@ -244,7 +248,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
         pDimensionLowerBoundsMarshal := pDimensionLowerBounds is VarRef ? "int*" : "ptr"
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(46, this, "ptr", _objectId, "uint", cDimensions, pDimensionSizesMarshal, pDimensionSizes, pDimensionLowerBoundsMarshal, pDimensionLowerBounds, ppDataMarshal, ppData, "HRESULT")
+        result := ComCall(46, this, IntPtr, _objectId, UInt32, cDimensions, pDimensionSizesMarshal, pDimensionSizes, pDimensionLowerBoundsMarshal, pDimensionLowerBounds, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 
@@ -254,7 +258,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
      * @returns {Integer} 
      */
     GetBoxClassLayout(classId) {
-        result := ComCall(47, this, "ptr", classId, "uint*", &pBufferOffset := 0, "HRESULT")
+        result := ComCall(47, this, IntPtr, classId, "uint*", &pBufferOffset := 0, "HRESULT")
         return pBufferOffset
     }
 
@@ -264,7 +268,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
      * @returns {Pointer} 
      */
     GetThreadAppDomain(threadId) {
-        result := ComCall(48, this, "ptr", threadId, "ptr*", &pAppDomainId := 0, "HRESULT")
+        result := ComCall(48, this, IntPtr, threadId, "ptr*", &pAppDomainId := 0, "HRESULT")
         return pAppDomainId
     }
 
@@ -275,7 +279,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
      * @returns {Pointer<Void>} 
      */
     GetRVAStaticAddress(classId, fieldToken) {
-        result := ComCall(49, this, "ptr", classId, "uint", fieldToken, "ptr*", &ppAddress := 0, "HRESULT")
+        result := ComCall(49, this, IntPtr, classId, UInt32, fieldToken, "ptr*", &ppAddress := 0, "HRESULT")
         return ppAddress
     }
 
@@ -287,7 +291,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
      * @returns {Pointer<Void>} 
      */
     GetAppDomainStaticAddress(classId, fieldToken, appDomainId) {
-        result := ComCall(50, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, "ptr*", &ppAddress := 0, "HRESULT")
+        result := ComCall(50, this, IntPtr, classId, UInt32, fieldToken, IntPtr, appDomainId, "ptr*", &ppAddress := 0, "HRESULT")
         return ppAddress
     }
 
@@ -299,7 +303,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
      * @returns {Pointer<Void>} 
      */
     GetThreadStaticAddress(classId, fieldToken, threadId) {
-        result := ComCall(51, this, "ptr", classId, "uint", fieldToken, "ptr", threadId, "ptr*", &ppAddress := 0, "HRESULT")
+        result := ComCall(51, this, IntPtr, classId, UInt32, fieldToken, IntPtr, threadId, "ptr*", &ppAddress := 0, "HRESULT")
         return ppAddress
     }
 
@@ -311,7 +315,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
      * @returns {Pointer<Void>} 
      */
     GetContextStaticAddress(classId, fieldToken, contextId) {
-        result := ComCall(52, this, "ptr", classId, "uint", fieldToken, "ptr", contextId, "ptr*", &ppAddress := 0, "HRESULT")
+        result := ComCall(52, this, IntPtr, classId, UInt32, fieldToken, IntPtr, contextId, "ptr*", &ppAddress := 0, "HRESULT")
         return ppAddress
     }
 
@@ -322,7 +326,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
      * @returns {COR_PRF_STATIC_TYPE} 
      */
     GetStaticFieldInfo(classId, fieldToken) {
-        result := ComCall(53, this, "ptr", classId, "uint", fieldToken, "int*", &pFieldInfo := 0, "HRESULT")
+        result := ComCall(53, this, IntPtr, classId, UInt32, fieldToken, "int*", &pFieldInfo := 0, "HRESULT")
         return pFieldInfo
     }
 
@@ -336,7 +340,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
     GetGenerationBounds(cObjectRanges, pcObjectRanges, ranges) {
         pcObjectRangesMarshal := pcObjectRanges is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(54, this, "uint", cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, COR_PRF_GC_GENERATION_RANGE.Ptr, ranges, "HRESULT")
+        result := ComCall(54, this, UInt32, cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, COR_PRF_GC_GENERATION_RANGE.Ptr, ranges, "HRESULT")
         return result
     }
 
@@ -347,7 +351,7 @@ export default struct ICorProfilerInfo2 extends ICorProfilerInfo {
      */
     GetObjectGeneration(_objectId) {
         range := COR_PRF_GC_GENERATION_RANGE()
-        result := ComCall(55, this, "ptr", _objectId, COR_PRF_GC_GENERATION_RANGE.Ptr, range, "HRESULT")
+        result := ComCall(55, this, IntPtr, _objectId, COR_PRF_GC_GENERATION_RANGE.Ptr, range, "HRESULT")
         return range
     }
 

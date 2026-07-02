@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Direct2D\Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 #Import ".\IDWriteColorGlyphRunEnumerator1.ahk" { IDWriteColorGlyphRunEnumerator1 }
-#Import ".\DWRITE_PAINT_FEATURE_LEVEL.ahk" { DWRITE_PAINT_FEATURE_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import ".\DWRITE_PAINT_FEATURE_LEVEL.ahk" { DWRITE_PAINT_FEATURE_LEVEL }
 #Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import ".\IDWriteFactory7.ahk" { IDWriteFactory7 }
 #Import ".\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
 #Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\IDWriteFactory7.ahk" { IDWriteFactory7 }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
@@ -56,7 +56,7 @@ export default struct IDWriteFactory8 extends IDWriteFactory7 {
      * @returns {IDWriteColorGlyphRunEnumerator1} 
      */
     TranslateColorGlyphRun(baselineOrigin, _glyphRun, glyphRunDescription, desiredGlyphImageFormats, paintFeatureLevel, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
-        result := ComCall(57, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_GLYPH_IMAGE_FORMATS, desiredGlyphImageFormats, DWRITE_PAINT_FEATURE_LEVEL, paintFeatureLevel, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorEnumerator := 0, "HRESULT")
+        result := ComCall(57, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_GLYPH_IMAGE_FORMATS, desiredGlyphImageFormats, DWRITE_PAINT_FEATURE_LEVEL, paintFeatureLevel, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldAndDpiTransform, UInt32, colorPaletteIndex, "ptr*", &colorEnumerator := 0, "HRESULT")
         return IDWriteColorGlyphRunEnumerator1(colorEnumerator)
     }
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EMR.ahk" { EMR }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 #Import ".\EXTLOGPEN32.ahk" { EXTLOGPEN32 }
+#Import ".\EMR.ahk" { EMR }
 
 /**
  * The EMREXTCREATEPEN structure contains members for the ExtCreatePen enhanced metafile record. If the record contains a BITMAPINFO structure, it is followed by the bitmap bits that form a packed device-independent bitmap (DIB).

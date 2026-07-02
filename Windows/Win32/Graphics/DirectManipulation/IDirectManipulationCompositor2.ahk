@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDirectManipulationPrimaryContent.ahk" { IDirectManipulationPrimaryContent }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDirectManipulationCompositor.ahk" { IDirectManipulationCompositor }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectManipulationCompositor.ahk" { IDirectManipulationCompositor }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a compositor object that associates manipulated content with drawing surfaces across multiple processes.

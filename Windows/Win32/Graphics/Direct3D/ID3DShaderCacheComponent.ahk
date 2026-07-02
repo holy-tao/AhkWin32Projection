@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D_SHADER_CACHE_PSDB_PROPERTIES.ahk" { D3D_SHADER_CACHE_PSDB_PROPERTIES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
@@ -90,7 +90,7 @@ export default struct ID3DShaderCacheComponent extends IUnknown {
      */
     GetPrecompiledShaderDatabases(ArraySize) {
         pPSDBs := D3D_SHADER_CACHE_PSDB_PROPERTIES()
-        result := ComCall(7, this, "uint", ArraySize, D3D_SHADER_CACHE_PSDB_PROPERTIES.Ptr, pPSDBs, "HRESULT")
+        result := ComCall(7, this, UInt32, ArraySize, D3D_SHADER_CACHE_PSDB_PROPERTIES.Ptr, pPSDBs, "HRESULT")
         return pPSDBs
     }
 

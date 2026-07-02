@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\StructuredStorage\IStorage.ahk" { IStorage }
-#Import "..\Com\IStream.ahk" { IStream }
-#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\StructuredStorage\IStorage.ahk" { IStorage }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IStream.ahk" { IStream }
 #Import ".\FILTERED_DATA_SOURCES.ahk" { FILTERED_DATA_SOURCES }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
 
 /**
  * Defines methods and properties that are implemented by the FilterRegistration object, which provides methods for loading a filter.

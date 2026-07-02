@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\EncodingType.ahk" { EncodingType }
-#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\IX509PublicKey.ahk" { IX509PublicKey }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * X.509 Endorsement Key Interface
@@ -159,7 +159,7 @@ export default struct IX509EndorsementKey extends IDispatch {
      */
     GetCertificateByIndex(ManufacturerOnly, dwIndex, Encoding) {
         pValue := BSTR.Owned()
-        result := ComCall(13, this, VARIANT_BOOL, ManufacturerOnly, "int", dwIndex, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, ManufacturerOnly, Int32, dwIndex, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 

@@ -1,35 +1,35 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D12_STREAM_OUTPUT_BUFFER_VIEW.ahk" { D3D12_STREAM_OUTPUT_BUFFER_VIEW }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_GPU_DESCRIPTOR_HANDLE.ahk" { D3D12_GPU_DESCRIPTOR_HANDLE }
-#Import ".\ID3D12DescriptorHeap.ahk" { ID3D12DescriptorHeap }
-#Import ".\D3D12_VIEWPORT.ahk" { D3D12_VIEWPORT }
-#Import ".\D3D12_VERTEX_BUFFER_VIEW.ahk" { D3D12_VERTEX_BUFFER_VIEW }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D12_TEXTURE_COPY_LOCATION.ahk" { D3D12_TEXTURE_COPY_LOCATION }
-#Import ".\D3D12_CLEAR_FLAGS.ahk" { D3D12_CLEAR_FLAGS }
+#Import ".\ID3D12CommandList.ahk" { ID3D12CommandList }
 #Import ".\D3D12_RESOURCE_BARRIER.ahk" { D3D12_RESOURCE_BARRIER }
-#Import ".\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
-#Import ".\D3D12_INDEX_BUFFER_VIEW.ahk" { D3D12_INDEX_BUFFER_VIEW }
-#Import "..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk" { D3D_PRIMITIVE_TOPOLOGY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\D3D12_TILED_RESOURCE_COORDINATE.ahk" { D3D12_TILED_RESOURCE_COORDINATE }
-#Import ".\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
-#Import ".\ID3D12RootSignature.ahk" { ID3D12RootSignature }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 #Import ".\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
 #Import ".\D3D12_BOX.ahk" { D3D12_BOX }
-#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
-#Import ".\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
-#Import ".\ID3D12CommandList.ahk" { ID3D12CommandList }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
-#Import ".\D3D12_TILE_REGION_SIZE.ahk" { D3D12_TILE_REGION_SIZE }
-#Import ".\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
-#Import ".\D3D12_TILE_COPY_FLAGS.ahk" { D3D12_TILE_COPY_FLAGS }
-#Import ".\ID3D12CommandSignature.ahk" { ID3D12CommandSignature }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\ID3D12PipelineState.ahk" { ID3D12PipelineState }
+#Import ".\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_INDEX_BUFFER_VIEW.ahk" { D3D12_INDEX_BUFFER_VIEW }
+#Import ".\ID3D12RootSignature.ahk" { ID3D12RootSignature }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_STREAM_OUTPUT_BUFFER_VIEW.ahk" { D3D12_STREAM_OUTPUT_BUFFER_VIEW }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
+#Import ".\D3D12_TILE_COPY_FLAGS.ahk" { D3D12_TILE_COPY_FLAGS }
+#Import ".\D3D12_VIEWPORT.ahk" { D3D12_VIEWPORT }
+#Import ".\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
+#Import "..\Direct3D\D3D_PRIMITIVE_TOPOLOGY.ahk" { D3D_PRIMITIVE_TOPOLOGY }
+#Import ".\D3D12_CLEAR_FLAGS.ahk" { D3D12_CLEAR_FLAGS }
+#Import ".\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
+#Import ".\D3D12_TILED_RESOURCE_COORDINATE.ahk" { D3D12_TILED_RESOURCE_COORDINATE }
+#Import ".\D3D12_TILE_REGION_SIZE.ahk" { D3D12_TILE_REGION_SIZE }
+#Import ".\D3D12_TEXTURE_COPY_LOCATION.ahk" { D3D12_TEXTURE_COPY_LOCATION }
+#Import ".\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
+#Import ".\ID3D12CommandSignature.ahk" { ID3D12CommandSignature }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_VERTEX_BUFFER_VIEW.ahk" { D3D12_VERTEX_BUFFER_VIEW }
+#Import ".\D3D12_GPU_DESCRIPTOR_HANDLE.ahk" { D3D12_GPU_DESCRIPTOR_HANDLE }
+#Import ".\ID3D12DescriptorHeap.ahk" { ID3D12DescriptorHeap }
 
 /**
  * Encapsulates a list of graphics commands for rendering. Includes APIs for instrumenting the command list execution, and for setting and clearing the pipeline state.
@@ -250,7 +250,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced
      */
     DrawInstanced(VertexCountPerInstance, InstanceCount, StartVertexLocation, StartInstanceLocation) {
-        ComCall(12, this, "uint", VertexCountPerInstance, "uint", InstanceCount, "uint", StartVertexLocation, "uint", StartInstanceLocation)
+        ComCall(12, this, UInt32, VertexCountPerInstance, UInt32, InstanceCount, UInt32, StartVertexLocation, UInt32, StartInstanceLocation)
     }
 
     /**
@@ -280,7 +280,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawindexedinstanced
      */
     DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation) {
-        ComCall(13, this, "uint", IndexCountPerInstance, "uint", InstanceCount, "uint", StartIndexLocation, "int", BaseVertexLocation, "uint", StartInstanceLocation)
+        ComCall(13, this, UInt32, IndexCountPerInstance, UInt32, InstanceCount, UInt32, StartIndexLocation, Int32, BaseVertexLocation, UInt32, StartInstanceLocation)
     }
 
     /**
@@ -302,7 +302,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch
      */
     Dispatch(ThreadGroupCountX, ThreadGroupCountY, ThreadGroupCountZ) {
-        ComCall(14, this, "uint", ThreadGroupCountX, "uint", ThreadGroupCountY, "uint", ThreadGroupCountZ)
+        ComCall(14, this, UInt32, ThreadGroupCountX, UInt32, ThreadGroupCountY, UInt32, ThreadGroupCountZ)
     }
 
     /**
@@ -331,7 +331,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copybufferregion
      */
     CopyBufferRegion(pDstBuffer, DstOffset, pSrcBuffer, SrcOffset, NumBytes) {
-        ComCall(15, this, "ptr", pDstBuffer, "uint", DstOffset, "ptr", pSrcBuffer, "uint", SrcOffset, "uint", NumBytes)
+        ComCall(15, this, "ptr", pDstBuffer, Int64, DstOffset, "ptr", pSrcBuffer, Int64, SrcOffset, Int64, NumBytes)
     }
 
     /**
@@ -402,7 +402,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion
      */
     CopyTextureRegion(pDst, DstX, DstY, DstZ, pSrc, pSrcBox) {
-        ComCall(16, this, D3D12_TEXTURE_COPY_LOCATION.Ptr, pDst, "uint", DstX, "uint", DstY, "uint", DstZ, D3D12_TEXTURE_COPY_LOCATION.Ptr, pSrc, D3D12_BOX.Ptr, pSrcBox)
+        ComCall(16, this, D3D12_TEXTURE_COPY_LOCATION.Ptr, pDst, UInt32, DstX, UInt32, DstY, UInt32, DstZ, D3D12_TEXTURE_COPY_LOCATION.Ptr, pSrc, D3D12_BOX.Ptr, pSrcBox)
     }
 
     /**
@@ -469,7 +469,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytiles
      */
     CopyTiles(pTiledResource, pTileRegionStartCoordinate, pTileRegionSize, pBuffer, BufferStartOffsetInBytes, Flags) {
-        ComCall(18, this, "ptr", pTiledResource, D3D12_TILED_RESOURCE_COORDINATE.Ptr, pTileRegionStartCoordinate, D3D12_TILE_REGION_SIZE.Ptr, pTileRegionSize, "ptr", pBuffer, "uint", BufferStartOffsetInBytes, D3D12_TILE_COPY_FLAGS, Flags)
+        ComCall(18, this, "ptr", pTiledResource, D3D12_TILED_RESOURCE_COORDINATE.Ptr, pTileRegionStartCoordinate, D3D12_TILE_REGION_SIZE.Ptr, pTileRegionSize, "ptr", pBuffer, Int64, BufferStartOffsetInBytes, D3D12_TILE_COPY_FLAGS, Flags)
     }
 
     /**
@@ -527,7 +527,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvesubresource
      */
     ResolveSubresource(pDstResource, DstSubresource, pSrcResource, SrcSubresource, Format) {
-        ComCall(19, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pSrcResource, "uint", SrcSubresource, DXGI_FORMAT, Format)
+        ComCall(19, this, "ptr", pDstResource, UInt32, DstSubresource, "ptr", pSrcResource, UInt32, SrcSubresource, DXGI_FORMAT, Format)
     }
 
     /**
@@ -560,7 +560,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetviewports
      */
     RSSetViewports(NumViewports, pViewports) {
-        ComCall(21, this, "uint", NumViewports, D3D12_VIEWPORT.Ptr, pViewports)
+        ComCall(21, this, UInt32, NumViewports, D3D12_VIEWPORT.Ptr, pViewports)
     }
 
     /**
@@ -583,7 +583,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetscissorrects
      */
     RSSetScissorRects(NumRects, pRects) {
-        ComCall(22, this, "uint", NumRects, RECT.Ptr, pRects)
+        ComCall(22, this, UInt32, NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -613,7 +613,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetstencilref
      */
     OMSetStencilRef(StencilRef) {
-        ComCall(24, this, "uint", StencilRef)
+        ComCall(24, this, UInt32, StencilRef)
     }
 
     /**
@@ -753,7 +753,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier
      */
     ResourceBarrier(NumBarriers, pBarriers) {
-        ComCall(26, this, "uint", NumBarriers, D3D12_RESOURCE_BARRIER.Ptr, pBarriers)
+        ComCall(26, this, UInt32, NumBarriers, D3D12_RESOURCE_BARRIER.Ptr, pBarriers)
     }
 
     /**
@@ -808,7 +808,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setdescriptorheaps
      */
     SetDescriptorHeaps(NumDescriptorHeaps, ppDescriptorHeaps) {
-        ComCall(28, this, "uint", NumDescriptorHeaps, ID3D12DescriptorHeap.Ptr, ppDescriptorHeaps)
+        ComCall(28, this, UInt32, NumDescriptorHeaps, ID3D12DescriptorHeap.Ptr, ppDescriptorHeaps)
     }
 
     /**
@@ -847,7 +847,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootdescriptortable
      */
     SetComputeRootDescriptorTable(RootParameterIndex, BaseDescriptor) {
-        ComCall(31, this, "uint", RootParameterIndex, D3D12_GPU_DESCRIPTOR_HANDLE, BaseDescriptor)
+        ComCall(31, this, UInt32, RootParameterIndex, D3D12_GPU_DESCRIPTOR_HANDLE, BaseDescriptor)
     }
 
     /**
@@ -862,7 +862,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable
      */
     SetGraphicsRootDescriptorTable(RootParameterIndex, BaseDescriptor) {
-        ComCall(32, this, "uint", RootParameterIndex, D3D12_GPU_DESCRIPTOR_HANDLE, BaseDescriptor)
+        ComCall(32, this, UInt32, RootParameterIndex, D3D12_GPU_DESCRIPTOR_HANDLE, BaseDescriptor)
     }
 
     /**
@@ -880,7 +880,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputeroot32bitconstant
      */
     SetComputeRoot32BitConstant(RootParameterIndex, SrcData, DestOffsetIn32BitValues) {
-        ComCall(33, this, "uint", RootParameterIndex, "uint", SrcData, "uint", DestOffsetIn32BitValues)
+        ComCall(33, this, UInt32, RootParameterIndex, UInt32, SrcData, UInt32, DestOffsetIn32BitValues)
     }
 
     /**
@@ -898,7 +898,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstant
      */
     SetGraphicsRoot32BitConstant(RootParameterIndex, SrcData, DestOffsetIn32BitValues) {
-        ComCall(34, this, "uint", RootParameterIndex, "uint", SrcData, "uint", DestOffsetIn32BitValues)
+        ComCall(34, this, UInt32, RootParameterIndex, UInt32, SrcData, UInt32, DestOffsetIn32BitValues)
     }
 
     /**
@@ -921,7 +921,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
     SetComputeRoot32BitConstants(RootParameterIndex, Num32BitValuesToSet, pSrcData, DestOffsetIn32BitValues) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        ComCall(35, this, "uint", RootParameterIndex, "uint", Num32BitValuesToSet, pSrcDataMarshal, pSrcData, "uint", DestOffsetIn32BitValues)
+        ComCall(35, this, UInt32, RootParameterIndex, UInt32, Num32BitValuesToSet, pSrcDataMarshal, pSrcData, UInt32, DestOffsetIn32BitValues)
     }
 
     /**
@@ -944,7 +944,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
     SetGraphicsRoot32BitConstants(RootParameterIndex, Num32BitValuesToSet, pSrcData, DestOffsetIn32BitValues) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        ComCall(36, this, "uint", RootParameterIndex, "uint", Num32BitValuesToSet, pSrcDataMarshal, pSrcData, "uint", DestOffsetIn32BitValues)
+        ComCall(36, this, UInt32, RootParameterIndex, UInt32, Num32BitValuesToSet, pSrcDataMarshal, pSrcData, UInt32, DestOffsetIn32BitValues)
     }
 
     /**
@@ -959,7 +959,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootconstantbufferview
      */
     SetComputeRootConstantBufferView(RootParameterIndex, BufferLocation) {
-        ComCall(37, this, "uint", RootParameterIndex, "uint", BufferLocation)
+        ComCall(37, this, UInt32, RootParameterIndex, Int64, BufferLocation)
     }
 
     /**
@@ -975,7 +975,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootconstantbufferview
      */
     SetGraphicsRootConstantBufferView(RootParameterIndex, BufferLocation) {
-        ComCall(38, this, "uint", RootParameterIndex, "uint", BufferLocation)
+        ComCall(38, this, UInt32, RootParameterIndex, Int64, BufferLocation)
     }
 
     /**
@@ -991,7 +991,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootshaderresourceview
      */
     SetComputeRootShaderResourceView(RootParameterIndex, BufferLocation) {
-        ComCall(39, this, "uint", RootParameterIndex, "uint", BufferLocation)
+        ComCall(39, this, UInt32, RootParameterIndex, Int64, BufferLocation)
     }
 
     /**
@@ -1007,7 +1007,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootshaderresourceview
      */
     SetGraphicsRootShaderResourceView(RootParameterIndex, BufferLocation) {
-        ComCall(40, this, "uint", RootParameterIndex, "uint", BufferLocation)
+        ComCall(40, this, UInt32, RootParameterIndex, Int64, BufferLocation)
     }
 
     /**
@@ -1023,7 +1023,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootunorderedaccessview
      */
     SetComputeRootUnorderedAccessView(RootParameterIndex, BufferLocation) {
-        ComCall(41, this, "uint", RootParameterIndex, "uint", BufferLocation)
+        ComCall(41, this, UInt32, RootParameterIndex, Int64, BufferLocation)
     }
 
     /**
@@ -1039,7 +1039,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootunorderedaccessview
      */
     SetGraphicsRootUnorderedAccessView(RootParameterIndex, BufferLocation) {
-        ComCall(42, this, "uint", RootParameterIndex, "uint", BufferLocation)
+        ComCall(42, this, UInt32, RootParameterIndex, Int64, BufferLocation)
     }
 
     /**
@@ -1071,7 +1071,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers
      */
     IASetVertexBuffers(StartSlot, NumViews, pViews) {
-        ComCall(44, this, "uint", StartSlot, "uint", NumViews, D3D12_VERTEX_BUFFER_VIEW.Ptr, pViews)
+        ComCall(44, this, UInt32, StartSlot, UInt32, NumViews, D3D12_VERTEX_BUFFER_VIEW.Ptr, pViews)
     }
 
     /**
@@ -1089,7 +1089,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-sosettargets
      */
     SOSetTargets(StartSlot, NumViews, pViews) {
-        ComCall(45, this, "uint", StartSlot, "uint", NumViews, D3D12_STREAM_OUTPUT_BUFFER_VIEW.Ptr, pViews)
+        ComCall(45, this, UInt32, StartSlot, UInt32, NumViews, D3D12_STREAM_OUTPUT_BUFFER_VIEW.Ptr, pViews)
     }
 
     /**
@@ -1118,7 +1118,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets
      */
     OMSetRenderTargets(NumRenderTargetDescriptors, pRenderTargetDescriptors, RTsSingleHandleToDescriptorRange, pDepthStencilDescriptor) {
-        ComCall(46, this, "uint", NumRenderTargetDescriptors, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pRenderTargetDescriptors, BOOL, RTsSingleHandleToDescriptorRange, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pDepthStencilDescriptor)
+        ComCall(46, this, UInt32, NumRenderTargetDescriptors, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pRenderTargetDescriptors, BOOL, RTsSingleHandleToDescriptorRange, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pDepthStencilDescriptor)
     }
 
     /**
@@ -1160,7 +1160,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-cleardepthstencilview
      */
     ClearDepthStencilView(DepthStencilView, ClearFlags, Depth, Stencil, NumRects, pRects) {
-        ComCall(47, this, D3D12_CPU_DESCRIPTOR_HANDLE, DepthStencilView, D3D12_CLEAR_FLAGS, ClearFlags, "float", Depth, "char", Stencil, "uint", NumRects, RECT.Ptr, pRects)
+        ComCall(47, this, D3D12_CPU_DESCRIPTOR_HANDLE, DepthStencilView, D3D12_CLEAR_FLAGS, ClearFlags, Float32, Depth, Int8, Stencil, UInt32, NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1197,7 +1197,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
     ClearRenderTargetView(RenderTargetView, ColorRGBA, NumRects, pRects) {
         ColorRGBAMarshal := ColorRGBA is VarRef ? "float*" : "ptr"
 
-        ComCall(48, this, D3D12_CPU_DESCRIPTOR_HANDLE, RenderTargetView, ColorRGBAMarshal, ColorRGBA, "uint", NumRects, RECT.Ptr, pRects)
+        ComCall(48, this, D3D12_CPU_DESCRIPTOR_HANDLE, RenderTargetView, ColorRGBAMarshal, ColorRGBA, UInt32, NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1229,7 +1229,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
     ClearUnorderedAccessViewUint(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
         ValuesMarshal := Values is VarRef ? "uint*" : "ptr"
 
-        ComCall(49, this, D3D12_GPU_DESCRIPTOR_HANDLE, ViewGPUHandleInCurrentHeap, D3D12_CPU_DESCRIPTOR_HANDLE, ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, "uint", NumRects, RECT.Ptr, pRects)
+        ComCall(49, this, D3D12_GPU_DESCRIPTOR_HANDLE, ViewGPUHandleInCurrentHeap, D3D12_CPU_DESCRIPTOR_HANDLE, ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, UInt32, NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1261,7 +1261,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
     ClearUnorderedAccessViewFloat(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
         ValuesMarshal := Values is VarRef ? "float*" : "ptr"
 
-        ComCall(50, this, D3D12_GPU_DESCRIPTOR_HANDLE, ViewGPUHandleInCurrentHeap, D3D12_CPU_DESCRIPTOR_HANDLE, ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, "uint", NumRects, RECT.Ptr, pRects)
+        ComCall(50, this, D3D12_GPU_DESCRIPTOR_HANDLE, ViewGPUHandleInCurrentHeap, D3D12_CPU_DESCRIPTOR_HANDLE, ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, UInt32, NumRects, RECT.Ptr, pRects)
     }
 
     /**
@@ -1312,7 +1312,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery
      */
     BeginQuery(pQueryHeap, Type, Index) {
-        ComCall(52, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
+        ComCall(52, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, Index)
     }
 
     /**
@@ -1332,7 +1332,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery
      */
     EndQuery(pQueryHeap, Type, Index) {
-        ComCall(53, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
+        ComCall(53, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, Index)
     }
 
     /**
@@ -1392,7 +1392,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata
      */
     ResolveQueryData(pQueryHeap, Type, StartIndex, NumQueries, pDestinationBuffer, AlignedDestinationBufferOffset) {
-        ComCall(54, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", StartIndex, "uint", NumQueries, "ptr", pDestinationBuffer, "uint", AlignedDestinationBufferOffset)
+        ComCall(54, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, StartIndex, UInt32, NumQueries, "ptr", pDestinationBuffer, Int64, AlignedDestinationBufferOffset)
     }
 
     /**
@@ -1428,7 +1428,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication
      */
     SetPredication(pBuffer, AlignedBufferOffset, Operation) {
-        ComCall(55, this, "ptr", pBuffer, "uint", AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
+        ComCall(55, this, "ptr", pBuffer, Int64, AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
     }
 
     /**
@@ -1450,7 +1450,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setmarker
      */
     SetMarker(Metadata, pData, _Size) {
-        ComCall(56, this, "uint", Metadata, "ptr", pData, "uint", _Size)
+        ComCall(56, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
     }
 
     /**
@@ -1472,7 +1472,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginevent
      */
     BeginEvent(Metadata, pData, _Size) {
-        ComCall(57, this, "uint", Metadata, "ptr", pData, "uint", _Size)
+        ComCall(57, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
     }
 
     /**
@@ -1591,7 +1591,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect
      */
     ExecuteIndirect(pCommandSignature, MaxCommandCount, pArgumentBuffer, ArgumentBufferOffset, pCountBuffer, CountBufferOffset) {
-        ComCall(59, this, "ptr", pCommandSignature, "uint", MaxCommandCount, "ptr", pArgumentBuffer, "uint", ArgumentBufferOffset, "ptr", pCountBuffer, "uint", CountBufferOffset)
+        ComCall(59, this, "ptr", pCommandSignature, UInt32, MaxCommandCount, "ptr", pArgumentBuffer, Int64, ArgumentBufferOffset, "ptr", pCountBuffer, Int64, CountBufferOffset)
     }
 
     Query(iid) {

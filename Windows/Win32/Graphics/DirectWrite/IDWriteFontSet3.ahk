@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteFontSet2.ahk" { IDWriteFontSet2 }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontSet2.ahk" { IDWriteFontSet2 }
 #Import ".\DWRITE_FONT_SOURCE_TYPE.ahk" { DWRITE_FONT_SOURCE_TYPE }
 
 /**
@@ -52,7 +52,7 @@ export default struct IDWriteFontSet3 extends IDWriteFontSet2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset3-getfontsourcetype
      */
     GetFontSourceType(fontIndex) {
-        result := ComCall(27, this, "uint", fontIndex, DWRITE_FONT_SOURCE_TYPE)
+        result := ComCall(27, this, UInt32, fontIndex, DWRITE_FONT_SOURCE_TYPE)
         return result
     }
 
@@ -67,7 +67,7 @@ export default struct IDWriteFontSet3 extends IDWriteFontSet2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset3-getfontsourcenamelength
      */
     GetFontSourceNameLength(listIndex) {
-        result := ComCall(28, this, "uint", listIndex, UInt32)
+        result := ComCall(28, this, UInt32, listIndex, UInt32)
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IDWriteFontSet3 extends IDWriteFontSet2 {
     GetFontSourceName(listIndex, stringBuffer, stringBufferSize) {
         stringBuffer := stringBuffer is String ? StrPtr(stringBuffer) : stringBuffer
 
-        result := ComCall(29, this, "uint", listIndex, "ptr", stringBuffer, "uint", stringBufferSize, "HRESULT")
+        result := ComCall(29, this, UInt32, listIndex, "ptr", stringBuffer, UInt32, stringBufferSize, "HRESULT")
         return result
     }
 

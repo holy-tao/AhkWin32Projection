@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AutomaticUpdatesScheduledInstallationDay.ahk" { AutomaticUpdatesScheduledInstallationDay }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\AutomaticUpdatesNotificationLevel.ahk" { AutomaticUpdatesNotificationLevel }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\AutomaticUpdatesScheduledInstallationDay.ahk" { AutomaticUpdatesScheduledInstallationDay }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains the settings that are available in Automatic Updates. (IAutomaticUpdatesSettings)
@@ -414,7 +414,7 @@ export default struct IAutomaticUpdatesSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings-put_scheduledinstallationtime
      */
     put_ScheduledInstallationTime(value) {
-        result := ComCall(14, this, "int", value, "HRESULT")
+        result := ComCall(14, this, Int32, value, "HRESULT")
         return result
     }
 

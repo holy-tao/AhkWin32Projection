@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
-#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IMFASFProfile.ahk" { IMFASFProfile }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods to work with the header section of files conforming to the Advanced Systems Format (ASF) specification.
@@ -153,7 +153,7 @@ export default struct IMFASFContentInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-parseheader
      */
     ParseHeader(pIHeaderBuffer, cbOffsetWithinHeader) {
-        result := ComCall(4, this, "ptr", pIHeaderBuffer, "uint", cbOffsetWithinHeader, "HRESULT")
+        result := ComCall(4, this, "ptr", pIHeaderBuffer, Int64, cbOffsetWithinHeader, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IMFASFContentInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-getencodingconfigurationpropertystore
      */
     GetEncodingConfigurationPropertyStore(wStreamNumber) {
-        result := ComCall(9, this, "ushort", wStreamNumber, "ptr*", &ppIStore := 0, "HRESULT")
+        result := ComCall(9, this, UInt16, wStreamNumber, "ptr*", &ppIStore := 0, "HRESULT")
         return IPropertyStore(ppIStore)
     }
 

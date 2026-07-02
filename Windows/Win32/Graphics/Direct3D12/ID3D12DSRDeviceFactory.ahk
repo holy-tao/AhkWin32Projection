@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D12Device.ahk" { ID3D12Device }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D12Device.ahk" { ID3D12Device }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -44,7 +44,7 @@ export default struct ID3D12DSRDeviceFactory extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     CreateDSRDevice(pD3D12Device, NodeMask, riid) {
-        result := ComCall(3, this, "ptr", pD3D12Device, "uint", NodeMask, Guid.Ptr, riid, "ptr*", &ppvDSRDevice := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pD3D12Device, UInt32, NodeMask, Guid.Ptr, riid, "ptr*", &ppvDSRDevice := 0, "HRESULT")
         return ppvDSRDevice
     }
 

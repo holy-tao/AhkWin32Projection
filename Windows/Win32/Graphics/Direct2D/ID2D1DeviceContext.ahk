@@ -1,50 +1,50 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1CommandList.ahk" { ID2D1CommandList }
-#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
-#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
-#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
-#Import "Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
-#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D2D1_BRUSH_PROPERTIES.ahk" { D2D1_BRUSH_PROPERTIES }
-#Import "Common\D2D1_COMPOSITE_MODE.ahk" { D2D1_COMPOSITE_MODE }
-#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import ".\D2D1_LAYER_PARAMETERS1.ahk" { D2D1_LAYER_PARAMETERS1 }
-#Import ".\ID2D1Bitmap1.ahk" { ID2D1Bitmap1 }
-#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import ".\ID2D1ImageBrush.ahk" { ID2D1ImageBrush }
-#Import ".\ID2D1GradientStopCollection1.ahk" { ID2D1GradientStopCollection1 }
-#Import "Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
-#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 #Import "..\Imaging\IWICColorContext.ahk" { IWICColorContext }
-#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
-#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
-#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
-#Import ".\D2D1_UNIT_MODE.ahk" { D2D1_UNIT_MODE }
-#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
-#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
-#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
-#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
-#Import ".\D2D1_BITMAP_PROPERTIES1.ahk" { D2D1_BITMAP_PROPERTIES1 }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 #Import ".\D2D1_RENDERING_CONTROLS.ahk" { D2D1_RENDERING_CONTROLS }
 #Import ".\D2D1_BITMAP_BRUSH_PROPERTIES1.ahk" { D2D1_BITMAP_BRUSH_PROPERTIES1 }
-#Import ".\ID2D1Image.ahk" { ID2D1Image }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\D2D1_COLOR_INTERPOLATION_MODE.ahk" { D2D1_COLOR_INTERPOLATION_MODE }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
+#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
 #Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
-#Import ".\D2D1_EFFECT_INPUT_DESCRIPTION.ahk" { D2D1_EFFECT_INPUT_DESCRIPTION }
-#Import ".\ID2D1Device.ahk" { ID2D1Device }
-#Import ".\D2D1_IMAGE_BRUSH_PROPERTIES.ahk" { D2D1_IMAGE_BRUSH_PROPERTIES }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
 #Import ".\ID2D1BitmapBrush1.ahk" { ID2D1BitmapBrush1 }
+#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
+#Import ".\ID2D1Device.ahk" { ID2D1Device }
+#Import "Common\D2D1_COMPOSITE_MODE.ahk" { D2D1_COMPOSITE_MODE }
+#Import ".\D2D1_BITMAP_PROPERTIES1.ahk" { D2D1_BITMAP_PROPERTIES1 }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import ".\ID2D1Bitmap1.ahk" { ID2D1Bitmap1 }
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
+#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
+#Import "Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
+#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
+#Import ".\D2D1_BRUSH_PROPERTIES.ahk" { D2D1_BRUSH_PROPERTIES }
+#Import ".\D2D1_IMAGE_BRUSH_PROPERTIES.ahk" { D2D1_IMAGE_BRUSH_PROPERTIES }
+#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
+#Import ".\ID2D1CommandList.ahk" { ID2D1CommandList }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\D2D1_UNIT_MODE.ahk" { D2D1_UNIT_MODE }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\D2D1_COLOR_INTERPOLATION_MODE.ahk" { D2D1_COLOR_INTERPOLATION_MODE }
+#Import ".\D2D1_EFFECT_INPUT_DESCRIPTION.ahk" { D2D1_EFFECT_INPUT_DESCRIPTION }
+#Import ".\ID2D1ImageBrush.ahk" { ID2D1ImageBrush }
+#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import ".\ID2D1GradientStopCollection1.ahk" { ID2D1GradientStopCollection1 }
+#Import ".\D2D1_LAYER_PARAMETERS1.ahk" { D2D1_LAYER_PARAMETERS1 }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 
 /**
  * Represents a set of state and command buffers that are used to render to a target.
@@ -139,7 +139,7 @@ export default struct ID2D1DeviceContext extends ID2D1RenderTarget {
     CreateBitmap(_size, sourceData, pitch, bitmapProperties) {
         sourceDataMarshal := sourceData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(57, this, D2D_SIZE_U, _size, sourceDataMarshal, sourceData, "uint", pitch, D2D1_BITMAP_PROPERTIES1.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(57, this, D2D_SIZE_U, _size, sourceDataMarshal, sourceData, UInt32, pitch, D2D1_BITMAP_PROPERTIES1.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap1(_bitmap)
     }
 
@@ -182,7 +182,7 @@ export default struct ID2D1DeviceContext extends ID2D1RenderTarget {
     CreateColorContext(space, _profile, profileSize) {
         _profileMarshal := _profile is VarRef ? "char*" : "ptr"
 
-        result := ComCall(59, this, D2D1_COLOR_SPACE, space, _profileMarshal, _profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
+        result := ComCall(59, this, D2D1_COLOR_SPACE, space, _profileMarshal, _profile, UInt32, profileSize, "ptr*", &colorContext := 0, "HRESULT")
         return ID2D1ColorContext(colorContext)
     }
 
@@ -393,7 +393,7 @@ export default struct ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-creategradientstopcollection
      */
     CreateGradientStopCollection(straightAlphaGradientStops, straightAlphaGradientStopsCount, preInterpolationSpace, postInterpolationSpace, bufferPrecision, extendMode, colorInterpolationMode) {
-        result := ComCall(64, this, D2D1_GRADIENT_STOP.Ptr, straightAlphaGradientStops, "uint", straightAlphaGradientStopsCount, D2D1_COLOR_SPACE, preInterpolationSpace, D2D1_COLOR_SPACE, postInterpolationSpace, D2D1_BUFFER_PRECISION, bufferPrecision, D2D1_EXTEND_MODE, extendMode, D2D1_COLOR_INTERPOLATION_MODE, colorInterpolationMode, "ptr*", &gradientStopCollection1 := 0, "HRESULT")
+        result := ComCall(64, this, D2D1_GRADIENT_STOP.Ptr, straightAlphaGradientStops, UInt32, straightAlphaGradientStopsCount, D2D1_COLOR_SPACE, preInterpolationSpace, D2D1_COLOR_SPACE, postInterpolationSpace, D2D1_BUFFER_PRECISION, bufferPrecision, D2D1_EXTEND_MODE, extendMode, D2D1_COLOR_INTERPOLATION_MODE, colorInterpolationMode, "ptr*", &gradientStopCollection1 := 0, "HRESULT")
         return ID2D1GradientStopCollection1(gradientStopCollection1)
     }
 
@@ -984,7 +984,7 @@ export default struct ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-drawbitmap(id2d1bitmap_constd2d1_rect_f_float_d2d1_interpolation_mode_constd2d1_rect_f_constd2d1_matrix_4x4_f)
      */
     DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle, perspectiveTransform) {
-        ComCall(85, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, "float", opacity, D2D1_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle, D2D_MATRIX_4X4_F.Ptr, perspectiveTransform)
+        ComCall(85, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, Float32, opacity, D2D1_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle, D2D_MATRIX_4X4_F.Ptr, perspectiveTransform)
     }
 
     /**
@@ -1041,7 +1041,7 @@ export default struct ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-invalidateeffectinputrectangle
      */
     InvalidateEffectInputRectangle(_effect, _input, inputRectangle) {
-        result := ComCall(87, this, "ptr", _effect, "uint", _input, D2D_RECT_F.Ptr, inputRectangle, "HRESULT")
+        result := ComCall(87, this, "ptr", _effect, UInt32, _input, D2D_RECT_F.Ptr, inputRectangle, "HRESULT")
         return result
     }
 
@@ -1083,7 +1083,7 @@ export default struct ID2D1DeviceContext extends ID2D1RenderTarget {
      */
     GetEffectInvalidRectangles(_effect, rectanglesCount) {
         rectangles := D2D_RECT_F()
-        result := ComCall(89, this, "ptr", _effect, D2D_RECT_F.Ptr, rectangles, "uint", rectanglesCount, "HRESULT")
+        result := ComCall(89, this, "ptr", _effect, D2D_RECT_F.Ptr, rectangles, UInt32, rectanglesCount, "HRESULT")
         return rectangles
     }
 
@@ -1112,7 +1112,7 @@ export default struct ID2D1DeviceContext extends ID2D1RenderTarget {
      */
     GetEffectRequiredInputRectangles(renderEffect, renderImageRectangle, inputDescriptions, inputCount) {
         requiredInputRects := D2D_RECT_F()
-        result := ComCall(90, this, "ptr", renderEffect, D2D_RECT_F.Ptr, renderImageRectangle, D2D1_EFFECT_INPUT_DESCRIPTION.Ptr, inputDescriptions, D2D_RECT_F.Ptr, requiredInputRects, "uint", inputCount, "HRESULT")
+        result := ComCall(90, this, "ptr", renderEffect, D2D_RECT_F.Ptr, renderImageRectangle, D2D1_EFFECT_INPUT_DESCRIPTION.Ptr, inputDescriptions, D2D_RECT_F.Ptr, requiredInputRects, UInt32, inputCount, "HRESULT")
         return requiredInputRects
     }
 

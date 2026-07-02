@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LPOFNHOOKPROC.ahk" { LPOFNHOOKPROC }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The OPENFILENAME_NT4 structure is identical to OPENFILENAME with _WIN32_WINNT set to 0x0400. (ANSI)
@@ -50,7 +51,7 @@ export default struct OPENFILENAME_NT4A {
 
     lCustData : LPARAM
 
-    lpfnHook : IntPtr
+    lpfnHook : LPOFNHOOKPROC
 
     lpTemplateName : PSTR
 

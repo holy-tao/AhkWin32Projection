@@ -2,10 +2,10 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import ".\PSC_STATE.ahk" { PSC_STATE }
 #Import ".\IPropertyStore.ahk" { IPropertyStore }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PSC_STATE.ahk" { PSC_STATE }
 
 /**
  * Exposes methods that allow a handler to manage various states for each property.

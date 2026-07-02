@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICondition.ahk" { ICondition }
-#Import ".\IConditionFactory.ahk" { IConditionFactory }
+#Import ".\ITokenCollection.ahk" { ITokenCollection }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEntity.ahk" { IEntity }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ITokenCollection.ahk" { ITokenCollection }
+#Import ".\IConditionFactory.ahk" { IConditionFactory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICondition.ahk" { ICondition }
 
 /**
  * Provides methods that retrieve information about the interpretation of a parsed query.

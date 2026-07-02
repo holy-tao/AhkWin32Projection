@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISegmentList.ahk" { ISegmentList }
-#Import ".\IMarkupServices.ahk" { IMarkupServices }
-#Import ".\IHTMLElement.ahk" { IHTMLElement }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
 #Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
 #Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
+#Import ".\IMarkupServices.ahk" { IMarkupServices }
+#Import ".\ISegmentList.ahk" { ISegmentList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -52,7 +52,7 @@ export default struct IMarkupServices2 extends IMarkupServices {
      * @returns {IMarkupContainer} 
      */
     ParseGlobalEx(hglobalHTML, dwFlags, pContext, pPointerStart, pPointerFinish) {
-        result := ComCall(23, this, HGLOBAL, hglobalHTML, "uint", dwFlags, "ptr", pContext, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        result := ComCall(23, this, HGLOBAL, hglobalHTML, UInt32, dwFlags, "ptr", pContext, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
         return IMarkupContainer(ppContainerResult)
     }
 
@@ -78,7 +78,7 @@ export default struct IMarkupServices2 extends IMarkupServices {
      * @returns {HRESULT} 
      */
     SaveSegmentsToClipboard(pSegmentList, dwFlags) {
-        result := ComCall(25, this, "ptr", pSegmentList, "uint", dwFlags, "HRESULT")
+        result := ComCall(25, this, "ptr", pSegmentList, UInt32, dwFlags, "HRESULT")
         return result
     }
 

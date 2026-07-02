@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\ID3D11DeviceContext.ahk" { ID3D11DeviceContext }
-#Import ".\D3D11_BOX.ahk" { D3D11_BOX }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
+#Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\ID3DDeviceContextState.ahk" { ID3DDeviceContextState }
 #Import ".\ID3D11View.ahk" { ID3D11View }
+#Import ".\D3D11_BOX.ahk" { D3D11_BOX }
+#Import ".\ID3D11Buffer.ahk" { ID3D11Buffer }
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext1 adds new methods to those in ID3D11DeviceContext.
@@ -100,7 +100,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-copysubresourceregion1
      */
     CopySubresourceRegion1(pDstResource, DstSubresource, DstX, DstY, DstZ, pSrcResource, SrcSubresource, pSrcBox, CopyFlags) {
-        ComCall(115, this, "ptr", pDstResource, "uint", DstSubresource, "uint", DstX, "uint", DstY, "uint", DstZ, "ptr", pSrcResource, "uint", SrcSubresource, D3D11_BOX.Ptr, pSrcBox, "uint", CopyFlags)
+        ComCall(115, this, "ptr", pDstResource, UInt32, DstSubresource, UInt32, DstX, UInt32, DstY, UInt32, DstZ, "ptr", pSrcResource, UInt32, SrcSubresource, D3D11_BOX.Ptr, pSrcBox, UInt32, CopyFlags)
     }
 
     /**
@@ -143,7 +143,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
     UpdateSubresource1(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch, CopyFlags) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
 
-        ComCall(116, this, "ptr", pDstResource, "uint", DstSubresource, D3D11_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, "uint", SrcRowPitch, "uint", SrcDepthPitch, "uint", CopyFlags)
+        ComCall(116, this, "ptr", pDstResource, UInt32, DstSubresource, D3D11_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, UInt32, SrcRowPitch, UInt32, SrcDepthPitch, UInt32, CopyFlags)
     }
 
     /**
@@ -278,7 +278,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(119, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(119, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -375,7 +375,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(120, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(120, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -472,7 +472,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(121, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(121, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -569,7 +569,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(122, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(122, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -713,7 +713,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(123, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(123, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -810,7 +810,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(124, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(124, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -829,7 +829,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(125, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(125, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -848,7 +848,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(126, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(126, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -867,7 +867,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(127, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(127, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -886,7 +886,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(128, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(128, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -905,7 +905,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(129, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(129, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -924,7 +924,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
         pFirstConstantMarshal := pFirstConstant is VarRef ? "uint*" : "ptr"
         pNumConstantsMarshal := pNumConstants is VarRef ? "uint*" : "ptr"
 
-        ComCall(130, this, "uint", StartSlot, "uint", NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
+        ComCall(130, this, UInt32, StartSlot, UInt32, NumBuffers, ID3D11Buffer.Ptr, ppConstantBuffers, pFirstConstantMarshal, pFirstConstant, pNumConstantsMarshal, pNumConstants)
     }
 
     /**
@@ -1001,7 +1001,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
     ClearView(pView, _Color, pRect, NumRects) {
         _ColorMarshal := _Color is VarRef ? "float*" : "ptr"
 
-        ComCall(132, this, "ptr", pView, _ColorMarshal, _Color, RECT.Ptr, pRect, "uint", NumRects)
+        ComCall(132, this, "ptr", pView, _ColorMarshal, _Color, RECT.Ptr, pRect, UInt32, NumRects)
     }
 
     /**
@@ -1021,7 +1021,7 @@ export default struct ID3D11DeviceContext1 extends ID3D11DeviceContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-discardview1
      */
     DiscardView1(pResourceView, pRects, NumRects) {
-        ComCall(133, this, "ptr", pResourceView, RECT.Ptr, pRects, "uint", NumRects)
+        ComCall(133, this, "ptr", pResourceView, RECT.Ptr, pRects, UInt32, NumRects)
     }
 
     Query(iid) {

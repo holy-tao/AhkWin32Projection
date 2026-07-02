@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DESKTOP_SLIDESHOW_DIRECTION.ahk" { DESKTOP_SLIDESHOW_DIRECTION }
-#Import ".\DESKTOP_SLIDESHOW_STATE.ahk" { DESKTOP_SLIDESHOW_STATE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\IShellItemArray.ahk" { IShellItemArray }
-#Import ".\DESKTOP_WALLPAPER_POSITION.ahk" { DESKTOP_WALLPAPER_POSITION }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\DESKTOP_SLIDESHOW_OPTIONS.ahk" { DESKTOP_SLIDESHOW_OPTIONS }
-#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\DESKTOP_SLIDESHOW_STATE.ahk" { DESKTOP_SLIDESHOW_STATE }
+#Import ".\DESKTOP_WALLPAPER_POSITION.ahk" { DESKTOP_WALLPAPER_POSITION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DESKTOP_SLIDESHOW_OPTIONS.ahk" { DESKTOP_SLIDESHOW_OPTIONS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DESKTOP_SLIDESHOW_DIRECTION.ahk" { DESKTOP_SLIDESHOW_DIRECTION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * . (IDesktopWallpaper)
@@ -108,7 +108,7 @@ export default struct IDesktopWallpaper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat
      */
     GetMonitorDevicePathAt(monitorIndex) {
-        result := ComCall(5, this, "uint", monitorIndex, PWSTR.Ptr, &monitorID := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, monitorIndex, PWSTR.Ptr, &monitorID := 0, "HRESULT")
         return monitorID
     }
 
@@ -227,7 +227,7 @@ export default struct IDesktopWallpaper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setslideshowoptions
      */
     SetSlideshowOptions(options, slideshowTick) {
-        result := ComCall(14, this, DESKTOP_SLIDESHOW_OPTIONS, options, "uint", slideshowTick, "HRESULT")
+        result := ComCall(14, this, DESKTOP_SLIDESHOW_OPTIONS, options, UInt32, slideshowTick, "HRESULT")
         return result
     }
 

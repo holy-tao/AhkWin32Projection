@@ -97,7 +97,7 @@ export default struct IHTMLCommentElement2 extends IDispatch {
      */
     substringData(offset, Count) {
         pbstrsubString := BSTR.Owned()
-        result := ComCall(10, this, "int", offset, "int", Count, BSTR.Ptr, pbstrsubString, "HRESULT")
+        result := ComCall(10, this, Int32, offset, Int32, Count, BSTR.Ptr, pbstrsubString, "HRESULT")
         return pbstrsubString
     }
 
@@ -122,7 +122,7 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     insertData(offset, bstrstring) {
         bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
 
-        result := ComCall(12, this, "int", offset, BSTR, bstrstring, "HRESULT")
+        result := ComCall(12, this, Int32, offset, BSTR, bstrstring, "HRESULT")
         return result
     }
 
@@ -133,7 +133,7 @@ export default struct IHTMLCommentElement2 extends IDispatch {
      * @returns {HRESULT} 
      */
     deleteData(offset, Count) {
-        result := ComCall(13, this, "int", offset, "int", Count, "HRESULT")
+        result := ComCall(13, this, Int32, offset, Int32, Count, "HRESULT")
         return result
     }
 
@@ -147,7 +147,7 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     replaceData(offset, Count, bstrstring) {
         bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
 
-        result := ComCall(14, this, "int", offset, "int", Count, BSTR, bstrstring, "HRESULT")
+        result := ComCall(14, this, Int32, offset, Int32, Count, BSTR, bstrstring, "HRESULT")
         return result
     }
 

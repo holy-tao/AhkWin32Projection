@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\IOleUILinkContainerW.ahk" { IOleUILinkContainerW }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * An extension of the IOleUILinkContainer interface. It returns the time that an object was last updated, which is link information that IOleUILinkContainer does not provide. (Unicode)
@@ -48,7 +48,7 @@ export default struct IOleUILinkInfoW extends IOleUILinkContainerW {
      */
     GetLastUpdate(dwLink) {
         lpLastUpdate := FILETIME()
-        result := ComCall(11, this, "uint", dwLink, FILETIME.Ptr, lpLastUpdate, "HRESULT")
+        result := ComCall(11, this, UInt32, dwLink, FILETIME.Ptr, lpLastUpdate, "HRESULT")
         return lpLastUpdate
     }
 

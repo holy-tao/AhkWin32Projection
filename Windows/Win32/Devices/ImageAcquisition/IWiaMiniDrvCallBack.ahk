@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MINIDRV_TRANSFER_CONTEXT.ahk" { MINIDRV_TRANSFER_CONTEXT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MINIDRV_TRANSFER_CONTEXT.ahk" { MINIDRV_TRANSFER_CONTEXT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -48,7 +48,7 @@ export default struct IWiaMiniDrvCallBack extends IUnknown {
      * @returns {HRESULT} 
      */
     MiniDrvCallback(lReason, lStatus, lPercentComplete, lOffset, lLength, pTranCtx, lReserved) {
-        result := ComCall(3, this, "int", lReason, "int", lStatus, "int", lPercentComplete, "int", lOffset, "int", lLength, MINIDRV_TRANSFER_CONTEXT.Ptr, pTranCtx, "int", lReserved, "HRESULT")
+        result := ComCall(3, this, Int32, lReason, Int32, lStatus, Int32, lPercentComplete, Int32, lOffset, Int32, lLength, MINIDRV_TRANSFER_CONTEXT.Ptr, pTranCtx, Int32, lReserved, "HRESULT")
         return result
     }
 

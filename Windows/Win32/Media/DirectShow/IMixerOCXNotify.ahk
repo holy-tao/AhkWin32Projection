@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMixerOCXNotify interface is implemented by clients and called by the Overlay Mixer to send notifications of events affecting the video display rectangle.
@@ -83,7 +83,7 @@ export default struct IMixerOCXNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocxnotify-onstatuschange
      */
     OnStatusChange(ulStatusFlags) {
-        result := ComCall(4, this, "uint", ulStatusFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, ulStatusFlags, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct IMixerOCXNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocxnotify-ondatachange
      */
     OnDataChange(ulDataFlags) {
-        result := ComCall(5, this, "uint", ulDataFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, ulDataFlags, "HRESULT")
         return result
     }
 

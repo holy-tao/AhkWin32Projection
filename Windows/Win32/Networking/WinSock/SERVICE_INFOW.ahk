@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\System\Com\BLOB.ahk" { BLOB }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SERVICE_ADDRESSES.ahk" { SERVICE_ADDRESSES }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\RESOURCE_DISPLAY_TYPE.ahk" { RESOURCE_DISPLAY_TYPE }
+#Import ".\SERVICE_ADDRESSES.ahk" { SERVICE_ADDRESSES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about a network service or a network service type. (Unicode)

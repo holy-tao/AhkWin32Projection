@@ -111,7 +111,7 @@ export default struct ITCustomTone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-put_frequency
      */
     put_Frequency(lFrequency) {
-        result := ComCall(8, this, "int", lFrequency, "HRESULT")
+        result := ComCall(8, this, Int32, lFrequency, "HRESULT")
         return result
     }
 
@@ -150,7 +150,7 @@ export default struct ITCustomTone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-put_cadenceon
      */
     put_CadenceOn(CadenceOn) {
-        result := ComCall(10, this, "int", CadenceOn, "HRESULT")
+        result := ComCall(10, this, Int32, CadenceOn, "HRESULT")
         return result
     }
 
@@ -189,7 +189,7 @@ export default struct ITCustomTone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-put_cadenceoff
      */
     put_CadenceOff(lCadenceOff) {
-        result := ComCall(12, this, "int", lCadenceOff, "HRESULT")
+        result := ComCall(12, this, Int32, lCadenceOff, "HRESULT")
         return result
     }
 
@@ -228,7 +228,7 @@ export default struct ITCustomTone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-put_volume
      */
     put_Volume(lVolume) {
-        result := ComCall(14, this, "int", lVolume, "HRESULT")
+        result := ComCall(14, this, Int32, lVolume, "HRESULT")
         return result
     }
 

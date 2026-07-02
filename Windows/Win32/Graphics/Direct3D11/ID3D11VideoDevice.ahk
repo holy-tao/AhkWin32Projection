@@ -1,27 +1,27 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk" { D3D11_VIDEO_PROCESSOR_CONTENT_DESC }
-#Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
-#Import ".\D3D11_VIDEO_DECODER_CONFIG.ahk" { D3D11_VIDEO_DECODER_CONFIG }
-#Import ".\D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC }
-#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
-#Import ".\D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\ID3D11VideoDecoderOutputView.ahk" { ID3D11VideoDecoderOutputView }
-#Import ".\ID3D11AuthenticatedChannel.ahk" { ID3D11AuthenticatedChannel }
-#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
 #Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk" { D3D11_VIDEO_CONTENT_PROTECTION_CAPS }
-#Import ".\D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC }
-#Import ".\ID3D11VideoProcessorEnumerator.ahk" { ID3D11VideoProcessorEnumerator }
-#Import ".\ID3D11VideoProcessorInputView.ahk" { ID3D11VideoProcessorInputView }
 #Import ".\ID3D11Resource.ahk" { ID3D11Resource }
 #Import ".\D3D11_AUTHENTICATED_CHANNEL_TYPE.ahk" { D3D11_AUTHENTICATED_CHANNEL_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
+#Import ".\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk" { D3D11_VIDEO_CONTENT_PROTECTION_CAPS }
+#Import ".\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk" { D3D11_VIDEO_PROCESSOR_CONTENT_DESC }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import ".\ID3D11VideoDecoderOutputView.ahk" { ID3D11VideoDecoderOutputView }
+#Import ".\D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D11VideoProcessorEnumerator.ahk" { ID3D11VideoProcessorEnumerator }
+#Import ".\ID3D11AuthenticatedChannel.ahk" { ID3D11AuthenticatedChannel }
 #Import ".\ID3D11VideoProcessorOutputView.ahk" { ID3D11VideoProcessorOutputView }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\ID3D11VideoProcessorInputView.ahk" { ID3D11VideoProcessorInputView }
+#Import ".\D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC.ahk" { D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC }
+#Import ".\D3D11_VIDEO_DECODER_CONFIG.ahk" { D3D11_VIDEO_DECODER_CONFIG }
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice)
@@ -102,7 +102,7 @@ export default struct ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor
      */
     CreateVideoProcessor(pEnum, RateConversionIndex) {
-        result := ComCall(4, this, "ptr", pEnum, "uint", RateConversionIndex, "ptr*", &ppVideoProcessor := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pEnum, UInt32, RateConversionIndex, "ptr*", &ppVideoProcessor := 0, "HRESULT")
         return ID3D11VideoProcessor(ppVideoProcessor)
     }
 
@@ -286,7 +286,7 @@ export default struct ID3D11VideoDevice extends IUnknown {
      */
     GetVideoDecoderProfile(Index) {
         pDecoderProfile := Guid()
-        result := ComCall(12, this, "uint", Index, Guid.Ptr, pDecoderProfile, "HRESULT")
+        result := ComCall(12, this, UInt32, Index, Guid.Ptr, pDecoderProfile, "HRESULT")
         return pDecoderProfile
     }
 
@@ -326,7 +326,7 @@ export default struct ID3D11VideoDevice extends IUnknown {
      */
     GetVideoDecoderConfig(pDesc, Index) {
         pConfig := D3D11_VIDEO_DECODER_CONFIG()
-        result := ComCall(15, this, D3D11_VIDEO_DECODER_DESC.Ptr, pDesc, "uint", Index, D3D11_VIDEO_DECODER_CONFIG.Ptr, pConfig, "HRESULT")
+        result := ComCall(15, this, D3D11_VIDEO_DECODER_DESC.Ptr, pDesc, UInt32, Index, D3D11_VIDEO_DECODER_CONFIG.Ptr, pConfig, "HRESULT")
         return pConfig
     }
 
@@ -394,7 +394,7 @@ export default struct ID3D11VideoDevice extends IUnknown {
      */
     CheckCryptoKeyExchange(pCryptoType, pDecoderProfile, Index) {
         pKeyExchangeType := Guid()
-        result := ComCall(17, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, "uint", Index, Guid.Ptr, pKeyExchangeType, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, UInt32, Index, Guid.Ptr, pKeyExchangeType, "HRESULT")
         return pKeyExchangeType
     }
 
@@ -407,7 +407,7 @@ export default struct ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(18, this, Guid.Ptr, guid, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, guid, UInt32, DataSize, IntPtr, pData, "HRESULT")
         return result
     }
 

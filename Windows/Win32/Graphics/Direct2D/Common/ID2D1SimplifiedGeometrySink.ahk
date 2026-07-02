@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_BEZIER_SEGMENT.ahk" { D2D1_BEZIER_SEGMENT }
+#Import ".\D2D1_FIGURE_BEGIN.ahk" { D2D1_FIGURE_BEGIN }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D2D1_FIGURE_END.ahk" { D2D1_FIGURE_END }
-#Import ".\D2D1_FIGURE_BEGIN.ahk" { D2D1_FIGURE_BEGIN }
 #Import ".\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import ".\D2D1_BEZIER_SEGMENT.ahk" { D2D1_BEZIER_SEGMENT }
-#Import ".\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
 #Import ".\D2D1_PATH_SEGMENT.ahk" { D2D1_PATH_SEGMENT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes a geometric path that does not contain quadratic bezier curves or arcs.
@@ -110,7 +110,7 @@ export default struct ID2D1SimplifiedGeometrySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addlines
      */
     AddLines(_points, pointsCount) {
-        ComCall(6, this, D2D_POINT_2F.Ptr, _points, "uint", pointsCount)
+        ComCall(6, this, D2D_POINT_2F.Ptr, _points, UInt32, pointsCount)
     }
 
     /**
@@ -125,7 +125,7 @@ export default struct ID2D1SimplifiedGeometrySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addbeziers
      */
     AddBeziers(beziers, beziersCount) {
-        ComCall(7, this, D2D1_BEZIER_SEGMENT.Ptr, beziers, "uint", beziersCount)
+        ComCall(7, this, D2D1_BEZIER_SEGMENT.Ptr, beziers, UInt32, beziersCount)
     }
 
     /**

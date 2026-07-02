@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
 #Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The PRINTER\_INFO\_2 structure specifies detailed printer information.

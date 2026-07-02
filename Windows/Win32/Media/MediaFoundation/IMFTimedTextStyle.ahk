@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MF_TIMED_TEXT_FONT_STYLE.ahk" { MF_TIMED_TEXT_FONT_STYLE }
-#Import ".\MFARGB.ahk" { MFARGB }
+#Import ".\MF_TIMED_TEXT_UNIT_TYPE.ahk" { MF_TIMED_TEXT_UNIT_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MFARGB.ahk" { MFARGB }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\MF_TIMED_TEXT_ALIGNMENT.ahk" { MF_TIMED_TEXT_ALIGNMENT }
-#Import ".\MF_TIMED_TEXT_UNIT_TYPE.ahk" { MF_TIMED_TEXT_UNIT_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MF_TIMED_TEXT_FONT_STYLE.ahk" { MF_TIMED_TEXT_FONT_STYLE }
 
 /**
  * Represents the style for timed text.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DCB_PARITY.ahk" { DCB_PARITY }
-#Import ".\DCB_STOP_BITS.ahk" { DCB_STOP_BITS }
-#Import ".\DCB.ahk" { DCB }
 #Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\DCB_STOP_BITS.ahk" { DCB_STOP_BITS }
+#Import ".\DCB_PARITY.ahk" { DCB_PARITY }
+#Import ".\DCB.ahk" { DCB }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

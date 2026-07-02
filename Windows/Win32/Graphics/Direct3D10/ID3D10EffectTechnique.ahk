@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\D3D10_TECHNIQUE_DESC.ahk" { D3D10_TECHNIQUE_DESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID3D10EffectPass.ahk" { ID3D10EffectPass }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
-#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\ID3D10EffectPass.ahk" { ID3D10EffectPass }
 
 /**
  * An ID3D10EffectTechnique interface is a collection of passes.
@@ -92,7 +92,7 @@ export default struct ID3D10EffectTechnique extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttechnique-getannotationbyindex
      */
     GetAnnotationByIndex(Index) {
-        result := ComCall(2, this, "uint", Index, ID3D10EffectVariable)
+        result := ComCall(2, this, UInt32, Index, ID3D10EffectVariable)
         return result
     }
 
@@ -128,7 +128,7 @@ export default struct ID3D10EffectTechnique extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttechnique-getpassbyindex
      */
     GetPassByIndex(Index) {
-        result := ComCall(4, this, "uint", Index, ID3D10EffectPass)
+        result := ComCall(4, this, UInt32, Index, ID3D10EffectPass)
         return result
     }
 

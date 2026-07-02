@@ -1,58 +1,60 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\System\Com\IStream.ahk" { IStream }
-#Import ".\LINEAGENTSESSIONINFO.ahk" { LINEAGENTSESSIONINFO }
-#Import ".\LINEMEDIACONTROLTONE.ahk" { LINEMEDIACONTROLTONE }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import ".\LINEAGENTSTATUS.ahk" { LINEAGENTSTATUS }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\LINEGENERATETONE.ahk" { LINEGENERATETONE as LINEGENERATETONE_struct }
-#Import ".\LINEFORWARDLIST.ahk" { LINEFORWARDLIST }
-#Import "..\..\System\AddressBook\IAddrBook.ahk" { IAddrBook }
-#Import ".\LINEPROVIDERLIST.ahk" { LINEPROVIDERLIST }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\LINECALLSTATUS.ahk" { LINECALLSTATUS }
-#Import ".\LINEINITIALIZEEXPARAMS.ahk" { LINEINITIALIZEEXPARAMS }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import ".\LINEDEVCAPS.ahk" { LINEDEVCAPS }
-#Import ".\LINEAGENTINFO.ahk" { LINEAGENTINFO }
-#Import ".\LINEADDRESSSTATUS.ahk" { LINEADDRESSSTATUS }
-#Import ".\PHONESTATUS.ahk" { PHONESTATUS }
-#Import ".\ITnef.ahk" { ITnef }
-#Import ".\PHONEINITIALIZEEXPARAMS.ahk" { PHONEINITIALIZEEXPARAMS }
-#Import ".\LINECALLPARAMS.ahk" { LINECALLPARAMS }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\LINEAGENTGROUPLIST.ahk" { LINEAGENTGROUPLIST }
-#Import ".\LINEADDRESSCAPS.ahk" { LINEADDRESSCAPS }
-#Import ".\PHONECAPS.ahk" { PHONECAPS }
-#Import ".\LINECOUNTRYLIST.ahk" { LINECOUNTRYLIST }
-#Import ".\LINEMEDIACONTROLCALLSTATE.ahk" { LINEMEDIACONTROLCALLSTATE }
 #Import ".\LINEDEVSTATUS.ahk" { LINEDEVSTATUS }
-#Import ".\VARSTRING.ahk" { VARSTRING }
+#Import ".\LINECALLLIST.ahk" { LINECALLLIST }
+#Import ".\LINEADDRESSSTATUS.ahk" { LINEADDRESSSTATUS }
+#Import ".\LINEEXTENSIONID.ahk" { LINEEXTENSIONID }
+#Import ".\LINEAGENTINFO.ahk" { LINEAGENTINFO }
+#Import ".\PHONEEXTENSIONID.ahk" { PHONEEXTENSIONID }
+#Import ".\LINEMEDIACONTROLMEDIA.ahk" { LINEMEDIACONTROLMEDIA }
+#Import ".\LINECOUNTRYLIST.ahk" { LINECOUNTRYLIST }
+#Import ".\LINECALLBACK.ahk" { LINECALLBACK }
+#Import ".\LINECALLPARAMS.ahk" { LINECALLPARAMS }
+#Import ".\LINEDEVCAPS.ahk" { LINEDEVCAPS }
+#Import ".\LINEMONITORTONE.ahk" { LINEMONITORTONE }
+#Import ".\LINEGENERATETONE.ahk" { LINEGENERATETONE as LINEGENERATETONE_struct }
+#Import ".\LINEAGENTSESSIONLIST.ahk" { LINEAGENTSESSIONLIST }
+#Import ".\LINEPROXYREQUEST.ahk" { LINEPROXYREQUEST }
+#Import ".\LINEFORWARDLIST.ahk" { LINEFORWARDLIST }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\LINEINITIALIZEEXPARAMS.ahk" { LINEINITIALIZEEXPARAMS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\LINEADDRESSCAPS.ahk" { LINEADDRESSCAPS }
+#Import ".\LINEAGENTACTIVITYLIST.ahk" { LINEAGENTACTIVITYLIST }
+#Import ".\PHONESTATUS.ahk" { PHONESTATUS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import ".\LINEQUEUELIST.ahk" { LINEQUEUELIST }
 #Import ".\LINECALLINFO.ahk" { LINECALLINFO }
-#Import ".\LINEMESSAGE.ahk" { LINEMESSAGE }
-#Import ".\LINEEXTENSIONID.ahk" { LINEEXTENSIONID }
-#Import ".\LINEQUEUEINFO.ahk" { LINEQUEUEINFO }
-#Import ".\LINEAGENTCAPS.ahk" { LINEAGENTCAPS }
-#Import ".\PHONEBUTTONINFO.ahk" { PHONEBUTTONINFO }
-#Import ".\LINECALLLIST.ahk" { LINECALLLIST }
-#Import ".\LINEAGENTSESSIONLIST.ahk" { LINEAGENTSESSIONLIST }
-#Import ".\LINETRANSLATECAPS.ahk" { LINETRANSLATECAPS }
-#Import ".\LINEMEDIACONTROLMEDIA.ahk" { LINEMEDIACONTROLMEDIA }
-#Import ".\LINEDIALPARAMS.ahk" { LINEDIALPARAMS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\LINEPROXYREQUEST.ahk" { LINEPROXYREQUEST }
-#Import ".\LINEAGENTACTIVITYLIST.ahk" { LINEAGENTACTIVITYLIST }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
-#Import ".\PHONEMESSAGE.ahk" { PHONEMESSAGE }
 #Import ".\LINEMEDIACONTROLDIGIT.ahk" { LINEMEDIACONTROLDIGIT }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\LINEMONITORTONE.ahk" { LINEMONITORTONE }
-#Import ".\LINETRANSLATEOUTPUT.ahk" { LINETRANSLATEOUTPUT }
-#Import ".\PHONEEXTENSIONID.ahk" { PHONEEXTENSIONID }
+#Import ".\LINEMEDIACONTROLTONE.ahk" { LINEMEDIACONTROLTONE }
 #Import ".\LINEPROXYREQUESTLIST.ahk" { LINEPROXYREQUESTLIST }
+#Import ".\LINECALLSTATUS.ahk" { LINECALLSTATUS }
+#Import "..\..\System\AddressBook\IAddrBook.ahk" { IAddrBook }
+#Import ".\LINEAGENTCAPS.ahk" { LINEAGENTCAPS }
+#Import ".\LINEAGENTGROUPLIST.ahk" { LINEAGENTGROUPLIST }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\ITnef.ahk" { ITnef }
+#Import ".\LINEPROVIDERLIST.ahk" { LINEPROVIDERLIST }
+#Import ".\LINEQUEUEINFO.ahk" { LINEQUEUEINFO }
+#Import ".\LINETRANSLATECAPS.ahk" { LINETRANSLATECAPS }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\LINETRANSLATEOUTPUT.ahk" { LINETRANSLATEOUTPUT }
+#Import ".\PHONEBUTTONINFO.ahk" { PHONEBUTTONINFO }
+#Import ".\PHONEMESSAGE.ahk" { PHONEMESSAGE }
+#Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
+#Import ".\LINEDIALPARAMS.ahk" { LINEDIALPARAMS }
+#Import ".\LINEMESSAGE.ahk" { LINEMESSAGE }
+#Import ".\PHONEINITIALIZEEXPARAMS.ahk" { PHONEINITIALIZEEXPARAMS }
+#Import ".\PHONECAPS.ahk" { PHONECAPS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PHONECALLBACK.ahk" { PHONECALLBACK }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\VARSTRING.ahk" { VARSTRING }
+#Import ".\LINEAGENTSESSIONINFO.ahk" { LINEAGENTSESSIONINFO }
+#Import ".\LINEMEDIACONTROLCALLSTATE.ahk" { LINEMEDIACONTROLCALLSTATE }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
@@ -89,7 +91,7 @@
 export lineAccept(hCall, lpsUserUserInfo, dwSize) {
     lpsUserUserInfo := lpsUserUserInfo is String ? StrPtr(lpsUserUserInfo) : lpsUserUserInfo
 
-    result := DllCall("TAPI32.dll\lineAccept", "uint", hCall, "ptr", lpsUserUserInfo, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineAccept", UInt32, hCall, "ptr", lpsUserUserInfo, UInt32, dwSize, Int32)
     return result
 }
 
@@ -246,7 +248,7 @@ export lineAddProviderW(lpszProviderFilename, hwndOwner, lpdwPermanentProviderID
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineaddtoconference
  */
 export lineAddToConference(hConfCall, hConsultCall) {
-    result := DllCall("TAPI32.dll\lineAddToConference", "uint", hConfCall, "uint", hConsultCall, Int32)
+    result := DllCall("TAPI32.dll\lineAddToConference", UInt32, hConfCall, UInt32, hConsultCall, Int32)
     return result
 }
 
@@ -281,7 +283,7 @@ export lineAddToConference(hConfCall, hConsultCall) {
 export lineAgentSpecific(hLine, dwAddressID, dwAgentExtensionIDIndex, lpParams, dwSize) {
     lpParamsMarshal := lpParams is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineAgentSpecific", "uint", hLine, "uint", dwAddressID, "uint", dwAgentExtensionIDIndex, lpParamsMarshal, lpParams, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineAgentSpecific", UInt32, hLine, UInt32, dwAddressID, UInt32, dwAgentExtensionIDIndex, lpParamsMarshal, lpParams, UInt32, dwSize, Int32)
     return result
 }
 
@@ -314,7 +316,7 @@ export lineAgentSpecific(hLine, dwAddressID, dwAgentExtensionIDIndex, lpParams, 
 export lineAnswer(hCall, lpsUserUserInfo, dwSize) {
     lpsUserUserInfo := lpsUserUserInfo is String ? StrPtr(lpsUserUserInfo) : lpsUserUserInfo
 
-    result := DllCall("TAPI32.dll\lineAnswer", "uint", hCall, "ptr", lpsUserUserInfo, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineAnswer", UInt32, hCall, "ptr", lpsUserUserInfo, UInt32, dwSize, Int32)
     return result
 }
 
@@ -339,7 +341,7 @@ export lineAnswer(hCall, lpsUserUserInfo, dwSize) {
 export lineBlindTransfer(hCall, lpszDestAddress, dwCountryCode) {
     lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
 
-    result := DllCall("TAPI32.dll\lineBlindTransfer", "uint", hCall, "ptr", lpszDestAddress, "uint", dwCountryCode, Int32)
+    result := DllCall("TAPI32.dll\lineBlindTransfer", UInt32, hCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, Int32)
     return result
 }
 
@@ -371,7 +373,7 @@ export lineBlindTransfer(hCall, lpszDestAddress, dwCountryCode) {
 export lineBlindTransferA(hCall, lpszDestAddress, dwCountryCode) {
     lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
 
-    result := DllCall("TAPI32.dll\lineBlindTransferA", "uint", hCall, "ptr", lpszDestAddress, "uint", dwCountryCode, Int32)
+    result := DllCall("TAPI32.dll\lineBlindTransferA", UInt32, hCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, Int32)
     return result
 }
 
@@ -403,7 +405,7 @@ export lineBlindTransferA(hCall, lpszDestAddress, dwCountryCode) {
 export lineBlindTransferW(hCall, lpszDestAddressW, dwCountryCode) {
     lpszDestAddressW := lpszDestAddressW is String ? StrPtr(lpszDestAddressW) : lpszDestAddressW
 
-    result := DllCall("TAPI32.dll\lineBlindTransferW", "uint", hCall, "ptr", lpszDestAddressW, "uint", dwCountryCode, Int32)
+    result := DllCall("TAPI32.dll\lineBlindTransferW", UInt32, hCall, "ptr", lpszDestAddressW, UInt32, dwCountryCode, Int32)
     return result
 }
 
@@ -427,7 +429,7 @@ export lineBlindTransferW(hCall, lpszDestAddressW, dwCountryCode) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineclose
  */
 export lineClose(hLine) {
-    result := DllCall("TAPI32.dll\lineClose", "uint", hLine, Int32)
+    result := DllCall("TAPI32.dll\lineClose", UInt32, hLine, Int32)
     return result
 }
 
@@ -452,7 +454,7 @@ export lineClose(hLine) {
 export lineCompleteCall(hCall, lpdwCompletionID, dwCompletionMode, dwMessageID) {
     lpdwCompletionIDMarshal := lpdwCompletionID is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineCompleteCall", "uint", hCall, lpdwCompletionIDMarshal, lpdwCompletionID, "uint", dwCompletionMode, "uint", dwMessageID, Int32)
+    result := DllCall("TAPI32.dll\lineCompleteCall", UInt32, hCall, lpdwCompletionIDMarshal, lpdwCompletionID, UInt32, dwCompletionMode, UInt32, dwMessageID, Int32)
     return result
 }
 
@@ -493,7 +495,7 @@ export lineCompleteCall(hCall, lpdwCompletionID, dwCompletionMode, dwMessageID) 
 export lineCompleteTransfer(hCall, hConsultCall, lphConfCall, dwTransferMode) {
     lphConfCallMarshal := lphConfCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineCompleteTransfer", "uint", hCall, "uint", hConsultCall, lphConfCallMarshal, lphConfCall, "uint", dwTransferMode, Int32)
+    result := DllCall("TAPI32.dll\lineCompleteTransfer", UInt32, hCall, UInt32, hConsultCall, lphConfCallMarshal, lphConfCall, UInt32, dwTransferMode, Int32)
     return result
 }
 
@@ -516,7 +518,7 @@ export lineCompleteTransfer(hCall, hConsultCall, lphConfCall, dwTransferMode) {
 export lineConfigDialog(dwDeviceID, hwndOwner, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineConfigDialog", "uint", dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineConfigDialog", UInt32, dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -546,7 +548,7 @@ export lineConfigDialog(dwDeviceID, hwndOwner, lpszDeviceClass) {
 export lineConfigDialogA(dwDeviceID, hwndOwner, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineConfigDialogA", "uint", dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineConfigDialogA", UInt32, dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -576,7 +578,7 @@ export lineConfigDialogA(dwDeviceID, hwndOwner, lpszDeviceClass) {
 export lineConfigDialogW(dwDeviceID, hwndOwner, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineConfigDialogW", "uint", dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineConfigDialogW", UInt32, dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -630,7 +632,7 @@ export lineConfigDialogEdit(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceConf
 
     lpDeviceConfigInMarshal := lpDeviceConfigIn is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineConfigDialogEdit", "uint", dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, lpDeviceConfigInMarshal, lpDeviceConfigIn, "uint", dwSize, VARSTRING.Ptr, lpDeviceConfigOut, Int32)
+    result := DllCall("TAPI32.dll\lineConfigDialogEdit", UInt32, dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, lpDeviceConfigInMarshal, lpDeviceConfigIn, UInt32, dwSize, VARSTRING.Ptr, lpDeviceConfigOut, Int32)
     return result
 }
 
@@ -691,7 +693,7 @@ export lineConfigDialogEditA(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceCon
 
     lpDeviceConfigInMarshal := lpDeviceConfigIn is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineConfigDialogEditA", "uint", dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, lpDeviceConfigInMarshal, lpDeviceConfigIn, "uint", dwSize, VARSTRING.Ptr, lpDeviceConfigOut, Int32)
+    result := DllCall("TAPI32.dll\lineConfigDialogEditA", UInt32, dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, lpDeviceConfigInMarshal, lpDeviceConfigIn, UInt32, dwSize, VARSTRING.Ptr, lpDeviceConfigOut, Int32)
     return result
 }
 
@@ -752,7 +754,7 @@ export lineConfigDialogEditW(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceCon
 
     lpDeviceConfigInMarshal := lpDeviceConfigIn is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineConfigDialogEditW", "uint", dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, lpDeviceConfigInMarshal, lpDeviceConfigIn, "uint", dwSize, VARSTRING.Ptr, lpDeviceConfigOut, Int32)
+    result := DllCall("TAPI32.dll\lineConfigDialogEditW", UInt32, dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, lpDeviceConfigInMarshal, lpDeviceConfigIn, UInt32, dwSize, VARSTRING.Ptr, lpDeviceConfigOut, Int32)
     return result
 }
 
@@ -770,7 +772,7 @@ export lineConfigDialogEditW(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceCon
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineconfigprovider
  */
 export lineConfigProvider(hwndOwner, dwPermanentProviderID) {
-    result := DllCall("TAPI32.dll\lineConfigProvider", HWND, hwndOwner, "uint", dwPermanentProviderID, Int32)
+    result := DllCall("TAPI32.dll\lineConfigProvider", HWND, hwndOwner, UInt32, dwPermanentProviderID, Int32)
     return result
 }
 
@@ -794,7 +796,7 @@ export lineCreateAgentW(hLine, lpszAgentID, lpszAgentPIN, lphAgent) {
 
     lphAgentMarshal := lphAgent is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineCreateAgentW", "uint", hLine, "ptr", lpszAgentID, "ptr", lpszAgentPIN, lphAgentMarshal, lphAgent, Int32)
+    result := DllCall("TAPI32.dll\lineCreateAgentW", UInt32, hLine, "ptr", lpszAgentID, "ptr", lpszAgentPIN, lphAgentMarshal, lphAgent, Int32)
     return result
 }
 
@@ -818,7 +820,7 @@ export lineCreateAgentA(hLine, lpszAgentID, lpszAgentPIN, lphAgent) {
 
     lphAgentMarshal := lphAgent is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineCreateAgentA", "uint", hLine, "ptr", lpszAgentID, "ptr", lpszAgentPIN, lphAgentMarshal, lphAgent, Int32)
+    result := DllCall("TAPI32.dll\lineCreateAgentA", UInt32, hLine, "ptr", lpszAgentID, "ptr", lpszAgentPIN, lphAgentMarshal, lphAgent, Int32)
     return result
 }
 
@@ -843,7 +845,7 @@ export lineCreateAgentSessionW(hLine, hAgent, lpszAgentPIN, dwWorkingAddressID, 
 
     lphAgentSessionMarshal := lphAgentSession is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineCreateAgentSessionW", "uint", hLine, "uint", hAgent, "ptr", lpszAgentPIN, "uint", dwWorkingAddressID, Guid.Ptr, lpGroupID, lphAgentSessionMarshal, lphAgentSession, Int32)
+    result := DllCall("TAPI32.dll\lineCreateAgentSessionW", UInt32, hLine, UInt32, hAgent, "ptr", lpszAgentPIN, UInt32, dwWorkingAddressID, Guid.Ptr, lpGroupID, lphAgentSessionMarshal, lphAgentSession, Int32)
     return result
 }
 
@@ -868,7 +870,7 @@ export lineCreateAgentSessionA(hLine, hAgent, lpszAgentPIN, dwWorkingAddressID, 
 
     lphAgentSessionMarshal := lphAgentSession is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineCreateAgentSessionA", "uint", hLine, "uint", hAgent, "ptr", lpszAgentPIN, "uint", dwWorkingAddressID, Guid.Ptr, lpGroupID, lphAgentSessionMarshal, lphAgentSession, Int32)
+    result := DllCall("TAPI32.dll\lineCreateAgentSessionA", UInt32, hLine, UInt32, hAgent, "ptr", lpszAgentPIN, UInt32, dwWorkingAddressID, Guid.Ptr, lpGroupID, lphAgentSessionMarshal, lphAgentSession, Int32)
     return result
 }
 
@@ -899,7 +901,7 @@ export lineCreateAgentSessionA(hLine, hAgent, lpszAgentPIN, dwWorkingAddressID, 
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linedeallocatecall
  */
 export lineDeallocateCall(hCall) {
-    result := DllCall("TAPI32.dll\lineDeallocateCall", "uint", hCall, Int32)
+    result := DllCall("TAPI32.dll\lineDeallocateCall", UInt32, hCall, Int32)
     return result
 }
 
@@ -931,7 +933,7 @@ export lineDeallocateCall(hCall) {
 export lineDevSpecific(hLine, dwAddressID, hCall, lpParams, dwSize) {
     lpParamsMarshal := lpParams is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineDevSpecific", "uint", hLine, "uint", dwAddressID, "uint", hCall, lpParamsMarshal, lpParams, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineDevSpecific", UInt32, hLine, UInt32, dwAddressID, UInt32, hCall, lpParamsMarshal, lpParams, UInt32, dwSize, Int32)
     return result
 }
 
@@ -959,7 +961,7 @@ export lineDevSpecific(hLine, dwAddressID, hCall, lpParams, dwSize) {
 export lineDevSpecificFeature(hLine, dwFeature, lpParams, dwSize) {
     lpParamsMarshal := lpParams is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineDevSpecificFeature", "uint", hLine, "uint", dwFeature, lpParamsMarshal, lpParams, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineDevSpecificFeature", UInt32, hLine, UInt32, dwFeature, lpParamsMarshal, lpParams, UInt32, dwSize, Int32)
     return result
 }
 
@@ -1003,7 +1005,7 @@ export lineDevSpecificFeature(hLine, dwFeature, lpParams, dwSize) {
 export lineDial(hCall, lpszDestAddress, dwCountryCode) {
     lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
 
-    result := DllCall("TAPI32.dll\lineDial", "uint", hCall, "ptr", lpszDestAddress, "uint", dwCountryCode, Int32)
+    result := DllCall("TAPI32.dll\lineDial", UInt32, hCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, Int32)
     return result
 }
 
@@ -1053,7 +1055,7 @@ export lineDial(hCall, lpszDestAddress, dwCountryCode) {
 export lineDialA(hCall, lpszDestAddress, dwCountryCode) {
     lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
 
-    result := DllCall("TAPI32.dll\lineDialA", "uint", hCall, "ptr", lpszDestAddress, "uint", dwCountryCode, Int32)
+    result := DllCall("TAPI32.dll\lineDialA", UInt32, hCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, Int32)
     return result
 }
 
@@ -1103,7 +1105,7 @@ export lineDialA(hCall, lpszDestAddress, dwCountryCode) {
 export lineDialW(hCall, lpszDestAddress, dwCountryCode) {
     lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
 
-    result := DllCall("TAPI32.dll\lineDialW", "uint", hCall, "ptr", lpszDestAddress, "uint", dwCountryCode, Int32)
+    result := DllCall("TAPI32.dll\lineDialW", UInt32, hCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, Int32)
     return result
 }
 
@@ -1135,7 +1137,7 @@ export lineDialW(hCall, lpszDestAddress, dwCountryCode) {
 export lineDrop(hCall, lpsUserUserInfo, dwSize) {
     lpsUserUserInfo := lpsUserUserInfo is String ? StrPtr(lpsUserUserInfo) : lpsUserUserInfo
 
-    result := DllCall("TAPI32.dll\lineDrop", "uint", hCall, "ptr", lpsUserUserInfo, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineDrop", UInt32, hCall, "ptr", lpsUserUserInfo, UInt32, dwSize, Int32)
     return result
 }
 
@@ -1181,7 +1183,7 @@ export lineDrop(hCall, lpsUserUserInfo, dwSize) {
 export lineForward(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsNoAnswer, lphConsultCall, lpCallParams) {
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineForward", "uint", hLine, "uint", bAllAddresses, "uint", dwAddressID, LINEFORWARDLIST.Ptr, lpForwardList, "uint", dwNumRingsNoAnswer, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineForward", UInt32, hLine, UInt32, bAllAddresses, UInt32, dwAddressID, LINEFORWARDLIST.Ptr, lpForwardList, UInt32, dwNumRingsNoAnswer, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -1234,7 +1236,7 @@ export lineForward(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsN
 export lineForwardA(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsNoAnswer, lphConsultCall, lpCallParams) {
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineForwardA", "uint", hLine, "uint", bAllAddresses, "uint", dwAddressID, LINEFORWARDLIST.Ptr, lpForwardList, "uint", dwNumRingsNoAnswer, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineForwardA", UInt32, hLine, UInt32, bAllAddresses, UInt32, dwAddressID, LINEFORWARDLIST.Ptr, lpForwardList, UInt32, dwNumRingsNoAnswer, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -1287,7 +1289,7 @@ export lineForwardA(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRings
 export lineForwardW(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsNoAnswer, lphConsultCall, lpCallParams) {
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineForwardW", "uint", hLine, "uint", bAllAddresses, "uint", dwAddressID, LINEFORWARDLIST.Ptr, lpForwardList, "uint", dwNumRingsNoAnswer, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineForwardW", UInt32, hLine, UInt32, bAllAddresses, UInt32, dwAddressID, LINEFORWARDLIST.Ptr, lpForwardList, UInt32, dwNumRingsNoAnswer, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -1349,7 +1351,7 @@ export lineGatherDigits(hCall, dwDigitModes, lpsDigits, dwNumDigits, lpszTermina
     lpsDigits := lpsDigits is String ? StrPtr(lpsDigits) : lpsDigits
     lpszTerminationDigits := lpszTerminationDigits is String ? StrPtr(lpszTerminationDigits) : lpszTerminationDigits
 
-    result := DllCall("TAPI32.dll\lineGatherDigits", "uint", hCall, "uint", dwDigitModes, "ptr", lpsDigits, "uint", dwNumDigits, "ptr", lpszTerminationDigits, "uint", dwFirstDigitTimeout, "uint", dwInterDigitTimeout, Int32)
+    result := DllCall("TAPI32.dll\lineGatherDigits", UInt32, hCall, UInt32, dwDigitModes, "ptr", lpsDigits, UInt32, dwNumDigits, "ptr", lpszTerminationDigits, UInt32, dwFirstDigitTimeout, UInt32, dwInterDigitTimeout, Int32)
     return result
 }
 
@@ -1418,7 +1420,7 @@ export lineGatherDigitsA(hCall, dwDigitModes, lpsDigits, dwNumDigits, lpszTermin
     lpsDigits := lpsDigits is String ? StrPtr(lpsDigits) : lpsDigits
     lpszTerminationDigits := lpszTerminationDigits is String ? StrPtr(lpszTerminationDigits) : lpszTerminationDigits
 
-    result := DllCall("TAPI32.dll\lineGatherDigitsA", "uint", hCall, "uint", dwDigitModes, "ptr", lpsDigits, "uint", dwNumDigits, "ptr", lpszTerminationDigits, "uint", dwFirstDigitTimeout, "uint", dwInterDigitTimeout, Int32)
+    result := DllCall("TAPI32.dll\lineGatherDigitsA", UInt32, hCall, UInt32, dwDigitModes, "ptr", lpsDigits, UInt32, dwNumDigits, "ptr", lpszTerminationDigits, UInt32, dwFirstDigitTimeout, UInt32, dwInterDigitTimeout, Int32)
     return result
 }
 
@@ -1487,7 +1489,7 @@ export lineGatherDigitsW(hCall, dwDigitModes, lpsDigits, dwNumDigits, lpszTermin
     lpsDigits := lpsDigits is String ? StrPtr(lpsDigits) : lpsDigits
     lpszTerminationDigits := lpszTerminationDigits is String ? StrPtr(lpszTerminationDigits) : lpszTerminationDigits
 
-    result := DllCall("TAPI32.dll\lineGatherDigitsW", "uint", hCall, "uint", dwDigitModes, "ptr", lpsDigits, "uint", dwNumDigits, "ptr", lpszTerminationDigits, "uint", dwFirstDigitTimeout, "uint", dwInterDigitTimeout, Int32)
+    result := DllCall("TAPI32.dll\lineGatherDigitsW", UInt32, hCall, UInt32, dwDigitModes, "ptr", lpsDigits, UInt32, dwNumDigits, "ptr", lpszTerminationDigits, UInt32, dwFirstDigitTimeout, UInt32, dwInterDigitTimeout, Int32)
     return result
 }
 
@@ -1529,7 +1531,7 @@ export lineGatherDigitsW(hCall, dwDigitModes, lpsDigits, dwNumDigits, lpszTermin
 export lineGenerateDigits(hCall, dwDigitMode, lpszDigits, dwDuration) {
     lpszDigits := lpszDigits is String ? StrPtr(lpszDigits) : lpszDigits
 
-    result := DllCall("TAPI32.dll\lineGenerateDigits", "uint", hCall, "uint", dwDigitMode, "ptr", lpszDigits, "uint", dwDuration, Int32)
+    result := DllCall("TAPI32.dll\lineGenerateDigits", UInt32, hCall, UInt32, dwDigitMode, "ptr", lpszDigits, UInt32, dwDuration, Int32)
     return result
 }
 
@@ -1578,7 +1580,7 @@ export lineGenerateDigits(hCall, dwDigitMode, lpszDigits, dwDuration) {
 export lineGenerateDigitsA(hCall, dwDigitMode, lpszDigits, dwDuration) {
     lpszDigits := lpszDigits is String ? StrPtr(lpszDigits) : lpszDigits
 
-    result := DllCall("TAPI32.dll\lineGenerateDigitsA", "uint", hCall, "uint", dwDigitMode, "ptr", lpszDigits, "uint", dwDuration, Int32)
+    result := DllCall("TAPI32.dll\lineGenerateDigitsA", UInt32, hCall, UInt32, dwDigitMode, "ptr", lpszDigits, UInt32, dwDuration, Int32)
     return result
 }
 
@@ -1627,7 +1629,7 @@ export lineGenerateDigitsA(hCall, dwDigitMode, lpszDigits, dwDuration) {
 export lineGenerateDigitsW(hCall, dwDigitMode, lpszDigits, dwDuration) {
     lpszDigits := lpszDigits is String ? StrPtr(lpszDigits) : lpszDigits
 
-    result := DllCall("TAPI32.dll\lineGenerateDigitsW", "uint", hCall, "uint", dwDigitMode, "ptr", lpszDigits, "uint", dwDuration, Int32)
+    result := DllCall("TAPI32.dll\lineGenerateDigitsW", UInt32, hCall, UInt32, dwDigitMode, "ptr", lpszDigits, UInt32, dwDuration, Int32)
     return result
 }
 
@@ -1668,7 +1670,7 @@ export lineGenerateDigitsW(hCall, dwDigitMode, lpszDigits, dwDuration) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegeneratetone
  */
 export lineGenerateTone(hCall, dwToneMode, dwDuration, dwNumTones, lpTones) {
-    result := DllCall("TAPI32.dll\lineGenerateTone", "uint", hCall, "uint", dwToneMode, "uint", dwDuration, "uint", dwNumTones, LINEGENERATETONE_struct.Ptr, lpTones, Int32)
+    result := DllCall("TAPI32.dll\lineGenerateTone", UInt32, hCall, UInt32, dwToneMode, UInt32, dwDuration, UInt32, dwNumTones, LINEGENERATETONE_struct.Ptr, lpTones, Int32)
     return result
 }
 
@@ -1700,7 +1702,7 @@ export lineGenerateTone(hCall, dwToneMode, dwDuration, dwNumTones, lpTones) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddresscaps
  */
 export lineGetAddressCaps(hLineApp, dwDeviceID, dwAddressID, dwAPIVersion, dwExtVersion, lpAddressCaps) {
-    result := DllCall("TAPI32.dll\lineGetAddressCaps", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAPIVersion, "uint", dwExtVersion, LINEADDRESSCAPS.Ptr, lpAddressCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetAddressCaps", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAddressID, UInt32, dwAPIVersion, UInt32, dwExtVersion, LINEADDRESSCAPS.Ptr, lpAddressCaps, Int32)
     return result
 }
 
@@ -1739,7 +1741,7 @@ export lineGetAddressCaps(hLineApp, dwDeviceID, dwAddressID, dwAPIVersion, dwExt
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddresscapsa
  */
 export lineGetAddressCapsA(hLineApp, dwDeviceID, dwAddressID, dwAPIVersion, dwExtVersion, lpAddressCaps) {
-    result := DllCall("TAPI32.dll\lineGetAddressCapsA", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAPIVersion, "uint", dwExtVersion, LINEADDRESSCAPS.Ptr, lpAddressCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetAddressCapsA", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAddressID, UInt32, dwAPIVersion, UInt32, dwExtVersion, LINEADDRESSCAPS.Ptr, lpAddressCaps, Int32)
     return result
 }
 
@@ -1778,7 +1780,7 @@ export lineGetAddressCapsA(hLineApp, dwDeviceID, dwAddressID, dwAPIVersion, dwEx
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddresscapsw
  */
 export lineGetAddressCapsW(hLineApp, dwDeviceID, dwAddressID, dwAPIVersion, dwExtVersion, lpAddressCaps) {
-    result := DllCall("TAPI32.dll\lineGetAddressCapsW", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAPIVersion, "uint", dwExtVersion, LINEADDRESSCAPS.Ptr, lpAddressCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetAddressCapsW", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAddressID, UInt32, dwAPIVersion, UInt32, dwExtVersion, LINEADDRESSCAPS.Ptr, lpAddressCaps, Int32)
     return result
 }
 
@@ -1808,7 +1810,7 @@ export lineGetAddressID(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize)
 
     lpdwAddressIDMarshal := lpdwAddressID is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetAddressID", "uint", hLine, lpdwAddressIDMarshal, lpdwAddressID, "uint", dwAddressMode, "ptr", lpsAddress, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineGetAddressID", UInt32, hLine, lpdwAddressIDMarshal, lpdwAddressID, UInt32, dwAddressMode, "ptr", lpsAddress, UInt32, dwSize, Int32)
     return result
 }
 
@@ -1844,7 +1846,7 @@ export lineGetAddressIDA(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize
 
     lpdwAddressIDMarshal := lpdwAddressID is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetAddressIDA", "uint", hLine, lpdwAddressIDMarshal, lpdwAddressID, "uint", dwAddressMode, "ptr", lpsAddress, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineGetAddressIDA", UInt32, hLine, lpdwAddressIDMarshal, lpdwAddressID, UInt32, dwAddressMode, "ptr", lpsAddress, UInt32, dwSize, Int32)
     return result
 }
 
@@ -1880,7 +1882,7 @@ export lineGetAddressIDW(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize
 
     lpdwAddressIDMarshal := lpdwAddressID is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetAddressIDW", "uint", hLine, lpdwAddressIDMarshal, lpdwAddressID, "uint", dwAddressMode, "ptr", lpsAddress, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineGetAddressIDW", UInt32, hLine, lpdwAddressIDMarshal, lpdwAddressID, UInt32, dwAddressMode, "ptr", lpsAddress, UInt32, dwSize, Int32)
     return result
 }
 
@@ -1904,7 +1906,7 @@ export lineGetAddressIDW(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddressstatus
  */
 export lineGetAddressStatus(hLine, dwAddressID, lpAddressStatus) {
-    result := DllCall("TAPI32.dll\lineGetAddressStatus", "uint", hLine, "uint", dwAddressID, LINEADDRESSSTATUS.Ptr, lpAddressStatus, Int32)
+    result := DllCall("TAPI32.dll\lineGetAddressStatus", UInt32, hLine, UInt32, dwAddressID, LINEADDRESSSTATUS.Ptr, lpAddressStatus, Int32)
     return result
 }
 
@@ -1931,7 +1933,7 @@ export lineGetAddressStatus(hLine, dwAddressID, lpAddressStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddressstatusa
  */
 export lineGetAddressStatusA(hLine, dwAddressID, lpAddressStatus) {
-    result := DllCall("TAPI32.dll\lineGetAddressStatusA", "uint", hLine, "uint", dwAddressID, LINEADDRESSSTATUS.Ptr, lpAddressStatus, Int32)
+    result := DllCall("TAPI32.dll\lineGetAddressStatusA", UInt32, hLine, UInt32, dwAddressID, LINEADDRESSSTATUS.Ptr, lpAddressStatus, Int32)
     return result
 }
 
@@ -1958,7 +1960,7 @@ export lineGetAddressStatusA(hLine, dwAddressID, lpAddressStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddressstatusw
  */
 export lineGetAddressStatusW(hLine, dwAddressID, lpAddressStatus) {
-    result := DllCall("TAPI32.dll\lineGetAddressStatusW", "uint", hLine, "uint", dwAddressID, LINEADDRESSSTATUS.Ptr, lpAddressStatus, Int32)
+    result := DllCall("TAPI32.dll\lineGetAddressStatusW", UInt32, hLine, UInt32, dwAddressID, LINEADDRESSSTATUS.Ptr, lpAddressStatus, Int32)
     return result
 }
 
@@ -1979,7 +1981,7 @@ export lineGetAddressStatusW(hLine, dwAddressID, lpAddressStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentactivitylista
  */
 export lineGetAgentActivityListA(hLine, dwAddressID, lpAgentActivityList) {
-    result := DllCall("TAPI32.dll\lineGetAgentActivityListA", "uint", hLine, "uint", dwAddressID, LINEAGENTACTIVITYLIST.Ptr, lpAgentActivityList, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentActivityListA", UInt32, hLine, UInt32, dwAddressID, LINEAGENTACTIVITYLIST.Ptr, lpAgentActivityList, Int32)
     return result
 }
 
@@ -2000,7 +2002,7 @@ export lineGetAgentActivityListA(hLine, dwAddressID, lpAgentActivityList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentactivitylistw
  */
 export lineGetAgentActivityListW(hLine, dwAddressID, lpAgentActivityList) {
-    result := DllCall("TAPI32.dll\lineGetAgentActivityListW", "uint", hLine, "uint", dwAddressID, LINEAGENTACTIVITYLIST.Ptr, lpAgentActivityList, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentActivityListW", UInt32, hLine, UInt32, dwAddressID, LINEAGENTACTIVITYLIST.Ptr, lpAgentActivityList, Int32)
     return result
 }
 
@@ -2023,7 +2025,7 @@ export lineGetAgentActivityListW(hLine, dwAddressID, lpAgentActivityList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentcapsa
  */
 export lineGetAgentCapsA(hLineApp, dwDeviceID, dwAddressID, dwAppAPIVersion, lpAgentCaps) {
-    result := DllCall("TAPI32.dll\lineGetAgentCapsA", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAppAPIVersion, LINEAGENTCAPS.Ptr, lpAgentCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentCapsA", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAddressID, UInt32, dwAppAPIVersion, LINEAGENTCAPS.Ptr, lpAgentCaps, Int32)
     return result
 }
 
@@ -2046,7 +2048,7 @@ export lineGetAgentCapsA(hLineApp, dwDeviceID, dwAddressID, dwAppAPIVersion, lpA
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentcapsw
  */
 export lineGetAgentCapsW(hLineApp, dwDeviceID, dwAddressID, dwAppAPIVersion, lpAgentCaps) {
-    result := DllCall("TAPI32.dll\lineGetAgentCapsW", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAppAPIVersion, LINEAGENTCAPS.Ptr, lpAgentCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentCapsW", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAddressID, UInt32, dwAppAPIVersion, LINEAGENTCAPS.Ptr, lpAgentCaps, Int32)
     return result
 }
 
@@ -2065,7 +2067,7 @@ export lineGetAgentCapsW(hLineApp, dwDeviceID, dwAddressID, dwAppAPIVersion, lpA
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentgrouplista
  */
 export lineGetAgentGroupListA(hLine, dwAddressID, lpAgentGroupList) {
-    result := DllCall("TAPI32.dll\lineGetAgentGroupListA", "uint", hLine, "uint", dwAddressID, LINEAGENTGROUPLIST.Ptr, lpAgentGroupList, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentGroupListA", UInt32, hLine, UInt32, dwAddressID, LINEAGENTGROUPLIST.Ptr, lpAgentGroupList, Int32)
     return result
 }
 
@@ -2084,7 +2086,7 @@ export lineGetAgentGroupListA(hLine, dwAddressID, lpAgentGroupList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentgrouplistw
  */
 export lineGetAgentGroupListW(hLine, dwAddressID, lpAgentGroupList) {
-    result := DllCall("TAPI32.dll\lineGetAgentGroupListW", "uint", hLine, "uint", dwAddressID, LINEAGENTGROUPLIST.Ptr, lpAgentGroupList, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentGroupListW", UInt32, hLine, UInt32, dwAddressID, LINEAGENTGROUPLIST.Ptr, lpAgentGroupList, Int32)
     return result
 }
 
@@ -2104,7 +2106,7 @@ export lineGetAgentGroupListW(hLine, dwAddressID, lpAgentGroupList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentinfo
  */
 export lineGetAgentInfo(hLine, hAgent, lpAgentInfo) {
-    result := DllCall("TAPI32.dll\lineGetAgentInfo", "uint", hLine, "uint", hAgent, LINEAGENTINFO.Ptr, lpAgentInfo, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentInfo", UInt32, hLine, UInt32, hAgent, LINEAGENTINFO.Ptr, lpAgentInfo, Int32)
     return result
 }
 
@@ -2128,7 +2130,7 @@ export lineGetAgentInfo(hLine, hAgent, lpAgentInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentsessioninfo
  */
 export lineGetAgentSessionInfo(hLine, hAgentSession, lpAgentSessionInfo) {
-    result := DllCall("TAPI32.dll\lineGetAgentSessionInfo", "uint", hLine, "uint", hAgentSession, LINEAGENTSESSIONINFO.Ptr, lpAgentSessionInfo, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentSessionInfo", UInt32, hLine, UInt32, hAgentSession, LINEAGENTSESSIONINFO.Ptr, lpAgentSessionInfo, Int32)
     return result
 }
 
@@ -2152,7 +2154,7 @@ export lineGetAgentSessionInfo(hLine, hAgentSession, lpAgentSessionInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentsessionlist
  */
 export lineGetAgentSessionList(hLine, hAgent, lpAgentSessionList) {
-    result := DllCall("TAPI32.dll\lineGetAgentSessionList", "uint", hLine, "uint", hAgent, LINEAGENTSESSIONLIST.Ptr, lpAgentSessionList, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentSessionList", UInt32, hLine, UInt32, hAgent, LINEAGENTSESSIONLIST.Ptr, lpAgentSessionList, Int32)
     return result
 }
 
@@ -2179,7 +2181,7 @@ export lineGetAgentSessionList(hLine, hAgent, lpAgentSessionList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentstatusa
  */
 export lineGetAgentStatusA(hLine, dwAddressID, lpAgentStatus) {
-    result := DllCall("TAPI32.dll\lineGetAgentStatusA", "uint", hLine, "uint", dwAddressID, LINEAGENTSTATUS.Ptr, lpAgentStatus, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentStatusA", UInt32, hLine, UInt32, dwAddressID, LINEAGENTSTATUS.Ptr, lpAgentStatus, Int32)
     return result
 }
 
@@ -2206,7 +2208,7 @@ export lineGetAgentStatusA(hLine, dwAddressID, lpAgentStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentstatusw
  */
 export lineGetAgentStatusW(hLine, dwAddressID, lpAgentStatus) {
-    result := DllCall("TAPI32.dll\lineGetAgentStatusW", "uint", hLine, "uint", dwAddressID, LINEAGENTSTATUS.Ptr, lpAgentStatus, Int32)
+    result := DllCall("TAPI32.dll\lineGetAgentStatusW", UInt32, hLine, UInt32, dwAddressID, LINEAGENTSTATUS.Ptr, lpAgentStatus, Int32)
     return result
 }
 
@@ -2241,7 +2243,7 @@ export lineGetAppPriority(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequest
 
     lpdwPriorityMarshal := lpdwPriority is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetAppPriority", "ptr", lpszAppFilename, "uint", dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, "uint", dwRequestMode, VARSTRING.Ptr, lpExtensionName, lpdwPriorityMarshal, lpdwPriority, Int32)
+    result := DllCall("TAPI32.dll\lineGetAppPriority", "ptr", lpszAppFilename, UInt32, dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, UInt32, dwRequestMode, VARSTRING.Ptr, lpExtensionName, lpdwPriorityMarshal, lpdwPriority, Int32)
     return result
 }
 
@@ -2283,7 +2285,7 @@ export lineGetAppPriorityA(lpszAppFilename, dwMediaMode, lpExtensionID, dwReques
 
     lpdwPriorityMarshal := lpdwPriority is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetAppPriorityA", "ptr", lpszAppFilename, "uint", dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, "uint", dwRequestMode, VARSTRING.Ptr, lpExtensionName, lpdwPriorityMarshal, lpdwPriority, Int32)
+    result := DllCall("TAPI32.dll\lineGetAppPriorityA", "ptr", lpszAppFilename, UInt32, dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, UInt32, dwRequestMode, VARSTRING.Ptr, lpExtensionName, lpdwPriorityMarshal, lpdwPriority, Int32)
     return result
 }
 
@@ -2325,7 +2327,7 @@ export lineGetAppPriorityW(lpszAppFilename, dwMediaMode, lpExtensionID, dwReques
 
     lpdwPriorityMarshal := lpdwPriority is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetAppPriorityW", "ptr", lpszAppFilename, "uint", dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, "uint", dwRequestMode, VARSTRING.Ptr, lpExtensionName, lpdwPriorityMarshal, lpdwPriority, Int32)
+    result := DllCall("TAPI32.dll\lineGetAppPriorityW", "ptr", lpszAppFilename, UInt32, dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, UInt32, dwRequestMode, VARSTRING.Ptr, lpExtensionName, lpdwPriorityMarshal, lpdwPriority, Int32)
     return result
 }
 
@@ -2346,7 +2348,7 @@ export lineGetAppPriorityW(lpszAppFilename, dwMediaMode, lpExtensionID, dwReques
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcallinfo
  */
 export lineGetCallInfo(hCall, lpCallInfo) {
-    result := DllCall("TAPI32.dll\lineGetCallInfo", "uint", hCall, LINECALLINFO.Ptr, lpCallInfo, Int32)
+    result := DllCall("TAPI32.dll\lineGetCallInfo", UInt32, hCall, LINECALLINFO.Ptr, lpCallInfo, Int32)
     return result
 }
 
@@ -2374,7 +2376,7 @@ export lineGetCallInfo(hCall, lpCallInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcallinfoa
  */
 export lineGetCallInfoA(hCall, lpCallInfo) {
-    result := DllCall("TAPI32.dll\lineGetCallInfoA", "uint", hCall, LINECALLINFO.Ptr, lpCallInfo, Int32)
+    result := DllCall("TAPI32.dll\lineGetCallInfoA", UInt32, hCall, LINECALLINFO.Ptr, lpCallInfo, Int32)
     return result
 }
 
@@ -2402,7 +2404,7 @@ export lineGetCallInfoA(hCall, lpCallInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcallinfow
  */
 export lineGetCallInfoW(hCall, lpCallInfo) {
-    result := DllCall("TAPI32.dll\lineGetCallInfoW", "uint", hCall, LINECALLINFO.Ptr, lpCallInfo, Int32)
+    result := DllCall("TAPI32.dll\lineGetCallInfoW", UInt32, hCall, LINECALLINFO.Ptr, lpCallInfo, Int32)
     return result
 }
 
@@ -2429,7 +2431,7 @@ export lineGetCallInfoW(hCall, lpCallInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcallstatus
  */
 export lineGetCallStatus(hCall, lpCallStatus) {
-    result := DllCall("TAPI32.dll\lineGetCallStatus", "uint", hCall, LINECALLSTATUS.Ptr, lpCallStatus, Int32)
+    result := DllCall("TAPI32.dll\lineGetCallStatus", UInt32, hCall, LINECALLSTATUS.Ptr, lpCallStatus, Int32)
     return result
 }
 
@@ -2466,7 +2468,7 @@ export lineGetCallStatus(hCall, lpCallStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetconfrelatedcalls
  */
 export lineGetConfRelatedCalls(hCall, lpCallList) {
-    result := DllCall("TAPI32.dll\lineGetConfRelatedCalls", "uint", hCall, LINECALLLIST.Ptr, lpCallList, Int32)
+    result := DllCall("TAPI32.dll\lineGetConfRelatedCalls", UInt32, hCall, LINECALLLIST.Ptr, lpCallList, Int32)
     return result
 }
 
@@ -2490,7 +2492,7 @@ export lineGetConfRelatedCalls(hCall, lpCallList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcountry
  */
 export lineGetCountry(dwCountryID, dwAPIVersion, lpLineCountryList) {
-    result := DllCall("TAPI32.dll\lineGetCountry", "uint", dwCountryID, "uint", dwAPIVersion, LINECOUNTRYLIST.Ptr, lpLineCountryList, Int32)
+    result := DllCall("TAPI32.dll\lineGetCountry", UInt32, dwCountryID, UInt32, dwAPIVersion, LINECOUNTRYLIST.Ptr, lpLineCountryList, Int32)
     return result
 }
 
@@ -2517,7 +2519,7 @@ export lineGetCountry(dwCountryID, dwAPIVersion, lpLineCountryList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcountrya
  */
 export lineGetCountryA(dwCountryID, dwAPIVersion, lpLineCountryList) {
-    result := DllCall("TAPI32.dll\lineGetCountryA", "uint", dwCountryID, "uint", dwAPIVersion, LINECOUNTRYLIST.Ptr, lpLineCountryList, Int32)
+    result := DllCall("TAPI32.dll\lineGetCountryA", UInt32, dwCountryID, UInt32, dwAPIVersion, LINECOUNTRYLIST.Ptr, lpLineCountryList, Int32)
     return result
 }
 
@@ -2544,7 +2546,7 @@ export lineGetCountryA(dwCountryID, dwAPIVersion, lpLineCountryList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcountryw
  */
 export lineGetCountryW(dwCountryID, dwAPIVersion, lpLineCountryList) {
-    result := DllCall("TAPI32.dll\lineGetCountryW", "uint", dwCountryID, "uint", dwAPIVersion, LINECOUNTRYLIST.Ptr, lpLineCountryList, Int32)
+    result := DllCall("TAPI32.dll\lineGetCountryW", UInt32, dwCountryID, UInt32, dwAPIVersion, LINECOUNTRYLIST.Ptr, lpLineCountryList, Int32)
     return result
 }
 
@@ -2581,7 +2583,7 @@ export lineGetCountryW(dwCountryID, dwAPIVersion, lpLineCountryList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetdevcaps
  */
 export lineGetDevCaps(hLineApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpLineDevCaps) {
-    result := DllCall("TAPI32.dll\lineGetDevCaps", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, LINEDEVCAPS.Ptr, lpLineDevCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetDevCaps", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, UInt32, dwExtVersion, LINEDEVCAPS.Ptr, lpLineDevCaps, Int32)
     return result
 }
 
@@ -2625,7 +2627,7 @@ export lineGetDevCaps(hLineApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpLineDe
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetdevcapsa
  */
 export lineGetDevCapsA(hLineApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpLineDevCaps) {
-    result := DllCall("TAPI32.dll\lineGetDevCapsA", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, LINEDEVCAPS.Ptr, lpLineDevCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetDevCapsA", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, UInt32, dwExtVersion, LINEDEVCAPS.Ptr, lpLineDevCaps, Int32)
     return result
 }
 
@@ -2669,7 +2671,7 @@ export lineGetDevCapsA(hLineApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpLineD
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetdevcapsw
  */
 export lineGetDevCapsW(hLineApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpLineDevCaps) {
-    result := DllCall("TAPI32.dll\lineGetDevCapsW", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, LINEDEVCAPS.Ptr, lpLineDevCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetDevCapsW", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, UInt32, dwExtVersion, LINEDEVCAPS.Ptr, lpLineDevCaps, Int32)
     return result
 }
 
@@ -2714,7 +2716,7 @@ export lineGetDevCapsW(hLineApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpLineD
 export lineGetDevConfig(dwDeviceID, lpDeviceConfig, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineGetDevConfig", "uint", dwDeviceID, VARSTRING.Ptr, lpDeviceConfig, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineGetDevConfig", UInt32, dwDeviceID, VARSTRING.Ptr, lpDeviceConfig, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -2766,7 +2768,7 @@ export lineGetDevConfig(dwDeviceID, lpDeviceConfig, lpszDeviceClass) {
 export lineGetDevConfigA(dwDeviceID, lpDeviceConfig, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineGetDevConfigA", "uint", dwDeviceID, VARSTRING.Ptr, lpDeviceConfig, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineGetDevConfigA", UInt32, dwDeviceID, VARSTRING.Ptr, lpDeviceConfig, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -2818,7 +2820,7 @@ export lineGetDevConfigA(dwDeviceID, lpDeviceConfig, lpszDeviceClass) {
 export lineGetDevConfigW(dwDeviceID, lpDeviceConfig, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineGetDevConfigW", "uint", dwDeviceID, VARSTRING.Ptr, lpDeviceConfig, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineGetDevConfigW", UInt32, dwDeviceID, VARSTRING.Ptr, lpDeviceConfig, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -2844,7 +2846,7 @@ export lineGetDevConfigW(dwDeviceID, lpDeviceConfig, lpszDeviceClass) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetgrouplista
  */
 export lineGetGroupListA(hLine, lpGroupList) {
-    result := DllCall("TAPI32.dll\lineGetGroupListA", "uint", hLine, LINEAGENTGROUPLIST.Ptr, lpGroupList, Int32)
+    result := DllCall("TAPI32.dll\lineGetGroupListA", UInt32, hLine, LINEAGENTGROUPLIST.Ptr, lpGroupList, Int32)
     return result
 }
 
@@ -2870,7 +2872,7 @@ export lineGetGroupListA(hLine, lpGroupList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetgrouplistw
  */
 export lineGetGroupListW(hLine, lpGroupList) {
-    result := DllCall("TAPI32.dll\lineGetGroupListW", "uint", hLine, LINEAGENTGROUPLIST.Ptr, lpGroupList, Int32)
+    result := DllCall("TAPI32.dll\lineGetGroupListW", UInt32, hLine, LINEAGENTGROUPLIST.Ptr, lpGroupList, Int32)
     return result
 }
 
@@ -2898,7 +2900,7 @@ export lineGetGroupListW(hLine, lpGroupList) {
 export lineGetIcon(dwDeviceID, lpszDeviceClass, lphIcon) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineGetIcon", "uint", dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
+    result := DllCall("TAPI32.dll\lineGetIcon", UInt32, dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
     return result
 }
 
@@ -2933,7 +2935,7 @@ export lineGetIcon(dwDeviceID, lpszDeviceClass, lphIcon) {
 export lineGetIconA(dwDeviceID, lpszDeviceClass, lphIcon) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineGetIconA", "uint", dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
+    result := DllCall("TAPI32.dll\lineGetIconA", UInt32, dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
     return result
 }
 
@@ -2968,7 +2970,7 @@ export lineGetIconA(dwDeviceID, lpszDeviceClass, lphIcon) {
 export lineGetIconW(dwDeviceID, lpszDeviceClass, lphIcon) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineGetIconW", "uint", dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
+    result := DllCall("TAPI32.dll\lineGetIconW", UInt32, dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
     return result
 }
 
@@ -3007,7 +3009,7 @@ export lineGetIconW(dwDeviceID, lpszDeviceClass, lphIcon) {
 export lineGetID(hLine, dwAddressID, hCall, dwSelect, lpDeviceID, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineGetID", "uint", hLine, "uint", dwAddressID, "uint", hCall, "uint", dwSelect, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineGetID", UInt32, hLine, UInt32, dwAddressID, UInt32, hCall, UInt32, dwSelect, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -3053,7 +3055,7 @@ export lineGetID(hLine, dwAddressID, hCall, dwSelect, lpDeviceID, lpszDeviceClas
 export lineGetIDA(hLine, dwAddressID, hCall, dwSelect, lpDeviceID, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineGetIDA", "uint", hLine, "uint", dwAddressID, "uint", hCall, "uint", dwSelect, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineGetIDA", UInt32, hLine, UInt32, dwAddressID, UInt32, hCall, UInt32, dwSelect, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -3099,7 +3101,7 @@ export lineGetIDA(hLine, dwAddressID, hCall, dwSelect, lpDeviceID, lpszDeviceCla
 export lineGetIDW(hLine, dwAddressID, hCall, dwSelect, lpDeviceID, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\lineGetIDW", "uint", hLine, "uint", dwAddressID, "uint", hCall, "uint", dwSelect, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineGetIDW", UInt32, hLine, UInt32, dwAddressID, UInt32, hCall, UInt32, dwSelect, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -3119,7 +3121,7 @@ export lineGetIDW(hLine, dwAddressID, hCall, dwSelect, lpDeviceID, lpszDeviceCla
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetlinedevstatus
  */
 export lineGetLineDevStatus(hLine, lpLineDevStatus) {
-    result := DllCall("TAPI32.dll\lineGetLineDevStatus", "uint", hLine, LINEDEVSTATUS.Ptr, lpLineDevStatus, Int32)
+    result := DllCall("TAPI32.dll\lineGetLineDevStatus", UInt32, hLine, LINEDEVSTATUS.Ptr, lpLineDevStatus, Int32)
     return result
 }
 
@@ -3139,7 +3141,7 @@ export lineGetLineDevStatus(hLine, lpLineDevStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetlinedevstatusa
  */
 export lineGetLineDevStatusA(hLine, lpLineDevStatus) {
-    result := DllCall("TAPI32.dll\lineGetLineDevStatusA", "uint", hLine, LINEDEVSTATUS.Ptr, lpLineDevStatus, Int32)
+    result := DllCall("TAPI32.dll\lineGetLineDevStatusA", UInt32, hLine, LINEDEVSTATUS.Ptr, lpLineDevStatus, Int32)
     return result
 }
 
@@ -3159,7 +3161,7 @@ export lineGetLineDevStatusA(hLine, lpLineDevStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetlinedevstatusw
  */
 export lineGetLineDevStatusW(hLine, lpLineDevStatus) {
-    result := DllCall("TAPI32.dll\lineGetLineDevStatusW", "uint", hLine, LINEDEVSTATUS.Ptr, lpLineDevStatus, Int32)
+    result := DllCall("TAPI32.dll\lineGetLineDevStatusW", UInt32, hLine, LINEDEVSTATUS.Ptr, lpLineDevStatus, Int32)
     return result
 }
 
@@ -3183,7 +3185,7 @@ export lineGetLineDevStatusW(hLine, lpLineDevStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetmessage
  */
 export lineGetMessage(hLineApp, lpMessage, dwTimeout) {
-    result := DllCall("TAPI32.dll\lineGetMessage", "uint", hLineApp, LINEMESSAGE.Ptr, lpMessage, "uint", dwTimeout, Int32)
+    result := DllCall("TAPI32.dll\lineGetMessage", UInt32, hLineApp, LINEMESSAGE.Ptr, lpMessage, UInt32, dwTimeout, Int32)
     return result
 }
 
@@ -3217,7 +3219,7 @@ export lineGetMessage(hLineApp, lpMessage, dwTimeout) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetnewcalls
  */
 export lineGetNewCalls(hLine, dwAddressID, dwSelect, lpCallList) {
-    result := DllCall("TAPI32.dll\lineGetNewCalls", "uint", hLine, "uint", dwAddressID, "uint", dwSelect, LINECALLLIST.Ptr, lpCallList, Int32)
+    result := DllCall("TAPI32.dll\lineGetNewCalls", UInt32, hLine, UInt32, dwAddressID, UInt32, dwSelect, LINECALLLIST.Ptr, lpCallList, Int32)
     return result
 }
 
@@ -3252,7 +3254,7 @@ export lineGetNewCalls(hLine, dwAddressID, dwSelect, lpCallList) {
 export lineGetNumRings(hLine, dwAddressID, lpdwNumRings) {
     lpdwNumRingsMarshal := lpdwNumRings is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetNumRings", "uint", hLine, "uint", dwAddressID, lpdwNumRingsMarshal, lpdwNumRings, Int32)
+    result := DllCall("TAPI32.dll\lineGetNumRings", UInt32, hLine, UInt32, dwAddressID, lpdwNumRingsMarshal, lpdwNumRings, Int32)
     return result
 }
 
@@ -3276,7 +3278,7 @@ export lineGetNumRings(hLine, dwAddressID, lpdwNumRings) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetproviderlist
  */
 export lineGetProviderList(dwAPIVersion, lpProviderList) {
-    result := DllCall("TAPI32.dll\lineGetProviderList", "uint", dwAPIVersion, LINEPROVIDERLIST.Ptr, lpProviderList, Int32)
+    result := DllCall("TAPI32.dll\lineGetProviderList", UInt32, dwAPIVersion, LINEPROVIDERLIST.Ptr, lpProviderList, Int32)
     return result
 }
 
@@ -3303,7 +3305,7 @@ export lineGetProviderList(dwAPIVersion, lpProviderList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetproviderlista
  */
 export lineGetProviderListA(dwAPIVersion, lpProviderList) {
-    result := DllCall("TAPI32.dll\lineGetProviderListA", "uint", dwAPIVersion, LINEPROVIDERLIST.Ptr, lpProviderList, Int32)
+    result := DllCall("TAPI32.dll\lineGetProviderListA", UInt32, dwAPIVersion, LINEPROVIDERLIST.Ptr, lpProviderList, Int32)
     return result
 }
 
@@ -3330,7 +3332,7 @@ export lineGetProviderListA(dwAPIVersion, lpProviderList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetproviderlistw
  */
 export lineGetProviderListW(dwAPIVersion, lpProviderList) {
-    result := DllCall("TAPI32.dll\lineGetProviderListW", "uint", dwAPIVersion, LINEPROVIDERLIST.Ptr, lpProviderList, Int32)
+    result := DllCall("TAPI32.dll\lineGetProviderListW", UInt32, dwAPIVersion, LINEPROVIDERLIST.Ptr, lpProviderList, Int32)
     return result
 }
 
@@ -3355,7 +3357,7 @@ export lineGetProviderListW(dwAPIVersion, lpProviderList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetproxystatus
  */
 export lineGetProxyStatus(hLineApp, dwDeviceID, dwAppAPIVersion, lpLineProxyReqestList) {
-    result := DllCall("TAPI32.dll\lineGetProxyStatus", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAppAPIVersion, LINEPROXYREQUESTLIST.Ptr, lpLineProxyReqestList, Int32)
+    result := DllCall("TAPI32.dll\lineGetProxyStatus", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAppAPIVersion, LINEPROXYREQUESTLIST.Ptr, lpLineProxyReqestList, Int32)
     return result
 }
 
@@ -3379,7 +3381,7 @@ export lineGetProxyStatus(hLineApp, dwDeviceID, dwAppAPIVersion, lpLineProxyReqe
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetqueueinfo
  */
 export lineGetQueueInfo(hLine, dwQueueID, lpLineQueueInfo) {
-    result := DllCall("TAPI32.dll\lineGetQueueInfo", "uint", hLine, "uint", dwQueueID, LINEQUEUEINFO.Ptr, lpLineQueueInfo, Int32)
+    result := DllCall("TAPI32.dll\lineGetQueueInfo", UInt32, hLine, UInt32, dwQueueID, LINEQUEUEINFO.Ptr, lpLineQueueInfo, Int32)
     return result
 }
 
@@ -3406,7 +3408,7 @@ export lineGetQueueInfo(hLine, dwQueueID, lpLineQueueInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetqueuelista
  */
 export lineGetQueueListA(hLine, lpGroupID, lpQueueList) {
-    result := DllCall("TAPI32.dll\lineGetQueueListA", "uint", hLine, Guid.Ptr, lpGroupID, LINEQUEUELIST.Ptr, lpQueueList, Int32)
+    result := DllCall("TAPI32.dll\lineGetQueueListA", UInt32, hLine, Guid.Ptr, lpGroupID, LINEQUEUELIST.Ptr, lpQueueList, Int32)
     return result
 }
 
@@ -3433,7 +3435,7 @@ export lineGetQueueListA(hLine, lpGroupID, lpQueueList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetqueuelistw
  */
 export lineGetQueueListW(hLine, lpGroupID, lpQueueList) {
-    result := DllCall("TAPI32.dll\lineGetQueueListW", "uint", hLine, Guid.Ptr, lpGroupID, LINEQUEUELIST.Ptr, lpQueueList, Int32)
+    result := DllCall("TAPI32.dll\lineGetQueueListW", UInt32, hLine, Guid.Ptr, lpGroupID, LINEQUEUELIST.Ptr, lpQueueList, Int32)
     return result
 }
 
@@ -3472,7 +3474,7 @@ export lineGetQueueListW(hLine, lpGroupID, lpQueueList) {
 export lineGetRequest(hLineApp, dwRequestMode, lpRequestBuffer) {
     lpRequestBufferMarshal := lpRequestBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetRequest", "uint", hLineApp, "uint", dwRequestMode, lpRequestBufferMarshal, lpRequestBuffer, Int32)
+    result := DllCall("TAPI32.dll\lineGetRequest", UInt32, hLineApp, UInt32, dwRequestMode, lpRequestBufferMarshal, lpRequestBuffer, Int32)
     return result
 }
 
@@ -3518,7 +3520,7 @@ export lineGetRequest(hLineApp, dwRequestMode, lpRequestBuffer) {
 export lineGetRequestA(hLineApp, dwRequestMode, lpRequestBuffer) {
     lpRequestBufferMarshal := lpRequestBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetRequestA", "uint", hLineApp, "uint", dwRequestMode, lpRequestBufferMarshal, lpRequestBuffer, Int32)
+    result := DllCall("TAPI32.dll\lineGetRequestA", UInt32, hLineApp, UInt32, dwRequestMode, lpRequestBufferMarshal, lpRequestBuffer, Int32)
     return result
 }
 
@@ -3564,7 +3566,7 @@ export lineGetRequestA(hLineApp, dwRequestMode, lpRequestBuffer) {
 export lineGetRequestW(hLineApp, dwRequestMode, lpRequestBuffer) {
     lpRequestBufferMarshal := lpRequestBuffer is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetRequestW", "uint", hLineApp, "uint", dwRequestMode, lpRequestBufferMarshal, lpRequestBuffer, Int32)
+    result := DllCall("TAPI32.dll\lineGetRequestW", UInt32, hLineApp, UInt32, dwRequestMode, lpRequestBufferMarshal, lpRequestBuffer, Int32)
     return result
 }
 
@@ -3587,7 +3589,7 @@ export lineGetStatusMessages(hLine, lpdwLineStates, lpdwAddressStates) {
     lpdwLineStatesMarshal := lpdwLineStates is VarRef ? "uint*" : "ptr"
     lpdwAddressStatesMarshal := lpdwAddressStates is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineGetStatusMessages", "uint", hLine, lpdwLineStatesMarshal, lpdwLineStates, lpdwAddressStatesMarshal, lpdwAddressStates, Int32)
+    result := DllCall("TAPI32.dll\lineGetStatusMessages", UInt32, hLine, lpdwLineStatesMarshal, lpdwLineStates, lpdwAddressStatesMarshal, lpdwAddressStates, Int32)
     return result
 }
 
@@ -3619,7 +3621,7 @@ export lineGetStatusMessages(hLine, lpdwLineStates, lpdwAddressStates) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegettranslatecaps
  */
 export lineGetTranslateCaps(hLineApp, dwAPIVersion, lpTranslateCaps) {
-    result := DllCall("TAPI32.dll\lineGetTranslateCaps", "uint", hLineApp, "uint", dwAPIVersion, LINETRANSLATECAPS.Ptr, lpTranslateCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetTranslateCaps", UInt32, hLineApp, UInt32, dwAPIVersion, LINETRANSLATECAPS.Ptr, lpTranslateCaps, Int32)
     return result
 }
 
@@ -3654,7 +3656,7 @@ export lineGetTranslateCaps(hLineApp, dwAPIVersion, lpTranslateCaps) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegettranslatecapsa
  */
 export lineGetTranslateCapsA(hLineApp, dwAPIVersion, lpTranslateCaps) {
-    result := DllCall("TAPI32.dll\lineGetTranslateCapsA", "uint", hLineApp, "uint", dwAPIVersion, LINETRANSLATECAPS.Ptr, lpTranslateCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetTranslateCapsA", UInt32, hLineApp, UInt32, dwAPIVersion, LINETRANSLATECAPS.Ptr, lpTranslateCaps, Int32)
     return result
 }
 
@@ -3689,7 +3691,7 @@ export lineGetTranslateCapsA(hLineApp, dwAPIVersion, lpTranslateCaps) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegettranslatecapsw
  */
 export lineGetTranslateCapsW(hLineApp, dwAPIVersion, lpTranslateCaps) {
-    result := DllCall("TAPI32.dll\lineGetTranslateCapsW", "uint", hLineApp, "uint", dwAPIVersion, LINETRANSLATECAPS.Ptr, lpTranslateCaps, Int32)
+    result := DllCall("TAPI32.dll\lineGetTranslateCapsW", UInt32, hLineApp, UInt32, dwAPIVersion, LINETRANSLATECAPS.Ptr, lpTranslateCaps, Int32)
     return result
 }
 
@@ -3744,7 +3746,7 @@ export lineGetTranslateCapsW(hLineApp, dwAPIVersion, lpTranslateCaps) {
 export lineHandoff(hCall, lpszFileName, dwMediaMode) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("TAPI32.dll\lineHandoff", "uint", hCall, "ptr", lpszFileName, "uint", dwMediaMode, Int32)
+    result := DllCall("TAPI32.dll\lineHandoff", UInt32, hCall, "ptr", lpszFileName, UInt32, dwMediaMode, Int32)
     return result
 }
 
@@ -3806,7 +3808,7 @@ export lineHandoff(hCall, lpszFileName, dwMediaMode) {
 export lineHandoffA(hCall, lpszFileName, dwMediaMode) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("TAPI32.dll\lineHandoffA", "uint", hCall, "ptr", lpszFileName, "uint", dwMediaMode, Int32)
+    result := DllCall("TAPI32.dll\lineHandoffA", UInt32, hCall, "ptr", lpszFileName, UInt32, dwMediaMode, Int32)
     return result
 }
 
@@ -3868,7 +3870,7 @@ export lineHandoffA(hCall, lpszFileName, dwMediaMode) {
 export lineHandoffW(hCall, lpszFileName, dwMediaMode) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("TAPI32.dll\lineHandoffW", "uint", hCall, "ptr", lpszFileName, "uint", dwMediaMode, Int32)
+    result := DllCall("TAPI32.dll\lineHandoffW", UInt32, hCall, "ptr", lpszFileName, UInt32, dwMediaMode, Int32)
     return result
 }
 
@@ -3895,7 +3897,7 @@ export lineHandoffW(hCall, lpszFileName, dwMediaMode) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linehold
  */
 export lineHold(hCall) {
-    result := DllCall("TAPI32.dll\lineHold", "uint", hCall, Int32)
+    result := DllCall("TAPI32.dll\lineHold", UInt32, hCall, Int32)
     return result
 }
 
@@ -3940,7 +3942,7 @@ export lineInitialize(lphLineApp, _hInstance, lpfnCallback, lpszAppName, lpdwNum
     lphLineAppMarshal := lphLineApp is VarRef ? "uint*" : "ptr"
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
+    result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, LINECALLBACK, lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
     return result
 }
 
@@ -4025,7 +4027,7 @@ export lineInitializeExA(lphLineApp, _hInstance, lpfnCallback, lpszFriendlyAppNa
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, LINECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
     return result
 }
 
@@ -4110,7 +4112,7 @@ export lineInitializeExW(lphLineApp, _hInstance, lpfnCallback, lpszFriendlyAppNa
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, HINSTANCE, _hInstance, LINECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEINITIALIZEEXPARAMS.Ptr, lpLineInitializeExParams, Int32)
     return result
 }
 
@@ -4165,7 +4167,7 @@ export lineMakeCall(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParams
 
     lphCallMarshal := lphCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineMakeCall", "uint", hLine, lphCallMarshal, lphCall, "ptr", lpszDestAddress, "uint", dwCountryCode, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineMakeCall", UInt32, hLine, lphCallMarshal, lphCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -4226,7 +4228,7 @@ export lineMakeCallA(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParam
 
     lphCallMarshal := lphCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineMakeCallA", "uint", hLine, lphCallMarshal, lphCall, "ptr", lpszDestAddress, "uint", dwCountryCode, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineMakeCallA", UInt32, hLine, lphCallMarshal, lphCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -4287,7 +4289,7 @@ export lineMakeCallW(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParam
 
     lphCallMarshal := lphCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineMakeCallW", "uint", hLine, lphCallMarshal, lphCall, "ptr", lpszDestAddress, "uint", dwCountryCode, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineMakeCallW", UInt32, hLine, lphCallMarshal, lphCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -4314,7 +4316,7 @@ export lineMakeCallW(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParam
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linemonitordigits
  */
 export lineMonitorDigits(hCall, dwDigitModes) {
-    result := DllCall("TAPI32.dll\lineMonitorDigits", "uint", hCall, "uint", dwDigitModes, Int32)
+    result := DllCall("TAPI32.dll\lineMonitorDigits", UInt32, hCall, UInt32, dwDigitModes, Int32)
     return result
 }
 
@@ -4350,7 +4352,7 @@ export lineMonitorDigits(hCall, dwDigitModes) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linemonitormedia
  */
 export lineMonitorMedia(hCall, dwMediaModes) {
-    result := DllCall("TAPI32.dll\lineMonitorMedia", "uint", hCall, "uint", dwMediaModes, Int32)
+    result := DllCall("TAPI32.dll\lineMonitorMedia", UInt32, hCall, UInt32, dwMediaModes, Int32)
     return result
 }
 
@@ -4378,7 +4380,7 @@ export lineMonitorMedia(hCall, dwMediaModes) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linemonitortones
  */
 export lineMonitorTones(hCall, lpToneList, dwNumEntries) {
-    result := DllCall("TAPI32.dll\lineMonitorTones", "uint", hCall, LINEMONITORTONE.Ptr, lpToneList, "uint", dwNumEntries, Int32)
+    result := DllCall("TAPI32.dll\lineMonitorTones", UInt32, hCall, LINEMONITORTONE.Ptr, lpToneList, UInt32, dwNumEntries, Int32)
     return result
 }
 
@@ -4408,7 +4410,7 @@ export lineMonitorTones(hCall, lpToneList, dwNumEntries) {
 export lineNegotiateAPIVersion(hLineApp, dwDeviceID, dwAPILowVersion, dwAPIHighVersion, lpdwAPIVersion, lpExtensionID) {
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineNegotiateAPIVersion", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPILowVersion, "uint", dwAPIHighVersion, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEEXTENSIONID.Ptr, lpExtensionID, Int32)
+    result := DllCall("TAPI32.dll\lineNegotiateAPIVersion", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPILowVersion, UInt32, dwAPIHighVersion, lpdwAPIVersionMarshal, lpdwAPIVersion, LINEEXTENSIONID.Ptr, lpExtensionID, Int32)
     return result
 }
 
@@ -4442,7 +4444,7 @@ export lineNegotiateAPIVersion(hLineApp, dwDeviceID, dwAPILowVersion, dwAPIHighV
 export lineNegotiateExtVersion(hLineApp, dwDeviceID, dwAPIVersion, dwExtLowVersion, dwExtHighVersion, lpdwExtVersion) {
     lpdwExtVersionMarshal := lpdwExtVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineNegotiateExtVersion", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtLowVersion, "uint", dwExtHighVersion, lpdwExtVersionMarshal, lpdwExtVersion, Int32)
+    result := DllCall("TAPI32.dll\lineNegotiateExtVersion", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, UInt32, dwExtLowVersion, UInt32, dwExtHighVersion, lpdwExtVersionMarshal, lpdwExtVersion, Int32)
     return result
 }
 
@@ -4556,7 +4558,7 @@ export lineNegotiateExtVersion(hLineApp, dwDeviceID, dwAPIVersion, dwExtLowVersi
 export lineOpen(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivileges, dwMediaModes, lpCallParams) {
     lphLineMarshal := lphLine is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineOpen", "uint", hLineApp, "uint", dwDeviceID, lphLineMarshal, lphLine, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivileges, "uint", dwMediaModes, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineOpen", UInt32, hLineApp, UInt32, dwDeviceID, lphLineMarshal, lphLine, UInt32, dwAPIVersion, UInt32, dwExtVersion, IntPtr, dwCallbackInstance, UInt32, dwPrivileges, UInt32, dwMediaModes, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -4677,7 +4679,7 @@ export lineOpen(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCal
 export lineOpenA(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivileges, dwMediaModes, lpCallParams) {
     lphLineMarshal := lphLine is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineOpenA", "uint", hLineApp, "uint", dwDeviceID, lphLineMarshal, lphLine, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivileges, "uint", dwMediaModes, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineOpenA", UInt32, hLineApp, UInt32, dwDeviceID, lphLineMarshal, lphLine, UInt32, dwAPIVersion, UInt32, dwExtVersion, IntPtr, dwCallbackInstance, UInt32, dwPrivileges, UInt32, dwMediaModes, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -4798,7 +4800,7 @@ export lineOpenA(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCa
 export lineOpenW(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivileges, dwMediaModes, lpCallParams) {
     lphLineMarshal := lphLine is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineOpenW", "uint", hLineApp, "uint", dwDeviceID, lphLineMarshal, lphLine, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivileges, "uint", dwMediaModes, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineOpenW", UInt32, hLineApp, UInt32, dwDeviceID, lphLineMarshal, lphLine, UInt32, dwAPIVersion, UInt32, dwExtVersion, IntPtr, dwCallbackInstance, UInt32, dwPrivileges, UInt32, dwMediaModes, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -4833,7 +4835,7 @@ export lineOpenW(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCa
 export linePark(hCall, dwParkMode, lpszDirAddress, lpNonDirAddress) {
     lpszDirAddress := lpszDirAddress is String ? StrPtr(lpszDirAddress) : lpszDirAddress
 
-    result := DllCall("TAPI32.dll\linePark", "uint", hCall, "uint", dwParkMode, "ptr", lpszDirAddress, VARSTRING.Ptr, lpNonDirAddress, Int32)
+    result := DllCall("TAPI32.dll\linePark", UInt32, hCall, UInt32, dwParkMode, "ptr", lpszDirAddress, VARSTRING.Ptr, lpNonDirAddress, Int32)
     return result
 }
 
@@ -4875,7 +4877,7 @@ export linePark(hCall, dwParkMode, lpszDirAddress, lpNonDirAddress) {
 export lineParkA(hCall, dwParkMode, lpszDirAddress, lpNonDirAddress) {
     lpszDirAddress := lpszDirAddress is String ? StrPtr(lpszDirAddress) : lpszDirAddress
 
-    result := DllCall("TAPI32.dll\lineParkA", "uint", hCall, "uint", dwParkMode, "ptr", lpszDirAddress, VARSTRING.Ptr, lpNonDirAddress, Int32)
+    result := DllCall("TAPI32.dll\lineParkA", UInt32, hCall, UInt32, dwParkMode, "ptr", lpszDirAddress, VARSTRING.Ptr, lpNonDirAddress, Int32)
     return result
 }
 
@@ -4917,7 +4919,7 @@ export lineParkA(hCall, dwParkMode, lpszDirAddress, lpNonDirAddress) {
 export lineParkW(hCall, dwParkMode, lpszDirAddress, lpNonDirAddress) {
     lpszDirAddress := lpszDirAddress is String ? StrPtr(lpszDirAddress) : lpszDirAddress
 
-    result := DllCall("TAPI32.dll\lineParkW", "uint", hCall, "uint", dwParkMode, "ptr", lpszDirAddress, VARSTRING.Ptr, lpNonDirAddress, Int32)
+    result := DllCall("TAPI32.dll\lineParkW", UInt32, hCall, UInt32, dwParkMode, "ptr", lpszDirAddress, VARSTRING.Ptr, lpNonDirAddress, Int32)
     return result
 }
 
@@ -4962,7 +4964,7 @@ export linePickup(hLine, dwAddressID, lphCall, lpszDestAddress, lpszGroupID) {
 
     lphCallMarshal := lphCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\linePickup", "uint", hLine, "uint", dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, Int32)
+    result := DllCall("TAPI32.dll\linePickup", UInt32, hLine, UInt32, dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, Int32)
     return result
 }
 
@@ -5014,7 +5016,7 @@ export linePickupA(hLine, dwAddressID, lphCall, lpszDestAddress, lpszGroupID) {
 
     lphCallMarshal := lphCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\linePickupA", "uint", hLine, "uint", dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, Int32)
+    result := DllCall("TAPI32.dll\linePickupA", UInt32, hLine, UInt32, dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, Int32)
     return result
 }
 
@@ -5066,7 +5068,7 @@ export linePickupW(hLine, dwAddressID, lphCall, lpszDestAddress, lpszGroupID) {
 
     lphCallMarshal := lphCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\linePickupW", "uint", hLine, "uint", dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, Int32)
+    result := DllCall("TAPI32.dll\linePickupW", UInt32, hLine, UInt32, dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, Int32)
     return result
 }
 
@@ -5101,7 +5103,7 @@ export linePickupW(hLine, dwAddressID, lphCall, lpszDestAddress, lpszGroupID) {
 export linePrepareAddToConference(hConfCall, lphConsultCall, lpCallParams) {
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\linePrepareAddToConference", "uint", hConfCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\linePrepareAddToConference", UInt32, hConfCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -5143,7 +5145,7 @@ export linePrepareAddToConference(hConfCall, lphConsultCall, lpCallParams) {
 export linePrepareAddToConferenceA(hConfCall, lphConsultCall, lpCallParams) {
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\linePrepareAddToConferenceA", "uint", hConfCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\linePrepareAddToConferenceA", UInt32, hConfCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -5185,7 +5187,7 @@ export linePrepareAddToConferenceA(hConfCall, lphConsultCall, lpCallParams) {
 export linePrepareAddToConferenceW(hConfCall, lphConsultCall, lpCallParams) {
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\linePrepareAddToConferenceW", "uint", hConfCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\linePrepareAddToConferenceW", UInt32, hConfCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -5203,7 +5205,7 @@ export linePrepareAddToConferenceW(hConfCall, lphConsultCall, lpCallParams) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineproxymessage
  */
 export lineProxyMessage(hLine, hCall, dwMsg, dwParam1, dwParam2, dwParam3) {
-    result := DllCall("TAPI32.dll\lineProxyMessage", "uint", hLine, "uint", hCall, "uint", dwMsg, "uint", dwParam1, "uint", dwParam2, "uint", dwParam3, Int32)
+    result := DllCall("TAPI32.dll\lineProxyMessage", UInt32, hLine, UInt32, hCall, UInt32, dwMsg, UInt32, dwParam1, UInt32, dwParam2, UInt32, dwParam3, Int32)
     return result
 }
 
@@ -5227,7 +5229,7 @@ export lineProxyMessage(hLine, hCall, dwMsg, dwParam1, dwParam2, dwParam3) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineproxyresponse
  */
 export lineProxyResponse(hLine, lpProxyRequest, dwResult) {
-    result := DllCall("TAPI32.dll\lineProxyResponse", "uint", hLine, LINEPROXYREQUEST.Ptr, lpProxyRequest, "uint", dwResult, Int32)
+    result := DllCall("TAPI32.dll\lineProxyResponse", UInt32, hLine, LINEPROXYREQUEST.Ptr, lpProxyRequest, UInt32, dwResult, Int32)
     return result
 }
 
@@ -5254,7 +5256,7 @@ export lineProxyResponse(hLine, lpProxyRequest, dwResult) {
 export lineRedirect(hCall, lpszDestAddress, dwCountryCode) {
     lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
 
-    result := DllCall("TAPI32.dll\lineRedirect", "uint", hCall, "ptr", lpszDestAddress, "uint", dwCountryCode, Int32)
+    result := DllCall("TAPI32.dll\lineRedirect", UInt32, hCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, Int32)
     return result
 }
 
@@ -5288,7 +5290,7 @@ export lineRedirect(hCall, lpszDestAddress, dwCountryCode) {
 export lineRedirectA(hCall, lpszDestAddress, dwCountryCode) {
     lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
 
-    result := DllCall("TAPI32.dll\lineRedirectA", "uint", hCall, "ptr", lpszDestAddress, "uint", dwCountryCode, Int32)
+    result := DllCall("TAPI32.dll\lineRedirectA", UInt32, hCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, Int32)
     return result
 }
 
@@ -5322,7 +5324,7 @@ export lineRedirectA(hCall, lpszDestAddress, dwCountryCode) {
 export lineRedirectW(hCall, lpszDestAddress, dwCountryCode) {
     lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
 
-    result := DllCall("TAPI32.dll\lineRedirectW", "uint", hCall, "ptr", lpszDestAddress, "uint", dwCountryCode, Int32)
+    result := DllCall("TAPI32.dll\lineRedirectW", UInt32, hCall, "ptr", lpszDestAddress, UInt32, dwCountryCode, Int32)
     return result
 }
 
@@ -5351,7 +5353,7 @@ export lineRedirectW(hCall, lpszDestAddress, dwCountryCode) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineregisterrequestrecipient
  */
 export lineRegisterRequestRecipient(hLineApp, dwRegistrationInstance, dwRequestMode, bEnable) {
-    result := DllCall("TAPI32.dll\lineRegisterRequestRecipient", "uint", hLineApp, "uint", dwRegistrationInstance, "uint", dwRequestMode, "uint", bEnable, Int32)
+    result := DllCall("TAPI32.dll\lineRegisterRequestRecipient", UInt32, hLineApp, UInt32, dwRegistrationInstance, UInt32, dwRequestMode, UInt32, bEnable, Int32)
     return result
 }
 
@@ -5372,7 +5374,7 @@ export lineRegisterRequestRecipient(hLineApp, dwRegistrationInstance, dwRequestM
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linereleaseuseruserinfo
  */
 export lineReleaseUserUserInfo(hCall) {
-    result := DllCall("TAPI32.dll\lineReleaseUserUserInfo", "uint", hCall, Int32)
+    result := DllCall("TAPI32.dll\lineReleaseUserUserInfo", UInt32, hCall, Int32)
     return result
 }
 
@@ -5391,7 +5393,7 @@ export lineReleaseUserUserInfo(hCall) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineremovefromconference
  */
 export lineRemoveFromConference(hCall) {
-    result := DllCall("TAPI32.dll\lineRemoveFromConference", "uint", hCall, Int32)
+    result := DllCall("TAPI32.dll\lineRemoveFromConference", UInt32, hCall, Int32)
     return result
 }
 
@@ -5414,7 +5416,7 @@ export lineRemoveFromConference(hCall) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineremoveprovider
  */
 export lineRemoveProvider(dwPermanentProviderID, hwndOwner) {
-    result := DllCall("TAPI32.dll\lineRemoveProvider", "uint", dwPermanentProviderID, HWND, hwndOwner, Int32)
+    result := DllCall("TAPI32.dll\lineRemoveProvider", UInt32, dwPermanentProviderID, HWND, hwndOwner, Int32)
     return result
 }
 
@@ -5432,7 +5434,7 @@ export lineRemoveProvider(dwPermanentProviderID, hwndOwner) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesecurecall
  */
 export lineSecureCall(hCall) {
-    result := DllCall("TAPI32.dll\lineSecureCall", "uint", hCall, Int32)
+    result := DllCall("TAPI32.dll\lineSecureCall", UInt32, hCall, Int32)
     return result
 }
 
@@ -5458,7 +5460,7 @@ export lineSecureCall(hCall) {
 export lineSendUserUserInfo(hCall, lpsUserUserInfo, dwSize) {
     lpsUserUserInfo := lpsUserUserInfo is String ? StrPtr(lpsUserUserInfo) : lpsUserUserInfo
 
-    result := DllCall("TAPI32.dll\lineSendUserUserInfo", "uint", hCall, "ptr", lpsUserUserInfo, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineSendUserUserInfo", UInt32, hCall, "ptr", lpsUserUserInfo, UInt32, dwSize, Int32)
     return result
 }
 
@@ -5473,7 +5475,7 @@ export lineSendUserUserInfo(hCall, lpsUserUserInfo, dwSize) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentactivity
  */
 export lineSetAgentActivity(hLine, dwAddressID, dwActivityID) {
-    result := DllCall("TAPI32.dll\lineSetAgentActivity", "uint", hLine, "uint", dwAddressID, "uint", dwActivityID, Int32)
+    result := DllCall("TAPI32.dll\lineSetAgentActivity", UInt32, hLine, UInt32, dwAddressID, UInt32, dwActivityID, Int32)
     return result
 }
 
@@ -5492,7 +5494,7 @@ export lineSetAgentActivity(hLine, dwAddressID, dwActivityID) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentgroup
  */
 export lineSetAgentGroup(hLine, dwAddressID, lpAgentGroupList) {
-    result := DllCall("TAPI32.dll\lineSetAgentGroup", "uint", hLine, "uint", dwAddressID, LINEAGENTGROUPLIST.Ptr, lpAgentGroupList, Int32)
+    result := DllCall("TAPI32.dll\lineSetAgentGroup", UInt32, hLine, UInt32, dwAddressID, LINEAGENTGROUPLIST.Ptr, lpAgentGroupList, Int32)
     return result
 }
 
@@ -5507,7 +5509,7 @@ export lineSetAgentGroup(hLine, dwAddressID, lpAgentGroupList) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentmeasurementperiod
  */
 export lineSetAgentMeasurementPeriod(hLine, hAgent, dwMeasurementPeriod) {
-    result := DllCall("TAPI32.dll\lineSetAgentMeasurementPeriod", "uint", hLine, "uint", hAgent, "uint", dwMeasurementPeriod, Int32)
+    result := DllCall("TAPI32.dll\lineSetAgentMeasurementPeriod", UInt32, hLine, UInt32, hAgent, UInt32, dwMeasurementPeriod, Int32)
     return result
 }
 
@@ -5525,7 +5527,7 @@ export lineSetAgentMeasurementPeriod(hLine, hAgent, dwMeasurementPeriod) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentsessionstate
  */
 export lineSetAgentSessionState(hLine, hAgentSession, dwAgentSessionState, dwNextAgentSessionState) {
-    result := DllCall("TAPI32.dll\lineSetAgentSessionState", "uint", hLine, "uint", hAgentSession, "uint", dwAgentSessionState, "uint", dwNextAgentSessionState, Int32)
+    result := DllCall("TAPI32.dll\lineSetAgentSessionState", UInt32, hLine, UInt32, hAgentSession, UInt32, dwAgentSessionState, UInt32, dwNextAgentSessionState, Int32)
     return result
 }
 
@@ -5543,7 +5545,7 @@ export lineSetAgentSessionState(hLine, hAgentSession, dwAgentSessionState, dwNex
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentstateex
  */
 export lineSetAgentStateEx(hLine, hAgent, dwAgentState, dwNextAgentState) {
-    result := DllCall("TAPI32.dll\lineSetAgentStateEx", "uint", hLine, "uint", hAgent, "uint", dwAgentState, "uint", dwNextAgentState, Int32)
+    result := DllCall("TAPI32.dll\lineSetAgentStateEx", UInt32, hLine, UInt32, hAgent, UInt32, dwAgentState, UInt32, dwNextAgentState, Int32)
     return result
 }
 
@@ -5561,7 +5563,7 @@ export lineSetAgentStateEx(hLine, hAgent, dwAgentState, dwNextAgentState) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentstate
  */
 export lineSetAgentState(hLine, dwAddressID, dwAgentState, dwNextAgentState) {
-    result := DllCall("TAPI32.dll\lineSetAgentState", "uint", hLine, "uint", dwAddressID, "uint", dwAgentState, "uint", dwNextAgentState, Int32)
+    result := DllCall("TAPI32.dll\lineSetAgentState", UInt32, hLine, UInt32, dwAddressID, UInt32, dwAgentState, UInt32, dwNextAgentState, Int32)
     return result
 }
 
@@ -5592,7 +5594,7 @@ export lineSetAppPriority(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequest
     lpszAppFilename := lpszAppFilename is String ? StrPtr(lpszAppFilename) : lpszAppFilename
     lpszExtensionName := lpszExtensionName is String ? StrPtr(lpszExtensionName) : lpszExtensionName
 
-    result := DllCall("TAPI32.dll\lineSetAppPriority", "ptr", lpszAppFilename, "uint", dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, "uint", dwRequestMode, "ptr", lpszExtensionName, "uint", dwPriority, Int32)
+    result := DllCall("TAPI32.dll\lineSetAppPriority", "ptr", lpszAppFilename, UInt32, dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, UInt32, dwRequestMode, "ptr", lpszExtensionName, UInt32, dwPriority, Int32)
     return result
 }
 
@@ -5630,7 +5632,7 @@ export lineSetAppPriorityA(lpszAppFilename, dwMediaMode, lpExtensionID, dwReques
     lpszAppFilename := lpszAppFilename is String ? StrPtr(lpszAppFilename) : lpszAppFilename
     lpszExtensionName := lpszExtensionName is String ? StrPtr(lpszExtensionName) : lpszExtensionName
 
-    result := DllCall("TAPI32.dll\lineSetAppPriorityA", "ptr", lpszAppFilename, "uint", dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, "uint", dwRequestMode, "ptr", lpszExtensionName, "uint", dwPriority, Int32)
+    result := DllCall("TAPI32.dll\lineSetAppPriorityA", "ptr", lpszAppFilename, UInt32, dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, UInt32, dwRequestMode, "ptr", lpszExtensionName, UInt32, dwPriority, Int32)
     return result
 }
 
@@ -5668,7 +5670,7 @@ export lineSetAppPriorityW(lpszAppFilename, dwMediaMode, lpExtensionID, dwReques
     lpszAppFilename := lpszAppFilename is String ? StrPtr(lpszAppFilename) : lpszAppFilename
     lpszExtensionName := lpszExtensionName is String ? StrPtr(lpszExtensionName) : lpszExtensionName
 
-    result := DllCall("TAPI32.dll\lineSetAppPriorityW", "ptr", lpszAppFilename, "uint", dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, "uint", dwRequestMode, "ptr", lpszExtensionName, "uint", dwPriority, Int32)
+    result := DllCall("TAPI32.dll\lineSetAppPriorityW", "ptr", lpszAppFilename, UInt32, dwMediaMode, LINEEXTENSIONID.Ptr, lpExtensionID, UInt32, dwRequestMode, "ptr", lpszExtensionName, UInt32, dwPriority, Int32)
     return result
 }
 
@@ -5689,7 +5691,7 @@ export lineSetAppPriorityW(lpszAppFilename, dwMediaMode, lpExtensionID, dwReques
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetappspecific
  */
 export lineSetAppSpecific(hCall, dwAppSpecific) {
-    result := DllCall("TAPI32.dll\lineSetAppSpecific", "uint", hCall, "uint", dwAppSpecific, Int32)
+    result := DllCall("TAPI32.dll\lineSetAppSpecific", UInt32, hCall, UInt32, dwAppSpecific, Int32)
     return result
 }
 
@@ -5714,7 +5716,7 @@ export lineSetAppSpecific(hCall, dwAppSpecific) {
 export lineSetCallData(hCall, lpCallData, dwSize) {
     lpCallDataMarshal := lpCallData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetCallData", "uint", hCall, lpCallDataMarshal, lpCallData, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\lineSetCallData", UInt32, hCall, lpCallDataMarshal, lpCallData, UInt32, dwSize, Int32)
     return result
 }
 
@@ -5736,7 +5738,7 @@ export lineSetCallData(hCall, lpCallData, dwSize) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcallparams
  */
 export lineSetCallParams(hCall, dwBearerMode, dwMinRate, dwMaxRate, lpDialParams) {
-    result := DllCall("TAPI32.dll\lineSetCallParams", "uint", hCall, "uint", dwBearerMode, "uint", dwMinRate, "uint", dwMaxRate, LINEDIALPARAMS.Ptr, lpDialParams, Int32)
+    result := DllCall("TAPI32.dll\lineSetCallParams", UInt32, hCall, UInt32, dwBearerMode, UInt32, dwMinRate, UInt32, dwMaxRate, LINEDIALPARAMS.Ptr, lpDialParams, Int32)
     return result
 }
 
@@ -5754,7 +5756,7 @@ export lineSetCallParams(hCall, dwBearerMode, dwMinRate, dwMaxRate, lpDialParams
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcallprivilege
  */
 export lineSetCallPrivilege(hCall, dwCallPrivilege) {
-    result := DllCall("TAPI32.dll\lineSetCallPrivilege", "uint", hCall, "uint", dwCallPrivilege, Int32)
+    result := DllCall("TAPI32.dll\lineSetCallPrivilege", UInt32, hCall, UInt32, dwCallPrivilege, Int32)
     return result
 }
 
@@ -5776,7 +5778,7 @@ export lineSetCallQualityOfService(hCall, lpSendingFlowspec, dwSendingFlowspecSi
     lpSendingFlowspecMarshal := lpSendingFlowspec is VarRef ? "ptr" : "ptr"
     lpReceivingFlowspecMarshal := lpReceivingFlowspec is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetCallQualityOfService", "uint", hCall, lpSendingFlowspecMarshal, lpSendingFlowspec, "uint", dwSendingFlowspecSize, lpReceivingFlowspecMarshal, lpReceivingFlowspec, "uint", dwReceivingFlowspecSize, Int32)
+    result := DllCall("TAPI32.dll\lineSetCallQualityOfService", UInt32, hCall, lpSendingFlowspecMarshal, lpSendingFlowspec, UInt32, dwSendingFlowspecSize, lpReceivingFlowspecMarshal, lpReceivingFlowspec, UInt32, dwReceivingFlowspecSize, Int32)
     return result
 }
 
@@ -5793,7 +5795,7 @@ export lineSetCallQualityOfService(hCall, lpSendingFlowspec, dwSendingFlowspecSi
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcalltreatment
  */
 export lineSetCallTreatment(hCall, dwTreatment) {
-    result := DllCall("TAPI32.dll\lineSetCallTreatment", "uint", hCall, "uint", dwTreatment, Int32)
+    result := DllCall("TAPI32.dll\lineSetCallTreatment", UInt32, hCall, UInt32, dwTreatment, Int32)
     return result
 }
 
@@ -5810,7 +5812,7 @@ export lineSetCallTreatment(hCall, dwTreatment) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcurrentlocation
  */
 export lineSetCurrentLocation(hLineApp, dwLocation) {
-    result := DllCall("TAPI32.dll\lineSetCurrentLocation", "uint", hLineApp, "uint", dwLocation, Int32)
+    result := DllCall("TAPI32.dll\lineSetCurrentLocation", UInt32, hLineApp, UInt32, dwLocation, Int32)
     return result
 }
 
@@ -5850,7 +5852,7 @@ export lineSetDevConfig(dwDeviceID, lpDeviceConfig, dwSize, lpszDeviceClass) {
 
     lpDeviceConfigMarshal := lpDeviceConfig is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetDevConfig", "uint", dwDeviceID, lpDeviceConfigMarshal, lpDeviceConfig, "uint", dwSize, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineSetDevConfig", UInt32, dwDeviceID, lpDeviceConfigMarshal, lpDeviceConfig, UInt32, dwSize, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -5897,7 +5899,7 @@ export lineSetDevConfigA(dwDeviceID, lpDeviceConfig, dwSize, lpszDeviceClass) {
 
     lpDeviceConfigMarshal := lpDeviceConfig is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetDevConfigA", "uint", dwDeviceID, lpDeviceConfigMarshal, lpDeviceConfig, "uint", dwSize, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineSetDevConfigA", UInt32, dwDeviceID, lpDeviceConfigMarshal, lpDeviceConfig, UInt32, dwSize, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -5944,7 +5946,7 @@ export lineSetDevConfigW(dwDeviceID, lpDeviceConfig, dwSize, lpszDeviceClass) {
 
     lpDeviceConfigMarshal := lpDeviceConfig is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetDevConfigW", "uint", dwDeviceID, lpDeviceConfigMarshal, lpDeviceConfig, "uint", dwSize, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\lineSetDevConfigW", UInt32, dwDeviceID, lpDeviceConfigMarshal, lpDeviceConfig, UInt32, dwSize, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -5960,7 +5962,7 @@ export lineSetDevConfigW(dwDeviceID, lpDeviceConfig, dwSize, lpszDeviceClass) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetlinedevstatus
  */
 export lineSetLineDevStatus(hLine, dwStatusToChange, fStatus) {
-    result := DllCall("TAPI32.dll\lineSetLineDevStatus", "uint", hLine, "uint", dwStatusToChange, "uint", fStatus, Int32)
+    result := DllCall("TAPI32.dll\lineSetLineDevStatus", UInt32, hLine, UInt32, dwStatusToChange, UInt32, fStatus, Int32)
     return result
 }
 
@@ -6007,7 +6009,7 @@ export lineSetLineDevStatus(hLine, dwStatusToChange, fStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetmediacontrol
  */
 export lineSetMediaControl(hLine, dwAddressID, hCall, dwSelect, lpDigitList, dwDigitNumEntries, lpMediaList, dwMediaNumEntries, lpToneList, dwToneNumEntries, lpCallStateList, dwCallStateNumEntries) {
-    result := DllCall("TAPI32.dll\lineSetMediaControl", "uint", hLine, "uint", dwAddressID, "uint", hCall, "uint", dwSelect, LINEMEDIACONTROLDIGIT.Ptr, lpDigitList, "uint", dwDigitNumEntries, LINEMEDIACONTROLMEDIA.Ptr, lpMediaList, "uint", dwMediaNumEntries, LINEMEDIACONTROLTONE.Ptr, lpToneList, "uint", dwToneNumEntries, LINEMEDIACONTROLCALLSTATE.Ptr, lpCallStateList, "uint", dwCallStateNumEntries, Int32)
+    result := DllCall("TAPI32.dll\lineSetMediaControl", UInt32, hLine, UInt32, dwAddressID, UInt32, hCall, UInt32, dwSelect, LINEMEDIACONTROLDIGIT.Ptr, lpDigitList, UInt32, dwDigitNumEntries, LINEMEDIACONTROLMEDIA.Ptr, lpMediaList, UInt32, dwMediaNumEntries, LINEMEDIACONTROLTONE.Ptr, lpToneList, UInt32, dwToneNumEntries, LINEMEDIACONTROLCALLSTATE.Ptr, lpCallStateList, UInt32, dwCallStateNumEntries, Int32)
     return result
 }
 
@@ -6026,7 +6028,7 @@ export lineSetMediaControl(hLine, dwAddressID, hCall, dwSelect, lpDigitList, dwD
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetmediamode
  */
 export lineSetMediaMode(hCall, dwMediaModes) {
-    result := DllCall("TAPI32.dll\lineSetMediaMode", "uint", hCall, "uint", dwMediaModes, Int32)
+    result := DllCall("TAPI32.dll\lineSetMediaMode", UInt32, hCall, UInt32, dwMediaModes, Int32)
     return result
 }
 
@@ -6041,7 +6043,7 @@ export lineSetMediaMode(hCall, dwMediaModes) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetqueuemeasurementperiod
  */
 export lineSetQueueMeasurementPeriod(hLine, dwQueueID, dwMeasurementPeriod) {
-    result := DllCall("TAPI32.dll\lineSetQueueMeasurementPeriod", "uint", hLine, "uint", dwQueueID, "uint", dwMeasurementPeriod, Int32)
+    result := DllCall("TAPI32.dll\lineSetQueueMeasurementPeriod", UInt32, hLine, UInt32, dwQueueID, UInt32, dwMeasurementPeriod, Int32)
     return result
 }
 
@@ -6072,7 +6074,7 @@ export lineSetQueueMeasurementPeriod(hLine, dwQueueID, dwMeasurementPeriod) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetnumrings
  */
 export lineSetNumRings(hLine, dwAddressID, dwNumRings) {
-    result := DllCall("TAPI32.dll\lineSetNumRings", "uint", hLine, "uint", dwAddressID, "uint", dwNumRings, Int32)
+    result := DllCall("TAPI32.dll\lineSetNumRings", UInt32, hLine, UInt32, dwAddressID, UInt32, dwNumRings, Int32)
     return result
 }
 
@@ -6092,7 +6094,7 @@ export lineSetNumRings(hLine, dwAddressID, dwNumRings) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetstatusmessages
  */
 export lineSetStatusMessages(hLine, dwLineStates, dwAddressStates) {
-    result := DllCall("TAPI32.dll\lineSetStatusMessages", "uint", hLine, "uint", dwLineStates, "uint", dwAddressStates, Int32)
+    result := DllCall("TAPI32.dll\lineSetStatusMessages", UInt32, hLine, UInt32, dwLineStates, UInt32, dwAddressStates, Int32)
     return result
 }
 
@@ -6135,7 +6137,7 @@ export lineSetStatusMessages(hLine, dwLineStates, dwAddressStates) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetterminal
  */
 export lineSetTerminal(hLine, dwAddressID, hCall, dwSelect, dwTerminalModes, dwTerminalID, bEnable) {
-    result := DllCall("TAPI32.dll\lineSetTerminal", "uint", hLine, "uint", dwAddressID, "uint", hCall, "uint", dwSelect, "uint", dwTerminalModes, "uint", dwTerminalID, "uint", bEnable, Int32)
+    result := DllCall("TAPI32.dll\lineSetTerminal", UInt32, hLine, UInt32, dwAddressID, UInt32, hCall, UInt32, dwSelect, UInt32, dwTerminalModes, UInt32, dwTerminalID, UInt32, bEnable, Int32)
     return result
 }
 
@@ -6156,7 +6158,7 @@ export lineSetTerminal(hLine, dwAddressID, hCall, dwSelect, dwTerminalModes, dwT
 export lineSetTollList(hLineApp, dwDeviceID, lpszAddressIn, dwTollListOption) {
     lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
-    result := DllCall("TAPI32.dll\lineSetTollList", "uint", hLineApp, "uint", dwDeviceID, "ptr", lpszAddressIn, "uint", dwTollListOption, Int32)
+    result := DllCall("TAPI32.dll\lineSetTollList", UInt32, hLineApp, UInt32, dwDeviceID, "ptr", lpszAddressIn, UInt32, dwTollListOption, Int32)
     return result
 }
 
@@ -6180,7 +6182,7 @@ export lineSetTollList(hLineApp, dwDeviceID, lpszAddressIn, dwTollListOption) {
 export lineSetTollListA(hLineApp, dwDeviceID, lpszAddressIn, dwTollListOption) {
     lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
-    result := DllCall("TAPI32.dll\lineSetTollListA", "uint", hLineApp, "uint", dwDeviceID, "ptr", lpszAddressIn, "uint", dwTollListOption, Int32)
+    result := DllCall("TAPI32.dll\lineSetTollListA", UInt32, hLineApp, UInt32, dwDeviceID, "ptr", lpszAddressIn, UInt32, dwTollListOption, Int32)
     return result
 }
 
@@ -6204,7 +6206,7 @@ export lineSetTollListA(hLineApp, dwDeviceID, lpszAddressIn, dwTollListOption) {
 export lineSetTollListW(hLineApp, dwDeviceID, lpszAddressInW, dwTollListOption) {
     lpszAddressInW := lpszAddressInW is String ? StrPtr(lpszAddressInW) : lpszAddressInW
 
-    result := DllCall("TAPI32.dll\lineSetTollListW", "uint", hLineApp, "uint", dwDeviceID, "ptr", lpszAddressInW, "uint", dwTollListOption, Int32)
+    result := DllCall("TAPI32.dll\lineSetTollListW", UInt32, hLineApp, UInt32, dwDeviceID, "ptr", lpszAddressInW, UInt32, dwTollListOption, Int32)
     return result
 }
 
@@ -6250,7 +6252,7 @@ export lineSetupConference(hCall, hLine, lphConfCall, lphConsultCall, dwNumParti
     lphConfCallMarshal := lphConfCall is VarRef ? "uint*" : "ptr"
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetupConference", "uint", hCall, "uint", hLine, lphConfCallMarshal, lphConfCall, lphConsultCallMarshal, lphConsultCall, "uint", dwNumParties, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineSetupConference", UInt32, hCall, UInt32, hLine, lphConfCallMarshal, lphConfCall, lphConsultCallMarshal, lphConsultCall, UInt32, dwNumParties, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -6303,7 +6305,7 @@ export lineSetupConferenceA(hCall, hLine, lphConfCall, lphConsultCall, dwNumPart
     lphConfCallMarshal := lphConfCall is VarRef ? "uint*" : "ptr"
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetupConferenceA", "uint", hCall, "uint", hLine, lphConfCallMarshal, lphConfCall, lphConsultCallMarshal, lphConsultCall, "uint", dwNumParties, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineSetupConferenceA", UInt32, hCall, UInt32, hLine, lphConfCallMarshal, lphConfCall, lphConsultCallMarshal, lphConsultCall, UInt32, dwNumParties, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -6356,7 +6358,7 @@ export lineSetupConferenceW(hCall, hLine, lphConfCall, lphConsultCall, dwNumPart
     lphConfCallMarshal := lphConfCall is VarRef ? "uint*" : "ptr"
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetupConferenceW", "uint", hCall, "uint", hLine, lphConfCallMarshal, lphConfCall, lphConsultCallMarshal, lphConsultCall, "uint", dwNumParties, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineSetupConferenceW", UInt32, hCall, UInt32, hLine, lphConfCallMarshal, lphConfCall, lphConsultCallMarshal, lphConsultCall, UInt32, dwNumParties, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -6397,7 +6399,7 @@ export lineSetupConferenceW(hCall, hLine, lphConfCall, lphConsultCall, dwNumPart
 export lineSetupTransfer(hCall, lphConsultCall, lpCallParams) {
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetupTransfer", "uint", hCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineSetupTransfer", UInt32, hCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -6445,7 +6447,7 @@ export lineSetupTransfer(hCall, lphConsultCall, lpCallParams) {
 export lineSetupTransferA(hCall, lphConsultCall, lpCallParams) {
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetupTransferA", "uint", hCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineSetupTransferA", UInt32, hCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -6493,7 +6495,7 @@ export lineSetupTransferA(hCall, lphConsultCall, lpCallParams) {
 export lineSetupTransferW(hCall, lphConsultCall, lpCallParams) {
     lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineSetupTransferW", "uint", hCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
+    result := DllCall("TAPI32.dll\lineSetupTransferW", UInt32, hCall, lphConsultCallMarshal, lphConsultCall, LINECALLPARAMS.Ptr, lpCallParams, Int32)
     return result
 }
 
@@ -6510,7 +6512,7 @@ export lineSetupTransferW(hCall, lphConsultCall, lpCallParams) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineshutdown
  */
 export lineShutdown(hLineApp) {
-    result := DllCall("TAPI32.dll\lineShutdown", "uint", hLineApp, Int32)
+    result := DllCall("TAPI32.dll\lineShutdown", UInt32, hLineApp, Int32)
     return result
 }
 
@@ -6527,7 +6529,7 @@ export lineShutdown(hLineApp) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineswaphold
  */
 export lineSwapHold(hActiveCall, hHeldCall) {
-    result := DllCall("TAPI32.dll\lineSwapHold", "uint", hActiveCall, "uint", hHeldCall, Int32)
+    result := DllCall("TAPI32.dll\lineSwapHold", UInt32, hActiveCall, UInt32, hHeldCall, Int32)
     return result
 }
 
@@ -6563,7 +6565,7 @@ export lineSwapHold(hActiveCall, hHeldCall) {
 export lineTranslateAddress(hLineApp, dwDeviceID, dwAPIVersion, lpszAddressIn, dwCard, dwTranslateOptions, lpTranslateOutput) {
     lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
-    result := DllCall("TAPI32.dll\lineTranslateAddress", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "ptr", lpszAddressIn, "uint", dwCard, "uint", dwTranslateOptions, LINETRANSLATEOUTPUT.Ptr, lpTranslateOutput, Int32)
+    result := DllCall("TAPI32.dll\lineTranslateAddress", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, "ptr", lpszAddressIn, UInt32, dwCard, UInt32, dwTranslateOptions, LINETRANSLATEOUTPUT.Ptr, lpTranslateOutput, Int32)
     return result
 }
 
@@ -6602,7 +6604,7 @@ export lineTranslateAddress(hLineApp, dwDeviceID, dwAPIVersion, lpszAddressIn, d
 export lineTranslateAddressA(hLineApp, dwDeviceID, dwAPIVersion, lpszAddressIn, dwCard, dwTranslateOptions, lpTranslateOutput) {
     lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
-    result := DllCall("TAPI32.dll\lineTranslateAddressA", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "ptr", lpszAddressIn, "uint", dwCard, "uint", dwTranslateOptions, LINETRANSLATEOUTPUT.Ptr, lpTranslateOutput, Int32)
+    result := DllCall("TAPI32.dll\lineTranslateAddressA", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, "ptr", lpszAddressIn, UInt32, dwCard, UInt32, dwTranslateOptions, LINETRANSLATEOUTPUT.Ptr, lpTranslateOutput, Int32)
     return result
 }
 
@@ -6641,7 +6643,7 @@ export lineTranslateAddressA(hLineApp, dwDeviceID, dwAPIVersion, lpszAddressIn, 
 export lineTranslateAddressW(hLineApp, dwDeviceID, dwAPIVersion, lpszAddressIn, dwCard, dwTranslateOptions, lpTranslateOutput) {
     lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
-    result := DllCall("TAPI32.dll\lineTranslateAddressW", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "ptr", lpszAddressIn, "uint", dwCard, "uint", dwTranslateOptions, LINETRANSLATEOUTPUT.Ptr, lpTranslateOutput, Int32)
+    result := DllCall("TAPI32.dll\lineTranslateAddressW", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, "ptr", lpszAddressIn, UInt32, dwCard, UInt32, dwTranslateOptions, LINETRANSLATEOUTPUT.Ptr, lpTranslateOutput, Int32)
     return result
 }
 
@@ -6675,7 +6677,7 @@ export lineTranslateAddressW(hLineApp, dwDeviceID, dwAPIVersion, lpszAddressIn, 
 export lineTranslateDialog(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAddressIn) {
     lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
-    result := DllCall("TAPI32.dll\lineTranslateDialog", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, HWND, hwndOwner, "ptr", lpszAddressIn, Int32)
+    result := DllCall("TAPI32.dll\lineTranslateDialog", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, HWND, hwndOwner, "ptr", lpszAddressIn, Int32)
     return result
 }
 
@@ -6716,7 +6718,7 @@ export lineTranslateDialog(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAd
 export lineTranslateDialogA(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAddressIn) {
     lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
-    result := DllCall("TAPI32.dll\lineTranslateDialogA", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, HWND, hwndOwner, "ptr", lpszAddressIn, Int32)
+    result := DllCall("TAPI32.dll\lineTranslateDialogA", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, HWND, hwndOwner, "ptr", lpszAddressIn, Int32)
     return result
 }
 
@@ -6757,7 +6759,7 @@ export lineTranslateDialogA(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszA
 export lineTranslateDialogW(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAddressIn) {
     lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
-    result := DllCall("TAPI32.dll\lineTranslateDialogW", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, HWND, hwndOwner, "ptr", lpszAddressIn, Int32)
+    result := DllCall("TAPI32.dll\lineTranslateDialogW", UInt32, hLineApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, HWND, hwndOwner, "ptr", lpszAddressIn, Int32)
     return result
 }
 
@@ -6772,7 +6774,7 @@ export lineTranslateDialogW(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszA
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineuncompletecall
  */
 export lineUncompleteCall(hLine, dwCompletionID) {
-    result := DllCall("TAPI32.dll\lineUncompleteCall", "uint", hLine, "uint", dwCompletionID, Int32)
+    result := DllCall("TAPI32.dll\lineUncompleteCall", UInt32, hLine, UInt32, dwCompletionID, Int32)
     return result
 }
 
@@ -6785,7 +6787,7 @@ export lineUncompleteCall(hLine, dwCompletionID) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineunhold
  */
 export lineUnhold(hCall) {
-    result := DllCall("TAPI32.dll\lineUnhold", "uint", hCall, Int32)
+    result := DllCall("TAPI32.dll\lineUnhold", UInt32, hCall, Int32)
     return result
 }
 
@@ -6806,7 +6808,7 @@ export lineUnpark(hLine, dwAddressID, lphCall, lpszDestAddress) {
 
     lphCallMarshal := lphCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineUnpark", "uint", hLine, "uint", dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, Int32)
+    result := DllCall("TAPI32.dll\lineUnpark", UInt32, hLine, UInt32, dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, Int32)
     return result
 }
 
@@ -6830,7 +6832,7 @@ export lineUnparkA(hLine, dwAddressID, lphCall, lpszDestAddress) {
 
     lphCallMarshal := lphCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineUnparkA", "uint", hLine, "uint", dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, Int32)
+    result := DllCall("TAPI32.dll\lineUnparkA", UInt32, hLine, UInt32, dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, Int32)
     return result
 }
 
@@ -6854,7 +6856,7 @@ export lineUnparkW(hLine, dwAddressID, lphCall, lpszDestAddress) {
 
     lphCallMarshal := lphCall is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\lineUnparkW", "uint", hLine, "uint", dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, Int32)
+    result := DllCall("TAPI32.dll\lineUnparkW", UInt32, hLine, UInt32, dwAddressID, lphCallMarshal, lphCall, "ptr", lpszDestAddress, Int32)
     return result
 }
 
@@ -6870,7 +6872,7 @@ export lineUnparkW(hLine, dwAddressID, lphCall, lpszDestAddress) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneclose
  */
 export phoneClose(hPhone) {
-    result := DllCall("TAPI32.dll\phoneClose", "uint", hPhone, Int32)
+    result := DllCall("TAPI32.dll\phoneClose", UInt32, hPhone, Int32)
     return result
 }
 
@@ -6892,7 +6894,7 @@ export phoneClose(hPhone) {
 export phoneConfigDialog(dwDeviceID, hwndOwner, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\phoneConfigDialog", "uint", dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\phoneConfigDialog", UInt32, dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -6921,7 +6923,7 @@ export phoneConfigDialog(dwDeviceID, hwndOwner, lpszDeviceClass) {
 export phoneConfigDialogA(dwDeviceID, hwndOwner, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\phoneConfigDialogA", "uint", dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\phoneConfigDialogA", UInt32, dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -6950,7 +6952,7 @@ export phoneConfigDialogA(dwDeviceID, hwndOwner, lpszDeviceClass) {
 export phoneConfigDialogW(dwDeviceID, hwndOwner, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\phoneConfigDialogW", "uint", dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\phoneConfigDialogW", UInt32, dwDeviceID, HWND, hwndOwner, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -6975,7 +6977,7 @@ export phoneConfigDialogW(dwDeviceID, hwndOwner, lpszDeviceClass) {
 export phoneDevSpecific(hPhone, lpParams, dwSize) {
     lpParamsMarshal := lpParams is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneDevSpecific", "uint", hPhone, lpParamsMarshal, lpParams, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\phoneDevSpecific", UInt32, hPhone, lpParamsMarshal, lpParams, UInt32, dwSize, Int32)
     return result
 }
 
@@ -6991,7 +6993,7 @@ export phoneDevSpecific(hPhone, lpParams, dwSize) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetbuttoninfo
  */
 export phoneGetButtonInfo(hPhone, dwButtonLampID, lpButtonInfo) {
-    result := DllCall("TAPI32.dll\phoneGetButtonInfo", "uint", hPhone, "uint", dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
+    result := DllCall("TAPI32.dll\phoneGetButtonInfo", UInt32, hPhone, UInt32, dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
     return result
 }
 
@@ -7010,7 +7012,7 @@ export phoneGetButtonInfo(hPhone, dwButtonLampID, lpButtonInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetbuttoninfoa
  */
 export phoneGetButtonInfoA(hPhone, dwButtonLampID, lpButtonInfo) {
-    result := DllCall("TAPI32.dll\phoneGetButtonInfoA", "uint", hPhone, "uint", dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
+    result := DllCall("TAPI32.dll\phoneGetButtonInfoA", UInt32, hPhone, UInt32, dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
     return result
 }
 
@@ -7029,7 +7031,7 @@ export phoneGetButtonInfoA(hPhone, dwButtonLampID, lpButtonInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetbuttoninfow
  */
 export phoneGetButtonInfoW(hPhone, dwButtonLampID, lpButtonInfo) {
-    result := DllCall("TAPI32.dll\phoneGetButtonInfoW", "uint", hPhone, "uint", dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
+    result := DllCall("TAPI32.dll\phoneGetButtonInfoW", UInt32, hPhone, UInt32, dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
     return result
 }
 
@@ -7049,7 +7051,7 @@ export phoneGetButtonInfoW(hPhone, dwButtonLampID, lpButtonInfo) {
 export phoneGetData(hPhone, dwDataID, lpData, dwSize) {
     lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneGetData", "uint", hPhone, "uint", dwDataID, lpDataMarshal, lpData, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\phoneGetData", UInt32, hPhone, UInt32, dwDataID, lpDataMarshal, lpData, UInt32, dwSize, Int32)
     return result
 }
 
@@ -7076,7 +7078,7 @@ export phoneGetData(hPhone, dwDataID, lpData, dwSize) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetdevcaps
  */
 export phoneGetDevCaps(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpPhoneCaps) {
-    result := DllCall("TAPI32.dll\phoneGetDevCaps", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, PHONECAPS.Ptr, lpPhoneCaps, Int32)
+    result := DllCall("TAPI32.dll\phoneGetDevCaps", UInt32, hPhoneApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, UInt32, dwExtVersion, PHONECAPS.Ptr, lpPhoneCaps, Int32)
     return result
 }
 
@@ -7110,7 +7112,7 @@ export phoneGetDevCaps(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpPhon
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetdevcapsa
  */
 export phoneGetDevCapsA(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpPhoneCaps) {
-    result := DllCall("TAPI32.dll\phoneGetDevCapsA", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, PHONECAPS.Ptr, lpPhoneCaps, Int32)
+    result := DllCall("TAPI32.dll\phoneGetDevCapsA", UInt32, hPhoneApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, UInt32, dwExtVersion, PHONECAPS.Ptr, lpPhoneCaps, Int32)
     return result
 }
 
@@ -7144,7 +7146,7 @@ export phoneGetDevCapsA(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpPho
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetdevcapsw
  */
 export phoneGetDevCapsW(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpPhoneCaps) {
-    result := DllCall("TAPI32.dll\phoneGetDevCapsW", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, PHONECAPS.Ptr, lpPhoneCaps, Int32)
+    result := DllCall("TAPI32.dll\phoneGetDevCapsW", UInt32, hPhoneApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, UInt32, dwExtVersion, PHONECAPS.Ptr, lpPhoneCaps, Int32)
     return result
 }
 
@@ -7163,7 +7165,7 @@ export phoneGetDevCapsW(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpPho
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetdisplay
  */
 export phoneGetDisplay(hPhone, lpDisplay) {
-    result := DllCall("TAPI32.dll\phoneGetDisplay", "uint", hPhone, VARSTRING.Ptr, lpDisplay, Int32)
+    result := DllCall("TAPI32.dll\phoneGetDisplay", UInt32, hPhone, VARSTRING.Ptr, lpDisplay, Int32)
     return result
 }
 
@@ -7181,7 +7183,7 @@ export phoneGetDisplay(hPhone, lpDisplay) {
 export phoneGetGain(hPhone, dwHookSwitchDev, lpdwGain) {
     lpdwGainMarshal := lpdwGain is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneGetGain", "uint", hPhone, "uint", dwHookSwitchDev, lpdwGainMarshal, lpdwGain, Int32)
+    result := DllCall("TAPI32.dll\phoneGetGain", UInt32, hPhone, UInt32, dwHookSwitchDev, lpdwGainMarshal, lpdwGain, Int32)
     return result
 }
 
@@ -7202,7 +7204,7 @@ export phoneGetGain(hPhone, dwHookSwitchDev, lpdwGain) {
 export phoneGetHookSwitch(hPhone, lpdwHookSwitchDevs) {
     lpdwHookSwitchDevsMarshal := lpdwHookSwitchDevs is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneGetHookSwitch", "uint", hPhone, lpdwHookSwitchDevsMarshal, lpdwHookSwitchDevs, Int32)
+    result := DllCall("TAPI32.dll\phoneGetHookSwitch", UInt32, hPhone, lpdwHookSwitchDevsMarshal, lpdwHookSwitchDevs, Int32)
     return result
 }
 
@@ -7230,7 +7232,7 @@ export phoneGetHookSwitch(hPhone, lpdwHookSwitchDevs) {
 export phoneGetIcon(dwDeviceID, lpszDeviceClass, lphIcon) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\phoneGetIcon", "uint", dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
+    result := DllCall("TAPI32.dll\phoneGetIcon", UInt32, dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
     return result
 }
 
@@ -7265,7 +7267,7 @@ export phoneGetIcon(dwDeviceID, lpszDeviceClass, lphIcon) {
 export phoneGetIconA(dwDeviceID, lpszDeviceClass, lphIcon) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\phoneGetIconA", "uint", dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
+    result := DllCall("TAPI32.dll\phoneGetIconA", UInt32, dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
     return result
 }
 
@@ -7300,7 +7302,7 @@ export phoneGetIconA(dwDeviceID, lpszDeviceClass, lphIcon) {
 export phoneGetIconW(dwDeviceID, lpszDeviceClass, lphIcon) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\phoneGetIconW", "uint", dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
+    result := DllCall("TAPI32.dll\phoneGetIconW", UInt32, dwDeviceID, "ptr", lpszDeviceClass, HICON.Ptr, lphIcon, Int32)
     return result
 }
 
@@ -7326,7 +7328,7 @@ export phoneGetIconW(dwDeviceID, lpszDeviceClass, lphIcon) {
 export phoneGetID(hPhone, lpDeviceID, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\phoneGetID", "uint", hPhone, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\phoneGetID", UInt32, hPhone, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -7359,7 +7361,7 @@ export phoneGetID(hPhone, lpDeviceID, lpszDeviceClass) {
 export phoneGetIDA(hPhone, lpDeviceID, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\phoneGetIDA", "uint", hPhone, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\phoneGetIDA", UInt32, hPhone, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -7392,7 +7394,7 @@ export phoneGetIDA(hPhone, lpDeviceID, lpszDeviceClass) {
 export phoneGetIDW(hPhone, lpDeviceID, lpszDeviceClass) {
     lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
-    result := DllCall("TAPI32.dll\phoneGetIDW", "uint", hPhone, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
+    result := DllCall("TAPI32.dll\phoneGetIDW", UInt32, hPhone, VARSTRING.Ptr, lpDeviceID, "ptr", lpszDeviceClass, Int32)
     return result
 }
 
@@ -7412,7 +7414,7 @@ export phoneGetIDW(hPhone, lpDeviceID, lpszDeviceClass) {
 export phoneGetLamp(hPhone, dwButtonLampID, lpdwLampMode) {
     lpdwLampModeMarshal := lpdwLampMode is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneGetLamp", "uint", hPhone, "uint", dwButtonLampID, lpdwLampModeMarshal, lpdwLampMode, Int32)
+    result := DllCall("TAPI32.dll\phoneGetLamp", UInt32, hPhone, UInt32, dwButtonLampID, lpdwLampModeMarshal, lpdwLampMode, Int32)
     return result
 }
 
@@ -7435,7 +7437,7 @@ export phoneGetLamp(hPhone, dwButtonLampID, lpdwLampMode) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetmessage
  */
 export phoneGetMessage(hPhoneApp, lpMessage, dwTimeout) {
-    result := DllCall("TAPI32.dll\phoneGetMessage", "uint", hPhoneApp, PHONEMESSAGE.Ptr, lpMessage, "uint", dwTimeout, Int32)
+    result := DllCall("TAPI32.dll\phoneGetMessage", UInt32, hPhoneApp, PHONEMESSAGE.Ptr, lpMessage, UInt32, dwTimeout, Int32)
     return result
 }
 
@@ -7455,7 +7457,7 @@ export phoneGetRing(hPhone, lpdwRingMode, lpdwVolume) {
     lpdwRingModeMarshal := lpdwRingMode is VarRef ? "uint*" : "ptr"
     lpdwVolumeMarshal := lpdwVolume is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneGetRing", "uint", hPhone, lpdwRingModeMarshal, lpdwRingMode, lpdwVolumeMarshal, lpdwVolume, Int32)
+    result := DllCall("TAPI32.dll\phoneGetRing", UInt32, hPhone, lpdwRingModeMarshal, lpdwRingMode, lpdwVolumeMarshal, lpdwVolume, Int32)
     return result
 }
 
@@ -7472,7 +7474,7 @@ export phoneGetRing(hPhone, lpdwRingMode, lpdwVolume) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetstatus
  */
 export phoneGetStatus(hPhone, lpPhoneStatus) {
-    result := DllCall("TAPI32.dll\phoneGetStatus", "uint", hPhone, PHONESTATUS.Ptr, lpPhoneStatus, Int32)
+    result := DllCall("TAPI32.dll\phoneGetStatus", UInt32, hPhone, PHONESTATUS.Ptr, lpPhoneStatus, Int32)
     return result
 }
 
@@ -7496,7 +7498,7 @@ export phoneGetStatus(hPhone, lpPhoneStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetstatusa
  */
 export phoneGetStatusA(hPhone, lpPhoneStatus) {
-    result := DllCall("TAPI32.dll\phoneGetStatusA", "uint", hPhone, PHONESTATUS.Ptr, lpPhoneStatus, Int32)
+    result := DllCall("TAPI32.dll\phoneGetStatusA", UInt32, hPhone, PHONESTATUS.Ptr, lpPhoneStatus, Int32)
     return result
 }
 
@@ -7520,7 +7522,7 @@ export phoneGetStatusA(hPhone, lpPhoneStatus) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetstatusw
  */
 export phoneGetStatusW(hPhone, lpPhoneStatus) {
-    result := DllCall("TAPI32.dll\phoneGetStatusW", "uint", hPhone, PHONESTATUS.Ptr, lpPhoneStatus, Int32)
+    result := DllCall("TAPI32.dll\phoneGetStatusW", UInt32, hPhone, PHONESTATUS.Ptr, lpPhoneStatus, Int32)
     return result
 }
 
@@ -7547,7 +7549,7 @@ export phoneGetStatusMessages(hPhone, lpdwPhoneStates, lpdwButtonModes, lpdwButt
     lpdwButtonModesMarshal := lpdwButtonModes is VarRef ? "uint*" : "ptr"
     lpdwButtonStatesMarshal := lpdwButtonStates is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneGetStatusMessages", "uint", hPhone, lpdwPhoneStatesMarshal, lpdwPhoneStates, lpdwButtonModesMarshal, lpdwButtonModes, lpdwButtonStatesMarshal, lpdwButtonStates, Int32)
+    result := DllCall("TAPI32.dll\phoneGetStatusMessages", UInt32, hPhone, lpdwPhoneStatesMarshal, lpdwPhoneStates, lpdwButtonModesMarshal, lpdwButtonModes, lpdwButtonStatesMarshal, lpdwButtonStates, Int32)
     return result
 }
 
@@ -7565,7 +7567,7 @@ export phoneGetStatusMessages(hPhone, lpdwPhoneStates, lpdwButtonModes, lpdwButt
 export phoneGetVolume(hPhone, dwHookSwitchDev, lpdwVolume) {
     lpdwVolumeMarshal := lpdwVolume is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneGetVolume", "uint", hPhone, "uint", dwHookSwitchDev, lpdwVolumeMarshal, lpdwVolume, Int32)
+    result := DllCall("TAPI32.dll\phoneGetVolume", UInt32, hPhone, UInt32, dwHookSwitchDev, lpdwVolumeMarshal, lpdwVolume, Int32)
     return result
 }
 
@@ -7602,7 +7604,7 @@ export phoneInitialize(lphPhoneApp, _hInstance, lpfnCallback, lpszAppName, lpdwN
     lphPhoneAppMarshal := lphPhoneApp is VarRef ? "uint*" : "ptr"
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
+    result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, PHONECALLBACK, lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, Int32)
     return result
 }
 
@@ -7685,7 +7687,7 @@ export phoneInitializeExA(lphPhoneApp, _hInstance, lpfnCallback, lpszFriendlyApp
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, PHONECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
     return result
 }
 
@@ -7768,7 +7770,7 @@ export phoneInitializeExW(lphPhoneApp, _hInstance, lpfnCallback, lpszFriendlyApp
     lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
+    result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, HINSTANCE, _hInstance, PHONECALLBACK, lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEINITIALIZEEXPARAMS.Ptr, lpPhoneInitializeExParams, Int32)
     return result
 }
 
@@ -7800,7 +7802,7 @@ export phoneInitializeExW(lphPhoneApp, _hInstance, lpfnCallback, lpszFriendlyApp
 export phoneNegotiateAPIVersion(hPhoneApp, dwDeviceID, dwAPILowVersion, dwAPIHighVersion, lpdwAPIVersion, lpExtensionID) {
     lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneNegotiateAPIVersion", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPILowVersion, "uint", dwAPIHighVersion, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEEXTENSIONID.Ptr, lpExtensionID, Int32)
+    result := DllCall("TAPI32.dll\phoneNegotiateAPIVersion", UInt32, hPhoneApp, UInt32, dwDeviceID, UInt32, dwAPILowVersion, UInt32, dwAPIHighVersion, lpdwAPIVersionMarshal, lpdwAPIVersion, PHONEEXTENSIONID.Ptr, lpExtensionID, Int32)
     return result
 }
 
@@ -7834,7 +7836,7 @@ export phoneNegotiateAPIVersion(hPhoneApp, dwDeviceID, dwAPILowVersion, dwAPIHig
 export phoneNegotiateExtVersion(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtLowVersion, dwExtHighVersion, lpdwExtVersion) {
     lpdwExtVersionMarshal := lpdwExtVersion is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneNegotiateExtVersion", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtLowVersion, "uint", dwExtHighVersion, lpdwExtVersionMarshal, lpdwExtVersion, Int32)
+    result := DllCall("TAPI32.dll\phoneNegotiateExtVersion", UInt32, hPhoneApp, UInt32, dwDeviceID, UInt32, dwAPIVersion, UInt32, dwExtLowVersion, UInt32, dwExtHighVersion, lpdwExtVersionMarshal, lpdwExtVersion, Int32)
     return result
 }
 
@@ -7868,7 +7870,7 @@ export phoneNegotiateExtVersion(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtLowVer
 export phoneOpen(hPhoneApp, dwDeviceID, lphPhone, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivilege) {
     lphPhoneMarshal := lphPhone is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneOpen", "uint", hPhoneApp, "uint", dwDeviceID, lphPhoneMarshal, lphPhone, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivilege, Int32)
+    result := DllCall("TAPI32.dll\phoneOpen", UInt32, hPhoneApp, UInt32, dwDeviceID, lphPhoneMarshal, lphPhone, UInt32, dwAPIVersion, UInt32, dwExtVersion, IntPtr, dwCallbackInstance, UInt32, dwPrivilege, Int32)
     return result
 }
 
@@ -7885,7 +7887,7 @@ export phoneOpen(hPhoneApp, dwDeviceID, lphPhone, dwAPIVersion, dwExtVersion, dw
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetbuttoninfo
  */
 export phoneSetButtonInfo(hPhone, dwButtonLampID, lpButtonInfo) {
-    result := DllCall("TAPI32.dll\phoneSetButtonInfo", "uint", hPhone, "uint", dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
+    result := DllCall("TAPI32.dll\phoneSetButtonInfo", UInt32, hPhone, UInt32, dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
     return result
 }
 
@@ -7905,7 +7907,7 @@ export phoneSetButtonInfo(hPhone, dwButtonLampID, lpButtonInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetbuttoninfoa
  */
 export phoneSetButtonInfoA(hPhone, dwButtonLampID, lpButtonInfo) {
-    result := DllCall("TAPI32.dll\phoneSetButtonInfoA", "uint", hPhone, "uint", dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
+    result := DllCall("TAPI32.dll\phoneSetButtonInfoA", UInt32, hPhone, UInt32, dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
     return result
 }
 
@@ -7925,7 +7927,7 @@ export phoneSetButtonInfoA(hPhone, dwButtonLampID, lpButtonInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetbuttoninfow
  */
 export phoneSetButtonInfoW(hPhone, dwButtonLampID, lpButtonInfo) {
-    result := DllCall("TAPI32.dll\phoneSetButtonInfoW", "uint", hPhone, "uint", dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
+    result := DllCall("TAPI32.dll\phoneSetButtonInfoW", UInt32, hPhone, UInt32, dwButtonLampID, PHONEBUTTONINFO.Ptr, lpButtonInfo, Int32)
     return result
 }
 
@@ -7947,7 +7949,7 @@ export phoneSetButtonInfoW(hPhone, dwButtonLampID, lpButtonInfo) {
 export phoneSetData(hPhone, dwDataID, lpData, dwSize) {
     lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("TAPI32.dll\phoneSetData", "uint", hPhone, "uint", dwDataID, lpDataMarshal, lpData, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\phoneSetData", UInt32, hPhone, UInt32, dwDataID, lpDataMarshal, lpData, UInt32, dwSize, Int32)
     return result
 }
 
@@ -7972,7 +7974,7 @@ export phoneSetData(hPhone, dwDataID, lpData, dwSize) {
 export phoneSetDisplay(hPhone, dwRow, dwColumn, lpsDisplay, dwSize) {
     lpsDisplay := lpsDisplay is String ? StrPtr(lpsDisplay) : lpsDisplay
 
-    result := DllCall("TAPI32.dll\phoneSetDisplay", "uint", hPhone, "uint", dwRow, "uint", dwColumn, "ptr", lpsDisplay, "uint", dwSize, Int32)
+    result := DllCall("TAPI32.dll\phoneSetDisplay", UInt32, hPhone, UInt32, dwRow, UInt32, dwColumn, "ptr", lpsDisplay, UInt32, dwSize, Int32)
     return result
 }
 
@@ -7988,7 +7990,7 @@ export phoneSetDisplay(hPhone, dwRow, dwColumn, lpsDisplay, dwSize) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetgain
  */
 export phoneSetGain(hPhone, dwHookSwitchDev, dwGain) {
-    result := DllCall("TAPI32.dll\phoneSetGain", "uint", hPhone, "uint", dwHookSwitchDev, "uint", dwGain, Int32)
+    result := DllCall("TAPI32.dll\phoneSetGain", UInt32, hPhone, UInt32, dwHookSwitchDev, UInt32, dwGain, Int32)
     return result
 }
 
@@ -8009,7 +8011,7 @@ export phoneSetGain(hPhone, dwHookSwitchDev, dwGain) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesethookswitch
  */
 export phoneSetHookSwitch(hPhone, dwHookSwitchDevs, dwHookSwitchMode) {
-    result := DllCall("TAPI32.dll\phoneSetHookSwitch", "uint", hPhone, "uint", dwHookSwitchDevs, "uint", dwHookSwitchMode, Int32)
+    result := DllCall("TAPI32.dll\phoneSetHookSwitch", UInt32, hPhone, UInt32, dwHookSwitchDevs, UInt32, dwHookSwitchMode, Int32)
     return result
 }
 
@@ -8025,7 +8027,7 @@ export phoneSetHookSwitch(hPhone, dwHookSwitchDevs, dwHookSwitchMode) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetlamp
  */
 export phoneSetLamp(hPhone, dwButtonLampID, dwLampMode) {
-    result := DllCall("TAPI32.dll\phoneSetLamp", "uint", hPhone, "uint", dwButtonLampID, "uint", dwLampMode, Int32)
+    result := DllCall("TAPI32.dll\phoneSetLamp", UInt32, hPhone, UInt32, dwButtonLampID, UInt32, dwLampMode, Int32)
     return result
 }
 
@@ -8044,7 +8046,7 @@ export phoneSetLamp(hPhone, dwButtonLampID, dwLampMode) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetring
  */
 export phoneSetRing(hPhone, dwRingMode, dwVolume) {
-    result := DllCall("TAPI32.dll\phoneSetRing", "uint", hPhone, "uint", dwRingMode, "uint", dwVolume, Int32)
+    result := DllCall("TAPI32.dll\phoneSetRing", UInt32, hPhone, UInt32, dwRingMode, UInt32, dwVolume, Int32)
     return result
 }
 
@@ -8066,7 +8068,7 @@ export phoneSetRing(hPhone, dwRingMode, dwVolume) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetstatusmessages
  */
 export phoneSetStatusMessages(hPhone, dwPhoneStates, dwButtonModes, dwButtonStates) {
-    result := DllCall("TAPI32.dll\phoneSetStatusMessages", "uint", hPhone, "uint", dwPhoneStates, "uint", dwButtonModes, "uint", dwButtonStates, Int32)
+    result := DllCall("TAPI32.dll\phoneSetStatusMessages", UInt32, hPhone, UInt32, dwPhoneStates, UInt32, dwButtonModes, UInt32, dwButtonStates, Int32)
     return result
 }
 
@@ -8083,7 +8085,7 @@ export phoneSetStatusMessages(hPhone, dwPhoneStates, dwButtonModes, dwButtonStat
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetvolume
  */
 export phoneSetVolume(hPhone, dwHookSwitchDev, dwVolume) {
-    result := DllCall("TAPI32.dll\phoneSetVolume", "uint", hPhone, "uint", dwHookSwitchDev, "uint", dwVolume, Int32)
+    result := DllCall("TAPI32.dll\phoneSetVolume", UInt32, hPhone, UInt32, dwHookSwitchDev, UInt32, dwVolume, Int32)
     return result
 }
 
@@ -8098,7 +8100,7 @@ export phoneSetVolume(hPhone, dwHookSwitchDev, dwVolume) {
  * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneshutdown
  */
 export phoneShutdown(hPhoneApp) {
-    result := DllCall("TAPI32.dll\phoneShutdown", "uint", hPhoneApp, Int32)
+    result := DllCall("TAPI32.dll\phoneShutdown", UInt32, hPhoneApp, Int32)
     return result
 }
 
@@ -8284,7 +8286,7 @@ export tapiRequestMediaCall(_hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSi
     lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
     lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
 
-    result := DllCall("TAPI32.dll\tapiRequestMediaCall", HWND, _hwnd, WPARAM, wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, Int32)
+    result := DllCall("TAPI32.dll\tapiRequestMediaCall", HWND, _hwnd, WPARAM, wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, UInt32, dwSize, UInt32, dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, Int32)
     return result
 }
 
@@ -8310,7 +8312,7 @@ export tapiRequestMediaCallA(_hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwS
     lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
     lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
 
-    result := DllCall("TAPI32.dll\tapiRequestMediaCallA", HWND, _hwnd, WPARAM, wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, Int32)
+    result := DllCall("TAPI32.dll\tapiRequestMediaCallA", HWND, _hwnd, WPARAM, wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, UInt32, dwSize, UInt32, dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, Int32)
     return result
 }
 
@@ -8336,7 +8338,7 @@ export tapiRequestMediaCallW(_hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwS
     lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
     lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
 
-    result := DllCall("TAPI32.dll\tapiRequestMediaCallW", HWND, _hwnd, WPARAM, wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, Int32)
+    result := DllCall("TAPI32.dll\tapiRequestMediaCallW", HWND, _hwnd, WPARAM, wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, UInt32, dwSize, UInt32, dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, Int32)
     return result
 }
 
@@ -8384,7 +8386,7 @@ export OpenTnefStream(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, 
     lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : "ptr"
     lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MAPI32.dll\OpenTnefStream", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr*", &lppTNEF := 0, "HRESULT")
+    result := DllCall("MAPI32.dll\OpenTnefStream", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, UInt32, ulFlags, "ptr", lpMessage, UInt16, wKeyVal, "ptr*", &lppTNEF := 0, "HRESULT")
     return ITnef(lppTNEF)
 }
 
@@ -8435,7 +8437,7 @@ export OpenTnefStreamEx(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage
     lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : "ptr"
     lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : "ptr"
 
-    result := DllCall("MAPI32.dll\OpenTnefStreamEx", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr*", &lppTNEF := 0, "HRESULT")
+    result := DllCall("MAPI32.dll\OpenTnefStreamEx", lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, UInt32, ulFlags, "ptr", lpMessage, UInt16, wKeyVal, "ptr", lpAdressBook, "ptr*", &lppTNEF := 0, "HRESULT")
     return ITnef(lppTNEF)
 }
 

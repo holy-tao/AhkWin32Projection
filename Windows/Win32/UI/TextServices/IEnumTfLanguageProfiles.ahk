@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\TF_LANGUAGEPROFILE.ahk" { TF_LANGUAGEPROFILE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IEnumTfLanguageProfiles interface is implemented by the TSF manager to provide an enumeration of language profiles.
@@ -102,7 +102,7 @@ export default struct IEnumTfLanguageProfiles extends IUnknown {
     Next(ulCount, pProfile, pcFetch) {
         pcFetchMarshal := pcFetch is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, TF_LANGUAGEPROFILE.Ptr, pProfile, pcFetchMarshal, pcFetch, "HRESULT")
+        result := ComCall(4, this, UInt32, ulCount, TF_LANGUAGEPROFILE.Ptr, pProfile, pcFetchMarshal, pcFetch, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IEnumTfLanguageProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtflanguageprofiles-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, UInt32, ulCount, "HRESULT")
         return result
     }
 

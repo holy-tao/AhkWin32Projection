@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IPortableDeviceKeyCollection interface holds a collection of PROPERTYKEY values. This interface can be retrieved from a method or, if a new object is required, call CoCreate with CLSID\_PortableDeviceKeyCollection.
@@ -84,7 +84,7 @@ export default struct IPortableDeviceKeyCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicekeycollection-getat
      */
     GetAt(dwIndex, pKey) {
-        result := ComCall(4, this, "uint", dwIndex, PROPERTYKEY.Ptr, pKey, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, PROPERTYKEY.Ptr, pKey, "HRESULT")
         return result
     }
 
@@ -141,7 +141,7 @@ export default struct IPortableDeviceKeyCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicekeycollection-removeat
      */
     RemoveAt(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "HRESULT")
         return result
     }
 

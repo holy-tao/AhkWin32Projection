@@ -1,0 +1,72 @@
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SYMBOL_INFOW.ahk" { SYMBOL_INFOW }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+
+/**
+ * PSYM_ENUMERATESYMBOLS_CALLBACKW (Unicode) is a callback function used with the SymEnumSymbols, SymEnumTypes, and SymEnumTypesByName functions.
+ * @remarks
+ * > [!NOTE]
+ * > The dbghelp.h header defines PSYM_ENUMERATESYMBOLS_CALLBACK as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+ * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callbackw
+ * @namespace Windows.Win32.System.Diagnostics.Debug
+ * @charset Unicode
+ */
+export default struct PSYM_ENUMERATESYMBOLS_CALLBACKW {
+    value : IntPtr
+
+    __value {
+        set {
+            if (value is PSYM_ENUMERATESYMBOLS_CALLBACKW) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {Pointer<SYMBOL_INFOW>} pSymInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that 
+     *       provides information about the symbol.
+     * @param {Integer} SymbolSize The size of the symbol, in bytes. The size is calculated and is actually a guess. In some cases, this value 
+     *       can be zero.
+     * @param {Pointer<Void>} UserContext The user-defined value passed from the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symenumsymbols">SymEnumSymbols</a> or 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symenumtypes">SymEnumTypes</a> function, or 
+     *       <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data 
+     *       structure that provides context information for the callback function.
+     * @returns {BOOL} If the function returns <b>TRUE</b>, the enumeration will continue.
+     * 
+     * If the function returns <b>FALSE</b>, the enumeration will stop.
+     */
+    Call(pSymInfo, SymbolSize, UserContext) {
+        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+
+        result := DllCall(this.value, SYMBOL_INFOW.Ptr, pSymInfo, UInt32, SymbolSize, UserContextMarshal, UserContext, BOOL)
+        return result
+    }
+
+    /**
+     * A PSYM_ENUMERATESYMBOLS_CALLBACKW that invokes the given AHK function when called.
+     * This callback is owned by the script and cleaned up automatically.
+     */
+    struct From extends PSYM_ENUMERATESYMBOLS_CALLBACKW {
+        /**
+         * Creates a PSYM_ENUMERATESYMBOLS_CALLBACKW pointer that invokes the given AHK function when called.
+         * @param {Func(SYMBOL_INFOW, UInt32, "ptr") => BOOL} fn the function to invoke.
+         */
+        __New(fn) {
+            if (!HasMethod(fn, , 3)) {
+                throw MethodError("Object of type " Type(fn) " is not callable with 3 parameters.", -1, fn)
+            }
+            this.value := CallbackCreate(fn, , [SYMBOL_INFOW.Ptr, UInt32, "ptr", BOOL])
+        }
+
+        __Delete() {
+            if (this.value) {
+                CallbackFree(this.value)
+            }
+        }
+    }
+}

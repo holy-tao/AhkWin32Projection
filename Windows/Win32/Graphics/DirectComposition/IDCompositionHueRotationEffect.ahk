@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
@@ -66,7 +66,7 @@ export default struct IDCompositionHueRotationEffect extends IDCompositionFilter
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionhuerotationeffect-setangle(float)
      */
     SetAngle1(amountDegrees) {
-        result := ComCall(5, this, "float", amountDegrees, "HRESULT")
+        result := ComCall(5, this, Float32, amountDegrees, "HRESULT")
         return result
     }
 

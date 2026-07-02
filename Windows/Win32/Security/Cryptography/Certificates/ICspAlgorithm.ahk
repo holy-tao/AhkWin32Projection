@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
+#Import ".\AlgorithmFlags.ahk" { AlgorithmFlags }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\AlgorithmType.ahk" { AlgorithmType }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IObjectId.ahk" { IObjectId }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\AlgorithmType.ahk" { AlgorithmType }
-#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\AlgorithmFlags.ahk" { AlgorithmFlags }
-#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents an algorithm implemented by a cryptographic provider.
@@ -136,7 +136,7 @@ export default struct ICspAlgorithm extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-getalgorithmoid
      */
     GetAlgorithmOid(Length, AlgFlags) {
-        result := ComCall(7, this, "int", Length, AlgorithmFlags, AlgFlags, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(7, this, Int32, Length, AlgorithmFlags, AlgFlags, "ptr*", &ppValue := 0, "HRESULT")
         return IObjectId(ppValue)
     }
 

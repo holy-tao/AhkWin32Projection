@@ -2,8 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\AudioStateMonitorSoundLevel.ahk" { AudioStateMonitorSoundLevel }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PAudioStateMonitorCallback.ahk" { PAudioStateMonitorCallback }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -47,7 +48,7 @@ export default struct IAudioStateMonitor extends IUnknown {
     RegisterCallback(callback, _context) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", callback, _contextMarshal, _context, "int64*", &registration := 0, "HRESULT")
+        result := ComCall(3, this, PAudioStateMonitorCallback, callback, _contextMarshal, _context, "int64*", &registration := 0, "HRESULT")
         return registration
     }
 
@@ -57,7 +58,7 @@ export default struct IAudioStateMonitor extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     UnregisterCallback(registration) {
-        ComCall(4, this, "int64", registration)
+        ComCall(4, this, Int64, registration)
     }
 
     /**

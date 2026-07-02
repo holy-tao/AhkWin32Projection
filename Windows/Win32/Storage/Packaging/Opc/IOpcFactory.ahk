@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOpcDigitalSignatureManager.ahk" { IOpcDigitalSignatureManager }
-#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
-#Import "..\..\..\System\Com\IStream.ahk" { IStream }
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\OPC_READ_FLAGS.ahk" { OPC_READ_FLAGS }
-#Import ".\OPC_WRITE_FLAGS.ahk" { OPC_WRITE_FLAGS }
-#Import ".\OPC_STREAM_IO_MODE.ahk" { OPC_STREAM_IO_MODE }
-#Import "..\..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IOpcPackage.ahk" { IOpcPackage }
 #Import ".\IOpcUri.ahk" { IOpcUri }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOpcDigitalSignatureManager.ahk" { IOpcDigitalSignatureManager }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\OPC_STREAM_IO_MODE.ahk" { OPC_STREAM_IO_MODE }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OPC_READ_FLAGS.ahk" { OPC_READ_FLAGS }
+#Import "..\..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\OPC_WRITE_FLAGS.ahk" { OPC_WRITE_FLAGS }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IOpcPackage.ahk" { IOpcPackage }
 
 /**
  * Creates Packaging API objects and provides support for saving and loading packages.
@@ -122,7 +122,7 @@ export default struct IOpcFactory extends IUnknown {
     CreateStreamOnFile(filename, ioMode, securityAttributes, dwFlagsAndAttributes) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(5, this, "ptr", filename, OPC_STREAM_IO_MODE, ioMode, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", dwFlagsAndAttributes, "ptr*", &stream := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", filename, OPC_STREAM_IO_MODE, ioMode, SECURITY_ATTRIBUTES.Ptr, securityAttributes, UInt32, dwFlagsAndAttributes, "ptr*", &stream := 0, "HRESULT")
         return IStream(stream)
     }
 

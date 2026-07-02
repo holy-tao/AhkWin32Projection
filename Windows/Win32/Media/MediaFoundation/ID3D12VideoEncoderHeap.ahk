@@ -3,11 +3,11 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk" { D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC }
 #Import ".\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk" { D3D12_VIDEO_ENCODER_LEVEL_SETTING }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_VIDEO_ENCODER_HEAP_FLAGS.ahk" { D3D12_VIDEO_ENCODER_HEAP_FLAGS }
-#Import ".\D3D12_VIDEO_ENCODER_CODEC.ahk" { D3D12_VIDEO_ENCODER_CODEC }
 #Import "..\..\Graphics\Direct3D12\ID3D12Pageable.ahk" { ID3D12Pageable }
 #Import ".\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_DESC }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC.ahk" { D3D12_VIDEO_ENCODER_CODEC }
+#Import ".\D3D12_VIDEO_ENCODER_HEAP_FLAGS.ahk" { D3D12_VIDEO_ENCODER_HEAP_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a Direct3D 12 video encoder heap.
@@ -120,7 +120,7 @@ export default struct ID3D12VideoEncoderHeap extends ID3D12Pageable {
      */
     GetResolutionList(ResolutionsListCount) {
         pResolutionList := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC()
-        result := ComCall(14, this, "uint", ResolutionsListCount, D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.Ptr, pResolutionList, "HRESULT")
+        result := ComCall(14, this, UInt32, ResolutionsListCount, D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.Ptr, pResolutionList, "HRESULT")
         return pResolutionList
     }
 

@@ -1,4 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LPD3DHAL_RENDERSTATECB.ahk" { LPD3DHAL_RENDERSTATECB }
+#Import ".\LPD3DHAL_GETSTATECB.ahk" { LPD3DHAL_GETSTATECB }
+#Import ".\LPD3DHAL_RENDERPRIMITIVECB.ahk" { LPD3DHAL_RENDERPRIMITIVECB }
+#Import ".\LPD3DHAL_TEXTUREDESTROYCB.ahk" { LPD3DHAL_TEXTUREDESTROYCB }
+#Import ".\LPD3DHAL_TEXTURESWAPCB.ahk" { LPD3DHAL_TEXTURESWAPCB }
+#Import ".\LPD3DHAL_TEXTURECREATECB.ahk" { LPD3DHAL_TEXTURECREATECB }
+#Import ".\LPD3DHAL_CONTEXTCREATECB.ahk" { LPD3DHAL_CONTEXTCREATECB }
+#Import ".\LPD3DHAL_TEXTUREGETSURFCB.ahk" { LPD3DHAL_TEXTUREGETSURFCB }
+#Import ".\LPD3DHAL_SCENECAPTURECB.ahk" { LPD3DHAL_SCENECAPTURECB }
+#Import ".\LPD3DHAL_CONTEXTDESTROYALLCB.ahk" { LPD3DHAL_CONTEXTDESTROYALLCB }
+#Import ".\LPD3DHAL_CONTEXTDESTROYCB.ahk" { LPD3DHAL_CONTEXTDESTROYCB }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
@@ -8,31 +19,31 @@ export default struct D3DHAL_CALLBACKS {
 
     dwSize : UInt32
 
-    ContextCreate : IntPtr
+    ContextCreate : LPD3DHAL_CONTEXTCREATECB
 
-    ContextDestroy : IntPtr
+    ContextDestroy : LPD3DHAL_CONTEXTDESTROYCB
 
-    ContextDestroyAll : IntPtr
+    ContextDestroyAll : LPD3DHAL_CONTEXTDESTROYALLCB
 
-    SceneCapture : IntPtr
+    SceneCapture : LPD3DHAL_SCENECAPTURECB
 
     lpReserved10 : IntPtr
 
     lpReserved11 : IntPtr
 
-    RenderState : IntPtr
+    RenderState : LPD3DHAL_RENDERSTATECB
 
-    RenderPrimitive : IntPtr
+    RenderPrimitive : LPD3DHAL_RENDERPRIMITIVECB
 
     dwReserved : UInt32
 
-    TextureCreate : IntPtr
+    TextureCreate : LPD3DHAL_TEXTURECREATECB
 
-    TextureDestroy : IntPtr
+    TextureDestroy : LPD3DHAL_TEXTUREDESTROYCB
 
-    TextureSwap : IntPtr
+    TextureSwap : LPD3DHAL_TEXTURESWAPCB
 
-    TextureGetSurf : IntPtr
+    TextureGetSurf : LPD3DHAL_TEXTUREGETSURFCB
 
     lpReserved12 : IntPtr
 
@@ -54,7 +65,7 @@ export default struct D3DHAL_CALLBACKS {
 
     lpReserved21 : IntPtr
 
-    GetState : IntPtr
+    GetState : LPD3DHAL_GETSTATECB
 
     dwReserved0 : UInt32
 

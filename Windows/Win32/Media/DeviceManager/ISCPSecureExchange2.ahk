@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
 #Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
+#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
 
 /**
  * The ISCPSecureExchange2 interface extends ISCPSecureExchange by providing a new version of the TransferContainerData method.
@@ -76,7 +76,7 @@ export default struct ISCPSecureExchange2 extends ISCPSecureExchange {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, pDataMarshal, pData, "uint", dwSize, "ptr", pProgressCallback, "uint*", &pfuReadyFlags := 0, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(6, this, pDataMarshal, pData, UInt32, dwSize, "ptr", pProgressCallback, "uint*", &pfuReadyFlags := 0, abMacMarshal, abMac, "HRESULT")
         return pfuReadyFlags
     }
 

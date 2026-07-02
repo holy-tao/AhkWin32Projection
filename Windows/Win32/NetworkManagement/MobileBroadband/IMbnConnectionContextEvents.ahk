@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMbnConnectionContext.ahk" { IMbnConnectionContext }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This notification interface is used to handle asynchronous provisioned context events.
@@ -79,7 +79,7 @@ export default struct IMbnConnectionContextEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectioncontextevents-onsetprovisionedcontextcomplete
      */
     OnSetProvisionedContextComplete(newInterface, requestID, _status) {
-        result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(4, this, "ptr", newInterface, UInt32, requestID, "int", _status, "HRESULT")
         return result
     }
 

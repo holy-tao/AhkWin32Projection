@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ExtendedDebugPropertyInfo.ahk" { ExtendedDebugPropertyInfo }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ExtendedDebugPropertyInfo.ahk" { ExtendedDebugPropertyInfo }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -50,7 +50,7 @@ export default struct IEnumDebugExtendedPropertyInfo extends IUnknown {
     Next(celt, rgExtendedPropertyInfo, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, ExtendedDebugPropertyInfo.Ptr, rgExtendedPropertyInfo, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, UInt32, celt, ExtendedDebugPropertyInfo.Ptr, rgExtendedPropertyInfo, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -60,7 +60,7 @@ export default struct IEnumDebugExtendedPropertyInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, UInt32, celt, "HRESULT")
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCS_OPERATION.ahk" { HCS_OPERATION }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\HCS_EVENT_TYPE.ahk" { HCS_EVENT_TYPE }
-#Import ".\HCS_OPERATION.ahk" { HCS_OPERATION }
 
 /**
  * HCS_EVENT

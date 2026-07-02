@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
-#Import ".\IDirect3DVertexBuffer9.ahk" { IDirect3DVertexBuffer9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
-#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
-#Import ".\D3DCOMPOSERECTSOP.ahk" { D3DCOMPOSERECTSOP }
 #Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
-#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IDirect3DVertexBuffer9.ahk" { IDirect3DVertexBuffer9 }
 #Import ".\D3DFORMAT.ahk" { D3DFORMAT }
 #Import ".\D3DDISPLAYMODEEX.ahk" { D3DDISPLAYMODEEX }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\D3DPOOL.ahk" { D3DPOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import ".\D3DDISPLAYROTATION.ahk" { D3DDISPLAYROTATION }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DPOOL.ahk" { D3DPOOL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DCOMPOSERECTSOP.ahk" { D3DCOMPOSERECTSOP }
 
 /**
  * Applications use the methods of the IDirect3DDevice9Ex interface to render primitives, create resources, work with system-level variables, adjust gamma ramp levels, work with palettes, and create shaders.
@@ -137,7 +137,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
         rowsMarshal := rows is VarRef ? "float*" : "ptr"
         _columnsMarshal := _columns is VarRef ? "float*" : "ptr"
 
-        result := ComCall(119, this, "uint", width, "uint", height, rowsMarshal, rows, _columnsMarshal, _columns, "HRESULT")
+        result := ComCall(119, this, UInt32, width, UInt32, height, rowsMarshal, rows, _columnsMarshal, _columns, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-composerects
      */
     ComposeRects(pSrc, pDst, pSrcRectDescs, NumRects, pDstRectDescs, Operation, Xoffset, Yoffset) {
-        result := ComCall(120, this, "ptr", pSrc, "ptr", pDst, "ptr", pSrcRectDescs, "uint", NumRects, "ptr", pDstRectDescs, D3DCOMPOSERECTSOP, Operation, "int", Xoffset, "int", Yoffset, "HRESULT")
+        result := ComCall(120, this, "ptr", pSrc, "ptr", pDst, "ptr", pSrcRectDescs, UInt32, NumRects, "ptr", pDstRectDescs, D3DCOMPOSERECTSOP, Operation, Int32, Xoffset, Int32, Yoffset, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-presentex
      */
     PresentEx(pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags) {
-        result := ComCall(121, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestRect, HWND, hDestWindowOverride, RGNDATA.Ptr, pDirtyRegion, "uint", dwFlags, "HRESULT")
+        result := ComCall(121, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestRect, HWND, hDestWindowOverride, RGNDATA.Ptr, pDirtyRegion, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -282,7 +282,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-setgputhreadpriority
      */
     SetGPUThreadPriority(_Priority) {
-        result := ComCall(123, this, "int", _Priority, "HRESULT")
+        result := ComCall(123, this, Int32, _Priority, "HRESULT")
         return result
     }
 
@@ -301,7 +301,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-waitforvblank
      */
     WaitForVBlank(iSwapChain) {
-        result := ComCall(124, this, "uint", iSwapChain, "HRESULT")
+        result := ComCall(124, this, UInt32, iSwapChain, "HRESULT")
         return result
     }
 
@@ -322,7 +322,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-checkresourceresidency
      */
     CheckResourceResidency(NumResources) {
-        result := ComCall(125, this, "ptr*", &pResourceArray := 0, "uint", NumResources, "HRESULT")
+        result := ComCall(125, this, "ptr*", &pResourceArray := 0, UInt32, NumResources, "HRESULT")
         return IDirect3DResource9(pResourceArray)
     }
 
@@ -341,7 +341,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-setmaximumframelatency
      */
     SetMaximumFrameLatency(MaxLatency) {
-        result := ComCall(126, this, "uint", MaxLatency, "HRESULT")
+        result := ComCall(126, this, UInt32, MaxLatency, "HRESULT")
         return result
     }
 
@@ -425,7 +425,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-createrendertargetex
      */
     CreateRenderTargetEx(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, pSharedHandle, Usage) {
-        result := ComCall(129, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, "uint", MultisampleQuality, BOOL, Lockable, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "uint", Usage, "HRESULT")
+        result := ComCall(129, this, UInt32, Width, UInt32, Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, UInt32, MultisampleQuality, BOOL, Lockable, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, UInt32, Usage, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -463,7 +463,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-createoffscreenplainsurfaceex
      */
     CreateOffscreenPlainSurfaceEx(Width, Height, Format, Pool, pSharedHandle, Usage) {
-        result := ComCall(130, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "uint", Usage, "HRESULT")
+        result := ComCall(130, this, UInt32, Width, UInt32, Height, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, UInt32, Usage, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -504,7 +504,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-createdepthstencilsurfaceex
      */
     CreateDepthStencilSurfaceEx(Width, Height, Format, MultiSample, MultisampleQuality, Discard, pSharedHandle, Usage) {
-        result := ComCall(131, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, "uint", MultisampleQuality, BOOL, Discard, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "uint", Usage, "HRESULT")
+        result := ComCall(131, this, UInt32, Width, UInt32, Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, UInt32, MultisampleQuality, BOOL, Discard, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, UInt32, Usage, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -578,7 +578,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
     GetDisplayModeEx(iSwapChain, pMode, pRotation) {
         pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(133, this, "uint", iSwapChain, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
+        result := ComCall(133, this, UInt32, iSwapChain, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
     }
 

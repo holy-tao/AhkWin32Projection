@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VSS_RESTOREMETHOD_ENUM.ahk" { VSS_RESTOREMETHOD_ENUM }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
+#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VSS_WRITERRESTORE_ENUM.ahk" { VSS_WRITERRESTORE_ENUM }
-#Import ".\VSS_RESTOREMETHOD_ENUM.ahk" { VSS_RESTOREMETHOD_ENUM }
 #Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk" { IXMLDOMDocument }
 
 /**
  * The IVssCreateWriterMetadata interface is a C++ (not COM) interface containing methods to construct the Writer Metadata Document in response to an Identify event. It is used only in the CVssWriter::OnIdentify method.
@@ -62,7 +62,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
         wszAlternateLocation := wszAlternateLocation is String ? StrPtr(wszAlternateLocation) : wszAlternateLocation
 
-        result := ComCall(0, this, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "ptr", wszAlternateLocation, "HRESULT")
+        result := ComCall(0, this, "ptr", wszPath, "ptr", wszFilespec, Int8, bRecursive, "ptr", wszAlternateLocation, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
 
-        result := ComCall(1, this, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "HRESULT")
+        result := ComCall(1, this, "ptr", wszPath, "ptr", wszFilespec, Int8, bRecursive, "HRESULT")
         return result
     }
 
@@ -332,7 +332,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
 
         pbIconMarshal := pbIcon is VarRef ? "char*" : "ptr"
 
-        result := ComCall(2, this, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, "uint", cbIcon, "char", bRestoreMetadata, "char", bNotifyOnBackupComplete, "char", bSelectable, "char", bSelectableForRestore, "uint", dwComponentFlags, "HRESULT")
+        result := ComCall(2, this, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, UInt32, cbIcon, Int8, bRestoreMetadata, Int8, bNotifyOnBackupComplete, Int8, bSelectable, Int8, bSelectableForRestore, UInt32, dwComponentFlags, "HRESULT")
         return result
     }
 
@@ -467,7 +467,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
 
-        result := ComCall(3, this, "ptr", wszLogicalPath, "ptr", wszDatabaseName, "ptr", wszPath, "ptr", wszFilespec, "uint", dwBackupTypeMask, "HRESULT")
+        result := ComCall(3, this, "ptr", wszLogicalPath, "ptr", wszDatabaseName, "ptr", wszPath, "ptr", wszFilespec, UInt32, dwBackupTypeMask, "HRESULT")
         return result
     }
 
@@ -599,7 +599,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
 
-        result := ComCall(4, this, "ptr", wszLogicalPath, "ptr", wszDatabaseName, "ptr", wszPath, "ptr", wszFilespec, "uint", dwBackupTypeMask, "HRESULT")
+        result := ComCall(4, this, "ptr", wszLogicalPath, "ptr", wszDatabaseName, "ptr", wszPath, "ptr", wszFilespec, UInt32, dwBackupTypeMask, "HRESULT")
         return result
     }
 
@@ -774,7 +774,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
         wszAlternateLocation := wszAlternateLocation is String ? StrPtr(wszAlternateLocation) : wszAlternateLocation
 
-        result := ComCall(5, this, "ptr", wszLogicalPath, "ptr", wszGroupName, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "ptr", wszAlternateLocation, "uint", dwBackupTypeMask, "HRESULT")
+        result := ComCall(5, this, "ptr", wszLogicalPath, "ptr", wszGroupName, "ptr", wszPath, "ptr", wszFilespec, Int8, bRecursive, "ptr", wszAlternateLocation, UInt32, dwBackupTypeMask, "HRESULT")
         return result
     }
 
@@ -910,7 +910,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
         wszService := wszService is String ? StrPtr(wszService) : wszService
         wszUserProcedure := wszUserProcedure is String ? StrPtr(wszUserProcedure) : wszUserProcedure
 
-        result := ComCall(6, this, VSS_RESTOREMETHOD_ENUM, method, "ptr", wszService, "ptr", wszUserProcedure, VSS_WRITERRESTORE_ENUM, writerRestore, "char", bRebootRequired, "HRESULT")
+        result := ComCall(6, this, VSS_RESTOREMETHOD_ENUM, method, "ptr", wszService, "ptr", wszUserProcedure, VSS_WRITERRESTORE_ENUM, writerRestore, Int8, bRebootRequired, "HRESULT")
         return result
     }
 
@@ -1070,7 +1070,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
         wszSourceFilespec := wszSourceFilespec is String ? StrPtr(wszSourceFilespec) : wszSourceFilespec
         wszDestination := wszDestination is String ? StrPtr(wszDestination) : wszDestination
 
-        result := ComCall(7, this, "ptr", wszSourcePath, "ptr", wszSourceFilespec, "char", bRecursive, "ptr", wszDestination, "HRESULT")
+        result := ComCall(7, this, "ptr", wszSourcePath, "ptr", wszSourceFilespec, Int8, bRecursive, "ptr", wszDestination, "HRESULT")
         return result
     }
 
@@ -1271,7 +1271,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setbackupschema
      */
     SetBackupSchema(dwSchemaMask) {
-        result := ComCall(9, this, "uint", dwSchemaMask, "HRESULT")
+        result := ComCall(9, this, UInt32, dwSchemaMask, "HRESULT")
         return result
     }
 

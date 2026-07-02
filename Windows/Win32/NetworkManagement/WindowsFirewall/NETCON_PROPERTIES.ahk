@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\NETCON_MEDIATYPE.ahk" { NETCON_MEDIATYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\NETCON_STATUS.ahk" { NETCON_STATUS }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 

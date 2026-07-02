@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IPortableDevicePropVariantCollection interface holds a collection of indexed PROPVARIANT values of the same VARTYPE.
@@ -86,7 +86,7 @@ export default struct IPortableDevicePropVariantCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicepropvariantcollection-getat
      */
     GetAt(dwIndex, pValue) {
-        result := ComCall(4, this, "uint", dwIndex, PROPVARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, PROPVARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -138,7 +138,7 @@ export default struct IPortableDevicePropVariantCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicepropvariantcollection-changetype
      */
     ChangeType(vt) {
-        result := ComCall(7, this, "ushort", vt, "HRESULT")
+        result := ComCall(7, this, UInt16, vt, "HRESULT")
         return result
     }
 
@@ -179,7 +179,7 @@ export default struct IPortableDevicePropVariantCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicepropvariantcollection-removeat
      */
     RemoveAt(dwIndex) {
-        result := ComCall(9, this, "uint", dwIndex, "HRESULT")
+        result := ComCall(9, this, UInt32, dwIndex, "HRESULT")
         return result
     }
 

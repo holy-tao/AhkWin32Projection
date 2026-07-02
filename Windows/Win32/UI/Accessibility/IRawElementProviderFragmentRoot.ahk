@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IRawElementProviderFragment.ahk" { IRawElementProviderFragment }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods and properties on the root element in a fragment.
@@ -60,7 +60,7 @@ export default struct IRawElementProviderFragmentRoot extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragmentroot-elementproviderfrompoint
      */
     ElementProviderFromPoint(x, y) {
-        result := ComCall(3, this, "double", x, "double", y, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(3, this, Float64, x, Float64, y, "ptr*", &pRetVal := 0, "HRESULT")
         return IRawElementProviderFragment(pRetVal)
     }
 

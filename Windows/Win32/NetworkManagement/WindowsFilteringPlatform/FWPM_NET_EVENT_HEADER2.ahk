@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Security\SID.ahk" { SID }
-#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
-#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
-#Import ".\FWP_AF.ahk" { FWP_AF }
 #Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import "..\..\Security\SID.ahk" { SID }
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
+#Import ".\FWP_AF.ahk" { FWP_AF }
 
 /**
  * Contains information common to all events. (FWPM_NET_EVENT_HEADER2)

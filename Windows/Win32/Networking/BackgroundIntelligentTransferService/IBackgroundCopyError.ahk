@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\BG_ERROR_CONTEXT.ahk" { BG_ERROR_CONTEXT }
+#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
 
 /**
  * Use the IBackgroundCopyError interface to determine the cause of an error and if the transfer process can proceed.
@@ -95,7 +95,7 @@ export default struct IBackgroundCopyError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-geterrordescription
      */
     GetErrorDescription(LanguageId) {
-        result := ComCall(5, this, "uint", LanguageId, PWSTR.Ptr, &pErrorDescription := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, LanguageId, PWSTR.Ptr, &pErrorDescription := 0, "HRESULT")
         return pErrorDescription
     }
 
@@ -117,7 +117,7 @@ export default struct IBackgroundCopyError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-geterrorcontextdescription
      */
     GetErrorContextDescription(LanguageId) {
-        result := ComCall(6, this, "uint", LanguageId, PWSTR.Ptr, &pContextDescription := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, LanguageId, PWSTR.Ptr, &pContextDescription := 0, "HRESULT")
         return pContextDescription
     }
 

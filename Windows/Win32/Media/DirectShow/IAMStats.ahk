@@ -176,7 +176,7 @@ export default struct IAMStats extends IDispatch {
         dMinMarshal := dMin is VarRef ? "double*" : "ptr"
         dMaxMarshal := dMax is VarRef ? "double*" : "ptr"
 
-        result := ComCall(9, this, "int", lIndex, BSTR.Ptr, szName, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
+        result := ComCall(9, this, Int32, lIndex, BSTR.Ptr, szName, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
         return result
     }
 
@@ -258,7 +258,7 @@ export default struct IAMStats extends IDispatch {
     GetIndex(szName, lCreate) {
         szName := szName is String ? BSTR.Alloc(szName).Value : szName
 
-        result := ComCall(11, this, BSTR, szName, "int", lCreate, "int*", &plIndex := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, szName, Int32, lCreate, "int*", &plIndex := 0, "HRESULT")
         return plIndex
     }
 
@@ -299,7 +299,7 @@ export default struct IAMStats extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-addvalue
      */
     AddValue(lIndex, dValue) {
-        result := ComCall(12, this, "int", lIndex, "double", dValue, "HRESULT")
+        result := ComCall(12, this, Int32, lIndex, Float64, dValue, "HRESULT")
         return result
     }
 

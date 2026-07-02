@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
 #Import ".\CERT_ALT_NAME_ENTRY.ahk" { CERT_ALT_NAME_ENTRY }
 #Import ".\OCSP_REQUEST_ENTRY.ahk" { OCSP_REQUEST_ENTRY }
-#Import ".\CERT_EXTENSION.ahk" { CERT_EXTENSION }
 
 /**
  * Contains information for an online certificate status protocol (OCSP) request as specified by RFC 2560.

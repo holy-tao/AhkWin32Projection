@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_TOKEN_MODE.ahk" { IPSEC_TOKEN_MODE }
 #Import ".\IPSEC_TOKEN_PRINCIPAL.ahk" { IPSEC_TOKEN_PRINCIPAL }
 #Import ".\IPSEC_TOKEN_TYPE.ahk" { IPSEC_TOKEN_TYPE }
-#Import ".\IPSEC_TOKEN_MODE.ahk" { IPSEC_TOKEN_MODE }
 
 /**
  * Various information about an IPsec-specific access token.

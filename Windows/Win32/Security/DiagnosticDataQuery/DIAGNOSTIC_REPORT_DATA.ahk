@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\DIAGNOSTIC_REPORT_PARAMETER.ahk" { DIAGNOSTIC_REPORT_PARAMETER }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\DIAGNOSTIC_REPORT_SIGNATURE.ahk" { DIAGNOSTIC_REPORT_SIGNATURE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

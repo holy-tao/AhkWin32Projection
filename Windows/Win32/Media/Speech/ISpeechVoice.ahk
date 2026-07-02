@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechObjectToken.ahk" { ISpeechObjectToken }
 #Import ".\SpeechVoicePriority.ahk" { SpeechVoicePriority }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpeechVoiceSpeakFlags.ahk" { SpeechVoiceSpeakFlags }
+#Import ".\SpeechVoiceEvents.ahk" { SpeechVoiceEvents }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
 #Import ".\ISpeechVoiceStatus.ahk" { ISpeechVoiceStatus }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\SpeechVoiceSpeakFlags.ahk" { SpeechVoiceSpeakFlags }
 #Import ".\ISpeechObjectTokens.ahk" { ISpeechObjectTokens }
-#Import ".\SpeechVoiceEvents.ahk" { SpeechVoiceEvents }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\ISpeechObjectToken.ahk" { ISpeechObjectToken }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -241,7 +241,7 @@ export default struct ISpeechVoice extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Rate(Rate) {
-        result := ComCall(15, this, "int", Rate, "HRESULT")
+        result := ComCall(15, this, Int32, Rate, "HRESULT")
         return result
     }
 
@@ -260,7 +260,7 @@ export default struct ISpeechVoice extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Volume(Volume) {
-        result := ComCall(17, this, "int", Volume, "HRESULT")
+        result := ComCall(17, this, Int32, Volume, "HRESULT")
         return result
     }
 
@@ -346,7 +346,7 @@ export default struct ISpeechVoice extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SynchronousSpeakTimeout(msTimeout) {
-        result := ComCall(26, this, "int", msTimeout, "HRESULT")
+        result := ComCall(26, this, Int32, msTimeout, "HRESULT")
         return result
     }
 
@@ -414,7 +414,7 @@ export default struct ISpeechVoice extends IDispatch {
     Skip(Type, NumItems) {
         Type := Type is String ? BSTR.Alloc(Type).Value : Type
 
-        result := ComCall(32, this, BSTR, Type, "int", NumItems, "int*", &NumSkipped := 0, "HRESULT")
+        result := ComCall(32, this, BSTR, Type, Int32, NumItems, "int*", &NumSkipped := 0, "HRESULT")
         return NumSkipped
     }
 
@@ -452,7 +452,7 @@ export default struct ISpeechVoice extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     WaitUntilDone(msTimeout) {
-        result := ComCall(35, this, "int", msTimeout, VARIANT_BOOL.Ptr, &Done := 0, "HRESULT")
+        result := ComCall(35, this, Int32, msTimeout, VARIANT_BOOL.Ptr, &Done := 0, "HRESULT")
         return Done
     }
 
@@ -490,7 +490,7 @@ export default struct ISpeechVoice extends IDispatch {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(38, this, "int", hWndParent, BSTR, Title, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, "HRESULT")
+        result := ComCall(38, this, Int32, hWndParent, BSTR, Title, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, "HRESULT")
         return result
     }
 

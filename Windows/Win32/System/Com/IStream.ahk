@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\STATSTG.ahk" { STATSTG }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISequentialStream.ahk" { ISequentialStream }
 #Import ".\STREAM_SEEK.ahk" { STREAM_SEEK }
+#Import ".\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STATSTG.ahk" { STATSTG }
 
 /**
  * The IStream interface lets you read and write data to stream objects.
@@ -61,7 +61,7 @@ export default struct IStream extends ISequentialStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-seek
      */
     Seek(dlibMove, dwOrigin) {
-        result := ComCall(5, this, "int64", dlibMove, STREAM_SEEK, dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        result := ComCall(5, this, Int64, dlibMove, STREAM_SEEK, dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
         return plibNewPosition
     }
 
@@ -89,7 +89,7 @@ export default struct IStream extends ISequentialStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-setsize
      */
     SetSize(libNewSize) {
-        result := ComCall(6, this, "uint", libNewSize, "HRESULT")
+        result := ComCall(6, this, Int64, libNewSize, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct IStream extends ISequentialStream {
         pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
         pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pstm, "uint", cb, pcbReadMarshal, pcbRead, pcbWrittenMarshal, pcbWritten, "HRESULT")
+        result := ComCall(7, this, "ptr", pstm, Int64, cb, pcbReadMarshal, pcbRead, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
     }
 
@@ -154,7 +154,7 @@ export default struct IStream extends ISequentialStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-commit
      */
     Commit(grfCommitFlags) {
-        result := ComCall(8, this, "uint", grfCommitFlags, "HRESULT")
+        result := ComCall(8, this, UInt32, grfCommitFlags, "HRESULT")
         return result
     }
 
@@ -209,7 +209,7 @@ export default struct IStream extends ISequentialStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-lockregion
      */
     LockRegion(libOffset, cb, dwLockType) {
-        result := ComCall(10, this, "uint", libOffset, "uint", cb, "uint", dwLockType, "HRESULT")
+        result := ComCall(10, this, Int64, libOffset, Int64, cb, UInt32, dwLockType, "HRESULT")
         return result
     }
 
@@ -233,7 +233,7 @@ export default struct IStream extends ISequentialStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-unlockregion
      */
     UnlockRegion(libOffset, cb, dwLockType) {
-        result := ComCall(11, this, "uint", libOffset, "uint", cb, "uint", dwLockType, "HRESULT")
+        result := ComCall(11, this, Int64, libOffset, Int64, cb, UInt32, dwLockType, "HRESULT")
         return result
     }
 
@@ -254,7 +254,7 @@ export default struct IStream extends ISequentialStream {
      */
     Stat(grfStatFlag) {
         pstatstg := STATSTG()
-        result := ComCall(12, this, STATSTG.Ptr, pstatstg, "uint", grfStatFlag, "HRESULT")
+        result := ComCall(12, this, STATSTG.Ptr, pstatstg, UInt32, grfStatFlag, "HRESULT")
         return pstatstg
     }
 

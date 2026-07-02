@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3DVERTEXELEMENT9.ahk" { D3DVERTEXELEMENT9 }
 #Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DVERTEXELEMENT9.ahk" { D3DVERTEXELEMENT9 }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDirect3DVertexDeclaration9 (d3d9.h) interface is used by applications to encapsulate the vertex shader declaration.

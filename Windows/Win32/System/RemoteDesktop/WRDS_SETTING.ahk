@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\WRDS_SETTING_STATUS.ahk" { WRDS_SETTING_STATUS }
 #Import ".\WRDS_SETTINGS_1.ahk" { WRDS_SETTINGS_1 }
+#Import ".\WRDS_SETTING_STATUS.ahk" { WRDS_SETTING_STATUS }
 
 /**
  * Contains different levels of policy-related settings for a remote desktop connection.

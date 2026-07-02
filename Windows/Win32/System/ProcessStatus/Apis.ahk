@@ -1,13 +1,15 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\ENUM_PROCESS_MODULES_EX_FLAGS.ahk" { ENUM_PROCESS_MODULES_EX_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\PERFORMANCE_INFORMATION.ahk" { PERFORMANCE_INFORMATION }
-#Import ".\MODULEINFO.ahk" { MODULEINFO }
+#Import ".\ENUM_PROCESS_MODULES_EX_FLAGS.ahk" { ENUM_PROCESS_MODULES_EX_FLAGS }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MODULEINFO.ahk" { MODULEINFO }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PENUM_PAGE_FILE_CALLBACKW.ahk" { PENUM_PAGE_FILE_CALLBACKW }
+#Import ".\PERFORMANCE_INFORMATION.ahk" { PERFORMANCE_INFORMATION }
+#Import ".\PENUM_PAGE_FILE_CALLBACKA.ahk" { PENUM_PAGE_FILE_CALLBACKA }
 
 /**
  * @namespace Windows.Win32.System.ProcessStatus
@@ -44,7 +46,7 @@ export EnumProcesses(lpidProcess, cb, lpcbNeeded) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumProcesses", "ptr", lpidProcess, "uint", cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
+    result := DllCall("PSAPI.dll\EnumProcesses", IntPtr, lpidProcess, UInt32, cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -123,7 +125,7 @@ export EnumProcessModules(hProcess, lphModule, cb, lpcbNeeded) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumProcessModules", HANDLE, hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
+    result := DllCall("PSAPI.dll\EnumProcessModules", HANDLE, hProcess, IntPtr, lphModule, UInt32, cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -173,7 +175,7 @@ export EnumProcessModulesEx(hProcess, lphModule, cb, lpcbNeeded, dwFilterFlag) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumProcessModulesEx", HANDLE, hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, ENUM_PROCESS_MODULES_EX_FLAGS, dwFilterFlag, BOOL)
+    result := DllCall("PSAPI.dll\EnumProcessModulesEx", HANDLE, hProcess, IntPtr, lphModule, UInt32, cb, lpcbNeededMarshal, lpcbNeeded, ENUM_PROCESS_MODULES_EX_FLAGS, dwFilterFlag, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -231,7 +233,7 @@ export GetModuleBaseNameA(hProcess, _hModule, lpBaseName, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetModuleBaseNameA", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpBaseName, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetModuleBaseNameA", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpBaseName, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -289,7 +291,7 @@ export GetModuleBaseNameW(hProcess, _hModule, lpBaseName, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetModuleBaseNameW", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpBaseName, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetModuleBaseNameW", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpBaseName, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -344,7 +346,7 @@ export GetModuleFileNameExA(hProcess, _hModule, lpFilename, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetModuleFileNameExA", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetModuleFileNameExA", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpFilename, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -399,7 +401,7 @@ export GetModuleFileNameExW(hProcess, _hModule, lpFilename, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetModuleFileNameExW", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetModuleFileNameExW", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpFilename, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -448,7 +450,7 @@ export GetModuleFileNameExW(hProcess, _hModule, lpFilename, nSize) {
 export GetModuleInformation(hProcess, _hModule, lpmodinfo, cb) {
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetModuleInformation", HANDLE, hProcess, HMODULE, _hModule, MODULEINFO.Ptr, lpmodinfo, "uint", cb, BOOL)
+    result := DllCall("PSAPI.dll\GetModuleInformation", HANDLE, hProcess, HMODULE, _hModule, MODULEINFO.Ptr, lpmodinfo, UInt32, cb, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -594,7 +596,7 @@ export InitializeProcessForWsWatch(hProcess) {
 export GetWsChanges(hProcess, lpWatchInfo, cb) {
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetWsChanges", HANDLE, hProcess, "ptr", lpWatchInfo, "uint", cb, BOOL)
+    result := DllCall("PSAPI.dll\GetWsChanges", HANDLE, hProcess, IntPtr, lpWatchInfo, UInt32, cb, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -647,7 +649,7 @@ export GetWsChangesEx(hProcess, lpWatchInfoEx, cb) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetWsChangesEx", HANDLE, hProcess, "ptr", lpWatchInfoEx, cbMarshal, cb, BOOL)
+    result := DllCall("PSAPI.dll\GetWsChangesEx", HANDLE, hProcess, IntPtr, lpWatchInfoEx, cbMarshal, cb, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -751,7 +753,7 @@ export GetMappedFileNameW(hProcess, lpv, lpFilename, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetMappedFileNameW", HANDLE, hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetMappedFileNameW", HANDLE, hProcess, lpvMarshal, lpv, "ptr", lpFilename, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -855,7 +857,7 @@ export GetMappedFileNameA(hProcess, lpv, lpFilename, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetMappedFileNameA", HANDLE, hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetMappedFileNameA", HANDLE, hProcess, lpvMarshal, lpv, "ptr", lpFilename, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -889,7 +891,7 @@ export EnumDeviceDrivers(lpImageBase, cb, lpcbNeeded) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
+    result := DllCall("PSAPI.dll\EnumDeviceDrivers", IntPtr, lpImageBase, UInt32, cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -924,7 +926,7 @@ export GetDeviceDriverBaseNameA(ImageBase, lpFilename, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -959,7 +961,7 @@ export GetDeviceDriverBaseNameW(ImageBase, lpBaseName, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameW", ImageBaseMarshal, ImageBase, "ptr", lpBaseName, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetDeviceDriverBaseNameW", ImageBaseMarshal, ImageBase, "ptr", lpBaseName, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -999,7 +1001,7 @@ export GetDeviceDriverFileNameA(ImageBase, lpFilename, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetDeviceDriverFileNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetDeviceDriverFileNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1039,7 +1041,7 @@ export GetDeviceDriverFileNameW(ImageBase, lpFilename, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetDeviceDriverFileNameW", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetDeviceDriverFileNameW", ImageBaseMarshal, ImageBase, "ptr", lpFilename, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1090,7 +1092,7 @@ export GetDeviceDriverFileNameW(ImageBase, lpFilename, nSize) {
 export QueryWorkingSet(hProcess, pv, cb) {
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\QueryWorkingSet", HANDLE, hProcess, "ptr", pv, "uint", cb, BOOL)
+    result := DllCall("PSAPI.dll\QueryWorkingSet", HANDLE, hProcess, IntPtr, pv, UInt32, cb, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1120,7 +1122,7 @@ export QueryWorkingSet(hProcess, pv, cb) {
 export QueryWorkingSetEx(hProcess, pv, cb) {
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\QueryWorkingSetEx", HANDLE, hProcess, "ptr", pv, "uint", cb, BOOL)
+    result := DllCall("PSAPI.dll\QueryWorkingSetEx", HANDLE, hProcess, IntPtr, pv, UInt32, cb, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1164,7 +1166,7 @@ export QueryWorkingSetEx(hProcess, pv, cb) {
 export GetProcessMemoryInfo(Process, ppsmemCounters, cb) {
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetProcessMemoryInfo", HANDLE, Process, "ptr", ppsmemCounters, "uint", cb, BOOL)
+    result := DllCall("PSAPI.dll\GetProcessMemoryInfo", HANDLE, Process, IntPtr, ppsmemCounters, UInt32, cb, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1204,7 +1206,7 @@ export GetProcessMemoryInfo(Process, ppsmemCounters, cb) {
 export GetPerformanceInfo(pPerformanceInformation, cb) {
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetPerformanceInfo", PERFORMANCE_INFORMATION.Ptr, pPerformanceInformation, "uint", cb, BOOL)
+    result := DllCall("PSAPI.dll\GetPerformanceInfo", PERFORMANCE_INFORMATION.Ptr, pPerformanceInformation, UInt32, cb, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1252,7 +1254,7 @@ export EnumPageFilesW(pCallBackRoutine, pContext) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumPageFilesW", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("PSAPI.dll\EnumPageFilesW", PENUM_PAGE_FILE_CALLBACKW, pCallBackRoutine, pContextMarshal, pContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1300,7 +1302,7 @@ export EnumPageFilesA(pCallBackRoutine, pContext) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\EnumPageFilesA", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("PSAPI.dll\EnumPageFilesA", PENUM_PAGE_FILE_CALLBACKA, pCallBackRoutine, pContextMarshal, pContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1363,7 +1365,7 @@ export GetProcessImageFileNameA(hProcess, lpImageFileName, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetProcessImageFileNameA", HANDLE, hProcess, "ptr", lpImageFileName, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetProcessImageFileNameA", HANDLE, hProcess, "ptr", lpImageFileName, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1426,7 +1428,7 @@ export GetProcessImageFileNameW(hProcess, lpImageFileName, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("PSAPI.dll\GetProcessImageFileNameW", HANDLE, hProcess, "ptr", lpImageFileName, "uint", nSize, UInt32)
+    result := DllCall("PSAPI.dll\GetProcessImageFileNameW", HANDLE, hProcess, "ptr", lpImageFileName, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1461,7 +1463,7 @@ export GetProcessImageFileNameW(hProcess, lpImageFileName, nSize) {
 export K32EnumProcesses(lpidProcess, cb, lpcbNeeded) {
     lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumProcesses", "ptr", lpidProcess, "uint", cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumProcesses", IntPtr, lpidProcess, UInt32, cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
     return result
 }
 
@@ -1533,7 +1535,7 @@ export K32EnumProcesses(lpidProcess, cb, lpcbNeeded) {
 export K32EnumProcessModules(hProcess, lphModule, cb, lpcbNeeded) {
     lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumProcessModules", HANDLE, hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumProcessModules", HANDLE, hProcess, IntPtr, lphModule, UInt32, cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
     return result
 }
 
@@ -1576,7 +1578,7 @@ export K32EnumProcessModules(hProcess, lphModule, cb, lpcbNeeded) {
 export K32EnumProcessModulesEx(hProcess, lphModule, cb, lpcbNeeded, dwFilterFlag) {
     lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumProcessModulesEx", HANDLE, hProcess, "ptr", lphModule, "uint", cb, lpcbNeededMarshal, lpcbNeeded, "uint", dwFilterFlag, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumProcessModulesEx", HANDLE, hProcess, IntPtr, lphModule, UInt32, cb, lpcbNeededMarshal, lpcbNeeded, UInt32, dwFilterFlag, BOOL)
     return result
 }
 
@@ -1627,7 +1629,7 @@ export K32EnumProcessModulesEx(hProcess, lphModule, cb, lpcbNeeded, dwFilterFlag
 export K32GetModuleBaseNameA(hProcess, _hModule, lpBaseName, nSize) {
     lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-    result := DllCall("KERNEL32.dll\K32GetModuleBaseNameA", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpBaseName, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetModuleBaseNameA", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpBaseName, UInt32, nSize, UInt32)
     return result
 }
 
@@ -1678,7 +1680,7 @@ export K32GetModuleBaseNameA(hProcess, _hModule, lpBaseName, nSize) {
 export K32GetModuleBaseNameW(hProcess, _hModule, lpBaseName, nSize) {
     lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-    result := DllCall("KERNEL32.dll\K32GetModuleBaseNameW", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpBaseName, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetModuleBaseNameW", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpBaseName, UInt32, nSize, UInt32)
     return result
 }
 
@@ -1726,7 +1728,7 @@ export K32GetModuleBaseNameW(hProcess, _hModule, lpBaseName, nSize) {
 export K32GetModuleFileNameExA(hProcess, _hModule, lpFilename, nSize) {
     lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-    result := DllCall("KERNEL32.dll\K32GetModuleFileNameExA", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetModuleFileNameExA", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpFilename, UInt32, nSize, UInt32)
     return result
 }
 
@@ -1774,7 +1776,7 @@ export K32GetModuleFileNameExA(hProcess, _hModule, lpFilename, nSize) {
 export K32GetModuleFileNameExW(hProcess, _hModule, lpFilename, nSize) {
     lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-    result := DllCall("KERNEL32.dll\K32GetModuleFileNameExW", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetModuleFileNameExW", HANDLE, hProcess, HMODULE, _hModule, "ptr", lpFilename, UInt32, nSize, UInt32)
     return result
 }
 
@@ -1816,7 +1818,7 @@ export K32GetModuleFileNameExW(hProcess, _hModule, lpFilename, nSize) {
  * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmoduleinformation
  */
 export K32GetModuleInformation(hProcess, _hModule, lpmodinfo, cb) {
-    result := DllCall("KERNEL32.dll\K32GetModuleInformation", HANDLE, hProcess, HMODULE, _hModule, MODULEINFO.Ptr, lpmodinfo, "uint", cb, BOOL)
+    result := DllCall("KERNEL32.dll\K32GetModuleInformation", HANDLE, hProcess, HMODULE, _hModule, MODULEINFO.Ptr, lpmodinfo, UInt32, cb, BOOL)
     return result
 }
 
@@ -1941,7 +1943,7 @@ export K32InitializeProcessForWsWatch(hProcess) {
  * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getwschanges
  */
 export K32GetWsChanges(hProcess, lpWatchInfo, cb) {
-    result := DllCall("KERNEL32.dll\K32GetWsChanges", HANDLE, hProcess, "ptr", lpWatchInfo, "uint", cb, BOOL)
+    result := DllCall("KERNEL32.dll\K32GetWsChanges", HANDLE, hProcess, IntPtr, lpWatchInfo, UInt32, cb, BOOL)
     return result
 }
 
@@ -1987,7 +1989,7 @@ export K32GetWsChanges(hProcess, lpWatchInfo, cb) {
 export K32GetWsChangesEx(hProcess, lpWatchInfoEx, cb) {
     cbMarshal := cb is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32GetWsChangesEx", HANDLE, hProcess, "ptr", lpWatchInfoEx, cbMarshal, cb, BOOL)
+    result := DllCall("KERNEL32.dll\K32GetWsChangesEx", HANDLE, hProcess, IntPtr, lpWatchInfoEx, cbMarshal, cb, BOOL)
     return result
 }
 
@@ -2084,7 +2086,7 @@ export K32GetMappedFileNameW(hProcess, lpv, lpFilename, nSize) {
 
     lpvMarshal := lpv is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32GetMappedFileNameW", HANDLE, hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetMappedFileNameW", HANDLE, hProcess, lpvMarshal, lpv, "ptr", lpFilename, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2181,7 +2183,7 @@ export K32GetMappedFileNameA(hProcess, lpv, lpFilename, nSize) {
 
     lpvMarshal := lpv is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32GetMappedFileNameA", HANDLE, hProcess, lpvMarshal, lpv, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetMappedFileNameA", HANDLE, hProcess, lpvMarshal, lpv, "ptr", lpFilename, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2208,7 +2210,7 @@ export K32GetMappedFileNameA(hProcess, lpv, lpFilename, nSize) {
 export K32EnumDeviceDrivers(lpImageBase, cb, lpcbNeeded) {
     lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumDeviceDrivers", IntPtr, lpImageBase, UInt32, cb, lpcbNeededMarshal, lpcbNeeded, BOOL)
     return result
 }
 
@@ -2236,7 +2238,7 @@ export K32GetDeviceDriverBaseNameA(ImageBase, lpFilename, nSize) {
 
     ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32GetDeviceDriverBaseNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetDeviceDriverBaseNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2264,7 +2266,7 @@ export K32GetDeviceDriverBaseNameW(ImageBase, lpBaseName, nSize) {
 
     ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32GetDeviceDriverBaseNameW", ImageBaseMarshal, ImageBase, "ptr", lpBaseName, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetDeviceDriverBaseNameW", ImageBaseMarshal, ImageBase, "ptr", lpBaseName, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2297,7 +2299,7 @@ export K32GetDeviceDriverFileNameA(ImageBase, lpFilename, nSize) {
 
     ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32GetDeviceDriverFileNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetDeviceDriverFileNameA", ImageBaseMarshal, ImageBase, "ptr", lpFilename, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2330,7 +2332,7 @@ export K32GetDeviceDriverFileNameW(ImageBase, lpFilename, nSize) {
 
     ImageBaseMarshal := ImageBase is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32GetDeviceDriverFileNameW", ImageBaseMarshal, ImageBase, "ptr", lpFilename, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetDeviceDriverFileNameW", ImageBaseMarshal, ImageBase, "ptr", lpFilename, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2374,7 +2376,7 @@ export K32GetDeviceDriverFileNameW(ImageBase, lpFilename, nSize) {
  * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-queryworkingset
  */
 export K32QueryWorkingSet(hProcess, pv, cb) {
-    result := DllCall("KERNEL32.dll\K32QueryWorkingSet", HANDLE, hProcess, "ptr", pv, "uint", cb, BOOL)
+    result := DllCall("KERNEL32.dll\K32QueryWorkingSet", HANDLE, hProcess, IntPtr, pv, UInt32, cb, BOOL)
     return result
 }
 
@@ -2397,7 +2399,7 @@ export K32QueryWorkingSet(hProcess, pv, cb) {
  * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-queryworkingsetex
  */
 export K32QueryWorkingSetEx(hProcess, pv, cb) {
-    result := DllCall("KERNEL32.dll\K32QueryWorkingSetEx", HANDLE, hProcess, "ptr", pv, "uint", cb, BOOL)
+    result := DllCall("KERNEL32.dll\K32QueryWorkingSetEx", HANDLE, hProcess, IntPtr, pv, UInt32, cb, BOOL)
     return result
 }
 
@@ -2434,7 +2436,7 @@ export K32QueryWorkingSetEx(hProcess, pv, cb) {
  * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getprocessmemoryinfo
  */
 export K32GetProcessMemoryInfo(Process, ppsmemCounters, cb) {
-    result := DllCall("KERNEL32.dll\K32GetProcessMemoryInfo", HANDLE, Process, "ptr", ppsmemCounters, "uint", cb, BOOL)
+    result := DllCall("KERNEL32.dll\K32GetProcessMemoryInfo", HANDLE, Process, IntPtr, ppsmemCounters, UInt32, cb, BOOL)
     return result
 }
 
@@ -2467,7 +2469,7 @@ export K32GetProcessMemoryInfo(Process, ppsmemCounters, cb) {
  * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo
  */
 export K32GetPerformanceInfo(pPerformanceInformation, cb) {
-    result := DllCall("KERNEL32.dll\K32GetPerformanceInfo", PERFORMANCE_INFORMATION.Ptr, pPerformanceInformation, "uint", cb, BOOL)
+    result := DllCall("KERNEL32.dll\K32GetPerformanceInfo", PERFORMANCE_INFORMATION.Ptr, pPerformanceInformation, UInt32, cb, BOOL)
     return result
 }
 
@@ -2508,7 +2510,7 @@ export K32GetPerformanceInfo(pPerformanceInformation, cb) {
 export K32EnumPageFilesW(pCallBackRoutine, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumPageFilesW", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumPageFilesW", PENUM_PAGE_FILE_CALLBACKW, pCallBackRoutine, pContextMarshal, pContext, BOOL)
     return result
 }
 
@@ -2549,7 +2551,7 @@ export K32EnumPageFilesW(pCallBackRoutine, pContext) {
 export K32EnumPageFilesA(pCallBackRoutine, pContext) {
     pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\K32EnumPageFilesA", "ptr", pCallBackRoutine, pContextMarshal, pContext, BOOL)
+    result := DllCall("KERNEL32.dll\K32EnumPageFilesA", PENUM_PAGE_FILE_CALLBACKA, pCallBackRoutine, pContextMarshal, pContext, BOOL)
     return result
 }
 
@@ -2563,7 +2565,7 @@ export K32EnumPageFilesA(pCallBackRoutine, pContext) {
 export K32GetProcessImageFileNameA(hProcess, lpImageFileName, nSize) {
     lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
 
-    result := DllCall("KERNEL32.dll\K32GetProcessImageFileNameA", HANDLE, hProcess, "ptr", lpImageFileName, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetProcessImageFileNameA", HANDLE, hProcess, "ptr", lpImageFileName, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2577,7 +2579,7 @@ export K32GetProcessImageFileNameA(hProcess, lpImageFileName, nSize) {
 export K32GetProcessImageFileNameW(hProcess, lpImageFileName, nSize) {
     lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
 
-    result := DllCall("KERNEL32.dll\K32GetProcessImageFileNameW", HANDLE, hProcess, "ptr", lpImageFileName, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\K32GetProcessImageFileNameW", HANDLE, hProcess, "ptr", lpImageFileName, UInt32, nSize, UInt32)
     return result
 }
 

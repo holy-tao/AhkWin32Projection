@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
 #Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
 #Import ".\IWMDMOperation.ahk" { IWMDMOperation }
 
 /**
@@ -65,7 +65,7 @@ export default struct IMDSPDirectTransfer extends IUnknown {
         pwszSourceFilePath := pwszSourceFilePath is String ? StrPtr(pwszSourceFilePath) : pwszSourceFilePath
         pwszDestinationName := pwszDestinationName is String ? StrPtr(pwszDestinationName) : pwszDestinationName
 
-        result := ComCall(3, this, "ptr", pwszSourceFilePath, "ptr", pSourceOperation, "uint", fuFlags, "ptr", pwszDestinationName, "ptr", pSourceMetaData, "ptr", pTransferProgress, "ptr*", &ppNewObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszSourceFilePath, "ptr", pSourceOperation, UInt32, fuFlags, "ptr", pwszDestinationName, "ptr", pSourceMetaData, "ptr", pTransferProgress, "ptr*", &ppNewObject := 0, "HRESULT")
         return IMDSPStorage(ppNewObject)
     }
 

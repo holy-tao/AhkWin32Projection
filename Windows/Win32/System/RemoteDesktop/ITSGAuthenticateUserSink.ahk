@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 
 /**
@@ -59,7 +59,7 @@ export default struct ITSGAuthenticateUserSink extends IUnknown {
         userName := userName is String ? BSTR.Alloc(userName).Value : userName
         userDomain := userDomain is String ? BSTR.Alloc(userDomain).Value : userDomain
 
-        result := ComCall(3, this, BSTR, userName, BSTR, userDomain, "ptr", _context, HANDLE_PTR, userToken, "HRESULT")
+        result := ComCall(3, this, BSTR, userName, BSTR, userDomain, IntPtr, _context, HANDLE_PTR, userToken, "HRESULT")
         return result
     }
 
@@ -79,7 +79,7 @@ export default struct ITSGAuthenticateUserSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-onuserauthenticationfailed
      */
     OnUserAuthenticationFailed(_context, genericErrorCode, specificErrorCode) {
-        result := ComCall(4, this, "ptr", _context, "int", genericErrorCode, "int", specificErrorCode, "HRESULT")
+        result := ComCall(4, this, IntPtr, _context, "int", genericErrorCode, "int", specificErrorCode, "HRESULT")
         return result
     }
 
@@ -100,7 +100,7 @@ export default struct ITSGAuthenticateUserSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-reauthenticateuser
      */
     ReauthenticateUser(_context) {
-        result := ComCall(5, this, "ptr", _context, "HRESULT")
+        result := ComCall(5, this, IntPtr, _context, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct ITSGAuthenticateUserSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticateusersink-disconnectuser
      */
     DisconnectUser(_context) {
-        result := ComCall(6, this, "ptr", _context, "HRESULT")
+        result := ComCall(6, this, IntPtr, _context, "HRESULT")
         return result
     }
 

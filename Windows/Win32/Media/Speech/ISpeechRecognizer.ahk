@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
-#Import ".\SpeechFormatType.ahk" { SpeechFormatType }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ISpeechObjectTokens.ahk" { ISpeechObjectTokens }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\ISpeechRecognizerStatus.ahk" { ISpeechRecognizerStatus }
 #Import ".\ISpeechObjectToken.ahk" { ISpeechObjectToken }
-#Import ".\SpeechRecognizerState.ahk" { SpeechRecognizerState }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
 #Import ".\ISpeechRecoContext.ahk" { ISpeechRecoContext }
+#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISpeechBaseStream.ahk" { ISpeechBaseStream }
+#Import ".\SpeechRecognizerState.ahk" { SpeechRecognizerState }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISpeechObjectTokens.ahk" { ISpeechObjectTokens }
+#Import ".\SpeechFormatType.ahk" { SpeechFormatType }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -269,7 +269,7 @@ export default struct ISpeechRecognizer extends IDispatch {
      * @returns {HRESULT} 
      */
     EmulateRecognition(TextElements, ElementDisplayAttributes, LanguageId) {
-        result := ComCall(21, this, VARIANT, TextElements, VARIANT.Ptr, ElementDisplayAttributes, "int", LanguageId, "HRESULT")
+        result := ComCall(21, this, VARIANT, TextElements, VARIANT.Ptr, ElementDisplayAttributes, Int32, LanguageId, "HRESULT")
         return result
     }
 
@@ -301,7 +301,7 @@ export default struct ISpeechRecognizer extends IDispatch {
     SetPropertyNumber(Name, Value) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(24, this, BSTR, Name, "int", Value, VARIANT_BOOL.Ptr, &Supported := 0, "HRESULT")
+        result := ComCall(24, this, BSTR, Name, Int32, Value, VARIANT_BOOL.Ptr, &Supported := 0, "HRESULT")
         return Supported
     }
 
@@ -372,7 +372,7 @@ export default struct ISpeechRecognizer extends IDispatch {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(29, this, "int", hWndParent, BSTR, Title, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, "HRESULT")
+        result := ComCall(29, this, Int32, hWndParent, BSTR, Title, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, "HRESULT")
         return result
     }
 

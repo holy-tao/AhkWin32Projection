@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
-#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\DXGI_SWAP_EFFECT.ahk" { DXGI_SWAP_EFFECT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "Common\DXGI_SAMPLE_DESC.ahk" { DXGI_SAMPLE_DESC }
-#Import "Common\DXGI_MODE_SCALING.ahk" { DXGI_MODE_SCALING }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
 #Import "Common\DXGI_MODE_DESC.ahk" { DXGI_MODE_DESC }
+#Import "Common\DXGI_SAMPLE_DESC.ahk" { DXGI_SAMPLE_DESC }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import "Common\DXGI_MODE_SCALING.ahk" { DXGI_MODE_SCALING }
+#Import ".\DXGI_USAGE.ahk" { DXGI_USAGE }
 #Import "Common\DXGI_MODE_SCANLINE_ORDER.ahk" { DXGI_MODE_SCANLINE_ORDER }
+#Import ".\DXGI_SWAP_EFFECT.ahk" { DXGI_SWAP_EFFECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Describes a swap chain. (DXGI_SWAP_CHAIN_DESC)

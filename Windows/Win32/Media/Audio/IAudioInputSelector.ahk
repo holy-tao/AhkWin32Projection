@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAudioInputSelector interface provides access to a hardware multiplexer control (input selector).
@@ -91,7 +91,7 @@ export default struct IAudioInputSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudioinputselector-setselection
      */
     SetSelection(nIdSelect, pguidEventContext) {
-        result := ComCall(4, this, "uint", nIdSelect, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(4, this, UInt32, nIdSelect, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
     }
 

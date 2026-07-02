@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Gets the capabilities of a device's auxiliary input connectors. This interface provides access to a device's Aux Service.
@@ -96,7 +96,7 @@ export default struct IBDA_AUX extends IUnknown {
         NumVideoStdsMarshal := NumVideoStds is VarRef ? "uint*" : "ptr"
         AnalogStdsMarshal := AnalogStds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwIndex, dwInputIDMarshal, dwInputID, Guid.Ptr, pConnectorType, ConnTypeNumMarshal, ConnTypeNum, NumVideoStdsMarshal, NumVideoStds, AnalogStdsMarshal, AnalogStds, "HRESULT")
+        result := ComCall(4, this, UInt32, dwIndex, dwInputIDMarshal, dwInputID, Guid.Ptr, pConnectorType, ConnTypeNumMarshal, ConnTypeNum, NumVideoStdsMarshal, NumVideoStds, AnalogStdsMarshal, AnalogStds, "HRESULT")
         return result
     }
 

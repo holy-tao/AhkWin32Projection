@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BOID.ahk" { BOID }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\BOID.ahk" { BOID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -49,7 +49,7 @@ export default struct ITransactionResourceAsync extends IUnknown {
      * @returns {HRESULT} 
      */
     PrepareRequest(fRetaining, grfRM, fWantMoniker, fSinglePhase) {
-        result := ComCall(3, this, BOOL, fRetaining, "uint", grfRM, BOOL, fWantMoniker, BOOL, fSinglePhase, "HRESULT")
+        result := ComCall(3, this, BOOL, fRetaining, UInt32, grfRM, BOOL, fWantMoniker, BOOL, fSinglePhase, "HRESULT")
         return result
     }
 
@@ -60,7 +60,7 @@ export default struct ITransactionResourceAsync extends IUnknown {
      * @returns {HRESULT} 
      */
     CommitRequest(grfRM, pNewUOW) {
-        result := ComCall(4, this, "uint", grfRM, BOID.Ptr, pNewUOW, "HRESULT")
+        result := ComCall(4, this, UInt32, grfRM, BOID.Ptr, pNewUOW, "HRESULT")
         return result
     }
 

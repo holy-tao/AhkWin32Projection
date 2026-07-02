@@ -114,7 +114,7 @@ export default struct IADsPrintJobOperations extends IADs {
      * @returns {HRESULT} 
      */
     put_Position(lnPosition) {
-        result := ComCall(24, this, "int", lnPosition, "HRESULT")
+        result := ComCall(24, this, Int32, lnPosition, "HRESULT")
         return result
     }
 

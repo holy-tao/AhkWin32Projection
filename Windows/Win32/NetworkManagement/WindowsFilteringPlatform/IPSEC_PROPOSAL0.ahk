@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IPSEC_SA_LIFETIME0.ahk" { IPSEC_SA_LIFETIME0 }
 #Import ".\IPSEC_PFS_GROUP.ahk" { IPSEC_PFS_GROUP }
+#Import ".\IPSEC_SA_LIFETIME0.ahk" { IPSEC_SA_LIFETIME0 }
 #Import ".\IPSEC_SA_TRANSFORM0.ahk" { IPSEC_SA_TRANSFORM0 }
 
 /**

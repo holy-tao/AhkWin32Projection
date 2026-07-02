@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DATE_TIME.ahk" { DATE_TIME }
-#Import ".\QuarantineStatus.ahk" { QuarantineStatus }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\DHCP_HOST_INFO.ahk" { DHCP_HOST_INFO }
 #Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DATE_TIME.ahk" { DATE_TIME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DHCP_HOST_INFO.ahk" { DHCP_HOST_INFO }
+#Import ".\QuarantineStatus.ahk" { QuarantineStatus }
 
 /**
  * The DHCP_CLIENT_INFO_PB structure defines information about a DHCPv4 client, including filter status information and any policies that resulted in the IPv4 address assignment.

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -293,7 +293,7 @@ export default struct IHTMLInputRangeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_valueAsNumber(v) {
-        result := ComCall(22, this, "double", v, "HRESULT")
+        result := ComCall(22, this, Float64, v, "HRESULT")
         return result
     }
 
@@ -312,7 +312,7 @@ export default struct IHTMLInputRangeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     stepUp(n) {
-        result := ComCall(24, this, "int", n, "HRESULT")
+        result := ComCall(24, this, Int32, n, "HRESULT")
         return result
     }
 
@@ -322,7 +322,7 @@ export default struct IHTMLInputRangeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     stepDown(n) {
-        result := ComCall(25, this, "int", n, "HRESULT")
+        result := ComCall(25, this, Int32, n, "HRESULT")
         return result
     }
 

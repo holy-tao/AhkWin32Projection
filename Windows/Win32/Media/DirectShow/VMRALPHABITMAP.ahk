@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\NORMALIZEDRECT.ahk" { NORMALIZEDRECT }
-#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
-#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import ".\NORMALIZEDRECT.ahk" { NORMALIZEDRECT }
 
 /**
  * The VMRALPHABITMAP structure is used in the VMR-7 filter's IVMRMixerBitmap methods when the application is providing a static alpha-blended bitmap to be displayed on the composited video frame.

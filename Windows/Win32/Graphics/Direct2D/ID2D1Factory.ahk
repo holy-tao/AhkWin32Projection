@@ -1,32 +1,32 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
-#Import ".\D2D1_ROUNDED_RECT.ahk" { D2D1_ROUNDED_RECT }
-#Import ".\ID2D1GeometryGroup.ahk" { ID2D1GeometryGroup }
-#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
-#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
-#Import ".\D2D1_ELLIPSE.ahk" { D2D1_ELLIPSE }
-#Import ".\ID2D1DCRenderTarget.ahk" { ID2D1DCRenderTarget }
-#Import ".\D2D1_HWND_RENDER_TARGET_PROPERTIES.ahk" { D2D1_HWND_RENDER_TARGET_PROPERTIES }
-#Import ".\D2D1_RENDER_TARGET_PROPERTIES.ahk" { D2D1_RENDER_TARGET_PROPERTIES }
-#Import ".\ID2D1DrawingStateBlock.ahk" { ID2D1DrawingStateBlock }
-#Import "..\Imaging\IWICBitmap.ahk" { IWICBitmap }
 #Import ".\ID2D1TransformedGeometry.ahk" { ID2D1TransformedGeometry }
-#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
-#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
-#Import ".\D2D1_STROKE_STYLE_PROPERTIES.ahk" { D2D1_STROKE_STYLE_PROPERTIES }
-#Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
-#Import ".\D2D1_DRAWING_STATE_DESCRIPTION.ahk" { D2D1_DRAWING_STATE_DESCRIPTION }
-#Import ".\ID2D1RoundedRectangleGeometry.ahk" { ID2D1RoundedRectangleGeometry }
-#Import ".\ID2D1HwndRenderTarget.ahk" { ID2D1HwndRenderTarget }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ID2D1RectangleGeometry.ahk" { ID2D1RectangleGeometry }
-#Import ".\ID2D1PathGeometry.ahk" { ID2D1PathGeometry }
 #Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\D2D1_HWND_RENDER_TARGET_PROPERTIES.ahk" { D2D1_HWND_RENDER_TARGET_PROPERTIES }
+#Import ".\ID2D1HwndRenderTarget.ahk" { ID2D1HwndRenderTarget }
+#Import ".\ID2D1DCRenderTarget.ahk" { ID2D1DCRenderTarget }
+#Import ".\D2D1_ELLIPSE.ahk" { D2D1_ELLIPSE }
 #Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
+#Import "Common\D2D1_FILL_MODE.ahk" { D2D1_FILL_MODE }
+#Import ".\D2D1_STROKE_STYLE_PROPERTIES.ahk" { D2D1_STROKE_STYLE_PROPERTIES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_DRAWING_STATE_DESCRIPTION.ahk" { D2D1_DRAWING_STATE_DESCRIPTION }
+#Import ".\ID2D1GeometryGroup.ahk" { ID2D1GeometryGroup }
 #Import ".\ID2D1EllipseGeometry.ahk" { ID2D1EllipseGeometry }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\ID2D1RoundedRectangleGeometry.ahk" { ID2D1RoundedRectangleGeometry }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import "..\Imaging\IWICBitmap.ahk" { IWICBitmap }
+#Import ".\ID2D1RectangleGeometry.ahk" { ID2D1RectangleGeometry }
+#Import ".\ID2D1DrawingStateBlock.ahk" { ID2D1DrawingStateBlock }
+#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
+#Import ".\D2D1_RENDER_TARGET_PROPERTIES.ahk" { D2D1_RENDER_TARGET_PROPERTIES }
+#Import ".\ID2D1PathGeometry.ahk" { ID2D1PathGeometry }
+#Import ".\D2D1_ROUNDED_RECT.ahk" { D2D1_ROUNDED_RECT }
 
 /**
  * Creates Direct2D resources. (ID2D1Factory)
@@ -186,7 +186,7 @@ export default struct ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-creategeometrygroup
      */
     CreateGeometryGroup(_fillMode, geometries, geometriesCount) {
-        result := ComCall(8, this, D2D1_FILL_MODE, _fillMode, ID2D1Geometry.Ptr, geometries, "uint", geometriesCount, "ptr*", &geometryGroup := 0, "HRESULT")
+        result := ComCall(8, this, D2D1_FILL_MODE, _fillMode, ID2D1Geometry.Ptr, geometries, UInt32, geometriesCount, "ptr*", &geometryGroup := 0, "HRESULT")
         return ID2D1GeometryGroup(geometryGroup)
     }
 
@@ -229,7 +229,7 @@ export default struct ID2D1Factory extends IUnknown {
     CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(11, this, D2D1_STROKE_STYLE_PROPERTIES.Ptr, strokeStyleProperties, dashesMarshal, dashes, "uint", dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
+        result := ComCall(11, this, D2D1_STROKE_STYLE_PROPERTIES.Ptr, strokeStyleProperties, dashesMarshal, dashes, UInt32, dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
         return ID2D1StrokeStyle(strokeStyle)
     }
 

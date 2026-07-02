@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IToolbar.ahk" { IToolbar }
-#Import ".\IHeaderCtrl.ahk" { IHeaderCtrl }
-#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
-#Import ".\IConsoleVerb.ahk" { IConsoleVerb }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IImageList.ahk" { IImageList }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHeaderCtrl.ahk" { IHeaderCtrl }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IConsoleVerb.ahk" { IConsoleVerb }
+#Import ".\IImageList.ahk" { IImageList }
+#Import ".\IToolbar.ahk" { IToolbar }
 
 /**
  * Enables communication with the console.
@@ -139,7 +139,7 @@ export default struct IConsole extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole-updateallviews
      */
     UpdateAllViews(lpDataObject, data, hint) {
-        result := ComCall(8, this, "ptr", lpDataObject, LPARAM, data, "ptr", hint, "HRESULT")
+        result := ComCall(8, this, "ptr", lpDataObject, LPARAM, data, IntPtr, hint, "HRESULT")
         return result
     }
 
@@ -165,7 +165,7 @@ export default struct IConsole extends IUnknown {
         lpszText := lpszText is String ? StrPtr(lpszText) : lpszText
         lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
-        result := ComCall(9, this, "ptr", lpszText, "ptr", lpszTitle, "uint", fuStyle, "int*", &piRetval := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", lpszText, "ptr", lpszTitle, UInt32, fuStyle, "int*", &piRetval := 0, "HRESULT")
         return piRetval
     }
 
@@ -201,7 +201,7 @@ export default struct IConsole extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole-selectscopeitem
      */
     SelectScopeItem(hScopeItem) {
-        result := ComCall(11, this, "ptr", hScopeItem, "HRESULT")
+        result := ComCall(11, this, IntPtr, hScopeItem, "HRESULT")
         return result
     }
 
@@ -224,7 +224,7 @@ export default struct IConsole extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsole-newwindow
      */
     NewWindow(hScopeItem, lOptions) {
-        result := ComCall(13, this, "ptr", hScopeItem, "uint", lOptions, "HRESULT")
+        result := ComCall(13, this, IntPtr, hScopeItem, UInt32, lOptions, "HRESULT")
         return result
     }
 

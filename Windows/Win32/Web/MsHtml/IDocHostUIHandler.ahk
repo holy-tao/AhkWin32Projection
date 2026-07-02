@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Ole\IOleInPlaceActiveObject.ahk" { IOleInPlaceActiveObject }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
-#Import "..\..\System\Ole\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
-#Import "..\..\System\Ole\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
-#Import ".\DOCHOSTUIINFO.ahk" { DOCHOSTUIINFO }
-#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
 #Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\System\Ole\IOleCommandTarget.ahk" { IOleCommandTarget }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Ole\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
+#Import "..\..\System\Ole\IOleInPlaceActiveObject.ahk" { IOleInPlaceActiveObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DOCHOSTUIINFO.ahk" { DOCHOSTUIINFO }
+#Import "..\..\System\Ole\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
+#Import "..\..\System\Ole\IOleCommandTarget.ahk" { IOleCommandTarget }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -71,7 +71,7 @@ export default struct IDocHostUIHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     ShowContextMenu(dwID, ppt, pcmdtReserved, pdispReserved) {
-        result := ComCall(3, this, "uint", dwID, POINT.Ptr, ppt, "ptr", pcmdtReserved, "ptr", pdispReserved, "HRESULT")
+        result := ComCall(3, this, UInt32, dwID, POINT.Ptr, ppt, "ptr", pcmdtReserved, "ptr", pdispReserved, "HRESULT")
         return result
     }
 
@@ -95,7 +95,7 @@ export default struct IDocHostUIHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     ShowUI(dwID, pActiveObject, pCommandTarget, pFrame, pDoc) {
-        result := ComCall(5, this, "uint", dwID, "ptr", pActiveObject, "ptr", pCommandTarget, "ptr", pFrame, "ptr", pDoc, "HRESULT")
+        result := ComCall(5, this, UInt32, dwID, "ptr", pActiveObject, "ptr", pCommandTarget, "ptr", pFrame, "ptr", pDoc, "HRESULT")
         return result
     }
 
@@ -198,7 +198,7 @@ export default struct IDocHostUIHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-translateacceleratora
      */
     TranslateAccelerator(lpMsg, pguidCmdGroup, nCmdID) {
-        result := ComCall(12, this, MSG.Ptr, lpMsg, Guid.Ptr, pguidCmdGroup, "uint", nCmdID, "HRESULT")
+        result := ComCall(12, this, MSG.Ptr, lpMsg, Guid.Ptr, pguidCmdGroup, UInt32, nCmdID, "HRESULT")
         return result
     }
 
@@ -208,7 +208,7 @@ export default struct IDocHostUIHandler extends IUnknown {
      * @returns {PWSTR} 
      */
     GetOptionKeyPath(dw) {
-        result := ComCall(13, this, PWSTR.Ptr, &pchKey := 0, "uint", dw, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &pchKey := 0, UInt32, dw, "HRESULT")
         return pchKey
     }
 
@@ -240,7 +240,7 @@ export default struct IDocHostUIHandler extends IUnknown {
     TranslateUrl(dwTranslate, pchURLIn) {
         pchURLIn := pchURLIn is String ? StrPtr(pchURLIn) : pchURLIn
 
-        result := ComCall(16, this, "uint", dwTranslate, "ptr", pchURLIn, PWSTR.Ptr, &ppchURLOut := 0, "HRESULT")
+        result := ComCall(16, this, UInt32, dwTranslate, "ptr", pchURLIn, PWSTR.Ptr, &ppchURLOut := 0, "HRESULT")
         return ppchURLOut
     }
 

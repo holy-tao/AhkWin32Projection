@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\GLOBALOPT_PROPERTIES.ahk" { GLOBALOPT_PROPERTIES }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IGlobalOptions (objidlbase.h) interface sets and queries global properties of the Component Object Model (COM) runtime.
@@ -193,7 +193,7 @@ export default struct IGlobalOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobaloptions-set
      */
     Set(dwProperty, dwValue) {
-        result := ComCall(3, this, GLOBALOPT_PROPERTIES, dwProperty, "ptr", dwValue, "HRESULT")
+        result := ComCall(3, this, GLOBALOPT_PROPERTIES, dwProperty, IntPtr, dwValue, "HRESULT")
         return result
     }
 

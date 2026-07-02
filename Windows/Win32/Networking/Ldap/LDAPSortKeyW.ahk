@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The LDAPSortKey structure stores sorting criteria for use by sort controls. (Unicode)

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Gets an MPEG-2 program specific information (PSI) table from an MPEG-2 transport stream.
@@ -47,7 +47,7 @@ export default struct IPSITables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipsitables-gettable
      */
     GetTable(dwTSID, dwTID_PID, dwHashedVer, dwPara4) {
-        result := ComCall(3, this, "uint", dwTSID, "uint", dwTID_PID, "uint", dwHashedVer, "uint", dwPara4, "ptr*", &ppIUnknown := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwTSID, UInt32, dwTID_PID, UInt32, dwHashedVer, UInt32, dwPara4, "ptr*", &ppIUnknown := 0, "HRESULT")
         return IUnknown(ppIUnknown)
     }
 

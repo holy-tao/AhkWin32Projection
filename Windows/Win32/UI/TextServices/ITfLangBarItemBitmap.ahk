@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
-#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
-#Import ".\TfLBIClick.ahk" { TfLBIClick }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\TfLBIClick.ahk" { TfLBIClick }
 
 /**
  * The ITfLangBarItemBitmap interface is implemented by an application or text service and used by the language bar manager to obtain information specific to a bitmap item on the language bar.
@@ -153,7 +153,7 @@ export default struct ITfLangBarItemBitmap extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmap-drawbitmap
      */
     DrawBitmap(bmWidth, bmHeight, dwFlags, phbmp, phbmpMask) {
-        result := ComCall(9, this, "int", bmWidth, "int", bmHeight, "uint", dwFlags, HBITMAP.Ptr, phbmp, HBITMAP.Ptr, phbmpMask, "HRESULT")
+        result := ComCall(9, this, Int32, bmWidth, Int32, bmHeight, UInt32, dwFlags, HBITMAP.Ptr, phbmp, HBITMAP.Ptr, phbmpMask, "HRESULT")
         return result
     }
 

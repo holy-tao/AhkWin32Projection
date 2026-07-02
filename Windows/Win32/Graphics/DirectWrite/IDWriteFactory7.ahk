@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDWriteFactory6.ahk" { IDWriteFactory6 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteFontSet2.ahk" { IDWriteFontSet2 }
-#Import ".\IDWriteFontCollection3.ahk" { IDWriteFontCollection3 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontCollection3.ahk" { IDWriteFontCollection3 }
 
 /**
  * This interface represents a factory object from which all DirectWrite objects are created. **IDWriteFactory7** adds new facilities for working with system fonts.

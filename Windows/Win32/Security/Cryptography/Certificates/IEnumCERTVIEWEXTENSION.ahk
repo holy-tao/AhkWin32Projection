@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ENUM_CERT_COLUMN_VALUE_FLAGS.ahk" { ENUM_CERT_COLUMN_VALUE_FLAGS }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
-#Import ".\ENUM_CERT_COLUMN_VALUE_FLAGS.ahk" { ENUM_CERT_COLUMN_VALUE_FLAGS }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an extension-enumeration sequence that contains the certificate extension data for the current row of the row-enumeration sequence.
@@ -294,7 +294,7 @@ export default struct IEnumCERTVIEWEXTENSION extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-skip
      */
     Skip(celt) {
-        result := ComCall(11, this, "int", celt, "HRESULT")
+        result := ComCall(11, this, Int32, celt, "HRESULT")
         return result
     }
 

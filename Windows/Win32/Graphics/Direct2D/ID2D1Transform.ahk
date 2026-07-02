@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents the base interface for all of the transforms implemented by the transform author.
@@ -61,7 +61,7 @@ export default struct ID2D1Transform extends ID2D1TransformNode {
      */
     MapOutputRectToInputRects(outputRect, inputRectsCount) {
         inputRects := RECT()
-        result := ComCall(4, this, RECT.Ptr, outputRect, RECT.Ptr, inputRects, "uint", inputRectsCount, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, outputRect, RECT.Ptr, inputRects, UInt32, inputRectsCount, "HRESULT")
         return inputRects
     }
 
@@ -92,7 +92,7 @@ export default struct ID2D1Transform extends ID2D1TransformNode {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transform-mapinputrectstooutputrect
      */
     MapInputRectsToOutputRect(inputRects, inputOpaqueSubRects, inputRectCount, outputRect, outputOpaqueSubRect) {
-        result := ComCall(5, this, RECT.Ptr, inputRects, RECT.Ptr, inputOpaqueSubRects, "uint", inputRectCount, RECT.Ptr, outputRect, RECT.Ptr, outputOpaqueSubRect, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, inputRects, RECT.Ptr, inputOpaqueSubRects, UInt32, inputRectCount, RECT.Ptr, outputRect, RECT.Ptr, outputOpaqueSubRect, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct ID2D1Transform extends ID2D1TransformNode {
      */
     MapInvalidRect(inputIndex, invalidInputRect) {
         invalidOutputRect := RECT()
-        result := ComCall(6, this, "uint", inputIndex, RECT, invalidInputRect, RECT.Ptr, invalidOutputRect, "HRESULT")
+        result := ComCall(6, this, UInt32, inputIndex, RECT, invalidInputRect, RECT.Ptr, invalidOutputRect, "HRESULT")
         return invalidOutputRect
     }
 

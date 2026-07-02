@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
-#Import ".\D3D11_VIDEO_PROCESSOR_FILTER.ahk" { D3D11_VIDEO_PROCESSOR_FILTER }
+#Import ".\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk" { D3D11_VIDEO_PROCESSOR_CONTENT_DESC }
+#Import ".\D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.ahk" { D3D11_VIDEO_PROCESSOR_CUSTOM_RATE }
 #Import ".\D3D11_VIDEO_PROCESSOR_FILTER_RANGE.ahk" { D3D11_VIDEO_PROCESSOR_FILTER_RANGE }
 #Import ".\D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.ahk" { D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS }
-#Import ".\D3D11_VIDEO_PROCESSOR_CAPS.ahk" { D3D11_VIDEO_PROCESSOR_CAPS }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_VIDEO_PROCESSOR_FILTER.ahk" { D3D11_VIDEO_PROCESSOR_FILTER }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.ahk" { D3D11_VIDEO_PROCESSOR_CUSTOM_RATE }
-#Import ".\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk" { D3D11_VIDEO_PROCESSOR_CONTENT_DESC }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
+#Import ".\D3D11_VIDEO_PROCESSOR_CAPS.ahk" { D3D11_VIDEO_PROCESSOR_CAPS }
 
 /**
  * Enumerates the video processor capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoProcessorEnumerator)
@@ -96,7 +96,7 @@ export default struct ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
      */
     GetVideoProcessorRateConversionCaps(TypeIndex) {
         pCaps := D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS()
-        result := ComCall(10, this, "uint", TypeIndex, D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.Ptr, pCaps, "HRESULT")
+        result := ComCall(10, this, UInt32, TypeIndex, D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -111,7 +111,7 @@ export default struct ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
      */
     GetVideoProcessorCustomRate(TypeIndex, CustomRateIndex) {
         pRate := D3D11_VIDEO_PROCESSOR_CUSTOM_RATE()
-        result := ComCall(11, this, "uint", TypeIndex, "uint", CustomRateIndex, D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.Ptr, pRate, "HRESULT")
+        result := ComCall(11, this, UInt32, TypeIndex, UInt32, CustomRateIndex, D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.Ptr, pRate, "HRESULT")
         return pRate
     }
 

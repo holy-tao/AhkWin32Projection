@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfSourceSingle interface is implemented by the TSF manager.
@@ -134,7 +134,7 @@ export default struct ITfSourceSingle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink
      */
     AdviseSingleSink(tid, riid, punk) {
-        result := ComCall(3, this, "uint", tid, Guid.Ptr, riid, "ptr", punk, "HRESULT")
+        result := ComCall(3, this, UInt32, tid, Guid.Ptr, riid, "ptr", punk, "HRESULT")
         return result
     }
 
@@ -186,7 +186,7 @@ export default struct ITfSourceSingle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsourcesingle-unadvisesinglesink
      */
     UnadviseSingleSink(tid, riid) {
-        result := ComCall(4, this, "uint", tid, Guid.Ptr, riid, "HRESULT")
+        result := ComCall(4, this, UInt32, tid, Guid.Ptr, riid, "HRESULT")
         return result
     }
 

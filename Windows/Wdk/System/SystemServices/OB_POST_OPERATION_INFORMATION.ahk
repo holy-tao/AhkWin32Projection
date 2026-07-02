@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\POBJECT_TYPE.ahk" { POBJECT_TYPE }
-#Import ".\OB_POST_OPERATION_PARAMETERS.ahk" { OB_POST_OPERATION_PARAMETERS }
 #Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\OB_POST_OPERATION_PARAMETERS.ahk" { OB_POST_OPERATION_PARAMETERS }
+#Import "..\..\Foundation\POBJECT_TYPE.ahk" { POBJECT_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

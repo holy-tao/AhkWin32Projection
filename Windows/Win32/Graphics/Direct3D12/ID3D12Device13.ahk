@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D12Device12.ahk" { ID3D12Device12 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -45,7 +45,7 @@ export default struct ID3D12Device13 extends ID3D12Device12 {
     OpenExistingHeapFromAddress1(pAddress, _size, riid) {
         pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(81, this, pAddressMarshal, pAddress, "ptr", _size, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(81, this, pAddressMarshal, pAddress, IntPtr, _size, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
     }
 

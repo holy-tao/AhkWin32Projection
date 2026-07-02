@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\URLINVOKECOMMANDINFOW.ahk" { URLINVOKECOMMANDINFOW }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\URLINVOKECOMMANDINFOW.ahk" { URLINVOKECOMMANDINFOW }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -49,7 +49,7 @@ export default struct IUniformResourceLocatorW extends IUnknown {
     SetURL(pcszURL, dwInFlags) {
         pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
 
-        result := ComCall(3, this, "ptr", pcszURL, "uint", dwInFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pcszURL, UInt32, dwInFlags, "HRESULT")
         return result
     }
 

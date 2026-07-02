@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\GameInputRumbleParams.ahk" { GameInputRumbleParams }
-#Import ".\GameInputBatteryState.ahk" { GameInputBatteryState }
 #Import ".\GameInputForceFeedbackParams.ahk" { GameInputForceFeedbackParams }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IGameInputForceFeedbackEffect.ahk" { IGameInputForceFeedbackEffect }
-#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
-#Import ".\GameInputRawDeviceReportKind.ahk" { GameInputRawDeviceReportKind }
-#Import ".\GameInputHapticFeedbackParams.ahk" { GameInputHapticFeedbackParams }
-#Import ".\GameInputDeviceInfo.ahk" { GameInputDeviceInfo }
 #Import ".\GameInputDeviceStatus.ahk" { GameInputDeviceStatus }
+#Import ".\GameInputBatteryState.ahk" { GameInputBatteryState }
+#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GameInputHapticFeedbackParams.ahk" { GameInputHapticFeedbackParams }
+#Import ".\GameInputRawDeviceReportKind.ahk" { GameInputRawDeviceReportKind }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GameInputDeviceInfo.ahk" { GameInputDeviceInfo }
+#Import ".\IGameInputForceFeedbackEffect.ahk" { IGameInputForceFeedbackEffect }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
@@ -96,7 +96,7 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {IGameInputForceFeedbackEffect} 
      */
     CreateForceFeedbackEffect(motorIndex, params) {
-        result := ComCall(6, this, "uint", motorIndex, GameInputForceFeedbackParams.Ptr, params, "ptr*", &_effect := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, motorIndex, GameInputForceFeedbackParams.Ptr, params, "ptr*", &_effect := 0, "HRESULT")
         return IGameInputForceFeedbackEffect(_effect)
     }
 
@@ -106,7 +106,7 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {Boolean} 
      */
     IsForceFeedbackMotorPoweredOn(motorIndex) {
-        result := ComCall(7, this, "uint", motorIndex, Int32)
+        result := ComCall(7, this, UInt32, motorIndex, Int32)
         return result
     }
 
@@ -117,7 +117,7 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     SetForceFeedbackMotorGain(motorIndex, masterGain) {
-        ComCall(8, this, "uint", motorIndex, "float", masterGain)
+        ComCall(8, this, UInt32, motorIndex, Float32, masterGain)
     }
 
     /**
@@ -127,7 +127,7 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {HRESULT} 
      */
     SetHapticMotorState(motorIndex, params) {
-        result := ComCall(9, this, "uint", motorIndex, GameInputHapticFeedbackParams.Ptr, params, "HRESULT")
+        result := ComCall(9, this, UInt32, motorIndex, GameInputHapticFeedbackParams.Ptr, params, "HRESULT")
         return result
     }
 
@@ -146,7 +146,7 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     SetInputSynchronizationState(enabled) {
-        ComCall(11, this, "char", enabled)
+        ComCall(11, this, Int8, enabled)
     }
 
     /**
@@ -172,7 +172,7 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {IGameInputRawDeviceReport} 
      */
     CreateRawDeviceReport(reportId, reportKind) {
-        result := ComCall(14, this, "uint", reportId, GameInputRawDeviceReportKind, reportKind, "ptr*", &report := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, reportId, GameInputRawDeviceReportKind, reportKind, "ptr*", &report := 0, "HRESULT")
         return IGameInputRawDeviceReport(report)
     }
 
@@ -182,7 +182,7 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {IGameInputRawDeviceReport} 
      */
     GetRawDeviceFeature(reportId) {
-        result := ComCall(15, this, "uint", reportId, "ptr*", &report := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, reportId, "ptr*", &report := 0, "HRESULT")
         return IGameInputRawDeviceReport(report)
     }
 
@@ -226,7 +226,7 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {Pointer} 
      */
     ExecuteRawDeviceIoControl(controlCode, inputBufferSize, inputBuffer, outputBufferSize, outputBuffer) {
-        result := ComCall(19, this, "uint", controlCode, "ptr", inputBufferSize, "ptr", inputBuffer, "ptr", outputBufferSize, "ptr", outputBuffer, "ptr*", &outputSize := 0, "HRESULT")
+        result := ComCall(19, this, UInt32, controlCode, IntPtr, inputBufferSize, IntPtr, inputBuffer, IntPtr, outputBufferSize, IntPtr, outputBuffer, "ptr*", &outputSize := 0, "HRESULT")
         return outputSize
     }
 
@@ -236,7 +236,7 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {Boolean} 
      */
     AcquireExclusiveRawDeviceAccess(timeoutInMicroseconds) {
-        result := ComCall(20, this, "uint", timeoutInMicroseconds, Int32)
+        result := ComCall(20, this, Int64, timeoutInMicroseconds, Int32)
         return result
     }
 

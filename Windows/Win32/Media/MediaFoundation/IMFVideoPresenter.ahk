@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\MFVP_MESSAGE_TYPE.ahk" { MFVP_MESSAGE_TYPE }
 #Import ".\IMFVideoMediaType.ahk" { IMFVideoMediaType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFClockStateSink.ahk" { IMFClockStateSink }
 
 /**
@@ -77,7 +77,7 @@ export default struct IMFVideoPresenter extends IMFClockStateSink {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideopresenter-processmessage
      */
     ProcessMessage(eMessage, ulParam) {
-        result := ComCall(8, this, MFVP_MESSAGE_TYPE, eMessage, "ptr", ulParam, "HRESULT")
+        result := ComCall(8, this, MFVP_MESSAGE_TYPE, eMessage, IntPtr, ulParam, "HRESULT")
         return result
     }
 

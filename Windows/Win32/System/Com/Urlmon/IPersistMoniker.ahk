@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\IBindCtx.ahk" { IBindCtx }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\IMoniker.ahk" { IMoniker }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\IMoniker.ahk" { IMoniker }
+#Import "..\IBindCtx.ahk" { IBindCtx }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -137,7 +137,7 @@ export default struct IPersistMoniker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-to-load
      */
     Load(fFullyAvailable, pimkName, pibc, grfMode) {
-        result := ComCall(5, this, BOOL, fFullyAvailable, "ptr", pimkName, "ptr", pibc, "uint", grfMode, "HRESULT")
+        result := ComCall(5, this, BOOL, fFullyAvailable, "ptr", pimkName, "ptr", pibc, UInt32, grfMode, "HRESULT")
         return result
     }
 

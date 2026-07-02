@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Com\IClassFactory.ahk" { IClassFactory }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IClassFactory.ahk" { IClassFactory }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to configure an object pool.
@@ -101,7 +101,7 @@ export default struct IServicePoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-put_maxpoolsize
      */
     put_MaxPoolSize(dwMaxPool) {
-        result := ComCall(3, this, "uint", dwMaxPool, "HRESULT")
+        result := ComCall(3, this, UInt32, dwMaxPool, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IServicePoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-put_minpoolsize
      */
     put_MinPoolSize(dwMinPool) {
-        result := ComCall(5, this, "uint", dwMinPool, "HRESULT")
+        result := ComCall(5, this, UInt32, dwMinPool, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct IServicePoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-put_creationtimeout
      */
     put_CreationTimeout(dwCreationTimeout) {
-        result := ComCall(7, this, "uint", dwCreationTimeout, "HRESULT")
+        result := ComCall(7, this, UInt32, dwCreationTimeout, "HRESULT")
         return result
     }
 

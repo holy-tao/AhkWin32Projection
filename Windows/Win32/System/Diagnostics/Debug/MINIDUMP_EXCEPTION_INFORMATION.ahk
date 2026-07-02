@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EXCEPTION_POINTERS.ahk" { EXCEPTION_POINTERS }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\EXCEPTION_POINTERS.ahk" { EXCEPTION_POINTERS }
 
 /**
  * Contains the exception information written to the minidump file by the MiniDumpWriteDump function.

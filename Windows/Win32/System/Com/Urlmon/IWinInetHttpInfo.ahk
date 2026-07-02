@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWinInetInfo.ahk" { IWinInetInfo }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -50,7 +50,7 @@ export default struct IWinInetHttpInfo extends IWinInetInfo {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
         pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwOption, pBufferMarshal, pBuffer, pcbBufMarshal, pcbBuf, pdwFlagsMarshal, pdwFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
+        result := ComCall(4, this, UInt32, dwOption, pBufferMarshal, pBuffer, pcbBufMarshal, pcbBuf, pdwFlagsMarshal, pdwFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 

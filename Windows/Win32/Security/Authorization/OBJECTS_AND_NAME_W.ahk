@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk" { SYSTEM_AUDIT_OBJECT_ACE_FLAGS }
 #Import ".\SE_OBJECT_TYPE.ahk" { SE_OBJECT_TYPE }
+#Import "..\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk" { SYSTEM_AUDIT_OBJECT_ACE_FLAGS }
 
 /**
  * Contains a string that identifies a trustee by name and additional strings that identify the object types of an object-specific access control entry (ACE). (Unicode)

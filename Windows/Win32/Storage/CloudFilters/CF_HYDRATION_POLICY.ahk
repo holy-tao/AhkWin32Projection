@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CF_HYDRATION_POLICY_PRIMARY.ahk" { CF_HYDRATION_POLICY_PRIMARY }
 #Import ".\CF_HYDRATION_POLICY_MODIFIER.ahk" { CF_HYDRATION_POLICY_MODIFIER }
+#Import ".\CF_HYDRATION_POLICY_PRIMARY.ahk" { CF_HYDRATION_POLICY_PRIMARY }
 
 /**
  * Specifies the primary hydration policy and its modifier.

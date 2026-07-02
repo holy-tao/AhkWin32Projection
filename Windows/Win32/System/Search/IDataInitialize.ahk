@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\Com\MULTI_QI.ahk" { MULTI_QI }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\COSERVERINFO.ahk" { COSERVERINFO }
 
 /**
@@ -55,7 +55,7 @@ export default struct IDataInitialize extends IUnknown {
     GetDataSource(pUnkOuter, dwClsCtx, pwszInitializationString, riid, ppDataSource) {
         pwszInitializationString := pwszInitializationString is String ? StrPtr(pwszInitializationString) : pwszInitializationString
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszInitializationString, Guid.Ptr, riid, IUnknown.Ptr, ppDataSource, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, UInt32, dwClsCtx, "ptr", pwszInitializationString, Guid.Ptr, riid, IUnknown.Ptr, ppDataSource, "HRESULT")
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct IDataInitialize extends IUnknown {
      * @returns {PWSTR} 
      */
     GetInitializationString(pDataSource, fIncludePassword) {
-        result := ComCall(4, this, "ptr", pDataSource, "char", fIncludePassword, PWSTR.Ptr, &ppwszInitString := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pDataSource, Int8, fIncludePassword, PWSTR.Ptr, &ppwszInitString := 0, "HRESULT")
         return ppwszInitString
     }
 
@@ -82,7 +82,7 @@ export default struct IDataInitialize extends IUnknown {
     CreateDBInstance(clsidProvider, pUnkOuter, dwClsCtx, pwszReserved, riid) {
         pwszReserved := pwszReserved is String ? StrPtr(pwszReserved) : pwszReserved
 
-        result := ComCall(5, this, Guid.Ptr, clsidProvider, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszReserved, Guid.Ptr, riid, "ptr*", &ppDataSource := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, clsidProvider, "ptr", pUnkOuter, UInt32, dwClsCtx, "ptr", pwszReserved, Guid.Ptr, riid, "ptr*", &ppDataSource := 0, "HRESULT")
         return IUnknown(ppDataSource)
     }
 
@@ -100,7 +100,7 @@ export default struct IDataInitialize extends IUnknown {
         pwszReserved := pwszReserved is String ? StrPtr(pwszReserved) : pwszReserved
 
         rgmqResults := MULTI_QI()
-        result := ComCall(6, this, Guid.Ptr, clsidProvider, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszReserved, COSERVERINFO.Ptr, pServerInfo, "uint", cmq, MULTI_QI.Ptr, rgmqResults, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, clsidProvider, "ptr", pUnkOuter, UInt32, dwClsCtx, "ptr", pwszReserved, COSERVERINFO.Ptr, pServerInfo, UInt32, cmq, MULTI_QI.Ptr, rgmqResults, "HRESULT")
         return rgmqResults
     }
 
@@ -127,7 +127,7 @@ export default struct IDataInitialize extends IUnknown {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
         pwszInitializationString := pwszInitializationString is String ? StrPtr(pwszInitializationString) : pwszInitializationString
 
-        result := ComCall(8, this, "ptr", pwszFileName, "ptr", pwszInitializationString, "uint", dwCreationDisposition, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszFileName, "ptr", pwszInitializationString, UInt32, dwCreationDisposition, "HRESULT")
         return result
     }
 

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IWMPPlayerApplication.ahk" { IWMPPlayerApplication }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWMPCore3.ahk" { IWMPCore3 }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPPlayerApplication.ahk" { IWMPPlayerApplication }
 
 /**
  * The IWMPPlayer4 interface provides methods for modifying the basic behavior of the Windows Media Player control user interface.

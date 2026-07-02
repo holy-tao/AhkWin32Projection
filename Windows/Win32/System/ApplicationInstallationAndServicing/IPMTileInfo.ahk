@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPMTilePropertyEnumerator.ahk" { IPMTilePropertyEnumerator }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IPMTilePropertyInfo.ahk" { IPMTilePropertyInfo }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\TILE_TEMPLATE_TYPE.ahk" { TILE_TEMPLATE_TYPE }
-#Import ".\PM_TILE_HUBTYPE.ahk" { PM_TILE_HUBTYPE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\PM_TILE_SIZE.ahk" { PM_TILE_SIZE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IPMTilePropertyInfo.ahk" { IPMTilePropertyInfo }
+#Import ".\PM_TILE_HUBTYPE.ahk" { PM_TILE_HUBTYPE }
 #Import ".\PM_STARTTILEBLOB.ahk" { PM_STARTTILEBLOB }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IPMTilePropertyEnumerator.ahk" { IPMTilePropertyEnumerator }
 #Import ".\PM_STARTTILE_TYPE.ahk" { PM_STARTTILE_TYPE }
 
 /**
@@ -254,7 +254,7 @@ export default struct IPMTileInfo extends IUnknown {
      * @returns {IPMTilePropertyInfo} 
      */
     get_PropertyById(PropID) {
-        result := ComCall(13, this, "uint", PropID, "ptr*", &ppPropInfo := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, PropID, "ptr*", &ppPropInfo := 0, "HRESULT")
         return IPMTilePropertyInfo(ppPropInfo)
     }
 
@@ -295,7 +295,7 @@ export default struct IPMTileInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     set_HubPosition(HubType, Position) {
-        result := ComCall(17, this, PM_TILE_HUBTYPE, HubType, "uint", Position, "HRESULT")
+        result := ComCall(17, this, PM_TILE_HUBTYPE, HubType, UInt32, Position, "HRESULT")
         return result
     }
 

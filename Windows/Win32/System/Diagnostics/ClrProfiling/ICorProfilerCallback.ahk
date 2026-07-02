@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COR_PRF_JIT_CACHE.ahk" { COR_PRF_JIT_CACHE }
 #Import ".\COR_PRF_TRANSITION_REASON.ahk" { COR_PRF_TRANSITION_REASON }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COR_PRF_JIT_CACHE.ahk" { COR_PRF_JIT_CACHE }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COR_PRF_SUSPEND_REASON.ahk" { COR_PRF_SUSPEND_REASON }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -160,7 +160,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     AppDomainCreationStarted(appDomainId) {
-        result := ComCall(5, this, "ptr", appDomainId, "HRESULT")
+        result := ComCall(5, this, IntPtr, appDomainId, "HRESULT")
         return result
     }
 
@@ -171,7 +171,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     AppDomainCreationFinished(appDomainId, hrStatus) {
-        result := ComCall(6, this, "ptr", appDomainId, "int", hrStatus, "HRESULT")
+        result := ComCall(6, this, IntPtr, appDomainId, "int", hrStatus, "HRESULT")
         return result
     }
 
@@ -181,7 +181,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     AppDomainShutdownStarted(appDomainId) {
-        result := ComCall(7, this, "ptr", appDomainId, "HRESULT")
+        result := ComCall(7, this, IntPtr, appDomainId, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     AppDomainShutdownFinished(appDomainId, hrStatus) {
-        result := ComCall(8, this, "ptr", appDomainId, "int", hrStatus, "HRESULT")
+        result := ComCall(8, this, IntPtr, appDomainId, "int", hrStatus, "HRESULT")
         return result
     }
 
@@ -202,7 +202,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     AssemblyLoadStarted(assemblyId) {
-        result := ComCall(9, this, "ptr", assemblyId, "HRESULT")
+        result := ComCall(9, this, IntPtr, assemblyId, "HRESULT")
         return result
     }
 
@@ -213,7 +213,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     AssemblyLoadFinished(assemblyId, hrStatus) {
-        result := ComCall(10, this, "ptr", assemblyId, "int", hrStatus, "HRESULT")
+        result := ComCall(10, this, IntPtr, assemblyId, "int", hrStatus, "HRESULT")
         return result
     }
 
@@ -223,7 +223,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     AssemblyUnloadStarted(assemblyId) {
-        result := ComCall(11, this, "ptr", assemblyId, "HRESULT")
+        result := ComCall(11, this, IntPtr, assemblyId, "HRESULT")
         return result
     }
 
@@ -234,7 +234,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     AssemblyUnloadFinished(assemblyId, hrStatus) {
-        result := ComCall(12, this, "ptr", assemblyId, "int", hrStatus, "HRESULT")
+        result := ComCall(12, this, IntPtr, assemblyId, "int", hrStatus, "HRESULT")
         return result
     }
 
@@ -244,7 +244,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ModuleLoadStarted(moduleId) {
-        result := ComCall(13, this, "ptr", moduleId, "HRESULT")
+        result := ComCall(13, this, IntPtr, moduleId, "HRESULT")
         return result
     }
 
@@ -255,7 +255,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ModuleLoadFinished(moduleId, hrStatus) {
-        result := ComCall(14, this, "ptr", moduleId, "int", hrStatus, "HRESULT")
+        result := ComCall(14, this, IntPtr, moduleId, "int", hrStatus, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ModuleUnloadStarted(moduleId) {
-        result := ComCall(15, this, "ptr", moduleId, "HRESULT")
+        result := ComCall(15, this, IntPtr, moduleId, "HRESULT")
         return result
     }
 
@@ -276,7 +276,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ModuleUnloadFinished(moduleId, hrStatus) {
-        result := ComCall(16, this, "ptr", moduleId, "int", hrStatus, "HRESULT")
+        result := ComCall(16, this, IntPtr, moduleId, "int", hrStatus, "HRESULT")
         return result
     }
 
@@ -287,7 +287,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ModuleAttachedToAssembly(moduleId, AssemblyId) {
-        result := ComCall(17, this, "ptr", moduleId, "ptr", AssemblyId, "HRESULT")
+        result := ComCall(17, this, IntPtr, moduleId, IntPtr, AssemblyId, "HRESULT")
         return result
     }
 
@@ -297,7 +297,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ClassLoadStarted(classId) {
-        result := ComCall(18, this, "ptr", classId, "HRESULT")
+        result := ComCall(18, this, IntPtr, classId, "HRESULT")
         return result
     }
 
@@ -308,7 +308,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ClassLoadFinished(classId, hrStatus) {
-        result := ComCall(19, this, "ptr", classId, "int", hrStatus, "HRESULT")
+        result := ComCall(19, this, IntPtr, classId, "int", hrStatus, "HRESULT")
         return result
     }
 
@@ -318,7 +318,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ClassUnloadStarted(classId) {
-        result := ComCall(20, this, "ptr", classId, "HRESULT")
+        result := ComCall(20, this, IntPtr, classId, "HRESULT")
         return result
     }
 
@@ -329,7 +329,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ClassUnloadFinished(classId, hrStatus) {
-        result := ComCall(21, this, "ptr", classId, "int", hrStatus, "HRESULT")
+        result := ComCall(21, this, IntPtr, classId, "int", hrStatus, "HRESULT")
         return result
     }
 
@@ -339,7 +339,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     FunctionUnloadStarted(functionId) {
-        result := ComCall(22, this, "ptr", functionId, "HRESULT")
+        result := ComCall(22, this, IntPtr, functionId, "HRESULT")
         return result
     }
 
@@ -350,7 +350,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     JITCompilationStarted(functionId, fIsSafeToBlock) {
-        result := ComCall(23, this, "ptr", functionId, BOOL, fIsSafeToBlock, "HRESULT")
+        result := ComCall(23, this, IntPtr, functionId, BOOL, fIsSafeToBlock, "HRESULT")
         return result
     }
 
@@ -362,7 +362,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     JITCompilationFinished(functionId, hrStatus, fIsSafeToBlock) {
-        result := ComCall(24, this, "ptr", functionId, "int", hrStatus, BOOL, fIsSafeToBlock, "HRESULT")
+        result := ComCall(24, this, IntPtr, functionId, "int", hrStatus, BOOL, fIsSafeToBlock, "HRESULT")
         return result
     }
 
@@ -372,7 +372,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {BOOL} 
      */
     JITCachedFunctionSearchStarted(functionId) {
-        result := ComCall(25, this, "ptr", functionId, BOOL.Ptr, &pbUseCachedFunction := 0, "HRESULT")
+        result := ComCall(25, this, IntPtr, functionId, BOOL.Ptr, &pbUseCachedFunction := 0, "HRESULT")
         return pbUseCachedFunction
     }
 
@@ -383,7 +383,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     JITCachedFunctionSearchFinished(functionId, result) {
-        result := ComCall(26, this, "ptr", functionId, COR_PRF_JIT_CACHE, result, "HRESULT")
+        result := ComCall(26, this, IntPtr, functionId, COR_PRF_JIT_CACHE, result, "HRESULT")
         return result
     }
 
@@ -393,7 +393,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     JITFunctionPitched(functionId) {
-        result := ComCall(27, this, "ptr", functionId, "HRESULT")
+        result := ComCall(27, this, IntPtr, functionId, "HRESULT")
         return result
     }
 
@@ -404,7 +404,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {BOOL} 
      */
     JITInlining(callerId, calleeId) {
-        result := ComCall(28, this, "ptr", callerId, "ptr", calleeId, BOOL.Ptr, &pfShouldInline := 0, "HRESULT")
+        result := ComCall(28, this, IntPtr, callerId, IntPtr, calleeId, BOOL.Ptr, &pfShouldInline := 0, "HRESULT")
         return pfShouldInline
     }
 
@@ -414,7 +414,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ThreadCreated(threadId) {
-        result := ComCall(29, this, "ptr", threadId, "HRESULT")
+        result := ComCall(29, this, IntPtr, threadId, "HRESULT")
         return result
     }
 
@@ -424,7 +424,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ThreadDestroyed(threadId) {
-        result := ComCall(30, this, "ptr", threadId, "HRESULT")
+        result := ComCall(30, this, IntPtr, threadId, "HRESULT")
         return result
     }
 
@@ -435,7 +435,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ThreadAssignedToOSThread(managedThreadId, osThreadId) {
-        result := ComCall(31, this, "ptr", managedThreadId, "uint", osThreadId, "HRESULT")
+        result := ComCall(31, this, IntPtr, managedThreadId, UInt32, osThreadId, "HRESULT")
         return result
     }
 
@@ -526,7 +526,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     UnmanagedToManagedTransition(functionId, reason) {
-        result := ComCall(40, this, "ptr", functionId, COR_PRF_TRANSITION_REASON, reason, "HRESULT")
+        result := ComCall(40, this, IntPtr, functionId, COR_PRF_TRANSITION_REASON, reason, "HRESULT")
         return result
     }
 
@@ -537,7 +537,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ManagedToUnmanagedTransition(functionId, reason) {
-        result := ComCall(41, this, "ptr", functionId, COR_PRF_TRANSITION_REASON, reason, "HRESULT")
+        result := ComCall(41, this, IntPtr, functionId, COR_PRF_TRANSITION_REASON, reason, "HRESULT")
         return result
     }
 
@@ -593,7 +593,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     RuntimeThreadSuspended(threadId) {
-        result := ComCall(47, this, "ptr", threadId, "HRESULT")
+        result := ComCall(47, this, IntPtr, threadId, "HRESULT")
         return result
     }
 
@@ -603,7 +603,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     RuntimeThreadResumed(threadId) {
-        result := ComCall(48, this, "ptr", threadId, "HRESULT")
+        result := ComCall(48, this, IntPtr, threadId, "HRESULT")
         return result
     }
 
@@ -620,7 +620,7 @@ export default struct ICorProfilerCallback extends IUnknown {
         newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
         cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(49, this, "uint", cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
+        result := ComCall(49, this, UInt32, cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 
@@ -631,7 +631,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ObjectAllocated(_objectId, classId) {
-        result := ComCall(50, this, "ptr", _objectId, "ptr", classId, "HRESULT")
+        result := ComCall(50, this, IntPtr, _objectId, IntPtr, classId, "HRESULT")
         return result
     }
 
@@ -646,7 +646,7 @@ export default struct ICorProfilerCallback extends IUnknown {
         classIdsMarshal := classIds is VarRef ? "ptr*" : "ptr"
         cObjectsMarshal := cObjects is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(51, this, "uint", cClassCount, classIdsMarshal, classIds, cObjectsMarshal, cObjects, "HRESULT")
+        result := ComCall(51, this, UInt32, cClassCount, classIdsMarshal, classIds, cObjectsMarshal, cObjects, "HRESULT")
         return result
     }
 
@@ -661,7 +661,7 @@ export default struct ICorProfilerCallback extends IUnknown {
     ObjectReferences(_objectId, classId, cObjectRefs, objectRefIds) {
         objectRefIdsMarshal := objectRefIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(52, this, "ptr", _objectId, "ptr", classId, "uint", cObjectRefs, objectRefIdsMarshal, objectRefIds, "HRESULT")
+        result := ComCall(52, this, IntPtr, _objectId, IntPtr, classId, UInt32, cObjectRefs, objectRefIdsMarshal, objectRefIds, "HRESULT")
         return result
     }
 
@@ -674,7 +674,7 @@ export default struct ICorProfilerCallback extends IUnknown {
     RootReferences(cRootRefs, rootRefIds) {
         rootRefIdsMarshal := rootRefIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(53, this, "uint", cRootRefs, rootRefIdsMarshal, rootRefIds, "HRESULT")
+        result := ComCall(53, this, UInt32, cRootRefs, rootRefIdsMarshal, rootRefIds, "HRESULT")
         return result
     }
 
@@ -684,7 +684,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ExceptionThrown(thrownObjectId) {
-        result := ComCall(54, this, "ptr", thrownObjectId, "HRESULT")
+        result := ComCall(54, this, IntPtr, thrownObjectId, "HRESULT")
         return result
     }
 
@@ -694,7 +694,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ExceptionSearchFunctionEnter(functionId) {
-        result := ComCall(55, this, "ptr", functionId, "HRESULT")
+        result := ComCall(55, this, IntPtr, functionId, "HRESULT")
         return result
     }
 
@@ -713,7 +713,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ExceptionSearchFilterEnter(functionId) {
-        result := ComCall(57, this, "ptr", functionId, "HRESULT")
+        result := ComCall(57, this, IntPtr, functionId, "HRESULT")
         return result
     }
 
@@ -732,7 +732,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ExceptionSearchCatcherFound(functionId) {
-        result := ComCall(59, this, "ptr", functionId, "HRESULT")
+        result := ComCall(59, this, IntPtr, functionId, "HRESULT")
         return result
     }
 
@@ -742,7 +742,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ExceptionOSHandlerEnter(__unused) {
-        result := ComCall(60, this, "ptr", __unused, "HRESULT")
+        result := ComCall(60, this, IntPtr, __unused, "HRESULT")
         return result
     }
 
@@ -752,7 +752,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ExceptionOSHandlerLeave(__unused) {
-        result := ComCall(61, this, "ptr", __unused, "HRESULT")
+        result := ComCall(61, this, IntPtr, __unused, "HRESULT")
         return result
     }
 
@@ -762,7 +762,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ExceptionUnwindFunctionEnter(functionId) {
-        result := ComCall(62, this, "ptr", functionId, "HRESULT")
+        result := ComCall(62, this, IntPtr, functionId, "HRESULT")
         return result
     }
 
@@ -781,7 +781,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ExceptionUnwindFinallyEnter(functionId) {
-        result := ComCall(64, this, "ptr", functionId, "HRESULT")
+        result := ComCall(64, this, IntPtr, functionId, "HRESULT")
         return result
     }
 
@@ -801,7 +801,7 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ExceptionCatcherEnter(functionId, _objectId) {
-        result := ComCall(66, this, "ptr", functionId, "ptr", _objectId, "HRESULT")
+        result := ComCall(66, this, IntPtr, functionId, IntPtr, _objectId, "HRESULT")
         return result
     }
 
@@ -825,7 +825,7 @@ export default struct ICorProfilerCallback extends IUnknown {
     COMClassicVTableCreated(wrappedClassId, implementedIID, pVTable, cSlots) {
         pVTableMarshal := pVTable is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(68, this, "ptr", wrappedClassId, Guid.Ptr, implementedIID, pVTableMarshal, pVTable, "uint", cSlots, "HRESULT")
+        result := ComCall(68, this, IntPtr, wrappedClassId, Guid.Ptr, implementedIID, pVTableMarshal, pVTable, UInt32, cSlots, "HRESULT")
         return result
     }
 
@@ -839,7 +839,7 @@ export default struct ICorProfilerCallback extends IUnknown {
     COMClassicVTableDestroyed(wrappedClassId, implementedIID, pVTable) {
         pVTableMarshal := pVTable is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(69, this, "ptr", wrappedClassId, Guid.Ptr, implementedIID, pVTableMarshal, pVTable, "HRESULT")
+        result := ComCall(69, this, IntPtr, wrappedClassId, Guid.Ptr, implementedIID, pVTableMarshal, pVTable, "HRESULT")
         return result
     }
 

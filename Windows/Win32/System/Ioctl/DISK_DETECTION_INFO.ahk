@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DETECTION_TYPE.ahk" { DETECTION_TYPE }
 #Import ".\DISK_INT13_INFO.ahk" { DISK_INT13_INFO }
+#Import ".\DETECTION_TYPE.ahk" { DETECTION_TYPE }
 #Import ".\DISK_EX_INT13_INFO.ahk" { DISK_EX_INT13_INFO }
 
 /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -58,7 +58,7 @@ export default struct ITypeName extends IUnknown {
      * @returns {Integer} 
      */
     GetNames(count, rgbszNames) {
-        result := ComCall(4, this, "uint", count, BSTR.Ptr, rgbszNames, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, count, BSTR.Ptr, rgbszNames, "uint*", &pCount := 0, "HRESULT")
         return pCount
     }
 
@@ -78,7 +78,7 @@ export default struct ITypeName extends IUnknown {
      * @returns {Integer} 
      */
     GetTypeArguments(count, rgpArguments) {
-        result := ComCall(6, this, "uint", count, ITypeName.Ptr, rgpArguments, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, count, ITypeName.Ptr, rgpArguments, "uint*", &pCount := 0, "HRESULT")
         return pCount
     }
 
@@ -100,7 +100,7 @@ export default struct ITypeName extends IUnknown {
     GetModifiers(count, rgModifiers) {
         rgModifiersMarshal := rgModifiers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", count, rgModifiersMarshal, rgModifiers, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, count, rgModifiersMarshal, rgModifiers, "uint*", &pCount := 0, "HRESULT")
         return pCount
     }
 

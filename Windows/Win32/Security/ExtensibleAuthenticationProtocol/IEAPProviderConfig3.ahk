@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEAPProviderConfig2.ahk" { IEAPProviderConfig2 }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IEAPProviderConfig2.ahk" { IEAPProviderConfig2 }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -53,7 +53,7 @@ export default struct IEAPProviderConfig3 extends IEAPProviderConfig2 {
         ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", dwEapTypeId, "ptr", uConnectionParam, HWND, _hWnd, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "ptr", uReserved, "HRESULT")
+        result := ComCall(10, this, UInt32, dwEapTypeId, IntPtr, uConnectionParam, HWND, _hWnd, pConfigDataInMarshal, pConfigDataIn, UInt32, dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, IntPtr, uReserved, "HRESULT")
         return result
     }
 

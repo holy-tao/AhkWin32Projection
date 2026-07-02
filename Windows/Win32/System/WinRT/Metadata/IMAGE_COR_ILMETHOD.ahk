@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IMAGE_COR_ILMETHOD_FAT.ahk" { IMAGE_COR_ILMETHOD_FAT }
 #Import ".\IMAGE_COR_ILMETHOD_TINY.ahk" { IMAGE_COR_ILMETHOD_TINY }
+#Import ".\IMAGE_COR_ILMETHOD_FAT.ahk" { IMAGE_COR_ILMETHOD_FAT }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata

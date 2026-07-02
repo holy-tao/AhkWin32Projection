@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 #Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
-#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
-#Import ".\CRYPT_XML_ALGORITHM.ahk" { CRYPT_XML_ALGORITHM }
 
 /**
  * Contains information used to populate the Reference element.

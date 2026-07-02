@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An interface from which IDMLDevice and IDMLDeviceChild inherit directly (and all other interfaces, indirectly).
@@ -62,7 +62,7 @@ export default struct IDMLObject extends IUnknown {
     GetPrivateData(guid, dataSize, data) {
         dataSizeMarshal := dataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, Guid.Ptr, guid, dataSizeMarshal, dataSize, "ptr", data, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guid, dataSizeMarshal, dataSize, IntPtr, data, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IDMLObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlobject-setprivatedata
      */
     SetPrivateData(guid, dataSize, data) {
-        result := ComCall(4, this, Guid.Ptr, guid, "uint", dataSize, "ptr", data, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guid, UInt32, dataSize, IntPtr, data, "HRESULT")
         return result
     }
 

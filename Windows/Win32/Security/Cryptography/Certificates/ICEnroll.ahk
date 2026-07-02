@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ICEnroll interface is one of several interfaces that represent the Certificate Enrollment Control.
@@ -442,7 +442,7 @@ export default struct ICEnroll extends IDispatch {
      */
     enumProviders(dwIndex, dwFlags) {
         pbstrProvName := BSTR.Owned()
-        result := ComCall(12, this, "int", dwIndex, "int", dwFlags, BSTR.Ptr, pbstrProvName, "HRESULT")
+        result := ComCall(12, this, Int32, dwIndex, Int32, dwFlags, BSTR.Ptr, pbstrProvName, "HRESULT")
         return pbstrProvName
     }
 
@@ -459,7 +459,7 @@ export default struct ICEnroll extends IDispatch {
      */
     enumContainers(dwIndex) {
         pbstr := BSTR.Owned()
-        result := ComCall(13, this, "int", dwIndex, BSTR.Ptr, pbstr, "HRESULT")
+        result := ComCall(13, this, Int32, dwIndex, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -627,7 +627,7 @@ export default struct ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_mystoreflags
      */
     put_MyStoreFlags(dwFlags) {
-        result := ComCall(20, this, "int", dwFlags, "HRESULT")
+        result := ComCall(20, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -774,7 +774,7 @@ export default struct ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_castoreflags
      */
     put_CAStoreFlags(dwFlags) {
-        result := ComCall(26, this, "int", dwFlags, "HRESULT")
+        result := ComCall(26, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -929,7 +929,7 @@ export default struct ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_rootstoreflags
      */
     put_RootStoreFlags(dwFlags) {
-        result := ComCall(32, this, "int", dwFlags, "HRESULT")
+        result := ComCall(32, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -1136,7 +1136,7 @@ export default struct ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_requeststoreflags
      */
     put_RequestStoreFlags(dwFlags) {
-        result := ComCall(38, this, "int", dwFlags, "HRESULT")
+        result := ComCall(38, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -1317,7 +1317,7 @@ export default struct ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_providertype
      */
     put_ProviderType(dwType) {
-        result := ComCall(44, this, "int", dwType, "HRESULT")
+        result := ComCall(44, this, Int32, dwType, "HRESULT")
         return result
     }
 
@@ -1376,7 +1376,7 @@ export default struct ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_keyspec
      */
     put_KeySpec(dw) {
-        result := ComCall(46, this, "int", dw, "HRESULT")
+        result := ComCall(46, this, Int32, dw, "HRESULT")
         return result
     }
 
@@ -1435,7 +1435,7 @@ export default struct ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_providerflags
      */
     put_ProviderFlags(dwFlags) {
-        result := ComCall(48, this, "int", dwFlags, "HRESULT")
+        result := ComCall(48, this, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -1563,7 +1563,7 @@ export default struct ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_genkeyflags
      */
     put_GenKeyFlags(dwFlags) {
-        result := ComCall(52, this, "int", dwFlags, "HRESULT")
+        result := ComCall(52, this, Int32, dwFlags, "HRESULT")
         return result
     }
 

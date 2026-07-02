@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\CorrectionMode.ahk" { CorrectionMode }
-#Import ".\InPlaceState.ahk" { InPlaceState }
 #Import ".\PanelInputArea.ahk" { PanelInputArea }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InPlaceState.ahk" { InPlaceState }
 
 /**
  * Defines methods that handle the ITextInputPanel Interface events.

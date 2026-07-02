@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods for performing application-specific restore tasks.
@@ -100,7 +100,7 @@ export default struct IWsbApplicationRestoreSupport extends IUnknown {
         prgComponentNameMarshal := prgComponentName is VarRef ? "ptr*" : "ptr"
         prgComponentLogicalPathMarshal := prgComponentLogicalPath is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", cComponents, rgComponentNameMarshal, rgComponentName, rgComponentLogicalPathsMarshal, rgComponentLogicalPaths, prgComponentNameMarshal, prgComponentName, prgComponentLogicalPathMarshal, prgComponentLogicalPath, "HRESULT")
+        result := ComCall(5, this, UInt32, cComponents, rgComponentNameMarshal, rgComponentName, rgComponentLogicalPathsMarshal, rgComponentLogicalPaths, prgComponentNameMarshal, prgComponentName, prgComponentLogicalPathMarshal, prgComponentLogicalPath, "HRESULT")
         return result
     }
 

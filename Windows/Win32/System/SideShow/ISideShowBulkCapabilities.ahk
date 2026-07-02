@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ISideShowCapabilities.ahk" { ISideShowCapabilities }
-#Import ".\ISideShowPropVariantCollection.ahk" { ISideShowPropVariantCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISideShowKeyCollection.ahk" { ISideShowKeyCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISideShowPropVariantCollection.ahk" { ISideShowPropVariantCollection }
 
 /**
  * @namespace Windows.Win32.System.SideShow

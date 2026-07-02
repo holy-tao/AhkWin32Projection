@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMFVideoPresenter.ahk" { IMFVideoPresenter }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFTransform.ahk" { IMFTransform }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFTransform.ahk" { IMFTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Sets a new mixer or presenter for the Enhanced Video Renderer (EVR).

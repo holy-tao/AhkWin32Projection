@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CERT_STRONG_SIGN_SERIALIZED_INFO.ahk" { CERT_STRONG_SIGN_SERIALIZED_INFO }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CERT_STRONG_SIGN_SERIALIZED_INFO.ahk" { CERT_STRONG_SIGN_SERIALIZED_INFO }
 
 /**
  * Contains parameters used to check for strong signatures on certificates, certificate revocation lists (CRLs), online certificate status protocol (OCSP) responses, and PKCS

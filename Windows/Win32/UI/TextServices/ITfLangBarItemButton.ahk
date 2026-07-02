@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\ITfMenu.ahk" { ITfMenu }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
 #Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 #Import ".\TfLBIClick.ahk" { TfLBIClick }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITfLangBarItemButton interface is implemented by a language bar button provider and used by the language bar manager to obtain information about a button item on the language bar.
@@ -173,7 +173,7 @@ export default struct ITfLangBarItemButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembutton-onmenuselect
      */
     OnMenuSelect(wID) {
-        result := ComCall(9, this, "uint", wID, "HRESULT")
+        result := ComCall(9, this, UInt32, wID, "HRESULT")
         return result
     }
 

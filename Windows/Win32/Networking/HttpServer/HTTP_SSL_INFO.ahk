@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\HTTP_SSL_CLIENT_CERT_INFO.ahk" { HTTP_SSL_CLIENT_CERT_INFO }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HTTP_SSL_CLIENT_CERT_INFO.ahk" { HTTP_SSL_CLIENT_CERT_INFO }
 
 /**
  * Contains data for a connection that uses Secure Sockets Layer (SSL), obtained through the SSL handshake.

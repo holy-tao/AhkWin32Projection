@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables the host container of a windowless rich edit control to override the control's Microsoft UI Automation accessibility properties.
@@ -47,7 +47,7 @@ export default struct IRicheditUiaOverrides extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-irichedituiaoverrides-getpropertyoverridevalue
      */
     GetPropertyOverrideValue(propertyId, pRetValue) {
-        result := ComCall(3, this, "int", propertyId, VARIANT.Ptr, pRetValue, "HRESULT")
+        result := ComCall(3, this, Int32, propertyId, VARIANT.Ptr, pRetValue, "HRESULT")
         return result
     }
 

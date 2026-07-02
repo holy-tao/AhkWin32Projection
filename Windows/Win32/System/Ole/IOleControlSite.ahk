@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 #Import ".\KEYMODIFIERS.ahk" { KEYMODIFIERS }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
-#Import ".\POINTF.ahk" { POINTF }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import ".\POINTF.ahk" { POINTF }
 
 /**
  * Provides the methods that enable a site object to manage each embedded control within a container.
@@ -170,7 +170,7 @@ export default struct IOleControlSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iolecontrolsite-transformcoords
      */
     TransformCoords(pPtlHimetric, pPtfContainer, dwFlags) {
-        result := ComCall(6, this, POINTL.Ptr, pPtlHimetric, POINTF.Ptr, pPtfContainer, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, POINTL.Ptr, pPtlHimetric, POINTF.Ptr, pPtfContainer, UInt32, dwFlags, "HRESULT")
         return result
     }
 

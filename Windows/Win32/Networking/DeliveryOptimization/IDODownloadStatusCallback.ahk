@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IDODownload.ahk" { IDODownload }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\DO_DOWNLOAD_STATUS.ahk" { DO_DOWNLOAD_STATUS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to receive notifications about a download.

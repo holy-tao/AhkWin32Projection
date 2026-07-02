@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IUIAnimationStoryboard.ahk" { IUIAnimationStoryboard }
+#Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods for handling status and update events for a storyboard.

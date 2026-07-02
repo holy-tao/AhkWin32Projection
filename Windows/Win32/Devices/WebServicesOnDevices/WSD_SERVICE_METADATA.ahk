@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
-#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 #Import ".\WSD_ENDPOINT_REFERENCE_LIST.ahk" { WSD_ENDPOINT_REFERENCE_LIST }
+#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 
 /**
  * Provides metadata regarding a service hosted by a device.

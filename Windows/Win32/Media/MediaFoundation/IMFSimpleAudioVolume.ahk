@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Controls the master volume level of the audio session associated with the streaming audio renderer (SAR) and the audio capture source.
@@ -113,7 +113,7 @@ export default struct IMFSimpleAudioVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-setmastervolume
      */
     SetMasterVolume(fLevel) {
-        result := ComCall(3, this, "float", fLevel, "HRESULT")
+        result := ComCall(3, this, Float32, fLevel, "HRESULT")
         return result
     }
 

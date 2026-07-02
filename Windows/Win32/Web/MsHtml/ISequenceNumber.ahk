@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -41,7 +41,7 @@ export default struct ISequenceNumber extends IUnknown {
      * @returns {Integer} 
      */
     GetSequenceNumber(nCurrent) {
-        result := ComCall(3, this, "int", nCurrent, "int*", &pnNew := 0, "HRESULT")
+        result := ComCall(3, this, Int32, nCurrent, "int*", &pnNew := 0, "HRESULT")
         return pnNew
     }
 

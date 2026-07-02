@@ -80,7 +80,7 @@ export default struct ITfFnConfigureRegisterEudc extends ITfFunction {
     Show(hwndParent, langid, rguidProfile, bstrRegistered) {
         bstrRegistered := bstrRegistered is String ? BSTR.Alloc(bstrRegistered).Value : bstrRegistered
 
-        result := ComCall(4, this, HWND, hwndParent, "ushort", langid, Guid.Ptr, rguidProfile, BSTR, bstrRegistered, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, UInt16, langid, Guid.Ptr, rguidProfile, BSTR, bstrRegistered, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves the total number of properties associated with a tracking information object and their names.
@@ -56,7 +56,7 @@ export default struct IComTrackingInfoProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoproperties-getpropname
      */
     GetPropName(ulIndex) {
-        result := ComCall(4, this, "uint", ulIndex, PWSTR.Ptr, &ppszPropName := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, ulIndex, PWSTR.Ptr, &ppszPropName := 0, "HRESULT")
         return ppszPropName
     }
 

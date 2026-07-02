@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
 
 /**
  * Specifies how the enhanced video renderer (EVR) alpha-blends a bitmap with the video.

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITCallHub.ahk" { ITCallHub }
 #Import ".\CALL_STATE.ahk" { CALL_STATE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\CALL_PRIVILEGE.ahk" { CALL_PRIVILEGE }
 #Import ".\ITAddress.ahk" { ITAddress }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\CALLINFO_LONG.ahk" { CALLINFO_LONG }
-#Import ".\ITCallHub.ahk" { ITCallHub }
-#Import ".\CALLINFO_STRING.ahk" { CALLINFO_STRING }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\CALLINFO_BUFFER.ahk" { CALLINFO_BUFFER }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CALLINFO_STRING.ahk" { CALLINFO_STRING }
 
 /**
  * The ITCallInfo interface gets and sets a variety of information concerning a Call object. The ITAddress::get_Calls and IEnumCall::Next methods create the ITCallInfo interface.
@@ -216,7 +216,7 @@ export default struct ITCallInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-put_callinfolong
      */
     put_CallInfoLong(CallInfoLong, lCallInfoLongVal) {
-        result := ComCall(12, this, CALLINFO_LONG, CallInfoLong, "int", lCallInfoLongVal, "HRESULT")
+        result := ComCall(12, this, CALLINFO_LONG, CallInfoLong, Int32, lCallInfoLongVal, "HRESULT")
         return result
     }
 
@@ -535,7 +535,7 @@ export default struct ITCallInfo extends IDispatch {
     SetCallInfoBuffer(CallInfoBuffer, dwSize, pCallInfoBuffer) {
         pCallInfoBufferMarshal := pCallInfoBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, CALLINFO_BUFFER, CallInfoBuffer, "uint", dwSize, pCallInfoBufferMarshal, pCallInfoBuffer, "HRESULT")
+        result := ComCall(18, this, CALLINFO_BUFFER, CallInfoBuffer, UInt32, dwSize, pCallInfoBufferMarshal, pCallInfoBuffer, "HRESULT")
         return result
     }
 

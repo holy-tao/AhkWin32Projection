@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Provides methods for getting and setting the properties of an ID3D12StateObject.
@@ -116,7 +116,7 @@ export default struct ID3D12StateObjectProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12stateobjectproperties-setpipelinestacksize
      */
     SetPipelineStackSize(PipelineStackSizeInBytes) {
-        ComCall(6, this, "uint", PipelineStackSizeInBytes)
+        ComCall(6, this, Int64, PipelineStackSizeInBytes)
     }
 
     Query(iid) {

@@ -49,7 +49,7 @@ export default struct IEventServerTrace extends IDispatch {
         bstrguidEvent := bstrguidEvent is String ? BSTR.Alloc(bstrguidEvent).Value : bstrguidEvent
         bstrguidFilter := bstrguidFilter is String ? BSTR.Alloc(bstrguidFilter).Value : bstrguidFilter
 
-        result := ComCall(7, this, BSTR, bstrguidEvent, BSTR, bstrguidFilter, "int", lPidFilter, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrguidEvent, BSTR, bstrguidFilter, Int32, lPidFilter, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IEventServerTrace extends IDispatch {
         bstrguidEvent := bstrguidEvent is String ? BSTR.Alloc(bstrguidEvent).Value : bstrguidEvent
         bstrguidFilter := bstrguidFilter is String ? BSTR.Alloc(bstrguidFilter).Value : bstrguidFilter
 
-        result := ComCall(8, this, BSTR, bstrguidEvent, BSTR, bstrguidFilter, "int", lPidFilter, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrguidEvent, BSTR, bstrguidFilter, Int32, lPidFilter, "HRESULT")
         return result
     }
 

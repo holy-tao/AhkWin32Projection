@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITravelLogEntry.ahk" { ITravelLogEntry }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TLENUMF.ahk" { TLENUMF }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITravelLogEntry.ahk" { ITravelLogEntry }
+#Import ".\TLENUMF.ahk" { TLENUMF }
 #Import ".\IEnumTravelLogEntry.ahk" { IEnumTravelLogEntry }
 
 /**
@@ -121,7 +121,7 @@ export default struct ITravelLogStg extends IUnknown {
      * @returns {ITravelLogEntry} 
      */
     GetRelativeEntry(iOffset) {
-        result := ComCall(9, this, "int", iOffset, "ptr*", &ptle := 0, "HRESULT")
+        result := ComCall(9, this, Int32, iOffset, "ptr*", &ptle := 0, "HRESULT")
         return ITravelLogEntry(ptle)
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PPP_PROJECTION_INFO.ahk" { PPP_PROJECTION_INFO }
 #Import ".\IKEV2_PROJECTION_INFO.ahk" { IKEV2_PROJECTION_INFO }
 #Import ".\PPP_LCP.ahk" { PPP_LCP }
+#Import ".\PPP_PROJECTION_INFO.ahk" { PPP_PROJECTION_INFO }
 #Import ".\PPP_LCP_INFO_AUTH_DATA.ahk" { PPP_LCP_INFO_AUTH_DATA }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 

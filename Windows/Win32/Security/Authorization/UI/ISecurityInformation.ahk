@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SI_INHERIT_TYPE.ahk" { SI_INHERIT_TYPE }
-#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
+#Import "..\..\..\UI\Controls\PSPCB_MESSAGE.ahk" { PSPCB_MESSAGE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SI_PAGE_TYPE.ahk" { SI_PAGE_TYPE }
+#Import ".\SI_INHERIT_TYPE.ahk" { SI_INHERIT_TYPE }
+#Import ".\SI_OBJECT_INFO.ahk" { SI_OBJECT_INFO }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\SECURITY_INFO_PAGE_FLAGS.ahk" { SECURITY_INFO_PAGE_FLAGS }
-#Import "..\..\OBJECT_SECURITY_INFORMATION.ahk" { OBJECT_SECURITY_INFORMATION }
 #Import ".\SI_ACCESS.ahk" { SI_ACCESS }
-#Import "..\..\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import "..\..\..\UI\Controls\PSPCB_MESSAGE.ahk" { PSPCB_MESSAGE }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\SI_OBJECT_INFO.ahk" { SI_OBJECT_INFO }
 
 /**
  * Enables the access control editor to communicate with the caller of the CreateSecurityPage and EditSecurity functions.

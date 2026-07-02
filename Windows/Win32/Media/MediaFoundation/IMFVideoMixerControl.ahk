@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
 
 /**
  * Controls how the Enhanced Video Renderer (EVR) mixes video substreams.
@@ -102,7 +102,7 @@ export default struct IMFVideoMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-setstreamzorder
      */
     SetStreamZOrder(dwStreamID, dwZ) {
-        result := ComCall(3, this, "uint", dwStreamID, "uint", dwZ, "HRESULT")
+        result := ComCall(3, this, UInt32, dwStreamID, UInt32, dwZ, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IMFVideoMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-getstreamzorder
      */
     GetStreamZOrder(dwStreamID) {
-        result := ComCall(4, this, "uint", dwStreamID, "uint*", &pdwZ := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamID, "uint*", &pdwZ := 0, "HRESULT")
         return pdwZ
     }
 
@@ -180,7 +180,7 @@ export default struct IMFVideoMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-setstreamoutputrect
      */
     SetStreamOutputRect(dwStreamID, pnrcOutput) {
-        result := ComCall(5, this, "uint", dwStreamID, MFVideoNormalizedRect.Ptr, pnrcOutput, "HRESULT")
+        result := ComCall(5, this, UInt32, dwStreamID, MFVideoNormalizedRect.Ptr, pnrcOutput, "HRESULT")
         return result
     }
 
@@ -192,7 +192,7 @@ export default struct IMFVideoMixerControl extends IUnknown {
      */
     GetStreamOutputRect(dwStreamID) {
         pnrcOutput := MFVideoNormalizedRect()
-        result := ComCall(6, this, "uint", dwStreamID, MFVideoNormalizedRect.Ptr, pnrcOutput, "HRESULT")
+        result := ComCall(6, this, UInt32, dwStreamID, MFVideoNormalizedRect.Ptr, pnrcOutput, "HRESULT")
         return pnrcOutput
     }
 

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PPP_LCP_INFO.ahk" { PPP_LCP_INFO }
-#Import ".\PPP_INFO_3.ahk" { PPP_INFO_3 }
-#Import ".\PPP_CCP_INFO.ahk" { PPP_CCP_INFO }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\PPP_IPCP_INFO2.ahk" { PPP_IPCP_INFO2 }
+#Import ".\PPP_CCP_INFO.ahk" { PPP_CCP_INFO }
+#Import ".\ROUTER_INTERFACE_TYPE.ahk" { ROUTER_INTERFACE_TYPE }
+#Import ".\PPP_NBFCP_INFO.ahk" { PPP_NBFCP_INFO }
+#Import ".\PPP_LCP_INFO.ahk" { PPP_LCP_INFO }
 #Import ".\PPP_LCP.ahk" { PPP_LCP }
 #Import ".\PPP_IPV6_CP_INFO.ahk" { PPP_IPV6_CP_INFO }
-#Import ".\PPP_NBFCP_INFO.ahk" { PPP_NBFCP_INFO }
-#Import ".\RAS_QUARANTINE_STATE.ahk" { RAS_QUARANTINE_STATE }
-#Import ".\PPP_IPCP_INFO2.ahk" { PPP_IPCP_INFO2 }
-#Import ".\ROUTER_INTERFACE_TYPE.ahk" { ROUTER_INTERFACE_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PPP_INFO_3.ahk" { PPP_INFO_3 }
 #Import ".\PPP_LCP_INFO_AUTH_DATA.ahk" { PPP_LCP_INFO_AUTH_DATA }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\RAS_QUARANTINE_STATE.ahk" { RAS_QUARANTINE_STATE }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

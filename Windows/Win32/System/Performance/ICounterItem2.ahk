@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SysmonDataType.ahk" { SysmonDataType }
-#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 #Import ".\ICounterItem.ahk" { ICounterItem }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SysmonDataType.ahk" { SysmonDataType }
 
 /**
  * @namespace Windows.Win32.System.Performance
@@ -110,7 +110,7 @@ export default struct ICounterItem2 extends ICounterItem {
      */
     GetDataAt(iIndex, iWhich) {
         pVariant := VARIANT()
-        result := ComCall(19, this, "int", iIndex, SysmonDataType, iWhich, VARIANT.Ptr, pVariant, "HRESULT")
+        result := ComCall(19, this, Int32, iIndex, SysmonDataType, iWhich, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 

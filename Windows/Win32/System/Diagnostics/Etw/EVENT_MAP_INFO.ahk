@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\EVENT_MAP_ENTRY.ahk" { EVENT_MAP_ENTRY }
-#Import ".\MAP_FLAGS.ahk" { MAP_FLAGS }
 #Import ".\MAP_VALUETYPE.ahk" { MAP_VALUETYPE }
+#Import ".\MAP_FLAGS.ahk" { MAP_FLAGS }
 
 /**
  * Defines the metadata about the event map.

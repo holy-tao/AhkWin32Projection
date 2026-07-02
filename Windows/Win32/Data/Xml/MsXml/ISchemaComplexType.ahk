@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SCHEMACONTENTTYPE.ahk" { SCHEMACONTENTTYPE }
-#Import ".\ISchemaAny.ahk" { ISchemaAny }
-#Import ".\ISchemaModelGroup.ahk" { ISchemaModelGroup }
-#Import ".\SCHEMADERIVATIONMETHOD.ahk" { SCHEMADERIVATIONMETHOD }
-#Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ISchemaType.ahk" { ISchemaType }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISchemaAny.ahk" { ISchemaAny }
+#Import ".\ISchemaItemCollection.ahk" { ISchemaItemCollection }
+#Import ".\SCHEMADERIVATIONMETHOD.ahk" { SCHEMADERIVATIONMETHOD }
+#Import ".\ISchemaModelGroup.ahk" { ISchemaModelGroup }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

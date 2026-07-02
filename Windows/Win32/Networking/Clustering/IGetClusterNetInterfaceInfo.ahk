@@ -84,7 +84,7 @@ export default struct IGetClusterNetInterfaceInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusternetinterfaceinfo-getnetinterfacehandle
      */
     GetNetInterfaceHandle(lObjIndex) {
-        result := ComCall(3, this, "int", lObjIndex, HNETINTERFACE)
+        result := ComCall(3, this, Int32, lObjIndex, HNETINTERFACE)
         return result
     }
 

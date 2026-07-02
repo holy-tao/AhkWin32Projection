@@ -3,10 +3,10 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDXGISurface2.ahk" { IDXGISurface2 }
 #Import ".\IDXGIResource.ahk" { IDXGIResource }
 #Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGISurface2.ahk" { IDXGISurface2 }
 
 /**
  * An IDXGIResource1 interface extends the IDXGIResource interface by adding support for creating a subresource surface object and for creating a handle to a shared resource.
@@ -73,7 +73,7 @@ export default struct IDXGIResource1 extends IDXGIResource {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiresource1-createsubresourcesurface
      */
     CreateSubresourceSurface(index) {
-        result := ComCall(12, this, "uint", index, "ptr*", &ppSurface := 0, "HRESULT")
+        result := ComCall(12, this, UInt32, index, "ptr*", &ppSurface := 0, "HRESULT")
         return IDXGISurface2(ppSurface)
     }
 
@@ -125,7 +125,7 @@ export default struct IDXGIResource1 extends IDXGIResource {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         pHandle := HANDLE.Owned()
-        result := ComCall(13, this, SECURITY_ATTRIBUTES.Ptr, pAttributes, "uint", dwAccess, "ptr", lpName, HANDLE.Ptr, pHandle, "HRESULT")
+        result := ComCall(13, this, SECURITY_ATTRIBUTES.Ptr, pAttributes, UInt32, dwAccess, "ptr", lpName, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 

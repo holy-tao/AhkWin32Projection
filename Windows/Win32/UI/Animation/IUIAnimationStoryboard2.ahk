@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IUIAnimationLoopIterationChangeHandler2.ahk" { IUIAnimationLoopIterationChangeHandler2 }
-#Import ".\UI_ANIMATION_REPEAT_MODE.ahk" { UI_ANIMATION_REPEAT_MODE }
 #Import ".\IUIAnimationStoryboardEventHandler2.ahk" { IUIAnimationStoryboardEventHandler2 }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\UI_ANIMATION_SCHEDULING_RESULT.ahk" { UI_ANIMATION_SCHEDULING_RESULT }
 #Import ".\UI_ANIMATION_KEYFRAME.ahk" { UI_ANIMATION_KEYFRAME }
-#Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
-#Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\UI_ANIMATION_SCHEDULING_RESULT.ahk" { UI_ANIMATION_SCHEDULING_RESULT }
+#Import ".\IUIAnimationTransition2.ahk" { IUIAnimationTransition2 }
+#Import ".\IUIAnimationLoopIterationChangeHandler2.ahk" { IUIAnimationLoopIterationChangeHandler2 }
+#Import ".\UI_ANIMATION_STORYBOARD_STATUS.ahk" { UI_ANIMATION_STORYBOARD_STATUS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_ANIMATION_REPEAT_MODE.ahk" { UI_ANIMATION_REPEAT_MODE }
 #Import ".\IUIAnimationVariable2.ahk" { IUIAnimationVariable2 }
 
 /**
@@ -108,7 +108,7 @@ export default struct IUIAnimationStoryboard2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-addkeyframeatoffset
      */
     AddKeyframeAtOffset(existingKeyframe, offset) {
-        result := ComCall(4, this, UI_ANIMATION_KEYFRAME, existingKeyframe, "double", offset, UI_ANIMATION_KEYFRAME.Ptr, &keyframe := 0, "HRESULT")
+        result := ComCall(4, this, UI_ANIMATION_KEYFRAME, existingKeyframe, Float64, offset, UI_ANIMATION_KEYFRAME.Ptr, &keyframe := 0, "HRESULT")
         return keyframe
     }
 
@@ -264,7 +264,7 @@ export default struct IUIAnimationStoryboard2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-repeatbetweenkeyframes
      */
     RepeatBetweenKeyframes(startKeyframe, endKeyframe, cRepetition, repeatMode, pIterationChangeHandler, id, fRegisterForNextAnimationEvent) {
-        result := ComCall(8, this, UI_ANIMATION_KEYFRAME, startKeyframe, UI_ANIMATION_KEYFRAME, endKeyframe, "double", cRepetition, UI_ANIMATION_REPEAT_MODE, repeatMode, "ptr", pIterationChangeHandler, "ptr", id, BOOL, fRegisterForNextAnimationEvent, "HRESULT")
+        result := ComCall(8, this, UI_ANIMATION_KEYFRAME, startKeyframe, UI_ANIMATION_KEYFRAME, endKeyframe, Float64, cRepetition, UI_ANIMATION_REPEAT_MODE, repeatMode, "ptr", pIterationChangeHandler, IntPtr, id, BOOL, fRegisterForNextAnimationEvent, "HRESULT")
         return result
     }
 
@@ -292,7 +292,7 @@ export default struct IUIAnimationStoryboard2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-setlongestacceptabledelay
      */
     SetLongestAcceptableDelay(delay) {
-        result := ComCall(10, this, "double", delay, "HRESULT")
+        result := ComCall(10, this, Float64, delay, "HRESULT")
         return result
     }
 
@@ -311,7 +311,7 @@ export default struct IUIAnimationStoryboard2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-setskipduration
      */
     SetSkipDuration(secondsDuration) {
-        result := ComCall(11, this, "double", secondsDuration, "HRESULT")
+        result := ComCall(11, this, Float64, secondsDuration, "HRESULT")
         return result
     }
 
@@ -343,7 +343,7 @@ export default struct IUIAnimationStoryboard2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-schedule
      */
     Schedule(timeNow) {
-        result := ComCall(12, this, "double", timeNow, "int*", &schedulingResult := 0, "HRESULT")
+        result := ComCall(12, this, Float64, timeNow, "int*", &schedulingResult := 0, "HRESULT")
         return schedulingResult
     }
 
@@ -376,7 +376,7 @@ export default struct IUIAnimationStoryboard2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-finish
      */
     Finish(completionDeadline) {
-        result := ComCall(14, this, "double", completionDeadline, "HRESULT")
+        result := ComCall(14, this, Float64, completionDeadline, "HRESULT")
         return result
     }
 
@@ -405,7 +405,7 @@ export default struct IUIAnimationStoryboard2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-settag
      */
     SetTag(_object, id) {
-        result := ComCall(16, this, "ptr", _object, "uint", id, "HRESULT")
+        result := ComCall(16, this, "ptr", _object, UInt32, id, "HRESULT")
         return result
     }
 

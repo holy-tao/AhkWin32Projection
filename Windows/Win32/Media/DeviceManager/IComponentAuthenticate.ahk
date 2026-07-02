@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IComponentAuthenticate interface provides secure, encrypted communication between modules of Windows Media Device Manager.
@@ -65,7 +65,7 @@ export default struct IComponentAuthenticate extends IUnknown {
         ppbDataOutMarshal := ppbDataOut is VarRef ? "ptr*" : "ptr"
         pdwDataOutLenMarshal := pdwDataOutLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwProtocolID, "uint", dwPass, pbDataInMarshal, pbDataIn, "uint", dwDataInLen, ppbDataOutMarshal, ppbDataOut, pdwDataOutLenMarshal, pdwDataOutLen, "HRESULT")
+        result := ComCall(3, this, UInt32, dwProtocolID, UInt32, dwPass, pbDataInMarshal, pbDataIn, UInt32, dwDataInLen, ppbDataOutMarshal, ppbDataOut, pdwDataOutLenMarshal, pdwDataOutLen, "HRESULT")
         return result
     }
 

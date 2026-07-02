@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumDiscMasterFormats.ahk" { IEnumDiscMasterFormats }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDiscRecorder.ahk" { IDiscRecorder }
 #Import ".\IEnumDiscRecorders.ahk" { IEnumDiscRecorders }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDiscMasterProgressEvents.ahk" { IDiscMasterProgressEvents }
-#Import ".\IDiscRecorder.ahk" { IDiscRecorder }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IEnumDiscMasterFormats.ahk" { IEnumDiscMasterFormats }
 
 /**
  * The IDiscMaster interface allows an application to reserve an image mastering API, enumerate disc mastering formats and disc recorders supported by an image mastering object, and start a simulated or actual burn of a disc.
@@ -220,7 +220,7 @@ export default struct IDiscMaster extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-progressunadvise
      */
     ProgressUnadvise(vCookie) {
-        result := ComCall(12, this, "ptr", vCookie, "HRESULT")
+        result := ComCall(12, this, IntPtr, vCookie, "HRESULT")
         return result
     }
 
@@ -246,7 +246,7 @@ export default struct IDiscMaster extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-recorddisc
      */
     RecordDisc(bSimulate, bEjectAfterBurn) {
-        result := ComCall(13, this, "char", bSimulate, "char", bEjectAfterBurn, "HRESULT")
+        result := ComCall(13, this, Int8, bSimulate, Int8, bEjectAfterBurn, "HRESULT")
         return result
     }
 

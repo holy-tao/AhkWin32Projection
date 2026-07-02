@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugHostModuleSignature.ahk" { IDebugHostModuleSignature }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
-#Import ".\Location.ahk" { Location }
 #Import ".\IDebugHostTypeSignature.ahk" { IDebugHostTypeSignature }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDebugHostModule.ahk" { IDebugHostModule }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
 #Import ".\IDebugHostType.ahk" { IDebugHostType }
+#Import ".\IDebugHostModuleSignature.ahk" { IDebugHostModuleSignature }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDebugHostModule.ahk" { IDebugHostModule }
+#Import ".\Location.ahk" { Location }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
 
 /**

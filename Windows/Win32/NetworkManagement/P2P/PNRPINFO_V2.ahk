@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\BLOB.ahk" { BLOB }
+#Import ".\PNRP_EXTENDED_PAYLOAD_TYPE.ahk" { PNRP_EXTENDED_PAYLOAD_TYPE }
 #Import ".\PNRP_RESOLVE_CRITERIA.ahk" { PNRP_RESOLVE_CRITERIA }
 #Import ".\PNRP_REGISTERED_ID_STATE.ahk" { PNRP_REGISTERED_ID_STATE }
-#Import "..\..\System\Com\BLOB.ahk" { BLOB }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
-#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
-#Import ".\PNRP_EXTENDED_PAYLOAD_TYPE.ahk" { PNRP_EXTENDED_PAYLOAD_TYPE }
 
 /**
  * The PNRPINFO_V1 structure is pointed to by the lpBlob member of the WSAQUERYSET structure.P

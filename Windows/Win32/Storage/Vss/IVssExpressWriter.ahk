@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IVssCreateExpressWriterMetadata.ahk" { IVssCreateExpressWriterMetadata }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IVssCreateExpressWriterMetadata.ahk" { IVssCreateExpressWriterMetadata }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\VSS_USAGE_TYPE.ahk" { VSS_USAGE_TYPE }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods to manage metadata for a VSS express writer.
@@ -66,7 +66,7 @@ export default struct IVssExpressWriter extends IUnknown {
     CreateMetadata(writerId, writerName, usageType, versionMajor, versionMinor, reserved) {
         writerName := writerName is String ? StrPtr(writerName) : writerName
 
-        result := ComCall(3, this, Guid, writerId, "ptr", writerName, VSS_USAGE_TYPE, usageType, "uint", versionMajor, "uint", versionMinor, "uint", reserved, "ptr*", &ppMetadata := 0, "HRESULT")
+        result := ComCall(3, this, Guid, writerId, "ptr", writerName, VSS_USAGE_TYPE, usageType, UInt32, versionMajor, UInt32, versionMinor, UInt32, reserved, "ptr*", &ppMetadata := 0, "HRESULT")
         return IVssCreateExpressWriterMetadata(ppMetadata)
     }
 
@@ -112,7 +112,7 @@ export default struct IVssExpressWriter extends IUnknown {
     LoadMetadata(metadata, reserved) {
         metadata := metadata is String ? StrPtr(metadata) : metadata
 
-        result := ComCall(4, this, "ptr", metadata, "uint", reserved, "HRESULT")
+        result := ComCall(4, this, "ptr", metadata, UInt32, reserved, "HRESULT")
         return result
     }
 

@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IXMLDOMParseErrorCollection.ahk" { IXMLDOMParseErrorCollection }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IXMLDOMParseError.ahk" { IXMLDOMParseError }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -87,7 +87,7 @@ export default struct IXMLDOMParseError2 extends IXMLDOMParseError {
      */
     errorParameters(index) {
         param1 := BSTR.Owned()
-        result := ComCall(16, this, "int", index, BSTR.Ptr, param1, "HRESULT")
+        result := ComCall(16, this, Int32, index, BSTR.Ptr, param1, "HRESULT")
         return param1
     }
 

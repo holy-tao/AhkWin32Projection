@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
 #Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -52,7 +52,7 @@ export default struct ITargetFramePriv extends IUnknown {
     FindFrameDownwards(pszTargetName, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(3, this, "ptr", pszTargetName, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszTargetName, UInt32, dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
         return IUnknown(ppunkTargetFrame)
     }
 
@@ -66,7 +66,7 @@ export default struct ITargetFramePriv extends IUnknown {
     FindFrameInContext(pszTargetName, punkContextFrame, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(4, this, "ptr", pszTargetName, "ptr", punkContextFrame, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszTargetName, "ptr", punkContextFrame, UInt32, dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
         return IUnknown(ppunkTargetFrame)
     }
 
@@ -105,7 +105,7 @@ export default struct ITargetFramePriv extends IUnknown {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
         pszLocation := pszLocation is String ? StrPtr(pszLocation) : pszLocation
 
-        result := ComCall(7, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pszTargetName, "ptr", pszUrl, "ptr", pszLocation, "HRESULT")
+        result := ComCall(7, this, UInt32, grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pszTargetName, "ptr", pszUrl, "ptr", pszLocation, "HRESULT")
         return result
     }
 
@@ -115,7 +115,7 @@ export default struct ITargetFramePriv extends IUnknown {
      * @returns {IUnknown} 
      */
     FindBrowserByIndex(dwID) {
-        result := ComCall(8, this, "uint", dwID, "ptr*", &ppunkBrowser := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwID, "ptr*", &ppunkBrowser := 0, "HRESULT")
         return IUnknown(ppunkBrowser)
     }
 

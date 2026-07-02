@@ -3,8 +3,8 @@
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -91,7 +91,7 @@ export default struct IDOMMSTransitionEvent extends IDispatch {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(9, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, BSTR, propertyName, "float", elapsedTime, "HRESULT")
+        result := ComCall(9, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, BSTR, propertyName, Float32, elapsedTime, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\PRJ_CALLBACK_DATA_FLAGS.ahk" { PRJ_CALLBACK_DATA_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk" { PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT }
 #Import ".\PRJ_PLACEHOLDER_VERSION_INFO.ahk" { PRJ_PLACEHOLDER_VERSION_INFO }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines the standard information passed to a provider for every operation callback.

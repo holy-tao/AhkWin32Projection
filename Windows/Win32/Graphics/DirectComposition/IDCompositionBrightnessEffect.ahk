@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
-#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 #Import "..\Direct2D\Common\D2D_VECTOR_2F.ahk" { D2D_VECTOR_2F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * The brightness effect controls the brightness of the image.
@@ -103,7 +103,7 @@ export default struct IDCompositionBrightnessEffect extends IDCompositionFilterE
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionbrightnesseffect-setwhitepointx(float)
      */
     SetWhitePointX1(whitePointX) {
-        result := ComCall(7, this, "float", whitePointX, "HRESULT")
+        result := ComCall(7, this, Float32, whitePointX, "HRESULT")
         return result
     }
 
@@ -131,7 +131,7 @@ export default struct IDCompositionBrightnessEffect extends IDCompositionFilterE
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionbrightnesseffect-setwhitepointy(idcompositionanimation)
      */
     SetWhitePointY1(whitePointY) {
-        result := ComCall(9, this, "float", whitePointY, "HRESULT")
+        result := ComCall(9, this, Float32, whitePointY, "HRESULT")
         return result
     }
 
@@ -159,7 +159,7 @@ export default struct IDCompositionBrightnessEffect extends IDCompositionFilterE
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionbrightnesseffect-setblackpointx(idcompositionanimation)
      */
     SetBlackPointX1(blackPointX) {
-        result := ComCall(11, this, "float", blackPointX, "HRESULT")
+        result := ComCall(11, this, Float32, blackPointX, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ export default struct IDCompositionBrightnessEffect extends IDCompositionFilterE
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionbrightnesseffect-setblackpointy(float)
      */
     SetBlackPointY1(blackPointY) {
-        result := ComCall(13, this, "float", blackPointY, "HRESULT")
+        result := ComCall(13, this, Float32, blackPointY, "HRESULT")
         return result
     }
 

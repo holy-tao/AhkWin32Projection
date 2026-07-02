@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
 #Import ".\CLUS_FTSET_INFO.ahk" { CLUS_FTSET_INFO }
 #Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
+#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
 
 /**
  * Contains information about an FT (fault tolerant) set. It is used as an entry in a value list and consists of a CLUSPROP_VALUE and a CLUS_FTSET_INFO structure.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1DeviceContext6.ahk" { ID2D1DeviceContext6 }
 #Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
 #Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
-#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
-#Import ".\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk" { D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION }
 #Import ".\ID2D1SvgGlyphStyle.ahk" { ID2D1SvgGlyphStyle }
-#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
-#Import "..\DirectWrite\DWRITE_PAINT_FEATURE_LEVEL.ahk" { DWRITE_PAINT_FEATURE_LEVEL }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
 #Import ".\ID2D1Brush.ahk" { ID2D1Brush }
-#Import ".\ID2D1DeviceContext6.ahk" { ID2D1DeviceContext6 }
+#Import ".\D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION.ahk" { D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION }
+#Import "..\DirectWrite\DWRITE_PAINT_FEATURE_LEVEL.ahk" { DWRITE_PAINT_FEATURE_LEVEL }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
@@ -63,7 +63,7 @@ export default struct ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
      * @returns {String} Nothing - always returns an empty string
      */
     DrawPaintGlyphRun(baselineOrigin, _glyphRun, defaultFillBrush, colorPaletteIndex, measuringMode) {
-        ComCall(121, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", defaultFillBrush, "uint", colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode)
+        ComCall(121, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", defaultFillBrush, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -79,7 +79,7 @@ export default struct ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
      * @returns {String} Nothing - always returns an empty string
      */
     DrawGlyphRunWithColorSupport(baselineOrigin, _glyphRun, glyphRunDescription, foregroundBrush, svgGlyphStyle, colorPaletteIndex, measuringMode, bitmapSnapOption) {
-        ComCall(122, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", foregroundBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode, D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION, bitmapSnapOption)
+        ComCall(122, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", foregroundBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode, D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION, bitmapSnapOption)
     }
 
     Query(iid) {

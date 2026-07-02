@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IMAPI_CD_TRACK_DIGITAL_COPY_SETTING.ahk" { IMAPI_CD_TRACK_DIGITAL_COPY_SETTING }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IMAPI_CD_SECTOR_TYPE.ahk" { IMAPI_CD_SECTOR_TYPE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
@@ -273,7 +273,7 @@ export default struct IRawCDImageTrackInfo extends IDispatch {
      * @returns {HRESULT} 
      */
     AddTrackIndex(lbaOffset) {
-        result := ComCall(18, this, "int", lbaOffset, "HRESULT")
+        result := ComCall(18, this, Int32, lbaOffset, "HRESULT")
         return result
     }
 
@@ -283,7 +283,7 @@ export default struct IRawCDImageTrackInfo extends IDispatch {
      * @returns {HRESULT} 
      */
     ClearTrackIndex(lbaOffset) {
-        result := ComCall(19, this, "int", lbaOffset, "HRESULT")
+        result := ComCall(19, this, Int32, lbaOffset, "HRESULT")
         return result
     }
 

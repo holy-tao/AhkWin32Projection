@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -49,7 +49,7 @@ export default struct ISchemaLock extends IUnknown {
     GetSchemaLock(pTableID, lmMode, phLockHandle, pTableVersion) {
         pTableVersionMarshal := pTableVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, DBID.Ptr, pTableID, "uint", lmMode, HANDLE.Ptr, phLockHandle, pTableVersionMarshal, pTableVersion, "HRESULT")
+        result := ComCall(3, this, DBID.Ptr, pTableID, UInt32, lmMode, HANDLE.Ptr, phLockHandle, pTableVersionMarshal, pTableVersion, "HRESULT")
         return result
     }
 

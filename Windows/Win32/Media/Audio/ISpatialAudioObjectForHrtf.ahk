@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SpatialAudioHrtfDirectivityUnion.ahk" { SpatialAudioHrtfDirectivityUnion }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SpatialAudioHrtfDistanceDecay.ahk" { SpatialAudioHrtfDistanceDecay }
 #Import ".\ISpatialAudioObjectBase.ahk" { ISpatialAudioObjectBase }
+#Import ".\SpatialAudioHrtfDistanceDecay.ahk" { SpatialAudioHrtfDistanceDecay }
+#Import ".\SpatialAudioHrtfDirectivityUnion.ahk" { SpatialAudioHrtfDirectivityUnion }
 #Import ".\SpatialAudioHrtfEnvironmentType.ahk" { SpatialAudioHrtfEnvironmentType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an object that provides audio data to be rendered from a position in 3D space, relative to the user, a head-relative transfer function (HRTF).
@@ -105,7 +105,7 @@ export default struct ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nf-spatialaudiohrtf-ispatialaudioobjectforhrtf-setposition
      */
     SetPosition(x, y, z) {
-        result := ComCall(7, this, "float", x, "float", y, "float", z, "HRESULT")
+        result := ComCall(7, this, Float32, x, Float32, y, Float32, z, "HRESULT")
         return result
     }
 
@@ -151,7 +151,7 @@ export default struct ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nf-spatialaudiohrtf-ispatialaudioobjectforhrtf-setgain
      */
     SetGain(gain) {
-        result := ComCall(8, this, "float", gain, "HRESULT")
+        result := ComCall(8, this, Float32, gain, "HRESULT")
         return result
     }
 

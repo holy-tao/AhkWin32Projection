@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MSVidCCService.ahk" { MSVidCCService }
 #Import ".\IMSVidClosedCaptioning.ahk" { IMSVidClosedCaptioning }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\MSVidCCService.ahk" { MSVidCCService }
 
 /**
  * The IMSVidClosedCaptioning2 interface sets the closed captioning service, such as CC1 or CC2. The MSVidClosedCaptioning feature exposes this interface.

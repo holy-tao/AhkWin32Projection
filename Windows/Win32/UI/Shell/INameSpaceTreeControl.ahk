@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\IShellItemFilter.ahk" { IShellItemFilter }
-#Import ".\IShellItemArray.ahk" { IShellItemArray }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\NSTCGNI.ahk" { NSTCGNI }
-#Import ".\IShellItem.ahk" { IShellItem }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
 
 /**
  * Exposes methods used to view and manipulate nodes in a tree of Shell items.
@@ -80,7 +80,7 @@ export default struct INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-initialize
      */
     Initialize(hwndParent, prc, nsctsFlags) {
-        result := ComCall(3, this, HWND, hwndParent, RECT.Ptr, prc, "uint", nsctsFlags, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, RECT.Ptr, prc, UInt32, nsctsFlags, "HRESULT")
         return result
     }
 
@@ -114,7 +114,7 @@ export default struct INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-treeunadvise
      */
     TreeUnadvise(dwCookie) {
-        result := ComCall(5, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(5, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -136,7 +136,7 @@ export default struct INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-appendroot
      */
     AppendRoot(psiRoot, grfEnumFlags, grfRootStyle, pif) {
-        result := ComCall(6, this, "ptr", psiRoot, "uint", grfEnumFlags, "uint", grfRootStyle, "ptr", pif, "HRESULT")
+        result := ComCall(6, this, "ptr", psiRoot, UInt32, grfEnumFlags, UInt32, grfRootStyle, "ptr", pif, "HRESULT")
         return result
     }
 
@@ -161,7 +161,7 @@ export default struct INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-insertroot
      */
     InsertRoot(iIndex, psiRoot, grfEnumFlags, grfRootStyle, pif) {
-        result := ComCall(7, this, "int", iIndex, "ptr", psiRoot, "uint", grfEnumFlags, "uint", grfRootStyle, "ptr", pif, "HRESULT")
+        result := ComCall(7, this, Int32, iIndex, "ptr", psiRoot, UInt32, grfEnumFlags, UInt32, grfRootStyle, "ptr", pif, "HRESULT")
         return result
     }
 
@@ -223,7 +223,7 @@ export default struct INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-setitemstate
      */
     SetItemState(psi, nstcisMask, nstcisFlags) {
-        result := ComCall(11, this, "ptr", psi, "uint", nstcisMask, "uint", nstcisFlags, "HRESULT")
+        result := ComCall(11, this, "ptr", psi, UInt32, nstcisMask, UInt32, nstcisFlags, "HRESULT")
         return result
     }
 
@@ -243,7 +243,7 @@ export default struct INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getitemstate
      */
     GetItemState(psi, nstcisMask) {
-        result := ComCall(12, this, "ptr", psi, "uint", nstcisMask, "uint*", &pnstcisFlags := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", psi, UInt32, nstcisMask, "uint*", &pnstcisFlags := 0, "HRESULT")
         return pnstcisFlags
     }
 
@@ -289,7 +289,7 @@ export default struct INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-setitemcustomstate
      */
     SetItemCustomState(psi, iStateNumber) {
-        result := ComCall(15, this, "ptr", psi, "int", iStateNumber, "HRESULT")
+        result := ComCall(15, this, "ptr", psi, Int32, iStateNumber, "HRESULT")
         return result
     }
 

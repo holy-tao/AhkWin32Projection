@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\SL_ACTIVATION_INFO_HEADER.ahk" { SL_ACTIVATION_INFO_HEADER }
 #Import ".\SL_ACTIVATION_TYPE.ahk" { SL_ACTIVATION_TYPE }
+#Import ".\SL_ACTIVATION_INFO_HEADER.ahk" { SL_ACTIVATION_INFO_HEADER }
 
 /**
  * Specifies information used for the retail or Active Directory phone activation of a license.

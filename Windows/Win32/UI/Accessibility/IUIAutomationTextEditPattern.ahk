@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUIAutomationTextPattern.ahk" { IUIAutomationTextPattern }
-#Import ".\IUIAutomationTextRange.ahk" { IUIAutomationTextRange }
 
 /**
  * Provides access to a control that modifies text, for example a control that performs auto-correction or enables input composition through an Input Method Editor (IME).

@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\D3D12_COMMAND_QUEUE_DESC.ahk" { D3D12_COMMAND_QUEUE_DESC }
-#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
-#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
-#Import ".\D3D12_TILED_RESOURCE_COORDINATE.ahk" { D3D12_TILED_RESOURCE_COORDINATE }
-#Import ".\D3D12_TILE_MAPPING_FLAGS.ahk" { D3D12_TILE_MAPPING_FLAGS }
-#Import ".\D3D12_TILE_RANGE_FLAGS.ahk" { D3D12_TILE_RANGE_FLAGS }
 #Import ".\ID3D12CommandList.ahk" { ID3D12CommandList }
-#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
 #Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\ID3D12Fence.ahk" { ID3D12Fence }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import ".\D3D12_COMMAND_QUEUE_DESC.ahk" { D3D12_COMMAND_QUEUE_DESC }
+#Import ".\D3D12_TILE_MAPPING_FLAGS.ahk" { D3D12_TILE_MAPPING_FLAGS }
+#Import ".\D3D12_TILED_RESOURCE_COORDINATE.ahk" { D3D12_TILED_RESOURCE_COORDINATE }
 #Import ".\D3D12_TILE_REGION_SIZE.ahk" { D3D12_TILE_REGION_SIZE }
+#Import ".\D3D12_TILE_RANGE_FLAGS.ahk" { D3D12_TILE_RANGE_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for submitting command lists, synchronizing command list execution, instrumenting the command queue, and updating resource tile mappings.
@@ -125,7 +125,7 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
         pHeapRangeStartOffsetsMarshal := pHeapRangeStartOffsets is VarRef ? "uint*" : "ptr"
         pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : "ptr"
 
-        ComCall(8, this, "ptr", pResource, "uint", NumResourceRegions, D3D12_TILED_RESOURCE_COORDINATE.Ptr, pResourceRegionStartCoordinates, D3D12_TILE_REGION_SIZE.Ptr, pResourceRegionSizes, "ptr", pHeap, "uint", NumRanges, pRangeFlagsMarshal, pRangeFlags, pHeapRangeStartOffsetsMarshal, pHeapRangeStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, D3D12_TILE_MAPPING_FLAGS, Flags)
+        ComCall(8, this, "ptr", pResource, UInt32, NumResourceRegions, D3D12_TILED_RESOURCE_COORDINATE.Ptr, pResourceRegionStartCoordinates, D3D12_TILE_REGION_SIZE.Ptr, pResourceRegionSizes, "ptr", pHeap, UInt32, NumRanges, pRangeFlagsMarshal, pRangeFlags, pHeapRangeStartOffsetsMarshal, pHeapRangeStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, D3D12_TILE_MAPPING_FLAGS, Flags)
     }
 
     /**
@@ -167,7 +167,7 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists
      */
     ExecuteCommandLists(NumCommandLists, ppCommandLists) {
-        ComCall(10, this, "uint", NumCommandLists, ID3D12CommandList.Ptr, ppCommandLists)
+        ComCall(10, this, UInt32, NumCommandLists, ID3D12CommandList.Ptr, ppCommandLists)
     }
 
     /**
@@ -189,7 +189,7 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-setmarker
      */
     SetMarker(Metadata, pData, _Size) {
-        ComCall(11, this, "uint", Metadata, "ptr", pData, "uint", _Size)
+        ComCall(11, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
     }
 
     /**
@@ -211,7 +211,7 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-beginevent
      */
     BeginEvent(Metadata, pData, _Size) {
-        ComCall(12, this, "uint", Metadata, "ptr", pData, "uint", _Size)
+        ComCall(12, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
     }
 
     /**
@@ -243,7 +243,7 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-signal
      */
     Signal(pFence, Value) {
-        result := ComCall(14, this, "ptr", pFence, "uint", Value, "HRESULT")
+        result := ComCall(14, this, "ptr", pFence, Int64, Value, "HRESULT")
         return result
     }
 
@@ -265,7 +265,7 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-wait
      */
     Wait(pFence, Value) {
-        result := ComCall(15, this, "ptr", pFence, "uint", Value, "HRESULT")
+        result := ComCall(15, this, "ptr", pFence, Int64, Value, "HRESULT")
         return result
     }
 

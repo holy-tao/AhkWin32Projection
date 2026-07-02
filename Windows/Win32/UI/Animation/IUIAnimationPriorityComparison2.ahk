@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
-#Import ".\UI_ANIMATION_PRIORITY_EFFECT.ahk" { UI_ANIMATION_PRIORITY_EFFECT }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_ANIMATION_PRIORITY_EFFECT.ahk" { UI_ANIMATION_PRIORITY_EFFECT }
 
 /**
  * Defines a method that resolves scheduling conflicts through priority comparison.

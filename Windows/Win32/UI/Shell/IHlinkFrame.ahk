@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IBindStatusCallback.ahk" { IBindStatusCallback }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
-#Import ".\IHlink.ahk" { IHlink }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import ".\IHlink.ahk" { IHlink }
 #Import ".\IHlinkBrowseContext.ahk" { IHlinkBrowseContext }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -74,7 +74,7 @@ export default struct IHlinkFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/navigate-element
      */
     Navigate(grfHLNF, pbc, pibsc, pihlNavigate) {
-        result := ComCall(5, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pihlNavigate, "HRESULT")
+        result := ComCall(5, this, UInt32, grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pihlNavigate, "HRESULT")
         return result
     }
 
@@ -91,7 +91,7 @@ export default struct IHlinkFrame extends IUnknown {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := ComCall(6, this, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "uint", dwreserved, "HRESULT")
+        result := ComCall(6, this, UInt32, grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, UInt32, dwreserved, "HRESULT")
         return result
     }
 
@@ -107,7 +107,7 @@ export default struct IHlinkFrame extends IUnknown {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := ComCall(7, this, "uint", uHLID, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "HRESULT")
+        result := ComCall(7, this, UInt32, uHLID, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "HRESULT")
         return result
     }
 

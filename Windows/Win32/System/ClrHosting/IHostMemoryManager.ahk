@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICLRMemoryNotificationCallback.ahk" { ICLRMemoryNotificationCallback }
 #Import ".\EMemoryCriticalLevel.ahk" { EMemoryCriticalLevel }
 #Import ".\IHostMalloc.ahk" { IHostMalloc }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICLRMemoryNotificationCallback.ahk" { ICLRMemoryNotificationCallback }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -53,7 +53,7 @@ export default struct IHostMemoryManager extends IUnknown {
      * @returns {IHostMalloc} 
      */
     CreateMalloc(dwMallocType) {
-        result := ComCall(3, this, "uint", dwMallocType, "ptr*", &ppMalloc := 0, "HRESULT")
+        result := ComCall(3, this, UInt32, dwMallocType, "ptr*", &ppMalloc := 0, "HRESULT")
         return IHostMalloc(ppMalloc)
     }
 
@@ -90,7 +90,7 @@ export default struct IHostMemoryManager extends IUnknown {
     VirtualAlloc(pAddress, dwSize, flAllocationType, flProtect, eCriticalLevel) {
         pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, pAddressMarshal, pAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, EMemoryCriticalLevel, eCriticalLevel, "ptr*", &ppMem := 0, "HRESULT")
+        result := ComCall(4, this, pAddressMarshal, pAddress, IntPtr, dwSize, UInt32, flAllocationType, UInt32, flProtect, EMemoryCriticalLevel, eCriticalLevel, "ptr*", &ppMem := 0, "HRESULT")
         return ppMem
     }
 
@@ -131,7 +131,7 @@ export default struct IHostMemoryManager extends IUnknown {
     VirtualFree(lpAddress, dwSize, dwFreeType) {
         lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", dwFreeType, "HRESULT")
+        result := ComCall(5, this, lpAddressMarshal, lpAddress, IntPtr, dwSize, UInt32, dwFreeType, "HRESULT")
         return result
     }
 
@@ -170,7 +170,7 @@ export default struct IHostMemoryManager extends IUnknown {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
         pResultMarshal := pResult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, lpAddressMarshal, lpAddress, lpBufferMarshal, lpBuffer, "ptr", dwLength, pResultMarshal, pResult, "HRESULT")
+        result := ComCall(6, this, lpAddressMarshal, lpAddress, lpBufferMarshal, lpBuffer, IntPtr, dwLength, pResultMarshal, pResult, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct IHostMemoryManager extends IUnknown {
     VirtualProtect(lpAddress, dwSize, flNewProtect) {
         lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", flNewProtect, "uint*", &pflOldProtect := 0, "HRESULT")
+        result := ComCall(7, this, lpAddressMarshal, lpAddress, IntPtr, dwSize, UInt32, flNewProtect, "uint*", &pflOldProtect := 0, "HRESULT")
         return pflOldProtect
     }
 
@@ -234,7 +234,7 @@ export default struct IHostMemoryManager extends IUnknown {
     NeedsVirtualAddressSpace(startAddress, _size) {
         startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, startAddressMarshal, startAddress, "ptr", _size, "HRESULT")
+        result := ComCall(10, this, startAddressMarshal, startAddress, IntPtr, _size, "HRESULT")
         return result
     }
 
@@ -247,7 +247,7 @@ export default struct IHostMemoryManager extends IUnknown {
     AcquiredVirtualAddressSpace(startAddress, _size) {
         startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, startAddressMarshal, startAddress, "ptr", _size, "HRESULT")
+        result := ComCall(11, this, startAddressMarshal, startAddress, IntPtr, _size, "HRESULT")
         return result
     }
 

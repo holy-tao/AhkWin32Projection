@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\AM_ASPECT_RATIO_MODE.ahk" { AM_ASPECT_RATIO_MODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\COLORKEY.ahk" { COLORKEY }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\AM_ASPECT_RATIO_MODE.ahk" { AM_ASPECT_RATIO_MODE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COLORKEY.ahk" { COLORKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMixerPinConfig interface is exposed on the input pins of the Overlay Mixer filter and contains methods that manipulate video streams in various ways.
@@ -95,7 +95,7 @@ export default struct IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setrelativeposition
      */
     SetRelativePosition(dwLeft, dwTop, dwRight, dwBottom) {
-        result := ComCall(3, this, "uint", dwLeft, "uint", dwTop, "uint", dwRight, "uint", dwBottom, "HRESULT")
+        result := ComCall(3, this, UInt32, dwLeft, UInt32, dwTop, UInt32, dwRight, UInt32, dwBottom, "HRESULT")
         return result
     }
 
@@ -162,7 +162,7 @@ export default struct IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setzorder
      */
     SetZOrder(dwZOrder) {
-        result := ComCall(5, this, "uint", dwZOrder, "HRESULT")
+        result := ComCall(5, this, UInt32, dwZOrder, "HRESULT")
         return result
     }
 
@@ -320,7 +320,7 @@ export default struct IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-setblendingparameter
      */
     SetBlendingParameter(dwBlendingParameter) {
-        result := ComCall(9, this, "uint", dwBlendingParameter, "HRESULT")
+        result := ComCall(9, this, UInt32, dwBlendingParameter, "HRESULT")
         return result
     }
 

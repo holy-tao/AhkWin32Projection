@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPReregistrar interface allows the application to re-register a UPnP-based device with the device host.
@@ -171,7 +171,7 @@ export default struct IUPnPReregistrar extends IUnknown {
         bstrContainerId := bstrContainerId is String ? BSTR.Alloc(bstrContainerId).Value : bstrContainerId
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
-        result := ComCall(3, this, BSTR, bstrDeviceIdentifier, BSTR, bstrXMLDesc, BSTR, bstrProgIDDeviceControlClass, BSTR, bstrInitString, BSTR, bstrContainerId, BSTR, bstrResourcePath, "int", nLifeTime, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrDeviceIdentifier, BSTR, bstrXMLDesc, BSTR, bstrProgIDDeviceControlClass, BSTR, bstrInitString, BSTR, bstrContainerId, BSTR, bstrResourcePath, Int32, nLifeTime, "HRESULT")
         return result
     }
 
@@ -296,7 +296,7 @@ export default struct IUPnPReregistrar extends IUnknown {
         bstrInitString := bstrInitString is String ? BSTR.Alloc(bstrInitString).Value : bstrInitString
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
-        result := ComCall(4, this, BSTR, bstrDeviceIdentifier, BSTR, bstrXMLDesc, "ptr", punkDeviceControl, BSTR, bstrInitString, BSTR, bstrResourcePath, "int", nLifeTime, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrDeviceIdentifier, BSTR, bstrXMLDesc, "ptr", punkDeviceControl, BSTR, bstrInitString, BSTR, bstrResourcePath, Int32, nLifeTime, "HRESULT")
         return result
     }
 

@@ -71,7 +71,7 @@ export default struct ILocationReportFactory extends IDispatch {
      * @returns {HRESULT} 
      */
     ListenForReports(requestedReportInterval) {
-        result := ComCall(7, this, "uint", requestedReportInterval, "HRESULT")
+        result := ComCall(7, this, UInt32, requestedReportInterval, "HRESULT")
         return result
     }
 
@@ -108,7 +108,7 @@ export default struct ILocationReportFactory extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ReportInterval(millisecondsRequested) {
-        result := ComCall(11, this, "uint", millisecondsRequested, "HRESULT")
+        result := ComCall(11, this, UInt32, millisecondsRequested, "HRESULT")
         return result
     }
 
@@ -127,7 +127,7 @@ export default struct ILocationReportFactory extends IDispatch {
      * @returns {HRESULT} 
      */
     put_DesiredAccuracy(desiredAccuracy) {
-        result := ComCall(13, this, "uint", desiredAccuracy, "HRESULT")
+        result := ComCall(13, this, UInt32, desiredAccuracy, "HRESULT")
         return result
     }
 

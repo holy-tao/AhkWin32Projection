@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provided to retrieve information about a Certificate Services Policy or Exit module.
@@ -189,7 +189,7 @@ export default struct ICertManageModule extends IDispatch {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
         pvarProperty := VARIANT()
-        result := ComCall(7, this, BSTR, strConfig, BSTR, strStorageLocation, BSTR, strPropertyName, "int", Flags, VARIANT.Ptr, pvarProperty, "HRESULT")
+        result := ComCall(7, this, BSTR, strConfig, BSTR, strStorageLocation, BSTR, strPropertyName, Int32, Flags, VARIANT.Ptr, pvarProperty, "HRESULT")
         return pvarProperty
     }
 
@@ -272,7 +272,7 @@ export default struct ICertManageModule extends IDispatch {
         strStorageLocation := strStorageLocation is String ? BSTR.Alloc(strStorageLocation).Value : strStorageLocation
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
-        result := ComCall(8, this, BSTR, strConfig, BSTR, strStorageLocation, BSTR, strPropertyName, "int", Flags, VARIANT.Ptr, pvarProperty, "HRESULT")
+        result := ComCall(8, this, BSTR, strConfig, BSTR, strStorageLocation, BSTR, strPropertyName, Int32, Flags, VARIANT.Ptr, pvarProperty, "HRESULT")
         return result
     }
 
@@ -296,7 +296,7 @@ export default struct ICertManageModule extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strStorageLocation := strStorageLocation is String ? BSTR.Alloc(strStorageLocation).Value : strStorageLocation
 
-        result := ComCall(9, this, BSTR, strConfig, BSTR, strStorageLocation, "int", Flags, "HRESULT")
+        result := ComCall(9, this, BSTR, strConfig, BSTR, strStorageLocation, Int32, Flags, "HRESULT")
         return result
     }
 

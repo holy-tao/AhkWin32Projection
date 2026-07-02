@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enumerates the event objects that are registered in the COM+ events store.
@@ -92,7 +92,7 @@ export default struct IEnumEventObject extends IUnknown {
     Next(cReqElem, ppInterface, cRetElem) {
         cRetElemMarshal := cRetElem is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", cReqElem, IUnknown.Ptr, ppInterface, cRetElemMarshal, cRetElem, "HRESULT")
+        result := ComCall(4, this, UInt32, cReqElem, IUnknown.Ptr, ppInterface, cRetElemMarshal, cRetElem, "HRESULT")
         return result
     }
 
@@ -177,7 +177,7 @@ export default struct IEnumEventObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ienumeventobject-skip
      */
     Skip(cSkipElem) {
-        result := ComCall(6, this, "uint", cSkipElem, "HRESULT")
+        result := ComCall(6, this, UInt32, cSkipElem, "HRESULT")
         return result
     }
 

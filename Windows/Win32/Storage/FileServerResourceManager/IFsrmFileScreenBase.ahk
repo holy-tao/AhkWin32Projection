@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IFsrmAction.ahk" { IFsrmAction }
-#Import ".\IFsrmObject.ahk" { IFsrmObject }
-#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\FsrmActionType.ahk" { FsrmActionType }
 #Import ".\IFsrmMutableCollection.ahk" { IFsrmMutableCollection }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\FsrmActionType.ahk" { FsrmActionType }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
 
 /**
  * Base class for all file screen interfaces.
@@ -104,7 +104,7 @@ export default struct IFsrmFileScreenBase extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-put_filescreenflags
      */
     put_FileScreenFlags(fileScreenFlags) {
-        result := ComCall(15, this, "int", fileScreenFlags, "HRESULT")
+        result := ComCall(15, this, Int32, fileScreenFlags, "HRESULT")
         return result
     }
 

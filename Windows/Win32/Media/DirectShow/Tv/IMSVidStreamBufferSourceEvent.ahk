@@ -107,7 +107,7 @@ export default struct IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEv
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-timehole
      */
     TimeHole(StreamOffsetMS, SizeMS) {
-        result := ComCall(13, this, "int", StreamOffsetMS, "int", SizeMS, "HRESULT")
+        result := ComCall(13, this, Int32, StreamOffsetMS, Int32, SizeMS, "HRESULT")
         return result
     }
 

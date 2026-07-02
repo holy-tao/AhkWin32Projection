@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\PHONETICALPHABET.ahk" { PHONETICALPHABET }
+#Import ".\SPSTATEHANDLE.ahk" { SPSTATEHANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PHONETICALPHABET.ahk" { PHONETICALPHABET }
 #Import ".\SPMATCHINGMODE.ahk" { SPMATCHINGMODE }
-#Import ".\SPSTATEHANDLE.ahk" { SPSTATEHANDLE }
 
 /**
  * @namespace Windows.Win32.Media.Speech

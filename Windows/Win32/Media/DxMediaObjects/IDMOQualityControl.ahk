@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDMOQualityControl interface supports quality control on a Microsoft DirectX Media Object (DMO).
@@ -81,7 +81,7 @@ export default struct IDMOQualityControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmoqualitycontrol-setnow
      */
     SetNow(rtNow) {
-        result := ComCall(3, this, "int64", rtNow, "HRESULT")
+        result := ComCall(3, this, Int64, rtNow, "HRESULT")
         return result
     }
 
@@ -125,7 +125,7 @@ export default struct IDMOQualityControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmoqualitycontrol-setstatus
      */
     SetStatus(dwFlags) {
-        result := ComCall(4, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, dwFlags, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 #Import ".\KERB_LOGON_SUBMIT_TYPE.ahk" { KERB_LOGON_SUBMIT_TYPE }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\KERB_INTERACTIVE_LOGON.ahk" { KERB_INTERACTIVE_LOGON }
-#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Contains information used to unlock a workstation that has been locked during an interactive logon session.

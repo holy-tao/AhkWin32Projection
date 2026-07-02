@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumWiaItem.ahk" { IEnumWiaItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IEnumWIA_DEV_CAPS.ahk" { IEnumWIA_DEV_CAPS }
-#Import ".\IEnumWiaItem.ahk" { IEnumWiaItem }
 
 /**
  * Each Windows Image Acquisition (WIA) hardware device is represented to an application as a hierarchical tree of IWiaItem objects.
@@ -187,7 +187,7 @@ export default struct IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-analyzeitem
      */
     AnalyzeItem(lFlags) {
-        result := ComCall(4, this, "int", lFlags, "HRESULT")
+        result := ComCall(4, this, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -224,7 +224,7 @@ export default struct IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-deleteitem
      */
     DeleteItem(lFlags) {
-        result := ComCall(6, this, "int", lFlags, "HRESULT")
+        result := ComCall(6, this, Int32, lFlags, "HRESULT")
         return result
     }
 
@@ -254,7 +254,7 @@ export default struct IWiaItem extends IUnknown {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(7, this, "int", lFlags, BSTR, bstrItemName, BSTR, bstrFullItemName, "ptr*", &ppIWiaItem := 0, "HRESULT")
+        result := ComCall(7, this, Int32, lFlags, BSTR, bstrItemName, BSTR, bstrFullItemName, "ptr*", &ppIWiaItem := 0, "HRESULT")
         return IWiaItem(ppIWiaItem)
     }
 
@@ -278,7 +278,7 @@ export default struct IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-enumregistereventinfo
      */
     EnumRegisterEventInfo(lFlags, pEventGUID) {
-        result := ComCall(8, this, "int", lFlags, Guid.Ptr, pEventGUID, "ptr*", &ppIEnum := 0, "HRESULT")
+        result := ComCall(8, this, Int32, lFlags, Guid.Ptr, pEventGUID, "ptr*", &ppIEnum := 0, "HRESULT")
         return IEnumWIA_DEV_CAPS(ppIEnum)
     }
 
@@ -302,7 +302,7 @@ export default struct IWiaItem extends IUnknown {
     FindItemByName(lFlags, bstrFullItemName) {
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(9, this, "int", lFlags, BSTR, bstrFullItemName, "ptr*", &ppIWiaItem := 0, "HRESULT")
+        result := ComCall(9, this, Int32, lFlags, BSTR, bstrFullItemName, "ptr*", &ppIWiaItem := 0, "HRESULT")
         return IWiaItem(ppIWiaItem)
     }
 
@@ -344,7 +344,7 @@ export default struct IWiaItem extends IUnknown {
         plItemCountMarshal := plItemCount is VarRef ? "int*" : "ptr"
         ppIWiaItemMarshal := ppIWiaItem is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, HWND, hwndParent, "int", lFlags, "int", lIntent, plItemCountMarshal, plItemCount, ppIWiaItemMarshal, ppIWiaItem, "HRESULT")
+        result := ComCall(10, this, HWND, hwndParent, Int32, lFlags, Int32, lIntent, plItemCountMarshal, plItemCount, ppIWiaItemMarshal, ppIWiaItem, "HRESULT")
         return result
     }
 
@@ -371,7 +371,7 @@ export default struct IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-devicecommand
      */
     DeviceCommand(lFlags, pCmdGUID, pIWiaItem) {
-        result := ComCall(11, this, "int", lFlags, Guid.Ptr, pCmdGUID, IWiaItem.Ptr, pIWiaItem, "HRESULT")
+        result := ComCall(11, this, Int32, lFlags, Guid.Ptr, pCmdGUID, IWiaItem.Ptr, pIWiaItem, "HRESULT")
         return result
     }
 
@@ -404,7 +404,7 @@ export default struct IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-enumdevicecapabilities
      */
     EnumDeviceCapabilities(lFlags) {
-        result := ComCall(13, this, "int", lFlags, "ptr*", &ppIEnumWIA_DEV_CAPS := 0, "HRESULT")
+        result := ComCall(13, this, Int32, lFlags, "ptr*", &ppIEnumWIA_DEV_CAPS := 0, "HRESULT")
         return IEnumWIA_DEV_CAPS(ppIEnumWIA_DEV_CAPS)
     }
 
@@ -453,7 +453,7 @@ export default struct IWiaItem extends IUnknown {
     Diagnostic(ulSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(17, this, "uint", ulSize, pBufferMarshal, pBuffer, "HRESULT")
+        result := ComCall(17, this, UInt32, ulSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 

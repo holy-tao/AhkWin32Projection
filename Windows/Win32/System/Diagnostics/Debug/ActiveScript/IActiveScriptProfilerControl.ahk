@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -45,7 +45,7 @@ export default struct IActiveScriptProfilerControl extends IUnknown {
      * @returns {HRESULT} 
      */
     StartProfiling(clsidProfilerObject, dwEventMask, dwContext) {
-        result := ComCall(3, this, Guid.Ptr, clsidProfilerObject, "uint", dwEventMask, "uint", dwContext, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, clsidProfilerObject, UInt32, dwEventMask, UInt32, dwContext, "HRESULT")
         return result
     }
 
@@ -55,7 +55,7 @@ export default struct IActiveScriptProfilerControl extends IUnknown {
      * @returns {HRESULT} 
      */
     SetProfilerEventMask(dwEventMask) {
-        result := ComCall(4, this, "uint", dwEventMask, "HRESULT")
+        result := ComCall(4, this, UInt32, dwEventMask, "HRESULT")
         return result
     }
 

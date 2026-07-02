@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\VIDEO_MEMORY_INFORMATION.ahk" { VIDEO_MEMORY_INFORMATION }
 #Import ".\VIDEO_MODE_INFORMATION.ahk" { VIDEO_MODE_INFORMATION }
+#Import ".\VIDEO_MEMORY_INFORMATION.ahk" { VIDEO_MEMORY_INFORMATION }
 
 /**
  * @namespace Windows.Win32.Devices.Display

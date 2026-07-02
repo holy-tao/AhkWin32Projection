@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ID3D12Device8.ahk" { ID3D12Device8 }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_COMMAND_QUEUE_DESC.ahk" { D3D12_COMMAND_QUEUE_DESC }
 #Import ".\D3D12_SHADER_CACHE_CONTROL_FLAGS.ahk" { D3D12_SHADER_CACHE_CONTROL_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\D3D12_SHADER_CACHE_SESSION_DESC.ahk" { D3D12_SHADER_CACHE_SESSION_DESC }
 #Import ".\D3D12_SHADER_CACHE_KIND_FLAGS.ahk" { D3D12_SHADER_CACHE_KIND_FLAGS }
 

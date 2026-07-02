@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
-#Import ".\IDWriteFontFamily2.ahk" { IDWriteFontFamily2 }
-#Import ".\IDWriteFontCollection1.ahk" { IDWriteFontCollection1 }
-#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDWriteFontList2.ahk" { IDWriteFontList2 }
+#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\IDWriteFontCollection1.ahk" { IDWriteFontCollection1 }
+#Import ".\IDWriteFontFamily2.ahk" { IDWriteFontFamily2 }
 
 /**
  * This interface encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. The font collection API can be used to discover what font families and fonts are available, and to obtain some metadata about the fonts. (IDWriteFontCollection2)
@@ -57,7 +57,7 @@ export default struct IDWriteFontCollection2 extends IDWriteFontCollection1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontcollection2-getfontfamily
      */
     GetFontFamily(index) {
-        result := ComCall(9, this, "uint", index, "ptr*", &_fontFamily := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, index, "ptr*", &_fontFamily := 0, "HRESULT")
         return IDWriteFontFamily2(_fontFamily)
     }
 
@@ -82,7 +82,7 @@ export default struct IDWriteFontCollection2 extends IDWriteFontCollection1 {
     GetMatchingFonts(familyName, fontAxisValues, fontAxisValueCount) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        result := ComCall(10, this, "ptr", familyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontList := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", familyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "ptr*", &fontList := 0, "HRESULT")
         return IDWriteFontList2(fontList)
     }
 

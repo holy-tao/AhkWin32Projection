@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber when a new object is created for or removed from the pool.
@@ -52,7 +52,7 @@ export default struct IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreateobject
      */
     OnObjPoolCreateObject(pInfo, guidObject, dwObjsCreated, oid) {
-        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, UInt32, dwObjsCreated, Int64, oid, "HRESULT")
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooldestroyobject
      */
     OnObjPoolDestroyObject(pInfo, guidObject, dwObjsCreated, oid) {
-        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, UInt32, dwObjsCreated, Int64, oid, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatedecision
      */
     OnObjPoolCreateDecision(pInfo, dwThreadsWaiting, dwAvail, dwCreated, dwMin, dwMax) {
-        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", dwThreadsWaiting, "uint", dwAvail, "uint", dwCreated, "uint", dwMin, "uint", dwMax, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, UInt32, dwThreadsWaiting, UInt32, dwAvail, UInt32, dwCreated, UInt32, dwMin, UInt32, dwMax, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooltimeout
      */
     OnObjPoolTimeout(pInfo, guidObject, guidActivity, dwTimeout) {
-        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, Guid.Ptr, guidActivity, "uint", dwTimeout, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, Guid.Ptr, guidActivity, UInt32, dwTimeout, "HRESULT")
         return result
     }
 
@@ -113,7 +113,7 @@ export default struct IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatepool
      */
     OnObjPoolCreatePool(pInfo, guidObject, dwMin, dwMax, dwTimeout) {
-        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, "uint", dwMin, "uint", dwMax, "uint", dwTimeout, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, UInt32, dwMin, UInt32, dwMax, UInt32, dwTimeout, "HRESULT")
         return result
     }
 

@@ -1,49 +1,49 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
-#Import ".\OPEN_VIRTUAL_DISK_FLAG.ahk" { OPEN_VIRTUAL_DISK_FLAG }
-#Import ".\MODIFY_VHDSET_PARAMETERS.ahk" { MODIFY_VHDSET_PARAMETERS }
 #Import ".\MIRROR_VIRTUAL_DISK_FLAG.ahk" { MIRROR_VIRTUAL_DISK_FLAG }
-#Import ".\MERGE_VIRTUAL_DISK_FLAG.ahk" { MERGE_VIRTUAL_DISK_FLAG }
-#Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\STORAGE_DEPENDENCY_INFO.ahk" { STORAGE_DEPENDENCY_INFO }
-#Import ".\QUERY_CHANGES_VIRTUAL_DISK_FLAG.ahk" { QUERY_CHANGES_VIRTUAL_DISK_FLAG }
-#Import ".\RESIZE_VIRTUAL_DISK_PARAMETERS.ahk" { RESIZE_VIRTUAL_DISK_PARAMETERS }
-#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
-#Import ".\FORK_VIRTUAL_DISK_PARAMETERS.ahk" { FORK_VIRTUAL_DISK_PARAMETERS }
-#Import ".\RESIZE_VIRTUAL_DISK_FLAG.ahk" { RESIZE_VIRTUAL_DISK_FLAG }
-#Import ".\RAW_SCSI_VIRTUAL_DISK_FLAG.ahk" { RAW_SCSI_VIRTUAL_DISK_FLAG }
-#Import ".\CREATE_VIRTUAL_DISK_PARAMETERS.ahk" { CREATE_VIRTUAL_DISK_PARAMETERS }
-#Import ".\DELETE_SNAPSHOT_VHDSET_FLAG.ahk" { DELETE_SNAPSHOT_VHDSET_FLAG }
-#Import ".\EXPAND_VIRTUAL_DISK_PARAMETERS.ahk" { EXPAND_VIRTUAL_DISK_PARAMETERS }
-#Import ".\MERGE_VIRTUAL_DISK_PARAMETERS.ahk" { MERGE_VIRTUAL_DISK_PARAMETERS }
-#Import ".\APPLY_SNAPSHOT_VHDSET_PARAMETERS.ahk" { APPLY_SNAPSHOT_VHDSET_PARAMETERS }
-#Import ".\APPLY_SNAPSHOT_VHDSET_FLAG.ahk" { APPLY_SNAPSHOT_VHDSET_FLAG }
-#Import ".\VIRTUAL_DISK_PROGRESS.ahk" { VIRTUAL_DISK_PROGRESS }
-#Import ".\MODIFY_VHDSET_FLAG.ahk" { MODIFY_VHDSET_FLAG }
-#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
-#Import ".\COMPACT_VIRTUAL_DISK_FLAG.ahk" { COMPACT_VIRTUAL_DISK_FLAG }
-#Import ".\CREATE_VIRTUAL_DISK_FLAG.ahk" { CREATE_VIRTUAL_DISK_FLAG }
-#Import ".\SET_VIRTUAL_DISK_INFO.ahk" { SET_VIRTUAL_DISK_INFO }
-#Import ".\VIRTUAL_DISK_ACCESS_MASK.ahk" { VIRTUAL_DISK_ACCESS_MASK }
-#Import ".\DETACH_VIRTUAL_DISK_FLAG.ahk" { DETACH_VIRTUAL_DISK_FLAG }
-#Import ".\ATTACH_VIRTUAL_DISK_PARAMETERS.ahk" { ATTACH_VIRTUAL_DISK_PARAMETERS }
-#Import ".\DELETE_SNAPSHOT_VHDSET_PARAMETERS.ahk" { DELETE_SNAPSHOT_VHDSET_PARAMETERS }
-#Import ".\OPEN_VIRTUAL_DISK_PARAMETERS.ahk" { OPEN_VIRTUAL_DISK_PARAMETERS }
-#Import ".\TAKE_SNAPSHOT_VHDSET_PARAMETERS.ahk" { TAKE_SNAPSHOT_VHDSET_PARAMETERS }
-#Import ".\RAW_SCSI_VIRTUAL_DISK_RESPONSE.ahk" { RAW_SCSI_VIRTUAL_DISK_RESPONSE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\COMPACT_VIRTUAL_DISK_PARAMETERS.ahk" { COMPACT_VIRTUAL_DISK_PARAMETERS }
 #Import ".\ATTACH_VIRTUAL_DISK_FLAG.ahk" { ATTACH_VIRTUAL_DISK_FLAG }
-#Import ".\FORK_VIRTUAL_DISK_FLAG.ahk" { FORK_VIRTUAL_DISK_FLAG }
-#Import ".\RAW_SCSI_VIRTUAL_DISK_PARAMETERS.ahk" { RAW_SCSI_VIRTUAL_DISK_PARAMETERS }
-#Import ".\MIRROR_VIRTUAL_DISK_PARAMETERS.ahk" { MIRROR_VIRTUAL_DISK_PARAMETERS }
+#Import ".\MODIFY_VHDSET_FLAG.ahk" { MODIFY_VHDSET_FLAG }
+#Import ".\DELETE_SNAPSHOT_VHDSET_PARAMETERS.ahk" { DELETE_SNAPSHOT_VHDSET_PARAMETERS }
+#Import ".\SET_VIRTUAL_DISK_INFO.ahk" { SET_VIRTUAL_DISK_INFO }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\ATTACH_VIRTUAL_DISK_PARAMETERS.ahk" { ATTACH_VIRTUAL_DISK_PARAMETERS }
+#Import ".\APPLY_SNAPSHOT_VHDSET_PARAMETERS.ahk" { APPLY_SNAPSHOT_VHDSET_PARAMETERS }
 #Import ".\EXPAND_VIRTUAL_DISK_FLAG.ahk" { EXPAND_VIRTUAL_DISK_FLAG }
-#Import ".\GET_STORAGE_DEPENDENCY_FLAG.ahk" { GET_STORAGE_DEPENDENCY_FLAG }
+#Import ".\MODIFY_VHDSET_PARAMETERS.ahk" { MODIFY_VHDSET_PARAMETERS }
+#Import ".\RAW_SCSI_VIRTUAL_DISK_FLAG.ahk" { RAW_SCSI_VIRTUAL_DISK_FLAG }
 #Import ".\QUERY_CHANGES_VIRTUAL_DISK_RANGE.ahk" { QUERY_CHANGES_VIRTUAL_DISK_RANGE }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import ".\APPLY_SNAPSHOT_VHDSET_FLAG.ahk" { APPLY_SNAPSHOT_VHDSET_FLAG }
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import ".\RAW_SCSI_VIRTUAL_DISK_PARAMETERS.ahk" { RAW_SCSI_VIRTUAL_DISK_PARAMETERS }
 #Import ".\TAKE_SNAPSHOT_VHDSET_FLAG.ahk" { TAKE_SNAPSHOT_VHDSET_FLAG }
+#Import ".\COMPACT_VIRTUAL_DISK_PARAMETERS.ahk" { COMPACT_VIRTUAL_DISK_PARAMETERS }
+#Import ".\MERGE_VIRTUAL_DISK_FLAG.ahk" { MERGE_VIRTUAL_DISK_FLAG }
+#Import ".\QUERY_CHANGES_VIRTUAL_DISK_FLAG.ahk" { QUERY_CHANGES_VIRTUAL_DISK_FLAG }
+#Import ".\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
+#Import ".\RESIZE_VIRTUAL_DISK_FLAG.ahk" { RESIZE_VIRTUAL_DISK_FLAG }
+#Import ".\FORK_VIRTUAL_DISK_FLAG.ahk" { FORK_VIRTUAL_DISK_FLAG }
+#Import ".\EXPAND_VIRTUAL_DISK_PARAMETERS.ahk" { EXPAND_VIRTUAL_DISK_PARAMETERS }
+#Import ".\CREATE_VIRTUAL_DISK_FLAG.ahk" { CREATE_VIRTUAL_DISK_FLAG }
+#Import ".\COMPACT_VIRTUAL_DISK_FLAG.ahk" { COMPACT_VIRTUAL_DISK_FLAG }
+#Import ".\DETACH_VIRTUAL_DISK_FLAG.ahk" { DETACH_VIRTUAL_DISK_FLAG }
+#Import ".\RAW_SCSI_VIRTUAL_DISK_RESPONSE.ahk" { RAW_SCSI_VIRTUAL_DISK_RESPONSE }
+#Import ".\VIRTUAL_DISK_PROGRESS.ahk" { VIRTUAL_DISK_PROGRESS }
+#Import ".\DELETE_SNAPSHOT_VHDSET_FLAG.ahk" { DELETE_SNAPSHOT_VHDSET_FLAG }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\OPEN_VIRTUAL_DISK_PARAMETERS.ahk" { OPEN_VIRTUAL_DISK_PARAMETERS }
+#Import ".\RESIZE_VIRTUAL_DISK_PARAMETERS.ahk" { RESIZE_VIRTUAL_DISK_PARAMETERS }
+#Import ".\MERGE_VIRTUAL_DISK_PARAMETERS.ahk" { MERGE_VIRTUAL_DISK_PARAMETERS }
+#Import ".\FORK_VIRTUAL_DISK_PARAMETERS.ahk" { FORK_VIRTUAL_DISK_PARAMETERS }
+#Import ".\TAKE_SNAPSHOT_VHDSET_PARAMETERS.ahk" { TAKE_SNAPSHOT_VHDSET_PARAMETERS }
+#Import ".\GET_STORAGE_DEPENDENCY_FLAG.ahk" { GET_STORAGE_DEPENDENCY_FLAG }
+#Import ".\CREATE_VIRTUAL_DISK_PARAMETERS.ahk" { CREATE_VIRTUAL_DISK_PARAMETERS }
+#Import ".\STORAGE_DEPENDENCY_INFO.ahk" { STORAGE_DEPENDENCY_INFO }
+#Import ".\VIRTUAL_DISK_ACCESS_MASK.ahk" { VIRTUAL_DISK_ACCESS_MASK }
+#Import ".\MIRROR_VIRTUAL_DISK_PARAMETERS.ahk" { MIRROR_VIRTUAL_DISK_PARAMETERS }
+#Import ".\OPEN_VIRTUAL_DISK_FLAG.ahk" { OPEN_VIRTUAL_DISK_FLAG }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Storage.Vhd
@@ -212,7 +212,7 @@ export OpenVirtualDisk(VirtualStorageType, _Path, VirtualDiskAccessMask, Flags, 
 export CreateVirtualDisk(VirtualStorageType, _Path, VirtualDiskAccessMask, _SecurityDescriptor, Flags, ProviderSpecificFlags, Parameters, _Overlapped, _Handle) {
     _Path := _Path is String ? StrPtr(_Path) : _Path
 
-    result := DllCall("VirtDisk.dll\CreateVirtualDisk", VIRTUAL_STORAGE_TYPE.Ptr, VirtualStorageType, "ptr", _Path, VIRTUAL_DISK_ACCESS_MASK, VirtualDiskAccessMask, PSECURITY_DESCRIPTOR, _SecurityDescriptor, CREATE_VIRTUAL_DISK_FLAG, Flags, "uint", ProviderSpecificFlags, CREATE_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, HANDLE.Ptr, _Handle, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\CreateVirtualDisk", VIRTUAL_STORAGE_TYPE.Ptr, VirtualStorageType, "ptr", _Path, VIRTUAL_DISK_ACCESS_MASK, VirtualDiskAccessMask, PSECURITY_DESCRIPTOR, _SecurityDescriptor, CREATE_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, CREATE_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, HANDLE.Ptr, _Handle, WIN32_ERROR)
     return result
 }
 
@@ -282,7 +282,7 @@ export CreateVirtualDisk(VirtualStorageType, _Path, VirtualDiskAccessMask, _Secu
  * @since windows6.1
  */
 export AttachVirtualDisk(VirtualDiskHandle, _SecurityDescriptor, Flags, ProviderSpecificFlags, Parameters, _Overlapped) {
-    result := DllCall("VirtDisk.dll\AttachVirtualDisk", HANDLE, VirtualDiskHandle, PSECURITY_DESCRIPTOR, _SecurityDescriptor, ATTACH_VIRTUAL_DISK_FLAG, Flags, "uint", ProviderSpecificFlags, ATTACH_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\AttachVirtualDisk", HANDLE, VirtualDiskHandle, PSECURITY_DESCRIPTOR, _SecurityDescriptor, ATTACH_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, ATTACH_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, WIN32_ERROR)
     return result
 }
 
@@ -337,7 +337,7 @@ export AttachVirtualDisk(VirtualDiskHandle, _SecurityDescriptor, Flags, Provider
  * @since windows6.1
  */
 export DetachVirtualDisk(VirtualDiskHandle, Flags, ProviderSpecificFlags) {
-    result := DllCall("VirtDisk.dll\DetachVirtualDisk", HANDLE, VirtualDiskHandle, DETACH_VIRTUAL_DISK_FLAG, Flags, "uint", ProviderSpecificFlags, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\DetachVirtualDisk", HANDLE, VirtualDiskHandle, DETACH_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, WIN32_ERROR)
     return result
 }
 
@@ -372,7 +372,7 @@ export DetachVirtualDisk(VirtualDiskHandle, Flags, ProviderSpecificFlags) {
 export GetVirtualDiskPhysicalPath(VirtualDiskHandle, DiskPathSizeInBytes, DiskPath) {
     DiskPathSizeInBytesMarshal := DiskPathSizeInBytes is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VirtDisk.dll\GetVirtualDiskPhysicalPath", HANDLE, VirtualDiskHandle, DiskPathSizeInBytesMarshal, DiskPathSizeInBytes, "ptr", DiskPath, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\GetVirtualDiskPhysicalPath", HANDLE, VirtualDiskHandle, DiskPathSizeInBytesMarshal, DiskPathSizeInBytes, IntPtr, DiskPath, WIN32_ERROR)
     return result
 }
 
@@ -385,7 +385,7 @@ export GetVirtualDiskPhysicalPath(VirtualDiskHandle, DiskPathSizeInBytes, DiskPa
 export GetAllAttachedVirtualDiskPhysicalPaths(PathsBufferSizeInBytes, PathsBuffer) {
     PathsBufferSizeInBytesMarshal := PathsBufferSizeInBytes is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VirtDisk.dll\GetAllAttachedVirtualDiskPhysicalPaths", PathsBufferSizeInBytesMarshal, PathsBufferSizeInBytes, "ptr", PathsBuffer, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\GetAllAttachedVirtualDiskPhysicalPaths", PathsBufferSizeInBytesMarshal, PathsBufferSizeInBytes, IntPtr, PathsBuffer, WIN32_ERROR)
     return result
 }
 
@@ -423,7 +423,7 @@ export GetAllAttachedVirtualDiskPhysicalPaths(PathsBufferSizeInBytes, PathsBuffe
 export GetStorageDependencyInformation(ObjectHandle, Flags, StorageDependencyInfoSize, StorageDependencyInfo, SizeUsed) {
     SizeUsedMarshal := SizeUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VirtDisk.dll\GetStorageDependencyInformation", HANDLE, ObjectHandle, GET_STORAGE_DEPENDENCY_FLAG, Flags, "uint", StorageDependencyInfoSize, STORAGE_DEPENDENCY_INFO.Ptr, StorageDependencyInfo, SizeUsedMarshal, SizeUsed, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\GetStorageDependencyInformation", HANDLE, ObjectHandle, GET_STORAGE_DEPENDENCY_FLAG, Flags, UInt32, StorageDependencyInfoSize, STORAGE_DEPENDENCY_INFO.Ptr, StorageDependencyInfo, SizeUsedMarshal, SizeUsed, WIN32_ERROR)
     return result
 }
 
@@ -459,7 +459,7 @@ export GetVirtualDiskInformation(VirtualDiskHandle, VirtualDiskInfoSize, Virtual
     VirtualDiskInfoSizeMarshal := VirtualDiskInfoSize is VarRef ? "uint*" : "ptr"
     SizeUsedMarshal := SizeUsed is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VirtDisk.dll\GetVirtualDiskInformation", HANDLE, VirtualDiskHandle, VirtualDiskInfoSizeMarshal, VirtualDiskInfoSize, "ptr", VirtualDiskInfo, SizeUsedMarshal, SizeUsed, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\GetVirtualDiskInformation", HANDLE, VirtualDiskHandle, VirtualDiskInfoSizeMarshal, VirtualDiskInfoSize, IntPtr, VirtualDiskInfo, SizeUsedMarshal, SizeUsed, WIN32_ERROR)
     return result
 }
 
@@ -550,7 +550,7 @@ export EnumerateVirtualDiskMetadata(VirtualDiskHandle, NumberOfItems, Items) {
 export GetVirtualDiskMetadata(VirtualDiskHandle, Item, MetaDataSize, MetaData) {
     MetaDataSizeMarshal := MetaDataSize is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VirtDisk.dll\GetVirtualDiskMetadata", HANDLE, VirtualDiskHandle, Guid.Ptr, Item, MetaDataSizeMarshal, MetaDataSize, "ptr", MetaData, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\GetVirtualDiskMetadata", HANDLE, VirtualDiskHandle, Guid.Ptr, Item, MetaDataSizeMarshal, MetaDataSize, IntPtr, MetaData, WIN32_ERROR)
     return result
 }
 
@@ -572,7 +572,7 @@ export GetVirtualDiskMetadata(VirtualDiskHandle, Item, MetaDataSize, MetaData) {
  * @since windows8.0
  */
 export SetVirtualDiskMetadata(VirtualDiskHandle, Item, MetaDataSize, MetaData) {
-    result := DllCall("VirtDisk.dll\SetVirtualDiskMetadata", HANDLE, VirtualDiskHandle, Guid.Ptr, Item, "uint", MetaDataSize, "ptr", MetaData, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\SetVirtualDiskMetadata", HANDLE, VirtualDiskHandle, Guid.Ptr, Item, UInt32, MetaDataSize, IntPtr, MetaData, WIN32_ERROR)
     return result
 }
 
@@ -909,7 +909,7 @@ export QueryChangesVirtualDisk(VirtualDiskHandle, ChangeTrackingId, ByteOffset, 
     RangeCountMarshal := RangeCount is VarRef ? "uint*" : "ptr"
     ProcessedLengthMarshal := ProcessedLength is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("VirtDisk.dll\QueryChangesVirtualDisk", HANDLE, VirtualDiskHandle, "ptr", ChangeTrackingId, "uint", ByteOffset, "uint", ByteLength, QUERY_CHANGES_VIRTUAL_DISK_FLAG, Flags, QUERY_CHANGES_VIRTUAL_DISK_RANGE.Ptr, Ranges, RangeCountMarshal, RangeCount, ProcessedLengthMarshal, ProcessedLength, WIN32_ERROR)
+    result := DllCall("VirtDisk.dll\QueryChangesVirtualDisk", HANDLE, VirtualDiskHandle, "ptr", ChangeTrackingId, Int64, ByteOffset, Int64, ByteLength, QUERY_CHANGES_VIRTUAL_DISK_FLAG, Flags, QUERY_CHANGES_VIRTUAL_DISK_RANGE.Ptr, Ranges, RangeCountMarshal, RangeCount, ProcessedLengthMarshal, ProcessedLength, WIN32_ERROR)
     return result
 }
 

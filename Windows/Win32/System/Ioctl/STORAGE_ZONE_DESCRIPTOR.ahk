@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
-#Import ".\STORAGE_ZONE_TYPES.ahk" { STORAGE_ZONE_TYPES }
 #Import ".\STORAGE_ZONE_CONDITION.ahk" { STORAGE_ZONE_CONDITION }
+#Import ".\STORAGE_ZONE_TYPES.ahk" { STORAGE_ZONE_TYPES }
 
 /**
  * @namespace Windows.Win32.System.Ioctl

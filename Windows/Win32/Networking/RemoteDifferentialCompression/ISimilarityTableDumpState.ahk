@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\SimilarityDumpData.ahk" { SimilarityDumpData }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides a method for retrieving information from the similarity traits list that was returned by the ISimilarityTraitsTable::BeginDump method.
@@ -58,7 +58,7 @@ export default struct ISimilarityTableDumpState extends IUnknown {
         resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
         eofMarshal := eof is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", resultsSize, resultsUsedMarshal, resultsUsed, eofMarshal, eof, SimilarityDumpData.Ptr, results, "HRESULT")
+        result := ComCall(3, this, UInt32, resultsSize, resultsUsedMarshal, resultsUsed, eofMarshal, eof, SimilarityDumpData.Ptr, results, "HRESULT")
         return result
     }
 

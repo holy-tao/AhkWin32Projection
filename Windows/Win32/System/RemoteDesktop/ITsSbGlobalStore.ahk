@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITsSbSession.ahk" { ITsSbSession }
-#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
+#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
@@ -85,7 +85,7 @@ export default struct ITsSbGlobalStore extends IUnknown {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
 
-        result := ComCall(4, this, BSTR, ProviderName, "uint", dwSessionId, BSTR, TargetName, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(4, this, BSTR, ProviderName, UInt32, dwSessionId, BSTR, TargetName, "ptr*", &ppSession := 0, "HRESULT")
         return ITsSbSession(ppSession)
     }
 

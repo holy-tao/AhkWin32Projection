@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\THUMBBUTTONMASK.ahk" { THUMBBUTTONMASK }
 #Import ".\THUMBBUTTONFLAGS.ahk" { THUMBBUTTONFLAGS }
+#Import ".\THUMBBUTTONMASK.ahk" { THUMBBUTTONMASK }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

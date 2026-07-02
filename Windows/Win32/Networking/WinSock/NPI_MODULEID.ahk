@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 #Import ".\NPI_MODULEID_TYPE.ahk" { NPI_MODULEID_TYPE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

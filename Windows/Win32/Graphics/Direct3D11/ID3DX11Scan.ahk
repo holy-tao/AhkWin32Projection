@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\D3DX11_SCAN_DIRECTION.ahk" { D3DX11_SCAN_DIRECTION }
-#Import ".\D3DX11_SCAN_DATA_TYPE.ahk" { D3DX11_SCAN_DATA_TYPE }
-#Import ".\D3DX11_SCAN_OPCODE.ahk" { D3DX11_SCAN_OPCODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
+#Import ".\D3DX11_SCAN_DIRECTION.ahk" { D3DX11_SCAN_DIRECTION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3DX11_SCAN_DATA_TYPE.ahk" { D3DX11_SCAN_DATA_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DX11_SCAN_OPCODE.ahk" { D3DX11_SCAN_OPCODE }
 
 /**
  * Scan context.
@@ -85,7 +85,7 @@ export default struct ID3DX11Scan extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11scan-scan
      */
     Scan(ElementType, OpCode, ElementScanSize, pSrc, pDst) {
-        result := ComCall(4, this, D3DX11_SCAN_DATA_TYPE, ElementType, D3DX11_SCAN_OPCODE, OpCode, "uint", ElementScanSize, "ptr", pSrc, "ptr", pDst, "HRESULT")
+        result := ComCall(4, this, D3DX11_SCAN_DATA_TYPE, ElementType, D3DX11_SCAN_OPCODE, OpCode, UInt32, ElementScanSize, "ptr", pSrc, "ptr", pDst, "HRESULT")
         return result
     }
 
@@ -120,7 +120,7 @@ export default struct ID3DX11Scan extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11scan-multiscan
      */
     Multiscan(ElementType, OpCode, ElementScanSize, ElementScanPitch, ScanCount, pSrc, pDst) {
-        result := ComCall(5, this, D3DX11_SCAN_DATA_TYPE, ElementType, D3DX11_SCAN_OPCODE, OpCode, "uint", ElementScanSize, "uint", ElementScanPitch, "uint", ScanCount, "ptr", pSrc, "ptr", pDst, "HRESULT")
+        result := ComCall(5, this, D3DX11_SCAN_DATA_TYPE, ElementType, D3DX11_SCAN_OPCODE, OpCode, UInt32, ElementScanSize, UInt32, ElementScanPitch, UInt32, ScanCount, "ptr", pSrc, "ptr", pDst, "HRESULT")
         return result
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import ".\HELP_INFO_TYPE.ahk" { HELP_INFO_TYPE }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
 
 /**
  * Contains information about an item for which context-sensitive help has been requested.

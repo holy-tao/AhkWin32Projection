@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IEventTarget.ahk" { IEventTarget }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
 
 /**
@@ -75,7 +75,7 @@ export default struct IDOMFocusEvent extends IDispatch {
     initFocusEvent(eventType, canBubble, cancelable, _view, detail, relatedTargetArg) {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
 
-        result := ComCall(8, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", _view, "int", detail, "ptr", relatedTargetArg, "HRESULT")
+        result := ComCall(8, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", _view, Int32, detail, "ptr", relatedTargetArg, "HRESULT")
         return result
     }
 

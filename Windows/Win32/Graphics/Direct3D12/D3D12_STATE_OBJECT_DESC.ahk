@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D12_STATE_SUBOBJECT.ahk" { D3D12_STATE_SUBOBJECT }
 #Import ".\D3D12_STATE_OBJECT_TYPE.ahk" { D3D12_STATE_OBJECT_TYPE }
+#Import ".\D3D12_STATE_SUBOBJECT.ahk" { D3D12_STATE_SUBOBJECT }
 
 /**
  * Description of a state object. Pass this structure into ID3D12Device::CreateStateObject.

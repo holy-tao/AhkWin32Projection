@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\BATTERY_LEVEL.ahk" { BATTERY_LEVEL }
 #Import ".\BATTERY_TYPE.ahk" { BATTERY_TYPE }
+#Import ".\BATTERY_LEVEL.ahk" { BATTERY_LEVEL }
 
 /**
  * Contains information on battery type and charge state.

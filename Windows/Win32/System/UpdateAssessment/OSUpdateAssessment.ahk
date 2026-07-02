@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\UpdateAssessment.ahk" { UpdateAssessment }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\UpdateAssessmentStatus.ahk" { UpdateAssessmentStatus }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\UpdateImpactLevel.ahk" { UpdateImpactLevel }
 
 /**

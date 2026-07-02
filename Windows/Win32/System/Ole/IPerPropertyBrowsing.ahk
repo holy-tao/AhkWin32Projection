@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\CALPOLESTR.ahk" { CALPOLESTR }
+#Import ".\CADWORD.ahk" { CADWORD }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CADWORD.ahk" { CADWORD }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\CALPOLESTR.ahk" { CALPOLESTR }
 
 /**
  * Retrieves the information in the property pages offered by an object.
@@ -52,7 +52,7 @@ export default struct IPerPropertyBrowsing extends IUnknown {
      */
     GetDisplayString(dispID) {
         pBstr := BSTR.Owned()
-        result := ComCall(3, this, "int", dispID, BSTR.Ptr, pBstr, "HRESULT")
+        result := ComCall(3, this, Int32, dispID, BSTR.Ptr, pBstr, "HRESULT")
         return pBstr
     }
 
@@ -66,7 +66,7 @@ export default struct IPerPropertyBrowsing extends IUnknown {
      */
     MapPropertyToPage(dispID) {
         pClsid := Guid()
-        result := ComCall(4, this, "int", dispID, Guid.Ptr, pClsid, "HRESULT")
+        result := ComCall(4, this, Int32, dispID, Guid.Ptr, pClsid, "HRESULT")
         return pClsid
     }
 
@@ -154,7 +154,7 @@ export default struct IPerPropertyBrowsing extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedstrings
      */
     GetPredefinedStrings(dispID, pCaStringsOut, pCaCookiesOut) {
-        result := ComCall(5, this, "int", dispID, CALPOLESTR.Ptr, pCaStringsOut, CADWORD.Ptr, pCaCookiesOut, "HRESULT")
+        result := ComCall(5, this, Int32, dispID, CALPOLESTR.Ptr, pCaStringsOut, CADWORD.Ptr, pCaCookiesOut, "HRESULT")
         return result
     }
 
@@ -175,7 +175,7 @@ export default struct IPerPropertyBrowsing extends IUnknown {
      */
     GetPredefinedValue(dispID, dwCookie) {
         pVarOut := VARIANT()
-        result := ComCall(6, this, "int", dispID, "uint", dwCookie, VARIANT.Ptr, pVarOut, "HRESULT")
+        result := ComCall(6, this, Int32, dispID, UInt32, dwCookie, VARIANT.Ptr, pVarOut, "HRESULT")
         return pVarOut
     }
 

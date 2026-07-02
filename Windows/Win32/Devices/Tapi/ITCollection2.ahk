@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ITCollection.ahk" { ITCollection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITCollection.ahk" { ITCollection }
 
 /**
  * The ITCollection2 interface is an extension of the ITCollection interface. ITCollection2 exposes additional methods for modifying the collection.
@@ -98,7 +98,7 @@ export default struct ITCollection2 extends ITCollection {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection2-add
      */
     Add(Index, pVariant) {
-        result := ComCall(10, this, "int", Index, VARIANT.Ptr, pVariant, "HRESULT")
+        result := ComCall(10, this, Int32, Index, VARIANT.Ptr, pVariant, "HRESULT")
         return result
     }
 
@@ -149,7 +149,7 @@ export default struct ITCollection2 extends ITCollection {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection2-remove
      */
     Remove(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, Int32, Index, "HRESULT")
         return result
     }
 

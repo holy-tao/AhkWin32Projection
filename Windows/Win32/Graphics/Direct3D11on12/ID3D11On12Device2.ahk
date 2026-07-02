@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct3D11\ID3D11Resource.ahk" { ID3D11Resource }
 #Import "..\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
+#Import "..\Direct3D11\ID3D11Resource.ahk" { ID3D11Resource }
+#Import ".\ID3D11On12Device1.ahk" { ID3D11On12Device1 }
 #Import "..\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ID3D11On12Device1.ahk" { ID3D11On12Device1 }
 
 /**
  * Enables you to take resources created through the Direct3D 11 APIs, and use them in Direct3D 12.
@@ -100,7 +100,7 @@ export default struct ID3D11On12Device2 extends ID3D11On12Device1 {
     ReturnUnderlyingResource(pResource11, NumSync, pSignalValues, ppFences) {
         pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pResource11, "uint", NumSync, pSignalValuesMarshal, pSignalValues, ID3D12Fence.Ptr, ppFences, "HRESULT")
+        result := ComCall(8, this, "ptr", pResource11, UInt32, NumSync, pSignalValuesMarshal, pSignalValues, ID3D12Fence.Ptr, ppFences, "HRESULT")
         return result
     }
 

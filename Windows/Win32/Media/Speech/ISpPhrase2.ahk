@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SPXMLRESULTOPTIONS.ahk" { SPXMLRESULTOPTIONS }
-#Import ".\SPSEMANTICERRORINFO.ahk" { SPSEMANTICERRORINFO }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpPhrase.ahk" { ISpPhrase }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import ".\SPSEMANTICERRORINFO.ahk" { SPSEMANTICERRORINFO }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPXMLRESULTOPTIONS.ahk" { SPXMLRESULTOPTIONS }
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -68,7 +68,7 @@ export default struct ISpPhrase2 extends ISpPhrase {
      * @returns {ISpStreamFormat} 
      */
     GetAudio(ulStartElement, cElements) {
-        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, ulStartElement, UInt32, cElements, "ptr*", &ppStream := 0, "HRESULT")
         return ISpStreamFormat(ppStream)
     }
 

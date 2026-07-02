@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TYPEKIND.ahk" { TYPEKIND }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\IUnknown.ahk" { IUnknown }
 #Import ".\TLIBATTR.ahk" { TLIBATTR }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITypeInfo.ahk" { ITypeInfo }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\ITypeComp.ahk" { ITypeComp }
-#Import ".\TYPEKIND.ahk" { TYPEKIND }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents a type library, the data that describes a set of objects. (ITypeLib)
@@ -93,7 +93,7 @@ export default struct ITypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfo
      */
     GetTypeInfo(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &ppTInfo := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &ppTInfo := 0, "HRESULT")
         return ITypeInfo(ppTInfo)
     }
 
@@ -104,7 +104,7 @@ export default struct ITypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfotype
      */
     GetTypeInfoType(index) {
-        result := ComCall(5, this, "uint", index, "int*", &pTKind := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "int*", &pTKind := 0, "HRESULT")
         return pTKind
     }
 
@@ -208,7 +208,7 @@ export default struct ITypeLib extends IUnknown {
     GetDocumentation(index, pBstrName, pBstrDocString, pdwHelpContext, pBstrHelpFile) {
         pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "int", index, BSTR.Ptr, pBstrName, BSTR.Ptr, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, BSTR.Ptr, pBstrHelpFile, "HRESULT")
+        result := ComCall(9, this, Int32, index, BSTR.Ptr, pBstrName, BSTR.Ptr, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, BSTR.Ptr, pBstrHelpFile, "HRESULT")
         return result
     }
 
@@ -222,7 +222,7 @@ export default struct ITypeLib extends IUnknown {
     IsName(szNameBuf, lHashVal) {
         szNameBuf := szNameBuf is String ? StrPtr(szNameBuf) : szNameBuf
 
-        result := ComCall(10, this, "ptr", szNameBuf, "uint", lHashVal, BOOL.Ptr, &pfName := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", szNameBuf, UInt32, lHashVal, BOOL.Ptr, &pfName := 0, "HRESULT")
         return pfName
     }
 
@@ -289,7 +289,7 @@ export default struct ITypeLib extends IUnknown {
         rgMemIdMarshal := rgMemId is VarRef ? "int*" : "ptr"
         pcFoundMarshal := pcFound is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(11, this, "ptr", szNameBuf, "uint", lHashVal, ITypeInfo.Ptr, ppTInfo, rgMemIdMarshal, rgMemId, pcFoundMarshal, pcFound, "HRESULT")
+        result := ComCall(11, this, "ptr", szNameBuf, UInt32, lHashVal, ITypeInfo.Ptr, ppTInfo, rgMemIdMarshal, rgMemId, pcFoundMarshal, pcFound, "HRESULT")
         return result
     }
 

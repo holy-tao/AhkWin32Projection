@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements in-band spanning events for the Stream Buffer Engine, version 2 (SBE2). An in-band spanning event is an in-band event that can be recorded as part of the state information in a stream.
@@ -157,7 +157,7 @@ export default struct ISBE2SpanningEvent extends IUnknown {
     GetEvent(idEvt, streamId, pcb) {
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, Guid.Ptr, idEvt, "uint", streamId, pcbMarshal, pcb, "char*", &pb := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, idEvt, UInt32, streamId, pcbMarshal, pcb, "char*", &pb := 0, "HRESULT")
         return pb
     }
 

@@ -63,7 +63,7 @@ export default struct IWorkspaceScriptable3 extends IWorkspaceScriptable2 {
         bstrWorkspaceParams := bstrWorkspaceParams is String ? BSTR.Alloc(bstrWorkspaceParams).Value : bstrWorkspaceParams
         bstrEventLogUploadAddress := bstrEventLogUploadAddress is String ? BSTR.Alloc(bstrEventLogUploadAddress).Value : bstrEventLogUploadAddress
 
-        result := ComCall(16, this, BSTR, bstrWorkspaceId, BSTR, bstrWorkspaceFriendlyName, BSTR, bstrRedirectorName, BSTR, bstrUserName, BSTR, bstrPassword, BSTR, bstrAppContainer, BSTR, bstrWorkspaceParams, "int", lTimeout, "int", lFlags, BSTR, bstrEventLogUploadAddress, Guid, _correlationId, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrWorkspaceId, BSTR, bstrWorkspaceFriendlyName, BSTR, bstrRedirectorName, BSTR, bstrUserName, BSTR, bstrPassword, BSTR, bstrAppContainer, BSTR, bstrWorkspaceParams, Int32, lTimeout, Int32, lFlags, BSTR, bstrEventLogUploadAddress, Guid, _correlationId, "HRESULT")
         return result
     }
 

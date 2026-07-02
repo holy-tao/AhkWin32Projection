@@ -1,10 +1,11 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RM_FILTER_ACTION.ahk" { RM_FILTER_ACTION }
 #Import ".\RM_UNIQUE_PROCESS.ahk" { RM_UNIQUE_PROCESS }
 #Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\RM_WRITE_STATUS_CALLBACK.ahk" { RM_WRITE_STATUS_CALLBACK }
 #Import ".\RM_PROCESS_INFO.ahk" { RM_PROCESS_INFO }
-#Import ".\RM_FILTER_ACTION.ahk" { RM_FILTER_ACTION }
 
 /**
  * @namespace Windows.Win32.System.RestartManager
@@ -111,7 +112,7 @@ export RmStartSession(pSessionHandle, strSessionKey) {
 
     pSessionHandleMarshal := pSessionHandle is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rstrtmgr.dll\RmStartSession", pSessionHandleMarshal, pSessionHandle, "uint", dwSessionFlags, "ptr", strSessionKey, WIN32_ERROR)
+    result := DllCall("rstrtmgr.dll\RmStartSession", pSessionHandleMarshal, pSessionHandle, UInt32, dwSessionFlags, "ptr", strSessionKey, WIN32_ERROR)
     return result
 }
 
@@ -300,7 +301,7 @@ export RmJoinSession(pSessionHandle, strSessionKey) {
  * @since windows6.0.6000
  */
 export RmEndSession(dwSessionHandle) {
-    result := DllCall("rstrtmgr.dll\RmEndSession", "uint", dwSessionHandle, WIN32_ERROR)
+    result := DllCall("rstrtmgr.dll\RmEndSession", UInt32, dwSessionHandle, WIN32_ERROR)
     return result
 }
 
@@ -402,7 +403,7 @@ export RmRegisterResources(dwSessionHandle, nFiles, rgsFileNames, nApplications,
     rgsFileNamesMarshal := rgsFileNames is VarRef ? "ptr*" : "ptr"
     rgsServiceNamesMarshal := rgsServiceNames is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("rstrtmgr.dll\RmRegisterResources", "uint", dwSessionHandle, "uint", nFiles, rgsFileNamesMarshal, rgsFileNames, "uint", nApplications, RM_UNIQUE_PROCESS.Ptr, rgApplications, "uint", nServices, rgsServiceNamesMarshal, rgsServiceNames, WIN32_ERROR)
+    result := DllCall("rstrtmgr.dll\RmRegisterResources", UInt32, dwSessionHandle, UInt32, nFiles, rgsFileNamesMarshal, rgsFileNames, UInt32, nApplications, RM_UNIQUE_PROCESS.Ptr, rgApplications, UInt32, nServices, rgsServiceNamesMarshal, rgsServiceNames, WIN32_ERROR)
     return result
 }
 
@@ -525,7 +526,7 @@ export RmGetList(dwSessionHandle, pnProcInfoNeeded, pnProcInfo, rgAffectedApps, 
     pnProcInfoMarshal := pnProcInfo is VarRef ? "uint*" : "ptr"
     lpdwRebootReasonsMarshal := lpdwRebootReasons is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("rstrtmgr.dll\RmGetList", "uint", dwSessionHandle, pnProcInfoNeededMarshal, pnProcInfoNeeded, pnProcInfoMarshal, pnProcInfo, RM_PROCESS_INFO.Ptr, rgAffectedApps, lpdwRebootReasonsMarshal, lpdwRebootReasons, WIN32_ERROR)
+    result := DllCall("rstrtmgr.dll\RmGetList", UInt32, dwSessionHandle, pnProcInfoNeededMarshal, pnProcInfoNeeded, pnProcInfoMarshal, pnProcInfo, RM_PROCESS_INFO.Ptr, rgAffectedApps, lpdwRebootReasonsMarshal, lpdwRebootReasons, WIN32_ERROR)
     return result
 }
 
@@ -689,7 +690,7 @@ export RmGetList(dwSessionHandle, pnProcInfoNeeded, pnProcInfo, rgAffectedApps, 
  * @since windows6.0.6000
  */
 export RmShutdown(dwSessionHandle, lActionFlags, fnStatus) {
-    result := DllCall("rstrtmgr.dll\RmShutdown", "uint", dwSessionHandle, "uint", lActionFlags, "ptr", fnStatus, WIN32_ERROR)
+    result := DllCall("rstrtmgr.dll\RmShutdown", UInt32, dwSessionHandle, UInt32, lActionFlags, RM_WRITE_STATUS_CALLBACK, fnStatus, WIN32_ERROR)
     return result
 }
 
@@ -832,7 +833,7 @@ export RmShutdown(dwSessionHandle, lActionFlags, fnStatus) {
 export RmRestart(dwSessionHandle, fnStatus) {
     static dwRestartFlags := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("rstrtmgr.dll\RmRestart", "uint", dwSessionHandle, "uint", dwRestartFlags, "ptr", fnStatus, WIN32_ERROR)
+    result := DllCall("rstrtmgr.dll\RmRestart", UInt32, dwSessionHandle, UInt32, dwRestartFlags, RM_WRITE_STATUS_CALLBACK, fnStatus, WIN32_ERROR)
     return result
 }
 
@@ -899,7 +900,7 @@ export RmRestart(dwSessionHandle, fnStatus) {
  * @since windows6.0.6000
  */
 export RmCancelCurrentTask(dwSessionHandle) {
-    result := DllCall("RstrtMgr.dll\RmCancelCurrentTask", "uint", dwSessionHandle, WIN32_ERROR)
+    result := DllCall("RstrtMgr.dll\RmCancelCurrentTask", UInt32, dwSessionHandle, WIN32_ERROR)
     return result
 }
 
@@ -961,7 +962,7 @@ export RmAddFilter(dwSessionHandle, strModuleName, pProcess, strServiceShortName
     strModuleName := strModuleName is String ? StrPtr(strModuleName) : strModuleName
     strServiceShortName := strServiceShortName is String ? StrPtr(strServiceShortName) : strServiceShortName
 
-    result := DllCall("RstrtMgr.dll\RmAddFilter", "uint", dwSessionHandle, "ptr", strModuleName, RM_UNIQUE_PROCESS.Ptr, pProcess, "ptr", strServiceShortName, RM_FILTER_ACTION, FilterAction, WIN32_ERROR)
+    result := DllCall("RstrtMgr.dll\RmAddFilter", UInt32, dwSessionHandle, "ptr", strModuleName, RM_UNIQUE_PROCESS.Ptr, pProcess, "ptr", strServiceShortName, RM_FILTER_ACTION, FilterAction, WIN32_ERROR)
     return result
 }
 
@@ -1022,7 +1023,7 @@ export RmRemoveFilter(dwSessionHandle, strModuleName, pProcess, strServiceShortN
     strModuleName := strModuleName is String ? StrPtr(strModuleName) : strModuleName
     strServiceShortName := strServiceShortName is String ? StrPtr(strServiceShortName) : strServiceShortName
 
-    result := DllCall("RstrtMgr.dll\RmRemoveFilter", "uint", dwSessionHandle, "ptr", strModuleName, RM_UNIQUE_PROCESS.Ptr, pProcess, "ptr", strServiceShortName, WIN32_ERROR)
+    result := DllCall("RstrtMgr.dll\RmRemoveFilter", UInt32, dwSessionHandle, "ptr", strModuleName, RM_UNIQUE_PROCESS.Ptr, pProcess, "ptr", strServiceShortName, WIN32_ERROR)
     return result
 }
 
@@ -1096,7 +1097,7 @@ export RmRemoveFilter(dwSessionHandle, strModuleName, pProcess, strServiceShortN
 export RmGetFilterList(dwSessionHandle, pbFilterBuf, cbFilterBuf, cbFilterBufNeeded) {
     cbFilterBufNeededMarshal := cbFilterBufNeeded is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("RstrtMgr.dll\RmGetFilterList", "uint", dwSessionHandle, "ptr", pbFilterBuf, "uint", cbFilterBuf, cbFilterBufNeededMarshal, cbFilterBufNeeded, WIN32_ERROR)
+    result := DllCall("RstrtMgr.dll\RmGetFilterList", UInt32, dwSessionHandle, IntPtr, pbFilterBuf, UInt32, cbFilterBuf, cbFilterBufNeededMarshal, cbFilterBufNeeded, WIN32_ERROR)
     return result
 }
 

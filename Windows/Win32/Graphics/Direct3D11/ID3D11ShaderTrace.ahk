@@ -2,11 +2,11 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\D3D11_TRACE_STEP.ahk" { D3D11_TRACE_STEP }
-#Import ".\D3D11_TRACE_REGISTER.ahk" { D3D11_TRACE_REGISTER }
-#Import ".\D3D11_TRACE_VALUE.ahk" { D3D11_TRACE_VALUE }
-#Import ".\D3D11_TRACE_STATS.ahk" { D3D11_TRACE_STATS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D3D11_TRACE_STATS.ahk" { D3D11_TRACE_STATS }
+#Import ".\D3D11_TRACE_VALUE.ahk" { D3D11_TRACE_VALUE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_TRACE_REGISTER.ahk" { D3D11_TRACE_REGISTER }
 
 /**
  * An ID3D11ShaderTrace interface implements methods for obtaining traces of shader executions.
@@ -122,7 +122,7 @@ export default struct ID3D11ShaderTrace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-psselectstamp
      */
     PSSelectStamp(stampIndex) {
-        result := ComCall(6, this, "uint", stampIndex, "HRESULT")
+        result := ComCall(6, this, UInt32, stampIndex, "HRESULT")
         return result
     }
 
@@ -153,7 +153,7 @@ export default struct ID3D11ShaderTrace extends IUnknown {
      */
     GetStep(stepIndex) {
         pTraceStep := D3D11_TRACE_STEP()
-        result := ComCall(8, this, "uint", stepIndex, D3D11_TRACE_STEP.Ptr, pTraceStep, "HRESULT")
+        result := ComCall(8, this, UInt32, stepIndex, D3D11_TRACE_STEP.Ptr, pTraceStep, "HRESULT")
         return pTraceStep
     }
 
@@ -175,7 +175,7 @@ export default struct ID3D11ShaderTrace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getwrittenregister
      */
     GetWrittenRegister(stepIndex, writtenRegisterIndex, pRegister, pValue) {
-        result := ComCall(9, this, "uint", stepIndex, "uint", writtenRegisterIndex, D3D11_TRACE_REGISTER.Ptr, pRegister, D3D11_TRACE_VALUE.Ptr, pValue, "HRESULT")
+        result := ComCall(9, this, UInt32, stepIndex, UInt32, writtenRegisterIndex, D3D11_TRACE_REGISTER.Ptr, pRegister, D3D11_TRACE_VALUE.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -197,7 +197,7 @@ export default struct ID3D11ShaderTrace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-id3d11shadertrace-getreadregister
      */
     GetReadRegister(stepIndex, readRegisterIndex, pRegister, pValue) {
-        result := ComCall(10, this, "uint", stepIndex, "uint", readRegisterIndex, D3D11_TRACE_REGISTER.Ptr, pRegister, D3D11_TRACE_VALUE.Ptr, pValue, "HRESULT")
+        result := ComCall(10, this, UInt32, stepIndex, UInt32, readRegisterIndex, D3D11_TRACE_REGISTER.Ptr, pRegister, D3D11_TRACE_VALUE.Ptr, pValue, "HRESULT")
         return result
     }
 

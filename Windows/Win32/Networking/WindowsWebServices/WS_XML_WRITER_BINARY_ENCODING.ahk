@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_WRITER_ENCODING.ahk" { WS_XML_WRITER_ENCODING }
+#Import ".\WS_DYNAMIC_STRING_CALLBACK.ahk" { WS_DYNAMIC_STRING_CALLBACK }
 #Import ".\WS_XML_WRITER_ENCODING_TYPE.ahk" { WS_XML_WRITER_ENCODING_TYPE }
 #Import ".\WS_XML_DICTIONARY.ahk" { WS_XML_DICTIONARY }
-#Import ".\WS_XML_WRITER_ENCODING.ahk" { WS_XML_WRITER_ENCODING }
 
 /**
  * Used to indicate that the writer should emit bytes as binary xml.
@@ -28,7 +29,7 @@ export default struct WS_XML_WRITER_BINARY_ENCODING {
      *           The callback provides the mapping to an id which the writer will then use.  It is the responsibility of the callback to coordinate with the
      *           writer to propagate these strings to the reader. The string is not added to the dictionary if this callback is not specified.
      */
-    dynamicStringCallback : IntPtr
+    dynamicStringCallback : WS_DYNAMIC_STRING_CALLBACK
 
     /**
      * User-defined state that will be passed to dynamicStringCallback.

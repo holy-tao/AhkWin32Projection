@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 #Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
 #Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Used in the CMC_DATA_INFO and CMC_RESPONSE_INFO structures. (CMC_TAGGED_ATTRIBUTE)

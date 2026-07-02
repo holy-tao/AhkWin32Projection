@@ -2,11 +2,11 @@
 #Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\Guid.ahk" { Guid }
 #Import "..\System\Com\IEnumString.ahk" { IEnumString }
-#Import "..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISpellCheckProvider.ahk" { ISpellCheckProvider }
 #Import "..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISpellCheckProvider.ahk" { ISpellCheckProvider }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A factory for instantiating a spell checker (ISpellCheckProvider) as well as providing functionality for determining which languages are supported.

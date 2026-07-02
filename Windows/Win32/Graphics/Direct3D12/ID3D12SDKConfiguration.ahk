@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides SDK configuration methods.
@@ -64,7 +64,7 @@ export default struct ID3D12SDKConfiguration extends IUnknown {
     SetSDKVersion(SDKVersion, SDKPath) {
         SDKPath := SDKPath is String ? StrPtr(SDKPath) : SDKPath
 
-        result := ComCall(3, this, "uint", SDKVersion, "ptr", SDKPath, "HRESULT")
+        result := ComCall(3, this, UInt32, SDKVersion, "ptr", SDKPath, "HRESULT")
         return result
     }
 

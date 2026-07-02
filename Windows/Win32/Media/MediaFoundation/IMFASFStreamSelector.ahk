@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ASF_SELECTION_STATUS.ahk" { ASF_SELECTION_STATUS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Selects streams in an Advanced Systems Format (ASF) file, based on the mutual exclusion information in the ASF header.
@@ -82,7 +82,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputstreamcount
      */
     GetOutputStreamCount(dwOutputNum) {
-        result := ComCall(5, this, "uint", dwOutputNum, "uint*", &pcStreams := 0, "HRESULT")
+        result := ComCall(5, this, UInt32, dwOutputNum, "uint*", &pcStreams := 0, "HRESULT")
         return pcStreams
     }
 
@@ -95,7 +95,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputstreamnumbers
      */
     GetOutputStreamNumbers(dwOutputNum) {
-        result := ComCall(6, this, "uint", dwOutputNum, "ushort*", &rgwStreamNumbers := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwOutputNum, "ushort*", &rgwStreamNumbers := 0, "HRESULT")
         return rgwStreamNumbers
     }
 
@@ -108,7 +108,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputfromstream
      */
     GetOutputFromStream(wStreamNum) {
-        result := ComCall(7, this, "ushort", wStreamNum, "uint*", &pdwOutput := 0, "HRESULT")
+        result := ComCall(7, this, UInt16, wStreamNum, "uint*", &pdwOutput := 0, "HRESULT")
         return pdwOutput
     }
 
@@ -119,7 +119,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputoverride
      */
     GetOutputOverride(dwOutputNum) {
-        result := ComCall(8, this, "uint", dwOutputNum, "int*", &pSelection := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwOutputNum, "int*", &pSelection := 0, "HRESULT")
         return pSelection
     }
 
@@ -149,7 +149,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-setoutputoverride
      */
     SetOutputOverride(dwOutputNum, Selection) {
-        result := ComCall(9, this, "uint", dwOutputNum, ASF_SELECTION_STATUS, Selection, "HRESULT")
+        result := ComCall(9, this, UInt32, dwOutputNum, ASF_SELECTION_STATUS, Selection, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputmutexcount
      */
     GetOutputMutexCount(dwOutputNum) {
-        result := ComCall(10, this, "uint", dwOutputNum, "uint*", &pcMutexes := 0, "HRESULT")
+        result := ComCall(10, this, UInt32, dwOutputNum, "uint*", &pcMutexes := 0, "HRESULT")
         return pcMutexes
     }
 
@@ -174,7 +174,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getoutputmutex
      */
     GetOutputMutex(dwOutputNum, dwMutexNum) {
-        result := ComCall(11, this, "uint", dwOutputNum, "uint", dwMutexNum, "ptr*", &ppMutex := 0, "HRESULT")
+        result := ComCall(11, this, UInt32, dwOutputNum, UInt32, dwMutexNum, "ptr*", &ppMutex := 0, "HRESULT")
         return IUnknown(ppMutex)
     }
 
@@ -209,7 +209,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-setoutputmutexselection
      */
     SetOutputMutexSelection(dwOutputNum, dwMutexNum, wSelectedRecord) {
-        result := ComCall(12, this, "uint", dwOutputNum, "uint", dwMutexNum, "ushort", wSelectedRecord, "HRESULT")
+        result := ComCall(12, this, UInt32, dwOutputNum, UInt32, dwMutexNum, UInt16, wSelectedRecord, "HRESULT")
         return result
     }
 
@@ -259,7 +259,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
         rgwStreamNumbersMarshal := rgwStreamNumbers is VarRef ? "ushort*" : "ptr"
         rgSelectionsMarshal := rgSelections is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, "uint", dwStepNum, pdwBitrateMarshal, pdwBitrate, rgwStreamNumbersMarshal, rgwStreamNumbers, rgSelectionsMarshal, rgSelections, "HRESULT")
+        result := ComCall(14, this, UInt32, dwStepNum, pdwBitrateMarshal, pdwBitrate, rgwStreamNumbersMarshal, rgwStreamNumbers, rgSelectionsMarshal, rgSelections, "HRESULT")
         return result
     }
 
@@ -272,7 +272,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-bitratetostepnumber
      */
     BitrateToStepNumber(dwBitrate) {
-        result := ComCall(15, this, "uint", dwBitrate, "uint*", &pdwStepNum := 0, "HRESULT")
+        result := ComCall(15, this, UInt32, dwBitrate, "uint*", &pdwStepNum := 0, "HRESULT")
         return pdwStepNum
     }
 
@@ -301,7 +301,7 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-setstreamselectorflags
      */
     SetStreamSelectorFlags(dwStreamSelectorFlags) {
-        result := ComCall(16, this, "uint", dwStreamSelectorFlags, "HRESULT")
+        result := ComCall(16, this, UInt32, dwStreamSelectorFlags, "HRESULT")
         return result
     }
 

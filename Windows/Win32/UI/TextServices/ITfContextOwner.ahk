@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\POINT.ahk" { POINT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import ".\TS_STATUS.ahk" { TS_STATUS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITfContextOwner interface is implemented by an application or a text service to receive text input without having a text store. An instance of this interface is obtained when the application calls the ITfSource::AdviseSink method.
@@ -81,7 +81,7 @@ export default struct ITfContextOwner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextowner-getacpfrompoint
      */
     GetACPFromPoint(ptScreen, dwFlags) {
-        result := ComCall(3, this, POINT.Ptr, ptScreen, "uint", dwFlags, "int*", &pacp := 0, "HRESULT")
+        result := ComCall(3, this, POINT.Ptr, ptScreen, UInt32, dwFlags, "int*", &pacp := 0, "HRESULT")
         return pacp
     }
 
@@ -161,7 +161,7 @@ export default struct ITfContextOwner extends IUnknown {
     GetTextExt(acpStart, acpEnd, prc, pfClipped) {
         pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", acpStart, "int", acpEnd, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
+        result := ComCall(4, this, Int32, acpStart, Int32, acpEnd, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
     }
 

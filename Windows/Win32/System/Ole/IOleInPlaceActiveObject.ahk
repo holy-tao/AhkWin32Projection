@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IOleWindow.ahk" { IOleWindow }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
 #Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import ".\IOleWindow.ahk" { IOleWindow }
 
 /**
  * Provides a direct channel of communication between an in-place object and the associated application's outer-most frame window and the document window within the application that contains the embedded object.

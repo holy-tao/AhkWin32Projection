@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\MMCBUTTON.ahk" { MMCBUTTON }
 #Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\MMC_BUTTON_STATE.ahk" { MMC_BUTTON_STATE }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\MMC_BUTTON_STATE.ahk" { MMC_BUTTON_STATE }
-#Import ".\MMCBUTTON.ahk" { MMCBUTTON }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * The IToolbar interface is used to create new toolbars, to add items to them, to extend the toolbars, and to display the resultant new toolbars. Each toolbar is created on its own band within the control bar.
@@ -61,7 +61,7 @@ export default struct IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-addbitmap
      */
     AddBitmap(nImages, hbmp, cxSize, cySize, crMask) {
-        result := ComCall(3, this, "int", nImages, HBITMAP, hbmp, "int", cxSize, "int", cySize, COLORREF, crMask, "HRESULT")
+        result := ComCall(3, this, Int32, nImages, HBITMAP, hbmp, Int32, cxSize, Int32, cySize, COLORREF, crMask, "HRESULT")
         return result
     }
 
@@ -74,7 +74,7 @@ export default struct IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-addbuttons
      */
     AddButtons(nButtons, lpButtons) {
-        result := ComCall(4, this, "int", nButtons, MMCBUTTON.Ptr, lpButtons, "HRESULT")
+        result := ComCall(4, this, Int32, nButtons, MMCBUTTON.Ptr, lpButtons, "HRESULT")
         return result
     }
 
@@ -88,7 +88,7 @@ export default struct IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-insertbutton
      */
     InsertButton(nIndex, lpButton) {
-        result := ComCall(5, this, "int", nIndex, MMCBUTTON.Ptr, lpButton, "HRESULT")
+        result := ComCall(5, this, Int32, nIndex, MMCBUTTON.Ptr, lpButton, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-deletebutton
      */
     DeleteButton(nIndex) {
-        result := ComCall(6, this, "int", nIndex, "HRESULT")
+        result := ComCall(6, this, Int32, nIndex, "HRESULT")
         return result
     }
 
@@ -111,7 +111,7 @@ export default struct IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-getbuttonstate
      */
     GetButtonState(idCommand, nState) {
-        result := ComCall(7, this, "int", idCommand, MMC_BUTTON_STATE, nState, BOOL.Ptr, &pState := 0, "HRESULT")
+        result := ComCall(7, this, Int32, idCommand, MMC_BUTTON_STATE, nState, BOOL.Ptr, &pState := 0, "HRESULT")
         return pState
     }
 
@@ -130,7 +130,7 @@ export default struct IToolbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-setbuttonstate
      */
     SetButtonState(idCommand, nState, bState) {
-        result := ComCall(8, this, "int", idCommand, MMC_BUTTON_STATE, nState, BOOL, bState, "HRESULT")
+        result := ComCall(8, this, Int32, idCommand, MMC_BUTTON_STATE, nState, BOOL, bState, "HRESULT")
         return result
     }
 

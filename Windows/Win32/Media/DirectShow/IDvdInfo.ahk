@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DVD_ATR.ahk" { DVD_ATR }
-#Import ".\DVD_DOMAIN.ahk" { DVD_DOMAIN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DVD_DISC_SIDE.ahk" { DVD_DISC_SIDE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\DVD_PLAYBACK_LOCATION.ahk" { DVD_PLAYBACK_LOCATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVD_ATR.ahk" { DVD_ATR }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVD_DISC_SIDE.ahk" { DVD_DISC_SIDE }
+#Import ".\DVD_DOMAIN.ahk" { DVD_DOMAIN }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Note  This interface has been deprecated. (IDvdInfo)
@@ -611,7 +611,7 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getaudiolanguage
      */
     GetAudioLanguage(ulStream) {
-        result := ComCall(13, this, "uint", ulStream, "uint*", &pLanguage := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, ulStream, "uint*", &pLanguage := 0, "HRESULT")
         return pLanguage
     }
 
@@ -639,7 +639,7 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getsubpicturelanguage
      */
     GetSubpictureLanguage(ulStream) {
-        result := ComCall(14, this, "uint", ulStream, "uint*", &pLanguage := 0, "HRESULT")
+        result := ComCall(14, this, UInt32, ulStream, "uint*", &pLanguage := 0, "HRESULT")
         return pLanguage
     }
 
@@ -653,7 +653,7 @@ export default struct IDvdInfo extends IUnknown {
      */
     GetTitleAttributes(ulTitle) {
         pATR := DVD_ATR()
-        result := ComCall(15, this, "uint", ulTitle, DVD_ATR.Ptr, pATR, "HRESULT")
+        result := ComCall(15, this, UInt32, ulTitle, DVD_ATR.Ptr, pATR, "HRESULT")
         return pATR
     }
 
@@ -800,7 +800,7 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getdvdtextinfo
      */
     GetDVDTextInfo(pTextManager, ulBufSize) {
-        result := ComCall(21, this, "ptr", pTextManager, "uint", ulBufSize, "uint*", &pulActualSize := 0, "HRESULT")
+        result := ComCall(21, this, IntPtr, pTextManager, UInt32, ulBufSize, "uint*", &pulActualSize := 0, "HRESULT")
         return pulActualSize
     }
 
@@ -887,7 +887,7 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getnumberofchapters
      */
     GetNumberOfChapters(ulTitle) {
-        result := ComCall(23, this, "uint", ulTitle, "uint*", &pulNumberOfChapters := 0, "HRESULT")
+        result := ComCall(23, this, UInt32, ulTitle, "uint*", &pulNumberOfChapters := 0, "HRESULT")
         return pulNumberOfChapters
     }
 
@@ -911,7 +911,7 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-gettitleparentallevels
      */
     GetTitleParentalLevels(ulTitle) {
-        result := ComCall(24, this, "uint", ulTitle, "uint*", &pulParentalLevels := 0, "HRESULT")
+        result := ComCall(24, this, UInt32, ulTitle, "uint*", &pulParentalLevels := 0, "HRESULT")
         return pulParentalLevels
     }
 
@@ -927,7 +927,7 @@ export default struct IDvdInfo extends IUnknown {
     GetRoot(pRoot, ulBufSize) {
         pRoot := pRoot is String ? StrPtr(pRoot) : pRoot
 
-        result := ComCall(25, this, "ptr", pRoot, "uint", ulBufSize, "uint*", &pulActualSize := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", pRoot, UInt32, ulBufSize, "uint*", &pulActualSize := 0, "HRESULT")
         return pulActualSize
     }
 

@@ -42,7 +42,7 @@ export default struct IPrinterScriptableSequentialStream extends IDispatch {
      * @returns {IDispatch} 
      */
     Read(cbRead) {
-        result := ComCall(7, this, "int", cbRead, "ptr*", &ppArray := 0, "HRESULT")
+        result := ComCall(7, this, Int32, cbRead, "ptr*", &ppArray := 0, "HRESULT")
         return IDispatch(ppArray)
     }
 

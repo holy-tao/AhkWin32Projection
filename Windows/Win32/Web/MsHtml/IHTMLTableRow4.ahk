@@ -107,7 +107,7 @@ export default struct IHTMLTableRow4 extends IDispatch {
      * @returns {IDispatch} 
      */
     insertCell(index) {
-        result := ComCall(11, this, "int", index, "ptr*", &row := 0, "HRESULT")
+        result := ComCall(11, this, Int32, index, "ptr*", &row := 0, "HRESULT")
         return IDispatch(row)
     }
 
@@ -117,7 +117,7 @@ export default struct IHTMLTableRow4 extends IDispatch {
      * @returns {HRESULT} 
      */
     deleteCell(index) {
-        result := ComCall(12, this, "int", index, "HRESULT")
+        result := ComCall(12, this, Int32, index, "HRESULT")
         return result
     }
 

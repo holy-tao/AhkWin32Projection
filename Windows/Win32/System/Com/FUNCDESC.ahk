@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\FUNCKIND.ahk" { FUNCKIND }
-#Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
-#Import ".\ELEMDESC.ahk" { ELEMDESC }
-#Import "..\Variant\VARENUM.ahk" { VARENUM }
 #Import ".\IDLFLAGS.ahk" { IDLFLAGS }
-#Import ".\FUNCFLAGS.ahk" { FUNCFLAGS }
-#Import ".\TYPEDESC.ahk" { TYPEDESC }
-#Import "..\Ole\PARAMFLAGS.ahk" { PARAMFLAGS }
-#Import "..\Ole\PARAMDESC.ahk" { PARAMDESC }
-#Import "..\Ole\PARAMDESCEX.ahk" { PARAMDESCEX }
 #Import ".\INVOKEKIND.ahk" { INVOKEKIND }
-#Import ".\CALLCONV.ahk" { CALLCONV }
+#Import "..\Ole\PARAMDESCEX.ahk" { PARAMDESCEX }
 #Import ".\IDLDESC.ahk" { IDLDESC }
+#Import ".\FUNCFLAGS.ahk" { FUNCFLAGS }
+#Import "..\Ole\PARAMDESC.ahk" { PARAMDESC }
+#Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
+#Import ".\CALLCONV.ahk" { CALLCONV }
+#Import ".\TYPEDESC.ahk" { TYPEDESC }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\Ole\PARAMFLAGS.ahk" { PARAMFLAGS }
+#Import ".\FUNCKIND.ahk" { FUNCKIND }
+#Import ".\ELEMDESC.ahk" { ELEMDESC }
 
 /**
  * Describes a function. (FUNCDESC)

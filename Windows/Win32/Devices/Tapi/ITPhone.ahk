@@ -1,23 +1,23 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\PHONECAPS_BUFFER.ahk" { PHONECAPS_BUFFER }
+#Import ".\PHONE_BUTTON_MODE.ahk" { PHONE_BUTTON_MODE }
 #Import ".\ITAddress.ahk" { ITAddress }
-#Import ".\PHONE_HOOK_SWITCH_STATE.ahk" { PHONE_HOOK_SWITCH_STATE }
-#Import ".\IEnumTerminal.ahk" { IEnumTerminal }
+#Import ".\PHONE_HOOK_SWITCH_DEVICE.ahk" { PHONE_HOOK_SWITCH_DEVICE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PHONE_BUTTON_FUNCTION.ahk" { PHONE_BUTTON_FUNCTION }
+#Import ".\IEnumAddress.ahk" { IEnumAddress }
 #Import ".\PHONE_PRIVILEGE.ahk" { PHONE_PRIVILEGE }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\PHONE_LAMP_MODE.ahk" { PHONE_LAMP_MODE }
-#Import ".\IEnumAddress.ahk" { IEnumAddress }
-#Import ".\PHONECAPS_LONG.ahk" { PHONECAPS_LONG }
-#Import ".\PHONE_BUTTON_MODE.ahk" { PHONE_BUTTON_MODE }
-#Import ".\PHONE_BUTTON_FUNCTION.ahk" { PHONE_BUTTON_FUNCTION }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
-#Import ".\PHONE_HOOK_SWITCH_DEVICE.ahk" { PHONE_HOOK_SWITCH_DEVICE }
-#Import ".\PHONE_BUTTON_STATE.ahk" { PHONE_BUTTON_STATE }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\PHONECAPS_STRING.ahk" { PHONECAPS_STRING }
+#Import ".\IEnumTerminal.ahk" { IEnumTerminal }
+#Import ".\PHONE_HOOK_SWITCH_STATE.ahk" { PHONE_HOOK_SWITCH_STATE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\PHONECAPS_BUFFER.ahk" { PHONECAPS_BUFFER }
+#Import ".\PHONECAPS_LONG.ahk" { PHONECAPS_LONG }
+#Import ".\PHONE_LAMP_MODE.ahk" { PHONE_LAMP_MODE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\PHONE_BUTTON_STATE.ahk" { PHONE_BUTTON_STATE }
 
 /**
  * The ITPhone interface is the main interface for the new Phone objects in the TAPI 3.1 object model.
@@ -324,7 +324,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonmode
      */
     get_ButtonMode(lButtonID) {
-        result := ComCall(15, this, "int", lButtonID, "int*", &pButtonMode := 0, "HRESULT")
+        result := ComCall(15, this, Int32, lButtonID, "int*", &pButtonMode := 0, "HRESULT")
         return pButtonMode
     }
 
@@ -337,7 +337,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_buttonmode
      */
     put_ButtonMode(lButtonID, ButtonMode) {
-        result := ComCall(16, this, "int", lButtonID, PHONE_BUTTON_MODE, ButtonMode, "HRESULT")
+        result := ComCall(16, this, Int32, lButtonID, PHONE_BUTTON_MODE, ButtonMode, "HRESULT")
         return result
     }
 
@@ -352,7 +352,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonfunction
      */
     get_ButtonFunction(lButtonID) {
-        result := ComCall(17, this, "int", lButtonID, "int*", &pButtonFunction := 0, "HRESULT")
+        result := ComCall(17, this, Int32, lButtonID, "int*", &pButtonFunction := 0, "HRESULT")
         return pButtonFunction
     }
 
@@ -365,7 +365,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_buttonfunction
      */
     put_ButtonFunction(lButtonID, ButtonFunction) {
-        result := ComCall(18, this, "int", lButtonID, PHONE_BUTTON_FUNCTION, ButtonFunction, "HRESULT")
+        result := ComCall(18, this, Int32, lButtonID, PHONE_BUTTON_FUNCTION, ButtonFunction, "HRESULT")
         return result
     }
 
@@ -378,7 +378,7 @@ export default struct ITPhone extends IDispatch {
      */
     get_ButtonText(lButtonID) {
         ppButtonText := BSTR.Owned()
-        result := ComCall(19, this, "int", lButtonID, BSTR.Ptr, ppButtonText, "HRESULT")
+        result := ComCall(19, this, Int32, lButtonID, BSTR.Ptr, ppButtonText, "HRESULT")
         return ppButtonText
     }
 
@@ -392,7 +392,7 @@ export default struct ITPhone extends IDispatch {
     put_ButtonText(lButtonID, bstrButtonText) {
         bstrButtonText := bstrButtonText is String ? BSTR.Alloc(bstrButtonText).Value : bstrButtonText
 
-        result := ComCall(20, this, "int", lButtonID, BSTR, bstrButtonText, "HRESULT")
+        result := ComCall(20, this, Int32, lButtonID, BSTR, bstrButtonText, "HRESULT")
         return result
     }
 
@@ -404,7 +404,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonstate
      */
     get_ButtonState(lButtonID) {
-        result := ComCall(21, this, "int", lButtonID, "int*", &pButtonState := 0, "HRESULT")
+        result := ComCall(21, this, Int32, lButtonID, "int*", &pButtonState := 0, "HRESULT")
         return pButtonState
     }
 
@@ -444,7 +444,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_ringmode
      */
     put_RingMode(lRingMode) {
-        result := ComCall(24, this, "int", lRingMode, "HRESULT")
+        result := ComCall(24, this, Int32, lRingMode, "HRESULT")
         return result
     }
 
@@ -467,7 +467,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_ringvolume
      */
     put_RingVolume(lRingVolume) {
-        result := ComCall(26, this, "int", lRingVolume, "HRESULT")
+        result := ComCall(26, this, Int32, lRingVolume, "HRESULT")
         return result
     }
 
@@ -530,7 +530,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_lampmode
      */
     get_LampMode(lLampID) {
-        result := ComCall(31, this, "int", lLampID, "int*", &pLampMode := 0, "HRESULT")
+        result := ComCall(31, this, Int32, lLampID, "int*", &pLampMode := 0, "HRESULT")
         return pLampMode
     }
 
@@ -543,7 +543,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_lampmode
      */
     put_LampMode(lLampID, LampMode) {
-        result := ComCall(32, this, "int", lLampID, PHONE_LAMP_MODE, LampMode, "HRESULT")
+        result := ComCall(32, this, Int32, lLampID, PHONE_LAMP_MODE, LampMode, "HRESULT")
         return result
     }
 
@@ -570,7 +570,7 @@ export default struct ITPhone extends IDispatch {
     SetDisplay(lRow, lColumn, bstrDisplay) {
         bstrDisplay := bstrDisplay is String ? BSTR.Alloc(bstrDisplay).Value : bstrDisplay
 
-        result := ComCall(34, this, "int", lRow, "int", lColumn, BSTR, bstrDisplay, "HRESULT")
+        result := ComCall(34, this, Int32, lRow, Int32, lColumn, BSTR, bstrDisplay, "HRESULT")
         return result
     }
 
@@ -677,7 +677,7 @@ export default struct ITPhone extends IDispatch {
     DeviceSpecific(pParams, dwSize) {
         pParamsMarshal := pParams is VarRef ? "char*" : "ptr"
 
-        result := ComCall(37, this, pParamsMarshal, pParams, "uint", dwSize, "HRESULT")
+        result := ComCall(37, this, pParamsMarshal, pParams, UInt32, dwSize, "HRESULT")
         return result
     }
 
@@ -731,7 +731,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-negotiateextversion
      */
     NegotiateExtVersion(lLowVersion, lHighVersion) {
-        result := ComCall(39, this, "int", lLowVersion, "int", lHighVersion, "int*", &plExtVersion := 0, "HRESULT")
+        result := ComCall(39, this, Int32, lLowVersion, Int32, lHighVersion, "int*", &plExtVersion := 0, "HRESULT")
         return plExtVersion
     }
 

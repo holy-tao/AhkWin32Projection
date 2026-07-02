@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ISVGAnimatedEnumeration.ahk" { ISVGAnimatedEnumeration }
-#Import ".\ISVGAnimatedLength.ahk" { ISVGAnimatedLength }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ISVGPoint.ahk" { ISVGPoint }
+#Import ".\ISVGAnimatedEnumeration.ahk" { ISVGAnimatedEnumeration }
 #Import ".\ISVGRect.ahk" { ISVGRect }
+#Import ".\ISVGAnimatedLength.ahk" { ISVGAnimatedLength }
+#Import ".\ISVGPoint.ahk" { ISVGPoint }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -134,7 +134,7 @@ export default struct ISVGTextContentElement extends IDispatch {
      * @returns {Float} 
      */
     getSubStringLength(charnum, nchars) {
-        result := ComCall(13, this, "int", charnum, "int", nchars, "float*", &pResult := 0, "HRESULT")
+        result := ComCall(13, this, Int32, charnum, Int32, nchars, "float*", &pResult := 0, "HRESULT")
         return pResult
     }
 
@@ -144,7 +144,7 @@ export default struct ISVGTextContentElement extends IDispatch {
      * @returns {ISVGPoint} 
      */
     getStartPositionOfChar(charnum) {
-        result := ComCall(14, this, "int", charnum, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(14, this, Int32, charnum, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGPoint(ppResult)
     }
 
@@ -154,7 +154,7 @@ export default struct ISVGTextContentElement extends IDispatch {
      * @returns {ISVGPoint} 
      */
     getEndPositionOfChar(charnum) {
-        result := ComCall(15, this, "int", charnum, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(15, this, Int32, charnum, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGPoint(ppResult)
     }
 
@@ -164,7 +164,7 @@ export default struct ISVGTextContentElement extends IDispatch {
      * @returns {ISVGRect} 
      */
     getExtentOfChar(charnum) {
-        result := ComCall(16, this, "int", charnum, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(16, this, Int32, charnum, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGRect(ppResult)
     }
 
@@ -174,7 +174,7 @@ export default struct ISVGTextContentElement extends IDispatch {
      * @returns {Float} 
      */
     getRotationOfChar(charnum) {
-        result := ComCall(17, this, "int", charnum, "float*", &pResult := 0, "HRESULT")
+        result := ComCall(17, this, Int32, charnum, "float*", &pResult := 0, "HRESULT")
         return pResult
     }
 
@@ -195,7 +195,7 @@ export default struct ISVGTextContentElement extends IDispatch {
      * @returns {HRESULT} 
      */
     selectSubString(charnum, nchars) {
-        result := ComCall(19, this, "int", charnum, "int", nchars, "HRESULT")
+        result := ComCall(19, this, Int32, charnum, Int32, nchars, "HRESULT")
         return result
     }
 

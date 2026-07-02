@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IIPDVDec interface provides methods for setting and retrieving properties on the DV Video Decoder filter.
@@ -65,7 +65,7 @@ export default struct IIPDVDec extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iipdvdec-put_ipdisplay
      */
     put_IPDisplay(displayPix) {
-        result := ComCall(4, this, "int", displayPix, "HRESULT")
+        result := ComCall(4, this, Int32, displayPix, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
 #Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -56,7 +56,7 @@ export default struct IDeskBarClient extends IOleWindow {
      * @returns {HRESULT} 
      */
     SetModeDBC(dwMode) {
-        result := ComCall(6, this, "uint", dwMode, "HRESULT")
+        result := ComCall(6, this, UInt32, dwMode, "HRESULT")
         return result
     }
 
@@ -66,7 +66,7 @@ export default struct IDeskBarClient extends IOleWindow {
      * @returns {HRESULT} 
      */
     UIActivateDBC(dwState) {
-        result := ComCall(7, this, "uint", dwState, "HRESULT")
+        result := ComCall(7, this, UInt32, dwState, "HRESULT")
         return result
     }
 
@@ -77,7 +77,7 @@ export default struct IDeskBarClient extends IOleWindow {
      */
     GetSize(dwWhich) {
         prc := RECT()
-        result := ComCall(8, this, "uint", dwWhich, RECT.Ptr, prc, "HRESULT")
+        result := ComCall(8, this, UInt32, dwWhich, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 

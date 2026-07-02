@@ -1,13 +1,13 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import ".\SHUTDOWN_FLAGS.ahk" { SHUTDOWN_FLAGS }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import ".\SHUTDOWN_REASON.ahk" { SHUTDOWN_REASON }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\EXIT_WINDOWS_FLAGS.ahk" { EXIT_WINDOWS_FLAGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SHUTDOWN_FLAGS.ahk" { SHUTDOWN_FLAGS }
+#Import ".\SHUTDOWN_REASON.ahk" { SHUTDOWN_REASON }
+#Import ".\EXIT_WINDOWS_FLAGS.ahk" { EXIT_WINDOWS_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Shutdown
@@ -64,7 +64,7 @@ export InitiateSystemShutdownA(lpMachineName, lpMessage, dwTimeout, bForceAppsCl
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\InitiateSystemShutdownA", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, BOOL, bForceAppsClosed, BOOL, bRebootAfterShutdown, BOOL)
+    result := DllCall("ADVAPI32.dll\InitiateSystemShutdownA", "ptr", lpMachineName, "ptr", lpMessage, UInt32, dwTimeout, BOOL, bForceAppsClosed, BOOL, bRebootAfterShutdown, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -122,7 +122,7 @@ export InitiateSystemShutdownW(lpMachineName, lpMessage, dwTimeout, bForceAppsCl
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\InitiateSystemShutdownW", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, BOOL, bForceAppsClosed, BOOL, bRebootAfterShutdown, BOOL)
+    result := DllCall("ADVAPI32.dll\InitiateSystemShutdownW", "ptr", lpMachineName, "ptr", lpMessage, UInt32, dwTimeout, BOOL, bForceAppsClosed, BOOL, bRebootAfterShutdown, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -272,7 +272,7 @@ export InitiateSystemShutdownExA(lpMachineName, lpMessage, dwTimeout, bForceApps
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\InitiateSystemShutdownExA", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, BOOL, bForceAppsClosed, BOOL, bRebootAfterShutdown, SHUTDOWN_REASON, dwReason, BOOL)
+    result := DllCall("ADVAPI32.dll\InitiateSystemShutdownExA", "ptr", lpMachineName, "ptr", lpMessage, UInt32, dwTimeout, BOOL, bForceAppsClosed, BOOL, bRebootAfterShutdown, SHUTDOWN_REASON, dwReason, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -350,7 +350,7 @@ export InitiateSystemShutdownExW(lpMachineName, lpMessage, dwTimeout, bForceApps
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\InitiateSystemShutdownExW", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwTimeout, BOOL, bForceAppsClosed, BOOL, bRebootAfterShutdown, SHUTDOWN_REASON, dwReason, BOOL)
+    result := DllCall("ADVAPI32.dll\InitiateSystemShutdownExW", "ptr", lpMachineName, "ptr", lpMessage, UInt32, dwTimeout, BOOL, bForceAppsClosed, BOOL, bRebootAfterShutdown, SHUTDOWN_REASON, dwReason, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -600,7 +600,7 @@ export InitiateShutdownA(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlag
     lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
     lpMessage := lpMessage is String ? StrPtr(lpMessage) : lpMessage
 
-    result := DllCall("ADVAPI32.dll\InitiateShutdownA", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwGracePeriod, SHUTDOWN_FLAGS, dwShutdownFlags, SHUTDOWN_REASON, dwReason, UInt32)
+    result := DllCall("ADVAPI32.dll\InitiateShutdownA", "ptr", lpMachineName, "ptr", lpMessage, UInt32, dwGracePeriod, SHUTDOWN_FLAGS, dwShutdownFlags, SHUTDOWN_REASON, dwReason, UInt32)
     return result
 }
 
@@ -846,7 +846,7 @@ export InitiateShutdownW(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlag
     lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
     lpMessage := lpMessage is String ? StrPtr(lpMessage) : lpMessage
 
-    result := DllCall("ADVAPI32.dll\InitiateShutdownW", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwGracePeriod, SHUTDOWN_FLAGS, dwShutdownFlags, SHUTDOWN_REASON, dwReason, UInt32)
+    result := DllCall("ADVAPI32.dll\InitiateShutdownW", "ptr", lpMachineName, "ptr", lpMessage, UInt32, dwGracePeriod, SHUTDOWN_FLAGS, dwShutdownFlags, SHUTDOWN_REASON, dwReason, UInt32)
     return result
 }
 

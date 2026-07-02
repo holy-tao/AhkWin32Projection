@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IXpsSignature.ahk" { IXpsSignature }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsSignature.ahk" { IXpsSignature }
 
 /**
  * A collection of IXpsSignature interface pointers.
@@ -63,7 +63,7 @@ export default struct IXpsSignatureCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturecollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &signature := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, index, "ptr*", &signature := 0, "HRESULT")
         return IXpsSignature(signature)
     }
 
@@ -80,7 +80,7 @@ export default struct IXpsSignatureCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturecollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(5, this, "uint", index, "HRESULT")
+        result := ComCall(5, this, UInt32, index, "HRESULT")
         return result
     }
 

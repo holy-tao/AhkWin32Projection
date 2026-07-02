@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITypeName.ahk" { ITypeName }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITypeNameBuilder.ahk" { ITypeNameBuilder }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITypeNameBuilder.ahk" { ITypeNameBuilder }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ITypeName.ahk" { ITypeName }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting

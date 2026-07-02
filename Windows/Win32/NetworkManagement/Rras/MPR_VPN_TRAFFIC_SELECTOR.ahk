@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
-#Import ".\VPN_TS_IP_ADDRESS.ahk" { VPN_TS_IP_ADDRESS }
 #Import ".\MPR_VPN_TS_TYPE.ahk" { MPR_VPN_TS_TYPE }
+#Import ".\VPN_TS_IP_ADDRESS.ahk" { VPN_TS_IP_ADDRESS }
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
 #Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**

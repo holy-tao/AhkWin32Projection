@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\IShellFolder.ahk" { IShellFolder }
-#Import ".\DEFAULT_FOLDER_MENU_RESTRICTIONS.ahk" { DEFAULT_FOLDER_MENU_RESTRICTIONS }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import ".\IContextMenuCB.ahk" { IContextMenuCB }
+#Import ".\IShellFolder.ahk" { IShellFolder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import ".\IContextMenuCB.ahk" { IContextMenuCB }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEFAULT_FOLDER_MENU_RESTRICTIONS.ahk" { DEFAULT_FOLDER_MENU_RESTRICTIONS }
 
 /**
  * Provides methods used to get and set shortcut menu information. This information is the same as that provided to SHCreateDefaultContextMenu through the DEFCONTEXTMENU structure.
@@ -79,7 +79,7 @@ export default struct IDefaultFolderMenuInitialize extends IUnknown {
     Initialize(_hwnd, pcmcb, pidlFolder, psf, cidl, apidl, punkAssociation, cKeys, aKeys) {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, HWND, _hwnd, "ptr", pcmcb, ITEMIDLIST.Ptr, pidlFolder, "ptr", psf, "uint", cidl, apidlMarshal, apidl, "ptr", punkAssociation, "uint", cKeys, HKEY.Ptr, aKeys, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", pcmcb, ITEMIDLIST.Ptr, pidlFolder, "ptr", psf, UInt32, cidl, apidlMarshal, apidl, "ptr", punkAssociation, UInt32, cKeys, HKEY.Ptr, aKeys, "HRESULT")
         return result
     }
 

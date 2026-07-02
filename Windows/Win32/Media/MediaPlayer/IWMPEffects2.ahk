@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMPEffects.ahk" { IWMPEffects }
-#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 #Import "..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 #Import ".\IWMPMedia.ahk" { IWMPMedia }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\TimedLevel.ahk" { TimedLevel }
-#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPEffects.ahk" { IWMPEffects }
 #Import ".\IWMPCore.ahk" { IWMPCore }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import ".\TimedLevel.ahk" { TimedLevel }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * IWMPEffects2 interface
@@ -117,7 +117,7 @@ export default struct IWMPEffects2 extends IWMPEffects {
     OnWindowMessage(_msg, _WParam, _LParam, plResultParam) {
         plResultParamMarshal := plResultParam is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, "uint", _msg, WPARAM, _WParam, LPARAM, _LParam, plResultParamMarshal, plResultParam, "HRESULT")
+        result := ComCall(18, this, UInt32, _msg, WPARAM, _WParam, LPARAM, _LParam, plResultParamMarshal, plResultParam, "HRESULT")
         return result
     }
 

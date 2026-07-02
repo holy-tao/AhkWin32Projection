@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\HSZ.ahk" { HSZ }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\HSZ.ahk" { HSZ }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

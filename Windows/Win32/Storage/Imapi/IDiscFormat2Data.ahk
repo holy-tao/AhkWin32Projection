@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
-#Import ".\IMAPI_FORMAT2_DATA_MEDIA_STATE.ahk" { IMAPI_FORMAT2_DATA_MEDIA_STATE }
-#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
-#Import "..\..\System\Com\IStream.ahk" { IStream }
 #Import ".\IMAPI_MEDIA_WRITE_PROTECT_STATE.ahk" { IMAPI_MEDIA_WRITE_PROTECT_STATE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
+#Import ".\IMAPI_FORMAT2_DATA_MEDIA_STATE.ahk" { IMAPI_FORMAT2_DATA_MEDIA_STATE }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
 
 /**
  * Use this interface to write a data stream to a disc.
@@ -1699,7 +1699,7 @@ export default struct IDiscFormat2Data extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-setwritespeed
      */
     SetWriteSpeed(RequestedSectorsPerSecond, RotationTypeIsPureCAV) {
-        result := ComCall(43, this, "int", RequestedSectorsPerSecond, VARIANT_BOOL, RotationTypeIsPureCAV, "HRESULT")
+        result := ComCall(43, this, Int32, RequestedSectorsPerSecond, VARIANT_BOOL, RotationTypeIsPureCAV, "HRESULT")
         return result
     }
 

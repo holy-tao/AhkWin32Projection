@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\EventArgsType.ahk" { EventArgsType }
 #Import ".\AsyncContentLoadedState.ahk" { AsyncContentLoadedState }
+#Import ".\EventArgsType.ahk" { EventArgsType }
 
 /**
  * Note  This structure is deprecated.  Contains information about an event raised when content is being asynchronously loaded by a UI element.

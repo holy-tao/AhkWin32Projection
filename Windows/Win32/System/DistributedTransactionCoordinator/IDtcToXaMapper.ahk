@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\XID.ahk" { XID }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -67,7 +67,7 @@ export default struct IDtcToXaMapper extends IUnknown {
     TranslateTridToXid(pdwITransaction, dwRMCookie, pXid) {
         pdwITransactionMarshal := pdwITransaction is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwITransactionMarshal, pdwITransaction, "uint", dwRMCookie, XID.Ptr, pXid, "HRESULT")
+        result := ComCall(4, this, pdwITransactionMarshal, pdwITransaction, UInt32, dwRMCookie, XID.Ptr, pXid, "HRESULT")
         return result
     }
 
@@ -80,7 +80,7 @@ export default struct IDtcToXaMapper extends IUnknown {
     EnlistResourceManager(dwRMCookie, pdwITransaction) {
         pdwITransactionMarshal := pdwITransaction is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwRMCookie, pdwITransactionMarshal, pdwITransaction, "HRESULT")
+        result := ComCall(5, this, UInt32, dwRMCookie, pdwITransactionMarshal, pdwITransaction, "HRESULT")
         return result
     }
 
@@ -90,7 +90,7 @@ export default struct IDtcToXaMapper extends IUnknown {
      * @returns {HRESULT} 
      */
     ReleaseResourceManager(dwRMCookie) {
-        result := ComCall(6, this, "uint", dwRMCookie, "HRESULT")
+        result := ComCall(6, this, UInt32, dwRMCookie, "HRESULT")
         return result
     }
 

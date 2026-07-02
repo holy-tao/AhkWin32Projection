@@ -2,9 +2,9 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\ETaskType.ahk" { ETaskType }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\ICLRTask.ahk" { ICLRTask }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -65,7 +65,7 @@ export default struct ICLRTaskManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetUILocale(lcid) {
-        result := ComCall(5, this, "uint", lcid, "HRESULT")
+        result := ComCall(5, this, UInt32, lcid, "HRESULT")
         return result
     }
 
@@ -75,7 +75,7 @@ export default struct ICLRTaskManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetLocale(lcid) {
-        result := ComCall(6, this, "uint", lcid, "HRESULT")
+        result := ComCall(6, this, UInt32, lcid, "HRESULT")
         return result
     }
 

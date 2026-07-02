@@ -2,9 +2,9 @@
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\VisualElementState.ahk" { VisualElementState }
+#Import ".\IVisualTreeServiceCallback.ahk" { IVisualTreeServiceCallback }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IVisualTreeServiceCallback.ahk" { IVisualTreeServiceCallback }
 
 /**
  * Represents additional capabilities of an IVisualTreeServiceCallback object.
@@ -52,7 +52,7 @@ export default struct IVisualTreeServiceCallback2 extends IVisualTreeServiceCall
     OnElementStateChanged(element, elementState, _context) {
         _context := _context is String ? StrPtr(_context) : _context
 
-        result := ComCall(4, this, "uint", element, VisualElementState, elementState, "ptr", _context, "HRESULT")
+        result := ComCall(4, this, Int64, element, VisualElementState, elementState, "ptr", _context, "HRESULT")
         return result
     }
 

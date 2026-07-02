@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\D3D11_BLEND_OP.ahk" { D3D11_BLEND_OP }
-#Import ".\D3D11_BLEND.ahk" { D3D11_BLEND }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_BLEND.ahk" { D3D11_BLEND }
+#Import ".\D3D11_BLEND_OP.ahk" { D3D11_BLEND_OP }
 
 /**
  * Describes the blend state for a render target. (D3D11_RENDER_TARGET_BLEND_DESC)

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WINBIO_VERSION.ahk" { WINBIO_VERSION }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINBIO_VERSION.ahk" { WINBIO_VERSION }
 
 /**
  * Describes the capabilities of a biometric service provider.

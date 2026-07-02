@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ITsSbTargetPropertySet.ahk" { ITsSbTargetPropertySet }
-#Import ".\ITsSbPluginPropertySet.ahk" { ITsSbPluginPropertySet }
-#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
-#Import ".\ITsSbEnvironmentPropertySet.ahk" { ITsSbEnvironmentPropertySet }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\ITsSbResourcePluginStore.ahk" { ITsSbResourcePluginStore }
-#Import ".\ITsSbSession.ahk" { ITsSbSession }
 #Import ".\ITsSbGlobalStore.ahk" { ITsSbGlobalStore }
 #Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITsSbPluginPropertySet.ahk" { ITsSbPluginPropertySet }
 #Import ".\ITsSbLoadBalanceResult.ahk" { ITsSbLoadBalanceResult }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
 #Import ".\ITsSbFilterPluginStore.ahk" { ITsSbFilterPluginStore }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITsSbEnvironmentPropertySet.ahk" { ITsSbEnvironmentPropertySet }
+#Import ".\ITsSbTargetPropertySet.ahk" { ITsSbTargetPropertySet }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import ".\ITsSbResourcePluginStore.ahk" { ITsSbResourcePluginStore }
 #Import ".\ITsSbResourceNotification.ahk" { ITsSbResourceNotification }
 
 /**
@@ -107,7 +107,7 @@ export default struct ITsSbProvider extends IUnknown {
         UserName := UserName is String ? BSTR.Alloc(UserName).Value : UserName
         Domain := Domain is String ? BSTR.Alloc(Domain).Value : Domain
 
-        result := ComCall(5, this, BSTR, TargetName, BSTR, UserName, BSTR, Domain, "uint", SessionId, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(5, this, BSTR, TargetName, BSTR, UserName, BSTR, Domain, UInt32, SessionId, "ptr*", &ppSession := 0, "HRESULT")
         return ITsSbSession(ppSession)
     }
 
@@ -151,7 +151,7 @@ export default struct ITsSbProvider extends IUnknown {
     CreateEnvironmentObject(Name, ServerWeight) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(8, this, BSTR, Name, "uint", ServerWeight, "ptr*", &ppEnvironment := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, Name, UInt32, ServerWeight, "ptr*", &ppEnvironment := 0, "HRESULT")
         return ITsSbEnvironment(ppEnvironment)
     }
 
@@ -186,7 +186,7 @@ export default struct ITsSbProvider extends IUnknown {
     RegisterForNotification(notificationType, ResourceToMonitor, pPluginNotification) {
         ResourceToMonitor := ResourceToMonitor is String ? BSTR.Alloc(ResourceToMonitor).Value : ResourceToMonitor
 
-        result := ComCall(11, this, "uint", notificationType, BSTR, ResourceToMonitor, "ptr", pPluginNotification, "HRESULT")
+        result := ComCall(11, this, UInt32, notificationType, BSTR, ResourceToMonitor, "ptr", pPluginNotification, "HRESULT")
         return result
     }
 
@@ -202,7 +202,7 @@ export default struct ITsSbProvider extends IUnknown {
     UnRegisterForNotification(notificationType, ResourceToMonitor) {
         ResourceToMonitor := ResourceToMonitor is String ? BSTR.Alloc(ResourceToMonitor).Value : ResourceToMonitor
 
-        result := ComCall(12, this, "uint", notificationType, BSTR, ResourceToMonitor, "HRESULT")
+        result := ComCall(12, this, UInt32, notificationType, BSTR, ResourceToMonitor, "HRESULT")
         return result
     }
 

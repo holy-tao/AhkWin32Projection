@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\WSMAN_ENVIRONMENT_VARIABLE_SET.ahk" { WSMAN_ENVIRONMENT_VARIABLE_SET }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\WSMAN_STREAM_ID_SET.ahk" { WSMAN_STREAM_ID_SET }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSMAN_ENVIRONMENT_VARIABLE_SET.ahk" { WSMAN_ENVIRONMENT_VARIABLE_SET }
 
 /**
  * The WSMAN_SHELL_STARTUP_INFO_V10 (wsman.h) structure defines the shell startup parameters to be used with the WSManCreateShell function.

@@ -2,10 +2,10 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IFaxDeviceIds.ahk" { IFaxDeviceIds }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import ".\FAX_GROUP_STATUS_ENUM.ahk" { FAX_GROUP_STATUS_ENUM }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxDeviceIds.ahk" { IFaxDeviceIds }
 
 /**
  * The IFaxOutboundRoutingGroup interface describes a configuration object that is used by a fax client application to retrieve information about an individual fax outbound routing group.

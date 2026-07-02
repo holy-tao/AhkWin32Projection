@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SORT_ORDER_TYPE.ahk" { SORT_ORDER_TYPE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SORT_ORDER_TYPE.ahk" { SORT_ORDER_TYPE }
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -55,7 +55,7 @@ export default struct ISortColumnArray extends IUnknown {
      */
     GetAt(index) {
         _sortcolumn := SORTCOLUMN()
-        result := ComCall(4, this, "uint", index, SORTCOLUMN.Ptr, _sortcolumn, "HRESULT")
+        result := ComCall(4, this, UInt32, index, SORTCOLUMN.Ptr, _sortcolumn, "HRESULT")
         return _sortcolumn
     }
 

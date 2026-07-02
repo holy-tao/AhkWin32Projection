@@ -1,38 +1,39 @@
 #Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
 
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\CONSOLE_HISTORY_INFO.ahk" { CONSOLE_HISTORY_INFO }
-#Import ".\HPCON.ahk" { HPCON }
-#Import ".\CONSOLE_CHARACTER_ATTRIBUTES.ahk" { CONSOLE_CHARACTER_ATTRIBUTES }
-#Import ".\STD_HANDLE.ahk" { STD_HANDLE }
-#Import ".\COORD.ahk" { COORD }
-#Import ".\CONSOLE_SCREEN_BUFFER_INFOEX.ahk" { CONSOLE_SCREEN_BUFFER_INFOEX }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import ".\CONSOLE_SCREEN_BUFFER_INFO.ahk" { CONSOLE_SCREEN_BUFFER_INFO }
-#Import ".\CONSOLE_FONT_INFOEX.ahk" { CONSOLE_FONT_INFOEX }
-#Import ".\CONSOLE_MODE.ahk" { CONSOLE_MODE }
-#Import ".\INPUT_RECORD.ahk" { INPUT_RECORD }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import ".\CONSOLE_SELECTION_INFO.ahk" { CONSOLE_SELECTION_INFO }
-#Import ".\CONSOLE_FONT_INFO.ahk" { CONSOLE_FONT_INFO }
-#Import "..\..\UI\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
-#Import ".\APPKEY.ahk" { APPKEY }
-#Import ".\ALLOC_CONSOLE_RESULT.ahk" { ALLOC_CONSOLE_RESULT }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PSTR.ahk" { PSTR }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\CHAR_INFO.ahk" { CHAR_INFO }
-#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
-#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
-#Import ".\CONSOLE_CURSOR_INFO.ahk" { CONSOLE_CURSOR_INFO }
-#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 #Import "..\..\UI\WindowsAndMessaging\HMENU.ahk" { HMENU }
-#Import ".\CONSOLE_READCONSOLE_CONTROL.ahk" { CONSOLE_READCONSOLE_CONTROL }
-#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
-#Import ".\CONSOLECONTROL.ahk" { CONSOLECONTROL as CONSOLECONTROL_enum }
-#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
-#Import ".\ALLOC_CONSOLE_OPTIONS.ahk" { ALLOC_CONSOLE_OPTIONS }
+#Import ".\INPUT_RECORD.ahk" { INPUT_RECORD }
+#Import "..\..\UI\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
 #Import ".\SMALL_RECT.ahk" { SMALL_RECT }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\COORD.ahk" { COORD }
+#Import ".\PHANDLER_ROUTINE.ahk" { PHANDLER_ROUTINE }
+#Import ".\CONSOLE_FONT_INFOEX.ahk" { CONSOLE_FONT_INFOEX }
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\CONSOLECONTROL.ahk" { CONSOLECONTROL as CONSOLECONTROL_enum }
+#Import ".\APPKEY.ahk" { APPKEY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CONSOLE_READCONSOLE_CONTROL.ahk" { CONSOLE_READCONSOLE_CONTROL }
+#Import ".\CONSOLE_MODE.ahk" { CONSOLE_MODE }
+#Import ".\CONSOLE_CURSOR_INFO.ahk" { CONSOLE_CURSOR_INFO }
+#Import ".\STD_HANDLE.ahk" { STD_HANDLE }
+#Import ".\CONSOLE_FONT_INFO.ahk" { CONSOLE_FONT_INFO }
+#Import ".\HPCON.ahk" { HPCON }
+#Import ".\CONSOLE_SCREEN_BUFFER_INFOEX.ahk" { CONSOLE_SCREEN_BUFFER_INFOEX }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CONSOLE_SELECTION_INFO.ahk" { CONSOLE_SELECTION_INFO }
+#Import ".\CHAR_INFO.ahk" { CHAR_INFO }
+#Import ".\CONSOLE_CHARACTER_ATTRIBUTES.ahk" { CONSOLE_CHARACTER_ATTRIBUTES }
+#Import ".\CONSOLE_SCREEN_BUFFER_INFO.ahk" { CONSOLE_SCREEN_BUFFER_INFO }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ALLOC_CONSOLE_RESULT.ahk" { ALLOC_CONSOLE_RESULT }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import ".\ALLOC_CONSOLE_OPTIONS.ahk" { ALLOC_CONSOLE_OPTIONS }
+#Import ".\CONSOLE_HISTORY_INFO.ahk" { CONSOLE_HISTORY_INFO }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -126,7 +127,7 @@ export FreeConsole() {
 export AttachConsole(dwProcessId) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\AttachConsole", "uint", dwProcessId, BOOL)
+    result := DllCall("KERNEL32.dll\AttachConsole", UInt32, dwProcessId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -290,7 +291,7 @@ export ReadConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadConsoleInputA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleInputA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -322,7 +323,7 @@ export ReadConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadConsoleInputW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleInputW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -350,7 +351,7 @@ export PeekConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\PeekConsoleInputA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, BOOL)
+    result := DllCall("KERNEL32.dll\PeekConsoleInputA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -378,7 +379,7 @@ export PeekConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\PeekConsoleInputW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, BOOL)
+    result := DllCall("KERNEL32.dll\PeekConsoleInputW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -422,7 +423,7 @@ export ReadConsoleA(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCha
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadConsoleA", HANDLE, hConsoleInput, lpBufferMarshal, lpBuffer, "uint", nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, CONSOLE_READCONSOLE_CONTROL.Ptr, pInputControl, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleA", HANDLE, hConsoleInput, lpBufferMarshal, lpBuffer, UInt32, nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, CONSOLE_READCONSOLE_CONTROL.Ptr, pInputControl, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -466,7 +467,7 @@ export ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCha
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadConsoleW", HANDLE, hConsoleInput, lpBufferMarshal, lpBuffer, "uint", nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, CONSOLE_READCONSOLE_CONTROL.Ptr, pInputControl, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleW", HANDLE, hConsoleInput, lpBufferMarshal, lpBuffer, UInt32, nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, CONSOLE_READCONSOLE_CONTROL.Ptr, pInputControl, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -508,7 +509,7 @@ export WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOf
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteConsoleA", HANDLE, hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "ptr", lpReserved, BOOL)
+    result := DllCall("KERNEL32.dll\WriteConsoleA", HANDLE, hConsoleOutput, "ptr", lpBuffer, UInt32, nNumberOfCharsToWrite, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -550,7 +551,7 @@ export WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOf
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteConsoleW", HANDLE, hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "ptr", lpReserved, BOOL)
+    result := DllCall("KERNEL32.dll\WriteConsoleW", HANDLE, hConsoleOutput, "ptr", lpBuffer, UInt32, nNumberOfCharsToWrite, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, "ptr", lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -596,7 +597,7 @@ export WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOf
 export SetConsoleCtrlHandler(HandlerRoutine, Add) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetConsoleCtrlHandler", "ptr", HandlerRoutine, BOOL, Add, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleCtrlHandler", PHANDLER_ROUTINE, HandlerRoutine, BOOL, Add, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -632,7 +633,7 @@ export SetConsoleCtrlHandler(HandlerRoutine, Add) {
  */
 export CreatePseudoConsole(_size, hInput, hOutput, dwFlags) {
     phPC := HPCON.Owned()
-    result := DllCall("KERNEL32.dll\CreatePseudoConsole", COORD, _size, HANDLE, hInput, HANDLE, hOutput, "uint", dwFlags, HPCON.Ptr, phPC, "HRESULT")
+    result := DllCall("KERNEL32.dll\CreatePseudoConsole", COORD, _size, HANDLE, hInput, HANDLE, hOutput, UInt32, dwFlags, HPCON.Ptr, phPC, "HRESULT")
     return phPC
 }
 
@@ -702,7 +703,7 @@ export FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteC
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterA", HANDLE, hConsoleOutput, CHAR, cCharacter, "uint", nLength, COORD, dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterA", HANDLE, hConsoleOutput, CHAR, cCharacter, UInt32, nLength, COORD, dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -736,7 +737,7 @@ export FillConsoleOutputCharacterW(hConsoleOutput, cCharacter, nLength, dwWriteC
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterW", HANDLE, hConsoleOutput, "char", cCharacter, "uint", nLength, COORD, dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterW", HANDLE, hConsoleOutput, Int8, cCharacter, UInt32, nLength, COORD, dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -768,7 +769,7 @@ export FillConsoleOutputAttribute(hConsoleOutput, wAttribute, nLength, dwWriteCo
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FillConsoleOutputAttribute", HANDLE, hConsoleOutput, "ushort", wAttribute, "uint", nLength, COORD, dwWriteCoord, lpNumberOfAttrsWrittenMarshal, lpNumberOfAttrsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\FillConsoleOutputAttribute", HANDLE, hConsoleOutput, UInt16, wAttribute, UInt32, nLength, COORD, dwWriteCoord, lpNumberOfAttrsWrittenMarshal, lpNumberOfAttrsWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -799,7 +800,7 @@ export FillConsoleOutputAttribute(hConsoleOutput, wAttribute, nLength, dwWriteCo
 export GenerateConsoleCtrlEvent(dwCtrlEvent, dwProcessGroupId) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GenerateConsoleCtrlEvent", "uint", dwCtrlEvent, "uint", dwProcessGroupId, BOOL)
+    result := DllCall("KERNEL32.dll\GenerateConsoleCtrlEvent", UInt32, dwCtrlEvent, UInt32, dwProcessGroupId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -846,7 +847,7 @@ export CreateConsoleScreenBuffer(dwDesiredAccess, dwShareMode, lpSecurityAttribu
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateConsoleScreenBuffer", "uint", dwDesiredAccess, "uint", dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, "uint", dwFlags, "ptr", lpScreenBufferData, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateConsoleScreenBuffer", UInt32, dwDesiredAccess, UInt32, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, UInt32, dwFlags, "ptr", lpScreenBufferData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -922,7 +923,7 @@ export FlushConsoleInputBuffer(hConsoleInput) {
 export SetConsoleCP(wCodePageID) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetConsoleCP", "uint", wCodePageID, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleCP", UInt32, wCodePageID, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -954,7 +955,7 @@ export SetConsoleCP(wCodePageID) {
 export SetConsoleOutputCP(wCodePageID) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetConsoleOutputCP", "uint", wCodePageID, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleOutputCP", UInt32, wCodePageID, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1242,7 +1243,7 @@ export WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWrit
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterA", HANDLE, hConsoleOutput, "ptr", lpCharacter, "uint", nLength, COORD, dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterA", HANDLE, hConsoleOutput, "ptr", lpCharacter, UInt32, nLength, COORD, dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1278,7 +1279,7 @@ export WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWrit
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterW", HANDLE, hConsoleOutput, "ptr", lpCharacter, "uint", nLength, COORD, dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterW", HANDLE, hConsoleOutput, "ptr", lpCharacter, UInt32, nLength, COORD, dwWriteCoord, lpNumberOfCharsWrittenMarshal, lpNumberOfCharsWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1311,7 +1312,7 @@ export WriteConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwWrite
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteConsoleOutputAttribute", HANDLE, hConsoleOutput, lpAttributeMarshal, lpAttribute, "uint", nLength, COORD, dwWriteCoord, lpNumberOfAttrsWrittenMarshal, lpNumberOfAttrsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\WriteConsoleOutputAttribute", HANDLE, hConsoleOutput, lpAttributeMarshal, lpAttribute, UInt32, nLength, COORD, dwWriteCoord, lpNumberOfAttrsWrittenMarshal, lpNumberOfAttrsWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1344,7 +1345,7 @@ export ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadC
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterA", HANDLE, hConsoleOutput, "ptr", lpCharacter, "uint", nLength, COORD, dwReadCoord, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterA", HANDLE, hConsoleOutput, "ptr", lpCharacter, UInt32, nLength, COORD, dwReadCoord, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1377,7 +1378,7 @@ export ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadC
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterW", HANDLE, hConsoleOutput, "ptr", lpCharacter, "uint", nLength, COORD, dwReadCoord, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterW", HANDLE, hConsoleOutput, "ptr", lpCharacter, UInt32, nLength, COORD, dwReadCoord, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1409,7 +1410,7 @@ export ReadConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwReadCo
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadConsoleOutputAttribute", HANDLE, hConsoleOutput, lpAttributeMarshal, lpAttribute, "uint", nLength, COORD, dwReadCoord, lpNumberOfAttrsReadMarshal, lpNumberOfAttrsRead, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleOutputAttribute", HANDLE, hConsoleOutput, lpAttributeMarshal, lpAttribute, UInt32, nLength, COORD, dwReadCoord, lpNumberOfAttrsReadMarshal, lpNumberOfAttrsRead, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1440,7 +1441,7 @@ export WriteConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWrit
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteConsoleInputA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\WriteConsoleInputA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1471,7 +1472,7 @@ export WriteConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWrit
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteConsoleInputW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\WriteConsoleInputW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1718,7 +1719,7 @@ export GetConsoleTitleA(lpConsoleTitle, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleTitleA", "ptr", lpConsoleTitle, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleTitleA", "ptr", lpConsoleTitle, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1747,7 +1748,7 @@ export GetConsoleTitleW(lpConsoleTitle, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleTitleW", "ptr", lpConsoleTitle, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleTitleW", "ptr", lpConsoleTitle, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1778,7 +1779,7 @@ export GetConsoleOriginalTitleA(lpConsoleTitle, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleOriginalTitleA", "ptr", lpConsoleTitle, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleOriginalTitleA", "ptr", lpConsoleTitle, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1809,7 +1810,7 @@ export GetConsoleOriginalTitleW(lpConsoleTitle, nSize) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleOriginalTitleW", "ptr", lpConsoleTitle, "uint", nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleOriginalTitleW", "ptr", lpConsoleTitle, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1915,7 +1916,7 @@ export GetNumberOfConsoleMouseButtons(lpNumberOfMouseButtons) {
 export GetConsoleFontSize(hConsoleOutput, nFont) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleFontSize", HANDLE, hConsoleOutput, "uint", nFont, COORD)
+    result := DllCall("KERNEL32.dll\GetConsoleFontSize", HANDLE, hConsoleOutput, UInt32, nFont, COORD)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2118,7 +2119,7 @@ export GetConsoleDisplayMode(lpModeFlags) {
 export SetConsoleDisplayMode(hConsoleOutput, dwFlags, lpNewScreenBufferDimensions) {
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetConsoleDisplayMode", HANDLE, hConsoleOutput, "uint", dwFlags, COORD.Ptr, lpNewScreenBufferDimensions, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleDisplayMode", HANDLE, hConsoleOutput, UInt32, dwFlags, COORD.Ptr, lpNewScreenBufferDimensions, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2226,7 +2227,7 @@ export GetConsoleAliasA(Source, TargetBuffer, TargetBufferLength, ExeName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleAliasA", "ptr", Source, "ptr", TargetBuffer, "uint", TargetBufferLength, "ptr", ExeName, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleAliasA", "ptr", Source, "ptr", TargetBuffer, UInt32, TargetBufferLength, "ptr", ExeName, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2256,7 +2257,7 @@ export GetConsoleAliasW(Source, TargetBuffer, TargetBufferLength, ExeName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleAliasW", "ptr", Source, "ptr", TargetBuffer, "uint", TargetBufferLength, "ptr", ExeName, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleAliasW", "ptr", Source, "ptr", TargetBuffer, UInt32, TargetBufferLength, "ptr", ExeName, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2354,7 +2355,7 @@ export GetConsoleAliasesA(AliasBuffer, AliasBufferLength, ExeName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleAliasesA", "ptr", AliasBuffer, "uint", AliasBufferLength, "ptr", ExeName, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleAliasesA", "ptr", AliasBuffer, UInt32, AliasBufferLength, "ptr", ExeName, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2384,7 +2385,7 @@ export GetConsoleAliasesW(AliasBuffer, AliasBufferLength, ExeName) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleAliasesW", "ptr", AliasBuffer, "uint", AliasBufferLength, "ptr", ExeName, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleAliasesW", "ptr", AliasBuffer, UInt32, AliasBufferLength, "ptr", ExeName, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2412,7 +2413,7 @@ export GetConsoleAliasExesA(ExeNameBuffer, ExeNameBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleAliasExesA", "ptr", ExeNameBuffer, "uint", ExeNameBufferLength, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleAliasExesA", "ptr", ExeNameBuffer, UInt32, ExeNameBufferLength, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2440,7 +2441,7 @@ export GetConsoleAliasExesW(ExeNameBuffer, ExeNameBufferLength) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleAliasExesW", "ptr", ExeNameBuffer, "uint", ExeNameBufferLength, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleAliasExesW", "ptr", ExeNameBuffer, UInt32, ExeNameBufferLength, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2479,7 +2480,7 @@ export ExpungeConsoleCommandHistoryW(ExeName) {
 export SetConsoleNumberOfCommandsA(_Number, ExeName) {
     ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-    result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsA", "uint", _Number, "ptr", ExeName, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsA", UInt32, _Number, "ptr", ExeName, BOOL)
     return result
 }
 
@@ -2492,7 +2493,7 @@ export SetConsoleNumberOfCommandsA(_Number, ExeName) {
 export SetConsoleNumberOfCommandsW(_Number, ExeName) {
     ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-    result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsW", "uint", _Number, "ptr", ExeName, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsW", UInt32, _Number, "ptr", ExeName, BOOL)
     return result
 }
 
@@ -2530,7 +2531,7 @@ export GetConsoleCommandHistoryLengthW(ExeName) {
 export GetConsoleCommandHistoryA(Commands, CommandBufferLength, ExeName) {
     ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-    result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryA", "ptr", Commands, "uint", CommandBufferLength, "ptr", ExeName, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryA", IntPtr, Commands, UInt32, CommandBufferLength, "ptr", ExeName, UInt32)
     return result
 }
 
@@ -2544,7 +2545,7 @@ export GetConsoleCommandHistoryA(Commands, CommandBufferLength, ExeName) {
 export GetConsoleCommandHistoryW(Commands, CommandBufferLength, ExeName) {
     ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-    result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryW", "ptr", Commands, "uint", CommandBufferLength, "ptr", ExeName, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryW", IntPtr, Commands, UInt32, CommandBufferLength, "ptr", ExeName, UInt32)
     return result
 }
 
@@ -2570,7 +2571,7 @@ export GetConsoleProcessList(lpdwProcessList, dwProcessCount) {
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetConsoleProcessList", lpdwProcessListMarshal, lpdwProcessList, "uint", dwProcessCount, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleProcessList", lpdwProcessListMarshal, lpdwProcessList, UInt32, dwProcessCount, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2630,7 +2631,7 @@ export SetLastConsoleEventActive() {
 export VDMConsoleOperation(iFunction, lpData) {
     lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
 
-    result := DllCall("KERNEL32.dll\VDMConsoleOperation", "uint", iFunction, lpDataMarshal, lpData, BOOL)
+    result := DllCall("KERNEL32.dll\VDMConsoleOperation", UInt32, iFunction, lpDataMarshal, lpData, BOOL)
     return result
 }
 
@@ -2651,7 +2652,7 @@ export SetConsoleIcon(_hIcon) {
  * @returns {BOOL} 
  */
 export SetConsoleFont(hConsoleOutput, nFont) {
-    result := DllCall("KERNEL32.dll\SetConsoleFont", HANDLE, hConsoleOutput, "uint", nFont, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleFont", HANDLE, hConsoleOutput, UInt32, nFont, BOOL)
     return result
 }
 
@@ -2664,7 +2665,7 @@ export SetConsoleFont(hConsoleOutput, nFont) {
  * @returns {Integer} 
  */
 export GetConsoleFontInfo(hConsoleOutput, bMaximumWindow, nLength, lpConsoleFontInfo) {
-    result := DllCall("KERNEL32.dll\GetConsoleFontInfo", HANDLE, hConsoleOutput, BOOL, bMaximumWindow, "uint", nLength, CONSOLE_FONT_INFO.Ptr, lpConsoleFontInfo, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleFontInfo", HANDLE, hConsoleOutput, BOOL, bMaximumWindow, UInt32, nLength, CONSOLE_FONT_INFO.Ptr, lpConsoleFontInfo, UInt32)
     return result
 }
 
@@ -2707,7 +2708,7 @@ export ShowConsoleCursor(hConsoleOutput, bShow) {
  * @returns {HMENU} 
  */
 export ConsoleMenuControl(hConsoleOutput, dwCommandIdLow, dwCommandIdHigh) {
-    result := DllCall("KERNEL32.dll\ConsoleMenuControl", HANDLE, hConsoleOutput, "uint", dwCommandIdLow, "uint", dwCommandIdHigh, HMENU.Owned)
+    result := DllCall("KERNEL32.dll\ConsoleMenuControl", HANDLE, hConsoleOutput, UInt32, dwCommandIdLow, UInt32, dwCommandIdHigh, HMENU.Owned)
     return result
 }
 
@@ -2719,7 +2720,7 @@ export ConsoleMenuControl(hConsoleOutput, dwCommandIdLow, dwCommandIdHigh) {
  * @returns {BOOL} 
  */
 export SetConsolePalette(hConsoleOutput, _hPalette, dwUsage) {
-    result := DllCall("KERNEL32.dll\SetConsolePalette", HANDLE, hConsoleOutput, HPALETTE, _hPalette, "uint", dwUsage, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsolePalette", HANDLE, hConsoleOutput, HPALETTE, _hPalette, UInt32, dwUsage, BOOL)
     return result
 }
 
@@ -2742,7 +2743,7 @@ export RegisterConsoleVDM(dwRegisterFlags, hStartHardwareEvent, hEndHardwareEven
     lpStateMarshal := lpState is VarRef ? "ptr*" : "ptr"
     lpVDMBufferMarshal := lpVDMBuffer is VarRef ? "ptr*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\RegisterConsoleVDM", "uint", dwRegisterFlags, HANDLE, hStartHardwareEvent, HANDLE, hEndHardwareEvent, HANDLE, hErrorhardwareEvent, "uint", Reserved, lpStateLengthMarshal, lpStateLength, lpStateMarshal, lpState, COORD, VDMBufferSize, lpVDMBufferMarshal, lpVDMBuffer, BOOL)
+    result := DllCall("KERNEL32.dll\RegisterConsoleVDM", UInt32, dwRegisterFlags, HANDLE, hStartHardwareEvent, HANDLE, hEndHardwareEvent, HANDLE, hErrorhardwareEvent, UInt32, Reserved, lpStateLengthMarshal, lpStateLength, lpStateMarshal, lpState, COORD, VDMBufferSize, lpVDMBufferMarshal, lpVDMBuffer, BOOL)
     return result
 }
 
@@ -2779,7 +2780,7 @@ export SetConsoleHardwareState(hConsoleOutput, dwResolution, dwFontSize) {
  * @returns {BOOL} 
  */
 export SetConsoleKeyShortcuts(bSet, bReserveKeys, lpAppKeys, dwNumAppKeys) {
-    result := DllCall("KERNEL32.dll\SetConsoleKeyShortcuts", BOOL, bSet, "char", bReserveKeys, APPKEY.Ptr, lpAppKeys, "uint", dwNumAppKeys, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleKeyShortcuts", BOOL, bSet, Int8, bReserveKeys, APPKEY.Ptr, lpAppKeys, UInt32, dwNumAppKeys, BOOL)
     return result
 }
 
@@ -2802,7 +2803,7 @@ export SetConsoleMenuClose(bEnable) {
 export GetConsoleInputExeNameA(nBufferLength, lpBuffer) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    result := DllCall("KERNEL32.dll\GetConsoleInputExeNameA", "uint", nBufferLength, "ptr", lpBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleInputExeNameA", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
     return result
 }
 
@@ -2815,7 +2816,7 @@ export GetConsoleInputExeNameA(nBufferLength, lpBuffer) {
 export GetConsoleInputExeNameW(nBufferLength, lpBuffer) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    result := DllCall("KERNEL32.dll\GetConsoleInputExeNameW", "uint", nBufferLength, "ptr", lpBuffer, UInt32)
+    result := DllCall("KERNEL32.dll\GetConsoleInputExeNameW", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
     return result
 }
 
@@ -2871,7 +2872,7 @@ export SetConsoleInputExeNameW(lpExeName) {
 export ReadConsoleInputExA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
     lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\ReadConsoleInputExA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "ushort", wFlags, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleInputExA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, UInt16, wFlags, BOOL)
     return result
 }
 
@@ -2903,7 +2904,7 @@ export ReadConsoleInputExA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRea
 export ReadConsoleInputExW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
     lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\ReadConsoleInputExW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, "ushort", wFlags, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleInputExW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, UInt16, wFlags, BOOL)
     return result
 }
 
@@ -2918,7 +2919,7 @@ export ReadConsoleInputExW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRea
 export WriteConsoleInputVDMA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
     lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\WriteConsoleInputVDMA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\WriteConsoleInputVDMA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
     return result
 }
 
@@ -2933,7 +2934,7 @@ export WriteConsoleInputVDMA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsW
 export WriteConsoleInputVDMW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
     lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
 
-    result := DllCall("KERNEL32.dll\WriteConsoleInputVDMW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, "uint", nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
+    result := DllCall("KERNEL32.dll\WriteConsoleInputVDMW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
     return result
 }
 
@@ -2957,7 +2958,7 @@ export GetConsoleNlsMode(hConsole, lpdwNlsMode) {
  * @returns {BOOL} 
  */
 export SetConsoleNlsMode(hConsole, fdwNlsMode) {
-    result := DllCall("KERNEL32.dll\SetConsoleNlsMode", HANDLE, hConsole, "uint", fdwNlsMode, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleNlsMode", HANDLE, hConsole, UInt32, fdwNlsMode, BOOL)
     return result
 }
 
@@ -2986,7 +2987,7 @@ export GetConsoleCharType(hConsole, coordCheck, pdwType) {
 export SetConsoleLocalEUDC(hConsoleHandle, wCodePoint, cFontSize, lpSB) {
     lpSB := lpSB is String ? StrPtr(lpSB) : lpSB
 
-    result := DllCall("KERNEL32.dll\SetConsoleLocalEUDC", HANDLE, hConsoleHandle, "ushort", wCodePoint, COORD, cFontSize, "ptr", lpSB, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleLocalEUDC", HANDLE, hConsoleHandle, UInt16, wCodePoint, COORD, cFontSize, "ptr", lpSB, BOOL)
     return result
 }
 
@@ -3070,7 +3071,7 @@ export UnregisterConsoleIME() {
 export OpenConsoleW(lpConsoleDevice, dwDesiredAccess, bInheritHandle, dwShareMode) {
     lpConsoleDevice := lpConsoleDevice is String ? StrPtr(lpConsoleDevice) : lpConsoleDevice
 
-    result := DllCall("KERNEL32.dll\OpenConsoleW", "ptr", lpConsoleDevice, "uint", dwDesiredAccess, BOOL, bInheritHandle, "uint", dwShareMode, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\OpenConsoleW", "ptr", lpConsoleDevice, UInt32, dwDesiredAccess, BOOL, bInheritHandle, UInt32, dwShareMode, HANDLE.Owned)
     return result
 }
 
@@ -3083,7 +3084,7 @@ export OpenConsoleW(lpConsoleDevice, dwDesiredAccess, bInheritHandle, dwShareMod
  * @returns {HANDLE} 
  */
 export DuplicateConsoleHandle(hSourceHandle, dwDesiredAccess, bInheritHandle, dwOptions) {
-    result := DllCall("KERNEL32.dll\DuplicateConsoleHandle", HANDLE, hSourceHandle, "uint", dwDesiredAccess, BOOL, bInheritHandle, "uint", dwOptions, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\DuplicateConsoleHandle", HANDLE, hSourceHandle, UInt32, dwDesiredAccess, BOOL, bInheritHandle, UInt32, dwOptions, HANDLE.Owned)
     return result
 }
 
@@ -3124,8 +3125,8 @@ export GetConsoleInputWaitHandle() {
  * @returns {NTSTATUS} 
  */
 export ConsoleControl(Command, ConsoleInformation, ConsoleInformationLength) {
-    result := DllCall("USER32.dll\ConsoleControl", CONSOLECONTROL_enum, Command, "ptr", ConsoleInformation, "uint", ConsoleInformationLength, NTSTATUS)
-    NTSTATUS.ThrowIfError(result)
+    result := DllCall("USER32.dll\ConsoleControl", CONSOLECONTROL_enum, Command, IntPtr, ConsoleInformation, UInt32, ConsoleInformationLength, NTSTATUS)
+    NTSTATUS.ThrowIfError(result.value)
     return result
 }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
 #Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
 
 /**
  * Describes features of an effect.

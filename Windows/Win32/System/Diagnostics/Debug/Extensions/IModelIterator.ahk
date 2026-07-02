@@ -3,8 +3,8 @@
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IKeyStore.ahk" { IKeyStore }
 #Import ".\IModelObject.ahk" { IModelObject }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -56,7 +56,7 @@ export default struct IModelIterator extends IUnknown {
      * @returns {HRESULT} 
      */
     GetNext(_object, dimensions, indexers, metadata) {
-        result := ComCall(4, this, IModelObject.Ptr, _object, "uint", dimensions, IModelObject.Ptr, indexers, IKeyStore.Ptr, metadata, "HRESULT")
+        result := ComCall(4, this, IModelObject.Ptr, _object, Int64, dimensions, IModelObject.Ptr, indexers, IKeyStore.Ptr, metadata, "HRESULT")
         return result
     }
 

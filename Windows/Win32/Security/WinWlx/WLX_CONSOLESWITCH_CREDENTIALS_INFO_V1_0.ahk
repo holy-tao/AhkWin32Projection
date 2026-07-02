@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains the client credentials returned by a call to WlxGetConsoleSwitchCredentials.

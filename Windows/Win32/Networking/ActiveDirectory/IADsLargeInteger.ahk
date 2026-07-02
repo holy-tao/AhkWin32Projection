@@ -73,7 +73,7 @@ export default struct IADsLargeInteger extends IDispatch {
      * @returns {HRESULT} 
      */
     put_HighPart(lnHighPart) {
-        result := ComCall(8, this, "int", lnHighPart, "HRESULT")
+        result := ComCall(8, this, Int32, lnHighPart, "HRESULT")
         return result
     }
 
@@ -92,7 +92,7 @@ export default struct IADsLargeInteger extends IDispatch {
      * @returns {HRESULT} 
      */
     put_LowPart(lnLowPart) {
-        result := ComCall(10, this, "int", lnLowPart, "HRESULT")
+        result := ComCall(10, this, Int32, lnLowPart, "HRESULT")
         return result
     }
 

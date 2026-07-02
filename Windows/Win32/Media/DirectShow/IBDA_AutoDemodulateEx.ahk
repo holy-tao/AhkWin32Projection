@@ -51,7 +51,7 @@ export default struct IBDA_AutoDemodulateEx extends IBDA_AutoDemodulate {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_autodemodulateex-get_supporteddevicenodetypes
      */
     get_SupportedDeviceNodeTypes(ulcDeviceNodeTypesMax, pguidDeviceNodeTypes) {
-        result := ComCall(4, this, "uint", ulcDeviceNodeTypesMax, "uint*", &pulcDeviceNodeTypes := 0, Guid.Ptr, pguidDeviceNodeTypes, "HRESULT")
+        result := ComCall(4, this, UInt32, ulcDeviceNodeTypesMax, "uint*", &pulcDeviceNodeTypes := 0, Guid.Ptr, pguidDeviceNodeTypes, "HRESULT")
         return pulcDeviceNodeTypes
     }
 

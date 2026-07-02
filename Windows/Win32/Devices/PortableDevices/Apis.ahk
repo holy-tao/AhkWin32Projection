@@ -22,7 +22,7 @@ export DMProcessConfigXMLFiltered(pszXmlIn, rgszAllowedCspNodes, dwNumAllowedCsp
     rgszAllowedCspNodesMarshal := rgszAllowedCspNodes is VarRef ? "ptr*" : "ptr"
 
     pbstrXmlOut := BSTR.Owned()
-    result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, rgszAllowedCspNodesMarshal, rgszAllowedCspNodes, "uint", dwNumAllowedCspNodes, BSTR.Ptr, pbstrXmlOut, "HRESULT")
+    result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, rgszAllowedCspNodesMarshal, rgszAllowedCspNodes, UInt32, dwNumAllowedCspNodes, BSTR.Ptr, pbstrXmlOut, "HRESULT")
     return pbstrXmlOut
 }
 

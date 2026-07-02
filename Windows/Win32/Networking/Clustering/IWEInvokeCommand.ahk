@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Failover Cluster Administrator calls your implementation of the IWEInvokeCommand interface when users select context menu items that you created with the IWEExtendContextMenu interface.
@@ -119,7 +119,7 @@ export default struct IWEInvokeCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iweinvokecommand-invokecommand
      */
     InvokeCommand(nCommandID, piData) {
-        result := ComCall(3, this, "uint", nCommandID, "ptr", piData, "HRESULT")
+        result := ComCall(3, this, UInt32, nCommandID, "ptr", piData, "HRESULT")
         return result
     }
 

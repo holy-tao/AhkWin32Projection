@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
-#Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery

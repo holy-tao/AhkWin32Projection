@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
-#Import ".\IMFAttributes.ahk" { IMFAttributes }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Extends the IMFCaptureSink interface to provide functionality for dynamically setting the output media type of the record sink or preview sink.
@@ -80,7 +80,7 @@ export default struct IMFCaptureSink2 extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink2-setoutputmediatype
      */
     SetOutputMediaType(dwStreamIndex, pMediaType, pEncodingAttributes) {
-        result := ComCall(8, this, "uint", dwStreamIndex, "ptr", pMediaType, "ptr", pEncodingAttributes, "HRESULT")
+        result := ComCall(8, this, UInt32, dwStreamIndex, "ptr", pMediaType, "ptr", pEncodingAttributes, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
-#Import ".\IShellView.ahk" { IShellView }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposed by the common file dialog boxes to be used when they host a Shell browser.
@@ -85,7 +85,7 @@ export default struct ICommDlgBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icommdlgbrowser-onstatechange
      */
     OnStateChange(ppshv, uChange) {
-        result := ComCall(4, this, "ptr", ppshv, "uint", uChange, "HRESULT")
+        result := ComCall(4, this, "ptr", ppshv, UInt32, uChange, "HRESULT")
         return result
     }
 

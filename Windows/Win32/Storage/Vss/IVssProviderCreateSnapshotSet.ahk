@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IVssProviderCreateSnapshotSet interface contains the methods used during shadow copy creation.
@@ -393,7 +393,7 @@ export default struct IVssProviderCreateSnapshotSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssprovidercreatesnapshotset-postcommitsnapshots
      */
     PostCommitSnapshots(SnapshotSetId, lSnapshotsCount) {
-        result := ComCall(6, this, Guid, SnapshotSetId, "int", lSnapshotsCount, "HRESULT")
+        result := ComCall(6, this, Guid, SnapshotSetId, Int32, lSnapshotsCount, "HRESULT")
         return result
     }
 

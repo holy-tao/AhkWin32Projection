@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMSVidInputDevice.ahk" { IMSVidInputDevice }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\PositionModeList.ahk" { PositionModeList }
+#Import ".\IMSVidInputDevice.ahk" { IMSVidInputDevice }
 
 /**
  * The IMSVidPlayback interface controls a Video Control playback device.
@@ -329,7 +329,7 @@ export default struct IMSVidPlayback extends IMSVidInputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-step
      */
     Step(lStep) {
-        result := ComCall(24, this, "int", lStep, "HRESULT")
+        result := ComCall(24, this, Int32, lStep, "HRESULT")
         return result
     }
 
@@ -386,7 +386,7 @@ export default struct IMSVidPlayback extends IMSVidInputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-put_rate
      */
     put_Rate(plRate) {
-        result := ComCall(25, this, "double", plRate, "HRESULT")
+        result := ComCall(25, this, Float64, plRate, "HRESULT")
         return result
     }
 
@@ -475,7 +475,7 @@ export default struct IMSVidPlayback extends IMSVidInputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-put_currentposition
      */
     put_CurrentPosition(lPosition) {
-        result := ComCall(27, this, "int", lPosition, "HRESULT")
+        result := ComCall(27, this, Int32, lPosition, "HRESULT")
         return result
     }
 

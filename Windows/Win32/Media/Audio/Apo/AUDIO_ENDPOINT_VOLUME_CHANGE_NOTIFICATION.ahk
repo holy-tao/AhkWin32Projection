@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\IMMDevice.ahk" { IMMDevice }
 #Import "..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk" { AUDIO_VOLUME_NOTIFICATION_DATA }
+#Import "..\IMMDevice.ahk" { IMMDevice }
 
 /**
  * Represents an audio endpoint volume change APO notification.

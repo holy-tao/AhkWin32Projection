@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\POWER_REQUEST_CONTEXT_FLAGS.ahk" { POWER_REQUEST_CONTEXT_FLAGS }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\POWER_REQUEST_CONTEXT_FLAGS.ahk" { POWER_REQUEST_CONTEXT_FLAGS }
 #Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
 
 /**

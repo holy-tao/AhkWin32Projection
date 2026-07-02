@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMFStreamSink.ahk" { IMFStreamSink }
 #Import ".\IMFPresentationClock.ahk" { IMFPresentationClock }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import ".\IMFStreamSink.ahk" { IMFStreamSink }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by media sink objects.
@@ -158,7 +158,7 @@ export default struct IMFMediaSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-addstreamsink
      */
     AddStreamSink(dwStreamSinkIdentifier, pMediaType) {
-        result := ComCall(4, this, "uint", dwStreamSinkIdentifier, "ptr", pMediaType, "ptr*", &ppStreamSink := 0, "HRESULT")
+        result := ComCall(4, this, UInt32, dwStreamSinkIdentifier, "ptr", pMediaType, "ptr*", &ppStreamSink := 0, "HRESULT")
         return IMFStreamSink(ppStreamSink)
     }
 
@@ -248,7 +248,7 @@ export default struct IMFMediaSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-removestreamsink
      */
     RemoveStreamSink(dwStreamSinkIdentifier) {
-        result := ComCall(5, this, "uint", dwStreamSinkIdentifier, "HRESULT")
+        result := ComCall(5, this, UInt32, dwStreamSinkIdentifier, "HRESULT")
         return result
     }
 
@@ -271,7 +271,7 @@ export default struct IMFMediaSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-getstreamsinkbyindex
      */
     GetStreamSinkByIndex(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppStreamSink := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwIndex, "ptr*", &ppStreamSink := 0, "HRESULT")
         return IMFStreamSink(ppStreamSink)
     }
 
@@ -286,7 +286,7 @@ export default struct IMFMediaSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasink-getstreamsinkbyid
      */
     GetStreamSinkById(dwStreamSinkIdentifier) {
-        result := ComCall(8, this, "uint", dwStreamSinkIdentifier, "ptr*", &ppStreamSink := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwStreamSinkIdentifier, "ptr*", &ppStreamSink := 0, "HRESULT")
         return IMFStreamSink(ppStreamSink)
     }
 

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D3D12_VIDEO_ENCODER_MOVEREGION_INFO.ahk" { D3D12_VIDEO_ENCODER_MOVEREGION_INFO }
-#Import ".\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk" { D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE }
 #Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk" { D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

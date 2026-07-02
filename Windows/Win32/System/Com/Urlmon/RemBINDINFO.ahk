@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\REMSECURITY_ATTRIBUTES.ahk" { REMSECURITY_ATTRIBUTES }
-#Import "..\IUnknown.ahk" { IUnknown }
-#Import "..\..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\REMSECURITY_ATTRIBUTES.ahk" { REMSECURITY_ATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D11_TEX2D_ARRAY_UAV.ahk" { D3D11_TEX2D_ARRAY_UAV }
+#Import ".\D3D11_TEX3D_UAV.ahk" { D3D11_TEX3D_UAV }
+#Import ".\D3D11_UAV_DIMENSION.ahk" { D3D11_UAV_DIMENSION }
+#Import ".\D3D11_TEX1D_UAV.ahk" { D3D11_TEX1D_UAV }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D11_TEX2D_UAV.ahk" { D3D11_TEX2D_UAV }
 #Import ".\D3D11_BUFFER_UAV.ahk" { D3D11_BUFFER_UAV }
 #Import ".\D3D11_TEX1D_ARRAY_UAV.ahk" { D3D11_TEX1D_ARRAY_UAV }
-#Import ".\D3D11_TEX1D_UAV.ahk" { D3D11_TEX1D_UAV }
-#Import ".\D3D11_TEX2D_ARRAY_UAV.ahk" { D3D11_TEX2D_ARRAY_UAV }
-#Import ".\D3D11_UAV_DIMENSION.ahk" { D3D11_UAV_DIMENSION }
-#Import ".\D3D11_TEX2D_UAV.ahk" { D3D11_TEX2D_UAV }
-#Import ".\D3D11_TEX3D_UAV.ahk" { D3D11_TEX3D_UAV }
 
 /**
  * Specifies the subresources from a resource that are accessible using an unordered-access view.

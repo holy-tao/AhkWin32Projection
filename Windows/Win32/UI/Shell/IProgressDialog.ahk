@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide options for an application to display a progress dialog box.
@@ -101,7 +101,7 @@ export default struct IProgressDialog extends IUnknown {
     StartProgressDialog(hwndParent, punkEnableModless, dwFlags) {
         static pvResevered := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(3, this, HWND, hwndParent, "ptr", punkEnableModless, "uint", dwFlags, "ptr", pvResevered, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, "ptr", punkEnableModless, UInt32, dwFlags, "ptr", pvResevered, "HRESULT")
         return result
     }
 
@@ -160,7 +160,7 @@ export default struct IProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setanimation
      */
     SetAnimation(hInstAnimation, idAnimation) {
-        result := ComCall(6, this, HINSTANCE, hInstAnimation, "uint", idAnimation, "HRESULT")
+        result := ComCall(6, this, HINSTANCE, hInstAnimation, UInt32, idAnimation, "HRESULT")
         return result
     }
 
@@ -194,7 +194,7 @@ export default struct IProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setprogress
      */
     SetProgress(dwCompleted, dwTotal) {
-        result := ComCall(8, this, "uint", dwCompleted, "uint", dwTotal, "HRESULT")
+        result := ComCall(8, this, UInt32, dwCompleted, UInt32, dwTotal, "HRESULT")
         return result
     }
 
@@ -214,7 +214,7 @@ export default struct IProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setprogress64
      */
     SetProgress64(ullCompleted, ullTotal) {
-        result := ComCall(9, this, "uint", ullCompleted, "uint", ullTotal, "HRESULT")
+        result := ComCall(9, this, Int64, ullCompleted, Int64, ullTotal, "HRESULT")
         return result
     }
 
@@ -241,7 +241,7 @@ export default struct IProgressDialog extends IUnknown {
 
         pwzString := pwzString is String ? StrPtr(pwzString) : pwzString
 
-        result := ComCall(10, this, "uint", dwLineNum, "ptr", pwzString, BOOL, fCompactPath, "ptr", pvResevered, "HRESULT")
+        result := ComCall(10, this, UInt32, dwLineNum, "ptr", pwzString, BOOL, fCompactPath, "ptr", pvResevered, "HRESULT")
         return result
     }
 
@@ -279,7 +279,7 @@ export default struct IProgressDialog extends IUnknown {
     Timer(dwTimerAction) {
         static pvResevered := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(12, this, "uint", dwTimerAction, "ptr", pvResevered, "HRESULT")
+        result := ComCall(12, this, UInt32, dwTimerAction, "ptr", pvResevered, "HRESULT")
         return result
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import ".\IDeferredCommand.ahk" { IDeferredCommand }
 #Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDeferredCommand.ahk" { IDeferredCommand }
 
 /**
  * The IQueueCommand interface queues a command for processing at a designated time.
@@ -59,7 +59,7 @@ export default struct IQueueCommand extends IUnknown {
     InvokeAtStreamTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"
 
-        result := ComCall(3, this, IDeferredCommand.Ptr, pCmd, "double", time, Guid.Ptr, iid, "int", dispidMethod, "short", wFlags, "int", cArgs, VARIANT.Ptr, pDispParams, VARIANT.Ptr, pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(3, this, IDeferredCommand.Ptr, pCmd, Float64, time, Guid.Ptr, iid, Int32, dispidMethod, Int16, wFlags, Int32, cArgs, VARIANT.Ptr, pDispParams, VARIANT.Ptr, pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 
@@ -84,7 +84,7 @@ export default struct IQueueCommand extends IUnknown {
     InvokeAtPresentationTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"
 
-        result := ComCall(4, this, IDeferredCommand.Ptr, pCmd, "double", time, Guid.Ptr, iid, "int", dispidMethod, "short", wFlags, "int", cArgs, VARIANT.Ptr, pDispParams, VARIANT.Ptr, pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(4, this, IDeferredCommand.Ptr, pCmd, Float64, time, Guid.Ptr, iid, Int32, dispidMethod, Int16, wFlags, Int32, cArgs, VARIANT.Ptr, pDispParams, VARIANT.Ptr, pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 

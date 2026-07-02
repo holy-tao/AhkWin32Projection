@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -71,7 +71,7 @@ export default struct IAMPlayListItem extends IUnknown {
      */
     GetSourceURL(dwSourceIndex) {
         pbstrURL := BSTR.Owned()
-        result := ComCall(5, this, "uint", dwSourceIndex, BSTR.Ptr, pbstrURL, "HRESULT")
+        result := ComCall(5, this, UInt32, dwSourceIndex, BSTR.Ptr, pbstrURL, "HRESULT")
         return pbstrURL
     }
 
@@ -81,7 +81,7 @@ export default struct IAMPlayListItem extends IUnknown {
      * @returns {Integer} 
      */
     GetSourceStart(dwSourceIndex) {
-        result := ComCall(6, this, "uint", dwSourceIndex, "int64*", &prtStart := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, dwSourceIndex, "int64*", &prtStart := 0, "HRESULT")
         return prtStart
     }
 
@@ -91,7 +91,7 @@ export default struct IAMPlayListItem extends IUnknown {
      * @returns {Integer} 
      */
     GetSourceDuration(dwSourceIndex) {
-        result := ComCall(7, this, "uint", dwSourceIndex, "int64*", &prtDuration := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, dwSourceIndex, "int64*", &prtDuration := 0, "HRESULT")
         return prtDuration
     }
 
@@ -101,7 +101,7 @@ export default struct IAMPlayListItem extends IUnknown {
      * @returns {Integer} 
      */
     GetSourceStartMarker(dwSourceIndex) {
-        result := ComCall(8, this, "uint", dwSourceIndex, "uint*", &pdwMarker := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, dwSourceIndex, "uint*", &pdwMarker := 0, "HRESULT")
         return pdwMarker
     }
 
@@ -111,7 +111,7 @@ export default struct IAMPlayListItem extends IUnknown {
      * @returns {Integer} 
      */
     GetSourceEndMarker(dwSourceIndex) {
-        result := ComCall(9, this, "uint", dwSourceIndex, "uint*", &pdwMarker := 0, "HRESULT")
+        result := ComCall(9, this, UInt32, dwSourceIndex, "uint*", &pdwMarker := 0, "HRESULT")
         return pdwMarker
     }
 
@@ -122,7 +122,7 @@ export default struct IAMPlayListItem extends IUnknown {
      */
     GetSourceStartMarkerName(dwSourceIndex) {
         pbstrStartMarker := BSTR.Owned()
-        result := ComCall(10, this, "uint", dwSourceIndex, BSTR.Ptr, pbstrStartMarker, "HRESULT")
+        result := ComCall(10, this, UInt32, dwSourceIndex, BSTR.Ptr, pbstrStartMarker, "HRESULT")
         return pbstrStartMarker
     }
 
@@ -133,7 +133,7 @@ export default struct IAMPlayListItem extends IUnknown {
      */
     GetSourceEndMarkerName(dwSourceIndex) {
         pbstrEndMarker := BSTR.Owned()
-        result := ComCall(11, this, "uint", dwSourceIndex, BSTR.Ptr, pbstrEndMarker, "HRESULT")
+        result := ComCall(11, this, UInt32, dwSourceIndex, BSTR.Ptr, pbstrEndMarker, "HRESULT")
         return pbstrEndMarker
     }
 
@@ -153,7 +153,7 @@ export default struct IAMPlayListItem extends IUnknown {
      * @returns {Integer} 
      */
     GetScanDuration(dwSourceIndex) {
-        result := ComCall(13, this, "uint", dwSourceIndex, "int64*", &prtScanDuration := 0, "HRESULT")
+        result := ComCall(13, this, UInt32, dwSourceIndex, "int64*", &prtScanDuration := 0, "HRESULT")
         return prtScanDuration
     }
 

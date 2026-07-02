@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Gdi\DEVMODEW.ahk" { DEVMODEW }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
 #Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
-#Import "..\Gdi\DEVMODEW.ahk" { DEVMODEW }
 
 /**
  * Describes a full set of values associated with a job and supports large spool files with sizes expressed with 64 bits.

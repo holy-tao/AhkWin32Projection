@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IMoniker.ahk" { IMoniker }
 #Import "..\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\Com\IMoniker.ahk" { IMoniker }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables a linked object to provide its container with functions pertaining to linking.
@@ -92,7 +92,7 @@ export default struct IOleLink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolelink-setupdateoptions
      */
     SetUpdateOptions(dwUpdateOpt) {
-        result := ComCall(3, this, "uint", dwUpdateOpt, "HRESULT")
+        result := ComCall(3, this, UInt32, dwUpdateOpt, "HRESULT")
         return result
     }
 
@@ -268,7 +268,7 @@ export default struct IOleLink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolelink-bindtosource
      */
     BindToSource(bindflags, pbc) {
-        result := ComCall(9, this, "uint", bindflags, "ptr", pbc, "HRESULT")
+        result := ComCall(9, this, UInt32, bindflags, "ptr", pbc, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\BitmapDescription.ahk" { BitmapDescription }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an image associated with a node in the visual tree.
@@ -54,7 +54,7 @@ export default struct IBitmapData extends IUnknown {
         pvBytesMarshal := pvBytes is VarRef ? "char*" : "ptr"
         numberOfBytesCopiedMarshal := numberOfBytesCopied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", sourceOffsetInBytes, "uint", maxBytesToCopy, pvBytesMarshal, pvBytes, numberOfBytesCopiedMarshal, numberOfBytesCopied, "HRESULT")
+        result := ComCall(3, this, UInt32, sourceOffsetInBytes, UInt32, maxBytesToCopy, pvBytesMarshal, pvBytes, numberOfBytesCopiedMarshal, numberOfBytesCopied, "HRESULT")
         return result
     }
 

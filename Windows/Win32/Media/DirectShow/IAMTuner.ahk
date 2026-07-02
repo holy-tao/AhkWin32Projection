@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\IAMTunerNotification.ahk" { IAMTunerNotification }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\AMTunerModeType.ahk" { AMTunerModeType }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMTuner interface controls a TV tuner.
@@ -89,7 +89,7 @@ export default struct IAMTuner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-put_channel
      */
     put_Channel(lChannel, lVideoSubChannel, lAudioSubChannel) {
-        result := ComCall(3, this, "int", lChannel, "int", lVideoSubChannel, "int", lAudioSubChannel, "HRESULT")
+        result := ComCall(3, this, Int32, lChannel, Int32, lVideoSubChannel, Int32, lAudioSubChannel, "HRESULT")
         return result
     }
 
@@ -199,7 +199,7 @@ export default struct IAMTuner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-put_countrycode
      */
     put_CountryCode(lCountryCode) {
-        result := ComCall(6, this, "int", lCountryCode, "HRESULT")
+        result := ComCall(6, this, Int32, lCountryCode, "HRESULT")
         return result
     }
 
@@ -226,7 +226,7 @@ export default struct IAMTuner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-put_tuningspace
      */
     put_TuningSpace(lTuningSpace) {
-        result := ComCall(8, this, "int", lTuningSpace, "HRESULT")
+        result := ComCall(8, this, Int32, lTuningSpace, "HRESULT")
         return result
     }
 
@@ -316,7 +316,7 @@ export default struct IAMTuner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-registernotificationcallback
      */
     RegisterNotificationCallBack(pNotify, lEvents) {
-        result := ComCall(16, this, "ptr", pNotify, "int", lEvents, "HRESULT")
+        result := ComCall(16, this, "ptr", pNotify, Int32, lEvents, "HRESULT")
         return result
     }
 

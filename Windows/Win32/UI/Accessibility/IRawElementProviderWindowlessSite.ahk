@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\NavigateDirection.ahk" { NavigateDirection }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IRawElementProviderFragment.ahk" { IRawElementProviderFragment }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NavigateDirection.ahk" { NavigateDirection }
 
 /**
  * A Microsoft ActiveX control site implements this interface to enable a Microsoft UI Automation-enabled ActiveX control to express its accessibility.
@@ -49,7 +49,9 @@ export default struct IRawElementProviderWindowlessSite extends IUnknown {
      * 
      * 
      * A provider typically calls this method as part of handling the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-navigate">IRawElementProviderFragment::Navigate</a>  method.
-     * @param {NavigateDirection} _direction 
+     * @param {NavigateDirection} _direction Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-navigatedirection">NavigateDirection</a></b>
+     * 
+     * A value that indicates the adjacent fragment to retrieve (parent, next sibling, previous sibling, and so on).
      * @returns {IRawElementProviderFragment} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>**</b>
      * 
      * Receives the adjacent fragment.

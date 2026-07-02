@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\RPC_PROTSEQ_ENDPOINT.ahk" { RPC_PROTSEQ_ENDPOINT }
 #Import ".\RPC_VERSION.ahk" { RPC_VERSION }
-#Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
+#Import ".\RPC_PROTSEQ_ENDPOINT.ahk" { RPC_PROTSEQ_ENDPOINT }
 #Import ".\RPC_DISPATCH_TABLE.ahk" { RPC_DISPATCH_TABLE }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
 
 /**
  * @namespace Windows.Win32.System.Rpc

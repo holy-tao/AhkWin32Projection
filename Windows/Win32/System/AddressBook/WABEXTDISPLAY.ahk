@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IMAPIProp.ahk" { IMAPIProp }
-#Import ".\IAddrBook.ahk" { IAddrBook }
 #Import ".\IWABObject.ahk" { IWABObject }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMAPIProp.ahk" { IMAPIProp }
+#Import ".\IAddrBook.ahk" { IAddrBook }
 
 /**
  * Do not use. Used by the Windows Address Book (WAB) to initialize user's IContextMenu Interface and IShellPropSheetExt Interface implementations.

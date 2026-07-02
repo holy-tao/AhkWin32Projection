@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
@@ -73,7 +73,7 @@ export default struct IFeedsEnum extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(8, this, Int32, index, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 

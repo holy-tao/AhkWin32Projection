@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IDebugAsyncOperation.ahk" { IDebugAsyncOperation }
-#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IProvideExpressionContexts.ahk" { IProvideExpressionContexts }
-#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
-#Import ".\IDebugApplicationThread.ahk" { IDebugApplicationThread }
 #Import ".\IDebugStackFrameSniffer.ahk" { IDebugStackFrameSniffer }
+#Import ".\IDebugAsyncOperation.ahk" { IDebugAsyncOperation }
 #Import ".\IDebugThreadCall64.ahk" { IDebugThreadCall64 }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
-#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
-#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
-#Import ".\IRemoteDebugApplication.ahk" { IRemoteDebugApplication }
-#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
-#Import ".\IActiveScriptSite.ahk" { IActiveScriptSite }
-#Import ".\BREAKREASON.ahk" { BREAKREASON }
-#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import ".\IDebugSyncOperation.ahk" { IDebugSyncOperation }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BREAKRESUMEACTION.ahk" { BREAKRESUMEACTION }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ERRORRESUMEACTION.ahk" { ERRORRESUMEACTION }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IProvideExpressionContexts.ahk" { IProvideExpressionContexts }
 #Import ".\IActiveScriptErrorDebug.ahk" { IActiveScriptErrorDebug }
+#Import ".\IRemoteDebugApplicationThread.ahk" { IRemoteDebugApplicationThread }
+#Import ".\IRemoteDebugApplication.ahk" { IRemoteDebugApplication }
+#Import ".\IActiveScriptSite.ahk" { IActiveScriptSite }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BREAKREASON.ahk" { BREAKREASON }
+#Import ".\IDebugApplicationThread.ahk" { IDebugApplicationThread }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -195,7 +195,7 @@ export default struct IDebugApplication64 extends IRemoteDebugApplication {
      * @returns {HRESULT} 
      */
     RemoveStackFrameSniffer(dwCookie) {
-        result := ComCall(24, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(24, this, UInt32, dwCookie, "HRESULT")
         return result
     }
 
@@ -217,7 +217,7 @@ export default struct IDebugApplication64 extends IRemoteDebugApplication {
      * @returns {HRESULT} 
      */
     SynchronousCallInDebuggerThread(pptc, dwParam1, dwParam2, dwParam3) {
-        result := ComCall(26, this, "ptr", pptc, "uint", dwParam1, "uint", dwParam2, "uint", dwParam3, "HRESULT")
+        result := ComCall(26, this, "ptr", pptc, Int64, dwParam1, Int64, dwParam2, Int64, dwParam3, "HRESULT")
         return result
     }
 
@@ -293,7 +293,7 @@ export default struct IDebugApplication64 extends IRemoteDebugApplication {
      * @returns {HRESULT} 
      */
     RemoveGlobalExpressionContextProvider(dwCookie) {
-        result := ComCall(33, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(33, this, Int64, dwCookie, "HRESULT")
         return result
     }
 

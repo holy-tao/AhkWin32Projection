@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IMAPITable.ahk" { IMAPITable }
 #Import ".\SRowSet.ahk" { SRowSet }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\SRow.ahk" { SRow }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
+#Import ".\CALLERRELEASE.ahk" { CALLERRELEASE }
 #Import ".\SPropValue.ahk" { SPropValue }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAPITable.ahk" { IMAPITable }
 
 /**
  * Provides utility methods for working with tables. MAPI provides objects that implement ITableData to help service providers perform table maintenance.
@@ -68,7 +69,7 @@ export default struct ITableData extends IUnknown {
     HrGetView(lpSSortOrderSet, lpfCallerRelease, ulCallerData) {
         lpfCallerReleaseMarshal := lpfCallerRelease is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, SSortOrderSet.Ptr, lpSSortOrderSet, lpfCallerReleaseMarshal, lpfCallerRelease, "uint", ulCallerData, "ptr*", &lppMAPITable := 0, "HRESULT")
+        result := ComCall(3, this, SSortOrderSet.Ptr, lpSSortOrderSet, lpfCallerReleaseMarshal, lpfCallerRelease, UInt32, ulCallerData, "ptr*", &lppMAPITable := 0, "HRESULT")
         return IMAPITable(lppMAPITable)
     }
 
@@ -166,7 +167,7 @@ export default struct ITableData extends IUnknown {
     HrEnumRow(ulRowNumber, lppSRow) {
         lppSRowMarshal := lppSRow is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", ulRowNumber, lppSRowMarshal, lppSRow, "HRESULT")
+        result := ComCall(7, this, UInt32, ulRowNumber, lppSRowMarshal, lppSRow, "HRESULT")
         return result
     }
 
@@ -183,7 +184,7 @@ export default struct ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrnotify
      */
     HrNotify(ulFlags, cValues, lpSPropValue) {
-        result := ComCall(8, this, "uint", ulFlags, "uint", cValues, SPropValue.Ptr, lpSPropValue, "HRESULT")
+        result := ComCall(8, this, UInt32, ulFlags, UInt32, cValues, SPropValue.Ptr, lpSPropValue, "HRESULT")
         return result
     }
 
@@ -211,7 +212,7 @@ export default struct ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrinsertrow
      */
     HrInsertRow(uliRow, lpSRow) {
-        result := ComCall(9, this, "uint", uliRow, SRow.Ptr, lpSRow, "HRESULT")
+        result := ComCall(9, this, UInt32, uliRow, SRow.Ptr, lpSRow, "HRESULT")
         return result
     }
 
@@ -237,7 +238,7 @@ export default struct ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrmodifyrows
      */
     HrModifyRows(ulFlags, lpSRowSet) {
-        result := ComCall(10, this, "uint", ulFlags, SRowSet.Ptr, lpSRowSet, "HRESULT")
+        result := ComCall(10, this, UInt32, ulFlags, SRowSet.Ptr, lpSRowSet, "HRESULT")
         return result
     }
 
@@ -266,7 +267,7 @@ export default struct ITableData extends IUnknown {
     HrDeleteRows(ulFlags, lprowsetToDelete, cRowsDeleted) {
         cRowsDeletedMarshal := cRowsDeleted is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", ulFlags, SRowSet.Ptr, lprowsetToDelete, cRowsDeletedMarshal, cRowsDeleted, "HRESULT")
+        result := ComCall(11, this, UInt32, ulFlags, SRowSet.Ptr, lprowsetToDelete, cRowsDeletedMarshal, cRowsDeleted, "HRESULT")
         return result
     }
 

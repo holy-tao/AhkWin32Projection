@@ -2,13 +2,13 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
-#Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IOleWindow.ahk" { IOleWindow }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 #Import ".\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
+#Import ".\IOleWindow.ahk" { IOleWindow }
 
 /**
  * Manages the interaction between the container and the object's in-place client site. Recall that the client site is the display site for embedded objects, and provides position and conceptual information about the object.

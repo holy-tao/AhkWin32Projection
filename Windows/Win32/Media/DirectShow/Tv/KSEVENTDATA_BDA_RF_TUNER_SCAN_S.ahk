@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSEVENTDATA.ahk" { KSEVENTDATA }
 #Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 #Import ".\BDA_LockType.ahk" { BDA_LockType }
-#Import "..\..\KernelStreaming\KSEVENTDATA.ahk" { KSEVENTDATA }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

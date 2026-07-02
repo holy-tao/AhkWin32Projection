@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MEM_RANGE.ahk" { MEM_RANGE }
 #Import ".\MEM_DES.ahk" { MEM_DES }
 #Import ".\MD_FLAGS.ahk" { MD_FLAGS }
+#Import ".\MEM_RANGE.ahk" { MEM_RANGE }
 
 /**
  * The MEM_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes memory usage for a device instance. For more information about resource lists and resource requirements lists, see Hardware Resources.

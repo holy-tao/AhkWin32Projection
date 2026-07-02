@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a fence, an object used for synchronization of the CPU and one or more GPUs. (ID3D12Fence)
@@ -72,7 +72,7 @@ export default struct ID3D12Fence extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12fence-seteventoncompletion
      */
     SetEventOnCompletion(Value, hEvent) {
-        result := ComCall(9, this, "uint", Value, HANDLE, hEvent, "HRESULT")
+        result := ComCall(9, this, Int64, Value, HANDLE, hEvent, "HRESULT")
         return result
     }
 
@@ -89,7 +89,7 @@ export default struct ID3D12Fence extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12fence-signal
      */
     Signal(Value) {
-        result := ComCall(10, this, "uint", Value, "HRESULT")
+        result := ComCall(10, this, Int64, Value, "HRESULT")
         return result
     }
 

@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\DVD_DISC_CONTROL_BLOCK_LIST_DCB.ahk" { DVD_DISC_CONTROL_BLOCK_LIST_DCB }
 #Import ".\DVD_DISC_CONTROL_BLOCK_HEADER.ahk" { DVD_DISC_CONTROL_BLOCK_HEADER }
+#Import ".\DVD_DISC_CONTROL_BLOCK_LIST_DCB.ahk" { DVD_DISC_CONTROL_BLOCK_LIST_DCB }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd

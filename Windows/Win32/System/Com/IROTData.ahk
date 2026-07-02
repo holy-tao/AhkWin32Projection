@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implemented by monikers to enable the running object table (ROT) to compare monikers against each other.
@@ -58,7 +58,7 @@ export default struct IROTData extends IUnknown {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbDataMarshal, pbData, "uint", cbMax, pcbDataMarshal, pcbData, "HRESULT")
+        result := ComCall(3, this, pbDataMarshal, pbData, UInt32, cbMax, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 

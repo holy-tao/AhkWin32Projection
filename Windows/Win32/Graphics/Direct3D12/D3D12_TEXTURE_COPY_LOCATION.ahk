@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
 #Import ".\D3D12_TEXTURE_COPY_TYPE.ahk" { D3D12_TEXTURE_COPY_TYPE }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 #Import ".\D3D12_SUBRESOURCE_FOOTPRINT.ahk" { D3D12_SUBRESOURCE_FOOTPRINT }
 #Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
-#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
 #Import ".\D3D12_PLACED_SUBRESOURCE_FOOTPRINT.ahk" { D3D12_PLACED_SUBRESOURCE_FOOTPRINT }
 
 /**

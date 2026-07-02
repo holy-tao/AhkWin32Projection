@@ -1,25 +1,25 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\MI_Sint32A.ahk" { MI_Sint32A }
-#Import ".\MI_Array.ahk" { MI_Array }
-#Import ".\MI_InstanceA.ahk" { MI_InstanceA }
-#Import ".\MI_Sint8A.ahk" { MI_Sint8A }
-#Import ".\MI_DatetimeA.ahk" { MI_DatetimeA }
-#Import ".\MI_Timestamp.ahk" { MI_Timestamp }
-#Import ".\MI_Sint16A.ahk" { MI_Sint16A }
-#Import ".\MI_BooleanA.ahk" { MI_BooleanA }
-#Import ".\MI_Instance.ahk" { MI_Instance }
-#Import ".\MI_Uint16A.ahk" { MI_Uint16A }
-#Import ".\MI_Interval.ahk" { MI_Interval }
-#Import ".\MI_Char16A.ahk" { MI_Char16A }
 #Import ".\MI_Uint32A.ahk" { MI_Uint32A }
-#Import ".\MI_Sint64A.ahk" { MI_Sint64A }
-#Import ".\MI_Datetime.ahk" { MI_Datetime }
+#Import ".\MI_Sint16A.ahk" { MI_Sint16A }
+#Import ".\MI_Sint8A.ahk" { MI_Sint8A }
 #Import ".\MI_Uint64A.ahk" { MI_Uint64A }
+#Import ".\MI_Sint32A.ahk" { MI_Sint32A }
+#Import ".\MI_Timestamp.ahk" { MI_Timestamp }
+#Import ".\MI_Real32A.ahk" { MI_Real32A }
+#Import ".\MI_ReferenceA.ahk" { MI_ReferenceA }
+#Import ".\MI_Sint64A.ahk" { MI_Sint64A }
+#Import ".\MI_Uint16A.ahk" { MI_Uint16A }
 #Import ".\MI_Real64A.ahk" { MI_Real64A }
 #Import ".\MI_StringA.ahk" { MI_StringA }
-#Import ".\MI_ReferenceA.ahk" { MI_ReferenceA }
+#Import ".\MI_Interval.ahk" { MI_Interval }
+#Import ".\MI_DatetimeA.ahk" { MI_DatetimeA }
 #Import ".\MI_Uint8A.ahk" { MI_Uint8A }
-#Import ".\MI_Real32A.ahk" { MI_Real32A }
+#Import ".\MI_Datetime.ahk" { MI_Datetime }
+#Import ".\MI_BooleanA.ahk" { MI_BooleanA }
+#Import ".\MI_Instance.ahk" { MI_Instance }
+#Import ".\MI_InstanceA.ahk" { MI_InstanceA }
+#Import ".\MI_Array.ahk" { MI_Array }
+#Import ".\MI_Char16A.ahk" { MI_Char16A }
 
 /**
  * A union of all CIM data types.

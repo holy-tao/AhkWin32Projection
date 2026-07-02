@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\WPD_STREAM_UNITS.ahk" { WPD_STREAM_UNITS }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WPD_STREAM_UNITS.ahk" { WPD_STREAM_UNITS }
 
 /**
  * The IPortableDeviceUnitsStream interface provides a way to operate, or seek, on a stream by using alternate units, such as frames or milliseconds.
@@ -49,7 +49,7 @@ export default struct IPortableDeviceUnitsStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceunitsstream-seekinunits
      */
     SeekInUnits(dlibMove, units, dwOrigin) {
-        result := ComCall(3, this, "int64", dlibMove, WPD_STREAM_UNITS, units, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        result := ComCall(3, this, Int64, dlibMove, WPD_STREAM_UNITS, units, UInt32, dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
         return plibNewPosition
     }
 

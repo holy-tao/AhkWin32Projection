@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HWND.ahk" { HWND }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -73,7 +73,7 @@ export default struct IAuthenticationProviderConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     Uninitialize(uConnectionParam) {
-        result := ComCall(4, this, "ptr", uConnectionParam, "HRESULT")
+        result := ComCall(4, this, IntPtr, uConnectionParam, "HRESULT")
         return result
     }
 
@@ -98,7 +98,7 @@ export default struct IAuthenticationProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/configure
      */
     Configure(uConnectionParam, _hWnd, dwFlags, uReserved1, uReserved2) {
-        result := ComCall(5, this, "ptr", uConnectionParam, HWND, _hWnd, "uint", dwFlags, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
+        result := ComCall(5, this, IntPtr, uConnectionParam, HWND, _hWnd, UInt32, dwFlags, IntPtr, uReserved1, IntPtr, uReserved2, "HRESULT")
         return result
     }
 
@@ -110,7 +110,7 @@ export default struct IAuthenticationProviderConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     Activate(uConnectionParam, uReserved1, uReserved2) {
-        result := ComCall(6, this, "ptr", uConnectionParam, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
+        result := ComCall(6, this, IntPtr, uConnectionParam, IntPtr, uReserved1, IntPtr, uReserved2, "HRESULT")
         return result
     }
 
@@ -122,7 +122,7 @@ export default struct IAuthenticationProviderConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     Deactivate(uConnectionParam, uReserved1, uReserved2) {
-        result := ComCall(7, this, "ptr", uConnectionParam, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
+        result := ComCall(7, this, IntPtr, uConnectionParam, IntPtr, uReserved1, IntPtr, uReserved2, "HRESULT")
         return result
     }
 

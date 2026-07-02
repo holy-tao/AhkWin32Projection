@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\GROUP_POLICY_OBJECT_TYPE.ahk" { GROUP_POLICY_OBJECT_TYPE }
-#Import ".\GROUP_POLICY_HINT_TYPE.ahk" { GROUP_POLICY_HINT_TYPE }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\Com\IUnknown.ahk" { IUnknown }
 #Import "..\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\GROUP_POLICY_OBJECT_TYPE.ahk" { GROUP_POLICY_OBJECT_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GROUP_POLICY_HINT_TYPE.ahk" { GROUP_POLICY_HINT_TYPE }
 
 /**
  * The IGPEInformation interface provides methods for Microsoft Management Console (MMC) extension snap-ins to communicate with the Group Policy Object Editor. For more information about MMC, see the Microsoft Management Console.
@@ -66,7 +66,7 @@ export default struct IGPEInformation extends IUnknown {
     GetName(pszName, cchMaxLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(3, this, "ptr", pszName, "int", cchMaxLength, "HRESULT")
+        result := ComCall(3, this, "ptr", pszName, Int32, cchMaxLength, "HRESULT")
         return result
     }
 
@@ -83,7 +83,7 @@ export default struct IGPEInformation extends IUnknown {
     GetDisplayName(pszName, cchMaxLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(4, this, "ptr", pszName, "int", cchMaxLength, "HRESULT")
+        result := ComCall(4, this, "ptr", pszName, Int32, cchMaxLength, "HRESULT")
         return result
     }
 
@@ -103,7 +103,7 @@ export default struct IGPEInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-getregistrykey
      */
     GetRegistryKey(dwSection, _hKey) {
-        result := ComCall(5, this, "uint", dwSection, HKEY.Ptr, _hKey, "HRESULT")
+        result := ComCall(5, this, UInt32, dwSection, HKEY.Ptr, _hKey, "HRESULT")
         return result
     }
 
@@ -124,7 +124,7 @@ export default struct IGPEInformation extends IUnknown {
     GetDSPath(dwSection, pszPath, cchMaxPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(6, this, "uint", dwSection, "ptr", pszPath, "int", cchMaxPath, "HRESULT")
+        result := ComCall(6, this, UInt32, dwSection, "ptr", pszPath, Int32, cchMaxPath, "HRESULT")
         return result
     }
 
@@ -142,7 +142,7 @@ export default struct IGPEInformation extends IUnknown {
     GetFileSysPath(dwSection, pszPath, cchMaxPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(7, this, "uint", dwSection, "ptr", pszPath, "int", cchMaxPath, "HRESULT")
+        result := ComCall(7, this, UInt32, dwSection, "ptr", pszPath, Int32, cchMaxPath, "HRESULT")
         return result
     }
 

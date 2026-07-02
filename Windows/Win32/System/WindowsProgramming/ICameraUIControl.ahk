@@ -1,19 +1,19 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\ICameraUIControlEventCallback.ahk" { ICameraUIControlEventCallback }
-#Import ".\CameraUIControlLinearSelectionMode.ahk" { CameraUIControlLinearSelectionMode }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\CameraUIControlVideoFormat.ahk" { CameraUIControlVideoFormat }
-#Import ".\CameraUIControlMode.ahk" { CameraUIControlMode }
-#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
-#Import ".\CameraUIControlCaptureMode.ahk" { CameraUIControlCaptureMode }
-#Import ".\CameraUIControlViewType.ahk" { CameraUIControlViewType }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CameraUIControlViewType.ahk" { CameraUIControlViewType }
+#Import ".\CameraUIControlCaptureMode.ahk" { CameraUIControlCaptureMode }
 #Import ".\CameraUIControlPhotoFormat.ahk" { CameraUIControlPhotoFormat }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CameraUIControlLinearSelectionMode.ahk" { CameraUIControlLinearSelectionMode }
+#Import ".\CameraUIControlVideoFormat.ahk" { CameraUIControlVideoFormat }
+#Import ".\ICameraUIControlEventCallback.ahk" { ICameraUIControlEventCallback }
+#Import ".\CameraUIControlMode.ahk" { CameraUIControlMode }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Enables a user interface control for a camera device..

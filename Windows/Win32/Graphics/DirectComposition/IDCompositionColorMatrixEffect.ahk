@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\Direct2D\Common\D2D1_COLORMATRIX_ALPHA_MODE.ahk" { D2D1_COLORMATRIX_ALPHA_MODE }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
-#Import "..\Direct2D\Common\D2D_MATRIX_5X4_F.ahk" { D2D_MATRIX_5X4_F }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import "..\Direct2D\Common\D2D_MATRIX_5X4_F.ahk" { D2D_MATRIX_5X4_F }
+#Import "..\Direct2D\Common\D2D1_COLORMATRIX_ALPHA_MODE.ahk" { D2D1_COLORMATRIX_ALPHA_MODE }
 
 /**
  * The color matrix effect alters the RGBA values of a bitmap.
@@ -78,7 +78,7 @@ export default struct IDCompositionColorMatrixEffect extends IDCompositionFilter
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setmatrixelement(int_int_float)
      */
     SetMatrixElement(row, _column, animation) {
-        result := ComCall(5, this, "int", row, "int", _column, "ptr", animation, "HRESULT")
+        result := ComCall(5, this, Int32, row, Int32, _column, "ptr", animation, "HRESULT")
         return result
     }
 
@@ -99,7 +99,7 @@ export default struct IDCompositionColorMatrixEffect extends IDCompositionFilter
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setmatrixelement(int_int_float)
      */
     SetMatrixElement1(row, _column, value) {
-        result := ComCall(6, this, "int", row, "int", _column, "float", value, "HRESULT")
+        result := ComCall(6, this, Int32, row, Int32, _column, Float32, value, "HRESULT")
         return result
     }
 

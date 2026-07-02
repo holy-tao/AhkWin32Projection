@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
-#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFactory1.ahk" { IDWriteFactory1 }
-#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
-#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
-#Import ".\IDWriteColorGlyphRunEnumerator.ahk" { IDWriteColorGlyphRunEnumerator }
-#Import ".\IDWriteGlyphRunAnalysis.ahk" { IDWriteGlyphRunAnalysis }
-#Import ".\IDWriteFontFallbackBuilder.ahk" { IDWriteFontFallbackBuilder }
-#Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
-#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import ".\DWRITE_TEXT_ANTIALIAS_MODE.ahk" { DWRITE_TEXT_ANTIALIAS_MODE }
+#Import ".\IDWriteGlyphRunAnalysis.ahk" { IDWriteGlyphRunAnalysis }
 #Import ".\IDWriteRenderingParams2.ahk" { IDWriteRenderingParams2 }
+#Import ".\IDWriteFontFallbackBuilder.ahk" { IDWriteFontFallbackBuilder }
+#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import ".\IDWriteColorGlyphRunEnumerator.ahk" { IDWriteColorGlyphRunEnumerator }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
 #Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
 #Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
+#Import ".\IDWriteFactory1.ahk" { IDWriteFactory1 }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\IDWriteFontFallback.ahk" { IDWriteFontFallback }
 
 /**
  * The root factory interface for all DirectWrite objects.
@@ -118,7 +118,7 @@ export default struct IDWriteFactory2 extends IDWriteFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefactory2-translatecolorglyphrun
      */
     TranslateColorGlyphRun(baselineOriginX, baselineOriginY, _glyphRun, glyphRunDescription, measuringMode, worldToDeviceTransform, colorPaletteIndex) {
-        result := ComCall(28, this, "float", baselineOriginX, "float", baselineOriginY, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldToDeviceTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
+        result := ComCall(28, this, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldToDeviceTransform, UInt32, colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
         return IDWriteColorGlyphRunEnumerator(colorLayers)
     }
 
@@ -151,7 +151,7 @@ export default struct IDWriteFactory2 extends IDWriteFactory1 {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, grayscaleEnhancedContrast, clearTypeLevel, pixelGeometry, renderingMode, gridFitMode) {
-        result := ComCall(29, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE, renderingMode, DWRITE_GRID_FIT_MODE, gridFitMode, "ptr*", &renderingParams := 0, "HRESULT")
+        result := ComCall(29, this, Float32, gamma, Float32, enhancedContrast, Float32, grayscaleEnhancedContrast, Float32, clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE, renderingMode, DWRITE_GRID_FIT_MODE, gridFitMode, "ptr*", &renderingParams := 0, "HRESULT")
         return IDWriteRenderingParams2(renderingParams)
     }
 
@@ -187,7 +187,7 @@ export default struct IDWriteFactory2 extends IDWriteFactory1 {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2-createglyphrunanalysis
      */
     CreateGlyphRunAnalysis(_glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(30, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GRID_FIT_MODE, gridFitMode, DWRITE_TEXT_ANTIALIAS_MODE, antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        result := ComCall(30, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GRID_FIT_MODE, gridFitMode, DWRITE_TEXT_ANTIALIAS_MODE, antialiasMode, Float32, baselineOriginX, Float32, baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
 #Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
 #Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IDWriteFontFace5.ahk" { IDWriteFontFace5 }
 
 /**
  * Represents a reference to a font face. A uniquely identifying reference to a font, from which you can create a font face to query font metrics and use for rendering.
@@ -77,7 +77,7 @@ export default struct IDWriteFontFaceReference1 extends IDWriteFontFaceReference
      */
     GetFontAxisValues(fontAxisValueCount) {
         fontAxisValues := DWRITE_FONT_AXIS_VALUE()
-        result := ComCall(19, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
+        result := ComCall(19, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, "HRESULT")
         return fontAxisValues
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\VDS_MAINTENANCE_OPERATION.ahk" { VDS_MAINTENANCE_OPERATION }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsMaintenance interface (vdshwprv.h) provides methods for performing maintenance operations on a subsystem, controller, LUN, or drive.
@@ -302,7 +302,7 @@ export default struct IVdsMaintenance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsmaintenance-pulsemaintenance
      */
     PulseMaintenance(operation, ulCount) {
-        result := ComCall(5, this, VDS_MAINTENANCE_OPERATION, operation, "uint", ulCount, "HRESULT")
+        result := ComCall(5, this, VDS_MAINTENANCE_OPERATION, operation, UInt32, ulCount, "HRESULT")
         return result
     }
 

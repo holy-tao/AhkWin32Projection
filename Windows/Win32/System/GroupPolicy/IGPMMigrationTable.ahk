@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IGPMMapEntryCollection.ahk" { IGPMMapEntryCollection }
-#Import "..\Com\IDispatch.ahk" { IDispatch }
-#Import ".\IGPMMapEntry.ahk" { IGPMMapEntry }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IGPMResult.ahk" { IGPMResult }
-#Import ".\GPMEntryType.ahk" { GPMEntryType }
 #Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMEntryType.ahk" { GPMEntryType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMMapEntryCollection.ahk" { IGPMMapEntryCollection }
+#Import ".\IGPMMapEntry.ahk" { IGPMMapEntry }
 
 /**
  * The IGPMMigrationTable interface provides an interface to a migration table.
@@ -85,7 +85,7 @@ export default struct IGPMMigrationTable extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-add
      */
     Add(lFlags, var) {
-        result := ComCall(8, this, "int", lFlags, VARIANT, var, "HRESULT")
+        result := ComCall(8, this, Int32, lFlags, VARIANT, var, "HRESULT")
         return result
     }
 

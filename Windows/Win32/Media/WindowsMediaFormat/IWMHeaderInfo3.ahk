@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMHeaderInfo2.ahk" { IWMHeaderInfo2 }
+#Import ".\WMT_CODEC_INFO_TYPE.ahk" { WMT_CODEC_INFO_TYPE }
 #Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\IWMHeaderInfo2.ahk" { IWMHeaderInfo2 }
 #Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
-#Import ".\WMT_CODEC_INFO_TYPE.ahk" { WMT_CODEC_INFO_TYPE }
 
 /**
  * The IWMHeaderInfo3 interface supports the following new metadata features:Attribute data in excess of 64 kilobytes.Multiple attributes with the same name.Attributes in multiple languages.Because the attributes created using this interface can have duplicate names, the methods of this interface use index values to identify attributes.The IWMHeaderInfo3 interface is implemented by the metadata editor object, the writer object, the reader object, and the synchronous reader object. To obtain a pointer to an instance, call the QueryInterface method of any other interface in the desired object.
@@ -57,7 +57,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributecountex
      */
     GetAttributeCountEx(wStreamNum) {
-        result := ComCall(17, this, "ushort", wStreamNum, "ushort*", &pcAttributes := 0, "HRESULT")
+        result := ComCall(17, this, UInt16, wStreamNum, "ushort*", &pcAttributes := 0, "HRESULT")
         return pcAttributes
     }
 
@@ -82,7 +82,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
         pwLangIndexMarshal := pwLangIndex is VarRef ? "ushort*" : "ptr"
         pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(18, this, "ushort", wStreamNum, "ptr", pwszName, pwLangIndexMarshal, pwLangIndex, "ushort*", &pwIndices := 0, pwCountMarshal, pwCount, "HRESULT")
+        result := ComCall(18, this, UInt16, wStreamNum, "ptr", pwszName, pwLangIndexMarshal, pwLangIndex, "ushort*", &pwIndices := 0, pwCountMarshal, pwCount, "HRESULT")
         return pwIndices
     }
 
@@ -163,7 +163,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwDataLengthMarshal := pdwDataLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ushort", wStreamNum, "ushort", wIndex, "ptr", pwszName, pwNameLenMarshal, pwNameLen, pTypeMarshal, pType, pwLangIndexMarshal, pwLangIndex, pValueMarshal, pValue, pdwDataLengthMarshal, pdwDataLength, "HRESULT")
+        result := ComCall(19, this, UInt16, wStreamNum, UInt16, wIndex, "ptr", pwszName, pwNameLenMarshal, pwNameLen, pTypeMarshal, pType, pwLangIndexMarshal, pwLangIndex, pValueMarshal, pValue, pdwDataLengthMarshal, pdwDataLength, "HRESULT")
         return result
     }
 
@@ -260,7 +260,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
     ModifyAttribute(wStreamNum, wIndex, Type, wLangIndex, pValue, dwLength) {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, "ushort", wStreamNum, "ushort", wIndex, WMT_ATTR_DATATYPE, Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
+        result := ComCall(20, this, UInt16, wStreamNum, UInt16, wIndex, WMT_ATTR_DATATYPE, Type, UInt16, wLangIndex, pValueMarshal, pValue, UInt32, dwLength, "HRESULT")
         return result
     }
 
@@ -289,7 +289,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(21, this, "ushort", wStreamNum, "ptr", pszName, "ushort*", &pwIndex := 0, WMT_ATTR_DATATYPE, Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
+        result := ComCall(21, this, UInt16, wStreamNum, "ptr", pszName, "ushort*", &pwIndex := 0, WMT_ATTR_DATATYPE, Type, UInt16, wLangIndex, pValueMarshal, pValue, UInt32, dwLength, "HRESULT")
         return pwIndex
     }
 
@@ -345,7 +345,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-deleteattribute
      */
     DeleteAttribute(wStreamNum, wIndex) {
-        result := ComCall(22, this, "ushort", wStreamNum, "ushort", wIndex, "HRESULT")
+        result := ComCall(22, this, UInt16, wStreamNum, UInt16, wIndex, "HRESULT")
         return result
     }
 
@@ -385,7 +385,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
 
         pbCodecInfoMarshal := pbCodecInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(23, this, "ptr", pwszName, "ptr", pwszDescription, WMT_CODEC_INFO_TYPE, codecType, "ushort", cbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
+        result := ComCall(23, this, "ptr", pwszName, "ptr", pwszDescription, WMT_CODEC_INFO_TYPE, codecType, UInt16, cbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
         return result
     }
 

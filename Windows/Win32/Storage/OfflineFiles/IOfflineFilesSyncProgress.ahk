@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\IOfflineFilesProgress.ahk" { IOfflineFilesProgress }
-#Import ".\IOfflineFilesSyncErrorInfo.ahk" { IOfflineFilesSyncErrorInfo }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\OFFLINEFILES_OP_RESPONSE.ahk" { OFFLINEFILES_OP_RESPONSE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOfflineFilesSyncErrorInfo.ahk" { IOfflineFilesSyncErrorInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOfflineFilesProgress.ahk" { IOfflineFilesProgress }
 
 /**
  * Used to report progress back to the caller during synchronization and synchronization-related operations.

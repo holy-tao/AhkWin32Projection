@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADs interface defines the basic object features, that is, properties and methods, of any ADSI object.
@@ -365,7 +365,7 @@ export default struct IADs extends IDispatch {
     PutEx(lnControlCode, bstrName, vProp) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(18, this, "int", lnControlCode, BSTR, bstrName, VARIANT, vProp, "HRESULT")
+        result := ComCall(18, this, Int32, lnControlCode, BSTR, bstrName, VARIANT, vProp, "HRESULT")
         return result
     }
 
@@ -386,7 +386,7 @@ export default struct IADs extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-getinfoex
      */
     GetInfoEx(vProperties, lnReserved) {
-        result := ComCall(19, this, VARIANT, vProperties, "int", lnReserved, "HRESULT")
+        result := ComCall(19, this, VARIANT, vProperties, Int32, lnReserved, "HRESULT")
         return result
     }
 

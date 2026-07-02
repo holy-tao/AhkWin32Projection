@@ -2,11 +2,11 @@
 #Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\..\Guid.ahk" { Guid }
 #Import ".\LocalKind.ahk" { LocalKind }
-#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\IDebugHostFunctionLocalStorageEnumerator.ahk" { IDebugHostFunctionLocalStorageEnumerator }
-#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IDebugHostType.ahk" { IDebugHostType }
+#Import ".\IDebugHostFunctionLocalStorageEnumerator.ahk" { IDebugHostFunctionLocalStorageEnumerator }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

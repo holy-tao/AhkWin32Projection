@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
-#Import ".\DDBLTFX.ahk" { DDBLTFX }
-#Import "..\..\Foundation\RECTL.ahk" { RECTL }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
 #Import ".\DDARGB.ahk" { DDARGB }
-#Import "..\..\Foundation\RECT.ahk" { RECT }
-#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import ".\DDBLTFX.ahk" { DDBLTFX }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
 
 /**
  * The DD_BLTDATA structure contains the information relevant to the driver for doing bit block transfers.

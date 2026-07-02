@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import ".\IInkRecognitionAlternate.ahk" { IInkRecognitionAlternate }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IInkStrokes.ahk" { IInkStrokes }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains the IInkRecognitionAlternate objects that represent possible word matches for segments of ink.
@@ -111,7 +111,7 @@ export default struct IInkRecognitionAlternates extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternates-item
      */
     Item(Index) {
-        result := ComCall(10, this, "int", Index, "ptr*", &InkRecoAlternate := 0, "HRESULT")
+        result := ComCall(10, this, Int32, Index, "ptr*", &InkRecoAlternate := 0, "HRESULT")
         return IInkRecognitionAlternate(InkRecoAlternate)
     }
 

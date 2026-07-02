@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import "..\..\Foundation\RECT.ahk" { RECT }
 #Import "..\..\Foundation\BOOL.ahk" { BOOL }
 #Import ".\KS_AMVPDIMINFO.ahk" { KS_AMVPDIMINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

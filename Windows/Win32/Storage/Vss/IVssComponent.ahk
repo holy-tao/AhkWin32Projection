@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 #Import ".\IVssWMFiledesc.ahk" { IVssWMFiledesc }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\VSS_FILE_RESTORE_STATUS.ahk" { VSS_FILE_RESTORE_STATUS }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
-#Import ".\VSS_RESTORE_TARGET.ahk" { VSS_RESTORE_TARGET }
-#Import "..\..\Foundation\BOOL.ahk" { BOOL }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
-#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\VSS_COMPONENT_TYPE.ahk" { VSS_COMPONENT_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VSS_RESTORE_TARGET.ahk" { VSS_RESTORE_TARGET }
+#Import ".\VSS_FILE_RESTORE_STATUS.ahk" { VSS_FILE_RESTORE_STATUS }
 
 /**
  * The IVssComponent interface is a C++ (not COM) interface containing methods for examining and modifying information about components contained in a requester's Backup Components Document.
@@ -497,7 +497,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getalternatelocationmapping
      */
     GetAlternateLocationMapping(iMapping) {
-        result := ComCall(8, this, "uint", iMapping, "ptr*", &ppFiledesc := 0, "HRESULT")
+        result := ComCall(8, this, UInt32, iMapping, "ptr*", &ppFiledesc := 0, "HRESULT")
         return IVssWMFiledesc(ppFiledesc)
     }
 
@@ -975,7 +975,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpartialfile
      */
     GetPartialFile(iPartialFile, pbstrPath, pbstrFilename, pbstrRange, pbstrMetadata) {
-        result := ComCall(13, this, "uint", iPartialFile, BSTR.Ptr, pbstrPath, BSTR.Ptr, pbstrFilename, BSTR.Ptr, pbstrRange, BSTR.Ptr, pbstrMetadata, "HRESULT")
+        result := ComCall(13, this, UInt32, iPartialFile, BSTR.Ptr, pbstrPath, BSTR.Ptr, pbstrFilename, BSTR.Ptr, pbstrRange, BSTR.Ptr, pbstrMetadata, "HRESULT")
         return result
     }
 
@@ -1207,7 +1207,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getnewtarget
      */
     GetNewTarget(iNewTarget) {
-        result := ComCall(17, this, "uint", iNewTarget, "ptr*", &ppFiledesc := 0, "HRESULT")
+        result := ComCall(17, this, UInt32, iNewTarget, "ptr*", &ppFiledesc := 0, "HRESULT")
         return IVssWMFiledesc(ppFiledesc)
     }
 
@@ -1474,7 +1474,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdirectedtarget
      */
     GetDirectedTarget(iDirectedTarget, pbstrSourcePath, pbstrSourceFileName, pbstrSourceRangeList, pbstrDestinationPath, pbstrDestinationFilename, pbstrDestinationRangeList) {
-        result := ComCall(20, this, "uint", iDirectedTarget, BSTR.Ptr, pbstrSourcePath, BSTR.Ptr, pbstrSourceFileName, BSTR.Ptr, pbstrSourceRangeList, BSTR.Ptr, pbstrDestinationPath, BSTR.Ptr, pbstrDestinationFilename, BSTR.Ptr, pbstrDestinationRangeList, "HRESULT")
+        result := ComCall(20, this, UInt32, iDirectedTarget, BSTR.Ptr, pbstrSourcePath, BSTR.Ptr, pbstrSourceFileName, BSTR.Ptr, pbstrSourceRangeList, BSTR.Ptr, pbstrDestinationPath, BSTR.Ptr, pbstrDestinationFilename, BSTR.Ptr, pbstrDestinationRangeList, "HRESULT")
         return result
     }
 
@@ -2639,7 +2639,7 @@ export default struct IVssComponent extends IUnknown {
     GetRestoreSubcomponent(_iComponent, pbstrLogicalPath, pbstrComponentName, pbRepair) {
         pbRepairMarshal := pbRepair is VarRef ? "int*" : "ptr"
 
-        result := ComCall(35, this, "uint", _iComponent, BSTR.Ptr, pbstrLogicalPath, BSTR.Ptr, pbstrComponentName, pbRepairMarshal, pbRepair, "HRESULT")
+        result := ComCall(35, this, UInt32, _iComponent, BSTR.Ptr, pbstrLogicalPath, BSTR.Ptr, pbstrComponentName, pbRepairMarshal, pbRepair, "HRESULT")
         return result
     }
 
@@ -3138,7 +3138,7 @@ export default struct IVssComponent extends IUnknown {
     GetDifferencedFile(iDifferencedFile, pbstrPath, pbstrFilespec, pbRecursive, pbstrLsnString, pftLastModifyTime) {
         pbRecursiveMarshal := pbRecursive is VarRef ? "int*" : "ptr"
 
-        result := ComCall(40, this, "uint", iDifferencedFile, BSTR.Ptr, pbstrPath, BSTR.Ptr, pbstrFilespec, pbRecursiveMarshal, pbRecursive, BSTR.Ptr, pbstrLsnString, FILETIME.Ptr, pftLastModifyTime, "HRESULT")
+        result := ComCall(40, this, UInt32, iDifferencedFile, BSTR.Ptr, pbstrPath, BSTR.Ptr, pbstrFilespec, pbRecursiveMarshal, pbRecursive, BSTR.Ptr, pbstrLsnString, FILETIME.Ptr, pftLastModifyTime, "HRESULT")
         return result
     }
 

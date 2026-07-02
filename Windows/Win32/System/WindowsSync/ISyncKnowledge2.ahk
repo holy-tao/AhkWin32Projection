@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\SYNC_SERIALIZATION_VERSION.ahk" { SYNC_SERIALIZATION_VERSION }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\KNOWLEDGE_COOKIE_COMPARISON_RESULT.ahk" { KNOWLEDGE_COOKIE_COMPARISON_RESULT }
-#Import ".\SYNC_STATISTICS.ahk" { SYNC_STATISTICS }
-#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
 #Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNC_STATISTICS.ahk" { SYNC_STATISTICS }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\KNOWLEDGE_COOKIE_COMPARISON_RESULT.ahk" { KNOWLEDGE_COOKIE_COMPARISON_RESULT }
+#Import ".\SYNC_SERIALIZATION_VERSION.ahk" { SYNC_SERIALIZATION_VERSION }
 
 /**
  * Represents additional information about the knowledge that a replica has about its item store.
@@ -121,7 +121,7 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
     ProjectOntoColumnSet(ppColumns, count) {
         ppColumnsMarshal := ppColumns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(28, this, ppColumnsMarshal, ppColumns, "uint", count, "ptr*", &ppiKnowledgeOut := 0, "HRESULT")
+        result := ComCall(28, this, ppColumnsMarshal, ppColumns, UInt32, count, "ptr*", &ppiKnowledgeOut := 0, "HRESULT")
         return ISyncKnowledge2(ppiKnowledgeOut)
     }
 
@@ -199,7 +199,7 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(29, this, SYNC_SERIALIZATION_VERSION, targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
+        result := ComCall(29, this, SYNC_SERIALIZATION_VERSION, targetFormatVersion, UInt32, dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
         return result
     }
 

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import ".\MPEG_DATE.ahk" { MPEG_DATE }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MPEG_DATE.ahk" { MPEG_DATE }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) service information (SI) parameter descriptor. The SI parameter descriptor appears in the program map table (PMT) or network information table (NIT).
@@ -103,7 +103,7 @@ export default struct IIsdbSIParameterDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettableid
      */
     GetTableId(bRecordIndex) {
-        result := ComCall(8, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(8, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -114,7 +114,7 @@ export default struct IIsdbSIParameterDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettabledescriptionlength
      */
     GetTableDescriptionLength(bRecordIndex) {
-        result := ComCall(9, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(9, this, Int8, bRecordIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
     }
 
@@ -128,7 +128,7 @@ export default struct IIsdbSIParameterDescriptor extends IUnknown {
     GetTableDescriptionBytes(bRecordIndex, pbBufferLength) {
         pbBufferLengthMarshal := pbBufferLength is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, "char", bRecordIndex, pbBufferLengthMarshal, pbBufferLength, "char*", &pbBuffer := 0, "HRESULT")
+        result := ComCall(10, this, Int8, bRecordIndex, pbBufferLengthMarshal, pbBufferLength, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
     }
 

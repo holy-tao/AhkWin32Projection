@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Foundation\LUID.ahk" { LUID }
 #Import ".\LUID_AND_ATTRIBUTES.ahk" { LUID_AND_ATTRIBUTES }
 #Import ".\TOKEN_PRIVILEGES_ATTRIBUTES.ahk" { TOKEN_PRIVILEGES_ATTRIBUTES }
-#Import "..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Contains information about a set of privileges for an access token.

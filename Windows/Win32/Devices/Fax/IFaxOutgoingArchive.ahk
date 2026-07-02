@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IFaxOutgoingMessageIterator.ahk" { IFaxOutgoingMessageIterator }
-#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import ".\IFaxOutgoingMessage.ahk" { IFaxOutgoingMessage }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxOutgoingArchive interface describes a configuration object that is used by a fax client application to access and configure the archive of outbound fax messages transmitted successfully by the fax service.
@@ -247,7 +247,7 @@ export default struct IFaxOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-put_highquotawatermark
      */
     put_HighQuotaWaterMark(lHighQuotaWaterMark) {
-        result := ComCall(14, this, "int", lHighQuotaWaterMark, "HRESULT")
+        result := ComCall(14, this, Int32, lHighQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -276,7 +276,7 @@ export default struct IFaxOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-put_lowquotawatermark
      */
     put_LowQuotaWaterMark(lLowQuotaWaterMark) {
-        result := ComCall(16, this, "int", lLowQuotaWaterMark, "HRESULT")
+        result := ComCall(16, this, Int32, lLowQuotaWaterMark, "HRESULT")
         return result
     }
 
@@ -305,7 +305,7 @@ export default struct IFaxOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-put_agelimit
      */
     put_AgeLimit(lAgeLimit) {
-        result := ComCall(18, this, "int", lAgeLimit, "HRESULT")
+        result := ComCall(18, this, Int32, lAgeLimit, "HRESULT")
         return result
     }
 
@@ -386,7 +386,7 @@ export default struct IFaxOutgoingArchive extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingarchive-getmessages
      */
     GetMessages(lPrefetchSize) {
-        result := ComCall(23, this, "int", lPrefetchSize, "ptr*", &pFaxOutgoingMessageIterator := 0, "HRESULT")
+        result := ComCall(23, this, Int32, lPrefetchSize, "ptr*", &pFaxOutgoingMessageIterator := 0, "HRESULT")
         return IFaxOutgoingMessageIterator(pFaxOutgoingMessageIterator)
     }
 

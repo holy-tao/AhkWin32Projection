@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 #Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IStreamBufferRecordControl interface is used to control stream buffer Recording objects.Use the IStreamBufferSink::CreateRecorder method on the Stream Buffer Sink filter to create new Recording objects.
@@ -132,7 +132,7 @@ export default struct IStreamBufferRecordControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordcontrol-stop
      */
     Stop(rtStop) {
-        result := ComCall(4, this, "int64", rtStop, "HRESULT")
+        result := ComCall(4, this, Int64, rtStop, "HRESULT")
         return result
     }
 

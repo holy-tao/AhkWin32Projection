@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import ".\ID2D1Image.ahk" { ID2D1Image }
-#Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
 #Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
-#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "Common\D2D_POINT_2U.ahk" { D2D_POINT_2U }
-#Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
+#Import "Common\D2D_RECT_U.ahk" { D2D_RECT_U }
 #Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
+#Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
 
 /**
  * Represents a bitmap that has been bound to an ID2D1RenderTarget.
@@ -201,7 +201,7 @@ export default struct ID2D1Bitmap extends ID2D1Image {
     CopyFromMemory(dstRect, srcData, pitch) {
         srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, D2D_RECT_U.Ptr, dstRect, srcDataMarshal, srcData, "uint", pitch, "HRESULT")
+        result := ComCall(10, this, D2D_RECT_U.Ptr, dstRect, srcDataMarshal, srcData, UInt32, pitch, "HRESULT")
         return result
     }
 

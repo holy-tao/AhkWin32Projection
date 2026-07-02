@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\Foundation\BSTR.ahk" { BSTR }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves out-of-band guide data from a media transform device (MTD). This interface provides access to a device's Guide Data Delivery Service.
@@ -137,7 +137,7 @@ export default struct IBDA_GuideDataDeliveryService extends IUnknown {
      */
     GetTuneXmlFromServiceIdx(ul64ServiceIdx) {
         pbstrTuneXml := BSTR.Owned()
-        result := ComCall(6, this, "uint", ul64ServiceIdx, BSTR.Ptr, pbstrTuneXml, "HRESULT")
+        result := ComCall(6, this, Int64, ul64ServiceIdx, BSTR.Ptr, pbstrTuneXml, "HRESULT")
         return pbstrTuneXml
     }
 

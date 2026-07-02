@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
-#Import ".\HACCESSOR.ahk" { HACCESSOR }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -54,7 +54,7 @@ export default struct IRowsetFind extends IUnknown {
         pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
         pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, HACCESSOR, _hAccessor, pFindValueMarshal, pFindValue, "uint", CompareOp, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", &prghRows := 0, "HRESULT")
+        result := ComCall(3, this, IntPtr, hChapter, HACCESSOR, _hAccessor, pFindValueMarshal, pFindValue, UInt32, CompareOp, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, IntPtr, lRowsOffset, IntPtr, cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", &prghRows := 0, "HRESULT")
         return prghRows
     }
 

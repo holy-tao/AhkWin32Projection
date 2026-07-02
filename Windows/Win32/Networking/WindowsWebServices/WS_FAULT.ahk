@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_FAULT_REASON.ahk" { WS_FAULT_REASON }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
 #Import ".\WS_FAULT_CODE.ahk" { WS_FAULT_CODE }
 #Import ".\WS_STRING.ahk" { WS_STRING }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import ".\WS_FAULT_REASON.ahk" { WS_FAULT_REASON }
-#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
 
 /**
  * A Fault is a value carried in the body of a message which conveys a processing failure. Faults are modeled using the WS_FAULT structure.

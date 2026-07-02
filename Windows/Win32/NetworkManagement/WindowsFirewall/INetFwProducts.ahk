@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 #Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 #Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\INetFwProduct.ahk" { INetFwProduct }
-#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * To access the methods and properties for registering third-party firewall products with Windows Firewall and for enumerating registered products.
@@ -96,7 +96,7 @@ export default struct INetFwProducts extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproducts-item
      */
     Item(index) {
-        result := ComCall(9, this, "int", index, "ptr*", &product := 0, "HRESULT")
+        result := ComCall(9, this, Int32, index, "ptr*", &product := 0, "HRESULT")
         return INetFwProduct(product)
     }
 

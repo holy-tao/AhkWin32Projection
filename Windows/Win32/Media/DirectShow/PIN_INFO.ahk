@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.26+ 64-bit
-#Import ".\PIN_DIRECTION.ahk" { PIN_DIRECTION }
 #Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import ".\PIN_DIRECTION.ahk" { PIN_DIRECTION }
 #Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**

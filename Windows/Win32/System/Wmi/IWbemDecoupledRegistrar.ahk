@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
-#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import ".\IWbemContext.ahk" { IWbemContext }
 #Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWbemDecoupledRegistrar interface associates decoupled providers with WMI. This interface allows a process-hosted provider to define the interoperability lifetime of the interface and to coexist with other providers.
@@ -64,7 +64,7 @@ export default struct IWbemDecoupledRegistrar extends IUnknown {
         a_Scope := a_Scope is String ? StrPtr(a_Scope) : a_Scope
         a_Registration := a_Registration is String ? StrPtr(a_Registration) : a_Registration
 
-        result := ComCall(3, this, "int", a_Flags, "ptr", a_Context, "ptr", a_User, "ptr", a_Locale, "ptr", a_Scope, "ptr", a_Registration, "ptr", pIUnknown, "HRESULT")
+        result := ComCall(3, this, Int32, a_Flags, "ptr", a_Context, "ptr", a_User, "ptr", a_Locale, "ptr", a_Scope, "ptr", a_Registration, "ptr", pIUnknown, "HRESULT")
         return result
     }
 

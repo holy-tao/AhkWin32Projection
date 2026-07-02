@@ -2,8 +2,8 @@
 #Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
 #Import "..\..\..\..\Guid.ahk" { Guid }
 #Import ".\IWMPSyncDevice.ahk" { IWMPSyncDevice }
-#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPSyncServices interface provides methods to enumerate available devices that can synchronize digital media files with Windows Media Player 10 or later.To use this interface, you must create a remoted instance of the Windows Media Player control.
@@ -100,7 +100,7 @@ export default struct IWMPSyncServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncservices-getdevice
      */
     getDevice(lIndex) {
-        result := ComCall(4, this, "int", lIndex, "ptr*", &ppDevice := 0, "HRESULT")
+        result := ComCall(4, this, Int32, lIndex, "ptr*", &ppDevice := 0, "HRESULT")
         return IWMPSyncDevice(ppDevice)
     }
 
